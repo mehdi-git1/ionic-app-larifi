@@ -16,7 +16,7 @@ export class ConnectivityService {
 
     constructor(protected http: HttpClient,
         public platform: Platform) {
-            console.log('constructor');
+            //console.log('constructor');
         this.checkConnection();
     }
 
@@ -29,14 +29,14 @@ export class ConnectivityService {
     }
 
     public checkConnection() {
-        console.log('check connection');
+        //console.log('check connection');
         this.pingAPI().subscribe(p => {
             if (p) {
                 this.setConnected(true);
-                console.log('connected');
+                //console.log('connected');
             } else {
                 this.setConnected(false);
-                console.log('not connected');
+               // console.log('not connected');
             }
         });
 
