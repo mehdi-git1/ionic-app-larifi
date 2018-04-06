@@ -2,9 +2,12 @@ import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { TranslateService } from '@ngx-translate/core';
 
 import { HomePage } from '../pages/home/home';
-import { ListPage } from '../pages/list/list';
+import { ListPage } from '../pages/list/list'; 
+import { AuthenticationPage } from '../pages/authentication/authentication';
+import { SecMobilService } from '../services/secMobil.service';
 
 @Component({
   templateUrl: 'app.html'
@@ -16,10 +19,13 @@ export class MyApp {
 
   pages: Array<{title: string, component: any}>;
 
-  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
+  constructor(public platform: Platform, public statusBar: StatusBar, 
+      public splashScreen: SplashScreen,public translate: TranslateService,
+      private secMobilService: SecMobilService
+    ) {
+    
     this.initializeApp();
 
-    // used for an example of ngFor and navigation
     this.pages = [
       { title: 'Home', component: HomePage },
       { title: 'List', component: ListPage }
@@ -29,10 +35,23 @@ export class MyApp {
 
   initializeApp() {
     this.platform.ready().then(() => {
-      // Okay, so the platform is ready and our plugins are available.
-      // Here you can do any higher level native things you might need.
+      
       this.statusBar.styleDefault();
       this.splashScreen.hide();
+
+      this.translate.setDefaultLang('en'); 
+      this.translate.use('en');
+
+      this.platform.ready().then(() => {
+          this.secMobilService.init();
+          this.secMobilService.isAuthenticated().then(() => {
+            // launch process when already authenticated 
+            // nothing to do there
+        },
+        error => {
+          this.rootPage = AuthenticationPage; 
+        });
+      });
     });
   }
 

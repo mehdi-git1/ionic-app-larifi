@@ -34,11 +34,12 @@ $app-direction: ltr;
 // The "primary" color is the only required color in the map.
 
 $colors: (
-  primary:    #488aff,
-  secondary:  #32db64,
-  danger:     #f53d3d,
-  light:      #f4f4f4,
-  dark:       #222
+  primary:    #ed0000,
+  secondary:  #0800b9,
+  light-blue: #dff2fd,
+  danger:     #ff0000,
+  light:      #f9f9f9,
+  dark:       #051039,
 );
 
 
@@ -84,5 +85,144 @@ $colors: (
 // Fonts
 // --------------------------------------------------
 
-@import "roboto";
-@import "noto-sans";
+
+@font-face{ 
+	font-family: 'OpenSansBold';
+	src: url('/assets/fonts/OpenSans-Bold-webfont.woff') format('woff');
+}
+@font-face{ 
+	font-family: 'OpenSansLight';
+	src: url('/assets/fonts/OpenSans-Light-webfont.woff') format('woff');
+}
+@font-face{ 
+	font-family: 'OpenSans';
+	src: url('/assets/fonts/OpenSans-Regular-webfont.woff') format('woff');
+}
+
+
+div,p,span,h3,h4,h5,h6,button
+{
+ font-family:OpenSans,Arial, Helvetica, sans-serif;
+}
+
+h1,h2
+{
+  font-family:OpenSansLight ,Arial, Helvetica, sans-serif;
+}
+
+
+.toolbar{
+
+  .toolbar-title,.bar-buttons
+  {
+    color:#ffffff;
+  }
+
+  .toolbar-background
+  {
+    background: color($colors, dark, base);
+  }
+}
+
+ion-card
+{
+  border-radius:0px !important;
+
+  .card-header
+  {
+    color:black;
+    background-color: lightgray;
+    font-family:OpenSansLight ,Arial, Helvetica, sans-serif;
+    font-size:1.4em;
+  }
+
+  .card-header + .card-content
+  {
+    padding-top: 13px;
+  }
+}
+
+button,.button-ios
+{
+  border-radius: 0px !important;
+  box-shadow:none !important;
+  -webkit-box-shadow:none !important;
+}
+.button-outline
+{
+  border-width:2px !important;
+}
+
+ion-select.select
+{
+  padding: 8px;
+}
+
+.input,ion-select
+{
+  border: 2px solid lightgray;
+  padding-left: 8px;
+  width: 100%;
+  height: 40px;
+
+  .text-input
+  {
+      margin: 6px 8px;
+  }
+
+  .text-input
+  {
+    margin-left: 0px !important;
+    font-size: 16px !important;
+  }
+}
+
+.item-input-has-focus .input, .input:focus-within
+{
+    border: 2px solid gray !important;
+}
+$text-input-md-show-focus-highlight: false;
+
+
+.label-md-primary, .item-input .label-md-primary, .item-select .label-md-primary, .item-datetime .label-md-primary
+{
+  color: #999 !important;
+}
+
+.item-inner
+{
+  padding-right: 0px !important;
+
+  .label[floating]
+  {
+    -webkit-transform:translate3d(8px,  30px,  0);
+    transform:translate3d(8px,  30px,  0);
+    margin-top: 3px !important;
+  }
+}
+ 
+ion-item.item
+{
+  padding-left: 0px;
+}
+
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+  /* IE10 & 11 */
+  .click-block { // IE doesn't like this click-block, so hide it
+      display: none;
+  }
+
+  input, ion-label {
+      min-height: 20px;
+  }
+
+  ion-input, ion-textarea {
+      min-height: 40px;
+  }
+
+  .toolbar
+  {
+    min-height: auto !important;
+  }
+}
+

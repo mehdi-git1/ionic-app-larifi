@@ -1,0 +1,27 @@
+{
+    "currentConfigFile": "./src/configuration/environment-variables/config.ts",
+    "defaultEnvironment" : "dev",
+    "environments" : [
+        {
+            "name": "prod" ,
+            "configFile": "./src/configuration/environment-variables/prod.ts",
+            "appName": "eDossier",
+            "appId": "com.airfrance.mobile.inhouse.edospnc",
+            "version": "1.0.0"
+        },
+        {
+            "name": "dev" ,
+            "configFile": "./src/configuration/environment-variables/dev.ts",
+            "appName": "eDossier Dev",
+            "appId": "com.airfrance.mobile.inhouse.edospnc",
+            "version": "1.1.0"
+        },
+        {
+            "name": "rct" ,
+            "configFile": "./src/configuration/environment-variables/rct.ts",
+            "appName": "eDossier RCT",
+            "appId": "com.airfrance.mobile.inhouse.edospnc",
+            "version": "1.2.0" 
+        }
+    ]
+}
