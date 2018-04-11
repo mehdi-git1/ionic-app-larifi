@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
-import { TitiComponent } from './titi/titi';
+
 @NgModule({
-	declarations: [TitiComponent],
+	declarations: [],
 	imports: [],
-	exports: [TitiComponent]
+	exports: []
 })
 export class ComponentsModule {}
