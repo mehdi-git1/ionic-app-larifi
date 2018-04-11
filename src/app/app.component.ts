@@ -12,7 +12,7 @@ import { SecMobilService } from '../services/secMobil.service';
 @Component({
   templateUrl: 'app.html'
 })
-export class MyApp {
+export class EDossierPNC {
   @ViewChild(Nav) nav: Nav;
 
   rootPage: any = HomePage;

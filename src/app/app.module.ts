@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 
-import { MyApp } from './app.component';
+import { EDossierPNC } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
 
@@ -24,14 +24,14 @@ import { RestWebService } from '../services/rest.web.service';
 
 @NgModule({
   declarations: [
-    MyApp,
+    EDossierPNC,
     HomePage,
     ListPage,
     AuthenticationPage
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp),
+    IonicModule.forRoot(EDossierPNC),
     HttpClientModule,
     TranslateModule.forRoot({
       loader: {
@@ -43,7 +43,7 @@ import { RestWebService } from '../services/rest.web.service';
   ],
   bootstrap: [IonicApp],
   entryComponents: [
-    MyApp,
+    EDossierPNC,
     HomePage,
     ListPage,
     AuthenticationPage
