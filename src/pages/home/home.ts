@@ -24,29 +24,4 @@ export class HomePage {
       //Work on data
     });
   }
-
-  getPncList() {
-    let r = new RestRequest();
-    r.method = "GET";
-    r.url = "/api/rest/resources/pncs";
-
-    this.restService.call(r).then(pncList => {
-      this.pncList = pncList;
-
-      for (let pnc of this.pncList) {
-        let pncRequest = new RestRequest();
-        pncRequest.method = "GET";
-        pncRequest.url = `/api/rest/resources/pncs/${pnc.matricule}`;
-        this.restService.call(pncRequest).then(result => {
-          console.log(result);
-          pnc.lastName = 'toto' + result.lastName;
-          pnc.firstName = 'titi' + result.firstName;
-        })
-      }
-    });
-
-
-  }
-
-
 }
