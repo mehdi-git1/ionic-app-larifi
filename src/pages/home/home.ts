@@ -1,3 +1,4 @@
+import { PncHomePage } from './../pnc-home/pnc-home';
 import { Pnc } from './../../models/pnc';
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
@@ -12,6 +13,10 @@ export class HomePage {
   pncList: Pnc[];
 
   constructor(public navCtrl: NavController, public restService: RestService) {
+  }
+
+  goToPncHomePage(matricule){
+    this.navCtrl.push(PncHomePage,{matricule:matricule});
   }
 
   makeRestCall() {

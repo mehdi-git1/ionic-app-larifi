@@ -1,3 +1,4 @@
+import { PncHomePage } from './../pages/pnc-home/pnc-home';
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
@@ -27,6 +28,7 @@ import { RestWebService } from '../services/rest.web.service';
     EDossierPNC,
     HomePage,
     ListPage,
+    PncHomePage,
     AuthenticationPage
   ],
   imports: [
@@ -46,6 +48,7 @@ import { RestWebService } from '../services/rest.web.service';
     EDossierPNC,
     HomePage,
     ListPage,
+    PncHomePage,
     AuthenticationPage
   ],
   providers: [
