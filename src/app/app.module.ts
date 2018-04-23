@@ -5,7 +5,6 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 
 import { EDossierPNC } from './app.component';
 import { HomePage } from '../pages/home/home';
-import { ListPage } from '../pages/list/list';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -27,7 +26,6 @@ import { RestWebService } from '../services/rest.web.service';
   declarations: [
     EDossierPNC,
     HomePage,
-    ListPage,
     PncHomePage,
     AuthenticationPage
   ],
@@ -47,7 +45,6 @@ import { RestWebService } from '../services/rest.web.service';
   entryComponents: [
     EDossierPNC,
     HomePage,
-    ListPage,
     PncHomePage,
     AuthenticationPage
   ],

@@ -29,7 +29,7 @@ export class PncHomePage {
   getPncInformations(){
       this.pnc = new Pnc();
       // récupèration du matricule du pnc envoyé en paramètre.
-      let matricule=this.navParams.get('matricule');
+      let matricule='12345679';
       let pncRequest = new RestRequest();
       pncRequest.method = "GET";
       pncRequest.url = `/api/rest/resources/pncs/${matricule}`;

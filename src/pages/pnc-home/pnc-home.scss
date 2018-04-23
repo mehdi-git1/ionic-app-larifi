@@ -1,3 +1,23 @@
-page-pnc-home{
+page-pnc-home {
+    
+    .ion-label-attribut{
+        font-size: 0.6em;
+        margin: 6px;
+        border-top: 1px solid black;
+        width: 100%;
+    }
+    
+    .ion-label-value{
+        font-size: 0.8em;
+        margin: 6px;
+        padding-left: 10px;
+    }
+    
+    .pnc-detail-block{
+        
+    }
 
+    .input-wrapper{
+        display: inline-block;
+    }
 }

@@ -5,7 +5,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { TranslateService } from '@ngx-translate/core';
 
 import { HomePage } from '../pages/home/home';
-import { ListPage } from '../pages/list/list'; 
+import { PncHomePage } from '../pages/pnc-home/pnc-home';
 import { AuthenticationPage } from '../pages/authentication/authentication';
 import { SecMobilService } from '../services/secMobil.service';
 
@@ -15,7 +15,7 @@ import { SecMobilService } from '../services/secMobil.service';
 export class EDossierPNC {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = HomePage;
+  rootPage: any = PncHomePage;
 
   pages: Array<{title: string, component: any}>;
 
@@ -27,8 +27,7 @@ export class EDossierPNC {
     this.initializeApp();
 
     this.pages = [
-      { title: 'Home', component: HomePage },
-      { title: 'List', component: ListPage }
+      { title: 'Home', component: HomePage }
     ];
 
   }
