@@ -1,0 +1,51 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>{{ 'CAREER_OBJECTIVE_CREATE.TITLE' | translate }}</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+  <form novalidate [formGroup]="createForm">
+    <ion-grid>
+      <ion-row>
+        <ion-col col-12>
+          <!-- Titre -->
+          <ion-item>
+            <ion-label fixed>{{ 'CAREER_OBJECTIVE_CREATE.FORM.TITLE' | translate }}</ion-label>
+            <ion-input type="text" [(ngModel)]="careerObjective.title"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-12>
+          <!-- Initiateur -->
+          <ion-list radio-group [(ngModel)]="careerObjective.pncRole">
+            <ion-list-header>
+              {{ 'CAREER_OBJECTIVE_CREATE.FORM.INITIATOR' | translate }}
+            </ion-list-header>
+
+            <ion-item>
+              <ion-label>{{ 'GLOBAL.PNC_ROLE.MANAGER' | translate }}</ion-label>
+              <ion-radio checked="true" value="MANAGER"></ion-radio>
+            </ion-item>
+
+            <ion-item>
+              <ion-label>{{ 'GLOBAL.PNC_ROLE.PNC' | translate }}</ion-label>
+              <ion-radio value="PNC"></ion-radio>
+            </ion-item>
+          </ion-list>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-12>
+
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+
+</ion-content>
