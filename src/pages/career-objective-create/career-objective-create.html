@@ -7,23 +7,22 @@
   </ion-navbar>
 </ion-header>
 
-
 <ion-content padding>
-  <form novalidate [formGroup]="createForm">
+  <form novalidate [formGroup]="creationForm">
     <ion-grid>
       <ion-row>
         <ion-col col-12>
           <!-- Titre -->
           <ion-item>
-            <ion-label fixed>{{ 'CAREER_OBJECTIVE_CREATE.FORM.TITLE' | translate }}</ion-label>
-            <ion-input type="text" [(ngModel)]="careerObjective.title"></ion-input>
+            <ion-label>{{ 'CAREER_OBJECTIVE_CREATE.FORM.TITLE' | translate }}</ion-label>
+            <ion-input type="text" [(ngModel)]="careerObjective.title" formControlName="titleControl"></ion-input>
           </ion-item>
         </ion-col>
       </ion-row>
       <ion-row>
         <ion-col col-12>
           <!-- Initiateur -->
-          <ion-list radio-group [(ngModel)]="careerObjective.pncRole">
+          <ion-list radio-group [(ngModel)]="careerObjective.pncRole" formControlName="initiatorControl">
             <ion-list-header>
               {{ 'CAREER_OBJECTIVE_CREATE.FORM.INITIATOR' | translate }}
             </ion-list-header>
@@ -42,7 +41,53 @@
       </ion-row>
       <ion-row>
         <ion-col col-12>
-
+          <!-- Contexte -->
+          <ion-item>
+            <ion-label>{{ 'CAREER_OBJECTIVE_CREATE.FORM.CONTEXT' | translate }}</ion-label>
+            <ion-textarea [(ngModel)]="careerObjective.context" formControlName="contextControl"></ion-textarea>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-6>
+          <!-- Commentaire cadre -->
+          <ion-item>
+            <ion-label>{{ 'CAREER_OBJECTIVE_CREATE.FORM.MANAGER_COMMENT' | translate }}</ion-label>
+            <ion-textarea [(ngModel)]="careerObjective.managerComment" formControlName="managerCommentControl"></ion-textarea>
+          </ion-item>
+        </ion-col>
+        <ion-col col-6>
+          <!-- Commentaire PNC -->
+          <ion-item>
+            <ion-label>{{ 'CAREER_OBJECTIVE_CREATE.FORM.PNC_COMMENT' | translate }}</ion-label>
+            <ion-textarea [(ngModel)]="careerObjective.pncComment" formControlName="pncCommentControl"></ion-textarea>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-12>
+          <!-- Prochaine rencontre -->
+          <ion-item>
+            <ion-label>{{ 'CAREER_OBJECTIVE_CREATE.FORM.NEXT_ENCOUNTER_DATE' | translate }}</ion-label>
+            <ion-datetime displayFormat="DD/MM/YYYY" [(ngModel)]="careerObjective.nextEncounterDate" formControlName="nextEncounterDateControl"></ion-datetime>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-12>
+          <!-- Urgent -->
+          <ion-item>
+            <ion-label>{{ 'CAREER_OBJECTIVE_CREATE.FORM.URGENT' | translate }}</ion-label>
+            <ion-checkbox [(ngModel)]="careerObjective.urgent" formControlName="urgentControl"></ion-checkbox>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-4>
+          <button ion-button (click)="createCareerObjective()" [disabled]="creationForm.invalid || creationInProgress">
+            {{ 'CAREER_OBJECTIVE_CREATE.BUTTONS.SAVE' | translate }}&nbsp;
+            <ion-spinner *ngIf="createFlightInProgress"></ion-spinner>
+          </button>
         </ion-col>
       </ion-row>
     </ion-grid>
