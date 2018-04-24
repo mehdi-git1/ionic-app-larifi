@@ -6,7 +6,6 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { TranslateService } from '@ngx-translate/core';
 
 import { HomePage } from '../pages/home/home';
-import { ListPage } from '../pages/list/list';
 import { AuthenticationPage } from '../pages/authentication/authentication';
 import { SecMobilService } from '../services/secMobil.service';
 
@@ -18,21 +17,10 @@ export class EDossierPNC {
 
   rootPage: any = HomePage;
 
-  pages: Array<{ title: string, component: any }>;
-
   constructor(public platform: Platform, public statusBar: StatusBar,
     public splashScreen: SplashScreen, public translate: TranslateService,
-    private secMobilService: SecMobilService
-  ) {
-
+    private secMobilService: SecMobilService) {
     this.initializeApp();
-
-    this.pages = [
-      { title: 'Home', component: HomePage },
-      { title: 'List', component: ListPage },
-      { title: 'CareerObjectiveCreate', component: CareerObjectiveCreatePage }
-    ];
-
   }
 
   initializeApp() {
