@@ -5,7 +5,6 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { TranslateService } from '@ngx-translate/core';
 
 import { HomePage } from '../pages/home/home';
-import { ListPage } from '../pages/list/list'; 
 import { AuthenticationPage } from '../pages/authentication/authentication';
 import { SecMobilService } from '../services/secMobil.service';
 
@@ -17,40 +16,30 @@ export class EDossierPNC {
 
   rootPage: any = HomePage;
 
-  pages: Array<{title: string, component: any}>;
-
-  constructor(public platform: Platform, public statusBar: StatusBar, 
-      public splashScreen: SplashScreen,public translate: TranslateService,
-      private secMobilService: SecMobilService
-    ) {
-    
+  constructor(public platform: Platform, public statusBar: StatusBar,
+    public splashScreen: SplashScreen, public translate: TranslateService,
+    private secMobilService: SecMobilService) {
     this.initializeApp();
-
-    this.pages = [
-      { title: 'Home', component: HomePage },
-      { title: 'List', component: ListPage }
-    ];
-
   }
 
   initializeApp() {
     this.platform.ready().then(() => {
-      
+
       this.statusBar.styleDefault();
       this.splashScreen.hide();
 
-      this.translate.setDefaultLang('en'); 
+      this.translate.setDefaultLang('en');
       this.translate.use('en');
 
       this.platform.ready().then(() => {
-          this.secMobilService.init();
-          this.secMobilService.isAuthenticated().then(() => {
-            // launch process when already authenticated 
-            // nothing to do there
+        this.secMobilService.init();
+        this.secMobilService.isAuthenticated().then(() => {
+          // launch process when already authenticated 
+          // nothing to do there
         },
-        error => {
-          this.rootPage = AuthenticationPage; 
-        });
+          error => {
+            this.rootPage = AuthenticationPage;
+          });
       });
     });
   }
