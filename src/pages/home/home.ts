@@ -1,4 +1,5 @@
 import { CareerObjectiveCreatePage } from './../career-objective-create/career-objective-create';
+import { CareerObjectiveListPage } from './../career-objective-list/career-objective-list';
 import { Pnc } from './../../models/pnc';
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
@@ -31,5 +32,12 @@ export class HomePage {
    */
   goToCareerObjectiveCreation() {
     this.navCtrl.push(CareerObjectiveCreatePage);
+  }
+
+  /**
+   * Dirige vers la page de visualisation des objectifs
+   */
+  goToCareerObjectiveList() {
+    this.navCtrl.push(CareerObjectiveListPage);
   }
 }

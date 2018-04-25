@@ -1,0 +1,65 @@
+<!--
+  Generated template for the CareerObjectiveListPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>{{ 'GLOBAL.DEVELOPMENT_PROGRAMME' | translate }}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <h3>{{ 'CAREER_OBJECTIVE_LIST.TITLE' | translate }}</h3>
+  <ion-grid>
+    <ion-row justify-content-center class="header-row">
+      <!-- date de création de l'objectif-->
+      <ion-col>
+        <span>
+          <b>{{ 'CAREER_OBJECTIVE_LIST.LIST.CREATION_DATE' | translate }}</b>
+        </span>
+      </ion-col>
+      <!-- libellé de l'objectif -->
+      <ion-col>
+        <span>
+          <b>{{ 'CAREER_OBJECTIVE_LIST.LIST.LIBELLE' | translate }}</b>
+        </span>
+      </ion-col>
+      <!-- date d'enregistrement de l'objectif-->
+      <ion-col>
+        <span>
+          <b>{{ 'CAREER_OBJECTIVE_LIST.LIST.REGISTRATION_DATE' | translate }}</b>
+        </span>
+      </ion-col>
+      <!-- date du prochain point -->
+      <ion-col>
+        <span>
+          <b>{{ 'CAREER_OBJECTIVE_LIST.LIST.NEXT_ENCOUNTER_DATE' | translate }}</b>
+        </span>
+      </ion-col>
+    </ion-row>
+    <ion-row justify-content-center *ngFor="let careerObjective of careerObjectiveList">
+      <ion-col>
+        {{careerObjective.creationDate | date: 'dd-MM-yyyy HH:mm:ss'}}
+      </ion-col>
+      <ion-col>
+        {{careerObjective.title}}
+      </ion-col>
+      <ion-col>
+        {{careerObjective.registrationDate | date: 'dd-MM-yyyy HH:mm:ss'}}
+      </ion-col>
+      <ion-col>
+        {{careerObjective.nextEncounterDate | date: 'dd-MM-yyyy HH:mm:ss'}}
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <button ion-button color="dark" (click)="goToCareerObjectiveCreation()">+</button>
+
+</ion-content>

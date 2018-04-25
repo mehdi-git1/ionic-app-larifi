@@ -3,7 +3,8 @@
     "PNC_ROLE": {
       "MANAGER": "Cadre",
       "PNC": "PNC"
-    }
+    },
+    "DEVELOPMENT_PROGRAMME": "Parcours de développement"
   },
   "CAREER_OBJECTIVE_CREATE": {
     "TITLE": "Créer un nouvel objectif",
@@ -20,6 +21,15 @@
     },
     "BUTTONS": {
       "SAVE": "Enregistrer"
+    }
+  },
+  "CAREER_OBJECTIVE_LIST": {
+    "TITLE": "Liste des objectifs",
+    "LIST": {
+      "CREATION_DATE": "Date de création",
+      "LIBELLE": "Libellé",
+      "REGISTRATION_DATE": "Date d'enregistrement",
+      "NEXT_ENCOUNTER_DATE": "Date du Prochain point"
     }
   }
 }
