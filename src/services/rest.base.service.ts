@@ -12,14 +12,14 @@ export abstract class RestService {
 
     constructor(protected http: HttpClient) {
     }
-   
-    abstract call(request: RestRequest): Promise<any>; 
+
+    abstract call(request: RestRequest): Promise<any>;
 }
 
 export class RestRequest {
-    public withCredential:boolean=true;
-    public method:string;
-    public url:string;
+    public withCredential: boolean = true;
+    public method: string;
+    public url: string;
     public httpHeaders;
-    public jsonData:string;
+    public jsonData: any;
 }
