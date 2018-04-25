@@ -57,7 +57,7 @@
         <ion-col col-6>
           <!-- Initiateur -->
           <ion-label stacked>{{ 'CAREER_OBJECTIVE_CREATE.FORM.INITIATOR' | translate }}</ion-label>
-          <ion-list radio-group [(ngModel)]="careerObjective.pncRole" formControlName="initiatorControl">
+          <ion-list radio-group [(ngModel)]="careerObjective.initiator" formControlName="initiatorControl">
             <ion-item>
               <ion-label>{{ 'GLOBAL.PNC_ROLE.MANAGER' | translate }}</ion-label>
               <ion-radio value="MANAGER"></ion-radio>
