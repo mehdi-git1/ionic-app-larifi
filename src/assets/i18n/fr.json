@@ -3,6 +3,11 @@
     "PNC_ROLE": {
       "MANAGER": "Cadre",
       "PNC": "PNC"
+    },
+    "DATEPICKER": {
+      "CANCEL": "Annuler",
+      "DONE": "Valider",
+      "CLEAR": "Vider"
     }
   },
   "CAREER_OBJECTIVE_CREATE": {

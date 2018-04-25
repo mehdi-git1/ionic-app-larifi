@@ -77,7 +77,7 @@
               <ion-icon name="calendar"></ion-icon>
             </ion-label>
             <ion-datetime displayFormat="DD/MM/YYYY" [(ngModel)]="careerObjective.nextEncounterDate" formControlName="nextEncounterDateControl"
-              [pickerOptions]="customDateTimeOptions"></ion-datetime>
+              [pickerOptions]="customDateTimeOptions" [doneText]="translateService.instant('GLOBAL.DATEPICKER.DONE')" [cancelText]="translateService.instant('GLOBAL.DATEPICKER.CANCEL')"></ion-datetime>
           </ion-item>
           <!-- Urgent -->
           <ion-item>

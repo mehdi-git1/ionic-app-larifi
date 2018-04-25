@@ -1,3 +1,4 @@
+import { TranslateService } from '@ngx-translate/core';
 import { CareerObjective } from './../../models/careerObjective';
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
@@ -12,17 +13,13 @@ export class CareerObjectiveCreatePage {
   creationForm: FormGroup;
   careerObjective: CareerObjective;
 
-  customDateTimeOptions = {
-    buttons: [{
-      text: 'Clear',
-      handler: () => this.careerObjective.nextEncounterDate = ''
-    }]
-  }
+  customDateTimeOptions
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    private formBuilder: FormBuilder) {
+    public formBuilder: FormBuilder,
+    public translateService: TranslateService) {
     this.careerObjective = new CareerObjective();
 
     // Initialisation du formulaire
@@ -36,10 +33,24 @@ export class CareerObjectiveCreatePage {
       nextEncounterDateControl: [''],
       urgentControl: ['']
     });
+
+    // Options du datepicker
+    this.customDateTimeOptions = {
+      buttons: [{
+        text: this.translateService.instant('GLOBAL.DATEPICKER.CLEAR'),
+        handler: () => this.careerObjective.nextEncounterDate = ''
+      }]
+    }
   }
 
   ionViewDidLoad() {
 
   }
 
+  /**
+   * Lance le processus de création d'un objectif
+   */
+  createCareerObjective() {
+
+  }
 }
