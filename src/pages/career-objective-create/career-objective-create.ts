@@ -12,12 +12,20 @@ export class CareerObjectiveCreatePage {
   creationForm: FormGroup;
   careerObjective: CareerObjective;
 
+  customDateTimeOptions = {
+    buttons: [{
+      text: 'Clear',
+      handler: () => this.careerObjective.nextEncounterDate = ''
+    }]
+  }
+
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     private formBuilder: FormBuilder) {
     this.careerObjective = new CareerObjective();
 
+    // Initialisation du formulaire
     this.creationForm = this.formBuilder.group({
       initiatorControl: ['', Validators.required],
       titleControl: ['', Validators.maxLength(255)],
@@ -31,15 +39,6 @@ export class CareerObjectiveCreatePage {
   }
 
   ionViewDidLoad() {
-
-  }
-
-  /**
-   * Construit le formulaire avec ses contrôles
-   * 
-   * @return le formulaire créé
-   */
-  buildFormGroup() {
 
   }
 
