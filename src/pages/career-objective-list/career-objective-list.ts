@@ -16,7 +16,7 @@ import { CareerObjectiveProvider } from '../../providers/career-objective/career
   selector: 'page-career-objective-list',
   templateUrl: 'career-objective-list.html',
 })
-export class CareerObjectiveListPage implements OnInit{
+export class CareerObjectiveListPage implements OnInit {
 
   careerObjectiveList: CareerObjective[];
 
@@ -25,9 +25,9 @@ export class CareerObjectiveListPage implements OnInit{
   }
 
   /**
-   * charger la liste des objectifs au chargement de la page
+   * charge la liste des objectifs.
    */
-  ngOnInit(){
+  ngOnInit() {
     this.careerObjectiveList = this.careerObjectiveProvider.getCareerObjectiveList();
   }
 
