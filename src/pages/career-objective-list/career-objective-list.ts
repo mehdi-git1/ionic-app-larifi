@@ -16,11 +16,11 @@ import { CareerObjectiveProvider } from '../../providers/career-objective/career
   selector: 'page-career-objective-list',
   templateUrl: 'career-objective-list.html',
 })
-export class CareerObjectiveListPage implements OnInit {
+export class CareerObjectiveListPage {
 
   careerObjectiveList: CareerObjective[];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public careerObjectiveProvider: CareerObjectiveProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private careerObjectiveProvider: CareerObjectiveProvider) {
 
   }
 
@@ -31,6 +31,9 @@ export class CareerObjectiveListPage implements OnInit {
     this.navCtrl.push(CareerObjectiveCreatePage);
   }
 
+  /**
+   * Charge la liste des objectifs aprés le chargement de la page
+   */
   ionViewDidLoad() {
     this.careerObjectiveProvider.getCareerObjectiveList().then(result => {
       this.careerObjectiveList = result;
