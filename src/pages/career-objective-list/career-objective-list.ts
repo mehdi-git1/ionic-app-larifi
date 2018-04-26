@@ -25,15 +25,6 @@ export class CareerObjectiveListPage implements OnInit {
   }
 
   /**
-   * charge la liste des objectifs.
-   */
-  ngOnInit() {
-    this.careerObjectiveProvider.getCareerObjectiveList().then(result => {
-      this.careerObjectiveList = result;
-    });
-  }
-
-  /**
    * Dirige vers la page de création d'un nouvel objectif
    */
   goToCareerObjectiveCreation() {
@@ -41,6 +32,8 @@ export class CareerObjectiveListPage implements OnInit {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad CareerObjectiveListPage');
+    this.careerObjectiveProvider.getCareerObjectiveList().then(result => {
+      this.careerObjectiveList = result;
+    });
   }
 }
