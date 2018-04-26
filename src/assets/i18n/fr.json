@@ -28,7 +28,7 @@
       "SAVE": "Enregistrer"
     },
     "SUCCESS": {
-      "CAREER_OBJECTIVE_CREATED": "Objectif créé avec succès"
+      "CAREER_OBJECTIVE_SAVED": "Objectif enregistré avec succès"
     },
     "ERROR": {
       "CAREER_OBJECTIVE_CREATION_FAILED": "La création de l'objectif a échoué"

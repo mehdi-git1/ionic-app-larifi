@@ -10,6 +10,17 @@
 <ion-content padding>
   <form novalidate [formGroup]="creationForm">
     <ion-grid>
+      <!-- TEMPORAIRE -->
+      <ion-row>
+        <ion-col col-12>
+          <!-- PNC -->
+          <ion-item>
+            <ion-label floating>Matricule</ion-label>
+            <ion-input type="text" [(ngModel)]="careerObjective.pnc.matricule" formControlName="pncMatriculeControl"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <!-- FIN TEMPORAIRE -->
       <ion-row>
         <ion-col col-12>
           <!-- Titre -->
@@ -90,9 +101,9 @@
       <!-- Barre de boutons -->
       <ion-row>
         <ion-col col-4>
-          <button ion-button (click)="createCareerObjective()" [disabled]="creationForm.invalid || creationInProgress" color="primary">
+          <button ion-button (click)="createCareerObjective()" [disabled]="creationForm.invalid || saveInProgress" color="primary">
             {{ 'CAREER_OBJECTIVE_CREATE.BUTTONS.SAVE' | translate }}&nbsp;
-            <ion-spinner *ngIf="createFlightInProgress"></ion-spinner>
+            <ion-spinner *ngIf="saveInProgress"></ion-spinner>
           </button>
         </ion-col>
       </ion-row>

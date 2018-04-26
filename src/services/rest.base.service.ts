@@ -14,12 +14,38 @@ export abstract class RestService {
     }
 
     abstract call(request: RestRequest): Promise<any>;
+
+    get(url: string, jsonData: any, httpHeaders?: any): Promise<any> {
+        return this.sendRequest("GET", url, jsonData, httpHeaders);
+    }
+
+    post(url: string, jsonData: any, httpHeaders?: any): Promise<any> {
+        return this.sendRequest("POST", url, jsonData, httpHeaders);
+    }
+
+    put(url: string, jsonData: any, httpHeaders?: any): Promise<any> {
+        return this.sendRequest("PUT", url, jsonData, httpHeaders);
+    }
+
+    delete(url: string, jsonData: any, httpHeaders?: any): Promise<any> {
+        return this.sendRequest("DELETE", url, jsonData, httpHeaders);
+    }
+
+    sendRequest(method: string, url: string, jsonData: any, httpHeaders?: any): Promise<any> {
+        let request: RestRequest = new RestRequest();
+        request.method = method;
+        request.url = url;
+        request.jsonData = jsonData;
+        request.httpHeaders = httpHeaders;
+
+        return this.call(request);
+    }
 }
 
 export class RestRequest {
     public withCredential: boolean = true;
     public method: string;
     public url: string;
-    public httpHeaders;
+    public httpHeaders: any;
     public jsonData: any;
 }

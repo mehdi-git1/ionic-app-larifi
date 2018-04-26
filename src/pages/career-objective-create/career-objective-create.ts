@@ -1,9 +1,10 @@
-import { CareerObjectiveProvider } from './../../providers/career-objective/career-objective';
 import { TranslateService } from '@ngx-translate/core';
+import { CareerObjectiveProvider } from './../../providers/career-objective/career-objective';
 import { CareerObjective } from './../../models/careerObjective';
 import { Component } from '@angular/core';
 import { NavController, NavParams, ToastController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Pnc } from '../../models/Pnc';
 
 @Component({
   selector: 'page-career-objective-create',
@@ -15,6 +16,7 @@ export class CareerObjectiveCreatePage {
   careerObjective: CareerObjective;
 
   customDateTimeOptions: any;
+  saveInProgress: boolean;
 
   constructor(
     public navCtrl: NavController,
@@ -23,10 +25,13 @@ export class CareerObjectiveCreatePage {
     private formBuilder: FormBuilder,
     private careerObjectiveProvider: CareerObjectiveProvider,
     private toastCtrl: ToastController) {
+
     this.careerObjective = new CareerObjective();
+    this.careerObjective.pnc = new Pnc();
 
     // Initialisation du formulaire
     this.creationForm = this.formBuilder.group({
+      pncMatriculeControl: ['', Validators.required],
       initiatorControl: ['', Validators.required],
       titleControl: ['', Validators.maxLength(255)],
       contextControl: ['', Validators.maxLength(4000)],
@@ -44,6 +49,8 @@ export class CareerObjectiveCreatePage {
         handler: () => this.careerObjective.nextEncounterDate = ''
       }]
     };
+
+    this.saveInProgress = false;
   }
 
   ionViewDidLoad() {
@@ -51,22 +58,28 @@ export class CareerObjectiveCreatePage {
   }
 
   /**
-   * Lance le processus de création d'un objectif
+   * Lance le processus de création/mise à jour d'un objectif
    */
   createCareerObjective() {
+    this.saveInProgress = true;
     this.careerObjectiveProvider
-      .create(this.careerObjective)
-      .then(createdCareerObjective => {
+      .createOrUpdate(this.careerObjective)
+      .then(savedCareerObjective => {
+        this.careerObjective = savedCareerObjective;
+
+        this.saveInProgress = false;
         this.toastCtrl.create({
-          message: this.translateService.instant('CAREER_OBJECTIVE_CREATE.SUCCESS.CAREER_OBJECTIVE_CREATED'),
+          message: this.translateService.instant('CAREER_OBJECTIVE_CREATE.SUCCESS.CAREER_OBJECTIVE_SAVED'),
           duration: 3000,
-          position: 'bottom'
+          position: 'bottom',
+          cssClass: 'success'
         }).present();
       }, error => {
-        console.log(error);
+        this.saveInProgress = false;
+
         this.toastCtrl.create({
-          message: this.translateService.instant('CAREER_OBJECTIVE_CREATE.ERROR.CAREER_OBJECTIVE_CREATION_FAILED'),
-          duration: 30000,
+          message: error.detailMessage,
+          duration: 3000,
           position: 'bottom',
           cssClass: 'error',
         }).present();
