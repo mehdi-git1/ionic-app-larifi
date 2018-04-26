@@ -28,7 +28,9 @@ export class CareerObjectiveListPage implements OnInit {
    * charge la liste des objectifs.
    */
   ngOnInit() {
-    this.careerObjectiveList = this.careerObjectiveProvider.getCareerObjectiveList();
+    this.careerObjectiveProvider.getCareerObjectiveList().then(result => {
+      this.careerObjectiveList = result;
+    });
   }
 
   /**
