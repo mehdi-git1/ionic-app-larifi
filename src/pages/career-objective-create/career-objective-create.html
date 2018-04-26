@@ -7,30 +7,60 @@
   </ion-navbar>
 </ion-header>
 
-
 <ion-content padding>
-  <form novalidate [formGroup]="createForm">
+  <form novalidate [formGroup]="creationForm">
     <ion-grid>
       <ion-row>
         <ion-col col-12>
           <!-- Titre -->
           <ion-item>
-            <ion-label fixed>{{ 'CAREER_OBJECTIVE_CREATE.FORM.TITLE' | translate }}</ion-label>
-            <ion-input type="text" [(ngModel)]="careerObjective.title"></ion-input>
+            <ion-label floating>{{ 'CAREER_OBJECTIVE_CREATE.FORM.TITLE' | translate }}</ion-label>
+            <ion-input type="text" [(ngModel)]="careerObjective.title" formControlName="titleControl"></ion-input>
           </ion-item>
         </ion-col>
       </ion-row>
       <ion-row>
         <ion-col col-12>
+          <!-- Contexte -->
+          <ion-item>
+            <ion-label floating>{{ 'CAREER_OBJECTIVE_CREATE.FORM.CONTEXT' | translate }}</ion-label>
+            <ion-textarea [(ngModel)]="careerObjective.context" formControlName="contextControl" name="context"></ion-textarea>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-12>
+          <!-- Plan d'action -->
+          <ion-item>
+            <ion-label floating>{{ 'CAREER_OBJECTIVE_CREATE.FORM.ACTION_PLAN' | translate }}</ion-label>
+            <ion-textarea [(ngModel)]="careerObjective.actionPlan" formControlName="actionPlanControl" name="actionPlan"></ion-textarea>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-6>
+          <!-- Commentaire cadre -->
+          <ion-item>
+            <ion-label floating>{{ 'CAREER_OBJECTIVE_CREATE.FORM.MANAGER_COMMENT' | translate }}</ion-label>
+            <ion-textarea [(ngModel)]="careerObjective.managerComment" formControlName="managerCommentControl" name="managerComment"></ion-textarea>
+          </ion-item>
+        </ion-col>
+        <ion-col col-6>
+          <!-- Commentaire PNC -->
+          <ion-item>
+            <ion-label floating>{{ 'CAREER_OBJECTIVE_CREATE.FORM.PNC_COMMENT' | translate }}</ion-label>
+            <ion-textarea [(ngModel)]="careerObjective.pncComment" formControlName="pncCommentControl" name="pncComment"></ion-textarea>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-6>
           <!-- Initiateur -->
-          <ion-list radio-group [(ngModel)]="careerObjective.pncRole">
-            <ion-list-header>
-              {{ 'CAREER_OBJECTIVE_CREATE.FORM.INITIATOR' | translate }}
-            </ion-list-header>
-
+          <ion-label stacked>{{ 'CAREER_OBJECTIVE_CREATE.FORM.INITIATOR' | translate }}</ion-label>
+          <ion-list radio-group [(ngModel)]="careerObjective.initiator" formControlName="initiatorControl">
             <ion-item>
               <ion-label>{{ 'GLOBAL.PNC_ROLE.MANAGER' | translate }}</ion-label>
-              <ion-radio checked="true" value="MANAGER"></ion-radio>
+              <ion-radio value="MANAGER"></ion-radio>
             </ion-item>
 
             <ion-item>
@@ -39,10 +69,31 @@
             </ion-item>
           </ion-list>
         </ion-col>
+        <ion-col col-6>
+          <!-- Prochaine rencontre -->
+          <ion-label stacked>{{ 'CAREER_OBJECTIVE_CREATE.FORM.NEXT_ENCOUNTER_DATE' | translate }}</ion-label>
+          <ion-item>
+            <ion-label>
+              <ion-icon name="calendar"></ion-icon>
+            </ion-label>
+            <ion-datetime displayFormat="DD/MM/YYYY" [(ngModel)]="careerObjective.nextEncounterDate" formControlName="nextEncounterDateControl"
+              [pickerOptions]="customDateTimeOptions" [doneText]="translateService.instant('GLOBAL.DATEPICKER.DONE')" [cancelText]="translateService.instant('GLOBAL.DATEPICKER.CANCEL')"></ion-datetime>
+          </ion-item>
+          <!-- Urgent -->
+          <ion-item>
+            <ion-label fixed>{{ 'CAREER_OBJECTIVE_CREATE.FORM.URGENT' | translate }}</ion-label>
+            <ion-checkbox [(ngModel)]="careerObjective.urgent" formControlName="urgentControl"></ion-checkbox>
+          </ion-item>
+        </ion-col>
       </ion-row>
-      <ion-row>
-        <ion-col col-12>
 
+      <!-- Barre de boutons -->
+      <ion-row>
+        <ion-col col-4>
+          <button ion-button (click)="createCareerObjective()" [disabled]="creationForm.invalid || creationInProgress" color="primary">
+            {{ 'CAREER_OBJECTIVE_CREATE.BUTTONS.SAVE' | translate }}&nbsp;
+            <ion-spinner *ngIf="createFlightInProgress"></ion-spinner>
+          </button>
         </ion-col>
       </ion-row>
     </ion-grid>
