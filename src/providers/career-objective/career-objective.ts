@@ -1,5 +1,4 @@
 import { AppConfig } from './../../app/app.config';
-import { RestRequest } from './../../services/rest.base.service';
 import { CareerObjective } from './../../models/careerObjective';
 import { Injectable } from '@angular/core';
 import { RestService } from '../../services/rest.base.service';
@@ -13,16 +12,11 @@ export class CareerObjectiveProvider {
   }
 
   /**
-   * Créé un objectif
-   * @param  careerObjective l'objectif à créer
-   * @return une promesse contenant l'objectif créé
+   * Créé ou met à jour un objectif
+   * @param  careerObjective l'objectif à créer ou mettre à jour
+   * @return une promesse contenant l'objectif créé ou mis à jour
    */
-  create(careerObjective: CareerObjective): Promise<CareerObjective> {
-    let request = new RestRequest();
-    request.method = "POST";
-    request.url = this.careerObjectiveUrl;
-    request.jsonData = careerObjective;
-
-    return this.restService.call(request);
+  createOrUpdate(careerObjective: CareerObjective): Promise<CareerObjective> {
+    return this.restService.post(this.careerObjectiveUrl, careerObjective);
   }
 }
