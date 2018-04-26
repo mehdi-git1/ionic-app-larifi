@@ -1,7 +1,7 @@
 ion-toast.error .toast-container {
-    background: red;
+    background: color($colors,danger);
 }
 
 ion-toast.success .toast-container {
-    background: green;
+    background: color($colors,success);
 }
