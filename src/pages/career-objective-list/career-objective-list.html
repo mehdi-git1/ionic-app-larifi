@@ -12,7 +12,9 @@
 
 <ion-content padding>
   <h3 margin-horizontal>{{ 'CAREER_OBJECTIVE_LIST.TITLE' | translate }}</h3>
-  <button margin-horizontal ion-button color="dark" (click)="goToCareerObjectiveCreation()">+</button>
+  <button margin-horizontal ion-button color="dark" (click)="goToCareerObjectiveCreation()">
+      <ion-icon name="add"></ion-icon>
+  </button>
   <ion-card *ngFor="let careerObjective of careerObjectiveList" margin-horizontal>
     <ion-card-content no-padding>
       <ion-grid>
