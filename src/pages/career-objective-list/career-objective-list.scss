@@ -1,10 +1,22 @@
 page-career-objective-list {
     
     $padding-0: 0px;
-    $padding-5:5px;
+    $margin-0: 0px;
+    $padding-5: 5px;
+    $margin-10: 10px;
 
     .col{
         padding:$padding-0 $padding-5;
+    }
+
+    .no-margin-left{
+        margin-left: $margin-0;
+    }
+
+    .card-content{
+        height: 82%;
+        padding-top: $padding-0;
+        padding: $padding-0;
     }
 
 }

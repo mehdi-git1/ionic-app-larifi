@@ -11,11 +11,14 @@
 
 
 <ion-content padding>
+
   <h3 margin-horizontal>{{ 'CAREER_OBJECTIVE_LIST.TITLE' | translate }}</h3>
-  <button margin-horizontal ion-button color="dark" (click)="goToCareerObjectiveCreation()">
-      <ion-icon name="add"></ion-icon>
+  <button margin ion-button color="dark" (click)="goToCareerObjectiveCreation()">
+    <ion-icon name="add"></ion-icon>
   </button>
-  <ion-card *ngFor="let careerObjective of careerObjectiveList" margin-horizontal>
+
+<ion-content class="card-content" >
+  <ion-card class="no-margin-left" *ngFor="let careerObjective of careerObjectiveList">
     <ion-card-content no-padding>
       <ion-grid>
         <ion-row>
@@ -42,14 +45,5 @@
       </ion-grid>
     </ion-card-content>
   </ion-card>
-
-
-
-
-
-
-
-
-
-
+</ion-content>
 </ion-content>

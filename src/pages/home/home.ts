@@ -39,7 +39,7 @@ export class HomePage {
    * Dirige vers la page de visualisation des objectifs
    */
   goToCareerObjectiveList() {
-    this.matricule ="12345678";
+    this.matricule ="12345677";
     this.navCtrl.push(CareerObjectiveListPage, {matricule:this.matricule});
   }
 }
