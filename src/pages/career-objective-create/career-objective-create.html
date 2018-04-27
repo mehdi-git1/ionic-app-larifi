@@ -100,11 +100,15 @@
 
       <!-- Barre de boutons -->
       <ion-row>
-        <ion-col col-4>
-          <button ion-button (click)="createCareerObjective()" [disabled]="creationForm.invalid || saveInProgress" color="primary">
-            {{ 'CAREER_OBJECTIVE_CREATE.BUTTONS.SAVE' | translate }}&nbsp;
-            <ion-spinner *ngIf="saveInProgress"></ion-spinner>
+        <ion-col>
+          <button ion-button (click)="saveCareerObjective()" [disabled]="creationForm.invalid || saveInProgress" color="primary">
+            {{ 'CAREER_OBJECTIVE_CREATE.BUTTONS.SAVE' | translate }}
           </button>
+          <button ion-button (click)="createCareerObjectiveDraft()" [disabled]="creationForm.invalid || saveInProgress" *ngIf="careerObjectiveStatusProvider.isTransitionOk(careerObjective.status,careerObjectiveStatus.DRAFT)"
+            color="primary">
+            {{ 'CAREER_OBJECTIVE_CREATE.BUTTONS.DRAFT' | translate }}
+          </button>
+          <ion-spinner *ngIf="saveInProgress"></ion-spinner>
         </ion-col>
       </ion-row>
     </ion-grid>

@@ -1,8 +1,11 @@
+import { CareerObjectiveStatusProvider } from './../../providers/career-objective-status/career-objective-status';
+import { ToastProvider } from './../../providers/toast/toast';
+import { CareerObjectiveStatus } from './../../models/careerObjectiveStatus';
 import { TranslateService } from '@ngx-translate/core';
 import { CareerObjectiveProvider } from './../../providers/career-objective/career-objective';
 import { CareerObjective } from './../../models/careerObjective';
 import { Component } from '@angular/core';
-import { NavController, NavParams, ToastController } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Pnc } from '../../models/Pnc';
 
@@ -18,16 +21,22 @@ export class CareerObjectiveCreatePage {
   customDateTimeOptions: any;
   saveInProgress: boolean;
 
+  careerObjectiveStatus: CareerObjectiveStatus;
+
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     public translateService: TranslateService,
     private formBuilder: FormBuilder,
     private careerObjectiveProvider: CareerObjectiveProvider,
-    private toastCtrl: ToastController) {
+    private toastProvider: ToastProvider,
+    public careerObjectiveStatusProvider: CareerObjectiveStatusProvider) {
 
     this.careerObjective = new CareerObjective();
     this.careerObjective.pnc = new Pnc();
+
+    // Permet d'exposer l'enum au template
+    this.careerObjectiveStatus = CareerObjectiveStatus;
 
     // Initialisation du formulaire
     this.creationForm = this.formBuilder.group({
@@ -60,29 +69,31 @@ export class CareerObjectiveCreatePage {
   /**
    * Lance le processus de création/mise à jour d'un objectif
    */
-  createCareerObjective() {
+  saveCareerObjective() {
     this.saveInProgress = true;
     this.careerObjectiveProvider
       .createOrUpdate(this.careerObjective)
       .then(savedCareerObjective => {
         this.careerObjective = savedCareerObjective;
-
         this.saveInProgress = false;
-        this.toastCtrl.create({
-          message: this.translateService.instant('CAREER_OBJECTIVE_CREATE.SUCCESS.CAREER_OBJECTIVE_SAVED'),
-          duration: 3000,
-          position: 'bottom',
-          cssClass: 'success'
-        }).present();
+
+        if (this.careerObjective.careerObjectiveStatus === CareerObjectiveStatus.DRAFT) {
+          this.toastProvider.success(this.translateService.instant('CAREER_OBJECTIVE_CREATE.SUCCESS.CAREER_OBJECTIVE_SAVED'));
+        } else {
+          this.toastProvider.success(this.translateService.instant('CAREER_OBJECTIVE_CREATE.SUCCESS.DRAFT_SAVED'));
+        }
       }, error => {
         this.saveInProgress = false;
-
-        this.toastCtrl.create({
-          message: error.detailMessage,
-          duration: 3000,
-          position: 'bottom',
-          cssClass: 'error',
-        }).present();
+        this.toastProvider.error(error.detailMessage);
       });
+  }
+
+  /**
+   * Enregistre un objectif au statut brouillon
+   */
+  createCareerObjectiveDraft() {
+    this.careerObjective.careerObjectiveStatus = CareerObjectiveStatus.DRAFT;
+
+    this.saveCareerObjective();
   }
 }
