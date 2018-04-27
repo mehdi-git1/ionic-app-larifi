@@ -90,10 +90,10 @@
             <ion-datetime displayFormat="DD/MM/YYYY" [(ngModel)]="careerObjective.nextEncounterDate" formControlName="nextEncounterDateControl"
               [pickerOptions]="customDateTimeOptions" [doneText]="translateService.instant('GLOBAL.DATEPICKER.DONE')" [cancelText]="translateService.instant('GLOBAL.DATEPICKER.CANCEL')"></ion-datetime>
           </ion-item>
-          <!-- Urgent -->
+          <!-- Prioritaire -->
           <ion-item>
-            <ion-label fixed>{{ 'CAREER_OBJECTIVE_CREATE.FORM.URGENT' | translate }}</ion-label>
-            <ion-checkbox [(ngModel)]="careerObjective.urgent" formControlName="urgentControl"></ion-checkbox>
+            <ion-label fixed>{{ 'CAREER_OBJECTIVE_CREATE.FORM.PRIORITIZED' | translate }}</ion-label>
+            <ion-checkbox [(ngModel)]="careerObjective.prioritized" formControlName="prioritizedControl"></ion-checkbox>
           </ion-item>
         </ion-col>
       </ion-row>
