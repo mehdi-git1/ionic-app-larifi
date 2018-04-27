@@ -12,6 +12,7 @@ import { RestService, RestRequest } from '../../services/rest.base.service';
 export class HomePage {
 
   pncList: Pnc[];
+  matricule: String;
 
   constructor(public navCtrl: NavController, public restService: RestService) {
   }
@@ -38,6 +39,7 @@ export class HomePage {
    * Dirige vers la page de visualisation des objectifs
    */
   goToCareerObjectiveList() {
-    this.navCtrl.push(CareerObjectiveListPage);
+    this.matricule ="12345678";
+    this.navCtrl.push(CareerObjectiveListPage, {matricule:this.matricule});
   }
 }

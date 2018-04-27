@@ -38,7 +38,7 @@
     "TITLE": "Liste des objectifs",
     "LIST": {
       "CREATION_DATE": "Date de création",
-      "LIBELLE": "Libellé",
+      "TITLE": "Libellé",
       "REGISTRATION_DATE": "Date d'enregistrement",
       "NEXT_ENCOUNTER_DATE": "Date du Prochain point"
     }

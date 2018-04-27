@@ -16,11 +16,8 @@ export class CareerObjectiveProvider {
    * Fait appel au service rest qui renvois la liste des objectifs du pnc connecté.
    * @return la liste des objectifs
    */
-  getCareerObjectiveList(): Promise<CareerObjective[]> {
-    let request = new RestRequest();
-    request.method = "GET";
-    request.url = this.careerObjectiveUrl + "/all";
-    return this.restService.call(request);
+  getCareerObjectiveList(matricule: String): Promise<CareerObjective[]> {
+    return this.restService.get(this.careerObjectiveUrl+"/"+matricule,"");
   }
 
   /**
