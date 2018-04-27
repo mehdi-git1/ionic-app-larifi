@@ -1,5 +1,36 @@
 {
-  "HELLO": "Bonjour",
-  "Form_FieldRequired": "Champs requis",
-  "Field_Name" : "Name"
+  "GLOBAL": {
+    "PNC_ROLE": {
+      "MANAGER": "Cadre",
+      "PNC": "PNC"
+    },
+    "DATEPICKER": {
+      "CANCEL": "Annuler",
+      "DONE": "Valider",
+      "CLEAR": "Vider"
+    }
+  },
+  "CAREER_OBJECTIVE_CREATE": {
+    "TITLE": "Créer un nouvel objectif",
+    "FORM": {
+      "PNC": "PNC",
+      "INITIATOR": "Initiateur",
+      "TITLE": "Libellé de l'objectif",
+      "CONTEXT": "Contexte",
+      "ACTION_PLAN": "Plan d'action et ressources utiles",
+      "MANAGER_COMMENT": "Commentaire cadre",
+      "PNC_COMMENT": "Commentaire PNC",
+      "NEXT_ENCOUNTER_DATE": "Prochain point d'étape",
+      "URGENT": "Prioritaire"
+    },
+    "BUTTONS": {
+      "SAVE": "Enregistrer"
+    },
+    "SUCCESS": {
+      "CAREER_OBJECTIVE_SAVED": "Objectif enregistré avec succès"
+    },
+    "ERROR": {
+      "CAREER_OBJECTIVE_CREATION_FAILED": "La création de l'objectif a échoué"
+    }
+  }
 }

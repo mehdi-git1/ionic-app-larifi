@@ -1,3 +1,4 @@
+import { CareerObjectiveCreatePage } from './../career-objective-create/career-objective-create';
 import { Pnc } from './../../models/pnc';
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
@@ -23,5 +24,12 @@ export class HomePage {
     this.restService.call(r).then(d => {
       //Work on data
     });
+  }
+
+  /**
+   * Dirige vers la page de création d'un nouvel objectif
+   */
+  goToCareerObjectiveCreation() {
+    this.navCtrl.push(CareerObjectiveCreatePage);
   }
 }

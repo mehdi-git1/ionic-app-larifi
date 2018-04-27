@@ -1,3 +1,5 @@
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { CareerObjectiveCreatePage } from './../pages/career-objective-create/career-objective-create';
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
@@ -16,10 +18,11 @@ import { TranslateModule } from '@ngx-translate/core';
 import { TranslateLoader } from '@ngx-translate/core';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { createTranslateLoader } from '../common/translate/TranslateLoader';
-import { ConnectivityService } from '../services/connectivity.service'; 
+import { ConnectivityService } from '../services/connectivity.service';
 import { RestService } from '../services/rest.base.service';
 import { RestMobileService } from '../services/rest.mobile.service';
 import { RestWebService } from '../services/rest.web.service';
+import { CareerObjectiveProvider } from '../providers/career-objective/career-objective';
 
 
 @NgModule({
@@ -27,7 +30,8 @@ import { RestWebService } from '../services/rest.web.service';
     EDossierPNC,
     HomePage,
     ListPage,
-    AuthenticationPage
+    AuthenticationPage,
+    CareerObjectiveCreatePage
   ],
   imports: [
     BrowserModule,
@@ -46,31 +50,34 @@ import { RestWebService } from '../services/rest.web.service';
     EDossierPNC,
     HomePage,
     ListPage,
-    AuthenticationPage
+    AuthenticationPage,
+    CareerObjectiveCreatePage
   ],
   providers: [
     StatusBar,
     SplashScreen,
     SecMobilService,
     ConnectivityService,
-    { provide: RestService, useFactory: createRestService, deps: [HttpClient,SecMobilService] },
-    AppInitService,HttpClientModule,
+    { provide: RestService, useFactory: createRestService, deps: [HttpClient, SecMobilService] },
+    AppInitService, HttpClientModule,
     Config,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    { provide: ErrorHandler, useClass: IonicErrorHandler },
+    CareerObjectiveProvider
   ]
 })
-export class AppModule {}
+export class AppModule { }
 
 
 declare var window: any;
 
 //Check if we are in app mode or in web browser
-export function createRestService(http: HttpClient,secMobilService:SecMobilService): RestService {
+export function createRestService(http: HttpClient, secMobilService: SecMobilService): RestService {
   if (undefined != window.cordova && 'browser' !== window.cordova.platformId) {
-      console.log("mobile mode selected");
-      return new RestMobileService(http,secMobilService);
+    console.log("mobile mode selected");
+    return new RestMobileService(http, secMobilService);
   } else {
-      console.log("web mode selected");
-      return new RestWebService(http);
+    console.log("web mode selected");
+    return new RestWebService(http);
   }
 }
+
