@@ -33,13 +33,13 @@ export class CareerObjectiveCreatePage {
     this.creationForm = this.formBuilder.group({
       pncMatriculeControl: ['', Validators.required],
       initiatorControl: ['', Validators.required],
-      titleControl: ['', Validators.maxLength(255)],
+      titleControl: ['', Validators.compose([Validators.maxLength(255), Validators.required])],
       contextControl: ['', Validators.maxLength(4000)],
       actionPlanControl: ['', Validators.maxLength(5000)],
       managerCommentControl: ['', Validators.maxLength(4000)],
       pncCommentControl: ['', Validators.maxLength(4000)],
       nextEncounterDateControl: [''],
-      urgentControl: [false]
+      prioritizedControl: [false]
     });
 
     // Options du datepicker
