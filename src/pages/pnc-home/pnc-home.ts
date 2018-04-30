@@ -3,13 +3,6 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { RestService, RestRequest } from '../../services/rest.base.service';
 import { Pnc } from '../../models/pnc';
 
-/**
- * Generated class for the PncHomePage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-
 @IonicPage()
 @Component({
   selector: 'page-pnc-home',

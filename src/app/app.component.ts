@@ -3,8 +3,6 @@ import { Nav, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { TranslateService } from '@ngx-translate/core';
-
-import { HomePage } from '../pages/home/home';
 import { PncHomePage } from '../pages/pnc-home/pnc-home';
 import { AuthenticationPage } from '../pages/authentication/authentication';
 import { SecMobilService } from '../services/secMobil.service';
@@ -17,39 +15,30 @@ export class EDossierPNC {
 
   rootPage: any = PncHomePage;
 
-  pages: Array<{title: string, component: any}>;
-
-  constructor(public platform: Platform, public statusBar: StatusBar, 
-      public splashScreen: SplashScreen,public translate: TranslateService,
-      private secMobilService: SecMobilService
-    ) {
-    
+  constructor(public platform: Platform, public statusBar: StatusBar,
+    public splashScreen: SplashScreen, public translate: TranslateService,
+    private secMobilService: SecMobilService) {
     this.initializeApp();
-
-    this.pages = [
-      { title: 'Home', component: HomePage }
-    ];
-
   }
 
   initializeApp() {
     this.platform.ready().then(() => {
-      
+
       this.statusBar.styleDefault();
       this.splashScreen.hide();
 
-      this.translate.setDefaultLang('en'); 
+      this.translate.setDefaultLang('en');
       this.translate.use('en');
 
       this.platform.ready().then(() => {
-          this.secMobilService.init();
-          this.secMobilService.isAuthenticated().then(() => {
-            // launch process when already authenticated 
-            // nothing to do there
+        this.secMobilService.init();
+        this.secMobilService.isAuthenticated().then(() => {
+          // launch process when already authenticated 
+          // nothing to do there
         },
-        error => {
-          this.rootPage = AuthenticationPage; 
-        });
+          error => {
+            this.rootPage = AuthenticationPage;
+          });
       });
     });
   }
