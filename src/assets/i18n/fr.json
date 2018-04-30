@@ -11,6 +11,11 @@
     },
     "DEVELOPMENT_PROGRAMME": "Parcours de développement"
   },
+  "HOME": {
+    "BUTTONS": {
+      "CAREER_OBJECTIVE_CREATE": "Créer un objectif"
+    }
+  },
   "CAREER_OBJECTIVE_CREATE": {
     "TITLE": "Créer un nouvel objectif",
     "FORM": {
@@ -22,7 +27,7 @@
       "MANAGER_COMMENT": "Commentaire cadre",
       "PNC_COMMENT": "Commentaire PNC",
       "NEXT_ENCOUNTER_DATE": "Prochain point d'étape",
-      "URGENT": "Prioritaire"
+      "PRIORITIZED": "Prioritaire"
     },
     "BUTTONS": {
       "SAVE": "Enregistrer"

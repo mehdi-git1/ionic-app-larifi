@@ -16,5 +16,5 @@ export class CareerObjective {
     managerComment: string;
     pncComment: string;
     nextEncounterDate: string;
-    urgent: boolean;
+    prioritized: boolean;
 }

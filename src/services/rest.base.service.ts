@@ -15,7 +15,7 @@ export abstract class RestService {
 
     abstract call(request: RestRequest): Promise<any>;
 
-    get(url: string, jsonData: any, httpHeaders?: any): Promise<any> {
+    get(url: string, jsonData?: any, httpHeaders?: any): Promise<any> {
         return this.sendRequest("GET", url, jsonData, httpHeaders);
     }
 
@@ -27,7 +27,7 @@ export abstract class RestService {
         return this.sendRequest("PUT", url, jsonData, httpHeaders);
     }
 
-    delete(url: string, jsonData: any, httpHeaders?: any): Promise<any> {
+    delete(url: string, jsonData?: any, httpHeaders?: any): Promise<any> {
         return this.sendRequest("DELETE", url, jsonData, httpHeaders);
     }
 
