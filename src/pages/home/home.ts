@@ -1,8 +1,5 @@
-<<<<<<< HEAD
 import { PncHomePage } from './../pnc-home/pnc-home';
-=======
 import { CareerObjectiveCreatePage } from './../career-objective-create/career-objective-create';
->>>>>>> refs/remotes/origin/release/sprint1
 import { Pnc } from './../../models/pnc';
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';

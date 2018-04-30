@@ -3,7 +3,6 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { RestService, RestRequest } from '../../services/rest.base.service';
 import { Pnc } from '../../models/pnc';
 
-@IonicPage()
 @Component({
   selector: 'page-pnc-home',
   templateUrl: 'pnc-home.html',

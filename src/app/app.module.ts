@@ -1,9 +1,6 @@
-<<<<<<< HEAD
 import { PncHomePage } from './../pages/pnc-home/pnc-home';
-=======
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { CareerObjectiveCreatePage } from './../pages/career-objective-create/career-objective-create';
->>>>>>> refs/remotes/origin/release/sprint1
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
@@ -25,21 +22,16 @@ import { ConnectivityService } from '../services/connectivity.service';
 import { RestService } from '../services/rest.base.service';
 import { RestMobileService } from '../services/rest.mobile.service';
 import { RestWebService } from '../services/rest.web.service';
-import { CareerObjectiveProvider } from '../providers/career-objective/career-objective';
+//import { CareerObjectiveProvider } from '../providers/career-objective/career-objective';
 
 
 @NgModule({
   declarations: [
     EDossierPNC,
     HomePage,
-<<<<<<< HEAD
     PncHomePage,
-    AuthenticationPage
-=======
-    ListPage,
     AuthenticationPage,
     CareerObjectiveCreatePage
->>>>>>> refs/remotes/origin/release/sprint1
   ],
   imports: [
     BrowserModule,
@@ -57,14 +49,9 @@ import { CareerObjectiveProvider } from '../providers/career-objective/career-ob
   entryComponents: [
     EDossierPNC,
     HomePage,
-<<<<<<< HEAD
     PncHomePage,
-    AuthenticationPage
-=======
-    ListPage,
     AuthenticationPage,
     CareerObjectiveCreatePage
->>>>>>> refs/remotes/origin/release/sprint1
   ],
   providers: [
     StatusBar,
@@ -75,7 +62,7 @@ import { CareerObjectiveProvider } from '../providers/career-objective/career-ob
     AppInitService, HttpClientModule,
     Config,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
-    CareerObjectiveProvider
+    //CareerObjectiveProvider
   ]
 })
 export class AppModule { }
@@ -93,4 +80,3 @@ export function createRestService(http: HttpClient, secMobilService: SecMobilSer
     return new RestWebService(http);
   }
 }
-
