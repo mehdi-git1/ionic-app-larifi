@@ -1,3 +1,4 @@
+import { CareerObjectiveCreatePage } from './../pages/career-objective-create/career-objective-create';
 import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
@@ -27,8 +28,8 @@ export class EDossierPNC {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
 
-      this.translate.setDefaultLang('en');
-      this.translate.use('en');
+      this.translate.setDefaultLang('fr');
+      this.translate.use('fr');
 
       this.platform.ready().then(() => {
         this.secMobilService.init();
