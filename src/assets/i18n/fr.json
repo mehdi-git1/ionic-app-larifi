@@ -8,7 +8,8 @@
       "CANCEL": "Annuler",
       "DONE": "Valider",
       "CLEAR": "Vider"
-    }
+    },
+    "DEVELOPMENT_PROGRAMME": "Parcours de développement"
   },
   "HOME": {
     "BUTTONS": {
@@ -36,6 +37,15 @@
     },
     "ERROR": {
       "CAREER_OBJECTIVE_CREATION_FAILED": "La création de l'objectif a échoué"
+    }
+  },
+  "CAREER_OBJECTIVE_LIST": {
+    "TITLE": "Liste des objectifs",
+    "LIST": {
+      "CREATION_DATE": "Date de création",
+      "TITLE": "Libellé",
+      "REGISTRATION_DATE": "Date d'enregistrement",
+      "NEXT_ENCOUNTER_DATE": "Date du Prochain point"
     }
   }
 }

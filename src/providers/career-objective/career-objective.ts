@@ -1,14 +1,23 @@
 import { AppConfig } from './../../app/app.config';
 import { CareerObjective } from './../../models/careerObjective';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { RestService } from '../../services/rest.base.service';
+import { RestService, RestRequest } from '../../services/rest.base.service';
 
 @Injectable()
 export class CareerObjectiveProvider {
   private careerObjectiveUrl: string;
 
+
   constructor(public restService: RestService) {
     this.careerObjectiveUrl = `${AppConfig.apiUrl}/career_objectives`;
+  }
+  /**
+   * Fait appel au service rest qui renvois la liste des objectifs du pnc connecté.
+   * @return la liste des objectifs
+   */
+  getCareerObjectiveList(matricule: String): Promise<CareerObjective[]> {
+    return this.restService.get(this.careerObjectiveUrl+"/"+matricule,"");
   }
 
   /**
