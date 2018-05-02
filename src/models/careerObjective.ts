@@ -6,6 +6,7 @@ export class CareerObjective {
     pnc: Pnc;
     creationAuthor: Pnc;
     creationDate: string;
+    registrationDate: string;
     lastUpdateAuthor: Pnc;
     lastUpdateDate: string;
     initiator: PncRole;

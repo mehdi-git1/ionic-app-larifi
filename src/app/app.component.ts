@@ -16,10 +16,20 @@ export class EDossierPNC {
 
   rootPage: any = HomePage;
 
+  pages: Array<{ title: string, component: any }>;
+
   constructor(public platform: Platform, public statusBar: StatusBar,
     public splashScreen: SplashScreen, public translate: TranslateService,
-    private secMobilService: SecMobilService) {
+    private secMobilService: SecMobilService
+  ) {
+
     this.initializeApp();
+
+    this.pages = [
+      { title: 'Home', component: HomePage },
+      { title: 'CareerObjectiveCreate', component: CareerObjectiveCreatePage }
+    ];
+
   }
 
   initializeApp() {

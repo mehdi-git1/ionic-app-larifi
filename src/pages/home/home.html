@@ -15,10 +15,9 @@
     <a href="http://ionicframework.com/docs/v2">docs</a> will show you the way.
   </p>
 
-  <button ion-button (click)="makeRestCall()">Test rest API</button>
-  <button ion-button (click)="goToPncHomePage('12345678')">Test PNC matricule 12345678</button>
-  <button ion-button (click)="goToPncHomePage('12345679')">Test PNC matricule 12345679</button>
+  <ion-input type="text" [(ngModel)]="matricule"></ion-input>
 
   <button ion-button (click)="goToCareerObjectiveCreation()">{{ 'HOME.BUTTONS.CAREER_OBJECTIVE_CREATE' | translate }}</button>
+  <button ion-button (click)="goToCareerObjectiveList()">Visualiser les objectifs</button>
 
 </ion-content>

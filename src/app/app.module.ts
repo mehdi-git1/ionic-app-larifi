@@ -8,6 +8,7 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 
 import { EDossierPNC } from './app.component';
 import { HomePage } from '../pages/home/home';
+import { CareerObjectiveListPage } from './../pages/career-objective-list/career-objective-list';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -24,7 +25,7 @@ import { RestService } from '../services/rest.base.service';
 import { RestMobileService } from '../services/rest.mobile.service';
 import { RestWebService } from '../services/rest.web.service';
 import { PncProvider } from '../providers/pnc/pnc';
-//import { CareerObjectiveProvider } from '../providers/career-objective/career-objective';
+import { CareerObjectiveProvider } from '../providers/career-objective/career-objective';
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import { PncProvider } from '../providers/pnc/pnc';
     HomePage,
     PncHomePage,
     AuthenticationPage,
-    CareerObjectiveCreatePage
+    CareerObjectiveCreatePage,
+    CareerObjectiveListPage
   ],
   imports: [
     BrowserModule,
@@ -53,7 +55,8 @@ import { PncProvider } from '../providers/pnc/pnc';
     HomePage,
     PncHomePage,
     AuthenticationPage,
-    CareerObjectiveCreatePage
+    CareerObjectiveCreatePage,
+    CareerObjectiveListPage
   ],
   providers: [
     StatusBar,
