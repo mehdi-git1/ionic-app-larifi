@@ -1,6 +1,6 @@
+import { PncProvider } from './../../providers/pnc/pnc';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { RestService, RestRequest } from '../../services/rest.base.service';
+import { NavController, NavParams } from 'ionic-angular';
 import { Pnc } from '../../models/pnc';
 
 @Component({
@@ -10,28 +10,19 @@ import { Pnc } from '../../models/pnc';
 export class PncHomePage {
 
   pnc: Pnc;
+  matricule: String;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public restService: RestService) {
-    this.getPncInformations();
+  constructor(public navCtrl: NavController, public navParams: NavParams, private pncProvider: PncProvider) {
+
   }
 
   /**
-   * récupération des informations du pnc en appelant le service rest pncs avec le matricule.
+   * Charge les informations du pnc aprés le chargement de la page
    */
-  getPncInformations(){
-      this.pnc = new Pnc();
-      // récupèration du matricule du pnc envoyé en paramètre.
-      let matricule='12345679';
-      let pncRequest = new RestRequest();
-      pncRequest.method = "GET";
-      pncRequest.url = `/api/rest/resources/pncs/${matricule}`;
-      this.restService.call(pncRequest).then(result => {
-        this.pnc = result;
-      })
-  }
-
   ionViewDidLoad() {
-    console.log('ionViewDidLoad PncHomePage');
+    this.matricule = this.navParams.get("matricule");
+    this.pncProvider.getPncInformations(this.matricule).then(result =>{
+        this.pnc = result;
+      });
   }
-
 }

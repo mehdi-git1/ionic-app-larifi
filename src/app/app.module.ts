@@ -1,3 +1,4 @@
+import { CareerObjectiveProvider } from './../providers/career-objective/career-objective';
 import { PncHomePage } from './../pages/pnc-home/pnc-home';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { CareerObjectiveCreatePage } from './../pages/career-objective-create/career-objective-create';
@@ -22,6 +23,7 @@ import { ConnectivityService } from '../services/connectivity.service';
 import { RestService } from '../services/rest.base.service';
 import { RestMobileService } from '../services/rest.mobile.service';
 import { RestWebService } from '../services/rest.web.service';
+import { PncProvider } from '../providers/pnc/pnc';
 //import { CareerObjectiveProvider } from '../providers/career-objective/career-objective';
 
 
@@ -62,7 +64,8 @@ import { RestWebService } from '../services/rest.web.service';
     AppInitService, HttpClientModule,
     Config,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
-    //CareerObjectiveProvider
+    PncProvider,
+    CareerObjectiveProvider
   ]
 })
 export class AppModule { }
