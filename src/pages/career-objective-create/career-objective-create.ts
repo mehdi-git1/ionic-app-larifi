@@ -28,6 +28,7 @@ export class CareerObjectiveCreatePage {
 
     this.careerObjective = new CareerObjective();
     this.careerObjective.pnc = new Pnc();
+    this.careerObjective.pnc.matricule = this.navParams.get("matricule");
 
     // Initialisation du formulaire
     this.creationForm = this.formBuilder.group({

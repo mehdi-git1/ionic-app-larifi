@@ -1,7 +1,9 @@
+import { CareerObjectiveListPage } from './../career-objective-list/career-objective-list';
 import { PncProvider } from './../../providers/pnc/pnc';
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, ToastController } from 'ionic-angular';
 import { Pnc } from '../../models/pnc';
+import { Assignment } from '../../models/assignment';
 
 @Component({
   selector: 'page-pnc-home',
@@ -12,7 +14,12 @@ export class PncHomePage {
   pnc: Pnc;
   matricule: String;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private pncProvider: PncProvider) {
+  constructor(public navCtrl: NavController, 
+    public navParams: NavParams, 
+    private toastCtrl: ToastController,
+    private pncProvider: PncProvider) {
+    this.pnc = new Pnc();
+    this.pnc.assignment = new Assignment();
 
   }
 
@@ -21,8 +28,22 @@ export class PncHomePage {
    */
   ionViewDidLoad() {
     this.matricule = this.navParams.get("matricule");
-    this.pncProvider.getPncInformations(this.matricule).then(result =>{
-        this.pnc = result;
-      });
+    this.pncProvider.getPncInformations(this.matricule).then(result => {
+      this.pnc = result;
+    }, error => {
+      this.toastCtrl.create({
+        message: error.detailMessage,
+        duration: 3000,
+        position: 'bottom',
+        cssClass: 'error',
+      }).present();
+    });
+  }
+
+  /**
+   * Dirige vers la page de visualisation des objectifs
+   */
+  goToCareerObjectiveList() {
+    this.navCtrl.push(CareerObjectiveListPage, {matricule:this.matricule});
   }
 }

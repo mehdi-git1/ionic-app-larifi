@@ -25,7 +25,6 @@ import { RestService } from '../services/rest.base.service';
 import { RestMobileService } from '../services/rest.mobile.service';
 import { RestWebService } from '../services/rest.web.service';
 import { PncProvider } from '../providers/pnc/pnc';
-import { CareerObjectiveProvider } from '../providers/career-objective/career-objective';
 
 
 @NgModule({
