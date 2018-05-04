@@ -1,16 +1,10 @@
 import { CareerObjectiveCreatePage } from './../career-objective-create/career-objective-create';
 import { CareerObjective } from './../../models/careerObjective';
 import { Component, OnInit } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, ToastController } from 'ionic-angular';
 import { RestService, RestRequest } from '../../services/rest.base.service';
 import { CareerObjectiveProvider } from '../../providers/career-objective/career-objective'
 
-/**
- * Generated class for the CareerObjectiveListPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @Component({
   selector: 'page-career-objective-list',
@@ -20,7 +14,12 @@ export class CareerObjectiveListPage {
 
   careerObjectiveList: CareerObjective[];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private careerObjectiveProvider: CareerObjectiveProvider) {
+  matricule: String;
+
+  constructor(public navCtrl: NavController, 
+    public navParams: NavParams, 
+    private careerObjectiveProvider: CareerObjectiveProvider, 
+    private toastCtrl: ToastController) {
 
   }
 
@@ -28,15 +27,24 @@ export class CareerObjectiveListPage {
    * Dirige vers la page de création d'un nouvel objectif
    */
   goToCareerObjectiveCreation() {
-    this.navCtrl.push(CareerObjectiveCreatePage);
+    this.navCtrl.push(CareerObjectiveCreatePage, { matricule: this.matricule });
   }
 
   /**
    * Charge la liste des objectifs aprés le chargement de la page
    */
   ionViewDidLoad() {
-    this.careerObjectiveProvider.getCareerObjectiveList().then(result => {
+    this.matricule = this.navParams.get('matricule');
+    this.careerObjectiveProvider.getCareerObjectiveList(this.matricule).then(result => {
       this.careerObjectiveList = result;
+    }, error => {
+      this.toastCtrl.create({
+        message: error.detailMessage,
+        duration: 3000,
+        position: 'bottom',
+        cssClass: 'error',
+      }).present();
     });
+    
   }
 }
