@@ -1,0 +1,118 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Accueil PNC</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+  <ion-card>
+
+
+    <ion-list>
+      <ion-item>
+        <ion-thumbnail item-start padding-left width="200px">
+
+          <ion-img src="{{ pnc.gender == 'M' ? '../../assets/imgs/man-default-picture.png' : '../../assets/imgs/woman-default-picture.png' }}"></ion-img>
+        </ion-thumbnail>
+
+        <table width="100%">
+          <colgroup>
+            <col width="8%">
+            <col width="1%">
+            <col width="20%">
+            <col width="8%">
+            <col width="1%">
+            <col width="20%">
+            <col width="8%">
+            <col width="1%">
+            <col width="10%">
+          </colgroup>
+          <tr>
+            <!-- Matricule -->
+            <td colspan="3">
+              <strong>{{pnc.matricule}}</strong>
+            </td>
+            <!-- Spécialité -->
+            <td>
+              <strong>{{ 'PNC_HOME.SPECIALITY' | translate }}</strong>
+            </td>
+            <td>
+              <strong>:</strong>
+            </td>
+            <td>
+              {{pnc.speciality == '' || pnc.speciality == null ? "-" : pnc.speciality}}
+            </td>
+            <!-- Division -->
+            <td>
+              <strong>{{ 'PNC_HOME.DIVISION' | translate }}</strong>
+            </td>
+            <td>
+              <strong>:</strong>
+            </td>
+            <td>
+              {{pnc.assignment.division == '' || pnc.assignment.division == null ? "-" : pnc.assignment.division}}
+            </td>
+          </tr>
+          <tr>
+            <!-- Nom -->
+            <td>
+              <strong>{{ 'PNC_HOME.FIRST_NAME' | translate }}</strong>
+            </td>
+            <td>
+              <strong>:</strong>
+            </td>
+            <td>
+              {{pnc.firstName}}
+            </td>
+            <!-- Ginq -->
+            <td>
+              <strong>{{ 'PNC_HOME.GINQ' | translate }}</strong>
+            </td>
+            <td>
+              <strong>:</strong>
+            </td>
+            <td>
+              {{pnc.assignment.ginq == '' || pnc.assignment.ginq == null ? "-" : pnc.assignment.ginq}}
+            </td>
+          </tr>
+          <tr>
+            <!-- Prénom -->
+            <td>
+              <strong>{{ 'PNC_HOME.LAST_NAME' | translate }}</strong>
+            </td>
+            <td>
+              <strong>:</strong>
+            </td>
+            <td>
+              {{pnc.lastName}}
+            </td>
+            <!-- Secteur -->
+            <td>
+              <strong>{{ 'PNC_HOME.SECTOR' | translate }}</strong>
+            </td>
+            <td>
+              <strong>:</strong>
+            </td>
+            <td>
+              {{pnc.assignment.sector == '' ? "-" : pnc.assignment.sector}}
+            </td>
+          </tr>
+        </table>
+      </ion-item>
+    </ion-list>
+  </ion-card>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col col-6>
+        <button class="objective-list-button" ion-button (click)="goToCareerObjectiveList()" *ngIf="pnc.speciality != Speciality[Speciality.CAD]">
+          {{ 'GLOBAL.DEVELOPMENT_PROGRAMME' | translate }}
+        </button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

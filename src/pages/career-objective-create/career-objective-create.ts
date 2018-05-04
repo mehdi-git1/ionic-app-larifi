@@ -7,7 +7,7 @@ import { CareerObjective } from './../../models/careerObjective';
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Pnc } from '../../models/Pnc';
+import { Pnc } from '../../models/pnc';
 
 @Component({
   // Changement de strategy pour eviter le probleme de ExpressionChangedAfterItHasBeenCheckedError levé par le date picker
@@ -37,6 +37,7 @@ export class CareerObjectiveCreatePage {
 
     this.careerObjective = new CareerObjective();
     this.careerObjective.pnc = new Pnc();
+    this.careerObjective.pnc.matricule = this.navParams.get("matricule");
 
     // Initialisation du formulaire
     this.creationForm = this.formBuilder.group({

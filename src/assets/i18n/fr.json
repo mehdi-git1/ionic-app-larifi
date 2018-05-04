@@ -49,5 +49,16 @@
       "REGISTRATION_DATE": "Date d'enregistrement",
       "NEXT_ENCOUNTER_DATE": "Date du Prochain point"
     }
+  },
+  "PNC_HOME": {
+    "MATRICULE": "Matricule",
+    "FIRST_NAME": "Nom",
+    "LAST_NAME": "Prénom",
+    "GENDER": "Sexe",
+    "SPECIALITY": "Spécialité",
+    "GINQ": "Ginq",
+    "SECTOR": "Secteur",
+    "DIVISION": "Division"
   }
+
 }

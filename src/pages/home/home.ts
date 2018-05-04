@@ -1,9 +1,11 @@
+import { RestRequest } from './../../services/rest.base.service';
+import { PncHomePage } from './../pnc-home/pnc-home';
 import { CareerObjectiveCreatePage } from './../career-objective-create/career-objective-create';
 import { CareerObjectiveListPage } from './../career-objective-list/career-objective-list';
 import { Pnc } from './../../models/pnc';
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import { RestService, RestRequest } from '../../services/rest.base.service';
+import { RestService } from '../../services/rest.base.service';
 
 @Component({
   selector: 'page-home',
@@ -12,9 +14,13 @@ import { RestService, RestRequest } from '../../services/rest.base.service';
 export class HomePage {
 
   pncList: Pnc[];
-  matricule: String;
+  matricule: String = "04221722";
 
   constructor(public navCtrl: NavController, public restService: RestService) {
+  }
+
+  goToPncHomePage(matricule){
+    this.navCtrl.push(PncHomePage,{matricule:matricule});
   }
 
   makeRestCall() {
@@ -31,14 +37,21 @@ export class HomePage {
   /**
    * Dirige vers la page de création d'un nouvel objectif
    */
-  goToCareerObjectiveCreation() {
-    this.navCtrl.push(CareerObjectiveCreatePage);
-  }
+  // goToCareerObjectiveCreation() {
+  //   this.navCtrl.push(CareerObjectiveCreatePage, {matricule:this.matricule});
+  // }
 
   /**
    * Dirige vers la page de visualisation des objectifs
    */
-  goToCareerObjectiveList() {
-    this.navCtrl.push(CareerObjectiveListPage, {matricule:this.matricule});
+  // goToCareerObjectiveList() {
+  //   this.navCtrl.push(CareerObjectiveListPage, {matricule:this.matricule});
+  // }
+
+  /**
+   * Dirige vers la page d'accueil des pnc
+   */
+  goToPncHome(){
+    this.navCtrl.push(PncHomePage, {matricule:this.matricule});
   }
 }
