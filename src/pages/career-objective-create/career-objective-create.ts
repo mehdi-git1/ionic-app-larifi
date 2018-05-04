@@ -8,7 +8,6 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Pnc } from '../../models/Pnc';
-import { dateDataSortValue } from 'ionic-angular/util/datetime-util';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
