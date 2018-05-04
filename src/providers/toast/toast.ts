@@ -21,7 +21,7 @@ export class ToastProvider {
   }
 
   /**
-   * Affiche un toast de succès
+   * Affiche un toast d'erreur
    * @param message le message à afficher dans le toast
    */
   error(message: string) {

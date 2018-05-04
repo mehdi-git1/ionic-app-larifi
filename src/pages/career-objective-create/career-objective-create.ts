@@ -10,6 +10,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Pnc } from '../../models/Pnc';
 
 @Component({
+  // Changement de strategy pour eviter le probleme de ExpressionChangedAfterItHasBeenCheckedError levé par le date picker
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'page-career-objective-create',
   templateUrl: 'career-objective-create.html',
@@ -61,7 +62,7 @@ export class CareerObjectiveCreatePage {
     this.saveInProgress = false;
   }
 
-    ionViewDidLoad() {
+  ionViewDidLoad() {
   }
 
   /**
