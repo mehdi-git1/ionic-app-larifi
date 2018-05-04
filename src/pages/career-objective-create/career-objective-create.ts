@@ -93,4 +93,12 @@ export class CareerObjectiveCreatePage {
     this.careerObjective.careerObjectiveStatus = CareerObjectiveStatus.DRAFT;
     this.saveCareerObjective();
   }
+
+  /**
+   * Enregistre un objectif au statut enregistrer
+   */
+  createCareerObjectiveRegister() {
+    this.careerObjective.careerObjectiveStatus = CareerObjectiveStatus.REGISTER;
+    this.saveCareerObjective();
+  }
 }

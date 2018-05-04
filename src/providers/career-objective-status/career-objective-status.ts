@@ -18,6 +18,9 @@ export class CareerObjectiveStatusProvider {
     if (currentStatus === undefined || currentStatus === CareerObjectiveStatus.DRAFT) {
       // Liste des nouveaux statuts authorisés
       return [CareerObjectiveStatus.DRAFT].indexOf(newStatus) > -1;
+    }else if (currentStatus === undefined  || currentStatus === CareerObjectiveStatus.REGISTER || currentStatus === CareerObjectiveStatus.DRAFT) {
+      // Liste des nouveaux statuts authorisés
+      return [CareerObjectiveStatus.DRAFT].indexOf(newStatus) > -1;
     }
     return false;
   }
