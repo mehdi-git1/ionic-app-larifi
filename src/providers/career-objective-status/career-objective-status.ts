@@ -14,10 +14,9 @@ export class CareerObjectiveStatusProvider {
    * @return Vrai si la transition est acceptée, false sinon.
    */
   isTransitionOk(currentStatus: CareerObjectiveStatus, newStatus: CareerObjectiveStatus): boolean {
-    if (currentStatus === undefined) {
-      return [CareerObjectiveStatus.DRAFT].indexOf(newStatus) > -1;
-    }
-    else if (currentStatus === CareerObjectiveStatus.DRAFT) {
+    // Pour une creation ou un brouillon, on n'a le droit que sauvegarder en brouillon
+    if (currentStatus === undefined || currentStatus === CareerObjectiveStatus.DRAFT) {
+      // Liste des nouveaux statuts authorisés
       return [CareerObjectiveStatus.DRAFT].indexOf(newStatus) > -1;
     }
     return false;

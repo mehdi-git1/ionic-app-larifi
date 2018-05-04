@@ -4,12 +4,14 @@ import { CareerObjectiveStatus } from './../../models/careerObjectiveStatus';
 import { TranslateService } from '@ngx-translate/core';
 import { CareerObjectiveProvider } from './../../providers/career-objective/career-objective';
 import { CareerObjective } from './../../models/careerObjective';
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Pnc } from '../../models/Pnc';
+import { dateDataSortValue } from 'ionic-angular/util/datetime-util';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'page-career-objective-create',
   templateUrl: 'career-objective-create.html',
 })
@@ -21,7 +23,8 @@ export class CareerObjectiveCreatePage {
   customDateTimeOptions: any;
   saveInProgress: boolean;
 
-  careerObjectiveStatus: CareerObjectiveStatus;
+  // Permet d'exposer l'enum au template
+  CareerObjectiveStatus: typeof CareerObjectiveStatus = CareerObjectiveStatus;
 
   constructor(
     public navCtrl: NavController,
@@ -34,9 +37,6 @@ export class CareerObjectiveCreatePage {
 
     this.careerObjective = new CareerObjective();
     this.careerObjective.pnc = new Pnc();
-
-    // Permet d'exposer l'enum au template
-    this.careerObjectiveStatus = CareerObjectiveStatus;
 
     // Initialisation du formulaire
     this.creationForm = this.formBuilder.group({
@@ -62,8 +62,7 @@ export class CareerObjectiveCreatePage {
     this.saveInProgress = false;
   }
 
-  ionViewDidLoad() {
-
+    ionViewDidLoad() {
   }
 
   /**
@@ -93,7 +92,6 @@ export class CareerObjectiveCreatePage {
    */
   createCareerObjectiveDraft() {
     this.careerObjective.careerObjectiveStatus = CareerObjectiveStatus.DRAFT;
-
     this.saveCareerObjective();
   }
 }

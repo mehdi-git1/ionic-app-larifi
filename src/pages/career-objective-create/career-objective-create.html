@@ -87,9 +87,15 @@
             <ion-label>
               <ion-icon name="calendar"></ion-icon>
             </ion-label>
-            <ion-datetime displayFormat="DD/MM/YYYY" [(ngModel)]="careerObjective.nextEncounterDate" formControlName="nextEncounterDateControl"
-              [pickerOptions]="customDateTimeOptions" [doneText]="translateService.instant('GLOBAL.DATEPICKER.DONE')" [cancelText]="translateService.instant('GLOBAL.DATEPICKER.CANCEL')"></ion-datetime>
+
+            <!-- On sépare [] et () pour pouvoir utiliser un | pour donner le format complet de la date. Sinon le format definit par le ion-datetime ne fonctionne pas-->
+            <ion-datetime displayFormat="DD/MM/YYYY"  [ngModel]='careerObjective.nextEncounterDate | date:"yyyy-MM-ddTHH:mm"' (ngModelChange)="careerObjective.nextEncounterDate=$event"
+               formControlName="nextEncounterDateControl" [pickerOptions]="customDateTimeOptions"  [doneText]="translateService.instant('GLOBAL.DATEPICKER.DONE')"
+              [cancelText]="translateService.instant('GLOBAL.DATEPICKER.CANCEL')">
+              </ion-datetime>
+
           </ion-item>
+
           <!-- Urgent -->
           <ion-item>
             <ion-label fixed>{{ 'CAREER_OBJECTIVE_CREATE.FORM.URGENT' | translate }}</ion-label>
@@ -101,10 +107,10 @@
       <!-- Barre de boutons -->
       <ion-row>
         <ion-col>
-          <button ion-button (click)="saveCareerObjective()" [disabled]="creationForm.invalid || saveInProgress" color="primary">
+          <!-- <button ion-button (click)="saveCareerObjective()" [disabled]="creationForm.invalid || saveInProgress" color="primary">
             {{ 'CAREER_OBJECTIVE_CREATE.BUTTONS.SAVE' | translate }}
-          </button>
-          <button ion-button (click)="createCareerObjectiveDraft()" [disabled]="creationForm.invalid || saveInProgress" *ngIf="careerObjectiveStatusProvider.isTransitionOk(careerObjective.status,careerObjectiveStatus.DRAFT)"
+          </button> -->
+          <button ion-button (click)="createCareerObjectiveDraft()" [disabled]="creationForm.invalid || saveInProgress" *ngIf='careerObjectiveStatusProvider.isTransitionOk(careerObjective.careerObjectiveStatus,CareerObjectiveStatus.DRAFT)'
             color="primary">
             {{ 'CAREER_OBJECTIVE_CREATE.BUTTONS.DRAFT' | translate }}
           </button>
@@ -113,5 +119,4 @@
       </ion-row>
     </ion-grid>
   </form>
-
 </ion-content>
