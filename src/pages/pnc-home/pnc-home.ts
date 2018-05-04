@@ -1,3 +1,4 @@
+import { Speciality } from './../../models/speciality';
 import { CareerObjectiveListPage } from './../career-objective-list/career-objective-list';
 import { PncProvider } from './../../providers/pnc/pnc';
 import { Component } from '@angular/core';
@@ -13,6 +14,8 @@ export class PncHomePage {
 
   pnc: Pnc;
   matricule: String;
+  // exporter la classe enum speciality dans la page html
+  Speciality = Speciality;
 
   constructor(public navCtrl: NavController, 
     public navParams: NavParams, 
