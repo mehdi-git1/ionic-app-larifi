@@ -1,6 +1,5 @@
 import { CareerObjectiveProvider } from './../providers/career-objective/career-objective';
 import { PncHomePage } from './../pages/pnc-home/pnc-home';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { CareerObjectiveCreatePage } from './../pages/career-objective-create/career-objective-create';
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
