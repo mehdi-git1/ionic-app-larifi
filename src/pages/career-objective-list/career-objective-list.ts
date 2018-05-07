@@ -1,8 +1,7 @@
 import { CareerObjectiveCreatePage } from './../career-objective-create/career-objective-create';
 import { CareerObjective } from './../../models/careerObjective';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { NavController, NavParams, ToastController } from 'ionic-angular';
-import { RestService, RestRequest } from '../../services/rest.base.service';
 import { CareerObjectiveProvider } from '../../providers/career-objective/career-objective'
 
 
@@ -16,9 +15,9 @@ export class CareerObjectiveListPage {
 
   matricule: String;
 
-  constructor(public navCtrl: NavController, 
-    public navParams: NavParams, 
-    private careerObjectiveProvider: CareerObjectiveProvider, 
+  constructor(public navCtrl: NavController,
+    public navParams: NavParams,
+    private careerObjectiveProvider: CareerObjectiveProvider,
     private toastCtrl: ToastController) {
 
   }
@@ -45,6 +44,6 @@ export class CareerObjectiveListPage {
         cssClass: 'error',
       }).present();
     });
-    
+
   }
 }

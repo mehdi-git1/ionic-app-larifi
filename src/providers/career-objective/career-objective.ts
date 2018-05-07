@@ -1,8 +1,7 @@
 import { AppConfig } from './../../app/app.config';
 import { CareerObjective } from './../../models/careerObjective';
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { RestService, RestRequest } from '../../services/rest.base.service';
+import { RestService } from '../../services/rest.base.service';
 
 @Injectable()
 export class CareerObjectiveProvider {
