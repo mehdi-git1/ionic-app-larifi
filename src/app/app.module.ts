@@ -1,4 +1,4 @@
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { WaypointCreatePage } from './../pages/waypoint-create/waypoint-create';
 import { CareerObjectiveCreatePage } from './../pages/career-objective-create/career-objective-create';
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
@@ -24,6 +24,7 @@ import { RestService } from '../services/rest.base.service';
 import { RestMobileService } from '../services/rest.mobile.service';
 import { RestWebService } from '../services/rest.web.service';
 import { CareerObjectiveProvider } from '../providers/career-objective/career-objective';
+import { WaypointProvider } from '../providers/waypoint/waypoint';
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import { CareerObjectiveProvider } from '../providers/career-objective/career-ob
     ListPage,
     AuthenticationPage,
     CareerObjectiveCreatePage,
-    CareerObjectiveListPage
+    CareerObjectiveListPage,
+    WaypointCreatePage
   ],
   imports: [
     BrowserModule,
@@ -54,7 +56,8 @@ import { CareerObjectiveProvider } from '../providers/career-objective/career-ob
     ListPage,
     AuthenticationPage,
     CareerObjectiveCreatePage,
-    CareerObjectiveListPage
+    CareerObjectiveListPage,
+    WaypointCreatePage
   ],
   providers: [
     StatusBar,
@@ -65,7 +68,8 @@ import { CareerObjectiveProvider } from '../providers/career-objective/career-ob
     AppInitService, HttpClientModule,
     Config,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
-    CareerObjectiveProvider
+    CareerObjectiveProvider,
+    WaypointProvider
   ]
 })
 export class AppModule { }

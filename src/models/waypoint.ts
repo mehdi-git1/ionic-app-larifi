@@ -1,20 +1,19 @@
+import { CareerObjective } from './careerObjective';
 import { PncRole } from './PncRole';
 import { Pnc } from './Pnc';
 
-export class CareerObjective {
+export class Waypoint {
     techId: number;
     pnc: Pnc;
     creationAuthor: Pnc;
-    creationDate: Date;
-    registrationDate: string;
+    creationDate: string;
     lastUpdateAuthor: Pnc;
     lastUpdateDate: string;
     initiator: PncRole;
-    title: string;
     context: string;
-    actionPlan: string;
+    actionPerformed: string;
     managerComment: string;
     pncComment: string;
-    nextEncounterDate: Date;
-    prioritized: boolean;
+    nextEncounterDate: string;
+    careerObjective : CareerObjective;
 }

@@ -105,8 +105,9 @@
             {{ 'CAREER_OBJECTIVE_CREATE.BUTTONS.SAVE' | translate }}&nbsp;
             <ion-spinner *ngIf="saveInProgress"></ion-spinner>
           </button>
+          <button ion-button (click)="goToWaypointCreate()" *ngIf="careerObjective.techId">Créer un point d'étape</button>
         </ion-col>
-      </ion-row>
+      </ion-row>    
     </ion-grid>
   </form>
 

@@ -47,5 +47,26 @@
       "REGISTRATION_DATE": "Date d'enregistrement",
       "NEXT_ENCOUNTER_DATE": "Date du Prochain point"
     }
-  }
+  },
+  "WAYPOINT_CREATE": {
+    "TITLE": "Créer un nouvel point d'étape",
+    "FORM": {
+      "PNC": "PNC",
+      "INITIATOR": "Initiateur",
+      "CONTEXT": "Contexte",
+      "ACTION_PERFORMED": "Actions réalisées",
+      "MANAGER_COMMENT": "Commentaire cadre",
+      "PNC_COMMENT": "Commentaire PNC",
+      "NEXT_ENCOUNTER_DATE": "Prochain point d'étape"
+    },
+    "BUTTONS": {
+      "SAVE": "Enregistrer"
+    },
+    "SUCCESS": {
+      "WAYPOINT_SAVED": "Point d'étape enregistré avec succès"
+    },
+    "ERROR": {
+      "WAYPOINT_CREATION_FAILED": "La création du point d'étape a échoué"
+    }
+  } 
 }

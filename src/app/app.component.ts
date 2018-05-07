@@ -1,4 +1,3 @@
-import { CareerObjectiveCreatePage } from './../pages/career-objective-create/career-objective-create';
 import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
@@ -28,8 +27,7 @@ export class EDossierPNC {
 
     this.pages = [
       { title: 'Home', component: HomePage },
-      { title: 'CareerObjectiveCreate', component: CareerObjectiveCreatePage }
-    ];
+       ];
 
   }
 

@@ -1,3 +1,4 @@
+import { WaypointCreatePage } from './../waypoint-create/waypoint-create';
 import { TranslateService } from '@ngx-translate/core';
 import { CareerObjectiveProvider } from './../../providers/career-objective/career-objective';
 import { CareerObjective } from './../../models/careerObjective';
@@ -26,8 +27,14 @@ export class CareerObjectiveCreatePage {
     private careerObjectiveProvider: CareerObjectiveProvider,
     private toastCtrl: ToastController) {
 
-    this.careerObjective = new CareerObjective();
-    this.careerObjective.pnc = new Pnc();
+
+    if (this.navParams.get('return')) {
+      this.careerObjective = this.navParams.get('careerObjective');
+      console.log("careerObjective", this.careerObjective);
+    } else {
+      this.careerObjective = new CareerObjective();
+      this.careerObjective.pnc = new Pnc();
+    }
 
     // Initialisation du formulaire
     this.creationForm = this.formBuilder.group({
@@ -46,7 +53,7 @@ export class CareerObjectiveCreatePage {
     this.customDateTimeOptions = {
       buttons: [{
         text: this.translateService.instant('GLOBAL.DATEPICKER.CLEAR'),
-        handler: () => this.careerObjective.nextEncounterDate = ''
+        handler: () => this.careerObjective.nextEncounterDate
       }]
     };
 
@@ -62,11 +69,11 @@ export class CareerObjectiveCreatePage {
    */
   createCareerObjective() {
     this.saveInProgress = true;
+    this.careerObjective.nextEncounterDate = new Date(this.careerObjective.nextEncounterDate);
     this.careerObjectiveProvider
       .createOrUpdate(this.careerObjective)
       .then(savedCareerObjective => {
         this.careerObjective = savedCareerObjective;
-
         this.saveInProgress = false;
         this.toastCtrl.create({
           message: this.translateService.instant('CAREER_OBJECTIVE_CREATE.SUCCESS.CAREER_OBJECTIVE_SAVED'),
@@ -84,5 +91,12 @@ export class CareerObjectiveCreatePage {
           cssClass: 'error',
         }).present();
       });
+  }
+
+  /**
+   * Dirige vers la page de création d'un point d'étape
+   */
+  goToWaypointCreate() {
+    this.navCtrl.push(WaypointCreatePage, { careerObjective: this.careerObjective });
   }
 }
