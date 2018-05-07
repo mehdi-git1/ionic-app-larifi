@@ -35,6 +35,8 @@ export class CareerObjectiveCreatePage {
     public careerObjectiveStatusProvider: CareerObjectiveStatusProvider,
     private datePipe: DatePipe) {
 
+    console.log(CareerObjectiveStatus.DRAFT);
+
     this.careerObjective = new CareerObjective();
     this.careerObjective.pnc = new Pnc();
 
@@ -93,7 +95,7 @@ export class CareerObjectiveCreatePage {
   /**
    * Enregistre un objectif au statut brouillon
    */
-  createCareerObjectiveDraft() {
+  saveCareerObjectiveDraft() {
     this.careerObjective.careerObjectiveStatus = CareerObjectiveStatus.DRAFT;
     this.saveCareerObjective();
   }

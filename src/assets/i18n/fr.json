@@ -34,7 +34,7 @@
     },
     "BUTTONS": {
       "SAVE": "Enregistrer",
-      "DRAFT": "Brouillon"
+      "SAVE_DRAFT": "Enregistrer brouillon"
     },
     "SUCCESS": {
       "CAREER_OBJECTIVE_SAVED": "Objectif enregistré avec succès",
