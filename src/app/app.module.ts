@@ -25,6 +25,7 @@ import { RestService } from '../services/rest.base.service';
 import { RestMobileService } from '../services/rest.mobile.service';
 import { RestWebService } from '../services/rest.web.service';
 import { PncProvider } from '../providers/pnc/pnc';
+import { GenderProvider } from '../providers/gender/gender';
 
 
 @NgModule({
@@ -67,7 +68,8 @@ import { PncProvider } from '../providers/pnc/pnc';
     Config,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     PncProvider,
-    CareerObjectiveProvider
+    CareerObjectiveProvider,
+    GenderProvider
   ]
 })
 export class AppModule { }

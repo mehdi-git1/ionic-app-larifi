@@ -3,20 +3,19 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Accueil PNC</ion-title>
+    <ion-title>{{ 'PNC_HOME.WELCOME' | translate }}</ion-title>
   </ion-navbar>
 </ion-header>
 
-
 <ion-content padding>
   <ion-card>
-
     <ion-grid id="informations-grid">
       <ion-row>
         <ion-col col-2>
-          <ion-img class="portrait-picture" src="{{ pnc.gender == 'M' ? '../../assets/imgs/man-default-picture.png' : '../../assets/imgs/woman-default-picture.png' }}"></ion-img>
+          <ion-img class="portrait-picture" src="{{getAvatarPicture(pnc.gender)}}"></ion-img>
         </ion-col>
         <ion-col>
+          <!-- Matricule-->
           <ion-row>
             <ion-col col-12>
               <ion-label class="bold">{{pnc.matricule}}</ion-label>
@@ -24,11 +23,13 @@
           </ion-row>
           <ion-row>
             <ion-col col-5>
+              <!-- Libellé : Prénom-->
               <ion-row>
                 <ion-col>
                   <ion-label class="bold">{{ 'PNC_HOME.FIRST_NAME' | translate }}</ion-label>
                 </ion-col>
               </ion-row>
+              <!-- Libellé : Nom-->
               <ion-row>
                 <ion-col>
                   <ion-label class="bold">{{ 'PNC_HOME.LAST_NAME' | translate }}</ion-label>
@@ -36,11 +37,13 @@
               </ion-row>
             </ion-col>
             <ion-col>
+              <!-- Prénom-->
               <ion-row>
                 <ion-col>
                   <ion-label>{{ pnc.firstName }}</ion-label>
                 </ion-col>
               </ion-row>
+              <!-- Nom-->
               <ion-row>
                 <ion-col>
                   <ion-label> {{ pnc.lastName }}</ion-label>
@@ -52,16 +55,19 @@
         <ion-col>
           <ion-row>
             <ion-col col-5>
+              <!-- Libellé : spécialité-->
               <ion-row>
                 <ion-col>
                   <ion-label class="bold">{{ 'PNC_HOME.SPECIALITY' | translate }}</ion-label>
                 </ion-col>
               </ion-row>
+              <!-- Libellé : ginq-->
               <ion-row>
                 <ion-col>
                   <ion-label class="bold">{{ 'PNC_HOME.GINQ' | translate }}</ion-label>
                 </ion-col>
               </ion-row>
+              <!-- Libellé : secteur-->
               <ion-row>
                 <ion-col>
                   <ion-label class="bold">{{ 'PNC_HOME.SECTOR' | translate }}</ion-label>
@@ -69,16 +75,19 @@
               </ion-row>
             </ion-col>
             <ion-col>
+              <!-- Spécialité-->
               <ion-row>
                 <ion-col>
                   <ion-label>{{pnc.speciality == '' || pnc.speciality == null ? "-" : pnc.speciality}}</ion-label>
                 </ion-col>
               </ion-row>
+              <!-- Ginq-->
               <ion-row>
                 <ion-col>
                   <ion-label>{{pnc.assignment.ginq == '' || pnc.assignment.ginq == null ? "-" : pnc.assignment.ginq}}</ion-label>
                 </ion-col>
               </ion-row>
+              <!-- Secteur-->
               <ion-row>
                 <ion-col>
                   <ion-label> {{pnc.assignment.sector == '' || pnc.assignment.sector == null ? "-" : pnc.assignment.sector}}</ion-label>
@@ -90,6 +99,7 @@
         <ion-col>
           <ion-row>
             <ion-col col-5>
+              <!-- Libellé : division-->
               <ion-row>
                 <ion-col>
                   <ion-label class="bold">{{ 'PNC_HOME.DIVISION' | translate }}</ion-label>
@@ -97,6 +107,7 @@
               </ion-row>
             </ion-col>
             <ion-col>
+              <!-- Division-->
               <ion-row>
                 <ion-col>
                   <ion-label>{{pnc.assignment.division == '' || pnc.assignment.division == null ? "-" : pnc.assignment.division}}</ion-label>
@@ -107,14 +118,14 @@
         </ion-col>
       </ion-row>
     </ion-grid>
-
   </ion-card>
 
   <ion-grid id="buttons-grid">
     <ion-row>
+      <!-- Bouton pour accéder à la liste des objectifs-->
       <ion-col col-6>
-        <button ion-button (click)="goToCareerObjectiveList()" *ngIf="pnc.speciality != Speciality[Speciality.CAD]">
-          {{ 'GLOBAL.DEVELOPMENT_PROGRAMME' | translate }}
+        <button ion-button (click)="goToCareerObjectiveList()" *ngIf="pnc.speciality != Speciality.CAD">
+          {{ 'GLOBAL.DEVELOPMENT_PROGRAM' | translate }}
         </button>
       </ion-col>
       <ion-col col-6>

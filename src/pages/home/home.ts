@@ -14,13 +14,13 @@ import { RestService } from '../../services/rest.base.service';
 export class HomePage {
 
   pncList: Pnc[];
-  matricule: String = "04221722";
+  matricule: string;
 
   constructor(public navCtrl: NavController, public restService: RestService) {
   }
 
-  goToPncHomePage(matricule){
-    this.navCtrl.push(PncHomePage,{matricule:matricule});
+  goToPncHomePage(matricule) {
+    this.navCtrl.push(PncHomePage, { matricule: matricule });
   }
 
   makeRestCall() {
@@ -35,23 +35,9 @@ export class HomePage {
   }
 
   /**
-   * Dirige vers la page de création d'un nouvel objectif
-   */
-  // goToCareerObjectiveCreation() {
-  //   this.navCtrl.push(CareerObjectiveCreatePage, {matricule:this.matricule});
-  // }
-
-  /**
-   * Dirige vers la page de visualisation des objectifs
-   */
-  // goToCareerObjectiveList() {
-  //   this.navCtrl.push(CareerObjectiveListPage, {matricule:this.matricule});
-  // }
-
-  /**
    * Dirige vers la page d'accueil des pnc
    */
-  goToPncHome(){
-    this.navCtrl.push(PncHomePage, {matricule:this.matricule});
+  goToPncHome() {
+    this.navCtrl.push(PncHomePage, { matricule: this.matricule });
   }
 }

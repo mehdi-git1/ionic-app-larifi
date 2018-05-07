@@ -15,21 +15,21 @@ page-pnc-home {
         font-weight: bold;
     }
 
-    ion-grid#informations-grid ion-label{
-        margin: 0px;
+    ion-grid#informations-grid{
+        ion-label{
+            margin: 0px;
+        };
     }
 
     ion-grid#buttons-grid{
         height: 75%;
+        ion-row{
+            height: 100%;
+        };
+        button{
+            height: 100%;
+            width: 100%;
+        };
     }
-    ion-grid#buttons-grid ion-row{
-        height: 100%;
-    }
-
-    ion-grid#buttons-grid button{
-        height: 100%;
-        width: 100%;
-    }
-
-
+  
 }
