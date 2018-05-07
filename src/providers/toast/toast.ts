@@ -29,7 +29,7 @@ export class ToastProvider {
       message: message,
       duration: 5000,
       position: 'bottom',
-      cssClass: 'danger'
+      cssClass: 'error'
     }).present();
   }
 
