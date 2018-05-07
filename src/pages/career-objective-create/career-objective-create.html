@@ -10,6 +10,14 @@
 <ion-content padding>
   <form novalidate [formGroup]="creationForm">
     <ion-grid>
+      <!-- Barre de statut -->
+      <ion-row>
+        <ion-col col-12>
+          <ion-chip color="{{careerObjective.careerObjectiveStatus.toLowerCase()}}" *ngIf="careerObjective.careerObjectiveStatus" float-right>
+            <ion-label>{{ 'GLOBAL.CAREER_OBJECTIVE_STATUS.'+careerObjective.careerObjectiveStatus | translate }}</ion-label>
+          </ion-chip>
+        </ion-col>
+      </ion-row>
       <!-- TEMPORAIRE -->
       <ion-row>
         <ion-col col-12>
@@ -103,11 +111,8 @@
             <ion-label>
               <ion-icon name="calendar"></ion-icon>
             </ion-label>
-
-            <!-- On sépare [] et () pour pouvoir utiliser un | pour donner le format complet de la date. Sinon le format definit par le ion-datetime ne fonctionne pas-->
-            <ion-datetime displayFormat="DD/MM/YYYY"  [ngModel]='careerObjective.nextEncounterDate | date:"yyyy-MM-ddTHH:mm"' (ngModelChange)="careerObjective.nextEncounterDate=$event"
-               formControlName="nextEncounterDateControl" [pickerOptions]="customDateTimeOptions"  [doneText]="translateService.instant('GLOBAL.DATEPICKER.DONE')"
-              [cancelText]="translateService.instant('GLOBAL.DATEPICKER.CANCEL')">
+            <ion-datetime displayFormat="DD/MM/YYYY"  [(ngModel)]="careerObjective.nextEncounterDate" formControlName="nextEncounterDateControl"
+              [pickerOptions]="customDateTimeOptions"  [doneText]="translateService.instant('GLOBAL.DATEPICKER.DONE')" [cancelText]="translateService.instant('GLOBAL.DATEPICKER.CANCEL')">
               </ion-datetime>
           </ion-item>
           <!-- Prioritaire -->
@@ -126,9 +131,9 @@
           </button>
           <button ion-button (click)="createCareerObjectiveDraft()" [disabled]="creationForm.invalid || saveInProgress" *ngIf='careerObjectiveStatusProvider.isTransitionOk(careerObjective,CareerObjectiveStatus.DRAFT)'
             color="primary">
-            {{ 'CAREER_OBJECTIVE_CREATE.BUTTONS.DRAFT' | translate }}
+            {{ 'CAREER_OBJECTIVE_CREATE.BUTTONS.SAVE_DRAFT' | translate }}
+            <ion-spinner *ngIf="saveInProgress"></ion-spinner>
           </button>
-          <ion-spinner *ngIf="saveInProgress"></ion-spinner>
         </ion-col>
       </ion-row>
     </ion-grid>

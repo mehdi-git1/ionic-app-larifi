@@ -16,11 +16,11 @@ export class CareerObjectiveStatusProvider {
    * @return Vrai si la transition est acceptée, false sinon.
    */
   isTransitionOk(speciality: Speciality, careerObjective: CareerObjective, newStatus: CareerObjectiveStatus): boolean {
-    // Pour une creation ou un brouillon, on n'a le droit que de sauvegarder en brouillon
-    if (careerObjective.careerObjectiveStatus === undefined || careerObjective.careerObjectiveStatus === CareerObjectiveStatus.DRAFT) {
-      if(careerObjective.creationAuthor.speciality === Speciality.CAD){
-        return [CareerObjectiveStatus.DRAFT,CareerObjectiveStatus.REGISTER].indexOf(newStatus) > -1;
-      }
+    //Conversion en enum au cas où le paramètre serait en string
+    currentStatus = CareerObjectiveStatus[currentStatus];
+
+    // Pour une creation ou un brouillon, on n'a le droit que sauvegarder en brouillon
+    if (currentStatus === undefined || currentStatus === CareerObjectiveStatus.DRAFT) {
       // Liste des nouveaux statuts authorisés
       return [CareerObjectiveStatus.DRAFT].indexOf(newStatus) > -1;
     }

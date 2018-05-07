@@ -27,6 +27,7 @@ import { RestWebService } from '../services/rest.web.service';
 import { PncProvider } from '../providers/pnc/pnc';
 import { ToastProvider } from '../providers/toast/toast';
 import { CareerObjectiveStatusProvider } from '../providers/career-objective-status/career-objective-status';
+import { DatePipe } from '@angular/common';
 
 
 @NgModule({
@@ -71,7 +72,8 @@ import { CareerObjectiveStatusProvider } from '../providers/career-objective-sta
     PncProvider,
     CareerObjectiveProvider,
     ToastProvider,
-    CareerObjectiveStatusProvider
+    CareerObjectiveStatusProvider,
+    DatePipe
   ]
 })
 export class AppModule { }

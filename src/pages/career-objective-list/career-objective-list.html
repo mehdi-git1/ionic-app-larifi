@@ -17,32 +17,28 @@
     <ion-icon name="add"></ion-icon>
   </button>
 
-  <ion-content class="card-content">
-    <ion-card class="no-margin-left" *ngFor="let careerObjective of careerObjectiveList">
+  <ion-content class="career-objective-list-container">
+    <ion-card class="career-objective-card no-margin-left" *ngFor="let careerObjective of careerObjectiveList">
       <ion-card-content no-padding>
-        <ion-grid>
-          <ion-row>
-            <ion-col col-11>
-              <strong> {{careerObjective.title}} </strong>
-            </ion-col>
-            <ion-col col-1 align="right">
-              <ion-icon name="square" color='{{careerObjective.careerObjectiveStatus.toLowerCase()}}' *ngIf='careerObjective.careerObjectiveStatus != null'></ion-icon>
-            </ion-col>
-          </ion-row>
-          <ion-row>
-            <ion-col>{{ 'CAREER_OBJECTIVE_LIST.LIST.CREATION_DATE' | translate }}</ion-col>
-            <ion-col>{{ 'CAREER_OBJECTIVE_LIST.LIST.REGISTRATION_DATE' | translate }}</ion-col>
-            <ion-col>{{ 'CAREER_OBJECTIVE_LIST.LIST.NEXT_ENCOUNTER_DATE' | translate }}</ion-col>
-          </ion-row>
+        <div class="header">
+          <h4>{{careerObjective.title}}</h4>
+          <ion-chip color="{{careerObjective.careerObjectiveStatus.toLowerCase()}}" *ngIf="careerObjective.careerObjectiveStatus" float-right>
+            <ion-label>{{ 'GLOBAL.CAREER_OBJECTIVE_STATUS.'+careerObjective.careerObjectiveStatus | translate }}</ion-label>
+          </ion-chip>
+        </div>
+        <ion-grid class="content">
           <ion-row>
             <ion-col>
-              {{careerObjective.creationDate == null ? "-" : careerObjective.creationDate | date: 'dd-MM-yyyy HH:mm:ss'}}
+              <label>{{ 'CAREER_OBJECTIVE_LIST.LIST.CREATION_DATE' | translate }}</label>
+              <span class="value">{{careerObjective.creationDate == null ? "-" : careerObjective.creationDate | date: 'dd/MM/yyyy HH:mm:ss'}}</span>
             </ion-col>
             <ion-col>
-              {{careerObjective.registrationDate == null ? "-" : careerObjective.registrationDate | date: 'dd-MM-yyyy HH:mm:ss'}}
+              <label>{{ 'CAREER_OBJECTIVE_LIST.LIST.REGISTRATION_DATE' | translate }}</label>
+              <span class="value">{{careerObjective.registrationDate == null ? "-" : careerObjective.registrationDate | date: 'dd/MM/yyyy HH:mm:ss'}}</span>
             </ion-col>
             <ion-col>
-              {{careerObjective.nextEncounterDate == null ? "-" : careerObjective.nextEncounterDate | date: 'dd-MM-yyyy HH:mm:ss'}}
+              <label>{{ 'CAREER_OBJECTIVE_LIST.LIST.NEXT_ENCOUNTER_DATE' | translate }}</label>
+              <span class="value">{{careerObjective.nextEncounterDate == null ? "-" : careerObjective.nextEncounterDate | date: 'dd/MM/yyyy HH:mm:ss'}}</span>
             </ion-col>
           </ion-row>
         </ion-grid>
