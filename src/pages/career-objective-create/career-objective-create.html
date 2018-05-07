@@ -13,7 +13,7 @@
       <!-- Barre de statut -->
       <ion-row>
         <ion-col col-12>
-          <label class="career-objective-status {{careerObjective.careerObjectiveStatus}}" *ngIf="careerObjective.careerObjectiveStatus"
+          <label class="career-objective-status {{careerObjective.careerObjectiveStatus.toLowerCase()}}" *ngIf="careerObjective.careerObjectiveStatus"
             float-right>
             {{ 'GLOBAL.CAREER_OBJECTIVE_STATUS.'+careerObjective.careerObjectiveStatus | translate }}
           </label>
