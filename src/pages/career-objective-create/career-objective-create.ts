@@ -4,14 +4,13 @@ import { CareerObjectiveStatus } from './../../models/careerObjectiveStatus';
 import { TranslateService } from '@ngx-translate/core';
 import { CareerObjectiveProvider } from './../../providers/career-objective/career-objective';
 import { CareerObjective } from './../../models/careerObjective';
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Pnc } from '../../models/Pnc';
+import { DatePipe } from '@angular/common';
 
 @Component({
-  // Changement de strategy pour eviter le probleme de ExpressionChangedAfterItHasBeenCheckedError levé par le date picker
-  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'page-career-objective-create',
   templateUrl: 'career-objective-create.html',
 })
@@ -33,7 +32,8 @@ export class CareerObjectiveCreatePage {
     private formBuilder: FormBuilder,
     private careerObjectiveProvider: CareerObjectiveProvider,
     private toastProvider: ToastProvider,
-    public careerObjectiveStatusProvider: CareerObjectiveStatusProvider) {
+    public careerObjectiveStatusProvider: CareerObjectiveStatusProvider,
+    private datePipe: DatePipe) {
 
     this.careerObjective = new CareerObjective();
     this.careerObjective.pnc = new Pnc();
@@ -69,6 +69,9 @@ export class CareerObjectiveCreatePage {
    * Lance le processus de création/mise à jour d'un objectif
    */
   saveCareerObjective() {
+    // Transformation de la date au format ISO avant envoi au back
+    this.careerObjective.nextEncounterDate = this.datePipe.transform(this.careerObjective.nextEncounterDate, 'yyyy-MM-ddTHH:mm');
+
     this.saveInProgress = true;
     this.careerObjectiveProvider
       .createOrUpdate(this.careerObjective)
