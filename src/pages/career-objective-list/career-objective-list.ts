@@ -1,7 +1,7 @@
 import { ToastProvider } from './../../providers/toast/toast';
 import { CareerObjectiveCreatePage } from './../career-objective-create/career-objective-create';
 import { CareerObjective } from './../../models/careerObjective';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { CareerObjectiveProvider } from '../../providers/career-objective/career-objective'
 
