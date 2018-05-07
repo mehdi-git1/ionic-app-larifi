@@ -1,7 +1,5 @@
 import { RestRequest } from './../../services/rest.base.service';
 import { PncHomePage } from './../pnc-home/pnc-home';
-import { CareerObjectiveCreatePage } from './../career-objective-create/career-objective-create';
-import { CareerObjectiveListPage } from './../career-objective-list/career-objective-list';
 import { Pnc } from './../../models/pnc';
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
