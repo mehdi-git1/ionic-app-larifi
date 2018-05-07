@@ -23,10 +23,13 @@
         <ion-grid>
           <ion-row>
             <ion-col col-11>
-              <strong> {{careerObjective.title}} </strong>
+              {{careerObjective.title}}
             </ion-col>
-            <ion-col col-1 align="right">
-              <ion-icon name="square" color='{{careerObjective.careerObjectiveStatus.toLowerCase()}}' *ngIf='careerObjective.careerObjectiveStatus != null'></ion-icon>
+            <ion-col col-1>
+              <label class="career-objective-status {{careerObjective.careerObjectiveStatus.toLowerCase()}}" *ngIf="careerObjective.careerObjectiveStatus"
+                float-right>
+                {{ 'GLOBAL.CAREER_OBJECTIVE_STATUS.'+careerObjective.careerObjectiveStatus | translate }}
+              </label>
             </ion-col>
           </ion-row>
           <ion-row>
