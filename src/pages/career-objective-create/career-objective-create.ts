@@ -1,3 +1,4 @@
+import { Speciality } from './../../models/speciality';
 import { CareerObjectiveStatusProvider } from './../../providers/career-objective-status/career-objective-status';
 import { ToastProvider } from './../../providers/toast/toast';
 import { CareerObjectiveStatus } from './../../models/careerObjectiveStatus';
@@ -25,6 +26,9 @@ export class CareerObjectiveCreatePage {
 
   // Permet d'exposer l'enum au template
   CareerObjectiveStatus: typeof CareerObjectiveStatus = CareerObjectiveStatus;
+
+  // Exporter un objet de la classe enum dans la template
+  Speciality = Speciality;
 
   constructor(
     public navCtrl: NavController,
