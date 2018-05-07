@@ -19,10 +19,6 @@ export class HomePage {
   constructor(public navCtrl: NavController, public restService: RestService) {
   }
 
-  goToPncHomePage(matricule) {
-    this.navCtrl.push(PncHomePage, { matricule: matricule });
-  }
-
   makeRestCall() {
     let r = new RestRequest();
     r.method = "GET";

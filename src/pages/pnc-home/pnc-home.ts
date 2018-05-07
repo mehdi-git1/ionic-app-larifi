@@ -34,7 +34,7 @@ export class PncHomePage {
    */
   ionViewDidLoad() {
     this.matricule = this.navParams.get("matricule");
-    this.pncProvider.getPncInformations(this.matricule).then(result => {
+    this.pncProvider.getPnc(this.matricule).then(result => {
       this.pnc = result;
     }, error => {
       this.toastCtrl.create({
@@ -53,7 +53,10 @@ export class PncHomePage {
     this.navCtrl.push(CareerObjectiveListPage, { matricule: this.matricule });
   }
 
-  getAvatarPicture(gender:Gender){
+  /**
+   * récupere l'avatar selon le gendre du pnc
+   */
+  getAvatarPicture(gender: Gender) {
     return this.genderProvider.getAvatarPicture(gender);
   }
 }
