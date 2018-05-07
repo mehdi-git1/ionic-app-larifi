@@ -9,7 +9,10 @@
       "DONE": "Valider",
       "CLEAR": "Vider"
     },
-    "DEVELOPMENT_PROGRAMME": "Parcours de développement"
+    "DEVELOPMENT_PROGRAMME": "Parcours de développement",
+    "CAREER_OBJECTIVE_STATUS": {
+      "DRAFT": "BROUILLON"
+    }
   },
   "HOME": {
     "BUTTONS": {
