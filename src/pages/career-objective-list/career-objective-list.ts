@@ -1,8 +1,8 @@
+import { ToastProvider } from './../../providers/toast/toast';
 import { CareerObjectiveCreatePage } from './../career-objective-create/career-objective-create';
 import { CareerObjective } from './../../models/careerObjective';
-import { Component, OnInit } from '@angular/core';
-import { NavController, NavParams, ToastController } from 'ionic-angular';
-import { RestService, RestRequest } from '../../services/rest.base.service';
+import { Component } from '@angular/core';
+import { NavController, NavParams } from 'ionic-angular';
 import { CareerObjectiveProvider } from '../../providers/career-objective/career-objective'
 
 
@@ -14,12 +14,12 @@ export class CareerObjectiveListPage {
 
   careerObjectiveList: CareerObjective[];
 
-  matricule: String;
+  matricule: string;
 
-  constructor(public navCtrl: NavController, 
-    public navParams: NavParams, 
-    private careerObjectiveProvider: CareerObjectiveProvider, 
-    private toastCtrl: ToastController) {
+  constructor(public navCtrl: NavController,
+    public navParams: NavParams,
+    private careerObjectiveProvider: CareerObjectiveProvider,
+    private toastProvider: ToastProvider) {
 
   }
 
@@ -38,13 +38,8 @@ export class CareerObjectiveListPage {
     this.careerObjectiveProvider.getCareerObjectiveList(this.matricule).then(result => {
       this.careerObjectiveList = result;
     }, error => {
-      this.toastCtrl.create({
-        message: error.detailMessage,
-        duration: 3000,
-        position: 'bottom',
-        cssClass: 'error',
-      }).present();
+      this.toastProvider.error(error.detailMessage);
     });
-    
+
   }
 }

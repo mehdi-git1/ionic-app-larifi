@@ -1,4 +1,3 @@
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { CareerObjectiveCreatePage } from './../pages/career-objective-create/career-objective-create';
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
@@ -24,6 +23,9 @@ import { RestService } from '../services/rest.base.service';
 import { RestMobileService } from '../services/rest.mobile.service';
 import { RestWebService } from '../services/rest.web.service';
 import { CareerObjectiveProvider } from '../providers/career-objective/career-objective';
+import { ToastProvider } from '../providers/toast/toast';
+import { CareerObjectiveStatusProvider } from '../providers/career-objective-status/career-objective-status';
+import { DatePipe } from '@angular/common';
 
 
 @NgModule({
@@ -65,7 +67,10 @@ import { CareerObjectiveProvider } from '../providers/career-objective/career-ob
     AppInitService, HttpClientModule,
     Config,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
-    CareerObjectiveProvider
+    CareerObjectiveProvider,
+    ToastProvider,
+    CareerObjectiveStatusProvider,
+    DatePipe
   ]
 })
 export class AppModule { }

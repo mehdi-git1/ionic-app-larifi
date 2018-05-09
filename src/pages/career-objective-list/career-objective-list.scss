@@ -1,22 +1,34 @@
 page-career-objective-list {
-    
-    $padding-0: 0px;
-    $margin-0: 0px;
-    $padding-5: 5px;
-    $margin-10: 10px;
 
-    .col{
-        padding:$padding-0 $padding-5;
+    .career-objective-list-container{
+        height: 80%;
+        margin:0;
+        padding:0;
+
+        .career-objective-card{
+            padding: 10px;
+            .header{
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                h4{
+                    font-size: 1.3em;
+                    font-weight: bold;
+                }
+            }
+
+            .content{
+                ion-row{                    
+                    ion-col{
+                        display: flex;
+                        flex-direction: column;
+                        label{
+                            font-weight: bold;
+                        }
+                    }
+                }
+                
+            }
+        }
     }
-
-    .no-margin-left{
-        margin-left: $margin-0;
-    }
-
-    .card-content{
-        height: 82%;
-        padding-top: $padding-0;
-        padding: $padding-0;
-    }
-
 }
