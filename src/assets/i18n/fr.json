@@ -9,7 +9,10 @@
       "DONE": "Valider",
       "CLEAR": "Vider"
     },
-    "DEVELOPMENT_PROGRAMME": "Parcours de développement"
+    "DEVELOPMENT_PROGRAM": "Parcours de développement",
+    "CAREER_OBJECTIVE_STATUS": {
+      "DRAFT": "BROUILLON"
+    }
   },
   "HOME": {
     "BUTTONS": {
@@ -30,10 +33,12 @@
       "PRIORITIZED": "Prioritaire"
     },
     "BUTTONS": {
-      "SAVE": "Enregistrer"
+      "SAVE": "Enregistrer",
+      "SAVE_DRAFT": "Enregistrer brouillon"
     },
     "SUCCESS": {
-      "CAREER_OBJECTIVE_SAVED": "Objectif enregistré avec succès"
+      "CAREER_OBJECTIVE_SAVED": "Objectif enregistré avec succès",
+      "DRAFT_SAVED": "Brouillon enregistré"
     },
     "ERROR": {
       "CAREER_OBJECTIVE_CREATION_FAILED": "La création de l'objectif a échoué"
@@ -47,5 +52,16 @@
       "REGISTRATION_DATE": "Date d'enregistrement",
       "NEXT_ENCOUNTER_DATE": "Date du Prochain point"
     }
+  },
+  "PNC_HOME": {
+    "TITLE": "Accueil PNC",
+    "MATRICULE": "Matricule",
+    "LAST_NAME": "Nom",
+    "FIRST_NAME": "Prénom",
+    "GENDER": "Sexe",
+    "SPECIALITY": "Spécialité",
+    "GINQ": "Ginq",
+    "SECTOR": "Secteur",
+    "DIVISION": "Division"
   }
 }
