@@ -17,7 +17,7 @@
 
 @import '../theme/toast.scss';
 
-/* A utiliser sur les éléments cliquables */
-.clickable{
+/* A utiliser sur les éléments cliquables (les labels ont un style contraire, on est obligé de les surcharger) */
+.clickable, .clickable label{
     cursor: pointer;
 }

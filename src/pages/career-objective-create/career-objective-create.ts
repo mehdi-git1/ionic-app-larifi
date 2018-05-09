@@ -34,10 +34,6 @@ export class CareerObjectiveCreatePage {
     private toastProvider: ToastProvider,
     public careerObjectiveStatusProvider: CareerObjectiveStatusProvider,
     private datePipe: DatePipe) {
-
-  }
-
-  ionViewDidLoad() {
     this.careerObjective = new CareerObjective();
     this.careerObjective.pnc = new Pnc();
 
@@ -75,6 +71,10 @@ export class CareerObjectiveCreatePage {
     }
 
     this.saveInProgress = false;
+  }
+
+  ionViewDidLoad() {
+
   }
 
   /**

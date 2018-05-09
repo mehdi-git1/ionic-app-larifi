@@ -18,7 +18,7 @@
   </button>
 
   <ion-content class="career-objective-list-container">
-    <ion-card class="career-objective-card no-margin-left" *ngFor="let careerObjective of careerObjectiveList">
+    <ion-card class="career-objective-card clickable" *ngFor="let careerObjective of careerObjectiveList" (click)="openCareerObjective(careerObjective.techId)">
       <ion-card-content no-padding>
         <div class="header">
           <h4>{{careerObjective.title}}</h4>
