@@ -35,8 +35,6 @@ export class CareerObjectiveCreatePage {
     public careerObjectiveStatusProvider: CareerObjectiveStatusProvider,
     private datePipe: DatePipe) {
 
-    console.log(CareerObjectiveStatus.DRAFT);
-
     this.careerObjective = new CareerObjective();
     this.careerObjective.pnc = new Pnc();
 
@@ -82,9 +80,9 @@ export class CareerObjectiveCreatePage {
         this.saveInProgress = false;
 
         if (this.careerObjective.careerObjectiveStatus === CareerObjectiveStatus.DRAFT) {
-          this.toastProvider.success(this.translateService.instant('CAREER_OBJECTIVE_CREATE.SUCCESS.CAREER_OBJECTIVE_SAVED'));
-        } else {
           this.toastProvider.success(this.translateService.instant('CAREER_OBJECTIVE_CREATE.SUCCESS.DRAFT_SAVED'));
+        } else {
+          this.toastProvider.success(this.translateService.instant('CAREER_OBJECTIVE_CREATE.SUCCESS.CAREER_OBJECTIVE_SAVED'));
         }
       }, error => {
         this.saveInProgress = false;
