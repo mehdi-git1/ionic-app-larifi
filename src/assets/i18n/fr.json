@@ -18,6 +18,7 @@
   },
   "CAREER_OBJECTIVE_CREATE": {
     "TITLE": "Créer un nouvel objectif",
+    "SUB_TITLE": "Point d'étape",
     "FORM": {
       "PNC": "PNC",
       "INITIATOR": "Initiateur",
@@ -56,8 +57,7 @@
       "CONTEXT": "Contexte",
       "ACTION_PERFORMED": "Actions réalisées",
       "MANAGER_COMMENT": "Commentaire cadre",
-      "PNC_COMMENT": "Commentaire PNC",
-      "NEXT_ENCOUNTER_DATE": "Prochain point d'étape"
+      "PNC_COMMENT": "Commentaire PNC"
     },
     "BUTTONS": {
       "SAVE": "Enregistrer"
@@ -68,5 +68,5 @@
     "ERROR": {
       "WAYPOINT_CREATION_FAILED": "La création du point d'étape a échoué"
     }
-  } 
+  }
 }

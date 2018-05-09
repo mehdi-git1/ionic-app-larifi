@@ -5,7 +5,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { Component } from '@angular/core';
 import { NavController, NavParams, ToastController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import {CareerObjectiveCreatePage} from './../career-objective-create/career-objective-create';
+import { CareerObjectiveCreatePage } from './../career-objective-create/career-objective-create';
 
 @Component({
   selector: 'page-waypoint-create',
@@ -16,10 +16,11 @@ export class WaypointCreatePage {
   creationForm: FormGroup;
   careerObjective: CareerObjective;
   waypoint: Waypoint;
-  techId : any;
+  techId: any;
   customDateTimeOptions: any;
   saveInProgress: boolean;
-  return: boolean ;
+  return: boolean;
+  waypointList: Waypoint[] = [];
 
   constructor(
     public navCtrl: NavController,
@@ -33,16 +34,16 @@ export class WaypointCreatePage {
     this.careerObjective = this.navParams.get('careerObjective');
     console.log("careerObjective", this.careerObjective);
     this.waypoint.careerObjective = this.careerObjective;
-    
+    this.waypointList = this.navParams.get('waypointList');
+    this.waypointList.push(this.waypoint);
+
 
     // Initialisation du formulaire
     this.creationForm = this.formBuilder.group({
-      initiatorControl: ['', Validators.required],
-      contextControl: ['', Validators.maxLength(4000)],
-      actionPerformedControl: ['', Validators.maxLength(5000)],
+      contextControl: ['', Validators.compose([Validators.maxLength(4000), Validators.required])],
+      actionPerformedControl: ['', Validators.compose([Validators.maxLength(5000), Validators.required])],
       managerCommentControl: ['', Validators.maxLength(4000)],
       pncCommentControl: ['', Validators.maxLength(4000)],
-      nextEncounterDateControl: [''],
     });
 
     // Options du datepicker
@@ -85,7 +86,7 @@ export class WaypointCreatePage {
           cssClass: 'error',
         }).present();
       });
-      this.navCtrl.push(CareerObjectiveCreatePage, {careerObjective: this.careerObjective, waypoint: this.waypoint, return: true});
+    this.navCtrl.push(CareerObjectiveCreatePage, { careerObjective: this.careerObjective, waypointList: this.waypointList, return: true });
   }
 
 }

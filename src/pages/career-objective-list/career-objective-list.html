@@ -17,33 +17,33 @@
     <ion-icon name="add"></ion-icon>
   </button>
 
-<ion-content class="card-content" >
-  <ion-card class="no-margin-left" *ngFor="let careerObjective of careerObjectiveList">
-    <ion-card-content no-padding>
-      <ion-grid>
-        <ion-row>
-          <ion-col col-12>
-            <strong> {{careerObjective.title}} </strong>
-          </ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col>{{ 'CAREER_OBJECTIVE_LIST.LIST.CREATION_DATE' | translate }}</ion-col>
-          <ion-col>{{ 'CAREER_OBJECTIVE_LIST.LIST.REGISTRATION_DATE' | translate }}</ion-col>
-          <ion-col>{{ 'CAREER_OBJECTIVE_LIST.LIST.NEXT_ENCOUNTER_DATE' | translate }}</ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col>
-            {{careerObjective.creationDate == null ? "-" : careerObjective.creationDate | date: 'dd-MM-yyyy HH:mm:ss'}}
-          </ion-col>
-          <ion-col>
-            {{careerObjective.registrationDate == null ? "-" : careerObjective.registrationDate | date: 'dd-MM-yyyy HH:mm:ss'}}
-          </ion-col>
-          <ion-col>
-            {{careerObjective.nextEncounterDate == null ? "-" : careerObjective.nextEncounterDate | date: 'dd-MM-yyyy HH:mm:ss'}}
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-    </ion-card-content>
-  </ion-card>
-</ion-content>
+  <ion-content class="card-content">
+    <ion-card class="no-margin-left" *ngFor="let careerObjective of careerObjectiveList">
+      <ion-card-content no-padding>
+        <ion-grid>
+          <ion-row>
+            <ion-col col-12>
+              <strong> {{careerObjective.title}} </strong>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>{{ 'CAREER_OBJECTIVE_LIST.LIST.CREATION_DATE' | translate }}</ion-col>
+            <ion-col>{{ 'CAREER_OBJECTIVE_LIST.LIST.REGISTRATION_DATE' | translate }}</ion-col>
+            <ion-col>{{ 'CAREER_OBJECTIVE_LIST.LIST.NEXT_ENCOUNTER_DATE' | translate }}</ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              {{careerObjective.creationDate == null ? "-" : careerObjective.creationDate | date: 'dd-MM-yyyy HH:mm:ss'}}
+            </ion-col>
+            <ion-col>
+              {{careerObjective.registrationDate == null ? "-" : careerObjective.registrationDate | date: 'dd-MM-yyyy HH:mm:ss'}}
+            </ion-col>
+            <ion-col>
+              {{careerObjective.nextEncounterDate == null ? "-" : careerObjective.nextEncounterDate | date: 'dd-MM-yyyy HH:mm:ss'}}
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+    </ion-card>
+  </ion-content>
 </ion-content>

@@ -10,58 +10,90 @@
 <ion-content padding>
   <form novalidate [formGroup]="creationForm">
     <ion-grid>
-      <!-- TEMPORAIRE -->
       <ion-row>
-        <ion-col col-12>
-          <!-- PNC -->
-          <ion-item>
-            <ion-label floating>Matricule</ion-label>
-            <ion-input type="text" [(ngModel)]="careerObjective.pnc.matricule" formControlName="pncMatriculeControl"></ion-input>
-          </ion-item>
+        <ion-col col-8>
+          <!-- TEMPORAIRE -->
+          <ion-row>
+            <ion-col col-12>
+              <!-- PNC -->
+              <ion-item>
+                <ion-label floating>Matricule</ion-label>
+                <ion-input type="text" [(ngModel)]="careerObjective.pnc.matricule" formControlName="pncMatriculeControl"></ion-input>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <!-- FIN TEMPORAIRE -->
+          <ion-row>
+            <ion-col col-12>
+              <!-- Titre -->
+              <ion-item>
+                <ion-label floating>{{ 'CAREER_OBJECTIVE_CREATE.FORM.TITLE' | translate }}</ion-label>
+                <ion-input type="text" [(ngModel)]="careerObjective.title" formControlName="titleControl"></ion-input>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col col-12>
+              <!-- Contexte -->
+              <ion-item>
+                <ion-label floating>{{ 'CAREER_OBJECTIVE_CREATE.FORM.CONTEXT' | translate }}</ion-label>
+                <ion-textarea [(ngModel)]="careerObjective.context" formControlName="contextControl" name="context"></ion-textarea>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col col-12>
+              <!-- Plan d'action -->
+              <ion-item>
+                <ion-label floating>{{ 'CAREER_OBJECTIVE_CREATE.FORM.ACTION_PLAN' | translate }}</ion-label>
+                <ion-textarea [(ngModel)]="careerObjective.actionPlan" formControlName="actionPlanControl" name="actionPlan"></ion-textarea>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col col-6>
+              <!-- Commentaire cadre -->
+              <ion-item>
+                <ion-label floating>{{ 'CAREER_OBJECTIVE_CREATE.FORM.MANAGER_COMMENT' | translate }}</ion-label>
+                <ion-textarea [(ngModel)]="careerObjective.managerComment" formControlName="managerCommentControl" name="managerComment"></ion-textarea>
+              </ion-item>
+            </ion-col>
+            <ion-col col-6>
+              <!-- Commentaire PNC -->
+              <ion-item>
+                <ion-label floating>{{ 'CAREER_OBJECTIVE_CREATE.FORM.PNC_COMMENT' | translate }}</ion-label>
+                <ion-textarea [(ngModel)]="careerObjective.pncComment" formControlName="pncCommentControl" name="pncComment"></ion-textarea>
+              </ion-item>
+            </ion-col>
+          </ion-row>
         </ion-col>
-      </ion-row>
-      <!-- FIN TEMPORAIRE -->
-      <ion-row>
-        <ion-col col-12>
-          <!-- Titre -->
-          <ion-item>
-            <ion-label floating>{{ 'CAREER_OBJECTIVE_CREATE.FORM.TITLE' | translate }}</ion-label>
-            <ion-input type="text" [(ngModel)]="careerObjective.title" formControlName="titleControl"></ion-input>
-          </ion-item>
-        </ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col col-12>
-          <!-- Contexte -->
-          <ion-item>
-            <ion-label floating>{{ 'CAREER_OBJECTIVE_CREATE.FORM.CONTEXT' | translate }}</ion-label>
-            <ion-textarea [(ngModel)]="careerObjective.context" formControlName="contextControl" name="context"></ion-textarea>
-          </ion-item>
-        </ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col col-12>
-          <!-- Plan d'action -->
-          <ion-item>
-            <ion-label floating>{{ 'CAREER_OBJECTIVE_CREATE.FORM.ACTION_PLAN' | translate }}</ion-label>
-            <ion-textarea [(ngModel)]="careerObjective.actionPlan" formControlName="actionPlanControl" name="actionPlan"></ion-textarea>
-          </ion-item>
-        </ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col col-6>
-          <!-- Commentaire cadre -->
-          <ion-item>
-            <ion-label floating>{{ 'CAREER_OBJECTIVE_CREATE.FORM.MANAGER_COMMENT' | translate }}</ion-label>
-            <ion-textarea [(ngModel)]="careerObjective.managerComment" formControlName="managerCommentControl" name="managerComment"></ion-textarea>
-          </ion-item>
-        </ion-col>
-        <ion-col col-6>
-          <!-- Commentaire PNC -->
-          <ion-item>
-            <ion-label floating>{{ 'CAREER_OBJECTIVE_CREATE.FORM.PNC_COMMENT' | translate }}</ion-label>
-            <ion-textarea [(ngModel)]="careerObjective.pncComment" formControlName="pncCommentControl" name="pncComment"></ion-textarea>
-          </ion-item>
+        <!-- Bouton création point d'étape -->
+        <ion-col col-4>
+
+          <ion-title>{{ 'CAREER_OBJECTIVE_CREATE.SUB_TITLE' | translate }}</ion-title>
+          <button margin ion-button color="dark" (click)="goToWaypointCreate()" *ngIf="careerObjective.techId">
+            <ion-icon name="add"></ion-icon>
+          </button>
+
+          <ion-content class="card-content">
+            <ion-card class="no-margin-left" *ngFor="let waypoint of waypointList">
+              <ion-card-content no-padding>
+                <ion-grid>
+                  <button class="hidden-button" ion-button (click)="goToWaypointCreate()">
+                    <ion-row>
+                      <ion-col>
+                        {{waypoint.context}}
+                      </ion-col>
+                    </ion-row>
+                  </button>
+                </ion-grid>
+              </ion-card-content>
+            </ion-card>
+          </ion-content>
+          <!--  <ion-list>
+            <ion-item *ngFor="let waypoint of waypointList">{{waypoint.context}}</ion-item>
+          </ion-list> -->
+
         </ion-col>
       </ion-row>
       <ion-row>
@@ -105,9 +137,9 @@
             {{ 'CAREER_OBJECTIVE_CREATE.BUTTONS.SAVE' | translate }}&nbsp;
             <ion-spinner *ngIf="saveInProgress"></ion-spinner>
           </button>
-          <button ion-button (click)="goToWaypointCreate()" *ngIf="careerObjective.techId">Créer un point d'étape</button>
+          <!--  <button ion-button (click)="goToWaypointCreate()" *ngIf="careerObjective.techId">Créer un point d'étape</button> -->
         </ion-col>
-      </ion-row>    
+      </ion-row>
     </ion-grid>
   </form>
 

@@ -1,3 +1,4 @@
+import { Waypoint } from './../../models/waypoint';
 import { WaypointCreatePage } from './../waypoint-create/waypoint-create';
 import { TranslateService } from '@ngx-translate/core';
 import { CareerObjectiveProvider } from './../../providers/career-objective/career-objective';
@@ -18,6 +19,8 @@ export class CareerObjectiveCreatePage {
 
   customDateTimeOptions: any;
   saveInProgress: boolean;
+  waypoint: Waypoint;
+  waypointList: Waypoint[] = [];
 
   constructor(
     public navCtrl: NavController,
@@ -27,14 +30,9 @@ export class CareerObjectiveCreatePage {
     private careerObjectiveProvider: CareerObjectiveProvider,
     private toastCtrl: ToastController) {
 
-
-    if (this.navParams.get('return')) {
-      this.careerObjective = this.navParams.get('careerObjective');
-      console.log("careerObjective", this.careerObjective);
-    } else {
-      this.careerObjective = new CareerObjective();
-      this.careerObjective.pnc = new Pnc();
-    }
+    this.careerObjective = new CareerObjective();
+    this.careerObjective.pnc = new Pnc();
+    this.waypoint = new Waypoint();
 
     // Initialisation du formulaire
     this.creationForm = this.formBuilder.group({
@@ -46,7 +44,8 @@ export class CareerObjectiveCreatePage {
       managerCommentControl: ['', Validators.maxLength(4000)],
       pncCommentControl: ['', Validators.maxLength(4000)],
       nextEncounterDateControl: [''],
-      prioritizedControl: [false]
+      prioritizedControl: [false],
+      waypointContextControl: ['', Validators.maxLength(4000)]
     });
 
     // Options du datepicker
@@ -62,6 +61,12 @@ export class CareerObjectiveCreatePage {
 
   ionViewDidLoad() {
 
+    if (this.navParams.get('return')) {
+      this.careerObjective = this.navParams.get('careerObjective');
+      console.log("careerObjective", this.careerObjective);
+      this.waypointList = this.navParams.get('waypointList');
+      console.log("waypoint", this.waypointList);
+    }
   }
 
   /**
@@ -97,6 +102,6 @@ export class CareerObjectiveCreatePage {
    * Dirige vers la page de création d'un point d'étape
    */
   goToWaypointCreate() {
-    this.navCtrl.push(WaypointCreatePage, { careerObjective: this.careerObjective });
+    this.navCtrl.push(WaypointCreatePage, { careerObjective: this.careerObjective, waypointList: this.waypointList });
   }
 }
