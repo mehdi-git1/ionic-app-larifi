@@ -119,8 +119,9 @@
             <ion-label>
               <ion-icon name="calendar"></ion-icon>
             </ion-label>
-            <ion-datetime displayFormat="DD/MM/YYYY" [(ngModel)]="careerObjective.nextEncounterDate" formControlName="nextEncounterDateControl"
-              [pickerOptions]="customDateTimeOptions" [doneText]="translateService.instant('GLOBAL.DATEPICKER.DONE')" [cancelText]="translateService.instant('GLOBAL.DATEPICKER.CANCEL')"></ion-datetime>
+            <ion-datetime displayFormat="DD/MM/YYYY"  [(ngModel)]="careerObjective.nextEncounterDate" formControlName="nextEncounterDateControl"
+              [pickerOptions]="customDateTimeOptions"  [doneText]="translateService.instant('GLOBAL.DATEPICKER.DONE')" [cancelText]="translateService.instant('GLOBAL.DATEPICKER.CANCEL')">
+              </ion-datetime>
           </ion-item>
           <!-- Prioritaire -->
           <ion-item>
@@ -132,9 +133,10 @@
 
       <!-- Barre de boutons -->
       <ion-row>
-        <ion-col col-4>
-          <button ion-button (click)="createCareerObjective()" [disabled]="creationForm.invalid || saveInProgress" color="primary">
-            {{ 'CAREER_OBJECTIVE_CREATE.BUTTONS.SAVE' | translate }}&nbsp;
+        <ion-col>
+          <button ion-button (click)="saveCareerObjectiveDraft()" [disabled]="creationForm.invalid || saveInProgress" *ngIf="careerObjectiveStatusProvider.isTransitionOk(careerObjective.careerObjectiveStatus,CareerObjectiveStatus.DRAFT)"
+            color="primary">
+            {{ 'CAREER_OBJECTIVE_CREATE.BUTTONS.SAVE_DRAFT' | translate }}
             <ion-spinner *ngIf="saveInProgress"></ion-spinner>
           </button>
           <!--  <button ion-button (click)="goToWaypointCreate()" *ngIf="careerObjective.techId">Créer un point d'étape</button> -->
@@ -142,5 +144,4 @@
       </ion-row>
     </ion-grid>
   </form>
-
 </ion-content>

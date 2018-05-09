@@ -1,8 +1,10 @@
-import { PncRole } from './PncRole';
-import { Pnc } from './Pnc';
+import { CareerObjectiveStatus } from './careerObjectiveStatus';
+import { PncRole } from './pncRole';
+import { Pnc } from './pnc';
 
 export class CareerObjective {
     techId: number;
+    careerObjectiveStatus: CareerObjectiveStatus;
     pnc: Pnc;
     creationAuthor: Pnc;
     creationDate: Date;
@@ -15,6 +17,6 @@ export class CareerObjective {
     actionPlan: string;
     managerComment: string;
     pncComment: string;
-    nextEncounterDate: Date;
+    nextEncounterDate: string;
     prioritized: boolean;
 }

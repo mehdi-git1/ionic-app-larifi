@@ -3,10 +3,9 @@ import { CareerObjectiveCreatePage } from './../pages/career-objective-create/ca
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
-
+import { PncHomePage } from './../pages/pnc-home/pnc-home';
 import { EDossierPNC } from './app.component';
 import { HomePage } from '../pages/home/home';
-import { ListPage } from '../pages/list/list';
 import { CareerObjectiveListPage } from './../pages/career-objective-list/career-objective-list';
 
 import { StatusBar } from '@ionic-native/status-bar';
@@ -31,7 +30,7 @@ import { WaypointProvider } from '../providers/waypoint/waypoint';
   declarations: [
     EDossierPNC,
     HomePage,
-    ListPage,
+    PncHomePage,
     AuthenticationPage,
     CareerObjectiveCreatePage,
     CareerObjectiveListPage,
@@ -53,7 +52,7 @@ import { WaypointProvider } from '../providers/waypoint/waypoint';
   entryComponents: [
     EDossierPNC,
     HomePage,
-    ListPage,
+    PncHomePage,
     AuthenticationPage,
     CareerObjectiveCreatePage,
     CareerObjectiveListPage,
@@ -87,4 +86,3 @@ export function createRestService(http: HttpClient, secMobilService: SecMobilSer
     return new RestWebService(http);
   }
 }
-
