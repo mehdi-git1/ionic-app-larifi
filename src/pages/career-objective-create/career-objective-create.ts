@@ -115,4 +115,12 @@ export class CareerObjectiveCreatePage {
   goToWaypointCreate() {
     this.navCtrl.push(WaypointCreatePage, { careerObjective: this.careerObjective, waypointList: this.waypointList });
   }
+
+  /**
+   * Enregistre un objectif au statut brouillon
+   */
+  saveCareerObjectiveDraft() {
+    this.careerObjective.careerObjectiveStatus = CareerObjectiveStatus.DRAFT;
+    this.saveCareerObjective();
+  }
 }

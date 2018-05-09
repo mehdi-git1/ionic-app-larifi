@@ -1,3 +1,4 @@
+import { Waypoint } from './waypoint';
 import { CareerObjectiveStatus } from './careerObjectiveStatus';
 import { PncRole } from './pncRole';
 import { Pnc } from './pnc';
@@ -19,4 +20,5 @@ export class CareerObjective {
     pncComment: string;
     nextEncounterDate: string;
     prioritized: boolean;
+    waypointList: Waypoint[];
 }
