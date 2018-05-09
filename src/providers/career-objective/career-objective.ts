@@ -1,8 +1,7 @@
 import { AppConfig } from './../../app/app.config';
 import { CareerObjective } from './../../models/careerObjective';
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { RestService, RestRequest } from '../../services/rest.base.service';
+import { RestService } from '../../services/rest.base.service';
 
 @Injectable()
 export class CareerObjectiveProvider {
@@ -12,12 +11,13 @@ export class CareerObjectiveProvider {
   constructor(public restService: RestService) {
     this.careerObjectiveUrl = `${AppConfig.apiUrl}/career_objectives`;
   }
+
   /**
    * Fait appel au service rest qui renvois la liste des objectifs du pnc connecté.
    * @return la liste des objectifs
    */
   getCareerObjectiveList(matricule: String): Promise<CareerObjective[]> {
-    return this.restService.get(this.careerObjectiveUrl+"/"+matricule,"");
+    return this.restService.get(this.careerObjectiveUrl + "/" + matricule, "");
   }
 
   /**
@@ -27,5 +27,14 @@ export class CareerObjectiveProvider {
    */
   createOrUpdate(careerObjective: CareerObjective): Promise<CareerObjective> {
     return this.restService.post(this.careerObjectiveUrl, careerObjective);
+  }
+
+  /**
+  * Récupère un objectif
+  * @param id l'id de l'objectif à récupérer
+  * @return l'objectif récupéré
+  */
+  getCareerObjective(id: number): Promise<CareerObjective> {
+    return this.restService.get(`${this.careerObjectiveUrl}/${id}`);
   }
 }

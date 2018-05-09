@@ -16,9 +16,9 @@ export class CareerObjectiveListPage {
 
   matricule: String;
 
-  constructor(public navCtrl: NavController, 
-    public navParams: NavParams, 
-    private careerObjectiveProvider: CareerObjectiveProvider, 
+  constructor(public navCtrl: NavController,
+    public navParams: NavParams,
+    private careerObjectiveProvider: CareerObjectiveProvider,
     private toastCtrl: ToastController) {
 
   }
@@ -45,6 +45,14 @@ export class CareerObjectiveListPage {
         cssClass: 'error',
       }).present();
     });
-    
+
+  }
+
+  /**
+   * Ouvre un objectif => redirige vers la page de création de l'objectif
+   * @param careerObjectiveId l'id de l'objectif à ouvrir
+   */
+  openCareerObjective(careerObjectiveId: number) {
+    this.navCtrl.push(CareerObjectiveCreatePage, { matricule: this.matricule, careerObjectiveId: careerObjectiveId });
   }
 }
