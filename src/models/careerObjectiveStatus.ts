@@ -1,3 +1,3 @@
 export enum CareerObjectiveStatus {
-    DRAFT, REGISTER
+    DRAFT = "DRAFT"
 }

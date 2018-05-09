@@ -1,8 +1,7 @@
 import { AppConfig } from './../../app/app.config';
 import { CareerObjective } from './../../models/careerObjective';
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { RestService, RestRequest } from '../../services/rest.base.service';
+import { RestService } from '../../services/rest.base.service';
 
 @Injectable()
 export class CareerObjectiveProvider {
@@ -17,7 +16,7 @@ export class CareerObjectiveProvider {
    * @return la liste des objectifs
    */
   getCareerObjectiveList(matricule: String): Promise<CareerObjective[]> {
-    return this.restService.get(this.careerObjectiveUrl+"/"+matricule,"");
+    return this.restService.get(this.careerObjectiveUrl + "/" + matricule, "");
   }
 
   /**
