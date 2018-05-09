@@ -9,8 +9,7 @@ export class WaypointProvider {
 
   private waypointUrl: string;
 
-  constructor(public restService: RestService) 
-  {
+  constructor(public restService: RestService) {
     this.waypointUrl = `${AppConfig.apiUrl}/waypoint`;
   }
   /**

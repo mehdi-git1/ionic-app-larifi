@@ -1,9 +1,10 @@
-import { WaypointCreatePage } from './../pages/waypoint-create/waypoint-create';
+import { CareerObjectiveProvider } from './../providers/career-objective/career-objective';
+import { PncHomePage } from './../pages/pnc-home/pnc-home';
 import { CareerObjectiveCreatePage } from './../pages/career-objective-create/career-objective-create';
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
-import { PncHomePage } from './../pages/pnc-home/pnc-home';
+
 import { EDossierPNC } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { CareerObjectiveListPage } from './../pages/career-objective-list/career-objective-list';
@@ -22,9 +23,13 @@ import { ConnectivityService } from '../services/connectivity.service';
 import { RestService } from '../services/rest.base.service';
 import { RestMobileService } from '../services/rest.mobile.service';
 import { RestWebService } from '../services/rest.web.service';
-import { CareerObjectiveProvider } from '../providers/career-objective/career-objective';
-import { WaypointProvider } from '../providers/waypoint/waypoint';
-
+import { PncProvider } from '../providers/pnc/pnc';
+import { GenderProvider } from '../providers/gender/gender';
+import { ToastProvider } from '../providers/toast/toast';
+import { CareerObjectiveStatusProvider } from '../providers/career-objective-status/career-objective-status';
+import { DatePipe } from '@angular/common';
+import { WaypointCreatePage } from './../pages/waypoint-create/waypoint-create';
+import { WaypointProvider } from './../providers/waypoint/waypoint';
 
 @NgModule({
   declarations: [
@@ -67,7 +72,12 @@ import { WaypointProvider } from '../providers/waypoint/waypoint';
     AppInitService, HttpClientModule,
     Config,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
+    PncProvider,
     CareerObjectiveProvider,
+    GenderProvider,
+    ToastProvider,
+    CareerObjectiveStatusProvider,
+    DatePipe,
     WaypointProvider
   ]
 })
