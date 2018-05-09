@@ -15,8 +15,10 @@
     }
   },
   "HOME": {
+    "TITLE": "EDOSSIERPNC",
+    "MATRICULE": "Matricule du PNC dont on souhaite voir le EDOSSIER",
     "BUTTONS": {
-      "CAREER_OBJECTIVE_CREATE": "Créer un objectif"
+      "GO_TO_PNC_HOME": "Aller à l'accueil PNC"
     }
   },
   "CAREER_OBJECTIVE_CREATE": {
