@@ -7,7 +7,7 @@ import { CareerObjective } from './../../models/careerObjective';
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Pnc } from '../../models/Pnc';
+import { Pnc } from '../../models/pnc';
 import { DatePipe } from '@angular/common';
 
 @Component({
