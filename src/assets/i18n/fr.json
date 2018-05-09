@@ -22,7 +22,8 @@
     }
   },
   "CAREER_OBJECTIVE_CREATE": {
-    "TITLE": "Créer un nouvel objectif",
+    "CREATE_TITLE": "Création d'un nouvel objectif",
+    "EDIT_TITLE": "Modification d'un objectif",
     "FORM": {
       "PNC": "PNC",
       "INITIATOR": "Initiateur",

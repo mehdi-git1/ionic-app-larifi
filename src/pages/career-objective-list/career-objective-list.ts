@@ -47,6 +47,6 @@ export class CareerObjectiveListPage {
    * @param careerObjectiveId l'id de l'objectif à ouvrir
    */
   openCareerObjective(careerObjectiveId: number) {
-    this.navCtrl.push(CareerObjectiveCreatePage, { matricule: this.matricule, careerObjectiveId: careerObjectiveId });
+    this.navCtrl.push(CareerObjectiveCreatePage, { careerObjectiveId: careerObjectiveId });
   }
 }

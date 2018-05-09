@@ -25,7 +25,7 @@ export class CareerObjectiveCreatePage {
   deletionInProgress: boolean;
 
   // Permet d'exposer l'enum au template
-  CareerObjectiveStatus: typeof CareerObjectiveStatus = CareerObjectiveStatus;
+  CareerObjectiveStatus = CareerObjectiveStatus;
 
   constructor(
     public navCtrl: NavController,
@@ -37,12 +37,12 @@ export class CareerObjectiveCreatePage {
     private toastProvider: ToastProvider,
     public careerObjectiveStatusProvider: CareerObjectiveStatusProvider,
     private datePipe: DatePipe) {
+
     this.careerObjective = new CareerObjective();
     this.careerObjective.pnc = new Pnc();
 
     // Initialisation du formulaire
     this.creationForm = this.formBuilder.group({
-      pncMatriculeControl: ['', Validators.required],
       initiatorControl: ['', Validators.required],
       titleControl: ['', Validators.compose([Validators.maxLength(255), Validators.required])],
       contextControl: ['', Validators.maxLength(4000)],
@@ -68,13 +68,20 @@ export class CareerObjectiveCreatePage {
           this.careerObjective = foundCareerObjective;
         },
         error => {
-
+          this.toastProvider.error(error.detailMessage);
         }
       );
     }
 
     this.saveInProgress = false;
     this.deletionInProgress = false;
+  }
+
+  ionViewDidEnter() {
+    //On récupère le matricule du pnc de la route
+    if (this.navParams.get('matricule')) {
+      this.careerObjective.pnc.matricule = this.navParams.get('matricule');
+    }
   }
 
   /**
@@ -146,6 +153,13 @@ export class CareerObjectiveCreatePage {
           this.toastProvider.error(error.detailMessage);
           this.deletionInProgress = false;
         });
+  }
+
+  /**
+   * Teste si l'objectif est en mode création ou édition
+   */
+  isCreationMode() {
+    return this.careerObjective.techId === undefined;
   }
 
 }

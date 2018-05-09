@@ -1,13 +1,13 @@
 <ion-header>
   <ion-navbar>
-    <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>
-    <ion-title>{{ 'CAREER_OBJECTIVE_CREATE.TITLE' | translate }}</ion-title>
+    <ion-title>{{ 'GLOBAL.DEVELOPMENT_PROGRAM' | translate }}</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
+  <h3 *ngIf="isCreationMode()">{{ 'CAREER_OBJECTIVE_CREATE.CREATE_TITLE' | translate }}</h3>
+  <h3 *ngIf="!isCreationMode()">{{ 'CAREER_OBJECTIVE_CREATE.EDIT_TITLE' | translate }}</h3>
+
   <form novalidate [formGroup]="creationForm">
     <ion-grid>
       <!-- Barre de statut -->
@@ -18,17 +18,6 @@
           </ion-chip>
         </ion-col>
       </ion-row>
-      <!-- TEMPORAIRE -->
-      <ion-row>
-        <ion-col col-12>
-          <!-- PNC -->
-          <ion-item>
-            <ion-label floating>Matricule</ion-label>
-            <ion-input type="text" [(ngModel)]="careerObjective.pnc.matricule" formControlName="pncMatriculeControl"></ion-input>
-          </ion-item>
-        </ion-col>
-      </ion-row>
-      <!-- FIN TEMPORAIRE -->
       <ion-row>
         <ion-col col-12>
           <!-- Titre -->
