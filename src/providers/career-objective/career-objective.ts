@@ -16,7 +16,11 @@ export class CareerObjectiveProvider {
    * @return la liste des objectifs
    */
   getCareerObjectiveList(matricule: String): Promise<CareerObjective[]> {
+<<<<<<< HEAD
+    return this.restService.get(`${this.careerObjectiveUrl}/${matricule}`);
+=======
     return this.restService.get(this.careerObjectiveUrl + "/" + matricule, "");
+>>>>>>> refs/remotes/origin/release/sprint1
   }
 
   /**

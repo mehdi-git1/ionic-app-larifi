@@ -1,3 +1,5 @@
+import { CareerObjectiveProvider } from './../providers/career-objective/career-objective';
+import { PncHomePage } from './../pages/pnc-home/pnc-home';
 import { CareerObjectiveCreatePage } from './../pages/career-objective-create/career-objective-create';
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
@@ -5,7 +7,6 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 
 import { EDossierPNC } from './app.component';
 import { HomePage } from '../pages/home/home';
-import { ListPage } from '../pages/list/list';
 import { CareerObjectiveListPage } from './../pages/career-objective-list/career-objective-list';
 
 import { StatusBar } from '@ionic-native/status-bar';
@@ -22,7 +23,8 @@ import { ConnectivityService } from '../services/connectivity.service';
 import { RestService } from '../services/rest.base.service';
 import { RestMobileService } from '../services/rest.mobile.service';
 import { RestWebService } from '../services/rest.web.service';
-import { CareerObjectiveProvider } from '../providers/career-objective/career-objective';
+import { PncProvider } from '../providers/pnc/pnc';
+import { GenderProvider } from '../providers/gender/gender';
 import { ToastProvider } from '../providers/toast/toast';
 import { CareerObjectiveStatusProvider } from '../providers/career-objective-status/career-objective-status';
 import { DatePipe } from '@angular/common';
@@ -32,7 +34,7 @@ import { DatePipe } from '@angular/common';
   declarations: [
     EDossierPNC,
     HomePage,
-    ListPage,
+    PncHomePage,
     AuthenticationPage,
     CareerObjectiveCreatePage,
     CareerObjectiveListPage
@@ -53,7 +55,7 @@ import { DatePipe } from '@angular/common';
   entryComponents: [
     EDossierPNC,
     HomePage,
-    ListPage,
+    PncHomePage,
     AuthenticationPage,
     CareerObjectiveCreatePage,
     CareerObjectiveListPage
@@ -67,7 +69,9 @@ import { DatePipe } from '@angular/common';
     AppInitService, HttpClientModule,
     Config,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
+    PncProvider,
     CareerObjectiveProvider,
+    GenderProvider,
     ToastProvider,
     CareerObjectiveStatusProvider,
     DatePipe
@@ -88,4 +92,3 @@ export function createRestService(http: HttpClient, secMobilService: SecMobilSer
     return new RestWebService(http);
   }
 }
-
