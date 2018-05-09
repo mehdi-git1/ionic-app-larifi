@@ -115,6 +115,11 @@
             {{ 'CAREER_OBJECTIVE_CREATE.BUTTONS.SAVE_DRAFT' | translate }}
             <ion-spinner *ngIf="saveInProgress"></ion-spinner>
           </button>
+          <button ion-button (click)="confirmDeleteCareerObjectiveDraft()" [disabled]="deletionInProgress" *ngIf="careerObjective.careerObjectiveStatus === CareerObjectiveStatus.DRAFT"
+            color="primary">
+            {{ 'CAREER_OBJECTIVE_CREATE.BUTTONS.DELETE_DRAFT' | translate }}
+            <ion-spinner *ngIf="deletionInProgress"></ion-spinner>
+          </button>
         </ion-col>
       </ion-row>
     </ion-grid>

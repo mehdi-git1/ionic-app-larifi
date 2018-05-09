@@ -32,9 +32,16 @@
       "NEXT_ENCOUNTER_DATE": "Prochain point d'étape",
       "PRIORITIZED": "Prioritaire"
     },
+    "CONFIRM_DRAFT_DELETE": {
+      "TITLE": "Suppression du brouillon",
+      "MESSAGE": "Confirmez vous la suppression de ce brouillon ?",
+      "CANCEL": "Annuler",
+      "CONFIRM": "Supprimer"
+    },
     "BUTTONS": {
       "SAVE": "Enregistrer",
-      "SAVE_DRAFT": "Enregistrer brouillon"
+      "SAVE_DRAFT": "Enregistrer brouillon",
+      "DELETE_DRAFT": "Supprimer brouillon"
     },
     "SUCCESS": {
       "CAREER_OBJECTIVE_SAVED": "Objectif enregistré avec succès",
