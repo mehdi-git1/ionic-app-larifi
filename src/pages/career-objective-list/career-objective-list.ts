@@ -23,24 +23,23 @@ export class CareerObjectiveListPage {
 
   }
 
-  /**
-   * Dirige vers la page de création d'un nouvel objectif
-   */
-  goToCareerObjectiveCreation() {
-    this.navCtrl.push(CareerObjectiveCreatePage, { matricule: this.matricule });
-  }
-
-  /**
-   * Charge la liste des objectifs aprés le chargement de la page
-   */
   ionViewDidLoad() {
     this.matricule = this.navParams.get('matricule');
+  }
+
+  ionViewDidEnter() {
     this.careerObjectiveProvider.getCareerObjectiveList(this.matricule).then(result => {
       this.careerObjectiveList = result;
     }, error => {
       this.toastProvider.error(error.detailMessage);
     });
+  }
 
+  /**
+   * Dirige vers la page de création d'un nouvel objectif
+   */
+  goToCareerObjectiveCreation() {
+    this.navCtrl.push(CareerObjectiveCreatePage, { matricule: this.matricule });
   }
 
   /**
