@@ -16,3 +16,8 @@
 // automatically applied to the <body> element in the app.
 
 @import '../theme/toast.scss';
+
+/* A utiliser sur les éléments cliquables (les labels ont un style contraire, on est obligé de les surcharger) */
+.clickable, .clickable label{
+    cursor: pointer;
+}
