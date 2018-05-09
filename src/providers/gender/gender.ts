@@ -7,12 +7,12 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class GenderProvider {
 
-  constructor(public http: HttpClient) {
+  constructor() {
 
   }
 
   isMale(pnc: Pnc) {
-    return pnc.gender == Gender.M;
+    return pnc.gender === Gender.M;
   }
 
   isFemale(pnc: Pnc) {
@@ -21,10 +21,10 @@ export class GenderProvider {
 
   getAvatarPicture(gender: Gender) {
     if (gender === Gender.M) {
-      return "../../assets/imgs/man-default-picture.png"
+      return "../../assets/imgs/man-default-picture.png";
     }
     if (gender === Gender.F) {
-      return "../../assets/imgs/woman-default-picture.png"
+      return "../../assets/imgs/woman-default-picture.png";
     }
   }
 

@@ -49,7 +49,7 @@
     }
   },
   "PNC_HOME": {
-    "WELCOME": "Accueil PNC",
+    "TITLE": "Accueil PNC",
     "MATRICULE": "Matricule",
     "LAST_NAME": "Nom",
     "FIRST_NAME": "Prénom",
