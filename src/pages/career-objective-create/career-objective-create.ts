@@ -38,7 +38,6 @@ export class CareerObjectiveCreatePage {
     private toastProvider: ToastProvider,
     public careerObjectiveStatusProvider: CareerObjectiveStatusProvider,
     private datePipe: DatePipe) {
-
     this.careerObjective = new CareerObjective();
     this.careerObjective.pnc = new Pnc();
 
@@ -63,10 +62,19 @@ export class CareerObjectiveCreatePage {
       }]
     };
 
-    this.saveInProgress = false;
-  }
+    // Charge l'objectif si celui ci est présent dans les paramètres de navigation
+    if (this.navParams.get('careerObjectiveId')) {
+      this.careerObjectiveProvider.getCareerObjective(this.navParams.get('careerObjectiveId')).then(
+        foundCareerObjective => {
+          this.careerObjective = foundCareerObjective;
+        },
+        error => {
 
-  ionViewDidLoad() {
+        }
+      );
+    }
+
+    this.saveInProgress = false;
   }
 
   /**

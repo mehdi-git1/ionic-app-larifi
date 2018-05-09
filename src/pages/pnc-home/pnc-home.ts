@@ -1,10 +1,10 @@
-import { Gender } from './../../models/gender';
+import { ToastProvider } from './../../providers/toast/toast';
 import { GenderProvider } from './../../providers/gender/gender';
 import { Speciality } from './../../models/speciality';
 import { CareerObjectiveListPage } from './../career-objective-list/career-objective-list';
 import { PncProvider } from './../../providers/pnc/pnc';
 import { Component } from '@angular/core';
-import { NavController, NavParams, ToastController } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
 import { Pnc } from '../../models/pnc';
 import { Assignment } from '../../models/assignment';
 
@@ -21,12 +21,12 @@ export class PncHomePage {
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
-    private toastCtrl: ToastController,
     private pncProvider: PncProvider,
-    private genderProvider: GenderProvider) {
+    public genderProvider: GenderProvider,
+    private toastProvider: ToastProvider) {
+
     this.pnc = new Pnc();
     this.pnc.assignment = new Assignment();
-
   }
 
   /**
@@ -37,12 +37,7 @@ export class PncHomePage {
     this.pncProvider.getPnc(this.matricule).then(result => {
       this.pnc = result;
     }, error => {
-      this.toastCtrl.create({
-        message: error.detailMessage,
-        duration: 3000,
-        position: 'bottom',
-        cssClass: 'error',
-      }).present();
+      this.toastProvider.error(error.detailMessage);
     });
   }
 
@@ -51,12 +46,5 @@ export class PncHomePage {
    */
   goToCareerObjectiveList() {
     this.navCtrl.push(CareerObjectiveListPage, { matricule: this.matricule });
-  }
-
-  /**
-   * récupere l'avatar selon le gendre du pnc
-   */
-  getAvatarPicture(gender: Gender) {
-    return this.genderProvider.getAvatarPicture(gender);
   }
 }
