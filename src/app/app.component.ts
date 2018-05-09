@@ -1,4 +1,3 @@
-import { PncHomePage } from './../pages/pnc-home/pnc-home';
 import { HomePage } from './../pages/home/home';
 import { CareerObjectiveCreatePage } from './../pages/career-objective-create/career-objective-create';
 import { Component, ViewChild } from '@angular/core';

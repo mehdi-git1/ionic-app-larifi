@@ -1,6 +1,6 @@
-export class Assignment{
-    matricule: String;
-    ginq: String;
-    sector: String;
-    division: String;
+export class Assignment {
+    matricule: string;
+    ginq: string;
+    sector: string;
+    division: string;
 }

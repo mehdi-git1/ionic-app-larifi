@@ -1,3 +1,5 @@
+import { Gender } from './../../models/gender';
+import { GenderProvider } from './../../providers/gender/gender';
 import { Speciality } from './../../models/speciality';
 import { CareerObjectiveListPage } from './../career-objective-list/career-objective-list';
 import { PncProvider } from './../../providers/pnc/pnc';
@@ -17,10 +19,11 @@ export class PncHomePage {
   // exporter la classe enum speciality dans la page html
   Speciality = Speciality;
 
-  constructor(public navCtrl: NavController, 
-    public navParams: NavParams, 
+  constructor(public navCtrl: NavController,
+    public navParams: NavParams,
     private toastCtrl: ToastController,
-    private pncProvider: PncProvider) {
+    private pncProvider: PncProvider,
+    private genderProvider: GenderProvider) {
     this.pnc = new Pnc();
     this.pnc.assignment = new Assignment();
 
@@ -31,7 +34,7 @@ export class PncHomePage {
    */
   ionViewDidLoad() {
     this.matricule = this.navParams.get("matricule");
-    this.pncProvider.getPncInformations(this.matricule).then(result => {
+    this.pncProvider.getPnc(this.matricule).then(result => {
       this.pnc = result;
     }, error => {
       this.toastCtrl.create({
@@ -47,6 +50,13 @@ export class PncHomePage {
    * Dirige vers la page de visualisation des objectifs
    */
   goToCareerObjectiveList() {
-    this.navCtrl.push(CareerObjectiveListPage, {matricule:this.matricule});
+    this.navCtrl.push(CareerObjectiveListPage, { matricule: this.matricule });
+  }
+
+  /**
+   * récupere l'avatar selon le gendre du pnc
+   */
+  getAvatarPicture(gender: Gender) {
+    return this.genderProvider.getAvatarPicture(gender);
   }
 }

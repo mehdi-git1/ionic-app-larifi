@@ -13,9 +13,10 @@ export class PncProvider {
 
   /**
    * Fait appel au service rest qui renvois les informations.
+   * @param matricule
    * @return les informations du pnc
    */
-  getPncInformations(matricule: String): Promise<Pnc> {
-    return this.restService.get(this.pncUrl+"/"+matricule,"");
+  getPnc(matricule: String): Promise<Pnc> {
+    return this.restService.get(`${this.pncUrl}/${matricule}`);
   }
 }

@@ -1,17 +1,17 @@
 import { Injectable } from '@angular/core';
-import { RestService, RestRequest } from './rest.base.service';  
+import { RestService, RestRequest } from './rest.base.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
- 
-  
+
+
 
 @Injectable()
 export class RestWebService extends RestService {
-  
+
     constructor(protected http: HttpClient) {
-        super(http);      
+        super(http);
     }
-   
-  
+
+
     public call(request: RestRequest): Promise<any> {
         return new Promise((resolve, reject) => {
             this.makeHttpRequest(request,
@@ -25,7 +25,7 @@ export class RestWebService extends RestService {
         });
     }
 
-    
+
     private makeHttpRequest(request: RestRequest, successCallback: (result: any) => void, errorCallback: (error: any) => void): void {
 
         let headers = new HttpHeaders();
@@ -38,11 +38,11 @@ export class RestWebService extends RestService {
         // }
         // headers.append('secgw_user', 'm328624');
         // headers.append('SN', 'ZngNZu6HZ5julFBEklrR');
-        
-  
+
+
         // if (request.httpHeaders['Content-Type'] != undefined)
         //     headers.append('Content-Type', request.httpHeaders['Content-Type']);
- 
+
 
         var options = {
             withCredentials: request.withCredential,
@@ -52,25 +52,25 @@ export class RestWebService extends RestService {
         if (request.method == 'GET') {
             this.http.get(request.url, options).subscribe(
                 data => { successCallback(data); },
-                err => { errorCallback(err.statusText); }
+                err => { errorCallback(err.error); }
             );
         }
         if (request.method == 'POST') {
             this.http.post(request.url, request.jsonData, options).subscribe(
                 data => { successCallback(data); },
-                err => { errorCallback(err.statusText); }
+                err => { errorCallback(err.error); }
             );
         }
         if (request.method == 'PUT') {
             this.http.put(request.url, request.jsonData, options).subscribe(
                 data => { successCallback(data); },
-                err => { errorCallback(err.statusText); }
+                err => { errorCallback(err.error); }
             );
         }
         if (request.method == 'DELETE') {
             this.http.delete(request.url, options).subscribe(
                 data => { successCallback(data); },
-                err => { errorCallback(err.statusText); }
+                err => { errorCallback(err.error); }
             );
         }
     }

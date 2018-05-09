@@ -5,4 +5,31 @@ page-pnc-home {
         height: 200px;
         margin: 60px;
     }
+
+    .portrait-picture{
+        height: 100px;
+        width: 100px;
+    }
+
+    .bold{
+        font-weight: bold;
+    }
+
+    ion-grid#informations-grid{
+        ion-label{
+            margin: 0px;
+        };
+    }
+
+    ion-grid#buttons-grid{
+        height: 75%;
+        ion-row{
+            height: 100%;
+        };
+        button{
+            height: 100%;
+            width: 100%;
+        };
+    }
+  
 }

@@ -25,6 +25,7 @@ import { RestService } from '../services/rest.base.service';
 import { RestMobileService } from '../services/rest.mobile.service';
 import { RestWebService } from '../services/rest.web.service';
 import { PncProvider } from '../providers/pnc/pnc';
+import { GenderProvider } from '../providers/gender/gender';
 import { ToastProvider } from '../providers/toast/toast';
 import { CareerObjectiveStatusProvider } from '../providers/career-objective-status/career-objective-status';
 import { DatePipe } from '@angular/common';
@@ -71,6 +72,7 @@ import { DatePipe } from '@angular/common';
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     PncProvider,
     CareerObjectiveProvider,
+    GenderProvider,
     ToastProvider,
     CareerObjectiveStatusProvider,
     DatePipe
