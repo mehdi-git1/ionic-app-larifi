@@ -14,13 +14,6 @@
             "DRAFT": "BROUILLON"
         }
     },
-    "HOME": {
-        "TITLE": "EDOSSIERPNC",
-        "MATRICULE": "Matricule du PNC dont on souhaite voir le EDOSSIER",
-        "BUTTONS": {
-            "GO_TO_PNC_HOME": "Aller à l'accueil PNC"
-        }
-    },
     "CAREER_OBJECTIVE_CREATE": {
         "CREATE_TITLE": "Création d'un nouvel objectif",
         "EDIT_TITLE": "Modification d'un objectif",
@@ -65,13 +58,12 @@
     },
     "PNC_HOME": {
         "TITLE": "Accueil PNC",
-        "MATRICULE": "Matricule",
-        "LAST_NAME": "Nom",
-        "FIRST_NAME": "Prénom",
-        "GENDER": "Sexe",
-        "SPECIALITY": "Spécialité",
-        "GINQ": "Ginq",
-        "SECTOR": "Secteur",
-        "DIVISION": "Division"
+        "EDOSSIER_MATRICULE": "Matricule du PNC dont on souhaite voir le EDOSSIER",
+        "INFO_PANEL": {
+            "SPECIALITY": "Spécialité",
+            "GINQ": "Ginq",
+            "SECTOR": "Secteur",
+            "DIVISION": "Division"
+        }
     }
 }
