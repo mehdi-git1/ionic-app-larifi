@@ -1,6 +1,7 @@
+import { SessionService } from './../services/session.service';
+import { SecurityProvider } from './../providers/security/security';
 import { CareerObjectiveProvider } from './../providers/career-objective/career-objective';
 import { PncHomePage } from './../pages/pnc-home/pnc-home';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { CareerObjectiveCreatePage } from './../pages/career-objective-create/career-objective-create';
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
@@ -30,6 +31,8 @@ import { ToastProvider } from '../providers/toast/toast';
 import { CareerObjectiveStatusProvider } from '../providers/career-objective-status/career-objective-status';
 import { DatePipe } from '@angular/common';
 
+import { IonicStorageModule } from '@ionic/storage';
+
 
 @NgModule({
   declarations: [
@@ -43,6 +46,7 @@ import { DatePipe } from '@angular/common';
   imports: [
     BrowserModule,
     IonicModule.forRoot(EDossierPNC),
+    IonicStorageModule.forRoot(),
     HttpClientModule,
     TranslateModule.forRoot({
       loader: {
@@ -75,7 +79,9 @@ import { DatePipe } from '@angular/common';
     GenderProvider,
     ToastProvider,
     CareerObjectiveStatusProvider,
-    DatePipe
+    DatePipe,
+    SecurityProvider,
+    SessionService
   ]
 })
 export class AppModule { }

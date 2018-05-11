@@ -104,32 +104,17 @@
             <ion-checkbox [(ngModel)]="careerObjective.prioritized" formControlName="prioritizedControl"></ion-checkbox>
           </ion-item>
         </ion-col>
-        <ion-col col-6>
-          <!-- Prochaine rencontre -->
-          <ion-label stacked>{{ 'CAREER_OBJECTIVE_CREATE.FORM.NEXT_ENCOUNTER_DATE' | translate }}</ion-label>
-          <ion-item>
-            <ion-label>
-              <ion-icon name="calendar"></ion-icon>
-            </ion-label>
-            <ion-datetime displayFormat="DD/MM/YYYY"  [(ngModel)]="careerObjective.nextEncounterDate" formControlName="nextEncounterDateControl"
-              [pickerOptions]="customDateTimeOptions"  [doneText]="translateService.instant('GLOBAL.DATEPICKER.DONE')" [cancelText]="translateService.instant('GLOBAL.DATEPICKER.CANCEL')">
-              </ion-datetime>
-          </ion-item>
-          <!-- Prioritaire -->
-          <ion-item>
-            <ion-label fixed>{{ 'CAREER_OBJECTIVE_CREATE.FORM.PRIORITIZED' | translate }}</ion-label>
-            <ion-checkbox [(ngModel)]="careerObjective.prioritized" formControlName="prioritizedControl"></ion-checkbox>
-          </ion-item>
-        </ion-col>
       </ion-row>
 
       <!-- Barre de boutons -->
       <ion-row>
         <ion-col>
-          <button ion-button (click)="saveCareerObjective()" [disabled]="creationForm.invalid || saveInProgress" color="primary" *ngIf='careerObjectiveStatusProvider.isTransitionOk(careerObjective,CareerObjectiveStatus.REGISTER)'>
+          <button ion-button (click)="saveCareerObjectiveRegister()" [disabled]="creationForm.invalid || saveInProgress" *ngIf="careerObjectiveStatusProvider.isTransitionOk(careerObjective.careerObjectiveStatus,CareerObjectiveStatus.REGISTER)"
+            color="primary">
             {{ 'CAREER_OBJECTIVE_CREATE.BUTTONS.SAVE' | translate }}
+            <ion-spinner *ngIf="saveInProgress"></ion-spinner>
           </button>
-          <button ion-button (click)="createCareerObjectiveDraft()" [disabled]="creationForm.invalid || saveInProgress" *ngIf='careerObjectiveStatusProvider.isTransitionOk(careerObjective,CareerObjectiveStatus.DRAFT)'
+          <button ion-button (click)="saveCareerObjectiveDraft()" [disabled]="creationForm.invalid || saveInProgress" *ngIf="careerObjectiveStatusProvider.isTransitionOk(careerObjective.careerObjectiveStatus,CareerObjectiveStatus.DRAFT)"
             color="primary">
             {{ 'CAREER_OBJECTIVE_CREATE.BUTTONS.SAVE_DRAFT' | translate }}
             <ion-spinner *ngIf="saveInProgress"></ion-spinner>

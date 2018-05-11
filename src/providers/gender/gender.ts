@@ -1,9 +1,5 @@
 import { Gender } from './../../models/gender';
 import { Pnc } from './../../models/pnc';
-<<<<<<< HEAD
-=======
-import { HttpClient } from '@angular/common/http';
->>>>>>> refs/remotes/origin/release/sprint1
 import { Injectable } from '@angular/core';
 
 
@@ -22,6 +18,10 @@ export class GenderProvider {
     return pnc.gender === Gender.F;
   }
 
+  /** 
+   * renvois l'url de l'avatar selon le sexe du pnc, 
+   * dans le cas ou le pnc n'a pas de photo 
+   * */
   getAvatarPicture(gender: Gender) {
     if (gender === Gender.M) {
       return "../../assets/imgs/man-default-picture.png";

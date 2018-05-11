@@ -12,7 +12,7 @@ import { RestService } from '../../services/rest.base.service';
 export class HomePage {
 
   pncList: Pnc[];
-  matricule: string;
+  matricule: string = "12345677";
 
   constructor(public navCtrl: NavController, public restService: RestService) {
   }
