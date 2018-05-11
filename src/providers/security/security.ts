@@ -25,6 +25,7 @@ export class SecurityProvider {
 
   /**
    * test si le pnc connecté est un cadre
+   * @return cadre ou pas cadre
    */
   isManager(): boolean {
     return this.sessionService.authenticatedUser.manager;
