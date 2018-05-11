@@ -33,6 +33,10 @@ page-pnc-home {
             height: 300px;
             width: 100%;
         }
+
+        .development-program {
+            background: color($colors, development-program);
+        }
     }
 
 }

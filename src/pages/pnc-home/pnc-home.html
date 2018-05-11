@@ -57,7 +57,7 @@
         <ion-row>
             <!-- Bouton pour accéder à la liste des objectifs-->
             <ion-col col-6>
-                <button ion-button (click)="goToCareerObjectiveList()" *ngIf="pnc.speciality != Speciality.CAD">
+                <button ion-button (click)="goToCareerObjectiveList()" *ngIf="pnc.speciality != Speciality.CAD" class="development-program">
                   {{ 'GLOBAL.DEVELOPMENT_PROGRAM' | translate }}
                 </button>
             </ion-col>
