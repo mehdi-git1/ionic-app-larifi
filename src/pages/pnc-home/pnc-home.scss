@@ -14,14 +14,6 @@ page-pnc-home {
             display: flex;
             flex-direction: column;
             align-items: center;
-
-            ion-label {
-                color: color($colors, label);
-            }
-
-            .value {
-                font-weight: bold;
-            }
         }
     }
 
