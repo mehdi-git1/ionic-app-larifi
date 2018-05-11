@@ -5,6 +5,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { CareerObjectiveProvider } from '../../providers/career-objective/career-objective'
 
+
 @Component({
   selector: 'page-career-objective-list',
   templateUrl: 'career-objective-list.html',

@@ -74,18 +74,17 @@
           <button margin ion-button color="dark" (click)="goToWaypointCreate()" *ngIf="careerObjective.techId">
             <ion-icon name="add"></ion-icon>
           </button>
-
-          <ion-content class="card-content">
-            <ion-card class="no-margin-left" *ngFor="let waypoint of waypointList">
+          <!--liste des point d'étape-->
+          <ion-content>
+            <ion-card *ngFor="let waypoint of waypointList" (click)="openWaypoint(waypoint.techId)">
               <ion-card-content no-padding>
-                <ion-grid>
-                  <button class="hidden-button" ion-button (click)="goToWaypointCreate()">
-                    <ion-row>
-                      <ion-col>
-                        {{waypoint.context}}
-                      </ion-col>
-                    </ion-row>
-                  </button>
+                <ion-grid class="content">
+                  <ion-row>
+                    <ion-col>
+                      <label>{{ 'WAYPOINT_CREATE.FORM.CREATION_DATE' | translate }}</label>
+                      <span class="value">{{waypoint.creationDate == null ? "-" : waypoint.creationDate | date: 'dd/MM/yyyy HH:mm:ss'}}</span>
+                    </ion-col>
+                  </ion-row>
                 </ion-grid>
               </ion-card-content>
             </ion-card>

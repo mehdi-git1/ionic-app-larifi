@@ -62,7 +62,9 @@
       "CONTEXT": "Contexte",
       "ACTION_PERFORMED": "Actions réalisées",
       "MANAGER_COMMENT": "Commentaire cadre",
-      "PNC_COMMENT": "Commentaire PNC"
+      "PNC_COMMENT": "Commentaire PNC",
+      "CREATION_DATE": "Date de création",
+      "CREATION_Author": "Nom PNC"
     },
     "BUTTONS": {
       "SAVE": "Enregistrer"

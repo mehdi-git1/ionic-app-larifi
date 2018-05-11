@@ -37,4 +37,14 @@ export class CareerObjectiveProvider {
   getCareerObjective(id: number): Promise<CareerObjective> {
     return this.restService.get(`${this.careerObjectiveUrl}/${id}`);
   }
+
+  /**
+   * Supprime un objectif
+   * @param id l'id de l'objectif à supprimer
+   * @return l'objectif supprimé
+   */
+  delete(id: number): Promise<CareerObjective> {
+    return this.restService.delete(`${this.careerObjectiveUrl}/${id}`);
+  }
+
 }

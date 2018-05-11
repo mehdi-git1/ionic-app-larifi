@@ -6,6 +6,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams, ToastController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CareerObjectiveCreatePage } from './../career-objective-create/career-objective-create';
+import { ToastProvider } from './../../providers/toast/toast';
 
 @Component({
   selector: 'page-waypoint-create',
@@ -20,7 +21,6 @@ export class WaypointCreatePage {
   customDateTimeOptions: any;
   saveInProgress: boolean;
   return: boolean;
-  waypointList: Waypoint[] = [];
 
   constructor(
     public navCtrl: NavController,
@@ -28,14 +28,13 @@ export class WaypointCreatePage {
     public translateService: TranslateService,
     private formBuilder: FormBuilder,
     private waypointProvider: WaypointProvider,
-    private toastCtrl: ToastController) {
+    private toastCtrl: ToastController,
+    private toastProvider: ToastProvider) {
 
     this.waypoint = new Waypoint();
     this.careerObjective = this.navParams.get('careerObjective');
     console.log("careerObjective", this.careerObjective);
     this.waypoint.careerObjective = this.careerObjective;
-    this.waypointList = this.navParams.get('waypointList');
-    this.waypointList.push(this.waypoint);
 
 
     // Initialisation du formulaire
@@ -47,6 +46,7 @@ export class WaypointCreatePage {
     });
 
     // Options du datepicker
+
     this.customDateTimeOptions = {
       buttons: [{
         text: this.translateService.instant('GLOBAL.DATEPICKER.CLEAR'),
@@ -54,9 +54,18 @@ export class WaypointCreatePage {
       }]
     };
 
+    if (this.navParams.get('waypointId')) {
+      this.waypointProvider.getWaypoint(this.navParams.get('waypointId')).then(result => {
+        this.waypoint = result;
+      }, error => {
+        this.toastProvider.error(error.detailMessage);
+      });
+    }
+
     this.saveInProgress = false;
   }
   ionViewDidLoad() {
+
   }
 
   /**
@@ -86,7 +95,7 @@ export class WaypointCreatePage {
           cssClass: 'error',
         }).present();
       });
-    this.navCtrl.push(CareerObjectiveCreatePage, { careerObjective: this.careerObjective, waypointList: this.waypointList, return: true });
+    this.navCtrl.push(CareerObjectiveCreatePage, { careerObjectiveId: this.careerObjective.techId });
   }
 
 }
