@@ -7,7 +7,8 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class CareerObjectiveStatusProvider {
 
-  constructor(private securityProvider: SecurityProvider) {
+  constructor(private securityProvider: SecurityProvider,
+    private sessionService: SessionService) {
   }
 
   /**
@@ -31,8 +32,12 @@ export class CareerObjectiveStatusProvider {
     return false;
   }
 
+  /**
+   * test si le pnc connecté est un cadre
+   * @return cadre ou pas cadre
+   */
   isManager(): boolean {
-    return this.securityProvider.isManager();
+    return this.sessionService.authenticatedUser.manager;
   }
 
 }
