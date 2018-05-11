@@ -29,22 +29,22 @@
                     <ion-row>
                         <!-- Spécialité-->
                         <ion-col class="pnc-info">
-                            <label>{{ 'PNC_HOME.SPECIALITY' | translate }}</label>
+                            <label>{{ 'PNC_HOME.INFO_PANEL.SPECIALITY' | translate }}</label>
                             <span class="value" [ngClass]="{'no-value' : !pnc.speciality }">{{ pnc.speciality }}</span>
                         </ion-col>
                         <!-- Ginq-->
                         <ion-col class="pnc-info">
-                            <label>{{ 'PNC_HOME.GINQ' | translate }}</label>
+                            <label>{{ 'PNC_HOME.INFO_PANEL.GINQ' | translate }}</label>
                             <span class="value" [ngClass]="{'no-value' : !pnc.assignment.ginq }">{{ pnc.assignment.ginq }}</span>
                         </ion-col>
                         <!-- Secteur-->
                         <ion-col class="pnc-info">
-                            <label>{{ 'PNC_HOME.SECTOR' | translate }}</label>
+                            <label>{{ 'PNC_HOME.INFO_PANEL.SECTOR' | translate }}</label>
                             <span class="value" [ngClass]="{'no-value' : !pnc.assignment.sector }">{{ pnc.assignment.sector }}</span>
                         </ion-col>
                         <!-- Division-->
                         <ion-col class="pnc-info">
-                            <label>{{ 'PNC_HOME.DIVISION' | translate }}</label>
+                            <label>{{ 'PNC_HOME.INFO_PANEL.DIVISION' | translate }}</label>
                             <span class="value" [ngClass]="{'no-value' : !pnc.assignment.division }">{{ pnc.assignment.division }}</span>
                         </ion-col>
                     </ion-row>
@@ -53,11 +53,20 @@
         </ion-grid>
     </ion-card>
 
+    <div class="go-to-edossier">
+        <ion-item padding>
+            <ion-label floating>{{ 'PNC_HOME.GO_TO_EDOSSIER.MATRICULE' | translate }}</ion-label>
+            <ion-input type="text" [(ngModel)]="matricule"></ion-input>
+        </ion-item>
+        <button ion-button (click)="goToEdossier()">{{ 'PNC_HOME.GO_TO_EDOSSIER.SUBMIT' | translate }}</button>
+    </div>
+
+
     <ion-grid id="nav-tile-grid">
         <ion-row>
             <!-- Bouton pour accéder à la liste des objectifs-->
             <ion-col col-6>
-                <button ion-button (click)="goToCareerObjectiveList()" *ngIf="pnc.speciality != Speciality.CAD">
+                <button ion-button (click)="goToCareerObjectiveList()" *ngIf="pnc.speciality !== Speciality.CAD" class="development-program">
                   {{ 'GLOBAL.DEVELOPMENT_PROGRAM' | translate }}
                 </button>
             </ion-col>

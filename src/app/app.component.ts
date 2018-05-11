@@ -2,7 +2,7 @@ import { SessionService } from './../services/session.service';
 import { Storage } from '@ionic/storage';
 import { AuthenticatedUser } from './../models/authenticatedUser';
 import { SecurityProvider } from './../providers/security/security';
-import { HomePage } from './../pages/home/home';
+import { PncHomePage } from './../pages/pnc-home/pnc-home';
 import { CareerObjectiveCreatePage } from './../pages/career-objective-create/career-objective-create';
 import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform } from 'ionic-angular';
@@ -20,7 +20,7 @@ import { SecMobilService } from '../services/secMobil.service';
 export class EDossierPNC {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = HomePage;
+  rootPage: any = PncHomePage;
 
   matricule: string = "12345677"
 
@@ -30,7 +30,6 @@ export class EDossierPNC {
     private securityProvider: SecurityProvider,
     private SessionService: SessionService
   ) {
-
     this.initializeApp();
 
     this.putAuthenticatedUserInSession();
