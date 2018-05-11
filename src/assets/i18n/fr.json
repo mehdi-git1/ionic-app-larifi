@@ -58,7 +58,10 @@
     },
     "PNC_HOME": {
         "TITLE": "Accueil PNC",
-        "EDOSSIER_MATRICULE": "Matricule du PNC dont on souhaite voir le EDOSSIER",
+        "GO_TO_EDOSSIER": {
+            "MATRICULE": "Matricule du PNC dont on souhaite voir le EDOSSIER",
+            "SUBMIT": "Valider"
+        },
         "INFO_PANEL": {
             "SPECIALITY": "Spécialité",
             "GINQ": "Ginq",

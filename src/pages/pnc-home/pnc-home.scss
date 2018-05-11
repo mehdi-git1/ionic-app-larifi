@@ -1,7 +1,6 @@
 page-pnc-home {
 
     .pnc-info-panel {
-
         img {
             width: 100px;
         }
@@ -24,7 +23,15 @@ page-pnc-home {
                 align-items: center;
             }
         }
+    }
 
+    .go-to-edossier {
+        margin-right: 10px;
+        display: flex;
+
+        button {
+            margin-top: 43px;
+        }
     }
 
     #nav-tile-grid {

@@ -53,10 +53,13 @@
         </ion-grid>
     </ion-card>
 
-    <ion-item padding *ngIf="pnc.speciality === Speciality.CAD">
-        <ion-label floating>{{ 'PNC_HOME.EDOSSIER_MATRICULE' | translate }}</ion-label>
-        <ion-input type="text" [(ngModel)]="matricule"></ion-input>
-    </ion-item>
+    <div class="go-to-edossier">
+        <ion-item padding>
+            <ion-label floating>{{ 'PNC_HOME.GO_TO_EDOSSIER.MATRICULE' | translate }}</ion-label>
+            <ion-input type="text" [(ngModel)]="matricule"></ion-input>
+        </ion-item>
+        <button ion-button (click)="goToEdossier()">{{ 'PNC_HOME.GO_TO_EDOSSIER.SUBMIT' | translate }}</button>
+    </div>
 
 
     <ion-grid id="nav-tile-grid">
