@@ -12,7 +12,9 @@
         "DEVELOPMENT_PROGRAM": "Parcours de développement",
         "CAREER_OBJECTIVE_STATUS": {
             "DRAFT": "BROUILLON",
-            "REGISTERED": "ENREGISTRÉ"
+            "REGISTERED": "ENREGISTRÉ",
+            "VALIDATED": "VALIDÉ",
+            "ABANDONED": "ABANDONNÉ"
         }
     },
     "CAREER_OBJECTIVE_CREATE": {
@@ -38,11 +40,17 @@
         "BUTTONS": {
             "SAVE": "Enregistrer",
             "SAVE_DRAFT": "Enregistrer brouillon",
-            "DELETE_DRAFT": "Supprimer brouillon"
+            "DELETE_DRAFT": "Supprimer brouillon",
+            "VALIDATE": "Valider",
+            "ABANDON": "Abandonner",
+            "CANCEL_VALIDATED_STATUS": "Annuler la validation",
+            "CANCEL_ABANDONED_STATUS": "Reprendre l'objectif"
         },
         "SUCCESS": {
             "CAREER_OBJECTIVE_SAVED": "Objectif enregistré avec succès",
-            "DRAFT_SAVED": "Brouillon enregistré"
+            "DRAFT_SAVED": "Brouillon enregistré",
+            "CAREER_OBJECTIVE_VALIDATED": "Objectif validé",
+            "CAREER_OBJECTIVE_ABANDONED": "Objectif abandonné"
         },
         "ERROR": {
             "CAREER_OBJECTIVE_CREATION_FAILED": "La création de l'objectif a échoué"

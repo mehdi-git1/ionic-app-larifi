@@ -8,7 +8,6 @@ import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 
 import { EDossierPNC } from './app.component';
-import { HomePage } from '../pages/home/home';
 import { CareerObjectiveListPage } from './../pages/career-objective-list/career-objective-list';
 
 import { StatusBar } from '@ionic-native/status-bar';
@@ -37,7 +36,6 @@ import { IonicStorageModule } from '@ionic/storage';
 @NgModule({
   declarations: [
     EDossierPNC,
-    HomePage,
     PncHomePage,
     AuthenticationPage,
     CareerObjectiveCreatePage,
@@ -59,7 +57,6 @@ import { IonicStorageModule } from '@ionic/storage';
   bootstrap: [IonicApp],
   entryComponents: [
     EDossierPNC,
-    HomePage,
     PncHomePage,
     AuthenticationPage,
     CareerObjectiveCreatePage,
