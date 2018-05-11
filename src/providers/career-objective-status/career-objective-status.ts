@@ -33,7 +33,7 @@ export class CareerObjectiveStatusProvider {
   }
 
   /**
-   * test si le pnc connecté est un cadre
+   * vérifie si le pnc connecté est un cadre
    * @return cadre ou pas cadre
    */
   isManager(): boolean {
