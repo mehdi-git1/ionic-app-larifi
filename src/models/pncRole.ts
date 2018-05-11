@@ -1,3 +1,3 @@
 export enum PncRole {
-    MANAGER, PNC
+    MANAGER = 'MANAGER', PNC = 'PNC'
 }

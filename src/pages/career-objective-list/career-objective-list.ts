@@ -3,7 +3,7 @@ import { CareerObjectiveCreatePage } from './../career-objective-create/career-o
 import { CareerObjective } from './../../models/careerObjective';
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
-import { CareerObjectiveProvider } from '../../providers/career-objective/career-objective'
+import { CareerObjectiveProvider } from '../../providers/career-objective/career-objective';
 
 
 @Component({

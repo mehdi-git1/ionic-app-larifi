@@ -1,6 +1,6 @@
 export class BaseConfig {
-    public appVersion: string = '';
-    public backEndUrl: string = ''; 
-    public env: string = 'base';
-    public secmobileEnv: string = 'rct';
-  }
+  public appVersion = '';
+  public backEndUrl = '';
+  public env = 'base';
+  public secmobileEnv = 'rct';
+}

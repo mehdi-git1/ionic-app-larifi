@@ -33,7 +33,7 @@ export class PncHomePage {
    * Charge les informations du pnc aprés le chargement de la page
    */
   ionViewDidLoad() {
-    this.matricule = this.navParams.get("matricule");
+    this.matricule = this.navParams.get('matricule');
     this.pncProvider.getPnc(this.matricule).then(result => {
       this.pnc = result;
     }, error => {

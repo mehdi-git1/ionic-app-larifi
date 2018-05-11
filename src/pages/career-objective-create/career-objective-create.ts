@@ -78,7 +78,7 @@ export class CareerObjectiveCreatePage {
   }
 
   ionViewDidEnter() {
-    //On récupère le matricule du pnc de la route
+    // On récupère le matricule du pnc de la route
     if (this.navParams.get('matricule')) {
       this.careerObjective.pnc.matricule = this.navParams.get('matricule');
     }

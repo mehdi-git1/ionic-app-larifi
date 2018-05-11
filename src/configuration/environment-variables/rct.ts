@@ -6,7 +6,7 @@ export class Config extends BaseConfig {
     constructor() {
         super();
         this.appVersion = '1';
-        this.backEndUrl = '/api/some/other/one'; 
+        this.backEndUrl = '/api/some/other/one';
         this.env = 'rct';
         this.secmobileEnv = 'rct';
     }

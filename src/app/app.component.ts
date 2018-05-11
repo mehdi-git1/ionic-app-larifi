@@ -44,7 +44,7 @@ export class EDossierPNC {
       this.platform.ready().then(() => {
         this.secMobilService.init();
         this.secMobilService.isAuthenticated().then(() => {
-          // launch process when already authenticated 
+          // launch process when already authenticated
           // nothing to do there
         },
           error => {
