@@ -30,22 +30,22 @@
                         <!-- Spécialité-->
                         <ion-col class="pnc-info">
                             <ion-label>{{ 'PNC_HOME.SPECIALITY' | translate }}</ion-label>
-                            <span class="value">{{ pnc.speciality }}</span>
+                            <span class="value" [ngClass]="{'no-value' : !pnc.speciality }">{{ pnc.speciality }}</span>
                         </ion-col>
                         <!-- Ginq-->
                         <ion-col class="pnc-info">
                             <ion-label>{{ 'PNC_HOME.GINQ' | translate }}</ion-label>
-                            <span class="value">{{ pnc.assignment.ginq }}</span>
+                            <span class="value" [ngClass]="{'no-value' : !pnc.assignment.ginq }">{{ pnc.assignment.ginq }}</span>
                         </ion-col>
                         <!-- Secteur-->
                         <ion-col class="pnc-info">
                             <ion-label>{{ 'PNC_HOME.SECTOR' | translate }}</ion-label>
-                            <span class="value">{{ pnc.assignment.sector }}</span>
+                            <span class="value" [ngClass]="{'no-value' : !pnc.assignment.sector }">{{ pnc.assignment.sector }}</span>
                         </ion-col>
                         <!-- Division-->
                         <ion-col class="pnc-info">
                             <ion-label>{{ 'PNC_HOME.DIVISION' | translate }}</ion-label>
-                            <span class="value">{{ pnc.assignment.division }}</span>
+                            <span class="value" [ngClass]="{'no-value' : !pnc.assignment.division }">{{ pnc.assignment.division }}</span>
                         </ion-col>
                     </ion-row>
                 </ion-col>
