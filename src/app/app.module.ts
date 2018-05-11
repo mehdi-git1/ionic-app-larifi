@@ -28,7 +28,8 @@ import { GenderProvider } from '../providers/gender/gender';
 import { ToastProvider } from '../providers/toast/toast';
 import { CareerObjectiveStatusProvider } from '../providers/career-objective-status/career-objective-status';
 import { DatePipe } from '@angular/common';
-
+import { WaypointCreatePage } from './../pages/waypoint-create/waypoint-create';
+import { WaypointProvider } from './../providers/waypoint/waypoint';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { DatePipe } from '@angular/common';
     PncHomePage,
     AuthenticationPage,
     CareerObjectiveCreatePage,
-    CareerObjectiveListPage
+    CareerObjectiveListPage,
+    WaypointCreatePage
   ],
   imports: [
     BrowserModule,
@@ -58,7 +60,8 @@ import { DatePipe } from '@angular/common';
     PncHomePage,
     AuthenticationPage,
     CareerObjectiveCreatePage,
-    CareerObjectiveListPage
+    CareerObjectiveListPage,
+    WaypointCreatePage
   ],
   providers: [
     StatusBar,
@@ -74,7 +77,8 @@ import { DatePipe } from '@angular/common';
     GenderProvider,
     ToastProvider,
     CareerObjectiveStatusProvider,
-    DatePipe
+    DatePipe,
+    WaypointProvider
   ]
 })
 export class AppModule { }

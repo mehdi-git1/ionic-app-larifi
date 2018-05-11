@@ -1,6 +1,5 @@
 import { Gender } from './../../models/gender';
 import { Pnc } from './../../models/pnc';
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 
