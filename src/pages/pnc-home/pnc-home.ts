@@ -29,7 +29,8 @@ export class PncHomePage {
     this.pnc.assignment = new Assignment();
 
     // TEMPORAIRE
-    this.matricule = '07755754';
+    //this.matricule = 'this.matricule = '07755754';';
+    this.matricule = '07339967';
   }
 
   /**

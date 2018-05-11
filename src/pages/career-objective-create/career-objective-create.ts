@@ -25,6 +25,9 @@ export class CareerObjectiveCreatePage {
   saveInProgress: boolean;
   deletionInProgress: boolean;
 
+  cancelValidation: boolean;
+  cancelAbandon: boolean;
+
   // Permet d'exposer l'enum au template
   CareerObjectiveStatus = CareerObjectiveStatus;
 
@@ -105,7 +108,15 @@ export class CareerObjectiveCreatePage {
         if (this.careerObjective.careerObjectiveStatus === CareerObjectiveStatus.DRAFT) {
           this.toastProvider.success(this.translateService.instant('CAREER_OBJECTIVE_CREATE.SUCCESS.DRAFT_SAVED'));
         } else if (this.careerObjective.careerObjectiveStatus === CareerObjectiveStatus.REGISTERED) {
-          this.toastProvider.success(this.translateService.instant('CAREER_OBJECTIVE_CREATE.SUCCESS.CAREER_OBJECTIVE_SAVED'));
+          if (this.cancelValidation) {
+            this.toastProvider.success(this.translateService.instant('CAREER_OBJECTIVE_CREATE.SUCCESS.CAREER_OBJECTIVE_VALIDATION_CANCELED'));
+            this.cancelValidation = false;
+          } else if (this.cancelAbandon) {
+            this.toastProvider.success(this.translateService.instant('CAREER_OBJECTIVE_CREATE.SUCCESS.CAREER_OBJECTIVE_TAKEN_BACK'));
+            this.cancelValidation = false;
+          } else {
+            this.toastProvider.success(this.translateService.instant('CAREER_OBJECTIVE_CREATE.SUCCESS.CAREER_OBJECTIVE_SAVED'));
+          }
         } else if (this.careerObjective.careerObjectiveStatus === CareerObjectiveStatus.VALIDATED) {
           this.toastProvider.success(this.translateService.instant('CAREER_OBJECTIVE_CREATE.SUCCESS.CAREER_OBJECTIVE_VALIDATED'));
         } else if (this.careerObjective.careerObjectiveStatus === CareerObjectiveStatus.ABANDONED) {
@@ -149,7 +160,23 @@ export class CareerObjectiveCreatePage {
     this.saveCareerObjective();
   }
 
-  cancelCareerObjectiveValidatedStatus
+  /**
+  * annule la validation d'un objectif
+  */
+  cancelCareerObjectiveValidated() {
+    this.cancelValidation = true;
+    this.careerObjective.careerObjectiveStatus = CareerObjectiveStatus.REGISTERED;
+    this.saveCareerObjective();
+  }
+
+  /**
+  * reprends un objectif abandonné
+  */
+  cancelCareerObjectiveAbandoned() {
+    this.cancelAbandon = true;
+    this.careerObjective.careerObjectiveStatus = CareerObjectiveStatus.REGISTERED;
+    this.saveCareerObjective();
+  }
 
   /**
  * Présente une alerte pour confirmer la suppression du brouillon

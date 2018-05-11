@@ -50,7 +50,9 @@
             "CAREER_OBJECTIVE_SAVED": "Objectif enregistré avec succès",
             "DRAFT_SAVED": "Brouillon enregistré",
             "CAREER_OBJECTIVE_VALIDATED": "Objectif validé",
-            "CAREER_OBJECTIVE_ABANDONED": "Objectif abandonné"
+            "CAREER_OBJECTIVE_ABANDONED": "Objectif abandonné",
+            "CAREER_OBJECTIVE_VALIDATION_CANCELED": "Validation annulée de l'objectif",
+            "CAREER_OBJECTIVE_TAKEN_BACK": "Objectif repris avec succés"
         },
         "ERROR": {
             "CAREER_OBJECTIVE_CREATION_FAILED": "La création de l'objectif a échoué"
