@@ -1,48 +1,42 @@
 <ion-header>
-
-  <ion-navbar>
-    <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>
-    <ion-title>{{ 'GLOBAL.DEVELOPMENT_PROGRAM' | translate }}</ion-title>
-  </ion-navbar>
-
+    <ion-navbar>
+        <ion-title>{{ 'GLOBAL.DEVELOPMENT_PROGRAM' | translate }}</ion-title>
+    </ion-navbar>
 </ion-header>
 
-
 <ion-content padding>
+    <h3 margin-horizontal>{{ 'CAREER_OBJECTIVE_LIST.TITLE' | translate }}</h3>
 
-  <h3 margin-horizontal>{{ 'CAREER_OBJECTIVE_LIST.TITLE' | translate }}</h3>
-  <button margin ion-button color="dark" (click)="goToCareerObjectiveCreation()">
+    <button ion-button margin color="dark" (click)="goToCareerObjectiveCreation()">
     <ion-icon name="add"></ion-icon>
   </button>
 
-  <ion-content class="career-objective-list-container">
-    <ion-card class="career-objective-card clickable" *ngFor="let careerObjective of careerObjectiveList" (click)="openCareerObjective(careerObjective.techId)">
-      <ion-card-content no-padding>
-        <div class="header">
-          <h4>{{careerObjective.title}}</h4>
-          <ion-chip color="{{careerObjective.careerObjectiveStatus.toLowerCase()}}" *ngIf="careerObjective.careerObjectiveStatus" float-right>
-            <ion-label>{{ 'GLOBAL.CAREER_OBJECTIVE_STATUS.'+careerObjective.careerObjectiveStatus | translate }}</ion-label>
-          </ion-chip>
-        </div>
-        <ion-grid class="content">
-          <ion-row>
-            <ion-col>
-              <label>{{ 'CAREER_OBJECTIVE_LIST.LIST.CREATION_DATE' | translate }}</label>
-              <span class="value">{{careerObjective.creationDate == null ? "-" : careerObjective.creationDate | date: 'dd/MM/yyyy HH:mm:ss'}}</span>
-            </ion-col>
-            <ion-col>
-              <label>{{ 'CAREER_OBJECTIVE_LIST.LIST.REGISTRATION_DATE' | translate }}</label>
-              <span class="value">{{careerObjective.registrationDate == null ? "-" : careerObjective.registrationDate | date: 'dd/MM/yyyy HH:mm:ss'}}</span>
-            </ion-col>
-            <ion-col>
-              <label>{{ 'CAREER_OBJECTIVE_LIST.LIST.NEXT_ENCOUNTER_DATE' | translate }}</label>
-              <span class="value">{{careerObjective.nextEncounterDate == null ? "-" : careerObjective.nextEncounterDate | date: 'dd/MM/yyyy HH:mm:ss'}}</span>
-            </ion-col>
-          </ion-row>
-        </ion-grid>
-      </ion-card-content>
-    </ion-card>
-  </ion-content>
+    <ion-content class="career-objective-list-container">
+        <ion-card class="career-objective-card clickable" *ngFor="let careerObjective of careerObjectiveList" (click)="openCareerObjective(careerObjective.techId)">
+            <ion-card-content no-padding>
+                <div class="header">
+                    <h4>{{careerObjective.title}}</h4>
+                    <ion-chip color="{{careerObjective.careerObjectiveStatus.toLowerCase()}}" *ngIf="careerObjective.careerObjectiveStatus" float-right>
+                        <ion-label>{{ 'GLOBAL.CAREER_OBJECTIVE_STATUS.'+careerObjective.careerObjectiveStatus | translate }}</ion-label>
+                    </ion-chip>
+                </div>
+                <ion-grid class="content">
+                    <ion-row>
+                        <ion-col>
+                            <label>{{ 'CAREER_OBJECTIVE_LIST.LIST.CREATION_DATE' | translate }}</label>
+                            <span class="value" [ngClass]="{'no-value' : !careerObjective.creationDate }">{{ careerObjective.creationDate | date: 'dd/MM/yyyy HH:mm'}}</span>
+                        </ion-col>
+                        <ion-col>
+                            <label>{{ 'CAREER_OBJECTIVE_LIST.LIST.REGISTRATION_DATE' | translate }}</label>
+                            <span class="value" [ngClass]="{'no-value' : !careerObjective.registrationDate }">{{careerObjective.registrationDate | date: 'dd/MM/yyyy HH:mm'}}</span>
+                        </ion-col>
+                        <ion-col>
+                            <label>{{ 'CAREER_OBJECTIVE_LIST.LIST.NEXT_ENCOUNTER_DATE' | translate }}</label>
+                            <span class="value" [ngClass]="{'no-value' : !careerObjective.nextEncounterDate }">{{careerObjective.nextEncounterDate | date: 'dd/MM/yyyy'}}</span>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+            </ion-card-content>
+        </ion-card>
+    </ion-content>
 </ion-content>

@@ -3,8 +3,8 @@ import { HttpClient } from '@angular/common/http';
 
 /**
  * Mother class of the RestService App and RestService Web service.
- * We use the same function whether we are in app or web mode. 
- * Their behavior change according to the app mode (which is set in app/app.module.ts) 
+ * We use the same function whether we are in app or web mode.
+ * Their behavior change according to the app mode (which is set in app/app.module.ts)
  */
 
 Injectable();
@@ -16,23 +16,23 @@ export abstract class RestService {
     abstract call(request: RestRequest): Promise<any>;
 
     get(url: string, jsonData?: any, httpHeaders?: any): Promise<any> {
-        return this.sendRequest("GET", url, jsonData, httpHeaders);
+        return this.sendRequest('GET', url, jsonData, httpHeaders);
     }
 
     post(url: string, jsonData: any, httpHeaders?: any): Promise<any> {
-        return this.sendRequest("POST", url, jsonData, httpHeaders);
+        return this.sendRequest('POST', url, jsonData, httpHeaders);
     }
 
     put(url: string, jsonData: any, httpHeaders?: any): Promise<any> {
-        return this.sendRequest("PUT", url, jsonData, httpHeaders);
+        return this.sendRequest('PUT', url, jsonData, httpHeaders);
     }
 
     delete(url: string, jsonData?: any, httpHeaders?: any): Promise<any> {
-        return this.sendRequest("DELETE", url, jsonData, httpHeaders);
+        return this.sendRequest('DELETE', url, jsonData, httpHeaders);
     }
 
     sendRequest(method: string, url: string, jsonData: any, httpHeaders?: any): Promise<any> {
-        let request: RestRequest = new RestRequest();
+        const request: RestRequest = new RestRequest();
         request.method = method;
         request.url = url;
         request.jsonData = jsonData;
@@ -43,7 +43,7 @@ export abstract class RestService {
 }
 
 export class RestRequest {
-    public withCredential: boolean = true;
+    public withCredential = true;
     public method: string;
     public url: string;
     public httpHeaders: any;

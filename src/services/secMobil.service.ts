@@ -11,17 +11,17 @@ export class SecMobilService {
     }
 
     public init() {
-        if (this.secMobile) { 
+        if (this.secMobile) {
             this.secMobile.initSecmobilHttp(this.config.secmobileEnv);
             console.log('init plugin with ' + this.config.secmobileEnv + ' env');
         }
     }
- 
+
     get secMobile(): any {
-        if (!this.connectivityService.isBrowser && window.cordova.plugins && window.cordova.plugins.CertAuthPlugin) { 
+        if (!this.connectivityService.isBrowser && window.cordova.plugins && window.cordova.plugins.CertAuthPlugin) {
             return window.cordova.plugins.CertAuthPlugin;
         } else {
-            console.debug("Plugin not loaded we're in browser mode");
+            // console.debug('Plugin not loaded we\'re in browser mode');
             return null;
         }
     }
@@ -39,7 +39,7 @@ export class SecMobilService {
                     }
                 );
             } else {
-                console.debug('Not in mobile mode');
+                // console.debug('Not in mobile mode');
                 resolve('ok');
             }
         });
@@ -49,7 +49,7 @@ export class SecMobilService {
      * Authenticate 'login' user.
      */
     public authenticate(login: string, password: string): Promise<any> {
-        let authentParam = {
+        const authentParam = {
             'duration': 'long',
             'userId': login.toLowerCase(),
             'strongPassword': password
@@ -60,13 +60,13 @@ export class SecMobilService {
                     (success) => {
                         resolve(success);
                     },
-                    (err) => {                        
+                    (err) => {
                         console.error('isAuthenticated:authenticate failure : ' + err);
                         reject(err);
                     }
                 );
             } else {
-                console.debug('Not in Mobile Mode');
+                // console.debug('Not in Mobile Mode');
                 resolve('ok');
             }
         });
@@ -75,7 +75,7 @@ export class SecMobilService {
     /**
      * Check if certificate is present and valid.
      */
-    public isAuthenticated(): Promise<any> {        
+    public isAuthenticated(): Promise<any> {
         return new Promise((resolve, reject) => {
             if (this.secMobile) {
                 this.secMobile.secMobilHasCertificate('',
@@ -88,16 +88,16 @@ export class SecMobilService {
                     }
                 );
             } else {
-                console.debug('Not in Mobile Mode');
+                // console.debug('Not in Mobile Mode');
                 resolve('ok');
             }
         }
         );
     }
 
-     /**
-     * Make http request
-     */
+    /**
+    * Make http request
+    */
     public call(request: any): Promise<any> {
         return new Promise((resolve, reject) => {
             this.secMobile.secMobilCallRestService(request,

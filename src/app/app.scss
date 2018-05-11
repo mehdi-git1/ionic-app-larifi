@@ -1,6 +1,4 @@
 // http://ionicframework.com/docs/theming/
-
-
 // App Global Sass
 // --------------------------------------------------
 // Put style rules here that you want to apply globally. These
@@ -14,10 +12,16 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
-
 @import '../theme/toast.scss';
+@import '../theme/label.scss';
 
-/* A utiliser sur les éléments cliquables (les labels ont un style contraire, on est obligé de les surcharger) */
-.clickable, .clickable label{
+// A utiliser sur les éléments cliquables (les labels ont un style contraire, on est obligé de les surcharger) */
+.clickable,
+.clickable label {
     cursor: pointer;
+}
+
+// Pour ajouter une valeur "nulle" (un tiret) 
+.no-value:after {
+    content: '-';
 }

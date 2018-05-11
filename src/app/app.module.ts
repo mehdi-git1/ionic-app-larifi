@@ -89,13 +89,13 @@ export class AppModule { }
 
 declare var window: any;
 
-//Check if we are in app mode or in web browser
+// Check if we are in app mode or in web browser
 export function createRestService(http: HttpClient, secMobilService: SecMobilService): RestService {
-  if (undefined != window.cordova && 'browser' !== window.cordova.platformId) {
-    console.log("mobile mode selected");
+  if (undefined !== window.cordova && 'browser' !== window.cordova.platformId) {
+    console.log('mobile mode selected');
     return new RestMobileService(http, secMobilService);
   } else {
-    console.log("web mode selected");
+    console.log('web mode selected');
     return new RestWebService(http);
   }
 }

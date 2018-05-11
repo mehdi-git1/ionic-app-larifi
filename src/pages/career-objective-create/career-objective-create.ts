@@ -6,7 +6,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { CareerObjectiveProvider } from './../../providers/career-objective/career-objective';
 import { CareerObjective } from './../../models/careerObjective';
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, AlertController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Pnc } from '../../models/pnc';
 import { DatePipe } from '@angular/common';
@@ -21,10 +21,12 @@ export class CareerObjectiveCreatePage {
   careerObjective: CareerObjective;
 
   customDateTimeOptions: any;
+
   saveInProgress: boolean;
+  deletionInProgress: boolean;
 
   // Permet d'exposer l'enum au template
-  CareerObjectiveStatus: typeof CareerObjectiveStatus = CareerObjectiveStatus;
+  CareerObjectiveStatus = CareerObjectiveStatus;
 
   // Exporter un objet de la classe enum dans la template
   Speciality = Speciality;
@@ -32,18 +34,19 @@ export class CareerObjectiveCreatePage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
+    private alertCtrl: AlertController,
     public translateService: TranslateService,
     private formBuilder: FormBuilder,
     private careerObjectiveProvider: CareerObjectiveProvider,
     private toastProvider: ToastProvider,
     public careerObjectiveStatusProvider: CareerObjectiveStatusProvider,
     private datePipe: DatePipe) {
+
     this.careerObjective = new CareerObjective();
     this.careerObjective.pnc = new Pnc();
 
     // Initialisation du formulaire
     this.creationForm = this.formBuilder.group({
-      pncMatriculeControl: ['', Validators.required],
       initiatorControl: ['', Validators.required],
       titleControl: ['', Validators.compose([Validators.maxLength(255), Validators.required])],
       contextControl: ['', Validators.maxLength(4000)],
@@ -69,12 +72,20 @@ export class CareerObjectiveCreatePage {
           this.careerObjective = foundCareerObjective;
         },
         error => {
-
+          this.toastProvider.error(error.detailMessage);
         }
       );
     }
 
     this.saveInProgress = false;
+    this.deletionInProgress = false;
+  }
+
+  ionViewDidEnter() {
+    // On récupère le matricule du pnc de la route
+    if (this.navParams.get('matricule')) {
+      this.careerObjective.pnc.matricule = this.navParams.get('matricule');
+    }
   }
 
   /**
@@ -116,5 +127,50 @@ export class CareerObjectiveCreatePage {
   saveCareerObjectiveRegister() {
     this.careerObjective.careerObjectiveStatus = CareerObjectiveStatus.REGISTER;
     this.saveCareerObjective();
+  }
+  
+    /**
+   * Présente une alerte pour confirmer la suppression du brouillon
+   */
+  confirmDeleteCareerObjectiveDraft() {
+    this.alertCtrl.create({
+      title: this.translateService.instant('CAREER_OBJECTIVE_CREATE.CONFIRM_DRAFT_DELETE.TITLE'),
+      message: this.translateService.instant('CAREER_OBJECTIVE_CREATE.CONFIRM_DRAFT_DELETE.MESSAGE'),
+      buttons: [
+        {
+          text: this.translateService.instant('CAREER_OBJECTIVE_CREATE.CONFIRM_DRAFT_DELETE.CANCEL'),
+          role: 'cancel'
+        },
+        {
+          text: this.translateService.instant('CAREER_OBJECTIVE_CREATE.CONFIRM_DRAFT_DELETE.CONFIRM'),
+          handler: () => this.deleteCareerObjectiveDraft()
+        }
+      ]
+    }).present();
+  }
+
+  /**
+  * Supprime un objectif au statut brouillon
+  */
+  deleteCareerObjectiveDraft() {
+    this.deletionInProgress = true;
+    this.careerObjectiveProvider
+      .delete(this.careerObjective.techId)
+      .then(
+        deletedCareerObjective => {
+          this.toastProvider.success(this.translateService.instant('CAREER_OBJECTIVE_CREATE.SUCCESS.DRAFT_DELETED'));
+          this.navCtrl.pop();
+        },
+        error => {
+          this.toastProvider.error(error.detailMessage);
+          this.deletionInProgress = false;
+        });
+  }
+
+  /**
+   * Teste si l'objectif est en mode création ou édition
+   */
+  isCreationMode() {
+    return this.careerObjective.techId === undefined;
   }
 }

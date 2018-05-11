@@ -3,7 +3,7 @@ import { CareerObjectiveCreatePage } from './../career-objective-create/career-o
 import { CareerObjective } from './../../models/careerObjective';
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
-import { CareerObjectiveProvider } from '../../providers/career-objective/career-objective'
+import { CareerObjectiveProvider } from '../../providers/career-objective/career-objective';
 
 
 @Component({
@@ -47,6 +47,6 @@ export class CareerObjectiveListPage {
    * @param careerObjectiveId l'id de l'objectif à ouvrir
    */
   openCareerObjective(careerObjectiveId: number) {
-    this.navCtrl.push(CareerObjectiveCreatePage, { matricule: this.matricule, careerObjectiveId: careerObjectiveId });
+    this.navCtrl.push(CareerObjectiveCreatePage, { careerObjectiveId: careerObjectiveId });
   }
 }

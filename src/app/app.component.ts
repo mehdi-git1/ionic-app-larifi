@@ -24,8 +24,6 @@ export class EDossierPNC {
 
   matricule: string = "12345677"
 
-  pages: Array<{ title: string, component: any }>;
-
   constructor(public platform: Platform, public statusBar: StatusBar,
     public splashScreen: SplashScreen, public translate: TranslateService,
     private secMobilService: SecMobilService,
@@ -34,12 +32,6 @@ export class EDossierPNC {
   ) {
 
     this.initializeApp();
-
-    this.pages = [
-      { title: 'Home', component: HomePage },
-      { title: 'CareerObjectiveCreate', component: CareerObjectiveCreatePage }
-    ];
-
     this.securityProvider.getconnectedPnc(this.matricule).then(result => {
       let authenticatedUser: AuthenticatedUser = result;
       console.log("****app.component.ts***" + authenticatedUser.manager);
