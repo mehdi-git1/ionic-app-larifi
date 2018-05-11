@@ -37,7 +37,6 @@ export class PncHomePage {
    */
   ionViewDidLoad() {
     if (this.navParams.get('matricule')) {
-      console.log(this.navParams.get('matricule'));
       this.matricule = this.navParams.get('matricule');
     }
 
