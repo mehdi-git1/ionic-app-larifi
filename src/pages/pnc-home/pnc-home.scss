@@ -3,18 +3,28 @@ page-pnc-home {
     .pnc-info-panel {
 
         img {
-            width: 110px;
+            width: 100px;
         }
 
-        .primary-info {
-            font-size: 1.4em;
-        }
-
-        .pnc-info {
+        .content {
             display: flex;
             flex-direction: column;
-            align-items: center;
+
+            ion-row {
+                flex: 1;
+            }
+
+            .primary-info {
+                font-size: 1.4em;
+            }
+
+            .pnc-info {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
         }
+
     }
 
     #nav-tile-grid {
