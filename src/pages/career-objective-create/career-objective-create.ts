@@ -125,13 +125,13 @@ export class CareerObjectiveCreatePage {
    * Enregistre un objectif au statut enregistrer
    */
   saveCareerObjectiveRegister() {
-    this.careerObjective.careerObjectiveStatus = CareerObjectiveStatus.REGISTER;
+    this.careerObjective.careerObjectiveStatus = CareerObjectiveStatus.REGISTERED;
     this.saveCareerObjective();
   }
-  
-    /**
-   * Présente une alerte pour confirmer la suppression du brouillon
-   */
+
+  /**
+ * Présente une alerte pour confirmer la suppression du brouillon
+ */
   confirmDeleteCareerObjectiveDraft() {
     this.alertCtrl.create({
       title: this.translateService.instant('CAREER_OBJECTIVE_CREATE.CONFIRM_DRAFT_DELETE.TITLE'),

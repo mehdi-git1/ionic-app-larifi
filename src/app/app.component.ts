@@ -32,12 +32,8 @@ export class EDossierPNC {
   ) {
 
     this.initializeApp();
-    this.securityProvider.getconnectedPnc(this.matricule).then(result => {
-      let authenticatedUser: AuthenticatedUser = result;
-      console.log("****app.component.ts***" + authenticatedUser.manager);
-      this.SessionService.authenticatedUser = authenticatedUser;
-    });
 
+    this.putAuthenticatedUserInSession();
 
   }
 
@@ -60,6 +56,15 @@ export class EDossierPNC {
             this.rootPage = AuthenticationPage;
           });
       });
+    });
+  }
+
+  /**
+  * Mettre le pnc connecté en session 
+  */
+  putAuthenticatedUserInSession() {
+    this.securityProvider.getAuthenticatedUser().then(result => {
+      this.SessionService.authenticatedUser = result;
     });
   }
 
