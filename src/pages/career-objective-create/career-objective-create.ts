@@ -10,6 +10,9 @@ import { NavController, NavParams, AlertController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Pnc } from '../../models/pnc';
 import { DatePipe } from '@angular/common';
+import { Waypoint } from './../../models/waypoint';
+import { WaypointCreatePage } from './../waypoint-create/waypoint-create';
+import { WaypointProvider } from './../../providers/waypoint/waypoint';
 
 @Component({
   selector: 'page-career-objective-create',
@@ -19,6 +22,7 @@ export class CareerObjectiveCreatePage {
 
   creationForm: FormGroup;
   careerObjective: CareerObjective;
+  waypointList: Waypoint[];
 
   customDateTimeOptions: any;
 
@@ -39,6 +43,7 @@ export class CareerObjectiveCreatePage {
     private formBuilder: FormBuilder,
     private careerObjectiveProvider: CareerObjectiveProvider,
     private toastProvider: ToastProvider,
+    private waypointProvider: WaypointProvider,
     public careerObjectiveStatusProvider: CareerObjectiveStatusProvider,
     private datePipe: DatePipe) {
 
@@ -75,6 +80,12 @@ export class CareerObjectiveCreatePage {
           this.toastProvider.error(error.detailMessage);
         }
       );
+
+      this.waypointProvider.getListWaypoint(this.navParams.get('careerObjectiveId')).then(result => {
+        this.waypointList = result;
+      }, error => {
+        this.toastProvider.error(error.detailMessage);
+      });
     }
 
     this.saveInProgress = false;
@@ -153,6 +164,7 @@ export class CareerObjectiveCreatePage {
   * Supprime un objectif au statut brouillon
   */
   deleteCareerObjectiveDraft() {
+
     this.deletionInProgress = true;
     this.careerObjectiveProvider
       .delete(this.careerObjective.techId)
@@ -172,5 +184,16 @@ export class CareerObjectiveCreatePage {
    */
   isCreationMode() {
     return this.careerObjective.techId === undefined;
+  }
+
+  /**
+   * Dirige vers la page de création d'un point d'étape
+   */
+  goToWaypointCreate() {
+    this.navCtrl.push(WaypointCreatePage, { careerObjective: this.careerObjective });
+  }
+
+  openWaypoint(techId: number) {
+    this.navCtrl.push(WaypointCreatePage, { waypointId: techId, careerObjective: this.careerObjective });
   }
 }

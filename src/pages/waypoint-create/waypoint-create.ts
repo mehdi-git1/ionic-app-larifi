@@ -17,7 +17,6 @@ export class WaypointCreatePage {
   creationForm: FormGroup;
   careerObjective: CareerObjective;
   waypoint: Waypoint;
-  techId: any;
   customDateTimeOptions: any;
   saveInProgress: boolean;
   return: boolean;
@@ -34,7 +33,6 @@ export class WaypointCreatePage {
     this.waypoint = new Waypoint();
     this.careerObjective = this.navParams.get('careerObjective');
     this.waypoint.careerObjective = this.careerObjective;
-
 
     // Initialisation du formulaire
     this.creationForm = this.formBuilder.group({

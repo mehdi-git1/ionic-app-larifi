@@ -17,6 +17,7 @@
     },
     "CAREER_OBJECTIVE_CREATE": {
         "CREATE_TITLE": "Création d'un nouvel objectif",
+        "SUB_TITLE": "Point d'étape",
         "EDIT_TITLE": "Modification d'un objectif",
         "FORM": {
             "PNC": "PNC",
@@ -27,7 +28,8 @@
             "MANAGER_COMMENT": "Commentaire cadre",
             "PNC_COMMENT": "Commentaire PNC",
             "NEXT_ENCOUNTER_DATE": "Prochain point d'étape",
-            "PRIORITIZED": "Prioritaire"
+            "PRIORITIZED": "Prioritaire",
+            "CREATION_DATE": "Date de création"
         },
         "CONFIRM_DRAFT_DELETE": {
             "TITLE": "Suppression du brouillon",
@@ -68,6 +70,21 @@
             "GINQ": "Ginq",
             "SECTOR": "Secteur",
             "DIVISION": "Division"
+        }
+    },
+    "WAYPOINT_CREATE": {
+        "TITLE": "Création d'un point d'étape",
+        "FORM": {
+            "CONTEXT": "Contexte",
+            "ACTION_PERFORMED": "Action réalisée",
+            "MANAGER_COMMENT": "Commentaire cadre",
+            "PNC_COMMENT": "Commentaire PNC"
+        },
+        "BUTTONS": {
+            "SAVE": "Enregistrer"
+        },
+        "SUCCESS": {
+            "WAYPOINT_SAVED": "point d'étape enregistré avec succès"
         }
     }
 }
