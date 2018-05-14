@@ -1,3 +1,5 @@
+import { SecurityProvider } from './../../providers/security/security';
+import { Speciality } from './../../models/speciality';
 import { CareerObjectiveStatusProvider } from './../../providers/career-objective-status/career-objective-status';
 import { ToastProvider } from './../../providers/toast/toast';
 import { CareerObjectiveStatus } from './../../models/careerObjectiveStatus';
@@ -40,7 +42,8 @@ export class CareerObjectiveCreatePage {
     private waypointProvider: WaypointProvider,
     private toastProvider: ToastProvider,
     public careerObjectiveStatusProvider: CareerObjectiveStatusProvider,
-    private datePipe: DatePipe) {
+    private datePipe: DatePipe,
+    public securityProvider: SecurityProvider) {
 
     this.careerObjective = new CareerObjective();
     this.careerObjective.pnc = new Pnc();
@@ -137,8 +140,16 @@ export class CareerObjectiveCreatePage {
   }
 
   /**
-   * Présente une alerte pour confirmer la suppression du brouillon
+   * Enregistre un objectif au statut enregistré
    */
+  saveCareerObjectiveToRegisteredStatus() {
+    this.careerObjective.careerObjectiveStatus = CareerObjectiveStatus.REGISTERED;
+    this.saveCareerObjective();
+  }
+
+  /**
+ * Présente une alerte pour confirmer la suppression du brouillon
+ */
   confirmDeleteCareerObjectiveDraft() {
     this.alertCtrl.create({
       title: this.translateService.instant('CAREER_OBJECTIVE_CREATE.CONFIRM_DRAFT_DELETE.TITLE'),
@@ -180,5 +191,4 @@ export class CareerObjectiveCreatePage {
   isCreationMode() {
     return this.careerObjective.techId === undefined;
   }
-
 }

@@ -11,7 +11,8 @@
         },
         "DEVELOPMENT_PROGRAM": "Parcours de développement",
         "CAREER_OBJECTIVE_STATUS": {
-            "DRAFT": "BROUILLON"
+            "DRAFT": "BROUILLON",
+            "REGISTERED": "ENREGISTRÉ"
         }
     },
     "CAREER_OBJECTIVE_CREATE": {

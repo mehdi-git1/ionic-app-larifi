@@ -1,3 +1,5 @@
+import { SessionService } from './../services/session.service';
+import { SecurityProvider } from './../providers/security/security';
 import { CareerObjectiveProvider } from './../providers/career-objective/career-objective';
 import { PncHomePage } from './../pages/pnc-home/pnc-home';
 import { CareerObjectiveCreatePage } from './../pages/career-objective-create/career-objective-create';
@@ -75,6 +77,8 @@ import { WaypointProvider } from './../providers/waypoint/waypoint';
     ToastProvider,
     CareerObjectiveStatusProvider,
     DatePipe,
+    SecurityProvider,
+    SessionService,
     WaypointProvider
   ]
 })
