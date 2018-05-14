@@ -1,6 +1,5 @@
 import { Gender } from './../../models/gender';
 import { Pnc } from './../../models/pnc';
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 
@@ -21,10 +20,10 @@ export class GenderProvider {
 
   getAvatarPicture(gender: Gender) {
     if (gender === Gender.M) {
-      return "../../assets/imgs/man-default-picture.png";
+      return '../../assets/imgs/man-default-picture.png';
     }
     if (gender === Gender.F) {
-      return "../../assets/imgs/woman-default-picture.png";
+      return '../../assets/imgs/woman-default-picture.png';
     }
   }
 

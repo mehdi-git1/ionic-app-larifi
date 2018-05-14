@@ -28,7 +28,8 @@ import { GenderProvider } from '../providers/gender/gender';
 import { ToastProvider } from '../providers/toast/toast';
 import { CareerObjectiveStatusProvider } from '../providers/career-objective-status/career-objective-status';
 import { DatePipe } from '@angular/common';
-
+import { WaypointCreatePage } from './../pages/waypoint-create/waypoint-create';
+import { WaypointProvider } from './../providers/waypoint/waypoint';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { DatePipe } from '@angular/common';
     PncHomePage,
     AuthenticationPage,
     CareerObjectiveCreatePage,
-    CareerObjectiveListPage
+    CareerObjectiveListPage,
+    WaypointCreatePage
   ],
   imports: [
     BrowserModule,
@@ -58,7 +60,8 @@ import { DatePipe } from '@angular/common';
     PncHomePage,
     AuthenticationPage,
     CareerObjectiveCreatePage,
-    CareerObjectiveListPage
+    CareerObjectiveListPage,
+    WaypointCreatePage
   ],
   providers: [
     StatusBar,
@@ -74,7 +77,8 @@ import { DatePipe } from '@angular/common';
     GenderProvider,
     ToastProvider,
     CareerObjectiveStatusProvider,
-    DatePipe
+    DatePipe,
+    WaypointProvider
   ]
 })
 export class AppModule { }
@@ -82,13 +86,13 @@ export class AppModule { }
 
 declare var window: any;
 
-//Check if we are in app mode or in web browser
+// Check if we are in app mode or in web browser
 export function createRestService(http: HttpClient, secMobilService: SecMobilService): RestService {
-  if (undefined != window.cordova && 'browser' !== window.cordova.platformId) {
-    console.log("mobile mode selected");
+  if (undefined !== window.cordova && 'browser' !== window.cordova.platformId) {
+    console.log('mobile mode selected');
     return new RestMobileService(http, secMobilService);
   } else {
-    console.log("web mode selected");
+    console.log('web mode selected');
     return new RestWebService(http);
   }
 }

@@ -27,15 +27,21 @@ export class PncHomePage {
 
     this.pnc = new Pnc();
     this.pnc.assignment = new Assignment();
+
+    // TEMPORAIRE
+    this.matricule = '07339967';
   }
 
   /**
    * Charge les informations du pnc aprés le chargement de la page
    */
   ionViewDidLoad() {
-    this.matricule = this.navParams.get("matricule");
-    this.pncProvider.getPnc(this.matricule).then(result => {
-      this.pnc = result;
+    if (this.navParams.get('matricule')) {
+      this.matricule = this.navParams.get('matricule');
+    }
+
+    this.pncProvider.getPnc(this.matricule).then(foundPnc => {
+      this.pnc = foundPnc;
     }, error => {
       this.toastProvider.error(error.detailMessage);
     });
@@ -46,5 +52,12 @@ export class PncHomePage {
    */
   goToCareerObjectiveList() {
     this.navCtrl.push(CareerObjectiveListPage, { matricule: this.matricule });
+  }
+
+  /**
+   * Redirige vers le EDossier du PNC saisi
+   */
+  goToEdossier() {
+    this.navCtrl.push(PncHomePage, { matricule: this.matricule });
   }
 }

@@ -1,35 +1,49 @@
 page-pnc-home {
-    
-    .objective-list-button{
-        width: 70%;
-        height: 200px;
-        margin: 60px;
+
+    .pnc-info-panel {
+        img {
+            width: 100px;
+        }
+
+        .content {
+            display: flex;
+            flex-direction: column;
+
+            ion-row {
+                flex: 1;
+            }
+
+            .primary-info {
+                font-size: 1.4em;
+            }
+
+            .pnc-info {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+        }
     }
 
-    .portrait-picture{
-        height: 100px;
-        width: 100px;
+    .go-to-edossier {
+        margin-right: 10px;
+        display: flex;
+
+        button {
+            margin-top: 43px;
+        }
     }
 
-    .bold{
-        font-weight: bold;
-    }
+    #nav-tile-grid {
 
-    ion-grid#informations-grid{
-        ion-label{
-            margin: 0px;
-        };
-    }
-
-    ion-grid#buttons-grid{
-        height: 75%;
-        ion-row{
-            height: 100%;
-        };
-        button{
-            height: 100%;
+        button {
+            height: 300px;
             width: 100%;
-        };
+        }
+
+        .development-program {
+            background: color($colors, development-program);
+        }
     }
-  
+
 }

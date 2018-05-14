@@ -1,3 +1,3 @@
 export enum Gender {
-    M = "M", F = "F"
+    M = 'M', F = 'F'
 }

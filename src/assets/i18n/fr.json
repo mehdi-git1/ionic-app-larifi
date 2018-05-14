@@ -1,75 +1,74 @@
 {
-  "GLOBAL": {
-    "PNC_ROLE": {
-      "MANAGER": "Cadre",
-      "PNC": "PNC"
+    "GLOBAL": {
+        "PNC_ROLE": {
+            "MANAGER": "Cadre",
+            "PNC": "PNC"
+        },
+        "DATEPICKER": {
+            "CANCEL": "Annuler",
+            "DONE": "Valider",
+            "CLEAR": "Vider"
+        },
+        "DEVELOPMENT_PROGRAM": "Parcours de développement",
+        "CAREER_OBJECTIVE_STATUS": {
+            "DRAFT": "BROUILLON"
+        }
     },
-    "DATEPICKER": {
-      "CANCEL": "Annuler",
-      "DONE": "Valider",
-      "CLEAR": "Vider"
+    "CAREER_OBJECTIVE_CREATE": {
+        "CREATE_TITLE": "Création d'un nouvel objectif",
+        "EDIT_TITLE": "Modification d'un objectif",
+        "FORM": {
+            "PNC": "PNC",
+            "INITIATOR": "Initiateur",
+            "TITLE": "Libellé de l'objectif",
+            "CONTEXT": "Contexte",
+            "ACTION_PLAN": "Plan d'action et ressources utiles",
+            "MANAGER_COMMENT": "Commentaire cadre",
+            "PNC_COMMENT": "Commentaire PNC",
+            "NEXT_ENCOUNTER_DATE": "Prochain point d'étape",
+            "PRIORITIZED": "Prioritaire"
+        },
+        "CONFIRM_DRAFT_DELETE": {
+            "TITLE": "Suppression du brouillon",
+            "MESSAGE": "Confirmez vous la suppression de ce brouillon ?",
+            "CANCEL": "Annuler",
+            "CONFIRM": "Supprimer"
+        },
+        "BUTTONS": {
+            "SAVE": "Enregistrer",
+            "SAVE_DRAFT": "Enregistrer brouillon",
+            "DELETE_DRAFT": "Supprimer brouillon"
+        },
+        "SUCCESS": {
+            "CAREER_OBJECTIVE_SAVED": "Objectif enregistré avec succès",
+            "DRAFT_SAVED": "Brouillon enregistré",
+            "DRAFT_DELETED": "Brouillon supprimé"
+        },
+
+        "ERROR": {
+            "CAREER_OBJECTIVE_CREATION_FAILED": "La création de l'objectif a échoué"
+        }
     },
-    "DEVELOPMENT_PROGRAM": "Parcours de développement",
-    "CAREER_OBJECTIVE_STATUS": {
-      "DRAFT": "BROUILLON"
+    "CAREER_OBJECTIVE_LIST": {
+        "TITLE": "Liste des objectifs",
+        "LIST": {
+            "CREATION_DATE": "Date de création",
+            "TITLE": "Libellé",
+            "REGISTRATION_DATE": "Date d'enregistrement",
+            "NEXT_ENCOUNTER_DATE": "Date du Prochain point"
+        }
+    },
+    "PNC_HOME": {
+        "TITLE": "Accueil PNC",
+        "GO_TO_EDOSSIER": {
+            "MATRICULE": "Matricule du PNC dont on souhaite voir le EDOSSIER",
+            "SUBMIT": "Valider"
+        },
+        "INFO_PANEL": {
+            "SPECIALITY": "Spécialité",
+            "GINQ": "Ginq",
+            "SECTOR": "Secteur",
+            "DIVISION": "Division"
+        }
     }
-  },
-  "HOME": {
-    "BUTTONS": {
-      "CAREER_OBJECTIVE_CREATE": "Créer un objectif"
-    }
-  },
-  "CAREER_OBJECTIVE_CREATE": {
-    "TITLE": "Créer un nouvel objectif",
-    "FORM": {
-      "PNC": "PNC",
-      "INITIATOR": "Initiateur",
-      "TITLE": "Libellé de l'objectif",
-      "CONTEXT": "Contexte",
-      "ACTION_PLAN": "Plan d'action et ressources utiles",
-      "MANAGER_COMMENT": "Commentaire cadre",
-      "PNC_COMMENT": "Commentaire PNC",
-      "NEXT_ENCOUNTER_DATE": "Prochain point d'étape",
-      "PRIORITIZED": "Prioritaire"
-    },
-    "CONFIRM_DRAFT_DELETE": {
-      "TITLE": "Suppression du brouillon",
-      "MESSAGE": "Confirmez vous la suppression de ce brouillon ?",
-      "CANCEL": "Annuler",
-      "CONFIRM": "Supprimer"
-    },
-    "BUTTONS": {
-      "SAVE": "Enregistrer",
-      "SAVE_DRAFT": "Enregistrer brouillon",
-      "DELETE_DRAFT": "Supprimer brouillon"
-    },
-    "SUCCESS": {
-      "CAREER_OBJECTIVE_SAVED": "Objectif enregistré avec succès",
-      "DRAFT_SAVED": "Brouillon enregistré",
-      "DRAFT_DELETED": "Brouillon supprimé"
-    },
-    "ERROR": {
-      "CAREER_OBJECTIVE_CREATION_FAILED": "La création de l'objectif a échoué"
-    }
-  },
-  "CAREER_OBJECTIVE_LIST": {
-    "TITLE": "Liste des objectifs",
-    "LIST": {
-      "CREATION_DATE": "Date de création",
-      "TITLE": "Libellé",
-      "REGISTRATION_DATE": "Date d'enregistrement",
-      "NEXT_ENCOUNTER_DATE": "Date du Prochain point"
-    }
-  },
-  "PNC_HOME": {
-    "TITLE": "Accueil PNC",
-    "MATRICULE": "Matricule",
-    "LAST_NAME": "Nom",
-    "FIRST_NAME": "Prénom",
-    "GENDER": "Sexe",
-    "SPECIALITY": "Spécialité",
-    "GINQ": "Ginq",
-    "SECTOR": "Secteur",
-    "DIVISION": "Division"
-  }
 }

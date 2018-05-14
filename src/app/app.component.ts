@@ -1,4 +1,4 @@
-import { HomePage } from './../pages/home/home';
+import { PncHomePage } from './../pages/pnc-home/pnc-home';
 import { CareerObjectiveCreatePage } from './../pages/career-objective-create/career-objective-create';
 import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform } from 'ionic-angular';
@@ -14,22 +14,13 @@ import { SecMobilService } from '../services/secMobil.service';
 export class EDossierPNC {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = HomePage;
-
-  pages: Array<{ title: string, component: any }>;
+  rootPage: any = PncHomePage;
 
   constructor(public platform: Platform, public statusBar: StatusBar,
     public splashScreen: SplashScreen, public translate: TranslateService,
     private secMobilService: SecMobilService
   ) {
-
     this.initializeApp();
-
-    this.pages = [
-      { title: 'Home', component: HomePage },
-      { title: 'CareerObjectiveCreate', component: CareerObjectiveCreatePage }
-    ];
-
   }
 
   initializeApp() {
@@ -44,7 +35,7 @@ export class EDossierPNC {
       this.platform.ready().then(() => {
         this.secMobilService.init();
         this.secMobilService.isAuthenticated().then(() => {
-          // launch process when already authenticated 
+          // launch process when already authenticated
           // nothing to do there
         },
           error => {

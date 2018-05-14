@@ -28,11 +28,11 @@ export class RestWebService extends RestService {
 
     private makeHttpRequest(request: RestRequest, successCallback: (result: any) => void, errorCallback: (error: any) => void): void {
 
-        let headers = new HttpHeaders();
+        const headers = new HttpHeaders();
 
         headers.append('Accept', 'application/json, text/plain, */*');
 
-        /////TODO:
+        ///// TODO:
         // for (let h of request.httpHeaders) {
         //     headers.append('Content-Type', request.httpHeaders['Content-Type']);
         // }
@@ -44,30 +44,30 @@ export class RestWebService extends RestService {
         //     headers.append('Content-Type', request.httpHeaders['Content-Type']);
 
 
-        var options = {
+        const options = {
             withCredentials: request.withCredential,
             headers: headers
         };
 
-        if (request.method == 'GET') {
+        if (request.method === 'GET') {
             this.http.get(request.url, options).subscribe(
                 data => { successCallback(data); },
                 err => { errorCallback(err.error); }
             );
         }
-        if (request.method == 'POST') {
+        if (request.method === 'POST') {
             this.http.post(request.url, request.jsonData, options).subscribe(
                 data => { successCallback(data); },
                 err => { errorCallback(err.error); }
             );
         }
-        if (request.method == 'PUT') {
+        if (request.method === 'PUT') {
             this.http.put(request.url, request.jsonData, options).subscribe(
                 data => { successCallback(data); },
                 err => { errorCallback(err.error); }
             );
         }
-        if (request.method == 'DELETE') {
+        if (request.method === 'DELETE') {
             this.http.delete(request.url, options).subscribe(
                 data => { successCallback(data); },
                 err => { errorCallback(err.error); }

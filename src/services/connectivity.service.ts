@@ -7,16 +7,16 @@ declare var window: any;
 
 @Injectable()
 export class ConnectivityService {
- 
-     private restBaseUrl: "https://secmobil-apirct.airfrance.fr/secmobilTestWeb/services/api/user/";
-    public isConnected: boolean = false;
+
+    private restBaseUrl: 'https://secmobil-apirct.airfrance.fr/secmobilTestWeb/services/api/user/';
+    public isConnected = false;
 
     @Output()
     public connectionStatusChange = new EventEmitter<boolean>();
 
     constructor(protected http: HttpClient,
         public platform: Platform) {
-            //console.log('constructor');
+        // console.log('constructor');
         this.checkConnection();
     }
 
@@ -29,14 +29,14 @@ export class ConnectivityService {
     }
 
     public checkConnection() {
-        //console.log('check connection');
+        // console.log('check connection');
         this.pingAPI().subscribe(p => {
             if (p) {
                 this.setConnected(true);
-                //console.log('connected');
+                // console.log('connected');
             } else {
                 this.setConnected(false);
-               // console.log('not connected');
+                // console.log('not connected');
             }
         });
 
@@ -46,9 +46,9 @@ export class ConnectivityService {
     pingAPI(): Observable<Boolean> {
         return Observable.create(
             observer => {
-                this.http.get(this.restBaseUrl,  {observe: 'response'}).subscribe(
+                this.http.get(this.restBaseUrl, { observe: 'response' }).subscribe(
                     r => {
-                        if (r.status == 200) {
+                        if (r.status === 200) {
                             observer.next(true);
                             observer.complete();
                         } else {
@@ -64,12 +64,11 @@ export class ConnectivityService {
     }
 
     get isBrowser() {
-        if ((window.device && window.device.platform == 'browser') || !this.platform.is('cordova')) {
+        if ((window.device && window.device.platform === 'browser') || !this.platform.is('cordova')) {
             return true;
         } else {
             return false;
         }
     }
-
 
 }

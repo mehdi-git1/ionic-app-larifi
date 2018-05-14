@@ -9,6 +9,9 @@ import { NavController, NavParams, AlertController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Pnc } from '../../models/pnc';
 import { DatePipe } from '@angular/common';
+import { Waypoint } from './../../models/waypoint';
+import { WaypointCreatePage } from './../waypoint-create/waypoint-create';
+import { WaypointProvider } from './../../providers/waypoint/waypoint';
 
 @Component({
   selector: 'page-career-objective-create',
@@ -18,14 +21,14 @@ export class CareerObjectiveCreatePage {
 
   creationForm: FormGroup;
   careerObjective: CareerObjective;
-
+  waypointList: Waypoint[];
   customDateTimeOptions: any;
 
   saveInProgress: boolean;
   deletionInProgress: boolean;
 
   // Permet d'exposer l'enum au template
-  CareerObjectiveStatus: typeof CareerObjectiveStatus = CareerObjectiveStatus;
+  CareerObjectiveStatus = CareerObjectiveStatus;
 
   constructor(
     public navCtrl: NavController,
@@ -34,15 +37,17 @@ export class CareerObjectiveCreatePage {
     public translateService: TranslateService,
     private formBuilder: FormBuilder,
     private careerObjectiveProvider: CareerObjectiveProvider,
+    private waypointProvider: WaypointProvider,
     private toastProvider: ToastProvider,
     public careerObjectiveStatusProvider: CareerObjectiveStatusProvider,
     private datePipe: DatePipe) {
+
     this.careerObjective = new CareerObjective();
     this.careerObjective.pnc = new Pnc();
 
+
     // Initialisation du formulaire
     this.creationForm = this.formBuilder.group({
-      pncMatriculeControl: ['', Validators.required],
       initiatorControl: ['', Validators.required],
       titleControl: ['', Validators.compose([Validators.maxLength(255), Validators.required])],
       contextControl: ['', Validators.maxLength(4000)],
@@ -50,14 +55,15 @@ export class CareerObjectiveCreatePage {
       managerCommentControl: ['', Validators.maxLength(4000)],
       pncCommentControl: ['', Validators.maxLength(4000)],
       nextEncounterDateControl: [''],
-      prioritizedControl: [false]
+      prioritizedControl: [false],
+      waypointContextControl: ['', Validators.maxLength(4000)],
     });
 
     // Options du datepicker
     this.customDateTimeOptions = {
       buttons: [{
         text: this.translateService.instant('GLOBAL.DATEPICKER.CLEAR'),
-        handler: () => this.careerObjective.nextEncounterDate = ''
+        handler: () => this.careerObjective.nextEncounterDate
       }]
     };
 
@@ -68,13 +74,26 @@ export class CareerObjectiveCreatePage {
           this.careerObjective = foundCareerObjective;
         },
         error => {
-
+          this.toastProvider.error(error.detailMessage);
         }
       );
+
+      this.waypointProvider.getListWaypoint(this.navParams.get('careerObjectiveId')).then(result => {
+        this.waypointList = result;
+      }, error => {
+        this.toastProvider.error(error.detailMessage);
+      });
     }
 
     this.saveInProgress = false;
     this.deletionInProgress = false;
+  }
+
+  ionViewDidEnter() {
+    // On récupère le matricule du pnc de la route
+    if (this.navParams.get('matricule')) {
+      this.careerObjective.pnc.matricule = this.navParams.get('matricule');
+    }
   }
 
   /**
@@ -100,6 +119,13 @@ export class CareerObjectiveCreatePage {
         this.saveInProgress = false;
         this.toastProvider.error(error.detailMessage);
       });
+  }
+
+  /**
+   * Dirige vers la page de création d'un point d'étape
+   */
+  goToWaypointCreate() {
+    this.navCtrl.push(WaypointCreatePage, { careerObjective: this.careerObjective, waypointList: this.waypointList });
   }
 
   /**
@@ -146,6 +172,13 @@ export class CareerObjectiveCreatePage {
           this.toastProvider.error(error.detailMessage);
           this.deletionInProgress = false;
         });
+  }
+
+  /**
+   * Teste si l'objectif est en mode création ou édition
+   */
+  isCreationMode() {
+    return this.careerObjective.techId === undefined;
   }
 
 }
