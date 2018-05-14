@@ -29,9 +29,8 @@ import { GenderProvider } from '../providers/gender/gender';
 import { ToastProvider } from '../providers/toast/toast';
 import { CareerObjectiveStatusProvider } from '../providers/career-objective-status/career-objective-status';
 import { DatePipe } from '@angular/common';
-
-import { IonicStorageModule } from '@ionic/storage';
-
+import { WaypointCreatePage } from './../pages/waypoint-create/waypoint-create';
+import { WaypointProvider } from './../providers/waypoint/waypoint';
 
 @NgModule({
   declarations: [
@@ -39,12 +38,12 @@ import { IonicStorageModule } from '@ionic/storage';
     PncHomePage,
     AuthenticationPage,
     CareerObjectiveCreatePage,
-    CareerObjectiveListPage
+    CareerObjectiveListPage,
+    WaypointCreatePage
   ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(EDossierPNC),
-    IonicStorageModule.forRoot(),
     HttpClientModule,
     TranslateModule.forRoot({
       loader: {
@@ -60,7 +59,8 @@ import { IonicStorageModule } from '@ionic/storage';
     PncHomePage,
     AuthenticationPage,
     CareerObjectiveCreatePage,
-    CareerObjectiveListPage
+    CareerObjectiveListPage,
+    WaypointCreatePage
   ],
   providers: [
     StatusBar,
@@ -78,7 +78,8 @@ import { IonicStorageModule } from '@ionic/storage';
     CareerObjectiveStatusProvider,
     DatePipe,
     SecurityProvider,
-    SessionService
+    SessionService,
+    WaypointProvider
   ]
 })
 export class AppModule { }

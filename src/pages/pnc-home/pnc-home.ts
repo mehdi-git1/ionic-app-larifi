@@ -29,7 +29,10 @@ export class PncHomePage {
     this.pnc.assignment = new Assignment();
 
     // TEMPORAIRE
+<<<<<<< HEAD
     //this.matricule = 'this.matricule = '07755754';';
+=======
+>>>>>>> refs/remotes/origin/feature/EDOSPNC-10
     this.matricule = '07339967';
   }
 
@@ -38,7 +41,6 @@ export class PncHomePage {
    */
   ionViewDidLoad() {
     if (this.navParams.get('matricule')) {
-      console.log(this.navParams.get('matricule'));
       this.matricule = this.navParams.get('matricule');
     }
 

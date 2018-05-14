@@ -1,5 +1,4 @@
 import { SessionService } from './../services/session.service';
-import { Storage } from '@ionic/storage';
 import { AuthenticatedUser } from './../models/authenticatedUser';
 import { SecurityProvider } from './../providers/security/security';
 import { PncHomePage } from './../pages/pnc-home/pnc-home';
@@ -32,8 +31,6 @@ export class EDossierPNC {
   ) {
     this.initializeApp();
 
-    this.putAuthenticatedUserInSession();
-
   }
 
   initializeApp() {
@@ -55,6 +52,7 @@ export class EDossierPNC {
             this.rootPage = AuthenticationPage;
           });
       });
+      this.putAuthenticatedUserInSession();
     });
   }
 
@@ -62,8 +60,8 @@ export class EDossierPNC {
   * Mettre le pnc connecté en session 
   */
   putAuthenticatedUserInSession() {
-    this.securityProvider.getAuthenticatedUser().then(result => {
-      this.SessionService.authenticatedUser = result;
+    this.securityProvider.getAuthenticatedUser().then(authenticatedUser => {
+      this.SessionService.authenticatedUser = authenticatedUser;
     });
   }
 

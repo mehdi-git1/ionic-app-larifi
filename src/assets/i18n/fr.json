@@ -43,16 +43,17 @@
             "DELETE_DRAFT": "Supprimer brouillon",
             "VALIDATE": "Valider",
             "ABANDON": "Abandonner",
-            "CANCEL_VALIDATED_STATUS": "Annuler la validation",
-            "CANCEL_ABANDONED_STATUS": "Reprendre l'objectif"
+            "CANCEL_VALIDATION": "Annuler la validation",
+            "RESUME": "Reprendre l'objectif"
         },
         "SUCCESS": {
             "CAREER_OBJECTIVE_SAVED": "Objectif enregistré avec succès",
             "DRAFT_SAVED": "Brouillon enregistré",
+            "DRAFT_DELETED": "Brouillon supprimé",
             "CAREER_OBJECTIVE_VALIDATED": "Objectif validé",
             "CAREER_OBJECTIVE_ABANDONED": "Objectif abandonné",
             "CAREER_OBJECTIVE_VALIDATION_CANCELED": "Validation annulée de l'objectif",
-            "CAREER_OBJECTIVE_TAKEN_BACK": "Objectif repris avec succés"
+            "RESUME_CAREER_OBJECTIVE": "Objectif repris avec succés"
         },
         "ERROR": {
             "CAREER_OBJECTIVE_CREATION_FAILED": "La création de l'objectif a échoué"

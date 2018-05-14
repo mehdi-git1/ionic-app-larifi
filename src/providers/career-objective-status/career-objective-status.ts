@@ -20,7 +20,7 @@ export class CareerObjectiveStatusProvider {
   isTransitionOk(currentStatus: CareerObjectiveStatus, newStatus: CareerObjectiveStatus): boolean {
     // Pour une creation ou un brouillon, on n'a le droit de sauvegarder en brouillon ou en statut enregistré
     if (currentStatus === undefined || currentStatus === CareerObjectiveStatus.DRAFT) {
-      //   // Liste des nouveaux statuts authorisés
+      // Liste des nouveaux statuts authorisés
       return [CareerObjectiveStatus.DRAFT].indexOf(newStatus) > -1 ||
         [CareerObjectiveStatus.REGISTERED].indexOf(newStatus) > -1;
     }
@@ -33,14 +33,6 @@ export class CareerObjectiveStatusProvider {
         [CareerObjectiveStatus.ABANDONED].indexOf(newStatus) > -1;
     }
     return false;
-  }
-
-  /**
-   * vérifie si le pnc connecté est un cadre
-   * @return cadre ou pas cadre
-   */
-  isManager(): boolean {
-    return this.sessionService.authenticatedUser.manager;
   }
 
 }
