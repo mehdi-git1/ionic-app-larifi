@@ -10,12 +10,17 @@ page-career-objective-list {
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
+
                 h4 {
                     font-size: 1.3em;
                     font-weight: bold;
                     text-overflow: ellipsis;
                     white-space: nowrap;
                     overflow: hidden;
+                }
+
+                ion-badge {
+                    min-width: auto;
                 }
             }
 
