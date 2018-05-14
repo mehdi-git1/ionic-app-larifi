@@ -33,6 +33,7 @@ import { WaypointCreatePage } from './../pages/waypoint-create/waypoint-create';
 import { WaypointProvider } from './../providers/waypoint/waypoint';
 
 import { IonicStorageModule } from '@ionic/storage';
+import { WaypointStatusProvider } from '../providers/waypoint-status/waypoint-status';
 
 
 @NgModule({
@@ -83,7 +84,8 @@ import { IonicStorageModule } from '@ionic/storage';
     DatePipe,
     SecurityProvider,
     SessionService,
-    WaypointProvider
+    WaypointProvider,
+    WaypointStatusProvider
   ]
 })
 export class AppModule { }

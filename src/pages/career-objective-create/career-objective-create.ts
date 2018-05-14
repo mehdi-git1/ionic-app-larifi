@@ -1,3 +1,4 @@
+import { WaypointProvider } from './../../providers/waypoint/waypoint';
 import { Speciality } from './../../models/speciality';
 import { CareerObjectiveStatusProvider } from './../../providers/career-objective-status/career-objective-status';
 import { ToastProvider } from './../../providers/toast/toast';
@@ -12,7 +13,6 @@ import { Pnc } from '../../models/pnc';
 import { DatePipe } from '@angular/common';
 import { Waypoint } from './../../models/waypoint';
 import { WaypointCreatePage } from './../waypoint-create/waypoint-create';
-import { WaypointProvider } from './../../providers/waypoint/waypoint';
 
 @Component({
   selector: 'page-career-objective-create',

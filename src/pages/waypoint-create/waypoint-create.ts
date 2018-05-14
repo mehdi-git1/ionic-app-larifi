@@ -1,3 +1,5 @@
+import { WaypointStatusProvider } from './../../providers/waypoint-status/waypoint-status';
+import { WaypointStatus } from './../../models/waypointStatus';
 import { CareerObjective } from './../../models/careerObjective';
 import { WaypointProvider } from './../../providers/waypoint/waypoint';
 import { Waypoint } from './../../models/waypoint';
@@ -28,6 +30,7 @@ export class WaypointCreatePage {
     private formBuilder: FormBuilder,
     private waypointProvider: WaypointProvider,
     private toastCtrl: ToastController,
+    private waypointStatusProvider: WaypointStatusProvider,
     private toastProvider: ToastProvider) {
 
     this.waypoint = new Waypoint();
@@ -66,31 +69,32 @@ export class WaypointCreatePage {
   }
 
   /**
+   * Enregistre un point d'étape au statut brouillon
+   */
+  saveWaypointDraft() {
+    this.waypoint.waypointStatus = WaypointStatus.DRAFT;
+    this.createWaypoint();
+  }
+
+  /**
    * Lance le processus de création/mise à jour d'un point d'étape
    */
   createWaypoint() {
     this.saveInProgress = true;
-
     this.waypointProvider
       .createOrUpdate(this.waypoint)
       .then(savedWaypoint => {
         this.waypoint = savedWaypoint;
         this.saveInProgress = false;
-        this.toastCtrl.create({
-          message: this.translateService.instant('WAYPOINT_CREATE.SUCCESS.WAYPOINT_SAVED'),
-          duration: 3000,
-          position: 'bottom',
-          cssClass: 'success'
-        }).present();
+
+        if (this.waypoint.waypointStatus === WaypointStatus.DRAFT) {
+          this.toastProvider.success(this.translateService.instant('WAYPOINT_CREATE.SUCCESS.DRAFT_SAVED'));
+        } else {
+          this.toastProvider.success(this.translateService.instant('WAYPOINT_CREATE.SUCCESS.WAYPOINT_SAVED'));
+        }
       }, error => {
         this.saveInProgress = false;
-
-        this.toastCtrl.create({
-          message: error.detailMessage,
-          duration: 3000,
-          position: 'bottom',
-          cssClass: 'error',
-        }).present();
+        this.toastProvider.error(error.detailMessage);
       });
     this.navCtrl.push(CareerObjectiveCreatePage, { careerObjectiveId: this.careerObjective.techId });
   }

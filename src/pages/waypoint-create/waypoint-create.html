@@ -1,60 +1,64 @@
 <ion-header>
-  <ion-navbar>
-    <button ion-button menuToggle>
+    <ion-navbar>
+        <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>{{ 'WAYPOINT_CREATE.TITLE' | translate }}</ion-title>
-  </ion-navbar>
+        <ion-title>{{ 'WAYPOINT_CREATE.TITLE' | translate }}</ion-title>
+    </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  <form novalidate [formGroup]="creationForm">
-    <ion-grid>
-      <ion-row>
-        <ion-col col-12>
-          <!-- Contexte -->
-          <ion-item>
-            <ion-label floating>{{ 'WAYPOINT_CREATE.FORM.CONTEXT' | translate }}</ion-label>
-            <ion-textarea [(ngModel)]="waypoint.context" formControlName="contextControl" name="context"></ion-textarea>
-          </ion-item>
-        </ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col col-12>
-          <!-- Action réalisée -->
-          <ion-item>
-            <ion-label floating>{{ 'WAYPOINT_CREATE.FORM.ACTION_PERFORMED' | translate }}</ion-label>
-            <ion-textarea [(ngModel)]="waypoint.actionPerformed" formControlName="actionPerformedControl" name="actionPerformed"></ion-textarea>
-          </ion-item>
-        </ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col col-6>
-          <!-- Commentaire cadre -->
-          <ion-item>
-            <ion-label floating>{{ 'WAYPOINT_CREATE.FORM.MANAGER_COMMENT' | translate }}</ion-label>
-            <ion-textarea [(ngModel)]="waypoint.managerComment" formControlName="managerCommentControl" name="managerComment"></ion-textarea>
-          </ion-item>
-        </ion-col>
-        <ion-col col-6>
-          <!-- Commentaire PNC -->
-          <ion-item>
-            <ion-label floating>{{ 'WAYPOINT_CREATE.FORM.PNC_COMMENT' | translate }}</ion-label>
-            <ion-textarea [(ngModel)]="waypoint.pncComment" formControlName="pncCommentControl" name="pncComment"></ion-textarea>
-          </ion-item>
-        </ion-col>
-      </ion-row>
+    <form novalidate [formGroup]="creationForm">
+        <ion-grid>
+            <ion-row>
+                <ion-col col-12>
+                    <!-- Contexte -->
+                    <ion-item>
+                        <ion-label floating>{{ 'WAYPOINT_CREATE.FORM.CONTEXT' | translate }}</ion-label>
+                        <ion-textarea [(ngModel)]="waypoint.context" formControlName="contextControl" name="context"></ion-textarea>
+                    </ion-item>
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col col-12>
+                    <!-- Action réalisée -->
+                    <ion-item>
+                        <ion-label floating>{{ 'WAYPOINT_CREATE.FORM.ACTION_PERFORMED' | translate }}</ion-label>
+                        <ion-textarea [(ngModel)]="waypoint.actionPerformed" formControlName="actionPerformedControl" name="actionPerformed"></ion-textarea>
+                    </ion-item>
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col col-6>
+                    <!-- Commentaire cadre -->
+                    <ion-item>
+                        <ion-label floating>{{ 'WAYPOINT_CREATE.FORM.MANAGER_COMMENT' | translate }}</ion-label>
+                        <ion-textarea [(ngModel)]="waypoint.managerComment" formControlName="managerCommentControl" name="managerComment"></ion-textarea>
+                    </ion-item>
+                </ion-col>
+                <ion-col col-6>
+                    <!-- Commentaire PNC -->
+                    <ion-item>
+                        <ion-label floating>{{ 'WAYPOINT_CREATE.FORM.PNC_COMMENT' | translate }}</ion-label>
+                        <ion-textarea [(ngModel)]="waypoint.pncComment" formControlName="pncCommentControl" name="pncComment"></ion-textarea>
+                    </ion-item>
+                </ion-col>
+            </ion-row>
 
-      <!-- Barre de boutons -->
-      <ion-row>
-        <ion-col col-4>
-          <button ion-button (click)="createWaypoint()" [disabled]="creationForm.invalid || saveInProgress" color="primary">
+            <!-- Barre de boutons -->
+            <ion-row>
+                <ion-col col-4>
+                    <button ion-button (click)="createWaypoint()" [disabled]="creationForm.invalid || saveInProgress" color="primary">
             {{ 'WAYPOINT_CREATE.BUTTONS.SAVE' | translate }}&nbsp;
             <ion-spinner *ngIf="saveInProgress"></ion-spinner>
           </button>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-  </form>
+                    <button ion-button (click)="saveWaypointDraft()" [disabled]="creationForm.invalid || saveInProgress" *ngIf="waypointStatusProvider.isTransitionOk(waypoint.waypointStatus,WaypointStatus.DRAFT)" color="primary">
+            {{ 'WAYPOINT_CREATE.BUTTONS.SAVE_DRAFT' | translate }}
+            <ion-spinner *ngIf="saveInProgress"></ion-spinner>
+          </button>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </form>
 
 </ion-content>

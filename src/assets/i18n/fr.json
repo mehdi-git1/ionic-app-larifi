@@ -81,10 +81,12 @@
             "PNC_COMMENT": "Commentaire PNC"
         },
         "BUTTONS": {
-            "SAVE": "Enregistrer"
+            "SAVE": "Enregistrer",
+            "SAVE_DRAFT": "Enregistrer brouillon"
         },
         "SUCCESS": {
-            "WAYPOINT_SAVED": "point d'étape enregistré avec succès"
+            "WAYPOINT_SAVED": "point d'étape enregistré avec succès",
+            "DRAFT_SAVED": "Brouillon enregistré"
         }
     }
 }
