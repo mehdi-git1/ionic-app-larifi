@@ -1,7 +1,7 @@
+import { PncHomePage } from './../pnc-home/pnc-home';
 import { Component } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { NavController, NavParams } from 'ionic-angular';
-import { HomePage } from '../home/home';
 import { SecMobilService } from '../../services/secMobil.service';
 
 @Component({
@@ -39,7 +39,7 @@ export class AuthenticationPage {
 
     this.secMobilService.init();
     this.secMobilService.authenticate(loginValue, passwordValue).then(x => {
-      this.navCtrl.setRoot(HomePage);
+      this.navCtrl.setRoot(PncHomePage);
     }, error => {
       this.secMobilService.secMobilRevokeCertificate();
       if (error === 'secmobil.incorrect.credentials') {

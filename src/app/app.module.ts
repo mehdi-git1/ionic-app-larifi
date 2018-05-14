@@ -6,7 +6,6 @@ import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 
 import { EDossierPNC } from './app.component';
-import { HomePage } from '../pages/home/home';
 import { CareerObjectiveListPage } from './../pages/career-objective-list/career-objective-list';
 
 import { StatusBar } from '@ionic-native/status-bar';
@@ -34,7 +33,6 @@ import { WaypointProvider } from './../providers/waypoint/waypoint';
 @NgModule({
   declarations: [
     EDossierPNC,
-    HomePage,
     PncHomePage,
     AuthenticationPage,
     CareerObjectiveCreatePage,
@@ -56,7 +54,6 @@ import { WaypointProvider } from './../providers/waypoint/waypoint';
   bootstrap: [IonicApp],
   entryComponents: [
     EDossierPNC,
-    HomePage,
     PncHomePage,
     AuthenticationPage,
     CareerObjectiveCreatePage,
