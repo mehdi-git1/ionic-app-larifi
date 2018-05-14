@@ -29,10 +29,6 @@ export class PncHomePage {
     this.pnc.assignment = new Assignment();
 
     // TEMPORAIRE
-<<<<<<< HEAD
-    //this.matricule = 'this.matricule = '07755754';';
-=======
->>>>>>> refs/remotes/origin/feature/EDOSPNC-10
     this.matricule = '07339967';
   }
 
