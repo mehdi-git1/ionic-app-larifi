@@ -31,9 +31,12 @@ import { CareerObjectiveStatusProvider } from '../providers/career-objective-sta
 import { DatePipe } from '@angular/common';
 import { WaypointCreatePage } from './../pages/waypoint-create/waypoint-create';
 import { WaypointProvider } from './../providers/waypoint/waypoint';
+<<<<<<< HEAD
 
 import { IonicStorageModule } from '@ionic/storage';
 
+=======
+>>>>>>> origin/release/sprint1
 
 @NgModule({
   declarations: [
@@ -47,7 +50,6 @@ import { IonicStorageModule } from '@ionic/storage';
   imports: [
     BrowserModule,
     IonicModule.forRoot(EDossierPNC),
-    IonicStorageModule.forRoot(),
     HttpClientModule,
     TranslateModule.forRoot({
       loader: {
