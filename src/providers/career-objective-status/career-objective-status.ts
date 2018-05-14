@@ -21,8 +21,7 @@ export class CareerObjectiveStatusProvider {
     // Pour une creation ou un brouillon, on n'a le droit de sauvegarder en brouillon ou en statut enregistré
     if (currentStatus === undefined || currentStatus === CareerObjectiveStatus.DRAFT) {
       // Liste des nouveaux statuts authorisés
-      return [CareerObjectiveStatus.DRAFT].indexOf(newStatus) > -1 ||
-        [CareerObjectiveStatus.REGISTERED].indexOf(newStatus) > -1;
+      return [CareerObjectiveStatus.DRAFT, CareerObjectiveStatus.REGISTERED].indexOf(newStatus) > -1;
     }
     // Pour un objectif en statut enregistrer, on a le droit que de le sauvegarder en statut enregistré
     if (currentStatus === CareerObjectiveStatus.REGISTERED) {
