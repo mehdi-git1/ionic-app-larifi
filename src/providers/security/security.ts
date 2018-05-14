@@ -1,6 +1,5 @@
 import { SessionService } from './../../services/session.service';
 import { AuthenticatedUser } from './../../models/authenticatedUser';
-import { Pnc } from './../../models/pnc';
 import { AppConfig } from './../../app/app.config';
 import { Injectable } from '@angular/core';
 import { RestService } from '../../services/rest.base.service';
