@@ -124,7 +124,7 @@ export class CareerObjectiveCreatePage {
             this.cancelValidation = false;
           } else if (this.cancelAbandon) {
             this.toastProvider.success(this.translateService.instant('CAREER_OBJECTIVE_CREATE.SUCCESS.RESUME_CAREER_OBJECTIVE'));
-            this.cancelValidation = false;
+            this.cancelAbandon = false;
           } else {
             this.toastProvider.success(this.translateService.instant('CAREER_OBJECTIVE_CREATE.SUCCESS.CAREER_OBJECTIVE_SAVED'));
           }
