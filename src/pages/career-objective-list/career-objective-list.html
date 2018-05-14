@@ -16,9 +16,9 @@
             <ion-card-content no-padding>
                 <div class="header">
                     <h4>{{careerObjective.title}}</h4>
-                    <ion-chip color="{{careerObjective.careerObjectiveStatus.toLowerCase()}}" *ngIf="careerObjective.careerObjectiveStatus" float-right>
-                        <ion-label>{{ 'GLOBAL.CAREER_OBJECTIVE_STATUS.'+careerObjective.careerObjectiveStatus | translate }}</ion-label>
-                    </ion-chip>
+                    <ion-badge color="{{careerObjective.careerObjectiveStatus.toLowerCase()}}" *ngIf="careerObjective.careerObjectiveStatus" float-right>
+                        {{ 'GLOBAL.CAREER_OBJECTIVE_STATUS.'+careerObjective.careerObjectiveStatus | translate }}
+                    </ion-badge>
                 </div>
                 <ion-grid class="content">
                     <ion-row>

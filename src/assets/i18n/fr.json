@@ -42,8 +42,10 @@
         },
         "SUCCESS": {
             "CAREER_OBJECTIVE_SAVED": "Objectif enregistré avec succès",
-            "DRAFT_SAVED": "Brouillon enregistré"
+            "DRAFT_SAVED": "Brouillon enregistré",
+            "DRAFT_DELETED": "Brouillon supprimé"
         },
+
         "ERROR": {
             "CAREER_OBJECTIVE_CREATION_FAILED": "La création de l'objectif a échoué"
         }
