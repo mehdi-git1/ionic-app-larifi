@@ -68,7 +68,7 @@
         <ion-row>
             <!-- Liste des objectifs-->
             <ion-col col-6>
-                <button ion-button (click)="goToCareerObjectiveList()" *ngIf="pnc.speciality !== Speciality.CAD" class="development-program">
+                <button ion-button *ngIf="pnc.speciality !== Speciality.CAD" (click)="goToCareerObjectiveList()" class="development-program">
                   {{ 'GLOBAL.DEVELOPMENT_PROGRAM' | translate }}
                 </button>
             </ion-col>
@@ -78,9 +78,21 @@
                     {{ 'GLOBAL.PNC_SUMMARY_SHEET' | translate }}
                 </button>
             </ion-col>
+            <!-- Effectif PNC -->
+            <ion-col col-6>
+                <button ion-button *ngIf="pnc.speciality === Speciality.CAD" class="disabled">
+                    {{ 'GLOBAL.PNC_TEAM' | translate }}
+                </button>
+            </ion-col>
+            <!-- Prochains vols -->
+            <ion-col col-6>
+                <button ion-button *ngIf="pnc.speciality === Speciality.CAD" class="disabled">
+                    {{ 'GLOBAL.UPCOMING_FLIGHT' | translate }}
+                </button>
+            </ion-col>
             <!-- Ressource d'aide -->
             <ion-col col-6>
-                <button ion-button *ngIf="pnc.speciality !== Speciality.CAD" class="disabled">
+                <button ion-button class="disabled">
                     {{ 'GLOBAL.HELP_CENTRE' | translate }}
                 </button>
             </ion-col>
