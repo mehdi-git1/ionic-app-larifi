@@ -39,11 +39,17 @@ page-pnc-home {
         button {
             height: 300px;
             width: 100%;
+            margin: 0;
+            font-size: 1.5em;
         }
 
         .development-program {
             background: color($colors, development-program);
         }
+    }
+
+    .disabled {
+        background: color($colors, disabled);
     }
 
 }
