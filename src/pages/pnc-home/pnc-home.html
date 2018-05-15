@@ -1,7 +1,9 @@
 <ion-header>
     <ion-navbar>
         <ion-title *ngIf="pnc.speciality !== Speciality.CAD; else elseBlock">{{ 'PNC_HOME.TITLE' | translate }}</ion-title>
-        <ng-template #elseBlock>{{ 'CAD_HOME.TITLE' | translate }}</ng-template>
+        <ng-template #elseBlock>
+            <ion-title>{{ 'MANAGER_HOME.TITLE' | translate }}</ion-title>
+        </ng-template>
     </ion-navbar>
 </ion-header>
 
