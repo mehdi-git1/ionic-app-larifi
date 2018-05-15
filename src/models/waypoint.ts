@@ -1,4 +1,3 @@
-import { CareerObjective } from './careerObjective';
 import { PncRole } from './PncRole';
 import { Pnc } from './Pnc';
 
@@ -9,11 +8,8 @@ export class Waypoint {
     creationDate: string;
     lastUpdateAuthor: Pnc;
     lastUpdateDate: string;
-    initiator: PncRole;
     context: string;
     actionPerformed: string;
     managerComment: string;
     pncComment: string;
-    nextEncounterDate: string;
-    careerObjective: CareerObjective;
 }

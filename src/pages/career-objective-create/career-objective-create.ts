@@ -81,7 +81,7 @@ export class CareerObjectiveCreatePage {
         }
       );
 
-      this.waypointProvider.getListWaypoint(this.navParams.get('careerObjectiveId')).then(result => {
+      this.waypointProvider.getCareerObjectiveWaypoints(this.navParams.get('careerObjectiveId')).then(result => {
         this.waypointList = result;
       }, error => {
         this.toastProvider.error(error.detailMessage);
@@ -190,13 +190,13 @@ export class CareerObjectiveCreatePage {
    * Dirige vers la page de création d'un point d'étape
    */
   goToWaypointCreate() {
-    this.navCtrl.push(WaypointCreatePage, { careerObjective: this.careerObjective });
+    this.navCtrl.push(WaypointCreatePage, { careerObjectiveId: this.careerObjective.techId });
   }
 
   /**
    * Ouvrir un point d'étape existant
    */
   openWaypoint(techId: number) {
-    this.navCtrl.push(WaypointCreatePage, { waypointId: techId, careerObjective: this.careerObjective });
+    this.navCtrl.push(WaypointCreatePage, { waypointId: techId, careerObjectiveId: this.careerObjective.techId });
   }
 }

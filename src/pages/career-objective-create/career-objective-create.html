@@ -77,11 +77,8 @@
                                 <ion-grid class="content">
                                     <ion-row>
                                         <ion-col>
-                                            <span class="value">{{waypoint.techId == null ? "-" : waypoint.techId}}</span>
-                                        </ion-col>
-                                        <ion-col>
                                             <label>{{ 'CAREER_OBJECTIVE_CREATE.FORM.CREATION_DATE' | translate }}</label>
-                                            <span class="value">{{waypoint.creationDate == null ? "-" : waypoint.creationDate | date: 'dd/MM/yyyy HH:mm:ss'}}</span>
+                                            <span class="value">{{ waypoint.creationDate | date: 'dd/MM/yyyy HH:mm'}}</span>
                                         </ion-col>
                                     </ion-row>
                                 </ion-grid>

@@ -32,9 +32,6 @@ import { DatePipe } from '@angular/common';
 import { WaypointCreatePage } from './../pages/waypoint-create/waypoint-create';
 import { WaypointProvider } from './../providers/waypoint/waypoint';
 
-import { IonicStorageModule } from '@ionic/storage';
-
-
 @NgModule({
   declarations: [
     EDossierPNC,
