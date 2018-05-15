@@ -1,10 +1,19 @@
 <ion-header>
     <ion-navbar>
-        <ion-title>{{ 'PNC_HOME.TITLE' | translate }}</ion-title>
+        <ion-title *ngIf="pnc.speciality !== Speciality.CAD; else elseBlock">{{ 'PNC_HOME.TITLE' | translate }}</ion-title>
+        <ng-template #elseBlock>{{ 'CAD_HOME.TITLE' | translate }}</ng-template>
     </ion-navbar>
 </ion-header>
 
 <ion-content padding>
+    <div class="go-to-edossier">
+        <ion-item padding>
+            <ion-label floating>{{ 'PNC_HOME.GO_TO_EDOSSIER.MATRICULE' | translate }}</ion-label>
+            <ion-input type="text" [(ngModel)]="matricule"></ion-input>
+        </ion-item>
+        <button ion-button (click)="goToEdossier()">{{ 'PNC_HOME.GO_TO_EDOSSIER.SUBMIT' | translate }}</button>
+    </div>
+
     <ion-card class="pnc-info-panel">
         <ion-grid>
             <ion-row>
@@ -29,7 +38,7 @@
                     <ion-row>
                         <!-- Spécialité-->
                         <ion-col class="pnc-info">
-                            <label>{{ 'PNC_HOME.INFO_PANEL.SPECIALITY' | translate }}</label>
+                            <label>{{ 'PNC_HOME.INFO_PANEL.FUNCTION' | translate }}</label>
                             <span class="value" [ngClass]="{'no-value' : !pnc.speciality }">{{ pnc.speciality }}</span>
                         </ion-col>
                         <!-- Ginq-->
@@ -52,15 +61,6 @@
             </ion-row>
         </ion-grid>
     </ion-card>
-
-    <div class="go-to-edossier">
-        <ion-item padding>
-            <ion-label floating>{{ 'PNC_HOME.GO_TO_EDOSSIER.MATRICULE' | translate }}</ion-label>
-            <ion-input type="text" [(ngModel)]="matricule"></ion-input>
-        </ion-item>
-        <button ion-button (click)="goToEdossier()">{{ 'PNC_HOME.GO_TO_EDOSSIER.SUBMIT' | translate }}</button>
-    </div>
-
 
     <ion-grid id="nav-tile-grid">
         <ion-row>
