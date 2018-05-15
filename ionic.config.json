@@ -1,14 +1,12 @@
 {
-  "name": "edospnc-cs",
-  "app_id": "",
-  "type": "ionic-angular",
-  "integrations": {
-    "cordova": {}
-  },
-  "proxies": [
-    {
-      "path": "/api",
-      "proxyUrl": "http://localhost:8080/api"
-    }
-  ]
+    "name": "edospnc-cs",
+    "app_id": "",
+    "type": "ionic-angular",
+    "integrations": {
+        "cordova": {}
+    },
+    "proxies": [{
+        "path": "/api",
+        "proxyUrl": "http://localhost:8081/api"
+    }]
 }
