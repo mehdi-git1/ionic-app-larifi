@@ -21,16 +21,14 @@ export class EDossierPNC {
 
   rootPage: any = PncHomePage;
 
-  matricule: string = "12345677"
 
   constructor(public platform: Platform, public statusBar: StatusBar,
     public splashScreen: SplashScreen, public translate: TranslateService,
     private secMobilService: SecMobilService,
     private securityProvider: SecurityProvider,
-    private SessionService: SessionService
+    private sessionService: SessionService
   ) {
     this.initializeApp();
-
   }
 
   initializeApp() {
@@ -57,11 +55,11 @@ export class EDossierPNC {
   }
 
   /**
-  * Mettre le pnc connecté en session 
+  * Mettre le pnc connecté en session
   */
   putAuthenticatedUserInSession() {
     this.securityProvider.getAuthenticatedUser().then(authenticatedUser => {
-      this.SessionService.authenticatedUser = authenticatedUser;
+      this.sessionService.authenticatedUser = authenticatedUser;
     });
   }
 
