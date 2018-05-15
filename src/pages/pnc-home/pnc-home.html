@@ -1,10 +1,21 @@
 <ion-header>
     <ion-navbar>
-        <ion-title>{{ 'PNC_HOME.TITLE' | translate }}</ion-title>
+        <ion-title *ngIf="pnc.speciality !== Speciality.CAD; else elseBlock">{{ 'PNC_HOME.TITLE' | translate }}</ion-title>
+        <ng-template #elseBlock>
+            <ion-title>{{ 'MANAGER_HOME.TITLE' | translate }}</ion-title>
+        </ng-template>
     </ion-navbar>
 </ion-header>
 
 <ion-content padding>
+    <div class="go-to-edossier">
+        <ion-item padding>
+            <ion-label floating>{{ 'PNC_HOME.GO_TO_EDOSSIER.MATRICULE' | translate }}</ion-label>
+            <ion-input type="text" [(ngModel)]="matricule"></ion-input>
+        </ion-item>
+        <button ion-button (click)="goToEdossier()">{{ 'PNC_HOME.GO_TO_EDOSSIER.SUBMIT' | translate }}</button>
+    </div>
+
     <ion-card class="pnc-info-panel">
         <ion-grid>
             <ion-row>
@@ -29,7 +40,7 @@
                     <ion-row>
                         <!-- Spécialité-->
                         <ion-col class="pnc-info">
-                            <label>{{ 'PNC_HOME.INFO_PANEL.SPECIALITY' | translate }}</label>
+                            <label>{{ 'PNC_HOME.INFO_PANEL.FUNCTION' | translate }}</label>
                             <span class="value" [ngClass]="{'no-value' : !pnc.speciality }">{{ pnc.speciality }}</span>
                         </ion-col>
                         <!-- Ginq-->
@@ -53,21 +64,36 @@
         </ion-grid>
     </ion-card>
 
-    <div class="go-to-edossier">
-        <ion-item padding>
-            <ion-label floating>{{ 'PNC_HOME.GO_TO_EDOSSIER.MATRICULE' | translate }}</ion-label>
-            <ion-input type="text" [(ngModel)]="matricule"></ion-input>
-        </ion-item>
-        <button ion-button (click)="goToEdossier()">{{ 'PNC_HOME.GO_TO_EDOSSIER.SUBMIT' | translate }}</button>
-    </div>
-
-
     <ion-grid id="nav-tile-grid">
         <ion-row>
-            <!-- Bouton pour accéder à la liste des objectifs-->
+            <!-- Liste des objectifs-->
             <ion-col col-6>
-                <button ion-button (click)="goToCareerObjectiveList()" *ngIf="pnc.speciality !== Speciality.CAD" class="development-program">
+                <button ion-button *ngIf="pnc.speciality !== Speciality.CAD" (click)="goToCareerObjectiveList()" class="development-program">
                   {{ 'GLOBAL.DEVELOPMENT_PROGRAM' | translate }}
+                </button>
+            </ion-col>
+            <!-- Fiche synthèse PNC -->
+            <ion-col col-6>
+                <button ion-button *ngIf="pnc.speciality !== Speciality.CAD" class="disabled">
+                    {{ 'GLOBAL.PNC_SUMMARY_SHEET' | translate }}
+                </button>
+            </ion-col>
+            <!-- Effectif PNC -->
+            <ion-col col-6>
+                <button ion-button *ngIf="pnc.speciality === Speciality.CAD" class="disabled">
+                    {{ 'GLOBAL.PNC_TEAM' | translate }}
+                </button>
+            </ion-col>
+            <!-- Prochains vols -->
+            <ion-col col-6>
+                <button ion-button *ngIf="pnc.speciality === Speciality.CAD" class="disabled">
+                    {{ 'GLOBAL.UPCOMING_FLIGHT' | translate }}
+                </button>
+            </ion-col>
+            <!-- Ressource d'aide -->
+            <ion-col col-6>
+                <button ion-button class="disabled">
+                    {{ 'GLOBAL.HELP_CENTRE' | translate }}
                 </button>
             </ion-col>
         </ion-row>

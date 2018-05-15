@@ -1,5 +1,6 @@
-import { PncRole } from './PncRole';
-import { Pnc } from './Pnc';
+import { CareerObjective } from './careerObjective';
+import { PncRole } from './pncRole';
+import { Pnc } from './pnc';
 
 export class Waypoint {
     techId: number;

@@ -9,11 +9,15 @@
             "DONE": "Valider",
             "CLEAR": "Vider"
         },
-        "DEVELOPMENT_PROGRAM": "Parcours de développement",
         "CAREER_OBJECTIVE_STATUS": {
             "DRAFT": "BROUILLON",
             "REGISTERED": "ENREGISTRÉ"
-        }
+        },
+        "DEVELOPMENT_PROGRAM": "Parcours de développement",
+        "PNC_SUMMARY_SHEET": "Fiche synthèse PNC",
+        "HELP_CENTRE": "Ressources d'aide",
+        "PNC_TEAM": "Effectif PNC",
+        "UPCOMING_FLIGHT": "Prochains vols"
     },
     "CAREER_OBJECTIVE_CREATE": {
         "CREATE_TITLE": "Création d'un nouvel objectif",
@@ -39,7 +43,7 @@
         },
         "BUTTONS": {
             "SAVE": "Enregistrer",
-            "SAVE_DRAFT": "Enregistrer brouillon",
+            "SAVE_DRAFT": "Sauvegarder brouillon",
             "DELETE_DRAFT": "Supprimer brouillon"
         },
         "SUCCESS": {
@@ -71,11 +75,14 @@
             "SUBMIT": "Valider"
         },
         "INFO_PANEL": {
-            "SPECIALITY": "Spécialité",
+            "FUNCTION": "Fonction",
             "GINQ": "Ginq",
             "SECTOR": "Secteur",
             "DIVISION": "Division"
         }
+    },
+    "MANAGER_HOME": {
+        "TITLE": "Accueil Cadre"
     },
     "WAYPOINT_CREATE": {
         "TITLE": "Création d'un point d'étape",

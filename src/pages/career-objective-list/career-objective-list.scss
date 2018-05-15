@@ -24,12 +24,14 @@ page-career-objective-list {
 
         .career-objective-card {
             padding: 10px;
-            .header {
+
+            header {
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
 
                 h4 {
+                    padding-right: 10px;
                     font-size: 1.3em;
                     font-weight: bold;
                     text-overflow: ellipsis;
@@ -37,8 +39,12 @@ page-career-objective-list {
                     overflow: hidden;
                 }
 
-                ion-badge {
-                    min-width: auto;
+                .status-area {
+                    display: flex;
+
+                    ion-badge {
+                        min-width: auto;
+                    }
                 }
             }
 
