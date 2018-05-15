@@ -9,11 +9,13 @@
             "DONE": "Valider",
             "CLEAR": "Vider"
         },
-        "DEVELOPMENT_PROGRAM": "Parcours de développement",
         "CAREER_OBJECTIVE_STATUS": {
             "DRAFT": "BROUILLON",
             "REGISTERED": "ENREGISTRÉ"
-        }
+        },
+        "DEVELOPMENT_PROGRAM": "Parcours de développement",
+        "PNC_SUMMARY_SHEET": "Fiche synthèse PNC",
+        "HELP_CENTRE": "Ressources d'aide"
     },
     "CAREER_OBJECTIVE_CREATE": {
         "CREATE_TITLE": "Création d'un nouvel objectif",
