@@ -15,5 +15,5 @@ export class Waypoint {
     managerComment: string;
     pncComment: string;
     nextEncounterDate: string;
-    careerObjective: CareerObjective;
+    careerObjectiveId: number;
 }

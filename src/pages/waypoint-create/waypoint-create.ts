@@ -15,9 +15,9 @@ import { ToastProvider } from './../../providers/toast/toast';
 export class WaypointCreatePage {
 
   creationForm: FormGroup;
+  careerObjectiveId: number;
   careerObjective: CareerObjective;
   waypoint: Waypoint;
-  techId: any;
   customDateTimeOptions: any;
   saveInProgress: boolean;
   return: boolean;
@@ -32,9 +32,8 @@ export class WaypointCreatePage {
     private toastProvider: ToastProvider) {
 
     this.waypoint = new Waypoint();
-    this.careerObjective = this.navParams.get('careerObjective');
-    console.log("careerObjective", this.careerObjective);
-    this.waypoint.careerObjective = this.careerObjective;
+    this.careerObjectiveId = this.navParams.get('careerObjectiveId');
+    this.waypoint.careerObjectiveId = this.careerObjectiveId;
 
 
     // Initialisation du formulaire
@@ -64,16 +63,12 @@ export class WaypointCreatePage {
 
     this.saveInProgress = false;
   }
-  ionViewDidLoad() {
-
-  }
 
   /**
    * Lance le processus de création/mise à jour d'un point d'étape
    */
   createWaypoint() {
     this.saveInProgress = true;
-
     this.waypointProvider
       .createOrUpdate(this.waypoint)
       .then(savedWaypoint => {
@@ -85,6 +80,7 @@ export class WaypointCreatePage {
           position: 'bottom',
           cssClass: 'success'
         }).present();
+        this.navCtrl.push(CareerObjectiveCreatePage, { careerObjectiveId: this.careerObjectiveId });
       }, error => {
         this.saveInProgress = false;
 
@@ -95,7 +91,6 @@ export class WaypointCreatePage {
           cssClass: 'error',
         }).present();
       });
-    this.navCtrl.push(CareerObjectiveCreatePage, { careerObjectiveId: this.careerObjective.techId });
   }
 
 }
