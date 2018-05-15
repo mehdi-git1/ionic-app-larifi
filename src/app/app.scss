@@ -31,10 +31,18 @@
 // Spinner utilisé au chargement de l'appli
 .loader-container {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     width: 100%;
     height: 100%;
+
+    h1 {
+        color: color($colors, dark);
+        font-weight: bold;
+        font-size: 3em;
+        margin: 30px;
+    }
 
     .app-loader {
         border: 16px solid color($colors, light);
