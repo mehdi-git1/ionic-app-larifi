@@ -7,6 +7,6 @@
     },
     "proxies": [{
         "path": "/api",
-        "proxyUrl": "http://localhost:8081/api"
+        "proxyUrl": "http://localhost:8080/api"
     }]
 }
