@@ -53,7 +53,7 @@
             "CAREER_OBJECTIVE_VALIDATED": "Objectif validé",
             "CAREER_OBJECTIVE_ABANDONED": "Objectif abandonné",
             "CAREER_OBJECTIVE_VALIDATION_CANCELED": "Validation annulée de l'objectif",
-            "RESUME_CAREER_OBJECTIVE": "Objectif repris avec succés"
+            "CAREER_OBJECTIVE_RESUMED": "Objectif repris avec succés"
         },
         "ERROR": {
             "CAREER_OBJECTIVE_CREATION_FAILED": "La création de l'objectif a échoué"
