@@ -211,6 +211,7 @@ export class CareerObjectiveCreatePage {
   resumeAbandonedCareerObjective() {
     this.cancelAbandon = true;
     this.careerObjective.careerObjectiveStatus = CareerObjectiveStatus.REGISTERED;
+    this.careerObjective.registrationDate = this.datePipe.transform(new Date(), 'yyyy-MM-ddTHH:mm');
     this.saveCareerObjective();
   }
 

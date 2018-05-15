@@ -66,6 +66,9 @@
             "TITLE": "Libellé",
             "REGISTRATION_DATE": "Date d'enregistrement",
             "NEXT_ENCOUNTER_DATE": "Date du Prochain point"
+        },
+        "BUTTONS": {
+            "ADD_CAREER_OBJECTIVE": "Créer un nouvel objectif"
         }
     },
     "PNC_HOME": {
