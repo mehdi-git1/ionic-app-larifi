@@ -17,7 +17,7 @@
     },
     "CAREER_OBJECTIVE_CREATE": {
         "CREATE_TITLE": "Création d'un nouvel objectif",
-        "SUB_TITLE": "Point d'étape",
+        "SUB_TITLE": "Points d'étapes",
         "EDIT_TITLE": "Modification d'un objectif",
         "FORM": {
             "PNC": "PNC",
@@ -89,7 +89,7 @@
             "SAVE": "Enregistrer"
         },
         "SUCCESS": {
-            "WAYPOINT_SAVED": "point d'étape enregistré avec succès"
+            "WAYPOINT_SAVED": "Point d'étape enregistré avec succès"
         }
     }
 }
