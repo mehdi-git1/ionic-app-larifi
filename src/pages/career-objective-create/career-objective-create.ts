@@ -7,7 +7,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { CareerObjectiveProvider } from './../../providers/career-objective/career-objective';
 import { CareerObjective } from './../../models/careerObjective';
 import { Component } from '@angular/core';
-import { NavController, NavParams, AlertController } from 'ionic-angular';
+import { NavController, NavParams, AlertController, LoadingController, Loading } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Pnc } from '../../models/pnc';
 import { DatePipe } from '@angular/common';
@@ -26,11 +26,10 @@ export class CareerObjectiveCreatePage {
   waypointList: Waypoint[];
   customDateTimeOptions: any;
 
-  saveInProgress: boolean;
-  deletionInProgress: boolean;
+  loading: Loading;
 
-  cancelValidation: boolean = false;
-  cancelAbandon: boolean = false;
+  cancelValidation = false;
+  cancelAbandon = false;
 
   // Permet d'exposer l'enum au template
   CareerObjectiveStatus = CareerObjectiveStatus;
@@ -46,7 +45,8 @@ export class CareerObjectiveCreatePage {
     private toastProvider: ToastProvider,
     public careerObjectiveStatusProvider: CareerObjectiveStatusProvider,
     private datePipe: DatePipe,
-    public securityProvider: SecurityProvider) {
+    public securityProvider: SecurityProvider,
+    public loadingCtrl: LoadingController) {
 
     this.careerObjective = new CareerObjective();
     this.careerObjective.pnc = new Pnc();
@@ -90,9 +90,6 @@ export class CareerObjectiveCreatePage {
         this.toastProvider.error(error.detailMessage);
       });
     }
-
-    this.saveInProgress = false;
-    this.deletionInProgress = false;
   }
 
   ionViewDidEnter() {
@@ -103,18 +100,38 @@ export class CareerObjectiveCreatePage {
   }
 
   /**
+   * Permet de bloquer toute action sur les élements de la page, et d'afficher un spinner.
+   */
+  showLoading() {
+    if (!this.loading) {
+      this.loading = this.loadingCtrl.create();
+      this.loading.present();
+    }
+  }
+
+  /**
+   * Permet de débloquer la page et de désactiver le spinner dans la page
+   */
+  dismissLoading() {
+    if (this.loading) {
+      this.loading.dismiss();
+      this.loading = null;
+    }
+  }
+
+  /**
    * Lance le processus de création/mise à jour d'un objectif
    */
   saveCareerObjective() {
     // Transformation de la date au format ISO avant envoi au back
     this.careerObjective.nextEncounterDate = this.datePipe.transform(this.careerObjective.nextEncounterDate, 'yyyy-MM-ddTHH:mm');
 
-    this.saveInProgress = true;
+    this.showLoading();
+
     this.careerObjectiveProvider
       .createOrUpdate(this.careerObjective)
       .then(savedCareerObjective => {
         this.careerObjective = savedCareerObjective;
-        this.saveInProgress = false;
 
         if (this.careerObjective.careerObjectiveStatus === CareerObjectiveStatus.DRAFT) {
           this.toastProvider.success(this.translateService.instant('CAREER_OBJECTIVE_CREATE.SUCCESS.DRAFT_SAVED'));
@@ -133,9 +150,10 @@ export class CareerObjectiveCreatePage {
         } else if (this.careerObjective.careerObjectiveStatus === CareerObjectiveStatus.ABANDONED) {
           this.toastProvider.success(this.translateService.instant('CAREER_OBJECTIVE_CREATE.SUCCESS.CAREER_OBJECTIVE_ABANDONED'));
         }
+        this.dismissLoading();
       }, error => {
-        this.saveInProgress = false;
         this.toastProvider.error(error.detailMessage);
+        this.dismissLoading();
       });
   }
 
@@ -220,17 +238,18 @@ export class CareerObjectiveCreatePage {
   * Supprime un objectif au statut brouillon
   */
   deleteCareerObjectiveDraft() {
-    this.deletionInProgress = true;
+    this.showLoading();
     this.careerObjectiveProvider
       .delete(this.careerObjective.techId)
       .then(
         deletedCareerObjective => {
           this.toastProvider.success(this.translateService.instant('CAREER_OBJECTIVE_CREATE.SUCCESS.DRAFT_DELETED'));
           this.navCtrl.pop();
+          this.dismissLoading();
         },
         error => {
           this.toastProvider.error(error.detailMessage);
-          this.deletionInProgress = false;
+          this.dismissLoading();
         });
   }
 
