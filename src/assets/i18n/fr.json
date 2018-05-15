@@ -37,7 +37,7 @@
         },
         "BUTTONS": {
             "SAVE": "Enregistrer",
-            "SAVE_DRAFT": "Enregistrer brouillon",
+            "SAVE_DRAFT": "Sauvegarder brouillon",
             "DELETE_DRAFT": "Supprimer brouillon"
         },
         "SUCCESS": {
@@ -69,10 +69,13 @@
             "SUBMIT": "Valider"
         },
         "INFO_PANEL": {
-            "SPECIALITY": "Spécialité",
+            "FUNCTION": "Fonction",
             "GINQ": "Ginq",
             "SECTOR": "Secteur",
             "DIVISION": "Division"
         }
+    },
+    "CAD_HOME": {
+        "TITLE": "Accueil Cadre"
     }
 }
