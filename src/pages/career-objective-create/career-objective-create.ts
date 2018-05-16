@@ -172,6 +172,7 @@ export class CareerObjectiveCreatePage {
    * Enregistre un objectif au statut enregistré
    */
   saveCareerObjectiveToRegisteredStatus() {
+    this.careerObjective.registrationDate = this.datePipe.transform(new Date(), 'yyyy-MM-ddTHH:mm');
     this.careerObjective.careerObjectiveStatus = CareerObjectiveStatus.REGISTERED;
     this.saveCareerObjective();
   }
