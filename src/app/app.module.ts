@@ -1,3 +1,4 @@
+import { WaypointStatusProvider } from './../providers/waypoint-status/waypoint-status';
 import { SessionService } from './../services/session.service';
 import { SecurityProvider } from './../providers/security/security';
 import { CareerObjectiveProvider } from './../providers/career-objective/career-objective';
@@ -32,10 +33,6 @@ import { DatePipe } from '@angular/common';
 import { WaypointCreatePage } from './../pages/waypoint-create/waypoint-create';
 import { WaypointProvider } from './../providers/waypoint/waypoint';
 
-import { IonicStorageModule } from '@ionic/storage';
-import { WaypointStatusProvider } from '../providers/waypoint-status/waypoint-status';
-
-
 @NgModule({
   declarations: [
     EDossierPNC,
@@ -48,7 +45,6 @@ import { WaypointStatusProvider } from '../providers/waypoint-status/waypoint-st
   imports: [
     BrowserModule,
     IonicModule.forRoot(EDossierPNC),
-    IonicStorageModule.forRoot(),
     HttpClientModule,
     TranslateModule.forRoot({
       loader: {

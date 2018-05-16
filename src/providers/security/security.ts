@@ -1,5 +1,5 @@
+import { SessionService } from './../../services/session.service';
 import { AuthenticatedUser } from './../../models/authenticatedUser';
-import { Pnc } from './../../models/pnc';
 import { AppConfig } from './../../app/app.config';
 import { Injectable } from '@angular/core';
 import { RestService } from '../../services/rest.base.service';
@@ -9,7 +9,8 @@ export class SecurityProvider {
 
   private securityUrl: string;
 
-  constructor(public restService: RestService) {
+  constructor(public restService: RestService,
+    private sessionService: SessionService) {
     this.securityUrl = `${AppConfig.apiUrl}/me`;
   }
 
@@ -19,6 +20,14 @@ export class SecurityProvider {
    */
   getAuthenticatedUser(): Promise<AuthenticatedUser> {
     return this.restService.get(`${this.securityUrl}`);
+  }
+
+  /**
+ * vérifie si le pnc connecté est un cadre
+ * @return cadre ou pas cadre
+ */
+  isManager(): boolean {
+    return this.sessionService.authenticatedUser.manager;
   }
 
 }

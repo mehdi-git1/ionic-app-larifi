@@ -1,3 +1,4 @@
+import { SecurityProvider } from './../../providers/security/security';
 import { WaypointProvider } from './../../providers/waypoint/waypoint';
 import { Speciality } from './../../models/speciality';
 import { CareerObjectiveStatusProvider } from './../../providers/career-objective-status/career-objective-status';
@@ -23,7 +24,6 @@ export class CareerObjectiveCreatePage {
   creationForm: FormGroup;
   careerObjective: CareerObjective;
   waypointList: Waypoint[];
-
   customDateTimeOptions: any;
 
   saveInProgress: boolean;
@@ -32,9 +32,6 @@ export class CareerObjectiveCreatePage {
   // Permet d'exposer l'enum au template
   CareerObjectiveStatus = CareerObjectiveStatus;
 
-  // Exporter un objet de la classe enum dans la template
-  Speciality = Speciality;
-
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -42,13 +39,15 @@ export class CareerObjectiveCreatePage {
     public translateService: TranslateService,
     private formBuilder: FormBuilder,
     private careerObjectiveProvider: CareerObjectiveProvider,
-    private toastProvider: ToastProvider,
     private waypointProvider: WaypointProvider,
+    private toastProvider: ToastProvider,
     public careerObjectiveStatusProvider: CareerObjectiveStatusProvider,
-    private datePipe: DatePipe) {
+    private datePipe: DatePipe,
+    public securityProvider: SecurityProvider) {
 
     this.careerObjective = new CareerObjective();
     this.careerObjective.pnc = new Pnc();
+
 
     // Initialisation du formulaire
     this.creationForm = this.formBuilder.group({
@@ -59,14 +58,15 @@ export class CareerObjectiveCreatePage {
       managerCommentControl: ['', Validators.maxLength(4000)],
       pncCommentControl: ['', Validators.maxLength(4000)],
       nextEncounterDateControl: [''],
-      prioritizedControl: [false]
+      prioritizedControl: [false],
+      waypointContextControl: ['', Validators.maxLength(4000)],
     });
 
     // Options du datepicker
     this.customDateTimeOptions = {
       buttons: [{
         text: this.translateService.instant('GLOBAL.DATEPICKER.CLEAR'),
-        handler: () => this.careerObjective.nextEncounterDate = ''
+        handler: () => this.careerObjective.nextEncounterDate
       }]
     };
 
@@ -81,7 +81,7 @@ export class CareerObjectiveCreatePage {
         }
       );
 
-      this.waypointProvider.getListWaypoint(this.navParams.get('careerObjectiveId')).then(result => {
+      this.waypointProvider.getCareerObjectiveWaypoints(this.navParams.get('careerObjectiveId')).then(result => {
         this.waypointList = result;
       }, error => {
         this.toastProvider.error(error.detailMessage);
@@ -133,10 +133,11 @@ export class CareerObjectiveCreatePage {
   }
 
   /**
-   * Enregistre un objectif au statut enregistrer
+   * Enregistre un objectif au statut enregistré
    */
-  saveCareerObjectiveRegister() {
+  saveCareerObjectiveToRegisteredStatus() {
     this.careerObjective.careerObjectiveStatus = CareerObjectiveStatus.REGISTERED;
+    this.careerObjective.registrationDate = this.datePipe.transform(new Date(), 'yyyy-MM-ddTHH:mm');
     this.saveCareerObjective();
   }
 
@@ -190,10 +191,13 @@ export class CareerObjectiveCreatePage {
    * Dirige vers la page de création d'un point d'étape
    */
   goToWaypointCreate() {
-    this.navCtrl.push(WaypointCreatePage, { careerObjective: this.careerObjective });
+    this.navCtrl.push(WaypointCreatePage, { careerObjectiveId: this.careerObjective.techId });
   }
 
+  /**
+   * Ouvrir un point d'étape existant
+   */
   openWaypoint(techId: number) {
-    this.navCtrl.push(WaypointCreatePage, { waypointId: techId, careerObjective: this.careerObjective });
+    this.navCtrl.push(WaypointCreatePage, { waypointId: techId, careerObjectiveId: this.careerObjective.techId });
   }
 }

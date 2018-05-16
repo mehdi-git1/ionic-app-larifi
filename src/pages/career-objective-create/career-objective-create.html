@@ -5,8 +5,10 @@
 </ion-header>
 
 <ion-content padding>
-    <h3 *ngIf="isCreationMode()">{{ 'CAREER_OBJECTIVE_CREATE.CREATE_TITLE' | translate }}</h3>
-    <h3 *ngIf="!isCreationMode()">{{ 'CAREER_OBJECTIVE_CREATE.EDIT_TITLE' | translate }}</h3>
+    <h3 *ngIf="isCreationMode(); else elseBlock">{{ 'CAREER_OBJECTIVE_CREATE.CREATE_TITLE' | translate }}</h3>
+    <ng-template #elseBlock>
+        <h3>{{ 'CAREER_OBJECTIVE_CREATE.EDIT_TITLE' | translate }}</h3>
+    </ng-template>
 
     <form novalidate [formGroup]="creationForm">
         <ion-grid>
@@ -67,7 +69,7 @@
                 <!-- Bouton création point d'étape -->
                 <ion-col col-4>
                     <ion-title>{{ 'CAREER_OBJECTIVE_CREATE.SUB_TITLE' | translate }}</ion-title>
-                    <button margin ion-button color="dark" (click)="goToWaypointCreate()" *ngIf="careerObjective.techId">
+                    <button margin ion-button color="dark" (click)="goToWaypointCreate()" *ngIf="careerObjective.careerObjectiveStatus === CareerObjectiveStatus.REGISTERED">
                       <ion-icon name="add"></ion-icon>
                     </button>
                     <!--liste des point d'étape-->
@@ -77,11 +79,11 @@
                                 <ion-grid class="content">
                                     <ion-row>
                                         <ion-col>
-                                            <span class="value">{{waypoint.techId == null ? "-" : waypoint.techId}}</span>
+                                            <label>{{ 'CAREER_OBJECTIVE_CREATE.FORM.CREATION_DATE' | translate }}</label>
+                                            <span class="value">{{ waypoint.creationDate | date: 'dd/MM/yyyy HH:mm'}}</span>
                                         </ion-col>
                                         <ion-col>
-                                            <label>{{ 'CAREER_OBJECTIVE_CREATE.FORM.CREATION_DATE' | translate }}</label>
-                                            <span class="value">{{waypoint.creationDate == null ? "-" : waypoint.creationDate | date: 'dd/MM/yyyy HH:mm:ss'}}</span>
+                                            <span class="value">{{ waypoint.waypointStatus}}</span>
                                         </ion-col>
                                     </ion-row>
                                 </ion-grid>
@@ -93,7 +95,7 @@
             <ion-row>
                 <ion-col col-6>
                     <!-- Initiateur -->
-                    <ion-label stacked>{{ 'CAREER_OBJECTIVE_CREATE.FORM.INITIATOR' | translate }}</ion-label>
+                    <ion-label stacked class="required">{{ 'CAREER_OBJECTIVE_CREATE.FORM.INITIATOR' | translate }}</ion-label>
                     <ion-list radio-group [(ngModel)]="careerObjective.initiator" formControlName="initiatorControl">
                         <ion-item>
                             <ion-label>{{ 'GLOBAL.PNC_ROLE.MANAGER' | translate }}</ion-label>
@@ -126,7 +128,7 @@
             <!-- Barre de boutons -->
             <ion-row>
                 <ion-col>
-                    <button ion-button (click)="saveCareerObjectiveRegister()" [disabled]="creationForm.invalid || saveInProgress" *ngIf="careerObjectiveStatusProvider.isManager() && careerObjectiveStatusProvider.isTransitionOk(careerObjective.careerObjectiveStatus,CareerObjectiveStatus.REGISTERED)"
+                    <button ion-button (click)="saveCareerObjectiveToRegisteredStatus()" [disabled]="creationForm.invalid || saveInProgress" *ngIf="securityProvider.isManager() && careerObjectiveStatusProvider.isTransitionOk(careerObjective.careerObjectiveStatus,CareerObjectiveStatus.REGISTERED)"
                         color="primary">
                       {{ 'CAREER_OBJECTIVE_CREATE.BUTTONS.SAVE' | translate }}
                       <ion-spinner *ngIf="saveInProgress"></ion-spinner>

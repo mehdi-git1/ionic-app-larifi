@@ -39,6 +39,8 @@ page-pnc-home {
         button {
             height: 300px;
             width: 100%;
+            margin: 0;
+            font-size: 1.5em;
         }
 
         .development-program {
@@ -46,4 +48,7 @@ page-pnc-home {
         }
     }
 
+    .disabled {
+        background: color($colors, disabled);
+    }
 }

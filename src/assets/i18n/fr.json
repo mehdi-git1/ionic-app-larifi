@@ -9,15 +9,19 @@
             "DONE": "Valider",
             "CLEAR": "Vider"
         },
-        "DEVELOPMENT_PROGRAM": "Parcours de développement",
         "CAREER_OBJECTIVE_STATUS": {
             "DRAFT": "BROUILLON",
             "REGISTERED": "ENREGISTRÉ"
-        }
+        },
+        "DEVELOPMENT_PROGRAM": "Parcours de développement",
+        "PNC_SUMMARY_SHEET": "Fiche synthèse PNC",
+        "HELP_CENTRE": "Ressources d'aide",
+        "PNC_TEAM": "Effectif PNC",
+        "UPCOMING_FLIGHT": "Prochains vols"
     },
     "CAREER_OBJECTIVE_CREATE": {
         "CREATE_TITLE": "Création d'un nouvel objectif",
-        "SUB_TITLE": "Point d'étape",
+        "SUB_TITLE": "Points d'étapes",
         "EDIT_TITLE": "Modification d'un objectif",
         "FORM": {
             "PNC": "PNC",
@@ -39,13 +43,15 @@
         },
         "BUTTONS": {
             "SAVE": "Enregistrer",
-            "SAVE_DRAFT": "Enregistrer brouillon",
+            "SAVE_DRAFT": "Sauvegarder brouillon",
             "DELETE_DRAFT": "Supprimer brouillon"
         },
         "SUCCESS": {
             "CAREER_OBJECTIVE_SAVED": "Objectif enregistré avec succès",
-            "DRAFT_SAVED": "Brouillon enregistré"
+            "DRAFT_SAVED": "Brouillon enregistré",
+            "DRAFT_DELETED": "Brouillon supprimé"
         },
+
         "ERROR": {
             "CAREER_OBJECTIVE_CREATION_FAILED": "La création de l'objectif a échoué"
         }
@@ -57,6 +63,9 @@
             "TITLE": "Libellé",
             "REGISTRATION_DATE": "Date d'enregistrement",
             "NEXT_ENCOUNTER_DATE": "Date du Prochain point"
+        },
+        "BUTTONS": {
+            "ADD_CAREER_OBJECTIVE": "Créer un nouvel objectif"
         }
     },
     "PNC_HOME": {
@@ -66,11 +75,14 @@
             "SUBMIT": "Valider"
         },
         "INFO_PANEL": {
-            "SPECIALITY": "Spécialité",
+            "FUNCTION": "Fonction",
             "GINQ": "Ginq",
             "SECTOR": "Secteur",
             "DIVISION": "Division"
         }
+    },
+    "MANAGER_HOME": {
+        "TITLE": "Accueil Cadre"
     },
     "WAYPOINT_CREATE": {
         "TITLE": "Création d'un point d'étape",
@@ -82,11 +94,13 @@
         },
         "BUTTONS": {
             "SAVE": "Enregistrer",
-            "SAVE_DRAFT": "Enregistrer brouillon"
+            "SAVE_DRAFT": "Sauvegarder brouillon",
+            "DELETE_DRAFT": "Supprimer brouillon"
         },
         "SUCCESS": {
-            "WAYPOINT_SAVED": "point d'étape enregistré avec succès",
-            "DRAFT_SAVED": "Brouillon enregistré"
+            "WAYPOINT_SAVED": "Point d'étape enregistré avec succès",
+            "DRAFT_SAVED": "Brouillon enregistré",
+            "DRAFT_DELETED": "Brouillon supprimé"
         }
     }
 }

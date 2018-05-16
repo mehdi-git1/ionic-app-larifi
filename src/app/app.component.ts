@@ -1,5 +1,4 @@
 import { SessionService } from './../services/session.service';
-import { Storage } from '@ionic/storage';
 import { AuthenticatedUser } from './../models/authenticatedUser';
 import { SecurityProvider } from './../providers/security/security';
 import { PncHomePage } from './../pages/pnc-home/pnc-home';
@@ -22,18 +21,14 @@ export class EDossierPNC {
 
   rootPage: any = PncHomePage;
 
-  matricule: string = "12345677"
 
   constructor(public platform: Platform, public statusBar: StatusBar,
     public splashScreen: SplashScreen, public translate: TranslateService,
     private secMobilService: SecMobilService,
     private securityProvider: SecurityProvider,
-    private SessionService: SessionService
+    private sessionService: SessionService
   ) {
     this.initializeApp();
-
-    this.putAuthenticatedUserInSession();
-
   }
 
   initializeApp() {
@@ -55,15 +50,16 @@ export class EDossierPNC {
             this.rootPage = AuthenticationPage;
           });
       });
+      this.putAuthenticatedUserInSession();
     });
   }
 
   /**
-  * Mettre le pnc connecté en session 
+  * Mettre le pnc connecté en session
   */
   putAuthenticatedUserInSession() {
-    this.securityProvider.getAuthenticatedUser().then(result => {
-      this.SessionService.authenticatedUser = result;
+    this.securityProvider.getAuthenticatedUser().then(authenticatedUser => {
+      this.sessionService.authenticatedUser = authenticatedUser;
     });
   }
 
