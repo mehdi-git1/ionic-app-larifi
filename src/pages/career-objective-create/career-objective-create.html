@@ -69,21 +69,16 @@
                 <!-- Bouton création point d'étape -->
                 <ion-col col-4>
                     <ion-title>{{ 'CAREER_OBJECTIVE_CREATE.WAYPOINT_LIST_TITLE' | translate }}</ion-title>
-                    <button margin ion-button color="dark" (click)="goToWaypointCreate()" *ngIf="careerObjective.careerObjectiveStatus === CareerObjectiveStatus.REGISTERED">
-                      <ion-icon name="add"></ion-icon>
-                    </button>
                     <!--liste des point d'étape-->
-                    <ion-content>
+                    <ion-content class="waypoint-list">
+                        <button ion-button (click)="goToWaypointCreate()" class="add-waypoint" *ngIf="careerObjective.careerObjectiveStatus === CareerObjectiveStatus.REGISTERED">
+                            <ion-icon name="add"></ion-icon>
+                            <label>{{ 'CAREER_OBJECTIVE_CREATE.BUTTONS.ADD_WAYPOINT' | translate }}</label>
+                        </button>
                         <ion-card class="clickable" *ngFor="let waypoint of waypointList" (click)="openWaypoint(waypoint.techId)">
-                            <ion-card-content no-padding>
-                                <ion-grid class="content">
-                                    <ion-row>
-                                        <ion-col>
-                                            <label>{{ 'CAREER_OBJECTIVE_CREATE.FORM.CREATION_DATE' | translate }}</label>
-                                            <span class="value">{{ waypoint.creationDate | date: 'dd/MM/yyyy HH:mm'}}</span>
-                                        </ion-col>
-                                    </ion-row>
-                                </ion-grid>
+                            <ion-card-content>
+                                <label>{{ 'CAREER_OBJECTIVE_CREATE.FORM.CREATION_DATE' | translate }}</label>
+                                <span class="value">{{ waypoint.creationDate | date: 'dd/MM/yyyy HH:mm'}}</span>
                             </ion-card-content>
                         </ion-card>
                     </ion-content>

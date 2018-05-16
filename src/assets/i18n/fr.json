@@ -35,7 +35,7 @@
             "PNC_COMMENT": "Commentaire PNC",
             "NEXT_ENCOUNTER_DATE": "Prochain point d'étape",
             "PRIORITIZED": "Prioritaire",
-            "CREATION_DATE": "Date de création"
+            "CREATION_DATE": "Créé le"
         },
         "CONFIRM_DRAFT_DELETE": {
             "TITLE": "Suppression du brouillon",
@@ -44,6 +44,7 @@
             "CONFIRM": "Supprimer"
         },
         "BUTTONS": {
+            "ADD_WAYPOINT": "Ajouter un point d'étape",
             "SAVE": "Enregistrer",
             "SAVE_DRAFT": "Sauvegarder brouillon",
             "DELETE_DRAFT": "Supprimer brouillon",
