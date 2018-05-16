@@ -8,7 +8,7 @@
             "CANCEL": "Annuler",
             "DONE": "Valider",
             "CLEAR": "Vider"
-        },        
+        },
         "CAREER_OBJECTIVE_STATUS": {
             "DRAFT": "BROUILLON",
             "REGISTERED": "ENREGISTRÉ",
@@ -23,8 +23,8 @@
     },
     "CAREER_OBJECTIVE_CREATE": {
         "CREATE_TITLE": "Création d'un nouvel objectif",
-        "SUB_TITLE": "Points d'étapes",
         "EDIT_TITLE": "Modification d'un objectif",
+        "WAYPOINT_LIST_TITLE": "Points d'étapes",
         "FORM": {
             "PNC": "PNC",
             "INITIATOR": "Initiateur",
