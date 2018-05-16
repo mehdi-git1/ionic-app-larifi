@@ -176,15 +176,14 @@ export class CareerObjectiveCreatePage {
    * Enregistre un objectif au statut enregistré
    */
   saveCareerObjectiveToRegisteredStatus() {
-    this.careerObjective.registrationDate = this.datePipe.transform(new Date(), 'yyyy-MM-ddTHH:mm');
     this.careerObjective.careerObjectiveStatus = CareerObjectiveStatus.REGISTERED;
     this.careerObjective.registrationDate = this.datePipe.transform(new Date(), 'yyyy-MM-ddTHH:mm');
     this.saveCareerObjective();
   }
 
   /**
- * Enregistre un objectif au statut validé
- */
+   * Enregistre un objectif au statut validé
+   */
   saveCareerObjectiveToValidatedStatus() {
     this.careerObjective.careerObjectiveStatus = CareerObjectiveStatus.VALIDATED;
     this.saveCareerObjective();
@@ -213,7 +212,6 @@ export class CareerObjectiveCreatePage {
   resumeAbandonedCareerObjective() {
     this.cancelAbandon = true;
     this.careerObjective.careerObjectiveStatus = CareerObjectiveStatus.REGISTERED;
-    this.careerObjective.registrationDate = this.datePipe.transform(new Date(), 'yyyy-MM-ddTHH:mm');
     this.saveCareerObjective();
   }
 
