@@ -38,9 +38,14 @@ page-career-objective-create {
             background: color($colors, light-grey);
         }
 
+        h4 {
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+
         .value {
             display: block;
-            text-align: center;
         }
 
     }
