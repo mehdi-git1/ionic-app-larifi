@@ -11,7 +11,7 @@
         },
         "CAREER_OBJECTIVE_STATUS": {
             "DRAFT": "BROUILLON",
-            "REGISTERED": "ENREGISTRÉ",
+            "REGISTERED": "EN COURS",
             "VALIDATED": "VALIDÉ",
             "ABANDONED": "ABANDONNÉ"
         },
