@@ -44,7 +44,6 @@
             "CONFIRM": "Supprimer"
         },
         "BUTTONS": {
-            "ADD_WAYPOINT": "Ajouter un point d'étape",
             "SAVE": "Enregistrer",
             "SAVE_DRAFT": "Sauvegarder brouillon",
             "DELETE_DRAFT": "Supprimer brouillon",

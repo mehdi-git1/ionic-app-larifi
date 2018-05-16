@@ -13,7 +13,7 @@
     <form novalidate [formGroup]="creationForm">
         <ion-grid>
             <ion-row>
-                <ion-col col-8>
+                <ion-col col-9>
                     <!-- Barre de statut -->
                     <ion-row>
                         <ion-col col-12>
@@ -67,18 +67,16 @@
                     </ion-row>
                 </ion-col>
                 <!-- Bouton création point d'étape -->
-                <ion-col col-4>
+                <ion-col col-3>
                     <ion-title>{{ 'CAREER_OBJECTIVE_CREATE.WAYPOINT_LIST_TITLE' | translate }}</ion-title>
                     <!--liste des point d'étape-->
                     <ion-content class="waypoint-list">
                         <button ion-button (click)="goToWaypointCreate()" class="add-waypoint clickable" *ngIf="careerObjective.careerObjectiveStatus === CareerObjectiveStatus.REGISTERED">
                             <ion-icon name="add"></ion-icon>
-                            <label>{{ 'CAREER_OBJECTIVE_CREATE.BUTTONS.ADD_WAYPOINT' | translate }}</label>
                         </button>
                         <ion-card class="clickable" *ngFor="let waypoint of waypointList" (click)="openWaypoint(waypoint.techId)">
                             <ion-card-content>
-                                <label>{{ 'CAREER_OBJECTIVE_CREATE.FORM.CREATION_DATE' | translate }}</label>
-                                <span class="value">{{ waypoint.creationDate | date: 'dd/MM/yyyy HH:mm'}}</span>
+                                <span class="value">{{ waypoint.creationDate | date: 'dd/MM/yyyy'}}</span>
                             </ion-card-content>
                         </ion-card>
                     </ion-content>
