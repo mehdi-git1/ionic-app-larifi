@@ -71,7 +71,7 @@
                     <ion-title>{{ 'CAREER_OBJECTIVE_CREATE.WAYPOINT_LIST_TITLE' | translate }}</ion-title>
                     <!--liste des point d'étape-->
                     <ion-content class="waypoint-list">
-                        <button ion-button (click)="goToWaypointCreate()" class="add-waypoint" *ngIf="careerObjective.careerObjectiveStatus === CareerObjectiveStatus.REGISTERED">
+                        <button ion-button (click)="goToWaypointCreate()" class="add-waypoint clickable" *ngIf="careerObjective.careerObjectiveStatus === CareerObjectiveStatus.REGISTERED">
                             <ion-icon name="add"></ion-icon>
                             <label>{{ 'CAREER_OBJECTIVE_CREATE.BUTTONS.ADD_WAYPOINT' | translate }}</label>
                         </button>
