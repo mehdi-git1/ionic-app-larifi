@@ -62,7 +62,7 @@ export class WaypointCreatePage {
         this.waypoint = savedWaypoint;
         this.saveInProgress = false;
         this.toastProvider.success(this.translateService.instant('WAYPOINT_CREATE.SUCCESS.WAYPOINT_SAVED'));
-        this.navCtrl.push(CareerObjectiveCreatePage, { careerObjectiveId: this.careerObjectiveId });
+        this.navCtrl.pop();
       }, error => {
         this.saveInProgress = false;
         this.toastProvider.error(error.detailMessage);

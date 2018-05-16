@@ -72,7 +72,16 @@ export class CareerObjectiveCreatePage {
         handler: () => this.careerObjective.nextEncounterDate
       }]
     };
+  }
 
+  ionViewDidLoad() {
+    // On récupère le matricule du pnc de la route
+    if (this.navParams.get('matricule')) {
+      this.careerObjective.pnc.matricule = this.navParams.get('matricule');
+    }
+  }
+
+  ionViewDidEnter() {
     // Charge l'objectif si celui ci est présent dans les paramètres de navigation
     if (this.navParams.get('careerObjectiveId')) {
       this.careerObjectiveProvider.getCareerObjective(this.navParams.get('careerObjectiveId')).then(
@@ -89,13 +98,6 @@ export class CareerObjectiveCreatePage {
       }, error => {
         this.toastProvider.error(error.detailMessage);
       });
-    }
-  }
-
-  ionViewDidEnter() {
-    // On récupère le matricule du pnc de la route
-    if (this.navParams.get('matricule')) {
-      this.careerObjective.pnc.matricule = this.navParams.get('matricule');
     }
   }
 
