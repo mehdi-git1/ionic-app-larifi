@@ -76,7 +76,7 @@
                         </button>
                         <ion-card class="clickable" *ngFor="let waypoint of waypointList" (click)="openWaypoint(waypoint.techId)">
                             <ion-card-content>
-                                <span class="value">{{ waypoint.creationDate | date: 'dd/MM/yyyy'}}</span>
+                                <span class="value">{{ waypoint.creationDate | date: 'dd/MM/yyyy HH:mm'}}</span>
                             </ion-card-content>
                         </ion-card>
                     </ion-content>
