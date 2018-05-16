@@ -126,31 +126,31 @@
             <ion-row>
                 <ion-col>
                     <!-- Bouton sauvegarder objectif en brouillon -->
-                    <button ion-button color="dark" (click)="saveCareerObjectiveDraft()" [disabled]="creationForm.invalid" *ngIf="careerObjectiveStatusProvider.isTransitionOk(careerObjective.careerObjectiveStatus,CareerObjectiveStatus.DRAFT)">
+                    <button ion-button color="primary" (click)="saveCareerObjectiveDraft()" [disabled]="creationForm.invalid" *ngIf="careerObjectiveStatusProvider.isTransitionOk(careerObjective.careerObjectiveStatus,CareerObjectiveStatus.DRAFT)">
                       {{ 'CAREER_OBJECTIVE_CREATE.BUTTONS.SAVE_DRAFT' | translate }}
                     </button>
                     <!-- Bouton supprimer objectif en brouillon -->
-                    <button ion-button color="dark" (click)="confirmDeleteCareerObjectiveDraft()" [disabled]="deletionInProgress" *ngIf="careerObjective.careerObjectiveStatus === CareerObjectiveStatus.DRAFT">
+                    <button ion-button color="primary" (click)="confirmDeleteCareerObjectiveDraft()" [disabled]="deletionInProgress" *ngIf="careerObjective.careerObjectiveStatus === CareerObjectiveStatus.DRAFT">
                       {{ 'CAREER_OBJECTIVE_CREATE.BUTTONS.DELETE_DRAFT' | translate }}
                     </button>
                     <!-- Bouton sauvegarder objectif -->
-                    <button ion-button color="dark" (click)="saveCareerObjectiveToRegisteredStatus()" [disabled]="creationForm.invalid" *ngIf="securityProvider.isManager() && careerObjectiveStatusProvider.isTransitionOk(careerObjective.careerObjectiveStatus,CareerObjectiveStatus.REGISTERED)">
+                    <button ion-button color="primary" (click)="saveCareerObjectiveToRegisteredStatus()" [disabled]="creationForm.invalid" *ngIf="securityProvider.isManager() && careerObjectiveStatusProvider.isTransitionOk(careerObjective.careerObjectiveStatus,CareerObjectiveStatus.REGISTERED)">
                         {{ 'CAREER_OBJECTIVE_CREATE.BUTTONS.SAVE' | translate }}
                     </button>
                     <!-- Bouton valider objectif -->
-                    <button ion-button color="dark" (click)="saveCareerObjectiveToValidatedStatus()" [disabled]="creationForm.invalid" *ngIf="securityProvider.isManager() && careerObjectiveStatusProvider.isTransitionOk(careerObjective.careerObjectiveStatus,CareerObjectiveStatus.VALIDATED)">
+                    <button ion-button color="primary" (click)="saveCareerObjectiveToValidatedStatus()" [disabled]="creationForm.invalid" *ngIf="securityProvider.isManager() && careerObjectiveStatusProvider.isTransitionOk(careerObjective.careerObjectiveStatus,CareerObjectiveStatus.VALIDATED)">
                       {{ 'CAREER_OBJECTIVE_CREATE.BUTTONS.VALIDATE' | translate }}
                     </button>
                     <!-- bouton abandonner objectif  -->
-                    <button ion-button color="dark" (click)="saveCareerObjectiveToAbandonedStatus()" [disabled]="creationForm.invalid" *ngIf="securityProvider.isManager() && careerObjectiveStatusProvider.isTransitionOk(careerObjective.careerObjectiveStatus,CareerObjectiveStatus.ABANDONED)">
+                    <button ion-button color="primary" (click)="saveCareerObjectiveToAbandonedStatus()" [disabled]="creationForm.invalid" *ngIf="securityProvider.isManager() && careerObjectiveStatusProvider.isTransitionOk(careerObjective.careerObjectiveStatus,CareerObjectiveStatus.ABANDONED)">
                       {{ 'CAREER_OBJECTIVE_CREATE.BUTTONS.ABANDON' | translate }}
                     </button>
                     <!-- bouton annuler statut validé d'un objectif  -->
-                    <button ion-button color="dark" (click)="cancelCareerObjectiveValidation()" [disabled]="creationForm.invalid" *ngIf="securityProvider.isManager() && careerObjective.careerObjectiveStatus === CareerObjectiveStatus.VALIDATED">
+                    <button ion-button color="primary" (click)="cancelCareerObjectiveValidation()" [disabled]="creationForm.invalid" *ngIf="securityProvider.isManager() && careerObjective.careerObjectiveStatus === CareerObjectiveStatus.VALIDATED">
                       {{ 'CAREER_OBJECTIVE_CREATE.BUTTONS.CANCEL_VALIDATION' | translate }}
                     </button>
                     <!-- bouton annuler statut abandonné d'un objectif  -->
-                    <button ion-button color="dark" (click)="resumeAbandonedCareerObjective()" [disabled]="creationForm.invalid" *ngIf="securityProvider.isManager() && careerObjective.careerObjectiveStatus === CareerObjectiveStatus.ABANDONED">
+                    <button ion-button color="primary" (click)="resumeAbandonedCareerObjective()" [disabled]="creationForm.invalid" *ngIf="securityProvider.isManager() && careerObjective.careerObjectiveStatus === CareerObjectiveStatus.ABANDONED">
                       {{ 'CAREER_OBJECTIVE_CREATE.BUTTONS.RESUME' | translate }}
                     </button>
                 </ion-col>
