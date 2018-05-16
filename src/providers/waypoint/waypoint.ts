@@ -9,8 +9,6 @@ import { Waypoint } from './../../models/waypoint';
 export class WaypointProvider {
 
   private waypointUrl: string;
-  private waypointUrlCreate: string;
-  private headers: HttpHeaders;
 
   constructor(public restService: RestService) {
     this.waypointUrl = `${AppConfig.apiUrl}/waypoints`;
@@ -18,8 +16,8 @@ export class WaypointProvider {
 
   /**
    * Créé ou met à jour un point d'étape
-   * @param  Waypoint le point d'étape à créer ou mettre à jour
-   * @param Id de l'objectif
+   * @param  waypoint le point d'étape à créer ou mettre à jour
+   * @param id l'id de l'objectif
    * @return une promesse contenant le point d'étape créé ou mis à jour
    */
   createOrUpdate(waypoint: Waypoint, id: number): Promise<Waypoint> {
@@ -28,7 +26,7 @@ export class WaypointProvider {
 
   /**
   * Récupère les points d'étape d'un objectif
-  * @param Id de l'objectif des points d'étape à récupérer
+  * @param id l'id de l'objectif des points d'étape à récupérer
   * @return les points d'étape récupérés
   */
   getCareerObjectiveWaypoints(id: number): Promise<Waypoint[]> {
@@ -37,7 +35,7 @@ export class WaypointProvider {
 
   /**
   * Récupère un point d'étape
-  * @param Id du point d'étape à récupérer
+  * @param id l'id du point d'étape à récupérer
   * @return le point d'étape récupéré
   */
   getWaypoint(id: number): Promise<Waypoint> {
