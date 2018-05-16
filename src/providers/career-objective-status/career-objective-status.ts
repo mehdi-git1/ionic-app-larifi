@@ -23,10 +23,13 @@ export class CareerObjectiveStatusProvider {
       // Liste des nouveaux statuts authorisés
       return [CareerObjectiveStatus.DRAFT, CareerObjectiveStatus.REGISTERED].indexOf(newStatus) > -1;
     }
-    // Pour un objectif en statut enregistrer, on a le droit que de le sauvegarder en statut enregistré
+    /** 
+     * Pour un objectif en statut enregistré, on a le droit de:
+     * l'enregistrer, le valider ou l'abandonner
+    */
     if (currentStatus === CareerObjectiveStatus.REGISTERED) {
       // Liste des nouveaux statuts authorisés
-      return [CareerObjectiveStatus.REGISTERED].indexOf(newStatus) > -1;
+      return [CareerObjectiveStatus.REGISTERED, CareerObjectiveStatus.VALIDATED, CareerObjectiveStatus.ABANDONED].indexOf(newStatus) > -1;
     }
     return false;
   }
