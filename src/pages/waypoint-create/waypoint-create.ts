@@ -52,9 +52,6 @@ export class WaypointCreatePage {
 
     this.saveInProgress = false;
   }
-  ionViewDidLoad() {
-
-  }
 
   /**
    * Lance le processus de création/mise à jour d'un point d'étape
