@@ -17,9 +17,9 @@
                     <!-- Barre de statut -->
                     <ion-row>
                         <ion-col col-12>
-                            <ion-chip color="{{careerObjective.careerObjectiveStatus.toLowerCase()}}" *ngIf="careerObjective.careerObjectiveStatus" float-right>
-                                <ion-label>{{ 'GLOBAL.CAREER_OBJECTIVE_STATUS.'+careerObjective.careerObjectiveStatus | translate }}</ion-label>
-                            </ion-chip>
+                            <ion-badge color="{{careerObjective.careerObjectiveStatus.toLowerCase()}}" *ngIf="careerObjective.careerObjectiveStatus" float-right>
+                                {{ 'GLOBAL.CAREER_OBJECTIVE_STATUS.'+careerObjective.careerObjectiveStatus | translate }}
+                            </ion-badge>
                         </ion-col>
                     </ion-row>
                     <ion-row>
