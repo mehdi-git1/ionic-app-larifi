@@ -9,13 +9,22 @@
             "DONE": "Valider",
             "CLEAR": "Vider"
         },
-        "DEVELOPMENT_PROGRAM": "Parcours de développement",
         "CAREER_OBJECTIVE_STATUS": {
             "DRAFT": "BROUILLON",
+<<<<<<< HEAD
             "REGISTERED": "ENREGISTRÉ",
             "VALIDATED": "VALIDÉ",
             "ABANDONED": "ABANDONNÉ"
         }
+=======
+            "REGISTERED": "ENREGISTRÉ"
+        },
+        "DEVELOPMENT_PROGRAM": "Parcours de développement",
+        "PNC_SUMMARY_SHEET": "Fiche synthèse PNC",
+        "HELP_CENTRE": "Ressources d'aide",
+        "PNC_TEAM": "Effectif PNC",
+        "UPCOMING_FLIGHT": "Prochains vols"
+>>>>>>> refs/remotes/origin/release/sprint1
     },
     "CAREER_OBJECTIVE_CREATE": {
         "CREATE_TITLE": "Création d'un nouvel objectif",
@@ -39,12 +48,17 @@
         },
         "BUTTONS": {
             "SAVE": "Enregistrer",
+<<<<<<< HEAD
             "SAVE_DRAFT": "Enregistrer brouillon",
             "DELETE_DRAFT": "Supprimer brouillon",
             "VALIDATE": "Valider",
             "ABANDON": "Abandonner",
             "CANCEL_VALIDATION": "Annuler la validation",
             "RESUME": "Reprendre l'objectif"
+=======
+            "SAVE_DRAFT": "Sauvegarder brouillon",
+            "DELETE_DRAFT": "Supprimer brouillon"
+>>>>>>> refs/remotes/origin/release/sprint1
         },
         "SUCCESS": {
             "CAREER_OBJECTIVE_SAVED": "Objectif enregistré avec succès",
@@ -78,10 +92,13 @@
             "SUBMIT": "Valider"
         },
         "INFO_PANEL": {
-            "SPECIALITY": "Spécialité",
+            "FUNCTION": "Fonction",
             "GINQ": "Ginq",
             "SECTOR": "Secteur",
             "DIVISION": "Division"
         }
+    },
+    "MANAGER_HOME": {
+        "TITLE": "Accueil Cadre"
     }
 }

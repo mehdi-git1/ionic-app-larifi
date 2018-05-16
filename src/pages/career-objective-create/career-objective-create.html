@@ -5,8 +5,10 @@
 </ion-header>
 
 <ion-content padding>
-    <h3 *ngIf="isCreationMode()">{{ 'CAREER_OBJECTIVE_CREATE.CREATE_TITLE' | translate }}</h3>
-    <h3 *ngIf="!isCreationMode()">{{ 'CAREER_OBJECTIVE_CREATE.EDIT_TITLE' | translate }}</h3>
+    <h3 *ngIf="isCreationMode(); else elseBlock">{{ 'CAREER_OBJECTIVE_CREATE.CREATE_TITLE' | translate }}</h3>
+    <ng-template #elseBlock>
+        <h3>{{ 'CAREER_OBJECTIVE_CREATE.EDIT_TITLE' | translate }}</h3>
+    </ng-template>
 
     <form novalidate [formGroup]="creationForm">
         <ion-grid>
