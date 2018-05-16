@@ -1,3 +1,5 @@
+import { SecurityProvider } from './../../providers/security/security';
+import { SessionService } from './../../services/session.service';
 import { ToastProvider } from './../../providers/toast/toast';
 import { GenderProvider } from './../../providers/gender/gender';
 import { Speciality } from './../../models/speciality';
@@ -23,27 +25,29 @@ export class PncHomePage {
     public navParams: NavParams,
     private pncProvider: PncProvider,
     public genderProvider: GenderProvider,
-    private toastProvider: ToastProvider) {
+    private toastProvider: ToastProvider,
+    private securityProvider: SecurityProvider) {
 
     this.pnc = new Pnc();
     this.pnc.assignment = new Assignment();
-
-    // TEMPORAIRE
-    this.matricule = '07339967';
   }
 
-  /**
-   * Charge les informations du pnc aprés le chargement de la page
-   */
-  ionViewDidLoad() {
-    if (this.navParams.get('matricule')) {
-      this.matricule = this.navParams.get('matricule');
-    }
+  ionViewCanEnter() {
+    return new Promise((resolve, reject) => {
+      this.securityProvider.getAuthenticatedUser().then(authenticatedUser => {
+        this.matricule = authenticatedUser.username;
 
-    this.pncProvider.getPnc(this.matricule).then(foundPnc => {
-      this.pnc = foundPnc;
-    }, error => {
-      this.toastProvider.error(error.detailMessage);
+        // Si on a un matricule dans les params de navigation, cela surcharge le matricule du user connecté
+        if (this.navParams.get('matricule')) {
+          this.matricule = this.navParams.get('matricule');
+        }
+
+        this.pncProvider.getPnc(this.matricule).then(foundPnc => {
+          this.pnc = foundPnc;
+
+          resolve(true);
+        });
+      });
     });
   }
 
