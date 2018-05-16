@@ -36,10 +36,12 @@ dark: #051039,
 label:#999,
 success: #006729,
 info: #14438B,
-draft: grey,
-registered: orange,
-development-program:#e99251,
-disabled:grey);
+draft: #7799CC,
+registered: #e98e05,
+validated: #129647,
+abandoned: #000000,
+development-program: #e99251,
+disabled:#808080);
 
 
 
@@ -59,6 +61,7 @@ disabled:grey);
 // so that the above variables are used and Ionic's
 // default are overridden.
 @import "ionic.theme.default";
+@import 'loading-spinner.scss';
 
 
 // Ionicons

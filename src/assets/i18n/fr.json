@@ -8,10 +8,12 @@
             "CANCEL": "Annuler",
             "DONE": "Valider",
             "CLEAR": "Vider"
-        },
+        },        
         "CAREER_OBJECTIVE_STATUS": {
             "DRAFT": "BROUILLON",
-            "REGISTERED": "ENREGISTRÉ"
+            "REGISTERED": "ENREGISTRÉ",
+            "VALIDATED": "VALIDÉ",
+            "ABANDONED": "ABANDONNÉ"
         },
         "DEVELOPMENT_PROGRAM": "Parcours de développement",
         "PNC_SUMMARY_SHEET": "Fiche synthèse PNC",
@@ -42,14 +44,21 @@
         "BUTTONS": {
             "SAVE": "Enregistrer",
             "SAVE_DRAFT": "Sauvegarder brouillon",
-            "DELETE_DRAFT": "Supprimer brouillon"
+            "DELETE_DRAFT": "Supprimer brouillon",
+            "VALIDATE": "Valider",
+            "ABANDON": "Abandonner",
+            "CANCEL_VALIDATION": "Annuler la validation",
+            "RESUME": "Reprendre l'objectif"
         },
         "SUCCESS": {
             "CAREER_OBJECTIVE_SAVED": "Objectif enregistré avec succès",
             "DRAFT_SAVED": "Brouillon enregistré",
-            "DRAFT_DELETED": "Brouillon supprimé"
+            "DRAFT_DELETED": "Brouillon supprimé",
+            "CAREER_OBJECTIVE_VALIDATED": "Objectif validé",
+            "CAREER_OBJECTIVE_ABANDONED": "Objectif abandonné",
+            "CAREER_OBJECTIVE_VALIDATION_CANCELED": "Validation annulée de l'objectif",
+            "CAREER_OBJECTIVE_RESUMED": "Objectif repris avec succés"
         },
-
         "ERROR": {
             "CAREER_OBJECTIVE_CREATION_FAILED": "La création de l'objectif a échoué"
         }
