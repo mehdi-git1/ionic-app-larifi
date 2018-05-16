@@ -33,23 +33,21 @@ export class PncHomePage {
   }
 
   ionViewCanEnter() {
-    return this.securityProvider.getAuthenticatedUser().then(authenticatedUser => {
-      this.matricule = authenticatedUser.username;
-    });
-  }
+    return new Promise((resolve, reject) => {
+      this.securityProvider.getAuthenticatedUser().then(authenticatedUser => {
+        this.matricule = authenticatedUser.username;
 
-  /**
-   * Charge les informations du pnc aprés le chargement de la page
-   */
-  ionViewDidLoad() {
-    if (this.navParams.get('matricule')) {
-      this.matricule = this.navParams.get('matricule');
-    }
+        // Si on a un matricule dans les params de navigation, cela surcharge le matricule du user connecté
+        if (this.navParams.get('matricule')) {
+          this.matricule = this.navParams.get('matricule');
+        }
 
-    this.pncProvider.getPnc(this.matricule).then(foundPnc => {
-      this.pnc = foundPnc;
-    }, error => {
-      this.toastProvider.error(error.detailMessage);
+        this.pncProvider.getPnc(this.matricule).then(foundPnc => {
+          this.pnc = foundPnc;
+
+          resolve(true);
+        });
+      });
     });
   }
 
