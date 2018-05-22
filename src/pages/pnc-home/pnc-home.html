@@ -13,7 +13,7 @@
             <ion-label floating>{{ 'PNC_HOME.GO_TO_EDOSSIER.MATRICULE' | translate }}</ion-label>
             <ion-input type="text" [(ngModel)]="matricule"></ion-input>
         </ion-item>
-        <button ion-button color="dark" (click)="goToEdossier()">{{ 'PNC_HOME.GO_TO_EDOSSIER.SUBMIT' | translate }}</button>
+        <button ion-button color="primary" (click)="goToEdossier()">{{ 'PNC_HOME.GO_TO_EDOSSIER.SUBMIT' | translate }}</button>
     </div>
 
     <ion-card class="pnc-info-panel">
@@ -74,25 +74,25 @@
             </ion-col>
             <!-- Fiche synthèse PNC -->
             <ion-col col-6>
-                <button ion-button *ngIf="pnc.speciality !== Speciality.CAD" [disabled]="true" color="disabled">
+                <button ion-button *ngIf="pnc.speciality !== Speciality.CAD" [disabled]="true" color="grey70">
                     {{ 'GLOBAL.PNC_SUMMARY_SHEET' | translate }}
                 </button>
             </ion-col>
             <!-- Effectif PNC -->
             <ion-col col-6>
-                <button ion-button *ngIf="pnc.speciality === Speciality.CAD" [disabled]="true" color="disabled">
+                <button ion-button *ngIf="pnc.speciality === Speciality.CAD" [disabled]="true" color="grey70">
                     {{ 'GLOBAL.PNC_TEAM' | translate }}
                 </button>
             </ion-col>
             <!-- Prochains vols -->
             <ion-col col-6>
-                <button ion-button *ngIf="pnc.speciality === Speciality.CAD" [disabled]="true" color="disabled">
+                <button ion-button *ngIf="pnc.speciality === Speciality.CAD" [disabled]="true" color="grey70">
                     {{ 'GLOBAL.UPCOMING_FLIGHT' | translate }}
                 </button>
             </ion-col>
             <!-- Ressource d'aide -->
             <ion-col col-6>
-                <button ion-button [disabled]="true" color="disabled">
+                <button ion-button [disabled]="true" color="grey70">
                     {{ 'GLOBAL.HELP_CENTRE' | translate }}
                 </button>
             </ion-col>
