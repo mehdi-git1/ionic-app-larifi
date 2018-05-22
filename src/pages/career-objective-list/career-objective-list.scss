@@ -1,6 +1,6 @@
 page-career-objective-list {
     .add-career-objective {
-        background: color($colors, light);
+        background: color($colors, light-grey);
         color: color($colors, dark);
         width: calc(100% - 65px);
         height: 90px;
@@ -16,6 +16,7 @@ page-career-objective-list {
             font-size: 3em;
         }
     }
+
 
     .career-objective-list-container {
         height: 80%;

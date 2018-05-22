@@ -7,7 +7,7 @@ export class Waypoint {
     techId: number;
     pnc: Pnc;
     creationAuthor: Pnc;
-    creationDate: string;
+    creationDate: Date;
     lastUpdateAuthor: Pnc;
     lastUpdateDate: string;
     context: string;

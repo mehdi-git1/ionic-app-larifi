@@ -21,9 +21,7 @@ export class WaypointCreatePage {
   creationForm: FormGroup;
   careerObjectiveId: number;
   waypoint: Waypoint;
-  customDateTimeOptions: any;
   saveInProgress: boolean;
-  return: boolean;
 
   constructor(
     public navCtrl: NavController,
@@ -56,9 +54,6 @@ export class WaypointCreatePage {
     }
 
     this.saveInProgress = false;
-  }
-  ionViewDidLoad() {
-
   }
 
   /**
