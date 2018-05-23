@@ -58,7 +58,7 @@
                     </button>
                     <!-- Bouton sauvegarder point d'étape -->
                     <button ion-button (click)="saveWaypointToRegisteredStatus()" [disabled]="creationForm.invalid" *ngIf="securityProvider.isManager() && waypointStatusProvider.isTransitionOk(waypoint.waypointStatus,WaypointStatus.REGISTERED)">
-                        {{ 'WAYPOINT_CREATE.BUTTONS.SAVE' | translate }}&nbsp;
+                        {{ 'WAYPOINT_CREATE.BUTTONS.SAVE' | translate }}
                     </button>
                 </ion-col>
             </ion-row>
