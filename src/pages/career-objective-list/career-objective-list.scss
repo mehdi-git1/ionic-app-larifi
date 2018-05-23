@@ -1,6 +1,7 @@
 page-career-objective-list {
     .add-career-objective {
         color: color($colors, primary);
+        background: color($colors, grey80);
         width: calc(100% - 65px);
         height: 90px;
         margin: 20px 24px;
