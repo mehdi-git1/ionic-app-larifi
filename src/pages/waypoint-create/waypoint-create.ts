@@ -21,7 +21,6 @@ export class WaypointCreatePage {
   creationForm: FormGroup;
   careerObjectiveId: number;
   waypoint: Waypoint;
-  saveInProgress: boolean;
   loading: Loading;
 
   // Permet d'exposer l'enum au template
@@ -58,7 +57,6 @@ export class WaypointCreatePage {
       });
     }
 
-    this.saveInProgress = false;
   }
 
   /**
