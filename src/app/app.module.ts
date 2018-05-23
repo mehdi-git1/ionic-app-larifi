@@ -1,3 +1,4 @@
+import { WaypointStatusProvider } from './../providers/waypoint-status/waypoint-status';
 import { SessionService } from './../services/session.service';
 import { SecurityProvider } from './../providers/security/security';
 import { CareerObjectiveProvider } from './../providers/career-objective/career-objective';
@@ -79,7 +80,8 @@ import { WaypointProvider } from './../providers/waypoint/waypoint';
     DatePipe,
     SecurityProvider,
     SessionService,
-    WaypointProvider
+    WaypointProvider,
+    WaypointStatusProvider
   ]
 })
 export class AppModule { }

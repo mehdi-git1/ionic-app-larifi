@@ -1,4 +1,5 @@
 import { SecurityProvider } from './../../providers/security/security';
+import { WaypointProvider } from './../../providers/waypoint/waypoint';
 import { Speciality } from './../../models/speciality';
 import { CareerObjectiveStatusProvider } from './../../providers/career-objective-status/career-objective-status';
 import { ToastProvider } from './../../providers/toast/toast';
@@ -13,7 +14,6 @@ import { Pnc } from '../../models/pnc';
 import { DatePipe } from '@angular/common';
 import { Waypoint } from './../../models/waypoint';
 import { WaypointCreatePage } from './../waypoint-create/waypoint-create';
-import { WaypointProvider } from './../../providers/waypoint/waypoint';
 
 @Component({
   selector: 'page-career-objective-create',
@@ -102,33 +102,14 @@ export class CareerObjectiveCreatePage {
   }
 
   /**
-   * Permet de bloquer toute action sur les élements de la page, et d'afficher un spinner.
-   */
-  showLoading() {
-    if (!this.loading) {
-      this.loading = this.loadingCtrl.create();
-      this.loading.present();
-    }
-  }
-
-  /**
-   * Permet de débloquer la page et de désactiver le spinner dans la page
-   */
-  dismissLoading() {
-    if (this.loading) {
-      this.loading.dismiss();
-      this.loading = null;
-    }
-  }
-
-  /**
    * Lance le processus de création/mise à jour d'un objectif
    */
   saveCareerObjective() {
     // Transformation de la date au format ISO avant envoi au back
     this.careerObjective.nextEncounterDate = this.datePipe.transform(this.careerObjective.nextEncounterDate, 'yyyy-MM-ddTHH:mm');
 
-    this.showLoading();
+    this.loading = this.loadingCtrl.create();
+    this.loading.present();
 
     this.careerObjectiveProvider
       .createOrUpdate(this.careerObjective)
@@ -153,10 +134,10 @@ export class CareerObjectiveCreatePage {
         } else if (this.careerObjective.careerObjectiveStatus === CareerObjectiveStatus.ABANDONED) {
           this.toastProvider.success(this.translateService.instant('CAREER_OBJECTIVE_CREATE.SUCCESS.CAREER_OBJECTIVE_ABANDONED'));
         }
-        this.dismissLoading();
+        this.loading.dismiss();
       }, error => {
         this.toastProvider.error(error.detailMessage);
-        this.dismissLoading();
+        this.loading.dismiss();
       });
   }
 
@@ -235,18 +216,20 @@ export class CareerObjectiveCreatePage {
   * Supprime un objectif au statut brouillon
   */
   deleteCareerObjectiveDraft() {
-    this.showLoading();
+    this.loading = this.loadingCtrl.create();
+    this.loading.present();
+
     this.careerObjectiveProvider
       .delete(this.careerObjective.techId)
       .then(
         deletedCareerObjective => {
           this.toastProvider.success(this.translateService.instant('CAREER_OBJECTIVE_CREATE.SUCCESS.DRAFT_DELETED'));
           this.navCtrl.pop();
-          this.dismissLoading();
+          this.loading.dismiss();
         },
         error => {
           this.toastProvider.error(error.detailMessage);
-          this.dismissLoading();
+          this.loading.dismiss();
         });
   }
 
