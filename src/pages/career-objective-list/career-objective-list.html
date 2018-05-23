@@ -18,7 +18,11 @@
                 <header>
                     <h4>{{careerObjective.title}}</h4>
                     <div class="status-area" float-right>
-                        <ion-icon *ngIf="careerObjective.prioritized" name="star" color="danger" margin-right></ion-icon>
+                        <!-- Prioritaire -->
+                        <ion-icon *ngIf="careerObjective.prioritized" name="flag" color="danger" margin-right></ion-icon>
+                        <!-- Initiateur -->
+                        <ion-icon name="bulb" *ngIf="careerObjective.initiator === PncRole.PNC" margin-right></ion-icon>
+                        <!-- Statut -->
                         <ion-badge color="{{careerObjective.careerObjectiveStatus.toLowerCase()}}" *ngIf="careerObjective.careerObjectiveStatus">
                             {{ 'GLOBAL.CAREER_OBJECTIVE_STATUS.'+careerObjective.careerObjectiveStatus | translate }}
                         </ion-badge>
