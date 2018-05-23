@@ -48,14 +48,14 @@
             <!-- Barre de boutons -->
             <ion-row>
                 <ion-col col-4>
-                    <button ion-button (click)="saveWaypoinToRegisteredStatus()" [disabled]="creationForm.invalid || saveInProgress" color="primary">
-            {{ 'WAYPOINT_CREATE.BUTTONS.SAVE' | translate }}&nbsp;
-            <ion-spinner *ngIf="saveInProgress"></ion-spinner>
-          </button>
-                    <button ion-button (click)="saveWaypointDraft()" [disabled]="creationForm.invalid || saveInProgress" color="primary">
-            {{ 'WAYPOINT_CREATE.BUTTONS.SAVE_DRAFT' | translate }}
-            <ion-spinner *ngIf="saveInProgress"></ion-spinner>
-          </button>
+                    <!-- Bouton sauvegarder point d'étape -->
+                    <button ion-button (click)="saveWaypoinToRegisteredStatus()" [disabled]="creationForm.invalid" *ngIf="securityProvider.isManager() && waypointStatusProvider.isTransitionOk(waypoint.waypointStatus,WaypointStatus.REGISTERED)">
+                        {{ 'WAYPOINT_CREATE.BUTTONS.SAVE' | translate }}&nbsp;
+                    </button>
+                    <!-- Bouton sauvegarder point d'étape en brouillon -->
+                    <button ion-button (click)="saveWaypointDraft()" [disabled]="creationForm.invalid" *ngIf="waypointStatusProvider.isTransitionOk(waypoint.waypointStatus,WaypointStatus.DRAFT)">
+                        {{ 'WAYPOINT_CREATE.BUTTONS.SAVE_DRAFT' | translate }}
+                   </button>
                 </ion-col>
             </ion-row>
         </ion-grid>

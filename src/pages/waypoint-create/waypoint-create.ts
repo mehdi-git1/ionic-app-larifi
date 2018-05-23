@@ -22,6 +22,7 @@ export class WaypointCreatePage {
   careerObjectiveId: number;
   waypoint: Waypoint;
   saveInProgress: boolean;
+  WaypointStatus = WaypointStatus;
 
   constructor(
     public navCtrl: NavController,
@@ -30,7 +31,7 @@ export class WaypointCreatePage {
     private formBuilder: FormBuilder,
     private waypointProvider: WaypointProvider,
     private toastProvider: ToastProvider,
-    public waypoinStatusProvider: WaypointStatusProvider,
+    public waypointStatusProvider: WaypointStatusProvider,
     private datePipe: DatePipe,
     public securityProvider: SecurityProvider) {
 
