@@ -47,15 +47,19 @@
 
             <!-- Barre de boutons -->
             <ion-row>
-                <ion-col col-4>
-                    <!-- Bouton sauvegarder point d'étape -->
-                    <button ion-button (click)="saveWaypointToRegisteredStatus()" [disabled]="creationForm.invalid" *ngIf="securityProvider.isManager() && waypointStatusProvider.isTransitionOk(waypoint.waypointStatus,WaypointStatus.REGISTERED)">
-                        {{ 'WAYPOINT_CREATE.BUTTONS.SAVE' | translate }}&nbsp;
-                    </button>
+                <ion-col>
                     <!-- Bouton sauvegarder point d'étape en brouillon -->
                     <button ion-button (click)="saveWaypointDraft()" [disabled]="creationForm.invalid" *ngIf="waypointStatusProvider.isTransitionOk(waypoint.waypointStatus,WaypointStatus.DRAFT)">
                         {{ 'WAYPOINT_CREATE.BUTTONS.SAVE_DRAFT' | translate }}
                    </button>
+                    <!-- Bouton supprimer point d'étape en brouillon -->
+                    <button ion-button (click)="deleteWaypointDraft()" [disabled]="creationForm.invalid" *ngIf="waypointStatusProvider.isTransitionOk(waypoint.waypointStatus,WaypointStatus.DRAFT)" color="primary">
+                        {{ 'WAYPOINT_CREATE.BUTTONS.DELETE_DRAFT' | translate }}
+                    </button>
+                    <!-- Bouton sauvegarder point d'étape -->
+                    <button ion-button (click)="saveWaypointToRegisteredStatus()" [disabled]="creationForm.invalid" *ngIf="securityProvider.isManager() && waypointStatusProvider.isTransitionOk(waypoint.waypointStatus,WaypointStatus.REGISTERED)">
+                        {{ 'WAYPOINT_CREATE.BUTTONS.SAVE' | translate }}&nbsp;
+                    </button>
                 </ion-col>
             </ion-row>
         </ion-grid>

@@ -93,6 +93,28 @@ export class WaypointCreatePage {
   }
 
   /**
+   * Supprime un point d'étape au statut brouillon
+   */
+  deleteWaypointDraft() {
+
+    this.loading = this.loadingCtrl.create();
+    this.loading.present();
+
+    this.waypointProvider
+      .delete(this.waypoint.techId)
+      .then(
+        deletedWaypoint => {
+          this.toastProvider.success(this.translateService.instant('WAYPOINT_CREATE.SUCCESS.DRAFT_DELETED'));
+          this.navCtrl.pop();
+          this.loading.dismiss();
+        },
+        error => {
+          this.toastProvider.error(error.detailMessage);
+          this.loading.dismiss();
+        });
+  }
+
+  /**
    * Enregistre un point d'étape au statut enregistré
    */
   saveWaypointToRegisteredStatus() {
