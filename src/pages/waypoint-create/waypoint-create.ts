@@ -7,7 +7,7 @@ import { WaypointProvider } from './../../providers/waypoint/waypoint';
 import { Waypoint } from './../../models/waypoint';
 import { TranslateService } from '@ngx-translate/core';
 import { Component } from '@angular/core';
-import { NavController, NavParams, LoadingController, Loading } from 'ionic-angular';
+import { NavController, NavParams, LoadingController, Loading, AlertController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CareerObjectiveCreatePage } from './../career-objective-create/career-objective-create';
 import { ToastProvider } from './../../providers/toast/toast';
@@ -36,7 +36,8 @@ export class WaypointCreatePage {
     public waypointStatusProvider: WaypointStatusProvider,
     private datePipe: DatePipe,
     public securityProvider: SecurityProvider,
-    public loadingCtrl: LoadingController) {
+    public loadingCtrl: LoadingController,
+    private alertCtrl: AlertController) {
 
     this.waypoint = new Waypoint();
     this.careerObjectiveId = this.navParams.get('careerObjectiveId');
@@ -90,6 +91,48 @@ export class WaypointCreatePage {
         this.toastProvider.error(error.detailMessage);
         this.loading.dismiss();
       });
+  }
+
+  /**
+  * Présente une alerte pour confirmer la suppression du brouillon
+  */
+  confirmDeleteWaypointDraft() {
+    this.alertCtrl.create({
+      title: this.translateService.instant('WAYPOINT_CREATE.CONFIRM_DRAFT_DELETE.TITLE'),
+      message: this.translateService.instant('WAYPOINT_CREATE.CONFIRM_DRAFT_DELETE.MESSAGE'),
+      buttons: [
+        {
+          text: this.translateService.instant('WAYPOINT_CREATE.CONFIRM_DRAFT_DELETE.CANCEL'),
+          role: 'cancel'
+        },
+        {
+          text: this.translateService.instant('WAYPOINT_CREATE.CONFIRM_DRAFT_DELETE.CONFIRM'),
+          handler: () => this.deleteWaypointDraft()
+        }
+      ]
+    }).present();
+  }
+
+  /**
+   * Supprime un point d'étape au statut brouillon
+   */
+  deleteWaypointDraft() {
+
+    this.loading = this.loadingCtrl.create();
+    this.loading.present();
+
+    this.waypointProvider
+      .delete(this.waypoint.techId)
+      .then(
+        deletedWaypoint => {
+          this.toastProvider.success(this.translateService.instant('WAYPOINT_CREATE.SUCCESS.DRAFT_DELETED'));
+          this.navCtrl.pop();
+          this.loading.dismiss();
+        },
+        error => {
+          this.toastProvider.error(error.detailMessage);
+          this.loading.dismiss();
+        });
   }
 
   /**

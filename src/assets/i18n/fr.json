@@ -101,13 +101,21 @@
             "MANAGER_COMMENT": "Commentaire cadre",
             "PNC_COMMENT": "Commentaire PNC"
         },
+        "CONFIRM_DRAFT_DELETE": {
+            "TITLE": "Suppression du brouillon",
+            "MESSAGE": "Confirmez vous la suppression de ce brouillon ?",
+            "CANCEL": "Annuler",
+            "CONFIRM": "Supprimer"
+        },
         "BUTTONS": {
             "SAVE": "Enregistrer",
-            "SAVE_DRAFT": "Sauvegarder brouillon"
+            "SAVE_DRAFT": "Sauvegarder brouillon",
+            "DELETE_DRAFT": "Supprimer brouillon"
         },
         "SUCCESS": {
             "WAYPOINT_SAVED": "Point d'étape enregistré avec succès",
-            "DRAFT_SAVED": "Brouillon enregistré"
+            "DRAFT_SAVED": "Brouillon enregistré",
+            "DRAFT_DELETED": "Brouillon supprimé"
         }
     }
 }

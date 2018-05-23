@@ -42,5 +42,14 @@ export class WaypointProvider {
     return this.restService.get(`${this.waypointUrl}/${id}`);
   }
 
+  /**
+  * Supprime un point d'étape
+  * @param id l'id du point d'étape à supprimer
+  * @return le point d'étape supprimé
+  */
+  delete(id: number): Promise<Waypoint> {
+    return this.restService.delete(`${this.waypointUrl}/${id}`);
+  }
+
 
 }
