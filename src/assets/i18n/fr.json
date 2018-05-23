@@ -101,6 +101,12 @@
             "MANAGER_COMMENT": "Commentaire cadre",
             "PNC_COMMENT": "Commentaire PNC"
         },
+        "CONFIRM_DRAFT_DELETE": {
+            "TITLE": "Suppression du brouillon",
+            "MESSAGE": "Confirmez vous la suppression de ce brouillon ?",
+            "CANCEL": "Annuler",
+            "CONFIRM": "Supprimer"
+        },
         "BUTTONS": {
             "SAVE": "Enregistrer",
             "SAVE_DRAFT": "Sauvegarder brouillon",
