@@ -74,7 +74,6 @@ export class WaypointCreatePage {
     this.loading = this.loadingCtrl.create();
     this.loading.present();
 
-    this.navCtrl.pop();
     this.waypointProvider
       .createOrUpdate(this.waypoint, this.careerObjectiveId)
       .then(savedWaypoint => {
@@ -86,7 +85,7 @@ export class WaypointCreatePage {
           this.toastProvider.success(this.translateService.instant('WAYPOINT_CREATE.SUCCESS.WAYPOINT_SAVED'));
         }
         this.loading.dismiss();
-        this.navCtrl.push(CareerObjectiveCreatePage, { careerObjectiveId: this.careerObjectiveId });
+        this.navCtrl.pop();
       }, error => {
         this.toastProvider.error(error.detailMessage);
         this.loading.dismiss();
