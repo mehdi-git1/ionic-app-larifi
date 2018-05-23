@@ -103,13 +103,11 @@
         },
         "BUTTONS": {
             "SAVE": "Enregistrer",
-            "SAVE_DRAFT": "Sauvegarder brouillon",
-            "DELETE_DRAFT": "Supprimer brouillon"
+            "SAVE_DRAFT": "Sauvegarder brouillon"
         },
         "SUCCESS": {
             "WAYPOINT_SAVED": "Point d'étape enregistré avec succès",
-            "DRAFT_SAVED": "Brouillon enregistré",
-            "DRAFT_DELETED": "Brouillon supprimé"
+            "DRAFT_SAVED": "Brouillon enregistré"
         }
     }
 }

@@ -7,7 +7,7 @@ import { WaypointProvider } from './../../providers/waypoint/waypoint';
 import { Waypoint } from './../../models/waypoint';
 import { TranslateService } from '@ngx-translate/core';
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, LoadingController, Loading } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CareerObjectiveCreatePage } from './../career-objective-create/career-objective-create';
 import { ToastProvider } from './../../providers/toast/toast';
@@ -22,6 +22,9 @@ export class WaypointCreatePage {
   careerObjectiveId: number;
   waypoint: Waypoint;
   saveInProgress: boolean;
+  loading: Loading;
+
+  // Permet d'exposer l'enum au template
   WaypointStatus = WaypointStatus;
 
   constructor(
@@ -33,7 +36,8 @@ export class WaypointCreatePage {
     private toastProvider: ToastProvider,
     public waypointStatusProvider: WaypointStatusProvider,
     private datePipe: DatePipe,
-    public securityProvider: SecurityProvider) {
+    public securityProvider: SecurityProvider,
+    public loadingCtrl: LoadingController) {
 
     this.waypoint = new Waypoint();
     this.careerObjectiveId = this.navParams.get('careerObjectiveId');
@@ -62,38 +66,58 @@ export class WaypointCreatePage {
    */
   saveWaypointDraft() {
     this.waypoint.waypointStatus = WaypointStatus.DRAFT;
-    this.createWaypoint();
+    this.saveWaypoint();
   }
 
   /**
    * Lance le processus de création/mise à jour d'un point d'étape
    */
-  createWaypoint() {
-    this.saveInProgress = true;
+  saveWaypoint() {
+    this.showLoading();
+    this.navCtrl.pop();
     this.waypointProvider
       .createOrUpdate(this.waypoint, this.careerObjectiveId)
       .then(savedWaypoint => {
         this.waypoint = savedWaypoint;
-        this.saveInProgress = false;
 
         if (this.waypoint.waypointStatus === WaypointStatus.DRAFT) {
           this.toastProvider.success(this.translateService.instant('WAYPOINT_CREATE.SUCCESS.DRAFT_SAVED'));
         } else {
           this.toastProvider.success(this.translateService.instant('WAYPOINT_CREATE.SUCCESS.WAYPOINT_SAVED'));
         }
+        this.dismissLoading();
         this.navCtrl.push(CareerObjectiveCreatePage, { careerObjectiveId: this.careerObjectiveId });
       }, error => {
-        this.saveInProgress = false;
         this.toastProvider.error(error.detailMessage);
+        this.dismissLoading();
       });
   }
 
   /**
    * Enregistre un point d'étape au statut enregistré
    */
-  saveWaypoinToRegisteredStatus() {
+  saveWaypointToRegisteredStatus() {
     this.waypoint.waypointStatus = WaypointStatus.REGISTERED;
-    this.waypoint.registrationDate = this.datePipe.transform(new Date(), 'yyyy-MM-ddTHH:mm');
-    this.createWaypoint();
+    this.saveWaypoint();
+  }
+
+  /**
+  * Permet de bloquer toute action sur les élements de la page, et d'afficher un spinner.
+  */
+  showLoading() {
+    if (!this.loading) {
+      this.loading = this.loadingCtrl.create();
+      this.loading.present();
+    }
+  }
+
+  /**
+   * Permet de débloquer la page et de désactiver le spinner dans la page
+   */
+  dismissLoading() {
+    if (this.loading) {
+      this.loading.dismiss();
+      this.loading = null;
+    }
   }
 }

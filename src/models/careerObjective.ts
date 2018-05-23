@@ -8,7 +8,7 @@ export class CareerObjective {
     careerObjectiveStatus: CareerObjectiveStatus;
     pnc: Pnc;
     creationAuthor: Pnc;
-    creationDate: Date;
+    creationDate: string;
     registrationDate: string;
     lastUpdateAuthor: Pnc;
     lastUpdateDate: string;

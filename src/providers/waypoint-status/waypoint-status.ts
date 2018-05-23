@@ -1,12 +1,8 @@
 import { WaypointStatus } from './../../models/waypointStatus';
 import { SessionService } from './../../services/session.service';
 import { SecurityProvider } from './../security/security';
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
-/*
-  Generated class for the WaypointStatusProvider provider.
-*/
 @Injectable()
 export class WaypointStatusProvider {
 
@@ -26,7 +22,7 @@ export class WaypointStatusProvider {
       // Liste des nouveaux statuts authorisés
       return [WaypointStatus.DRAFT, WaypointStatus.REGISTERED].indexOf(newStatus) > -1;
     }
-    /** 
+    /**
      * Pour un point d'étape en statut enregistré, on a le droit de:
      * l'enregistrer
     */
@@ -35,14 +31,6 @@ export class WaypointStatusProvider {
       return [WaypointStatus.REGISTERED].indexOf(newStatus) > -1;
     }
     return false;
-  }
-
-  /**
-   * vérifie si le pnc connecté est un cadre
-   * @return cadre ou pas cadre
-   */
-  isManager(): boolean {
-    return this.sessionService.authenticatedUser.manager;
   }
 
 }

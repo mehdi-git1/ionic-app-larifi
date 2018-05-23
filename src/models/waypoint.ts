@@ -7,7 +7,7 @@ export class Waypoint {
     techId: number;
     pnc: Pnc;
     creationAuthor: Pnc;
-    creationDate: Date;
+    creationDate: string;
     lastUpdateAuthor: Pnc;
     lastUpdateDate: string;
     context: string;
@@ -15,5 +15,4 @@ export class Waypoint {
     managerComment: string;
     pncComment: string;
     waypointStatus: WaypointStatus;
-    registrationDate: string;
 }
