@@ -24,6 +24,7 @@
     "CAREER_OBJECTIVE_CREATE": {
         "CREATE_TITLE": "Création d'un nouvel objectif",
         "EDIT_TITLE": "Modification d'un objectif",
+        "WAYPOINT_LIST_TITLE": "Points d'étapes",
         "FORM": {
             "PNC": "PNC",
             "INITIATOR": "Initiateur",
@@ -33,7 +34,8 @@
             "MANAGER_COMMENT": "Commentaire cadre",
             "PNC_COMMENT": "Commentaire PNC",
             "NEXT_ENCOUNTER_DATE": "Prochain point d'étape",
-            "PRIORITIZED": "Prioritaire"
+            "PRIORITIZED": "Prioritaire",
+            "CREATION_DATE": "Créé le"
         },
         "CONFIRM_DRAFT_DELETE": {
             "TITLE": "Suppression du brouillon",
@@ -90,5 +92,20 @@
     },
     "MANAGER_HOME": {
         "TITLE": "Accueil Cadre"
+    },
+    "WAYPOINT_CREATE": {
+        "TITLE": "Création d'un point d'étape",
+        "FORM": {
+            "CONTEXT": "Contexte",
+            "ACTION_PERFORMED": "Action réalisée",
+            "MANAGER_COMMENT": "Commentaire cadre",
+            "PNC_COMMENT": "Commentaire PNC"
+        },
+        "BUTTONS": {
+            "SAVE": "Enregistrer"
+        },
+        "SUCCESS": {
+            "WAYPOINT_SAVED": "Point d'étape enregistré avec succès"
+        }
     }
 }

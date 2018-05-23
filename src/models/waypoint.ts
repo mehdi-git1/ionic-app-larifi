@@ -9,11 +9,8 @@ export class Waypoint {
     creationDate: string;
     lastUpdateAuthor: Pnc;
     lastUpdateDate: string;
-    initiator: PncRole;
     context: string;
     actionPerformed: string;
     managerComment: string;
     pncComment: string;
-    nextEncounterDate: string;
-    careerObjective: CareerObjective;
 }

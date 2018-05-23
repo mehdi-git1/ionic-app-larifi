@@ -1,9 +1,10 @@
+import { SecurityProvider } from './../../providers/security/security';
 import { CareerObjective } from './../../models/careerObjective';
 import { WaypointProvider } from './../../providers/waypoint/waypoint';
 import { Waypoint } from './../../models/waypoint';
 import { TranslateService } from '@ngx-translate/core';
 import { Component } from '@angular/core';
-import { NavController, NavParams, ToastController } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CareerObjectiveCreatePage } from './../career-objective-create/career-objective-create';
 import { ToastProvider } from './../../providers/toast/toast';
@@ -15,12 +16,9 @@ import { ToastProvider } from './../../providers/toast/toast';
 export class WaypointCreatePage {
 
   creationForm: FormGroup;
-  careerObjective: CareerObjective;
+  careerObjectiveId: number;
   waypoint: Waypoint;
-  techId: any;
-  customDateTimeOptions: any;
   saveInProgress: boolean;
-  return: boolean;
 
   constructor(
     public navCtrl: NavController,
@@ -28,14 +26,11 @@ export class WaypointCreatePage {
     public translateService: TranslateService,
     private formBuilder: FormBuilder,
     private waypointProvider: WaypointProvider,
-    private toastCtrl: ToastController,
-    private toastProvider: ToastProvider) {
+    private toastProvider: ToastProvider,
+    public securityProvider: SecurityProvider) {
 
     this.waypoint = new Waypoint();
-    this.careerObjective = this.navParams.get('careerObjective');
-    console.log("careerObjective", this.careerObjective);
-    this.waypoint.careerObjective = this.careerObjective;
-
+    this.careerObjectiveId = this.navParams.get('careerObjectiveId');
 
     // Initialisation du formulaire
     this.creationForm = this.formBuilder.group({
@@ -44,15 +39,6 @@ export class WaypointCreatePage {
       managerCommentControl: ['', Validators.maxLength(4000)],
       pncCommentControl: ['', Validators.maxLength(4000)],
     });
-
-    // Options du datepicker
-
-    this.customDateTimeOptions = {
-      buttons: [{
-        text: this.translateService.instant('GLOBAL.DATEPICKER.CLEAR'),
-        handler: () => this.waypoint.nextEncounterDate
-      }]
-    };
 
     if (this.navParams.get('waypointId')) {
       this.waypointProvider.getWaypoint(this.navParams.get('waypointId')).then(result => {
@@ -64,38 +50,23 @@ export class WaypointCreatePage {
 
     this.saveInProgress = false;
   }
-  ionViewDidLoad() {
-
-  }
 
   /**
    * Lance le processus de création/mise à jour d'un point d'étape
    */
   createWaypoint() {
     this.saveInProgress = true;
-
     this.waypointProvider
-      .createOrUpdate(this.waypoint)
+      .createOrUpdate(this.waypoint, this.careerObjectiveId)
       .then(savedWaypoint => {
         this.waypoint = savedWaypoint;
         this.saveInProgress = false;
-        this.toastCtrl.create({
-          message: this.translateService.instant('WAYPOINT_CREATE.SUCCESS.WAYPOINT_SAVED'),
-          duration: 3000,
-          position: 'bottom',
-          cssClass: 'success'
-        }).present();
+        this.toastProvider.success(this.translateService.instant('WAYPOINT_CREATE.SUCCESS.WAYPOINT_SAVED'));
+        this.navCtrl.pop();
       }, error => {
         this.saveInProgress = false;
-
-        this.toastCtrl.create({
-          message: error.detailMessage,
-          duration: 3000,
-          position: 'bottom',
-          cssClass: 'error',
-        }).present();
+        this.toastProvider.error(error.detailMessage);
       });
-    this.navCtrl.push(CareerObjectiveCreatePage, { careerObjectiveId: this.careerObjective.techId });
   }
 
 }

@@ -72,7 +72,16 @@ export class CareerObjectiveCreatePage {
         handler: () => this.careerObjective.nextEncounterDate
       }]
     };
+  }
 
+  ionViewDidLoad() {
+    // On récupère le matricule du pnc de la route
+    if (this.navParams.get('matricule')) {
+      this.careerObjective.pnc.matricule = this.navParams.get('matricule');
+    }
+  }
+
+  ionViewDidEnter() {
     // Charge l'objectif si celui ci est présent dans les paramètres de navigation
     if (this.navParams.get('careerObjectiveId')) {
       this.careerObjectiveProvider.getCareerObjective(this.navParams.get('careerObjectiveId')).then(
@@ -84,18 +93,11 @@ export class CareerObjectiveCreatePage {
         }
       );
 
-      this.waypointProvider.getListWaypoint(this.navParams.get('careerObjectiveId')).then(result => {
+      this.waypointProvider.getCareerObjectiveWaypoints(this.navParams.get('careerObjectiveId')).then(result => {
         this.waypointList = result;
       }, error => {
         this.toastProvider.error(error.detailMessage);
       });
-    }
-  }
-
-  ionViewDidEnter() {
-    // On récupère le matricule du pnc de la route
-    if (this.navParams.get('matricule')) {
-      this.careerObjective.pnc.matricule = this.navParams.get('matricule');
     }
   }
 
@@ -137,7 +139,8 @@ export class CareerObjectiveCreatePage {
           this.toastProvider.success(this.translateService.instant('CAREER_OBJECTIVE_CREATE.SUCCESS.DRAFT_SAVED'));
         } else if (this.careerObjective.careerObjectiveStatus === CareerObjectiveStatus.REGISTERED) {
           if (this.cancelValidation) {
-            this.toastProvider.success(this.translateService.instant('CAREER_OBJECTIVE_CREATE.SUCCESS.CAREER_OBJECTIVE_VALIDATION_CANCELED'));
+            this.toastProvider.success
+              (this.translateService.instant('CAREER_OBJECTIVE_CREATE.SUCCESS.CAREER_OBJECTIVE_VALIDATION_CANCELED'));
             this.cancelValidation = false;
           } else if (this.cancelAbandon) {
             this.toastProvider.success(this.translateService.instant('CAREER_OBJECTIVE_CREATE.SUCCESS.CAREER_OBJECTIVE_RESUMED'));
@@ -155,13 +158,6 @@ export class CareerObjectiveCreatePage {
         this.toastProvider.error(error.detailMessage);
         this.dismissLoading();
       });
-  }
-
-  /**
-   * Dirige vers la page de création d'un point d'étape
-   */
-  goToWaypointCreate() {
-    this.navCtrl.push(WaypointCreatePage, { careerObjective: this.careerObjective, waypointList: this.waypointList });
   }
 
   /**
@@ -259,5 +255,19 @@ export class CareerObjectiveCreatePage {
    */
   isCreationMode() {
     return this.careerObjective.techId === undefined;
+  }
+
+  /**
+   * Dirige vers la page de création d'un point d'étape
+   */
+  goToWaypointCreate() {
+    this.navCtrl.push(WaypointCreatePage, { careerObjectiveId: this.careerObjective.techId });
+  }
+
+  /**
+   * Ouvrir un point d'étape existant
+   */
+  openWaypoint(techId: number) {
+    this.navCtrl.push(WaypointCreatePage, { waypointId: techId, careerObjectiveId: this.careerObjective.techId });
   }
 }
