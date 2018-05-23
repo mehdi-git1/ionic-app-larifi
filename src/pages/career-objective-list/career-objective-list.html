@@ -21,10 +21,7 @@
                         <!-- Prioritaire -->
                         <ion-icon *ngIf="careerObjective.prioritized" name="flag" color="danger" margin-right></ion-icon>
                         <!-- Initiateur -->
-                        <span *ngIf="careerObjective.initiator === PncRole.MANAGER ; else pncIcon" class="fa fa-user-tie fa-2x" margin-right></span>
-                        <ng-template #pncIcon>
-                            <span class="fa fa-user fa-2x" margin-right></span>
-                        </ng-template>
+                        <ion-icon name="bulb" *ngIf="careerObjective.initiator === PncRole.PNC" margin-right></ion-icon>
                         <!-- Statut -->
                         <ion-badge color="{{careerObjective.careerObjectiveStatus.toLowerCase()}}" *ngIf="careerObjective.careerObjectiveStatus">
                             {{ 'GLOBAL.CAREER_OBJECTIVE_STATUS.'+careerObjective.careerObjectiveStatus | translate }}
