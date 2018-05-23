@@ -71,7 +71,9 @@ export class WaypointCreatePage {
    * Lance le processus de création/mise à jour d'un point d'étape
    */
   saveWaypoint() {
-    this.showLoading();
+    this.loading = this.loadingCtrl.create();
+    this.loading.present();
+
     this.navCtrl.pop();
     this.waypointProvider
       .createOrUpdate(this.waypoint, this.careerObjectiveId)
@@ -83,11 +85,11 @@ export class WaypointCreatePage {
         } else {
           this.toastProvider.success(this.translateService.instant('WAYPOINT_CREATE.SUCCESS.WAYPOINT_SAVED'));
         }
-        this.dismissLoading();
+        this.loading.dismiss();
         this.navCtrl.push(CareerObjectiveCreatePage, { careerObjectiveId: this.careerObjectiveId });
       }, error => {
         this.toastProvider.error(error.detailMessage);
-        this.dismissLoading();
+        this.loading.dismiss();
       });
   }
 
@@ -97,25 +99,5 @@ export class WaypointCreatePage {
   saveWaypointToRegisteredStatus() {
     this.waypoint.waypointStatus = WaypointStatus.REGISTERED;
     this.saveWaypoint();
-  }
-
-  /**
-  * Permet de bloquer toute action sur les élements de la page, et d'afficher un spinner.
-  */
-  showLoading() {
-    if (!this.loading) {
-      this.loading = this.loadingCtrl.create();
-      this.loading.present();
-    }
-  }
-
-  /**
-   * Permet de débloquer la page et de désactiver le spinner dans la page
-   */
-  dismissLoading() {
-    if (this.loading) {
-      this.loading.dismiss();
-      this.loading = null;
-    }
   }
 }
