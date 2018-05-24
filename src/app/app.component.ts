@@ -35,7 +35,7 @@ export class EDossierPNC {
     this.platform.ready().then(() => {
 
       this.statusBar.styleDefault();
-      this.splashScreen.hide();
+      this.splashScreen.show();
 
       this.translate.setDefaultLang('fr');
       this.translate.use('fr');
@@ -60,6 +60,8 @@ export class EDossierPNC {
   putAuthenticatedUserInSession() {
     this.securityProvider.getAuthenticatedUser().then(authenticatedUser => {
       this.sessionService.authenticatedUser = authenticatedUser;
+    }, error => {
+      this.rootPage = AuthenticationPage;
     });
   }
 
