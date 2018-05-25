@@ -15,5 +15,4 @@ export class Waypoint {
     managerComment: string;
     pncComment: string;
     waypointStatus: WaypointStatus;
-    encounterDate: string;
 }

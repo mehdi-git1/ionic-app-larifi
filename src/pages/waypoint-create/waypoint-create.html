@@ -43,15 +43,6 @@
                         <ion-textarea [(ngModel)]="waypoint.pncComment" formControlName="pncCommentControl" name="pncComment"></ion-textarea>
                     </ion-item>
                 </ion-col>
-
-                <!-- Date de rencontre -->
-                <ion-label stacked>{{ 'WAYPOINT_CREATE.FORM.ENCOUNTER_DATE' | translate }}</ion-label>
-                <ion-item>
-                    <ion-label>
-                        <ion-icon name="calendar"></ion-icon>
-                    </ion-label>
-                    <ion-datetime displayFormat="DD/MM/YYYY" [(ngModel)]="waypoint.encounterDate" formControlName="EncounterDateControl" [pickerOptions]="customDateTimeOptions" [doneText]="translateService.instant('GLOBAL.DATEPICKER.DONE')" [cancelText]="translateService.instant('GLOBAL.DATEPICKER.CANCEL')"></ion-datetime>
-                </ion-item>
             </ion-row>
 
             <!-- Barre de boutons -->
