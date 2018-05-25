@@ -1,5 +1,5 @@
 import { WaypointStatusProvider } from './../providers/waypoint-status/waypoint-status';
-import { HttpResponseInterceptor } from './../interceptor/httpResponseInterceptor';
+import { HttpErrorInterceptor } from './../interceptor/httpErrorInterceptor';
 import { SessionService } from './../services/session.service';
 import { SecurityProvider } from './../providers/security/security';
 import { CareerObjectiveProvider } from './../providers/career-objective/career-objective';
@@ -70,7 +70,7 @@ import { WaypointProvider } from './../providers/waypoint/waypoint';
     SecMobilService,
     ConnectivityService,
     { provide: RestService, useFactory: createRestService, deps: [HttpClient, SecMobilService] },
-    { provide: HTTP_INTERCEPTORS, useClass: HttpResponseInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true },
     AppInitService, HttpClientModule,
     Config,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
