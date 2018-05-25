@@ -35,7 +35,7 @@ export class EDossierPNC {
     this.platform.ready().then(() => {
 
       this.statusBar.styleDefault();
-      this.splashScreen.show();
+      this.splashScreen.hide();
 
       this.translate.setDefaultLang('fr');
       this.translate.use('fr');

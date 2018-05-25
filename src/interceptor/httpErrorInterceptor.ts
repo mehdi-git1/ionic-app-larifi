@@ -7,7 +7,7 @@ import 'rxjs/add/operator/do';
 import { ToastProvider } from '../providers/toast/toast';
 
 @Injectable()
-export class HttpResponseInterceptor implements HttpInterceptor {
+export class HttpErrorInterceptor implements HttpInterceptor {
 
   constructor(
     private toastProvider: ToastProvider,
@@ -21,8 +21,7 @@ export class HttpResponseInterceptor implements HttpInterceptor {
 
     return next.handle(req).do(evt => {
 
-    }, (err: any) => {
-      console.log('---> status:', err.status);
+    }, err => {
 
       if (err instanceof HttpErrorResponse) {
         let errorMessage = this.translateService.instant('BACKEND_ERROR.UNKNOWN_ERROR');
