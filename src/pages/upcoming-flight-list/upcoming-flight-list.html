@@ -1,0 +1,28 @@
+<ion-header>
+
+    <ion-navbar>
+        <ion-title>{{ 'GLOBAL.UPCOMING_FLIGHT' | translate }}</ion-title>
+    </ion-navbar>
+
+</ion-header>
+
+<ion-content padding>
+    <h3>{{ 'UPCOMING_FLIGHT_LIST.TITLE' | translate }}</h3>
+
+    <div class="rotation-list" margin-top>
+        <ion-card *ngFor="let rotation of upcomingRotations" class="rotation">
+            <ion-card-header>
+                <span>{{ rotation.departureDate | date : 'dd/MM/yyyy' }}</span>
+                <span>{{ rotation.number }}</span>
+            </ion-card-header>
+            <ion-card-content>
+                <div class="flight" *ngFor="let flight of rotation.flights">
+                    <span>{{ flight.company }}{{ flight.number }}</span>
+                    <span>{{ flight.departureDate | date : 'dd/MM/yyyy HH:mm' }}</span>
+                    <span>{{ flight.departureStation }} - {{ flight.arrivalStation }}</span>
+                    <span>{{ flight.planeType }}</span>
+                </div>
+            </ion-card-content>
+        </ion-card>
+    </div>
+</ion-content>

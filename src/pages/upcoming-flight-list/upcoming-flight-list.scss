@@ -1,0 +1,30 @@
+page-upcoming-flight-list {
+
+    .rotation-list {
+        .rotation {
+            font-weight: bold;
+
+            ion-card-header {
+                display: flex;
+                justify-content: space-between;
+            }
+
+            .flight {
+                display: flex;
+                justify-content: space-between;
+                height: 50px;
+                cursor: pointer;
+
+                span {
+                    display: flex;
+                    align-items: center;
+                }
+            }
+
+            .flight:not(:first-child) {
+                border-top: 2px solid color($colors, primary);
+            }
+        }
+    }
+
+}

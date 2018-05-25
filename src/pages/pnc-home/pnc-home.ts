@@ -1,3 +1,4 @@
+import { UpcomingFlightListPage } from './../upcoming-flight-list/upcoming-flight-list';
 import { SecurityProvider } from './../../providers/security/security';
 import { SessionService } from './../../services/session.service';
 import { ToastProvider } from './../../providers/toast/toast';
@@ -56,6 +57,13 @@ export class PncHomePage {
    */
   goToCareerObjectiveList() {
     this.navCtrl.push(CareerObjectiveListPage, { matricule: this.matricule });
+  }
+
+  /**
+   * Dirige vers la liste des prochains vols
+   */
+  goToUpcomingFlightList() {
+    this.navCtrl.push(UpcomingFlightListPage, { matricule: this.matricule });
   }
 
   /**
