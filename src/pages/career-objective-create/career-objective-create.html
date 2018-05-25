@@ -76,9 +76,7 @@
                         </button>
                         <ion-card class="clickable" *ngFor="let waypoint of waypointList" (click)="openWaypoint(waypoint.techId)">
                             <ion-card-content>
-                                <!--Si une date de rencontre existe, on l'affiche, sinon on affiche la date de creation -->
-                                <div class="value" *ngIf=" waypoint.encounterDate != null">{{ waypoint.encounterDate | date: 'dd/MM/yyyy'}}</div>
-                                <div class="value" *ngIf=" waypoint.encounterDate == null">{{ waypoint.creationDate | date: 'dd/MM/yyyy'}}</div>
+                                <span class="value">{{ waypoint.creationDate | date: 'dd/MM/yyyy'}}</span>
                                 <h4>{{ waypoint.context }}</h4>
                             </ion-card-content>
                         </ion-card>

@@ -99,8 +99,7 @@
             "CONTEXT": "Contexte",
             "ACTION_PERFORMED": "Action réalisée",
             "MANAGER_COMMENT": "Commentaire cadre",
-            "PNC_COMMENT": "Commentaire PNC",
-            "ENCOUNTER_DATE": "Date de rencontre"
+            "PNC_COMMENT": "Commentaire PNC"
         },
         "CONFIRM_DRAFT_DELETE": {
             "TITLE": "Suppression du brouillon",
