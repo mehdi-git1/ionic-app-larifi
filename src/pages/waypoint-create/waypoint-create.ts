@@ -53,9 +53,7 @@ export class WaypointCreatePage {
     if (this.navParams.get('waypointId')) {
       this.waypointProvider.getWaypoint(this.navParams.get('waypointId')).then(result => {
         this.waypoint = result;
-      }, error => {
-        this.toastProvider.error(error.detailMessage);
-      });
+      }, error => { });
     }
 
   }
@@ -88,7 +86,6 @@ export class WaypointCreatePage {
         this.loading.dismiss();
         this.navCtrl.pop();
       }, error => {
-        this.toastProvider.error(error.detailMessage);
         this.loading.dismiss();
       });
   }
@@ -130,7 +127,6 @@ export class WaypointCreatePage {
           this.loading.dismiss();
         },
         error => {
-          this.toastProvider.error(error.detailMessage);
           this.loading.dismiss();
         });
   }

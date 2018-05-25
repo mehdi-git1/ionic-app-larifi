@@ -60,9 +60,7 @@ export class EDossierPNC {
   putAuthenticatedUserInSession() {
     this.securityProvider.getAuthenticatedUser().then(authenticatedUser => {
       this.sessionService.authenticatedUser = authenticatedUser;
-    }, error => {
-      this.rootPage = AuthenticationPage;
-    });
+    }, error => { });
   }
 
   openPage(page) {

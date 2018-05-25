@@ -116,10 +116,10 @@
             "WAYPOINT_SAVED": "Point d'étape enregistré avec succès",
             "DRAFT_SAVED": "Brouillon enregistré",
             "DRAFT_DELETED": "Brouillon supprimé"
-        },
-        "BACKEND_ERROR": {
-            "LABEL": "Erreur ",
-            "UNKNOWN_ERROR": "Une erreur inconnue est survenue. Merci de recharger la page ou réessayer dans quelques minutes."
         }
+    },
+    "BACKEND_ERROR": {
+        "LABEL": "Erreur ",
+        "UNKNOWN_ERROR": "Une erreur inconnue est survenue. Merci de recharger la page ou réessayer dans quelques minutes."
     }
 }
