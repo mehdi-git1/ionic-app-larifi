@@ -33,7 +33,6 @@ import { DatePipe } from '@angular/common';
 import { WaypointCreatePage } from './../pages/waypoint-create/waypoint-create';
 import { WaypointProvider } from './../providers/waypoint/waypoint';
 import { UpcomingFlightListPage } from '../pages/upcoming-flight-list/upcoming-flight-list';
-import { FlightProvider } from '../providers/flight/flight';
 import { RotationProvider } from '../providers/rotation/rotation';
 
 @NgModule({
@@ -87,7 +86,6 @@ import { RotationProvider } from '../providers/rotation/rotation';
     SessionService,
     WaypointProvider,
     WaypointStatusProvider,
-    FlightProvider,
     RotationProvider
   ]
 })

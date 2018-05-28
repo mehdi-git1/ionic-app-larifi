@@ -1,8 +1,8 @@
-import { Flight } from './flight';
+import { Leg } from './leg';
 
 export class Rotation {
     techId: number;
     number: string;
     departureDate: string;
-    flights: Flight[];
+    legs: Leg[];
 }
