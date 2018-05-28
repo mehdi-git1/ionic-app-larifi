@@ -72,6 +72,7 @@
             "CREATION_DATE": "Date de création",
             "TITLE": "Libellé",
             "REGISTRATION_DATE": "Date d'enregistrement",
+            "ENCOUNTER_DATE": "Date de rencontre",
             "NEXT_ENCOUNTER_DATE": "Date du Prochain point"
         },
         "BUTTONS": {
