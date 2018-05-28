@@ -98,6 +98,14 @@
                             <ion-radio value="PNC"></ion-radio>
                         </ion-item>
                     </ion-list>
+                    <!-- Date de rencontre -->
+                    <ion-label stacked>{{ 'CAREER_OBJECTIVE_CREATE.FORM.ENCOUNTER_DATE' | translate }}</ion-label>
+                    <ion-item>
+                        <ion-label>
+                            <ion-icon name="calendar"></ion-icon>
+                        </ion-label>
+                        <ion-datetime displayFormat="DD/MM/YYYY" [(ngModel)]="careerObjective.encounterDate" formControlName="encounterDateControl" [pickerOptions]="customEnconterDateTimeOptions" [doneText]="translateService.instant('GLOBAL.DATEPICKER.DONE')" [cancelText]="translateService.instant('GLOBAL.DATEPICKER.CANCEL')"></ion-datetime>
+                    </ion-item>
                 </ion-col>
                 <ion-col col-6>
                     <!-- Prochaine rencontre -->
@@ -115,7 +123,6 @@
                     </ion-item>
                 </ion-col>
             </ion-row>
-
             <!-- Barre de boutons -->
             <ion-row>
                 <ion-col>

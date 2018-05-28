@@ -25,6 +25,7 @@ export class CareerObjectiveCreatePage {
   careerObjective: CareerObjective;
   waypointList: Waypoint[];
   customDateTimeOptions: any;
+  customEnconterDateTimeOptions: any;
 
   loading: Loading;
 
@@ -61,6 +62,7 @@ export class CareerObjectiveCreatePage {
       managerCommentControl: ['', Validators.maxLength(4000)],
       pncCommentControl: ['', Validators.maxLength(4000)],
       nextEncounterDateControl: [''],
+      encounterDateControl: [''],
       prioritizedControl: [false],
       waypointContextControl: ['', Validators.maxLength(4000)],
     });
@@ -72,6 +74,17 @@ export class CareerObjectiveCreatePage {
         handler: () => this.careerObjective.nextEncounterDate
       }]
     };
+
+    // Options du datepicker "Date de rencontre"
+    this.customEnconterDateTimeOptions = {
+      buttons: [{
+        text: this.translateService.instant('GLOBAL.DATEPICKER.CLEAR'),
+        handler: () => this.careerObjective.encounterDate
+      }]
+    };
+
+    // Initialise une valeur par defaut du jour pour le champ "Date de rencontre"
+    this.careerObjective.encounterDate = this.datePipe.transform(new Date(), 'yyyy-MM-dd');
   }
 
   ionViewDidLoad() {
@@ -105,6 +118,11 @@ export class CareerObjectiveCreatePage {
    * Lance le processus de création/mise à jour d'un objectif
    */
   saveCareerObjective() {
+
+    if (this.careerObjective.encounterDate != null) {
+      this.careerObjective.encounterDate = this.datePipe.transform(this.careerObjective.encounterDate, 'yyyy-MM-ddTHH:mm');
+    }
+
     // Transformation de la date au format ISO avant envoi au back
     this.careerObjective.nextEncounterDate = this.datePipe.transform(this.careerObjective.nextEncounterDate, 'yyyy-MM-ddTHH:mm');
 
@@ -155,6 +173,12 @@ export class CareerObjectiveCreatePage {
   saveCareerObjectiveToRegisteredStatus() {
     this.careerObjective.careerObjectiveStatus = CareerObjectiveStatus.REGISTERED;
     this.careerObjective.registrationDate = this.datePipe.transform(new Date(), 'yyyy-MM-ddTHH:mm');
+
+    // Initialiser une valeur par defaut si la date de rencontre n'a pas été saisi
+    if (this.careerObjective.encounterDate == null) {
+      this.careerObjective.encounterDate = this.datePipe.transform(new Date(), 'yyyy-MM-ddTHH:mm');
+    }
+
     this.saveCareerObjective();
   }
 
