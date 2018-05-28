@@ -24,13 +24,14 @@ export class HttpErrorInterceptor implements HttpInterceptor {
     }, err => {
 
       if (err instanceof HttpErrorResponse) {
-        let errorMessage = this.translateService.instant('BACKEND_ERROR.UNKNOWN_ERROR');
+        let errorMessage = `${this.translateService.instant('BACKEND_ERROR.LABEL')} ${err.status}
+         : ${this.translateService.instant('BACKEND_ERROR.UNKNOWN_ERROR')}`;
 
         if (err.error.detailMessage !== undefined && err.error.label === 'BUSINESS_ERROR') {
           errorMessage = err.error.detailMessage;
         }
 
-        this.toastProvider.error(`${this.translateService.instant('BACKEND_ERROR.LABEL')} ${err.status} : ${errorMessage}`);
+        this.toastProvider.error(errorMessage);
       }
     });
   }
