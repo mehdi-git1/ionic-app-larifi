@@ -5,4 +5,8 @@ export class Rotation {
     number: string;
     departureDate: string;
     legs: Leg[];
+
+    // Champs utilitaires (pour le fonctionnement des IHM)
+    opened: boolean;
+    loading: boolean;
 }

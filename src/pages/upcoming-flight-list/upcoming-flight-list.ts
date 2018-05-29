@@ -1,3 +1,4 @@
+import { LegProvider } from './../../providers/leg/leg';
 import { Rotation } from './../../models/rotation';
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
@@ -13,11 +14,25 @@ export class UpcomingFlightListPage {
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
-    private rotationProvider: RotationProvider) {
+    private rotationProvider: RotationProvider,
+    private legProvider: LegProvider) {
   }
 
   ionViewDidLoad() {
     this.upcomingRotations = this.rotationProvider.getUpcomingRotations();
+  }
+
+  /**
+   * Ouvre/ferme une rotation et récupère la liste des tronçons si elle est ouverte
+   * @param rotation La rotation à ouvrir/fermer
+   */
+  toggleRotation(rotation: Rotation) {
+    rotation.opened = !rotation.opened;
+    if (rotation.opened) {
+      rotation.loading = true;
+      rotation.legs = this.legProvider.getRotationLegs(rotation);
+      rotation.loading = false;
+    }
   }
 
 }

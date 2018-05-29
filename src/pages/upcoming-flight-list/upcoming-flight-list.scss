@@ -9,7 +9,7 @@ page-upcoming-flight-list {
                 justify-content: space-between;
             }
 
-            .flight {
+            .leg {
                 display: flex;
                 justify-content: space-between;
                 height: 50px;
@@ -21,7 +21,8 @@ page-upcoming-flight-list {
                 }
             }
 
-            .flight:not(:first-child) {
+            .leg:not(:first-child) {
+
                 border-top: 2px solid color($colors, primary);
             }
         }
