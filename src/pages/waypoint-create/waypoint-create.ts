@@ -66,7 +66,7 @@ export class WaypointCreatePage {
     this.customDateTimeOptions = {
       buttons: [{
         text: this.translateService.instant('GLOBAL.DATEPICKER.CLEAR'),
-        handler: () => this.waypoint.encounterDate
+        handler: () => this.waypoint.encounterDate = ''
       }]
     };
 
