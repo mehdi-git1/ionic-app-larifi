@@ -18,7 +18,7 @@ import { Assignment } from '../../models/assignment';
 export class PncHomePage {
 
   pnc: Pnc;
-  matricule: String;
+  matricule: string;
   // exporter la classe enum speciality dans la page html
   Speciality = Speciality;
 

@@ -34,7 +34,6 @@ import { WaypointCreatePage } from './../pages/waypoint-create/waypoint-create';
 import { WaypointProvider } from './../providers/waypoint/waypoint';
 import { UpcomingFlightListPage } from '../pages/upcoming-flight-list/upcoming-flight-list';
 import { RotationProvider } from '../providers/rotation/rotation';
-import { LegProvider } from '../providers/leg/leg';
 
 @NgModule({
   declarations: [
@@ -87,8 +86,7 @@ import { LegProvider } from '../providers/leg/leg';
     SessionService,
     WaypointProvider,
     WaypointStatusProvider,
-    RotationProvider,
-    LegProvider
+    RotationProvider
   ]
 })
 export class AppModule { }

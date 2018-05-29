@@ -11,8 +11,6 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { TranslateService } from '@ngx-translate/core';
 import { AuthenticationPage } from '../pages/authentication/authentication';
 import { SecMobilService } from '../services/secMobil.service';
-import { UpcomingFlightListPage } from '../pages/upcoming-flight-list/upcoming-flight-list';
-
 
 @Component({
   templateUrl: 'app.html'

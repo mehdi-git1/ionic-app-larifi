@@ -1,4 +1,5 @@
-import { LegProvider } from './../../providers/leg/leg';
+import { SessionService } from './../../services/session.service';
+import { PncProvider } from './../../providers/pnc/pnc';
 import { Rotation } from './../../models/rotation';
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
@@ -11,15 +12,23 @@ import { RotationProvider } from '../../providers/rotation/rotation';
 export class UpcomingFlightListPage {
 
   upcomingRotations: Rotation[];
+  lastPerformedRotation: Rotation;
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
-    private rotationProvider: RotationProvider,
-    private legProvider: LegProvider) {
+    private sessionService: SessionService,
+    private pncProvider: PncProvider,
+    private rotationProvider: RotationProvider) {
   }
 
   ionViewDidLoad() {
-    this.upcomingRotations = this.rotationProvider.getUpcomingRotations();
+    this.pncProvider.getLastPerformedRotation(this.sessionService.authenticatedUser.username).then(lastPerformedRotation => {
+      this.lastPerformedRotation = lastPerformedRotation;
+    }, error => { });
+
+    this.pncProvider.getUpcomingRotations(this.sessionService.authenticatedUser.username).then(upcomingRotations => {
+      this.upcomingRotations = upcomingRotations;
+    }, error => { });
   }
 
   /**
@@ -30,8 +39,12 @@ export class UpcomingFlightListPage {
     rotation.opened = !rotation.opened;
     if (rotation.opened) {
       rotation.loading = true;
-      rotation.legs = this.legProvider.getRotationLegs(rotation);
-      rotation.loading = false;
+      this.rotationProvider.getRotationLegs(rotation).then(rotationLegs => {
+        rotation.legs = rotationLegs;
+        rotation.loading = false;
+      }, error => {
+        rotation.loading = false;
+      });
     }
   }
 
