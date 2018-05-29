@@ -25,7 +25,7 @@ export class CareerObjectiveCreatePage {
   careerObjective: CareerObjective;
   waypointList: Waypoint[];
   customDateTimeOptions: any;
-  customEnconterDateTimeOptions: any;
+  customEncounterDateTimeOptions: any;
 
   loading: Loading;
 
@@ -76,7 +76,7 @@ export class CareerObjectiveCreatePage {
     };
 
     // Options du datepicker "Date de rencontre"
-    this.customEnconterDateTimeOptions = {
+    this.customEncounterDateTimeOptions = {
       buttons: [{
         text: this.translateService.instant('GLOBAL.DATEPICKER.CLEAR'),
         handler: () => this.careerObjective.encounterDate
