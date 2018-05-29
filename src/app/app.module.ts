@@ -1,3 +1,4 @@
+import { ComponentsModule } from './../components/components.module';
 import { WaypointStatusProvider } from './../providers/waypoint-status/waypoint-status';
 import { SessionService } from './../services/session.service';
 import { SecurityProvider } from './../providers/security/security';
@@ -49,6 +50,7 @@ import { RotationProvider } from '../providers/rotation/rotation';
     BrowserModule,
     IonicModule.forRoot(EDossierPNC),
     HttpClientModule,
+    ComponentsModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

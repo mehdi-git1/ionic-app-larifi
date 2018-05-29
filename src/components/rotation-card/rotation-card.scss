@@ -1,0 +1,29 @@
+rotation-card {
+    .rotation {
+        font-weight: bold;
+
+        ion-card-header {
+            display: flex;
+            justify-content: space-between;
+            cursor: pointer;
+        }
+
+        .leg {
+            display: flex;
+            justify-content: space-between;
+            height: 50px;
+            cursor: pointer;
+
+            span {
+                display: flex;
+                align-items: center;
+            }
+        }
+
+        .leg:not(:first-child) {
+
+            border-top: 2px solid color($colors, primary);
+        }
+    }
+
+}

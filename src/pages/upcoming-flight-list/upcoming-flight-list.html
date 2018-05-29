@@ -10,20 +10,7 @@
     <h3>{{ 'UPCOMING_FLIGHT_LIST.TITLE' | translate }}</h3>
 
     <div class="rotation-list" margin-top>
-        <ion-card *ngFor="let rotation of upcomingRotations" class="rotation">
-            <ion-card-header (click)="toggleRotation(rotation)">
-                <span>{{ rotation.departureDate | date : 'dd/MM/yyyy' }}</span>
-                <ion-spinner *ngIf="rotation.loading"></ion-spinner>
-                <span>{{ rotation.number }}</span>
-            </ion-card-header>
-            <ion-card-content [hidden]="!rotation.opened">
-                <div class="leg" *ngFor="let leg of rotation.legs">
-                    <span>{{ leg.company }}{{ leg.number }}</span>
-                    <span>{{ leg.departureDate | date : 'dd/MM/yyyy HH:mm' }}</span>
-                    <span>{{ leg.departureStation }} - {{ leg.arrivalStation }}</span>
-                    <span>{{ leg.aircraftType.code3C }}</span>
-                </div>
-            </ion-card-content>
-        </ion-card>
+        <rotation-card [rotation]="lastPerformedRotation" *ngIf="lastPerformedRotation" class="last-performed-rotation"></rotation-card>
+        <rotation-card *ngFor=" let rotation of upcomingRotations " [rotation]="rotation "></rotation-card>
     </div>
 </ion-content>

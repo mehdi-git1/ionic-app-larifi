@@ -1,31 +1,8 @@
 page-upcoming-flight-list {
-
-    .rotation-list {
-        .rotation {
-            font-weight: bold;
-
-            ion-card-header {
-                display: flex;
-                justify-content: space-between;
-            }
-
-            .leg {
-                display: flex;
-                justify-content: space-between;
-                height: 50px;
-                cursor: pointer;
-
-                span {
-                    display: flex;
-                    align-items: center;
-                }
-            }
-
-            .leg:not(:first-child) {
-
-                border-top: 2px solid color($colors, primary);
-            }
+    .last-performed-rotation {
+        ion-card-header {
+            background: color($colors, info);
+            color: color($colors, light);
         }
     }
-
 }
