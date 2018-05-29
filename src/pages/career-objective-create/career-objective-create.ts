@@ -71,7 +71,7 @@ export class CareerObjectiveCreatePage {
     this.customDateTimeOptions = {
       buttons: [{
         text: this.translateService.instant('GLOBAL.DATEPICKER.CLEAR'),
-        handler: () => this.careerObjective.nextEncounterDate
+        handler: () => this.careerObjective.nextEncounterDate = ''
       }]
     };
 
@@ -79,7 +79,7 @@ export class CareerObjectiveCreatePage {
     this.customEncounterDateTimeOptions = {
       buttons: [{
         text: this.translateService.instant('GLOBAL.DATEPICKER.CLEAR'),
-        handler: () => this.careerObjective.encounterDate
+        handler: () => this.careerObjective.encounterDate = ''
       }]
     };
 
