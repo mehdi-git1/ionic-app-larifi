@@ -23,7 +23,7 @@ export class CareerObjectiveStatusProvider {
       // Liste des nouveaux statuts authorisés
       return [CareerObjectiveStatus.DRAFT, CareerObjectiveStatus.REGISTERED].indexOf(newStatus) > -1;
     }
-    /** 
+    /**
      * Pour un objectif en statut enregistré, on a le droit de:
      * l'enregistrer, le valider ou l'abandonner
     */
@@ -33,5 +33,4 @@ export class CareerObjectiveStatusProvider {
     }
     return false;
   }
-
 }

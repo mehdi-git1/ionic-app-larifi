@@ -1,4 +1,5 @@
 import { WaypointStatusProvider } from './../providers/waypoint-status/waypoint-status';
+import { HttpErrorInterceptor } from './../interceptor/httpErrorInterceptor';
 import { SessionService } from './../services/session.service';
 import { SecurityProvider } from './../providers/security/security';
 import { CareerObjectiveProvider } from './../providers/career-objective/career-objective';
@@ -19,7 +20,7 @@ import { AppInitService } from '../services/appInit.service';
 import { Config } from '../configuration/environment-variables/config';
 import { TranslateModule } from '@ngx-translate/core';
 import { TranslateLoader } from '@ngx-translate/core';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { createTranslateLoader } from '../common/translate/TranslateLoader';
 import { ConnectivityService } from '../services/connectivity.service';
 import { RestService } from '../services/rest.base.service';
@@ -69,6 +70,7 @@ import { WaypointProvider } from './../providers/waypoint/waypoint';
     SecMobilService,
     ConnectivityService,
     { provide: RestService, useFactory: createRestService, deps: [HttpClient, SecMobilService] },
+    { provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true },
     AppInitService, HttpClientModule,
     Config,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
