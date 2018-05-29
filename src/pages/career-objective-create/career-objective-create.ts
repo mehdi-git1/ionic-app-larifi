@@ -61,8 +61,8 @@ export class CareerObjectiveCreatePage {
       actionPlanControl: ['', Validators.maxLength(5000)],
       managerCommentControl: ['', Validators.maxLength(4000)],
       pncCommentControl: ['', Validators.maxLength(4000)],
-      nextEncounterDateControl: [''],
       encounterDateControl: [''],
+      nextEncounterDateControl: [''],
       prioritizedControl: [false],
       waypointContextControl: ['', Validators.maxLength(4000)],
     });
