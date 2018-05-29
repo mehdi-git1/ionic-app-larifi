@@ -44,19 +44,21 @@ export class PncHomePage {
     this.loadPnc();
   }
 
+  /**
+   * charge le détail du pnc connecté ou consulté.
+   */
   loadPnc() {
     if (this.sessionService.authenticatedUser !== undefined) {
       this.matricule = this.sessionService.authenticatedUser.username;
-
-      // Si on a un matricule dans les params de navigation, cela surcharge le matricule du user connecté
-      if (this.navParams.get('matricule')) {
-        this.matricule = this.navParams.get('matricule');
-      }
-
-      this.pncProvider.getPnc(this.matricule).then(foundPnc => {
-        this.pnc = foundPnc;
-      }, error => { });
     }
+    // Si on a un matricule dans les params de navigation, cela surcharge le matricule du user connecté
+    if (this.navParams.get('matricule')) {
+      this.matricule = this.navParams.get('matricule');
+    }
+
+    this.pncProvider.getPnc(this.matricule).then(foundPnc => {
+      this.pnc = foundPnc;
+    }, error => { });
   }
 
   /**

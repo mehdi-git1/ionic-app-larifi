@@ -19,7 +19,8 @@
         "PNC_SUMMARY_SHEET": "Fiche synthèse PNC",
         "HELP_CENTRE": "Ressources d'aide",
         "PNC_TEAM": "Effectif PNC",
-        "UPCOMING_FLIGHT": "Prochains vols"
+        "UPCOMING_FLIGHT": "Prochains vols",
+        "UNKNOWN_ERROR": "Une erreur inconnue est survenue. Merci de recharger la page ou réessayer dans quelques minutes."
     },
     "CAREER_OBJECTIVE_CREATE": {
         "CREATE_TITLE": "Création d'un nouvel objectif",
@@ -117,9 +118,5 @@
             "DRAFT_SAVED": "Brouillon enregistré",
             "DRAFT_DELETED": "Brouillon supprimé"
         }
-    },
-    "BACKEND_ERROR": {
-        "LABEL": "Erreur ",
-        "UNKNOWN_ERROR": "Une erreur inconnue est survenue. Merci de recharger la page ou réessayer dans quelques minutes."
     }
 }
