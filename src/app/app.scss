@@ -45,7 +45,7 @@
     }
 
     .app-loader {
-        border: 16px solid color($colors, grey70);
+        border: 16px solid color($colors, grey50);
         border-top: 16px solid color($colors, primary);
 
         border-radius: 50%;
@@ -62,4 +62,8 @@
             transform: rotate(360deg);
         }
     }
+}
+
+.back-button {
+    color: color($colors, white);
 }

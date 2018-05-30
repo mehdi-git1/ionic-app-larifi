@@ -27,26 +27,25 @@ $app-direction: ltr;
 // to match your app's branding. Ionic uses a Sass map of
 // colors so you can add, rename and remove colors as needed.
 // The "primary" color is the only required color in the map.
-$colors: (primary: #051039,
-primary-light:#333564,
-primary-dark:#000015,
-secondary: #e53935,
-secondary-light:#ff6e60,
-secondary-dark:#ab000d,
-grey20: #555,
-grey60: #999,
-grey70: #bbb,
-grey80:#ddd,
-grey90: #f9f9f9,
-success: #008836,
-danger: #ff0000,
-info: #14438B,
+$colors: (primary: #080F38,
+secondary: #9BAEC8,
+tertiary:#E53A40,
+orange60:#F5A623,
+green70: #37D67A,
+grey10:#333333,
+grey20: #585858,
+grey50: #94959A,
+grey90: #F1F1F1,
+white:#fff,
+blue70:#5BC7A9,
+blue80:#89D8FB,
+red80:#E53A40,
 draft: #7799CC,
 registered: #e98e05,
 validated: #129647,
-abandoned: #000000);
+abandoned: #000000,
+development-program: #e99251);
 
-$custom:( development-program: #e99251);
 
 // App iOS Variables
 // --------------------------------------------------
@@ -100,12 +99,12 @@ h4,
 h5,
 h6,
 button {
-    font-family: OpenSans, Arial, Helvetica, sans-serif;
+    font-family: Helvetica, sans-serif;
 }
 
 h1,
 h2 {
-    font-family: OpenSansLight, Arial, Helvetica, sans-serif;
+    font-family: Helvetica, sans-serif;
 }
 
 
