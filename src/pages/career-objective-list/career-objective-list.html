@@ -20,14 +20,14 @@
                     <div class="status-area" float-right>
                         <!-- Prioritaire -->
                         <div class="icon-container">
-                            <ion-icon *ngIf="careerObjective.prioritized" name="flag" color="danger"></ion-icon>
+                            <ion-icon *ngIf="careerObjective.prioritized" name="flag" color="red80"></ion-icon>
                         </div>
                         <!-- Initiateur -->
                         <div class="icon-container">
                             <ion-icon name="bulb" *ngIf="careerObjective.initiator === PncRole.PNC"></ion-icon>
                         </div>
                         <!-- Statut -->
-                        <ion-badge color="{{careerObjective.careerObjectiveStatus.toLowerCase()}}" *ngIf="careerObjective.careerObjectiveStatus">
+                        <ion-badge class="{{careerObjective.careerObjectiveStatus.toLowerCase()}}" *ngIf="careerObjective.careerObjectiveStatus">
                             {{ 'GLOBAL.CAREER_OBJECTIVE_STATUS.'+careerObjective.careerObjectiveStatus | translate }}
                         </ion-badge>
                     </div>

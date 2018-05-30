@@ -27,22 +27,22 @@ $app-direction: ltr;
 // to match your app's branding. Ionic uses a Sass map of
 // colors so you can add, rename and remove colors as needed.
 // The "primary" color is the only required color in the map.
-$colors: (primary: #051039,
-secondary: #0800b9,
-light-blue: #dff2fd,
-danger: #ff0000,
-light: #f9f9f9,
-light-grey:#ececec,
-dark: #051039,
-label:#999,
-success: #006729,
-info: #14438B,
-draft: #7799CC,
-registered: #e98e05,
-validated: #129647,
-abandoned: #000000,
-development-program: #e99251,
-disabled:#868686);
+$colors: (primary: #080F38,
+secondary: #9BAEC8,
+tertiary:#E53A40,
+orange60:#F5A623,
+green60:#5BC7A9,
+green70: #37D67A,
+grey10:#333333,
+grey20: #585858,
+grey50: #94959A,
+grey90: #F1F1F1,
+white:#fff,
+blue80:#89D8FB,
+red80:#E53A40,
+);
+
+$text-color:color($colors, grey10);
 
 
 
@@ -93,19 +93,24 @@ disabled:#868686);
 div,
 p,
 span,
+h1,
+h2,
 h3,
 h4,
 h5,
 h6,
 button {
-    font-family: OpenSans, Arial, Helvetica, sans-serif;
-}
-
-h1,
-h2 {
     font-family: OpenSansLight, Arial, Helvetica, sans-serif;
 }
 
+h3 {
+    color: color($colors, grey20);
+    font-weight: bold !important;
+}
+
+h4 {
+    color: color($colors, grey50);
+}
 
 .toolbar {
 
@@ -115,7 +120,7 @@ h2 {
     }
 
     .toolbar-background {
-        background: color($colors, dark, base);
+        background: color($colors, primary, base);
     }
 }
 
