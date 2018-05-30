@@ -17,7 +17,7 @@
                     <!-- Barre de statut -->
                     <ion-row>
                         <ion-col col-12>
-                            <ion-badge color="{{careerObjective.careerObjectiveStatus.toLowerCase()}}" *ngIf="careerObjective.careerObjectiveStatus" float-right>
+                            <ion-badge class="{{careerObjective.careerObjectiveStatus.toLowerCase()}}" *ngIf="careerObjective.careerObjectiveStatus" float-right>
                                 {{ 'GLOBAL.CAREER_OBJECTIVE_STATUS.'+careerObjective.careerObjectiveStatus | translate }}
                             </ion-badge>
                         </ion-col>
@@ -68,10 +68,10 @@
                 </ion-col>
                 <!-- Bouton création point d'étape -->
                 <ion-col col-3>
-                    <ion-title>{{ 'CAREER_OBJECTIVE_CREATE.WAYPOINT_LIST_TITLE' | translate }}</ion-title>
+                    <h3>{{ 'CAREER_OBJECTIVE_CREATE.WAYPOINT_LIST_TITLE' | translate }}</h3>
                     <!--liste des point d'étape-->
                     <ion-content class="waypoint-list">
-                        <button ion-button (click)="goToWaypointCreate()" class="add-waypoint clickable" *ngIf="careerObjective.careerObjectiveStatus === CareerObjectiveStatus.REGISTERED">
+                        <button (click)="goToWaypointCreate()" class="add-waypoint clickable" *ngIf="careerObjective.careerObjectiveStatus === CareerObjectiveStatus.REGISTERED">
                             <ion-icon name="add"></ion-icon>
                         </button>
                         <ion-card class="clickable" *ngFor="let waypoint of waypointList" (click)="openWaypoint(waypoint.techId)">
@@ -118,13 +118,13 @@
 
             <!-- Barre de boutons -->
             <ion-row>
-                <ion-col>
+                <ion-col class="button-bar-right">
                     <!-- Bouton sauvegarder objectif en brouillon -->
                     <button ion-button color="primary" (click)="saveCareerObjectiveDraft()" [disabled]="creationForm.invalid" *ngIf="careerObjectiveStatusProvider.isTransitionOk(careerObjective.careerObjectiveStatus,CareerObjectiveStatus.DRAFT)">
                         {{ 'CAREER_OBJECTIVE_CREATE.BUTTONS.SAVE_DRAFT' | translate }}
                     </button>
                     <!-- Bouton supprimer objectif en brouillon -->
-                    <button ion-button color="primary" (click)="confirmDeleteCareerObjectiveDraft()" [disabled]="deletionInProgress" *ngIf="careerObjective.careerObjectiveStatus === CareerObjectiveStatus.DRAFT">
+                    <button ion-button color="tertiary" (click)="confirmDeleteCareerObjectiveDraft()" [disabled]="deletionInProgress" *ngIf="careerObjective.careerObjectiveStatus === CareerObjectiveStatus.DRAFT">
                         {{ 'CAREER_OBJECTIVE_CREATE.BUTTONS.DELETE_DRAFT' | translate }}
                     </button>
                     <!-- Bouton sauvegarder objectif -->

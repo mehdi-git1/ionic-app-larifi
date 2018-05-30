@@ -1,9 +1,9 @@
  label {
-     color: color($colors, label);
+     color: color($colors, grey50);
  }
 
  ion-label.required {
-     color: color($colors, danger) !important;
+     color: color($colors, red80) !important;
  }
 
  ion-label.required:after {
