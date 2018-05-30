@@ -1,4 +1,5 @@
 import { SecurityProvider } from './../../providers/security/security';
+import { WaypointProvider } from './../../providers/waypoint/waypoint';
 import { Speciality } from './../../models/speciality';
 import { CareerObjectiveStatusProvider } from './../../providers/career-objective-status/career-objective-status';
 import { ToastProvider } from './../../providers/toast/toast';
@@ -13,7 +14,6 @@ import { Pnc } from '../../models/pnc';
 import { DatePipe } from '@angular/common';
 import { Waypoint } from './../../models/waypoint';
 import { WaypointCreatePage } from './../waypoint-create/waypoint-create';
-import { WaypointProvider } from './../../providers/waypoint/waypoint';
 
 @Component({
   selector: 'page-career-objective-create',
@@ -72,50 +72,26 @@ export class CareerObjectiveCreatePage {
         handler: () => this.careerObjective.nextEncounterDate
       }]
     };
-
-    // Charge l'objectif si celui ci est présent dans les paramètres de navigation
-    if (this.navParams.get('careerObjectiveId')) {
-      this.careerObjectiveProvider.getCareerObjective(this.navParams.get('careerObjectiveId')).then(
-        foundCareerObjective => {
-          this.careerObjective = foundCareerObjective;
-        },
-        error => {
-          this.toastProvider.error(error.detailMessage);
-        }
-      );
-
-      this.waypointProvider.getListWaypoint(this.navParams.get('careerObjectiveId')).then(result => {
-        this.waypointList = result;
-      }, error => {
-        this.toastProvider.error(error.detailMessage);
-      });
-    }
   }
 
-  ionViewDidEnter() {
+  ionViewDidLoad() {
     // On récupère le matricule du pnc de la route
     if (this.navParams.get('matricule')) {
       this.careerObjective.pnc.matricule = this.navParams.get('matricule');
     }
   }
 
-  /**
-   * Permet de bloquer toute action sur les élements de la page, et d'afficher un spinner.
-   */
-  showLoading() {
-    if (!this.loading) {
-      this.loading = this.loadingCtrl.create();
-      this.loading.present();
-    }
-  }
+  ionViewDidEnter() {
+    // Charge l'objectif si celui ci est présent dans les paramètres de navigation
+    if (this.navParams.get('careerObjectiveId')) {
+      this.careerObjectiveProvider.getCareerObjective(this.navParams.get('careerObjectiveId')).then(
+        foundCareerObjective => {
+          this.careerObjective = foundCareerObjective;
+        }, error => { });
 
-  /**
-   * Permet de débloquer la page et de désactiver le spinner dans la page
-   */
-  dismissLoading() {
-    if (this.loading) {
-      this.loading.dismiss();
-      this.loading = null;
+      this.waypointProvider.getCareerObjectiveWaypoints(this.navParams.get('careerObjectiveId')).then(result => {
+        this.waypointList = result;
+      }, error => { });
     }
   }
 
@@ -126,7 +102,8 @@ export class CareerObjectiveCreatePage {
     // Transformation de la date au format ISO avant envoi au back
     this.careerObjective.nextEncounterDate = this.datePipe.transform(this.careerObjective.nextEncounterDate, 'yyyy-MM-ddTHH:mm');
 
-    this.showLoading();
+    this.loading = this.loadingCtrl.create();
+    this.loading.present();
 
     this.careerObjectiveProvider
       .createOrUpdate(this.careerObjective)
@@ -137,7 +114,8 @@ export class CareerObjectiveCreatePage {
           this.toastProvider.success(this.translateService.instant('CAREER_OBJECTIVE_CREATE.SUCCESS.DRAFT_SAVED'));
         } else if (this.careerObjective.careerObjectiveStatus === CareerObjectiveStatus.REGISTERED) {
           if (this.cancelValidation) {
-            this.toastProvider.success(this.translateService.instant('CAREER_OBJECTIVE_CREATE.SUCCESS.CAREER_OBJECTIVE_VALIDATION_CANCELED'));
+            this.toastProvider.success
+              (this.translateService.instant('CAREER_OBJECTIVE_CREATE.SUCCESS.CAREER_OBJECTIVE_VALIDATION_CANCELED'));
             this.cancelValidation = false;
           } else if (this.cancelAbandon) {
             this.toastProvider.success(this.translateService.instant('CAREER_OBJECTIVE_CREATE.SUCCESS.CAREER_OBJECTIVE_RESUMED'));
@@ -150,18 +128,11 @@ export class CareerObjectiveCreatePage {
         } else if (this.careerObjective.careerObjectiveStatus === CareerObjectiveStatus.ABANDONED) {
           this.toastProvider.success(this.translateService.instant('CAREER_OBJECTIVE_CREATE.SUCCESS.CAREER_OBJECTIVE_ABANDONED'));
         }
-        this.dismissLoading();
+        this.loading.dismiss();
       }, error => {
-        this.toastProvider.error(error.detailMessage);
-        this.dismissLoading();
-      });
-  }
 
-  /**
-   * Dirige vers la page de création d'un point d'étape
-   */
-  goToWaypointCreate() {
-    this.navCtrl.push(WaypointCreatePage, { careerObjective: this.careerObjective, waypointList: this.waypointList });
+        this.loading.dismiss();
+      });
   }
 
   /**
@@ -239,18 +210,19 @@ export class CareerObjectiveCreatePage {
   * Supprime un objectif au statut brouillon
   */
   deleteCareerObjectiveDraft() {
-    this.showLoading();
+    this.loading = this.loadingCtrl.create();
+    this.loading.present();
+
     this.careerObjectiveProvider
       .delete(this.careerObjective.techId)
       .then(
         deletedCareerObjective => {
           this.toastProvider.success(this.translateService.instant('CAREER_OBJECTIVE_CREATE.SUCCESS.DRAFT_DELETED'));
           this.navCtrl.pop();
-          this.dismissLoading();
+          this.loading.dismiss();
         },
         error => {
-          this.toastProvider.error(error.detailMessage);
-          this.dismissLoading();
+          this.loading.dismiss();
         });
   }
 
@@ -259,5 +231,19 @@ export class CareerObjectiveCreatePage {
    */
   isCreationMode() {
     return this.careerObjective.techId === undefined;
+  }
+
+  /**
+   * Dirige vers la page de création d'un point d'étape
+   */
+  goToWaypointCreate() {
+    this.navCtrl.push(WaypointCreatePage, { careerObjectiveId: this.careerObjective.techId });
+  }
+
+  /**
+   * Ouvrir un point d'étape existant
+   */
+  openWaypoint(techId: number) {
+    this.navCtrl.push(WaypointCreatePage, { waypointId: techId, careerObjectiveId: this.careerObjective.techId });
   }
 }

@@ -1,3 +1,4 @@
+import { PncRole } from './../../models/pncRole';
 import { ToastProvider } from './../../providers/toast/toast';
 import { CareerObjectiveCreatePage } from './../career-objective-create/career-objective-create';
 import { CareerObjective } from './../../models/careerObjective';
@@ -16,6 +17,9 @@ export class CareerObjectiveListPage {
 
   matricule: string;
 
+  // Expose l'enum au template
+  PncRole = PncRole;
+
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     private careerObjectiveProvider: CareerObjectiveProvider,
@@ -30,9 +34,7 @@ export class CareerObjectiveListPage {
   ionViewDidEnter() {
     this.careerObjectiveProvider.getCareerObjectiveList(this.matricule).then(result => {
       this.careerObjectiveList = result;
-    }, error => {
-      this.toastProvider.error(error.detailMessage);
-    });
+    }, error => { });
   }
 
   /**
