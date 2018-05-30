@@ -5,7 +5,7 @@
 </ion-header>
 
 <ion-content padding>
-    <h1 margin-horizontal>{{ 'CAREER_OBJECTIVE_LIST.TITLE' | translate }}</h1>
+    <h3 margin-horizontal>{{ 'CAREER_OBJECTIVE_LIST.TITLE' | translate }}</h3>
 
     <button (click)="goToCareerObjectiveCreation()" class="add-career-objective">
         <ion-icon name="add"></ion-icon>
@@ -16,7 +16,7 @@
         <ion-card class="career-objective-card clickable" *ngFor="let careerObjective of careerObjectiveList" (click)="openCareerObjective(careerObjective.techId)">
             <ion-card-content no-padding>
                 <header>
-                    <h2>{{careerObjective.title}}</h2>
+                    <h4>{{careerObjective.title}}</h4>
                     <div class="status-area" float-right>
                         <!-- Prioritaire -->
                         <ion-icon *ngIf="careerObjective.prioritized" name="flag" color="red80" margin-right></ion-icon>
