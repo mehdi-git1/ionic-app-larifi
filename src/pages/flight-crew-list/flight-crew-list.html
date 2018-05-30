@@ -27,25 +27,24 @@
                                 </ion-col>
                             </ion-row>
                             <ion-row>
-                                <!-- Spécialité-->
+                                <!-- Relais-->
                                 <ion-col class="pnc-info">
-                                    <label>{{ 'PNC_HOME.INFO_PANEL.FUNCTION' | translate }}</label>
-                                    <span class="value" [ngClass]="{'no-value' : !pnc.speciality }">{{ pnc.speciality }}</span>
+                                    <label>{{ 'FLIGHT_CREW_LIST.LIST.RELAYS' | translate }}</label>
+                                    <div *ngFor="let relay of pnc.relays">
+                                        <span class="value">
+                                         {{ relay.code }}
+                                    </span>
+                                    </div>
                                 </ion-col>
-                                <!-- Ginq-->
+                                <!-- Code P ou Z-->
                                 <ion-col class="pnc-info">
-                                    <label>{{ 'PNC_HOME.INFO_PANEL.GINQ' | translate }}</label>
-                                    <span class="value" [ngClass]="{'no-value' : !pnc.assignment.ginq }">{{ pnc.assignment.ginq }}</span>
+                                    <label>{{ 'FLIGHT_CREW_LIST.LIST.P_Z_CODE' | translate }}</label>
+                                    <span class="value" [ngClass]="{'no-value' : !pnc.pzCode }">{{pnc.pzCode }}</span>
                                 </ion-col>
-                                <!-- Secteur-->
+                                <!-- dernière rencontre en vol-->
                                 <ion-col class="pnc-info">
-                                    <label>{{ 'PNC_HOME.INFO_PANEL.SECTOR' | translate }}</label>
-                                    <span class="value" [ngClass]="{'no-value' : !pnc.assignment.sector }">{{ pnc.assignment.sector }}</span>
-                                </ion-col>
-                                <!-- Division-->
-                                <ion-col class="pnc-info">
-                                    <label>{{ 'PNC_HOME.INFO_PANEL.DIVISION' | translate }}</label>
-                                    <span class="value" [ngClass]="{'no-value' : !pnc.assignment.division }">{{ pnc.assignment.division }}</span>
+                                    <label>{{ 'FLIGHT_CREW_LIST.LIST.LAST_ENCOUNTER_DATE' | translate }}</label>
+                                    <span class="value" [ngClass]="{'no-value' : !pnc.lastEncounterDate }">{{pnc.lastEncounterDate | date: 'dd/MM/yyyy'}}</span>
                                 </ion-col>
                             </ion-row>
                         </ion-col>

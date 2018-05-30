@@ -1,8 +1,9 @@
 page-flight-crew-list {
 
-    .pnc-info-panel {
+    .flight-crew-card {
+
         img {
-            width: 100px;
+            width: 80px;
         }
 
         .content {
@@ -47,6 +48,5 @@ page-flight-crew-list {
             background: color($colors, development-program);
         }
     }
-
 
 }
