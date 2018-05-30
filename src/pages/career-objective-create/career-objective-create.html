@@ -76,6 +76,7 @@
                         </button>
                         <ion-card class="clickable" *ngFor="let waypoint of waypointList" (click)="openWaypoint(waypoint.techId)">
                             <ion-card-content>
+                                <ion-icon name="create" *ngIf="waypoint.waypointStatus === WaypointStatus.DRAFT" float-right></ion-icon>
                                 <span class="value">{{ waypoint.creationDate | date: 'dd/MM/yyyy'}}</span>
                                 <h4>{{ waypoint.context }}</h4>
                             </ion-card-content>
