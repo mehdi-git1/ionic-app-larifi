@@ -4,7 +4,7 @@ import { SecurityProvider } from './../providers/security/security';
 import { PncHomePage } from './../pages/pnc-home/pnc-home';
 import { CareerObjectiveCreatePage } from './../pages/career-objective-create/career-objective-create';
 import { Component, ViewChild } from '@angular/core';
-import { Nav, Platform } from 'ionic-angular';
+import { Nav, Platform, Events } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -25,7 +25,8 @@ export class EDossierPNC {
     public splashScreen: SplashScreen, public translate: TranslateService,
     private secMobilService: SecMobilService,
     private securityProvider: SecurityProvider,
-    private sessionService: SessionService
+    private sessionService: SessionService,
+    private events: Events
   ) {
     this.initializeApp();
   }
@@ -59,7 +60,8 @@ export class EDossierPNC {
   putAuthenticatedUserInSession() {
     this.securityProvider.getAuthenticatedUser().then(authenticatedUser => {
       this.sessionService.authenticatedUser = authenticatedUser;
-    });
+      this.events.publish('user:authenticated');
+    }, error => { });
   }
 
   openPage(page) {

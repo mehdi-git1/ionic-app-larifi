@@ -27,6 +27,9 @@ export class SecurityProvider {
  * @return cadre ou pas cadre
  */
   isManager(): boolean {
+    if (this.sessionService.authenticatedUser === undefined) {
+      return false;
+    }
     return this.sessionService.authenticatedUser.manager;
   }
 
