@@ -82,9 +82,6 @@ export class CareerObjectiveCreatePage {
         handler: () => this.careerObjective.encounterDate = ''
       }]
     };
-
-    // Initialise une valeur par defaut du jour pour le champ "Date de rencontre"
-    this.careerObjective.encounterDate = this.datePipe.transform(new Date(), 'yyyy-MM-dd');
   }
 
   ionViewDidLoad() {
