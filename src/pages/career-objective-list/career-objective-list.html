@@ -19,11 +19,15 @@
                     <h4>{{careerObjective.title}}</h4>
                     <div class="status-area" float-right>
                         <!-- Prioritaire -->
-                        <ion-icon *ngIf="careerObjective.prioritized" name="flag" color="danger" margin-right></ion-icon>
+                        <div class="icon-container">
+                            <ion-icon *ngIf="careerObjective.prioritized" name="flag" color="red80"></ion-icon>
+                        </div>
                         <!-- Initiateur -->
-                        <ion-icon name="bulb" *ngIf="careerObjective.initiator === PncRole.PNC" margin-right></ion-icon>
+                        <div class="icon-container">
+                            <ion-icon name="bulb" *ngIf="careerObjective.initiator === PncRole.PNC"></ion-icon>
+                        </div>
                         <!-- Statut -->
-                        <ion-badge color="{{careerObjective.careerObjectiveStatus.toLowerCase()}}" *ngIf="careerObjective.careerObjectiveStatus">
+                        <ion-badge class="{{careerObjective.careerObjectiveStatus.toLowerCase()}}" *ngIf="careerObjective.careerObjectiveStatus">
                             {{ 'GLOBAL.CAREER_OBJECTIVE_STATUS.'+careerObjective.careerObjectiveStatus | translate }}
                         </ion-badge>
                     </div>
@@ -31,12 +35,12 @@
                 <ion-grid class="content">
                     <ion-row>
                         <ion-col>
-                            <label>{{ 'CAREER_OBJECTIVE_LIST.LIST.CREATION_DATE' | translate }}</label>
-                            <span class="value" [ngClass]="{'no-value' : !careerObjective.creationDate }">{{ careerObjective.creationDate | date: 'dd/MM/yyyy HH:mm'}}</span>
-                        </ion-col>
-                        <ion-col>
                             <label>{{ 'CAREER_OBJECTIVE_LIST.LIST.ENCOUNTER_DATE' | translate }}</label>
                             <span class="value" [ngClass]="{'no-value' : !careerObjective.encounterDate }">{{careerObjective.encounterDate | date: 'dd/MM/yyyy'}}</span>
+                        </ion-col>
+                        <ion-col>
+                            <label>{{ 'CAREER_OBJECTIVE_LIST.LIST.REGISTRATION_DATE' | translate }}</label>
+                            <span class="value" [ngClass]="{'no-value' : !careerObjective.registrationDate }">{{careerObjective.registrationDate | date: 'dd/MM/yyyy HH:mm'}}</span>
                         </ion-col>
                         <ion-col>
                             <label>{{ 'CAREER_OBJECTIVE_LIST.LIST.NEXT_ENCOUNTER_DATE' | translate }}</label>

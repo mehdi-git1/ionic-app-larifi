@@ -14,7 +14,9 @@
 // automatically applied to the <body> element in the app.
 @import '../theme/toast.scss';
 @import '../theme/label.scss';
-
+@import '../theme/input.scss';
+@import '../theme/button-bar.scss';
+@import '../theme/status.scss';
 
 // A utiliser sur les éléments cliquables (les labels ont un style contraire, on est obligé de les surcharger) */
 .clickable,
@@ -38,15 +40,15 @@
     height: 100%;
 
     h1 {
-        color: color($colors, dark);
+        color: color($colors, primary);
         font-weight: bold;
         font-size: 3em;
         margin: 30px;
     }
 
     .app-loader {
-        border: 16px solid color($colors, light);
-        border-top: 16px solid color($colors, dark);
+        border: 16px solid color($colors, grey50);
+        border-top: 16px solid color($colors, primary);
 
         border-radius: 50%;
         width: 120px;
@@ -62,4 +64,8 @@
             transform: rotate(360deg);
         }
     }
+}
+
+.back-button {
+    color: color($colors, white);
 }
