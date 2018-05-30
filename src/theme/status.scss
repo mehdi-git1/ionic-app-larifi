@@ -1,0 +1,29 @@
+.draft,
+.registered,
+.validated,
+.abandoned {
+    border-radius: 10px;
+    width: 100px;
+}
+
+.draft {
+    background: color($colors, grey50);
+    color: color($colors, white);
+}
+
+.registered {
+    background: color($colors, orange60);
+    color: color($colors, white);
+
+}
+
+.validated {
+    background: color($colors, green60);
+    color: color($colors, white);
+
+}
+
+.abandoned {
+    background: color($colors, grey90);
+    color: color($colors, grey50);
+}

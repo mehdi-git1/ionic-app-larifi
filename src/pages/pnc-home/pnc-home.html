@@ -13,7 +13,7 @@
             <ion-label floating>{{ 'PNC_HOME.GO_TO_EDOSSIER.MATRICULE' | translate }}</ion-label>
             <ion-input type="text" [(ngModel)]="matricule"></ion-input>
         </ion-item>
-        <button ion-button color="dark" (click)="goToEdossier()">{{ 'PNC_HOME.GO_TO_EDOSSIER.SUBMIT' | translate }}</button>
+        <button ion-button color="primary" (click)="goToEdossier()">{{ 'PNC_HOME.GO_TO_EDOSSIER.SUBMIT' | translate }}</button>
     </div>
 
     <ion-card class="pnc-info-panel">
@@ -43,20 +43,20 @@
                             <label>{{ 'PNC_HOME.INFO_PANEL.FUNCTION' | translate }}</label>
                             <span class="value" [ngClass]="{'no-value' : !pnc.speciality }">{{ pnc.speciality }}</span>
                         </ion-col>
-                        <!-- Ginq-->
+                        <!-- Division-->
                         <ion-col class="pnc-info">
-                            <label>{{ 'PNC_HOME.INFO_PANEL.GINQ' | translate }}</label>
-                            <span class="value" [ngClass]="{'no-value' : !pnc.assignment.ginq }">{{ pnc.assignment.ginq }}</span>
+                            <label>{{ 'PNC_HOME.INFO_PANEL.DIVISION' | translate }}</label>
+                            <span class="value" [ngClass]="{'no-value' : !pnc.assignment.division }">{{ pnc.assignment.division }}</span>
                         </ion-col>
                         <!-- Secteur-->
                         <ion-col class="pnc-info">
                             <label>{{ 'PNC_HOME.INFO_PANEL.SECTOR' | translate }}</label>
                             <span class="value" [ngClass]="{'no-value' : !pnc.assignment.sector }">{{ pnc.assignment.sector }}</span>
                         </ion-col>
-                        <!-- Division-->
+                        <!-- Ginq-->
                         <ion-col class="pnc-info">
-                            <label>{{ 'PNC_HOME.INFO_PANEL.DIVISION' | translate }}</label>
-                            <span class="value" [ngClass]="{'no-value' : !pnc.assignment.division }">{{ pnc.assignment.division }}</span>
+                            <label>{{ 'PNC_HOME.INFO_PANEL.GINQ' | translate }}</label>
+                            <span class="value" [ngClass]="{'no-value' : !pnc.assignment.ginq }">{{ pnc.assignment.ginq }}</span>
                         </ion-col>
                     </ion-row>
                 </ion-col>
@@ -74,25 +74,25 @@
             </ion-col>
             <!-- Fiche synthèse PNC -->
             <ion-col col-6>
-                <button ion-button *ngIf="pnc.speciality !== Speciality.CAD" [disabled]="true" color="disabled">
+                <button ion-button *ngIf="pnc.speciality !== Speciality.CAD" [disabled]="true" color="grey50">
                     {{ 'GLOBAL.PNC_SUMMARY_SHEET' | translate }}
                 </button>
             </ion-col>
             <!-- Effectif PNC -->
             <ion-col col-6>
-                <button ion-button *ngIf="pnc.speciality === Speciality.CAD" [disabled]="true" color="disabled">
+                <button ion-button *ngIf="pnc.speciality === Speciality.CAD" [disabled]="true" color="grey50">
                     {{ 'GLOBAL.PNC_TEAM' | translate }}
                 </button>
             </ion-col>
             <!-- Prochains vols -->
             <ion-col col-6>
-                <button ion-button *ngIf="pnc.speciality === Speciality.CAD" [disabled]="true" color="disabled">
+                <button ion-button *ngIf="pnc.speciality === Speciality.CAD" [disabled]="true" color="grey50">
                     {{ 'GLOBAL.UPCOMING_FLIGHT' | translate }}
                 </button>
             </ion-col>
             <!-- Ressource d'aide -->
             <ion-col col-6>
-                <button ion-button [disabled]="true" color="disabled">
+                <button ion-button [disabled]="true" color="grey50">
                     {{ 'GLOBAL.HELP_CENTRE' | translate }}
                 </button>
             </ion-col>

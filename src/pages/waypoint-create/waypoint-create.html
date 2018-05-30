@@ -59,7 +59,7 @@
 
             <!-- Barre de boutons -->
             <ion-row>
-                <ion-col>
+                <ion-col class="button-bar-right">
                     <!-- Bouton sauvegarder point d'étape en brouillon -->
                     <button ion-button (click)="saveWaypointDraft()" [disabled]="creationForm.invalid" *ngIf="waypointStatusProvider.isTransitionOk(waypoint.waypointStatus,WaypointStatus.DRAFT)">
                         {{ 'WAYPOINT_CREATE.BUTTONS.SAVE_DRAFT' | translate }}
