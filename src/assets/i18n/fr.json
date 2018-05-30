@@ -125,7 +125,7 @@
         "LIST": {
             "RELAYS": "Relais",
             "P_Z_CODE": "Code P ou Z",
-            "LAST_ENCOUNTER_DATE": "Dernière rencontre en vol"
+            "LAST_ENCOUNTER_DATE": "Dernière rencontre  Vol"
         }
     }
 }
