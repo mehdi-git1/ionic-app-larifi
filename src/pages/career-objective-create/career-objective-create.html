@@ -5,9 +5,9 @@
 </ion-header>
 
 <ion-content padding>
-    <h3 *ngIf="isCreationMode(); else elseBlock">{{ 'CAREER_OBJECTIVE_CREATE.CREATE_TITLE' | translate }}</h3>
+    <h1 *ngIf="isCreationMode(); else elseBlock">{{ 'CAREER_OBJECTIVE_CREATE.CREATE_TITLE' | translate }}</h1>
     <ng-template #elseBlock>
-        <h3>{{ 'CAREER_OBJECTIVE_CREATE.EDIT_TITLE' | translate }}</h3>
+        <h1>{{ 'CAREER_OBJECTIVE_CREATE.EDIT_TITLE' | translate }}</h1>
     </ng-template>
 
     <form novalidate [formGroup]="creationForm">
@@ -68,7 +68,7 @@
                 </ion-col>
                 <!-- Bouton création point d'étape -->
                 <ion-col col-3>
-                    <ion-title>{{ 'CAREER_OBJECTIVE_CREATE.WAYPOINT_LIST_TITLE' | translate }}</ion-title>
+                    <h1>{{ 'CAREER_OBJECTIVE_CREATE.WAYPOINT_LIST_TITLE' | translate }}</h1>
                     <!--liste des point d'étape-->
                     <ion-content class="waypoint-list">
                         <button (click)="goToWaypointCreate()" class="add-waypoint clickable" *ngIf="careerObjective.careerObjectiveStatus === CareerObjectiveStatus.REGISTERED">
@@ -77,7 +77,7 @@
                         <ion-card class="clickable" *ngFor="let waypoint of waypointList" (click)="openWaypoint(waypoint.techId)">
                             <ion-card-content>
                                 <span class="value">{{ waypoint.creationDate | date: 'dd/MM/yyyy'}}</span>
-                                <h4>{{ waypoint.context }}</h4>
+                                <h2>{{ waypoint.context }}</h2>
                             </ion-card-content>
                         </ion-card>
                     </ion-content>

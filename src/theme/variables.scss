@@ -94,19 +94,24 @@ development-program: #e99251);
 div,
 p,
 span,
+h1,
+h2,
 h3,
 h4,
 h5,
 h6,
 button {
-    font-family: Helvetica, sans-serif;
+    font-family: OpenSansLight, Arial, Helvetica, sans-serif;
 }
 
-h1,
+h1 {
+    color: color($colors, grey20);
+    font-weight: bold !important;
+}
+
 h2 {
-    font-family: Helvetica, sans-serif;
+    color: color($colors, grey50);
 }
-
 
 .toolbar {
 
