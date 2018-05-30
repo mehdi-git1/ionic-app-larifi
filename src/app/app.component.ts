@@ -1,3 +1,4 @@
+import { FlightCrewListPage } from './../pages/flight-crew-list/flight-crew-list';
 import { SessionService } from './../services/session.service';
 import { AuthenticatedUser } from './../models/authenticatedUser';
 import { SecurityProvider } from './../providers/security/security';
@@ -19,7 +20,7 @@ import { SecMobilService } from '../services/secMobil.service';
 export class EDossierPNC {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = PncHomePage;
+  rootPage: any = FlightCrewListPage;
 
 
   constructor(public platform: Platform, public statusBar: StatusBar,

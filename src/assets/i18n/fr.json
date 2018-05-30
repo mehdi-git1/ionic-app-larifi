@@ -20,6 +20,7 @@
         "HELP_CENTRE": "Ressources d'aide",
         "PNC_TEAM": "Effectif PNC",
         "UPCOMING_FLIGHT": "Prochains vols",
+        "FLIGHT_CREW": "Equipage du vol",
         "UNKNOWN_ERROR": "Une erreur inconnue est survenue. Merci de recharger la page ou réessayer dans quelques minutes."
     },
     "CAREER_OBJECTIVE_CREATE": {
@@ -117,6 +118,14 @@
             "WAYPOINT_SAVED": "Point d'étape enregistré avec succès",
             "DRAFT_SAVED": "Brouillon enregistré",
             "DRAFT_DELETED": "Brouillon supprimé"
+        }
+    },
+    "FLIGHT_CREW_LIST": {
+        "TITLE": "Liste équipage",
+        "LIST": {
+            "RELAYS": "Relais",
+            "P_Z_CODE": "Code P ou Z",
+            "LAST_ENCOUNTER_DATE": "Dernière rencontre en vol"
         }
     }
 }

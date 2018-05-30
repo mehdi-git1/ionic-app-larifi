@@ -19,4 +19,9 @@ export class PncProvider {
   getPnc(matricule: String): Promise<Pnc> {
     return this.restService.get(`${this.pncUrl}/${matricule}`);
   }
+
+  getAll(): Promise<Pnc[]> {
+    return this.restService.get(`${this.pncUrl}`);
+  }
+
 }

@@ -1,0 +1,57 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>{{ 'GLOBAL.FLIGHT_CREW' | translate }}</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+    <h3 margin-horizontal>{{ 'FLIGHT_CREW_LIST.TITLE' | translate }}</h3>
+
+    <ion-content class="flight-crew-list-container">
+        <ion-card class="flight-crew-card" *ngFor="let pnc of flightCrewList">
+            <ion-card-content no-padding>
+                <ion-grid>
+                    <ion-row>
+                        <ion-col col-2>
+                            <img src="{{genderProvider.getAvatarPicture(pnc.gender)}}" />
+                        </ion-col>
+                        <ion-col col-10 class="content">
+                            <ion-row class="primary-info">
+                                <!-- Prénom -->
+                                <ion-col class="pnc-info">
+                                    <span class="value">{{ pnc.firstName }}</span>
+                                </ion-col>
+                                <!-- Nom -->
+                                <ion-col class="pnc-info">
+                                    <span class="value">{{ pnc.lastName }}</span>
+                                </ion-col>
+                            </ion-row>
+                            <ion-row>
+                                <!-- Spécialité-->
+                                <ion-col class="pnc-info">
+                                    <label>{{ 'PNC_HOME.INFO_PANEL.FUNCTION' | translate }}</label>
+                                    <span class="value" [ngClass]="{'no-value' : !pnc.speciality }">{{ pnc.speciality }}</span>
+                                </ion-col>
+                                <!-- Ginq-->
+                                <ion-col class="pnc-info">
+                                    <label>{{ 'PNC_HOME.INFO_PANEL.GINQ' | translate }}</label>
+                                    <span class="value" [ngClass]="{'no-value' : !pnc.assignment.ginq }">{{ pnc.assignment.ginq }}</span>
+                                </ion-col>
+                                <!-- Secteur-->
+                                <ion-col class="pnc-info">
+                                    <label>{{ 'PNC_HOME.INFO_PANEL.SECTOR' | translate }}</label>
+                                    <span class="value" [ngClass]="{'no-value' : !pnc.assignment.sector }">{{ pnc.assignment.sector }}</span>
+                                </ion-col>
+                                <!-- Division-->
+                                <ion-col class="pnc-info">
+                                    <label>{{ 'PNC_HOME.INFO_PANEL.DIVISION' | translate }}</label>
+                                    <span class="value" [ngClass]="{'no-value' : !pnc.assignment.division }">{{ pnc.assignment.division }}</span>
+                                </ion-col>
+                            </ion-row>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+            </ion-card-content>
+        </ion-card>
+    </ion-content>
+</ion-content>

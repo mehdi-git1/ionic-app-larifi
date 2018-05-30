@@ -1,3 +1,4 @@
+import { FlightCrewListPage } from './../pages/flight-crew-list/flight-crew-list';
 import { WaypointStatusProvider } from './../providers/waypoint-status/waypoint-status';
 import { HttpErrorInterceptor } from './../interceptor/httpErrorInterceptor';
 import { SessionService } from './../services/session.service';
@@ -41,7 +42,8 @@ import { WaypointProvider } from './../providers/waypoint/waypoint';
     AuthenticationPage,
     CareerObjectiveCreatePage,
     CareerObjectiveListPage,
-    WaypointCreatePage
+    WaypointCreatePage,
+    FlightCrewListPage
   ],
   imports: [
     BrowserModule,
@@ -62,7 +64,8 @@ import { WaypointProvider } from './../providers/waypoint/waypoint';
     AuthenticationPage,
     CareerObjectiveCreatePage,
     CareerObjectiveListPage,
-    WaypointCreatePage
+    WaypointCreatePage,
+    FlightCrewListPage
   ],
   providers: [
     StatusBar,
