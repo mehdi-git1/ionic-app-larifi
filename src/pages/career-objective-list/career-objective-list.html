@@ -27,7 +27,7 @@
                             <ion-icon name="bulb" *ngIf="careerObjective.initiator === PncRole.PNC"></ion-icon>
                         </div>
                         <!-- Statut -->
-                        <ion-badge color="{{careerObjective.careerObjectiveStatus.toLowerCase()}}" *ngIf="careerObjective.careerObjectiveStatus">
+                        <ion-badge class="{{careerObjective.careerObjectiveStatus.toLowerCase()}}" *ngIf="careerObjective.careerObjectiveStatus">
                             {{ 'GLOBAL.CAREER_OBJECTIVE_STATUS.'+careerObjective.careerObjectiveStatus | translate }}
                         </ion-badge>
                     </div>

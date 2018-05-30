@@ -1,7 +1,6 @@
 page-career-objective-list {
     .add-career-objective {
-        color: color($colors, primary);
-        background: color($colors, secondary);
+        background: color($colors, green60);
         width: calc(100% - 65px);
         height: 90px;
         margin: 20px 24px;
@@ -13,6 +12,7 @@ page-career-objective-list {
         align-items: center;
 
         ion-icon {
+            color: color($colors, grey90);
             font-size: 3em;
         }
 
