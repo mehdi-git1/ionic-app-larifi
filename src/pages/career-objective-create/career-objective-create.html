@@ -74,7 +74,7 @@
                         <button (click)="goToWaypointCreate()" class="add-waypoint clickable" *ngIf="careerObjective.careerObjectiveStatus === CareerObjectiveStatus.REGISTERED">
                             <ion-icon name="add"></ion-icon>
                         </button>
-                        <ion-card class="clickable" *ngFor="let waypoint of waypointList" (click)="openWaypoint(waypoint.techId)">
+                        <ion-card class="waypoint clickable" *ngFor="let waypoint of waypointList" (click)="openWaypoint(waypoint.techId)">
                             <ion-card-content>
                                 <ion-icon name="create" *ngIf="waypoint.waypointStatus === WaypointStatus.DRAFT" float-right></ion-icon>
                                 <span class="value">{{ waypoint.creationDate | date: 'dd/MM/yyyy'}}</span>

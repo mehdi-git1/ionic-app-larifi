@@ -10,6 +10,14 @@
 <ion-content padding>
     <form novalidate [formGroup]="creationForm">
         <ion-grid>
+            <!-- Barre de statut -->
+            <ion-row>
+                <ion-col col-12>
+                    <ion-badge class="{{waypoint.waypointStatus.toLowerCase()}}" *ngIf="waypoint.waypointStatus" float-right>
+                        {{ 'GLOBAL.WAYPOINT_STATUS.'+waypoint.waypointStatus | translate }}
+                    </ion-badge>
+                </ion-col>
+            </ion-row>
             <ion-row>
                 <ion-col col-12>
                     <!-- Contexte -->
