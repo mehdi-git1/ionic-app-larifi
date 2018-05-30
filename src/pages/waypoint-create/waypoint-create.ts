@@ -16,7 +16,6 @@ import { ToastProvider } from './../../providers/toast/toast';
   selector: 'page-waypoint-create',
   templateUrl: 'waypoint-create.html',
 })
-
 export class WaypointCreatePage {
 
   creationForm: FormGroup;
@@ -57,9 +56,7 @@ export class WaypointCreatePage {
     if (this.navParams.get('waypointId')) {
       this.waypointProvider.getWaypoint(this.navParams.get('waypointId')).then(result => {
         this.waypoint = result;
-      }, error => {
-        this.toastProvider.error(error.detailMessage);
-      });
+      }, error => { });
     }
 
     // Options du datepicker
@@ -88,7 +85,6 @@ export class WaypointCreatePage {
     if (this.waypoint.encounterDate != null) {
       this.waypoint.encounterDate = this.datePipe.transform(this.waypoint.encounterDate, 'yyyy-MM-ddTHH:mm');
     }
-
     this.loading = this.loadingCtrl.create();
     this.loading.present();
 
@@ -105,7 +101,6 @@ export class WaypointCreatePage {
         this.loading.dismiss();
         this.navCtrl.pop();
       }, error => {
-        this.toastProvider.error(error.detailMessage);
         this.loading.dismiss();
       });
   }
@@ -147,7 +142,6 @@ export class WaypointCreatePage {
           this.loading.dismiss();
         },
         error => {
-          this.toastProvider.error(error.detailMessage);
           this.loading.dismiss();
         });
   }
@@ -156,15 +150,11 @@ export class WaypointCreatePage {
    * Enregistre un point d'étape au statut enregistré
    */
   saveWaypointToRegisteredStatus() {
-    this.waypoint.waypointStatus = WaypointStatus.REGISTERED;
-
     // Transformation de la date au format ISO avant envoi au back
     if (this.waypoint.encounterDate == null) {
       this.waypoint.encounterDate = this.datePipe.transform(new Date(), 'yyyy-MM-ddTHH:mm');
     }
-
+    this.waypoint.waypointStatus = WaypointStatus.REGISTERED;
     this.saveWaypoint();
   }
-
 }
-

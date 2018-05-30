@@ -6,7 +6,7 @@ import { Speciality } from './../../models/speciality';
 import { CareerObjectiveListPage } from './../career-objective-list/career-objective-list';
 import { PncProvider } from './../../providers/pnc/pnc';
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, Events } from 'ionic-angular';
 import { Pnc } from '../../models/pnc';
 import { Assignment } from '../../models/assignment';
 
@@ -26,29 +26,39 @@ export class PncHomePage {
     private pncProvider: PncProvider,
     public genderProvider: GenderProvider,
     private toastProvider: ToastProvider,
-    private securityProvider: SecurityProvider) {
+    private securityProvider: SecurityProvider,
+    private sessionService: SessionService,
+    private events: Events) {
 
     this.pnc = new Pnc();
     this.pnc.assignment = new Assignment();
   }
 
-  ionViewCanEnter() {
-    return new Promise((resolve, reject) => {
-      this.securityProvider.getAuthenticatedUser().then(authenticatedUser => {
-        this.matricule = authenticatedUser.username;
-
-        // Si on a un matricule dans les params de navigation, cela surcharge le matricule du user connecté
-        if (this.navParams.get('matricule')) {
-          this.matricule = this.navParams.get('matricule');
-        }
-
-        this.pncProvider.getPnc(this.matricule).then(foundPnc => {
-          this.pnc = foundPnc;
-
-          resolve(true);
-        });
-      });
+  ionViewDidLoad() {
+    this.events.subscribe('user:authenticated', () => {
+      this.loadPnc();
     });
+  }
+
+  ionViewDidEnter() {
+    this.loadPnc();
+  }
+
+  /**
+   * charge le détail du pnc connecté ou consulté.
+   */
+  loadPnc() {
+    if (this.sessionService.authenticatedUser !== undefined) {
+      this.matricule = this.sessionService.authenticatedUser.username;
+    }
+    // Si on a un matricule dans les params de navigation, cela surcharge le matricule du user connecté
+    if (this.navParams.get('matricule')) {
+      this.matricule = this.navParams.get('matricule');
+    }
+
+    this.pncProvider.getPnc(this.matricule).then(foundPnc => {
+      this.pnc = foundPnc;
+    }, error => { });
   }
 
   /**

@@ -87,17 +87,11 @@ export class CareerObjectiveCreatePage {
       this.careerObjectiveProvider.getCareerObjective(this.navParams.get('careerObjectiveId')).then(
         foundCareerObjective => {
           this.careerObjective = foundCareerObjective;
-        },
-        error => {
-          this.toastProvider.error(error.detailMessage);
-        }
-      );
+        }, error => { });
 
       this.waypointProvider.getCareerObjectiveWaypoints(this.navParams.get('careerObjectiveId')).then(result => {
         this.waypointList = result;
-      }, error => {
-        this.toastProvider.error(error.detailMessage);
-      });
+      }, error => { });
     }
   }
 
@@ -136,7 +130,7 @@ export class CareerObjectiveCreatePage {
         }
         this.loading.dismiss();
       }, error => {
-        this.toastProvider.error(error.detailMessage);
+
         this.loading.dismiss();
       });
   }
@@ -228,7 +222,6 @@ export class CareerObjectiveCreatePage {
           this.loading.dismiss();
         },
         error => {
-          this.toastProvider.error(error.detailMessage);
           this.loading.dismiss();
         });
   }
