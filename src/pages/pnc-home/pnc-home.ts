@@ -56,9 +56,11 @@ export class PncHomePage {
       this.matricule = this.navParams.get('matricule');
     }
 
-    this.pncProvider.getPnc(this.matricule).then(foundPnc => {
-      this.pnc = foundPnc;
-    }, error => { });
+    if (this.matricule !== undefined) {
+      this.pncProvider.getPnc(this.matricule).then(foundPnc => {
+        this.pnc = foundPnc;
+      }, error => { });
+    }
   }
 
   /**
