@@ -82,7 +82,9 @@ export class CareerObjectiveCreatePage {
         handler: () => this.careerObjective.encounterDate = ''
       }]
     };
+
   }
+
 
   ionViewDidLoad() {
     // On récupère le matricule du pnc de la route
@@ -97,17 +99,11 @@ export class CareerObjectiveCreatePage {
       this.careerObjectiveProvider.getCareerObjective(this.navParams.get('careerObjectiveId')).then(
         foundCareerObjective => {
           this.careerObjective = foundCareerObjective;
-        },
-        error => {
-          this.toastProvider.error(error.detailMessage);
-        }
-      );
+        }, error => { });
 
       this.waypointProvider.getCareerObjectiveWaypoints(this.navParams.get('careerObjectiveId')).then(result => {
         this.waypointList = result;
-      }, error => {
-        this.toastProvider.error(error.detailMessage);
-      });
+      }, error => { });
     }
   }
 
@@ -115,7 +111,6 @@ export class CareerObjectiveCreatePage {
    * Lance le processus de création/mise à jour d'un objectif
    */
   saveCareerObjective() {
-
     if (this.careerObjective.encounterDate != null) {
       this.careerObjective.encounterDate = this.datePipe.transform(this.careerObjective.encounterDate, 'yyyy-MM-ddTHH:mm');
     }
@@ -151,7 +146,7 @@ export class CareerObjectiveCreatePage {
         }
         this.loading.dismiss();
       }, error => {
-        this.toastProvider.error(error.detailMessage);
+
         this.loading.dismiss();
       });
   }
@@ -170,12 +165,10 @@ export class CareerObjectiveCreatePage {
   saveCareerObjectiveToRegisteredStatus() {
     this.careerObjective.careerObjectiveStatus = CareerObjectiveStatus.REGISTERED;
     this.careerObjective.registrationDate = this.datePipe.transform(new Date(), 'yyyy-MM-ddTHH:mm');
-
     // Initialiser une valeur par defaut si la date de rencontre n'a pas été saisi
     if (this.careerObjective.encounterDate == null) {
       this.careerObjective.encounterDate = this.datePipe.transform(new Date(), 'yyyy-MM-ddTHH:mm');
     }
-
     this.saveCareerObjective();
   }
 
@@ -249,7 +242,6 @@ export class CareerObjectiveCreatePage {
           this.loading.dismiss();
         },
         error => {
-          this.toastProvider.error(error.detailMessage);
           this.loading.dismiss();
         });
   }
