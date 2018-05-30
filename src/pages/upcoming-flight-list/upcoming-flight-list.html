@@ -10,7 +10,7 @@
     <h3>{{ 'UPCOMING_FLIGHT_LIST.TITLE' | translate }}</h3>
 
     <div class="rotation-list" margin-top>
-        <rotation-card [rotation]="lastPerformedRotation" *ngIf="lastPerformedRotation" class="last-performed-rotation"></rotation-card>
-        <rotation-card *ngFor=" let rotation of upcomingRotations " [rotation]="rotation "></rotation-card>
+        <rotation-card [rotation]="lastPerformedRotation" *ngIf="lastPerformedRotation"></rotation-card>
+        <rotation-card *ngFor=" let rotation of upcomingRotations " [rotation]="rotation " class="upcoming-rotations"></rotation-card>
     </div>
 </ion-content>
