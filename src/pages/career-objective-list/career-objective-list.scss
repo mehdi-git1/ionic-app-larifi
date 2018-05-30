@@ -45,11 +45,14 @@ page-career-objective-list {
                     align-items: center;
 
                     ion-badge {
-                        min-width: auto;
+                        width: 100px;
                     }
 
-                    ion-icon {
-                        font-size: 2em;
+                    .icon-container {
+                        width: 35px;
+                        ion-icon {
+                            font-size: 2em;
+                        }
                     }
                 }
             }
