@@ -12,10 +12,10 @@
         <label>{{ 'CAREER_OBJECTIVE_LIST.BUTTONS.ADD_CAREER_OBJECTIVE' | translate }}</label>
     </button>
 
-    <div *ngIf="loading" class="spinner-container">
+    <div *ngIf="!careerObjectiveList" class="spinner-container">
         <ion-spinner></ion-spinner>
     </div>
-    <div *ngIf="!loading && careerObjectiveList" class="career-objective-list-container">
+    <div *ngIf="careerObjectiveList" class="career-objective-list-container">
         <div class="no-objectives" *ngIf="careerObjectiveList.length == 0">{{ 'CAREER_OBJECTIVE_LIST.NO_OBJECTIVES' | translate }}</div>
         <ion-content *ngIf="careerObjectiveList.length > 0" class="career-objective-list">
             <ion-card class="career-objective-card clickable" *ngFor="let careerObjective of careerObjectiveList" (click)="openCareerObjective(careerObjective.techId)">

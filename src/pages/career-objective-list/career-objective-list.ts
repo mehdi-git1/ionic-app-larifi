@@ -16,7 +16,6 @@ export class CareerObjectiveListPage {
   careerObjectiveList: CareerObjective[];
 
   matricule: string;
-  loading: boolean;
 
   // Expose l'enum au template
   PncRole = PncRole;
@@ -33,13 +32,9 @@ export class CareerObjectiveListPage {
   }
 
   ionViewDidEnter() {
-    this.loading = true;
     this.careerObjectiveProvider.getCareerObjectiveList(this.matricule).then(result => {
       this.careerObjectiveList = result;
-      this.loading = false;
-    }, error => {
-      this.loading = false;
-    });
+    }, error => { });
   }
 
   /**
