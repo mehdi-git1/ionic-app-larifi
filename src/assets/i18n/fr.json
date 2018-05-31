@@ -15,6 +15,10 @@
             "VALIDATED": "VALIDÉ",
             "ABANDONED": "ABANDONNÉ"
         },
+        "WAYPOINT_STATUS": {
+            "DRAFT": "BROUILLON",
+            "REGISTERED": "EN COURS"
+        },
         "DEVELOPMENT_PROGRAM": "Parcours de développement",
         "PNC_SUMMARY_SHEET": "Fiche synthèse PNC",
         "HELP_CENTRE": "Ressources d'aide",

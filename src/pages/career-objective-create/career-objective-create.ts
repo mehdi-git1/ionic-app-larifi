@@ -1,3 +1,4 @@
+import { WaypointStatus } from './../../models/waypointStatus';
 import { SecurityProvider } from './../../providers/security/security';
 import { WaypointProvider } from './../../providers/waypoint/waypoint';
 import { Speciality } from './../../models/speciality';
@@ -34,6 +35,7 @@ export class CareerObjectiveCreatePage {
 
   // Permet d'exposer l'enum au template
   CareerObjectiveStatus = CareerObjectiveStatus;
+  WaypointStatus = WaypointStatus;
 
   constructor(
     public navCtrl: NavController,
@@ -82,9 +84,7 @@ export class CareerObjectiveCreatePage {
         handler: () => this.careerObjective.encounterDate = ''
       }]
     };
-
   }
-
 
   ionViewDidLoad() {
     // On récupère le matricule du pnc de la route
@@ -94,14 +94,17 @@ export class CareerObjectiveCreatePage {
   }
 
   ionViewDidEnter() {
-    // Charge l'objectif si celui ci est présent dans les paramètres de navigation
+    // On récupère l'id de l'objectif dans les paramètres de navigation
     if (this.navParams.get('careerObjectiveId')) {
-      this.careerObjectiveProvider.getCareerObjective(this.navParams.get('careerObjectiveId')).then(
-        foundCareerObjective => {
-          this.careerObjective = foundCareerObjective;
-        }, error => { });
+      this.careerObjective.techId = this.navParams.get('careerObjectiveId');
+    }
 
-      this.waypointProvider.getCareerObjectiveWaypoints(this.navParams.get('careerObjectiveId')).then(result => {
+    if (this.careerObjective.techId) {
+      this.careerObjectiveProvider.getCareerObjective(this.careerObjective.techId).then(foundCareerObjective => {
+        this.careerObjective = foundCareerObjective;
+      }, error => { });
+
+      this.waypointProvider.getCareerObjectiveWaypoints(this.careerObjective.techId).then(result => {
         this.waypointList = result;
       }, error => { });
     }
@@ -181,8 +184,8 @@ export class CareerObjectiveCreatePage {
   }
 
   /**
- * Enregistre un objectif au statut abandonné
- */
+  * Enregistre un objectif au statut abandonné
+  */
   saveCareerObjectiveToAbandonedStatus() {
     this.careerObjective.careerObjectiveStatus = CareerObjectiveStatus.ABANDONED;
     this.saveCareerObjective();
@@ -207,8 +210,8 @@ export class CareerObjectiveCreatePage {
   }
 
   /**
- * Présente une alerte pour confirmer la suppression du brouillon
- */
+  * Présente une alerte pour confirmer la suppression du brouillon
+  */
   confirmDeleteCareerObjectiveDraft() {
     this.alertCtrl.create({
       title: this.translateService.instant('CAREER_OBJECTIVE_CREATE.CONFIRM_DRAFT_DELETE.TITLE'),

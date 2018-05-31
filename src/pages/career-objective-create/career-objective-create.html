@@ -74,8 +74,9 @@
                         <button (click)="goToWaypointCreate()" class="add-waypoint clickable" *ngIf="careerObjective.careerObjectiveStatus === CareerObjectiveStatus.REGISTERED">
                             <ion-icon name="add"></ion-icon>
                         </button>
-                        <ion-card class="clickable" *ngFor="let waypoint of waypointList" (click)="openWaypoint(waypoint.techId)">
+                        <ion-card class="waypoint clickable" *ngFor="let waypoint of waypointList" (click)="openWaypoint(waypoint.techId)">
                             <ion-card-content>
+                                <ion-icon name="create" *ngIf="waypoint.waypointStatus === WaypointStatus.DRAFT" float-right></ion-icon>
                                 <span class="value">{{ waypoint.creationDate | date: 'dd/MM/yyyy'}}</span>
                                 <h4>{{ waypoint.context }}</h4>
                             </ion-card-content>
@@ -98,7 +99,6 @@
                             <ion-radio value="PNC"></ion-radio>
                         </ion-item>
                     </ion-list>
-
                     <!-- Date de rencontre -->
                     <ion-label stacked>{{ 'CAREER_OBJECTIVE_CREATE.FORM.ENCOUNTER_DATE' | translate }}</ion-label>
                     <ion-item>
@@ -107,7 +107,6 @@
                         </ion-label>
                         <ion-datetime displayFormat="DD/MM/YYYY" [(ngModel)]="careerObjective.encounterDate" formControlName="encounterDateControl" [pickerOptions]="encounterDateTimeOptions" [doneText]="translateService.instant('GLOBAL.DATEPICKER.DONE')" [cancelText]="translateService.instant('GLOBAL.DATEPICKER.CANCEL')"></ion-datetime>
                     </ion-item>
-
                 </ion-col>
                 <ion-col col-6>
                     <!-- Prochaine rencontre -->
