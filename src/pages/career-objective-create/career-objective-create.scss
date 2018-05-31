@@ -35,15 +35,21 @@ page-career-objective-create {
             }
         }
 
-        h4 {
-            text-overflow: ellipsis;
-            white-space: nowrap;
-            overflow: hidden;
-        }
+        .waypoint {
 
-        .value {
-            display: block;
-        }
+            ion-icon {
+                color: color($colors, grey50);
+            }
 
+            h4 {
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                overflow: hidden;
+            }
+
+            .value {
+                display: block;
+            }
+        }
     }
 }

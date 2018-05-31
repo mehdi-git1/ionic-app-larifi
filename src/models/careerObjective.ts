@@ -19,6 +19,7 @@ export class CareerObjective {
     managerComment: string;
     pncComment: string;
     nextEncounterDate: string;
+    encounterDate: string;
     prioritized: boolean;
     waypointList: Waypoint[];
 }

@@ -10,6 +10,14 @@
 <ion-content padding>
     <form novalidate [formGroup]="creationForm">
         <ion-grid>
+            <!-- Barre de statut -->
+            <ion-row>
+                <ion-col col-12>
+                    <ion-badge class="{{waypoint.waypointStatus.toLowerCase()}}" *ngIf="waypoint.waypointStatus" float-right>
+                        {{ 'GLOBAL.WAYPOINT_STATUS.'+waypoint.waypointStatus | translate }}
+                    </ion-badge>
+                </ion-col>
+            </ion-row>
             <ion-row>
                 <ion-col col-12>
                     <!-- Contexte -->
@@ -45,8 +53,8 @@
                 </ion-col>
             </ion-row>
             <ion-row>
-                <!-- Date de rencontre -->
                 <ion-col col-6>
+                    <!-- Date de rencontre -->
                     <ion-label stacked>{{ 'WAYPOINT_CREATE.FORM.ENCOUNTER_DATE' | translate }}</ion-label>
                     <ion-item>
                         <ion-label>
