@@ -1,3 +1,4 @@
+import { WaypointStatus } from './../../models/waypointStatus';
 import { SecurityProvider } from './../../providers/security/security';
 import { WaypointProvider } from './../../providers/waypoint/waypoint';
 import { Speciality } from './../../models/speciality';
@@ -33,6 +34,7 @@ export class CareerObjectiveCreatePage {
 
   // Permet d'exposer l'enum au template
   CareerObjectiveStatus = CareerObjectiveStatus;
+  WaypointStatus = WaypointStatus;
 
   constructor(
     public navCtrl: NavController,
