@@ -23,6 +23,8 @@ export class WaypointCreatePage {
   waypoint: Waypoint;
   loading: Loading;
 
+  customDateTimeOptions: any;
+
   // Permet d'exposer l'enum au template
   WaypointStatus = WaypointStatus;
 
@@ -48,6 +50,7 @@ export class WaypointCreatePage {
       actionPerformedControl: ['', Validators.compose([Validators.maxLength(5000), Validators.required])],
       managerCommentControl: ['', Validators.maxLength(4000)],
       pncCommentControl: ['', Validators.maxLength(4000)],
+      EncounterDateControl: [''],
     });
 
     if (this.navParams.get('waypointId')) {
@@ -55,6 +58,14 @@ export class WaypointCreatePage {
         this.waypoint = result;
       }, error => { });
     }
+
+    // Options du datepicker
+    this.customDateTimeOptions = {
+      buttons: [{
+        text: this.translateService.instant('GLOBAL.DATEPICKER.CLEAR'),
+        handler: () => this.waypoint.encounterDate = ''
+      }]
+    };
 
   }
 
@@ -70,6 +81,10 @@ export class WaypointCreatePage {
    * Lance le processus de création/mise à jour d'un point d'étape
    */
   saveWaypoint() {
+
+    if (this.waypoint.encounterDate != null) {
+      this.waypoint.encounterDate = this.datePipe.transform(this.waypoint.encounterDate, 'yyyy-MM-ddTHH:mm');
+    }
     this.loading = this.loadingCtrl.create();
     this.loading.present();
 
@@ -135,6 +150,10 @@ export class WaypointCreatePage {
    * Enregistre un point d'étape au statut enregistré
    */
   saveWaypointToRegisteredStatus() {
+    // Transformation de la date au format ISO avant envoi au back
+    if (this.waypoint.encounterDate == null) {
+      this.waypoint.encounterDate = this.datePipe.transform(new Date(), 'yyyy-MM-ddTHH:mm');
+    }
     this.waypoint.waypointStatus = WaypointStatus.REGISTERED;
     this.saveWaypoint();
   }
