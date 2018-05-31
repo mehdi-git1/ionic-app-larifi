@@ -106,12 +106,16 @@ export class CareerObjectiveCreatePage {
       if (this.careerObjective.techId) {
         this.careerObjectiveProvider.getCareerObjective(this.careerObjective.techId).then(foundCareerObjective => {
           this.careerObjective = foundCareerObjective;
-        }, error => { });
+        }, error => {
+          reject();
+        });
 
         this.waypointProvider.getCareerObjectiveWaypoints(this.careerObjective.techId).then(result => {
           this.waypointList = result;
           resolve();
-        }, error => { });
+        }, error => {
+          reject();
+        });
       }
     });
   }

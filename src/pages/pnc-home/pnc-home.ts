@@ -39,6 +39,8 @@ export class PncHomePage {
       if (this.sessionService.authenticatedUser) {
         this.loadPnc().then(success => {
           resolve();
+        }, error => {
+          reject();
         });
 
       } else {
@@ -46,6 +48,8 @@ export class PncHomePage {
           this.matricule = this.sessionService.authenticatedUser.username;
           this.loadPnc().then(success => {
             resolve();
+          }, error => {
+            reject();
           });
         });
       }
@@ -66,7 +70,9 @@ export class PncHomePage {
         this.pncProvider.getPnc(this.matricule).then(foundPnc => {
           this.pnc = foundPnc;
           resolve();
-        }, error => { });
+        }, error => {
+          reject();
+        });
       }
     });
   }

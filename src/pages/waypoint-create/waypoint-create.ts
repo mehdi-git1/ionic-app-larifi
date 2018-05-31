@@ -70,7 +70,9 @@ export class WaypointCreatePage {
         this.waypointProvider.getWaypoint(this.navParams.get('waypointId')).then(result => {
           this.waypoint = result;
           resolve();
-        }, error => { });
+        }, error => {
+          reject();
+        });
       }
     });
   }
