@@ -47,7 +47,7 @@ export class WaypointCreatePage {
     // Initialisation du formulaire
     this.creationForm = this.formBuilder.group({
       contextControl: ['', Validators.compose([Validators.maxLength(4000), Validators.required])],
-      actionPerformedControl: ['', Validators.compose([Validators.maxLength(5000), Validators.required])],
+      actionPerformedControl: ['', Validators.maxLength(5000)],
       managerCommentControl: ['', Validators.maxLength(4000)],
       pncCommentControl: ['', Validators.maxLength(4000)],
       EncounterDateControl: [''],
