@@ -10,6 +10,14 @@
 <ion-content padding>
     <form novalidate [formGroup]="creationForm">
         <ion-grid>
+            <!-- Barre de statut -->
+            <ion-row>
+                <ion-col col-12>
+                    <ion-badge class="{{waypoint.waypointStatus.toLowerCase()}}" *ngIf="waypoint.waypointStatus" float-right>
+                        {{ 'GLOBAL.WAYPOINT_STATUS.'+waypoint.waypointStatus | translate }}
+                    </ion-badge>
+                </ion-col>
+            </ion-row>
             <ion-row>
                 <ion-col col-12>
                     <!-- Contexte -->
@@ -23,7 +31,7 @@
                 <ion-col col-12>
                     <!-- Action réalisée -->
                     <ion-item>
-                        <ion-label floating class="required">{{ 'WAYPOINT_CREATE.FORM.ACTION_PERFORMED' | translate }}</ion-label>
+                        <ion-label floating>{{ 'WAYPOINT_CREATE.FORM.ACTION_PERFORMED' | translate }}</ion-label>
                         <ion-textarea [(ngModel)]="waypoint.actionPerformed" formControlName="actionPerformedControl" name="actionPerformed"></ion-textarea>
                     </ion-item>
                 </ion-col>
@@ -41,6 +49,18 @@
                     <ion-item>
                         <ion-label floating>{{ 'WAYPOINT_CREATE.FORM.PNC_COMMENT' | translate }}</ion-label>
                         <ion-textarea [(ngModel)]="waypoint.pncComment" formControlName="pncCommentControl" name="pncComment"></ion-textarea>
+                    </ion-item>
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col col-6>
+                    <!-- Date de rencontre -->
+                    <ion-label stacked>{{ 'WAYPOINT_CREATE.FORM.ENCOUNTER_DATE' | translate }}</ion-label>
+                    <ion-item>
+                        <ion-label>
+                            <ion-icon name="calendar"></ion-icon>
+                        </ion-label>
+                        <ion-datetime displayFormat="DD/MM/YYYY" [(ngModel)]="waypoint.encounterDate" formControlName="EncounterDateControl" [pickerOptions]="customDateTimeOptions" [doneText]="translateService.instant('GLOBAL.DATEPICKER.DONE')" [cancelText]="translateService.instant('GLOBAL.DATEPICKER.CANCEL')"></ion-datetime>
                     </ion-item>
                 </ion-col>
             </ion-row>

@@ -1,3 +1,4 @@
+import { WaypointStatus } from './../../models/waypointStatus';
 import { SecurityProvider } from './../../providers/security/security';
 import { WaypointProvider } from './../../providers/waypoint/waypoint';
 import { Speciality } from './../../models/speciality';
@@ -24,7 +25,8 @@ export class CareerObjectiveCreatePage {
   creationForm: FormGroup;
   careerObjective: CareerObjective;
   waypointList: Waypoint[];
-  customDateTimeOptions: any;
+  nextEncounterDateTimeOptions: any;
+  encounterDateTimeOptions: any;
 
   loading: Loading;
 
@@ -33,6 +35,7 @@ export class CareerObjectiveCreatePage {
 
   // Permet d'exposer l'enum au template
   CareerObjectiveStatus = CareerObjectiveStatus;
+  WaypointStatus = WaypointStatus;
 
   constructor(
     public navCtrl: NavController,
@@ -60,16 +63,25 @@ export class CareerObjectiveCreatePage {
       actionPlanControl: ['', Validators.maxLength(5000)],
       managerCommentControl: ['', Validators.maxLength(4000)],
       pncCommentControl: ['', Validators.maxLength(4000)],
+      encounterDateControl: [''],
       nextEncounterDateControl: [''],
       prioritizedControl: [false],
       waypointContextControl: ['', Validators.maxLength(4000)],
     });
 
     // Options du datepicker
-    this.customDateTimeOptions = {
+    this.nextEncounterDateTimeOptions = {
       buttons: [{
         text: this.translateService.instant('GLOBAL.DATEPICKER.CLEAR'),
-        handler: () => this.careerObjective.nextEncounterDate
+        handler: () => this.careerObjective.nextEncounterDate = ''
+      }]
+    };
+
+    // Options du datepicker "Date de rencontre"
+    this.encounterDateTimeOptions = {
+      buttons: [{
+        text: this.translateService.instant('GLOBAL.DATEPICKER.CLEAR'),
+        handler: () => this.careerObjective.encounterDate = ''
       }]
     };
   }
@@ -82,14 +94,17 @@ export class CareerObjectiveCreatePage {
   }
 
   ionViewDidEnter() {
-    // Charge l'objectif si celui ci est présent dans les paramètres de navigation
+    // On récupère l'id de l'objectif dans les paramètres de navigation
     if (this.navParams.get('careerObjectiveId')) {
-      this.careerObjectiveProvider.getCareerObjective(this.navParams.get('careerObjectiveId')).then(
-        foundCareerObjective => {
-          this.careerObjective = foundCareerObjective;
-        }, error => { });
+      this.careerObjective.techId = this.navParams.get('careerObjectiveId');
+    }
 
-      this.waypointProvider.getCareerObjectiveWaypoints(this.navParams.get('careerObjectiveId')).then(result => {
+    if (this.careerObjective.techId) {
+      this.careerObjectiveProvider.getCareerObjective(this.careerObjective.techId).then(foundCareerObjective => {
+        this.careerObjective = foundCareerObjective;
+      }, error => { });
+
+      this.waypointProvider.getCareerObjectiveWaypoints(this.careerObjective.techId).then(result => {
         this.waypointList = result;
       }, error => { });
     }
@@ -99,6 +114,10 @@ export class CareerObjectiveCreatePage {
    * Lance le processus de création/mise à jour d'un objectif
    */
   saveCareerObjective() {
+    if (this.careerObjective.encounterDate != null) {
+      this.careerObjective.encounterDate = this.datePipe.transform(this.careerObjective.encounterDate, 'yyyy-MM-ddTHH:mm');
+    }
+
     // Transformation de la date au format ISO avant envoi au back
     this.careerObjective.nextEncounterDate = this.datePipe.transform(this.careerObjective.nextEncounterDate, 'yyyy-MM-ddTHH:mm');
 
@@ -149,6 +168,10 @@ export class CareerObjectiveCreatePage {
   saveCareerObjectiveToRegisteredStatus() {
     this.careerObjective.careerObjectiveStatus = CareerObjectiveStatus.REGISTERED;
     this.careerObjective.registrationDate = this.datePipe.transform(new Date(), 'yyyy-MM-ddTHH:mm');
+    // Initialiser une valeur par defaut si la date de rencontre n'a pas été saisi
+    if (this.careerObjective.encounterDate == null) {
+      this.careerObjective.encounterDate = this.datePipe.transform(new Date(), 'yyyy-MM-ddTHH:mm');
+    }
     this.saveCareerObjective();
   }
 
@@ -161,8 +184,8 @@ export class CareerObjectiveCreatePage {
   }
 
   /**
- * Enregistre un objectif au statut abandonné
- */
+  * Enregistre un objectif au statut abandonné
+  */
   saveCareerObjectiveToAbandonedStatus() {
     this.careerObjective.careerObjectiveStatus = CareerObjectiveStatus.ABANDONED;
     this.saveCareerObjective();
@@ -187,8 +210,8 @@ export class CareerObjectiveCreatePage {
   }
 
   /**
- * Présente une alerte pour confirmer la suppression du brouillon
- */
+  * Présente une alerte pour confirmer la suppression du brouillon
+  */
   confirmDeleteCareerObjectiveDraft() {
     this.alertCtrl.create({
       title: this.translateService.instant('CAREER_OBJECTIVE_CREATE.CONFIRM_DRAFT_DELETE.TITLE'),
