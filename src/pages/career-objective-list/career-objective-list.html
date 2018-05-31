@@ -12,43 +12,49 @@
         <label>{{ 'CAREER_OBJECTIVE_LIST.BUTTONS.ADD_CAREER_OBJECTIVE' | translate }}</label>
     </button>
 
-    <ion-content class="career-objective-list-container">
-        <ion-card class="career-objective-card clickable" *ngFor="let careerObjective of careerObjectiveList" (click)="openCareerObjective(careerObjective.techId)">
-            <ion-card-content no-padding>
-                <header>
-                    <h4>{{careerObjective.title}}</h4>
-                    <div class="status-area" float-right>
-                        <!-- Prioritaire -->
-                        <div class="icon-container">
-                            <ion-icon *ngIf="careerObjective.prioritized" name="flag" color="red80"></ion-icon>
+    <div *ngIf="loading" class="spinner-container">
+        <ion-spinner></ion-spinner>
+    </div>
+    <div *ngIf="!loading && careerObjectiveList" class="career-objective-list-container">
+        <div class="no-objectives" *ngIf="careerObjectiveList.length == 0">{{ 'CAREER_OBJECTIVE_LIST.NO_OBJECTIVES' | translate }}</div>
+        <ion-content *ngIf="careerObjectiveList.length > 0" class="career-objective-list">
+            <ion-card class="career-objective-card clickable" *ngFor="let careerObjective of careerObjectiveList" (click)="openCareerObjective(careerObjective.techId)">
+                <ion-card-content no-padding>
+                    <header>
+                        <h4>{{careerObjective.title}}</h4>
+                        <div class="status-area" float-right>
+                            <!-- Prioritaire -->
+                            <div class="icon-container">
+                                <ion-icon *ngIf="careerObjective.prioritized" name="flag" color="red80"></ion-icon>
+                            </div>
+                            <!-- Initiateur -->
+                            <div class="icon-container">
+                                <ion-icon name="bulb" *ngIf="careerObjective.initiator === PncRole.PNC"></ion-icon>
+                            </div>
+                            <!-- Statut -->
+                            <ion-badge class="{{careerObjective.careerObjectiveStatus.toLowerCase()}}" *ngIf="careerObjective.careerObjectiveStatus">
+                                {{ 'GLOBAL.CAREER_OBJECTIVE_STATUS.'+careerObjective.careerObjectiveStatus | translate }}
+                            </ion-badge>
                         </div>
-                        <!-- Initiateur -->
-                        <div class="icon-container">
-                            <ion-icon name="bulb" *ngIf="careerObjective.initiator === PncRole.PNC"></ion-icon>
-                        </div>
-                        <!-- Statut -->
-                        <ion-badge class="{{careerObjective.careerObjectiveStatus.toLowerCase()}}" *ngIf="careerObjective.careerObjectiveStatus">
-                            {{ 'GLOBAL.CAREER_OBJECTIVE_STATUS.'+careerObjective.careerObjectiveStatus | translate }}
-                        </ion-badge>
-                    </div>
-                </header>
-                <ion-grid class="content">
-                    <ion-row>
-                        <ion-col>
-                            <label>{{ 'CAREER_OBJECTIVE_LIST.LIST.CREATION_DATE' | translate }}</label>
-                            <span class="value" [ngClass]="{'no-value' : !careerObjective.creationDate }">{{ careerObjective.creationDate | date: 'dd/MM/yyyy HH:mm'}}</span>
-                        </ion-col>
-                        <ion-col>
-                            <label>{{ 'CAREER_OBJECTIVE_LIST.LIST.REGISTRATION_DATE' | translate }}</label>
-                            <span class="value" [ngClass]="{'no-value' : !careerObjective.registrationDate }">{{careerObjective.registrationDate | date: 'dd/MM/yyyy HH:mm'}}</span>
-                        </ion-col>
-                        <ion-col>
-                            <label>{{ 'CAREER_OBJECTIVE_LIST.LIST.NEXT_ENCOUNTER_DATE' | translate }}</label>
-                            <span class="value" [ngClass]="{'no-value' : !careerObjective.nextEncounterDate }">{{careerObjective.nextEncounterDate | date: 'dd/MM/yyyy'}}</span>
-                        </ion-col>
-                    </ion-row>
-                </ion-grid>
-            </ion-card-content>
-        </ion-card>
-    </ion-content>
+                    </header>
+                    <ion-grid class="content">
+                        <ion-row>
+                            <ion-col>
+                                <label>{{ 'CAREER_OBJECTIVE_LIST.LIST.CREATION_DATE' | translate }}</label>
+                                <span class="value" [ngClass]="{'no-value' : !careerObjective.creationDate }">{{ careerObjective.creationDate | date: 'dd/MM/yyyy HH:mm'}}</span>
+                            </ion-col>
+                            <ion-col>
+                                <label>{{ 'CAREER_OBJECTIVE_LIST.LIST.REGISTRATION_DATE' | translate }}</label>
+                                <span class="value" [ngClass]="{'no-value' : !careerObjective.registrationDate }">{{careerObjective.registrationDate | date: 'dd/MM/yyyy HH:mm'}}</span>
+                            </ion-col>
+                            <ion-col>
+                                <label>{{ 'CAREER_OBJECTIVE_LIST.LIST.NEXT_ENCOUNTER_DATE' | translate }}</label>
+                                <span class="value" [ngClass]="{'no-value' : !careerObjective.nextEncounterDate }">{{careerObjective.nextEncounterDate | date: 'dd/MM/yyyy'}}</span>
+                            </ion-col>
+                        </ion-row>
+                    </ion-grid>
+                </ion-card-content>
+            </ion-card>
+        </ion-content>
+    </div>
 </ion-content>
