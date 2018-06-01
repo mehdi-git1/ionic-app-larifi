@@ -127,5 +127,8 @@
             "P_Z_CODE": "Code P ou Z",
             "LAST_ENCOUNTER_DATE": "Dernière rencontre  Vol"
         }
+    },
+    "UPCOMING_FLIGHT_LIST": {
+        "TITLE": "Liste de vos prochains vols rencontre"
     }
 }

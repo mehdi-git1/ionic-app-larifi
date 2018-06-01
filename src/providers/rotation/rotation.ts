@@ -1,0 +1,25 @@
+import { Rotation } from './../../models/rotation';
+import { AppConfig } from './../../app/app.config';
+import { Leg } from './../../models/leg';
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { RestService } from '../../services/rest.base.service';
+
+@Injectable()
+export class RotationProvider {
+
+  private rotationUrl: string;
+
+  constructor(public restService: RestService) {
+    this.rotationUrl = `${AppConfig.apiUrl}/rotations`;
+  }
+
+  /**
+  * Récupère les tronçons d'une rotation
+  * @param rotation la rotation dont on souhaite récupérer les tronçons
+  * @return la liste des tronçons de la rotation
+  */
+  getRotationLegs(rotation: Rotation): Promise<Leg[]> {
+    return this.restService.get(`${this.rotationUrl}/${rotation.techId}/legs`);
+  }
+}

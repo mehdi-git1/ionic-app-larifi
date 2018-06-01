@@ -17,16 +17,14 @@
                         </ion-col>
                         <ion-col col-10 class="content">
                             <ion-row class="primary-info">
-                                <!-- Prénom -->
-                                <ion-col class="pnc-info">
-                                    <span class="value">{{ pnc.firstName }}</span>
-                                </ion-col>
-                                <!-- Nom -->
-                                <ion-col class="pnc-info">
-                                    <span class="value">{{ pnc.lastName }}</span>
+                                <ion-col class="">
+                                    <!-- Prénom -->
+                                    <span class="value primary-value">{{ pnc.firstName }}</span>
+                                    <!-- Nom -->
+                                    <span class="value primary-value">{{ pnc.lastName }}</span>
                                 </ion-col>
                             </ion-row>
-                            <ion-row>
+                            <ion-row class="secondary-info">
                                 <!-- Relais-->
                                 <ion-col class="pnc-info">
                                     <label>{{ 'FLIGHT_CREW_LIST.LIST.RELAYS' | translate }}</label>
