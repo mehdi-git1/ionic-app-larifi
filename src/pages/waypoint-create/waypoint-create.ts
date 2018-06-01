@@ -73,6 +73,8 @@ export class WaypointCreatePage {
         }, error => {
           reject();
         });
+      } else {
+        resolve();
       }
     });
   }
