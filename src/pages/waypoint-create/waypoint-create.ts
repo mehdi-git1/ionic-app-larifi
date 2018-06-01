@@ -86,7 +86,6 @@ export class WaypointCreatePage {
     let actionPerformedControl = new FormControl(['', Validators.maxLength(5000)]);
     if (this.isActionPerformedRequired()) {
       actionPerformedControl = new FormControl(['', Validators.compose([Validators.maxLength(5000), Validators.required])]);
-      console.log("toto");
     }
 
     this.creationForm = this.formBuilder.group({
