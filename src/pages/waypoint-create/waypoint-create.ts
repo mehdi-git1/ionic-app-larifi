@@ -53,11 +53,6 @@ export class WaypointCreatePage {
       EncounterDateControl: [''],
     });
 
-    if (this.navParams.get('waypointId')) {
-      this.waypointProvider.getWaypoint(this.navParams.get('waypointId')).then(result => {
-        this.waypoint = result;
-      }, error => { });
-    }
 
     // Options du datepicker
     this.customDateTimeOptions = {
@@ -67,6 +62,21 @@ export class WaypointCreatePage {
       }]
     };
 
+  }
+
+  ionViewCanEnter() {
+    return new Promise((resolve, reject) => {
+      if (this.navParams.get('waypointId')) {
+        this.waypointProvider.getWaypoint(this.navParams.get('waypointId')).then(result => {
+          this.waypoint = result;
+          resolve();
+        }, error => {
+          reject();
+        });
+      } else {
+        resolve();
+      }
+    });
   }
 
   /**

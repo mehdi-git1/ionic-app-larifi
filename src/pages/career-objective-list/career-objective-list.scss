@@ -21,53 +21,73 @@ page-career-objective-list {
         }
     }
 
+    .no-objectives {
+        text-align: center;
+        font-size: 1.5em;
+        margin-top: 100px;
+        color: color($colors, grey50);
+    }
 
-    .career-objective-list-container {
-        height: 80%;
-        margin: 0;
-        padding: 0;
+    .spinner-container {
+        margin-top: 100px;
+        display: flex;
+        justify-content: center;
 
-        .career-objective-card {
-            padding: 10px;
-
-            header {
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-
-                h4 {
-                    padding-right: 10px;
-                    font-size: 1.3em;
-                    font-weight: bold;
-                    text-overflow: ellipsis;
-                    white-space: nowrap;
-                    overflow: hidden;
-                }
-
-                .status-area {
-                    display: flex;
-                    align-items: center;
-
-                    .icon-container {
-                        width: 35px;
-                        ion-icon {
-                            font-size: 2em;
-                        }
-                    }
-                }
-            }
-
-            .content {
-                ion-row {
-                    ion-col {
-                        display: flex;
-                        flex-direction: column;
-                        align-items: center;
-                    }
-                }
-
-            }
+        ion-spinner * {
+            width: 80px;
+            height: 80px !important;
         }
     }
 
+    .career-objective-list-container {
+        height: 80%;
+
+
+        .career-objective-list {
+            margin: 0;
+            padding: 0;
+
+            .career-objective-card {
+                padding: 10px;
+
+                header {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+
+                    h4 {
+                        padding-right: 10px;
+                        font-size: 1.3em;
+                        font-weight: bold;
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
+                        overflow: hidden;
+                    }
+
+                    .status-area {
+                        display: flex;
+                        align-items: center;
+
+                        .icon-container {
+                            width: 35px;
+                            ion-icon {
+                                font-size: 2em;
+                            }
+                        }
+                    }
+                }
+
+                .content {
+                    ion-row {
+                        ion-col {
+                            display: flex;
+                            flex-direction: column;
+                            align-items: center;
+                        }
+                    }
+
+                }
+            }
+        }
+    }
 }

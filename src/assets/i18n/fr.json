@@ -73,6 +73,7 @@
     },
     "CAREER_OBJECTIVE_LIST": {
         "TITLE": "Liste des objectifs",
+        "NO_OBJECTIVES": "Aucun objectif créé pour le moment",
         "LIST": {
             "CREATION_DATE": "Date de création",
             "TITLE": "Libellé",
