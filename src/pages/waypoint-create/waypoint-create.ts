@@ -187,11 +187,23 @@ export class WaypointCreatePage {
    * Enregistre un point d'étape au statut enregistré
    */
   saveWaypointToRegisteredStatus() {
-    // Transformation de la date au format ISO avant envoi au back
-    if (this.waypoint.encounterDate == null) {
-      this.waypoint.encounterDate = this.datePipe.transform(new Date(), 'yyyy-MM-ddTHH:mm');
+    if (this.actionPerformedIsValid()) {
+      // Transformation de la date au format ISO avant envoi au back
+      if (this.waypoint.encounterDate == null) {
+        this.waypoint.encounterDate = this.datePipe.transform(new Date(), 'yyyy-MM-ddTHH:mm');
+      }
+      this.waypoint.waypointStatus = WaypointStatus.REGISTERED;
+      this.saveWaypoint();
+    } else {
+      this.toastProvider.error(this.translateService.instant('WAYPOINT_CREATE.ERROR.ACTION_PERFORMED_REQUIRED'));
     }
-    this.waypoint.waypointStatus = WaypointStatus.REGISTERED;
-    this.saveWaypoint();
+  }
+
+  /**
+   * Teste si le champs "action réalisée" est valide. Le champs est considéré valide s'il est remplit.
+   * @return vrai si le champs est valide, faux sinon.
+   */
+  actionPerformedIsValid() {
+    return this.waypoint.actionPerformed && this.waypoint.actionPerformed.length > 0;
   }
 }
