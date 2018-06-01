@@ -8,7 +8,7 @@ import { Waypoint } from './../../models/waypoint';
 import { TranslateService } from '@ngx-translate/core';
 import { Component } from '@angular/core';
 import { NavController, NavParams, LoadingController, Loading, AlertController } from 'ionic-angular';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { CareerObjectiveCreatePage } from './../career-objective-create/career-objective-create';
 import { ToastProvider } from './../../providers/toast/toast';
 
@@ -44,15 +44,11 @@ export class WaypointCreatePage {
     this.waypoint = new Waypoint();
     this.careerObjectiveId = this.navParams.get('careerObjectiveId');
 
-    // Initialisation du formulaire
-    this.creationForm = this.formBuilder.group({
-      contextControl: ['', Validators.compose([Validators.maxLength(4000), Validators.required])],
-      actionPerformedControl: ['', Validators.maxLength(5000)],
-      managerCommentControl: ['', Validators.maxLength(4000)],
-      pncCommentControl: ['', Validators.maxLength(4000)],
-      EncounterDateControl: [''],
-    });
-
+    if (this.navParams.get('waypointId')) {
+      this.waypointProvider.getWaypoint(this.navParams.get('waypointId')).then(result => {
+        this.waypoint = result;
+      }, error => { });
+    }
 
     // Options du datepicker
     this.customDateTimeOptions = {
@@ -62,13 +58,17 @@ export class WaypointCreatePage {
       }]
     };
 
+
   }
 
   ionViewCanEnter() {
     return new Promise((resolve, reject) => {
+      this.initForm();
+
       if (this.navParams.get('waypointId')) {
         this.waypointProvider.getWaypoint(this.navParams.get('waypointId')).then(result => {
           this.waypoint = result;
+          this.initForm();
           resolve();
         }, error => {
           reject();
@@ -77,6 +77,34 @@ export class WaypointCreatePage {
         resolve();
       }
     });
+  }
+
+  /**
+   * Initialise le formulaire
+   */
+  initForm() {
+    let actionPerformedControl = new FormControl(['', Validators.maxLength(5000)]);
+    if (this.isActionPerformedRequired()) {
+      actionPerformedControl = new FormControl(['', Validators.compose([Validators.maxLength(5000), Validators.required])]);
+      console.log("toto");
+    }
+
+    this.creationForm = this.formBuilder.group({
+      contextControl: ['', Validators.compose([Validators.maxLength(4000), Validators.required])],
+      actionPerformedControl: actionPerformedControl,
+      managerCommentControl: ['', Validators.maxLength(4000)],
+      pncCommentControl: ['', Validators.maxLength(4000)],
+      EncounterDateControl: [''],
+    });
+  }
+
+  /**
+   * Teste si le champs "action réalisée" est obligatoire ou non.
+   * Le champs est non obligatoire quand on est au statut brouillon, mais obligatoire pour tous les autres statuts.
+   * @return true si le champs est obligatoire, false sinon.
+   */
+  isActionPerformedRequired(): boolean {
+    return this.waypoint.waypointStatus && this.waypoint.waypointStatus !== WaypointStatus.DRAFT;
   }
 
   /**
