@@ -1,4 +1,4 @@
-import { AppConfig } from './../../app/app.config';
+import { Config } from './../../configuration/environment-variables/config';
 import { CareerObjective } from './../../models/careerObjective';
 import { Injectable } from '@angular/core';
 import { RestService } from '../../services/rest.base.service';
@@ -8,8 +8,9 @@ export class CareerObjectiveProvider {
   private careerObjectiveUrl: string;
 
 
-  constructor(public restService: RestService) {
-    this.careerObjectiveUrl = `${AppConfig.apiUrl}/career_objectives`;
+  constructor(public restService: RestService,
+    private config: Config) {
+    this.careerObjectiveUrl = `${config.backEndUrl}/career_objectives`;
   }
 
   /**

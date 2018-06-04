@@ -1,5 +1,5 @@
+import { Config } from './../../configuration/environment-variables/config';
 import { HttpHeaders } from '@angular/common/http';
-import { AppConfig } from './../../app/app.config';
 import { Injectable } from '@angular/core';
 import { RestService } from '../../services/rest.base.service';
 import { Waypoint } from './../../models/waypoint';
@@ -10,8 +10,9 @@ export class WaypointProvider {
 
   private waypointUrl: string;
 
-  constructor(public restService: RestService) {
-    this.waypointUrl = `${AppConfig.apiUrl}/waypoints`;
+  constructor(public restService: RestService,
+    private config: Config) {
+    this.waypointUrl = `${config.backEndUrl}/waypoints`;
   }
 
   /**
