@@ -1,6 +1,6 @@
+import { Config } from './../../configuration/environment-variables/config';
 import { Rotation } from './../../models/rotation';
 import { Pnc } from './../../models/pnc';
-import { AppConfig } from './../../app/app.config';
 import { Injectable } from '@angular/core';
 import { RestService } from '../../services/rest.base.service';
 
@@ -8,8 +8,9 @@ import { RestService } from '../../services/rest.base.service';
 export class PncProvider {
   private pncUrl: string;
 
-  constructor(public restService: RestService) {
-    this.pncUrl = `${AppConfig.apiUrl}/pncs`;
+  constructor(public restService: RestService,
+    public config: Config) {
+    this.pncUrl = `${config.backEndUrl}/pncs`;
   }
 
   /**

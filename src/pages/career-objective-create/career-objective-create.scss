@@ -16,8 +16,7 @@ page-career-objective-create {
         margin-top: 15px;
 
         .add-waypoint {
-            background: color($colors, light-grey);
-            color: color($colors, dark);
+            background: color($colors, green60);
             width: calc(100% - 20px);
             height: 50px;
             margin: 0 10px;
@@ -29,27 +28,28 @@ page-career-objective-create {
             align-items: center;
 
             ion-icon {
+                color: color($colors, grey90);
                 font-size: 2em;
+                font-weight: bold;
                 margin-right: 10px;
             }
         }
 
-        .add-waypoint:hover {
-            background: color($colors, light-grey);
-        }
+        .waypoint {
 
-        h4 {
-            text-overflow: ellipsis;
-            white-space: nowrap;
-            overflow: hidden;
-        }
+            ion-icon {
+                color: color($colors, grey50);
+            }
 
-        .value {
-            display: block;
-        }
+            h4 {
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                overflow: hidden;
+            }
 
+            .value {
+                display: block;
+            }
+        }
     }
-
-
-
 }

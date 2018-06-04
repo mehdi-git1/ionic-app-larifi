@@ -35,31 +35,47 @@ export class PncHomePage {
     this.pnc.assignment = new Assignment();
   }
 
-  ionViewDidLoad() {
-    this.events.subscribe('user:authenticated', () => {
-      this.loadPnc();
-    });
-  }
+  ionViewCanEnter() {
+    return new Promise((resolve, reject) => {
+      if (this.sessionService.authenticatedUser) {
+        this.loadPnc().then(success => {
+          resolve();
+        }, error => {
+          reject();
+        });
 
-  ionViewDidEnter() {
-    this.loadPnc();
+      } else {
+        this.events.subscribe('user:authenticated', () => {
+          this.matricule = this.sessionService.authenticatedUser.username;
+          this.loadPnc().then(success => {
+            resolve();
+          }, error => {
+            reject();
+          });
+        });
+      }
+    });
   }
 
   /**
    * charge le détail du pnc connecté ou consulté.
    */
-  loadPnc() {
-    if (this.sessionService.authenticatedUser !== undefined) {
-      this.matricule = this.sessionService.authenticatedUser.username;
-    }
-    // Si on a un matricule dans les params de navigation, cela surcharge le matricule du user connecté
-    if (this.navParams.get('matricule')) {
-      this.matricule = this.navParams.get('matricule');
-    }
+  loadPnc(): Promise<void> {
+    return new Promise((resolve, reject) => {
+      // Si on a un matricule dans les params de navigation, cela surcharge le matricule du user connecté
+      if (this.navParams.get('matricule')) {
+        this.matricule = this.navParams.get('matricule');
+      }
 
-    this.pncProvider.getPnc(this.matricule).then(foundPnc => {
-      this.pnc = foundPnc;
-    }, error => { });
+      if (this.matricule !== undefined) {
+        this.pncProvider.getPnc(this.matricule).then(foundPnc => {
+          this.pnc = foundPnc;
+          resolve();
+        }, error => {
+          reject();
+        });
+      }
+    });
   }
 
   /**
