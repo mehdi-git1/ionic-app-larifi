@@ -28,6 +28,8 @@ export class CareerObjectiveCreatePage {
   nextEncounterDateTimeOptions: any;
   encounterDateTimeOptions: any;
 
+  encounterDateRequired: boolean;
+
   loading: Loading;
 
   cancelValidation = false;
@@ -51,6 +53,8 @@ export class CareerObjectiveCreatePage {
     public securityProvider: SecurityProvider,
     public loadingCtrl: LoadingController) {
 
+    this.encounterDateRequired = false;
+
     this.careerObjective = new CareerObjective();
     this.careerObjective.pnc = new Pnc();
 
@@ -63,7 +67,7 @@ export class CareerObjectiveCreatePage {
       actionPlanControl: ['', Validators.maxLength(5000)],
       managerCommentControl: ['', Validators.maxLength(4000)],
       pncCommentControl: ['', Validators.maxLength(4000)],
-      encounterDateControl: ['', Validators.compose([Validators.required])],
+      encounterDateControl: [''],
       nextEncounterDateControl: [''],
       prioritizedControl: [false],
       waypointContextControl: ['', Validators.maxLength(4000)],
@@ -166,13 +170,15 @@ export class CareerObjectiveCreatePage {
    * Enregistre un objectif au statut enregistré
    */
   saveCareerObjectiveToRegisteredStatus() {
-    this.careerObjective.careerObjectiveStatus = CareerObjectiveStatus.REGISTERED;
-    this.careerObjective.registrationDate = this.datePipe.transform(new Date(), 'yyyy-MM-ddTHH:mm');
-    // Initialiser une valeur par defaut si la date de rencontre n'a pas été saisi
+
     if (this.careerObjective.encounterDate == null) {
-      this.careerObjective.encounterDate = this.datePipe.transform(new Date(), 'yyyy-MM-ddTHH:mm');
+      this.encounterDateRequired = true;
+    } else {
+      this.careerObjective.careerObjectiveStatus = CareerObjectiveStatus.REGISTERED;
+      this.careerObjective.registrationDate = this.datePipe.transform(new Date(), 'yyyy-MM-ddTHH:mm');
+
+      this.saveCareerObjective();
     }
-    this.saveCareerObjective();
   }
 
   /**
