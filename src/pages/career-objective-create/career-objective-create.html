@@ -107,14 +107,14 @@
                     <ion-label stacked *ngIf="!encounterDateRequired else elseBlock">{{ 'CAREER_OBJECTIVE_CREATE.FORM.ENCOUNTER_DATE' | translate }}</ion-label>
 
                     <ng-template #elseBlock>
-                        <ion-label stacked class="required">{{ 'CAREER_OBJECTIVE_CREATE.FORM.ENCOUNTER_DATE' | translate }}</ion-label>
+                        <ion-label stacked class="required">{{ 'CAREER_OBJECTIVE_CREATE.FORM.ENCOUNTER_DATE_REQUIRED' | translate }}</ion-label>
                     </ng-template>
 
                     <ion-item>
                         <ion-label>
                             <ion-icon name="calendar"></ion-icon>
                         </ion-label>
-                        <ion-datetime displayFormat="DD/MM/YYYY" [(ngModel)]="careerObjective.encounterDate" formControlName="encounterDateControl" [pickerOptions]="encounterDateTimeOptions" [doneText]="translateService.instant('GLOBAL.DATEPICKER.DONE')" [cancelText]="translateService.instant('GLOBAL.DATEPICKER.CANCEL')"></ion-datetime>
+                        <ion-datetime displayFormat="DD/MM/YYYY" [(ngModel)]="careerObjective.encounterDate" formControlName="encounterDateControl" [doneText]="translateService.instant('GLOBAL.DATEPICKER.DONE')" [cancelText]="translateService.instant('GLOBAL.DATEPICKER.CANCEL')"></ion-datetime>
                     </ion-item>
                 </ion-col>
                 <ion-col col-6>

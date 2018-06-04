@@ -40,6 +40,7 @@
             "PNC_COMMENT": "Commentaire PNC",
             "NEXT_ENCOUNTER_DATE": "Prochain point",
             "ENCOUNTER_DATE": "Date de rencontre",
+            "ENCOUNTER_DATE_REQUIRED": "Date de rencontre (Saisie obligatoire le jour de la rencontre)",
             "PRIORITIZED": "Prioritaire",
             "CREATION_DATE": "Créé le"
         },
