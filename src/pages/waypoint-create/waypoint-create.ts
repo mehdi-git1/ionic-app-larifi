@@ -8,7 +8,7 @@ import { Waypoint } from './../../models/waypoint';
 import { TranslateService } from '@ngx-translate/core';
 import { Component } from '@angular/core';
 import { NavController, NavParams, LoadingController, Loading, AlertController } from 'ionic-angular';
-import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl, ValidatorFn, AbstractControl } from '@angular/forms';
 import { CareerObjectiveCreatePage } from './../career-objective-create/career-objective-create';
 import { ToastProvider } from './../../providers/toast/toast';
 
@@ -83,18 +83,22 @@ export class WaypointCreatePage {
    * Initialise le formulaire
    */
   initForm() {
-    let actionPerformedControl = new FormControl(['', Validators.maxLength(5000)]);
-    if (this.isActionPerformedRequired()) {
-      actionPerformedControl = new FormControl(['', Validators.compose([Validators.maxLength(5000), Validators.required])]);
-    }
-
     this.creationForm = this.formBuilder.group({
       contextControl: ['', Validators.compose([Validators.maxLength(4000), Validators.required])],
-      actionPerformedControl: actionPerformedControl,
+      actionPerformedControl: ['', this.getActionPerformedValidators()],
       managerCommentControl: ['', Validators.maxLength(4000)],
       pncCommentControl: ['', Validators.maxLength(4000)],
       EncounterDateControl: [''],
     });
+  }
+
+  /**
+   * Récupère le validateur du champs "action réalisée" en fonction de l'état du point d'étape.
+   * @return le validateur du champs "action réalisée"
+   */
+  getActionPerformedValidators(): Validators {
+    return this.isActionPerformedRequired() ?
+      Validators.compose([Validators.maxLength(5000), Validators.required]) : Validators.maxLength(5000);
   }
 
   /**
