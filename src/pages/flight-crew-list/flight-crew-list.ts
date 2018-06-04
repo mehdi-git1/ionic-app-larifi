@@ -1,8 +1,10 @@
+import { LegProvider } from './../../providers/leg/leg';
 import { GenderProvider } from './../../providers/gender/gender';
 import { PncProvider } from './../../providers/pnc/pnc';
 import { Pnc } from './../../models/pnc';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { CrewMember } from '../../models/CrewMember';
 
 @Component({
   selector: 'page-flight-crew-list',
@@ -10,17 +12,19 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class FlightCrewListPage {
 
-  flightCrewList: Pnc[];
+  flightCrewList: any[];
+  legNumber: string;
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
-    private pncProvider: PncProvider,
+    private legProvider: LegProvider,
     private genderProvider: GenderProvider) {
   }
 
-  ionViewDidLoad() {
-    this.pncProvider.getAll().then(foundPnc => {
-      this.flightCrewList = foundPnc;
+  ionViewCanEnter() {
+    this.legNumber = this.navParams.get('legNumber');
+    this.legProvider.getFlightCrewFromLeg(this.legNumber).then(flightCrew => {
+      this.flightCrewList = flightCrew;
     }, error => { });
   }
 

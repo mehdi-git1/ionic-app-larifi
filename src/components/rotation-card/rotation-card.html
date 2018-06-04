@@ -5,11 +5,11 @@
         <span>{{ rotation.number }}</span>
     </ion-card-header>
     <ion-card-content [hidden]="!rotation.opened">
-        <div class="leg" *ngFor="let leg of rotation.legs">
+        <div class="leg" *ngFor="let leg of rotation.legs" (click)="goToFlightCrewListPage(leg.number)">
             <span>{{ leg.company }}{{ leg.number }}</span>
             <span>{{ leg.departureDate | date : 'dd/MM/yyyy HH:mm' }}</span>
             <span>{{ leg.departureStation }} - {{ leg.arrivalStation }}</span>
-            <span>{{ leg.aircraftType.code3C }}</span>
+            <!-- <span>{{ leg.aircraftType.code3C }}</span> -->
         </div>
     </ion-card-content>
 </ion-card>

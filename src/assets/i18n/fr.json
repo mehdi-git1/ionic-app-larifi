@@ -124,7 +124,7 @@
         "TITLE": "Liste équipage",
         "LIST": {
             "RELAYS": "Relais",
-            "P_Z_CODE": "Code P ou Z",
+            "PARTICULARITY": "Particularité",
             "LAST_ENCOUNTER_DATE": "Dernière rencontre  Vol"
         }
     },
