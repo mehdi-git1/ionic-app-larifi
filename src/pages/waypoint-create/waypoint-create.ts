@@ -8,7 +8,7 @@ import { Waypoint } from './../../models/waypoint';
 import { TranslateService } from '@ngx-translate/core';
 import { Component } from '@angular/core';
 import { NavController, NavParams, LoadingController, Loading, AlertController } from 'ionic-angular';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl, ValidatorFn, AbstractControl } from '@angular/forms';
 import { CareerObjectiveCreatePage } from './../career-objective-create/career-objective-create';
 import { ToastProvider } from './../../providers/toast/toast';
 
@@ -44,15 +44,11 @@ export class WaypointCreatePage {
     this.waypoint = new Waypoint();
     this.careerObjectiveId = this.navParams.get('careerObjectiveId');
 
-    // Initialisation du formulaire
-    this.creationForm = this.formBuilder.group({
-      contextControl: ['', Validators.compose([Validators.maxLength(4000), Validators.required])],
-      actionPerformedControl: ['', Validators.maxLength(5000)],
-      managerCommentControl: ['', Validators.maxLength(4000)],
-      pncCommentControl: ['', Validators.maxLength(4000)],
-      EncounterDateControl: [''],
-    });
-
+    if (this.navParams.get('waypointId')) {
+      this.waypointProvider.getWaypoint(this.navParams.get('waypointId')).then(result => {
+        this.waypoint = result;
+      }, error => { });
+    }
 
     // Options du datepicker
     this.customDateTimeOptions = {
@@ -62,13 +58,17 @@ export class WaypointCreatePage {
       }]
     };
 
+
   }
 
   ionViewCanEnter() {
     return new Promise((resolve, reject) => {
+      this.initForm();
+
       if (this.navParams.get('waypointId')) {
         this.waypointProvider.getWaypoint(this.navParams.get('waypointId')).then(result => {
           this.waypoint = result;
+          this.initForm();
           resolve();
         }, error => {
           reject();
@@ -77,6 +77,37 @@ export class WaypointCreatePage {
         resolve();
       }
     });
+  }
+
+  /**
+   * Initialise le formulaire
+   */
+  initForm() {
+    this.creationForm = this.formBuilder.group({
+      contextControl: ['', Validators.compose([Validators.maxLength(4000), Validators.required])],
+      actionPerformedControl: ['', this.getActionPerformedValidators()],
+      managerCommentControl: ['', Validators.maxLength(4000)],
+      pncCommentControl: ['', Validators.maxLength(4000)],
+      EncounterDateControl: [''],
+    });
+  }
+
+  /**
+   * Récupère le validateur du champs "action réalisée" en fonction de l'état du point d'étape.
+   * @return le validateur du champs "action réalisée"
+   */
+  getActionPerformedValidators(): Validators {
+    return this.isActionPerformedRequired() ?
+      Validators.compose([Validators.maxLength(5000), Validators.required]) : Validators.maxLength(5000);
+  }
+
+  /**
+   * Teste si le champs "action réalisée" est obligatoire ou non.
+   * Le champs est non obligatoire quand on est au statut brouillon, mais obligatoire pour tous les autres statuts.
+   * @return true si le champs est obligatoire, false sinon.
+   */
+  isActionPerformedRequired(): boolean {
+    return this.waypoint.waypointStatus && this.waypoint.waypointStatus !== WaypointStatus.DRAFT;
   }
 
   /**
@@ -160,11 +191,23 @@ export class WaypointCreatePage {
    * Enregistre un point d'étape au statut enregistré
    */
   saveWaypointToRegisteredStatus() {
-    // Transformation de la date au format ISO avant envoi au back
-    if (this.waypoint.encounterDate == null) {
-      this.waypoint.encounterDate = this.datePipe.transform(new Date(), 'yyyy-MM-ddTHH:mm');
+    if (this.actionPerformedIsValid()) {
+      // Transformation de la date au format ISO avant envoi au back
+      if (this.waypoint.encounterDate == null) {
+        this.waypoint.encounterDate = this.datePipe.transform(new Date(), 'yyyy-MM-ddTHH:mm');
+      }
+      this.waypoint.waypointStatus = WaypointStatus.REGISTERED;
+      this.saveWaypoint();
+    } else {
+      this.toastProvider.error(this.translateService.instant('WAYPOINT_CREATE.ERROR.ACTION_PERFORMED_REQUIRED'));
     }
-    this.waypoint.waypointStatus = WaypointStatus.REGISTERED;
-    this.saveWaypoint();
+  }
+
+  /**
+   * Teste si le champs "action réalisée" est valide. Le champs est considéré valide s'il est remplit.
+   * @return vrai si le champs est valide, faux sinon.
+   */
+  actionPerformedIsValid() {
+    return this.waypoint.actionPerformed && this.waypoint.actionPerformed.length > 0;
   }
 }

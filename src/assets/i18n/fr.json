@@ -125,6 +125,9 @@
             "WAYPOINT_SAVED": "Point d'étape enregistré avec succès",
             "DRAFT_SAVED": "Brouillon enregistré",
             "DRAFT_DELETED": "Brouillon supprimé"
+        },
+        "ERROR": {
+            "ACTION_PERFORMED_REQUIRED": "Pour pouvoir enregistrer le point d'étape, vous devez remplir le champs 'Action réalisée'"
         }
     }
 }
