@@ -106,6 +106,7 @@
         "FORM": {
             "CONTEXT": "Contexte",
             "ACTION_PERFORMED": "Action réalisée",
+            "ACTION_PERFORMED_EXPLANATION": " (Saisie obligatoire le jour de la rencontre)",
             "MANAGER_COMMENT": "Commentaire cadre",
             "PNC_COMMENT": "Commentaire PNC",
             "ENCOUNTER_DATE": "Date de rencontre"
@@ -125,9 +126,6 @@
             "WAYPOINT_SAVED": "Point d'étape enregistré avec succès",
             "DRAFT_SAVED": "Brouillon enregistré",
             "DRAFT_DELETED": "Brouillon supprimé"
-        },
-        "ERROR": {
-            "ACTION_PERFORMED_REQUIRED": "Pour pouvoir enregistrer le point d'étape, vous devez remplir le champs 'Action réalisée'"
         }
     }
 }

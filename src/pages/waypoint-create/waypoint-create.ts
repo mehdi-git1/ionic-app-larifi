@@ -22,6 +22,7 @@ export class WaypointCreatePage {
   careerObjectiveId: number;
   waypoint: Waypoint;
   loading: Loading;
+  displayActionPerformedRequired: boolean;
 
   customDateTimeOptions: any;
 
@@ -58,6 +59,7 @@ export class WaypointCreatePage {
       }]
     };
 
+    this.displayActionPerformedRequired = false;
 
   }
 
@@ -199,7 +201,7 @@ export class WaypointCreatePage {
       this.waypoint.waypointStatus = WaypointStatus.REGISTERED;
       this.saveWaypoint();
     } else {
-      this.toastProvider.error(this.translateService.instant('WAYPOINT_CREATE.ERROR.ACTION_PERFORMED_REQUIRED'));
+      this.displayActionPerformedRequired = true;
     }
   }
 

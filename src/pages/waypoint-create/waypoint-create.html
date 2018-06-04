@@ -31,7 +31,7 @@
                 <ion-col col-12>
                     <!-- Action réalisée -->
                     <ion-item>
-                        <ion-label floating [ngClass]="{'required' : isActionPerformedRequired()}">{{ 'WAYPOINT_CREATE.FORM.ACTION_PERFORMED' | translate }}</ion-label>
+                        <ion-label floating [ngClass]="{'required' : isActionPerformedRequired() || displayActionPerformedRequired }">{{ 'WAYPOINT_CREATE.FORM.ACTION_PERFORMED' | translate }}<span *ngIf="displayActionPerformedRequired">{{ 'WAYPOINT_CREATE.FORM.ACTION_PERFORMED_EXPLANATION' | translate }}</span></ion-label>
                         <ion-textarea [(ngModel)]="waypoint.actionPerformed" formControlName="actionPerformedControl" name="actionPerformed"></ion-textarea>
                     </ion-item>
                 </ion-col>
