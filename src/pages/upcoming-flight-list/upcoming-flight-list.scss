@@ -1,7 +1,14 @@
 page-upcoming-flight-list {
-    .upcoming-rotations {
+    .last-performed-rotation {
         ion-card-header {
             background: color($colors, secondary);
+            color: color($colors, white);
+        }
+    }
+
+    .upcoming-rotations {
+        ion-card-header {
+            background: color($colors, primary);
             color: color($colors, white);
         }
     }
