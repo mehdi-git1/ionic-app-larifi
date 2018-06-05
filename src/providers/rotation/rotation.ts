@@ -1,5 +1,5 @@
+import { Config } from './../../configuration/environment-variables/config';
 import { Rotation } from './../../models/rotation';
-import { AppConfig } from './../../app/app.config';
 import { Leg } from './../../models/leg';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -10,8 +10,9 @@ export class RotationProvider {
 
   private rotationUrl: string;
 
-  constructor(public restService: RestService) {
-    this.rotationUrl = `${AppConfig.apiUrl}/rotations`;
+  constructor(public restService: RestService,
+    private config: Config) {
+    this.rotationUrl = `${config.backEndUrl}/rotations`;
   }
 
   /**

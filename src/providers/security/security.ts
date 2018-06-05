@@ -1,6 +1,6 @@
+import { Config } from './../../configuration/environment-variables/config';
 import { SessionService } from './../../services/session.service';
 import { AuthenticatedUser } from './../../models/authenticatedUser';
-import { AppConfig } from './../../app/app.config';
 import { Injectable } from '@angular/core';
 import { RestService } from '../../services/rest.base.service';
 
@@ -10,8 +10,9 @@ export class SecurityProvider {
   private securityUrl: string;
 
   constructor(public restService: RestService,
-    private sessionService: SessionService) {
-    this.securityUrl = `${AppConfig.apiUrl}/me`;
+    private sessionService: SessionService,
+    private config: Config) {
+    this.securityUrl = `${config.backEndUrl}/me`;
   }
 
   /**
