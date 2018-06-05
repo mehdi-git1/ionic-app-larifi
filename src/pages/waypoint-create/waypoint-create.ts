@@ -90,7 +90,7 @@ export class WaypointCreatePage {
       actionPerformedControl: ['', this.getActionPerformedValidators()],
       managerCommentControl: ['', Validators.maxLength(4000)],
       pncCommentControl: ['', Validators.maxLength(4000)],
-      EncounterDateControl: [''],
+      EncounterDateControl: ['', this.getEncounterDateValidators()],
     });
   }
 
@@ -101,6 +101,16 @@ export class WaypointCreatePage {
   getActionPerformedValidators(): Validators {
     return this.isActionPerformedRequired() ?
       Validators.compose([Validators.maxLength(5000), Validators.required]) : Validators.maxLength(5000);
+  }
+
+  /**
+   * La valeur du champs date de rencontre est requise dans le d'un point d'étape en statut enregister
+   * @return le validateur du champs "date de rencontre"
+   */
+  getEncounterDateValidators(): Validators {
+    if (this.waypoint.waypointStatus === WaypointStatus.REGISTERED) {
+      return Validators.required;
+    }
   }
 
   /**
