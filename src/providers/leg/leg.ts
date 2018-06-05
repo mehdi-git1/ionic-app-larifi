@@ -1,6 +1,6 @@
 import { NavParams } from 'ionic-angular';
 import { CrewMember } from './../../models/CrewMember';
-import { AppConfig } from './../../app/app.config';
+import { Config } from './../../configuration/environment-variables/config';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { RestService } from '../../services/rest.base.service';
@@ -11,8 +11,9 @@ export class LegProvider {
   private legUrl: string;
   private legNumber: String;
 
-  constructor(public restService: RestService) {
-    this.legUrl = `${AppConfig.apiUrl}/legs`;
+  constructor(public restService: RestService,
+    public config: Config) {
+    this.legUrl = `${config.backEndUrl}/legs`;
   }
 
   /**
