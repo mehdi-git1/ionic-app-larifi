@@ -74,6 +74,7 @@
     },
     "CAREER_OBJECTIVE_LIST": {
         "TITLE": "Liste des objectifs",
+        "NO_OBJECTIVES": "Aucun objectif créé pour le moment",
         "LIST": {
             "CREATION_DATE": "Date de création",
             "TITLE": "Libellé",
@@ -106,6 +107,7 @@
         "FORM": {
             "CONTEXT": "Contexte",
             "ACTION_PERFORMED": "Action réalisée",
+            "ACTION_PERFORMED_EXPLANATION": " (Saisie obligatoire le jour de la rencontre)",
             "MANAGER_COMMENT": "Commentaire cadre",
             "PNC_COMMENT": "Commentaire PNC",
             "ENCOUNTER_DATE": "Date de rencontre"

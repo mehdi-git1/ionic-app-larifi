@@ -76,7 +76,7 @@
                         </button>
                         <ion-card class="waypoint clickable" *ngFor="let waypoint of waypointList" (click)="openWaypoint(waypoint.techId)">
                             <ion-card-content>
-                                <ion-icon name="create" *ngIf="waypoint.waypointStatus === WaypointStatus.DRAFT" float-right></ion-icon>
+                                <ion-icon name="create" ios="md-create" *ngIf="waypoint.waypointStatus === WaypointStatus.DRAFT" float-right></ion-icon>
                                 <!--Si une date de rencontre existe, on l'affiche, sinon on affiche la date de creation -->
                                 <div class="value" *ngIf="waypoint.encounterDate !== null; else elseBlock">{{ waypoint.encounterDate | date: 'dd/MM/yyyy'}}</div>
                                 <ng-template #elseBlock>
@@ -103,18 +103,10 @@
                             <ion-radio value="PNC"></ion-radio>
                         </ion-item>
                     </ion-list>
-                    <!-- Date de rencontre -->
-                    <ion-label stacked *ngIf="!encounterDateRequired else elseBlock">{{ 'CAREER_OBJECTIVE_CREATE.FORM.ENCOUNTER_DATE' | translate }}</ion-label>
-
-                    <ng-template #elseBlock>
-                        <ion-label stacked class="required">{{ 'CAREER_OBJECTIVE_CREATE.FORM.ENCOUNTER_DATE_REQUIRED' | translate }}</ion-label>
-                    </ng-template>
-
+                    <!-- Prioritaire -->
                     <ion-item>
-                        <ion-label>
-                            <ion-icon name="calendar"></ion-icon>
-                        </ion-label>
-                        <ion-datetime displayFormat="DD/MM/YYYY" [(ngModel)]="careerObjective.encounterDate" formControlName="encounterDateControl" [doneText]="translateService.instant('GLOBAL.DATEPICKER.DONE')" [cancelText]="translateService.instant('GLOBAL.DATEPICKER.CANCEL')"></ion-datetime>
+                        <ion-label fixed>{{ 'CAREER_OBJECTIVE_CREATE.FORM.PRIORITIZED' | translate }}</ion-label>
+                        <ion-checkbox [(ngModel)]="careerObjective.prioritized" formControlName="prioritizedControl"></ion-checkbox>
                     </ion-item>
                 </ion-col>
                 <ion-col col-6>
@@ -126,10 +118,17 @@
                         </ion-label>
                         <ion-datetime displayFormat="DD/MM/YYYY" [(ngModel)]="careerObjective.nextEncounterDate" formControlName="nextEncounterDateControl" [pickerOptions]="nextEncounterDateTimeOptions" [doneText]="translateService.instant('GLOBAL.DATEPICKER.DONE')" [cancelText]="translateService.instant('GLOBAL.DATEPICKER.CANCEL')"></ion-datetime>
                     </ion-item>
-                    <!-- Prioritaire -->
+                    <!-- Date de rencontre -->
+                    <ion-label stacked *ngIf="!encounterDateRequired else elseBlock">{{ 'CAREER_OBJECTIVE_CREATE.FORM.ENCOUNTER_DATE' | translate }}</ion-label>
+
+                    <ng-template #elseBlock>
+                        <ion-label stacked class="required">{{ 'CAREER_OBJECTIVE_CREATE.FORM.ENCOUNTER_DATE_REQUIRED' | translate }}</ion-label>
+                    </ng-template>
                     <ion-item>
-                        <ion-label fixed>{{ 'CAREER_OBJECTIVE_CREATE.FORM.PRIORITIZED' | translate }}</ion-label>
-                        <ion-checkbox [(ngModel)]="careerObjective.prioritized" formControlName="prioritizedControl"></ion-checkbox>
+                        <ion-label>
+                            <ion-icon name="calendar"></ion-icon>
+                        </ion-label>
+                        <ion-datetime displayFormat="DD/MM/YYYY" [(ngModel)]="careerObjective.encounterDate" formControlName="encounterDateControl" [doneText]="translateService.instant('GLOBAL.DATEPICKER.DONE')" [cancelText]="translateService.instant('GLOBAL.DATEPICKER.CANCEL')"></ion-datetime>
                     </ion-item>
                 </ion-col>
             </ion-row>
