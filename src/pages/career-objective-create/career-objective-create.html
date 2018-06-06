@@ -5,8 +5,8 @@
 </ion-header>
 
 <ion-content padding>
-    <h3 *ngIf="isCreationMode(); else elseBlock">{{ 'CAREER_OBJECTIVE_CREATE.CREATE_TITLE' | translate }}</h3>
-    <ng-template #elseBlock>
+    <h3 *ngIf="isCreationMode(); else editTitleBlock">{{ 'CAREER_OBJECTIVE_CREATE.CREATE_TITLE' | translate }}</h3>
+    <ng-template #editTitleBlock>
         <h3>{{ 'CAREER_OBJECTIVE_CREATE.EDIT_TITLE' | translate }}</h3>
     </ng-template>
 
@@ -77,9 +77,9 @@
                         <ion-card class="waypoint clickable" *ngFor="let waypoint of waypointList" (click)="openWaypoint(waypoint.techId)">
                             <ion-card-content>
                                 <ion-icon name="create" ios="md-create" *ngIf="waypoint.waypointStatus === WaypointStatus.DRAFT" float-right></ion-icon>
-                                <!--Si une date de rencontre existe, on l'affiche, sinon on affiche la date de creation -->
-                                <div class="value" *ngIf="waypoint.encounterDate !== null; else elseBlock">{{ waypoint.encounterDate | date: 'dd/MM/yyyy'}}</div>
-                                <ng-template #elseBlock>
+                                <!--Si une date de rencontre existe, on l'affiche, sinon on affiche la date de création -->
+                                <div class="value" *ngIf="waypoint.encounterDate; else creationDateBlock">{{ waypoint.encounterDate | date: 'dd/MM/yyyy'}}</div>
+                                <ng-template #creationDateBlock>
                                     <div class="value">{{ waypoint.creationDate | date: 'dd/MM/yyyy'}}</div>
                                 </ng-template>
                                 <h4>{{ waypoint.context }}</h4>
