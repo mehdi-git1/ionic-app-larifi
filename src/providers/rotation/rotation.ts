@@ -1,4 +1,4 @@
-import { Config } from './../../configuration/environment-variables/prod';
+import { Config } from './../../configuration/environment-variables/config';
 import { Rotation } from './../../models/rotation';
 import { Leg } from './../../models/leg';
 import { HttpClient } from '@angular/common/http';

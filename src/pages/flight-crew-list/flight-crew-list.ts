@@ -1,3 +1,4 @@
+import { PncHomePage } from './../pnc-home/pnc-home';
 import { LegProvider } from './../../providers/leg/leg';
 import { GenderProvider } from './../../providers/gender/gender';
 import { PncProvider } from './../../providers/pnc/pnc';
@@ -25,7 +26,12 @@ export class FlightCrewListPage {
     this.legNumber = this.navParams.get('legNumber');
     this.legProvider.getFlightCrewFromLeg(this.legNumber).then(flightCrew => {
       this.flightCrewList = flightCrew;
-    }, error => { });
+    }, error => {
+    });
+  }
+
+  openPncHomePage(matricule) {
+    this.navCtrl.push(PncHomePage, { matricule: matricule });
   }
 
 }

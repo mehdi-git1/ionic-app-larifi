@@ -8,7 +8,10 @@
     <h3 margin-horizontal>{{ 'FLIGHT_CREW_LIST.TITLE' | translate }}</h3>
 
     <ion-content class="flight-crew-list-container">
-        <ion-card class="flight-crew-card" *ngFor="let crewMember of flightCrewList">
+        <div *ngIf="!flightCrewList" class="spinner-container">
+            <ion-spinner></ion-spinner>
+        </div>
+        <ion-card class="flight-crew-card clickable" *ngFor="let crewMember of flightCrewList" (click)="openPncHomePage(crewMember.pnc.matricule)">
             <ion-card-content no-padding>
                 <ion-grid>
                     <ion-row>
@@ -17,11 +20,17 @@
                         </ion-col>
                         <ion-col col-10 class="content">
                             <ion-row class="primary-info">
-                                <ion-col class="">
+                                <ion-col col-11>
                                     <!-- Prénom -->
                                     <span class="value primary-value">{{ crewMember.pnc.firstName }}</span>
                                     <!-- Nom -->
                                     <span class="value primary-value">{{ crewMember.pnc.lastName }}</span>
+                                </ion-col>
+                                <ion-col>
+                                    <!-- Prioritaire -->
+                                    <div class="icon-container">
+                                        <ion-icon *ngIf="crewMember.prioritized" name="flag" ios="md-flag" color="red80"></ion-icon>
+                                    </div>
                                 </ion-col>
                             </ion-row>
                             <ion-row class="secondary-info">

@@ -1,8 +1,11 @@
 page-upcoming-flight-list {
     .upcoming-rotations {
         ion-card-header {
-            background: color($colors, info);
-            color: color($colors, light);
+            background: color($colors, grey20);
+
+
+            color: color($colors, white);
+
         }
     }
 }

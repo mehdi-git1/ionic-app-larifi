@@ -22,6 +22,15 @@ page-flight-crew-list {
                 margin-left: 10px;
             }
 
+            .icon-container {
+                width: 35px;
+                float: right;
+                ion-icon {
+                    font-size: 2em;
+                }
+            }
+
+
             .pnc-info {
                 display: flex;
                 flex-direction: column;
@@ -62,5 +71,16 @@ page-flight-crew-list {
             font-size: 1.5em;
         }
     }
+    .spinner-container {
+        margin-top: 100px;
+        display: flex;
+        justify-content: center;
+
+        ion-spinner * {
+            width: 80px;
+            height: 80px !important;
+        }
+    }
+
 
 }
