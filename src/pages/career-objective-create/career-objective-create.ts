@@ -119,12 +119,7 @@ export class CareerObjectiveCreatePage {
    * Lance le processus de création/mise à jour d'un objectif
    */
   saveCareerObjective() {
-    if (this.careerObjective.encounterDate != null) {
-      this.careerObjective.encounterDate = this.datePipe.transform(this.careerObjective.encounterDate, 'yyyy-MM-ddTHH:mm');
-    }
-
-    // Transformation de la date au format ISO avant envoi au back
-    this.careerObjective.nextEncounterDate = this.datePipe.transform(this.careerObjective.nextEncounterDate, 'yyyy-MM-ddTHH:mm');
+    this.prepareCareerObjectiveBeforeSubmit();
 
     this.loading = this.loadingCtrl.create();
     this.loading.present();
@@ -160,6 +155,17 @@ export class CareerObjectiveCreatePage {
   }
 
   /**
+   * Prépare l'objectif avant de l'envoyer au back :
+   * Transforme les dates au format iso
+   */
+  prepareCareerObjectiveBeforeSubmit() {
+    if (this.careerObjective.encounterDate) {
+      this.careerObjective.encounterDate = this.datePipe.transform(this.careerObjective.encounterDate, 'yyyy-MM-ddTHH:mm');
+    }
+    this.careerObjective.nextEncounterDate = this.datePipe.transform(this.careerObjective.nextEncounterDate, 'yyyy-MM-ddTHH:mm');
+  }
+
+  /**
    * Enregistre un objectif au statut brouillon
    */
   saveCareerObjectiveDraft() {
@@ -171,15 +177,12 @@ export class CareerObjectiveCreatePage {
    * Enregistre un objectif au statut enregistré
    */
   saveCareerObjectiveToRegisteredStatus() {
-
-    if (this.careerObjective.encounterDate == null) {
-      this.encounterDateRequired = true;
-    } else {
-      this.careerObjective.careerObjectiveStatus = CareerObjectiveStatus.REGISTERED;
-      this.careerObjective.registrationDate = this.datePipe.transform(new Date(), 'yyyy-MM-ddTHH:mm');
-
-      this.saveCareerObjective();
+    this.careerObjective.careerObjectiveStatus = CareerObjectiveStatus.REGISTERED;
+    this.careerObjective.registrationDate = this.datePipe.transform(new Date(), 'yyyy-MM-ddTHH:mm');
+    if (!this.careerObjective.encounterDate) {
+      this.careerObjective.encounterDate = this.datePipe.transform(new Date(), 'yyyy-MM-ddTHH:mm');
     }
+    this.saveCareerObjective();
   }
 
   /**
