@@ -90,7 +90,7 @@ export class WaypointCreatePage {
       actionPerformedControl: ['', this.getActionPerformedValidators()],
       managerCommentControl: ['', Validators.maxLength(4000)],
       pncCommentControl: ['', Validators.maxLength(4000)],
-      EncounterDateControl: ['', this.getEncounterDateValidators()],
+      encounterDateControl: ['', this.getEncounterDateValidators()],
     });
   }
 

@@ -26,8 +26,7 @@ export class CareerObjectiveCreatePage {
   careerObjective: CareerObjective;
   waypointList: Waypoint[];
   nextEncounterDateTimeOptions: any;
-
-  encounterDateRequired: boolean;
+  encounterDateTimeOptions: any;
 
   loading: Loading;
 
@@ -52,25 +51,8 @@ export class CareerObjectiveCreatePage {
     public securityProvider: SecurityProvider,
     public loadingCtrl: LoadingController) {
 
-    this.encounterDateRequired = false;
-
     this.careerObjective = new CareerObjective();
     this.careerObjective.pnc = new Pnc();
-
-
-    // Initialisation du formulaire
-    this.creationForm = this.formBuilder.group({
-      initiatorControl: ['', Validators.required],
-      titleControl: ['', Validators.compose([Validators.maxLength(255), Validators.required])],
-      contextControl: ['', Validators.maxLength(4000)],
-      actionPlanControl: ['', Validators.maxLength(5000)],
-      managerCommentControl: ['', Validators.maxLength(4000)],
-      pncCommentControl: ['', Validators.maxLength(4000)],
-      encounterDateControl: [''],
-      nextEncounterDateControl: [''],
-      prioritizedControl: [false],
-      waypointContextControl: ['', Validators.maxLength(4000)],
-    });
 
     // Options du datepicker
     this.nextEncounterDateTimeOptions = {
@@ -79,6 +61,16 @@ export class CareerObjectiveCreatePage {
         handler: () => this.careerObjective.nextEncounterDate = ''
       }]
     };
+
+    this.encounterDateTimeOptions = {
+      buttons: [{
+        text: this.translateService.instant('GLOBAL.DATEPICKER.CLEAR'),
+        handler: () => this.careerObjective.encounterDate = ''
+      }]
+    };
+
+    // Initialisation du formulaire
+    this.initForm();
   }
 
   ionViewDidLoad() {
@@ -112,6 +104,24 @@ export class CareerObjectiveCreatePage {
           reject();
         });
       }
+    });
+  }
+
+  /**
+   * Initialise le formulaire
+   */
+  initForm() {
+    this.creationForm = this.formBuilder.group({
+      initiatorControl: ['', Validators.required],
+      titleControl: ['', Validators.compose([Validators.maxLength(255), Validators.required])],
+      contextControl: ['', Validators.maxLength(4000)],
+      actionPlanControl: ['', Validators.maxLength(5000)],
+      managerCommentControl: ['', Validators.maxLength(4000)],
+      pncCommentControl: ['', Validators.maxLength(4000)],
+      encounterDateControl: [''],
+      nextEncounterDateControl: [''],
+      prioritizedControl: [false],
+      waypointContextControl: ['', Validators.maxLength(4000)],
     });
   }
 
