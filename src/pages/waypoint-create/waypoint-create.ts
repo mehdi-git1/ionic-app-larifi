@@ -104,7 +104,7 @@ export class WaypointCreatePage {
   }
 
   /**
-   * La valeur du champs date de rencontre est requise dans le d'un point d'étape en statut enregister
+   * Récupère le validateur du champs "date de rencontre" en fonction de l'état du point d'étape.
    * @return le validateur du champs "date de rencontre"
    */
   getEncounterDateValidators(): Validators {
@@ -134,10 +134,8 @@ export class WaypointCreatePage {
    * Lance le processus de création/mise à jour d'un point d'étape
    */
   saveWaypoint() {
+    this.prepareWaypointBeforeSubmit();
 
-    if (this.waypoint.encounterDate != null) {
-      this.waypoint.encounterDate = this.datePipe.transform(this.waypoint.encounterDate, 'yyyy-MM-ddTHH:mm');
-    }
     this.loading = this.loadingCtrl.create();
     this.loading.present();
 
@@ -156,6 +154,16 @@ export class WaypointCreatePage {
       }, error => {
         this.loading.dismiss();
       });
+  }
+
+  /**
+   * Prépare le point d'étape avant de l'envoyer au back :
+   * Transforme les dates au format iso
+   */
+  prepareWaypointBeforeSubmit() {
+    if (this.waypoint.encounterDate) {
+      this.waypoint.encounterDate = this.datePipe.transform(this.waypoint.encounterDate, 'yyyy-MM-ddTHH:mm');
+    }
   }
 
   /**
