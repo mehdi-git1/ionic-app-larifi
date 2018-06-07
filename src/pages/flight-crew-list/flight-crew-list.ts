@@ -13,8 +13,8 @@ import { CrewMember } from '../../models/CrewMember';
 })
 export class FlightCrewListPage {
 
-  flightCrewList: any[];
-  legId: string;
+  flightCrewList: CrewMember[];
+  legId: number;
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,

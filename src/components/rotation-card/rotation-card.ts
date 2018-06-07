@@ -12,7 +12,7 @@ export class RotationCardComponent {
 
   @Input() rotation: Rotation;
 
-  legNumber: string;
+  legId: number;
 
   constructor(private rotationProvider: RotationProvider,
     public navCtrl: NavController,
@@ -36,7 +36,7 @@ export class RotationCardComponent {
     }
   }
 
-  goToFlightCrewListPage(legNumber) {
-    this.navCtrl.push(FlightCrewListPage, { legNumber: legNumber });
+  goToFlightCrewListPage(legId) {
+    this.navCtrl.push(FlightCrewListPage, { legId: legId });
   }
 }

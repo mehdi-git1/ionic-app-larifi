@@ -9,7 +9,6 @@ import { RestService } from '../../services/rest.base.service';
 export class LegProvider {
 
   private legUrl: string;
-  private legNumber: String;
 
   constructor(public restService: RestService,
     public config: Config) {
@@ -18,12 +17,11 @@ export class LegProvider {
 
   /**
   * Récupère les tronçons d'une rotation
-  * @param rotation la rotation dont on souhaite récupérer les tronçons
+  * @param legId l'id du tronçon dont on souhaite avoir la liste équipage
   * @return la liste des tronçons de la rotation
   */
-  getFlightCrewFromLeg(legNumber): Promise<CrewMember[]> {
-    return this.restService.get(`${this.legUrl}/${legNumber}/flightCrew`);
-    // return this.restService.get(`${this.legUrl}/16804/flightCrew`);
+  getFlightCrewFromLeg(legId: number): Promise<CrewMember[]> {
+    return this.restService.get(`${this.legUrl}/${legId}/crew_members`);
   }
 
 }
