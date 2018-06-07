@@ -1,3 +1,4 @@
+import { Leg } from './../../models/leg';
 import { PncHomePage } from './../pnc-home/pnc-home';
 import { LegProvider } from './../../providers/leg/leg';
 import { GenderProvider } from './../../providers/gender/gender';
@@ -14,7 +15,7 @@ import { CrewMember } from '../../models/CrewMember';
 export class FlightCrewListPage {
 
   flightCrewList: CrewMember[];
-  legId: number;
+  leg: Leg;
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
@@ -23,8 +24,8 @@ export class FlightCrewListPage {
   }
 
   ionViewCanEnter() {
-    this.legId = this.navParams.get('legId');
-    this.legProvider.getFlightCrewFromLeg(this.legId).then(flightCrew => {
+    this.leg = this.navParams.get('leg');
+    this.legProvider.getFlightCrewFromLeg(this.leg.techId).then(flightCrew => {
       this.flightCrewList = flightCrew;
     }, error => {
     });
