@@ -1,12 +1,19 @@
 <ion-header>
     <ion-navbar>
-        <ion-title>{{ 'GLOBAL.FLIGHT_CREW' | translate }}</ion-title>
+        <ion-title>{{ 'GLOBAL.CREW_MEMBERS' | translate }}</ion-title>
     </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-    <h3 margin-horizontal>{{ 'FLIGHT_CREW_LIST.TITLE' | translate }}</h3>
-
+    <ion-card>
+        <ion-card-content>
+            <div class="leg">
+                <span class="value">{{ leg.company }}{{ leg.number }}</span>
+                <span class="value">{{ leg.departureStation }} - {{ leg.arrivalStation }}</span>
+                <span class="value">{{ leg.departureDate | date : 'dd/MM/yyyy - HH:mm' }}</span>
+            </div>
+        </ion-card-content>
+    </ion-card>
     <ion-content class="flight-crew-list-container">
         <div *ngIf="!flightCrewList" class="spinner-container">
             <ion-spinner></ion-spinner>

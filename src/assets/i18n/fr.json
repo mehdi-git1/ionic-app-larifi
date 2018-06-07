@@ -24,7 +24,7 @@
         "HELP_CENTRE": "Ressources d'aide",
         "PNC_TEAM": "Effectif PNC",
         "UPCOMING_FLIGHT": "Prochains vols",
-        "FLIGHT_CREW": "Equipage du vol",
+        "CREW_MEMBERS": "Liste équipage",
         "UNKNOWN_ERROR": "Une erreur inconnue est survenue. Merci de recharger la page ou réessayer dans quelques minutes."
     },
     "CAREER_OBJECTIVE_CREATE": {
@@ -130,7 +130,6 @@
         }
     },
     "FLIGHT_CREW_LIST": {
-        "TITLE": "Liste équipage",
         "LIST": {
             "RELAYS": "Relais",
             "PARTICULARITY": "Particularité",

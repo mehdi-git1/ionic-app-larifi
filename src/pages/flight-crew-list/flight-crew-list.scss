@@ -59,4 +59,19 @@ page-flight-crew-list {
         }
     }
 
+    .leg {
+        display: flex;
+        justify-content: space-between;
+        height: 50px;
+
+        span {
+            display: flex;
+            align-items: center;
+            font-size: 1.5em;
+
+        }
+    }
+
+
+
 }
