@@ -14,7 +14,7 @@ import { CrewMember } from '../../models/CrewMember';
 export class FlightCrewListPage {
 
   flightCrewList: any[];
-  legNumber: string;
+  legId: string;
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
@@ -23,8 +23,8 @@ export class FlightCrewListPage {
   }
 
   ionViewCanEnter() {
-    this.legNumber = this.navParams.get('legNumber');
-    this.legProvider.getFlightCrewFromLeg(this.legNumber).then(flightCrew => {
+    this.legId = this.navParams.get('legId');
+    this.legProvider.getFlightCrewFromLeg(this.legId).then(flightCrew => {
       this.flightCrewList = flightCrew;
     }, error => {
     });
