@@ -1,8 +1,8 @@
 export class CrewMember {
-    matricule: String;
-    firstname: String;
-    lastName: String;
-    particulariy: String;
-    lastEncounterDate: String;
-    relays: String;
+    matricule: string;
+    firstname: string;
+    lastName: string;
+    particulariy: string;
+    lastEncounterDate: string;
+    relays: string[];
 }

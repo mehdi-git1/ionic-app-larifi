@@ -134,7 +134,7 @@
         "LIST": {
             "RELAYS": "Relais",
             "PARTICULARITY": "Particularité",
-            "LAST_ENCOUNTER_DATE": "Dernière rencontre  Vol"
+            "LAST_ENCOUNTER_DATE": "Dernière rencontre Vol"
         }
     },
     "UPCOMING_FLIGHT_LIST": {

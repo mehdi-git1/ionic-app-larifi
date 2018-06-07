@@ -1,4 +1,3 @@
-import { FlightCrewListPage } from './../pages/flight-crew-list/flight-crew-list';
 import { SessionService } from './../services/session.service';
 import { AuthenticatedUser } from './../models/authenticatedUser';
 import { SecurityProvider } from './../providers/security/security';

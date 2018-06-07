@@ -12,8 +12,6 @@ export class RotationCardComponent {
 
   @Input() rotation: Rotation;
 
-  legId: number;
-
   constructor(private rotationProvider: RotationProvider,
     public navCtrl: NavController,
     public navParams: NavParams) {

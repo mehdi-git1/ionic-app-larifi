@@ -16,9 +16,9 @@ export class LegProvider {
   }
 
   /**
-  * Récupère les tronçons d'une rotation
+  * Récupère la liste équipage d'un tronçon
   * @param legId l'id du tronçon dont on souhaite avoir la liste équipage
-  * @return la liste des tronçons de la rotation
+  * @return la liste équipage d'un tronçon
   */
   getFlightCrewFromLeg(legId: number): Promise<CrewMember[]> {
     return this.restService.get(`${this.legUrl}/${legId}/crew_members`);
