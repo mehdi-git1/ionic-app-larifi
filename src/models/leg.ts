@@ -1,4 +1,3 @@
-import { AircraftType } from './aircraftType';
 import { Rotation } from './rotation';
 
 export class Leg {
@@ -8,6 +7,6 @@ export class Leg {
     departureDate: string;
     departureStation: string;
     arrivalStation: string;
-    aircraftType: AircraftType;
+    aircraftType: string;
     rotation: Rotation;
 }

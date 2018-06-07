@@ -54,21 +54,6 @@ export class CareerObjectiveCreatePage {
     this.careerObjective = new CareerObjective();
     this.careerObjective.pnc = new Pnc();
 
-
-    // Initialisation du formulaire
-    this.creationForm = this.formBuilder.group({
-      initiatorControl: ['', Validators.required],
-      titleControl: ['', Validators.compose([Validators.maxLength(255), Validators.required])],
-      contextControl: ['', Validators.maxLength(4000)],
-      actionPlanControl: ['', Validators.maxLength(5000)],
-      managerCommentControl: ['', Validators.maxLength(4000)],
-      pncCommentControl: ['', Validators.maxLength(4000)],
-      encounterDateControl: [''],
-      nextEncounterDateControl: [''],
-      prioritizedControl: [false],
-      waypointContextControl: ['', Validators.maxLength(4000)],
-    });
-
     // Options du datepicker
     this.nextEncounterDateTimeOptions = {
       buttons: [{
@@ -77,13 +62,15 @@ export class CareerObjectiveCreatePage {
       }]
     };
 
-    // Options du datepicker "Date de rencontre"
     this.encounterDateTimeOptions = {
       buttons: [{
         text: this.translateService.instant('GLOBAL.DATEPICKER.CLEAR'),
         handler: () => this.careerObjective.encounterDate = ''
       }]
     };
+
+    // Initialisation du formulaire
+    this.initForm();
   }
 
   ionViewDidLoad() {
@@ -121,15 +108,28 @@ export class CareerObjectiveCreatePage {
   }
 
   /**
+   * Initialise le formulaire
+   */
+  initForm() {
+    this.creationForm = this.formBuilder.group({
+      initiatorControl: ['', Validators.required],
+      titleControl: ['', Validators.compose([Validators.maxLength(255), Validators.required])],
+      contextControl: ['', Validators.maxLength(4000)],
+      actionPlanControl: ['', Validators.maxLength(5000)],
+      managerCommentControl: ['', Validators.maxLength(4000)],
+      pncCommentControl: ['', Validators.maxLength(4000)],
+      encounterDateControl: [''],
+      nextEncounterDateControl: [''],
+      prioritizedControl: [false],
+      waypointContextControl: ['', Validators.maxLength(4000)],
+    });
+  }
+
+  /**
    * Lance le processus de création/mise à jour d'un objectif
    */
   saveCareerObjective() {
-    if (this.careerObjective.encounterDate != null) {
-      this.careerObjective.encounterDate = this.datePipe.transform(this.careerObjective.encounterDate, 'yyyy-MM-ddTHH:mm');
-    }
-
-    // Transformation de la date au format ISO avant envoi au back
-    this.careerObjective.nextEncounterDate = this.datePipe.transform(this.careerObjective.nextEncounterDate, 'yyyy-MM-ddTHH:mm');
+    this.prepareCareerObjectiveBeforeSubmit();
 
     this.loading = this.loadingCtrl.create();
     this.loading.present();
@@ -165,6 +165,17 @@ export class CareerObjectiveCreatePage {
   }
 
   /**
+   * Prépare l'objectif avant de l'envoyer au back :
+   * Transforme les dates au format iso
+   */
+  prepareCareerObjectiveBeforeSubmit() {
+    if (this.careerObjective.encounterDate) {
+      this.careerObjective.encounterDate = this.datePipe.transform(this.careerObjective.encounterDate, 'yyyy-MM-ddTHH:mm');
+    }
+    this.careerObjective.nextEncounterDate = this.datePipe.transform(this.careerObjective.nextEncounterDate, 'yyyy-MM-ddTHH:mm');
+  }
+
+  /**
    * Enregistre un objectif au statut brouillon
    */
   saveCareerObjectiveDraft() {
@@ -178,8 +189,7 @@ export class CareerObjectiveCreatePage {
   saveCareerObjectiveToRegisteredStatus() {
     this.careerObjective.careerObjectiveStatus = CareerObjectiveStatus.REGISTERED;
     this.careerObjective.registrationDate = this.datePipe.transform(new Date(), 'yyyy-MM-ddTHH:mm');
-    // Initialiser une valeur par defaut si la date de rencontre n'a pas été saisi
-    if (this.careerObjective.encounterDate == null) {
+    if (!this.careerObjective.encounterDate) {
       this.careerObjective.encounterDate = this.datePipe.transform(new Date(), 'yyyy-MM-ddTHH:mm');
     }
     this.saveCareerObjective();

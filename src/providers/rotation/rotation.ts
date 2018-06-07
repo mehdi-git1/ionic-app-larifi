@@ -11,7 +11,7 @@ export class RotationProvider {
   private rotationUrl: string;
 
   constructor(public restService: RestService,
-    public config: Config) {
+    private config: Config) {
     this.rotationUrl = `${config.backEndUrl}/rotations`;
   }
 
