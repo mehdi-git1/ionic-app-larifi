@@ -1,0 +1,63 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>{{ 'GLOBAL.FLIGHT_CREW' | translate }}</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+    <h3 margin-horizontal>{{ 'FLIGHT_CREW_LIST.TITLE' | translate }}</h3>
+
+    <ion-content class="flight-crew-list-container">
+        <div *ngIf="!flightCrewList" class="spinner-container">
+            <ion-spinner></ion-spinner>
+        </div>
+        <ion-card class="flight-crew-card clickable" *ngFor="let crewMember of flightCrewList" (click)="openPncHomePage(crewMember.pnc.matricule)">
+            <ion-card-content no-padding>
+                <ion-grid>
+                    <ion-row>
+                        <ion-col col-2>
+                            <img src="{{genderProvider.getAvatarPicture(crewMember.pnc.gender)}}" />
+                        </ion-col>
+                        <ion-col col-10 class="content">
+                            <ion-row class="primary-info">
+                                <ion-col col-11>
+                                    <!-- Prénom -->
+                                    <span class="value primary-value">{{ crewMember.pnc.firstName }}</span>
+                                    <!-- Nom -->
+                                    <span class="value primary-value">{{ crewMember.pnc.lastName }}</span>
+                                </ion-col>
+                                <ion-col>
+                                    <!-- Prioritaire -->
+                                    <div class="icon-container">
+                                        <ion-icon *ngIf="crewMember.prioritized" name="flag" ios="md-flag" color="red80"></ion-icon>
+                                    </div>
+                                </ion-col>
+                            </ion-row>
+                            <ion-row class="secondary-info">
+                                <!-- Relais-->
+                                <ion-col class="pnc-info">
+                                    <label>{{ 'FLIGHT_CREW_LIST.LIST.RELAYS' | translate }}</label>
+                                    <div class="value pnc-relays" [ngClass]="{'no-value' : crewMember.pnc.relays.length === 0 }">
+                                        <span *ngFor="let relay of crewMember.pnc.relays">
+                                            {{ relay.code }}
+                                        </span>
+                                    </div>
+                                </ion-col>
+                                <!-- Particularités -->
+                                <ion-col class="pnc-info">
+                                    <label>{{ 'FLIGHT_CREW_LIST.LIST.PARTICULARITY' | translate }}</label>
+                                    <span class="value" [ngClass]="{'no-value' : !crewMember.particularity }">{{crewMember.particularity }}</span>
+                                </ion-col>
+                                <!-- dernière rencontre en vol-->
+                                <ion-col class="pnc-info">
+                                    <label>{{ 'FLIGHT_CREW_LIST.LIST.LAST_ENCOUNTER_DATE' | translate }}</label>
+                                    <span class="value" [ngClass]="{'no-value' : !crewMember.pnc.lastEncounterDate }">{{crewMember.pnc.lastEncounterDate | date: 'dd/MM/yyyy'}}</span>
+                                </ion-col>
+                            </ion-row>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+            </ion-card-content>
+        </ion-card>
+    </ion-content>
+</ion-content>
