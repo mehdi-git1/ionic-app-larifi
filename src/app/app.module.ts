@@ -1,3 +1,4 @@
+import { HelpResourceListPage } from './../pages/help-resource-list/help-resource-list';
 import { ComponentsModule } from './../components/components.module';
 import { WaypointStatusProvider } from './../providers/waypoint-status/waypoint-status';
 import { HttpErrorInterceptor } from './../interceptor/httpErrorInterceptor';
@@ -36,6 +37,7 @@ import { WaypointCreatePage } from './../pages/waypoint-create/waypoint-create';
 import { WaypointProvider } from './../providers/waypoint/waypoint';
 import { UpcomingFlightListPage } from '../pages/upcoming-flight-list/upcoming-flight-list';
 import { RotationProvider } from '../providers/rotation/rotation';
+import { HelpResourceProvider } from '../providers/help-resource/help-resource';
 
 @NgModule({
   declarations: [
@@ -45,7 +47,8 @@ import { RotationProvider } from '../providers/rotation/rotation';
     CareerObjectiveCreatePage,
     CareerObjectiveListPage,
     WaypointCreatePage,
-    UpcomingFlightListPage
+    UpcomingFlightListPage,
+    HelpResourceListPage
   ],
   imports: [
     BrowserModule,
@@ -68,7 +71,8 @@ import { RotationProvider } from '../providers/rotation/rotation';
     CareerObjectiveCreatePage,
     CareerObjectiveListPage,
     WaypointCreatePage,
-    UpcomingFlightListPage
+    UpcomingFlightListPage,
+    HelpResourceListPage
   ],
   providers: [
     StatusBar,
@@ -90,7 +94,8 @@ import { RotationProvider } from '../providers/rotation/rotation';
     SessionService,
     WaypointProvider,
     WaypointStatusProvider,
-    RotationProvider
+    RotationProvider,
+    HelpResourceProvider
   ]
 })
 export class AppModule { }

@@ -10,7 +10,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams, Events } from 'ionic-angular';
 import { Pnc } from '../../models/pnc';
 import { Assignment } from '../../models/assignment';
-
+import { HelpResourceListPage } from './../help-resource-list/help-resource-list';
 @Component({
   selector: 'page-pnc-home',
   templateUrl: 'pnc-home.html',
@@ -83,6 +83,13 @@ export class PncHomePage {
    */
   goToCareerObjectiveList() {
     this.navCtrl.push(CareerObjectiveListPage, { matricule: this.matricule });
+  }
+
+  /**
+ * Dirige vers la page de ressource d'aide
+ */
+  goToHelpResource() {
+    this.navCtrl.push(HelpResourceListPage, { matricule: this.Speciality });
   }
 
   /**
