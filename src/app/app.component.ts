@@ -12,7 +12,6 @@ import { TranslateService } from '@ngx-translate/core';
 import { AuthenticationPage } from '../pages/authentication/authentication';
 import { SecMobilService } from '../services/secMobil.service';
 
-
 @Component({
   templateUrl: 'app.html'
 })

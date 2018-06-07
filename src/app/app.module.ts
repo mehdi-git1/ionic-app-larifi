@@ -1,3 +1,4 @@
+import { ComponentsModule } from './../components/components.module';
 import { WaypointStatusProvider } from './../providers/waypoint-status/waypoint-status';
 import { HttpErrorInterceptor } from './../interceptor/httpErrorInterceptor';
 import { SessionService } from './../services/session.service';
@@ -33,6 +34,8 @@ import { CareerObjectiveStatusProvider } from '../providers/career-objective-sta
 import { DatePipe } from '@angular/common';
 import { WaypointCreatePage } from './../pages/waypoint-create/waypoint-create';
 import { WaypointProvider } from './../providers/waypoint/waypoint';
+import { UpcomingFlightListPage } from '../pages/upcoming-flight-list/upcoming-flight-list';
+import { RotationProvider } from '../providers/rotation/rotation';
 
 @NgModule({
   declarations: [
@@ -41,12 +44,14 @@ import { WaypointProvider } from './../providers/waypoint/waypoint';
     AuthenticationPage,
     CareerObjectiveCreatePage,
     CareerObjectiveListPage,
-    WaypointCreatePage
+    WaypointCreatePage,
+    UpcomingFlightListPage
   ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(EDossierPNC),
     HttpClientModule,
+    ComponentsModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -62,7 +67,8 @@ import { WaypointProvider } from './../providers/waypoint/waypoint';
     AuthenticationPage,
     CareerObjectiveCreatePage,
     CareerObjectiveListPage,
-    WaypointCreatePage
+    WaypointCreatePage,
+    UpcomingFlightListPage
   ],
   providers: [
     StatusBar,
@@ -83,7 +89,8 @@ import { WaypointProvider } from './../providers/waypoint/waypoint';
     SecurityProvider,
     SessionService,
     WaypointProvider,
-    WaypointStatusProvider
+    WaypointStatusProvider,
+    RotationProvider
   ]
 })
 export class AppModule { }
