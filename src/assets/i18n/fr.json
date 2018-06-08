@@ -138,6 +138,7 @@
         }
     },
     "UPCOMING_FLIGHT_LIST": {
-        "TITLE": "Liste de vos prochains vols rencontre"
+        "TITLE": "Liste de vos prochains vols rencontre",
+        "NO_ROTATIONS": "Aucune rotation trouvée"
     }
 }

@@ -9,8 +9,14 @@
 <ion-content padding>
     <h3>{{ 'UPCOMING_FLIGHT_LIST.TITLE' | translate }}</h3>
 
-    <div class="rotation-list" margin-top>
-        <rotation-card [rotation]="lastPerformedRotation" *ngIf="lastPerformedRotation" class="last-performed-rotation"></rotation-card>
-        <rotation-card *ngFor=" let rotation of upcomingRotations " [rotation]="rotation " class="upcoming-rotations"></rotation-card>
+    <div *ngIf="!loadingIsOver()" class="spinner-container">
+        <ion-spinner></ion-spinner>
+    </div>
+    <div *ngIf="loadingIsOver()">
+        <div class="no-rotations" *ngIf="!rotationsExist()">{{ 'UPCOMING_FLIGHT_LIST.NO_ROTATIONS' | translate }}</div>
+        <div class="rotation-list" margin-top>
+            <rotation-card [rotation]="lastPerformedRotation" *ngIf="lastPerformedRotation" class="last-performed-rotation"></rotation-card>
+            <rotation-card *ngFor=" let rotation of upcomingRotations " [rotation]="rotation " class="upcoming-rotations"></rotation-card>
+        </div>
     </div>
 </ion-content>
