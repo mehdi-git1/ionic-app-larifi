@@ -108,10 +108,10 @@
         "FORM": {
             "CONTEXT": "Contexte",
             "ACTION_PERFORMED": "Action réalisée",
-            "ACTION_PERFORMED_EXPLANATION": " (Saisie obligatoire le jour de la rencontre)",
             "MANAGER_COMMENT": "Commentaire cadre",
             "PNC_COMMENT": "Commentaire PNC",
-            "ENCOUNTER_DATE": "Date de rencontre"
+            "ENCOUNTER_DATE": "Date de rencontre",
+            "REQUIRED_ON_ENCOUNTER_DAY": " (Saisie obligatoire le jour de la rencontre)"
         },
         "CONFIRM_DRAFT_DELETE": {
             "TITLE": "Suppression du brouillon",
