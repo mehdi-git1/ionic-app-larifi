@@ -33,6 +33,8 @@ export class CareerObjectiveCreatePage {
   cancelValidation = false;
   cancelAbandon = false;
 
+  requiredOnEncounterDay = false;
+
   // Permet d'exposer l'enum au template
   CareerObjectiveStatus = CareerObjectiveStatus;
   WaypointStatus = WaypointStatus;
@@ -118,11 +120,24 @@ export class CareerObjectiveCreatePage {
       actionPlanControl: ['', Validators.maxLength(5000)],
       managerCommentControl: ['', Validators.maxLength(4000)],
       pncCommentControl: ['', Validators.maxLength(4000)],
-      encounterDateControl: [''],
+      encounterDateControl: ['', this.getEncounterDateValidators()],
       nextEncounterDateControl: [''],
       prioritizedControl: [false],
       waypointContextControl: ['', Validators.maxLength(4000)],
     });
+  }
+
+  getEncounterDateValidators(): Validators {
+    if (this.isEncounterDateRequired()) {
+      return Validators.required;
+    }
+  }
+
+  /**
+   * Teste si le champs "date de rencontre" est obligatoire
+   */
+  isEncounterDateRequired(): boolean {
+    return this.careerObjective.careerObjectiveStatus && this.careerObjective.careerObjectiveStatus !== CareerObjectiveStatus.DRAFT;
   }
 
   /**
@@ -187,12 +202,13 @@ export class CareerObjectiveCreatePage {
    * Enregistre un objectif au statut enregistré
    */
   saveCareerObjectiveToRegisteredStatus() {
-    this.careerObjective.careerObjectiveStatus = CareerObjectiveStatus.REGISTERED;
-    this.careerObjective.registrationDate = this.datePipe.transform(new Date(), 'yyyy-MM-ddTHH:mm');
-    if (!this.careerObjective.encounterDate) {
-      this.careerObjective.encounterDate = this.datePipe.transform(new Date(), 'yyyy-MM-ddTHH:mm');
+    if (this.careerObjective.encounterDate) {
+      this.careerObjective.careerObjectiveStatus = CareerObjectiveStatus.REGISTERED;
+      this.careerObjective.registrationDate = this.datePipe.transform(new Date(), 'yyyy-MM-ddTHH:mm');
+      this.saveCareerObjective();
+    } else {
+      this.requiredOnEncounterDay = true;
     }
-    this.saveCareerObjective();
   }
 
   /**

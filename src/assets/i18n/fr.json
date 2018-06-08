@@ -42,7 +42,8 @@
             "NEXT_ENCOUNTER_DATE": "Prochain point",
             "ENCOUNTER_DATE": "Date de rencontre",
             "PRIORITIZED": "Prioritaire",
-            "CREATION_DATE": "Créé le"
+            "CREATION_DATE": "Créé le",
+            "REQUIRED_ON_ENCOUNTER_DAY": " (Saisie obligatoire le jour de la rencontre)"
         },
         "CONFIRM_DRAFT_DELETE": {
             "TITLE": "Suppression du brouillon",
