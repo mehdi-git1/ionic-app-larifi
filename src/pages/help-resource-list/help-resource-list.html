@@ -7,7 +7,7 @@
 <ion-header>
 
     <ion-navbar>
-        <ion-title>help-resource-list</ion-title>
+        <ion-title>{{'HELP_RESOURCES_LIST.TITLE' | translate}}</ion-title>
     </ion-navbar>
 
 </ion-header>
@@ -16,14 +16,14 @@
 <ion-content padding>
 
     <ion-list>
-        <!-- <ion-item <!-- ngFor="let resource of resources">
-            <ion-thumbnail item-start>
+        <div *ngIf="resources">
+            <ion-item *ngFor="let resource of resources">
                 <ion-icon name="document"></ion-icon>
-            </ion-thumbnail>
-            <h2>{{resource.nom}}</h2>
-            <p>{{resource.lastUpdate}}</p>
-            <button ion-button clear item-end>View</button>
-        </ion-item> -->
+                <h2>{{resource.nom}}</h2>
+                <p>{{resource.lastUpdate | date: 'dd/MM/yyyy HH:MM'}}</p>
+                <button ion-button clear item-end (click)="openTab(resource.linkFile)">View</button>
+            </ion-item>
+        </div>
     </ion-list>
 
 </ion-content>

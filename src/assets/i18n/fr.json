@@ -130,5 +130,9 @@
     },
     "UPCOMING_FLIGHT_LIST": {
         "TITLE": "Liste de vos prochains vols rencontre"
+    },
+    "HELP_RESOURCES_LIST": {
+        "TITLE": "Ressources d'aides",
+        "UNKNOWN_ERROR": "Une erreur inconnue est survenue. Merci de recharger la page ou réessayer dans quelques minutes."
     }
 }

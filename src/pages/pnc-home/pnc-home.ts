@@ -1,3 +1,4 @@
+import { TranslateService } from '@ngx-translate/core';
 import { UpcomingFlightListPage } from './../upcoming-flight-list/upcoming-flight-list';
 import { SecurityProvider } from './../../providers/security/security';
 import { SessionService } from './../../services/session.service';
@@ -29,7 +30,8 @@ export class PncHomePage {
     private toastProvider: ToastProvider,
     private securityProvider: SecurityProvider,
     private sessionService: SessionService,
-    private events: Events) {
+    private events: Events,
+    public translateService: TranslateService) {
 
     this.pnc = new Pnc();
     this.pnc.assignment = new Assignment();
@@ -89,7 +91,11 @@ export class PncHomePage {
  * Dirige vers la page de ressource d'aide
  */
   goToHelpResource() {
-    this.navCtrl.push(HelpResourceListPage, { matricule: this.Speciality });
+    if (this.pnc !== undefined && this.pnc.speciality !== undefined) {
+      this.navCtrl.push(HelpResourceListPage, { speciality: this.pnc.speciality });
+    } else {
+      this.toastProvider.error(this.translateService.instant('HELP_RESOURCES_LIST.UNKNOWN_ERROR'));
+    }
   }
 
   /**
