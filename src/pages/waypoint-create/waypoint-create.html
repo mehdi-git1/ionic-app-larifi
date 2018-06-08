@@ -31,7 +31,9 @@
                 <ion-col col-12>
                     <!-- Action réalisée -->
                     <ion-item>
-                        <ion-label floating [ngClass]="{'required' : isActionPerformedRequired() || displayActionPerformedRequired }">{{ 'WAYPOINT_CREATE.FORM.ACTION_PERFORMED' | translate }}<span *ngIf="displayActionPerformedRequired">{{ 'WAYPOINT_CREATE.FORM.ACTION_PERFORMED_EXPLANATION' | translate }}</span></ion-label>
+                        <ion-label floating [ngClass]="{'required' : !isDraft() || requiredOnEncounterDay }">{{ 'WAYPOINT_CREATE.FORM.ACTION_PERFORMED' | translate }}
+                            <span *ngIf="requiredOnEncounterDay">{{ 'WAYPOINT_CREATE.FORM.REQUIRED_ON_ENCOUNTER_DAY' | translate }}</span>
+                        </ion-label>
                         <ion-textarea [(ngModel)]="waypoint.actionPerformed" formControlName="actionPerformedControl" name="actionPerformed"></ion-textarea>
                     </ion-item>
                 </ion-col>
@@ -55,7 +57,9 @@
             <ion-row>
                 <ion-col col-6>
                     <!-- Date de rencontre -->
-                    <ion-label stacked>{{ 'WAYPOINT_CREATE.FORM.ENCOUNTER_DATE' | translate }}</ion-label>
+                    <ion-label stacked [ngClass]="{'required' : !isDraft() || requiredOnEncounterDay }">{{ 'WAYPOINT_CREATE.FORM.ENCOUNTER_DATE' | translate }}
+                        <span *ngIf="requiredOnEncounterDay">{{ 'WAYPOINT_CREATE.FORM.REQUIRED_ON_ENCOUNTER_DAY' | translate }}</span>
+                    </ion-label>
                     <ion-item>
                         <ion-label>
                             <ion-icon name="calendar"></ion-icon>
