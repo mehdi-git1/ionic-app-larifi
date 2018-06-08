@@ -10,7 +10,7 @@ import { CareerObjectiveProvider } from './../../providers/career-objective/care
 import { CareerObjective } from './../../models/careerObjective';
 import { Component } from '@angular/core';
 import { NavController, NavParams, AlertController, LoadingController, Loading } from 'ionic-angular';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Pnc } from '../../models/pnc';
 import { DatePipe } from '@angular/common';
 import { Waypoint } from './../../models/waypoint';
@@ -120,24 +120,18 @@ export class CareerObjectiveCreatePage {
       actionPlanControl: ['', Validators.maxLength(5000)],
       managerCommentControl: ['', Validators.maxLength(4000)],
       pncCommentControl: ['', Validators.maxLength(4000)],
-      encounterDateControl: ['', this.getEncounterDateValidators()],
+      encounterDateControl: [''],
       nextEncounterDateControl: [''],
       prioritizedControl: [false],
       waypointContextControl: ['', Validators.maxLength(4000)],
     });
   }
 
-  getEncounterDateValidators(): Validators {
-    if (this.isEncounterDateRequired()) {
-      return Validators.required;
-    }
-  }
-
   /**
    * Teste si le champs "date de rencontre" est obligatoire
    */
   isEncounterDateRequired(): boolean {
-    return this.careerObjective.careerObjectiveStatus && this.careerObjective.careerObjectiveStatus !== CareerObjectiveStatus.DRAFT;
+    return (this.careerObjective.careerObjectiveStatus && this.careerObjective.careerObjectiveStatus !== CareerObjectiveStatus.DRAFT);
   }
 
   /**
