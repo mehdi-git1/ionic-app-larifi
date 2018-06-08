@@ -17,11 +17,12 @@
 
     <ion-list>
         <div *ngIf="resources">
-            <ion-item *ngFor="let resource of resources">
-                <ion-icon name="document"></ion-icon>
+            <ion-item *ngFor="let resource of resources" (click)="openTab(resource.linkFile)">
+                <ion-thumbnail item-start>
+                    <ion-icon name="document"></ion-icon>
+                </ion-thumbnail>
                 <h2>{{resource.nom}}</h2>
-                <p>{{resource.lastUpdate | date: 'dd/MM/yyyy HH:MM'}}</p>
-                <button ion-button clear item-end (click)="openTab(resource.linkFile)">View</button>
+                {{resource.lastUpdate | date: 'dd/MM/yyyy HH:MM'}}
             </ion-item>
         </div>
     </ion-list>

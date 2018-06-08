@@ -1,3 +1,22 @@
-page-help-resource-list {
+page-help-resource-list {}
 
+.item-md ion-avatar[item-left],
+.item-md ion-thumbnail[item-left],
+.item-md ion-avatar[item-start],
+.item-md ion-thumbnail[item-start] {
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+ion-icon {
+    font-size: 3em;
+}
+
+ion-item:hover {
+    cursor: pointer;
+    background-color: #080F38;
+    color: white;
 }
