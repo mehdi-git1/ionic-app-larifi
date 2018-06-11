@@ -1,5 +1,4 @@
 page-flight-crew-list {
-
     .flight-crew-card {
 
         img {
@@ -17,10 +16,6 @@ page-flight-crew-list {
 
             .primary-info {
                 font-size: 1.0em;
-            }
-
-            .primary-value {
-                margin-left: 10px;
             }
 
             .icon-container {
@@ -63,16 +58,12 @@ page-flight-crew-list {
     .leg {
         display: flex;
         justify-content: space-between;
+        align-items: center;
         height: 50px;
+        font-size: 1.5em;
 
-        span {
-            display: flex;
-            align-items: center;
-            font-size: 1.5em;
-
+        ion-icon {
+            color: color($colors, primary);
         }
     }
-
-
-
 }
