@@ -138,7 +138,8 @@
         }
     },
     "UPCOMING_FLIGHT_LIST": {
-        "TITLE": "Liste de vos prochains vols rencontre",
-        "NO_ROTATIONS": "Aucune rotation trouvée"
+        "LAST_FLIGHT": "Dernier vol",
+        "UPCOMING_FLIGHTS": "Mes prochains vols",
+        "NO_FLIGHTS": "Aucun vol trouvé"
     }
 }

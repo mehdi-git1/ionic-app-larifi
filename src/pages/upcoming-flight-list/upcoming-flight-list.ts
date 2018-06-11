@@ -30,15 +30,6 @@ export class UpcomingFlightListPage {
   }
 
   /**
-   * Teste si des rotations ont été trouvées pour le PNC
-   * @return true si c'est le cas, false sinon
-   */
-  rotationsExist(): boolean {
-    return (this.lastPerformedRotation !== undefined && this.lastPerformedRotation.techId !== undefined)
-      || (this.upcomingRotations && this.upcomingRotations.length > 0);
-  }
-
-  /**
    * Vérifie que le chargement est terminé
    * @return true si c'est le cas, false sinon
    */
