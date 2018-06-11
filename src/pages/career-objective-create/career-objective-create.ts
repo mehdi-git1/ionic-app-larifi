@@ -178,7 +178,7 @@ export class CareerObjectiveCreatePage {
    * Transforme les dates au format iso
    */
   prepareCareerObjectiveBeforeSubmit() {
-    if (this.careerObjective.encounterDate) {
+    if (this.careerObjective.encounterDate !== undefined) {
       this.careerObjective.encounterDate = this.datePipe.transform(this.careerObjective.encounterDate, 'yyyy-MM-ddTHH:mm');
     }
     this.careerObjective.nextEncounterDate = this.datePipe.transform(this.careerObjective.nextEncounterDate, 'yyyy-MM-ddTHH:mm');
