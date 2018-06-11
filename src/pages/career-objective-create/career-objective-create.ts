@@ -209,34 +209,48 @@ export class CareerObjectiveCreatePage {
    * Enregistre un objectif au statut validé
    */
   saveCareerObjectiveToValidatedStatus() {
-    this.careerObjective.careerObjectiveStatus = CareerObjectiveStatus.VALIDATED;
-    this.saveCareerObjective();
+    if (this.careerObjective.encounterDate) {
+      this.careerObjective.careerObjectiveStatus = CareerObjectiveStatus.VALIDATED;
+      this.saveCareerObjective();
+    } else {
+      this.requiredOnEncounterDay = true;
+    }
   }
 
   /**
   * Enregistre un objectif au statut abandonné
   */
   saveCareerObjectiveToAbandonedStatus() {
-    this.careerObjective.careerObjectiveStatus = CareerObjectiveStatus.ABANDONED;
-    this.saveCareerObjective();
+    if (this.careerObjective.encounterDate) {
+      this.careerObjective.careerObjectiveStatus = CareerObjectiveStatus.ABANDONED;
+      this.saveCareerObjective();
+    } else {
+      this.requiredOnEncounterDay = true;
+    }
   }
 
   /**
   * annule la validation d'un objectif
   */
   cancelCareerObjectiveValidation() {
-    this.cancelValidation = true;
-    this.careerObjective.careerObjectiveStatus = CareerObjectiveStatus.REGISTERED;
-    this.saveCareerObjective();
+    if (this.careerObjective.encounterDate) {
+      this.cancelValidation = true;
+      this.careerObjective.careerObjectiveStatus = CareerObjectiveStatus.REGISTERED;
+      this.saveCareerObjective();
+    } else {
+      this.requiredOnEncounterDay = true;
+    }
   }
 
   /**
   * reprendre un objectif abandonné
   */
   resumeAbandonedCareerObjective() {
-    this.cancelAbandon = true;
-    this.careerObjective.careerObjectiveStatus = CareerObjectiveStatus.REGISTERED;
-    this.saveCareerObjective();
+    if (this.careerObjective.encounterDate) {
+      this.cancelAbandon = true;
+      this.careerObjective.careerObjectiveStatus = CareerObjectiveStatus.REGISTERED;
+      this.saveCareerObjective();
+    }
   }
 
   /**
