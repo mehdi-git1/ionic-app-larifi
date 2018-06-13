@@ -24,10 +24,13 @@ import { TranslateModule } from '@ngx-translate/core';
 import { TranslateLoader } from '@ngx-translate/core';
 import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { createTranslateLoader } from '../common/translate/TranslateLoader';
-import { ConnectivityService } from '../services/connectivity.service';
+
+import { ConnectivityService } from './../services/connectivity.service';
+import { OfflineService } from './../services/rest.offline.service';
 import { RestService } from '../services/rest.base.service';
 import { RestMobileService } from '../services/rest.mobile.service';
 import { RestWebService } from '../services/rest.web.service';
+
 import { PncProvider } from '../providers/pnc/pnc';
 import { GenderProvider } from '../providers/gender/gender';
 import { ToastProvider } from '../providers/toast/toast';
@@ -82,9 +85,11 @@ import { IonicStorageModule } from '@ionic/storage';
     SplashScreen,
     SecMobilService,
     ConnectivityService,
-    { provide: RestService, useFactory: createRestService, deps: [HttpClient, SecMobilService] },
+    OfflineService,
+    { provide: RestService, useFactory: createRestService, deps: [HttpClient, SecMobilService, ConnectivityService, OfflineService] },
     { provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true },
-    AppInitService, HttpClientModule,
+    AppInitService,
+    HttpClientModule,
     Config,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     PncProvider,
@@ -107,12 +112,15 @@ export class AppModule { }
 declare var window: any;
 
 // Check if we are in app mode or in web browser
-export function createRestService(http: HttpClient, secMobilService: SecMobilService): RestService {
+export function createRestService(http: HttpClient,
+  secMobilService: SecMobilService,
+  connectivityService: ConnectivityService,
+  offlineService: OfflineService): RestService {
   if (undefined !== window.cordova && 'browser' !== window.cordova.platformId) {
     console.log('mobile mode selected');
     return new RestMobileService(http, secMobilService);
   } else {
     console.log('web mode selected');
-    return new RestWebService(http);
+    return new RestWebService(http, connectivityService, offlineService);
   }
 }

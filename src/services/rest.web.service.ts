@@ -1,3 +1,5 @@
+import { OfflineService } from './rest.offline.service';
+import { ConnectivityService } from './connectivity.service';
 import { Injectable } from '@angular/core';
 import { RestService, RestRequest } from './rest.base.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -7,22 +9,28 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 @Injectable()
 export class RestWebService extends RestService {
 
-    constructor(protected http: HttpClient) {
+    constructor(protected http: HttpClient,
+        private connectivityService: ConnectivityService,
+        private offlineService: OfflineService) {
         super(http);
     }
 
 
     public call(request: RestRequest): Promise<any> {
-        return new Promise((resolve, reject) => {
-            this.makeHttpRequest(request,
-                (success) => {
-                    resolve(success);
-                },
-                (err) => {
-                    console.error('RestWebService:call failure : ' + err);
-                    reject(err);
-                });
-        });
+        if (this.connectivityService.isConnected()) {
+            return new Promise((resolve, reject) => {
+                this.makeHttpRequest(request,
+                    (success) => {
+                        resolve(success);
+                    },
+                    (err) => {
+                        console.error('RestWebService:call failure : ' + err);
+                        reject(err);
+                    });
+            });
+        } else {
+            this.offlineService.call(request);
+        }
     }
 
 

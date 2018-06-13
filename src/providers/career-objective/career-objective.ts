@@ -1,3 +1,4 @@
+import { OfflineService } from './../../services/rest.offline.service';
 import { Config } from './../../configuration/environment-variables/config';
 import { CareerObjective } from './../../models/careerObjective';
 import { Injectable } from '@angular/core';
@@ -9,7 +10,8 @@ export class CareerObjectiveProvider {
 
 
   constructor(public restService: RestService,
-    private config: Config) {
+    private config: Config,
+    private offlineService: OfflineService) {
     this.careerObjectiveUrl = `${config.backEndUrl}/career_objectives`;
   }
 
@@ -18,7 +20,7 @@ export class CareerObjectiveProvider {
    * @return la liste des objectifs
    */
   getCareerObjectiveList(matricule: String): Promise<CareerObjective[]> {
-    return this.restService.get(`${this.careerObjectiveUrl}/pnc/${matricule}`);
+    return this.restService.get(`${this.careerObjectiveUrl}/pnc/${matricule}`, null, null, true);
   }
 
   /**

@@ -9,10 +9,10 @@ declare var window: any;
 export class ConnectivityService {
 
     private restBaseUrl: 'https://secmobil-apirct.airfrance.fr/secmobilTestWeb/services/api/user/';
-    public isConnected = false;
+    private connected = false;
 
     @Output()
-    public connectionStatusChange = new EventEmitter<boolean>();
+    connectionStatusChange = new EventEmitter<boolean>();
 
     constructor(protected http: HttpClient,
         public platform: Platform) {
@@ -20,24 +20,30 @@ export class ConnectivityService {
         this.checkConnection();
     }
 
+    isConnected(): boolean {
+        return this.connected;
+    }
+
     setConnected(newStatus: boolean) {
 
-        if (this.isConnected !== newStatus) {
-            this.isConnected = newStatus;
+        if (this.connected !== newStatus) {
+            this.connected = newStatus;
             this.connectionStatusChange.emit(newStatus);
         }
     }
 
-    public checkConnection() {
+    checkConnection() {
         // console.log('check connection');
         this.pingAPI().subscribe(p => {
-            if (p) {
+            /*if (p) {
                 this.setConnected(true);
-                // console.log('connected');
+                //console.log('connected');
             } else {
                 this.setConnected(false);
                 // console.log('not connected');
-            }
+            }*/
+            // TODO : débouchonner
+            this.setConnected(true);
         });
 
         setTimeout(() => this.checkConnection(), 5000);
