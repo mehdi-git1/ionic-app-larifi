@@ -38,6 +38,8 @@ import { WaypointProvider } from './../providers/waypoint/waypoint';
 import { UpcomingFlightListPage } from '../pages/upcoming-flight-list/upcoming-flight-list';
 import { RotationProvider } from '../providers/rotation/rotation';
 import { LegProvider } from '../providers/leg/leg';
+import { IonicStorageModule } from '@ionic/storage';
+
 
 @NgModule({
   declarations: [
@@ -53,6 +55,7 @@ import { LegProvider } from '../providers/leg/leg';
   imports: [
     BrowserModule,
     IonicModule.forRoot(EDossierPNC),
+    IonicStorageModule.forRoot(),
     HttpClientModule,
     ComponentsModule,
     TranslateModule.forRoot({
