@@ -1,4 +1,7 @@
+import { PncRole } from './pncRole';
+
 export enum Speciality {
+
     CDB = 'CDB',
     OPL = 'OPL',
     OMN = 'OMN',
@@ -8,3 +11,20 @@ export enum Speciality {
     HOT = 'HOT',
     STW = 'STW'
 }
+
+export namespace Speciality {
+    /**
+     * @param speciality 
+     * @returns return enum pnc role that correspond to the speciality given
+     */
+    export function getPncRole(speciality: Speciality) {
+
+        if (Speciality.CAD === speciality) {
+            return PncRole.MANAGER;
+        } else {
+            return PncRole.PNC;
+        }
+    }
+}
+
+

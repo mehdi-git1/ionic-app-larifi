@@ -1,3 +1,4 @@
+import { PncRole } from './../../models/pncRole';
 import { TranslateService } from '@ngx-translate/core';
 import { UpcomingFlightListPage } from './../upcoming-flight-list/upcoming-flight-list';
 import { SecurityProvider } from './../../providers/security/security';
@@ -11,7 +12,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams, Events } from 'ionic-angular';
 import { Pnc } from '../../models/pnc';
 import { Assignment } from '../../models/assignment';
-import { HelpResourceListPage } from './../help-resource-list/help-resource-list';
+import { HelpAssetListPage } from './../help-asset-list/help-asset-list';
 @Component({
   selector: 'page-pnc-home',
   templateUrl: 'pnc-home.html',
@@ -92,7 +93,7 @@ export class PncHomePage {
  */
   goToHelpResource() {
     if (this.pnc !== undefined && this.pnc.speciality !== undefined) {
-      this.navCtrl.push(HelpResourceListPage, { speciality: this.pnc.speciality });
+      this.navCtrl.push(HelpAssetListPage, { pncRole: Speciality.getPncRole(this.pnc.speciality) });
     } else {
       this.toastProvider.error(this.translateService.instant('HELP_RESOURCES_LIST.UNKNOWN_ERROR'));
     }
