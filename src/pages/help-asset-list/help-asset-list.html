@@ -9,14 +9,14 @@
 
 <ion-content padding>
 
-    <ion-list>
-        <div *ngIf="resources">
-            <ion-item *ngFor="let resource of resources" (click)="openTab(resource.linkFile)">
+    <ion-list *ngIf="resources">
+        <div>
+            <ion-item *ngFor="let resource of resources" (click)="openTab(resource.url)">
                 <ion-thumbnail item-start>
                     <ion-icon name="document"></ion-icon>
                 </ion-thumbnail>
-                <h2>{{resource.nom}}</h2>
-                {{resource.lastUpdate | date: 'dd/MM/yyyy HH:MM'}}
+                <h2>{{resource.name}}</h2>
+                {{resource.lastUpdateDate | date: 'dd/MM/yyyy HH:MM'}}
             </ion-item>
         </div>
     </ion-list>

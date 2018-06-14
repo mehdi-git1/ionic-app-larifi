@@ -16,7 +16,7 @@ export class HelpAssetProvider {
 
   /**
    * Fait appel au service rest qui renvois la liste des ressources d'aide
-   * @return la liste des objectifs
+   * @return la liste des ressources d'aides (description, nom, url)
    */
   getHelpAssetList(typeProfil: String): Promise<HelpAsset[]> {
     return this.restService.get(`${this.HelpAssetUrl}/${typeProfil}`);

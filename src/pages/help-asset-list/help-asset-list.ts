@@ -8,8 +8,8 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 @IonicPage()
 @Component({
-  selector: 'page-help-resource-list',
-  templateUrl: 'help-resource-list.html',
+  selector: 'page-help-asset-list',
+  templateUrl: 'help-asset-list.html',
 })
 export class HelpAssetListPage {
 
@@ -24,12 +24,14 @@ export class HelpAssetListPage {
     public translateService: TranslateService) {
   }
 
-
+  /**
+   * @param link this is the url that the new tab will open
+   */
   openTab(link: string) {
     window.open(link);
   }
 
-  ionViewDidLoad() {
+  ionViewCanEnter() {
     this.role = this.navParams.get('pncRole');
     if (this.role !== undefined) {
       if (this.role !== PncRole.MANAGER) {
