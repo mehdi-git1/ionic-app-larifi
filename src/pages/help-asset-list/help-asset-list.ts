@@ -1,31 +1,25 @@
+import { HelpAssetProvider } from './../../providers/help-asset/help-asset';
+import { HelpAsset } from './../../models/helpAsset';
 import { TranslateService } from '@ngx-translate/core';
 import { ToastProvider } from './../../providers/toast/toast';
-import { Speciality } from './../../models/speciality';
+import { PncRole } from './../../models/pncRole';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { HelpResourceProvider } from '../../providers/help-resource/help-resource';
-import { HelpResource } from './../../models/helpResource';
-/**
- * Generated class for the HelpResourceListPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
   selector: 'page-help-resource-list',
   templateUrl: 'help-resource-list.html',
 })
-export class HelpResourceListPage {
+export class HelpAssetListPage {
 
   typeProfil: string;
-  speciality: Speciality;
-  resources: HelpResource[];
+  role: PncRole;
+  resources: HelpAsset[];
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
-    private helpResourceProvider: HelpResourceProvider,
+    private helpAssetProvider: HelpAssetProvider,
     private toastProvider: ToastProvider,
     public translateService: TranslateService) {
   }
@@ -36,14 +30,14 @@ export class HelpResourceListPage {
   }
 
   ionViewDidLoad() {
-    this.speciality = this.navParams.get('speciality');
-    if (this.speciality !== undefined) {
-      if (this.speciality !== Speciality.CAD) {
+    this.role = this.navParams.get('pncRole');
+    if (this.role !== undefined) {
+      if (this.role !== PncRole.MANAGER) {
         this.typeProfil = 'PNC';
       } else {
-        this.typeProfil = 'CADRE';
+        this.typeProfil = 'MANAGER';
       }
-      this.helpResourceProvider.getHelpResourceList(this.typeProfil).then(result => {
+      this.helpAssetProvider.getHelpAssetList(this.typeProfil).then(result => {
         this.resources = result;
       }, error => { });
     } else {
