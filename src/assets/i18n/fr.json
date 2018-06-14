@@ -24,7 +24,9 @@
         "HELP_CENTRE": "Ressources d'aide",
         "PNC_TEAM": "Effectif PNC",
         "UPCOMING_FLIGHT": "Prochains vols",
-        "UNKNOWN_ERROR": "Une erreur inconnue est survenue. Merci de recharger la page ou réessayer dans quelques minutes."
+        "CREW_MEMBERS": "Liste équipage",
+        "UNKNOWN_ERROR": "Une erreur inconnue est survenue. Merci de recharger la page ou réessayer dans quelques minutes.",
+        "COMING_SOON": "(Prochainement)"
     },
     "CAREER_OBJECTIVE_CREATE": {
         "CREATE_TITLE": "Création d'un nouvel objectif",
@@ -41,7 +43,8 @@
             "NEXT_ENCOUNTER_DATE": "Prochain point",
             "ENCOUNTER_DATE": "Date de rencontre",
             "PRIORITIZED": "Prioritaire",
-            "CREATION_DATE": "Créé le"
+            "CREATION_DATE": "Créé le",
+            "REQUIRED_ON_ENCOUNTER_DAY": " (Saisie obligatoire le jour de la rencontre)"
         },
         "CONFIRM_DRAFT_DELETE": {
             "TITLE": "Suppression du brouillon",
@@ -106,10 +109,10 @@
         "FORM": {
             "CONTEXT": "Contexte",
             "ACTION_PERFORMED": "Action réalisée",
-            "ACTION_PERFORMED_EXPLANATION": " (Saisie obligatoire le jour de la rencontre)",
             "MANAGER_COMMENT": "Commentaire cadre",
             "PNC_COMMENT": "Commentaire PNC",
-            "ENCOUNTER_DATE": "Date de rencontre"
+            "ENCOUNTER_DATE": "Date de rencontre",
+            "REQUIRED_ON_ENCOUNTER_DAY": " (Saisie obligatoire le jour de la rencontre)"
         },
         "CONFIRM_DRAFT_DELETE": {
             "TITLE": "Suppression du brouillon",
@@ -128,11 +131,23 @@
             "DRAFT_DELETED": "Brouillon supprimé"
         }
     },
+    "FLIGHT_CREW_LIST": {
+        "LIST": {
+            "RELAYS": "Relais",
+            "PARTICULARITY": "Particularité",
+            "LAST_IN_FLIGHT_ENCOUNTER_DATE": "Dernière rencontre Vol",
+            "LAST_ON_GROUND_ENCOUNTER_DATE": "Dernière rencontre Sol"
+        }
+    },
     "UPCOMING_FLIGHT_LIST": {
-        "TITLE": "Liste de vos prochains vols rencontre"
+        "TITLE": "Liste de vos prochains vols rencontre",
+        "LAST_FLIGHT": "Mon dernier vol",
+        "UPCOMING_FLIGHTS": "Mes prochains vols",
+        "NO_FLIGHTS": "Aucun vol trouvé"
     },
     "HELP_ASSET_LIST": {
         "TITLE": "Ressources d'aides",
         "UNKNOWN_ERROR": "Une erreur inconnue est survenue. Merci de recharger la page ou réessayer dans quelques minutes."
+
     }
 }

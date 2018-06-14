@@ -13,3 +13,12 @@
  .value {
      font-weight: bold;
  }
+
+ .firstname {
+     display: inline-block;
+     text-transform: lowercase;
+ }
+
+ .firstname:first-letter {
+     text-transform: uppercase;
+ }

@@ -22,7 +22,7 @@ export class WaypointCreatePage {
   careerObjectiveId: number;
   waypoint: Waypoint;
   loading: Loading;
-  displayActionPerformedRequired: boolean;
+  requiredOnEncounterDay: boolean;
 
   customDateTimeOptions: any;
 
@@ -59,7 +59,7 @@ export class WaypointCreatePage {
       }]
     };
 
-    this.displayActionPerformedRequired = false;
+    this.requiredOnEncounterDay = false;
 
   }
 
@@ -87,39 +87,19 @@ export class WaypointCreatePage {
   initForm() {
     this.creationForm = this.formBuilder.group({
       contextControl: ['', Validators.compose([Validators.maxLength(4000), Validators.required])],
-      actionPerformedControl: ['', this.getActionPerformedValidators()],
+      actionPerformedControl: ['', Validators.maxLength(5000)],
       managerCommentControl: ['', Validators.maxLength(4000)],
       pncCommentControl: ['', Validators.maxLength(4000)],
-      encounterDateControl: ['', this.getEncounterDateValidators()],
+      encounterDateControl: [''],
     });
   }
 
   /**
-   * Récupère le validateur du champs "action réalisée" en fonction de l'état du point d'étape.
-   * @return le validateur du champs "action réalisée"
+   * Teste si le point d'étape est un brouillon.
+   * @return true si le point d'étape est un brouillon, false sinon.
    */
-  getActionPerformedValidators(): Validators {
-    return this.isActionPerformedRequired() ?
-      Validators.compose([Validators.maxLength(5000), Validators.required]) : Validators.maxLength(5000);
-  }
-
-  /**
-   * Récupère le validateur du champs "date de rencontre" en fonction de l'état du point d'étape.
-   * @return le validateur du champs "date de rencontre"
-   */
-  getEncounterDateValidators(): Validators {
-    if (this.waypoint.waypointStatus === WaypointStatus.REGISTERED) {
-      return Validators.required;
-    }
-  }
-
-  /**
-   * Teste si le champs "action réalisée" est obligatoire ou non.
-   * Le champs est non obligatoire quand on est au statut brouillon, mais obligatoire pour tous les autres statuts.
-   * @return true si le champs est obligatoire, false sinon.
-   */
-  isActionPerformedRequired(): boolean {
-    return this.waypoint.waypointStatus && this.waypoint.waypointStatus !== WaypointStatus.DRAFT;
+  isDraft(): boolean {
+    return !this.waypoint.waypointStatus || this.waypoint.waypointStatus === WaypointStatus.DRAFT;
   }
 
   /**
@@ -211,23 +191,20 @@ export class WaypointCreatePage {
    * Enregistre un point d'étape au statut enregistré
    */
   saveWaypointToRegisteredStatus() {
-    if (this.actionPerformedIsValid()) {
-      // Transformation de la date au format ISO avant envoi au back
-      if (this.waypoint.encounterDate == null) {
-        this.waypoint.encounterDate = this.datePipe.transform(new Date(), 'yyyy-MM-ddTHH:mm');
-      }
+    if (this.saveActionIsValid()) {
       this.waypoint.waypointStatus = WaypointStatus.REGISTERED;
       this.saveWaypoint();
     } else {
-      this.displayActionPerformedRequired = true;
+      this.requiredOnEncounterDay = true;
     }
   }
 
   /**
-   * Teste si le champs "action réalisée" est valide. Le champs est considéré valide s'il est remplit.
-   * @return vrai si le champs est valide, faux sinon.
+   * Teste l'action de sauvegarde est valide
+   * @return vrai si l'action est valide, faux sinon.
    */
-  actionPerformedIsValid() {
-    return this.waypoint.actionPerformed && this.waypoint.actionPerformed.length > 0;
+  saveActionIsValid() {
+    return this.waypoint.actionPerformed && this.waypoint.actionPerformed.length > 0
+      && this.waypoint.encounterDate && this.waypoint.encounterDate.length > 0;
   }
 }

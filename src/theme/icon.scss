@@ -1,0 +1,10 @@
+.round-icon {
+    height: 50px;
+    width: 50px;
+    border-radius: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2em;
+    background: color($colors, white);
+}

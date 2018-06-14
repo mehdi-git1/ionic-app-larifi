@@ -119,7 +119,7 @@
                         <ion-datetime displayFormat="DD/MM/YYYY" [(ngModel)]="careerObjective.nextEncounterDate" formControlName="nextEncounterDateControl" [pickerOptions]="nextEncounterDateTimeOptions" [doneText]="translateService.instant('GLOBAL.DATEPICKER.DONE')" [cancelText]="translateService.instant('GLOBAL.DATEPICKER.CANCEL')"></ion-datetime>
                     </ion-item>
                     <!-- Date de rencontre -->
-                    <ion-label stacked>{{ 'CAREER_OBJECTIVE_CREATE.FORM.ENCOUNTER_DATE' | translate }}</ion-label>
+                    <ion-label stacked [ngClass]="{'required' : requiredOnEncounterDay  || isEncounterDateRequired() }">{{ 'CAREER_OBJECTIVE_CREATE.FORM.ENCOUNTER_DATE' | translate }}<span *ngIf="requiredOnEncounterDay">{{ 'CAREER_OBJECTIVE_CREATE.FORM.REQUIRED_ON_ENCOUNTER_DAY' | translate }}</span></ion-label>
                     <ion-item>
                         <ion-label>
                             <ion-icon name="calendar"></ion-icon>

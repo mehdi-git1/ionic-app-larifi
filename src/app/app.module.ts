@@ -1,5 +1,6 @@
 import { HelpAssetListPage } from './../pages/help-asset-list/help-asset-list';
 import { ComponentsModule } from './../components/components.module';
+import { FlightCrewListPage } from './../pages/flight-crew-list/flight-crew-list';
 import { WaypointStatusProvider } from './../providers/waypoint-status/waypoint-status';
 import { HttpErrorInterceptor } from './../interceptor/httpErrorInterceptor';
 import { SessionService } from './../services/session.service';
@@ -38,6 +39,7 @@ import { WaypointProvider } from './../providers/waypoint/waypoint';
 import { UpcomingFlightListPage } from '../pages/upcoming-flight-list/upcoming-flight-list';
 import { RotationProvider } from '../providers/rotation/rotation';
 import { HelpAssetProvider } from '../providers/help-asset/help-asset';
+import { LegProvider } from '../providers/leg/leg';
 
 @NgModule({
   declarations: [
@@ -48,7 +50,8 @@ import { HelpAssetProvider } from '../providers/help-asset/help-asset';
     CareerObjectiveListPage,
     WaypointCreatePage,
     UpcomingFlightListPage,
-    HelpAssetListPage
+    HelpAssetListPage,
+    FlightCrewListPage
   ],
   imports: [
     BrowserModule,
@@ -72,7 +75,8 @@ import { HelpAssetProvider } from '../providers/help-asset/help-asset';
     CareerObjectiveListPage,
     WaypointCreatePage,
     UpcomingFlightListPage,
-    HelpAssetListPage
+    HelpAssetListPage,
+    FlightCrewListPage
   ],
   providers: [
     StatusBar,
@@ -95,7 +99,8 @@ import { HelpAssetProvider } from '../providers/help-asset/help-asset';
     WaypointProvider,
     WaypointStatusProvider,
     RotationProvider,
-    HelpAssetProvider
+    HelpAssetProvider,
+    LegProvider
   ]
 })
 export class AppModule { }

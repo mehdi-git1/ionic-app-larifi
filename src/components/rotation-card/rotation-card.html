@@ -4,8 +4,8 @@
         <ion-spinner *ngIf="rotation.loading" color="white"></ion-spinner>
         <span>{{ rotation.number }}</span>
     </ion-card-header>
-    <ion-card-content [hidden]="!rotation.opened">
-        <div class="leg" *ngFor="let leg of rotation.legs">
+    <ion-card-content [ngClass]="{'opened' : rotation.opened}">
+        <div class="leg" *ngFor="let leg of rotation.legs" (click)="goToFlightCrewListPage(leg)">
             <span>{{ leg.company }}{{ leg.number }}</span>
             <span>{{ leg.departureDate | date : 'dd/MM/yyyy HH:mm' }}</span>
             <span>{{ leg.departureStation }} - {{ leg.arrivalStation }}</span>

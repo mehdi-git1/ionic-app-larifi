@@ -1,3 +1,6 @@
+import { Leg } from './../../models/leg';
+import { FlightCrewListPage } from './../../pages/flight-crew-list/flight-crew-list';
+import { NavParams, NavController } from 'ionic-angular';
 import { RotationProvider } from './../../providers/rotation/rotation';
 import { Rotation } from './../../models/rotation';
 import { Component, Input } from '@angular/core';
@@ -10,7 +13,9 @@ export class RotationCardComponent {
 
   @Input() rotation: Rotation;
 
-  constructor(private rotationProvider: RotationProvider) {
+  constructor(private rotationProvider: RotationProvider,
+    public navCtrl: NavController,
+    public navParams: NavParams) {
   }
 
   /**
@@ -28,5 +33,9 @@ export class RotationCardComponent {
         rotation.loading = false;
       });
     }
+  }
+
+  goToFlightCrewListPage(leg: Leg) {
+    this.navCtrl.push(FlightCrewListPage, { leg: leg });
   }
 }

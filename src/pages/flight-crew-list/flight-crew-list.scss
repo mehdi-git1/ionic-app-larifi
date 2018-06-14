@@ -1,0 +1,69 @@
+page-flight-crew-list {
+    .flight-crew-card {
+
+        img {
+            width: 80px;
+            border-radius: 100%;
+        }
+
+        .content {
+            display: flex;
+            flex-direction: column;
+
+            ion-row {
+                flex: 1;
+            }
+
+            .primary-info {
+                font-size: 1.0em;
+            }
+
+            .icon-container {
+                width: 35px;
+                float: right;
+                ion-icon {
+                    font-size: 2em;
+                }
+            }
+
+            .pnc-info {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                .pnc-relays {
+                    span:after {
+                        content: ', ';
+                    }
+                    span:last-child:after {
+                        content: none;
+
+                    }
+                }
+
+            }
+        }
+    }
+
+    .spinner-container {
+        margin-top: 100px;
+        display: flex;
+        justify-content: center;
+
+        ion-spinner * {
+            width: 80px;
+            height: 80px !important;
+        }
+    }
+
+    .leg {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 50px;
+        font-size: 1.5em;
+
+        ion-icon {
+            color: color($colors, primary);
+        }
+    }
+}
