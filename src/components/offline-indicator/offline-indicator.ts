@@ -7,10 +7,17 @@ import { ConnectivityService } from '../../services/connectivity.service';
 })
 export class OfflineIndicatorComponent {
 
-  constructor(public connectivitService: ConnectivityService) {
+  connected: boolean;
+
+  constructor(public connectivityService: ConnectivityService) {
+    this.connected = this.connectivityService.isConnected();
+
+    this.connectivityService.connectionStatusChange.subscribe(connected => {
+      this.connected = connected;
+    });
   }
 
   switchConnectivity() {
-    this.connectivitService.setConnected(!this.connectivitService.isConnected());
+    this.connectivityService.setConnected(!this.connectivityService.isConnected());
   }
 }
