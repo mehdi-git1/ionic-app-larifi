@@ -9,7 +9,7 @@ declare var window: any;
 export class ConnectivityService {
 
     // private restBaseUrl: 'https://secmobil-apirct.airfrance.fr/secmobilTestWeb/services/api/user/';
-    private restBaseUrl: 'http://localhost:8080/api/resources/rest/me';
+    private pingUrl: 'http://localhost:8080/api/resources/rest/me';
     private connected = false;
 
     @Output()
@@ -17,8 +17,12 @@ export class ConnectivityService {
 
     constructor(protected http: HttpClient,
         public platform: Platform) {
-        // console.log('constructor');
+
         this.checkConnection();
+    }
+
+    getPingUrl() {
+        return this.pingUrl;
     }
 
     isConnected(): boolean {
@@ -26,7 +30,6 @@ export class ConnectivityService {
     }
 
     setConnected(newStatus: boolean) {
-
         if (this.connected !== newStatus) {
             this.connected = newStatus;
             this.connectionStatusChange.emit(newStatus);
@@ -35,8 +38,8 @@ export class ConnectivityService {
 
     checkConnection() {
         // console.log('check connection');
-        this.pingAPI().subscribe(p => {
-            if (p) {
+        this.pingAPI().subscribe(pingResult => {
+            if (pingResult) {
                 this.setConnected(true);
                 console.log('connected');
             } else {
@@ -50,19 +53,20 @@ export class ConnectivityService {
 
     pingAPI(): Observable<Boolean> {
         return Observable.create(
-            observer => {
-                this.http.get(this.restBaseUrl, { observe: 'response' }).subscribe(
-                    r => {
-                        if (r.status === 200) {
-                            observer.next(true);
-                            observer.complete();
+            pingResultStream => {
+                this.http.get(this.pingUrl, { observe: 'response' }).subscribe(
+                    response => {
+                        if (response.status === 200) {
+                            pingResultStream.next(true);
+                            pingResultStream.complete();
                         } else {
-                            observer.next(false);
-                            observer.complete();
+                            pingResultStream.next(false);
+                            pingResultStream.complete();
                         }
-                    }, (error) => {
-                        observer.next(false);
-                        observer.complete();
+                    },
+                    error => {
+                        pingResultStream.next(false);
+                        pingResultStream.complete();
                     });
             }
         );
