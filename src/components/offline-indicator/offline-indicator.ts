@@ -9,4 +9,8 @@ export class OfflineIndicatorComponent {
 
   constructor(public connectivitService: ConnectivityService) {
   }
+
+  switchConnectivity() {
+    this.connectivitService.setConnected(!this.connectivitService.isConnected());
+  }
 }

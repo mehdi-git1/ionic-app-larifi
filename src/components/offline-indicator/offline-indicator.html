@@ -1,2 +1,2 @@
-<div [ngClass]="{ 'offline' : !this.connectivitService.isConnected() }">
+<div [ngClass]="{ 'offline' : !this.connectivitService.isConnected() }" (click)="switchConnectivity()">
 </div>
