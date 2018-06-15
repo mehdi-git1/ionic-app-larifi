@@ -7,7 +7,7 @@ offline-indicator {
     }
 
     .offline {
-        background: color($colors, red80);
+        background: color($colors, orange60);
     }
 
     :not(.offline) {
