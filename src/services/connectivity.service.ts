@@ -8,7 +8,8 @@ declare var window: any;
 @Injectable()
 export class ConnectivityService {
 
-    private restBaseUrl: 'https://secmobil-apirct.airfrance.fr/secmobilTestWeb/services/api/user/';
+    // private restBaseUrl: 'https://secmobil-apirct.airfrance.fr/secmobilTestWeb/services/api/user/';
+    private restBaseUrl: 'http://localhost:8080/api/resources/rest/me';
     private connected = false;
 
     @Output()
@@ -35,15 +36,13 @@ export class ConnectivityService {
     checkConnection() {
         // console.log('check connection');
         this.pingAPI().subscribe(p => {
-            /*if (p) {
+            if (p) {
                 this.setConnected(true);
-                //console.log('connected');
+                console.log('connected');
             } else {
                 this.setConnected(false);
-                // console.log('not connected');
-            }*/
-            // TODO : débouchonner
-            this.setConnected(true);
+                console.log('not connected');
+            }
         });
 
         setTimeout(() => this.checkConnection(), 5000);
