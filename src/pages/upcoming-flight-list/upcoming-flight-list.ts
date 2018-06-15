@@ -36,4 +36,12 @@ export class UpcomingFlightListPage {
   loadingIsOver(): boolean {
     return this.lastPerformedRotation !== undefined && this.upcomingRotations !== undefined;
   }
+
+  /**
+   * Vérifie s'il existe des rotations à venir
+   * @return true si c'est le cas, false sinon
+   */
+  noUpcomingRotations() {
+    return !this.upcomingRotations || this.upcomingRotations.length === 0;
+  }
 }
