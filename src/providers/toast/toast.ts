@@ -21,6 +21,19 @@ export class ToastProvider {
   }
 
   /**
+   * Affiche un toast d'avertissement
+   * @param message le message à afficher dans le toast
+   */
+  warning(message: string) {
+    this.toastCtrl.create({
+      message: message,
+      duration: 5000,
+      position: 'bottom',
+      cssClass: 'warning'
+    }).present();
+  }
+
+  /**
    * Affiche un toast d'erreur
    * @param message le message à afficher dans le toast
    */
