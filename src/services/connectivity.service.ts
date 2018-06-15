@@ -1,3 +1,4 @@
+import { Config } from './../configuration/environment-variables/config';
 import { Observable } from 'rxjs/Rx';
 import { Platform } from 'ionic-angular';
 import { Injectable, Output, EventEmitter } from '@angular/core';
@@ -8,21 +9,17 @@ declare var window: any;
 @Injectable()
 export class ConnectivityService {
 
-    // private restBaseUrl: 'https://secmobil-apirct.airfrance.fr/secmobilTestWeb/services/api/user/';
-    private pingUrl: 'http://localhost:8080/api/resources/rest/me';
+    // private restBaseUrl = 'https://secmobil-apirct.airfrance.fr/secmobilTestWeb/services/api/user/';
     private connected = false;
 
     @Output()
     connectionStatusChange = new EventEmitter<boolean>();
 
     constructor(protected http: HttpClient,
-        public platform: Platform) {
+        public platform: Platform,
+        private config: Config) {
 
-        this.checkConnection();
-    }
-
-    getPingUrl() {
-        return this.pingUrl;
+        this.pingAPI();
     }
 
     isConnected(): boolean {
@@ -36,40 +33,23 @@ export class ConnectivityService {
         }
     }
 
-    checkConnection() {
-        // console.log('check connection');
-        this.pingAPI().subscribe(pingResult => {
-            if (pingResult) {
-                this.setConnected(true);
-                console.log('connected');
-            } else {
+    /**
+     * Envoie une requête au backend toutes les 5 secondes pour vérifier la connectivité.
+     */
+    pingAPI() {
+        this.http.get(this.config.pingUrl, { observe: 'response' }).subscribe(
+            success => {
+                if (success.status === 200) {
+                    this.setConnected(true);
+                } else {
+                    this.setConnected(false);
+                }
+            },
+            error => {
                 this.setConnected(false);
-                console.log('not connected');
-            }
-        });
+            });
 
-        setTimeout(() => this.checkConnection(), 5000);
-    }
-
-    pingAPI(): Observable<Boolean> {
-        return Observable.create(
-            pingResultStream => {
-                this.http.get(this.pingUrl, { observe: 'response' }).subscribe(
-                    response => {
-                        if (response.status === 200) {
-                            pingResultStream.next(true);
-                            pingResultStream.complete();
-                        } else {
-                            pingResultStream.next(false);
-                            pingResultStream.complete();
-                        }
-                    },
-                    error => {
-                        pingResultStream.next(false);
-                        pingResultStream.complete();
-                    });
-            }
-        );
+        setTimeout(() => this.pingAPI(), 5000);
     }
 
     get isBrowser() {
