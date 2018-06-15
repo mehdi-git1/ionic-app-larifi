@@ -20,7 +20,7 @@ export class SecurityProvider {
    * @return les informations du pnc
    */
   getAuthenticatedUser(): Promise<AuthenticatedUser> {
-    return this.restService.get(`${this.securityUrl}`);
+    return this.restService.get(`${this.securityUrl}`, null, null, true);
   }
 
   /**

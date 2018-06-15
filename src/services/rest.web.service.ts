@@ -1,3 +1,4 @@
+import { Storage } from '@ionic/storage';
 import { OfflineService } from './rest.offline.service';
 import { ConnectivityService } from './connectivity.service';
 import { Injectable } from '@angular/core';
@@ -11,7 +12,8 @@ export class RestWebService extends RestService {
 
     constructor(protected http: HttpClient,
         private connectivityService: ConnectivityService,
-        private offlineService: OfflineService) {
+        private offlineService: OfflineService,
+        private storage: Storage) {
         super(http);
     }
 
@@ -29,7 +31,7 @@ export class RestWebService extends RestService {
                     });
             });
         } else {
-            this.offlineService.call(request);
+            return this.offlineService.call(request);
         }
     }
 
@@ -59,7 +61,12 @@ export class RestWebService extends RestService {
 
         if (request.method === 'GET') {
             this.http.get(request.url, options).subscribe(
-                data => { successCallback(data); },
+                data => {
+                    if (request.storeOffline) {
+                        this.storage.set(this.offlineService.buildKey(request), data);
+                    }
+                    successCallback(data);
+                },
                 err => { errorCallback(err.error); }
             );
         }

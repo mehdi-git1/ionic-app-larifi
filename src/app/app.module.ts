@@ -42,7 +42,7 @@ import { UpcomingFlightListPage } from '../pages/upcoming-flight-list/upcoming-f
 import { RotationProvider } from '../providers/rotation/rotation';
 import { LegProvider } from '../providers/leg/leg';
 import { IonicStorageModule } from '@ionic/storage';
-
+import { Storage } from '@ionic/storage';
 
 @NgModule({
   declarations: [
@@ -86,7 +86,11 @@ import { IonicStorageModule } from '@ionic/storage';
     SecMobilService,
     ConnectivityService,
     OfflineService,
-    { provide: RestService, useFactory: createRestService, deps: [HttpClient, SecMobilService, ConnectivityService, OfflineService] },
+    {
+      provide: RestService,
+      useFactory: createRestService,
+      deps: [HttpClient, SecMobilService, ConnectivityService, OfflineService, Storage]
+    },
     { provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true },
     AppInitService,
     HttpClientModule,
@@ -115,12 +119,12 @@ declare var window: any;
 export function createRestService(http: HttpClient,
   secMobilService: SecMobilService,
   connectivityService: ConnectivityService,
-  offlineService: OfflineService): RestService {
+  offlineService: OfflineService, storage: Storage): RestService {
   if (undefined !== window.cordova && 'browser' !== window.cordova.platformId) {
     console.log('mobile mode selected');
     return new RestMobileService(http, secMobilService);
   } else {
     console.log('web mode selected');
-    return new RestWebService(http, connectivityService, offlineService);
+    return new RestWebService(http, connectivityService, offlineService, storage);
   }
 }
