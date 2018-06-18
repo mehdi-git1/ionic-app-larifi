@@ -8,4 +8,5 @@ export class Pnc {
     gender: Gender;
     speciality: Speciality;
     assignment: Assignment;
+    isManager: boolean;
 }
