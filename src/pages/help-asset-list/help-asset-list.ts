@@ -13,9 +13,8 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class HelpAssetListPage {
 
-  typeProfil: string;
-  role: PncRole;
-  resources: HelpAsset[];
+  pncRole: PncRole;
+  helpAssets: HelpAsset[];
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
@@ -24,28 +23,28 @@ export class HelpAssetListPage {
     public translateService: TranslateService) {
   }
 
-  /**
-   * @param link this is the url that the new tab will open
+  /** Ouvre un nouvel onglet vers URL donné
+   * @param link URL qui sera ouvert sur le nouvel onglet
    */
   openTab(link: string) {
     window.open(link);
   }
 
   ionViewCanEnter() {
-    this.role = this.navParams.get('pncRole');
-    if (this.role !== undefined) {
-      if (this.role !== PncRole.MANAGER) {
-        this.typeProfil = 'PNC';
+    return new Promise((resolve, reject) => {
+
+      // On récupère le role du pnc dans les paramètres de navigation
+      if (this.navParams.get('pncRole')) {
+        this.pncRole = this.navParams.get('pncRole');
       } else {
-        this.typeProfil = 'MANAGER';
+        resolve();
       }
-      this.helpAssetProvider.getHelpAssetList(this.typeProfil).then(result => {
-        this.resources = result;
-      }, error => { });
-    } else {
-      this.toastProvider.error(this.translateService.instant('HELP_RESOURCES_LIST.UNKNOWN_ERROR'));
-    }
+
+      this.helpAssetProvider.getHelpAssetList(this.pncRole).then(result => {
+        this.helpAssets = result;
+      }, error => {
+        reject();
+      });
+    });
   }
-
-
 }

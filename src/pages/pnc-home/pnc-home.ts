@@ -89,14 +89,10 @@ export class PncHomePage {
   }
 
   /**
- * Dirige vers la page de ressource d'aide
- */
-  goToHelpResource() {
-    if (this.pnc !== undefined && this.pnc.speciality !== undefined) {
-      this.navCtrl.push(HelpAssetListPage, { pncRole: Speciality.getPncRole(this.pnc.speciality) });
-    } else {
-      this.toastProvider.error(this.translateService.instant('HELP_RESOURCES_LIST.UNKNOWN_ERROR'));
-    }
+   * Dirige vers la page de ressource d'aide
+   */
+  goToHelpAssetList() {
+    this.navCtrl.push(HelpAssetListPage, { pncRole: Speciality.getPncRole(this.pnc.speciality) });
   }
 
   /**

@@ -140,14 +140,9 @@
         }
     },
     "UPCOMING_FLIGHT_LIST": {
-        "TITLE": "Liste de vos prochains vols rencontre",
-        "LAST_FLIGHT": "Mon dernier vol",
-        "UPCOMING_FLIGHTS": "Mes prochains vols",
-        "NO_FLIGHTS": "Aucun vol trouvé"
+        "TITLE": "Liste de vos prochains vols rencontre"
     },
     "HELP_ASSET_LIST": {
-        "TITLE": "Ressources d'aides",
-        "UNKNOWN_ERROR": "Une erreur inconnue est survenue. Merci de recharger la page ou réessayer dans quelques minutes."
-
+        "TITLE": "Ressources d'aide"
     }
 }

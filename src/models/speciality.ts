@@ -13,9 +13,9 @@ export enum Speciality {
 }
 
 export namespace Speciality {
-    /**
-     * @param speciality 
-     * @returns return enum pnc role that correspond to the speciality given
+    /** Permet de retourner le role du PNC en fonction de sa spécialité
+     * @param speciality Donner la spécialité du PNC
+     * @return Retourne l'enum PNC role qui correspond à la spécialité donné
      */
     export function getPncRole(speciality: Speciality) {
 
