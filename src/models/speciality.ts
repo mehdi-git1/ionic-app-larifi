@@ -13,7 +13,8 @@ export enum Speciality {
 }
 
 export namespace Speciality {
-    /** Permet de retourner le role du PNC en fonction de sa spécialité
+    /**
+     * Permet de retourner le role du PNC en fonction de sa spécialité
      * @param speciality Donner la spécialité du PNC
      * @return Retourne l'enum PNC role qui correspond à la spécialité donné
      */
