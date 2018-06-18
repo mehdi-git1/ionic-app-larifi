@@ -1,5 +1,16 @@
 page-help-asset-list {
 
+    .spinner-container {
+        margin-top: 100px;
+        display: flex;
+        justify-content: center;
+
+        ion-spinner * {
+            width: 80px;
+            height: 80px !important;
+        }
+    }
+
     .item-md ion-thumbnail[item-left],
     .item-md ion-thumbnail[item-start] {
 
@@ -19,7 +30,7 @@ page-help-asset-list {
         color: color($colors, white);
     }
 
-    .no-help-assets {
+    .no-help-asset {
         text-align: center;
         font-size: 1.5em;
         margin-top: 100px;

@@ -29,21 +29,13 @@ export class HelpAssetListPage {
     window.open(link);
   }
 
-  ionViewCanEnter() {
-    return new Promise((resolve, reject) => {
-
-      // On récupère le role du pnc dans les paramètres de navigation
-      if (this.navParams.get('pncRole')) {
-        this.pncRole = this.navParams.get('pncRole');
-      } else {
-        resolve();
-      }
-
+  ionViewDidEnter() {
+    // On récupère le role du pnc dans les paramètres de navigation
+    if (this.navParams.get('pncRole')) {
+      this.pncRole = this.navParams.get('pncRole');
       this.helpAssetProvider.getHelpAssetList(this.pncRole).then(result => {
         this.helpAssets = result;
-      }, error => {
-        reject();
-      });
-    });
+      }, error => { });
+    }
   }
 }

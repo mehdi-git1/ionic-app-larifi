@@ -98,6 +98,7 @@ export class PncHomePage {
   /**
    * Dirige vers la liste des prochains vols
    */
+
   goToUpcomingFlightList() {
     this.navCtrl.push(UpcomingFlightListPage, { matricule: this.matricule });
   }
