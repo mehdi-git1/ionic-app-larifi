@@ -11,13 +11,16 @@
 
     <ion-list *ngIf="resources">
         <div>
-            <ion-item *ngFor="let helpAsset of resources" (click)="openHelpAsset(helpAsset.url)">
-                <ion-thumbnail item-start>
-                    <ion-icon name="document"></ion-icon>
-                </ion-thumbnail>
-                <h2>{{helpAsset.label}}</h2>
-                {{helpAsset.lastUpdateDate | date: 'dd/MM/yyyy HH:MM'}}
-            </ion-item>
+            <div class="no-help-assets" *ngIf="helpAssets.length == 0">{{ 'HELP_ASSET_LIST.NO_HELP_ASSETS' | translate }}</div>
+            <ion-content *ngIf="helpAssets.length > 0">
+                <ion-item *ngFor="let helpAsset of resources" (click)="openHelpAsset(helpAsset.url)">
+                    <ion-thumbnail item-start>
+                        <ion-icon name="document"></ion-icon>
+                    </ion-thumbnail>
+                    <h2>{{helpAsset.label}}</h2>
+                    {{helpAsset.lastUpdateDate | date: 'dd/MM/yyyy HH:MM'}}
+                </ion-item>
+            </ion-content>
         </div>
     </ion-list>
 

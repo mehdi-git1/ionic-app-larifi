@@ -143,6 +143,7 @@
         "TITLE": "Liste de vos prochains vols rencontre"
     },
     "HELP_ASSET_LIST": {
-        "TITLE": "Ressources d'aide"
+        "TITLE": "Ressources d'aide",
+        "NO_HELP_ASSETS": "Aucune ressource créée pour le moment"
     }
 }
