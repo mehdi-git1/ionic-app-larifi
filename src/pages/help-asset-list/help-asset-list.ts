@@ -6,7 +6,6 @@ import { PncRole } from './../../models/pncRole';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
-@IonicPage()
 @Component({
   selector: 'page-help-asset-list',
   templateUrl: 'help-asset-list.html',
@@ -26,7 +25,7 @@ export class HelpAssetListPage {
   /** Ouvre un nouvel onglet vers URL donné
    * @param link URL qui sera ouvert sur le nouvel onglet
    */
-  openTab(link: string) {
+  openHelpAsset(link: string) {
     window.open(link);
   }
 

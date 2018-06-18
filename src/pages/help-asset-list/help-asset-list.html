@@ -11,7 +11,7 @@
 
     <ion-list *ngIf="resources">
         <div>
-            <ion-item *ngFor="let helpAsset of resources" (click)="openTab(helpAsset.url)">
+            <ion-item *ngFor="let helpAsset of resources" (click)="openHelpAsset(helpAsset.url)">
                 <ion-thumbnail item-start>
                     <ion-icon name="document"></ion-icon>
                 </ion-thumbnail>
