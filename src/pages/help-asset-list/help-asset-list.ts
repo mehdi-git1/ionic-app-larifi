@@ -1,7 +1,5 @@
 import { HelpAssetProvider } from './../../providers/help-asset/help-asset';
 import { HelpAsset } from './../../models/helpAsset';
-import { TranslateService } from '@ngx-translate/core';
-import { ToastProvider } from './../../providers/toast/toast';
 import { PncRole } from './../../models/pncRole';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
@@ -17,12 +15,11 @@ export class HelpAssetListPage {
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
-    private helpAssetProvider: HelpAssetProvider,
-    private toastProvider: ToastProvider,
-    public translateService: TranslateService) {
+    private helpAssetProvider: HelpAssetProvider) {
   }
 
-  /** Ouvre un nouvel onglet vers URL donné
+  /**
+   * Ouvre un nouvel onglet vers URL donné
    * @param link URL qui sera ouvert sur le nouvel onglet
    */
   openHelpAsset(link: string) {
