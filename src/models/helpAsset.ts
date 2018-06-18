@@ -3,7 +3,7 @@ import { TypeHelpAsset } from './TypeHelpAsset';
 export class HelpAsset {
 
     typeHelpAsset: TypeHelpAsset;
-    name: string;
+    label: string;
     creationDate: string;
     lastUpdateDate: string;
     url: string;
