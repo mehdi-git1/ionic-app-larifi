@@ -19,7 +19,7 @@ export class PncProvider {
    * @return les informations du PNC
    */
   getPnc(matricule: string): Promise<Pnc> {
-    return this.restService.get(`${this.pncUrl}/${matricule}`, null, null, true);
+    return this.restService.get(`${this.pncUrl}/${matricule}`);
   }
 
   /**
