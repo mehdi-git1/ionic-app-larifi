@@ -16,10 +16,11 @@ export class PncProvider {
   /**
    * Récupère les infos d'un PNC
    * @param matricule le matricule du PNC dont on souhaite récupérer les infos
+   * @param storeOffline si on doit stocker le résultat de l'appel en local
    * @return les informations du PNC
    */
-  getPnc(matricule: string): Promise<Pnc> {
-    return this.restService.get(`${this.pncUrl}/${matricule}`);
+  getPnc(matricule: string, storeOffline: boolean = false): Promise<Pnc> {
+    return this.restService.get(`${this.pncUrl}/${matricule}`, null, null, storeOffline);
   }
 
   /**

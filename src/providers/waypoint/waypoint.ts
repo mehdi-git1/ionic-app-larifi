@@ -28,19 +28,21 @@ export class WaypointProvider {
   /**
   * Récupère les points d'étape d'un objectif
   * @param id l'id de l'objectif des points d'étape à récupérer
+  * @param storeOffline si on doit stocker le résultat en local
   * @return les points d'étape récupérés
   */
-  getCareerObjectiveWaypoints(id: number): Promise<Waypoint[]> {
-    return this.restService.get(`${this.waypointUrl}/career_objective/${id}`);
+  getCareerObjectiveWaypoints(id: number, storeOffline: boolean = false): Promise<Waypoint[]> {
+    return this.restService.get(`${this.waypointUrl}/career_objective/${id}`, null, null, storeOffline);
   }
 
   /**
   * Récupère un point d'étape
   * @param id l'id du point d'étape à récupérer
+  * @param storeOffline si on doit stocker le résultat en local
   * @return le point d'étape récupéré
   */
-  getWaypoint(id: number): Promise<Waypoint> {
-    return this.restService.get(`${this.waypointUrl}/${id}`);
+  getWaypoint(id: number, storeOffline: boolean): Promise<Waypoint> {
+    return this.restService.get(`${this.waypointUrl}/${id}`, null, null, storeOffline);
   }
 
   /**

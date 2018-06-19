@@ -42,7 +42,7 @@ import { UpcomingFlightListPage } from '../pages/upcoming-flight-list/upcoming-f
 import { RotationProvider } from '../providers/rotation/rotation';
 import { LegProvider } from '../providers/leg/leg';
 import { IonicStorageModule } from '@ionic/storage';
-import { Storage } from '@ionic/storage';
+import { OfflineProvider } from '../providers/offline/offline';
 
 @NgModule({
   declarations: [
@@ -89,7 +89,7 @@ import { Storage } from '@ionic/storage';
     {
       provide: RestService,
       useFactory: createRestService,
-      deps: [HttpClient, SecMobilService, ConnectivityService, OfflineService, Storage]
+      deps: [HttpClient, SecMobilService, ConnectivityService, OfflineService]
     },
     { provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true },
     AppInitService,
@@ -107,7 +107,8 @@ import { Storage } from '@ionic/storage';
     WaypointProvider,
     WaypointStatusProvider,
     RotationProvider,
-    LegProvider
+    LegProvider,
+    OfflineProvider
   ]
 })
 export class AppModule { }
@@ -125,6 +126,6 @@ export function createRestService(http: HttpClient,
     return new RestMobileService(http, secMobilService);
   } else {
     console.log('web mode selected');
-    return new RestWebService(http, connectivityService, offlineService, storage);
+    return new RestWebService(http, connectivityService, offlineService);
   }
 }

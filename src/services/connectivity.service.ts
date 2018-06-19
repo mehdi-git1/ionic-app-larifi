@@ -10,7 +10,7 @@ declare var window: any;
 export class ConnectivityService {
 
     // private restBaseUrl = 'https://secmobil-apirct.airfrance.fr/secmobilTestWeb/services/api/user/';
-    private connected = false;
+    private connected = true;
 
     @Output()
     connectionStatusChange = new EventEmitter<boolean>();

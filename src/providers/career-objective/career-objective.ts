@@ -16,11 +16,13 @@ export class CareerObjectiveProvider {
   }
 
   /**
-   * Fait appel au service rest qui renvois la liste des objectifs du pnc connecté.
-   * @return la liste des objectifs
+   * Retourne les objectifs d'un pnc donné
+   * @param matricule le matricule du pnc dont on souhaite récupérer les objectifs
+   * @param storeOffline si on doit stocker le résultat en local
+   * @return la liste des objectifs du pnc
    */
-  getCareerObjectiveList(matricule: String): Promise<CareerObjective[]> {
-    return this.restService.get(`${this.careerObjectiveUrl}/pnc/${matricule}`);
+  getCareerObjectiveList(matricule: String, storeOffline: boolean = false): Promise<CareerObjective[]> {
+    return this.restService.get(`${this.careerObjectiveUrl}/pnc/${matricule}`, null, null, storeOffline);
   }
 
   /**
@@ -35,10 +37,11 @@ export class CareerObjectiveProvider {
   /**
   * Récupère un objectif
   * @param id l'id de l'objectif à récupérer
+  * @param storeOffline si on doit stocker le résultat en local
   * @return l'objectif récupéré
   */
-  getCareerObjective(id: number): Promise<CareerObjective> {
-    return this.restService.get(`${this.careerObjectiveUrl}/${id}`);
+  getCareerObjective(id: number, storeOffline: boolean = false): Promise<CareerObjective> {
+    return this.restService.get(`${this.careerObjectiveUrl}/${id}`, null, null, storeOffline);
   }
 
   /**

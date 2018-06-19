@@ -25,4 +25,13 @@ export class OfflineService {
         return `${this.config.appName}${request.method}${request.url}`;
     }
 
+    /**
+     * Sauvegarde dans le stockage local une donnée
+     * @param request la requête rest
+     * @param data la donnée à sauver
+     */
+    public saveRestResponse(request: RestRequest, data: any) {
+        this.storage.set(this.buildKey(request), data);
+    }
+
 }

@@ -26,6 +26,10 @@ page-pnc-home {
         }
     }
 
+    .pnc-info-panel.offline {
+        border-left: 8px solid color($colors, green60);
+    }
+
     .go-to-edossier {
         margin-right: 10px;
         display: flex;

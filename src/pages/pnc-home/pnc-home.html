@@ -17,7 +17,7 @@
         <button ion-button color="primary" (click)="goToEdossier()">{{ 'PNC_HOME.GO_TO_EDOSSIER.SUBMIT' | translate }}</button>
     </div>
 
-    <ion-card class="pnc-info-panel">
+    <ion-card class="pnc-info-panel" (click)="downloadPncEdossier()" [ngClass]="{'offline': pnc.offline }">
         <ion-grid>
             <ion-row>
                 <ion-col col-2>
