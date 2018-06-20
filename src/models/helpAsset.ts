@@ -1,8 +1,8 @@
 import { PncRole } from './pncRole';
-import { TypeHelpAsset } from './TypeHelpAsset';
+import { HelpAssetType } from './TypeHelpAsset';
 export class HelpAsset {
 
-    typeHelpAsset: TypeHelpAsset;
+    helpAssetType: HelpAssetType;
     label: string;
     creationDate: string;
     lastUpdateDate: string;

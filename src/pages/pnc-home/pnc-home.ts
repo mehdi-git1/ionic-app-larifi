@@ -89,7 +89,7 @@ export class PncHomePage {
   }
 
   /**
-   * Dirige vers la page de ressource d'aide
+   * Dirige vers la page des ressources d'aide
    */
   goToHelpAssetList() {
     this.navCtrl.push(HelpAssetListPage, { pncRole: Speciality.getPncRole(this.pnc.speciality) });

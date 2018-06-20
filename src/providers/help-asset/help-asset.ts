@@ -12,16 +12,16 @@ export class HelpAssetProvider {
 
   constructor(public restService: RestService,
     private config: Config) {
-    this.helpAssetUrl = `${config.backEndUrl}/help_assets/pnc_role`;
+    this.helpAssetUrl = `${config.backEndUrl}/help_assets/`;
   }
 
   /**
    * Fait appel au service REST qui renvois la liste des ressources d'aide
-   * @param pncRole Donner le role du PNC pour lequel on souhaite les ressources
-   * @return la liste des ressources d'aides (description, nom, url)
+   * @param pncRole Le role du PNC pour lequel on souhaite les ressources
+   * @return La liste des ressources d'aides (description, nom, url)
    */
   getHelpAssetList(pncRole: PncRole): Promise<HelpAsset[]> {
-    return this.restService.get(`${this.helpAssetUrl}/${pncRole}`);
+    return this.restService.get(`${this.helpAssetUrl}/pnc_role/${pncRole}`);
   }
 
 

@@ -1,3 +1,3 @@
-export enum TypeHelpAsset {
+export enum HelpAssetType {
     MEDIALIB = 'MEDIALIB', URL = 'URL'
 }
