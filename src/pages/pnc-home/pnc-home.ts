@@ -67,14 +67,14 @@ export class PncHomePage {
    * charge le détail du pnc connecté ou consulté.
    */
   loadPnc(): Promise<void> {
-    return new Promise((resolve, reject) => {
-      // Si on a un matricule dans les params de navigation, cela surcharge le matricule du user connecté
-      if (this.navParams.get('matricule')) {
-        this.matricule = this.navParams.get('matricule');
-      }
+    // Si on a un matricule dans les params de navigation, cela surcharge le matricule du user connecté
+    if (this.navParams.get('matricule')) {
+      this.matricule = this.navParams.get('matricule');
+    }
 
+    return new Promise((resolve, reject) => {
       if (this.matricule !== undefined) {
-        this.pncProvider.getPnc(this.matricule).then(foundPnc => {
+        this.pncProvider.getPnc(this.matricule, this.isMyHomePage()).then(foundPnc => {
           this.pnc = foundPnc;
           resolve();
         }, error => {
@@ -82,6 +82,14 @@ export class PncHomePage {
         });
       }
     });
+  }
+
+  /**
+   * Teste si l'utilisateur se trouve sur sa page d'accueil
+   * @return vrai si le user connecté est sur sa page d'accueil, false sinon
+   */
+  isMyHomePage(): boolean {
+    return this.sessionService.authenticatedUser.username === this.matricule;
   }
 
   /**
