@@ -26,7 +26,4 @@ export class OfflineIndicatorComponent {
     });
   }
 
-  switchConnectivity() {
-    this.connectivityService.setConnected(!this.connectivityService.isConnected());
-  }
 }
