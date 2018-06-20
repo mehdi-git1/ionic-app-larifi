@@ -12,7 +12,7 @@ export class HelpAssetProvider {
 
   constructor(public restService: RestService,
     private config: Config) {
-    this.helpAssetUrl = `${config.backEndUrl}/help_assets/`;
+    this.helpAssetUrl = `${config.backEndUrl}/help_assets`;
   }
 
   /**
