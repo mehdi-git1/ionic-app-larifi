@@ -9,7 +9,6 @@ declare var window: any;
 @Injectable()
 export class ConnectivityService {
 
-    // private restBaseUrl = 'https://secmobil-apirct.airfrance.fr/secmobilTestWeb/services/api/user/';
     private connected = true;
 
     @Output()

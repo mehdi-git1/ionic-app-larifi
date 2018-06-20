@@ -8,9 +8,6 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class OfflineProvider {
 
-  // Temps sans réponse avant lequel on considère que la synchro est terminée
-  synchroTimeout = 5000;
-
   constructor(private pncProvider: PncProvider,
     private careerObjectiveProvider: CareerObjectiveProvider,
     private waypointProvider: WaypointProvider) {
