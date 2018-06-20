@@ -1,8 +1,8 @@
 import { Gender } from './gender';
 import { Speciality } from './speciality';
 import { Assignment } from './assignment';
-import { Offline } from './offline';
-export class Pnc extends Offline {
+import { Object } from './object';
+export class Pnc extends Object {
     matricule: string;
     lastName: string;
     firstName: string;
