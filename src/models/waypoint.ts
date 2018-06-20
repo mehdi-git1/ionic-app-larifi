@@ -2,9 +2,9 @@ import { WaypointStatus } from './waypointStatus';
 import { CareerObjective } from './careerObjective';
 import { PncRole } from './pncRole';
 import { Pnc } from './pnc';
+import { EDossierPncObject } from './eDossierPncObject';
 
-export class Waypoint {
-    techId: number;
+export class Waypoint extends EDossierPncObject {
     pnc: Pnc;
     creationAuthor: Pnc;
     creationDate: string;

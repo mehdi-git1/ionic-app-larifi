@@ -63,6 +63,7 @@ export class RestWebService extends RestService {
                     if (request.storeOffline) {
                         this.offlineService.saveRestResponse(request, data);
                     }
+                    this.offlineService.flagDataAsAvailableOffline(request, data);
                     successCallback(data);
                 },
                 err => { errorCallback(err.error); }

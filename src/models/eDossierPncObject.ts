@@ -1,4 +1,5 @@
 export abstract class EDossierPncObject {
-    offline: boolean;
+    techId: number;
+    availableOffline: boolean;
     offlineStorageDate: string;
 }

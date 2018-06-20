@@ -47,6 +47,10 @@ page-career-objective-list {
             margin: 0;
             padding: 0;
 
+            .career-objective-card.available-offline {
+                border-left: 8px solid color($colors, green60);
+            }
+
             .career-objective-card {
                 padding: 10px;
 

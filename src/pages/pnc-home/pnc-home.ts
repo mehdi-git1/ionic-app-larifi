@@ -11,6 +11,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams, Events } from 'ionic-angular';
 import { Pnc } from '../../models/pnc';
 import { Assignment } from '../../models/assignment';
+import { ConnectivityService } from '../../services/connectivity.service';
 
 @Component({
   selector: 'page-pnc-home',
@@ -33,7 +34,8 @@ export class PncHomePage {
     private securityProvider: SecurityProvider,
     private offlineProvider: OfflineProvider,
     private sessionService: SessionService,
-    private events: Events) {
+    private events: Events,
+    public connectivityService: ConnectivityService) {
 
     this.pnc = new Pnc();
     this.pnc.assignment = new Assignment();
