@@ -20,6 +20,8 @@ export class PncHomePage {
 
   pnc: Pnc;
   matricule: string;
+  synchroInProgress: boolean;
+
   // exporter la classe enum speciality dans la page html
   Speciality = Speciality;
 
@@ -106,7 +108,12 @@ export class PncHomePage {
    */
   downloadPncEdossier() {
     if (!this.pnc.manager) {
-      this.offlineProvider.downloadPncEdossier(this.pnc);
+      this.synchroInProgress = true;
+      this.offlineProvider.downloadPncEdossier(this.pnc).then(success => {
+        this.synchroInProgress = false;
+      }, error => {
+        this.synchroInProgress = false;
+      });
     }
   }
 }

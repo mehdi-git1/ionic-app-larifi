@@ -23,6 +23,12 @@ page-pnc-home {
                 flex-direction: column;
                 align-items: center;
             }
+
+            .download-edossier {
+                display: flex;
+                justify-content: flex-end;
+                align-items: flex-end;
+            }
         }
     }
 
