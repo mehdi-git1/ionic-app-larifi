@@ -1,8 +1,8 @@
 import { Gender } from './gender';
 import { Speciality } from './speciality';
 import { Assignment } from './assignment';
-import { Object } from './object';
-export class Pnc extends Object {
+import { EDossierPncObject } from './eDossierPncObject';
+export class Pnc extends EDossierPncObject {
     matricule: string;
     lastName: string;
     firstName: string;

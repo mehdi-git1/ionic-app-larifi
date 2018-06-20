@@ -1,4 +1,4 @@
-export abstract class Object {
+export abstract class EDossierPncObject {
     offline: boolean;
     offlineStorageDate: string;
 }
