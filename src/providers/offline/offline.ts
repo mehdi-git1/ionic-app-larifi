@@ -31,8 +31,8 @@ export class OfflineProvider {
             resolvedPromiseCount++;
             observer.next(false);
           }, error => {
-            observer.next(false);
             resolvedPromiseCount++;
+            observer.next(false);
           });
 
           promiseCount++;
@@ -45,8 +45,8 @@ export class OfflineProvider {
                 resolvedPromiseCount++;
                 observer.next(false);
               }, error => {
-                observer.next(false);
                 resolvedPromiseCount++;
+                observer.next(false);
               });
 
               promiseCount++;
@@ -60,18 +60,18 @@ export class OfflineProvider {
                     resolvedPromiseCount++;
                     observer.next(false);
                   }, error => {
-                    observer.next(false);
                     resolvedPromiseCount++;
+                    observer.next(false);
                   });
                 }
               }, error => {
-                observer.next(false);
                 resolvedPromiseCount++;
+                observer.next(false);
               });
             }
           }, error => {
-            observer.next(false);
             resolvedPromiseCount++;
+            observer.next(false);
           });
         }).subscribe(
           promiseToCome => {
