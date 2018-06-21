@@ -51,5 +51,9 @@ page-career-objective-create {
                 display: block;
             }
         }
+
+        .waypoint.available-offline {
+            border-left: 8px solid color($colors, green60);
+        }
     }
 }
