@@ -1,3 +1,5 @@
+import { SessionService } from './../../services/session.service';
+import { Rotation } from './../../models/rotation';
 import { Leg } from './../../models/leg';
 import { PncHomePage } from './../pnc-home/pnc-home';
 import { LegProvider } from './../../providers/leg/leg';
@@ -19,8 +21,9 @@ export class FlightCrewListPage {
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
+    public genderProvider: GenderProvider,
     private legProvider: LegProvider,
-    private genderProvider: GenderProvider) {
+    private sessionService: SessionService) {
   }
 
   ionViewCanEnter() {
@@ -32,7 +35,8 @@ export class FlightCrewListPage {
   }
 
   openPncHomePage(matricule) {
-    this.navCtrl.push(PncHomePage, { matricule: matricule });
+    this.sessionService.appContext.observedPncMatricule = matricule;
+    this.navCtrl.push(PncHomePage);
   }
 
 }

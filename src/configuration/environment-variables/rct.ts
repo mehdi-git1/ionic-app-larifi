@@ -9,5 +9,7 @@ export class Config extends BaseConfig {
         this.backEndUrl = '/api/some/other/one';
         this.env = 'rct';
         this.secmobileEnv = 'rct';
+        this.eObsUrl = 'com.airfrance.mobile.inhouse.eformsrctPNC';
+        this.eObscallbackUrl = 'com.airfrance.mobile.inhouse.edosPNC';
     }
 }

@@ -1,8 +1,10 @@
-import { UpcomingFlightListPage } from './../upcoming-flight-list/upcoming-flight-list';
 import { SecurityProvider } from './../../providers/security/security';
-import { SessionService } from './../../services/session.service';
 import { ToastProvider } from './../../providers/toast/toast';
 import { GenderProvider } from './../../providers/gender/gender';
+import { EObservationService } from './../../services/eObservation.service';
+import { EObservation } from './../../models/eObservation';
+import { UpcomingFlightListPage } from './../upcoming-flight-list/upcoming-flight-list';
+import { SessionService } from './../../services/session.service';
 import { Speciality } from './../../models/speciality';
 import { CareerObjectiveListPage } from './../career-objective-list/career-objective-list';
 import { PncProvider } from './../../providers/pnc/pnc';
@@ -19,17 +21,19 @@ export class PncHomePage {
 
   pnc: Pnc;
   matricule: string;
+  eObservation: EObservation;
   // exporter la classe enum speciality dans la page html
   Speciality = Speciality;
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     private pncProvider: PncProvider,
+    private sessionService: SessionService,
     public genderProvider: GenderProvider,
     private toastProvider: ToastProvider,
     private securityProvider: SecurityProvider,
-    private sessionService: SessionService,
-    private events: Events) {
+    private events: Events,
+    private eObservationService: EObservationService) {
 
     this.pnc = new Pnc();
     this.pnc.assignment = new Assignment();
@@ -63,8 +67,8 @@ export class PncHomePage {
   loadPnc(): Promise<void> {
     return new Promise((resolve, reject) => {
       // Si on a un matricule dans les params de navigation, cela surcharge le matricule du user connecté
-      if (this.navParams.get('matricule')) {
-        this.matricule = this.navParams.get('matricule');
+      if (this.sessionService.appContext.observedPncMatricule) {
+        this.matricule = this.sessionService.appContext.observedPncMatricule;
       }
 
       if (this.matricule !== undefined) {
@@ -97,5 +101,13 @@ export class PncHomePage {
    */
   goToEdossier() {
     this.navCtrl.push(PncHomePage, { matricule: this.matricule });
+  }
+
+  getEObservation() {
+    this.eObservationService.getEObservation(this.matricule, this.sessionService.appContext.rotationId).then(eObservation => {
+      this.eObservation = eObservation;
+    }, error => {
+    });
+    this.eObservationService.callForms(this.eObservation);
   }
 }

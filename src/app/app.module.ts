@@ -1,3 +1,4 @@
+import { EObservationService } from './../services/eObservation.service';
 import { ComponentsModule } from './../components/components.module';
 import { FlightCrewListPage } from './../pages/flight-crew-list/flight-crew-list';
 import { WaypointStatusProvider } from './../providers/waypoint-status/waypoint-status';
@@ -95,7 +96,8 @@ import { LegProvider } from '../providers/leg/leg';
     WaypointProvider,
     WaypointStatusProvider,
     RotationProvider,
-    LegProvider
+    LegProvider,
+    EObservationService
   ]
 })
 export class AppModule { }

@@ -57,7 +57,8 @@
             "cordova-plugin-secmobil": {},
             "cordova-android-support-gradle-release": {
                 "ANDROID_SUPPORT_VERSION": "26.+"
-            }
+            },
+            "cordova-plugin-formslib": {}
         },
         "platforms": [
             "android"
