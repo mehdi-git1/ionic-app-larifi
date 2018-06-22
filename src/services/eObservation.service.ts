@@ -77,10 +77,10 @@ export class EObservationService {
             }
         };
         console.log(param);
-        // this.formsPlugin.callUrlAppScheme((success) => {
-        //     console.log('Success: callUrlAppScheme');
-        //     console.log(success);
-        // }, (error) => console.log(error), param);
+        this.formsPlugin.callUrlAppScheme((success) => {
+            console.log('Success: callUrlAppScheme');
+            console.log(success);
+        }, (error) => console.log(error), param);
 
     }
 
