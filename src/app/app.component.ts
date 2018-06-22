@@ -1,3 +1,4 @@
+import { DatabaseService } from './../services/database.service';
 import { SessionService } from './../services/session.service';
 import { AuthenticatedUser } from './../models/authenticatedUser';
 import { SecurityProvider } from './../providers/security/security';
@@ -26,6 +27,7 @@ export class EDossierPNC {
     private secMobilService: SecMobilService,
     private securityProvider: SecurityProvider,
     private sessionService: SessionService,
+    private databaseService: DatabaseService,
     private events: Events
   ) {
     this.initializeApp();
@@ -33,6 +35,9 @@ export class EDossierPNC {
 
   initializeApp() {
     this.platform.ready().then(() => {
+
+      // Création de la base de données locale
+      this.databaseService.createDB();
 
       this.statusBar.styleDefault();
       this.splashScreen.hide();

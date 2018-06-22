@@ -1,3 +1,5 @@
+import { OfflinePncProvider } from './../offline-pnc/offline-pnc';
+import { ConnectivityService } from './../../services/connectivity.service';
 import { Config } from './../../configuration/environment-variables/config';
 import { Rotation } from './../../models/rotation';
 import { Pnc } from './../../models/pnc';
@@ -9,7 +11,9 @@ export class PncProvider {
   private pncUrl: string;
 
   constructor(public restService: RestService,
-    public config: Config) {
+    public config: Config,
+    private connectivityService: ConnectivityService,
+    private offlinePncProvider: OfflinePncProvider) {
     this.pncUrl = `${config.backEndUrl}/pncs`;
   }
 
@@ -20,7 +24,17 @@ export class PncProvider {
    * @return les informations du PNC
    */
   getPnc(matricule: string, storeOffline: boolean = false): Promise<Pnc> {
-    return this.restService.get(`${this.pncUrl}/${matricule}`, null, null, storeOffline);
+    if (this.connectivityService.isConnected()) {
+      const promise: Promise<Pnc> = this.restService.get(`${this.pncUrl}/${matricule}`, null, null, storeOffline);
+      if (storeOffline) {
+        promise.then(pnc => {
+          this.offlinePncProvider.save(pnc);
+        });
+      }
+      return promise;
+    } else {
+      return this.offlinePncProvider.findOne(matricule);
+    }
   }
 
   /**

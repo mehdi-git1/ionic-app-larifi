@@ -1,4 +1,4 @@
-import { OfflineService } from './../../services/rest.offline.service';
+import { OfflineCareerObjectiveProvider } from './../offline-career-objective/offline-career-objective';
 import { Config } from './../../configuration/environment-variables/config';
 import { CareerObjective } from './../../models/careerObjective';
 import { Injectable } from '@angular/core';
@@ -11,7 +11,7 @@ export class CareerObjectiveProvider {
 
   constructor(public restService: RestService,
     private config: Config,
-    private offlineService: OfflineService) {
+    private offlineCareerObjectiveProvider: OfflineCareerObjectiveProvider) {
     this.careerObjectiveUrl = `${config.backEndUrl}/career_objectives`;
   }
 

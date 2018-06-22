@@ -5,4 +5,5 @@ export class BaseConfig {
   public env = 'base';
   public secmobileEnv = 'rct';
   public appName = 'EDossierPnc';
+  public dbName = 'edossierpnc.db';
 }
