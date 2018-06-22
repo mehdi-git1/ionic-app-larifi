@@ -50,36 +50,37 @@ export class EObservationService {
             callbackUrl: `${this.config.eObsCallbackUrl}`,
             callbackActionLabel: `${this.config.eObsCallbackActionLabel}`,
             archiveData: {
-                'PNCObserve.fonction': eObservation.eObsType,
+                'PNCObserve.fonction': eObservation.observedPnc.speciality,
                 'PNCObserve.matricule': eObservation.observedPnc.matricule,
                 'PNCObserve.nom': eObservation.observedPnc.lastName,
                 'PNCObserve.prenom': eObservation.observedPnc.firstName,
-                'date.vol1': eObservation.firtRotationLeg.departureDate,
+                'date.vol1': eObservation.firstRotationLeg.departureDate,
                 'date.vol2': eObservation.lastRotationLeg.departureDate,
-                'escaleArrivee.vol1': eObservation.firtRotationLeg.arrivalStation,
+                'escaleArrivee.vol1': eObservation.firstRotationLeg.arrivalStation,
                 'escaleArrivee.vol2': eObservation.lastRotationLeg.arrivalStation,
-                'escaleDepart.vol1': eObservation.firtRotationLeg.departureStation,
+                'escaleDepart.vol1': eObservation.firstRotationLeg.departureStation,
                 'escaleDepart.vol2': eObservation.lastRotationLeg.departureStation,
-                'flightNumber.vol1': eObservation.firtRotationLeg.number,
+                'flightNumber.vol1': eObservation.firstRotationLeg.number,
                 'flightNumber.vol2': eObservation.lastRotationLeg.number,
                 'flightinfos.pairing.date': eObservation.rotation.departureDate,
                 'flightinfos.pairing.name': eObservation.rotation.number,
-                'remplissage.vol1': '464 - 4P70J33W357Y',
-                'remplissage.vol2': '283 - 4P51J24W204Y',
+                'remplissage.vol1': '',
+                'remplissage.vol2': '',
                 'stakeholdersinfos.2.1': eObservation.redactor.lastName,
                 'stakeholdersinfos.2.2': eObservation.redactor.firstName,
                 'stakeholdersinfos.2.3': eObservation.redactor.matricule,
-                'stakeholdersinfos.2.4': eObservation.redactor.speciality,
-                'typeAvion.vol1': eObservation.firtRotationLeg.aircraftType,
+                'stakeholdersinfos.2.4': this.sessionService.appContext.onBoardRedactorFonction,
+                'typeAvion.vol1': eObservation.firstRotationLeg.aircraftType,
                 'typeAvion.vol2': eObservation.lastRotationLeg.aircraftType,
-                'version.vol1': 'P009J080W038Y389',
-                'version.vol2': 'P004J058W028Y206'
+                'version.vol1': eObservation.firstRotationLeg.operatingVersion,
+                'version.vol2': eObservation.lastRotationLeg.operatingVersion
             }
         };
-        this.formsPlugin.callUrlAppScheme((success) => {
-            console.log('Success: callUrlAppScheme');
-            console.log(success);
-        }, (error) => console.log(error), param);
+        console.log(param);
+        // this.formsPlugin.callUrlAppScheme((success) => {
+        //     console.log('Success: callUrlAppScheme');
+        //     console.log(success);
+        // }, (error) => console.log(error), param);
 
     }
 

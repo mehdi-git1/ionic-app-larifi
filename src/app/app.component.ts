@@ -18,7 +18,7 @@ import { SecMobilService } from '../services/secMobil.service';
 export class EDossierPNC {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = AuthenticationPage;
+  rootPage: any = PncHomePage;
 
 
   constructor(public platform: Platform, public statusBar: StatusBar,

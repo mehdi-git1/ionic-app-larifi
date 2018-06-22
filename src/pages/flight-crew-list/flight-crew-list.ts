@@ -30,12 +30,18 @@ export class FlightCrewListPage {
     this.leg = this.navParams.get('leg');
     this.legProvider.getFlightCrewFromLeg(this.leg.techId).then(flightCrew => {
       this.flightCrewList = flightCrew;
+      flightCrew.forEach(crew => {
+        if (crew.pnc.matricule === this.sessionService.authenticatedUser.username) {
+          this.sessionService.appContext.onBoardRedactorFonction = crew.onBoardFonction;
+        }
+      });
     }, error => {
     });
   }
 
-  openPncHomePage(matricule) {
+  openPncHomePage(matricule, onBoardFonction) {
     this.sessionService.appContext.observedPncMatricule = matricule;
+    this.sessionService.appContext.onBoardObservedPncFonction = onBoardFonction;
     this.navCtrl.push(PncHomePage);
   }
 

@@ -102,12 +102,4 @@ export class PncHomePage {
   goToEdossier() {
     this.navCtrl.push(PncHomePage, { matricule: this.matricule });
   }
-
-  getEObservation() {
-    this.eObservationService.getEObservation(this.matricule, this.sessionService.appContext.rotationId).then(eObservation => {
-      this.eObservation = eObservation;
-    }, error => {
-    });
-    this.eObservationService.callForms(this.eObservation);
-  }
 }

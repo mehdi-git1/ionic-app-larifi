@@ -9,4 +9,5 @@ export class Leg {
     arrivalStation: string;
     aircraftType: string;
     rotation: Rotation;
+    operatingVersion: string;
 }

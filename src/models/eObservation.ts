@@ -3,10 +3,10 @@ import { Rotation } from './rotation';
 import { Pnc } from './pnc';
 
 export class EObservation {
-    eObsType: string;
+    eObservationType: string;
     redactor: Pnc;
     observedPnc: Pnc;
     rotation: Rotation;
-    firtRotationLeg: Leg;
+    firstRotationLeg: Leg;
     lastRotationLeg: Leg;
 }

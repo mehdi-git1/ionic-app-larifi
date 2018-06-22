@@ -86,7 +86,8 @@
         },
         "BUTTONS": {
             "ADD_CAREER_OBJECTIVE": "Créer un nouvel objectif"
-        }
+        },
+        "CREATE_EOBSERVATION": "Créer une eObservation"
     },
     "PNC_HOME": {
         "TITLE": "Accueil PNC",
@@ -143,5 +144,5 @@
         "LAST_FLIGHT": "Mon dernier vol",
         "UPCOMING_FLIGHTS": "Mes prochains vols",
         "NO_FLIGHTS": "Aucun vol trouvé"
-    },
+    }
 }
