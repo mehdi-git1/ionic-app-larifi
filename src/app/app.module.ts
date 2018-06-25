@@ -1,4 +1,4 @@
-import { DatabaseService } from './../services/database.service';
+import { StorageService } from './../services/storage.service';
 import { ComponentsModule } from './../components/components.module';
 import { FlightCrewListPage } from './../pages/flight-crew-list/flight-crew-list';
 import { WaypointStatusProvider } from './../providers/waypoint-status/waypoint-status';
@@ -47,6 +47,7 @@ import { OfflineProvider } from '../providers/offline/offline';
 import { OfflineCareerObjectiveProvider } from '../providers/offline-career-objective/offline-career-objective';
 import { OfflinePncProvider } from '../providers/offline-pnc/offline-pnc';
 import { SQLite } from '@ionic-native/sqlite';
+import { OfflineAuthenticatedUserProvider } from '../providers/offline-authenticated-user/offline-authenticated-user';
 
 @NgModule({
   declarations: [
@@ -90,8 +91,7 @@ import { SQLite } from '@ionic-native/sqlite';
     SecMobilService,
     ConnectivityService,
     OfflineService,
-    DatabaseService,
-    SQLite,
+    StorageService,
     {
       provide: RestService,
       useFactory: createRestService,
@@ -116,7 +116,8 @@ import { SQLite } from '@ionic-native/sqlite';
     LegProvider,
     OfflineProvider,
     OfflineCareerObjectiveProvider,
-    OfflinePncProvider
+    OfflinePncProvider,
+    OfflineAuthenticatedUserProvider
   ]
 })
 export class AppModule { }

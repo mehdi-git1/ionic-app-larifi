@@ -1,4 +1,3 @@
-import { DatabaseService } from './../services/database.service';
 import { SessionService } from './../services/session.service';
 import { AuthenticatedUser } from './../models/authenticatedUser';
 import { SecurityProvider } from './../providers/security/security';
@@ -12,6 +11,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { TranslateService } from '@ngx-translate/core';
 import { AuthenticationPage } from '../pages/authentication/authentication';
 import { SecMobilService } from '../services/secMobil.service';
+import { StorageService } from '../services/storage.service';
 
 @Component({
   templateUrl: 'app.html'
@@ -27,7 +27,7 @@ export class EDossierPNC {
     private secMobilService: SecMobilService,
     private securityProvider: SecurityProvider,
     private sessionService: SessionService,
-    private databaseService: DatabaseService,
+    private storageService: StorageService,
     private events: Events
   ) {
     this.initializeApp();
@@ -36,26 +36,25 @@ export class EDossierPNC {
   initializeApp() {
     this.platform.ready().then(() => {
 
-      // Création de la base de données locale
-      this.databaseService.createDB();
-
       this.statusBar.styleDefault();
       this.splashScreen.hide();
 
       this.translate.setDefaultLang('fr');
       this.translate.use('fr');
 
-      this.platform.ready().then(() => {
-        this.secMobilService.init();
-        this.secMobilService.isAuthenticated().then(() => {
-          // launch process when already authenticated
-          // nothing to do there
-        },
-          error => {
-            this.rootPage = AuthenticationPage;
-          });
+      this.secMobilService.init();
+      this.secMobilService.isAuthenticated().then(() => {
+        // launch process when already authenticated
+        // nothing to do there
+      }, error => {
+        this.rootPage = AuthenticationPage;
       });
-      this.putAuthenticatedUserInSession();
+
+      // Création du stockage local
+      this.storageService.initOfflineMap().then(success => {
+        this.putAuthenticatedUserInSession();
+      });
+
     });
   }
 

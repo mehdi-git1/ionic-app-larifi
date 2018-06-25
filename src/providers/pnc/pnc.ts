@@ -28,7 +28,7 @@ export class PncProvider {
       const promise: Promise<Pnc> = this.restService.get(`${this.pncUrl}/${matricule}`, null, null, storeOffline);
       if (storeOffline) {
         promise.then(pnc => {
-          this.offlinePncProvider.save(pnc);
+          this.offlinePncProvider.save(new Pnc().fromJSON(pnc));
         });
       }
       return promise;

@@ -22,4 +22,8 @@ export class CareerObjective extends EDossierPncObject {
     encounterDate: string;
     prioritized: boolean;
     waypointList: Waypoint[];
+
+    getStorageId(): string {
+        return `${this.techId}`;
+    }
 }
