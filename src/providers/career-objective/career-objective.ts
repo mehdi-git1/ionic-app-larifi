@@ -1,5 +1,6 @@
+import { OnlineCareerObjectiveProvider } from './online-career-objective';
 import { ConnectivityService } from './../../services/connectivity.service';
-import { OfflineCareerObjectiveProvider } from './../offline-career-objective/offline-career-objective';
+import { OfflineCareerObjectiveProvider } from './../career-objective/offline-career-objective';
 import { Config } from './../../configuration/environment-variables/config';
 import { CareerObjective } from './../../models/careerObjective';
 import { Injectable } from '@angular/core';
@@ -7,14 +8,10 @@ import { RestService } from '../../services/rest.base.service';
 
 @Injectable()
 export class CareerObjectiveProvider {
-  private careerObjectiveUrl: string;
-
-
-  constructor(public restService: RestService,
-    private config: Config,
+  constructor(
+    private onlineCareerObjectiveProvider: OnlineCareerObjectiveProvider,
     private offlineCareerObjectiveProvider: OfflineCareerObjectiveProvider,
     private connectivityService: ConnectivityService) {
-    this.careerObjectiveUrl = `${config.backEndUrl}/career_objectives`;
   }
 
   /**
@@ -24,19 +21,9 @@ export class CareerObjectiveProvider {
    * @return la liste des objectifs du pnc
    */
   getPncCareerObjectives(matricule: string, storeOffline: boolean = false): Promise<CareerObjective[]> {
-    if (this.connectivityService.isConnected()) {
-      const promise: Promise<CareerObjective[]> = this.restService.get(`${this.careerObjectiveUrl}/pnc/${matricule}`);
-      if (storeOffline) {
-        promise.then(careerObjectiveList => {
-          for (const careerObjective of careerObjectiveList) {
-            this.offlineCareerObjectiveProvider.save(new CareerObjective().fromJSON(careerObjective));
-          }
-        });
-      }
-      return promise;
-    } else {
-      return this.offlineCareerObjectiveProvider.getPncCareerObjectives(matricule);
-    }
+    return this.connectivityService.isConnected() ?
+      this.onlineCareerObjectiveProvider.getPncCareerObjectives(matricule, storeOffline) :
+      this.offlineCareerObjectiveProvider.getPncCareerObjectives(matricule);
   }
 
   /**
@@ -45,7 +32,7 @@ export class CareerObjectiveProvider {
    * @return une promesse contenant l'objectif créé ou mis à jour
    */
   createOrUpdate(careerObjective: CareerObjective): Promise<CareerObjective> {
-    return this.restService.post(this.careerObjectiveUrl, careerObjective);
+    return this.onlineCareerObjectiveProvider.createOrUpdate(careerObjective);
   }
 
   /**
@@ -55,17 +42,9 @@ export class CareerObjectiveProvider {
   * @return l'objectif récupéré
   */
   getCareerObjective(id: number, storeOffline: boolean = false): Promise<CareerObjective> {
-    if (this.connectivityService.isConnected()) {
-      const promise: Promise<CareerObjective> = this.restService.get(`${this.careerObjectiveUrl}/${id}`);
-      if (storeOffline) {
-        promise.then(careerObjective => {
-          this.offlineCareerObjectiveProvider.save(new CareerObjective().fromJSON(careerObjective));
-        });
-      }
-      return promise;
-    } else {
-      return this.offlineCareerObjectiveProvider.getCareerObjective(id);
-    }
+    return this.connectivityService.isConnected() ?
+      this.onlineCareerObjectiveProvider.getCareerObjective(id) :
+      this.offlineCareerObjectiveProvider.getCareerObjective(id);
   }
 
   /**
@@ -74,6 +53,6 @@ export class CareerObjectiveProvider {
   * @return l'objectif supprimé
   */
   delete(id: number): Promise<CareerObjective> {
-    return this.restService.delete(`${this.careerObjectiveUrl}/${id}`);
+    return this.onlineCareerObjectiveProvider.delete(id);
   }
 }

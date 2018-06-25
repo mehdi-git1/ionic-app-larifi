@@ -1,19 +1,15 @@
 import { OnlinePncProvider } from './online-pnc';
 import { OfflinePncProvider } from './../pnc/offline-pnc';
 import { ConnectivityService } from './../../services/connectivity.service';
-import { Config } from './../../configuration/environment-variables/config';
 import { Rotation } from './../../models/rotation';
 import { Pnc } from './../../models/pnc';
 import { Injectable } from '@angular/core';
-import { RestService } from '../../services/rest.base.service';
 
 @Injectable()
 export class PncProvider {
   private pncUrl: string;
 
-  constructor(public restService: RestService,
-    public config: Config,
-    private connectivityService: ConnectivityService,
+  constructor(private connectivityService: ConnectivityService,
     private onlinePncProvider: OnlinePncProvider,
     private offlinePncProvider: OfflinePncProvider) {
   }
@@ -26,7 +22,8 @@ export class PncProvider {
    */
   getPnc(matricule: string, storeOffline: boolean = false): Promise<Pnc> {
     return this.connectivityService.isConnected() ?
-      this.onlinePncProvider.getPnc(matricule, storeOffline) : this.offlinePncProvider.getPnc(matricule);
+      this.onlinePncProvider.getPnc(matricule, storeOffline) :
+      this.offlinePncProvider.getPnc(matricule);
   }
 
   /**

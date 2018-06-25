@@ -1,17 +1,19 @@
-import { OnlineWaypointProvider } from './online-waypoint';
-import { OfflineWaypointProvider } from './../waypoint/offline-waypoint';
+import { Config } from './../../configuration/environment-variables/config';
+import { OfflineWaypointProvider } from './offline-waypoint';
 import { ConnectivityService } from './../../services/connectivity.service';
 import { Injectable } from '@angular/core';
-import { Waypoint } from './../../models/waypoint';
-
+import { RestService } from '../../services/rest.base.service';
+import { Waypoint } from '../../models/waypoint';
 
 @Injectable()
-export class WaypointProvider {
+export class OnlineWaypointProvider {
+  private waypointUrl: string;
 
-
-  constructor(private connectivityService: ConnectivityService,
-    private onlineWaypointProvider: OnlineWaypointProvider,
-    private offlineWaypointProvider: OfflineWaypointProvider) {
+  constructor(public restService: RestService,
+    private connectivityService: ConnectivityService,
+    private offlineWaypointProvider: OfflineWaypointProvider,
+    private config: Config) {
+    this.waypointUrl = `${config.backEndUrl}/waypoints`;
   }
 
   /**
@@ -21,7 +23,7 @@ export class WaypointProvider {
    * @return une promesse contenant le point d'étape créé ou mis à jour
    */
   createOrUpdate(waypoint: Waypoint, careerObjectiveId: number): Promise<Waypoint> {
-    return this.onlineWaypointProvider.createOrUpdate(waypoint, careerObjectiveId);
+    return this.restService.post(`${this.waypointUrl}/career_objective/${careerObjectiveId}`, waypoint);
   }
 
   /**
@@ -31,9 +33,15 @@ export class WaypointProvider {
   * @return les points d'étape récupérés
   */
   getCareerObjectiveWaypoints(careerObjectiveId: number, storeOffline: boolean = false): Promise<Waypoint[]> {
-    return this.connectivityService.isConnected() ?
-      this.onlineWaypointProvider.getCareerObjectiveWaypoints(careerObjectiveId, storeOffline) :
-      this.offlineWaypointProvider.getCareerObjectiveWaypoints(careerObjectiveId);
+    const promise: Promise<Waypoint[]> = this.restService.get(`${this.waypointUrl}/career_objective/${careerObjectiveId}`);
+    if (storeOffline) {
+      promise.then(waypointList => {
+        for (const waypoint of waypointList) {
+          this.offlineWaypointProvider.save(new Waypoint().fromJSON(waypoint), careerObjectiveId);
+        }
+      });
+    }
+    return promise;
   }
 
   /**
@@ -42,9 +50,7 @@ export class WaypointProvider {
   * @return le point d'étape récupéré
   */
   getWaypoint(id: number): Promise<Waypoint> {
-    return this.connectivityService.isConnected() ?
-      this.onlineWaypointProvider.getWaypoint(id) :
-      this.offlineWaypointProvider.getWaypoint(id);
+    return this.restService.get(`${this.waypointUrl}/${id}`);
   }
 
   /**
@@ -53,6 +59,7 @@ export class WaypointProvider {
   * @return le point d'étape supprimé
   */
   delete(id: number): Promise<Waypoint> {
-    return this.onlineWaypointProvider.delete(id);
+    return this.restService.delete(`${this.waypointUrl}/${id}`);
   }
+
 }

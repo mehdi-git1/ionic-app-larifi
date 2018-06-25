@@ -28,7 +28,8 @@ export class SecurityProvider {
 
   getAuthenticatedUser(): Promise<AuthenticatedUser> {
     return this.connectivityService.isConnected() ?
-      this.onlineSecurityProvider.getAuthenticatedUser() : this.offlineSecurityProvider.getAuthenticatedUser();
+      this.onlineSecurityProvider.getAuthenticatedUser() :
+      this.offlineSecurityProvider.getAuthenticatedUser();
   }
 
 }

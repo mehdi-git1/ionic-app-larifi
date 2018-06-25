@@ -1,3 +1,7 @@
+import { OnlineWaypointProvider } from './../providers/waypoint/online-waypoint';
+import { OnlineCareerObjectiveProvider } from './../providers/career-objective/online-career-objective';
+import { OfflineWaypointProvider } from './../providers/waypoint/offline-waypoint';
+import { OfflineCareerObjectiveProvider } from './../providers/career-objective/offline-career-objective';
 import { OfflineSecurityProvider } from './../providers/security/offline-security';
 import { OnlineSecurityProvider } from './../providers/security/online-security';
 import { StorageService } from './../services/storage.service';
@@ -46,9 +50,7 @@ import { RotationProvider } from '../providers/rotation/rotation';
 import { LegProvider } from '../providers/leg/leg';
 import { IonicStorageModule } from '@ionic/storage';
 import { OfflineProvider } from '../providers/offline/offline';
-import { OfflineCareerObjectiveProvider } from '../providers/offline-career-objective/offline-career-objective';
 import { SQLite } from '@ionic-native/sqlite';
-import { OfflineWaypointProvider } from '../providers/offline-waypoint/offline-waypoint';
 import { OfflinePncProvider } from '../providers/pnc/offline-pnc';
 import { OnlinePncProvider } from '../providers/pnc/online-pnc';
 
@@ -124,7 +126,11 @@ import { OnlinePncProvider } from '../providers/pnc/online-pnc';
     OfflineWaypointProvider,
     OnlineSecurityProvider,
     OfflineSecurityProvider,
-    OnlinePncProvider
+    OnlinePncProvider,
+    OnlineCareerObjectiveProvider,
+    OfflineCareerObjectiveProvider,
+    OfflineWaypointProvider,
+    OnlineWaypointProvider
   ]
 })
 export class AppModule { }
