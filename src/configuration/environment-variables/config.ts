@@ -14,7 +14,7 @@ export class Config extends BaseConfig {
 
         if (undefined !== window.cordova && 'browser' !== window.cordova.platformId) {
             console.log('mobile mode selected');
-            this.backEndUrl = 'https://edospnc-apidev.airfrance.fr/api/rest/resources';
+            this.backEndUrl = 'https://edospnc-api-dev.airfrance.fr/api/rest/resources';
         } else {
             console.log('web mode selected');
             this.backEndUrl = '/api/rest/resources';
