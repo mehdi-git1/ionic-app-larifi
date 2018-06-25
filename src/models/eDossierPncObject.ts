@@ -6,9 +6,7 @@ export abstract class EDossierPncObject {
     abstract getStorageId(): string;
 
     fromJSON(json): any {
-        // On désactive tslint car on ne souhaite pas filtrer les propriétés de l'objet
-        // tslint:disable-next-line
-        for (const property in json) {
+        for (const property of Object.keys(json)) {
             this[property] = json[property];
         }
         return this;

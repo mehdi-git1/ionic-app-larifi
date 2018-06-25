@@ -16,6 +16,7 @@ export class Waypoint extends EDossierPncObject {
     pncComment: string;
     waypointStatus: WaypointStatus;
     encounterDate: string;
+    careerObjective: CareerObjective;
 
     getStorageId(): string {
         return `${this.techId}`;

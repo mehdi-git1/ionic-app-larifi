@@ -48,6 +48,7 @@ import { OfflineCareerObjectiveProvider } from '../providers/offline-career-obje
 import { OfflinePncProvider } from '../providers/offline-pnc/offline-pnc';
 import { SQLite } from '@ionic-native/sqlite';
 import { OfflineAuthenticatedUserProvider } from '../providers/offline-authenticated-user/offline-authenticated-user';
+import { OfflineWaypointProvider } from '../providers/offline-waypoint/offline-waypoint';
 
 @NgModule({
   declarations: [
@@ -117,7 +118,9 @@ import { OfflineAuthenticatedUserProvider } from '../providers/offline-authentic
     OfflineProvider,
     OfflineCareerObjectiveProvider,
     OfflinePncProvider,
-    OfflineAuthenticatedUserProvider
+    OfflineAuthenticatedUserProvider,
+    OfflineCareerObjectiveProvider,
+    OfflineWaypointProvider
   ]
 })
 export class AppModule { }

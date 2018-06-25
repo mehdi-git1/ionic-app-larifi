@@ -35,7 +35,13 @@ export class StorageService {
   }
 
   findAll(entity: Entity): Promise<any[]> {
-    return this.offlineMap[entity];
+    return new Promise((resolve, reject) => {
+      const array = [];
+      for (const entry of Object.keys(this.offlineMap[entity])) {
+        array.push(this.offlineMap[entity][entry]);
+      }
+      resolve(array);
+    });
   }
 
   findOne(entity: Entity, storageId: string): Promise<any> {
@@ -44,9 +50,12 @@ export class StorageService {
     });
   }
 
-  save(entity: Entity, eDossierPncObject: EDossierPncObject): void {
-    this.offlineMap[entity][eDossierPncObject.getStorageId()] = eDossierPncObject;
-    this.persistOfflineMap();
+  save(entity: Entity, eDossierPncObject: EDossierPncObject): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.offlineMap[entity][eDossierPncObject.getStorageId()] = eDossierPncObject;
+      this.persistOfflineMap();
+      resolve(eDossierPncObject);
+    });
   }
 
   deleteAll(entity: Entity): void {

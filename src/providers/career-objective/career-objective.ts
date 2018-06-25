@@ -1,3 +1,4 @@
+import { ConnectivityService } from './../../services/connectivity.service';
 import { OfflineCareerObjectiveProvider } from './../offline-career-objective/offline-career-objective';
 import { Config } from './../../configuration/environment-variables/config';
 import { CareerObjective } from './../../models/careerObjective';
@@ -11,7 +12,8 @@ export class CareerObjectiveProvider {
 
   constructor(public restService: RestService,
     private config: Config,
-    private offlineCareerObjectiveProvider: OfflineCareerObjectiveProvider) {
+    private offlineCareerObjectiveProvider: OfflineCareerObjectiveProvider,
+    private connectivityService: ConnectivityService) {
     this.careerObjectiveUrl = `${config.backEndUrl}/career_objectives`;
   }
 
@@ -21,8 +23,20 @@ export class CareerObjectiveProvider {
    * @param storeOffline si on doit stocker le résultat en local
    * @return la liste des objectifs du pnc
    */
-  getCareerObjectiveList(matricule: String, storeOffline: boolean = false): Promise<CareerObjective[]> {
-    return this.restService.get(`${this.careerObjectiveUrl}/pnc/${matricule}`, null, null, storeOffline);
+  getPncCareerObjectives(matricule: string, storeOffline: boolean = false): Promise<CareerObjective[]> {
+    if (this.connectivityService.isConnected()) {
+      const promise: Promise<CareerObjective[]> = this.restService.get(`${this.careerObjectiveUrl}/pnc/${matricule}`);
+      if (storeOffline) {
+        promise.then(careerObjectiveList => {
+          for (const careerObjective of careerObjectiveList) {
+            this.offlineCareerObjectiveProvider.save(new CareerObjective().fromJSON(careerObjective));
+          }
+        });
+      }
+      return promise;
+    } else {
+      return this.offlineCareerObjectiveProvider.getPncCareerObjectives(matricule);
+    }
   }
 
   /**
@@ -41,7 +55,17 @@ export class CareerObjectiveProvider {
   * @return l'objectif récupéré
   */
   getCareerObjective(id: number, storeOffline: boolean = false): Promise<CareerObjective> {
-    return this.restService.get(`${this.careerObjectiveUrl}/${id}`, null, null, storeOffline);
+    if (this.connectivityService.isConnected()) {
+      const promise: Promise<CareerObjective> = this.restService.get(`${this.careerObjectiveUrl}/${id}`);
+      if (storeOffline) {
+        promise.then(careerObjective => {
+          this.offlineCareerObjectiveProvider.save(new CareerObjective().fromJSON(careerObjective));
+        });
+      }
+      return promise;
+    } else {
+      return this.offlineCareerObjectiveProvider.getCareerObjective(id);
+    }
   }
 
   /**

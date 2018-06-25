@@ -36,7 +36,7 @@ export class OfflineProvider {
           });
 
           promiseCount++;
-          this.careerObjectiveProvider.getCareerObjectiveList(pnc.matricule, true).then(careerObjectiveList => {
+          this.careerObjectiveProvider.getPncCareerObjectives(pnc.matricule, false).then(careerObjectiveList => {
             resolvedPromiseCount++;
             observer.next(careerObjectiveList.length > 0);
             for (const careerObjective of careerObjectiveList) {
@@ -52,18 +52,7 @@ export class OfflineProvider {
               promiseCount++;
               this.waypointProvider.getCareerObjectiveWaypoints(careerObjective.techId, true).then(waypointList => {
                 resolvedPromiseCount++;
-                observer.next(waypointList.length > 0);
-
-                for (const waypoint of waypointList) {
-                  promiseCount++;
-                  this.waypointProvider.getWaypoint(waypoint.techId, true).then(success => {
-                    resolvedPromiseCount++;
-                    observer.next(false);
-                  }, error => {
-                    resolvedPromiseCount++;
-                    observer.next(false);
-                  });
-                }
+                observer.next(false);
               }, error => {
                 resolvedPromiseCount++;
                 observer.next(false);
