@@ -1,39 +1,18 @@
-import { OfflineAuthenticatedUserProvider } from './../offline-authenticated-user/offline-authenticated-user';
+import { OfflineSecurityProvider } from './../security/offline-security';
+import { OnlineSecurityProvider } from './../security/online-security';
 import { ConnectivityService } from './../../services/connectivity.service';
-import { Config } from './../../configuration/environment-variables/config';
 import { SessionService } from './../../services/session.service';
 import { AuthenticatedUser } from './../../models/authenticatedUser';
 import { Injectable } from '@angular/core';
-import { RestService } from '../../services/rest.base.service';
 
 @Injectable()
 export class SecurityProvider {
 
-  private securityUrl: string;
-
-  constructor(public restService: RestService,
+  constructor(
     private sessionService: SessionService,
     private connectivityService: ConnectivityService,
-    private offlineAuthenticatedUserProvider: OfflineAuthenticatedUserProvider,
-    private config: Config) {
-    this.securityUrl = `${config.backEndUrl}/me`;
-  }
-
-  /**
-   * Fait appel au service rest qui renvois le user connecté.
-   * @return les informations du pnc
-   */
-  getAuthenticatedUser(): Promise<AuthenticatedUser> {
-    if (this.connectivityService.isConnected()) {
-      const promise: Promise<AuthenticatedUser> = this.restService.get(`${this.securityUrl}`);
-      promise.then(authenticatedUser => {
-        this.offlineAuthenticatedUserProvider.saveTheOne(new AuthenticatedUser().fromJSON(authenticatedUser));
-      });
-      return promise;
-    } else {
-      return this.offlineAuthenticatedUserProvider.findTheOne();
-    }
-
+    private onlineSecurityProvider: OnlineSecurityProvider,
+    private offlineSecurityProvider: OfflineSecurityProvider) {
   }
 
   /**
@@ -45,6 +24,11 @@ export class SecurityProvider {
       return false;
     }
     return this.sessionService.authenticatedUser.manager;
+  }
+
+  getAuthenticatedUser(): Promise<AuthenticatedUser> {
+    return this.connectivityService.isConnected() ?
+      this.onlineSecurityProvider.getAuthenticatedUser() : this.offlineSecurityProvider.getAuthenticatedUser();
   }
 
 }

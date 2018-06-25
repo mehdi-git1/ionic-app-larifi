@@ -1,21 +1,18 @@
-import { OnlinePncProvider } from './online-pnc';
-import { OfflinePncProvider } from './../pnc/offline-pnc';
-import { ConnectivityService } from './../../services/connectivity.service';
-import { Config } from './../../configuration/environment-variables/config';
 import { Rotation } from './../../models/rotation';
-import { Pnc } from './../../models/pnc';
+import { OfflinePncProvider } from './offline-pnc';
+import { Config } from './../../configuration/environment-variables/config';
 import { Injectable } from '@angular/core';
 import { RestService } from '../../services/rest.base.service';
+import { Pnc } from '../../models/pnc';
 
 @Injectable()
-export class PncProvider {
+export class OnlinePncProvider {
   private pncUrl: string;
 
   constructor(public restService: RestService,
     public config: Config,
-    private connectivityService: ConnectivityService,
-    private onlinePncProvider: OnlinePncProvider,
     private offlinePncProvider: OfflinePncProvider) {
+    this.pncUrl = `${config.backEndUrl}/pncs`;
   }
 
   /**
@@ -25,8 +22,13 @@ export class PncProvider {
    * @return les informations du PNC
    */
   getPnc(matricule: string, storeOffline: boolean = false): Promise<Pnc> {
-    return this.connectivityService.isConnected() ?
-      this.onlinePncProvider.getPnc(matricule, storeOffline) : this.offlinePncProvider.getPnc(matricule);
+    const promise: Promise<Pnc> = this.restService.get(`${this.pncUrl}/${matricule}`, null, null, storeOffline);
+    if (storeOffline) {
+      promise.then(pnc => {
+        this.offlinePncProvider.save(new Pnc().fromJSON(pnc));
+      });
+    }
+    return promise;
   }
 
   /**
@@ -35,7 +37,7 @@ export class PncProvider {
    * @return les rotations à venir du PNC
    */
   getUpcomingRotations(matricule: string): Promise<Rotation[]> {
-    return this.onlinePncProvider.getUpcomingRotations(matricule);
+    return this.restService.get(`${this.pncUrl}/${matricule}/upcoming_rotations`);
   }
 
   /**
@@ -44,8 +46,6 @@ export class PncProvider {
   * @return la dernière rotation opérée par le PNC
   */
   getLastPerformedRotation(matricule: string): Promise<Rotation> {
-    return this.onlinePncProvider.getLastPerformedRotation(matricule);
+    return this.restService.get(`${this.pncUrl}/${matricule}/last_performed_rotation`);
   }
-
 }
-

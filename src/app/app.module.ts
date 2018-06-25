@@ -1,3 +1,5 @@
+import { OfflineSecurityProvider } from './../providers/security/offline-security';
+import { OnlineSecurityProvider } from './../providers/security/online-security';
 import { StorageService } from './../services/storage.service';
 import { ComponentsModule } from './../components/components.module';
 import { FlightCrewListPage } from './../pages/flight-crew-list/flight-crew-list';
@@ -45,10 +47,10 @@ import { LegProvider } from '../providers/leg/leg';
 import { IonicStorageModule } from '@ionic/storage';
 import { OfflineProvider } from '../providers/offline/offline';
 import { OfflineCareerObjectiveProvider } from '../providers/offline-career-objective/offline-career-objective';
-import { OfflinePncProvider } from '../providers/offline-pnc/offline-pnc';
 import { SQLite } from '@ionic-native/sqlite';
-import { OfflineAuthenticatedUserProvider } from '../providers/offline-authenticated-user/offline-authenticated-user';
 import { OfflineWaypointProvider } from '../providers/offline-waypoint/offline-waypoint';
+import { OfflinePncProvider } from '../providers/pnc/offline-pnc';
+import { OnlinePncProvider } from '../providers/pnc/online-pnc';
 
 @NgModule({
   declarations: [
@@ -118,9 +120,11 @@ import { OfflineWaypointProvider } from '../providers/offline-waypoint/offline-w
     OfflineProvider,
     OfflineCareerObjectiveProvider,
     OfflinePncProvider,
-    OfflineAuthenticatedUserProvider,
     OfflineCareerObjectiveProvider,
-    OfflineWaypointProvider
+    OfflineWaypointProvider,
+    OnlineSecurityProvider,
+    OfflineSecurityProvider,
+    OnlinePncProvider
   ]
 })
 export class AppModule { }

@@ -1,11 +1,10 @@
 import { Entity } from './../../models/entity';
 import { AuthenticatedUser } from './../../models/authenticatedUser';
+import { StorageService } from './../../services/storage.service';
 import { Injectable } from '@angular/core';
-import { StorageService } from '../../services/storage.service';
-import { EDossierPncObject } from '../../models/eDossierPncObject';
 
 @Injectable()
-export class OfflineAuthenticatedUserProvider {
+export class OfflineSecurityProvider {
 
   constructor(private storageService: StorageService) {
   }
@@ -13,12 +12,12 @@ export class OfflineAuthenticatedUserProvider {
   /**
    * Il ne peut y avoir qu'un seul utilisateur connecté, on purge donc la table avant de sauvegarder le nouveau
    */
-  saveTheOne(authenticatedUser: AuthenticatedUser) {
+  overwriteAuthenticatedUser(authenticatedUser: AuthenticatedUser) {
     this.storageService.deleteAll(Entity.AUTHENTICATED_USER);
     this.storageService.save(Entity.AUTHENTICATED_USER, authenticatedUser);
   }
 
-  findTheOne() {
+  getAuthenticatedUser() {
     const authenticatedUserList = this.storageService.findAll(Entity.AUTHENTICATED_USER);
     return authenticatedUserList[Object.keys(authenticatedUserList)[0]];
   }

@@ -14,7 +14,7 @@ export class OfflinePncProvider {
     this.storageService.save(Entity.PNC, pnc);
   }
 
-  findOne(matricule: string): Promise<Pnc> {
+  getPnc(matricule: string): Promise<Pnc> {
     return this.storageService.findOne(Entity.PNC, matricule);
   }
 
