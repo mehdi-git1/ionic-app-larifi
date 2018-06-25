@@ -32,7 +32,9 @@ export class PncProvider {
    * @return les rotations à venir du PNC
    */
   getUpcomingRotations(matricule: string): Promise<Rotation[]> {
-    return this.onlinePncProvider.getUpcomingRotations(matricule);
+    return this.connectivityService.isConnected() ?
+      this.onlinePncProvider.getUpcomingRotations(matricule) :
+      this.offlinePncProvider.getUpcomingRotations(matricule);
   }
 
   /**
@@ -41,7 +43,9 @@ export class PncProvider {
   * @return la dernière rotation opérée par le PNC
   */
   getLastPerformedRotation(matricule: string): Promise<Rotation> {
-    return this.onlinePncProvider.getLastPerformedRotation(matricule);
+    return this.connectivityService.isConnected() ?
+      this.onlinePncProvider.getLastPerformedRotation(matricule) :
+      this.offlinePncProvider.getLastPerformedRotation(matricule);
   }
 
 }
