@@ -1,3 +1,5 @@
+import { ToastProvider } from './../providers/toast/toast';
+import { ConnectivityService } from './../services/connectivity.service';
 import { SessionService } from './../services/session.service';
 import { AuthenticatedUser } from './../models/authenticatedUser';
 import { SecurityProvider } from './../providers/security/security';
@@ -22,12 +24,16 @@ export class EDossierPNC {
   rootPage: any = PncHomePage;
 
 
-  constructor(public platform: Platform, public statusBar: StatusBar,
-    public splashScreen: SplashScreen, public translate: TranslateService,
+  constructor(public platform: Platform,
+    public statusBar: StatusBar,
+    public splashScreen: SplashScreen,
+    public translateService: TranslateService,
     private secMobilService: SecMobilService,
     private securityProvider: SecurityProvider,
     private sessionService: SessionService,
     private storageService: StorageService,
+    private connectivityService: ConnectivityService,
+    private toastProvider: ToastProvider,
     private events: Events
   ) {
     this.initializeApp();
@@ -39,8 +45,8 @@ export class EDossierPNC {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
 
-      this.translate.setDefaultLang('fr');
-      this.translate.use('fr');
+      this.translateService.setDefaultLang('fr');
+      this.translateService.use('fr');
 
       this.secMobilService.init();
       this.secMobilService.isAuthenticated().then(() => {
@@ -53,6 +59,15 @@ export class EDossierPNC {
       // Création du stockage local
       this.storageService.initOfflineMap().then(success => {
         this.putAuthenticatedUserInSession();
+      });
+
+      // Détection d'un changement d'état de la connexion
+      this.connectivityService.connectionStatusChange.subscribe(connected => {
+        if (!connected) {
+          this.toastProvider.warning(this.translateService.instant('GLOBAL.CONNECTIVITY.OFFLINE_MODE'));
+        } else {
+          this.toastProvider.success(this.translateService.instant('GLOBAL.CONNECTIVITY.ONLINE_MODE'));
+        }
       });
 
     });
