@@ -54,18 +54,11 @@ export class WaypointProvider {
   /**
   * Récupère un point d'étape
   * @param id l'id du point d'étape à récupérer
-  * @param storeOffline si on doit stocker le résultat en local
   * @return le point d'étape récupéré
   */
-  getWaypoint(id: number, storeOffline: boolean = false): Promise<Waypoint> {
+  getWaypoint(id: number): Promise<Waypoint> {
     if (this.connectivityService.isConnected()) {
-      const promise: Promise<Waypoint> = this.restService.get(`${this.waypointUrl}/${id}`);
-      if (storeOffline) {
-        promise.then(waypoint => {
-          this.offlineWaypointProvider.save(new Waypoint().fromJSON(waypoint));
-        });
-      }
-      return promise;
+      return this.restService.get(`${this.waypointUrl}/${id}`);
     } else {
       return this.offlineWaypointProvider.getWaypoint(id);
     }
