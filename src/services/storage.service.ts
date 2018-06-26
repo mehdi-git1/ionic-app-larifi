@@ -9,6 +9,7 @@ import { EDossierPncObject } from '../models/eDossierPncObject';
 export class StorageService {
 
   private offlineMap;
+  private sequenceGeneratorName = 'sequence';
 
   constructor(
     private storage: Storage,
@@ -31,6 +32,9 @@ export class StorageService {
         offlineMap[entity] = {};
       }
     }
+    if (offlineMap[this.sequenceGeneratorName] === undefined) {
+      offlineMap[this.sequenceGeneratorName] = 0;
+    }
     return offlineMap;
   }
 
@@ -52,7 +56,7 @@ export class StorageService {
 
   save(entity: Entity, eDossierPncObject: EDossierPncObject): Promise<any> {
     return new Promise((resolve, reject) => {
-      this.offlineMap[entity][eDossierPncObject.getStorageId()] = eDossierPncObject;
+      this.offlineMap[entity][this.getStorageId(eDossierPncObject)] = eDossierPncObject;
       this.persistOfflineMap();
       resolve(eDossierPncObject);
     });
@@ -63,9 +67,41 @@ export class StorageService {
     this.persistOfflineMap();
   }
 
+  delete(entity: Entity, storageId: string): Promise<any> {
+    return new Promise((resolve, reject) => {
+      const deletedObject = this.offlineMap[entity][storageId];
+      delete this.offlineMap[entity].storageId;
+      this.persistOfflineMap();
+      resolve(deletedObject);
+    });
+  }
+
+  /**
+   * Persiste la map en mémoire dans le stockage Ionic
+   */
   persistOfflineMap(): void {
     this.storage.set(this.config.appName, this.offlineMap);
   }
 
+  /**
+   * Attribut une clef de stockage à un objet.
+   * Pour les objets existants, on prend la clef primaire de l'objet.
+   * S'il s'agit d'une nouvelle création, il faut générer un id temporaire.
+   */
+  getStorageId(eDossierPncObject: EDossierPncObject): string {
+    if (eDossierPncObject.getTechId() === undefined || eDossierPncObject.getTechId() === 'undefined') {
+      const nextSequenceId = this.nextSequenceId();
+      eDossierPncObject.techId = nextSequenceId;
+      return `${nextSequenceId}`;
+    }
+    return eDossierPncObject.getTechId();
+  }
 
+  /**
+   * Génère une clef de stockage pour les nouvelles créations d'objets
+   */
+  nextSequenceId(): number {
+    return --this.offlineMap[this.sequenceGeneratorName];
+  }
 }
+

@@ -14,10 +14,13 @@ export class OfflineCareerObjectiveProvider {
     return this.storageService.save(Entity.CAREER_OBJECTIVE, careerObjective);
   }
 
+  createOrUpdate(careerObjective: CareerObjective): Promise<CareerObjective> {
+    return this.storageService.save(Entity.CAREER_OBJECTIVE, careerObjective);
+  }
+
   getPncCareerObjectives(pncMatricule: string): Promise<CareerObjective[]> {
     return new Promise((resolve, reject) => {
       this.storageService.findAll(Entity.CAREER_OBJECTIVE).then(careerObjectiveList => {
-        console.log(careerObjectiveList);
         const pncCareerObjectives = careerObjectiveList.filter(careerObjective => {
           return careerObjective.pnc.matricule === pncMatricule;
         });
@@ -28,6 +31,10 @@ export class OfflineCareerObjectiveProvider {
 
   getCareerObjective(id: number): Promise<CareerObjective> {
     return this.storageService.findOne(Entity.CAREER_OBJECTIVE, `${id}`);
+  }
+
+  delete(id: number): Promise<CareerObjective> {
+    return this.storageService.delete(Entity.CAREER_OBJECTIVE, `${id}`);
   }
 
 }

@@ -32,7 +32,9 @@ export class CareerObjectiveProvider {
    * @return une promesse contenant l'objectif créé ou mis à jour
    */
   createOrUpdate(careerObjective: CareerObjective): Promise<CareerObjective> {
-    return this.onlineCareerObjectiveProvider.createOrUpdate(careerObjective);
+    return this.connectivityService.isConnected() ?
+      this.onlineCareerObjectiveProvider.createOrUpdate(careerObjective) :
+      this.offlineCareerObjectiveProvider.createOrUpdate(careerObjective);
   }
 
   /**
@@ -43,7 +45,7 @@ export class CareerObjectiveProvider {
   */
   getCareerObjective(id: number, storeOffline: boolean = false): Promise<CareerObjective> {
     return this.connectivityService.isConnected() ?
-      this.onlineCareerObjectiveProvider.getCareerObjective(id) :
+      this.onlineCareerObjectiveProvider.getCareerObjective(id, storeOffline) :
       this.offlineCareerObjectiveProvider.getCareerObjective(id);
   }
 
@@ -53,6 +55,8 @@ export class CareerObjectiveProvider {
   * @return l'objectif supprimé
   */
   delete(id: number): Promise<CareerObjective> {
-    return this.onlineCareerObjectiveProvider.delete(id);
+    return this.connectivityService.isConnected() ?
+      this.onlineCareerObjectiveProvider.delete(id) :
+      this.offlineCareerObjectiveProvider.delete(id);
   }
 }

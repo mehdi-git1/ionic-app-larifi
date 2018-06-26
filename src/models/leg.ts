@@ -10,7 +10,7 @@ export class Leg extends EDossierPncObject {
     aircraftType: string;
     rotation: Rotation;
 
-    getStorageId(): string {
+    getTechId(): string {
         return `${this.techId}`;
     }
 }

@@ -10,7 +10,7 @@ export class Rotation extends EDossierPncObject {
     opened: boolean;
     loading: boolean;
 
-    getStorageId(): string {
+    getTechId(): string {
         return `${this.techId}`;
     }
 }

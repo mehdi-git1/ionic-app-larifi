@@ -3,7 +3,7 @@ export abstract class EDossierPncObject {
     availableOffline: boolean;
     offlineStorageDate: string;
 
-    abstract getStorageId(): string;
+    abstract getTechId(): string;
 
     fromJSON(json): any {
         for (const property of Object.keys(json)) {
