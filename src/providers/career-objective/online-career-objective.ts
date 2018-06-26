@@ -26,7 +26,7 @@ export class OnlineCareerObjectiveProvider {
     if (storeOffline) {
       promise.then(careerObjectiveList => {
         for (const careerObjective of careerObjectiveList) {
-          this.offlineCareerObjectiveProvider.save(new CareerObjective().fromJSON(careerObjective));
+          this.offlineCareerObjectiveProvider.store(new CareerObjective().fromJSON(careerObjective));
         }
       });
     }
@@ -52,7 +52,7 @@ export class OnlineCareerObjectiveProvider {
     const promise: Promise<CareerObjective> = this.restService.get(`${this.careerObjectiveUrl}/${id}`);
     if (storeOffline) {
       promise.then(careerObjective => {
-        this.offlineCareerObjectiveProvider.save(new CareerObjective().fromJSON(careerObjective));
+        this.offlineCareerObjectiveProvider.store(new CareerObjective().fromJSON(careerObjective));
       });
     }
     return promise;

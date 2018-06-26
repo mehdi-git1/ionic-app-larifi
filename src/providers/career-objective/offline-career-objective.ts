@@ -10,8 +10,8 @@ export class OfflineCareerObjectiveProvider {
   constructor(private storageService: StorageService) {
   }
 
-  save(careerObjective: CareerObjective): Promise<CareerObjective> {
-    return this.storageService.save(Entity.CAREER_OBJECTIVE, careerObjective);
+  store(careerObjective: CareerObjective): Promise<CareerObjective> {
+    return this.createOrUpdate(careerObjective);
   }
 
   createOrUpdate(careerObjective: CareerObjective): Promise<CareerObjective> {

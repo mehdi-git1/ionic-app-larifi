@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Entity } from './../models/entity';
 import { AuthenticatedUser } from './../models/authenticatedUser';
 import { Config } from './../configuration/environment-variables/config';
@@ -13,7 +14,8 @@ export class StorageService {
 
   constructor(
     private storage: Storage,
-    private config: Config) {
+    private config: Config,
+    private datePipe: DatePipe) {
   }
 
   initOfflineMap(): Promise<any> {
@@ -56,6 +58,8 @@ export class StorageService {
 
   save(entity: Entity, eDossierPncObject: EDossierPncObject): Promise<any> {
     return new Promise((resolve, reject) => {
+      eDossierPncObject.availableOffline = true;
+      eDossierPncObject.offlineStorageDate = this.datePipe.transform(new Date(), 'yyyy-MM-ddTHH:mm');
       this.offlineMap[entity][this.getStorageId(eDossierPncObject)] = eDossierPncObject;
       this.persistOfflineMap();
       resolve(eDossierPncObject);
@@ -70,7 +74,7 @@ export class StorageService {
   delete(entity: Entity, storageId: string): Promise<any> {
     return new Promise((resolve, reject) => {
       const deletedObject = this.offlineMap[entity][storageId];
-      delete this.offlineMap[entity].storageId;
+      delete this.offlineMap[entity][storageId];
       this.persistOfflineMap();
       resolve(deletedObject);
     });

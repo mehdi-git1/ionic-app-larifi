@@ -37,7 +37,7 @@ export class OnlineWaypointProvider {
     if (storeOffline) {
       promise.then(waypointList => {
         for (const waypoint of waypointList) {
-          this.offlineWaypointProvider.save(new Waypoint().fromJSON(waypoint), careerObjectiveId);
+          this.offlineWaypointProvider.createOrUpdate(new Waypoint().fromJSON(waypoint), careerObjectiveId);
         }
       });
     }

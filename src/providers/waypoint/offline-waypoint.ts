@@ -10,8 +10,11 @@ export class OfflineWaypointProvider {
   constructor(private storageService: StorageService) {
   }
 
+  store(waypoint: Waypoint, careerObjectiveId: number): Promise<Waypoint> {
+    return this.createOrUpdate(waypoint, careerObjectiveId);
+  }
 
-  save(waypoint: Waypoint, careerObjectiveId: number): Promise<Waypoint> {
+  createOrUpdate(waypoint: Waypoint, careerObjectiveId: number): Promise<Waypoint> {
     waypoint.careerObjective = new CareerObjective();
     waypoint.careerObjective.techId = careerObjectiveId;
     return this.storageService.save(Entity.WAYPOINT, waypoint);
@@ -29,5 +32,9 @@ export class OfflineWaypointProvider {
 
   getWaypoint(id: number): Promise<Waypoint> {
     return this.storageService.findOne(Entity.WAYPOINT, `${id}`);
+  }
+
+  delete(id: number): Promise<Waypoint> {
+    return this.storageService.delete(Entity.WAYPOINT, `${id}`);
   }
 }

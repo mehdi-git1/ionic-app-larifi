@@ -21,7 +21,9 @@ export class WaypointProvider {
    * @return une promesse contenant le point d'étape créé ou mis à jour
    */
   createOrUpdate(waypoint: Waypoint, careerObjectiveId: number): Promise<Waypoint> {
-    return this.onlineWaypointProvider.createOrUpdate(waypoint, careerObjectiveId);
+    return this.connectivityService.isConnected() ?
+      this.onlineWaypointProvider.createOrUpdate(waypoint, careerObjectiveId) :
+      this.offlineWaypointProvider.createOrUpdate(waypoint, careerObjectiveId);
   }
 
   /**
@@ -53,6 +55,8 @@ export class WaypointProvider {
   * @return le point d'étape supprimé
   */
   delete(id: number): Promise<Waypoint> {
-    return this.onlineWaypointProvider.delete(id);
+    return this.connectivityService.isConnected() ?
+      this.onlineWaypointProvider.delete(id) :
+      this.offlineWaypointProvider.delete(id);
   }
 }
