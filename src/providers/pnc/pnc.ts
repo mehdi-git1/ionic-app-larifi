@@ -36,7 +36,7 @@ export class PncProvider {
         });
       });
     } else {
-      this.offlinePncProvider.getPnc(matricule);
+      return this.offlinePncProvider.getPnc(matricule);
     }
   }
 
