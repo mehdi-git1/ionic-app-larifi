@@ -8,16 +8,18 @@ export class CareerObjectiveTransformerProvider {
   constructor() {
   }
 
-  toCareerObjectives(careerObjectiveArray: CareerObjective[]) {
+  toCareerObjectives(array: CareerObjective[]) {
     const newArray: CareerObjective[] = [];
-    for (const careerObjective of careerObjectiveArray) {
-      newArray.push(this.toCareerObjective(careerObjective));
+    for (const object of array) {
+      newArray.push(this.toCareerObjective(object));
     }
     return newArray;
   }
 
-  toCareerObjective(careerObjectiveObject: CareerObjective): CareerObjective {
-    return new CareerObjective().fromJSON(careerObjectiveObject);
+  toCareerObjective(object: CareerObjective): CareerObjective {
+    return !object ?
+      object :
+      new CareerObjective().fromJSON(object);
   }
 
 }

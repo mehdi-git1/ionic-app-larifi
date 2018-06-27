@@ -1,3 +1,4 @@
+import { OfflineProvider } from './../providers/offline/offline';
 import { ToastProvider } from './../providers/toast/toast';
 import { ConnectivityService } from './../services/connectivity.service';
 import { SessionService } from './../services/session.service';
@@ -34,6 +35,7 @@ export class EDossierPNC {
     private storageService: StorageService,
     private connectivityService: ConnectivityService,
     private toastProvider: ToastProvider,
+    private offlineProvider: OfflineProvider,
     private events: Events
   ) {
     this.initializeApp();
@@ -58,7 +60,9 @@ export class EDossierPNC {
 
       // Création du stockage local
       this.storageService.initOfflineMap().then(success => {
-        this.putAuthenticatedUserInSession();
+        this.putAuthenticatedUserInSession().then(authenticatedUser => {
+          this.offlineProvider.downloadPncEdossier(authenticatedUser.username);
+        });
       });
 
       // Détection d'un changement d'état de la connexion
@@ -76,11 +80,13 @@ export class EDossierPNC {
   /**
   * Mettre le pnc connecté en session
   */
-  putAuthenticatedUserInSession() {
-    this.securityProvider.getAuthenticatedUser().then(authenticatedUser => {
+  putAuthenticatedUserInSession(): Promise<AuthenticatedUser> {
+    const promise = this.securityProvider.getAuthenticatedUser();
+    promise.then(authenticatedUser => {
       this.sessionService.authenticatedUser = authenticatedUser;
       this.events.publish('user:authenticated');
     }, error => { });
+    return promise;
   }
 
   openPage(page) {

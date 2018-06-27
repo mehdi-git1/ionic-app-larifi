@@ -16,10 +16,10 @@ export class OfflineProvider {
 
   /**
    * Charge toutes les ressources nécessaires à la consultation hors ligne d'un eDossier
-   * @param pnc le pnc dont on souhaite récupérer le eDossier
+   * @param matricule le matricule du PNC dont on souhaite récupérer le eDossier
    * @return une promesse qui est résolue quand toute la synchro est terminée
    */
-  downloadPncEdossier(pnc: Pnc): Promise<boolean> {
+  downloadPncEdossier(matricule: string): Promise<boolean> {
     let promiseCount = 0;
     let resolvedPromiseCount = 0;
 
@@ -28,7 +28,7 @@ export class OfflineProvider {
         observer => {
 
           promiseCount++;
-          this.onlinePncProvider.getPnc(pnc.matricule, true).then(success => {
+          this.onlinePncProvider.getPnc(matricule, true).then(success => {
             resolvedPromiseCount++;
             observer.next(false);
           }, error => {
@@ -37,7 +37,7 @@ export class OfflineProvider {
           });
 
           promiseCount++;
-          this.onlineCareerObjectiveProvider.getPncCareerObjectives(pnc.matricule, false).then(careerObjectiveList => {
+          this.onlineCareerObjectiveProvider.getPncCareerObjectives(matricule, false).then(careerObjectiveList => {
             resolvedPromiseCount++;
             observer.next(careerObjectiveList.length > 0);
             for (const careerObjective of careerObjectiveList) {
@@ -90,7 +90,7 @@ export class OfflineProvider {
   flagDataAvailableOffline(onlineData: any, offlineData: any) {
     if (Array.isArray(offlineData)) {
       this.flagEDossierPncObjectArrayAsAvailableOffline(onlineData, offlineData);
-    } else {
+    } else if (offlineData !== null) {
       this.flagEDossierPncObjectAsAvailableOffline(onlineData, offlineData);
     }
   }
@@ -101,7 +101,7 @@ export class OfflineProvider {
    * @param offlineData un objet issu du stockage local
    */
   private flagEDossierPncObjectAsAvailableOffline(onlineData: EDossierPncObject, offlineData: EDossierPncObject) {
-    if (offlineData.getTechId() === onlineData.getTechId()) {
+    if (offlineData && offlineData.getTechId() === onlineData.getTechId()) {
       onlineData.availableOffline = true;
     }
   }

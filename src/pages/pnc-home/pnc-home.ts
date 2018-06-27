@@ -74,7 +74,7 @@ export class PncHomePage {
 
     return new Promise((resolve, reject) => {
       if (this.matricule !== undefined) {
-        this.pncProvider.getPnc(this.matricule, this.isMyHomePage()).then(foundPnc => {
+        this.pncProvider.getPnc(this.matricule).then(foundPnc => {
           this.pnc = foundPnc;
           resolve();
         }, error => {
@@ -82,14 +82,6 @@ export class PncHomePage {
         });
       }
     });
-  }
-
-  /**
-   * Teste si l'utilisateur se trouve sur sa page d'accueil
-   * @return vrai si le user connecté est sur sa page d'accueil, false sinon
-   */
-  isMyHomePage(): boolean {
-    return this.sessionService.authenticatedUser.username === this.matricule;
   }
 
   /**
@@ -119,7 +111,7 @@ export class PncHomePage {
   downloadPncEdossier() {
     if (!this.pnc.manager) {
       this.synchroInProgress = true;
-      this.offlineProvider.downloadPncEdossier(this.pnc).then(success => {
+      this.offlineProvider.downloadPncEdossier(this.pnc.matricule).then(success => {
         this.synchroInProgress = false;
       }, error => {
         this.synchroInProgress = false;

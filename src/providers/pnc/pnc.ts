@@ -1,3 +1,5 @@
+import { PncTransformerProvider } from './pnc-transformer';
+import { OfflineProvider } from './../offline/offline';
 import { OnlinePncProvider } from './online-pnc';
 import { OfflinePncProvider } from './../pnc/offline-pnc';
 import { ConnectivityService } from './../../services/connectivity.service';
@@ -11,19 +13,31 @@ export class PncProvider {
 
   constructor(private connectivityService: ConnectivityService,
     private onlinePncProvider: OnlinePncProvider,
-    private offlinePncProvider: OfflinePncProvider) {
+    private offlinePncProvider: OfflinePncProvider,
+    private offlineProvider: OfflineProvider,
+    private pncTransformer: PncTransformerProvider) {
   }
 
   /**
    * Récupère les infos d'un PNC
    * @param matricule le matricule du PNC dont on souhaite récupérer les infos
-   * @param storeOffline si on doit stocker le résultat de l'appel en local
    * @return les informations du PNC
    */
-  getPnc(matricule: string, storeOffline: boolean = false): Promise<Pnc> {
-    return this.connectivityService.isConnected() ?
-      this.onlinePncProvider.getPnc(matricule, storeOffline) :
+  getPnc(matricule: string): Promise<Pnc> {
+    if (this.connectivityService.isConnected()) {
+      return new Promise((resolve, reject) => {
+        this.offlinePncProvider.getPnc(matricule).then(offlinePnc => {
+          this.onlinePncProvider.getPnc(matricule).then(onlinePnc => {
+            const onlineData = this.pncTransformer.toPnc(onlinePnc);
+            const offlineData = this.pncTransformer.toPnc(offlinePnc);
+            this.offlineProvider.flagDataAvailableOffline(onlineData, offlineData);
+            resolve(onlineData);
+          });
+        });
+      });
+    } else {
       this.offlinePncProvider.getPnc(matricule);
+    }
   }
 
   /**
