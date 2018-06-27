@@ -29,12 +29,11 @@ export class WaypointProvider {
   /**
   * Récupère les points d'étape d'un objectif
   * @param careerObjectiveId l'id de l'objectif des points d'étape à récupérer
-  * @param storeOffline si on doit stocker le résultat en local
   * @return les points d'étape récupérés
   */
-  getCareerObjectiveWaypoints(careerObjectiveId: number, storeOffline: boolean = false): Promise<Waypoint[]> {
+  getCareerObjectiveWaypoints(careerObjectiveId: number): Promise<Waypoint[]> {
     return this.connectivityService.isConnected() ?
-      this.onlineWaypointProvider.getCareerObjectiveWaypoints(careerObjectiveId, storeOffline) :
+      this.onlineWaypointProvider.getCareerObjectiveWaypoints(careerObjectiveId) :
       this.offlineWaypointProvider.getCareerObjectiveWaypoints(careerObjectiveId);
   }
 

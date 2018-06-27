@@ -53,6 +53,7 @@ import { OfflineProvider } from '../providers/offline/offline';
 import { SQLite } from '@ionic-native/sqlite';
 import { OfflinePncProvider } from '../providers/pnc/offline-pnc';
 import { OnlinePncProvider } from '../providers/pnc/online-pnc';
+import { CareerObjectiveTransformerProvider } from '../providers/career-objective/career-objective-transformer';
 
 @NgModule({
   declarations: [
@@ -130,7 +131,8 @@ import { OnlinePncProvider } from '../providers/pnc/online-pnc';
     OnlineCareerObjectiveProvider,
     OfflineCareerObjectiveProvider,
     OfflineWaypointProvider,
-    OnlineWaypointProvider
+    OnlineWaypointProvider,
+    CareerObjectiveTransformerProvider
   ]
 })
 export class AppModule { }

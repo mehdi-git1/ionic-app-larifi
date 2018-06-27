@@ -1,16 +1,17 @@
+import { OnlinePncProvider } from './../pnc/online-pnc';
+import { OnlineWaypointProvider } from './../waypoint/online-waypoint';
+import { OnlineCareerObjectiveProvider } from './../career-objective/online-career-objective';
 import { Observable } from 'rxjs/Rx';
 import { Pnc } from './../../models/pnc';
-import { CareerObjectiveProvider } from './../career-objective/career-objective';
-import { WaypointProvider } from './../waypoint/waypoint';
-import { PncProvider } from './../pnc/pnc';
 import { Injectable } from '@angular/core';
+import { EDossierPncObject } from '../../models/eDossierPncObject';
 
 @Injectable()
 export class OfflineProvider {
 
-  constructor(private pncProvider: PncProvider,
-    private careerObjectiveProvider: CareerObjectiveProvider,
-    private waypointProvider: WaypointProvider) {
+  constructor(private onlinePncProvider: OnlinePncProvider,
+    private onlineCareerObjectiveProvider: OnlineCareerObjectiveProvider,
+    private onlineWaypointProvider: OnlineWaypointProvider) {
   }
 
   /**
@@ -27,7 +28,7 @@ export class OfflineProvider {
         observer => {
 
           promiseCount++;
-          this.pncProvider.getPnc(pnc.matricule, true).then(success => {
+          this.onlinePncProvider.getPnc(pnc.matricule, true).then(success => {
             resolvedPromiseCount++;
             observer.next(false);
           }, error => {
@@ -36,12 +37,12 @@ export class OfflineProvider {
           });
 
           promiseCount++;
-          this.careerObjectiveProvider.getPncCareerObjectives(pnc.matricule, false).then(careerObjectiveList => {
+          this.onlineCareerObjectiveProvider.getPncCareerObjectives(pnc.matricule, false).then(careerObjectiveList => {
             resolvedPromiseCount++;
             observer.next(careerObjectiveList.length > 0);
             for (const careerObjective of careerObjectiveList) {
               promiseCount++;
-              this.careerObjectiveProvider.getCareerObjective(careerObjective.techId, true).then(success => {
+              this.onlineCareerObjectiveProvider.getCareerObjective(careerObjective.techId, true).then(success => {
                 resolvedPromiseCount++;
                 observer.next(false);
               }, error => {
@@ -50,7 +51,7 @@ export class OfflineProvider {
               });
 
               promiseCount++;
-              this.waypointProvider.getCareerObjectiveWaypoints(careerObjective.techId, true).then(waypointList => {
+              this.onlineWaypointProvider.getCareerObjectiveWaypoints(careerObjective.techId, true).then(waypointList => {
                 resolvedPromiseCount++;
                 observer.next(false);
               }, error => {
@@ -79,6 +80,43 @@ export class OfflineProvider {
    */
   isSynchroOver(promiseCount, resolvedPromiseCount): boolean {
     return resolvedPromiseCount >= promiseCount;
+  }
+
+  /**
+   * Marque les données comme dispo hors ligne si ces dernières sont en cache
+   * @param onlineData les données issues du backend
+   * @param offlineData les données issues du stockage local
+   */
+  flagDataAvailableOffline(onlineData: any, offlineData: any) {
+    if (Array.isArray(offlineData)) {
+      this.flagEDossierPncObjectArrayAsAvailableOffline(onlineData, offlineData);
+    } else {
+      this.flagEDossierPncObjectAsAvailableOffline(onlineData, offlineData);
+    }
+  }
+
+  /**
+   * Marque l'objet EdossierPnc comme dispo offline
+   * @param onlineData un objet issu du backend
+   * @param offlineData un objet issu du stockage local
+   */
+  private flagEDossierPncObjectAsAvailableOffline(onlineData: EDossierPncObject, offlineData: EDossierPncObject) {
+    if (offlineData.getTechId() === onlineData.getTechId()) {
+      onlineData.availableOffline = true;
+    }
+  }
+
+  /**
+   * Marque les données comme dispo en hors connexion si celle ci sont retrouvées dans le stockage local de l'appli
+   * @param onlineDataArray le tableau contenant les données retournées par le serveur
+   * @param offlineDataArray le tableau contenant les données retrouvées en local
+   */
+  private flagEDossierPncObjectArrayAsAvailableOffline(onlineDataArray: EDossierPncObject[], offlineDataArray: EDossierPncObject[]) {
+    for (const onlineData of onlineDataArray) {
+      for (const offlineData of offlineDataArray) {
+        this.flagEDossierPncObjectAsAvailableOffline(onlineData, offlineData);
+      }
+    }
   }
 
 }

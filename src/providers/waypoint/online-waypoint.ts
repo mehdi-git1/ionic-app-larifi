@@ -32,7 +32,7 @@ export class OnlineWaypointProvider {
   * @param storeOffline si on doit stocker le résultat en local
   * @return les points d'étape récupérés
   */
-  getCareerObjectiveWaypoints(careerObjectiveId: number, storeOffline: boolean): Promise<Waypoint[]> {
+  getCareerObjectiveWaypoints(careerObjectiveId: number, storeOffline: boolean = false): Promise<Waypoint[]> {
     const promise: Promise<Waypoint[]> = this.restService.get(`${this.waypointUrl}/career_objective/${careerObjectiveId}`);
     if (storeOffline) {
       promise.then(waypointList => {

@@ -48,7 +48,7 @@ export class OnlineCareerObjectiveProvider {
   * @param storeOffline si on doit stocker le résultat en local
   * @return l'objectif récupéré
   */
-  getCareerObjective(id: number, storeOffline: boolean): Promise<CareerObjective> {
+  getCareerObjective(id: number, storeOffline: boolean = false): Promise<CareerObjective> {
     const promise: Promise<CareerObjective> = this.restService.get(`${this.careerObjectiveUrl}/${id}`);
     if (storeOffline) {
       promise.then(careerObjective => {

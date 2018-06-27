@@ -1,3 +1,5 @@
+import { CareerObjectiveTransformerProvider } from './career-objective-transformer';
+import { OfflineProvider } from './../offline/offline';
 import { OnlineCareerObjectiveProvider } from './online-career-objective';
 import { ConnectivityService } from './../../services/connectivity.service';
 import { OfflineCareerObjectiveProvider } from './../career-objective/offline-career-objective';
@@ -11,19 +13,31 @@ export class CareerObjectiveProvider {
   constructor(
     private onlineCareerObjectiveProvider: OnlineCareerObjectiveProvider,
     private offlineCareerObjectiveProvider: OfflineCareerObjectiveProvider,
+    private offlineProvider: OfflineProvider,
+    private careerObjectiveTransformer: CareerObjectiveTransformerProvider,
     private connectivityService: ConnectivityService) {
   }
 
   /**
    * Retourne les objectifs d'un pnc donné
    * @param matricule le matricule du pnc dont on souhaite récupérer les objectifs
-   * @param storeOffline si on doit stocker le résultat en local
    * @return la liste des objectifs du pnc
    */
-  getPncCareerObjectives(matricule: string, storeOffline: boolean = false): Promise<CareerObjective[]> {
-    return this.connectivityService.isConnected() ?
-      this.onlineCareerObjectiveProvider.getPncCareerObjectives(matricule, storeOffline) :
-      this.offlineCareerObjectiveProvider.getPncCareerObjectives(matricule);
+  getPncCareerObjectives(matricule: string): Promise<CareerObjective[]> {
+    if (this.connectivityService.isConnected()) {
+      return new Promise((resolve, reject) => {
+        this.offlineCareerObjectiveProvider.getPncCareerObjectives(matricule).then(offlineCareerObjectives => {
+          this.onlineCareerObjectiveProvider.getPncCareerObjectives(matricule).then(onlineCareerObjectives => {
+            const onlineData = this.careerObjectiveTransformer.toCareerObjectives(onlineCareerObjectives);
+            const offlineData = this.careerObjectiveTransformer.toCareerObjectives(offlineCareerObjectives);
+            this.offlineProvider.flagDataAvailableOffline(onlineData, offlineData);
+            resolve(onlineData);
+          });
+        });
+      });
+    } else {
+      return this.offlineCareerObjectiveProvider.getPncCareerObjectives(matricule);
+    }
   }
 
   /**
@@ -40,12 +54,11 @@ export class CareerObjectiveProvider {
   /**
   * Récupère un objectif
   * @param id l'id de l'objectif à récupérer
-  * @param storeOffline si on doit stocker le résultat en local
   * @return l'objectif récupéré
   */
-  getCareerObjective(id: number, storeOffline: boolean = false): Promise<CareerObjective> {
+  getCareerObjective(id: number): Promise<CareerObjective> {
     return this.connectivityService.isConnected() ?
-      this.onlineCareerObjectiveProvider.getCareerObjective(id, storeOffline) :
+      this.onlineCareerObjectiveProvider.getCareerObjective(id) :
       this.offlineCareerObjectiveProvider.getCareerObjective(id);
   }
 
