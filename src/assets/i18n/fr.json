@@ -140,8 +140,10 @@
         }
     },
     "UPCOMING_FLIGHT_LIST": {
-        "LAST_FLIGHT": "Mon dernier vol",
-        "UPCOMING_FLIGHTS": "Mes prochains vols",
-        "NO_FLIGHTS": "Aucun vol trouvé"
+        "TITLE": "Liste de vos prochains vols rencontre"
+    },
+    "HELP_ASSET_LIST": {
+        "TITLE": "Ressources d'aide",
+        "NO_HELP_ASSETS": "Aucune ressource créée pour le moment"
     }
 }
