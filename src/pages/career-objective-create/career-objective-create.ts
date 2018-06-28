@@ -317,5 +317,6 @@ export class CareerObjectiveCreatePage {
   createRequestInstructor() {
     this.careerObjectiveProvider
       .createRequestInstructor(this.careerObjective.techId);
+    this.toastProvider.success(this.translateService.instant('CAREER_OBJECTIVE_CREATE.SUCCESS.CAREER_OBJECTIVE_INSTRUCTOR_REQUESTED'));
   }
 }

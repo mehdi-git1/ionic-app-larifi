@@ -2,16 +2,12 @@ import { Config } from './../../configuration/environment-variables/config';
 import { CareerObjective } from './../../models/careerObjective';
 import { Injectable } from '@angular/core';
 import { RestService } from '../../services/rest.base.service';
-import { ToastProvider } from './../../providers/toast/toast';
-import { TranslateService } from '@ngx-translate/core';
 @Injectable()
 export class CareerObjectiveProvider {
   private careerObjectiveUrl: string;
 
 
   constructor(public restService: RestService,
-    private toastProvider: ToastProvider,
-    public translateService: TranslateService,
     private config: Config) {
     this.careerObjectiveUrl = `${config.backEndUrl}/career_objectives`;
   }
@@ -57,6 +53,5 @@ export class CareerObjectiveProvider {
    */
   createRequestInstructor(id: number) {
     this.restService.get(`${this.careerObjectiveUrl}/request_instructor/${id}`);
-    this.toastProvider.success(this.translateService.instant('CAREER_OBJECTIVE_CREATE.SUCCESS.CAREER_OBJECTIVE_INSTRUCTOR_REQUESTED'));
   }
 }
