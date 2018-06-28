@@ -48,7 +48,7 @@ export class CareerObjectiveProvider {
   }
 
   /**
-   * Envoi un email pour solliciter un instructeur
+   * Envoi au serveur une demande de sollicitation instructeur pour l'objectif
    * @param id l'id de l'objectif pour lequel on souhaiter solliciter l'instructeur 
    */
   createRequestInstructor(id: number) {

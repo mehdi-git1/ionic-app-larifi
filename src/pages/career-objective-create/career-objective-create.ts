@@ -314,6 +314,9 @@ export class CareerObjectiveCreatePage {
     this.navCtrl.push(WaypointCreatePage, { waypointId: techId, careerObjectiveId: this.careerObjective.techId });
   }
 
+  /**
+   * Envoi au serveur une demande de sollicitation instructeur pour l'objectif
+   */
   createRequestInstructor() {
     this.careerObjectiveProvider
       .createRequestInstructor(this.careerObjective.techId);
