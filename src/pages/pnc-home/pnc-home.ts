@@ -60,6 +60,8 @@ export class PncHomePage {
     });
   }
 
+
+
   /**
    * charge le détail du pnc connecté ou consulté.
    */
@@ -109,4 +111,6 @@ export class PncHomePage {
   goToEdossier() {
     this.navCtrl.push(PncHomePage, { matricule: this.matricule });
   }
+
+  
 }

@@ -40,6 +40,7 @@ import { UpcomingFlightListPage } from '../pages/upcoming-flight-list/upcoming-f
 import { RotationProvider } from '../providers/rotation/rotation';
 import { HelpAssetProvider } from '../providers/help-asset/help-asset';
 import { LegProvider } from '../providers/leg/leg';
+import { HomePage } from '../pages/home/home';
 
 @NgModule({
   declarations: [
@@ -51,7 +52,8 @@ import { LegProvider } from '../providers/leg/leg';
     WaypointCreatePage,
     UpcomingFlightListPage,
     HelpAssetListPage,
-    FlightCrewListPage
+    FlightCrewListPage,
+    HomePage
   ],
   imports: [
     BrowserModule,
@@ -76,7 +78,8 @@ import { LegProvider } from '../providers/leg/leg';
     WaypointCreatePage,
     UpcomingFlightListPage,
     HelpAssetListPage,
-    FlightCrewListPage
+    FlightCrewListPage,
+    HomePage
   ],
   providers: [
     StatusBar,
