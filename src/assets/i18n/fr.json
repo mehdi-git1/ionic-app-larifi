@@ -70,7 +70,7 @@
             "CAREER_OBJECTIVE_ABANDONED": "Objectif abandonné",
             "CAREER_OBJECTIVE_VALIDATION_CANCELED": "Validation annulée de l'objectif",
             "CAREER_OBJECTIVE_RESUMED": "Objectif repris avec succés",
-            "CAREER_OBJECTIVE_INSTRUCTOR_REQUESTED": "La demande de sollicitation instructeur a bien été envoyé"
+            "CAREER_OBJECTIVE_INSTRUCTOR_REQUESTED": "Demande envoyé avec succès"
         },
         "ERROR": {
             "CAREER_OBJECTIVE_CREATION_FAILED": "La création de l'objectif a échoué"
