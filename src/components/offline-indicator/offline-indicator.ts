@@ -1,3 +1,4 @@
+import { SynchronizationProvider } from './../../providers/synchronization/synchronization';
 import { Component } from '@angular/core';
 import { ConnectivityService } from '../../services/connectivity.service';
 
@@ -9,7 +10,8 @@ export class OfflineIndicatorComponent {
 
   connected: boolean;
 
-  constructor(public connectivityService: ConnectivityService) {
+  constructor(public connectivityService: ConnectivityService,
+    public synchronizationProvider: SynchronizationProvider) {
     this.connected = this.connectivityService.isConnected();
 
     this.connectivityService.connectionStatusChange.subscribe(connected => {

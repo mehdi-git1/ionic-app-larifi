@@ -1,3 +1,4 @@
+import { SynchronizationProvider } from './../providers/synchronization/synchronization';
 import { OfflineProvider } from './../providers/offline/offline';
 import { ToastProvider } from './../providers/toast/toast';
 import { ConnectivityService } from './../services/connectivity.service';
@@ -36,6 +37,7 @@ export class EDossierPNC {
     private connectivityService: ConnectivityService,
     private toastProvider: ToastProvider,
     private offlineProvider: OfflineProvider,
+    private synchronizationProvider: SynchronizationProvider,
     private events: Events
   ) {
     this.initializeApp();
@@ -71,6 +73,7 @@ export class EDossierPNC {
           this.toastProvider.warning(this.translateService.instant('GLOBAL.CONNECTIVITY.OFFLINE_MODE'));
         } else {
           this.toastProvider.success(this.translateService.instant('GLOBAL.CONNECTIVITY.ONLINE_MODE'));
+          this.synchronizationProvider.synchronizeOfflineData();
         }
       });
 

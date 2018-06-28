@@ -1,2 +1,2 @@
-<div [ngClass]="{ 'offline' : !connected }">
+<div [ngClass]="{ 'offline' : !connected }" (click)="synchronizationProvider.synchronizeOfflineData()">
 </div>

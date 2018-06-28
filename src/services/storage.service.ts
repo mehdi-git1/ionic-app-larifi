@@ -107,5 +107,21 @@ export class StorageService {
   nextSequenceId(): number {
     return --this.offlineMap[this.sequenceGeneratorName];
   }
+
+  /**
+   * Récupère tous les objets d'un certains type créés en mode déconnecté (tous les objets ayant une clef négative)
+   * @param entity le type d'objet qu'on souhaite récupérer
+   * @return la liste des objets créés en mode déconnecté
+   */
+  findAllEDossierPncObjectToCreate(entity: Entity): any[] {
+    const newEDossierPncObjectList = [];
+    for (const key of Object.keys(this.offlineMap[entity])) {
+      // Si la clef est négative, c'est que l'objet a été créé en mode déconnecté
+      if (key.indexOf('-') === 0) {
+        newEDossierPncObjectList.push(this.offlineMap[entity][key]);
+      }
+    }
+    return newEDossierPncObjectList;
+  }
 }
 

@@ -1,3 +1,5 @@
+import { SessionService } from './../../services/session.service';
+import { DatePipe } from '@angular/common';
 import { CareerObjectiveTransformerProvider } from './career-objective-transformer';
 import { OfflineProvider } from './../offline/offline';
 import { OnlineCareerObjectiveProvider } from './online-career-objective';
@@ -7,6 +9,7 @@ import { Config } from './../../configuration/environment-variables/config';
 import { CareerObjective } from './../../models/careerObjective';
 import { Injectable } from '@angular/core';
 import { RestService } from '../../services/rest.base.service';
+import { Pnc } from '../../models/pnc';
 
 @Injectable()
 export class CareerObjectiveProvider {
@@ -15,7 +18,9 @@ export class CareerObjectiveProvider {
     private offlineCareerObjectiveProvider: OfflineCareerObjectiveProvider,
     private offlineProvider: OfflineProvider,
     private careerObjectiveTransformer: CareerObjectiveTransformerProvider,
-    private connectivityService: ConnectivityService) {
+    private connectivityService: ConnectivityService,
+    private sessionService: SessionService,
+    private datePipe: DatePipe) {
   }
 
   /**
@@ -46,6 +51,16 @@ export class CareerObjectiveProvider {
    * @return une promesse contenant l'objectif créé ou mis à jour
    */
   createOrUpdate(careerObjective: CareerObjective): Promise<CareerObjective> {
+
+    if (careerObjective.techId === undefined) {
+      careerObjective.creationDate = this.datePipe.transform(new Date(), 'yyyy-MM-ddTHH:mm');
+      careerObjective.creationAuthor = new Pnc();
+      careerObjective.creationAuthor.matricule = this.sessionService.authenticatedUser.username;
+    }
+    careerObjective.lastUpdateAuthor = new Pnc();
+    careerObjective.lastUpdateAuthor.matricule = this.sessionService.authenticatedUser.username;
+    careerObjective.lastUpdateDate = this.datePipe.transform(new Date(), 'yyyy-MM-ddTHH:mm');
+
     return this.connectivityService.isConnected() ?
       this.onlineCareerObjectiveProvider.createOrUpdate(careerObjective) :
       this.offlineCareerObjectiveProvider.createOrUpdate(careerObjective);

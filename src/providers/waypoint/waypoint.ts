@@ -1,3 +1,5 @@
+import { DatePipe } from '@angular/common';
+import { SessionService } from './../../services/session.service';
 import { OfflineProvider } from './../offline/offline';
 import { WaypointTransformerProvider } from './waypoint-transformer';
 import { OnlineWaypointProvider } from './online-waypoint';
@@ -5,6 +7,7 @@ import { OfflineWaypointProvider } from './../waypoint/offline-waypoint';
 import { ConnectivityService } from './../../services/connectivity.service';
 import { Injectable } from '@angular/core';
 import { Waypoint } from './../../models/waypoint';
+import { Pnc } from '../../models/pnc';
 
 
 @Injectable()
@@ -15,7 +18,9 @@ export class WaypointProvider {
     private onlineWaypointProvider: OnlineWaypointProvider,
     private offlineWaypointProvider: OfflineWaypointProvider,
     private offlineProvider: OfflineProvider,
-    private waypointTransformer: WaypointTransformerProvider) {
+    private waypointTransformer: WaypointTransformerProvider,
+    private datePipe: DatePipe,
+    private sessionService: SessionService) {
   }
 
   /**
@@ -25,6 +30,15 @@ export class WaypointProvider {
    * @return une promesse contenant le point d'étape créé ou mis à jour
    */
   createOrUpdate(waypoint: Waypoint, careerObjectiveId: number): Promise<Waypoint> {
+    if (waypoint.techId === undefined) {
+      waypoint.creationDate = this.datePipe.transform(new Date(), 'yyyy-MM-ddTHH:mm');
+      waypoint.creationAuthor = new Pnc();
+      waypoint.creationAuthor.matricule = this.sessionService.authenticatedUser.username;
+    }
+    waypoint.lastUpdateAuthor = new Pnc();
+    waypoint.lastUpdateAuthor.matricule = this.sessionService.authenticatedUser.username;
+    waypoint.lastUpdateDate = this.datePipe.transform(new Date(), 'yyyy-MM-ddTHH:mm');
+
     return this.connectivityService.isConnected() ?
       this.onlineWaypointProvider.createOrUpdate(waypoint, careerObjectiveId) :
       this.offlineWaypointProvider.createOrUpdate(waypoint, careerObjectiveId);

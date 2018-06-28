@@ -56,6 +56,7 @@ import { OnlinePncProvider } from '../providers/pnc/online-pnc';
 import { CareerObjectiveTransformerProvider } from '../providers/career-objective/career-objective-transformer';
 import { WaypointTransformerProvider } from '../providers/waypoint/waypoint-transformer';
 import { PncTransformerProvider } from '../providers/pnc/pnc-transformer';
+import { SynchronizationProvider } from '../providers/synchronization/synchronization';
 
 @NgModule({
   declarations: [
@@ -136,7 +137,8 @@ import { PncTransformerProvider } from '../providers/pnc/pnc-transformer';
     OnlineWaypointProvider,
     CareerObjectiveTransformerProvider,
     WaypointTransformerProvider,
-    PncTransformerProvider
+    PncTransformerProvider,
+    SynchronizationProvider
   ]
 })
 export class AppModule { }
