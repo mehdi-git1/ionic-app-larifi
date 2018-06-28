@@ -313,4 +313,9 @@ export class CareerObjectiveCreatePage {
   openWaypoint(techId: number) {
     this.navCtrl.push(WaypointCreatePage, { waypointId: techId, careerObjectiveId: this.careerObjective.techId });
   }
+
+  createRequestInstructor() {
+    this.careerObjectiveProvider
+      .createRequestInstructor(this.careerObjective.techId);
+  }
 }

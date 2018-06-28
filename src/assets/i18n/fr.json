@@ -59,7 +59,8 @@
             "VALIDATE": "Valider",
             "ABANDON": "Abandonner",
             "CANCEL_VALIDATION": "Annuler la validation",
-            "RESUME": "Reprendre l'objectif"
+            "RESUME": "Reprendre l'objectif",
+            "CREATE_REQUEST_INSTRUCTOR": "Solliciter mon instructeur"
         },
         "SUCCESS": {
             "CAREER_OBJECTIVE_SAVED": "Objectif enregistré avec succès",
@@ -68,7 +69,8 @@
             "CAREER_OBJECTIVE_VALIDATED": "Objectif validé",
             "CAREER_OBJECTIVE_ABANDONED": "Objectif abandonné",
             "CAREER_OBJECTIVE_VALIDATION_CANCELED": "Validation annulée de l'objectif",
-            "CAREER_OBJECTIVE_RESUMED": "Objectif repris avec succés"
+            "CAREER_OBJECTIVE_RESUMED": "Objectif repris avec succés",
+            "CAREER_OBJECTIVE_INSTRUCTOR_REQUESTED": "La demande de sollicitation instructeur a bien été envoyé"
         },
         "ERROR": {
             "CAREER_OBJECTIVE_CREATION_FAILED": "La création de l'objectif a échoué"
