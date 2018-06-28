@@ -40,6 +40,9 @@ import { RotationProvider } from '../providers/rotation/rotation';
 import { LegProvider } from '../providers/leg/leg';
 import { HomePage } from '../pages/home/home';
 
+import { PdfViewerModule } from 'ng2-pdf-viewer';
+import { SummarySheetPage } from '../pages/summary-sheet/summary-sheet';
+
 @NgModule({
   declarations: [
     EDossierPNC,
@@ -50,7 +53,8 @@ import { HomePage } from '../pages/home/home';
     WaypointCreatePage,
     UpcomingFlightListPage,
     FlightCrewListPage,
-    HomePage
+    HomePage,
+    SummarySheetPage
   ],
   imports: [
     BrowserModule,
@@ -63,7 +67,8 @@ import { HomePage } from '../pages/home/home';
         useFactory: (createTranslateLoader),
         deps: [HttpClient]
       }
-    })
+    }),
+    PdfViewerModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -75,7 +80,8 @@ import { HomePage } from '../pages/home/home';
     WaypointCreatePage,
     UpcomingFlightListPage,
     FlightCrewListPage,
-    HomePage
+    HomePage,
+    SummarySheetPage
   ],
   providers: [
     StatusBar,

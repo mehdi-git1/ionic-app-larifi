@@ -1,0 +1,9 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>{{ 'SUMMARY_SHEET.TITLE' | translate }}</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+    <pdf-viewer max-width [src]="summaryLink" [original-size]="false" [autoresize]="true" style="display: block;"></pdf-viewer>
+</ion-content>
