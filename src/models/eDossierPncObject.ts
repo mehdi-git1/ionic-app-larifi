@@ -1,7 +1,9 @@
+import { OfflineAction } from './offlineAction';
 export abstract class EDossierPncObject {
     techId: number;
     availableOffline: boolean;
     offlineStorageDate: string;
+    offlineAction: OfflineAction;
 
     abstract getTechId(): string;
 

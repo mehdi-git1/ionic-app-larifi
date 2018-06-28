@@ -5,6 +5,7 @@ import { Config } from './../configuration/environment-variables/config';
 import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage';
 import { EDossierPncObject } from '../models/eDossierPncObject';
+import { OfflineAction } from '../models/offlineAction';
 
 @Injectable()
 export class StorageService {
@@ -60,6 +61,8 @@ export class StorageService {
     return new Promise((resolve, reject) => {
       eDossierPncObject.availableOffline = true;
       eDossierPncObject.offlineStorageDate = this.datePipe.transform(new Date(), 'yyyy-MM-ddTHH:mm');
+      eDossierPncObject.offlineAction =
+        this.isOfflineStorageId(this.getStorageId(eDossierPncObject)) ? OfflineAction.CREATE : OfflineAction.UPDATE;
       this.offlineMap[entity][this.getStorageId(eDossierPncObject)] = eDossierPncObject;
       this.persistOfflineMap();
       resolve(eDossierPncObject);
@@ -74,7 +77,11 @@ export class StorageService {
   delete(entity: Entity, storageId: string): Promise<any> {
     return new Promise((resolve, reject) => {
       const deletedObject = this.offlineMap[entity][storageId];
-      delete this.offlineMap[entity][storageId];
+      if (this.isOfflineStorageId(storageId)) {
+        delete this.offlineMap[entity][storageId];
+      } else {
+        this.offlineMap[entity][storageId].offlineAction = OfflineAction.DELETE;
+      }
       this.persistOfflineMap();
       resolve(deletedObject);
     });
@@ -117,11 +124,20 @@ export class StorageService {
     const newEDossierPncObjectList = [];
     for (const key of Object.keys(this.offlineMap[entity])) {
       // Si la clef est négative, c'est que l'objet a été créé en mode déconnecté
-      if (key.indexOf('-') === 0) {
+      if (this.isOfflineStorageId(key)) {
         newEDossierPncObjectList.push(this.offlineMap[entity][key]);
       }
     }
     return newEDossierPncObjectList;
+  }
+
+  /**
+   * Vérifie si un id est un id de stockage local (id négatif)
+   * @param storageId l'id à tester
+   * @return true si l'id est un id de stockage local, false sinon.
+   */
+  isOfflineStorageId(storageId: string) {
+    return storageId.indexOf('-') === 0;
   }
 }
 
