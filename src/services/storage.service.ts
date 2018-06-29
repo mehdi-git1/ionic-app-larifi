@@ -1,3 +1,4 @@
+import { OfflineAction } from './../models/offlineAction';
 import { DatePipe } from '@angular/common';
 import { Entity } from './../models/entity';
 import { AuthenticatedUser } from './../models/authenticatedUser';
@@ -5,7 +6,6 @@ import { Config } from './../configuration/environment-variables/config';
 import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage';
 import { EDossierPncObject } from '../models/eDossierPncObject';
-import { OfflineAction } from '../models/offlineAction';
 
 @Injectable()
 export class StorageService {
@@ -57,12 +57,14 @@ export class StorageService {
     });
   }
 
-  save(entity: Entity, eDossierPncObject: EDossierPncObject): Promise<any> {
+  save(entity: Entity, eDossierPncObject: EDossierPncObject, online: boolean = false): Promise<any> {
     return new Promise((resolve, reject) => {
       eDossierPncObject.availableOffline = true;
       eDossierPncObject.offlineStorageDate = this.datePipe.transform(new Date(), 'yyyy-MM-ddTHH:mm');
-      eDossierPncObject.offlineAction =
-        this.isOfflineStorageId(this.getStorageId(eDossierPncObject)) ? OfflineAction.CREATE : OfflineAction.UPDATE;
+      if (online) {
+        eDossierPncObject.offlineAction =
+          this.isOfflineStorageId(this.getStorageId(eDossierPncObject)) ? OfflineAction.CREATE : OfflineAction.UPDATE;
+      }
       this.offlineMap[entity][this.getStorageId(eDossierPncObject)] = eDossierPncObject;
       this.persistOfflineMap();
       resolve(eDossierPncObject);
@@ -74,10 +76,10 @@ export class StorageService {
     this.persistOfflineMap();
   }
 
-  delete(entity: Entity, storageId: string): Promise<any> {
+  delete(entity: Entity, storageId: string, online: boolean = false): Promise<any> {
     return new Promise((resolve, reject) => {
       const deletedObject = this.offlineMap[entity][storageId];
-      if (this.isOfflineStorageId(storageId)) {
+      if (this.isOfflineStorageId(storageId) || online) {
         delete this.offlineMap[entity][storageId];
       } else {
         this.offlineMap[entity][storageId].offlineAction = OfflineAction.DELETE;
@@ -100,12 +102,12 @@ export class StorageService {
    * S'il s'agit d'une nouvelle création, il faut générer un id temporaire.
    */
   getStorageId(eDossierPncObject: EDossierPncObject): string {
-    if (eDossierPncObject.getTechId() === undefined || eDossierPncObject.getTechId() === 'undefined') {
+    if (eDossierPncObject.getStorageId() === undefined || eDossierPncObject.getStorageId() === 'undefined') {
       const nextSequenceId = this.nextSequenceId();
       eDossierPncObject.techId = nextSequenceId;
       return `${nextSequenceId}`;
     }
-    return eDossierPncObject.getTechId();
+    return eDossierPncObject.getStorageId();
   }
 
   /**
@@ -116,15 +118,15 @@ export class StorageService {
   }
 
   /**
-   * Récupère tous les objets d'un certains type créés en mode déconnecté (tous les objets ayant une clef négative)
+   * Récupère tous les objets d'un certains type qui ont fait l'objet d'une action offline
    * @param entity le type d'objet qu'on souhaite récupérer
-   * @return la liste des objets créés en mode déconnecté
+   * @return la liste des objets du type demandé et ayant fait l'objet d'une action offline
    */
-  findAllEDossierPncObjectToCreate(entity: Entity): any[] {
+  findAllEDossierPncObjectWithOfflineAction(entity: Entity): any[] {
     const newEDossierPncObjectList = [];
     for (const key of Object.keys(this.offlineMap[entity])) {
       // Si la clef est négative, c'est que l'objet a été créé en mode déconnecté
-      if (this.isOfflineStorageId(key)) {
+      if (this.offlineMap[entity][key].offlineAction) {
         newEDossierPncObjectList.push(this.offlineMap[entity][key]);
       }
     }

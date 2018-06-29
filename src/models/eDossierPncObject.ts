@@ -5,7 +5,7 @@ export abstract class EDossierPncObject {
     offlineStorageDate: string;
     offlineAction: OfflineAction;
 
-    abstract getTechId(): string;
+    abstract getStorageId(): string;
 
     fromJSON(json): any {
         for (const property of Object.keys(json)) {

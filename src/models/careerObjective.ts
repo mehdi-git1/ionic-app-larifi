@@ -23,7 +23,7 @@ export class CareerObjective extends EDossierPncObject {
     prioritized: boolean;
     waypointList: Waypoint[];
 
-    getTechId(): string {
+    getStorageId(): string {
         return `${this.techId}`;
     }
 }

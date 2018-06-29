@@ -1,85 +1,10 @@
-import { OnlinePncProvider } from './../pnc/online-pnc';
-import { OnlineWaypointProvider } from './../waypoint/online-waypoint';
-import { OnlineCareerObjectiveProvider } from './../career-objective/online-career-objective';
-import { Observable } from 'rxjs/Rx';
-import { Pnc } from './../../models/pnc';
 import { Injectable } from '@angular/core';
 import { EDossierPncObject } from '../../models/eDossierPncObject';
 
 @Injectable()
 export class OfflineProvider {
 
-  constructor(private onlinePncProvider: OnlinePncProvider,
-    private onlineCareerObjectiveProvider: OnlineCareerObjectiveProvider,
-    private onlineWaypointProvider: OnlineWaypointProvider) {
-  }
-
-  /**
-   * Charge toutes les ressources nécessaires à la consultation hors ligne d'un eDossier
-   * @param matricule le matricule du PNC dont on souhaite récupérer le eDossier
-   * @return une promesse qui est résolue quand toute la synchro est terminée
-   */
-  downloadPncEdossier(matricule: string): Promise<boolean> {
-    let promiseCount = 0;
-    let resolvedPromiseCount = 0;
-
-    return new Promise((resolve, reject) => {
-      Observable.create(
-        observer => {
-
-          promiseCount++;
-          this.onlinePncProvider.getPnc(matricule, true).then(success => {
-            resolvedPromiseCount++;
-            observer.next(false);
-          }, error => {
-            resolvedPromiseCount++;
-            observer.next(false);
-          });
-
-          promiseCount++;
-          this.onlineCareerObjectiveProvider.getPncCareerObjectives(matricule, false).then(careerObjectiveList => {
-            resolvedPromiseCount++;
-            observer.next(careerObjectiveList.length > 0);
-            for (const careerObjective of careerObjectiveList) {
-              promiseCount++;
-              this.onlineCareerObjectiveProvider.getCareerObjective(careerObjective.techId, true).then(success => {
-                resolvedPromiseCount++;
-                observer.next(false);
-              }, error => {
-                resolvedPromiseCount++;
-                observer.next(false);
-              });
-
-              promiseCount++;
-              this.onlineWaypointProvider.getCareerObjectiveWaypoints(careerObjective.techId, true).then(waypointList => {
-                resolvedPromiseCount++;
-                observer.next(false);
-              }, error => {
-                resolvedPromiseCount++;
-                observer.next(false);
-              });
-            }
-          }, error => {
-            resolvedPromiseCount++;
-            observer.next(false);
-          });
-        }).subscribe(
-          promiseToCome => {
-            if (!promiseToCome && this.isSynchroOver(promiseCount, resolvedPromiseCount)) {
-              resolve(true);
-            }
-          });
-    });
-  }
-
-  /**
-   * Vérifie que la syncho est terminée (que toutes les promesses ont été résolues)
-   * @param promiseCount Le nombre de promesse à résoudre
-   * @param resolvedPromiseCount Le nombre de promesses résolues
-   * @return vrai si la synchro est terminée, false sinon
-   */
-  isSynchroOver(promiseCount, resolvedPromiseCount): boolean {
-    return resolvedPromiseCount >= promiseCount;
+  constructor() {
   }
 
   /**
@@ -101,7 +26,7 @@ export class OfflineProvider {
    * @param offlineData un objet issu du stockage local
    */
   private flagEDossierPncObjectAsAvailableOffline(onlineData: EDossierPncObject, offlineData: EDossierPncObject) {
-    if (offlineData && offlineData.getTechId() === onlineData.getTechId()) {
+    if (offlineData && offlineData.getStorageId() === onlineData.getStorageId()) {
       onlineData.availableOffline = true;
     }
   }

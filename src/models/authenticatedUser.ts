@@ -6,7 +6,7 @@ export class AuthenticatedUser extends EDossierPncObject {
     lastName: string;
     manager: boolean;
 
-    getTechId(): string {
+    getStorageId(): string {
         return this.username;
     }
 }

@@ -8,7 +8,7 @@ export class CrewMember extends EDossierPncObject {
     lastEncounterDate: string;
     relays: string[];
 
-    getTechId(): string {
+    getStorageId(): string {
         return `${this.techId}`;
     }
 }

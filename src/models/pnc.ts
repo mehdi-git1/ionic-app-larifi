@@ -11,7 +11,7 @@ export class Pnc extends EDossierPncObject {
     assignment: Assignment;
     manager: boolean;
 
-    getTechId(): string {
+    getStorageId(): string {
         return this.matricule;
     }
 }

@@ -57,6 +57,7 @@ import { CareerObjectiveTransformerProvider } from '../providers/career-objectiv
 import { WaypointTransformerProvider } from '../providers/waypoint/waypoint-transformer';
 import { PncTransformerProvider } from '../providers/pnc/pnc-transformer';
 import { SynchronizationProvider } from '../providers/synchronization/synchronization';
+import { PncSynchroProvider } from '../providers/synchronization/pnc-synchro';
 
 @NgModule({
   declarations: [
@@ -138,7 +139,8 @@ import { SynchronizationProvider } from '../providers/synchronization/synchroniz
     CareerObjectiveTransformerProvider,
     WaypointTransformerProvider,
     PncTransformerProvider,
-    SynchronizationProvider
+    SynchronizationProvider,
+    PncSynchroProvider
   ]
 })
 export class AppModule { }

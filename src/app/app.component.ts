@@ -36,7 +36,6 @@ export class EDossierPNC {
     private storageService: StorageService,
     private connectivityService: ConnectivityService,
     private toastProvider: ToastProvider,
-    private offlineProvider: OfflineProvider,
     private synchronizationProvider: SynchronizationProvider,
     private events: Events
   ) {
@@ -63,7 +62,7 @@ export class EDossierPNC {
       // Création du stockage local
       this.storageService.initOfflineMap().then(success => {
         this.putAuthenticatedUserInSession().then(authenticatedUser => {
-          this.offlineProvider.downloadPncEdossier(authenticatedUser.username);
+          this.synchronizationProvider.storeEDossierOffline(authenticatedUser.username);
         });
       });
 
