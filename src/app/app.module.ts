@@ -1,3 +1,4 @@
+import { HelpAssetListPage } from './../pages/help-asset-list/help-asset-list';
 import { ComponentsModule } from './../components/components.module';
 import { FlightCrewListPage } from './../pages/flight-crew-list/flight-crew-list';
 import { WaypointStatusProvider } from './../providers/waypoint-status/waypoint-status';
@@ -37,6 +38,7 @@ import { WaypointCreatePage } from './../pages/waypoint-create/waypoint-create';
 import { WaypointProvider } from './../providers/waypoint/waypoint';
 import { UpcomingFlightListPage } from '../pages/upcoming-flight-list/upcoming-flight-list';
 import { RotationProvider } from '../providers/rotation/rotation';
+import { HelpAssetProvider } from '../providers/help-asset/help-asset';
 import { LegProvider } from '../providers/leg/leg';
 import { HomePage } from '../pages/home/home';
 
@@ -52,6 +54,7 @@ import { SummarySheetPage } from '../pages/summary-sheet/summary-sheet';
     CareerObjectiveListPage,
     WaypointCreatePage,
     UpcomingFlightListPage,
+    HelpAssetListPage,
     FlightCrewListPage,
     HomePage,
     SummarySheetPage
@@ -79,6 +82,7 @@ import { SummarySheetPage } from '../pages/summary-sheet/summary-sheet';
     CareerObjectiveListPage,
     WaypointCreatePage,
     UpcomingFlightListPage,
+    HelpAssetListPage,
     FlightCrewListPage,
     HomePage,
     SummarySheetPage
@@ -104,6 +108,7 @@ import { SummarySheetPage } from '../pages/summary-sheet/summary-sheet';
     WaypointProvider,
     WaypointStatusProvider,
     RotationProvider,
+    HelpAssetProvider,
     LegProvider
   ]
 })
