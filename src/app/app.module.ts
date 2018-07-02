@@ -44,6 +44,7 @@ import { HomePage } from '../pages/home/home';
 
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { SummarySheetPage } from '../pages/summary-sheet/summary-sheet';
+import { SummarySheetProvider } from '../providers/summary-sheet/summary-sheet';
 
 @NgModule({
   declarations: [
@@ -109,7 +110,8 @@ import { SummarySheetPage } from '../pages/summary-sheet/summary-sheet';
     WaypointStatusProvider,
     RotationProvider,
     HelpAssetProvider,
-    LegProvider
+    LegProvider,
+    SummarySheetProvider
   ]
 })
 export class AppModule { }
