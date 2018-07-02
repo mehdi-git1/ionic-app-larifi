@@ -41,31 +41,44 @@ export class StorageService {
     return offlineMap;
   }
 
-  findAll(entity: Entity): Promise<any[]> {
+  findAll(entity: Entity): any[] {
+    const array = [];
+    for (const entry of Object.keys(this.offlineMap[entity])) {
+      array.push(this.offlineMap[entity][entry]);
+    }
+    return array;
+  }
+
+  findAllAsync(entity: Entity): Promise<any[]> {
     return new Promise((resolve, reject) => {
-      const array = [];
-      for (const entry of Object.keys(this.offlineMap[entity])) {
-        array.push(this.offlineMap[entity][entry]);
-      }
-      resolve(array);
+      resolve(this.findAll(entity));
     });
   }
 
-  findOne(entity: Entity, storageId: string): Promise<any> {
+  findOne(entity: Entity, storageId: string): any {
+    return this.offlineMap[entity][storageId];
+  }
+
+  findOneAsync(entity: Entity, storageId: string): Promise<any> {
     return new Promise((resolve, reject) => {
-      resolve(this.offlineMap[entity][storageId]);
+      resolve(this.findOne(entity, storageId));
     });
   }
 
-  save(entity: Entity, eDossierPncObject: EDossierPncObject, online: boolean = false): Promise<any> {
+  save(entity: Entity, eDossierPncObject: EDossierPncObject, online: boolean = false) {
+    eDossierPncObject.availableOffline = true;
+    eDossierPncObject.offlineStorageDate = this.datePipe.transform(new Date(), 'yyyy-MM-ddTHH:mm');
+    if (!online) {
+      eDossierPncObject.offlineAction =
+        this.isOfflineStorageId(this.getStorageId(eDossierPncObject)) ? OfflineAction.CREATE : OfflineAction.UPDATE;
+    }
+    this.offlineMap[entity][this.getStorageId(eDossierPncObject)] = eDossierPncObject;
+  }
+
+
+  saveAsync(entity: Entity, eDossierPncObject: EDossierPncObject, online: boolean = false): Promise<any> {
     return new Promise((resolve, reject) => {
-      eDossierPncObject.availableOffline = true;
-      eDossierPncObject.offlineStorageDate = this.datePipe.transform(new Date(), 'yyyy-MM-ddTHH:mm');
-      if (online) {
-        eDossierPncObject.offlineAction =
-          this.isOfflineStorageId(this.getStorageId(eDossierPncObject)) ? OfflineAction.CREATE : OfflineAction.UPDATE;
-      }
-      this.offlineMap[entity][this.getStorageId(eDossierPncObject)] = eDossierPncObject;
+      this.save(entity, eDossierPncObject, online);
       this.persistOfflineMap();
       resolve(eDossierPncObject);
     });
@@ -76,11 +89,15 @@ export class StorageService {
     this.persistOfflineMap();
   }
 
-  delete(entity: Entity, storageId: string, online: boolean = false): Promise<any> {
+  delete(entity: Entity, storageId: string) {
+    delete this.offlineMap[entity][storageId];
+  }
+
+  deleteAsync(entity: Entity, storageId: string): Promise<any> {
     return new Promise((resolve, reject) => {
       const deletedObject = this.offlineMap[entity][storageId];
-      if (this.isOfflineStorageId(storageId) || online) {
-        delete this.offlineMap[entity][storageId];
+      if (this.isOfflineStorageId(storageId)) {
+        this.delete(entity, storageId);
       } else {
         this.offlineMap[entity][storageId].offlineAction = OfflineAction.DELETE;
       }

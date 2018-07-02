@@ -1,3 +1,4 @@
+import { SynchronizationProvider } from './../../providers/synchronization/synchronization';
 import { OfflineProvider } from './../../providers/offline/offline';
 import { UpcomingFlightListPage } from './../upcoming-flight-list/upcoming-flight-list';
 import { SecurityProvider } from './../../providers/security/security';
@@ -32,7 +33,7 @@ export class PncHomePage {
     public genderProvider: GenderProvider,
     private toastProvider: ToastProvider,
     private securityProvider: SecurityProvider,
-    private offlineProvider: OfflineProvider,
+    private synchronizationProvider: SynchronizationProvider,
     private sessionService: SessionService,
     private events: Events,
     public connectivityService: ConnectivityService) {
@@ -111,7 +112,7 @@ export class PncHomePage {
   downloadPncEdossier() {
     if (!this.pnc.manager) {
       this.synchroInProgress = true;
-      this.offlineProvider.downloadPncEdossier(this.pnc.matricule).then(success => {
+      this.synchronizationProvider.storeEDossierOffline(this.pnc.matricule).then(success => {
         this.synchroInProgress = false;
       }, error => {
         this.synchroInProgress = false;

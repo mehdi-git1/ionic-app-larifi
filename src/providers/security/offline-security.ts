@@ -15,11 +15,14 @@ export class OfflineSecurityProvider {
   overwriteAuthenticatedUser(authenticatedUser: AuthenticatedUser) {
     this.storageService.deleteAll(Entity.AUTHENTICATED_USER);
     this.storageService.save(Entity.AUTHENTICATED_USER, authenticatedUser);
+    this.storageService.persistOfflineMap();
   }
 
-  getAuthenticatedUser() {
-    const authenticatedUserList = this.storageService.findAll(Entity.AUTHENTICATED_USER);
-    return authenticatedUserList[Object.keys(authenticatedUserList)[0]];
+  getAuthenticatedUser(): Promise<AuthenticatedUser> {
+    return new Promise((resolve, reject) => {
+      const authenticatedUserList = this.storageService.findAll(Entity.AUTHENTICATED_USER);
+      resolve(authenticatedUserList[Object.keys(authenticatedUserList)[0]]);
+    });
   }
 
 }

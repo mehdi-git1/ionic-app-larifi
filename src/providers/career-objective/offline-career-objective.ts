@@ -15,26 +15,25 @@ export class OfflineCareerObjectiveProvider {
   }
 
   createOrUpdate(careerObjective: CareerObjective): Promise<CareerObjective> {
-    return this.storageService.save(Entity.CAREER_OBJECTIVE, careerObjective);
+    return this.storageService.saveAsync(Entity.CAREER_OBJECTIVE, careerObjective);
   }
 
   getPncCareerObjectives(pncMatricule: string): Promise<CareerObjective[]> {
     return new Promise((resolve, reject) => {
-      this.storageService.findAll(Entity.CAREER_OBJECTIVE).then(careerObjectiveList => {
-        const pncCareerObjectives = careerObjectiveList.filter(careerObjective => {
-          return careerObjective.pnc.matricule === pncMatricule;
-        });
-        resolve(pncCareerObjectives);
+      const careerObjectiveList = this.storageService.findAll(Entity.CAREER_OBJECTIVE);
+      const pncCareerObjectives = careerObjectiveList.filter(careerObjective => {
+        return careerObjective.pnc.matricule === pncMatricule;
       });
+      resolve(pncCareerObjectives);
     });
   }
 
   getCareerObjective(id: number): Promise<CareerObjective> {
-    return this.storageService.findOne(Entity.CAREER_OBJECTIVE, `${id}`);
+    return this.storageService.findOneAsync(Entity.CAREER_OBJECTIVE, `${id}`);
   }
 
   delete(id: number): Promise<CareerObjective> {
-    return this.storageService.delete(Entity.CAREER_OBJECTIVE, `${id}`);
+    return this.storageService.deleteAsync(Entity.CAREER_OBJECTIVE, `${id}`);
   }
 
 }

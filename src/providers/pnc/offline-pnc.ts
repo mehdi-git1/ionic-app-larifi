@@ -12,11 +12,11 @@ export class OfflinePncProvider {
   }
 
   save(pnc: Pnc): void {
-    this.storageService.save(Entity.PNC, pnc);
+    this.storageService.saveAsync(Entity.PNC, pnc);
   }
 
   getPnc(matricule: string): Promise<Pnc> {
-    return this.storageService.findOne(Entity.PNC, matricule);
+    return this.storageService.findOneAsync(Entity.PNC, matricule);
   }
 
   getUpcomingRotations(matricule: string): Promise<Rotation[]> {

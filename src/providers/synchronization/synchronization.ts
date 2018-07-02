@@ -1,3 +1,4 @@
+import { PncTransformerProvider } from './../pnc/pnc-transformer';
 import { WaypointTransformerProvider } from './../waypoint/waypoint-transformer';
 import { PncSynchro } from './../../models/pncSynchro';
 import { Observable } from 'rxjs/Rx';
@@ -8,6 +9,7 @@ import { StorageService } from './../../services/storage.service';
 import { Injectable, EventEmitter, Output } from '@angular/core';
 import { Entity } from '../../models/entity';
 import { Pnc } from '../../models/pnc';
+import { CareerObjective } from '../../models/careerObjective';
 
 @Injectable()
 export class SynchronizationProvider {
@@ -18,18 +20,8 @@ export class SynchronizationProvider {
   constructor(private storageService: StorageService,
     private careerObjectiveTransformer: CareerObjectiveTransformerProvider,
     private waypointTransformer: WaypointTransformerProvider,
+    private pncTransformer: PncTransformerProvider,
     private pncSynchroProvider: PncSynchroProvider) {
-  }
-
-  storeEDossierOffline(matricule: string): Promise<boolean> {
-    return new Promise((resolve, reject) => {
-      this.pncSynchroProvider.getPncSynchro(matricule).then(pncSynchro => {
-        this.updateLocalStorageFromPncSynchroResponse(pncSynchro);
-        resolve(true);
-      }, error => {
-        resolve(true);
-      });
-    });
   }
 
   synchronizeOfflineData() {
@@ -46,7 +38,6 @@ export class SynchronizationProvider {
           for (const pncSynchro of pncSynchroList) {
             this.pncSynchroProvider.synchronize(pncSynchro).then(pncSynchroResponse => {
               this.updateLocalStorageFromPncSynchroResponse(pncSynchroResponse);
-
               resolvedPromiseCount++;
               observer.next(true);
             }, error => {
@@ -62,6 +53,17 @@ export class SynchronizationProvider {
     }
   }
 
+  storeEDossierOffline(matricule: string): Promise<boolean> {
+    return new Promise((resolve, reject) => {
+      this.pncSynchroProvider.getPncSynchro(matricule).then(pncSynchro => {
+        this.updateLocalStorageFromPncSynchroResponse(pncSynchro);
+        resolve(true);
+      }, error => {
+        resolve(true);
+      });
+    });
+  }
+
   /**
    * Gère la réponse de synchronisation du serveur. Supprime tous les objets associés au PNC pour les recréer ensuite.
    * @param pncSynchroResponse l'objet reçu du serveur
@@ -69,37 +71,41 @@ export class SynchronizationProvider {
   updateLocalStorageFromPncSynchroResponse(pncSynchroResponse: PncSynchro) {
     this.deleteAllPncOfflineObject(pncSynchroResponse.pnc);
 
+    this.storageService.save(Entity.PNC, this.pncTransformer.toPnc(pncSynchroResponse.pnc));
+
     // Création des nouveaux objets
     for (const careerObjective of pncSynchroResponse.careerObjectives) {
       this.storageService.save(Entity.CAREER_OBJECTIVE, this.careerObjectiveTransformer.toCareerObjective(careerObjective), true);
-      for (const waypoint of careerObjective.waypointList) {
+      for (const waypoint of careerObjective.waypoints) {
+        // On ajoute la clef de l'objectif à chaque point d'étape
+        waypoint.careerObjective = new CareerObjective();
+        waypoint.careerObjective.techId = careerObjective.techId;
         this.storageService.save(Entity.WAYPOINT, this.waypointTransformer.toWaypoint(waypoint), true);
       }
     }
+
+    this.storageService.persistOfflineMap();
   }
 
   deleteAllPncOfflineObject(pnc: Pnc) {
     // Suppression des objectifs du PNC
-    this.storageService.findAll(Entity.CAREER_OBJECTIVE).then(careerObjectives => {
-      const pncCareerObjectives = careerObjectives.filter(careerObjective => {
-        return careerObjective.pnc.matricule === pnc.matricule;
-      });
-      for (const careerObjective of pncCareerObjectives) {
-        // Suppression des points d'étape
-        this.storageService.findAll(Entity.WAYPOINT).then(waypoints => {
-          const careerObjectiveWaypoints = careerObjectives.filter(waypoint => {
-            return careerObjective.techId === waypoint.careerObjective.techId;
-          });
-          for (const waypoint of careerObjectiveWaypoints) {
-            this.storageService.delete(Entity.WAYPOINT,
-              this.waypointTransformer.toWaypoint(waypoint).getStorageId(), true);
-          }
-        });
-
-        this.storageService.delete(Entity.CAREER_OBJECTIVE,
-          this.careerObjectiveTransformer.toCareerObjective(careerObjective).getStorageId(), true);
-      }
+    const careerObjectives = this.storageService.findAll(Entity.CAREER_OBJECTIVE);
+    const pncCareerObjectives = careerObjectives.filter(careerObjective => {
+      return careerObjective.pnc.matricule === pnc.matricule;
     });
+    for (const careerObjective of pncCareerObjectives) {
+      // Suppression des points d'étape
+      const waypoints = this.storageService.findAll(Entity.WAYPOINT);
+      const careerObjectiveWaypoints = waypoints.filter(waypoint => {
+        return careerObjective.techId === waypoint.careerObjective.techId;
+      });
+      for (const waypoint of careerObjectiveWaypoints) {
+        this.storageService.delete(Entity.WAYPOINT,
+          this.waypointTransformer.toWaypoint(waypoint).getStorageId());
+      }
+      this.storageService.delete(Entity.CAREER_OBJECTIVE,
+        this.careerObjectiveTransformer.toCareerObjective(careerObjective).getStorageId());
+    }
   }
 
   /**
