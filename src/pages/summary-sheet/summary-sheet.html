@@ -7,7 +7,7 @@
 <ion-content padding>
     <pdf-viewer *ngIf="pdfNull === false; else elseBlock" max-width [src]="summarySheet" [original-size]="false" [autoresize]="true"></pdf-viewer>
     <ng-template #elseBlock>
-        <div class="no-summarySheet">{{ 'SUMMARY_SHEET.PDF_MISSING' | translate }}</div>
+        <div class="no-summary-sheet">{{ 'SUMMARY_SHEET.PDF_MISSING' | translate }}</div>
     </ng-template>
 
 </ion-content>
