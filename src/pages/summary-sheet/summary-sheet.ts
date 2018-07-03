@@ -20,6 +20,7 @@ export class SummarySheetPage {
       this.summarySheetProvider.getSummarySheet(this.navParams.get('matricule')).then(blob => {
         if (blob.size === 0) {
           this.pdfNull = true;
+          resolve();
         } else {
           this.getSummarySheet(blob).then(() => {
             this.summarySheet = { data: this.reader.result };
