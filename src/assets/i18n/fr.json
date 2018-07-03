@@ -149,6 +149,7 @@
         "TITLE": "Synthèse PNC",
         "PDF_MISSING": "Pas de fiche synthèse disponible"
     },
+
     "HELP_ASSET_LIST": {
         "TITLE": "Ressources d'aide",
         "NO_HELP_ASSETS": "Aucune ressource créée pour le moment"
