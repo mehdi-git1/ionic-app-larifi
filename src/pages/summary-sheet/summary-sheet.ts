@@ -23,12 +23,13 @@ export class SummarySheetPage {
         } else {
           this.getSummarySheet(blob).then(() => {
             this.summarySheet = { data: this.reader.result };
+            resolve();
           });
         }
       }, error => {
         this.pdfNull = true;
+        resolve();
       });
-      resolve();
     });
   }
 
