@@ -1,5 +1,5 @@
 import { PncRole } from './pncRole';
-import { HelpAssetType } from './HelpAssetType';
+import { HelpAssetType } from './helpAssetType';
 export class HelpAsset {
 
     helpAssetType: HelpAssetType;
