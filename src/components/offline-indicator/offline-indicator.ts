@@ -9,6 +9,7 @@ import { ConnectivityService } from '../../services/connectivity.service';
 export class OfflineIndicatorComponent {
 
   connected: boolean;
+  synchroInProgress: boolean;
 
   constructor(public connectivityService: ConnectivityService,
     public synchronizationProvider: SynchronizationProvider) {
@@ -16,6 +17,10 @@ export class OfflineIndicatorComponent {
 
     this.connectivityService.connectionStatusChange.subscribe(connected => {
       this.connected = connected;
+    });
+
+    this.synchronizationProvider.synchroStatusChange.subscribe(synchroInProgress => {
+      this.synchroInProgress = synchroInProgress;
     });
   }
 
