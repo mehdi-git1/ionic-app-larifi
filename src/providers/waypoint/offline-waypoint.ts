@@ -1,3 +1,4 @@
+import { OfflineAction } from './../../models/offlineAction';
 import { Entity } from './../../models/entity';
 import { Waypoint } from './../../models/waypoint';
 import { Injectable } from '@angular/core';
@@ -24,7 +25,7 @@ export class OfflineWaypointProvider {
     return new Promise((resolve, reject) => {
       const waypointList = this.storageService.findAll(Entity.WAYPOINT);
       resolve(waypointList.filter(waypoint => {
-        return waypoint.careerObjective.techId === careerObjectiveId;
+        return waypoint.careerObjective.techId === careerObjectiveId && waypoint.offlineAction !== OfflineAction.DELETE;
       }));
     });
   }

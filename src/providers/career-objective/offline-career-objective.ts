@@ -1,3 +1,4 @@
+import { OfflineAction } from './../../models/offlineAction';
 import { CareerObjective } from './../../models/careerObjective';
 import { Injectable } from '@angular/core';
 import { StorageService } from '../../services/storage.service';
@@ -22,7 +23,7 @@ export class OfflineCareerObjectiveProvider {
     return new Promise((resolve, reject) => {
       const careerObjectiveList = this.storageService.findAll(Entity.CAREER_OBJECTIVE);
       const pncCareerObjectives = careerObjectiveList.filter(careerObjective => {
-        return careerObjective.pnc.matricule === pncMatricule;
+        return careerObjective.pnc.matricule === pncMatricule && careerObjective.offlineAction !== OfflineAction.DELETE;
       });
       resolve(pncCareerObjectives);
     });
