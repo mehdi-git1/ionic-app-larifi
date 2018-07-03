@@ -11,8 +11,8 @@ export class OfflinePncProvider {
   constructor(private storageService: StorageService) {
   }
 
-  save(pnc: Pnc): void {
-    this.storageService.saveAsync(Entity.PNC, pnc);
+  save(pnc: Pnc): Promise<Pnc> {
+    return this.storageService.saveAsync(Entity.PNC, pnc);
   }
 
   getPnc(matricule: string): Promise<Pnc> {
