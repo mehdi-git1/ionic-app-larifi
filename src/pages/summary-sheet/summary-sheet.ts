@@ -16,19 +16,27 @@ export class SummarySheetPage {
   }
 
   ionViewCanEnter() {
-    this.summarySheetProvider.getSummarySheet(`${this.navParams.get('matricule')}`).then(blob => {
-      if (blob.size === 0) {
+    return new Promise((resolve, reject) => {
+      this.summarySheetProvider.getSummarySheet(this.navParams.get('matricule')).then(blob => {
+        if (blob.size === 0) {
+          this.pdfNull = true;
+        } else {
+          this.getSummarySheet(blob).then(() => {
+            this.summarySheet = { data: this.reader.result };
+          });
+        }
+      }, error => {
         this.pdfNull = true;
-      } else {
-        this.getSummarySheet(blob).then(() => {
-          this.summarySheet = { data: this.reader.result };
-        });
-      }
-    }, error => {
-      this.pdfNull = true;
+      });
+      resolve();
     });
   }
 
+  /**
+    * Décode un Blob dans le FileReader global
+    * @param matricule le Blob a decoder
+    * @return Une promesse resolue quand tout le Blob a été decodé
+    */
   getSummarySheet(blob: Blob) {
     return new Promise((resolve, reject) => {
       this.reader.onload = resolve;
