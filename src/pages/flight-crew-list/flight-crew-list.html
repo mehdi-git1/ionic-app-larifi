@@ -42,6 +42,11 @@
                                 </ion-col>
                             </ion-row>
                             <ion-row class="secondary-info">
+                                <!-- Fonction -->
+                                <ion-col class="pnc-info">
+                                    <label>{{ 'FLIGHT_CREW_LIST.LIST.FUNCTION' | translate }}</label>
+                                    <span class="value" [ngClass]="{'no-value' : !crewMember.pnc.speciality }">{{crewMember.pnc.speciality }}</span>
+                                </ion-col>
                                 <!-- Relais-->
                                 <ion-col class="pnc-info">
                                     <label>{{ 'FLIGHT_CREW_LIST.LIST.RELAYS' | translate }}</label>
@@ -50,11 +55,6 @@
                                             {{ relay.code }}
                                         </span>
                                     </div>
-                                </ion-col>
-                                <!-- Particularités -->
-                                <ion-col class="pnc-info">
-                                    <label>{{ 'FLIGHT_CREW_LIST.LIST.PARTICULARITY' | translate }}</label>
-                                    <span class="value" [ngClass]="{'no-value' : !crewMember.particularity }">{{crewMember.particularity }}</span>
                                 </ion-col>
                                 <!-- Dernière rencontre en vol -->
                                 <ion-col class="pnc-info">
