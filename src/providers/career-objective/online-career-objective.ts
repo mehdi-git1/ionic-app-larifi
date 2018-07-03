@@ -1,3 +1,5 @@
+import { StorageService } from './../../services/storage.service';
+import { Entity } from './../../models/entity';
 import { CareerObjective } from './../../models/careerObjective';
 import { OfflineCareerObjectiveProvider } from './offline-career-objective';
 import { Config } from './../../configuration/environment-variables/config';
@@ -11,7 +13,8 @@ export class OnlineCareerObjectiveProvider {
 
   constructor(public restService: RestService,
     private config: Config,
-    private offlineCareerObjectiveProvider: OfflineCareerObjectiveProvider) {
+    private offlineCareerObjectiveProvider: OfflineCareerObjectiveProvider,
+    private storageService: StorageService) {
     this.careerObjectiveUrl = `${config.backEndUrl}/career_objectives`;
   }
 
@@ -64,6 +67,7 @@ export class OnlineCareerObjectiveProvider {
   * @return l'objectif supprimé
   */
   delete(id: number): Promise<CareerObjective> {
+    this.storageService.deleteAsync(Entity.CAREER_OBJECTIVE, `${id}`);
     return this.restService.delete(`${this.careerObjectiveUrl}/${id}`);
   }
 }
