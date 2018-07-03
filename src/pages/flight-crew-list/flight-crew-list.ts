@@ -14,7 +14,7 @@ import { CrewMember } from '../../models/CrewMember';
 })
 export class FlightCrewListPage {
 
-  flightCrewList: any[];
+  flightCrewList: CrewMember[];
   leg: Leg;
 
   constructor(public navCtrl: NavController,
