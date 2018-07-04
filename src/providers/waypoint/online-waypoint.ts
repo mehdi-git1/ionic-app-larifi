@@ -62,7 +62,8 @@ export class OnlineWaypointProvider {
   * @return le point d'étape supprimé
   */
   delete(id: number): Promise<Waypoint> {
-    this.storageService.deleteAsync(Entity.WAYPOINT, `${id}`);
+    this.storageService.delete(Entity.WAYPOINT, `${id}`);
+    this.storageService.persistOfflineMap();
     return this.restService.delete(`${this.waypointUrl}/${id}`);
   }
 

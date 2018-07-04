@@ -67,7 +67,8 @@ export class OnlineCareerObjectiveProvider {
   * @return l'objectif supprimé
   */
   delete(id: number): Promise<CareerObjective> {
-    this.storageService.deleteAsync(Entity.CAREER_OBJECTIVE, `${id}`);
+    this.storageService.delete(Entity.CAREER_OBJECTIVE, `${id}`);
+    this.storageService.persistOfflineMap();
     return this.restService.delete(`${this.careerObjectiveUrl}/${id}`);
   }
 }
