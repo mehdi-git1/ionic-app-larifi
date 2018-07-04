@@ -25,37 +25,7 @@ export class SynchronizationProvider {
     private pncSynchroProvider: PncSynchroProvider) {
   }
 
-  /**
-   * Lance le processus de synchronisation des données modifiées offline
-   */
-  synchronizeOfflineData() {
-    const pncSynchroList = this.getPncSynchroList();
 
-    if (pncSynchroList.length > 0) {
-      this.synchroStatusChange.emit(true);
-
-      let promiseCount;
-      let resolvedPromiseCount = 0;
-      Observable.create(
-        observer => {
-          promiseCount = pncSynchroList.length;
-          for (const pncSynchro of pncSynchroList) {
-            this.pncSynchroProvider.synchronize(pncSynchro).then(pncSynchroResponse => {
-              this.updateLocalStorageFromPncSynchroResponse(pncSynchroResponse);
-              resolvedPromiseCount++;
-              observer.next(true);
-            }, error => {
-              resolvedPromiseCount++;
-              observer.next(true);
-            });
-          }
-        }).subscribe(promiseResolved => {
-          if (resolvedPromiseCount >= promiseCount) {
-            this.synchroStatusChange.emit(false);
-          }
-        });
-    }
-  }
 
   /**
    * Stocke en cache le EDossier du PNC
@@ -124,24 +94,49 @@ export class SynchronizationProvider {
   }
 
   /**
-   * Recheche tous les eDossiers nécessitant une synchronisation
+   * Lance le processus de synchronisation des données modifiées offline
    */
-  getPncSynchroList() {
+  synchronizeOfflineData() {
+    const pncSynchroList = this.getPncSynchroList();
+
+    console.log(pncSynchroList);
+
+    if (pncSynchroList.length > 0) {
+      this.synchroStatusChange.emit(true);
+
+      let promiseCount;
+      let resolvedPromiseCount = 0;
+      Observable.create(
+        observer => {
+          promiseCount = pncSynchroList.length;
+          for (const pncSynchro of pncSynchroList) {
+            this.pncSynchroProvider.synchronize(pncSynchro).then(pncSynchroResponse => {
+              // this.updateLocalStorageFromPncSynchroResponse(pncSynchroResponse);
+              resolvedPromiseCount++;
+              observer.next(true);
+            }, error => {
+              resolvedPromiseCount++;
+              observer.next(true);
+            });
+          }
+        }).subscribe(promiseResolved => {
+          if (resolvedPromiseCount >= promiseCount) {
+            this.synchroStatusChange.emit(false);
+          }
+        });
+    }
+  }
+
+  /**
+   * Recheche tous les eDossiers nécessitant une synchronisation
+   * @return la liste des synchronisations à réaliser
+   */
+  getPncSynchroList(): PncSynchro[] {
     const unsynchronizedCareerObjectives = this.storageService.findAllEDossierPncObjectWithOfflineAction(Entity.CAREER_OBJECTIVE);
     const unsynchronizedWaypoints = this.storageService.findAllEDossierPncObjectWithOfflineAction(Entity.WAYPOINT);
 
     const pncMap = this.buildPncSynchroMap(unsynchronizedCareerObjectives, unsynchronizedWaypoints);
-
-    const pncSynchroList = [];
-    // tslint:disable-next-line
-    for (const matricule in pncMap) {
-      const pncSynchro = new PncSynchro();
-      pncSynchro.pnc = new Pnc();
-      pncSynchro.pnc.matricule = matricule;
-      pncSynchro.careerObjectives = this.careerObjectiveTransformer.toCareerObjectives(pncMap[matricule]);
-      pncSynchroList.push(pncSynchro);
-    }
-    return pncSynchroList;
+    return Array.from(pncMap.values());
   }
 
   /**
@@ -152,27 +147,29 @@ export class SynchronizationProvider {
    * @return la map contenant les objets PncSynchro, associés au matricule de chaque PNC
    */
   private buildPncSynchroMap(unsynchronizedCareerObjectives: CareerObjective[], unsynchronizedWaypoints: Waypoint[]): any {
-    const pncMap = {};
+    const pncMap = new Map();
     for (const careerObjective of unsynchronizedCareerObjectives) {
-      if (!pncMap[careerObjective.pnc.matricule]) {
-        pncMap[careerObjective.pnc.matricule] = new PncSynchro();
-        pncMap[careerObjective.pnc.matricule].pnc = careerObjective.pnc;
-        pncMap[careerObjective.pnc.matricule].careerObjectives = [];
-        pncMap[careerObjective.pnc.matricule].waypoints = [];
+      if (!pncMap.get(careerObjective.pnc.matricule)) {
+        const pncSynchro = new PncSynchro();
+        pncSynchro.pnc = careerObjective.pnc;
+        pncSynchro.careerObjectives = [];
+        pncSynchro.waypoints = [];
+        pncMap.set(careerObjective.pnc.matricule, pncSynchro);
       }
-      pncMap[careerObjective.pnc.matricule].careerObjectives.push(careerObjective);
+      pncMap.get(careerObjective.pnc.matricule).careerObjectives.push(careerObjective);
     }
 
     for (const waypoint of unsynchronizedWaypoints) {
       const waypointCareerObjective = this.storageService.findOne(Entity.CAREER_OBJECTIVE, `${waypoint.careerObjective.techId}`);
 
-      if (!pncMap[waypointCareerObjective.pnc.matricule]) {
-        pncMap[waypointCareerObjective.pnc.matricule] = new PncSynchro();
-        pncMap[waypointCareerObjective.pnc.matricule].pnc = waypointCareerObjective.pnc;
-        pncMap[waypointCareerObjective.pnc.matricule].careerObjectives = [];
-        pncMap[waypointCareerObjective.pnc.matricule].waypoints = [];
+      if (!pncMap.get(waypointCareerObjective.pnc.matricule)) {
+        const pncSynchro = new PncSynchro();
+        pncSynchro.pnc = waypointCareerObjective.pnc;
+        pncSynchro.careerObjectives = [];
+        pncSynchro.waypoints = [];
+        pncMap.set(waypointCareerObjective.pnc.matricule, pncSynchro);
       }
-      pncMap[waypointCareerObjective.pnc.matricule].waypoints.push(waypoint);
+      pncMap.get(waypointCareerObjective.pnc.matricule).waypoints.push(waypoint);
     }
 
     return pncMap;
