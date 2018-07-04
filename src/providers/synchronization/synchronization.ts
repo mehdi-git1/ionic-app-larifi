@@ -10,6 +10,7 @@ import { Injectable, EventEmitter, Output } from '@angular/core';
 import { Entity } from '../../models/entity';
 import { Pnc } from '../../models/pnc';
 import { CareerObjective } from '../../models/careerObjective';
+import { Waypoint } from '../../models/waypoint';
 
 @Injectable()
 export class SynchronizationProvider {
@@ -24,6 +25,9 @@ export class SynchronizationProvider {
     private pncSynchroProvider: PncSynchroProvider) {
   }
 
+  /**
+   * Lance le processus de synchronisation des données modifiées offline
+   */
   synchronizeOfflineData() {
     const pncSynchroList = this.getPncSynchroList();
 
@@ -53,6 +57,11 @@ export class SynchronizationProvider {
     }
   }
 
+  /**
+   * Stocke en cache le EDossier du PNC
+   * @param matricule le matricule du PNC dont on souhaite mettre en cache le EDossier
+   * @return une promesse résolue quand le EDossier est mis en cache
+   */
   storeEDossierOffline(matricule: string): Promise<boolean> {
     return new Promise((resolve, reject) => {
       this.pncSynchroProvider.getPncSynchro(matricule).then(pncSynchro => {
@@ -75,9 +84,11 @@ export class SynchronizationProvider {
 
     // Création des nouveaux objets
     for (const careerObjective of pncSynchroResponse.careerObjectives) {
+      delete careerObjective.offlineAction;
       this.storageService.save(Entity.CAREER_OBJECTIVE, this.careerObjectiveTransformer.toCareerObjective(careerObjective), true);
       for (const waypoint of careerObjective.waypoints) {
         // On ajoute la clef de l'objectif à chaque point d'étape
+        delete waypoint.offlineAction;
         waypoint.careerObjective = new CareerObjective();
         waypoint.careerObjective.techId = careerObjective.techId;
         this.storageService.save(Entity.WAYPOINT, this.waypointTransformer.toWaypoint(waypoint), true);
@@ -87,6 +98,10 @@ export class SynchronizationProvider {
     this.storageService.persistOfflineMap();
   }
 
+  /**
+   * Supprime tous les objets du cache, liés à un PNC
+   * @param pnc le PNC dont on souhaite supprimer le cache
+   */
   deleteAllPncOfflineObject(pnc: Pnc) {
     // Suppression des objectifs du PNC
     const careerObjectives = this.storageService.findAll(Entity.CAREER_OBJECTIVE);
@@ -115,16 +130,7 @@ export class SynchronizationProvider {
     const unsynchronizedCareerObjectives = this.storageService.findAllEDossierPncObjectWithOfflineAction(Entity.CAREER_OBJECTIVE);
     const unsynchronizedWaypoints = this.storageService.findAllEDossierPncObjectWithOfflineAction(Entity.WAYPOINT);
 
-    const pncMap = {};
-    for (const careerObjective of unsynchronizedCareerObjectives) {
-      careerObjective.waypoints = unsynchronizedWaypoints.filter(waypoint => {
-        return waypoint.careerObjective.techId === careerObjective.techId;
-      });
-      if (!pncMap[careerObjective.pnc.matricule]) {
-        pncMap[careerObjective.pnc.matricule] = [];
-      }
-      pncMap[careerObjective.pnc.matricule].push(careerObjective);
-    }
+    const pncMap = this.buildPncSynchroMap(unsynchronizedCareerObjectives, unsynchronizedWaypoints);
 
     const pncSynchroList = [];
     // tslint:disable-next-line
@@ -135,8 +141,41 @@ export class SynchronizationProvider {
       pncSynchro.careerObjectives = this.careerObjectiveTransformer.toCareerObjectives(pncMap[matricule]);
       pncSynchroList.push(pncSynchro);
     }
-    console.log('Objectifs à créer', pncSynchroList);
     return pncSynchroList;
+  }
+
+  /**
+   * Retourne une map contenant les objets PncSynchro à synchroniser.
+   * La clef est le matricule du PNC, la valeur est l'objet PncSynchro.
+   * @param unsynchronizedCareerObjectives la liste des objectifs à synchroniser
+   * @param unsynchronizedWaypoints la liste des points d'étape à synchroniser
+   * @return la map contenant les objets PncSynchro, associés au matricule de chaque PNC
+   */
+  private buildPncSynchroMap(unsynchronizedCareerObjectives: CareerObjective[], unsynchronizedWaypoints: Waypoint[]): any {
+    const pncMap = {};
+    for (const careerObjective of unsynchronizedCareerObjectives) {
+      if (!pncMap[careerObjective.pnc.matricule]) {
+        pncMap[careerObjective.pnc.matricule] = new PncSynchro();
+        pncMap[careerObjective.pnc.matricule].pnc = careerObjective.pnc;
+        pncMap[careerObjective.pnc.matricule].careerObjectives = [];
+        pncMap[careerObjective.pnc.matricule].waypoints = [];
+      }
+      pncMap[careerObjective.pnc.matricule].careerObjectives.push(careerObjective);
+    }
+
+    for (const waypoint of unsynchronizedWaypoints) {
+      const waypointCareerObjective = this.storageService.findOne(Entity.CAREER_OBJECTIVE, `${waypoint.careerObjective.techId}`);
+
+      if (!pncMap[waypointCareerObjective.pnc.matricule]) {
+        pncMap[waypointCareerObjective.pnc.matricule] = new PncSynchro();
+        pncMap[waypointCareerObjective.pnc.matricule].pnc = waypointCareerObjective.pnc;
+        pncMap[waypointCareerObjective.pnc.matricule].careerObjectives = [];
+        pncMap[waypointCareerObjective.pnc.matricule].waypoints = [];
+      }
+      pncMap[waypointCareerObjective.pnc.matricule].waypoints.push(waypoint);
+    }
+
+    return pncMap;
   }
 
 }
