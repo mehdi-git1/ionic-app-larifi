@@ -28,21 +28,17 @@
                         </ion-col>
                         <ion-col col-10 class="content">
                             <ion-row class="primary-info">
-                                <ion-col col-10>
+                                <ion-col col-11>
                                     <!-- Nom -->
                                     <span class="value">{{ crewMember.pnc.lastName }}</span>
                                     <!-- Prénom -->
                                     <span class="value firstname">{{ crewMember.pnc.firstName }}</span>
                                 </ion-col>
                                 <ion-col>
-                                    <!-- Particularite -->
-                                    <div class="particularity-container">
-                                        <span class="value">{{crewMember.particularity }}</span>
-                                    </div>
-                                </ion-col>
-                                <ion-col>
-                                    <!-- Prioritaire -->
                                     <div class="icon-container">
+                                        <!-- Particularite -->
+                                        <span class="value">{{crewMember.particularity }}</span>
+                                        <!-- Prioritaire -->
                                         <ion-icon *ngIf="crewMember.prioritized" name="flag" ios="md-flag" color="red80"></ion-icon>
                                     </div>
                                 </ion-col>
