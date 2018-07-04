@@ -56,13 +56,15 @@ export class SynchronizationProvider {
     for (const careerObjective of pncSynchroResponse.careerObjectives) {
       delete careerObjective.offlineAction;
       this.storageService.save(Entity.CAREER_OBJECTIVE, this.careerObjectiveTransformer.toCareerObjective(careerObjective), true);
-      for (const waypoint of careerObjective.waypoints) {
-        // On ajoute la clef de l'objectif à chaque point d'étape
-        delete waypoint.offlineAction;
-        waypoint.careerObjective = new CareerObjective();
-        waypoint.careerObjective.techId = careerObjective.techId;
-        this.storageService.save(Entity.WAYPOINT, this.waypointTransformer.toWaypoint(waypoint), true);
-      }
+    }
+    for (const waypoint of pncSynchroResponse.waypoints) {
+      // On ajoute la clef de l'objectif à chaque point d'étape
+      delete waypoint.offlineAction;
+      // On ne garde que le techId pour réduire le volume de données en cache
+      const careerObjectiveTechId = waypoint.careerObjective.techId;
+      waypoint.careerObjective = new CareerObjective();
+      waypoint.careerObjective.techId = careerObjectiveTechId;
+      this.storageService.save(Entity.WAYPOINT, this.waypointTransformer.toWaypoint(waypoint), true);
     }
 
     this.storageService.persistOfflineMap();
@@ -111,7 +113,7 @@ export class SynchronizationProvider {
           promiseCount = pncSynchroList.length;
           for (const pncSynchro of pncSynchroList) {
             this.pncSynchroProvider.synchronize(pncSynchro).then(pncSynchroResponse => {
-              // this.updateLocalStorageFromPncSynchroResponse(pncSynchroResponse);
+              this.updateLocalStorageFromPncSynchroResponse(pncSynchroResponse);
               resolvedPromiseCount++;
               observer.next(true);
             }, error => {
