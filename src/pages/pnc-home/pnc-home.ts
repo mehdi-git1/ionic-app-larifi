@@ -112,6 +112,7 @@ export class PncHomePage {
   downloadPncEdossier() {
     this.synchroInProgress = true;
     this.synchronizationProvider.storeEDossierOffline(this.pnc.matricule).then(success => {
+      this.loadPnc();
       this.synchroInProgress = false;
     }, error => {
       this.synchroInProgress = false;

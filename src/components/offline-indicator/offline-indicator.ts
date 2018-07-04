@@ -21,16 +21,12 @@ export class OfflineIndicatorComponent {
    */
   getCssClass(): string {
 
-    if (this.hasBeenModifiedOffline()) {
-      return 'modified-offline';
-    }
-
     const now = moment();
     const offlineStorageDate = moment(this.object.offlineStorageDate, AppConstant.isoDateFormat);
     const offlineDuration = moment.duration(now.diff(offlineStorageDate)).asMilliseconds();
 
-    const upToDateThreshold = moment.duration(12, 'hours').asMilliseconds();
-    const outDatedThreshold = moment.duration(2, 'days').asMilliseconds();
+    const upToDateThreshold = moment.duration(1, 'days').asMilliseconds();
+    const outDatedThreshold = moment.duration(7, 'days').asMilliseconds();
 
     if (offlineDuration < upToDateThreshold) {
       return 'up-to-date';

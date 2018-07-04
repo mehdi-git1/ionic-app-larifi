@@ -1,3 +1,4 @@
+import { AppConstant } from './../app/app.constant';
 import { OfflineAction } from './../models/offlineAction';
 import { DatePipe } from '@angular/common';
 import { Entity } from './../models/entity';
@@ -6,6 +7,7 @@ import { Config } from './../configuration/environment-variables/config';
 import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage';
 import { EDossierPncObject } from '../models/eDossierPncObject';
+import * as moment from 'moment';
 
 @Injectable()
 export class StorageService {
@@ -67,7 +69,7 @@ export class StorageService {
 
   save(entity: Entity, eDossierPncObject: EDossierPncObject, online: boolean = false) {
     eDossierPncObject.availableOffline = true;
-    eDossierPncObject.offlineStorageDate = this.datePipe.transform(new Date(), 'yyyy-MM-ddTHH:mm');
+    eDossierPncObject.offlineStorageDate = moment().format(AppConstant.isoDateFormat);
     if (!online) {
       eDossierPncObject.offlineAction =
         this.isOfflineStorageId(this.getStorageId(eDossierPncObject)) ? OfflineAction.CREATE : OfflineAction.UPDATE;

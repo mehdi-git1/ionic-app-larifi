@@ -101,8 +101,6 @@ export class SynchronizationProvider {
   synchronizeOfflineData() {
     const pncSynchroList = this.getPncSynchroList();
 
-    console.log(pncSynchroList);
-
     if (pncSynchroList.length > 0) {
       this.synchroStatusChange.emit(true);
 
