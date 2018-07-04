@@ -17,7 +17,8 @@
         <button ion-button color="primary" (click)="goToEdossier()">{{ 'PNC_HOME.GO_TO_EDOSSIER.SUBMIT' | translate }}</button>
     </div>
 
-    <ion-card class="pnc-info-panel" [ngClass]="{'available-offline': pnc?.availableOffline }">
+    <ion-card class="pnc-info-panel">
+        <offline-indicator [object]="pnc"></offline-indicator>
         <ion-grid>
             <ion-row>
                 <ion-col col-2>
@@ -38,7 +39,7 @@
                             <span class="value firstname">{{ pnc?.firstName }}</span>
                         </ion-col>
                         <ion-col class="download-edossier">
-                            <button ion-fab mini color="secondary" *ngIf="!pnc?.manager && connectivityService.isConnected()" (click)="downloadPncEdossier()" [disabled]="synchroInProgress">
+                            <button ion-fab mini color="secondary" *ngIf="connectivityService.isConnected()" (click)="downloadPncEdossier()" [disabled]="synchroInProgress">
                                 <ion-icon *ngIf="!synchroInProgress" name="cloud-download" ios="md-cloud-download"></ion-icon>
                                 <ion-spinner *ngIf="synchroInProgress"></ion-spinner>
                             </button>

@@ -110,13 +110,11 @@ export class PncHomePage {
    * Précharge le eDossier du PNC si celui n'est pas cadre
    */
   downloadPncEdossier() {
-    if (!this.pnc.manager) {
-      this.synchroInProgress = true;
-      this.synchronizationProvider.storeEDossierOffline(this.pnc.matricule).then(success => {
-        this.synchroInProgress = false;
-      }, error => {
-        this.synchroInProgress = false;
-      });
-    }
+    this.synchroInProgress = true;
+    this.synchronizationProvider.storeEDossierOffline(this.pnc.matricule).then(success => {
+      this.synchroInProgress = false;
+    }, error => {
+      this.synchroInProgress = false;
+    });
   }
 }

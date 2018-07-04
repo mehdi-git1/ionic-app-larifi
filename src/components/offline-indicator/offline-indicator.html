@@ -1,3 +1,2 @@
-<div [ngClass]="{ 'offline' : !connected }" (click)="synchronizationProvider.synchronizeOfflineData()">
-    <div class="synchro-in-progress" *ngIf="synchroInProgress"></div>
+<div [ngClass]="getCssClass()">
 </div>
