@@ -31,6 +31,10 @@ export class FlightCrewListPage {
     });
   }
 
+  /**
+   * redirige vers la page d'accueil du pnc ou du cadre
+   * @param matricule matricule du pnc concerné
+   */
   openPncHomePage(matricule) {
     this.navCtrl.push(PncHomePage, { matricule: matricule });
   }

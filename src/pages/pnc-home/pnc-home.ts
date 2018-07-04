@@ -1,3 +1,4 @@
+import { PncSearchPage } from './../pnc-search/pnc-search';
 import { UpcomingFlightListPage } from './../upcoming-flight-list/upcoming-flight-list';
 import { SecurityProvider } from './../../providers/security/security';
 import { SessionService } from './../../services/session.service';
@@ -97,5 +98,12 @@ export class PncHomePage {
    */
   goToEdossier() {
     this.navCtrl.push(PncHomePage, { matricule: this.matricule });
+  }
+
+  /**
+   * Dirige vers l'effectif PNC
+   */
+  goToPncSearch() {
+    this.navCtrl.push(PncSearchPage);
   }
 }

@@ -1,3 +1,5 @@
+import { AppMaterialModule } from './../shared/material/material.module';
+import { PncSearchPage } from './../pages/pnc-search/pnc-search';
 import { ComponentsModule } from './../components/components.module';
 import { FlightCrewListPage } from './../pages/flight-crew-list/flight-crew-list';
 import { WaypointStatusProvider } from './../providers/waypoint-status/waypoint-status';
@@ -10,6 +12,7 @@ import { CareerObjectiveCreatePage } from './../pages/career-objective-create/ca
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { EDossierPNC } from './app.component';
 import { CareerObjectiveListPage } from './../pages/career-objective-list/career-objective-list';
@@ -38,6 +41,7 @@ import { WaypointProvider } from './../providers/waypoint/waypoint';
 import { UpcomingFlightListPage } from '../pages/upcoming-flight-list/upcoming-flight-list';
 import { RotationProvider } from '../providers/rotation/rotation';
 import { LegProvider } from '../providers/leg/leg';
+import { ParametresProvider } from '../providers/parametres/parametres';
 
 @NgModule({
   declarations: [
@@ -48,7 +52,8 @@ import { LegProvider } from '../providers/leg/leg';
     CareerObjectiveListPage,
     WaypointCreatePage,
     UpcomingFlightListPage,
-    FlightCrewListPage
+    FlightCrewListPage,
+    PncSearchPage
   ],
   imports: [
     BrowserModule,
@@ -61,7 +66,9 @@ import { LegProvider } from '../providers/leg/leg';
         useFactory: (createTranslateLoader),
         deps: [HttpClient]
       }
-    })
+    }),
+    AppMaterialModule,
+    BrowserAnimationsModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -72,7 +79,8 @@ import { LegProvider } from '../providers/leg/leg';
     CareerObjectiveListPage,
     WaypointCreatePage,
     UpcomingFlightListPage,
-    FlightCrewListPage
+    FlightCrewListPage,
+    PncSearchPage
   ],
   providers: [
     StatusBar,
@@ -95,7 +103,8 @@ import { LegProvider } from '../providers/leg/leg';
     WaypointProvider,
     WaypointStatusProvider,
     RotationProvider,
-    LegProvider
+    LegProvider,
+    ParametresProvider
   ]
 })
 export class AppModule { }

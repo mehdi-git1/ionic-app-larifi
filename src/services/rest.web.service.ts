@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { RestService, RestRequest } from './rest.base.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Searchbar } from 'ionic-angular';
+import { PARAMETERS } from '@angular/core/src/util/decorators';
 
 
 
@@ -42,11 +44,17 @@ export class RestWebService extends RestService {
 
         // if (request.httpHeaders['Content-Type'] != undefined)
         //     headers.append('Content-Type', request.httpHeaders['Content-Type']);
-
+        let param: string;
+        for (param in request.jsonData) {
+            if (request.jsonData[param] === undefined) {
+                delete request.jsonData[param];
+            }
+        }
 
         const options = {
             withCredentials: request.withCredential,
-            headers: headers
+            headers: headers,
+            params: request.jsonData
         };
 
         if (request.method === 'GET') {

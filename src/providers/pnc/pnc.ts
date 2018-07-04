@@ -1,3 +1,6 @@
+import { PagedPnc } from './../../models/pagedPnc';
+import { HttpRequest, HttpParams } from '@angular/common/http';
+import { PncFilter } from './../../models/pncFilter';
 import { Config } from './../../configuration/environment-variables/config';
 import { Rotation } from './../../models/rotation';
 import { Pnc } from './../../models/pnc';
@@ -38,6 +41,27 @@ export class PncProvider {
   */
   getLastPerformedRotation(matricule: string): Promise<Rotation> {
     return this.restService.get(`${this.pncUrl}/${matricule}/last_performed_rotation`);
+  }
+
+  /**
+   * Fait appel au service rest qui renvois les pncs conçernés.
+   * @param pncFilter
+   * @return les pncs concernés
+   */
+  getfilteredPncs(pncFilter: PncFilter): Promise<PagedPnc> {
+    return this.restService.get(this.pncUrl, pncFilter)
+      .then(response =>
+        response as PagedPnc
+      );
+  }
+
+  /**
+   * Fait appel au service rest qui renvois les 10 premier pncs conçernés.
+   * @param searchText matricuel/nom/prénom
+   * @return les pncs concernés
+   */
+  pncAutoComplete(search: string): Promise<Pnc[]> {
+    return this.restService.get(`${this.pncUrl}/auto_complete`, { search });
   }
 }
 

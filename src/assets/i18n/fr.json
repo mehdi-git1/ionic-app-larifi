@@ -143,5 +143,25 @@
         "LAST_FLIGHT": "Mon dernier vol",
         "UPCOMING_FLIGHTS": "Mes prochains vols",
         "NO_FLIGHTS": "Aucun vol trouvé"
+    },
+    "PNC_SEARCH": {
+        "TITLE": "Recherche PNC",
+        "CRITERIA": {
+            "PNC_MATRICULE": "Nom, Prénom, Matricule",
+            "SECTOR": "Secteur",
+            "GINQ": "Ginq",
+            "SPECIALITY": "Fonction",
+            "RELAY": "Relais",
+            "AIRCRAFT_SKILL": "Spécification machine"
+        }
+    },
+    "MESSAGES": {
+        "ERROR": {
+            "MANDATORY_FIELD": "Le champ est obligatoire",
+            "NOT_A_NUMBER": "Format incorrect",
+            "BAD_FORMAT": "Format incorrect",
+            "MATRICULE_WRONG_SIZE": "Le matricule doit faire 8 caractères",
+            "PNC_NOT_FOUND": "Erreur lors de la récupérations des PNC"
+        }
     }
 }
