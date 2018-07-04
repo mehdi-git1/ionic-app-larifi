@@ -14,6 +14,8 @@ export class SecMobilService {
         if (this.secMobile) {
             this.secMobile.initSecmobilHttp(this.config.secmobileEnv);
             console.log('init plugin with ' + this.config.secmobileEnv + ' env');
+            this.secMobile.secMobilSetAppGroup('AF_GROUP');
+            console.log('secmobil set app group af');
         }
     }
 
@@ -80,15 +82,18 @@ export class SecMobilService {
             if (this.secMobile) {
                 this.secMobile.secMobilHasCertificate('',
                     (success) => {
+                        console.log('certificate present');
                         resolve('ok');
                     },
                     (err) => {
+
+                        console.log('NO certificate present');
                         console.error('isAuthenticated:isAuthenticated failure : ' + err);
                         reject(err);
                     }
                 );
             } else {
-                // console.debug('Not in Mobile Mode');
+                 console.log('Not in Mobile Mode');
                 resolve('ok');
             }
         }

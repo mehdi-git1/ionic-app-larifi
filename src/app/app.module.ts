@@ -1,5 +1,6 @@
 import { AppMaterialModule } from './../shared/material/material.module';
 import { PncSearchPage } from './../pages/pnc-search/pnc-search';
+import { HelpAssetListPage } from './../pages/help-asset-list/help-asset-list';
 import { ComponentsModule } from './../components/components.module';
 import { FlightCrewListPage } from './../pages/flight-crew-list/flight-crew-list';
 import { WaypointStatusProvider } from './../providers/waypoint-status/waypoint-status';
@@ -40,8 +41,10 @@ import { WaypointCreatePage } from './../pages/waypoint-create/waypoint-create';
 import { WaypointProvider } from './../providers/waypoint/waypoint';
 import { UpcomingFlightListPage } from '../pages/upcoming-flight-list/upcoming-flight-list';
 import { RotationProvider } from '../providers/rotation/rotation';
+import { HelpAssetProvider } from '../providers/help-asset/help-asset';
 import { LegProvider } from '../providers/leg/leg';
 import { ParametresProvider } from '../providers/parametres/parametres';
+import { HomePage } from '../pages/home/home';
 
 @NgModule({
   declarations: [
@@ -52,8 +55,10 @@ import { ParametresProvider } from '../providers/parametres/parametres';
     CareerObjectiveListPage,
     WaypointCreatePage,
     UpcomingFlightListPage,
+    PncSearchPage,
+    HelpAssetListPage,
     FlightCrewListPage,
-    PncSearchPage
+    HomePage
   ],
   imports: [
     BrowserModule,
@@ -80,7 +85,9 @@ import { ParametresProvider } from '../providers/parametres/parametres';
     WaypointCreatePage,
     UpcomingFlightListPage,
     FlightCrewListPage,
-    PncSearchPage
+    PncSearchPage,
+    HelpAssetListPage,
+    HomePage
   ],
   providers: [
     StatusBar,
@@ -104,7 +111,9 @@ import { ParametresProvider } from '../providers/parametres/parametres';
     WaypointStatusProvider,
     RotationProvider,
     LegProvider,
-    ParametresProvider
+    ParametresProvider,
+    HelpAssetProvider,
+    LegProvider
   ]
 })
 export class AppModule { }

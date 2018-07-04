@@ -140,6 +140,7 @@
         }
     },
     "UPCOMING_FLIGHT_LIST": {
+        "TITLE": "Liste de vos prochains vols rencontre",
         "LAST_FLIGHT": "Mon dernier vol",
         "UPCOMING_FLIGHTS": "Mes prochains vols",
         "NO_FLIGHTS": "Aucun vol trouvé"
@@ -163,5 +164,9 @@
             "MATRICULE_WRONG_SIZE": "Le matricule doit faire 8 caractères",
             "PNC_NOT_FOUND": "Erreur lors de la récupérations des PNC"
         }
+    },
+    "HELP_ASSET_LIST": {
+        "TITLE": "Ressources d'aide",
+        "NO_HELP_ASSETS": "Aucune ressource créée pour le moment"
     }
 }

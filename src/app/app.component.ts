@@ -1,3 +1,4 @@
+import { AuthenticationPage } from './../pages/authentication/authentication';
 import { SessionService } from './../services/session.service';
 import { AuthenticatedUser } from './../models/authenticatedUser';
 import { SecurityProvider } from './../providers/security/security';
@@ -9,16 +10,16 @@ import { StatusBar } from '@ionic-native/status-bar';
 
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { TranslateService } from '@ngx-translate/core';
-import { AuthenticationPage } from '../pages/authentication/authentication';
 import { SecMobilService } from '../services/secMobil.service';
+import { HomePage } from '../pages/home/home';
 
 @Component({
   templateUrl: 'app.html'
 })
 export class EDossierPNC {
-  @ViewChild(Nav) nav: Nav;
+  @ViewChild('content') nav: Nav;
 
-  rootPage: any = PncHomePage;
+  rootPage: any = HomePage;
 
 
   constructor(public platform: Platform, public statusBar: StatusBar,
@@ -45,9 +46,13 @@ export class EDossierPNC {
         this.secMobilService.isAuthenticated().then(() => {
           // launch process when already authenticated
           // nothing to do there
+          console.log('go to pnc home page');
+          this.nav.setRoot(PncHomePage);
         },
           error => {
-            this.rootPage = AuthenticationPage;
+            console.log('go to authentication page');
+            this.nav.setRoot(AuthenticationPage);
+            // this.rootPage = AuthenticationPage;
           });
       });
       this.putAuthenticatedUserInSession();
