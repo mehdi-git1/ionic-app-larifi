@@ -75,14 +75,19 @@
                         <button (click)="goToWaypointCreate()" class="add-waypoint clickable" *ngIf="careerObjective.careerObjectiveStatus === CareerObjectiveStatus.REGISTERED">
                             <ion-icon name="add"></ion-icon>
                         </button>
-                        <ion-card class="waypoint clickable" [ngClass]="{'available-offline': waypoint.availableOffline }" *ngFor="let waypoint of waypointList" (click)="openWaypoint(waypoint.techId)">
+                        <ion-card class="waypoint clickable" *ngFor="let waypoint of waypointList" (click)="openWaypoint(waypoint.techId)">
+                            <offline-indicator [object]="waypoint"></offline-indicator>
                             <ion-card-content>
-                                <ion-icon name="create" ios="md-create" *ngIf="waypoint.waypointStatus === WaypointStatus.DRAFT" float-right></ion-icon>
                                 <!--Si une date de rencontre existe, on l'affiche, sinon on affiche la date de création -->
-                                <div class="value" *ngIf="waypoint.encounterDate; else creationDateBlock">{{ waypoint.encounterDate | date: 'dd/MM/yyyy'}}</div>
-                                <ng-template #creationDateBlock>
-                                    <div class="value">{{ waypoint.creationDate | date: 'dd/MM/yyyy'}}</div>
-                                </ng-template>
+                                <header>
+                                    <ion-icon name="create" ios="md-create" *ngIf="waypoint.waypointStatus === WaypointStatus.DRAFT" float-right></ion-icon>
+                                    <div class="value" *ngIf="waypoint.encounterDate; else creationDateBlock">
+                                        {{ waypoint.encounterDate | date: 'dd/MM/yyyy'}}
+                                    </div>
+                                    <ng-template #creationDateBlock>
+                                        <div class="value">{{ waypoint.creationDate | date: 'dd/MM/yyyy'}}</div>
+                                    </ng-template>
+                                </header>
                                 <h4>{{ waypoint.context }}</h4>
                             </ion-card-content>
                         </ion-card>

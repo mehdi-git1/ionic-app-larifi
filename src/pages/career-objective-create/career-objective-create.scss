@@ -36,24 +36,27 @@ page-career-objective-create {
         }
 
         .waypoint {
+            display: flex;
 
-            ion-icon {
-                color: color($colors, grey50);
+            ion-card-content {
+                width: 100%;
+
+                .header {
+                    ion-icon {
+                        color: color($colors, grey50);
+                    }
+
+                    .value {
+                        display: block;
+                    }
+                }
+
+                h4 {
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                    overflow: hidden;
+                }
             }
-
-            h4 {
-                text-overflow: ellipsis;
-                white-space: nowrap;
-                overflow: hidden;
-            }
-
-            .value {
-                display: block;
-            }
-        }
-
-        .waypoint.available-offline {
-            border-left: 8px solid color($colors, green60);
         }
     }
 }

@@ -19,7 +19,8 @@
     <div *ngIf="careerObjectiveList" class="career-objective-list-container">
         <div class="no-objectives" *ngIf="careerObjectiveList.length == 0">{{ 'CAREER_OBJECTIVE_LIST.NO_OBJECTIVES' | translate }}</div>
         <ion-content *ngIf="careerObjectiveList.length > 0" class="career-objective-list">
-            <ion-card class="career-objective-card clickable" [ngClass]="{'available-offline': careerObjective.availableOffline }" *ngFor="let careerObjective of careerObjectiveList" (click)="openCareerObjective(careerObjective.techId)">
+            <ion-card class="career-objective-card clickable" *ngFor="let careerObjective of careerObjectiveList" (click)="openCareerObjective(careerObjective.techId)">
+                <offline-indicator [object]="careerObjective"></offline-indicator>
                 <ion-card-content no-padding>
                     <header>
                         <h4>{{careerObjective.title}}</h4>
