@@ -19,11 +19,22 @@ page-flight-crew-list {
             }
 
             .icon-container {
-                width: 35px;
+                display: flex;
+                align-items: center;
+                justify-content: flex-end;
                 float: right;
                 ion-icon {
                     font-size: 2em;
                 }
+            }
+
+            .button-synchro {
+                display: flex;
+                align-items: center;
+                justify-content: flex-end;
+                float: right;
+                width: 30px;
+                height: 30px;
             }
 
             .pnc-info {
