@@ -39,78 +39,70 @@ export class PncHomePage {
   }
 
   ionViewCanEnter() {
-    return new Promise((resolve, reject) => {
-      if (this.sessionService.authenticatedUser) {
-        this.loadPnc().then(success => {
-          resolve();
-        }, error => {
-          reject();
-        });
-
-      } else {
-        this.events.subscribe('user:authenticated', () => {
-          this.matricule = this.sessionService.authenticatedUser.username;
-          this.loadPnc().then(success => {
-            resolve();
-          }, error => {
-            reject();
-          });
-        });
-      }
-    });
+    return this.loadPnc();
   }
-
-
 
   /**
    * charge le détail du pnc connecté ou consulté.
    */
-  loadPnc(): Promise<void> {
+  loadPnc(matricule?: string){
     return new Promise((resolve, reject) => {
-      // Si on a un matricule dans les params de navigation, cela surcharge le matricule du user connecté
-      if (this.navParams.get('matricule')) {
+      console.log('yeah');
+      if (matricule) {
+        this.matricule = matricule;
+        console.log('1' + this.matricule);
+      } else if (this.navParams.get('matricule')) {
         this.matricule = this.navParams.get('matricule');
+        console.log('2' + this.matricule);
+      } else if (this.sessionService.authenticatedUser) {
+        this.matricule = this.sessionService.authenticatedUser.username;
+        console.log('3' + this.sessionService.authenticatedUser);
+        console.log('33' + this.matricule);
+      } else {
+        console.log('no matricule');
+        reject();
       }
 
-      if (this.matricule !== undefined) {
-        this.pncProvider.getPnc(this.matricule).then(foundPnc => {
-          this.pnc = foundPnc;
-          resolve();
-        }, error => {
-          reject();
-        });
-      }
-    });
-  }
+      console.log('yeah' + this.matricule);
+      if (this.matricule != null ) {
+        console.log('go' + this.matricule);
+      console.log('get pnc : ' + this.matricule);
+      this.pncProvider.getPnc(this.matricule).then(foundPnc => {
+        this.pnc = foundPnc;
+        resolve();
+      }, error => {
+      });
+    }
+  });
+}
 
-  /**
-   * Dirige vers la page de visualisation des objectifs
-   */
-  goToCareerObjectiveList() {
-    this.navCtrl.push(CareerObjectiveListPage, { matricule: this.matricule });
-  }
+/**
+ * Dirige vers la page de visualisation des objectifs
+ */
+goToCareerObjectiveList() {
+  this.navCtrl.push(CareerObjectiveListPage, { matricule: this.matricule });
+}
 
-  /**
-   * Dirige vers la page des ressources d'aide
-   */
-  goToHelpAssetList() {
-    this.navCtrl.push(HelpAssetListPage, { pncRole: Speciality.getPncRole(this.pnc.speciality) });
-  }
+/**
+ * Dirige vers la page des ressources d'aide
+ */
+goToHelpAssetList() {
+  this.navCtrl.push(HelpAssetListPage, { pncRole: Speciality.getPncRole(this.pnc.speciality) });
+}
 
-  /**
-   * Dirige vers la liste des prochains vols
-   */
+/**
+ * Dirige vers la liste des prochains vols
+ */
 
-  goToUpcomingFlightList() {
-    this.navCtrl.push(UpcomingFlightListPage, { matricule: this.matricule });
-  }
+goToUpcomingFlightList() {
+  this.navCtrl.push(UpcomingFlightListPage, { matricule: this.matricule });
+}
 
-  /**
-   * Redirige vers le EDossier du PNC saisi
-   */
-  goToEdossier() {
-    this.navCtrl.push(PncHomePage, { matricule: this.matricule });
-  }
+/**
+ * Redirige vers le EDossier du PNC saisi
+ */
+goToEdossier() {
+  this.navCtrl.push(PncHomePage, { matricule: this.matricule });
+}
 
-  
 }

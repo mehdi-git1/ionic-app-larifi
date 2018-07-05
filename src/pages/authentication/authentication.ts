@@ -1,9 +1,8 @@
 import { PncHomePage } from './../pnc-home/pnc-home';
-import { Component, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
-import {  NavParams } from 'ionic-angular';
+import {  NavParams, NavController } from 'ionic-angular';
 import { SecMobilService } from '../../services/secMobil.service';
-import { Nav } from 'ionic-angular';
 
 @Component({
   selector: 'page-authentication',
@@ -13,9 +12,10 @@ export class AuthenticationPage {
   loginForm: FormGroup;
   errorMsg: string;
   hideSpinner = true;
-  @ViewChild(Nav) nav: Nav;
+  // @ViewChild(Nav) nav: Nav;
 
   constructor(
+    public nav: NavController,
     public navParams: NavParams,
     private secMobilService: SecMobilService) {
     this.initializeForm();
