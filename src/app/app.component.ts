@@ -1,7 +1,7 @@
 import { SynchronizationProvider } from './../providers/synchronization/synchronization';
-import { OfflineProvider } from './../providers/offline/offline';
 import { ToastProvider } from './../providers/toast/toast';
 import { ConnectivityService } from './../services/connectivity.service';
+import { AuthenticationPage } from './../pages/authentication/authentication';
 import { SessionService } from './../services/session.service';
 import { AuthenticatedUser } from './../models/authenticatedUser';
 import { SecurityProvider } from './../providers/security/security';
@@ -13,17 +13,17 @@ import { StatusBar } from '@ionic-native/status-bar';
 
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { TranslateService } from '@ngx-translate/core';
-import { AuthenticationPage } from '../pages/authentication/authentication';
 import { SecMobilService } from '../services/secMobil.service';
 import { StorageService } from '../services/storage.service';
+import { HomePage } from '../pages/home/home';
 
 @Component({
   templateUrl: 'app.html'
 })
 export class EDossierPNC {
-  @ViewChild(Nav) nav: Nav;
+  @ViewChild('content') nav: Nav;
 
-  rootPage: any = PncHomePage;
+  rootPage: any = HomePage;
 
 
   constructor(public platform: Platform,
@@ -51,12 +51,17 @@ export class EDossierPNC {
       this.translateService.setDefaultLang('fr');
       this.translateService.use('fr');
 
-      this.secMobilService.init();
-      this.secMobilService.isAuthenticated().then(() => {
-        // launch process when already authenticated
-        // nothing to do there
-      }, error => {
-        this.rootPage = AuthenticationPage;
+      this.platform.ready().then(() => {
+        this.secMobilService.init();
+        this.secMobilService.isAuthenticated().then(() => {
+          // launch process when already authenticated
+          // nothing to do there
+          console.log('go to pnc home page');
+          this.nav.setRoot(PncHomePage);
+        }, error => {
+          console.log('go to authentication page');
+          this.nav.setRoot(AuthenticationPage);
+        });
       });
 
       // Création du stockage local

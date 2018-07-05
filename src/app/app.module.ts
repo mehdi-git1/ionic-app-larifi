@@ -5,6 +5,7 @@ import { OfflineCareerObjectiveProvider } from './../providers/career-objective/
 import { OfflineSecurityProvider } from './../providers/security/offline-security';
 import { OnlineSecurityProvider } from './../providers/security/online-security';
 import { StorageService } from './../services/storage.service';
+import { HelpAssetListPage } from './../pages/help-asset-list/help-asset-list';
 import { ComponentsModule } from './../components/components.module';
 import { FlightCrewListPage } from './../pages/flight-crew-list/flight-crew-list';
 import { WaypointStatusProvider } from './../providers/waypoint-status/waypoint-status';
@@ -47,10 +48,10 @@ import { WaypointCreatePage } from './../pages/waypoint-create/waypoint-create';
 import { WaypointProvider } from './../providers/waypoint/waypoint';
 import { UpcomingFlightListPage } from '../pages/upcoming-flight-list/upcoming-flight-list';
 import { RotationProvider } from '../providers/rotation/rotation';
+import { HelpAssetProvider } from '../providers/help-asset/help-asset';
 import { LegProvider } from '../providers/leg/leg';
 import { IonicStorageModule } from '@ionic/storage';
 import { OfflineProvider } from '../providers/offline/offline';
-import { SQLite } from '@ionic-native/sqlite';
 import { OfflinePncProvider } from '../providers/pnc/offline-pnc';
 import { OnlinePncProvider } from '../providers/pnc/online-pnc';
 import { CareerObjectiveTransformerProvider } from '../providers/career-objective/career-objective-transformer';
@@ -58,6 +59,7 @@ import { WaypointTransformerProvider } from '../providers/waypoint/waypoint-tran
 import { PncTransformerProvider } from '../providers/pnc/pnc-transformer';
 import { SynchronizationProvider } from '../providers/synchronization/synchronization';
 import { PncSynchroProvider } from '../providers/synchronization/pnc-synchro';
+import { HomePage } from '../pages/home/home';
 
 @NgModule({
   declarations: [
@@ -68,7 +70,9 @@ import { PncSynchroProvider } from '../providers/synchronization/pnc-synchro';
     CareerObjectiveListPage,
     WaypointCreatePage,
     UpcomingFlightListPage,
-    FlightCrewListPage
+    HelpAssetListPage,
+    FlightCrewListPage,
+    HomePage
   ],
   imports: [
     BrowserModule,
@@ -93,7 +97,9 @@ import { PncSynchroProvider } from '../providers/synchronization/pnc-synchro';
     CareerObjectiveListPage,
     WaypointCreatePage,
     UpcomingFlightListPage,
-    FlightCrewListPage
+    HelpAssetListPage,
+    FlightCrewListPage,
+    HomePage
   ],
   providers: [
     StatusBar,
@@ -124,6 +130,7 @@ import { PncSynchroProvider } from '../providers/synchronization/pnc-synchro';
     WaypointStatusProvider,
     RotationProvider,
     LegProvider,
+    HelpAssetProvider,
     OfflineProvider,
     OfflineCareerObjectiveProvider,
     OfflinePncProvider,

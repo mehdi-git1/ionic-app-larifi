@@ -1,5 +1,7 @@
 import { SynchronizationProvider } from './../../providers/synchronization/synchronization';
 import { OfflineProvider } from './../../providers/offline/offline';
+import { PncRole } from './../../models/pncRole';
+import { TranslateService } from '@ngx-translate/core';
 import { UpcomingFlightListPage } from './../upcoming-flight-list/upcoming-flight-list';
 import { SecurityProvider } from './../../providers/security/security';
 import { SessionService } from './../../services/session.service';
@@ -13,6 +15,7 @@ import { NavController, NavParams, Events } from 'ionic-angular';
 import { Pnc } from '../../models/pnc';
 import { Assignment } from '../../models/assignment';
 import { ConnectivityService } from '../../services/connectivity.service';
+import { HelpAssetListPage } from './../help-asset-list/help-asset-list';
 
 @Component({
   selector: 'page-pnc-home',
@@ -36,7 +39,8 @@ export class PncHomePage {
     private synchronizationProvider: SynchronizationProvider,
     private sessionService: SessionService,
     private events: Events,
-    public connectivityService: ConnectivityService) {
+    public connectivityService: ConnectivityService,
+    private translateService: TranslateService) {
 
     this.pnc = new Pnc();
     this.pnc.assignment = new Assignment();
@@ -93,8 +97,16 @@ export class PncHomePage {
   }
 
   /**
+   * Dirige vers la page des ressources d'aide
+   */
+  goToHelpAssetList() {
+    this.navCtrl.push(HelpAssetListPage, { pncRole: Speciality.getPncRole(this.pnc.speciality) });
+  }
+
+  /**
    * Dirige vers la liste des prochains vols
    */
+
   goToUpcomingFlightList() {
     this.navCtrl.push(UpcomingFlightListPage, { matricule: this.matricule });
   }
@@ -118,4 +130,5 @@ export class PncHomePage {
       this.synchroInProgress = false;
     });
   }
+
 }
