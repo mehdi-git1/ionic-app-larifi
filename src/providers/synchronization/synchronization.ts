@@ -50,7 +50,7 @@ export class SynchronizationProvider {
   updateLocalStorageFromPncSynchroResponse(pncSynchroResponse: PncSynchro) {
     this.deleteAllPncOfflineObject(pncSynchroResponse.pnc);
 
-    this.storageService.save(Entity.PNC, this.pncTransformer.toPnc(pncSynchroResponse.pnc));
+    this.storageService.save(Entity.PNC, this.pncTransformer.toPnc(pncSynchroResponse.pnc), true);
 
     // Création des nouveaux objets
     for (const careerObjective of pncSynchroResponse.careerObjectives) {
