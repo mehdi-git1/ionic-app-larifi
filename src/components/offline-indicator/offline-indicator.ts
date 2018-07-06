@@ -21,6 +21,11 @@ export class OfflineIndicatorComponent {
    */
   getCssClass(): string {
 
+    // Si aucune date de stockage offline, c'est que l'objet n'est pas en cache
+    if (!this.object.offlineStorageDate) {
+      return '';
+    }
+
     const now = moment();
     const offlineStorageDate = moment(this.object.offlineStorageDate, AppConstant.isoDateFormat);
     const offlineDuration = moment.duration(now.diff(offlineStorageDate)).asMilliseconds();

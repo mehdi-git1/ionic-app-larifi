@@ -34,7 +34,6 @@ import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common
 import { createTranslateLoader } from '../common/translate/TranslateLoader';
 
 import { ConnectivityService } from './../services/connectivity.service';
-import { OfflineService } from './../services/rest.offline.service';
 import { RestService } from '../services/rest.base.service';
 import { RestMobileService } from '../services/rest.mobile.service';
 import { RestWebService } from '../services/rest.web.service';
@@ -106,12 +105,11 @@ import { HomePage } from '../pages/home/home';
     SplashScreen,
     SecMobilService,
     ConnectivityService,
-    OfflineService,
     StorageService,
     {
       provide: RestService,
       useFactory: createRestService,
-      deps: [HttpClient, SecMobilService, ConnectivityService, OfflineService]
+      deps: [HttpClient, SecMobilService, ConnectivityService]
     },
     { provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true },
     AppInitService,
@@ -157,14 +155,12 @@ declare var window: any;
 
 // Check if we are in app mode or in web browser
 export function createRestService(http: HttpClient,
-  secMobilService: SecMobilService,
-  connectivityService: ConnectivityService,
-  offlineService: OfflineService, storage: Storage): RestService {
+  secMobilService: SecMobilService): RestService {
   if (undefined !== window.cordova && 'browser' !== window.cordova.platformId) {
     console.log('mobile mode selected');
     return new RestMobileService(http, secMobilService);
   } else {
     console.log('web mode selected');
-    return new RestWebService(http, connectivityService, offlineService);
+    return new RestWebService(http);
   }
 }

@@ -9,28 +9,22 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 @Injectable()
 export class RestWebService extends RestService {
 
-    constructor(protected http: HttpClient,
-        private connectivityService: ConnectivityService,
-        private offlineService: OfflineService) {
+    constructor(protected http: HttpClient) {
         super(http);
     }
 
 
     public call(request: RestRequest): Promise<any> {
-        if (this.connectivityService.isConnected()) {
-            return new Promise((resolve, reject) => {
-                this.makeHttpRequest(request,
-                    (success) => {
-                        resolve(success);
-                    },
-                    (err) => {
-                        console.error('RestWebService:call failure : ' + err);
-                        reject(err);
-                    });
-            });
-        } else {
-            return this.offlineService.call(request);
-        }
+        return new Promise((resolve, reject) => {
+            this.makeHttpRequest(request,
+                (success) => {
+                    resolve(success);
+                },
+                (err) => {
+                    console.error('RestWebService:call failure : ' + err);
+                    reject(err);
+                });
+        });
     }
 
 

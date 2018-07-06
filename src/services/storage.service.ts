@@ -68,7 +68,6 @@ export class StorageService {
   }
 
   save(entity: Entity, eDossierPncObject: EDossierPncObject, online: boolean = false) {
-    eDossierPncObject.availableOffline = true;
     eDossierPncObject.offlineStorageDate = moment().format(AppConstant.isoDateFormat);
     if (!online) {
       eDossierPncObject.offlineAction =
