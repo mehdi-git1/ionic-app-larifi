@@ -22,9 +22,9 @@ export class AuthenticationPage implements OnInit {
     public navParams: NavParams,
     private formBuilder: FormBuilder,
     public viewCtrl: ViewController,
+    public appCtrl: App,
     private securityProvider: SecurityProvider,
     private sessionService: SessionService,
-    public appCtrl: App,
     private secMobilService: SecMobilService) {
     this.initializeForm();
   }
