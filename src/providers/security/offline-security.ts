@@ -10,7 +10,9 @@ export class OfflineSecurityProvider {
   }
 
   /**
+   * Ecrase l'utilisateur connecté stocké en cache.
    * Il ne peut y avoir qu'un seul utilisateur connecté, on purge donc la table avant de sauvegarder le nouveau
+   * @param authenticatedUser le user connecté
    */
   overwriteAuthenticatedUser(authenticatedUser: AuthenticatedUser) {
     this.storageService.deleteAll(Entity.AUTHENTICATED_USER);
@@ -18,6 +20,10 @@ export class OfflineSecurityProvider {
     this.storageService.persistOfflineMap();
   }
 
+  /**
+   * Récupère le user connecté du cache
+   * @return une promesse contenant le user connecté
+   */
   getAuthenticatedUser(): Promise<AuthenticatedUser> {
     return new Promise((resolve, reject) => {
       const authenticatedUserList = this.storageService.findAll(Entity.AUTHENTICATED_USER);

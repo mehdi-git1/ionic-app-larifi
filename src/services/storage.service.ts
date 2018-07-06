@@ -21,6 +21,11 @@ export class StorageService {
     private datePipe: DatePipe) {
   }
 
+  /**
+   * Initialise la map de stockage qui sera persistée dans le cache.
+   * La map contient une entrée par entité et un numéro de séquence, utilisé pour les créations offline
+   * @return une promesse contenant la map créé/mise à jour
+   */
   initOfflineMap(): Promise<any> {
     return this.storage.get(this.config.appName).then(offlineMap => {
       this.offlineMap = this.updateMap(offlineMap);
@@ -28,6 +33,10 @@ export class StorageService {
     });
   }
 
+  /**
+   * Met à jour la map de stockage en vérifiant que toutes les entités ont leur entrée dans la map.
+   * @param offlineMap la map de stockage à mettre à jour
+   */
   updateMap(offlineMap): void {
     if (offlineMap === null) {
       offlineMap = {};
@@ -43,6 +52,11 @@ export class StorageService {
     return offlineMap;
   }
 
+  /**
+   * Retrouve toutes les entités d'un certains type
+   * @param entity le type des entités à retrouver
+   * @return la liste de toutes les entités trouvées
+   */
   findAll(entity: Entity): any[] {
     const array = [];
     for (const entry of Object.keys(this.offlineMap[entity])) {
@@ -51,32 +65,63 @@ export class StorageService {
     return array;
   }
 
+  /**
+   * Retrouve toutes les entités d'un certains type, de manière asynchrone
+   * @param entity le type des entités à retrouver
+   * @return une promesse contenant la liste des entités trouvées
+   */
   findAllAsync(entity: Entity): Promise<any[]> {
     return new Promise((resolve, reject) => {
       resolve(this.findAll(entity));
     });
   }
 
+  /**
+   * Retrouve une entité à partir de son id de stockage
+   * @param entity le type de l'entité à retrouver
+   * @param storageId l'id de stockage de l'entité (correspond à la clef primaire)
+   * @return l'entité trouvée
+   */
   findOne(entity: Entity, storageId: string): any {
     return this.offlineMap[entity][storageId];
   }
 
+  /**
+   * Retrouve une entité à partir de son id de stockage, de manière asynchrone
+   * @param entity le type de l'entité à retrouver
+   * @param storageId l'id de stockage de l'entité (correspond à la clef primaire)
+   * @return une promesse contenant l'entité trouvée
+   */
   findOneAsync(entity: Entity, storageId: string): Promise<any> {
     return new Promise((resolve, reject) => {
       resolve(this.findOne(entity, storageId));
     });
   }
 
-  save(entity: Entity, eDossierPncObject: EDossierPncObject, online: boolean = false) {
+  /**
+   * Sauvegarde une entité. Si on est en online, on ne flagge pas la donnée comme "à créer" car il s'agit d'une opération de mise en cache.
+   * @param entity le type de l'entité à sauver
+   * @param eDossierPncObject l'objet à sauver
+   * @param online si on est connecté ou non
+   * @return l'objet sauvé
+   */
+  save(entity: Entity, eDossierPncObject: EDossierPncObject, online: boolean = false): any {
     eDossierPncObject.offlineStorageDate = moment().format(AppConstant.isoDateFormat);
     if (!online) {
       eDossierPncObject.offlineAction =
         this.isOfflineStorageId(this.getStorageId(eDossierPncObject)) ? OfflineAction.CREATE : OfflineAction.UPDATE;
     }
     this.offlineMap[entity][this.getStorageId(eDossierPncObject)] = eDossierPncObject;
+    return eDossierPncObject;
   }
 
-
+  /**
+   * Sauvegarde une entité, de manière asynchrone
+   * @param entity le type de l'entité à sauver
+   * @param eDossierPncObject l'objet à sauver
+   * @param online si on est connecté ou non
+   * @return une promesse contenant l'objet sauvé
+   */
   saveAsync(entity: Entity, eDossierPncObject: EDossierPncObject, online: boolean = false): Promise<any> {
     return new Promise((resolve, reject) => {
       this.save(entity, eDossierPncObject, online);
@@ -85,15 +130,29 @@ export class StorageService {
     });
   }
 
+  /**
+   * Supprime toutes les entités d'un certains type
+   * @param entity le type de l'entité à supprimer
+   */
   deleteAll(entity: Entity): void {
     this.offlineMap[entity] = {};
     this.persistOfflineMap();
   }
 
-  delete(entity: Entity, storageId: string) {
+  /**
+   * Supprime une entité à partir de son id
+   * @param entity le type de l'entité à supprimer
+   * @param storageId l'id de stockage de l'entité qu'on souhaite supprimer
+   */
+  delete(entity: Entity, storageId: string): void {
     delete this.offlineMap[entity][storageId];
   }
 
+  /**
+  * Supprime une entité à partir de son id, de manière asynchrone
+  * @param entity le type de l'entité à supprimer
+  * @param storageId l'id de stockage de l'entité qu'on souhaite supprimer
+  */
   deleteAsync(entity: Entity, storageId: string): Promise<any> {
     return new Promise((resolve, reject) => {
       const deletedObject = this.offlineMap[entity][storageId];
@@ -108,7 +167,7 @@ export class StorageService {
   }
 
   /**
-   * Persiste la map en mémoire dans le stockage Ionic
+   * Persiste la map en cache, dans le stockage Ionic
    */
   persistOfflineMap(): void {
     this.storage.set(this.config.appName, this.offlineMap);
@@ -118,6 +177,8 @@ export class StorageService {
    * Attribut une clef de stockage à un objet.
    * Pour les objets existants, on prend la clef primaire de l'objet.
    * S'il s'agit d'une nouvelle création, il faut générer un id temporaire.
+   * @param eDossierPncObject l'objet dont on souhaite récupérer l'id de stockage
+   * @return l'id de stockage de l'objet
    */
   getStorageId(eDossierPncObject: EDossierPncObject): string {
     if (eDossierPncObject.getStorageId() === undefined || eDossierPncObject.getStorageId() === 'undefined') {
@@ -129,7 +190,8 @@ export class StorageService {
   }
 
   /**
-   * Génère une clef de stockage pour les nouvelles créations d'objets
+   * Génère un id de stockage pour les nouvelles créations d'objets en hors connexion
+   * @return l'id de stockage hors connexion
    */
   nextSequenceId(): number {
     return --this.offlineMap[this.sequenceGeneratorName];

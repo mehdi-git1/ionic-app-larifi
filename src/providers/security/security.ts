@@ -17,7 +17,7 @@ export class SecurityProvider {
 
   /**
   * vérifie si le pnc connecté est un cadre
-  * @return cadre ou pas cadre
+  * @return true si le user connecté est un cadre, false sinon
   */
   isManager(): boolean {
     if (this.sessionService.authenticatedUser === undefined) {
@@ -26,6 +26,10 @@ export class SecurityProvider {
     return this.sessionService.authenticatedUser.manager;
   }
 
+  /**
+   * Récupère le user connecté à l'application
+   * @return une promesse contenant le user connecté
+   */
   getAuthenticatedUser(): Promise<AuthenticatedUser> {
     return this.connectivityService.isConnected() ?
       this.onlineSecurityProvider.getAuthenticatedUser() :
