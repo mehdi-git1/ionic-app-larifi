@@ -1,10 +1,8 @@
 import { AuthenticationPage } from './../pages/authentication/authentication';
 import { SessionService } from './../services/session.service';
-import { AuthenticatedUser } from './../models/authenticatedUser';
 import { SecurityProvider } from './../providers/security/security';
 import { PncHomePage } from './../pages/pnc-home/pnc-home';
-import { CareerObjectiveCreatePage } from './../pages/career-objective-create/career-objective-create';
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, OnInit } from '@angular/core';
 import { Nav, Platform, Events } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 
@@ -16,7 +14,8 @@ import { HomePage } from '../pages/home/home';
 @Component({
   templateUrl: 'app.html'
 })
-export class EDossierPNC {
+export class EDossierPNC implements OnInit {
+
   @ViewChild('content') nav: Nav;
 
   rootPage: any = HomePage;
@@ -29,6 +28,9 @@ export class EDossierPNC {
     private sessionService: SessionService,
     private events: Events
   ) {
+  }
+
+  ngOnInit(): void {
     this.initializeApp();
   }
 
@@ -41,37 +43,32 @@ export class EDossierPNC {
       this.translate.setDefaultLang('fr');
       this.translate.use('fr');
 
-      this.platform.ready().then(() => {
-        this.secMobilService.init();
-        this.secMobilService.isAuthenticated().then(() => {
-          // launch process when already authenticated
-          // nothing to do there
-          console.log('go to pnc home page');
-          this.nav.setRoot(PncHomePage);
-        },
-          error => {
-            console.log('go to authentication page');
-            this.nav.setRoot(AuthenticationPage);
-            // this.rootPage = AuthenticationPage;
-          });
-      });
-      this.putAuthenticatedUserInSession();
+      this.secMobilService.init();
+      // this.secMobilService.secMobilRevokeCertificate().then(s => {
+      this.secMobilService.isAuthenticated().then(() => {
+        this.putAuthenticatedUserInSession();
+      },
+        error => {
+          console.log('go to authentication page');
+          this.nav.setRoot(AuthenticationPage);
+        });
     });
+    // });
   }
 
   /**
   * Mettre le pnc connecté en session
   */
   putAuthenticatedUserInSession() {
+    console.log('putAuthenticatedUserInSession');
     this.securityProvider.getAuthenticatedUser().then(authenticatedUser => {
+      console.log('putAuthenticatedUserInSession : ' + authenticatedUser);
       this.sessionService.authenticatedUser = authenticatedUser;
+      this.nav.setRoot(PncHomePage);
       this.events.publish('user:authenticated');
-    }, error => { });
-  }
-
-  openPage(page) {
-    // Reset the content nav to have just this page
-    // we wouldn't want the back button to show in this scenario
-    this.nav.setRoot(page.component);
+    }, error => {
+      console.log('putAuthenticatedUserInSession error: ' + error);
+      // this.nav.setRoot(AuthenticationPage);
+    });
   }
 }
