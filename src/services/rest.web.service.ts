@@ -1,4 +1,3 @@
-import { OfflineService } from './rest.offline.service';
 import { ConnectivityService } from './connectivity.service';
 import { Injectable } from '@angular/core';
 import { RestService, RestRequest } from './rest.base.service';
