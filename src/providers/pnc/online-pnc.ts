@@ -18,17 +18,10 @@ export class OnlinePncProvider {
   /**
    * Récupère les infos d'un PNC
    * @param matricule le matricule du PNC dont on souhaite récupérer les infos
-   * @param storeOffline si on doit stocker le résultat de l'appel en local
    * @return les informations du PNC
    */
-  getPnc(matricule: string, storeOffline: boolean = false): Promise<Pnc> {
-    const promise: Promise<Pnc> = this.restService.get(`${this.pncUrl}/${matricule}`);
-    if (storeOffline) {
-      promise.then(pnc => {
-        this.offlinePncProvider.save(new Pnc().fromJSON(pnc));
-      });
-    }
-    return promise;
+  getPnc(matricule: string): Promise<Pnc> {
+    return this.restService.get(`${this.pncUrl}/${matricule}`);
   }
 
   /**

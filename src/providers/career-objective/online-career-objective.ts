@@ -21,19 +21,10 @@ export class OnlineCareerObjectiveProvider {
   /**
    * Retourne les objectifs d'un pnc donné
    * @param matricule le matricule du pnc dont on souhaite récupérer les objectifs
-   * @param storeOffline si on doit stocker le résultat en local
    * @return la liste des objectifs du pnc
    */
-  getPncCareerObjectives(matricule: string, storeOffline: boolean = false): Promise<CareerObjective[]> {
-    const promise: Promise<CareerObjective[]> = this.restService.get(`${this.careerObjectiveUrl}/pnc/${matricule}`);
-    if (storeOffline) {
-      promise.then(careerObjectiveList => {
-        for (const careerObjective of careerObjectiveList) {
-          this.offlineCareerObjectiveProvider.store(new CareerObjective().fromJSON(careerObjective));
-        }
-      });
-    }
-    return promise;
+  getPncCareerObjectives(matricule: string): Promise<CareerObjective[]> {
+    return this.restService.get(`${this.careerObjectiveUrl}/pnc/${matricule}`);
   }
 
   /**
@@ -48,17 +39,10 @@ export class OnlineCareerObjectiveProvider {
   /**
   * Récupère un objectif
   * @param id l'id de l'objectif à récupérer
-  * @param storeOffline si on doit stocker le résultat en local
   * @return l'objectif récupéré
   */
-  getCareerObjective(id: number, storeOffline: boolean = false): Promise<CareerObjective> {
-    const promise: Promise<CareerObjective> = this.restService.get(`${this.careerObjectiveUrl}/${id}`);
-    if (storeOffline) {
-      promise.then(careerObjective => {
-        this.offlineCareerObjectiveProvider.store(new CareerObjective().fromJSON(careerObjective));
-      });
-    }
-    return promise;
+  getCareerObjective(id: number): Promise<CareerObjective> {
+    return this.restService.get(`${this.careerObjectiveUrl}/${id}`);
   }
 
   /**
