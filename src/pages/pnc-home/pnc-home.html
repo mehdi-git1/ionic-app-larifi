@@ -11,11 +11,11 @@
     <ion-grid>
 
         <ion-row class="go-to-edossier">
-                <ion-item padding>
-                    <ion-label floating>{{ 'PNC_HOME.GO_TO_EDOSSIER.MATRICULE' | translate }}</ion-label>
-                    <ion-input type="text" [(ngModel)]="matricule"></ion-input>
-                </ion-item>
-                <button ion-button color="primary" (click)="loadPnc(matricule)" (keyup.enter)="loadPnc(matricule)">{{ 'PNC_HOME.GO_TO_EDOSSIER.SUBMIT' | translate }}</button>
+            <ion-item padding>
+                <ion-label floating>{{ 'PNC_HOME.GO_TO_EDOSSIER.MATRICULE' | translate }}</ion-label>
+                <ion-input type="text" [(ngModel)]="matricule"></ion-input>
+            </ion-item>
+            <button ion-button color="primary" (click)="loadPnc(matricule)" (keyup.enter)="loadPnc(matricule)">{{ 'PNC_HOME.GO_TO_EDOSSIER.SUBMIT' | translate }}</button>
         </ion-row>
 
         <ion-row ng-class="row-pnc-info-panel">
@@ -71,33 +71,46 @@
         <ion-row id="nav-tile-grid">
             <!-- Liste des objectifs-->
             <ion-col col-6 *ngIf="pnc.speciality !== Speciality.CAD">
-                <button ion-button  (click)="goToCareerObjectiveList()" class="development-program">
-                    {{ 'GLOBAL.DEVELOPMENT_PROGRAM' | translate }}
-                </button>
+                <div class="test">
+                    <button ion-button (click)="goToCareerObjectiveList()" class="development-program">
+                  {{ 'GLOBAL.DEVELOPMENT_PROGRAM' | translate }}
+              </button>
+                </div>
             </ion-col>
             <!-- Fiche synthèse PNC -->
             <ion-col col-6 *ngIf="pnc.speciality !== Speciality.CAD">
-                <button ion-button  [disabled]="true" color="grey50">
-                    {{ 'GLOBAL.PNC_SUMMARY_SHEET' | translate }}
+                <div class="test">
+                    <button ion-button [disabled]="true" color="grey50">
+                  {{ 'GLOBAL.PNC_SUMMARY_SHEET' | translate }}
                 </button>
+                </div>
             </ion-col>
             <!-- Effectif PNC -->
             <ion-col col-6 *ngIf="pnc.speciality === Speciality.CAD">
-                <button ion-button  [disabled]="true" color="grey50">
-                    {{ 'GLOBAL.PNC_TEAM' | translate }}
-                </button>
+
+                <div class="test">
+                    <button ion-button [disabled]="true" color="grey50">
+                  {{ 'GLOBAL.PNC_TEAM' | translate }}
+              </button>
+                </div>
             </ion-col>
             <!-- Prochains vols -->
-            <ion-col col-6 *ngIf="pnc.speciality === Speciality.CAD" >
-                <button ion-button (click)="goToUpcomingFlightList()" color="red80">
-                    {{ 'GLOBAL.UPCOMING_FLIGHT' | translate }}
-                </button>
+            <ion-col col-6 *ngIf="pnc.speciality === Speciality.CAD">
+
+                <div class="test">
+                    <button ion-button (click)="goToUpcomingFlightList()" color="red80">
+                  {{ 'GLOBAL.UPCOMING_FLIGHT' | translate }}
+              </button>
+                </div>
             </ion-col>
             <!-- Ressource d'aide -->
             <ion-col col-6>
-                <button ion-button (click)="goToHelpAssetList()" color="green70">
-                    {{ 'GLOBAL.HELP_CENTRE' | translate }}
+                <div class="test">
+                    <button ion-button (click)="goToHelpAssetList()" color="green70">
+                  {{ 'GLOBAL.HELP_CENTRE' | translate }}
                 </button>
+
+                </div>
             </ion-col>
         </ion-row>
     </ion-grid>

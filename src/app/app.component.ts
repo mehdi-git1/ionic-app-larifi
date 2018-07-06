@@ -63,10 +63,9 @@ export class EDossierPNC implements OnInit {
       if (authenticatedUser) {
         console.log('go to pnc home page ' + JSON.stringify(authenticatedUser));
         this.sessionService.authenticatedUser = authenticatedUser;
-        this.nav.setRoot(PncHomePage, {matricule: this.sessionService.authenticatedUser});
+        this.nav.setRoot(PncHomePage, {matricule: this.sessionService.authenticatedUser.username});
       }
       else{
-
         this.nav.setRoot(AuthenticationPage);
       }
     }, error => {
