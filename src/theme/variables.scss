@@ -144,6 +144,7 @@ button,
     border-radius: 0px !important;
     box-shadow: none !important;
     -webkit-box-shadow: none !important;
+    background-color: white;
 }
 
 .button-outline {
@@ -198,6 +199,10 @@ $text-input-md-show-focus-highlight: false;
 
 ion-item.item {
     padding-left: 0px;
+}
+
+.content-md{
+    background-color: transparent;
 }
 
 @media all and (-ms-high-contrast: none),

@@ -1,7 +1,5 @@
 import { UpcomingFlightListPage } from './../upcoming-flight-list/upcoming-flight-list';
-import { SecurityProvider } from './../../providers/security/security';
 import { SessionService } from './../../services/session.service';
-import { ToastProvider } from './../../providers/toast/toast';
 import { GenderProvider } from './../../providers/gender/gender';
 import { Speciality } from './../../models/speciality';
 import { CareerObjectiveListPage } from './../career-objective-list/career-objective-list';
@@ -26,10 +24,7 @@ export class PncHomePage {
     public navParams: NavParams,
     private pncProvider: PncProvider,
     public genderProvider: GenderProvider,
-    private toastProvider: ToastProvider,
-    private securityProvider: SecurityProvider,
-    private sessionService: SessionService,
-    private events: Events) {
+    private sessionService: SessionService) {
 
     this.pnc = new Pnc();
     this.pnc.assignment = new Assignment();
@@ -44,20 +39,9 @@ export class PncHomePage {
           reject();
         });
 
-      } else {
-        this.events.subscribe('user:authenticated', () => {
-          this.matricule = this.sessionService.authenticatedUser.username;
-          this.loadPnc().then(success => {
-            resolve();
-          }, error => {
-            reject();
-          });
-        });
       }
     });
   }
-
-
 
   /**
    * charge le détail du pnc connecté ou consulté.
@@ -101,5 +85,4 @@ export class PncHomePage {
     this.navCtrl.push(PncHomePage, { matricule: this.matricule });
   }
 
-  
 }

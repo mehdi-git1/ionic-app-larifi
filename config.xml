@@ -84,5 +84,6 @@
     <plugin name="cordova-plugin-secmobil" spec="^2.0.74">
         <variable name="APP_GROUP" value="AF_GROUP" />
     </plugin>
+    <allow-navigation href="http://10.80.144.168:8101" />
     <engine name="ios" spec="4.5.4" />
 </widget>

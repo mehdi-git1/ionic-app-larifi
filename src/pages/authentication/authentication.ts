@@ -2,8 +2,8 @@ import { SessionService } from './../../services/session.service';
 import { SecurityProvider } from './../../providers/security/security';
 import { PncHomePage } from './../pnc-home/pnc-home';
 import { Component, ViewChild, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
-import { NavParams, NavController, ViewController, App } from 'ionic-angular';
+import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { NavParams, ViewController, App } from 'ionic-angular';
 import { SecMobilService } from '../../services/secMobil.service';
 import { Nav } from 'ionic-angular';
 
@@ -12,7 +12,6 @@ import { Nav } from 'ionic-angular';
   templateUrl: 'authentication.html',
 })
 export class AuthenticationPage implements OnInit {
-
 
   loginForm: FormGroup;
   errorMsg: string;
@@ -32,8 +31,6 @@ export class AuthenticationPage implements OnInit {
 
   ngOnInit(): void {
     this.hideSpinner = false;
-    this.secMobilService.init();
-    // this.secMobilService.secMobilRevokeCertificate().then(s => {
     this.secMobilService.isAuthenticated().then(() => {
       this.hideSpinner = true;
       this.putAuthenticatedUserInSession();
@@ -41,7 +38,6 @@ export class AuthenticationPage implements OnInit {
       error => {
         this.hideSpinner = true;
         console.log('go to authentication page');
-        // this.nav.push(AuthenticationPage);
       });
   }
 

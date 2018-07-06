@@ -3,7 +3,7 @@ import { SessionService } from './../services/session.service';
 import { SecurityProvider } from './../providers/security/security';
 import { PncHomePage } from './../pages/pnc-home/pnc-home';
 import { Component, ViewChild, OnInit } from '@angular/core';
-import { Nav, Platform, Events } from 'ionic-angular';
+import { Nav, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -20,13 +20,11 @@ export class EDossierPNC implements OnInit {
 
   rootPage: any = HomePage;
 
-
   constructor(public platform: Platform, public statusBar: StatusBar,
     public splashScreen: SplashScreen, public translate: TranslateService,
     private secMobilService: SecMobilService,
     private securityProvider: SecurityProvider,
-    private sessionService: SessionService,
-    private events: Events
+    private sessionService: SessionService
   ) {
   }
 
@@ -44,8 +42,8 @@ export class EDossierPNC implements OnInit {
       this.translate.use('fr');
 
       this.secMobilService.init();
-      // this.secMobilService.secMobilRevokeCertificate().then(s => {
       this.secMobilService.isAuthenticated().then(() => {
+        // launch process when already authenticated
         this.putAuthenticatedUserInSession();
       },
         error => {
@@ -62,13 +60,23 @@ export class EDossierPNC implements OnInit {
   putAuthenticatedUserInSession() {
     console.log('putAuthenticatedUserInSession');
     this.securityProvider.getAuthenticatedUser().then(authenticatedUser => {
-      console.log('putAuthenticatedUserInSession : ' + authenticatedUser);
-      this.sessionService.authenticatedUser = authenticatedUser;
-      this.nav.setRoot(PncHomePage);
-      this.events.publish('user:authenticated');
+      if (authenticatedUser) {
+        console.log('go to pnc home page ' + JSON.stringify(authenticatedUser));
+        this.sessionService.authenticatedUser = authenticatedUser;
+        this.nav.setRoot(PncHomePage, {matricule: this.sessionService.authenticatedUser});
+      }
+      else{
+
+        this.nav.setRoot(AuthenticationPage);
+      }
     }, error => {
-      console.log('putAuthenticatedUserInSession error: ' + error);
-      // this.nav.setRoot(AuthenticationPage);
+      console.log('putAuthenticatedUserInSession error: ' + JSON.stringify(error));
     });
+  }
+
+  openPage(page) {
+    // Reset the content nav to have just this page
+    // we wouldn't want the back button to show in this scenario
+    this.nav.setRoot(page.component);
   }
 }
