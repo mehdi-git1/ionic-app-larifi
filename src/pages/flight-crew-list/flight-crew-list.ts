@@ -20,7 +20,6 @@ export class FlightCrewListPage {
 
   flightCrewList: CrewMember[];
   leg: Leg;
-  synchroInProgress: boolean;
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,

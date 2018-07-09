@@ -17,16 +17,9 @@ import { LegProvider } from './../../providers/leg/leg';
 export class RotationCardComponent {
 
   @Input() rotation: Rotation;
-  synchroInProgress: boolean;
 
   constructor(private rotationProvider: RotationProvider,
-    public navCtrl: NavController,
-    public navParams: NavParams,
-    public connectivityService: ConnectivityService,
-    private synchronizationProvider: SynchronizationProvider,
-    private toastProvider: ToastProvider,
-    private legProvider: LegProvider,
-    private translateService: TranslateService) {
+    public navCtrl: NavController) {
   }
 
   /**
