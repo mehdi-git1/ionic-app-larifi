@@ -20,7 +20,7 @@ export class Config extends BaseConfig {
             this.backEndUrl = '/api/rest/resources';
         }
 
-        this.env = 'default';
+        this.env = 'localhost';
         this.secmobileEnv = 'rct';
     }
 }

@@ -136,7 +136,7 @@
     "FLIGHT_CREW_LIST": {
         "LIST": {
             "RELAYS": "Relais",
-            "PARTICULARITY": "Particularité",
+            "FUNCTION": "Fonction",
             "LAST_IN_FLIGHT_ENCOUNTER_DATE": "Dernière rencontre Vol",
             "LAST_ON_GROUND_ENCOUNTER_DATE": "Dernière rencontre Sol"
         }
@@ -147,6 +147,11 @@
         "UPCOMING_FLIGHTS": "Mes prochains vols",
         "NO_FLIGHTS": "Aucun vol trouvé"
     },
+    "SUMMARY_SHEET": {
+        "TITLE": "Synthèse PNC",
+        "PDF_MISSING": "Pas de fiche synthèse disponible"
+    },
+
     "HELP_ASSET_LIST": {
         "TITLE": "Ressources d'aide",
         "NO_HELP_ASSETS": "Aucune ressource créée pour le moment"

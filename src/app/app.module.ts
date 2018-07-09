@@ -42,6 +42,10 @@ import { HelpAssetProvider } from '../providers/help-asset/help-asset';
 import { LegProvider } from '../providers/leg/leg';
 import { HomePage } from '../pages/home/home';
 
+import { PdfViewerModule } from 'ng2-pdf-viewer';
+import { SummarySheetPage } from '../pages/summary-sheet/summary-sheet';
+import { SummarySheetProvider } from '../providers/summary-sheet/summary-sheet';
+
 @NgModule({
   declarations: [
     EDossierPNC,
@@ -53,7 +57,8 @@ import { HomePage } from '../pages/home/home';
     UpcomingFlightListPage,
     HelpAssetListPage,
     FlightCrewListPage,
-    HomePage
+    HomePage,
+    SummarySheetPage
   ],
   imports: [
     BrowserModule,
@@ -66,7 +71,8 @@ import { HomePage } from '../pages/home/home';
         useFactory: (createTranslateLoader),
         deps: [HttpClient]
       }
-    })
+    }),
+    PdfViewerModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -79,14 +85,15 @@ import { HomePage } from '../pages/home/home';
     UpcomingFlightListPage,
     HelpAssetListPage,
     FlightCrewListPage,
-    HomePage
+    HomePage,
+    SummarySheetPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
     SecMobilService,
     ConnectivityService,
-    { provide: RestService, useFactory: createRestService, deps: [HttpClient, SecMobilService] },
+    { provide: RestService, useFactory: createRestService, deps: [HttpClient, SecMobilService, Config] },
     { provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true },
     AppInitService, HttpClientModule,
     Config,
@@ -103,7 +110,8 @@ import { HomePage } from '../pages/home/home';
     WaypointStatusProvider,
     RotationProvider,
     HelpAssetProvider,
-    LegProvider
+    LegProvider,
+    SummarySheetProvider
   ]
 })
 export class AppModule { }
@@ -112,12 +120,12 @@ export class AppModule { }
 declare var window: any;
 
 // Check if we are in app mode or in web browser
-export function createRestService(http: HttpClient, secMobilService: SecMobilService): RestService {
+export function createRestService(http: HttpClient, secMobilService: SecMobilService, config: Config): RestService {
   if (undefined !== window.cordova && 'browser' !== window.cordova.platformId) {
     console.log('mobile mode selected');
     return new RestMobileService(http, secMobilService);
   } else {
     console.log('web mode selected');
-    return new RestWebService(http);
+    return new RestWebService(http, config);
   }
 }
