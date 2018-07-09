@@ -35,8 +35,10 @@
                                     <span class="value firstname">{{ crewMember.pnc.firstName }}</span>
                                 </ion-col>
                                 <ion-col>
-                                    <!-- Prioritaire -->
                                     <div class="icon-container">
+                                        <!-- Particularite -->
+                                        <span class="value">{{crewMember.particularity }}</span>
+                                        <!-- Prioritaire -->
                                         <ion-icon *ngIf="crewMember.prioritized" name="flag" ios="md-flag" color="red80"></ion-icon>
                                     </div>
                                 </ion-col>
@@ -50,11 +52,6 @@
                                             {{ relay.code }}
                                         </span>
                                     </div>
-                                </ion-col>
-                                <!-- Particularités -->
-                                <ion-col class="pnc-info">
-                                    <label>{{ 'FLIGHT_CREW_LIST.LIST.PARTICULARITY' | translate }}</label>
-                                    <span class="value" [ngClass]="{'no-value' : !crewMember.particularity }">{{crewMember.particularity }}</span>
                                 </ion-col>
                                 <!-- Dernière rencontre en vol -->
                                 <ion-col class="pnc-info">
