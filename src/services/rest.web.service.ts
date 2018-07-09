@@ -39,16 +39,17 @@ export class RestWebService extends RestService {
         headers = headers.append('Accept', 'application/json, text/plain, */*');
 
         ///// TODO:
-        // for (let h of request.httpHeaders) {
-        //     headers.append('Content-Type', request.httpHeaders['Content-Type']);
+        // for (const h of request.httpHeaders) {
+        //     headers.append('Content-Type', h);
         // }
+        //   headers.append('sm_user', '07339967');
         // headers.append('secgw_user', 'm328624');
         // headers.append('SN', 'ZngNZu6HZ5julFBEklrR');
 
 
-        // if (request.httpHeaders['Content-Type'] != undefined)
+        // if (request.httpHeaders['Content-Type'] !== undefined) {
         //     headers.append('Content-Type', request.httpHeaders['Content-Type']);
-
+        // }
 
         const options = {
             withCredentials: request.withCredential,

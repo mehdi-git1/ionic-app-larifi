@@ -1,3 +1,4 @@
+import { Observable } from 'rxjs/Observable';
 import { Config } from './../../configuration/environment-variables/config';
 import { Rotation } from './../../models/rotation';
 import { Pnc } from './../../models/pnc';
@@ -18,8 +19,24 @@ export class PncProvider {
    * @param matricule
    * @return les informations du pnc
    */
-  getPnc(matricule: string): Promise<Pnc> {
-    return this.restService.get(`${this.pncUrl}/${matricule}`);
+  getPnc(matricule: string): Observable<Pnc> {
+    const obs: Observable<Pnc> = new Observable<Pnc>(observer => {
+      if (navigator.onLine) {
+
+        this.restService.get(`${this.pncUrl}/${matricule}`)
+          .then(r => {
+            let pnc = new Pnc();
+            if (r != null) {
+              pnc = <Pnc>r;
+            }
+            observer.next(pnc);
+            observer.complete();
+          })
+          .catch(r => {
+          });
+      }
+    });
+    return obs;
   }
 
   /**

@@ -1,23 +1,19 @@
-import { PncRole } from './../../models/pncRole';
 import { TranslateService } from '@ngx-translate/core';
 import { UpcomingFlightListPage } from './../upcoming-flight-list/upcoming-flight-list';
-import { SecurityProvider } from './../../providers/security/security';
 import { SessionService } from './../../services/session.service';
-import { ToastProvider } from './../../providers/toast/toast';
 import { GenderProvider } from './../../providers/gender/gender';
 import { Speciality } from './../../models/speciality';
 import { CareerObjectiveListPage } from './../career-objective-list/career-objective-list';
 import { PncProvider } from './../../providers/pnc/pnc';
-import { Component } from '@angular/core';
-import { NavController, NavParams, Events } from 'ionic-angular';
+import { Component, OnInit, NgZone, ChangeDetectorRef } from '@angular/core';
+import { NavController, NavParams, ViewController, App } from 'ionic-angular';
 import { Pnc } from '../../models/pnc';
-import { Assignment } from '../../models/assignment';
 import { HelpAssetListPage } from './../help-asset-list/help-asset-list';
 @Component({
   selector: 'page-pnc-home',
   templateUrl: 'pnc-home.html',
 })
-export class PncHomePage {
+export class PncHomePage implements OnInit {
 
   pnc: Pnc;
   matricule: string;
@@ -26,60 +22,66 @@ export class PncHomePage {
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
+    public viewCtrl: ViewController,
+    public appCtrl: App,
+    public zone: NgZone,
+    public cd: ChangeDetectorRef,
     private pncProvider: PncProvider,
     public genderProvider: GenderProvider,
-    private toastProvider: ToastProvider,
-    private securityProvider: SecurityProvider,
     private sessionService: SessionService,
-    private events: Events,
     public translateService: TranslateService) {
 
-    this.pnc = new Pnc();
-    this.pnc.assignment = new Assignment();
   }
 
   ionViewCanEnter() {
     return new Promise((resolve, reject) => {
-      if (this.sessionService.authenticatedUser) {
-        this.loadPnc().then(success => {
-          resolve();
-        }, error => {
-          reject();
-        });
-
+      if (this.navParams.get('matricule')) {
+        this.matricule = this.navParams.get('matricule');
+      } else if (this.sessionService.authenticatedUser) {
+        this.matricule = JSON.parse(this.sessionService.authenticatedUser as any).matricule;
       } else {
-        this.events.subscribe('user:authenticated', () => {
-          this.matricule = this.sessionService.authenticatedUser.username;
-          this.loadPnc().then(success => {
-            resolve();
-          }, error => {
-            reject();
-          });
-        });
+        console.log('no matricule');
       }
+
+      if (this.matricule != null){
+        resolve();
+      }
+       else{
+         reject();
+       }
     });
   }
 
-
+  ngOnInit(): void {
+    if (this.matricule != null) {
+      this.zone.run(() => {
+        this.pncProvider.getPnc(this.matricule).subscribe(pnc => {
+          this.pnc = pnc;
+          this.cd.markForCheck();
+        }, error => {
+          this.pnc = null;
+        });
+      });
+    }
+  }
 
   /**
    * charge le détail du pnc connecté ou consulté.
    */
-  loadPnc(): Promise<void> {
+  loadPnc(matricule?: string) {
     return new Promise((resolve, reject) => {
-      // Si on a un matricule dans les params de navigation, cela surcharge le matricule du user connecté
-      if (this.navParams.get('matricule')) {
+      if (matricule) {
+        this.matricule = matricule;
+      } else if (this.navParams.get('matricule')) {
         this.matricule = this.navParams.get('matricule');
+      } else if (this.sessionService.authenticatedUser) {
+        this.matricule = JSON.parse(this.sessionService.authenticatedUser as any).matricule;
+      } else {
+        console.log('no matricule');
+        reject();
       }
 
-      if (this.matricule !== undefined) {
-        this.pncProvider.getPnc(this.matricule).then(foundPnc => {
-          this.pnc = foundPnc;
-          resolve();
-        }, error => {
-          reject();
-        });
-      }
+      this.navCtrl.setRoot(PncHomePage, { matricule: this.matricule });
     });
   }
 
@@ -112,5 +114,4 @@ export class PncHomePage {
     this.navCtrl.push(PncHomePage, { matricule: this.matricule });
   }
 
-  
 }

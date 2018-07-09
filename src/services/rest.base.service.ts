@@ -7,6 +7,14 @@ import { HttpClient } from '@angular/common/http';
  * Their behavior change according to the app mode (which is set in app/app.module.ts)
  */
 
+export class RestRequest {
+  public withCredential = true;
+  public method: string;
+  public url: string;
+  public httpHeaders: any;
+  public jsonData: any;
+}
+
 Injectable();
 export abstract class RestService {
 
@@ -42,10 +50,3 @@ export abstract class RestService {
     }
 }
 
-export class RestRequest {
-    public withCredential = true;
-    public method: string;
-    public url: string;
-    public httpHeaders: any;
-    public jsonData: any;
-}

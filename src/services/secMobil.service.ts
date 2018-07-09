@@ -107,7 +107,7 @@ export class SecMobilService {
         return new Promise((resolve, reject) => {
             this.secMobile.secMobilCallRestService(request,
                 (success) => {
-                    resolve(success);
+                    resolve(JSON.parse(success));
                 },
                 (err) => {
                     console.error('secmobile call failure : ' + err);

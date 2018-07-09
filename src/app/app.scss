@@ -30,6 +30,10 @@
     content: '-';
 }
 
+.app-root{
+    background-color: #f1f1f1;
+}
+
 
 // Spinner utilisé au chargement de l'appli
 .loader-container {
@@ -69,4 +73,12 @@
 
 .back-button {
     color: color($colors, white);
+}
+
+body{
+    background-color: #f1f1f1
+}
+
+.content-md{
+    background-color: transparent;
 }
