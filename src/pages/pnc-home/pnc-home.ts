@@ -5,10 +5,9 @@ import { GenderProvider } from './../../providers/gender/gender';
 import { Speciality } from './../../models/speciality';
 import { CareerObjectiveListPage } from './../career-objective-list/career-objective-list';
 import { PncProvider } from './../../providers/pnc/pnc';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgZone, ChangeDetectorRef } from '@angular/core';
 import { NavController, NavParams, ViewController, App } from 'ionic-angular';
 import { Pnc } from '../../models/pnc';
-import { Assignment } from '../../models/assignment';
 import { HelpAssetListPage } from './../help-asset-list/help-asset-list';
 @Component({
   selector: 'page-pnc-home',
@@ -25,13 +24,13 @@ export class PncHomePage implements OnInit {
     public navParams: NavParams,
     public viewCtrl: ViewController,
     public appCtrl: App,
+    public zone: NgZone,
+    public cd: ChangeDetectorRef,
     private pncProvider: PncProvider,
     public genderProvider: GenderProvider,
     private sessionService: SessionService,
     public translateService: TranslateService) {
 
-    this.pnc = new Pnc();
-    this.pnc.assignment = new Assignment();
   }
 
   ionViewCanEnter() {
@@ -39,7 +38,7 @@ export class PncHomePage implements OnInit {
       if (this.navParams.get('matricule')) {
         this.matricule = this.navParams.get('matricule');
       } else if (this.sessionService.authenticatedUser) {
-        this.matricule = JSON.parse(this.sessionService.authenticatedUser as any).username;
+        this.matricule = JSON.parse(this.sessionService.authenticatedUser as any).matricule;
       } else {
         console.log('no matricule');
       }
@@ -55,10 +54,14 @@ export class PncHomePage implements OnInit {
 
   ngOnInit(): void {
     if (this.matricule != null) {
-        this.pncProvider.getPnc(this.matricule).then(foundPnc => {
-          this.pnc = foundPnc;
+      this.zone.run(() => {
+        this.pncProvider.getPnc(this.matricule).subscribe(pnc => {
+          this.pnc = pnc;
+          this.cd.markForCheck();
         }, error => {
+          this.pnc = null;
         });
+      });
     }
   }
 
@@ -72,7 +75,7 @@ export class PncHomePage implements OnInit {
       } else if (this.navParams.get('matricule')) {
         this.matricule = this.navParams.get('matricule');
       } else if (this.sessionService.authenticatedUser) {
-        this.matricule = JSON.parse(this.sessionService.authenticatedUser as any).username;
+        this.matricule = JSON.parse(this.sessionService.authenticatedUser as any).matricule;
       } else {
         console.log('no matricule');
         reject();

@@ -1,5 +1,5 @@
 export class AuthenticatedUser {
-    username: string;
+    matricule: string;
     fistName: string;
     lastName: string;
     manager: boolean;

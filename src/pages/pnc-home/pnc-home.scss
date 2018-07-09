@@ -2,11 +2,6 @@ page-pnc-home {
 
     .grid {
         height: 100%;
-        .row {
-            &:last-of-type {
-                flex: 1;
-            }
-        }
     }
 
     .pnc-info-panel {
@@ -50,6 +45,7 @@ page-pnc-home {
     }
 
     #nav-tile-grid {
+       flex: 1;
         button {
             height: inherit;
             font-size: 2.5vw;
