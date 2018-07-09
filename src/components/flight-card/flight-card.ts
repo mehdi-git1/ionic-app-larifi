@@ -38,20 +38,6 @@ export class FlightCardComponent {
     this.synchroInProgress = true;
 
     this.legProvider.getFlightCrewFromLeg(leg.techId).then(flightCrewList => {
-
-      /*for (const flightCrew of flightCrewList) {
-        const currentMatricule = flightCrew.pnc.matricule;
-        this.synchronizationProvider.storeEDossierOffline(currentMatricule).then(success => {
-          const infoMsg = this.translateService.instant('SYNCHRONIZATION.PNC_SAVED_OFFLINE', { 'matricule': currentMatricule });
-          this.toastProvider.info(infoMsg);
-          this.synchroInProgress = false;
-        }, error => {
-          const errorMsg = this.translateService.instant('SYNCHRONIZATION.PNC_SAVED_OFFLINE_ERROR', { 'matricule': currentMatricule });
-          this.toastProvider.error(errorMsg);
-          this.synchroInProgress = false;
-        });
-      }*/
-
       const promises: Promise<boolean>[] = new Array();
       for (const flightCrew of flightCrewList) {
         const currentMatricule = flightCrew.pnc.matricule;
