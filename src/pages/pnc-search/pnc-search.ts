@@ -1,3 +1,5 @@
+import { Parameters } from './../../models/Parameters';
+import { SessionService } from './../../services/session.service';
 import { PncHomePage } from './../pnc-home/pnc-home';
 import { Observable } from 'rxjs/Rx';
 import { GenderProvider } from './../../providers/gender/gender';
@@ -25,9 +27,12 @@ export class PncSearchPage {
   pncMatriculeControl: AbstractControl;
   selectedPnc: Pnc;
   pncFilter: PncFilter;
+  connectedPncDivision: string;
   sectorList: string[];
   ginqList: string[];
-  specialityList: string[] = ['HOT', 'STW'];
+  relayList: string[];
+  aircraftSkillList: string[];
+  specialityList: string[];
   totalPncs: number;
   pageSize: number;
   pageSizeOptions: number[];
@@ -42,7 +47,8 @@ export class PncSearchPage {
     public translateService: TranslateService,
     private formBuilder: FormBuilder,
     private pncProvider: PncProvider,
-    private genderProvider: GenderProvider) {
+    private genderProvider: GenderProvider,
+    private sessionService: SessionService) {
 
 
     // Initialisation du formulaire
@@ -59,6 +65,18 @@ export class PncSearchPage {
     this.pncFilter = new PncFilter();
     this.pageSize = AppConfig.pageSize;
     this.itemOffset = 0;
+    this.specialityList = Object.keys(Speciality)
+      .map(k => Speciality[k])
+      .filter(v => typeof v === 'string') as string[];
+    if (this.sessionService.parameters !== undefined) {
+      const params: Map<string, any> = this.sessionService.parameters.params;
+      this.connectedPncDivision = Object.keys(params['division'])[0];
+      this.sectorList = Object.keys((params['division'])[this.connectedPncDivision]);
+      this.relayList = params['relay'];
+      this.aircraftSkillList = params['aircraftSkill'];
+    }
+
+
   }
 
   initAutocompleteList() {

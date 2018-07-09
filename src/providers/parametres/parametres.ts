@@ -15,11 +15,11 @@ export class ParametresProvider {
   }
 
   /**
-  * Récupère les parametres du filtre de recherche des pnc
+  * Récupère les parametres envoyé depuis le back
   * @return la liste des parametres
   */
-  getPncFilterParams(): Promise<Parameters[]> {
-    return this.restService.get(`${this.parametersUrl}/pnc-filter`);
+  getParams(): Promise<Parameters> {
+    return this.restService.get(this.parametersUrl);
   }
 
 }

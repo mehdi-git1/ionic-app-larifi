@@ -71,7 +71,7 @@
                             <ion-item>
                                 <ion-label floating>{{ 'PNC_SEARCH.CRITERIA.AIRCRAFT_SKILL' | translate }}</ion-label>
                                 <ion-select [(ngModel)]="pncFilter.aircraftSkill" [compareWith]="compareFn" formControlName="aircraftSkillControl">
-                                    <ion-option *ngFor="let aircraftSkillKey of aircraftSkillList" [value]="aircraftSkillKey">{{ginqKey}}</ion-option>
+                                    <ion-option *ngFor="let aircraftSkillKey of aircraftSkillList" [value]="aircraftSkillKey">{{aircraftSkillKey}}</ion-option>
                                 </ion-select>
                             </ion-item>
                         </ion-col>
@@ -80,7 +80,7 @@
                             <ion-item>
                                 <ion-label floating>{{ 'PNC_SEARCH.CRITERIA.RELAY' | translate }}</ion-label>
                                 <ion-select [(ngModel)]="pncFilter.relay" [compareWith]="compareFn" formControlName="relayControl">
-                                    <ion-option *ngFor="let sectorKey of relayList" [value]="relayKey">{{relayKey}}</ion-option>
+                                    <ion-option *ngFor="let relayKey of relayList" [value]="relayKey">{{relayKey}}</ion-option>
                                 </ion-select>
                             </ion-item>
                         </ion-col>

@@ -1,3 +1,4 @@
+import { ParametresProvider } from './../providers/parametres/parametres';
 import { AuthenticationPage } from './../pages/authentication/authentication';
 import { SessionService } from './../services/session.service';
 import { AuthenticatedUser } from './../models/authenticatedUser';
@@ -27,7 +28,8 @@ export class EDossierPNC {
     private secMobilService: SecMobilService,
     private securityProvider: SecurityProvider,
     private sessionService: SessionService,
-    private events: Events
+    private events: Events,
+    private parametresProvider: ParametresProvider
   ) {
     this.initializeApp();
   }
@@ -56,7 +58,20 @@ export class EDossierPNC {
           });
       });
       this.putAuthenticatedUserInSession();
+      this.initParameters();
     });
+  }
+
+  /**
+   * Récupère les parametres envoyé par le back
+   */
+  initParameters() {
+    console.log('begin initParameters');
+    this.parametresProvider.getParams().then(parameters => {
+      console.log('in initParameters');
+      this.sessionService.parameters = parameters;
+    }, error => { console.log('initParameters in error'); });
+    console.log('End initParameters');
   }
 
   /**
