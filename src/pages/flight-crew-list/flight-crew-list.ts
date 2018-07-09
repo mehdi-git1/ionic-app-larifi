@@ -44,19 +44,4 @@ export class FlightCrewListPage {
     this.navCtrl.push(PncHomePage, { matricule: matricule });
   }
 
-  /**
-   * Précharge le eDossier du PNC si celui n'est pas cadre
-   */
-  downloadPncEdossier(event: Event, matricule) {
-    event.stopPropagation();
-    this.synchroInProgress = true;
-    this.synchronizationProvider.storeEDossierOffline(matricule).then(success => {
-      this.toastProvider.info(this.translateService.instant('SYNCHRONIZATION.PNC_SAVED_OFFLINE', { 'matricule': matricule }));
-      this.synchroInProgress = false;
-    }, error => {
-      this.toastProvider.error(this.translateService.instant('SYNCHRONIZATION.PNC_SAVED_OFFLINE_ERROR', { 'matricule': matricule }));
-      this.synchroInProgress = false;
-    });
-  }
-
 }

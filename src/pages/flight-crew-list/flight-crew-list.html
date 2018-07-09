@@ -21,61 +21,7 @@
             <ion-spinner></ion-spinner>
         </div>
         <ion-card class="flight-crew-card clickable" *ngFor="let crewMember of flightCrewList" (click)="openPncHomePage(crewMember.pnc.matricule)">
-            <ion-card-content no-padding>
-                <ion-grid>
-                    <ion-row>
-                        <ion-col col-2>
-                            <img src="{{genderProvider.getAvatarPicture(crewMember.pnc.gender)}}" />
-                        </ion-col>
-                        <ion-col col-10 class="content">
-                            <ion-row class="primary-info">
-                                <ion-col col-11>
-                                    <!-- Nom -->
-                                    <span class="value">{{ crewMember.pnc.lastName }}</span>
-                                    <!-- Prénom -->
-                                    <span class="value firstname">{{ crewMember.pnc.firstName }}</span>
-                                </ion-col>
-                                <ion-col>
-                                    <!-- Prioritaire -->
-                                    <div class="icon-container">
-                                        <ion-icon *ngIf="crewMember.prioritized" name="flag" ios="md-flag" color="red80"></ion-icon>
-                                        <button class="button-synchro" ion-fab mini color="secondary" *ngIf="connectivityService.isConnected()" (click)="downloadPncEdossier($event, crewMember.pnc.matricule)" [disabled]="synchroInProgress">
-                                            <ion-icon  *ngIf="!synchroInProgress" name="cloud-download" ios="md-cloud-download"></ion-icon>
-                                            <ion-spinner *ngIf="synchroInProgress"></ion-spinner>
-                                        </button>
-                                    </div>
-                                </ion-col>
-                            </ion-row>
-                            <ion-row class="secondary-info">
-                                <!-- Relais-->
-                                <ion-col class="pnc-info">
-                                    <label>{{ 'FLIGHT_CREW_LIST.LIST.RELAYS' | translate }}</label>
-                                    <div class="value pnc-relays" [ngClass]="{'no-value' : crewMember.pnc.relays.length === 0 }">
-                                        <span *ngFor="let relay of crewMember.pnc.relays">
-                                            {{ relay.code }}
-                                        </span>
-                                    </div>
-                                </ion-col>
-                                <!-- Particularités -->
-                                <ion-col class="pnc-info">
-                                    <label>{{ 'FLIGHT_CREW_LIST.LIST.PARTICULARITY' | translate }}</label>
-                                    <span class="value" [ngClass]="{'no-value' : !crewMember.particularity }">{{crewMember.particularity }}</span>
-                                </ion-col>
-                                <!-- Dernière rencontre en vol -->
-                                <ion-col class="pnc-info">
-                                    <label>{{ 'FLIGHT_CREW_LIST.LIST.LAST_IN_FLIGHT_ENCOUNTER_DATE' | translate }}</label>
-                                    <span class="value">{{ 'GLOBAL.COMING_SOON' | translate }}</span>
-                                </ion-col>
-                                <!-- Dernière rencontre en sol -->
-                                <ion-col class="pnc-info">
-                                    <label>{{ 'FLIGHT_CREW_LIST.LIST.LAST_ON_GROUND_ENCOUNTER_DATE' | translate }}</label>
-                                    <span class="value">{{ 'GLOBAL.COMING_SOON' | translate }}</span>
-                                </ion-col>
-                            </ion-row>
-                        </ion-col>
-                    </ion-row>
-                </ion-grid>
-            </ion-card-content>
+            <pnc-card [crewMember]="crewMember"></pnc-card>
         </ion-card>
     </ion-content>
 </ion-content>
