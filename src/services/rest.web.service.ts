@@ -45,36 +45,32 @@ export class RestWebService extends RestService {
         // headers.append('secgw_user', 'm328624');
         // headers.append('SN', 'ZngNZu6HZ5julFBEklrR');
 
-
         // if (request.httpHeaders['Content-Type'] != undefined)
         //     headers.append('Content-Type', request.httpHeaders['Content-Type']);
 
-
-        const options = {
-            withCredentials: request.withCredential,
-            headers: headers
-        };
+        request.options.headers.append('Accept', 'application/json, text/plain, */*');
+        request.options.withCredentials = request.withCredential;
 
         if (request.method === 'GET') {
-            this.http.get(request.url, options).subscribe(
+            this.http.get(request.url, request.options).subscribe(
                 data => { successCallback(data); },
                 err => { errorCallback(err.error); }
             );
         }
         if (request.method === 'POST') {
-            this.http.post(request.url, request.jsonData, options).subscribe(
+            this.http.post(request.url, request.jsonData, request.options).subscribe(
                 data => { successCallback(data); },
                 err => { errorCallback(err.error); }
             );
         }
         if (request.method === 'PUT') {
-            this.http.put(request.url, request.jsonData, options).subscribe(
+            this.http.put(request.url, request.jsonData, request.options).subscribe(
                 data => { successCallback(data); },
                 err => { errorCallback(err.error); }
             );
         }
         if (request.method === 'DELETE') {
-            this.http.delete(request.url, options).subscribe(
+            this.http.delete(request.url, request.options).subscribe(
                 data => { successCallback(data); },
                 err => { errorCallback(err.error); }
             );

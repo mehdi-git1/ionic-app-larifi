@@ -12,7 +12,9 @@ import { Component } from '@angular/core';
 import { NavController, NavParams, Events } from 'ionic-angular';
 import { Pnc } from '../../models/pnc';
 import { Assignment } from '../../models/assignment';
+import { SummarySheetPage } from '../summary-sheet/summary-sheet';
 import { HelpAssetListPage } from './../help-asset-list/help-asset-list';
+
 @Component({
   selector: 'page-pnc-home',
   templateUrl: 'pnc-home.html',
@@ -112,5 +114,7 @@ export class PncHomePage {
     this.navCtrl.push(PncHomePage, { matricule: this.matricule });
   }
 
-  
+  goToSummarySheet() {
+    this.navCtrl.push(SummarySheetPage, { matricule: this.matricule });
+  }
 }

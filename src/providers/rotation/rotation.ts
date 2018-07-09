@@ -10,7 +10,7 @@ export class RotationProvider {
 
   private rotationUrl: string;
 
-  constructor(public restService: RestService,
+  constructor(private restService: RestService,
     private config: Config) {
     this.rotationUrl = `${config.backEndUrl}/rotations`;
   }

@@ -1,0 +1,12 @@
+page-summary-sheet {
+    pdf-viewer {
+        display: block;
+    }
+
+    .no-summary-sheet {
+        text-align: center;
+        font-size: 1.5em;
+        margin-top: 100px;
+        color: color($colors, grey50);
+    }
+}
