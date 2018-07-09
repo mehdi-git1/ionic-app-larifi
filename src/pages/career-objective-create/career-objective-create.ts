@@ -318,8 +318,12 @@ export class CareerObjectiveCreatePage {
    * Envoi au serveur une demande de sollicitation instructeur pour l'objectif
    */
   createRequestInstructor() {
+
     this.careerObjectiveProvider
-      .createRequestInstructor(this.careerObjective.techId);
-    this.toastProvider.success(this.translateService.instant('CAREER_OBJECTIVE_CREATE.SUCCESS.CAREER_OBJECTIVE_INSTRUCTOR_REQUESTED'));
+      .createRequestInstructor(this.careerObjective.techId)
+      .then(result => {
+        this.toastProvider.success(this.translateService.instant('CAREER_OBJECTIVE_CREATE.SUCCESS.CAREER_OBJECTIVE_INSTRUCTOR_REQUESTED'));
+      },
+        error => { });
   }
 }

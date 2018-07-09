@@ -50,8 +50,10 @@ export class CareerObjectiveProvider {
   /**
    * Envoi au serveur une demande de sollicitation instructeur pour l'objectif
    * @param id l'id de l'objectif pour lequel on souhaiter solliciter l'instructeur 
+   * @returns Un resultat
    */
-  createRequestInstructor(id: number) {
-    this.restService.get(`${this.careerObjectiveUrl}/request_instructor/${id}`);
+  createRequestInstructor(id: number): Promise<any> {
+    return this.restService.get(`${this.careerObjectiveUrl}/request_instructor/${id}`);
   }
+
 }
