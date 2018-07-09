@@ -26,7 +26,7 @@ export class FlightCardComponent {
     private synchronizationProvider: SynchronizationProvider,
     private toastProvider: ToastProvider,
     private legProvider: LegProvider,
-    private translateService: TranslateService) {
+    private translate: TranslateService) {
     console.log('Hello FlightCardComponent Component');
   }
 
@@ -39,7 +39,7 @@ export class FlightCardComponent {
 
     this.legProvider.getFlightCrewFromLeg(leg.techId).then(flightCrewList => {
 
-      for (const flightCrew of flightCrewList) {
+      /*for (const flightCrew of flightCrewList) {
         const currentMatricule = flightCrew.pnc.matricule;
         this.synchronizationProvider.storeEDossierOffline(currentMatricule).then(success => {
           const infoMsg = this.translateService.instant('SYNCHRONIZATION.PNC_SAVED_OFFLINE', { 'matricule': currentMatricule });
@@ -50,7 +50,22 @@ export class FlightCardComponent {
           this.toastProvider.error(errorMsg);
           this.synchroInProgress = false;
         });
+      }*/
+
+      const promises: Promise<boolean>[] = new Array();
+      for (const flightCrew of flightCrewList) {
+        const currentMatricule = flightCrew.pnc.matricule;
+        promises.push(this.synchronizationProvider.storeEDossierOffline(currentMatricule));
       }
+      Promise.all(promises).then(success => {
+        const infoMsg = this.translate.instant('SYNCHRONIZATION.FLIGHT_SAVED_OFFLINE', { 'flightNumber': leg.company + leg.number });
+        this.toastProvider.info(infoMsg);
+        this.synchroInProgress = false;
+      }, error => {
+        const errorMsg = this.translate.instant('SYNCHRONIZATION.FLIGHT_SAVED_OFFLINE_ERROR', { 'flightNumber': leg.company + leg.number });
+        this.toastProvider.error(errorMsg);
+        this.synchroInProgress = false;
+      });
     }, error => {
     });
   }
