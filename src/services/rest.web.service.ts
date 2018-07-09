@@ -1,3 +1,4 @@
+import { Config } from './../configuration/environment-variables/config';
 import { Injectable } from '@angular/core';
 import { RestService, RestRequest } from './rest.base.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -7,7 +8,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 @Injectable()
 export class RestWebService extends RestService {
 
-    constructor(protected http: HttpClient) {
+    constructor(protected http: HttpClient, private config: Config) {
         super(http);
     }
 
@@ -28,9 +29,14 @@ export class RestWebService extends RestService {
 
     private makeHttpRequest(request: RestRequest, successCallback: (result: any) => void, errorCallback: (error: any) => void): void {
 
-        const headers = new HttpHeaders();
+        let headers = new HttpHeaders();
 
-        headers.append('Accept', 'application/json, text/plain, */*');
+        // En local, on ajoute le header SM_USER pour simuler l'authent habile
+        if (this.config.isLocalhost()) {
+            headers = headers.append('SM_USER', 'm077557');
+        }
+
+        headers = headers.append('Accept', 'application/json, text/plain, */*');
 
         ///// TODO:
         // for (let h of request.httpHeaders) {

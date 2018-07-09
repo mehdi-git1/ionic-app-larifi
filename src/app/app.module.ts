@@ -86,7 +86,7 @@ import { HomePage } from '../pages/home/home';
     SplashScreen,
     SecMobilService,
     ConnectivityService,
-    { provide: RestService, useFactory: createRestService, deps: [HttpClient, SecMobilService] },
+    { provide: RestService, useFactory: createRestService, deps: [HttpClient, SecMobilService, Config] },
     { provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true },
     AppInitService, HttpClientModule,
     Config,
@@ -112,12 +112,12 @@ export class AppModule { }
 declare var window: any;
 
 // Check if we are in app mode or in web browser
-export function createRestService(http: HttpClient, secMobilService: SecMobilService): RestService {
+export function createRestService(http: HttpClient, secMobilService: SecMobilService, config: Config): RestService {
   if (undefined !== window.cordova && 'browser' !== window.cordova.platformId) {
     console.log('mobile mode selected');
     return new RestMobileService(http, secMobilService);
   } else {
     console.log('web mode selected');
-    return new RestWebService(http);
+    return new RestWebService(http, config);
   }
 }
