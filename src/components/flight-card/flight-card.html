@@ -1,0 +1,16 @@
+<ion-grid>
+    <ion-row>
+        <ion-col col-11 class="leg">
+            <span>{{ leg.company }}{{ leg.number }}</span>
+            <span>{{ leg.departureDate | date : 'dd/MM/yyyy HH:mm' }}</span>
+            <span>{{ leg.departureStation }} - {{ leg.arrivalStation }}</span>
+            <span>{{ leg.aircraftType }}</span>
+        </ion-col>
+        <ion-col>
+            <button class="button-synchro" ion-fab mini color="secondary" *ngIf="connectivityService.isConnected()" (click)="downloadAllFlightPncsEdossier($event, leg)" [disabled]="synchroInProgress">
+        <ion-icon *ngIf="!synchroInProgress" name="cloud-download" ios="md-cloud-download"></ion-icon>
+        <ion-spinner *ngIf="synchroInProgress"></ion-spinner>
+      </button>
+        </ion-col>
+    </ion-row>
+</ion-grid>
