@@ -40,6 +40,29 @@ rotation-card {
         .leg:not(:first-child) {
             border-top: 2px solid color($colors, grey90);
         }
+        .header-container {
+            display: flex;
+            align-items: center;
+            ion-icon {
+                font-size: 2em;
+            }
+
+            .spinner-invisible {
+
+                visibility: hidden;
+            }
+        }
+
+
+
+        .button-synchro {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            float: right;
+            width: 30px;
+            height: 30px;
+        }
     }
 
 }

@@ -1,12 +1,10 @@
 import { EDossierPncObject } from './eDossierPncObject';
+import { Pnc } from './pnc';
 
 export class CrewMember extends EDossierPncObject {
-    matricule: string;
-    firstname: string;
-    lastName: string;
     particulariy: string;
     lastEncounterDate: string;
-    relays: string[];
+    pnc: Pnc;
 
     getStorageId(): string {
         return `${this.techId}`;

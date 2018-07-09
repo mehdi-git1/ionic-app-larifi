@@ -1,8 +1,17 @@
 <ion-card class="rotation">
-    <ion-card-header (click)="toggleRotation(rotation)">
+    <ion-card-header class="header-container" (click)="toggleRotation(rotation)">
         <span>{{ rotation.departureDate | date : 'dd/MM/yyyy' }}</span>
+        <span>
         <ion-spinner *ngIf="rotation.loading" color="white"></ion-spinner>
+        <ion-spinner class="spinner-invisible" *ngIf="!rotation.loading" ></ion-spinner>
+        </span>
         <span>{{ rotation.number }}</span>
+        <span>
+            <button class="button-synchro" ion-fab mini color="secondary" *ngIf="connectivityService.isConnected()" (click)="downloadRotationPncsEdossier($event)" [disabled]="synchroInProgress">
+                <ion-icon *ngIf="!synchroInProgress" name="cloud-download" ios="md-cloud-download"></ion-icon>
+                <ion-spinner *ngIf="synchroInProgress"></ion-spinner>
+            </button>
+        </span>
     </ion-card-header>
     <ion-card-content [ngClass]="{'opened' : rotation.opened}">
         <div class="leg" *ngFor="let leg of rotation.legs" (click)="goToFlightCrewListPage(leg)">
