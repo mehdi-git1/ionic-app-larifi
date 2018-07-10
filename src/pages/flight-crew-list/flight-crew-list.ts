@@ -2,10 +2,8 @@ import { Leg } from './../../models/leg';
 import { PncHomePage } from './../pnc-home/pnc-home';
 import { LegProvider } from './../../providers/leg/leg';
 import { GenderProvider } from './../../providers/gender/gender';
-import { PncProvider } from './../../providers/pnc/pnc';
-import { Pnc } from './../../models/pnc';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
 import { CrewMember } from '../../models/CrewMember';
 
 @Component({

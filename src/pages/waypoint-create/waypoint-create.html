@@ -11,9 +11,9 @@
     <form novalidate [formGroup]="creationForm">
         <ion-grid>
             <!-- Barre de statut -->
-            <ion-row>
+            <ion-row *ngIf="waypoint.waypointStatus">
                 <ion-col col-12>
-                    <ion-badge class="{{waypoint.waypointStatus.toLowerCase()}}" *ngIf="waypoint.waypointStatus" float-right>
+                    <ion-badge class="{{waypoint.waypointStatus.toLowerCase()}}" float-right>
                         {{ 'GLOBAL.WAYPOINT_STATUS.'+waypoint.waypointStatus | translate }}
                     </ion-badge>
                 </ion-col>

@@ -1,5 +1,14 @@
 page-career-objective-create {
 
+  h3{
+    display: inline-block;
+  }
+
+  ion-badge{
+    display: inline-block;
+    margin: 0 10px;
+  }
+
     ion-textarea {
         min-height: 210px !important;
         padding: 0 !important;

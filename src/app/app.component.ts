@@ -58,10 +58,8 @@ export class EDossierPNC implements OnInit {
   * Mettre le pnc connecté en session
   */
   putAuthenticatedUserInSession() {
-    console.log('putAuthenticatedUserInSession');
     this.securityProvider.getAuthenticatedUser().then(authenticatedUser => {
       if (authenticatedUser) {
-        console.log('go to pnc home page ' + JSON.stringify(authenticatedUser));
         this.sessionService.authenticatedUser = authenticatedUser;
         this.nav.setRoot(PncHomePage, {matricule: this.sessionService.authenticatedUser.matricule});
       }

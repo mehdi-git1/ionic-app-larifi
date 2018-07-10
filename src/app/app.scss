@@ -25,7 +25,7 @@
     cursor: pointer;
 }
 
-// Pour ajouter une valeur "nulle" (un tiret) 
+// Pour ajouter une valeur "nulle" (un tiret)
 .no-value:after {
     content: '-';
 }
@@ -81,4 +81,8 @@ body{
 
 .content-md{
     background-color: transparent;
+}
+
+.item-md{
+  background-color: transparent;
 }
