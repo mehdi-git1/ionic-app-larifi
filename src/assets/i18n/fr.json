@@ -154,6 +154,8 @@
         "NO_HELP_ASSETS": "Aucune ressource créée pour le moment"
     },
     "SYNCHRONIZATION": {
+        "PNC_SAVED_OFFLINE": "Le PNC {{ matricule }} a été synchronisé",
+        "PNC_SAVED_OFFLINE_ERROR": "Le PNC {{ matricule }} n'a pas pu être synchronisé",
         "ROTATION_SAVED_OFFLINE": "Les PNC de la rotation {{ rotationNumber }} ont été synchronisés",
         "ROTATION_SAVED_OFFLINE_ERROR": "Un ou plusieurs PNC de la rotation {{ rotationNumber }} n'ont pas pu être synchronisés"
     }
