@@ -8,19 +8,21 @@ import { ConnectivityIndicatorComponent } from './connectivity-indicator/connect
 import { PncCardComponent } from './pnc-card/pnc-card';
 import { FlightCardComponent } from './flight-card/flight-card';
 import { TranslateModule } from '@ngx-translate/core';
-
+import { DownloadButtonComponent } from './download-button/download-button';
 @NgModule({
   declarations: [RotationCardComponent,
     OfflineIndicatorComponent,
     ConnectivityIndicatorComponent,
     PncCardComponent,
-    FlightCardComponent],
+    FlightCardComponent,
+    DownloadButtonComponent],
   imports: [IonicModule.forRoot(EDossierPNC), TranslateModule],
   exports: [RotationCardComponent,
     OfflineIndicatorComponent,
     ConnectivityIndicatorComponent,
     PncCardComponent,
-    FlightCardComponent],
+    FlightCardComponent,
+    DownloadButtonComponent],
   providers: [DatePipe]
 })
 export class ComponentsModule { }

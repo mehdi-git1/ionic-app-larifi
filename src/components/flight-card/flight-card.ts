@@ -27,7 +27,7 @@ export class FlightCardComponent {
   /**
   * Précharge les eDossier des PNC du vol
   */
-  downloadAllFlightPncsEdossier(event: Event, leg: Leg) {
+  downloadAllFlightPncsEdossier(leg: Leg) {
     event.stopPropagation();
     this.synchroInProgress = true;
 
