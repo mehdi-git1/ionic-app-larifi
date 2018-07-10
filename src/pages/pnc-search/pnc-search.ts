@@ -23,24 +23,28 @@ export class PncSearchPage {
 
   pncList: Observable<Pnc[]>;
   filteredPncs: Pnc[];
+
   searchForm: FormGroup;
   pncMatriculeControl: AbstractControl;
   selectedPnc: Pnc;
+
+  // filtre de recherche
   pncFilter: PncFilter;
-  connectedPncDivision: string;
+
+  // Les listes des données du filtre
+  divisionList: string[];
   sectorList: string[];
   ginqList: string[];
   relayList: string[];
   aircraftSkillList: string[];
   specialityList: string[];
+
   totalPncs: number;
   pageSize: number;
   pageSizeOptions: number[];
   itemOffset: number;
 
   searchTerms = new Subject<string>();
-
-
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
@@ -53,6 +57,7 @@ export class PncSearchPage {
 
     // Initialisation du formulaire
     this.initForm();
+    // initialistation du filtre
     this.initFilter();
   }
 
@@ -61,6 +66,9 @@ export class PncSearchPage {
     this.pageSize = AppConfig.pageSize;
   }
 
+  /**
+   * Initialise le filtre, le nombre de pnc à afficher par page et les données des listes de recherche.
+   */
   initFilter() {
     this.pncFilter = new PncFilter();
     this.pageSize = AppConfig.pageSize;
@@ -70,15 +78,29 @@ export class PncSearchPage {
       .filter(v => typeof v === 'string') as string[];
     if (this.sessionService.parameters !== undefined) {
       const params: Map<string, any> = this.sessionService.parameters.params;
-      this.connectedPncDivision = Object.keys(params['division'])[0];
-      this.sectorList = Object.keys((params['division'])[this.connectedPncDivision]);
-      this.relayList = params['relay'];
-      this.aircraftSkillList = params['aircraftSkill'];
+      this.divisionList = Object.keys(params['division']);
+      if (this.divisionList.length === 1) {
+        this.pncFilter.division = this.divisionList[0];
+        this.sectorList = Object.keys((params['division'])[this.divisionList[0]]);
+      }
+      this.relayList = params['relays'];
+      this.aircraftSkillList = params['aircraftSkills'];
     }
-
-
   }
 
+  /**
+   * charge la liste des ginq associé au secteur choisi
+   * @param sector secteur concerné.
+   */
+  getGinqList(sector) {
+    if (this.pncFilter.division !== undefined && sector !== undefined) {
+      this.ginqList = this.sessionService.parameters.params['division'][this.pncFilter.division][sector];
+    }
+  }
+
+  /**
+   * recharge la liste des pnc de l'autocompletion aprés 300ms
+   */
   initAutocompleteList() {
     this.pncList = this.searchTerms
       .debounceTime(300)
@@ -91,6 +113,9 @@ export class PncSearchPage {
       });
   }
 
+  /**
+   * Repmlie le matricule du filtre avec le matricule du pnc selectionné.
+   */
   prepareFilter(): void {
     if (this.selectedPnc) {
       this.pncFilter.pncMatricule = this.selectedPnc.matricule;
@@ -134,6 +159,7 @@ export class PncSearchPage {
         '',
         Validators.compose([Validators.minLength(8), Validators.maxLength(8)])
       ],
+      divisionControl: [''],
       sectorControl: [''],
       ginqControl: [''],
       specialityControl: [''],
@@ -163,12 +189,29 @@ export class PncSearchPage {
    */
   searchPncs() {
     this.buildFilter();
+    this.getFilledFieldsOnly(this.pncFilter);
     this.pncProvider.getfilteredPncs(this.pncFilter).then(pagedPnc => {
       this.filteredPncs = pagedPnc.content;
       this.totalPncs = pagedPnc.page.totalElements;
     });
   }
 
+  /**
+   * Supprime les champs du filtre qui sont null ou vide.
+   * @param pncFilter filtre de recherche.
+   */
+  getFilledFieldsOnly(pncFilter) {
+    let param: string;
+    for (param in pncFilter) {
+      if (pncFilter[param] === undefined || pncFilter[param] === '') {
+        delete pncFilter[param];
+      }
+    }
+  }
+
+  /**
+   * Initialise le filtre de recherche.
+   */
   buildFilter() {
     // Pagination
     this.pncFilter.page = this.itemOffset / this.pageSize;
@@ -177,7 +220,7 @@ export class PncSearchPage {
   }
 
   /**
-   * Permet de rechanrger les éléments dans la liste à scroller quand on arrive a la fin de la liste.
+   * Permet de recharger les éléments dans la liste à scroller quand on arrive a la fin de la liste.
    * @param infiniteScroll
    */
   doInfinite(infiniteScroll): Promise<any> {

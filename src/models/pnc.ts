@@ -8,4 +8,6 @@ export class Pnc {
     gender: Gender;
     speciality: Speciality;
     assignment: Assignment;
+    relays: string[];
+    aircraftSkills: string[];
 }

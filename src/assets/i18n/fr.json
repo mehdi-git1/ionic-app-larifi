@@ -149,11 +149,17 @@
         "TITLE": "Recherche PNC",
         "CRITERIA": {
             "PNC_MATRICULE": "Nom, Prénom, Matricule",
+            "DIVISION": "Division",
             "SECTOR": "Secteur",
             "GINQ": "Ginq",
             "SPECIALITY": "Fonction",
             "RELAY": "Relais",
-            "AIRCRAFT_SKILL": "Spécification machine"
+            "AIRCRAFT_SKILL": "Spécification machine",
+            "WORK_RATE": "Rythme"
+        },
+        "DEFAULT_DATA": {
+            "ALL_F": "Toutes",
+            "ALL_M": "Tous"
         }
     },
     "MESSAGES": {

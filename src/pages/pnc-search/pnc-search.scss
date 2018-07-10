@@ -44,7 +44,7 @@ page-pnc-search {
                 display: flex;
                 flex-direction: column;
                 align-items: center;
-                .pnc-relays {
+                .pnc-Array-item {
                     span:after {
                         content: ', ';
                     }
@@ -60,6 +60,7 @@ page-pnc-search {
 
     .filtered-pnc-list-container {
         height: 78%;
+        margin-top: 30px;
     }
 
     form {

@@ -11,6 +11,7 @@ export class PncFilter {
 
     // Filtres
     pncMatricule: string;
+    division: string;
     sector: string;
     ginq: string;
     speciality: Speciality;
