@@ -1,3 +1,4 @@
+import { Config } from './../configuration/environment-variables/config';
 import { Injectable } from '@angular/core';
 import { RestService, RestRequest } from './rest.base.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -9,7 +10,7 @@ import { PARAMETERS } from '@angular/core/src/util/decorators';
 @Injectable()
 export class RestWebService extends RestService {
 
-    constructor(protected http: HttpClient) {
+    constructor(protected http: HttpClient, private config: Config) {
         super(http);
     }
 
@@ -30,9 +31,13 @@ export class RestWebService extends RestService {
 
     private makeHttpRequest(request: RestRequest, successCallback: (result: any) => void, errorCallback: (error: any) => void): void {
 
-        const headers = new HttpHeaders();
 
-        headers.append('Accept', 'application/json, text/plain, */*');
+        // En local, on ajoute le header SM_USER pour simuler l'authent habile
+        if (this.config.isLocalhost()) {
+            request.options.headers = request.options.headers.append('SM_USER', 'm077557');
+        }
+
+        request.options.headers = request.options.headers.append('Accept', 'application/json, text/plain, */*');
 
         ///// TODO:
         // for (let h of request.httpHeaders) {
@@ -41,45 +46,35 @@ export class RestWebService extends RestService {
         // headers.append('secgw_user', 'm328624');
         // headers.append('SN', 'ZngNZu6HZ5julFBEklrR');
 
-
         // if (request.httpHeaders['Content-Type'] != undefined)
         //     headers.append('Content-Type', request.httpHeaders['Content-Type']);
-        let param: string;
-        for (param in request.jsonData) {
-            if (request.jsonData[param] === undefined) {
-                delete request.jsonData[param];
-            }
-        }
 
-        const options = {
-            withCredentials: request.withCredential,
-            headers: headers,
-            params: request.jsonData
-        };
+		request.options.withCredentials = request.withCredential;
 
         if (request.method === 'GET') {
-            this.http.get(request.url, options).subscribe(
+            this.http.get(request.url, request.options).subscribe(
                 data => { successCallback(data); },
                 err => { errorCallback(err.error); }
             );
         }
         if (request.method === 'POST') {
-            this.http.post(request.url, request.jsonData, options).subscribe(
+            this.http.post(request.url, request.jsonData, request.options).subscribe(
                 data => { successCallback(data); },
                 err => { errorCallback(err.error); }
             );
         }
         if (request.method === 'PUT') {
-            this.http.put(request.url, request.jsonData, options).subscribe(
+            this.http.put(request.url, request.jsonData, request.options).subscribe(
                 data => { successCallback(data); },
                 err => { errorCallback(err.error); }
             );
         }
         if (request.method === 'DELETE') {
-            this.http.delete(request.url, options).subscribe(
+            this.http.delete(request.url, request.options).subscribe(
                 data => { successCallback(data); },
                 err => { errorCallback(err.error); }
             );
         }
     }
 }
+
