@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 import { RestService } from '../../services/rest.base.service';
 
 @Injectable()
-export class ParametresProvider {
+export class ParametersProvider {
 
   private parametersUrl: string;
 

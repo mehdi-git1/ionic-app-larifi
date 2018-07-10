@@ -1,4 +1,4 @@
-import { ParametresProvider } from './../providers/parametres/parametres';
+import { ParametersProvider } from './../providers/parameters/parameters';
 import { AuthenticationPage } from './../pages/authentication/authentication';
 import { SessionService } from './../services/session.service';
 import { AuthenticatedUser } from './../models/authenticatedUser';
@@ -29,7 +29,7 @@ export class EDossierPNC {
     private securityProvider: SecurityProvider,
     private sessionService: SessionService,
     private events: Events,
-    private parametresProvider: ParametresProvider
+    private parametersProvider: ParametersProvider
   ) {
     this.initializeApp();
   }
@@ -66,7 +66,7 @@ export class EDossierPNC {
    * Récupère les parametres envoyé par le back
    */
   initParameters() {
-    this.parametresProvider.getParams().then(parameters => {
+    this.parametersProvider.getParams().then(parameters => {
       this.sessionService.parameters = parameters;
     }, error => { });
   }

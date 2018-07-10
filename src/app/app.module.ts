@@ -43,7 +43,7 @@ import { UpcomingFlightListPage } from '../pages/upcoming-flight-list/upcoming-f
 import { RotationProvider } from '../providers/rotation/rotation';
 import { HelpAssetProvider } from '../providers/help-asset/help-asset';
 import { LegProvider } from '../providers/leg/leg';
-import { ParametresProvider } from '../providers/parametres/parametres';
+import { ParametersProvider } from '../providers/parameters/parameters';
 import { HomePage } from '../pages/home/home';
 
 import { PdfViewerModule } from 'ng2-pdf-viewer';
@@ -118,7 +118,7 @@ import { SummarySheetProvider } from '../providers/summary-sheet/summary-sheet';
     WaypointStatusProvider,
     RotationProvider,
     LegProvider,
-    ParametresProvider,
+    ParametersProvider,
     HelpAssetProvider,
     LegProvider,
     SummarySheetProvider
