@@ -43,12 +43,8 @@ rotation-card {
         .header-container {
             display: flex;
             align-items: center;
-            ion-icon {
-                font-size: 1.7em;
-            }
 
             .spinner-invisible {
-
                 visibility: hidden;
             }
         }

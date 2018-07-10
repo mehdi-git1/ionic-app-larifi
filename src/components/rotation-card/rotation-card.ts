@@ -52,10 +52,9 @@ export class RotationCardComponent {
   }
 
   /**
-* Précharge les eDossier des PNC de la rotation en passant par le lien rotation -> leg -> crewMembers
-*/
+  * Précharge les eDossier des PNC de la rotation en passant par le lien rotation -> leg -> crewMembers
+  */
   downloadRotationPncsEdossier(event: Event, leg: Leg) {
-    event.stopPropagation();
     this.synchroInProgress = true;
     const pncsMatriculeToDownload: string[] = new Array();
     const downloadPromises: Promise<boolean>[] = new Array();
