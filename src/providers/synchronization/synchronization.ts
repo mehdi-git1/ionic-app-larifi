@@ -38,7 +38,7 @@ export class SynchronizationProvider {
         this.updateLocalStorageFromPncSynchroResponse(pncSynchro);
         resolve(true);
       }, error => {
-        resolve(true);
+        reject(matricule);
       });
     });
   }
