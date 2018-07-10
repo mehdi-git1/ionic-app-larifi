@@ -51,7 +51,7 @@ export class PncHomePage {
 
       } else {
         this.events.subscribe('user:authenticated', () => {
-          this.matricule = this.sessionService.authenticatedUser.username;
+          this.matricule = this.sessionService.authenticatedUser.matricule;
           this.loadPnc().then(success => {
             resolve();
           }, error => {

@@ -29,14 +29,13 @@ export class RestWebService extends RestService {
 
     private makeHttpRequest(request: RestRequest, successCallback: (result: any) => void, errorCallback: (error: any) => void): void {
 
-        let headers = new HttpHeaders();
 
         // En local, on ajoute le header SM_USER pour simuler l'authent habile
         if (this.config.isLocalhost()) {
-            headers = headers.append('SM_USER', 'm077557');
+            request.options.headers = request.options.headers.append('SM_USER', 'm077557');
         }
 
-        headers = headers.append('Accept', 'application/json, text/plain, */*');
+        request.options.headers = request.options.headers.append('Accept', 'application/json, text/plain, */*');
 
         ///// TODO:
         // for (let h of request.httpHeaders) {
@@ -48,7 +47,6 @@ export class RestWebService extends RestService {
         // if (request.httpHeaders['Content-Type'] != undefined)
         //     headers.append('Content-Type', request.httpHeaders['Content-Type']);
 
-        request.options.headers.append('Accept', 'application/json, text/plain, */*');
         request.options.withCredentials = request.withCredential;
 
         if (request.method === 'GET') {
