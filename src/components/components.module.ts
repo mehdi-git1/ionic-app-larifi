@@ -5,14 +5,17 @@ import { NgModule } from '@angular/core';
 import { RotationCardComponent } from './rotation-card/rotation-card';
 import { OfflineIndicatorComponent } from './offline-indicator/offline-indicator';
 import { ConnectivityIndicatorComponent } from './connectivity-indicator/connectivity-indicator';
+import { DownloadButtonComponent } from './download-button/download-button';
 @NgModule({
 	declarations: [RotationCardComponent,
 		OfflineIndicatorComponent,
-    ConnectivityIndicatorComponent],
+    ConnectivityIndicatorComponent,
+    DownloadButtonComponent],
 	imports: [IonicModule.forRoot(EDossierPNC)],
 	exports: [RotationCardComponent,
 		OfflineIndicatorComponent,
-    ConnectivityIndicatorComponent],
+    ConnectivityIndicatorComponent,
+    DownloadButtonComponent],
 	providers: [DatePipe]
 })
 export class ComponentsModule { }
