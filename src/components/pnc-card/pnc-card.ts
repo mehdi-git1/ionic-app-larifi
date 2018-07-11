@@ -8,17 +8,12 @@ import { GenderProvider } from './../../providers/gender/gender';
 import { PncProvider } from './../../providers/pnc/pnc';
 import { NavController } from 'ionic-angular';
 import { PncHomePage } from './../../pages/pnc-home/pnc-home';
-/**
- * Generated class for the PncCardComponent component.
- *
- * See https://angular.io/api/core/Component for more info on Angular
- * Components.
- */
+
 @Component({
   selector: 'pnc-card',
   templateUrl: 'pnc-card.html'
 })
-export class PncCardComponent implements AfterViewInit {
+export class PncCardComponent {
 
   @Input() crewMember: CrewMember;
   synchroInProgress: boolean;
@@ -33,7 +28,7 @@ export class PncCardComponent implements AfterViewInit {
     private pncProvider: PncProvider) {
   }
 
-  ngAfterViewInit() {
+  ionViewDidLoad() {
     this.loadOfflinePncData(this.crewMember.pnc.matricule);
   }
 

@@ -7,12 +7,7 @@ import { ToastProvider } from './../../providers/toast/toast';
 import { ConnectivityService } from '../../services/connectivity.service';
 import { TranslateService } from '@ngx-translate/core';
 import { LegProvider } from './../../providers/leg/leg';
-/**
- * Generated class for the FlightCardComponent component.
- *
- * See https://angular.io/api/core/Component for more info on Angular
- * Components.
- */
+
 @Component({
   selector: 'flight-card',
   templateUrl: 'flight-card.html'
@@ -27,7 +22,6 @@ export class FlightCardComponent {
     private toastProvider: ToastProvider,
     private legProvider: LegProvider,
     private translate: TranslateService) {
-    console.log('Hello FlightCardComponent Component');
   }
 
   /**
@@ -53,6 +47,9 @@ export class FlightCardComponent {
         this.synchroInProgress = false;
       });
     }, error => {
+      const errorMsg = this.translate.instant('SYNCHRONIZATION.FLIGHT_SAVED_OFFLINE_ERROR', { 'flightNumber': leg.company + leg.number });
+      this.toastProvider.error(errorMsg);
+      this.synchroInProgress = false;
     });
   }
 }
