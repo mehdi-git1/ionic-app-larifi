@@ -1,4 +1,5 @@
 import { HelpAssetListPage } from './../pages/help-asset-list/help-asset-list';
+import { EObservationService } from './../services/eObservation.service';
 import { ComponentsModule } from './../components/components.module';
 import { FlightCrewListPage } from './../pages/flight-crew-list/flight-crew-list';
 import { WaypointStatusProvider } from './../providers/waypoint-status/waypoint-status';
@@ -103,7 +104,8 @@ import { HomePage } from '../pages/home/home';
     WaypointStatusProvider,
     RotationProvider,
     HelpAssetProvider,
-    LegProvider
+    LegProvider,
+    EObservationService
   ]
 })
 export class AppModule { }

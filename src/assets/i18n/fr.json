@@ -86,7 +86,8 @@
         },
         "BUTTONS": {
             "ADD_CAREER_OBJECTIVE": "Créer un nouvel objectif"
-        }
+        },
+        "CREATE_EOBSERVATION": "Créer une eObservation"
     },
     "PNC_HOME": {
         "TITLE": "Accueil PNC",

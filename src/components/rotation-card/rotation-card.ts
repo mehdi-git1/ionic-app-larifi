@@ -1,3 +1,4 @@
+import { SessionService } from './../../services/session.service';
 import { Leg } from './../../models/leg';
 import { FlightCrewListPage } from './../../pages/flight-crew-list/flight-crew-list';
 import { NavParams, NavController } from 'ionic-angular';
@@ -15,7 +16,8 @@ export class RotationCardComponent {
 
   constructor(private rotationProvider: RotationProvider,
     public navCtrl: NavController,
-    public navParams: NavParams) {
+    public navParams: NavParams,
+    private sessionService: SessionService) {
   }
 
   /**
@@ -36,6 +38,7 @@ export class RotationCardComponent {
   }
 
   goToFlightCrewListPage(leg: Leg) {
+    this.sessionService.appContext.rotationId = this.rotation.techId;
     this.navCtrl.push(FlightCrewListPage, { leg: leg });
   }
 }

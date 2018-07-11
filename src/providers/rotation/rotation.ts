@@ -23,4 +23,13 @@ export class RotationProvider {
   getRotationLegs(rotation: Rotation): Promise<Leg[]> {
     return this.restService.get(`${this.rotationUrl}/${rotation.techId}/legs`);
   }
+
+  /**
+  * Récupère une rotation
+  * @param rotation l'id de la rotation
+  * @return la rotation demandée
+  */
+  getRotation(rotationId: String): Promise<Rotation> {
+    return this.restService.get(`${this.rotationUrl}/${rotationId}`);
+  }
 }

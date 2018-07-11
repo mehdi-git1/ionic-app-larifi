@@ -1,7 +1,11 @@
 import { TranslateService } from '@ngx-translate/core';
 import { UpcomingFlightListPage } from './../upcoming-flight-list/upcoming-flight-list';
 import { SessionService } from './../../services/session.service';
+import { SecurityProvider } from './../../providers/security/security';
+import { ToastProvider } from './../../providers/toast/toast';
 import { GenderProvider } from './../../providers/gender/gender';
+import { EObservationService } from './../../services/eObservation.service';
+import { EObservation } from './../../models/eObservation';
 import { Speciality } from './../../models/speciality';
 import { CareerObjectiveListPage } from './../career-objective-list/career-objective-list';
 import { PncProvider } from './../../providers/pnc/pnc';
@@ -17,6 +21,7 @@ export class PncHomePage implements OnInit {
 
   pnc: Pnc;
   matricule: string;
+  eObservation: EObservation;
   // exporter la classe enum speciality dans la page html
   Speciality = Speciality;
 
@@ -26,10 +31,10 @@ export class PncHomePage implements OnInit {
     public appCtrl: App,
     public zone: NgZone,
     public cd: ChangeDetectorRef,
-    private pncProvider: PncProvider,
     public genderProvider: GenderProvider,
     private sessionService: SessionService,
-    public translateService: TranslateService) {
+    public translateService: TranslateService,
+    private pncProvider: PncProvider) {
 
   }
 
@@ -37,6 +42,8 @@ export class PncHomePage implements OnInit {
     return new Promise((resolve, reject) => {
       if (this.navParams.get('matricule')) {
         this.matricule = this.navParams.get('matricule');
+      } else if (this.sessionService.appContext.observedPncMatricule) {
+        this.matricule = this.sessionService.appContext.observedPncMatricule;
       } else if (this.sessionService.authenticatedUser) {
         this.matricule = JSON.parse(this.sessionService.authenticatedUser as any).matricule;
       } else {
@@ -70,15 +77,9 @@ export class PncHomePage implements OnInit {
    */
   loadPnc(matricule?: string) {
     return new Promise((resolve, reject) => {
-      if (matricule) {
-        this.matricule = matricule;
-      } else if (this.navParams.get('matricule')) {
-        this.matricule = this.navParams.get('matricule');
-      } else if (this.sessionService.authenticatedUser) {
-        this.matricule = JSON.parse(this.sessionService.authenticatedUser as any).matricule;
-      } else {
-        console.log('no matricule');
-        reject();
+      // Si on a un matricule dans les params de navigation, cela surcharge le matricule du user connecté
+      if (this.sessionService.appContext.observedPncMatricule) {
+        this.matricule = this.sessionService.appContext.observedPncMatricule;
       }
 
       this.navCtrl.setRoot(PncHomePage, { matricule: this.matricule });

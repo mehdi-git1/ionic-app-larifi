@@ -1,3 +1,5 @@
+import { SessionService } from './../../services/session.service';
+import { Rotation } from './../../models/rotation';
 import { Leg } from './../../models/leg';
 import { PncHomePage } from './../pnc-home/pnc-home';
 import { LegProvider } from './../../providers/leg/leg';
@@ -17,20 +19,28 @@ export class FlightCrewListPage {
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
+    public genderProvider: GenderProvider,
     private legProvider: LegProvider,
-    private genderProvider: GenderProvider) {
+    private sessionService: SessionService) {
   }
 
   ionViewCanEnter() {
     this.leg = this.navParams.get('leg');
     this.legProvider.getFlightCrewFromLeg(this.leg.techId).then(flightCrew => {
       this.flightCrewList = flightCrew;
+      flightCrew.forEach(crew => {
+        if (crew.pnc.matricule === this.sessionService.authenticatedUser.matricule) {
+          this.sessionService.appContext.onBoardRedactorFonction = crew.onBoardFonction;
+        }
+      });
     }, error => {
     });
   }
 
-  openPncHomePage(matricule) {
-    this.navCtrl.push(PncHomePage, { matricule: matricule });
+  openPncHomePage(matricule, onBoardFonction) {
+    this.sessionService.appContext.observedPncMatricule = matricule;
+    this.sessionService.appContext.onBoardObservedPncFonction = onBoardFonction;
+    this.navCtrl.push(PncHomePage);
   }
 
 }

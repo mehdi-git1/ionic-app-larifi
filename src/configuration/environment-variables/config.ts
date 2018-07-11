@@ -11,7 +11,6 @@ export class Config extends BaseConfig {
         super();
         this.appVersion = '1';
 
-
         if (undefined !== window.cordova && 'browser' !== window.cordova.platformId) {
             console.log('mobile mode selected');
             this.backEndUrl = 'https://edospnc-api-dev.airfrance.fr/api/rest/resources';
@@ -23,5 +22,7 @@ export class Config extends BaseConfig {
 
         this.env = 'localhost';
         this.secmobileEnv = 'rct';
+        this.eObsUrl = 'com.airfrance.mobile.inhouse.eformsrctPNC';
+        this.eObsCallbackUrl = 'com.airfrance.mobile.inhouse.EDosPNC';
     }
 }

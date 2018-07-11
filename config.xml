@@ -83,6 +83,7 @@
         <variable name="ANDROID_SUPPORT_VERSION" value="26.+" />
     </plugin>
     <plugin name="cordova-plugin-device" spec="^2.0.2" />
+    <plugin name="cordova-plugin-formslib" spec="~0.4.1" />
     <plugin name="cordova-plugin-ionic-keyboard" spec="^2.1.2" />
     <plugin name="cordova-plugin-secmobil" spec="^2.0.74">
         <variable name="APP_GROUP" value="AF_GROUP" />

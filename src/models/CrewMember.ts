@@ -1,8 +1,8 @@
+import { Pnc } from './pnc';
 export class CrewMember {
-    matricule: string;
-    firstname: string;
-    lastName: string;
+    pnc: Pnc;
     particulariy: string;
     lastEncounterDate: string;
-    relays: string[];
+    onBoardFonction: string;
+    prioritized: boolean;
 }

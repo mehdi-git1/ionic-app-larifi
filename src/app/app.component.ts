@@ -1,3 +1,4 @@
+import { AuthenticatedUser } from './../models/authenticatedUser';
 import { AuthenticationPage } from './../pages/authentication/authentication';
 import { SessionService } from './../services/session.service';
 import { SecurityProvider } from './../providers/security/security';
@@ -60,7 +61,7 @@ export class EDossierPNC implements OnInit {
   putAuthenticatedUserInSession() {
     this.securityProvider.getAuthenticatedUser().then(authenticatedUser => {
       if (authenticatedUser) {
-        this.sessionService.authenticatedUser = authenticatedUser;
+        this.sessionService.authenticatedUser = new AuthenticatedUser(authenticatedUser);
         this.nav.setRoot(PncHomePage, {matricule: this.sessionService.authenticatedUser.matricule});
       }
       else{
