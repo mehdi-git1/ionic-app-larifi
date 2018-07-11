@@ -4,6 +4,11 @@ import { NavParams, NavController } from 'ionic-angular';
 import { RotationProvider } from './../../providers/rotation/rotation';
 import { Rotation } from './../../models/rotation';
 import { Component, Input } from '@angular/core';
+import { SynchronizationProvider } from './../../providers/synchronization/synchronization';
+import { ToastProvider } from './../../providers/toast/toast';
+import { ConnectivityService } from '../../services/connectivity.service';
+import { TranslateService } from '@ngx-translate/core';
+import { LegProvider } from './../../providers/leg/leg';
 
 @Component({
   selector: 'rotation-card',
@@ -14,8 +19,7 @@ export class RotationCardComponent {
   @Input() rotation: Rotation;
 
   constructor(private rotationProvider: RotationProvider,
-    public navCtrl: NavController,
-    public navParams: NavParams) {
+    public navCtrl: NavController) {
   }
 
   /**
@@ -38,4 +42,5 @@ export class RotationCardComponent {
   goToFlightCrewListPage(leg: Leg) {
     this.navCtrl.push(FlightCrewListPage, { leg: leg });
   }
+
 }

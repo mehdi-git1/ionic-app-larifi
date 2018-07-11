@@ -24,22 +24,12 @@ rotation-card {
             padding: 0;
         }
 
-        .leg {
-            margin: 0 10px;
+
+
+        .content {
             display: flex;
-            justify-content: space-between;
-            height: 50px;
-            cursor: pointer;
-
-            span {
-                display: flex;
-                align-items: center;
-            }
         }
 
-        .leg:not(:first-child) {
-            border-top: 2px solid color($colors, grey90);
-        }
     }
 
 }

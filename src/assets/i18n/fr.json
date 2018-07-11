@@ -152,5 +152,11 @@
     "HELP_ASSET_LIST": {
         "TITLE": "Ressources d'aide",
         "NO_HELP_ASSETS": "Aucune ressource créée pour le moment"
+    },
+    "SYNCHRONIZATION": {
+        "PNC_SAVED_OFFLINE": "Le PNC {{ matricule }} a été synchronisé",
+        "PNC_SAVED_OFFLINE_ERROR": "Le PNC {{ matricule }} n'a pas pu être synchronisé",
+        "FLIGHT_SAVED_OFFLINE": "Les PNC du vol {{ flightNumber }} ont été synchronisés",
+        "FLIGHT_SAVED_OFFLINE_ERROR": "Un ou plusieurs PNC du vol {{ flightNumber }} n'ont pas pu être synchronisés"
     }
 }
