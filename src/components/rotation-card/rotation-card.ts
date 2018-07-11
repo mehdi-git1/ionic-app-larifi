@@ -9,7 +9,7 @@ import { Rotation } from './../../models/rotation';
 import { Component, Input } from '@angular/core';
 import { ConnectivityService } from '../../services/connectivity.service';
 import { LegProvider } from './../../providers/leg/leg';
-import { CrewMember } from '../../models/CrewMember';
+import { CrewMember } from '../../models/crewMember';
 
 @Component({
   selector: 'rotation-card',
