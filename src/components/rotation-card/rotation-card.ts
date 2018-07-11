@@ -70,7 +70,7 @@ export class RotationCardComponent {
           }
         }
 
-        const uniquePncsMatriculeOnRotation = pncsMatriculeToDownload.filter((el, i, a) => i === a.indexOf(el));
+        const uniquePncsMatriculeOnRotation = pncsMatriculeToDownload.filter((value, index, self) => index === self.indexOf(value));
 
         for (const matricule of uniquePncsMatriculeOnRotation) {
           downloadPromises.push(this.synchronizationProvider.storeEDossierOffline(matricule));
