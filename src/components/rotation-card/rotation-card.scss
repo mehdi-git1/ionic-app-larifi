@@ -24,22 +24,6 @@ rotation-card {
             padding: 0;
         }
 
-        .leg {
-            margin: 0 10px;
-            display: flex;
-            justify-content: space-between;
-            height: 50px;
-            cursor: pointer;
-
-            span {
-                display: flex;
-                align-items: center;
-            }
-        }
-
-        .leg:not(:first-child) {
-            border-top: 2px solid color($colors, grey90);
-        }
         .header-container {
             display: flex;
             align-items: center;
@@ -47,17 +31,6 @@ rotation-card {
             .spinner-invisible {
                 visibility: hidden;
             }
-        }
-
-
-
-        .button-synchro {
-            display: flex;
-            align-items: center;
-            justify-content: flex-end;
-            float: right;
-            width: 30px;
-            height: 30px;
         }
     }
 

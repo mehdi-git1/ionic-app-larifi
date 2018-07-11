@@ -7,15 +7,12 @@
         </span>
         <span>{{ rotation.number }}</span>
         <span>
-            <download-button [synchroInProgress]="synchroInProgress" (onDownload)="downloadRotationPncsEdossier($event)" ></download-button>
+            <download-button [synchroInProgress]="synchroInProgress" (onDownload)="downloadRotationPncsEdossier()" ></download-button>
         </span>
     </ion-card-header>
     <ion-card-content [ngClass]="{'opened' : rotation.opened}">
-        <div class="leg" *ngFor="let leg of rotation.legs" (click)="goToFlightCrewListPage(leg)">
-            <span>{{ leg.company }}{{ leg.number }}</span>
-            <span>{{ leg.departureDate | date : 'dd/MM/yyyy HH:mm' }}</span>
-            <span>{{ leg.departureStation }} - {{ leg.arrivalStation }}</span>
-            <span>{{ leg.aircraftType }}</span>
+        <div *ngFor="let leg of rotation.legs" (click)="goToFlightCrewListPage(leg)">
+            <flight-card [leg]="leg"></flight-card>
         </div>
     </ion-card-content>
 </ion-card>

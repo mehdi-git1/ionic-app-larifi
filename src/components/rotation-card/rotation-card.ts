@@ -54,13 +54,13 @@ export class RotationCardComponent {
   /**
   * Précharge les eDossier des PNC de la rotation en passant par le lien rotation -> leg -> crewMembers
   */
-  downloadRotationPncsEdossier(event: Event, leg: Leg) {
+  downloadRotationPncsEdossier() {
     this.synchroInProgress = true;
     const pncsMatriculeToDownload: string[] = new Array();
     const downloadPromises: Promise<boolean>[] = new Array();
     const matriculePromises: Promise<CrewMember[]>[] = new Array();
     this.rotationProvider.getRotationLegs(this.rotation).then(rotationLegs => {
-      for (leg of rotationLegs) {
+      for (const leg of rotationLegs) {
         matriculePromises.push(this.legProvider.getFlightCrewFromLeg(leg.techId));
       }
       Promise.all(matriculePromises).then(values => {
