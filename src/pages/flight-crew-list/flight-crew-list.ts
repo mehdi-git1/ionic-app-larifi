@@ -6,7 +6,7 @@ import { PncProvider } from './../../providers/pnc/pnc';
 import { Pnc } from './../../models/pnc';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { CrewMember } from '../../models/CrewMember';
+import { CrewMember } from '../../models/crewMember';
 import { SynchronizationProvider } from './../../providers/synchronization/synchronization';
 import { ToastProvider } from './../../providers/toast/toast';
 import { ConnectivityService } from '../../services/connectivity.service';

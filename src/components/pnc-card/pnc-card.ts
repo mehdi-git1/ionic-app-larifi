@@ -1,5 +1,5 @@
-import { Component, Input, AfterViewInit } from '@angular/core';
-import { CrewMember } from '../../models/CrewMember';
+import { Component, Input } from '@angular/core';
+import { CrewMember } from '../../models/crewMember';
 import { SynchronizationProvider } from './../../providers/synchronization/synchronization';
 import { ToastProvider } from './../../providers/toast/toast';
 import { ConnectivityService } from '../../services/connectivity.service';
