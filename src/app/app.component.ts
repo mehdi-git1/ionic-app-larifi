@@ -67,7 +67,9 @@ export class EDossierPNC {
       // Création du stockage local
       this.storageService.initOfflineMap().then(success => {
         this.putAuthenticatedUserInSession().then(authenticatedUser => {
-          this.synchronizationProvider.storeEDossierOffline(authenticatedUser.username);
+          this.synchronizationProvider.storeEDossierOffline(authenticatedUser.username).then(successStore => {
+          }, error => {
+          });
         });
       });
 

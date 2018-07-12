@@ -24,11 +24,7 @@ export class FlightCrewListPage {
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     private legProvider: LegProvider,
-    private genderProvider: GenderProvider,
-    public connectivityService: ConnectivityService,
-    private synchronizationProvider: SynchronizationProvider,
-    private toastProvider: ToastProvider,
-    private translateService: TranslateService) {
+    private translate: TranslateService) {
   }
 
   ionViewCanEnter() {

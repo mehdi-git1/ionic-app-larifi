@@ -39,10 +39,7 @@
                             <span class="value firstname">{{ pnc?.firstName }}</span>
                         </ion-col>
                         <ion-col class="download-edossier">
-                            <button ion-fab mini color="secondary" *ngIf="connectivityService.isConnected()" (click)="downloadPncEdossier()" [disabled]="synchroInProgress">
-                                <ion-icon *ngIf="!synchroInProgress" name="cloud-download" ios="md-cloud-download"></ion-icon>
-                                <ion-spinner *ngIf="synchroInProgress"></ion-spinner>
-                            </button>
+                            <download-button [synchroInProgress]="synchroInProgress" (onDownload)="downloadPncEdossier()"></download-button>
                         </ion-col>
                     </ion-row>
                     <ion-row>

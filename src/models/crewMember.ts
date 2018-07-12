@@ -1,5 +1,5 @@
-import { Pnc } from './pnc';
 import { EDossierPncObject } from './eDossierPncObject';
+import { Pnc } from './pnc';
 
 export class CrewMember extends EDossierPncObject {
     particulariy: string;
