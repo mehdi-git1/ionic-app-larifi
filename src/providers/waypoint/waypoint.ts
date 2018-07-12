@@ -33,10 +33,10 @@ export class WaypointProvider {
     if (waypoint.techId === undefined) {
       waypoint.creationDate = this.datePipe.transform(new Date(), 'yyyy-MM-ddTHH:mm');
       waypoint.creationAuthor = new Pnc();
-      waypoint.creationAuthor.matricule = this.sessionService.authenticatedUser.username;
+      waypoint.creationAuthor.matricule = this.sessionService.authenticatedUser.matricule;
     }
     waypoint.lastUpdateAuthor = new Pnc();
-    waypoint.lastUpdateAuthor.matricule = this.sessionService.authenticatedUser.username;
+    waypoint.lastUpdateAuthor.matricule = this.sessionService.authenticatedUser.matricule;
     waypoint.lastUpdateDate = this.datePipe.transform(new Date(), 'yyyy-MM-ddTHH:mm');
 
     return this.connectivityService.isConnected() ?

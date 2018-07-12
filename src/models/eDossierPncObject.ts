@@ -4,9 +4,6 @@ export abstract class EDossierPncObject {
     offlineStorageDate: string;
     offlineAction: OfflineAction;
 
-    constructor(obj?: any) {
-    }
-
     /**
      * Récupère l'id de stockage de l'objet. L'id de stockage correspond à la clef primaire de l'entité
      * @return l'id de stockage

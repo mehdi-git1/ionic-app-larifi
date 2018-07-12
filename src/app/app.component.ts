@@ -67,7 +67,7 @@ export class EDossierPNC implements OnInit {
       // Création du stockage local
       this.storageService.initOfflineMap().then(success => {
         this.putAuthenticatedUserInSession().then(authenticatedUser => {
-          this.synchronizationProvider.storeEDossierOffline(authenticatedUser.username).then(successStore => {
+          this.synchronizationProvider.storeEDossierOffline(authenticatedUser.matricule).then(successStore => {
           }, error => {
           });
         });
@@ -94,7 +94,7 @@ export class EDossierPNC implements OnInit {
     const promise = this.securityProvider.getAuthenticatedUser();
     promise.then(authenticatedUser => {
       if (authenticatedUser) {
-        this.sessionService.authenticatedUser = new AuthenticatedUser(authenticatedUser);
+        this.sessionService.authenticatedUser = authenticatedUser;
         this.nav.setRoot(PncHomePage, { matricule: this.sessionService.authenticatedUser.matricule });
       }
       else {
