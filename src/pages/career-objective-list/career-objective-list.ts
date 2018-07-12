@@ -26,7 +26,6 @@ export class CareerObjectiveListPage {
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     private careerObjectiveProvider: CareerObjectiveProvider,
-    private toastProvider: ToastProvider,
     private eObservationService: EObservationService,
     private sessionService: SessionService) {
 

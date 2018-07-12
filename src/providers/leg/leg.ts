@@ -1,7 +1,5 @@
-import { NavParams } from 'ionic-angular';
 import { CrewMember } from './../../models/crewMember';
 import { Config } from './../../configuration/environment-variables/config';
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { RestService } from '../../services/rest.base.service';
 
