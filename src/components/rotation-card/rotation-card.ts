@@ -1,6 +1,7 @@
 import { TranslateService } from '@ngx-translate/core';
 import { SynchronizationProvider } from './../../providers/synchronization/synchronization';
 import { ToastProvider } from './../../providers/toast/toast';
+import { SessionService } from './../../services/session.service';
 import { Leg } from './../../models/leg';
 import { FlightCrewListPage } from './../../pages/flight-crew-list/flight-crew-list';
 import { NavParams, NavController } from 'ionic-angular';
@@ -27,7 +28,8 @@ export class RotationCardComponent {
     private legProvider: LegProvider,
     private toastProvider: ToastProvider,
     private synchronizationProvider: SynchronizationProvider,
-    private translate: TranslateService) {
+    private translate: TranslateService,
+    private sessionService: SessionService) {
   }
 
   /**
@@ -48,6 +50,7 @@ export class RotationCardComponent {
   }
 
   goToFlightCrewListPage(leg: Leg) {
+    this.sessionService.appContext.rotationId = this.rotation.techId;
     this.navCtrl.push(FlightCrewListPage, { leg: leg });
   }
 

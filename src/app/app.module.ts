@@ -5,7 +5,9 @@ import { OfflineCareerObjectiveProvider } from './../providers/career-objective/
 import { OfflineSecurityProvider } from './../providers/security/offline-security';
 import { OnlineSecurityProvider } from './../providers/security/online-security';
 import { StorageService } from './../services/storage.service';
+import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { HelpAssetListPage } from './../pages/help-asset-list/help-asset-list';
+import { EObservationService } from './../services/eObservation.service';
 import { ComponentsModule } from './../components/components.module';
 import { FlightCrewListPage } from './../pages/flight-crew-list/flight-crew-list';
 import { WaypointStatusProvider } from './../providers/waypoint-status/waypoint-status';
@@ -60,6 +62,9 @@ import { SynchronizationProvider } from '../providers/synchronization/synchroniz
 import { PncSynchroProvider } from '../providers/synchronization/pnc-synchro';
 import { HomePage } from '../pages/home/home';
 
+import { SummarySheetPage } from '../pages/summary-sheet/summary-sheet';
+import { SummarySheetProvider } from '../providers/summary-sheet/summary-sheet';
+
 @NgModule({
   declarations: [
     EDossierPNC,
@@ -71,7 +76,8 @@ import { HomePage } from '../pages/home/home';
     UpcomingFlightListPage,
     HelpAssetListPage,
     FlightCrewListPage,
-    HomePage
+    HomePage,
+    SummarySheetPage
   ],
   imports: [
     BrowserModule,
@@ -85,7 +91,8 @@ import { HomePage } from '../pages/home/home';
         useFactory: (createTranslateLoader),
         deps: [HttpClient]
       }
-    })
+    }),
+    PdfViewerModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -98,7 +105,8 @@ import { HomePage } from '../pages/home/home';
     UpcomingFlightListPage,
     HelpAssetListPage,
     FlightCrewListPage,
-    HomePage
+    HomePage,
+    SummarySheetPage
   ],
   providers: [
     StatusBar,
@@ -106,11 +114,7 @@ import { HomePage } from '../pages/home/home';
     SecMobilService,
     ConnectivityService,
     StorageService,
-    {
-      provide: RestService,
-      useFactory: createRestService,
-      deps: [HttpClient, SecMobilService, ConnectivityService]
-    },
+    { provide: RestService, useFactory: createRestService, deps: [HttpClient, SecMobilService, Config] },
     { provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true },
     AppInitService,
     HttpClientModule,
@@ -145,7 +149,9 @@ import { HomePage } from '../pages/home/home';
     WaypointTransformerProvider,
     PncTransformerProvider,
     SynchronizationProvider,
-    PncSynchroProvider
+    PncSynchroProvider,
+    EObservationService,
+    SummarySheetProvider
   ]
 })
 export class AppModule { }
@@ -154,13 +160,12 @@ export class AppModule { }
 declare var window: any;
 
 // Check if we are in app mode or in web browser
-export function createRestService(http: HttpClient,
-  secMobilService: SecMobilService): RestService {
+export function createRestService(http: HttpClient, secMobilService: SecMobilService, config: Config): RestService {
   if (undefined !== window.cordova && 'browser' !== window.cordova.platformId) {
     console.log('mobile mode selected');
     return new RestMobileService(http, secMobilService);
   } else {
     console.log('web mode selected');
-    return new RestWebService(http);
+    return new RestWebService(http, config);
   }
 }

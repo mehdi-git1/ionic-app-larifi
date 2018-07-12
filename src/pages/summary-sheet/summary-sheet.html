@@ -1,0 +1,13 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>{{ 'SUMMARY_SHEET.TITLE' | translate }}</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+    <pdf-viewer *ngIf="pdfNull === false; else elseBlock" max-width [src]="summarySheet" [original-size]="false" [autoresize]="true"></pdf-viewer>
+    <ng-template #elseBlock>
+        <div class="no-summary-sheet">{{ 'SUMMARY_SHEET.PDF_MISSING' | translate }}</div>
+    </ng-template>
+
+</ion-content>

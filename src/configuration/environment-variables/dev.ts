@@ -20,7 +20,9 @@ export class Config extends BaseConfig {
             this.backEndUrl = '/api/rest/resources';
         }
 
-        this.env = 'default';
+        this.env = 'dev';
         this.secmobileEnv = 'rct';
+        this.eObsUrl = 'com.airfrance.mobile.inhouse.eformsdevPNC';
+        this.eObsCallbackUrl = 'com.airfrance.mobile.inhouse.EDosPNC';
     }
 }
