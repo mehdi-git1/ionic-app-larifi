@@ -9,82 +9,86 @@
 </ion-header>
 
 <ion-content padding>
-    <div class="go-to-edossier">
-        <ion-item padding>
-            <ion-label floating>{{ 'PNC_HOME.GO_TO_EDOSSIER.MATRICULE' | translate }}</ion-label>
-            <ion-input type="text" [(ngModel)]="matricule"></ion-input>
-        </ion-item>
-        <button ion-button color="primary" (click)="goToEdossier()">{{ 'PNC_HOME.GO_TO_EDOSSIER.SUBMIT' | translate }}</button>
-    </div>
+    <ion-grid>
 
-    <ion-card class="pnc-info-panel">
-        <offline-indicator [object]="pnc"></offline-indicator>
-        <ion-grid>
-            <ion-row>
-                <ion-col col-2>
-                    <img src="{{genderProvider.getAvatarPicture(pnc?.gender)}}" />
-                </ion-col>
-                <ion-col col-10 class="content">
-                    <ion-row class="primary-info">
-                        <!-- Matricule-->
-                        <ion-col class="pnc-info">
-                            <span class="value">{{pnc?.matricule}}</span>
-                        </ion-col>
-                        <!-- Nom -->
-                        <ion-col class="pnc-info">
-                            <span class="value">{{ pnc?.lastName }}</span>
-                        </ion-col>
-                        <!-- Prénom -->
-                        <ion-col class="pnc-info">
-                            <span class="value firstname">{{ pnc?.firstName }}</span>
-                        </ion-col>
-                        <ion-col class="download-edossier">
-                            <button ion-fab mini color="secondary" *ngIf="connectivityService.isConnected()" (click)="downloadPncEdossier()" [disabled]="synchroInProgress">
-                                <ion-icon *ngIf="!synchroInProgress" name="cloud-download" ios="md-cloud-download"></ion-icon>
-                                <ion-spinner *ngIf="synchroInProgress"></ion-spinner>
-                            </button>
-                        </ion-col>
-                    </ion-row>
+        <ion-row class="go-to-edossier">
+            <ion-item padding>
+                <ion-label floating>{{ 'PNC_HOME.GO_TO_EDOSSIER.MATRICULE' | translate }}</ion-label>
+                <ion-input type="text" [(ngModel)]="matricule"></ion-input>
+            </ion-item>
+            <button ion-button color="primary" (click)="loadPnc(matricule)" (keyup.enter)="loadPnc(matricule)">{{ 'PNC_HOME.GO_TO_EDOSSIER.SUBMIT' | translate }}</button>
+        </ion-row>
+
+        <ion-row ng-class="row-pnc-info-panel" *ngIf="pnc">
+            <ion-card class="pnc-info-panel">
+                <offline-indicator [object]="pnc"></offline-indicator>
+                <ion-grid>
                     <ion-row>
-                        <!-- Spécialité-->
-                        <ion-col class="pnc-info">
-                            <label>{{ 'PNC_HOME.INFO_PANEL.FUNCTION' | translate }}</label>
-                            <span class="value" [ngClass]="{'no-value' : !pnc?.speciality }">{{ pnc?.speciality }}</span>
+                        <ion-col col-2>
+                            <img src="{{genderProvider.getAvatarPicture(pnc?.gender)}}" />
                         </ion-col>
-                        <!-- Division-->
-                        <ion-col class="pnc-info">
-                            <label>{{ 'PNC_HOME.INFO_PANEL.DIVISION' | translate }}</label>
-                            <span class="value" [ngClass]="{'no-value' : !pnc?.assignment.division }">{{ pnc?.assignment.division }}</span>
-                        </ion-col>
-                        <!-- Secteur-->
-                        <ion-col class="pnc-info">
-                            <label>{{ 'PNC_HOME.INFO_PANEL.SECTOR' | translate }}</label>
-                            <span class="value" [ngClass]="{'no-value' : !pnc?.assignment.sector }">{{ pnc?.assignment.sector }}</span>
-                        </ion-col>
-                        <!-- Ginq-->
-                        <ion-col class="pnc-info">
-                            <label>{{ 'PNC_HOME.INFO_PANEL.GINQ' | translate }}</label>
-                            <span class="value" [ngClass]="{'no-value' : !pnc?.assignment.ginq }">{{ pnc?.assignment.ginq }}</span>
+                        <ion-col col-10 class="content">
+                            <ion-row class="primary-info">
+                                <!-- Matricule-->
+                                <ion-col class="pnc-info">
+                                    <span class="value">{{pnc.matricule}}</span>
+                                </ion-col>
+                                <!-- Nom -->
+                                <ion-col class="pnc-info">
+                                    <span class="value">{{ pnc.lastName }}</span>
+                                </ion-col>
+                                <!-- Prénom -->
+                                <ion-col class="pnc-info">
+                                    <span class="value firstname">{{ pnc.firstName }}</span>
+                                </ion-col>
+                                <ion-col class="download-edossier">
+                                    <download-button [synchroInProgress]="synchroInProgress" (onDownload)="downloadPncEdossier()"></download-button>
+                                </ion-col>
+                            </ion-row>
+                            <ion-row>
+                                <!-- Spécialité-->
+                                <ion-col class="pnc-info">
+                                    <label>{{ 'PNC_HOME.INFO_PANEL.FUNCTION' | translate }}</label>
+                                    <span class="value" [ngClass]="{'no-value' : !pnc?.speciality }">{{ pnc.speciality }}</span>
+                                </ion-col>
+                                <!-- Division-->
+                                <ion-col class="pnc-info">
+                                    <label>{{ 'PNC_HOME.INFO_PANEL.DIVISION' | translate }}</label>
+                                    <span class="value" [ngClass]="{'no-value' : !pnc?.assignment?.division }">{{ pnc?.assignment?.division }}</span>
+                                </ion-col>
+                                <!-- Secteur-->
+                                <ion-col class="pnc-info">
+                                    <label>{{ 'PNC_HOME.INFO_PANEL.SECTOR' | translate }}</label>
+                                    <span class="value" [ngClass]="{'no-value' : !pnc?.assignment?.sector }">{{ pnc?.assignment?.sector }}</span>
+                                </ion-col>
+                                <!-- Ginq-->
+                                <ion-col class="pnc-info">
+                                    <label>{{ 'PNC_HOME.INFO_PANEL.GINQ' | translate }}</label>
+                                    <span class="value" [ngClass]="{'no-value' : !pnc?.assignment?.ginq }">{{ pnc?.assignment?.ginq }}</span>
+                                </ion-col>
+                            </ion-row>
                         </ion-col>
                     </ion-row>
-                </ion-col>
-            </ion-row>
-        </ion-grid>
-    </ion-card>
+                </ion-grid>
+            </ion-card>
+        </ion-row>
 
-    <ion-grid id="nav-tile-grid">
-        <ion-row>
+        <ion-row id="nav-tile-grid" *ngIf="pnc">
             <!-- Liste des objectifs-->
-            <ion-col col-6>
-                <button ion-button *ngIf="pnc?.speciality !== Speciality.CAD" (click)="goToCareerObjectiveList()" class="development-program">
-                    {{ 'GLOBAL.DEVELOPMENT_PROGRAM' | translate }}
-                </button>
+            <ion-col col-6 *ngIf="pnc?.speciality !== Speciality.CAD">
+                <div class="parentBtn">
+                    <button ion-button (click)="goToCareerObjectiveList()" class="development-program">
+                        {{ 'GLOBAL.DEVELOPMENT_PROGRAM' | translate }}
+                    </button>
+                </div>
             </ion-col>
             <!-- Fiche synthèse PNC -->
-            <ion-col col-6>
-                <button ion-button *ngIf="pnc?.speciality !== Speciality.CAD" [disabled]="true" color="grey50">
-                    {{ 'GLOBAL.PNC_SUMMARY_SHEET' | translate }}
-                </button>
+            <ion-col col-6 *ngIf="pnc?.speciality !== Speciality.CAD">
+                <div class="parentBtn">
+                    <button ion-button (click)="goToSummarySheet()" color="blue80">
+                        {{ 'GLOBAL.PNC_SUMMARY_SHEET' | translate }}
+                    </button>
+                </div>
             </ion-col>
             <!-- Effectif PNC -->
             <ion-col col-6>
@@ -93,16 +97,20 @@
                 </button>
             </ion-col>
             <!-- Prochains vols -->
-            <ion-col col-6>
-                <button ion-button *ngIf="pnc?.speciality === Speciality.CAD" (click)="goToUpcomingFlightList()" color="red80">
-                    {{ 'GLOBAL.UPCOMING_FLIGHT' | translate }}
-                </button>
+            <ion-col col-6 *ngIf="pnc?.speciality === Speciality.CAD">
+                <div class="parentBtn">
+                    <button ion-button (click)="goToUpcomingFlightList()" color="red80">
+                        {{ 'GLOBAL.UPCOMING_FLIGHT' | translate }}
+                    </button>
+                </div>
             </ion-col>
             <!-- Ressource d'aide -->
             <ion-col col-6>
-                <button ion-button (click)="goToHelpAssetList()" color="green70">
-                    {{ 'GLOBAL.HELP_CENTRE' | translate }}
-                </button>
+                <div class="parentBtn">
+                    <button ion-button (click)="goToHelpAssetList()" color="green70">
+                        {{ 'GLOBAL.HELP_CENTRE' | translate }}
+                    </button>
+                </div>
             </ion-col>
         </ion-row>
     </ion-grid>

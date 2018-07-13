@@ -1,5 +1,9 @@
 page-pnc-home {
 
+    .grid {
+        height: 100%;
+    }
+
     .pnc-info-panel {
         display: flex;
         img {
@@ -40,19 +44,33 @@ page-pnc-home {
         button {
             margin-top: 43px;
         }
+
+        .item-block {
+            width: auto;
+            background-color: transparent;
+        }
     }
 
     #nav-tile-grid {
-
+       flex: 1;
         button {
-            height: 300px;
+            height: inherit;
+            font-size: 2.5vw;
             width: 100%;
-            margin: 0;
-            font-size: 1.5em;
+            height: 100%;
         }
 
         .development-program {
             background: color($colors, orange60);
         }
+    }
+
+    .parentBtn {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        padding: 10px;
     }
 }

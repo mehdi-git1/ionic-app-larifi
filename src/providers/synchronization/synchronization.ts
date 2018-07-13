@@ -1,3 +1,5 @@
+import { SummarySheet } from './../../models/summarySheet';
+import { SummarySheetProvider } from './../summary-sheet/summary-sheet';
 import { PncTransformerProvider } from './../pnc/pnc-transformer';
 import { WaypointTransformerProvider } from './../waypoint/waypoint-transformer';
 import { PncSynchro } from './../../models/pncSynchro';
@@ -22,7 +24,8 @@ export class SynchronizationProvider {
     private careerObjectiveTransformer: CareerObjectiveTransformerProvider,
     private waypointTransformer: WaypointTransformerProvider,
     private pncTransformer: PncTransformerProvider,
-    private pncSynchroProvider: PncSynchroProvider) {
+    private pncSynchroProvider: PncSynchroProvider,
+    private summarySheetProvider: SummarySheetProvider) {
   }
 
 
@@ -35,7 +38,10 @@ export class SynchronizationProvider {
   storeEDossierOffline(matricule: string): Promise<boolean> {
     return new Promise((resolve, reject) => {
       this.pncSynchroProvider.getPncSynchro(matricule).then(pncSynchro => {
-        this.updateLocalStorageFromPncSynchroResponse(pncSynchro);
+        this.summarySheetProvider.getSummarySheet(matricule).then(summarySheet => {
+          pncSynchro.summarySheet = summarySheet;
+          this.updateLocalStorageFromPncSynchroResponse(pncSynchro);
+        });
         resolve(true);
       }, error => {
         resolve(true);
@@ -67,6 +73,9 @@ export class SynchronizationProvider {
       this.storageService.save(Entity.WAYPOINT, this.waypointTransformer.toWaypoint(waypoint), true);
     }
 
+    // Sauvegarde de la fiche synthese
+    this.storageService.save(Entity.SUMMARY_SHEET, pncSynchroResponse.summarySheet, true);
+
     this.storageService.persistOfflineMap();
   }
 
@@ -93,6 +102,8 @@ export class SynchronizationProvider {
       this.storageService.delete(Entity.CAREER_OBJECTIVE,
         this.careerObjectiveTransformer.toCareerObjective(careerObjective).getStorageId());
     }
+    // Suppression de la fiche synthese
+    this.storageService.delete(Entity.SUMMARY_SHEET, pnc.matricule);
   }
 
   /**
@@ -176,5 +187,3 @@ export class SynchronizationProvider {
   }
 
 }
-
-

@@ -1,20 +1,21 @@
 import { SynchronizationProvider } from './../../providers/synchronization/synchronization';
-import { OfflineProvider } from './../../providers/offline/offline';
-import { PncRole } from './../../models/pncRole';
 import { TranslateService } from '@ngx-translate/core';
 import { UpcomingFlightListPage } from './../upcoming-flight-list/upcoming-flight-list';
-import { SecurityProvider } from './../../providers/security/security';
 import { SessionService } from './../../services/session.service';
+import { SecurityProvider } from './../../providers/security/security';
 import { ToastProvider } from './../../providers/toast/toast';
 import { GenderProvider } from './../../providers/gender/gender';
+import { EObservationService } from './../../services/eObservation.service';
+import { EObservation } from './../../models/eObservation';
 import { Speciality } from './../../models/speciality';
 import { CareerObjectiveListPage } from './../career-objective-list/career-objective-list';
 import { PncProvider } from './../../providers/pnc/pnc';
-import { Component } from '@angular/core';
-import { NavController, NavParams, Events } from 'ionic-angular';
+import { Component, NgZone, ChangeDetectorRef } from '@angular/core';
+import { NavController, NavParams, ViewController, App } from 'ionic-angular';
 import { Pnc } from '../../models/pnc';
 import { Assignment } from '../../models/assignment';
 import { ConnectivityService } from '../../services/connectivity.service';
+import { SummarySheetPage } from '../summary-sheet/summary-sheet';
 import { HelpAssetListPage } from './../help-asset-list/help-asset-list';
 import { PncSearchPage } from './../pnc-search/pnc-search';
 
@@ -27,43 +28,43 @@ export class PncHomePage {
   pnc: Pnc;
   matricule: string;
   synchroInProgress: boolean;
-
+  eObservation: EObservation;
   // exporter la classe enum speciality dans la page html
   Speciality = Speciality;
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
-    private pncProvider: PncProvider,
+    public viewCtrl: ViewController,
+    public appCtrl: App,
+    public zone: NgZone,
+    public cd: ChangeDetectorRef,
     public genderProvider: GenderProvider,
     private toastProvider: ToastProvider,
     private securityProvider: SecurityProvider,
     private synchronizationProvider: SynchronizationProvider,
-    private sessionService: SessionService,
-    private events: Events,
     public connectivityService: ConnectivityService,
-    private translateService: TranslateService) {
+    private sessionService: SessionService,
+    public translateService: TranslateService,
+    private pncProvider: PncProvider) {
 
-    this.pnc = new Pnc();
-    this.pnc.assignment = new Assignment();
   }
 
   ionViewCanEnter() {
     return new Promise((resolve, reject) => {
-      if (this.sessionService.authenticatedUser) {
-        this.loadPnc().then(success => {
+      if (this.navParams.get('matricule')) {
+        this.matricule = this.navParams.get('matricule');
+      } else if (this.sessionService.appContext.observedPncMatricule) {
+        this.matricule = this.sessionService.appContext.observedPncMatricule;
+      } else if (this.sessionService.authenticatedUser) {
+        this.matricule = JSON.parse(this.sessionService.authenticatedUser as any).matricule;
+      }
+
+      if (this.matricule != null) {
+        this.pncProvider.getPnc(this.matricule).then(pnc => {
+          this.pnc = pnc;
           resolve();
         }, error => {
-          reject();
-        });
-
-      } else {
-        this.events.subscribe('user:authenticated', () => {
-          this.matricule = this.sessionService.authenticatedUser.username;
-          this.loadPnc().then(success => {
-            resolve();
-          }, error => {
-            reject();
-          });
+          resolve();
         });
       }
     });
@@ -72,21 +73,14 @@ export class PncHomePage {
   /**
    * charge le détail du pnc connecté ou consulté.
    */
-  loadPnc(): Promise<void> {
-    // Si on a un matricule dans les params de navigation, cela surcharge le matricule du user connecté
-    if (this.navParams.get('matricule')) {
-      this.matricule = this.navParams.get('matricule');
-    }
-
+  loadPnc(matricule?: string): Promise<void> {
     return new Promise((resolve, reject) => {
-      if (this.matricule !== undefined) {
-        this.pncProvider.getPnc(this.matricule).then(foundPnc => {
-          this.pnc = foundPnc;
-          resolve();
-        }, error => {
-          reject();
-        });
+      // Si on a un matricule dans les params de navigation, cela surcharge le matricule du user connecté
+      if (this.sessionService.appContext.observedPncMatricule) {
+        this.matricule = this.sessionService.appContext.observedPncMatricule;
       }
+
+      this.navCtrl.setRoot(PncHomePage, { matricule: this.matricule });
     });
   }
 
@@ -127,8 +121,11 @@ export class PncHomePage {
     this.synchronizationProvider.storeEDossierOffline(this.pnc.matricule).then(success => {
       this.loadPnc();
       this.synchroInProgress = false;
+      this.toastProvider.info(this.translateService.instant('SYNCHRONIZATION.PNC_SAVED_OFFLINE', { 'matricule': this.pnc.matricule }));
     }, error => {
       this.synchroInProgress = false;
+      this.toastProvider.error(
+        this.translateService.instant('SYNCHRONIZATION.PNC_SAVED_OFFLINE_ERROR', { 'matricule': this.pnc.matricule }));
     });
   }
 
@@ -139,4 +136,7 @@ export class PncHomePage {
     this.navCtrl.push(PncSearchPage);
   }
 
+  goToSummarySheet() {
+    this.navCtrl.push(SummarySheetPage, { matricule: this.matricule });
+  }
 }

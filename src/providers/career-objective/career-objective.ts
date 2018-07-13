@@ -55,10 +55,10 @@ export class CareerObjectiveProvider {
     if (careerObjective.techId === undefined) {
       careerObjective.creationDate = this.datePipe.transform(new Date(), 'yyyy-MM-ddTHH:mm');
       careerObjective.creationAuthor = new Pnc();
-      careerObjective.creationAuthor.matricule = this.sessionService.authenticatedUser.username;
+      careerObjective.creationAuthor.matricule = this.sessionService.authenticatedUser.matricule;
     }
     careerObjective.lastUpdateAuthor = new Pnc();
-    careerObjective.lastUpdateAuthor.matricule = this.sessionService.authenticatedUser.username;
+    careerObjective.lastUpdateAuthor.matricule = this.sessionService.authenticatedUser.matricule;
     careerObjective.lastUpdateDate = this.datePipe.transform(new Date(), 'yyyy-MM-ddTHH:mm');
 
     return this.connectivityService.isConnected() ?

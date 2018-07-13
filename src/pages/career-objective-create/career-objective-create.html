@@ -11,18 +11,15 @@
         <h3>{{ 'CAREER_OBJECTIVE_CREATE.EDIT_TITLE' | translate }}</h3>
     </ng-template>
 
+    <!-- Barre de statut -->
+    <ion-badge class="{{careerObjective.careerObjectiveStatus.toLowerCase()}}" *ngIf="careerObjective.careerObjectiveStatus">
+        {{ 'GLOBAL.CAREER_OBJECTIVE_STATUS.'+careerObjective.careerObjectiveStatus | translate }}
+    </ion-badge>
+
     <form novalidate [formGroup]="creationForm">
         <ion-grid>
             <ion-row>
                 <ion-col col-9>
-                    <!-- Barre de statut -->
-                    <ion-row>
-                        <ion-col col-12>
-                            <ion-badge class="{{careerObjective.careerObjectiveStatus.toLowerCase()}}" *ngIf="careerObjective.careerObjectiveStatus" float-right>
-                                {{ 'GLOBAL.CAREER_OBJECTIVE_STATUS.'+careerObjective.careerObjectiveStatus | translate }}
-                            </ion-badge>
-                        </ion-col>
-                    </ion-row>
                     <ion-row>
                         <ion-col col-12>
                             <!-- Titre -->

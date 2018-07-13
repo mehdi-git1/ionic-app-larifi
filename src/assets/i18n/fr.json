@@ -90,7 +90,8 @@
         },
         "BUTTONS": {
             "ADD_CAREER_OBJECTIVE": "Créer un nouvel objectif"
-        }
+        },
+        "CREATE_EOBSERVATION": "Créer une eObservation"
     },
     "PNC_HOME": {
         "TITLE": "Accueil PNC",
@@ -138,7 +139,7 @@
     "FLIGHT_CREW_LIST": {
         "LIST": {
             "RELAYS": "Relais",
-            "PARTICULARITY": "Particularité",
+            "FUNCTION": "Fonction",
             "LAST_IN_FLIGHT_ENCOUNTER_DATE": "Dernière rencontre Vol",
             "LAST_ON_GROUND_ENCOUNTER_DATE": "Dernière rencontre Sol"
         },
@@ -150,6 +151,11 @@
         "UPCOMING_FLIGHTS": "Mes prochains vols",
         "NO_FLIGHTS": "Aucun vol trouvé"
     },
+    "SUMMARY_SHEET": {
+        "TITLE": "Synthèse PNC",
+        "PDF_MISSING": "Pas de fiche synthèse disponible"
+    },
+
     "HELP_ASSET_LIST": {
         "TITLE": "Ressources d'aide",
         "NO_HELP_ASSETS": "Aucune ressource créée pour le moment"
@@ -157,6 +163,8 @@
     "SYNCHRONIZATION": {
         "PNC_SAVED_OFFLINE": "Le PNC {{ matricule }} a été synchronisé",
         "PNC_SAVED_OFFLINE_ERROR": "Le PNC {{ matricule }} n'a pas pu être synchronisé",
+        "ROTATION_SAVED_OFFLINE": "Les PNC de la rotation {{ rotationNumber }} ont été synchronisés",
+        "ROTATION_SAVED_OFFLINE_ERROR": "Un ou plusieurs PNC de la rotation {{ rotationNumber }} n'ont pas pu être synchronisés",
         "FLIGHT_SAVED_OFFLINE": "Les PNC du vol {{ flightNumber }} ont été synchronisés",
         "FLIGHT_SAVED_OFFLINE_ERROR": "Un ou plusieurs PNC du vol {{ flightNumber }} n'ont pas pu être synchronisés"
     },

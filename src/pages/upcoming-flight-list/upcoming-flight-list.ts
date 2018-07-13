@@ -2,7 +2,6 @@ import { PncProvider } from './../../providers/pnc/pnc';
 import { Rotation } from './../../models/rotation';
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
-import { RotationProvider } from '../../providers/rotation/rotation';
 
 @Component({
   selector: 'page-upcoming-flight-list',
@@ -15,16 +14,16 @@ export class UpcomingFlightListPage {
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
-    private pncProvider: PncProvider,
-    private rotationProvider: RotationProvider) {
+    private pncProvider: PncProvider) {
   }
 
   ionViewDidLoad() {
-    this.pncProvider.getLastPerformedRotation(this.navParams.get('matricule')).then(lastPerformedRotation => {
+    const matricule = this.navParams.get('matricule');
+    this.pncProvider.getLastPerformedRotation(matricule).then(lastPerformedRotation => {
       this.lastPerformedRotation = lastPerformedRotation;
     }, error => { });
 
-    this.pncProvider.getUpcomingRotations(this.navParams.get('matricule')).then(upcomingRotations => {
+    this.pncProvider.getUpcomingRotations(matricule).then(upcomingRotations => {
       this.upcomingRotations = upcomingRotations;
     }, error => { });
   }

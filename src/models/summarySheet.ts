@@ -1,10 +1,8 @@
 import { EDossierPncObject } from './eDossierPncObject';
 
-export class AuthenticatedUser extends EDossierPncObject {
+export class SummarySheet extends EDossierPncObject {
     matricule: string;
-    fistName: string;
-    lastName: string;
-    manager: boolean;
+    summarySheet: Blob;
 
     getStorageId(): string {
         return this.matricule;

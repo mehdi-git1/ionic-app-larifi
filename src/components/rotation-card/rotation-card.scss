@@ -24,12 +24,14 @@ rotation-card {
             padding: 0;
         }
 
-
-
-        .content {
+        .header-container {
             display: flex;
-        }
+            align-items: center;
 
+            .spinner-invisible {
+                visibility: hidden;
+            }
+        }
     }
 
 }

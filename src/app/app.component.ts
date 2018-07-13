@@ -1,14 +1,13 @@
 import { SynchronizationProvider } from './../providers/synchronization/synchronization';
 import { ToastProvider } from './../providers/toast/toast';
 import { ConnectivityService } from './../services/connectivity.service';
+import { AuthenticatedUser } from './../models/authenticatedUser';
 import { AuthenticationPage } from './../pages/authentication/authentication';
 import { SessionService } from './../services/session.service';
-import { AuthenticatedUser } from './../models/authenticatedUser';
 import { SecurityProvider } from './../providers/security/security';
 import { PncHomePage } from './../pages/pnc-home/pnc-home';
-import { CareerObjectiveCreatePage } from './../pages/career-objective-create/career-objective-create';
-import { Component, ViewChild } from '@angular/core';
-import { Nav, Platform, Events } from 'ionic-angular';
+import { Component, ViewChild, OnInit } from '@angular/core';
+import { Nav, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -20,7 +19,8 @@ import { HomePage } from '../pages/home/home';
 @Component({
   templateUrl: 'app.html'
 })
-export class EDossierPNC {
+export class EDossierPNC implements OnInit {
+
   @ViewChild('content') nav: Nav;
 
   rootPage: any = HomePage;
@@ -37,8 +37,11 @@ export class EDossierPNC {
     private connectivityService: ConnectivityService,
     private toastProvider: ToastProvider,
     private synchronizationProvider: SynchronizationProvider,
-    private events: Events
+    public translate: TranslateService
   ) {
+  }
+
+  ngOnInit(): void {
     this.initializeApp();
   }
 
@@ -51,23 +54,22 @@ export class EDossierPNC {
       this.translateService.setDefaultLang('fr');
       this.translateService.use('fr');
 
-      this.platform.ready().then(() => {
-        this.secMobilService.init();
-        this.secMobilService.isAuthenticated().then(() => {
-          // launch process when already authenticated
-          // nothing to do there
-          console.log('go to pnc home page');
-          this.nav.setRoot(PncHomePage);
-        }, error => {
+      this.secMobilService.init();
+      this.secMobilService.isAuthenticated().then(() => {
+        // launch process when already authenticated
+        this.putAuthenticatedUserInSession();
+      },
+        error => {
           console.log('go to authentication page');
           this.nav.setRoot(AuthenticationPage);
         });
-      });
 
       // Création du stockage local
       this.storageService.initOfflineMap().then(success => {
         this.putAuthenticatedUserInSession().then(authenticatedUser => {
-          this.synchronizationProvider.storeEDossierOffline(authenticatedUser.username);
+          this.synchronizationProvider.storeEDossierOffline(authenticatedUser.matricule).then(successStore => {
+          }, error => {
+          });
         });
       });
 
@@ -82,6 +84,7 @@ export class EDossierPNC {
       });
 
     });
+
   }
 
   /**
@@ -90,9 +93,16 @@ export class EDossierPNC {
   putAuthenticatedUserInSession(): Promise<AuthenticatedUser> {
     const promise = this.securityProvider.getAuthenticatedUser();
     promise.then(authenticatedUser => {
-      this.sessionService.authenticatedUser = authenticatedUser;
-      this.events.publish('user:authenticated');
-    }, error => { });
+      if (authenticatedUser) {
+        this.sessionService.authenticatedUser = authenticatedUser;
+        this.nav.setRoot(PncHomePage, { matricule: this.sessionService.authenticatedUser.matricule });
+      }
+      else {
+        this.nav.setRoot(AuthenticationPage);
+      }
+    }, error => {
+      console.log('putAuthenticatedUserInSession error: ' + JSON.stringify(error));
+    });
     return promise;
   }
 
