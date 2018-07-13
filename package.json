@@ -61,8 +61,7 @@
             },
             "cordova-plugin-secmobil": {
                 "APP_GROUP": "AF_GROUP"
-            },
-            "cordova-plugin-formslib": {}
+            }
         },
         "platforms": [
             "ios"

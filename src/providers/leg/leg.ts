@@ -1,4 +1,4 @@
-import { CrewMember } from './../../models/crewMember';
+import { CrewMember } from './../../models/CrewMember';
 import { Config } from './../../configuration/environment-variables/config';
 import { Injectable } from '@angular/core';
 import { RestService } from '../../services/rest.base.service';
