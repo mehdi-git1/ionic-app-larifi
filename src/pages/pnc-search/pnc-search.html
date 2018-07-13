@@ -1,0 +1,38 @@
+<ion-header>
+
+    <ion-navbar>
+        <ion-title>{{ 'GLOBAL.PNC_TEAM' | translate }}</ion-title>
+        <connectivity-indicator></connectivity-indicator>
+    </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+    <form novalidate>
+        <ion-card class="pnc-search-card">
+            <ion-card-content no-padding>
+                <ion-grid>
+                    <span *ngIf="this.connectivityService.isConnected()">
+                    <!-- Filtres de recherche à ajouter -->
+                    </span>
+                    <ion-row>
+                        <ion-col>
+                            <button (click)="searchPncs()" class="search-pnc">
+                              <ion-icon name="search"></ion-icon>
+                            </button>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+            </ion-card-content>
+        </ion-card>
+    </form>
+
+    <ion-content class="filtered-pnc-list-container">
+        <div *ngIf="searchInProgress" class="spinner-container">
+            <ion-spinner class="loading-spinner"></ion-spinner>
+        </div>
+        <span *ngIf="!searchInProgress"><pnc-card *ngFor="let pnc of filteredPncs" [crewMember]="this.createCrewMemberObjectFromPnc(pnc)"></pnc-card></span>
+
+    </ion-content>
+</ion-content>

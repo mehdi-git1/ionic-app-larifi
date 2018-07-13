@@ -1,3 +1,4 @@
+import { PncSearchPage } from './../pages/pnc-search/pnc-search';
 import { OnlineWaypointProvider } from './../providers/waypoint/online-waypoint';
 import { OnlineCareerObjectiveProvider } from './../providers/career-objective/online-career-objective';
 import { OfflineWaypointProvider } from './../providers/waypoint/offline-waypoint';
@@ -71,6 +72,7 @@ import { HomePage } from '../pages/home/home';
     UpcomingFlightListPage,
     HelpAssetListPage,
     FlightCrewListPage,
+    PncSearchPage,
     HomePage
   ],
   imports: [
@@ -98,6 +100,7 @@ import { HomePage } from '../pages/home/home';
     UpcomingFlightListPage,
     HelpAssetListPage,
     FlightCrewListPage,
+    PncSearchPage,
     HomePage
   ],
   providers: [

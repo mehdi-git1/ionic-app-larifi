@@ -10,6 +10,8 @@ export class Pnc extends EDossierPncObject {
     speciality: Speciality;
     assignment: Assignment;
     manager: boolean;
+    relays: string[];
+    aircraftSkills: string[];
 
     getStorageId(): string {
         return this.matricule;

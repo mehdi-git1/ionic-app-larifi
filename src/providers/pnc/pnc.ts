@@ -1,3 +1,4 @@
+import { SessionService } from './../../services/session.service';
 import { PncTransformerProvider } from './pnc-transformer';
 import { OfflineProvider } from './../offline/offline';
 import { OnlinePncProvider } from './online-pnc';
@@ -6,6 +7,8 @@ import { ConnectivityService } from './../../services/connectivity.service';
 import { Rotation } from './../../models/rotation';
 import { Pnc } from './../../models/pnc';
 import { Injectable } from '@angular/core';
+import { PagedPnc } from './../../models/pagedPnc';
+import { Page } from '../../models/page';
 
 @Injectable()
 export class PncProvider {
@@ -15,7 +18,8 @@ export class PncProvider {
     private onlinePncProvider: OnlinePncProvider,
     private offlinePncProvider: OfflinePncProvider,
     private offlineProvider: OfflineProvider,
-    private pncTransformer: PncTransformerProvider) {
+    private pncTransformer: PncTransformerProvider,
+    private sessionService: SessionService) {
   }
 
   /**
@@ -60,6 +64,27 @@ export class PncProvider {
     return this.connectivityService.isConnected() ?
       this.onlinePncProvider.getLastPerformedRotation(matricule) :
       this.offlinePncProvider.getLastPerformedRotation(matricule);
+  }
+
+
+  /**
+   * Récupère les pncs du même secteur depuis le cache
+   * @return les pncs concernés sauf le pnc connecté
+   */
+  getFilteredPncs(): Promise<PagedPnc> {
+    return this.offlinePncProvider.getPncs().then(response => {
+      return this.offlinePncProvider.getPnc(this.sessionService.authenticatedUser.username).then(connectedPnc => {
+        const filteredPnc = response.filter(pnc =>
+          (pnc.assignment.sector === connectedPnc.assignment.sector) && (pnc.matricule !== connectedPnc.matricule));
+        const pagedPncResponse: PagedPnc = new PagedPnc();
+        pagedPncResponse.content = filteredPnc;
+        pagedPncResponse.page = new Page();
+        pagedPncResponse.page.size = filteredPnc.length;
+        pagedPncResponse.page.totalElements = filteredPnc.length;
+        pagedPncResponse.page.number = 0;
+        return pagedPncResponse;
+      });
+    });
   }
 
 }
