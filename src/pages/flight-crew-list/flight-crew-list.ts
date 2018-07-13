@@ -28,14 +28,25 @@ export class FlightCrewListPage {
     public connectivityService: ConnectivityService,
     private synchronizationProvider: SynchronizationProvider,
     private toastProvider: ToastProvider,
-    private translateService: TranslateService) {
+    private translate: TranslateService,
+    private pncProvider: PncProvider) {
   }
 
   ionViewCanEnter() {
     this.leg = this.navParams.get('leg');
     this.legProvider.getFlightCrewFromLeg(this.leg.techId).then(flightCrew => {
       this.flightCrewList = flightCrew;
+      for (const crewMember of this.flightCrewList) {
+        if (crewMember.pnc.matricule !== undefined) {
+          this.pncProvider.getPnc(crewMember.pnc.matricule).then(foundPnc => {
+            crewMember.pnc = foundPnc;
+          }, error => {
+            this.toastProvider.info(this.translate.instant('FLIGHT_CREW_LIST.ERROR', { 'flightNumber': this.leg.number }));
+          });
+        }
+      }
     }, error => {
+      this.toastProvider.info(this.translate.instant('FLIGHT_CREW_LIST.ERROR', { 'flightNumber': this.leg.number }));
     });
   }
 

@@ -28,14 +28,10 @@ export class PncCardComponent {
     private pncProvider: PncProvider) {
   }
 
-  ionViewDidLoad() {
-    this.loadOfflinePncData(this.crewMember.pnc.matricule);
-  }
-
   /**
-   * charge les données offline du pnc afin de savoir si il est chargé en cache
+   * Charge les données offline du pnc afin de savoir si il est chargé en cache
    */
-  loadOfflinePncData(matricule): Promise<void> {
+  loadOfflinePncData(): Promise<void> {
     return new Promise((resolve, reject) => {
       if (this.crewMember.pnc.matricule !== undefined) {
         this.pncProvider.getPnc(this.crewMember.pnc.matricule).then(foundPnc => {
@@ -51,12 +47,11 @@ export class PncCardComponent {
   /**
    * Précharge le eDossier du PNC
    */
-  downloadPncEdossier(event: Event, matricule) {
-    event.stopPropagation();
+  downloadPncEdossier(matricule) {
     this.synchroInProgress = true;
     this.synchronizationProvider.storeEDossierOffline(matricule).then(success => {
       this.toastProvider.info(this.translate.instant('SYNCHRONIZATION.PNC_SAVED_OFFLINE', { 'matricule': matricule }));
-      this.synchroInProgress = false;
+      this.loadOfflinePncData().then(successOfflineData => this.synchroInProgress = false).catch(error => this.synchroInProgress = false);
     }, error => {
       this.toastProvider.error(this.translate.instant('SYNCHRONIZATION.PNC_SAVED_OFFLINE_ERROR', { 'matricule': matricule }));
       this.synchroInProgress = false;
