@@ -73,7 +73,7 @@ export class PncProvider {
    */
   getFilteredPncs(): Promise<PagedPnc> {
     return this.offlinePncProvider.getPncs().then(response => {
-      return this.offlinePncProvider.getPnc(this.sessionService.authenticatedUser.username).then(connectedPnc => {
+      return this.offlinePncProvider.getPnc(this.sessionService.authenticatedUser.matricule).then(connectedPnc => {
         const filteredPnc = response.filter(pnc =>
           (pnc.assignment.sector === connectedPnc.assignment.sector) && (pnc.matricule !== connectedPnc.matricule));
         const pagedPncResponse: PagedPnc = new PagedPnc();
