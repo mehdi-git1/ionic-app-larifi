@@ -16,6 +16,7 @@ import { Pnc } from '../../models/pnc';
 import { Assignment } from '../../models/assignment';
 import { ConnectivityService } from '../../services/connectivity.service';
 import { HelpAssetListPage } from './../help-asset-list/help-asset-list';
+import { PncSearchPage } from './../pnc-search/pnc-search';
 
 @Component({
   selector: 'page-pnc-home',
@@ -129,6 +130,13 @@ export class PncHomePage {
     }, error => {
       this.synchroInProgress = false;
     });
+  }
+
+  /**
+   * Dirige vers l'effectif PNC
+   */
+  goToPncSearch() {
+    this.navCtrl.push(PncSearchPage);
   }
 
 }
