@@ -16,8 +16,10 @@
                             <span class="value firstname">{{ crewMember.pnc.firstName }}</span>
                         </ion-col>
                         <ion-col>
-                            <!-- Prioritaire -->
                             <div class="icon-container">
+                                <!-- Particularite -->
+                                <span class="value">{{crewMember.particularity }}</span>
+                                <!-- Prioritaire -->
                                 <ion-icon *ngIf="crewMember.prioritized" name="flag" ios="md-flag" color="red80"></ion-icon>
                                 <button class="button-synchro" ion-fab mini color="secondary" *ngIf="connectivityService.isConnected()" (click)="downloadPncEdossier($event, crewMember.pnc.matricule)" [disabled]="synchroInProgress">
                                     <ion-icon *ngIf="!synchroInProgress" name="cloud-download" ios="md-cloud-download"></ion-icon>
@@ -27,6 +29,11 @@
                         </ion-col>
                     </ion-row>
                     <ion-row class="secondary-info">
+                        <!-- Fonction -->
+                        <ion-col class="pnc-info">
+                            <label>{{ 'FLIGHT_CREW_LIST.LIST.FUNCTION' | translate }}</label>
+                            <span class="value" [ngClass]="{'no-value' : !crewMember.pnc.speciality }">{{crewMember.pnc.speciality }}</span>
+                        </ion-col>
                         <!-- Relais-->
                         <ion-col class="pnc-info">
                             <label>{{ 'FLIGHT_CREW_LIST.LIST.RELAYS' | translate }}</label>
@@ -36,14 +43,9 @@
                                 </span>
                             </div>
                         </ion-col>
-                        <!-- Particularités -->
-                        <ion-col class="pnc-info">
-                            <label>{{ 'FLIGHT_CREW_LIST.LIST.PARTICULARITY' | translate }}</label>
-                            <span class="value" [ngClass]="{'no-value' : !crewMember.particularity }">{{crewMember.particularity }}</span>
-                        </ion-col>
                         <!-- Dernière rencontre en vol -->
                         <ion-col class="pnc-info">
-                            <label>{{ 'FLIGHT_CREW_LIST.LIST.PARTICULARITY' | translate }}</label>
+                            <label>{{ 'FLIGHT_CREW_LIST.LIST.LAST_IN_FLIGHT_ENCOUNTER_DATE' | translate }}</label>
                             <span class="value">{{ 'GLOBAL.COMING_SOON' | translate }}</span>
                         </ion-col>
                         <!-- Dernière rencontre en sol -->
