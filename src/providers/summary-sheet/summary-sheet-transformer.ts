@@ -16,7 +16,7 @@ export class SummarySheetTransformerProvider {
 
   toSummarySheet(object: any): SummarySheet {
     return !object ?
-      object :
+      null :
       new SummarySheet().fromJSON(object);
   }
 }
