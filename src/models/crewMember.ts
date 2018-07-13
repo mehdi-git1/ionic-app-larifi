@@ -2,7 +2,7 @@ import { Pnc } from './pnc';
 import { EDossierPncObject } from './eDossierPncObject';
 
 export class CrewMember extends EDossierPncObject {
-    particulariy: string;
+    particularity: string;
     lastEncounterDate: string;
     pnc: Pnc;
 
