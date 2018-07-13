@@ -36,7 +36,7 @@ export class SummarySheetPage {
 
   /**
     * Décode un Blob dans le FileReader global
-    * @param matricule le Blob a decoder
+    * @param matricule le Blob à decoder
     * @return Une promesse resolue quand tout le Blob a été decodé
     */
   getSummarySheet(blob: Blob) {

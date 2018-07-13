@@ -2,23 +2,19 @@ import { SummarySheetTransformerProvider } from './summary-sheet-transformer';
 import { OfflineProvider } from './../offline/offline';
 import { OfflineSummarySheetProvider } from './offline-summary-sheet';
 import { ConnectivityService } from './../../services/connectivity.service';
-import { HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Config } from '../../configuration/environment-variables/config';
-import { RestService } from '../../services/rest.base.service';
 import { OnlineSummarySheetProvider } from './online-summary-sheet';
 import { SummarySheet } from '../../models/summarySheet';
 
 @Injectable()
 export class SummarySheetProvider {
 
-  constructor(private config: Config,
-    private restService: RestService,
-    private connectivityService: ConnectivityService,
+  constructor(private connectivityService: ConnectivityService,
     private onlineSummarySheetProvider: OnlineSummarySheetProvider,
     private offlineSummarySheetProvider: OfflineSummarySheetProvider,
     private offlineProvider: OfflineProvider,
-    private summarySheetTransformerProvider: SummarySheetTransformerProvider) { }
+    private summarySheetTransformerProvider: SummarySheetTransformerProvider) {
+  }
 
   /**
     * Renvoi la fiche synthese d'un PNC
@@ -30,8 +26,9 @@ export class SummarySheetProvider {
       return new Promise((resolve, reject) => {
         this.offlineSummarySheetProvider.getSummarySheet(matricule).then(offlineSummarySheet => {
           this.onlineSummarySheetProvider.getSummarySheet(matricule).then(onlineSummarySheet => {
-            const onlineData = this.summarySheetTransformerProvider.toSummarySheet(onlineSummarySheet, matricule);
-            this.offlineProvider.flagDataAvailableOffline(onlineData, offlineSummarySheet);
+            const onlineData = this.summarySheetTransformerProvider.toSummarySheetFromBlob(onlineSummarySheet, matricule);
+            const offlineData = this.summarySheetTransformerProvider.toSummarySheet(offlineSummarySheet);
+            this.offlineProvider.flagDataAvailableOffline(onlineData, offlineData);
             resolve(onlineData);
           });
         });

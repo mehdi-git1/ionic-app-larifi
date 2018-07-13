@@ -10,18 +10,18 @@ export class OfflineSummarySheetProvider {
   }
 
   /**
-   * Sauvegarde un PNC dans le cache
-   * @param pnc le PNC à sauvegarder
-   * @return une promesse contenant le PNC sauvé
+   * Sauvegarde la fiche synthese d'un PNC dans le cache
+   * @param summarySheet la fiche synthese à sauvegarder
+   * @return une promesse contenant la fiche synthese sauvée
    */
   save(summarySheet: SummarySheet): Promise<SummarySheet> {
     return this.storageService.saveAsync(Entity.SUMMARY_SHEET, summarySheet);
   }
 
   /**
-   * Récupère un PNC du cache à partir de son matricule
-   * @param matricule le matricule du PNC qu'on souhaite récupérer
-   * @return une promesse contenant le PNC trouvé
+   * Récupère la fiche synthese d'un PNC du cache à partir de son matricule
+   * @param matricule le matricule du PNC dont on souhaite récupérer la fiche synthese
+   * @return une promesse contenant la fiche synthese trouvée
    */
   getSummarySheet(matricule: string): Promise<SummarySheet> {
     return this.storageService.findOneAsync(Entity.SUMMARY_SHEET, matricule);

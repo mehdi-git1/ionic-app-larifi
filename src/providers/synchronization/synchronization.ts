@@ -73,6 +73,7 @@ export class SynchronizationProvider {
       this.storageService.save(Entity.WAYPOINT, this.waypointTransformer.toWaypoint(waypoint), true);
     }
 
+    // Sauvegarde de la fiche synthese
     this.storageService.save(Entity.SUMMARY_SHEET, pncSynchroResponse.summarySheet, true);
 
     this.storageService.persistOfflineMap();
@@ -101,6 +102,7 @@ export class SynchronizationProvider {
       this.storageService.delete(Entity.CAREER_OBJECTIVE,
         this.careerObjectiveTransformer.toCareerObjective(careerObjective).getStorageId());
     }
+    // Suppression de la fiche synthese
     this.storageService.delete(Entity.SUMMARY_SHEET, pnc.matricule);
   }
 
