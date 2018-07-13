@@ -17,12 +17,12 @@ export class SummarySheetPage {
 
   ionViewCanEnter() {
     return new Promise((resolve, reject) => {
-      this.summarySheetProvider.getSummarySheet(this.navParams.get('matricule')).then(blob => {
-        if (blob.size === 0) {
+      this.summarySheetProvider.getSummarySheet(this.navParams.get('matricule')).then(summarySheet => {
+        if (summarySheet.summarySheet.size === 0) {
           this.pdfNull = true;
           resolve();
         } else {
-          this.getSummarySheet(blob).then(() => {
+          this.getSummarySheet(summarySheet.summarySheet).then(() => {
             this.summarySheet = { data: this.reader.result };
             resolve();
           });
@@ -45,5 +45,4 @@ export class SummarySheetPage {
       this.reader.readAsBinaryString(blob);
     });
   }
-
 }
