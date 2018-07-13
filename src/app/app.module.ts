@@ -1,3 +1,6 @@
+import { SummarySheetTransformerProvider } from './../providers/summary-sheet/summary-sheet-transformer';
+import { OnlineSummarySheetProvider } from './../providers/summary-sheet/online-summary-sheet';
+import { OfflineSummarySheetProvider } from './../providers/summary-sheet/offline-summary-sheet';
 import { OnlineWaypointProvider } from './../providers/waypoint/online-waypoint';
 import { OnlineCareerObjectiveProvider } from './../providers/career-objective/online-career-objective';
 import { OfflineWaypointProvider } from './../providers/waypoint/offline-waypoint';
@@ -151,7 +154,10 @@ import { SummarySheetProvider } from '../providers/summary-sheet/summary-sheet';
     SynchronizationProvider,
     PncSynchroProvider,
     EObservationService,
-    SummarySheetProvider
+    SummarySheetProvider,
+    OnlineSummarySheetProvider,
+    OfflineSummarySheetProvider,
+    SummarySheetTransformerProvider
   ]
 })
 export class AppModule { }
