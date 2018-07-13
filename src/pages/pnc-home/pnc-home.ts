@@ -1,3 +1,4 @@
+import { SynchronizationProvider } from './../../providers/synchronization/synchronization';
 import { TranslateService } from '@ngx-translate/core';
 import { UpcomingFlightListPage } from './../upcoming-flight-list/upcoming-flight-list';
 import { SessionService } from './../../services/session.service';
@@ -9,10 +10,11 @@ import { EObservation } from './../../models/eObservation';
 import { Speciality } from './../../models/speciality';
 import { CareerObjectiveListPage } from './../career-objective-list/career-objective-list';
 import { PncProvider } from './../../providers/pnc/pnc';
-import { Component, OnInit, NgZone, ChangeDetectorRef } from '@angular/core';
+import { Component, NgZone, ChangeDetectorRef } from '@angular/core';
 import { NavController, NavParams, ViewController, App } from 'ionic-angular';
 import { Pnc } from '../../models/pnc';
 import { Assignment } from '../../models/assignment';
+import { ConnectivityService } from '../../services/connectivity.service';
 import { SummarySheetPage } from '../summary-sheet/summary-sheet';
 import { HelpAssetListPage } from './../help-asset-list/help-asset-list';
 
@@ -20,10 +22,11 @@ import { HelpAssetListPage } from './../help-asset-list/help-asset-list';
   selector: 'page-pnc-home',
   templateUrl: 'pnc-home.html',
 })
-export class PncHomePage implements OnInit {
+export class PncHomePage {
 
   pnc: Pnc;
   matricule: string;
+  synchroInProgress: boolean;
   eObservation: EObservation;
   // exporter la classe enum speciality dans la page html
   Speciality = Speciality;
@@ -35,6 +38,10 @@ export class PncHomePage implements OnInit {
     public zone: NgZone,
     public cd: ChangeDetectorRef,
     public genderProvider: GenderProvider,
+    private toastProvider: ToastProvider,
+    private securityProvider: SecurityProvider,
+    private synchronizationProvider: SynchronizationProvider,
+    public connectivityService: ConnectivityService,
     private sessionService: SessionService,
     public translateService: TranslateService,
     private pncProvider: PncProvider) {
@@ -49,36 +56,23 @@ export class PncHomePage implements OnInit {
         this.matricule = this.sessionService.appContext.observedPncMatricule;
       } else if (this.sessionService.authenticatedUser) {
         this.matricule = JSON.parse(this.sessionService.authenticatedUser as any).matricule;
-      } else {
-        console.log('no matricule');
       }
 
-      if (this.matricule != null){
-        resolve();
-      }
-       else{
-         reject();
-       }
-    });
-  }
-
-  ngOnInit(): void {
-    if (this.matricule != null) {
-      this.zone.run(() => {
-        this.pncProvider.getPnc(this.matricule).subscribe(pnc => {
+      if (this.matricule != null) {
+        this.pncProvider.getPnc(this.matricule).then(pnc => {
           this.pnc = pnc;
-          this.cd.markForCheck();
+          resolve();
         }, error => {
-          this.pnc = null;
+          resolve();
         });
-      });
-    }
+      }
+    });
   }
 
   /**
    * charge le détail du pnc connecté ou consulté.
    */
-  loadPnc(matricule?: string) {
+  loadPnc(matricule?: string): Promise<void> {
     return new Promise((resolve, reject) => {
       // Si on a un matricule dans les params de navigation, cela surcharge le matricule du user connecté
       if (this.sessionService.appContext.observedPncMatricule) {
@@ -116,6 +110,22 @@ export class PncHomePage implements OnInit {
    */
   goToEdossier() {
     this.navCtrl.push(PncHomePage, { matricule: this.matricule });
+  }
+
+  /**
+   * Précharge le eDossier du PNC si celui n'est pas cadre
+   */
+  downloadPncEdossier() {
+    this.synchroInProgress = true;
+    this.synchronizationProvider.storeEDossierOffline(this.pnc.matricule).then(success => {
+      this.loadPnc();
+      this.synchroInProgress = false;
+      this.toastProvider.info(this.translateService.instant('SYNCHRONIZATION.PNC_SAVED_OFFLINE', { 'matricule': this.pnc.matricule }));
+    }, error => {
+      this.synchroInProgress = false;
+      this.toastProvider.error(
+        this.translateService.instant('SYNCHRONIZATION.PNC_SAVED_OFFLINE_ERROR', { 'matricule': this.pnc.matricule }));
+    });
   }
 
   goToSummarySheet() {

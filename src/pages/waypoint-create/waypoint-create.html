@@ -1,9 +1,7 @@
 <ion-header>
     <ion-navbar>
-        <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>
         <ion-title>{{ 'WAYPOINT_CREATE.TITLE' | translate }}</ion-title>
+        <connectivity-indicator></connectivity-indicator>
     </ion-navbar>
 </ion-header>
 
@@ -11,9 +9,9 @@
     <form novalidate [formGroup]="creationForm">
         <ion-grid>
             <!-- Barre de statut -->
-            <ion-row *ngIf="waypoint.waypointStatus">
+            <ion-row>
                 <ion-col col-12>
-                    <ion-badge class="{{waypoint.waypointStatus.toLowerCase()}}" float-right>
+                    <ion-badge class="{{waypoint.waypointStatus.toLowerCase()}}" *ngIf="waypoint.waypointStatus" float-right>
                         {{ 'GLOBAL.WAYPOINT_STATUS.'+waypoint.waypointStatus | translate }}
                     </ion-badge>
                 </ion-col>

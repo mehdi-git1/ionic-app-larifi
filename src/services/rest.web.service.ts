@@ -1,3 +1,4 @@
+import { ConnectivityService } from './connectivity.service';
 import { Config } from './../configuration/environment-variables/config';
 import { Injectable } from '@angular/core';
 import { RestService, RestRequest } from './rest.base.service';

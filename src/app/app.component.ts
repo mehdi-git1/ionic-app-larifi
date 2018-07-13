@@ -1,3 +1,6 @@
+import { SynchronizationProvider } from './../providers/synchronization/synchronization';
+import { ToastProvider } from './../providers/toast/toast';
+import { ConnectivityService } from './../services/connectivity.service';
 import { AuthenticatedUser } from './../models/authenticatedUser';
 import { AuthenticationPage } from './../pages/authentication/authentication';
 import { SessionService } from './../services/session.service';
@@ -10,6 +13,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { TranslateService } from '@ngx-translate/core';
 import { SecMobilService } from '../services/secMobil.service';
+import { StorageService } from '../services/storage.service';
 import { HomePage } from '../pages/home/home';
 
 @Component({
@@ -21,11 +25,19 @@ export class EDossierPNC implements OnInit {
 
   rootPage: any = HomePage;
 
-  constructor(public platform: Platform, public statusBar: StatusBar,
-    public splashScreen: SplashScreen, public translate: TranslateService,
+
+  constructor(public platform: Platform,
+    public statusBar: StatusBar,
+    public splashScreen: SplashScreen,
+    public translateService: TranslateService,
     private secMobilService: SecMobilService,
     private securityProvider: SecurityProvider,
-    private sessionService: SessionService
+    private sessionService: SessionService,
+    private storageService: StorageService,
+    private connectivityService: ConnectivityService,
+    private toastProvider: ToastProvider,
+    private synchronizationProvider: SynchronizationProvider,
+    public translate: TranslateService
   ) {
   }
 
@@ -39,8 +51,8 @@ export class EDossierPNC implements OnInit {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
 
-      this.translate.setDefaultLang('fr');
-      this.translate.use('fr');
+      this.translateService.setDefaultLang('fr');
+      this.translateService.use('fr');
 
       this.secMobilService.init();
       this.secMobilService.isAuthenticated().then(() => {
@@ -51,25 +63,47 @@ export class EDossierPNC implements OnInit {
           console.log('go to authentication page');
           this.nav.setRoot(AuthenticationPage);
         });
+
+      // Création du stockage local
+      this.storageService.initOfflineMap().then(success => {
+        this.putAuthenticatedUserInSession().then(authenticatedUser => {
+          this.synchronizationProvider.storeEDossierOffline(authenticatedUser.matricule).then(successStore => {
+          }, error => {
+          });
+        });
+      });
+
+      // Détection d'un changement d'état de la connexion
+      this.connectivityService.connectionStatusChange.subscribe(connected => {
+        if (!connected) {
+          this.toastProvider.warning(this.translateService.instant('GLOBAL.CONNECTIVITY.OFFLINE_MODE'));
+        } else {
+          this.toastProvider.success(this.translateService.instant('GLOBAL.CONNECTIVITY.ONLINE_MODE'));
+          this.synchronizationProvider.synchronizeOfflineData();
+        }
+      });
+
     });
-    // });
+
   }
 
   /**
   * Mettre le pnc connecté en session
   */
-  putAuthenticatedUserInSession() {
-    this.securityProvider.getAuthenticatedUser().then(authenticatedUser => {
+  putAuthenticatedUserInSession(): Promise<AuthenticatedUser> {
+    const promise = this.securityProvider.getAuthenticatedUser();
+    promise.then(authenticatedUser => {
       if (authenticatedUser) {
-        this.sessionService.authenticatedUser = new AuthenticatedUser(authenticatedUser);
-        this.nav.setRoot(PncHomePage, {matricule: this.sessionService.authenticatedUser.matricule});
+        this.sessionService.authenticatedUser = authenticatedUser;
+        this.nav.setRoot(PncHomePage, { matricule: this.sessionService.authenticatedUser.matricule });
       }
-      else{
+      else {
         this.nav.setRoot(AuthenticationPage);
       }
     }, error => {
       console.log('putAuthenticatedUserInSession error: ' + JSON.stringify(error));
     });
+    return promise;
   }
 
   openPage(page) {

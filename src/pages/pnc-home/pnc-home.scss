@@ -5,6 +5,7 @@ page-pnc-home {
     }
 
     .pnc-info-panel {
+        display: flex;
         img {
             width: 100px;
             border-radius: 100%;
@@ -26,6 +27,12 @@ page-pnc-home {
                 display: flex;
                 flex-direction: column;
                 align-items: center;
+            }
+
+            .download-edossier {
+                display: flex;
+                justify-content: flex-end;
+                align-items: flex-end;
             }
         }
     }

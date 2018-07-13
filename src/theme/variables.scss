@@ -139,14 +139,6 @@ ion-card {
     }
 }
 
-button,
-.button-ios {
-    border-radius: 0px !important;
-    box-shadow: none !important;
-    -webkit-box-shadow: none !important;
-    background-color: white;
-}
-
 .button-outline {
     border-width: 2px !important;
 }
@@ -201,7 +193,7 @@ ion-item.item {
     padding-left: 0px;
 }
 
-.content-md{
+.content-md {
     background-color: transparent;
 }
 
