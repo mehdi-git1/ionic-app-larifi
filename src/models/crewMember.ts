@@ -1,14 +1,9 @@
-import { EDossierPncObject } from './eDossierPncObject';
 import { Pnc } from './pnc';
 
-export class CrewMember extends EDossierPncObject {
+export class CrewMember {
+    pnc: Pnc;
     particulariy: string;
     lastEncounterDate: string;
-    pnc: Pnc;
     onBoardFonction: string;
     prioritized: boolean;
-
-    getStorageId(): string {
-        return `${this.techId}`;
-    }
 }
