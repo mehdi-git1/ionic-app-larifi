@@ -5,7 +5,7 @@ import { LegProvider } from './../../providers/leg/leg';
 import { GenderProvider } from './../../providers/gender/gender';
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
-import { CrewMember } from '../../models/crewMember';
+import { CrewMember } from '../../models/CrewMember';
 
 @Component({
   selector: 'page-flight-crew-list',
