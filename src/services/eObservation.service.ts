@@ -39,6 +39,7 @@ export class EObservationService {
     }
 
     getEObservation(observedPncMatricule, rotationId): Promise<EObservation> {
+        console.log('Before: getEObservation:'+`${this.eObsUrl}/${observedPncMatricule}/${rotationId}`);
         return this.restService.get(`${this.eObsUrl}/${observedPncMatricule}/${rotationId}`);
     }
 
