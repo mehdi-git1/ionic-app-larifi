@@ -66,9 +66,11 @@ export class EDossierPNC {
    * Récupère les parametres envoyé par le back
    */
   initParameters() {
-    this.parametersProvider.getParams().then(parameters => {
-      this.sessionService.parameters = parameters;
-    }, error => { });
+    this.events.subscribe('user:authenticated', () => {
+      this.parametersProvider.getParams().then(parameters => {
+        this.sessionService.parameters = parameters;
+      }, error => { });
+    });
   }
 
   /**

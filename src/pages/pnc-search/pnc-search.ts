@@ -44,6 +44,8 @@ export class PncSearchPage {
   pageSizeOptions: number[];
   itemOffset: number;
 
+  outOfDivision: boolean;
+
   searchTerms = new Subject<string>();
 
   constructor(public navCtrl: NavController,
@@ -77,14 +79,17 @@ export class PncSearchPage {
       .map(k => Speciality[k])
       .filter(v => typeof v === 'string') as string[];
     if (this.sessionService.parameters !== undefined) {
+      this.outOfDivision = false;
       const params: Map<string, any> = this.sessionService.parameters.params;
-      this.divisionList = Object.keys(params['division']);
+      this.divisionList = Object.keys(params['divisions']);
       if (this.divisionList.length === 1) {
         this.pncFilter.division = this.divisionList[0];
-        this.sectorList = Object.keys((params['division'])[this.divisionList[0]]);
+        this.sectorList = Object.keys((params['divisions'])[this.divisionList[0]]);
       }
       this.relayList = params['relays'];
       this.aircraftSkillList = params['aircraftSkills'];
+    } else {
+      this.outOfDivision = true;
     }
   }
 
@@ -92,10 +97,26 @@ export class PncSearchPage {
    * charge la liste des ginq associé au secteur choisi
    * @param sector secteur concerné.
    */
-  getGinqList(sector) {
-    if (this.pncFilter.division !== undefined && sector !== undefined) {
-      this.ginqList = this.sessionService.parameters.params['division'][this.pncFilter.division][sector];
+  getSectorList(division) {
+    this.ginqList = null;
+    this.sectorList = null;
+    if (division !== 'ALL') {
+      this.sectorList = Object.keys(this.sessionService.parameters.params['divisions'][division]);
     }
+    this.pncFilter.sector = '';
+    this.pncFilter.ginq = '';
+  }
+
+  /**
+   * charge la liste des ginq associé au secteur choisi
+   * @param sector secteur concerné.
+   */
+  getGinqList(sector) {
+    this.ginqList = null;
+    if (this.pncFilter.division !== 'ALL' && sector !== '' && sector !== 'ALL') {
+      this.ginqList = this.sessionService.parameters.params['divisions'][this.pncFilter.division][sector];
+    }
+    this.pncFilter.ginq = '';
   }
 
   /**

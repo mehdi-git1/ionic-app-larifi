@@ -121,7 +121,7 @@ export class PncHomePage {
   goToPncSearch() {
     this.navCtrl.push(PncSearchPage);
   }
-  
+
   goToSummarySheet() {
     this.navCtrl.push(SummarySheetPage, { matricule: this.matricule });
   }

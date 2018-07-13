@@ -49,9 +49,10 @@ export class RestWebService extends RestService {
         // if (request.httpHeaders['Content-Type'] != undefined)
         //     headers.append('Content-Type', request.httpHeaders['Content-Type']);
 
-		request.options.withCredentials = request.withCredential;
+        request.options.withCredentials = request.withCredential;
 
         if (request.method === 'GET') {
+            request.options.params = request.jsonData;
             this.http.get(request.url, request.options).subscribe(
                 data => { successCallback(data); },
                 err => { errorCallback(err.error); }
