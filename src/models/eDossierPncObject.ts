@@ -1,5 +1,6 @@
+import { Serializable } from './serializable';
 import { OfflineAction } from './offlineAction';
-export abstract class EDossierPncObject {
+export abstract class EDossierPncObject extends Serializable {
     techId: number;
     offlineStorageDate: string;
     offlineAction: OfflineAction;
@@ -10,15 +11,4 @@ export abstract class EDossierPncObject {
      */
     abstract getStorageId(): string;
 
-    /**
-     * Transforme un objet json en entité
-     * @param json l'objet json
-     * @return l'entité correspondante au json
-     */
-    fromJSON(json): any {
-        for (const property of Object.keys(json)) {
-            this[property] = json[property];
-        }
-        return this;
-    }
 }

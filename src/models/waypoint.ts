@@ -1,6 +1,5 @@
 import { WaypointStatus } from './waypointStatus';
 import { CareerObjective } from './careerObjective';
-import { PncRole } from './pncRole';
 import { Pnc } from './pnc';
 import { EDossierPncObject } from './eDossierPncObject';
 
@@ -17,6 +16,10 @@ export class Waypoint extends EDossierPncObject {
     waypointStatus: WaypointStatus;
     encounterDate: string;
     careerObjective: CareerObjective;
+
+    constructor(jsonObj?: any){
+      super(jsonObj);
+    }
 
     getStorageId(): string {
         return `${this.techId}`;
