@@ -17,7 +17,6 @@ export class Config extends BaseConfig {
         } else {
             console.log('web mode selected');
             this.backEndUrl = '/api/rest/resources';
-            // this.backEndUrl = 'https://edospnc-dev.airfrance.fr/api/rest/resources';
         }
 
         this.env = 'localhost';
