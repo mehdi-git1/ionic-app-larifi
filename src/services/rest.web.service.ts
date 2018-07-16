@@ -1,3 +1,4 @@
+import { ConnectivityService } from './connectivity.service';
 import { Config } from './../configuration/environment-variables/config';
 import { Injectable } from '@angular/core';
 import { RestService, RestRequest } from './rest.base.service';
@@ -40,9 +41,10 @@ export class RestWebService extends RestService {
         request.options.headers = request.options.headers.append('Accept', 'application/json, text/plain, */*');
 
         ///// TODO:
-        // for (let h of request.httpHeaders) {
-        //     headers.append('Content-Type', request.httpHeaders['Content-Type']);
+        // for (const h of request.httpHeaders) {
+        //     headers.append('Content-Type', h);
         // }
+        //   headers.append('sm_user', '07339967');
         // headers.append('secgw_user', 'm328624');
         // headers.append('SN', 'ZngNZu6HZ5julFBEklrR');
 

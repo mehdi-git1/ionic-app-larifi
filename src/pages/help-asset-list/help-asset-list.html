@@ -8,9 +8,9 @@
     <div *ngIf="!helpAssets" class="spinner-container">
         <ion-spinner></ion-spinner>
     </div>
-    <ion-list *ngIf="helpAssets">
-        <div class="no-help-assets" *ngIf="helpAssets.length == 0">{{ 'HELP_ASSET_LIST.NO_HELP_ASSETS' | translate }}</div>
-        <div *ngIf="helpAssets.length > 0">
+    <div class="no-help-assets" *ngIf="helpAssets && helpAssets.length == 0">{{ 'HELP_ASSET_LIST.NO_HELP_ASSETS' | translate }}</div>
+
+    <ion-list *ngIf="helpAssets && helpAssets.length > 0">
             <ion-item *ngFor="let helpAsset of helpAssets" (click)="openHelpAsset(helpAsset.url)">
                 <ion-thumbnail item-start>
                     <ion-icon name="document"></ion-icon>
@@ -18,6 +18,5 @@
                 <h2>{{helpAsset.label}}</h2>
                 {{helpAsset.lastUpdateDate | date: 'dd/MM/yyyy HH:MM'}}
             </ion-item>
-        </div>
     </ion-list>
 </ion-content>

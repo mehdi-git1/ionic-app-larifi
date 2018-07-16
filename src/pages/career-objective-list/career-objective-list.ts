@@ -1,3 +1,6 @@
+import { SessionService } from './../../services/session.service';
+import { EObservation } from './../../models/eObservation';
+import { EObservationService } from './../../services/eObservation.service';
 import { PncRole } from './../../models/pncRole';
 import { ToastProvider } from './../../providers/toast/toast';
 import { CareerObjectiveCreatePage } from './../career-objective-create/career-objective-create';
@@ -14,8 +17,8 @@ import { CareerObjectiveProvider } from '../../providers/career-objective/career
 export class CareerObjectiveListPage {
 
   careerObjectiveList: CareerObjective[];
-
   matricule: string;
+  eObservation: EObservation;
 
   // Expose l'enum au template
   PncRole = PncRole;
@@ -23,7 +26,9 @@ export class CareerObjectiveListPage {
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     private careerObjectiveProvider: CareerObjectiveProvider,
-    private toastProvider: ToastProvider) {
+    private toastProvider: ToastProvider,
+    private eObservationService: EObservationService,
+    private sessionService: SessionService) {
 
   }
 
@@ -32,7 +37,7 @@ export class CareerObjectiveListPage {
   }
 
   ionViewDidEnter() {
-    this.careerObjectiveProvider.getCareerObjectiveList(this.matricule).then(result => {
+    this.careerObjectiveProvider.getPncCareerObjectives(this.matricule).then(result => {
       this.careerObjectiveList = result;
     }, error => { });
   }
@@ -50,5 +55,29 @@ export class CareerObjectiveListPage {
    */
   openCareerObjective(careerObjectiveId: number) {
     this.navCtrl.push(CareerObjectiveCreatePage, { careerObjectiveId: careerObjectiveId });
+  }
+
+  /**
+   * Récupère les paramètres pour l'appel à formsLib
+   */
+  getEObservation() {
+    return new Promise((resolve, reject) => {
+      this.eObservationService.getEObservation(this.matricule, this.sessionService.appContext.rotationId).then(eObservation => {
+        this.eObservation = eObservation;
+        resolve();
+      }, error => {
+        reject();
+      });
+    });
+  }
+
+  /**
+   * Fait appel a formsLib avec les paramètres déja reçu dans l'objet eObservation.
+   */
+  callForms() {
+    this.getEObservation();
+    if (this.eObservation) {
+      this.eObservationService.callForms(this.eObservation);
+    }
   }
 }

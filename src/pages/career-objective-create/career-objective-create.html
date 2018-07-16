@@ -1,6 +1,7 @@
 <ion-header>
     <ion-navbar>
         <ion-title>{{ 'GLOBAL.DEVELOPMENT_PROGRAM' | translate }}</ion-title>
+        <connectivity-indicator></connectivity-indicator>
     </ion-navbar>
 </ion-header>
 
@@ -10,18 +11,15 @@
         <h3>{{ 'CAREER_OBJECTIVE_CREATE.EDIT_TITLE' | translate }}</h3>
     </ng-template>
 
+    <!-- Barre de statut -->
+    <ion-badge class="{{careerObjective.careerObjectiveStatus.toLowerCase()}}" *ngIf="careerObjective.careerObjectiveStatus">
+        {{ 'GLOBAL.CAREER_OBJECTIVE_STATUS.'+careerObjective.careerObjectiveStatus | translate }}
+    </ion-badge>
+
     <form novalidate [formGroup]="creationForm">
         <ion-grid>
             <ion-row>
                 <ion-col col-9>
-                    <!-- Barre de statut -->
-                    <ion-row>
-                        <ion-col col-12>
-                            <ion-badge class="{{careerObjective.careerObjectiveStatus.toLowerCase()}}" *ngIf="careerObjective.careerObjectiveStatus" float-right>
-                                {{ 'GLOBAL.CAREER_OBJECTIVE_STATUS.'+careerObjective.careerObjectiveStatus | translate }}
-                            </ion-badge>
-                        </ion-col>
-                    </ion-row>
                     <ion-row>
                         <ion-col col-12>
                             <!-- Titre -->
@@ -75,13 +73,18 @@
                             <ion-icon name="add"></ion-icon>
                         </button>
                         <ion-card class="waypoint clickable" *ngFor="let waypoint of waypointList" (click)="openWaypoint(waypoint.techId)">
+                            <offline-indicator [object]="waypoint"></offline-indicator>
                             <ion-card-content>
-                                <ion-icon name="create" ios="md-create" *ngIf="waypoint.waypointStatus === WaypointStatus.DRAFT" float-right></ion-icon>
                                 <!--Si une date de rencontre existe, on l'affiche, sinon on affiche la date de création -->
-                                <div class="value" *ngIf="waypoint.encounterDate; else creationDateBlock">{{ waypoint.encounterDate | date: 'dd/MM/yyyy'}}</div>
-                                <ng-template #creationDateBlock>
-                                    <div class="value">{{ waypoint.creationDate | date: 'dd/MM/yyyy'}}</div>
-                                </ng-template>
+                                <header>
+                                    <ion-icon name="create" ios="md-create" *ngIf="waypoint.waypointStatus === WaypointStatus.DRAFT" float-right></ion-icon>
+                                    <div class="value" *ngIf="waypoint.encounterDate; else creationDateBlock">
+                                        {{ waypoint.encounterDate | date: 'dd/MM/yyyy'}}
+                                    </div>
+                                    <ng-template #creationDateBlock>
+                                        <div class="value">{{ waypoint.creationDate | date: 'dd/MM/yyyy'}}</div>
+                                    </ng-template>
+                                </header>
                                 <h4>{{ waypoint.context }}</h4>
                             </ion-card-content>
                         </ion-card>

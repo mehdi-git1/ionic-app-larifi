@@ -19,6 +19,10 @@
             "DRAFT": "BROUILLON",
             "REGISTERED": "EN COURS"
         },
+        "CONNECTIVITY": {
+            "ONLINE_MODE": "Connexion avec le serveur retrouvée",
+            "OFFLINE_MODE": "Connexion perdue, vous êtes à présent en mode déconnecté"
+        },
         "DEVELOPMENT_PROGRAM": "Parcours de développement",
         "PNC_SUMMARY_SHEET": "Fiche synthèse PNC",
         "HELP_CENTRE": "Ressources d'aide",
@@ -86,7 +90,8 @@
         },
         "BUTTONS": {
             "ADD_CAREER_OBJECTIVE": "Créer un nouvel objectif"
-        }
+        },
+        "CREATE_EOBSERVATION": "Créer une eObservation"
     },
     "PNC_HOME": {
         "TITLE": "Accueil PNC",
@@ -178,5 +183,13 @@
     "HELP_ASSET_LIST": {
         "TITLE": "Ressources d'aide",
         "NO_HELP_ASSETS": "Aucune ressource créée pour le moment"
+    },
+    "SYNCHRONIZATION": {
+        "PNC_SAVED_OFFLINE": "Le PNC {{ matricule }} a été synchronisé",
+        "PNC_SAVED_OFFLINE_ERROR": "Le PNC {{ matricule }} n'a pas pu être synchronisé",
+        "ROTATION_SAVED_OFFLINE": "Les PNC de la rotation {{ rotationNumber }} ont été synchronisés",
+        "ROTATION_SAVED_OFFLINE_ERROR": "Un ou plusieurs PNC de la rotation {{ rotationNumber }} n'ont pas pu être synchronisés",
+        "FLIGHT_SAVED_OFFLINE": "Les PNC du vol {{ flightNumber }} ont été synchronisés",
+        "FLIGHT_SAVED_OFFLINE_ERROR": "Un ou plusieurs PNC du vol {{ flightNumber }} n'ont pas pu être synchronisés"
     }
 }

@@ -1,12 +1,13 @@
 <ion-header>
     <ion-navbar>
         <ion-title>{{ 'GLOBAL.DEVELOPMENT_PROGRAM' | translate }}</ion-title>
+        <connectivity-indicator></connectivity-indicator>
     </ion-navbar>
 </ion-header>
 
 <ion-content padding>
     <h3 margin-horizontal>{{ 'CAREER_OBJECTIVE_LIST.TITLE' | translate }}</h3>
-
+    <button ion-button color="primary" (click)="callForms()">{{ 'CAREER_OBJECTIVE_LIST.CREATE_EOBSERVATION' | translate }}</button>
     <button (click)="goToCareerObjectiveCreation()" class="add-career-objective">
         <ion-icon name="add"></ion-icon>
         <label>{{ 'CAREER_OBJECTIVE_LIST.BUTTONS.ADD_CAREER_OBJECTIVE' | translate }}</label>
@@ -19,6 +20,7 @@
         <div class="no-objectives" *ngIf="careerObjectiveList.length == 0">{{ 'CAREER_OBJECTIVE_LIST.NO_OBJECTIVES' | translate }}</div>
         <ion-content *ngIf="careerObjectiveList.length > 0" class="career-objective-list">
             <ion-card class="career-objective-card clickable" *ngFor="let careerObjective of careerObjectiveList" (click)="openCareerObjective(careerObjective.techId)">
+                <offline-indicator [object]="careerObjective"></offline-indicator>
                 <ion-card-content no-padding>
                     <header>
                         <h4>{{careerObjective.title}}</h4>

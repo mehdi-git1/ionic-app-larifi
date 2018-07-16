@@ -1,5 +1,14 @@
 page-career-objective-create {
 
+  h3{
+    display: inline-block;
+  }
+
+  ion-badge{
+    display: inline-block;
+    margin: 0 10px;
+  }
+
     ion-textarea {
         min-height: 210px !important;
         padding: 0 !important;
@@ -36,19 +45,26 @@ page-career-objective-create {
         }
 
         .waypoint {
+            display: flex;
 
-            ion-icon {
-                color: color($colors, grey50);
-            }
+            ion-card-content {
+                width: 100%;
 
-            h4 {
-                text-overflow: ellipsis;
-                white-space: nowrap;
-                overflow: hidden;
-            }
+                .header {
+                    ion-icon {
+                        color: color($colors, grey50);
+                    }
 
-            .value {
-                display: block;
+                    .value {
+                        display: block;
+                    }
+                }
+
+                h4 {
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                    overflow: hidden;
+                }
             }
         }
     }

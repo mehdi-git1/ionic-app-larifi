@@ -1,7 +1,8 @@
 import { Gender } from './gender';
 import { Speciality } from './speciality';
 import { Assignment } from './assignment';
-export class Pnc {
+import { EDossierPncObject } from './eDossierPncObject';
+export class Pnc extends EDossierPncObject {
     matricule: string;
     lastName: string;
     firstName: string;
@@ -10,4 +11,9 @@ export class Pnc {
     assignment: Assignment;
     relays: string[];
     aircraftSkills: string[];
+    manager: boolean;
+
+    getStorageId(): string {
+        return this.matricule;
+    }
 }
