@@ -50,8 +50,13 @@ export class PncCardComponent {
   downloadPncEdossier(matricule) {
     this.synchroInProgress = true;
     this.synchronizationProvider.storeEDossierOffline(matricule).then(success => {
-      this.toastProvider.info(this.translate.instant('SYNCHRONIZATION.PNC_SAVED_OFFLINE', { 'matricule': matricule }));
-      this.loadOfflinePncData().then(successOfflineData => this.synchroInProgress = false).catch(error => this.synchroInProgress = false);
+      this.loadOfflinePncData().then(successOfflineData => {
+        this.synchroInProgress = false;
+        this.toastProvider.info(this.translate.instant('SYNCHRONIZATION.PNC_SAVED_OFFLINE', { 'matricule': matricule }));
+      }).catch(error => {
+        this.synchroInProgress = false;
+        this.toastProvider.info(this.translate.instant('SYNCHRONIZATION.PNC_SAVED_OFFLINE', { 'matricule': matricule }));
+      });
     }, error => {
       this.toastProvider.error(this.translate.instant('SYNCHRONIZATION.PNC_SAVED_OFFLINE_ERROR', { 'matricule': matricule }));
       this.synchroInProgress = false;

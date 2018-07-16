@@ -41,10 +41,10 @@ export class SynchronizationProvider {
         this.summarySheetProvider.getSummarySheet(matricule).then(summarySheet => {
           pncSynchro.summarySheet = summarySheet;
           this.updateLocalStorageFromPncSynchroResponse(pncSynchro);
+          resolve(true);
         });
-        resolve(true);
       }, error => {
-        resolve(true);
+        reject(matricule);
       });
     });
   }
