@@ -1,3 +1,4 @@
+import { RotationTransformerProvider } from './../rotation/rotation-transformer';
 import { PncTransformerProvider } from './../pnc/pnc-transformer';
 import { WaypointTransformerProvider } from './../waypoint/waypoint-transformer';
 import { PncSynchro } from './../../models/pncSynchro';
@@ -22,7 +23,8 @@ export class SynchronizationProvider {
     private careerObjectiveTransformer: CareerObjectiveTransformerProvider,
     private waypointTransformer: WaypointTransformerProvider,
     private pncTransformer: PncTransformerProvider,
-    private pncSynchroProvider: PncSynchroProvider) {
+    private pncSynchroProvider: PncSynchroProvider,
+    private rotationTransformerProvider: RotationTransformerProvider) {
   }
 
 
@@ -51,6 +53,11 @@ export class SynchronizationProvider {
     this.deleteAllPncOfflineObject(pncSynchroResponse.pnc);
 
     this.storageService.save(Entity.PNC, this.pncTransformer.toPnc(pncSynchroResponse.pnc), true);
+
+    // Création des nouveaux objets
+    for (const rotation of pncSynchroResponse.rotations) {
+      this.storageService.save(Entity.ROTATION, this.rotationTransformerProvider.toRotation(rotation), true);
+    }
 
     // Création des nouveaux objets
     for (const careerObjective of pncSynchroResponse.careerObjectives) {
