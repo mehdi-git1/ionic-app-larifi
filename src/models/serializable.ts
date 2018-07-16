@@ -1,10 +1,10 @@
 export class Serializable {
-    /**
-     * Transforme un objet json en entité
-     * @param json l'objet json
-     * @return l'entité correspondante au json
-     */
-    fromJSON(jsonObj: Object): any {
+  /**
+   * Transforme un objet json en entité
+   * @param json l'objet json
+   * @return l'entité correspondante au json
+   */
+  fromJSON(jsonObj: Object): any {
     if (!jsonObj) {
       return;
     }
@@ -14,5 +14,6 @@ export class Serializable {
         this[prop] = jsonObj[prop];
       }
     }
+    return this;
   }
 }
