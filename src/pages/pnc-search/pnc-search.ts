@@ -82,10 +82,6 @@ export class PncSearchPage {
       this.outOfDivision = false;
       const params: Map<string, any> = this.sessionService.parameters.params;
       this.divisionList = Object.keys(params['divisions']);
-      if (this.divisionList.length === 1) {
-        this.pncFilter.division = this.divisionList[0];
-        this.sectorList = Object.keys((params['divisions'])[this.divisionList[0]]);
-      }
       this.relayList = params['relays'];
       this.aircraftSkillList = params['aircraftSkills'];
     } else {
@@ -94,7 +90,7 @@ export class PncSearchPage {
   }
 
   /**
-   * charge la liste des ginq associé au secteur choisi
+   * charge la liste des secteurs associé a la division choisi
    * @param sector secteur concerné.
    */
   getSectorList(division) {
@@ -194,7 +190,7 @@ export class PncSearchPage {
   }
 
   /**
-   * compare deux valeur et  renvois truc si elles sont égales
+   * compare deux valeurs et renvois true si elles sont égales
    * @param e1 premiere valeur a comparée
    * @param e2 Deuxieme valeur à comparée
    */
@@ -206,7 +202,7 @@ export class PncSearchPage {
   }
 
   /**
-   * recupere 10 pnc correspondant aux criteres saisis du filtre.
+   * recupere 10 pnc correspondant aux criteres du filtre.
    */
   searchPncs() {
     this.buildFilter();
