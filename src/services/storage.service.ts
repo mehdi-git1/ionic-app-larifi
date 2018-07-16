@@ -106,14 +106,12 @@ export class StorageService {
    * @return l'objet sauvé
    */
   save(entity: Entity, eDossierPncObject: EDossierPncObject, online: boolean = false): any {
-    if (eDossierPncObject !== undefined) {
-      eDossierPncObject.offlineStorageDate = moment().format(AppConstant.isoDateFormat);
-      if (!online) {
-        eDossierPncObject.offlineAction =
-          this.isOfflineStorageId(this.getStorageId(eDossierPncObject)) ? OfflineAction.CREATE : OfflineAction.UPDATE;
-      }
-      this.offlineMap[entity][this.getStorageId(eDossierPncObject)] = eDossierPncObject;
+    eDossierPncObject.offlineStorageDate = moment().format(AppConstant.isoDateFormat);
+    if (!online) {
+      eDossierPncObject.offlineAction =
+        this.isOfflineStorageId(this.getStorageId(eDossierPncObject)) ? OfflineAction.CREATE : OfflineAction.UPDATE;
     }
+    this.offlineMap[entity][this.getStorageId(eDossierPncObject)] = eDossierPncObject;
     return eDossierPncObject;
   }
 
