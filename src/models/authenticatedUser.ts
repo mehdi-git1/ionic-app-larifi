@@ -6,10 +6,6 @@ export class AuthenticatedUser extends EDossierPncObject {
     lastName: string;
     manager: boolean;
 
-    constructor(jsonObj?: any){
-      super(jsonObj);
-    }
-
     getStorageId(): string {
         return this.matricule;
     }

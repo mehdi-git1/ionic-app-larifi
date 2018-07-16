@@ -18,6 +18,6 @@ export class WaypointTransformerProvider {
   toWaypoint(object: Waypoint): Waypoint {
     return !object ?
       object :
-      new Waypoint(object);
+      new Waypoint().fromJSON(object);
   }
 }

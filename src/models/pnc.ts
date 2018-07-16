@@ -11,10 +11,6 @@ export class Pnc extends EDossierPncObject {
     assignment: Assignment;
     manager: boolean;
 
-    constructor(jsonObj?: any){
-      super(jsonObj);
-    }
-
     getStorageId(): string {
         return this.matricule;
     }

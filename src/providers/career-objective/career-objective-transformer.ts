@@ -19,7 +19,7 @@ export class CareerObjectiveTransformerProvider {
   toCareerObjective(object: CareerObjective): CareerObjective {
     return !object ?
       object :
-      new CareerObjective(object);
+      new CareerObjective().fromJSON(object);
   }
 
 }

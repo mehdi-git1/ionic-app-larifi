@@ -4,7 +4,7 @@ export class Serializable {
      * @param json l'objet json
      * @return l'entité correspondante au json
      */
-  constructor(jsonObj: Object) {
+    fromJSON(jsonObj: Object): any {
     if (!jsonObj) {
       return;
     }

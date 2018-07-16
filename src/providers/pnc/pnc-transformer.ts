@@ -18,6 +18,6 @@ export class PncTransformerProvider {
   toPnc(object: Pnc): Pnc {
     return !object ?
       object :
-      new Pnc(object);
+      new Pnc().fromJSON(object);
   }
 }
