@@ -32,7 +32,7 @@
         <div *ngIf="searchInProgress" class="spinner-container">
             <ion-spinner class="loading-spinner"></ion-spinner>
         </div>
-        <span *ngIf="!searchInProgress"><pnc-card *ngFor="let pnc of filteredPncs" [crewMember]="this.createCrewMemberObjectFromPnc(pnc)"></pnc-card></span>
+        <span *ngIf="!searchInProgress"><pnc-card *ngFor="let pnc of filteredPncs" [crewMember]="createCrewMemberObjectFromPnc(pnc)"></pnc-card></span>
 
     </ion-content>
 </ion-content>
