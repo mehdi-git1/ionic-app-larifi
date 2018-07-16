@@ -169,12 +169,13 @@
         "DEFAULT_DATA": {
             "ALL_F": "Toutes",
             "ALL_M": "Tous"
-        }
+        },
+        "NO_PNC_FOUND": "Aucuns pnc trouvé."
+
     },
     "MESSAGES": {
         "ERROR": {
             "MANDATORY_FIELD": "Le champ est obligatoire",
-            "NOT_A_NUMBER": "Format incorrect",
             "BAD_FORMAT": "Format incorrect",
             "MATRICULE_WRONG_SIZE": "Le matricule doit faire 8 caractères",
             "PNC_NOT_FOUND": "Erreur lors de la récupérations des PNC"

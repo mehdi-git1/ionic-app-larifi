@@ -113,9 +113,9 @@
     </form>
 
     <ion-content class="filtered-pnc-list-container">
-        <!-- <div *ngIf="!filteredPncs" class="spinner-container">
-            <ion-spinner></ion-spinner>
-        </div> -->
+        <div *ngIf="filteredPncs && filteredPncs == 0" class="no-pnc-found">
+            {{ 'PNC_SEARCH.NO_PNC_FOUND' | translate }}
+        </div>
         <ion-card class="filtered-pnc-card clickable" *ngFor="let pnc of filteredPncs" (click)="openPncHomePage(pnc.matricule)">
             <ion-card-content no-padding>
                 <ion-grid>

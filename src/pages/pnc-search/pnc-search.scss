@@ -81,4 +81,11 @@ page-pnc-search {
     .label-md {
         margin: 0;
     }
+
+    .no-pnc-found {
+        text-align: center;
+        font-size: 1.5em;
+        margin-top: 100px;
+        color: color($colors, grey50);
+    }
 }

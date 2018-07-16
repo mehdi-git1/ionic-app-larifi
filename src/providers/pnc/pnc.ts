@@ -9,6 +9,7 @@ import { ConnectivityService } from './../../services/connectivity.service';
 import { Rotation } from './../../models/rotation';
 import { Pnc } from './../../models/pnc';
 import { Injectable } from '@angular/core';
+import { RestService } from '../../services/rest.base.service';
 
 @Injectable()
 export class PncProvider {
@@ -18,7 +19,8 @@ export class PncProvider {
     private onlinePncProvider: OnlinePncProvider,
     private offlinePncProvider: OfflinePncProvider,
     private offlineProvider: OfflineProvider,
-    private pncTransformer: PncTransformerProvider) {
+    private pncTransformer: PncTransformerProvider,
+    private restService: RestService) {
   }
 
   /**
