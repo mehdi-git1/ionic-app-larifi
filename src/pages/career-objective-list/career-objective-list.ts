@@ -36,7 +36,7 @@ export class CareerObjectiveListPage {
   }
 
   ionViewDidEnter() {
-    this.careerObjectiveProvider.getCareerObjectiveList(this.matricule).then(result => {
+    this.careerObjectiveProvider.getPncCareerObjectives(this.matricule).then(result => {
       this.careerObjectiveList = result;
     }, error => { });
   }

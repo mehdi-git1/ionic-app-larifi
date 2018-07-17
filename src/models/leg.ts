@@ -1,7 +1,7 @@
 import { Rotation } from './rotation';
+import { EDossierPncObject } from './eDossierPncObject';
 
-export class Leg {
-    techId: number;
+export class Leg extends EDossierPncObject {
     company: string;
     number: string;
     departureDate: string;
@@ -10,4 +10,8 @@ export class Leg {
     aircraftType: string;
     rotation: Rotation;
     operatingVersion: string;
+
+    getStorageId(): string {
+        return `${this.techId}`;
+    }
 }

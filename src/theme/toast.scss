@@ -9,3 +9,7 @@ ion-toast.success .toast-container {
 ion-toast.info .toast-container {
     background: color($colors, blue80);
 }
+
+ion-toast.warning .toast-container {
+    background: color($colors, orange60);
+}

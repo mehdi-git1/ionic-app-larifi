@@ -45,19 +45,26 @@ page-career-objective-create {
         }
 
         .waypoint {
+            display: flex;
 
-            ion-icon {
-                color: color($colors, grey50);
-            }
+            ion-card-content {
+                width: 100%;
 
-            h4 {
-                text-overflow: ellipsis;
-                white-space: nowrap;
-                overflow: hidden;
-            }
+                .header {
+                    ion-icon {
+                        color: color($colors, grey50);
+                    }
 
-            .value {
-                display: block;
+                    .value {
+                        display: block;
+                    }
+                }
+
+                h4 {
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                    overflow: hidden;
+                }
             }
         }
     }

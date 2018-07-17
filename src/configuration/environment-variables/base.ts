@@ -1,8 +1,10 @@
-export class BaseConfig {
+export abstract class BaseConfig {
   public appVersion = '';
   public backEndUrl = '/api/rest/resources';
-  public env = 'localhost';
+  public pingUrl = '/api/rest/resources/me';
   public secmobileEnv = 'rct';
+  public appName = 'EDossierPnc';
+  public env = 'localhost';
 
   public eObsUrl = 'com.airfrance.mobile.inhouse.eformstrainingdevPNC';
   public eObsCallbackUrl = 'com.airfrance.mobile.inhouse.EDosPNC';

@@ -1,3 +1,13 @@
+import { SummarySheetTransformerProvider } from './../providers/summary-sheet/summary-sheet-transformer';
+import { OnlineSummarySheetProvider } from './../providers/summary-sheet/online-summary-sheet';
+import { OfflineSummarySheetProvider } from './../providers/summary-sheet/offline-summary-sheet';
+import { OnlineWaypointProvider } from './../providers/waypoint/online-waypoint';
+import { OnlineCareerObjectiveProvider } from './../providers/career-objective/online-career-objective';
+import { OfflineWaypointProvider } from './../providers/waypoint/offline-waypoint';
+import { OfflineCareerObjectiveProvider } from './../providers/career-objective/offline-career-objective';
+import { OfflineSecurityProvider } from './../providers/security/offline-security';
+import { OnlineSecurityProvider } from './../providers/security/online-security';
+import { StorageService } from './../services/storage.service';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { HelpAssetListPage } from './../pages/help-asset-list/help-asset-list';
 import { EObservationService } from './../services/eObservation.service';
@@ -27,10 +37,12 @@ import { TranslateModule } from '@ngx-translate/core';
 import { TranslateLoader } from '@ngx-translate/core';
 import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { createTranslateLoader } from '../common/translate/TranslateLoader';
-import { ConnectivityService } from '../services/connectivity.service';
+
+import { ConnectivityService } from './../services/connectivity.service';
 import { RestService } from '../services/rest.base.service';
 import { RestMobileService } from '../services/rest.mobile.service';
 import { RestWebService } from '../services/rest.web.service';
+
 import { PncProvider } from '../providers/pnc/pnc';
 import { GenderProvider } from '../providers/gender/gender';
 import { ToastProvider } from '../providers/toast/toast';
@@ -42,6 +54,15 @@ import { UpcomingFlightListPage } from '../pages/upcoming-flight-list/upcoming-f
 import { RotationProvider } from '../providers/rotation/rotation';
 import { HelpAssetProvider } from '../providers/help-asset/help-asset';
 import { LegProvider } from '../providers/leg/leg';
+import { IonicStorageModule } from '@ionic/storage';
+import { OfflineProvider } from '../providers/offline/offline';
+import { OfflinePncProvider } from '../providers/pnc/offline-pnc';
+import { OnlinePncProvider } from '../providers/pnc/online-pnc';
+import { CareerObjectiveTransformerProvider } from '../providers/career-objective/career-objective-transformer';
+import { WaypointTransformerProvider } from '../providers/waypoint/waypoint-transformer';
+import { PncTransformerProvider } from '../providers/pnc/pnc-transformer';
+import { SynchronizationProvider } from '../providers/synchronization/synchronization';
+import { PncSynchroProvider } from '../providers/synchronization/pnc-synchro';
 import { HomePage } from '../pages/home/home';
 
 import { SummarySheetPage } from '../pages/summary-sheet/summary-sheet';
@@ -64,6 +85,7 @@ import { SummarySheetProvider } from '../providers/summary-sheet/summary-sheet';
   imports: [
     BrowserModule,
     IonicModule.forRoot(EDossierPNC),
+    IonicStorageModule.forRoot(),
     HttpClientModule,
     ComponentsModule,
     TranslateModule.forRoot({
@@ -94,9 +116,11 @@ import { SummarySheetProvider } from '../providers/summary-sheet/summary-sheet';
     SplashScreen,
     SecMobilService,
     ConnectivityService,
+    StorageService,
     { provide: RestService, useFactory: createRestService, deps: [HttpClient, SecMobilService, Config] },
     { provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true },
-    AppInitService, HttpClientModule,
+    AppInitService,
+    HttpClientModule,
     Config,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     PncProvider,
@@ -110,10 +134,30 @@ import { SummarySheetProvider } from '../providers/summary-sheet/summary-sheet';
     WaypointProvider,
     WaypointStatusProvider,
     RotationProvider,
-    HelpAssetProvider,
     LegProvider,
+    HelpAssetProvider,
+    OfflineProvider,
+    OfflineCareerObjectiveProvider,
+    OfflinePncProvider,
+    OfflineCareerObjectiveProvider,
+    OfflineWaypointProvider,
+    OnlineSecurityProvider,
+    OfflineSecurityProvider,
+    OnlinePncProvider,
+    OnlineCareerObjectiveProvider,
+    OfflineCareerObjectiveProvider,
+    OfflineWaypointProvider,
+    OnlineWaypointProvider,
+    CareerObjectiveTransformerProvider,
+    WaypointTransformerProvider,
+    PncTransformerProvider,
+    SynchronizationProvider,
+    PncSynchroProvider,
     EObservationService,
-    SummarySheetProvider
+    SummarySheetProvider,
+    OnlineSummarySheetProvider,
+    OfflineSummarySheetProvider,
+    SummarySheetTransformerProvider
   ]
 })
 export class AppModule { }

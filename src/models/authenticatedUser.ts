@@ -1,11 +1,12 @@
-import { Serializable } from './serializable';
-export class AuthenticatedUser extends Serializable {
+import { EDossierPncObject } from './eDossierPncObject';
+
+export class AuthenticatedUser extends EDossierPncObject {
     matricule: string;
     fistName: string;
     lastName: string;
     manager: boolean;
 
-    constructor(obj?: any){
-      super(obj);
+    getStorageId(): string {
+        return this.matricule;
     }
 }
