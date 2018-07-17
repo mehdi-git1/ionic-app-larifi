@@ -17,8 +17,6 @@ export class ConnectivityService {
     constructor(protected http: HttpClient,
         public platform: Platform,
         private config: Config) {
-
-        this.pingAPI();
     }
 
     isConnected(): boolean {

@@ -48,6 +48,10 @@ export class EDossierPNC implements OnInit {
   initializeApp() {
     this.platform.ready().then(() => {
 
+      if (!this.connectivityService.isBrowser){
+        this.connectivityService.pingAPI();
+      }
+
       this.statusBar.styleDefault();
       this.splashScreen.hide();
 
