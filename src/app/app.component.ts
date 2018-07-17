@@ -94,12 +94,9 @@ export class EDossierPNC implements OnInit {
    * Récupère les parametres envoyé par le back
    */
   initParameters() {
-    this.events.subscribe('user:authenticated', () => {
-      this.parametersProvider.getParams().then(parameters => {
-        this.sessionService.parameters = parameters;
-      }, error => { });
-    });
-
+    this.parametersProvider.getParams().then(parameters => {
+      this.sessionService.parameters = parameters;
+    }, error => { });
   }
 
   /**

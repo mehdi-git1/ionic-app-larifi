@@ -207,7 +207,7 @@ export class PncSearchPage {
   searchPncs() {
     this.buildFilter();
     this.getFilledFieldsOnly(this.pncFilter);
-    this.pncProvider.getfilteredPncs(this.pncFilter).then(pagedPnc => {
+    this.pncProvider.getFilteredPncs(this.pncFilter).then(pagedPnc => {
       this.filteredPncs = pagedPnc.content;
       this.totalPncs = pagedPnc.page.totalElements;
     });
@@ -245,7 +245,7 @@ export class PncSearchPage {
       setTimeout(() => {
         if (this.filteredPncs.length < this.totalPncs) {
           this.pncFilter.page = ++this.pncFilter.page;
-          this.pncProvider.getfilteredPncs(this.pncFilter).then(pagedPnc => {
+          this.pncProvider.getFilteredPncs(this.pncFilter).then(pagedPnc => {
             this.filteredPncs.push(...pagedPnc.content);
           });
         } else {

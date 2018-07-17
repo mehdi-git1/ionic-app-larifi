@@ -1,3 +1,4 @@
+import { Config } from './../../configuration/environment-variables/config';
 import { PagedPnc } from './../../models/pagedPnc';
 import { HttpRequest, HttpParams } from '@angular/common/http';
 import { PncFilter } from './../../models/pncFilter';
@@ -20,7 +21,10 @@ export class PncProvider {
     private offlinePncProvider: OfflinePncProvider,
     private offlineProvider: OfflineProvider,
     private pncTransformer: PncTransformerProvider,
-    private restService: RestService) {
+    private restService: RestService,
+    private config: Config) {
+
+    this.pncUrl = `${config.backEndUrl}/pncs`;
   }
 
   /**
@@ -72,11 +76,8 @@ export class PncProvider {
    * @param pncFilter
    * @return les pncs concernés
    */
-  getfilteredPncs(pncFilter: PncFilter): Promise<PagedPnc> {
-    return this.restService.get(this.pncUrl, pncFilter)
-      .then(response =>
-        response as PagedPnc
-      );
+  getFilteredPncs(pncFilter: PncFilter): Promise<PagedPnc> {
+    return this.onlinePncProvider.getFilteredPncs(pncFilter);
   }
 
   /**

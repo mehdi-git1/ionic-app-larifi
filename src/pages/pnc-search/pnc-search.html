@@ -2,6 +2,7 @@
 
     <ion-navbar>
         <ion-title>{{ 'GLOBAL.PNC_TEAM' | translate }}</ion-title>
+        <connectivity-indicator></connectivity-indicator>
     </ion-navbar>
 
 </ion-header>
@@ -14,7 +15,7 @@
         <ion-card class="pnc-search-card">
             <ion-card-content no-padding>
                 <ion-grid>
-                    <ion-row>
+                    <ion-row hidden>
                         <ion-col>
                             <!-- PNC -->
                             <ion-item>
@@ -36,7 +37,7 @@
                             </ion-item>
                         </ion-col>
                     </ion-row>
-                    <ion-row>
+                    <ion-row hidden>
                         <ion-col col-4>
                             <!-- Division -->
                             <ion-item>
@@ -68,7 +69,7 @@
                             </ion-item>
                         </ion-col>
                     </ion-row>
-                    <ion-row>
+                    <ion-row hidden>
                         <ion-col col-4>
                             <!-- Grade -->
                             <ion-item>
