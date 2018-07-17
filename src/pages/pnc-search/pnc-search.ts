@@ -73,19 +73,23 @@ export class PncSearchPage {
    */
   initFilter() {
     this.pncFilter = new PncFilter();
+    this.pncFilter.showFilter = true;
+    this.pncFilter.icone = 'remove-circle';
     this.pageSize = AppConfig.pageSize;
     this.itemOffset = 0;
     this.specialityList = Object.keys(Speciality)
       .map(k => Speciality[k])
       .filter(v => typeof v === 'string') as string[];
     if (this.sessionService.parameters !== undefined) {
-      this.outOfDivision = false;
       const params: Map<string, any> = this.sessionService.parameters.params;
       this.divisionList = Object.keys(params['divisions']);
-      this.relayList = params['relays'];
-      this.aircraftSkillList = params['aircraftSkills'];
-    } else {
-      this.outOfDivision = true;
+      if (this.divisionList.length === 0) {
+        this.outOfDivision = true;
+      } else {
+        this.outOfDivision = false;
+        this.relayList = params['relays'];
+        this.aircraftSkillList = params['aircraftSkills'];
+      }
     }
   }
 
@@ -256,4 +260,20 @@ export class PncSearchPage {
     });
   }
 
+  getAvatarPicture(gender) {
+    return this.genderProvider.getAvatarPicture(gender);
+  }
+
+  /**
+  * Ouvre/ferme le filtre
+  */
+  toggleFilter() {
+    this.pncFilter.showFilter = !this.pncFilter.showFilter;
+    if (this.pncFilter.showFilter) {
+      this.pncFilter.icone = 'remove-circle';
+    } else {
+      this.pncFilter.icone = 'add-circle';
+    }
+  }
 }
+

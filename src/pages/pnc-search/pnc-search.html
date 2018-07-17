@@ -13,9 +13,12 @@
 
     <form novalidate [formGroup]="searchForm">
         <ion-card class="pnc-search-card">
-            <ion-card-content no-padding>
+            <ion-card-header class="header-container" (click)="toggleFilter()">
+                <ion-icon [name]="pncFilter.icone"></ion-icon>
+            </ion-card-header>
+            <ion-card-content no-padding [ngClass]="{'opened' : pncFilter.showFilter}">
                 <ion-grid>
-                    <ion-row hidden>
+                    <ion-row>
                         <ion-col>
                             <!-- PNC -->
                             <ion-item>
@@ -37,7 +40,7 @@
                             </ion-item>
                         </ion-col>
                     </ion-row>
-                    <ion-row hidden>
+                    <ion-row>
                         <ion-col col-4>
                             <!-- Division -->
                             <ion-item>
@@ -69,7 +72,7 @@
                             </ion-item>
                         </ion-col>
                     </ion-row>
-                    <ion-row hidden>
+                    <ion-row>
                         <ion-col col-4>
                             <!-- Grade -->
                             <ion-item>
@@ -122,7 +125,7 @@
                 <ion-grid>
                     <ion-row>
                         <ion-col col-1>
-                            <img src="{{genderProvider.getAvatarPicture(pnc.gender)}}" />
+                            <img src="{{getAvatarPicture(pnc.gender)}}" />
                         </ion-col>
                         <ion-col col-11 class="content">
                             <ion-row class="primary-info">
