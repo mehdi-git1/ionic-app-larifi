@@ -72,7 +72,7 @@ export class PncProvider {
   }
 
   /**
-   * Fait appel au service rest qui renvois les pncs conçernés.
+   * Fait appel au service rest qui renvoie les pncs conçernés.
    * @param pncFilter
    * @return les pncs concernés
    */
@@ -81,7 +81,7 @@ export class PncProvider {
   }
 
   /**
-   * Fait appel au service rest qui renvois les 10 premier pncs conçernés.
+   * Fait appel au service rest qui renvoie les 10 premier pncs conçernés.
    * @param searchText matricuel/nom/prénom
    * @return les pncs concernés
    */
