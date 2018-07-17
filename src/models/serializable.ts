@@ -5,15 +5,14 @@ export class Serializable {
    * @return l'entité correspondante au json
    */
   fromJSON(jsonObj: Object): any {
-    if (!jsonObj) {
-      return;
-    }
-
-    for (let prop in jsonObj) {
-      if (jsonObj.hasOwnProperty(prop)) {
-        this[prop] = jsonObj[prop];
+    if (jsonObj) {
+      for (let prop in jsonObj) {
+        if (jsonObj.hasOwnProperty(prop)) {
+          this[prop] = jsonObj[prop];
+        }
       }
     }
+
     return this;
   }
 }
