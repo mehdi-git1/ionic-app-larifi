@@ -18,6 +18,7 @@
 @import '../theme/button-bar.scss';
 @import '../theme/status.scss';
 @import '../theme/icon.scss';
+@import '../theme/navbar.scss';
 
 // A utiliser sur les éléments cliquables (les labels ont un style contraire, on est obligé de les surcharger) */
 .clickable,
@@ -25,9 +26,13 @@
     cursor: pointer;
 }
 
-// Pour ajouter une valeur "nulle" (un tiret) 
+// Pour ajouter une valeur "nulle" (un tiret)
 .no-value:after {
     content: '-';
+}
+
+.app-root{
+    background-color: #f1f1f1;
 }
 
 
@@ -69,4 +74,16 @@
 
 .back-button {
     color: color($colors, white);
+}
+
+body{
+    background-color: #f1f1f1
+}
+
+.content-md{
+    background-color: transparent;
+}
+
+.item-md{
+  background-color: transparent;
 }

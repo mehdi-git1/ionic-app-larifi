@@ -139,13 +139,6 @@ ion-card {
     }
 }
 
-button,
-.button-ios {
-    border-radius: 0px !important;
-    box-shadow: none !important;
-    -webkit-box-shadow: none !important;
-}
-
 .button-outline {
     border-width: 2px !important;
 }
@@ -198,6 +191,10 @@ $text-input-md-show-focus-highlight: false;
 
 ion-item.item {
     padding-left: 0px;
+}
+
+.content-md {
+    background-color: transparent;
 }
 
 @media all and (-ms-high-contrast: none),

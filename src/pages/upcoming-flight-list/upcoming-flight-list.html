@@ -1,9 +1,8 @@
 <ion-header>
-
     <ion-navbar>
         <ion-title>{{ 'GLOBAL.UPCOMING_FLIGHT' | translate }}</ion-title>
+        <connectivity-indicator></connectivity-indicator>
     </ion-navbar>
-
 </ion-header>
 
 <ion-content padding>
@@ -17,7 +16,7 @@
             <rotation-card [rotation]="lastPerformedRotation" *ngIf="lastPerformedRotation" class="last-performed-rotation"></rotation-card>
             <h3>{{ 'UPCOMING_FLIGHT_LIST.UPCOMING_FLIGHTS' | translate }}</h3>
             <rotation-card *ngFor=" let rotation of upcomingRotations " [rotation]="rotation " class="upcoming-rotations"></rotation-card>
-            <div class="no-rotations" *ngIf="upcomingRotations.length === 0">{{ 'UPCOMING_FLIGHT_LIST.NO_FLIGHTS' | translate }}</div>
+            <div class="no-rotations" *ngIf="noUpcomingRotations()">{{ 'UPCOMING_FLIGHT_LIST.NO_FLIGHTS' | translate }}</div>
         </div>
     </div>
 </ion-content>

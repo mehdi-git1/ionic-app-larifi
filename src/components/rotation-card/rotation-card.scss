@@ -24,21 +24,13 @@ rotation-card {
             padding: 0;
         }
 
-        .leg {
-            margin: 0 10px;
+        .header-container {
             display: flex;
-            justify-content: space-between;
-            height: 50px;
-            cursor: pointer;
+            align-items: center;
 
-            span {
-                display: flex;
-                align-items: center;
+            .spinner-invisible {
+                visibility: hidden;
             }
-        }
-
-        .leg:not(:first-child) {
-            border-top: 2px solid color($colors, grey90);
         }
     }
 

@@ -1,3 +1,4 @@
+import { Config } from './../configuration/environment-variables/config';
 import { Observable } from 'rxjs/Rx';
 import { Platform } from 'ionic-angular';
 import { Injectable, Output, EventEmitter } from '@angular/core';
@@ -8,59 +9,46 @@ declare var window: any;
 @Injectable()
 export class ConnectivityService {
 
-    private restBaseUrl: 'https://secmobil-apirct.airfrance.fr/secmobilTestWeb/services/api/user/';
-    public isConnected = false;
+    private connected = true;
 
     @Output()
-    public connectionStatusChange = new EventEmitter<boolean>();
+    connectionStatusChange = new EventEmitter<boolean>();
 
     constructor(protected http: HttpClient,
-        public platform: Platform) {
-        // console.log('constructor');
-        this.checkConnection();
+        public platform: Platform,
+        private config: Config) {
+
+        this.pingAPI();
+    }
+
+    isConnected(): boolean {
+        return this.connected;
     }
 
     setConnected(newStatus: boolean) {
-
-        if (this.isConnected !== newStatus) {
-            this.isConnected = newStatus;
+        if (this.connected !== newStatus) {
+            this.connected = newStatus;
             this.connectionStatusChange.emit(newStatus);
         }
     }
 
-    public checkConnection() {
-        // console.log('check connection');
-        this.pingAPI().subscribe(p => {
-            if (p) {
-                this.setConnected(true);
-                // console.log('connected');
-            } else {
+    /**
+     * Envoie une requête au backend toutes les 5 secondes pour vérifier la connectivité.
+     */
+    pingAPI() {
+        this.http.get(this.config.pingUrl, { observe: 'response' }).subscribe(
+            success => {
+                if (success.status === 200) {
+                    this.setConnected(true);
+                } else {
+                    this.setConnected(false);
+                }
+            },
+            error => {
                 this.setConnected(false);
-                // console.log('not connected');
-            }
-        });
+            });
 
-        setTimeout(() => this.checkConnection(), 5000);
-    }
-
-    pingAPI(): Observable<Boolean> {
-        return Observable.create(
-            observer => {
-                this.http.get(this.restBaseUrl, { observe: 'response' }).subscribe(
-                    r => {
-                        if (r.status === 200) {
-                            observer.next(true);
-                            observer.complete();
-                        } else {
-                            observer.next(false);
-                            observer.complete();
-                        }
-                    }, (error) => {
-                        observer.next(false);
-                        observer.complete();
-                    });
-            }
-        );
+        setTimeout(() => this.pingAPI(), 5000);
     }
 
     get isBrowser() {

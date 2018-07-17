@@ -2,9 +2,9 @@ import { Waypoint } from './waypoint';
 import { CareerObjectiveStatus } from './careerObjectiveStatus';
 import { PncRole } from './pncRole';
 import { Pnc } from './pnc';
+import { EDossierPncObject } from './eDossierPncObject';
 
-export class CareerObjective {
-    techId: number;
+export class CareerObjective extends EDossierPncObject {
     careerObjectiveStatus: CareerObjectiveStatus;
     pnc: Pnc;
     creationAuthor: Pnc;
@@ -21,5 +21,9 @@ export class CareerObjective {
     nextEncounterDate: string;
     encounterDate: string;
     prioritized: boolean;
-    waypointList: Waypoint[];
+    waypoints: Waypoint[];
+
+    getStorageId(): string {
+        return `${this.techId}`;
+    }
 }

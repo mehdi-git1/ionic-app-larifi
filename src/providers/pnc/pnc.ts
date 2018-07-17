@@ -1,25 +1,43 @@
-import { Config } from './../../configuration/environment-variables/config';
+import { PncTransformerProvider } from './pnc-transformer';
+import { OfflineProvider } from './../offline/offline';
+import { OnlinePncProvider } from './online-pnc';
+import { OfflinePncProvider } from './../pnc/offline-pnc';
+import { ConnectivityService } from './../../services/connectivity.service';
 import { Rotation } from './../../models/rotation';
 import { Pnc } from './../../models/pnc';
 import { Injectable } from '@angular/core';
-import { RestService } from '../../services/rest.base.service';
 
 @Injectable()
 export class PncProvider {
   private pncUrl: string;
 
-  constructor(public restService: RestService,
-    public config: Config) {
-    this.pncUrl = `${config.backEndUrl}/pncs`;
+  constructor(private connectivityService: ConnectivityService,
+    private onlinePncProvider: OnlinePncProvider,
+    private offlinePncProvider: OfflinePncProvider,
+    private offlineProvider: OfflineProvider,
+    private pncTransformer: PncTransformerProvider) {
   }
 
   /**
-   * Fait appel au service rest qui renvois les informations.
-   * @param matricule
-   * @return les informations du pnc
+   * Récupère les infos d'un PNC
+   * @param matricule le matricule du PNC dont on souhaite récupérer les infos
+   * @return les informations du PNC
    */
   getPnc(matricule: string): Promise<Pnc> {
-    return this.restService.get(`${this.pncUrl}/${matricule}`);
+    if (this.connectivityService.isConnected()) {
+      return new Promise((resolve, reject) => {
+        this.offlinePncProvider.getPnc(matricule).then(offlinePnc => {
+          this.onlinePncProvider.getPnc(matricule).then(onlinePnc => {
+            const onlineData = this.pncTransformer.toPnc(onlinePnc);
+            const offlineData = this.pncTransformer.toPnc(offlinePnc);
+            this.offlineProvider.flagDataAvailableOffline(onlineData, offlineData);
+            resolve(onlineData);
+          });
+        });
+      });
+    } else {
+      return this.offlinePncProvider.getPnc(matricule);
+    }
   }
 
   /**
@@ -28,7 +46,9 @@ export class PncProvider {
    * @return les rotations à venir du PNC
    */
   getUpcomingRotations(matricule: string): Promise<Rotation[]> {
-    return this.restService.get(`${this.pncUrl}/${matricule}/upcoming_rotations`);
+    return this.connectivityService.isConnected() ?
+      this.onlinePncProvider.getUpcomingRotations(matricule) :
+      this.offlinePncProvider.getUpcomingRotations(matricule);
   }
 
   /**
@@ -37,7 +57,10 @@ export class PncProvider {
   * @return la dernière rotation opérée par le PNC
   */
   getLastPerformedRotation(matricule: string): Promise<Rotation> {
-    return this.restService.get(`${this.pncUrl}/${matricule}/last_performed_rotation`);
+    return this.connectivityService.isConnected() ?
+      this.onlinePncProvider.getLastPerformedRotation(matricule) :
+      this.offlinePncProvider.getLastPerformedRotation(matricule);
   }
+
 }
 
