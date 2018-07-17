@@ -55,4 +55,12 @@ export class OnlineCareerObjectiveProvider {
     this.storageService.persistOfflineMap();
     return this.restService.delete(`${this.careerObjectiveUrl}/${id}`);
   }
+
+  /**
+ * Envoi au serveur une demande de sollicitation instructeur pour l'objectif
+ * @param id l'id de l'objectif pour lequel on souhaiter solliciter l'instructeur
+ */
+  createRequestInstructor(id: number): Promise<void> {
+    return this.restService.get(`${this.careerObjectiveUrl}/${id}/request_instructor`);
+  }
 }
