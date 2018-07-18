@@ -16,7 +16,7 @@ import { SummarySheetPage } from '../summary-sheet/summary-sheet';
 import { HelpAssetListPage } from './../help-asset-list/help-asset-list';
 
 @IonicPage({
-  segment: 'home'
+  segment: 'home/:matricule'
 })
 @Component({
   selector: 'page-pnc-home',

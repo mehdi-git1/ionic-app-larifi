@@ -95,7 +95,7 @@ export class EDossierPNC implements OnInit {
     promise.then(authenticatedUser => {
       if (authenticatedUser) {
         this.sessionService.authenticatedUser = authenticatedUser;
-        this.nav.setRoot('PncHomePage', { matricule: this.sessionService.authenticatedUser.matricule });
+       // this.nav.setRoot('PncHomePage', { matricule: this.sessionService.authenticatedUser.matricule });
       }
       else {
         this.nav.setRoot(AuthenticationPage);

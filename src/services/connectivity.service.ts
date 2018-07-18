@@ -18,7 +18,7 @@ export class ConnectivityService {
         public platform: Platform,
         private config: Config) {
 
-        this.pingAPI();
+      //  this.pingAPI();
     }
 
     isConnected(): boolean {
