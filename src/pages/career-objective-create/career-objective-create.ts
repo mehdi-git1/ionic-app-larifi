@@ -317,10 +317,10 @@ export class CareerObjectiveCreatePage {
   /**
    * Envoi au serveur une demande de sollicitation instructeur pour l'objectif
    */
-  createRequestInstructor() {
+  createInstructorRequest() {
 
     this.careerObjectiveProvider
-      .createRequestInstructor(this.careerObjective.techId)
+      .createInstructorRequest(this.careerObjective.techId)
       .then(result => {
         this.toastProvider.success(this.translateService.instant('CAREER_OBJECTIVE_CREATE.SUCCESS.CAREER_OBJECTIVE_INSTRUCTOR_REQUESTED'));
       },

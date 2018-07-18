@@ -64,7 +64,7 @@
             "ABANDON": "Abandonner",
             "CANCEL_VALIDATION": "Annuler la validation",
             "RESUME": "Reprendre l'objectif",
-            "CREATE_REQUEST_INSTRUCTOR": "Solliciter mon instructeur"
+            "CREATE_INSTRUCTOR_REQUEST": "Solliciter mon instructeur"
         },
         "SUCCESS": {
             "CAREER_OBJECTIVE_SAVED": "Objectif enregistré avec succès",
