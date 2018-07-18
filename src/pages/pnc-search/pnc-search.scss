@@ -93,6 +93,29 @@ page-pnc-search {
             top: 17px;
             padding-left: 2px;
         }
+
+        .label-inactive-filters {
+            color: LightGray;
+            font-weight: bold;
+            display: flex;
+            flex-direction: column;
+            justify-content: right;
+            align-items: right;
+            text-align: right;
+        }
+
+        .hide-label {
+            visibility: hidden;
+            opacity: 0;
+            transition: visibility 0s linear 2000ms,
+            opacity 2000ms;
+        }
+
+        .show-label {
+            visibility: visible;
+            transition: visibility 0s linear 0s,
+            opacity 2000ms;
+        }
     }
 
     .label-md {
