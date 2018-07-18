@@ -92,8 +92,8 @@ export class CareerObjectiveProvider {
    * Envoi au serveur une demande de sollicitation instructeur pour l'objectif
    * @param id l'id de l'objectif pour lequel on souhaiter solliciter l'instructeur
    */
-  createRequestInstructor(id: number): Promise<void> {
-    return this.onlineCareerObjectiveProvider.createRequestInstructor(id);
+  createInstructorRequest(id: number): Promise<void> {
+    return this.onlineCareerObjectiveProvider.createInstructorRequest(id);
   }
 
 }

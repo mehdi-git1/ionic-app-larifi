@@ -60,7 +60,7 @@ export class OnlineCareerObjectiveProvider {
  * Envoi au serveur une demande de sollicitation instructeur pour l'objectif
  * @param id l'id de l'objectif pour lequel on souhaiter solliciter l'instructeur
  */
-  createRequestInstructor(id: number): Promise<void> {
-    return this.restService.post(`${this.careerObjectiveUrl}/${id}/request_instructor`, null);
+  createInstructorRequest(id: number): Promise<void> {
+    return this.restService.post(`${this.careerObjectiveUrl}/${id}/instructor_request`, null);
   }
 }
