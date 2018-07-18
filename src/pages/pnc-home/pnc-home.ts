@@ -9,12 +9,15 @@ import { Speciality } from './../../models/speciality';
 import { CareerObjectiveListPage } from './../career-objective-list/career-objective-list';
 import { PncProvider } from './../../providers/pnc/pnc';
 import { Component, NgZone, ChangeDetectorRef } from '@angular/core';
-import { NavController, NavParams, ViewController, App } from 'ionic-angular';
+import { NavController, NavParams, ViewController, App, IonicPage } from 'ionic-angular';
 import { Pnc } from '../../models/pnc';
 import { ConnectivityService } from '../../services/connectivity.service';
 import { SummarySheetPage } from '../summary-sheet/summary-sheet';
 import { HelpAssetListPage } from './../help-asset-list/help-asset-list';
 
+@IonicPage({
+  segment: 'home'
+})
 @Component({
   selector: 'page-pnc-home',
   templateUrl: 'pnc-home.html',
@@ -90,7 +93,7 @@ export class PncHomePage {
    * Dirige vers la page des ressources d'aide
    */
   goToHelpAssetList() {
-    this.navCtrl.push(HelpAssetListPage, { pncRole: Speciality.getPncRole(this.pnc.speciality) });
+    this.navCtrl.push('HelpAssetListPage', { pncRole: Speciality.getPncRole(this.pnc.speciality) });
   }
 
   /**

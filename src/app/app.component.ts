@@ -5,7 +5,7 @@ import { AuthenticatedUser } from './../models/authenticatedUser';
 import { AuthenticationPage } from './../pages/authentication/authentication';
 import { SessionService } from './../services/session.service';
 import { SecurityProvider } from './../providers/security/security';
-import { PncHomePage } from './../pages/pnc-home/pnc-home';
+
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { Nav, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
@@ -95,7 +95,7 @@ export class EDossierPNC implements OnInit {
     promise.then(authenticatedUser => {
       if (authenticatedUser) {
         this.sessionService.authenticatedUser = authenticatedUser;
-        this.nav.setRoot(PncHomePage, { matricule: this.sessionService.authenticatedUser.matricule });
+        this.nav.setRoot('PncHomePage', { matricule: this.sessionService.authenticatedUser.matricule });
       }
       else {
         this.nav.setRoot(AuthenticationPage);

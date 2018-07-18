@@ -1,3 +1,4 @@
+import { SharedModule } from './../shared/shared.module';
 import { SummarySheetTransformerProvider } from './../providers/summary-sheet/summary-sheet-transformer';
 import { OnlineSummarySheetProvider } from './../providers/summary-sheet/online-summary-sheet';
 import { OfflineSummarySheetProvider } from './../providers/summary-sheet/offline-summary-sheet';
@@ -9,7 +10,6 @@ import { OfflineSecurityProvider } from './../providers/security/offline-securit
 import { OnlineSecurityProvider } from './../providers/security/online-security';
 import { StorageService } from './../services/storage.service';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
-import { HelpAssetListPage } from './../pages/help-asset-list/help-asset-list';
 import { EObservationService } from './../services/eObservation.service';
 import { ComponentsModule } from './../components/components.module';
 import { FlightCrewListPage } from './../pages/flight-crew-list/flight-crew-list';
@@ -18,7 +18,6 @@ import { HttpErrorInterceptor } from './../interceptor/httpErrorInterceptor';
 import { SessionService } from './../services/session.service';
 import { SecurityProvider } from './../providers/security/security';
 import { CareerObjectiveProvider } from './../providers/career-objective/career-objective';
-import { PncHomePage } from './../pages/pnc-home/pnc-home';
 import { CareerObjectiveCreatePage } from './../pages/career-objective-create/career-objective-create';
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
@@ -71,13 +70,11 @@ import { SummarySheetProvider } from '../providers/summary-sheet/summary-sheet';
 @NgModule({
   declarations: [
     EDossierPNC,
-    PncHomePage,
     AuthenticationPage,
     CareerObjectiveCreatePage,
     CareerObjectiveListPage,
     WaypointCreatePage,
     UpcomingFlightListPage,
-    HelpAssetListPage,
     FlightCrewListPage,
     HomePage,
     SummarySheetPage
@@ -88,25 +85,17 @@ import { SummarySheetProvider } from '../providers/summary-sheet/summary-sheet';
     IonicStorageModule.forRoot(),
     HttpClientModule,
     ComponentsModule,
-    TranslateModule.forRoot({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: (createTranslateLoader),
-        deps: [HttpClient]
-      }
-    }),
+    SharedModule,
     PdfViewerModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     EDossierPNC,
-    PncHomePage,
     AuthenticationPage,
     CareerObjectiveCreatePage,
     CareerObjectiveListPage,
     WaypointCreatePage,
     UpcomingFlightListPage,
-    HelpAssetListPage,
     FlightCrewListPage,
     HomePage,
     SummarySheetPage

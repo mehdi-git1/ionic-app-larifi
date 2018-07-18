@@ -4,6 +4,9 @@ import { PncRole } from './../../models/pncRole';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
+@IonicPage({
+  segment: 'help'
+})
 @Component({
   selector: 'page-help-asset-list',
   templateUrl: 'help-asset-list.html',
