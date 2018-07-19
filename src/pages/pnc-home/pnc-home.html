@@ -91,7 +91,7 @@
                 </div>
             </ion-col>
             <!-- Effectif PNC -->
-            <ion-col col-6 *ngIf="pnc.speciality === Speciality.CAD">
+            <ion-col col-6 *ngIf="pnc?.speciality === Speciality.CAD">
                 <div class="parentBtn">
                     <button ion-button (click)="goToPncSearch()" color="blue80">
                     {{ 'GLOBAL.PNC_TEAM' | translate }}
