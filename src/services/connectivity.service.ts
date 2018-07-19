@@ -18,6 +18,9 @@ export class ConnectivityService {
         public platform: Platform,
         private config: Config) {
 
+        // ligne commentee temporairement car le ping cree des problèmes de connexion depuis l'app iPad.
+        // On tombe sur la page d'authent habile (recup certificat)
+        // TODO : a reactiver pour faire marcher le mode deconnecte
         // this.pingAPI();
     }
 
