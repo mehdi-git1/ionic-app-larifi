@@ -1,13 +1,14 @@
-import { ConnectivityService } from './connectivity.service';
 import { Injectable } from '@angular/core';
 import { Config } from '../configuration/environment-variables/config';
+import { Platform } from 'ionic-angular';
 
 declare var window: any;
 
 @Injectable()
 export class SecMobilService {
 
-    constructor(private connectivityService: ConnectivityService, public config: Config) {
+    constructor(public config: Config,
+        public platform: Platform) {
     }
 
     public init() {
@@ -20,12 +21,16 @@ export class SecMobilService {
     }
 
     get secMobile(): any {
-        if (!this.connectivityService.isBrowser && window.cordova.plugins && window.cordova.plugins.CertAuthPlugin) {
+        if (!this.isBrowser && window.cordova.plugins && window.cordova.plugins.CertAuthPlugin) {
             return window.cordova.plugins.CertAuthPlugin;
         } else {
             // console.debug('Plugin not loaded we\'re in browser mode');
             return null;
         }
+    }
+
+    get isBrowser() {
+        return window.device && window.device.platform === 'browser' || !this.platform.is('cordova');
     }
 
     public secMobilRevokeCertificate(): Promise<any> {

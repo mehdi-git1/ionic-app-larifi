@@ -37,17 +37,9 @@ export class RestWebService extends RestService {
         }
 
         request.options.headers = request.options.headers.append('Accept', 'application/json, text/plain, */*');
-
-        ///// TODO:
-        // for (const h of request.httpHeaders) {
-        //     headers.append('Content-Type', h);
-        // }
-        //   headers.append('sm_user', '07339967');
-        // headers.append('secgw_user', 'm328624');
-        // headers.append('SN', 'ZngNZu6HZ5julFBEklrR');
-
-        // if (request.httpHeaders['Content-Type'] != undefined)
-        //     headers.append('Content-Type', request.httpHeaders['Content-Type']);
+        // request.options.headers = request.options.headers.append('Access-Control-Allow-Origin', 'http://localhost:8100');
+        // request.options.headers = request.options.headers.append('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+        // request.options.headers = request.options.headers.append('Access-Control-Allow-Methods', 'POST, OPTIONS, GET');
 
         request.options.withCredentials = request.withCredential;
 
