@@ -19,9 +19,9 @@ export class Config extends BaseConfig {
         } else {
             console.log('web mode selected');
             this.backEndUrl = '/api/rest/resources';
+            this.backEndUrl = 'https://edospnc-dev.airfrance.fr/api/rest/resources';
             // A décommenter pour travailler en localhost (sans tomcat)
-            // this.pingUrl = 'https://edospnc-rct.airfrance.fr/api/rest/resources/me';
-            // this.backEndUrl = 'https://edospnc-rct.airfrance.fr/api/rest/resources';
+            this.pingUrl = this.backEndUrl + '/me';
         }
 
         this.env = 'localhost';

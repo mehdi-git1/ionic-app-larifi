@@ -83,7 +83,11 @@ export class StorageService {
    * @return l'entité trouvée
    */
   findOne(entity: Entity, storageId: string): any {
-    return this.offlineMap[entity][storageId];
+    if (this.offlineMap && this.offlineMap[entity]) {
+      return this.offlineMap[entity][storageId];
+    } else {
+      return null;
+    }
   }
 
   /**
@@ -135,8 +139,10 @@ export class StorageService {
    * @param entity le type de l'entité à supprimer
    */
   deleteAll(entity: Entity): void {
-    this.offlineMap[entity] = {};
-    this.persistOfflineMap();
+    if (this.offlineMap) {
+      this.offlineMap[entity] = {};
+      this.persistOfflineMap();
+    }
   }
 
   /**

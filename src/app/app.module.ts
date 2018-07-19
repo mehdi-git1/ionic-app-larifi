@@ -68,6 +68,8 @@ import { HomePage } from '../pages/home/home';
 import { SummarySheetPage } from '../pages/summary-sheet/summary-sheet';
 import { SummarySheetProvider } from '../providers/summary-sheet/summary-sheet';
 
+declare var window: any;
+
 @NgModule({
   declarations: [
     EDossierPNC,
@@ -163,7 +165,6 @@ import { SummarySheetProvider } from '../providers/summary-sheet/summary-sheet';
 export class AppModule { }
 
 
-declare var window: any;
 
 // Check if we are in app mode or in web browser
 export function createRestService(http: HttpClient, secMobilService: SecMobilService, config: Config): RestService {
