@@ -173,7 +173,10 @@
             "ALL_F": "Toutes",
             "ALL_M": "Tous"
         },
-        "NO_PNC_FOUND": "Aucun pnc trouvé."
+        "NO_PNC_FOUND": "Aucun pnc trouvé.",
+        "ERROR": {
+            "SEARCH": "Erreur lors de la recherche de PNC"
+        }
 
     },
     "MESSAGES": {
@@ -195,21 +198,5 @@
         "ROTATION_SAVED_OFFLINE_ERROR": "Un ou plusieurs PNC de la rotation {{ rotationNumber }} n'ont pas pu être synchronisés",
         "FLIGHT_SAVED_OFFLINE": "Les PNC du vol {{ flightNumber }} ont été synchronisés",
         "FLIGHT_SAVED_OFFLINE_ERROR": "Un ou plusieurs PNC du vol {{ flightNumber }} n'ont pas pu être synchronisés"
-    },
-    "PNC_SEARCH": {
-        "TITLE": "Recherche PNC",
-        "CRITERIA": {
-            "PNC_MATRICULE": "Nom, Prénom, Matricule",
-            "DIVISION": "Division",
-            "SECTOR": "Secteur",
-            "GINQ": "Ginq",
-            "SPECIALITY": "Fonction",
-            "RELAY": "Relais",
-            "AIRCRAFT_SKILL": "Spécification machine",
-            "WORK_RATE": "Rythme"
-        },
-        "ERROR": {
-            "SEARCH": "Erreur lors de la recherche de PNC"
-        }
     }
 }
