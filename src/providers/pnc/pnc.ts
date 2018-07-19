@@ -90,9 +90,9 @@ export class PncProvider {
   }
 
   /**
-   * Récupère les pncs du même secteur depuis le cache
-   * @param pncFilter
-   * @return les pncs concernés sauf le pnc connecté en offline
+   * Récupère les pncs du même secteur depuis le cache en offline ou depuis le serveur en online
+   * @param pncFilter filtre de recherche, pas utilisé en offline
+   * @return les pncs concernés (en offline : uniquement les pncs sur même secteur sauf le pnc connecté)
    */
   getFilteredPncs(pncFilter: PncFilter): Promise<PagedPnc> {
     if (this.connectivityService.isConnected()) {
