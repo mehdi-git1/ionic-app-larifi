@@ -18,7 +18,7 @@ export class ConnectivityService {
         // ligne commentee temporairement car le ping cree des problèmes de connexion depuis l'app iPad.
         // On tombe sur la page d'authent habile (recup certificat)
         // TODO : a reactiver pour faire marcher le mode deconnecte
-        // setTimeout(() => this.pingAPI(), 5000);
+        this.pingAPI();
     }
 
     isConnected(): boolean {
@@ -38,15 +38,14 @@ export class ConnectivityService {
     pingAPI() {
         this.restService.get(this.config.pingUrl).then(
             success => {
-                if (success.status === 200) {
-                    this.setConnected(true);
-                } else {
-                    this.setConnected(false);
-                }
+                this.setConnected(true);
             },
             error => {
                 this.setConnected(false);
             });
+
+
+        setTimeout(() => this.pingAPI(), 5000);
     }
 
 
