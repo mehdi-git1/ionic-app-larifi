@@ -34,7 +34,7 @@ export class PncCardComponent {
   loadOfflinePncData(): Promise<void> {
     return new Promise((resolve, reject) => {
       if (this.crewMember.pnc.matricule !== undefined) {
-        this.pncProvider.getPnc(this.crewMember.pnc.matricule).then(foundPnc => {
+        this.pncProvider.refreshOffLineDateOnPnc(this.crewMember.pnc).then(foundPnc => {
           this.crewMember.pnc = foundPnc;
           resolve();
         }, error => {
@@ -67,4 +67,7 @@ export class PncCardComponent {
     this.navCtrl.push(PncHomePage, { matricule: matricule });
   }
 
+  getAvatarPicture(gender) {
+    return this.genderProvider.getAvatarPicture(gender);
+  }
 }

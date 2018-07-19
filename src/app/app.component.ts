@@ -2,12 +2,13 @@ import { SynchronizationProvider } from './../providers/synchronization/synchron
 import { ToastProvider } from './../providers/toast/toast';
 import { ConnectivityService } from './../services/connectivity.service';
 import { AuthenticatedUser } from './../models/authenticatedUser';
+import { ParametersProvider } from './../providers/parameters/parameters';
 import { AuthenticationPage } from './../pages/authentication/authentication';
 import { SessionService } from './../services/session.service';
 import { SecurityProvider } from './../providers/security/security';
 import { PncHomePage } from './../pages/pnc-home/pnc-home';
 import { Component, ViewChild, OnInit } from '@angular/core';
-import { Nav, Platform } from 'ionic-angular';
+import { Nav, Platform, Events } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -37,7 +38,9 @@ export class EDossierPNC implements OnInit {
     private connectivityService: ConnectivityService,
     private toastProvider: ToastProvider,
     private synchronizationProvider: SynchronizationProvider,
-    public translate: TranslateService
+    public translate: TranslateService,
+    private events: Events,
+    private parametersProvider: ParametersProvider
   ) {
   }
 
@@ -83,8 +86,17 @@ export class EDossierPNC implements OnInit {
         }
       });
 
+      this.initParameters();
     });
+  }
 
+  /**
+   * Récupère les parametres envoyé par le back
+   */
+  initParameters() {
+    this.parametersProvider.getParams().then(parameters => {
+      this.sessionService.parameters = parameters;
+    }, error => { });
   }
 
   /**

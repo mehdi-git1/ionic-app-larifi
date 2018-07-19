@@ -1,3 +1,5 @@
+import { PagedPnc } from './../../models/pagedPnc';
+import { PncFilter } from './../../models/pncFilter';
 import { Rotation } from './../../models/rotation';
 import { OfflinePncProvider } from './offline-pnc';
 import { Config } from './../../configuration/environment-variables/config';
@@ -41,4 +43,17 @@ export class OnlinePncProvider {
   getLastPerformedRotation(matricule: string): Promise<Rotation> {
     return this.restService.get(`${this.pncUrl}/${matricule}/last_performed_rotation`);
   }
+
+
+  /**
+   * Récupère les PNC correspondant au filtre
+   * @param matricule le matricule du PNC qu'on souhaite récupérer
+   * @return une promesse contenant le PNC trouvé
+   */
+  getFilteredPncs(pncFilter: PncFilter): Promise<PagedPnc> {
+    return this.restService.get(this.pncUrl, pncFilter).then(response =>
+      response as PagedPnc
+    );
+  }
+
 }

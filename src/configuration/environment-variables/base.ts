@@ -1,4 +1,4 @@
-export class BaseConfig {
+export abstract class BaseConfig {
   public appVersion = '';
   public backEndUrl = '/api/rest/resources';
   public pingUrl = '/api/rest/resources/me';

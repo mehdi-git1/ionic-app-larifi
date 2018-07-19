@@ -1,4 +1,3 @@
-import { PncSearchPage } from './../pages/pnc-search/pnc-search';
 import { SummarySheetTransformerProvider } from './../providers/summary-sheet/summary-sheet-transformer';
 import { OnlineSummarySheetProvider } from './../providers/summary-sheet/online-summary-sheet';
 import { OfflineSummarySheetProvider } from './../providers/summary-sheet/offline-summary-sheet';
@@ -10,6 +9,8 @@ import { OfflineSecurityProvider } from './../providers/security/offline-securit
 import { OnlineSecurityProvider } from './../providers/security/online-security';
 import { StorageService } from './../services/storage.service';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
+import { AppMaterialModule } from './../shared/material/material.module';
+import { PncSearchPage } from './../pages/pnc-search/pnc-search';
 import { HelpAssetListPage } from './../pages/help-asset-list/help-asset-list';
 import { EObservationService } from './../services/eObservation.service';
 import { ComponentsModule } from './../components/components.module';
@@ -24,6 +25,7 @@ import { CareerObjectiveCreatePage } from './../pages/career-objective-create/ca
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { EDossierPNC } from './app.component';
 import { CareerObjectiveListPage } from './../pages/career-objective-list/career-objective-list';
@@ -55,6 +57,7 @@ import { UpcomingFlightListPage } from '../pages/upcoming-flight-list/upcoming-f
 import { RotationProvider } from '../providers/rotation/rotation';
 import { HelpAssetProvider } from '../providers/help-asset/help-asset';
 import { LegProvider } from '../providers/leg/leg';
+import { ParametersProvider } from '../providers/parameters/parameters';
 import { IonicStorageModule } from '@ionic/storage';
 import { OfflineProvider } from '../providers/offline/offline';
 import { OfflinePncProvider } from '../providers/pnc/offline-pnc';
@@ -78,6 +81,7 @@ import { SummarySheetProvider } from '../providers/summary-sheet/summary-sheet';
     CareerObjectiveListPage,
     WaypointCreatePage,
     UpcomingFlightListPage,
+    PncSearchPage,
     HelpAssetListPage,
     FlightCrewListPage,
     PncSearchPage,
@@ -97,6 +101,8 @@ import { SummarySheetProvider } from '../providers/summary-sheet/summary-sheet';
         deps: [HttpClient]
       }
     }),
+    AppMaterialModule,
+    BrowserAnimationsModule,
     PdfViewerModule
   ],
   bootstrap: [IonicApp],
@@ -108,9 +114,9 @@ import { SummarySheetProvider } from '../providers/summary-sheet/summary-sheet';
     CareerObjectiveListPage,
     WaypointCreatePage,
     UpcomingFlightListPage,
-    HelpAssetListPage,
     FlightCrewListPage,
     PncSearchPage,
+    HelpAssetListPage,
     HomePage,
     SummarySheetPage
   ],
@@ -138,6 +144,7 @@ import { SummarySheetProvider } from '../providers/summary-sheet/summary-sheet';
     WaypointStatusProvider,
     RotationProvider,
     LegProvider,
+    ParametersProvider,
     HelpAssetProvider,
     OfflineProvider,
     OfflineCareerObjectiveProvider,

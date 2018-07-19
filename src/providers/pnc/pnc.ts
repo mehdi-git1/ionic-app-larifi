@@ -1,4 +1,7 @@
 import { SessionService } from './../../services/session.service';
+import { Config } from './../../configuration/environment-variables/config';
+import { HttpRequest, HttpParams } from '@angular/common/http';
+import { PncFilter } from './../../models/pncFilter';
 import { PncTransformerProvider } from './pnc-transformer';
 import { OfflineProvider } from './../offline/offline';
 import { OnlinePncProvider } from './online-pnc';
@@ -9,6 +12,7 @@ import { Pnc } from './../../models/pnc';
 import { Injectable } from '@angular/core';
 import { PagedPnc } from './../../models/pagedPnc';
 import { Page } from '../../models/page';
+import { RestService } from '../../services/rest.base.service';
 
 @Injectable()
 export class PncProvider {
@@ -19,7 +23,11 @@ export class PncProvider {
     private offlinePncProvider: OfflinePncProvider,
     private offlineProvider: OfflineProvider,
     private pncTransformer: PncTransformerProvider,
-    private sessionService: SessionService) {
+    private sessionService: SessionService,
+    private restService: RestService,
+    private config: Config) {
+
+    this.pncUrl = `${config.backEndUrl}/pncs`;
   }
 
   /**
@@ -66,26 +74,66 @@ export class PncProvider {
       this.offlinePncProvider.getLastPerformedRotation(matricule);
   }
 
-
   /**
-   * Récupère les pncs du même secteur depuis le cache
-   * @return les pncs concernés sauf le pnc connecté
-   */
-  getFilteredPncs(): Promise<PagedPnc> {
-    return this.offlinePncProvider.getPncs().then(response => {
-      return this.offlinePncProvider.getPnc(this.sessionService.authenticatedUser.matricule).then(connectedPnc => {
-        const filteredPnc = response.filter(pnc =>
-          (pnc.assignment.sector === connectedPnc.assignment.sector) && (pnc.matricule !== connectedPnc.matricule));
-        const pagedPncResponse: PagedPnc = new PagedPnc();
-        pagedPncResponse.content = filteredPnc;
-        pagedPncResponse.page = new Page();
-        pagedPncResponse.page.size = filteredPnc.length;
-        pagedPncResponse.page.totalElements = filteredPnc.length;
-        pagedPncResponse.page.number = 0;
-        return pagedPncResponse;
+* Aliment le PNC avec sa date de fraicheur en cache
+* @param onlinePnc PNC récupéré du back
+* @return pnc en paramètre alimenté avec sa fraicheur dans le cache
+*/
+  refreshOffLineDateOnPnc(onlinePnc: Pnc): Promise<Pnc> {
+    return new Promise((resolve, reject) => {
+      this.offlinePncProvider.getPnc(onlinePnc.matricule).then(offlinePnc => {
+        const offlineData = this.pncTransformer.toPnc(offlinePnc);
+        this.offlineProvider.flagDataAvailableOffline(onlinePnc, offlineData);
+        resolve(onlinePnc);
       });
     });
   }
 
+  /**
+   * Récupère les pncs du même secteur depuis le cache
+   * @param pncFilter
+   * @return les pncs concernés sauf le pnc connecté en offline
+   */
+  getFilteredPncs(pncFilter: PncFilter): Promise<PagedPnc> {
+    if (this.connectivityService.isConnected()) {
+      return this.onlinePncProvider.getFilteredPncs(pncFilter).then(responsePnc => {
+
+        let promises: Promise<Pnc>[] = new Array();
+
+        responsePnc.content.forEach(onlinePnc => {
+          const transformedPnc = this.pncTransformer.toPnc(onlinePnc);
+          promises.push(this.refreshOffLineDateOnPnc(transformedPnc));
+        });
+        return Promise.all(promises).then(values => {
+          responsePnc.content = values;
+          return responsePnc;
+        });
+
+      });
+    } else {
+      return this.offlinePncProvider.getPncs().then(response => {
+        return this.offlinePncProvider.getPnc(this.sessionService.authenticatedUser.matricule).then(connectedPnc => {
+          const filteredPnc = response.filter(pnc =>
+            (pnc.assignment.sector === connectedPnc.assignment.sector) && (pnc.matricule !== connectedPnc.matricule));
+          const pagedPncResponse: PagedPnc = new PagedPnc();
+          pagedPncResponse.content = filteredPnc;
+          pagedPncResponse.page = new Page();
+          pagedPncResponse.page.size = filteredPnc.length;
+          pagedPncResponse.page.totalElements = filteredPnc.length;
+          pagedPncResponse.page.number = 0;
+          return pagedPncResponse;
+        });
+      });
+    }
+  }
+
+  /**
+   * Fait appel au service rest qui renvoie les 10 premier pncs conçernés.
+   * @param searchText matricuel/nom/prénom
+   * @return les pncs concernés
+   */
+  pncAutoComplete(search: string): Promise<Pnc[]> {
+    return this.restService.get(`${this.pncUrl}/auto_complete`, { search });
+  }
 }
 

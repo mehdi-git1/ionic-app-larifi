@@ -9,9 +9,9 @@ export class Pnc extends EDossierPncObject {
     gender: Gender;
     speciality: Speciality;
     assignment: Assignment;
-    manager: boolean;
     relays: string[];
     aircraftSkills: string[];
+    manager: boolean;
 
     getStorageId(): string {
         return this.matricule;

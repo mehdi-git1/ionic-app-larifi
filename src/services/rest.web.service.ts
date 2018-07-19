@@ -3,6 +3,8 @@ import { Config } from './../configuration/environment-variables/config';
 import { Injectable } from '@angular/core';
 import { RestService, RestRequest } from './rest.base.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Searchbar } from 'ionic-angular';
+import { PARAMETERS } from '@angular/core/src/util/decorators';
 
 
 
@@ -52,6 +54,7 @@ export class RestWebService extends RestService {
         request.options.withCredentials = request.withCredential;
 
         if (request.method === 'GET') {
+            request.options.params = request.jsonData;
             this.http.get(request.url, request.options).subscribe(
                 data => { successCallback(data); },
                 err => { errorCallback(err.error); }
@@ -77,3 +80,4 @@ export class RestWebService extends RestService {
         }
     }
 }
+

@@ -3,6 +3,7 @@ import { OfflineSecurityProvider } from './../security/offline-security';
 import { Config } from './../../configuration/environment-variables/config';
 import { Injectable } from '@angular/core';
 import { RestService } from '../../services/rest.base.service';
+import { JsonpCallbackContext } from '../../../node_modules/@angular/common/http/src/jsonp';
 
 @Injectable()
 export class OnlineSecurityProvider {
@@ -21,6 +22,11 @@ export class OnlineSecurityProvider {
   getAuthenticatedUser(): Promise<AuthenticatedUser> {
     const promise: Promise<AuthenticatedUser> = this.restService.get(`${this.securityUrl}`);
     promise.then(authenticatedUser => {
+      if (authenticatedUser) {
+        console.log('authenticatedUser ' + JSON.stringify(authenticatedUser));
+      } else  {
+        console.log('authenticatedUser nop');
+      }
       this.offlineSecurityProvider.overwriteAuthenticatedUser(new AuthenticatedUser().fromJSON(authenticatedUser));
     });
     return promise;

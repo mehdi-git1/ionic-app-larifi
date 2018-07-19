@@ -9,6 +9,8 @@
 
 
 <ion-content padding>
+    <h3>{{ 'PNC_SEARCH.TITLE' | translate }}</h3>
+
     <form novalidate [formGroup]="searchForm">
         <ion-card class="pnc-search-card">
             <ion-card-header class="header-container" (click)="toggleFilter()">
@@ -39,6 +41,29 @@
                     </ion-item>
                     </ion-col>
                     </ion-row-->
+                    <ion-row>
+                        <ion-col>
+                            <!-- PNC -->
+                            <ion-item>
+                                <div>
+                                    <mat-form-field>
+                                        <input #pncMatricule type="text" matInput placeholder="{{'PNC_SEARCH.CRITERIA.PNC_MATRICULE' | translate}}" formControlName="pncMatriculeControl" (keyup)="search(pncMatricule.value)" [matAutocomplete]="auto" [(ngModel)]="selectedPnc" autocomplete="off"
+                                            [disabled]="this.areFiltersDisabled()">
+                                        <mat-hint *ngIf="pncMatriculeControl.touched && pncMatriculeControl.invalid" class="eDossier-error">
+                                            <span *ngIf="pncMatriculeControl.hasError('minlength')">{{'MESSAGES.ERROR.MATRICULE_WRONG_SIZE' | translate}}</span>
+                                            <span *ngIf="pncMatriculeControl.hasError('maxlength')">{{'MESSAGES.ERROR.MATRICULE_WRONG_SIZE' | translate}}</span>
+                                        </mat-hint>
+                                    </mat-form-field>
+
+                                    <mat-autocomplete class="mat-autocomplete" #auto="matAutocomplete" [displayWith]="displayPnc" (optionSelected)="openPncHomePage($event.option.value)">
+                                        <mat-option *ngFor="let pnc of pncList | async" [value]="pnc">
+                                            {{ pnc.firstName + ' ' + pnc.lastName + ' (' + pnc.matricule + ')'}}
+                                        </mat-option>
+                                    </mat-autocomplete>
+                                </div>
+                            </ion-item>
+                        </ion-col>
+                    </ion-row>
                     <ion-row>
                         <ion-col col-4>
                             <!-- Division -->
@@ -109,7 +134,7 @@
                     </ion-row>
                     <ion-row>
                         <ion-col>
-                            <button (click)="searchPncs()" class="search-pnc">
+                            <button (click)="searchPncs()" class="search-pnc" [disabled]="outOfDivision">
                               <ion-icon name="search"></ion-icon>
                             </button>
                         </ion-col>
@@ -123,7 +148,13 @@
         <div *ngIf="searchInProgress" class="spinner-container">
             <ion-spinner class="loading-spinner"></ion-spinner>
         </div>
-        <span *ngIf="!searchInProgress"><pnc-card *ngFor="let pnc of filteredPncs" [crewMember]="createCrewMemberObjectFromPnc(pnc)"></pnc-card></span>
 
+        <span *ngIf="!searchInProgress"><div *ngIf="filteredPncs && filteredPncs == 0" class="no-pnc-found">
+            {{ 'PNC_SEARCH.NO_PNC_FOUND' | translate }}
+        </div><pnc-card *ngFor="let pnc of filteredPncs" [crewMember]="createCrewMemberObjectFromPnc(pnc)"></pnc-card></span>
+
+        <ion-infinite-scroll (ionInfinite)="$event.waitFor(doInfinite($event))">
+            <ion-infinite-scroll-content></ion-infinite-scroll-content>
+        </ion-infinite-scroll>
     </ion-content>
 </ion-content>

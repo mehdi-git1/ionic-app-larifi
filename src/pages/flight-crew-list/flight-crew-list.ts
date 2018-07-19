@@ -1,3 +1,4 @@
+import { PncTransformerProvider } from './../../providers/pnc/pnc-transformer';
 import { PncProvider } from './../../providers/pnc/pnc';
 import { SessionService } from './../../services/session.service';
 import { Leg } from './../../models/leg';
@@ -30,7 +31,8 @@ export class FlightCrewListPage {
     private toastProvider: ToastProvider,
     private translate: TranslateService,
     private pncProvider: PncProvider,
-    private sessionService: SessionService) {
+    private sessionService: SessionService,
+    private pncTransformer: PncTransformerProvider) {
 
   }
 
@@ -43,7 +45,7 @@ export class FlightCrewListPage {
           if (crew.pnc.matricule === this.sessionService.authenticatedUser.matricule) {
             this.sessionService.appContext.onBoardRedactorFonction = crew.onBoardFonction;
           }
-          this.pncProvider.getPnc(crew.pnc.matricule).then(foundPnc => {
+          this.pncProvider.refreshOffLineDateOnPnc(this.pncTransformer.toPnc(crew.pnc)).then(foundPnc => {
             crew.pnc = foundPnc;
           }, error => {
             this.toastProvider.info(this.translate.instant('FLIGHT_CREW_LIST.ERROR', { 'flightNumber': this.leg.number }));
@@ -55,6 +57,11 @@ export class FlightCrewListPage {
     });
   }
 
+  /**
+   * redirige vers la page d'accueil du pnc ou du cadre
+   * @param matricule matricule du pnc concerné
+   * @param onBoardFonction la fontion a bord du pnc concerné
+   */
   openPncHomePage(matricule, onBoardFonction) {
     this.sessionService.appContext.observedPncMatricule = matricule;
     this.sessionService.appContext.onBoardObservedPncFonction = onBoardFonction;
