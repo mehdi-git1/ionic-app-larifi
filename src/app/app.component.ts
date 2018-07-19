@@ -53,7 +53,7 @@ export class EDossierPNC implements OnInit {
        * A terme, il faudra le remettre sur le mobile (probléme de CORS à l'eure actuelle)
        */
       if (this.connectivityService.isBrowser){
-        this.connectivityService.pingAPI();
+        setTimeout(() => this.connectivityService.pingAPI(), 5000);
       }
 
       this.statusBar.styleDefault();
