@@ -10,12 +10,15 @@
                 </ion-col>
                 <ion-col col-11 class="content">
                     <ion-row class="primary-info">
-                        <ion-col col-10>
+                        <ion-col col-2>
                             <!-- Nom -->
                             <span class="value">{{ crewMember.pnc.lastName }}</span>
+                        </ion-col>
+                        <ion-col col-2>
                             <!-- Prénom -->
                             <span class="value firstname">{{ crewMember.pnc.firstName }}</span>
                         </ion-col>
+                        <ion-col col-6></ion-col>
                         <ion-col col-2>
                             <div class="icon-container">
                                 <!-- Speciality -->
@@ -29,6 +32,12 @@
                         </ion-col>
                     </ion-row>
                     <ion-row class="secondary-info">
+                        <!-- Division-->
+                        <ion-col class="pnc-info">
+                            <label>{{ 'PNC_SEARCH.CRITERIA.DIVISION' | translate }}</label>
+                            <span class="value" [ngClass]="{'no-value' : !crewMember.pnc.assignment.division }">{{ crewMember.pnc.assignment.division }}</span>
+                        </ion-col>
+                        <!-- Secteur-->
                         <ion-col class="pnc-info">
                             <label>{{ 'PNC_SEARCH.CRITERIA.SECTOR' | translate }}</label>
                             <span class="value" [ngClass]="{'no-value' : !crewMember.pnc.assignment.sector }">{{ crewMember.pnc.assignment.sector }}</span>
@@ -62,7 +71,7 @@
                             <span class="value" [ngClass]="{'no-value' : !crewMember.pnc.workRate }">{{ crewMember.pnc.workRate }}</span>
                         </ion-col>
                         <!-- Dernière rencontre en sol -->
-                        <ion-col class="pnc-info">
+                        <ion-col class="pnc-info" *ngIf="isCrewMember">
                             <label>{{ 'FLIGHT_CREW_LIST.LIST.LAST_ON_GROUND_ENCOUNTER_DATE' | translate }}</label>
                             <span class="value">{{ 'GLOBAL.COMING_SOON' | translate }}</span>
                         </ion-col>

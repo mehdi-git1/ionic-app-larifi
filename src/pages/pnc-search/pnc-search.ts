@@ -1,3 +1,4 @@
+import { PncHomePage } from './../pnc-home/pnc-home';
 import { PncFilter } from './../../models/pncFilter';
 import { Observable } from 'rxjs/Rx';
 import { ToastProvider } from './../../providers/toast/toast';
@@ -196,6 +197,16 @@ export class PncSearchPage {
       return true;
     }
     return false;
+  }
+
+  /**
+   * Redirige vers la page d'accueil du pnc ou du cadre
+   * @param pnc le pnc concerné
+   */
+  openPncHomePage(pnc: Pnc) {
+    this.selectedPnc = undefined;
+    this.initAutocompleteList();
+    this.navCtrl.push(PncHomePage, { matricule: pnc.matricule });
   }
 
   /**

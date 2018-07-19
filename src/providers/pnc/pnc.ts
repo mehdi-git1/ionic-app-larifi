@@ -75,10 +75,10 @@ export class PncProvider {
   }
 
   /**
-* Aliment le PNC avec sa date de fraicheur en cache
-* @param onlinePnc PNC récupéré du back
-* @return pnc en paramètre alimenté avec sa fraicheur dans le cache
-*/
+  * Alimente le PNC avec sa date de fraicheur en cache
+  * @param onlinePnc PNC récupéré du back
+  * @return pnc en paramètre alimenté avec sa fraicheur dans le cache
+  */
   refreshOffLineDateOnPnc(onlinePnc: Pnc): Promise<Pnc> {
     return new Promise((resolve, reject) => {
       this.offlinePncProvider.getPnc(onlinePnc.matricule).then(offlinePnc => {
