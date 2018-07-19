@@ -21,7 +21,7 @@ export class Config extends BaseConfig {
             // this.pingUrl = 'https://edospnc-api-rct.airfrance.fr/api/rest/resources/me';
             // this.backEndUrl = 'https://edospnc-rct.airfrance.fr/api/rest/resources';
         }
-        this.backEndUrl = '/api/some/other/one';
+
         this.env = 'rct';
         this.secmobileEnv = 'rct';
         this.eObsUrl = 'com.airfrance.mobile.inhouse.eformsrctPNC';
