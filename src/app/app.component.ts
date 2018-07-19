@@ -1,13 +1,14 @@
+import { AuthenticationPage } from './../pages/authentication/authentication';
 import { SynchronizationProvider } from './../providers/synchronization/synchronization';
 import { ToastProvider } from './../providers/toast/toast';
 import { ConnectivityService } from './../services/connectivity.service';
-import { AuthenticatedUser } from './../models/authenticatedUser';
-import { AuthenticationPage } from './../pages/authentication/authentication';
+
+
 import { SessionService } from './../services/session.service';
 import { SecurityProvider } from './../providers/security/security';
 
 import { Component, ViewChild, OnInit } from '@angular/core';
-import { Nav, Platform } from 'ionic-angular';
+import { Nav, Platform, NavParams, NavController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -15,6 +16,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { SecMobilService } from '../services/secMobil.service';
 import { StorageService } from '../services/storage.service';
 import { HomePage } from '../pages/home/home';
+import { AuthGuard } from '../guard/auth.guard';
 
 @Component({
   templateUrl: 'app.html'
@@ -29,15 +31,13 @@ export class EDossierPNC implements OnInit {
   constructor(public platform: Platform,
     public statusBar: StatusBar,
     public splashScreen: SplashScreen,
-    public translateService: TranslateService,
-    private secMobilService: SecMobilService,
-    private securityProvider: SecurityProvider,
-    private sessionService: SessionService,
-    private storageService: StorageService,
+    public translate: TranslateService,
+    public authGuard: AuthGuard,
     private connectivityService: ConnectivityService,
     private toastProvider: ToastProvider,
+    public translateService: TranslateService,
     private synchronizationProvider: SynchronizationProvider,
-    public translate: TranslateService
+    private sessionService: SessionService
   ) {
   }
 
@@ -54,25 +54,6 @@ export class EDossierPNC implements OnInit {
       this.translateService.setDefaultLang('fr');
       this.translateService.use('fr');
 
-      this.secMobilService.init();
-      this.secMobilService.isAuthenticated().then(() => {
-        // launch process when already authenticated
-        this.putAuthenticatedUserInSession();
-      },
-        error => {
-          console.log('go to authentication page');
-          this.nav.setRoot(AuthenticationPage);
-        });
-
-      // Création du stockage local
-      this.storageService.initOfflineMap().then(success => {
-        this.putAuthenticatedUserInSession().then(authenticatedUser => {
-          this.synchronizationProvider.storeEDossierOffline(authenticatedUser.matricule).then(successStore => {
-          }, error => {
-          });
-        });
-      });
-
       // Détection d'un changement d'état de la connexion
       this.connectivityService.connectionStatusChange.subscribe(connected => {
         if (!connected) {
@@ -83,27 +64,16 @@ export class EDossierPNC implements OnInit {
         }
       });
 
+      this.authGuard.guard().then(guardValue => {
+        if (guardValue === false){
+          this.nav.setRoot(AuthenticationPage);
+        }else if (this.nav._elementRef.nativeElement.baseURI == 'http://localhost:8100/'){
+          this.nav.setRoot('PncHomePage', { matricule: this.sessionService.authenticatedUser.matricule });
+        }
+      });
+
     });
 
-  }
-
-  /**
-  * Mettre le pnc connecté en session
-  */
-  putAuthenticatedUserInSession(): Promise<AuthenticatedUser> {
-    const promise = this.securityProvider.getAuthenticatedUser();
-    promise.then(authenticatedUser => {
-      if (authenticatedUser) {
-        this.sessionService.authenticatedUser = authenticatedUser;
-       // this.nav.setRoot('PncHomePage', { matricule: this.sessionService.authenticatedUser.matricule });
-      }
-      else {
-        this.nav.setRoot(AuthenticationPage);
-      }
-    }, error => {
-      console.log('putAuthenticatedUserInSession error: ' + JSON.stringify(error));
-    });
-    return promise;
   }
 
   openPage(page) {
