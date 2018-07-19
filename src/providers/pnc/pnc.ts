@@ -1,3 +1,7 @@
+import { Config } from './../../configuration/environment-variables/config';
+import { PagedPnc } from './../../models/pagedPnc';
+import { HttpRequest, HttpParams } from '@angular/common/http';
+import { PncFilter } from './../../models/pncFilter';
 import { PncTransformerProvider } from './pnc-transformer';
 import { OfflineProvider } from './../offline/offline';
 import { OnlinePncProvider } from './online-pnc';
@@ -6,6 +10,7 @@ import { ConnectivityService } from './../../services/connectivity.service';
 import { Rotation } from './../../models/rotation';
 import { Pnc } from './../../models/pnc';
 import { Injectable } from '@angular/core';
+import { RestService } from '../../services/rest.base.service';
 
 @Injectable()
 export class PncProvider {
@@ -15,7 +20,11 @@ export class PncProvider {
     private onlinePncProvider: OnlinePncProvider,
     private offlinePncProvider: OfflinePncProvider,
     private offlineProvider: OfflineProvider,
-    private pncTransformer: PncTransformerProvider) {
+    private pncTransformer: PncTransformerProvider,
+    private restService: RestService,
+    private config: Config) {
+
+    this.pncUrl = `${config.backEndUrl}/pncs`;
   }
 
   /**
@@ -62,5 +71,22 @@ export class PncProvider {
       this.offlinePncProvider.getLastPerformedRotation(matricule);
   }
 
+  /**
+   * Fait appel au service rest qui renvoie les pncs conçernés.
+   * @param pncFilter
+   * @return les pncs concernés
+   */
+  getFilteredPncs(pncFilter: PncFilter): Promise<PagedPnc> {
+    return this.onlinePncProvider.getFilteredPncs(pncFilter);
+  }
+
+  /**
+   * Fait appel au service rest qui renvoie les 10 premier pncs conçernés.
+   * @param searchText matricuel/nom/prénom
+   * @return les pncs concernés
+   */
+  pncAutoComplete(search: string): Promise<Pnc[]> {
+    return this.restService.get(`${this.pncUrl}/auto_complete`, { search });
+  }
 }
 
