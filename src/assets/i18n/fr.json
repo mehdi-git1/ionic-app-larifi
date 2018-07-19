@@ -144,7 +144,8 @@
             "FUNCTION": "Fonction",
             "LAST_IN_FLIGHT_ENCOUNTER_DATE": "Dernière rencontre Vol",
             "LAST_ON_GROUND_ENCOUNTER_DATE": "Dernière rencontre Sol"
-        }
+        },
+        "ERROR": "Erreur lors de la récupération de la liste équipage du vol {{flightNumber}}"
     },
     "UPCOMING_FLIGHT_LIST": {
         "TITLE": "Liste de vos prochains vols rencontre",
@@ -172,7 +173,10 @@
             "ALL_F": "Toutes",
             "ALL_M": "Tous"
         },
-        "NO_PNC_FOUND": "Aucun pnc trouvé."
+        "NO_PNC_FOUND": "Aucun pnc trouvé.",
+        "ERROR": {
+            "SEARCH": "Erreur lors de la recherche de PNC"
+        }
 
     },
     "MESSAGES": {

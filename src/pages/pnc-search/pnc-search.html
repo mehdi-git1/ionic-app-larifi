@@ -18,13 +18,37 @@
             </ion-card-header>
             <ion-card-content no-padding [ngClass]="{'opened' : pncFilter.showFilter}">
                 <ion-grid>
+                    <span>
+                    <!--ion-row>
+                        <ion-col>
+                            <ion-item>
+                                <div>
+                                    <mat-form-field>
+                                        <input #pncMatricule type="text" matInput placeholder="{{'PNC_SEARCH.CRITERIA.PNC_MATRICULE' | translate}}" formControlName="pncMatriculeControl"
+                                            (keyup)="search(pncMatricule.value)" [matAutocomplete]="auto" [(ngModel)]="selectedPnc" autocomplete="off" [disabled]="this.areFiltersDisabled()">
+                                        <mat-hint *ngIf="pncMatriculeControl.touched && pncMatriculeControl.invalid" class="eDossier-error">
+                                            <span *ngIf="pncMatriculeControl.hasError('minlength')">{{'MESSAGES.ERROR.MATRICULE_WRONG_SIZE' | translate}}</span>
+                    <span *ngIf="pncMatriculeControl.hasError('maxlength')">{{'MESSAGES.ERROR.MATRICULE_WRONG_SIZE' | translate}}</span>
+                    </mat-hint>
+                    </mat-form-field>
+
+                    <mat-autocomplete class="mat-autocomplete" #auto="matAutocomplete" [displayWith]="displayPnc" (optionSelected)="openPncHomePage($event.option.value)">
+                        <mat-option *ngFor="let pnc of pncList | async" [value]="pnc">
+                            {{ pnc.firstName + ' ' + pnc.lastName + ' (' + pnc.matricule + ')'}}
+                        </mat-option>
+                    </mat-autocomplete>
+                    </div>
+                    </ion-item>
+                    </ion-col>
+                    </ion-row-->
                     <ion-row>
                         <ion-col>
                             <!-- PNC -->
                             <ion-item>
                                 <div>
                                     <mat-form-field>
-                                        <input #pncMatricule type="text" matInput placeholder="{{'PNC_SEARCH.CRITERIA.PNC_MATRICULE' | translate}}" formControlName="pncMatriculeControl" (keyup)="search(pncMatricule.value)" [matAutocomplete]="auto" [(ngModel)]="selectedPnc" autocomplete="off">
+                                        <input #pncMatricule type="text" matInput placeholder="{{'PNC_SEARCH.CRITERIA.PNC_MATRICULE' | translate}}" formControlName="pncMatriculeControl" (keyup)="search(pncMatricule.value)" [matAutocomplete]="auto" [(ngModel)]="selectedPnc" autocomplete="off"
+                                            [disabled]="this.areFiltersDisabled()">
                                         <mat-hint *ngIf="pncMatriculeControl.touched && pncMatriculeControl.invalid" class="eDossier-error">
                                             <span *ngIf="pncMatriculeControl.hasError('minlength')">{{'MESSAGES.ERROR.MATRICULE_WRONG_SIZE' | translate}}</span>
                                             <span *ngIf="pncMatriculeControl.hasError('maxlength')">{{'MESSAGES.ERROR.MATRICULE_WRONG_SIZE' | translate}}</span>
@@ -45,7 +69,7 @@
                             <!-- Division -->
                             <ion-item>
                                 <ion-label floating>{{ 'PNC_SEARCH.CRITERIA.DIVISION' | translate }}</ion-label>
-                                <ion-select [(ngModel)]="pncFilter.division" [compareWith]="compareFn" formControlName="divisionControl" #division (ionChange)="getSectorList(division.value)">
+                                <ion-select [(ngModel)]="pncFilter.division" [compareWith]="compareFn" formControlName="divisionControl" #division (ionChange)="getSectorList(division.value)" [disabled]="this.areFiltersDisabled()">
                                     <ion-option value="ALL">{{ 'PNC_SEARCH.DEFAULT_DATA.ALL_F' | translate }}</ion-option>
                                     <ion-option *ngFor="let divisionKey of divisionList" [value]="divisionKey">{{divisionKey}}</ion-option>
                                 </ion-select>
@@ -55,7 +79,7 @@
                             <!-- Secteur -->
                             <ion-item>
                                 <ion-label floating>{{ 'PNC_SEARCH.CRITERIA.SECTOR' | translate }}</ion-label>
-                                <ion-select [(ngModel)]="pncFilter.sector" [compareWith]="compareFn" formControlName="sectorControl" #sector (ionChange)="getGinqList(sector.value)">
+                                <ion-select [(ngModel)]="pncFilter.sector" [compareWith]="compareFn" formControlName="sectorControl" #sector (ionChange)="getGinqList(sector.value)" [disabled]="this.areFiltersDisabled()">
                                     <ion-option value="ALL">{{ 'PNC_SEARCH.DEFAULT_DATA.ALL_M' | translate }}</ion-option>
                                     <ion-option *ngFor="let sectorKey of sectorList" [value]="sectorKey">{{sectorKey}}</ion-option>
                                 </ion-select>
@@ -65,7 +89,7 @@
                             <!-- Ginq -->
                             <ion-item>
                                 <ion-label floating>{{ 'PNC_SEARCH.CRITERIA.GINQ' | translate }}</ion-label>
-                                <ion-select [(ngModel)]="pncFilter.ginq" [compareWith]="compareFn" formControlName="ginqControl">
+                                <ion-select [(ngModel)]="pncFilter.ginq" [compareWith]="compareFn" formControlName="ginqControl" [disabled]="this.areFiltersDisabled()">
                                     <ion-option value="ALL">{{ 'PNC_SEARCH.DEFAULT_DATA.ALL_M' | translate }}</ion-option>
                                     <ion-option *ngFor="let ginqKey of ginqList" [value]="ginqKey">{{ginqKey}}</ion-option>
                                 </ion-select>
@@ -77,7 +101,7 @@
                             <!-- Grade -->
                             <ion-item>
                                 <ion-label floating>{{ 'PNC_SEARCH.CRITERIA.SPECIALITY' | translate }}</ion-label>
-                                <ion-select [(ngModel)]="pncFilter.speciality" [compareWith]="compareFn" formControlName="specialityControl">
+                                <ion-select [(ngModel)]="pncFilter.speciality" [compareWith]="compareFn" formControlName="specialityControl" [disabled]="this.areFiltersDisabled()">
                                     <ion-option value="ALL">{{ 'PNC_SEARCH.DEFAULT_DATA.ALL_F' | translate }}</ion-option>
                                     <ion-option *ngFor="let specialityKey of specialityList" [value]="specialityKey">{{specialityKey}}</ion-option>
                                 </ion-select>
@@ -87,7 +111,7 @@
                             <!-- spécification machine -->
                             <ion-item>
                                 <ion-label floating>{{ 'PNC_SEARCH.CRITERIA.AIRCRAFT_SKILL' | translate }}</ion-label>
-                                <ion-select [(ngModel)]="pncFilter.aircraftSkill" [compareWith]="compareFn" formControlName="aircraftSkillControl">
+                                <ion-select [(ngModel)]="pncFilter.aircraftSkill" [compareWith]="compareFn" formControlName="aircraftSkillControl" [disabled]="this.areFiltersDisabled()">
                                     <ion-option value="ALL">{{ 'PNC_SEARCH.DEFAULT_DATA.ALL_F' | translate }}</ion-option>
                                     <ion-option *ngFor="let aircraftSkillKey of aircraftSkillList" [value]="aircraftSkillKey">{{aircraftSkillKey}}</ion-option>
                                 </ion-select>
@@ -97,17 +121,21 @@
                             <!-- Relais -->
                             <ion-item>
                                 <ion-label floating>{{ 'PNC_SEARCH.CRITERIA.RELAY' | translate }}</ion-label>
-                                <ion-select [(ngModel)]="pncFilter.relay" [compareWith]="compareFn" formControlName="relayControl">
+                                <ion-select [(ngModel)]="pncFilter.relay" [compareWith]="compareFn" formControlName="relayControl" [disabled]="this.areFiltersDisabled()">
                                     <ion-option value="ALL">{{ 'PNC_SEARCH.DEFAULT_DATA.ALL_M' | translate }}</ion-option>
                                     <ion-option *ngFor="let relayKey of relayList" [value]="relayKey">{{relayKey}}</ion-option>
                                 </ion-select>
                             </ion-item>
                         </ion-col>
                     </ion-row>
+                    </span>
+                    <ion-row class="label-inactive-filters">
+                        <ion-col col-12 [ngClass]="inactiveFiltersLabelClass()">* Filtres inactifs hors connexion</ion-col>
+                    </ion-row>
                     <ion-row>
                         <ion-col>
                             <button (click)="searchPncs()" class="search-pnc" [disabled]="outOfDivision">
-                                <ion-icon name="search"></ion-icon>
+                              <ion-icon name="search"></ion-icon>
                             </button>
                         </ion-col>
                     </ion-row>
@@ -117,80 +145,14 @@
     </form>
 
     <ion-content class="filtered-pnc-list-container">
-        <div *ngIf="filteredPncs && filteredPncs == 0" class="no-pnc-found">
-            {{ 'PNC_SEARCH.NO_PNC_FOUND' | translate }}
+        <div *ngIf="searchInProgress" class="spinner-container">
+            <ion-spinner class="loading-spinner"></ion-spinner>
         </div>
-        <ion-card class="filtered-pnc-card clickable" *ngFor="let pnc of filteredPncs" (click)="openPncHomePage(pnc.matricule)">
-            <ion-card-content no-padding>
-                <ion-grid>
-                    <ion-row>
-                        <ion-col col-1>
-                            <img src="{{getAvatarPicture(pnc.gender)}}" />
-                        </ion-col>
-                        <ion-col col-11 class="content">
-                            <ion-row class="primary-info">
-                                <!-- Matricule-->
-                                <ion-col class="pnc-info">
-                                    <span class="value">{{pnc.matricule}}</span>
-                                </ion-col>
-                                <!-- Nom -->
-                                <ion-col class="pnc-info">
-                                    <span class="value">{{ pnc.lastName }}</span>
-                                </ion-col>
-                                <!-- Prénom -->
-                                <ion-col class="pnc-info">
-                                    <span class="value firstname">{{ pnc.firstName }}</span>
-                                </ion-col>
-                                <!-- Fonction -->
-                                <ion-col class="pnc-info">
-                                    <span class="value"> {{ pnc.speciality }}</span>
-                                </ion-col>
-                            </ion-row>
-                            <ion-row>
-                                <!-- Division-->
-                                <ion-col class="pnc-info">
-                                    <label>{{ 'PNC_SEARCH.CRITERIA.DIVISION' | translate }}</label>
-                                    <span class="value" [ngClass]="{'no-value' : !pnc.assignment.division }">{{ pnc.assignment.division }}</span>
-                                </ion-col>
-                                <!-- Secteur-->
-                                <ion-col class="pnc-info">
-                                    <label>{{ 'PNC_SEARCH.CRITERIA.SECTOR' | translate }}</label>
-                                    <span class="value" [ngClass]="{'no-value' : !pnc.assignment.sector }">{{ pnc.assignment.sector }}</span>
-                                </ion-col>
-                                <!-- Ginq-->
-                                <ion-col class="pnc-info">
-                                    <label>{{ 'PNC_SEARCH.CRITERIA.GINQ' | translate }}</label>
-                                    <span class="value" [ngClass]="{'no-value' : !pnc.assignment.ginq }">{{ pnc.assignment.ginq }}</span>
-                                </ion-col>
-                                <!-- Relais-->
-                                <ion-col class="pnc-info">
-                                    <label>{{ 'PNC_SEARCH.CRITERIA.RELAY' | translate }}</label>
-                                    <div class="value pnc-Array-item" [ngClass]="{'no-value' : pnc.relays.length === 0 }">
-                                        <span *ngFor="let relay of pnc.relays">
-                                            {{ relay.code }}
-                                        </span>
-                                    </div>
-                                </ion-col>
-                                <!-- Spécification machine-->
-                                <ion-col class="pnc-info">
-                                    <label>{{ 'PNC_SEARCH.CRITERIA.AIRCRAFT_SKILL' | translate }}</label>
-                                    <div class="value pnc-Array-item" [ngClass]="{'no-value' : pnc.aircraftSkills.length === 0 }">
-                                        <span *ngFor="let aircraftSkill of pnc.aircraftSkills">
-                                            {{ aircraftSkill.aircraftType }}
-                                        </span>
-                                    </div>
-                                </ion-col>
-                                <!-- rythme de travail-->
-                                <ion-col class="pnc-info">
-                                    <label>{{ 'PNC_SEARCH.CRITERIA.WORK_RATE' | translate }}</label>
-                                    <span class="value" [ngClass]="{'no-value' : !pnc.workRate }">{{ pnc.workRate }}</span>
-                                </ion-col>
-                            </ion-row>
-                        </ion-col>
-                    </ion-row>
-                </ion-grid>
-            </ion-card-content>
-        </ion-card>
+
+        <span *ngIf="!searchInProgress"><div *ngIf="filteredPncs && filteredPncs == 0" class="no-pnc-found">
+            {{ 'PNC_SEARCH.NO_PNC_FOUND' | translate }}
+        </div><pnc-card *ngFor="let pnc of filteredPncs" [crewMember]="createCrewMemberObjectFromPnc(pnc)"></pnc-card></span>
+
         <ion-infinite-scroll (ionInfinite)="$event.waitFor(doInfinite($event))">
             <ion-infinite-scroll-content></ion-infinite-scroll-content>
         </ion-infinite-scroll>

@@ -1,5 +1,5 @@
+import { SessionService } from './../../services/session.service';
 import { Config } from './../../configuration/environment-variables/config';
-import { PagedPnc } from './../../models/pagedPnc';
 import { HttpRequest, HttpParams } from '@angular/common/http';
 import { PncFilter } from './../../models/pncFilter';
 import { PncTransformerProvider } from './pnc-transformer';
@@ -10,6 +10,8 @@ import { ConnectivityService } from './../../services/connectivity.service';
 import { Rotation } from './../../models/rotation';
 import { Pnc } from './../../models/pnc';
 import { Injectable } from '@angular/core';
+import { PagedPnc } from './../../models/pagedPnc';
+import { Page } from '../../models/page';
 import { RestService } from '../../services/rest.base.service';
 
 @Injectable()
@@ -21,6 +23,7 @@ export class PncProvider {
     private offlinePncProvider: OfflinePncProvider,
     private offlineProvider: OfflineProvider,
     private pncTransformer: PncTransformerProvider,
+    private sessionService: SessionService,
     private restService: RestService,
     private config: Config) {
 
@@ -72,12 +75,56 @@ export class PncProvider {
   }
 
   /**
-   * Fait appel au service rest qui renvoie les pncs conçernés.
-   * @param pncFilter
-   * @return les pncs concernés
+* Aliment le PNC avec sa date de fraicheur en cache
+* @param onlinePnc PNC récupéré du back
+* @return pnc en paramètre alimenté avec sa fraicheur dans le cache
+*/
+  refreshOffLineDateOnPnc(onlinePnc: Pnc): Promise<Pnc> {
+    return new Promise((resolve, reject) => {
+      this.offlinePncProvider.getPnc(onlinePnc.matricule).then(offlinePnc => {
+        const offlineData = this.pncTransformer.toPnc(offlinePnc);
+        this.offlineProvider.flagDataAvailableOffline(onlinePnc, offlineData);
+        resolve(onlinePnc);
+      });
+    });
+  }
+
+  /**
+   * Récupère les pncs du même secteur depuis le cache en offline ou depuis le serveur en online
+   * @param pncFilter filtre de recherche, pas utilisé en offline
+   * @return les pncs concernés (en offline : uniquement les pncs sur même secteur sauf le pnc connecté)
    */
   getFilteredPncs(pncFilter: PncFilter): Promise<PagedPnc> {
-    return this.onlinePncProvider.getFilteredPncs(pncFilter);
+    if (this.connectivityService.isConnected()) {
+      return this.onlinePncProvider.getFilteredPncs(pncFilter).then(responsePnc => {
+
+        let promises: Promise<Pnc>[] = new Array();
+
+        responsePnc.content.forEach(onlinePnc => {
+          const transformedPnc = this.pncTransformer.toPnc(onlinePnc);
+          promises.push(this.refreshOffLineDateOnPnc(transformedPnc));
+        });
+        return Promise.all(promises).then(values => {
+          responsePnc.content = values;
+          return responsePnc;
+        });
+
+      });
+    } else {
+      return this.offlinePncProvider.getPncs().then(response => {
+        return this.offlinePncProvider.getPnc(this.sessionService.authenticatedUser.matricule).then(connectedPnc => {
+          const filteredPnc = response.filter(pnc =>
+            (pnc.assignment.sector === connectedPnc.assignment.sector) && (pnc.matricule !== connectedPnc.matricule));
+          const pagedPncResponse: PagedPnc = new PagedPnc();
+          pagedPncResponse.content = filteredPnc;
+          pagedPncResponse.page = new Page();
+          pagedPncResponse.page.size = filteredPnc.length;
+          pagedPncResponse.page.totalElements = filteredPnc.length;
+          pagedPncResponse.page.number = 0;
+          return pagedPncResponse;
+        });
+      });
+    }
   }
 
   /**

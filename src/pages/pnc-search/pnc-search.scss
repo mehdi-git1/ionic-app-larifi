@@ -61,6 +61,19 @@ page-pnc-search {
     .filtered-pnc-list-container {
         height: 78%;
         margin-top: 30px;
+        .spinner-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            width: 100%;
+            ion-spinner {
+                display: block;
+                width: 25%;
+                height: 25%;
+            }
+        }
     }
 
     form {
@@ -75,6 +88,29 @@ page-pnc-search {
         .mat-form-field-label {
             top: 17px;
             padding-left: 2px;
+        }
+
+        .label-inactive-filters {
+            color: LightGray;
+            font-weight: bold;
+            display: flex;
+            flex-direction: column;
+            justify-content: right;
+            align-items: right;
+            text-align: right;
+        }
+
+        .hide-label {
+            visibility: hidden;
+            opacity: 0;
+            transition: visibility 0s linear 2000ms,
+            opacity 2000ms;
+        }
+
+        .show-label {
+            visibility: visible;
+            transition: visibility 0s linear 0s,
+            opacity 2000ms;
         }
     }
 
