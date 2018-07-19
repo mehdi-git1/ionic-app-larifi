@@ -1,0 +1,124 @@
+page-pnc-search {
+
+    .search-pnc {
+        background: color($colors, green60);
+        width: calc(100%);
+        height: 40px;
+        margin-top: 20px;
+        box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12) !important;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .filtered-pnc-card {
+
+        img {
+            width: 80px;
+            border-radius: 100%;
+        }
+
+        .content {
+            display: flex;
+            flex-direction: column;
+
+            ion-row {
+                flex: 1;
+            }
+
+            .primary-info {
+                font-size: 1.0em;
+            }
+
+            .icon-container {
+                width: 35px;
+                float: right;
+                ion-icon {
+                    font-size: 2em;
+                }
+            }
+
+            .pnc-info {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                .pnc-Array-item {
+                    span:after {
+                        content: ', ';
+                    }
+                    span:last-child:after {
+                        content: none;
+
+                    }
+                }
+
+            }
+        }
+    }
+
+    .filtered-pnc-list-container {
+        height: 78%;
+        margin-top: 30px;
+    }
+
+    form {
+        .mat-form-field {
+            width: 100%;
+            line-height: normal;
+        }
+        .mat-form-field-infix {
+            border: 2px solid lightgray;
+            margin-top: 29px;
+        }
+        .mat-form-field-label {
+            top: 17px;
+            padding-left: 2px;
+        }
+    }
+
+    .label-md {
+        margin: 0;
+    }
+
+    .no-pnc-found {
+        text-align: center;
+        font-size: 1.5em;
+        margin-top: 100px;
+        color: color($colors, grey50);
+    }
+
+    .pnc-search-card {
+        ion-card-header {
+            height: 40px;
+            display: flex;
+            justify-content: space-between;
+            cursor: pointer;
+        }
+
+        ion-card-content {
+            max-height: 0;
+            transition: max-height 500ms;
+        }
+
+        ion-card-content.opened {
+            max-height: 600px;
+            transition: max-height 500ms;
+            padding: auto;
+        }
+
+        .card-content {
+            padding: 0;
+        }
+
+        .header-container {
+            display: flex;
+            align-items: center;
+
+            .spinner-invisible {
+                visibility: hidden;
+            }
+        }
+    }
+}

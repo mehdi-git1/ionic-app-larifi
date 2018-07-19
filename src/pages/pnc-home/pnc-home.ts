@@ -1,3 +1,4 @@
+import { PncSearchPage } from './../pnc-search/pnc-search';
 import { SynchronizationProvider } from './../../providers/synchronization/synchronization';
 import { TranslateService } from '@ngx-translate/core';
 import { UpcomingFlightListPage } from './../upcoming-flight-list/upcoming-flight-list';
@@ -108,6 +109,13 @@ export class PncHomePage {
     this.navCtrl.push(PncHomePage, { matricule: this.matricule });
   }
 
+  /**
+   * Dirige vers l'effectif PNC
+   */
+  goToPncSearch() {
+    this.navCtrl.push(PncSearchPage);
+  }
+  
   /**
    * Précharge le eDossier du PNC si celui n'est pas cadre
    */

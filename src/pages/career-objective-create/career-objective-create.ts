@@ -313,4 +313,17 @@ export class CareerObjectiveCreatePage {
   openWaypoint(techId: number) {
     this.navCtrl.push(WaypointCreatePage, { waypointId: techId, careerObjectiveId: this.careerObjective.techId });
   }
+
+  /**
+   * Envoi au serveur une demande de sollicitation instructeur pour l'objectif
+   */
+  createInstructorRequest() {
+
+    this.careerObjectiveProvider
+      .createInstructorRequest(this.careerObjective.techId)
+      .then(result => {
+        this.toastProvider.success(this.translateService.instant('CAREER_OBJECTIVE_CREATE.SUCCESS.CAREER_OBJECTIVE_INSTRUCTOR_REQUESTED'));
+      },
+        error => { });
+  }
 }

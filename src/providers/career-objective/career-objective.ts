@@ -87,4 +87,13 @@ export class CareerObjectiveProvider {
       this.onlineCareerObjectiveProvider.delete(id) :
       this.offlineCareerObjectiveProvider.delete(id);
   }
+
+  /**
+   * Envoi au serveur une demande de sollicitation instructeur pour l'objectif
+   * @param id l'id de l'objectif pour lequel on souhaiter solliciter l'instructeur
+   */
+  createInstructorRequest(id: number): Promise<void> {
+    return this.onlineCareerObjectiveProvider.createInstructorRequest(id);
+  }
+
 }

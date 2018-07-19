@@ -63,7 +63,8 @@
             "VALIDATE": "Valider",
             "ABANDON": "Abandonner",
             "CANCEL_VALIDATION": "Annuler la validation",
-            "RESUME": "Reprendre l'objectif"
+            "RESUME": "Reprendre l'objectif",
+            "CREATE_INSTRUCTOR_REQUEST": "Solliciter mon instructeur"
         },
         "SUCCESS": {
             "CAREER_OBJECTIVE_SAVED": "Objectif enregistré avec succès",
@@ -72,7 +73,8 @@
             "CAREER_OBJECTIVE_VALIDATED": "Objectif validé",
             "CAREER_OBJECTIVE_ABANDONED": "Objectif abandonné",
             "CAREER_OBJECTIVE_VALIDATION_CANCELED": "Validation annulée de l'objectif",
-            "CAREER_OBJECTIVE_RESUMED": "Objectif repris avec succés"
+            "CAREER_OBJECTIVE_RESUMED": "Objectif repris avec succés",
+            "CAREER_OBJECTIVE_INSTRUCTOR_REQUESTED": "Demande envoyée avec succès"
         },
         "ERROR": {
             "CAREER_OBJECTIVE_CREATION_FAILED": "La création de l'objectif a échoué"
@@ -154,7 +156,33 @@
         "TITLE": "Synthèse PNC",
         "PDF_MISSING": "Pas de fiche synthèse disponible"
     },
+    "PNC_SEARCH": {
+        "TITLE": "Recherche PNC",
+        "CRITERIA": {
+            "PNC_MATRICULE": "Nom, Prénom, Matricule",
+            "DIVISION": "Division",
+            "SECTOR": "Secteur",
+            "GINQ": "Ginq",
+            "SPECIALITY": "Fonction",
+            "RELAY": "Relais",
+            "AIRCRAFT_SKILL": "Spécification machine",
+            "WORK_RATE": "Rythme"
+        },
+        "DEFAULT_DATA": {
+            "ALL_F": "Toutes",
+            "ALL_M": "Tous"
+        },
+        "NO_PNC_FOUND": "Aucun pnc trouvé."
 
+    },
+    "MESSAGES": {
+        "ERROR": {
+            "MANDATORY_FIELD": "Le champ est obligatoire",
+            "BAD_FORMAT": "Format incorrect",
+            "MATRICULE_WRONG_SIZE": "Le matricule doit faire 8 caractères",
+            "PNC_NOT_FOUND": "Erreur lors de la récupérations des PNC"
+        }
+    },
     "HELP_ASSET_LIST": {
         "TITLE": "Ressources d'aide",
         "NO_HELP_ASSETS": "Aucune ressource créée pour le moment"
