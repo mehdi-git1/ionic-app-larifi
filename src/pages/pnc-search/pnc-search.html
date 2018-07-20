@@ -17,16 +17,21 @@
             <form novalidate [formGroup]="searchForm">
                 <ion-grid>
                     <span>
-                    <!--ion-row>
+                    <ion-row>
                         <ion-col>
+                            <!-- PNC -->
                             <ion-item>
                                 <div>
                                     <mat-form-field>
-                                        <input #pncMatricule type="text" matInput placeholder="{{'PNC_SEARCH.CRITERIA.PNC_MATRICULE' | translate}}" formControlName="pncMatriculeControl"
-                                            (keyup)="search(pncMatricule.value)" [matAutocomplete]="auto" [(ngModel)]="selectedPnc" autocomplete="off" [disabled]="this.areFiltersDisabled()">
+                                        <input #pncMatricule type="text" matInput placeholder="{{'PNC_SEARCH.CRITERIA.PNC_MATRICULE' | translate}}" formControlName="pncMatriculeControl" (keyup)="search(pncMatricule.value)" [matAutocomplete]="auto" [(ngModel)]="selectedPnc" autocomplete="off"
+                                            [disabled]="this.areFiltersDisabled()"/>
                                         <mat-hint *ngIf="pncMatriculeControl.touched && pncMatriculeControl.invalid" class="eDossier-error">
-                                            <span *ngIf="pncMatriculeControl.hasError('minlength')">{{'MESSAGES.ERROR.MATRICULE_WRONG_SIZE' | translate}}</span>
-                    <span *ngIf="pncMatriculeControl.hasError('maxlength')">{{'MESSAGES.ERROR.MATRICULE_WRONG_SIZE' | translate}}</span>
+                                            <span *ngIf="pncMatriculeControl.hasError('minlength')">
+                                                {{'MESSAGES.ERROR.MATRICULE_WRONG_SIZE' | translate}}
+                                            </span>
+                    <span *ngIf="pncMatriculeControl.hasError('maxlength')">
+                                                {{'MESSAGES.ERROR.MATRICULE_WRONG_SIZE' | translate}}
+                                            </span>
                     </mat-hint>
                     </mat-form-field>
 
@@ -38,29 +43,6 @@
                     </div>
                     </ion-item>
                     </ion-col>
-                    </ion-row-->
-                    <ion-row>
-                        <ion-col>
-                            <!-- PNC -->
-                            <ion-item>
-                                <div>
-                                    <mat-form-field>
-                                        <input #pncMatricule type="text" matInput placeholder="{{'PNC_SEARCH.CRITERIA.PNC_MATRICULE' | translate}}" formControlName="pncMatriculeControl" (keyup)="search(pncMatricule.value)" [matAutocomplete]="auto" [(ngModel)]="selectedPnc" autocomplete="off"
-                                            [disabled]="this.areFiltersDisabled()">
-                                        <mat-hint *ngIf="pncMatriculeControl.touched && pncMatriculeControl.invalid" class="eDossier-error">
-                                            <span *ngIf="pncMatriculeControl.hasError('minlength')">{{'MESSAGES.ERROR.MATRICULE_WRONG_SIZE' | translate}}</span>
-                                            <span *ngIf="pncMatriculeControl.hasError('maxlength')">{{'MESSAGES.ERROR.MATRICULE_WRONG_SIZE' | translate}}</span>
-                                        </mat-hint>
-                                    </mat-form-field>
-
-                                    <mat-autocomplete class="mat-autocomplete" #auto="matAutocomplete" [displayWith]="displayPnc" (optionSelected)="openPncHomePage($event.option.value)">
-                                        <mat-option *ngFor="let pnc of pncList | async" [value]="pnc">
-                                            {{ pnc.firstName + ' ' + pnc.lastName + ' (' + pnc.matricule + ')'}}
-                                        </mat-option>
-                                    </mat-autocomplete>
-                                </div>
-                            </ion-item>
-                        </ion-col>
                     </ion-row>
                     <ion-row>
                         <ion-col col-4>

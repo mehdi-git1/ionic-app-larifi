@@ -51,6 +51,14 @@ export class EDossierPNC implements OnInit {
   initializeApp() {
     this.platform.ready().then(() => {
 
+      /**
+       * Actuellement le ping est configuré pour être effectif sur le web et non sur le mobile
+       * A terme, il faudra le remettre sur le mobile (probléme de CORS à l'eure actuelle)
+       */
+      if (this.secMobilService.isBrowser){
+        setTimeout(() => this.connectivityService.pingAPI(), 5000);
+      }
+
       this.statusBar.styleDefault();
       this.splashScreen.hide();
 
@@ -60,22 +68,20 @@ export class EDossierPNC implements OnInit {
       this.secMobilService.init();
       this.secMobilService.isAuthenticated().then(() => {
         // launch process when already authenticated
-        this.putAuthenticatedUserInSession();
-        this.initParameters();
+        // Création du stockage local
+        this.storageService.initOfflineMap().then(success => {
+          this.putAuthenticatedUserInSession().then(authenticatedUser => {
+            this.synchronizationProvider.storeEDossierOffline(authenticatedUser.matricule).then(successStore => {
+            }, error => {
+            });
+          });
+        });
+
       },
         error => {
           console.log('go to authentication page');
           this.nav.setRoot(AuthenticationPage);
         });
-
-      // Création du stockage local
-      this.storageService.initOfflineMap().then(success => {
-        this.putAuthenticatedUserInSession().then(authenticatedUser => {
-          this.synchronizationProvider.storeEDossierOffline(authenticatedUser.matricule).then(successStore => {
-          }, error => {
-          });
-        });
-      });
 
       // Détection d'un changement d'état de la connexion
       this.connectivityService.connectionStatusChange.subscribe(connected => {
@@ -86,6 +92,7 @@ export class EDossierPNC implements OnInit {
           this.synchronizationProvider.synchronizeOfflineData();
         }
       });
+      this.initParameters();
 
     });
   }
@@ -94,8 +101,11 @@ export class EDossierPNC implements OnInit {
    * Récupère les parametres envoyé par le back
    */
   initParameters() {
-    this.parametersProvider.getParams().then(parameters => {
-      this.sessionService.parameters = parameters;
+    const promise = this.putAuthenticatedUserInSession();
+    promise.then(authenticatedUser => {
+      this.parametersProvider.getParams().then(parameters => {
+        this.sessionService.parameters = parameters;
+      }, error => { });
     }, error => { });
   }
 
