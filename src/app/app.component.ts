@@ -60,22 +60,21 @@ export class EDossierPNC implements OnInit {
       this.secMobilService.init();
       this.secMobilService.isAuthenticated().then(() => {
         // launch process when already authenticated
-        this.putAuthenticatedUserInSession();
-        this.initParameters();
+        // Création du stockage local
+        this.storageService.initOfflineMap().then(success => {
+          this.putAuthenticatedUserInSession().then(authenticatedUser => {
+            this.initParameters();
+            this.synchronizationProvider.storeEDossierOffline(authenticatedUser.matricule).then(successStore => {
+            }, error => {
+            });
+          });
+        });
+
       },
         error => {
           console.log('go to authentication page');
           this.nav.setRoot(AuthenticationPage);
         });
-
-      // Création du stockage local
-      this.storageService.initOfflineMap().then(success => {
-        this.putAuthenticatedUserInSession().then(authenticatedUser => {
-          this.synchronizationProvider.storeEDossierOffline(authenticatedUser.matricule).then(successStore => {
-          }, error => {
-          });
-        });
-      });
 
       // Détection d'un changement d'état de la connexion
       this.connectivityService.connectionStatusChange.subscribe(connected => {
