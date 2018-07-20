@@ -63,7 +63,6 @@ export class EDossierPNC implements OnInit {
         // Création du stockage local
         this.storageService.initOfflineMap().then(success => {
           this.putAuthenticatedUserInSession().then(authenticatedUser => {
-            this.initParameters();
             this.synchronizationProvider.storeEDossierOffline(authenticatedUser.matricule).then(successStore => {
             }, error => {
             });
@@ -85,6 +84,7 @@ export class EDossierPNC implements OnInit {
           this.synchronizationProvider.synchronizeOfflineData();
         }
       });
+      this.initParameters();
 
     });
   }
@@ -93,8 +93,11 @@ export class EDossierPNC implements OnInit {
    * Récupère les parametres envoyé par le back
    */
   initParameters() {
-    this.parametersProvider.getParams().then(parameters => {
-      this.sessionService.parameters = parameters;
+    const promise = this.putAuthenticatedUserInSession();
+    promise.then(authenticatedUser => {
+      this.parametersProvider.getParams().then(parameters => {
+        this.sessionService.parameters = parameters;
+      }, error => { });
     }, error => { });
   }
 
