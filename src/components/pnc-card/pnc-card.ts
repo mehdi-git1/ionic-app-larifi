@@ -16,6 +16,7 @@ import { PncHomePage } from './../../pages/pnc-home/pnc-home';
 export class PncCardComponent {
 
   @Input() crewMember: CrewMember;
+  @Input() isCrewMember: boolean;
   synchroInProgress: boolean;
 
   constructor(
