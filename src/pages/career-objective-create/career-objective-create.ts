@@ -9,13 +9,19 @@ import { TranslateService } from '@ngx-translate/core';
 import { CareerObjectiveProvider } from './../../providers/career-objective/career-objective';
 import { CareerObjective } from './../../models/careerObjective';
 import { Component } from '@angular/core';
-import { NavController, NavParams, AlertController, LoadingController, Loading } from 'ionic-angular';
+import { NavController, NavParams, AlertController, LoadingController, Loading, IonicPage } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Pnc } from '../../models/pnc';
 import { DatePipe } from '@angular/common';
 import { Waypoint } from './../../models/waypoint';
 import { WaypointCreatePage } from './../waypoint-create/waypoint-create';
 
+
+@IonicPage({
+  name: 'CareerObjectiveCreatePage',
+  segment: 'careerObjectiveCreate/:careerObjectiveId',
+  defaultHistory: ['CareerObjectiveListPage']
+})
 @Component({
   selector: 'page-career-objective-create',
   templateUrl: 'career-objective-create.html',
@@ -304,13 +310,13 @@ export class CareerObjectiveCreatePage {
    * Dirige vers la page de création d'un point d'étape
    */
   goToWaypointCreate() {
-    this.navCtrl.push(WaypointCreatePage, { careerObjectiveId: this.careerObjective.techId });
+    this.navCtrl.push('WaypointCreatePage', { careerObjectiveId: this.careerObjective.techId });
   }
 
   /**
    * Ouvrir un point d'étape existant
    */
   openWaypoint(techId: number) {
-    this.navCtrl.push(WaypointCreatePage, { waypointId: techId, careerObjectiveId: this.careerObjective.techId });
+    this.navCtrl.push('WaypointCreatePage', { waypointId: techId, careerObjectiveId: this.careerObjective.techId });
   }
 }

@@ -1,3 +1,4 @@
+import { AuthGuard } from './../../guard/auth.guard';
 import { DatePipe } from '@angular/common';
 import { SecurityProvider } from './../../providers/security/security';
 import { WaypointStatusProvider } from './../../providers/waypoint-status/waypoint-status';
@@ -7,11 +8,16 @@ import { WaypointProvider } from './../../providers/waypoint/waypoint';
 import { Waypoint } from './../../models/waypoint';
 import { TranslateService } from '@ngx-translate/core';
 import { Component } from '@angular/core';
-import { NavController, NavParams, LoadingController, Loading, AlertController } from 'ionic-angular';
+import { NavController, NavParams, LoadingController, Loading, AlertController, IonicPage } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators, FormControl, ValidatorFn, AbstractControl } from '@angular/forms';
 import { CareerObjectiveCreatePage } from './../career-objective-create/career-objective-create';
 import { ToastProvider } from './../../providers/toast/toast';
 
+@IonicPage({
+  name: 'WaypointCreatePage',
+  segment: 'waypointCreate/:matricule',
+  defaultHistory: ['CareerObjectiveCreatePage']
+})
 @Component({
   selector: 'page-waypoint-create',
   templateUrl: 'waypoint-create.html',
@@ -40,7 +46,8 @@ export class WaypointCreatePage {
     private datePipe: DatePipe,
     public securityProvider: SecurityProvider,
     public loadingCtrl: LoadingController,
-    private alertCtrl: AlertController) {
+    private alertCtrl: AlertController,
+    private authGuard: AuthGuard) {
 
     this.waypoint = new Waypoint();
     this.careerObjectiveId = this.navParams.get('careerObjectiveId');
@@ -64,21 +71,29 @@ export class WaypointCreatePage {
   }
 
   ionViewCanEnter() {
-    return new Promise((resolve, reject) => {
-      this.initForm();
-
-      if (this.navParams.get('waypointId')) {
-        this.waypointProvider.getWaypoint(this.navParams.get('waypointId')).then(result => {
-          this.waypoint = result;
+    return this.authGuard.guard().then(guardReturn => {
+      if (guardReturn){
+        return new Promise((resolve, reject) => {
           this.initForm();
-          resolve();
-        }, error => {
-          reject();
+
+          if (this.navParams.get('waypointId')) {
+            this.waypointProvider.getWaypoint(this.navParams.get('waypointId')).then(result => {
+              this.waypoint = result;
+              this.initForm();
+              resolve();
+            }, error => {
+              reject();
+            });
+          } else {
+            resolve();
+          }
         });
-      } else {
-        resolve();
+      }else{
+        return false;
       }
     });
+
+
   }
 
   /**

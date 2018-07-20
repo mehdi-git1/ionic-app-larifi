@@ -1,6 +1,12 @@
 import { Component } from '@angular/core';
-import { NavParams } from 'ionic-angular';
+import { NavParams, IonicPage } from 'ionic-angular';
 import { SummarySheetProvider } from '../../providers/summary-sheet/summary-sheet';
+
+@IonicPage({
+  name: 'SummarySheetPage',
+  segment: 'summarySheet/:matricule',
+  defaultHistory: ['PncHomePage']
+})
 
 @Component({
   selector: 'page-summary-sheet',

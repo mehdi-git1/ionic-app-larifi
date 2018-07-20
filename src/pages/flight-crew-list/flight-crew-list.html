@@ -10,9 +10,9 @@
         <ion-card-content>
             <div class="leg">
                 <ion-icon name="plane" class="round-icon"></ion-icon>
-                <span class="value">{{ leg.company }}{{ leg.number }}</span>
-                <span class="value">{{ leg.departureDate | date : 'dd/MM/yyyy HH:mm' }}</span>
-                <span class="value">{{ leg.departureStation }} - {{ leg.arrivalStation }}</span>
+                <span class="value">{{ leg?.company }}{{ leg?.number }}</span>
+                <span class="value">{{ leg?.departureDate | date : 'dd/MM/yyyy HH:mm' }}</span>
+                <span class="value">{{ leg?.departureStation }} - {{ leg?.arrivalStation }}</span>
             </div>
         </ion-card-content>
     </ion-card>

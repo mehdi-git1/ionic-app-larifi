@@ -1,3 +1,4 @@
+import { AuthGuard } from './../../guard/auth.guard';
 import { SynchronizationProvider } from './../../providers/synchronization/synchronization';
 import { TranslateService } from '@ngx-translate/core';
 import { UpcomingFlightListPage } from './../upcoming-flight-list/upcoming-flight-list';
@@ -16,7 +17,8 @@ import { SummarySheetPage } from '../summary-sheet/summary-sheet';
 import { HelpAssetListPage } from './../help-asset-list/help-asset-list';
 
 @IonicPage({
-  segment: 'home/:matricule'
+  name: 'PncHomePage',
+  segment: 'pncHome/:matricule'
 })
 @Component({
   selector: 'page-pnc-home',
@@ -43,27 +45,33 @@ export class PncHomePage {
     public connectivityService: ConnectivityService,
     private sessionService: SessionService,
     public translateService: TranslateService,
-    private pncProvider: PncProvider) {
+    private pncProvider: PncProvider,
+    private authGuard: AuthGuard
+  ) {
 
   }
 
   ionViewCanEnter() {
-    return new Promise((resolve, reject) => {
-      if (this.navParams.get('matricule')) {
-        this.matricule = this.navParams.get('matricule');
-      } else if (this.sessionService.appContext.observedPncMatricule) {
-        this.matricule = this.sessionService.appContext.observedPncMatricule;
-      } else if (this.sessionService.authenticatedUser) {
-        this.matricule = JSON.parse(this.sessionService.authenticatedUser as any).matricule;
-      }
+    return this.authGuard.guard().then(guardReturn => {
+      if (guardReturn){
+        if (this.navParams.get('matricule')) {
+          this.matricule = this.navParams.get('matricule');
+        } else if (this.sessionService.appContext.observedPncMatricule) {
+          this.matricule = this.sessionService.appContext.observedPncMatricule;
+        } else if (this.sessionService.authenticatedUser) {
+          this.matricule = this.sessionService.authenticatedUser.matricule;
+        }
 
-      if (this.matricule != null) {
-        this.pncProvider.getPnc(this.matricule).then(pnc => {
-          this.pnc = pnc;
-          resolve();
-        }, error => {
-          resolve();
-        });
+        if (this.matricule != null) {
+          this.pncProvider.getPnc(this.matricule).then(pnc => {
+            this.pnc = pnc;
+            return true;
+          }, error => {
+            return false;
+          });
+        }
+      }else{
+        return false;
       }
     });
   }
@@ -86,7 +94,7 @@ export class PncHomePage {
    * Dirige vers la page de visualisation des objectifs
    */
   goToCareerObjectiveList() {
-    this.navCtrl.push(CareerObjectiveListPage, { matricule: this.matricule });
+    this.navCtrl.push('CareerObjectiveListPage', { matricule: this.matricule });
   }
 
   /**
@@ -101,14 +109,14 @@ export class PncHomePage {
    */
 
   goToUpcomingFlightList() {
-    this.navCtrl.push(UpcomingFlightListPage, { matricule: this.matricule });
+    this.navCtrl.push('UpcomingFlightListPage', { matricule: this.matricule });
   }
 
   /**
    * Redirige vers le EDossier du PNC saisi
    */
   goToEdossier() {
-    this.navCtrl.push(PncHomePage, { matricule: this.matricule });
+    this.navCtrl.push('PncHomePage', { matricule: this.matricule });
   }
 
   /**
@@ -128,6 +136,6 @@ export class PncHomePage {
   }
 
   goToSummarySheet() {
-    this.navCtrl.push(SummarySheetPage, { matricule: this.matricule });
+    this.navCtrl.push('SummarySheetPage', { matricule: this.matricule });
   }
 }

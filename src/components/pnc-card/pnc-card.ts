@@ -64,7 +64,7 @@ export class PncCardComponent {
   }
 
   openPncHomePage(matricule) {
-    this.navCtrl.push(PncHomePage, { matricule: matricule });
+    this.navCtrl.push('PncHomePage', { matricule: matricule });
   }
 
 }

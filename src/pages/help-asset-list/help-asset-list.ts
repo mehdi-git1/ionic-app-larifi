@@ -5,7 +5,9 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 @IonicPage({
-  segment: 'help/:pncRole'
+  name: 'HelpAssetListPage',
+  segment: 'help/:pncRole',
+  defaultHistory: ['PncHomePage']
 })
 @Component({
   selector: 'page-help-asset-list',
