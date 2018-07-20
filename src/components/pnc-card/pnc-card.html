@@ -66,9 +66,14 @@
                             </div>
                         </ion-col>
                         <!-- rythme de travail-->
-                        <ion-col class="pnc-info">
+                        <ion-col class="pnc-info" *ngIf="!isCrewMember">
                             <label>{{ 'PNC_SEARCH.CRITERIA.WORK_RATE' | translate }}</label>
                             <span class="value" [ngClass]="{'no-value' : !crewMember.pnc.workRate }">{{ crewMember.pnc.workRate }}</span>
+                        </ion-col>
+                        <!-- Dernière rencontre en vol -->
+                        <ion-col class="pnc-info" *ngIf="isCrewMember">
+                            <label>{{ 'FLIGHT_CREW_LIST.LIST.LAST_IN_FLIGHT_ENCOUNTER_DATE' | translate }}</label>
+                            <span class="value">{{ 'GLOBAL.COMING_SOON' | translate }}</span>
                         </ion-col>
                         <!-- Dernière rencontre en sol -->
                         <ion-col class="pnc-info" *ngIf="isCrewMember">
