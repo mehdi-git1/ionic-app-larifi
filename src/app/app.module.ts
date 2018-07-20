@@ -84,6 +84,7 @@ import { SummarySheetProvider } from '../providers/summary-sheet/summary-sheet';
     PncSearchPage,
     HelpAssetListPage,
     FlightCrewListPage,
+    PncSearchPage,
     HomePage,
     SummarySheetPage
   ],

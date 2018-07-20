@@ -2,6 +2,18 @@ pnc-card {
     .pnc-info-panel {
         display: flex;
 
+        .identity {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+
+            img {
+                width: 80px;
+                border-radius: 100%;
+            }
+        }
+
         .content {
             display: flex;
             flex-direction: column;
@@ -12,14 +24,16 @@ pnc-card {
 
             .primary-info {
                 font-size: 1.0em;
+                display: flex;
+                align-items: center;
             }
 
             .icon-container {
                 display: flex;
                 align-items: center;
-                justify-content: flex-end;
-                float: right;
-                ion-icon {
+                justify-content: space-between;
+
+                .info-icon ion-icon {
                     font-size: 2em;
                 }
             }

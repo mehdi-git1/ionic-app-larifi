@@ -1,3 +1,5 @@
+import { PncTransformerProvider } from './../../providers/pnc/pnc-transformer';
+import { PncProvider } from './../../providers/pnc/pnc';
 import { SessionService } from './../../services/session.service';
 import { Leg } from './../../models/leg';
 import { PncHomePage } from './../pnc-home/pnc-home';
@@ -24,8 +26,14 @@ export class FlightCrewListPage {
     public navParams: NavParams,
     public genderProvider: GenderProvider,
     private legProvider: LegProvider,
+    public connectivityService: ConnectivityService,
+    private synchronizationProvider: SynchronizationProvider,
+    private toastProvider: ToastProvider,
     private translate: TranslateService,
-    private sessionService: SessionService) {
+    private pncProvider: PncProvider,
+    private sessionService: SessionService,
+    private pncTransformer: PncTransformerProvider) {
+
   }
 
   ionViewCanEnter() {
@@ -33,11 +41,19 @@ export class FlightCrewListPage {
     this.legProvider.getFlightCrewFromLeg(this.leg.techId).then(flightCrew => {
       this.flightCrewList = flightCrew;
       flightCrew.forEach(crew => {
-        if (crew.pnc.matricule === this.sessionService.authenticatedUser.matricule) {
-          this.sessionService.appContext.onBoardRedactorFonction = crew.onBoardFonction;
+        if (crew.pnc.matricule !== undefined) {
+          if (crew.pnc.matricule === this.sessionService.authenticatedUser.matricule) {
+            this.sessionService.appContext.onBoardRedactorFonction = crew.onBoardFonction;
+          }
+          this.pncProvider.refreshOffLineDateOnPnc(this.pncTransformer.toPnc(crew.pnc)).then(foundPnc => {
+            crew.pnc = foundPnc;
+          }, error => {
+            this.toastProvider.info(this.translate.instant('FLIGHT_CREW_LIST.ERROR', { 'flightNumber': this.leg.number }));
+          });
         }
       });
     }, error => {
+      this.toastProvider.info(this.translate.instant('FLIGHT_CREW_LIST.ERROR', { 'flightNumber': this.leg.number }));
     });
   }
 

@@ -1,15 +1,17 @@
-import { Parameters } from './../../models/Parameters';
-import { SessionService } from './../../services/session.service';
-import { PncHomePage } from './../pnc-home/pnc-home';
+import { PncFilter } from './../../models/pncFilter';
 import { Observable } from 'rxjs/Rx';
+import { ToastProvider } from './../../providers/toast/toast';
+import { ConnectivityService } from './../../services/connectivity.service';
+import { CrewMember } from './../../models/crewMember';
+import { SessionService } from './../../services/session.service';
 import { GenderProvider } from './../../providers/gender/gender';
 import { AppConfig } from './../../app/app.config';
-import { PncFilter } from './../../models/pncFilter';
 import { PncProvider } from './../../providers/pnc/pnc';
 import { TranslateService } from '@ngx-translate/core';
-import { FormBuilder, FormGroup, Validators, FormControl, AbstractControl } from '@angular/forms';
 import { Pnc } from './../../models/pnc';
 import { Component } from '@angular/core';
+import { Parameters } from './../../models/Parameters';
+import { FormBuilder, FormGroup, Validators, FormControl, AbstractControl } from '@angular/forms';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Assignment } from '../../models/assignment';
 import { Speciality } from '../../models/speciality';
@@ -23,6 +25,7 @@ export class PncSearchPage {
 
   pncList: Observable<Pnc[]>;
   filteredPncs: Pnc[];
+  searchInProgress: boolean;
 
   searchForm: FormGroup;
   pncMatriculeControl: AbstractControl;
@@ -54,8 +57,9 @@ export class PncSearchPage {
     private formBuilder: FormBuilder,
     private pncProvider: PncProvider,
     private genderProvider: GenderProvider,
-    private sessionService: SessionService) {
-
+    private sessionService: SessionService,
+    private connectivityService: ConnectivityService,
+    private toastProvider: ToastProvider) {
 
     // Initialisation du formulaire
     this.initForm();
@@ -92,7 +96,6 @@ export class PncSearchPage {
       }
     }
   }
-
   /**
    * charge la liste des secteurs associé a la division choisi
    * @param sector secteur concerné.
@@ -162,16 +165,6 @@ export class PncSearchPage {
   }
 
   /**
- * redirige vers la page d'accueil du pnc ou du cadre
- * @param pnc le pnc concerné
- */
-  openPncHomePage(pnc: Pnc) {
-    this.selectedPnc = undefined;
-    this.initAutocompleteList();
-    this.navCtrl.push(PncHomePage, { matricule: pnc.matricule });
-  }
-
-  /**
    * Initialise le formulaire
    */
   initForm() {
@@ -206,15 +199,21 @@ export class PncSearchPage {
   }
 
   /**
-   * recupere 10 pnc correspondant aux criteres du filtre.
+   * recupere 10 pnc correspondant aux criteres saisis du filtre.
    */
   searchPncs() {
+    this.searchInProgress = true;
     this.buildFilter();
     this.getFilledFieldsOnly(this.pncFilter);
     this.pncProvider.getFilteredPncs(this.pncFilter).then(pagedPnc => {
+      this.searchInProgress = false;
       this.filteredPncs = pagedPnc.content;
       this.totalPncs = pagedPnc.page.totalElements;
-    });
+    }).catch((err) => {
+      this.searchInProgress = false;
+      this.toastProvider.error(this.translateService.instant('PNC_SEARCH.ERROR.SEARCH'));
+    }
+    );
   }
 
   /**
@@ -260,10 +259,6 @@ export class PncSearchPage {
     });
   }
 
-  getAvatarPicture(gender) {
-    return this.genderProvider.getAvatarPicture(gender);
-  }
-
   /**
   * Ouvre/ferme le filtre
   */
@@ -275,5 +270,18 @@ export class PncSearchPage {
       this.pncFilter.icone = 'add-circle';
     }
   }
-}
 
+  createCrewMemberObjectFromPnc(pnc: Pnc) {
+    const crewMember: CrewMember = new CrewMember();
+    crewMember.pnc = pnc;
+    return crewMember;
+  }
+
+  areFiltersDisabled(): boolean {
+    return !this.connectivityService.isConnected();
+  }
+
+  inactiveFiltersLabelClass(): string {
+    return this.connectivityService.isConnected() ? 'hide-label' : 'show-label';
+  }
+}
