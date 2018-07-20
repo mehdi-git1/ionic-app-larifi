@@ -14,6 +14,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
   constructor(
     private toastProvider: ToastProvider,
     private translateService: TranslateService,
+    private connectivityService: ConnectivityService,
     private config: Config
   ) { }
 
