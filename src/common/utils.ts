@@ -1,6 +1,5 @@
 export class Utils {
     public static base64ToArrayBuffer(base64: string): ArrayBuffer {
-        // base64 = base64.replace(/^data:([^;]+);base64,/gim, "");
         let binary: string = window.atob(base64);
         let len: number = binary.length;
         let buffer: ArrayBuffer = new ArrayBuffer(len);

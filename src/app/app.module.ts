@@ -86,6 +86,7 @@ declare var window: any;
     PncSearchPage,
     HelpAssetListPage,
     FlightCrewListPage,
+    PncSearchPage,
     HomePage,
     SummarySheetPage
   ],

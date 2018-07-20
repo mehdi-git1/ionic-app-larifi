@@ -5,10 +5,6 @@ import { LegProvider } from './../../providers/leg/leg';
 import { GenderProvider } from './../../providers/gender/gender';
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
-import { SynchronizationProvider } from './../../providers/synchronization/synchronization';
-import { ToastProvider } from './../../providers/toast/toast';
-import { ConnectivityService } from '../../services/connectivity.service';
-import { TranslateService } from '@ngx-translate/core';
 import { CrewMember } from '../../models/crewMember';
 
 @Component({
@@ -24,7 +20,6 @@ export class FlightCrewListPage {
     public navParams: NavParams,
     public genderProvider: GenderProvider,
     private legProvider: LegProvider,
-    private translate: TranslateService,
     private sessionService: SessionService) {
   }
 

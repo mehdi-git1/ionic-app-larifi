@@ -4,10 +4,11 @@
         <offline-indicator [object]="crewMember.pnc"></offline-indicator>
         <ion-grid>
             <ion-row>
-                <ion-col col-2>
-                    <img src="{{genderProvider.getAvatarPicture(crewMember.pnc.gender)}}" />
+                <ion-col col-1 class="identity">
+                    <span><img src="{{getAvatarPicture(crewMember.pnc.gender)}}" /></span>
+                    <span class="value">{{crewMember.pnc.matricule}}</span>
                 </ion-col>
-                <ion-col col-10 class="content">
+                <ion-col col-11 class="content">
                     <ion-row class="primary-info">
                         <ion-col col-10>
                             <!-- Nom -->
@@ -15,24 +16,27 @@
                             <!-- Prénom -->
                             <span class="value firstname">{{ crewMember.pnc.firstName }}</span>
                         </ion-col>
-                        <ion-col  col-2>
+                        <ion-col col-2>
                             <div class="icon-container">
+                                <!-- Speciality -->
+                                <span class="value"> {{ crewMember.pnc.speciality }}</span>
                                 <!-- Particularite -->
                                 <span class="value">{{crewMember.particularity }}</span>
                                 <!-- Prioritaire -->
-                                <ion-icon *ngIf="crewMember.prioritized" name="flag" ios="md-flag" color="red80"></ion-icon>
-                                <button class="button-synchro" ion-fab mini color="secondary" *ngIf="connectivityService.isConnected()" (click)="downloadPncEdossier($event, crewMember.pnc.matricule)" [disabled]="synchroInProgress">
-                                    <ion-icon *ngIf="!synchroInProgress" name="cloud-download" ios="md-cloud-download"></ion-icon>
-                                    <ion-spinner *ngIf="synchroInProgress"></ion-spinner>
-                                </button>
+                                <span class="info-icon"><ion-icon *ngIf="crewMember.prioritized" name="flag" ios="md-flag" color="red80"></ion-icon></span>
+                                <download-button [synchroInProgress]="synchroInProgress" (onDownload)="downloadPncEdossier(crewMember.pnc.matricule)"></download-button>
                             </div>
                         </ion-col>
                     </ion-row>
                     <ion-row class="secondary-info">
-                        <!-- Fonction -->
                         <ion-col class="pnc-info">
-                            <label>{{ 'FLIGHT_CREW_LIST.LIST.FUNCTION' | translate }}</label>
-                            <span class="value" [ngClass]="{'no-value' : !crewMember.pnc.speciality }">{{crewMember.pnc.speciality }}</span>
+                            <label>{{ 'PNC_SEARCH.CRITERIA.SECTOR' | translate }}</label>
+                            <span class="value" [ngClass]="{'no-value' : !crewMember.pnc.assignment.sector }">{{ crewMember.pnc.assignment.sector }}</span>
+                        </ion-col>
+                        <!-- Ginq-->
+                        <ion-col class="pnc-info">
+                            <label>{{ 'PNC_SEARCH.CRITERIA.GINQ' | translate }}</label>
+                            <span class="value" [ngClass]="{'no-value' : !crewMember.pnc.assignment.ginq }">{{ crewMember.pnc.assignment.ginq }}</span>
                         </ion-col>
                         <!-- Relais-->
                         <ion-col class="pnc-info">
@@ -43,10 +47,19 @@
                                 </span>
                             </div>
                         </ion-col>
-                        <!-- Dernière rencontre en vol -->
+                        <!-- Spécification machine-->
                         <ion-col class="pnc-info">
-                            <label>{{ 'FLIGHT_CREW_LIST.LIST.LAST_IN_FLIGHT_ENCOUNTER_DATE' | translate }}</label>
-                            <span class="value">{{ 'GLOBAL.COMING_SOON' | translate }}</span>
+                            <label>{{ 'PNC_SEARCH.CRITERIA.AIRCRAFT_SKILL' | translate }}</label>
+                            <div class="value pnc-Array-item" [ngClass]="{'no-value' :  (!crewMember.pnc.aircraftSkills || crewMember.pnc.aircraftSkills.length === 0) }">
+                                <span *ngFor="let aircraftSkill of crewMember.pnc.aircraftSkills">
+                                    {{ aircraftSkill.aircraftType }}
+                                </span>
+                            </div>
+                        </ion-col>
+                        <!-- rythme de travail-->
+                        <ion-col class="pnc-info">
+                            <label>{{ 'PNC_SEARCH.CRITERIA.WORK_RATE' | translate }}</label>
+                            <span class="value" [ngClass]="{'no-value' : !crewMember.pnc.workRate }">{{ crewMember.pnc.workRate }}</span>
                         </ion-col>
                         <!-- Dernière rencontre en sol -->
                         <ion-col class="pnc-info">

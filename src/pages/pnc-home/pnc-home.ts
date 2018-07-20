@@ -1,4 +1,3 @@
-import { PncSearchPage } from './../pnc-search/pnc-search';
 import { SynchronizationProvider } from './../../providers/synchronization/synchronization';
 import { TranslateService } from '@ngx-translate/core';
 import { UpcomingFlightListPage } from './../upcoming-flight-list/upcoming-flight-list';
@@ -15,6 +14,7 @@ import { Pnc } from '../../models/pnc';
 import { ConnectivityService } from '../../services/connectivity.service';
 import { SummarySheetPage } from '../summary-sheet/summary-sheet';
 import { HelpAssetListPage } from './../help-asset-list/help-asset-list';
+import { PncSearchPage } from './../pnc-search/pnc-search';
 
 @Component({
   selector: 'page-pnc-home',
@@ -110,13 +110,6 @@ export class PncHomePage {
   }
 
   /**
-   * Dirige vers l'effectif PNC
-   */
-  goToPncSearch() {
-    this.navCtrl.push(PncSearchPage);
-  }
-  
-  /**
    * Précharge le eDossier du PNC si celui n'est pas cadre
    */
   downloadPncEdossier() {
@@ -130,6 +123,13 @@ export class PncHomePage {
       this.toastProvider.error(
         this.translateService.instant('SYNCHRONIZATION.PNC_SAVED_OFFLINE_ERROR', { 'matricule': this.pnc.matricule }));
     });
+  }
+
+  /**
+   * Dirige vers l'effectif PNC
+   */
+  goToPncSearch() {
+    this.navCtrl.push(PncSearchPage);
   }
 
   goToSummarySheet() {

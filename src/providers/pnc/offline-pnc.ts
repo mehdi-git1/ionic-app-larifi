@@ -30,6 +30,14 @@ export class OfflinePncProvider {
   }
 
   /**
+    * Récupère les PNCs du cache
+    * @return une promesse contenant les PNC trouvés
+    */
+  getPncs(): Promise<Pnc[]> {
+    return this.storageService.findAllAsync(Entity.PNC);
+  }
+
+  /**
    * Récupère les rotations à venir d'un PNC
    * @param matricule le matricule du PNC dont on souhaite récupérer les rotations à venir
    * @return une promesse contenant la liste des rotations du PNC
