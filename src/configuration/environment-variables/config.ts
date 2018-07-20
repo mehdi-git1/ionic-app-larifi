@@ -1,9 +1,7 @@
 import { BaseConfig } from './base';
 import { Injectable } from '@angular/core';
 
-
 declare var window: any;
-
 
 @Injectable()
 export class Config extends BaseConfig {

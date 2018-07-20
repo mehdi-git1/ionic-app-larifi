@@ -38,9 +38,6 @@ export class ConnectivityService {
             error => {
                 this.setConnected(false);
             });
-
-
-        setTimeout(() => this.pingAPI(), 5000);
     }
 
 
