@@ -5,6 +5,7 @@ import { ConnectivityService } from './../../services/connectivity.service';
 import { Injectable } from '@angular/core';
 import { OnlineSummarySheetProvider } from './online-summary-sheet';
 import { SummarySheet } from '../../models/summarySheet';
+import { Utils } from '../../common/utils';
 
 @Injectable()
 export class SummarySheetProvider {
@@ -23,17 +24,33 @@ export class SummarySheetProvider {
     */
   getSummarySheet(matricule: string): Promise<SummarySheet> {
     if (this.connectivityService.isConnected()) {
+      console.log('isConnected');
       return new Promise((resolve, reject) => {
         this.offlineSummarySheetProvider.getSummarySheet(matricule).then(offlineSummarySheet => {
           this.onlineSummarySheetProvider.getSummarySheet(matricule).then(onlineSummarySheet => {
-            const onlineData = this.summarySheetTransformerProvider.toSummarySheetFromBlob(onlineSummarySheet, matricule);
-            const offlineData = this.summarySheetTransformerProvider.toSummarySheet(offlineSummarySheet);
-            this.offlineProvider.flagDataAvailableOffline(onlineData, offlineData);
-            resolve(onlineData);
+            try {
+              if (!onlineSummarySheet || !onlineSummarySheet.summarySheet) {
+                resolve(null);
+              }
+              let file = new Blob([Utils.base64ToArrayBuffer(onlineSummarySheet.summarySheet)], { type: 'application/pdf' });
+              const onlineData = this.summarySheetTransformerProvider.toSummarySheetFromBlob(file, matricule);
+              const offlineData = this.summarySheetTransformerProvider.toSummarySheet(offlineSummarySheet);
+              this.offlineProvider.flagDataAvailableOffline(onlineData, offlineData);
+              resolve(onlineData);
+            } catch (error) {
+              console.log('getSummarySheet error : ' + error);
+            }
+          },
+            error => {
+              console.log(' error onlineSummarySheetProvider ' + error);
+            });
+        },
+          error => {
+            console.log(' error offlineSummarySheetProvider ' + error);
           });
-        });
       });
     } else {
+      console.log('offlineSummarySheetProvider');
       return this.offlineSummarySheetProvider.getSummarySheet(matricule);
     }
   }

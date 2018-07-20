@@ -15,7 +15,7 @@ export class OnlineSummarySheetProvider {
    * @param matricule le matricule du PNC dont on souhaite récupérer la fiche synthese
    * @return la fiche synthese du PNC
    */
-  getSummarySheet(matricule: string): Promise<Blob> {
-    return this.restService.get(`${this.config.backEndUrl}/pnc_summary_sheets/${matricule}`, null, { responseType: 'blob' });
+  getSummarySheet(matricule: string): Promise<any> {
+    return this.restService.get(`${this.config.backEndUrl}/pnc_summary_sheets/${matricule}`);
   }
 }

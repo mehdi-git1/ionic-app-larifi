@@ -1,8 +1,7 @@
-import { ConnectivityService } from './../services/connectivity.service';
 import { Config } from './../configuration/environment-variables/config';
 import { TranslateService } from '@ngx-translate/core';
 import { Injectable } from '@angular/core';
-import { HttpInterceptor, HttpHandler, HttpRequest, HttpEvent, HttpResponse, HttpErrorResponse } from '@angular/common/http';
+import { HttpInterceptor, HttpHandler, HttpRequest, HttpEvent, HttpErrorResponse } from '@angular/common/http';
 
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/do';
@@ -14,7 +13,6 @@ export class HttpErrorInterceptor implements HttpInterceptor {
   constructor(
     private toastProvider: ToastProvider,
     private translateService: TranslateService,
-    private connectivityService: ConnectivityService,
     private config: Config
   ) { }
 

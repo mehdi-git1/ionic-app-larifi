@@ -84,7 +84,11 @@ export class StorageService {
    * @return l'entité trouvée
    */
   findOne(entity: Entity, storageId: string): any {
-    return this.offlineMap[entity][storageId];
+    if (this.offlineMap && this.offlineMap[entity]) {
+      return this.offlineMap[entity][storageId];
+    } else {
+      return null;
+    }
   }
 
   /**
@@ -107,12 +111,17 @@ export class StorageService {
    * @return l'objet sauvé
    */
   save(entity: Entity, eDossierPncObject: EDossierPncObject, online: boolean = false): any {
+    if (!eDossierPncObject) {
+      return null;
+    }
     eDossierPncObject.offlineStorageDate = moment().format(AppConstant.isoDateFormat);
     if (!online) {
       eDossierPncObject.offlineAction =
         this.isOfflineStorageId(this.getStorageId(eDossierPncObject)) ? OfflineAction.CREATE : OfflineAction.UPDATE;
     }
-    this.offlineMap[entity][this.getStorageId(eDossierPncObject)] = eDossierPncObject;
+    if (this.offlineMap) {
+      this.offlineMap[entity][this.getStorageId(eDossierPncObject)] = eDossierPncObject;
+    }
     return eDossierPncObject;
   }
 
@@ -136,8 +145,10 @@ export class StorageService {
    * @param entity le type de l'entité à supprimer
    */
   deleteAll(entity: Entity): void {
-    this.offlineMap[entity] = {};
-    this.persistOfflineMap();
+    if (this.offlineMap) {
+      this.offlineMap[entity] = {};
+      this.persistOfflineMap();
+    }
   }
 
   /**

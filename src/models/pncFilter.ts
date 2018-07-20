@@ -17,9 +17,4 @@ export class PncFilter {
     speciality: Speciality;
     aircraftSkill: string;
     relay: string;
-
-    // afficher/masquer le filtre
-    showFilter: Boolean;
-    icone: string;
-
 }

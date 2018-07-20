@@ -160,6 +160,7 @@
     "PNC_SEARCH": {
         "TITLE": "Recherche PNC",
         "CRITERIA": {
+            "FILTERS": "Filtres",
             "PNC_MATRICULE": "Nom, Prénom, Matricule",
             "DIVISION": "Division",
             "SECTOR": "Secteur",

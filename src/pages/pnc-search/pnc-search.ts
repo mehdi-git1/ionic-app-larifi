@@ -11,10 +11,8 @@ import { PncProvider } from './../../providers/pnc/pnc';
 import { TranslateService } from '@ngx-translate/core';
 import { Pnc } from './../../models/pnc';
 import { Component } from '@angular/core';
-import { Parameters } from './../../models/Parameters';
+import { NavController, NavParams } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators, FormControl, AbstractControl } from '@angular/forms';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { Assignment } from '../../models/assignment';
 import { Speciality } from '../../models/speciality';
 import { Subject } from 'rxjs/Rx';
 
@@ -34,6 +32,8 @@ export class PncSearchPage {
 
   // filtre de recherche
   pncFilter: PncFilter;
+  // afficher/masquer le filtre
+  showFilter: Boolean;
 
   // Les listes des données du filtre
   divisionList: string[];
@@ -78,8 +78,7 @@ export class PncSearchPage {
    */
   initFilter() {
     this.pncFilter = new PncFilter();
-    this.pncFilter.showFilter = true;
-    this.pncFilter.icone = 'remove-circle';
+    this.showFilter = true;
     this.pageSize = AppConfig.pageSize;
     this.itemOffset = 0;
     this.specialityList = Object.keys(Speciality)
@@ -274,12 +273,7 @@ export class PncSearchPage {
   * Ouvre/ferme le filtre
   */
   toggleFilter() {
-    this.pncFilter.showFilter = !this.pncFilter.showFilter;
-    if (this.pncFilter.showFilter) {
-      this.pncFilter.icone = 'remove-circle';
-    } else {
-      this.pncFilter.icone = 'add-circle';
-    }
+    this.showFilter = !this.showFilter;
   }
 
   createCrewMemberObjectFromPnc(pnc: Pnc) {

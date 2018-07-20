@@ -27,7 +27,6 @@ export class FlightCrewListPage {
     public genderProvider: GenderProvider,
     private legProvider: LegProvider,
     public connectivityService: ConnectivityService,
-    private synchronizationProvider: SynchronizationProvider,
     private toastProvider: ToastProvider,
     private translate: TranslateService,
     private pncProvider: PncProvider,
@@ -35,6 +34,7 @@ export class FlightCrewListPage {
     private pncTransformer: PncTransformerProvider) {
 
   }
+
 
   ionViewCanEnter() {
     this.leg = this.navParams.get('leg');
@@ -53,7 +53,6 @@ export class FlightCrewListPage {
         }
       });
     }, error => {
-      this.toastProvider.info(this.translate.instant('FLIGHT_CREW_LIST.ERROR', { 'flightNumber': this.leg.number }));
     });
   }
 
