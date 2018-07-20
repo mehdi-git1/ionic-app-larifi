@@ -61,6 +61,7 @@ export class EDossierPNC implements OnInit {
       this.secMobilService.isAuthenticated().then(() => {
         // launch process when already authenticated
         this.putAuthenticatedUserInSession();
+        this.initParameters();
       },
         error => {
           console.log('go to authentication page');
@@ -86,7 +87,6 @@ export class EDossierPNC implements OnInit {
         }
       });
 
-      this.initParameters();
     });
   }
 
