@@ -30,16 +30,18 @@ export class ConnectivityService {
     /**
      * Envoie une requête au backend toutes les 5 secondes pour vérifier la connectivité.
      */
-    pingAPI() {
+    pingAPI(){
         this.restService.get(this.config.pingUrl).then(
             success => {
                 this.setConnected(true);
+                return true;
             },
             error => {
                 this.setConnected(false);
+                return true;
             });
 
-        setTimeout(() => this.pingAPI(), 5000);
+       setTimeout(() => this.pingAPI(), 5000);
     }
 
 
