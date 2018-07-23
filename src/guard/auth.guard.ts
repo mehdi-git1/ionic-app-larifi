@@ -1,3 +1,4 @@
+import { ParametersProvider } from './../providers/parameters/parameters';
 import { SecurityProvider } from './../providers/security/security';
 import { SessionService } from './../services/session.service';
 import { ToastProvider } from './../providers/toast/toast';
@@ -23,7 +24,8 @@ export class AuthGuard {
     private storageService: StorageService,
     private synchronizationProvider: SynchronizationProvider,
     private securityProvider: SecurityProvider,
-    private sessionService: SessionService
+    private sessionService: SessionService,
+    private parametersProvider: ParametersProvider
   ) {
   }
 
@@ -34,6 +36,7 @@ export class AuthGuard {
        // Création du stockage local
         return this.storageService.initOfflineMap().then(success => {
             return this.putAuthenticatedUserInSession().then(authenticatedUser => {
+                this.initParameters();
                 return this.synchronizationProvider.storeEDossierOffline(authenticatedUser.matricule).then(successStore => {
                     return true;
                 }, error => {
@@ -65,6 +68,16 @@ export class AuthGuard {
       return new AuthenticatedUser;
     });
   }
+
+    /**
+   * Récupère les parametres envoyé par le back
+   */
+  initParameters() {
+    this.parametersProvider.getParams().then(parameters => {
+      this.sessionService.parameters = parameters;
+    }, error => { });
+  }
+
 
 
 }

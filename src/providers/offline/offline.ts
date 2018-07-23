@@ -26,7 +26,7 @@ export class OfflineProvider {
    * @param offlineData un objet issu du stockage local
    */
   private flagEDossierPncObjectAsAvailableOffline(onlineData: EDossierPncObject, offlineData: EDossierPncObject) {
-    if (offlineData && offlineData.getStorageId() === onlineData.getStorageId()) {
+    if (offlineData && (offlineData.getStorageId() === onlineData.getStorageId())) {
       onlineData.offlineStorageDate = offlineData.offlineStorageDate;
     }
   }

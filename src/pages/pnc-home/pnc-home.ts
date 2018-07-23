@@ -15,6 +15,7 @@ import { Pnc } from '../../models/pnc';
 import { ConnectivityService } from '../../services/connectivity.service';
 import { SummarySheetPage } from '../summary-sheet/summary-sheet';
 import { HelpAssetListPage } from './../help-asset-list/help-asset-list';
+import { PncSearchPage } from './../pnc-search/pnc-search';
 
 @IonicPage({
   name: 'PncHomePage',
@@ -133,6 +134,13 @@ export class PncHomePage {
       this.toastProvider.error(
         this.translateService.instant('SYNCHRONIZATION.PNC_SAVED_OFFLINE_ERROR', { 'matricule': this.pnc.matricule }));
     });
+  }
+
+  /**
+   * Dirige vers l'effectif PNC
+   */
+  goToPncSearch() {
+    this.navCtrl.push(PncSearchPage);
   }
 
   goToSummarySheet() {

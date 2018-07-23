@@ -3,12 +3,13 @@ import { SynchronizationProvider } from './../providers/synchronization/synchron
 import { ToastProvider } from './../providers/toast/toast';
 import { ConnectivityService } from './../services/connectivity.service';
 
-
 import { SessionService } from './../services/session.service';
 import { SecurityProvider } from './../providers/security/security';
 
 import { Component, ViewChild, OnInit } from '@angular/core';
+
 import { Nav, Platform, NavParams, NavController } from 'ionic-angular';
+
 import { StatusBar } from '@ionic-native/status-bar';
 
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -32,6 +33,7 @@ export class EDossierPNC implements OnInit {
     public statusBar: StatusBar,
     public splashScreen: SplashScreen,
     public translate: TranslateService,
+    private secMobilService: SecMobilService,
     public authGuard: AuthGuard,
     private connectivityService: ConnectivityService,
     private toastProvider: ToastProvider,
@@ -47,6 +49,14 @@ export class EDossierPNC implements OnInit {
 
   initializeApp() {
     this.platform.ready().then(() => {
+
+      /**
+       * Actuellement le ping est configuré pour être effectif sur le web et non sur le mobile
+       * A terme, il faudra le remettre sur le mobile (probléme de CORS à l'eure actuelle)
+       */
+      if (this.secMobilService.isBrowser){
+        setTimeout(() => this.connectivityService.pingAPI(), 5000);
+      }
 
       this.statusBar.styleDefault();
       this.splashScreen.hide();
@@ -71,10 +81,9 @@ export class EDossierPNC implements OnInit {
           this.nav.setRoot('PncHomePage', { matricule: this.sessionService.authenticatedUser.matricule });
         }
       });
-
     });
-
   }
+
 
   openPage(page) {
     // Reset the content nav to have just this page

@@ -17,6 +17,12 @@
   dependencies:
     tslib "^1.7.1"
 
+"@angular/cdk@^5.2.5":
+  version "5.2.5"
+  resolved "https://nexus.airfrance.fr/nexus/repository/npm/@angular/cdk/-/cdk-5.2.5.tgz#cae2b12e1990a692dd267a73fdb1d49db37f9604"
+  dependencies:
+    tslib "^1.7.1"
+
 "@angular/common@5.2.9":
   version "5.2.9"
   resolved "https://nexus.airfrance.fr/nexus/repository/npm/@angular/common/-/common-5.2.9.tgz#beb25d4434498abae56bd8dc2c01ade3f6c45e81"
@@ -53,6 +59,12 @@
 "@angular/http@5.2.9":
   version "5.2.9"
   resolved "https://nexus.airfrance.fr/nexus/repository/npm/@angular/http/-/http-5.2.9.tgz#2ffea536e181bc97e2867593d57425ea7853285b"
+  dependencies:
+    tslib "^1.7.1"
+
+"@angular/material@^5.2.5":
+  version "5.2.5"
+  resolved "https://nexus.airfrance.fr/nexus/repository/npm/@angular/material/-/material-5.2.5.tgz#287af95d234e0644244d9db565f7a05c10b737f8"
   dependencies:
     tslib "^1.7.1"
 
@@ -932,12 +944,6 @@ cordova-plugin-compat@^1.2.0:
 cordova-plugin-device@^2.0.2:
   version "2.0.2"
   resolved "https://nexus.airfrance.fr/nexus/repository/npm/cordova-plugin-device/-/cordova-plugin-device-2.0.2.tgz#fc08f3722e67eef7b6c67bfc99a83df6add0baba"
-
-cordova-plugin-formslib@^1.0.2:
-  version "1.0.3"
-  resolved "https://nexus.airfrance.fr/nexus/repository/npm/cordova-plugin-formslib/-/cordova-plugin-formslib-1.0.3.tgz#e9298811c559b468cb1d19e037fde613e9e37863"
-  dependencies:
-    xcode "^1.0.0"
 
 cordova-plugin-ionic-keyboard@^2.1.2:
   version "2.1.2"
@@ -2681,12 +2687,6 @@ ng2-pdf-viewer@^5.1.0:
     "@types/pdfjs-dist" "^0.1.2"
     pdfjs-dist "2.0.550"
 
-ngx-moment@^3.1.0:
-  version "3.1.0"
-  resolved "https://nexus.airfrance.fr/nexus/repository/npm/ngx-moment/-/ngx-moment-3.1.0.tgz#41380b4dd8b68e7bd6d17cc6fe7f703ae506dc3a"
-  dependencies:
-    tslib "^1.9.0"
-
 node-ensure@^0.0.0:
   version "0.0.0"
   resolved "https://nexus.airfrance.fr/nexus/repository/npm/node-ensure/-/node-ensure-0.0.0.tgz#ecae764150de99861ec5c810fd5d096b183932a7"
@@ -4098,7 +4098,7 @@ tsickle@^0.27.2:
     source-map "^0.6.0"
     source-map-support "^0.5.0"
 
-tslib@^1.0.0, tslib@^1.7.1, tslib@^1.8.0, tslib@^1.8.1, tslib@^1.9.0:
+tslib@^1.0.0, tslib@^1.7.1, tslib@^1.8.0, tslib@^1.8.1:
   version "1.9.3"
   resolved "https://nexus.airfrance.fr/nexus/repository/npm/tslib/-/tslib-1.9.3.tgz#d7e4dd79245d85428c4d7e4822a79917954ca286"
 
@@ -4438,14 +4438,6 @@ ws@3.3.2:
 xcode@^0.9.0:
   version "0.9.3"
   resolved "https://nexus.airfrance.fr/nexus/repository/npm/xcode/-/xcode-0.9.3.tgz#910a89c16aee6cc0b42ca805a6d0b4cf87211cf3"
-  dependencies:
-    pegjs "^0.10.0"
-    simple-plist "^0.2.1"
-    uuid "3.0.1"
-
-xcode@^1.0.0:
-  version "1.0.0"
-  resolved "https://nexus.airfrance.fr/nexus/repository/npm/xcode/-/xcode-1.0.0.tgz#e1f5b1443245ded38c180796df1a10fdeda084ec"
   dependencies:
     pegjs "^0.10.0"
     simple-plist "^0.2.1"

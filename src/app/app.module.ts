@@ -1,3 +1,5 @@
+import { AuthenticationPage } from './../pages/authentication/authentication';
+import { HomePage } from './../pages/home/home';
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { DatePipe } from '@angular/common';
@@ -23,6 +25,8 @@ import { OfflineCareerObjectiveProvider } from './../providers/career-objective/
 import { OfflineSecurityProvider } from './../providers/security/offline-security';
 import { OnlineSecurityProvider } from './../providers/security/online-security';
 import { StorageService } from './../services/storage.service';
+
+import { AppMaterialModule } from './../shared/material/material.module';
 
 import { EObservationService } from './../services/eObservation.service';
 import { ComponentsModule } from './../components/components.module';
@@ -55,6 +59,8 @@ import { RotationProvider } from '../providers/rotation/rotation';
 import { HelpAssetProvider } from '../providers/help-asset/help-asset';
 import { LegProvider } from '../providers/leg/leg';
 
+import { ParametersProvider } from '../providers/parameters/parameters';
+
 import { OfflineProvider } from '../providers/offline/offline';
 import { OfflinePncProvider } from '../providers/pnc/offline-pnc';
 import { OnlinePncProvider } from '../providers/pnc/online-pnc';
@@ -63,14 +69,17 @@ import { WaypointTransformerProvider } from '../providers/waypoint/waypoint-tran
 import { PncTransformerProvider } from '../providers/pnc/pnc-transformer';
 import { SynchronizationProvider } from '../providers/synchronization/synchronization';
 import { PncSynchroProvider } from '../providers/synchronization/pnc-synchro';
-import { HomePage } from '../pages/home/home';
+
 
 import { SummarySheetProvider } from '../providers/summary-sheet/summary-sheet';
+
+declare var window: any;
 
 @NgModule({
   declarations: [
     EDossierPNC,
-    HomePage
+    HomePage,
+    AuthenticationPage
   ],
   imports: [
     BrowserModule,
@@ -78,12 +87,14 @@ import { SummarySheetProvider } from '../providers/summary-sheet/summary-sheet';
     IonicStorageModule.forRoot(),
     HttpClientModule,
     ComponentsModule,
-    SharedModule
+    SharedModule,
+    AppMaterialModule,
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     EDossierPNC,
-    HomePage
+    HomePage,
+    AuthenticationPage
   ],
   providers: [
     StatusBar,
@@ -109,6 +120,7 @@ import { SummarySheetProvider } from '../providers/summary-sheet/summary-sheet';
     WaypointStatusProvider,
     RotationProvider,
     LegProvider,
+    ParametersProvider,
     HelpAssetProvider,
     OfflineProvider,
     OfflineCareerObjectiveProvider,
@@ -137,7 +149,6 @@ import { SummarySheetProvider } from '../providers/summary-sheet/summary-sheet';
 export class AppModule { }
 
 
-declare var window: any;
 
 // Check if we are in app mode or in web browser
 export function createRestService(http: HttpClient, secMobilService: SecMobilService, config: Config): RestService {

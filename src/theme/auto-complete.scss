@@ -1,0 +1,9 @@
+/* Largeur auto pour l'autocomplétion */
+
+.mat-autocomplete-panel,
+.cdk-overlay-pane {
+    background: color($colors, white);
+    width: auto !important;
+    max-width: none !important;
+    max-height: none !important;
+}
