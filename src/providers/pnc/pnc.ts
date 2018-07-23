@@ -114,7 +114,9 @@ export class PncProvider {
       return this.offlinePncProvider.getPncs().then(response => {
         return this.offlinePncProvider.getPnc(this.sessionService.authenticatedUser.matricule).then(connectedPnc => {
           const filteredPnc = response.filter(pnc =>
-            (pnc.assignment.sector === connectedPnc.assignment.sector) && (pnc.matricule !== connectedPnc.matricule));
+            (pnc.assignment.division === connectedPnc.assignment.division)
+            && (pnc.assignment.sector === connectedPnc.assignment.sector)
+            && (pnc.matricule !== connectedPnc.matricule));
           const pagedPncResponse: PagedPnc = new PagedPnc();
           pagedPncResponse.content = filteredPnc;
           pagedPncResponse.page = new Page();
