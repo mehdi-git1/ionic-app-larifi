@@ -55,7 +55,7 @@ export class EDossierPNC implements OnInit {
        * Actuellement le ping est configuré pour être effectif sur le web et non sur le mobile
        * A terme, il faudra le remettre sur le mobile (probléme de CORS à l'eure actuelle)
        */
-      if (this.secMobilService.isBrowser){
+      if (this.secMobilService.isBrowser) {
         setTimeout(() => this.connectivityService.pingAPI(), 5000);
       }
 
@@ -71,9 +71,11 @@ export class EDossierPNC implements OnInit {
         // Création du stockage local
         this.storageService.initOfflineMap().then(success => {
           this.putAuthenticatedUserInSession().then(authenticatedUser => {
+            this.initParameters();
             this.synchronizationProvider.storeEDossierOffline(authenticatedUser.matricule).then(successStore => {
             }, error => {
             });
+
           });
         });
 
@@ -92,8 +94,6 @@ export class EDossierPNC implements OnInit {
           this.synchronizationProvider.synchronizeOfflineData();
         }
       });
-      this.initParameters();
-
     });
   }
 
@@ -101,17 +101,14 @@ export class EDossierPNC implements OnInit {
    * Récupère les parametres envoyé par le back
    */
   initParameters() {
-    const promise = this.putAuthenticatedUserInSession();
-    promise.then(authenticatedUser => {
-      this.parametersProvider.getParams().then(parameters => {
-        this.sessionService.parameters = parameters;
-      }, error => { });
+    this.parametersProvider.getParams().then(parameters => {
+      this.sessionService.parameters = parameters;
     }, error => { });
   }
 
   /**
-  * Mettre le pnc connecté en session
-  */
+   * Mettre le pnc connecté en session
+   */
   putAuthenticatedUserInSession(): Promise<AuthenticatedUser> {
     const promise = this.securityProvider.getAuthenticatedUser();
     promise.then(authenticatedUser => {
