@@ -60,7 +60,7 @@ export class CareerObjectiveListPage {
    * Dirige vers la page de création d'un nouvel objectif
    */
   goToCareerObjectiveCreation() {
-    this.navCtrl.push('CareerObjectiveCreatePage', { matricule: this.matricule });
+    this.navCtrl.push('CareerObjectiveCreatePage', { matricule: this.matricule, careerObjectiveId: 0 });
   }
 
   /**
@@ -68,7 +68,7 @@ export class CareerObjectiveListPage {
    * @param careerObjectiveId l'id de l'objectif à ouvrir
    */
   openCareerObjective(careerObjectiveId: number) {
-    this.navCtrl.push('CareerObjectiveCreatePage', { careerObjectiveId: careerObjectiveId });
+    this.navCtrl.push('CareerObjectiveCreatePage', { matricule: this.matricule, careerObjectiveId: careerObjectiveId });
   }
 
   /**
