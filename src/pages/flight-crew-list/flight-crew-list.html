@@ -20,6 +20,6 @@
         <div *ngIf="!flightCrewList" class="spinner-container">
             <ion-spinner></ion-spinner>
         </div>
-        <pnc-card *ngFor="let crewMember of flightCrewList" [crewMember]="crewMember" [isCrewMember]="true"></pnc-card>
+        <pnc-card *ngFor="let crewMember of flightCrewList" (click)="openPncHomePage(crewMember.pnc.matricule)" [crewMember]="crewMember" [isCrewMember]="true"></pnc-card>
     </ion-content>
 </ion-content>

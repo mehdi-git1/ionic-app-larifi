@@ -78,10 +78,9 @@ export class FlightCrewListPage {
    * @param matricule matricule du pnc concerné
    * @param onBoardFonction la fontion a bord du pnc concerné
    */
-  openPncHomePage(matricule, onBoardFonction) {
+  openPncHomePage(matricule) {
     this.sessionService.appContext.observedPncMatricule = matricule;
-    this.sessionService.appContext.onBoardObservedPncFonction = onBoardFonction;
-    this.navCtrl.push(PncHomePage);
+    this.navCtrl.push('PncHomePage', { matricule: matricule });
   }
 
 }

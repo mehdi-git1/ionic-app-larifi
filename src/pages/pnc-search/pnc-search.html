@@ -131,7 +131,7 @@
 
         <span *ngIf="!searchInProgress"><div *ngIf="filteredPncs && filteredPncs.length == 0" class="no-pnc-found">
             {{ 'PNC_SEARCH.NO_PNC_FOUND' | translate }}
-        </div><pnc-card *ngFor="let pnc of filteredPncs" [crewMember]="createCrewMemberObjectFromPnc(pnc)"></pnc-card></span>
+        </div><pnc-card *ngFor="let pnc of filteredPncs" [crewMember]="createCrewMemberObjectFromPnc(pnc)" (click)="openPncHomePage(pnc)"></pnc-card></span>
 
         <ion-infinite-scroll (ionInfinite)="$event.waitFor(doInfinite($event))">
             <ion-infinite-scroll-content></ion-infinite-scroll-content>
