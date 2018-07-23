@@ -1,6 +1,5 @@
-import { AuthenticationPage } from './../pages/authentication/authentication';
-import { HomePage } from './../pages/home/home';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
@@ -25,8 +24,6 @@ import { OfflineCareerObjectiveProvider } from './../providers/career-objective/
 import { OfflineSecurityProvider } from './../providers/security/offline-security';
 import { OnlineSecurityProvider } from './../providers/security/online-security';
 import { StorageService } from './../services/storage.service';
-
-import { AppMaterialModule } from './../shared/material/material.module';
 
 import { EObservationService } from './../services/eObservation.service';
 import { ComponentsModule } from './../components/components.module';
@@ -70,6 +67,8 @@ import { PncTransformerProvider } from '../providers/pnc/pnc-transformer';
 import { SynchronizationProvider } from '../providers/synchronization/synchronization';
 import { PncSynchroProvider } from '../providers/synchronization/pnc-synchro';
 
+import { AuthenticationPage } from './../pages/authentication/authentication';
+import { HomePage } from './../pages/home/home';
 
 import { SummarySheetProvider } from '../providers/summary-sheet/summary-sheet';
 
@@ -88,7 +87,7 @@ declare var window: any;
     HttpClientModule,
     ComponentsModule,
     SharedModule,
-    AppMaterialModule,
+    BrowserAnimationsModule,
   ],
   bootstrap: [IonicApp],
   entryComponents: [

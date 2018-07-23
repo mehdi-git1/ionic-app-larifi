@@ -87,7 +87,7 @@ export class PncHomePage {
         this.matricule = this.sessionService.appContext.observedPncMatricule;
       }
 
-      this.navCtrl.setRoot(PncHomePage, { matricule: this.matricule });
+      this.navCtrl.setRoot('PncHomePage', { matricule: this.matricule });
     });
   }
 
@@ -140,7 +140,7 @@ export class PncHomePage {
    * Dirige vers l'effectif PNC
    */
   goToPncSearch() {
-    this.navCtrl.push(PncSearchPage);
+    this.navCtrl.push('PncSearchPage');
   }
 
   goToSummarySheet() {

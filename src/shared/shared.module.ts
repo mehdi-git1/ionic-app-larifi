@@ -1,10 +1,12 @@
-import { AuthGuard } from './../guard/auth.guard';
+
 import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-translate/core';
 import { NgModule } from '@angular/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 
+import { AuthGuard } from './../guard/auth.guard';
+import { AppMaterialModule } from './material/material.module';
 
 
 export function createTranslateLoader(http: HttpClient) {
@@ -25,7 +27,8 @@ export function createTranslateLoader(http: HttpClient) {
     ],
     exports: [
       CommonModule,
-      TranslateModule
+      TranslateModule,
+      AppMaterialModule
     ],
     providers: [
         AuthGuard

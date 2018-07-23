@@ -1,3 +1,4 @@
+import { AuthGuard } from './../../guard/auth.guard';
 import { PncHomePage } from './../pnc-home/pnc-home';
 import { PncFilter } from './../../models/pncFilter';
 import { Observable } from 'rxjs/Rx';
@@ -11,11 +12,16 @@ import { PncProvider } from './../../providers/pnc/pnc';
 import { TranslateService } from '@ngx-translate/core';
 import { Pnc } from './../../models/pnc';
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, IonicPage } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators, FormControl, AbstractControl } from '@angular/forms';
 import { Speciality } from '../../models/speciality';
 import { Subject } from 'rxjs/Rx';
 
+@IonicPage({
+  name: 'PncSearchPage',
+  segment: 'pncSearch',
+  defaultHistory: ['PncHomePage']
+})
 @Component({
   selector: 'page-pnc-search',
   templateUrl: 'pnc-search.html',
@@ -60,12 +66,23 @@ export class PncSearchPage {
     private genderProvider: GenderProvider,
     private sessionService: SessionService,
     private connectivityService: ConnectivityService,
-    private toastProvider: ToastProvider) {
+    private toastProvider: ToastProvider,
+    private authGuard: AuthGuard ) {
 
     // Initialisation du formulaire
     this.initForm();
     // initialistation du filtre
     this.initFilter();
+  }
+
+  ionViewCanEnter() {
+    return this.authGuard.guard().then(guardReturn => {
+      if (guardReturn){
+        return true;
+      }else{
+        return false;
+      }
+    });
   }
 
   ionViewDidLoad() {
@@ -205,7 +222,7 @@ export class PncSearchPage {
   openPncHomePage(pnc: Pnc) {
     this.selectedPnc = undefined;
     this.initAutocompleteList();
-    this.navCtrl.push(PncHomePage, { matricule: pnc.matricule });
+    this.navCtrl.push('PncHomePage', { matricule: pnc.matricule });
   }
 
   /**
