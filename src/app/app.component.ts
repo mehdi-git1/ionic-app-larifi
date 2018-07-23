@@ -54,8 +54,9 @@ export class EDossierPNC implements OnInit {
        * Actuellement le ping est configuré pour être effectif sur le web et non sur le mobile
        * A terme, il faudra le remettre sur le mobile (probléme de CORS à l'eure actuelle)
        */
+
       if (this.secMobilService.isBrowser){
-        setTimeout(() => this.connectivityService.pingAPI(), 5000);
+        this.connectivityService.pingAPI();
       }
 
       this.statusBar.styleDefault();
@@ -63,6 +64,7 @@ export class EDossierPNC implements OnInit {
 
       this.translateService.setDefaultLang('fr');
       this.translateService.use('fr');
+
 
       // Détection d'un changement d'état de la connexion
       this.connectivityService.connectionStatusChange.subscribe(connected => {
