@@ -95,6 +95,9 @@ export class PncSearchPage {
         this.aircraftSkillList = params['aircraftSkills'];
       }
     }
+    this.pncFilter.division = 'ALL';
+    this.pncFilter.sector = 'ALL';
+    this.pncFilter.ginq = 'ALL';
   }
   /**
    * charge la liste des secteurs associé a la division choisi
@@ -233,7 +236,7 @@ export class PncSearchPage {
   getFilledFieldsOnly(pncFilter) {
     let param: string;
     for (param in pncFilter) {
-      if (pncFilter[param] === undefined || pncFilter[param] === '') {
+      if (pncFilter[param] === undefined || pncFilter[param] === '' || pncFilter[param] === 'ALL') {
         delete pncFilter[param];
       }
     }
