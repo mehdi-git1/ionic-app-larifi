@@ -50,8 +50,8 @@ export class FlightCrewListPage {
   ionViewCanEnter() {
     return this.authGuard.guard().then(guardReturn => {
       if (guardReturn){
-        this.leg = this.navParams.get('leg');
-        this.legProvider.getFlightCrewFromLeg(this.leg.techId).then(flightCrew => {
+        let legId = this.navParams.get('leg');
+        this.legProvider.getFlightCrewFromLeg(legId).then(flightCrew => {
           this.flightCrewList = flightCrew;
           flightCrew.forEach(crew => {
             if (crew.pnc.matricule !== undefined) {
