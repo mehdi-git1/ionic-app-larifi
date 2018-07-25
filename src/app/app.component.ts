@@ -1,4 +1,3 @@
-import { AuthenticationPage } from './../pages/authentication/authentication';
 import { SynchronizationProvider } from './../providers/synchronization/synchronization';
 import { ToastProvider } from './../providers/toast/toast';
 import { ConnectivityService } from './../services/connectivity.service';
@@ -34,7 +33,7 @@ export class EDossierPNC implements OnInit {
     public splashScreen: SplashScreen,
     public translate: TranslateService,
     private secMobilService: SecMobilService,
-    public authGuard: AuthGuard,
+    private authGuard: AuthGuard,
     private connectivityService: ConnectivityService,
     private toastProvider: ToastProvider,
     public translateService: TranslateService,
@@ -77,19 +76,10 @@ export class EDossierPNC implements OnInit {
       });
 
       this.authGuard.guard().then(guardValue => {
-        if (guardValue === false){
-          this.nav.setRoot(AuthenticationPage);
-        }else if (this.nav._elementRef.nativeElement.baseURI == 'http://localhost:8100/'){
+        if (guardValue === true && this.nav._elementRef.nativeElement.baseURI == 'http://localhost:8100/'){
           this.nav.setRoot('PncHomePage', { matricule: this.sessionService.authenticatedUser.matricule });
         }
       });
     });
-  }
-
-
-  openPage(page) {
-    // Reset the content nav to have just this page
-    // we wouldn't want the back button to show in this scenario
-    this.nav.setRoot(page.component);
   }
 }

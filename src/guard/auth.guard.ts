@@ -5,7 +5,7 @@ import { ToastProvider } from './../providers/toast/toast';
 import { ConnectivityService } from './../services/connectivity.service';
 import { SynchronizationProvider } from './../providers/synchronization/synchronization';
 import { StorageService } from './../services/storage.service';
-import { Nav } from 'ionic-angular';
+import { Nav, NavController } from 'ionic-angular';
 import { SecMobilService } from './../services/secMobil.service';
 import { TranslateService } from '@ngx-translate/core';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -20,6 +20,7 @@ import { AuthenticatedUser } from './../models/authenticatedUser';
 export class AuthGuard {
 
   constructor(
+    public navCtrl: NavController,
     private secMobilService: SecMobilService,
     private storageService: StorageService,
     private synchronizationProvider: SynchronizationProvider,
@@ -34,19 +35,20 @@ export class AuthGuard {
     this.secMobilService.init();
     return this.secMobilService.isAuthenticated().then(() => {
        // Création du stockage local
-        return this.storageService.initOfflineMap().then(success => {
-            return this.putAuthenticatedUserInSession().then(authenticatedUser => {
-                this.initParameters();
-                return this.synchronizationProvider.storeEDossierOffline(authenticatedUser.matricule).then(successStore => {
-                    return true;
-                }, error => {
-                    return false;
-                });
-            });
+      return this.storageService.initOfflineMap().then(success => {
+        return this.putAuthenticatedUserInSession().then(authenticatedUser => {
+          this.initParameters();
+          return this.synchronizationProvider.storeEDossierOffline(authenticatedUser.matricule).then(successStore => {
+            return true;
+          }, error => {
+            this.navCtrl.setRoot('AuthenticationPage');
+            return false;
+          });
         });
+      });
     },
     error => {
-      console.log('go to authentication page');
+      this.navCtrl.setRoot('AuthenticationPage');
       return false;
     });
   }
