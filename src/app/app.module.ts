@@ -67,7 +67,7 @@ import { PncTransformerProvider } from '../providers/pnc/pnc-transformer';
 import { SynchronizationProvider } from '../providers/synchronization/synchronization';
 import { PncSynchroProvider } from '../providers/synchronization/pnc-synchro';
 
-import { AuthenticationPage } from './../pages/authentication/authentication';
+
 import { HomePage } from './../pages/home/home';
 
 import { SummarySheetProvider } from '../providers/summary-sheet/summary-sheet';
@@ -77,8 +77,7 @@ declare var window: any;
 @NgModule({
   declarations: [
     EDossierPNC,
-    HomePage,
-    AuthenticationPage
+    HomePage
   ],
   imports: [
     BrowserModule,
@@ -92,8 +91,7 @@ declare var window: any;
   bootstrap: [IonicApp],
   entryComponents: [
     EDossierPNC,
-    HomePage,
-    AuthenticationPage
+    HomePage
   ],
   providers: [
     StatusBar,
