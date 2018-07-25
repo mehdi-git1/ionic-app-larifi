@@ -14,7 +14,7 @@ export class PncFilter {
     division: string;
     sector: string;
     ginq: string;
-    speciality: Speciality;
+    speciality: string;
     aircraftSkill: string;
     relay: string;
 }

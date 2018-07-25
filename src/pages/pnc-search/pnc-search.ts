@@ -22,6 +22,8 @@ import { Subject } from 'rxjs/Rx';
 })
 export class PncSearchPage {
 
+  allLabel: string;
+
   pncList: Observable<Pnc[]>;
   filteredPncs: Pnc[];
   searchInProgress: boolean;
@@ -66,6 +68,7 @@ export class PncSearchPage {
     this.initForm();
     // initialistation du filtre
     this.initFilter();
+
   }
 
   ionViewDidLoad() {
@@ -98,6 +101,9 @@ export class PncSearchPage {
     this.pncFilter.division = 'ALL';
     this.pncFilter.sector = 'ALL';
     this.pncFilter.ginq = 'ALL';
+    this.pncFilter.speciality = 'ALL';
+    this.pncFilter.aircraftSkill = 'ALL';
+    this.pncFilter.relay = 'ALL';
   }
   /**
    * charge la liste des secteurs associé a la division choisi
