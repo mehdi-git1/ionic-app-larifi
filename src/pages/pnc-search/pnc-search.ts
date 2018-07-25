@@ -21,8 +21,8 @@ import { Subject } from 'rxjs/Rx';
   templateUrl: 'pnc-search.html',
 })
 export class PncSearchPage {
-
-  allLabel: string;
+  // constante qui représente la valeur de l'option tous ou toutes des listes déroulantes
+  ALL = 'ALL';
 
   pncList: Observable<Pnc[]>;
   filteredPncs: Pnc[];
@@ -98,12 +98,12 @@ export class PncSearchPage {
         this.aircraftSkillList = params['aircraftSkills'];
       }
     }
-    this.pncFilter.division = 'ALL';
-    this.pncFilter.sector = 'ALL';
-    this.pncFilter.ginq = 'ALL';
-    this.pncFilter.speciality = 'ALL';
-    this.pncFilter.aircraftSkill = 'ALL';
-    this.pncFilter.relay = 'ALL';
+    this.pncFilter.division = this.ALL;
+    this.pncFilter.sector = this.ALL;
+    this.pncFilter.ginq = this.ALL;
+    this.pncFilter.speciality = this.ALL;
+    this.pncFilter.aircraftSkill = this.ALL;
+    this.pncFilter.relay = this.ALL;
   }
   /**
    * charge la liste des secteurs associé a la division choisi
@@ -112,11 +112,11 @@ export class PncSearchPage {
   getSectorList(division) {
     this.ginqList = null;
     this.sectorList = null;
-    if (division !== 'ALL') {
+    if (division !== this.ALL) {
       this.sectorList = Object.keys(this.sessionService.parameters.params['divisions'][division]);
     }
-    this.pncFilter.sector = '';
-    this.pncFilter.ginq = '';
+    this.pncFilter.sector = this.ALL;
+    this.pncFilter.ginq = this.ALL;
   }
 
   /**
@@ -125,10 +125,10 @@ export class PncSearchPage {
    */
   getGinqList(sector) {
     this.ginqList = null;
-    if (this.pncFilter.division !== 'ALL' && sector !== '' && sector !== 'ALL') {
+    if (this.pncFilter.division !== this.ALL && sector !== '' && sector !== this.ALL) {
       this.ginqList = this.sessionService.parameters.params['divisions'][this.pncFilter.division][sector];
     }
-    this.pncFilter.ginq = '';
+    this.pncFilter.ginq = this.ALL;
   }
 
   /**
@@ -242,10 +242,11 @@ export class PncSearchPage {
   getFilledFieldsOnly(pncFilter) {
     let param: string;
     for (param in pncFilter) {
-      if (pncFilter[param] === undefined || pncFilter[param] === '' || pncFilter[param] === 'ALL') {
+      if (pncFilter[param] === undefined || pncFilter[param] === 'undefined' || pncFilter[param] === '' || pncFilter[param] === this.ALL) {
         delete pncFilter[param];
       }
     }
+    return pncFilter;
   }
 
   /**
@@ -267,6 +268,7 @@ export class PncSearchPage {
       setTimeout(() => {
         if (this.filteredPncs.length < this.totalPncs) {
           this.pncFilter.page = ++this.pncFilter.page;
+          this.getFilledFieldsOnly(this.pncFilter);
           this.pncProvider.getFilteredPncs(this.pncFilter).then(pagedPnc => {
             this.filteredPncs.push(...pagedPnc.content);
           });
