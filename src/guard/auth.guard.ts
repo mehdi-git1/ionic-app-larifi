@@ -5,7 +5,7 @@ import { ToastProvider } from './../providers/toast/toast';
 import { ConnectivityService } from './../services/connectivity.service';
 import { SynchronizationProvider } from './../providers/synchronization/synchronization';
 import { StorageService } from './../services/storage.service';
-import { Nav, NavController } from 'ionic-angular';
+import { NavController } from 'ionic-angular';
 import { SecMobilService } from './../services/secMobil.service';
 import { TranslateService } from '@ngx-translate/core';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -20,7 +20,6 @@ import { AuthenticatedUser } from './../models/authenticatedUser';
 export class AuthGuard {
 
   constructor(
-    public navCtrl: NavController,
     private secMobilService: SecMobilService,
     private storageService: StorageService,
     private synchronizationProvider: SynchronizationProvider,
@@ -41,14 +40,12 @@ export class AuthGuard {
           return this.synchronizationProvider.storeEDossierOffline(authenticatedUser.matricule).then(successStore => {
             return true;
           }, error => {
-            this.navCtrl.setRoot('AuthenticationPage');
             return false;
           });
         });
       });
     },
     error => {
-      this.navCtrl.setRoot('AuthenticationPage');
       return false;
     });
   }
