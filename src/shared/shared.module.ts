@@ -37,9 +37,9 @@ export function createTranslateLoader(http: HttpClient) {
 export class SharedModule {
      constructor(private translate: TranslateService) {
         translate.addLangs(['en', 'fr']);
-        translate.setDefaultLang('en');
+        translate.setDefaultLang('fr');
 
         let browserLang = translate.getBrowserLang();
-        translate.use(browserLang.match(/en|fr/) ? browserLang : 'en');
+        translate.use(browserLang.match(/en|fr/) ? browserLang : 'fr');
     }
 }
