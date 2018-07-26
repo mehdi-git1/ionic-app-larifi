@@ -1,3 +1,4 @@
+import { Config } from './../../configuration/environment-variables/config';
 import { PncHomePage } from './../pnc-home/pnc-home';
 import { PncFilter } from './../../models/pncFilter';
 import { Observable } from 'rxjs/Rx';
@@ -6,7 +7,6 @@ import { ConnectivityService } from './../../services/connectivity.service';
 import { CrewMember } from './../../models/crewMember';
 import { SessionService } from './../../services/session.service';
 import { GenderProvider } from './../../providers/gender/gender';
-import { AppConfig } from './../../app/app.config';
 import { PncProvider } from './../../providers/pnc/pnc';
 import { TranslateService } from '@ngx-translate/core';
 import { Pnc } from './../../models/pnc';
@@ -62,7 +62,8 @@ export class PncSearchPage {
     private genderProvider: GenderProvider,
     private sessionService: SessionService,
     private connectivityService: ConnectivityService,
-    private toastProvider: ToastProvider) {
+    private toastProvider: ToastProvider,
+    private config: Config) {
 
     // Initialisation du formulaire
     this.initForm();
@@ -73,7 +74,7 @@ export class PncSearchPage {
 
   ionViewDidLoad() {
     this.totalPncs = 0;
-    this.pageSize = AppConfig.pageSize;
+    this.pageSize = this.config.pageSize;
   }
 
   /**
@@ -82,7 +83,7 @@ export class PncSearchPage {
   initFilter() {
     this.pncFilter = new PncFilter();
     this.showFilter = true;
-    this.pageSize = AppConfig.pageSize;
+    this.pageSize = this.config.pageSize;
     this.itemOffset = 0;
     this.specialityList = Object.keys(Speciality)
       .map(k => Speciality[k])
@@ -265,18 +266,16 @@ export class PncSearchPage {
    */
   doInfinite(infiniteScroll): Promise<any> {
     return new Promise((resolve) => {
-      setTimeout(() => {
-        if (this.filteredPncs.length < this.totalPncs) {
-          this.pncFilter.page = ++this.pncFilter.page;
-          this.getFilledFieldsOnly(this.pncFilter);
-          this.pncProvider.getFilteredPncs(this.pncFilter).then(pagedPnc => {
-            this.filteredPncs.push(...pagedPnc.content);
-          });
-        } else {
-          infiniteScroll.enable(false);
-        }
-        resolve();
-      }, 500);
+      if (this.filteredPncs.length < this.totalPncs) {
+        this.pncFilter.page = ++this.pncFilter.page;
+        this.getFilledFieldsOnly(this.pncFilter);
+        this.pncProvider.getFilteredPncs(this.pncFilter).then(pagedPnc => {
+          this.filteredPncs.push(...pagedPnc.content);
+          resolve();
+        });
+      } else {
+        infiniteScroll.enable(false);
+      }
     });
   }
 
