@@ -3,3 +3,9 @@ ion-navbar {
         display: flex;
     }
 }
+
+.toolbar-ios .toolbar-content-ios connectivity-indicator{
+    position:absolute;
+    right:10px;
+    bottom:10px;
+}
