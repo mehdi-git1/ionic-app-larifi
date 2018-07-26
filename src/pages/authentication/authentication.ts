@@ -9,7 +9,7 @@ import { SecMobilService } from '../../services/secMobil.service';
 
 @IonicPage({
   name: 'AuthenticationPage',
-  segment: 'authentication/:careerObjectiveId'
+  segment: 'authentication'
 })
 
 @Component({
