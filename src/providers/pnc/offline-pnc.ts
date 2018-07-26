@@ -35,7 +35,13 @@ export class OfflinePncProvider {
    * @return une promesse contenant la liste des rotations du PNC
    */
   getUpcomingRotations(matricule: string): Promise<Rotation[]> {
-    return this.storageService.findOneAsync(Entity.ROTATION, matricule);
+    return new Promise((resolve, reject) => {
+      const rotations = this.storageService.findAll(Entity.ROTATION);
+      rotations.filter(rotation => {
+        return rotation.pncs.matricule === matricule;
+      });
+      resolve(rotations);
+    });
   }
 
   /**
