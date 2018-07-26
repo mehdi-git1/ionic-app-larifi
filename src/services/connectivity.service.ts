@@ -8,6 +8,7 @@ declare var window: any;
 export class ConnectivityService {
 
     private connected = true;
+    private timer = 0;
 
     @Output()
     connectionStatusChange = new EventEmitter<boolean>();
@@ -39,7 +40,12 @@ export class ConnectivityService {
                 this.setConnected(false);
             });
 
-        setTimeout(() => this.pingAPI(), 5000);
+        this.timer = setTimeout(() => this.pingAPI(), 5000);
+    }
+
+    stopPingApi(){
+        clearTimeout(this.timer);
+        this.timer = 0;
     }
 
 

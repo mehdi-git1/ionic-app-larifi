@@ -1,3 +1,5 @@
+import { ConnectivityService } from './../services/connectivity.service';
+import { SecMobilService } from './../services/secMobil.service';
 import { Config } from './../configuration/environment-variables/config';
 import { TranslateService } from '@ngx-translate/core';
 import { Injectable } from '@angular/core';
@@ -13,6 +15,8 @@ export class HttpErrorInterceptor implements HttpInterceptor {
   constructor(
     private toastProvider: ToastProvider,
     private translateService: TranslateService,
+    private secMobilService: SecMobilService,
+    private connectivityService: ConnectivityService,
     private config: Config
   ) { }
 
@@ -22,9 +26,8 @@ export class HttpErrorInterceptor implements HttpInterceptor {
   ): Observable<HttpEvent<any>> {
 
     return next.handle(request).do(success => {
-
+      this.connectivityService.stopPingApi();
     }, err => {
-
       if (err instanceof HttpErrorResponse && request.url !== this.config.pingUrl) {
         let errorMessage = this.translateService.instant('GLOBAL.UNKNOWN_ERROR');
 
@@ -33,6 +36,15 @@ export class HttpErrorInterceptor implements HttpInterceptor {
         }
 
         this.toastProvider.error(errorMessage);
+
+        /**
+         * Pour le monent le ping n'est activé que lorsque l'on est en mode WEB
+         * car le ping ne fonctionne pas sur le mobile.
+         * Quand il fonctionnera, mettre le ping pour le mobile only
+         */
+        if (this.secMobilService.isBrowser){
+          this.connectivityService.pingAPI();
+        }
       }
     });
   }

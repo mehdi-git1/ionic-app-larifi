@@ -56,10 +56,6 @@ export class EDossierPNC implements OnInit {
        * A terme, il faudra le remettre sur le mobile (probléme de CORS à l'eure actuelle)
        */
 
-      if (this.secMobilService.isBrowser){
-        this.connectivityService.pingAPI();
-      }
-
       this.statusBar.styleDefault();
       this.splashScreen.hide();
 
