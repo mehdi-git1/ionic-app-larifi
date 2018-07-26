@@ -96,8 +96,6 @@ export class CareerObjectiveCreatePage {
           // On récupère l'id de l'objectif dans les paramètres de navigation
           if (this.navParams.get('careerObjectiveId') && this.navParams.get('careerObjectiveId') !== '0') {
             this.careerObjective.techId = this.navParams.get('careerObjectiveId');
-          } else {
-            resolve();
           }
 
           // Récupération de l'objectif et des points d'étape
