@@ -51,22 +51,24 @@ export class FlightCrewListPage {
     return this.authGuard.guard().then(guardReturn => {
       if (guardReturn){
         let legId = this.navParams.get('leg');
-        this.legProvider.getFlightCrewFromLeg(legId).then(flightCrew => {
-          this.flightCrewList = flightCrew;
-          flightCrew.forEach(crew => {
-            if (crew.pnc.matricule !== undefined) {
-              if (crew.pnc.matricule === this.sessionService.authenticatedUser.matricule) {
-                this.sessionService.appContext.onBoardRedactorFonction = crew.onBoardFonction;
+        this.legProvider.getLeg(legId).then(legInfos => {
+          this.leg = legInfos;
+          this.legProvider.getFlightCrewFromLeg(legId).then(flightCrew => {
+            this.flightCrewList = flightCrew;
+            flightCrew.forEach(crew => {
+              if (crew.pnc.matricule !== undefined) {
+                if (crew.pnc.matricule === this.sessionService.authenticatedUser.matricule) {
+                  this.sessionService.appContext.onBoardRedactorFonction = crew.onBoardFonction;
+                }
+                this.pncProvider.refreshOffLineDateOnPnc(this.pncTransformer.toPnc(crew.pnc)).then(foundPnc => {
+                  crew.pnc = foundPnc;
+                }, error => {
+                  this.toastProvider.info(this.translate.instant('FLIGHT_CREW_LIST.ERROR', { 'flightNumber': this.leg.number }));
+                });
               }
-              this.pncProvider.refreshOffLineDateOnPnc(this.pncTransformer.toPnc(crew.pnc)).then(foundPnc => {
-                crew.pnc = foundPnc;
-              }, error => {
-                this.toastProvider.info(this.translate.instant('FLIGHT_CREW_LIST.ERROR', { 'flightNumber': this.leg.number }));
-              });
-            }
-          });
-        }, error => {
-        });
+            });
+          }, error => {});
+        }, error => {});
       }else{
         return false;
       }
