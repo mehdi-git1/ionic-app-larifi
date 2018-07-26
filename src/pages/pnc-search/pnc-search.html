@@ -50,7 +50,7 @@
                             <ion-item>
                                 <ion-label floating>{{ 'PNC_SEARCH.CRITERIA.DIVISION' | translate }}</ion-label>
                                 <ion-select [(ngModel)]="pncFilter.division" [compareWith]="compareFn" formControlName="divisionControl" #division (ionChange)="getSectorList(division.value)" [disabled]="this.areFiltersDisabled()">
-                                    <ion-option value="ALL">{{ 'PNC_SEARCH.DEFAULT_DATA.ALL_F' | translate }}</ion-option>
+                                    <ion-option [value]="ALL" translate="PNC_SEARCH.DEFAULT_DATA.ALL_F"></ion-option>
                                     <ion-option *ngFor="let divisionKey of divisionList" [value]="divisionKey">{{divisionKey}}</ion-option>
                                 </ion-select>
                             </ion-item>
@@ -60,7 +60,7 @@
                             <ion-item>
                                 <ion-label floating>{{ 'PNC_SEARCH.CRITERIA.SECTOR' | translate }}</ion-label>
                                 <ion-select [(ngModel)]="pncFilter.sector" [compareWith]="compareFn" formControlName="sectorControl" #sector (ionChange)="getGinqList(sector.value)" [disabled]="this.areFiltersDisabled()">
-                                    <ion-option value="ALL">{{ 'PNC_SEARCH.DEFAULT_DATA.ALL_M' | translate }}</ion-option>
+                                    <ion-option [value]="ALL" translate="PNC_SEARCH.DEFAULT_DATA.ALL_M"></ion-option>
                                     <ion-option *ngFor="let sectorKey of sectorList" [value]="sectorKey">{{sectorKey}}</ion-option>
                                 </ion-select>
                             </ion-item>
@@ -70,7 +70,7 @@
                             <ion-item>
                                 <ion-label floating>{{ 'PNC_SEARCH.CRITERIA.GINQ' | translate }}</ion-label>
                                 <ion-select [(ngModel)]="pncFilter.ginq" [compareWith]="compareFn" formControlName="ginqControl" [disabled]="this.areFiltersDisabled()">
-                                    <ion-option value="ALL">{{ 'PNC_SEARCH.DEFAULT_DATA.ALL_M' | translate }}</ion-option>
+                                    <ion-option [value]="ALL" translate="PNC_SEARCH.DEFAULT_DATA.ALL_M"></ion-option>
                                     <ion-option *ngFor="let ginqKey of ginqList" [value]="ginqKey">{{ginqKey}}</ion-option>
                                 </ion-select>
                             </ion-item>
@@ -82,7 +82,7 @@
                             <ion-item>
                                 <ion-label floating>{{ 'PNC_SEARCH.CRITERIA.SPECIALITY' | translate }}</ion-label>
                                 <ion-select [(ngModel)]="pncFilter.speciality" [compareWith]="compareFn" formControlName="specialityControl" [disabled]="this.areFiltersDisabled()">
-                                    <ion-option value="ALL">{{ 'PNC_SEARCH.DEFAULT_DATA.ALL_F' | translate }}</ion-option>
+                                    <ion-option [value]="ALL" translate="PNC_SEARCH.DEFAULT_DATA.ALL_F"></ion-option>
                                     <ion-option *ngFor="let specialityKey of specialityList" [value]="specialityKey">{{specialityKey}}</ion-option>
                                 </ion-select>
                             </ion-item>
@@ -92,7 +92,7 @@
                             <ion-item>
                                 <ion-label floating>{{ 'PNC_SEARCH.CRITERIA.AIRCRAFT_SKILL' | translate }}</ion-label>
                                 <ion-select [(ngModel)]="pncFilter.aircraftSkill" [compareWith]="compareFn" formControlName="aircraftSkillControl" [disabled]="this.areFiltersDisabled()">
-                                    <ion-option value="ALL">{{ 'PNC_SEARCH.DEFAULT_DATA.ALL_F' | translate }}</ion-option>
+                                    <ion-option [value]="ALL" translate="PNC_SEARCH.DEFAULT_DATA.ALL_F"></ion-option>
                                     <ion-option *ngFor="let aircraftSkillKey of aircraftSkillList" [value]="aircraftSkillKey">{{aircraftSkillKey}}</ion-option>
                                 </ion-select>
                             </ion-item>
@@ -102,7 +102,7 @@
                             <ion-item>
                                 <ion-label floating>{{ 'PNC_SEARCH.CRITERIA.RELAY' | translate }}</ion-label>
                                 <ion-select [(ngModel)]="pncFilter.relay" [compareWith]="compareFn" formControlName="relayControl" [disabled]="this.areFiltersDisabled()">
-                                    <ion-option value="ALL">{{ 'PNC_SEARCH.DEFAULT_DATA.ALL_M' | translate }}</ion-option>
+                                    <ion-option [value]="ALL" translate="PNC_SEARCH.DEFAULT_DATA.ALL_M"></ion-option>
                                     <ion-option *ngFor="let relayKey of relayList" [value]="relayKey">{{relayKey}}</ion-option>
                                 </ion-select>
                             </ion-item>

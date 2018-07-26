@@ -1,4 +1,5 @@
 import { AuthGuard } from './../../guard/auth.guard';
+import { Config } from './../../configuration/environment-variables/config';
 import { PncHomePage } from './../pnc-home/pnc-home';
 import { PncFilter } from './../../models/pncFilter';
 import { Observable } from 'rxjs/Rx';
@@ -7,7 +8,6 @@ import { ConnectivityService } from './../../services/connectivity.service';
 import { CrewMember } from './../../models/crewMember';
 import { SessionService } from './../../services/session.service';
 import { GenderProvider } from './../../providers/gender/gender';
-import { AppConfig } from './../../app/app.config';
 import { PncProvider } from './../../providers/pnc/pnc';
 import { TranslateService } from '@ngx-translate/core';
 import { Pnc } from './../../models/pnc';
@@ -27,6 +27,8 @@ import { Subject } from 'rxjs/Rx';
   templateUrl: 'pnc-search.html',
 })
 export class PncSearchPage {
+  // constante qui représente la valeur de l'option tous ou toutes des listes déroulantes
+  ALL = 'ALL';
 
   pncList: Observable<Pnc[]>;
   filteredPncs: Pnc[];
@@ -67,12 +69,14 @@ export class PncSearchPage {
     private sessionService: SessionService,
     private connectivityService: ConnectivityService,
     private toastProvider: ToastProvider,
-    private authGuard: AuthGuard ) {
+    private authGuard: AuthGuard,
+    private config: Config) {
 
     // Initialisation du formulaire
     this.initForm();
     // initialistation du filtre
     this.initFilter();
+
   }
 
   ionViewCanEnter() {
@@ -87,7 +91,7 @@ export class PncSearchPage {
 
   ionViewDidLoad() {
     this.totalPncs = 0;
-    this.pageSize = AppConfig.pageSize;
+    this.pageSize = this.config.pageSize;
   }
 
   /**
@@ -96,7 +100,7 @@ export class PncSearchPage {
   initFilter() {
     this.pncFilter = new PncFilter();
     this.showFilter = true;
-    this.pageSize = AppConfig.pageSize;
+    this.pageSize = this.config.pageSize;
     this.itemOffset = 0;
     this.specialityList = Object.keys(Speciality)
       .map(k => Speciality[k])
@@ -112,6 +116,12 @@ export class PncSearchPage {
         this.aircraftSkillList = params['aircraftSkills'];
       }
     }
+    this.pncFilter.division = this.ALL;
+    this.pncFilter.sector = this.ALL;
+    this.pncFilter.ginq = this.ALL;
+    this.pncFilter.speciality = this.ALL;
+    this.pncFilter.aircraftSkill = this.ALL;
+    this.pncFilter.relay = this.ALL;
   }
   /**
    * charge la liste des secteurs associé a la division choisi
@@ -120,11 +130,11 @@ export class PncSearchPage {
   getSectorList(division) {
     this.ginqList = null;
     this.sectorList = null;
-    if (division !== 'ALL') {
+    if (division !== this.ALL) {
       this.sectorList = Object.keys(this.sessionService.parameters.params['divisions'][division]);
     }
-    this.pncFilter.sector = '';
-    this.pncFilter.ginq = '';
+    this.pncFilter.sector = this.ALL;
+    this.pncFilter.ginq = this.ALL;
   }
 
   /**
@@ -133,10 +143,10 @@ export class PncSearchPage {
    */
   getGinqList(sector) {
     this.ginqList = null;
-    if (this.pncFilter.division !== 'ALL' && sector !== '' && sector !== 'ALL') {
+    if (this.pncFilter.division !== this.ALL && sector !== '' && sector !== this.ALL) {
       this.ginqList = this.sessionService.parameters.params['divisions'][this.pncFilter.division][sector];
     }
-    this.pncFilter.ginq = '';
+    this.pncFilter.ginq = this.ALL;
   }
 
   /**
@@ -250,10 +260,11 @@ export class PncSearchPage {
   getFilledFieldsOnly(pncFilter) {
     let param: string;
     for (param in pncFilter) {
-      if (pncFilter[param] === undefined || pncFilter[param] === '') {
+      if (pncFilter[param] === undefined || pncFilter[param] === 'undefined' || pncFilter[param] === '' || pncFilter[param] === this.ALL) {
         delete pncFilter[param];
       }
     }
+    return pncFilter;
   }
 
   /**
@@ -272,17 +283,16 @@ export class PncSearchPage {
    */
   doInfinite(infiniteScroll): Promise<any> {
     return new Promise((resolve) => {
-      setTimeout(() => {
-        if (this.filteredPncs.length < this.totalPncs) {
-          this.pncFilter.page = ++this.pncFilter.page;
-          this.pncProvider.getFilteredPncs(this.pncFilter).then(pagedPnc => {
-            this.filteredPncs.push(...pagedPnc.content);
-          });
-        } else {
-          infiniteScroll.enable(false);
-        }
-        resolve();
-      }, 500);
+      if (this.filteredPncs.length < this.totalPncs) {
+        this.pncFilter.page = ++this.pncFilter.page;
+        this.getFilledFieldsOnly(this.pncFilter);
+        this.pncProvider.getFilteredPncs(this.pncFilter).then(pagedPnc => {
+          this.filteredPncs.push(...pagedPnc.content);
+          resolve();
+        });
+      } else {
+        infiniteScroll.enable(false);
+      }
     });
   }
 

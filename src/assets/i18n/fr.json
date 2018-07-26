@@ -1,0 +1,204 @@
+{
+    "GLOBAL": {
+        "PNC_ROLE": {
+            "MANAGER": "Cadre",
+            "PNC": "PNC"
+        },
+        "DATEPICKER": {
+            "CANCEL": "Annuler",
+            "DONE": "Valider",
+            "CLEAR": "Vider"
+        },
+        "CAREER_OBJECTIVE_STATUS": {
+            "DRAFT": "BROUILLON",
+            "REGISTERED": "EN COURS",
+            "VALIDATED": "VALIDÉ",
+            "ABANDONED": "ABANDONNÉ"
+        },
+        "WAYPOINT_STATUS": {
+            "DRAFT": "BROUILLON",
+            "REGISTERED": "EN COURS"
+        },
+        "CONNECTIVITY": {
+            "ONLINE_MODE": "Connexion avec le serveur retrouvée",
+            "OFFLINE_MODE": "Connexion perdue, vous êtes à présent en mode déconnecté"
+        },
+        "DEVELOPMENT_PROGRAM": "Parcours de développement",
+        "PNC_SUMMARY_SHEET": "Fiche synthèse PNC",
+        "HELP_CENTRE": "Ressources d'aide",
+        "PNC_TEAM": "Effectif PNC",
+        "UPCOMING_FLIGHT": "Prochains vols",
+        "CREW_MEMBERS": "Liste équipage",
+        "UNKNOWN_ERROR": "Une erreur inconnue est survenue. Merci de recharger la page ou réessayer dans quelques minutes.",
+        "COMING_SOON": "(Prochainement)"
+    },
+    "CAREER_OBJECTIVE_CREATE": {
+        "CREATE_TITLE": "Création d'un nouvel objectif",
+        "EDIT_TITLE": "Modification d'un objectif",
+        "WAYPOINT_LIST_TITLE": "Points d'étapes",
+        "FORM": {
+            "PNC": "PNC",
+            "INITIATOR": "Initiateur",
+            "TITLE": "Libellé de l'objectif",
+            "CONTEXT": "Contexte",
+            "ACTION_PLAN": "Plan d'action et ressources utiles",
+            "MANAGER_COMMENT": "Commentaire cadre",
+            "PNC_COMMENT": "Commentaire PNC",
+            "NEXT_ENCOUNTER_DATE": "Prochain point",
+            "ENCOUNTER_DATE": "Date de rencontre",
+            "PRIORITIZED": "Prioritaire",
+            "CREATION_DATE": "Créé le",
+            "REQUIRED_ON_ENCOUNTER_DAY": " (Saisie obligatoire le jour de la rencontre)"
+        },
+        "CONFIRM_DRAFT_DELETE": {
+            "TITLE": "Suppression du brouillon",
+            "MESSAGE": "Confirmez vous la suppression de ce brouillon ?",
+            "CANCEL": "Annuler",
+            "CONFIRM": "Supprimer"
+        },
+        "BUTTONS": {
+            "SAVE": "Enregistrer",
+            "SAVE_DRAFT": "Sauvegarder brouillon",
+            "DELETE_DRAFT": "Supprimer brouillon",
+            "VALIDATE": "Valider",
+            "ABANDON": "Abandonner",
+            "CANCEL_VALIDATION": "Annuler la validation",
+            "RESUME": "Reprendre l'objectif",
+            "CREATE_INSTRUCTOR_REQUEST": "Solliciter mon instructeur"
+        },
+        "SUCCESS": {
+            "CAREER_OBJECTIVE_SAVED": "Objectif enregistré avec succès",
+            "DRAFT_SAVED": "Brouillon enregistré",
+            "DRAFT_DELETED": "Brouillon supprimé",
+            "CAREER_OBJECTIVE_VALIDATED": "Objectif validé",
+            "CAREER_OBJECTIVE_ABANDONED": "Objectif abandonné",
+            "CAREER_OBJECTIVE_VALIDATION_CANCELED": "Validation annulée de l'objectif",
+            "CAREER_OBJECTIVE_RESUMED": "Objectif repris avec succés",
+            "CAREER_OBJECTIVE_INSTRUCTOR_REQUESTED": "Demande envoyée avec succès"
+        },
+        "ERROR": {
+            "CAREER_OBJECTIVE_CREATION_FAILED": "La création de l'objectif a échoué"
+        }
+    },
+    "CAREER_OBJECTIVE_LIST": {
+        "TITLE": "Liste des objectifs",
+        "NO_OBJECTIVES": "Aucun objectif créé pour le moment",
+        "LIST": {
+            "CREATION_DATE": "Date de création",
+            "TITLE": "Libellé",
+            "REGISTRATION_DATE": "Date d'enregistrement",
+            "ENCOUNTER_DATE": "Date de rencontre",
+            "NEXT_ENCOUNTER_DATE": "Date du Prochain point"
+        },
+        "BUTTONS": {
+            "ADD_CAREER_OBJECTIVE": "Créer un nouvel objectif"
+        },
+        "CREATE_EOBSERVATION": "Créer une eObservation"
+    },
+    "PNC_HOME": {
+        "TITLE": "Accueil PNC",
+        "GO_TO_EDOSSIER": {
+            "MATRICULE": "Matricule du PNC dont on souhaite voir le EDOSSIER",
+            "SUBMIT": "Valider"
+        },
+        "INFO_PANEL": {
+            "FUNCTION": "Fonction",
+            "GINQ": "Ginq",
+            "SECTOR": "Secteur",
+            "DIVISION": "Division"
+        }
+    },
+    "MANAGER_HOME": {
+        "TITLE": "Accueil Cadre"
+    },
+    "WAYPOINT_CREATE": {
+        "TITLE": "Création d'un point d'étape",
+        "FORM": {
+            "CONTEXT": "Contexte",
+            "ACTION_PERFORMED": "Action réalisée",
+            "MANAGER_COMMENT": "Commentaire cadre",
+            "PNC_COMMENT": "Commentaire PNC",
+            "ENCOUNTER_DATE": "Date de rencontre",
+            "REQUIRED_ON_ENCOUNTER_DAY": " (Saisie obligatoire le jour de la rencontre)"
+        },
+        "CONFIRM_DRAFT_DELETE": {
+            "TITLE": "Suppression du brouillon",
+            "MESSAGE": "Confirmez vous la suppression de ce brouillon ?",
+            "CANCEL": "Annuler",
+            "CONFIRM": "Supprimer"
+        },
+        "BUTTONS": {
+            "SAVE": "Enregistrer",
+            "SAVE_DRAFT": "Sauvegarder brouillon",
+            "DELETE_DRAFT": "Supprimer brouillon"
+        },
+        "SUCCESS": {
+            "WAYPOINT_SAVED": "Point d'étape enregistré avec succès",
+            "DRAFT_SAVED": "Brouillon enregistré",
+            "DRAFT_DELETED": "Brouillon supprimé"
+        }
+    },
+    "FLIGHT_CREW_LIST": {
+        "LIST": {
+            "RELAYS": "Relais",
+            "FUNCTION": "Fonction",
+            "LAST_IN_FLIGHT_ENCOUNTER_DATE": "Dernière rencontre Vol",
+            "LAST_ON_GROUND_ENCOUNTER_DATE": "Dernière rencontre Sol"
+        },
+        "ERROR": "Erreur lors de la récupération de la liste équipage du vol {{flightNumber}}"
+    },
+    "UPCOMING_FLIGHT_LIST": {
+        "TITLE": "Liste de vos prochains vols rencontre",
+        "LAST_FLIGHT": "Mon dernier vol",
+        "UPCOMING_FLIGHTS": "Mes prochains vols",
+        "NO_FLIGHTS": "Aucun vol trouvé"
+    },
+    "SUMMARY_SHEET": {
+        "TITLE": "Synthèse PNC",
+        "PDF_MISSING": "Pas de fiche synthèse disponible"
+    },
+    "PNC_SEARCH": {
+        "TITLE": "Recherche PNC",
+        "CRITERIA": {
+            "FILTERS": "Filtres",
+            "PNC_MATRICULE": "Nom, Prénom, Matricule",
+            "DIVISION": "Division",
+            "SECTOR": "Secteur",
+            "GINQ": "Ginq",
+            "SPECIALITY": "Fonction",
+            "RELAY": "Relais",
+            "AIRCRAFT_SKILL": "Spécification machine",
+            "WORK_RATE": "Rythme"
+        },
+        "DEFAULT_DATA": {
+            "ALL_F": "Toutes",
+            "ALL_M": "Tous"
+        },
+        "NO_PNC_FOUND": "Aucun pnc trouvé.",
+        "ERROR": {
+            "SEARCH": "Erreur lors de la recherche de PNC"
+        }
+
+    },
+    "MESSAGES": {
+        "ERROR": {
+            "MANDATORY_FIELD": "Le champ est obligatoire",
+            "BAD_FORMAT": "Format incorrect",
+            "MATRICULE_WRONG_SIZE": "Le matricule doit faire 8 caractères",
+            "PNC_NOT_FOUND": "Erreur lors de la récupérations des PNC"
+        }
+    },
+    "HELP_ASSET_LIST": {
+        "TITLE": "Ressources d'aide",
+        "NO_HELP_ASSETS": "Aucune ressource créée pour le moment",
+        "LAST_UPDATE_DATE": "Dernière mise à jour : "
+    },
+    "SYNCHRONIZATION": {
+        "PNC_SAVED_OFFLINE": "Le PNC {{ matricule }} a été synchronisé",
+        "PNC_SAVED_OFFLINE_ERROR": "Le PNC {{ matricule }} n'a pas pu être synchronisé",
+        "ROTATION_SAVED_OFFLINE": "Les PNC de la rotation {{ rotationNumber }} ont été synchronisés",
+        "ROTATION_SAVED_OFFLINE_ERROR": "Un ou plusieurs PNC de la rotation {{ rotationNumber }} n'ont pas pu être synchronisés",
+        "FLIGHT_SAVED_OFFLINE": "Les PNC du vol {{ flightNumber }} ont été synchronisés",
+        "FLIGHT_SAVED_OFFLINE_ERROR": "Un ou plusieurs PNC du vol {{ flightNumber }} n'ont pas pu être synchronisés"
+    }
+}
