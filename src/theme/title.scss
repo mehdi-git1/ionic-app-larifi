@@ -1,7 +1,5 @@
-ion-title {
-    -webkit-box-flex-grow: 1;
-    -moz-box-flex-grow: 1;
-    -webkit-flex-grow: 1;
-        -ms-flex-grow: 1;
-            flex-grow: 1;
+.toolbar-ios .toolbar-content-ios connectivity-indicator{
+    position:absolute;
+    right:10px;
+    bottom:10px;
 }
