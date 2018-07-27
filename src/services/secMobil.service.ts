@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Config } from '../configuration/environment-variables/config';
 import { Platform } from 'ionic-angular';
+import { RestRequest } from './rest.base.service';
 
 declare var window: any;
 
@@ -110,6 +111,7 @@ export class SecMobilService {
     */
     public call(request: any): Promise<any> {
         return new Promise((resolve, reject) => {
+            this.handleGetRequest(request);
             this.secMobile.secMobilCallRestService(request,
                 (success) => {
                   try {
@@ -129,4 +131,17 @@ export class SecMobilService {
                 });
         });
     }
+
+    handleGetRequest(request: RestRequest){
+        if (request.method === 'GET' && request.jsonData !== undefined){
+            request.url = `${request.url}?${this.objectToQueryString(request.jsonData)}`;
+            request.jsonData = undefined;
+        }
+    }
+
+    objectToQueryString (params) {
+        return Object.keys(params).map(function(key) {
+            return key + '=' + params[key];
+        }).join('&');
+      }
 }
