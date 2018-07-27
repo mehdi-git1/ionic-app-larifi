@@ -118,7 +118,8 @@ export class SecMobilService {
                   } catch (error) {
                     console.error('fail : ' + error);
                     console.log(JSON.stringify(success));
-                    resolve(success);
+                    // en cas d objet json vide, en renvois null, et ça implique qu'on peut recevoir du back que du json
+                    resolve(null);
 
                   }
                 },
