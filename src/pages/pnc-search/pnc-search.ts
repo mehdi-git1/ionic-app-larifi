@@ -81,11 +81,7 @@ export class PncSearchPage {
 
   ionViewCanEnter() {
     return this.authGuard.guard().then(guardReturn => {
-      if (guardReturn){
-        return true;
-      }else{
-        return false;
-      }
+      return guardReturn;
     });
   }
 
