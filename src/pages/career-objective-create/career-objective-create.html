@@ -163,7 +163,7 @@
                     <button ion-button color="primary" (click)="resumeAbandonedCareerObjective()" [disabled]="creationForm.invalid" *ngIf="securityProvider.isManager() && careerObjective.careerObjectiveStatus === CareerObjectiveStatus.ABANDONED">
                         {{ 'CAREER_OBJECTIVE_CREATE.BUTTONS.RESUME' | translate }}
                     </button>
-                    <button ion-button color="primary" (click)="confirmCreateInstructorRequest()" *ngIf="!securityProvider.isManager()">
+                    <button ion-button color="primary" (click)="confirmCreateInstructorRequest()" *ngIf="!securityProvider.isManager() && careerObjective.careerObjectiveStatus !== undefined "> 
                         {{ 'CAREER_OBJECTIVE_CREATE.BUTTONS.CREATE_INSTRUCTOR_REQUEST' | translate }}
                     </button>
                 </ion-col>
