@@ -69,6 +69,7 @@ export class FlightCrewListPage {
             });
           }, error => {});
         }, error => {});
+        return true;
       }else{
         return false;
       }

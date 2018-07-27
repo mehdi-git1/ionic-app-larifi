@@ -75,7 +75,7 @@ export class EDossierPNC implements OnInit {
         }
       });
 
-      this.authGuard.guard().then(guardValue => {
+      this.authGuard.guard(true).then(guardValue => {
         if (guardValue === false){
           this.nav.setRoot('AuthenticationPage');
         /**

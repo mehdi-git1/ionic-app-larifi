@@ -29,25 +29,34 @@ export class AuthGuard {
   ) {
   }
 
-  guard(): Promise<boolean>{
+  guard(launch: boolean = false): Promise<boolean>{
+    /**
+     * On test pour savoir si on est en mode app
+     * Si oui, ce guard ne doit être lancé qu'a l'initialisation
+     * Si non, on le lance tout le temps.
+     */
 
-    this.secMobilService.init();
-    return this.secMobilService.isAuthenticated().then(() => {
-       // Création du stockage local
-      return this.storageService.initOfflineMap().then(success => {
-        return this.putAuthenticatedUserInSession().then(authenticatedUser => {
-          this.initParameters();
-          return this.synchronizationProvider.storeEDossierOffline(authenticatedUser.matricule).then(successStore => {
-            return true;
-          }, error => {
-            return false;
+    if (launch || this.secMobilService.isBrowser){
+      this.secMobilService.init();
+      return this.secMobilService.isAuthenticated().then(() => {
+        // Création du stockage local
+        return this.storageService.initOfflineMap().then(success => {
+          return this.putAuthenticatedUserInSession().then(authenticatedUser => {
+            this.initParameters();
+            return this.synchronizationProvider.storeEDossierOffline(authenticatedUser.matricule).then(successStore => {
+              return true;
+            }, error => {
+              return false;
+            });
           });
         });
+      },
+      error => {
+        return false;
       });
-    },
-    error => {
-      return false;
-    });
+    }else{
+      return new Promise((resolve, reject) => resolve(true));
+    }
   }
 
   /**
