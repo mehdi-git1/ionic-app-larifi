@@ -26,7 +26,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
   ): Observable<HttpEvent<any>> {
 
     return next.handle(request).do(success => {
-      this.connectivityService.stopPingApi();
+      this.connectivityService.stopPingAPI();
     }, err => {
       if (err instanceof HttpErrorResponse && request.url !== this.config.pingUrl) {
         let errorMessage = this.translateService.instant('GLOBAL.UNKNOWN_ERROR');
