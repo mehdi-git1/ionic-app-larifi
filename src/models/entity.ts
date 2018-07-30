@@ -3,5 +3,6 @@ export enum Entity {
     PNC = 'PNC',
     CAREER_OBJECTIVE = 'CAREER_OBJECTIVE',
     WAYPOINT = 'WAYPOINT',
-    ROTATION = 'ROTATION'
+    ROTATION = 'ROTATION',
+    LEG = 'LEG'
 }

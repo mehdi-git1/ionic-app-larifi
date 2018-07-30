@@ -1,3 +1,4 @@
+import { LegTransformerProvider } from './../leg/LegTransformerProvider';
 import { RotationTransformerProvider } from './../rotation/rotation-transformer';
 import { PncTransformerProvider } from './../pnc/pnc-transformer';
 import { WaypointTransformerProvider } from './../waypoint/waypoint-transformer';
@@ -12,7 +13,8 @@ import { Entity } from '../../models/entity';
 import { Pnc } from '../../models/pnc';
 import { CareerObjective } from '../../models/careerObjective';
 import { Waypoint } from '../../models/waypoint';
-
+import { Rotation } from '../../models/rotation';
+import { SecurityProvider } from './../../providers/security/security';
 @Injectable()
 export class SynchronizationProvider {
 
@@ -24,7 +26,9 @@ export class SynchronizationProvider {
     private waypointTransformer: WaypointTransformerProvider,
     private pncTransformer: PncTransformerProvider,
     private pncSynchroProvider: PncSynchroProvider,
-    private rotationTransformerProvider: RotationTransformerProvider) {
+    private rotationTransformerProvider: RotationTransformerProvider,
+    private legTransformerProvider: LegTransformerProvider,
+    public securityProvider: SecurityProvider) {
   }
 
 
@@ -54,10 +58,24 @@ export class SynchronizationProvider {
 
     this.storageService.save(Entity.PNC, this.pncTransformer.toPnc(pncSynchroResponse.pnc), true);
 
-    // Création des nouveaux objets
-    for (const rotation of pncSynchroResponse.rotations) {
-      this.storageService.save(Entity.ROTATION, this.rotationTransformerProvider.toRotation(rotation), true);
-    }
+    this.securityProvider.getAuthenticatedUser().then(user => {
+      if (this.securityProvider.isManager() && user.matricule === pncSynchroResponse.pnc.matricule) {
+        // Création des nouveaux objets
+        for (const rotation of pncSynchroResponse.rotations) {
+          this.storageService.save(Entity.ROTATION, this.rotationTransformerProvider.toRotation(rotation), true);
+        }
+
+        // Création des nouveaux objets
+        for (const leg of pncSynchroResponse.legs) {
+          let techIdRotation: number;
+          techIdRotation = leg.rotation.techId;
+          leg.rotation = new Rotation();
+          leg.rotation.techId = techIdRotation;
+
+          this.storageService.save(Entity.LEG, this.legTransformerProvider.toLeg(leg), true);
+        }
+      }
+    });
 
     // Création des nouveaux objets
     for (const careerObjective of pncSynchroResponse.careerObjectives) {
@@ -100,6 +118,14 @@ export class SynchronizationProvider {
       this.storageService.delete(Entity.CAREER_OBJECTIVE,
         this.careerObjectiveTransformer.toCareerObjective(careerObjective).getStorageId());
     }
+
+    this.securityProvider.getAuthenticatedUser().then(user => {
+      if (this.securityProvider.isManager() && user.matricule === pnc.matricule) {
+        // Suppression de la liste des prochains vols
+        this.storageService.deleteAll(Entity.ROTATION);
+        this.storageService.deleteAll(Entity.LEG);
+      }
+    });
   }
 
   /**
