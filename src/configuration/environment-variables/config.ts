@@ -11,14 +11,14 @@ export class Config extends BaseConfig {
 
         if (undefined !== window.cordova && 'browser' !== window.cordova.platformId) {
             console.log('mobile mode selected');
-            this.backEndUrl = 'https://edospnc-api-dev.airfrance.fr/api/rest/resources';
+            this.backEndUrl = 'https://edospnc-api-rct.airfrance.fr/api/rest/resources';
             this.pingUrl = this.backEndUrl + '/me';
         } else {
             console.log('web mode selected');
             this.backEndUrl = '/api/rest/resources';
             // A décommenter pour travailler en localhost (sans tomcat)
-            // this.backEndUrl = 'https://edospnc-dev.airfrance.fr/api/rest/resources';
-            // this.pingUrl = this.backEndUrl + '/me';
+            this.backEndUrl = 'https://edospnc-dev.airfrance.fr/api/rest/resources';
+            this.pingUrl = this.backEndUrl + '/me';
         }
 
         this.env = 'localhost';
