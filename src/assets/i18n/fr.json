@@ -50,6 +50,12 @@
             "CREATION_DATE": "Créé le",
             "REQUIRED_ON_ENCOUNTER_DAY": " (Saisie obligatoire le jour de la rencontre)"
         },
+        "CONFIRM_INSTRUCTOR_REQUEST": {
+            "TITLE": "Sollicitation instructeur",
+            "MESSAGE": "Confirmez vous la demande de sollicitation instructeur ?",
+            "CANCEL": "Annuler",
+            "CONFIRM": "Confirmer"
+        },
         "CONFIRM_DRAFT_DELETE": {
             "TITLE": "Suppression du brouillon",
             "MESSAGE": "Confirmez vous la suppression de ce brouillon ?",

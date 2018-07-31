@@ -99,7 +99,7 @@ export class SecMobilService {
                     }
                 );
             } else {
-                 console.log('Not in Mobile Mode');
+                console.log('Not in Mobile Mode');
                 resolve('ok');
             }
         }
@@ -114,16 +114,15 @@ export class SecMobilService {
             this.handleGetRequest(request);
             this.secMobile.secMobilCallRestService(request,
                 (success) => {
-                  try {
-
-                    resolve(JSON.parse(success));
-                  } catch (error) {
-                    console.error('fail : ' + error);
-                    console.log(JSON.stringify(success));
-                    // en cas d objet json vide, en renvois null, et ça implique qu'on peut recevoir du back que du json
-                    resolve(null);
-
-                  }
+                    try {
+                        resolve(JSON.parse(success));
+                    } catch (error) {
+                        console.error('fail : ' + error);
+                        console.log(JSON.stringify(success));
+                        // en cas d objet json vide, en renvois null, et ça implique qu'on peut recevoir du back que du json
+                        resolve(null);
+                    
+                    }
                 },
                 (err) => {
                     console.error('secmobile call failure : ' + err);

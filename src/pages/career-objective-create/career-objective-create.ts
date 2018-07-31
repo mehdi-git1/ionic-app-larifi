@@ -326,4 +326,25 @@ export class CareerObjectiveCreatePage {
       },
         error => { });
   }
+
+
+  /**
+  * Présente une alerte pour confirmer la suppression du brouillon
+  */
+  confirmCreateInstructorRequest() {
+    this.alertCtrl.create({
+      title: this.translateService.instant('CAREER_OBJECTIVE_CREATE.CONFIRM_INSTRUCTOR_REQUEST.TITLE'),
+      message: this.translateService.instant('CAREER_OBJECTIVE_CREATE.CONFIRM_INSTRUCTOR_REQUEST.MESSAGE'),
+      buttons: [
+        {
+          text: this.translateService.instant('CAREER_OBJECTIVE_CREATE.CONFIRM_INSTRUCTOR_REQUEST.CANCEL'),
+          role: 'cancel'
+        },
+        {
+          text: this.translateService.instant('CAREER_OBJECTIVE_CREATE.CONFIRM_INSTRUCTOR_REQUEST.CONFIRM'),
+          handler: () => this.createInstructorRequest()
+        }
+      ]
+    }).present();
+  }
 }
