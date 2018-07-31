@@ -1,4 +1,3 @@
-import { Pnc } from './pnc';
 import { Leg } from './leg';
 import { EDossierPncObject } from './eDossierPncObject';
 
