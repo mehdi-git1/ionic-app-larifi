@@ -30,6 +30,14 @@ export abstract class RestService {
   post(url: string, jsonData: any, options?: any): Promise<any> {
     let data: string;
     if (jsonData) {
+      if (!options) {
+        options = {};
+      }
+
+      if (!options.headers) {
+        options.headers = new HttpHeaders();
+      }
+      options.headers = options.headers.append('content-type', 'application/json');
       data = JSON.stringify(jsonData);
     }
     return this.sendRequest('POST', url, data, options);
