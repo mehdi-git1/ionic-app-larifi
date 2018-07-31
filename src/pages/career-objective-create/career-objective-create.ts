@@ -111,6 +111,8 @@ export class CareerObjectiveCreatePage {
             }, error => {
               reject();
             });
+          }else{
+            resolve();
           }
         });
       }else{
