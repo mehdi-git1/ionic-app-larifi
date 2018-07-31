@@ -60,19 +60,23 @@ export class SynchronizationProvider {
 
     this.securityProvider.getAuthenticatedUser().then(user => {
       if (this.securityProvider.isManager() && user.matricule === pncSynchroResponse.pnc.matricule) {
-        // Création des nouveaux objets
-        for (const rotation of pncSynchroResponse.rotations) {
-          this.storageService.save(Entity.ROTATION, this.rotationTransformerProvider.toRotation(rotation), true);
+        for (const rotation of pncSynchroResponse.upcomingRotations) {
+          this.storageService.save(Entity.UPCOMING_ROTATION, this.rotationTransformerProvider.toRotation(rotation), true);
         }
 
-        // Création des nouveaux objets
-        for (const leg of pncSynchroResponse.legs) {
+        this.storageService.save(Entity.LAST_ROTATION, this.rotationTransformerProvider.toRotation(pncSynchroResponse.lastRotation), true);
+
+        for (const leg of pncSynchroResponse.upcomingLegs) {
           let techIdRotation: number;
           techIdRotation = leg.rotation.techId;
           leg.rotation = new Rotation();
           leg.rotation.techId = techIdRotation;
 
-          this.storageService.save(Entity.LEG, this.legTransformerProvider.toLeg(leg), true);
+          this.storageService.save(Entity.UPCOMING_LEG, this.legTransformerProvider.toLeg(leg), true);
+        }
+
+        for (const leg of this.legTransformerProvider.toLegs(pncSynchroResponse.lastLegs)) {
+          this.storageService.save(Entity.LAST_LEG, leg, true);
         }
       }
     });
@@ -121,9 +125,11 @@ export class SynchronizationProvider {
 
     this.securityProvider.getAuthenticatedUser().then(user => {
       if (this.securityProvider.isManager() && user.matricule === pnc.matricule) {
-        // Suppression de la liste des prochains vols
-        this.storageService.deleteAll(Entity.ROTATION);
-        this.storageService.deleteAll(Entity.LEG);
+        // Suppression de la liste du dernier et des prochains vols
+        this.storageService.deleteAll(Entity.UPCOMING_ROTATION);
+        this.storageService.deleteAll(Entity.UPCOMING_LEG);
+        this.storageService.deleteAll(Entity.LAST_ROTATION);
+        this.storageService.deleteAll(Entity.LAST_LEG);
       }
     });
   }

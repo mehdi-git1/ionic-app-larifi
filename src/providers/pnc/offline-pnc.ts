@@ -36,7 +36,7 @@ export class OfflinePncProvider {
    */
   getUpcomingRotations(matricule: string): Promise<Rotation[]> {
     return new Promise((resolve, reject) => {
-      const rotations = this.storageService.findAll(Entity.ROTATION);
+      const rotations = this.storageService.findAll(Entity.UPCOMING_ROTATION);
       resolve(rotations);
     });
   }
@@ -48,7 +48,8 @@ export class OfflinePncProvider {
    */
   getLastPerformedRotation(matricule: string): Promise<Rotation> {
     return new Promise((resolve, reject) => {
-      resolve(null);
+      const rotations = this.storageService.findAll(Entity.LAST_ROTATION);
+      resolve(rotations[0]);
     });
   }
 

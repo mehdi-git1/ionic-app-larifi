@@ -7,7 +7,7 @@ export class LegTransformerProvider {
     constructor() {
     }
 
-    toRotations(array: Leg[]) {
+    toLegs(array: Leg[]) {
         const newArray: Leg[] = [];
         for (const object of array) {
             newArray.push(this.toLeg(object));

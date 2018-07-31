@@ -8,6 +8,8 @@ export class PncSynchro {
     pnc: Pnc;
     careerObjectives: CareerObjective[];
     waypoints: Waypoint[];
-    rotations: Rotation[];
-    legs: Leg[];
+    upcomingRotations: Rotation[];
+    upcomingLegs: Leg[];
+    lastRotation: Rotation;
+    lastLegs: Leg[];
 }
