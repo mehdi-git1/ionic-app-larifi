@@ -8,6 +8,11 @@ declare var window: any;
 export class ConnectivityService {
 
     private connected = true;
+    /**
+     * La variable timer permet de gére le timer du pingAPI
+     * Et ainsi de pouvoir le stopper si on récupére le réseau
+     */
+    private timer = 0;
 
     @Output()
     connectionStatusChange = new EventEmitter<boolean>();
@@ -39,7 +44,16 @@ export class ConnectivityService {
                 this.setConnected(false);
             });
 
-        setTimeout(() => this.pingAPI(), 5000);
+        this.timer = setTimeout(() => this.pingAPI(), 5000);
+    }
+
+    /**
+     * Fonction permettant de forcer l'arrêt du ping toutes les 5 secondes
+     * On clear le timeOut et on réinitialise sa valeur à celle par défaut
+     */
+    stopPingAPI(){
+        clearTimeout(this.timer);
+        this.timer = 0;
     }
 
 
