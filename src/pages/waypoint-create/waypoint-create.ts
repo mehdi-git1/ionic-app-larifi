@@ -76,7 +76,7 @@ export class WaypointCreatePage {
         return new Promise((resolve, reject) => {
           this.initForm();
 
-          if (this.navParams.get('waypointId') && this.navParams.get('waypointId') != 0) {
+          if (this.navParams.get('waypointId') && this.navParams.get('waypointId') !== '0') {
             this.waypointProvider.getWaypoint(this.navParams.get('waypointId')).then(result => {
               this.waypoint = result;
               this.initForm();

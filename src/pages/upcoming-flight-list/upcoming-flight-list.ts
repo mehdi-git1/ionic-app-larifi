@@ -33,8 +33,6 @@ export class UpcomingFlightListPage {
         let matricule = '';
         if (this.navParams.get('matricule')) {
           matricule = this.navParams.get('matricule');
-        } else if (this.sessionService.appContext.observedPncMatricule) {
-          matricule = this.sessionService.appContext.observedPncMatricule;
         } else if (this.sessionService.authenticatedUser) {
           matricule = this.sessionService.authenticatedUser.matricule;
         }

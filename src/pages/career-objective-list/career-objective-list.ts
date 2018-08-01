@@ -60,7 +60,6 @@ export class CareerObjectiveListPage {
    * Dirige vers la page de création d'un nouvel objectif
    */
   goToCareerObjectiveCreation() {
-    console.log('click');
     this.navCtrl.push('CareerObjectiveCreatePage', { matricule: this.matricule, careerObjectiveId: 0 });
   }
 

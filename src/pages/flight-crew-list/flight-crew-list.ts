@@ -19,7 +19,7 @@ import { CrewMember } from '../../models/crewMember';
 
 @IonicPage({
   name: 'FlightCrewListPage',
-  segment: 'flightCrewList/:leg',
+  segment: 'flightCrewList/:legId',
   defaultHistory: ['UpcomingFlightListPage']
 })
 @Component({
@@ -50,7 +50,7 @@ export class FlightCrewListPage {
   ionViewCanEnter() {
     return this.authGuard.guard().then(guardReturn => {
       if (guardReturn){
-        let legId = this.navParams.get('leg');
+        let legId = this.navParams.get('legId');
         this.legProvider.getLeg(legId).then(legInfos => {
           this.leg = legInfos;
           this.legProvider.getFlightCrewFromLeg(legId).then(flightCrew => {
