@@ -1,4 +1,3 @@
-import { EDossierPNC } from './../app/app.component';
 import { IonicModule } from 'ionic-angular';
 import { DatePipe, CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
@@ -34,5 +33,6 @@ import { SharedModule } from '../shared/shared.module';
     FlightCardComponent
   ],
   providers: [DatePipe]
+
 })
 export class ComponentsModule { }

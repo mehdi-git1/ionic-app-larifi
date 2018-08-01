@@ -93,7 +93,7 @@ export class AuthenticationPage implements OnInit {
     this.securityProvider.getAuthenticatedUser().then(authenticatedUser => {
       console.log('putAuthenticatedUserInSession : ' + authenticatedUser);
       this.sessionService.authenticatedUser = authenticatedUser;
-      this.navCtrl.setRoot('PncHomePage', { matricule: authenticatedUser });
+      this.navCtrl.setRoot('PncHomePage', { matricule: authenticatedUser.matricule });
       this.hideSpinner = true;
     }, error => {
       this.hideSpinner = true;
