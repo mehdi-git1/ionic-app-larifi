@@ -1,4 +1,4 @@
-export class BaseConfig {
+export abstract class BaseConfig {
   public appVersion = '';
   public backEndUrl = '/api/rest/resources';
   public pingUrl = '/api/rest/resources/me';
@@ -9,6 +9,8 @@ export class BaseConfig {
   public eObsUrl = 'com.airfrance.mobile.inhouse.eformstrainingdevPNC';
   public eObsCallbackUrl = 'com.airfrance.mobile.inhouse.EDosPNC';
   public eObsCallbackActionLabel = 'Retourner à eDossierPNC';
+
+  public pageSize = 10;
 
   /**
    * Vérifie qu'on ait est en local

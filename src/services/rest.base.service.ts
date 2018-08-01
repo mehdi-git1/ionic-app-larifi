@@ -8,11 +8,11 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
  */
 
 export class RestRequest {
-  public withCredential = true;
-  public method: string;
-  public url: string;
-  public options: any;
-  public jsonData: any;
+    public withCredential = true;
+    public method: string;
+    public url: string;
+    public options: any;
+    public jsonData: any;
 }
 
 Injectable();
@@ -58,4 +58,4 @@ export abstract class RestService {
 
         return this.call(request);
     }
-  }
+}

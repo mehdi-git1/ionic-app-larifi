@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NavParams } from 'ionic-angular';
 import { SummarySheetProvider } from '../../providers/summary-sheet/summary-sheet';
 
@@ -7,43 +7,43 @@ import { SummarySheetProvider } from '../../providers/summary-sheet/summary-shee
   templateUrl: 'summary-sheet.html',
 })
 
-export class SummarySheetPage {
-  summarySheet;
-  reader = new FileReader();
-  pdfNull = false;
+export class SummarySheetPage implements OnInit {
 
-  constructor(public navParams: NavParams, private summarySheetProvider: SummarySheetProvider) {
+  public previewSrc: string = null;
+  private summarySheet: any;
+  loading: boolean;
+
+  constructor(
+    public navParams: NavParams,
+    private summarySheetProvider: SummarySheetProvider) {
   }
 
-  ionViewCanEnter() {
-    return new Promise((resolve, reject) => {
-      this.summarySheetProvider.getSummarySheet(this.navParams.get('matricule')).then(blob => {
-        if (blob.size === 0) {
-          this.pdfNull = true;
-          resolve();
-        } else {
-          this.getSummarySheet(blob).then(() => {
-            this.summarySheet = { data: this.reader.result };
-            resolve();
-          });
+  ngOnInit(): void {
+    let matricule = this.navParams.get('matricule');
+    this.loading = true;
+    this.summarySheetProvider.getSummarySheet(matricule).then(summarySheet => {
+      try {
+        if (summarySheet && summarySheet.summarySheet) {
+          this.previewSrc = URL.createObjectURL(summarySheet.summarySheet);
         }
-      }, error => {
-        this.pdfNull = true;
-        resolve();
-      });
+        this.loading = false;
+      } catch (error) {
+        console.log('createObjectURL error:' + error);
+      }
+    }, error => {
+      console.log('getSummarySheet error:' + error);
     });
   }
 
   /**
     * Décode un Blob dans le FileReader global
-    * @param matricule le Blob a decoder
-    * @return Une promesse resolue quand tout le Blob a été decodé
+    * @param matricule le Blob à decoder
     */
-  getSummarySheet(blob: Blob) {
-    return new Promise((resolve, reject) => {
-      this.reader.onload = resolve;
-      this.reader.readAsBinaryString(blob);
-    });
+  public setPreviewFromFile(file: any) {
+    let reader = new FileReader();
+    reader.onloadend = (e: any) => {
+      this.previewSrc = e.target.result;
+    };
+    reader.readAsArrayBuffer(file);
   }
-
 }

@@ -1,6 +1,5 @@
 import { WaypointStatus } from './waypointStatus';
 import { CareerObjective } from './careerObjective';
-import { PncRole } from './pncRole';
 import { Pnc } from './pnc';
 import { EDossierPncObject } from './eDossierPncObject';
 

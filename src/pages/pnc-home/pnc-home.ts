@@ -2,10 +2,8 @@ import { SynchronizationProvider } from './../../providers/synchronization/synch
 import { TranslateService } from '@ngx-translate/core';
 import { UpcomingFlightListPage } from './../upcoming-flight-list/upcoming-flight-list';
 import { SessionService } from './../../services/session.service';
-import { SecurityProvider } from './../../providers/security/security';
 import { ToastProvider } from './../../providers/toast/toast';
 import { GenderProvider } from './../../providers/gender/gender';
-import { EObservationService } from './../../services/eObservation.service';
 import { EObservation } from './../../models/eObservation';
 import { Speciality } from './../../models/speciality';
 import { CareerObjectiveListPage } from './../career-objective-list/career-objective-list';
@@ -13,10 +11,10 @@ import { PncProvider } from './../../providers/pnc/pnc';
 import { Component, NgZone, ChangeDetectorRef } from '@angular/core';
 import { NavController, NavParams, ViewController, App } from 'ionic-angular';
 import { Pnc } from '../../models/pnc';
-import { Assignment } from '../../models/assignment';
 import { ConnectivityService } from '../../services/connectivity.service';
 import { SummarySheetPage } from '../summary-sheet/summary-sheet';
 import { HelpAssetListPage } from './../help-asset-list/help-asset-list';
+import { PncSearchPage } from './../pnc-search/pnc-search';
 
 @Component({
   selector: 'page-pnc-home',
@@ -39,7 +37,6 @@ export class PncHomePage {
     public cd: ChangeDetectorRef,
     public genderProvider: GenderProvider,
     private toastProvider: ToastProvider,
-    private securityProvider: SecurityProvider,
     private synchronizationProvider: SynchronizationProvider,
     public connectivityService: ConnectivityService,
     private sessionService: SessionService,
@@ -126,6 +123,13 @@ export class PncHomePage {
       this.toastProvider.error(
         this.translateService.instant('SYNCHRONIZATION.PNC_SAVED_OFFLINE_ERROR', { 'matricule': this.pnc.matricule }));
     });
+  }
+
+  /**
+   * Dirige vers l'effectif PNC
+   */
+  goToPncSearch() {
+    this.navCtrl.push(PncSearchPage);
   }
 
   goToSummarySheet() {

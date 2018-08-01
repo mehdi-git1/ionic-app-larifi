@@ -313,4 +313,38 @@ export class CareerObjectiveCreatePage {
   openWaypoint(techId: number) {
     this.navCtrl.push(WaypointCreatePage, { waypointId: techId, careerObjectiveId: this.careerObjective.techId });
   }
+
+  /**
+   * Envoi au serveur une demande de sollicitation instructeur pour l'objectif
+   */
+  createInstructorRequest() {
+
+    this.careerObjectiveProvider
+      .createInstructorRequest(this.careerObjective.techId)
+      .then(result => {
+        this.toastProvider.success(this.translateService.instant('CAREER_OBJECTIVE_CREATE.SUCCESS.CAREER_OBJECTIVE_INSTRUCTOR_REQUESTED'));
+      },
+        error => { });
+  }
+
+
+  /**
+  * Présente une alerte pour confirmer la suppression du brouillon
+  */
+  confirmCreateInstructorRequest() {
+    this.alertCtrl.create({
+      title: this.translateService.instant('CAREER_OBJECTIVE_CREATE.CONFIRM_INSTRUCTOR_REQUEST.TITLE'),
+      message: this.translateService.instant('CAREER_OBJECTIVE_CREATE.CONFIRM_INSTRUCTOR_REQUEST.MESSAGE'),
+      buttons: [
+        {
+          text: this.translateService.instant('CAREER_OBJECTIVE_CREATE.CONFIRM_INSTRUCTOR_REQUEST.CANCEL'),
+          role: 'cancel'
+        },
+        {
+          text: this.translateService.instant('CAREER_OBJECTIVE_CREATE.CONFIRM_INSTRUCTOR_REQUEST.CONFIRM'),
+          handler: () => this.createInstructorRequest()
+        }
+      ]
+    }).present();
+  }
 }

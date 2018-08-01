@@ -1,20 +1,57 @@
-import { HttpHeaders } from '@angular/common/http';
+import { SummarySheetTransformerProvider } from './summary-sheet-transformer';
+import { OfflineProvider } from './../offline/offline';
+import { OfflineSummarySheetProvider } from './offline-summary-sheet';
+import { ConnectivityService } from './../../services/connectivity.service';
 import { Injectable } from '@angular/core';
-import { Config } from '../../configuration/environment-variables/config';
-import { RestService } from '../../services/rest.base.service';
+import { OnlineSummarySheetProvider } from './online-summary-sheet';
+import { SummarySheet } from '../../models/summarySheet';
+import { Utils } from '../../common/utils';
 
 @Injectable()
 export class SummarySheetProvider {
 
-  constructor(private config: Config, private restService: RestService) { }
+  constructor(private connectivityService: ConnectivityService,
+    private onlineSummarySheetProvider: OnlineSummarySheetProvider,
+    private offlineSummarySheetProvider: OfflineSummarySheetProvider,
+    private offlineProvider: OfflineProvider,
+    private summarySheetTransformerProvider: SummarySheetTransformerProvider) {
+  }
 
   /**
     * Renvoi la fiche synthese d'un PNC
     * @param matricule le PNC concerné
     * @return la fiche synthese d'un PNC
     */
-  getSummarySheet(matricule: string): Promise<Blob> {
-    return this.restService.get(`${this.config.backEndUrl}/pnc_summary_sheets/${matricule}`, null, { responseType: 'blob' });
+  getSummarySheet(matricule: string): Promise<SummarySheet> {
+    if (this.connectivityService.isConnected()) {
+      console.log('isConnected');
+      return new Promise((resolve, reject) => {
+        this.offlineSummarySheetProvider.getSummarySheet(matricule).then(offlineSummarySheet => {
+          this.onlineSummarySheetProvider.getSummarySheet(matricule).then(onlineSummarySheet => {
+            try {
+              if (!onlineSummarySheet || !onlineSummarySheet.summarySheet) {
+                resolve(null);
+              }
+              let file = new Blob([Utils.base64ToArrayBuffer(onlineSummarySheet.summarySheet)], { type: 'application/pdf' });
+              const onlineData = this.summarySheetTransformerProvider.toSummarySheetFromBlob(file, matricule);
+              const offlineData = this.summarySheetTransformerProvider.toSummarySheet(offlineSummarySheet);
+              this.offlineProvider.flagDataAvailableOffline(onlineData, offlineData);
+              resolve(onlineData);
+            } catch (error) {
+              console.log('getSummarySheet error : ' + error);
+            }
+          },
+            error => {
+              console.log(' error onlineSummarySheetProvider ' + error);
+            });
+        },
+          error => {
+            console.log(' error offlineSummarySheetProvider ' + error);
+          });
+      });
+    } else {
+      console.log('offlineSummarySheetProvider');
+      return this.offlineSummarySheetProvider.getSummarySheet(matricule);
+    }
   }
 }
-

@@ -1,4 +1,4 @@
 <button class="button-synchro" ion-fab mini color="secondary" *ngIf="connectivityService.isConnected()" (click)="downloadFunction($event)" [disabled]="synchroInProgress">
-  <ion-icon *ngIf="!synchroInProgress" name="cloud-download" ios="md-cloud-download"></ion-icon>
+  <ion-icon class="download-icon" *ngIf="!synchroInProgress" name="cloud-download" ios="md-cloud-download"></ion-icon>
   <ion-spinner *ngIf="synchroInProgress"></ion-spinner>
 </button>

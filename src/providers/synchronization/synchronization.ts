@@ -1,5 +1,8 @@
+
 import { LegTransformerProvider } from './../leg/leg-transformer';
 import { RotationTransformerProvider } from './../rotation/rotation-transformer';
+import { SummarySheet } from './../../models/summarySheet';
+import { SummarySheetProvider } from './../summary-sheet/summary-sheet';
 import { PncTransformerProvider } from './../pnc/pnc-transformer';
 import { WaypointTransformerProvider } from './../waypoint/waypoint-transformer';
 import { PncSynchro } from './../../models/pncSynchro';
@@ -28,7 +31,8 @@ export class SynchronizationProvider {
     private pncSynchroProvider: PncSynchroProvider,
     private rotationTransformerProvider: RotationTransformerProvider,
     private legTransformerProvider: LegTransformerProvider,
-    public securityProvider: SecurityProvider) {
+    public securityProvider: SecurityProvider,
+    private summarySheetProvider: SummarySheetProvider) {
   }
 
 
@@ -41,8 +45,11 @@ export class SynchronizationProvider {
   storeEDossierOffline(matricule: string): Promise<boolean> {
     return new Promise((resolve, reject) => {
       this.pncSynchroProvider.getPncSynchro(matricule).then(pncSynchro => {
-        this.updateLocalStorageFromPncSynchroResponse(pncSynchro);
-        resolve(true);
+        this.summarySheetProvider.getSummarySheet(matricule).then(summarySheet => {
+          pncSynchro.summarySheet.summarySheet = summarySheet;
+          this.updateLocalStorageFromPncSynchroResponse(pncSynchro);
+          resolve(true);
+        });
       }, error => {
         reject(matricule);
       });
@@ -96,6 +103,9 @@ export class SynchronizationProvider {
       this.storageService.save(Entity.WAYPOINT, this.waypointTransformer.toWaypoint(waypoint), true);
     }
 
+    // Sauvegarde de la fiche synthese
+    this.storageService.save(Entity.SUMMARY_SHEET, pncSynchroResponse.summarySheet, true);
+
     this.storageService.persistOfflineMap();
   }
 
@@ -132,6 +142,9 @@ export class SynchronizationProvider {
         this.storageService.deleteAll(Entity.LAST_LEG);
       }
     });
+
+    // Suppression de la fiche synthese
+    this.storageService.delete(Entity.SUMMARY_SHEET, pnc.matricule);
   }
 
   /**
@@ -215,5 +228,3 @@ export class SynchronizationProvider {
   }
 
 }
-
-

@@ -1,11 +1,10 @@
 import { SessionService } from './../../services/session.service';
 import { SecurityProvider } from './../../providers/security/security';
 import { PncHomePage } from './../pnc-home/pnc-home';
-import { Component, ViewChild, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
-import { NavParams, ViewController, App } from 'ionic-angular';
+import { NavParams, ViewController, App, NavController } from 'ionic-angular';
 import { SecMobilService } from '../../services/secMobil.service';
-import { Nav } from 'ionic-angular';
 
 @Component({
   selector: 'page-authentication',
@@ -16,9 +15,8 @@ export class AuthenticationPage implements OnInit {
   loginForm: FormGroup;
   errorMsg: string;
   hideSpinner = true;
-  @ViewChild(Nav) nav: Nav;
 
-  constructor(
+  constructor(public navCtrl: NavController,
     public navParams: NavParams,
     private formBuilder: FormBuilder,
     public viewCtrl: ViewController,
@@ -89,8 +87,7 @@ export class AuthenticationPage implements OnInit {
     this.securityProvider.getAuthenticatedUser().then(authenticatedUser => {
       console.log('putAuthenticatedUserInSession : ' + authenticatedUser);
       this.sessionService.authenticatedUser = authenticatedUser;
-      this.viewCtrl.dismiss();
-      this.appCtrl.getRootNav().push(PncHomePage, { matricule: authenticatedUser });
+      this.navCtrl.setRoot(PncHomePage, { matricule: authenticatedUser.matricule });
       this.hideSpinner = true;
     }, error => {
       this.hideSpinner = true;

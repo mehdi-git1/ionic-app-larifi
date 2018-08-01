@@ -21,6 +21,11 @@ export class OnlineSecurityProvider {
   getAuthenticatedUser(): Promise<AuthenticatedUser> {
     const promise: Promise<AuthenticatedUser> = this.restService.get(`${this.securityUrl}`);
     promise.then(authenticatedUser => {
+      if (authenticatedUser) {
+        console.log('authenticatedUser ' + JSON.stringify(authenticatedUser));
+      } else  {
+        console.log('authenticatedUser nop');
+      }
       this.offlineSecurityProvider.overwriteAuthenticatedUser(new AuthenticatedUser().fromJSON(authenticatedUser));
     });
     return promise;

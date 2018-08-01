@@ -50,6 +50,12 @@
             "CREATION_DATE": "Créé le",
             "REQUIRED_ON_ENCOUNTER_DAY": " (Saisie obligatoire le jour de la rencontre)"
         },
+        "CONFIRM_INSTRUCTOR_REQUEST": {
+            "TITLE": "Sollicitation instructeur",
+            "MESSAGE": "Confirmez vous la demande de sollicitation instructeur ?",
+            "CANCEL": "Annuler",
+            "CONFIRM": "Confirmer"
+        },
         "CONFIRM_DRAFT_DELETE": {
             "TITLE": "Suppression du brouillon",
             "MESSAGE": "Confirmez vous la suppression de ce brouillon ?",
@@ -63,7 +69,8 @@
             "VALIDATE": "Valider",
             "ABANDON": "Abandonner",
             "CANCEL_VALIDATION": "Annuler la validation",
-            "RESUME": "Reprendre l'objectif"
+            "RESUME": "Reprendre l'objectif",
+            "CREATE_INSTRUCTOR_REQUEST": "Solliciter mon instructeur"
         },
         "SUCCESS": {
             "CAREER_OBJECTIVE_SAVED": "Objectif enregistré avec succès",
@@ -72,7 +79,8 @@
             "CAREER_OBJECTIVE_VALIDATED": "Objectif validé",
             "CAREER_OBJECTIVE_ABANDONED": "Objectif abandonné",
             "CAREER_OBJECTIVE_VALIDATION_CANCELED": "Validation annulée de l'objectif",
-            "CAREER_OBJECTIVE_RESUMED": "Objectif repris avec succés"
+            "CAREER_OBJECTIVE_RESUMED": "Objectif repris avec succés",
+            "CAREER_OBJECTIVE_INSTRUCTOR_REQUESTED": "Demande envoyée avec succès"
         },
         "ERROR": {
             "CAREER_OBJECTIVE_CREATION_FAILED": "La création de l'objectif a échoué"
@@ -142,7 +150,8 @@
             "FUNCTION": "Fonction",
             "LAST_IN_FLIGHT_ENCOUNTER_DATE": "Dernière rencontre Vol",
             "LAST_ON_GROUND_ENCOUNTER_DATE": "Dernière rencontre Sol"
-        }
+        },
+        "ERROR": "Erreur lors de la récupération de la liste équipage du vol {{flightNumber}}"
     },
     "UPCOMING_FLIGHT_LIST": {
         "TITLE": "Liste de vos prochains vols rencontre",
@@ -154,10 +163,41 @@
         "TITLE": "Synthèse PNC",
         "PDF_MISSING": "Pas de fiche synthèse disponible"
     },
+    "PNC_SEARCH": {
+        "TITLE": "Recherche PNC",
+        "CRITERIA": {
+            "FILTERS": "Filtres",
+            "PNC_MATRICULE": "Nom, Prénom, Matricule",
+            "DIVISION": "Division",
+            "SECTOR": "Secteur",
+            "GINQ": "Ginq",
+            "SPECIALITY": "Fonction",
+            "RELAY": "Relais",
+            "AIRCRAFT_SKILL": "Spécification machine",
+            "WORK_RATE": "Rythme"
+        },
+        "DEFAULT_DATA": {
+            "ALL_F": "Toutes",
+            "ALL_M": "Tous"
+        },
+        "NO_PNC_FOUND": "Aucun pnc trouvé.",
+        "ERROR": {
+            "SEARCH": "Erreur lors de la recherche de PNC"
+        }
 
+    },
+    "MESSAGES": {
+        "ERROR": {
+            "MANDATORY_FIELD": "Le champ est obligatoire",
+            "BAD_FORMAT": "Format incorrect",
+            "MATRICULE_WRONG_SIZE": "Le matricule doit faire 8 caractères",
+            "PNC_NOT_FOUND": "Erreur lors de la récupérations des PNC"
+        }
+    },
     "HELP_ASSET_LIST": {
         "TITLE": "Ressources d'aide",
-        "NO_HELP_ASSETS": "Aucune ressource créée pour le moment"
+        "NO_HELP_ASSETS": "Aucune ressource créée pour le moment",
+        "LAST_UPDATE_DATE": "Dernière mise à jour : "
     },
     "SYNCHRONIZATION": {
         "PNC_SAVED_OFFLINE": "Le PNC {{ matricule }} a été synchronisé",
