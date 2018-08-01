@@ -1,3 +1,4 @@
+import { AuthGuard } from './../../guard/auth.guard';
 import { Config } from './../../configuration/environment-variables/config';
 import { PncHomePage } from './../pnc-home/pnc-home';
 import { PncFilter } from './../../models/pncFilter';
@@ -11,18 +12,21 @@ import { PncProvider } from './../../providers/pnc/pnc';
 import { TranslateService } from '@ngx-translate/core';
 import { Pnc } from './../../models/pnc';
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, IonicPage } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators, FormControl, AbstractControl } from '@angular/forms';
 import { Speciality } from '../../models/speciality';
 import { Subject } from 'rxjs/Rx';
 
+@IonicPage({
+  name: 'PncSearchPage',
+  segment: 'pncSearch',
+  defaultHistory: ['PncHomePage']
+})
 @Component({
   selector: 'page-pnc-search',
   templateUrl: 'pnc-search.html',
 })
 export class PncSearchPage {
-  // constante qui représente la valeur de l'option tous ou toutes des listes déroulantes
-  ALL = 'ALL';
 
   pncList: Observable<Pnc[]>;
   filteredPncs: Pnc[];
@@ -63,13 +67,21 @@ export class PncSearchPage {
     private sessionService: SessionService,
     private connectivityService: ConnectivityService,
     private toastProvider: ToastProvider,
+    private authGuard: AuthGuard,
     private config: Config) {
 
-    // Initialisation du formulaire
-    this.initForm();
     // initialistation du filtre
     this.initFilter();
+    // Initialisation du formulaire
+    this.initForm();
 
+
+  }
+
+  ionViewCanEnter() {
+    return this.authGuard.guard().then(guardReturn => {
+      return guardReturn;
+    });
   }
 
   ionViewDidLoad() {
@@ -99,37 +111,6 @@ export class PncSearchPage {
         this.aircraftSkillList = params['aircraftSkills'];
       }
     }
-    this.pncFilter.division = this.ALL;
-    this.pncFilter.sector = this.ALL;
-    this.pncFilter.ginq = this.ALL;
-    this.pncFilter.speciality = this.ALL;
-    this.pncFilter.aircraftSkill = this.ALL;
-    this.pncFilter.relay = this.ALL;
-  }
-  /**
-   * charge la liste des secteurs associé a la division choisi
-   * @param sector secteur concerné.
-   */
-  getSectorList(division) {
-    this.ginqList = null;
-    this.sectorList = null;
-    if (division !== this.ALL) {
-      this.sectorList = Object.keys(this.sessionService.parameters.params['divisions'][division]);
-    }
-    this.pncFilter.sector = this.ALL;
-    this.pncFilter.ginq = this.ALL;
-  }
-
-  /**
-   * charge la liste des ginq associé au secteur choisi
-   * @param sector secteur concerné.
-   */
-  getGinqList(sector) {
-    this.ginqList = null;
-    if (this.pncFilter.division !== this.ALL && sector !== '' && sector !== this.ALL) {
-      this.ginqList = this.sessionService.parameters.params['divisions'][this.pncFilter.division][sector];
-    }
-    this.pncFilter.ginq = this.ALL;
   }
 
   /**
@@ -183,23 +164,73 @@ export class PncSearchPage {
         '',
         Validators.compose([Validators.minLength(8), Validators.maxLength(8)])
       ],
-      divisionControl: [''],
-      sectorControl: [''],
-      ginqControl: [''],
-      specialityControl: [''],
-      aircraftSkillControl: [''],
-      relayControl: [''],
+      divisionControl: [this.pncFilter.division],
+      sectorControl: [this.pncFilter.sector],
+      ginqControl: [this.pncFilter.ginq],
+      specialityControl: [this.pncFilter.speciality],
+      aircraftSkillControl: [this.pncFilter.aircraftSkill],
+      relayControl: [this.pncFilter.relay],
     });
 
     this.pncMatriculeControl = this.searchForm.get('pncMatriculeControl');
 
     this.initAutocompleteList();
+    this.formOnChanges();
   }
 
   /**
+   * Fonction permettant de détecter et de gérer les changements de valeur des différents éléments du formulaire
+   */
+  formOnChanges(){
+    this.searchForm.get('divisionControl').valueChanges.subscribe( val => {
+      this.pncFilter.division = val;
+      this.getSectorList(this.pncFilter.division);
+    });
+
+    this.searchForm.get('sectorControl').valueChanges.subscribe( val => {
+      this.pncFilter.sector = val;
+      this.getGinqList(this.pncFilter.sector);
+    });
+
+    this.searchForm.valueChanges.subscribe( val => {
+      this.pncFilter.ginq = val.ginqControl;
+      this.pncFilter.speciality = val.specialityControl;
+      this.pncFilter.aircraftSkill = val.aircraftSkillControl;
+      this.pncFilter.relay = val.relayControl;
+    });
+  }
+
+    /**
+   * charge la liste des secteurs associé a la division choisi
+   * @param sector secteur concerné.
+   */
+  getSectorList(division) {
+    this.ginqList = null;
+    this.sectorList = null;
+    if (division !== this.pncFilter.ALL) {
+      this.sectorList = Object.keys(this.sessionService.parameters.params['divisions'][division]);
+    }
+    this.pncFilter.sector = this.pncFilter.ALL;
+    this.pncFilter.ginq = this.pncFilter.ALL;
+  }
+
+  /**
+   * charge la liste des ginq associé au secteur choisi
+   * @param sector secteur concerné.
+   */
+  getGinqList(sector) {
+    this.ginqList = null;
+    if (this.pncFilter.division !== this.pncFilter.ALL && sector !== '' && sector !== this.pncFilter.ALL) {
+      this.ginqList = this.sessionService.parameters.params['divisions'][this.pncFilter.division][sector];
+    }
+    this.pncFilter.ginq = this.pncFilter.ALL;
+  }
+
+
+  /**
    * compare deux valeurs et renvois true si elles sont égales
-   * @param e1 premiere valeur a comparée
-   * @param e2 Deuxieme valeur à comparée
+   * @param e1 premiere valeur à comparér
+   * @param e2 Deuxieme valeur à comparér
    */
   compareFn(e1: string, e2: string): boolean {
     if (e1 === e2) {
@@ -215,7 +246,7 @@ export class PncSearchPage {
   openPncHomePage(pnc: Pnc) {
     this.selectedPnc = undefined;
     this.initAutocompleteList();
-    this.navCtrl.push(PncHomePage, { matricule: pnc.matricule });
+    this.navCtrl.push('PncHomePage', { matricule: pnc.matricule });
   }
 
   /**
@@ -243,7 +274,7 @@ export class PncSearchPage {
   getFilledFieldsOnly(pncFilter) {
     let param: string;
     for (param in pncFilter) {
-      if (pncFilter[param] === undefined || pncFilter[param] === 'undefined' || pncFilter[param] === '' || pncFilter[param] === this.ALL) {
+      if (pncFilter[param] === undefined || pncFilter[param] === 'undefined' || pncFilter[param] === '' || pncFilter[param] === this.pncFilter.ALL) {
         delete pncFilter[param];
       }
     }

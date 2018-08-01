@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Config } from '../configuration/environment-variables/config';
 import { Platform } from 'ionic-angular';
+import { RestRequest } from './rest.base.service';
 
 declare var window: any;
 
@@ -110,6 +111,7 @@ export class SecMobilService {
     */
     public call(request: any): Promise<any> {
         return new Promise((resolve, reject) => {
+            this.handleGetRequest(request);
             this.secMobile.secMobilCallRestService(request,
                 (success) => {
                     try {
@@ -119,7 +121,6 @@ export class SecMobilService {
                         console.log(JSON.stringify(success));
                         // en cas d objet json vide, en renvois null, et ça implique qu'on peut recevoir du back que du json
                         resolve(null);
-
                     }
                 },
                 (err) => {
@@ -127,5 +128,28 @@ export class SecMobilService {
                     reject(err);
                 });
         });
+    }
+
+    /**
+     * Ajoute les données envoyé dans le jsonData dans l'URI de la requête.
+     * @param request
+     */
+    handleGetRequest(request: RestRequest) {
+        // SecMobile crash lorsqu'on lui passe une requête GET avec un body,
+        // on doit donc ajouter les éléments du body dans l'uri avant
+        if (request.method === 'GET' && request.jsonData !== undefined) {
+            request.url = `${request.url}?${this.jsonToQueryString(request.jsonData)}`;
+            request.jsonData = undefined;
+        }
+    }
+
+    /**
+     * Tranforme un json en string représentant les parametres de requête.
+     * @param json
+     */
+    jsonToQueryString(json) {
+        return Object.keys(json).map(function (key) {
+            return key + '=' + json[key];
+        }).join('&');
     }
 }
