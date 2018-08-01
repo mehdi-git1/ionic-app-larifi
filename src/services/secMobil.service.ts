@@ -123,7 +123,7 @@ export class SecMobilService {
                     }
                 },
                 (err) => {
-                    console.error('secmobile call failure : ' + err);
+                    console.error('secmobile call failure : ' + request.url + ' ' + err);
                     reject(err);
                 });
         });
