@@ -46,7 +46,7 @@ export class SynchronizationProvider {
     return new Promise((resolve, reject) => {
       this.pncSynchroProvider.getPncSynchro(matricule).then(pncSynchro => {
         this.summarySheetProvider.getSummarySheet(matricule).then(summarySheet => {
-          pncSynchro.summarySheet.summarySheet = summarySheet;
+          pncSynchro.summarySheet = summarySheet;
           this.updateLocalStorageFromPncSynchroResponse(pncSynchro);
           resolve(true);
         });
