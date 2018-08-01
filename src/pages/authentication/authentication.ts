@@ -3,8 +3,14 @@ import { SecurityProvider } from './../../providers/security/security';
 import { PncHomePage } from './../pnc-home/pnc-home';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
-import { NavParams, ViewController, App, NavController } from 'ionic-angular';
+import { NavParams, ViewController, App, NavController, IonicPage } from 'ionic-angular';
 import { SecMobilService } from '../../services/secMobil.service';
+
+
+@IonicPage({
+  name: 'AuthenticationPage',
+  segment: 'authentication'
+})
 
 @Component({
   selector: 'page-authentication',
@@ -87,7 +93,7 @@ export class AuthenticationPage implements OnInit {
     this.securityProvider.getAuthenticatedUser().then(authenticatedUser => {
       console.log('putAuthenticatedUserInSession : ' + authenticatedUser);
       this.sessionService.authenticatedUser = authenticatedUser;
-      this.navCtrl.setRoot(PncHomePage, { matricule: authenticatedUser.matricule });
+      this.navCtrl.setRoot('PncHomePage', { matricule: authenticatedUser.matricule });
       this.hideSpinner = true;
     }, error => {
       this.hideSpinner = true;
