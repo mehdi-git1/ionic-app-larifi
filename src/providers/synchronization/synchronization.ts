@@ -67,24 +67,39 @@ export class SynchronizationProvider {
 
     this.securityProvider.getAuthenticatedUser().then(user => {
       if (this.securityProvider.isManager() && user.matricule === pncSynchroResponse.pnc.matricule) {
-        for (const rotation of pncSynchroResponse.upcomingRotations) {
-          this.storageService.save(Entity.UPCOMING_ROTATION, this.rotationTransformerProvider.toRotation(rotation), true);
+
+        if (pncSynchroResponse.lastRotation != null) {
+          this.storageService.save(Entity.ROTATION, this.rotationTransformerProvider.toRotation(pncSynchroResponse.lastRotation), true);
         }
 
-        this.storageService.save(Entity.LAST_ROTATION, this.rotationTransformerProvider.toRotation(pncSynchroResponse.lastRotation), true);
-
-        for (const leg of pncSynchroResponse.upcomingLegs) {
-          let techIdRotation: number;
-          techIdRotation = leg.rotation.techId;
-          leg.rotation = new Rotation();
-          leg.rotation.techId = techIdRotation;
-
-          this.storageService.save(Entity.UPCOMING_LEG, this.legTransformerProvider.toLeg(leg), true);
+        if (pncSynchroResponse.upcomingRotations != null) {
+          for (const rotation of pncSynchroResponse.upcomingRotations) {
+            this.storageService.save(Entity.ROTATION, this.rotationTransformerProvider.toRotation(rotation), true);
+          }
         }
 
-        for (const leg of this.legTransformerProvider.toLegs(pncSynchroResponse.lastLegs)) {
-          this.storageService.save(Entity.LAST_LEG, leg, true);
+        if (pncSynchroResponse.lastLegs != null) {
+          for (const leg of pncSynchroResponse.lastLegs) {
+            let techIdRotation: number;
+            techIdRotation = leg.rotation.techId;
+            leg.rotation = new Rotation();
+            leg.rotation.techId = techIdRotation;
+
+            this.storageService.save(Entity.LEG, this.legTransformerProvider.toLeg(leg), true);
+          }
         }
+
+        if (pncSynchroResponse.upcomingLegs != null) {
+          for (const leg of pncSynchroResponse.upcomingLegs) {
+            let techIdRotation: number;
+            techIdRotation = leg.rotation.techId;
+            leg.rotation = new Rotation();
+            leg.rotation.techId = techIdRotation;
+
+            this.storageService.save(Entity.LEG, this.legTransformerProvider.toLeg(leg), true);
+          }
+        }
+
       }
     });
 
@@ -136,10 +151,8 @@ export class SynchronizationProvider {
     this.securityProvider.getAuthenticatedUser().then(user => {
       if (this.securityProvider.isManager() && user.matricule === pnc.matricule) {
         // Suppression de la liste du dernier et des prochains vols
-        this.storageService.deleteAll(Entity.UPCOMING_ROTATION);
-        this.storageService.deleteAll(Entity.UPCOMING_LEG);
-        this.storageService.deleteAll(Entity.LAST_ROTATION);
-        this.storageService.deleteAll(Entity.LAST_LEG);
+        this.storageService.deleteAll(Entity.ROTATION);
+        this.storageService.deleteAll(Entity.LEG);
       }
     });
 

@@ -74,6 +74,8 @@ import { HomePage } from '../pages/home/home';
 
 import { SummarySheetPage } from '../pages/summary-sheet/summary-sheet';
 import { SummarySheetProvider } from '../providers/summary-sheet/summary-sheet';
+import { OnlineRotationProvider } from '../providers/rotation/online-rotation';
+import { OfflineRotationProvider } from '../providers/rotation/offline-rotation';
 
 declare var window: any;
 
@@ -174,7 +176,9 @@ declare var window: any;
     LegTransformerProvider,
     OnlineSummarySheetProvider,
     OfflineSummarySheetProvider,
-    SummarySheetTransformerProvider
+    SummarySheetTransformerProvider,
+    OnlineRotationProvider,
+    OfflineRotationProvider
   ]
 })
 export class AppModule { }
