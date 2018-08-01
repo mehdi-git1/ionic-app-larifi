@@ -129,7 +129,7 @@ export class PncSearchPage {
   }
 
   /**
-   * Repmlie le matricule du filtre avec le matricule du pnc selectionné.
+   * Remplit le matricule du filtre avec le matricule du pnc selectionné.
    */
   prepareFilter(): void {
     if (this.selectedPnc) {
@@ -181,18 +181,18 @@ export class PncSearchPage {
   /**
    * Fonction permettant de détecter et de gérer les changements de valeur des différents éléments du formulaire
    */
-  formOnChanges(){
-    this.searchForm.get('divisionControl').valueChanges.subscribe( val => {
+  formOnChanges() {
+    this.searchForm.get('divisionControl').valueChanges.subscribe(val => {
       this.pncFilter.division = val;
       this.getSectorList(this.pncFilter.division);
     });
 
-    this.searchForm.get('sectorControl').valueChanges.subscribe( val => {
+    this.searchForm.get('sectorControl').valueChanges.subscribe(val => {
       this.pncFilter.sector = val;
       this.getGinqList(this.pncFilter.sector);
     });
 
-    this.searchForm.valueChanges.subscribe( val => {
+    this.searchForm.valueChanges.subscribe(val => {
       this.pncFilter.ginq = val.ginqControl;
       this.pncFilter.speciality = val.specialityControl;
       this.pncFilter.aircraftSkill = val.aircraftSkillControl;
@@ -200,10 +200,10 @@ export class PncSearchPage {
     });
   }
 
-    /**
-   * charge la liste des secteurs associé a la division choisi
-   * @param sector secteur concerné.
-   */
+  /**
+ * charge la liste des secteurs associé a la division choisi
+ * @param sector secteur concerné.
+ */
   getSectorList(division) {
     this.ginqList = null;
     this.sectorList = null;

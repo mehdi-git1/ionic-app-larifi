@@ -20,30 +20,19 @@
                     <ion-row>
                         <ion-col>
                             <!-- PNC -->
-                            <ion-item>
-                                <div>
+                            <ion-item [ngClass]="{ 'item-select-disabled' : areFiltersDisabled() }">
                                     <mat-form-field>
-                                        <input #pncMatricule type="text" matInput placeholder="{{'PNC_SEARCH.CRITERIA.PNC_MATRICULE' | translate}}" formControlName="pncMatriculeControl" (keyup)="search(pncMatricule.value)" [matAutocomplete]="auto" [(ngModel)]="selectedPnc" autocomplete="off"
-                                            [disabled]="this.areFiltersDisabled()"/>
-                                        <mat-hint *ngIf="pncMatriculeControl.touched && pncMatriculeControl.invalid" class="eDossier-error">
-                                            <span *ngIf="pncMatriculeControl.hasError('minlength')">
-                                                {{'MESSAGES.ERROR.MATRICULE_WRONG_SIZE' | translate}}
-                                            </span>
-                    <span *ngIf="pncMatriculeControl.hasError('maxlength')">
-                                                {{'MESSAGES.ERROR.MATRICULE_WRONG_SIZE' | translate}}
-                                            </span>
-                    </mat-hint>
+                                        <input #pncMatricule type="text" matInput 
+                                        placeholder="{{'PNC_SEARCH.CRITERIA.PNC_MATRICULE' | translate}}" formControlName="pncMatriculeControl" 
+                                        (keyup)="search(pncMatricule.value)" [matAutocomplete]="auto" [(ngModel)]="selectedPnc" autocomplete="off"
+                                        [readonly]="areFiltersDisabled()"/>
                     </mat-form-field>
 
-                    <mat-autocomplete class="mat-autocomplete" 
-                                      #auto="matAutocomplete" 
-                                      [displayWith]="displayPnc" 
-                                      (optionSelected)="openPncHomePage($event.option.value)">
+                    <mat-autocomplete class="mat-autocomplete" #auto="matAutocomplete" [displayWith]="displayPnc" (optionSelected)="openPncHomePage($event.option.value)">
                         <mat-option *ngFor="let pnc of pncList | async" [value]="pnc">
                             {{ pnc.firstName + ' ' + pnc.lastName + ' (' + pnc.matricule + ')'}}
                         </mat-option>
                     </mat-autocomplete>
-                    </div>
                     </ion-item>
                     </ion-col>
                     </ion-row>
@@ -52,9 +41,7 @@
                             <!-- Division -->
                             <ion-item>
                                 <ion-label floating>{{ 'PNC_SEARCH.CRITERIA.DIVISION' | translate }}</ion-label>
-                                <ion-select [compareWith]="compareFn" 
-                                            formControlName="divisionControl" 
-                                            [disabled]="areFiltersDisabled()">
+                                <ion-select [compareWith]="compareFn" formControlName="divisionControl" [disabled]="areFiltersDisabled()">
                                     <ion-option [value]="pncFilter.ALL" translate="PNC_SEARCH.DEFAULT_DATA.ALL_F"></ion-option>
                                     <ion-option *ngFor="let divisionKey of divisionList" [value]="divisionKey">{{divisionKey}}</ion-option>
                                 </ion-select>
@@ -64,9 +51,7 @@
                             <!-- Secteur -->
                             <ion-item>
                                 <ion-label floating>{{ 'PNC_SEARCH.CRITERIA.SECTOR' | translate }}</ion-label>
-                                <ion-select [compareWith]="compareFn" 
-                                            formControlName="sectorControl" 
-                                            [disabled]="areFiltersDisabled()">
+                                <ion-select [compareWith]="compareFn" formControlName="sectorControl" [disabled]="areFiltersDisabled()">
                                     <ion-option [value]="pncFilter.ALL" translate="PNC_SEARCH.DEFAULT_DATA.ALL_M"></ion-option>
                                     <ion-option *ngFor="let sectorKey of sectorList" [value]="sectorKey">{{sectorKey}}</ion-option>
                                 </ion-select>
@@ -76,9 +61,7 @@
                             <!-- Ginq -->
                             <ion-item>
                                 <ion-label floating>{{ 'PNC_SEARCH.CRITERIA.GINQ' | translate }}</ion-label>
-                                <ion-select [compareWith]="compareFn" 
-                                            formControlName="ginqControl" 
-                                            [disabled]="areFiltersDisabled()">
+                                <ion-select [compareWith]="compareFn" formControlName="ginqControl" [disabled]="areFiltersDisabled()">
                                     <ion-option [value]="pncFilter.ALL" translate="PNC_SEARCH.DEFAULT_DATA.ALL_M"></ion-option>
                                     <ion-option *ngFor="let ginqKey of ginqList" [value]="ginqKey">{{ginqKey}}</ion-option>
                                 </ion-select>
@@ -90,9 +73,7 @@
                             <!-- Grade -->
                             <ion-item>
                                 <ion-label floating>{{ 'PNC_SEARCH.CRITERIA.SPECIALITY' | translate }}</ion-label>
-                                <ion-select [compareWith]="compareFn" 
-                                            formControlName="specialityControl" 
-                                            [disabled]="areFiltersDisabled()">
+                                <ion-select [compareWith]="compareFn" formControlName="specialityControl" [disabled]="areFiltersDisabled()">
                                     <ion-option [value]="pncFilter.ALL" translate="PNC_SEARCH.DEFAULT_DATA.ALL_F"></ion-option>
                                     <ion-option *ngFor="let specialityKey of specialityList" [value]="specialityKey">{{specialityKey}}</ion-option>
                                 </ion-select>
@@ -102,9 +83,7 @@
                             <!-- spécification machine -->
                             <ion-item>
                                 <ion-label floating>{{ 'PNC_SEARCH.CRITERIA.AIRCRAFT_SKILL' | translate }}</ion-label>
-                                <ion-select [compareWith]="compareFn" 
-                                            formControlName="aircraftSkillControl" 
-                                            [disabled]="areFiltersDisabled()">
+                                <ion-select [compareWith]="compareFn" formControlName="aircraftSkillControl" [disabled]="areFiltersDisabled()">
                                     <ion-option [value]="pncFilter.ALL" translate="PNC_SEARCH.DEFAULT_DATA.ALL_F"></ion-option>
                                     <ion-option *ngFor="let aircraftSkillKey of aircraftSkillList" [value]="aircraftSkillKey">{{aircraftSkillKey}}</ion-option>
                                 </ion-select>
@@ -114,9 +93,7 @@
                             <!-- Relais -->
                             <ion-item>
                                 <ion-label floating>{{ 'PNC_SEARCH.CRITERIA.RELAY' | translate }}</ion-label>
-                                <ion-select [compareWith]="compareFn"
-                                            formControlName="relayControl" 
-                                            [disabled]="areFiltersDisabled()">
+                                <ion-select [compareWith]="compareFn" formControlName="relayControl" [disabled]="areFiltersDisabled()">
                                     <ion-option [value]="pncFilter.ALL" translate="PNC_SEARCH.DEFAULT_DATA.ALL_M"></ion-option>
                                     <ion-option *ngFor="let relayKey of relayList" [value]="relayKey">{{relayKey}}</ion-option>
                                 </ion-select>
