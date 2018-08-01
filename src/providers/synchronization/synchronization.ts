@@ -1,4 +1,4 @@
-import { LegTransformerProvider } from './../leg/LegTransformerProvider';
+import { LegTransformerProvider } from './../leg/leg-transformer';
 import { RotationTransformerProvider } from './../rotation/rotation-transformer';
 import { PncTransformerProvider } from './../pnc/pnc-transformer';
 import { WaypointTransformerProvider } from './../waypoint/waypoint-transformer';

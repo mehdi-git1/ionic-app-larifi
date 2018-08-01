@@ -1,4 +1,4 @@
-import { Leg } from './../../models/Leg';
+import { Leg } from './../../models/leg';
 import { Injectable } from '@angular/core';
 
 @Injectable()

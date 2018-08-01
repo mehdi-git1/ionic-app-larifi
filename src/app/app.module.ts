@@ -1,3 +1,5 @@
+import { LegTransformerProvider } from './../providers/leg/leg-transformer';
+import { RotationTransformerProvider } from './../providers/rotation/rotation-transformer';
 import { OnlineWaypointProvider } from './../providers/waypoint/online-waypoint';
 import { OnlineCareerObjectiveProvider } from './../providers/career-objective/online-career-objective';
 import { OfflineWaypointProvider } from './../providers/waypoint/offline-waypoint';
@@ -151,7 +153,9 @@ import { SummarySheetProvider } from '../providers/summary-sheet/summary-sheet';
     SynchronizationProvider,
     PncSynchroProvider,
     EObservationService,
-    SummarySheetProvider
+    SummarySheetProvider,
+    RotationTransformerProvider,
+    LegTransformerProvider
   ]
 })
 export class AppModule { }
