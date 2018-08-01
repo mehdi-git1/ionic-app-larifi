@@ -220,11 +220,19 @@ export class PncSearchPage {
   getSectorList(division) {
     this.ginqList = null;
     this.sectorList = null;
+<<<<<<< HEAD
     if (division !== this.ALL) {
       this.sectorList = Object.keys(this.sessionService.parameters.params['divisions'][division]);
     }
     this.pncFilter.sector = this.ALL;
     this.pncFilter.ginq = this.ALL;
+=======
+    if (division !== this.pncFilter.getAllValue()) {
+      this.sectorList = Object.keys(this.sessionService.parameters.params['divisions'][division]);
+    }
+    this.pncFilter.sector = this.pncFilter.getAllValue();
+    this.pncFilter.ginq = this.pncFilter.getAllValue();
+>>>>>>> 2a8ce00ece453b2de70f14921b3f04a7fe087dfd
   }
 
   /**
@@ -233,10 +241,17 @@ export class PncSearchPage {
    */
   getGinqList(sector) {
     this.ginqList = null;
+<<<<<<< HEAD
     if (this.pncFilter.division !== this.ALL && sector !== '' && sector !== this.ALL) {
       this.ginqList = this.sessionService.parameters.params['divisions'][this.pncFilter.division][sector];
     }
     this.pncFilter.ginq = this.ALL;
+=======
+    if (this.pncFilter.division !== this.pncFilter.getAllValue() && sector !== '' && sector !== this.pncFilter.getAllValue()) {
+      this.ginqList = this.sessionService.parameters.params['divisions'][this.pncFilter.division][sector];
+    }
+    this.pncFilter.ginq = this.pncFilter.getAllValue();
+>>>>>>> 2a8ce00ece453b2de70f14921b3f04a7fe087dfd
   }
 
 
@@ -268,7 +283,9 @@ export class PncSearchPage {
   searchPncs() {
     this.searchInProgress = true;
     this.buildFilter();
+
     this.getFilledFieldsOnly(this.pncFilter);
+
     this.pncProvider.getFilteredPncs(this.pncFilter).then(pagedPnc => {
       this.searchInProgress = false;
       this.filteredPncs = pagedPnc.content;
@@ -287,7 +304,11 @@ export class PncSearchPage {
   getFilledFieldsOnly(pncFilter) {
     let param: string;
     for (param in pncFilter) {
+<<<<<<< HEAD
       if (pncFilter[param] === undefined || pncFilter[param] === 'undefined' || pncFilter[param] === '' || pncFilter[param] === this.ALL) {
+=======
+      if (pncFilter[param] === undefined || pncFilter[param] === 'undefined' || pncFilter[param] === '' || pncFilter[param] === this.pncFilter.getAllValue()) {
+>>>>>>> 2a8ce00ece453b2de70f14921b3f04a7fe087dfd
         delete pncFilter[param];
       }
     }
