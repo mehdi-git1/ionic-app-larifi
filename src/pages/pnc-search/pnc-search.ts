@@ -28,6 +28,9 @@ import { Subject } from 'rxjs/Rx';
 })
 export class PncSearchPage {
 
+  // Valeur par défaut des filtres
+  ALL = 'ALL';
+
   pncList: Observable<Pnc[]>;
   filteredPncs: Pnc[];
   searchInProgress: boolean;
@@ -111,6 +114,16 @@ export class PncSearchPage {
         this.aircraftSkillList = params['aircraftSkills'];
       }
     }
+    this.pncFilter.page = 0;
+    this.pncFilter.size = 0;
+    this.pncFilter.sortColumn = '';
+    this.pncFilter.sortDirection = '';
+    this.pncFilter.division = this.ALL;
+    this.pncFilter.sector = this.ALL;
+    this.pncFilter.ginq = this.ALL;
+    this.pncFilter.speciality = this.ALL;
+    this.pncFilter.aircraftSkill = this.ALL;
+    this.pncFilter.relay = this.ALL;
   }
 
   /**
@@ -181,18 +194,18 @@ export class PncSearchPage {
   /**
    * Fonction permettant de détecter et de gérer les changements de valeur des différents éléments du formulaire
    */
-  formOnChanges(){
-    this.searchForm.get('divisionControl').valueChanges.subscribe( val => {
+  formOnChanges() {
+    this.searchForm.get('divisionControl').valueChanges.subscribe(val => {
       this.pncFilter.division = val;
       this.getSectorList(this.pncFilter.division);
     });
 
-    this.searchForm.get('sectorControl').valueChanges.subscribe( val => {
+    this.searchForm.get('sectorControl').valueChanges.subscribe(val => {
       this.pncFilter.sector = val;
       this.getGinqList(this.pncFilter.sector);
     });
 
-    this.searchForm.valueChanges.subscribe( val => {
+    this.searchForm.valueChanges.subscribe(val => {
       this.pncFilter.ginq = val.ginqControl;
       this.pncFilter.speciality = val.specialityControl;
       this.pncFilter.aircraftSkill = val.aircraftSkillControl;
@@ -200,18 +213,18 @@ export class PncSearchPage {
     });
   }
 
-    /**
-   * charge la liste des secteurs associé a la division choisi
-   * @param sector secteur concerné.
-   */
+  /**
+ * charge la liste des secteurs associé a la division choisi
+ * @param sector secteur concerné.
+ */
   getSectorList(division) {
     this.ginqList = null;
     this.sectorList = null;
-    if (division !== this.pncFilter.ALL) {
+    if (division !== this.ALL) {
       this.sectorList = Object.keys(this.sessionService.parameters.params['divisions'][division]);
     }
-    this.pncFilter.sector = this.pncFilter.ALL;
-    this.pncFilter.ginq = this.pncFilter.ALL;
+    this.pncFilter.sector = this.ALL;
+    this.pncFilter.ginq = this.ALL;
   }
 
   /**
@@ -220,10 +233,10 @@ export class PncSearchPage {
    */
   getGinqList(sector) {
     this.ginqList = null;
-    if (this.pncFilter.division !== this.pncFilter.ALL && sector !== '' && sector !== this.pncFilter.ALL) {
+    if (this.pncFilter.division !== this.ALL && sector !== '' && sector !== this.ALL) {
       this.ginqList = this.sessionService.parameters.params['divisions'][this.pncFilter.division][sector];
     }
-    this.pncFilter.ginq = this.pncFilter.ALL;
+    this.pncFilter.ginq = this.ALL;
   }
 
 
@@ -274,7 +287,7 @@ export class PncSearchPage {
   getFilledFieldsOnly(pncFilter) {
     let param: string;
     for (param in pncFilter) {
-      if (pncFilter[param] === undefined || pncFilter[param] === 'undefined' || pncFilter[param] === '' || pncFilter[param] === this.pncFilter.ALL) {
+      if (pncFilter[param] === undefined || pncFilter[param] === 'undefined' || pncFilter[param] === '' || pncFilter[param] === this.ALL) {
         delete pncFilter[param];
       }
     }
