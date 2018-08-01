@@ -29,14 +29,14 @@ export class AuthGuard {
   ) {
   }
 
-  guard(launch: boolean = false): Promise<boolean>{
+  guard(launch: boolean = false): Promise<boolean> {
     /**
      * On test pour savoir si on est en mode app
      * Si oui, ce guard ne doit être lancé qu'a l'initialisation
      * Si non, on le lance tout le temps.
      */
 
-    if (launch || this.secMobilService.isBrowser){
+    if (launch || this.secMobilService.isBrowser) {
       this.secMobilService.init();
       return this.secMobilService.isAuthenticated().then(() => {
         // Création du stockage local
@@ -46,15 +46,15 @@ export class AuthGuard {
             return this.synchronizationProvider.storeEDossierOffline(authenticatedUser.matricule).then(successStore => {
               return true;
             }, error => {
-              return false;
+              return true;
             });
           });
         });
       },
-      error => {
-        return false;
-      });
-    }else{
+        error => {
+          return this.secMobilService.isBrowser ? true : false;
+        });
+    } else {
       return new Promise((resolve, reject) => resolve(true));
     }
   }
@@ -62,7 +62,7 @@ export class AuthGuard {
   /**
   * Mettre le pnc connecté en session
   */
- putAuthenticatedUserInSession(): Promise<AuthenticatedUser> {
+  putAuthenticatedUserInSession(): Promise<AuthenticatedUser> {
     return this.securityProvider.getAuthenticatedUser().then(authenticatedUser => {
       if (authenticatedUser) {
         this.sessionService.authenticatedUser = authenticatedUser;
@@ -77,9 +77,9 @@ export class AuthGuard {
     });
   }
 
-    /**
-   * Récupère les parametres envoyé par le back
-   */
+  /**
+ * Récupère les parametres envoyé par le back
+ */
   initParameters() {
     this.parametersProvider.getParams().then(parameters => {
       this.sessionService.parameters = parameters;
