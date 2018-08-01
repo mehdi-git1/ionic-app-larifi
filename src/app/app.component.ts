@@ -2,12 +2,13 @@ import { SynchronizationProvider } from './../providers/synchronization/synchron
 import { ToastProvider } from './../providers/toast/toast';
 import { ConnectivityService } from './../services/connectivity.service';
 import { AuthenticatedUser } from './../models/authenticatedUser';
+import { ParametersProvider } from './../providers/parameters/parameters';
 import { AuthenticationPage } from './../pages/authentication/authentication';
 import { SessionService } from './../services/session.service';
 import { SecurityProvider } from './../providers/security/security';
 import { PncHomePage } from './../pages/pnc-home/pnc-home';
 import { Component, ViewChild, OnInit } from '@angular/core';
-import { Nav, Platform } from 'ionic-angular';
+import { Nav, Platform, Events } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -37,7 +38,9 @@ export class EDossierPNC implements OnInit {
     private connectivityService: ConnectivityService,
     private toastProvider: ToastProvider,
     private synchronizationProvider: SynchronizationProvider,
-    public translate: TranslateService
+    public translate: TranslateService,
+    private events: Events,
+    private parametersProvider: ParametersProvider
   ) {
   }
 
@@ -48,6 +51,15 @@ export class EDossierPNC implements OnInit {
   initializeApp() {
     this.platform.ready().then(() => {
 
+      /**
+       * Actuellement le ping est configuré pour être effectif sur le web et non sur le mobile
+       * A terme, il faudra le remettre sur le mobile (probléme de CORS à l'eure actuelle)
+       */
+
+      if (this.secMobilService.isBrowser){
+        // this.connectivityService.pingAPI();
+      }
+
       this.statusBar.styleDefault();
       this.splashScreen.hide();
 
@@ -57,21 +69,22 @@ export class EDossierPNC implements OnInit {
       this.secMobilService.init();
       this.secMobilService.isAuthenticated().then(() => {
         // launch process when already authenticated
-        this.putAuthenticatedUserInSession();
+        // Création du stockage local
+        this.storageService.initOfflineMap().then(success => {
+          this.putAuthenticatedUserInSession().then(authenticatedUser => {
+            this.initParameters();
+            this.synchronizationProvider.storeEDossierOffline(authenticatedUser.matricule).then(successStore => {
+            }, error => {
+            });
+
+          });
+        });
+
       },
         error => {
           console.log('go to authentication page');
           this.nav.setRoot(AuthenticationPage);
         });
-
-      // Création du stockage local
-      this.storageService.initOfflineMap().then(success => {
-        this.putAuthenticatedUserInSession().then(authenticatedUser => {
-          this.synchronizationProvider.storeEDossierOffline(authenticatedUser.matricule).then(successStore => {
-          }, error => {
-          });
-        });
-      });
 
       // Détection d'un changement d'état de la connexion
       this.connectivityService.connectionStatusChange.subscribe(connected => {
@@ -82,14 +95,21 @@ export class EDossierPNC implements OnInit {
           this.synchronizationProvider.synchronizeOfflineData();
         }
       });
-
     });
-
   }
 
   /**
-  * Mettre le pnc connecté en session
-  */
+   * Récupère les parametres envoyé par le back
+   */
+  initParameters() {
+    this.parametersProvider.getParams().then(parameters => {
+      this.sessionService.parameters = parameters;
+    }, error => { });
+  }
+
+  /**
+   * Mettre le pnc connecté en session
+   */
   putAuthenticatedUserInSession(): Promise<AuthenticatedUser> {
     const promise = this.securityProvider.getAuthenticatedUser();
     promise.then(authenticatedUser => {

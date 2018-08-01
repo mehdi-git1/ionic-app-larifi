@@ -16,6 +16,7 @@ import { PncHomePage } from './../../pages/pnc-home/pnc-home';
 export class PncCardComponent {
 
   @Input() crewMember: CrewMember;
+  @Input() isCrewMember: boolean;
   synchroInProgress: boolean;
 
   constructor(
@@ -28,17 +29,13 @@ export class PncCardComponent {
     private pncProvider: PncProvider) {
   }
 
-  ionViewDidLoad() {
-    this.loadOfflinePncData(this.crewMember.pnc.matricule);
-  }
-
   /**
-   * charge les données offline du pnc afin de savoir si il est chargé en cache
+   * Charge les données offline du pnc afin de savoir si il est chargé en cache
    */
-  loadOfflinePncData(matricule): Promise<void> {
+  loadOfflinePncData(): Promise<void> {
     return new Promise((resolve, reject) => {
       if (this.crewMember.pnc.matricule !== undefined) {
-        this.pncProvider.getPnc(this.crewMember.pnc.matricule).then(foundPnc => {
+        this.pncProvider.refreshOffLineDateOnPnc(this.crewMember.pnc).then(foundPnc => {
           this.crewMember.pnc = foundPnc;
           resolve();
         }, error => {
@@ -51,12 +48,16 @@ export class PncCardComponent {
   /**
    * Précharge le eDossier du PNC
    */
-  downloadPncEdossier(event: Event, matricule) {
-    event.stopPropagation();
+  downloadPncEdossier(matricule) {
     this.synchroInProgress = true;
     this.synchronizationProvider.storeEDossierOffline(matricule).then(success => {
-      this.toastProvider.info(this.translate.instant('SYNCHRONIZATION.PNC_SAVED_OFFLINE', { 'matricule': matricule }));
-      this.synchroInProgress = false;
+      this.loadOfflinePncData().then(successOfflineData => {
+        this.synchroInProgress = false;
+        this.toastProvider.info(this.translate.instant('SYNCHRONIZATION.PNC_SAVED_OFFLINE', { 'matricule': matricule }));
+      }).catch(error => {
+        this.synchroInProgress = false;
+        this.toastProvider.info(this.translate.instant('SYNCHRONIZATION.PNC_SAVED_OFFLINE', { 'matricule': matricule }));
+      });
     }, error => {
       this.toastProvider.error(this.translate.instant('SYNCHRONIZATION.PNC_SAVED_OFFLINE_ERROR', { 'matricule': matricule }));
       this.synchroInProgress = false;
@@ -67,4 +68,7 @@ export class PncCardComponent {
     this.navCtrl.push(PncHomePage, { matricule: matricule });
   }
 
+  getAvatarPicture(gender) {
+    return this.genderProvider.getAvatarPicture(gender);
+  }
 }

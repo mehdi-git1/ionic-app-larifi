@@ -3,7 +3,6 @@ import { OfflineSecurityProvider } from './../security/offline-security';
 import { Config } from './../../configuration/environment-variables/config';
 import { Injectable } from '@angular/core';
 import { RestService } from '../../services/rest.base.service';
-import { JsonpCallbackContext } from '../../../node_modules/@angular/common/http/src/jsonp';
 
 @Injectable()
 export class OnlineSecurityProvider {

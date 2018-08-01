@@ -57,26 +57,23 @@ export class CareerObjectiveListPage {
   }
 
   /**
-   * Récupère les paramètres pour l'appel à formsLib
+   * Fait appel a formsLib avec les paramètres eObservation.
    */
-  getEObservation() {
-    return new Promise((resolve, reject) => {
-      this.eObservationService.getEObservation(this.matricule, this.sessionService.appContext.rotationId).then(eObservation => {
-        this.eObservation = eObservation;
-        resolve();
-      }, error => {
-        reject();
-      });
+  callForms() {
+    this.eObservationService.getEObservation(this.matricule, this.sessionService.appContext.rotationId).then(eObservation => {
+      this.eObservation = eObservation;
+      if (this.eObservation) {
+        this.eObservationService.callForms(this.eObservation);
+      }
+    }, error => {
     });
   }
 
-  /**
-   * Fait appel a formsLib avec les paramètres déja reçu dans l'objet eObservation.
-   */
-  callForms() {
-    this.getEObservation();
-    if (this.eObservation) {
-      this.eObservationService.callForms(this.eObservation);
+  canShowCallFormsBtn() {
+    if (this.sessionService.appContext.rotationId) {
+      return true;
+    } else {
+      return false;
     }
   }
 }
