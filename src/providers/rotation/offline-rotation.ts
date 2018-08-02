@@ -21,19 +21,16 @@ export class OfflineRotationProvider {
     * @return la liste des tronçons de la rotation
     */
     getRotationLegs(rotation: Rotation): Promise<Leg[]> {
-        let promiseLegs = this.storageService.findAllAsync(Entity.LEG);
-        promiseLegs.then(
-            legs => {
-                legs.filter(leg => leg.rotation.techId === rotation.techId);
-            }
-        );
-        return promiseLegs;
-
+        return new Promise((resolve, reject) => {
+            let legs = this.storageService.findAll(Entity.LEG);
+            legs.filter(leg => leg.rotation.techId === rotation.techId);
+            resolve(legs);
+        });
     }
 
     /**
     * Récupère une rotation
-    * @param rotation l'id de la rotation
+    * @param rotationId l'id de la rotation
     * @return la rotation demandée
     */
     getRotation(rotationId: String): Promise<Rotation> {

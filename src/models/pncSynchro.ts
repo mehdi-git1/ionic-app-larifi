@@ -10,8 +10,6 @@ export class PncSynchro {
     summarySheet: SummarySheet;
     careerObjectives: CareerObjective[];
     waypoints: Waypoint[];
-    upcomingRotations: Rotation[];
-    upcomingLegs: Leg[];
-    lastPerformedRotation: Rotation;
-    lastPerformedLegs: Leg[];
+    rotations: Rotation[];
+    legs: Leg[];
 }

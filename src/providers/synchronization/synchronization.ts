@@ -65,43 +65,21 @@ export class SynchronizationProvider {
 
     this.storageService.save(Entity.PNC, this.pncTransformer.toPnc(pncSynchroResponse.pnc), true);
 
-    this.securityProvider.getAuthenticatedUser().then(user => {
-      if (this.securityProvider.isManager() && user.matricule === pncSynchroResponse.pnc.matricule) {
-
-        if (pncSynchroResponse.lastPerformedRotation != null) {
-          this.storageService.save(Entity.ROTATION, this.rotationTransformerProvider.toRotation(pncSynchroResponse.lastPerformedRotation), true);
-        }
-
-        if (pncSynchroResponse.upcomingRotations != null) {
-          for (const rotation of pncSynchroResponse.upcomingRotations) {
-            this.storageService.save(Entity.ROTATION, this.rotationTransformerProvider.toRotation(rotation), true);
-          }
-        }
-
-        if (pncSynchroResponse.lastPerformedLegs != null) {
-          for (const leg of pncSynchroResponse.lastPerformedLegs) {
-            let techIdRotation: number;
-            techIdRotation = leg.rotation.techId;
-            leg.rotation = new Rotation();
-            leg.rotation.techId = techIdRotation;
-
-            this.storageService.save(Entity.LEG, this.legTransformerProvider.toLeg(leg), true);
-          }
-        }
-
-        if (pncSynchroResponse.upcomingLegs != null) {
-          for (const leg of pncSynchroResponse.upcomingLegs) {
-            let techIdRotation: number;
-            techIdRotation = leg.rotation.techId;
-            leg.rotation = new Rotation();
-            leg.rotation.techId = techIdRotation;
-
-            this.storageService.save(Entity.LEG, this.legTransformerProvider.toLeg(leg), true);
-          }
-        }
-
+    if (pncSynchroResponse.rotations !== null) {
+      for (const rotation of pncSynchroResponse.rotations) {
+        this.storageService.save(Entity.ROTATION, this.rotationTransformerProvider.toRotation(rotation), true);
       }
-    });
+    }
+
+    if (pncSynchroResponse.legs !== null) {
+      for (const leg of pncSynchroResponse.legs) {
+        let techIdRotation: number = leg.rotation.techId;
+        leg.rotation = new Rotation();
+        leg.rotation.techId = techIdRotation;
+
+        this.storageService.save(Entity.LEG, this.legTransformerProvider.toLeg(leg), true);
+      }
+    }
 
     // Création des nouveaux objets
     for (const careerObjective of pncSynchroResponse.careerObjectives) {
@@ -148,13 +126,9 @@ export class SynchronizationProvider {
         this.careerObjectiveTransformer.toCareerObjective(careerObjective).getStorageId());
     }
 
-    this.securityProvider.getAuthenticatedUser().then(user => {
-      if (this.securityProvider.isManager() && user.matricule === pnc.matricule) {
-        // Suppression de la liste du dernier et des prochains vols
-        this.storageService.deleteAll(Entity.ROTATION);
-        this.storageService.deleteAll(Entity.LEG);
-      }
-    });
+    // Suppression de la liste du dernier et des prochains vols
+    this.storageService.deleteAll(Entity.ROTATION);
+    this.storageService.deleteAll(Entity.LEG);
 
     // Suppression de la fiche synthese
     this.storageService.delete(Entity.SUMMARY_SHEET, pnc.matricule);
