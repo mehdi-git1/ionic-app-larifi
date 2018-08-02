@@ -142,7 +142,7 @@ export class PncSearchPage {
   }
 
   /**
-   * Repmlie le matricule du filtre avec le matricule du pnc selectionné.
+   * Remplit le matricule du filtre avec le matricule du pnc selectionné.
    */
   prepareFilter(): void {
     if (this.selectedPnc) {
