@@ -14,9 +14,7 @@ export class RotationProvider {
 
   constructor(private connectivityService: ConnectivityService,
     private onlineRotationProvider: OnlineRotationProvider,
-    private offlineRotationProvider: OfflineRotationProvider,
-    private config: Config) {
-    this.rotationUrl = `${config.backEndUrl}/rotations`;
+    private offlineRotationProvider: OfflineRotationProvider) {
   }
 
   /**
