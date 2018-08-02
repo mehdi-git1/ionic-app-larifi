@@ -1,6 +1,22 @@
 
 import { LegTransformerProvider } from './../providers/leg/leg-transformer';
 import { RotationTransformerProvider } from './../providers/rotation/rotation-transformer';
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ErrorHandler, NgModule } from '@angular/core';
+import { DatePipe } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
+import { TranslateLoader } from '@ngx-translate/core';
+
+import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
+import { IonicStorageModule } from '@ionic/storage';
+import { StatusBar } from '@ionic-native/status-bar';
+import { SplashScreen } from '@ionic-native/splash-screen';
+
+import { EDossierPNC } from './app.component';
+
+import { SharedModule } from './../shared/shared.module';
+
 import { SummarySheetTransformerProvider } from './../providers/summary-sheet/summary-sheet-transformer';
 import { OnlineSummarySheetProvider } from './../providers/summary-sheet/online-summary-sheet';
 import { OfflineSummarySheetProvider } from './../providers/summary-sheet/offline-summary-sheet';
@@ -11,36 +27,19 @@ import { OfflineCareerObjectiveProvider } from './../providers/career-objective/
 import { OfflineSecurityProvider } from './../providers/security/offline-security';
 import { OnlineSecurityProvider } from './../providers/security/online-security';
 import { StorageService } from './../services/storage.service';
-import { PdfViewerModule } from 'ng2-pdf-viewer';
-import { AppMaterialModule } from './../shared/material/material.module';
-import { PncSearchPage } from './../pages/pnc-search/pnc-search';
-import { HelpAssetListPage } from './../pages/help-asset-list/help-asset-list';
+
 import { EObservationService } from './../services/eObservation.service';
 import { ComponentsModule } from './../components/components.module';
-import { FlightCrewListPage } from './../pages/flight-crew-list/flight-crew-list';
 import { WaypointStatusProvider } from './../providers/waypoint-status/waypoint-status';
 import { HttpErrorInterceptor } from './../interceptor/httpErrorInterceptor';
 import { SessionService } from './../services/session.service';
 import { SecurityProvider } from './../providers/security/security';
 import { CareerObjectiveProvider } from './../providers/career-objective/career-objective';
-import { PncHomePage } from './../pages/pnc-home/pnc-home';
-import { CareerObjectiveCreatePage } from './../pages/career-objective-create/career-objective-create';
-import { BrowserModule } from '@angular/platform-browser';
-import { ErrorHandler, NgModule } from '@angular/core';
-import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { EDossierPNC } from './app.component';
-import { CareerObjectiveListPage } from './../pages/career-objective-list/career-objective-list';
-
-import { StatusBar } from '@ionic-native/status-bar';
-import { SplashScreen } from '@ionic-native/splash-screen';
-import { AuthenticationPage } from '../pages/authentication/authentication';
 import { SecMobilService } from '../services/secMobil.service';
 import { AppInitService } from '../services/appInit.service';
 import { Config } from '../configuration/environment-variables/config';
-import { TranslateModule } from '@ngx-translate/core';
-import { TranslateLoader } from '@ngx-translate/core';
+
 import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { createTranslateLoader } from '../common/translate/TranslateLoader';
 
@@ -53,15 +52,15 @@ import { PncProvider } from '../providers/pnc/pnc';
 import { GenderProvider } from '../providers/gender/gender';
 import { ToastProvider } from '../providers/toast/toast';
 import { CareerObjectiveStatusProvider } from '../providers/career-objective-status/career-objective-status';
-import { DatePipe } from '@angular/common';
-import { WaypointCreatePage } from './../pages/waypoint-create/waypoint-create';
+
 import { WaypointProvider } from './../providers/waypoint/waypoint';
-import { UpcomingFlightListPage } from '../pages/upcoming-flight-list/upcoming-flight-list';
+
 import { RotationProvider } from '../providers/rotation/rotation';
 import { HelpAssetProvider } from '../providers/help-asset/help-asset';
 import { LegProvider } from '../providers/leg/leg';
+
 import { ParametersProvider } from '../providers/parameters/parameters';
-import { IonicStorageModule } from '@ionic/storage';
+
 import { OfflineProvider } from '../providers/offline/offline';
 import { OfflinePncProvider } from '../providers/pnc/offline-pnc';
 import { OnlinePncProvider } from '../providers/pnc/online-pnc';
@@ -70,9 +69,10 @@ import { WaypointTransformerProvider } from '../providers/waypoint/waypoint-tran
 import { PncTransformerProvider } from '../providers/pnc/pnc-transformer';
 import { SynchronizationProvider } from '../providers/synchronization/synchronization';
 import { PncSynchroProvider } from '../providers/synchronization/pnc-synchro';
-import { HomePage } from '../pages/home/home';
 
-import { SummarySheetPage } from '../pages/summary-sheet/summary-sheet';
+
+import { HomePage } from './../pages/home/home';
+
 import { SummarySheetProvider } from '../providers/summary-sheet/summary-sheet';
 import { OnlineRotationProvider } from '../providers/rotation/online-rotation';
 import { OfflineRotationProvider } from '../providers/rotation/offline-rotation';
@@ -82,18 +82,7 @@ declare var window: any;
 @NgModule({
   declarations: [
     EDossierPNC,
-    PncHomePage,
-    AuthenticationPage,
-    CareerObjectiveCreatePage,
-    CareerObjectiveListPage,
-    WaypointCreatePage,
-    UpcomingFlightListPage,
-    PncSearchPage,
-    HelpAssetListPage,
-    FlightCrewListPage,
-    PncSearchPage,
-    HomePage,
-    SummarySheetPage
+    HomePage
   ],
   imports: [
     BrowserModule,
@@ -101,31 +90,13 @@ declare var window: any;
     IonicStorageModule.forRoot(),
     HttpClientModule,
     ComponentsModule,
-    TranslateModule.forRoot({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: (createTranslateLoader),
-        deps: [HttpClient]
-      }
-    }),
-    AppMaterialModule,
+    SharedModule,
     BrowserAnimationsModule,
-    PdfViewerModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     EDossierPNC,
-    PncHomePage,
-    AuthenticationPage,
-    CareerObjectiveCreatePage,
-    CareerObjectiveListPage,
-    WaypointCreatePage,
-    UpcomingFlightListPage,
-    FlightCrewListPage,
-    PncSearchPage,
-    HelpAssetListPage,
-    HomePage,
-    SummarySheetPage
+    HomePage
   ],
   providers: [
     StatusBar,

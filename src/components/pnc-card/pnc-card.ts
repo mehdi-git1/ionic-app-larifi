@@ -64,10 +64,6 @@ export class PncCardComponent {
     });
   }
 
-  openPncHomePage(matricule) {
-    this.navCtrl.push(PncHomePage, { matricule: matricule });
-  }
-
   getAvatarPicture(gender) {
     return this.genderProvider.getAvatarPicture(gender);
   }

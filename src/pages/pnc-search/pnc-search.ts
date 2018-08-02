@@ -1,3 +1,4 @@
+import { AuthGuard } from './../../guard/auth.guard';
 import { Config } from './../../configuration/environment-variables/config';
 import { PncHomePage } from './../pnc-home/pnc-home';
 import { PncFilter } from './../../models/pncFilter';
@@ -11,16 +12,24 @@ import { PncProvider } from './../../providers/pnc/pnc';
 import { TranslateService } from '@ngx-translate/core';
 import { Pnc } from './../../models/pnc';
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, IonicPage } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators, FormControl, AbstractControl } from '@angular/forms';
 import { Speciality } from '../../models/speciality';
 import { Subject } from 'rxjs/Rx';
 
+@IonicPage({
+  name: 'PncSearchPage',
+  segment: 'pncSearch',
+  defaultHistory: ['PncHomePage']
+})
 @Component({
   selector: 'page-pnc-search',
   templateUrl: 'pnc-search.html',
 })
 export class PncSearchPage {
+
+  // Valeur par défaut des filtres
+  ALL = 'ALL';
 
   pncList: Observable<Pnc[]>;
   filteredPncs: Pnc[];
@@ -61,6 +70,7 @@ export class PncSearchPage {
     private sessionService: SessionService,
     private connectivityService: ConnectivityService,
     private toastProvider: ToastProvider,
+    private authGuard: AuthGuard,
     private config: Config) {
 
     // initialistation du filtre
@@ -69,6 +79,12 @@ export class PncSearchPage {
     this.initForm();
 
 
+  }
+
+  ionViewCanEnter() {
+    return this.authGuard.guard().then(guardReturn => {
+      return guardReturn;
+    });
   }
 
   ionViewDidLoad() {
@@ -98,6 +114,16 @@ export class PncSearchPage {
         this.aircraftSkillList = params['aircraftSkills'];
       }
     }
+    this.pncFilter.page = 0;
+    this.pncFilter.size = 0;
+    this.pncFilter.sortColumn = '';
+    this.pncFilter.sortDirection = '';
+    this.pncFilter.division = this.ALL;
+    this.pncFilter.sector = this.ALL;
+    this.pncFilter.ginq = this.ALL;
+    this.pncFilter.speciality = this.ALL;
+    this.pncFilter.aircraftSkill = this.ALL;
+    this.pncFilter.relay = this.ALL;
   }
 
   /**
@@ -116,7 +142,7 @@ export class PncSearchPage {
   }
 
   /**
-   * Repmlie le matricule du filtre avec le matricule du pnc selectionné.
+   * Remplit le matricule du filtre avec le matricule du pnc selectionné.
    */
   prepareFilter(): void {
     if (this.selectedPnc) {
@@ -168,18 +194,18 @@ export class PncSearchPage {
   /**
    * Fonction permettant de détecter et de gérer les changements de valeur des différents éléments du formulaire
    */
-  formOnChanges(){
-    this.searchForm.get('divisionControl').valueChanges.subscribe( val => {
+  formOnChanges() {
+    this.searchForm.get('divisionControl').valueChanges.subscribe(val => {
       this.pncFilter.division = val;
       this.getSectorList(this.pncFilter.division);
     });
 
-    this.searchForm.get('sectorControl').valueChanges.subscribe( val => {
+    this.searchForm.get('sectorControl').valueChanges.subscribe(val => {
       this.pncFilter.sector = val;
       this.getGinqList(this.pncFilter.sector);
     });
 
-    this.searchForm.valueChanges.subscribe( val => {
+    this.searchForm.valueChanges.subscribe(val => {
       this.pncFilter.ginq = val.ginqControl;
       this.pncFilter.speciality = val.specialityControl;
       this.pncFilter.aircraftSkill = val.aircraftSkillControl;
@@ -187,18 +213,18 @@ export class PncSearchPage {
     });
   }
 
-    /**
-   * charge la liste des secteurs associé a la division choisi
-   * @param sector secteur concerné.
-   */
+  /**
+ * charge la liste des secteurs associé a la division choisi
+ * @param sector secteur concerné.
+ */
   getSectorList(division) {
     this.ginqList = null;
     this.sectorList = null;
-    if (division !== this.pncFilter.ALL) {
+    if (division !== this.ALL) {
       this.sectorList = Object.keys(this.sessionService.parameters.params['divisions'][division]);
     }
-    this.pncFilter.sector = this.pncFilter.ALL;
-    this.pncFilter.ginq = this.pncFilter.ALL;
+    this.pncFilter.sector = this.ALL;
+    this.pncFilter.ginq = this.ALL;
   }
 
   /**
@@ -207,10 +233,10 @@ export class PncSearchPage {
    */
   getGinqList(sector) {
     this.ginqList = null;
-    if (this.pncFilter.division !== this.pncFilter.ALL && sector !== '' && sector !== this.pncFilter.ALL) {
+    if (this.pncFilter.division !== this.ALL && sector !== '' && sector !== this.ALL) {
       this.ginqList = this.sessionService.parameters.params['divisions'][this.pncFilter.division][sector];
     }
-    this.pncFilter.ginq = this.pncFilter.ALL;
+    this.pncFilter.ginq = this.ALL;
   }
 
 
@@ -233,7 +259,7 @@ export class PncSearchPage {
   openPncHomePage(pnc: Pnc) {
     this.selectedPnc = undefined;
     this.initAutocompleteList();
-    this.navCtrl.push(PncHomePage, { matricule: pnc.matricule });
+    this.navCtrl.push('PncHomePage', { matricule: pnc.matricule });
   }
 
   /**
@@ -242,7 +268,9 @@ export class PncSearchPage {
   searchPncs() {
     this.searchInProgress = true;
     this.buildFilter();
+
     this.getFilledFieldsOnly(this.pncFilter);
+
     this.pncProvider.getFilteredPncs(this.pncFilter).then(pagedPnc => {
       this.searchInProgress = false;
       this.filteredPncs = pagedPnc.content;
@@ -261,7 +289,7 @@ export class PncSearchPage {
   getFilledFieldsOnly(pncFilter) {
     let param: string;
     for (param in pncFilter) {
-      if (pncFilter[param] === undefined || pncFilter[param] === 'undefined' || pncFilter[param] === '' || pncFilter[param] === this.pncFilter.ALL) {
+      if (pncFilter[param] === undefined || pncFilter[param] === 'undefined' || pncFilter[param] === '' || pncFilter[param] === this.ALL) {
         delete pncFilter[param];
       }
     }
