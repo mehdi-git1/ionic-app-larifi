@@ -28,6 +28,9 @@ import { Subject } from 'rxjs/Rx';
 })
 export class PncSearchPage {
 
+  // Valeur par défaut des filtres
+  ALL = 'ALL';
+
   pncList: Observable<Pnc[]>;
   filteredPncs: Pnc[];
   searchInProgress: boolean;
@@ -111,6 +114,16 @@ export class PncSearchPage {
         this.aircraftSkillList = params['aircraftSkills'];
       }
     }
+    this.pncFilter.page = 0;
+    this.pncFilter.size = 0;
+    this.pncFilter.sortColumn = '';
+    this.pncFilter.sortDirection = '';
+    this.pncFilter.division = this.ALL;
+    this.pncFilter.sector = this.ALL;
+    this.pncFilter.ginq = this.ALL;
+    this.pncFilter.speciality = this.ALL;
+    this.pncFilter.aircraftSkill = this.ALL;
+    this.pncFilter.relay = this.ALL;
   }
 
   /**
@@ -207,11 +220,11 @@ export class PncSearchPage {
   getSectorList(division) {
     this.ginqList = null;
     this.sectorList = null;
-    if (division !== this.pncFilter.ALL) {
+    if (division !== this.ALL) {
       this.sectorList = Object.keys(this.sessionService.parameters.params['divisions'][division]);
     }
-    this.pncFilter.sector = this.pncFilter.ALL;
-    this.pncFilter.ginq = this.pncFilter.ALL;
+    this.pncFilter.sector = this.ALL;
+    this.pncFilter.ginq = this.ALL;
   }
 
   /**
@@ -220,10 +233,10 @@ export class PncSearchPage {
    */
   getGinqList(sector) {
     this.ginqList = null;
-    if (this.pncFilter.division !== this.pncFilter.ALL && sector !== '' && sector !== this.pncFilter.ALL) {
+    if (this.pncFilter.division !== this.ALL && sector !== '' && sector !== this.ALL) {
       this.ginqList = this.sessionService.parameters.params['divisions'][this.pncFilter.division][sector];
     }
-    this.pncFilter.ginq = this.pncFilter.ALL;
+    this.pncFilter.ginq = this.ALL;
   }
 
 
@@ -255,7 +268,9 @@ export class PncSearchPage {
   searchPncs() {
     this.searchInProgress = true;
     this.buildFilter();
+
     this.getFilledFieldsOnly(this.pncFilter);
+
     this.pncProvider.getFilteredPncs(this.pncFilter).then(pagedPnc => {
       this.searchInProgress = false;
       this.filteredPncs = pagedPnc.content;
@@ -274,7 +289,7 @@ export class PncSearchPage {
   getFilledFieldsOnly(pncFilter) {
     let param: string;
     for (param in pncFilter) {
-      if (pncFilter[param] === undefined || pncFilter[param] === 'undefined' || pncFilter[param] === '' || pncFilter[param] === this.pncFilter.ALL) {
+      if (pncFilter[param] === undefined || pncFilter[param] === 'undefined' || pncFilter[param] === '' || pncFilter[param] === this.ALL) {
         delete pncFilter[param];
       }
     }
