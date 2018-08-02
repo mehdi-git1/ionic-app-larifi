@@ -9,7 +9,15 @@ page-authentication {
         width: 50%;
     }
 
+    .button{
+      margin-top: 20px;
+    }
+
     .item-inner {
         border: none !important;
+    }
+
+    ion-spinner{
+      margin: auto;
     }
 }
