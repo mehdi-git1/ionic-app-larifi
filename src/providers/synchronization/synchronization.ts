@@ -68,8 +68,8 @@ export class SynchronizationProvider {
     this.securityProvider.getAuthenticatedUser().then(user => {
       if (this.securityProvider.isManager() && user.matricule === pncSynchroResponse.pnc.matricule) {
 
-        if (pncSynchroResponse.lastPerfomedRotation != null) {
-          this.storageService.save(Entity.ROTATION, this.rotationTransformerProvider.toRotation(pncSynchroResponse.lastPerfomedRotation), true);
+        if (pncSynchroResponse.lastPerformedRotation != null) {
+          this.storageService.save(Entity.ROTATION, this.rotationTransformerProvider.toRotation(pncSynchroResponse.lastPerformedRotation), true);
         }
 
         if (pncSynchroResponse.upcomingRotations != null) {
@@ -78,8 +78,8 @@ export class SynchronizationProvider {
           }
         }
 
-        if (pncSynchroResponse.lastPerfomedLegs != null) {
-          for (const leg of pncSynchroResponse.lastPerfomedLegs) {
+        if (pncSynchroResponse.lastPerformedLegs != null) {
+          for (const leg of pncSynchroResponse.lastPerformedLegs) {
             let techIdRotation: number;
             techIdRotation = leg.rotation.techId;
             leg.rotation = new Rotation();

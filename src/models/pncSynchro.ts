@@ -12,6 +12,6 @@ export class PncSynchro {
     waypoints: Waypoint[];
     upcomingRotations: Rotation[];
     upcomingLegs: Leg[];
-    lastPerfomedRotation: Rotation;
-    lastPerfomedLegs: Leg[];
+    lastPerformedRotation: Rotation;
+    lastPerformedLegs: Leg[];
 }
