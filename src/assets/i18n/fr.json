@@ -1,4 +1,9 @@
 {
+    "AUTHENT": {
+        "AUTHENTICATION": "Authentification",
+        "LOGIN": "Habile login",
+        "PASSWORD": "PIN + Token"
+    },
     "GLOBAL": {
         "PNC_ROLE": {
             "MANAGER": "Cadre",
@@ -30,7 +35,8 @@
         "UPCOMING_FLIGHT": "Prochains vols",
         "CREW_MEMBERS": "Liste équipage",
         "UNKNOWN_ERROR": "Une erreur inconnue est survenue. Merci de recharger la page ou réessayer dans quelques minutes.",
-        "COMING_SOON": "(Prochainement)"
+        "COMING_SOON": "(Prochainement)",
+        "VALIDATE": "Valider"
     },
     "CAREER_OBJECTIVE_CREATE": {
         "CREATE_TITLE": "Création d'un nouvel objectif",
