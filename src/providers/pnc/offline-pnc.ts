@@ -71,7 +71,7 @@ export class OfflinePncProvider {
           return departureDate < nowDate;
         });
       }
-      resolve(lastPerformedRotations != null && lastPerformedRotations.length > 0 ? lastPerformedRotations[lastPerformedRotations.length - 1] : []]);
+      resolve(lastPerformedRotations != null && lastPerformedRotations.length > 0 ? lastPerformedRotations[lastPerformedRotations.length - 1] : []);
     });
   }
 
