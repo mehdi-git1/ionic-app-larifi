@@ -45,12 +45,14 @@ export class OfflinePncProvider {
   getUpcomingRotations(matricule: string): Promise<Rotation[]> {
     return new Promise((resolve, reject) => {
       let upcomingRotations = this.storageService.findAll(Entity.ROTATION);
-      upcomingRotations = upcomingRotations.filter(rotation => {
-        let departureDate = new Date(rotation.departureDate);
-        let nowDate = new Date(Date.parse(Date()));
-        return departureDate > nowDate;
-      });
-      resolve(upcomingRotations);
+      if (upcomingRotations != null) {
+        upcomingRotations = upcomingRotations.filter(rotation => {
+          let departureDate = new Date(rotation.departureDate);
+          let nowDate = new Date(Date.parse(Date()));
+          return departureDate > nowDate;
+        });
+      }
+      resolve((upcomingRotations != null && upcomingRotations.length > 0 ? upcomingRotations : null));
     });
   }
 
@@ -61,13 +63,15 @@ export class OfflinePncProvider {
    */
   getLastPerformedRotation(matricule: string): Promise<Rotation> {
     return new Promise((resolve, reject) => {
-      let lastRotations = this.storageService.findAll(Entity.ROTATION);
-      lastRotations = lastRotations.filter(rotation => {
-        let departureDate = new Date(rotation.departureDate);
-        let nowDate = new Date(Date.parse(Date()));
-        return departureDate < nowDate;
-      });
-      resolve(lastRotations[lastRotations.length - 1]);
+      let lastPerformedRotations = this.storageService.findAll(Entity.ROTATION);
+      if (lastPerformedRotations != null) {
+        lastPerformedRotations = lastPerformedRotations.filter(rotation => {
+          let departureDate = new Date(rotation.departureDate);
+          let nowDate = new Date(Date.parse(Date()));
+          return departureDate < nowDate;
+        });
+      }
+      resolve((lastPerformedRotations != null && lastPerformedRotations.length > 0 ? lastPerformedRotations[lastPerformedRotations.length - 1] : null));
     });
   }
 
