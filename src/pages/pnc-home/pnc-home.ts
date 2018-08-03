@@ -54,7 +54,7 @@ export class PncHomePage {
 
   ionViewCanEnter() {
     return this.authGuard.guard().then(guardReturn => {
-      if (guardReturn){
+      if (guardReturn) {
         if (this.navParams.get('matricule')) {
           this.matricule = this.navParams.get('matricule');
         } else if (this.sessionService.appContext.observedPncMatricule) {
@@ -71,23 +71,9 @@ export class PncHomePage {
             return false;
           });
         }
-      }else{
+      } else {
         return false;
       }
-    });
-  }
-
-  /**
-   * charge le détail du pnc connecté ou consulté.
-   */
-  loadPnc(matricule?: string): Promise<void> {
-    return new Promise((resolve, reject) => {
-      // Si on a un matricule dans les params de navigation, cela surcharge le matricule du user connecté
-      if (this.sessionService.appContext.observedPncMatricule) {
-        this.matricule = this.sessionService.appContext.observedPncMatricule;
-      }
-
-      this.navCtrl.setRoot('PncHomePage', { matricule: this.matricule });
     });
   }
 
@@ -126,7 +112,13 @@ export class PncHomePage {
   downloadPncEdossier() {
     this.synchroInProgress = true;
     this.synchronizationProvider.storeEDossierOffline(this.pnc.matricule).then(success => {
-      this.loadPnc();
+      // Appel au getPnc pour mise a jour de l'indicateur offLine
+      this.pncProvider.getPnc(this.matricule).then(pnc => {
+        this.pnc = pnc;
+        return true;
+      }, error => {
+        return false;
+      });
       this.synchroInProgress = false;
       this.toastProvider.info(this.translateService.instant('SYNCHRONIZATION.PNC_SAVED_OFFLINE', { 'matricule': this.pnc.matricule }));
     }, error => {

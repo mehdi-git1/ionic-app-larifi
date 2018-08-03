@@ -10,15 +10,6 @@
 
 <ion-content padding>
     <ion-grid>
-
-        <ion-row class="go-to-edossier">
-            <ion-item padding>
-                <ion-label floating>{{ 'PNC_HOME.GO_TO_EDOSSIER.MATRICULE' | translate }}</ion-label>
-                <ion-input type="text" [(ngModel)]="matricule"></ion-input>
-            </ion-item>
-            <button ion-button color="primary" (click)="loadPnc(matricule)" (keyup.enter)="loadPnc(matricule)">{{ 'PNC_HOME.GO_TO_EDOSSIER.SUBMIT' | translate }}</button>
-        </ion-row>
-
         <ion-row ng-class="row-pnc-info-panel" *ngIf="pnc">
             <ion-card class="pnc-info-panel">
                 <offline-indicator [object]="pnc"></offline-indicator>
