@@ -115,9 +115,7 @@ export class PncHomePage {
       // Appel au getPnc pour mise a jour de l'indicateur offLine
       this.pncProvider.getPnc(this.matricule).then(pnc => {
         this.pnc = pnc;
-        return true;
       }, error => {
-        return false;
       });
       this.synchroInProgress = false;
       this.toastProvider.info(this.translateService.instant('SYNCHRONIZATION.PNC_SAVED_OFFLINE', { 'matricule': this.pnc.matricule }));
