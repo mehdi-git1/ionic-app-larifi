@@ -46,6 +46,8 @@ export class CareerObjectiveCreatePage {
   CareerObjectiveStatus = CareerObjectiveStatus;
   WaypointStatus = WaypointStatus;
 
+  originalPncComment: string;
+
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -86,7 +88,7 @@ export class CareerObjectiveCreatePage {
 
   ionViewCanEnter() {
     return this.authGuard.guard().then(guardReturn => {
-      if (guardReturn){
+      if (guardReturn) {
         return new Promise((resolve, reject) => {
 
           if (this.navParams.get('matricule')) {
@@ -102,6 +104,7 @@ export class CareerObjectiveCreatePage {
           if (this.careerObjective.techId) {
             this.careerObjectiveProvider.getCareerObjective(this.careerObjective.techId).then(foundCareerObjective => {
               this.careerObjective = foundCareerObjective;
+              this.originalPncComment = this.careerObjective.pncComment;
             }, error => {
               reject();
             });
@@ -111,11 +114,11 @@ export class CareerObjectiveCreatePage {
             }, error => {
               reject();
             });
-          }else{
+          } else {
             resolve();
           }
         });
-      }else{
+      } else {
         return false;
       }
     });
@@ -358,5 +361,20 @@ export class CareerObjectiveCreatePage {
         }
       ]
     }).present();
+  }
+
+  isReadOnly(): boolean {
+    return !this.securityProvider.isManager();
+  }
+
+  canBeModifiedByPnc(): boolean {
+    return !this.securityProvider.isManager() && (
+      this.careerObjective.careerObjectiveStatus === CareerObjectiveStatus.REGISTERED ||
+      this.careerObjective.careerObjectiveStatus === CareerObjectiveStatus.VALIDATED) &&
+      this.careerObjective.pncComment !== this.originalPncComment;
+  }
+
+  savePncCommentCareerObjective() {
+
   }
 }
