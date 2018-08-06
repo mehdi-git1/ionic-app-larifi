@@ -27,13 +27,4 @@ export class OfflineRotationProvider {
             resolve(legs);
         });
     }
-
-    /**
-    * Récupère une rotation
-    * @param rotationId l'id de la rotation
-    * @return la rotation demandée
-    */
-    getRotation(rotationId: number): Promise<Rotation> {
-        return this.storageService.findOne(Entity.ROTATION, '${rotationId}');
-    }
 }
