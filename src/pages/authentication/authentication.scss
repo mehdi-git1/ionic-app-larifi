@@ -1,15 +1,20 @@
 page-authentication {
     .form-auth {
-        // top: 50%;
-        // left: 50%;
-        // margin-left: -200px;
         margin: 100px auto;
-        // position: absolute;
         min-width: 400px;
         width: 50%;
     }
 
+    .button {
+        margin-top: 20px;
+    }
+
     .item-inner {
         border: none !important;
+    }
+
+    ion-spinner {
+        margin: auto;
+        margin-top: 20px;
     }
 }
