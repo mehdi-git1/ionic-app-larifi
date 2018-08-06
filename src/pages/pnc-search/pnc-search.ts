@@ -42,7 +42,7 @@ export class PncSearchPage {
   // filtre de recherche
   pncFilter: PncFilter;
   // afficher/masquer le filtre
-  showFilter: Boolean;
+  showFilter: Boolean = false;
 
   // Les listes des données du filtre
   divisionList: string[];
@@ -73,16 +73,17 @@ export class PncSearchPage {
     private authGuard: AuthGuard,
     private config: Config) {
 
-    // initialistation du filtre
-    this.initFilter();
-    // Initialisation du formulaire
-    this.initForm();
+    
 
 
   }
 
   ionViewCanEnter() {
     return this.authGuard.guard().then(guardReturn => {
+      // initialistation du filtre
+    this.initFilter();
+    // Initialisation du formulaire
+    this.initForm();
       return guardReturn;
     });
   }

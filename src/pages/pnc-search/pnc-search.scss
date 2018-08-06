@@ -104,6 +104,10 @@ page-pnc-search {
             transition: visibility 0s linear 0s,
             opacity 2000ms;
         }
+        .select-placeholder {
+            color: color($colors, grey10) !important;
+        }
+
     }
 
     .label-md {
