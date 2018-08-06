@@ -109,7 +109,7 @@
                     <!-- Prioritaire -->
                     <ion-item>
                         <ion-label fixed>{{ 'CAREER_OBJECTIVE_CREATE.FORM.PRIORITIZED' | translate }}</ion-label>
-                        <ion-checkbox [(ngModel)]="careerObjective.prioritized" formControlName="prioritizedControl"></ion-checkbox>
+                        <ion-checkbox [(ngModel)]="careerObjective.prioritized" checked="{{careerObjective.prioritized}}" formControlName="prioritizedControl"></ion-checkbox>
                     </ion-item>
                 </ion-col>
                 <ion-col col-6>
@@ -163,7 +163,7 @@
                     <button ion-button color="primary" (click)="resumeAbandonedCareerObjective()" [disabled]="creationForm.invalid" *ngIf="securityProvider.isManager() && careerObjective.careerObjectiveStatus === CareerObjectiveStatus.ABANDONED">
                         {{ 'CAREER_OBJECTIVE_CREATE.BUTTONS.RESUME' | translate }}
                     </button>
-                    <button ion-button color="primary" (click)="confirmCreateInstructorRequest()" *ngIf="!securityProvider.isManager() && careerObjective.careerObjectiveStatus !== undefined "> 
+                    <button ion-button color="primary" (click)="confirmCreateInstructorRequest()" *ngIf="!securityProvider.isManager() && careerObjective.careerObjectiveStatus !== undefined ">
                         {{ 'CAREER_OBJECTIVE_CREATE.BUTTONS.CREATE_INSTRUCTOR_REQUEST' | translate }}
                     </button>
                 </ion-col>

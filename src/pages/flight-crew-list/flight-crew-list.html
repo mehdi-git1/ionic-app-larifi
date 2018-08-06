@@ -8,7 +8,7 @@
 <ion-content padding>
     <ion-card color="primary">
         <ion-card-content>
-            <div class="leg">
+            <div class="leg" *ngIf="flightCrewList">
                 <ion-icon name="plane" class="round-icon"></ion-icon>
                 <span class="value">{{ leg.company }}{{ leg.number }}</span>
                 <span class="value">{{ leg.departureDate | date : 'dd/MM/yyyy HH:mm' }}</span>
@@ -20,6 +20,6 @@
         <div *ngIf="!flightCrewList" class="spinner-container">
             <ion-spinner></ion-spinner>
         </div>
-        <pnc-card *ngFor="let crewMember of flightCrewList" [crewMember]="crewMember" [isCrewMember]="true"></pnc-card>
+        <pnc-card *ngFor="let crewMember of flightCrewList" (click)="openPncHomePage(crewMember.pnc.matricule)" [crewMember]="crewMember" [isCrewMember]="true"></pnc-card>
     </ion-content>
 </ion-content>

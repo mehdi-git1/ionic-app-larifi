@@ -1,3 +1,4 @@
+import { Leg } from './../../models/leg';
 import { NavParams } from 'ionic-angular';
 import { CrewMember } from './../../models/crewMember';
 import { Config } from './../../configuration/environment-variables/config';
@@ -14,6 +15,17 @@ export class LegProvider {
     public config: Config) {
     this.legUrl = `${config.backEndUrl}/legs`;
   }
+
+
+  /**
+  * Récupère les informations d'un tronçon
+  * @param legId l'id du tronçon dont on souhaite avoir les informations
+  * @return les informations du leg
+  */
+  getLeg(legId: number): Promise<Leg> {
+    return this.restService.get(`${this.legUrl}/${legId}`);
+  }
+
 
   /**
   * Récupère la liste équipage d'un tronçon
