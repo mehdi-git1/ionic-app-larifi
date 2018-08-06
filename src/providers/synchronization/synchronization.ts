@@ -126,7 +126,7 @@ export class SynchronizationProvider {
         this.careerObjectiveTransformer.toCareerObjective(careerObjective).getStorageId());
     }
 
-    // Suppression de la liste du dernier et des prochains vols
+    //  Suppression de tous les vols et rotations
     this.storageService.deleteAll(Entity.ROTATION);
     this.storageService.deleteAll(Entity.LEG);
 

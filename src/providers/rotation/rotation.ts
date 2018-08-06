@@ -33,7 +33,7 @@ export class RotationProvider {
   * @param rotation l'id de la rotation
   * @return la rotation demandée
   */
-  getRotation(rotationId: String): Promise<Rotation> {
+  getRotation(rotationId: string): Promise<Rotation> {
     return this.connectivityService.isConnected() ?
       this.onlineRotationProvider.getRotation(rotationId) :
       this.onlineRotationProvider.getRotation(rotationId);

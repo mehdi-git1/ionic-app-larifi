@@ -33,7 +33,7 @@ export class OfflineRotationProvider {
     * @param rotationId l'id de la rotation
     * @return la rotation demandée
     */
-    getRotation(rotationId: String): Promise<Rotation> {
-        return this.storageService.findOne(Entity.ROTATION, rotationId + '');
+    getRotation(rotationId: number): Promise<Rotation> {
+        return this.storageService.findOne(Entity.ROTATION, '${rotationId}');
     }
 }
