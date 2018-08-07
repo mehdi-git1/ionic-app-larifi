@@ -1,5 +1,5 @@
 import { AuthGuard } from './../../guard/auth.guard';
-import { Component} from '@angular/core';
+import { Component } from '@angular/core';
 import { NavParams, IonicPage } from 'ionic-angular';
 
 import { SummarySheetProvider } from '../../providers/summary-sheet/summary-sheet';
@@ -15,11 +15,11 @@ import { SummarySheetProvider } from '../../providers/summary-sheet/summary-shee
   templateUrl: 'summary-sheet.html',
 })
 
-export class SummarySheetPage{
+export class SummarySheetPage {
 
   public previewSrc: string = null;
   private summarySheet: any;
-  loading: boolean;
+  loading = true;
 
   constructor(
     public navParams: NavParams,
@@ -27,12 +27,11 @@ export class SummarySheetPage{
     private authGuard: AuthGuard) {
   }
 
-  ionViewCanEnter() {
+  ionViewDidEnter() {
 
-    return this.authGuard.guard().then(guardReturn => {
-      if (guardReturn){
-        let matricule = this.navParams.get('matricule');
-        this.loading = true;
+    this.authGuard.guard().then(guardReturn => {
+      if (guardReturn) {
+        const matricule = this.navParams.get('matricule');
         this.summarySheetProvider.getSummarySheet(matricule).then(summarySheet => {
           try {
             if (summarySheet && summarySheet.summarySheet) {
@@ -45,12 +44,8 @@ export class SummarySheetPage{
         }, error => {
           console.log('getSummarySheet error:' + error);
         });
-        return true;
-      }else{
-        return false;
       }
     });
-
   }
 
 
@@ -59,7 +54,7 @@ export class SummarySheetPage{
     * @param matricule le Blob à decoder
     */
   public setPreviewFromFile(file: any) {
-    let reader = new FileReader();
+    const reader = new FileReader();
     reader.onloadend = (e: any) => {
       this.previewSrc = e.target.result;
     };
