@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { HttpClient } from '../../../node_modules/@angular/common/http';
 
 
 @IonicPage({
@@ -17,14 +18,20 @@ export class PdfFileViewerPage {
   pdfSrc: any;
   noPdf: Boolean = false;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, 
+    public navParams: NavParams,
+  public httpClient: HttpClient) {
   }
 
-  ionViewDidEnter() {
+  ionViewCanEnter() {
     if (this.navParams.get('pdfSrc')) {
       this.title = this.navParams.get('title');
       this.noPdf = false;
-      this.pdfSrc = {url :this.navParams.get('pdfSrc'), stopAtErrors:true};
+      //his.pdfSrc = {url :this.navParams.get('pdfSrc'), stopAtErrors:true};
+      this.httpClient.get(this.navParams.get('pdfSrc') , { responseType: 'blob'}).subscribe(result => {
+        // const file = {data: new Blob([result],{type: 'application/pdf'})};
+        this.pdfSrc = URL.createObjectURL(result);
+      });
     } else {
       this.noPdf = true;
     }

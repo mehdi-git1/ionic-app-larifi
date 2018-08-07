@@ -84,7 +84,7 @@ export class HelpAssetListPage {
     const helpAsset = new Array(1);
     const pdfName = 'Objectifs-compiles-CCP-CC-HST-V6.pdf';
     helpAsset[0] = new HelpAsset();
-    helpAsset[0].url = `${this.urlPdf}/cad/${pdfName}`;
+    helpAsset[0].url = `${this.urlPdf}/hst/${pdfName}`;
     helpAsset[0].label = pdfName;
     helpAsset[0].lastUpdateDate = '2018-07-30T13:11:52';
     return helpAsset;
