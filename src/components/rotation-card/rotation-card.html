@@ -1,5 +1,6 @@
 <ion-card class="rotation">
     <ion-card-header class="header-container" (click)="toggleRotation(rotation)">
+        <offline-indicator [object]="rotation"></offline-indicator>
         <span>{{ rotation.departureDate | date : 'dd/MM/yyyy' }}</span>
         <span>
         <ion-spinner *ngIf="rotation.loading" color="white"></ion-spinner>
