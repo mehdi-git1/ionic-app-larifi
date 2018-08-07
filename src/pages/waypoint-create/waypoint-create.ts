@@ -32,6 +32,8 @@ export class WaypointCreatePage {
 
   customDateTimeOptions: any;
 
+  originalPncComment: string;
+
   // Permet d'exposer l'enum au template
   WaypointStatus = WaypointStatus;
 
@@ -72,13 +74,14 @@ export class WaypointCreatePage {
 
   ionViewCanEnter() {
     return this.authGuard.guard().then(guardReturn => {
-      if (guardReturn){
+      if (guardReturn) {
         return new Promise((resolve, reject) => {
           this.initForm();
 
           if (this.navParams.get('waypointId') && this.navParams.get('waypointId') !== '0') {
             this.waypointProvider.getWaypoint(this.navParams.get('waypointId')).then(result => {
               this.waypoint = result;
+              this.originalPncComment = this.waypoint.pncComment;
               this.initForm();
               resolve();
             }, error => {
@@ -88,7 +91,7 @@ export class WaypointCreatePage {
             resolve();
           }
         });
-      }else{
+      } else {
         return false;
       }
     });
@@ -222,4 +225,23 @@ export class WaypointCreatePage {
     return this.waypoint.actionPerformed && this.waypoint.actionPerformed.length > 0
       && this.waypoint.encounterDate && this.waypoint.encounterDate.length > 0;
   }
+
+  /**
+   * Détermine si la personne connectée est un pnc non cadre
+   * @return vrai si c'est un pnc non cadre, faux sinon
+   */
+  isPnc(): boolean {
+    return !this.securityProvider.isManager();
+  }
+
+  /**
+   * Vérifie si le point d'étape peut être enregistré par le pnc
+   * @return vrai s'il peut enregistrer le point d'étape, faux sinon
+   */
+  canBeModifiedByPnc(): boolean {
+    return !this.securityProvider.isManager() &&
+      this.waypoint.waypointStatus === WaypointStatus.REGISTERED &&
+      this.waypoint.pncComment !== this.originalPncComment;
+  }
+
 }
