@@ -14,7 +14,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 export class PdfFileViewerPage {
 
   title: string;
-  pdfSrc: string;
+  pdfSrc: any;
   noPdf: Boolean = false;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
@@ -24,7 +24,7 @@ export class PdfFileViewerPage {
     if (this.navParams.get('pdfSrc')) {
       this.title = this.navParams.get('title');
       this.noPdf = false;
-      this.pdfSrc = this.navParams.get('pdfSrc');
+      this.pdfSrc = {url :this.navParams.get('pdfSrc'), stopAtErrors:true};
     } else {
       this.noPdf = true;
     }

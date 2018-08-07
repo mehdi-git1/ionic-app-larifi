@@ -32,7 +32,7 @@ export class HelpAssetListPage {
     if (this.secMobilService.isBrowser) {
       this.urlPdf = '../assets/pdf/helpAsset';
     } else {
-      this.urlPdf = '/assets/pdf/helpAsset';
+      this.urlPdf = './assets/pdf/helpAsset';
     }
 
   }
