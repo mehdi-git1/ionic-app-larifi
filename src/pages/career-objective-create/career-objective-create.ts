@@ -364,21 +364,37 @@ export class CareerObjectiveCreatePage {
   }
 
   /**
-     * Détermine si la personne connectée est un pnc non cadre
-     * @return vrai si c'est un pnc non cadre, faux sinon
+     * Détermine si le champs peut être modifié par l'utilisateur connecté
+     * @return vrai si c'est un champ modifiable, faux sinon
      */
-  isPnc(): boolean {
-    return !this.securityProvider.isManager();
+  readOnlyByUserConnected(): boolean {
+    if (this.securityProvider.isManager()) {
+      return false;
+    } else if (!this.securityProvider.isManager() &&
+      this.careerObjective.careerObjectiveStatus === CareerObjectiveStatus.DRAFT) {
+      return false;
+    } else {
+      return true;
+    }
   }
 
   /**
    * Vérifie si l'objectif peut être enregistré par le pnc
    * @return vrai s'il peut enregistrer l'objectif , faux sinon
    */
-  canBeModifiedByPnc(): boolean {
+  canPncCommentBeModifiedByPnc(): boolean {
     return !this.securityProvider.isManager() && (
       this.careerObjective.careerObjectiveStatus === CareerObjectiveStatus.REGISTERED ||
       this.careerObjective.careerObjectiveStatus === CareerObjectiveStatus.VALIDATED) &&
       this.careerObjective.pncComment !== this.originalPncComment;
+  }
+
+  /**
+   * Sauvegarde l'objectif et met a jour le commentaire pnc de l'objectif original
+   **/
+
+  saveCareerObjectiveAndUpdatePncComment() {
+    this.saveCareerObjective();
+    this.originalPncComment = this.careerObjective.pncComment;
   }
 }
