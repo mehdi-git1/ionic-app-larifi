@@ -19,7 +19,7 @@ export class SummarySheetPage {
 
   public previewSrc: string = null;
   private summarySheet: any;
-  loading: boolean;
+  loading = true;
 
   constructor(
     public navParams: NavParams,
@@ -27,12 +27,11 @@ export class SummarySheetPage {
     private authGuard: AuthGuard) {
   }
 
-  ionViewCanEnter() {
+  ionViewDidEnter() {
 
-    return this.authGuard.guard().then(guardReturn => {
+    this.authGuard.guard().then(guardReturn => {
       if (guardReturn) {
         const matricule = this.navParams.get('matricule');
-        this.loading = true;
         this.summarySheetProvider.getSummarySheet(matricule).then(summarySheet => {
           try {
             if (summarySheet && summarySheet.summarySheet) {
@@ -45,12 +44,8 @@ export class SummarySheetPage {
         }, error => {
           console.log('getSummarySheet error:' + error);
         });
-        return true;
-      } else {
-        return false;
       }
     });
-
   }
 
 
