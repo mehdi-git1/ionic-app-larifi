@@ -1,5 +1,5 @@
 import { AuthGuard } from './../../guard/auth.guard';
-import { Component} from '@angular/core';
+import { Component } from '@angular/core';
 import { NavParams, IonicPage } from 'ionic-angular';
 
 import { SummarySheetProvider } from '../../providers/summary-sheet/summary-sheet';
@@ -15,7 +15,7 @@ import { SummarySheetProvider } from '../../providers/summary-sheet/summary-shee
   templateUrl: 'summary-sheet.html',
 })
 
-export class SummarySheetPage{
+export class SummarySheetPage {
 
   public previewSrc: string = null;
   private summarySheet: any;
@@ -30,8 +30,8 @@ export class SummarySheetPage{
   ionViewCanEnter() {
 
     return this.authGuard.guard().then(guardReturn => {
-      if (guardReturn){
-        let matricule = this.navParams.get('matricule');
+      if (guardReturn) {
+        const matricule = this.navParams.get('matricule');
         this.loading = true;
         this.summarySheetProvider.getSummarySheet(matricule).then(summarySheet => {
           try {
@@ -46,7 +46,7 @@ export class SummarySheetPage{
           console.log('getSummarySheet error:' + error);
         });
         return true;
-      }else{
+      } else {
         return false;
       }
     });
@@ -59,7 +59,7 @@ export class SummarySheetPage{
     * @param matricule le Blob à decoder
     */
   public setPreviewFromFile(file: any) {
-    let reader = new FileReader();
+    const reader = new FileReader();
     reader.onloadend = (e: any) => {
       this.previewSrc = e.target.result;
     };
