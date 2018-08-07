@@ -363,10 +363,18 @@ export class CareerObjectiveCreatePage {
     }).present();
   }
 
+  /**
+     * Détermine si la personne connectée est un pnc non cadre
+     * @return vrai si c'est un pnc non cadre, faux sinon
+     */
   isPnc(): boolean {
     return !this.securityProvider.isManager();
   }
 
+  /**
+   * Vérifie si l'objectif peut être enregistré par le pnc
+   * @return vrai s'il peut enregistrer l'objectif , faux sinon
+   */
   canBeModifiedByPnc(): boolean {
     return !this.securityProvider.isManager() && (
       this.careerObjective.careerObjectiveStatus === CareerObjectiveStatus.REGISTERED ||
