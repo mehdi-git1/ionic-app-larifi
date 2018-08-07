@@ -363,7 +363,7 @@ export class CareerObjectiveCreatePage {
     }).present();
   }
 
-  isReadOnly(): boolean {
+  isPnc(): boolean {
     return !this.securityProvider.isManager();
   }
 
@@ -372,9 +372,5 @@ export class CareerObjectiveCreatePage {
       this.careerObjective.careerObjectiveStatus === CareerObjectiveStatus.REGISTERED ||
       this.careerObjective.careerObjectiveStatus === CareerObjectiveStatus.VALIDATED) &&
       this.careerObjective.pncComment !== this.originalPncComment;
-  }
-
-  savePncCommentCareerObjective() {
-
   }
 }
