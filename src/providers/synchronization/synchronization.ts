@@ -65,15 +65,15 @@ export class SynchronizationProvider {
 
     this.storageService.save(Entity.PNC, this.pncTransformer.toPnc(pncSynchroResponse.pnc), true);
 
-    if (pncSynchroResponse.rotations !== null) {
+    if (pncSynchroResponse.rotations != null) {
       for (const rotation of pncSynchroResponse.rotations) {
         this.storageService.save(Entity.ROTATION, this.rotationTransformerProvider.toRotation(rotation), true);
       }
     }
 
-    if (pncSynchroResponse.legs !== null) {
+    if (pncSynchroResponse.legs != null) {
       for (const leg of pncSynchroResponse.legs) {
-        let techIdRotation: number = leg.rotation.techId;
+        const techIdRotation: number = leg.rotation.techId;
         leg.rotation = new Rotation();
         leg.rotation.techId = techIdRotation;
 
