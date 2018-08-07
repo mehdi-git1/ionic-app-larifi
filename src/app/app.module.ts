@@ -1,3 +1,6 @@
+
+import { LegTransformerProvider } from './../providers/leg/leg-transformer';
+import { RotationTransformerProvider } from './../providers/rotation/rotation-transformer';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ErrorHandler, NgModule } from '@angular/core';
@@ -71,6 +74,8 @@ import { PncSynchroProvider } from '../providers/synchronization/pnc-synchro';
 import { HomePage } from './../pages/home/home';
 
 import { SummarySheetProvider } from '../providers/summary-sheet/summary-sheet';
+import { OnlineRotationProvider } from '../providers/rotation/online-rotation';
+import { OfflineRotationProvider } from '../providers/rotation/offline-rotation';
 
 declare var window: any;
 
@@ -138,9 +143,13 @@ declare var window: any;
     PncSynchroProvider,
     EObservationService,
     SummarySheetProvider,
+    RotationTransformerProvider,
+    LegTransformerProvider,
     OnlineSummarySheetProvider,
     OfflineSummarySheetProvider,
-    SummarySheetTransformerProvider
+    SummarySheetTransformerProvider,
+    OnlineRotationProvider,
+    OfflineRotationProvider
   ]
 })
 export class AppModule { }
