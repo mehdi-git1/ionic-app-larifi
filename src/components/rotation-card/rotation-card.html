@@ -13,6 +13,7 @@
     </ion-card-header>
     <ion-card-content [ngClass]="{'opened' : rotation.opened}">
         <div *ngFor="let leg of rotation.legs" (click)="goToFlightCrewListPage(leg)">
+            <offline-indicator [object]="leg"></offline-indicator>
             <flight-card [leg]="leg"></flight-card>
         </div>
     </ion-card-content>
