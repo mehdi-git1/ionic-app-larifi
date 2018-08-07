@@ -16,7 +16,6 @@ export class PdfFileViewerPage {
 
   title: string;
   pdfSrc: any;
-  noPdf: Boolean = false;
 
   constructor(public navCtrl: NavController, 
     public navParams: NavParams,
@@ -26,14 +25,10 @@ export class PdfFileViewerPage {
   ionViewCanEnter() {
     if (this.navParams.get('pdfSrc')) {
       this.title = this.navParams.get('title');
-      this.noPdf = false;
-      //his.pdfSrc = {url :this.navParams.get('pdfSrc'), stopAtErrors:true};
       this.httpClient.get(this.navParams.get('pdfSrc') , { responseType: 'blob'}).subscribe(result => {
-        // const file = {data: new Blob([result],{type: 'application/pdf'})};
         this.pdfSrc = URL.createObjectURL(result);
       });
     } else {
-      this.noPdf = true;
     }
   }
 

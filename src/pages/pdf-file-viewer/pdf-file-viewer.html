@@ -6,8 +6,5 @@
 </ion-header>
 <ion-content padding>
 
-    <div class="no-pdf" *ngIf="noPdf">{{ 'PDF_VIEWER.NO_PDF' | translate }}</div>
-    <div *ngIf="!noPdf">
         <pdf-viewer max-width [original-size]="false" [show-all]="true" [src]="pdfSrc" [autoresize]="true" style="display: block"></pdf-viewer>
-    </div>
 </ion-content>
