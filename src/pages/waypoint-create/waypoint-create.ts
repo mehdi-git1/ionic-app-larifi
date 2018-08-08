@@ -73,6 +73,7 @@ export class WaypointCreatePage {
       if (this.navParams.get('waypointId') && this.navParams.get('waypointId') !== '0') {
         this.waypointProvider.getWaypoint(this.navParams.get('waypointId')).then(result => {
           this.waypoint = result;
+          this.originalPncComment = this.waypoint.pncComment;
           this.initForm();
           resolve();
         }, error => {
