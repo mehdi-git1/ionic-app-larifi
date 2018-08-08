@@ -28,19 +28,7 @@ export abstract class RestService {
     }
 
     post(url: string, jsonData: any, httpHeaders?: any): Promise<any> {
-        let data: string;
-        if (jsonData) {
-            if (!httpHeaders) {
-                httpHeaders = {};
-            }
-
-            if (!httpHeaders.headers) {
-                httpHeaders.headers = new HttpHeaders();
-            }
-            httpHeaders.headers = httpHeaders.headers.append('Content-Type', 'application/json');
-            data = JSON.stringify(jsonData);
-        }
-        return this.sendRequest('POST', url, data, httpHeaders);
+        return this.sendRequest('POST', url, jsonData, httpHeaders);
     }
 
     put(url: string, jsonData: any, httpHeaders?: any): Promise<any> {
@@ -53,14 +41,6 @@ export abstract class RestService {
 
     sendRequest(method: string, url: string, jsonData: any, httpHeaders?: any): Promise<any> {
         const request: RestRequest = new RestRequest();
-
-        if (!httpHeaders) {
-            httpHeaders = {};
-        }
-
-        if (!httpHeaders.headers) {
-            httpHeaders.headers = new HttpHeaders();
-        }
 
         request.method = method;
         request.url = url;
