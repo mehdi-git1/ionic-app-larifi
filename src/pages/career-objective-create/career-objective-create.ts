@@ -89,8 +89,6 @@ export class CareerObjectiveCreatePage {
             this.careerObjective.pnc.matricule = this.navParams.get('matricule');
             this.waypointList = [];
         }
-
-
     }
 
     /**

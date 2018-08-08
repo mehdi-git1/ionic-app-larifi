@@ -9,8 +9,8 @@ import { EObservation } from './../../models/eObservation';
 import { Speciality } from './../../models/speciality';
 import { CareerObjectiveListPage } from './../career-objective-list/career-objective-list';
 import { PncProvider } from './../../providers/pnc/pnc';
-import { Component, NgZone, ChangeDetectorRef } from '@angular/core';
-import { NavController, NavParams, ViewController, App, IonicPage } from 'ionic-angular';
+import { Component } from '@angular/core';
+import { NavController, NavParams } from 'ionic-angular';
 import { Pnc } from '../../models/pnc';
 import { ConnectivityService } from '../../services/connectivity.service';
 import { HelpAssetListPage } from './../help-asset-list/help-asset-list';
@@ -31,10 +31,6 @@ export class PncHomePage {
 
     constructor(public navCtrl: NavController,
         public navParams: NavParams,
-        public viewCtrl: ViewController,
-        public appCtrl: App,
-        public zone: NgZone,
-        public cd: ChangeDetectorRef,
         public genderProvider: GenderProvider,
         private toastProvider: ToastProvider,
         private synchronizationProvider: SynchronizationProvider,
@@ -129,6 +125,14 @@ export class PncHomePage {
             this.toastProvider.error(
                 this.translateService.instant('SYNCHRONIZATION.PNC_SAVED_OFFLINE_ERROR', { 'matricule': this.pnc.matricule }));
         });
+    }
+
+    /**
+    * Vérifie que le chargement est terminé
+    * @return true si c'est le cas, false sinon
+    */
+    loadingIsOver(): boolean {
+        return this.pnc !== undefined;
     }
 
 }

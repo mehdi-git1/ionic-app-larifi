@@ -15,7 +15,7 @@ rotation-card {
         }
 
         ion-card-content.opened {
-            max-height: 600px;
+            max-height: initial;
             transition: max-height 500ms;
             padding: auto;
         }
