@@ -1,16 +1,5 @@
 page-help-asset-list {
 
-    .spinner-container {
-        margin-top: 100px;
-        display: flex;
-        justify-content: center;
-
-        ion-spinner * {
-            width: 80px;
-            height: 80px !important;
-        }
-    }
-
     .help-asset-list {
 
         ion-thumbnail {
