@@ -10,9 +10,7 @@ import { SummarySheetProvider } from '../../providers/summary-sheet/summary-shee
 
 export class SummarySheetPage {
 
-    public previewSrc: string = null;
-    private summarySheet: any;
-    loading = true;
+    public previewSrc: string;
 
     constructor(
         public navParams: NavParams,
@@ -21,13 +19,13 @@ export class SummarySheetPage {
 
     ionViewDidEnter() {
         const matricule = this.navParams.get('matricule');
-        this.loading = true;
         this.summarySheetProvider.getSummarySheet(matricule).then(summarySheet => {
             try {
                 if (summarySheet && summarySheet.summarySheet) {
                     this.previewSrc = URL.createObjectURL(summarySheet.summarySheet);
+                } else {
+                    this.previewSrc = null;
                 }
-                this.loading = false;
             } catch (error) {
                 console.error('createObjectURL error:' + error);
             }
@@ -36,14 +34,10 @@ export class SummarySheetPage {
     }
 
     /**
-      * Décode un Blob dans le FileReader global
-      * @param matricule le Blob à decoder
-      */
-    public setPreviewFromFile(file: any) {
-        const reader = new FileReader();
-        reader.onloadend = (e: any) => {
-            this.previewSrc = e.target.result;
-        };
-        reader.readAsArrayBuffer(file);
+     * Vérifie que le chargement est terminé
+     * @return true si c'est le cas, false sinon
+     */
+    loadingIsOver(): boolean {
+        return this.previewSrc !== undefined;
     }
 }
