@@ -249,7 +249,7 @@ export class PncSearchPage {
   openPncHomePage(pnc: Pnc) {
     this.selectedPnc = undefined;
     this.initAutocompleteList();
-    this.navCtrl.push('PncHomePage', { matricule: pnc.matricule });
+    this.navCtrl.push(PncHomePage, { matricule: pnc.matricule });
   }
 
   /**
