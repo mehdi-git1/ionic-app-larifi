@@ -5,7 +5,6 @@
     </ion-navbar>
 </ion-header>
 <ion-content padding>
-
     <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
     <ng-template #pageBlock>
         <div class="no-help-asset" *ngIf="helpAssets && helpAssets.length == 0">{{ 'HELP_ASSET_LIST.NO_HELP_ASSETS' | translate }}</div>

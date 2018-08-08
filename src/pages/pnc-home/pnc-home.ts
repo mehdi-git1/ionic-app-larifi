@@ -50,7 +50,7 @@ export class PncHomePage {
         } else if (this.sessionService.authenticatedUser) {
             this.matricule = this.sessionService.authenticatedUser.matricule;
         }
-
+        this.matricule = '07339967';
         if (this.matricule != null) {
             this.pncProvider.getPnc(this.matricule).then(pnc => {
                 this.pnc = pnc;

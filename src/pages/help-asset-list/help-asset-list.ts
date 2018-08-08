@@ -37,9 +37,9 @@ export class HelpAssetListPage {
     }
 
     /**
-   * Vérifie que le chargement est terminé
-   * @return true si c'est le cas, false sinon
-   */
+     * Vérifie que le chargement est terminé
+     * @return true si c'est le cas, false sinon
+     */
     loadingIsOver(): boolean {
         return this.helpAssets !== undefined;
     }

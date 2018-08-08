@@ -75,4 +75,12 @@ export class CareerObjectiveListPage {
       this.eObservationService.callForms(this.eObservation);
     }
   }
+
+  /**
+   * Vérifie que le chargement est terminé
+   * @return true si c'est le cas, false sinon
+   */
+  loadingIsOver(): boolean {
+    return this.careerObjectiveList !== undefined;
+  }
 }
