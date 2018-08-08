@@ -94,6 +94,7 @@ export class CareerObjectiveCreatePage {
       if (this.careerObjective.techId) {
         this.careerObjectiveProvider.getCareerObjective(this.careerObjective.techId).then(foundCareerObjective => {
           this.careerObjective = foundCareerObjective;
+          this.originalPncComment = this.careerObjective.pncComment;
         }, error => {
           reject();
         });
