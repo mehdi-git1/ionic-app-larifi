@@ -54,11 +54,9 @@ export class PncHomePage {
 
   ionViewCanEnter() {
     return this.authGuard.guard().then(guardReturn => {
-      if (guardReturn){
+      if (guardReturn) {
         if (this.navParams.get('matricule')) {
           this.matricule = this.navParams.get('matricule');
-        } else if (this.sessionService.appContext.observedPncMatricule) {
-          this.matricule = this.sessionService.appContext.observedPncMatricule;
         } else if (this.sessionService.authenticatedUser) {
           this.matricule = this.sessionService.authenticatedUser.matricule;
         }
@@ -71,7 +69,7 @@ export class PncHomePage {
             return false;
           });
         }
-      }else{
+      } else {
         return false;
       }
     });
