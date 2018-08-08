@@ -1,16 +1,5 @@
 page-flight-crew-list {
 
-    .spinner-container {
-        margin-top: 100px;
-        display: flex;
-        justify-content: center;
-
-        ion-spinner * {
-            width: 80px;
-            height: 80px !important;
-        }
-    }
-
     .leg {
         display: flex;
         justify-content: space-between;

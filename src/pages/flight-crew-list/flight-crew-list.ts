@@ -68,4 +68,12 @@ export class FlightCrewListPage {
         this.navCtrl.push(PncHomePage, { matricule: matricule });
     }
 
+    /**
+    * Vérifie que le chargement est terminé
+    * @return true si c'est le cas, false sinon
+    */
+    loadingIsOver(): boolean {
+        return this.leg !== undefined && this.flightCrewList !== undefined;
+    }
+
 }
