@@ -401,9 +401,9 @@ export class CareerObjectiveCreatePage {
   }
 
   /**
-   * Retourne le css du champ de type texte
+   * Retourne la classe css de lecture seule pour un champ texte si besoin
    */
-  getCssClassForInputText(): string {
+  getCssClassForReadOnlyIfNeeded(): string {
     if (this.readOnlyByUserConnected()) {
       return 'ion-textarea-read-only';
     } else {
