@@ -11,13 +11,10 @@ rotation-card {
 
         ion-card-content {
             max-height: 0;
-            transition: max-height 500ms;
         }
 
         ion-card-content.opened {
             max-height: initial;
-            transition: max-height 500ms;
-            padding: auto;
         }
 
         .card-content {
