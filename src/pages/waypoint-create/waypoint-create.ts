@@ -227,21 +227,50 @@ export class WaypointCreatePage {
   }
 
   /**
-   * Détermine si la personne connectée est un pnc non cadre
-   * @return vrai si c'est un pnc non cadre, faux sinon
-   */
-  isPnc(): boolean {
-    return !this.securityProvider.isManager();
+     * Détermine si le champs peut être modifié par l'utilisateur connecté
+     * @return vrai si c'est un champ modifiable, faux sinon
+     */
+  readOnlyByUserConnected(): boolean {
+    if (this.securityProvider.isManager()) {
+      return false;
+    } else if (!this.securityProvider.isManager() &&
+      (this.waypoint.waypointStatus === WaypointStatus.DRAFT ||
+        this.waypoint.waypointStatus == undefined ||
+        this.waypoint.waypointStatus == null)) {
+      return false;
+    } else {
+      return true;
+    }
   }
 
   /**
-   * Vérifie si le point d'étape peut être enregistré par le pnc
-   * @return vrai s'il peut enregistrer le point d'étape, faux sinon
+   * Vérifie si le point d'etape peut être enregistré par le pnc
+   * @return vrai s'il peut enregistrer le point d'etape , faux sinon
    */
-  canBeModifiedByPnc(): boolean {
-    return !this.securityProvider.isManager() &&
-      this.waypoint.waypointStatus === WaypointStatus.REGISTERED &&
+  canPncCommentBeModifiedByPnc(): boolean {
+    return !this.securityProvider.isManager() && (
+      this.waypoint.waypointStatus === WaypointStatus.REGISTERED) &&
       this.waypoint.pncComment !== this.originalPncComment;
+  }
+
+  /**
+   * Sauvegarde le pont d'etape et met a jour le commentaire pnc du point d'etape original
+   **/
+
+  saveWaypointAndUpdatePncComment() {
+    this.saveWaypoint();
+    this.originalPncComment = this.waypoint.pncComment;
+  }
+
+  /**
+   * Retourne la classe css de lecture seule pour un champ texte si besoin
+   */
+  getCssClassForReadOnlyIfNeeded(): string {
+    if (this.readOnlyByUserConnected()) {
+      return 'ion-textarea-read-only';
+    } else {
+      return '';
+    }
   }
 
 }
