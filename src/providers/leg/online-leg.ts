@@ -1,7 +1,6 @@
 import { CrewMember } from './../../models/crewMember';
 import { Config } from './../../configuration/environment-variables/config';
 import { Leg } from './../../models/leg';
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { RestService } from '../../services/rest.base.service';
 

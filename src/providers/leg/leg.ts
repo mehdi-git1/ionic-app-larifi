@@ -1,12 +1,8 @@
 import { OnlineLegProvider } from './online-leg';
 import { OfflineLegProvider } from './offline-leg';
 import { Leg } from './../../models/leg';
-import { NavParams } from 'ionic-angular';
 import { CrewMember } from './../../models/crewMember';
-import { Config } from './../../configuration/environment-variables/config';
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { RestService } from '../../services/rest.base.service';
 import { ConnectivityService } from './../../services/connectivity.service';
 
 @Injectable()
