@@ -1,3 +1,5 @@
+import { OnlineLegProvider } from './online-leg';
+import { OfflineLegProvider } from './offline-leg';
 import { Leg } from './../../models/leg';
 import { NavParams } from 'ionic-angular';
 import { CrewMember } from './../../models/crewMember';
@@ -5,17 +7,17 @@ import { Config } from './../../configuration/environment-variables/config';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { RestService } from '../../services/rest.base.service';
+import { ConnectivityService } from './../../services/connectivity.service';
 
 @Injectable()
 export class LegProvider {
 
   private legUrl: string;
 
-  constructor(public restService: RestService,
-    public config: Config) {
-    this.legUrl = `${config.backEndUrl}/legs`;
+  constructor(private connectivityService: ConnectivityService,
+    private onlineLegProvider: OnlineLegProvider,
+    private offlineLegProvider: OfflineLegProvider) {
   }
-
 
   /**
   * Récupère les informations d'un tronçon
@@ -23,9 +25,10 @@ export class LegProvider {
   * @return les informations du leg
   */
   getLeg(legId: number): Promise<Leg> {
-    return this.restService.get(`${this.legUrl}/${legId}`);
+    return this.connectivityService.isConnected() ?
+      this.onlineLegProvider.getLeg(legId) :
+      this.offlineLegProvider.getLeg(legId);
   }
-
 
   /**
   * Récupère la liste équipage d'un tronçon
@@ -33,7 +36,8 @@ export class LegProvider {
   * @return la liste équipage d'un tronçon
   */
   getFlightCrewFromLeg(legId: number): Promise<CrewMember[]> {
-    return this.restService.get(`${this.legUrl}/${legId}/crew_members`);
+    return this.connectivityService.isConnected() ?
+      this.onlineLegProvider.getFlightCrewFromLeg(legId) :
+      this.offlineLegProvider.getFlightCrewFromLeg(legId);
   }
-
 }

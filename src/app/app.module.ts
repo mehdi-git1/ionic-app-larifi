@@ -1,3 +1,6 @@
+import { CrewMemberTransformerProvider } from './../providers/crewMember/crewMember-Transformer';
+import { OnlineLegProvider } from './../providers/leg/online-leg';
+import { OfflineLegProvider } from './../providers/leg/offline-leg';
 
 import { LegTransformerProvider } from './../providers/leg/leg-transformer';
 import { RotationTransformerProvider } from './../providers/rotation/rotation-transformer';
@@ -145,11 +148,14 @@ declare var window: any;
     SummarySheetProvider,
     RotationTransformerProvider,
     LegTransformerProvider,
+    CrewMemberTransformerProvider,
     OnlineSummarySheetProvider,
     OfflineSummarySheetProvider,
     SummarySheetTransformerProvider,
     OnlineRotationProvider,
-    OfflineRotationProvider
+    OfflineRotationProvider,
+    OnlineLegProvider,
+    OfflineLegProvider
   ]
 })
 export class AppModule { }

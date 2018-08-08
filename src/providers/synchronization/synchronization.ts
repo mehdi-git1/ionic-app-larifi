@@ -1,4 +1,4 @@
-
+import { CrewMemberTransformerProvider } from './../crewMember/crewMember-Transformer';
 import { LegTransformerProvider } from './../leg/leg-transformer';
 import { RotationTransformerProvider } from './../rotation/rotation-transformer';
 import { SummarySheet } from './../../models/summarySheet';
@@ -18,6 +18,7 @@ import { CareerObjective } from '../../models/careerObjective';
 import { Waypoint } from '../../models/waypoint';
 import { Rotation } from '../../models/rotation';
 import { SecurityProvider } from './../../providers/security/security';
+import { LegProvider } from './../../providers/leg/leg';
 @Injectable()
 export class SynchronizationProvider {
 
@@ -31,8 +32,10 @@ export class SynchronizationProvider {
     private pncSynchroProvider: PncSynchroProvider,
     private rotationTransformerProvider: RotationTransformerProvider,
     private legTransformerProvider: LegTransformerProvider,
+    private crewMemberTransformerProvider: CrewMemberTransformerProvider,
     public securityProvider: SecurityProvider,
-    private summarySheetProvider: SummarySheetProvider) {
+    private summarySheetProvider: SummarySheetProvider,
+    private legProvider: LegProvider) {
   }
 
 
@@ -78,6 +81,14 @@ export class SynchronizationProvider {
         leg.rotation.techId = techIdRotation;
 
         this.storageService.save(Entity.LEG, this.legTransformerProvider.toLeg(leg), true);
+
+        // Pour chaque troncon, on recupere la liste equipage
+        this.legProvider.getFlightCrewFromLeg(leg.techId).then(flightCrewList => {
+          for (const flightCrew of flightCrewList) {
+            flightCrew.legId = leg.techId;
+            this.storageService.save(Entity.CREW_MEMBER, this.crewMemberTransformerProvider.toCrewMember(flightCrew), true);
+          }
+        });
       }
     }
 
