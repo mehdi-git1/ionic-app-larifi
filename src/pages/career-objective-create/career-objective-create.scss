@@ -1,13 +1,13 @@
 page-career-objective-create {
 
-  h3{
-    display: inline-block;
-  }
+    h3 {
+        display: inline-block;
+    }
 
-  ion-badge{
-    display: inline-block;
-    margin: 0 10px;
-  }
+    ion-badge {
+        display: inline-block;
+        margin: 0 10px;
+    }
 
     ion-textarea {
         min-height: 210px !important;
@@ -19,7 +19,10 @@ page-career-objective-create {
             padding: 5px !important;
         }
     }
-
+    /*
+    .ion-textarea-read-only {
+        background-color: $colors($colors, grey50);
+    }*/
     .waypoint-list {
         height: 94%;
         margin-top: 15px;
