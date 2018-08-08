@@ -49,8 +49,8 @@ export class FlightCrewListPage {
 
   ionViewCanEnter() {
     return this.authGuard.guard().then(guardReturn => {
-      if (guardReturn){
-        let legId = this.navParams.get('legId');
+      if (guardReturn) {
+        const legId = this.navParams.get('legId');
         this.legProvider.getLeg(legId).then(legInfos => {
           this.leg = legInfos;
           this.legProvider.getFlightCrewFromLeg(legId).then(flightCrew => {
@@ -67,10 +67,10 @@ export class FlightCrewListPage {
                 });
               }
             });
-          }, error => {});
-        }, error => {});
+          }, error => { });
+        }, error => { });
         return true;
-      }else{
+      } else {
         return false;
       }
     });

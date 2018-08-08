@@ -73,7 +73,7 @@ export class PncSearchPage {
     private authGuard: AuthGuard,
     private config: Config) {
 
-    
+
 
 
   }
@@ -81,9 +81,9 @@ export class PncSearchPage {
   ionViewCanEnter() {
     return this.authGuard.guard().then(guardReturn => {
       // initialistation du filtre
-    this.initFilter();
-    // Initialisation du formulaire
-    this.initForm();
+      this.initFilter();
+      // Initialisation du formulaire
+      this.initForm();
       return guardReturn;
     });
   }
