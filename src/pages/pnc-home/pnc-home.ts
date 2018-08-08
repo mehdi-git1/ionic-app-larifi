@@ -47,8 +47,6 @@ export class PncHomePage {
     ionViewDidEnter() {
         if (this.navParams.get('matricule')) {
             this.matricule = this.navParams.get('matricule');
-        } else if (this.sessionService.appContext.observedPncMatricule) {
-            this.matricule = this.sessionService.appContext.observedPncMatricule;
         } else if (this.sessionService.authenticatedUser) {
             this.matricule = this.sessionService.authenticatedUser.matricule;
         }
