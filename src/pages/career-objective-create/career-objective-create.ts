@@ -371,8 +371,9 @@ export class CareerObjectiveCreatePage {
     if (this.securityProvider.isManager()) {
       return false;
     } else if (!this.securityProvider.isManager() &&
-      this.careerObjective.careerObjectiveStatus === CareerObjectiveStatus.DRAFT ||
-      this.careerObjective.careerObjectiveStatus == null) {
+      (this.careerObjective.careerObjectiveStatus === CareerObjectiveStatus.DRAFT ||
+        this.careerObjective.careerObjectiveStatus == undefined ||
+        this.careerObjective.careerObjectiveStatus == null)) {
       return false;
     } else {
       return true;
