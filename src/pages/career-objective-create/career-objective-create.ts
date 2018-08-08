@@ -371,7 +371,8 @@ export class CareerObjectiveCreatePage {
     if (this.securityProvider.isManager()) {
       return false;
     } else if (!this.securityProvider.isManager() &&
-      this.careerObjective.careerObjectiveStatus === CareerObjectiveStatus.DRAFT) {
+      this.careerObjective.careerObjectiveStatus === CareerObjectiveStatus.DRAFT ||
+      this.careerObjective.careerObjectiveStatus == null) {
       return false;
     } else {
       return true;
@@ -396,5 +397,16 @@ export class CareerObjectiveCreatePage {
   saveCareerObjectiveAndUpdatePncComment() {
     this.saveCareerObjective();
     this.originalPncComment = this.careerObjective.pncComment;
+  }
+
+  /**
+   * Retourne le css du champ de type texte
+   */
+  getCssInputText(): string {
+    if (this.readOnlyByUserConnected()) {
+      return 'ion-textarea-read-only';
+    } else {
+      return '';
+    }
   }
 }
