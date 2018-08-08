@@ -363,18 +363,51 @@ export class CareerObjectiveCreatePage {
     }).present();
   }
 
-  isReadOnly(): boolean {
-    return !this.securityProvider.isManager();
+  /**
+     * Détermine si le champs peut être modifié par l'utilisateur connecté
+     * @return vrai si c'est un champ modifiable, faux sinon
+     */
+  readOnlyByUserConnected(): boolean {
+    if (this.securityProvider.isManager()) {
+      return false;
+    } else if (!this.securityProvider.isManager() &&
+      (this.careerObjective.careerObjectiveStatus === CareerObjectiveStatus.DRAFT ||
+        this.careerObjective.careerObjectiveStatus == undefined ||
+        this.careerObjective.careerObjectiveStatus == null)) {
+      return false;
+    } else {
+      return true;
+    }
   }
 
-  canBeModifiedByPnc(): boolean {
+  /**
+   * Vérifie si l'objectif peut être enregistré par le pnc
+   * @return vrai s'il peut enregistrer l'objectif , faux sinon
+   */
+  canPncCommentBeModifiedByPnc(): boolean {
     return !this.securityProvider.isManager() && (
       this.careerObjective.careerObjectiveStatus === CareerObjectiveStatus.REGISTERED ||
       this.careerObjective.careerObjectiveStatus === CareerObjectiveStatus.VALIDATED) &&
       this.careerObjective.pncComment !== this.originalPncComment;
   }
 
-  savePncCommentCareerObjective() {
+  /**
+   * Sauvegarde l'objectif et met a jour le commentaire pnc de l'objectif original
+   **/
 
+  saveCareerObjectiveAndUpdatePncComment() {
+    this.saveCareerObjective();
+    this.originalPncComment = this.careerObjective.pncComment;
+  }
+
+  /**
+   * Retourne la classe css de lecture seule pour un champ texte si besoin
+   */
+  getCssClassForReadOnlyIfNeeded(): string {
+    if (this.readOnlyByUserConnected()) {
+      return 'ion-textarea-read-only';
+    } else {
+      return '';
+    }
   }
 }
