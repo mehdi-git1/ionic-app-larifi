@@ -137,9 +137,10 @@ export class SynchronizationProvider {
         this.careerObjectiveTransformer.toCareerObjective(careerObjective).getStorageId());
     }
 
-    //  Suppression de tous les vols et rotations
+    //  Suppression de toutes les rotations, vols et listes d'équipage
     this.storageService.deleteAll(Entity.ROTATION);
     this.storageService.deleteAll(Entity.LEG);
+    this.storageService.deleteAll(Entity.CREW_MEMBER);
 
     // Suppression de la fiche synthese
     this.storageService.delete(Entity.SUMMARY_SHEET, pnc.matricule);

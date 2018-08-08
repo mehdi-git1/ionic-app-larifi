@@ -30,9 +30,7 @@ export class OfflineLegProvider {
   getFlightCrewFromLeg(legId: number): Promise<CrewMember[]> {
     return new Promise((resolve, reject) => {
       const crewMembers = this.storageService.findAll(Entity.CREW_MEMBER);
-      // crewMembers.filter(crewMember => crewMember.legId === legId);
-      crewMembers.filter(crewMember => false);
-      resolve(crewMembers);
+      resolve(crewMembers.filter(crewMember => crewMember.legId === legId));
     });
   }
 }

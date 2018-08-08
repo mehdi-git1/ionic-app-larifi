@@ -10,6 +10,6 @@ export class CrewMember extends EDossierPncObject {
     legId: number;
 
     getStorageId(): string {
-        return this.pnc.matricule;
+        return `${this.pnc.matricule}-${this.legId}`;
     }
 }
