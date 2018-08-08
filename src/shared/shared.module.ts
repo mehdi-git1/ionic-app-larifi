@@ -5,7 +5,6 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 
-import { AuthGuard } from './../guard/auth.guard';
 import { AppMaterialModule } from './material/material.module';
 
 
@@ -31,7 +30,6 @@ export function createTranslateLoader(http: HttpClient) {
         AppMaterialModule
     ],
     providers: [
-        AuthGuard
     ]
 })
 export class SharedModule {

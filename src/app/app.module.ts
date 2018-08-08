@@ -1,3 +1,14 @@
+import { PdfViewerModule } from 'ng2-pdf-viewer';
+import { SummarySheetPage } from './../pages/summary-sheet/summary-sheet';
+import { FlightCrewListPage } from './../pages/flight-crew-list/flight-crew-list';
+import { HelpAssetListPage } from './../pages/help-asset-list/help-asset-list';
+import { PncSearchPage } from './../pages/pnc-search/pnc-search';
+import { UpcomingFlightListPage } from './../pages/upcoming-flight-list/upcoming-flight-list';
+import { WaypointCreatePage } from './../pages/waypoint-create/waypoint-create';
+import { CareerObjectiveListPage } from './../pages/career-objective-list/career-objective-list';
+import { CareerObjectiveCreatePage } from './../pages/career-objective-create/career-objective-create';
+import { AuthenticationPage } from './../pages/authentication/authentication';
+import { PncHomePage } from './../pages/pnc-home/pnc-home';
 
 import { LegTransformerProvider } from './../providers/leg/leg-transformer';
 import { RotationTransformerProvider } from './../providers/rotation/rotation-transformer';
@@ -82,7 +93,19 @@ declare var window: any;
 @NgModule({
   declarations: [
     EDossierPNC,
-    HomePage
+    HomePage,
+    PncHomePage,
+    AuthenticationPage,
+    CareerObjectiveCreatePage,
+    CareerObjectiveListPage,
+    WaypointCreatePage,
+    UpcomingFlightListPage,
+    PncSearchPage,
+    HelpAssetListPage,
+    FlightCrewListPage,
+    PncSearchPage,
+    HomePage,
+    SummarySheetPage
   ],
   imports: [
     BrowserModule,
@@ -92,11 +115,23 @@ declare var window: any;
     ComponentsModule,
     SharedModule,
     BrowserAnimationsModule,
+    PdfViewerModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     EDossierPNC,
-    HomePage
+    HomePage,
+    PncHomePage,
+    AuthenticationPage,
+    CareerObjectiveCreatePage,
+    CareerObjectiveListPage,
+    WaypointCreatePage,
+    UpcomingFlightListPage,
+    FlightCrewListPage,
+    PncSearchPage,
+    HelpAssetListPage,
+    HomePage,
+    SummarySheetPage
   ],
   providers: [
     StatusBar,
