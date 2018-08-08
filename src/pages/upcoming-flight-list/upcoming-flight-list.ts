@@ -1,16 +1,9 @@
-import { AuthGuard } from './../../guard/auth.guard';
 import { PncProvider } from './../../providers/pnc/pnc';
 import { Rotation } from './../../models/rotation';
 import { Component } from '@angular/core';
 import { NavController, NavParams, IonicPage } from 'ionic-angular';
 import { SessionService } from '../../services/session.service';
 
-
-@IonicPage({
-  name: 'UpcomingFlightListPage',
-  segment: 'upcomingFlightList/:matricule',
-  defaultHistory: ['PncHomePage']
-})
 @Component({
   selector: 'page-upcoming-flight-list',
   templateUrl: 'upcoming-flight-list.html',
@@ -23,31 +16,24 @@ export class UpcomingFlightListPage {
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     private pncProvider: PncProvider,
-    private authGuard: AuthGuard,
     private sessionService: SessionService) {
   }
 
-  ionViewCanEnter() {
-    return this.authGuard.guard().then(guardReturn => {
-      if (guardReturn){
-        let matricule = '';
-        if (this.navParams.get('matricule')) {
-          matricule = this.navParams.get('matricule');
-        } else if (this.sessionService.authenticatedUser) {
-          matricule = this.sessionService.authenticatedUser.matricule;
-        }
+  ionViewDidLoad() {
+    let matricule = '';
+    if (this.navParams.get('matricule')) {
+      matricule = this.navParams.get('matricule');
+    } else if (this.sessionService.authenticatedUser) {
+      matricule = this.sessionService.authenticatedUser.matricule;
+    }
 
-        this.pncProvider.getLastPerformedRotation(matricule).then(lastPerformedRotation => {
-            this.lastPerformedRotation = lastPerformedRotation;
-         }, error => { });
+    this.pncProvider.getLastPerformedRotation(matricule).then(lastPerformedRotation => {
+      this.lastPerformedRotation = lastPerformedRotation;
+    }, error => { });
 
-          this.pncProvider.getUpcomingRotations(matricule).then(upcomingRotations => {
-            this.upcomingRotations = upcomingRotations;
-          }, error => { });
-      }else{
-        return false;
-      }
-    });
+    this.pncProvider.getUpcomingRotations(matricule).then(upcomingRotations => {
+      this.upcomingRotations = upcomingRotations;
+    }, error => { });
   }
 
   /**

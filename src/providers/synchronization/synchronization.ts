@@ -1,3 +1,6 @@
+
+import { LegTransformerProvider } from './../leg/leg-transformer';
+import { RotationTransformerProvider } from './../rotation/rotation-transformer';
 import { SummarySheet } from './../../models/summarySheet';
 import { SummarySheetProvider } from './../summary-sheet/summary-sheet';
 import { PncTransformerProvider } from './../pnc/pnc-transformer';
@@ -13,7 +16,8 @@ import { Entity } from '../../models/entity';
 import { Pnc } from '../../models/pnc';
 import { CareerObjective } from '../../models/careerObjective';
 import { Waypoint } from '../../models/waypoint';
-
+import { Rotation } from '../../models/rotation';
+import { SecurityProvider } from './../../providers/security/security';
 @Injectable()
 export class SynchronizationProvider {
 
@@ -25,6 +29,9 @@ export class SynchronizationProvider {
     private waypointTransformer: WaypointTransformerProvider,
     private pncTransformer: PncTransformerProvider,
     private pncSynchroProvider: PncSynchroProvider,
+    private rotationTransformerProvider: RotationTransformerProvider,
+    private legTransformerProvider: LegTransformerProvider,
+    public securityProvider: SecurityProvider,
     private summarySheetProvider: SummarySheetProvider) {
   }
 
@@ -57,6 +64,22 @@ export class SynchronizationProvider {
     this.deleteAllPncOfflineObject(pncSynchroResponse.pnc);
 
     this.storageService.save(Entity.PNC, this.pncTransformer.toPnc(pncSynchroResponse.pnc), true);
+
+    if (pncSynchroResponse.rotations != null) {
+      for (const rotation of pncSynchroResponse.rotations) {
+        this.storageService.save(Entity.ROTATION, this.rotationTransformerProvider.toRotation(rotation), true);
+      }
+    }
+
+    if (pncSynchroResponse.legs != null) {
+      for (const leg of pncSynchroResponse.legs) {
+        const techIdRotation: number = leg.rotation.techId;
+        leg.rotation = new Rotation();
+        leg.rotation.techId = techIdRotation;
+
+        this.storageService.save(Entity.LEG, this.legTransformerProvider.toLeg(leg), true);
+      }
+    }
 
     // Création des nouveaux objets
     for (const careerObjective of pncSynchroResponse.careerObjectives) {
@@ -102,6 +125,11 @@ export class SynchronizationProvider {
       this.storageService.delete(Entity.CAREER_OBJECTIVE,
         this.careerObjectiveTransformer.toCareerObjective(careerObjective).getStorageId());
     }
+
+    //  Suppression de tous les vols et rotations
+    this.storageService.deleteAll(Entity.ROTATION);
+    this.storageService.deleteAll(Entity.LEG);
+
     // Suppression de la fiche synthese
     this.storageService.delete(Entity.SUMMARY_SHEET, pnc.matricule);
   }

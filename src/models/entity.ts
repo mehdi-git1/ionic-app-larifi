@@ -3,5 +3,7 @@ export enum Entity {
     PNC = 'PNC',
     CAREER_OBJECTIVE = 'CAREER_OBJECTIVE',
     WAYPOINT = 'WAYPOINT',
+    ROTATION = 'ROTATION',
+    LEG = 'LEG',
     SUMMARY_SHEET = 'SUMMARY_SHEET'
 }

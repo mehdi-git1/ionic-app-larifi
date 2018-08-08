@@ -1,3 +1,17 @@
+import { PdfViewerModule } from 'ng2-pdf-viewer';
+import { SummarySheetPage } from './../pages/summary-sheet/summary-sheet';
+import { FlightCrewListPage } from './../pages/flight-crew-list/flight-crew-list';
+import { HelpAssetListPage } from './../pages/help-asset-list/help-asset-list';
+import { PncSearchPage } from './../pages/pnc-search/pnc-search';
+import { UpcomingFlightListPage } from './../pages/upcoming-flight-list/upcoming-flight-list';
+import { WaypointCreatePage } from './../pages/waypoint-create/waypoint-create';
+import { CareerObjectiveListPage } from './../pages/career-objective-list/career-objective-list';
+import { CareerObjectiveCreatePage } from './../pages/career-objective-create/career-objective-create';
+import { AuthenticationPage } from './../pages/authentication/authentication';
+import { PncHomePage } from './../pages/pnc-home/pnc-home';
+
+import { LegTransformerProvider } from './../providers/leg/leg-transformer';
+import { RotationTransformerProvider } from './../providers/rotation/rotation-transformer';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ErrorHandler, NgModule } from '@angular/core';
@@ -71,13 +85,27 @@ import { PncSynchroProvider } from '../providers/synchronization/pnc-synchro';
 import { HomePage } from './../pages/home/home';
 
 import { SummarySheetProvider } from '../providers/summary-sheet/summary-sheet';
+import { OnlineRotationProvider } from '../providers/rotation/online-rotation';
+import { OfflineRotationProvider } from '../providers/rotation/offline-rotation';
 
 declare var window: any;
 
 @NgModule({
   declarations: [
     EDossierPNC,
-    HomePage
+    HomePage,
+    PncHomePage,
+    AuthenticationPage,
+    CareerObjectiveCreatePage,
+    CareerObjectiveListPage,
+    WaypointCreatePage,
+    UpcomingFlightListPage,
+    PncSearchPage,
+    HelpAssetListPage,
+    FlightCrewListPage,
+    PncSearchPage,
+    HomePage,
+    SummarySheetPage
   ],
   imports: [
     BrowserModule,
@@ -87,11 +115,23 @@ declare var window: any;
     ComponentsModule,
     SharedModule,
     BrowserAnimationsModule,
+    PdfViewerModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     EDossierPNC,
-    HomePage
+    HomePage,
+    PncHomePage,
+    AuthenticationPage,
+    CareerObjectiveCreatePage,
+    CareerObjectiveListPage,
+    WaypointCreatePage,
+    UpcomingFlightListPage,
+    FlightCrewListPage,
+    PncSearchPage,
+    HelpAssetListPage,
+    HomePage,
+    SummarySheetPage
   ],
   providers: [
     StatusBar,
@@ -138,9 +178,13 @@ declare var window: any;
     PncSynchroProvider,
     EObservationService,
     SummarySheetProvider,
+    RotationTransformerProvider,
+    LegTransformerProvider,
     OnlineSummarySheetProvider,
     OfflineSummarySheetProvider,
-    SummarySheetTransformerProvider
+    SummarySheetTransformerProvider,
+    OnlineRotationProvider,
+    OfflineRotationProvider
   ]
 })
 export class AppModule { }
