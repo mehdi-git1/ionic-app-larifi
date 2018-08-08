@@ -27,19 +27,14 @@ export class CareerObjectiveListPage {
     private careerObjectiveProvider: CareerObjectiveProvider,
     private toastProvider: ToastProvider,
     private eObservationService: EObservationService,
-    private sessionService: SessionService,
-  ) {
-
+    private sessionService: SessionService) {
   }
 
-  ionViewCanEnter() {
-    return new Promise((resolve, reject) => {
-      this.matricule = this.navParams.get('matricule');
-      this.careerObjectiveProvider.getPncCareerObjectives(this.matricule).then(result => {
-        this.careerObjectiveList = result;
-        resolve();
-      }, error => { });
-    });
+  ionViewDidEnter() {
+    this.matricule = this.navParams.get('matricule');
+    this.careerObjectiveProvider.getPncCareerObjectives(this.matricule).then(result => {
+      this.careerObjectiveList = result;
+    }, error => { });
   }
 
   /**
