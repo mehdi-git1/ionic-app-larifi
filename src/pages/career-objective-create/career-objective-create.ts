@@ -402,7 +402,7 @@ export class CareerObjectiveCreatePage {
   /**
    * Retourne le css du champ de type texte
    */
-  getCssInputText(): string {
+  getCssClassForInputText(): string {
     if (this.readOnlyByUserConnected()) {
       return 'ion-textarea-read-only';
     } else {

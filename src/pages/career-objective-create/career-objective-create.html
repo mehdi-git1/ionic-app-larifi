@@ -25,7 +25,7 @@
                             <!-- Titre -->
                             <ion-item>
                                 <ion-label floating class="required">{{ 'CAREER_OBJECTIVE_CREATE.FORM.TITLE' | translate }}</ion-label>
-                                <ion-input type="text" [(ngModel)]="careerObjective.title" formControlName="titleControl" [readonly]="readOnlyByUserConnected()" [ngClass]="getCssInputText()"></ion-input>
+                                <ion-input type="text" [(ngModel)]="careerObjective.title" formControlName="titleControl" [readonly]="readOnlyByUserConnected()" [ngClass]="getCssClassForInputText()"></ion-input>
                             </ion-item>
                         </ion-col>
                     </ion-row>
@@ -34,7 +34,7 @@
                             <!-- Contexte -->
                             <ion-item>
                                 <ion-label floating>{{ 'CAREER_OBJECTIVE_CREATE.FORM.CONTEXT' | translate }}</ion-label>
-                                <ion-textarea [(ngModel)]="careerObjective.context" formControlName="contextControl" name="context" [readonly]="readOnlyByUserConnected()" [ngClass]="getCssInputText()"></ion-textarea>
+                                <ion-textarea [(ngModel)]="careerObjective.context" formControlName="contextControl" name="context" [readonly]="readOnlyByUserConnected()" [ngClass]="getCssClassForInputText()"></ion-textarea>
                             </ion-item>
                         </ion-col>
                     </ion-row>
@@ -43,7 +43,7 @@
                             <!-- Plan d'action -->
                             <ion-item>
                                 <ion-label floating>{{ 'CAREER_OBJECTIVE_CREATE.FORM.ACTION_PLAN' | translate }}</ion-label>
-                                <ion-textarea [(ngModel)]="careerObjective.actionPlan" formControlName="actionPlanControl" name="actionPlan" [readonly]="readOnlyByUserConnected()" [ngClass]="getCssInputText()"></ion-textarea>
+                                <ion-textarea [(ngModel)]="careerObjective.actionPlan" formControlName="actionPlanControl" name="actionPlan" [readonly]="readOnlyByUserConnected()" [ngClass]="getCssClassForInputText()"></ion-textarea>
                             </ion-item>
                         </ion-col>
                     </ion-row>
@@ -52,7 +52,7 @@
                             <!-- Commentaire cadre -->
                             <ion-item>
                                 <ion-label floating>{{ 'CAREER_OBJECTIVE_CREATE.FORM.MANAGER_COMMENT' | translate }}</ion-label>
-                                <ion-textarea [(ngModel)]="careerObjective.managerComment" formControlName="managerCommentControl" name="managerComment" [readonly]="readOnlyByUserConnected()" [ngClass]="getCssInputText()"></ion-textarea>
+                                <ion-textarea [(ngModel)]="careerObjective.managerComment" formControlName="managerCommentControl" name="managerComment" [readonly]="readOnlyByUserConnected()" [ngClass]="getCssClassForInputText()"></ion-textarea>
                             </ion-item>
                         </ion-col>
                         <ion-col col-6>
