@@ -6,7 +6,7 @@ export class Serializable {
    */
   fromJSON(jsonObj: Object): any {
     if (jsonObj) {
-      for (let prop in jsonObj) {
+      for (const prop in jsonObj) {
         if (jsonObj.hasOwnProperty(prop)) {
           this[prop] = jsonObj[prop];
         }
