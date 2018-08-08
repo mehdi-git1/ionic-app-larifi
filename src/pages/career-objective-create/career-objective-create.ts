@@ -53,8 +53,7 @@ export class CareerObjectiveCreatePage {
         public securityProvider: SecurityProvider,
         public loadingCtrl: LoadingController) {
 
-        this.careerObjective = new CareerObjective();
-        this.careerObjective.pnc = new Pnc();
+
 
         // Options du datepicker
         this.nextEncounterDateTimeOptions = {
@@ -76,26 +75,24 @@ export class CareerObjectiveCreatePage {
     }
 
     ionViewDidEnter() {
-        if (this.navParams.get('matricule')) {
-            this.careerObjective.pnc.matricule = this.navParams.get('matricule');
-        }
-
         // On récupère l'id de l'objectif dans les paramètres de navigation
         if (this.navParams.get('careerObjectiveId') && this.navParams.get('careerObjectiveId') !== '0') {
-            this.careerObjective.techId = this.navParams.get('careerObjectiveId');
+            // Récupération de l'objectif et des points d'étape
+            this.careerObjectiveProvider.getCareerObjective(this.navParams.get('careerObjectiveId')).then(foundCareerObjective => {
+                this.careerObjective = foundCareerObjective;
+            }, error => { });
+            this.waypointProvider.getCareerObjectiveWaypoints(this.navParams.get('careerObjectiveId')).then(result => {
+                this.waypointList = result;
+            }, error => { });
+        } else {
+            // Création
+            this.careerObjective = new CareerObjective();
+            this.careerObjective.pnc = new Pnc();
+            this.careerObjective.pnc.matricule = this.navParams.get('matricule');
+            this.waypointList = [];
         }
 
-        // Récupération de l'objectif et des points d'étape
-        if (this.careerObjective.techId) {
-            this.careerObjectiveProvider.getCareerObjective(this.careerObjective.techId).then(foundCareerObjective => {
-                this.careerObjective = foundCareerObjective;
-            }, error => {
-            });
-            this.waypointProvider.getCareerObjectiveWaypoints(this.careerObjective.techId).then(result => {
-                this.waypointList = result;
-            }, error => {
-            });
-        }
+
     }
 
     /**
@@ -335,5 +332,21 @@ export class CareerObjectiveCreatePage {
                 }
             ]
         }).present();
+    }
+
+    /**
+    * Vérifie que le chargement de l'objectif est terminé
+    * @return true si c'est le cas, false sinon
+    */
+    careerObjectiveLoadingIsOver(): boolean {
+        return this.careerObjective !== undefined;
+    }
+
+    /**
+   * Vérifie que le chargement des points d'étape est terminé
+   * @return true si c'est le cas, false sinon
+   */
+    waypointsLoadingIsOver(): boolean {
+        return this.waypointList !== undefined;
     }
 }
