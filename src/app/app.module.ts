@@ -1,4 +1,4 @@
-import { CrewMemberTransformerProvider } from './../providers/crewMember/crewMember-Transformer';
+import { CrewMemberTransformerProvider } from './../providers/crewMember/crewMember-transformer';
 import { OnlineLegProvider } from './../providers/leg/online-leg';
 import { OfflineLegProvider } from './../providers/leg/offline-leg';
 

@@ -1,4 +1,4 @@
-import { CrewMemberTransformerProvider } from './../crewMember/crewMember-Transformer';
+import { CrewMemberTransformerProvider } from './../crewMember/crewMember-transformer';
 import { LegTransformerProvider } from './../leg/leg-transformer';
 import { RotationTransformerProvider } from './../rotation/rotation-transformer';
 import { SummarySheet } from './../../models/summarySheet';
