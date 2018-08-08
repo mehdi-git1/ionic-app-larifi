@@ -10,7 +10,7 @@ import { GenderProvider } from './../../providers/gender/gender';
 import { PncProvider } from './../../providers/pnc/pnc';
 import { TranslateService } from '@ngx-translate/core';
 import { Pnc } from './../../models/pnc';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NavController, NavParams, IonicPage } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators, FormControl, AbstractControl } from '@angular/forms';
 import { Speciality } from '../../models/speciality';
@@ -20,7 +20,7 @@ import { Subject } from 'rxjs/Rx';
     selector: 'page-pnc-search',
     templateUrl: 'pnc-search.html',
 })
-export class PncSearchPage {
+export class PncSearchPage implements OnInit {
 
     // Valeur par défaut des filtres
     ALL = 'ALL';
@@ -67,12 +67,14 @@ export class PncSearchPage {
         private config: Config) {
     }
 
-    ionViewDidEnter() {
+    ngOnInit() {
         // initialistation du filtre
         this.initFilter();
         // Initialisation du formulaire
         this.initForm();
+    }
 
+    ionViewDidEnter() {
         this.totalPncs = 0;
         this.pageSize = this.config.pageSize;
     }
