@@ -42,15 +42,6 @@ export class WaypointCreatePage {
         public loadingCtrl: LoadingController,
         private alertCtrl: AlertController) {
 
-        this.waypoint = new Waypoint();
-        this.careerObjectiveId = this.navParams.get('careerObjectiveId');
-
-        if (this.navParams.get('waypointId')) {
-            this.waypointProvider.getWaypoint(this.navParams.get('waypointId')).then(result => {
-                this.waypoint = result;
-            }, error => { });
-        }
-
         // Options du datepicker
         this.customDateTimeOptions = {
             buttons: [{
@@ -61,17 +52,18 @@ export class WaypointCreatePage {
 
         this.requiredOnEncounterDay = false;
 
+        this.initForm();
     }
 
     ionViewDidEnter() {
-        this.initForm();
-
         if (this.navParams.get('waypointId') && this.navParams.get('waypointId') !== '0') {
+            // Récupération du point d'étape
             this.waypointProvider.getWaypoint(this.navParams.get('waypointId')).then(result => {
                 this.waypoint = result;
-                this.initForm();
-            }, error => {
-            });
+            }, error => { });
+        } else {
+            // Création
+            this.waypoint = new Waypoint();
         }
     }
 
@@ -200,5 +192,13 @@ export class WaypointCreatePage {
     saveActionIsValid() {
         return this.waypoint.actionPerformed && this.waypoint.actionPerformed.length > 0
             && this.waypoint.encounterDate && this.waypoint.encounterDate.length > 0;
+    }
+
+    /**
+    * Vérifie que le chargement est terminé
+    * @return true si c'est le cas, false sinon
+    */
+    loadingIsOver(): boolean {
+        return this.waypoint !== undefined;
     }
 }

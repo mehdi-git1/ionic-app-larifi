@@ -53,8 +53,6 @@ export class CareerObjectiveCreatePage {
         public securityProvider: SecurityProvider,
         public loadingCtrl: LoadingController) {
 
-
-
         // Options du datepicker
         this.nextEncounterDateTimeOptions = {
             buttons: [{
