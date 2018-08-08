@@ -1,24 +1,24 @@
 <ion-header>
 
-  <ion-navbar>
-    <ion-title>{{ 'AUTHENT.AUTHENTICATION' | translate }}</ion-title>
-  </ion-navbar>
+    <ion-navbar>
+        <ion-title>{{ 'AUTHENT.AUTHENTICATION' | translate }}</ion-title>
+    </ion-navbar>
 
 </ion-header>
 
 
 <ion-content class="container" padding>
-  <form class="row justify-content-center form-auth" [formGroup]="loginForm" (ngSubmit)="sendAuthent()">
-    <ion-item>
-      <ion-label floating>{{ 'AUTHENT.LOGIN' | translate }}</ion-label>
-      <ion-input formControlName="login" type="text"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label floating>{{ 'AUTHENT.PASSWORD' | translate }}</ion-label>
-      <ion-input formControlName="password" type="password"></ion-input>
-    </ion-item>
-    <button ion-button type="submit" [hidden]="!hideSpinner" block [disabled]="loginForm.invalid">{{ 'GLOBAL.VALIDATE' | translate }}</button>
-    <ion-spinner text-center [hidden]="hideSpinner"></ion-spinner>
-    <ion-label *ngIf="errorMsg" id="errorlogin" color>{{errorMsg}}</ion-label>
-  </form>
+    <form class="row justify-content-center form-auth" [formGroup]="loginForm" (ngSubmit)="sendAuthent()">
+        <ion-item>
+            <ion-label floating>{{ 'AUTHENT.LOGIN' | translate }}</ion-label>
+            <ion-input formControlName="login" type="text"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label floating>{{ 'AUTHENT.PASSWORD' | translate }}</ion-label>
+            <ion-input formControlName="password" type="password"></ion-input>
+        </ion-item>
+        <button ion-button type="submit" [hidden]="!hideSpinner" block [disabled]="loginForm.invalid">{{ 'AUTHENT.VALIDATE' | translate }}</button>
+        <ion-spinner text-center [hidden]="hideSpinner"></ion-spinner>
+        <ion-label *ngIf="errorMsg" id="errorlogin" color>{{errorMsg}}</ion-label>
+    </form>
 </ion-content>
