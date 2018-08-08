@@ -8,66 +8,66 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
  */
 
 export class RestRequest {
-  public withCredential = true;
-  public method: string;
-  public url: string;
-  public options: any;
-  public jsonData: any;
+    public withCredential = true;
+    public method: string;
+    public url: string;
+    public httpHeaders: any;
+    public jsonData: any;
 }
 
 Injectable();
 export abstract class RestService {
 
-  constructor(protected http: HttpClient) {
-  }
-
-  abstract call(request: RestRequest): Promise<any>;
-
-  get(url: string, jsonData?: any, options?: any): Promise<any> {
-    return this.sendRequest('GET', url, jsonData, options);
-  }
-
-  post(url: string, jsonData: any, options?: any): Promise<any> {
-    let data: string;
-    if (jsonData) {
-      if (!options) {
-        options = {};
-      }
-
-      if (!options.headers) {
-        options.headers = new HttpHeaders();
-      }
-      options.headers = options.headers.append('content-type', 'application/json');
-      data = JSON.stringify(jsonData);
-    }
-    return this.sendRequest('POST', url, data, options);
-  }
-
-  put(url: string, jsonData: any, options?: any): Promise<any> {
-    return this.sendRequest('PUT', url, jsonData, options);
-  }
-
-  delete(url: string, jsonData?: any, options?: any): Promise<any> {
-    return this.sendRequest('DELETE', url, jsonData, options);
-  }
-
-  sendRequest(method: string, url: string, jsonData: any, options?: any): Promise<any> {
-    const request: RestRequest = new RestRequest();
-
-    if (!options) {
-      options = {};
+    constructor(protected http: HttpClient) {
     }
 
-    if (!options.headers) {
-      options.headers = new HttpHeaders();
+    abstract call(request: RestRequest): Promise<any>;
+
+    get(url: string, jsonData?: any, httpHeaders?: any): Promise<any> {
+        return this.sendRequest('GET', url, jsonData, httpHeaders);
     }
 
-    request.method = method;
-    request.url = url;
-    request.jsonData = jsonData;
-    request.options = options;
+    post(url: string, jsonData: any, httpHeaders?: any): Promise<any> {
+        let data: string;
+        if (jsonData) {
+            if (!httpHeaders) {
+                httpHeaders = {};
+            }
+
+            if (!httpHeaders.headers) {
+                httpHeaders.headers = new HttpHeaders();
+            }
+            httpHeaders.headers = httpHeaders.headers.append('Content-Type', 'application/json');
+            data = JSON.stringify(jsonData);
+        }
+        return this.sendRequest('POST', url, data, httpHeaders);
+    }
+
+    put(url: string, jsonData: any, httpHeaders?: any): Promise<any> {
+        return this.sendRequest('PUT', url, jsonData, httpHeaders);
+    }
+
+    delete(url: string, jsonData?: any, httpHeaders?: any): Promise<any> {
+        return this.sendRequest('DELETE', url, jsonData, httpHeaders);
+    }
+
+    sendRequest(method: string, url: string, jsonData: any, httpHeaders?: any): Promise<any> {
+        const request: RestRequest = new RestRequest();
+
+        if (!httpHeaders) {
+            httpHeaders = {};
+        }
+
+        if (!httpHeaders.headers) {
+            httpHeaders.headers = new HttpHeaders();
+        }
+
+        request.method = method;
+        request.url = url;
+        request.jsonData = jsonData;
+        request.httpHeaders = httpHeaders;
 
 
-    return this.call(request);
-  }
+        return this.call(request);
+    }
 }
