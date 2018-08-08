@@ -38,7 +38,7 @@ export class HelpAssetListPage {
   }
 
   /**
-   * renvois vers la page d'affichage des pdg avec l url du pdf demandé
+   * renvois vers la page d'affichage des pdf avec l'url du pdf demandé et le title à afficher
    * @param url URL qui sera ouvert sur le nouvel onglet
    */
   openPdfFileViewer(url: string) {

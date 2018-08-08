@@ -17,19 +17,16 @@ export class PdfFileViewerPage {
   title: string;
   pdfSrc: any;
 
-  constructor(public navCtrl: NavController, 
+  constructor(public navCtrl: NavController,
     public navParams: NavParams,
-  public httpClient: HttpClient) {
+    public httpClient: HttpClient) {
   }
 
   ionViewCanEnter() {
-    if (this.navParams.get('pdfSrc')) {
-      this.title = this.navParams.get('title');
-      this.httpClient.get(this.navParams.get('pdfSrc') , { responseType: 'blob'}).subscribe(result => {
-        this.pdfSrc = URL.createObjectURL(result);
-      });
-    } else {
-    }
+    this.title = this.navParams.get('title');
+    this.httpClient.get(this.navParams.get('pdfSrc'), { responseType: 'blob' }).subscribe(result => {
+      this.pdfSrc = URL.createObjectURL(result);
+    });
   }
 
 }
