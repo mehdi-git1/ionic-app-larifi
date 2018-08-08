@@ -17,127 +17,125 @@ import { HelpAssetListPage } from './../help-asset-list/help-asset-list';
 import { PncSearchPage } from './../pnc-search/pnc-search';
 
 @Component({
-  selector: 'page-pnc-home',
-  templateUrl: 'pnc-home.html',
+    selector: 'page-pnc-home',
+    templateUrl: 'pnc-home.html',
 })
 export class PncHomePage {
 
-  pnc: Pnc;
-  matricule: string;
-  synchroInProgress: boolean;
-  eObservation: EObservation;
-  // exporter la classe enum speciality dans la page html
-  Speciality = Speciality;
+    pnc: Pnc;
+    matricule: string;
+    synchroInProgress: boolean;
+    eObservation: EObservation;
+    // exporter la classe enum speciality dans la page html
+    Speciality = Speciality;
 
-  constructor(public navCtrl: NavController,
-    public navParams: NavParams,
-    public viewCtrl: ViewController,
-    public appCtrl: App,
-    public zone: NgZone,
-    public cd: ChangeDetectorRef,
-    public genderProvider: GenderProvider,
-    private toastProvider: ToastProvider,
-    private synchronizationProvider: SynchronizationProvider,
-    public connectivityService: ConnectivityService,
-    private sessionService: SessionService,
-    public translateService: TranslateService,
-    private pncProvider: PncProvider
-  ) {
+    constructor(public navCtrl: NavController,
+        public navParams: NavParams,
+        public viewCtrl: ViewController,
+        public appCtrl: App,
+        public zone: NgZone,
+        public cd: ChangeDetectorRef,
+        public genderProvider: GenderProvider,
+        private toastProvider: ToastProvider,
+        private synchronizationProvider: SynchronizationProvider,
+        public connectivityService: ConnectivityService,
+        private sessionService: SessionService,
+        public translateService: TranslateService,
+        private pncProvider: PncProvider
+    ) {
 
-  }
+    }
 
-  ionViewCanEnter() {
-    return new Promise((resolve, reject) => {
-      if (this.navParams.get('matricule')) {
-        this.matricule = this.navParams.get('matricule');
-      } else if (this.sessionService.appContext.observedPncMatricule) {
-        this.matricule = this.sessionService.appContext.observedPncMatricule;
-      } else if (this.sessionService.authenticatedUser) {
-        this.matricule = this.sessionService.authenticatedUser.matricule;
-      }
+    ionViewCanEnter() {
+        return new Promise((resolve, reject) => {
+            if (this.navParams.get('matricule')) {
+                this.matricule = this.navParams.get('matricule');
+            } else if (this.sessionService.authenticatedUser) {
+                this.matricule = this.sessionService.authenticatedUser.matricule;
+            }
 
-      if (this.matricule != null) {
-        this.pncProvider.getPnc(this.matricule).then(pnc => {
-          this.pnc = pnc;
-          resolve();
-        }, error => {
-          resolve();
+            if (this.matricule != null) {
+                this.pncProvider.getPnc(this.matricule).then(pnc => {
+                    this.pnc = pnc;
+                    resolve();
+                }, error => {
+                    resolve();
+                });
+            }
         });
-      }
-    });
-  }
+    }
 
-  /**
-   * charge le détail du pnc connecté ou consulté.
-   */
-  loadPnc(matricule?: string): Promise<void> {
-    return new Promise((resolve, reject) => {
-      // Si on a un matricule dans les params de navigation, cela surcharge le matricule du user connecté
-      if (this.sessionService.appContext.observedPncMatricule) {
-        this.matricule = this.sessionService.appContext.observedPncMatricule;
-      }
+    /**
+     * charge le détail du pnc connecté ou consulté.
+     */
+    loadPnc(matricule?: string): Promise<void> {
+        return new Promise((resolve, reject) => {
+            // Si on a un matricule dans les params de navigation, cela surcharge le matricule du user connecté
+            if (this.sessionService.appContext.observedPncMatricule) {
+                this.matricule = this.sessionService.appContext.observedPncMatricule;
+            }
 
-      this.navCtrl.setRoot(PncHomePage, { matricule: this.matricule });
-    });
-  }
+            this.navCtrl.setRoot(PncHomePage, { matricule: this.matricule });
+        });
+    }
 
-  /**
-   * Dirige vers la page de visualisation des objectifs
-   */
-  goToCareerObjectiveList() {
-    this.navCtrl.push(CareerObjectiveListPage, { matricule: this.matricule });
-  }
+    /**
+     * Dirige vers la page de visualisation des objectifs
+     */
+    goToCareerObjectiveList() {
+        this.navCtrl.push(CareerObjectiveListPage, { matricule: this.matricule });
+    }
 
-  /**
-   * Dirige vers la page des ressources d'aide
-   */
-  goToHelpAssetList() {
-    this.navCtrl.push(HelpAssetListPage, { pncRole: Speciality.getPncRole(this.pnc.speciality) });
-  }
+    /**
+     * Dirige vers la page des ressources d'aide
+     */
+    goToHelpAssetList() {
+        this.navCtrl.push(HelpAssetListPage, { pncRole: Speciality.getPncRole(this.pnc.speciality) });
+    }
 
-  /**
-   * Dirige vers la liste des prochains vols
-   */
+    /**
+     * Dirige vers la liste des prochains vols
+     */
 
-  goToUpcomingFlightList() {
-    this.navCtrl.push(UpcomingFlightListPage, { matricule: this.matricule });
-  }
+    goToUpcomingFlightList() {
+        this.navCtrl.push(UpcomingFlightListPage, { matricule: this.matricule });
+    }
 
-  /**
-   * Redirige vers le EDossier du PNC saisi
-   */
-  goToEdossier() {
-    this.navCtrl.push(PncHomePage, { matricule: this.matricule });
-  }
+    /**
+     * Redirige vers le EDossier du PNC saisi
+     */
+    goToEdossier() {
+        this.navCtrl.push(PncHomePage, { matricule: this.matricule });
+    }
 
-  /**
-  * Dirige vers l'effectif PNC
-  */
-  goToPncSearch() {
-    this.navCtrl.push(PncSearchPage);
-  }
+    /**
+    * Dirige vers l'effectif PNC
+    */
+    goToPncSearch() {
+        this.navCtrl.push(PncSearchPage);
+    }
 
-  /**
-   * Dirige vers la fiche synthèse
-   */
-  goToSummarySheet() {
-    this.navCtrl.push(SummarySheetPage, { matricule: this.matricule });
-  }
+    /**
+     * Dirige vers la fiche synthèse
+     */
+    goToSummarySheet() {
+        this.navCtrl.push(SummarySheetPage, { matricule: this.matricule });
+    }
 
-  /**
-   * Précharge le eDossier du PNC si celui n'est pas cadre
-   */
-  downloadPncEdossier() {
-    this.synchroInProgress = true;
-    this.synchronizationProvider.storeEDossierOffline(this.pnc.matricule).then(success => {
-      this.loadPnc();
-      this.synchroInProgress = false;
-      this.toastProvider.info(this.translateService.instant('SYNCHRONIZATION.PNC_SAVED_OFFLINE', { 'matricule': this.pnc.matricule }));
-    }, error => {
-      this.synchroInProgress = false;
-      this.toastProvider.error(
-        this.translateService.instant('SYNCHRONIZATION.PNC_SAVED_OFFLINE_ERROR', { 'matricule': this.pnc.matricule }));
-    });
-  }
+    /**
+     * Précharge le eDossier du PNC si celui n'est pas cadre
+     */
+    downloadPncEdossier() {
+        this.synchroInProgress = true;
+        this.synchronizationProvider.storeEDossierOffline(this.pnc.matricule).then(success => {
+            this.loadPnc();
+            this.synchroInProgress = false;
+            this.toastProvider.info(this.translateService.instant('SYNCHRONIZATION.PNC_SAVED_OFFLINE', { 'matricule': this.pnc.matricule }));
+        }, error => {
+            this.synchroInProgress = false;
+            this.toastProvider.error(
+                this.translateService.instant('SYNCHRONIZATION.PNC_SAVED_OFFLINE_ERROR', { 'matricule': this.pnc.matricule }));
+        });
+    }
 
 }
