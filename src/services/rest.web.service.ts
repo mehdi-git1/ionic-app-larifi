@@ -25,7 +25,12 @@ export class RestWebService extends RestService {
 
     private makeHttpRequest(request: RestRequest, successCallback: (result: any) => void, errorCallback: (error: any) => void): void {
 
-        request.httpHeaders.headers = new HttpHeaders();
+        if (!request.httpHeaders) {
+            request.httpHeaders = {};
+        }
+        if (!request.httpHeaders.headers) {
+            request.httpHeaders.headers = new HttpHeaders();
+        }
 
         // En local, on ajoute le header SM_USER pour simuler l'authent habile
         if (this.config.isLocalhost()) {
