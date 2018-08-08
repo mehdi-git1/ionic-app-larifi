@@ -8,7 +8,7 @@ export class CrewMemberTransformerProvider {
   constructor() {
   }
 
-  toCareerObjectives(array: CrewMember[]) {
+  toCrewMembers(array: CrewMember[]) {
     const newArray: CrewMember[] = [];
     for (const object of array) {
       newArray.push(this.toCrewMember(object));
