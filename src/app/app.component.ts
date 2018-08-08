@@ -72,14 +72,14 @@ export class EDossierPNC implements OnInit {
       });
 
       this.authGuard.guard(true).then(guardValue => {
-        if (guardValue === false){
+        if (guardValue === false) {
           this.nav.setRoot('AuthenticationPage');
-        /**
-         * Ce test sert à définir si on est arrivé via la racine du site.
-         * Si c'est le cas, on bascule vers la homePage.
-         * Sinon, on ne fait rien et on est redirigé vers la page choisie
-        */
-        }else if (this.platform.getActiveElement().ownerDocument.location.hash === ''){
+          /**
+           * Ce test sert à définir si on est arrivé via la racine du site.
+           * Si c'est le cas, on bascule vers la homePage.
+           * Sinon, on ne fait rien et on est redirigé vers la page choisie
+          */
+        } else if (this.platform.getActiveElement().ownerDocument.location.hash === '' && this.sessionService.authenticatedUser) {
           this.nav.setRoot('PncHomePage', { matricule: this.sessionService.authenticatedUser.matricule });
         }
       });

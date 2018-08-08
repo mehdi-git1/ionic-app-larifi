@@ -22,7 +22,7 @@ export class PdfFileViewerPage {
     public httpClient: HttpClient) {
   }
 
-  ionViewCanEnter() {
+  ionViewDidEnter() {
     this.title = this.navParams.get('title');
     this.httpClient.get(this.navParams.get('pdfSrc'), { responseType: 'blob' }).subscribe(result => {
       this.pdfSrc = URL.createObjectURL(result);
