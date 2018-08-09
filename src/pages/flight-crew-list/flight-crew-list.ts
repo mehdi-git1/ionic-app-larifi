@@ -2,7 +2,6 @@ import { TranslateService } from '@ngx-translate/core';
 import { Component } from '@angular/core';
 import { NavController, NavParams, IonicPage } from 'ionic-angular';
 
-import { AuthGuard } from './../../guard/auth.guard';
 import { PncTransformerProvider } from './../../providers/pnc/pnc-transformer';
 import { PncProvider } from './../../providers/pnc/pnc';
 import { SessionService } from './../../services/session.service';
@@ -16,12 +15,6 @@ import { ConnectivityService } from '../../services/connectivity.service';
 
 import { CrewMember } from '../../models/crewMember';
 
-
-@IonicPage({
-  name: 'FlightCrewListPage',
-  segment: 'flightCrewList/:legId',
-  defaultHistory: ['UpcomingFlightListPage']
-})
 @Component({
   selector: 'page-flight-crew-list',
   templateUrl: 'flight-crew-list.html',
@@ -38,41 +31,34 @@ export class FlightCrewListPage {
     public connectivityService: ConnectivityService,
     private toastProvider: ToastProvider,
     private translate: TranslateService,
-    private authGuard: AuthGuard,
     private pncProvider: PncProvider,
     private sessionService: SessionService,
     private pncTransformer: PncTransformerProvider) {
-
-
   }
 
 
   ionViewCanEnter() {
-    return this.authGuard.guard().then(guardReturn => {
-      if (guardReturn) {
-        const legId = this.navParams.get('legId');
-        this.legProvider.getLeg(legId).then(legInfos => {
-          this.leg = legInfos;
-          this.legProvider.getFlightCrewFromLeg(legId).then(flightCrew => {
-            this.flightCrewList = flightCrew;
-            flightCrew.forEach(crew => {
-              if (crew.pnc.matricule !== undefined) {
-                if (crew.pnc.matricule === this.sessionService.authenticatedUser.matricule) {
-                  this.sessionService.appContext.onBoardRedactorFonction = crew.onBoardFonction;
-                }
-                this.pncProvider.refreshOffLineDateOnPnc(this.pncTransformer.toPnc(crew.pnc)).then(foundPnc => {
-                  crew.pnc = foundPnc;
-                }, error => {
-                  this.toastProvider.info(this.translate.instant('FLIGHT_CREW_LIST.ERROR', { 'flightNumber': this.leg.number }));
-                });
+    return new Promise((resolve, reject) => {
+      const legId = this.navParams.get('legId');
+      this.legProvider.getLeg(legId).then(legInfos => {
+        this.leg = legInfos;
+        this.legProvider.getFlightCrewFromLeg(legId).then(flightCrew => {
+          this.flightCrewList = flightCrew;
+          flightCrew.forEach(crew => {
+            if (crew.pnc.matricule !== undefined) {
+              if (crew.pnc.matricule === this.sessionService.authenticatedUser.matricule) {
+                this.sessionService.appContext.onBoardRedactorFonction = crew.onBoardFonction;
               }
-            });
-          }, error => { });
+              this.pncProvider.refreshOffLineDateOnPnc(this.pncTransformer.toPnc(crew.pnc)).then(foundPnc => {
+                crew.pnc = foundPnc;
+              }, error => {
+                this.toastProvider.info(this.translate.instant('FLIGHT_CREW_LIST.ERROR', { 'flightNumber': this.leg.number }));
+              });
+            }
+          });
+          resolve();
         }, error => { });
-        return true;
-      } else {
-        return false;
-      }
+      }, error => { });
     });
   }
 
@@ -83,7 +69,7 @@ export class FlightCrewListPage {
    */
   openPncHomePage(matricule) {
     this.sessionService.appContext.observedPncMatricule = matricule;
-    this.navCtrl.push('PncHomePage', { matricule: matricule });
+    this.navCtrl.push(PncHomePage, { matricule: matricule });
   }
 
 }

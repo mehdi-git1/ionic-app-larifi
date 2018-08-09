@@ -1,14 +1,7 @@
-import { AuthGuard } from './../../guard/auth.guard';
 import { Component } from '@angular/core';
 import { NavParams, IonicPage } from 'ionic-angular';
 
 import { SummarySheetProvider } from '../../providers/summary-sheet/summary-sheet';
-
-@IonicPage({
-  name: 'SummarySheetPage',
-  segment: 'summarySheet/:matricule',
-  defaultHistory: ['PncHomePage']
-})
 
 @Component({
   selector: 'page-summary-sheet',
@@ -23,31 +16,24 @@ export class SummarySheetPage {
 
   constructor(
     public navParams: NavParams,
-    private summarySheetProvider: SummarySheetProvider,
-    private authGuard: AuthGuard) {
+    private summarySheetProvider: SummarySheetProvider) {
   }
 
   ionViewDidEnter() {
-
-    this.authGuard.guard().then(guardReturn => {
-      if (guardReturn) {
-        const matricule = this.navParams.get('matricule');
-        this.summarySheetProvider.getSummarySheet(matricule).then(summarySheet => {
-          try {
-            if (summarySheet && summarySheet.summarySheet) {
-              this.previewSrc = URL.createObjectURL(summarySheet.summarySheet);
-            }
-            this.loading = false;
-          } catch (error) {
-            console.log('createObjectURL error:' + error);
-          }
-        }, error => {
-          console.log('getSummarySheet error:' + error);
-        });
+    const matricule = this.navParams.get('matricule');
+    this.summarySheetProvider.getSummarySheet(matricule).then(summarySheet => {
+      try {
+        if (summarySheet && summarySheet.summarySheet) {
+          this.previewSrc = URL.createObjectURL(summarySheet.summarySheet);
+        }
+        this.loading = false;
+      } catch (error) {
+        console.log('createObjectURL error:' + error);
       }
+    }, error => {
+      console.log('getSummarySheet error:' + error);
     });
   }
-
 
   /**
     * Décode un Blob dans le FileReader global
