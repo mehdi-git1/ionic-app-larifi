@@ -75,11 +75,11 @@ export class AuthGuard {
       resolve(authenticatedUser);
     }, error => {
       console.log(' putAuthenticatedUserInSession error: ' + JSON.stringify(error));
-      // this.connectivityService.setConnected(false);
-      // this.offlineSecurityProvider.getAuthenticatedUser().then( authenticatedUser => {
-      //   this.sessionService.authenticatedUser = authenticatedUser;
-      //   resolve(this.sessionService.authenticatedUser);
-      // });
+      this.connectivityService.setConnected(false);
+      this.offlineSecurityProvider.getAuthenticatedUser().then( authenticatedUser => {
+        this.sessionService.authenticatedUser = authenticatedUser;
+        resolve(this.sessionService.authenticatedUser);
+      });
     });
   });
   }
