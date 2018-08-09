@@ -9,8 +9,8 @@ import { EObservation } from './../../models/eObservation';
 import { Speciality } from './../../models/speciality';
 import { CareerObjectiveListPage } from './../career-objective-list/career-objective-list';
 import { PncProvider } from './../../providers/pnc/pnc';
-import { Component, NgZone, ChangeDetectorRef } from '@angular/core';
-import { NavController, NavParams, ViewController, App, IonicPage } from 'ionic-angular';
+import { Component } from '@angular/core';
+import { NavController, NavParams } from 'ionic-angular';
 import { Pnc } from '../../models/pnc';
 import { ConnectivityService } from '../../services/connectivity.service';
 import { HelpAssetListPage } from './../help-asset-list/help-asset-list';
@@ -31,52 +31,27 @@ export class PncHomePage {
 
     constructor(public navCtrl: NavController,
         public navParams: NavParams,
-        public viewCtrl: ViewController,
-        public appCtrl: App,
-        public zone: NgZone,
-        public cd: ChangeDetectorRef,
         public genderProvider: GenderProvider,
         private toastProvider: ToastProvider,
         private synchronizationProvider: SynchronizationProvider,
         public connectivityService: ConnectivityService,
         private sessionService: SessionService,
         public translateService: TranslateService,
-        private pncProvider: PncProvider
-    ) {
-
+        private pncProvider: PncProvider) {
     }
 
-    ionViewCanEnter() {
-        return new Promise((resolve, reject) => {
-            if (this.navParams.get('matricule')) {
-                this.matricule = this.navParams.get('matricule');
-            } else if (this.sessionService.authenticatedUser) {
-                this.matricule = this.sessionService.authenticatedUser.matricule;
-            }
-
-            if (this.matricule != null) {
-                this.pncProvider.getPnc(this.matricule).then(pnc => {
-                    this.pnc = pnc;
-                    resolve();
-                }, error => {
-                    resolve();
-                });
-            }
-        });
-    }
-
-    /**
-     * charge le détail du pnc connecté ou consulté.
-     */
-    loadPnc(matricule?: string): Promise<void> {
-        return new Promise((resolve, reject) => {
-            // Si on a un matricule dans les params de navigation, cela surcharge le matricule du user connecté
-            if (this.sessionService.appContext.observedPncMatricule) {
-                this.matricule = this.sessionService.appContext.observedPncMatricule;
-            }
-
-            this.navCtrl.setRoot(PncHomePage, { matricule: this.matricule });
-        });
+    ionViewDidEnter() {
+        if (this.navParams.get('matricule')) {
+            this.matricule = this.navParams.get('matricule');
+        } else if (this.sessionService.authenticatedUser) {
+            this.matricule = this.sessionService.authenticatedUser.matricule;
+        }
+        if (this.matricule != null) {
+            this.pncProvider.getPnc(this.matricule).then(pnc => {
+                this.pnc = pnc;
+            }, error => {
+            });
+        }
     }
 
     /**
@@ -128,7 +103,11 @@ export class PncHomePage {
     downloadPncEdossier() {
         this.synchroInProgress = true;
         this.synchronizationProvider.storeEDossierOffline(this.pnc.matricule).then(success => {
-            this.loadPnc();
+            // Appel au getPnc pour mise a jour de l'indicateur offLine
+            this.pncProvider.getPnc(this.matricule).then(pnc => {
+                this.pnc = pnc;
+            }, error => {
+            });
             this.synchroInProgress = false;
             this.toastProvider.info(this.translateService.instant('SYNCHRONIZATION.PNC_SAVED_OFFLINE', { 'matricule': this.pnc.matricule }));
         }, error => {
@@ -136,6 +115,14 @@ export class PncHomePage {
             this.toastProvider.error(
                 this.translateService.instant('SYNCHRONIZATION.PNC_SAVED_OFFLINE_ERROR', { 'matricule': this.pnc.matricule }));
         });
+    }
+
+    /**
+    * Vérifie que le chargement est terminé
+    * @return true si c'est le cas, false sinon
+    */
+    loadingIsOver(): boolean {
+        return this.pnc !== undefined;
     }
 
 }

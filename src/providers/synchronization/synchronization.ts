@@ -1,4 +1,5 @@
-
+import { SessionService } from './../../services/session.service';
+import { CrewMemberTransformerProvider } from './../crewMember/crewMember-transformer';
 import { LegTransformerProvider } from './../leg/leg-transformer';
 import { RotationTransformerProvider } from './../rotation/rotation-transformer';
 import { SummarySheet } from './../../models/summarySheet';
@@ -18,6 +19,7 @@ import { CareerObjective } from '../../models/careerObjective';
 import { Waypoint } from '../../models/waypoint';
 import { Rotation } from '../../models/rotation';
 import { SecurityProvider } from './../../providers/security/security';
+import { LegProvider } from './../../providers/leg/leg';
 @Injectable()
 export class SynchronizationProvider {
 
@@ -31,8 +33,11 @@ export class SynchronizationProvider {
     private pncSynchroProvider: PncSynchroProvider,
     private rotationTransformerProvider: RotationTransformerProvider,
     private legTransformerProvider: LegTransformerProvider,
+    private crewMemberTransformerProvider: CrewMemberTransformerProvider,
     public securityProvider: SecurityProvider,
-    private summarySheetProvider: SummarySheetProvider) {
+    private summarySheetProvider: SummarySheetProvider,
+    private legProvider: LegProvider,
+    private sessionService: SessionService) {
   }
 
 
@@ -78,6 +83,14 @@ export class SynchronizationProvider {
         leg.rotation.techId = techIdRotation;
 
         this.storageService.save(Entity.LEG, this.legTransformerProvider.toLeg(leg), true);
+
+        // Pour chaque troncon, on recupere la liste equipage
+        this.legProvider.getFlightCrewFromLeg(leg.techId).then(flightCrewList => {
+          for (const flightCrew of flightCrewList) {
+            flightCrew.legId = leg.techId;
+            this.storageService.save(Entity.CREW_MEMBER, this.crewMemberTransformerProvider.toCrewMember(flightCrew), true);
+          }
+        });
       }
     }
 
@@ -126,9 +139,13 @@ export class SynchronizationProvider {
         this.careerObjectiveTransformer.toCareerObjective(careerObjective).getStorageId());
     }
 
-    //  Suppression de tous les vols et rotations
-    this.storageService.deleteAll(Entity.ROTATION);
-    this.storageService.deleteAll(Entity.LEG);
+
+    //  Suppression de toutes les rotations, vols et listes d'équipage
+    if (this.sessionService.authenticatedUser.matricule === pnc.matricule) {
+      this.storageService.deleteAll(Entity.ROTATION);
+      this.storageService.deleteAll(Entity.LEG);
+      this.storageService.deleteAll(Entity.CREW_MEMBER);
+    }
 
     // Suppression de la fiche synthese
     this.storageService.delete(Entity.SUMMARY_SHEET, pnc.matricule);

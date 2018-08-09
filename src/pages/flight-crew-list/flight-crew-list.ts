@@ -16,60 +16,64 @@ import { ConnectivityService } from '../../services/connectivity.service';
 import { CrewMember } from '../../models/crewMember';
 
 @Component({
-  selector: 'page-flight-crew-list',
-  templateUrl: 'flight-crew-list.html',
+    selector: 'page-flight-crew-list',
+    templateUrl: 'flight-crew-list.html',
 })
 export class FlightCrewListPage {
 
-  flightCrewList: CrewMember[];
-  leg: Leg;
+    flightCrewList: CrewMember[];
+    leg: Leg;
 
-  constructor(public navCtrl: NavController,
-    public navParams: NavParams,
-    public genderProvider: GenderProvider,
-    private legProvider: LegProvider,
-    public connectivityService: ConnectivityService,
-    private toastProvider: ToastProvider,
-    private translate: TranslateService,
-    private pncProvider: PncProvider,
-    private sessionService: SessionService,
-    private pncTransformer: PncTransformerProvider) {
-  }
+    constructor(public navCtrl: NavController,
+        public navParams: NavParams,
+        public genderProvider: GenderProvider,
+        private legProvider: LegProvider,
+        public connectivityService: ConnectivityService,
+        private toastProvider: ToastProvider,
+        private translate: TranslateService,
+        private pncProvider: PncProvider,
+        private sessionService: SessionService,
+        private pncTransformer: PncTransformerProvider) {
+    }
 
-
-  ionViewCanEnter() {
-    return new Promise((resolve, reject) => {
-      const legId = this.navParams.get('legId');
-      this.legProvider.getLeg(legId).then(legInfos => {
-        this.leg = legInfos;
-        this.legProvider.getFlightCrewFromLeg(legId).then(flightCrew => {
-          this.flightCrewList = flightCrew;
-          flightCrew.forEach(crew => {
-            if (crew.pnc.matricule !== undefined) {
-              if (crew.pnc.matricule === this.sessionService.authenticatedUser.matricule) {
-                this.sessionService.appContext.onBoardRedactorFonction = crew.onBoardFonction;
-              }
-              this.pncProvider.refreshOffLineDateOnPnc(this.pncTransformer.toPnc(crew.pnc)).then(foundPnc => {
-                crew.pnc = foundPnc;
-              }, error => {
-                this.toastProvider.info(this.translate.instant('FLIGHT_CREW_LIST.ERROR', { 'flightNumber': this.leg.number }));
-              });
-            }
-          });
-          resolve();
+    ionViewDidEnter() {
+        const legId = this.navParams.get('legId');
+        this.legProvider.getLeg(legId).then(legInfos => {
+            this.leg = legInfos;
+            this.legProvider.getFlightCrewFromLeg(legId).then(flightCrew => {
+                this.flightCrewList = flightCrew;
+                flightCrew.forEach(crew => {
+                    if (crew.pnc.matricule !== undefined) {
+                        if (crew.pnc.matricule === this.sessionService.authenticatedUser.matricule) {
+                            this.sessionService.appContext.onBoardRedactorFonction = crew.onBoardFonction;
+                        }
+                        this.pncProvider.refreshOffLineDateOnPnc(this.pncTransformer.toPnc(crew.pnc)).then(foundPnc => {
+                            crew.pnc = foundPnc;
+                        }, error => {
+                            this.toastProvider.info(this.translate.instant('FLIGHT_CREW_LIST.ERROR', { 'flightNumber': this.leg.number }));
+                        });
+                    }
+                });
+            }, error => { });
         }, error => { });
-      }, error => { });
-    });
-  }
+    }
 
-  /**
-   * redirige vers la page d'accueil du pnc ou du cadre
-   * @param matricule matricule du pnc concerné
-   * @param onBoardFonction la fontion a bord du pnc concerné
-   */
-  openPncHomePage(matricule) {
-    this.sessionService.appContext.observedPncMatricule = matricule;
-    this.navCtrl.push(PncHomePage, { matricule: matricule });
-  }
+    /**
+     * redirige vers la page d'accueil du pnc ou du cadre
+     * @param matricule matricule du pnc concerné
+     * @param onBoardFonction la fontion a bord du pnc concerné
+     */
+    openPncHomePage(matricule) {
+        this.sessionService.appContext.observedPncMatricule = matricule;
+        this.navCtrl.push(PncHomePage, { matricule: matricule });
+    }
+
+    /**
+    * Vérifie que le chargement est terminé
+    * @return true si c'est le cas, false sinon
+    */
+    loadingIsOver(): boolean {
+        return this.leg !== undefined && this.flightCrewList !== undefined;
+    }
 
 }

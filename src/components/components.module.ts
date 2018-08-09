@@ -9,6 +9,7 @@ import { PncCardComponent } from './pnc-card/pnc-card';
 import { FlightCardComponent } from './flight-card/flight-card';
 import { TranslateModule } from '@ngx-translate/core';
 import { SharedModule } from '../shared/shared.module';
+import { EdossierSpinnerComponent } from './edossier-spinner/edossier-spinner';
 
 @NgModule({
   imports: [
@@ -22,7 +23,8 @@ import { SharedModule } from '../shared/shared.module';
     ConnectivityIndicatorComponent,
     DownloadButtonComponent,
     PncCardComponent,
-    FlightCardComponent
+    FlightCardComponent,
+    EdossierSpinnerComponent
   ],
   exports: [
     RotationCardComponent,
@@ -30,7 +32,8 @@ import { SharedModule } from '../shared/shared.module';
     ConnectivityIndicatorComponent,
     DownloadButtonComponent,
     PncCardComponent,
-    FlightCardComponent
+    FlightCardComponent,
+    EdossierSpinnerComponent
   ],
   providers: [DatePipe]
 

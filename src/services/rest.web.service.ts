@@ -1,7 +1,7 @@
 import { Config } from './../configuration/environment-variables/config';
 import { Injectable } from '@angular/core';
 import { RestService, RestRequest } from './rest.base.service';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable()
 export class RestWebService extends RestService {
@@ -24,35 +24,45 @@ export class RestWebService extends RestService {
     }
 
     private makeHttpRequest(request: RestRequest, successCallback: (result: any) => void, errorCallback: (error: any) => void): void {
-        // En local, on ajoute le header SM_USER pour simuler l'authent habile
-        if (this.config.isLocalhost()) {
-            request.options.headers = request.options.headers.append('SM_USER', 'm077557');
+
+        if (!request.httpHeaders) {
+            // Creation en mode javascript pour passer le secmobil qui ne prends pas en compte les "objets"
+            request.httpHeaders = {};
+        }
+        if (!request.httpHeaders.headers) {
+            request.httpHeaders.headers = new HttpHeaders();
         }
 
-        request.options.headers = request.options.headers.append('Accept', 'application/json, text/plain, */*');
-        request.options.withCredentials = request.withCredential;
+        // En local, on ajoute le header SM_USER pour simuler l'authent habile
+        if (this.config.isLocalhost()) {
+            request.httpHeaders.headers = request.httpHeaders.headers.append('SM_USER', 'm077557');
+        }
+
+        request.httpHeaders.headers = request.httpHeaders.headers.append('Accept', 'application/json, text/plain, */*');
+        request.httpHeaders.withCredentials = request.withCredential;
+
 
         if (request.method === 'GET') {
-            request.options.params = request.jsonData;
-            this.http.get(request.url, request.options).subscribe(
+            request.httpHeaders.params = request.jsonData;
+            this.http.get(request.url, request.httpHeaders).subscribe(
                 data => { successCallback(data); },
                 err => { errorCallback(err.error); }
             );
         }
         if (request.method === 'POST') {
-            this.http.post(request.url, request.jsonData, request.options).subscribe(
+            this.http.post(request.url, request.jsonData, request.httpHeaders).subscribe(
                 data => { successCallback(data); },
                 err => { errorCallback(err.error); }
             );
         }
         if (request.method === 'PUT') {
-            this.http.put(request.url, request.jsonData, request.options).subscribe(
+            this.http.put(request.url, request.jsonData, request.httpHeaders).subscribe(
                 data => { successCallback(data); },
                 err => { errorCallback(err.error); }
             );
         }
         if (request.method === 'DELETE') {
-            this.http.delete(request.url, request.options).subscribe(
+            this.http.delete(request.url, request.httpHeaders).subscribe(
                 data => { successCallback(data); },
                 err => { errorCallback(err.error); }
             );

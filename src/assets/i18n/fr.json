@@ -108,20 +108,13 @@
         "CREATE_EOBSERVATION": "Créer une eObservation"
     },
     "PNC_HOME": {
-        "TITLE": "Accueil PNC",
-        "GO_TO_EDOSSIER": {
-            "MATRICULE": "Matricule du PNC dont on souhaite voir le EDOSSIER",
-            "SUBMIT": "Valider"
-        },
+        "TITLE": "Accueil",
         "INFO_PANEL": {
             "FUNCTION": "Fonction",
             "GINQ": "Ginq",
             "SECTOR": "Secteur",
             "DIVISION": "Division"
         }
-    },
-    "MANAGER_HOME": {
-        "TITLE": "Accueil Cadre"
     },
     "WAYPOINT_CREATE": {
         "TITLE": "Création d'un point d'étape",
