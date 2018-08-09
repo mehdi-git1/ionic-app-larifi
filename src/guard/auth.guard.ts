@@ -14,6 +14,8 @@ import { Injectable, ViewChild } from '@angular/core';
 
 import { AuthenticationPage } from './../pages/authentication/authentication';
 import { AuthenticatedUser } from './../models/authenticatedUser';
+import { OfflineSecurityProvider } from '../providers/security/offline-security';
+import { resolveDefinition } from '../../node_modules/@angular/core/src/view/util';
 
 
 @Injectable()
@@ -25,7 +27,9 @@ export class AuthGuard {
     private synchronizationProvider: SynchronizationProvider,
     private securityProvider: SecurityProvider,
     private sessionService: SessionService,
-    private parametersProvider: ParametersProvider
+    private parametersProvider: ParametersProvider,
+    private connectivityService: ConnectivityService,
+    private offlineSecurityProvider: OfflineSecurityProvider
   ) {
   }
 
@@ -63,18 +67,21 @@ export class AuthGuard {
   * Mettre le pnc connecté en session
   */
   putAuthenticatedUserInSession(): Promise<AuthenticatedUser> {
-    return this.securityProvider.getAuthenticatedUser().then(authenticatedUser => {
+    return new Promise((resolve, reject) => {
+      this.securityProvider.getAuthenticatedUser().then(authenticatedUser => {
       if (authenticatedUser) {
-        this.sessionService.authenticatedUser = authenticatedUser;
-        return authenticatedUser;
+        this.sessionService.authenticatedUser = authenticatedUser;       
       }
-      else {
-        return new AuthenticatedUser;
-      }
+      resolve(authenticatedUser);
     }, error => {
-      console.log('putAuthenticatedUserInSession error: ' + JSON.stringify(error));
-      return new AuthenticatedUser;
+      console.log(' putAuthenticatedUserInSession error: ' + JSON.stringify(error));
+      // this.connectivityService.setConnected(false);
+      // this.offlineSecurityProvider.getAuthenticatedUser().then( authenticatedUser => {
+      //   this.sessionService.authenticatedUser = authenticatedUser;
+      //   resolve(this.sessionService.authenticatedUser);
+      // });
     });
+  });
   }
 
   /**
