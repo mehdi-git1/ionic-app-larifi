@@ -12,29 +12,26 @@ export class SummarySheetPage {
 
   public previewSrc: string = null;
   private summarySheet: any;
-  loading: boolean;
+  loading = true;
 
   constructor(
     public navParams: NavParams,
     private summarySheetProvider: SummarySheetProvider) {
   }
 
-  ionViewCanEnter() {
-    return new Promise((resolve, reject) => {
-      const matricule = this.navParams.get('matricule');
-      this.loading = true;
-      this.summarySheetProvider.getSummarySheet(matricule).then(summarySheet => {
-        try {
-          if (summarySheet && summarySheet.summarySheet) {
-            this.previewSrc = URL.createObjectURL(summarySheet.summarySheet);
-          }
-          this.loading = false;
-        } catch (error) {
-          console.error('createObjectURL error:' + error);
+  ionViewDidEnter() {
+    const matricule = this.navParams.get('matricule');
+    this.summarySheetProvider.getSummarySheet(matricule).then(summarySheet => {
+      try {
+        if (summarySheet && summarySheet.summarySheet) {
+          this.previewSrc = URL.createObjectURL(summarySheet.summarySheet);
         }
-        resolve();
-      }, error => {
-      });
+        this.loading = false;
+      } catch (error) {
+        console.log('createObjectURL error:' + error);
+      }
+    }, error => {
+      console.log('getSummarySheet error:' + error);
     });
   }
 
