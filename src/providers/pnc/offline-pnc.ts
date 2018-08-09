@@ -47,8 +47,8 @@ export class OfflinePncProvider {
       let upcomingRotations = this.storageService.findAll(Entity.ROTATION);
       if (upcomingRotations != null) {
         upcomingRotations = upcomingRotations.filter(rotation => {
-          let departureDate = new Date(rotation.departureDate);
-          let nowDate = new Date(Date.parse(Date()));
+          const departureDate = new Date(rotation.departureDate);
+          const nowDate = new Date(Date.parse(Date()));
           return departureDate > nowDate;
         });
       }
@@ -66,8 +66,8 @@ export class OfflinePncProvider {
       let lastPerformedRotations = this.storageService.findAll(Entity.ROTATION);
       if (lastPerformedRotations != null) {
         lastPerformedRotations = lastPerformedRotations.filter(rotation => {
-          let departureDate = new Date(rotation.departureDate);
-          let nowDate = new Date(Date.parse(Date()));
+          const departureDate = new Date(rotation.departureDate);
+          const nowDate = new Date(Date.parse(Date()));
           return departureDate < nowDate;
         });
       }
