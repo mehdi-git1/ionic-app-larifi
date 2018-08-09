@@ -152,18 +152,6 @@ export class SynchronizationProvider {
   }
 
   /**
-  * Supprime tous les objets du cache, liés à un PNC connecté
-  * @param pnc le PNC dont on souhaite supprimer le cache
-  */
-  deleteAllOfflineObject(pnc: Pnc) {
-
-    //  Suppression de toutes les rotations, vols et listes d'équipage
-    this.storageService.deleteAll(Entity.ROTATION);
-    this.storageService.deleteAll(Entity.LEG);
-    this.storageService.deleteAll(Entity.CREW_MEMBER);
-  }
-
-  /**
    * Lance le processus de synchronisation des données modifiées offline
    */
   synchronizeOfflineData() {
