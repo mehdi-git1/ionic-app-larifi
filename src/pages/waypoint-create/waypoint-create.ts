@@ -241,22 +241,10 @@ export class WaypointCreatePage {
 
   /**
    * Sauvegarde le pont d'etape et met a jour le commentaire pnc du point d'etape original
-   **/
-
+   */
   saveWaypointAndUpdatePncComment() {
     this.saveWaypoint();
     this.originalPncComment = this.waypoint.pncComment;
-  }
-
-  /**
-   * Retourne la classe css de lecture seule pour un champ texte si besoin
-   */
-  getCssClassForReadOnlyIfNeeded(): string {
-    if (this.readOnlyByUserConnected()) {
-      return 'ion-textarea-read-only';
-    } else {
-      return '';
-    }
   }
 
 }
