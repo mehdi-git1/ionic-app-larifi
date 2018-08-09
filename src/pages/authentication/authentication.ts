@@ -6,12 +6,6 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { NavParams, ViewController, App, NavController, IonicPage } from 'ionic-angular';
 import { SecMobilService } from '../../services/secMobil.service';
 
-
-@IonicPage({
-  name: 'AuthenticationPage',
-  segment: 'authentication'
-})
-
 @Component({
   selector: 'page-authentication',
   templateUrl: 'authentication.html',
@@ -64,9 +58,7 @@ export class AuthenticationPage implements OnInit {
       const loginValue: string = this.loginForm.value['login'];
       const passwordValue: string = this.loginForm.value['password'];
 
-      // this.secMobilService.init();
       this.secMobilService.authenticate(loginValue, passwordValue).then(x => {
-        console.log('sendAuthent ok : ' + x);
         this.putAuthenticatedUserInSession();
       }, error => {
         this.secMobilService.secMobilRevokeCertificate();
@@ -89,16 +81,12 @@ export class AuthenticationPage implements OnInit {
 
   putAuthenticatedUserInSession() {
     this.hideSpinner = false;
-    console.log('putAuthenticatedUserInSession');
     this.securityProvider.getAuthenticatedUser().then(authenticatedUser => {
-      console.log('putAuthenticatedUserInSession : ' + authenticatedUser);
       this.sessionService.authenticatedUser = authenticatedUser;
-      this.navCtrl.setRoot('PncHomePage', { matricule: authenticatedUser.matricule });
+      this.navCtrl.setRoot(PncHomePage, { matricule: authenticatedUser.matricule });
       this.hideSpinner = true;
     }, error => {
       this.hideSpinner = true;
-      console.log('putAuthenticatedUserInSession error: ' + error);
-      // this.nav.push(AuthenticationPage);
     });
   }
 

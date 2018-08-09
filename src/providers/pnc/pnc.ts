@@ -98,7 +98,7 @@ export class PncProvider {
     if (this.connectivityService.isConnected()) {
       return this.onlinePncProvider.getFilteredPncs(pncFilter).then(responsePnc => {
 
-        let promises: Promise<Pnc>[] = new Array();
+        const promises: Promise<Pnc>[] = new Array();
 
         responsePnc.content.forEach(onlinePnc => {
           const transformedPnc = this.pncTransformer.toPnc(onlinePnc);
