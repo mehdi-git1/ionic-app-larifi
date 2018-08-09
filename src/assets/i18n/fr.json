@@ -197,7 +197,8 @@
             "MANDATORY_FIELD": "Le champ est obligatoire",
             "BAD_FORMAT": "Format incorrect",
             "MATRICULE_WRONG_SIZE": "Le matricule doit faire 8 caractères",
-            "PNC_NOT_FOUND": "Erreur lors de la récupérations des PNC"
+            "PNC_NOT_FOUND": "Erreur lors de la récupérations des PNC",
+            "APPLICATION_NOT_INITIALIZED": "Application non initialisée."
         }
     },
     "HELP_ASSET_LIST": {
