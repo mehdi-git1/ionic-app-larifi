@@ -1,4 +1,3 @@
-import { AuthGuard } from './../../guard/auth.guard';
 import { Config } from './../../configuration/environment-variables/config';
 import { PncHomePage } from './../pnc-home/pnc-home';
 import { PncFilter } from './../../models/pncFilter';
@@ -17,11 +16,6 @@ import { FormBuilder, FormGroup, Validators, FormControl, AbstractControl } from
 import { Speciality } from '../../models/speciality';
 import { Subject } from 'rxjs/Rx';
 
-@IonicPage({
-  name: 'PncSearchPage',
-  segment: 'pncSearch',
-  defaultHistory: ['PncHomePage']
-})
 @Component({
   selector: 'page-pnc-search',
   templateUrl: 'pnc-search.html',
@@ -70,25 +64,20 @@ export class PncSearchPage {
     private sessionService: SessionService,
     private connectivityService: ConnectivityService,
     private toastProvider: ToastProvider,
-    private authGuard: AuthGuard,
     private config: Config) {
-
-    
-
-
   }
 
   ionViewCanEnter() {
-    return this.authGuard.guard().then(guardReturn => {
+    return new Promise((resolve, reject) => {
       // initialistation du filtre
-    this.initFilter();
-    // Initialisation du formulaire
-    this.initForm();
-      return guardReturn;
+      this.initFilter();
+      // Initialisation du formulaire
+      this.initForm();
+      resolve();
     });
   }
 
-  ionViewDidLoad() {
+  ionViewDidEnter() {
     this.totalPncs = 0;
     this.pageSize = this.config.pageSize;
   }
@@ -125,6 +114,29 @@ export class PncSearchPage {
     this.pncFilter.speciality = this.ALL;
     this.pncFilter.aircraftSkill = this.ALL;
     this.pncFilter.relay = this.ALL;
+  }
+
+  /**
+   * Initialise le formulaire
+   */
+  initForm() {
+    this.searchForm = this.formBuilder.group({
+      pncMatriculeControl: [
+        '',
+        Validators.compose([Validators.minLength(8), Validators.maxLength(8)])
+      ],
+      divisionControl: [this.pncFilter.division],
+      sectorControl: [this.pncFilter.sector],
+      ginqControl: [this.pncFilter.ginq],
+      specialityControl: [this.pncFilter.speciality],
+      aircraftSkillControl: [this.pncFilter.aircraftSkill],
+      relayControl: [this.pncFilter.relay],
+    });
+
+    this.pncMatriculeControl = this.searchForm.get('pncMatriculeControl');
+
+    this.initAutocompleteList();
+    this.formOnChanges();
   }
 
   /**
@@ -167,29 +179,6 @@ export class PncSearchPage {
     return pnc
       ? pnc.firstName + ' ' + pnc.lastName + ' (' + pnc.matricule + ')'
       : pnc;
-  }
-
-  /**
-   * Initialise le formulaire
-   */
-  initForm() {
-    this.searchForm = this.formBuilder.group({
-      pncMatriculeControl: [
-        '',
-        Validators.compose([Validators.minLength(8), Validators.maxLength(8)])
-      ],
-      divisionControl: [this.pncFilter.division],
-      sectorControl: [this.pncFilter.sector],
-      ginqControl: [this.pncFilter.ginq],
-      specialityControl: [this.pncFilter.speciality],
-      aircraftSkillControl: [this.pncFilter.aircraftSkill],
-      relayControl: [this.pncFilter.relay],
-    });
-
-    this.pncMatriculeControl = this.searchForm.get('pncMatriculeControl');
-
-    this.initAutocompleteList();
-    this.formOnChanges();
   }
 
   /**
@@ -260,7 +249,7 @@ export class PncSearchPage {
   openPncHomePage(pnc: Pnc) {
     this.selectedPnc = undefined;
     this.initAutocompleteList();
-    this.navCtrl.push('PncHomePage', { matricule: pnc.matricule });
+    this.navCtrl.push(PncHomePage, { matricule: pnc.matricule });
   }
 
   /**

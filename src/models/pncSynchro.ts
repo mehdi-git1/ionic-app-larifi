@@ -1,6 +1,8 @@
+import { Rotation } from './rotation';
 import { Waypoint } from './waypoint';
 import { CareerObjective } from './careerObjective';
 import { Pnc } from './pnc';
+import { Leg } from './leg';
 import { SummarySheet } from './summarySheet';
 
 export class PncSynchro {
@@ -8,4 +10,6 @@ export class PncSynchro {
     summarySheet: SummarySheet;
     careerObjectives: CareerObjective[];
     waypoints: Waypoint[];
+    rotations: Rotation[];
+    legs: Leg[];
 }
