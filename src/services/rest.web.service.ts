@@ -26,6 +26,7 @@ export class RestWebService extends RestService {
     private makeHttpRequest(request: RestRequest, successCallback: (result: any) => void, errorCallback: (error: any) => void): void {
 
         if (!request.httpHeaders) {
+            // Creation en mode javascript pour passer le secmobil qui ne prends pas en compte les "objets"
             request.httpHeaders = {};
         }
         if (!request.httpHeaders.headers) {
