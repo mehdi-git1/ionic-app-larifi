@@ -34,10 +34,11 @@ export class HelpAssetListPage {
 
   ionViewDidEnter() {
     // On récupère le role du pnc dans les paramètres de navigation
+    this.helpAssets = this.getCommunHelpAssets();
     if (this.navParams.get('pncRole') && this.navParams.get('pncRole') === PncRole.MANAGER) {
-      this.helpAssets = this.getCADHelpAssets();
+      this.helpAssets.push(...this.getCADHelpAssets());
     } else if (this.navParams.get('pncRole') && this.navParams.get('pncRole') === PncRole.PNC) {
-      this.helpAssets = this.getHSTHelpAssets();
+      this.helpAssets.push(...this.getHSTHelpAssets());
     } else {
       this.helpAssets = [];
     }
@@ -55,27 +56,22 @@ export class HelpAssetListPage {
    * renvoie la liste des ressources d'aide du cadre
    */
   getCADHelpAssets(): HelpAsset[] {
-    const helpAsset = new Array(4);
-    const pdf1 = 'Objectifs-compiles-CCP-CC-HST-V6.pdf';
-    helpAsset[0] = new HelpAsset();
-    helpAsset[0].url = `${this.pdfUrl}/cadre/${pdf1}`;
-    helpAsset[0].label = 'Objectifs compiles CCP-CC-HST V6';
-    helpAsset[0].lastUpdateDate = '2018-07-30T13:11:52';
+    const helpAsset = new Array(3);
     const pdf2 = 'Etapes-du-Bilan-Professionnel-V4.pdf';
-    helpAsset[1] = new HelpAsset();
-    helpAsset[1].url = `${this.pdfUrl}/cadre/${pdf2}`;
-    helpAsset[1].label = 'Etapes du Bilan Professionnel V4';
-    helpAsset[1].lastUpdateDate = '2018-07-30T13:11:52';
+    helpAsset[0] = new HelpAsset();
+    helpAsset[0].url = `${this.pdfUrl}/cadre/${pdf2}`;
+    helpAsset[0].label = 'Etapes du Bilan Professionnel V4';
+    helpAsset[0].lastUpdateDate = '2018-07-30T13:11:52';
     const pdf3 = 'Livret-instructeur-V6-22juin.pdf';
-    helpAsset[2] = new HelpAsset();
-    helpAsset[2].url = `${this.pdfUrl}/cadre/${pdf3}`;
-    helpAsset[2].label = 'Livret instructeur V6';
-    helpAsset[2].lastUpdateDate = '2018-07-30T13:11:52';
+    helpAsset[1] = new HelpAsset();
+    helpAsset[1].url = `${this.pdfUrl}/cadre/${pdf3}`;
+    helpAsset[1].label = 'Livret instructeur V6';
+    helpAsset[1].lastUpdateDate = '2018-07-30T13:11:52';
     const pdf4 = 'Mode-opératoire-Journal-de-bord.pdf';
-    helpAsset[3] = new HelpAsset();
-    helpAsset[3].url = `${this.pdfUrl}/cadre/${pdf4}`;
-    helpAsset[3].label = 'Mode opératoire, Journal de bord';
-    helpAsset[3].lastUpdateDate = '2018-07-30T13:11:52';
+    helpAsset[2] = new HelpAsset();
+    helpAsset[2].url = `${this.pdfUrl}/cadre/${pdf4}`;
+    helpAsset[2].label = 'Mode opératoire, Journal de bord';
+    helpAsset[2].lastUpdateDate = '2018-07-30T13:11:52';
     return helpAsset;
   }
 
@@ -83,10 +79,17 @@ export class HelpAssetListPage {
    * Renvoie la liste des ressources d'aide du pnc
    */
   getHSTHelpAssets(): HelpAsset[] {
+    return [];
+  }
+
+  /**
+   * Renvoie la liste des ressources d'aide du pnc
+   */
+  getCommunHelpAssets(): HelpAsset[] {
     const helpAsset = new Array(1);
     const pdfName = 'Objectifs-compiles-CCP-CC-HST-V6.pdf';
     helpAsset[0] = new HelpAsset();
-    helpAsset[0].url = `${this.pdfUrl}/hst/${pdfName}`;
+    helpAsset[0].url = `${this.pdfUrl}/commun/${pdfName}`;
     helpAsset[0].label = 'Objectifs compiles CCP, CC, HST V6';
     helpAsset[0].lastUpdateDate = '2018-07-30T13:11:52';
     return helpAsset;
