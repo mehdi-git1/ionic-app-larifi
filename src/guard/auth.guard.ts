@@ -69,19 +69,19 @@ export class AuthGuard {
   putAuthenticatedUserInSession(): Promise<AuthenticatedUser> {
     return new Promise((resolve, reject) => {
       this.securityProvider.getAuthenticatedUser().then(authenticatedUser => {
-      if (authenticatedUser) {
-        this.sessionService.authenticatedUser = authenticatedUser;       
-      }
-      resolve(authenticatedUser);
-    }, error => {
-      console.log(' putAuthenticatedUserInSession error: ' + JSON.stringify(error));
-      this.connectivityService.setConnected(false);
-      this.offlineSecurityProvider.getAuthenticatedUser().then( authenticatedUser => {
-        this.sessionService.authenticatedUser = authenticatedUser;
-        resolve(this.sessionService.authenticatedUser);
+        if (authenticatedUser) {
+          this.sessionService.authenticatedUser = authenticatedUser;
+        }
+        resolve(authenticatedUser);
+      }, error => {
+        console.log(' putAuthenticatedUserInSession error: ' + JSON.stringify(error));
+        this.connectivityService.setConnected(false);
+        this.offlineSecurityProvider.getAuthenticatedUser().then(authenticatedUser => {
+          this.sessionService.authenticatedUser = authenticatedUser;
+          resolve(this.sessionService.authenticatedUser);
+        });
       });
     });
-  });
   }
 
   /**
