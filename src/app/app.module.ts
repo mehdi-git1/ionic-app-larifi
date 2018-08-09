@@ -1,3 +1,4 @@
+import { PdfFileViewerPage } from './../pages/pdf-file-viewer/pdf-file-viewer';
 import { CrewMemberTransformerProvider } from './../providers/crewMember/crewMember-transformer';
 import { OnlineLegProvider } from './../providers/leg/online-leg';
 import { OfflineLegProvider } from './../providers/leg/offline-leg';
@@ -108,7 +109,8 @@ declare var window: any;
     FlightCrewListPage,
     PncSearchPage,
     HomePage,
-    SummarySheetPage
+    SummarySheetPage,
+    PdfFileViewerPage
   ],
   imports: [
     BrowserModule,
@@ -134,7 +136,8 @@ declare var window: any;
     PncSearchPage,
     HelpAssetListPage,
     HomePage,
-    SummarySheetPage
+    SummarySheetPage,
+    PdfFileViewerPage
   ],
   providers: [
     StatusBar,

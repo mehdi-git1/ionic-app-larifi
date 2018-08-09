@@ -3,11 +3,6 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { HttpClient } from '../../../node_modules/@angular/common/http';
 
 
-@IonicPage({
-  name: 'PdfFileViewerPage',
-  segment: 'help/:pdfSrc',
-  defaultHistory: ['PncHomePage']
-})
 @Component({
   selector: 'page-pdf-viewer',
   templateUrl: 'pdf-file-viewer.html',
