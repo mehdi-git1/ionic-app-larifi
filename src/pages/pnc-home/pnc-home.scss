@@ -37,20 +37,6 @@ page-pnc-home {
         }
     }
 
-    .go-to-edossier {
-        margin-right: 10px;
-        display: flex;
-
-        button {
-            margin-top: 43px;
-        }
-
-        .item-block {
-            width: auto;
-            background-color: transparent;
-        }
-    }
-
     #nav-tile-grid {
         flex: 1;
         button {
@@ -65,7 +51,7 @@ page-pnc-home {
         }
     }
 
-    .parentBtn {
+    .button-parent {
         position: absolute;
         top: 0;
         bottom: 0;
