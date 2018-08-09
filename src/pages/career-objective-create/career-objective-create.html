@@ -25,7 +25,7 @@
                             <!-- Titre -->
                             <ion-item>
                                 <ion-label floating class="required">{{ 'CAREER_OBJECTIVE_CREATE.FORM.TITLE' | translate }}</ion-label>
-                                <ion-input type="text" [(ngModel)]="careerObjective.title" formControlName="titleControl"></ion-input>
+                                <ion-input type="text" [(ngModel)]="careerObjective.title" formControlName="titleControl" [readonly]="readOnlyByUserConnected()" [ngClass]="getCssClassForReadOnlyIfNeeded()"></ion-input>
                             </ion-item>
                         </ion-col>
                     </ion-row>
@@ -34,7 +34,7 @@
                             <!-- Contexte -->
                             <ion-item>
                                 <ion-label floating>{{ 'CAREER_OBJECTIVE_CREATE.FORM.CONTEXT' | translate }}</ion-label>
-                                <ion-textarea [(ngModel)]="careerObjective.context" formControlName="contextControl" name="context"></ion-textarea>
+                                <ion-textarea [(ngModel)]="careerObjective.context" formControlName="contextControl" name="context" [readonly]="readOnlyByUserConnected()" [ngClass]="getCssClassForReadOnlyIfNeeded()"></ion-textarea>
                             </ion-item>
                         </ion-col>
                     </ion-row>
@@ -43,7 +43,7 @@
                             <!-- Plan d'action -->
                             <ion-item>
                                 <ion-label floating>{{ 'CAREER_OBJECTIVE_CREATE.FORM.ACTION_PLAN' | translate }}</ion-label>
-                                <ion-textarea [(ngModel)]="careerObjective.actionPlan" formControlName="actionPlanControl" name="actionPlan"></ion-textarea>
+                                <ion-textarea [(ngModel)]="careerObjective.actionPlan" formControlName="actionPlanControl" name="actionPlan" [readonly]="readOnlyByUserConnected()" [ngClass]="getCssClassForReadOnlyIfNeeded()"></ion-textarea>
                             </ion-item>
                         </ion-col>
                     </ion-row>
@@ -52,7 +52,7 @@
                             <!-- Commentaire cadre -->
                             <ion-item>
                                 <ion-label floating>{{ 'CAREER_OBJECTIVE_CREATE.FORM.MANAGER_COMMENT' | translate }}</ion-label>
-                                <ion-textarea [(ngModel)]="careerObjective.managerComment" formControlName="managerCommentControl" name="managerComment"></ion-textarea>
+                                <ion-textarea [(ngModel)]="careerObjective.managerComment" formControlName="managerCommentControl" name="managerComment" [readonly]="readOnlyByUserConnected()" [ngClass]="getCssClassForReadOnlyIfNeeded()"></ion-textarea>
                             </ion-item>
                         </ion-col>
                         <ion-col col-6>
@@ -98,18 +98,18 @@
                     <ion-list radio-group [(ngModel)]="careerObjective.initiator" formControlName="initiatorControl">
                         <ion-item>
                             <ion-label>{{ 'GLOBAL.PNC_ROLE.MANAGER' | translate }}</ion-label>
-                            <ion-radio value="MANAGER"></ion-radio>
+                            <ion-radio [disabled]="readOnlyByUserConnected()" value="MANAGER"></ion-radio>
                         </ion-item>
 
                         <ion-item>
                             <ion-label>{{ 'GLOBAL.PNC_ROLE.PNC' | translate }}</ion-label>
-                            <ion-radio value="PNC"></ion-radio>
+                            <ion-radio [disabled]="readOnlyByUserConnected()" value="PNC"></ion-radio>
                         </ion-item>
                     </ion-list>
                     <!-- Prioritaire -->
                     <ion-item>
                         <ion-label fixed>{{ 'CAREER_OBJECTIVE_CREATE.FORM.PRIORITIZED' | translate }}</ion-label>
-                        <ion-checkbox [(ngModel)]="careerObjective.prioritized" checked="{{careerObjective.prioritized}}" formControlName="prioritizedControl"></ion-checkbox>
+                        <ion-checkbox [disabled]="readOnlyByUserConnected()" [(ngModel)]="careerObjective.prioritized" checked="{{careerObjective.prioritized}}" formControlName="prioritizedControl"></ion-checkbox>
                     </ion-item>
                 </ion-col>
                 <ion-col col-6>
@@ -119,7 +119,8 @@
                         <ion-label>
                             <ion-icon name="calendar"></ion-icon>
                         </ion-label>
-                        <ion-datetime displayFormat="DD/MM/YYYY" [(ngModel)]="careerObjective.nextEncounterDate" formControlName="nextEncounterDateControl" [pickerOptions]="nextEncounterDateTimeOptions" [doneText]="translateService.instant('GLOBAL.DATEPICKER.DONE')" [cancelText]="translateService.instant('GLOBAL.DATEPICKER.CANCEL')"></ion-datetime>
+                        <ion-datetime [disabled]="readOnlyByUserConnected()" displayFormat="DD/MM/YYYY" [(ngModel)]="careerObjective.nextEncounterDate" formControlName="nextEncounterDateControl" [pickerOptions]="nextEncounterDateTimeOptions" [doneText]="translateService.instant('GLOBAL.DATEPICKER.DONE')"
+                            [cancelText]="translateService.instant('GLOBAL.DATEPICKER.CANCEL')"></ion-datetime>
                     </ion-item>
                     <!-- Date de rencontre -->
                     <ion-label stacked [ngClass]="{'required' : requiredOnEncounterDay  || isEncounterDateRequired() }">{{ 'CAREER_OBJECTIVE_CREATE.FORM.ENCOUNTER_DATE' | translate }}<span *ngIf="requiredOnEncounterDay">{{ 'CAREER_OBJECTIVE_CREATE.FORM.REQUIRED_ON_ENCOUNTER_DAY' | translate }}</span></ion-label>
@@ -127,7 +128,8 @@
                         <ion-label>
                             <ion-icon name="calendar"></ion-icon>
                         </ion-label>
-                        <ion-datetime displayFormat="DD/MM/YYYY" [(ngModel)]="careerObjective.encounterDate" formControlName="encounterDateControl" [pickerOptions]="encounterDateTimeOptions" [doneText]="translateService.instant('GLOBAL.DATEPICKER.DONE')" [cancelText]="translateService.instant('GLOBAL.DATEPICKER.CANCEL')"></ion-datetime>
+                        <ion-datetime [disabled]="readOnlyByUserConnected()" displayFormat="DD/MM/YYYY" [(ngModel)]="careerObjective.encounterDate" formControlName="encounterDateControl" [pickerOptions]="encounterDateTimeOptions" [doneText]="translateService.instant('GLOBAL.DATEPICKER.DONE')"
+                            [cancelText]="translateService.instant('GLOBAL.DATEPICKER.CANCEL')"></ion-datetime>
                     </ion-item>
                 </ion-col>
             </ion-row>
@@ -145,6 +147,10 @@
                     </button>
                     <!-- Bouton sauvegarder objectif -->
                     <button ion-button color="primary" (click)="saveCareerObjectiveToRegisteredStatus()" [disabled]="creationForm.invalid" *ngIf="securityProvider.isManager() && careerObjectiveStatusProvider.isTransitionOk(careerObjective.careerObjectiveStatus,CareerObjectiveStatus.REGISTERED)">
+                        {{ 'CAREER_OBJECTIVE_CREATE.BUTTONS.SAVE' | translate }}
+                    </button>
+                    <!-- Bouton sauvegarder commentaire pnc -->
+                    <button ion-button color="primary" (click)="saveCareerObjectiveAndUpdatePncComment()" [disabled]="creationForm.invalid" *ngIf="canPncCommentBeModifiedByPnc()">
                         {{ 'CAREER_OBJECTIVE_CREATE.BUTTONS.SAVE' | translate }}
                     </button>
                     <!-- Bouton valider objectif -->
