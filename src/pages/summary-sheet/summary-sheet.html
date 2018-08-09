@@ -5,14 +5,11 @@
 </ion-header>
 
 <ion-content padding>
-    <ng-container *ngIf="isLoading">
-        <ion-spinner></ion-spinner>
-    </ng-container>
-    <ng-container *ngIf="!isLoading">
+    <edossier-spinner *ngIf="loading"></edossier-spinner>
+    <ng-container *ngIf="!loading">
         <pdf-viewer *ngIf="previewSrc; else elseBlock" max-width [original-size]="false" [show-all]="true" [src]="previewSrc" [autoresize]="true" style="display: block"></pdf-viewer>
         <ng-template #elseBlock>
             <div class="no-summary-sheet">{{ 'SUMMARY_SHEET.PDF_MISSING' | translate }}</div>
         </ng-template>
     </ng-container>
-
 </ion-content>
