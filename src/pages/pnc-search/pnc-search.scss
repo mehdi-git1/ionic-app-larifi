@@ -53,19 +53,6 @@ page-pnc-search {
     .filtered-pnc-list-container {
         height: 78%;
         margin-top: 30px;
-        .spinner-container {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100%;
-            width: 100%;
-            ion-spinner {
-                display: block;
-                width: 25%;
-                height: 25%;
-            }
-        }
     }
 
     form {
@@ -126,7 +113,6 @@ page-pnc-search {
             height: 40px;
             display: flex;
             justify-content: space-between;
-            cursor: pointer;
         }
 
         ion-card-content {
@@ -147,10 +133,7 @@ page-pnc-search {
         .header-container {
             display: flex;
             align-items: center;
-
-            .spinner-invisible {
-                visibility: hidden;
-            }
         }
     }
+
 }

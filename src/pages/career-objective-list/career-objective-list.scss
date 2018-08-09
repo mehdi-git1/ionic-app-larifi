@@ -28,17 +28,6 @@ page-career-objective-list {
         color: color($colors, grey50);
     }
 
-    .spinner-container {
-        margin-top: 100px;
-        display: flex;
-        justify-content: center;
-
-        ion-spinner * {
-            width: 80px;
-            height: 80px !important;
-        }
-    }
-
     .career-objective-list-container {
         height: 80%;
 

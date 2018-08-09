@@ -114,7 +114,9 @@ declare var window: any;
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(EDossierPNC),
+    IonicModule.forRoot(EDossierPNC, {
+      pageTransition: 'md-transition'
+    }),
     IonicStorageModule.forRoot(),
     HttpClientModule,
     ComponentsModule,
