@@ -48,7 +48,7 @@ export class HelpAssetListPage {
    * @param url URL qui sera ouvert sur le nouvel onglet
    */
   displayHelpAsset(url: string) {
-    this.navCtrl.push('PdfFileViewerPage', { pdfSrc: url, title: this.translate.instant('HELP_ASSET_LIST.TITLE') });
+    this.navCtrl.push(PdfFileViewerPage, { pdfSrc: url, title: this.translate.instant('HELP_ASSET_LIST.TITLE') });
   }
 
   /**
