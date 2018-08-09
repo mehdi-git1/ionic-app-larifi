@@ -11,7 +11,7 @@ export class RestRequest {
     public withCredential = true;
     public method: string;
     public url: string;
-    public options: any;
+    public httpHeaders: any;
     public jsonData: any;
 }
 
@@ -23,37 +23,29 @@ export abstract class RestService {
 
     abstract call(request: RestRequest): Promise<any>;
 
-    get(url: string, jsonData?: any, options?: any): Promise<any> {
-        return this.sendRequest('GET', url, jsonData, options);
+    get(url: string, jsonData?: any, httpHeaders?: any): Promise<any> {
+        return this.sendRequest('GET', url, jsonData, httpHeaders);
     }
 
-    post(url: string, jsonData: any, options?: any): Promise<any> {
-        return this.sendRequest('POST', url, jsonData, options);
+    post(url: string, jsonData: any, httpHeaders?: any): Promise<any> {
+        return this.sendRequest('POST', url, jsonData, httpHeaders);
     }
 
-    put(url: string, jsonData: any, options?: any): Promise<any> {
-        return this.sendRequest('PUT', url, jsonData, options);
+    put(url: string, jsonData: any, httpHeaders?: any): Promise<any> {
+        return this.sendRequest('PUT', url, jsonData, httpHeaders);
     }
 
-    delete(url: string, jsonData?: any, options?: any): Promise<any> {
-        return this.sendRequest('DELETE', url, jsonData, options);
+    delete(url: string, jsonData?: any, httpHeaders?: any): Promise<any> {
+        return this.sendRequest('DELETE', url, jsonData, httpHeaders);
     }
 
-    sendRequest(method: string, url: string, jsonData: any, options?: any): Promise<any> {
+    sendRequest(method: string, url: string, jsonData: any, httpHeaders?: any): Promise<any> {
         const request: RestRequest = new RestRequest();
-
-        if (!options) {
-            options = {};
-        }
-
-        if (!options.headers) {
-            options.headers = new HttpHeaders();
-        }
 
         request.method = method;
         request.url = url;
         request.jsonData = jsonData;
-        request.options = options;
+        request.httpHeaders = httpHeaders;
 
 
         return this.call(request);
