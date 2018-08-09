@@ -35,6 +35,8 @@ export class CareerObjectiveCreatePage {
 
     requiredOnEncounterDay = false;
 
+    originalPncComment: string;
+
     // Permet d'exposer l'enum au template
     CareerObjectiveStatus = CareerObjectiveStatus;
     WaypointStatus = WaypointStatus;
@@ -72,12 +74,13 @@ export class CareerObjectiveCreatePage {
         this.initForm();
     }
 
-    ionViewDidEnter() {
+    ionViewDidLoad() {
         // On récupère l'id de l'objectif dans les paramètres de navigation
         if (this.navParams.get('careerObjectiveId') && this.navParams.get('careerObjectiveId') !== '0') {
             // Récupération de l'objectif et des points d'étape
             this.careerObjectiveProvider.getCareerObjective(this.navParams.get('careerObjectiveId')).then(foundCareerObjective => {
                 this.careerObjective = foundCareerObjective;
+                this.originalPncComment = this.careerObjective.pncComment;
             }, error => { });
             this.waypointProvider.getCareerObjectiveWaypoints(this.navParams.get('careerObjectiveId')).then(result => {
                 this.waypointList = result;
@@ -88,6 +91,18 @@ export class CareerObjectiveCreatePage {
             this.careerObjective.pnc = new Pnc();
             this.careerObjective.pnc.matricule = this.navParams.get('matricule');
             this.waypointList = [];
+        }
+    }
+
+    ionViewDidEnter() {
+        if (this.careerObjective && this.careerObjective.techId) {
+            this.careerObjectiveProvider.getCareerObjective(this.careerObjective.techId).then(foundCareerObjective => {
+                this.careerObjective = foundCareerObjective;
+                this.originalPncComment = this.careerObjective.pncComment;
+            }, error => { });
+            this.waypointProvider.getCareerObjectiveWaypoints(this.careerObjective.techId).then(result => {
+                this.waypointList = result;
+            }, error => { });
         }
     }
 
@@ -344,5 +359,53 @@ export class CareerObjectiveCreatePage {
    */
     waypointsLoadingIsOver(): boolean {
         return this.waypointList !== undefined;
+    }
+
+    /**
+       * Détermine si le champs peut être modifié par l'utilisateur connecté
+       * @return vrai si c'est un champ modifiable, faux sinon
+       */
+    readOnlyByUserConnected(): boolean {
+        if (this.securityProvider.isManager()) {
+            return false;
+        } else if (!this.securityProvider.isManager() &&
+            (this.careerObjective.careerObjectiveStatus === CareerObjectiveStatus.DRAFT ||
+                this.careerObjective.careerObjectiveStatus == undefined ||
+                this.careerObjective.careerObjectiveStatus == null)) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    /**
+     * Vérifie si l'objectif peut être enregistré par le pnc
+     * @return vrai s'il peut enregistrer l'objectif , faux sinon
+     */
+    canPncCommentBeModifiedByPnc(): boolean {
+        return !this.securityProvider.isManager() && (
+            this.careerObjective.careerObjectiveStatus === CareerObjectiveStatus.REGISTERED ||
+            this.careerObjective.careerObjectiveStatus === CareerObjectiveStatus.VALIDATED) &&
+            this.careerObjective.pncComment !== this.originalPncComment;
+    }
+
+    /**
+     * Sauvegarde l'objectif et met a jour le commentaire pnc de l'objectif original
+     **/
+
+    saveCareerObjectiveAndUpdatePncComment() {
+        this.saveCareerObjective();
+        this.originalPncComment = this.careerObjective.pncComment;
+    }
+
+    /**
+     * Retourne la classe css de lecture seule pour un champ texte si besoin
+     */
+    getCssClassForReadOnlyIfNeeded(): string {
+        if (this.readOnlyByUserConnected()) {
+            return 'ion-textarea-read-only';
+        } else {
+            return '';
+        }
     }
 }

@@ -1,3 +1,6 @@
+import { CrewMemberTransformerProvider } from './../providers/crewMember/crewMember-transformer';
+import { OnlineLegProvider } from './../providers/leg/online-leg';
+import { OfflineLegProvider } from './../providers/leg/offline-leg';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { SummarySheetPage } from './../pages/summary-sheet/summary-sheet';
 import { FlightCrewListPage } from './../pages/flight-crew-list/flight-crew-list';
@@ -182,11 +185,14 @@ declare var window: any;
     SummarySheetProvider,
     RotationTransformerProvider,
     LegTransformerProvider,
+    CrewMemberTransformerProvider,
     OnlineSummarySheetProvider,
     OfflineSummarySheetProvider,
     SummarySheetTransformerProvider,
     OnlineRotationProvider,
-    OfflineRotationProvider
+    OfflineRotationProvider,
+    OnlineLegProvider,
+    OfflineLegProvider
   ]
 })
 export class AppModule { }

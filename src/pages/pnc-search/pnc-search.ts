@@ -27,7 +27,7 @@ export class PncSearchPage implements OnInit {
 
     pncList: Observable<Pnc[]>;
     filteredPncs: Pnc[];
-    searchInProgress: boolean;
+    searchInProgress = false;
 
     searchForm: FormGroup;
     pncMatriculeControl: AbstractControl;

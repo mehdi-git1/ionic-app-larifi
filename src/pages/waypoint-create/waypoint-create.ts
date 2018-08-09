@@ -56,6 +56,8 @@ export class WaypointCreatePage {
     }
 
     ionViewDidEnter() {
+        this.careerObjectiveId = this.navParams.get('careerObjectiveId');
+
         if (this.navParams.get('waypointId') && this.navParams.get('waypointId') !== '0') {
             // Récupération du point d'étape
             this.waypointProvider.getWaypoint(this.navParams.get('waypointId')).then(result => {
