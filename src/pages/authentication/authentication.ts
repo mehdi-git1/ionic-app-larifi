@@ -37,12 +37,7 @@ export class AuthenticationPage implements OnInit {
     },
       error => {
         this.hideSpinner = true;
-        console.log('go to authentication page');
       });
-  }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad Authentication');
   }
 
   initializeForm() {

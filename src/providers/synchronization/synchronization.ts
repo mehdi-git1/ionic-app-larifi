@@ -1,3 +1,4 @@
+import { SessionService } from './../../services/session.service';
 import { CrewMemberTransformerProvider } from './../crewMember/crewMember-transformer';
 import { LegTransformerProvider } from './../leg/leg-transformer';
 import { RotationTransformerProvider } from './../rotation/rotation-transformer';
@@ -35,7 +36,8 @@ export class SynchronizationProvider {
     private crewMemberTransformerProvider: CrewMemberTransformerProvider,
     public securityProvider: SecurityProvider,
     private summarySheetProvider: SummarySheetProvider,
-    private legProvider: LegProvider) {
+    private legProvider: LegProvider,
+    private sessionService: SessionService) {
   }
 
 
@@ -137,10 +139,13 @@ export class SynchronizationProvider {
         this.careerObjectiveTransformer.toCareerObjective(careerObjective).getStorageId());
     }
 
+
     //  Suppression de toutes les rotations, vols et listes d'équipage
-    this.storageService.deleteAll(Entity.ROTATION);
-    this.storageService.deleteAll(Entity.LEG);
-    this.storageService.deleteAll(Entity.CREW_MEMBER);
+    if (this.sessionService.authenticatedUser.matricule === pnc.matricule) {
+      this.storageService.deleteAll(Entity.ROTATION);
+      this.storageService.deleteAll(Entity.LEG);
+      this.storageService.deleteAll(Entity.CREW_MEMBER);
+    }
 
     // Suppression de la fiche synthese
     this.storageService.delete(Entity.SUMMARY_SHEET, pnc.matricule);
