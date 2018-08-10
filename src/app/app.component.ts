@@ -119,7 +119,7 @@ export class EDossierPNC implements OnInit {
         this.sessionService.authenticatedUser = authenticatedUser;
         this.nav.setRoot(PncHomePage, { matricule: this.sessionService.authenticatedUser.matricule });
       }, err => {
-        this.nav.setRoot(GenericMessagePage, { message: this.translate.instant('MESSAGES.ERROR.APPLICATION_NOT_INITIALIZED') });
+        this.nav.setRoot(GenericMessagePage, { message: this.translate.instant('GLOBAL.MESSAGES.ERROR.APPLICATION_NOT_INITIALIZED') });
       });
     });
     return promise;

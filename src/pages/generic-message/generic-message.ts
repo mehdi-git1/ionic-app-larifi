@@ -8,11 +8,13 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class GenericMessagePage {
 
+  genericMessage: string;
+
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
   ionViewDidLoad() {
-
+    this.genericMessage = this.navParams.get('message');
   }
 
 }

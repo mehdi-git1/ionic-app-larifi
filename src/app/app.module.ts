@@ -91,6 +91,7 @@ import { HomePage } from './../pages/home/home';
 import { SummarySheetProvider } from '../providers/summary-sheet/summary-sheet';
 import { OnlineRotationProvider } from '../providers/rotation/online-rotation';
 import { OfflineRotationProvider } from '../providers/rotation/offline-rotation';
+import { GenericMessagePage } from '../pages/generic-message/generic-message';
 
 declare var window: any;
 
@@ -110,7 +111,8 @@ declare var window: any;
     PncSearchPage,
     HomePage,
     SummarySheetPage,
-    PdfFileViewerPage
+    PdfFileViewerPage,
+    GenericMessagePage
   ],
   imports: [
     BrowserModule,
@@ -137,7 +139,8 @@ declare var window: any;
     HelpAssetListPage,
     HomePage,
     SummarySheetPage,
-    PdfFileViewerPage
+    PdfFileViewerPage,
+    GenericMessagePage
   ],
   providers: [
     StatusBar,
