@@ -3,6 +3,8 @@ import { CrewMemberTransformerProvider } from './../providers/crewMember/crewMem
 import { OnlineLegProvider } from './../providers/leg/online-leg';
 import { OfflineLegProvider } from './../providers/leg/offline-leg';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
+import { SimpleNotificationsModule } from 'angular2-notifications';
+
 import { SummarySheetPage } from './../pages/summary-sheet/summary-sheet';
 import { FlightCrewListPage } from './../pages/flight-crew-list/flight-crew-list';
 import { HelpAssetListPage } from './../pages/help-asset-list/help-asset-list';
@@ -93,6 +95,7 @@ import { OnlineRotationProvider } from '../providers/rotation/online-rotation';
 import { OfflineRotationProvider } from '../providers/rotation/offline-rotation';
 import { GenericMessagePage } from '../pages/generic-message/generic-message';
 
+
 declare var window: any;
 
 @NgModule({
@@ -124,7 +127,8 @@ declare var window: any;
     ComponentsModule,
     SharedModule,
     BrowserAnimationsModule,
-    PdfViewerModule
+    PdfViewerModule,
+    SimpleNotificationsModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [
