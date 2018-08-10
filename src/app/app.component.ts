@@ -45,8 +45,7 @@ export class EDossierPNC implements OnInit {
     private parametersProvider: ParametersProvider,
     private securityProvider: SecurityProvider,
     private synchronizationProvider: SynchronizationProvider,
-    private offlineSecurityProvider: OfflineSecurityProvider,
-    public translate: TranslateService) {
+    private offlineSecurityProvider: OfflineSecurityProvider) {
   }
 
   ngOnInit(): void {
@@ -119,7 +118,7 @@ export class EDossierPNC implements OnInit {
         this.sessionService.authenticatedUser = authenticatedUser;
         this.nav.setRoot(PncHomePage, { matricule: this.sessionService.authenticatedUser.matricule });
       }, err => {
-        this.nav.setRoot(GenericMessagePage, { message: this.translate.instant('GLOBAL.MESSAGES.ERROR.APPLICATION_NOT_INITIALIZED') });
+        this.nav.setRoot(GenericMessagePage, { message: this.translateService.instant('GLOBAL.MESSAGES.ERROR.APPLICATION_NOT_INITIALIZED') });
       });
     });
     return promise;

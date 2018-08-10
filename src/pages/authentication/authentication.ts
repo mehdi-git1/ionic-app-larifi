@@ -3,7 +3,7 @@ import { SecurityProvider } from './../../providers/security/security';
 import { PncHomePage } from './../pnc-home/pnc-home';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
-import { NavParams, ViewController, App, NavController, IonicPage } from 'ionic-angular';
+import { App, NavController, IonicPage } from 'ionic-angular';
 import { SecMobilService } from '../../services/secMobil.service';
 import { TranslateService } from '../../../node_modules/@ngx-translate/core';
 
@@ -18,10 +18,7 @@ export class AuthenticationPage implements OnInit {
   hideSpinner = true;
 
   constructor(public navCtrl: NavController,
-    public navParams: NavParams,
     private formBuilder: FormBuilder,
-    public viewCtrl: ViewController,
-    public appCtrl: App,
     private securityProvider: SecurityProvider,
     private sessionService: SessionService,
     private secMobilService: SecMobilService,
