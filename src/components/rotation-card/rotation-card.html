@@ -1,7 +1,7 @@
 <ion-card class="rotation">
     <ion-card-header class="header-container" (click)="toggleRotation(rotation)">
         <offline-indicator [object]="rotation"></offline-indicator>
-        <span>{{ rotation.departureDate | date : 'dd/MM/yyyy' }}</span>
+        <span><span>{{ rotation.departureDate | date : 'dd/MM/yyyy' }}</span></span>
         <span>
         <ion-spinner *ngIf="rotation.loading" color="white"></ion-spinner>
         <ion-spinner class="spinner-invisible" *ngIf="!rotation.loading" ></ion-spinner>
@@ -13,7 +13,6 @@
     </ion-card-header>
     <ion-card-content [ngClass]="{'opened' : rotation.opened}">
         <div *ngFor="let leg of rotation.legs" (click)="goToFlightCrewListPage(leg)">
-            <offline-indicator [object]="leg"></offline-indicator>
             <flight-card [leg]="leg"></flight-card>
         </div>
     </ion-card-content>

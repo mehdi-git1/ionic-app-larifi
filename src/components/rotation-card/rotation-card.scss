@@ -7,6 +7,12 @@ rotation-card {
             display: flex;
             justify-content: space-between;
             cursor: pointer;
+            padding: 0px 0px 0px 0px;
+
+            span {
+                padding: auto;
+            }
+
         }
 
         ion-card-content {
@@ -26,7 +32,6 @@ rotation-card {
 
         .header-container {
             display: flex;
-            align-items: center;
 
             .spinner-invisible {
                 visibility: hidden;

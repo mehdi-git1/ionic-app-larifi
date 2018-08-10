@@ -23,4 +23,8 @@ flight-card {
     .leg:not(:first-child) {
         border-top: 2px solid color($colors, grey90);
     }
+
+    ion-grid {
+        padding: 0;
+    }
 }
