@@ -209,14 +209,13 @@ export class WaypointCreatePage {
 
     /**
    * Détermine si le champs peut être modifié par l'utilisateur connecté
-   * @return vrai si c'est un champ modifiable, faux sinon
+   * @return vrai si c'est un champ non modifiable, faux sinon
    */
     readOnlyByUserConnected(): boolean {
         if (this.securityProvider.isManager()) {
             return false;
         } else if (!this.securityProvider.isManager() &&
             (this.waypoint.waypointStatus === WaypointStatus.DRAFT ||
-                this.waypoint.waypointStatus == undefined ||
                 this.waypoint.waypointStatus == null)) {
             return false;
         } else {
