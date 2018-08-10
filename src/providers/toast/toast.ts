@@ -14,12 +14,6 @@ export class ToastProvider {
    * @param message le message à afficher dans le toast
    */
   success(message: string) {
-    /*this.toastCtrl.create({
-      message: message,
-      duration: 3000,
-      position: 'bottom',
-      cssClass: 'success'
-    }).present();*/
     this.simpleNotification.success(message, '', {
       timeOut: 5000,
       showProgressBar: true,
@@ -35,12 +29,6 @@ export class ToastProvider {
    * @param message le message à afficher dans le toast
    */
   warning(message: string) {
-    /*this.toastCtrl.create({
-      message: message,
-      duration: 5000,
-      position: 'bottom',
-      cssClass: 'warning'
-    }).present();*/
     this.simpleNotification.warn(message, '', {
       timeOut: 5000,
       showProgressBar: true,
@@ -55,13 +43,6 @@ export class ToastProvider {
    * @param message le message à afficher dans le toast
    */
   error(message: string) {
-    /*  this.toastCtrl.create({
-        message: message,
-        duration: 5000,
-        position: 'bottom',
-        cssClass: 'error'
-      }).present();
-  */
     this.simpleNotification.error(message, '', {
       timeOut: 5000,
       showProgressBar: true,
@@ -76,12 +57,6 @@ export class ToastProvider {
   * @param message le message à afficher dans le toast
   */
   info(message: string) {
-    /*this.toastCtrl.create({
-      message: message,
-      duration: 3000,
-      position: 'bottom',
-      cssClass: 'info'
-    }).present();*/
     this.simpleNotification.info(message, '', {
       timeOut: 5000,
       showProgressBar: true,
@@ -89,7 +64,5 @@ export class ToastProvider {
       clickToClose: true,
       clickIconToClose: true
     });
-
   }
-
 }
