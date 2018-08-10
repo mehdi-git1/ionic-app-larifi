@@ -1,3 +1,5 @@
+import { GenericMessagePage } from './../pages/generic-message/generic-message';
+import { OfflineSecurityProvider } from './../providers/security/offline-security';
 import { PncHomePage } from './../pages/pnc-home/pnc-home';
 import { AuthenticatedUser } from './../models/authenticatedUser';
 import { ParametersProvider } from './../providers/parameters/parameters';
@@ -42,7 +44,8 @@ export class EDossierPNC implements OnInit {
     private toastProvider: ToastProvider,
     private parametersProvider: ParametersProvider,
     private securityProvider: SecurityProvider,
-    private synchronizationProvider: SynchronizationProvider) {
+    private synchronizationProvider: SynchronizationProvider,
+    private offlineSecurityProvider: OfflineSecurityProvider) {
   }
 
   ngOnInit(): void {
@@ -110,6 +113,13 @@ export class EDossierPNC implements OnInit {
       }
     }, error => {
       console.log('putAuthenticatedUserInSession error: ' + JSON.stringify(error));
+      this.connectivityService.setConnected(false);
+      this.offlineSecurityProvider.getAuthenticatedUser().then(authenticatedUser => {
+        this.sessionService.authenticatedUser = authenticatedUser;
+        this.nav.setRoot(PncHomePage, { matricule: this.sessionService.authenticatedUser.matricule });
+      }, err => {
+        this.nav.setRoot(GenericMessagePage, { message: this.translateService.instant('GLOBAL.MESSAGES.ERROR.APPLICATION_NOT_INITIALIZED') });
+      });
     });
     return promise;
   }

@@ -1,5 +1,6 @@
 {
     "GLOBAL": {
+        "APP_NAME": "EDOSSIER PNC",
         "PNC_ROLE": {
             "MANAGER": "Cadre",
             "PNC": "PNC"
@@ -30,7 +31,17 @@
         "UPCOMING_FLIGHT": "Prochains vols",
         "CREW_MEMBERS": "Liste équipage",
         "UNKNOWN_ERROR": "Une erreur inconnue est survenue. Merci de recharger la page ou réessayer dans quelques minutes.",
-        "COMING_SOON": "(Prochainement)"
+        "COMING_SOON": "(Prochainement)",
+        "MESSAGES": {
+            "ERROR": {
+                "MANDATORY_FIELD": "Le champ est obligatoire",
+                "BAD_FORMAT": "Format incorrect",
+                "MATRICULE_WRONG_SIZE": "Le matricule doit faire 8 caractères",
+                "PNC_NOT_FOUND": "Erreur lors de la récupérations des PNC",
+                "APPLICATION_NOT_INITIALIZED": "Application non initialisée. Veuillez vous connecter à un réseau",
+                "INVALID_CREDENTIALS": "Identifiant/mot de passe incorrecte"
+            }
+        }
     },
     "AUTHENT": {
         "AUTHENTICATION": "Authentification",
@@ -184,14 +195,6 @@
             "SEARCH": "Erreur lors de la recherche de PNC"
         }
 
-    },
-    "MESSAGES": {
-        "ERROR": {
-            "MANDATORY_FIELD": "Le champ est obligatoire",
-            "BAD_FORMAT": "Format incorrect",
-            "MATRICULE_WRONG_SIZE": "Le matricule doit faire 8 caractères",
-            "PNC_NOT_FOUND": "Erreur lors de la récupérations des PNC"
-        }
     },
     "HELP_ASSET_LIST": {
         "TITLE": "Ressources d'aide",
