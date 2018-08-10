@@ -1,4 +1,3 @@
-import { AuthGuard } from './../../guard/auth.guard';
 import { SessionService } from './../../services/session.service';
 import { EObservation } from './../../models/eObservation';
 import { EObservationService } from './../../services/eObservation.service';
@@ -9,14 +8,6 @@ import { CareerObjective } from './../../models/careerObjective';
 import { Component } from '@angular/core';
 import { NavController, NavParams, IonicPage } from 'ionic-angular';
 import { CareerObjectiveProvider } from '../../providers/career-objective/career-objective';
-
-
-
-@IonicPage({
-  name: 'CareerObjectiveListPage',
-  segment: 'careerObjectiveList/:matricule',
-  defaultHistory: ['PncHomePage']
-})
 
 @Component({
   selector: 'page-career-objective-list',
@@ -36,31 +27,21 @@ export class CareerObjectiveListPage {
     private careerObjectiveProvider: CareerObjectiveProvider,
     private toastProvider: ToastProvider,
     private eObservationService: EObservationService,
-    private sessionService: SessionService,
-    private authGuard: AuthGuard
-  ) {
-
+    private sessionService: SessionService) {
   }
 
-  ionViewCanEnter() {
-    return this.authGuard.guard().then(guardReturn => {
-      if (guardReturn){
-        this.matricule = this.navParams.get('matricule');
-        this.careerObjectiveProvider.getPncCareerObjectives(this.matricule).then(result => {
-          this.careerObjectiveList = result;
-        }, error => { });
-        return true;
-      }else{
-        return false;
-      }
-    });
+  ionViewDidEnter() {
+    this.matricule = this.navParams.get('matricule');
+    this.careerObjectiveProvider.getPncCareerObjectives(this.matricule).then(result => {
+      this.careerObjectiveList = result;
+    }, error => { });
   }
 
   /**
    * Dirige vers la page de création d'un nouvel objectif
    */
   goToCareerObjectiveCreation() {
-    this.navCtrl.push('CareerObjectiveCreatePage', { matricule: this.matricule, careerObjectiveId: 0 });
+    this.navCtrl.push(CareerObjectiveCreatePage, { matricule: this.matricule, careerObjectiveId: 0 });
   }
 
   /**
@@ -68,7 +49,7 @@ export class CareerObjectiveListPage {
    * @param careerObjectiveId l'id de l'objectif à ouvrir
    */
   openCareerObjective(careerObjectiveId: number) {
-    this.navCtrl.push('CareerObjectiveCreatePage', { matricule: this.matricule, careerObjectiveId: careerObjectiveId });
+    this.navCtrl.push(CareerObjectiveCreatePage, { matricule: this.matricule, careerObjectiveId: careerObjectiveId });
   }
 
   /**
@@ -93,5 +74,13 @@ export class CareerObjectiveListPage {
     if (this.eObservation) {
       this.eObservationService.callForms(this.eObservation);
     }
+  }
+
+  /**
+   * Vérifie que le chargement est terminé
+   * @return true si c'est le cas, false sinon
+   */
+  loadingIsOver(): boolean {
+    return this.careerObjectiveList !== undefined;
   }
 }

@@ -9,7 +9,7 @@
     <h3>{{ 'PNC_SEARCH.TITLE' | translate }}</h3>
 
     <ion-card class="pnc-search-card">
-        <ion-card-header class="header-container" (click)="toggleFilter()">
+        <ion-card-header class="header-container clickable" (click)="toggleFilter()">
             {{ 'PNC_SEARCH.CRITERIA.FILTERS' | translate }}
             <ion-icon [name]="showFilter ? 'arrow-dropdown' : 'arrow-dropright'"></ion-icon>
         </ion-card-header>
@@ -134,8 +134,8 @@
     </ion-card>
 
     <ion-content class="filtered-pnc-list-container">
-        <div *ngIf="searchInProgress" class="spinner-container">
-            <ion-spinner class="loading-spinner"></ion-spinner>
+        <div *ngIf="searchInProgress">
+            <edossier-spinner></edossier-spinner>
         </div>
 
         <span *ngIf="!searchInProgress"><div *ngIf="filteredPncs && filteredPncs.length == 0" class="no-pnc-found">

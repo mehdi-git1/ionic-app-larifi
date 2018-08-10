@@ -1,51 +1,40 @@
 page-career-objective-list {
-    .add-career-objective {
-        background: color($colors, green60);
-        width: calc(100% - 65px);
-        height: 90px;
-        margin: 20px 24px;
-        box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12) !important;
+    // Pour s'aligner sur les cartes en dessous
+    .add-career-objective-container {
+        padding: 0 10px;
 
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
+        .add-career-objective {
+            background: color($colors, green60);
+            width: 100%;
+            height: 90px;
 
-        ion-icon {
-            color: color($colors, grey90);
-            font-size: 3em;
-        }
+            box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12) !important;
 
-        label {
-            color: color($colors, white);
-        }
-    }
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
 
-    .no-objectives {
-        text-align: center;
-        font-size: 1.5em;
-        margin-top: 100px;
-        color: color($colors, grey50);
-    }
+            ion-icon {
+                color: color($colors, grey90);
+                font-size: 3em;
+            }
 
-    .spinner-container {
-        margin-top: 100px;
-        display: flex;
-        justify-content: center;
-
-        ion-spinner * {
-            width: 80px;
-            height: 80px !important;
+            label {
+                color: color($colors, white);
+            }
         }
     }
 
     .career-objective-list-container {
-        height: 80%;
-
+        .no-objectives {
+            text-align: center;
+            font-size: 1.5em;
+            margin-top: 100px;
+            color: color($colors, grey50);
+        }
 
         .career-objective-list {
-            margin: 0;
-            padding: 0;
 
             .career-objective-card {
                 display: flex;

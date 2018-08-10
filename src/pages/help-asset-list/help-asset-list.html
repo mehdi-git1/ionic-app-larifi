@@ -5,19 +5,18 @@
     </ion-navbar>
 </ion-header>
 <ion-content padding>
+    <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
+    <ng-template #pageBlock>
+        <div class="no-help-asset" *ngIf="helpAssets && helpAssets.length == 0">{{ 'HELP_ASSET_LIST.NO_HELP_ASSETS' | translate }}</div>
 
-    <div *ngIf="!helpAssets" class="spinner-container">
-        <ion-spinner></ion-spinner>
-    </div>
-    <div class="no-help-asset" *ngIf="helpAssets && helpAssets.length == 0">{{ 'HELP_ASSET_LIST.NO_HELP_ASSETS' | translate }}</div>
-
-    <ion-list *ngIf="helpAssets && helpAssets.length > 0" class="help-asset-list">
-        <ion-item *ngFor="let helpAsset of helpAssets" (click)="openHelpAsset(helpAsset.url)" class="clickable">
-            <ion-thumbnail item-start>
-                <ion-icon name="document"></ion-icon>
-            </ion-thumbnail>
-            <h4>{{helpAsset.label}}</h4>
-            {{ 'HELP_ASSET_LIST.LAST_UPDATE_DATE' | translate }} {{helpAsset.lastUpdateDate | date: 'dd/MM/yyyy HH:MM'}}
-        </ion-item>
-    </ion-list>
+        <ion-list *ngIf="helpAssets && helpAssets.length > 0" class="help-asset-list">
+            <ion-item *ngFor="let helpAsset of helpAssets" (click)="displayHelpAsset(helpAsset.url)" class="clickable">
+                <ion-thumbnail item-start>
+                    <ion-icon name="document"></ion-icon>
+                </ion-thumbnail>
+                <h4>{{helpAsset.label}}</h4>
+                {{ 'HELP_ASSET_LIST.LAST_UPDATE_DATE' | translate }} {{helpAsset.lastUpdateDate | date: 'dd/MM/yyyy HH:MM'}}
+            </ion-item>
+        </ion-list>
+    </ng-template>
 </ion-content>

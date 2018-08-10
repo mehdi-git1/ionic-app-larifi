@@ -1,13 +1,11 @@
 <ion-grid>
     <ion-row>
-        <ion-col col-10 class="leg">
+        <ion-col class="leg">
             <offline-indicator [object]="leg"></offline-indicator>
             <span>{{ leg.company }}{{ leg.number }}</span>
             <span>{{ leg.departureDate | date : 'dd/MM/yyyy HH:mm' }}</span>
             <span>{{ leg.departureStation }} - {{ leg.arrivalStation }}</span>
             <span>{{ leg.aircraftType }}</span>
-        </ion-col>
-        <ion-col col-2>
             <download-button [synchroInProgress]="synchroInProgress" (onDownload)="downloadAllFlightPncsEdossier(leg)"></download-button>
         </ion-col>
     </ion-row>

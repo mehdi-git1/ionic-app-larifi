@@ -13,6 +13,20 @@ export class RestMobileService extends RestService {
     }
 
     public call(request: RestRequest): Promise<any> {
+
+        if (request.method == 'POST') {
+            if (request.jsonData) {
+                if (!request.httpHeaders) {
+                    // En mode mobile, on construit un objet JS classique, attendu par secMobile
+                    request.httpHeaders = {
+                        'Content-Type': 'application/json',
+                        'Accept': '*/*'
+                    };
+                }
+                request.jsonData = JSON.stringify(request.jsonData);
+            }
+        }
+
         return this.secMobilService.call(request);
     }
 }

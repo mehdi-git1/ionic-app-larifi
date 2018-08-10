@@ -1,3 +1,18 @@
+import { PdfFileViewerPage } from './../pages/pdf-file-viewer/pdf-file-viewer';
+import { CrewMemberTransformerProvider } from './../providers/crewMember/crewMember-transformer';
+import { OnlineLegProvider } from './../providers/leg/online-leg';
+import { OfflineLegProvider } from './../providers/leg/offline-leg';
+import { PdfViewerModule } from 'ng2-pdf-viewer';
+import { SummarySheetPage } from './../pages/summary-sheet/summary-sheet';
+import { FlightCrewListPage } from './../pages/flight-crew-list/flight-crew-list';
+import { HelpAssetListPage } from './../pages/help-asset-list/help-asset-list';
+import { PncSearchPage } from './../pages/pnc-search/pnc-search';
+import { UpcomingFlightListPage } from './../pages/upcoming-flight-list/upcoming-flight-list';
+import { WaypointCreatePage } from './../pages/waypoint-create/waypoint-create';
+import { CareerObjectiveListPage } from './../pages/career-objective-list/career-objective-list';
+import { CareerObjectiveCreatePage } from './../pages/career-objective-create/career-objective-create';
+import { AuthenticationPage } from './../pages/authentication/authentication';
+import { PncHomePage } from './../pages/pnc-home/pnc-home';
 
 import { LegTransformerProvider } from './../providers/leg/leg-transformer';
 import { RotationTransformerProvider } from './../providers/rotation/rotation-transformer';
@@ -76,27 +91,58 @@ import { HomePage } from './../pages/home/home';
 import { SummarySheetProvider } from '../providers/summary-sheet/summary-sheet';
 import { OnlineRotationProvider } from '../providers/rotation/online-rotation';
 import { OfflineRotationProvider } from '../providers/rotation/offline-rotation';
+import { GenericMessagePage } from '../pages/generic-message/generic-message';
 
 declare var window: any;
 
 @NgModule({
   declarations: [
     EDossierPNC,
-    HomePage
+    HomePage,
+    PncHomePage,
+    AuthenticationPage,
+    CareerObjectiveCreatePage,
+    CareerObjectiveListPage,
+    WaypointCreatePage,
+    UpcomingFlightListPage,
+    PncSearchPage,
+    HelpAssetListPage,
+    FlightCrewListPage,
+    PncSearchPage,
+    HomePage,
+    SummarySheetPage,
+    PdfFileViewerPage,
+    GenericMessagePage
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(EDossierPNC),
+    IonicModule.forRoot(EDossierPNC, {
+      pageTransition: 'md-transition'
+    }),
     IonicStorageModule.forRoot(),
     HttpClientModule,
     ComponentsModule,
     SharedModule,
     BrowserAnimationsModule,
+    PdfViewerModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     EDossierPNC,
-    HomePage
+    HomePage,
+    PncHomePage,
+    AuthenticationPage,
+    CareerObjectiveCreatePage,
+    CareerObjectiveListPage,
+    WaypointCreatePage,
+    UpcomingFlightListPage,
+    FlightCrewListPage,
+    PncSearchPage,
+    HelpAssetListPage,
+    HomePage,
+    SummarySheetPage,
+    PdfFileViewerPage,
+    GenericMessagePage
   ],
   providers: [
     StatusBar,
@@ -145,11 +191,14 @@ declare var window: any;
     SummarySheetProvider,
     RotationTransformerProvider,
     LegTransformerProvider,
+    CrewMemberTransformerProvider,
     OnlineSummarySheetProvider,
     OfflineSummarySheetProvider,
     SummarySheetTransformerProvider,
     OnlineRotationProvider,
-    OfflineRotationProvider
+    OfflineRotationProvider,
+    OnlineLegProvider,
+    OfflineLegProvider
   ]
 })
 export class AppModule { }

@@ -5,5 +5,6 @@ export enum Entity {
     WAYPOINT = 'WAYPOINT',
     ROTATION = 'ROTATION',
     LEG = 'LEG',
-    SUMMARY_SHEET = 'SUMMARY_SHEET'
+    SUMMARY_SHEET = 'SUMMARY_SHEET',
+    CREW_MEMBER = 'CREW_MEMBER'
 }

@@ -19,6 +19,6 @@
         </ion-item>
         <button ion-button type="submit" [hidden]="!hideSpinner" block [disabled]="loginForm.invalid">{{ 'AUTHENT.VALIDATE' | translate }}</button>
         <ion-spinner text-center [hidden]="hideSpinner"></ion-spinner>
-        <ion-label *ngIf="errorMsg" id="errorlogin" color>{{errorMsg}}</ion-label>
     </form>
+    <div class="error-message" *ngIf="errorMsg">{{ errorMsg }}</div>
 </ion-content>
