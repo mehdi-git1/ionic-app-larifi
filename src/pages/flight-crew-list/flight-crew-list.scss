@@ -4,11 +4,15 @@ page-flight-crew-list {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        height: 50px;
-        font-size: 1.5em;
 
-        ion-icon {
-            color: color($colors, primary);
+        .flight-number {
+            display: flex;
+            align-items: center;
+
+            ion-icon {
+                color: color($colors, primary);
+                margin-right: 20px;
+            }
         }
     }
 }
