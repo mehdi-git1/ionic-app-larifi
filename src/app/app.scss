@@ -35,7 +35,7 @@
     content: '-';
 }
 
-.app-root{
+.app-root {
     background-color: #f1f1f1;
 }
 
@@ -80,14 +80,18 @@
     color: color($colors, white);
 }
 
-body{
+body {
     background-color: #f1f1f1
 }
 
-.content-md{
+.content-md {
     background-color: transparent;
 }
 
-.item-md{
-  background-color: transparent;
+.item-md {
+    background-color: transparent;
+}
+
+.hidden {
+    visibility: hidden;
 }

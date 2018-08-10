@@ -5,9 +5,16 @@ rotation-card {
         ion-card-header {
             height: 60px;
             display: flex;
-            justify-content: space-between;
             cursor: pointer;
-            padding: 0px 0px 0px 0px;
+            padding: 0;
+
+            .rotation-infos {
+                display: flex;
+                flex: 1;
+                justify-content: space-between;
+                align-items: center;
+                padding: 10px;
+            }
         }
 
         ion-card-content {
@@ -23,14 +30,6 @@ rotation-card {
 
         .card-content {
             padding: 0;
-        }
-
-        .header-container {
-            display: flex;
-
-            .spinner-invisible {
-                visibility: hidden;
-            }
         }
     }
 
