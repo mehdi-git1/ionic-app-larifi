@@ -7,16 +7,19 @@ flight-card {
         width: 30px;
         height: 30px;
     }
-    .leg {
-        padding: 0 10px;
-        display: flex;
-        justify-content: space-between;
-        height: 50px;
-        cursor: pointer;
 
-        span {
+    .leg {
+        height: 60px;
+        display: flex;
+        cursor: pointer;
+        padding: 0;
+
+        .leg-infos {
             display: flex;
+            flex: 1;
+            justify-content: space-between;
             align-items: center;
+            padding: 10px;
         }
     }
 
@@ -26,5 +29,9 @@ flight-card {
 
     ion-grid {
         padding: 0;
+    }
+
+    .grid {
+        padding: 0px;
     }
 }
