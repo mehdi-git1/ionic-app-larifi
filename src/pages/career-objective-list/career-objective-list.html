@@ -8,15 +8,16 @@
 <ion-content padding>
     <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
     <ng-template #pageBlock>
-        <h3 margin-horizontal>{{ 'CAREER_OBJECTIVE_LIST.TITLE' | translate }}</h3>
-        <button (click)="goToCareerObjectiveCreation()" class="add-career-objective">
-            <ion-icon name="add"></ion-icon>
-            <label>{{ 'CAREER_OBJECTIVE_LIST.BUTTONS.ADD_CAREER_OBJECTIVE' | translate }}</label>
-        </button>
+        <div class="add-career-objective-container">
+            <button (click)="goToCareerObjectiveCreation()" class="add-career-objective">
+                <ion-icon name="add"></ion-icon>
+                <label>{{ 'CAREER_OBJECTIVE_LIST.BUTTONS.ADD_CAREER_OBJECTIVE' | translate }}</label>
+            </button>
+        </div>
 
         <div class="career-objective-list-container">
             <div class="no-objectives" *ngIf="careerObjectiveList.length == 0">{{ 'CAREER_OBJECTIVE_LIST.NO_OBJECTIVES' | translate }}</div>
-            <ion-content *ngIf="careerObjectiveList.length > 0" class="career-objective-list">
+            <div *ngIf="careerObjectiveList.length > 0" class="career-objective-list">
                 <ion-card class="career-objective-card clickable" *ngFor="let careerObjective of careerObjectiveList" (click)="openCareerObjective(careerObjective.techId)">
                     <offline-indicator [object]="careerObjective"></offline-indicator>
                     <ion-card-content no-padding>
@@ -55,7 +56,7 @@
                         </ion-grid>
                     </ion-card-content>
                 </ion-card>
-            </ion-content>
+            </div>
         </div>
     </ng-template>
 </ion-content>
