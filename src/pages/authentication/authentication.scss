@@ -17,4 +17,11 @@ page-authentication {
         margin: auto;
         margin-top: 20px;
     }
+
+    .error-message {
+        text-align: center;
+        font-size: 1.5em;
+        margin-top: 100px;
+        color: color($colors, red80);
+    }
 }
