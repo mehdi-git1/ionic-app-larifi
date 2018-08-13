@@ -86,10 +86,13 @@ export class PncProvider {
       return new Promise((resolve, reject) => {
         this.offlinePncProvider.getLastPerformedRotation(matricule).then(offlineRotations => {
           this.onlinePncProvider.getLastPerformedRotation(matricule).then(onlineRotations => {
-            const onlineData = this.rotationTransformer.toRotation(onlineRotations);
-            const offlineData = this.rotationTransformer.toRotation(offlineRotations);
-            this.offlineProvider.flagDataAvailableOffline(onlineData, offlineData);
-            resolve(onlineData);
+            if (onlineRotations) {
+              const onlineData = this.rotationTransformer.toRotation(onlineRotations);
+              const offlineData = this.rotationTransformer.toRotation(offlineRotations);
+              this.offlineProvider.flagDataAvailableOffline(onlineData, offlineData);
+              resolve(onlineData);
+            }
+            resolve(onlineRotations);
           });
         });
       });
