@@ -1,6 +1,15 @@
 <ion-header>
     <ion-navbar>
-        <ion-title>{{ 'GLOBAL.DEVELOPMENT_PROGRAM' | translate }}</ion-title>
+        <!-- <ion-title>{{ 'GLOBAL.DEVELOPMENT_PROGRAM' | translate }}</ion-title> -->
+        <div *ngIf="careerObjectiveLoadingIsOver()">
+            <ion-title *ngIf="isCreationMode(); else editTitleBlock">{{ 'CAREER_OBJECTIVE_CREATE.CREATE_TITLE' | translate }}</ion-title>
+            <ng-template #editTitleBlock>
+                <ion-title>{{ 'CAREER_OBJECTIVE_CREATE.EDIT_TITLE' | translate }}</ion-title>
+            </ng-template>
+            <ion-badge float-right class="{{careerObjective.careerObjectiveStatus.toLowerCase()}}" *ngIf="careerObjective.careerObjectiveStatus">
+                {{ 'GLOBAL.CAREER_OBJECTIVE_STATUS.'+careerObjective.careerObjectiveStatus | translate }}
+            </ion-badge>
+        </div>
         <connectivity-indicator></connectivity-indicator>
     </ion-navbar>
 </ion-header>
@@ -8,13 +17,8 @@
 <ion-content padding>
     <edossier-spinner *ngIf="!careerObjectiveLoadingIsOver(); else pageBlock"></edossier-spinner>
     <ng-template #pageBlock>
-        <h3 *ngIf="isCreationMode(); else editTitleBlock">{{ 'CAREER_OBJECTIVE_CREATE.CREATE_TITLE' | translate }}</h3>
-        <ng-template #editTitleBlock>
-            <h3>{{ 'CAREER_OBJECTIVE_CREATE.EDIT_TITLE' | translate }}</h3>
-        </ng-template>
-
         <!-- Barre de statut -->
-        <ion-badge class="{{careerObjective.careerObjectiveStatus.toLowerCase()}}" *ngIf="careerObjective.careerObjectiveStatus">
+        <ion-badge float-right class="{{careerObjective.careerObjectiveStatus.toLowerCase()}}" *ngIf="careerObjective.careerObjectiveStatus">
             {{ 'GLOBAL.CAREER_OBJECTIVE_STATUS.'+careerObjective.careerObjectiveStatus | translate }}
         </ion-badge>
 
