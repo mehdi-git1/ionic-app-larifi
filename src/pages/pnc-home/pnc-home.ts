@@ -40,14 +40,14 @@ export class PncHomePage {
         private pncProvider: PncProvider,
         private events: Events) {
 
-            this.events.subscribe('EDossierStoredOffline:yes', () => {
-                if (this.matricule != null) {
-                    this.pncProvider.getPnc(this.matricule).then(pnc => {
-                        this.pnc = pnc;
-                    }, error => {
-                    });
-                }
-            });
+        this.events.subscribe('EDossierOffline:stored', () => {
+            if (this.matricule != null) {
+                this.pncProvider.getPnc(this.matricule).then(pnc => {
+                    this.pnc = pnc;
+                }, error => {
+                });
+            }
+        });
     }
 
     ionViewDidEnter() {

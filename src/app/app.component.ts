@@ -69,7 +69,7 @@ export class EDossierPNC implements OnInit {
           this.putAuthenticatedUserInSession().then(authenticatedUser => {
             this.initParameters();
             this.synchronizationProvider.storeEDossierOffline(authenticatedUser.matricule).then(successStore => {
-              this.events.publish('EDossierStoredOffline:yes');
+              this.events.publish('EDossierOffline:stored');
             }, error => {
             });
 
@@ -80,7 +80,7 @@ export class EDossierPNC implements OnInit {
       });
 
       this.events.subscribe('connectionStatus:disconnected', () => {
-         this.connectivityService.startPingAPI();
+        this.connectivityService.startPingAPI();
       });
 
       // Détection d'un changement d'état de la connexion
@@ -91,7 +91,7 @@ export class EDossierPNC implements OnInit {
           this.toastProvider.success(this.translateService.instant('GLOBAL.CONNECTIVITY.ONLINE_MODE'));
           this.synchronizationProvider.synchronizeOfflineData();
           this.synchronizationProvider.storeEDossierOffline(this.sessionService.authenticatedUser.matricule).then(successStore => {
-            this.events.publish('EDossierStoredOffline:yes');
+            this.events.publish('EDossierOffline:stored');
           }, error => {
           });
         }
