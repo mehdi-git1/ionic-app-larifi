@@ -58,7 +58,7 @@ export class ConnectivityService {
                 this.setConnected(false);
                 return true;
         });
-        this.timer = setTimeout(() => this.pingAPI(), 5000)
+        this.timer = setTimeout(() => this.pingAPI(), 5000);
     }
 
     /**
