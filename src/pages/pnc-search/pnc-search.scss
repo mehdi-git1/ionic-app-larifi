@@ -5,53 +5,7 @@ page-pnc-search {
         width: calc(100%);
     }
 
-    .filtered-pnc-card {
-
-        img {
-            width: 80px;
-            border-radius: 100%;
-        }
-
-        .content {
-            display: flex;
-            flex-direction: column;
-
-            ion-row {
-                flex: 1;
-            }
-
-            .primary-info {
-                font-size: 1.0em;
-            }
-
-            .icon-container {
-                width: 35px;
-                float: right;
-                ion-icon {
-                    font-size: 2em;
-                }
-            }
-
-            .pnc-info {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                .pnc-Array-item {
-                    span:after {
-                        content: ', ';
-                    }
-                    span:last-child:after {
-                        content: none;
-
-                    }
-                }
-
-            }
-        }
-    }
-
     .filtered-pnc-list-container {
-        height: 78%;
         margin-top: 30px;
     }
 
@@ -97,10 +51,6 @@ page-pnc-search {
 
     }
 
-    .label-md {
-        margin: 0;
-    }
-
     .no-pnc-found {
         text-align: center;
         font-size: 1.5em;
@@ -135,5 +85,4 @@ page-pnc-search {
             align-items: center;
         }
     }
-
 }
