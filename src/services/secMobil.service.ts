@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Config } from '../configuration/environment-variables/config';
-import { Platform } from 'ionic-angular';
+import { Platform, Events } from 'ionic-angular';
 import { RestRequest } from './rest.base.service';
 
 declare var window: any;
@@ -9,6 +9,7 @@ declare var window: any;
 export class SecMobilService {
 
     constructor(public config: Config,
+        private events: Events,
         public platform: Platform) {
     }
 
@@ -125,6 +126,8 @@ export class SecMobilService {
                 },
                 (err) => {
                     console.error('secmobile call failure : ' + err);
+                    this.events.publish('connectionStatus:disconnected');
+
                     reject(err);
                 });
         });

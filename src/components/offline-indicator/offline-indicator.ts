@@ -30,8 +30,8 @@ export class OfflineIndicatorComponent {
     const offlineStorageDate = moment(this.object.offlineStorageDate, AppConstant.isoDateFormat);
     const offlineDuration = moment.duration(now.diff(offlineStorageDate)).asMilliseconds();
 
-    const upToDateThreshold = moment.duration(1, 'days').asMilliseconds();
-    const outDatedThreshold = moment.duration(7, 'days').asMilliseconds();
+    const upToDateThreshold = moment.duration(1, 'minutes').asMilliseconds();
+    const outDatedThreshold = moment.duration(2, 'minutes').asMilliseconds();
 
     if (offlineDuration < upToDateThreshold) {
       return 'up-to-date';

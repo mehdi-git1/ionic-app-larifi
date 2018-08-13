@@ -13,7 +13,7 @@ import { SecurityProvider } from './../providers/security/security';
 
 import { Component, ViewChild, OnInit } from '@angular/core';
 
-import { Nav, Platform, NavParams, NavController } from 'ionic-angular';
+import { Nav, Platform, Events } from 'ionic-angular';
 
 import { StatusBar } from '@ionic-native/status-bar';
 
@@ -38,6 +38,7 @@ export class EDossierPNC implements OnInit {
     public splashScreen: SplashScreen,
     private secMobilService: SecMobilService,
     private connectivityService: ConnectivityService,
+    private events: Events,
     private sessionService: SessionService,
     public translateService: TranslateService,
     private storageService: StorageService,
@@ -76,6 +77,10 @@ export class EDossierPNC implements OnInit {
       }, error => {
         this.nav.setRoot(AuthenticationPage);
       });
+
+      this.events.subscribe('connectionStatus:disconnected', () => {
+         this.connectivityService.startPingAPI();
+    });
 
       // Détection d'un changement d'état de la connexion
       this.connectivityService.connectionStatusChange.subscribe(connected => {
