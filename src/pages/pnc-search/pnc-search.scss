@@ -1,12 +1,45 @@
 page-pnc-search {
+    .globalDiv {
+        height: 100%;
+        padding-top: 56px; // taille de la barre de navigation
+        display: flex;
+        flex-direction: column;
+    }
 
-    .search-pnc {
-        background: color($colors, green60);
-        width: calc(100%);
+    .pnc-search-card {
+        ion-card-header {
+            height: 50px;
+            justify-content: space-between;
+        }
+
+        ion-card-content {
+            max-height: 0;
+            transition: max-height 500ms;
+        }
+
+        ion-card-content.opened {
+            max-height: 600px;
+            transition: max-height 500ms;
+            padding: auto;
+        }
+
+        .card-content {
+            padding: 0;
+        }
+
+        .header-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .search-pnc {
+            background: color($colors, green60);
+            width: calc(100%);
+        }
     }
 
     .filtered-pnc-list-container {
-        margin-top: 30px;
+        flex: 1;
     }
 
     form {
@@ -15,7 +48,7 @@ page-pnc-search {
             line-height: normal;
         }
         .mat-form-field-infix {
-            border: 2px solid lightgray;
+            border: 2px solid color($colors, grey90);
             margin-top: 29px;
         }
         .mat-form-field-label {
@@ -24,7 +57,7 @@ page-pnc-search {
         }
 
         .label-inactive-filters {
-            color: LightGray;
+            color: color($colors, grey90);
             font-weight: bold;
             display: flex;
             flex-direction: column;
@@ -56,33 +89,5 @@ page-pnc-search {
         font-size: 1.5em;
         margin-top: 100px;
         color: color($colors, grey50);
-    }
-
-    .pnc-search-card {
-        ion-card-header {
-            height: 40px;
-            display: flex;
-            justify-content: space-between;
-        }
-
-        ion-card-content {
-            max-height: 0;
-            transition: max-height 500ms;
-        }
-
-        ion-card-content.opened {
-            max-height: 600px;
-            transition: max-height 500ms;
-            padding: auto;
-        }
-
-        .card-content {
-            padding: 0;
-        }
-
-        .header-container {
-            display: flex;
-            align-items: center;
-        }
     }
 }
