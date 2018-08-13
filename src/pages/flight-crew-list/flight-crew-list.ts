@@ -54,7 +54,7 @@ export class FlightCrewListPage {
                         });
                     }
                 });
-            }, error => { });
+            }, error => { this.flightCrewList = []; });
         }, error => { });
     }
 

@@ -90,7 +90,7 @@ export class SynchronizationProvider {
             flightCrew.legId = leg.techId;
             this.storageService.save(Entity.CREW_MEMBER, this.crewMemberTransformerProvider.toCrewMember(flightCrew), true);
           }
-        });
+        }, error => { });
       }
     }
 
