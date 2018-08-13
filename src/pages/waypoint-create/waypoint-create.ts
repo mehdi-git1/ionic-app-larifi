@@ -26,6 +26,8 @@ export class WaypointCreatePage {
 
     customDateTimeOptions: any;
 
+    originalPncComment: string;
+
     // Permet d'exposer l'enum au template
     WaypointStatus = WaypointStatus;
 
@@ -62,6 +64,7 @@ export class WaypointCreatePage {
             // Récupération du point d'étape
             this.waypointProvider.getWaypoint(this.navParams.get('waypointId')).then(result => {
                 this.waypoint = result;
+                this.originalPncComment = this.waypoint.pncComment;
             }, error => { });
         } else {
             // Création
@@ -203,4 +206,39 @@ export class WaypointCreatePage {
     loadingIsOver(): boolean {
         return this.waypoint !== undefined;
     }
+
+    /**
+   * Détermine si le champs peut être modifié par l'utilisateur connecté
+   * @return vrai si c'est un champ non modifiable, faux sinon
+   */
+    readOnlyByUserConnected(): boolean {
+        if (this.securityProvider.isManager()) {
+            return false;
+        } else if (!this.securityProvider.isManager() &&
+            (this.waypoint.waypointStatus === WaypointStatus.DRAFT ||
+                this.waypoint.waypointStatus == null)) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    /**
+     * Vérifie si le point d'etape peut être enregistré par le pnc
+     * @return vrai s'il peut enregistrer le point d'etape , faux sinon
+     */
+    canPncCommentBeModifiedByPnc(): boolean {
+        return !this.securityProvider.isManager() && (
+            this.waypoint.waypointStatus === WaypointStatus.REGISTERED) &&
+            this.waypoint.pncComment !== this.originalPncComment;
+    }
+
+    /**
+     * Sauvegarde le pont d'etape et met a jour le commentaire pnc du point d'etape original
+     */
+    saveWaypointAndUpdatePncComment() {
+        this.saveWaypoint();
+        this.originalPncComment = this.waypoint.pncComment;
+    }
+
 }
