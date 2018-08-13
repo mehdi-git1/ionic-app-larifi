@@ -1,4 +1,18 @@
 flight-card {
+
+    height: 60px;
+    display: flex;
+    cursor: pointer;
+    padding: 0;
+
+    .leg-infos {
+        display: flex;
+        flex: 1;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px;
+    }
+
     .button-synchro {
         display: flex;
         align-items: center;
@@ -8,26 +22,4 @@ flight-card {
         height: 30px;
     }
 
-    .leg {
-        height: 60px;
-        display: flex;
-        cursor: pointer;
-        padding: 0;
-
-        .leg-infos {
-            display: flex;
-            flex: 1;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px;
-        }
-    }
-
-    .leg:not(:first-child) {
-        border-top: 2px solid color($colors, grey90);
-    }
-
-    .grid {
-        padding: 0;
-    }
 }
