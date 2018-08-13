@@ -10,7 +10,7 @@ import { Speciality } from './../../models/speciality';
 import { CareerObjectiveListPage } from './../career-objective-list/career-objective-list';
 import { PncProvider } from './../../providers/pnc/pnc';
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, Events } from 'ionic-angular';
 import { Pnc } from '../../models/pnc';
 import { ConnectivityService } from '../../services/connectivity.service';
 import { HelpAssetListPage } from './../help-asset-list/help-asset-list';
@@ -37,7 +37,17 @@ export class PncHomePage {
         public connectivityService: ConnectivityService,
         private sessionService: SessionService,
         public translateService: TranslateService,
-        private pncProvider: PncProvider) {
+        private pncProvider: PncProvider,
+        private events: Events) {
+
+            this.events.subscribe('EDossierStoredOffline:yes', () => {
+                if (this.matricule != null) {
+                    this.pncProvider.getPnc(this.matricule).then(pnc => {
+                        this.pnc = pnc;
+                    }, error => {
+                    });
+                }
+            });
     }
 
     ionViewDidEnter() {
