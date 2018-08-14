@@ -48,6 +48,7 @@
         "moment": "^2.22.2",
         "ng2-pdf-viewer": "^5.1.0",
         "prod": "1.0.1",
+        "remove": "0.1.5",
         "rxjs": "5.5.8",
         "sw-toolbox": "3.6.0",
         "zone.js": "0.8.20"

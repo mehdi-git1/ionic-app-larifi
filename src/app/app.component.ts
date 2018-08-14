@@ -44,7 +44,7 @@ export class EDossierPNC implements OnInit {
 
   pinPadModalActive = false;
   datePauseApp: Date;
-  inactivityDelayInsec = 120;
+  inactivityDelayInsec = 10;
 
 
   constructor(public platform: Platform,
@@ -164,7 +164,7 @@ export class EDossierPNC implements OnInit {
       if (authenticatedUser) {
         this.sessionService.authenticatedUser = authenticatedUser;
         // Gestion de l'affchage du pinPad
-        if (this.deviceService.isBrowser) {
+        if (!this.deviceService.isBrowser()) {
           this.securityModalService.displayPinPad(PinPadType.openingApp);
         }
         this.nav.setRoot(PncHomePage, { matricule: this.sessionService.authenticatedUser.matricule });
@@ -176,6 +176,9 @@ export class EDossierPNC implements OnInit {
       this.connectivityService.setConnected(false);
       this.offlineSecurityProvider.getAuthenticatedUser().then(authenticatedUser => {
         this.sessionService.authenticatedUser = authenticatedUser;
+        if (!this.deviceService.isBrowser()) {
+          this.securityModalService.displayPinPad(PinPadType.openingApp);
+        }
         this.nav.setRoot(PncHomePage, { matricule: this.sessionService.authenticatedUser.matricule });
       }, err => {
         this.nav.setRoot(GenericMessagePage, { message: this.translateService.instant('GLOBAL.MESSAGES.ERROR.APPLICATION_NOT_INITIALIZED') });
