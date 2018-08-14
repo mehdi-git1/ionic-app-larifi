@@ -55,7 +55,7 @@ export class EDossierPNC implements OnInit {
 
   initializeApp() {
     this.platform.ready().then(() => {
-
+      this.splashScreen.hide();
       this.statusBar.styleDefault();
 
       this.translateService.setDefaultLang('fr');
