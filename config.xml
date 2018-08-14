@@ -60,4 +60,5 @@
         <variable name="APP_GROUP" value="AF_GROUP" />
     </plugin>
     <plugin name="cordova-plugin-statusbar" spec="^2.4.2" />
+    <engine name="ios" spec="4.5.5" />
 </widget>
