@@ -126,7 +126,7 @@ declare var window: any;
     BrowserModule,
     IonicModule.forRoot(EDossierPNC, {
       pageTransition: 'md-transition',
-      backButtonText: '         '
+      backButtonText: ''
     }),
     IonicStorageModule.forRoot(),
     HttpClientModule,
