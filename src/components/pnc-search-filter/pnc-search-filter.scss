@@ -2,6 +2,7 @@ $padding-left-ion-select: 5px;
 $margin-top-autocomplete: 12px;
 $border-input-size: 2px;
 $border-input: $border-input-size solid color($colors, grey50);
+$top-autocomplete-field: 18px;
 pnc-search-filter {
     .pnc-search-card {
         ion-card-header {
@@ -40,13 +41,13 @@ pnc-search-filter {
         .clear-pnc {
             background: color($colors, grey50);
             width: 100%;
-            margin-top: $margin-top-autocomplete + $border-input-size;
+            margin-top: $top-autocomplete-field;
         }
 
         .search-pnc {
             background: color($colors, green60);
             width: 100%;
-            margin-top: $margin-top-autocomplete + $border-input-size;
+            margin-top: $top-autocomplete-field;
         }
 
         .hide-label {
@@ -72,7 +73,7 @@ pnc-search-filter {
                 border: $border-input;
             }
             .mat-form-field-label {
-                top: 17px;
+                top: $top-autocomplete-field;
                 padding-left: $padding-left-ion-select;
             }
 
