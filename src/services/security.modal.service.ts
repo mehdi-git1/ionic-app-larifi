@@ -47,8 +47,9 @@ export class SecurityModalService {
         this.modalDisplayed.emit(true);
 
         this.modalType = type;
+        //this.sessionService.authenticatedUser.pinInfo.pinCode = 1234;
         const pinCode = this.sessionService.authenticatedUser.pinInfo.pinCode;
-        // const pinCode = '1234';
+         
         // Si pas de code Pin lors de l'ouverture de l'app => premiére connexion
         // On initialise donc le code pin
         if (!pinCode && type === PinPadType.openingApp){
