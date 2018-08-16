@@ -1,12 +1,11 @@
 <ion-header>
     <ion-navbar>
-        <!-- <ion-title>{{ 'GLOBAL.DEVELOPMENT_PROGRAM' | translate }}</ion-title> -->
-        <div *ngIf="careerObjectiveLoadingIsOver()">
+        <div class="titleNav" *ngIf="careerObjectiveLoadingIsOver()">
             <ion-title *ngIf="isCreationMode(); else editTitleBlock">{{ 'CAREER_OBJECTIVE_CREATE.CREATE_TITLE' | translate }}</ion-title>
             <ng-template #editTitleBlock>
                 <ion-title>{{ 'CAREER_OBJECTIVE_CREATE.EDIT_TITLE' | translate }}</ion-title>
             </ng-template>
-            <ion-badge float-right class="{{careerObjective.careerObjectiveStatus.toLowerCase()}}" *ngIf="careerObjective.careerObjectiveStatus">
+            <ion-badge class="{{careerObjective.careerObjectiveStatus.toLowerCase()}}" *ngIf="careerObjective.careerObjectiveStatus">
                 {{ 'GLOBAL.CAREER_OBJECTIVE_STATUS.'+careerObjective.careerObjectiveStatus | translate }}
             </ion-badge>
         </div>
@@ -18,9 +17,9 @@
     <edossier-spinner *ngIf="!careerObjectiveLoadingIsOver(); else pageBlock"></edossier-spinner>
     <ng-template #pageBlock>
         <!-- Barre de statut -->
-        <ion-badge float-right class="{{careerObjective.careerObjectiveStatus.toLowerCase()}}" *ngIf="careerObjective.careerObjectiveStatus">
+        <!-- <ion-badge float-right class="{{careerObjective.careerObjectiveStatus.toLowerCase()}}" *ngIf="careerObjective.careerObjectiveStatus">
             {{ 'GLOBAL.CAREER_OBJECTIVE_STATUS.'+careerObjective.careerObjectiveStatus | translate }}
-        </ion-badge>
+        </ion-badge> -->
 
         <form novalidate [formGroup]="creationForm">
             <ion-grid>

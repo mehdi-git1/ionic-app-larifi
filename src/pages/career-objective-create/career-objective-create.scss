@@ -1,13 +1,31 @@
 page-career-objective-create {
 
+    .titleNav {
+        flex: 1;
+        display: flex;
+        align-items: center;
+
+        h1 {
+            color: color($colors, white);
+            margin: 0;
+            padding: 0;
+        }
+
+        ion-badge {
+            display: inline-block;
+            margin: 0 10px;
+        }
+
+        ion-title {
+            flex: 0;
+        }
+    }
+
+
     h3 {
         display: inline-block;
     }
 
-    ion-badge {
-        display: inline-block;
-        margin: 0 10px;
-    }
 
     ion-textarea {
         min-height: 210px !important;
