@@ -1,7 +1,19 @@
+import { WaypointProvider } from './../../providers/waypoint/waypoint';
+import { CareerObjectiveProvider } from './../../providers/career-objective/career-objective';
+import { LegProvider } from './../../providers/leg/leg';
+import { RotationProvider } from './../../providers/rotation/rotation';
+import { Waypoint } from './../../models/waypoint';
+import { CareerObjective } from './../../models/careerObjective';
+import { Leg } from './../../models/leg';
+import { PncTransformerProvider } from './../../providers/pnc/pnc-transformer';
+import { OfflineProvider } from './../../providers/offline/offline';
+import { PncProvider } from './../../providers/pnc/pnc';
+import { Pnc } from './../../models/pnc';
 import { AppConstant } from './../../app/app.constant';
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges, SimpleChange } from '@angular/core';
 import { EDossierPncObject } from '../../models/eDossierPncObject';
 import * as moment from 'moment';
+import { Rotation } from '../../models/rotation';
 
 @Component({
   selector: 'offline-indicator',
@@ -9,10 +21,21 @@ import * as moment from 'moment';
 })
 export class OfflineIndicatorComponent {
 
-  @Input()
-  object: EDossierPncObject;
+  _object: EDossierPncObject;
 
-  constructor() {
+  constructor(private pncProvider: PncProvider, private rotationProvider: RotationProvider, private legProvider: LegProvider,
+    private careerObjectiveProvider: CareerObjectiveProvider, private waypointProvider: WaypointProvider) {
+  }
+
+
+  get object(): any {
+    return this._object;
+  }
+
+  @Input()
+  set object(val: any) {
+    this._object = val;
+    this.refreshOffLineDateOnCurrentObject();
   }
 
   /**
@@ -20,14 +43,13 @@ export class OfflineIndicatorComponent {
    * @return la classe CSS à appliquer à l'indicateur
    */
   getCssClass(): string {
-
     // Si aucune date de stockage offline, c'est que l'objet n'est pas en cache
-    if (!this.object.offlineStorageDate) {
+    if (!this._object.offlineStorageDate) {
       return '';
     }
 
     const now = moment();
-    const offlineStorageDate = moment(this.object.offlineStorageDate, AppConstant.isoDateFormat);
+    const offlineStorageDate = moment(this._object.offlineStorageDate, AppConstant.isoDateFormat);
     const offlineDuration = moment.duration(now.diff(offlineStorageDate)).asMilliseconds();
 
     const upToDateThreshold = moment.duration(1, 'days').asMilliseconds();
@@ -48,6 +70,22 @@ export class OfflineIndicatorComponent {
    */
   hasBeenModifiedOffline(): boolean {
     return this.object.offlineAction !== undefined && this.object.offlineAction !== null;
+  }
+  /**
+   * Appelle la méthode refresh du provider de l'entité correspondante afin de mettre a jour la date de l'objet en cache sur l'objet online
+   */
+  refreshOffLineDateOnCurrentObject(): void {
+    if (this._object instanceof Pnc) {
+      this.pncProvider.refresh(this._object);
+    } else if (this._object instanceof Rotation) {
+      this.rotationProvider.refresh(this._object);
+    } else if (this._object instanceof Leg) {
+      this.legProvider.refresh(this._object);
+    } else if (this._object instanceof CareerObjective) {
+      this.careerObjectiveProvider.refresh(this._object);
+    } else if (this._object instanceof Waypoint) {
+      this.waypointProvider.refresh(this._object);
+    }
   }
 
 }

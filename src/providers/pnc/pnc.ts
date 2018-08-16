@@ -14,6 +14,7 @@ import { PagedPnc } from './../../models/pagedPnc';
 import { Page } from '../../models/page';
 import { RestService } from '../../services/rest.base.service';
 import { RotationTransformerProvider } from '../rotation/rotation-transformer';
+import { RotationProvider } from '../rotation/rotation';
 
 @Injectable()
 export class PncProvider {
@@ -25,6 +26,7 @@ export class PncProvider {
     private offlineProvider: OfflineProvider,
     private pncTransformer: PncTransformerProvider,
     private rotationTransformer: RotationTransformerProvider,
+    private rotationProvider: RotationProvider,
     private sessionService: SessionService,
     private restService: RestService,
     private config: Config) {
@@ -40,13 +42,9 @@ export class PncProvider {
   getPnc(matricule: string): Promise<Pnc> {
     if (this.connectivityService.isConnected()) {
       return new Promise((resolve, reject) => {
-        this.offlinePncProvider.getPnc(matricule).then(offlinePnc => {
-          this.onlinePncProvider.getPnc(matricule).then(onlinePnc => {
-            const onlineData = this.pncTransformer.toPnc(onlinePnc);
-            const offlineData = this.pncTransformer.toPnc(offlinePnc);
-            this.offlineProvider.flagDataAvailableOffline(onlineData, offlineData);
-            resolve(onlineData); resolve(onlineData);
-          });
+        this.onlinePncProvider.getPnc(matricule).then(onlinePnc => {
+          const onlineData = this.pncTransformer.toPnc(onlinePnc);
+          resolve(onlineData);
         });
       });
     } else {
@@ -62,13 +60,12 @@ export class PncProvider {
   getUpcomingRotations(matricule: string): Promise<Rotation[]> {
     if (this.connectivityService.isConnected()) {
       return new Promise((resolve, reject) => {
-        this.offlinePncProvider.getUpcomingRotations(matricule).then(offlineRotations => {
-          this.onlinePncProvider.getUpcomingRotations(matricule).then(onlineRotations => {
-            const onlineData = this.rotationTransformer.toRotations(onlineRotations);
-            const offlineData = this.rotationTransformer.toRotations(offlineRotations);
-            this.offlineProvider.flagDataAvailableOffline(onlineData, offlineData);
-            resolve(onlineData);
-          });
+        this.onlinePncProvider.getUpcomingRotations(matricule).then(onlineRotations => {
+          const onlineData = this.rotationTransformer.toRotations(onlineRotations);
+          for (const onlineRotation of onlineRotations) {
+            this.rotationProvider.refresh(onlineRotation);
+          }
+          resolve(onlineData);
         });
       });
     } else {
@@ -84,13 +81,10 @@ export class PncProvider {
   getLastPerformedRotation(matricule: string): Promise<Rotation> {
     if (this.connectivityService.isConnected()) {
       return new Promise((resolve, reject) => {
-        this.offlinePncProvider.getLastPerformedRotation(matricule).then(offlineRotations => {
-          this.onlinePncProvider.getLastPerformedRotation(matricule).then(onlineRotations => {
-            const onlineData = this.rotationTransformer.toRotation(onlineRotations);
-            const offlineData = this.rotationTransformer.toRotation(offlineRotations);
-            this.offlineProvider.flagDataAvailableOffline(onlineData, offlineData);
-            resolve(onlineData);
-          });
+        this.onlinePncProvider.getLastPerformedRotation(matricule).then(onlineRotations => {
+          const onlineData = this.rotationTransformer.toRotation(onlineRotations);
+          this.rotationProvider.refresh(onlineData);
+          resolve(onlineData);
         });
       });
     } else {
@@ -163,6 +157,17 @@ export class PncProvider {
    */
   pncAutoComplete(search: string): Promise<Pnc[]> {
     return this.restService.get(`${this.pncUrl}/auto_complete`, { search });
+  }
+
+  /**
+   *  Met à jour la date de mise en cache dans l'objet online
+   * @param pnc objet online
+   */
+  refresh(pnc: Pnc): void {
+    this.offlinePncProvider.getPnc(pnc.matricule).then(offlinePnc => {
+      const offlineData = this.pncTransformer.toPnc(offlinePnc);
+      this.offlineProvider.flagDataAvailableOffline(pnc, offlineData);
+    });
   }
 }
 

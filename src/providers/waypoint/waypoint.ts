@@ -52,13 +52,9 @@ export class WaypointProvider {
   getCareerObjectiveWaypoints(careerObjectiveId: number): Promise<Waypoint[]> {
     if (this.connectivityService.isConnected()) {
       return new Promise((resolve, reject) => {
-        this.offlineWaypointProvider.getCareerObjectiveWaypoints(careerObjectiveId).then(offlineWaypoints => {
-          this.onlineWaypointProvider.getCareerObjectiveWaypoints(careerObjectiveId).then(onlineWaypoints => {
-            const onlineData = this.waypointTransformer.toWaypoints(onlineWaypoints);
-            const offlineData = this.waypointTransformer.toWaypoints(offlineWaypoints);
-            this.offlineProvider.flagDataAvailableOffline(onlineData, offlineData);
-            resolve(onlineData);
-          });
+        this.onlineWaypointProvider.getCareerObjectiveWaypoints(careerObjectiveId).then(onlineWaypoints => {
+          const onlineData = this.waypointTransformer.toWaypoints(onlineWaypoints);
+          resolve(onlineData);
         });
       });
     } else {
@@ -89,5 +85,16 @@ export class WaypointProvider {
     return this.connectivityService.isConnected() ?
       this.onlineWaypointProvider.delete(id) :
       this.offlineWaypointProvider.delete(id);
+  }
+
+  /**
+   *  Met à jour la date de mise en cache dans l'objet online
+   * @param waypoint objet online
+   */
+  refresh(waypoint: Waypoint) {
+    this.offlineWaypointProvider.getWaypoint(waypoint.techId).then(offlineWaypoint => {
+      const offlineData = this.waypointTransformer.toWaypoint(offlineWaypoint);
+      this.offlineProvider.flagDataAvailableOffline(waypoint, offlineData);
+    });
   }
 }

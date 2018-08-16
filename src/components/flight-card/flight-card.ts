@@ -1,4 +1,5 @@
-import { Component, Input } from '@angular/core';
+import { OfflineIndicatorComponent } from './../offline-indicator/offline-indicator';
+import { Component, Input, ViewChild } from '@angular/core';
 import { Leg } from './../../models/leg';
 import { FlightCrewListPage } from './../../pages/flight-crew-list/flight-crew-list';
 import { RotationProvider } from './../../providers/rotation/rotation';
@@ -16,6 +17,9 @@ export class FlightCardComponent {
 
   @Input() leg: Leg;
   synchroInProgress: boolean;
+
+  @ViewChild(OfflineIndicatorComponent)
+  private offlineIndicatorComponent: OfflineIndicatorComponent;
 
   constructor(public connectivityService: ConnectivityService,
     private synchronizationProvider: SynchronizationProvider,
@@ -41,6 +45,7 @@ export class FlightCardComponent {
         const infoMsg = this.translate.instant('SYNCHRONIZATION.FLIGHT_SAVED_OFFLINE', { 'flightNumber': leg.company + leg.number });
         this.toastProvider.info(infoMsg);
         this.synchroInProgress = false;
+        this.offlineIndicatorComponent.refreshOffLineDateOnCurrentObject();
       }, error => {
         const errorMsg = this.translate.instant('SYNCHRONIZATION.FLIGHT_SAVED_OFFLINE_ERROR', { 'flightNumber': leg.company + leg.number });
         this.toastProvider.error(errorMsg);

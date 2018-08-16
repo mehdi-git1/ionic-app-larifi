@@ -27,4 +27,13 @@ export class OfflineRotationProvider {
             resolve(legs);
         });
     }
+
+    /**
+     * Récupère une rotation du cache à partir de son id
+     * @param number l'id de la rotayion qu'on souhaite récupérer
+     * @return une promesse contenant la rotation trouvée
+     */
+    getRotation(number: number): Promise<Rotation> {
+        return this.storageService.findOneAsync(Entity.ROTATION, `${number}`);
+    }
 }

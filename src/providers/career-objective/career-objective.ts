@@ -31,13 +31,9 @@ export class CareerObjectiveProvider {
   getPncCareerObjectives(matricule: string): Promise<CareerObjective[]> {
     if (this.connectivityService.isConnected()) {
       return new Promise((resolve, reject) => {
-        this.offlineCareerObjectiveProvider.getPncCareerObjectives(matricule).then(offlineCareerObjectives => {
-          this.onlineCareerObjectiveProvider.getPncCareerObjectives(matricule).then(onlineCareerObjectives => {
-            const onlineData = this.careerObjectiveTransformer.toCareerObjectives(onlineCareerObjectives);
-            const offlineData = this.careerObjectiveTransformer.toCareerObjectives(offlineCareerObjectives);
-            this.offlineProvider.flagDataAvailableOffline(onlineData, offlineData);
-            resolve(onlineData);
-          });
+        this.onlineCareerObjectiveProvider.getPncCareerObjectives(matricule).then(onlineCareerObjectives => {
+          const onlineData = this.careerObjectiveTransformer.toCareerObjectives(onlineCareerObjectives);
+          resolve(onlineData);
         });
       });
     } else {
@@ -95,5 +91,14 @@ export class CareerObjectiveProvider {
   createInstructorRequest(id: number): Promise<void> {
     return this.onlineCareerObjectiveProvider.createInstructorRequest(id);
   }
-
+  /**
+   * Met à jour la date de mise en cache dans l'objet online
+   * @param careerObjective objet online
+   */
+  refresh(careerObjective: CareerObjective) {
+    this.offlineCareerObjectiveProvider.getCareerObjective(careerObjective.techId).then(offlineCareerObjective => {
+      const offlineData = this.careerObjectiveTransformer.toCareerObjective(offlineCareerObjective);
+      this.offlineProvider.flagDataAvailableOffline(careerObjective, offlineData);
+    });
+  }
 }
