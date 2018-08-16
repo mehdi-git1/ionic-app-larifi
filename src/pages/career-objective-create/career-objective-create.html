@@ -125,7 +125,7 @@
                                 <ion-icon name="calendar"></ion-icon>
                             </ion-label>
                             <ion-datetime [disabled]="readOnlyByUserConnected()" displayFormat="DD/MM/YYYY" [(ngModel)]="careerObjective.nextEncounterDate" formControlName="nextEncounterDateControl" [pickerOptions]="nextEncounterDateTimeOptions" [doneText]="translateService.instant('GLOBAL.DATEPICKER.DONE')"
-                                [cancelText]="translateService.instant('GLOBAL.DATEPICKER.CANCEL')"></ion-datetime>
+                                YY5yyèip [cancelText]="translateService.instant('GLOBAL.DATEPICKER.CANCEL')" max="2050"></ion-datetime>
                         </ion-item>
                         <!-- Date de rencontre -->
                         <ion-label stacked [ngClass]="{'required' : requiredOnEncounterDay  || isEncounterDateRequired() }">{{ 'CAREER_OBJECTIVE_CREATE.FORM.ENCOUNTER_DATE' | translate }}<span *ngIf="requiredOnEncounterDay">{{ 'CAREER_OBJECTIVE_CREATE.FORM.REQUIRED_ON_ENCOUNTER_DAY' | translate }}</span></ion-label>
