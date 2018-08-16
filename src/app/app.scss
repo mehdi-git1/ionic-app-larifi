@@ -95,3 +95,14 @@ body {
 .hidden {
     visibility: hidden;
 }
+
+.no-data-found {
+        text-align: center;
+        font-size: 1.5em;
+        margin-top: 100px;
+        color: color($colors, grey50);
+}
+
+.scroll-content {
+    overflow-y: auto !important;
+}

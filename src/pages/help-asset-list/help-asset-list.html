@@ -7,7 +7,7 @@
 <ion-content padding>
     <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
     <ng-template #pageBlock>
-        <div class="no-help-asset" *ngIf="helpAssets && helpAssets.length == 0">{{ 'HELP_ASSET_LIST.NO_HELP_ASSETS' | translate }}</div>
+        <div class="no-data-found" *ngIf="helpAssets && helpAssets.length == 0">{{ 'HELP_ASSET_LIST.NO_HELP_ASSETS' | translate }}</div>
 
         <ion-list *ngIf="helpAssets && helpAssets.length > 0" class="help-asset-list">
             <ion-item *ngFor="let helpAsset of helpAssets" (click)="displayHelpAsset(helpAsset.url)" class="clickable">
