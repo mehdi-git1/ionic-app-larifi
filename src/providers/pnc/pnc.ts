@@ -84,21 +84,15 @@ export class PncProvider {
   getLastPerformedRotation(matricule: string): Promise<Rotation> {
     if (this.connectivityService.isConnected()) {
       return new Promise((resolve, reject) => {
-        this.offlinePncProvider.getLastPerformedRotation(matricule).then(offlineRotation => {
-          this.onlinePncProvider.getLastPerformedRotation(matricule).then(onlineRotation => {
-            let onlineData = null;
-            if (onlineRotation) {
-              onlineData = this.rotationTransformer.toRotation(onlineRotation);
+        this.offlinePncProvider.getLastPerformedRotation(matricule).then(offlineRotations => {
+          this.onlinePncProvider.getLastPerformedRotation(matricule).then(onlineRotations => {
+            if (onlineRotations) {
+              const onlineData = this.rotationTransformer.toRotation(onlineRotations);
+              const offlineData = this.rotationTransformer.toRotation(offlineRotations);
+              this.offlineProvider.flagDataAvailableOffline(onlineData, offlineData);
+              resolve(onlineData);
             }
-
-            let offlineData = null;
-            if (offlineRotation) {
-              offlineData = this.rotationTransformer.toRotation(offlineRotation);
-            }
-
-            // const offlineData = this.rotationTransformer.toRotation(offlineRotations);
-            this.offlineProvider.flagDataAvailableOffline(onlineData, offlineData);
-            resolve(onlineData);
+            resolve(onlineRotations);
           });
         });
       });
