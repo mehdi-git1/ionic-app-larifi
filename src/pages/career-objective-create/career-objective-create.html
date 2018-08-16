@@ -3,11 +3,12 @@
         <div class="nav-title" *ngIf="careerObjectiveLoadingIsOver()">
             <ion-title *ngIf="isCreationMode(); else editTitleBlock">{{ 'CAREER_OBJECTIVE_CREATE.CREATE_TITLE' | translate }}</ion-title>
             <ng-template #editTitleBlock>
-                <ion-title>{{ 'CAREER_OBJECTIVE_CREATE.EDIT_TITLE' | translate }}</ion-title>
+                <ion-title>{{ 'CAREER_OBJECTIVE_CREATE.EDIT_TITLE' | translate }}
+                    <ion-badge class="{{careerObjective.careerObjectiveStatus.toLowerCase()}}" *ngIf="careerObjective.careerObjectiveStatus">
+                        {{ 'GLOBAL.CAREER_OBJECTIVE_STATUS.'+careerObjective.careerObjectiveStatus | translate }}
+                    </ion-badge>
+                </ion-title>
             </ng-template>
-            <ion-badge class="{{careerObjective.careerObjectiveStatus.toLowerCase()}}" *ngIf="careerObjective.careerObjectiveStatus">
-                {{ 'GLOBAL.CAREER_OBJECTIVE_STATUS.'+careerObjective.careerObjectiveStatus | translate }}
-            </ion-badge>
         </div>
         <connectivity-indicator></connectivity-indicator>
     </ion-navbar>
