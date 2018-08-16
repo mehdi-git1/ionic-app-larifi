@@ -82,9 +82,13 @@ export class PncProvider {
     if (this.connectivityService.isConnected()) {
       return new Promise((resolve, reject) => {
         this.onlinePncProvider.getLastPerformedRotation(matricule).then(onlineRotations => {
-          const onlineData = this.rotationTransformer.toRotation(onlineRotations);
-          this.rotationProvider.refresh(onlineData);
-          resolve(onlineData);
+          if (onlineRotations) {
+            const onlineData = this.rotationTransformer.toRotation(onlineRotations);
+            this.rotationProvider.refresh(onlineData);
+            resolve(onlineData);
+          } else {
+            resolve(onlineRotations);
+          }
         });
       });
     } else {

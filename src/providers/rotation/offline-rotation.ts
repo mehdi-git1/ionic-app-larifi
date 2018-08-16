@@ -23,8 +23,7 @@ export class OfflineRotationProvider {
     getRotationLegs(rotation: Rotation): Promise<Leg[]> {
         return new Promise((resolve, reject) => {
             const legs = this.storageService.findAll(Entity.LEG);
-            legs.filter(leg => leg.rotation.techId === rotation.techId);
-            resolve(legs);
+            resolve(legs.filter(leg => leg.rotation.techId === rotation.techId));
         });
     }
 

@@ -33,20 +33,31 @@ export class ConnectivityService {
     }
 
     /**
+     * appelle la fonction de ping en s'assurant qu'aucun ping n'est pas lancé avant.
+     */
+    startPingAPI() {
+        if (this.timer === 0) {
+            this.pingAPI();
+        }
+    }
+
+    /**
      * Envoie une requête au backend toutes les 5 secondes pour vérifier la connectivité.
      */
-    pingAPI(){
+    pingAPI() {
         this.restService.get(this.config.pingUrl).then(
             success => {
+                console.log('connecté');
                 this.setConnected(true);
+                this.stopPingAPI();
+
                 return true;
             },
             error => {
+                console.log('déconnecté');
                 this.setConnected(false);
                 return true;
             });
-
-
         this.timer = setTimeout(() => this.pingAPI(), 5000);
     }
 
@@ -54,7 +65,7 @@ export class ConnectivityService {
      * Fonction permettant de forcer l'arrêt du ping toutes les 5 secondes
      * On clear le timeOut et on réinitialise sa valeur à celle par défaut
      */
-    stopPingAPI(){
+    stopPingAPI() {
         clearTimeout(this.timer);
         this.timer = 0;
     }

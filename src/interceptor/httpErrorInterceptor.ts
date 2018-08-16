@@ -8,6 +8,7 @@ import { HttpInterceptor, HttpHandler, HttpRequest, HttpEvent, HttpErrorResponse
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/do';
 import { ToastProvider } from '../providers/toast/toast';
+import { Events } from 'ionic-angular';
 
 @Injectable()
 export class HttpErrorInterceptor implements HttpInterceptor {
@@ -17,6 +18,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
     private translateService: TranslateService,
     private secMobilService: SecMobilService,
     private connectivityService: ConnectivityService,
+    private events: Events,
     private config: Config
   ) { }
 
@@ -24,9 +26,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
     request: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-
     return next.handle(request).do(success => {
-      this.connectivityService.stopPingAPI();
     }, err => {
       if (err instanceof HttpErrorResponse && request.url !== this.config.pingUrl) {
         let errorMessage = this.translateService.instant('GLOBAL.UNKNOWN_ERROR');
@@ -37,14 +37,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
 
         this.toastProvider.error(errorMessage);
 
-        /**
-         * Pour le monent le ping n'est activé que lorsque l'on est en mode WEB
-         * car le ping ne fonctionne pas sur le mobile.
-         * Quand il fonctionnera, mettre le ping pour le mobile only
-         */
-        if (this.secMobilService.isBrowser){
-          this.connectivityService.pingAPI();
-        }
+        this.events.publish('connectionStatus:disconnected');
       }
     });
   }
