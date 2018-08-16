@@ -200,32 +200,32 @@ export class SynchronizationProvider {
    * Lance le processus de synchronisation des données modifiées offline
    */
   synchronizeOfflineData() {
-    //   const pncSynchroList = this.getPncSynchroList();
+    const pncSynchroList = this.getPncSynchroList();
 
-    //   if (pncSynchroList.length > 0) {
-    //     this.synchroStatusChange.emit(true);
+    if (pncSynchroList.length > 0) {
+      this.synchroStatusChange.emit(true);
 
-    //     let promiseCount;
-    //     let resolvedPromiseCount = 0;
-    //     Observable.create(
-    //       observer => {
-    //         promiseCount = pncSynchroList.length;
-    //         for (const pncSynchro of pncSynchroList) {
-    //           this.pncSynchroProvider.synchronize(pncSynchro).then(pncSynchroResponse => {
-    //             this.updateLocalStorageFromPncSynchroResponse(pncSynchroResponse);
-    //             resolvedPromiseCount++;
-    //             observer.next(true);
-    //           }, error => {
-    //             resolvedPromiseCount++;
-    //             observer.next(true);
-    //           });
-    //         }
-    //       }).subscribe(promiseResolved => {
-    //         if (resolvedPromiseCount >= promiseCount) {
-    //           this.synchroStatusChange.emit(false);
-    //         }
-    //       });
-    //   }
+      let promiseCount;
+      let resolvedPromiseCount = 0;
+      Observable.create(
+        observer => {
+          promiseCount = pncSynchroList.length;
+          for (const pncSynchro of pncSynchroList) {
+            this.pncSynchroProvider.synchronize(pncSynchro).then(pncSynchroResponse => {
+              this.updateLocalStorageFromPncSynchroResponse(pncSynchroResponse);
+              resolvedPromiseCount++;
+              observer.next(true);
+            }, error => {
+              resolvedPromiseCount++;
+              observer.next(true);
+            });
+          }
+        }).subscribe(promiseResolved => {
+          if (resolvedPromiseCount >= promiseCount) {
+            this.synchroStatusChange.emit(false);
+          }
+        });
+    }
   }
 
   /**
