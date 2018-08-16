@@ -52,8 +52,9 @@ export class SynchronizationProvider {
    * @return une promesse résolue quand le EDossier est mis en cache
    */
   storeEDossierOffline(matricule: string): Promise<boolean> {
-    if (!this.isOfflinePncModified(matricule)) {
-      return new Promise((resolve, reject) => {
+
+    return new Promise((resolve, reject) => {
+      if (!this.isOfflinePncModified(matricule)) {
         this.pncSynchroProvider.getPncSynchro(matricule).then(pncSynchro => {
           this.summarySheetProvider.getSummarySheet(matricule).then(summarySheet => {
             pncSynchro.summarySheet = summarySheet;
@@ -63,10 +64,11 @@ export class SynchronizationProvider {
         }, error => {
           reject(matricule);
         });
-      });
-    } else {
-      this.toastProvider.error(this.translateService.instant('GLOBAL.MESSAGES.APPLICATION_SYNCHRO_WAITED'));
-    }
+      } else {
+        reject(matricule);
+      }
+    });
+
   }
 
   /**
@@ -90,13 +92,13 @@ export class SynchronizationProvider {
     });
 
     for (const careerObjective of allCareerObjectivePnc) {
-      if (careerObjective.OfflineAction) {
+      if (careerObjective.offlineAction) {
         isAtLeastOneCareerObjectiveCreatedOrModified = true;
       }
     }
 
     for (const waypoint of allWaypointPnc) {
-      if (waypoint.OfflineAction) {
+      if (waypoint.offlineAction) {
         isAtLeastOneCareerObjectiveCreatedOrModified = true;
       }
     }
@@ -198,32 +200,32 @@ export class SynchronizationProvider {
    * Lance le processus de synchronisation des données modifiées offline
    */
   synchronizeOfflineData() {
-    const pncSynchroList = this.getPncSynchroList();
+    //   const pncSynchroList = this.getPncSynchroList();
 
-    if (pncSynchroList.length > 0) {
-      this.synchroStatusChange.emit(true);
+    //   if (pncSynchroList.length > 0) {
+    //     this.synchroStatusChange.emit(true);
 
-      let promiseCount;
-      let resolvedPromiseCount = 0;
-      Observable.create(
-        observer => {
-          promiseCount = pncSynchroList.length;
-          for (const pncSynchro of pncSynchroList) {
-            this.pncSynchroProvider.synchronize(pncSynchro).then(pncSynchroResponse => {
-              this.updateLocalStorageFromPncSynchroResponse(pncSynchroResponse);
-              resolvedPromiseCount++;
-              observer.next(true);
-            }, error => {
-              resolvedPromiseCount++;
-              observer.next(true);
-            });
-          }
-        }).subscribe(promiseResolved => {
-          if (resolvedPromiseCount >= promiseCount) {
-            this.synchroStatusChange.emit(false);
-          }
-        });
-    }
+    //     let promiseCount;
+    //     let resolvedPromiseCount = 0;
+    //     Observable.create(
+    //       observer => {
+    //         promiseCount = pncSynchroList.length;
+    //         for (const pncSynchro of pncSynchroList) {
+    //           this.pncSynchroProvider.synchronize(pncSynchro).then(pncSynchroResponse => {
+    //             this.updateLocalStorageFromPncSynchroResponse(pncSynchroResponse);
+    //             resolvedPromiseCount++;
+    //             observer.next(true);
+    //           }, error => {
+    //             resolvedPromiseCount++;
+    //             observer.next(true);
+    //           });
+    //         }
+    //       }).subscribe(promiseResolved => {
+    //         if (resolvedPromiseCount >= promiseCount) {
+    //           this.synchroStatusChange.emit(false);
+    //         }
+    //       });
+    //   }
   }
 
   /**
