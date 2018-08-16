@@ -23,7 +23,7 @@ import { WaypointCreatePage } from './../waypoint-create/waypoint-create';
 })
 export class CareerObjectiveCreatePage {
 
-    datepickerDateMax = AppConstant.datepickerDateMax;
+    datepickerMaxDate = AppConstant.datepickerMaxDate;
 
     creationForm: FormGroup;
     careerObjective: CareerObjective;
