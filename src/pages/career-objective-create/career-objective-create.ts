@@ -1,3 +1,4 @@
+import { AppConstant } from './../../app/app.constant';
 import { WaypointStatus } from './../../models/waypointStatus';
 import { SecurityProvider } from './../../providers/security/security';
 import { WaypointProvider } from './../../providers/waypoint/waypoint';
@@ -21,6 +22,8 @@ import { WaypointCreatePage } from './../waypoint-create/waypoint-create';
     templateUrl: 'career-objective-create.html',
 })
 export class CareerObjectiveCreatePage {
+
+    datepickerDateMax = AppConstant.datepickerDateMax;
 
     creationForm: FormGroup;
     careerObjective: CareerObjective;

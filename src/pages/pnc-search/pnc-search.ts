@@ -1,3 +1,4 @@
+import { AppConstant } from './../../app/app.constant';
 import { Config } from './../../configuration/environment-variables/config';
 import { PncHomePage } from './../pnc-home/pnc-home';
 import { PncFilter } from './../../models/pncFilter';
@@ -76,7 +77,7 @@ export class PncSearchPage implements OnInit {
 
     ionViewDidEnter() {
         this.totalPncs = 0;
-        this.pageSize = this.config.pageSize;
+        this.pageSize = AppConstant.pageSize;
     }
 
     /**
@@ -85,7 +86,7 @@ export class PncSearchPage implements OnInit {
     initFilter() {
         this.pncFilter = new PncFilter();
         this.showFilter = true;
-        this.pageSize = this.config.pageSize;
+        this.pageSize = AppConstant.pageSize;
         this.itemOffset = 0;
         this.specialityList = Object.keys(Speciality)
             .map(k => Speciality[k])
