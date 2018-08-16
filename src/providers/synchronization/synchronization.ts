@@ -79,7 +79,6 @@ export class SynchronizationProvider {
 
   isOfflinePncModified(matricule: string): boolean {
 
-    let isAtLeastOneCareerObjectiveCreatedOrModified = false;
     let allCareerObjectivePnc = this.storageService.findAll(Entity.CAREER_OBJECTIVE);
     let allWaypointPnc = this.storageService.findAll(Entity.WAYPOINT);
 
@@ -93,17 +92,17 @@ export class SynchronizationProvider {
 
     for (const careerObjective of allCareerObjectivePnc) {
       if (careerObjective.offlineAction) {
-        isAtLeastOneCareerObjectiveCreatedOrModified = true;
+        return true;
       }
     }
 
     for (const waypoint of allWaypointPnc) {
       if (waypoint.offlineAction) {
-        isAtLeastOneCareerObjectiveCreatedOrModified = true;
+        return true;
       }
     }
 
-    return isAtLeastOneCareerObjectiveCreatedOrModified;
+    return false;
   }
 
   /**
