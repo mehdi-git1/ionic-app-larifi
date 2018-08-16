@@ -1,0 +1,7 @@
+<button ion-button icon-only (click)="goToParameterPage()">
+  <ion-icon name="settings"></ion-icon>
+</button>
+<!-- indicateur de connectivité -->
+<div [ngClass]="{ 'offline' : !connected }" (click)="connectionToggle()">
+    <div class="synchro-in-progress" *ngIf="synchroInProgress"></div>
+</div>

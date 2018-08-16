@@ -10,7 +10,7 @@ import { FlightCardComponent } from './flight-card/flight-card';
 import { TranslateModule } from '@ngx-translate/core';
 import { SharedModule } from '../shared/shared.module';
 import { EdossierSpinnerComponent } from './edossier-spinner/edossier-spinner';
-import { NavBarCustomComponent } from './navbar-custom/navbar-custom';
+import { NavBarCustomComponent } from './edossier-indicators/edossier-indicators';
 
 @NgModule({
   imports: [
