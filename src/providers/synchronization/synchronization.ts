@@ -1,5 +1,5 @@
-import { Waypoint } from './../../models/waypoint';
-import { CareerObjective } from './../../models/careerObjective';
+import { ToastProvider } from './../toast/toast';
+import { TranslateService } from '@ngx-translate/core';
 import { SessionService } from './../../services/session.service';
 import { CrewMemberTransformerProvider } from './../crewMember/crewMember-transformer';
 import { LegTransformerProvider } from './../leg/leg-transformer';
@@ -39,7 +39,9 @@ export class SynchronizationProvider {
     public securityProvider: SecurityProvider,
     private summarySheetProvider: SummarySheetProvider,
     private legProvider: LegProvider,
-    private sessionService: SessionService) {
+    private sessionService: SessionService,
+    private toastProvider: ToastProvider,
+    private translateService: TranslateService) {
   }
 
 
@@ -63,7 +65,7 @@ export class SynchronizationProvider {
         });
       });
     } else {
-      reject(matricule);
+      this.toastProvider.error(this.translateService.instant('GLOBAL.MESSAGES.APPLICATION_SYNCHRO_WAITED'));
     }
   }
 
