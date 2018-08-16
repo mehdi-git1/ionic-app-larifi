@@ -1,6 +1,6 @@
 page-career-objective-create {
 
-    .titleNav {
+    .nav-title {
         flex: 1;
         display: flex;
         align-items: center;
@@ -21,73 +21,90 @@ page-career-objective-create {
         }
     }
 
+    form {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        padding-top: $navbar-height;
 
-    h3 {
-        display: inline-block;
-    }
-
-
-    ion-textarea {
-        min-height: 210px !important;
-        padding: 0 !important;
-        margin: 0 !important;
-
-        textarea {
-            min-height: 190px !important;
-            padding: 5px !important;
-        }
-    }
-
-    .ion-textarea-read-only {
-        background-color: color($colors, grey90);
-    }
-
-    .waypoint-list {
-        height: 94%;
-        margin-top: 15px;
-
-        .add-waypoint {
-            background: color($colors, green60);
-            width: calc(100% - 20px);
-            height: 50px;
-            margin: 0 10px;
-            box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12) !important;
-
+        .objective-container {
             display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
+            flex: 1;
 
-            ion-icon {
-                color: color($colors, grey90);
-                font-size: 2em;
-                font-weight: bold;
-                margin-right: 10px;
+            .objective-form {
+                flex: 3;
+                ion-textarea {
+                    min-height: 210px !important;
+                    padding: 0 !important;
+                    margin: 0 !important;
+
+                    textarea {
+                        min-height: 190px !important;
+                        padding: 5px !important;
+                    }
+                }
+
+                .ion-textarea-read-only {
+                    background-color: color($colors, grey90);
+                }
             }
-        }
 
-        .waypoint {
-            display: flex;
+            .waypoint-list {
+                flex: 1;
+                h3 {
+                    text-align: center !important;
+                }
+                .add-waypoint {
+                    background: color($colors, green60);
+                    width: calc(100% - 20px);
+                    height: 50px;
+                    margin: 0 10px;
+                    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12) !important;
 
-            ion-card-content {
-                width: 100%;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
 
-                .header {
                     ion-icon {
-                        color: color($colors, grey50);
-                    }
-
-                    .value {
-                        display: block;
+                        color: color($colors, grey90);
+                        font-size: 2em;
+                        font-weight: bold;
+                        margin-right: 10px;
                     }
                 }
 
-                h4 {
-                    text-overflow: ellipsis;
-                    white-space: nowrap;
-                    overflow: hidden;
+                .waypoint {
+                    display: flex;
+
+                    ion-card-content {
+                        width: 100%;
+
+                        .header {
+                            ion-icon {
+                                color: color($colors, grey50);
+                            }
+
+                            .value {
+                                display: block;
+                            }
+                        }
+
+                        h4 {
+                            text-overflow: ellipsis;
+                            white-space: nowrap;
+                            overflow: hidden;
+                        }
+                    }
                 }
             }
+
+            .button-bar {
+                padding-top: 16px;
+
+            }
         }
+
+
     }
 }
