@@ -10,6 +10,7 @@ import { SettingsPage } from '../../pages/settings/settings';
 })
 export class NavBarCustomComponent {
 
+  @Input() showSettingsIcon: boolean;
   connected: boolean;
   synchroInProgress: boolean;
 
@@ -31,7 +32,7 @@ export class NavBarCustomComponent {
   /**
    * Dirige vers la page de paramètrage
    */
-  goToWaypointCreate() {
+  goToSettingsPage() {
     this.navCtrl.push(SettingsPage);
   }
 

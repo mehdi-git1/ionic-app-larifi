@@ -1,35 +1,45 @@
 EDossier-indicators {
-    div {
+
+    display: inline-flex;
+
+    .settings-button {
+        height: 1.6em;
+        margin: 0;
+        font-size: 1.9rem;
+    }
+    .offline-indicator div {
         width: 30px;
         height: 30px;
         border-radius: 100%;
         margin-right: 10px;
     }
 
-    .offline {
-        background: color($colors, orange60);
-    }
-
-    :not(.offline) {
-        background: color($colors, green60);
-    }
-
-    .synchro-in-progress {
-        border: 3px solid color($colors, grey90);
-        border-top: 3px solid color($colors, primary);
-
-        border-radius: 50%;
-        width: 30px;
-        height: 30px;
-        animation: spin 2s linear infinite;
-    }
-
-    @keyframes spin {
-        0% {
-            transform: rotate(0deg);
+    .offline-indicator {
+        .offline {
+            background: color($colors, orange60);
         }
-        100% {
-            transform: rotate(360deg);
+
+        :not(.offline) {
+            background: color($colors, green60);
+        }
+
+        .synchro-in-progress {
+            border: 3px solid color($colors, grey90);
+            border-top: 3px solid color($colors, primary);
+
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 2s linear infinite;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
         }
     }
 }

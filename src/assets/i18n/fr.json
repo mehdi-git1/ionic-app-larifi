@@ -207,5 +207,8 @@
         "ROTATION_SAVED_OFFLINE_ERROR": "Un ou plusieurs PNC de la rotation {{ rotationNumber }} n'ont pas pu être synchronisés",
         "FLIGHT_SAVED_OFFLINE": "Les PNC du vol {{ flightNumber }} ont été synchronisés",
         "FLIGHT_SAVED_OFFLINE_ERROR": "Un ou plusieurs PNC du vol {{ flightNumber }} n'ont pas pu être synchronisés"
+    },
+    "SETTINGS": {
+        "TITLE": "Réglages"
     }
 }

@@ -1,10 +1,7 @@
 <ion-header>
     <ion-navbar>
-        <ion-title *ngIf="pnc?.speciality !== Speciality.CAD; else elseBlock">{{ 'PNC_HOME.TITLE' | translate }}</ion-title>
-        <ng-template #elseBlock>
-            <ion-title>{{ 'MANAGER_HOME.TITLE' | translate }}</ion-title>
-        </ng-template>
-        <edossier-indicators></edossier-indicators>
+        <ion-title>{{ 'PNC_HOME.TITLE' | translate }}</ion-title>
+        <edossier-indicators [showSettingsIcon]="true"></edossier-indicators>
     </ion-navbar>
 </ion-header>
 
