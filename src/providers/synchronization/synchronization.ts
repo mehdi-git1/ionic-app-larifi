@@ -1,3 +1,5 @@
+import { Waypoint } from './../../models/waypoint';
+import { CareerObjective } from './../../models/careerObjective';
 import { SessionService } from './../../services/session.service';
 import { CrewMemberTransformerProvider } from './../crewMember/crewMember-transformer';
 import { LegTransformerProvider } from './../leg/leg-transformer';
@@ -48,17 +50,56 @@ export class SynchronizationProvider {
    * @return une promesse résolue quand le EDossier est mis en cache
    */
   storeEDossierOffline(matricule: string): Promise<boolean> {
-    return new Promise((resolve, reject) => {
-      this.pncSynchroProvider.getPncSynchro(matricule).then(pncSynchro => {
-        this.summarySheetProvider.getSummarySheet(matricule).then(summarySheet => {
-          pncSynchro.summarySheet = summarySheet;
-          this.updateLocalStorageFromPncSynchroResponse(pncSynchro);
-          resolve(true);
+    if (!this.isOfflinePncModified(matricule)) {
+      return new Promise((resolve, reject) => {
+        this.pncSynchroProvider.getPncSynchro(matricule).then(pncSynchro => {
+          this.summarySheetProvider.getSummarySheet(matricule).then(summarySheet => {
+            pncSynchro.summarySheet = summarySheet;
+            this.updateLocalStorageFromPncSynchroResponse(pncSynchro);
+            resolve(true);
+          });
+        }, error => {
+          reject(matricule);
         });
-      }, error => {
-        reject(matricule);
       });
+    } else {
+      reject(matricule);
+    }
+  }
+
+  /**
+   * Determine si il y a eu du mouvement (creation, modification...) pour un pnc donné
+   * @param matricule le matricule du PNC
+   * @return  Vrai lorsqu'un objectif ou point d'étape a été crée ou modifié pour un pnc, sinon Faux
+   */
+
+  isOfflinePncModified(matricule: string): boolean {
+
+    let isAtLeastOneCareerObjectiveCreatedOrModified = false;
+    let allCareerObjectivePnc = this.storageService.findAll(Entity.CAREER_OBJECTIVE);
+    let allWaypointPnc = this.storageService.findAll(Entity.WAYPOINT);
+
+    allCareerObjectivePnc = allCareerObjectivePnc.filter(careerObjective => {
+      return careerObjective.pnc.matricule === matricule;
     });
+
+    allWaypointPnc = allWaypointPnc.filter(waypoint => {
+      return waypoint.pnc.matricule === matricule;
+    });
+
+    for (const careerObjective of allCareerObjectivePnc) {
+      if (careerObjective.OfflineAction) {
+        isAtLeastOneCareerObjectiveCreatedOrModified = true;
+      }
+    }
+
+    for (const waypoint of allWaypointPnc) {
+      if (waypoint.OfflineAction) {
+        isAtLeastOneCareerObjectiveCreatedOrModified = true;
+      }
+    }
+
+    return isAtLeastOneCareerObjectiveCreatedOrModified;
   }
 
   /**
