@@ -1,6 +1,4 @@
-import { RotationTransformerProvider } from './rotation-transformer';
 import { LegTransformerProvider } from './../leg/leg-transformer';
-import { OfflineProvider } from './../offline/offline';
 import { Config } from './../../configuration/environment-variables/config';
 import { Rotation } from './../../models/rotation';
 import { Leg } from './../../models/leg';
@@ -20,9 +18,7 @@ export class RotationProvider {
   constructor(private connectivityService: ConnectivityService,
     private onlineRotationProvider: OnlineRotationProvider,
     private offlineRotationProvider: OfflineRotationProvider,
-    private offlineProvider: OfflineProvider,
     private legTransformer: LegTransformerProvider,
-    private rotationTransformer: RotationTransformerProvider,
     private legProvider: LegProvider) {
   }
 
@@ -53,9 +49,8 @@ export class RotationProvider {
    * @param rotation objet online
    */
   refreshOfflineStorageDate(rotation: Rotation) {
-    this.offlineRotationProvider.getRotation(rotation.techId).then(offlineRotation => {
-      const offlineData = this.rotationTransformer.toRotation(offlineRotation);
-      this.offlineProvider.flagDataAvailableOffline(rotation, offlineData);
-    });
+    this.connectivityService.isConnected() ?
+      this.onlineRotationProvider.refreshOfflineStorageDate(rotation) : this.offlineRotationProvider.refreshOfflineStorageDate(rotation)
+      ;
   }
 }

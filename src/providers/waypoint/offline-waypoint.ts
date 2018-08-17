@@ -64,4 +64,13 @@ export class OfflineWaypointProvider {
   delete(id: number): Promise<Waypoint> {
     return this.storageService.deleteAsync(Entity.WAYPOINT, `${id}`);
   }
+
+  /**
+   *  Met à jour la date de mise en cache dans l'objet online
+   * @param waypoint objet online
+   */
+  refreshOfflineStorageDate(waypoint: Waypoint) {
+    // cette méthode ne fait rien en mode offline
+  }
+
 }

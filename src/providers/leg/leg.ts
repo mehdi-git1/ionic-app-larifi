@@ -1,6 +1,3 @@
-import { LegTransformerProvider } from './leg-transformer';
-import { OfflineProvider } from './../offline/offline';
-import { OfflineRotationProvider } from './../rotation/offline-rotation';
 import { OnlineLegProvider } from './online-leg';
 import { OfflineLegProvider } from './offline-leg';
 import { Leg } from './../../models/leg';
@@ -16,8 +13,7 @@ export class LegProvider {
 
   constructor(private connectivityService: ConnectivityService,
     private onlineLegProvider: OnlineLegProvider,
-    private legTransformer: LegTransformerProvider,
-    private offlineLegProvider: OfflineLegProvider, private offlineRotationProvider: OfflineRotationProvider, private offlineProvider: OfflineProvider) {
+    private offlineLegProvider: OfflineLegProvider) {
   }
 
   /**
@@ -47,9 +43,7 @@ export class LegProvider {
    * @param leg objet online
    */
   refreshOfflineStorageDate(leg: Leg) {
-    this.offlineLegProvider.getLeg(leg.techId).then(offlineLeg => {
-      const offlineData = this.legTransformer.toLeg(offlineLeg);
-      this.offlineProvider.flagDataAvailableOffline(leg, offlineData);
-    });
+    this.connectivityService.isConnected() ?
+      this.onlineLegProvider.refreshOfflineStorageDate(leg) : this.offlineLegProvider.refreshOfflineStorageDate(leg);
   }
 }

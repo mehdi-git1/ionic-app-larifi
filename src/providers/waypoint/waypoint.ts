@@ -92,9 +92,8 @@ export class WaypointProvider {
    * @param waypoint objet online
    */
   refreshOfflineStorageDate(waypoint: Waypoint) {
-    this.offlineWaypointProvider.getWaypoint(waypoint.techId).then(offlineWaypoint => {
-      const offlineData = this.waypointTransformer.toWaypoint(offlineWaypoint);
-      this.offlineProvider.flagDataAvailableOffline(waypoint, offlineData);
-    });
+    this.connectivityService.isConnected() ?
+      this.onlineWaypointProvider.refreshOfflineStorageDate(waypoint) : this.offlineWaypointProvider.refreshOfflineStorageDate(waypoint)
+      ;
   }
 }

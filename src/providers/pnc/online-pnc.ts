@@ -1,3 +1,5 @@
+import { PncTransformerProvider } from './pnc-transformer';
+import { OfflineProvider } from './../offline/offline';
 import { PagedPnc } from './../../models/pagedPnc';
 import { PncFilter } from './../../models/pncFilter';
 import { Rotation } from './../../models/rotation';
@@ -13,7 +15,9 @@ export class OnlinePncProvider {
 
   constructor(public restService: RestService,
     public config: Config,
-    private offlinePncProvider: OfflinePncProvider) {
+    private offlinePncProvider: OfflinePncProvider,
+    private offlineProvider: OfflineProvider,
+    private pncTransformer: PncTransformerProvider) {
     this.pncUrl = `${config.backEndUrl}/pncs`;
   }
 
@@ -56,4 +60,14 @@ export class OnlinePncProvider {
     );
   }
 
+  /**
+   *  Met à jour la date de mise en cache dans l'objet online
+   * @param pnc objet online
+   */
+  refreshOfflineStorageDate(pnc: Pnc): void {
+    this.offlinePncProvider.getPnc(pnc.matricule).then(offlinePnc => {
+      const offlineData = this.pncTransformer.toPnc(offlinePnc);
+      this.offlineProvider.flagDataAvailableOffline(pnc, offlinePnc);
+    });
+  }
 }

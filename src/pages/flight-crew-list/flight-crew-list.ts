@@ -47,11 +47,6 @@ export class FlightCrewListPage {
                         if (crew.pnc.matricule === this.sessionService.authenticatedUser.matricule) {
                             this.sessionService.appContext.onBoardRedactorFonction = crew.onBoardFonction;
                         }
-                        this.pncProvider.refreshOffLineDateOnPnc(this.pncTransformer.toPnc(crew.pnc)).then(foundPnc => {
-                            crew.pnc = foundPnc;
-                        }, error => {
-                            this.toastProvider.info(this.translate.instant('FLIGHT_CREW_LIST.ERROR', { 'flightNumber': this.leg.number }));
-                        });
                     }
                 });
             }, error => { this.flightCrewList = []; });

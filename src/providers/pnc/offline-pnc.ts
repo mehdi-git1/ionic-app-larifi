@@ -4,11 +4,11 @@ import { StorageService } from './../../services/storage.service';
 import { Pnc } from './../../models/pnc';
 import { Injectable } from '@angular/core';
 import { EDossierPncObject } from '../../models/eDossierPncObject';
-
+import { PncTransformerProvider } from './pnc-transformer';
 @Injectable()
 export class OfflinePncProvider {
 
-  constructor(private storageService: StorageService) {
+  constructor(private storageService: StorageService, private pncTransformer: PncTransformerProvider) {
   }
 
   /**
@@ -26,7 +26,9 @@ export class OfflinePncProvider {
    * @return une promesse contenant le PNC trouvé
    */
   getPnc(matricule: string): Promise<Pnc> {
-    return this.storageService.findOneAsync(Entity.PNC, matricule);
+    return this.storageService.findOneAsync(Entity.PNC, matricule).then(offlinePnc => {
+      return this.pncTransformer.toPnc(offlinePnc);
+    });
   }
 
   /**
@@ -75,4 +77,11 @@ export class OfflinePncProvider {
     });
   }
 
+  /**
+ *  Met à jour la date de mise en cache dans l'objet online
+ * @param pnc objet online
+ */
+  refreshOfflineStorageDate(pnc: Pnc): void {
+    // cette méthode ne fait rien en mode offline
+  }
 }

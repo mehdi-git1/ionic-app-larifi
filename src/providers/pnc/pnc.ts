@@ -62,9 +62,6 @@ export class PncProvider {
       return new Promise((resolve, reject) => {
         this.onlinePncProvider.getUpcomingRotations(matricule).then(onlineRotations => {
           const onlineData = this.rotationTransformer.toRotations(onlineRotations);
-          for (const onlineRotation of onlineRotations) {
-            this.rotationProvider.refreshOfflineStorageDate(onlineRotation);
-          }
           resolve(onlineData);
         });
       });
@@ -81,34 +78,18 @@ export class PncProvider {
   getLastPerformedRotation(matricule: string): Promise<Rotation> {
     if (this.connectivityService.isConnected()) {
       return new Promise((resolve, reject) => {
-        this.onlinePncProvider.getLastPerformedRotation(matricule).then(onlineRotations => {
-          if (onlineRotations) {
-            const onlineData = this.rotationTransformer.toRotation(onlineRotations);
-            this.rotationProvider.refreshOfflineStorageDate(onlineData);
+        this.onlinePncProvider.getLastPerformedRotation(matricule).then(onlineRotation => {
+          if (onlineRotation) {
+            const onlineData = this.rotationTransformer.toRotation(onlineRotation);
             resolve(onlineData);
           } else {
-            resolve(onlineRotations);
+            resolve(onlineRotation);
           }
         });
       });
     } else {
       return this.offlinePncProvider.getLastPerformedRotation(matricule);
     }
-  }
-
-  /**
-  * Alimente le PNC avec sa date de fraicheur en cache
-  * @param onlinePnc PNC récupéré du back
-  * @return pnc en paramètre alimenté avec sa fraicheur dans le cache
-  */
-  refreshOffLineDateOnPnc(onlinePnc: Pnc): Promise<Pnc> {
-    return new Promise((resolve, reject) => {
-      this.offlinePncProvider.getPnc(onlinePnc.matricule).then(offlinePnc => {
-        const offlineData = this.pncTransformer.toPnc(offlinePnc);
-        this.offlineProvider.flagDataAvailableOffline(onlinePnc, offlineData);
-        resolve(onlinePnc);
-      });
-    });
   }
 
   /**
@@ -119,18 +100,11 @@ export class PncProvider {
   getFilteredPncs(pncFilter: PncFilter): Promise<PagedPnc> {
     if (this.connectivityService.isConnected()) {
       return this.onlinePncProvider.getFilteredPncs(pncFilter).then(responsePnc => {
-
-        const promises: Promise<Pnc>[] = new Array();
-
-        responsePnc.content.forEach(onlinePnc => {
-          const transformedPnc = this.pncTransformer.toPnc(onlinePnc);
-          promises.push(this.refreshOffLineDateOnPnc(transformedPnc));
+        const transformedContent = responsePnc.content.map(onlinePnc => {
+          return this.pncTransformer.toPnc(onlinePnc);
         });
-        return Promise.all(promises).then(values => {
-          responsePnc.content = values;
-          return responsePnc;
-        });
-
+        responsePnc.content = transformedContent;
+        return responsePnc;
       });
     } else {
       return this.offlinePncProvider.getPncs().then(response => {
@@ -168,10 +142,8 @@ export class PncProvider {
    * @param pnc objet online
    */
   refreshOfflineStorageDate(pnc: Pnc): void {
-    this.offlinePncProvider.getPnc(pnc.matricule).then(offlinePnc => {
-      const offlineData = this.pncTransformer.toPnc(offlinePnc);
-      this.offlineProvider.flagDataAvailableOffline(pnc, offlineData);
-    });
+    this.connectivityService.isConnected() ?
+      this.onlinePncProvider.refreshOfflineStorageDate(pnc) : this.offlinePncProvider.refreshOfflineStorageDate(pnc);
   }
 }
 

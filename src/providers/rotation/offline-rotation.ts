@@ -35,4 +35,12 @@ export class OfflineRotationProvider {
     getRotation(rotationId: number): Promise<Rotation> {
         return this.storageService.findOneAsync(Entity.ROTATION, `${rotationId}`);
     }
+
+    /**
+     * Met à jour la date de mise en cache dans l'objet online
+     * @param rotation objet online
+     */
+    refreshOfflineStorageDate(rotation: Rotation) {
+        // cette méthode ne fait rien en mode offline
+    }
 }

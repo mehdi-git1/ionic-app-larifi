@@ -1,3 +1,5 @@
+import { CareerObjectiveTransformerProvider } from './career-objective-transformer';
+import { OfflineProvider } from './../offline/offline';
 import { StorageService } from './../../services/storage.service';
 import { Entity } from './../../models/entity';
 import { CareerObjective } from './../../models/careerObjective';
@@ -14,6 +16,8 @@ export class OnlineCareerObjectiveProvider {
   constructor(public restService: RestService,
     private config: Config,
     private offlineCareerObjectiveProvider: OfflineCareerObjectiveProvider,
+    private offlineProvider: OfflineProvider,
+    private careerObjectiveTransformer: CareerObjectiveTransformerProvider,
     private storageService: StorageService) {
     this.careerObjectiveUrl = `${config.backEndUrl}/career_objectives`;
   }
@@ -62,5 +66,16 @@ export class OnlineCareerObjectiveProvider {
  */
   createInstructorRequest(id: number): Promise<void> {
     return this.restService.post(`${this.careerObjectiveUrl}/${id}/instructor_request`, null);
+  }
+
+  /**
+   * Met à jour la date de mise en cache dans l'objet online
+   * @param careerObjective objet online
+   */
+  refreshOfflineStorageDate(careerObjective: CareerObjective) {
+    this.offlineCareerObjectiveProvider.getCareerObjective(careerObjective.techId).then(offlineCareerObjective => {
+      const offlineData = this.careerObjectiveTransformer.toCareerObjective(offlineCareerObjective);
+      this.offlineProvider.flagDataAvailableOffline(careerObjective, offlineData);
+    });
   }
 }

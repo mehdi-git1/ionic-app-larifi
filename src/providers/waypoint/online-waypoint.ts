@@ -1,3 +1,4 @@
+import { WaypointTransformerProvider } from './waypoint-transformer';
 import { StorageService } from './../../services/storage.service';
 import { Config } from './../../configuration/environment-variables/config';
 import { OfflineWaypointProvider } from './offline-waypoint';
@@ -6,6 +7,7 @@ import { Injectable } from '@angular/core';
 import { RestService } from '../../services/rest.base.service';
 import { Waypoint } from '../../models/waypoint';
 import { Entity } from '../../models/entity';
+import { OfflineProvider } from '../offline/offline';
 
 @Injectable()
 export class OnlineWaypointProvider {
@@ -15,6 +17,8 @@ export class OnlineWaypointProvider {
     private connectivityService: ConnectivityService,
     private offlineWaypointProvider: OfflineWaypointProvider,
     private storageService: StorageService,
+    private waypointTransformer: WaypointTransformerProvider,
+    private offlineProvider: OfflineProvider,
     private config: Config) {
     this.waypointUrl = `${config.backEndUrl}/waypoints`;
   }
@@ -56,6 +60,17 @@ export class OnlineWaypointProvider {
     this.storageService.delete(Entity.WAYPOINT, `${id}`);
     this.storageService.persistOfflineMap();
     return this.restService.delete(`${this.waypointUrl}/${id}`);
+  }
+
+  /**
+   *  Met à jour la date de mise en cache dans l'objet online
+   * @param waypoint objet online
+   */
+  refreshOfflineStorageDate(waypoint: Waypoint) {
+    this.offlineWaypointProvider.getWaypoint(waypoint.techId).then(offlineWaypoint => {
+      const offlineData = this.waypointTransformer.toWaypoint(offlineWaypoint);
+      this.offlineProvider.flagDataAvailableOffline(waypoint, offlineData);
+    });
   }
 
 }

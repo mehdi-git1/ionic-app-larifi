@@ -1,7 +1,6 @@
 import { SessionService } from './../../services/session.service';
 import { DatePipe } from '@angular/common';
 import { CareerObjectiveTransformerProvider } from './career-objective-transformer';
-import { OfflineProvider } from './../offline/offline';
 import { OnlineCareerObjectiveProvider } from './online-career-objective';
 import { ConnectivityService } from './../../services/connectivity.service';
 import { OfflineCareerObjectiveProvider } from './../career-objective/offline-career-objective';
@@ -16,7 +15,6 @@ export class CareerObjectiveProvider {
   constructor(
     private onlineCareerObjectiveProvider: OnlineCareerObjectiveProvider,
     private offlineCareerObjectiveProvider: OfflineCareerObjectiveProvider,
-    private offlineProvider: OfflineProvider,
     private careerObjectiveTransformer: CareerObjectiveTransformerProvider,
     private connectivityService: ConnectivityService,
     private sessionService: SessionService,
@@ -91,14 +89,14 @@ export class CareerObjectiveProvider {
   createInstructorRequest(id: number): Promise<void> {
     return this.onlineCareerObjectiveProvider.createInstructorRequest(id);
   }
+
   /**
    * Met à jour la date de mise en cache dans l'objet online
    * @param careerObjective objet online
    */
   refreshOfflineStorageDate(careerObjective: CareerObjective) {
-    this.offlineCareerObjectiveProvider.getCareerObjective(careerObjective.techId).then(offlineCareerObjective => {
-      const offlineData = this.careerObjectiveTransformer.toCareerObjective(offlineCareerObjective);
-      this.offlineProvider.flagDataAvailableOffline(careerObjective, offlineData);
-    });
+    this.connectivityService.isConnected() ?
+      this.onlineCareerObjectiveProvider.refreshOfflineStorageDate(careerObjective) : this.offlineCareerObjectiveProvider.refreshOfflineStorageDate(careerObjective)
+      ;
   }
 }
