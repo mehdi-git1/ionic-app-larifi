@@ -78,24 +78,24 @@ export class SynchronizationProvider {
    */
   isPncModifiedOffline(matricule: string): boolean {
 
-    let allCareerObjectivePnc = this.storageService.findAll(Entity.CAREER_OBJECTIVE);
-    let allWaypointPnc = this.storageService.findAll(Entity.WAYPOINT);
+    const allCareerObjectives = this.storageService.findAll(Entity.CAREER_OBJECTIVE);
+    const allWaypoints = this.storageService.findAll(Entity.WAYPOINT);
 
-    allCareerObjectivePnc = allCareerObjectivePnc.filter(careerObjective => {
+    const pncCareerObjectives = allCareerObjectives.filter(careerObjective => {
       return careerObjective.pnc.matricule === matricule;
     });
 
-    allWaypointPnc = allWaypointPnc.filter(waypoint => {
+    const pncWaypoints = allWaypoints.filter(waypoint => {
       return waypoint.pnc.matricule === matricule;
     });
 
-    for (const careerObjective of allCareerObjectivePnc) {
+    for (const careerObjective of pncCareerObjectives) {
       if (careerObjective.offlineAction) {
         return true;
       }
     }
 
-    for (const waypoint of allWaypointPnc) {
+    for (const waypoint of pncWaypoints) {
       if (waypoint.offlineAction) {
         return true;
       }
