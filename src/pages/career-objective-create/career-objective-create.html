@@ -19,11 +19,6 @@
 
     <edossier-spinner *ngIf="!careerObjectiveLoadingIsOver(); else pageBlock"></edossier-spinner>
     <ng-template #pageBlock>
-        <!-- Barre de statut -->
-        <!-- <ion-badge float-right class="{{careerObjective.careerObjectiveStatus.toLowerCase()}}" *ngIf="careerObjective.careerObjectiveStatus">
-            {{ 'GLOBAL.CAREER_OBJECTIVE_STATUS.'+careerObjective.careerObjectiveStatus | translate }}
-        </ion-badge> -->
-
         <div class="objective-container">
             <ion-content class="objective-form">
                 <ion-grid>
