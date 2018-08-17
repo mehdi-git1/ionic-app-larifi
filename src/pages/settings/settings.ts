@@ -62,9 +62,13 @@ export class SettingsPage {
 * Présente une alerte pour confirmer la suppression du brouillon
 */
   confirmDeleteCareerObjectiveDraft() {
+    const message = this.synchronizationProvider.isPncModifiedOffline(this.sessionService.authenticatedUser.matricule) ?
+      this.translateService.instant('SETTINGS.CONFIRM_INIT_CACHE.MESSAGE_UNSYNCHRONIZED_DATA') :
+      this.translateService.instant('SETTINGS.CONFIRM_INIT_CACHE.MESSAGE');
+
     this.alertCtrl.create({
       title: this.translateService.instant('SETTINGS.CONFIRM_INIT_CACHE.TITLE'),
-      message: this.translateService.instant('SETTINGS.CONFIRM_INIT_CACHE.MESSAGE'),
+      message: message,
       buttons: [
         {
           text: this.translateService.instant('SETTINGS.CONFIRM_INIT_CACHE.CANCEL'),
