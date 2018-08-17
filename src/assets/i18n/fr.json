@@ -74,7 +74,7 @@
             "CONFIRM": "Confirmer"
         },
         "CONFIRM_DRAFT_DELETE": {
-            "TITLE": "Suppression du proposition",
+            "TITLE": "Suppression de la proposition",
             "MESSAGE": "Confirmez vous la suppression de cette proposition ?",
             "CANCEL": "Annuler",
             "CONFIRM": "Supprimer"
