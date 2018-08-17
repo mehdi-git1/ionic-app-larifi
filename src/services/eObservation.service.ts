@@ -51,14 +51,14 @@ export class EObservationService {
         'PNCObserve.matricule': eObservation.observedPnc.matricule,
         'PNCObserve.nom': eObservation.observedPnc.lastName,
         'PNCObserve.prenom': eObservation.observedPnc.firstName,
-        'date.vol1': eObservation.firstRotationLeg.departureDate,
-        'date.vol2': eObservation.lastRotationLeg.departureDate,
-        'escaleArrivee.vol1': eObservation.firstRotationLeg.arrivalStation,
-        'escaleArrivee.vol2': eObservation.lastRotationLeg.arrivalStation,
-        'escaleDepart.vol1': eObservation.firstRotationLeg.departureStation,
-        'escaleDepart.vol2': eObservation.lastRotationLeg.departureStation,
-        'flightNumber.vol1': eObservation.firstRotationLeg.number,
-        'flightNumber.vol2': eObservation.lastRotationLeg.number,
+        'date.vol1': eObservation.rotationFirstLeg.departureDate,
+        'date.vol2': eObservation.rotationLastLeg.departureDate,
+        'escaleArrivee.vol1': eObservation.rotationFirstLeg.arrivalStation,
+        'escaleArrivee.vol2': eObservation.rotationLastLeg.arrivalStation,
+        'escaleDepart.vol1': eObservation.rotationFirstLeg.departureStation,
+        'escaleDepart.vol2': eObservation.rotationLastLeg.departureStation,
+        'flightNumber.vol1': eObservation.rotationFirstLeg.number,
+        'flightNumber.vol2': eObservation.rotationLastLeg.number,
         'flightinfos.pairing.date': eObservation.rotation.departureDate,
         'flightinfos.pairing.name': eObservation.rotation.number,
         'remplissage.vol1': '',
@@ -67,10 +67,10 @@ export class EObservationService {
         'stakeholdersinfos.2.2': eObservation.redactor.firstName,
         'stakeholdersinfos.2.3': eObservation.redactor.matricule,
         'stakeholdersinfos.2.4': this.sessionService.appContext.onBoardRedactorFonction,
-        'typeAvion.vol1': eObservation.firstRotationLeg.aircraftType,
-        'typeAvion.vol2': eObservation.lastRotationLeg.aircraftType,
-        'version.vol1': eObservation.firstRotationLeg.operatingVersion,
-        'version.vol2': eObservation.lastRotationLeg.operatingVersion
+        'typeAvion.vol1': eObservation.rotationFirstLeg.aircraftType,
+        'typeAvion.vol2': eObservation.rotationLastLeg.aircraftType,
+        'version.vol1': eObservation.rotationFirstLeg.operatingVersion,
+        'version.vol2': eObservation.rotationLastLeg.operatingVersion
       }
     };
     console.log(JSON.stringify(param));
