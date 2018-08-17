@@ -1,6 +1,5 @@
 page-career-objective-create {
 
-
     form {
         display: flex;
         flex-direction: column;
@@ -78,13 +77,11 @@ page-career-objective-create {
                     }
                 }
             }
-
-            .button-bar {
-                padding-top: 16px;
-                background-color: color($colors, grey90); // necessaire pour ipad
-            }
         }
-
-
+        .button-bar {
+            flex: 0;
+            padding-top: 16px;
+            background-color: color($colors, grey90); // necessaire pour ipad
+        }
     }
 }
