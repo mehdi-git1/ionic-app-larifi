@@ -7,7 +7,7 @@ page-pnc-home {
     .pnc-info-panel {
         display: flex;
         img {
-            width: 100px;
+            width: 120px;
             border-radius: 100%;
         }
 
@@ -37,27 +37,24 @@ page-pnc-home {
         }
     }
 
-    .go-to-edossier {
-        margin-right: 10px;
-        display: flex;
-
-        button {
-            margin-top: 43px;
-        }
-
-        .item-block {
-            width: auto;
-            background-color: transparent;
-        }
-    }
-
     #nav-tile-grid {
         flex: 1;
-        button {
-            height: inherit;
-            font-size: 2.5vw;
-            width: 100%;
-            height: 100%;
+
+        .button-parent {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            right: 0;
+            left: 0;
+            padding: 10px;
+
+            button {
+                height: inherit;
+                font-size: 2.5vw;
+                width: 100%;
+                height: 100%;
+                border-radius: 10px;
+            }
         }
 
         .development-program {
@@ -65,12 +62,4 @@ page-pnc-home {
         }
     }
 
-    .parentBtn {
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        right: 0;
-        left: 0;
-        padding: 10px;
-    }
 }

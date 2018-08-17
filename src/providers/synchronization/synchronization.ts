@@ -1,3 +1,9 @@
+import { ToastProvider } from './../toast/toast';
+import { TranslateService } from '@ngx-translate/core';
+import { SessionService } from './../../services/session.service';
+import { CrewMemberTransformerProvider } from './../crewMember/crewMember-transformer';
+import { LegTransformerProvider } from './../leg/leg-transformer';
+import { RotationTransformerProvider } from './../rotation/rotation-transformer';
 import { SummarySheet } from './../../models/summarySheet';
 import { SummarySheetProvider } from './../summary-sheet/summary-sheet';
 import { PncTransformerProvider } from './../pnc/pnc-transformer';
@@ -13,7 +19,9 @@ import { Entity } from '../../models/entity';
 import { Pnc } from '../../models/pnc';
 import { CareerObjective } from '../../models/careerObjective';
 import { Waypoint } from '../../models/waypoint';
-
+import { Rotation } from '../../models/rotation';
+import { SecurityProvider } from './../../providers/security/security';
+import { LegProvider } from './../../providers/leg/leg';
 @Injectable()
 export class SynchronizationProvider {
 
@@ -25,7 +33,15 @@ export class SynchronizationProvider {
     private waypointTransformer: WaypointTransformerProvider,
     private pncTransformer: PncTransformerProvider,
     private pncSynchroProvider: PncSynchroProvider,
-    private summarySheetProvider: SummarySheetProvider) {
+    private rotationTransformerProvider: RotationTransformerProvider,
+    private legTransformerProvider: LegTransformerProvider,
+    private crewMemberTransformerProvider: CrewMemberTransformerProvider,
+    public securityProvider: SecurityProvider,
+    private summarySheetProvider: SummarySheetProvider,
+    private legProvider: LegProvider,
+    private sessionService: SessionService,
+    private toastProvider: ToastProvider,
+    private translateService: TranslateService) {
   }
 
 
@@ -36,17 +52,56 @@ export class SynchronizationProvider {
    * @return une promesse résolue quand le EDossier est mis en cache
    */
   storeEDossierOffline(matricule: string): Promise<boolean> {
+
     return new Promise((resolve, reject) => {
-      this.pncSynchroProvider.getPncSynchro(matricule).then(pncSynchro => {
-        this.summarySheetProvider.getSummarySheet(matricule).then(summarySheet => {
-          pncSynchro.summarySheet = summarySheet;
-          this.updateLocalStorageFromPncSynchroResponse(pncSynchro);
-          resolve(true);
+      if (!this.isPncModifiedOffline(matricule)) {
+        this.pncSynchroProvider.getPncSynchro(matricule).then(pncSynchro => {
+          this.summarySheetProvider.getSummarySheet(matricule).then(summarySheet => {
+            pncSynchro.summarySheet = summarySheet;
+            this.updateLocalStorageFromPncSynchroResponse(pncSynchro);
+            resolve(true);
+          });
+        }, error => {
+          reject(this.translateService.instant('SYNCHRONIZATION.PNC_SAVED_OFFLINE_ERROR', { 'matricule': matricule }));
         });
-      }, error => {
-        reject(matricule);
-      });
+      } else {
+        reject(this.translateService.instant('GLOBAL.MESSAGES.ERROR.APPLICATION_SYNCHRO_PENDING', { 'matricule': matricule }));
+      }
     });
+
+  }
+
+  /**
+   * Determine si il y a eu du mouvement (creation, modification...) pour un pnc donné
+   * @param matricule le matricule du PNC
+   * @return  Vrai lorsqu'un objectif ou point d'étape a été crée ou modifié pour un pnc, sinon Faux
+   */
+  isPncModifiedOffline(matricule: string): boolean {
+
+    const allCareerObjectives = this.storageService.findAll(Entity.CAREER_OBJECTIVE);
+    const allWaypoints = this.storageService.findAll(Entity.WAYPOINT);
+
+    const pncCareerObjectives = allCareerObjectives.filter(careerObjective => {
+      return careerObjective.pnc.matricule === matricule;
+    });
+
+    const pncWaypoints = allWaypoints.filter(waypoint => {
+      return waypoint.pnc.matricule === matricule;
+    });
+
+    for (const careerObjective of pncCareerObjectives) {
+      if (careerObjective.offlineAction) {
+        return true;
+      }
+    }
+
+    for (const waypoint of pncWaypoints) {
+      if (waypoint.offlineAction) {
+        return true;
+      }
+    }
+
+    return false;
   }
 
   /**
@@ -57,6 +112,30 @@ export class SynchronizationProvider {
     this.deleteAllPncOfflineObject(pncSynchroResponse.pnc);
 
     this.storageService.save(Entity.PNC, this.pncTransformer.toPnc(pncSynchroResponse.pnc), true);
+
+    if (pncSynchroResponse.rotations != null) {
+      for (const rotation of pncSynchroResponse.rotations) {
+        this.storageService.save(Entity.ROTATION, this.rotationTransformerProvider.toRotation(rotation), true);
+      }
+    }
+
+    if (pncSynchroResponse.legs != null) {
+      for (const leg of pncSynchroResponse.legs) {
+        const techIdRotation: number = leg.rotation.techId;
+        leg.rotation = new Rotation();
+        leg.rotation.techId = techIdRotation;
+
+        this.storageService.save(Entity.LEG, this.legTransformerProvider.toLeg(leg), true);
+
+        // Pour chaque troncon, on recupere la liste equipage
+        this.legProvider.getFlightCrewFromLeg(leg.techId).then(flightCrewList => {
+          for (const flightCrew of flightCrewList) {
+            flightCrew.legId = leg.techId;
+            this.storageService.save(Entity.CREW_MEMBER, this.crewMemberTransformerProvider.toCrewMember(flightCrew), true);
+          }
+        }, error => { });
+      }
+    }
 
     // Création des nouveaux objets
     for (const careerObjective of pncSynchroResponse.careerObjectives) {
@@ -102,6 +181,15 @@ export class SynchronizationProvider {
       this.storageService.delete(Entity.CAREER_OBJECTIVE,
         this.careerObjectiveTransformer.toCareerObjective(careerObjective).getStorageId());
     }
+
+
+    //  Suppression de toutes les rotations, vols et listes d'équipage
+    if (this.sessionService.authenticatedUser.matricule === pnc.matricule) {
+      this.storageService.deleteAll(Entity.ROTATION);
+      this.storageService.deleteAll(Entity.LEG);
+      this.storageService.deleteAll(Entity.CREW_MEMBER);
+    }
+
     // Suppression de la fiche synthese
     this.storageService.delete(Entity.SUMMARY_SHEET, pnc.matricule);
   }

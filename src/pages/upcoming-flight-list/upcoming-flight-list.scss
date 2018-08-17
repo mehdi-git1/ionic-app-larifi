@@ -13,21 +13,4 @@ page-upcoming-flight-list {
         }
     }
 
-    .no-rotations {
-        text-align: center;
-        font-size: 1.5em;
-        color: color($colors, grey50);
-    }
-
-    .spinner-container {
-        margin-top: 100px;
-        display: flex;
-        justify-content: center;
-
-        ion-spinner * {
-            width: 80px;
-            height: 80px !important;
-        }
-    }
-
 }

@@ -17,4 +17,5 @@ export class PncFilter {
     speciality: string;
     aircraftSkill: string;
     relay: string;
+
 }

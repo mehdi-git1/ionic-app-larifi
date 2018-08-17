@@ -59,13 +59,9 @@ export class PncCardComponent {
         this.toastProvider.info(this.translate.instant('SYNCHRONIZATION.PNC_SAVED_OFFLINE', { 'matricule': matricule }));
       });
     }, error => {
-      this.toastProvider.error(this.translate.instant('SYNCHRONIZATION.PNC_SAVED_OFFLINE_ERROR', { 'matricule': matricule }));
+      this.toastProvider.error(error);
       this.synchroInProgress = false;
     });
-  }
-
-  openPncHomePage(matricule) {
-    this.navCtrl.push(PncHomePage, { matricule: matricule });
   }
 
   getAvatarPicture(gender) {

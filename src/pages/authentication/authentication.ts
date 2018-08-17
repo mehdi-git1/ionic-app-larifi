@@ -3,8 +3,9 @@ import { SecurityProvider } from './../../providers/security/security';
 import { PncHomePage } from './../pnc-home/pnc-home';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
-import { NavParams, ViewController, App, NavController } from 'ionic-angular';
+import { App, NavController, IonicPage } from 'ionic-angular';
 import { SecMobilService } from '../../services/secMobil.service';
+import { TranslateService } from '../../../node_modules/@ngx-translate/core';
 
 @Component({
   selector: 'page-authentication',
@@ -17,13 +18,11 @@ export class AuthenticationPage implements OnInit {
   hideSpinner = true;
 
   constructor(public navCtrl: NavController,
-    public navParams: NavParams,
     private formBuilder: FormBuilder,
-    public viewCtrl: ViewController,
-    public appCtrl: App,
     private securityProvider: SecurityProvider,
     private sessionService: SessionService,
-    private secMobilService: SecMobilService) {
+    private secMobilService: SecMobilService,
+    public translateService: TranslateService) {
     this.initializeForm();
   }
 
@@ -35,12 +34,7 @@ export class AuthenticationPage implements OnInit {
     },
       error => {
         this.hideSpinner = true;
-        console.log('go to authentication page');
       });
-  }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad Authentication');
   }
 
   initializeForm() {
@@ -58,23 +52,19 @@ export class AuthenticationPage implements OnInit {
       const loginValue: string = this.loginForm.value['login'];
       const passwordValue: string = this.loginForm.value['password'];
 
-      // this.secMobilService.init();
       this.secMobilService.authenticate(loginValue, passwordValue).then(x => {
-        console.log('sendAuthent ok : ' + x);
         this.putAuthenticatedUserInSession();
       }, error => {
         this.secMobilService.secMobilRevokeCertificate();
         if (error === 'secmobil.incorrect.credentials') {
-          this.errorMsg = 'invalid credentials';
-        } else if (error === 'secmobil.unknown.error : errSecDefault') {
-          this.errorMsg = 'error while contacting the server' + error;
+          this.errorMsg = this.translateService.instant('GLOBAL.MESSAGES.ERROR.INVALID_CREDENTIALS');
         } else {
-          this.errorMsg = 'error while contacting the server' + error;
+          this.errorMsg = this.translateService.instant('GLOBAL.UNKNOWN_ERROR');
         }
         this.hideSpinner = true;
       }).catch(
         exception => {
-          this.errorMsg = 'error while contacting the server' + exception;
+          this.errorMsg = this.translateService.instant('GLOBAL.UNKNOWN_ERROR');
           this.hideSpinner = true;
         }
       );
@@ -83,16 +73,12 @@ export class AuthenticationPage implements OnInit {
 
   putAuthenticatedUserInSession() {
     this.hideSpinner = false;
-    console.log('putAuthenticatedUserInSession');
     this.securityProvider.getAuthenticatedUser().then(authenticatedUser => {
-      console.log('putAuthenticatedUserInSession : ' + authenticatedUser);
       this.sessionService.authenticatedUser = authenticatedUser;
       this.navCtrl.setRoot(PncHomePage, { matricule: authenticatedUser.matricule });
       this.hideSpinner = true;
     }, error => {
       this.hideSpinner = true;
-      console.log('putAuthenticatedUserInSession error: ' + error);
-      // this.nav.push(AuthenticationPage);
     });
   }
 

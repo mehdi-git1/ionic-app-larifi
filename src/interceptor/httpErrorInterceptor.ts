@@ -1,3 +1,5 @@
+import { ConnectivityService } from './../services/connectivity.service';
+import { SecMobilService } from './../services/secMobil.service';
 import { Config } from './../configuration/environment-variables/config';
 import { TranslateService } from '@ngx-translate/core';
 import { Injectable } from '@angular/core';
@@ -6,6 +8,7 @@ import { HttpInterceptor, HttpHandler, HttpRequest, HttpEvent, HttpErrorResponse
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/do';
 import { ToastProvider } from '../providers/toast/toast';
+import { Events } from 'ionic-angular';
 
 @Injectable()
 export class HttpErrorInterceptor implements HttpInterceptor {
@@ -13,6 +16,9 @@ export class HttpErrorInterceptor implements HttpInterceptor {
   constructor(
     private toastProvider: ToastProvider,
     private translateService: TranslateService,
+    private secMobilService: SecMobilService,
+    private connectivityService: ConnectivityService,
+    private events: Events,
     private config: Config
   ) { }
 
@@ -20,11 +26,8 @@ export class HttpErrorInterceptor implements HttpInterceptor {
     request: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-
     return next.handle(request).do(success => {
-
     }, err => {
-
       if (err instanceof HttpErrorResponse && request.url !== this.config.pingUrl) {
         let errorMessage = this.translateService.instant('GLOBAL.UNKNOWN_ERROR');
 
@@ -33,6 +36,8 @@ export class HttpErrorInterceptor implements HttpInterceptor {
         }
 
         this.toastProvider.error(errorMessage);
+
+        this.events.publish('connectionStatus:disconnected');
       }
     });
   }

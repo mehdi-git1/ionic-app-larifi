@@ -27,7 +27,10 @@ export class OfflineSecurityProvider {
   getAuthenticatedUser(): Promise<AuthenticatedUser> {
     return new Promise((resolve, reject) => {
       const authenticatedUserList = this.storageService.findAll(Entity.AUTHENTICATED_USER);
-      resolve(authenticatedUserList[Object.keys(authenticatedUserList)[0]]);
+      if (authenticatedUserList.length > 0) {
+        resolve(authenticatedUserList[Object.keys(authenticatedUserList)[0]]);
+      }
+      reject();
     });
   }
 

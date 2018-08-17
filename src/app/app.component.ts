@@ -1,14 +1,20 @@
-import { SynchronizationProvider } from './../providers/synchronization/synchronization';
-import { ToastProvider } from './../providers/toast/toast';
-import { ConnectivityService } from './../services/connectivity.service';
+import { GenericMessagePage } from './../pages/generic-message/generic-message';
+import { OfflineSecurityProvider } from './../providers/security/offline-security';
+import { PncHomePage } from './../pages/pnc-home/pnc-home';
 import { AuthenticatedUser } from './../models/authenticatedUser';
 import { ParametersProvider } from './../providers/parameters/parameters';
 import { AuthenticationPage } from './../pages/authentication/authentication';
+import { SynchronizationProvider } from './../providers/synchronization/synchronization';
+import { ToastProvider } from './../providers/toast/toast';
+import { ConnectivityService } from './../services/connectivity.service';
+
 import { SessionService } from './../services/session.service';
 import { SecurityProvider } from './../providers/security/security';
-import { PncHomePage } from './../pages/pnc-home/pnc-home';
+
 import { Component, ViewChild, OnInit } from '@angular/core';
+
 import { Nav, Platform, Events } from 'ionic-angular';
+
 import { StatusBar } from '@ionic-native/status-bar';
 
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -30,18 +36,17 @@ export class EDossierPNC implements OnInit {
   constructor(public platform: Platform,
     public statusBar: StatusBar,
     public splashScreen: SplashScreen,
-    public translateService: TranslateService,
     private secMobilService: SecMobilService,
-    private securityProvider: SecurityProvider,
-    private sessionService: SessionService,
-    private storageService: StorageService,
     private connectivityService: ConnectivityService,
-    private toastProvider: ToastProvider,
-    private synchronizationProvider: SynchronizationProvider,
-    public translate: TranslateService,
     private events: Events,
-    private parametersProvider: ParametersProvider
-  ) {
+    private sessionService: SessionService,
+    public translateService: TranslateService,
+    private storageService: StorageService,
+    private toastProvider: ToastProvider,
+    private parametersProvider: ParametersProvider,
+    private securityProvider: SecurityProvider,
+    private synchronizationProvider: SynchronizationProvider,
+    private offlineSecurityProvider: OfflineSecurityProvider) {
   }
 
   ngOnInit(): void {
@@ -68,23 +73,24 @@ export class EDossierPNC implements OnInit {
 
       this.secMobilService.init();
       this.secMobilService.isAuthenticated().then(() => {
-        // launch process when already authenticated
         // Création du stockage local
         this.storageService.initOfflineMap().then(success => {
           this.putAuthenticatedUserInSession().then(authenticatedUser => {
             this.initParameters();
             this.synchronizationProvider.storeEDossierOffline(authenticatedUser.matricule).then(successStore => {
+              this.events.publish('EDossierOffline:stored');
             }, error => {
             });
 
           });
         });
+      }, error => {
+        this.nav.setRoot(AuthenticationPage);
+      });
 
-      },
-        error => {
-          console.log('go to authentication page');
-          this.nav.setRoot(AuthenticationPage);
-        });
+      this.events.subscribe('connectionStatus:disconnected', () => {
+        this.connectivityService.startPingAPI();
+      });
 
       // Détection d'un changement d'état de la connexion
       this.connectivityService.connectionStatusChange.subscribe(connected => {
@@ -93,14 +99,18 @@ export class EDossierPNC implements OnInit {
         } else {
           this.toastProvider.success(this.translateService.instant('GLOBAL.CONNECTIVITY.ONLINE_MODE'));
           this.synchronizationProvider.synchronizeOfflineData();
+          this.synchronizationProvider.storeEDossierOffline(this.sessionService.authenticatedUser.matricule).then(successStore => {
+            this.events.publish('EDossierOffline:stored');
+          }, error => {
+          });
         }
       });
     });
   }
 
   /**
-   * Récupère les parametres envoyé par le back
-   */
+     * Récupère les parametres envoyé par le back
+     */
   initParameters() {
     this.parametersProvider.getParams().then(parameters => {
       this.sessionService.parameters = parameters;
@@ -108,8 +118,8 @@ export class EDossierPNC implements OnInit {
   }
 
   /**
-   * Mettre le pnc connecté en session
-   */
+  * Mettre le pnc connecté en session
+  */
   putAuthenticatedUserInSession(): Promise<AuthenticatedUser> {
     const promise = this.securityProvider.getAuthenticatedUser();
     promise.then(authenticatedUser => {
@@ -122,13 +132,15 @@ export class EDossierPNC implements OnInit {
       }
     }, error => {
       console.log('putAuthenticatedUserInSession error: ' + JSON.stringify(error));
+      this.connectivityService.setConnected(false);
+      this.offlineSecurityProvider.getAuthenticatedUser().then(authenticatedUser => {
+        this.sessionService.authenticatedUser = authenticatedUser;
+        this.nav.setRoot(PncHomePage, { matricule: this.sessionService.authenticatedUser.matricule });
+      }, err => {
+        this.nav.setRoot(GenericMessagePage, { message: this.translateService.instant('GLOBAL.MESSAGES.ERROR.APPLICATION_NOT_INITIALIZED') });
+      });
     });
     return promise;
   }
 
-  openPage(page) {
-    // Reset the content nav to have just this page
-    // we wouldn't want the back button to show in this scenario
-    this.nav.setRoot(page.component);
-  }
 }

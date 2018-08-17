@@ -53,19 +53,6 @@ page-pnc-search {
     .filtered-pnc-list-container {
         height: 78%;
         margin-top: 30px;
-        .spinner-container {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100%;
-            width: 100%;
-            ion-spinner {
-                display: block;
-                width: 25%;
-                height: 25%;
-            }
-        }
     }
 
     form {
@@ -104,17 +91,14 @@ page-pnc-search {
             transition: visibility 0s linear 0s,
             opacity 2000ms;
         }
+        .select-placeholder {
+            color: color($colors, grey10) !important;
+        }
+
     }
 
     .label-md {
         margin: 0;
-    }
-
-    .no-pnc-found {
-        text-align: center;
-        font-size: 1.5em;
-        margin-top: 100px;
-        color: color($colors, grey50);
     }
 
     .pnc-search-card {
@@ -122,7 +106,6 @@ page-pnc-search {
             height: 40px;
             display: flex;
             justify-content: space-between;
-            cursor: pointer;
         }
 
         ion-card-content {
@@ -143,10 +126,7 @@ page-pnc-search {
         .header-container {
             display: flex;
             align-items: center;
-
-            .spinner-invisible {
-                visibility: hidden;
-            }
         }
     }
+
 }

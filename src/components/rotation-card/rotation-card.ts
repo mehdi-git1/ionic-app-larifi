@@ -51,7 +51,7 @@ export class RotationCardComponent {
 
   goToFlightCrewListPage(leg: Leg) {
     this.sessionService.appContext.rotationId = this.rotation.techId;
-    this.navCtrl.push(FlightCrewListPage, { leg: leg });
+    this.navCtrl.push(FlightCrewListPage, { legId: leg.techId });
   }
 
   /**
@@ -84,6 +84,7 @@ export class RotationCardComponent {
           this.toastProvider.info(infoMsg);
           this.synchroInProgress = false;
         }, error => {
+          this.toastProvider.error(error);
           this.displayErrorMessage();
         });
       }, error => {

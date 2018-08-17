@@ -13,6 +13,7 @@ import { Injectable } from '@angular/core';
 import { PagedPnc } from './../../models/pagedPnc';
 import { Page } from '../../models/page';
 import { RestService } from '../../services/rest.base.service';
+import { RotationTransformerProvider } from '../rotation/rotation-transformer';
 
 @Injectable()
 export class PncProvider {
@@ -23,6 +24,7 @@ export class PncProvider {
     private offlinePncProvider: OfflinePncProvider,
     private offlineProvider: OfflineProvider,
     private pncTransformer: PncTransformerProvider,
+    private rotationTransformer: RotationTransformerProvider,
     private sessionService: SessionService,
     private restService: RestService,
     private config: Config) {
@@ -43,7 +45,7 @@ export class PncProvider {
             const onlineData = this.pncTransformer.toPnc(onlinePnc);
             const offlineData = this.pncTransformer.toPnc(offlinePnc);
             this.offlineProvider.flagDataAvailableOffline(onlineData, offlineData);
-            resolve(onlineData);
+            resolve(onlineData); resolve(onlineData);
           });
         });
       });
@@ -58,9 +60,20 @@ export class PncProvider {
    * @return les rotations à venir du PNC
    */
   getUpcomingRotations(matricule: string): Promise<Rotation[]> {
-    return this.connectivityService.isConnected() ?
-      this.onlinePncProvider.getUpcomingRotations(matricule) :
-      this.offlinePncProvider.getUpcomingRotations(matricule);
+    if (this.connectivityService.isConnected()) {
+      return new Promise((resolve, reject) => {
+        this.offlinePncProvider.getUpcomingRotations(matricule).then(offlineRotations => {
+          this.onlinePncProvider.getUpcomingRotations(matricule).then(onlineRotations => {
+            const onlineData = this.rotationTransformer.toRotations(onlineRotations);
+            const offlineData = this.rotationTransformer.toRotations(offlineRotations);
+            this.offlineProvider.flagDataAvailableOffline(onlineData, offlineData);
+            resolve(onlineData);
+          });
+        });
+      });
+    } else {
+      return this.offlinePncProvider.getUpcomingRotations(matricule);
+    }
   }
 
   /**
@@ -69,9 +82,23 @@ export class PncProvider {
   * @return la dernière rotation opérée par le PNC
   */
   getLastPerformedRotation(matricule: string): Promise<Rotation> {
-    return this.connectivityService.isConnected() ?
-      this.onlinePncProvider.getLastPerformedRotation(matricule) :
-      this.offlinePncProvider.getLastPerformedRotation(matricule);
+    if (this.connectivityService.isConnected()) {
+      return new Promise((resolve, reject) => {
+        this.offlinePncProvider.getLastPerformedRotation(matricule).then(offlineRotations => {
+          this.onlinePncProvider.getLastPerformedRotation(matricule).then(onlineRotations => {
+            if (onlineRotations) {
+              const onlineData = this.rotationTransformer.toRotation(onlineRotations);
+              const offlineData = this.rotationTransformer.toRotation(offlineRotations);
+              this.offlineProvider.flagDataAvailableOffline(onlineData, offlineData);
+              resolve(onlineData);
+            }
+            resolve(onlineRotations);
+          });
+        });
+      });
+    } else {
+      return this.offlinePncProvider.getLastPerformedRotation(matricule);
+    }
   }
 
   /**
@@ -98,7 +125,7 @@ export class PncProvider {
     if (this.connectivityService.isConnected()) {
       return this.onlinePncProvider.getFilteredPncs(pncFilter).then(responsePnc => {
 
-        let promises: Promise<Pnc>[] = new Array();
+        const promises: Promise<Pnc>[] = new Array();
 
         responsePnc.content.forEach(onlinePnc => {
           const transformedPnc = this.pncTransformer.toPnc(onlinePnc);
@@ -113,10 +140,14 @@ export class PncProvider {
     } else {
       return this.offlinePncProvider.getPncs().then(response => {
         return this.offlinePncProvider.getPnc(this.sessionService.authenticatedUser.matricule).then(connectedPnc => {
-          const filteredPnc = response.filter(pnc =>
-            (pnc.assignment.division === connectedPnc.assignment.division)
-            && (pnc.assignment.sector === connectedPnc.assignment.sector)
-            && (pnc.matricule !== connectedPnc.matricule));
+          let filteredPnc = response;
+          if (connectedPnc.assignment.division !== 'ADM') {
+            filteredPnc = response.filter(pnc =>
+              (pnc.assignment.division === connectedPnc.assignment.division)
+              && (pnc.assignment.sector === connectedPnc.assignment.sector)
+              && (pnc.matricule !== connectedPnc.matricule));
+          }
+          filteredPnc.sort((a, b) => { if (a.lastName < b.lastName) { return -1; } else { return 1; } });
           const pagedPncResponse: PagedPnc = new PagedPnc();
           pagedPncResponse.content = filteredPnc;
           pagedPncResponse.page = new Page();

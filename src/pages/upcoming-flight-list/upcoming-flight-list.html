@@ -6,17 +6,15 @@
 </ion-header>
 
 <ion-content padding>
-    <div *ngIf="!loadingIsOver()" class="spinner-container">
-        <ion-spinner></ion-spinner>
-    </div>
-    <div *ngIf="loadingIsOver()">
+    <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
+    <ng-template #pageBlock>
         <div class="rotation-list" margin-top>
             <h3>{{ 'UPCOMING_FLIGHT_LIST.LAST_FLIGHT' | translate }}</h3>
-            <div class="no-rotations" *ngIf="!lastPerformedRotation">{{ 'UPCOMING_FLIGHT_LIST.NO_FLIGHTS' | translate }}</div>
+            <div class="no-data-found" *ngIf="!lastPerformedRotation">{{ 'UPCOMING_FLIGHT_LIST.NO_FLIGHTS' | translate }}</div>
             <rotation-card [rotation]="lastPerformedRotation" *ngIf="lastPerformedRotation" class="last-performed-rotation"></rotation-card>
             <h3>{{ 'UPCOMING_FLIGHT_LIST.UPCOMING_FLIGHTS' | translate }}</h3>
             <rotation-card *ngFor=" let rotation of upcomingRotations " [rotation]="rotation " class="upcoming-rotations"></rotation-card>
-            <div class="no-rotations" *ngIf="noUpcomingRotations()">{{ 'UPCOMING_FLIGHT_LIST.NO_FLIGHTS' | translate }}</div>
+            <div class="no-data-found" *ngIf="noUpcomingRotations()">{{ 'UPCOMING_FLIGHT_LIST.NO_FLIGHTS' | translate }}</div>
         </div>
-    </div>
+    </ng-template>
 </ion-content>

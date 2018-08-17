@@ -1,18 +1,14 @@
 <ion-card class="rotation">
-    <ion-card-header class="header-container" (click)="toggleRotation(rotation)">
-        <span>{{ rotation.departureDate | date : 'dd/MM/yyyy' }}</span>
-        <span>
-        <ion-spinner *ngIf="rotation.loading" color="white"></ion-spinner>
-        <ion-spinner class="spinner-invisible" *ngIf="!rotation.loading" ></ion-spinner>
-        </span>
-        <span>{{ rotation.number }}</span>
-        <span>
-            <download-button [synchroInProgress]="synchroInProgress" (onDownload)="downloadRotationPncsEdossier()" ></download-button>
-        </span>
+    <ion-card-header (click)="toggleRotation(rotation)">
+        <offline-indicator [object]="rotation"></offline-indicator>
+        <div class="rotation-infos">
+            <span>{{ rotation.departureDate | date : 'dd/MM/yyyy' }}</span>
+            <ion-spinner [ngClass]="{'hidden':!rotation.loading}" color="white"></ion-spinner>
+            <span>{{ rotation.number }}</span>
+            <download-button [synchroInProgress]="synchroInProgress" (onDownload)="downloadRotationPncsEdossier()"></download-button>
+        </div>
     </ion-card-header>
     <ion-card-content [ngClass]="{'opened' : rotation.opened}">
-        <div *ngFor="let leg of rotation.legs" (click)="goToFlightCrewListPage(leg)">
-            <flight-card [leg]="leg"></flight-card>
-        </div>
+        <flight-card [leg]="leg" *ngFor="let leg of rotation.legs" (click)="goToFlightCrewListPage(leg)"></flight-card>
     </ion-card-content>
 </ion-card>
