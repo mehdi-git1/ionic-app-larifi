@@ -1,25 +1,5 @@
 page-career-objective-create {
 
-    .nav-title {
-        flex: 1;
-        display: flex;
-        align-items: center;
-
-        h1 {
-            color: color($colors, white);
-            margin: 0;
-            padding: 0;
-        }
-
-        ion-badge {
-            display: inline-block;
-            margin: 0 10px;
-        }
-
-        ion-title {
-            flex: 0;
-        }
-    }
 
     form {
         display: flex;
@@ -101,7 +81,7 @@ page-career-objective-create {
 
             .button-bar {
                 padding-top: 16px;
-
+                background-color: color($colors, grey90); // necessaire pour ipad
             }
         }
 
