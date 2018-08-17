@@ -126,8 +126,8 @@
             "DIVISION": "Division"
         }
     },
-    "WAYPOINT_CREATE": {
-        "TITLE": "Création d'un point d'étape",
+    "WAYPOINT": {
+        "TITLE": "Point d'étape",
         "FORM": {
             "CONTEXT": "Contexte",
             "ACTION_PERFORMED": "Action réalisée",
