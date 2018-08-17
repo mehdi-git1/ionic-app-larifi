@@ -46,7 +46,7 @@ export class LegProvider {
    *  Met à jour la date de mise en cache dans l'objet online
    * @param leg objet online
    */
-  refresh(leg: Leg) {
+  refreshOfflineStorageDate(leg: Leg) {
     this.offlineLegProvider.getLeg(leg.techId).then(offlineLeg => {
       const offlineData = this.legTransformer.toLeg(offlineLeg);
       this.offlineProvider.flagDataAvailableOffline(leg, offlineData);

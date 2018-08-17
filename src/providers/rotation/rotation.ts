@@ -38,7 +38,7 @@ export class RotationProvider {
         this.onlineRotationProvider.getRotationLegs(rotation).then(onlineLegs => {
           const onlineData = this.legTransformer.toLegs(onlineLegs);
           for (const leg of onlineData) {
-            this.legProvider.refresh(leg);
+            this.legProvider.refreshOfflineStorageDate(leg);
           }
           resolve(onlineData);
         });
@@ -52,7 +52,7 @@ export class RotationProvider {
    * Met à jour la date de mise en cache dans l'objet online
    * @param rotation objet online
    */
-  refresh(rotation: Rotation) {
+  refreshOfflineStorageDate(rotation: Rotation) {
     this.offlineRotationProvider.getRotation(rotation.techId).then(offlineRotation => {
       const offlineData = this.rotationTransformer.toRotation(offlineRotation);
       this.offlineProvider.flagDataAvailableOffline(rotation, offlineData);

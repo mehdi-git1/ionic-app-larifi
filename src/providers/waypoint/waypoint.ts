@@ -91,7 +91,7 @@ export class WaypointProvider {
    *  Met à jour la date de mise en cache dans l'objet online
    * @param waypoint objet online
    */
-  refresh(waypoint: Waypoint) {
+  refreshOfflineStorageDate(waypoint: Waypoint) {
     this.offlineWaypointProvider.getWaypoint(waypoint.techId).then(offlineWaypoint => {
       const offlineData = this.waypointTransformer.toWaypoint(offlineWaypoint);
       this.offlineProvider.flagDataAvailableOffline(waypoint, offlineData);

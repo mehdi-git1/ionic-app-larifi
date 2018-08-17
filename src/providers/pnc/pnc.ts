@@ -63,7 +63,7 @@ export class PncProvider {
         this.onlinePncProvider.getUpcomingRotations(matricule).then(onlineRotations => {
           const onlineData = this.rotationTransformer.toRotations(onlineRotations);
           for (const onlineRotation of onlineRotations) {
-            this.rotationProvider.refresh(onlineRotation);
+            this.rotationProvider.refreshOfflineStorageDate(onlineRotation);
           }
           resolve(onlineData);
         });
@@ -84,7 +84,7 @@ export class PncProvider {
         this.onlinePncProvider.getLastPerformedRotation(matricule).then(onlineRotations => {
           if (onlineRotations) {
             const onlineData = this.rotationTransformer.toRotation(onlineRotations);
-            this.rotationProvider.refresh(onlineData);
+            this.rotationProvider.refreshOfflineStorageDate(onlineData);
             resolve(onlineData);
           } else {
             resolve(onlineRotations);
@@ -167,7 +167,7 @@ export class PncProvider {
    *  Met à jour la date de mise en cache dans l'objet online
    * @param pnc objet online
    */
-  refresh(pnc: Pnc): void {
+  refreshOfflineStorageDate(pnc: Pnc): void {
     this.offlinePncProvider.getPnc(pnc.matricule).then(offlinePnc => {
       const offlineData = this.pncTransformer.toPnc(offlinePnc);
       this.offlineProvider.flagDataAvailableOffline(pnc, offlineData);

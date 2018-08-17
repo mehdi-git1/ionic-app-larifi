@@ -76,15 +76,15 @@ export class OfflineIndicatorComponent {
    */
   refreshOffLineDateOnCurrentObject(): void {
     if (this._object instanceof Pnc) {
-      this.pncProvider.refresh(this._object);
+      this.pncProvider.refreshOfflineStorageDate(this._object);
     } else if (this._object instanceof Rotation) {
-      this.rotationProvider.refresh(this._object);
+      this.rotationProvider.refreshOfflineStorageDate(this._object);
     } else if (this._object instanceof Leg) {
-      this.legProvider.refresh(this._object);
+      this.legProvider.refreshOfflineStorageDate(this._object);
     } else if (this._object instanceof CareerObjective) {
-      this.careerObjectiveProvider.refresh(this._object);
+      this.careerObjectiveProvider.refreshOfflineStorageDate(this._object);
     } else if (this._object instanceof Waypoint) {
-      this.waypointProvider.refresh(this._object);
+      this.waypointProvider.refreshOfflineStorageDate(this._object);
     }
   }
 
