@@ -82,6 +82,11 @@ body,
     background-color: color($colors, grey90) !important;
 }
 
+ion-textarea,
+ion-input {
+    background-color: color($colors, white);
+}
+
 .content {
     background-color: transparent;
 }
