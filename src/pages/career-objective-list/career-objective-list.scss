@@ -24,6 +24,14 @@ page-career-objective-list {
                 color: color($colors, white);
             }
         }
+
+        .information-message {
+            color: color($colors, grey50);
+            text-align: right;
+        }
+        .information-message:before {
+            content: '* ';
+        }
     }
 
     .career-objective-list-container {
