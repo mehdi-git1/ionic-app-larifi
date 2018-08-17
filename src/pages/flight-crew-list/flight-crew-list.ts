@@ -58,7 +58,7 @@ export class FlightCrewListPage {
                 });
                 // On supprime le PNC connecté de la liste
                 if (this.connectedCrewMember) {
-                    this.flightCrewList = this.flightCrewList.filter(item => item.pnc.matricule != this.connectedCrewMember.pnc.matricule);
+                    this.flightCrewList = this.flightCrewList.filter(item => item !== this.connectedCrewMember);
                 }
             }, error => { this.flightCrewList = []; });
         }, error => { });
