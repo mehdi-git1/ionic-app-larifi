@@ -209,6 +209,17 @@
         "FLIGHT_SAVED_OFFLINE_ERROR": "Un ou plusieurs PNC du vol {{ flightNumber }} n'ont pas pu être synchronisés"
     },
     "SETTINGS": {
-        "TITLE": "Réglages"
+        "TITLE": "Réglages",
+        "INIT_CACHE": {
+            "BUTTON": "Réinitialisation le cache",
+            "SUCCESS": "Réinitialisation du cache rèussie",
+            "CONFIRM_INIT_CACHE": {
+                "TITLE": "Réinitialisation du cache",
+                "MESSAGE": "Attention. êtes vous sûre de vouloir réinitialisez le cache ?",
+                "MESSAGE_UNSYNCHRONIZED_DATA": "Attention. La réinitialisation du cache peut entrainer la perte de données non synchronisées.",
+                "CANCEL": "Annuler",
+                "CONFIRM": "Supprimer"
+            }
+        }
     }
 }

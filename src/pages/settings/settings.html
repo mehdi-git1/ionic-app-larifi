@@ -8,4 +8,12 @@
 
 <ion-content padding>
 
+    <ion-item>
+        <label>{{ 'SETTINGS.INIT_CACHE.BUTTON' | translate }}</label>
+
+        <button ion-fab mini icon-only item-end class="init-cache-button" *ngIf="connected" (click)="clearAndInitCache()">
+            <ion-icon name="trash" *ngIf="!initInProgress"></ion-icon>  
+            <ion-spinner *ngIf="initInProgress"></ion-spinner>
+        </button>
+    </ion-item>
 </ion-content>

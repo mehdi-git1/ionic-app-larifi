@@ -22,6 +22,10 @@ export class StorageService {
     private datePipe: DatePipe) {
   }
 
+  clearOfflineMap() {
+    this.storage.set(this.config.appName, null);
+  }
+
   /**
    * Initialise la map de stockage qui sera persistée dans le cache.
    * La map contient une entrée par entité et un numéro de séquence, utilisé pour les créations offline
