@@ -7,6 +7,7 @@ page-career-objective-create {
         padding-top: $navbar-height;
 
         .objective-container {
+            padding: $page-padding;
             display: flex;
             flex: 1;
 
@@ -78,10 +79,9 @@ page-career-objective-create {
                 }
             }
         }
+
         .button-bar {
-            flex: 0;
-            padding-top: 16px;
-            background-color: color($colors, grey90); // necessaire pour ipad
+            padding: $page-padding;
         }
     }
 }
