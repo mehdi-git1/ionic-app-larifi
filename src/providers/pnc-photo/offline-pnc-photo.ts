@@ -10,15 +10,6 @@ export class OfflinePncPhotoProvider {
   }
 
   /**
-   * Sauvegarde la photo d'un PNC dans le cache
-   * @param pncPhoto la photo à sauvegarder
-   * @return une promesse contenant la photo sauvée
-   */
-  save(pncPhoto: PncPhoto): Promise<PncPhoto> {
-    return this.storageService.saveAsync(Entity.PNC_PHOTO, pncPhoto);
-  }
-
-  /**
   * Retourne la photo d'un PNC
   * @param matricule le PNC concerné
   * @return la photo du PNC

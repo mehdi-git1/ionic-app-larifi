@@ -31,17 +31,19 @@ export class PncPhotoComponent implements OnChanges {
    * Récupère la photo du PNC donné en entrée
    */
   getPhoto() {
-    this.loading = true;
-    this.pncPhotoProvider.getPncPhoto(this.pnc.matricule).then(pncPhoto => {
-      if (pncPhoto.photo != null) {
-        this.photoSrc = this.domSanitizer.bypassSecurityTrustResourceUrl(`data:image/png;base64,${pncPhoto.photo}`);
-      }
-      else {
-        this.photoSrc = this.genderProvider.getAvatarPicture(this.pnc.gender);
-      }
+    if (!this.photoSrc) {
+      this.loading = true;
+      this.pncPhotoProvider.getPncPhoto(this.pnc.matricule).then(pncPhoto => {
+        if (pncPhoto && pncPhoto.photo) {
+          this.photoSrc = this.domSanitizer.bypassSecurityTrustResourceUrl(`data:image/png;base64,${pncPhoto.photo}`);
+        }
+        else {
+          this.photoSrc = this.genderProvider.getAvatarPicture(this.pnc.gender);
+        }
 
-      this.loading = false;
-    }, error => { });
+        this.loading = false;
+      }, error => { });
+    }
   }
 
 }

@@ -1,3 +1,5 @@
+import { PncPhotoTransformerProvider } from './../pnc-photo/pnc-photo-transformer';
+import { PncPhotoProvider } from './../pnc-photo/pnc-photo';
 import { SessionService } from './../../services/session.service';
 import { CrewMemberTransformerProvider } from './../crewMember/crewMember-transformer';
 import { LegTransformerProvider } from './../leg/leg-transformer';
@@ -36,6 +38,8 @@ export class SynchronizationProvider {
     private crewMemberTransformerProvider: CrewMemberTransformerProvider,
     public securityProvider: SecurityProvider,
     private summarySheetProvider: SummarySheetProvider,
+    private pncPhotoProvider: PncPhotoProvider,
+    private pncPhotoTransformer: PncPhotoTransformerProvider,
     private legProvider: LegProvider,
     private sessionService: SessionService) {
   }
@@ -52,8 +56,11 @@ export class SynchronizationProvider {
       this.pncSynchroProvider.getPncSynchro(matricule).then(pncSynchro => {
         this.summarySheetProvider.getSummarySheet(matricule).then(summarySheet => {
           pncSynchro.summarySheet = summarySheet;
-          this.updateLocalStorageFromPncSynchroResponse(pncSynchro);
-          resolve(true);
+          this.pncPhotoProvider.getPncPhoto(matricule).then(pncPhoto => {
+            pncSynchro.photo = pncPhoto;
+            this.updateLocalStorageFromPncSynchroResponse(pncSynchro);
+            resolve(true);
+          });
         });
       }, error => {
         reject(matricule);
@@ -111,6 +118,9 @@ export class SynchronizationProvider {
 
     // Sauvegarde de la fiche synthese
     this.storageService.save(Entity.SUMMARY_SHEET, pncSynchroResponse.summarySheet, true);
+
+    // Sauvegarde de la photo du PNC
+    this.storageService.save(Entity.PNC_PHOTO, this.pncPhotoTransformer.toPncPhoto(pncSynchroResponse.photo), true);
 
     this.storageService.persistOfflineMap();
   }
