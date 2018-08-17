@@ -54,7 +54,7 @@ export class SynchronizationProvider {
   storeEDossierOffline(matricule: string): Promise<boolean> {
 
     return new Promise((resolve, reject) => {
-      if (!this.isOfflinePncModified(matricule)) {
+      if (!this.isPncModifiedOffline(matricule)) {
         this.pncSynchroProvider.getPncSynchro(matricule).then(pncSynchro => {
           this.summarySheetProvider.getSummarySheet(matricule).then(summarySheet => {
             pncSynchro.summarySheet = summarySheet;
@@ -77,7 +77,7 @@ export class SynchronizationProvider {
    * @return  Vrai lorsqu'un objectif ou point d'étape a été crée ou modifié pour un pnc, sinon Faux
    */
 
-  isOfflinePncModified(matricule: string): boolean {
+  isPncModifiedOffline(matricule: string): boolean {
 
     let allCareerObjectivePnc = this.storageService.findAll(Entity.CAREER_OBJECTIVE);
     let allWaypointPnc = this.storageService.findAll(Entity.WAYPOINT);
