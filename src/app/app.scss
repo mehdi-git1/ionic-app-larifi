@@ -35,11 +35,6 @@
     content: '-';
 }
 
-.app-root {
-    background-color: #f1f1f1;
-}
-
-
 // Spinner utilisé au chargement de l'appli
 .loader-container {
     display: flex;
@@ -80,15 +75,18 @@
     color: color($colors, white);
 }
 
-body {
-    background-color: #f1f1f1
+body,
+.app-root,
+.nav-decor {
+    // Pour surcharger le fond sur ipad
+    background-color: color($colors, grey90) !important;
 }
 
-.content-md {
+.content {
     background-color: transparent;
 }
 
-.item-md {
+.item {
     background-color: transparent;
 }
 
