@@ -1,6 +1,6 @@
-<div *ngIf="loading; else imgBlock">
-    <ion-spinner></ion-spinner>
+<div class="cropped-frame">
+    <ion-spinner *ngIf="loading; else imgBlock"></ion-spinner>
+    <ng-template #imgBlock>
+        <img [src]="photoSrc" />
+    </ng-template>
 </div>
-<ng-template #imgBlock>
-    <img [src]="photoSrc" />
-</ng-template>

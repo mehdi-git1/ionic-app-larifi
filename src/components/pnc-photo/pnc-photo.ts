@@ -27,6 +27,9 @@ export class PncPhotoComponent implements OnChanges {
     this.getPhoto();
   }
 
+  /**
+   * Récupère la photo du PNC donné en entrée
+   */
   getPhoto() {
     this.loading = true;
     this.pncPhotoProvider.getPncPhoto(this.pnc.matricule).then(pncPhoto => {
