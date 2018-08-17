@@ -24,31 +24,9 @@ export class PncPhotoProvider {
   * @return la photo du PNC
   */
   getPncPhoto(matricule: string): Promise<PncPhoto> {
-    if (this.connectivityService.isConnected()) {
-      return new Promise((resolve, reject) => {
-        this.offlinePncPhotoProvider.getPncPhoto(matricule).then(offlinePncPhoto => {
-          this.onlinePncPhotoProvider.getPncPhoto(matricule).then(onlinePncPhoto => {
-            try {
-              if (!onlinePncPhoto || !onlinePncPhoto.photo) {
-                resolve(null);
-              }
-              const file = new Blob([Utils.base64ToArrayBuffer(onlinePncPhoto.photo)], { type: 'image/png' });
-              const onlineData = this.pncPhotoTransformerProvider.toPncPhotoFromBlob(file, matricule);
-              const offlineData = this.pncPhotoTransformerProvider.toPncPhoto(offlinePncPhoto);
-              this.offlineProvider.flagDataAvailableOffline(onlineData, offlineData);
-              resolve(onlineData);
-            } catch (error) {
-            }
-          },
-            error => {
-            });
-        },
-          error => {
-          });
-      });
-    } else {
-      return this.offlinePncPhotoProvider.getPncPhoto(matricule);
-    }
+    return this.connectivityService.isConnected() ?
+      this.onlinePncPhotoProvider.getPncPhoto(matricule) :
+      this.offlinePncPhotoProvider.getPncPhoto(matricule);
   }
 
 }

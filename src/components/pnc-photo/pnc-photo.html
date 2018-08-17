@@ -1,1 +1,6 @@
-<img *ngIf="pnc" src="data:image/png;base64, {{getPncPhoto()}}" />
+<div *ngIf="loading; else imgBlock">
+    <ion-spinner></ion-spinner>
+</div>
+<ng-template #imgBlock>
+    <img [src]="photoSrc" />
+</ng-template>
