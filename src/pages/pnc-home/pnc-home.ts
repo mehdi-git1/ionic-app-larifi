@@ -112,8 +112,7 @@ export class PncHomePage {
             this.toastProvider.info(this.translateService.instant('SYNCHRONIZATION.PNC_SAVED_OFFLINE', { 'matricule': this.pnc.matricule }));
         }, error => {
             this.synchroInProgress = false;
-            this.toastProvider.error(
-                this.translateService.instant('SYNCHRONIZATION.PNC_SAVED_OFFLINE_ERROR', { 'matricule': this.pnc.matricule }));
+            this.toastProvider.error(error);
         });
     }
 
