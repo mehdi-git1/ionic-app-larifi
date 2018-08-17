@@ -84,6 +84,7 @@ export class RotationCardComponent {
           this.toastProvider.info(infoMsg);
           this.synchroInProgress = false;
         }, error => {
+          this.toastProvider.error(error);
           this.displayErrorMessage();
         });
       }, error => {
