@@ -2,7 +2,7 @@
     "GLOBAL": {
         "APP_NAME": "EDOSSIER PNC",
         "PNC_ROLE": {
-            "MANAGER": "Cadre",
+            "MANAGER": "Manager Coach",
             "PNC": "PNC"
         },
         "DATEPICKER": {
@@ -11,7 +11,7 @@
             "CLEAR": "Vider"
         },
         "CAREER_OBJECTIVE_STATUS": {
-            "DRAFT": "BROUILLON",
+            "DRAFT": "PROPOSITION",
             "REGISTERED": "EN COURS",
             "VALIDATED": "VALIDÉ",
             "ABANDONED": "ABANDONNÉ"
@@ -28,7 +28,7 @@
         "PNC_SUMMARY_SHEET": "Fiche synthèse PNC",
         "HELP_CENTRE": "Ressources d'aide",
         "PNC_TEAM": "Effectif PNC",
-        "UPCOMING_FLIGHT": "Prochains vols",
+        "UPCOMING_FLIGHT": "Activité vols",
         "CREW_MEMBERS": "Liste équipage",
         "UNKNOWN_ERROR": "Une erreur inconnue est survenue. Merci de recharger la page ou réessayer dans quelques minutes.",
         "COMING_SOON": "(Prochainement)",
@@ -39,6 +39,7 @@
                 "MATRICULE_WRONG_SIZE": "Le matricule doit faire 8 caractères",
                 "PNC_NOT_FOUND": "Erreur lors de la récupérations des PNC",
                 "APPLICATION_NOT_INITIALIZED": "Application non initialisée. Veuillez vous connecter à un réseau",
+                "APPLICATION_SYNCHRO_PENDING": "Le pnc  {{ matricule }} ne peut être chargé car il est en attente de synchronisation",
                 "INVALID_CREDENTIALS": "Identifiant/mot de passe incorrecte"
             }
         }
@@ -50,21 +51,21 @@
         "VALIDATE": "Valider"
     },
     "CAREER_OBJECTIVE_CREATE": {
-        "CREATE_TITLE": "Création d'un nouvel objectif",
-        "EDIT_TITLE": "Modification d'un objectif",
+        "CREATE_TITLE": "Nouvelle priorité",
+        "EDIT_TITLE": "Modification d'une priorité",
         "WAYPOINT_LIST_TITLE": "Points d'étapes",
         "FORM": {
             "PNC": "PNC",
-            "INITIATOR": "Initiateur",
-            "TITLE": "Libellé de l'objectif",
+            "INITIATOR": "A l'initiative de",
+            "TITLE": "Libellé",
             "CONTEXT": "Contexte",
             "ACTION_PLAN": "Plan d'action et ressources utiles",
-            "MANAGER_COMMENT": "Commentaire cadre",
+            "MANAGER_COMMENT": "Commentaire Manager Coach",
             "PNC_COMMENT": "Commentaire PNC",
             "NEXT_ENCOUNTER_DATE": "Prochain point",
             "ENCOUNTER_DATE": "Date de rencontre",
-            "PRIORITIZED": "Prioritaire",
-            "CREATION_DATE": "Créé le",
+            "PRIORITIZED": "Priorité majeure",
+            "CREATION_DATE": "Créée le",
             "REQUIRED_ON_ENCOUNTER_DAY": " (Saisie obligatoire le jour de la rencontre)"
         },
         "CONFIRM_INSTRUCTOR_REQUEST": {
@@ -74,37 +75,37 @@
             "CONFIRM": "Confirmer"
         },
         "CONFIRM_DRAFT_DELETE": {
-            "TITLE": "Suppression du brouillon",
-            "MESSAGE": "Confirmez vous la suppression de ce brouillon ?",
+            "TITLE": "Suppression de la proposition",
+            "MESSAGE": "Confirmez vous la suppression de cette proposition ?",
             "CANCEL": "Annuler",
             "CONFIRM": "Supprimer"
         },
         "BUTTONS": {
             "SAVE": "Enregistrer",
-            "SAVE_DRAFT": "Sauvegarder brouillon",
-            "DELETE_DRAFT": "Supprimer brouillon",
+            "SAVE_DRAFT": "Sauvegarder proposition",
+            "DELETE_DRAFT": "Supprimer proposition",
             "VALIDATE": "Valider",
             "ABANDON": "Abandonner",
             "CANCEL_VALIDATION": "Annuler la validation",
-            "RESUME": "Reprendre l'objectif",
+            "RESUME": "Reprendre la priorité",
             "CREATE_INSTRUCTOR_REQUEST": "Solliciter mon instructeur"
         },
         "SUCCESS": {
-            "CAREER_OBJECTIVE_SAVED": "Objectif enregistré avec succès",
-            "DRAFT_SAVED": "Brouillon enregistré",
-            "DRAFT_DELETED": "Brouillon supprimé",
-            "CAREER_OBJECTIVE_VALIDATED": "Objectif validé",
-            "CAREER_OBJECTIVE_ABANDONED": "Objectif abandonné",
-            "CAREER_OBJECTIVE_VALIDATION_CANCELED": "Validation annulée de l'objectif",
-            "CAREER_OBJECTIVE_RESUMED": "Objectif repris avec succés",
+            "CAREER_OBJECTIVE_SAVED": "Priorité enregistrée avec succès",
+            "DRAFT_SAVED": "Proposition sauvegardée",
+            "DRAFT_DELETED": "Proposition supprimée",
+            "CAREER_OBJECTIVE_VALIDATED": "Priorité validée",
+            "CAREER_OBJECTIVE_ABANDONED": "Priorité abandonnée",
+            "CAREER_OBJECTIVE_VALIDATION_CANCELED": "Validation de la priorité annulée",
+            "CAREER_OBJECTIVE_RESUMED": "Priorité reprise avec succés",
             "CAREER_OBJECTIVE_INSTRUCTOR_REQUESTED": "Demande envoyée avec succès"
         },
         "ERROR": {
-            "CAREER_OBJECTIVE_CREATION_FAILED": "La création de l'objectif a échoué"
+            "CAREER_OBJECTIVE_CREATION_FAILED": "La création de la priorité a échouée"
         }
     },
     "CAREER_OBJECTIVE_LIST": {
-        "NO_OBJECTIVES": "Aucun objectif créé pour le moment",
+        "NO_OBJECTIVES": "Aucune priorité pour le moment",
         "LIST": {
             "CREATION_DATE": "Date de création",
             "TITLE": "Libellé",
@@ -113,7 +114,7 @@
             "NEXT_ENCOUNTER_DATE": "Date du Prochain point"
         },
         "BUTTONS": {
-            "ADD_CAREER_OBJECTIVE": "Créer un nouvel objectif"
+            "ADD_CAREER_OBJECTIVE": "Nouvelle priorité"
         },
         "CREATE_EOBSERVATION": "Créer une eObservation"
     },
@@ -131,26 +132,26 @@
         "FORM": {
             "CONTEXT": "Contexte",
             "ACTION_PERFORMED": "Action réalisée",
-            "MANAGER_COMMENT": "Commentaire cadre",
+            "MANAGER_COMMENT": "Commentaire Manager Coach",
             "PNC_COMMENT": "Commentaire PNC",
             "ENCOUNTER_DATE": "Date de rencontre",
             "REQUIRED_ON_ENCOUNTER_DAY": " (Saisie obligatoire le jour de la rencontre)"
         },
         "CONFIRM_DRAFT_DELETE": {
-            "TITLE": "Suppression du brouillon",
-            "MESSAGE": "Confirmez vous la suppression de ce brouillon ?",
+            "TITLE": "Suppression de la proposition",
+            "MESSAGE": "Confirmez vous la suppression de cette proposition ?",
             "CANCEL": "Annuler",
             "CONFIRM": "Supprimer"
         },
         "BUTTONS": {
             "SAVE": "Enregistrer",
-            "SAVE_DRAFT": "Sauvegarder brouillon",
-            "DELETE_DRAFT": "Supprimer brouillon"
+            "SAVE_DRAFT": "Sauvegarder proposition",
+            "DELETE_DRAFT": "Supprimer proposition"
         },
         "SUCCESS": {
             "WAYPOINT_SAVED": "Point d'étape enregistré avec succès",
-            "DRAFT_SAVED": "Brouillon enregistré",
-            "DRAFT_DELETED": "Brouillon supprimé"
+            "DRAFT_SAVED": "Proposition enregistrée",
+            "DRAFT_DELETED": "Proposition supprimée"
         }
     },
     "FLIGHT_CREW_LIST": {
@@ -182,7 +183,7 @@
             "GINQ": "Ginq",
             "SPECIALITY": "Fonction",
             "RELAY": "Relais",
-            "AIRCRAFT_SKILL": "Spécification machine",
+            "AIRCRAFT_SKILL": "Spécialisation avion",
             "WORK_RATE": "Rythme"
         },
         "DEFAULT_DATA": {
@@ -193,7 +194,6 @@
         "ERROR": {
             "SEARCH": "Erreur lors de la recherche de PNC"
         }
-
     },
     "HELP_ASSET_LIST": {
         "TITLE": "Ressources d'aide",

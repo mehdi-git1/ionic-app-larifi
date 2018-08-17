@@ -89,6 +89,7 @@ export class RotationCardComponent {
           this.synchroInProgress = false;
           this.offlineIndicatorComponent.refreshOffLineDateOnCurrentObject();
         }, error => {
+          this.toastProvider.error(error);
           this.displayErrorMessage();
         });
       }, error => {

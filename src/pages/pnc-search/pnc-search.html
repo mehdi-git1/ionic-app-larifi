@@ -28,7 +28,7 @@
                                     </mat-form-field>
                                     <mat-autocomplete class="mat-autocomplete" #auto="matAutocomplete" [displayWith]="displayPnc" (optionSelected)="openPncHomePage($event.option.value)">
                                         <mat-option *ngFor="let pnc of pncList | async" [value]="pnc">
-                                            {{ pnc.firstName + ' ' + pnc.lastName + ' (' + pnc.matricule + ')'}}
+                                            {{ pnc.lastName + ' ' + pnc.firstName + ' (' + pnc.matricule + ')'}}
                                         </mat-option>
                                     </mat-autocomplete>
                                 </ion-item>
@@ -78,7 +78,7 @@
                                 </ion-item>
                             </ion-col>
                             <ion-col col-4>
-                                <!-- spécification machine -->
+                                <!-- Spécialisation avion -->
                                 <ion-item>
                                     <ion-label floating>{{ 'PNC_SEARCH.CRITERIA.AIRCRAFT_SKILL' | translate }}</ion-label>
                                     <ion-select [compareWith]="compareFn" formControlName="aircraftSkillControl" [disabled]="areFiltersDisabled()" [placeholder]="('PNC_SEARCH.DEFAULT_DATA.ALL_F' | translate )">
@@ -120,7 +120,7 @@
         </div>
 
         <span *ngIf="!searchInProgress">
-            <div *ngIf="filteredPncs && filteredPncs.length == 0" class="no-pnc-found">
+            <div *ngIf="filteredPncs && filteredPncs.length == 0" class="no-data-found">
                 {{ 'PNC_SEARCH.NO_PNC_FOUND' | translate }}
             </div>
             <pnc-card *ngFor="let pnc of filteredPncs" [itemMember]="createCrewMemberObjectFromPnc(pnc)" (click)="openPncHomePage(pnc)"></pnc-card>
