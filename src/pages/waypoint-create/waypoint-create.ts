@@ -1,3 +1,4 @@
+import { AppConstant } from './../../app/app.constant';
 import { DatePipe } from '@angular/common';
 import { SecurityProvider } from './../../providers/security/security';
 import { WaypointStatusProvider } from './../../providers/waypoint-status/waypoint-status';
@@ -17,6 +18,8 @@ import { ToastProvider } from './../../providers/toast/toast';
     templateUrl: 'waypoint-create.html',
 })
 export class WaypointCreatePage {
+
+    datepickerMaxDate = AppConstant.datepickerMaxDate;
 
     creationForm: FormGroup;
     careerObjectiveId: number;

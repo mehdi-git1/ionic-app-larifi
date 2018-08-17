@@ -82,7 +82,7 @@
                             </ion-list>
                             <!-- Prioritaire -->
                             <ion-item>
-                                <ion-label fixed>{{ 'CAREER_OBJECTIVE_CREATE.FORM.PRIORITIZED' | translate }}</ion-label>
+                                <ion-label>{{ 'CAREER_OBJECTIVE_CREATE.FORM.PRIORITIZED' | translate }}</ion-label>
                                 <ion-checkbox [disabled]="readOnlyByUserConnected()" [(ngModel)]="careerObjective.prioritized" checked="{{careerObjective.prioritized}}" formControlName="prioritizedControl"></ion-checkbox>
                             </ion-item>
                         </ion-col>
@@ -94,7 +94,8 @@
                                     <ion-icon name="calendar"></ion-icon>
                                 </ion-label>
                                 <ion-datetime [disabled]="readOnlyByUserConnected()" displayFormat="DD/MM/YYYY" [(ngModel)]="careerObjective.nextEncounterDate" formControlName="nextEncounterDateControl" [pickerOptions]="nextEncounterDateTimeOptions" [doneText]="translateService.instant('GLOBAL.DATEPICKER.DONE')"
-                                    [cancelText]="translateService.instant('GLOBAL.DATEPICKER.CANCEL')"></ion-datetime>
+                                    [cancelText]="translateService.instant('GLOBAL.DATEPICKER.CANCEL')" [max]="datepickerMaxDate">
+                                </ion-datetime>
                             </ion-item>
                             <!-- Date de rencontre -->
                             <ion-label stacked [ngClass]="{'required' : requiredOnEncounterDay  || isEncounterDateRequired() }">{{ 'CAREER_OBJECTIVE_CREATE.FORM.ENCOUNTER_DATE' | translate }}
@@ -105,7 +106,7 @@
                                     <ion-icon name="calendar"></ion-icon>
                                 </ion-label>
                                 <ion-datetime [disabled]="readOnlyByUserConnected()" displayFormat="DD/MM/YYYY" [(ngModel)]="careerObjective.encounterDate" formControlName="encounterDateControl" [pickerOptions]="encounterDateTimeOptions" [doneText]="translateService.instant('GLOBAL.DATEPICKER.DONE')"
-                                    [cancelText]="translateService.instant('GLOBAL.DATEPICKER.CANCEL')"></ion-datetime>
+                                    [cancelText]="translateService.instant('GLOBAL.DATEPICKER.CANCEL')" [max]="datepickerMaxDate"></ion-datetime>
                             </ion-item>
                         </ion-col>
                     </ion-row>

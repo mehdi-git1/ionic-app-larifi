@@ -98,3 +98,7 @@ ion-input {
 .hidden {
     visibility: hidden;
 }
+
+.scroll-content {
+    overflow-y: auto !important;
+}
