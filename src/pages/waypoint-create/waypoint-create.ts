@@ -116,9 +116,9 @@ export class WaypointCreatePage {
                 this.waypoint = savedWaypoint;
 
                 if (this.waypoint.waypointStatus === WaypointStatus.DRAFT) {
-                    this.toastProvider.success(this.translateService.instant('WAYPOINT_CREATE.SUCCESS.DRAFT_SAVED'));
+                    this.toastProvider.success(this.translateService.instant('WAYPOINT.SUCCESS.DRAFT_SAVED'));
                 } else {
-                    this.toastProvider.success(this.translateService.instant('WAYPOINT_CREATE.SUCCESS.WAYPOINT_SAVED'));
+                    this.toastProvider.success(this.translateService.instant('WAYPOINT.SUCCESS.WAYPOINT_SAVED'));
                 }
                 this.loading.dismiss();
                 this.navCtrl.pop();
@@ -142,15 +142,15 @@ export class WaypointCreatePage {
     */
     confirmDeleteWaypointDraft() {
         this.alertCtrl.create({
-            title: this.translateService.instant('WAYPOINT_CREATE.CONFIRM_DRAFT_DELETE.TITLE'),
-            message: this.translateService.instant('WAYPOINT_CREATE.CONFIRM_DRAFT_DELETE.MESSAGE'),
+            title: this.translateService.instant('WAYPOINT.CONFIRM_DRAFT_DELETE.TITLE'),
+            message: this.translateService.instant('WAYPOINT.CONFIRM_DRAFT_DELETE.MESSAGE'),
             buttons: [
                 {
-                    text: this.translateService.instant('WAYPOINT_CREATE.CONFIRM_DRAFT_DELETE.CANCEL'),
+                    text: this.translateService.instant('WAYPOINT.CONFIRM_DRAFT_DELETE.CANCEL'),
                     role: 'cancel'
                 },
                 {
-                    text: this.translateService.instant('WAYPOINT_CREATE.CONFIRM_DRAFT_DELETE.CONFIRM'),
+                    text: this.translateService.instant('WAYPOINT.CONFIRM_DRAFT_DELETE.CONFIRM'),
                     handler: () => this.deleteWaypointDraft()
                 }
             ]
@@ -169,7 +169,7 @@ export class WaypointCreatePage {
             .delete(this.waypoint.techId)
             .then(
                 deletedWaypoint => {
-                    this.toastProvider.success(this.translateService.instant('WAYPOINT_CREATE.SUCCESS.DRAFT_DELETED'));
+                    this.toastProvider.success(this.translateService.instant('WAYPOINT.SUCCESS.DRAFT_DELETED'));
                     this.navCtrl.pop();
                     this.loading.dismiss();
                 },
