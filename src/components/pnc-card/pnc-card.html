@@ -1,11 +1,13 @@
-<ion-card class="flight-crew-card clickable" >
+<ion-card class="flight-crew-card clickable">
 
     <ion-card-content no-padding class="pnc-info-panel">
         <offline-indicator [object]="crewMember.pnc"></offline-indicator>
         <ion-grid>
             <ion-row>
                 <ion-col col-1 class="identity">
-                    <span><img src="{{getAvatarPicture(crewMember.pnc.gender)}}" /></span>
+                    <span>
+                        <img src="{{getAvatarPicture(crewMember.pnc.gender)}}" />
+                    </span>
                     <span class="value">{{crewMember.pnc.matricule}}</span>
                 </ion-col>
                 <ion-col col-11 class="content">
@@ -26,7 +28,9 @@
                                 <!-- Particularite -->
                                 <span class="value">{{crewMember.particularity }}</span>
                                 <!-- Prioritaire -->
-                                <span class="info-icon"><ion-icon *ngIf="crewMember.prioritized" name="flag" ios="md-flag" color="red80"></ion-icon></span>
+                                <span class="info-icon">
+                                    <ion-icon *ngIf="crewMember.prioritized" name="flag" ios="md-flag" color="red80"></ion-icon>
+                                </span>
                                 <download-button [synchroInProgress]="synchroInProgress" (onDownload)="downloadPncEdossier(crewMember.pnc.matricule)"></download-button>
                             </div>
                         </ion-col>
@@ -56,7 +60,7 @@
                                 </span>
                             </div>
                         </ion-col>
-                        <!-- Spécification machine-->
+                        <!-- Spécialisation avion -->
                         <ion-col class="pnc-info" *ngIf="!isCrewMember">
                             <label>{{ 'PNC_SEARCH.CRITERIA.AIRCRAFT_SKILL' | translate }}</label>
                             <div class="value pnc-Array-item" [ngClass]="{'no-value' :  (!crewMember.pnc.aircraftSkills || crewMember.pnc.aircraftSkills.length === 0) }">

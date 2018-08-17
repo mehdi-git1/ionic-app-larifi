@@ -65,7 +65,7 @@
                                 <ion-icon name="calendar"></ion-icon>
                             </ion-label>
                             <ion-datetime displayFormat="DD/MM/YYYY" [(ngModel)]="waypoint.encounterDate" formControlName="encounterDateControl" [pickerOptions]="customDateTimeOptions" [doneText]="translateService.instant('GLOBAL.DATEPICKER.DONE')" [cancelText]="translateService.instant('GLOBAL.DATEPICKER.CANCEL')"
-                                [disabled]="readOnlyByUserConnected()"></ion-datetime>
+                                [disabled]="readOnlyByUserConnected()" [max]="datepickerMaxDate"></ion-datetime>
                         </ion-item>
                     </ion-col>
                 </ion-row>

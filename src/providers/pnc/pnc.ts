@@ -147,6 +147,7 @@ export class PncProvider {
               && (pnc.assignment.sector === connectedPnc.assignment.sector)
               && (pnc.matricule !== connectedPnc.matricule));
           }
+          filteredPnc.sort((a, b) => { if (a.lastName < b.lastName) { return -1; } else { return 1; } });
           const pagedPncResponse: PagedPnc = new PagedPnc();
           pagedPncResponse.content = filteredPnc;
           pagedPncResponse.page = new Page();
