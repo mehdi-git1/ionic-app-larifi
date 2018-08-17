@@ -76,7 +76,6 @@ export class SynchronizationProvider {
    * @param matricule le matricule du PNC
    * @return  Vrai lorsqu'un objectif ou point d'étape a été crée ou modifié pour un pnc, sinon Faux
    */
-
   isPncModifiedOffline(matricule: string): boolean {
 
     let allCareerObjectivePnc = this.storageService.findAll(Entity.CAREER_OBJECTIVE);
