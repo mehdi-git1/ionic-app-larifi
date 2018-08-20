@@ -1,3 +1,4 @@
+import { DeviceService } from './../../services/device.service';
 import { SecMobilService } from './../../services/secMobil.service';
 import { Gender } from './../../models/gender';
 import { Pnc } from './../../models/pnc';
@@ -7,7 +8,7 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class GenderProvider {
 
-  constructor(private secMobilService: SecMobilService) {
+  constructor(private deviceService: DeviceService) {
 
   }
 
@@ -26,10 +27,10 @@ export class GenderProvider {
    * */
   getAvatarPicture(gender: Gender) {
     if (gender === Gender.M) {
-      return this.secMobilService.isBrowser ? '../../assets/imgs/man-default-picture.png' : './assets/imgs/man-default-picture.png';
+      return this.deviceService.isBrowser() ? '../../assets/imgs/man-default-picture.png' : './assets/imgs/man-default-picture.png';
     }
     if (gender === Gender.F) {
-      return this.secMobilService.isBrowser ? '../../assets/imgs/woman-default-picture.png' : './assets/imgs/woman-default-picture.png';
+      return this.deviceService.isBrowser() ? '../../assets/imgs/woman-default-picture.png' : './assets/imgs/woman-default-picture.png';
     }
   }
 
