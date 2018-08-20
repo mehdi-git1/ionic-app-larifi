@@ -5,7 +5,7 @@
         <ion-grid>
             <ion-row>
                 <ion-col col-1 class="identity">
-                    <span><pnc-photo [pnc]="crewMember.pnc" [size]="100"></pnc-photo></span>
+                    <pnc-photo [pnc]="crewMember.pnc" [size]="100"></pnc-photo>
                     <span class="value">{{crewMember.pnc.matricule}}</span>
                 </ion-col>
                 <ion-col col-11 class="content">
@@ -26,7 +26,9 @@
                                 <!-- Particularite -->
                                 <span class="value">{{crewMember.particularity }}</span>
                                 <!-- Prioritaire -->
-                                <span class="info-icon"><ion-icon *ngIf="crewMember.prioritized" name="flag" ios="md-flag" color="red80"></ion-icon></span>
+                                <span class="info-icon">
+                                    <ion-icon *ngIf="crewMember.prioritized" name="flag" ios="md-flag" color="red80"></ion-icon>
+                                </span>
                                 <download-button [synchroInProgress]="synchroInProgress" (onDownload)="downloadPncEdossier(crewMember.pnc.matricule)"></download-button>
                             </div>
                         </ion-col>
@@ -56,7 +58,7 @@
                                 </span>
                             </div>
                         </ion-col>
-                        <!-- Spécification machine-->
+                        <!-- Spécialisation avion -->
                         <ion-col class="pnc-info" *ngIf="!isCrewMember">
                             <label>{{ 'PNC_SEARCH.CRITERIA.AIRCRAFT_SKILL' | translate }}</label>
                             <div class="value pnc-Array-item" [ngClass]="{'no-value' :  (!crewMember.pnc.aircraftSkills || crewMember.pnc.aircraftSkills.length === 0) }">

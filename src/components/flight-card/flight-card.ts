@@ -43,6 +43,7 @@ export class FlightCardComponent {
         this.synchroInProgress = false;
       }, error => {
         const errorMsg = this.translate.instant('SYNCHRONIZATION.FLIGHT_SAVED_OFFLINE_ERROR', { 'flightNumber': leg.company + leg.number });
+        this.toastProvider.error(error);
         this.toastProvider.error(errorMsg);
         this.synchroInProgress = false;
       });
