@@ -41,7 +41,7 @@ export class FlightCrewListPage {
         this.legProvider.getLeg(legId).then(legInfos => {
             this.leg = legInfos;
             this.legProvider.getFlightCrewFromLeg(legId).then(flightCrew => {
-                this.flightCrewList = flightCrew;
+                const unsortedFlightCrewList = flightCrew;
                 flightCrew.forEach(crew => {
                     if (crew.pnc.matricule !== undefined) {
                         if (crew.pnc.matricule === this.sessionService.authenticatedUser.matricule) {
@@ -54,8 +54,51 @@ export class FlightCrewListPage {
                         });
                     }
                 });
+                this.flightCrewList = this.sortFlightCrewList(unsortedFlightCrewList);
             }, error => { this.flightCrewList = []; });
         }, error => { });
+    }
+
+    sortFlightCrewList(flightCrewList: CrewMember[]): CrewMember[] {
+        return flightCrewList.sort((crewMember, otherCrewMember) => {
+            return this.sortCrew(crewMember, otherCrewMember);
+        });
+    }
+
+    sortCrew(crewMember: CrewMember, otherCrewMember: CrewMember): number {
+        if (crewMember.prioritized && otherCrewMember.prioritized) {
+            return this.sortByGrade(crewMember, otherCrewMember);
+        } else if (crewMember.prioritized && !otherCrewMember.prioritized) {
+            return -1;
+        } else if (!crewMember.prioritized && otherCrewMember.prioritized) {
+            return 1;
+        } else if (crewMember.particularity === 'P' && otherCrewMember.particularity === 'P') {
+            return this.sortByGrade(crewMember, otherCrewMember);
+        } else if (crewMember.particularity === 'P' && !(otherCrewMember.particularity === 'P')) {
+            return -1;
+        } else if (!(crewMember.particularity === 'P') && otherCrewMember.particularity === 'P') {
+            return 1;
+        } else {
+            return this.sortByGrade(crewMember, otherCrewMember);
+        }
+    }
+
+    sortByGrade(crewMember: CrewMember, otherCrewMember: CrewMember): number {
+        if (crewMember.pnc.speciality === otherCrewMember.pnc.speciality) {
+            return this.sortByName(crewMember, otherCrewMember);
+        } else if (crewMember.pnc.speciality === 'CAD') {
+            return -1;
+        } else if (crewMember.pnc.speciality === 'CCP' && (otherCrewMember.pnc.speciality === 'CC' || otherCrewMember.pnc.speciality === 'HOT' || otherCrewMember.pnc.speciality === 'STW')) {
+            return -1;
+        } else if (crewMember.pnc.speciality === 'CC' && (otherCrewMember.pnc.speciality === 'HOT' || otherCrewMember.pnc.speciality === 'STW')) {
+            return -1;
+        } else {
+            return 1;
+        }
+    }
+
+    sortByName(crewMember: CrewMember, otherCrewMember: CrewMember): number {
+        if (crewMember.pnc.lastName < otherCrewMember.pnc.lastName) { return -1; } else { return 1; }
     }
 
     /**
