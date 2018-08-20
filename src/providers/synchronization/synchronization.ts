@@ -1,3 +1,6 @@
+import { CareerObjective } from './../../models/careerObjective';
+import { ToastProvider } from './../toast/toast';
+import { TranslateService } from '@ngx-translate/core';
 import { SessionService } from './../../services/session.service';
 import { CrewMemberTransformerProvider } from './../crewMember/crewMember-transformer';
 import { LegTransformerProvider } from './../leg/leg-transformer';
@@ -15,11 +18,11 @@ import { StorageService } from './../../services/storage.service';
 import { Injectable, EventEmitter, Output } from '@angular/core';
 import { Entity } from '../../models/entity';
 import { Pnc } from '../../models/pnc';
-import { CareerObjective } from '../../models/careerObjective';
 import { Waypoint } from '../../models/waypoint';
 import { Rotation } from '../../models/rotation';
 import { SecurityProvider } from './../../providers/security/security';
 import { LegProvider } from './../../providers/leg/leg';
+import { CareerObjectiveProvider } from '../career-objective/career-objective';
 @Injectable()
 export class SynchronizationProvider {
 
@@ -37,7 +40,10 @@ export class SynchronizationProvider {
     public securityProvider: SecurityProvider,
     private summarySheetProvider: SummarySheetProvider,
     private legProvider: LegProvider,
-    private sessionService: SessionService) {
+    private sessionService: SessionService,
+    private toastProvider: ToastProvider,
+    private translateService: TranslateService,
+    private careerObjectiveProvider: CareerObjectiveProvider) {
   }
 
 
@@ -48,17 +54,57 @@ export class SynchronizationProvider {
    * @return une promesse résolue quand le EDossier est mis en cache
    */
   storeEDossierOffline(matricule: string): Promise<boolean> {
+
     return new Promise((resolve, reject) => {
-      this.pncSynchroProvider.getPncSynchro(matricule).then(pncSynchro => {
-        this.summarySheetProvider.getSummarySheet(matricule).then(summarySheet => {
-          pncSynchro.summarySheet = summarySheet;
-          this.updateLocalStorageFromPncSynchroResponse(pncSynchro);
-          resolve(true);
+      if (!this.isPncModifiedOffline(matricule)) {
+        this.pncSynchroProvider.getPncSynchro(matricule).then(pncSynchro => {
+          this.summarySheetProvider.getSummarySheet(matricule).then(summarySheet => {
+            pncSynchro.summarySheet = summarySheet;
+            this.updateLocalStorageFromPncSynchroResponse(pncSynchro);
+            resolve(true);
+          });
+        }, error => {
+          reject(this.translateService.instant('SYNCHRONIZATION.PNC_SAVED_OFFLINE_ERROR', { 'matricule': matricule }));
         });
-      }, error => {
-        reject(matricule);
-      });
+      } else {
+        reject(this.translateService.instant('GLOBAL.MESSAGES.ERROR.APPLICATION_SYNCHRO_PENDING', { 'matricule': matricule }));
+      }
     });
+
+  }
+
+  /**
+   * Determine si il y a eu du mouvement (creation, modification...) pour un pnc donné
+   * @param matricule le matricule du PNC
+   * @return  Vrai lorsqu'un objectif ou point d'étape a été crée ou modifié pour un pnc, sinon Faux
+   */
+  isPncModifiedOffline(matricule: string): boolean {
+
+    const allCareerObjectives = this.storageService.findAll(Entity.CAREER_OBJECTIVE);
+    const allWaypoints = this.storageService.findAll(Entity.WAYPOINT);
+
+    const pncCareerObjectives = allCareerObjectives.filter(careerObjective => {
+      return careerObjective.pnc.matricule === matricule;
+    });
+
+    const pncWaypoints = allWaypoints.filter(waypoint => {
+      const careerObjective = this.storageService.findOne(Entity.CAREER_OBJECTIVE, waypoint.careerObjective.techId);
+      return careerObjective.pnc.matricule === matricule;
+    });
+
+    for (const careerObjective of pncCareerObjectives) {
+      if (careerObjective.offlineAction) {
+        return true;
+      }
+    }
+
+    for (const waypoint of pncWaypoints) {
+      if (waypoint.offlineAction) {
+        return true;
+      }
+    }
+
+    return false;
   }
 
   /**
