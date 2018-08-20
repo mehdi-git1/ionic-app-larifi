@@ -11,8 +11,8 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 })
 export class PncPhotoComponent implements OnChanges {
 
-  @Input()
-  pnc: Pnc;
+  @Input() pnc: Pnc;
+  @Input() size: number;
 
   photoSrc: SafeResourceUrl;
 
