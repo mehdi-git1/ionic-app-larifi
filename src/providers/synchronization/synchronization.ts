@@ -1,3 +1,4 @@
+import { CareerObjective } from './../../models/careerObjective';
 import { ToastProvider } from './../toast/toast';
 import { TranslateService } from '@ngx-translate/core';
 import { SessionService } from './../../services/session.service';
@@ -17,11 +18,11 @@ import { StorageService } from './../../services/storage.service';
 import { Injectable, EventEmitter, Output } from '@angular/core';
 import { Entity } from '../../models/entity';
 import { Pnc } from '../../models/pnc';
-import { CareerObjective } from '../../models/careerObjective';
 import { Waypoint } from '../../models/waypoint';
 import { Rotation } from '../../models/rotation';
 import { SecurityProvider } from './../../providers/security/security';
 import { LegProvider } from './../../providers/leg/leg';
+import { CareerObjectiveProvider } from '../career-objective/career-objective';
 @Injectable()
 export class SynchronizationProvider {
 
@@ -41,7 +42,8 @@ export class SynchronizationProvider {
     private legProvider: LegProvider,
     private sessionService: SessionService,
     private toastProvider: ToastProvider,
-    private translateService: TranslateService) {
+    private translateService: TranslateService,
+    private careerObjectiveProvider: CareerObjectiveProvider) {
   }
 
 
@@ -86,7 +88,8 @@ export class SynchronizationProvider {
     });
 
     const pncWaypoints = allWaypoints.filter(waypoint => {
-      return waypoint.pnc.matricule === matricule;
+      const careerObjective = this.storageService.findOne(Entity.CAREER_OBJECTIVE, waypoint.careerObjective.techId);
+      return careerObjective.pnc.matricule === matricule;
     });
 
     for (const careerObjective of pncCareerObjectives) {
@@ -145,9 +148,6 @@ export class SynchronizationProvider {
     for (const waypoint of pncSynchroResponse.waypoints) {
       // On ajoute la clef de l'objectif à chaque point d'étape
       delete waypoint.offlineAction;
-      // On affecte le matricule du pnc au point d'étape
-      waypoint.pnc = new Pnc();
-      waypoint.pnc.matricule = waypoint.careerObjective.pnc.matricule;
       // On ne garde que le techId pour réduire le volume de données en cache
       const careerObjectiveTechId = waypoint.careerObjective.techId;
       waypoint.careerObjective = new CareerObjective();
