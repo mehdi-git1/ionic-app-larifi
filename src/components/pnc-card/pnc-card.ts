@@ -17,6 +17,7 @@ export class PncCardComponent {
 
   @Input() crewMember: CrewMember;
   @Input() isCrewMember: boolean;
+  @Input() disabled: boolean;
   synchroInProgress: boolean;
 
   constructor(
