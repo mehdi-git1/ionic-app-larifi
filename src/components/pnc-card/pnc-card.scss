@@ -1,4 +1,7 @@
 pnc-card {
+    .disabled {
+        background: color($colors, grey90);
+    }
     .pnc-info-panel {
         display: flex;
 
