@@ -42,7 +42,10 @@ export class PncPhotoComponent implements OnChanges {
         }
 
         this.loading = false;
-      }, error => { });
+      }, error => {
+        this.photoSrc = this.genderProvider.getAvatarPicture(this.pnc.gender);
+        this.loading = false;
+      });
     }
   }
 
