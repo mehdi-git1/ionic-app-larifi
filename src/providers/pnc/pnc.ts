@@ -1,3 +1,4 @@
+import { SearchPncCriteria } from './../../models/search-pnc-criteria';
 import { SessionService } from './../../services/session.service';
 import { Config } from './../../configuration/environment-variables/config';
 import { HttpRequest, HttpParams } from '@angular/common/http';
@@ -121,9 +122,12 @@ export class PncProvider {
    * @param pncFilter filtre de recherche, pas utilisé en offline
    * @return les pncs concernés (en offline : uniquement les pncs sur même secteur sauf le pnc connecté)
    */
-  getFilteredPncs(pncFilter: PncFilter): Promise<PagedPnc> {
+  getFilteredPncs(pncFilter: PncFilter, page: number, size: number): Promise<PagedPnc> {
+    // const searchPncCriteria = this.getFilledFieldsOnly(pncFilter, page, size);
+    const searchPncCriteria = new SearchPncCriteria(pncFilter, page, size);
+
     if (this.connectivityService.isConnected()) {
-      return this.onlinePncProvider.getFilteredPncs(pncFilter).then(responsePnc => {
+      return this.onlinePncProvider.getFilteredPncs(searchPncCriteria).then(responsePnc => {
 
         const promises: Promise<Pnc>[] = new Array();
 
@@ -168,5 +172,6 @@ export class PncProvider {
   pncAutoComplete(search: string): Promise<Pnc[]> {
     return this.restService.get(`${this.pncUrl}/auto_complete`, { search });
   }
+
 }
 

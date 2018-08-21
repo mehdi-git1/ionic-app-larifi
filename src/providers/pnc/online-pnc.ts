@@ -1,3 +1,4 @@
+import { SearchPncCriteria } from './../../models/search-pnc-criteria';
 import { PagedPnc } from './../../models/pagedPnc';
 import { PncFilter } from './../../models/pncFilter';
 import { Rotation } from './../../models/rotation';
@@ -50,7 +51,7 @@ export class OnlinePncProvider {
    * @param matricule le matricule du PNC qu'on souhaite récupérer
    * @return une promesse contenant le PNC trouvé
    */
-  getFilteredPncs(pncFilter: PncFilter): Promise<PagedPnc> {
+  getFilteredPncs(pncFilter: SearchPncCriteria): Promise<PagedPnc> {
     return this.restService.get(this.pncUrl, pncFilter).then(response =>
       response as PagedPnc
     );
