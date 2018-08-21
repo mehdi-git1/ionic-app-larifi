@@ -44,9 +44,9 @@ export class HttpErrorInterceptor implements HttpInterceptor {
         if (this.deviceService.isOfflineModeAvailable()) {
           this.connectivityService.pingAPI().then(
             success => {
-              // TODO : tenter de relancer l'appel en offline
             },
             error => {
+              // TODO : tenter de relancer l'appel en offline
               this.events.publish('connectionStatus:disconnected');
             });
         }
