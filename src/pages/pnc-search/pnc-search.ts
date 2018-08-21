@@ -122,7 +122,9 @@ export class PncSearchPage implements OnInit {
             }
         });
     }
-
+    /**Crée un objet CrewMember à partir d'un objet Pnc
+     * @param pnc pnc à transformer
+     */
     createCrewMemberObjectFromPnc(pnc: Pnc) {
         const crewMember: CrewMember = new CrewMember();
         crewMember.pnc = pnc;

@@ -53,6 +53,10 @@ export class SearchFilterComponent implements OnInit {
 
   }
 
+  /**
+   * Action déclenchée lors du click
+   * @param evt event : click
+   */
   search(evt: Event): void {
     evt.stopPropagation();
     this.onSearch.next();
@@ -95,6 +99,9 @@ export class SearchFilterComponent implements OnInit {
 
   }
 
+  /**
+   * Réinitialise les valeurs des filtres de recherche
+   */
   resetFilterValues() {
     this.searchForm.get('divisionControl').setValue(AppConstant.ALL);
     this.searchForm.get('sectorControl').setValue(AppConstant.ALL);
@@ -207,9 +214,9 @@ export class SearchFilterComponent implements OnInit {
 
 
   /**
- * charge la liste des secteurs associé a la division choisi
- * @param sector secteur concerné.
- */
+   * Charge la liste des secteurs associé a la division choisi
+   * @param sector secteur concerné.
+   */
   getSectorList(division) {
     this.ginqList = null;
     this.sectorList = null;
@@ -221,7 +228,7 @@ export class SearchFilterComponent implements OnInit {
   }
 
   /**
-   * charge la liste des ginq associé au secteur choisi
+   * Charge la liste des ginq associé au secteur choisi
    * @param sector secteur concerné.
    */
   getGinqList(sector) {
