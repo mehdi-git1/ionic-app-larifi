@@ -26,6 +26,7 @@ export class SearchFilterComponent implements OnInit {
 
   @Output() onSearch: EventEmitter<any> = new EventEmitter();
 
+  valueAll = AppConstant.ALL;
   pncList: Observable<Pnc[]>;
 
   searchForm: FormGroup;
@@ -259,6 +260,10 @@ export class SearchFilterComponent implements OnInit {
 
   areFiltersDisabled(): boolean {
     return !this.connectivityService.isConnected();
+  }
+
+  clearButtonIsDisabled(): booolean {
+    return this.outOfDivision || this.areFiltersDisabled();
   }
 
   inactiveFiltersLabelClass(): string {

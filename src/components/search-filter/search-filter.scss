@@ -1,7 +1,7 @@
 search-filter {
     .pnc-search-card {
         ion-card-header {
-            height: 40px;
+            height: 30px;
             display: flex;
             justify-content: space-between;
         }
@@ -53,6 +53,20 @@ search-filter {
             width: calc(100%);
         }
 
+        .hide-label {
+            
+            visibility: hidden;
+            opacity: 0;
+            transition: visibility 0s linear 2000ms,
+            opacity 2000ms;
+        }
+
+        .show-label {
+            visibility: visible;
+            transition: visibility 0s linear 0s,
+            opacity 2000ms;
+        }
+
         form {
             .mat-form-field {
                 width: 100%;
@@ -80,18 +94,6 @@ search-filter {
                 text-align: right;
             }
 
-            .hide-label {
-                visibility: hidden;
-                opacity: 0;
-                transition: visibility 0s linear 2000ms,
-                opacity 2000ms;
-            }
-
-            .show-label {
-                visibility: visible;
-                transition: visibility 0s linear 0s,
-                opacity 2000ms;
-            }
             .select-placeholder {
                 color: color($colors, grey10) !important;
             }
