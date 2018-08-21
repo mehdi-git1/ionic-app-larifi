@@ -23,7 +23,7 @@ export class StorageService {
   }
 
   clearOfflineMap() {
-    this.storage.set(this.config.appName, null);
+    this.storage.clear();
   }
 
   /**

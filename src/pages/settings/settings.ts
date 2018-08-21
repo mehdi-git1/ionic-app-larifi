@@ -31,8 +31,15 @@ export class SettingsPage {
     private alertCtrl: AlertController
 
   ) {
-
     this.connected = this.connectivityService.isConnected();
+
+    this.events.subscribe('EDossierOffline:stored', () => {
+      this.initInProgress = false;
+    });
+
+    this.connectivityService.connectionStatusChange.subscribe(connected => {
+      this.connected = connected;
+    });
   }
 
   ionViewDidLoad() {
@@ -43,8 +50,6 @@ export class SettingsPage {
     this.initInProgress = true;
     this.storageService.clearOfflineMap();
     this.initializeCache();
-    setTimeout(this.initInProgress = false, 5000);
-
   }
 
   initializeCache() {
