@@ -1,0 +1,97 @@
+search-filter {
+    .pnc-search-card {
+        ion-card-header {
+            height: 40px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        ion-card-content {
+            max-height: 0;
+            transition: max-height 500ms;
+        }
+
+        ion-card-content.opened {
+            max-height: 600px;
+            transition: max-height 500ms;
+            padding: auto;
+        }
+
+        .select-text {
+            padding-left: 5px;
+        }
+
+        .card-content {
+            padding: 0;
+        }
+
+        .header-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .button-inner {
+            height: 30px;
+        }
+        .value-label {
+            padding-left: 5px;
+        }
+        .item-cover {
+            height: 30px;
+        }
+        .search-pnc {
+            background: color($colors, green60);
+            width: calc(100%);
+        }
+
+        .clear-pnc {
+            background:  grey;
+            width: calc(100%);
+        }
+
+        form {
+            .mat-form-field {
+                width: 100%;
+                line-height: normal;
+            }
+            .mat-form-field-infix {
+                border: 2px solid lightgray;
+            }
+            .mat-form-field-label {
+                padding-left: 2px;
+                font-size: 10;
+            }
+
+            .mat-form-field-wrapper {
+                padding-bottom: 0em;
+            }
+
+            .label-inactive-filters {
+                color: LightGray;
+                font-weight: bold;
+                display: flex;
+                flex-direction: column;
+                justify-content: right;
+                align-items: right;
+                text-align: right;
+            }
+
+            .hide-label {
+                visibility: hidden;
+                opacity: 0;
+                transition: visibility 0s linear 2000ms,
+                opacity 2000ms;
+            }
+
+            .show-label {
+                visibility: visible;
+                transition: visibility 0s linear 0s,
+                opacity 2000ms;
+            }
+            .select-placeholder {
+                color: color($colors, grey10) !important;
+            }
+        }
+    }
+
+}
