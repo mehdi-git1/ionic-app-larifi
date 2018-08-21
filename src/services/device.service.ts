@@ -26,6 +26,6 @@ export class DeviceService {
     * @return vrai si le mode déconnecté est disponible, faux sinon
     */
     isOfflineModeAvailable(): boolean {
-        return this.config.makeOfflineModeAvailable || !this.isBrowser;
+        return this.config.makeOfflineModeAvailable || !this.isBrowser();
     }
 }
