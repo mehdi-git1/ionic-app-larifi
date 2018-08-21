@@ -23,6 +23,7 @@ export class FlightCrewListPage {
 
     flightCrewList: CrewMember[];
     leg: Leg;
+    connectedCrewMember: CrewMember;
 
     constructor(public navCtrl: NavController,
         public navParams: NavParams,
@@ -41,11 +42,11 @@ export class FlightCrewListPage {
         this.legProvider.getLeg(legId).then(legInfos => {
             this.leg = legInfos;
             this.legProvider.getFlightCrewFromLeg(legId).then(flightCrew => {
-                const unsortedFlightCrewList = flightCrew;
                 flightCrew.forEach(crew => {
                     if (crew.pnc.matricule !== undefined) {
                         if (crew.pnc.matricule === this.sessionService.authenticatedUser.matricule) {
                             this.sessionService.appContext.onBoardRedactorFonction = crew.onBoardFonction;
+                            this.connectedCrewMember = crew;
                         }
                         this.pncProvider.refreshOffLineDateOnPnc(this.pncTransformer.toPnc(crew.pnc)).then(foundPnc => {
                             crew.pnc = foundPnc;
@@ -54,7 +55,11 @@ export class FlightCrewListPage {
                         });
                     }
                 });
-                this.flightCrewList = this.sortFlightCrewList(unsortedFlightCrewList);
+                // On supprime le PNC connecté de la liste
+                if (this.connectedCrewMember) {
+                    flightCrew = flightCrew.filter(item => item !== this.connectedCrewMember);
+                }
+                this.flightCrewList = this.sortFlightCrewList(flightCrew);
             }, error => { this.flightCrewList = []; });
         }, error => { });
     }

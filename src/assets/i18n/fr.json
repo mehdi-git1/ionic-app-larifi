@@ -128,7 +128,7 @@
         }
     },
     "WAYPOINT_CREATE": {
-        "TITLE": "Création d'un point d'étape",
+        "TITLE": "Point d'étape",
         "FORM": {
             "CONTEXT": "Contexte",
             "ACTION_PERFORMED": "Action réalisée",

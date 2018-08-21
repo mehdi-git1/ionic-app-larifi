@@ -24,7 +24,6 @@ export class SummarySheetProvider {
     */
   getSummarySheet(matricule: string): Promise<SummarySheet> {
     if (this.connectivityService.isConnected()) {
-      console.log('isConnected');
       return new Promise((resolve, reject) => {
         this.offlineSummarySheetProvider.getSummarySheet(matricule).then(offlineSummarySheet => {
           this.onlineSummarySheetProvider.getSummarySheet(matricule).then(onlineSummarySheet => {
