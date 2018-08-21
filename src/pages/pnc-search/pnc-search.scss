@@ -1,132 +1,88 @@
 page-pnc-search {
+    .pnc-search-content {
+        background: color($colors, grey90);
+        height: 100%;
+        padding: $page-padding;
+        padding-top: $navbar-height; // taille de la barre de navigation
+        display: flex;
+        flex-direction: column;
 
-    .search-pnc {
-        background: color($colors, green60);
-        width: calc(100%);
-    }
+        .pnc-search-card {
+            ion-card-header {
+                height: 50px;
+                justify-content: space-between;
+            }
 
-    .filtered-pnc-card {
+            ion-card-content {
+                max-height: 0;
+                transition: max-height 500ms;
+            }
 
-        img {
-            width: 80px;
-            border-radius: 100%;
+            ion-card-content.opened {
+                max-height: 600px;
+                transition: max-height 500ms;
+                padding: auto;
+            }
+
+            .card-content {
+                padding: 0;
+            }
+
+            .header-container {
+                display: flex;
+                align-items: center;
+            }
+
+            .search-pnc {
+                background: color($colors, green60);
+                width: calc(100%);
+            }
         }
 
-        .content {
-            display: flex;
-            flex-direction: column;
+        .filtered-pnc-list-container {
+            flex: 1;
+        }
 
-            ion-row {
-                flex: 1;
+        form {
+            .mat-form-field {
+                width: 100%;
+                line-height: normal;
+            }
+            .mat-form-field-infix {
+                border: 2px solid color($colors, grey90);
+                margin-top: 29px;
+            }
+            .mat-form-field-label {
+                top: 17px;
+                padding-left: 2px;
             }
 
-            .primary-info {
-                font-size: 1.0em;
-            }
-
-            .icon-container {
-                width: 35px;
-                float: right;
-                ion-icon {
-                    font-size: 2em;
-                }
-            }
-
-            .pnc-info {
+            .label-inactive-filters {
+                color: color($colors, grey90);
+                font-weight: bold;
                 display: flex;
                 flex-direction: column;
-                align-items: center;
-                .pnc-Array-item {
-                    span:after {
-                        content: ', ';
-                    }
-                    span:last-child:after {
-                        content: none;
-
-                    }
-                }
-
+                justify-content: right;
+                align-items: right;
+                text-align: right;
             }
+
+            .hide-label {
+                visibility: hidden;
+                opacity: 0;
+                transition: visibility 0s linear 2000ms,
+                opacity 2000ms;
+            }
+
+            .show-label {
+                visibility: visible;
+                transition: visibility 0s linear 0s,
+                opacity 2000ms;
+            }
+            .select-placeholder {
+                color: color($colors, grey10) !important;
+            }
+
         }
     }
-
-    .filtered-pnc-list-container {
-        height: 78%;
-        margin-top: 30px;
-    }
-
-    form {
-        .mat-form-field {
-            width: 100%;
-            line-height: normal;
-        }
-        .mat-form-field-infix {
-            border: 2px solid lightgray;
-            margin-top: 29px;
-        }
-        .mat-form-field-label {
-            top: 17px;
-            padding-left: 2px;
-        }
-
-        .label-inactive-filters {
-            color: LightGray;
-            font-weight: bold;
-            display: flex;
-            flex-direction: column;
-            justify-content: right;
-            align-items: right;
-            text-align: right;
-        }
-
-        .hide-label {
-            visibility: hidden;
-            opacity: 0;
-            transition: visibility 0s linear 2000ms,
-            opacity 2000ms;
-        }
-
-        .show-label {
-            visibility: visible;
-            transition: visibility 0s linear 0s,
-            opacity 2000ms;
-        }
-        .select-placeholder {
-            color: color($colors, grey10) !important;
-        }
-
-    }
-
-    .label-md {
-        margin: 0;
-    }
-
-    .pnc-search-card {
-        ion-card-header {
-            height: 40px;
-            display: flex;
-            justify-content: space-between;
-        }
-
-        ion-card-content {
-            max-height: 0;
-            transition: max-height 500ms;
-        }
-
-        ion-card-content.opened {
-            max-height: 600px;
-            transition: max-height 500ms;
-            padding: auto;
-        }
-
-        .card-content {
-            padding: 0;
-        }
-
-        .header-container {
-            display: flex;
-            align-items: center;
-        }
-    }
-
 }
