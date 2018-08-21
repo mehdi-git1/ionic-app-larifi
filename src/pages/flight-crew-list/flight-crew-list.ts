@@ -64,31 +64,46 @@ export class FlightCrewListPage {
         }, error => { });
     }
 
+    /**
+     * Tri d'une liste de CrewMember
+     * @param flightCrewList liste à trier
+     * @return liste triée
+     */
     sortFlightCrewList(flightCrewList: CrewMember[]): CrewMember[] {
         return flightCrewList.sort((crewMember, otherCrewMember) => {
             return this.sortCrew(crewMember, otherCrewMember);
         });
     }
 
+    /**
+     * Tri 2 crewMember par priorité, puis grade, puis nom
+     * @param crewMember crewMember de base
+     * @param otherCrewMember crewMember à comparer
+     */
     sortCrew(crewMember: CrewMember, otherCrewMember: CrewMember): number {
         if (crewMember.prioritized && otherCrewMember.prioritized) {
-            return this.sortByGrade(crewMember, otherCrewMember);
+            return this.sortBySpeciality(crewMember, otherCrewMember);
         } else if (crewMember.prioritized && !otherCrewMember.prioritized) {
             return -1;
         } else if (!crewMember.prioritized && otherCrewMember.prioritized) {
             return 1;
         } else if (crewMember.particularity === 'P' && otherCrewMember.particularity === 'P') {
-            return this.sortByGrade(crewMember, otherCrewMember);
+            return this.sortBySpeciality(crewMember, otherCrewMember);
         } else if (crewMember.particularity === 'P' && !(otherCrewMember.particularity === 'P')) {
             return -1;
         } else if (!(crewMember.particularity === 'P') && otherCrewMember.particularity === 'P') {
             return 1;
         } else {
-            return this.sortByGrade(crewMember, otherCrewMember);
+            return this.sortBySpeciality(crewMember, otherCrewMember);
         }
     }
 
-    sortByGrade(crewMember: CrewMember, otherCrewMember: CrewMember): number {
+    /**
+     *  Tri par grade. Ordre : CAD > CCP > CC > HOT = STW
+     * @param crewMember crewMember de base
+     * @param otherCrewMember crewMember à comparer
+     */
+    sortBySpeciality(crewMember: CrewMember, otherCrewMember: CrewMember): number {
         if (crewMember.pnc.speciality === otherCrewMember.pnc.speciality) {
             return this.sortByName(crewMember, otherCrewMember);
         } else if (crewMember.pnc.speciality === 'CAD') {
@@ -101,9 +116,13 @@ export class FlightCrewListPage {
             return 1;
         }
     }
-
+    /**
+     * Tri par ordre alphabetique du nom
+     * @param crewMember crewMember de base
+     * @param otherCrewMember crewMember à comparer
+     */
     sortByName(crewMember: CrewMember, otherCrewMember: CrewMember): number {
-        if (crewMember.pnc.lastName < otherCrewMember.pnc.lastName) { return -1; } else { return 1; }
+        return crewMember.pnc.lastName < otherCrewMember.pnc.lastName ? -1 : 1;
     }
 
     /**
