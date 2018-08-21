@@ -25,7 +25,7 @@ export class DownloadButtonComponent {
    * Détermine si le bouton est disponible
    * @return vrai s'il est dispo, faux sinon
    */
-  isAvailable() {
+  isAvailable(): boolean {
     return this.connectivityService.isConnected() && this.deviceService.isOfflineModeAvailable();
   }
 
