@@ -1,3 +1,4 @@
+import { DeviceService } from './../services/device.service';
 import { GenericMessagePage } from './../pages/generic-message/generic-message';
 import { OfflineSecurityProvider } from './../providers/security/offline-security';
 import { PncHomePage } from './../pages/pnc-home/pnc-home';
@@ -42,6 +43,7 @@ export class EDossierPNC implements OnInit {
     private sessionService: SessionService,
     public translateService: TranslateService,
     private storageService: StorageService,
+    private deviceService: DeviceService,
     private toastProvider: ToastProvider,
     private parametersProvider: ParametersProvider,
     private securityProvider: SecurityProvider,
@@ -68,10 +70,12 @@ export class EDossierPNC implements OnInit {
         this.storageService.initOfflineMap().then(success => {
           this.putAuthenticatedUserInSession().then(authenticatedUser => {
             this.initParameters();
-            this.synchronizationProvider.storeEDossierOffline(authenticatedUser.matricule).then(successStore => {
-              this.events.publish('EDossierOffline:stored');
-            }, error => {
-            });
+            if (this.deviceService.isOfflineModeAvailable()) {
+              this.synchronizationProvider.storeEDossierOffline(authenticatedUser.matricule).then(successStore => {
+                this.events.publish('EDossierOffline:stored');
+              }, error => {
+              });
+            }
 
           });
         });

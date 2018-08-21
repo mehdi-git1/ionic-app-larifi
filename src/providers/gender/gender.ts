@@ -1,5 +1,4 @@
 import { DeviceService } from './../../services/device.service';
-import { SecMobilService } from './../../services/secMobil.service';
 import { Gender } from './../../models/gender';
 import { Pnc } from './../../models/pnc';
 import { Injectable } from '@angular/core';

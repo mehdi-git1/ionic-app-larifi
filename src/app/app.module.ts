@@ -1,3 +1,4 @@
+import { DeviceService } from './../services/device.service';
 import { PdfFileViewerPage } from './../pages/pdf-file-viewer/pdf-file-viewer';
 import { CrewMemberTransformerProvider } from './../providers/crewMember/crewMember-transformer';
 import { OnlineLegProvider } from './../providers/leg/online-leg';
@@ -154,6 +155,7 @@ declare var window: any;
     SecMobilService,
     ConnectivityService,
     StorageService,
+    DeviceService,
     { provide: RestService, useFactory: createRestService, deps: [HttpClient, SecMobilService, Config] },
     { provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true },
     AppInitService,

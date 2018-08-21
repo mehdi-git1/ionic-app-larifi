@@ -1,3 +1,5 @@
+import { DeviceService } from './../services/device.service';
+import { SecurityProvider } from './../providers/security/security';
 import { ConnectivityService } from './../services/connectivity.service';
 import { SecMobilService } from './../services/secMobil.service';
 import { Config } from './../configuration/environment-variables/config';
@@ -18,6 +20,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
     private translateService: TranslateService,
     private secMobilService: SecMobilService,
     private connectivityService: ConnectivityService,
+    private deviceService: DeviceService,
     private events: Events,
     private config: Config
   ) { }
@@ -37,7 +40,16 @@ export class HttpErrorInterceptor implements HttpInterceptor {
 
         this.toastProvider.error(errorMessage);
 
-        this.events.publish('connectionStatus:disconnected');
+        // Bascule en mode déconnecté si le ping échoue
+        if (this.deviceService.isOfflineModeAvailable()) {
+          this.connectivityService.pingAPI().then(
+            success => {
+              // TODO : tenter de relancer l'appel en offline
+            },
+            error => {
+              this.events.publish('connectionStatus:disconnected');
+            });
+        }
       }
     });
   }

@@ -1,3 +1,4 @@
+import { Config } from './../configuration/environment-variables/config';
 import { Platform } from 'ionic-angular';
 import { Injectable } from '@angular/core';
 
@@ -8,7 +9,8 @@ export class DeviceService {
 
 
     constructor(
-        public platform: Platform) {
+        public platform: Platform,
+        private config: Config) {
     }
 
     /**
@@ -17,5 +19,13 @@ export class DeviceService {
      */
     isBrowser(): boolean {
         return window.device && window.device.platform === 'browser' || !this.platform.is('cordova');
+    }
+
+    /**
+    * Détermine si le mode déconnecté est possible
+    * @return vrai si le mode déconnecté est disponible, faux sinon
+    */
+    isOfflineModeAvailable(): boolean {
+        return this.config.makeOfflineModeAvailable || !this.isBrowser;
     }
 }
