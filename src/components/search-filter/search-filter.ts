@@ -262,7 +262,7 @@ export class SearchFilterComponent implements OnInit {
     return !this.connectivityService.isConnected();
   }
 
-  clearButtonIsDisabled(): booolean {
+  clearButtonIsDisabled(): boolean {
     return this.outOfDivision || this.areFiltersDisabled();
   }
 
