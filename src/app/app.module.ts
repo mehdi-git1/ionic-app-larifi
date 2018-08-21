@@ -94,6 +94,7 @@ import { SummarySheetProvider } from '../providers/summary-sheet/summary-sheet';
 import { OnlineRotationProvider } from '../providers/rotation/online-rotation';
 import { OfflineRotationProvider } from '../providers/rotation/offline-rotation';
 import { GenericMessagePage } from '../pages/generic-message/generic-message';
+import { PinPadModal } from '../components/pin-pad/pin-pad';
 
 
 declare var window: any;
@@ -146,7 +147,8 @@ declare var window: any;
     HomePage,
     SummarySheetPage,
     PdfFileViewerPage,
-    GenericMessagePage
+    GenericMessagePage,
+    PinPadModal
   ],
   providers: [
     StatusBar,

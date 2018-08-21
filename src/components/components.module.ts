@@ -1,3 +1,4 @@
+import { PinPadModal } from './pin-pad/pin-pad';
 import { IonicModule } from 'ionic-angular';
 import { DatePipe, CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
@@ -24,7 +25,8 @@ import { EdossierSpinnerComponent } from './edossier-spinner/edossier-spinner';
     DownloadButtonComponent,
     PncCardComponent,
     FlightCardComponent,
-    EdossierSpinnerComponent
+    EdossierSpinnerComponent,
+    PinPadModal
   ],
   exports: [
     RotationCardComponent,
@@ -33,7 +35,8 @@ import { EdossierSpinnerComponent } from './edossier-spinner/edossier-spinner';
     DownloadButtonComponent,
     PncCardComponent,
     FlightCardComponent,
-    EdossierSpinnerComponent
+    EdossierSpinnerComponent,
+    PinPadModal
   ],
   providers: [DatePipe]
 

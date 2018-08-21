@@ -1,0 +1,6 @@
+<ion-content padding>
+    <div class="container">
+        <div class="chosenNumber" *ngFor="let inputValue of inputValueArray"><span>{{inputValue}}</span></div>
+        <div class="padNumber" *ngFor="let value of emptyArray; let i = index" (click)="addToInput(i)"><span>{{i}}</span></div>
+    </div>   
+</ion-content>

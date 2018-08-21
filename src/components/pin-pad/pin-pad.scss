@@ -1,0 +1,55 @@
+$containerWidth : 400;
+$containerHeight : 250;
+
+$chosenNumberWidth: 80;
+$chosenNumberHeight: 80;
+
+$pinNumberWidth: 45;
+$pinNumberHeight: 45;
+
+$colorBright : white;
+$colorDark: #89D8FB;
+
+pin-pad-home {
+
+    .container{
+        position: absolute;
+        width: $containerWidth+px;
+        height: $containerHeight+px;
+        color: $colorBright;
+        top: calc(50% - #{$containerWidth/4}px);
+        left: calc(50% - #{$containerHeight/2}px);
+        background-color: $colorDark;
+        padding:30px;
+    }
+    
+    .chosenNumber{
+        display: inline-flex;
+        width: $chosenNumberWidth+px;
+        height: $chosenNumberHeight+px; 
+        border: solid 2px $colorBright;
+        margin: 2px;
+        font-size: 35px;
+        padding-left : $pinNumberWidth/2+px;
+        padding-top: $pinNumberHeight/5+px;
+    }
+    
+    .padNumber{
+        display: inline-flex;
+        width: $pinNumberWidth+px;
+        height: $pinNumberHeight+px;
+        cursor: pointer;
+        color: $colorDark;
+        background-color:$colorBright;
+        border: solid 2px $colorBright;
+        border-radius: $pinNumberWidth+px;
+        margin: 10px;
+        font-weight: bold;
+        font-size: 20px;
+        padding-left : $pinNumberWidth/3+px;
+        padding-top: $pinNumberHeight/5+px;
+    }
+    
+
+
+}

@@ -13,7 +13,7 @@ import { SecurityProvider } from './../providers/security/security';
 
 import { Component, ViewChild, OnInit } from '@angular/core';
 
-import { Nav, Platform, Events } from 'ionic-angular';
+import { Nav, Platform, Events, ModalController } from 'ionic-angular';
 
 import { StatusBar } from '@ionic-native/status-bar';
 
@@ -22,6 +22,8 @@ import { TranslateService } from '@ngx-translate/core';
 import { SecMobilService } from '../services/secMobil.service';
 import { StorageService } from '../services/storage.service';
 import { HomePage } from '../pages/home/home';
+
+import { PinPadModal } from './../components/pin-pad/pin-pad';
 
 @Component({
   templateUrl: 'app.html'
@@ -38,6 +40,7 @@ export class EDossierPNC implements OnInit {
     public splashScreen: SplashScreen,
     private secMobilService: SecMobilService,
     private connectivityService: ConnectivityService,
+    public modalController: ModalController,
     private events: Events,
     private sessionService: SessionService,
     public translateService: TranslateService,
@@ -55,6 +58,9 @@ export class EDossierPNC implements OnInit {
 
   initializeApp() {
     this.platform.ready().then(() => {
+
+      const modal = this.modalController.create(PinPadModal);
+      modal.present();
 
       this.statusBar.styleDefault();
       this.splashScreen.hide();
