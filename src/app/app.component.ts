@@ -56,15 +56,6 @@ export class EDossierPNC implements OnInit {
   initializeApp() {
     this.platform.ready().then(() => {
 
-      /**
-       * Actuellement le ping est configuré pour être effectif sur le web et non sur le mobile
-       * A terme, il faudra le remettre sur le mobile (probléme de CORS à l'eure actuelle)
-       */
-
-      if (this.secMobilService.isBrowser){
-        // this.connectivityService.pingAPI();
-      }
-
       this.statusBar.styleDefault();
       this.splashScreen.hide();
 
