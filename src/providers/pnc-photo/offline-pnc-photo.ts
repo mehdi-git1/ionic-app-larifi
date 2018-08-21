@@ -1,7 +1,7 @@
 import { Entity } from './../../models/entity';
 import { StorageService } from './../../services/storage.service';
 import { Injectable } from '@angular/core';
-import { PncPhoto } from '../../models/PncPhoto';
+import { PncPhoto } from '../../models/pncPhoto';
 
 @Injectable()
 export class OfflinePncPhotoProvider {
