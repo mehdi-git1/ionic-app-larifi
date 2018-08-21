@@ -60,7 +60,16 @@ export class EDossierPNC implements OnInit {
     this.platform.ready().then(() => {
 
       const modal = this.modalController.create(PinPadModal);
-      modal.present();
+
+      this.platform.resume.subscribe (() => {
+        this.splashScreen.hide();
+        modal.present();
+      });
+
+      /** On ajoute un evenement pout savoir si entre en mode background */
+      this.platform.pause.subscribe (() => {
+        this.splashScreen.show();
+      });
 
       this.statusBar.styleDefault();
       this.splashScreen.hide();

@@ -102,3 +102,7 @@ ion-input {
 .scroll-content {
     overflow-y: auto !important;
 }
+
+.blur{
+    filter: blur(5px);
+}
