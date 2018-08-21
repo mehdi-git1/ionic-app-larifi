@@ -122,7 +122,6 @@ export class EDossierPNC implements OnInit {
         this.nav.setRoot(AuthenticationPage);
       }
     }, error => {
-      console.log('putAuthenticatedUserInSession error: ' + JSON.stringify(error));
       this.connectivityService.setConnected(false);
       this.offlineSecurityProvider.getAuthenticatedUser().then(authenticatedUser => {
         this.sessionService.authenticatedUser = authenticatedUser;

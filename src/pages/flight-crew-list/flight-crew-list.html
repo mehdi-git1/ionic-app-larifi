@@ -20,6 +20,7 @@
         <div class="flight-crew-list-container">
             <pnc-card *ngFor="let crewMember of flightCrewList" (click)="openPncHomePage(crewMember.pnc.matricule)" [itemMember]="crewMember"
                 [isCrewMember]="true"></pnc-card>
+            <pnc-card *ngIf="connectedCrewMember" [itemMember]="connectedCrewMember" [isCrewMember]="true" [disabled]="true"></pnc-card>
         </div>
     </ng-template>
 </ion-content>
