@@ -1,6 +1,13 @@
 <ion-header>
     <ion-navbar>
-        <ion-title>{{ 'WAYPOINT_CREATE.TITLE' | translate }}</ion-title>
+        <ion-title>
+            <ng-container *ngIf="loadingIsOver()">
+                {{ 'WAYPOINT_CREATE.TITLE' | translate }}
+                <ion-badge class="{{waypoint.waypointStatus.toLowerCase()}}" *ngIf="waypoint.waypointStatus">
+                    {{ 'GLOBAL.WAYPOINT_STATUS.'+waypoint.waypointStatus | translate }}
+                </ion-badge>
+            </ng-container>
+        </ion-title>
         <connectivity-indicator></connectivity-indicator>
     </ion-navbar>
 </ion-header>
@@ -10,14 +17,6 @@
     <ng-template #pageBlock>
         <form novalidate [formGroup]="creationForm">
             <ion-grid>
-                <!-- Barre de statut -->
-                <ion-row>
-                    <ion-col col-12>
-                        <ion-badge class="{{waypoint.waypointStatus.toLowerCase()}}" *ngIf="waypoint.waypointStatus" float-right>
-                            {{ 'GLOBAL.WAYPOINT_STATUS.'+waypoint.waypointStatus | translate }}
-                        </ion-badge>
-                    </ion-col>
-                </ion-row>
                 <ion-row>
                     <ion-col col-12>
                         <!-- Contexte -->
