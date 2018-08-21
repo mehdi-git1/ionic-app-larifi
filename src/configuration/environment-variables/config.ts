@@ -10,17 +10,13 @@ export class Config extends BaseConfig {
         this.appVersion = '1';
 
         if (undefined !== window.cordova && 'browser' !== window.cordova.platformId) {
-            console.log('mobile mode selected');
             this.backEndUrl = 'https://edospnc-api-dev.airfrance.fr/api/rest/resources';
-            this.pingUrl = this.backEndUrl + '/me';
         } else {
-            console.log('web mode selected');
             this.backEndUrl = '/api/rest/resources';
-            // A décommenter pour travailler en localhost (sans tomcat)
-            this.backEndUrl = 'https://edospnc-rct.airfrance.fr/api/rest/resources';
-            this.pingUrl = this.backEndUrl + '/me';
+            // this.backEndUrl = 'https://edospnc-rct.airfrance.fr/api/rest/resources';
         }
 
+        this.pingUrl = this.backEndUrl + '/ping';
         this.env = 'localhost';
         this.secmobileEnv = 'rct';
         this.eObsUrl = 'com.airfrance.mobile.inhouse.eformsrctPNC';
