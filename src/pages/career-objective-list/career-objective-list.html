@@ -8,7 +8,7 @@
 <ion-content padding>
     <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
     <ng-template #pageBlock>
-      <button *ngIf="canShowCallFormsBtn()" ion-button color="primary" (click)="callForms()">{{ 'CAREER_OBJECTIVE_LIST.CREATE_EOBSERVATION' | translate }}</button>
+        <button ion-button color="primary" (click)="createEObservation()">{{ 'CAREER_OBJECTIVE_LIST.CREATE_EOBSERVATION' | translate }}</button>
 
         <div class="add-career-objective-container">
             <button (click)="goToCareerObjectiveCreation()" class="add-career-objective">

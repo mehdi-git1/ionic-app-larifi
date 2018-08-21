@@ -52,9 +52,9 @@ export class CareerObjectiveListPage {
   }
 
   /**
-   * Fait appel a formsLib avec les paramètres eObservation.
+   * Fait appel à formsLib avec les paramètres eObservation.
    */
-  callForms() {
+  createEObservation() {
     this.eObservationService.getEObservation(this.matricule, this.sessionService.appContext.rotationId).then(eObservation => {
       this.eObservation = eObservation;
       if (this.eObservation) {
@@ -64,7 +64,11 @@ export class CareerObjectiveListPage {
     });
   }
 
-  canShowCallFormsBtn() {
+  /**
+   * Détermine si on peut créer une nouvelle eObservation
+   * @return vrai si c'est le cas, faux sinon
+   */
+  canCreateEObservation(): boolean {
     if (this.sessionService.appContext.rotationId) {
       return true;
     } else {
