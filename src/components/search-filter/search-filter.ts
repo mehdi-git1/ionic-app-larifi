@@ -133,6 +133,7 @@ export class SearchFilterComponent implements OnInit {
 
     this.initAutocompleteList();
     this.formOnChanges();
+    this.resetFilterValues();
   }
 
   /**

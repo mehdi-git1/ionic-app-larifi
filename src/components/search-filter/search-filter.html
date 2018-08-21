@@ -29,8 +29,8 @@
               <!-- Division -->
               <ion-item>
                 <ion-label floating>{{ 'PNC_SEARCH.CRITERIA.DIVISION' | translate }}</ion-label>
-                <ion-select [compareWith]="compareFn" formControlName="divisionControl" [disabled]="areFiltersDisabled()" [placeholder]="('PNC_SEARCH.DEFAULT_DATA.ALL_F' | translate )"
-                  interface="popover">
+                <ion-select interface="popover" [compareWith]="compareFn" formControlName="divisionControl" [disabled]="areFiltersDisabled()"
+                  [placeholder]="('PNC_SEARCH.DEFAULT_DATA.ALL_F' | translate )">
                   <ion-option [value]="ALL">{{ 'PNC_SEARCH.DEFAULT_DATA.ALL_F' | translate }}</ion-option>
                   <ion-option *ngFor="let divisionKey of divisionList" [value]="divisionKey">{{divisionKey}}</ion-option>
                 </ion-select>

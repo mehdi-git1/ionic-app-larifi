@@ -21,6 +21,10 @@ search-filter {
             padding-left: 5px;
         }
 
+        ion-row {
+            flex: 1;
+        }
+
         .card-content {
             padding: 0;
         }
@@ -58,8 +62,8 @@ search-filter {
                 border: 2px solid lightgray;
             }
             .mat-form-field-label {
+                top: 17px;
                 padding-left: 2px;
-                font-size: 10;
             }
 
             .mat-form-field-wrapper {
@@ -67,7 +71,7 @@ search-filter {
             }
 
             .label-inactive-filters {
-                color: LightGray;
+                color: color($colors, grey90);
                 font-weight: bold;
                 display: flex;
                 flex-direction: column;
@@ -90,6 +94,9 @@ search-filter {
             }
             .select-placeholder {
                 color: color($colors, grey10) !important;
+            }
+            .label-md {
+                margin:0;
             }
         }
     }

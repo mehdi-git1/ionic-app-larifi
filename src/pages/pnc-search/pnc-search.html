@@ -5,7 +5,7 @@
     </ion-navbar>
 </ion-header>
 
-<ion-content padding>
+<div class="pnc-search-content">
     <search-filter (onSearch)="searchPncs()"></search-filter>
 
     <ion-content class="filtered-pnc-list-container">
@@ -24,4 +24,4 @@
             <ion-infinite-scroll-content></ion-infinite-scroll-content>
         </ion-infinite-scroll>
     </ion-content>
-</ion-content>
+</div>
