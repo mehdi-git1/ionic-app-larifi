@@ -1,32 +1,37 @@
 import { ViewController } from 'ionic-angular';
-import { Component} from '@angular/core';
+import { Component, Output, EventEmitter, Input, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'pin-pad-home',
+  selector: 'pin-pad',
   templateUrl: 'pin-pad.html'
 })
 
-export class PinPadModal {
+export class PinPadComponent implements OnInit{
 
+  @Output() pinPadValue = new EventEmitter();
+
+  @Input() padValueDefault = '_';
+  @Input() padNumberOfDigits = 4;
+  @Input() padNumberOfPossibleDigits = 10;
+  @Input() pinTitle = '';
 
   // tableau vide permettant d'afficher les chiffres en boucle
-  emptyArray = new Array(10);
+  listOfNumberPossible: Array<any>;
 
   // tableau de valeurs des valeurs entrées
-  inputValueArray = new Array(4);
+  inputValueArray: Array<any>;
 
   constructor(public viewController: ViewController) {
-    this.inputValueArray.fill('_');
+  }
+
+  ngOnInit(){
+    this.listOfNumberPossible = new Array(this.padNumberOfPossibleDigits);
+    this.inputValueArray = new Array(this.padNumberOfDigits);
+    this.inputValueArray.fill(this.padValueDefault);
   }
 
   addToInput(valeur){
-    this.inputValueArray[this.inputValueArray.indexOf('_')] = valeur;
-
-    // Si le tableau est rempli au max
-     if (this.inputValueArray.indexOf('_') === -1){
-      // On check si le mot de passe est le bon et aprés si c'est le cas on renvoi vers l'ancienne page
-        this.viewController.dismiss();
-     }
-
+    this.inputValueArray[this.inputValueArray.indexOf(this.padValueDefault)] = valeur;
+    this.pinPadValue.emit(this.inputValueArray);
   }
 }

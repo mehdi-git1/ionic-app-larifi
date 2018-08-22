@@ -5,6 +5,9 @@ export class AuthenticatedUser extends EDossierPncObject {
     fistName: string;
     lastName: string;
     manager: boolean;
+    pinCode ?: number;
+    secretQuestion ?: string;
+    secretAnswer ?: string;
 
     getStorageId(): string {
         return this.matricule;

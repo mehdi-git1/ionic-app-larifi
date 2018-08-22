@@ -1,8 +1,5 @@
-<ion-content class="fullScreenBlack">
-</ion-content>
-<ion-content padding>
     <div class="container">
+        <p class='title'>{{pinTitle}}</p>
         <div class="chosenNumber" *ngFor="let inputValue of inputValueArray"><span>{{inputValue}}</span></div>
-        <div class="padNumber" *ngFor="let value of emptyArray; let i = index" (click)="addToInput(i)"><span>{{i}}</span></div>
+        <div class="padNumber" *ngFor="let value of listOfNumberPossible; let i = index" (click)="addToInput(i)"><span>{{i}}</span></div>
     </div>   
-</ion-content>

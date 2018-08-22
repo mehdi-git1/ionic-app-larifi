@@ -207,5 +207,15 @@
         "ROTATION_SAVED_OFFLINE_ERROR": "Un ou plusieurs PNC de la rotation {{ rotationNumber }} n'ont pas pu être synchronisés",
         "FLIGHT_SAVED_OFFLINE": "Les PNC du vol {{ flightNumber }} ont été synchronisés",
         "FLIGHT_SAVED_OFFLINE_ERROR": "Un ou plusieurs PNC du vol {{ flightNumber }} n'ont pas pu être synchronisés"
+    },
+    "PINPAD": {
+        "TITLE": {
+            "OPENINGAPP": "Veuillez entrer votre code pin",
+            "BACKTOAPP": "Veuillez entrer votre code pin",
+            "PINCHANGESTAGE1": "Veuillez entrer votre code pin actuel",
+            "PINCHANGESTAGE2": "Veuillez entrer votre nouveau code pin",
+            "FIRSTCONNEXIONSTAGE1": "Veuillez entrer un code pin pour sécuriser votre compte",
+            "FIRSTCONNEXIONSTAGE2": "Veuillez confirmer votre code pin"
+        }
     }
 }

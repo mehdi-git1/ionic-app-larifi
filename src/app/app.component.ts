@@ -23,7 +23,10 @@ import { SecMobilService } from '../services/secMobil.service';
 import { StorageService } from '../services/storage.service';
 import { HomePage } from '../pages/home/home';
 
-import { PinPadModal } from './../components/pin-pad/pin-pad';
+import { PinPadType } from './../models/pinPadType';
+import { PinPadService } from './../services/pin.pad.service';
+
+
 
 @Component({
   templateUrl: 'app.html'
@@ -34,14 +37,16 @@ export class EDossierPNC implements OnInit {
 
   rootPage: any = HomePage;
 
+  pinPadModalActive = false;
+
 
   constructor(public platform: Platform,
     public statusBar: StatusBar,
     public splashScreen: SplashScreen,
     private secMobilService: SecMobilService,
     private connectivityService: ConnectivityService,
-    public modalController: ModalController,
     private events: Events,
+    private pinPadService: PinPadService,
     private sessionService: SessionService,
     public translateService: TranslateService,
     private storageService: StorageService,
@@ -59,12 +64,19 @@ export class EDossierPNC implements OnInit {
   initializeApp() {
     this.platform.ready().then(() => {
 
-      const modal = this.modalController.create(PinPadModal);
+      /**
+       * On ajoute une écoute sur un paramétre pour savoir si la popin est activé ou pas pour afficher un blur
+       * et une interdiction de cliquer avant d'avoir mis le bon code pin
+       */
+      this.pinPadService.modalDisplayed.subscribe( data => {
+        this.pinPadModalActive = data;
+      });
 
       this.platform.resume.subscribe (() => {
         this.splashScreen.hide();
-        modal.present();
+        this.pinPadService.display(PinPadType.backToApp, this.sessionService.authenticatedUser.pinCode);
       });
+
 
       /** On ajoute un evenement pout savoir si entre en mode background */
       this.platform.pause.subscribe (() => {
@@ -131,6 +143,8 @@ export class EDossierPNC implements OnInit {
     promise.then(authenticatedUser => {
       if (authenticatedUser) {
         this.sessionService.authenticatedUser = authenticatedUser;
+        // Gestion de l'affchage du pinPad
+        this.pinPadService.display(PinPadType.openingApp, this.sessionService.authenticatedUser.pinCode);
         this.nav.setRoot(PncHomePage, { matricule: this.sessionService.authenticatedUser.matricule });
       }
       else {

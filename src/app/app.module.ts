@@ -86,7 +86,7 @@ import { WaypointTransformerProvider } from '../providers/waypoint/waypoint-tran
 import { PncTransformerProvider } from '../providers/pnc/pnc-transformer';
 import { SynchronizationProvider } from '../providers/synchronization/synchronization';
 import { PncSynchroProvider } from '../providers/synchronization/pnc-synchro';
-
+import { PinPadService } from './../services/pin.pad.service';
 
 import { HomePage } from './../pages/home/home';
 
@@ -94,7 +94,6 @@ import { SummarySheetProvider } from '../providers/summary-sheet/summary-sheet';
 import { OnlineRotationProvider } from '../providers/rotation/online-rotation';
 import { OfflineRotationProvider } from '../providers/rotation/offline-rotation';
 import { GenericMessagePage } from '../pages/generic-message/generic-message';
-import { PinPadModal } from '../components/pin-pad/pin-pad';
 
 
 declare var window: any;
@@ -147,8 +146,7 @@ declare var window: any;
     HomePage,
     SummarySheetPage,
     PdfFileViewerPage,
-    GenericMessagePage,
-    PinPadModal
+    GenericMessagePage
   ],
   providers: [
     StatusBar,
@@ -204,7 +202,8 @@ declare var window: any;
     OnlineRotationProvider,
     OfflineRotationProvider,
     OnlineLegProvider,
-    OfflineLegProvider
+    OfflineLegProvider,
+    PinPadService
   ]
 })
 export class AppModule { }

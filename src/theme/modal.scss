@@ -1,0 +1,28 @@
+ion-modal {
+    @media only screen and (min-height: 768px) and (min-width: 768px){
+        .modal-wrapper{
+            z-index: 10;
+            height: 100%;
+            width: 100%;
+            top: 0px;
+            left: 0px;
+            contain: strict;
+        }
+    }  
+    
+     
+    @media only screen and (min-height: 600px) and (min-width: 768px){
+        .modal-wrapper{
+            z-index: 10;
+            height: 100%;
+            width: 100%;
+            top: 0px;
+            left: 0px;
+            contain: strict;
+        }
+    }   
+    
+    ion-backdrop{
+        visibility: hidden;
+    }
+}
