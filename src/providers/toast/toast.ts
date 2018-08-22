@@ -16,8 +16,8 @@ export class ToastProvider {
   success(message: string) {
     this.simpleNotification.success(message, '', {
       timeOut: 5000,
-      showProgressBar: true,
-      pauseOnHover: true,
+      showProgressBar: false,
+      pauseOnHover: false,
       clickToClose: true,
       clickIconToClose: true
     });
@@ -31,8 +31,8 @@ export class ToastProvider {
   warning(message: string) {
     this.simpleNotification.warn(message, '', {
       timeOut: 5000,
-      showProgressBar: true,
-      pauseOnHover: true,
+      showProgressBar: false,
+      pauseOnHover: false,
       clickToClose: true,
       clickIconToClose: true
     });
@@ -45,8 +45,8 @@ export class ToastProvider {
   error(message: string) {
     this.simpleNotification.error(message, '', {
       timeOut: 5000,
-      showProgressBar: true,
-      pauseOnHover: true,
+      showProgressBar: false,
+      pauseOnHover: false,
       clickToClose: true,
       clickIconToClose: true
     });
@@ -59,8 +59,8 @@ export class ToastProvider {
   info(message: string) {
     this.simpleNotification.info(message, '', {
       timeOut: 5000,
-      showProgressBar: true,
-      pauseOnHover: true,
+      showProgressBar: false,
+      pauseOnHover: false,
       clickToClose: true,
       clickIconToClose: true
     });
