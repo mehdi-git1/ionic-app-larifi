@@ -46,7 +46,7 @@ export class EObservationService {
       callbackUrl: `${this.config.eObsCallbackUrl}`,
       callbackActionLabel: `${this.config.eObsCallbackActionLabel}`,
       archiveData: {
-        A DECOMMENTER POUR AVOIR LES DONNEES DU FORMULAIRE
+        // A DECOMMENTER POUR AVOIR LES DONNEES DU FORMULAIRE
         'PNCObserve.fonction': eObservation.observedPnc.speciality,
         'PNCObserve.matricule': eObservation.observedPnc.matricule,
         'PNCObserve.nom': eObservation.observedPnc.lastName,
