@@ -10,7 +10,8 @@ import { SettingsPage } from '../../pages/settings/settings';
 })
 export class NavBarCustomComponent {
 
-  @Input() showSettingsIcon: boolean;
+  // On affiche par defaut les settings
+  @Input() showSettingsIcon = true;
   connected: boolean;
   synchroInProgress: boolean;
 
