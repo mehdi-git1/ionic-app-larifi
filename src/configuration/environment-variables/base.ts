@@ -7,7 +7,7 @@ export abstract class BaseConfig {
   public env = 'localhost';
 
   public eObsUrl = 'com.airfrance.mobile.inhouse.eformstrainingdevPNC';
-  public eObsCallbackUrl = 'com.airfrance.mobile.inhouse.EDosPNC';
+  public eObsCallbackUrl = 'com.airfrance.mobile.inhouse.edospncDEV';
   public eObsCallbackActionLabel = 'Retourner à eDossierPNC';
 
   /**

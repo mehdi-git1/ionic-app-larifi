@@ -18,6 +18,6 @@ export class Config extends BaseConfig {
         this.env = 'prod';
         this.secmobileEnv = 'prod';
         this.eObsUrl = 'com.airfrance.mobile.inhouse.eformsrctPNC';
-        this.eObsCallbackUrl = 'com.airfrance.mobile.inhouse.edosPNC';
+        this.eObsCallbackUrl = 'com.airfrance.mobile.inhouse.edospnc';
     }
 }

@@ -19,6 +19,6 @@ export class Config extends BaseConfig {
         this.env = 'rct';
         this.secmobileEnv = 'rct';
         this.eObsUrl = 'com.airfrance.mobile.inhouse.eformsrctPNC';
-        this.eObsCallbackUrl = 'com.airfrance.mobile.inhouse.edosPNC';
+        this.eObsCallbackUrl = 'com.airfrance.mobile.inhouse.edospncRCT';
     }
 }
