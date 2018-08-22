@@ -167,7 +167,7 @@
             </button>
             <!-- bouton abandonner objectif  -->
             <button ion-button color="grey20" (click)="saveCareerObjectiveToAbandonedStatus()" [disabled]="creationForm.invalid" *ngIf="securityProvider.isManager() && careerObjectiveStatusProvider.isTransitionOk(careerObjective.careerObjectiveStatus,CareerObjectiveStatus.ABANDONED)">
-                <ion-icon name="ios-exit-outline" ios="ios-exit-outline" margin-right></ion-icon> {{ 'CAREER_OBJECTIVE_CREATE.BUTTONS.ABANDON' | translate }}
+                <ion-icon name="ios-log-out" ios="ios-log-out" margin-right></ion-icon> {{ 'CAREER_OBJECTIVE_CREATE.BUTTONS.ABANDON' | translate }}
             </button>
             <!-- bouton annuler statut validé d'un objectif  -->
             <button ion-button color="blue70" (click)="cancelCareerObjectiveValidation()" [disabled]="creationForm.invalid" *ngIf="securityProvider.isManager() && careerObjective.careerObjectiveStatus === CareerObjectiveStatus.VALIDATED">
