@@ -120,7 +120,7 @@
                     <!--liste des point d'étape-->
                     <h3>{{ 'CAREER_OBJECTIVE_CREATE.WAYPOINT_LIST_TITLE' | translate }}</h3>
                     <button (click)="goToWaypointCreate()" class="add-waypoint clickable" *ngIf="careerObjective.careerObjectiveStatus === CareerObjectiveStatus.REGISTERED">
-                        <ion-icon name="add"></ion-icon>
+                        <ion-icon name="ios-add-circle-outline" ios="ios-add-circle-outline"></ion-icon>
                     </button>
                     <ion-card class="waypoint clickable" *ngFor="let waypoint of waypointList" (click)="openWaypoint(waypoint.techId)">
                         <offline-indicator [object]="waypoint"></offline-indicator>
@@ -154,12 +154,12 @@
                 <ion-icon name="ios-trash-outline" ios="ios-trash-outline" margin-right></ion-icon>{{ 'CAREER_OBJECTIVE_CREATE.BUTTONS.DELETE_DRAFT' | translate }}
             </button>
             <!-- Bouton sauvegarder objectif -->
-            <button ion-button color="green50" (click)="saveCareerObjectiveToRegisteredStatus()" [disabled]="creationForm.invalid" *ngIf="securityProvider.isManager() && careerObjectiveStatusProvider.isTransitionOk(careerObjective.careerObjectiveStatus,CareerObjectiveStatus.REGISTERED)">
-                <ion-icon name="ios-add-circle-outline" ios="ios-add-circle-outline" margin-right></ion-icon> {{ 'CAREER_OBJECTIVE_CREATE.BUTTONS.SAVE' | translate }}
+            <button ion-button color="blue70" (click)="saveCareerObjectiveToRegisteredStatus()" [disabled]="creationForm.invalid" *ngIf="securityProvider.isManager() && careerObjectiveStatusProvider.isTransitionOk(careerObjective.careerObjectiveStatus,CareerObjectiveStatus.REGISTERED)">
+                <ion-icon name="ios-download-outline" ios="ios-download-outline" margin-right></ion-icon> {{ 'CAREER_OBJECTIVE_CREATE.BUTTONS.SAVE' | translate }}
             </button>
             <!-- Bouton sauvegarder commentaire pnc -->
-            <button ion-button color="green50" (click)="saveCareerObjectiveAndUpdatePncComment()" [disabled]="creationForm.invalid" *ngIf="canPncCommentBeModifiedByPnc()">
-                <ion-icon name="ios-add-circle-outline" ios="ios-add-circle-outline" margin-right></ion-icon> {{ 'CAREER_OBJECTIVE_CREATE.BUTTONS.SAVE' | translate }}
+            <button ion-button color="blue70" (click)="saveCareerObjectiveAndUpdatePncComment()" [disabled]="creationForm.invalid" *ngIf="canPncCommentBeModifiedByPnc()">
+                <ion-icon name="ios-download-outline" ios="ios-download-outline" margin-right></ion-icon> {{ 'CAREER_OBJECTIVE_CREATE.BUTTONS.SAVE' | translate }}
             </button>
             <!-- Bouton valider objectif -->
             <button ion-button color="green50" (click)="saveCareerObjectiveToValidatedStatus()" [disabled]="creationForm.invalid" *ngIf="securityProvider.isManager() && careerObjectiveStatusProvider.isTransitionOk(careerObjective.careerObjectiveStatus,CareerObjectiveStatus.VALIDATED)">
@@ -170,11 +170,11 @@
                 <ion-icon name="ios-exit-outline" ios="ios-exit-outline" margin-right></ion-icon> {{ 'CAREER_OBJECTIVE_CREATE.BUTTONS.ABANDON' | translate }}
             </button>
             <!-- bouton annuler statut validé d'un objectif  -->
-            <button ion-button color="grey20" (click)="cancelCareerObjectiveValidation()" [disabled]="creationForm.invalid" *ngIf="securityProvider.isManager() && careerObjective.careerObjectiveStatus === CareerObjectiveStatus.VALIDATED">
+            <button ion-button color="blue70" (click)="cancelCareerObjectiveValidation()" [disabled]="creationForm.invalid" *ngIf="securityProvider.isManager() && careerObjective.careerObjectiveStatus === CareerObjectiveStatus.VALIDATED">
                 <ion-icon name="ios-close-circle-outline" ios="ios-close-circle-outline" margin-right></ion-icon> {{ 'CAREER_OBJECTIVE_CREATE.BUTTONS.CANCEL_VALIDATION' | translate }}
             </button>
             <!-- bouton annuler statut abandonné d'un objectif  -->
-            <button ion-button color="grey20" (click)="resumeAbandonedCareerObjective()" [disabled]="creationForm.invalid" *ngIf="securityProvider.isManager() && careerObjective.careerObjectiveStatus === CareerObjectiveStatus.ABANDONED">
+            <button ion-button color="blue70" (click)="resumeAbandonedCareerObjective()" [disabled]="creationForm.invalid" *ngIf="securityProvider.isManager() && careerObjective.careerObjectiveStatus === CareerObjectiveStatus.ABANDONED">
                 <ion-icon name="ios-close-circle-outline" ios="ios-close-circle-outline" margin-right></ion-icon> {{ 'CAREER_OBJECTIVE_CREATE.BUTTONS.RESUME' | translate }}
             </button>
             <!-- bouton soliciter mon instructeur -->
