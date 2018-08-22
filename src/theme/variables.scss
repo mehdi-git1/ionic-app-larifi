@@ -75,21 +75,6 @@ $text-color:color($colors, grey10);
 // Fonts
 // --------------------------------------------------
 @font-face {
-    font-family: 'OpenSansBold';
-    src: url('/assets/fonts/OpenSans-Bold-webfont.woff') format('woff');
-}
-
-@font-face {
-    font-family: 'OpenSansLight';
-    src: url('/assets/fonts/OpenSans-Light-webfont.woff') format('woff');
-}
-
-@font-face {
-    font-family: 'OpenSans';
-    src: url('/assets/fonts/OpenSans-Regular-webfont.woff') format('woff');
-}
-
-@font-face {
     font-family: 'SanFrancisco';
     src: url('/assets/fonts/sanfranciscodisplay-ultralight-webfont.woff') format('woff');
 }
