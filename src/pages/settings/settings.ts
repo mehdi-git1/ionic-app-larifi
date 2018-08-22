@@ -19,6 +19,7 @@ export class SettingsPage {
 
   connected: boolean;
   initInProgress: boolean;
+  synchronizationInProgress: boolean;
 
   constructor(
     private connectivityService: ConnectivityService,
@@ -39,6 +40,10 @@ export class SettingsPage {
 
     this.connectivityService.connectionStatusChange.subscribe(connected => {
       this.connected = connected;
+    });
+
+    this.synchronizationProvider.synchroStatusChange.subscribe(synchroInProgress => {
+      this.synchronizationInProgress = synchroInProgress;
     });
   }
 
@@ -61,6 +66,10 @@ export class SettingsPage {
       }, error => {
       });
     });
+  }
+
+  forceSynchronizeOfflineData() {
+    this.synchronizationProvider.synchronizeOfflineData();
   }
 
   /**

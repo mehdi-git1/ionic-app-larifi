@@ -214,6 +214,9 @@
             "BUTTON": "Réinitialiser le cache",
             "SUCCESS": "Réinitialisation du cache rèussie"
         },
+        "FORCE_SYNCHRONIZATION": {
+            "BUTTON": "Forcer la synchronisation"
+        },
         "CONFIRM_INIT_CACHE": {
             "TITLE": "Réinitialisation du cache",
             "MESSAGE": "Attention. êtes vous sûre de vouloir réinitialiser le cache ?",

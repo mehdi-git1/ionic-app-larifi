@@ -11,9 +11,17 @@
     <ion-item>
         <label>{{ 'SETTINGS.INIT_CACHE.BUTTON' | translate }}</label>
 
-        <button ion-fab mini icon-only item-end class="init-cache-button" (click)="confirmDeleteCareerObjectiveDraft()" [disabled]="!connected">
+        <button ion-fab mini icon-only item-end class="parameter-button" (click)="confirmDeleteCareerObjectiveDraft()" [disabled]="!connected">
             <ion-icon name="trash" *ngIf="!initInProgress"></ion-icon>
             <ion-spinner *ngIf="initInProgress"></ion-spinner>
         </button>
     </ion-item>
+    <ion-item>
+        <label>{{ 'SETTINGS.FORCE_SYNCHRONIZATION.BUTTON' | translate }}</label>
+        <button ion-fab mini icon-only item-end class="parameter-button" (click)="forceSynchronizeOfflineData()" [disabled]="!connected">
+            <ion-icon name="sync" *ngIf="!synchronizationInProgress"></ion-icon>
+            <ion-spinner *ngIf="synchronizationInProgress"></ion-spinner>
+        </button>
+    </ion-item>
+
 </ion-content>
