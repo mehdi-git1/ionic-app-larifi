@@ -1,17 +1,11 @@
-<ion-header>
-    <ion-navbar>
-        <ion-title>
-            <ng-container *ngIf="loadingIsOver()">
-                {{ 'WAYPOINT_CREATE.TITLE' | translate }}
-                <ion-badge class="{{waypoint.waypointStatus.toLowerCase()}}" *ngIf="waypoint.waypointStatus">
-                    {{ 'GLOBAL.WAYPOINT_STATUS.'+waypoint.waypointStatus | translate }}
-                </ion-badge>
-            </ng-container>
-        </ion-title>
-        <connectivity-indicator></connectivity-indicator>
-    </ion-navbar>
-</ion-header>
-
+<page-header>
+    <ng-container *ngIf="loadingIsOver()">
+        {{ 'WAYPOINT_CREATE.TITLE' | translate }}
+        <ion-badge class="{{waypoint.waypointStatus.toLowerCase()}}" *ngIf="waypoint.waypointStatus">
+            {{ 'GLOBAL.WAYPOINT_STATUS.'+waypoint.waypointStatus | translate }}
+        </ion-badge>
+    </ng-container>
+</page-header>
 <ion-content padding>
     <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
     <ng-template #pageBlock>
@@ -22,7 +16,8 @@
                         <!-- Contexte -->
                         <ion-item>
                             <ion-label floating class="required">{{ 'WAYPOINT_CREATE.FORM.CONTEXT' | translate }}</ion-label>
-                            <ion-textarea [(ngModel)]="waypoint.context" formControlName="contextControl" name="context" [readonly]="readOnlyByUserConnected()" [ngClass]="{ 'ion-textarea-read-only' : readOnlyByUserConnected() }"></ion-textarea>
+                            <ion-textarea [(ngModel)]="waypoint.context" formControlName="contextControl" name="context" [readonly]="readOnlyByUserConnected()"
+                                [ngClass]="{ 'ion-textarea-read-only' : readOnlyByUserConnected() }"></ion-textarea>
                         </ion-item>
                     </ion-col>
                 </ion-row>
@@ -33,7 +28,8 @@
                             <ion-label floating [ngClass]="{'required' : !isDraft() || requiredOnEncounterDay }">{{ 'WAYPOINT_CREATE.FORM.ACTION_PERFORMED' | translate }}
                                 <span *ngIf="requiredOnEncounterDay">{{ 'WAYPOINT_CREATE.FORM.REQUIRED_ON_ENCOUNTER_DAY' | translate }}</span>
                             </ion-label>
-                            <ion-textarea [(ngModel)]="waypoint.actionPerformed" formControlName="actionPerformedControl" name="actionPerformed" [readonly]="readOnlyByUserConnected()" [ngClass]="{ 'ion-textarea-read-only' : readOnlyByUserConnected() }"></ion-textarea>
+                            <ion-textarea [(ngModel)]="waypoint.actionPerformed" formControlName="actionPerformedControl" name="actionPerformed" [readonly]="readOnlyByUserConnected()"
+                                [ngClass]="{ 'ion-textarea-read-only' : readOnlyByUserConnected() }"></ion-textarea>
                         </ion-item>
                     </ion-col>
                 </ion-row>
@@ -42,7 +38,8 @@
                         <!-- Commentaire cadre -->
                         <ion-item>
                             <ion-label floating>{{ 'WAYPOINT_CREATE.FORM.MANAGER_COMMENT' | translate }}</ion-label>
-                            <ion-textarea [(ngModel)]="waypoint.managerComment" formControlName="managerCommentControl" name="managerComment" [readonly]="readOnlyByUserConnected()" [ngClass]="{ 'ion-textarea-read-only' : readOnlyByUserConnected() }"></ion-textarea>
+                            <ion-textarea [(ngModel)]="waypoint.managerComment" formControlName="managerCommentControl" name="managerComment" [readonly]="readOnlyByUserConnected()"
+                                [ngClass]="{ 'ion-textarea-read-only' : readOnlyByUserConnected() }"></ion-textarea>
                         </ion-item>
                     </ion-col>
                     <ion-col col-6>
@@ -63,7 +60,8 @@
                             <ion-label>
                                 <ion-icon name="calendar"></ion-icon>
                             </ion-label>
-                            <ion-datetime displayFormat="DD/MM/YYYY" [(ngModel)]="waypoint.encounterDate" formControlName="encounterDateControl" [pickerOptions]="customDateTimeOptions" [doneText]="translateService.instant('GLOBAL.DATEPICKER.DONE')" [cancelText]="translateService.instant('GLOBAL.DATEPICKER.CANCEL')"
+                            <ion-datetime displayFormat="DD/MM/YYYY" [(ngModel)]="waypoint.encounterDate" formControlName="encounterDateControl" [pickerOptions]="customDateTimeOptions"
+                                [doneText]="translateService.instant('GLOBAL.DATEPICKER.DONE')" [cancelText]="translateService.instant('GLOBAL.DATEPICKER.CANCEL')"
                                 [disabled]="readOnlyByUserConnected()" [max]="datepickerMaxDate"></ion-datetime>
                         </ion-item>
                     </ion-col>
@@ -74,20 +72,22 @@
                     <ion-col class="button-bar-right">
                         <!-- Bouton sauvegarder point d'étape en brouillon -->
                         <button ion-button (click)="saveWaypointDraft()" [disabled]="creationForm.invalid" *ngIf="waypointStatusProvider.isTransitionOk(waypoint.waypointStatus,WaypointStatus.DRAFT)">
-                    {{ 'WAYPOINT_CREATE.BUTTONS.SAVE_DRAFT' | translate }}
-                   </button>
+                            {{ 'WAYPOINT_CREATE.BUTTONS.SAVE_DRAFT' | translate }}
+                        </button>
                         <!-- Bouton supprimer point d'étape en brouillon -->
-                        <button ion-button (click)="confirmDeleteWaypointDraft()" [disabled]="creationForm.invalid" *ngIf="waypoint.waypointStatus === WaypointStatus.DRAFT" color="primary">
-                    {{ 'WAYPOINT_CREATE.BUTTONS.DELETE_DRAFT' | translate }}
-                    </button>
+                        <button ion-button (click)="confirmDeleteWaypointDraft()" [disabled]="creationForm.invalid" *ngIf="waypoint.waypointStatus === WaypointStatus.DRAFT"
+                            color="primary">
+                            {{ 'WAYPOINT_CREATE.BUTTONS.DELETE_DRAFT' | translate }}
+                        </button>
                         <!-- Bouton sauvegarder commentaire pnc -->
-                        <button ion-button (click)="saveWaypointAndUpdatePncComment()" [disabled]="creationForm.invalid" *ngIf="canPncCommentBeModifiedByPnc()" color="primary">
-                        {{ 'WAYPOINT_CREATE.BUTTONS.SAVE' | translate }}
-                    </button>
+                        <button ion-button (click)="saveWaypointAndUpdatePncComment()" [disabled]="creationForm.invalid" *ngIf="canPncCommentBeModifiedByPnc()"
+                            color="primary">
+                            {{ 'WAYPOINT_CREATE.BUTTONS.SAVE' | translate }}
+                        </button>
                         <!-- Bouton sauvegarder point d'étape -->
                         <button ion-button (click)="saveWaypointToRegisteredStatus()" [disabled]="creationForm.invalid" *ngIf="securityProvider.isManager() && waypointStatusProvider.isTransitionOk(waypoint.waypointStatus,WaypointStatus.REGISTERED)">
-                        {{ 'WAYPOINT_CREATE.BUTTONS.SAVE' | translate }}
-                    </button>
+                            {{ 'WAYPOINT_CREATE.BUTTONS.SAVE' | translate }}
+                        </button>
                     </ion-col>
                 </ion-row>
             </ion-grid>

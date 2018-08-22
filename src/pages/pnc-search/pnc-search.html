@@ -1,10 +1,5 @@
-<ion-header>
-    <ion-navbar>
-        <ion-title>{{ 'GLOBAL.PNC_TEAM' | translate }}</ion-title>
-        <connectivity-indicator></connectivity-indicator>
-    </ion-navbar>
-</ion-header>
-
+<page-header>{{ 'GLOBAL.PNC_TEAM' | translate }}
+</page-header>
 
 <div class="pnc-search-content">
     <ion-card class="pnc-search-card">
@@ -20,8 +15,9 @@
                             <!-- PNC -->
                             <ion-item [ngClass]="{ 'item-select-disabled' : areFiltersDisabled() }">
                                 <mat-form-field>
-                                    <input #pncMatricule type="text" matInput placeholder="{{'PNC_SEARCH.CRITERIA.PNC_MATRICULE' | translate}}" formControlName="pncMatriculeControl" (keyup)="search(pncMatricule.value)" [matAutocomplete]="auto" [(ngModel)]="selectedPnc" autocomplete="off"
-                                        [readonly]="areFiltersDisabled()" />
+                                    <input #pncMatricule type="text" matInput placeholder="{{'PNC_SEARCH.CRITERIA.PNC_MATRICULE' | translate}}" formControlName="pncMatriculeControl"
+                                        (keyup)="search(pncMatricule.value)" [matAutocomplete]="auto" [(ngModel)]="selectedPnc"
+                                        autocomplete="off" [readonly]="areFiltersDisabled()" />
                                 </mat-form-field>
                                 <mat-autocomplete class="mat-autocomplete" #auto="matAutocomplete" [displayWith]="displayPnc" (optionSelected)="openPncHomePage($event.option.value)">
                                     <mat-option *ngFor="let pnc of pncList | async" [value]="pnc">
