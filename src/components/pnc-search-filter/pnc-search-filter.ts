@@ -30,6 +30,7 @@ export class PncSearchFilterComponent implements OnInit {
   pncList: Observable<Pnc[]>;
 
   searchForm: FormGroup;
+  autoCompleteForm: FormGroup;
   pncMatriculeControl: AbstractControl;
   selectedPnc: Pnc;
   searchTerms = new Subject<string>();
@@ -110,7 +111,7 @@ export class PncSearchFilterComponent implements OnInit {
     this.searchForm.get('specialityControl').setValue(AppConstant.ALL);
     this.searchForm.get('aircraftSkillControl').setValue(AppConstant.ALL);
     this.searchForm.get('relayControl').setValue(AppConstant.ALL);
-    this.searchForm.get('pncMatriculeControl').setValue('');
+    this.autoCompleteForm.get('pncMatriculeControl').setValue('');
   }
 
   /**
@@ -118,10 +119,6 @@ export class PncSearchFilterComponent implements OnInit {
    */
   initForm() {
     this.searchForm = this.formBuilder.group({
-      pncMatriculeControl: [
-        '',
-        Validators.compose([Validators.minLength(8), Validators.maxLength(8)])
-      ],
       divisionControl: [this.pncFilter.division],
       sectorControl: [this.pncFilter.sector],
       ginqControl: [this.pncFilter.ginq],
@@ -129,8 +126,13 @@ export class PncSearchFilterComponent implements OnInit {
       aircraftSkillControl: [this.pncFilter.aircraftSkill],
       relayControl: [this.pncFilter.relay],
     });
-
-    this.pncMatriculeControl = this.searchForm.get('pncMatriculeControl');
+    this.autoCompleteForm = this.formBuilder.group({
+      pncMatriculeControl: [
+        '',
+        Validators.compose([Validators.minLength(8), Validators.maxLength(8)])
+      ]
+    });
+    this.pncMatriculeControl = this.autoCompleteForm.get('pncMatriculeControl');
 
     this.initAutocompleteList();
     this.formOnChanges();

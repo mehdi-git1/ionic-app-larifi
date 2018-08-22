@@ -1,3 +1,7 @@
+$padding-let-ion-select: 5px;
+$margin-top-autocomplete: 12px;
+$border-input-size: 2px;
+$border-input: $border-input-size solid color($colors, grey50);
 pnc-search-filter {
     .pnc-search-card {
         ion-card-header {
@@ -17,7 +21,7 @@ pnc-search-filter {
         }
 
         .select-text {
-            padding-left: 5px;
+            padding-left: $padding-let-ion-select;
         }
 
         ion-row {
@@ -33,19 +37,16 @@ pnc-search-filter {
             align-items: center;
         }
 
-        .button-inner {
-            height: 30px;
-        }
-        .value-label {
-            padding-left: 5px;
-        }
-        .item-cover {
-            height: 30px;
-        }
-
         .clear-pnc {
             background:  color($colors, grey50);
             width: 100%;
+            margin-top: $margin-top-autocomplete + $border-input-size;
+        }
+
+        .search-pnc {
+            background: color($colors, green60);
+            width: 100%;
+            margin-top: $margin-top-autocomplete + $border-input-size;
         }
 
         .hide-label {
@@ -63,25 +64,24 @@ pnc-search-filter {
 
         form {
             .mat-form-field {
-                top: 17 px;
                 width: 100%;
                 line-height: normal;
             }
             .mat-form-field-infix {
-                border: 2px solid color($colors, grey50);
+                margin-top: $margin-top-autocomplete;
+                border: $border-input;
             }
             .mat-form-field-label {
                 top: 17px;
-                padding-left: 2px;
+                padding-left: $padding-let-ion-select;
             }
 
             .mat-form-field-wrapper {
                 padding-bottom: 0em;
             }
 
-
             ion-select{
-                border: 2px solid color($colors, grey50);      
+                border: $border-input;
             }
 
             .label-inactive-filters {
@@ -102,4 +102,14 @@ pnc-search-filter {
             }
         }
     }
+}
+
+ion-item {
+    ion-label {
+        padding-left: $padding-let-ion-select;
+    }
+}
+
+.popover-md .popover-content {
+    overflow: auto !important;
 }

@@ -194,7 +194,8 @@
         "ERROR": {
             "SEARCH": "Erreur lors de la recherche de PNC"
         },
-        "REINIT_FILTERS": "Réinitialiser les filtres"
+        "REINIT_FILTERS": "Réinitialiser les filtres",
+        "REFRESH_SEARCH": "Rafraîchir la vue"
     },
     "HELP_ASSET_LIST": {
         "TITLE": "Ressources d'aide",

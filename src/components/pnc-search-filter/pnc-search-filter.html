@@ -5,9 +5,10 @@
     <ion-icon [name]="showFilter ? 'arrow-dropdown' : 'arrow-dropright'"></ion-icon>
   </ion-card-header>
   <ion-card-content no-padding [ngClass]="{'opened' : showFilter}">
-    <form novalidate [formGroup]="searchForm">
-      <ion-grid>
-        <span>
+
+    <ion-grid>
+      <span>
+        <form novalidate [formGroup]="autoCompleteForm">
           <ion-row>
             <ion-col col-6>
               <!-- PNC -->
@@ -24,13 +25,21 @@
                 </mat-autocomplete>
               </ion-item>
             </ion-col>
-            <ion-col col-6>
+            <ion-col col-6 *ngIf="!areFiltersDisabled()">
               <button ion-button icon-start (click)="resetFilterValues()" class="clear-pnc" [disabled]="clearButtonIsDisabled()">
                 <ion-icon name="trash"></ion-icon>
                 {{ 'PNC_SEARCH.REINIT_FILTERS' | translate }}
               </button>
             </ion-col>
+            <ion-col col-6 *ngIf="areFiltersDisabled()">
+              <button ion-button icon-start (click)="search()" class="search-pnc">
+                <ion-icon name="refresh"></ion-icon>
+                {{ 'PNC_SEARCH.REFRESH_SEARCH' | translate }}
+              </button>
+            </ion-col>
           </ion-row>
+        </form>
+        <form novalidate [formGroup]="searchForm">
           <ion-row>
             <ion-col col-2>
               <!-- Division -->
@@ -101,9 +110,10 @@
               </ion-item>
             </ion-col>
           </ion-row>
-        </span>
-      </ion-grid>
-    </form>
+        </form>
+      </span>
+    </ion-grid>
+
   </ion-card-content>
 
 </ion-card>
