@@ -1,7 +1,7 @@
 import { AppConstant } from './../app/app.constant';
 import { PncFilter } from './pncFilter';
 
-export class SearchPncCriteria {
+export class PncSearchCriteria {
 
     // Pagination
     page: number;

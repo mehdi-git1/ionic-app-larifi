@@ -1,6 +1,7 @@
 <ion-card class="pnc-search-card">
   <ion-card-header class="header-container clickable" (click)="toggleFilter()">
     {{ 'PNC_SEARCH.CRITERIA.FILTERS' | translate }}
+    <span [ngClass]="inactiveFiltersLabelClass() ">* Filtres inactifs hors connexion</span>
     <ion-icon [name]="showFilter ? 'arrow-dropdown' : 'arrow-dropright'"></ion-icon>
   </ion-card-header>
   <ion-card-content no-padding [ngClass]="{'opened' : showFilter}">
@@ -8,7 +9,7 @@
       <ion-grid>
         <span>
           <ion-row>
-            <ion-col>
+            <ion-col col-6>
               <!-- PNC -->
               <ion-item [ngClass]="{ 'item-select-disabled' : areFiltersDisabled() }">
                 <mat-form-field class="autocomplete-field">
@@ -22,6 +23,12 @@
                   </mat-option>
                 </mat-autocomplete>
               </ion-item>
+            </ion-col>
+            <ion-col col-6>
+              <button ion-button icon-start (click)="resetFilterValues()" class="clear-pnc" [disabled]="clearButtonIsDisabled()">
+                <ion-icon name="trash"></ion-icon>
+                {{ 'PNC_SEARCH.REINIT_FILTERS' | translate }}
+              </button>
             </ion-col>
           </ion-row>
           <ion-row>
@@ -95,23 +102,8 @@
             </ion-col>
           </ion-row>
         </span>
-        <span>
-          <ion-row>
-            <ion-col col-2>
-              <button ion-button (click)="resetFilterValues()" class="clear-pnc" [disabled]="clearButtonIsDisabled()">
-                <ion-icon name="trash"></ion-icon>
-              </button>
-            </ion-col>
-            <ion-col col-10>
-              <button ion-button (click)="search($event) " class="search-pnc " [disabled]="outOfDivision ">
-                <ion-icon name="search"></ion-icon>
-              </button>
-            </ion-col>
-          </ion-row>
-        </span>
       </ion-grid>
     </form>
-    <span [ngClass]="inactiveFiltersLabelClass() ">* Filtres inactifs hors connexion</span>
   </ion-card-content>
 
 </ion-card>

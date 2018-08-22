@@ -13,16 +13,16 @@ import { FormGroup, AbstractControl, Validators, FormBuilder } from '@angular/fo
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
 /**
- * Generated class for the SearchFilterComponent component.
+ * Generated class for the PncSearchFilterComponent component.
  *
  * See https://angular.io/api/core/Component for more info on Angular
  * Components.
  */
 @Component({
-  selector: 'search-filter',
-  templateUrl: 'search-filter.html'
+  selector: 'pnc-search-filter',
+  templateUrl: 'pnc-search-filter.html'
 })
-export class SearchFilterComponent implements OnInit {
+export class PncSearchFilterComponent implements OnInit {
 
   @Output() onSearch: EventEmitter<any> = new EventEmitter();
 
@@ -58,8 +58,8 @@ export class SearchFilterComponent implements OnInit {
    * Action déclenchée lors du click
    * @param evt event : click
    */
-  search(evt: Event): void {
-    evt.stopPropagation();
+  search(): void {
+    // evt.stopPropagation();
     this.onSearch.next();
   }
 
@@ -210,6 +210,7 @@ export class SearchFilterComponent implements OnInit {
       this.pncFilter.speciality = val.specialityControl;
       this.pncFilter.aircraftSkill = val.aircraftSkillControl;
       this.pncFilter.relay = val.relayControl;
+      this.search();
     });
   }
 

@@ -10,7 +10,7 @@ import { FlightCardComponent } from './flight-card/flight-card';
 import { TranslateModule } from '@ngx-translate/core';
 import { SharedModule } from '../shared/shared.module';
 import { EdossierSpinnerComponent } from './edossier-spinner/edossier-spinner';
-import { SearchFilterComponent } from './search-filter/search-filter';
+import { PncSearchFilterComponent } from './pnc-search-filter/pnc-search-filter';
 
 @NgModule({
   imports: [
@@ -26,7 +26,7 @@ import { SearchFilterComponent } from './search-filter/search-filter';
     PncCardComponent,
     FlightCardComponent,
     EdossierSpinnerComponent,
-    SearchFilterComponent
+    PncSearchFilterComponent
   ],
   exports: [
     RotationCardComponent,
@@ -36,7 +36,7 @@ import { SearchFilterComponent } from './search-filter/search-filter';
     PncCardComponent,
     FlightCardComponent,
     EdossierSpinnerComponent,
-    SearchFilterComponent
+    PncSearchFilterComponent
   ],
   providers: [DatePipe]
 

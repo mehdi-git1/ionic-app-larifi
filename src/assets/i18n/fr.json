@@ -193,7 +193,8 @@
         "NO_PNC_FOUND": "Aucun pnc trouvé.",
         "ERROR": {
             "SEARCH": "Erreur lors de la recherche de PNC"
-        }
+        },
+        "REINIT_FILTERS": "Réinitialiser les filtres"
     },
     "HELP_ASSET_LIST": {
         "TITLE": "Ressources d'aide",

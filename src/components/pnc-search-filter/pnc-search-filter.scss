@@ -1,7 +1,7 @@
-search-filter {
+pnc-search-filter {
     .pnc-search-card {
         ion-card-header {
-            height: 30px;
+            height: 40px;
             display: flex;
             justify-content: space-between;
         }
@@ -14,7 +14,6 @@ search-filter {
         ion-card-content.opened {
             max-height: 600px;
             transition: max-height 500ms;
-            padding: auto;
         }
 
         .select-text {
@@ -43,37 +42,33 @@ search-filter {
         .item-cover {
             height: 30px;
         }
-        .search-pnc {
-            background: color($colors, green60);
-            width: calc(100%);
-        }
 
         .clear-pnc {
-            background:  grey;
-            width: calc(100%);
+            background:  color($colors, grey50);
+            width: 100%;
         }
 
         .hide-label {
-            
-            visibility: hidden;
+            font-size: smaller;
             opacity: 0;
             transition: visibility 0s linear 2000ms,
             opacity 2000ms;
         }
 
         .show-label {
-            visibility: visible;
+            font-size: smaller;
             transition: visibility 0s linear 0s,
             opacity 2000ms;
         }
 
         form {
             .mat-form-field {
+                top: 17 px;
                 width: 100%;
                 line-height: normal;
             }
             .mat-form-field-infix {
-                border: 2px solid lightgray;
+                border: 2px solid color($colors, grey50);
             }
             .mat-form-field-label {
                 top: 17px;
@@ -84,8 +79,13 @@ search-filter {
                 padding-bottom: 0em;
             }
 
+
+            ion-select{
+                border: 2px solid color($colors, grey50);      
+            }
+
             .label-inactive-filters {
-                color: color($colors, grey90);
+                color: color($colors, grey20);
                 font-weight: bold;
                 display: flex;
                 flex-direction: column;
@@ -102,5 +102,4 @@ search-filter {
             }
         }
     }
-
 }

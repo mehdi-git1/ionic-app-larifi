@@ -6,7 +6,7 @@
 </ion-header>
 
 <div class="pnc-search-content">
-    <search-filter (onSearch)="searchPncs()"></search-filter>
+    <pnc-search-filter (onSearch)="searchPncs()"></pnc-search-filter>
 
     <ion-content class="filtered-pnc-list-container">
         <div *ngIf="searchInProgress">

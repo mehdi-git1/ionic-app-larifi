@@ -1,4 +1,4 @@
-import { SearchFilterComponent } from './../../components/search-filter/search-filter';
+import { PncSearchFilterComponent } from './../../components/pnc-search-filter/pnc-search-filter';
 import { AppConstant } from './../../app/app.constant';
 import { Config } from './../../configuration/environment-variables/config';
 import { PncHomePage } from './../pnc-home/pnc-home';
@@ -39,8 +39,8 @@ export class PncSearchPage implements OnInit {
     sortColumn: string;
     sortDirection: string;
 
-    @ViewChild(SearchFilterComponent)
-    searchFilter: SearchFilterComponent;
+    @ViewChild(PncSearchFilterComponent)
+    pncSearchFilter: PncSearchFilterComponent;
 
     constructor(public navCtrl: NavController,
         public navParams: NavParams,
@@ -84,7 +84,7 @@ export class PncSearchPage implements OnInit {
         this.searchInProgress = true;
         this.buildFilter();
 
-        this.pncProvider.getFilteredPncs(this.searchFilter.pncFilter, this.page, this.sizeOfThePage).then(pagedPnc => {
+        this.pncProvider.getFilteredPncs(this.pncSearchFilter.pncFilter, this.page, this.sizeOfThePage).then(pagedPnc => {
             this.searchInProgress = false;
             this.filteredPncs = pagedPnc.content;
             this.totalPncs = pagedPnc.page.totalElements;
@@ -113,7 +113,7 @@ export class PncSearchPage implements OnInit {
         return new Promise((resolve) => {
             if (this.filteredPncs.length < this.totalPncs) {
                 this.page = ++this.page;
-                this.pncProvider.getFilteredPncs(this.searchFilter.pncFilter, this.page, this.sizeOfThePage).then(pagedPnc => {
+                this.pncProvider.getFilteredPncs(this.pncSearchFilter.pncFilter, this.page, this.sizeOfThePage).then(pagedPnc => {
                     this.filteredPncs.push(...pagedPnc.content);
                     resolve();
                 });
@@ -129,6 +129,14 @@ export class PncSearchPage implements OnInit {
         const crewMember: CrewMember = new CrewMember();
         crewMember.pnc = pnc;
         return crewMember;
+    }
+
+    /**
+     * Redirige vers la page d'accueil du pnc ou du cadre
+     * @param pnc le pnc concerné
+     */
+    openPncHomePage(pnc: Pnc) {
+        this.navCtrl.push(PncHomePage, { matricule: pnc.matricule });
     }
 
 }
