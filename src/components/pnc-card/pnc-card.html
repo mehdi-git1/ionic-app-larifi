@@ -5,9 +5,7 @@
         <ion-grid>
             <ion-row>
                 <ion-col col-1 class="identity">
-                    <span>
-                        <img src="{{getAvatarPicture(crewMember.pnc.gender)}}" />
-                    </span>
+                    <pnc-photo [pnc]="crewMember.pnc" [size]="60"></pnc-photo>
                     <span class="value">{{crewMember.pnc.matricule}}</span>
                 </ion-col>
                 <ion-col col-11 class="content">

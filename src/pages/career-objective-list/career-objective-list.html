@@ -13,8 +13,10 @@
                 <ion-icon name="add"></ion-icon>
                 <label>{{ 'CAREER_OBJECTIVE_LIST.BUTTONS.ADD_CAREER_OBJECTIVE' | translate }}</label>
             </button>
+            <div class="information-message">
+                {{ 'CAREER_OBJECTIVE_LIST.INFORMATION_MESSAGE' | translate }}
+            </div>
         </div>
-
         <div class="career-objective-list-container">
             <div class="no-data-found" *ngIf="careerObjectiveList.length == 0">{{ 'CAREER_OBJECTIVE_LIST.NO_OBJECTIVES' | translate }}</div>
             <div *ngIf="careerObjectiveList.length > 0" class="career-objective-list">

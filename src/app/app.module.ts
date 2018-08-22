@@ -1,3 +1,6 @@
+import { PncPhotoTransformerProvider } from './../providers/pnc-photo/pnc-photo-transformer';
+import { OfflinePncPhotoProvider } from './../providers/pnc-photo/offline-pnc-photo';
+import { OnlinePncPhotoProvider } from './../providers/pnc-photo/online-pnc-photo';
 import { PdfFileViewerPage } from './../pages/pdf-file-viewer/pdf-file-viewer';
 import { CrewMemberTransformerProvider } from './../providers/crewMember/crewMember-transformer';
 import { OnlineLegProvider } from './../providers/leg/online-leg';
@@ -95,6 +98,7 @@ import { OnlineRotationProvider } from '../providers/rotation/online-rotation';
 import { OfflineRotationProvider } from '../providers/rotation/offline-rotation';
 import { GenericMessagePage } from '../pages/generic-message/generic-message';
 import { SettingsPage } from '../pages/settings/settings';
+import { PncPhotoProvider } from '../providers/pnc-photo/pnc-photo';
 
 
 declare var window: any;
@@ -205,7 +209,11 @@ declare var window: any;
     OnlineRotationProvider,
     OfflineRotationProvider,
     OnlineLegProvider,
-    OfflineLegProvider
+    OfflineLegProvider,
+    PncPhotoProvider,
+    OnlinePncPhotoProvider,
+    OfflinePncPhotoProvider,
+    PncPhotoTransformerProvider
   ]
 })
 export class AppModule { }
