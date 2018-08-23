@@ -1,3 +1,4 @@
+import { Speciality } from './../../models/speciality';
 import { TranslateService } from '@ngx-translate/core';
 import { Component } from '@angular/core';
 import { NavController, NavParams, IonicPage } from 'ionic-angular';
@@ -104,13 +105,13 @@ export class FlightCrewListPage {
      * @param otherCrewMember crewMember à comparer
      */
     sortBySpeciality(crewMember: CrewMember, otherCrewMember: CrewMember): number {
-        if (crewMember.pnc.speciality === otherCrewMember.pnc.speciality) {
+        if ((crewMember.pnc.speciality === otherCrewMember.pnc.speciality) || (crewMember.pnc.speciality === Speciality.HOT && otherCrewMember.pnc.speciality === Speciality.STW) || (crewMember.pnc.speciality === Speciality.STW && otherCrewMember.pnc.speciality === Speciality.HOT)) {
             return this.sortByName(crewMember, otherCrewMember);
-        } else if (crewMember.pnc.speciality === 'CAD') {
+        } else if (crewMember.pnc.speciality === Speciality.CAD) {
             return -1;
-        } else if (crewMember.pnc.speciality === 'CCP' && (otherCrewMember.pnc.speciality === 'CC' || otherCrewMember.pnc.speciality === 'HOT' || otherCrewMember.pnc.speciality === 'STW')) {
+        } else if (crewMember.pnc.speciality === Speciality.CCP && (otherCrewMember.pnc.speciality === Speciality.CC || otherCrewMember.pnc.speciality === Speciality.HOT || otherCrewMember.pnc.speciality === Speciality.STW)) {
             return -1;
-        } else if (crewMember.pnc.speciality === 'CC' && (otherCrewMember.pnc.speciality === 'HOT' || otherCrewMember.pnc.speciality === 'STW')) {
+        } else if (crewMember.pnc.speciality === Speciality.CC && (otherCrewMember.pnc.speciality === Speciality.HOT || otherCrewMember.pnc.speciality === Speciality.STW)) {
             return -1;
         } else {
             return 1;
