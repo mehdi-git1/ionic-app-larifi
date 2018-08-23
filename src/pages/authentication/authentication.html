@@ -1,11 +1,5 @@
-<ion-header>
-
-    <ion-navbar>
-        <ion-title>{{ 'AUTHENT.AUTHENTICATION' | translate }}</ion-title>
-    </ion-navbar>
-
-</ion-header>
-
+<page-header>{{ 'AUTHENT.AUTHENTICATION' | translate }}
+</page-header>
 
 <ion-content class="container" padding>
     <form class="row justify-content-center form-auth" [formGroup]="loginForm" (ngSubmit)="sendAuthent()">

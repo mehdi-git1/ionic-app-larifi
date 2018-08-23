@@ -12,36 +12,39 @@ import { SharedModule } from '../shared/shared.module';
 import { EdossierSpinnerComponent } from './edossier-spinner/edossier-spinner';
 import { PncSearchFilterComponent } from './pnc-search-filter/pnc-search-filter';
 import { PncPhotoComponent } from './pnc-photo/pnc-photo';
+import { PageHeaderComponent } from './page-header/page-header';
 
 @NgModule({
-    imports: [
-        CommonModule,
-        IonicModule,
-        SharedModule
-    ],
-    declarations: [
-        RotationCardComponent,
-        OfflineIndicatorComponent,
-        ConnectivityIndicatorComponent,
-        DownloadButtonComponent,
-        PncCardComponent,
-        FlightCardComponent,
-        EdossierSpinnerComponent,
-        PncSearchFilterComponent,
-        PncPhotoComponent
-    ],
-    exports: [
-        RotationCardComponent,
-        OfflineIndicatorComponent,
-        ConnectivityIndicatorComponent,
-        DownloadButtonComponent,
-        PncCardComponent,
-        FlightCardComponent,
-        EdossierSpinnerComponent,
-        PncSearchFilterComponent,
-        PncPhotoComponent
-    ],
-    providers: [DatePipe]
+  imports: [
+    CommonModule,
+    IonicModule,
+    SharedModule
+  ],
+  declarations: [
+    RotationCardComponent,
+    OfflineIndicatorComponent,
+    ConnectivityIndicatorComponent,
+    DownloadButtonComponent,
+    PncCardComponent,
+    FlightCardComponent,
+    EdossierSpinnerComponent,
+    PncSearchFilterComponent,
+    PncPhotoComponent,
+    PageHeaderComponent
+  ],
+  exports: [
+    RotationCardComponent,
+    OfflineIndicatorComponent,
+    ConnectivityIndicatorComponent,
+    DownloadButtonComponent,
+    PncCardComponent,
+    FlightCardComponent,
+    EdossierSpinnerComponent,
+    PncSearchFilterComponent,
+    PncPhotoComponent,
+    PageHeaderComponent
+  ],
+  providers: [DatePipe]
 
 })
 export class ComponentsModule { }

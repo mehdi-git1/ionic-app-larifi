@@ -12,12 +12,6 @@ import { Pnc } from './../../models/pnc';
 import { FormGroup, AbstractControl, Validators, FormBuilder } from '@angular/forms';
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
-/**
- * Generated class for the PncSearchFilterComponent component.
- *
- * See https://angular.io/api/core/Component for more info on Angular
- * Components.
- */
 @Component({
   selector: 'pnc-search-filter',
   templateUrl: 'pnc-search-filter.html'

@@ -1,9 +1,5 @@
-<ion-header>
-    <ion-navbar>
-        <ion-title>{{ 'GLOBAL.PNC_TEAM' | translate }}</ion-title>
-        <connectivity-indicator></connectivity-indicator>
-    </ion-navbar>
-</ion-header>
+<page-header>{{ 'GLOBAL.PNC_TEAM' | translate }}
+</page-header>
 
 <div class="pnc-search-content">
     <pnc-search-filter (onSearch)="searchPncs()"></pnc-search-filter>
