@@ -197,6 +197,11 @@ ion-item.item {
     background-color: transparent;
 }
 
+.ion-page > .content
+{
+    background-color: #F1F1F1;
+}
+
 @media all and (-ms-high-contrast: none),
 (-ms-high-contrast: active) {
     /* IE10 & 11 */
