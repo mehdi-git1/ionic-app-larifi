@@ -19,7 +19,7 @@ export class Config extends BaseConfig {
         this.pingUrl = this.backEndUrl + '/ping';
         this.env = 'localhost';
         this.secmobileEnv = 'rct';
-        this.eObsUrl = 'com.airfrance.mobile.inhouse.eformsrctPNC';
+        this.eObsUrl = 'com.airfrance.mobile.inhouse.eformsdevPNC';
         this.eObsCallbackUrl = 'com.airfrance.mobile.inhouse.edospncDEV';
     }
 }
