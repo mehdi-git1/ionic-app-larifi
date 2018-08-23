@@ -15,7 +15,6 @@
     <preference name="android-minSdkVersion" value="19" />
     <preference name="BackupWebStorage" value="none" />
     <preference name="SplashMaintainAspectRatio" value="true"/>
-    <preference name="SplashScreen" value="resources/splash.png"/>
     <preference name="SplashScreenDelay" value="30000"/>
     <preference name="AutoHideSplashScreen" value="false"/>
     <preference name="SplashShowOnlyFirstTime" value="false"/>
