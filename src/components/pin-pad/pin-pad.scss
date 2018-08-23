@@ -1,12 +1,12 @@
-$containerWidth : 400;
-$containerHeight : 310;
+$containerWidth : 600;
+$containerHeight : 510;
 $containerPadding : 30;
 
-$chosenNumberWidth: 80;
-$chosenNumberHeight: 80;
+$chosenNumberWidth: 130;
+$chosenNumberHeight: 130;
 
-$pinNumberWidth: 45;
-$pinNumberHeight: 45;
+$pinNumberWidth: 76;
+$pinNumberHeight: 76;
 
 $colorBright : white;
 $colorDark: grey;
@@ -37,6 +37,7 @@ pin-pad {
         
         margin: 2px;
         font-size: 35px;
+        padding-top: 50px;
 
         span{
             width:100%;
@@ -54,11 +55,11 @@ pin-pad {
         background-color:$colorBright;
         border: solid 2px $colorBright;
         border-radius: $pinNumberWidth+px;
-        margin: 10px;
+        margin: 16px;
         font-weight: bold;
         font-size: 20px;
-        padding-left : $pinNumberWidth/3+px;
-        padding-top: $pinNumberHeight/5+px;
+        padding-left : $pinNumberWidth/2.5+px;
+        padding-top: $pinNumberHeight/3.5+px;
     }
 
     .fullScreenBlack{
