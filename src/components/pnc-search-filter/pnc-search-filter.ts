@@ -50,9 +50,14 @@ export class PncSearchFilterComponent implements OnInit {
 
   outOfDivision: boolean;
 
+  searchNeedToBeRefreshed: boolean;
+
   constructor(private navCtrl: NavController, private sessionService: SessionService, private formBuilder: FormBuilder,
     private pncProvider: PncProvider, private connectivityService: ConnectivityService) {
-
+    this.searchNeedToBeRefreshed = false;
+    this.connectivityService.connectionStatusChange.subscribe(connected => {
+      this.searchNeedToBeRefreshed = true;
+    });
   }
 
   /**
@@ -60,8 +65,16 @@ export class PncSearchFilterComponent implements OnInit {
    * @param evt event : click
    */
   search(): void {
-    // evt.stopPropagation();
     this.onSearch.next();
+  }
+
+  /**
+   * Action déclenchée lors du click
+   * @param evt event : click
+   */
+  refreshSearch(): void {
+    this.onSearch.next();
+    this.searchNeedToBeRefreshed = false;
   }
 
   ngOnInit() {
@@ -263,6 +276,14 @@ export class PncSearchFilterComponent implements OnInit {
 
   areFiltersDisabled(): boolean {
     return !this.connectivityService.isConnected();
+  }
+
+  noNeedRefreshAndIsOffline(): boolean {
+    return !this.searchNeedToBeRefreshed && !this.connectivityService.isConnected();
+  }
+
+  noNeedRefreshAndIsOnline(): boolean {
+    return !this.searchNeedToBeRefreshed && this.connectivityService.isConnected();
   }
 
   clearButtonIsDisabled(): boolean {

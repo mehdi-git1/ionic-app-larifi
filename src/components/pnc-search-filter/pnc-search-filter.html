@@ -25,16 +25,22 @@
                 </mat-autocomplete>
               </ion-item>
             </ion-col>
-            <ion-col col-6 *ngIf="!areFiltersDisabled()">
+            <ion-col col-3 *ngIf="searchNeedToBeRefreshed">
               <button ion-button icon-start (click)="resetFilterValues()" class="clear-pnc" [disabled]="clearButtonIsDisabled()">
                 <ion-icon name="trash"></ion-icon>
                 {{ 'PNC_SEARCH.REINIT_FILTERS' | translate }}
               </button>
             </ion-col>
-            <ion-col col-6 *ngIf="areFiltersDisabled()">
-              <button ion-button icon-start (click)="search()" class="search-pnc">
+            <ion-col col-3 *ngIf="searchNeedToBeRefreshed">
+              <button ion-button icon-start (click)="refreshSearch()" class="search-pnc">
                 <ion-icon name="refresh"></ion-icon>
                 {{ 'PNC_SEARCH.REFRESH_SEARCH' | translate }}
+              </button>
+            </ion-col>
+            <ion-col col-6 *ngIf="!searchNeedToBeRefreshed">
+              <button ion-button icon-start (click)="resetFilterValues()" class="clear-pnc" [disabled]="clearButtonIsDisabled()">
+                <ion-icon name="trash"></ion-icon>
+                {{ 'PNC_SEARCH.REINIT_FILTERS' | translate }}
               </button>
             </ion-col>
           </ion-row>

@@ -112,13 +112,19 @@ export class PncSearchPage implements OnInit {
     doInfinite(infiniteScroll): Promise<any> {
         return new Promise((resolve) => {
             if (this.filteredPncs.length < this.totalPncs) {
-                this.page = ++this.page;
-                this.pncProvider.getFilteredPncs(this.pncSearchFilter.pncFilter, this.page, this.sizeOfThePage).then(pagedPnc => {
-                    this.filteredPncs.push(...pagedPnc.content);
+                if (this.connectivityService.isConnected()) {
+                    this.page = ++this.page;
+                    this.pncProvider.getFilteredPncs(this.pncSearchFilter.pncFilter, this.page, this.sizeOfThePage).then(pagedPnc => {
+                        this.filteredPncs.push(...pagedPnc.content);
+                        infiniteScroll.complete();
+                        resolve();
+                    });
+                } else {
+                    infiniteScroll.complete();
                     resolve();
-                });
+                }
             } else {
-                infiniteScroll.enable(false);
+                resolve();
             }
         });
     }
