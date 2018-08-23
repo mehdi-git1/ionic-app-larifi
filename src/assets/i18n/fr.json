@@ -112,7 +112,7 @@
             "TITLE": "Libellé",
             "REGISTRATION_DATE": "Date d'enregistrement",
             "ENCOUNTER_DATE": "Date de rencontre",
-            "NEXT_ENCOUNTER_DATE": "Date du Prochain point"
+            "NEXT_ENCOUNTER_DATE": "Date du prochain point"
         },
         "BUTTONS": {
             "ADD_CAREER_OBJECTIVE": "Nouvelle priorité"
@@ -171,7 +171,6 @@
         "NO_FLIGHTS": "Aucun vol trouvé"
     },
     "SUMMARY_SHEET": {
-        "TITLE": "Synthèse PNC",
         "PDF_MISSING": "Pas de fiche synthèse disponible"
     },
     "PNC_SEARCH": {
