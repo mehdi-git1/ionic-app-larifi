@@ -1,0 +1,47 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "project": {
+    "name": "edospnc"
+  },
+  "apps": [
+    {
+      "root": "src",
+      "outDir": "dist",
+      "assets": [
+        "assets",
+        "favicon.ico"
+      ],
+      "index": "index.html",
+      "main": "test-config/main.ts",
+      "polyfills": "test-config/polyfills.ts",
+      "test": "test-config/test.ts",
+      "tsconfig": "test-config/tsconfig.app.json",
+      "testTsconfig": "test-config/tsconfig.spec.json",
+      "prefix": "app",
+      "scripts": []
+    }
+  ],
+  "lint": [
+    {
+      "project": "src/test-config/tsconfig.app.json",
+      "exclude": "**/node_modules/**"
+    },
+    {
+      "project": "src/test-config/tsconfig.spec.json",
+      "exclude": "**/node_modules/**"
+    },
+    {
+      "project": "e2e/test-config/tsconfig.e2e.json",
+      "exclude": "**/node_modules/**"
+    }
+  ],
+  "test": {
+    "karma": {
+      "config": "./src/test-config/karma.conf.js"
+    }
+  },
+  "defaults": {
+    "styleExt": "css",
+    "component": {}
+  }
+}
