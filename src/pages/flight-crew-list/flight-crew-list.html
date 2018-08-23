@@ -1,18 +1,13 @@
-<ion-header>
-    <ion-navbar>
-        <ion-title>
-            <div class="leg" *ngIf="leg">
-                <div class="flight-number">
-                    <ion-icon name="plane" class="round-icon"></ion-icon>
-                    <span class="value">{{ leg.company }}{{ leg.number }}</span>
-                </div>
-                <span class="value">{{ leg.departureDate | date : 'dd/MM/yyyy HH:mm' }}</span>
-                <span class="value">{{ leg.departureStation }} - {{ leg.arrivalStation }}</span>
-            </div>
-        </ion-title>
-        <edossier-indicators></edossier-indicators>
-    </ion-navbar>
-</ion-header>
+<page-header>
+    <div class="leg" *ngIf="leg">
+        <div class="flight-number">
+            <ion-icon name="plane" class="round-icon"></ion-icon>
+            <span class="value">{{ leg.company }}{{ leg.number }}</span>
+        </div>
+        <span class="value">{{ leg.departureDate | date : 'dd/MM/yyyy HH:mm' }}</span>
+        <span class="value">{{ leg.departureStation }} - {{ leg.arrivalStation }}</span>
+    </div>
+</page-header>
 
 <ion-content padding>
     <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>

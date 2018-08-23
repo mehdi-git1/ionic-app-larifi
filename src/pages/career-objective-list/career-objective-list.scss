@@ -4,7 +4,7 @@ page-career-objective-list {
         padding: 0 10px;
 
         .add-career-objective {
-            background: color($colors, green60);
+            background: color($colors, green50);
             width: 100%;
             height: 90px;
 
@@ -17,17 +17,20 @@ page-career-objective-list {
 
             ion-icon {
                 color: color($colors, grey90);
-                font-size: 3em;
+                font-size: 4em;
             }
 
             label {
                 color: color($colors, white);
+                font-weight: bold;
+                font-size: 1.2em;
             }
         }
 
         .information-message {
             color: color($colors, grey50);
             text-align: right;
+            padding-top: 5px;
         }
         .information-message:before {
             content: '* ';

@@ -33,6 +33,9 @@ export class CareerObjectiveListPage {
   ionViewDidEnter() {
     this.matricule = this.navParams.get('matricule');
     this.careerObjectiveProvider.getPncCareerObjectives(this.matricule).then(result => {
+      result.sort((careerObjective: CareerObjective, otherCareerObjective: CareerObjective) => {
+        return careerObjective.creationDate < otherCareerObjective.creationDate ? 1 : -1;
+      });
       this.careerObjectiveList = result;
     }, error => { });
   }

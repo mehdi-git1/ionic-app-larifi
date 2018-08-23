@@ -17,7 +17,7 @@
             "ABANDONED": "ABANDONNÉ"
         },
         "WAYPOINT_STATUS": {
-            "DRAFT": "BROUILLON",
+            "DRAFT": "PROPOSITION",
             "REGISTERED": "EN COURS"
         },
         "CONNECTIVITY": {
@@ -106,13 +106,13 @@
     },
     "CAREER_OBJECTIVE_LIST": {
         "NO_OBJECTIVES": "Aucune priorité pour le moment",
-        "INFORMATION_MESSAGE": "Maximum 5 priorités actives",
+        "INFORMATION_MESSAGE": "Maximum 5 priorités en cours",
         "LIST": {
             "CREATION_DATE": "Date de création",
             "TITLE": "Libellé",
             "REGISTRATION_DATE": "Date d'enregistrement",
             "ENCOUNTER_DATE": "Date de rencontre",
-            "NEXT_ENCOUNTER_DATE": "Date du Prochain point"
+            "NEXT_ENCOUNTER_DATE": "Date du prochain point"
         },
         "BUTTONS": {
             "ADD_CAREER_OBJECTIVE": "Nouvelle priorité"
@@ -171,7 +171,6 @@
         "NO_FLIGHTS": "Aucun vol trouvé"
     },
     "SUMMARY_SHEET": {
-        "TITLE": "Synthèse PNC",
         "PDF_MISSING": "Pas de fiche synthèse disponible"
     },
     "PNC_SEARCH": {

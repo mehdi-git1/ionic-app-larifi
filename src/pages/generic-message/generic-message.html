@@ -1,10 +1,5 @@
-<ion-header>
-    <ion-navbar>
-        <ion-title>{{ 'GLOBAL.APP_NAME' | translate }}</ion-title>
-        <edossier-indicators [showSettingsIcon]="false"></edossier-indicators>
-    </ion-navbar>
-</ion-header>
-
+<page-header [showSettingsIcon]="false">{{ 'GLOBAL.APP_NAME' | translate }}
+</page-header>
 
 <ion-content padding>
     <div class="generic-message">{{genericMessage}}</div>

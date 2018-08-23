@@ -1,9 +1,5 @@
-<ion-header>
-    <ion-navbar>
-        <ion-title>{{ 'SUMMARY_SHEET.TITLE' | translate }}</ion-title>
-        <edossier-indicators></edossier-indicators>
-    </ion-navbar>
-</ion-header>
+<page-header>{{ 'GLOBAL.PNC_SUMMARY_SHEET' | translate }}
+</page-header>
 
 <ion-content padding>
     <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>

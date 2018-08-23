@@ -1,9 +1,5 @@
-<ion-header>
-    <ion-navbar>
-        <ion-title>{{ 'GLOBAL.UPCOMING_FLIGHT' | translate }}</ion-title>
-        <edossier-indicators></edossier-indicators>
-    </ion-navbar>
-</ion-header>
+<page-header>{{ 'GLOBAL.UPCOMING_FLIGHT' | translate }}
+</page-header>
 
 <ion-content padding>
     <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>

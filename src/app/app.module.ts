@@ -134,7 +134,7 @@ declare var window: any;
     SharedModule,
     BrowserAnimationsModule,
     PdfViewerModule,
-    SimpleNotificationsModule.forRoot()
+    SimpleNotificationsModule.forRoot({ position: ['top', 'right'] })
   ],
   bootstrap: [IonicApp],
   entryComponents: [

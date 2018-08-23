@@ -30,17 +30,26 @@ $app-direction: ltr;
 $colors: (primary: #080F38,
 secondary: #9BAEC8,
 tertiary:#E53A40,
+orange50:#E99251,
 orange60:#F5A623,
+green50:#27b899,
 green60:#5BC7A9,
 green70: #37D67A,
 grey10:#333333,
+grey15:#717171,
 grey20: #585858,
 grey50: #94959A,
+grey60:#8B7D72,
 grey90: #F1F1F1,
 white:#fff,
+blue60:#25b5d6,
+blue65:#417496,
+blue70:#3b7ae2,
 blue80:#89D8FB,
+blue90:#27b899,
+red70:#e24c4c,
 red80:#E53A40,
-);
+red90:#C0504D);
 
 $text-color:color($colors, grey10);
 
@@ -75,20 +84,9 @@ $text-color:color($colors, grey10);
 // Fonts
 // --------------------------------------------------
 @font-face {
-    font-family: 'OpenSansBold';
-    src: url('/assets/fonts/OpenSans-Bold-webfont.woff') format('woff');
+    font-family: 'SanFrancisco';
+    src: url('/assets/fonts/sanfranciscodisplay-ultralight-webfont.woff') format('woff');
 }
-
-@font-face {
-    font-family: 'OpenSansLight';
-    src: url('/assets/fonts/OpenSans-Light-webfont.woff') format('woff');
-}
-
-@font-face {
-    font-family: 'OpenSans';
-    src: url('/assets/fonts/OpenSans-Regular-webfont.woff') format('woff');
-}
-
 
 div,
 p,
@@ -100,7 +98,7 @@ h4,
 h5,
 h6,
 button {
-    font-family: OpenSansLight, Arial, Helvetica, sans-serif;
+    font-family: SanFrancisco, Arial, Helvetica, sans-serif;
 }
 
 h3 {
@@ -130,7 +128,7 @@ ion-card {
     .card-header {
         color: black;
         background-color: lightgray;
-        font-family: OpenSansLight, Arial, Helvetica, sans-serif;
+        font-family: SanFrancisco, Arial, Helvetica, sans-serif;
         font-size: 1.4em;
     }
 
@@ -195,6 +193,10 @@ ion-item.item {
 
 .content-md {
     background-color: transparent;
+}
+
+.ion-page > .content {
+    background-color: color($colors, grey90);
 }
 
 @media all and (-ms-high-contrast: none),
