@@ -11,6 +11,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { SharedModule } from '../shared/shared.module';
 import { EdossierSpinnerComponent } from './edossier-spinner/edossier-spinner';
 import { PncPhotoComponent } from './pnc-photo/pnc-photo';
+import { PageHeaderComponent } from './page-header/page-header';
 
 @NgModule({
   imports: [
@@ -26,7 +27,8 @@ import { PncPhotoComponent } from './pnc-photo/pnc-photo';
     PncCardComponent,
     FlightCardComponent,
     EdossierSpinnerComponent,
-    PncPhotoComponent
+    PncPhotoComponent,
+    PageHeaderComponent
   ],
   exports: [
     RotationCardComponent,
@@ -36,7 +38,8 @@ import { PncPhotoComponent } from './pnc-photo/pnc-photo';
     PncCardComponent,
     FlightCardComponent,
     EdossierSpinnerComponent,
-    PncPhotoComponent
+    PncPhotoComponent,
+    PageHeaderComponent
   ],
   providers: [DatePipe]
 
