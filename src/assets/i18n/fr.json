@@ -106,7 +106,7 @@
     },
     "CAREER_OBJECTIVE_LIST": {
         "NO_OBJECTIVES": "Aucune priorité pour le moment",
-        "INFORMATION_MESSAGE": "Maximum 5 priorités actives",
+        "INFORMATION_MESSAGE": "Maximum 5 priorités en cours",
         "LIST": {
             "CREATION_DATE": "Date de création",
             "TITLE": "Libellé",
