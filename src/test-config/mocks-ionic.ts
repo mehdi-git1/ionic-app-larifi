@@ -79,19 +79,19 @@ export class SplashScreenMock extends SplashScreen {
 }
 
 export class NavMock {
- 
+
   public pop(): any {
-    return new Promise(function(resolve: Function): void {
+    return new Promise(function (resolve: Function): void {
       resolve();
     });
   }
- 
+
   public push(): any {
-    return new Promise(function(resolve: Function): void {
+    return new Promise(function (resolve: Function): void {
       resolve();
     });
   }
- 
+
   public getActive(): any {
     return {
       'instance': {
@@ -99,17 +99,15 @@ export class NavMock {
       },
     };
   }
- 
+
   public setRoot(): any {
     return true;
   }
 
   public registerChildNav(nav: any): void {
-    return ;
+    return;
   }
 
 }
 
-export class DeepLinkerMock {
-
-}
+export class DeepLinkerMock { }
