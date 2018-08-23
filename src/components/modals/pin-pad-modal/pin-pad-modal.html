@@ -1,5 +1,9 @@
 <ion-content class="fullScreenBlack">
 </ion-content>
 <ion-content padding>
-  <pin-pad (pinPadValue)=checkPinValue($event) [pinTitle]="modalTitle"></pin-pad> 
+  <pin-pad 
+    (pinPadValue)=checkPinValue($event) 
+    (sendAction)=catchAction($event);
+    [pinType]="modalType">
+  </pin-pad> 
 </ion-content>

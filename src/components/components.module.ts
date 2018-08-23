@@ -1,3 +1,5 @@
+import { SecretQuestionComponent } from './secret-question/secret-question';
+import { SecretQuestionModal } from './modals/secret-question-modal/secret-question-modal';
 import { IonicModule } from 'ionic-angular';
 import { DatePipe, CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
@@ -29,7 +31,9 @@ import { PinPadComponent } from './pin-pad/pin-pad';
     FlightCardComponent,
     EdossierSpinnerComponent,
     PinPadComponent,
-    PinPadModal
+    PinPadModal,
+    SecretQuestionModal,
+    SecretQuestionComponent
   ],
   exports: [
     RotationCardComponent,
@@ -40,10 +44,13 @@ import { PinPadComponent } from './pin-pad/pin-pad';
     FlightCardComponent,
     EdossierSpinnerComponent,
     PinPadComponent,
-    PinPadModal
+    PinPadModal,
+    SecretQuestionModal,
+    SecretQuestionComponent
   ],
   entryComponents: [
-    PinPadModal
+    PinPadModal,
+    SecretQuestionModal
   ],
   providers: [DatePipe]
 

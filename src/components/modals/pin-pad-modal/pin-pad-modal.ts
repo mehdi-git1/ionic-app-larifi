@@ -9,13 +9,13 @@ import { Component} from '@angular/core';
 
 export class PinPadModal {
 
-  modalTitle: string;
+  modalType: string;
 
   constructor(
     public viewController: ViewController,
     public navParams: NavParams
   ) {
-    this.modalTitle = navParams.get('titleModal');
+    this.modalType = navParams.get('typeModal');
   }
 
   checkPinValue(pinValue){
@@ -27,6 +27,10 @@ export class PinPadModal {
       this.viewController.dismiss(pinValue.join(''));
      }
 
+  }
+
+  catchAction(action){
+    this.viewController.dismiss(action);
   }
 
 }

@@ -86,7 +86,6 @@ import { WaypointTransformerProvider } from '../providers/waypoint/waypoint-tran
 import { PncTransformerProvider } from '../providers/pnc/pnc-transformer';
 import { SynchronizationProvider } from '../providers/synchronization/synchronization';
 import { PncSynchroProvider } from '../providers/synchronization/pnc-synchro';
-import { PinPadService } from './../services/pin.pad.service';
 
 import { HomePage } from './../pages/home/home';
 
@@ -94,6 +93,7 @@ import { SummarySheetProvider } from '../providers/summary-sheet/summary-sheet';
 import { OnlineRotationProvider } from '../providers/rotation/online-rotation';
 import { OfflineRotationProvider } from '../providers/rotation/offline-rotation';
 import { GenericMessagePage } from '../pages/generic-message/generic-message';
+import { SecurityModalService } from '../services/security.modal.service';
 
 
 declare var window: any;
@@ -203,7 +203,7 @@ declare var window: any;
     OfflineRotationProvider,
     OnlineLegProvider,
     OfflineLegProvider,
-    PinPadService
+    SecurityModalService
   ]
 })
 export class AppModule { }

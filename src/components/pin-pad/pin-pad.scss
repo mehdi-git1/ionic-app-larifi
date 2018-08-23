@@ -20,6 +20,13 @@ pin-pad {
         text-align: center;
     }
 
+    .forgottenPin{
+        color: $colorDark;
+        font-weight: bold;
+        text-align: right;
+        cursor: pointer;
+    }
+
     .container{
         position: absolute;
         width: $containerWidth+px;
@@ -61,16 +68,6 @@ pin-pad {
         padding-left : $pinNumberWidth/2.5+px;
         padding-top: $pinNumberHeight/3.5+px;
     }
-
-    .fullScreenBlack{
-        position: absolute;
-        top: 0px;
-        left: 0px;
-        width:100%;
-        height:100%;
-        background-color: black;
-        opacity: 0.9;
-    }   
 
 
 }

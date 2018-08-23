@@ -211,11 +211,23 @@
     "PINPAD": {
         "TITLE": {
             "OPENINGAPP": "Veuillez entrer votre code pin",
-            "BACKTOAPP": "Veuillez entrer votre code pin",
             "PINCHANGESTAGE1": "Veuillez entrer votre code pin actuel",
             "PINCHANGESTAGE2": "Veuillez entrer votre nouveau code pin",
             "FIRSTCONNEXIONSTAGE1": "Veuillez entrer un code pin pour sécuriser votre compte",
             "FIRSTCONNEXIONSTAGE2": "Veuillez confirmer votre code pin"
-        }
+        },
+        "FORGOTTEN": "Code pin oublié ?"
+    },
+    "SECRET_QUESTION": {
+        "TITLE": {
+            "NEWQUESTION": "Veuillez définir de quoi retrouver votre code PIN",
+            "ANSWERTOQUESTION": "Répondez à la question suivante :"
+        },
+        "LABEL":{
+            "NEWQUESTION": "Veuillez entrer une question secréte",
+            "NEWANSWER": "Veuillez entrer la réponse à la question"
+        },
+        "VALIDATE": "Valider"
     }
 }
+
