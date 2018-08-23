@@ -197,9 +197,8 @@ ion-item.item {
     background-color: transparent;
 }
 
-.ion-page > .content
-{
-    background-color: #F1F1F1;
+.ion-page > .content {
+    background-color: color($colors, grey90);
 }
 
 @media all and (-ms-high-contrast: none),
