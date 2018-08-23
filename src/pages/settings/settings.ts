@@ -51,12 +51,18 @@ export class SettingsPage {
 
   }
 
+  /**
+   * Supprime la totalité du cache puis le réinitialise comme au demarrage de l'application
+   */
   clearAndInitCache() {
     this.initInProgress = true;
     this.storageService.clearOfflineMap();
     this.initializeCache();
   }
 
+  /**
+   * Réinitialise le cache comme au demarrage de l'application
+   */
   initializeCache() {
     this.storageService.initOfflineMap().then(success => {
       const authenticatedUser = this.sessionService.authenticatedUser;
