@@ -213,15 +213,15 @@
         "TITLE": "Réglages",
         "INIT_CACHE": {
             "BUTTON": "Réinitialiser le cache",
-            "SUCCESS": "Réinitialisation du cache rèussie"
+            "SUCCESS": "Réinitialisation du cache réussie"
         },
         "FORCE_SYNCHRONIZATION": {
             "BUTTON": "Forcer la synchronisation"
         },
         "CONFIRM_INIT_CACHE": {
             "TITLE": "Réinitialisation du cache",
-            "MESSAGE": "Attention. êtes vous sûre de vouloir réinitialiser le cache ?",
-            "MESSAGE_UNSYNCHRONIZED_DATA": "Attention. La réinitialisation du cache peut entrainer la perte de données non synchronisées.",
+            "MESSAGE": "Attention. Êtes vous sûre de vouloir réinitialiser le cache ?",
+            "MESSAGE_UNSYNCHRONIZED_DATA": "Attention. La réinitialisation du cache peut entraîner la perte de données non synchronisées.",
             "CANCEL": "Annuler",
             "CONFIRM": "Confirmer"
         }
