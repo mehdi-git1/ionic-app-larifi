@@ -1,20 +1,29 @@
 EDossier-indicators {
 
-    display: inline-flex;
+    display: flex;
+    align-items: center;
+
+    & > * {
+        margin-right: 15px;
+    }
 
     .settings-button {
-        height: 1.6em;
-        margin: 0;
-        font-size: 1.9rem;
-    }
-    .offline-indicator div {
-        width: 30px;
-        height: 30px;
-        border-radius: 100%;
-        margin-right: 10px;
+        height: 40px;
+        width: 40px;
+        box-shadow: none;
+
+        ion-icon {
+            font-size: 2.2em;
+        }
     }
 
     .offline-indicator {
+        div {
+            height: 30px;
+            width: 30px;
+            border-radius: 100%;
+        }
+
         .offline {
             background: color($colors, orange60);
         }
