@@ -81,6 +81,11 @@ page-career-objective-list {
                                 display: flex;
                                 flex-direction: column;
                                 align-items: center;
+
+                                .no-value sup {
+                                    visibility: hidden;
+                                }
+
                             }
                         }
 

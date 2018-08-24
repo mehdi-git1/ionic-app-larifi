@@ -23,8 +23,7 @@
                             <!-- Titre -->
                             <ion-item>
                                 <ion-label floating class="required">{{ 'CAREER_OBJECTIVE_CREATE.FORM.TITLE' | translate }}</ion-label>
-                                <ion-input type="text" [(ngModel)]="careerObjective.title" formControlName="titleControl" [readonly]="readOnlyByUserConnected()"
-                                    [ngClass]="getCssClassForReadOnlyIfNeeded()"></ion-input>
+                                <ion-input type="text" [(ngModel)]="careerObjective.title" formControlName="titleControl" [readonly]="readOnlyByUserConnected()" [ngClass]="getCssClassForReadOnlyIfNeeded()"></ion-input>
                             </ion-item>
                         </ion-col>
                     </ion-row>
@@ -33,8 +32,7 @@
                             <!-- Contexte -->
                             <ion-item>
                                 <ion-label floating>{{ 'CAREER_OBJECTIVE_CREATE.FORM.CONTEXT' | translate }}</ion-label>
-                                <ion-textarea [(ngModel)]="careerObjective.context" formControlName="contextControl" name="context" [readonly]="readOnlyByUserConnected()"
-                                    [ngClass]="getCssClassForReadOnlyIfNeeded()"></ion-textarea>
+                                <ion-textarea [(ngModel)]="careerObjective.context" formControlName="contextControl" name="context" [readonly]="readOnlyByUserConnected()" [ngClass]="getCssClassForReadOnlyIfNeeded()"></ion-textarea>
                             </ion-item>
                         </ion-col>
                     </ion-row>
@@ -43,8 +41,7 @@
                             <!-- Plan d'action -->
                             <ion-item>
                                 <ion-label floating>{{ 'CAREER_OBJECTIVE_CREATE.FORM.ACTION_PLAN' | translate }}</ion-label>
-                                <ion-textarea [(ngModel)]="careerObjective.actionPlan" formControlName="actionPlanControl" name="actionPlan" [readonly]="readOnlyByUserConnected()"
-                                    [ngClass]="getCssClassForReadOnlyIfNeeded()"></ion-textarea>
+                                <ion-textarea [(ngModel)]="careerObjective.actionPlan" formControlName="actionPlanControl" name="actionPlan" [readonly]="readOnlyByUserConnected()" [ngClass]="getCssClassForReadOnlyIfNeeded()"></ion-textarea>
                             </ion-item>
                         </ion-col>
                     </ion-row>
@@ -53,8 +50,7 @@
                             <!-- Commentaire cadre -->
                             <ion-item>
                                 <ion-label floating>{{ 'CAREER_OBJECTIVE_CREATE.FORM.MANAGER_COMMENT' | translate }}</ion-label>
-                                <ion-textarea [(ngModel)]="careerObjective.managerComment" formControlName="managerCommentControl" name="managerComment"
-                                    [readonly]="readOnlyByUserConnected()" [ngClass]="getCssClassForReadOnlyIfNeeded()"></ion-textarea>
+                                <ion-textarea [(ngModel)]="careerObjective.managerComment" formControlName="managerCommentControl" name="managerComment" [readonly]="readOnlyByUserConnected()" [ngClass]="getCssClassForReadOnlyIfNeeded()"></ion-textarea>
                             </ion-item>
                         </ion-col>
                         <ion-col col-6>
@@ -83,33 +79,29 @@
                             <!-- Prioritaire -->
                             <ion-item>
                                 <ion-label>{{ 'CAREER_OBJECTIVE_CREATE.FORM.PRIORITIZED' | translate }}</ion-label>
-                                <ion-checkbox [disabled]="readOnlyByUserConnected()" [(ngModel)]="careerObjective.prioritized" checked="{{careerObjective.prioritized}}"
-                                    formControlName="prioritizedControl"></ion-checkbox>
+                                <ion-checkbox [disabled]="readOnlyByUserConnected()" [(ngModel)]="careerObjective.prioritized" checked="{{careerObjective.prioritized}}" formControlName="prioritizedControl"></ion-checkbox>
                             </ion-item>
                         </ion-col>
                         <ion-col col-6>
                             <!-- Prochaine rencontre -->
-                            <ion-label stacked>{{ 'CAREER_OBJECTIVE_CREATE.FORM.NEXT_ENCOUNTER_DATE' | translate }}</ion-label>
+                            <ion-label stacked>{{ 'CAREER_OBJECTIVE_CREATE.FORM.NEXT_ENCOUNTER_DATE' | translate }} <sup>TU</sup></ion-label>
                             <ion-item>
                                 <ion-label>
                                     <ion-icon name="calendar"></ion-icon>
                                 </ion-label>
-                                <ion-datetime [disabled]="readOnlyByUserConnected()" displayFormat="DD/MM/YYYY" [(ngModel)]="careerObjective.nextEncounterDate"
-                                    formControlName="nextEncounterDateControl" [pickerOptions]="nextEncounterDateTimeOptions"
-                                    [doneText]="translateService.instant('GLOBAL.DATEPICKER.DONE')" [cancelText]="translateService.instant('GLOBAL.DATEPICKER.CANCEL')"
-                                    [max]="datepickerMaxDate">
+                                <ion-datetime [disabled]="readOnlyByUserConnected()" displayFormat="DD/MM/YYYY" [(ngModel)]="careerObjective.nextEncounterDate" formControlName="nextEncounterDateControl" [pickerOptions]="nextEncounterDateTimeOptions" [doneText]="translateService.instant('GLOBAL.DATEPICKER.DONE')"
+                                    [cancelText]="translateService.instant('GLOBAL.DATEPICKER.CANCEL')" [max]="datepickerMaxDate">
                                 </ion-datetime>
                             </ion-item>
                             <!-- Date de rencontre -->
-                            <ion-label stacked [ngClass]="{'required' : requiredOnEncounterDay  || isEncounterDateRequired() }">{{ 'CAREER_OBJECTIVE_CREATE.FORM.ENCOUNTER_DATE' | translate }}
+                            <ion-label stacked [ngClass]="{'required' : requiredOnEncounterDay  || isEncounterDateRequired() }">{{ 'CAREER_OBJECTIVE_CREATE.FORM.ENCOUNTER_DATE' | translate }} <sup>TU</sup>
                                 <span *ngIf="requiredOnEncounterDay">{{ 'CAREER_OBJECTIVE_CREATE.FORM.REQUIRED_ON_ENCOUNTER_DAY' | translate }}</span>
                             </ion-label>
                             <ion-item>
                                 <ion-label>
                                     <ion-icon name="calendar"></ion-icon>
                                 </ion-label>
-                                <ion-datetime [disabled]="readOnlyByUserConnected()" displayFormat="DD/MM/YYYY" [(ngModel)]="careerObjective.encounterDate"
-                                    formControlName="encounterDateControl" [pickerOptions]="encounterDateTimeOptions" [doneText]="translateService.instant('GLOBAL.DATEPICKER.DONE')"
+                                <ion-datetime [disabled]="readOnlyByUserConnected()" displayFormat="DD/MM/YYYY" [(ngModel)]="careerObjective.encounterDate" formControlName="encounterDateControl" [pickerOptions]="encounterDateTimeOptions" [doneText]="translateService.instant('GLOBAL.DATEPICKER.DONE')"
                                     [cancelText]="translateService.instant('GLOBAL.DATEPICKER.CANCEL')" [max]="datepickerMaxDate"></ion-datetime>
                             </ion-item>
                         </ion-col>
@@ -133,10 +125,10 @@
                             <header>
                                 <ion-icon name="create" ios="md-create" *ngIf="waypoint.waypointStatus === WaypointStatus.DRAFT" float-right></ion-icon>
                                 <div class="value" *ngIf="waypoint.encounterDate; else creationDateBlock">
-                                    {{ waypoint.encounterDate | date: 'dd/MM/yyyy'}}
+                                    {{ waypoint.encounterDate | date: 'dd/MM/yyyy'}} <sup>TU</sup>
                                 </div>
                                 <ng-template #creationDateBlock>
-                                    <div class="value">{{ waypoint.creationDate | date: 'dd/MM/yyyy'}}</div>
+                                    <div class="value">{{ waypoint.creationDate | date: 'dd/MM/yyyy'}} <sup>TU</sup></div>
                                 </ng-template>
                             </header>
                             <h4>{{ waypoint.context }}</h4>
