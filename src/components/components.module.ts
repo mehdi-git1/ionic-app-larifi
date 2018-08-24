@@ -10,6 +10,7 @@ import { FlightCardComponent } from './flight-card/flight-card';
 import { TranslateModule } from '@ngx-translate/core';
 import { SharedModule } from '../shared/shared.module';
 import { EdossierSpinnerComponent } from './edossier-spinner/edossier-spinner';
+import { PncSearchFilterComponent } from './pnc-search-filter/pnc-search-filter';
 import { PncPhotoComponent } from './pnc-photo/pnc-photo';
 import { PageHeaderComponent } from './page-header/page-header';
 
@@ -27,6 +28,7 @@ import { PageHeaderComponent } from './page-header/page-header';
     PncCardComponent,
     FlightCardComponent,
     EdossierSpinnerComponent,
+    PncSearchFilterComponent,
     PncPhotoComponent,
     PageHeaderComponent
   ],
@@ -38,6 +40,7 @@ import { PageHeaderComponent } from './page-header/page-header';
     PncCardComponent,
     FlightCardComponent,
     EdossierSpinnerComponent,
+    PncSearchFilterComponent,
     PncPhotoComponent,
     PageHeaderComponent
   ],
