@@ -209,5 +209,22 @@
         "ROTATION_SAVED_OFFLINE_ERROR": "Un ou plusieurs PNC de la rotation {{ rotationNumber }} n'ont pas pu être synchronisés",
         "FLIGHT_SAVED_OFFLINE": "Les PNC du vol {{ flightNumber }} ont été synchronisés",
         "FLIGHT_SAVED_OFFLINE_ERROR": "Un ou plusieurs PNC du vol {{ flightNumber }} n'ont pas pu être synchronisés"
+    },
+    "SETTINGS": {
+        "TITLE": "Réglages",
+        "INIT_CACHE": {
+            "BUTTON": "Réinitialiser le cache",
+            "SUCCESS": "Réinitialisation du cache réussie"
+        },
+        "FORCE_SYNCHRONIZATION": {
+            "BUTTON": "Forcer la synchronisation"
+        },
+        "CONFIRM_INIT_CACHE": {
+            "TITLE": "Réinitialisation du cache",
+            "MESSAGE": "Attention. Êtes vous sûre de vouloir réinitialiser le cache ?",
+            "MESSAGE_UNSYNCHRONIZED_DATA": "Attention. La réinitialisation du cache peut entraîner la perte de données non synchronisées.",
+            "CANCEL": "Annuler",
+            "CONFIRM": "Confirmer"
+        }
     }
 }

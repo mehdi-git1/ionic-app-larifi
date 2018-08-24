@@ -98,6 +98,7 @@ import { SummarySheetProvider } from '../providers/summary-sheet/summary-sheet';
 import { OnlineRotationProvider } from '../providers/rotation/online-rotation';
 import { OfflineRotationProvider } from '../providers/rotation/offline-rotation';
 import { GenericMessagePage } from '../pages/generic-message/generic-message';
+import { SettingsPage } from '../pages/settings/settings';
 import { PncPhotoProvider } from '../providers/pnc-photo/pnc-photo';
 
 
@@ -120,7 +121,8 @@ declare var window: any;
     HomePage,
     SummarySheetPage,
     PdfFileViewerPage,
-    GenericMessagePage
+    GenericMessagePage,
+    SettingsPage
   ],
   imports: [
     BrowserModule,
@@ -149,7 +151,8 @@ declare var window: any;
     HomePage,
     SummarySheetPage,
     PdfFileViewerPage,
-    GenericMessagePage
+    GenericMessagePage,
+    SettingsPage
   ],
   providers: [
     StatusBar,
