@@ -1,20 +1,17 @@
-<ion-header>
-    <ion-navbar>
-        <ion-title>{{ 'GLOBAL.DEVELOPMENT_PROGRAM' | translate }}</ion-title>
-        <connectivity-indicator></connectivity-indicator>
-    </ion-navbar>
-</ion-header>
-
+<page-header>{{ 'GLOBAL.DEVELOPMENT_PROGRAM' | translate }}
+</page-header>
 <ion-content padding>
     <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
     <ng-template #pageBlock>
         <div class="add-career-objective-container">
             <button (click)="goToCareerObjectiveCreation()" class="add-career-objective">
-                <ion-icon name="add"></ion-icon>
+                <ion-icon name="ios-add-circle-outline" ios="ios-add-circle-outline"></ion-icon>
                 <label>{{ 'CAREER_OBJECTIVE_LIST.BUTTONS.ADD_CAREER_OBJECTIVE' | translate }}</label>
             </button>
+            <div class="information-message">
+                {{ 'CAREER_OBJECTIVE_LIST.INFORMATION_MESSAGE' | translate }}
+            </div>
         </div>
-
         <div class="career-objective-list-container">
             <div class="no-data-found" *ngIf="careerObjectiveList.length == 0">{{ 'CAREER_OBJECTIVE_LIST.NO_OBJECTIVES' | translate }}</div>
             <div *ngIf="careerObjectiveList.length > 0" class="career-objective-list">
