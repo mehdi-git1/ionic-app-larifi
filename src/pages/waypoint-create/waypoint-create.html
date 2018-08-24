@@ -1,12 +1,14 @@
 <ion-header>
-    <page-header>
-        <ng-container *ngIf="loadingIsOver()">
-            {{ 'WAYPOINT_CREATE.TITLE' | translate }}
-            <ion-badge class="{{waypoint.waypointStatus.toLowerCase()}}" *ngIf="waypoint.waypointStatus">
-                {{ 'GLOBAL.WAYPOINT_STATUS.'+waypoint.waypointStatus | translate }}
-            </ion-badge>
-        </ng-container>
-    </page-header>
+    <ion-navbar>
+        <page-header>
+            <ng-container *ngIf="loadingIsOver()">
+                {{ 'WAYPOINT_CREATE.TITLE' | translate }}
+                <ion-badge class="{{waypoint.waypointStatus.toLowerCase()}}" *ngIf="waypoint.waypointStatus">
+                    {{ 'GLOBAL.WAYPOINT_STATUS.'+waypoint.waypointStatus | translate }}
+                </ion-badge>
+            </ng-container>
+        </page-header>
+    </ion-navbar>
 </ion-header>
 <ion-content padding>
     <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
