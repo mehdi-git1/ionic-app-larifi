@@ -16,7 +16,7 @@ pnc-search-filter {
         }
 
         ion-card-content.opened {
-            max-height: 600px;
+            max-height: 146px;
             transition: max-height 500ms;
         }
 
@@ -38,7 +38,7 @@ pnc-search-filter {
         }
 
         .clear-pnc {
-            background:  color($colors, grey50);
+            background: color($colors, grey50);
             width: 100%;
             margin-top: $margin-top-autocomplete + $border-input-size;
         }
@@ -80,7 +80,7 @@ pnc-search-filter {
                 padding-bottom: 0em;
             }
 
-            ion-select{
+            ion-select {
                 border: $border-input;
             }
 
@@ -98,7 +98,7 @@ pnc-search-filter {
                 color: color($colors, grey10) !important;
             }
             .label-md {
-                margin:0;
+                margin: 0;
             }
         }
     }
