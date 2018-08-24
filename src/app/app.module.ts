@@ -1,3 +1,4 @@
+import { DeviceService } from './../services/device.service';
 import { PncPhotoTransformerProvider } from './../providers/pnc-photo/pnc-photo-transformer';
 import { OfflinePncPhotoProvider } from './../providers/pnc-photo/offline-pnc-photo';
 import { OnlinePncPhotoProvider } from './../providers/pnc-photo/online-pnc-photo';
@@ -161,6 +162,7 @@ declare var window: any;
     SecMobilService,
     ConnectivityService,
     StorageService,
+    DeviceService,
     { provide: RestService, useFactory: createRestService, deps: [HttpClient, SecMobilService, Config] },
     { provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true },
     AppInitService,

@@ -1,3 +1,4 @@
+import { DeviceService } from './../../services/device.service';
 import { ConnectivityService } from './../../services/connectivity.service';
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 
@@ -11,19 +12,21 @@ export class DownloadButtonComponent {
 
   @Output() onDownload: EventEmitter<any> = new EventEmitter();
 
-  constructor(public connectivityService: ConnectivityService) {
-  }
-
-
-
-
-  suggestionWasClicked(clickedEntry: any): void {
-    this.onDownload.emit([clickedEntry]);
+  constructor(public connectivityService: ConnectivityService,
+    private deviceService: DeviceService) {
   }
 
   downloadFunction(evt: Event): void {
     evt.stopPropagation();
     this.onDownload.next();
+  }
+
+  /**
+   * Détermine si le bouton est disponible
+   * @return vrai s'il est dispo, faux sinon
+   */
+  isAvailable(): boolean {
+    return this.connectivityService.isConnected() && this.deviceService.isOfflineModeAvailable();
   }
 
 }

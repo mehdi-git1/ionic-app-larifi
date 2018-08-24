@@ -1,5 +1,7 @@
-<page-header>{{ 'AUTHENT.AUTHENTICATION' | translate }}
-</page-header>
+<ion-header>
+    <page-header>{{ 'AUTHENT.AUTHENTICATION' | translate }}
+    </page-header>
+</ion-header>
 
 <ion-content class="container" padding>
     <form class="row justify-content-center form-auth" [formGroup]="loginForm" (ngSubmit)="sendAuthent()">

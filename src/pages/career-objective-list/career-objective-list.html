@@ -1,5 +1,7 @@
-<page-header>{{ 'GLOBAL.DEVELOPMENT_PROGRAM' | translate }}
-</page-header>
+<ion-header>
+    <page-header>{{ 'GLOBAL.DEVELOPMENT_PROGRAM' | translate }}
+    </page-header>
+</ion-header>
 
 <ion-content padding>
     <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
