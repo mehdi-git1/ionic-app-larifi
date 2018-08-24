@@ -7,9 +7,7 @@
     <pnc-search-filter (onSearch)="searchPncs()"></pnc-search-filter>
 
     <ion-content class="filtered-pnc-list-container">
-        <div *ngIf="searchInProgress">
-            <edossier-spinner></edossier-spinner>
-        </div>
+        <edossier-spinner *ngIf="searchInProgress"></edossier-spinner>
 
         <span *ngIf="!searchInProgress">
             <div *ngIf="filteredPncs && filteredPncs.length == 0" class="no-data-found">
