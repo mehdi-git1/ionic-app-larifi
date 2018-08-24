@@ -56,7 +56,7 @@ export class SettingsPage {
    */
   clearAndInitCache() {
     this.initInProgress = true;
-    this.storageService.clearOfflineMap();
+    this.storageService.reinitOfflineMap();
     this.initializeCache();
   }
 
