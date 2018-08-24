@@ -2,6 +2,7 @@
     <page-header>{{'HELP_ASSET_LIST.TITLE' | translate}}
     </page-header>
 </ion-header>
+
 <ion-content padding>
     <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
     <ng-template #pageBlock>

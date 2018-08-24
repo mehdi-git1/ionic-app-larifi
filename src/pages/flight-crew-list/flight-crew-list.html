@@ -10,12 +10,12 @@
         </div>
     </page-header>
 </ion-header>
+
 <ion-content padding>
     <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
     <ng-template #pageBlock>
         <div class="flight-crew-list-container">
-            <pnc-card *ngFor="let crewMember of flightCrewList" (click)="openPncHomePage(crewMember.pnc.matricule)" [crewMember]="crewMember"
-                [isCrewMember]="true"></pnc-card>
+            <pnc-card *ngFor="let crewMember of flightCrewList" (click)="openPncHomePage(crewMember.pnc.matricule)" [crewMember]="crewMember" [isCrewMember]="true"></pnc-card>
             <pnc-card *ngIf="connectedCrewMember" [crewMember]="connectedCrewMember" [isCrewMember]="true" [disabled]="true"></pnc-card>
         </div>
     </ng-template>
