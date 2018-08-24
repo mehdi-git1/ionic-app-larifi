@@ -22,8 +22,10 @@ export class StorageService {
     private datePipe: DatePipe) {
   }
 
-  clearOfflineMap() {
-    this.storage.clear();
+  reinitOfflineMap() {
+    this.offlineMap = null;
+    this.persistOfflineMap();
+    this.initOfflineMap();
   }
 
   /**

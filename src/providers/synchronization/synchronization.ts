@@ -155,9 +155,6 @@ export class SynchronizationProvider {
     for (const waypoint of pncSynchroResponse.waypoints) {
       // On ajoute la clef de l'objectif à chaque point d'étape
       delete waypoint.offlineAction;
-      // On affecte le matricule du pnc au point d'étape
-      waypoint.pnc = new Pnc();
-      waypoint.pnc.matricule = waypoint.careerObjective.pnc.matricule;
       // On ne garde que le techId pour réduire le volume de données en cache
       const careerObjectiveTechId = waypoint.careerObjective.techId;
       waypoint.careerObjective = new CareerObjective();
