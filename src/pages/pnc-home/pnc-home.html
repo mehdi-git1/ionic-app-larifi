@@ -1,5 +1,7 @@
-<page-header>{{ 'PNC_HOME.TITLE' | translate }}
-</page-header>
+<ion-header>
+    <page-header>{{ 'PNC_HOME.TITLE' | translate }}
+    </page-header>
+</ion-header>
 <ion-content padding>
     <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
     <ng-template #pageBlock>
@@ -63,7 +65,7 @@
                 <!-- Liste des objectifs-->
                 <ion-col col-6 *ngIf="pnc?.speciality !== Speciality.CAD">
                     <div class="button-parent">
-                        <button ion-button (click)="goToCareerObjectiveList()" class="development-program">
+                        <button ion-button (click)="goToCareerObjectiveList()" color="red20">
                             {{ 'GLOBAL.DEVELOPMENT_PROGRAM' | translate }}
                         </button>
                     </div>
@@ -71,7 +73,7 @@
                 <!-- Fiche synthèse PNC -->
                 <ion-col col-6 *ngIf="pnc?.speciality !== Speciality.CAD">
                     <div class="button-parent">
-                        <button ion-button (click)="goToSummarySheet()" color="blue80">
+                        <button ion-button (click)="goToSummarySheet()" color="grey15">
                             {{ 'GLOBAL.PNC_SUMMARY_SHEET' | translate }}
                         </button>
                     </div>
@@ -79,7 +81,7 @@
                 <!-- Effectif PNC -->
                 <ion-col col-6 *ngIf="pnc?.speciality === Speciality.CAD">
                     <div class="button-parent">
-                        <button ion-button (click)="goToPncSearch()" color="blue80">
+                        <button ion-button (click)="goToPncSearch()" color="grey60">
                             {{ 'GLOBAL.PNC_TEAM' | translate }}
                         </button>
                     </div>
@@ -87,7 +89,7 @@
                 <!-- Activité vols -->
                 <ion-col col-6 *ngIf="pnc?.speciality === Speciality.CAD">
                     <div class="button-parent">
-                        <button ion-button (click)="goToUpcomingFlightList()" color="red80">
+                        <button ion-button (click)="goToUpcomingFlightList()" color="blue65">
                             {{ 'GLOBAL.UPCOMING_FLIGHT' | translate }}
                         </button>
                     </div>
@@ -95,7 +97,7 @@
                 <!-- Ressource d'aide -->
                 <ion-col col-6>
                     <div class="button-parent">
-                        <button ion-button (click)="goToHelpAssetList()" color="green70">
+                        <button ion-button (click)="goToHelpAssetList()" color="blue90">
                             {{ 'GLOBAL.HELP_CENTRE' | translate }}
                         </button>
                     </div>

@@ -40,7 +40,7 @@
                 "PNC_NOT_FOUND": "Erreur lors de la récupérations des PNC",
                 "APPLICATION_NOT_INITIALIZED": "Application non initialisée. Veuillez vous connecter à un réseau",
                 "APPLICATION_SYNCHRO_PENDING": "Le pnc  {{ matricule }} ne peut être chargé car il est en attente de synchronisation",
-                "INVALID_CREDENTIALS": "Identifiant/mot de passe incorrecte"
+                "INVALID_CREDENTIALS": "Identifiant/mot de passe incorrect"
             }
         }
     },
@@ -193,7 +193,9 @@
         "NO_PNC_FOUND": "Aucun pnc trouvé.",
         "ERROR": {
             "SEARCH": "Erreur lors de la recherche de PNC"
-        }
+        },
+        "REINIT_FILTERS": "Réinitialiser les filtres",
+        "REFRESH_SEARCH": "Rafraîchir la vue"
     },
     "HELP_ASSET_LIST": {
         "TITLE": "Ressources d'aide",

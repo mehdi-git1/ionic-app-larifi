@@ -1,3 +1,4 @@
+import { DeviceService } from './device.service';
 import { Injectable } from '@angular/core';
 import { Config } from '../configuration/environment-variables/config';
 import { Platform, Events } from 'ionic-angular';
@@ -10,7 +11,8 @@ export class SecMobilService {
 
     constructor(public config: Config,
         private events: Events,
-        public platform: Platform) {
+        public platform: Platform,
+        private deviceService: DeviceService) {
     }
 
     public init() {
@@ -23,16 +25,12 @@ export class SecMobilService {
     }
 
     get secMobile(): any {
-        if (!this.isBrowser && window.cordova.plugins && window.cordova.plugins.CertAuthPlugin) {
+        if (!this.deviceService.isBrowser() && window.cordova.plugins && window.cordova.plugins.CertAuthPlugin) {
             return window.cordova.plugins.CertAuthPlugin;
         } else {
             // console.debug('Plugin not loaded we\'re in browser mode');
             return null;
         }
-    }
-
-    get isBrowser() {
-        return window.device && window.device.platform === 'browser' || !this.platform.is('cordova');
     }
 
     public secMobilRevokeCertificate(): Promise<any> {

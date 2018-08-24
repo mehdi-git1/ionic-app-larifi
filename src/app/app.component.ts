@@ -1,3 +1,4 @@
+import { DeviceService } from './../services/device.service';
 import { GenericMessagePage } from './../pages/generic-message/generic-message';
 import { OfflineSecurityProvider } from './../providers/security/offline-security';
 import { PncHomePage } from './../pages/pnc-home/pnc-home';
@@ -42,6 +43,7 @@ export class EDossierPNC implements OnInit {
     private sessionService: SessionService,
     public translateService: TranslateService,
     private storageService: StorageService,
+    private deviceService: DeviceService,
     private toastProvider: ToastProvider,
     private parametersProvider: ParametersProvider,
     private securityProvider: SecurityProvider,
@@ -55,7 +57,7 @@ export class EDossierPNC implements OnInit {
 
   initializeApp() {
     this.platform.ready().then(() => {
-      
+
       this.statusBar.styleDefault();
 
       this.translateService.setDefaultLang('fr');
@@ -68,12 +70,14 @@ export class EDossierPNC implements OnInit {
 
           this.putAuthenticatedUserInSession().then(authenticatedUser => {
             this.initParameters();
-            this.synchronizationProvider.storeEDossierOffline(authenticatedUser.matricule).then(successStore => {
-              this.events.publish('EDossierOffline:stored');
-              this.splashScreen.hide();
-            }, error => {
-              this.splashScreen.hide();
-            });
+            if (this.deviceService.isOfflineModeAvailable()) {
+              this.synchronizationProvider.storeEDossierOffline(authenticatedUser.matricule).then(successStore => {
+                this.events.publish('EDossierOffline:stored');
+                this.splashScreen.hide();
+              }, error => {
+                this.splashScreen.hide();
+              });
+            }
 
           }, error => {
             this.splashScreen.hide();

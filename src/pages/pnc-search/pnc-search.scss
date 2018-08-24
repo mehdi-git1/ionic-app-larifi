@@ -7,82 +7,9 @@ page-pnc-search {
         display: flex;
         flex-direction: column;
 
-        .pnc-search-card {
-            ion-card-header {
-                height: 50px;
-                justify-content: space-between;
-            }
-
-            ion-card-content {
-                max-height: 0;
-                transition: max-height 500ms;
-            }
-
-            ion-card-content.opened {
-                max-height: 600px;
-                transition: max-height 500ms;
-                padding: auto;
-            }
-
-            .card-content {
-                padding: 0;
-            }
-
-            .header-container {
-                display: flex;
-                align-items: center;
-            }
-
-            .search-pnc {
-                background: color($colors, green60);
-                width: calc(100%);
-            }
-        }
-
         .filtered-pnc-list-container {
             flex: 1;
         }
-
-        form {
-            .mat-form-field {
-                width: 100%;
-                line-height: normal;
-            }
-            .mat-form-field-infix {
-                border: 2px solid color($colors, grey90);
-                margin-top: 29px;
-            }
-            .mat-form-field-label {
-                top: 17px;
-                padding-left: 2px;
-            }
-
-            .label-inactive-filters {
-                color: color($colors, grey90);
-                font-weight: bold;
-                display: flex;
-                flex-direction: column;
-                justify-content: right;
-                align-items: right;
-                text-align: right;
-            }
-
-            .hide-label {
-                visibility: hidden;
-                opacity: 0;
-                transition: visibility 0s linear 2000ms,
-                opacity 2000ms;
-            }
-
-            .show-label {
-                visibility: visible;
-                transition: visibility 0s linear 0s,
-                opacity 2000ms;
-            }
-            .select-placeholder {
-                color: color($colors, grey10) !important;
-            }
-
-        }
     }
+
 }

@@ -35,16 +35,21 @@ green50:#27b899,
 green60:#5BC7A9,
 green70: #37D67A,
 grey10:#333333,
+grey15:#717171,
 grey20: #585858,
 grey50: #94959A,
+grey60:#8B7D72,
 grey90: #F1F1F1,
 white:#fff,
 blue60:#25b5d6,
+blue65:#417496,
 blue70:#3b7ae2,
 blue80:#89D8FB,
+blue90:#268671,
+red20:#600117,
 red70:#e24c4c,
 red80:#E53A40,
-);
+red90:#C0504D);
 
 $text-color:color($colors, grey10);
 
@@ -188,6 +193,10 @@ ion-item.item {
 
 .content-md {
     background-color: transparent;
+}
+
+.ion-page > .content {
+    background-color: color($colors, grey90);
 }
 
 @media all and (-ms-high-contrast: none),

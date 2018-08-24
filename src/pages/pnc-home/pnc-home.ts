@@ -15,6 +15,8 @@ import { Pnc } from '../../models/pnc';
 import { ConnectivityService } from '../../services/connectivity.service';
 import { HelpAssetListPage } from './../help-asset-list/help-asset-list';
 import { PncSearchPage } from './../pnc-search/pnc-search';
+import { StatusBar } from '@ionic-native/status-bar';
+
 
 @Component({
     selector: 'page-pnc-home',
@@ -38,7 +40,10 @@ export class PncHomePage {
         private sessionService: SessionService,
         public translateService: TranslateService,
         private pncProvider: PncProvider,
-        private events: Events) {
+        private events: Events,
+        private statusBar: StatusBar) {
+
+            this.statusBar.styleLightContent();
 
         this.events.subscribe('EDossierOffline:stored', () => {
             if (this.matricule != null) {

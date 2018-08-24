@@ -14,9 +14,15 @@
     <preference name="ScrollEnabled" value="false" />
     <preference name="android-minSdkVersion" value="19" />
     <preference name="BackupWebStorage" value="none" />
+    <allow-navigation href="http://localhost:8080/*" />
     <preference name="SplashScreenDelay" value="30000" />
     <preference name="SplashScreen" value="splash" />
     <platform name="ios">
+        <feature name="CDVWKWebViewEngine">
+            <param name="ios-package" value="CDVWKWebViewEngine" />
+        </feature>
+        <preference name="CordovaWebViewEngine" value="CDVWKWebViewEngine" />
+        <preference name="StatusBarStyle" value="#FFFFFF" />
         <allow-intent href="itms:*" />
         <allow-intent href="itms-apps:*" />
         <icon height="57" src="resources/ios/icon/icon.png" width="57" />
@@ -59,6 +65,7 @@
     <plugin name="cordova-plugin-secmobil" spec="^2.0.74">
         <variable name="APP_GROUP" value="AF_GROUP" />
     </plugin>
+    <plugin name="cordova-plugin-ionic-webview" spec="^2.0.3" />
     <plugin name="cordova-plugin-statusbar" spec="^2.4.2" />
     <engine name="ios" spec="4.5.5" />
 </widget>
