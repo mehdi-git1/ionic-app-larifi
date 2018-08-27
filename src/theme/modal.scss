@@ -1,3 +1,6 @@
+$colorBright : white;
+$colorDark: color($colors, primary);
+
 ion-modal {
     @media only screen and (min-height: 768px) and (min-width: 768px){
         .modal-wrapper{
