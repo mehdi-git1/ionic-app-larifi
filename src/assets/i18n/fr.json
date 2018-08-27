@@ -21,8 +21,8 @@
             "REGISTERED": "EN COURS"
         },
         "CONNECTIVITY": {
-            "ONLINE_MODE": "Connexion avec le serveur retrouvée",
-            "OFFLINE_MODE": "Connexion perdue, vous êtes à présent en mode déconnecté"
+            "ONLINE_MODE": "Connexion avec le serveur rétablie",
+            "OFFLINE_MODE": "Vous êtes à présent en mode déconnecté"
         },
         "DEVELOPMENT_PROGRAM": "Parcours de développement",
         "PNC_SUMMARY_SHEET": "Fiche synthèse PNC",
