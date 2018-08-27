@@ -20,7 +20,6 @@ export class SecMobilService {
             this.secMobile.initSecmobilHttp(this.config.secmobileEnv);
             console.log('init plugin with ' + this.config.secmobileEnv + ' env');
             this.secMobile.secMobilSetAppGroup('AF_GROUP');
-            console.log('secmobil set app group af');
         }
     }
 
@@ -28,7 +27,6 @@ export class SecMobilService {
         if (!this.deviceService.isBrowser() && window.cordova.plugins && window.cordova.plugins.CertAuthPlugin) {
             return window.cordova.plugins.CertAuthPlugin;
         } else {
-            // console.debug('Plugin not loaded we\'re in browser mode');
             return null;
         }
     }
@@ -98,7 +96,6 @@ export class SecMobilService {
                     }
                 );
             } else {
-                console.log('Not in Mobile Mode');
                 resolve('ok');
             }
         }
