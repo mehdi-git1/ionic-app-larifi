@@ -49,7 +49,6 @@ export class SummarySheetProvider {
           });
       });
     } else {
-      console.log('offlineSummarySheetProvider');
       return this.offlineSummarySheetProvider.getSummarySheet(matricule);
     }
   }

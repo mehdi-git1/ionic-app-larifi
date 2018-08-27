@@ -126,7 +126,10 @@ declare var window: any;
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(EDossierPNC),
+    IonicModule.forRoot(EDossierPNC, {
+      pageTransition: 'md-transition',
+      backButtonText: ''
+    }),
     IonicStorageModule.forRoot(),
     HttpClientModule,
     ComponentsModule,
@@ -223,10 +226,8 @@ export class AppModule { }
 // Check if we are in app mode or in web browser
 export function createRestService(http: HttpClient, secMobilService: SecMobilService, config: Config): RestService {
   if (undefined !== window.cordova && 'browser' !== window.cordova.platformId) {
-    console.log('mobile mode selected');
     return new RestMobileService(http, secMobilService);
   } else {
-    console.log('web mode selected');
     return new RestWebService(http, config);
   }
 }

@@ -1,11 +1,6 @@
 <ion-header>
     <page-header>
-        <ng-container *ngIf="isMyHome(); else pncTitle">{{ 'PNC_HOME.TITLE' | translate }}</ng-container>
-        <ng-template #pncTitle>
-            <div *ngIf="pnc">
-                {{ 'PNC_HOME.PNC_TITLE' | translate : {lastName : pnc.lastName, firstName: pnc.firstName} }}
-            </div>
-        </ng-template>
+        <ng-container *ngIf="isMyHome()">{{ 'PNC_HOME.TITLE' | translate }}</ng-container>
     </page-header>
 </ion-header>
 

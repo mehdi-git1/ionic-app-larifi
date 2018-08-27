@@ -1,15 +1,17 @@
 <ion-header>
-    <page-header>
-        <ng-container *ngIf="careerObjectiveLoadingIsOver()">
-            <ng-container *ngIf="isCreationMode(); else editTitleBlock">{{ 'CAREER_OBJECTIVE_CREATE.CREATE_TITLE' | translate }}</ng-container>
-            <ng-template #editTitleBlock>
-                {{ 'CAREER_OBJECTIVE_CREATE.EDIT_TITLE' | translate }}
-                <ion-badge class="{{careerObjective.careerObjectiveStatus.toLowerCase()}}" *ngIf="careerObjective.careerObjectiveStatus">
-                    {{ 'GLOBAL.CAREER_OBJECTIVE_STATUS.'+careerObjective.careerObjectiveStatus | translate }}
-                </ion-badge>
-            </ng-template>
-        </ng-container>
-    </page-header>
+    <ion-navbar>
+        <page-header>
+            <ng-container *ngIf="careerObjectiveLoadingIsOver()">
+                <ng-container *ngIf="isCreationMode(); else editTitleBlock">{{ 'CAREER_OBJECTIVE_CREATE.CREATE_TITLE' | translate }}</ng-container>
+                <ng-template #editTitleBlock>
+                    {{ 'CAREER_OBJECTIVE_CREATE.EDIT_TITLE' | translate }}
+                    <ion-badge class="{{careerObjective.careerObjectiveStatus.toLowerCase()}}" *ngIf="careerObjective.careerObjectiveStatus">
+                        {{ 'GLOBAL.CAREER_OBJECTIVE_STATUS.'+careerObjective.careerObjectiveStatus | translate }}
+                    </ion-badge>
+                </ng-template>
+            </ng-container>
+        </page-header>
+    </ion-navbar>
 </ion-header>
 
 <ion-content padding no-bounce>
