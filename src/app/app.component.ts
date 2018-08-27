@@ -102,6 +102,7 @@ export class EDossierPNC implements OnInit {
           this.toastProvider.warning(this.translateService.instant('GLOBAL.CONNECTIVITY.OFFLINE_MODE'));
         } else {
           this.toastProvider.success(this.translateService.instant('GLOBAL.CONNECTIVITY.ONLINE_MODE'));
+          this.initParameters();
           this.synchronizationProvider.synchronizeOfflineData();
           this.synchronizationProvider.storeEDossierOffline(this.sessionService.authenticatedUser.matricule).then(successStore => {
             this.events.publish('EDossierOffline:stored');
@@ -118,6 +119,7 @@ export class EDossierPNC implements OnInit {
   initParameters() {
     this.parametersProvider.getParams().then(parameters => {
       this.sessionService.parameters = parameters;
+      this.events.publish('parameters:ready');
     }, error => { });
   }
 
