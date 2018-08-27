@@ -1,3 +1,6 @@
+import { PncPhotoTransformerProvider } from './../pnc-photo/pnc-photo-transformer';
+import { PncPhotoProvider } from './../pnc-photo/pnc-photo';
+import { CareerObjective } from './../../models/careerObjective';
 import { ToastProvider } from './../toast/toast';
 import { TranslateService } from '@ngx-translate/core';
 import { SessionService } from './../../services/session.service';
@@ -17,11 +20,11 @@ import { StorageService } from './../../services/storage.service';
 import { Injectable, EventEmitter, Output } from '@angular/core';
 import { Entity } from '../../models/entity';
 import { Pnc } from '../../models/pnc';
-import { CareerObjective } from '../../models/careerObjective';
 import { Waypoint } from '../../models/waypoint';
 import { Rotation } from '../../models/rotation';
 import { SecurityProvider } from './../../providers/security/security';
 import { LegProvider } from './../../providers/leg/leg';
+import { CareerObjectiveProvider } from '../career-objective/career-objective';
 @Injectable()
 export class SynchronizationProvider {
 
@@ -38,10 +41,13 @@ export class SynchronizationProvider {
     private crewMemberTransformerProvider: CrewMemberTransformerProvider,
     public securityProvider: SecurityProvider,
     private summarySheetProvider: SummarySheetProvider,
+    private pncPhotoProvider: PncPhotoProvider,
+    private pncPhotoTransformer: PncPhotoTransformerProvider,
     private legProvider: LegProvider,
     private sessionService: SessionService,
     private toastProvider: ToastProvider,
-    private translateService: TranslateService) {
+    private translateService: TranslateService,
+    private careerObjectiveProvider: CareerObjectiveProvider) {
   }
 
 
@@ -58,11 +64,14 @@ export class SynchronizationProvider {
         this.pncSynchroProvider.getPncSynchro(matricule).then(pncSynchro => {
           this.summarySheetProvider.getSummarySheet(matricule).then(summarySheet => {
             pncSynchro.summarySheet = summarySheet;
-            this.updateLocalStorageFromPncSynchroResponse(pncSynchro);
-            resolve(true);
+            this.pncPhotoProvider.getPncPhoto(matricule).then(pncPhoto => {
+              pncSynchro.photo = pncPhoto;
+              this.updateLocalStorageFromPncSynchroResponse(pncSynchro);
+              resolve(true);
+            });
+          }, error => {
+            reject(this.translateService.instant('SYNCHRONIZATION.PNC_SAVED_OFFLINE_ERROR', { 'matricule': matricule }));
           });
-        }, error => {
-          reject(this.translateService.instant('SYNCHRONIZATION.PNC_SAVED_OFFLINE_ERROR', { 'matricule': matricule }));
         });
       } else {
         reject(this.translateService.instant('GLOBAL.MESSAGES.ERROR.APPLICATION_SYNCHRO_PENDING', { 'matricule': matricule }));
@@ -86,7 +95,8 @@ export class SynchronizationProvider {
     });
 
     const pncWaypoints = allWaypoints.filter(waypoint => {
-      return waypoint.pnc.matricule === matricule;
+      const careerObjective = this.storageService.findOne(Entity.CAREER_OBJECTIVE, waypoint.careerObjective.techId);
+      return careerObjective.pnc.matricule === matricule;
     });
 
     for (const careerObjective of pncCareerObjectives) {
@@ -155,6 +165,9 @@ export class SynchronizationProvider {
     // Sauvegarde de la fiche synthese
     this.storageService.save(Entity.SUMMARY_SHEET, pncSynchroResponse.summarySheet, true);
 
+    // Sauvegarde de la photo du PNC
+    this.storageService.save(Entity.PNC_PHOTO, this.pncPhotoTransformer.toPncPhoto(pncSynchroResponse.photo), true);
+
     this.storageService.persistOfflineMap();
   }
 
@@ -198,11 +211,10 @@ export class SynchronizationProvider {
    * Lance le processus de synchronisation des données modifiées offline
    */
   synchronizeOfflineData() {
+    this.synchroStatusChange.emit(true);
     const pncSynchroList = this.getPncSynchroList();
 
     if (pncSynchroList.length > 0) {
-      this.synchroStatusChange.emit(true);
-
       let promiseCount;
       let resolvedPromiseCount = 0;
       Observable.create(
@@ -223,6 +235,8 @@ export class SynchronizationProvider {
             this.synchroStatusChange.emit(false);
           }
         });
+    } else {
+      this.synchroStatusChange.emit(false);
     }
   }
 

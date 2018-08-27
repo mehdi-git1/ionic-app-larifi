@@ -10,6 +10,10 @@ import { FlightCardComponent } from './flight-card/flight-card';
 import { TranslateModule } from '@ngx-translate/core';
 import { SharedModule } from '../shared/shared.module';
 import { EdossierSpinnerComponent } from './edossier-spinner/edossier-spinner';
+import { NavBarCustomComponent } from './edossier-indicators/edossier-indicators';
+import { PncSearchFilterComponent } from './pnc-search-filter/pnc-search-filter';
+import { PncPhotoComponent } from './pnc-photo/pnc-photo';
+import { PageHeaderComponent } from './page-header/page-header';
 
 @NgModule({
   imports: [
@@ -24,7 +28,11 @@ import { EdossierSpinnerComponent } from './edossier-spinner/edossier-spinner';
     DownloadButtonComponent,
     PncCardComponent,
     FlightCardComponent,
-    EdossierSpinnerComponent
+    EdossierSpinnerComponent,
+    NavBarCustomComponent,
+    PncSearchFilterComponent,
+    PncPhotoComponent,
+    PageHeaderComponent
   ],
   exports: [
     RotationCardComponent,
@@ -33,7 +41,11 @@ import { EdossierSpinnerComponent } from './edossier-spinner/edossier-spinner';
     DownloadButtonComponent,
     PncCardComponent,
     FlightCardComponent,
-    EdossierSpinnerComponent
+    EdossierSpinnerComponent,
+    NavBarCustomComponent,
+    PncSearchFilterComponent,
+    PncPhotoComponent,
+    PageHeaderComponent
   ],
   providers: [DatePipe]
 

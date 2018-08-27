@@ -1,5 +1,5 @@
+import { DeviceService } from './../../services/device.service';
 import { TranslateService } from '@ngx-translate/core';
-import { SecMobilService } from './../../services/secMobil.service';
 import { PdfFileViewerPage } from './../pdf-file-viewer/pdf-file-viewer';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { HelpAssetProvider } from './../../providers/help-asset/help-asset';
@@ -20,10 +20,10 @@ export class HelpAssetListPage {
 
     constructor(public navCtrl: NavController,
         public navParams: NavParams,
-        private secMobilService: SecMobilService,
+        private deviceService: DeviceService,
         private translateService: TranslateService,
         private helpAssetProvider: HelpAssetProvider) {
-        if (this.secMobilService.isBrowser) {
+        if (this.deviceService.isBrowser()) {
             this.pdfUrl = '../assets/pdf/helpAsset';
         } else {
             this.pdfUrl = './assets/pdf/helpAsset';

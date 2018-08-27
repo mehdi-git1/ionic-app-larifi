@@ -16,6 +16,7 @@
 @import '../theme/label.scss';
 @import '../theme/input.scss';
 @import '../theme/button-bar.scss';
+@import '../theme/button.scss';
 @import '../theme/status.scss';
 @import '../theme/icon.scss';
 @import '../theme/navbar.scss';
@@ -34,11 +35,6 @@
 .no-value:after {
     content: '-';
 }
-
-.app-root {
-    background-color: #f1f1f1;
-}
-
 
 // Spinner utilisé au chargement de l'appli
 .loader-container {
@@ -80,15 +76,23 @@
     color: color($colors, white);
 }
 
-body {
-    background-color: #f1f1f1
+body,
+.app-root,
+.nav-decor {
+    // Pour surcharger le fond sur ipad
+    background-color: color($colors, grey90) !important;
 }
 
-.content-md {
+ion-textarea,
+ion-input {
+    background-color: color($colors, white);
+}
+
+.content {
     background-color: transparent;
 }
 
-.item-md {
+.item {
     background-color: transparent;
 }
 

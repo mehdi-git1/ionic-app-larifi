@@ -1,3 +1,4 @@
+import { Speciality } from './../../models/speciality';
 import { TranslateService } from '@ngx-translate/core';
 import { ToastProvider } from './../../providers/toast/toast';
 import { ConnectivityService } from './../../services/connectivity.service';
@@ -23,6 +24,7 @@ export class FlightCrewListPage {
 
     flightCrewList: CrewMember[];
     leg: Leg;
+    connectedCrewMember: CrewMember;
 
     constructor(public navCtrl: NavController,
         public navParams: NavParams,
@@ -41,11 +43,11 @@ export class FlightCrewListPage {
         this.legProvider.getLeg(legId).then(legInfos => {
             this.leg = legInfos;
             this.legProvider.getFlightCrewFromLeg(legId).then(flightCrew => {
-                this.flightCrewList = flightCrew;
                 flightCrew.forEach(crew => {
                     if (crew.pnc.matricule !== undefined) {
                         if (crew.pnc.matricule === this.sessionService.authenticatedUser.matricule) {
                             this.sessionService.appContext.onBoardRedactorFunction = crew.onBoardFonction;
+                            this.connectedCrewMember = crew;
                         }
                         this.pncProvider.refreshOffLineDateOnPnc(this.pncTransformer.toPnc(crew.pnc)).then(foundPnc => {
                             crew.pnc = foundPnc;
@@ -54,8 +56,74 @@ export class FlightCrewListPage {
                         });
                     }
                 });
+                // On supprime le PNC connecté de la liste
+                if (this.connectedCrewMember) {
+                    flightCrew = flightCrew.filter(item => item !== this.connectedCrewMember);
+                }
+                this.flightCrewList = this.sortFlightCrewList(flightCrew);
             }, error => { this.flightCrewList = []; });
         }, error => { });
+    }
+
+    /**
+     * Tri d'une liste de CrewMember
+     * @param flightCrewList liste à trier
+     * @return liste triée
+     */
+    sortFlightCrewList(flightCrewList: CrewMember[]): CrewMember[] {
+        return flightCrewList.sort((crewMember, otherCrewMember) => {
+            return this.sortCrew(crewMember, otherCrewMember);
+        });
+    }
+
+    /**
+     * Tri 2 crewMember par priorité, puis grade, puis nom
+     * @param crewMember crewMember de base
+     * @param otherCrewMember crewMember à comparer
+     */
+    sortCrew(crewMember: CrewMember, otherCrewMember: CrewMember): number {
+        if (crewMember.prioritized && otherCrewMember.prioritized) {
+            return this.sortBySpeciality(crewMember, otherCrewMember);
+        } else if (crewMember.prioritized && !otherCrewMember.prioritized) {
+            return -1;
+        } else if (!crewMember.prioritized && otherCrewMember.prioritized) {
+            return 1;
+        } else if (crewMember.particularity === 'P' && otherCrewMember.particularity === 'P') {
+            return this.sortBySpeciality(crewMember, otherCrewMember);
+        } else if (crewMember.particularity === 'P' && !(otherCrewMember.particularity === 'P')) {
+            return -1;
+        } else if (!(crewMember.particularity === 'P') && otherCrewMember.particularity === 'P') {
+            return 1;
+        } else {
+            return this.sortBySpeciality(crewMember, otherCrewMember);
+        }
+    }
+
+    /**
+     *  Tri par grade. Ordre : CAD > CCP > CC > HOT = STW
+     * @param crewMember crewMember de base
+     * @param otherCrewMember crewMember à comparer
+     */
+    sortBySpeciality(crewMember: CrewMember, otherCrewMember: CrewMember): number {
+        if ((crewMember.pnc.speciality === otherCrewMember.pnc.speciality) || (crewMember.pnc.speciality === Speciality.HOT && otherCrewMember.pnc.speciality === Speciality.STW) || (crewMember.pnc.speciality === Speciality.STW && otherCrewMember.pnc.speciality === Speciality.HOT)) {
+            return this.sortByName(crewMember, otherCrewMember);
+        } else if (crewMember.pnc.speciality === Speciality.CAD) {
+            return -1;
+        } else if (crewMember.pnc.speciality === Speciality.CCP && (otherCrewMember.pnc.speciality === Speciality.CC || otherCrewMember.pnc.speciality === Speciality.HOT || otherCrewMember.pnc.speciality === Speciality.STW)) {
+            return -1;
+        } else if (crewMember.pnc.speciality === Speciality.CC && (otherCrewMember.pnc.speciality === Speciality.HOT || otherCrewMember.pnc.speciality === Speciality.STW)) {
+            return -1;
+        } else {
+            return 1;
+        }
+    }
+    /**
+     * Tri par ordre alphabetique du nom
+     * @param crewMember crewMember de base
+     * @param otherCrewMember crewMember à comparer
+     */
+    sortByName(crewMember: CrewMember, otherCrewMember: CrewMember): number {
+        return crewMember.pnc.lastName < otherCrewMember.pnc.lastName ? -1 : 1;
     }
 
     /**

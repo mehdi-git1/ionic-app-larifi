@@ -10,6 +10,8 @@ export abstract class BaseConfig {
   public eObsCallbackUrl = 'com.airfrance.mobile.inhouse.edospncDEV';
   public eObsCallbackActionLabel = 'Retour eDossierPNC';
 
+  public makeOfflineModeAvailable = false;
+
   /**
    * Vérifie qu'on ait est en local
    * @return  vrai si on est sur l'env localhost, false sinon

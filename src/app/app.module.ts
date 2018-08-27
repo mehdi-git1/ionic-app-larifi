@@ -1,3 +1,7 @@
+import { DeviceService } from './../services/device.service';
+import { PncPhotoTransformerProvider } from './../providers/pnc-photo/pnc-photo-transformer';
+import { OfflinePncPhotoProvider } from './../providers/pnc-photo/offline-pnc-photo';
+import { OnlinePncPhotoProvider } from './../providers/pnc-photo/online-pnc-photo';
 import { PdfFileViewerPage } from './../pages/pdf-file-viewer/pdf-file-viewer';
 import { CrewMemberTransformerProvider } from './../providers/crewMember/crewMember-transformer';
 import { OnlineLegProvider } from './../providers/leg/online-leg';
@@ -94,6 +98,8 @@ import { SummarySheetProvider } from '../providers/summary-sheet/summary-sheet';
 import { OnlineRotationProvider } from '../providers/rotation/online-rotation';
 import { OfflineRotationProvider } from '../providers/rotation/offline-rotation';
 import { GenericMessagePage } from '../pages/generic-message/generic-message';
+import { SettingsPage } from '../pages/settings/settings';
+import { PncPhotoProvider } from '../providers/pnc-photo/pnc-photo';
 
 
 declare var window: any;
@@ -115,20 +121,19 @@ declare var window: any;
     HomePage,
     SummarySheetPage,
     PdfFileViewerPage,
-    GenericMessagePage
+    GenericMessagePage,
+    SettingsPage
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(EDossierPNC, {
-      pageTransition: 'md-transition'
-    }),
+    IonicModule.forRoot(EDossierPNC),
     IonicStorageModule.forRoot(),
     HttpClientModule,
     ComponentsModule,
     SharedModule,
     BrowserAnimationsModule,
     PdfViewerModule,
-    SimpleNotificationsModule.forRoot()
+    SimpleNotificationsModule.forRoot({ position: ['top', 'right'] })
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -146,7 +151,8 @@ declare var window: any;
     HomePage,
     SummarySheetPage,
     PdfFileViewerPage,
-    GenericMessagePage
+    GenericMessagePage,
+    SettingsPage
   ],
   providers: [
     StatusBar,
@@ -154,6 +160,7 @@ declare var window: any;
     SecMobilService,
     ConnectivityService,
     StorageService,
+    DeviceService,
     { provide: RestService, useFactory: createRestService, deps: [HttpClient, SecMobilService, Config] },
     { provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true },
     AppInitService,
@@ -202,7 +209,11 @@ declare var window: any;
     OnlineRotationProvider,
     OfflineRotationProvider,
     OnlineLegProvider,
-    OfflineLegProvider
+    OfflineLegProvider,
+    PncPhotoProvider,
+    OnlinePncPhotoProvider,
+    OfflinePncPhotoProvider,
+    PncPhotoTransformerProvider
   ]
 })
 export class AppModule { }
@@ -212,10 +223,8 @@ export class AppModule { }
 // Check if we are in app mode or in web browser
 export function createRestService(http: HttpClient, secMobilService: SecMobilService, config: Config): RestService {
   if (undefined !== window.cordova && 'browser' !== window.cordova.platformId) {
-    console.log('mobile mode selected');
     return new RestMobileService(http, secMobilService);
   } else {
-    console.log('web mode selected');
     return new RestWebService(http, config);
   }
 }

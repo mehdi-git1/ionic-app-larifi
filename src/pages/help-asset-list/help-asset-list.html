@@ -1,9 +1,8 @@
 <ion-header>
-    <ion-navbar>
-        <ion-title>{{'HELP_ASSET_LIST.TITLE' | translate}}</ion-title>
-        <connectivity-indicator></connectivity-indicator>
-    </ion-navbar>
+    <page-header>{{'HELP_ASSET_LIST.TITLE' | translate}}
+    </page-header>
 </ion-header>
+
 <ion-content padding>
     <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
     <ng-template #pageBlock>

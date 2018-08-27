@@ -1,4 +1,7 @@
 pnc-card {
+    .disabled {
+        background: color($colors, grey90);
+    }
     .pnc-info-panel {
         display: flex;
 
@@ -7,11 +10,6 @@ pnc-card {
             flex-direction: column;
             align-items: center;
             justify-content: center;
-
-            img {
-                width: 80px;
-                border-radius: 100%;
-            }
         }
 
         .content {
@@ -62,8 +60,5 @@ pnc-card {
 
             }
         }
-
-
     }
-
 }
