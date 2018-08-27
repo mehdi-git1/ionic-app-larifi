@@ -54,15 +54,15 @@ import { PinPadComponent } from './pin-pad/pin-pad';
     PinPadComponent,
     PinPadModal,
     SecretQuestionModal,
-    SecretQuestionComponent
+    SecretQuestionComponent,
+    PageHeaderComponent,
+    NavBarCustomComponent,
+    PncSearchFilterComponent,
+    PncPhotoComponent
   ],
   entryComponents: [
     PinPadModal,
-    SecretQuestionModal,
-    NavBarCustomComponent,
-    PncSearchFilterComponent,
-    PncPhotoComponent,
-    PageHeaderComponent
+    SecretQuestionModal
   ],
   providers: [DatePipe]
 
