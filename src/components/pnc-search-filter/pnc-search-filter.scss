@@ -41,13 +41,17 @@ pnc-search-filter {
         .clear-pnc {
             background: color($colors, grey50);
             width: 100%;
+        }
+        .button-md{
+            margin-top: $margin-top-autocomplete + $border-input-size;
+
+        }
+        .button-ios {
             margin-top: $top-autocomplete-field;
         }
-
         .search-pnc {
             background: color($colors, green60);
             width: 100%;
-            margin-top: $top-autocomplete-field;
         }
 
         .hide-label {
