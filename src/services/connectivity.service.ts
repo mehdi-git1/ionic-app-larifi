@@ -37,28 +37,32 @@ export class ConnectivityService {
      */
     startPingAPI() {
         if (this.timer === 0) {
-            this.pingAPI();
+            this.loopPingAPI();
         }
     }
 
     /**
-     * Envoie une requête au backend toutes les 5 secondes pour vérifier la connectivité.
+     * Appelle le ping toutes les 5 secondes pour vérifier la connectivité.
      */
-    pingAPI() {
-        this.restService.get(this.config.pingUrl).then(
+    loopPingAPI() {
+        this.pingAPI().then(
             success => {
-                console.log('connecté');
                 this.setConnected(true);
                 this.stopPingAPI();
 
                 return true;
-            },
-            error => {
-                console.log('déconnecté');
+            }, error => {
                 this.setConnected(false);
                 return true;
             });
-        this.timer = setTimeout(() => this.pingAPI(), 5000);
+        this.timer = setTimeout(() => this.loopPingAPI(), 5000);
+    }
+
+    /**
+     * Envoie une requête au backend pour vérifier la connectivité.
+     */
+    pingAPI(): Promise<any> {
+        return this.restService.get(this.config.pingUrl);
     }
 
     /**

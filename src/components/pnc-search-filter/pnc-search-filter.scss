@@ -1,0 +1,120 @@
+$padding-left-ion-select: 5px;
+$margin-top-autocomplete: 12px;
+$border-input-size: 2px;
+$border-input: $border-input-size solid color($colors, grey50);
+$top-autocomplete-field: 18px;
+pnc-search-filter {
+    .pnc-search-card {
+        ion-card-header {
+            height: 50px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        ion-card-content {
+            max-height: 0;
+            transition: max-height 500ms;
+        }
+
+        ion-card-content.opened {
+            max-height: 165px;
+            transition: max-height 500ms;
+        }
+
+        .select-text {
+            padding-left: $padding-left-ion-select;
+        }
+
+        ion-row {
+            flex: 1;
+        }
+
+        .card-content {
+            padding: 0;
+        }
+
+        .header-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .clear-pnc {
+            background: color($colors, grey50);
+            width: 100%;
+        }
+        .button-md{
+            margin-top: $margin-top-autocomplete ;
+
+        }
+        .button-ios {
+            margin-top: $top-autocomplete-field;
+        }
+        .search-pnc {
+            background: color($colors, green60);
+            width: 100%;
+        }
+
+        .hide-label {
+            font-size: smaller;
+            opacity: 0;
+            transition: visibility 0s linear 2000ms,
+            opacity 2000ms;
+        }
+
+        .show-label {
+            font-size: smaller;
+            transition: visibility 0s linear 0s,
+            opacity 2000ms;
+        }
+
+        form {
+            .mat-form-field {
+                width: 100%;
+                line-height: normal;
+            }
+            .mat-form-field-infix {
+                margin-top: $margin-top-autocomplete;
+                border: $border-input;
+            }
+            .mat-form-field-label {
+                top: $top-autocomplete-field;
+                padding-left: $padding-left-ion-select;
+            }
+
+            .mat-form-field-wrapper {
+                padding-bottom: 0em;
+            }
+
+            ion-select {
+                border: $border-input;
+            }
+
+            .label-inactive-filters {
+                color: color($colors, grey20);
+                font-weight: bold;
+                display: flex;
+                flex-direction: column;
+                justify-content: right;
+                align-items: right;
+                text-align: right;
+            }
+
+            .select-placeholder {
+                color: color($colors, grey10) !important;
+            }
+            .label-md {
+                margin: 0;
+            }
+        }
+    }
+}
+
+.list ion-item {
+    ion-label {
+        padding-left: $padding-left-ion-select;
+    }
+}
+
+.popover-md .popover-content {
+    overflow: auto !important;
+}

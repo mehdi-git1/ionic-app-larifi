@@ -1,3 +1,4 @@
+import { DeviceService } from './../services/device.service';
 import { GenericMessagePage } from './../pages/generic-message/generic-message';
 import { OfflineSecurityProvider } from './../providers/security/offline-security';
 import { PncHomePage } from './../pages/pnc-home/pnc-home';
@@ -42,6 +43,7 @@ export class EDossierPNC implements OnInit {
     private sessionService: SessionService,
     public translateService: TranslateService,
     private storageService: StorageService,
+    private deviceService: DeviceService,
     private toastProvider: ToastProvider,
     private parametersProvider: ParametersProvider,
     private securityProvider: SecurityProvider,
@@ -57,7 +59,6 @@ export class EDossierPNC implements OnInit {
     this.platform.ready().then(() => {
 
       this.statusBar.styleDefault();
-      this.splashScreen.hide();
 
       this.translateService.setDefaultLang('fr');
       this.translateService.use('fr');
@@ -66,17 +67,26 @@ export class EDossierPNC implements OnInit {
       this.secMobilService.isAuthenticated().then(() => {
         // Création du stockage local
         this.storageService.initOfflineMap().then(success => {
+
           this.putAuthenticatedUserInSession().then(authenticatedUser => {
             this.initParameters();
-            this.synchronizationProvider.storeEDossierOffline(authenticatedUser.matricule).then(successStore => {
-              this.events.publish('EDossierOffline:stored');
-            }, error => {
-            });
+            if (this.deviceService.isOfflineModeAvailable()) {
+              this.synchronizationProvider.storeEDossierOffline(authenticatedUser.matricule).then(successStore => {
+                this.events.publish('EDossierOffline:stored');
+                this.splashScreen.hide();
+              }, error => {
+                this.splashScreen.hide();
+              });
+            }
 
+          }, error => {
+            this.splashScreen.hide();
           });
+
         });
       }, error => {
         this.nav.setRoot(AuthenticationPage);
+        this.splashScreen.hide();
       });
 
       this.events.subscribe('connectionStatus:disconnected', () => {

@@ -16,6 +16,7 @@
 @import '../theme/label.scss';
 @import '../theme/input.scss';
 @import '../theme/button-bar.scss';
+@import '../theme/button.scss';
 @import '../theme/status.scss';
 @import '../theme/icon.scss';
 @import '../theme/navbar.scss';
@@ -101,4 +102,8 @@ ion-input {
 
 .scroll-content {
     overflow-y: auto !important;
+}
+
+.back-button.show-back-button {
+    padding-right: 50px;
 }

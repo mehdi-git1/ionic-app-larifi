@@ -211,11 +211,10 @@ export class SynchronizationProvider {
    * Lance le processus de synchronisation des données modifiées offline
    */
   synchronizeOfflineData() {
+    this.synchroStatusChange.emit(true);
     const pncSynchroList = this.getPncSynchroList();
 
     if (pncSynchroList.length > 0) {
-      this.synchroStatusChange.emit(true);
-
       let promiseCount;
       let resolvedPromiseCount = 0;
       Observable.create(
@@ -236,6 +235,8 @@ export class SynchronizationProvider {
             this.synchroStatusChange.emit(false);
           }
         });
+    } else {
+      this.synchroStatusChange.emit(false);
     }
   }
 
