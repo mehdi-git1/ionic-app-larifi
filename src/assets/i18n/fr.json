@@ -13,8 +13,8 @@
         "CAREER_OBJECTIVE_STATUS": {
             "DRAFT": "PROPOSITION",
             "REGISTERED": "EN COURS",
-            "VALIDATED": "VALIDÉ",
-            "ABANDONED": "ABANDONNÉ"
+            "VALIDATED": "VALIDÉE",
+            "ABANDONED": "ABANDONNÉE"
         },
         "WAYPOINT_STATUS": {
             "DRAFT": "PROPOSITION",
@@ -91,14 +91,14 @@
             "CREATE_INSTRUCTOR_REQUEST": "Solliciter mon instructeur"
         },
         "SUCCESS": {
-            "CAREER_OBJECTIVE_SAVED": "Priorité enregistrée avec succès",
-            "DRAFT_SAVED": "Proposition sauvegardée",
+            "CAREER_OBJECTIVE_SAVED": "Priorité enregistrée",
+            "DRAFT_SAVED": "Proposition enregistrée",
             "DRAFT_DELETED": "Proposition supprimée",
             "CAREER_OBJECTIVE_VALIDATED": "Priorité validée",
             "CAREER_OBJECTIVE_ABANDONED": "Priorité abandonnée",
             "CAREER_OBJECTIVE_VALIDATION_CANCELED": "Validation de la priorité annulée",
-            "CAREER_OBJECTIVE_RESUMED": "Priorité reprise avec succés",
-            "CAREER_OBJECTIVE_INSTRUCTOR_REQUESTED": "Demande envoyée avec succès"
+            "CAREER_OBJECTIVE_RESUMED": "Priorité reprise",
+            "CAREER_OBJECTIVE_INSTRUCTOR_REQUESTED": "Demande envoyée"
         },
         "ERROR": {
             "CAREER_OBJECTIVE_CREATION_FAILED": "La création de la priorité a échouée"
@@ -150,7 +150,7 @@
             "DELETE_DRAFT": "Supprimer proposition"
         },
         "SUCCESS": {
-            "WAYPOINT_SAVED": "Point d'étape enregistré avec succès",
+            "WAYPOINT_SAVED": "Point d'étape enregistré",
             "DRAFT_SAVED": "Proposition enregistrée",
             "DRAFT_DELETED": "Proposition supprimée"
         }
