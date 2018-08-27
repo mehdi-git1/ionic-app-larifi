@@ -38,10 +38,12 @@ export class EObservationService {
   }
 
   getEObservation(observedPncMatricule, rotation: Rotation): Promise<EObservation> {
-    console.log('Before: getEObservation:' + `${this.eObsUrl}/${observedPncMatricule}/${rotation.techId}`);
     return this.restService.get(`${this.eObsUrl}/${observedPncMatricule}/${rotation.techId}`);
   }
 
+  /**
+   * Appel de l'application eForms avec les bons parametres
+   */
   callForms(eObservation: EObservation) {
     const param = {
       eformsAppId: `${this.config.eObsUrl}`,
@@ -50,7 +52,7 @@ export class EObservationService {
       callbackActionLabel: `${this.config.eObsCallbackActionLabel}`,
       archiveData: {
         // A DECOMMENTER POUR AVOIR LES DONNEES DU FORMULAIRE
-        'PNCObserve.fonction': eObservation.observedPnc.speciality,
+        'PNCObserve.fonction': this.getSpecialityForeForms(eObservation.observedPnc.speciality),
         'PNCObserve.matricule': eObservation.observedPnc.matricule,
         'PNCObserve.nom': eObservation.observedPnc.lastName,
         'PNCObserve.prenom': eObservation.observedPnc.firstName,
@@ -69,40 +71,14 @@ export class EObservationService {
         'stakeholdersinfos.2.1': eObservation.redactor.lastName,
         'stakeholdersinfos.2.2': eObservation.redactor.firstName,
         'stakeholdersinfos.2.3': eObservation.redactor.matricule,
-        'stakeholdersinfos.2.4': this.sessionService.appContext.onBoardRedactorFunction,
+        'stakeholdersinfos.2.4': this.getSpecialityForeForms(this.sessionService.appContext.onBoardRedactorFunction),
         'typeAvion.vol1': eObservation.rotationFirstLeg.aircraftType,
         'typeAvion.vol2': eObservation.rotationLastLeg.aircraftType,
         'version.vol1': eObservation.rotationFirstLeg.operatingVersion,
         'version.vol2': eObservation.rotationLastLeg.operatingVersion
-
-        // DONNEES DE TEST
-        // 'PNCObserve.fonction': 'HST'
-        // 'PNCObserve.matricule': '09094564',
-        // 'PNCObserve.nom': 'VUITTON',
-        // 'PNCObserve.prenom': 'LOUIS',
-        // 'date.vol1': '04/05/2018',
-        // 'date.vol2': '06/05/2018',
-        // 'escaleArrivee.vol1': 'JFK',
-        // 'escaleArrivee.vol2': 'CDG',
-        // 'escaleDepart.vol1': 'CDG',
-        // 'escaleDepart.vol2': 'JFK',
-        // 'flightNumber.vol1': 'AF006',
-        // 'flightNumber.vol2': 'AF009',
-        // 'flightinfos.pairing.date': '04/05/2018',
-        // 'flightinfos.pairing.name': 'FUR20006',
-        // 'remplissage.vol1': '464 - 4P70J33W357Y',
-        // 'remplissage.vol2': '283 - 4P51J24W204Y',
-        // 'stakeholdersinfos.2.1': 'HERMES',
-        // 'stakeholdersinfos.2.2': 'THIERRY',
-        // 'stakeholdersinfos.2.3': '15944372',
-        // 'stakeholdersinfos.2.4': 'CCP',
-        // 'typeAvion.vol1': '388',
-        // 'typeAvion.vol2': '77W',
-        // 'version.vol1': 'P009J080W038Y389',
-        // 'version.vol2': 'P004J058W028Y206'
       }
     };
-    console.log(JSON.stringify(param));
+
     this.formsPlugin.callUrlAppScheme(
       success => {
         console.log('Success: callUrlAppScheme');
@@ -111,5 +87,11 @@ export class EObservationService {
       error => console.log(error),
       param
     );
+  }
+
+  getSpecialityForeForms(speciality: String) {
+    if (speciality == 'CC') { return 'C/C'; }
+    if (speciality == 'HOT' || speciality == 'STW') { return 'HST'; }
+    return speciality;
   }
 }
