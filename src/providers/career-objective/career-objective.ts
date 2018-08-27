@@ -90,13 +90,4 @@ export class CareerObjectiveProvider {
     return this.onlineCareerObjectiveProvider.createInstructorRequest(id);
   }
 
-  /**
-   * Met à jour la date de mise en cache dans l'objet online
-   * @param careerObjective objet online
-   */
-  refreshOfflineStorageDate(careerObjective: CareerObjective) {
-    this.connectivityService.isConnected() ?
-      this.onlineCareerObjectiveProvider.refreshOfflineStorageDate(careerObjective) : this.offlineCareerObjectiveProvider.refreshOfflineStorageDate(careerObjective)
-      ;
-  }
 }

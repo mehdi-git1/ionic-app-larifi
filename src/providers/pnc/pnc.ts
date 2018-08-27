@@ -3,7 +3,6 @@ import { SessionService } from './../../services/session.service';
 import { Config } from './../../configuration/environment-variables/config';
 import { HttpRequest, HttpParams } from '@angular/common/http';
 import { PncFilter } from './../../models/pncFilter';
-import { PncTransformerProvider } from './pnc-transformer';
 import { OfflineProvider } from './../offline/offline';
 import { OnlinePncProvider } from './online-pnc';
 import { OfflinePncProvider } from './../pnc/offline-pnc';
@@ -16,6 +15,7 @@ import { Page } from '../../models/page';
 import { RestService } from '../../services/rest.base.service';
 import { RotationTransformerProvider } from '../rotation/rotation-transformer';
 import { RotationProvider } from '../rotation/rotation';
+import { PncTransformerProvider } from './pnc-transformer';
 
 @Injectable()
 export class PncProvider {
@@ -43,9 +43,8 @@ export class PncProvider {
   getPnc(matricule: string): Promise<Pnc> {
     if (this.connectivityService.isConnected()) {
       return new Promise((resolve, reject) => {
-        this.onlinePncProvider.getPnc(matricule).then(onlinePnc => {
-          const onlineData = this.pncTransformer.toPnc(onlinePnc);
-          resolve(onlineData);
+        return this.onlinePncProvider.getPnc(matricule).then(onlinePnc => {
+          resolve(onlinePnc);
         });
       });
     } else {
@@ -102,12 +101,14 @@ export class PncProvider {
     const pncSearchCriteria = new PncSearchCriteria(pncFilter, page, size);
 
     if (this.connectivityService.isConnected()) {
-      return this.onlinePncProvider.getFilteredPncs(pncFilter).then(responsePnc => {
-        const transformedContent = responsePnc.content.map(onlinePnc => {
-          return this.pncTransformer.toPnc(onlinePnc);
+      return new Promise((resolve, reject) => {
+        return this.onlinePncProvider.getFilteredPncs(pncSearchCriteria).then(responsePnc => {
+          const transformedContent = responsePnc.content.map(onlinePnc => {
+            return this.pncTransformer.toPnc(onlinePnc);
+          });
+          responsePnc.content = transformedContent;
+          return resolve(responsePnc);
         });
-        responsePnc.content = transformedContent;
-        return responsePnc;
       });
     } else {
       return this.offlinePncProvider.getPncs().then(response => {
@@ -141,13 +142,5 @@ export class PncProvider {
     return this.restService.get(`${this.pncUrl}/auto_complete`, { search });
   }
 
-  /**
-   *  Met à jour la date de mise en cache dans l'objet online
-   * @param pnc objet online
-   */
-  refreshOfflineStorageDate(pnc: Pnc): void {
-    this.connectivityService.isConnected() ?
-      this.onlinePncProvider.refreshOfflineStorageDate(pnc) : this.offlinePncProvider.refreshOfflineStorageDate(pnc);
-  }
 }
 

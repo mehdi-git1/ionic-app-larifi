@@ -34,11 +34,4 @@ export class OfflineLegProvider {
     });
   }
 
-  /**
-   *  Met à jour la date de mise en cache dans l'objet online
-   * @param leg objet online
-   */
-  refreshOfflineStorageDate(leg: Leg) {
-    // cette méthode ne fait rien en mode offline
-  }
 }

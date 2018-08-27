@@ -30,14 +30,4 @@ export class OnlineRotationProvider {
         return this.restService.get(`${this.rotationUrl}/${rotation.techId}/legs`);
     }
 
-    /**
-     * Met à jour la date de mise en cache dans l'objet online
-     * @param rotation objet online
-     */
-    refreshOfflineStorageDate(rotation: Rotation) {
-        this.offlineRotationProvider.getRotation(rotation.techId).then(offlineRotation => {
-            const offlineData = this.rotationTransformer.toRotation(offlineRotation);
-            this.offlineProvider.flagDataAvailableOffline(rotation, offlineData);
-        });
-    }
 }

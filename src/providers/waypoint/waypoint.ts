@@ -87,13 +87,4 @@ export class WaypointProvider {
       this.offlineWaypointProvider.delete(id);
   }
 
-  /**
-   *  Met à jour la date de mise en cache dans l'objet online
-   * @param waypoint objet online
-   */
-  refreshOfflineStorageDate(waypoint: Waypoint) {
-    this.connectivityService.isConnected() ?
-      this.onlineWaypointProvider.refreshOfflineStorageDate(waypoint) : this.offlineWaypointProvider.refreshOfflineStorageDate(waypoint)
-      ;
-  }
 }

@@ -61,14 +61,4 @@ export class OnlinePncProvider {
     );
   }
 
-  /**
-   *  Met à jour la date de mise en cache dans l'objet online
-   * @param pnc objet online
-   */
-  refreshOfflineStorageDate(pnc: Pnc): void {
-    this.offlinePncProvider.getPnc(pnc.matricule).then(offlinePnc => {
-      const offlineData = this.pncTransformer.toPnc(offlinePnc);
-      this.offlineProvider.flagDataAvailableOffline(pnc, offlinePnc);
-    });
-  }
 }

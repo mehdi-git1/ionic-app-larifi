@@ -33,9 +33,6 @@ export class RotationProvider {
       return new Promise((resolve, reject) => {
         this.onlineRotationProvider.getRotationLegs(rotation).then(onlineLegs => {
           const onlineData = this.legTransformer.toLegs(onlineLegs);
-          for (const leg of onlineData) {
-            this.legProvider.refreshOfflineStorageDate(leg);
-          }
           resolve(onlineData);
         });
       });
@@ -44,13 +41,4 @@ export class RotationProvider {
     }
   }
 
-  /**
-   * Met à jour la date de mise en cache dans l'objet online
-   * @param rotation objet online
-   */
-  refreshOfflineStorageDate(rotation: Rotation) {
-    this.connectivityService.isConnected() ?
-      this.onlineRotationProvider.refreshOfflineStorageDate(rotation) : this.offlineRotationProvider.refreshOfflineStorageDate(rotation)
-      ;
-  }
 }

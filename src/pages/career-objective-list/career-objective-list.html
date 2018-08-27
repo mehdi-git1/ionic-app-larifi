@@ -21,7 +21,7 @@
             <div class="no-data-found" *ngIf="careerObjectiveList.length == 0">{{ 'CAREER_OBJECTIVE_LIST.NO_OBJECTIVES' | translate }}</div>
             <div *ngIf="careerObjectiveList.length > 0" class="career-objective-list">
                 <ion-card class="career-objective-card clickable" *ngFor="let careerObjective of careerObjectiveList" (click)="openCareerObjective(careerObjective.techId)">
-                    <offline-indicator [object]="careerObjective"></offline-indicator>
+                    <offline-indicator [object]="careerObjective" type="CAREER_OBJECTIVE"></offline-indicator>
                     <ion-card-content no-padding>
                         <header>
                             <h4>{{careerObjective.title}}</h4>

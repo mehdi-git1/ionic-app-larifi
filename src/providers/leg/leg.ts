@@ -38,12 +38,4 @@ export class LegProvider {
       this.offlineLegProvider.getFlightCrewFromLeg(legId);
   }
 
-  /**
-   *  Met à jour la date de mise en cache dans l'objet online
-   * @param leg objet online
-   */
-  refreshOfflineStorageDate(leg: Leg) {
-    this.connectivityService.isConnected() ?
-      this.onlineLegProvider.refreshOfflineStorageDate(leg) : this.offlineLegProvider.refreshOfflineStorageDate(leg);
-  }
 }

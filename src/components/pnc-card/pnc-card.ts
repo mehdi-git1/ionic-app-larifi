@@ -1,6 +1,7 @@
+import { OfflineIndicatorComponent } from './../offline-indicator/offline-indicator';
 import { Pnc } from './../../models/pnc';
 import { PncTransformerProvider } from './../../providers/pnc/pnc-transformer';
-import { Component, Input } from '@angular/core';
+import { Component, Input, ViewChild } from '@angular/core';
 import { CrewMember } from '../../models/crewMember';
 import { SynchronizationProvider } from './../../providers/synchronization/synchronization';
 import { ToastProvider } from './../../providers/toast/toast';
@@ -21,6 +22,9 @@ export class PncCardComponent {
   @Input() isCrewMember: boolean;
   @Input() disabled: boolean;
   synchroInProgress: boolean;
+
+  @ViewChild(OfflineIndicatorComponent)
+  private offlineIndicatorComponent: OfflineIndicatorComponent;
 
   constructor(
     public navCtrl: NavController,
@@ -48,7 +52,7 @@ export class PncCardComponent {
   downloadPncEdossier(matricule) {
     this.synchroInProgress = true;
     this.synchronizationProvider.storeEDossierOffline(matricule).then(success => {
-      this.pncProvider.refreshOfflineStorageDate(this.crewMember.pnc);
+      this.offlineIndicatorComponent.refreshOffLineDateOnCurrentObject();
       this.synchroInProgress = false;
       this.toastProvider.info(this.translate.instant('SYNCHRONIZATION.PNC_SAVED_OFFLINE', { 'matricule': matricule }));
     }, error => {

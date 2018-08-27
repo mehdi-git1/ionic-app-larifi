@@ -62,11 +62,4 @@ export class OfflineCareerObjectiveProvider {
     return this.storageService.deleteAsync(Entity.CAREER_OBJECTIVE, `${id}`);
   }
 
-  /**
-   * Met à jour la date de mise en cache dans l'objet online
-   * @param careerObjective objet online
-   */
-  refreshOfflineStorageDate(careerObjective: CareerObjective) {
-    // cette méthode n'est pas utile en mode offline
-  }
 }

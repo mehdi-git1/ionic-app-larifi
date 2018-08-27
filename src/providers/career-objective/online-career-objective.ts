@@ -68,14 +68,4 @@ export class OnlineCareerObjectiveProvider {
     return this.restService.post(`${this.careerObjectiveUrl}/${id}/instructor_request`, null);
   }
 
-  /**
-   * Met à jour la date de mise en cache dans l'objet online
-   * @param careerObjective objet online
-   */
-  refreshOfflineStorageDate(careerObjective: CareerObjective) {
-    this.offlineCareerObjectiveProvider.getCareerObjective(careerObjective.techId).then(offlineCareerObjective => {
-      const offlineData = this.careerObjectiveTransformer.toCareerObjective(offlineCareerObjective);
-      this.offlineProvider.flagDataAvailableOffline(careerObjective, offlineData);
-    });
-  }
 }

@@ -26,9 +26,7 @@ export class OfflinePncProvider {
    * @return une promesse contenant le PNC trouvé
    */
   getPnc(matricule: string): Promise<Pnc> {
-    return this.storageService.findOneAsync(Entity.PNC, matricule).then(offlinePnc => {
-      return this.pncTransformer.toPnc(offlinePnc);
-    });
+    return this.storageService.findOneAsync(Entity.PNC, matricule);
   }
 
   /**
@@ -77,11 +75,4 @@ export class OfflinePncProvider {
     });
   }
 
-  /**
- *  Met à jour la date de mise en cache dans l'objet online
- * @param pnc objet online
- */
-  refreshOfflineStorageDate(pnc: Pnc): void {
-    // cette méthode ne fait rien en mode offline
-  }
 }
