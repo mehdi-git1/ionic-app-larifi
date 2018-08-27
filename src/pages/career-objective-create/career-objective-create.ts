@@ -137,14 +137,14 @@ export class CareerObjectiveCreatePage {
     /**
      * Lance le processus de création/mise à jour d'un objectif
      */
-    saveCareerObjective() {
+    saveCareerObjective(careerObjective: CareerObjective) {
         this.prepareCareerObjectiveBeforeSubmit();
 
         this.loading = this.loadingCtrl.create();
         this.loading.present();
 
         this.careerObjectiveProvider
-            .createOrUpdate(this.careerObjective)
+            .createOrUpdate(careerObjective)
             .then(savedCareerObjective => {
                 this.careerObjective = savedCareerObjective;
 
@@ -168,7 +168,6 @@ export class CareerObjectiveCreatePage {
                 }
                 this.loading.dismiss();
             }, error => {
-
                 this.loading.dismiss();
             });
     }
@@ -188,8 +187,9 @@ export class CareerObjectiveCreatePage {
      * Enregistre un objectif au statut brouillon
      */
     saveCareerObjectiveDraft() {
-        this.careerObjective.careerObjectiveStatus = CareerObjectiveStatus.DRAFT;
-        this.saveCareerObjective();
+        const careerObjectiveToSave = JSON.parse(JSON.stringify(this.careerObjective));
+        careerObjectiveToSave.careerObjectiveStatus = CareerObjectiveStatus.DRAFT;
+        this.saveCareerObjective(careerObjectiveToSave);
     }
 
     /**
@@ -197,9 +197,10 @@ export class CareerObjectiveCreatePage {
      */
     saveCareerObjectiveToRegisteredStatus() {
         if (this.careerObjective.encounterDate) {
-            this.careerObjective.careerObjectiveStatus = CareerObjectiveStatus.REGISTERED;
-            this.careerObjective.registrationDate = this.datePipe.transform(new Date(), 'yyyy-MM-ddTHH:mm');
-            this.saveCareerObjective();
+            const careerObjectiveToSave = JSON.parse(JSON.stringify(this.careerObjective));
+            careerObjectiveToSave.careerObjectiveStatus = CareerObjectiveStatus.REGISTERED;
+            careerObjectiveToSave.registrationDate = this.datePipe.transform(new Date(), 'yyyy-MM-ddTHH:mm');
+            this.saveCareerObjective(careerObjectiveToSave);
         } else {
             this.requiredOnEncounterDay = true;
         }
@@ -210,8 +211,9 @@ export class CareerObjectiveCreatePage {
      */
     saveCareerObjectiveToValidatedStatus() {
         if (this.careerObjective.encounterDate) {
-            this.careerObjective.careerObjectiveStatus = CareerObjectiveStatus.VALIDATED;
-            this.saveCareerObjective();
+            const careerObjectiveToSave = JSON.parse(JSON.stringify(this.careerObjective));
+            careerObjectiveToSave.careerObjectiveStatus = CareerObjectiveStatus.VALIDATED;
+            this.saveCareerObjective(careerObjectiveToSave);
         } else {
             this.requiredOnEncounterDay = true;
         }
@@ -222,8 +224,9 @@ export class CareerObjectiveCreatePage {
     */
     saveCareerObjectiveToAbandonedStatus() {
         if (this.careerObjective.encounterDate) {
+            const careerObjectiveToSave = JSON.parse(JSON.stringify(this.careerObjective));
             this.careerObjective.careerObjectiveStatus = CareerObjectiveStatus.ABANDONED;
-            this.saveCareerObjective();
+            this.saveCareerObjective(careerObjectiveToSave);
         } else {
             this.requiredOnEncounterDay = true;
         }
@@ -234,9 +237,10 @@ export class CareerObjectiveCreatePage {
     */
     cancelCareerObjectiveValidation() {
         if (this.careerObjective.encounterDate) {
+            const careerObjectiveToSave = JSON.parse(JSON.stringify(this.careerObjective));
             this.cancelValidation = true;
-            this.careerObjective.careerObjectiveStatus = CareerObjectiveStatus.REGISTERED;
-            this.saveCareerObjective();
+            careerObjectiveToSave.careerObjectiveStatus = CareerObjectiveStatus.REGISTERED;
+            this.saveCareerObjective(careerObjectiveToSave);
         } else {
             this.requiredOnEncounterDay = true;
         }
@@ -247,9 +251,10 @@ export class CareerObjectiveCreatePage {
     */
     resumeAbandonedCareerObjective() {
         if (this.careerObjective.encounterDate) {
+            const careerObjectiveToSave = JSON.parse(JSON.stringify(this.careerObjective));
             this.cancelAbandon = true;
-            this.careerObjective.careerObjectiveStatus = CareerObjectiveStatus.REGISTERED;
-            this.saveCareerObjective();
+            careerObjectiveToSave.careerObjectiveStatus = CareerObjectiveStatus.REGISTERED;
+            this.saveCareerObjective(careerObjectiveToSave);
         }
     }
 
@@ -357,9 +362,9 @@ export class CareerObjectiveCreatePage {
     }
 
     /**
-   * Vérifie que le chargement des points d'étape est terminé
-   * @return true si c'est le cas, false sinon
-   */
+    * Vérifie que le chargement des points d'étape est terminé
+    * @return true si c'est le cas, false sinon
+    */
     waypointsLoadingIsOver(): boolean {
         return this.waypointList !== undefined;
     }
@@ -397,7 +402,7 @@ export class CareerObjectiveCreatePage {
      **/
 
     saveCareerObjectiveAndUpdatePncComment() {
-        this.saveCareerObjective();
+        this.saveCareerObjective(this.careerObjective);
         this.originalPncComment = this.careerObjective.pncComment;
     }
 
