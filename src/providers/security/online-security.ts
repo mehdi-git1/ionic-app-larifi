@@ -29,7 +29,7 @@ export class OnlineSecurityProvider {
     return this.restService.get(`${this.securityUrl}`).then(authenticatedUser => {
       // Pour le mobile, on récupére les informations secretes (code PIN, question / réponse secréte)
       // avant de mettre l'utilisateur en session
-      if (!this.secMobilService.isBrowser) {
+      if (this.secMobilService.isBrowser) {
         return this.restService.get(`${this.secretInfosUrl}`).then( data => {
           authenticatedUser.pinInfo = new AuthenticatedPinInfoUser;
           authenticatedUser.pinInfo.matricule = data.matricule;
@@ -40,6 +40,7 @@ export class OnlineSecurityProvider {
           return authenticatedUser;
         });
       } else {
+        authenticatedUser.pinInfo = new AuthenticatedPinInfoUser;
         authenticatedUser.pinInfo.matricule = null;
         authenticatedUser.pinInfo.pinCode = null ;
         authenticatedUser.pinInfo.secretQuestion = null;

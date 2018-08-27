@@ -38,7 +38,7 @@ pin-pad {
         height: $containerHeight+px;
         color: $colorBright;
         top: 40px;
-        left: calc(50% - #{$containerHeight/2}px);
+        left: calc(50% - #{$containerWidth/2}px);
         padding: $containerPadding+px;
     }
     

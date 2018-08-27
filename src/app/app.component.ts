@@ -149,18 +149,17 @@ export class EDossierPNC implements OnInit {
   * Mettre le pnc connecté en session
   */
   putAuthenticatedUserInSession(): Promise<AuthenticatedUser> {
-    return this.securityProvider.getAuthenticatedUser().then(authenticatedUser => {
+    const promise = this.securityProvider.getAuthenticatedUser();
+    promise.then(authenticatedUser => {
       if (authenticatedUser) {
         this.sessionService.authenticatedUser = authenticatedUser;
-        // Gestion de l'affchage du pinPad seulement pour l'application
-        if (!this.secMobilService.isBrowser) {
-          this.securityModalService.displayPinPad(PinPadType.openingApp);
-        }
+        // Gestion de l'affchage du pinPad
+       this.securityModalService.displayPinPad(PinPadType.openingApp);
         this.nav.setRoot(PncHomePage, { matricule: this.sessionService.authenticatedUser.matricule });
-      } else {
+      }
+      else {
         this.nav.setRoot(AuthenticationPage);
       }
-      return authenticatedUser;
     }, error => {
       console.log('putAuthenticatedUserInSession error: ' + JSON.stringify(error));
       this.connectivityService.setConnected(false);
@@ -170,8 +169,8 @@ export class EDossierPNC implements OnInit {
       }, err => {
         this.nav.setRoot(GenericMessagePage, { message: this.translateService.instant('GLOBAL.MESSAGES.ERROR.APPLICATION_NOT_INITIALIZED') });
       });
-      return new AuthenticatedUser;
     });
+    return promise;
   }
 
 }
