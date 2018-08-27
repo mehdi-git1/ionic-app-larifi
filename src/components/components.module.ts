@@ -34,17 +34,14 @@ import { PinPadComponent } from './pin-pad/pin-pad';
     PncCardComponent,
     FlightCardComponent,
     EdossierSpinnerComponent,
-<<<<<<< HEAD
     PinPadComponent,
     PinPadModal,
     SecretQuestionModal,
-    SecretQuestionComponent
-=======
+    SecretQuestionComponent,
     NavBarCustomComponent,
     PncSearchFilterComponent,
     PncPhotoComponent,
     PageHeaderComponent
->>>>>>> release/sprint6
   ],
   exports: [
     RotationCardComponent,
@@ -54,7 +51,6 @@ import { PinPadComponent } from './pin-pad/pin-pad';
     PncCardComponent,
     FlightCardComponent,
     EdossierSpinnerComponent,
-<<<<<<< HEAD
     PinPadComponent,
     PinPadModal,
     SecretQuestionModal,
@@ -62,13 +58,11 @@ import { PinPadComponent } from './pin-pad/pin-pad';
   ],
   entryComponents: [
     PinPadModal,
-    SecretQuestionModal
-=======
+    SecretQuestionModal,
     NavBarCustomComponent,
     PncSearchFilterComponent,
     PncPhotoComponent,
     PageHeaderComponent
->>>>>>> release/sprint6
   ],
   providers: [DatePipe]
 

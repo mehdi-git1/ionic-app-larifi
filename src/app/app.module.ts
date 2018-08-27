@@ -97,12 +97,12 @@ import { SummarySheetProvider } from '../providers/summary-sheet/summary-sheet';
 import { OnlineRotationProvider } from '../providers/rotation/online-rotation';
 import { OfflineRotationProvider } from '../providers/rotation/offline-rotation';
 import { GenericMessagePage } from '../pages/generic-message/generic-message';
-<<<<<<< HEAD
+
 import { SecurityModalService } from '../services/security.modal.service';
-=======
+
 import { SettingsPage } from '../pages/settings/settings';
 import { PncPhotoProvider } from '../providers/pnc-photo/pnc-photo';
->>>>>>> release/sprint6
+
 
 
 declare var window: any;
@@ -216,14 +216,11 @@ declare var window: any;
     OfflineRotationProvider,
     OnlineLegProvider,
     OfflineLegProvider,
-<<<<<<< HEAD
-    SecurityModalService
-=======
+    SecurityModalService,
     PncPhotoProvider,
     OnlinePncPhotoProvider,
     OfflinePncPhotoProvider,
     PncPhotoTransformerProvider
->>>>>>> release/sprint6
   ]
 })
 export class AppModule { }
