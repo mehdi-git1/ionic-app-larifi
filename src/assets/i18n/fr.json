@@ -101,7 +101,8 @@
             "CAREER_OBJECTIVE_INSTRUCTOR_REQUESTED": "Demande envoyée avec succès"
         },
         "ERROR": {
-            "CAREER_OBJECTIVE_CREATION_FAILED": "La création de la priorité a échouée"
+            "CAREER_OBJECTIVE_CREATION_FAILED": "La création de la priorité a échouée",
+            "ENCOUTER_DATE_REQUIRED": "Veuillez indiquer une date de rencontre"
         }
     },
     "CAREER_OBJECTIVE_LIST": {
@@ -148,6 +149,9 @@
             "SAVE": "Enregistrer",
             "SAVE_DRAFT": "Sauvegarder proposition",
             "DELETE_DRAFT": "Supprimer proposition"
+        },
+        "ERROR": {
+            "ENCOUTER_DATE_AND_ACTION_PLAN_REQUIRED": "Veuillez indiquer l'action réalisée et la date de rencontre"
         },
         "SUCCESS": {
             "WAYPOINT_SAVED": "Point d'étape enregistré avec succès",
