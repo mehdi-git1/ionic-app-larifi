@@ -25,4 +25,8 @@ ion-modal {
     ion-backdrop{
         visibility: hidden;
     }
+
+    .content{
+        background-color: transparent !important;
+    }
 }
