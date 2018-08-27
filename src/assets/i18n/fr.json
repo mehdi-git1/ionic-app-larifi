@@ -121,6 +121,7 @@
     },
     "PNC_HOME": {
         "TITLE": "Accueil",
+        "PNC_TITLE": "EDossier de {{lastName}} {{firstName}}",
         "INFO_PANEL": {
             "FUNCTION": "Fonction",
             "GINQ": "Ginq",
