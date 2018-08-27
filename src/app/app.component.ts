@@ -57,6 +57,9 @@ export class EDossierPNC implements OnInit {
 
   initializeApp() {
     this.platform.ready().then(() => {
+      if (this.deviceService.isBrowser) {
+        this.splashScreen.hide();
+      }
 
       this.statusBar.styleDefault();
 
