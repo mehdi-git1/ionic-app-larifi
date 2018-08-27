@@ -1,15 +1,24 @@
 page-pnc-search {
-    .pnc-search-content {
-        background: color($colors, grey90);
-        height: 100%;
-        padding: $page-padding;
-        padding-top: $navbar-height; // taille de la barre de navigation
-        display: flex;
-        flex-direction: column;
 
-        .filtered-pnc-list-container {
-            flex: 1;
+    ion-content {
+        .scroll-content {
+            display: flex;
+            flex-direction: column;
+
+            .filtered-pnc-list-container {
+                flex: 1;
+
+                .scroll-content {
+                    padding: 0;
+
+                    .scroll-zoom-wrapper {
+                        height: 100%;
+                    }
+                }
+            }
         }
     }
+
+
 
 }

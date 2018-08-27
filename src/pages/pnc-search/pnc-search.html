@@ -5,13 +5,11 @@
     </ion-navbar>
 </ion-header>
 
-<div class="pnc-search-content">
+<ion-content padding>
     <pnc-search-filter (onSearch)="searchPncs()"></pnc-search-filter>
 
-    <ion-content class="filtered-pnc-list-container">
-        <div *ngIf="searchInProgress">
-            <edossier-spinner></edossier-spinner>
-        </div>
+    <ion-scroll class="filtered-pnc-list-container">
+        <edossier-spinner *ngIf="searchInProgress"></edossier-spinner>
 
         <span *ngIf="!searchInProgress">
             <div *ngIf="filteredPncs && filteredPncs.length == 0" class="no-data-found">
@@ -23,5 +21,5 @@
         <ion-infinite-scroll (ionInfinite)="$event.waitFor(doInfinite($event))">
             <ion-infinite-scroll-content></ion-infinite-scroll-content>
         </ion-infinite-scroll>
-    </ion-content>
-</div>
+    </ion-scroll>
+</ion-content>

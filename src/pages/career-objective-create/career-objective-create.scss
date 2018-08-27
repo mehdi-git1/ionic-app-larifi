@@ -4,15 +4,18 @@ page-career-objective-create {
         display: flex;
         flex-direction: column;
         height: 100%;
-        padding-top: $navbar-height;
 
         .objective-container {
-            padding: $page-padding;
             display: flex;
             flex: 1;
 
+            ion-scroll > .scroll-content {
+                padding: 0 !important;
+            }
+
             .objective-form {
                 flex: 3;
+
                 ion-textarea {
                     min-height: 210px !important;
                     padding: 0 !important;
@@ -78,10 +81,6 @@ page-career-objective-create {
                     }
                 }
             }
-        }
-
-        .button-bar {
-            padding: $page-padding;
         }
     }
 }

@@ -59,7 +59,6 @@ export class EDossierPNC implements OnInit {
     this.platform.ready().then(() => {
 
       this.statusBar.styleDefault();
-      this.splashScreen.hide();
 
       this.translateService.setDefaultLang('fr');
       this.translateService.use('fr');
@@ -68,19 +67,26 @@ export class EDossierPNC implements OnInit {
       this.secMobilService.isAuthenticated().then(() => {
         // Création du stockage local
         this.storageService.initOfflineMap().then(success => {
+
           this.putAuthenticatedUserInSession().then(authenticatedUser => {
             this.initParameters();
             if (this.deviceService.isOfflineModeAvailable()) {
               this.synchronizationProvider.storeEDossierOffline(authenticatedUser.matricule).then(successStore => {
                 this.events.publish('EDossierOffline:stored');
+                this.splashScreen.hide();
               }, error => {
+                this.splashScreen.hide();
               });
             }
 
+          }, error => {
+            this.splashScreen.hide();
           });
+
         });
       }, error => {
         this.nav.setRoot(AuthenticationPage);
+        this.splashScreen.hide();
       });
 
       this.events.subscribe('connectionStatus:disconnected', () => {
