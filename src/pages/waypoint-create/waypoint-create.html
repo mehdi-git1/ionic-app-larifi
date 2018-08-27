@@ -9,7 +9,7 @@
     </page-header>
 </ion-header>
 
-<ion-content padding>
+<ion-content padding no-bounce>
     <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
     <ng-template #pageBlock>
         <form novalidate [formGroup]="creationForm">
