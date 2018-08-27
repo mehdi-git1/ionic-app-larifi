@@ -1,0 +1,11 @@
+pnc-photo {
+    .cropped-frame {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        border-radius: 100%;
+        background: color($colors, grey90);
+        overflow: hidden;
+    }
+}
