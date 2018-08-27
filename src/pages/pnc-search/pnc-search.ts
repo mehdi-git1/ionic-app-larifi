@@ -247,6 +247,8 @@ export class PncSearchPage implements OnInit {
     openPncHomePage(pnc: Pnc) {
         this.selectedPnc = undefined;
         this.initAutocompleteList();
+        // Si on va sur un PNC par la recherche, on suprime de la session une enventuelle rotation.
+        this.sessionService.appContext.lastConsultedRotation = null;
         this.navCtrl.push(PncHomePage, { matricule: pnc.matricule });
     }
 

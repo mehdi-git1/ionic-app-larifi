@@ -1,3 +1,4 @@
+import { Rotation } from './../models/rotation';
 import { Config } from './../configuration/environment-variables/config';
 import { EObservation } from './../models/eObservation';
 import { SessionService } from './session.service';
@@ -36,9 +37,9 @@ export class EObservationService {
     }
   }
 
-  getEObservation(observedPncMatricule, rotationId): Promise<EObservation> {
-    console.log('Before: getEObservation:' + `${this.eObsUrl}/${observedPncMatricule}/${rotationId}`);
-    return this.restService.get(`${this.eObsUrl}/${observedPncMatricule}/${rotationId}`);
+  getEObservation(observedPncMatricule, rotation: Rotation): Promise<EObservation> {
+    console.log('Before: getEObservation:' + `${this.eObsUrl}/${observedPncMatricule}/${rotation.techId}`);
+    return this.restService.get(`${this.eObsUrl}/${observedPncMatricule}/${rotation.techId}`);
   }
 
   callForms(eObservation: EObservation) {
@@ -68,7 +69,7 @@ export class EObservationService {
         'stakeholdersinfos.2.1': eObservation.redactor.lastName,
         'stakeholdersinfos.2.2': eObservation.redactor.firstName,
         'stakeholdersinfos.2.3': eObservation.redactor.matricule,
-        'stakeholdersinfos.2.4': this.sessionService.appContext.onBoardRedactorFonction,
+        'stakeholdersinfos.2.4': this.sessionService.appContext.onBoardRedactorFunction,
         'typeAvion.vol1': eObservation.rotationFirstLeg.aircraftType,
         'typeAvion.vol2': eObservation.rotationLastLeg.aircraftType,
         'version.vol1': eObservation.rotationFirstLeg.operatingVersion,

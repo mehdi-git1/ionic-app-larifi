@@ -45,7 +45,7 @@ export class FlightCrewListPage {
                 flightCrew.forEach(crew => {
                     if (crew.pnc.matricule !== undefined) {
                         if (crew.pnc.matricule === this.sessionService.authenticatedUser.matricule) {
-                            this.sessionService.appContext.onBoardRedactorFonction = crew.onBoardFonction;
+                            this.sessionService.appContext.onBoardRedactorFunction = crew.onBoardFonction;
                         }
                         this.pncProvider.refreshOffLineDateOnPnc(this.pncTransformer.toPnc(crew.pnc)).then(foundPnc => {
                             crew.pnc = foundPnc;
