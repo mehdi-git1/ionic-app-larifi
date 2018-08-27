@@ -34,4 +34,14 @@ export class OfflineSecurityProvider {
     });
   }
 
+      /**
+   * Met à jour des informations de securité de l'utilisateur
+   * @param  pinValues l'objectif à créer ou mettre à jour
+   * @return une promesse contenant l'objectif créé ou mis à jour
+   */
+  setAuthenticatedSecurityValue(authenticatedUser: AuthenticatedUser): boolean {
+      this.overwriteAuthenticatedUser(new AuthenticatedUser().fromJSON(authenticatedUser));
+      return true;
+  }
+
 }

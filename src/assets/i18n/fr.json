@@ -208,7 +208,7 @@
         "FLIGHT_SAVED_OFFLINE": "Les PNC du vol {{ flightNumber }} ont été synchronisés",
         "FLIGHT_SAVED_OFFLINE_ERROR": "Un ou plusieurs PNC du vol {{ flightNumber }} n'ont pas pu être synchronisés"
     },
-    "PINPAD": {
+    "PIN_PAD": {
         "TITLE": {
             "OPENINGAPP": "Veuillez entrer votre code pin",
             "PINCHANGESTAGE1": "Veuillez entrer votre code pin actuel",
@@ -216,7 +216,16 @@
             "FIRSTCONNEXIONSTAGE1": "Veuillez entrer un code pin pour sécuriser votre compte",
             "FIRSTCONNEXIONSTAGE2": "Veuillez confirmer votre code pin"
         },
-        "FORGOTTEN": "Code pin oublié ?"
+        "FORGOTTEN": "Code pin oublié ?",
+        "ERROR": {
+            "PININCORRECT": "Code pin incorrect",
+            "PININITINCORRECT": "Les 2 codes pin doivent être identique"
+        },
+        "TOAST_MESSAGE":{
+            "SUCCESS_MODIF": "Code pin modifié avec succés",
+            "SUCCESS_REINIT": "Code pin réinitialisé avec succés",
+            "ERROR": "Erreur lors de la modificaion du code pin"
+        }
     },
     "SECRET_QUESTION": {
         "TITLE": {
@@ -227,7 +236,14 @@
             "NEWQUESTION": "Veuillez entrer une question secréte",
             "NEWANSWER": "Veuillez entrer la réponse à la question"
         },
-        "VALIDATE": "Valider"
+        "VALIDATE": "Valider",
+        "ERROR": {
+            "ANSWERINCORRECT": "Réponse incorrecte"
+        },
+        "TOAST_MESSAGE":{
+            "SUCCESS_INIT": "Code pin et question / réponse secréte initialisés",
+            "ERROR": "Erreur lors de la modificaion de la question / réponse secréte"
+        }
     }
 }
 

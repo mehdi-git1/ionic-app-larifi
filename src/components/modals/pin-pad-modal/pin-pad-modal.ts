@@ -1,6 +1,7 @@
 import { ViewController, NavParams } from 'ionic-angular';
 import { Component} from '@angular/core';
 
+import { PinPadError, GlobalError } from './../../../models/securitymodalType';
 
 @Component({
   selector: 'pin-pad-modal',
@@ -10,12 +11,14 @@ import { Component} from '@angular/core';
 export class PinPadModal {
 
   modalType: string;
+  errorType: PinPadError | GlobalError;
 
   constructor(
     public viewController: ViewController,
     public navParams: NavParams
   ) {
-    this.modalType = navParams.get('typeModal');
+    this.modalType = navParams.get('modalType');
+    this.errorType = navParams.get('errorType');
   }
 
   checkPinValue(pinValue){

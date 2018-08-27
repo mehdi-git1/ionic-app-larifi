@@ -36,4 +36,16 @@ export class SecurityProvider {
       this.offlineSecurityProvider.getAuthenticatedUser();
   }
 
+    /**
+   * Récupère le user connecté à l'application
+   * @return une promesse contenant le user connecté
+   */
+  setAuthenticatedSecurityValue(authenticatedUser: AuthenticatedUser) {
+    return this.connectivityService.isConnected() ?
+      this.onlineSecurityProvider.setAuthenticatedSecurityValue(authenticatedUser) :
+      this.offlineSecurityProvider.setAuthenticatedSecurityValue(authenticatedUser) ;
+  }
+
+
+
 }

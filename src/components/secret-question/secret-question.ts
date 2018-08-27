@@ -1,8 +1,10 @@
+import { SecretQuestionModal } from './../modals/secret-question-modal/secret-question-modal';
+import { TranslateService } from '@ngx-translate/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ViewController } from 'ionic-angular';
 import { Component, Output, EventEmitter, Input, OnInit } from '@angular/core';
 
-import { SecretQuestionType } from './../../models/securitymodalType';
+import { SecretQuestionType, SecretQuestionTitle, GlobalError, SecretQuestionErrorText } from './../../models/securitymodalType';
 
 @Component({
   selector: 'secret-question',
@@ -14,20 +16,27 @@ export class SecretQuestionComponent implements OnInit{
   @Output() QuestionAnswerValue = new EventEmitter();
   @Input() modalType = '';
   @Input() questionToAnswer = '';
+  @Input() errorType = '';
 
   newQuestionForm: FormGroup;
   answerQuestionForm: FormGroup;
+
+  modalTitle = '';
+  errorText = '';
 
   secretQuestionType = SecretQuestionType;
 
   constructor(
     public viewController: ViewController,
-    public formBuilder: FormBuilder
+    public formBuilder: FormBuilder,
+    public translateService: TranslateService
   ) {
     this.initForm();
   }
 
   ngOnInit(){
+    this.modalTitle = this.translateService.instant(SecretQuestionTitle[this.modalType]);
+    this.errorText = this.errorType === GlobalError.none ? '' : this.translateService.instant(SecretQuestionErrorText[this.errorType]);
   }
 
   initForm() {
@@ -42,10 +51,17 @@ export class SecretQuestionComponent implements OnInit{
   }
 
   sendData(){
-    const sendObj = {
-      secretQuestion : this.newQuestionForm.controls.questionControl.value,
-      secretAnswer : this.newQuestionForm.controls.answerControl.value,
-    };
+    let sendObj;
+    if (this.modalType === this.secretQuestionType.newQuestion){
+      sendObj = {
+        secretQuestion : this.newQuestionForm.controls.questionControl.value,
+        secretAnswer : this.newQuestionForm.controls.answerControl.value,
+      };
+    } else {
+      sendObj = {
+        secretAnswer : this.answerQuestionForm.controls.answerControl.value,
+      };
+    }
     this.QuestionAnswerValue.emit(sendObj);
   }
 }

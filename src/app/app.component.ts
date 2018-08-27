@@ -42,6 +42,8 @@ export class EDossierPNC implements OnInit {
   rootPage: any = HomePage;
 
   pinPadModalActive = false;
+  datePauseApp: Date;
+  inactivityDelayInsec = 120;
 
 
   constructor(public platform: Platform,
@@ -74,21 +76,20 @@ export class EDossierPNC implements OnInit {
        */
       this.securityModalService.modalDisplayed.subscribe( data => {
         this.pinPadModalActive = data;
-        if (data) {
-          this.splashScreen.show();
-        }else{
-          this.splashScreen.hide();
-        }
       });
 
       this.platform.resume.subscribe (() => {
         this.splashScreen.hide();
-        this.securityModalService.displayPinPad(PinPadType.openingApp);
+        // Si on a depassé le temps d'incativité, on affiche le pin pad
+        if ( (new Date().getTime() - this.datePauseApp.getTime()) / 1000 > this.inactivityDelayInsec){
+          this.securityModalService.displayPinPad(PinPadType.openingApp);
+        }
       });
 
 
       /** On ajoute un evenement pout savoir si entre en mode background */
       this.platform.pause.subscribe (() => {
+        this.datePauseApp = new Date();
         this.splashScreen.show();
       });
 
@@ -148,17 +149,18 @@ export class EDossierPNC implements OnInit {
   * Mettre le pnc connecté en session
   */
   putAuthenticatedUserInSession(): Promise<AuthenticatedUser> {
-    const promise = this.securityProvider.getAuthenticatedUser();
-    promise.then(authenticatedUser => {
+    return this.securityProvider.getAuthenticatedUser().then(authenticatedUser => {
       if (authenticatedUser) {
         this.sessionService.authenticatedUser = authenticatedUser;
-        // Gestion de l'affchage du pinPad
-       this.securityModalService.displayPinPad(PinPadType.openingApp);
+        // Gestion de l'affchage du pinPad seulement pour l'application
+        if (!this.secMobilService.isBrowser) {
+          this.securityModalService.displayPinPad(PinPadType.openingApp);
+        }
         this.nav.setRoot(PncHomePage, { matricule: this.sessionService.authenticatedUser.matricule });
-      }
-      else {
+      } else {
         this.nav.setRoot(AuthenticationPage);
       }
+      return authenticatedUser;
     }, error => {
       console.log('putAuthenticatedUserInSession error: ' + JSON.stringify(error));
       this.connectivityService.setConnected(false);
@@ -168,8 +170,8 @@ export class EDossierPNC implements OnInit {
       }, err => {
         this.nav.setRoot(GenericMessagePage, { message: this.translateService.instant('GLOBAL.MESSAGES.ERROR.APPLICATION_NOT_INITIALIZED') });
       });
+      return new AuthenticatedUser;
     });
-    return promise;
   }
 
 }

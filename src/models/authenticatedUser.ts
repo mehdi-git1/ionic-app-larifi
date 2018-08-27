@@ -1,3 +1,4 @@
+import { AuthenticatedPinInfoUser } from './authenticatedPinInfoUser';
 import { EDossierPncObject } from './eDossierPncObject';
 
 export class AuthenticatedUser extends EDossierPncObject {
@@ -5,9 +6,7 @@ export class AuthenticatedUser extends EDossierPncObject {
     fistName: string;
     lastName: string;
     manager: boolean;
-    pinCode ?: number;
-    secretQuestion ?: string;
-    secretAnswer ?: string;
+    pinInfo?: AuthenticatedPinInfoUser;
 
     getStorageId(): string {
         return this.matricule;
