@@ -71,14 +71,10 @@
             "cordova-plugin-secmobil": {
                 "APP_GROUP": "AF_GROUP"
             },
-            <<
-            << << < HEAD "cordova-plugin-cocoapod-support": {},
+            "cordova-plugin-cocoapod-support": {},
             "cordova-plugin-formslib": {},
-            "cordova-plugin-statusbar": {} ===
-            === =
             "cordova-plugin-statusbar": {},
-            "cordova-plugin-ionic-webview": {} >>>
-            >>> > release / sprint6
+            "cordova-plugin-ionic-webview": {}
         },
         "platforms": [
             "ios"

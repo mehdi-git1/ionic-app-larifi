@@ -1,3 +1,4 @@
+import { DeviceService } from './../../services/device.service';
 import { SecMobilService } from './../../services/secMobil.service';
 import { SessionService } from './../../services/session.service';
 import { EObservation } from './../../models/eObservation';
@@ -29,7 +30,7 @@ export class CareerObjectiveListPage {
     public navParams: NavParams,
     private careerObjectiveProvider: CareerObjectiveProvider,
     private eObservationService: EObservationService,
-    private secMobilService: SecMobilService,
+    private deviceService: DeviceService,
     private sessionService: SessionService) {
     this.lastConsultedRotation = this.sessionService.appContext.lastConsultedRotation;
   }
@@ -77,7 +78,7 @@ export class CareerObjectiveListPage {
      * @return vrai si c'est le cas, faux sinon
      */
   canCreateEObservation(): boolean {
-    if (this.sessionService.appContext.lastConsultedRotation && !this.secMobilService.isBrowser) {
+    if (this.sessionService.appContext.lastConsultedRotation && !this.deviceService.isBrowser()) {
       return true;
     } else {
       return false;
