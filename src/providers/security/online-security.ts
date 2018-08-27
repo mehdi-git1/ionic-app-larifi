@@ -1,3 +1,4 @@
+import { DeviceService } from './../../services/device.service';
 import { AuthenticatedPinInfoUser } from './../../models/authenticatedPinInfoUser';
 import { SecMobilService } from './../../services/secMobil.service';
 import { AuthenticatedUser } from './../../models/authenticatedUser';
@@ -15,7 +16,7 @@ export class OnlineSecurityProvider {
     private restService: RestService,
     private offlineSecurityProvider: OfflineSecurityProvider,
     private config: Config,
-    private secMobilService: SecMobilService
+    private deviceService: DeviceService
   ) {
     this.securityUrl = `${config.backEndUrl}/me`;
     this.secretInfosUrl = `${config.backEndUrl}/pin`;
@@ -29,7 +30,7 @@ export class OnlineSecurityProvider {
     return this.restService.get(`${this.securityUrl}`).then(authenticatedUser => {
       // Pour le mobile, on récupére les informations secretes (code PIN, question / réponse secréte)
       // avant de mettre l'utilisateur en session
-      if (!this.secMobilService.isBrowser) {
+      if (!this.deviceService.isBrowser) {
         return this.restService.get(`${this.secretInfosUrl}`).then( data => {
           authenticatedUser.pinInfo = new AuthenticatedPinInfoUser;
           authenticatedUser.pinInfo.matricule = data.matricule;

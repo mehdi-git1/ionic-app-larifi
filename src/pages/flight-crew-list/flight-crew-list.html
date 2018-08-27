@@ -1,6 +1,6 @@
 <ion-header>
     <ion-navbar>
-        <ion-title>
+        <page-header>
             <div class="leg" *ngIf="leg">
                 <div class="flight-number">
                     <ion-icon name="plane" class="round-icon"></ion-icon>
@@ -9,8 +9,7 @@
                 <span class="value">{{ leg.departureDate | date : 'dd/MM/yyyy HH:mm' }}</span>
                 <span class="value">{{ leg.departureStation }} - {{ leg.arrivalStation }}</span>
             </div>
-        </ion-title>
-        <connectivity-indicator></connectivity-indicator>
+        </page-header>
     </ion-navbar>
 </ion-header>
 

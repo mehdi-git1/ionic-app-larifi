@@ -12,6 +12,10 @@ import { FlightCardComponent } from './flight-card/flight-card';
 import { TranslateModule } from '@ngx-translate/core';
 import { SharedModule } from '../shared/shared.module';
 import { EdossierSpinnerComponent } from './edossier-spinner/edossier-spinner';
+import { NavBarCustomComponent } from './edossier-indicators/edossier-indicators';
+import { PncSearchFilterComponent } from './pnc-search-filter/pnc-search-filter';
+import { PncPhotoComponent } from './pnc-photo/pnc-photo';
+import { PageHeaderComponent } from './page-header/page-header';
 
 import { PinPadModal } from './modals/pin-pad-modal/pin-pad-modal';
 import { PinPadComponent } from './pin-pad/pin-pad';
@@ -30,10 +34,17 @@ import { PinPadComponent } from './pin-pad/pin-pad';
     PncCardComponent,
     FlightCardComponent,
     EdossierSpinnerComponent,
+<<<<<<< HEAD
     PinPadComponent,
     PinPadModal,
     SecretQuestionModal,
     SecretQuestionComponent
+=======
+    NavBarCustomComponent,
+    PncSearchFilterComponent,
+    PncPhotoComponent,
+    PageHeaderComponent
+>>>>>>> release/sprint6
   ],
   exports: [
     RotationCardComponent,
@@ -43,6 +54,7 @@ import { PinPadComponent } from './pin-pad/pin-pad';
     PncCardComponent,
     FlightCardComponent,
     EdossierSpinnerComponent,
+<<<<<<< HEAD
     PinPadComponent,
     PinPadModal,
     SecretQuestionModal,
@@ -51,6 +63,12 @@ import { PinPadComponent } from './pin-pad/pin-pad';
   entryComponents: [
     PinPadModal,
     SecretQuestionModal
+=======
+    NavBarCustomComponent,
+    PncSearchFilterComponent,
+    PncPhotoComponent,
+    PageHeaderComponent
+>>>>>>> release/sprint6
   ],
   providers: [DatePipe]
 

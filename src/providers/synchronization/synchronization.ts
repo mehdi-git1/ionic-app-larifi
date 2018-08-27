@@ -1,3 +1,5 @@
+import { PncPhotoTransformerProvider } from './../pnc-photo/pnc-photo-transformer';
+import { PncPhotoProvider } from './../pnc-photo/pnc-photo';
 import { CareerObjective } from './../../models/careerObjective';
 import { ToastProvider } from './../toast/toast';
 import { TranslateService } from '@ngx-translate/core';
@@ -39,6 +41,8 @@ export class SynchronizationProvider {
     private crewMemberTransformerProvider: CrewMemberTransformerProvider,
     public securityProvider: SecurityProvider,
     private summarySheetProvider: SummarySheetProvider,
+    private pncPhotoProvider: PncPhotoProvider,
+    private pncPhotoTransformer: PncPhotoTransformerProvider,
     private legProvider: LegProvider,
     private sessionService: SessionService,
     private toastProvider: ToastProvider,
@@ -60,11 +64,14 @@ export class SynchronizationProvider {
         this.pncSynchroProvider.getPncSynchro(matricule).then(pncSynchro => {
           this.summarySheetProvider.getSummarySheet(matricule).then(summarySheet => {
             pncSynchro.summarySheet = summarySheet;
-            this.updateLocalStorageFromPncSynchroResponse(pncSynchro);
-            resolve(true);
+            this.pncPhotoProvider.getPncPhoto(matricule).then(pncPhoto => {
+              pncSynchro.photo = pncPhoto;
+              this.updateLocalStorageFromPncSynchroResponse(pncSynchro);
+              resolve(true);
+            });
+          }, error => {
+            reject(this.translateService.instant('SYNCHRONIZATION.PNC_SAVED_OFFLINE_ERROR', { 'matricule': matricule }));
           });
-        }, error => {
-          reject(this.translateService.instant('SYNCHRONIZATION.PNC_SAVED_OFFLINE_ERROR', { 'matricule': matricule }));
         });
       } else {
         reject(this.translateService.instant('GLOBAL.MESSAGES.ERROR.APPLICATION_SYNCHRO_PENDING', { 'matricule': matricule }));
@@ -158,6 +165,9 @@ export class SynchronizationProvider {
     // Sauvegarde de la fiche synthese
     this.storageService.save(Entity.SUMMARY_SHEET, pncSynchroResponse.summarySheet, true);
 
+    // Sauvegarde de la photo du PNC
+    this.storageService.save(Entity.PNC_PHOTO, this.pncPhotoTransformer.toPncPhoto(pncSynchroResponse.photo), true);
+
     this.storageService.persistOfflineMap();
   }
 
@@ -201,11 +211,10 @@ export class SynchronizationProvider {
    * Lance le processus de synchronisation des données modifiées offline
    */
   synchronizeOfflineData() {
+    this.synchroStatusChange.emit(true);
     const pncSynchroList = this.getPncSynchroList();
 
     if (pncSynchroList.length > 0) {
-      this.synchroStatusChange.emit(true);
-
       let promiseCount;
       let resolvedPromiseCount = 0;
       Observable.create(
@@ -226,6 +235,8 @@ export class SynchronizationProvider {
             this.synchroStatusChange.emit(false);
           }
         });
+    } else {
+      this.synchroStatusChange.emit(false);
     }
   }
 
