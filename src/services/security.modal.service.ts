@@ -103,7 +103,7 @@ export class SecurityModalService {
 
         this.modalType = type;
 
-        // Traduction du titre
+        // Création de la modal
         this.secretQuestionModal = this.modalController.create(SecretQuestionModal,
             {
                 modalType : type,
@@ -113,6 +113,7 @@ export class SecurityModalService {
         this.secretQuestionModal.onDidDismiss(data => {
             this.modalDisplayed.emit(false);
             if (this.modalType === SecretQuestionType.newQuestion){
+                // Reprise et enregistrements des valeurs dans la session et côté back
                 this.sessionService.authenticatedUser.pinInfo.matricule = this.sessionService.authenticatedUser.matricule;
                 this.sessionService.authenticatedUser.pinInfo.secretQuestion = data.secretQuestion;
                 this.sessionService.authenticatedUser.pinInfo.secretAnswer = data.secretAnswer;

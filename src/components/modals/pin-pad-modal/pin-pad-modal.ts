@@ -22,8 +22,6 @@ export class PinPadModal {
   }
 
   checkPinValue(pinValue){
-    console.log(pinValue);
-
     // Si le tableau est rempli au max
     if (pinValue.indexOf('_') === -1){
       // On check si le mot de passe est le bon et aprés si c'est le cas on renvoi vers l'ancienne page
