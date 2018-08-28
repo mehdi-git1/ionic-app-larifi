@@ -7,6 +7,6 @@ export class EObservation {
     redactor: Pnc;
     observedPnc: Pnc;
     rotation: Rotation;
-    firstRotationLeg: Leg;
-    lastRotationLeg: Leg;
+    rotationFirstLeg: Leg;
+    rotationLastLeg: Leg;
 }

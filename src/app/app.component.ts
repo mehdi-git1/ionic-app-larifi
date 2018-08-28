@@ -44,7 +44,7 @@ export class EDossierPNC implements OnInit {
 
   pinPadModalActive = false;
   datePauseApp: Date;
-  inactivityDelayInsec = 10;
+  inactivityDelayInsec = 120;
 
 
   constructor(public platform: Platform,
@@ -71,6 +71,9 @@ export class EDossierPNC implements OnInit {
 
   initializeApp() {
     this.platform.ready().then(() => {
+      if (this.deviceService.isBrowser) {
+        this.splashScreen.hide();
+      }
 
       /**
        * On ajoute une écoute sur un paramétre pour savoir si la popin est activé ou pas pour afficher un blur
@@ -81,7 +84,7 @@ export class EDossierPNC implements OnInit {
       });
 
       this.platform.resume.subscribe (() => {
-        this.splashScreen.hide();
+       // this.splashScreen.hide();
         // Si on a depassé le temps d'incativité, on affiche le pin pad
         if ( (new Date().getTime() - this.datePauseApp.getTime()) / 1000 > this.inactivityDelayInsec){
           this.securityModalService.displayPinPad(PinPadType.openingApp);
@@ -92,7 +95,7 @@ export class EDossierPNC implements OnInit {
       /** On ajoute un evenement pout savoir si entre en mode background */
       this.platform.pause.subscribe (() => {
         this.datePauseApp = new Date();
-        this.splashScreen.show();
+      //  this.splashScreen.show();
       });
 
       this.statusBar.styleDefault();
@@ -136,6 +139,7 @@ export class EDossierPNC implements OnInit {
           this.toastProvider.warning(this.translateService.instant('GLOBAL.CONNECTIVITY.OFFLINE_MODE'));
         } else {
           this.toastProvider.success(this.translateService.instant('GLOBAL.CONNECTIVITY.ONLINE_MODE'));
+          this.initParameters();
           this.synchronizationProvider.synchronizeOfflineData();
           this.synchronizationProvider.storeEDossierOffline(this.sessionService.authenticatedUser.matricule).then(successStore => {
             this.events.publish('EDossierOffline:stored');
@@ -152,6 +156,7 @@ export class EDossierPNC implements OnInit {
   initParameters() {
     this.parametersProvider.getParams().then(parameters => {
       this.sessionService.parameters = parameters;
+      this.events.publish('parameters:ready');
     }, error => { });
   }
 
