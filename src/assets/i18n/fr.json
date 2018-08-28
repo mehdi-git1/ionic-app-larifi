@@ -42,6 +42,10 @@
                 "APPLICATION_SYNCHRO_PENDING": "Le pnc  {{ matricule }} ne peut être chargé car il est en attente de synchronisation",
                 "INVALID_CREDENTIALS": "Identifiant/mot de passe incorrect"
             }
+        },
+        "BUTTONS": {
+            "CONFIRM": "Confirmer",
+            "CANCEL": "Annuler"
         }
     },
     "AUTHENT": {
@@ -79,6 +83,10 @@
             "MESSAGE": "Confirmez vous la suppression de cette proposition ?",
             "CANCEL": "Annuler",
             "CONFIRM": "Supprimer"
+        },
+        "CONFIRM_BACK_WITHOUT_SAVE": {
+            "TITLE": "Modifications non enregistrées",
+            "MESSAGE": "Attention, des modifications n'ont pas été enregistrées, êtes vous sûr de vouloir revenir en arrière ?"
         },
         "BUTTONS": {
             "SAVE": "Enregistrer",

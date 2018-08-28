@@ -16,6 +16,7 @@ import { Pnc } from '../../models/pnc';
 import { DatePipe } from '@angular/common';
 import { Waypoint } from './../../models/waypoint';
 import { WaypointCreatePage } from './../waypoint-create/waypoint-create';
+import * as _ from 'lodash';
 
 @Component({
     selector: 'page-career-objective-create',
@@ -27,6 +28,7 @@ export class CareerObjectiveCreatePage {
 
     creationForm: FormGroup;
     careerObjective: CareerObjective;
+    originCareerObjective: CareerObjective;
     waypointList: Waypoint[];
     nextEncounterDateTimeOptions: any;
     encounterDateTimeOptions: any;
@@ -82,6 +84,7 @@ export class CareerObjectiveCreatePage {
         if (this.navParams.get('careerObjectiveId') && this.navParams.get('careerObjectiveId') !== '0') {
             // Récupération de l'objectif et des points d'étape
             this.careerObjectiveProvider.getCareerObjective(this.navParams.get('careerObjectiveId')).then(foundCareerObjective => {
+                this.originCareerObjective = _.cloneDeep(foundCareerObjective);
                 this.careerObjective = foundCareerObjective;
                 this.originalPncComment = this.careerObjective.pncComment;
             }, error => { });
@@ -100,6 +103,7 @@ export class CareerObjectiveCreatePage {
     ionViewDidEnter() {
         if (this.careerObjective && this.careerObjective.techId) {
             this.careerObjectiveProvider.getCareerObjective(this.careerObjective.techId).then(foundCareerObjective => {
+                this.originCareerObjective = _.cloneDeep(foundCareerObjective);
                 this.careerObjective = foundCareerObjective;
                 this.originalPncComment = this.careerObjective.pncComment;
             }, error => { });
@@ -107,6 +111,39 @@ export class CareerObjectiveCreatePage {
                 this.waypointList = result;
             }, error => { });
         }
+    }
+
+    ionViewCanLeave() {
+        if (this.formHasBeenModified()) {
+            return new Promise((resolve, reject) => {
+                // Avant de quitter la vue, on avertit l'utilisateur si ses modifications n'ont pas été enregistrées
+                this.alertCtrl.create({
+                    title: this.translateService.instant('CAREER_OBJECTIVE_CREATE.CONFIRM_BACK_WITHOUT_SAVE.TITLE'),
+                    message: this.translateService.instant('CAREER_OBJECTIVE_CREATE.CONFIRM_BACK_WITHOUT_SAVE.MESSAGE'),
+                    buttons: [
+                        {
+                            text: this.translateService.instant('GLOBAL.BUTTONS.CANCEL'),
+                            role: 'cancel',
+                            handler: () => reject()
+                        },
+                        {
+                            text: this.translateService.instant('GLOBAL.BUTTONS.CONFIRM'),
+                            handler: () => resolve()
+                        }
+                    ]
+                }).present();
+            });
+        }
+        else {
+            return true;
+        }
+    }
+
+    /**
+     * Vérifie si le formulaire a été modifié sans être enregistré
+     */
+    formHasBeenModified() {
+        return !_.isEqual(this.originCareerObjective, this.careerObjective);
     }
 
     /**
@@ -146,6 +183,7 @@ export class CareerObjectiveCreatePage {
         this.careerObjectiveProvider
             .createOrUpdate(this.careerObjective)
             .then(savedCareerObjective => {
+                this.originCareerObjective = _.cloneDeep(savedCareerObjective);
                 this.careerObjective = savedCareerObjective;
 
                 if (this.careerObjective.careerObjectiveStatus === CareerObjectiveStatus.DRAFT) {
@@ -166,6 +204,7 @@ export class CareerObjectiveCreatePage {
                 } else if (this.careerObjective.careerObjectiveStatus === CareerObjectiveStatus.ABANDONED) {
                     this.toastProvider.success(this.translateService.instant('CAREER_OBJECTIVE_CREATE.SUCCESS.CAREER_OBJECTIVE_ABANDONED'));
                 }
+
                 this.loading.dismiss();
             }, error => {
 
@@ -181,7 +220,9 @@ export class CareerObjectiveCreatePage {
         if (this.careerObjective.encounterDate !== undefined) {
             this.careerObjective.encounterDate = this.datePipe.transform(this.careerObjective.encounterDate, 'yyyy-MM-ddTHH:mm');
         }
-        this.careerObjective.nextEncounterDate = this.datePipe.transform(this.careerObjective.nextEncounterDate, 'yyyy-MM-ddTHH:mm');
+        if (this.careerObjective.nextEncounterDate !== undefined) {
+            this.careerObjective.nextEncounterDate = this.datePipe.transform(this.careerObjective.nextEncounterDate, 'yyyy-MM-ddTHH:mm');
+        }
     }
 
     /**
