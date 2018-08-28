@@ -3,7 +3,6 @@ import { StorageService } from './../../services/storage.service';
 import { CrewMember } from './../../models/crewMember';
 import { Leg } from './../../models/leg';
 import { Injectable } from '@angular/core';
-import { RestService } from '../../services/rest.base.service';
 
 @Injectable()
 export class OfflineLegProvider {

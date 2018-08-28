@@ -1,11 +1,9 @@
 import { CrewMember } from './../../models/crewMember';
-import { Config } from './../../configuration/environment-variables/config';
 import { OnlineLegProvider } from './online-leg';
 import { OfflineLegProvider } from './offline-leg';
 import { Leg } from './../../models/leg';
 import { Injectable } from '@angular/core';
 import { ConnectivityService } from './../../services/connectivity.service';
-import { Rotation } from '../../models/rotation';
 
 @Injectable()
 export class LegProvider {

@@ -1,14 +1,10 @@
-import { LegTransformerProvider } from './../leg/leg-transformer';
 import { Config } from './../../configuration/environment-variables/config';
 import { Rotation } from './../../models/rotation';
 import { Leg } from './../../models/leg';
-import { HttpClient } from '@angular/common/http';
-import { Injectable, ViewChild } from '@angular/core';
-import { RestService } from '../../services/rest.base.service';
+import { Injectable } from '@angular/core';
 import { OnlineRotationProvider } from './online-rotation';
 import { OfflineRotationProvider } from './offline-rotation';
 import { ConnectivityService } from './../../services/connectivity.service';
-import { LegProvider } from '../leg/leg';
 @Injectable()
 export class RotationProvider {
 
@@ -17,9 +13,7 @@ export class RotationProvider {
 
   constructor(private connectivityService: ConnectivityService,
     private onlineRotationProvider: OnlineRotationProvider,
-    private offlineRotationProvider: OfflineRotationProvider,
-    private legTransformer: LegTransformerProvider,
-    private legProvider: LegProvider) {
+    private offlineRotationProvider: OfflineRotationProvider) {
   }
 
   /**

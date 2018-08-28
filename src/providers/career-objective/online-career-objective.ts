@@ -1,9 +1,6 @@
-import { CareerObjectiveTransformerProvider } from './career-objective-transformer';
-import { OfflineProvider } from './../offline/offline';
 import { StorageService } from './../../services/storage.service';
 import { Entity } from './../../models/entity';
 import { CareerObjective } from './../../models/careerObjective';
-import { OfflineCareerObjectiveProvider } from './offline-career-objective';
 import { Config } from './../../configuration/environment-variables/config';
 import { Injectable } from '@angular/core';
 import { RestService } from '../../services/rest.base.service';
@@ -15,9 +12,6 @@ export class OnlineCareerObjectiveProvider {
 
   constructor(public restService: RestService,
     private config: Config,
-    private offlineCareerObjectiveProvider: OfflineCareerObjectiveProvider,
-    private offlineProvider: OfflineProvider,
-    private careerObjectiveTransformer: CareerObjectiveTransformerProvider,
     private storageService: StorageService) {
     this.careerObjectiveUrl = `${config.backEndUrl}/career_objectives`;
   }

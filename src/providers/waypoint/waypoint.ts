@@ -1,7 +1,5 @@
 import { DatePipe } from '@angular/common';
 import { SessionService } from './../../services/session.service';
-import { OfflineProvider } from './../offline/offline';
-import { WaypointTransformerProvider } from './waypoint-transformer';
 import { OnlineWaypointProvider } from './online-waypoint';
 import { OfflineWaypointProvider } from './../waypoint/offline-waypoint';
 import { ConnectivityService } from './../../services/connectivity.service';
@@ -17,8 +15,6 @@ export class WaypointProvider {
   constructor(private connectivityService: ConnectivityService,
     private onlineWaypointProvider: OnlineWaypointProvider,
     private offlineWaypointProvider: OfflineWaypointProvider,
-    private offlineProvider: OfflineProvider,
-    private waypointTransformer: WaypointTransformerProvider,
     private datePipe: DatePipe,
     private sessionService: SessionService) {
   }

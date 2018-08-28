@@ -1,10 +1,6 @@
-import { PncTransformerProvider } from './pnc-transformer';
-import { OfflineProvider } from './../offline/offline';
 import { PncSearchCriteria } from './../../models/pnc-search-criteria';
 import { PagedPnc } from './../../models/pagedPnc';
-import { PncFilter } from './../../models/pncFilter';
 import { Rotation } from './../../models/rotation';
-import { OfflinePncProvider } from './offline-pnc';
 import { Config } from './../../configuration/environment-variables/config';
 import { Injectable } from '@angular/core';
 import { RestService } from '../../services/rest.base.service';
@@ -15,10 +11,7 @@ export class OnlinePncProvider {
   private pncUrl: string;
 
   constructor(public restService: RestService,
-    public config: Config,
-    private offlinePncProvider: OfflinePncProvider,
-    private offlineProvider: OfflineProvider,
-    private pncTransformer: PncTransformerProvider) {
+    public config: Config) {
     this.pncUrl = `${config.backEndUrl}/pncs`;
   }
 

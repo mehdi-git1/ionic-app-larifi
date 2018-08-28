@@ -1,10 +1,8 @@
 import { SessionService } from './../../services/session.service';
 import { DatePipe } from '@angular/common';
-import { CareerObjectiveTransformerProvider } from './career-objective-transformer';
 import { OnlineCareerObjectiveProvider } from './online-career-objective';
 import { ConnectivityService } from './../../services/connectivity.service';
 import { OfflineCareerObjectiveProvider } from './../career-objective/offline-career-objective';
-import { Config } from './../../configuration/environment-variables/config';
 import { CareerObjective } from './../../models/careerObjective';
 import { Injectable } from '@angular/core';
 import { RestService } from '../../services/rest.base.service';
@@ -15,7 +13,6 @@ export class CareerObjectiveProvider {
   constructor(
     private onlineCareerObjectiveProvider: OnlineCareerObjectiveProvider,
     private offlineCareerObjectiveProvider: OfflineCareerObjectiveProvider,
-    private careerObjectiveTransformer: CareerObjectiveTransformerProvider,
     private connectivityService: ConnectivityService,
     private sessionService: SessionService,
     private datePipe: DatePipe) {

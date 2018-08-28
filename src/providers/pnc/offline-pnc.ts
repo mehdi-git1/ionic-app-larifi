@@ -3,12 +3,11 @@ import { Entity } from './../../models/entity';
 import { StorageService } from './../../services/storage.service';
 import { Pnc } from './../../models/pnc';
 import { Injectable } from '@angular/core';
-import { EDossierPncObject } from '../../models/eDossierPncObject';
-import { PncTransformerProvider } from './pnc-transformer';
+
 @Injectable()
 export class OfflinePncProvider {
 
-  constructor(private storageService: StorageService, private pncTransformer: PncTransformerProvider) {
+  constructor(private storageService: StorageService) {
   }
 
   /**

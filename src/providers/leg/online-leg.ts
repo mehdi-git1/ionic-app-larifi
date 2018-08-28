@@ -1,11 +1,8 @@
-import { LegTransformerProvider } from './leg-transformer';
 import { CrewMember } from './../../models/crewMember';
 import { Config } from './../../configuration/environment-variables/config';
 import { Leg } from './../../models/leg';
 import { Injectable } from '@angular/core';
 import { RestService } from '../../services/rest.base.service';
-import { OfflineLegProvider } from './offline-leg';
-import { OfflineProvider } from '../offline/offline';
 
 @Injectable()
 export class OnlineLegProvider {
@@ -13,10 +10,7 @@ export class OnlineLegProvider {
   private legUrl: string;
 
   constructor(private restService: RestService,
-    private config: Config,
-    private offlineLegProvider: OfflineLegProvider,
-    private offlineProvider: OfflineProvider,
-    private legTransformer: LegTransformerProvider) {
+    private config: Config) {
     this.legUrl = `${config.backEndUrl}/legs`;
   }
 

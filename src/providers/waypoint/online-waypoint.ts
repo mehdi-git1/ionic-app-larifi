@@ -1,24 +1,16 @@
-import { WaypointTransformerProvider } from './waypoint-transformer';
 import { StorageService } from './../../services/storage.service';
 import { Config } from './../../configuration/environment-variables/config';
-import { OfflineWaypointProvider } from './offline-waypoint';
-import { ConnectivityService } from './../../services/connectivity.service';
 import { Injectable } from '@angular/core';
 import { RestService } from '../../services/rest.base.service';
 import { Waypoint } from '../../models/waypoint';
 import { Entity } from '../../models/entity';
-import { OfflineProvider } from '../offline/offline';
 
 @Injectable()
 export class OnlineWaypointProvider {
   private waypointUrl: string;
 
   constructor(public restService: RestService,
-    private connectivityService: ConnectivityService,
-    private offlineWaypointProvider: OfflineWaypointProvider,
     private storageService: StorageService,
-    private waypointTransformer: WaypointTransformerProvider,
-    private offlineProvider: OfflineProvider,
     private config: Config) {
     this.waypointUrl = `${config.backEndUrl}/waypoints`;
   }

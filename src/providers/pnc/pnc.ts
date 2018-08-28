@@ -1,9 +1,7 @@
 import { PncSearchCriteria } from './../../models/pnc-search-criteria';
 import { SessionService } from './../../services/session.service';
 import { Config } from './../../configuration/environment-variables/config';
-import { HttpRequest, HttpParams } from '@angular/common/http';
 import { PncFilter } from './../../models/pncFilter';
-import { OfflineProvider } from './../offline/offline';
 import { OnlinePncProvider } from './online-pnc';
 import { OfflinePncProvider } from './../pnc/offline-pnc';
 import { ConnectivityService } from './../../services/connectivity.service';
@@ -13,8 +11,6 @@ import { Injectable } from '@angular/core';
 import { PagedPnc } from './../../models/pagedPnc';
 import { Page } from '../../models/page';
 import { RestService } from '../../services/rest.base.service';
-import { RotationTransformerProvider } from '../rotation/rotation-transformer';
-import { RotationProvider } from '../rotation/rotation';
 import { PncTransformerProvider } from './pnc-transformer';
 
 @Injectable()
@@ -24,10 +20,7 @@ export class PncProvider {
   constructor(private connectivityService: ConnectivityService,
     private onlinePncProvider: OnlinePncProvider,
     private offlinePncProvider: OfflinePncProvider,
-    private offlineProvider: OfflineProvider,
     private pncTransformer: PncTransformerProvider,
-    private rotationTransformer: RotationTransformerProvider,
-    private rotationProvider: RotationProvider,
     private sessionService: SessionService,
     private restService: RestService,
     private config: Config) {
