@@ -11,7 +11,6 @@ import { Injectable } from '@angular/core';
 import { PagedPnc } from './../../models/pagedPnc';
 import { Page } from '../../models/page';
 import { RestService } from '../../services/rest.base.service';
-import { PncTransformerProvider } from './pnc-transformer';
 
 @Injectable()
 export class PncProvider {
@@ -20,7 +19,6 @@ export class PncProvider {
   constructor(private connectivityService: ConnectivityService,
     private onlinePncProvider: OnlinePncProvider,
     private offlinePncProvider: OfflinePncProvider,
-    private pncTransformer: PncTransformerProvider,
     private sessionService: SessionService,
     private restService: RestService,
     private config: Config) {
@@ -71,15 +69,7 @@ export class PncProvider {
     const pncSearchCriteria = new PncSearchCriteria(pncFilter, page, size);
 
     if (this.connectivityService.isConnected()) {
-      return new Promise((resolve, reject) => {
-        return this.onlinePncProvider.getFilteredPncs(pncSearchCriteria).then(responsePnc => {
-          const transformedContent = responsePnc.content.map(onlinePnc => {
-            return this.pncTransformer.toPnc(onlinePnc);
-          });
-          responsePnc.content = transformedContent;
-          return resolve(responsePnc);
-        });
-      });
+       return this.onlinePncProvider.getFilteredPncs(pncSearchCriteria);
     } else {
       return this.offlinePncProvider.getPncs().then(response => {
         return this.offlinePncProvider.getPnc(this.sessionService.authenticatedUser.matricule).then(connectedPnc => {

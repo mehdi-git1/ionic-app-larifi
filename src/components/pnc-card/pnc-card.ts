@@ -39,10 +39,6 @@ export class PncCardComponent {
 
   @Input()
   set itemMember(val: any) {
-    if (val && val.pnc && !(val.pnc instanceof Pnc)) {
-      const pnc: Pnc = this.pncTransformer.toPnc(val.pnc);
-      val.pnc = pnc;
-    }
     this.crewMember = val;
   }
 
