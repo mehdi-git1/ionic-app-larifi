@@ -44,7 +44,7 @@ export class EDossierPNC implements OnInit {
 
   pinPadModalActive = false;
   datePauseApp: Date;
-  inactivityDelayInsec = 10;
+  inactivityDelayInsec = 120;
 
 
   constructor(public platform: Platform,
@@ -84,7 +84,7 @@ export class EDossierPNC implements OnInit {
       });
 
       this.platform.resume.subscribe (() => {
-        this.splashScreen.hide();
+       // this.splashScreen.hide();
         // Si on a depassé le temps d'incativité, on affiche le pin pad
         if ( (new Date().getTime() - this.datePauseApp.getTime()) / 1000 > this.inactivityDelayInsec){
           this.securityModalService.displayPinPad(PinPadType.openingApp);
@@ -95,7 +95,7 @@ export class EDossierPNC implements OnInit {
       /** On ajoute un evenement pout savoir si entre en mode background */
       this.platform.pause.subscribe (() => {
         this.datePauseApp = new Date();
-        this.splashScreen.show();
+      //  this.splashScreen.show();
       });
 
       this.statusBar.styleDefault();
