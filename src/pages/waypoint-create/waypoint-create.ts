@@ -12,6 +12,7 @@ import { NavController, NavParams, LoadingController, Loading, AlertController, 
 import { FormBuilder, FormGroup, Validators, FormControl, ValidatorFn, AbstractControl } from '@angular/forms';
 import { CareerObjectiveCreatePage } from './../career-objective-create/career-objective-create';
 import { ToastProvider } from './../../providers/toast/toast';
+import * as _ from 'lodash';
 
 @Component({
     selector: 'page-waypoint-create',
@@ -100,21 +101,22 @@ export class WaypointCreatePage {
      * Enregistre un point d'étape au statut brouillon
      */
     saveWaypointDraft() {
-        this.waypoint.waypointStatus = WaypointStatus.DRAFT;
-        this.saveWaypoint();
+        const waypointToSave = _.cloneDeep(this.waypoint);
+        waypointToSave.waypointStatus = WaypointStatus.DRAFT;
+        this.saveWaypoint(waypointToSave);
     }
 
     /**
      * Lance le processus de création/mise à jour d'un point d'étape
      */
-    saveWaypoint() {
-        this.prepareWaypointBeforeSubmit();
+    saveWaypoint(waypointToSave: Waypoint) {
+        waypointToSave = this.prepareWaypointBeforeSubmit(waypointToSave);
 
         this.loading = this.loadingCtrl.create();
         this.loading.present();
 
         this.waypointProvider
-            .createOrUpdate(this.waypoint, this.careerObjectiveId)
+            .createOrUpdate(waypointToSave, this.careerObjectiveId)
             .then(savedWaypoint => {
                 this.waypoint = savedWaypoint;
 
@@ -134,10 +136,11 @@ export class WaypointCreatePage {
      * Prépare le point d'étape avant de l'envoyer au back :
      * Transforme les dates au format iso
      */
-    prepareWaypointBeforeSubmit() {
-        if (this.waypoint.encounterDate) {
-            this.waypoint.encounterDate = this.datePipe.transform(this.waypoint.encounterDate, 'yyyy-MM-ddTHH:mm');
+    prepareWaypointBeforeSubmit(waypointToSave: Waypoint): Waypoint {
+        if (waypointToSave.encounterDate) {
+            waypointToSave.encounterDate = this.datePipe.transform(this.waypoint.encounterDate, 'yyyy-MM-ddTHH:mm');
         }
+        return waypointToSave;
     }
 
     /**
@@ -186,8 +189,9 @@ export class WaypointCreatePage {
      */
     saveWaypointToRegisteredStatus() {
         if (this.saveActionIsValid()) {
-            this.waypoint.waypointStatus = WaypointStatus.REGISTERED;
-            this.saveWaypoint();
+            const waypointToSave = _.cloneDeep(this.waypoint);
+            waypointToSave.waypointStatus = WaypointStatus.REGISTERED;
+            this.saveWaypoint(waypointToSave);
         } else {
             this.requiredOnEncounterDay = true;
         }
@@ -240,7 +244,7 @@ export class WaypointCreatePage {
      * Sauvegarde le pont d'etape et met a jour le commentaire pnc du point d'etape original
      */
     saveWaypointAndUpdatePncComment() {
-        this.saveWaypoint();
+        this.saveWaypoint(this.waypoint);
         this.originalPncComment = this.waypoint.pncComment;
     }
 

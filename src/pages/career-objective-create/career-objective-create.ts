@@ -9,13 +9,14 @@ import { CareerObjectiveStatus } from './../../models/careerObjectiveStatus';
 import { TranslateService } from '@ngx-translate/core';
 import { CareerObjectiveProvider } from './../../providers/career-objective/career-objective';
 import { CareerObjective } from './../../models/careerObjective';
-import { Component } from '@angular/core';
+import { Component, NgModule } from '@angular/core';
 import { NavController, NavParams, AlertController, LoadingController, Loading, IonicPage } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Pnc } from '../../models/pnc';
 import { DatePipe } from '@angular/common';
 import { Waypoint } from './../../models/waypoint';
 import { WaypointCreatePage } from './../waypoint-create/waypoint-create';
+import * as _ from 'lodash';
 
 @Component({
     selector: 'page-career-objective-create',
@@ -138,7 +139,7 @@ export class CareerObjectiveCreatePage {
      * Lance le processus de création/mise à jour d'un objectif
      */
     saveCareerObjective(careerObjective: CareerObjective) {
-        this.prepareCareerObjectiveBeforeSubmit();
+        careerObjective = this.prepareCareerObjectiveBeforeSubmit(careerObjective);
 
         this.loading = this.loadingCtrl.create();
         this.loading.present();
@@ -176,18 +177,19 @@ export class CareerObjectiveCreatePage {
      * Prépare l'objectif avant de l'envoyer au back :
      * Transforme les dates au format iso
      */
-    prepareCareerObjectiveBeforeSubmit() {
-        if (this.careerObjective.encounterDate !== undefined) {
-            this.careerObjective.encounterDate = this.datePipe.transform(this.careerObjective.encounterDate, 'yyyy-MM-ddTHH:mm');
+    prepareCareerObjectiveBeforeSubmit(careerObjective: CareerObjective): CareerObjective {
+        if (careerObjective.encounterDate !== undefined) {
+            careerObjective.encounterDate = this.datePipe.transform(this.careerObjective.encounterDate, 'yyyy-MM-ddTHH:mm');
         }
-        this.careerObjective.nextEncounterDate = this.datePipe.transform(this.careerObjective.nextEncounterDate, 'yyyy-MM-ddTHH:mm');
+        careerObjective.nextEncounterDate = this.datePipe.transform(this.careerObjective.nextEncounterDate, 'yyyy-MM-ddTHH:mm');
+        return careerObjective;
     }
 
     /**
      * Enregistre un objectif au statut brouillon
      */
     saveCareerObjectiveDraft() {
-        const careerObjectiveToSave = JSON.parse(JSON.stringify(this.careerObjective));
+        const careerObjectiveToSave = _.cloneDeep(this.careerObjective);
         careerObjectiveToSave.careerObjectiveStatus = CareerObjectiveStatus.DRAFT;
         this.saveCareerObjective(careerObjectiveToSave);
     }
@@ -197,7 +199,7 @@ export class CareerObjectiveCreatePage {
      */
     saveCareerObjectiveToRegisteredStatus() {
         if (this.careerObjective.encounterDate) {
-            const careerObjectiveToSave = JSON.parse(JSON.stringify(this.careerObjective));
+            const careerObjectiveToSave = _.cloneDeep(this.careerObjective);
             careerObjectiveToSave.careerObjectiveStatus = CareerObjectiveStatus.REGISTERED;
             careerObjectiveToSave.registrationDate = this.datePipe.transform(new Date(), 'yyyy-MM-ddTHH:mm');
             this.saveCareerObjective(careerObjectiveToSave);
@@ -211,7 +213,7 @@ export class CareerObjectiveCreatePage {
      */
     saveCareerObjectiveToValidatedStatus() {
         if (this.careerObjective.encounterDate) {
-            const careerObjectiveToSave = JSON.parse(JSON.stringify(this.careerObjective));
+            const careerObjectiveToSave = _.cloneDeep(this.careerObjective);
             careerObjectiveToSave.careerObjectiveStatus = CareerObjectiveStatus.VALIDATED;
             this.saveCareerObjective(careerObjectiveToSave);
         } else {
@@ -224,8 +226,8 @@ export class CareerObjectiveCreatePage {
     */
     saveCareerObjectiveToAbandonedStatus() {
         if (this.careerObjective.encounterDate) {
-            const careerObjectiveToSave = JSON.parse(JSON.stringify(this.careerObjective));
-            this.careerObjective.careerObjectiveStatus = CareerObjectiveStatus.ABANDONED;
+            const careerObjectiveToSave = _.cloneDeep(this.careerObjective);
+            careerObjectiveToSave.careerObjectiveStatus = CareerObjectiveStatus.ABANDONED;
             this.saveCareerObjective(careerObjectiveToSave);
         } else {
             this.requiredOnEncounterDay = true;
@@ -237,7 +239,7 @@ export class CareerObjectiveCreatePage {
     */
     cancelCareerObjectiveValidation() {
         if (this.careerObjective.encounterDate) {
-            const careerObjectiveToSave = JSON.parse(JSON.stringify(this.careerObjective));
+            const careerObjectiveToSave = _.cloneDeep(this.careerObjective);
             this.cancelValidation = true;
             careerObjectiveToSave.careerObjectiveStatus = CareerObjectiveStatus.REGISTERED;
             this.saveCareerObjective(careerObjectiveToSave);
@@ -251,7 +253,7 @@ export class CareerObjectiveCreatePage {
     */
     resumeAbandonedCareerObjective() {
         if (this.careerObjective.encounterDate) {
-            const careerObjectiveToSave = JSON.parse(JSON.stringify(this.careerObjective));
+            const careerObjectiveToSave = _.cloneDeep(this.careerObjective);
             this.cancelAbandon = true;
             careerObjectiveToSave.careerObjectiveStatus = CareerObjectiveStatus.REGISTERED;
             this.saveCareerObjective(careerObjectiveToSave);
