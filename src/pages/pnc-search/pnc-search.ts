@@ -113,14 +113,13 @@ export class PncSearchPage implements OnInit {
         return new Promise((resolve) => {
             if (this.filteredPncs.length < this.totalPncs) {
                 if (this.connectivityService.isConnected()) {
-                    this.page = ++this.page;
+                    ++this.page;
                     this.pncProvider.getFilteredPncs(this.pncSearchFilter.pncFilter, this.page, this.sizeOfThePage).then(pagedPnc => {
                         this.filteredPncs.push(...pagedPnc.content);
                         infiniteScroll.complete();
                         resolve();
                     });
                 } else {
-                    infiniteScroll.complete();
                     resolve();
                 }
             } else {
@@ -128,6 +127,7 @@ export class PncSearchPage implements OnInit {
             }
         });
     }
+
     /**Crée un objet CrewMember à partir d'un objet Pnc
      * @param pnc pnc à transformer
      */
@@ -143,6 +143,13 @@ export class PncSearchPage implements OnInit {
      */
     openPncHomePage(pnc: Pnc) {
         this.navCtrl.push(PncHomePage, { matricule: pnc.matricule });
+    }
+
+    /**
+     * Vérifie si on a atteint la dernière page de la recherche
+     */
+    lastPageReached(): boolean {
+        return this.filteredPncs.length > 0 && this.filteredPncs.length >= this.totalPncs;
     }
 
 }

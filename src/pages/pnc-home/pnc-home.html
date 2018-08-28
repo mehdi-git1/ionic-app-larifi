@@ -1,11 +1,12 @@
 <ion-header>
     <ion-navbar>
-        <page-header>{{ 'PNC_HOME.TITLE' | translate }}
+        <page-header>
+            <ng-container *ngIf="isMyHome()">{{ 'PNC_HOME.TITLE' | translate }}</ng-container>
         </page-header>
     </ion-navbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content padding no-bounce>
     <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
     <ng-template #pageBlock>
         <ion-grid>

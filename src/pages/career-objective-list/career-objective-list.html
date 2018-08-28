@@ -8,8 +8,16 @@
 <ion-content padding>
     <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
     <ng-template #pageBlock>
-        <div class="add-career-objective-container">
-            <button (click)="goToCareerObjectiveCreation()" class="add-career-objective">
+
+        <div class="add-container">
+            <button (click)="createEObservation()" class="add-button add-eObservation" *ngIf="canCreateEObservation()">
+                <ion-icon name="ios-add-circle-outline" ios="ios-add-circle-outline"></ion-icon>
+                <label>{{ 'CAREER_OBJECTIVE_LIST.CREATE_EOBSERVATION' | translate }} ({{lastConsultedRotation.number}} du {{ lastConsultedRotation.departureDate | date: 'dd/MM/yyyy'}})</label>
+            </button>
+        </div>
+
+        <div class="add-container">
+            <button (click)="goToCareerObjectiveCreation()" class="add-button add-career-objective">
                 <ion-icon name="ios-add-circle-outline" ios="ios-add-circle-outline"></ion-icon>
                 <label>{{ 'CAREER_OBJECTIVE_LIST.BUTTONS.ADD_CAREER_OBJECTIVE' | translate }}</label>
             </button>

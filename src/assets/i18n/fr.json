@@ -13,16 +13,16 @@
         "CAREER_OBJECTIVE_STATUS": {
             "DRAFT": "PROPOSITION",
             "REGISTERED": "EN COURS",
-            "VALIDATED": "VALIDÉ",
-            "ABANDONED": "ABANDONNÉ"
+            "VALIDATED": "VALIDÉE",
+            "ABANDONED": "ABANDONNÉE"
         },
         "WAYPOINT_STATUS": {
             "DRAFT": "PROPOSITION",
             "REGISTERED": "EN COURS"
         },
         "CONNECTIVITY": {
-            "ONLINE_MODE": "Connexion avec le serveur retrouvée",
-            "OFFLINE_MODE": "Connexion perdue, vous êtes à présent en mode déconnecté"
+            "ONLINE_MODE": "Connexion avec le serveur rétablie",
+            "OFFLINE_MODE": "Vous êtes à présent en mode déconnecté"
         },
         "DEVELOPMENT_PROGRAM": "Parcours de développement",
         "PNC_SUMMARY_SHEET": "Fiche synthèse PNC",
@@ -91,17 +91,18 @@
             "CREATE_INSTRUCTOR_REQUEST": "Solliciter mon instructeur"
         },
         "SUCCESS": {
-            "CAREER_OBJECTIVE_SAVED": "Priorité enregistrée avec succès",
-            "DRAFT_SAVED": "Proposition sauvegardée",
+            "CAREER_OBJECTIVE_SAVED": "Priorité enregistrée",
+            "DRAFT_SAVED": "Proposition enregistrée",
             "DRAFT_DELETED": "Proposition supprimée",
             "CAREER_OBJECTIVE_VALIDATED": "Priorité validée",
             "CAREER_OBJECTIVE_ABANDONED": "Priorité abandonnée",
             "CAREER_OBJECTIVE_VALIDATION_CANCELED": "Validation de la priorité annulée",
-            "CAREER_OBJECTIVE_RESUMED": "Priorité reprise avec succés",
-            "CAREER_OBJECTIVE_INSTRUCTOR_REQUESTED": "Demande envoyée avec succès"
+            "CAREER_OBJECTIVE_RESUMED": "Priorité reprise",
+            "CAREER_OBJECTIVE_INSTRUCTOR_REQUESTED": "Demande envoyée"
         },
         "ERROR": {
-            "CAREER_OBJECTIVE_CREATION_FAILED": "La création de la priorité a échouée"
+            "CAREER_OBJECTIVE_CREATION_FAILED": "La création de la priorité a échouée",
+            "ENCOUTER_DATE_REQUIRED": "Veuillez indiquer une date de rencontre"
         }
     },
     "CAREER_OBJECTIVE_LIST": {
@@ -117,7 +118,7 @@
         "BUTTONS": {
             "ADD_CAREER_OBJECTIVE": "Nouvelle priorité"
         },
-        "CREATE_EOBSERVATION": "Créer une eObservation"
+        "CREATE_EOBSERVATION": "Nouvelle eObservation"
     },
     "PNC_HOME": {
         "TITLE": "Accueil",
@@ -149,8 +150,11 @@
             "SAVE_DRAFT": "Sauvegarder proposition",
             "DELETE_DRAFT": "Supprimer proposition"
         },
+        "ERROR": {
+            "ENCOUTER_DATE_AND_ACTION_PLAN_REQUIRED": "Veuillez indiquer l'action réalisée et la date de rencontre"
+        },
         "SUCCESS": {
-            "WAYPOINT_SAVED": "Point d'étape enregistré avec succès",
+            "WAYPOINT_SAVED": "Point d'étape enregistré",
             "DRAFT_SAVED": "Proposition enregistrée",
             "DRAFT_DELETED": "Proposition supprimée"
         }
@@ -190,7 +194,8 @@
             "ALL_F": "Toutes",
             "ALL_M": "Tous"
         },
-        "NO_PNC_FOUND": "Aucun pnc trouvé.",
+        "NO_PNC_FOUND": "Aucun pnc trouvé",
+        "END_OF_SEARCH": "Fin de la recherche",
         "ERROR": {
             "SEARCH": "Erreur lors de la recherche de PNC"
         },

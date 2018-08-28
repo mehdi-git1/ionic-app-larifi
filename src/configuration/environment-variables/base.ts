@@ -1,14 +1,14 @@
 export abstract class BaseConfig {
   public appVersion = '';
   public backEndUrl = '/api/rest/resources';
-  public pingUrl = '/api/rest/resources/me';
+  public pingUrl = '/api/rest/resources/ping';
   public secmobileEnv = 'rct';
   public appName = 'EDossierPnc';
   public env = 'localhost';
 
   public eObsUrl = 'com.airfrance.mobile.inhouse.eformstrainingdevPNC';
-  public eObsCallbackUrl = 'com.airfrance.mobile.inhouse.EDosPNC';
-  public eObsCallbackActionLabel = 'Retourner à eDossierPNC';
+  public eObsCallbackUrl = 'com.airfrance.mobile.inhouse.edospncDEV';
+  public eObsCallbackActionLabel = 'Retour eDossierPNC';
 
   public makeOfflineModeAvailable = false;
 

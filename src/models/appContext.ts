@@ -1,8 +1,7 @@
+import { Rotation } from './rotation';
 export class AppContext {
     observedPncMatricule: string;
-    rotationId: number;
-    onBoardRedactorFonction: string;
-    onBoardObservedPncFonction: string;
-
-
+    lastConsultedRotation: Rotation;
+    onBoardRedactorFunction: string;
+    onBoardObservedPncFunction: string;
 }

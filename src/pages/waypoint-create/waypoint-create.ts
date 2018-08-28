@@ -190,6 +190,7 @@ export class WaypointCreatePage {
             this.saveWaypoint();
         } else {
             this.requiredOnEncounterDay = true;
+            this.toastProvider.warning(this.translateService.instant('WAYPOINT_CREATE.ERROR.ENCOUTER_DATE_AND_ACTION_PLAN_REQUIRED'));
         }
     }
 
