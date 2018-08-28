@@ -26,10 +26,4 @@ export class ConnectivityIndicatorComponent {
     });
   }
 
-  /**
-  * bascule mode deconnecté/connecté
-  */
-  connectionToggle() {
-    this.connectivityService.isConnected() ? this.connectivityService.setConnected(false) : this.connectivityService.setConnected(true);
-  }
 }
