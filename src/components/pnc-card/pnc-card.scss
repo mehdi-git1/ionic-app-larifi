@@ -35,10 +35,13 @@ pnc-card {
 
                     .speciality {
                         flex: 1;
-                        font-size: 2em;
+                        font-size: 1.5em;
+                    }
+
+                    .lastName {
+                        font-size: 1.2em;
                     }
                 }
-
             }
             .secondary-info {
                 flex: 3;

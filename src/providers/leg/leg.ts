@@ -1,7 +1,7 @@
+import { CrewMember } from './../../models/crewMember';
 import { OnlineLegProvider } from './online-leg';
 import { OfflineLegProvider } from './offline-leg';
 import { Leg } from './../../models/leg';
-import { CrewMember } from './../../models/crewMember';
 import { Injectable } from '@angular/core';
 import { ConnectivityService } from './../../services/connectivity.service';
 
@@ -36,4 +36,5 @@ export class LegProvider {
       this.onlineLegProvider.getFlightCrewFromLeg(legId) :
       this.offlineLegProvider.getFlightCrewFromLeg(legId);
   }
+
 }

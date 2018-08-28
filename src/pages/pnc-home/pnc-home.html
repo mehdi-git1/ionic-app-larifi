@@ -1,7 +1,9 @@
 <ion-header>
-    <page-header>
-        <ng-container *ngIf="isMyHome()">{{ 'PNC_HOME.TITLE' | translate }}</ng-container>
-    </page-header>
+    <ion-navbar>
+        <page-header>
+            <ng-container *ngIf="isMyHome()">{{ 'PNC_HOME.TITLE' | translate }}</ng-container>
+        </page-header>
+    </ion-navbar>
 </ion-header>
 
 <ion-content padding no-bounce>
@@ -11,7 +13,7 @@
 
             <ion-row ng-class="row-pnc-info-panel" *ngIf="pnc">
                 <ion-card class="pnc-info-panel">
-                    <offline-indicator [object]="pnc"></offline-indicator>
+                    <offline-indicator [object]="pnc" type="PNC"></offline-indicator>
                     <ion-grid>
                         <ion-row>
                             <ion-col col-2>

@@ -1,11 +1,8 @@
 import { SessionService } from './../../services/session.service';
 import { DatePipe } from '@angular/common';
-import { CareerObjectiveTransformerProvider } from './career-objective-transformer';
-import { OfflineProvider } from './../offline/offline';
 import { OnlineCareerObjectiveProvider } from './online-career-objective';
 import { ConnectivityService } from './../../services/connectivity.service';
 import { OfflineCareerObjectiveProvider } from './../career-objective/offline-career-objective';
-import { Config } from './../../configuration/environment-variables/config';
 import { CareerObjective } from './../../models/careerObjective';
 import { Injectable } from '@angular/core';
 import { RestService } from '../../services/rest.base.service';
@@ -16,8 +13,6 @@ export class CareerObjectiveProvider {
   constructor(
     private onlineCareerObjectiveProvider: OnlineCareerObjectiveProvider,
     private offlineCareerObjectiveProvider: OfflineCareerObjectiveProvider,
-    private offlineProvider: OfflineProvider,
-    private careerObjectiveTransformer: CareerObjectiveTransformerProvider,
     private connectivityService: ConnectivityService,
     private sessionService: SessionService,
     private datePipe: DatePipe) {
@@ -29,20 +24,9 @@ export class CareerObjectiveProvider {
    * @return la liste des objectifs du pnc
    */
   getPncCareerObjectives(matricule: string): Promise<CareerObjective[]> {
-    if (this.connectivityService.isConnected()) {
-      return new Promise((resolve, reject) => {
-        this.offlineCareerObjectiveProvider.getPncCareerObjectives(matricule).then(offlineCareerObjectives => {
-          this.onlineCareerObjectiveProvider.getPncCareerObjectives(matricule).then(onlineCareerObjectives => {
-            const onlineData = this.careerObjectiveTransformer.toCareerObjectives(onlineCareerObjectives);
-            const offlineData = this.careerObjectiveTransformer.toCareerObjectives(offlineCareerObjectives);
-            this.offlineProvider.flagDataAvailableOffline(onlineData, offlineData);
-            resolve(onlineData);
-          });
-        });
-      });
-    } else {
-      return this.offlineCareerObjectiveProvider.getPncCareerObjectives(matricule);
-    }
+    return this.connectivityService.isConnected() ?
+      this.onlineCareerObjectiveProvider.getPncCareerObjectives(matricule) :
+      this.offlineCareerObjectiveProvider.getPncCareerObjectives(matricule);
   }
 
   /**
