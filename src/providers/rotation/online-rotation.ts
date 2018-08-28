@@ -1,7 +1,6 @@
 import { Config } from './../../configuration/environment-variables/config';
 import { Rotation } from './../../models/rotation';
 import { Leg } from './../../models/leg';
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { RestService } from '../../services/rest.base.service';
 
@@ -23,4 +22,5 @@ export class OnlineRotationProvider {
     getRotationLegs(rotation: Rotation): Promise<Leg[]> {
         return this.restService.get(`${this.rotationUrl}/${rotation.techId}/legs`);
     }
+
 }

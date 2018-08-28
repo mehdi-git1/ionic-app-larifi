@@ -1,7 +1,7 @@
 <ion-card class="flight-crew-card" [ngClass]="{'clickable':!disabled,'disabled':disabled}">
 
     <ion-card-content no-padding class="pnc-info-panel">
-        <offline-indicator [object]="crewMember.pnc"></offline-indicator>
+        <offline-indicator [object]="crewMember.pnc" type="PNC"></offline-indicator>
         <ion-grid>
             <ion-row>
                 <ion-col col-1 class="identity">

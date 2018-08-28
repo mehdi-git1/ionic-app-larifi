@@ -1,3 +1,4 @@
+import { OfflineIndicatorComponent } from './../offline-indicator/offline-indicator';
 import { TranslateService } from '@ngx-translate/core';
 import { SynchronizationProvider } from './../../providers/synchronization/synchronization';
 import { ToastProvider } from './../../providers/toast/toast';
@@ -7,7 +8,7 @@ import { FlightCrewListPage } from './../../pages/flight-crew-list/flight-crew-l
 import { NavParams, NavController } from 'ionic-angular';
 import { RotationProvider } from './../../providers/rotation/rotation';
 import { Rotation } from './../../models/rotation';
-import { Component, Input } from '@angular/core';
+import { Component, Input, ViewChild } from '@angular/core';
 import { ConnectivityService } from '../../services/connectivity.service';
 import { LegProvider } from './../../providers/leg/leg';
 import { CrewMember } from '../../models/crewMember';
@@ -20,6 +21,9 @@ export class RotationCardComponent {
 
   @Input() rotation: Rotation;
   synchroInProgress: boolean;
+
+  @ViewChild(OfflineIndicatorComponent)
+  private offlineIndicatorComponent: OfflineIndicatorComponent;
 
   constructor(private rotationProvider: RotationProvider,
     public navCtrl: NavController,
@@ -83,6 +87,7 @@ export class RotationCardComponent {
           const infoMsg = this.translate.instant('SYNCHRONIZATION.ROTATION_SAVED_OFFLINE', { 'rotationNumber': this.rotation.number });
           this.toastProvider.info(infoMsg);
           this.synchroInProgress = false;
+          this.offlineIndicatorComponent.refreshOffLineDateOnCurrentObject();
         }, error => {
           this.toastProvider.error(error);
           this.displayErrorMessage();
