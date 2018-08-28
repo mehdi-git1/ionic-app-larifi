@@ -218,6 +218,7 @@
             "FIRSTCONNEXIONSTAGE2": "Veuillez confirmer votre code pin"
         },
         "FORGOTTEN": "Code pin oublié ?",
+        "CANCEL": "Annuler",
         "ERROR": {
             "PININCORRECT": "Code pin incorrect",
             "PININITINCORRECT": "Les 2 codes pin doivent être identique"
@@ -243,6 +244,7 @@
         },
         "TOAST_MESSAGE":{
             "SUCCESS_INIT": "Code pin et question / réponse secréte initialisés",
+            "SUCCESS_REINIT": "Question / réponse secréte initialisés",
             "ERROR": "Erreur lors de la modificaion de la question / réponse secréte"
         }
     },
@@ -254,6 +256,12 @@
         },
         "FORCE_SYNCHRONIZATION": {
             "BUTTON": "Forcer la synchronisation"
+        },
+        "CHANGE_PIN_CODE": {
+            "BUTTON": "Changer le code pin"
+        },
+        "CHANGE_SECRET_QUESTION": {
+            "BUTTON": "Changer la question secréte"
         },
         "CONFIRM_INIT_CACHE": {
             "TITLE": "Réinitialisation du cache",

@@ -1,3 +1,5 @@
+import { PinPadType, SecretQuestionType } from './../../models/securitymodalType';
+import { SecurityModalService } from './../../services/security.modal.service';
 import { TranslateService } from '@ngx-translate/core';
 import { ToastProvider } from './../../providers/toast/toast';
 import { UpcomingFlightListPage } from './../upcoming-flight-list/upcoming-flight-list';
@@ -29,7 +31,8 @@ export class SettingsPage {
     private sessionService: SessionService,
     private toastProvider: ToastProvider,
     private translateService: TranslateService,
-    private alertCtrl: AlertController
+    private alertCtrl: AlertController,
+    private securityModalService: SecurityModalService
 
   ) {
     this.connected = this.connectivityService.isConnected();
@@ -76,6 +79,14 @@ export class SettingsPage {
 
   forceSynchronizeOfflineData() {
     this.synchronizationProvider.synchronizeOfflineData();
+  }
+
+  changePinCode(){
+    this.securityModalService.displayPinPad(PinPadType.pinChangeStage1);
+  }
+
+  changeSecretQuestion(){
+    this.securityModalService.displaySecretQuestion(SecretQuestionType.askChange);
   }
 
   /**

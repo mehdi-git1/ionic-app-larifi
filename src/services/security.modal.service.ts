@@ -26,7 +26,7 @@ export class SecurityModalService {
     errorType: PinPadError | SecretQuestionError | GlobalError;
 
     // Variable permettant de savoir d'ou l'on vient (principalement pour code pin oublié lors du nouveau code pin)
-    comeFrom: PinPadType | SecretQuestionType;
+    comeFrom: PinPadType | SecretQuestionType | null;
 
     constructor(
         public modalController: ModalController,
@@ -61,8 +61,16 @@ export class SecurityModalService {
                 errorType : this.errorType
             }
         );
+        // Reinitialisation de l'erreur pour éviter qu'elle ne s'affiche partout
+        this.errorType = GlobalError.none;
         this.pinModal.onDidDismiss(data => {
             this.modalDisplayed.emit(false);
+
+            // Si non a annulé l'action, on dismiss juste
+            if (data === 'cancel'){
+                return false;
+            }
+
             // Si premiére connexion => etape 2
             if (this.modalType === PinPadType.firstConnexionStage1){
                 this.pinValue = data;
@@ -71,11 +79,13 @@ export class SecurityModalService {
                 if (this.pinValue === data){
                     this.sessionService.authenticatedUser.pinInfo.pinCode = data;
                     // Si on vient de mot de passe oublié (donc de la réponse à la question)
-                    if (this.comeFrom === SecretQuestionType.answerToQuestion){
+                    // Ou si l'on vient du changement de mot de passe
+                    if (this.comeFrom === SecretQuestionType.answerToQuestion || this.comeFrom === PinPadType.pinChangeStage1){
                         const tmpAU = new AuthenticatedUser().fromJSON(this.sessionService.authenticatedUser);
                         this.securityProvider.setAuthenticatedSecurityValue(tmpAU);
                         this.toastProvider.success(this.translateService.instant('PIN_PAD.TOAST_MESSAGE.SUCCESS_REINIT'));
                     } else {
+                    // Dans le cas contraire on et sur l'init et on doit répondre aux questions
                         this.displaySecretQuestion(SecretQuestionType.newQuestion);
                     }
                 }else{
@@ -88,6 +98,19 @@ export class SecurityModalService {
                 } else if (pinCode != data){
                     this.errorType = PinPadError.pinIncorrect;
                     this.displayPinPad(PinPadType.openingApp);
+                }
+            } else if (this.modalType === PinPadType.pinChangeStage1){
+                if (pinCode != data){
+                    this.errorType = PinPadError.pinIncorrect;
+                    this.displayPinPad(PinPadType.pinChangeStage1);
+                } else {
+                    // Si on vient d'une demande de changement de question réponse on change la question réponse
+                    if (this.comeFrom === SecretQuestionType.askChange){
+                        this.displaySecretQuestion(SecretQuestionType.newQuestion);
+                    } else {
+                        this.comeFrom = PinPadType.pinChangeStage1;
+                        this.displayPinPad(PinPadType.firstConnexionStage1);
+                    }
                 }
             }
         });
@@ -103,13 +126,23 @@ export class SecurityModalService {
 
         this.modalType = type;
 
-        // Traduction du titre
-        this.secretQuestionModal = this.modalController.create(SecretQuestionModal,
+        // Si on vient pour changer la question, il faut d'abord demander le code pin actuel
+        if (type === SecretQuestionType.askChange){
+            this.comeFrom = SecretQuestionType.askChange;
+            // On appelle le pinChangeStage1 qui demande l'ancien code pin
+            this.displayPinPad(PinPadType.pinChangeStage1);
+            return false;
+        } else {
+            this.secretQuestionModal = this.modalController.create(SecretQuestionModal,
             {
                 modalType : type,
                 question: this.sessionService.authenticatedUser.pinInfo.secretQuestion,
                 errorType : this.errorType
             });
+        }
+        // Reinitialisation de l'erreur pour éviter qu'elle ne s'affiche partout
+        this.errorType = GlobalError.none;
+
         this.secretQuestionModal.onDidDismiss(data => {
             this.modalDisplayed.emit(false);
             if (this.modalType === SecretQuestionType.newQuestion){
@@ -118,7 +151,13 @@ export class SecurityModalService {
                 this.sessionService.authenticatedUser.pinInfo.secretAnswer = data.secretAnswer;
                 const tmpAU = new AuthenticatedUser().fromJSON(this.sessionService.authenticatedUser);
                 this.securityProvider.setAuthenticatedSecurityValue(tmpAU);
-                this.toastProvider.success(this.translateService.instant('SECRET_QUESTION.TOAST_MESSAGE.SUCCESS_INIT'));
+                // On affiche le bon message en fonction de si on vient de l'init on du changement de question
+                if (this.comeFrom === SecretQuestionType.askChange){
+                    this.comeFrom = null;
+                    this.toastProvider.success(this.translateService.instant('SECRET_QUESTION.TOAST_MESSAGE.SUCCESS_REINIT'));
+                } else {
+                    this.toastProvider.success(this.translateService.instant('SECRET_QUESTION.TOAST_MESSAGE.SUCCESS_INIT'));
+                }
             }
 
             if (this.modalType === SecretQuestionType.answerToQuestion){

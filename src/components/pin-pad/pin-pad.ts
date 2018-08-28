@@ -54,4 +54,8 @@ export class PinPadComponent implements OnInit{
   manageForgotten(){
     this.sendAction.emit('forgotten');
   }
+
+  manageCancel(){
+    this.sendAction.emit('cancel');
+  }
 }

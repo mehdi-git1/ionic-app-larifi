@@ -15,4 +15,5 @@
             </div>
         </div>    
         <p *ngIf="pinType === pinPadType.openingApp" class='forgottenPin' (click)="manageForgotten();">{{'PIN_PAD.FORGOTTEN' | translate}}</p>
+        <p *ngIf="pinType === pinPadType.pinChangeStage1" class='forgottenPin' (click)="manageCancel();">{{'PIN_PAD.CANCEL' | translate}}</p>
     </div>   
