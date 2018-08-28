@@ -39,7 +39,8 @@ export class OnlinePncPhotoProvider {
         } else {
           resolve(pncPhoto);
         }
-      });
+      }, error => { }
+      );
     });
   }
 
