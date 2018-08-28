@@ -1,6 +1,5 @@
 import { OfflineIndicatorComponent } from './../offline-indicator/offline-indicator';
 import { Pnc } from './../../models/pnc';
-import { PncTransformerProvider } from './../../providers/pnc/pnc-transformer';
 import { Component, Input, ViewChild } from '@angular/core';
 import { CrewMember } from '../../models/crewMember';
 import { SynchronizationProvider } from './../../providers/synchronization/synchronization';
@@ -33,8 +32,7 @@ export class PncCardComponent {
     private synchronizationProvider: SynchronizationProvider,
     private toastProvider: ToastProvider,
     private translate: TranslateService,
-    private pncProvider: PncProvider,
-    private pncTransformer: PncTransformerProvider) {
+    private pncProvider: PncProvider) {
   }
 
   @Input()
