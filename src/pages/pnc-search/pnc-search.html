@@ -8,7 +8,7 @@
 <ion-content padding no-bounce>
     <pnc-search-filter (onSearch)="searchPncs()"></pnc-search-filter>
 
-    <ion-scroll class="filtered-pnc-list-container">
+    <ion-content class="filtered-pnc-list-container">
         <edossier-spinner *ngIf="searchInProgress"></edossier-spinner>
 
         <span *ngIf="!searchInProgress">
@@ -18,8 +18,9 @@
             <pnc-card *ngFor="let pnc of filteredPncs" [crewMember]="createCrewMemberObjectFromPnc(pnc)" (click)="openPncHomePage(pnc)"></pnc-card>
         </span>
 
+        <strong *ngIf="lastPageReached()" class="no-data-found">{{ 'PNC_SEARCH.END_OF_SEARCH' | translate }}</strong>
         <ion-infinite-scroll (ionInfinite)="$event.waitFor(doInfinite($event))">
             <ion-infinite-scroll-content></ion-infinite-scroll-content>
         </ion-infinite-scroll>
-    </ion-scroll>
+    </ion-content>
 </ion-content>
