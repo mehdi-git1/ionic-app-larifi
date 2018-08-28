@@ -1,7 +1,9 @@
 <ion-header>
-    <page-header>
-        <ng-container *ngIf="isMyHome()">{{ 'PNC_HOME.TITLE' | translate }}</ng-container>
-    </page-header>
+    <ion-navbar>
+        <page-header>
+            <ng-container *ngIf="isMyHome()">{{ 'PNC_HOME.TITLE' | translate }}</ng-container>
+        </page-header>
+    </ion-navbar>
 </ion-header>
 
 <ion-content padding no-bounce>
