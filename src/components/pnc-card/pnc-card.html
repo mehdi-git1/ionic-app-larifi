@@ -1,89 +1,69 @@
 <ion-card class="flight-crew-card" [ngClass]="{'clickable':!disabled,'disabled':disabled}">
 
     <ion-card-content no-padding class="pnc-info-panel">
-        <offline-indicator [object]="crewMember.pnc" type="PNC"></offline-indicator>
-        <ion-grid>
-            <ion-row>
-                <ion-col col-1 class="identity">
-                    <pnc-photo [pnc]="crewMember.pnc" [size]="60"></pnc-photo>
+        <offline-indicator [object]="crewMember.pnc"></offline-indicator>
+        <div class="pnc-container">
+            <div class="main-info">
+                <pnc-photo [pnc]="crewMember.pnc" [size]="80"></pnc-photo>
+                <div class="identity">
+                    <span class="value speciality"> {{ crewMember.pnc.speciality }}</span>
+                    <span class="value lastName">{{ crewMember.pnc.lastName }}</span>
+                    <span class="value firstname">{{ crewMember.pnc.firstName }}</span>
                     <span class="value">{{crewMember.pnc.matricule}}</span>
-                </ion-col>
-                <ion-col col-11 class="content">
-                    <ion-row class="primary-info">
-                        <ion-col col-2>
-                            <!-- Nom -->
-                            <span class="value">{{ crewMember.pnc.lastName }}</span>
-                        </ion-col>
-                        <ion-col col-2>
-                            <!-- Prénom -->
-                            <span class="value firstname">{{ crewMember.pnc.firstName }}</span>
-                        </ion-col>
-                        <ion-col col-6></ion-col>
-                        <ion-col col-2>
-                            <div class="icon-container">
-                                <!-- Speciality -->
-                                <span class="value"> {{ crewMember.pnc.speciality }}</span>
-                                <!-- Particularite -->
-                                <span class="value">{{crewMember.particularity }}</span>
-                                <!-- Prioritaire -->
-                                <span class="info-icon">
-                                    <ion-icon *ngIf="crewMember.prioritized" name="flag" ios="md-flag" color="red80"></ion-icon>
-                                </span>
-                                <download-button [synchroInProgress]="synchroInProgress" (onDownload)="downloadPncEdossier(crewMember.pnc.matricule)"></download-button>
-                            </div>
-                        </ion-col>
-                    </ion-row>
-                    <ion-row class="secondary-info">
-                        <!-- Division-->
-                        <ion-col class="pnc-info">
-                            <label>{{ 'PNC_SEARCH.CRITERIA.DIVISION' | translate }}</label>
-                            <span class="value" [ngClass]="{'no-value' : !crewMember.pnc.assignment.division }">{{ crewMember.pnc.assignment.division }}</span>
-                        </ion-col>
-                        <!-- Secteur-->
-                        <ion-col class="pnc-info">
-                            <label>{{ 'PNC_SEARCH.CRITERIA.SECTOR' | translate }}</label>
-                            <span class="value" [ngClass]="{'no-value' : !crewMember.pnc.assignment.sector }">{{ crewMember.pnc.assignment.sector }}</span>
-                        </ion-col>
-                        <!-- Ginq-->
-                        <ion-col class="pnc-info">
-                            <label>{{ 'PNC_SEARCH.CRITERIA.GINQ' | translate }}</label>
-                            <span class="value" [ngClass]="{'no-value' : !crewMember.pnc.assignment.ginq }">{{ crewMember.pnc.assignment.ginq }}</span>
-                        </ion-col>
-                        <!-- Relais-->
-                        <ion-col class="pnc-info">
-                            <label>{{ 'FLIGHT_CREW_LIST.LIST.RELAYS' | translate }}</label>
-                            <div class="value pnc-relays" [ngClass]="{'no-value' : crewMember.pnc.relays.length === 0 }">
-                                <span *ngFor="let relay of crewMember.pnc.relays">
-                                    {{ relay.code }}
-                                </span>
-                            </div>
-                        </ion-col>
-                        <!-- Spécialisation avion -->
-                        <ion-col class="pnc-info" *ngIf="!isCrewMember">
-                            <label>{{ 'PNC_SEARCH.CRITERIA.AIRCRAFT_SKILL' | translate }}</label>
-                            <div class="value pnc-Array-item" [ngClass]="{'no-value' :  (!crewMember.pnc.aircraftSkills || crewMember.pnc.aircraftSkills.length === 0) }">
-                                <span *ngFor="let aircraftSkill of crewMember.pnc.aircraftSkills">
-                                    {{ aircraftSkill.aircraftType }}
-                                </span>
-                            </div>
-                        </ion-col>
-                        <!-- rythme de travail-->
-                        <ion-col class="pnc-info" *ngIf="!isCrewMember">
-                            <label>{{ 'PNC_SEARCH.CRITERIA.WORK_RATE' | translate }}</label>
-                            <span class="value" [ngClass]="{'no-value' : !crewMember.pnc.workRate }">{{ crewMember.pnc.workRate }}</span>
-                        </ion-col>
-                        <!-- Dernière rencontre en vol -->
-                        <ion-col class="pnc-info" *ngIf="isCrewMember">
-                            <label>{{ 'FLIGHT_CREW_LIST.LIST.LAST_IN_FLIGHT_ENCOUNTER_DATE' | translate }}</label>
-                            <span class="value">{{ 'GLOBAL.COMING_SOON' | translate }}</span>
-                        </ion-col>
-                        <!-- Dernière rencontre en sol -->
-                        <ion-col class="pnc-info" *ngIf="isCrewMember">
-                            <label>{{ 'FLIGHT_CREW_LIST.LIST.LAST_ON_GROUND_ENCOUNTER_DATE' | translate }}</label>
-                            <span class="value">{{ 'GLOBAL.COMING_SOON' | translate }}</span>
-                        </ion-col>
-                    </ion-row>
-                </ion-col>
-            </ion-row>
-        </ion-grid>
+                </div>
+            </div>
+            <div class="secondary-info">
+                <div class="left-panel">
+                    <!-- Div / Secteur / Ginq -->
+                    <div class="pnc-info">
+                        <label>Division / Secteur / Ginq</label>
+                        <span class="value">{{ crewMember.pnc.assignment.division }} / {{ crewMember.pnc.assignment.sector }} / {{ crewMember.pnc.assignment.ginq }}</span>
+                    </div>
+                    <!-- Relais-->
+                    <div class="pnc-info">
+                        <label>{{ 'FLIGHT_CREW_LIST.LIST.RELAYS' | translate }}</label>
+                        <div class="value pnc-relays" [ngClass]="{'no-value' : crewMember.pnc.relays.length === 0 }">
+                            <span *ngFor="let relay of crewMember.pnc.relays">
+                                {{ relay.code }}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="right-panel">
+                    <!-- Spécialisation avion -->
+                    <div class="pnc-info" *ngIf="!isCrewMember">
+                        <label>{{ 'PNC_SEARCH.CRITERIA.AIRCRAFT_SKILL' | translate }}</label>
+                        <div class="value pnc-Array-item" [ngClass]="{'no-value' :  (!crewMember.pnc.aircraftSkills || crewMember.pnc.aircraftSkills.length === 0) }">
+                            <span *ngFor="let aircraftSkill of crewMember.pnc.aircraftSkills">
+                                {{ aircraftSkill.aircraftType }}
+                            </span>
+                        </div>
+                    </div>
+                    <!-- rythme de travail-->
+                    <div class="pnc-info" *ngIf="!isCrewMember">
+                        <label>{{ 'PNC_SEARCH.CRITERIA.WORK_RATE' | translate }}</label>
+                        <span class="value" [ngClass]="{'no-value' : !crewMember.pnc.workRate }">{{ crewMember.pnc.workRate }}</span>
+                    </div>
+                    <!-- Dernière rencontre en vol -->
+                    <div class="pnc-info" *ngIf="isCrewMember">
+                        <label>{{ 'FLIGHT_CREW_LIST.LIST.LAST_IN_FLIGHT_ENCOUNTER_DATE' | translate }}</label>
+                        <span class="value">{{ 'GLOBAL.COMING_SOON' | translate }}</span>
+                    </div>
+                    <!-- Dernière rencontre en sol -->
+                    <div class="pnc-info" *ngIf="isCrewMember">
+                        <label>{{ 'FLIGHT_CREW_LIST.LIST.LAST_ON_GROUND_ENCOUNTER_DATE' | translate }}</label>
+                        <span class="value">{{ 'GLOBAL.COMING_SOON' | translate }}</span>
+                    </div>
+
+                </div>
+            </div>
+            <div class="flag-panel">
+                <download-button [synchroInProgress]="synchroInProgress" (onDownload)="downloadPncEdossier(crewMember.pnc.matricule)"></download-button>
+                <!-- Prioritaire -->
+                <ion-icon *ngIf="crewMember.prioritized" name="flag" ios="md-flag" color="red80"></ion-icon>
+                <!-- Particularite -->
+                <span class="value">{{crewMember.particularity }}</span>
+            </div>
+        </div>
     </ion-card-content>
+</ion-card>
