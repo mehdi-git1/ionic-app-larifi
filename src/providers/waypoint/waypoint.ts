@@ -50,16 +50,6 @@ export class WaypointProvider {
   * @return les points d'étape récupérés
   */
   getCareerObjectiveWaypoints(careerObjectiveId: number): Promise<Waypoint[]> {
-    if (this.connectivityService.isConnected()) {
-      return new Promise((resolve, reject) => {
-        this.onlineWaypointProvider.getCareerObjectiveWaypoints(careerObjectiveId).then(onlineWaypoints => {
-          const onlineData = this.waypointTransformer.toWaypoints(onlineWaypoints);
-          resolve(onlineData);
-        });
-      });
-    } else {
-      this.offlineWaypointProvider.getCareerObjectiveWaypoints(careerObjectiveId);
-    }
     return this.connectivityService.isConnected() ?
       this.onlineWaypointProvider.getCareerObjectiveWaypoints(careerObjectiveId) :
       this.offlineWaypointProvider.getCareerObjectiveWaypoints(careerObjectiveId);

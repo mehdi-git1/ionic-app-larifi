@@ -27,16 +27,9 @@ export class CareerObjectiveProvider {
    * @return la liste des objectifs du pnc
    */
   getPncCareerObjectives(matricule: string): Promise<CareerObjective[]> {
-    if (this.connectivityService.isConnected()) {
-      return new Promise((resolve, reject) => {
-        this.onlineCareerObjectiveProvider.getPncCareerObjectives(matricule).then(onlineCareerObjectives => {
-          const onlineData = this.careerObjectiveTransformer.toCareerObjectives(onlineCareerObjectives);
-          resolve(onlineData);
-        });
-      });
-    } else {
-      return this.offlineCareerObjectiveProvider.getPncCareerObjectives(matricule);
-    }
+    return this.connectivityService.isConnected() ?
+      this.onlineCareerObjectiveProvider.getPncCareerObjectives(matricule) :
+      this.offlineCareerObjectiveProvider.getPncCareerObjectives(matricule);
   }
 
   /**

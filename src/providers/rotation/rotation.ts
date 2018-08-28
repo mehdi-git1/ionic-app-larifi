@@ -29,16 +29,9 @@ export class RotationProvider {
   */
   getRotationLegs(rotation: Rotation): Promise<Leg[]> {
 
-    if (this.connectivityService.isConnected()) {
-      return new Promise((resolve, reject) => {
-        this.onlineRotationProvider.getRotationLegs(rotation).then(onlineLegs => {
-          const onlineData = this.legTransformer.toLegs(onlineLegs);
-          resolve(onlineData);
-        });
-      });
-    } else {
-      return this.offlineRotationProvider.getRotationLegs(rotation);
-    }
+    return this.connectivityService.isConnected() ?
+      this.onlineRotationProvider.getRotationLegs(rotation) :
+      this.offlineRotationProvider.getRotationLegs(rotation);
   }
 
 }

@@ -41,16 +41,11 @@ export class PncProvider {
    * @return les informations du PNC
    */
   getPnc(matricule: string): Promise<Pnc> {
-    if (this.connectivityService.isConnected()) {
-      return new Promise((resolve, reject) => {
-        return this.onlinePncProvider.getPnc(matricule).then(onlinePnc => {
-          resolve(onlinePnc);
-        });
-      });
-    } else {
-      return this.offlinePncProvider.getPnc(matricule);
-    }
+    return this.connectivityService.isConnected() ?
+      this.onlinePncProvider.getPnc(matricule) :
+      this.offlinePncProvider.getPnc(matricule);
   }
+
 
   /**
    * Retrouve les rotations à venir d'un PNC
@@ -58,16 +53,9 @@ export class PncProvider {
    * @return les rotations à venir du PNC
    */
   getUpcomingRotations(matricule: string): Promise<Rotation[]> {
-    if (this.connectivityService.isConnected()) {
-      return new Promise((resolve, reject) => {
-        this.onlinePncProvider.getUpcomingRotations(matricule).then(onlineRotations => {
-          const onlineData = this.rotationTransformer.toRotations(onlineRotations);
-          resolve(onlineData);
-        });
-      });
-    } else {
-      return this.offlinePncProvider.getUpcomingRotations(matricule);
-    }
+    return this.connectivityService.isConnected() ?
+      this.onlinePncProvider.getUpcomingRotations(matricule) :
+      this.offlinePncProvider.getUpcomingRotations(matricule);
   }
 
   /**
@@ -76,20 +64,9 @@ export class PncProvider {
   * @return la dernière rotation opérée par le PNC
   */
   getLastPerformedRotation(matricule: string): Promise<Rotation> {
-    if (this.connectivityService.isConnected()) {
-      return new Promise((resolve, reject) => {
-        this.onlinePncProvider.getLastPerformedRotation(matricule).then(onlineRotation => {
-          if (onlineRotation) {
-            const onlineData = this.rotationTransformer.toRotation(onlineRotation);
-            resolve(onlineData);
-          } else {
-            resolve(onlineRotation);
-          }
-        });
-      });
-    } else {
-      return this.offlinePncProvider.getLastPerformedRotation(matricule);
-    }
+    return this.connectivityService.isConnected() ?
+      this.onlinePncProvider.getLastPerformedRotation(matricule) :
+      this.offlinePncProvider.getLastPerformedRotation(matricule);
   }
 
   /**
@@ -120,7 +97,7 @@ export class PncProvider {
               && (pnc.assignment.sector === connectedPnc.assignment.sector)
               && (pnc.matricule !== connectedPnc.matricule));
           }
-          filteredPnc.sort((a, b) => { if (a.lastName < b.lastName) { return -1; } else { return 1; } });
+          filteredPnc.sort((a, b) => a.lastName < b.lastName ? -1 : 1);
           const pagedPncResponse: PagedPnc = new PagedPnc();
           pagedPncResponse.content = filteredPnc;
           pagedPncResponse.page = new Page();
