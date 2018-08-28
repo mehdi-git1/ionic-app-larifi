@@ -89,6 +89,11 @@ ion-input {
     background-color: color($colors, white);
 }
 
+ion-content > .scroll-content {
+    max-width: 1200px;
+    margin: auto;
+}
+
 .content {
     background-color: transparent;
 }

@@ -2,8 +2,4 @@
   <ion-icon name="settings"></ion-icon>
 </button>
 <!-- indicateur de connectivité -->
-<div class="offline-indicator">
-    <div [ngClass]="{ 'offline' : !connected }" (click)="connectionToggle()">
-        <div class="synchro-in-progress" *ngIf="synchroInProgress"></div>
-    </div>
-</div>
+<connectivity-indicator></connectivity-indicator>

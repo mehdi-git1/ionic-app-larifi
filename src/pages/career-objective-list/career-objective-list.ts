@@ -1,3 +1,5 @@
+import { DeviceService } from './../../services/device.service';
+import { SecMobilService } from './../../services/secMobil.service';
 import { SessionService } from './../../services/session.service';
 import { EObservation } from './../../models/eObservation';
 import { EObservationService } from './../../services/eObservation.service';
@@ -8,6 +10,7 @@ import { CareerObjective } from './../../models/careerObjective';
 import { Component } from '@angular/core';
 import { NavController, NavParams, IonicPage } from 'ionic-angular';
 import { CareerObjectiveProvider } from '../../providers/career-objective/career-objective';
+import { Rotation } from '../../models/rotation';
 
 @Component({
   selector: 'page-career-objective-list',
@@ -18,6 +21,7 @@ export class CareerObjectiveListPage {
   careerObjectiveList: CareerObjective[];
   matricule: string;
   eObservation: EObservation;
+  lastConsultedRotation: Rotation;
 
   // Expose l'enum au template
   PncRole = PncRole;
@@ -25,9 +29,10 @@ export class CareerObjectiveListPage {
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     private careerObjectiveProvider: CareerObjectiveProvider,
-    private toastProvider: ToastProvider,
     private eObservationService: EObservationService,
+    private deviceService: DeviceService,
     private sessionService: SessionService) {
+    this.lastConsultedRotation = this.sessionService.appContext.lastConsultedRotation;
   }
 
   ionViewDidEnter() {
@@ -56,26 +61,27 @@ export class CareerObjectiveListPage {
   }
 
   /**
-   * Récupère les paramètres pour l'appel à formsLib
+   * Fait appel à formsLib avec les paramètres eObservation.
    */
-  getEObservation() {
-    return new Promise((resolve, reject) => {
-      this.eObservationService.getEObservation(this.matricule, this.sessionService.appContext.rotationId).then(eObservation => {
-        this.eObservation = eObservation;
-        resolve();
-      }, error => {
-        reject();
-      });
+  createEObservation() {
+    this.eObservationService.getEObservation(this.matricule, this.sessionService.appContext.lastConsultedRotation).then(eObservation => {
+      this.eObservation = eObservation;
+      if (this.eObservation) {
+        this.eObservationService.callForms(this.eObservation);
+      }
+    }, error => {
     });
   }
 
   /**
-   * Fait appel a formsLib avec les paramètres déja reçu dans l'objet eObservation.
-   */
-  callForms() {
-    this.getEObservation();
-    if (this.eObservation) {
-      this.eObservationService.callForms(this.eObservation);
+     * Détermine si on peut créer une nouvelle eObservation
+     * @return vrai si c'est le cas, faux sinon
+     */
+  canCreateEObservation(): boolean {
+    if (this.sessionService.appContext.lastConsultedRotation && !this.deviceService.isBrowser()) {
+      return true;
+    } else {
+      return false;
     }
   }
 
