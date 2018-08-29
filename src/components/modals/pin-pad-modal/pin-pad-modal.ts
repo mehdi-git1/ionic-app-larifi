@@ -21,10 +21,13 @@ export class PinPadModal {
     this.errorType = navParams.get('errorType');
   }
 
+  /**
+   * Fonction permettant de vérifier la valeur du pin
+   * On envoi la valeur (en fermant la modal) seulement si les 4 caractéres ont été saisi
+   */
+
   checkPinValue(pinValue){
-    // Si le tableau est rempli au max
     if (pinValue.indexOf('_') === -1){
-      // On check si le mot de passe est le bon et aprés si c'est le cas on renvoi vers l'ancienne page
       this.viewController.dismiss(pinValue.join(''));
      }
 
