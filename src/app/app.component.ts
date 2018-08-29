@@ -49,6 +49,9 @@ export class EDossierPNC implements OnInit {
     private securityProvider: SecurityProvider,
     private synchronizationProvider: SynchronizationProvider,
     private offlineSecurityProvider: OfflineSecurityProvider) {
+    if (this.deviceService.isBrowser) {
+      this.splashScreen.hide();
+    }
   }
 
   ngOnInit(): void {
@@ -56,10 +59,8 @@ export class EDossierPNC implements OnInit {
   }
 
   initializeApp() {
+
     this.platform.ready().then(() => {
-      if (this.deviceService.isBrowser) {
-        this.splashScreen.hide();
-      }
 
       this.statusBar.styleDefault();
 
