@@ -128,11 +128,11 @@
                                 <!--Si une date de rencontre existe, on l'affiche, sinon on affiche la date de création -->
                                 <header>
                                     <ion-icon name="create" ios="md-create" *ngIf="waypoint.waypointStatus === WaypointStatus.DRAFT" float-right></ion-icon>
-                                    <div class="value" *ngIf="waypoint.encounterDate; else creationDateBlock">
+                                    <div class="value" *ngIf="waypoint.encounterDate; else lastUpdateDateBlock">
                                         {{ waypoint.encounterDate | date: 'dd/MM/yyyy'}}
                                     </div>
-                                    <ng-template #creationDateBlock>
-                                        <div class="value">{{ waypoint.creationDate | date: 'dd/MM/yyyy'}}</div>
+                                    <ng-template #lastUpdateDateBlock>
+                                        <div class="value">{{ waypoint.lastUpdateDate | date: 'dd/MM/yyyy'}}</div>
                                     </ng-template>
                                 </header>
                                 <h4>{{ waypoint.context }}</h4>
