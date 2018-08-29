@@ -10,6 +10,7 @@ import { CareerObjective } from './../../models/careerObjective';
 import { Injectable } from '@angular/core';
 import { RestService } from '../../services/rest.base.service';
 import { Pnc } from '../../models/pnc';
+import { OfflineAction } from '../../models/offlineAction';
 
 @Injectable()
 export class CareerObjectiveProvider {
@@ -36,13 +37,27 @@ export class CareerObjectiveProvider {
             const onlineData = this.careerObjectiveTransformer.toCareerObjectives(onlineCareerObjectives);
             const offlineData = this.careerObjectiveTransformer.toCareerObjectives(offlineCareerObjectives);
             this.offlineProvider.flagDataAvailableOffline(onlineData, offlineData);
-            resolve(onlineData);
+            resolve(this.getOnlineAndOfflineCareerObjectives(onlineData, offlineData));
           });
         });
       });
     } else {
       return this.offlineCareerObjectiveProvider.getPncCareerObjectives(matricule);
     }
+  }
+
+  getOnlineAndOfflineCareerObjectives(onlineDataArray: CareerObjective[], offlineDataArray: CareerObjective[]): CareerObjective[] {
+    for (const offlineData of offlineDataArray) {
+      const result = onlineDataArray.filter(onlineData => offlineData.getStorageId() === onlineData.getStorageId());
+      if (result && result.length === 1) {
+        if (offlineData.offlineAction === OfflineAction.UPDATE) {
+          onlineDataArray[onlineDataArray.indexOf(result[0])] = offlineData;
+        }
+      } else {
+        onlineDataArray.push(offlineData);
+      }
+    }
+    return onlineDataArray;
   }
 
   /**
