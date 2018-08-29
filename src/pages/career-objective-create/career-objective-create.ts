@@ -146,7 +146,6 @@ export class CareerObjectiveCreatePage {
      * Vérifie si le formulaire a été modifié sans être enregistré
      */
     formHasBeenModified() {
-        console.log(this.originCareerObjective, this.careerObjective);
         return !_.isEqual(this.originCareerObjective, this.careerObjective);
     }
 

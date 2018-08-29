@@ -153,6 +153,10 @@
             "CANCEL": "Annuler",
             "CONFIRM": "Supprimer"
         },
+        "CONFIRM_BACK_WITHOUT_SAVE": {
+            "TITLE": "Modifications non enregistrées",
+            "MESSAGE": "Attention, des modifications n'ont pas été enregistrées, êtes vous sûr de vouloir revenir en arrière ?"
+        },
         "BUTTONS": {
             "SAVE": "Enregistrer",
             "SAVE_DRAFT": "Sauvegarder proposition",
