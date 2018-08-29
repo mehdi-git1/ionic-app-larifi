@@ -31,6 +31,8 @@ export class WaypointCreatePage {
 
     originalPncComment: string;
 
+    monthsNames;
+
     // Permet d'exposer l'enum au template
     WaypointStatus = WaypointStatus;
 
@@ -54,6 +56,9 @@ export class WaypointCreatePage {
                 handler: () => this.waypoint.encounterDate = ''
             }]
         };
+
+        // Traduction des mois
+        this.monthsNames = this.translateService.instant('GLOBAL.MONTH.LONGNAME');
 
         this.requiredOnEncounterDay = false;
 

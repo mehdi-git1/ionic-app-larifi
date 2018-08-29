@@ -98,10 +98,17 @@
                                     <ion-label>
                                         <ion-icon name="calendar"></ion-icon>
                                     </ion-label>
-                                    <ion-datetime [disabled]="readOnlyByUserConnected()" displayFormat="DD/MM/YYYY" [(ngModel)]="careerObjective.nextEncounterDate"
-                                        formControlName="nextEncounterDateControl" [pickerOptions]="nextEncounterDateTimeOptions"
-                                        [doneText]="translateService.instant('GLOBAL.DATEPICKER.DONE')" [cancelText]="translateService.instant('GLOBAL.DATEPICKER.CANCEL')"
-                                        [max]="datepickerMaxDate">
+                                    <ion-datetime 
+                                        [disabled]="readOnlyByUserConnected()" 
+                                        displayFormat="DD/MM/YYYY" 
+                                        pickerFormat="DD MMMM YY" 
+                                        [(ngModel)]="careerObjective.nextEncounterDate"
+                                        formControlName="nextEncounterDateControl" 
+                                        [pickerOptions]="nextEncounterDateTimeOptions"
+                                        [doneText]="translateService.instant('GLOBAL.DATEPICKER.DONE')" 
+                                        [cancelText]="translateService.instant('GLOBAL.DATEPICKER.CANCEL')"
+                                        [max]="datepickerMaxDate"
+                                        [monthNames]="monthsNames">
                                     </ion-datetime>
                                 </ion-item>
                                 <!-- Date de rencontre -->
@@ -112,9 +119,17 @@
                                     <ion-label>
                                         <ion-icon name="calendar"></ion-icon>
                                     </ion-label>
-                                    <ion-datetime [disabled]="readOnlyByUserConnected()" displayFormat="DD/MM/YYYY" [(ngModel)]="careerObjective.encounterDate"
-                                        formControlName="encounterDateControl" [pickerOptions]="encounterDateTimeOptions" [doneText]="translateService.instant('GLOBAL.DATEPICKER.DONE')"
-                                        [cancelText]="translateService.instant('GLOBAL.DATEPICKER.CANCEL')" [max]="datepickerMaxDate"></ion-datetime>
+                                    <ion-datetime 
+                                        [disabled]="readOnlyByUserConnected()" 
+                                        displayFormat="DD/MM/YYYY"
+                                        pickerFormat="DD MMMM YY" 
+                                        [(ngModel)]="careerObjective.encounterDate"
+                                        formControlName="encounterDateControl" 
+                                        [pickerOptions]="encounterDateTimeOptions" 
+                                        [doneText]="translateService.instant('GLOBAL.DATEPICKER.DONE')"
+                                        [cancelText]="translateService.instant('GLOBAL.DATEPICKER.CANCEL')" 
+                                        [max]="datepickerMaxDate"
+                                        [monthNames]="monthsNames"></ion-datetime>
                                 </ion-item>
                             </ion-col>
                         </ion-row>

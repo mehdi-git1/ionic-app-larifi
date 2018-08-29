@@ -62,8 +62,17 @@
                             <ion-label>
                                 <ion-icon name="calendar"></ion-icon>
                             </ion-label>
-                            <ion-datetime displayFormat="DD/MM/YYYY" [(ngModel)]="waypoint.encounterDate" formControlName="encounterDateControl" [pickerOptions]="customDateTimeOptions" [doneText]="translateService.instant('GLOBAL.DATEPICKER.DONE')" [cancelText]="translateService.instant('GLOBAL.DATEPICKER.CANCEL')"
-                                [disabled]="readOnlyByUserConnected()" [max]="datepickerMaxDate"></ion-datetime>
+                            <ion-datetime 
+                                displayFormat="DD/MM/YYYY" 
+                                pickerFormat="DD MMMM YY" 
+                                [(ngModel)]="waypoint.encounterDate" 
+                                formControlName="encounterDateControl" 
+                                [pickerOptions]="customDateTimeOptions" 
+                                [doneText]="translateService.instant('GLOBAL.DATEPICKER.DONE')" 
+                                [cancelText]="translateService.instant('GLOBAL.DATEPICKER.CANCEL')"
+                                [disabled]="readOnlyByUserConnected()" 
+                                [max]="datepickerMaxDate"
+                                [monthNames]="monthsNames"></ion-datetime>
                         </ion-item>
                     </ion-col>
                 </ion-row>
