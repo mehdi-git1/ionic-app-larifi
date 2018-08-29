@@ -36,6 +36,7 @@
         "cordova-plugin-cocoapod-support": "^1.5.0",
         "cordova-plugin-compat": "^1.2.0",
         "cordova-plugin-device": "^2.0.2",
+        "cordova-plugin-formslib": "^1.0.5",
         "cordova-plugin-ionic-keyboard": "^2.1.2",
         "cordova-plugin-secmobil": "^2.0.77",
         "cordova-plugin-ionic-webview": "^2.0.3",
@@ -71,6 +72,7 @@
                 "APP_GROUP": "AF_GROUP"
             },
             "cordova-plugin-cocoapod-support": {},
+            "cordova-plugin-formslib": {},
             "cordova-plugin-statusbar": {},
             "cordova-plugin-ionic-webview": {}
         },
