@@ -8,10 +8,25 @@
 <ion-content padding>
     <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
     <ng-template #pageBlock>
-        <div class="add-career-objective-container">
-            <button (click)="goToCareerObjectiveCreation()" class="add-career-objective">
-                <ion-icon name="ios-add-circle-outline" ios="ios-add-circle-outline"></ion-icon>
-                <label>{{ 'CAREER_OBJECTIVE_LIST.BUTTONS.ADD_CAREER_OBJECTIVE' | translate }}</label>
+
+        <div class="add-container">
+            <button (click)="createEObservation()" class="add-button add-eObservation" *ngIf="canCreateEObservation()">
+                <div class="button-optional-information">
+                    <label> {{lastConsultedRotation.number}} du {{ lastConsultedRotation.departureDate | date: 'dd/MM/yyyy'}}</label>
+                </div>
+                <div class="button-content">
+                    <ion-icon name="ios-add-circle-outline" ios="ios-add-circle-outline"></ion-icon>
+                    <label>{{ 'CAREER_OBJECTIVE_LIST.CREATE_EOBSERVATION' | translate }}</label>
+                </div>
+            </button>
+        </div>
+
+        <div class="add-container">
+            <button (click)="goToCareerObjectiveCreation()" class="add-button add-career-objective">
+                <div class="button-content">
+                    <ion-icon name="ios-add-circle-outline" ios="ios-add-circle-outline"></ion-icon>
+                    <label>{{ 'CAREER_OBJECTIVE_LIST.BUTTONS.ADD_CAREER_OBJECTIVE' | translate }}</label>
+                </div>
             </button>
             <div class="information-message">
                 {{ 'CAREER_OBJECTIVE_LIST.INFORMATION_MESSAGE' | translate }}
@@ -21,7 +36,7 @@
             <div class="no-data-found" *ngIf="careerObjectiveList.length == 0">{{ 'CAREER_OBJECTIVE_LIST.NO_OBJECTIVES' | translate }}</div>
             <div *ngIf="careerObjectiveList.length > 0" class="career-objective-list">
                 <ion-card class="career-objective-card clickable" *ngFor="let careerObjective of careerObjectiveList" (click)="openCareerObjective(careerObjective.techId)">
-                    <offline-indicator [object]="careerObjective"></offline-indicator>
+                    <offline-indicator [object]="careerObjective" type="CAREER_OBJECTIVE"></offline-indicator>
                     <ion-card-content no-padding>
                         <header>
                             <h4>{{careerObjective.title}}</h4>

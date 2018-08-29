@@ -1,3 +1,3 @@
-<div *ngIf="this.deviceService.isOfflineModeAvailable()" [ngClass]="{ 'offline' : !connected }" (click)="connectionToggle()">
+<div *ngIf="this.deviceService.isOfflineModeAvailable()" [ngClass]="{ 'offline' : !connected }">
     <div class="synchro-in-progress" *ngIf="synchroInProgress"></div>
 </div>

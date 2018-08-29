@@ -31,4 +31,5 @@ export class OnlineLegProvider {
   getFlightCrewFromLeg(legId: number): Promise<CrewMember[]> {
     return this.restService.get(`${this.legUrl}/${legId}/crew_members`);
   }
+
 }

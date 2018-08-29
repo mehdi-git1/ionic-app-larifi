@@ -202,6 +202,7 @@ export class CareerObjectiveCreatePage {
             this.saveCareerObjective();
         } else {
             this.requiredOnEncounterDay = true;
+            this.toastProvider.warning(this.translateService.instant('CAREER_OBJECTIVE_CREATE.ERROR.ENCOUTER_DATE_REQUIRED'));
         }
     }
 
