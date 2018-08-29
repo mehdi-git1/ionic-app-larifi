@@ -137,15 +137,16 @@ export class CareerObjectiveCreatePage {
 
     /**
      * Lance le processus de création/mise à jour d'un objectif
+     * @param careerObjectiveToSave l'objectif à enregistrer
      */
-    saveCareerObjective(careerObjective: CareerObjective) {
-        careerObjective = this.prepareCareerObjectiveBeforeSubmit(careerObjective);
+    saveCareerObjective(careerObjectiveToSave: CareerObjective) {
+        careerObjectiveToSave = this.prepareCareerObjectiveBeforeSubmit(careerObjectiveToSave);
 
         this.loading = this.loadingCtrl.create();
         this.loading.present();
 
         this.careerObjectiveProvider
-            .createOrUpdate(careerObjective)
+            .createOrUpdate(careerObjectiveToSave)
             .then(savedCareerObjective => {
                 this.careerObjective = savedCareerObjective;
 
@@ -176,13 +177,15 @@ export class CareerObjectiveCreatePage {
     /**
      * Prépare l'objectif avant de l'envoyer au back :
      * Transforme les dates au format iso
+     * @param careerObjectiveToSave
+     * @return l'objectif à enregistrer avec la date de rencontre transformée
      */
-    prepareCareerObjectiveBeforeSubmit(careerObjective: CareerObjective): CareerObjective {
-        if (careerObjective.encounterDate !== undefined) {
-            careerObjective.encounterDate = this.datePipe.transform(this.careerObjective.encounterDate, 'yyyy-MM-ddTHH:mm');
+    prepareCareerObjectiveBeforeSubmit(careerObjectiveToSave: CareerObjective): CareerObjective {
+        if (careerObjectiveToSave.encounterDate !== undefined) {
+            careerObjectiveToSave.encounterDate = this.datePipe.transform(careerObjectiveToSave.encounterDate, 'yyyy-MM-ddTHH:mm');
         }
-        careerObjective.nextEncounterDate = this.datePipe.transform(this.careerObjective.nextEncounterDate, 'yyyy-MM-ddTHH:mm');
-        return careerObjective;
+        careerObjectiveToSave.nextEncounterDate = this.datePipe.transform(careerObjectiveToSave.nextEncounterDate, 'yyyy-MM-ddTHH:mm');
+        return careerObjectiveToSave;
     }
 
     /**

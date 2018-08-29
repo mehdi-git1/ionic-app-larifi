@@ -108,6 +108,7 @@ export class WaypointCreatePage {
 
     /**
      * Lance le processus de création/mise à jour d'un point d'étape
+     * @param waypointToSave le point d'étape à enregistrer
      */
     saveWaypoint(waypointToSave: Waypoint) {
         waypointToSave = this.prepareWaypointBeforeSubmit(waypointToSave);
@@ -135,10 +136,13 @@ export class WaypointCreatePage {
     /**
      * Prépare le point d'étape avant de l'envoyer au back :
      * Transforme les dates au format iso
+     *
+     * @param waypointToSave le point d'étape à enregistrer
+     * @return le point d'étape à enregistrer avec la date de rencontre transformée
      */
     prepareWaypointBeforeSubmit(waypointToSave: Waypoint): Waypoint {
         if (waypointToSave.encounterDate) {
-            waypointToSave.encounterDate = this.datePipe.transform(this.waypoint.encounterDate, 'yyyy-MM-ddTHH:mm');
+            waypointToSave.encounterDate = this.datePipe.transform(waypointToSave.encounterDate, 'yyyy-MM-ddTHH:mm');
         }
         return waypointToSave;
     }
