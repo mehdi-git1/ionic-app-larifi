@@ -226,11 +226,11 @@
         "CANCEL": "Annuler",
         "ERROR": {
             "PININCORRECT": "Code pin incorrect",
-            "PININITINCORRECT": "Les 2 codes pin doivent être identique"
+            "PININITINCORRECT": "Les 2 codes pin doivent être identiques"
         },
         "TOAST_MESSAGE":{
-            "SUCCESS_MODIF": "Code pin modifié avec succés",
-            "SUCCESS_REINIT": "Code pin réinitialisé avec succés",
+            "SUCCESS_MODIF": "Code pin modifié avec succès",
+            "SUCCESS_REINIT": "Code pin réinitialisé avec succès",
             "ERROR": "Erreur lors de la modificaion du code pin"
         }
     },
@@ -240,7 +240,7 @@
             "ANSWERTOQUESTION": "Répondez à la question suivante :"
         },
         "LABEL":{
-            "NEWQUESTION": "Veuillez entrer une question secréte",
+            "NEWQUESTION": "Veuillez entrer une question secrète",
             "NEWANSWER": "Veuillez entrer la réponse à la question"
         },
         "VALIDATE": "Valider",
@@ -248,9 +248,9 @@
             "ANSWERINCORRECT": "Réponse incorrecte"
         },
         "TOAST_MESSAGE":{
-            "SUCCESS_INIT": "Code pin et question / réponse secréte initialisés",
-            "SUCCESS_REINIT": "Question / réponse secréte initialisés",
-            "ERROR": "Erreur lors de la modificaion de la question / réponse secréte"
+            "SUCCESS_INIT": "Code pin et question / réponse secrète initialisés",
+            "SUCCESS_REINIT": "Question / réponse secrète initialisés",
+            "ERROR": "Erreur lors de la modificaion de la question / réponse secrète"
         }
     },
     "SETTINGS": {
