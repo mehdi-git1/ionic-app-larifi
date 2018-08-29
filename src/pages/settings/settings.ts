@@ -1,3 +1,4 @@
+import { DeviceService } from './../../services/device.service';
 import { PinPadType, SecretQuestionType } from './../../models/securitymodalType';
 import { SecurityModalService } from './../../services/security.modal.service';
 import { TranslateService } from '@ngx-translate/core';
@@ -23,6 +24,8 @@ export class SettingsPage {
   initInProgress: boolean;
   synchronizationInProgress: boolean;
 
+  isApp: boolean;
+
   constructor(
     private connectivityService: ConnectivityService,
     private storageService: StorageService,
@@ -32,7 +35,8 @@ export class SettingsPage {
     private toastProvider: ToastProvider,
     private translateService: TranslateService,
     private alertCtrl: AlertController,
-    private securityModalService: SecurityModalService
+    private securityModalService: SecurityModalService,
+    private deviceService: DeviceService
 
   ) {
     this.connected = this.connectivityService.isConnected();
@@ -48,6 +52,8 @@ export class SettingsPage {
     this.synchronizationProvider.synchroStatusChange.subscribe(synchroInProgress => {
       this.synchronizationInProgress = synchroInProgress;
     });
+
+    this.isApp = !this.deviceService.isBrowser();
   }
 
   ionViewDidLoad() {
