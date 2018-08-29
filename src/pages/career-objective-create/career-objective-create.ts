@@ -110,6 +110,9 @@ export class CareerObjectiveCreatePage {
             this.waypointProvider.getCareerObjectiveWaypoints(this.careerObjective.techId).then(result => {
                 this.waypointList = result;
             }, error => { });
+        } else {
+            // Création
+            this.originCareerObjective = _.cloneDeep(this.careerObjective);
         }
     }
 
@@ -143,6 +146,7 @@ export class CareerObjectiveCreatePage {
      * Vérifie si le formulaire a été modifié sans être enregistré
      */
     formHasBeenModified() {
+        console.log(this.originCareerObjective, this.careerObjective);
         return !_.isEqual(this.originCareerObjective, this.careerObjective);
     }
 
