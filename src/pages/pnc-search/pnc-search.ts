@@ -149,7 +149,7 @@ export class PncSearchPage implements OnInit {
      * Vérifie si on a atteint la dernière page de la recherche
      */
     lastPageReached(): boolean {
-        return this.filteredPncs.length > 0 && this.filteredPncs.length >= this.totalPncs;
+        return this.filteredPncs ? this.filteredPncs.length > 0 && this.filteredPncs.length >= this.totalPncs : true;
     }
 
 }
