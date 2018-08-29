@@ -40,12 +40,12 @@
                             <h4>{{careerObjective.title}}</h4>
                             <div class="status-area" float-right>
                                 <!-- Prioritaire -->
-                                <div class="icon-container">
+                                <div class="prioritized">
                                     <ion-icon *ngIf="careerObjective.prioritized" name="flag" ios="md-flag" color="red80"></ion-icon>
                                 </div>
                                 <!-- Initiateur -->
-                                <div class="icon-container">
-                                    <ion-icon name="bulb" ios="md-bulb" *ngIf="careerObjective.initiator === PncRole.PNC"></ion-icon>
+                                <div class="initiator">
+                                    <span *ngIf="careerObjective.initiator === PncRole.PNC" class="icon-af icon-af-C-metier-pnc"></span>
                                 </div>
                                 <!-- Statut -->
                                 <ion-badge class="{{careerObjective.careerObjectiveStatus.toLowerCase()}}" *ngIf="careerObjective.careerObjectiveStatus">

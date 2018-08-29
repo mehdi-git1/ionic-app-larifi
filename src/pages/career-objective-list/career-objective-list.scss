@@ -78,10 +78,17 @@ page-career-objective-list {
                             display: flex;
                             align-items: center;
 
-                            .icon-container {
-                                width: 35px;
-                                ion-icon {
-                                    font-size: 2em;
+                            .prioritized {
+                                width: 20px;
+                                text-align: center;
+                            }
+
+                            .initiator {
+                                width: 50px;
+                                text-align: center;
+
+                                span.icon-af {
+                                    font-size: 2.5em;
                                 }
                             }
                         }
