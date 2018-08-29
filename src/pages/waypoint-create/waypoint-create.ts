@@ -245,4 +245,12 @@ export class WaypointCreatePage {
         this.originalPncComment = this.waypoint.pncComment;
     }
 
+    /**
+     * Détermine si on peut afficher le statut ou non
+     * @return true si on peut, false sinon
+     */
+    canDisplayStatus(): boolean {
+        return this.waypoint.waypointStatus && this.waypoint.waypointStatus === this.WaypointStatus.DRAFT;
+    }
+
 }
