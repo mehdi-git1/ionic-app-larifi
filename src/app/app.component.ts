@@ -57,9 +57,11 @@ export class EDossierPNC implements OnInit {
 
   initializeApp() {
     this.platform.ready().then(() => {
+      if (this.deviceService.isBrowser) {
+        this.splashScreen.hide();
+      }
 
       this.statusBar.styleDefault();
-      this.splashScreen.hide();
 
       this.translateService.setDefaultLang('fr');
       this.translateService.use('fr');
@@ -68,19 +70,26 @@ export class EDossierPNC implements OnInit {
       this.secMobilService.isAuthenticated().then(() => {
         // Création du stockage local
         this.storageService.initOfflineMap().then(success => {
+
           this.putAuthenticatedUserInSession().then(authenticatedUser => {
             this.initParameters();
             if (this.deviceService.isOfflineModeAvailable()) {
               this.synchronizationProvider.storeEDossierOffline(authenticatedUser.matricule).then(successStore => {
                 this.events.publish('EDossierOffline:stored');
+                this.splashScreen.hide();
               }, error => {
+                this.splashScreen.hide();
               });
             }
 
+          }, error => {
+            this.splashScreen.hide();
           });
+
         });
       }, error => {
         this.nav.setRoot(AuthenticationPage);
+        this.splashScreen.hide();
       });
 
       this.events.subscribe('connectionStatus:disconnected', () => {
@@ -93,6 +102,7 @@ export class EDossierPNC implements OnInit {
           this.toastProvider.warning(this.translateService.instant('GLOBAL.CONNECTIVITY.OFFLINE_MODE'));
         } else {
           this.toastProvider.success(this.translateService.instant('GLOBAL.CONNECTIVITY.ONLINE_MODE'));
+          this.initParameters();
           this.synchronizationProvider.synchronizeOfflineData();
           this.synchronizationProvider.storeEDossierOffline(this.sessionService.authenticatedUser.matricule).then(successStore => {
             this.events.publish('EDossierOffline:stored');
@@ -109,6 +119,7 @@ export class EDossierPNC implements OnInit {
   initParameters() {
     this.parametersProvider.getParams().then(parameters => {
       this.sessionService.parameters = parameters;
+      this.events.publish('parameters:ready');
     }, error => { });
   }
 

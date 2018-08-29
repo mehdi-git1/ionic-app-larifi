@@ -1,0 +1,19 @@
+EDossier-indicators {
+
+    display: flex;
+    align-items: center;
+
+    & > * {
+        margin-right: 15px;
+    }
+
+    .settings-button {
+        height: 40px;
+        width: 40px;
+        box-shadow: none;
+
+        ion-icon {
+            font-size: 2.2em;
+        }
+    }
+}

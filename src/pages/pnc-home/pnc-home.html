@@ -1,15 +1,19 @@
 <ion-header>
-    <page-header>{{ 'PNC_HOME.TITLE' | translate }}
-    </page-header>
+    <ion-navbar>
+        <page-header>
+            <ng-container *ngIf="isMyHome()">{{ 'PNC_HOME.TITLE' | translate }}</ng-container>
+        </page-header>
+    </ion-navbar>
 </ion-header>
-<ion-content padding>
+
+<ion-content padding no-bounce>
     <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
     <ng-template #pageBlock>
         <ion-grid>
 
             <ion-row ng-class="row-pnc-info-panel" *ngIf="pnc">
                 <ion-card class="pnc-info-panel">
-                    <offline-indicator [object]="pnc"></offline-indicator>
+                    <offline-indicator [object]="pnc" type="PNC"></offline-indicator>
                     <ion-grid>
                         <ion-row>
                             <ion-col col-2>
@@ -65,7 +69,7 @@
                 <!-- Liste des objectifs-->
                 <ion-col col-6 *ngIf="pnc?.speciality !== Speciality.CAD">
                     <div class="button-parent">
-                        <button ion-button (click)="goToCareerObjectiveList()" color="red20">
+                        <button ion-button (click)="goToCareerObjectiveList()" color="orange50">
                             {{ 'GLOBAL.DEVELOPMENT_PROGRAM' | translate }}
                         </button>
                     </div>

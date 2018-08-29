@@ -27,9 +27,10 @@ $app-direction: ltr;
 // to match your app's branding. Ionic uses a Sass map of
 // colors so you can add, rename and remove colors as needed.
 // The "primary" color is the only required color in the map.
-$colors: (primary: #080F38,
+$colors: (primary: #2c2e34,
 secondary: #9BAEC8,
 tertiary:#E53A40,
+orange50:#EA9252,
 orange60:#F5A623,
 green50:#27b899,
 green60:#5BC7A9,
@@ -37,16 +38,19 @@ green70: #37D67A,
 grey10:#333333,
 grey15:#717171,
 grey20: #585858,
+grey40:#888,
 grey50: #94959A,
 grey60:#8B7D72,
+grey70:#d5d9de,
 grey90: #F1F1F1,
 white:#fff,
 blue60:#25b5d6,
 blue65:#417496,
 blue70:#3b7ae2,
+blue75:#255271,
 blue80:#89D8FB,
 blue90:#268671,
-red20:#600117,
+red20:#772f3f,
 red70:#e24c4c,
 red80:#E53A40,
 red90:#C0504D);
@@ -221,6 +225,3 @@ ion-item.item {
         min-height: auto !important;
     }
 }
-
-$navbar-height: 56px;
-$page-padding: 16px;

@@ -1,13 +1,14 @@
 <ion-header>
-    <page-header>{{ 'GLOBAL.PNC_SUMMARY_SHEET' | translate }}
-    </page-header>
+    <ion-navbar>
+        <page-header>{{ 'GLOBAL.PNC_SUMMARY_SHEET' | translate }}
+        </page-header>
+    </ion-navbar>
 </ion-header>
 
 <ion-content padding>
     <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
     <ng-template #pageBlock>
-        <pdf-viewer *ngIf="previewSrc; else noSummarySheetBlock" max-width [original-size]="false" [show-all]="true" [src]="previewSrc"
-            [autoresize]="true" style="display: block"></pdf-viewer>
+        <pdf-viewer *ngIf="previewSrc; else noSummarySheetBlock" max-width [original-size]="false" [show-all]="true" [src]="previewSrc" [autoresize]="true" style="display: block"></pdf-viewer>
         <ng-template #noSummarySheetBlock>
             <div class="no-summary-sheet">{{ 'SUMMARY_SHEET.PDF_MISSING' | translate }}</div>
         </ng-template>

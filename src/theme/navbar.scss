@@ -1,11 +1,10 @@
 ion-navbar {
     .toolbar-content {
         display: flex;
-    }
-}
 
-.toolbar-ios .toolbar-content-ios connectivity-indicator{
-    position:absolute;
-    right:10px;
-    bottom:10px;
+        edossier-indicators {
+            margin-left: auto;
+            order: 2;
+        }
+    }
 }

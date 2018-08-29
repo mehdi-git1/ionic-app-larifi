@@ -2,12 +2,25 @@ $padding-left-ion-select: 5px;
 $margin-top-autocomplete: 12px;
 $border-input-size: 2px;
 $border-input: $border-input-size solid color($colors, grey50);
+$top-autocomplete-field: 18px;
 pnc-search-filter {
     .pnc-search-card {
         ion-card-header {
             height: 50px;
             display: flex;
             justify-content: space-between;
+        }
+
+        ion-card-header {
+            ion-icon {
+                transform: rotate(180deg);
+            }
+        }
+
+        ion-card-header.opened {
+            ion-icon {
+                transform: rotate(0deg);
+            }
         }
 
         ion-card-content {
@@ -40,13 +53,17 @@ pnc-search-filter {
         .clear-pnc {
             background: color($colors, grey50);
             width: 100%;
-            margin-top: $margin-top-autocomplete + $border-input-size;
         }
+        .button-md {
+            margin-top: $margin-top-autocomplete;
 
+        }
+        .button-ios {
+            margin-top: $top-autocomplete-field;
+        }
         .search-pnc {
             background: color($colors, green60);
             width: 100%;
-            margin-top: $margin-top-autocomplete + $border-input-size;
         }
 
         .hide-label {
@@ -72,7 +89,7 @@ pnc-search-filter {
                 border: $border-input;
             }
             .mat-form-field-label {
-                top: 17px;
+                top: $top-autocomplete-field;
                 padding-left: $padding-left-ion-select;
             }
 
