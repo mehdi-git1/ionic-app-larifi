@@ -50,14 +50,14 @@ export class PncProvider {
   }
 
   /**
-  * Retrouve la dernière rotation opérée par un PNC
-  * @param matricule le matricule du PNC dont on souhaite récupérer la dernière rotation opérée
-  * @return la dernière rotation opérée par le PNC
+  * Retrouve les deux dernières rotations opérées par un PNC
+  * @param matricule le matricule du PNC dont on souhaite récupérer les dernières rotations opérées
+  * @return les deux dernières rotations opérées par le PNC
   */
-  getLastPerformedRotation(matricule: string): Promise<Rotation> {
+  getLastPerformedRotations(matricule: string): Promise<Rotation[]> {
     return this.connectivityService.isConnected() ?
-      this.onlinePncProvider.getLastPerformedRotation(matricule) :
-      this.offlinePncProvider.getLastPerformedRotation(matricule);
+      this.onlinePncProvider.getLastPerformedRotations(matricule) :
+      this.offlinePncProvider.getLastPerformedRotations(matricule);
   }
 
   /**
@@ -69,7 +69,7 @@ export class PncProvider {
     const pncSearchCriteria = new PncSearchCriteria(pncFilter, page, size);
 
     if (this.connectivityService.isConnected()) {
-       return this.onlinePncProvider.getFilteredPncs(pncSearchCriteria);
+      return this.onlinePncProvider.getFilteredPncs(pncSearchCriteria);
     } else {
       return this.offlinePncProvider.getPncs().then(response => {
         return this.offlinePncProvider.getPnc(this.sessionService.authenticatedUser.matricule).then(connectedPnc => {
