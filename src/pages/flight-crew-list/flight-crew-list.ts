@@ -4,8 +4,6 @@ import { ToastProvider } from './../../providers/toast/toast';
 import { ConnectivityService } from './../../services/connectivity.service';
 import { Component } from '@angular/core';
 import { NavController, NavParams, IonicPage } from 'ionic-angular';
-
-import { PncTransformerProvider } from './../../providers/pnc/pnc-transformer';
 import { PncProvider } from './../../providers/pnc/pnc';
 import { SessionService } from './../../services/session.service';
 import { Leg } from './../../models/leg';
@@ -34,8 +32,7 @@ export class FlightCrewListPage {
         private toastProvider: ToastProvider,
         private translate: TranslateService,
         private pncProvider: PncProvider,
-        private sessionService: SessionService,
-        private pncTransformer: PncTransformerProvider) {
+        private sessionService: SessionService) {
     }
 
     ionViewDidEnter() {
@@ -49,11 +46,6 @@ export class FlightCrewListPage {
                             this.sessionService.appContext.onBoardRedactorFunction = crew.onBoardFonction;
                             this.connectedCrewMember = crew;
                         }
-                        this.pncProvider.refreshOffLineDateOnPnc(this.pncTransformer.toPnc(crew.pnc)).then(foundPnc => {
-                            crew.pnc = foundPnc;
-                        }, error => {
-                            this.toastProvider.info(this.translate.instant('FLIGHT_CREW_LIST.ERROR', { 'flightNumber': this.leg.number }));
-                        });
                     }
                 });
                 // On supprime le PNC connecté de la liste

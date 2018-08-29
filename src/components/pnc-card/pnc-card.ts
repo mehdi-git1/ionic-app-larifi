@@ -1,4 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { OfflineIndicatorComponent } from './../offline-indicator/offline-indicator';
+import { Pnc } from './../../models/pnc';
+import { Component, Input, ViewChild } from '@angular/core';
 import { CrewMember } from '../../models/crewMember';
 import { SynchronizationProvider } from './../../providers/synchronization/synchronization';
 import { ToastProvider } from './../../providers/toast/toast';
@@ -15,10 +17,13 @@ import { PncHomePage } from './../../pages/pnc-home/pnc-home';
 })
 export class PncCardComponent {
 
-  @Input() crewMember: CrewMember;
+  private crewMember: CrewMember;
   @Input() isCrewMember: boolean;
   @Input() disabled: boolean;
   synchroInProgress: boolean;
+
+  @ViewChild(OfflineIndicatorComponent)
+  private offlineIndicatorComponent: OfflineIndicatorComponent;
 
   constructor(
     public navCtrl: NavController,
@@ -30,20 +35,9 @@ export class PncCardComponent {
     private pncProvider: PncProvider) {
   }
 
-  /**
-   * Charge les données offline du pnc afin de savoir si il est chargé en cache
-   */
-  loadOfflinePncData(): Promise<void> {
-    return new Promise((resolve, reject) => {
-      if (this.crewMember.pnc.matricule !== undefined) {
-        this.pncProvider.refreshOffLineDateOnPnc(this.crewMember.pnc).then(foundPnc => {
-          this.crewMember.pnc = foundPnc;
-          resolve();
-        }, error => {
-          reject();
-        });
-      }
-    });
+  @Input()
+  set itemMember(val: any) {
+    this.crewMember = val;
   }
 
   /**
@@ -52,13 +46,9 @@ export class PncCardComponent {
   downloadPncEdossier(matricule) {
     this.synchroInProgress = true;
     this.synchronizationProvider.storeEDossierOffline(matricule).then(success => {
-      this.loadOfflinePncData().then(successOfflineData => {
-        this.synchroInProgress = false;
-        this.toastProvider.info(this.translate.instant('SYNCHRONIZATION.PNC_SAVED_OFFLINE', { 'matricule': matricule }));
-      }).catch(error => {
-        this.synchroInProgress = false;
-        this.toastProvider.info(this.translate.instant('SYNCHRONIZATION.PNC_SAVED_OFFLINE', { 'matricule': matricule }));
-      });
+      this.offlineIndicatorComponent.refreshOffLineDateOnCurrentObject();
+      this.synchroInProgress = false;
+      this.toastProvider.info(this.translate.instant('SYNCHRONIZATION.PNC_SAVED_OFFLINE', { 'matricule': matricule }));
     }, error => {
       this.toastProvider.error(error);
       this.synchroInProgress = false;
