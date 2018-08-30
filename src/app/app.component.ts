@@ -28,7 +28,7 @@ import { HomePage } from '../pages/home/home';
 
 import { SecurityModalService } from './../services/security.modal.service';
 
-import { PinPadType } from './../models/securitymodalType';
+import { PinPadType } from './../models/securityModalType';
 
 
 
@@ -43,8 +43,8 @@ export class EDossierPNC implements OnInit {
   rootPage: any = HomePage;
 
   pinPadModalActive = false;
-  datePauseApp: Date;
-  inactivityDelayInsec = 120;
+  switchToBackgroundDate: Date;
+  inactivityDelayInSec = 120;
 
 
   constructor(public platform: Platform,
@@ -84,18 +84,16 @@ export class EDossierPNC implements OnInit {
       });
 
       this.platform.resume.subscribe (() => {
-       // this.splashScreen.hide();
         // Si on a depassé le temps d'incativité, on affiche le pin pad
-        if ( (new Date().getTime() - this.datePauseApp.getTime()) / 1000 > this.inactivityDelayInsec){
+        if ( (new Date().getTime() - this.switchToBackgroundDate.getTime()) / 1000 > this.inactivityDelayInSec){
           this.securityModalService.displayPinPad(PinPadType.openingApp);
         }
       });
 
 
-      /** On ajoute un evenement pout savoir si entre en mode background */
+      /** On ajoute un evenement pout savoir si on entre en mode background */
       this.platform.pause.subscribe (() => {
-        this.datePauseApp = new Date();
-      //  this.splashScreen.show();
+        this.switchToBackgroundDate = new Date();
       });
 
       this.statusBar.styleDefault();
@@ -169,7 +167,7 @@ export class EDossierPNC implements OnInit {
       if (authenticatedUser) {
         this.sessionService.authenticatedUser = authenticatedUser;
         // Gestion de l'affchage du pinPad
-        if (!this.deviceService.isBrowser()) {
+        if (this.deviceService.isBrowser()) {
           this.securityModalService.displayPinPad(PinPadType.openingApp);
         }
         this.nav.setRoot(PncHomePage, { matricule: this.sessionService.authenticatedUser.matricule });

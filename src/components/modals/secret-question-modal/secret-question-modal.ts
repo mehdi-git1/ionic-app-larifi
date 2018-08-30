@@ -1,4 +1,4 @@
-import { SecretQuestionError, GlobalError } from './../../../models/securitymodalType';
+import { SecretQuestionError, GlobalError } from './../../../models/securityModalType';
 import { ViewController, NavParams } from 'ionic-angular';
 import { Component} from '@angular/core';
 
@@ -23,8 +23,11 @@ export class SecretQuestionModal {
     this.errorType = navParams.get('errorType');
   }
 
+  /**
+   * Fonctions passe-plat qui remonte cette information au service
+   * @param stringValue Objet contenant les questions réponses
+   */
   getValue(stringValue){
-    console.log(stringValue);
     this.viewController.dismiss(stringValue);
   }
 }

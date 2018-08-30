@@ -1,18 +1,18 @@
     <div class="container">
         <p class='title'>{{pinTitle}}</p>
-        <p class='errorText'>{{errorText}}</p>
-        <div class="chosenNumber" *ngFor="let inputValue of inputValueArray">
-            <div>
-                <div class="roundPad" [ngClass]="{'fullRound' : inputValue != padValueDefault}"></div>
+        <p class='error-text'>{{errorText}}</p>
+        <div class="chosen-number" *ngFor="let inputValue of inputValueArray">
+            <div class="round-pad-container">
+                <div class="round-pad" [ngClass]="{'full-round' : inputValue != padValueDefault}"></div>
             </div>
         </div>
-        <div class="padNumberContainer">
+        <div class="pad-number-container">
             <div 
-                class="padNumber" 
-                *ngFor="let value of listOfNumberPossible; let i = index" 
+                class="pad-number" 
+                *ngFor="let value of listOfPossibleNumber; let i = index" 
                 (click)="addToInput((i+1)%10)">
                 <span>{{(i+1)%10}}</span>
             </div>
         </div>    
-        <p *ngIf="pinType === pinPadType.openingApp" class='forgottenPin' (click)="manageForgotten();">{{'PIN_PAD.FORGOTTEN' | translate}}</p>
+        <p *ngIf="pinType === pinPadType.openingApp" class='forgotten-pin' (click)="manageForgotten();">{{'PIN_PAD.FORGOTTEN' | translate}}</p>
     </div>   

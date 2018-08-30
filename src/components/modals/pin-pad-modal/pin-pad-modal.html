@@ -2,9 +2,10 @@
 </ion-content>
 <ion-content padding>
   <pin-pad 
-    (pinPadValue)=checkPinValue($event) 
+    (pinPadEntered)=checkPinValue($event) 
     (sendAction)=catchAction($event);
     [pinType]="modalType"
-    [errorType]="errorType">
+    [errorType]="errorType"
+    [padValueDefault]="padValueDefault">
   </pin-pad> 
 </ion-content>

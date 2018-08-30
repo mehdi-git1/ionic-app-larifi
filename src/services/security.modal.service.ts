@@ -10,7 +10,7 @@ import { Injectable, Output, EventEmitter } from '@angular/core';
 import { AuthenticatedUser } from './../models/authenticatedUser';
 import { PinPadModal } from './../components/modals/pin-pad-modal/pin-pad-modal';
 
-import { PinPadType, PinPadTitle, SecretQuestionType, PinPadError, SecretQuestionError, GlobalError } from './../models/securitymodalType';
+import { PinPadType, PinPadTitle, SecretQuestionType, PinPadError, SecretQuestionError, GlobalError } from './../models/securityModalType';
 import { SecretQuestionModal } from '../components/modals/secret-question-modal/secret-question-modal';
 
 
@@ -29,18 +29,18 @@ export class SecurityModalService {
     comeFrom: PinPadType | SecretQuestionType;
 
     constructor(
-        public modalController: ModalController,
-        public translateService: TranslateService,
-        public sessionService: SessionService,
-        public securityProvider: SecurityProvider,
-        public toastProvider: ToastProvider
+        private modalController: ModalController,
+        private translateService: TranslateService,
+        private sessionService: SessionService,
+        private securityProvider: SecurityProvider,
+        private toastProvider: ToastProvider
     ) {
         this.errorType = GlobalError.none;
     }
 
     /**
      * fonction permettant d'afficher le pinPad selon différents cas
-     * @param type => permet de définir le type d'affichage
+     * @param type permet de définir le type d'affichage
      */
     displayPinPad(type){
 
@@ -48,7 +48,7 @@ export class SecurityModalService {
 
         this.modalType = type;
         const pinCode = this.sessionService.authenticatedUser.pinInfo.pinCode;
-        // const pinCode = '1234';
+
         // Si pas de code Pin lors de l'ouverture de l'app => premiére connexion
         // On initialise donc le code pin
         if (!pinCode && type === PinPadType.openingApp){
@@ -96,7 +96,7 @@ export class SecurityModalService {
 
     /**
      * fonction permettant d'afficher le question / reponse selon différents cas
-     * @param type => permet de définir le type d'affichage
+     * @param type permet de définir le type d'affichage
      */
     displaySecretQuestion(type){
         this.modalDisplayed.emit(true);

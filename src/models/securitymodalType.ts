@@ -7,11 +7,11 @@ export enum PinPadType {
 }
 
 export enum PinPadTitle {
-    openingApp = 'PIN_PAD.TITLE.OPENINGAPP',
-    pinChangeStage1 = 'PIN_PAD.TITLE.PINCHANGESTAGE1',
-    pinChangeStage2 = 'PIN_PAD.TITLE.PINCHANGESTAGE2',
-    firstConnexionStage1 = 'PIN_PAD.TITLE.FIRSTCONNEXIONSTAGE1',
-    firstConnexionStage2 = 'PIN_PAD.TITLE.FIRSTCONNEXIONSTAGE2'
+    openingApp = 'PIN_PAD.TITLE.OPENING_APP',
+    pinChangeStage1 = 'PIN_PAD.TITLE.PIN_CHANGE_STAGE_1',
+    pinChangeStage2 = 'PIN_PAD.TITLE.PIN_CHANGE_STAGE_2',
+    firstConnexionStage1 = 'PIN_PAD.TITLE.FIRST_CONNEXION_STAGE_1',
+    firstConnexionStage2 = 'PIN_PAD.TITLE.FIRST_CONNEXION_STAGE_2'
 }
 
 export enum SecretQuestionType {
@@ -20,8 +20,8 @@ export enum SecretQuestionType {
 }
 
 export enum SecretQuestionTitle {
-    newQuestion = 'SECRET_QUESTION.TITLE.NEWQUESTION',
-    answerToQuestion = 'SECRET_QUESTION.TITLE.ANSWERTOQUESTION'
+    newQuestion = 'SECRET_QUESTION.TITLE.NEW_QUESTION',
+    answerToQuestion = 'SECRET_QUESTION.TITLE.ANSWER_TO_QUESTION'
 }
 
 export enum GlobalError {
@@ -35,8 +35,8 @@ export enum PinPadError {
 }
 
 export enum PinPadErrorText {
-    pinIncorrect = 'PIN_PAD.ERROR.PININCORRECT',
-    pinInitIncorrect = 'PIN_PAD.ERROR.PININITINCORRECT'
+    pinIncorrect = 'PIN_PAD.ERROR.PIN_INCORRECT',
+    pinInitIncorrect = 'PIN_PAD.ERROR.PIN_INIT_INCORRECT'
 }
 
 
@@ -45,5 +45,5 @@ export enum SecretQuestionError {
 }
 
 export enum SecretQuestionErrorText {
-    answerIncorrect = 'SECRET_QUESTION.ERROR.ANSWERINCORRECT',
+    answerIncorrect = 'SECRET_QUESTION.ERROR.ANSWER_INCORRECT',
 }
