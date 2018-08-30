@@ -25,6 +25,7 @@ export class WaypointCreatePage {
     creationForm: FormGroup;
     careerObjectiveId: number;
     waypoint: Waypoint;
+    originWaypoint: Waypoint;
     loading: Loading;
     requiredOnEncounterDay: boolean;
 
@@ -66,13 +67,14 @@ export class WaypointCreatePage {
         this.initForm();
     }
 
-    ionViewDidEnter() {
+    ionViewDidLoad() {
         this.careerObjectiveId = this.navParams.get('careerObjectiveId');
 
         if (this.navParams.get('waypointId') && this.navParams.get('waypointId') !== '0') {
             // Récupération du point d'étape
-            this.waypointProvider.getWaypoint(this.navParams.get('waypointId')).then(result => {
-                this.waypoint = result;
+            this.waypointProvider.getWaypoint(this.navParams.get('waypointId')).then(waypoint => {
+                this.originWaypoint = _.cloneDeep(waypoint);
+                this.waypoint = waypoint;
                 this.waypoint.pncComment = this.waypoint.pncComment === undefined ? '' : this.waypoint.pncComment;
                 this.originalPncComment = this.waypoint.pncComment;
             }, error => { });
@@ -80,6 +82,44 @@ export class WaypointCreatePage {
             // Création
             this.waypoint = new Waypoint();
         }
+    }
+
+    ionViewDidEnter() {
+        this.originWaypoint = _.cloneDeep(this.waypoint);
+    }
+
+    ionViewCanLeave() {
+        if (this.formHasBeenModified()) {
+            return new Promise((resolve, reject) => {
+                // Avant de quitter la vue, on avertit l'utilisateur si ses modifications n'ont pas été enregistrées
+                this.alertCtrl.create({
+                    title: this.translateService.instant('WAYPOINT_CREATE.CONFIRM_BACK_WITHOUT_SAVE.TITLE'),
+                    message: this.translateService.instant('WAYPOINT_CREATE.CONFIRM_BACK_WITHOUT_SAVE.MESSAGE'),
+                    buttons: [
+                        {
+                            text: this.translateService.instant('GLOBAL.BUTTONS.CANCEL'),
+                            role: 'cancel',
+                            handler: () => reject()
+                        },
+                        {
+                            text: this.translateService.instant('GLOBAL.BUTTONS.CONFIRM'),
+                            handler: () => resolve()
+                        }
+                    ]
+                }).present();
+            });
+        }
+        else {
+            return true;
+        }
+    }
+
+    /**
+     * Vérifie si le formulaire a été modifié sans être enregistré
+     */
+    formHasBeenModified() {
+        console.log(this.originWaypoint, this.waypoint);
+        return !_.isEqual(this.originWaypoint, this.waypoint);
     }
 
     /**
@@ -126,6 +166,7 @@ export class WaypointCreatePage {
             this.waypointProvider
                 .createOrUpdate(waypointToSave, this.careerObjectiveId)
                 .then(savedWaypoint => {
+                    this.originWaypoint = _.cloneDeep(savedWaypoint);
                     this.waypoint = savedWaypoint;
 
                     if (this.waypoint.waypointStatus === WaypointStatus.DRAFT) {

@@ -28,6 +28,7 @@ export class CareerObjectiveCreatePage {
 
     creationForm: FormGroup;
     careerObjective: CareerObjective;
+    originCareerObjective: CareerObjective;
     waypointList: Waypoint[];
     nextEncounterDateTimeOptions: any;
     encounterDateTimeOptions: any;
@@ -88,6 +89,7 @@ export class CareerObjectiveCreatePage {
         if (this.navParams.get('careerObjectiveId') && this.navParams.get('careerObjectiveId') !== '0') {
             // Récupération de l'objectif et des points d'étape
             this.careerObjectiveProvider.getCareerObjective(this.navParams.get('careerObjectiveId')).then(foundCareerObjective => {
+                this.originCareerObjective = _.cloneDeep(foundCareerObjective);
                 this.careerObjective = foundCareerObjective;
                 this.originalPncComment = this.careerObjective.pncComment;
             }, error => { });
@@ -106,13 +108,50 @@ export class CareerObjectiveCreatePage {
     ionViewDidEnter() {
         if (this.careerObjective && this.careerObjective.techId) {
             this.careerObjectiveProvider.getCareerObjective(this.careerObjective.techId).then(foundCareerObjective => {
+                this.originCareerObjective = _.cloneDeep(foundCareerObjective);
                 this.careerObjective = foundCareerObjective;
                 this.originalPncComment = this.careerObjective.pncComment;
             }, error => { });
             this.waypointProvider.getCareerObjectiveWaypoints(this.careerObjective.techId).then(result => {
                 this.waypointList = result;
             }, error => { });
+        } else {
+            // Création
+            this.originCareerObjective = _.cloneDeep(this.careerObjective);
         }
+    }
+
+    ionViewCanLeave() {
+        if (this.formHasBeenModified()) {
+            return new Promise((resolve, reject) => {
+                // Avant de quitter la vue, on avertit l'utilisateur si ses modifications n'ont pas été enregistrées
+                this.alertCtrl.create({
+                    title: this.translateService.instant('CAREER_OBJECTIVE_CREATE.CONFIRM_BACK_WITHOUT_SAVE.TITLE'),
+                    message: this.translateService.instant('CAREER_OBJECTIVE_CREATE.CONFIRM_BACK_WITHOUT_SAVE.MESSAGE'),
+                    buttons: [
+                        {
+                            text: this.translateService.instant('GLOBAL.BUTTONS.CANCEL'),
+                            role: 'cancel',
+                            handler: () => reject()
+                        },
+                        {
+                            text: this.translateService.instant('GLOBAL.BUTTONS.CONFIRM'),
+                            handler: () => resolve()
+                        }
+                    ]
+                }).present();
+            });
+        }
+        else {
+            return true;
+        }
+    }
+
+    /**
+     * Vérifie si le formulaire a été modifié sans être enregistré
+     */
+    formHasBeenModified() {
+        return !_.isEqual(this.originCareerObjective, this.careerObjective);
     }
 
     /**
@@ -154,6 +193,7 @@ export class CareerObjectiveCreatePage {
             this.careerObjectiveProvider
                 .createOrUpdate(careerObjectiveToSave)
                 .then(savedCareerObjective => {
+                    this.originCareerObjective = _.cloneDeep(savedCareerObjective);
                     this.careerObjective = savedCareerObjective;
 
                     if (this.careerObjective.careerObjectiveStatus === CareerObjectiveStatus.DRAFT) {
@@ -192,7 +232,9 @@ export class CareerObjectiveCreatePage {
         if (careerObjectiveToSave.encounterDate !== undefined) {
             careerObjectiveToSave.encounterDate = this.datePipe.transform(careerObjectiveToSave.encounterDate, 'yyyy-MM-ddTHH:mm');
         }
-        careerObjectiveToSave.nextEncounterDate = this.datePipe.transform(careerObjectiveToSave.nextEncounterDate, 'yyyy-MM-ddTHH:mm');
+        if (careerObjectiveToSave.nextEncounterDate !== undefined) {
+            careerObjectiveToSave.nextEncounterDate = this.datePipe.transform(careerObjectiveToSave.nextEncounterDate, 'yyyy-MM-ddTHH:mm');
+        }
         return careerObjectiveToSave;
     }
 
