@@ -270,7 +270,7 @@
             "BUTTON": "Changer le code pin"
         },
         "CHANGE_SECRET_QUESTION": {
-            "BUTTON": "Changer la question secréte"
+            "BUTTON": "Changer la question secrète"
         },
         "CONFIRM_INIT_CACHE": {
             "TITLE": "Réinitialisation du cache",
