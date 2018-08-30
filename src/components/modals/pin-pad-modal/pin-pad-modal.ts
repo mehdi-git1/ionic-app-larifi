@@ -1,7 +1,8 @@
+import { GlobalError } from './../../../models/globalError';
+import { PinPadError } from './../../../models/pinPadError';
 import { ViewController, NavParams } from 'ionic-angular';
 import { Component } from '@angular/core';
 
-import { PinPadError, GlobalError } from './../../../models/securityModalType2';
 
 @Component({
   selector: 'pin-pad-modal',

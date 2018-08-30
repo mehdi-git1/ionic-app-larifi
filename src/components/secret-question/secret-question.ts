@@ -1,10 +1,13 @@
+import { SecretQuestionErrorText } from './../../models/secretQuestionErrorText';
+import { GlobalError } from './../../models/globalError';
+import { SecretQuestionTitle } from './../../models/secretQuestionTitle';
+import { SecretQuestionType } from './../../models/secretQuestionType';
 import { SecretQuestionModal } from './../modals/secret-question-modal/secret-question-modal';
 import { TranslateService } from '@ngx-translate/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ViewController } from 'ionic-angular';
 import { Component, Output, EventEmitter, Input, OnInit } from '@angular/core';
 
-import { SecretQuestionType, SecretQuestionTitle, GlobalError, SecretQuestionErrorText } from './../../models/securityModalType2';
 
 @Component({
   selector: 'secret-question',

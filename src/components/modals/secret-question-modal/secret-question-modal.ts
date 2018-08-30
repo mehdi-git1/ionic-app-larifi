@@ -1,6 +1,7 @@
-import { SecretQuestionError, GlobalError } from './../../../models/securityModalType2';
+import { GlobalError } from './../../../models/globalError';
 import { ViewController, NavParams } from 'ionic-angular';
 import { Component } from '@angular/core';
+import { SecretQuestionError } from '../../../models/secretQuestionError';
 
 
 @Component({

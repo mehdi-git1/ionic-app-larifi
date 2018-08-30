@@ -1,3 +1,7 @@
+import { GlobalError } from './../models/globalError';
+import { PinPadError } from './../models/pinPadError';
+import { PinPadType } from './../models/pinPadType';
+import { SecretQuestionType } from './../models/secretQuestionType';
 import { SecurityProvider } from './../providers/security/security';
 import { ToastProvider } from './../providers/toast/toast';
 import { OfflineSecurityProvider } from './../providers/security/offline-security';
@@ -10,8 +14,8 @@ import { Injectable, Output, EventEmitter } from '@angular/core';
 import { AuthenticatedUser } from './../models/authenticatedUser';
 import { PinPadModal } from './../components/modals/pin-pad-modal/pin-pad-modal';
 
-import { PinPadType, PinPadTitle, SecretQuestionType, PinPadError, SecretQuestionError, GlobalError } from './../models/securityModalType2';
 import { SecretQuestionModal } from '../components/modals/secret-question-modal/secret-question-modal';
+import { SecretQuestionError } from '../models/secretQuestionError';
 
 
 @Injectable()

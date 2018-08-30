@@ -1,8 +1,11 @@
+import { PinPadErrorText } from './../../models/pinPadErrorText';
+import { GlobalError } from './../../models/globalError';
+import { PinPadTitle } from './../../models/pinPadTitle';
+import { PinPadType } from './../../models/pinPadType';
 import { TranslateService } from '@ngx-translate/core';
 import { ViewController } from 'ionic-angular';
 import { Component, Output, EventEmitter, Input, OnInit } from '@angular/core';
 
-import { PinPadTitle, PinPadType, GlobalError, PinPadErrorText } from './../../models/securityModalType2';
 
 @Component({
   selector: 'pin-pad',
