@@ -411,7 +411,7 @@ export class CareerObjectiveCreatePage {
      **/
 
     saveCareerObjectiveAndUpdatePncComment() {
-        this.saveCareerObjective(this.careerObjective).then(success => {
+        this.saveCareerObjective(this.careerObjective).then(() => {
             this.originalPncComment = this.careerObjective.pncComment;
         });
     }

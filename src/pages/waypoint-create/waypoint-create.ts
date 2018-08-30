@@ -252,7 +252,7 @@ export class WaypointCreatePage {
      * Sauvegarde le pont d'etape et met a jour le commentaire pnc du point d'etape original
      */
     saveWaypointAndUpdatePncComment() {
-        this.saveWaypoint(this.waypoint).then(success => {
+        this.saveWaypoint(this.waypoint).then(() => {
             this.originalPncComment = this.waypoint.pncComment;
         });
     }
