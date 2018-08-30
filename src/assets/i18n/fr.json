@@ -10,6 +10,9 @@
             "DONE": "Valider",
             "CLEAR": "Vider"
         },
+        "MONTH": {
+            "LONGNAME" : "Janvier, Février, Mars , Avril, Mai, Juin, Juillet, Août, Septembre, Octobre, Novembre, Décembre"
+        },
         "CAREER_OBJECTIVE_STATUS": {
             "DRAFT": "PROPOSITION",
             "REGISTERED": "EN COURS",
