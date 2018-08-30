@@ -68,6 +68,7 @@ export class WaypointCreatePage {
             // Récupération du point d'étape
             this.waypointProvider.getWaypoint(this.navParams.get('waypointId')).then(result => {
                 this.waypoint = result;
+                this.waypoint.pncComment = this.waypoint.pncComment === undefined ? '' : this.waypoint.pncComment;
                 this.originalPncComment = this.waypoint.pncComment;
             }, error => { });
         } else {
@@ -111,26 +112,29 @@ export class WaypointCreatePage {
      * @param waypointToSave le point d'étape à enregistrer
      */
     saveWaypoint(waypointToSave: Waypoint) {
-        waypointToSave = this.prepareWaypointBeforeSubmit(waypointToSave);
+        return new Promise((resolve, reject) => {
+            waypointToSave = this.prepareWaypointBeforeSubmit(waypointToSave);
 
-        this.loading = this.loadingCtrl.create();
-        this.loading.present();
+            this.loading = this.loadingCtrl.create();
+            this.loading.present();
 
-        this.waypointProvider
-            .createOrUpdate(waypointToSave, this.careerObjectiveId)
-            .then(savedWaypoint => {
-                this.waypoint = savedWaypoint;
+            this.waypointProvider
+                .createOrUpdate(waypointToSave, this.careerObjectiveId)
+                .then(savedWaypoint => {
+                    this.waypoint = savedWaypoint;
 
-                if (this.waypoint.waypointStatus === WaypointStatus.DRAFT) {
-                    this.toastProvider.success(this.translateService.instant('WAYPOINT_CREATE.SUCCESS.DRAFT_SAVED'));
-                } else {
-                    this.toastProvider.success(this.translateService.instant('WAYPOINT_CREATE.SUCCESS.WAYPOINT_SAVED'));
-                }
-                this.loading.dismiss();
-                this.navCtrl.pop();
-            }, error => {
-                this.loading.dismiss();
-            });
+                    if (this.waypoint.waypointStatus === WaypointStatus.DRAFT) {
+                        this.toastProvider.success(this.translateService.instant('WAYPOINT_CREATE.SUCCESS.DRAFT_SAVED'));
+                    } else {
+                        this.toastProvider.success(this.translateService.instant('WAYPOINT_CREATE.SUCCESS.WAYPOINT_SAVED'));
+                    }
+                    this.loading.dismiss();
+                    this.navCtrl.pop();
+                    resolve();
+                }, error => {
+                    this.loading.dismiss();
+                });
+        });
     }
 
     /**
@@ -239,8 +243,8 @@ export class WaypointCreatePage {
      * @return vrai s'il peut enregistrer le point d'etape , faux sinon
      */
     canPncCommentBeModifiedByPnc(): boolean {
-        return !this.securityProvider.isManager() && (
-            this.waypoint.waypointStatus === WaypointStatus.REGISTERED) &&
+        return !this.securityProvider.isManager() &&
+            (this.waypoint.waypointStatus === WaypointStatus.REGISTERED) &&
             this.waypoint.pncComment !== this.originalPncComment;
     }
 
@@ -248,8 +252,9 @@ export class WaypointCreatePage {
      * Sauvegarde le pont d'etape et met a jour le commentaire pnc du point d'etape original
      */
     saveWaypointAndUpdatePncComment() {
-        this.saveWaypoint(this.waypoint);
-        this.originalPncComment = this.waypoint.pncComment;
+        this.saveWaypoint(this.waypoint).then(success => {
+            this.originalPncComment = this.waypoint.pncComment;
+        });
     }
 
 }
