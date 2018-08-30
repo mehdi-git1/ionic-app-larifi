@@ -16,6 +16,7 @@ import { NavBarCustomComponent } from './edossier-indicators/edossier-indicators
 import { PncSearchFilterComponent } from './pnc-search-filter/pnc-search-filter';
 import { PncPhotoComponent } from './pnc-photo/pnc-photo';
 import { PageHeaderComponent } from './page-header/page-header';
+import { CareerObjectiveCardComponent } from './career-objective-card/career-objective-card';
 
 import { PinPadModal } from './modals/pin-pad-modal/pin-pad-modal';
 import { PinPadComponent } from './pin-pad/pin-pad';
@@ -41,7 +42,8 @@ import { PinPadComponent } from './pin-pad/pin-pad';
     NavBarCustomComponent,
     PncSearchFilterComponent,
     PncPhotoComponent,
-    PageHeaderComponent
+    PageHeaderComponent,
+    CareerObjectiveCardComponent
   ],
   exports: [
     RotationCardComponent,
@@ -58,7 +60,8 @@ import { PinPadComponent } from './pin-pad/pin-pad';
     PageHeaderComponent,
     NavBarCustomComponent,
     PncSearchFilterComponent,
-    PncPhotoComponent
+    PncPhotoComponent,
+    CareerObjectiveCardComponent
   ],
   entryComponents: [
     PinPadModal,

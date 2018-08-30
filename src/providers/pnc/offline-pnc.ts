@@ -3,7 +3,6 @@ import { Entity } from './../../models/entity';
 import { StorageService } from './../../services/storage.service';
 import { Pnc } from './../../models/pnc';
 import { Injectable } from '@angular/core';
-import { EDossierPncObject } from '../../models/eDossierPncObject';
 
 @Injectable()
 export class OfflinePncProvider {

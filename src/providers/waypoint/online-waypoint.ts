@@ -1,7 +1,5 @@
 import { StorageService } from './../../services/storage.service';
 import { Config } from './../../configuration/environment-variables/config';
-import { OfflineWaypointProvider } from './offline-waypoint';
-import { ConnectivityService } from './../../services/connectivity.service';
 import { Injectable } from '@angular/core';
 import { RestService } from '../../services/rest.base.service';
 import { Waypoint } from '../../models/waypoint';
@@ -12,8 +10,6 @@ export class OnlineWaypointProvider {
   private waypointUrl: string;
 
   constructor(public restService: RestService,
-    private connectivityService: ConnectivityService,
-    private offlineWaypointProvider: OfflineWaypointProvider,
     private storageService: StorageService,
     private config: Config) {
     this.waypointUrl = `${config.backEndUrl}/waypoints`;

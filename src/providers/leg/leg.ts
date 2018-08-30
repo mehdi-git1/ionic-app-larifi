@@ -1,5 +1,4 @@
 import { CrewMember } from './../../models/crewMember';
-import { Config } from './../../configuration/environment-variables/config';
 import { OnlineLegProvider } from './online-leg';
 import { OfflineLegProvider } from './offline-leg';
 import { Leg } from './../../models/leg';
@@ -37,4 +36,5 @@ export class LegProvider {
       this.onlineLegProvider.getFlightCrewFromLeg(legId) :
       this.offlineLegProvider.getFlightCrewFromLeg(legId);
   }
+
 }

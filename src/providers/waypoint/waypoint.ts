@@ -1,7 +1,5 @@
 import { DatePipe } from '@angular/common';
 import { SessionService } from './../../services/session.service';
-import { OfflineProvider } from './../offline/offline';
-import { WaypointTransformerProvider } from './waypoint-transformer';
 import { OnlineWaypointProvider } from './online-waypoint';
 import { OfflineWaypointProvider } from './../waypoint/offline-waypoint';
 import { ConnectivityService } from './../../services/connectivity.service';
@@ -17,8 +15,6 @@ export class WaypointProvider {
   constructor(private connectivityService: ConnectivityService,
     private onlineWaypointProvider: OnlineWaypointProvider,
     private offlineWaypointProvider: OfflineWaypointProvider,
-    private offlineProvider: OfflineProvider,
-    private waypointTransformer: WaypointTransformerProvider,
     private datePipe: DatePipe,
     private sessionService: SessionService) {
   }
@@ -50,20 +46,6 @@ export class WaypointProvider {
   * @return les points d'étape récupérés
   */
   getCareerObjectiveWaypoints(careerObjectiveId: number): Promise<Waypoint[]> {
-    if (this.connectivityService.isConnected()) {
-      return new Promise((resolve, reject) => {
-        this.offlineWaypointProvider.getCareerObjectiveWaypoints(careerObjectiveId).then(offlineWaypoints => {
-          this.onlineWaypointProvider.getCareerObjectiveWaypoints(careerObjectiveId).then(onlineWaypoints => {
-            const onlineData = this.waypointTransformer.toWaypoints(onlineWaypoints);
-            const offlineData = this.waypointTransformer.toWaypoints(offlineWaypoints);
-            this.offlineProvider.flagDataAvailableOffline(onlineData, offlineData);
-            resolve(onlineData);
-          });
-        });
-      });
-    } else {
-      this.offlineWaypointProvider.getCareerObjectiveWaypoints(careerObjectiveId);
-    }
     return this.connectivityService.isConnected() ?
       this.onlineWaypointProvider.getCareerObjectiveWaypoints(careerObjectiveId) :
       this.offlineWaypointProvider.getCareerObjectiveWaypoints(careerObjectiveId);
@@ -90,4 +72,5 @@ export class WaypointProvider {
       this.onlineWaypointProvider.delete(id) :
       this.offlineWaypointProvider.delete(id);
   }
+
 }
