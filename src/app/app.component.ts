@@ -49,19 +49,19 @@ export class EDossierPNC implements OnInit {
     private securityProvider: SecurityProvider,
     private synchronizationProvider: SynchronizationProvider,
     private offlineSecurityProvider: OfflineSecurityProvider) {
-    if (this.deviceService.isBrowser) {
-      this.splashScreen.hide();
     }
-  }
 
-  ngOnInit(): void {
-    this.initializeApp();
-  }
-
-  initializeApp() {
-
-    this.platform.ready().then(() => {
-
+    ngOnInit(): void {
+      this.initializeApp();
+    }
+    
+    initializeApp() {
+      
+      this.platform.ready().then(() => {
+        if (this.deviceService.isBrowser) {
+          this.splashScreen.hide();
+        }
+        
       this.statusBar.styleDefault();
 
       this.translateService.setDefaultLang('fr');
