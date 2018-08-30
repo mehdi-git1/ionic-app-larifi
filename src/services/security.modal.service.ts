@@ -61,6 +61,8 @@ export class SecurityModalService {
                 errorType : this.errorType
             }
         );
+        // Reinitialisation de l'erreur pour éviter qu'elle ne s'affiche partout
+        this.errorType = GlobalError.none;
         this.manageDismissPinPad();
         this.pinModal.present();
     }
@@ -119,6 +121,8 @@ export class SecurityModalService {
                 question: this.sessionService.authenticatedUser.pinInfo.secretQuestion,
                 errorType : this.errorType
             });
+        // Reinitialisation de l'erreur pour éviter qu'elle ne s'affiche partout
+        this.errorType = GlobalError.none;
         this.manageDismissSecretQuestion();
         this.secretQuestionModal.present();
     }
