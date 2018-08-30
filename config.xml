@@ -15,8 +15,6 @@
     <preference name="android-minSdkVersion" value="19" />
     <preference name="BackupWebStorage" value="none" />
     <allow-navigation href="http://localhost:8080/*" />
-    <preference name="SplashScreenDelay" value="30000" />
-    <preference name="SplashScreen" value="splash" />
     <platform name="ios">
         <feature name="CDVWKWebViewEngine">
             <param name="ios-package" value="CDVWKWebViewEngine" />
