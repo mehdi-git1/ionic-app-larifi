@@ -39,6 +39,14 @@ export class OnlineSecurityProvider {
           authenticatedUser.pinInfo.secretAnswer = data.secretAnswer;
           this.offlineSecurityProvider.overwriteAuthenticatedUser(new AuthenticatedUser().fromJSON(authenticatedUser));
           return authenticatedUser;
+        }, error => {
+          authenticatedUser.pinInfo = new AuthenticatedPinInfoUser;
+          authenticatedUser.pinInfo.matricule = null;
+          authenticatedUser.pinInfo.pinCode = null ;
+          authenticatedUser.pinInfo.secretQuestion = null;
+          authenticatedUser.pinInfo.secretAnswer = null;
+          this.offlineSecurityProvider.overwriteAuthenticatedUser(new AuthenticatedUser().fromJSON(authenticatedUser));
+          return authenticatedUser;
         });
       } else {
         authenticatedUser.pinInfo = new AuthenticatedPinInfoUser;
