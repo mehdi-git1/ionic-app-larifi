@@ -14,7 +14,7 @@ export class RestMobileService extends RestService {
 
     public call(request: RestRequest): Promise<any> {
 
-        if (request.method == 'POST') {
+        if (request.method == 'POST' || request.method == 'PUT') {
             if (request.jsonData) {
                 if (!request.httpHeaders) {
                     // En mode mobile, on construit un objet JS classique, attendu par secMobile

@@ -68,7 +68,7 @@ export class SecurityModalService {
     }
 
     /**
-     * Fonction permettant de gérer les données recues du modal de pin
+     * Fonction permettant de gérer les données reçues du modal de pin
      */
     manageDismissPinPad(){
         const pinCode = this.sessionService.authenticatedUser.pinInfo.pinCode;
@@ -128,7 +128,7 @@ export class SecurityModalService {
     }
 
     /**
-     * Fonction permettant de gérer les données recues du modal de question réponse
+     * Fonction permettant de gérer les données reçues du modal de question réponse
      */
     manageDismissSecretQuestion(){
         this.secretQuestionModal.onDidDismiss(data => {
