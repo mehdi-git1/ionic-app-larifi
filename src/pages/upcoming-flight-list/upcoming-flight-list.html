@@ -11,10 +11,10 @@
         <div class="rotation-list" margin-top>
             <h3>{{ 'UPCOMING_FLIGHT_LIST.LAST_FLIGHTS' | translate }}</h3>
             <rotation-card *ngFor=" let lastPerformedRotation of lastPerformedRotations" [rotation]="lastPerformedRotation" class="last-performed-rotations"></rotation-card>
-            <div class="no-data-found" *ngIf="noLastPerformedRotations()">{{ 'UPCOMING_FLIGHT_LIST.NO_FLIGHTS' | translate }}</div>
+            <div class="no-data-found" *ngIf="!hasLastPerformedRotations()">{{ 'UPCOMING_FLIGHT_LIST.NO_FLIGHTS' | translate }}</div>
             <h3>{{ 'UPCOMING_FLIGHT_LIST.UPCOMING_FLIGHTS' | translate }}</h3>
             <rotation-card *ngFor="let upcomingRotation of upcomingRotations" [rotation]="upcomingRotation" class="upcoming-rotations"></rotation-card>
-            <div class="no-data-found" *ngIf="noUpcomingRotations()">{{ 'UPCOMING_FLIGHT_LIST.NO_FLIGHTS' | translate }}</div>
+            <div class="no-data-found" *ngIf="!hasUpcomingRotations()">{{ 'UPCOMING_FLIGHT_LIST.NO_FLIGHTS' | translate }}</div>
         </div>
     </ng-template>
 </ion-content>

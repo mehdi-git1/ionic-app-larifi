@@ -48,15 +48,15 @@ export class UpcomingFlightListPage {
      * Vérifie s'il existe des rotations à venir
      * @return true si c'est le cas, false sinon
      */
-    noUpcomingRotations() {
-        return !this.upcomingRotations || this.upcomingRotations.length === 0;
+    hasUpcomingRotations() {
+        return this.upcomingRotations && this.upcomingRotations.length > 0;
     }
 
     /**
-    * Vérifie s'il existe des rotations à venir
+    * Vérifie s'il existe des rotations passées
     * @return true si c'est le cas, false sinon
     */
-    noLastPerformedRotations() {
-        return !this.lastPerformedRotations || this.lastPerformedRotations.length === 0;
+    hasLastPerformedRotations() {
+        return !this.lastPerformedRotations && this.lastPerformedRotations.length > 0;
     }
 }
