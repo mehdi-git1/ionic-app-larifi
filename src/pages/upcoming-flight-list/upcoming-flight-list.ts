@@ -57,6 +57,6 @@ export class UpcomingFlightListPage {
     * @return true si c'est le cas, false sinon
     */
     hasLastPerformedRotations() {
-        return !this.lastPerformedRotations && this.lastPerformedRotations.length > 0;
+        return this.lastPerformedRotations && this.lastPerformedRotations.length > 0;
     }
 }
