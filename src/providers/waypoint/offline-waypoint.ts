@@ -64,4 +64,5 @@ export class OfflineWaypointProvider {
   delete(id: number): Promise<Waypoint> {
     return this.storageService.deleteAsync(Entity.WAYPOINT, `${id}`);
   }
+
 }

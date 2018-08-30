@@ -10,6 +10,9 @@
             "DONE": "Valider",
             "CLEAR": "Vider"
         },
+        "MONTH": {
+            "LONGNAME" : "Janvier, Février, Mars , Avril, Mai, Juin, Juillet, Août, Septembre, Octobre, Novembre, Décembre"
+        },
         "CAREER_OBJECTIVE_STATUS": {
             "DRAFT": "PROPOSITION",
             "REGISTERED": "EN COURS",
@@ -62,12 +65,12 @@
             "PNC": "PNC",
             "INITIATOR": "A l'initiative de",
             "TITLE": "Libellé",
-            "CONTEXT": "Contexte",
+            "CONTEXT": "Origine/Contexte",
             "ACTION_PLAN": "Plan d'action et ressources utiles",
             "MANAGER_COMMENT": "Commentaire Manager Coach",
             "PNC_COMMENT": "Commentaire PNC",
-            "NEXT_ENCOUNTER_DATE": "Prochain point",
-            "ENCOUNTER_DATE": "Date de rencontre",
+            "NEXT_ENCOUNTER_DATE": "Prochain rappel",
+            "ENCOUNTER_DATE": "Fixée le",
             "PRIORITIZED": "Priorité majeure",
             "CREATION_DATE": "Créée le",
             "REQUIRED_ON_ENCOUNTER_DAY": " (Saisie obligatoire le jour de la rencontre)"
@@ -110,23 +113,23 @@
         },
         "ERROR": {
             "CAREER_OBJECTIVE_CREATION_FAILED": "La création de la priorité a échouée",
-            "ENCOUTER_DATE_REQUIRED": "Veuillez indiquer une date de rencontre"
+            "ENCOUTER_DATE_REQUIRED": "Veuillez renseigner la date à laquelle la priorité a été fixée"
         }
     },
     "CAREER_OBJECTIVE_LIST": {
         "NO_OBJECTIVES": "Aucune priorité pour le moment",
         "INFORMATION_MESSAGE": "Maximum 5 priorités en cours",
         "LIST": {
-            "CREATION_DATE": "Date de création",
+            "CREATION_DATE": "Initiée le",
             "TITLE": "Libellé",
             "REGISTRATION_DATE": "Date d'enregistrement",
-            "ENCOUNTER_DATE": "Date de rencontre",
-            "NEXT_ENCOUNTER_DATE": "Date du prochain point"
+            "ENCOUNTER_DATE": "Fixée le",
+            "NEXT_ENCOUNTER_DATE": "Prochain rappel"
         },
         "BUTTONS": {
             "ADD_CAREER_OBJECTIVE": "Nouvelle priorité"
         },
-        "CREATE_EOBSERVATION": "Créer une eObservation"
+        "CREATE_EOBSERVATION": "Nouvelle eObservation"
     },
     "PNC_HOME": {
         "TITLE": "Accueil",
@@ -140,11 +143,11 @@
     "WAYPOINT_CREATE": {
         "TITLE": "Point d'étape",
         "FORM": {
-            "CONTEXT": "Contexte",
+            "CONTEXT": "Origine/Contexte",
             "ACTION_PERFORMED": "Action réalisée",
             "MANAGER_COMMENT": "Commentaire Manager Coach",
             "PNC_COMMENT": "Commentaire PNC",
-            "ENCOUNTER_DATE": "Date de rencontre",
+            "ENCOUNTER_DATE": "Date du point d'étape",
             "REQUIRED_ON_ENCOUNTER_DAY": " (Saisie obligatoire le jour de la rencontre)"
         },
         "CONFIRM_DRAFT_DELETE": {
@@ -163,7 +166,7 @@
             "DELETE_DRAFT": "Supprimer proposition"
         },
         "ERROR": {
-            "ENCOUTER_DATE_AND_ACTION_PLAN_REQUIRED": "Veuillez indiquer l'action réalisée et la date de rencontre"
+            "ENCOUTER_DATE_AND_ACTION_PLAN_REQUIRED": "Veuillez renseigner l'action réalisée et la date du point d'étape"
         },
         "SUCCESS": {
             "WAYPOINT_SAVED": "Point d'étape enregistré",

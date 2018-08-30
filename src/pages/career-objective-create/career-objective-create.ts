@@ -46,6 +46,8 @@ export class CareerObjectiveCreatePage {
     CareerObjectiveStatus = CareerObjectiveStatus;
     WaypointStatus = WaypointStatus;
 
+    monthsNames;
+
     constructor(
         public navCtrl: NavController,
         public navParams: NavParams,
@@ -74,6 +76,9 @@ export class CareerObjectiveCreatePage {
                 handler: () => this.careerObjective.encounterDate = ''
             }]
         };
+
+        // Traduction des mois
+        this.monthsNames = this.translateService.instant('GLOBAL.MONTH.LONGNAME');
 
         // Initialisation du formulaire
         this.initForm();
@@ -176,64 +181,70 @@ export class CareerObjectiveCreatePage {
 
     /**
      * Lance le processus de création/mise à jour d'un objectif
+     * @param careerObjectiveToSave l'objectif à enregistrer
      */
-    saveCareerObjective() {
-        this.prepareCareerObjectiveBeforeSubmit();
+    saveCareerObjective(careerObjectiveToSave: CareerObjective) {
+        return new Promise((resolve, reject) => {
+            careerObjectiveToSave = this.prepareCareerObjectiveBeforeSubmit(careerObjectiveToSave);
 
-        this.loading = this.loadingCtrl.create();
-        this.loading.present();
+            this.loading = this.loadingCtrl.create();
+            this.loading.present();
 
-        this.careerObjectiveProvider
-            .createOrUpdate(this.careerObjective)
-            .then(savedCareerObjective => {
-                this.originCareerObjective = _.cloneDeep(savedCareerObjective);
-                this.careerObjective = savedCareerObjective;
+            this.careerObjectiveProvider
+                .createOrUpdate(careerObjectiveToSave)
+                .then(savedCareerObjective => {
+                    this.originCareerObjective = _.cloneDeep(savedCareerObjective);
+                    this.careerObjective = savedCareerObjective;
 
-                if (this.careerObjective.careerObjectiveStatus === CareerObjectiveStatus.DRAFT) {
-                    this.toastProvider.success(this.translateService.instant('CAREER_OBJECTIVE_CREATE.SUCCESS.DRAFT_SAVED'));
-                } else if (this.careerObjective.careerObjectiveStatus === CareerObjectiveStatus.REGISTERED) {
-                    if (this.cancelValidation) {
-                        this.toastProvider.success
-                            (this.translateService.instant('CAREER_OBJECTIVE_CREATE.SUCCESS.CAREER_OBJECTIVE_VALIDATION_CANCELED'));
-                        this.cancelValidation = false;
-                    } else if (this.cancelAbandon) {
-                        this.toastProvider.success(this.translateService.instant('CAREER_OBJECTIVE_CREATE.SUCCESS.CAREER_OBJECTIVE_RESUMED'));
-                        this.cancelAbandon = false;
-                    } else {
-                        this.toastProvider.success(this.translateService.instant('CAREER_OBJECTIVE_CREATE.SUCCESS.CAREER_OBJECTIVE_SAVED'));
+                    if (this.careerObjective.careerObjectiveStatus === CareerObjectiveStatus.DRAFT) {
+                        this.toastProvider.success(this.translateService.instant('CAREER_OBJECTIVE_CREATE.SUCCESS.DRAFT_SAVED'));
+                    } else if (this.careerObjective.careerObjectiveStatus === CareerObjectiveStatus.REGISTERED) {
+                        if (this.cancelValidation) {
+                            this.toastProvider.success
+                                (this.translateService.instant('CAREER_OBJECTIVE_CREATE.SUCCESS.CAREER_OBJECTIVE_VALIDATION_CANCELED'));
+                            this.cancelValidation = false;
+                        } else if (this.cancelAbandon) {
+                            this.toastProvider.success(this.translateService.instant('CAREER_OBJECTIVE_CREATE.SUCCESS.CAREER_OBJECTIVE_RESUMED'));
+                            this.cancelAbandon = false;
+                        } else {
+                            this.toastProvider.success(this.translateService.instant('CAREER_OBJECTIVE_CREATE.SUCCESS.CAREER_OBJECTIVE_SAVED'));
+                        }
+                    } else if (this.careerObjective.careerObjectiveStatus === CareerObjectiveStatus.VALIDATED) {
+                        this.toastProvider.success(this.translateService.instant('CAREER_OBJECTIVE_CREATE.SUCCESS.CAREER_OBJECTIVE_VALIDATED'));
+                    } else if (this.careerObjective.careerObjectiveStatus === CareerObjectiveStatus.ABANDONED) {
+                        this.toastProvider.success(this.translateService.instant('CAREER_OBJECTIVE_CREATE.SUCCESS.CAREER_OBJECTIVE_ABANDONED'));
                     }
-                } else if (this.careerObjective.careerObjectiveStatus === CareerObjectiveStatus.VALIDATED) {
-                    this.toastProvider.success(this.translateService.instant('CAREER_OBJECTIVE_CREATE.SUCCESS.CAREER_OBJECTIVE_VALIDATED'));
-                } else if (this.careerObjective.careerObjectiveStatus === CareerObjectiveStatus.ABANDONED) {
-                    this.toastProvider.success(this.translateService.instant('CAREER_OBJECTIVE_CREATE.SUCCESS.CAREER_OBJECTIVE_ABANDONED'));
-                }
-
-                this.loading.dismiss();
-            }, error => {
-
-                this.loading.dismiss();
-            });
+                    this.loading.dismiss();
+                    resolve();
+                }, error => {
+                    this.loading.dismiss();
+                });
+        });
     }
 
     /**
      * Prépare l'objectif avant de l'envoyer au back :
      * Transforme les dates au format iso
+     * @param careerObjectiveToSave
+     * @return l'objectif à enregistrer avec la date de rencontre transformée
      */
-    prepareCareerObjectiveBeforeSubmit() {
-        if (this.careerObjective.encounterDate !== undefined) {
-            this.careerObjective.encounterDate = this.datePipe.transform(this.careerObjective.encounterDate, 'yyyy-MM-ddTHH:mm');
+    prepareCareerObjectiveBeforeSubmit(careerObjectiveToSave: CareerObjective): CareerObjective {
+        if (careerObjectiveToSave.encounterDate !== undefined) {
+            careerObjectiveToSave.encounterDate = this.datePipe.transform(careerObjectiveToSave.encounterDate, 'yyyy-MM-ddTHH:mm');
         }
-        if (this.careerObjective.nextEncounterDate !== undefined) {
-            this.careerObjective.nextEncounterDate = this.datePipe.transform(this.careerObjective.nextEncounterDate, 'yyyy-MM-ddTHH:mm');
+        if (careerObjectiveToSave.nextEncounterDate !== undefined) {
+            careerObjectiveToSave.nextEncounterDate = this.datePipe.transform(careerObjectiveToSave.nextEncounterDate, 'yyyy-MM-ddTHH:mm');
         }
+        return careerObjectiveToSave;
     }
 
     /**
      * Enregistre un objectif au statut brouillon
      */
     saveCareerObjectiveDraft() {
-        this.careerObjective.careerObjectiveStatus = CareerObjectiveStatus.DRAFT;
-        this.saveCareerObjective();
+        const careerObjectiveToSave = _.cloneDeep(this.careerObjective);
+        careerObjectiveToSave.careerObjectiveStatus = CareerObjectiveStatus.DRAFT;
+        this.saveCareerObjective(careerObjectiveToSave);
     }
 
     /**
@@ -241,9 +252,10 @@ export class CareerObjectiveCreatePage {
      */
     saveCareerObjectiveToRegisteredStatus() {
         if (this.careerObjective.encounterDate) {
-            this.careerObjective.careerObjectiveStatus = CareerObjectiveStatus.REGISTERED;
-            this.careerObjective.registrationDate = this.datePipe.transform(new Date(), 'yyyy-MM-ddTHH:mm');
-            this.saveCareerObjective();
+            const careerObjectiveToSave = _.cloneDeep(this.careerObjective);
+            careerObjectiveToSave.careerObjectiveStatus = CareerObjectiveStatus.REGISTERED;
+            careerObjectiveToSave.registrationDate = this.datePipe.transform(new Date(), 'yyyy-MM-ddTHH:mm');
+            this.saveCareerObjective(careerObjectiveToSave);
         } else {
             this.requiredOnEncounterDay = true;
             this.toastProvider.warning(this.translateService.instant('CAREER_OBJECTIVE_CREATE.ERROR.ENCOUTER_DATE_REQUIRED'));
@@ -255,8 +267,9 @@ export class CareerObjectiveCreatePage {
      */
     saveCareerObjectiveToValidatedStatus() {
         if (this.careerObjective.encounterDate) {
-            this.careerObjective.careerObjectiveStatus = CareerObjectiveStatus.VALIDATED;
-            this.saveCareerObjective();
+            const careerObjectiveToSave = _.cloneDeep(this.careerObjective);
+            careerObjectiveToSave.careerObjectiveStatus = CareerObjectiveStatus.VALIDATED;
+            this.saveCareerObjective(careerObjectiveToSave);
         } else {
             this.requiredOnEncounterDay = true;
         }
@@ -267,8 +280,9 @@ export class CareerObjectiveCreatePage {
     */
     saveCareerObjectiveToAbandonedStatus() {
         if (this.careerObjective.encounterDate) {
-            this.careerObjective.careerObjectiveStatus = CareerObjectiveStatus.ABANDONED;
-            this.saveCareerObjective();
+            const careerObjectiveToSave = _.cloneDeep(this.careerObjective);
+            careerObjectiveToSave.careerObjectiveStatus = CareerObjectiveStatus.ABANDONED;
+            this.saveCareerObjective(careerObjectiveToSave);
         } else {
             this.requiredOnEncounterDay = true;
         }
@@ -279,9 +293,10 @@ export class CareerObjectiveCreatePage {
     */
     cancelCareerObjectiveValidation() {
         if (this.careerObjective.encounterDate) {
+            const careerObjectiveToSave = _.cloneDeep(this.careerObjective);
             this.cancelValidation = true;
-            this.careerObjective.careerObjectiveStatus = CareerObjectiveStatus.REGISTERED;
-            this.saveCareerObjective();
+            careerObjectiveToSave.careerObjectiveStatus = CareerObjectiveStatus.REGISTERED;
+            this.saveCareerObjective(careerObjectiveToSave);
         } else {
             this.requiredOnEncounterDay = true;
         }
@@ -292,9 +307,10 @@ export class CareerObjectiveCreatePage {
     */
     resumeAbandonedCareerObjective() {
         if (this.careerObjective.encounterDate) {
+            const careerObjectiveToSave = _.cloneDeep(this.careerObjective);
             this.cancelAbandon = true;
-            this.careerObjective.careerObjectiveStatus = CareerObjectiveStatus.REGISTERED;
-            this.saveCareerObjective();
+            careerObjectiveToSave.careerObjectiveStatus = CareerObjectiveStatus.REGISTERED;
+            this.saveCareerObjective(careerObjectiveToSave);
         }
     }
 
@@ -402,9 +418,9 @@ export class CareerObjectiveCreatePage {
     }
 
     /**
-   * Vérifie que le chargement des points d'étape est terminé
-   * @return true si c'est le cas, false sinon
-   */
+    * Vérifie que le chargement des points d'étape est terminé
+    * @return true si c'est le cas, false sinon
+    */
     waypointsLoadingIsOver(): boolean {
         return this.waypointList !== undefined;
     }
@@ -433,7 +449,8 @@ export class CareerObjectiveCreatePage {
     canPncCommentBeModifiedByPnc(): boolean {
         return !this.securityProvider.isManager() && (
             this.careerObjective.careerObjectiveStatus === CareerObjectiveStatus.REGISTERED ||
-            this.careerObjective.careerObjectiveStatus === CareerObjectiveStatus.VALIDATED) &&
+            this.careerObjective.careerObjectiveStatus === CareerObjectiveStatus.VALIDATED ||
+            this.careerObjective.careerObjectiveStatus === CareerObjectiveStatus.ABANDONED) &&
             this.careerObjective.pncComment !== this.originalPncComment;
     }
 
@@ -442,8 +459,9 @@ export class CareerObjectiveCreatePage {
      **/
 
     saveCareerObjectiveAndUpdatePncComment() {
-        this.saveCareerObjective();
-        this.originalPncComment = this.careerObjective.pncComment;
+        this.saveCareerObjective(this.careerObjective).then(() => {
+            this.originalPncComment = this.careerObjective.pncComment;
+        });
     }
 
     /**

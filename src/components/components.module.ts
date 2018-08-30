@@ -14,6 +14,7 @@ import { NavBarCustomComponent } from './edossier-indicators/edossier-indicators
 import { PncSearchFilterComponent } from './pnc-search-filter/pnc-search-filter';
 import { PncPhotoComponent } from './pnc-photo/pnc-photo';
 import { PageHeaderComponent } from './page-header/page-header';
+import { CareerObjectiveCardComponent } from './career-objective-card/career-objective-card';
 
 @NgModule({
   imports: [
@@ -32,7 +33,8 @@ import { PageHeaderComponent } from './page-header/page-header';
     NavBarCustomComponent,
     PncSearchFilterComponent,
     PncPhotoComponent,
-    PageHeaderComponent
+    PageHeaderComponent,
+    CareerObjectiveCardComponent
   ],
   exports: [
     RotationCardComponent,
@@ -45,7 +47,8 @@ import { PageHeaderComponent } from './page-header/page-header';
     NavBarCustomComponent,
     PncSearchFilterComponent,
     PncPhotoComponent,
-    PageHeaderComponent
+    PageHeaderComponent,
+    CareerObjectiveCardComponent
   ],
   providers: [DatePipe]
 
