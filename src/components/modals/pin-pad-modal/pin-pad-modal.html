@@ -1,0 +1,11 @@
+<ion-content class="fullScreen">
+</ion-content>
+<ion-content padding>
+  <pin-pad 
+    (pinPadEntered)=checkPinValue($event) 
+    (sendAction)=catchAction($event);
+    [pinType]="modalType"
+    [errorType]="errorType"
+    [padValueDefault]="padValueDefault">
+  </pin-pad> 
+</ion-content>
