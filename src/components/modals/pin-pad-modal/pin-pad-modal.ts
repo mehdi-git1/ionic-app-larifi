@@ -26,6 +26,7 @@ export class PinPadModal {
   /**
    * Fonction permettant de vérifier la valeur du pin
    * On envoi la valeur (en fermant la modal) seulement si les 4 caractéres ont été saisi
+   * @param pinValue valeur du code pin
    */
   checkPinValue(pinValue){
     if (pinValue.indexOf(this.padValueDefault) === -1){
@@ -34,6 +35,10 @@ export class PinPadModal {
 
   }
 
+  /**
+   * fonction passe-plat qui renvoi à l'appelant l'action faite
+   * @param action Recupération de l'action et envoi vers le service
+   */
   catchAction(action){
     this.viewController.dismiss(action);
   }
