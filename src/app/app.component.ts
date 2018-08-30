@@ -30,6 +30,8 @@ import { SecurityModalService } from './../services/security.modal.service';
 
 import { PinPadType } from './../models/securityModalType';
 
+import * as moment from 'moment';
+
 
 
 
@@ -85,7 +87,7 @@ export class EDossierPNC implements OnInit {
 
       this.platform.resume.subscribe (() => {
         // Si on a depassé le temps d'incativité, on affiche le pin pad
-        if ( (new Date().getTime() - this.switchToBackgroundDate.getTime()) / 1000 > this.inactivityDelayInSec){
+        if ( moment.duration(moment().diff(moment(this.switchToBackgroundDate))).asSeconds() > this.inactivityDelayInSec){
           this.securityModalService.displayPinPad(PinPadType.openingApp);
         }
       });
