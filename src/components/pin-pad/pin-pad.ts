@@ -28,7 +28,7 @@ export class PinPadComponent implements OnInit{
   // tableau vide permettant d'afficher les chiffres en boucle
   listOfPossibleNumber: Array<any>;
 
-  // tableau de valeurs des valeurs entrées
+  // tableau de valeurs des valeurs entrées (code pin)
   inputValueArray: Array<any>;
 
   constructor(
@@ -54,9 +54,9 @@ export class PinPadComponent implements OnInit{
   }
 
   /**
-   * Fonction permettant de récupérer l'information entré et
-   * envoi pour traitement
-   * @param valeur valeur entré par l'utilisateur
+   * Fonction permettant de récupérer l'information entrée et
+   * l'envoi pour traitement
+   * @param valeur valeur entrée par l'utilisateur
    */
   addToInput(valeur){
     this.inputValueArray[this.inputValueArray.indexOf(this.padValueDefault)] = valeur;

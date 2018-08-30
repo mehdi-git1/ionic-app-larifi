@@ -25,9 +25,9 @@ export class SecretQuestionModal {
 
   /**
    * Fonctions passe-plat qui remonte cette information au service
-   * @param stringValue Objet contenant les questions réponses
+   * @param ObjetQuestionAnswer Objet contenant les questions réponses
    */
-  getValue(stringValue){
-    this.viewController.dismiss(stringValue);
+  getValue(ObjetQuestionAnswer){
+    this.viewController.dismiss(ObjetQuestionAnswer);
   }
 }

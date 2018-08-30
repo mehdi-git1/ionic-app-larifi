@@ -79,7 +79,7 @@ export class EDossierPNC implements OnInit {
       }
 
       /**
-       * On ajoute une écoute sur un paramétre pour savoir si la popin est activé ou pas pour afficher un blur
+       * On ajoute une écoute sur un paramétre pour savoir si la popin est activée ou pas pour afficher un blur
        * et une interdiction de cliquer avant d'avoir mis le bon code pin
        */
       this.securityModalService.modalDisplayed.subscribe( data => {
@@ -87,14 +87,14 @@ export class EDossierPNC implements OnInit {
       });
 
       this.platform.resume.subscribe (() => {
-        // Si on a depassé le temps d'incativité, on affiche le pin pad
+        // Si on a depassé le temps d'inactivité, on affiche le pin pad
         if ( moment.duration(moment().diff(moment(this.switchToBackgroundDate))).asSeconds() > this.inactivityDelayInSec){
           this.securityModalService.displayPinPad(PinPadType.openingApp);
         }
       });
 
 
-      /** On ajoute un evenement pout savoir si on entre en mode background */
+      /** On ajoute un evenement pour savoir si on entre en mode background */
       this.platform.pause.subscribe (() => {
         this.switchToBackgroundDate = new Date();
       });

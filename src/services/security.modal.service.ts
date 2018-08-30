@@ -61,6 +61,16 @@ export class SecurityModalService {
                 errorType : this.errorType
             }
         );
+        this.manageDismissPinPad();
+        this.pinModal.present();
+    }
+
+    /**
+     * Fonction permettant de gérer les données recues du modal de pin
+     */
+    manageDismissPinPad(){
+        const pinCode = this.sessionService.authenticatedUser.pinInfo.pinCode;
+
         this.pinModal.onDidDismiss(data => {
             this.modalDisplayed.emit(false);
             // Si premiére connexion => etape 2
@@ -91,7 +101,6 @@ export class SecurityModalService {
                 }
             }
         });
-        this.pinModal.present();
     }
 
     /**
@@ -110,6 +119,14 @@ export class SecurityModalService {
                 question: this.sessionService.authenticatedUser.pinInfo.secretQuestion,
                 errorType : this.errorType
             });
+        this.manageDismissSecretQuestion();
+        this.secretQuestionModal.present();
+    }
+
+    /**
+     * Fonction permettant de gérer les données recues du modal de question réponse
+     */
+    manageDismissSecretQuestion(){
         this.secretQuestionModal.onDidDismiss(data => {
             this.modalDisplayed.emit(false);
             if (this.modalType === SecretQuestionType.newQuestion){
@@ -132,6 +149,5 @@ export class SecurityModalService {
                 }
             }
         });
-        this.secretQuestionModal.present();
     }
 }
