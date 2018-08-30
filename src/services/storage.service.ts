@@ -22,11 +22,18 @@ export class StorageService {
     private datePipe: DatePipe) {
   }
 
-  reinitOfflineMap() {
-    this.offlineMap = null;
-    this.persistOfflineMap();
-    this.initOfflineMap();
+  reinitOfflineMap(): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.offlineMap = null;
+      this.persistOfflineMap().then(() => {
+        this.initOfflineMap().then(() => {
+          resolve();
+        });
+      });
+    });
   }
+
+
 
   /**
    * Initialise la map de stockage qui sera persistée dans le cache.
@@ -187,8 +194,8 @@ export class StorageService {
   /**
    * Persiste la map en cache, dans le stockage Ionic
    */
-  persistOfflineMap(): void {
-    this.storage.set(this.config.appName, this.offlineMap);
+  persistOfflineMap(): Promise<any> {
+    return this.storage.set(this.config.appName, this.offlineMap);
   }
 
   /**

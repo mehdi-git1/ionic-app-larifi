@@ -93,8 +93,17 @@
                                     <ion-label>
                                         <ion-icon name="calendar"></ion-icon>
                                     </ion-label>
-                                    <ion-datetime [disabled]="readOnlyByUserConnected()" displayFormat="DD/MM/YYYY" [(ngModel)]="careerObjective.nextEncounterDate" formControlName="nextEncounterDateControl" [pickerOptions]="nextEncounterDateTimeOptions" [doneText]="translateService.instant('GLOBAL.DATEPICKER.DONE')"
-                                        [cancelText]="translateService.instant('GLOBAL.DATEPICKER.CANCEL')" [max]="datepickerMaxDate">
+                                    <ion-datetime 
+                                        [disabled]="readOnlyByUserConnected()" 
+                                        displayFormat="DD/MM/YYYY" 
+                                        pickerFormat="DD MMMM YYYY" 
+                                        [(ngModel)]="careerObjective.nextEncounterDate"
+                                        formControlName="nextEncounterDateControl" 
+                                        [pickerOptions]="nextEncounterDateTimeOptions"
+                                        [doneText]="translateService.instant('GLOBAL.DATEPICKER.DONE')" 
+                                        [cancelText]="translateService.instant('GLOBAL.DATEPICKER.CANCEL')"
+                                        [max]="datepickerMaxDate"
+                                        [monthNames]="monthsNames">
                                     </ion-datetime>
                                 </ion-item>
                                 <!-- Date de rencontre -->
@@ -105,8 +114,17 @@
                                     <ion-label>
                                         <ion-icon name="calendar"></ion-icon>
                                     </ion-label>
-                                    <ion-datetime [disabled]="readOnlyByUserConnected()" displayFormat="DD/MM/YYYY" [(ngModel)]="careerObjective.encounterDate" formControlName="encounterDateControl" [pickerOptions]="encounterDateTimeOptions" [doneText]="translateService.instant('GLOBAL.DATEPICKER.DONE')"
-                                        [cancelText]="translateService.instant('GLOBAL.DATEPICKER.CANCEL')" [max]="datepickerMaxDate"></ion-datetime>
+                                    <ion-datetime 
+                                        [disabled]="readOnlyByUserConnected()" 
+                                        displayFormat="DD/MM/YYYY"
+                                        pickerFormat="DD MMMM YYYY" 
+                                        [(ngModel)]="careerObjective.encounterDate"
+                                        formControlName="encounterDateControl" 
+                                        [pickerOptions]="encounterDateTimeOptions" 
+                                        [doneText]="translateService.instant('GLOBAL.DATEPICKER.DONE')"
+                                        [cancelText]="translateService.instant('GLOBAL.DATEPICKER.CANCEL')" 
+                                        [max]="datepickerMaxDate"
+                                        [monthNames]="monthsNames"></ion-datetime>
                                 </ion-item>
                             </ion-col>
                         </ion-row>
@@ -128,14 +146,14 @@
                                 <!--Si une date de rencontre existe, on l'affiche, sinon on affiche la date de création -->
                                 <header>
                                     <ion-icon name="create" ios="md-create" *ngIf="waypoint.waypointStatus === WaypointStatus.DRAFT" float-right></ion-icon>
-                                    <div class="value" *ngIf="waypoint.encounterDate; else creationDateBlock">
+                                    <div class="value" *ngIf="waypoint.encounterDate; else lastUpdateDateBlock">
                                         {{ waypoint.encounterDate | date: 'dd/MM/yyyy'}}
                                     </div>
-                                    <ng-template #creationDateBlock>
-                                        <div class="value">{{ waypoint.creationDate | date: 'dd/MM/yyyy'}}</div>
+                                    <ng-template #lastUpdateDateBlock>
+                                        <div class="value">{{ waypoint.lastUpdateDate | date: 'dd/MM/yyyy'}}</div>
                                     </ng-template>
                                 </header>
-                                <h4>{{ waypoint.context }}</h4>
+                                <h4>{{ waypoint.actionPerformed }}</h4>
                             </ion-card-content>
                         </ion-card>
                     </ng-template>

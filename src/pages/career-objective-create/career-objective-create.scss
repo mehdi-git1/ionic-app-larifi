@@ -75,8 +75,13 @@ page-career-objective-create {
 
                         h4 {
                             text-overflow: ellipsis;
-                            white-space: nowrap;
                             overflow: hidden;
+                            line-height: 18px;
+                            max-height: 54px;
+                            white-space: pre-line;
+                            display: -webkit-box;
+                            -webkit-line-clamp: 3;
+                            -webkit-box-orient: vertical;
                         }
                     }
                 }
