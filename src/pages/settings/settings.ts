@@ -57,7 +57,30 @@ export class SettingsPage {
   }
 
   ionViewDidLoad() {
+  }
 
+  /**
+  * Présente une alerte pour confirmer la suppression du brouillon
+  */
+  confirmClearAndInitCache() {
+    const message = this.synchronizationProvider.isPncModifiedOffline(this.sessionService.authenticatedUser.matricule) ?
+      this.translateService.instant('SETTINGS.CONFIRM_INIT_CACHE.MESSAGE_UNSYNCHRONIZED_DATA') :
+      this.translateService.instant('SETTINGS.CONFIRM_INIT_CACHE.MESSAGE');
+
+    this.alertCtrl.create({
+      title: this.translateService.instant('SETTINGS.CONFIRM_INIT_CACHE.TITLE'),
+      message: message,
+      buttons: [
+        {
+          text: this.translateService.instant('SETTINGS.CONFIRM_INIT_CACHE.CANCEL'),
+          role: 'cancel'
+        },
+        {
+          text: this.translateService.instant('SETTINGS.CONFIRM_INIT_CACHE.CONFIRM'),
+          handler: () => this.clearAndInitCache()
+        }
+      ]
+    }).present();
   }
 
   /**
@@ -65,8 +88,7 @@ export class SettingsPage {
    */
   clearAndInitCache() {
     this.initInProgress = true;
-    this.storageService.reinitOfflineMap();
-    this.initializeCache();
+    this.storageService.reinitOfflineMap().then(() => this.initializeCache());
   }
 
   /**

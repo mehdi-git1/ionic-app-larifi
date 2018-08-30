@@ -15,7 +15,7 @@
             <div *ngIf="filteredPncs && filteredPncs.length == 0" class="no-data-found">
                 {{ 'PNC_SEARCH.NO_PNC_FOUND' | translate }}
             </div>
-            <pnc-card *ngFor="let pnc of filteredPncs" [crewMember]="createCrewMemberObjectFromPnc(pnc)" (click)="openPncHomePage(pnc)"></pnc-card>
+            <pnc-card *ngFor="let pnc of filteredPncs" [itemMember]="createCrewMemberObjectFromPnc(pnc)" (click)="openPncHomePage(pnc)"></pnc-card>
         </span>
 
         <strong *ngIf="lastPageReached()" class="no-data-found">{{ 'PNC_SEARCH.END_OF_SEARCH' | translate }}</strong>

@@ -4,7 +4,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ViewController } from 'ionic-angular';
 import { Component, Output, EventEmitter, Input, OnInit } from '@angular/core';
 
-import { SecretQuestionType, SecretQuestionTitle, GlobalError, SecretQuestionErrorText } from './../../models/securitymodalType';
+import { SecretQuestionType, SecretQuestionTitle, GlobalError, SecretQuestionErrorText } from './../../models/securityModalType';
 
 @Component({
   selector: 'secret-question',
@@ -13,7 +13,7 @@ import { SecretQuestionType, SecretQuestionTitle, GlobalError, SecretQuestionErr
 
 export class SecretQuestionComponent implements OnInit{
 
-  @Output() QuestionAnswerValue = new EventEmitter();
+  @Output() questionAnswerValue = new EventEmitter();
   @Input() modalType = '';
   @Input() questionToAnswer = '';
   @Input() errorType = '';
@@ -39,6 +39,11 @@ export class SecretQuestionComponent implements OnInit{
     this.errorText = this.errorType === GlobalError.none ? '' : this.translateService.instant(SecretQuestionErrorText[this.errorType]);
   }
 
+  /**
+   * Initialisation des formulaires
+   * Soit un formulaire de nouvelle question
+   * Soit un formulaire de réponse à la question
+   */
   initForm() {
     this.newQuestionForm = this.formBuilder.group({
         questionControl: ['', [Validators.required]],
@@ -50,6 +55,11 @@ export class SecretQuestionComponent implements OnInit{
   });
   }
 
+  /**
+   * Renvoi les différents données sous deux formes
+   * Un objet contenant une question et une réponse pour l'init
+   * Un objet contenant la réponse pour la réponse à la question
+   */
   sendData(){
     let sendObj;
     if (this.modalType === this.secretQuestionType.newQuestion){
@@ -62,6 +72,6 @@ export class SecretQuestionComponent implements OnInit{
         secretAnswer : this.answerQuestionForm.controls.answerControl.value,
       };
     }
-    this.QuestionAnswerValue.emit(sendObj);
+    this.questionAnswerValue.emit(sendObj);
   }
 }

@@ -33,12 +33,11 @@
         "angular2-notifications": "^1.0.2",
         "cordova-android-support-gradle-release": "^1.4.4",
         "cordova-ios": "4.5.5",
-        "cordova-plugin-cocoapod-support": "^1.5.0",
+        "cordova-plugin-cocoapod-support": "^1.6.0",
         "cordova-plugin-compat": "^1.2.0",
         "cordova-plugin-device": "^2.0.2",
-        "cordova-plugin-formslib": "^1.0.4",
         "cordova-plugin-ionic-keyboard": "^2.1.2",
-        "cordova-plugin-ionic-webview": "^2.0.3",
+        "cordova-plugin-ionic-webview": "^2.1.0",
         "cordova-plugin-secmobil": "^2.0.77",
         "cordova-plugin-splashscreen": "^5.0.2",
         "cordova-plugin-statusbar": "^2.4.2",
@@ -49,7 +48,6 @@
         "moment": "^2.22.2",
         "ng2-pdf-viewer": "^5.1.0",
         "prod": "1.0.1",
-        "remove": "0.1.5",
         "rxjs": "5.5.8",
         "sw-toolbox": "3.6.0",
         "zone.js": "0.8.20"
@@ -73,7 +71,6 @@
                 "APP_GROUP": "AF_GROUP"
             },
             "cordova-plugin-cocoapod-support": {},
-            "cordova-plugin-formslib": {},
             "cordova-plugin-statusbar": {},
             "cordova-plugin-ionic-webview": {}
         },

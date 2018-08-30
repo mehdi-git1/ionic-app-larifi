@@ -1,7 +1,7 @@
 import { ViewController, NavParams } from 'ionic-angular';
 import { Component} from '@angular/core';
 
-import { PinPadError, GlobalError } from './../../../models/securitymodalType';
+import { PinPadError, GlobalError } from './../../../models/securityModalType';
 
 @Component({
   selector: 'pin-pad-modal',
@@ -12,6 +12,8 @@ export class PinPadModal {
 
   modalType: string;
   errorType: PinPadError | GlobalError;
+
+  padValueDefault = '_';
 
   constructor(
     public viewController: ViewController,
@@ -24,15 +26,19 @@ export class PinPadModal {
   /**
    * Fonction permettant de vérifier la valeur du pin
    * On envoi la valeur (en fermant la modal) seulement si les 4 caractéres ont été saisi
+   * @param pinValue valeur du code pin
    */
-
   checkPinValue(pinValue){
-    if (pinValue.indexOf('_') === -1){
+    if (pinValue.indexOf(this.padValueDefault) === -1){
       this.viewController.dismiss(pinValue.join(''));
      }
 
   }
 
+  /**
+   * fonction passe-plat qui renvoi à l'appelant l'action faite
+   * @param action Recupération de l'action et envoi vers le service
+   */
   catchAction(action){
     this.viewController.dismiss(action);
   }

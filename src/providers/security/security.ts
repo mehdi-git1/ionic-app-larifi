@@ -37,10 +37,10 @@ export class SecurityProvider {
   }
 
   /**
-   * Récupère le user connecté à l'application
-   * @return une promesse contenant le user connecté
+   * Met à jour les données secrétes de l'utilisateur
+   * @return une promesse contenant un void
    */
-  setAuthenticatedSecurityValue(authenticatedUser: AuthenticatedUser) {
+  setAuthenticatedSecurityValue(authenticatedUser: AuthenticatedUser): void | Promise<void>{
     return this.connectivityService.isConnected() ?
       this.onlineSecurityProvider.setAuthenticatedSecurityValue(authenticatedUser) :
       this.offlineSecurityProvider.setAuthenticatedSecurityValue(authenticatedUser) ;

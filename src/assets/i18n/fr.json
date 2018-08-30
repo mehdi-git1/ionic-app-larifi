@@ -10,6 +10,9 @@
             "DONE": "Valider",
             "CLEAR": "Vider"
         },
+        "MONTH": {
+            "LONGNAME" : "Janvier, Février, Mars , Avril, Mai, Juin, Juillet, Août, Septembre, Octobre, Novembre, Décembre"
+        },
         "CAREER_OBJECTIVE_STATUS": {
             "DRAFT": "PROPOSITION",
             "REGISTERED": "EN COURS",
@@ -58,12 +61,12 @@
             "PNC": "PNC",
             "INITIATOR": "A l'initiative de",
             "TITLE": "Libellé",
-            "CONTEXT": "Contexte",
+            "CONTEXT": "Origine/Contexte",
             "ACTION_PLAN": "Plan d'action et ressources utiles",
             "MANAGER_COMMENT": "Commentaire Manager Coach",
             "PNC_COMMENT": "Commentaire PNC",
-            "NEXT_ENCOUNTER_DATE": "Prochain point",
-            "ENCOUNTER_DATE": "Date de rencontre",
+            "NEXT_ENCOUNTER_DATE": "Prochain rappel",
+            "ENCOUNTER_DATE": "Fixée le",
             "PRIORITIZED": "Priorité majeure",
             "CREATION_DATE": "Créée le",
             "REQUIRED_ON_ENCOUNTER_DAY": " (Saisie obligatoire le jour de la rencontre)"
@@ -102,18 +105,18 @@
         },
         "ERROR": {
             "CAREER_OBJECTIVE_CREATION_FAILED": "La création de la priorité a échouée",
-            "ENCOUTER_DATE_REQUIRED": "Veuillez indiquer une date de rencontre"
+            "ENCOUTER_DATE_REQUIRED": "Veuillez renseigner la date à laquelle la priorité a été fixée"
         }
     },
     "CAREER_OBJECTIVE_LIST": {
         "NO_OBJECTIVES": "Aucune priorité pour le moment",
         "INFORMATION_MESSAGE": "Maximum 5 priorités en cours",
         "LIST": {
-            "CREATION_DATE": "Date de création",
+            "CREATION_DATE": "Initiée le",
             "TITLE": "Libellé",
             "REGISTRATION_DATE": "Date d'enregistrement",
-            "ENCOUNTER_DATE": "Date de rencontre",
-            "NEXT_ENCOUNTER_DATE": "Date du prochain point"
+            "ENCOUNTER_DATE": "Fixée le",
+            "NEXT_ENCOUNTER_DATE": "Prochain rappel"
         },
         "BUTTONS": {
             "ADD_CAREER_OBJECTIVE": "Nouvelle priorité"
@@ -132,11 +135,11 @@
     "WAYPOINT_CREATE": {
         "TITLE": "Point d'étape",
         "FORM": {
-            "CONTEXT": "Contexte",
+            "CONTEXT": "Origine/Contexte",
             "ACTION_PERFORMED": "Action réalisée",
             "MANAGER_COMMENT": "Commentaire Manager Coach",
             "PNC_COMMENT": "Commentaire PNC",
-            "ENCOUNTER_DATE": "Date de rencontre",
+            "ENCOUNTER_DATE": "Date du point d'étape",
             "REQUIRED_ON_ENCOUNTER_DAY": " (Saisie obligatoire le jour de la rencontre)"
         },
         "CONFIRM_DRAFT_DELETE": {
@@ -151,7 +154,7 @@
             "DELETE_DRAFT": "Supprimer proposition"
         },
         "ERROR": {
-            "ENCOUTER_DATE_AND_ACTION_PLAN_REQUIRED": "Veuillez indiquer l'action réalisée et la date de rencontre"
+            "ENCOUTER_DATE_AND_ACTION_PLAN_REQUIRED": "Veuillez renseigner l'action réalisée et la date du point d'étape"
         },
         "SUCCESS": {
             "WAYPOINT_SAVED": "Point d'étape enregistré",
@@ -216,36 +219,37 @@
     },
     "PIN_PAD": {
         "TITLE": {
-            "OPENINGAPP": "Veuillez entrer votre code pin",
-            "PINCHANGESTAGE1": "Veuillez entrer votre code pin actuel",
-            "PINCHANGESTAGE2": "Veuillez entrer votre nouveau code pin",
-            "FIRSTCONNEXIONSTAGE1": "Veuillez entrer un code pin pour sécuriser votre compte",
-            "FIRSTCONNEXIONSTAGE2": "Veuillez confirmer votre code pin"
+            "OPENING_APP": "Veuillez entrer votre code pin",
+            "PIN_CHANGE_STAGE_1": "Veuillez entrer votre code pin actuel",
+            "PIN_CHANGE_STAGE_2": "Veuillez entrer votre nouveau code pin",
+            "FIRST_CONNEXION_STAGE_1": "Veuillez entrer un code pin pour sécuriser votre compte",
+            "FIRST_CONNEXION_STAGE_2": "Veuillez confirmer votre code pin"
         },
         "FORGOTTEN": "Code pin oublié ?",
         "CANCEL": "Annuler",
         "ERROR": {
-            "PININCORRECT": "Code pin incorrect",
-            "PININITINCORRECT": "Les 2 codes pin doivent être identiques"
+            "PIN_INCORRECT": "Code pin incorrect",
+            "PIN_INIT_INCORRECT": "Les 2 codes pin doivent être identiques"
         },
         "TOAST_MESSAGE":{
             "SUCCESS_MODIF": "Code pin modifié avec succès",
             "SUCCESS_REINIT": "Code pin réinitialisé avec succès",
-            "ERROR": "Erreur lors de la modificaion du code pin"
+            "ERROR": "Erreur lors de la modification du code pin"
         }
     },
     "SECRET_QUESTION": {
         "TITLE": {
-            "NEWQUESTION": "Veuillez définir de quoi retrouver votre code PIN",
-            "ANSWERTOQUESTION": "Répondez à la question suivante :"
+            "NEW_QUESTION": "Veuillez définir de quoi retrouver votre code PIN",
+            "ANSWER_TO_QUESTION": "Répondez à la question suivante :"
         },
         "LABEL":{
-            "NEWQUESTION": "Veuillez entrer une question secrète",
-            "NEWANSWER": "Veuillez entrer la réponse à la question"
+            "NEW_QUESTION": "Veuillez entrer une question secrète",
+            "NEW_ANSWER": "Veuillez entrer la réponse à la question",
+            "ANSWER_TO_QUESTION": "Veuillez entrer la réponse à la question"
         },
         "VALIDATE": "Valider",
         "ERROR": {
-            "ANSWERINCORRECT": "Réponse incorrecte"
+            "ANSWER_INCORRECT": "Réponse incorrecte"
         },
         "TOAST_MESSAGE":{
             "SUCCESS_INIT": "Code pin et question / réponse secrète initialisés",

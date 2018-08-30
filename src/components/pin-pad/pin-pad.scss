@@ -17,12 +17,12 @@ pin-pad {
         text-align: center;
     }
 
-    .errorText{
+    .error-text{
         text-align: center;
         color: color($colors, red80);
     }
 
-    .forgottenPin{
+    .forgotten-pin{
         color: $colorDark;
         font-weight: bold;
         text-align: right;
@@ -42,19 +42,19 @@ pin-pad {
         padding: $containerPadding+px;
     }
     
-    .chosenNumber{
+    .chosen-number{
         display: inline-flex;
         width: $chosenNumberWidth+px;
         height: $chosenNumberHeight+px; 
         
         margin: 2px;
 
-        >div{
+        .round-pad-container{
             width:100%;
             text-align:center;
             margin: auto;
 
-            .roundPad{
+            .round-pad{
                 width:15px;
                 height:15px;
                 border: solid 2px;
@@ -62,7 +62,7 @@ pin-pad {
                 display: inline-block;                
             }
 
-            .fullRound{
+            .full-round{
                 background-color: $colorBright;
             }
 
@@ -70,12 +70,12 @@ pin-pad {
         
     }
     
-    .padNumberContainer{
+    .pad-number-container{
 
         padding:20px;
         text-align: center;
 
-        .padNumber{
+        .pad-number{
             display: inline-flex;
             width: $pinNumberWidth+px;
             height: $pinNumberHeight+px;

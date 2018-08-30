@@ -44,6 +44,8 @@ export class CareerObjectiveCreatePage {
     CareerObjectiveStatus = CareerObjectiveStatus;
     WaypointStatus = WaypointStatus;
 
+    monthsNames;
+
     constructor(
         public navCtrl: NavController,
         public navParams: NavParams,
@@ -72,6 +74,9 @@ export class CareerObjectiveCreatePage {
                 handler: () => this.careerObjective.encounterDate = ''
             }]
         };
+
+        // Traduction des mois
+        this.monthsNames = this.translateService.instant('GLOBAL.MONTH.LONGNAME');
 
         // Initialisation du formulaire
         this.initForm();

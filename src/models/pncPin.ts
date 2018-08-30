@@ -1,6 +1,6 @@
 import { EDossierPncObject } from './eDossierPncObject';
 
-export class AuthenticatedPinInfoUser extends EDossierPncObject {
+export class PncPin extends EDossierPncObject {
     matricule: string;
     pinCode: number;
     secretQuestion: string;

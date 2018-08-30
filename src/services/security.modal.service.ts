@@ -10,7 +10,7 @@ import { Injectable, Output, EventEmitter } from '@angular/core';
 import { AuthenticatedUser } from './../models/authenticatedUser';
 import { PinPadModal } from './../components/modals/pin-pad-modal/pin-pad-modal';
 
-import { PinPadType, PinPadTitle, SecretQuestionType, PinPadError, SecretQuestionError, GlobalError } from './../models/securitymodalType';
+import { PinPadType, PinPadTitle, SecretQuestionType, PinPadError, SecretQuestionError, GlobalError } from './../models/securityModalType';
 import { SecretQuestionModal } from '../components/modals/secret-question-modal/secret-question-modal';
 
 
@@ -29,18 +29,18 @@ export class SecurityModalService {
     comeFrom: PinPadType | SecretQuestionType | null;
 
     constructor(
-        public modalController: ModalController,
-        public translateService: TranslateService,
-        public sessionService: SessionService,
-        public securityProvider: SecurityProvider,
-        public toastProvider: ToastProvider
+        private modalController: ModalController,
+        private translateService: TranslateService,
+        private sessionService: SessionService,
+        private securityProvider: SecurityProvider,
+        private toastProvider: ToastProvider
     ) {
         this.errorType = GlobalError.none;
     }
 
     /**
      * fonction permettant d'afficher le pinPad selon différents cas
-     * @param type => permet de définir le type d'affichage
+     * @param type permet de définir le type d'affichage
      */
     displayPinPad(type){
 
@@ -64,14 +64,22 @@ export class SecurityModalService {
         );
         // Reinitialisation de l'erreur pour éviter qu'elle ne s'affiche partout
         this.errorType = GlobalError.none;
+
+        this.manageDismissPinPad();
+        this.pinModal.present();
+    }
+
+    /**
+     * Fonction permettant de gérer les données reçues du modal de pin
+     */
+    manageDismissPinPad(){
+        const pinCode = this.sessionService.authenticatedUser.pinInfo.pinCode;
         this.pinModal.onDidDismiss(data => {
             this.modalDisplayed.emit(false);
-
             // Si non a annulé l'action, on dismiss juste
             if (data === 'cancel'){
                 return false;
             }
-
             // Si premiére connexion => etape 2
             if (this.modalType === PinPadType.firstConnexionStage1){
                 this.pinValue = data;
@@ -115,12 +123,11 @@ export class SecurityModalService {
                 }
             }
         });
-        this.pinModal.present();
     }
 
     /**
      * fonction permettant d'afficher le question / reponse selon différents cas
-     * @param type => permet de définir le type d'affichage
+     * @param type permet de définir le type d'affichage
      */
     displaySecretQuestion(type){
         this.modalDisplayed.emit(true);
@@ -143,7 +150,14 @@ export class SecurityModalService {
         }
         // Reinitialisation de l'erreur pour éviter qu'elle ne s'affiche partout
         this.errorType = GlobalError.none;
+        this.manageDismissSecretQuestion();
+        this.secretQuestionModal.present();
+    }
 
+    /**
+     * Fonction permettant de gérer les données reçues du modal de question réponse
+     */
+    manageDismissSecretQuestion(){
         this.secretQuestionModal.onDidDismiss(data => {
             this.modalDisplayed.emit(false);
             if (this.modalType === SecretQuestionType.newQuestion){
@@ -172,6 +186,5 @@ export class SecurityModalService {
                 }
             }
         });
-        this.secretQuestionModal.present();
     }
 }
