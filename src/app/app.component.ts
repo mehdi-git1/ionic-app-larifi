@@ -72,6 +72,7 @@ export class EDossierPNC implements OnInit {
   }
 
   initializeApp() {
+
     this.platform.ready().then(() => {
       if (this.deviceService.isBrowser) {
         this.splashScreen.hide();
@@ -111,6 +112,7 @@ export class EDossierPNC implements OnInit {
           this.putAuthenticatedUserInSession().then(authenticatedUser => {
             this.initParameters();
             if (this.deviceService.isOfflineModeAvailable()) {
+              this.synchronizationProvider.synchronizeOfflineData();
               this.synchronizationProvider.storeEDossierOffline(authenticatedUser.matricule).then(successStore => {
                 this.events.publish('EDossierOffline:stored');
                 this.splashScreen.hide();
