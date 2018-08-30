@@ -10,8 +10,6 @@ import { Component, ViewChild, Input, OnInit, OnChanges } from '@angular/core';
 })
 export class CareerObjectiveCardComponent {
 
-  private careerObjective: CareerObjective;
-
   // Expose l'enum au template
   PncRole = PncRole;
 
@@ -21,10 +19,7 @@ export class CareerObjectiveCardComponent {
   constructor() {
   }
 
-  @Input()
-  set item(val: any) {
-    this.careerObjective = val;
-  }
+  @Input() careerObjective: CareerObjective;
 
   @Input()
   set offlineAction(val: any) {

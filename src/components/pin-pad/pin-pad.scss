@@ -1,0 +1,94 @@
+$containerWidth : 400;
+$containerHeight : 510;
+$containerPadding : 30;
+
+$chosenNumberWidth: 80;
+$chosenNumberHeight: 31;
+
+$pinNumberWidth: 65;
+$pinNumberHeight: 65;
+
+pin-pad {
+
+    .title{
+        color: $colorDark;
+        font-weight: bold;
+        font-size: 20px;
+        text-align: center;
+    }
+
+    .error-text{
+        text-align: center;
+        color: color($colors, red80);
+    }
+
+    .forgotten-pin{
+        color: $colorDark;
+        font-weight: bold;
+        text-align: right;
+        cursor: pointer;
+    }
+
+    .container{
+        position: absolute;
+        width: $containerWidth+px;
+        height: $containerHeight+px;
+        color: $colorBright;
+        top: 40px;
+        left: calc(50% - #{$containerWidth/2}px);
+        padding: $containerPadding+px;
+    }
+    
+    .chosen-number{
+        display: inline-flex;
+        width: $chosenNumberWidth+px;
+        height: $chosenNumberHeight+px; 
+        
+        margin: 2px;
+
+        .round-pad-container{
+            width:100%;
+            text-align:center;
+            margin: auto;
+
+            .round-pad{
+                width:15px;
+                height:15px;
+                border: solid 2px;
+                border-radius: 10px;
+                display: inline-block;                
+            }
+
+            .full-round{
+                background-color: $colorBright;
+            }
+
+        }
+        
+    }
+    
+    .pad-number-container{
+
+        padding:20px;
+        text-align: center;
+
+        .pad-number{
+            display: inline-flex;
+            width: $pinNumberWidth+px;
+            height: $pinNumberHeight+px;
+            cursor: pointer;
+            color: $colorDark;
+            background-color:$colorBright;
+            border: solid 2px $colorBright;
+            border-radius: $pinNumberWidth+px;
+            margin: 10px;
+            font-weight: bold;
+            font-size: 20px;
+            padding-left : 25px;
+            padding-top: 17px;
+        }
+    }    
+
+
+
+}

@@ -33,7 +33,7 @@
         <div class="career-objective-list-container">
             <div class="no-data-found" *ngIf="careerObjectiveList.length == 0">{{ 'CAREER_OBJECTIVE_LIST.NO_OBJECTIVES' | translate }}</div>
             <div *ngIf="careerObjectiveList.length > 0" class="career-objective-list">
-                <career-objective-card *ngFor="let careerObjective of careerObjectiveList" [item]="careerObjective" [offlineAction]="careerObjective.offlineAction" (click)="openCareerObjective(careerObjective.techId)"></career-objective-card>
+                <career-objective-card *ngFor="let careerObjective of careerObjectiveList" [careerObjective]="careerObjective" [offlineAction]="careerObjective.offlineAction" (click)="openCareerObjective(careerObjective.techId)"></career-objective-card>
             </div>
         </div>
     </ng-template>
