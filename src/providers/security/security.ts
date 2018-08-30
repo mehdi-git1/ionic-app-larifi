@@ -38,7 +38,7 @@ export class SecurityProvider {
 
   /**
    * Met à jour les données secrétes de l'utilisateur
-   * @return une promesse contenant un boolean pour savoir si cela a réussi
+   * @return une promesse contenant un void
    */
   setAuthenticatedSecurityValue(authenticatedUser: AuthenticatedUser): void | Promise<void>{
     return this.connectivityService.isConnected() ?
