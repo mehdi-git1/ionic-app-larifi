@@ -1,5 +1,5 @@
 import { DeviceService } from './../../services/device.service';
-import { PinPadType, SecretQuestionType } from './../../models/securitymodalType';
+import { PinPadType, SecretQuestionType } from './../../models/securityModalType';
 import { SecurityModalService } from './../../services/security.modal.service';
 import { TranslateService } from '@ngx-translate/core';
 import { ToastProvider } from './../../providers/toast/toast';
@@ -109,17 +109,23 @@ export class SettingsPage {
     this.synchronizationProvider.synchronizeOfflineData();
   }
 
+  /**
+   * Fonction d'affichage du changement de code pin
+   */
   changePinCode(){
     this.securityModalService.displayPinPad(PinPadType.pinChangeStage1);
   }
 
+  /**
+   * Fonction d'affichage du changement de question / reponse secréte
+   */
   changeSecretQuestion(){
     this.securityModalService.displaySecretQuestion(SecretQuestionType.askChange);
   }
 
   /**
-* Présente une alerte pour confirmer la suppression du brouillon
-*/
+   * Présente une alerte pour confirmer la suppression du brouillon
+   */
   confirmDeleteCareerObjectiveDraft() {
     const message = this.synchronizationProvider.isPncModifiedOffline(this.sessionService.authenticatedUser.matricule) ?
       this.translateService.instant('SETTINGS.CONFIRM_INIT_CACHE.MESSAGE_UNSYNCHRONIZED_DATA') :
