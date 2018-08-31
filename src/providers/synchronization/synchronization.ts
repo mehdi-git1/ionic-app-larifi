@@ -173,7 +173,6 @@ export class SynchronizationProvider {
       this.storageService.save(Entity.PNC_PHOTO, this.pncPhotoTransformer.toPncPhoto(pncSynchroResponse.photo), true);
       this.storageService.persistOfflineMap();
     }, error => { });
-    // this.storageService.persistOfflineMap();
   }
 
   /**
