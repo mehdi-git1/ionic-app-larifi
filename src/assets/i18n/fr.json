@@ -103,7 +103,7 @@
         },
         "SUCCESS": {
             "CAREER_OBJECTIVE_SAVED": "Priorité enregistrée",
-            "DRAFT_SAVED": "Proposition enregistrée",
+            "DRAFT_SAVED": "Proposition sauvegardée",
             "DRAFT_DELETED": "Proposition supprimée",
             "CAREER_OBJECTIVE_VALIDATED": "Priorité validée",
             "CAREER_OBJECTIVE_ABANDONED": "Priorité abandonnée",
@@ -251,7 +251,7 @@
     },
     "SECRET_QUESTION": {
         "TITLE": {
-            "NEW_QUESTION": "Veuillez définir de quoi retrouver votre code PIN",
+            "NEW_QUESTION": "Veuillez définir une question secrète en cas d'oubli de votre code pin",
             "ANSWER_TO_QUESTION": "Répondez à la question suivante :"
         },
         "LABEL": {
