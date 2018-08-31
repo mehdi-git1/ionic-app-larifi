@@ -14,6 +14,7 @@
     <preference name="ScrollEnabled" value="false" />
     <preference name="android-minSdkVersion" value="19" />
     <preference name="BackupWebStorage" value="none" />
+    <preference name="ShowSplashScreen" value="false" />
     <allow-navigation href="http://localhost:8080/*" />
     <platform name="ios">
         <feature name="CDVWKWebViewEngine">
