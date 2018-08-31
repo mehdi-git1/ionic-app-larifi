@@ -1,3 +1,5 @@
+import { DeviceService } from './../../services/device.service';
+import { OfflineCareerObjectiveProvider } from './../../providers/career-objective/offline-career-objective';
 import { TransformerService } from './../../services/transformer.service';
 import { Entity } from './../../models/entity';
 import { StorageService } from './../../services/storage.service';
@@ -68,8 +70,8 @@ export class CareerObjectiveCreatePage {
         public loadingCtrl: LoadingController,
         private connectivityService: ConnectivityService,
         private offlinePncProvider: OfflinePncProvider,
-        private storageService: StorageService,
-        private transformerService: TransformerService) {
+        private offlineCareerObjectiveProvider: OfflineCareerObjectiveProvider,
+        private deviceService: DeviceService) {
 
         // Options du datepicker
         this.nextEncounterDateTimeOptions = {
@@ -204,9 +206,9 @@ export class CareerObjectiveCreatePage {
                 .then(savedCareerObjective => {
                     this.originCareerObjective = _.cloneDeep(savedCareerObjective);
                     this.careerObjective = savedCareerObjective;
-                    if (this.connectivityService.isConnected() && this.offlinePncProvider.isPncExist(this.careerObjective.pnc.matricule)) {
-                        const careerObjective = this.transformerService.transformObject(Entity.CAREER_OBJECTIVE, this.careerObjective);
-                        this.storageService.save(Entity.CAREER_OBJECTIVE, careerObjective, true);
+                    // en mode connecté, mettre en cache l'objectif creé ou modifié si le pnc est en cache
+                    if (this.deviceService.isOfflineModeAvailable() && this.connectivityService.isConnected() && this.offlinePncProvider.isPncExist(this.careerObjective.pnc.matricule)) {
+                        this.offlineCareerObjectiveProvider.createOrUpdate(this.careerObjective, true);
                     }
 
                     if (this.careerObjective.careerObjectiveStatus === CareerObjectiveStatus.DRAFT) {
