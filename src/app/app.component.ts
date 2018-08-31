@@ -1,3 +1,4 @@
+import { AppInitService } from './../services/appInit.service';
 import { PinPadType } from './../models/pinPadType';
 import { DeviceService } from './../services/device.service';
 import { GenericMessagePage } from './../pages/generic-message/generic-message';
@@ -60,6 +61,7 @@ export class EDossierPNC implements OnInit {
     public translateService: TranslateService,
     private storageService: StorageService,
     private deviceService: DeviceService,
+    private appInitService: AppInitService,
     private toastProvider: ToastProvider,
     private parametersProvider: ParametersProvider,
     private securityProvider: SecurityProvider,
@@ -110,7 +112,7 @@ export class EDossierPNC implements OnInit {
         this.storageService.initOfflineMap().then(success => {
 
           this.putAuthenticatedUserInSession().then(authenticatedUser => {
-            this.initParameters();
+            this.appInitService.initParameters();
             if (this.deviceService.isOfflineModeAvailable()) {
               this.synchronizationProvider.synchronizeOfflineData();
               this.synchronizationProvider.storeEDossierOffline(authenticatedUser.matricule).then(successStore => {
@@ -141,7 +143,7 @@ export class EDossierPNC implements OnInit {
           this.toastProvider.warning(this.translateService.instant('GLOBAL.CONNECTIVITY.OFFLINE_MODE'));
         } else {
           this.toastProvider.success(this.translateService.instant('GLOBAL.CONNECTIVITY.ONLINE_MODE'));
-          this.initParameters();
+          this.appInitService.initParameters();
           this.synchronizationProvider.synchronizeOfflineData();
           this.synchronizationProvider.storeEDossierOffline(this.sessionService.authenticatedUser.matricule).then(successStore => {
             this.events.publish('EDossierOffline:stored');
@@ -150,16 +152,6 @@ export class EDossierPNC implements OnInit {
         }
       });
     });
-  }
-
-  /**
-     * Récupère les parametres envoyé par le back
-     */
-  initParameters() {
-    this.parametersProvider.getParams().then(parameters => {
-      this.sessionService.parameters = parameters;
-      this.events.publish('parameters:ready');
-    }, error => { });
   }
 
   /**
