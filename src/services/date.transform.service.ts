@@ -20,7 +20,7 @@ export class DateTransformService {
         return this.datePipe.transform(dateToTransform, AppConstant.iso8601DateTimeFormat);
     }
 
-        /**
+    /**
      * Transforme la date en format ISO 8601
      * @param dateToTransform date à transformer
      * @return date au format ISO 8601
