@@ -50,7 +50,9 @@ export class CareerObjectiveProvider {
   addUnsynchronizedOfflineCareerObjectivesToOnline(onlineDataArray: CareerObjective[], offlineDataArray: CareerObjective[]): CareerObjective[] {
     for (const offlineData of offlineDataArray) {
       const result = onlineDataArray.filter(onlineData => offlineData.getStorageId() === onlineData.getStorageId());
-      if (result && result.length === 0) {
+      if (result && result.length === 1) {
+        onlineDataArray[onlineDataArray.indexOf(result[0])] = offlineData;
+      } else {
         onlineDataArray.push(offlineData);
       }
     }
