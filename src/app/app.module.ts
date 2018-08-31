@@ -135,7 +135,7 @@ declare var window: any;
       backButtonText: ''
     }),
     IonicStorageModule.forRoot({
-      driverOrder: ['sqlite']
+      driverOrder: ['sqlite', 'indexeddb', 'websql']
     }),
     HttpClientModule,
     ComponentsModule,
