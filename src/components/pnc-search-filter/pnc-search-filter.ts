@@ -149,8 +149,8 @@ export class PncSearchFilterComponent implements OnInit {
     this.pncMatriculeControl = this.autoCompleteForm.get('pncMatriculeControl');
 
     this.initAutocompleteList();
-    this.formOnChanges();
     this.resetFilterValues();
+    this.formOnChanges();
   }
 
   /**

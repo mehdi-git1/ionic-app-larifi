@@ -91,15 +91,18 @@ import { PncTransformerProvider } from '../providers/pnc/pnc-transformer';
 import { SynchronizationProvider } from '../providers/synchronization/synchronization';
 import { PncSynchroProvider } from '../providers/synchronization/pnc-synchro';
 
-
 import { HomePage } from './../pages/home/home';
 
 import { SummarySheetProvider } from '../providers/summary-sheet/summary-sheet';
 import { OnlineRotationProvider } from '../providers/rotation/online-rotation';
 import { OfflineRotationProvider } from '../providers/rotation/offline-rotation';
 import { GenericMessagePage } from '../pages/generic-message/generic-message';
+
+import { SecurityModalService } from '../services/security.modal.service';
+
 import { SettingsPage } from '../pages/settings/settings';
 import { PncPhotoProvider } from '../providers/pnc-photo/pnc-photo';
+
 
 
 declare var window: any;
@@ -213,6 +216,7 @@ declare var window: any;
     OfflineRotationProvider,
     OnlineLegProvider,
     OfflineLegProvider,
+    SecurityModalService,
     PncPhotoProvider,
     OnlinePncPhotoProvider,
     OfflinePncPhotoProvider,
