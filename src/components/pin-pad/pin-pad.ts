@@ -1,15 +1,18 @@
-import { TranslateService} from '@ngx-translate/core';
+import { PinPadErrorText } from './../../models/pinPadErrorText';
+import { GlobalError } from './../../models/globalError';
+import { PinPadTitle } from './../../models/pinPadTitle';
+import { PinPadType } from './../../models/pinPadType';
+import { TranslateService } from '@ngx-translate/core';
 import { ViewController } from 'ionic-angular';
 import { Component, Output, EventEmitter, Input, OnInit } from '@angular/core';
 
-import { PinPadTitle, PinPadType, GlobalError, PinPadErrorText } from './../../models/securityModalType';
 
 @Component({
   selector: 'pin-pad',
   templateUrl: 'pin-pad.html'
 })
 
-export class PinPadComponent implements OnInit{
+export class PinPadComponent implements OnInit {
 
   @Output() pinPadEntered = new EventEmitter();
   @Output() sendAction = new EventEmitter();
@@ -44,7 +47,7 @@ export class PinPadComponent implements OnInit{
    * Le nombre de chiffre
    * et on remplis le code (tableau) par des valeurs par défaut
    */
-  ngOnInit(){
+  ngOnInit() {
     this.pinTitle = this.translateService.instant(PinPadTitle[this.pinType]);
     this.errorText = this.errorType === GlobalError.none ? '' : this.translateService.instant(PinPadErrorText[this.errorType]);
 
@@ -58,7 +61,7 @@ export class PinPadComponent implements OnInit{
    * l'envoi pour traitement
    * @param valeur valeur entrée par l'utilisateur
    */
-  addToInput(valeur){
+  addToInput(valeur) {
     this.inputValueArray[this.inputValueArray.indexOf(this.padValueDefault)] = valeur;
     this.pinPadEntered.emit(this.inputValueArray);
   }
@@ -66,7 +69,7 @@ export class PinPadComponent implements OnInit{
   /**
    * Fonction définissant l'action à faire lors du click sur pin oublié
    */
-  manageForgotten(){
+  manageForgotten() {
     this.sendAction.emit('forgotten');
   }
 

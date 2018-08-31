@@ -1,3 +1,4 @@
+import { PinPadType } from './../models/pinPadType';
 import { DeviceService } from './../services/device.service';
 import { GenericMessagePage } from './../pages/generic-message/generic-message';
 import { OfflineSecurityProvider } from './../providers/security/offline-security';
@@ -28,7 +29,6 @@ import { HomePage } from '../pages/home/home';
 
 import { SecurityModalService } from './../services/security.modal.service';
 
-import { PinPadType } from './../models/securityModalType';
 
 import * as moment from 'moment';
 
@@ -82,20 +82,20 @@ export class EDossierPNC implements OnInit {
        * On ajoute une écoute sur un paramétre pour savoir si la popin est activée ou pas pour afficher un blur
        * et une interdiction de cliquer avant d'avoir mis le bon code pin
        */
-      this.securityModalService.modalDisplayed.subscribe( data => {
+      this.securityModalService.modalDisplayed.subscribe(data => {
         this.pinPadModalActive = data;
       });
 
-      this.platform.resume.subscribe (() => {
+      this.platform.resume.subscribe(() => {
         // Si on a depassé le temps d'inactivité, on affiche le pin pad
-        if ( moment.duration(moment().diff(moment(this.switchToBackgroundDate))).asSeconds() > this.inactivityDelayInSec){
+        if (moment.duration(moment().diff(moment(this.switchToBackgroundDate))).asSeconds() > this.inactivityDelayInSec) {
           this.securityModalService.displayPinPad(PinPadType.openingApp);
         }
       });
 
 
       /** On ajoute un evenement pour savoir si on entre en mode background */
-      this.platform.pause.subscribe (() => {
+      this.platform.pause.subscribe(() => {
         this.switchToBackgroundDate = new Date();
       });
 
