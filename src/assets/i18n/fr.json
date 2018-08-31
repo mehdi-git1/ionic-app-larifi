@@ -103,7 +103,7 @@
         },
         "SUCCESS": {
             "CAREER_OBJECTIVE_SAVED": "Priorité enregistrée",
-            "DRAFT_SAVED": "Proposition enregistrée",
+            "DRAFT_SAVED": "Proposition sauvegardée",
             "DRAFT_DELETED": "Proposition supprimée",
             "CAREER_OBJECTIVE_VALIDATED": "Priorité validée",
             "CAREER_OBJECTIVE_ABANDONED": "Priorité abandonnée",
@@ -234,7 +234,7 @@
             "OPENING_APP": "Veuillez entrer votre code pin",
             "PIN_CHANGE_STAGE_1": "Veuillez entrer votre code pin actuel",
             "PIN_CHANGE_STAGE_2": "Veuillez entrer votre nouveau code pin",
-            "FIRST_CONNEXION_STAGE_1": "Veuillez entrer un code pin pour sécuriser votre compte",
+            "FIRST_CONNEXION_STAGE_1": "Veuillez définir un nouveau code pin",
             "FIRST_CONNEXION_STAGE_2": "Veuillez confirmer votre code pin"
         },
         "FORGOTTEN": "Code pin oublié ?",
@@ -250,7 +250,7 @@
     },
     "SECRET_QUESTION": {
         "TITLE": {
-            "NEW_QUESTION": "Veuillez définir de quoi retrouver votre code PIN",
+            "NEW_QUESTION": "Veuillez définir une question secrète en cas d'oubli de votre code pin",
             "ANSWER_TO_QUESTION": "Répondez à la question suivante :"
         },
         "LABEL": {
