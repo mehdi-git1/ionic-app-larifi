@@ -1,4 +1,3 @@
-import { CrewMember } from './../../models/crewMember';
 import { PncPhotoTransformerProvider } from './../pnc-photo/pnc-photo-transformer';
 import { PncPhotoProvider } from './../pnc-photo/pnc-photo';
 import { CareerObjective } from './../../models/careerObjective';
