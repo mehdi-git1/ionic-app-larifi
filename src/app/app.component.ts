@@ -96,7 +96,6 @@ export class EDossierPNC implements OnInit {
 
       /** On ajoute un evenement pour savoir si on entre en mode background */
       this.platform.pause.subscribe(() => {
-        this.securityModalService.forceCloseModal();
         this.switchToBackgroundDate = new Date();
       });
 
