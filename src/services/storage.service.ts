@@ -1,3 +1,4 @@
+import { TransformerService } from './transformer.service';
 import { AppConstant } from './../app/app.constant';
 import { OfflineAction } from './../models/offlineAction';
 import { DatePipe } from '@angular/common';
@@ -19,7 +20,8 @@ export class StorageService {
   constructor(
     private storage: Storage,
     private config: Config,
-    private datePipe: DatePipe) {
+    private datePipe: DatePipe,
+    private transformerService: TransformerService) {
   }
 
   reinitOfflineMap(): Promise<any> {
@@ -127,6 +129,7 @@ export class StorageService {
     if (!eDossierPncObject) {
       return null;
     }
+    eDossierPncObject = this.transformerService.transformObject(entity, eDossierPncObject);
     eDossierPncObject.offlineStorageDate = moment().format(AppConstant.isoDateFormat);
     if (!online) {
       eDossierPncObject.offlineAction =

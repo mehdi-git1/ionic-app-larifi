@@ -33,7 +33,6 @@ export class CareerObjectiveProvider {
           this.onlineCareerObjectiveProvider.getPncCareerObjectives(matricule).then(onlineCareerObjectives => {
             const onlineData = this.careerObjectiveTransformer.toCareerObjectives(onlineCareerObjectives);
             const offlineData = this.careerObjectiveTransformer.toCareerObjectives(offlineCareerObjectives);
-            // his.offlineProvider.flagDataAvailableOffline(onlineData, offlineData);
             resolve(this.getOnlineAndOfflineCareerObjectives(onlineData, offlineData));
           });
         });
@@ -46,11 +45,7 @@ export class CareerObjectiveProvider {
   getOnlineAndOfflineCareerObjectives(onlineDataArray: CareerObjective[], offlineDataArray: CareerObjective[]): CareerObjective[] {
     for (const offlineData of offlineDataArray) {
       const result = onlineDataArray.filter(onlineData => offlineData.getStorageId() === onlineData.getStorageId());
-      if (result && result.length === 1) {
-        if (offlineData.offlineAction === OfflineAction.UPDATE) {
-          onlineDataArray[onlineDataArray.indexOf(result[0])] = offlineData;
-        }
-      } else {
+      if (result && result.length === 0) {
         onlineDataArray.push(offlineData);
       }
     }
