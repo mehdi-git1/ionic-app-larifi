@@ -11,7 +11,7 @@ import { SessionService } from '../../services/session.service';
 export class UpcomingFlightListPage {
 
     upcomingRotations: Rotation[];
-    lastPerformedRotation: Rotation;
+    lastPerformedRotations: Rotation[];
 
     constructor(public navCtrl: NavController,
         public navParams: NavParams,
@@ -27,8 +27,8 @@ export class UpcomingFlightListPage {
             matricule = this.sessionService.authenticatedUser.matricule;
         }
 
-        this.pncProvider.getLastPerformedRotation(matricule).then(lastPerformedRotation => {
-            this.lastPerformedRotation = lastPerformedRotation;
+        this.pncProvider.getLastPerformedRotations(matricule).then(lastPerformedRotations => {
+            this.lastPerformedRotations = lastPerformedRotations;
         }, error => { });
 
         this.pncProvider.getUpcomingRotations(matricule).then(upcomingRotations => {
@@ -41,14 +41,22 @@ export class UpcomingFlightListPage {
      * @return true si c'est le cas, false sinon
      */
     loadingIsOver(): boolean {
-        return this.lastPerformedRotation !== undefined && this.upcomingRotations !== undefined;
+        return this.lastPerformedRotations !== undefined && this.upcomingRotations !== undefined;
     }
 
     /**
      * Vérifie s'il existe des rotations à venir
      * @return true si c'est le cas, false sinon
      */
-    noUpcomingRotations() {
-        return !this.upcomingRotations || this.upcomingRotations.length === 0;
+    hasUpcomingRotations() {
+        return this.upcomingRotations && this.upcomingRotations.length > 0;
+    }
+
+    /**
+    * Vérifie s'il existe des rotations passées
+    * @return true si c'est le cas, false sinon
+    */
+    hasLastPerformedRotations() {
+        return this.lastPerformedRotations && this.lastPerformedRotations.length > 0;
     }
 }

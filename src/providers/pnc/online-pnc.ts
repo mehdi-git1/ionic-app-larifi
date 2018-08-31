@@ -34,12 +34,12 @@ export class OnlinePncProvider {
   }
 
   /**
-  * Retrouve la dernière rotation opérée par un PNC
-  * @param matricule le matricule du PNC dont on souhaite récupérer la dernière rotation opérée
-  * @return la dernière rotation opérée par le PNC
+  * Retrouve les deux dernières rotations opérées par un PNC
+  * @param matricule le matricule du PNC dont on souhaite récupérer les dernières rotations opérées
+  * @return les deux dernières rotations opérées par le PNC
   */
-  getLastPerformedRotation(matricule: string): Promise<Rotation> {
-    return this.restService.get(`${this.pncUrl}/${matricule}/last_performed_rotation`);
+  getLastPerformedRotations(matricule: string): Promise<Rotation[]> {
+    return this.restService.get(`${this.pncUrl}/${matricule}/last_performed_rotations`);
   }
 
 

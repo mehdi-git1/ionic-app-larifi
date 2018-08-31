@@ -12,7 +12,7 @@
     <ion-item>
         <label>{{ 'SETTINGS.INIT_CACHE.BUTTON' | translate }}</label>
 
-        <button ion-fab mini icon-only item-end class="parameter-button" (click)="confirmDeleteCareerObjectiveDraft()" [disabled]="!connected">
+        <button ion-fab mini icon-only item-end class="parameter-button" (click)="confirmClearAndInitCache()" [disabled]="!connected">
             <ion-icon name="trash" *ngIf="!initInProgress"></ion-icon>
             <ion-spinner *ngIf="initInProgress"></ion-spinner>
         </button>

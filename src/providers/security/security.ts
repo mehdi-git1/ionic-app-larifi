@@ -36,4 +36,16 @@ export class SecurityProvider {
       this.offlineSecurityProvider.getAuthenticatedUser();
   }
 
+  /**
+   * Met à jour les données secrétes de l'utilisateur
+   * @return une promesse contenant un void
+   */
+  setAuthenticatedSecurityValue(authenticatedUser: AuthenticatedUser): void | Promise<void>{
+    return this.connectivityService.isConnected() ?
+      this.onlineSecurityProvider.setAuthenticatedSecurityValue(authenticatedUser) :
+      this.offlineSecurityProvider.setAuthenticatedSecurityValue(authenticatedUser) ;
+  }
+
+
+
 }
