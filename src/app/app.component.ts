@@ -1,3 +1,4 @@
+import { PinPadType } from './../models/pinPadType';
 import { DeviceService } from './../services/device.service';
 import { GenericMessagePage } from './../pages/generic-message/generic-message';
 import { OfflineSecurityProvider } from './../providers/security/offline-security';
@@ -28,7 +29,6 @@ import { HomePage } from '../pages/home/home';
 
 import { SecurityModalService } from './../services/security.modal.service';
 
-import { PinPadType } from './../models/securityModalType';
 
 import * as moment from 'moment';
 

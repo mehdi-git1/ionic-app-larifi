@@ -11,7 +11,7 @@
             "CLEAR": "Vider"
         },
         "MONTH": {
-            "LONGNAME" : "Janvier, Février, Mars , Avril, Mai, Juin, Juillet, Août, Septembre, Octobre, Novembre, Décembre"
+            "LONGNAME": "Janvier, Février, Mars , Avril, Mai, Juin, Juillet, Août, Septembre, Octobre, Novembre, Décembre"
         },
         "CAREER_OBJECTIVE_STATUS": {
             "DRAFT": "PROPOSITION",
@@ -170,7 +170,7 @@
         },
         "SUCCESS": {
             "WAYPOINT_SAVED": "Point d'étape enregistré",
-            "DRAFT_SAVED": "Proposition enregistrée",
+            "DRAFT_SAVED": "Proposition sauvegardée",
             "DRAFT_DELETED": "Proposition supprimée"
         }
     },
@@ -185,7 +185,7 @@
     },
     "UPCOMING_FLIGHT_LIST": {
         "TITLE": "Liste de vos prochains vols rencontre",
-        "LAST_FLIGHT": "Mon dernier vol",
+        "LAST_FLIGHTS": "Mes derniers vols",
         "UPCOMING_FLIGHTS": "Mes prochains vols",
         "NO_FLIGHTS": "Aucun vol trouvé"
     },
@@ -242,7 +242,7 @@
             "PIN_INCORRECT": "Code pin incorrect",
             "PIN_INIT_INCORRECT": "Les 2 codes pin doivent être identiques"
         },
-        "TOAST_MESSAGE":{
+        "TOAST_MESSAGE": {
             "SUCCESS_MODIF": "Code pin modifié avec succès",
             "SUCCESS_REINIT": "Code pin réinitialisé avec succès",
             "ERROR": "Erreur lors de la modification du code pin"
@@ -253,7 +253,7 @@
             "NEW_QUESTION": "Veuillez définir de quoi retrouver votre code PIN",
             "ANSWER_TO_QUESTION": "Répondez à la question suivante :"
         },
-        "LABEL":{
+        "LABEL": {
             "NEW_QUESTION": "Veuillez entrer une question secrète",
             "NEW_ANSWER": "Veuillez entrer la réponse à la question",
             "ANSWER_TO_QUESTION": "Veuillez entrer la réponse à la question"
@@ -262,7 +262,7 @@
         "ERROR": {
             "ANSWER_INCORRECT": "Réponse incorrecte"
         },
-        "TOAST_MESSAGE":{
+        "TOAST_MESSAGE": {
             "SUCCESS_INIT": "Code pin et question / réponse secrète initialisés",
             "ERROR": "Erreur lors de la modification de la question / réponse secrète"
         }

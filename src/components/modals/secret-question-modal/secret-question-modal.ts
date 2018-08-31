@@ -1,6 +1,7 @@
-import { SecretQuestionError, GlobalError } from './../../../models/securityModalType';
+import { GlobalError } from './../../../models/globalError';
 import { ViewController, NavParams } from 'ionic-angular';
-import { Component} from '@angular/core';
+import { Component } from '@angular/core';
+import { SecretQuestionError } from '../../../models/secretQuestionError';
 
 
 @Component({
@@ -27,7 +28,7 @@ export class SecretQuestionModal {
    * Fonctions passe-plat qui remonte cette information au service
    * @param ObjetQuestionAnswer Objet contenant les questions réponses
    */
-  getValue(ObjetQuestionAnswer){
+  getValue(ObjetQuestionAnswer) {
     this.viewController.dismiss(ObjetQuestionAnswer);
   }
 }
