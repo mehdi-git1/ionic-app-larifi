@@ -25,6 +25,7 @@ import { Rotation } from '../../models/rotation';
 import { SecurityProvider } from './../../providers/security/security';
 import { LegProvider } from './../../providers/leg/leg';
 import { CareerObjectiveProvider } from '../career-objective/career-objective';
+import { CrewMember } from '../../models/crewMember';
 @Injectable()
 export class SynchronizationProvider {
 
@@ -129,6 +130,8 @@ export class SynchronizationProvider {
       }
     }
 
+    const crewMembersPromise: Promise<CrewMember[]>[] = new Array();
+
     if (pncSynchroResponse.legs != null) {
       for (const leg of pncSynchroResponse.legs) {
         const techIdRotation: number = leg.rotation.techId;
@@ -137,38 +140,39 @@ export class SynchronizationProvider {
 
         this.storageService.save(Entity.LEG, this.legTransformerProvider.toLeg(leg), true);
 
-        // Pour chaque troncon, on recupere la liste equipage
-        this.legProvider.getFlightCrewFromLeg(leg.techId).then(flightCrewList => {
-          for (const flightCrew of flightCrewList) {
-            flightCrew.legId = leg.techId;
-            this.storageService.save(Entity.CREW_MEMBER, this.crewMemberTransformerProvider.toCrewMember(flightCrew), true);
-          }
-        }, error => { });
+        crewMembersPromise.push(this.legProvider.getFlightCrewFromLeg(leg.techId));
       }
     }
 
-    // Création des nouveaux objets
-    for (const careerObjective of pncSynchroResponse.careerObjectives) {
-      delete careerObjective.offlineAction;
-      this.storageService.save(Entity.CAREER_OBJECTIVE, this.careerObjectiveTransformer.toCareerObjective(careerObjective), true);
-    }
-    for (const waypoint of pncSynchroResponse.waypoints) {
-      // On ajoute la clef de l'objectif à chaque point d'étape
-      delete waypoint.offlineAction;
-      // On ne garde que le techId pour réduire le volume de données en cache
-      const careerObjectiveTechId = waypoint.careerObjective.techId;
-      waypoint.careerObjective = new CareerObjective();
-      waypoint.careerObjective.techId = careerObjectiveTechId;
-      this.storageService.save(Entity.WAYPOINT, this.waypointTransformer.toWaypoint(waypoint), true);
-    }
+    Promise.all(crewMembersPromise).then(flightCrewMatrix => {
+      for (const flightCrewList of flightCrewMatrix) {
+        for (const flightCrew of flightCrewList) {
+          this.storageService.save(Entity.CREW_MEMBER, this.crewMemberTransformerProvider.toCrewMember(flightCrew), true);
+        }
+      }
 
-    // Sauvegarde de la fiche synthese
-    this.storageService.save(Entity.SUMMARY_SHEET, pncSynchroResponse.summarySheet, true);
+      // Création des nouveaux objets
+      for (const careerObjective of pncSynchroResponse.careerObjectives) {
+        delete careerObjective.offlineAction;
+        this.storageService.save(Entity.CAREER_OBJECTIVE, this.careerObjectiveTransformer.toCareerObjective(careerObjective), true);
+      }
+      for (const waypoint of pncSynchroResponse.waypoints) {
+        // On ajoute la clef de l'objectif à chaque point d'étape
+        delete waypoint.offlineAction;
+        // On ne garde que le techId pour réduire le volume de données en cache
+        const careerObjectiveTechId = waypoint.careerObjective.techId;
+        waypoint.careerObjective = new CareerObjective();
+        waypoint.careerObjective.techId = careerObjectiveTechId;
+        this.storageService.save(Entity.WAYPOINT, this.waypointTransformer.toWaypoint(waypoint), true);
+      }
 
-    // Sauvegarde de la photo du PNC
-    this.storageService.save(Entity.PNC_PHOTO, this.pncPhotoTransformer.toPncPhoto(pncSynchroResponse.photo), true);
+      // Sauvegarde de la fiche synthese
+      this.storageService.save(Entity.SUMMARY_SHEET, pncSynchroResponse.summarySheet, true);
 
-    this.storageService.persistOfflineMap();
+      // Sauvegarde de la photo du PNC
+      this.storageService.save(Entity.PNC_PHOTO, this.pncPhotoTransformer.toPncPhoto(pncSynchroResponse.photo), true);
+      this.storageService.persistOfflineMap();
+    }, error => { });
   }
 
   /**
