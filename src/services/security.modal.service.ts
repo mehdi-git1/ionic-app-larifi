@@ -46,7 +46,7 @@ export class SecurityModalService {
      */
     forceCloseModal(){
         if (this.SecurityModal){
-            this.SecurityModal.dismiss('cancel');
+            this.SecurityModal.dismiss('killModal');
         }
     }
 
@@ -88,12 +88,17 @@ export class SecurityModalService {
     manageDismissPinPad() {
         const pinCode = this.sessionService.authenticatedUser.pinInfo.pinCode;
         this.SecurityModal.onDidDismiss(data => {
-            // Si on a annulé l'action, on dismiss juste
-            if (data === 'cancel'){
+            // Si on a tué la modal, on dismiss juste car il y'a une aurre modal qui va s'afficher derriére
+            if (data === 'killModal'){
                 return false;
             }
 
             this.modalDisplayed.emit(false);
+            // Si on a annulé l'action, on dismiss juste mais on affiche l'arriére plan
+            if (data === 'cancel'){
+                return false;
+            }
+
             // Si premiére connexion => etape 2
             if (this.modalType === PinPadType.firstConnexionStage1) {
                 this.pinValue = data;
@@ -172,12 +177,17 @@ export class SecurityModalService {
      */
     manageDismissSecretQuestion() {
         this.SecurityModal.onDidDismiss(data => {
-            // Si on a annulé l'action, on dismiss juste
-            if (data === 'cancel'){
+            // Si on a tué la modal, on dismiss juste car il y'a une aurre modal qui va s'afficher derriére
+            if (data === 'killModal'){
                 return false;
             }
 
             this.modalDisplayed.emit(false);
+            // Si on a annulé l'action, on dismiss juste mais on affiche l'arriére plan
+            if (data === 'cancel'){
+                return false;
+            }
+            
             if (this.modalType === SecretQuestionType.newQuestion) {
                 // Reprise et enregistrements des valeurs dans la session et côté back
                 this.sessionService.authenticatedUser.pinInfo.matricule = this.sessionService.authenticatedUser.matricule;

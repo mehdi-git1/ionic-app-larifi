@@ -91,7 +91,7 @@ export class EDossierPNC implements OnInit {
         if (moment.duration(moment().diff(moment(this.switchToBackgroundDate))).asSeconds() > this.inactivityDelayInSec) {
           this.securityModalService.forceCloseModal();
           this.securityModalService.displayPinPad(PinPadType.openingApp);
-        } 
+        }
       });
 
 

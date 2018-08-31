@@ -16,5 +16,5 @@
             <p [ngClass]="{'invisible' : inputValueArray.indexOf(padValueDefault) < 1 }" class='erase-pin' (click)="inputValueArray.indexOf(padValueDefault) > 0 && manageErase();">{{'PIN_PAD.ERASE' | translate}}</p>
         </div>    
         <p *ngIf="pinType === pinPadType.openingApp" class='forgotten-pin' (click)="manageForgotten();">{{'PIN_PAD.FORGOTTEN' | translate}}</p>
-        <p *ngIf="pinType === pinPadType.pinChangeStage1" class='forgotten-pin' (click)="manageCancel();">{{'PIN_PAD.CANCEL' | translate}}</p>
+        <p *ngIf="pinType === pinPadType.askChange" class='forgotten-pin' (click)="manageCancel();">{{'PIN_PAD.CANCEL' | translate}}</p>
     </div>   
