@@ -112,8 +112,7 @@ export class WaypointCreatePage {
      * Vérifie si le formulaire a été modifié sans être enregistré
      */
     formHasBeenModified() {
-        console.log(this.originWaypoint, this.waypoint);
-        return !_.isEqual(this.originWaypoint, this.waypoint);
+        return JSON.stringify(this.originWaypoint) !== JSON.stringify(this.waypoint);
     }
 
     /**
