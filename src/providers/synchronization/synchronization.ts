@@ -26,6 +26,7 @@ import { Rotation } from '../../models/rotation';
 import { SecurityProvider } from './../../providers/security/security';
 import { LegProvider } from './../../providers/leg/leg';
 import { CareerObjectiveProvider } from '../career-objective/career-objective';
+import { CrewMember } from '../../models/crewMember';
 @Injectable()
 export class SynchronizationProvider {
 
@@ -133,6 +134,7 @@ export class SynchronizationProvider {
     const crewMembersPromise: Promise<CrewMember[]>[] = new Array();
 
     if (pncSynchroResponse.legs != null) {
+    
       for (const leg of pncSynchroResponse.legs) {
         const techIdRotation: number = leg.rotation.techId;
         leg.rotation = new Rotation();
@@ -180,6 +182,7 @@ export class SynchronizationProvider {
    * @param pnc le PNC dont on souhaite supprimer le cache
    */
   deleteAllPncOfflineObject(pnc: Pnc) {
+
     // Suppression des objectifs du PNC
     const careerObjectives = this.storageService.findAll(Entity.CAREER_OBJECTIVE);
     const pncCareerObjectives = careerObjectives.filter(careerObjective => {
@@ -209,6 +212,7 @@ export class SynchronizationProvider {
 
     // Suppression de la fiche synthese
     this.storageService.delete(Entity.SUMMARY_SHEET, pnc.matricule);
+    this.storageService.delete(Entity.PNC, pnc.matricule);
   }
 
   /**
