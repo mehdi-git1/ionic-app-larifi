@@ -6,6 +6,9 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { App, NavController, IonicPage } from 'ionic-angular';
 import { SecMobilService } from '../../services/secMobil.service';
 import { TranslateService } from '../../../node_modules/@ngx-translate/core';
+import { DeviceService } from '../../services/device.service';
+import { SecurityModalService } from '../../services/security.modal.service';
+import { PinPadType } from '../../models/pinPadType';
 
 @Component({
   selector: 'page-authentication',
@@ -22,7 +25,10 @@ export class AuthenticationPage implements OnInit {
     private securityProvider: SecurityProvider,
     private sessionService: SessionService,
     private secMobilService: SecMobilService,
-    public translateService: TranslateService) {
+    public translateService: TranslateService,
+    public deviceService: DeviceService,
+    public securityModalService: SecurityModalService
+  ) {
     this.initializeForm();
   }
 
@@ -75,6 +81,10 @@ export class AuthenticationPage implements OnInit {
     this.hideSpinner = false;
     this.securityProvider.getAuthenticatedUser().then(authenticatedUser => {
       this.sessionService.authenticatedUser = authenticatedUser;
+      // Gestion de l'affchage du pinPad
+      if (!this.deviceService.isBrowser()) {
+        this.securityModalService.displayPinPad(PinPadType.openingApp);
+      }
       this.navCtrl.setRoot(PncHomePage, { matricule: authenticatedUser.matricule });
       this.hideSpinner = true;
     }, error => {

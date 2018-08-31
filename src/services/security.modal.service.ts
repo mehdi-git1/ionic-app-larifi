@@ -88,11 +88,12 @@ export class SecurityModalService {
     manageDismissPinPad() {
         const pinCode = this.sessionService.authenticatedUser.pinInfo.pinCode;
         this.SecurityModal.onDidDismiss(data => {
-            this.modalDisplayed.emit(false);
             // Si on a annulé l'action, on dismiss juste
             if (data === 'cancel'){
                 return false;
             }
+
+            this.modalDisplayed.emit(false);
             // Si premiére connexion => etape 2
             if (this.modalType === PinPadType.firstConnexionStage1) {
                 this.pinValue = data;
