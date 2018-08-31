@@ -76,7 +76,7 @@ export class SecurityModalService {
         const pinCode = this.sessionService.authenticatedUser.pinInfo.pinCode;
         this.pinModal.onDidDismiss(data => {
             this.modalDisplayed.emit(false);
-            // Si non a annulé l'action, on dismiss juste
+            // Si on a annulé l'action, on dismiss juste
             if (data === 'cancel'){
                 return false;
             }
@@ -89,9 +89,8 @@ export class SecurityModalService {
                     this.sessionService.authenticatedUser.pinInfo.pinCode = data;
                     // Si on vient de mot de passe oublié (donc de la réponse à la question)
                     // Ou si l'on vient du changement de mot de passe
-                    if (this.comeFrom === SecretQuestionType.answerToQuestion || this.comeFrom === PinPadType.pinChangeStage1){
-                        const tmpAU = new AuthenticatedUser().fromJSON(this.sessionService.authenticatedUser);
-                        this.securityProvider.setAuthenticatedSecurityValue(tmpAU);
+                    if (this.comeFrom === SecretQuestionType.answerToQuestion || this.comeFrom === PinPadType.askChange){
+                        this.securityProvider.setAuthenticatedSecurityValue(new AuthenticatedUser().fromJSON(this.sessionService.authenticatedUser));
                         this.toastProvider.success(this.translateService.instant('PIN_PAD.TOAST_MESSAGE.SUCCESS_REINIT'));
                     } else {
                     // Dans le cas contraire on et sur l'init et on doit répondre aux questions
@@ -108,16 +107,16 @@ export class SecurityModalService {
                     this.errorType = PinPadError.pinIncorrect;
                     this.displayPinPad(PinPadType.openingApp);
                 }
-            } else if (this.modalType === PinPadType.pinChangeStage1){
+            } else if (this.modalType === PinPadType.askChange){
                 if (pinCode != data){
                     this.errorType = PinPadError.pinIncorrect;
-                    this.displayPinPad(PinPadType.pinChangeStage1);
+                    this.displayPinPad(PinPadType.askChange);
                 } else {
                     // Si on vient d'une demande de changement de question réponse on change la question réponse
                     if (this.comeFrom === SecretQuestionType.askChange){
                         this.displaySecretQuestion(SecretQuestionType.newQuestion);
                     } else {
-                        this.comeFrom = PinPadType.pinChangeStage1;
+                        this.comeFrom = PinPadType.askChange;
                         this.displayPinPad(PinPadType.firstConnexionStage1);
                     }
                 }
@@ -137,8 +136,8 @@ export class SecurityModalService {
         // Si on vient pour changer la question, il faut d'abord demander le code pin actuel
         if (type === SecretQuestionType.askChange){
             this.comeFrom = SecretQuestionType.askChange;
-            // On appelle le pinChangeStage1 qui demande l'ancien code pin
-            this.displayPinPad(PinPadType.pinChangeStage1);
+            // On appelle le askchange qui demande l'ancien code pin
+            this.displayPinPad(PinPadType.askChange);
             return false;
         } else {
             this.secretQuestionModal = this.modalController.create(SecretQuestionModal,
@@ -165,8 +164,7 @@ export class SecurityModalService {
                 this.sessionService.authenticatedUser.pinInfo.matricule = this.sessionService.authenticatedUser.matricule;
                 this.sessionService.authenticatedUser.pinInfo.secretQuestion = data.secretQuestion;
                 this.sessionService.authenticatedUser.pinInfo.secretAnswer = data.secretAnswer;
-                const tmpAU = new AuthenticatedUser().fromJSON(this.sessionService.authenticatedUser);
-                this.securityProvider.setAuthenticatedSecurityValue(tmpAU);
+                this.securityProvider.setAuthenticatedSecurityValue(new AuthenticatedUser().fromJSON(this.sessionService.authenticatedUser));
                 // On affiche le bon message en fonction de si on vient de l'init on du changement de question
                 if (this.comeFrom === SecretQuestionType.askChange){
                     this.comeFrom = null;

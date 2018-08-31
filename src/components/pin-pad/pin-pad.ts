@@ -70,6 +70,10 @@ export class PinPadComponent implements OnInit{
     this.sendAction.emit('forgotten');
   }
 
+
+  /**
+   * Fonction définissant l'action à faire lors du click sur annuler
+   */
   manageCancel(){
     this.sendAction.emit('cancel');
   }

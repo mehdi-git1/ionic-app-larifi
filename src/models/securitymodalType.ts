@@ -1,15 +1,13 @@
 export enum PinPadType {
     openingApp = 'openingApp',
-    pinChangeStage1 = 'pinChangeStage1',
-    pinChangeStage2 = 'pinChangeStage2',
+    askChange = 'askChange',
     firstConnexionStage1 = 'firstConnexionStage1',
     firstConnexionStage2 = 'firstConnexionStage2'
 }
 
 export enum PinPadTitle {
     openingApp = 'PIN_PAD.TITLE.OPENING_APP',
-    pinChangeStage1 = 'PIN_PAD.TITLE.PIN_CHANGE_STAGE_1',
-    pinChangeStage2 = 'PIN_PAD.TITLE.PIN_CHANGE_STAGE_2',
+    askChange = 'PIN_PAD.TITLE.PIN_ASK_CHANGE',
     firstConnexionStage1 = 'PIN_PAD.TITLE.FIRST_CONNEXION_STAGE_1',
     firstConnexionStage2 = 'PIN_PAD.TITLE.FIRST_CONNEXION_STAGE_2'
 }

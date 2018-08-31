@@ -53,7 +53,7 @@ export class SettingsPage {
       this.synchronizationInProgress = synchroInProgress;
     });
 
-    this.isApp = !this.deviceService.isBrowser();
+    this.isApp = this.deviceService.isBrowser();
   }
 
   ionViewDidLoad() {
@@ -113,7 +113,7 @@ export class SettingsPage {
    * Fonction d'affichage du changement de code pin
    */
   changePinCode(){
-    this.securityModalService.displayPinPad(PinPadType.pinChangeStage1);
+    this.securityModalService.displayPinPad(PinPadType.askChange);
   }
 
   /**
@@ -122,30 +122,5 @@ export class SettingsPage {
   changeSecretQuestion(){
     this.securityModalService.displaySecretQuestion(SecretQuestionType.askChange);
   }
-
-  /**
-   * Présente une alerte pour confirmer la suppression du brouillon
-   */
-  confirmDeleteCareerObjectiveDraft() {
-    const message = this.synchronizationProvider.isPncModifiedOffline(this.sessionService.authenticatedUser.matricule) ?
-      this.translateService.instant('SETTINGS.CONFIRM_INIT_CACHE.MESSAGE_UNSYNCHRONIZED_DATA') :
-      this.translateService.instant('SETTINGS.CONFIRM_INIT_CACHE.MESSAGE');
-
-    this.alertCtrl.create({
-      title: this.translateService.instant('SETTINGS.CONFIRM_INIT_CACHE.TITLE'),
-      message: message,
-      buttons: [
-        {
-          text: this.translateService.instant('SETTINGS.CONFIRM_INIT_CACHE.CANCEL'),
-          role: 'cancel'
-        },
-        {
-          text: this.translateService.instant('SETTINGS.CONFIRM_INIT_CACHE.CONFIRM'),
-          handler: () => this.clearAndInitCache()
-        }
-      ]
-    }).present();
-  }
-
 
 }
