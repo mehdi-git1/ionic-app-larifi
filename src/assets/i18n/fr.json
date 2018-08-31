@@ -238,6 +238,7 @@
         },
         "FORGOTTEN": "Code pin oublié ?",
         "CANCEL": "Annuler",
+        "ERASE": "Effacer",
         "ERROR": {
             "PIN_INCORRECT": "Code pin incorrect",
             "PIN_INIT_INCORRECT": "Les 2 codes pin doivent être identiques"

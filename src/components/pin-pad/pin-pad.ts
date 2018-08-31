@@ -80,4 +80,12 @@ export class PinPadComponent implements OnInit {
   manageCancel(){
     this.sendAction.emit('cancel');
   }
+
+  /**
+   * Fonction permettant de gérer l'effacement du dernier caractère entré
+   */
+  manageErase(){
+    this.inputValueArray[this.inputValueArray.indexOf(this.padValueDefault) - 1] = this.padValueDefault;
+    this.pinPadEntered.emit(this.inputValueArray);
+  }
 }

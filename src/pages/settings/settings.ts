@@ -1,5 +1,4 @@
 import { DeviceService } from './../../services/device.service';
-import { PinPadType, SecretQuestionType } from './../../models/securityModalType';
 import { SecurityModalService } from './../../services/security.modal.service';
 import { TranslateService } from '@ngx-translate/core';
 import { ToastProvider } from './../../providers/toast/toast';
@@ -13,6 +12,9 @@ import { SecMobilService } from './../../services/secMobil.service';
 import { ConnectivityService } from './../../services/connectivity.service';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, Events, AlertController } from 'ionic-angular';
+
+import { PinPadType } from './../../models/pinPadType';
+import { SecretQuestionType } from '../../models/secretQuestionType';
 
 @Component({
   selector: 'page-settings',
@@ -53,7 +55,7 @@ export class SettingsPage {
       this.synchronizationInProgress = synchroInProgress;
     });
 
-    this.isApp = this.deviceService.isBrowser();
+    this.isApp = !this.deviceService.isBrowser();
   }
 
   ionViewDidLoad() {

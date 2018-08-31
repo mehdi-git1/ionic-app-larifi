@@ -22,8 +22,7 @@ import { SecretQuestionError } from '../models/secretQuestionError';
 export class SecurityModalService {
 
     @Output() modalDisplayed = new EventEmitter<boolean>();
-    pinModal: Modal;
-    secretQuestionModal: Modal;
+    SecurityModal: Modal;
     modalType: PinPadType | SecretQuestionType;
 
     pinValue: string;
@@ -40,6 +39,15 @@ export class SecurityModalService {
         private toastProvider: ToastProvider
     ) {
         this.errorType = GlobalError.none;
+    }
+
+    /**
+     * Fonction permettant de fermer simplement un modal sans condition
+     */
+    forceCloseModal(){
+        if (this.SecurityModal){
+            this.SecurityModal.dismiss('cancel');
+        }
     }
 
     /**
@@ -60,7 +68,7 @@ export class SecurityModalService {
             this.modalType = PinPadType.firstConnexionStage1;
         }
 
-        this.pinModal = this.modalController.create(PinPadModal,
+        this.SecurityModal = this.modalController.create(PinPadModal,
             {
                 modalType: this.modalType,
                 errorType: this.errorType
@@ -70,7 +78,7 @@ export class SecurityModalService {
         this.errorType = GlobalError.none;
 
         this.manageDismissPinPad();
-        this.pinModal.present();
+        this.SecurityModal.present();
     }
 
     /**
@@ -78,7 +86,7 @@ export class SecurityModalService {
      */
     manageDismissPinPad() {
         const pinCode = this.sessionService.authenticatedUser.pinInfo.pinCode;
-        this.pinModal.onDidDismiss(data => {
+        this.SecurityModal.onDidDismiss(data => {
             this.modalDisplayed.emit(false);
             // Si on a annulé l'action, on dismiss juste
             if (data === 'cancel'){
@@ -144,7 +152,7 @@ export class SecurityModalService {
             this.displayPinPad(PinPadType.askChange);
             return false;
         } else {
-            this.secretQuestionModal = this.modalController.create(SecretQuestionModal,
+            this.SecurityModal = this.modalController.create(SecretQuestionModal,
             {
                 modalType: type,
                 question: this.sessionService.authenticatedUser.pinInfo.secretQuestion,
@@ -154,14 +162,19 @@ export class SecurityModalService {
         // Reinitialisation de l'erreur pour éviter qu'elle ne s'affiche partout
         this.errorType = GlobalError.none;
         this.manageDismissSecretQuestion();
-        this.secretQuestionModal.present();
+        this.SecurityModal.present();
     }
 
     /**
      * Fonction permettant de gérer les données reçues du modal de question réponse
      */
     manageDismissSecretQuestion() {
-        this.secretQuestionModal.onDidDismiss(data => {
+        this.SecurityModal.onDidDismiss(data => {
+            // Si on a annulé l'action, on dismiss juste
+            if (data === 'cancel'){
+                return false;
+            }
+
             this.modalDisplayed.emit(false);
             if (this.modalType === SecretQuestionType.newQuestion) {
                 // Reprise et enregistrements des valeurs dans la session et côté back
