@@ -1,3 +1,4 @@
+import { TransformerService } from './../../services/transformer.service';
 import { Entity } from './../../models/entity';
 import { StorageService } from './../../services/storage.service';
 import { OfflinePncProvider } from './../../providers/pnc/offline-pnc';
@@ -67,7 +68,8 @@ export class CareerObjectiveCreatePage {
         public loadingCtrl: LoadingController,
         private connectivityService: ConnectivityService,
         private offlinePncProvider: OfflinePncProvider,
-        private storageService: StorageService) {
+        private storageService: StorageService,
+        private transformerService: TransformerService) {
 
         // Options du datepicker
         this.nextEncounterDateTimeOptions = {
@@ -203,7 +205,8 @@ export class CareerObjectiveCreatePage {
                     this.originCareerObjective = _.cloneDeep(savedCareerObjective);
                     this.careerObjective = savedCareerObjective;
                     if (this.connectivityService.isConnected() && this.offlinePncProvider.isPncExist(this.careerObjective.pnc.matricule)) {
-                        this.storageService.save(Entity.CAREER_OBJECTIVE, this.originCareerObjective, true);
+                        const careerObjective = this.transformerService.transformObject(Entity.CAREER_OBJECTIVE, this.careerObjective);
+                        this.storageService.save(Entity.CAREER_OBJECTIVE, careerObjective, true);
                     }
 
                     if (this.careerObjective.careerObjectiveStatus === CareerObjectiveStatus.DRAFT) {
