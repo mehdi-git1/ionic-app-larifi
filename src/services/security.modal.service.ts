@@ -187,7 +187,7 @@ export class SecurityModalService {
             if (data === 'cancel'){
                 return false;
             }
-            
+
             if (this.modalType === SecretQuestionType.newQuestion) {
                 // Reprise et enregistrements des valeurs dans la session et côté back
                 this.sessionService.authenticatedUser.pinInfo.matricule = this.sessionService.authenticatedUser.matricule;
