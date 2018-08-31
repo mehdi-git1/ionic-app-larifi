@@ -33,7 +33,7 @@ export class CareerObjectiveProvider {
           this.onlineCareerObjectiveProvider.getPncCareerObjectives(matricule).then(onlineCareerObjectives => {
             const onlineData = this.careerObjectiveTransformer.toCareerObjectives(onlineCareerObjectives);
             const offlineData = this.careerObjectiveTransformer.toCareerObjectives(offlineCareerObjectives);
-            resolve(this.getOnlineAndOfflineCareerObjectives(onlineData, offlineData));
+            resolve(this.addUnsynchronizedOfflineCareerObjectivesToOnline(onlineData, offlineData));
           });
         });
       })
@@ -42,7 +42,12 @@ export class CareerObjectiveProvider {
 
   }
 
-  getOnlineAndOfflineCareerObjectives(onlineDataArray: CareerObjective[], offlineDataArray: CareerObjective[]): CareerObjective[] {
+  /**
+   * Ajoute les objectifs créés en offline et non synchonisés, à la liste des objectifs récupérés de la BDD
+   * @param onlineDataArray la liste des objectifs récupérés de la BDD.
+   * @param offlineDataArray la liste des objectifs récupérés du cache
+   */
+  addUnsynchronizedOfflineCareerObjectivesToOnline(onlineDataArray: CareerObjective[], offlineDataArray: CareerObjective[]): CareerObjective[] {
     for (const offlineData of offlineDataArray) {
       const result = onlineDataArray.filter(onlineData => offlineData.getStorageId() === onlineData.getStorageId());
       if (result && result.length === 0) {
