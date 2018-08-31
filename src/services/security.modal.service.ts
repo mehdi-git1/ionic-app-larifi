@@ -55,7 +55,7 @@ export class SecurityModalService {
      * @param type permet de définir le type d'affichage
      */
     displayPinPad(type) {
-        this.forceCloseModal();
+
         this.modalDisplayed.emit(true);
 
 
@@ -142,7 +142,6 @@ export class SecurityModalService {
      * @param type permet de définir le type d'affichage
      */
     displaySecretQuestion(type) {
-        this.forceCloseModal();
         this.modalDisplayed.emit(true);
 
         this.modalType = type;

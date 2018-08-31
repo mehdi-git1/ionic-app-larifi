@@ -46,7 +46,7 @@ export class EDossierPNC implements OnInit {
 
   pinPadModalActive = false;
   switchToBackgroundDate: Date;
-  inactivityDelayInSec = 120;
+  inactivityDelayInSec = 1;
 
 
   constructor(public platform: Platform,
@@ -83,6 +83,7 @@ export class EDossierPNC implements OnInit {
        * et une interdiction de cliquer avant d'avoir mis le bon code pin
        */
       this.securityModalService.modalDisplayed.subscribe(data => {
+        console.log(data);
         this.pinPadModalActive = data;
       });
 
@@ -96,6 +97,7 @@ export class EDossierPNC implements OnInit {
 
       /** On ajoute un evenement pour savoir si on entre en mode background */
       this.platform.pause.subscribe(() => {
+        this.securityModalService.forceCloseModal();
         this.switchToBackgroundDate = new Date();
       });
 
