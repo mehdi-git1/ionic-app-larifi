@@ -5,6 +5,7 @@ import { StorageService } from './../../services/storage.service';
 import { Pnc } from './../../models/pnc';
 import { Injectable } from '@angular/core';
 import * as moment from 'moment';
+import { Type } from '@angular/compiler/src/core';
 
 @Injectable()
 export class OfflinePncProvider {
@@ -78,6 +79,14 @@ export class OfflinePncProvider {
       }
       resolve(lastPerformedRotations != null && lastPerformedRotations.length > 0 ? lastPerformedRotations.slice(0, 2) : []);
     });
+  }
+
+  /**
+   * verifie si le pnc concerné se trouve en cache
+   * @param matricule le matricule du pnc concerné
+   */
+  isPncExist(matricule: string): boolean {
+    return this.storageService.findOne(Entity.PNC, matricule) !== null ? true : false;
   }
 
 }

@@ -1,3 +1,7 @@
+import { Entity } from './../../models/entity';
+import { StorageService } from './../../services/storage.service';
+import { OfflinePncProvider } from './../../providers/pnc/offline-pnc';
+import { ConnectivityService } from './../../services/connectivity.service';
 import { AppConstant } from './../../app/app.constant';
 import { WaypointStatus } from './../../models/waypointStatus';
 import { SecurityProvider } from './../../providers/security/security';
@@ -60,7 +64,10 @@ export class CareerObjectiveCreatePage {
         public careerObjectiveStatusProvider: CareerObjectiveStatusProvider,
         private datePipe: DatePipe,
         public securityProvider: SecurityProvider,
-        public loadingCtrl: LoadingController) {
+        public loadingCtrl: LoadingController,
+        private connectivityService: ConnectivityService,
+        private offlinePncProvider: OfflinePncProvider,
+        private storageService: StorageService) {
 
         // Options du datepicker
         this.nextEncounterDateTimeOptions = {
@@ -195,6 +202,9 @@ export class CareerObjectiveCreatePage {
                 .then(savedCareerObjective => {
                     this.originCareerObjective = _.cloneDeep(savedCareerObjective);
                     this.careerObjective = savedCareerObjective;
+                    if (this.connectivityService.isConnected() && this.offlinePncProvider.isPncExist(this.careerObjective.pnc.matricule)) {
+                        this.storageService.save(Entity.CAREER_OBJECTIVE, this.originCareerObjective, true);
+                    }
 
                     if (this.careerObjective.careerObjectiveStatus === CareerObjectiveStatus.DRAFT) {
                         this.toastProvider.success(this.translateService.instant('CAREER_OBJECTIVE_CREATE.SUCCESS.DRAFT_SAVED'));
