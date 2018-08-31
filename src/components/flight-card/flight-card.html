@@ -1,6 +1,6 @@
 <div class="leg-infos">
     <span>{{ leg.company }}{{ leg.number }}</span>
-    <span>{{ leg.departureDate | date : 'dd/MM/yyyy HH:mm' }} <sup>TU</sup></span>
+    <span>{{ leg.departureDate | date : 'dd/MM/yyyy HH:mm' : 'UTC'}} <sup>TU</sup></span>
     <span>{{ leg.departureStation }} - {{ leg.arrivalStation }}</span>
     <span>{{ leg.aircraftType }}</span>
     <download-button [synchroInProgress]="synchroInProgress" (onDownload)="downloadAllFlightPncsEdossier(leg)"></download-button>

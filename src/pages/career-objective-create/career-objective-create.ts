@@ -1,3 +1,4 @@
+import { DateTransformService } from './../../services/date.transform.service';
 import { AppConstant } from './../../app/app.constant';
 import { WaypointStatus } from './../../models/waypointStatus';
 import { SecurityProvider } from './../../providers/security/security';
@@ -13,7 +14,6 @@ import { Component } from '@angular/core';
 import { NavController, NavParams, AlertController, LoadingController, Loading, IonicPage } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Pnc } from '../../models/pnc';
-import { DatePipe } from '@angular/common';
 import { Waypoint } from './../../models/waypoint';
 import { WaypointCreatePage } from './../waypoint-create/waypoint-create';
 
@@ -54,9 +54,9 @@ export class CareerObjectiveCreatePage {
         private waypointProvider: WaypointProvider,
         private toastProvider: ToastProvider,
         public careerObjectiveStatusProvider: CareerObjectiveStatusProvider,
-        private datePipe: DatePipe,
         public securityProvider: SecurityProvider,
-        public loadingCtrl: LoadingController) {
+        public loadingCtrl: LoadingController,
+        private dateTransformer: DateTransformService) {
 
         // Options du datepicker
         this.nextEncounterDateTimeOptions = {
@@ -179,9 +179,9 @@ export class CareerObjectiveCreatePage {
      */
     prepareCareerObjectiveBeforeSubmit() {
         if (this.careerObjective.encounterDate !== undefined) {
-            this.careerObjective.encounterDate = this.datePipe.transform(this.careerObjective.encounterDate, 'yyyy-MM-ddTHH:mm');
+            this.careerObjective.encounterDate = this.dateTransformer.transformDateStringToIso8601Format(this.careerObjective.encounterDate);
         }
-        this.careerObjective.nextEncounterDate = this.datePipe.transform(this.careerObjective.nextEncounterDate, 'yyyy-MM-ddTHH:mm');
+        this.careerObjective.nextEncounterDate = this.dateTransformer.transformDateStringToIso8601Format(this.careerObjective.nextEncounterDate);
     }
 
     /**
@@ -198,7 +198,7 @@ export class CareerObjectiveCreatePage {
     saveCareerObjectiveToRegisteredStatus() {
         if (this.careerObjective.encounterDate) {
             this.careerObjective.careerObjectiveStatus = CareerObjectiveStatus.REGISTERED;
-            this.careerObjective.registrationDate = this.datePipe.transform(new Date(), 'yyyy-MM-ddTHH:mm');
+            this.careerObjective.registrationDate = this.dateTransformer.transformDateToIso8601Format(new Date());
             this.saveCareerObjective();
         } else {
             this.requiredOnEncounterDay = true;

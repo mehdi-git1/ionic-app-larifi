@@ -16,7 +16,7 @@
                     <ion-icon name="document"></ion-icon>
                 </ion-thumbnail>
                 <h4>{{helpAsset.label}}</h4>
-                {{ 'HELP_ASSET_LIST.LAST_UPDATE_DATE' | translate }} {{helpAsset.lastUpdateDate | date: 'dd/MM/yyyy HH:MM'}} <sup>TU</sup>
+                {{ 'HELP_ASSET_LIST.LAST_UPDATE_DATE' | translate }} {{helpAsset.lastUpdateDate | date: 'dd/MM/yyyy HH:MM' : 'UTC'}} <sup>TU</sup>
             </ion-item>
         </ion-list>
     </ng-template>

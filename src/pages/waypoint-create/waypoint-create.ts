@@ -1,5 +1,5 @@
+import { DateTransformService } from './../../services/date.transform.service';
 import { AppConstant } from './../../app/app.constant';
-import { DatePipe } from '@angular/common';
 import { SecurityProvider } from './../../providers/security/security';
 import { WaypointStatusProvider } from './../../providers/waypoint-status/waypoint-status';
 import { WaypointStatus } from './../../models/waypointStatus';
@@ -42,10 +42,10 @@ export class WaypointCreatePage {
         private waypointProvider: WaypointProvider,
         private toastProvider: ToastProvider,
         public waypointStatusProvider: WaypointStatusProvider,
-        private datePipe: DatePipe,
         public securityProvider: SecurityProvider,
         public loadingCtrl: LoadingController,
-        private alertCtrl: AlertController) {
+        private alertCtrl: AlertController,
+        private dateTransformer: DateTransformService) {
 
         // Options du datepicker
         this.customDateTimeOptions = {
@@ -136,7 +136,7 @@ export class WaypointCreatePage {
      */
     prepareWaypointBeforeSubmit() {
         if (this.waypoint.encounterDate) {
-            this.waypoint.encounterDate = this.datePipe.transform(this.waypoint.encounterDate, 'yyyy-MM-ddTHH:mm');
+            this.waypoint.encounterDate = this.dateTransformer.transformDateStringToIso8601Format(this.waypoint.encounterDate);
         }
     }
 
