@@ -142,6 +142,8 @@ export class PncSearchPage implements OnInit {
      * @param pnc le pnc concerné
      */
     openPncHomePage(pnc: Pnc) {
+        // Si on va sur un PNC par la recherche, on suprime de la session une enventuelle rotation.
+        this.sessionService.appContext.lastConsultedRotation = null;
         this.navCtrl.push(PncHomePage, { matricule: pnc.matricule });
     }
 
