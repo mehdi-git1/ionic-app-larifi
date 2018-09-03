@@ -1,3 +1,4 @@
+import { TransformerService } from './transformer.service';
 import { AppConstant } from './../app/app.constant';
 import { OfflineAction } from './../models/offlineAction';
 import { Entity } from './../models/entity';
@@ -6,7 +7,6 @@ import { Config } from './../configuration/environment-variables/config';
 import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage';
 import { EDossierPncObject } from '../models/eDossierPncObject';
-
 import * as moment from 'moment';
 
 @Injectable()
@@ -17,7 +17,8 @@ export class StorageService {
 
   constructor(
     private storage: Storage,
-    private config: Config) {
+    private config: Config,
+    private transformerService: TransformerService) {
   }
 
   reinitOfflineMap(): Promise<any> {
@@ -125,6 +126,7 @@ export class StorageService {
     if (!eDossierPncObject) {
       return null;
     }
+    eDossierPncObject = this.transformerService.transformObject(entity, eDossierPncObject);
     eDossierPncObject.offlineStorageDate = moment().format(AppConstant.isoDateFormat);
     if (!online) {
       eDossierPncObject.offlineAction =
