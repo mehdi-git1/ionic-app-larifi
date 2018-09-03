@@ -18,7 +18,11 @@
                     (keyup)="searchAutoComplete(pncMatricule.value)" [matAutocomplete]="auto" [(ngModel)]="selectedPnc" autocomplete="off"
                     [readonly]="areFiltersDisabled()" />
                 </mat-form-field>
-                <mat-autocomplete class="mat-autocomplete" #auto="matAutocomplete" [displayWith]="displayPnc" (optionSelected)="openPncHomePage($event.option.value)">
+                <mat-autocomplete 
+                  class="mat-autocomplete" 
+                  #auto="matAutocomplete" 
+                  [displayWith]="displayPnc" 
+                  (optionSelected)="openPncHomePage($event.option.value)">
                   <mat-option *ngFor="let pnc of pncList | async" [value]="pnc">
                     {{ pnc.lastName + ' ' + pnc.firstName + ' (' + pnc.matricule + ')'}}
                   </mat-option>
