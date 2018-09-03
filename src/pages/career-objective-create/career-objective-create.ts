@@ -1,3 +1,10 @@
+import { DeviceService } from './../../services/device.service';
+import { OfflineCareerObjectiveProvider } from './../../providers/career-objective/offline-career-objective';
+import { TransformerService } from './../../services/transformer.service';
+import { Entity } from './../../models/entity';
+import { StorageService } from './../../services/storage.service';
+import { OfflinePncProvider } from './../../providers/pnc/offline-pnc';
+import { ConnectivityService } from './../../services/connectivity.service';
 import { AppConstant } from './../../app/app.constant';
 import { WaypointStatus } from './../../models/waypointStatus';
 import { SecurityProvider } from './../../providers/security/security';
@@ -60,7 +67,11 @@ export class CareerObjectiveCreatePage {
         public careerObjectiveStatusProvider: CareerObjectiveStatusProvider,
         private datePipe: DatePipe,
         public securityProvider: SecurityProvider,
-        public loadingCtrl: LoadingController) {
+        public loadingCtrl: LoadingController,
+        private connectivityService: ConnectivityService,
+        private offlinePncProvider: OfflinePncProvider,
+        private offlineCareerObjectiveProvider: OfflineCareerObjectiveProvider,
+        private deviceService: DeviceService) {
 
         // Options du datepicker
         this.nextEncounterDateTimeOptions = {
@@ -195,6 +206,10 @@ export class CareerObjectiveCreatePage {
                 .then(savedCareerObjective => {
                     this.originCareerObjective = _.cloneDeep(savedCareerObjective);
                     this.careerObjective = savedCareerObjective;
+                    // en mode connecté, mettre en cache l'objectif creé ou modifié si le pnc est en cache
+                    if (this.deviceService.isOfflineModeAvailable() && this.connectivityService.isConnected() && this.offlinePncProvider.isPncExist(this.careerObjective.pnc.matricule)) {
+                        this.offlineCareerObjectiveProvider.createOrUpdate(this.careerObjective, true);
+                    }
 
                     if (this.careerObjective.careerObjectiveStatus === CareerObjectiveStatus.DRAFT) {
                         this.toastProvider.success(this.translateService.instant('CAREER_OBJECTIVE_CREATE.SUCCESS.DRAFT_SAVED'));
