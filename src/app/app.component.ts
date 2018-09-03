@@ -16,7 +16,7 @@ import { SecurityProvider } from './../providers/security/security';
 
 import { Component, ViewChild, OnInit } from '@angular/core';
 
-import { Nav, Platform, Events, ModalController } from 'ionic-angular';
+import { Nav, Platform, Events, ModalController, Keyboard } from 'ionic-angular';
 
 import { StatusBar } from '@ionic-native/status-bar';
 
@@ -53,6 +53,7 @@ export class EDossierPNC implements OnInit {
   constructor(public platform: Platform,
     public statusBar: StatusBar,
     public splashScreen: SplashScreen,
+    public keyboard: Keyboard,
     private secMobilService: SecMobilService,
     private connectivityService: ConnectivityService,
     private events: Events,
@@ -99,6 +100,11 @@ export class EDossierPNC implements OnInit {
           this.switchToBackgroundDate = new Date();
         });
       }
+
+      this.keyboard.didShow.subscribe(() => { console.log('keyboard show'); });
+      this.keyboard.didHide.subscribe(() => { console.log('keyboard hide'); });
+      this.keyboard.willShow.subscribe(() => { console.log('keyboard will show'); });
+      this.keyboard.willHide.subscribe(() => { console.log('keyboard will hide'); });
 
       this.statusBar.styleDefault();
 
