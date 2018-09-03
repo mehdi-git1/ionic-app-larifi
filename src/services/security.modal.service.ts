@@ -88,7 +88,7 @@ export class SecurityModalService {
     manageDismissPinPad() {
         const pinCode = this.sessionService.authenticatedUser.pinInfo.pinCode;
         this.SecurityModal.onDidDismiss(data => {
-            // Si on a tué la modal, on dismiss juste car il y'a une aurre modal qui va s'afficher derriére
+            // Si on a tué la modal, on dismiss juste car il y'a une autre modal qui va s'afficher derriére
             if (data === 'killModal'){
                 return false;
             }
@@ -130,14 +130,12 @@ export class SecurityModalService {
                 if (pinCode != data){
                     this.errorType = PinPadError.pinIncorrect;
                     this.displayPinPad(PinPadType.askChange);
-                } else {
-                    // Si on vient d'une demande de changement de question réponse on change la question réponse
-                    if (this.comeFrom === SecretQuestionType.askChange){
+                } else if (this.comeFrom === SecretQuestionType.askChange){
+                     // Si on vient d'une demande de changement de question réponse on change la question réponse
                         this.displaySecretQuestion(SecretQuestionType.newQuestion);
-                    } else {
-                        this.comeFrom = PinPadType.askChange;
-                        this.displayPinPad(PinPadType.firstConnexionStage1);
-                    }
+                } else {
+                    this.comeFrom = PinPadType.askChange;
+                    this.displayPinPad(PinPadType.firstConnexionStage1);
                 }
             }
         });

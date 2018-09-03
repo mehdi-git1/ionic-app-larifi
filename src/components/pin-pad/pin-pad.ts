@@ -88,4 +88,12 @@ export class PinPadComponent implements OnInit {
     this.inputValueArray[this.inputValueArray.indexOf(this.padValueDefault) - 1] = this.padValueDefault;
     this.pinPadEntered.emit(this.inputValueArray);
   }
+
+  /**
+   * Affichae ou non du bouton effacer
+   */
+  isInvisible(){
+    return this.inputValueArray.indexOf(this.padValueDefault) < 1;
+  }
+
 }
