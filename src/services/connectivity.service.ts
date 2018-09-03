@@ -12,14 +12,13 @@ export class ConnectivityService {
      * La variable timer permet de gére le timer du pingAPI
      * Et ainsi de pouvoir le stopper si on récupére le réseau
      */
-    private timer;
+    private timer = 0;
 
     @Output()
     connectionStatusChange = new EventEmitter<boolean>();
 
     constructor(public restService: RestService,
         private config: Config) {
-        this.timer = 0;
     }
 
     isConnected(): boolean {
