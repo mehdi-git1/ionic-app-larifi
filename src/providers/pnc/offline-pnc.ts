@@ -5,7 +5,6 @@ import { StorageService } from './../../services/storage.service';
 import { Pnc } from './../../models/pnc';
 import { Injectable } from '@angular/core';
 import * as moment from 'moment';
-import { Type } from '@angular/compiler/src/core';
 
 @Injectable()
 export class OfflinePncProvider {
