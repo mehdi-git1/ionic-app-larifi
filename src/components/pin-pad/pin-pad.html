@@ -13,6 +13,8 @@
                 (click)="addToInput((i+1)%10)">
                 <span>{{(i+1)%10}}</span>
             </div>
+            <p [ngClass]="{'invisible' : isInvisible() }" class='erase-pin' (click)="inputValueArray.indexOf(padValueDefault) > 0 && manageErase();">{{'PIN_PAD.ERASE' | translate}}</p>
         </div>    
         <p *ngIf="pinType === pinPadType.openingApp" class='forgotten-pin' (click)="manageForgotten();">{{'PIN_PAD.FORGOTTEN' | translate}}</p>
+        <p *ngIf="pinType === pinPadType.askChange" class='forgotten-pin' (click)="manageCancel();">{{'PIN_PAD.CANCEL' | translate}}</p>
     </div>   
