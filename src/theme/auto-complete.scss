@@ -6,5 +6,8 @@
     width: auto !important;
     max-width: none !important;
     max-height: none !important;
-    height: calc(100% - 100px);
+}
+
+.mat-autocomplete-panel{
+    max-heigth: 300px !important;
 }

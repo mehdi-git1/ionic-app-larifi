@@ -22,6 +22,7 @@
                   class="mat-autocomplete" 
                   #auto="matAutocomplete" 
                   [displayWith]="displayPnc" 
+                  [disableRipple]= "true"
                   (optionSelected)="openPncHomePage($event.option.value)">
                   <mat-option *ngFor="let pnc of pncList | async" [value]="pnc">
                     {{ pnc.lastName + ' ' + pnc.firstName + ' (' + pnc.matricule + ')'}}
