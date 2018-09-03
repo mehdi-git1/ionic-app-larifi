@@ -116,3 +116,8 @@ ion-content > .scroll-content {
 .back-button.show-back-button {
     padding-right: 50px;
 }
+
+.toolbar-content {
+    display: flex;
+    align-items: center;
+}

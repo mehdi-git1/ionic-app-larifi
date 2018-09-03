@@ -1,3 +1,4 @@
+import { AppInitService } from './../services/appInit.service';
 import { PinPadType } from './../models/pinPadType';
 import { DeviceService } from './../services/device.service';
 import { GenericMessagePage } from './../pages/generic-message/generic-message';
@@ -60,6 +61,7 @@ export class EDossierPNC implements OnInit {
     public translateService: TranslateService,
     private storageService: StorageService,
     private deviceService: DeviceService,
+    private appInitService: AppInitService,
     private toastProvider: ToastProvider,
     private parametersProvider: ParametersProvider,
     private securityProvider: SecurityProvider,
@@ -74,31 +76,29 @@ export class EDossierPNC implements OnInit {
   initializeApp() {
 
     this.platform.ready().then(() => {
-      if (this.deviceService.isBrowser) {
-        this.splashScreen.hide();
+
+      if (!this.deviceService.isBrowser()) {
+        /**
+        * On ajoute une écoute sur un paramétre pour savoir si la popin est activée ou pas pour afficher un blur
+        * et une interdiction de cliquer avant d'avoir mis le bon code pin
+        */
+        this.securityModalService.modalDisplayed.subscribe(data => {
+          this.pinPadModalActive = data;
+        });
+
+        this.platform.resume.subscribe(() => {
+          // Si on a depassé le temps d'inactivité, on affiche le pin pad
+          if (moment.duration(moment().diff(moment(this.switchToBackgroundDate))).asSeconds() > this.inactivityDelayInSec && !this.deviceService.isBrowser()) {
+            this.securityModalService.forceCloseModal();
+            this.securityModalService.displayPinPad(PinPadType.openingApp);
+          }
+        });
+
+        /** On ajoute un evenement pour savoir si on entre en mode background */
+        this.platform.pause.subscribe(() => {
+          this.switchToBackgroundDate = new Date();
+        });
       }
-
-      /**
-       * On ajoute une écoute sur un paramétre pour savoir si la popin est activée ou pas pour afficher un blur
-       * et une interdiction de cliquer avant d'avoir mis le bon code pin
-       */
-      this.securityModalService.modalDisplayed.subscribe(data => {
-        this.pinPadModalActive = data;
-      });
-
-      this.platform.resume.subscribe(() => {
-        // Si on a depassé le temps d'inactivité, on affiche le pin pad
-        if (moment.duration(moment().diff(moment(this.switchToBackgroundDate))).asSeconds() > this.inactivityDelayInSec && !this.deviceService.isBrowser()) {
-          this.securityModalService.forceCloseModal();
-          this.securityModalService.displayPinPad(PinPadType.openingApp);
-        }
-      });
-
-
-      /** On ajoute un evenement pour savoir si on entre en mode background */
-      this.platform.pause.subscribe(() => {
-        this.switchToBackgroundDate = new Date();
-      });
 
       this.statusBar.styleDefault();
 
@@ -111,7 +111,7 @@ export class EDossierPNC implements OnInit {
         this.storageService.initOfflineMap().then(success => {
 
           this.putAuthenticatedUserInSession().then(authenticatedUser => {
-            this.initParameters();
+            this.appInitService.initParameters();
             if (this.deviceService.isOfflineModeAvailable()) {
               this.synchronizationProvider.synchronizeOfflineData();
               this.synchronizationProvider.storeEDossierOffline(authenticatedUser.matricule).then(successStore => {
@@ -142,7 +142,7 @@ export class EDossierPNC implements OnInit {
           this.toastProvider.warning(this.translateService.instant('GLOBAL.CONNECTIVITY.OFFLINE_MODE'));
         } else {
           this.toastProvider.success(this.translateService.instant('GLOBAL.CONNECTIVITY.ONLINE_MODE'));
-          this.initParameters();
+          this.appInitService.initParameters();
           this.synchronizationProvider.synchronizeOfflineData();
           this.synchronizationProvider.storeEDossierOffline(this.sessionService.authenticatedUser.matricule).then(successStore => {
             this.events.publish('EDossierOffline:stored');
@@ -151,16 +151,6 @@ export class EDossierPNC implements OnInit {
         }
       });
     });
-  }
-
-  /**
-     * Récupère les parametres envoyé par le back
-     */
-  initParameters() {
-    this.parametersProvider.getParams().then(parameters => {
-      this.sessionService.parameters = parameters;
-      this.events.publish('parameters:ready');
-    }, error => { });
   }
 
   /**
