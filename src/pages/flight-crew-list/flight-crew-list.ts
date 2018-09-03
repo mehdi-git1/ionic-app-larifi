@@ -74,11 +74,11 @@ export class FlightCrewListPage {
      * @param otherCrewMember crewMember à comparer
      */
     sortCrew(crewMember: CrewMember, otherCrewMember: CrewMember): number {
-        if (crewMember.prioritized && otherCrewMember.prioritized) {
+        if (crewMember.pnc.prioritized && otherCrewMember.pnc.prioritized) {
             return this.sortBySpeciality(crewMember, otherCrewMember);
-        } else if (crewMember.prioritized && !otherCrewMember.prioritized) {
+        } else if (crewMember.pnc.prioritized && !otherCrewMember.pnc.prioritized) {
             return -1;
-        } else if (!crewMember.prioritized && otherCrewMember.prioritized) {
+        } else if (!crewMember.pnc.prioritized && otherCrewMember.pnc.prioritized) {
             return 1;
         } else if (crewMember.particularity === 'P' && otherCrewMember.particularity === 'P') {
             return this.sortBySpeciality(crewMember, otherCrewMember);
