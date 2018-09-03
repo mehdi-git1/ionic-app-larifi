@@ -98,7 +98,7 @@ export class StorageService {
    * @return l'entité trouvée
    */
   findOne(entity: Entity, storageId: string): any {
-    if (this.offlineMap && this.offlineMap[entity]) {
+    if (this.offlineMap && this.offlineMap[entity] && this.offlineMap[entity][storageId]) {
       return this.offlineMap[entity][storageId];
     } else {
       return null;

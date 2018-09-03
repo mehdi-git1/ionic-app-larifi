@@ -88,7 +88,8 @@ export class EDossierPNC implements OnInit {
 
         this.platform.resume.subscribe(() => {
           // Si on a depassé le temps d'inactivité, on affiche le pin pad
-          if (moment.duration(moment().diff(moment(this.switchToBackgroundDate))).asSeconds() > this.inactivityDelayInSec) {
+          if (moment.duration(moment().diff(moment(this.switchToBackgroundDate))).asSeconds() > this.inactivityDelayInSec && !this.deviceService.isBrowser()) {
+            this.securityModalService.forceCloseModal();
             this.securityModalService.displayPinPad(PinPadType.openingApp);
           }
         });

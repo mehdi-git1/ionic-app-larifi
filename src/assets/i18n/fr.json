@@ -232,12 +232,13 @@
     "PIN_PAD": {
         "TITLE": {
             "OPENING_APP": "Veuillez entrer votre code pin",
-            "PIN_CHANGE_STAGE_1": "Veuillez entrer votre code pin actuel",
-            "PIN_CHANGE_STAGE_2": "Veuillez entrer votre nouveau code pin",
-            "FIRST_CONNEXION_STAGE_1": "Veuillez définir un nouveau code pin",
+            "PIN_ASK_CHANGE": "Veuillez entrer votre code pin actuel",
+            "FIRST_CONNEXION_STAGE_1": "Veuillez entrer un code pin pour sécuriser votre compte",
             "FIRST_CONNEXION_STAGE_2": "Veuillez confirmer votre code pin"
         },
         "FORGOTTEN": "Code pin oublié ?",
+        "CANCEL": "Annuler",
+        "ERASE": "Effacer",
         "ERROR": {
             "PIN_INCORRECT": "Code pin incorrect",
             "PIN_INIT_INCORRECT": "Les 2 codes pin doivent être identiques"
@@ -264,6 +265,7 @@
         },
         "TOAST_MESSAGE": {
             "SUCCESS_INIT": "Code pin et question / réponse secrète initialisés",
+            "SUCCESS_REINIT": "Question / réponse secrète initialisées",
             "ERROR": "Erreur lors de la modification de la question / réponse secrète"
         }
     },
@@ -275,6 +277,12 @@
         },
         "FORCE_SYNCHRONIZATION": {
             "BUTTON": "Forcer la synchronisation"
+        },
+        "CHANGE_PIN_CODE": {
+            "BUTTON": "Changer le code pin"
+        },
+        "CHANGE_SECRET_QUESTION": {
+            "BUTTON": "Changer la question secrète"
         },
         "CONFIRM_INIT_CACHE": {
             "TITLE": "Réinitialisation du cache",
