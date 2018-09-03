@@ -80,4 +80,12 @@ export class OfflinePncProvider {
     });
   }
 
+  /**
+   * verifie si le pnc concerné se trouve en cache
+   * @param matricule le matricule du pnc concerné
+   */
+  isPncExist(matricule: string): boolean {
+    return this.storageService.findOne(Entity.PNC, matricule) !== null ? true : false;
+  }
+
 }

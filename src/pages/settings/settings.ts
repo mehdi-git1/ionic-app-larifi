@@ -1,3 +1,5 @@
+import { DeviceService } from './../../services/device.service';
+import { SecurityModalService } from './../../services/security.modal.service';
 import { TranslateService } from '@ngx-translate/core';
 import { ToastProvider } from './../../providers/toast/toast';
 import { UpcomingFlightListPage } from './../upcoming-flight-list/upcoming-flight-list';
@@ -11,6 +13,9 @@ import { ConnectivityService } from './../../services/connectivity.service';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, Events, AlertController } from 'ionic-angular';
 
+import { PinPadType } from './../../models/pinPadType';
+import { SecretQuestionType } from '../../models/secretQuestionType';
+
 @Component({
   selector: 'page-settings',
   templateUrl: 'settings.html',
@@ -21,6 +26,8 @@ export class SettingsPage {
   initInProgress: boolean;
   synchronizationInProgress: boolean;
 
+  isApp: boolean;
+
   constructor(
     private connectivityService: ConnectivityService,
     private storageService: StorageService,
@@ -29,7 +36,9 @@ export class SettingsPage {
     private sessionService: SessionService,
     private toastProvider: ToastProvider,
     private translateService: TranslateService,
-    private alertCtrl: AlertController
+    private alertCtrl: AlertController,
+    private securityModalService: SecurityModalService,
+    private deviceService: DeviceService
 
   ) {
     this.connected = this.connectivityService.isConnected();
@@ -45,6 +54,8 @@ export class SettingsPage {
     this.synchronizationProvider.synchroStatusChange.subscribe(synchroInProgress => {
       this.synchronizationInProgress = synchroInProgress;
     });
+
+    this.isApp = !this.deviceService.isBrowser();
   }
 
   ionViewDidLoad() {
@@ -100,6 +111,18 @@ export class SettingsPage {
     this.synchronizationProvider.synchronizeOfflineData();
   }
 
+  /**
+   * Fonction d'affichage du changement de code pin
+   */
+  changePinCode(){
+    this.securityModalService.displayPinPad(PinPadType.askChange);
+  }
 
+  /**
+   * Fonction d'affichage du changement de question / reponse secréte
+   */
+  changeSecretQuestion(){
+    this.securityModalService.displaySecretQuestion(SecretQuestionType.askChange);
+  }
 
 }
