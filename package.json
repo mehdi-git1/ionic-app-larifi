@@ -76,7 +76,6 @@
             "cordova-plugin-statusbar": {},
             "cordova-plugin-ionic-webview": {},
             "cordova-plugin-formslib": {},
-            "cordova-plugin-privacyscreen": {},
             "cordova-sqlite-storage": {}
         },
         "platforms": [
