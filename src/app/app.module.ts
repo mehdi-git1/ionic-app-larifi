@@ -1,3 +1,4 @@
+import { TransformerService } from './../services/transformer.service';
 import { DeviceService } from './../services/device.service';
 import { PncPhotoTransformerProvider } from './../providers/pnc-photo/pnc-photo-transformer';
 import { OfflinePncPhotoProvider } from './../providers/pnc-photo/offline-pnc-photo';
@@ -102,6 +103,7 @@ import { SecurityModalService } from '../services/security.modal.service';
 
 import { SettingsPage } from '../pages/settings/settings';
 import { PncPhotoProvider } from '../providers/pnc-photo/pnc-photo';
+import { SQLite } from '../../node_modules/@ionic-native/sqlite';
 
 
 
@@ -133,7 +135,9 @@ declare var window: any;
       pageTransition: 'md-transition',
       backButtonText: ''
     }),
-    IonicStorageModule.forRoot(),
+    IonicStorageModule.forRoot({
+      driverOrder: ['sqlite', 'indexeddb', 'websql']
+    }),
     HttpClientModule,
     ComponentsModule,
     SharedModule,
@@ -167,6 +171,7 @@ declare var window: any;
     ConnectivityService,
     StorageService,
     DeviceService,
+    TransformerService,
     { provide: RestService, useFactory: createRestService, deps: [HttpClient, SecMobilService, Config] },
     { provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true },
     AppInitService,
@@ -220,7 +225,8 @@ declare var window: any;
     PncPhotoProvider,
     OnlinePncPhotoProvider,
     OfflinePncPhotoProvider,
-    PncPhotoTransformerProvider
+    PncPhotoTransformerProvider,
+    SQLite
   ]
 })
 export class AppModule { }
