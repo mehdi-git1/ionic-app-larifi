@@ -101,10 +101,6 @@ export class EDossierPNC implements OnInit {
         });
       }
 
-      this.keyboard.didShow.subscribe(() => { console.log('keyboard show'); });
-      this.keyboard.didHide.subscribe(() => { console.log('keyboard hide'); });
-      this.keyboard.willShow.subscribe(() => { console.log('keyboard will show'); });
-      this.keyboard.willHide.subscribe(() => { console.log('keyboard will hide'); });
 
       this.statusBar.styleDefault();
 

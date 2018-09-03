@@ -1,5 +1,5 @@
 import { ConnectivityService } from './../../services/connectivity.service';
-import { NavController, Events } from 'ionic-angular';
+import { NavController, Events, Keyboard } from 'ionic-angular';
 import { PncProvider } from './../../providers/pnc/pnc';
 import { Subject } from 'rxjs/Rx';
 import { SessionService } from './../../services/session.service';
@@ -51,7 +51,8 @@ export class PncSearchFilterComponent implements OnInit {
     private formBuilder: FormBuilder,
     private pncProvider: PncProvider,
     private connectivityService: ConnectivityService,
-    private events: Events) {
+    private events: Events,
+    private keyboard: Keyboard) {
     this.searchNeedToBeRefreshed = false;
     this.connectivityService.connectionStatusChange.subscribe(connected => {
       this.searchNeedToBeRefreshed = true;
@@ -60,6 +61,28 @@ export class PncSearchFilterComponent implements OnInit {
     this.events.subscribe('parameters:ready', () => {
       this.initFilter();
     });
+
+    /*this.keyboard.didShow.subscribe(() => {
+      console.log('keyboard show', window.innerHeight);
+      console.log('top', 244);
+      const newHeight = window.innerHeight - 244;
+      console.log('height', newHeight);
+      document.getElementById('mat-autocomplete-0').setAttribute('height', newHeight + 'px' );
+    });*/
+    this.keyboard.didHide.subscribe(() => {
+      console.log('keyboard hide', window.innerHeight);
+      console.log('top', document.getElementById('mat-autocomplete-0').parentElement.offsetTop);
+      const newHeight = window.innerHeight - document.getElementById('mat-autocomplete-0').parentElement.offsetTop;
+      console.log('height', newHeight);
+      document.getElementById('mat-autocomplete-0').setAttribute('height', newHeight + 'px' );
+    });
+  }
+
+  changeHeightOnOpened(){
+    console.log('keyboard show', window.innerHeight);
+    console.log('top', 244);
+    const newHeight = window.innerHeight - 244;
+    document.getElementById('mat-autocomplete-0').setAttribute('height', newHeight + 'px' );
   }
 
   /**
