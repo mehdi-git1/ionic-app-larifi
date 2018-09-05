@@ -13,6 +13,7 @@ import { FormBuilder, FormGroup, Validators, FormControl, ValidatorFn, AbstractC
 import { CareerObjectiveCreatePage } from './../career-objective-create/career-objective-create';
 import { ToastProvider } from './../../providers/toast/toast';
 import * as _ from 'lodash';
+import { DeviceService } from '../../services/device.service';
 
 @Component({
     selector: 'page-waypoint-create',
@@ -49,7 +50,8 @@ export class WaypointCreatePage {
         private datePipe: DatePipe,
         public securityProvider: SecurityProvider,
         public loadingCtrl: LoadingController,
-        private alertCtrl: AlertController) {
+        private alertCtrl: AlertController,
+        private deviceService: DeviceService) {
 
         // Options du datepicker
         this.customDateTimeOptions = {
@@ -177,6 +179,9 @@ export class WaypointCreatePage {
                     this.navCtrl.pop();
                     resolve();
                 }, error => {
+                    if (!this.deviceService.isBrowser()){
+                        this.toastProvider.error(this.translateService.instant('GLOBAL.UNKNOWN_ERROR'));
+                    }
                     this.loading.dismiss();
                 });
         });
