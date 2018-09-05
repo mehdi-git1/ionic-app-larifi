@@ -1,7 +1,6 @@
 import { TransformerService } from './transformer.service';
 import { AppConstant } from './../app/app.constant';
 import { OfflineAction } from './../models/offlineAction';
-import { DatePipe } from '@angular/common';
 import { Entity } from './../models/entity';
 import { AuthenticatedUser } from './../models/authenticatedUser';
 import { Config } from './../configuration/environment-variables/config';
@@ -20,7 +19,6 @@ export class StorageService {
   constructor(
     private storage: Storage,
     private config: Config,
-    private datePipe: DatePipe,
     private transformerService: TransformerService) {
   }
 
