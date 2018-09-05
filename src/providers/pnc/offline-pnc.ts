@@ -1,9 +1,10 @@
+import { AppConstant } from './../../app/app.constant';
 import { Rotation } from './../../models/rotation';
 import { Entity } from './../../models/entity';
 import { StorageService } from './../../services/storage.service';
 import { Pnc } from './../../models/pnc';
 import { Injectable } from '@angular/core';
-import { EDossierPncObject } from '../../models/eDossierPncObject';
+import * as moment from 'moment';
 
 @Injectable()
 export class OfflinePncProvider {
@@ -57,11 +58,11 @@ export class OfflinePncProvider {
   }
 
   /**
-   * Récupère la dernière rotation effectuée par un PNC
-   * @param matricule le matricule du PNC dont on souhaite récupérer la dernière rotation réalisée
-   * @return une promesse contenant la dernière rotation réalisée du PNC
-   */
-  getLastPerformedRotation(matricule: string): Promise<Rotation> {
+  * Retrouve les deux dernières rotations opérées par un PNC
+  * @param matricule le matricule du PNC dont on souhaite récupérer les dernières rotations opérées
+  * @return les deux dernières rotations opérées par le PNC
+  */
+  getLastPerformedRotations(matricule: string): Promise<Rotation[]> {
     return new Promise((resolve, reject) => {
       let lastPerformedRotations = this.storageService.findAll(Entity.ROTATION);
       if (lastPerformedRotations != null) {
@@ -70,9 +71,21 @@ export class OfflinePncProvider {
           const nowDate = new Date(Date.parse(Date()));
           return departureDate < nowDate;
         });
+        // On tri par date de départ croissante
+        lastPerformedRotations = lastPerformedRotations.sort((rotation1, rotation2) => {
+          return moment(rotation1.departureDate, AppConstant.isoDateFormat).isBefore(moment(rotation2.departureDate, AppConstant.isoDateFormat)) ? -1 : 1;
+        });
       }
-      resolve(lastPerformedRotations != null && lastPerformedRotations.length > 0 ? lastPerformedRotations[lastPerformedRotations.length - 1] : null);
+      resolve(lastPerformedRotations != null && lastPerformedRotations.length > 0 ? lastPerformedRotations.slice(0, 2) : []);
     });
+  }
+
+  /**
+   * verifie si le pnc concerné se trouve en cache
+   * @param matricule le matricule du pnc concerné
+   */
+  isPncExist(matricule: string): boolean {
+    return this.storageService.findOne(Entity.PNC, matricule) !== null ? true : false;
   }
 
 }

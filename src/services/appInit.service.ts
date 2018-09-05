@@ -1,36 +1,29 @@
+import { SessionService } from './session.service';
+import { ParametersProvider } from './../providers/parameters/parameters';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Rx';
-import { Platform } from 'ionic-angular';
+import { Events } from 'ionic-angular';
+
 
 @Injectable()
 export class AppInitService {
-    private initialized = false;
 
-    constructor(private platform: Platform
+
+    constructor(
+        private parametersProvider: ParametersProvider,
+        private sessionService: SessionService,
+        private events: Events
     ) {
 
     }
 
-    private init(): Observable<any> {
-        return Observable.create(obs => {
-            if (this.initialized === false) {
-                this.platform.ready().then(() => {
-                    this.initialized = true;
-                    obs.next();
-                    obs.complete();
-                });
-            } else {
-                obs.next();
-                obs.complete();
-            }
-        });
+      /**
+     * Récupère les parametres envoyé par le back
+     */
+    initParameters() {
+        this.parametersProvider.getParams().then(parameters => {
+            this.sessionService.parameters = parameters;
+            this.events.publish('parameters:ready');
+        }, error => { });
     }
 
-    initFirstLaunch(): Promise<any> {
-        return new Promise((resolve, reject) => {
-            this.init().subscribe(d => {
-
-            });
-        });
-    }
 }

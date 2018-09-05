@@ -10,6 +10,9 @@
             "DONE": "Valider",
             "CLEAR": "Vider"
         },
+        "MONTH": {
+            "LONGNAME": "Janvier, Février, Mars , Avril, Mai, Juin, Juillet, Août, Septembre, Octobre, Novembre, Décembre"
+        },
         "CAREER_OBJECTIVE_STATUS": {
             "DRAFT": "PROPOSITION",
             "REGISTERED": "EN COURS",
@@ -21,8 +24,8 @@
             "REGISTERED": "EN COURS"
         },
         "CONNECTIVITY": {
-            "ONLINE_MODE": "Connexion avec le serveur retrouvée",
-            "OFFLINE_MODE": "Connexion perdue, vous êtes à présent en mode déconnecté"
+            "ONLINE_MODE": "Connexion avec le serveur rétablie",
+            "OFFLINE_MODE": "Vous êtes à présent en mode déconnecté"
         },
         "DEVELOPMENT_PROGRAM": "Parcours de développement",
         "PNC_SUMMARY_SHEET": "Fiche synthèse PNC",
@@ -42,6 +45,10 @@
                 "APPLICATION_SYNCHRO_PENDING": "Le pnc  {{ matricule }} ne peut être chargé car il est en attente de synchronisation",
                 "INVALID_CREDENTIALS": "Identifiant/mot de passe incorrect"
             }
+        },
+        "BUTTONS": {
+            "CONFIRM": "Confirmer",
+            "CANCEL": "Annuler"
         }
     },
     "AUTHENT": {
@@ -58,12 +65,12 @@
             "PNC": "PNC",
             "INITIATOR": "A l'initiative de",
             "TITLE": "Libellé",
-            "CONTEXT": "Contexte",
+            "CONTEXT": "Origine/Contexte",
             "ACTION_PLAN": "Plan d'action et ressources utiles",
             "MANAGER_COMMENT": "Commentaire Manager Coach",
             "PNC_COMMENT": "Commentaire PNC",
-            "NEXT_ENCOUNTER_DATE": "Prochain point",
-            "ENCOUNTER_DATE": "Date de rencontre",
+            "NEXT_ENCOUNTER_DATE": "Prochain rappel",
+            "ENCOUNTER_DATE": "Fixée le",
             "PRIORITIZED": "Priorité majeure",
             "CREATION_DATE": "Créée le",
             "REQUIRED_ON_ENCOUNTER_DAY": " (Saisie obligatoire le jour de la rencontre)"
@@ -80,6 +87,10 @@
             "CANCEL": "Annuler",
             "CONFIRM": "Supprimer"
         },
+        "CONFIRM_BACK_WITHOUT_SAVE": {
+            "TITLE": "Modifications non enregistrées",
+            "MESSAGE": "Attention, des modifications n'ont pas été enregistrées, êtes vous sûr de vouloir revenir en arrière ?"
+        },
         "BUTTONS": {
             "SAVE": "Enregistrer",
             "SAVE_DRAFT": "Sauvegarder proposition",
@@ -92,7 +103,7 @@
         },
         "SUCCESS": {
             "CAREER_OBJECTIVE_SAVED": "Priorité enregistrée",
-            "DRAFT_SAVED": "Proposition enregistrée",
+            "DRAFT_SAVED": "Proposition sauvegardée",
             "DRAFT_DELETED": "Proposition supprimée",
             "CAREER_OBJECTIVE_VALIDATED": "Priorité validée",
             "CAREER_OBJECTIVE_ABANDONED": "Priorité abandonnée",
@@ -101,18 +112,19 @@
             "CAREER_OBJECTIVE_INSTRUCTOR_REQUESTED": "Demande envoyée"
         },
         "ERROR": {
-            "CAREER_OBJECTIVE_CREATION_FAILED": "La création de la priorité a échouée"
+            "CAREER_OBJECTIVE_CREATION_FAILED": "La création de la priorité a échouée",
+            "ENCOUTER_DATE_REQUIRED": "Veuillez renseigner la date à laquelle la priorité a été fixée"
         }
     },
     "CAREER_OBJECTIVE_LIST": {
         "NO_OBJECTIVES": "Aucune priorité pour le moment",
         "INFORMATION_MESSAGE": "Maximum 5 priorités en cours",
         "LIST": {
-            "CREATION_DATE": "Date de création",
+            "CREATION_DATE": "Initiée le",
             "TITLE": "Libellé",
             "REGISTRATION_DATE": "Date d'enregistrement",
-            "ENCOUNTER_DATE": "Date de rencontre",
-            "NEXT_ENCOUNTER_DATE": "Date du prochain point"
+            "ENCOUNTER_DATE": "Fixée le",
+            "NEXT_ENCOUNTER_DATE": "Prochain rappel"
         },
         "BUTTONS": {
             "ADD_CAREER_OBJECTIVE": "Nouvelle priorité"
@@ -131,11 +143,11 @@
     "WAYPOINT_CREATE": {
         "TITLE": "Point d'étape",
         "FORM": {
-            "CONTEXT": "Contexte",
+            "CONTEXT": "Origine/Contexte",
             "ACTION_PERFORMED": "Action réalisée",
             "MANAGER_COMMENT": "Commentaire Manager Coach",
             "PNC_COMMENT": "Commentaire PNC",
-            "ENCOUNTER_DATE": "Date de rencontre",
+            "ENCOUNTER_DATE": "Date du point d'étape",
             "REQUIRED_ON_ENCOUNTER_DAY": " (Saisie obligatoire le jour de la rencontre)"
         },
         "CONFIRM_DRAFT_DELETE": {
@@ -144,14 +156,21 @@
             "CANCEL": "Annuler",
             "CONFIRM": "Supprimer"
         },
+        "CONFIRM_BACK_WITHOUT_SAVE": {
+            "TITLE": "Modifications non enregistrées",
+            "MESSAGE": "Attention, des modifications n'ont pas été enregistrées, êtes vous sûr de vouloir revenir en arrière ?"
+        },
         "BUTTONS": {
             "SAVE": "Enregistrer",
             "SAVE_DRAFT": "Sauvegarder proposition",
             "DELETE_DRAFT": "Supprimer proposition"
         },
+        "ERROR": {
+            "ENCOUTER_DATE_AND_ACTION_PLAN_REQUIRED": "Veuillez renseigner l'action réalisée et la date du point d'étape"
+        },
         "SUCCESS": {
             "WAYPOINT_SAVED": "Point d'étape enregistré",
-            "DRAFT_SAVED": "Proposition enregistrée",
+            "DRAFT_SAVED": "Proposition sauvegardée",
             "DRAFT_DELETED": "Proposition supprimée"
         }
     },
@@ -166,7 +185,7 @@
     },
     "UPCOMING_FLIGHT_LIST": {
         "TITLE": "Liste de vos prochains vols rencontre",
-        "LAST_FLIGHT": "Mon dernier vol",
+        "LAST_FLIGHTS": "Mes derniers vols",
         "UPCOMING_FLIGHTS": "Mes prochains vols",
         "NO_FLIGHTS": "Aucun vol trouvé"
     },
@@ -190,7 +209,8 @@
             "ALL_F": "Toutes",
             "ALL_M": "Tous"
         },
-        "NO_PNC_FOUND": "Aucun pnc trouvé.",
+        "NO_PNC_FOUND": "Aucun pnc trouvé",
+        "END_OF_SEARCH": "Fin de la recherche",
         "ERROR": {
             "SEARCH": "Erreur lors de la recherche de PNC"
         },
@@ -209,6 +229,46 @@
         "FLIGHT_SAVED_OFFLINE": "Les PNC du vol {{ flightNumber }} ont été synchronisés",
         "FLIGHT_SAVED_OFFLINE_ERROR": "Un ou plusieurs PNC du vol {{ flightNumber }} n'ont pas pu être synchronisés"
     },
+    "PIN_PAD": {
+        "TITLE": {
+            "OPENING_APP": "Veuillez entrer votre code pin",
+            "PIN_ASK_CHANGE": "Veuillez entrer votre code pin actuel",
+            "FIRST_CONNEXION_STAGE_1": "Veuillez entrer un code pin pour sécuriser votre compte",
+            "FIRST_CONNEXION_STAGE_2": "Veuillez confirmer votre code pin"
+        },
+        "FORGOTTEN": "Code pin oublié ?",
+        "CANCEL": "Annuler",
+        "ERASE": "Effacer",
+        "ERROR": {
+            "PIN_INCORRECT": "Code pin incorrect",
+            "PIN_INIT_INCORRECT": "Les 2 codes pin doivent être identiques"
+        },
+        "TOAST_MESSAGE": {
+            "SUCCESS_MODIF": "Code pin modifié avec succès",
+            "SUCCESS_REINIT": "Code pin réinitialisé avec succès",
+            "ERROR": "Erreur lors de la modification du code pin"
+        }
+    },
+    "SECRET_QUESTION": {
+        "TITLE": {
+            "NEW_QUESTION": "Veuillez définir une question secrète en cas d'oubli de votre code pin",
+            "ANSWER_TO_QUESTION": "Répondez à la question suivante :"
+        },
+        "LABEL": {
+            "NEW_QUESTION": "Veuillez entrer une question secrète",
+            "NEW_ANSWER": "Veuillez entrer la réponse à la question",
+            "ANSWER_TO_QUESTION": "Veuillez entrer la réponse à la question"
+        },
+        "VALIDATE": "Valider",
+        "ERROR": {
+            "ANSWER_INCORRECT": "Réponse incorrecte"
+        },
+        "TOAST_MESSAGE": {
+            "SUCCESS_INIT": "Code pin et question / réponse secrète initialisés",
+            "SUCCESS_REINIT": "Question / réponse secrète initialisées",
+            "ERROR": "Erreur lors de la modification de la question / réponse secrète"
+        }
+    },
     "SETTINGS": {
         "TITLE": "Réglages",
         "INIT_CACHE": {
@@ -217,6 +277,12 @@
         },
         "FORCE_SYNCHRONIZATION": {
             "BUTTON": "Forcer la synchronisation"
+        },
+        "CHANGE_PIN_CODE": {
+            "BUTTON": "Changer le code pin"
+        },
+        "CHANGE_SECRET_QUESTION": {
+            "BUTTON": "Changer la question secrète"
         },
         "CONFIRM_INIT_CACHE": {
             "TITLE": "Réinitialisation du cache",

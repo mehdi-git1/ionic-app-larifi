@@ -34,4 +34,13 @@ export class OfflineSecurityProvider {
     });
   }
 
+  /**
+   * Met à jour des informations de securité de l'utilisateur
+   * @param  authenticatedUser le user à mettre à jour
+   * @return rien n'est attendu en retour
+   */
+  setAuthenticatedSecurityValue(authenticatedUser: AuthenticatedUser): void {
+      this.overwriteAuthenticatedUser(new AuthenticatedUser().fromJSON(authenticatedUser));
+  }
+
 }

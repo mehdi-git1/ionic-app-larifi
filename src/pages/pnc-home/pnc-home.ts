@@ -43,7 +43,7 @@ export class PncHomePage {
         private events: Events,
         private statusBar: StatusBar) {
 
-            this.statusBar.styleLightContent();
+        this.statusBar.styleLightContent();
 
         this.events.subscribe('EDossierOffline:stored', () => {
             if (this.matricule != null) {
@@ -137,6 +137,14 @@ export class PncHomePage {
     */
     loadingIsOver(): boolean {
         return this.pnc !== undefined;
+    }
+
+    /**
+     * Vérifie que la page courante est la homepage de la personne connectée
+     * @return vrai si c'est le cas, faux sinon
+     */
+    isMyHome(): boolean {
+        return this.matricule === this.sessionService.authenticatedUser.matricule;
     }
 
 }

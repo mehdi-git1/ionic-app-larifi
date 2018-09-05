@@ -6,7 +6,6 @@ export class CrewMember extends EDossierPncObject {
     particularity: string;
     lastEncounterDate: string;
     onBoardFonction: string;
-    prioritized: boolean;
     legId: number;
 
     getStorageId(): string {

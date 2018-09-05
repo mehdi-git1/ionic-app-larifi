@@ -1,13 +1,13 @@
 <ion-card class="pnc-search-card">
-  <ion-card-header class="header-container clickable" (click)="toggleFilter()">
-    {{ 'PNC_SEARCH.CRITERIA.FILTERS' | translate }}
-    <span [ngClass]="inactiveFiltersLabelClass() ">* Filtres inactifs hors connexion</span>
-    <ion-icon [name]="showFilter ? 'arrow-dropdown' : 'arrow-dropright'"></ion-icon>
-  </ion-card-header>
-  <ion-card-content no-padding [ngClass]="{'opened' : showFilter}">
+    <ion-card-header class="header-container clickable" (click)="toggleFilter()" [ngClass]="{'opened' : showFilter}">
+        {{ 'PNC_SEARCH.CRITERIA.FILTERS' | translate }}
+        <span [ngClass]="inactiveFiltersLabelClass() ">* Filtres inactifs hors connexion</span>
+        <ion-icon name="arrow-dropdown"></ion-icon>
+    </ion-card-header>
+    <ion-card-content no-padding [ngClass]="{'opened' : showFilter}">
 
-    <ion-grid>
-      <span>
+        <ion-grid>
+            <span>
         <form novalidate [formGroup]="autoCompleteForm">
           <ion-row>
             <ion-col col-6>
@@ -111,8 +111,8 @@
           </ion-row>
         </form>
       </span>
-    </ion-grid>
+        </ion-grid>
 
-  </ion-card-content>
+    </ion-card-content>
 
 </ion-card>

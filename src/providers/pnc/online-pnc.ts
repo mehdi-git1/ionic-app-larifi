@@ -1,8 +1,6 @@
 import { PncSearchCriteria } from './../../models/pnc-search-criteria';
 import { PagedPnc } from './../../models/pagedPnc';
-import { PncFilter } from './../../models/pncFilter';
 import { Rotation } from './../../models/rotation';
-import { OfflinePncProvider } from './offline-pnc';
 import { Config } from './../../configuration/environment-variables/config';
 import { Injectable } from '@angular/core';
 import { RestService } from '../../services/rest.base.service';
@@ -13,8 +11,7 @@ export class OnlinePncProvider {
   private pncUrl: string;
 
   constructor(public restService: RestService,
-    public config: Config,
-    private offlinePncProvider: OfflinePncProvider) {
+    public config: Config) {
     this.pncUrl = `${config.backEndUrl}/pncs`;
   }
 
@@ -37,12 +34,12 @@ export class OnlinePncProvider {
   }
 
   /**
-  * Retrouve la dernière rotation opérée par un PNC
-  * @param matricule le matricule du PNC dont on souhaite récupérer la dernière rotation opérée
-  * @return la dernière rotation opérée par le PNC
+  * Retrouve les deux dernières rotations opérées par un PNC
+  * @param matricule le matricule du PNC dont on souhaite récupérer les dernières rotations opérées
+  * @return les deux dernières rotations opérées par le PNC
   */
-  getLastPerformedRotation(matricule: string): Promise<Rotation> {
-    return this.restService.get(`${this.pncUrl}/${matricule}/last_performed_rotation`);
+  getLastPerformedRotations(matricule: string): Promise<Rotation[]> {
+    return this.restService.get(`${this.pncUrl}/${matricule}/last_performed_rotations`);
   }
 
 

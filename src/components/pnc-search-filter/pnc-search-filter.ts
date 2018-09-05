@@ -1,5 +1,5 @@
 import { ConnectivityService } from './../../services/connectivity.service';
-import { NavController } from 'ionic-angular';
+import { NavController, Events } from 'ionic-angular';
 import { PncProvider } from './../../providers/pnc/pnc';
 import { Subject } from 'rxjs/Rx';
 import { SessionService } from './../../services/session.service';
@@ -44,8 +44,22 @@ export class PncSearchFilterComponent implements OnInit {
 
   outOfDivision: boolean;
 
-  constructor(private navCtrl: NavController, private sessionService: SessionService, private formBuilder: FormBuilder,
-    private pncProvider: PncProvider, private connectivityService: ConnectivityService) {
+  searchNeedToBeRefreshed: boolean;
+
+  constructor(private navCtrl: NavController,
+    private sessionService: SessionService,
+    private formBuilder: FormBuilder,
+    private pncProvider: PncProvider,
+    private connectivityService: ConnectivityService,
+    private events: Events) {
+    this.searchNeedToBeRefreshed = false;
+    this.connectivityService.connectionStatusChange.subscribe(connected => {
+      this.searchNeedToBeRefreshed = true;
+    });
+
+    this.events.subscribe('parameters:ready', () => {
+      this.initFilter();
+    });
   }
 
   /**
@@ -135,8 +149,8 @@ export class PncSearchFilterComponent implements OnInit {
     this.pncMatriculeControl = this.autoCompleteForm.get('pncMatriculeControl');
 
     this.initAutocompleteList();
-    this.formOnChanges();
     this.resetFilterValues();
+    this.formOnChanges();
   }
 
   /**
@@ -251,6 +265,8 @@ export class PncSearchFilterComponent implements OnInit {
   openPncHomePage(pnc: Pnc) {
     this.selectedPnc = undefined;
     this.initAutocompleteList();
+    // Si on va sur un PNC par la recherche, on suprime de la session une enventuelle rotation.
+    this.sessionService.appContext.lastConsultedRotation = null;
     this.navCtrl.push(PncHomePage, { matricule: pnc.matricule });
   }
 

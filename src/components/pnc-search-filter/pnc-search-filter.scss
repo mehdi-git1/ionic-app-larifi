@@ -11,6 +11,18 @@ pnc-search-filter {
             justify-content: space-between;
         }
 
+        ion-card-header {
+            ion-icon {
+                transform: rotate(180deg);
+            }
+        }
+
+        ion-card-header.opened {
+            ion-icon {
+                transform: rotate(0deg);
+            }
+        }
+
         ion-card-content {
             max-height: 0;
             transition: max-height 500ms;
@@ -42,8 +54,8 @@ pnc-search-filter {
             background: color($colors, grey50);
             width: 100%;
         }
-        .button-md{
-            margin-top: $margin-top-autocomplete ;
+        .button-md {
+            margin-top: $margin-top-autocomplete;
 
         }
         .button-ios {

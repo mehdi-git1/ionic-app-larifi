@@ -1,10 +1,7 @@
 import { PncSearchCriteria } from './../../models/pnc-search-criteria';
 import { SessionService } from './../../services/session.service';
 import { Config } from './../../configuration/environment-variables/config';
-import { HttpRequest, HttpParams } from '@angular/common/http';
 import { PncFilter } from './../../models/pncFilter';
-import { PncTransformerProvider } from './pnc-transformer';
-import { OfflineProvider } from './../offline/offline';
 import { OnlinePncProvider } from './online-pnc';
 import { OfflinePncProvider } from './../pnc/offline-pnc';
 import { ConnectivityService } from './../../services/connectivity.service';
@@ -14,7 +11,6 @@ import { Injectable } from '@angular/core';
 import { PagedPnc } from './../../models/pagedPnc';
 import { Page } from '../../models/page';
 import { RestService } from '../../services/rest.base.service';
-import { RotationTransformerProvider } from '../rotation/rotation-transformer';
 
 @Injectable()
 export class PncProvider {
@@ -23,9 +19,6 @@ export class PncProvider {
   constructor(private connectivityService: ConnectivityService,
     private onlinePncProvider: OnlinePncProvider,
     private offlinePncProvider: OfflinePncProvider,
-    private offlineProvider: OfflineProvider,
-    private pncTransformer: PncTransformerProvider,
-    private rotationTransformer: RotationTransformerProvider,
     private sessionService: SessionService,
     private restService: RestService,
     private config: Config) {
@@ -39,21 +32,11 @@ export class PncProvider {
    * @return les informations du PNC
    */
   getPnc(matricule: string): Promise<Pnc> {
-    if (this.connectivityService.isConnected()) {
-      return new Promise((resolve, reject) => {
-        this.offlinePncProvider.getPnc(matricule).then(offlinePnc => {
-          this.onlinePncProvider.getPnc(matricule).then(onlinePnc => {
-            const onlineData = this.pncTransformer.toPnc(onlinePnc);
-            const offlineData = this.pncTransformer.toPnc(offlinePnc);
-            this.offlineProvider.flagDataAvailableOffline(onlineData, offlineData);
-            resolve(onlineData); resolve(onlineData);
-          });
-        });
-      });
-    } else {
-      return this.offlinePncProvider.getPnc(matricule);
-    }
+    return this.connectivityService.isConnected() ?
+      this.onlinePncProvider.getPnc(matricule) :
+      this.offlinePncProvider.getPnc(matricule);
   }
+
 
   /**
    * Retrouve les rotations à venir d'un PNC
@@ -61,60 +44,20 @@ export class PncProvider {
    * @return les rotations à venir du PNC
    */
   getUpcomingRotations(matricule: string): Promise<Rotation[]> {
-    if (this.connectivityService.isConnected()) {
-      return new Promise((resolve, reject) => {
-        this.offlinePncProvider.getUpcomingRotations(matricule).then(offlineRotations => {
-          this.onlinePncProvider.getUpcomingRotations(matricule).then(onlineRotations => {
-            const onlineData = this.rotationTransformer.toRotations(onlineRotations);
-            const offlineData = this.rotationTransformer.toRotations(offlineRotations);
-            this.offlineProvider.flagDataAvailableOffline(onlineData, offlineData);
-            resolve(onlineData);
-          });
-        });
-      });
-    } else {
-      return this.offlinePncProvider.getUpcomingRotations(matricule);
-    }
+    return this.connectivityService.isConnected() ?
+      this.onlinePncProvider.getUpcomingRotations(matricule) :
+      this.offlinePncProvider.getUpcomingRotations(matricule);
   }
 
   /**
-  * Retrouve la dernière rotation opérée par un PNC
-  * @param matricule le matricule du PNC dont on souhaite récupérer la dernière rotation opérée
-  * @return la dernière rotation opérée par le PNC
+  * Retrouve les deux dernières rotations opérées par un PNC
+  * @param matricule le matricule du PNC dont on souhaite récupérer les dernières rotations opérées
+  * @return les deux dernières rotations opérées par le PNC
   */
-  getLastPerformedRotation(matricule: string): Promise<Rotation> {
-    if (this.connectivityService.isConnected()) {
-      return new Promise((resolve, reject) => {
-        this.offlinePncProvider.getLastPerformedRotation(matricule).then(offlineRotations => {
-          this.onlinePncProvider.getLastPerformedRotation(matricule).then(onlineRotations => {
-            if (onlineRotations) {
-              const onlineData = this.rotationTransformer.toRotation(onlineRotations);
-              const offlineData = this.rotationTransformer.toRotation(offlineRotations);
-              this.offlineProvider.flagDataAvailableOffline(onlineData, offlineData);
-              resolve(onlineData);
-            }
-            resolve(onlineRotations);
-          });
-        });
-      });
-    } else {
-      return this.offlinePncProvider.getLastPerformedRotation(matricule);
-    }
-  }
-
-  /**
-  * Alimente le PNC avec sa date de fraicheur en cache
-  * @param onlinePnc PNC récupéré du back
-  * @return pnc en paramètre alimenté avec sa fraicheur dans le cache
-  */
-  refreshOffLineDateOnPnc(onlinePnc: Pnc): Promise<Pnc> {
-    return new Promise((resolve, reject) => {
-      this.offlinePncProvider.getPnc(onlinePnc.matricule).then(offlinePnc => {
-        const offlineData = this.pncTransformer.toPnc(offlinePnc);
-        this.offlineProvider.flagDataAvailableOffline(onlinePnc, offlineData);
-        resolve(onlinePnc);
-      });
-    });
+  getLastPerformedRotations(matricule: string): Promise<Rotation[]> {
+    return this.connectivityService.isConnected() ?
+      this.onlinePncProvider.getLastPerformedRotations(matricule) :
+      this.offlinePncProvider.getLastPerformedRotations(matricule);
   }
 
   /**
@@ -126,20 +69,7 @@ export class PncProvider {
     const pncSearchCriteria = new PncSearchCriteria(pncFilter, page, size);
 
     if (this.connectivityService.isConnected()) {
-      return this.onlinePncProvider.getFilteredPncs(pncSearchCriteria).then(responsePnc => {
-
-        const promises: Promise<Pnc>[] = new Array();
-
-        responsePnc.content.forEach(onlinePnc => {
-          const transformedPnc = this.pncTransformer.toPnc(onlinePnc);
-          promises.push(this.refreshOffLineDateOnPnc(transformedPnc));
-        });
-        return Promise.all(promises).then(values => {
-          responsePnc.content = values;
-          return responsePnc;
-        });
-
-      });
+      return this.onlinePncProvider.getFilteredPncs(pncSearchCriteria);
     } else {
       return this.offlinePncProvider.getPncs().then(response => {
         return this.offlinePncProvider.getPnc(this.sessionService.authenticatedUser.matricule).then(connectedPnc => {
@@ -150,7 +80,7 @@ export class PncProvider {
               && (pnc.assignment.sector === connectedPnc.assignment.sector)
               && (pnc.matricule !== connectedPnc.matricule));
           }
-          filteredPnc.sort((a, b) => { if (a.lastName < b.lastName) { return -1; } else { return 1; } });
+          filteredPnc.sort((a, b) => a.lastName < b.lastName ? -1 : 1);
           const pagedPncResponse: PagedPnc = new PagedPnc();
           pagedPncResponse.content = filteredPnc;
           pagedPncResponse.page = new Page();

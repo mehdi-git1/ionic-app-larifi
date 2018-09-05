@@ -3,10 +3,9 @@ rotation-card {
         font-weight: bold;
 
         ion-card-header {
-            height: 60px;
             display: flex;
             cursor: pointer;
-            padding: 0;
+            padding: 0 10px;
 
             .rotation-panel {
                 display: flex;
@@ -21,16 +20,16 @@ rotation-card {
                 align-items: center;
                 padding: 10px;
 
-                .rotation-date{
-                    padding-right : 10px;
+                .rotation-date {
+                    padding-right: 10px;
                 }
 
-                .rotation-number{
-                    padding-left : 10px;
+                .rotation-number {
+                    padding-left: 10px;
                 }
             }
 
-            .rotation-spinner{
+            .rotation-spinner {
                 display: flex;
                 flex: 1;
                 justify-content: center;

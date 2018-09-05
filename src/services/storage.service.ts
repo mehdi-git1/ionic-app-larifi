@@ -1,3 +1,4 @@
+import { TransformerService } from './transformer.service';
 import { AppConstant } from './../app/app.constant';
 import { OfflineAction } from './../models/offlineAction';
 import { DatePipe } from '@angular/common';
@@ -7,7 +8,6 @@ import { Config } from './../configuration/environment-variables/config';
 import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage';
 import { EDossierPncObject } from '../models/eDossierPncObject';
-
 import * as moment from 'moment';
 
 @Injectable()
@@ -19,14 +19,22 @@ export class StorageService {
   constructor(
     private storage: Storage,
     private config: Config,
-    private datePipe: DatePipe) {
+    private datePipe: DatePipe,
+    private transformerService: TransformerService) {
   }
 
-  reinitOfflineMap() {
-    this.offlineMap = null;
-    this.persistOfflineMap();
-    this.initOfflineMap();
+  reinitOfflineMap(): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.offlineMap = null;
+      this.persistOfflineMap().then(() => {
+        this.initOfflineMap().then(() => {
+          resolve();
+        });
+      });
+    });
   }
+
+
 
   /**
    * Initialise la map de stockage qui sera persistée dans le cache.
@@ -90,7 +98,7 @@ export class StorageService {
    * @return l'entité trouvée
    */
   findOne(entity: Entity, storageId: string): any {
-    if (this.offlineMap && this.offlineMap[entity]) {
+    if (this.offlineMap && this.offlineMap[entity] && this.offlineMap[entity][storageId]) {
       return this.offlineMap[entity][storageId];
     } else {
       return null;
@@ -120,6 +128,7 @@ export class StorageService {
     if (!eDossierPncObject) {
       return null;
     }
+    eDossierPncObject = this.transformerService.transformObject(entity, eDossierPncObject);
     eDossierPncObject.offlineStorageDate = moment().format(AppConstant.isoDateFormat);
     if (!online) {
       eDossierPncObject.offlineAction =
@@ -187,8 +196,8 @@ export class StorageService {
   /**
    * Persiste la map en cache, dans le stockage Ionic
    */
-  persistOfflineMap(): void {
-    this.storage.set(this.config.appName, this.offlineMap);
+  persistOfflineMap(): Promise<any> {
+    return this.storage.set(this.config.appName, this.offlineMap);
   }
 
   /**

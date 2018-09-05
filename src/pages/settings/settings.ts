@@ -1,3 +1,5 @@
+import { DeviceService } from './../../services/device.service';
+import { SecurityModalService } from './../../services/security.modal.service';
 import { TranslateService } from '@ngx-translate/core';
 import { ToastProvider } from './../../providers/toast/toast';
 import { UpcomingFlightListPage } from './../upcoming-flight-list/upcoming-flight-list';
@@ -11,6 +13,11 @@ import { ConnectivityService } from './../../services/connectivity.service';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, Events, AlertController } from 'ionic-angular';
 
+import { PinPadType } from './../../models/pinPadType';
+import { SecretQuestionType } from '../../models/secretQuestionType';
+import { AuthenticatedUser } from '../../models/authenticatedUser';
+import { OfflineSecurityProvider } from '../../providers/security/offline-security';
+
 @Component({
   selector: 'page-settings',
   templateUrl: 'settings.html',
@@ -21,6 +28,8 @@ export class SettingsPage {
   initInProgress: boolean;
   synchronizationInProgress: boolean;
 
+  isApp: boolean;
+
   constructor(
     private connectivityService: ConnectivityService,
     private storageService: StorageService,
@@ -29,7 +38,10 @@ export class SettingsPage {
     private sessionService: SessionService,
     private toastProvider: ToastProvider,
     private translateService: TranslateService,
-    private alertCtrl: AlertController
+    private alertCtrl: AlertController,
+    private securityModalService: SecurityModalService,
+    private deviceService: DeviceService,
+    private offlineSecurityProvider: OfflineSecurityProvider
 
   ) {
     this.connected = this.connectivityService.isConnected();
@@ -45,43 +57,17 @@ export class SettingsPage {
     this.synchronizationProvider.synchroStatusChange.subscribe(synchroInProgress => {
       this.synchronizationInProgress = synchroInProgress;
     });
+
+    this.isApp = !this.deviceService.isBrowser();
   }
 
   ionViewDidLoad() {
-
   }
 
   /**
-   * Supprime la totalité du cache puis le réinitialise comme au demarrage de l'application
-   */
-  clearAndInitCache() {
-    this.initInProgress = true;
-    this.storageService.reinitOfflineMap();
-    this.initializeCache();
-  }
-
-  /**
-   * Réinitialise le cache comme au demarrage de l'application
-   */
-  initializeCache() {
-    this.storageService.initOfflineMap().then(success => {
-      const authenticatedUser = this.sessionService.authenticatedUser;
-      this.synchronizationProvider.storeEDossierOffline(authenticatedUser.matricule).then(successStore => {
-        this.events.publish('EDossierOffline:stored');
-        this.toastProvider.info(this.translateService.instant('SETTINGS.INIT_CACHE.SUCCESS'));
-      }, error => {
-      });
-    });
-  }
-
-  forceSynchronizeOfflineData() {
-    this.synchronizationProvider.synchronizeOfflineData();
-  }
-
-  /**
-* Présente une alerte pour confirmer la suppression du brouillon
-*/
-  confirmDeleteCareerObjectiveDraft() {
+  * Présente une alerte pour confirmer la suppression du brouillon
+  */
+  confirmClearAndInitCache() {
     const message = this.synchronizationProvider.isPncModifiedOffline(this.sessionService.authenticatedUser.matricule) ?
       this.translateService.instant('SETTINGS.CONFIRM_INIT_CACHE.MESSAGE_UNSYNCHRONIZED_DATA') :
       this.translateService.instant('SETTINGS.CONFIRM_INIT_CACHE.MESSAGE');
@@ -102,5 +88,45 @@ export class SettingsPage {
     }).present();
   }
 
+  /**
+   * Supprime la totalité du cache puis le réinitialise comme au demarrage de l'application
+   */
+  clearAndInitCache() {
+    this.initInProgress = true;
+    this.storageService.reinitOfflineMap().then(() => this.initializeCache());
+  }
+
+  /**
+   * Réinitialise le cache comme au demarrage de l'application
+   */
+  initializeCache() {
+    this.storageService.initOfflineMap().then(success => {
+      const authenticatedUser = this.sessionService.authenticatedUser;
+      this.offlineSecurityProvider.overwriteAuthenticatedUser(new AuthenticatedUser().fromJSON(authenticatedUser));
+      this.synchronizationProvider.storeEDossierOffline(authenticatedUser.matricule).then(successStore => {
+        this.events.publish('EDossierOffline:stored');
+        this.toastProvider.info(this.translateService.instant('SETTINGS.INIT_CACHE.SUCCESS'));
+      }, error => {
+      });
+    });
+  }
+
+  forceSynchronizeOfflineData() {
+    this.synchronizationProvider.synchronizeOfflineData();
+  }
+
+  /**
+   * Fonction d'affichage du changement de code pin
+   */
+  changePinCode(){
+    this.securityModalService.displayPinPad(PinPadType.askChange);
+  }
+
+  /**
+   * Fonction d'affichage du changement de question / reponse secréte
+   */
+  changeSecretQuestion(){
+    this.securityModalService.displaySecretQuestion(SecretQuestionType.askChange);
+  }
 
 }

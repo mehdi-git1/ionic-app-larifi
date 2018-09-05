@@ -4,8 +4,6 @@ import { ToastProvider } from './../../providers/toast/toast';
 import { ConnectivityService } from './../../services/connectivity.service';
 import { Component } from '@angular/core';
 import { NavController, NavParams, IonicPage } from 'ionic-angular';
-
-import { PncTransformerProvider } from './../../providers/pnc/pnc-transformer';
 import { PncProvider } from './../../providers/pnc/pnc';
 import { SessionService } from './../../services/session.service';
 import { Leg } from './../../models/leg';
@@ -34,8 +32,7 @@ export class FlightCrewListPage {
         private toastProvider: ToastProvider,
         private translate: TranslateService,
         private pncProvider: PncProvider,
-        private sessionService: SessionService,
-        private pncTransformer: PncTransformerProvider) {
+        private sessionService: SessionService) {
     }
 
     ionViewDidEnter() {
@@ -49,11 +46,6 @@ export class FlightCrewListPage {
                             this.sessionService.appContext.onBoardRedactorFunction = crew.onBoardFonction;
                             this.connectedCrewMember = crew;
                         }
-                        this.pncProvider.refreshOffLineDateOnPnc(this.pncTransformer.toPnc(crew.pnc)).then(foundPnc => {
-                            crew.pnc = foundPnc;
-                        }, error => {
-                            this.toastProvider.info(this.translate.instant('FLIGHT_CREW_LIST.ERROR', { 'flightNumber': this.leg.number }));
-                        });
                     }
                 });
                 // On supprime le PNC connecté de la liste
@@ -82,11 +74,11 @@ export class FlightCrewListPage {
      * @param otherCrewMember crewMember à comparer
      */
     sortCrew(crewMember: CrewMember, otherCrewMember: CrewMember): number {
-        if (crewMember.prioritized && otherCrewMember.prioritized) {
+        if (crewMember.pnc.prioritized && otherCrewMember.pnc.prioritized) {
             return this.sortBySpeciality(crewMember, otherCrewMember);
-        } else if (crewMember.prioritized && !otherCrewMember.prioritized) {
+        } else if (crewMember.pnc.prioritized && !otherCrewMember.pnc.prioritized) {
             return -1;
-        } else if (!crewMember.prioritized && otherCrewMember.prioritized) {
+        } else if (!crewMember.pnc.prioritized && otherCrewMember.pnc.prioritized) {
             return 1;
         } else if (crewMember.particularity === 'P' && otherCrewMember.particularity === 'P') {
             return this.sortBySpeciality(crewMember, otherCrewMember);

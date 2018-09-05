@@ -1,3 +1,5 @@
+import { SecretQuestionComponent } from './secret-question/secret-question';
+import { SecretQuestionModal } from './modals/secret-question-modal/secret-question-modal';
 import { IonicModule } from 'ionic-angular';
 import { DatePipe, CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
@@ -14,6 +16,10 @@ import { NavBarCustomComponent } from './edossier-indicators/edossier-indicators
 import { PncSearchFilterComponent } from './pnc-search-filter/pnc-search-filter';
 import { PncPhotoComponent } from './pnc-photo/pnc-photo';
 import { PageHeaderComponent } from './page-header/page-header';
+import { CareerObjectiveCardComponent } from './career-objective-card/career-objective-card';
+
+import { PinPadModal } from './modals/pin-pad-modal/pin-pad-modal';
+import { PinPadComponent } from './pin-pad/pin-pad';
 
 @NgModule({
   imports: [
@@ -29,10 +35,15 @@ import { PageHeaderComponent } from './page-header/page-header';
     PncCardComponent,
     FlightCardComponent,
     EdossierSpinnerComponent,
+    PinPadComponent,
+    PinPadModal,
+    SecretQuestionModal,
+    SecretQuestionComponent,
     NavBarCustomComponent,
     PncSearchFilterComponent,
     PncPhotoComponent,
-    PageHeaderComponent
+    PageHeaderComponent,
+    CareerObjectiveCardComponent
   ],
   exports: [
     RotationCardComponent,
@@ -42,10 +53,19 @@ import { PageHeaderComponent } from './page-header/page-header';
     PncCardComponent,
     FlightCardComponent,
     EdossierSpinnerComponent,
+    PinPadComponent,
+    PinPadModal,
+    SecretQuestionModal,
+    SecretQuestionComponent,
+    PageHeaderComponent,
     NavBarCustomComponent,
     PncSearchFilterComponent,
     PncPhotoComponent,
-    PageHeaderComponent
+    CareerObjectiveCardComponent
+  ],
+  entryComponents: [
+    PinPadModal,
+    SecretQuestionModal
   ],
   providers: [DatePipe]
 

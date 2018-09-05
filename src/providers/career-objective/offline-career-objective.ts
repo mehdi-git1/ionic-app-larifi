@@ -12,21 +12,13 @@ export class OfflineCareerObjectiveProvider {
   }
 
   /**
-   * Stocke dans le cache un objectif
-   * @param careerObjective l'objectif à stocker en cache
-   * @return une promesse contenant l'objectif mis en cache
-   */
-  store(careerObjective: CareerObjective): Promise<CareerObjective> {
-    return this.createOrUpdate(careerObjective);
-  }
-
-  /**
    * Créé ou met à jour un objectif dans le cache
    * @param careerObjective l'objectif à sauver en cache
+   * @param online si on est connecté ou non
    * @return une promesse contenant l'objectif sauvé en cache
    */
-  createOrUpdate(careerObjective: CareerObjective): Promise<CareerObjective> {
-    return this.storageService.saveAsync(Entity.CAREER_OBJECTIVE, careerObjective);
+  createOrUpdate(careerObjective: CareerObjective, online: boolean = false): Promise<CareerObjective> {
+    return this.storageService.saveAsync(Entity.CAREER_OBJECTIVE, careerObjective, online);
   }
 
   /**
