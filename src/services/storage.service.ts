@@ -149,7 +149,7 @@ export class StorageService {
    */
   saveAsync(entity: Entity, eDossierPncObject: EDossierPncObject, online: boolean = false): Promise<any> {
     return new Promise((resolve, reject) => {
-      this.save(entity, eDossierPncObject, online);
+      eDossierPncObject = this.save(entity, eDossierPncObject, online);
       this.persistOfflineMap();
       resolve(eDossierPncObject);
     });
