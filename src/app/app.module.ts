@@ -133,6 +133,7 @@ declare var window: any;
   imports: [
     BrowserModule,
     IonicModule.forRoot(EDossierPNC, {
+      pageTransition: 'md-transition',
       backButtonText: ''
     }),
     IonicStorageModule.forRoot({
