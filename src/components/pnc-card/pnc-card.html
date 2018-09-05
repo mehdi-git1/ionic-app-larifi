@@ -60,7 +60,7 @@
             <div class="flag-panel">
                 <download-button [synchroInProgress]="synchroInProgress" (onDownload)="downloadPncEdossier(crewMember.pnc.matricule)"></download-button>
                 <!-- Prioritaire -->
-                <ion-icon *ngIf="crewMember.prioritized" name="flag" ios="md-flag" color="red80"></ion-icon>
+                <ion-icon *ngIf="crewMember.pnc.prioritized" name="flag" ios="md-flag" color="red80"></ion-icon>
                 <!-- Particularite -->
                 <span class="value">{{crewMember.particularity }}</span>
             </div>

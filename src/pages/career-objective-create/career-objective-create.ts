@@ -1,4 +1,5 @@
 import { DateTransformService } from './../../services/date.transform.service';
+import { SynchronizationProvider } from './../../providers/synchronization/synchronization';
 import { DeviceService } from './../../services/device.service';
 import { OfflineCareerObjectiveProvider } from './../../providers/career-objective/offline-career-objective';
 import { TransformerService } from './../../services/transformer.service';
@@ -71,7 +72,8 @@ export class CareerObjectiveCreatePage {
         private connectivityService: ConnectivityService,
         private offlinePncProvider: OfflinePncProvider,
         private offlineCareerObjectiveProvider: OfflineCareerObjectiveProvider,
-        private deviceService: DeviceService) {
+        private deviceService: DeviceService,
+        private synchronizationProvider: SynchronizationProvider) {
 
         // Options du datepicker
         this.nextEncounterDateTimeOptions = {
@@ -93,6 +95,14 @@ export class CareerObjectiveCreatePage {
 
         // Initialisation du formulaire
         this.initForm();
+
+        this.synchronizationProvider.synchroStatusChange.subscribe(synchroInProgress => {
+            if (!synchroInProgress && this.careerObjective && this.careerObjective.techId) {
+                this.waypointProvider.getCareerObjectiveWaypoints(this.careerObjective.techId).then(result => {
+                    this.waypointList = result;
+                }, error => { });
+            }
+          });
     }
 
     ionViewDidLoad() {

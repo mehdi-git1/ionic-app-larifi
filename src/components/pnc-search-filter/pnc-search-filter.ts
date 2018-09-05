@@ -44,17 +44,14 @@ export class PncSearchFilterComponent implements OnInit {
 
   outOfDivision: boolean;
 
-  searchNeedToBeRefreshed: boolean;
-
   constructor(private navCtrl: NavController,
     private sessionService: SessionService,
     private formBuilder: FormBuilder,
     private pncProvider: PncProvider,
     private connectivityService: ConnectivityService,
     private events: Events) {
-    this.searchNeedToBeRefreshed = false;
     this.connectivityService.connectionStatusChange.subscribe(connected => {
-      this.searchNeedToBeRefreshed = true;
+      this.initFilter();
     });
 
     this.events.subscribe('parameters:ready', () => {
