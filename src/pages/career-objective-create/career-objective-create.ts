@@ -1,3 +1,5 @@
+import { DateTransformService } from './../../services/date.transform.service';
+import { SynchronizationProvider } from './../../providers/synchronization/synchronization';
 import { DeviceService } from './../../services/device.service';
 import { OfflineCareerObjectiveProvider } from './../../providers/career-objective/offline-career-objective';
 import { TransformerService } from './../../services/transformer.service';
@@ -20,7 +22,6 @@ import { Component } from '@angular/core';
 import { NavController, NavParams, AlertController, LoadingController, Loading, IonicPage } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Pnc } from '../../models/pnc';
-import { DatePipe } from '@angular/common';
 import { Waypoint } from './../../models/waypoint';
 import { WaypointCreatePage } from './../waypoint-create/waypoint-create';
 import * as _ from 'lodash';
@@ -65,13 +66,14 @@ export class CareerObjectiveCreatePage {
         private waypointProvider: WaypointProvider,
         private toastProvider: ToastProvider,
         public careerObjectiveStatusProvider: CareerObjectiveStatusProvider,
-        private datePipe: DatePipe,
         public securityProvider: SecurityProvider,
         public loadingCtrl: LoadingController,
+        private dateTransformer: DateTransformService,
         private connectivityService: ConnectivityService,
         private offlinePncProvider: OfflinePncProvider,
         private offlineCareerObjectiveProvider: OfflineCareerObjectiveProvider,
-        private deviceService: DeviceService) {
+        private deviceService: DeviceService,
+        private synchronizationProvider: SynchronizationProvider) {
 
         // Options du datepicker
         this.nextEncounterDateTimeOptions = {
@@ -93,6 +95,14 @@ export class CareerObjectiveCreatePage {
 
         // Initialisation du formulaire
         this.initForm();
+
+        this.synchronizationProvider.synchroStatusChange.subscribe(synchroInProgress => {
+            if (!synchroInProgress && this.careerObjective && this.careerObjective.techId) {
+                this.waypointProvider.getCareerObjectiveWaypoints(this.careerObjective.techId).then(result => {
+                    this.waypointList = result;
+                }, error => { });
+            }
+          });
     }
 
     ionViewDidLoad() {
@@ -248,10 +258,10 @@ export class CareerObjectiveCreatePage {
      */
     prepareCareerObjectiveBeforeSubmit(careerObjectiveToSave: CareerObjective): CareerObjective {
         if (careerObjectiveToSave.encounterDate !== undefined) {
-            careerObjectiveToSave.encounterDate = this.datePipe.transform(careerObjectiveToSave.encounterDate, 'yyyy-MM-ddTHH:mm');
+            careerObjectiveToSave.encounterDate = this.dateTransformer.transformDateStringToIso8601Format(careerObjectiveToSave.encounterDate);
         }
         if (careerObjectiveToSave.nextEncounterDate !== undefined) {
-            careerObjectiveToSave.nextEncounterDate = this.datePipe.transform(careerObjectiveToSave.nextEncounterDate, 'yyyy-MM-ddTHH:mm');
+            careerObjectiveToSave.nextEncounterDate = this.dateTransformer.transformDateStringToIso8601Format(careerObjectiveToSave.nextEncounterDate);
         }
         return careerObjectiveToSave;
     }
@@ -272,7 +282,7 @@ export class CareerObjectiveCreatePage {
         if (this.careerObjective.encounterDate) {
             const careerObjectiveToSave = _.cloneDeep(this.careerObjective);
             careerObjectiveToSave.careerObjectiveStatus = CareerObjectiveStatus.REGISTERED;
-            careerObjectiveToSave.registrationDate = this.datePipe.transform(new Date(), 'yyyy-MM-ddTHH:mm');
+            careerObjectiveToSave.registrationDate = this.dateTransformer.transformDateToIso8601Format(new Date());
             this.saveCareerObjective(careerObjectiveToSave);
         } else {
             this.requiredOnEncounterDay = true;

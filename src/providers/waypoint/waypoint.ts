@@ -1,5 +1,5 @@
+import { DateTransformService } from './../../services/date.transform.service';
 import { WaypointTransformerProvider } from './waypoint-transformer';
-import { DatePipe } from '@angular/common';
 import { SessionService } from './../../services/session.service';
 import { OnlineWaypointProvider } from './online-waypoint';
 import { OfflineWaypointProvider } from './../waypoint/offline-waypoint';
@@ -16,8 +16,8 @@ export class WaypointProvider {
   constructor(private connectivityService: ConnectivityService,
     private onlineWaypointProvider: OnlineWaypointProvider,
     private offlineWaypointProvider: OfflineWaypointProvider,
-    private datePipe: DatePipe,
     private sessionService: SessionService,
+    private dateTransformer: DateTransformService,
     private waypointTransformerProvider: WaypointTransformerProvider) {
   }
 
@@ -29,13 +29,13 @@ export class WaypointProvider {
    */
   createOrUpdate(waypoint: Waypoint, careerObjectiveId: number): Promise<Waypoint> {
     if (waypoint.techId === undefined) {
-      waypoint.creationDate = this.datePipe.transform(new Date(), 'yyyy-MM-ddTHH:mm');
+      waypoint.creationDate = this.dateTransformer.transformDateToIso8601Format(new Date());
       waypoint.creationAuthor = new Pnc();
       waypoint.creationAuthor.matricule = this.sessionService.authenticatedUser.matricule;
     }
     waypoint.lastUpdateAuthor = new Pnc();
     waypoint.lastUpdateAuthor.matricule = this.sessionService.authenticatedUser.matricule;
-    waypoint.lastUpdateDate = this.datePipe.transform(new Date(), 'yyyy-MM-ddTHH:mm');
+    waypoint.lastUpdateDate = this.dateTransformer.transformDateToIso8601Format(new Date());
 
     return this.connectivityService.isConnected() ?
       this.onlineWaypointProvider.createOrUpdate(waypoint, careerObjectiveId) :
