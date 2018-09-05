@@ -196,7 +196,7 @@
                 <ion-icon name="ios-log-in" ios="ios-log-in" margin-right></ion-icon> {{ 'CAREER_OBJECTIVE_CREATE.BUTTONS.RESUME' | translate }}
             </button>
                 <!-- bouton soliciter mon instructeur -->
-                <button ion-button color="blue70" (click)="confirmCreateInstructorRequest()" *ngIf="!securityProvider.isManager() && careerObjective.careerObjectiveStatus !== undefined ">
+                <button ion-button color="blue70" (click)="confirmCreateInstructorRequest()" *ngIf="!securityProvider.isManager() && careerObjective.careerObjectiveStatus !== undefined && isConnected()">
                     <ion-icon name="ios-chatbubbles-outline" ios="ios-chatbubbles-outline" margin-right></ion-icon> {{ 'CAREER_OBJECTIVE_CREATE.BUTTONS.CREATE_INSTRUCTOR_REQUEST' | translate }}
                 </button>
             </div>

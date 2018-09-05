@@ -489,4 +489,11 @@ export class CareerObjectiveCreatePage {
             return '';
         }
     }
+
+    /**
+     * Retourne si on est connecté ou pas
+     */
+    isConnected(){
+        return this.connectivityService.isConnected();
+    }
 }
