@@ -50,11 +50,8 @@ export class WaypointCreatePage {
         public securityProvider: SecurityProvider,
         public loadingCtrl: LoadingController,
         private alertCtrl: AlertController,
-<<<<<<< HEAD
-        private deviceService: DeviceService) {
-=======
+        private deviceService: DeviceService,
         private dateTransformer: DateTransformService) {
->>>>>>> 5f4377f620e34279c5ac7d1d38d224552029a00d
 
         // Options du datepicker
         this.customDateTimeOptions = {
@@ -182,7 +179,7 @@ export class WaypointCreatePage {
                     this.navCtrl.pop();
                     resolve();
                 }, error => {
-                    if (!this.deviceService.isBrowser()){
+                    if (!this.deviceService.isBrowser()) {
                         this.toastProvider.error(this.translateService.instant('GLOBAL.UNKNOWN_ERROR'));
                     }
                     this.loading.dismiss();
