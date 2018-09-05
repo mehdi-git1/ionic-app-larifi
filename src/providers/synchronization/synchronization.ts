@@ -1,3 +1,4 @@
+import { EObservationService } from './../../services/eObservation.service';
 import { PncPhotoTransformerProvider } from './../pnc-photo/pnc-photo-transformer';
 import { PncPhotoProvider } from './../pnc-photo/pnc-photo';
 import { CareerObjective } from './../../models/careerObjective';
@@ -33,6 +34,7 @@ export class SynchronizationProvider {
   synchroStatusChange = new EventEmitter<boolean>();
 
   constructor(private storageService: StorageService,
+    private eObservationService: EObservationService,
     private careerObjectiveTransformer: CareerObjectiveTransformerProvider,
     private waypointTransformer: WaypointTransformerProvider,
     private pncTransformer: PncTransformerProvider,
@@ -148,6 +150,9 @@ export class SynchronizationProvider {
       for (const flightCrewList of flightCrewMatrix) {
         for (const flightCrew of flightCrewList) {
           this.storageService.save(Entity.CREW_MEMBER, this.crewMemberTransformerProvider.toCrewMember(flightCrew), true);
+          this.eObservationService.getEObservation(flightCrew.pnc.matricule, flightCrew.rotationId).then(eObs => {
+            this.storageService.save(Entity.EOBSERVATION, eObs);
+          });
         }
       }
 
