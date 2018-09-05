@@ -9,6 +9,7 @@ import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage';
 import { EDossierPncObject } from '../models/eDossierPncObject';
 import * as moment from 'moment';
+import * as _ from 'lodash';
 
 @Injectable()
 export class StorageService {
@@ -99,7 +100,7 @@ export class StorageService {
    */
   findOne(entity: Entity, storageId: string): any {
     if (this.offlineMap && this.offlineMap[entity] && this.offlineMap[entity][storageId]) {
-      return this.offlineMap[entity][storageId];
+      return _.cloneDeep(this.offlineMap[entity][storageId]);
     } else {
       return null;
     }
@@ -113,7 +114,7 @@ export class StorageService {
    */
   findOneAsync(entity: Entity, storageId: string): Promise<any> {
     return new Promise((resolve, reject) => {
-      resolve(this.findOne(entity, storageId));
+      resolve(_.cloneDeep(this.findOne(entity, storageId)));
     });
   }
 
