@@ -1,17 +1,11 @@
+import { Config } from './../../configuration/environment-variables/config';
 import { OfflineEObservationProvider } from './offline-e-observation';
 import { OnlineEObservationProvider } from './online-e-observation';
-import { Config } from './../../configuration/environment-variables/rct';
 import { ConnectivityService } from './../../services/connectivity.service';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { EObservation } from '../../models/eObservation';
 
-/*
-  Generated class for the EObservationProvider provider.
-
-  See https://angular.io/guide/dependency-injection for more info on providers
-  and Angular DI.
-*/
 @Injectable()
 export class EObservationProvider {
   private eObservationUrl: string;

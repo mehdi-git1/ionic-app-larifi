@@ -1,3 +1,4 @@
+import { EObservationTransformerProvider } from './../providers/e-observation/e-observation-transformer';
 import { OnlineEObservationProvider } from './../providers/e-observation/online-e-observation';
 import { OfflineEObservationProvider } from './../providers/e-observation/offline-e-observation';
 import { TransformerService } from './../services/transformer.service';
@@ -232,7 +233,8 @@ declare var window: any;
     SQLite,
     EObservationProvider,
     OfflineEObservationProvider,
-    OnlineEObservationProvider
+    OnlineEObservationProvider,
+    EObservationTransformerProvider
   ]
 })
 export class AppModule { }

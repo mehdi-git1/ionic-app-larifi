@@ -151,8 +151,8 @@ export class SynchronizationProvider {
         for (const flightCrew of flightCrewList) {
           this.storageService.save(Entity.CREW_MEMBER, this.crewMemberTransformerProvider.toCrewMember(flightCrew), true);
           this.eObservationService.getEObservation(flightCrew.pnc.matricule, flightCrew.rotationId).then(eObs => {
-            this.storageService.save(Entity.EOBSERVATION, eObs);
-          });
+            this.storageService.save(Entity.EOBSERVATION, eObs, true);
+          }, error => { console.log('fred'); } );
         }
       }
 

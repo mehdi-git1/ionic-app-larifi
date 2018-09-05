@@ -1,23 +1,23 @@
-import { Pnc } from './../../models/pnc';
+import { EObservation } from './../../models/eObservation';
 import { Injectable } from '@angular/core';
 
 @Injectable()
-export class PncTransformerProvider {
+export class EObservationTransformerProvider {
 
   constructor() {
   }
 
-  toPncs(array: Pnc[]) {
-    const newArray: Pnc[] = [];
+  toEObservations(array: EObservation[]) {
+    const newArray: EObservation[] = [];
     for (const object of array) {
-      newArray.push(this.toPnc(object));
+      newArray.push(this.toEObservation(object));
     }
     return newArray;
   }
 
-  toPnc(object: Pnc): Pnc {
+  toEObservation(object: EObservation): EObservation {
     return !object ?
       object :
-      new Pnc().fromJSON(object);
+      new EObservation().fromJSON(object);
   }
 }
