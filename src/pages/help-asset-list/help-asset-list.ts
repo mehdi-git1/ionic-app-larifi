@@ -54,7 +54,7 @@ export class HelpAssetListPage {
      * @param link URL qui sera ouvert sur le nouvel onglet
      */
     openUrlHelpAsset(link: string) {
-        window.open(link);
+      window.open(link, '_system', 'location=yes');
     }
 
     /**
