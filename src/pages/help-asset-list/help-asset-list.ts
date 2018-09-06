@@ -71,21 +71,26 @@ export class HelpAssetListPage {
      */
     getCADHelpAssets(): HelpAsset[] {
         const helpAsset = new Array(3);
-        const pdf2 = 'Etapes-du-Bilan-Professionnel-V4.pdf';
+        const pdf1 = 'Etapes-du-Bilan-Professionnel-V4.pdf';
         helpAsset[0] = new HelpAsset();
-        helpAsset[0].url = `${this.pdfUrl}/cadre/${pdf2}`;
+        helpAsset[0].url = `${this.pdfUrl}/cadre/${pdf1}`;
         helpAsset[0].label = 'Etapes du Bilan Professionnel V4';
-        helpAsset[0].lastUpdateDate = '2018-07-30T13:11:52';
-        const pdf3 = 'Livret-instructeur-V6-22juin.pdf';
+        helpAsset[0].lastUpdateDate = '2018-07-30T13:11:52Z';
+        const pdf2 = 'Livret-instructeur-V6-22juin.pdf';
         helpAsset[1] = new HelpAsset();
-        helpAsset[1].url = `${this.pdfUrl}/cadre/${pdf3}`;
+        helpAsset[1].url = `${this.pdfUrl}/cadre/${pdf2}`;
         helpAsset[1].label = 'Livret instructeur V6';
-        helpAsset[1].lastUpdateDate = '2018-07-30T13:11:52';
-        const pdf4 = 'Mode-opératoire-Journal-de-bord.pdf';
+        helpAsset[1].lastUpdateDate = '2018-07-30T13:11:52Z';
+        const pdf3 = 'Manuel-Utilisateur-Manager-Coach-v1.pdf';
         helpAsset[2] = new HelpAsset();
-        helpAsset[2].url = `${this.pdfUrl}/cadre/${pdf4}`;
-        helpAsset[2].label = 'Mode opératoire, Journal de bord';
-        helpAsset[2].lastUpdateDate = '2018-07-30T13:11:52';
+        helpAsset[2].url = `${this.pdfUrl}/cadre/${pdf3}`;
+        helpAsset[2].label = 'Manuel Utilisateur V1';
+        helpAsset[2].lastUpdateDate = '2018-09-06T10:00:00Z';
+        const pdf4 = 'Mode-opératoire-Journal-de-bord.pdf';
+        helpAsset[3] = new HelpAsset();
+        helpAsset[3].url = `${this.pdfUrl}/cadre/${pdf4}`;
+        helpAsset[3].label = 'Mode opératoire, Journal de bord';
+        helpAsset[3].lastUpdateDate = '2018-07-30T13:11:52Z';
         return helpAsset;
     }
 
