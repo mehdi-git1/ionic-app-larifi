@@ -12,6 +12,8 @@ import { Pnc } from './../../models/pnc';
 import { FormGroup, AbstractControl, Validators, FormBuilder } from '@angular/forms';
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
+import $ from 'jquery';
+
 @Component({
   selector: 'pnc-search-filter',
   templateUrl: 'pnc-search-filter.html'
@@ -62,27 +64,39 @@ export class PncSearchFilterComponent implements OnInit {
       this.initFilter();
     });
 
-    /*this.keyboard.didShow.subscribe(() => {
-      console.log('keyboard show', window.innerHeight);
-      console.log('top', 244);
-      const newHeight = window.innerHeight - 244;
-      console.log('height', newHeight);
-      document.getElementById('mat-autocomplete-0').setAttribute('height', newHeight + 'px' );
-    });*/
+    this.checkIfMaterialOpen();
+
     this.keyboard.didHide.subscribe(() => {
       console.log('keyboard hide', window.innerHeight);
       console.log('top', document.getElementById('mat-autocomplete-0').parentElement.offsetTop);
       const newHeight = window.innerHeight - document.getElementById('mat-autocomplete-0').parentElement.offsetTop;
       console.log('height', newHeight);
-      document.getElementById('mat-autocomplete-0').setAttribute('height', newHeight + 'px' );
+      $('#mat-autocomplete-0').css('height', newHeight + 'px' );
     });
   }
 
-  changeHeightOnOpened(e){
+  /**
+   * Vérifie toutes les 100ms que l'element d'autocomplete existe
+   */
+  checkIfMaterialOpen(){
+    window.setTimeout(() => {
+      if ($('#mat-autocomplete-0').length != 0){
+        console.log($('#mat-autocomplete-0').length);
+        this.changeHeightOnOpened();
+      }else{
+        this.checkIfMaterialOpen();
+      }
+    }, 200);
+  }
+
+  /**
+   * Change la max-height de l'autocomplete en fonction de la taille de l'affichage disponible
+   */
+  changeHeightOnOpened(){
     console.log('keyboard show', window.innerHeight);
-    console.log('top', 244);
-    const newHeight = window.innerHeight - 244;
-    document.getElementById('mat-autocomplete-0').setAttribute('height', newHeight + 'px' );
+    console.log('top', $('#mat-autocomplete-0').offset().top);
+    const newHeight = window.innerHeight - $('#mat-autocomplete-0').offset().top;
+    $('#mat-autocomplete-0').css('max-height', newHeight + 'px' );
   }
 
   /**
