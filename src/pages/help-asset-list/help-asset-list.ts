@@ -77,7 +77,7 @@ export class HelpAssetListPage {
     /**
      * renvoie la liste des ressources d'aide du cadre
      */
-    getCADhelpAssets(): HelpAsset[] {
+    getCADHelpAssets(): HelpAsset[] {
         const helpAsset = new Array(3);
         const pdf1 = 'Etapes-du-Bilan-Professionnel-V4.pdf';
         helpAsset[0] = new HelpAsset();
@@ -109,14 +109,14 @@ export class HelpAssetListPage {
     /**
      * Renvoie la liste des ressources d'aide du pnc
      */
-    getHSThelpAssets(): HelpAsset[] {
+    getHSTHelpAssets(): HelpAsset[] {
         return [];
     }
 
     /**
      * Renvoie la liste des ressources d'aide du pnc
      */
-    getCommunhelpAssets(): HelpAsset[] {
+    getCommunHelpAssets(): HelpAsset[] {
         const helpAsset = new Array(1);
         const pdfName = 'Objectifs-compiles-CCP-CC-HST-V6.pdf';
         helpAsset[0] = new HelpAsset();
