@@ -78,7 +78,7 @@ export class PncSearchFilterComponent implements OnInit {
     });
   }
 
-  changeHeightOnOpened(){
+  changeHeightOnOpened(e){
     console.log('keyboard show', window.innerHeight);
     console.log('top', 244);
     const newHeight = window.innerHeight - 244;
