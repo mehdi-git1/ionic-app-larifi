@@ -502,4 +502,11 @@ export class CareerObjectiveCreatePage {
             return '';
         }
     }
+
+    /**
+     * Retourne true si on est connecté / false sinon.
+     */
+    isConnected(){
+        return this.connectivityService.isConnected();
+    }
 }
