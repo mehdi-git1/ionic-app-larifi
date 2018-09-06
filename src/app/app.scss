@@ -117,6 +117,12 @@ ion-content > .scroll-content {
     padding-right: 50px;
 }
 
+// Pour ajouter TU après les dateTime en TU
+.suffix-tu:after {
+    content: ' TU';
+    vertical-align: super;
+    font-size: smaller;
+}
 .toolbar-content {
     display: flex;
     align-items: center;

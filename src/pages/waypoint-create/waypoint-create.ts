@@ -1,5 +1,5 @@
+import { DateTransformService } from './../../services/date.transform.service';
 import { AppConstant } from './../../app/app.constant';
-import { DatePipe } from '@angular/common';
 import { SecurityProvider } from './../../providers/security/security';
 import { WaypointStatusProvider } from './../../providers/waypoint-status/waypoint-status';
 import { WaypointStatus } from './../../models/waypointStatus';
@@ -13,6 +13,7 @@ import { FormBuilder, FormGroup, Validators, FormControl, ValidatorFn, AbstractC
 import { CareerObjectiveCreatePage } from './../career-objective-create/career-objective-create';
 import { ToastProvider } from './../../providers/toast/toast';
 import * as _ from 'lodash';
+import { DeviceService } from '../../services/device.service';
 
 @Component({
     selector: 'page-waypoint-create',
@@ -46,10 +47,11 @@ export class WaypointCreatePage {
         private waypointProvider: WaypointProvider,
         private toastProvider: ToastProvider,
         public waypointStatusProvider: WaypointStatusProvider,
-        private datePipe: DatePipe,
         public securityProvider: SecurityProvider,
         public loadingCtrl: LoadingController,
-        private alertCtrl: AlertController) {
+        private alertCtrl: AlertController,
+        private deviceService: DeviceService,
+        private dateTransformer: DateTransformService) {
 
         // Options du datepicker
         this.customDateTimeOptions = {
@@ -177,6 +179,9 @@ export class WaypointCreatePage {
                     this.navCtrl.pop();
                     resolve();
                 }, error => {
+                    if (!this.deviceService.isBrowser()) {
+                        this.toastProvider.error(this.translateService.instant('GLOBAL.UNKNOWN_ERROR'));
+                    }
                     this.loading.dismiss();
                 });
         });
@@ -191,7 +196,7 @@ export class WaypointCreatePage {
      */
     prepareWaypointBeforeSubmit(waypointToSave: Waypoint): Waypoint {
         if (waypointToSave.encounterDate) {
-            waypointToSave.encounterDate = this.datePipe.transform(waypointToSave.encounterDate, 'yyyy-MM-ddTHH:mm');
+            waypointToSave.encounterDate = this.dateTransformer.transformDateStringToIso8601Format(waypointToSave.encounterDate);
         }
         return waypointToSave;
     }

@@ -1,3 +1,4 @@
+import { EObservationProvider } from './../providers/e-observation/e-observation';
 import { Rotation } from './../models/rotation';
 import { Config } from './../configuration/environment-variables/config';
 import { EObservation } from './../models/eObservation';
@@ -12,17 +13,16 @@ declare var window: any;
 
 @Injectable()
 export class EObservationService {
-  private eObsUrl: string;
   eObs: EObservation;
 
   constructor(
     private pncProvider: PncProvider,
+    private eObservationProvider: EObservationProvider,
     public sessionService: SessionService,
     public restService: RestService,
     public config: Config,
     private datePipe: DatePipe
   ) {
-    this.eObsUrl = `${config.backEndUrl}/eobservation`;
   }
 
   get formsPlugin(): any {
@@ -37,8 +37,8 @@ export class EObservationService {
     }
   }
 
-  getEObservation(observedPncMatricule, rotation: Rotation): Promise<EObservation> {
-    return this.restService.get(`${this.eObsUrl}/${observedPncMatricule}/${rotation.techId}`);
+  getEObservation(observedPncMatricule, rotationId: number): Promise<EObservation> {
+    return this.eObservationProvider.getEObservation(observedPncMatricule, rotationId);
   }
 
   /**
@@ -51,7 +51,6 @@ export class EObservationService {
       callbackUrl: `${this.config.eObsCallbackUrl}`,
       callbackActionLabel: `${this.config.eObsCallbackActionLabel}`,
       archiveData: {
-        // A DECOMMENTER POUR AVOIR LES DONNEES DU FORMULAIRE
         'PNCObserve.fonction': this.getSpecialityForeForms(eObservation.observedPnc.speciality),
         'PNCObserve.matricule': eObservation.observedPnc.matricule,
         'PNCObserve.nom': eObservation.observedPnc.lastName,
@@ -62,8 +61,8 @@ export class EObservationService {
         'escaleArrivee.vol2': eObservation.rotationLastLeg.arrivalStation,
         'escaleDepart.vol1': eObservation.rotationFirstLeg.departureStation,
         'escaleDepart.vol2': eObservation.rotationLastLeg.departureStation,
-        'flightNumber.vol1': eObservation.rotationFirstLeg.number,
-        'flightNumber.vol2': eObservation.rotationLastLeg.number,
+        'flightNumber.vol1': eObservation.rotationFirstLeg.company + eObservation.rotationFirstLeg.number,
+        'flightNumber.vol2': eObservation.rotationLastLeg.company + eObservation.rotationLastLeg.number,
         'flightinfos.pairing.date': this.datePipe.transform(eObservation.rotation.departureDate, 'dd/MM/yyyy'),
         'flightinfos.pairing.name': eObservation.rotation.number,
         'remplissage.vol1': '',

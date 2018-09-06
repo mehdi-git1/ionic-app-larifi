@@ -15,6 +15,8 @@ import { IonicPage, NavController, NavParams, Events, AlertController } from 'io
 
 import { PinPadType } from './../../models/pinPadType';
 import { SecretQuestionType } from '../../models/secretQuestionType';
+import { AuthenticatedUser } from '../../models/authenticatedUser';
+import { OfflineSecurityProvider } from '../../providers/security/offline-security';
 
 @Component({
   selector: 'page-settings',
@@ -38,7 +40,8 @@ export class SettingsPage {
     private translateService: TranslateService,
     private alertCtrl: AlertController,
     private securityModalService: SecurityModalService,
-    private deviceService: DeviceService
+    private deviceService: DeviceService,
+    private offlineSecurityProvider: OfflineSecurityProvider
 
   ) {
     this.connected = this.connectivityService.isConnected();
@@ -99,6 +102,7 @@ export class SettingsPage {
   initializeCache() {
     this.storageService.initOfflineMap().then(success => {
       const authenticatedUser = this.sessionService.authenticatedUser;
+      this.offlineSecurityProvider.overwriteAuthenticatedUser(new AuthenticatedUser().fromJSON(authenticatedUser));
       this.synchronizationProvider.storeEDossierOffline(authenticatedUser.matricule).then(successStore => {
         this.events.publish('EDossierOffline:stored');
         this.toastProvider.info(this.translateService.instant('SETTINGS.INIT_CACHE.SUCCESS'));

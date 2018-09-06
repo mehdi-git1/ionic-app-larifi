@@ -79,7 +79,8 @@
             "cordova-plugin-ionic-webview": {},
             "cordova-plugin-formslib": {},
             "cordova-plugin-privacyscreen": {},
-            "cordova-sqlite-storage": {}
+            "cordova-sqlite-storage": {},
+            "cordova-plugin-inappbrowser": {}
         },
         "platforms": [
             "ios"

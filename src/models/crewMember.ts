@@ -6,8 +6,8 @@ export class CrewMember extends EDossierPncObject {
     particularity: string;
     lastEncounterDate: string;
     onBoardFonction: string;
-    prioritized: boolean;
     legId: number;
+    rotationId: number;
 
     getStorageId(): string {
         return `${this.pnc.matricule}-${this.legId}`;

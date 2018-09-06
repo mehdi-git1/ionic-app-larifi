@@ -1,7 +1,6 @@
 import { TransformerService } from './transformer.service';
 import { AppConstant } from './../app/app.constant';
 import { OfflineAction } from './../models/offlineAction';
-import { DatePipe } from '@angular/common';
 import { Entity } from './../models/entity';
 import { AuthenticatedUser } from './../models/authenticatedUser';
 import { Config } from './../configuration/environment-variables/config';
@@ -9,6 +8,7 @@ import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage';
 import { EDossierPncObject } from '../models/eDossierPncObject';
 import * as moment from 'moment';
+import * as _ from 'lodash';
 
 @Injectable()
 export class StorageService {
@@ -19,7 +19,6 @@ export class StorageService {
   constructor(
     private storage: Storage,
     private config: Config,
-    private datePipe: DatePipe,
     private transformerService: TransformerService) {
   }
 
@@ -98,8 +97,8 @@ export class StorageService {
    * @return l'entité trouvée
    */
   findOne(entity: Entity, storageId: string): any {
-    if (this.offlineMap && this.offlineMap[entity]) {
-      return this.offlineMap[entity][storageId];
+    if (this.offlineMap && this.offlineMap[entity] && this.offlineMap[entity][storageId]) {
+      return _.cloneDeep(this.offlineMap[entity][storageId]);
     } else {
       return null;
     }
@@ -113,7 +112,7 @@ export class StorageService {
    */
   findOneAsync(entity: Entity, storageId: string): Promise<any> {
     return new Promise((resolve, reject) => {
-      resolve(this.findOne(entity, storageId));
+      resolve(_.cloneDeep(this.findOne(entity, storageId)));
     });
   }
 
@@ -149,7 +148,7 @@ export class StorageService {
    */
   saveAsync(entity: Entity, eDossierPncObject: EDossierPncObject, online: boolean = false): Promise<any> {
     return new Promise((resolve, reject) => {
-      this.save(entity, eDossierPncObject, online);
+      eDossierPncObject = this.save(entity, eDossierPncObject, online);
       this.persistOfflineMap();
       resolve(eDossierPncObject);
     });
