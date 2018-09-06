@@ -10,13 +10,20 @@
     <ng-template #pageBlock>
         <div class="no-data-found" *ngIf="helpAssets && helpAssets.length == 0">{{ 'HELP_ASSET_LIST.NO_HELP_ASSETS' | translate }}</div>
 
-        <ion-list *ngIf="helpAssets && helpAssets.length > 0" class="help-asset-list">
-            <ion-item *ngFor="let helpAsset of helpAssets" (click)="displayHelpAsset(helpAsset.url)" class="clickable">
+        <ion-list *ngIf="pdfHelpAssets && pdfHelpAssets.length > 0" class="help-asset-list">
+            <ion-item *ngFor="let urlHelpAsset of urlHelpAssets" (click)="openUrlHelpAsset(urlHelpAsset.url)" class="clickable">
+                <ion-thumbnail item-start>
+                    <ion-icon name="link"></ion-icon>
+                </ion-thumbnail>
+                <h4>{{urlHelpAsset.label}}</h4>
+                <span class="suffix-tu">{{ 'HELP_ASSET_LIST.LAST_UPDATE_DATE' | translate }} {{urlHelpAsset.lastUpdateDate | date: 'dd/MM/yyyy HH:mm' : 'UTC'}}</span>
+            </ion-item>
+            <ion-item *ngFor="let pdfHelpAsset of pdfHelpAssets" (click)="displayPdfHelpAsset(pdfHelpAsset.url)" class="clickable">
                 <ion-thumbnail item-start>
                     <ion-icon name="document"></ion-icon>
                 </ion-thumbnail>
-                <h4>{{helpAsset.label}}</h4>
-                <span class="suffix-tu">{{ 'HELP_ASSET_LIST.LAST_UPDATE_DATE' | translate }} {{helpAsset.lastUpdateDate | date: 'dd/MM/yyyy HH:MM' : 'UTC'}}</span>
+                <h4>{{pdfHelpAsset.label}}</h4>
+                <span class="suffix-tu">{{ 'HELP_ASSET_LIST.LAST_UPDATE_DATE' | translate }} {{pdfHelpAsset.lastUpdateDate | date: 'dd/MM/yyyy HH:mm' : 'UTC'}}</span>
             </ion-item>
         </ion-list>
     </ng-template>
