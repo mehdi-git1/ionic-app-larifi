@@ -41,7 +41,7 @@ export class OnlinePncPhotoProvider {
             }
           );
         } else {
-          resolve(null);
+          resolve(pncPhoto);
         }
       }).catch(error => {
         reject(error);
