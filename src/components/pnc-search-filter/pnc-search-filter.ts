@@ -103,12 +103,12 @@ export class PncSearchFilterComponent implements OnInit {
       }
     }
 
-    this.pncFilter.division = AppConstant.ALL;
-    this.pncFilter.sector = AppConstant.ALL;
-    this.pncFilter.ginq = AppConstant.ALL;
-    this.pncFilter.speciality = AppConstant.ALL;
-    this.pncFilter.aircraftSkill = AppConstant.ALL;
-    this.pncFilter.relay = AppConstant.ALL;
+    this.pncFilter.division = this.divisionList && this.divisionList.length === 1 ? this.divisionList[0] : AppConstant.ALL;
+    this.pncFilter.sector = this.sectorList && this.sectorList.length === 1 ? this.sectorList[0] : AppConstant.ALL;
+    this.pncFilter.ginq = this.ginqList && this.ginqList.length === 1 ? this.ginqList[0] : AppConstant.ALL;
+    this.pncFilter.speciality = this.specialityList && this.specialityList.length === 1 ? this.specialityList[0] : AppConstant.ALL;
+    this.pncFilter.aircraftSkill = this.aircraftSkillList && this.aircraftSkillList.length === 1 ? this.aircraftSkillList[0] : AppConstant.ALL;
+    this.pncFilter.relay = this.relayList && this.relayList.length === 1 ? this.relayList[0] : AppConstant.ALL;
 
   }
 
@@ -116,12 +116,12 @@ export class PncSearchFilterComponent implements OnInit {
    * Réinitialise les valeurs des filtres de recherche
    */
   resetFilterValues() {
-    this.searchForm.get('divisionControl').setValue(AppConstant.ALL);
-    this.searchForm.get('sectorControl').setValue(AppConstant.ALL);
-    this.searchForm.get('ginqControl').setValue(AppConstant.ALL);
-    this.searchForm.get('specialityControl').setValue(AppConstant.ALL);
-    this.searchForm.get('aircraftSkillControl').setValue(AppConstant.ALL);
-    this.searchForm.get('relayControl').setValue(AppConstant.ALL);
+    this.searchForm.get('divisionControl').setValue(this.divisionList && this.divisionList.length === 1 ? this.divisionList[0] : AppConstant.ALL);
+    this.searchForm.get('sectorControl').setValue(this.sectorList && this.sectorList.length === 1 ? this.sectorList[0] : AppConstant.ALL);
+    this.searchForm.get('ginqControl').setValue(this.ginqList && this.ginqList.length === 1 ? this.ginqList[0] : AppConstant.ALL);
+    this.searchForm.get('specialityControl').setValue(this.specialityList && this.specialityList.length === 1 ? this.specialityList[0] : AppConstant.ALL);
+    this.searchForm.get('aircraftSkillControl').setValue(this.aircraftSkillList && this.aircraftSkillList.length === 1 ? this.aircraftSkillList[0] : AppConstant.ALL);
+    this.searchForm.get('relayControl').setValue(this.relayList && this.relayList.length === 1 ? this.relayList[0] : AppConstant.ALL);
     this.autoCompleteForm.get('pncMatriculeControl').setValue('');
   }
 
@@ -146,8 +146,8 @@ export class PncSearchFilterComponent implements OnInit {
     this.pncMatriculeControl = this.autoCompleteForm.get('pncMatriculeControl');
 
     this.initAutocompleteList();
-    this.resetFilterValues();
     this.formOnChanges();
+    this.resetFilterValues();
   }
 
   /**
@@ -239,7 +239,12 @@ export class PncSearchFilterComponent implements OnInit {
     if (division !== AppConstant.ALL) {
       this.sectorList = Object.keys(this.sessionService.parameters.params['divisions'][division]);
     }
-    this.pncFilter.sector = AppConstant.ALL;
+    if (this.sectorList && this.sectorList.length === 1) {
+      this.pncFilter.sector = this.sectorList[0];
+      this.searchForm.get('sectorControl').setValue(this.sectorList[0]);
+    } else {
+      this.pncFilter.sector = AppConstant.ALL;
+    }
     this.pncFilter.ginq = AppConstant.ALL;
   }
 
@@ -252,7 +257,12 @@ export class PncSearchFilterComponent implements OnInit {
     if (this.pncFilter.division !== AppConstant.ALL && sector !== '' && sector !== AppConstant.ALL) {
       this.ginqList = this.sessionService.parameters.params['divisions'][this.pncFilter.division][sector];
     }
-    this.pncFilter.ginq = AppConstant.ALL;
+    if (this.ginqList && this.ginqList.length === 1) {
+      this.pncFilter.ginq = this.ginqList[0];
+      this.searchForm.get('ginqControl').setValue(this.ginqList[0]);
+    } else {
+      this.pncFilter.ginq = AppConstant.ALL;
+    }
   }
 
   /**
