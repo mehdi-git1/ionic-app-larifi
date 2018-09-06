@@ -13,7 +13,6 @@ declare var window: any;
 
 @Injectable()
 export class EObservationService {
-  // private eObsUrl: string;
   eObs: EObservation;
 
   constructor(
@@ -24,7 +23,6 @@ export class EObservationService {
     public config: Config,
     private datePipe: DatePipe
   ) {
-    // this.eObsUrl = `${config.backEndUrl}/eobservation`;
   }
 
   get formsPlugin(): any {
@@ -53,7 +51,6 @@ export class EObservationService {
       callbackUrl: `${this.config.eObsCallbackUrl}`,
       callbackActionLabel: `${this.config.eObsCallbackActionLabel}`,
       archiveData: {
-        // A DECOMMENTER POUR AVOIR LES DONNEES DU FORMULAIRE
         'PNCObserve.fonction': this.getSpecialityForeForms(eObservation.observedPnc.speciality),
         'PNCObserve.matricule': eObservation.observedPnc.matricule,
         'PNCObserve.nom': eObservation.observedPnc.lastName,
