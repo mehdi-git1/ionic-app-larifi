@@ -37,8 +37,8 @@ export class EObservationService {
     }
   }
 
-  getEObservation(observedPncMatricule, rotation: number): Promise<EObservation> {
-    return this.eObservationProvider.getEObservation(observedPncMatricule, rotation);
+  getEObservation(observedPncMatricule, rotationId: number): Promise<EObservation> {
+    return this.eObservationProvider.getEObservation(observedPncMatricule, rotationId);
   }
 
   /**

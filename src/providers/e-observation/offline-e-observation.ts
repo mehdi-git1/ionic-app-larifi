@@ -20,18 +20,18 @@ export class OfflineEObservationProvider {
   }
 
   /**
-   * Récupère une EObservation du cache à partir d'un matricule et un numero de rotation
+   * Récupère une EObservation du cache à partir d'un matricule et le techId de la rotation
    * @param matricule le matricule du PNC concerné
-   * @param rotation le techId de rotation concernée
+   * @param rotationId le techId de la rotation concernée
    * @return une promesse contenant l'EObservation trouvée
    */
-  getEObservation(matricule: string, rotation: Number): Promise<EObservation> {
-    return this.storageService.findOneAsync(Entity.EOBSERVATION, `${matricule}-${rotation}`);
+  getEObservation(matricule: string, rotationId: number): Promise<EObservation> {
+    return this.storageService.findOneAsync(Entity.EOBSERVATION, `${matricule}-${rotationId}`);
   }
 
   /**
     * Récupère les EObservations du cache
-    * @return une promesse contenant les EObservation trouvées
+    * @return une promesse contenant les EObservations trouvées
     */
   getEObservations(): Promise<EObservation[]> {
     return this.storageService.findAllAsync(Entity.EOBSERVATION);

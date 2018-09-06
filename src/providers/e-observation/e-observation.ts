@@ -22,10 +22,10 @@ export class EObservationProvider {
   * @param rotation le techId de rotation concernée
   * @return les informations du PNC
   */
-  getEObservation(matricule: string, rotation: number): Promise<EObservation> {
+  getEObservation(matricule: string, rotationId: number): Promise<EObservation> {
     return this.connectivityService.isConnected() ?
-      this.onlineEObservationProvider.getEObservation(matricule, rotation) :
-      this.offlineEObservationProvider.getEObservation(matricule, rotation);
+      this.onlineEObservationProvider.getEObservation(matricule, rotationId) :
+      this.offlineEObservationProvider.getEObservation(matricule, rotationId);
   }
 
 }

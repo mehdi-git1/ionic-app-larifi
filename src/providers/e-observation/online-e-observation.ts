@@ -14,12 +14,12 @@ export class OnlineEObservationProvider {
   }
 
   /**
-   * Récupère une EObservation du cache à partir d'un matricule et un numero de rotation
+   * Récupère une EObservation du cache à partir d'un matricule et le techId de la rotation
    * @param matricule le matricule du PNC concerné
-   * @param rotation le techId de rotation concernée
+   * @param rotationId le techId de la rotation concernée
    * @return une promesse contenant l'EObservation trouvée
    */
-  getEObservation(matricule, rotation: Number): Promise<EObservation> {
-    return this.restService.get(`${this.eObservationUrl}/${matricule}/${rotation}`);
+  getEObservation(matricule, rotationId: number): Promise<EObservation> {
+    return this.restService.get(`${this.eObservationUrl}/${matricule}/${rotationId}`);
   }
 }
