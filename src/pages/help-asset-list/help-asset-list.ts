@@ -62,8 +62,9 @@ export class HelpAssetListPage {
     }
 
     /**
-     * renvoie vers la page d'affichage des pdf avec l'url du pdf demandé et le title à afficher
-     * @param url URL qui sera ouvert sur le nouvel onglet
+     * renvoie vers la page d'affichage des pdf avec l'url du pdf demandé et le title à afficher dans le cas d'un pdf
+     * Ouvre une fenetre de navigation avec l'url conçernée dans la cas d'une URL.
+     * @param helpAsseturl la ressource d'aide concernée
      */
     displayHelpAsset(helpAsset: HelpAsset) {
         if (helpAsset.helpAssetType === HelpAssetType.PDF) {
