@@ -491,7 +491,7 @@ export class CareerObjectiveCreatePage {
     }
 
     /**
-     * Retourne si on est connecté ou pas
+     * Retourne true si on est connecté / false sinon.
      */
     isConnected(){
         return this.connectivityService.isConnected();
