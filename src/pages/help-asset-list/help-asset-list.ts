@@ -58,7 +58,7 @@ export class HelpAssetListPage {
      * @return true si c'est le cas, false sinon
      */
     loadingIsOver(): boolean {
-        return this.localHelpAssets !== undefined && this.remoteHelpAssets !== undefined;
+        return this.localHelpAssets !== undefined;
     }
 
     /**
