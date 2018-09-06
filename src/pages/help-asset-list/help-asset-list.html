@@ -10,13 +10,20 @@
     <ng-template #pageBlock>
         <div class="no-data-found" *ngIf="helpAssets && helpAssets.length == 0">{{ 'HELP_ASSET_LIST.NO_HELP_ASSETS' | translate }}</div>
 
-        <ion-list *ngIf="helpAssets && helpAssets.length > 0" class="help-asset-list">
-            <ion-item *ngFor="let helpAsset of helpAssets" (click)="displayHelpAsset(helpAsset.url)" class="clickable">
+        <ion-list *ngIf="localHelpAssets && localHelpAssets.length > 0 || remoteHelpAssets && remoteHelpAssets.length > 0" class="help-asset-list">
+            <ion-item *ngFor="let helpAsset of remoteHelpAssets" (click)="displayHelpAsset(helpAsset)" class="clickable">
+                <ion-thumbnail item-start>
+                    <ion-icon name="link"></ion-icon>
+                </ion-thumbnail>
+                <h4>{{helpAsset.label}}</h4>
+                <span class="suffix-tu">{{ 'HELP_ASSET_LIST.LAST_UPDATE_DATE' | translate }} {{helpAsset.lastUpdateDate | date: 'dd/MM/yyyy HH:mm' : 'UTC'}}</span>
+            </ion-item>
+            <ion-item *ngFor="let helpAsset of localHelpAssets" (click)="displayHelpAsset(helpAsset)" class="clickable">
                 <ion-thumbnail item-start>
                     <ion-icon name="document"></ion-icon>
                 </ion-thumbnail>
                 <h4>{{helpAsset.label}}</h4>
-                <span class="suffix-tu">{{ 'HELP_ASSET_LIST.LAST_UPDATE_DATE' | translate }} {{helpAsset.lastUpdateDate | date: 'dd/MM/yyyy HH:MM' : 'UTC'}}</span>
+                <span class="suffix-tu">{{ 'HELP_ASSET_LIST.LAST_UPDATE_DATE' | translate }} {{helpAsset.lastUpdateDate | date: 'dd/MM/yyyy HH:mm' : 'UTC'}}</span>
             </ion-item>
         </ion-list>
     </ng-template>
