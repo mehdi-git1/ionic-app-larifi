@@ -1,6 +1,7 @@
 import { EObservationTransformerProvider } from './../providers/e-observation/e-observation-transformer';
 import { OnlineEObservationProvider } from './../providers/e-observation/online-e-observation';
 import { OfflineEObservationProvider } from './../providers/e-observation/offline-e-observation';
+import { DateTransformService } from './../services/date.transform.service';
 import { TransformerService } from './../services/transformer.service';
 import { DeviceService } from './../services/device.service';
 import { PncPhotoTransformerProvider } from './../providers/pnc-photo/pnc-photo-transformer';
@@ -175,6 +176,7 @@ declare var window: any;
     ConnectivityService,
     StorageService,
     DeviceService,
+    DateTransformService,
     TransformerService,
     { provide: RestService, useFactory: createRestService, deps: [HttpClient, SecMobilService, Config] },
     { provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true },

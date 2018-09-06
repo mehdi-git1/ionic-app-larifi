@@ -99,8 +99,10 @@ export class SynchronizationProvider {
     });
 
     const pncWaypoints = allWaypoints.filter(waypoint => {
-      const careerObjective = this.storageService.findOne(Entity.CAREER_OBJECTIVE, waypoint.careerObjective.techId);
-      return careerObjective.pnc.matricule === matricule;
+      if (waypoint && waypoint.careerObjective && waypoint.careerObjective.techId) {
+        const careerObjective = this.storageService.findOne(Entity.CAREER_OBJECTIVE, waypoint.careerObjective.techId);
+        return careerObjective.pnc.matricule === matricule;
+      }
     });
 
     for (const careerObjective of pncCareerObjectives) {
@@ -292,14 +294,16 @@ export class SynchronizationProvider {
     for (const waypoint of unsynchronizedWaypoints) {
       const waypointCareerObjective = this.storageService.findOne(Entity.CAREER_OBJECTIVE, `${waypoint.careerObjective.techId}`);
 
-      if (!pncMap.get(waypointCareerObjective.pnc.matricule)) {
+      if (waypointCareerObjective && waypointCareerObjective.pnc && !pncMap.get(waypointCareerObjective.pnc.matricule)) {
         const pncSynchro = new PncSynchro();
         pncSynchro.pnc = waypointCareerObjective.pnc;
         pncSynchro.careerObjectives = [];
         pncSynchro.waypoints = [];
         pncMap.set(waypointCareerObjective.pnc.matricule, pncSynchro);
       }
-      pncMap.get(waypointCareerObjective.pnc.matricule).waypoints.push(waypoint);
+      if (waypointCareerObjective && waypointCareerObjective.pnc) {
+        pncMap.get(waypointCareerObjective.pnc.matricule).waypoints.push(waypoint);
+      }
     }
 
     return pncMap;

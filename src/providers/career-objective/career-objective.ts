@@ -1,6 +1,6 @@
+import { DateTransformService } from './../../services/date.transform.service';
 import { CareerObjectiveTransformerProvider } from './career-objective-transformer';
 import { SessionService } from './../../services/session.service';
-import { DatePipe } from '@angular/common';
 import { OnlineCareerObjectiveProvider } from './online-career-objective';
 import { ConnectivityService } from './../../services/connectivity.service';
 import { OfflineCareerObjectiveProvider } from './../career-objective/offline-career-objective';
@@ -17,7 +17,7 @@ export class CareerObjectiveProvider {
     private offlineCareerObjectiveProvider: OfflineCareerObjectiveProvider,
     private connectivityService: ConnectivityService,
     private sessionService: SessionService,
-    private datePipe: DatePipe,
+    private dateTransformer: DateTransformService,
     private careerObjectiveTransformer: CareerObjectiveTransformerProvider) {
   }
 
@@ -67,13 +67,13 @@ export class CareerObjectiveProvider {
   createOrUpdate(careerObjective: CareerObjective): Promise<CareerObjective> {
 
     if (careerObjective.techId === undefined) {
-      careerObjective.creationDate = this.datePipe.transform(new Date(), 'yyyy-MM-ddTHH:mm');
+      careerObjective.creationDate = this.dateTransformer.transformDateToIso8601Format(new Date());
       careerObjective.creationAuthor = new Pnc();
       careerObjective.creationAuthor.matricule = this.sessionService.authenticatedUser.matricule;
     }
     careerObjective.lastUpdateAuthor = new Pnc();
     careerObjective.lastUpdateAuthor.matricule = this.sessionService.authenticatedUser.matricule;
-    careerObjective.lastUpdateDate = this.datePipe.transform(new Date(), 'yyyy-MM-ddTHH:mm');
+    careerObjective.lastUpdateDate = this.dateTransformer.transformDateToIso8601Format(new Date());
 
     return this.connectivityService.isConnected() ?
       this.onlineCareerObjectiveProvider.createOrUpdate(careerObjective) :
