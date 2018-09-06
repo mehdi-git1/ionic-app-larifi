@@ -38,11 +38,11 @@ export class HelpAssetListPage {
     ionViewDidEnter() {
         this.localHelpAssets = new Array();
         // On récupère le role du pnc dans les paramètres de navigation
-        this.localHelpAssets.push(...this.getCommunhelpAssets());
+        this.localHelpAssets.push(...this.getCommunHelpAssets());
         if (this.navParams.get('pncRole') && this.navParams.get('pncRole') === PncRole.MANAGER) {
-            this.localHelpAssets.push(...this.getCADhelpAssets());
+            this.localHelpAssets.push(...this.getCADHelpAssets());
         } else if (this.navParams.get('pncRole') && this.navParams.get('pncRole') === PncRole.PNC) {
-            this.localHelpAssets.push(...this.getHSThelpAssets());
+            this.localHelpAssets.push(...this.getHSTHelpAssets());
         }
         this.localHelpAssets.sort((a, b) => a.label < b.label ? -1 : 1);
         // On récupère le role du pnc dans les paramètres de navigation
