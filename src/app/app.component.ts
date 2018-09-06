@@ -16,7 +16,7 @@ import { SecurityProvider } from './../providers/security/security';
 
 import { Component, ViewChild, OnInit } from '@angular/core';
 
-import { Nav, Platform, Events, ModalController} from 'ionic-angular';
+import { Nav, Platform, Events, ModalController } from 'ionic-angular';
 
 import { StatusBar } from '@ionic-native/status-bar';
 
@@ -99,7 +99,6 @@ export class EDossierPNC implements OnInit {
           this.switchToBackgroundDate = new Date();
         });
       }
-
 
       this.statusBar.styleDefault();
 
