@@ -12,7 +12,7 @@ export class EObservation extends EDossierPncObject {
     rotationLastLeg: Leg;
 
     getStorageId(): string {
-        return `${this.observedPnc.matricule}-${this.rotation.number}`;
+        return `${this.observedPnc.matricule}-${this.rotation.techId}`;
     }
 
 }

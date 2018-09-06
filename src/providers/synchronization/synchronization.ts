@@ -1,3 +1,4 @@
+import { EObservation } from './../../models/eObservation';
 import { EObservationService } from './../../services/eObservation.service';
 import { PncPhotoTransformerProvider } from './../pnc-photo/pnc-photo-transformer';
 import { PncPhotoProvider } from './../pnc-photo/pnc-photo';
@@ -147,14 +148,20 @@ export class SynchronizationProvider {
     }
 
     Promise.all(crewMembersPromise).then(flightCrewMatrix => {
+      const eObservationsPromise: Promise<EObservation>[] = new Array();
       for (const flightCrewList of flightCrewMatrix) {
         for (const flightCrew of flightCrewList) {
           this.storageService.save(Entity.CREW_MEMBER, this.crewMemberTransformerProvider.toCrewMember(flightCrew), true);
-          this.eObservationService.getEObservation(flightCrew.pnc.matricule, flightCrew.rotationId).then(eObs => {
-            this.storageService.save(Entity.EOBSERVATION, eObs, true);
-          }, error => { console.log('fred'); } );
+          eObservationsPromise.push(this.eObservationService.getEObservation(flightCrew.pnc.matricule, flightCrew.rotationId));
         }
       }
+
+      Promise.all(eObservationsPromise).then(eObservations => {
+        for (const eObservation of eObservations) {
+          this.storageService.save(Entity.EOBSERVATION, eObservation, true);
+        }
+        this.storageService.persistOfflineMap();
+      }, error => { });
 
       // Création des nouveaux objets
       for (const careerObjective of pncSynchroResponse.careerObjectives) {
@@ -205,11 +212,12 @@ export class SynchronizationProvider {
     }
 
 
-    //  Suppression de toutes les rotations, vols et listes d'équipage
+    //  Suppression de toutes les rotations, vols, listes d'équipage et infos pour les eObservations
     if (this.sessionService.authenticatedUser.matricule === pnc.matricule) {
       this.storageService.deleteAll(Entity.ROTATION);
       this.storageService.deleteAll(Entity.LEG);
       this.storageService.deleteAll(Entity.CREW_MEMBER);
+      this.storageService.deleteAll(Entity.EOBSERVATION);
     }
 
     // Suppression de la fiche synthese
