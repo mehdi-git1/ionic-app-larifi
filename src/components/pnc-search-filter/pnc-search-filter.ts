@@ -48,6 +48,8 @@ export class PncSearchFilterComponent implements OnInit {
 
   searchNeedToBeRefreshed: boolean;
 
+  autoCompleteTopPosition = -1;
+
   constructor(private navCtrl: NavController,
     private sessionService: SessionService,
     private formBuilder: FormBuilder,
@@ -66,12 +68,22 @@ export class PncSearchFilterComponent implements OnInit {
 
     this.checkIfMaterialOpen();
 
+    /**
+     * Action lorsque le clavier s'affiche
+     */
+    this.keyboard.didShow.subscribe(() => {
+      this.checkIfMaterialOpen();
+      if (this.autoCompleteTopPosition != -1){
+        $('#cdk-overlay-0').css('top', this.autoCompleteTopPosition + 'px' );
+      }
+    });
+
+    /**
+     * Action lorsque le clavier disparaît
+     */
     this.keyboard.didHide.subscribe(() => {
-      console.log('keyboard hide', window.innerHeight);
-      console.log('top', document.getElementById('mat-autocomplete-0').parentElement.offsetTop);
-      const newHeight = window.innerHeight - document.getElementById('mat-autocomplete-0').parentElement.offsetTop;
-      console.log('height', newHeight);
-      $('#mat-autocomplete-0').css('height', newHeight + 'px' );
+      const newHeight = window.innerHeight - this.autoCompleteTopPosition;
+      $('#mat-autocomplete-0').css('max-height', newHeight + 'px' );
     });
   }
 
@@ -81,7 +93,6 @@ export class PncSearchFilterComponent implements OnInit {
   checkIfMaterialOpen(){
     window.setTimeout(() => {
       if ($('#mat-autocomplete-0').length != 0){
-        console.log($('#mat-autocomplete-0').length);
         this.changeHeightOnOpened();
       }else{
         this.checkIfMaterialOpen();
@@ -93,10 +104,8 @@ export class PncSearchFilterComponent implements OnInit {
    * Change la max-height de l'autocomplete en fonction de la taille de l'affichage disponible
    */
   changeHeightOnOpened(){
-    console.log('keyboard show', window.innerHeight);
-    console.log('top', $('#mat-autocomplete-0').offset().top);
-    const newHeight = window.innerHeight - $('#mat-autocomplete-0').offset().top;
-    $('#mat-autocomplete-0').css('max-height', newHeight + 'px' );
+    this.autoCompleteTopPosition = this.autoCompleteTopPosition != -1 ? this.autoCompleteTopPosition : $('#cdk-overlay-0').offset().top;
+    $('#mat-autocomplete-0').css('max-height', window.innerHeight - this.autoCompleteTopPosition + 'px' );
   }
 
   /**
