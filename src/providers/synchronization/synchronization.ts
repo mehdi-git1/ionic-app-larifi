@@ -72,7 +72,7 @@ export class SynchronizationProvider {
               pncSynchro.photo = pncPhoto;
               this.updateLocalStorageFromPncSynchroResponse(pncSynchro);
               resolve(true);
-            });
+            }).catch( error => resolve(true));
           }, error => {
             reject(this.translateService.instant('SYNCHRONIZATION.PNC_SAVED_OFFLINE_ERROR', { 'matricule': matricule }));
           });
