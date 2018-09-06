@@ -1,3 +1,6 @@
+import { EObservationTransformerProvider } from './../providers/e-observation/e-observation-transformer';
+import { OnlineEObservationProvider } from './../providers/e-observation/online-e-observation';
+import { OfflineEObservationProvider } from './../providers/e-observation/offline-e-observation';
 import { DateTransformService } from './../services/date.transform.service';
 import { TransformerService } from './../services/transformer.service';
 import { DeviceService } from './../services/device.service';
@@ -105,6 +108,7 @@ import { SecurityModalService } from '../services/security.modal.service';
 import { SettingsPage } from '../pages/settings/settings';
 import { PncPhotoProvider } from '../providers/pnc-photo/pnc-photo';
 import { SQLite } from '../../node_modules/@ionic-native/sqlite';
+import { EObservationProvider } from '../providers/e-observation/e-observation';
 
 
 
@@ -228,7 +232,11 @@ declare var window: any;
     OnlinePncPhotoProvider,
     OfflinePncPhotoProvider,
     PncPhotoTransformerProvider,
-    SQLite
+    SQLite,
+    EObservationProvider,
+    OfflineEObservationProvider,
+    OnlineEObservationProvider,
+    EObservationTransformerProvider
   ]
 })
 export class AppModule { }
