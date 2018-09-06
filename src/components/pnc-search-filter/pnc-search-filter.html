@@ -28,7 +28,6 @@
                 <mat-autocomplete 
                   class="mat-autocomplete" 
                   #auto="matAutocomplete" 
-                  (opened)="changeHeightOnOpened($event)"
                   (optionSelected)="openPncHomePage($event.option.value)">
                   <mat-option 
                     *ngFor="let pnc of pncList | async" 
