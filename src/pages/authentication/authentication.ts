@@ -95,7 +95,12 @@ export class AuthenticationPage implements OnInit {
             }
           );
         });
-      });
+      }).catch(
+        exception => {
+          this.errorMsg = this.translateService.instant('GLOBAL.MESSAGES.ERROR.INVALID_CREDENTIALS');
+          this.hideSpinner = true;
+        }
+      );
     }
   }
 
