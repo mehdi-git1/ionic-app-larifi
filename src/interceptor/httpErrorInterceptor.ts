@@ -32,14 +32,19 @@ export class HttpErrorInterceptor implements HttpInterceptor {
     return next.handle(request).do(success => {
     }, err => {
       if (err instanceof HttpErrorResponse && request.url !== this.config.pingUrl) {
-        let errorMessage = this.translateService.instant('GLOBAL.UNKNOWN_ERROR');
 
-        if (err.error.detailMessage !== undefined && err.error.label === 'BUSINESS_ERROR') {
-          errorMessage = err.error.detailMessage;
+        // code temporaire a supprimer lors de la prochaine mise en prod.
+        if (request.url.includes('/api/rest/resources/pnc_photos')) {
+          console.log('erreur lors de l appel du WS des photos.');
+        } else {
+          let errorMessage = this.translateService.instant('GLOBAL.UNKNOWN_ERROR');
+
+          if (err.error.detailMessage !== undefined && err.error.label === 'BUSINESS_ERROR') {
+            errorMessage = err.error.detailMessage;
+          }
+
+          this.toastProvider.error(errorMessage);
         }
-
-        this.toastProvider.error(errorMessage);
-
         // Bascule en mode déconnecté si le ping échoue
         if (this.deviceService.isOfflineModeAvailable()) {
           this.connectivityService.pingAPI().then(
