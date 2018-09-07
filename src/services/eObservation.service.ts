@@ -97,8 +97,8 @@ export class EObservationService {
   }
 
   getReportTypeForEForms(speciality: String) {
-    if (speciality == 'HOT' || speciality == 'STW') { return eFormsReportType.HST; }
-    if (speciality == 'CC') { return eFormsReportType.CC; }
-    return eFormsReportType.CCP;
+    if (speciality == 'HOT' || speciality == 'STW') { return eFormsReportType.EHST; }
+    if (speciality == 'CC') { return eFormsReportType.ECC; }
+    return eFormsReportType.ECCP;
   }
 }

@@ -1,3 +1,3 @@
 export enum eFormsReportType {
-    HST = '16', CC = '17', CCP = '18'
+    EHST = '16', ECC = '17', ECCP = '18'
 }
