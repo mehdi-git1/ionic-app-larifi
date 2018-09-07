@@ -36,9 +36,11 @@
         "cordova-plugin-cocoapod-support": "^1.6.0",
         "cordova-plugin-compat": "^1.2.0",
         "cordova-plugin-device": "^2.0.2",
-        "cordova-plugin-formslib": "1.0.7",
+        "cordova-plugin-formslib": "^1.0.11",
+        "cordova-plugin-inappbrowser": "~3.0.0",
         "cordova-plugin-ionic-keyboard": "^2.1.2",
         "cordova-plugin-ionic-webview": "^2.1.0",
+        "cordova-plugin-privacyscreen": "~0.3.1",
         "cordova-plugin-secmobil": "^2.0.77",
         "cordova-plugin-splashscreen": "^5.0.2",
         "cordova-plugin-statusbar": "^2.4.2",
@@ -75,10 +77,10 @@
             "cordova-plugin-cocoapod-support": {},
             "cordova-plugin-statusbar": {},
             "cordova-plugin-ionic-webview": {},
-            "cordova-plugin-formslib": {},
             "cordova-plugin-privacyscreen": {},
             "cordova-sqlite-storage": {},
-            "cordova-plugin-inappbrowser": {}
+            "cordova-plugin-inappbrowser": {},
+            "cordova-plugin-formslib": {}
         },
         "platforms": [
             "ios"
