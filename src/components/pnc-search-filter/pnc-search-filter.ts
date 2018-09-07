@@ -46,8 +46,6 @@ export class PncSearchFilterComponent implements OnInit {
 
   outOfDivision: boolean;
 
-  searchNeedToBeRefreshed: boolean;
-
   autoCompleteTopPosition = -1;
 
   constructor(private navCtrl: NavController,
@@ -57,7 +55,6 @@ export class PncSearchFilterComponent implements OnInit {
     private connectivityService: ConnectivityService,
     private events: Events,
     private keyboard: Keyboard) {
-    this.searchNeedToBeRefreshed = false;
     this.connectivityService.connectionStatusChange.subscribe(connected => {
       this.initFilter();
     });
