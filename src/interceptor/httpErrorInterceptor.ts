@@ -32,7 +32,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
     return next.handle(request).do(success => {
     }, err => {
       if (err instanceof HttpErrorResponse && request.url !== this.config.pingUrl) {
-
+        console.log('error intercepted in http interceptor');
         // code temporaire a supprimer lors de la prochaine mise en prod.
         if (request.url.includes('/api/rest/resources/pnc_photos')) {
           console.log('erreur lors de l appel du WS des photos.');
