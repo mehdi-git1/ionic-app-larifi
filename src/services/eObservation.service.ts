@@ -48,11 +48,11 @@ export class EObservationService {
     const param = {
       eformsAppId: `${this.config.eObsUrl}`,
       method: '0',
-      reportType: this.getSpecialityForeForms(eObservation.observedPnc.speciality),
+      reportType: this.getReportTypeForEForms(eObservation.observedPnc.speciality),
       callbackUrl: `${this.config.eObsCallbackUrl}`,
       callbackActionLabel: `${this.config.eObsCallbackActionLabel}`,
       archiveData: {
-        'PNCObserve.fonction': this.getSpecialityForeForms(eObservation.observedPnc.speciality),
+        'PNCObserve.fonction': this.getSpecialityForEForms(eObservation.observedPnc.speciality),
         'PNCObserve.matricule': eObservation.observedPnc.matricule,
         'PNCObserve.nom': eObservation.observedPnc.lastName,
         'PNCObserve.prenom': eObservation.observedPnc.firstName,
@@ -71,7 +71,7 @@ export class EObservationService {
         'stakeholdersinfos.2.1': eObservation.redactor.lastName,
         'stakeholdersinfos.2.2': eObservation.redactor.firstName,
         'stakeholdersinfos.2.3': eObservation.redactor.matricule,
-        'stakeholdersinfos.2.4': this.getSpecialityForeForms(this.sessionService.appContext.onBoardRedactorFunction),
+        'stakeholdersinfos.2.4': this.getSpecialityForEForms(this.sessionService.appContext.onBoardRedactorFunction),
         'typeAvion.vol1': eObservation.rotationFirstLeg.aircraftType,
         'typeAvion.vol2': eObservation.rotationLastLeg.aircraftType,
         'version.vol1': eObservation.rotationFirstLeg.operatingVersion,
@@ -89,13 +89,13 @@ export class EObservationService {
     );
   }
 
-  getSpecialityForeForms(speciality: String) {
+  getSpecialityForEForms(speciality: String) {
     if (speciality == 'CC') { return 'C/C'; }
     if (speciality == 'HOT' || speciality == 'STW') { return 'HST'; }
     return speciality;
   }
 
-  getReportTypeForeForms(speciality: String) {
+  getReportTypeForEForms(speciality: String) {
     if (speciality == 'HOT' || speciality == 'STW') { return '16'; }
     if (speciality == 'CC') { return '17'; }
     return '18';
