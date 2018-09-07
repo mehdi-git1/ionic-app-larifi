@@ -36,6 +36,7 @@
                   </mat-option>
                 </mat-autocomplete>
               </ion-item>
+              <ion-spinner class='auto-complete-spinner' *ngIf="isAutoCompleteRunning()"></ion-spinner>
             </ion-col>
             <ion-col col-5>
               <button ion-button icon-start (click)="resetFilterValues()" class="clear-pnc" [disabled]="clearButtonIsDisabled()">
