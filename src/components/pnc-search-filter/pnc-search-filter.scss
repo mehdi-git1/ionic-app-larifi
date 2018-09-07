@@ -29,6 +29,12 @@ pnc-search-filter {
             top: 20px;
             right: 20px;
             width: 20px;
+
+            &.spinner-ios{
+                top: 2.4em;
+                right: 2.4em;
+            }
+
         }
 
         ion-card-content {
