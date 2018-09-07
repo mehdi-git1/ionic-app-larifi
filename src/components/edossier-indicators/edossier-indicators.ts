@@ -1,3 +1,4 @@
+import { DeviceService } from './../../services/device.service';
 import { SynchronizationProvider } from './../../providers/synchronization/synchronization';
 import { ConnectivityService } from './../../services/connectivity.service';
 import { NavController, NavParams } from 'ionic-angular';
@@ -18,6 +19,7 @@ export class NavBarCustomComponent {
   constructor(private navCtrl: NavController,
     private navParams: NavParams,
     public connectivityService: ConnectivityService,
+    public deviceService: DeviceService,
     public synchronizationProvider: SynchronizationProvider) {
     this.connected = this.connectivityService.isConnected();
 
