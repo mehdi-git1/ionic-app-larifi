@@ -36,7 +36,7 @@
         "cordova-plugin-cocoapod-support": "^1.6.0",
         "cordova-plugin-compat": "^1.2.0",
         "cordova-plugin-device": "^2.0.2",
-        "cordova-plugin-formslib": "1.0.7",
+        "cordova-plugin-formslib": "latest",
         "cordova-plugin-ionic-keyboard": "^2.1.2",
         "cordova-plugin-ionic-webview": "^2.1.0",
         "cordova-plugin-secmobil": "^2.0.77",

@@ -48,6 +48,7 @@ export class EObservationService {
     const param = {
       eformsAppId: `${this.config.eObsUrl}`,
       method: '0',
+      reportType: this.getSpecialityForeForms(eObservation.observedPnc.speciality),
       callbackUrl: `${this.config.eObsCallbackUrl}`,
       callbackActionLabel: `${this.config.eObsCallbackActionLabel}`,
       archiveData: {
@@ -92,5 +93,11 @@ export class EObservationService {
     if (speciality == 'CC') { return 'C/C'; }
     if (speciality == 'HOT' || speciality == 'STW') { return 'HST'; }
     return speciality;
+  }
+
+  getReportTypeForeForms(speciality: String) {
+    if (speciality == 'HOT' || speciality == 'STW') { return '16'; }
+    if (speciality == 'CC') { return '17'; }
+    return '18';
   }
 }
