@@ -66,9 +66,7 @@ export class PncSearchFilterComponent implements OnInit {
       this.initFilter();
     });
 
-    this.checkIfMaterialOpen();
-
-    /**
+     /**
      * Action lorsque le clavier s'affiche
      */
     this.keyboard.didShow.subscribe(() => {
@@ -250,6 +248,7 @@ export class PncSearchFilterComponent implements OnInit {
    * @param term le terme à ajouter
    */
   searchAutoComplete(term: string): void {
+    this.checkIfMaterialOpen();
     this.searchTerms.next(term);
   }
 
