@@ -89,7 +89,7 @@ export class PncSearchFilterComponent implements OnInit {
    * Vérifie toutes les 100ms que l'element d'autocomplete existe
    */
   checkIfMaterialOpen(){
-    window.setTimeout(() => {
+    setTimeout(() => {
       if ($('#mat-autocomplete-0').length != 0){
         this.changeHeightOnOpen();
       }else{
