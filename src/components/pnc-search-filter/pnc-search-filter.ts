@@ -91,7 +91,7 @@ export class PncSearchFilterComponent implements OnInit {
   checkIfMaterialOpen(){
     window.setTimeout(() => {
       if ($('#mat-autocomplete-0').length != 0){
-        this.changeHeightOnOpened();
+        this.changeHeightOnOpen();
       }else{
         this.checkIfMaterialOpen();
       }
@@ -101,7 +101,7 @@ export class PncSearchFilterComponent implements OnInit {
   /**
    * Change la max-height de l'autocomplete en fonction de la taille de l'affichage disponible
    */
-  changeHeightOnOpened(){
+  changeHeightOnOpen(){
     this.autoCompleteTopPosition = this.autoCompleteTopPosition != -1 ? this.autoCompleteTopPosition : $('#cdk-overlay-0').offset().top;
     $('#mat-autocomplete-0').css('max-height', window.innerHeight - this.autoCompleteTopPosition + 'px' );
   }
