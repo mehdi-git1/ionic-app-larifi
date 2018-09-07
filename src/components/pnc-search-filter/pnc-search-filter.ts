@@ -6,6 +6,7 @@ import { Subject } from 'rxjs/Rx';
 import { SessionService } from './../../services/session.service';
 import { PncHomePage } from './../../pages/pnc-home/pnc-home';
 import { Observable } from 'rxjs/Observable';
+import { from } from 'rxjs/observable/from';
 import { Speciality } from './../../models/speciality';
 import { AppConstant } from './../../app/app.constant';
 import { PncFilter } from './../../models/pncFilter';
@@ -14,7 +15,7 @@ import { FormGroup, AbstractControl, Validators, FormBuilder } from '@angular/fo
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
 import $ from 'jquery';
-import { from } from 'rxjs/observable/from';
+
 
 @Component({
   selector: 'pnc-search-filter',
