@@ -146,8 +146,10 @@ export class PncSearchFilterComponent implements OnInit {
     this.pncMatriculeControl = this.autoCompleteForm.get('pncMatriculeControl');
 
     this.initAutocompleteList();
-    this.formOnChanges();
+    this.divisionOnchanges();
+    this.sectorOnchanges();
     this.resetFilterValues();
+    this.formOnChanges();
   }
 
   /**
@@ -208,17 +210,7 @@ export class PncSearchFilterComponent implements OnInit {
    * Fonction permettant de détecter et de gérer les changements de valeur des différents éléments du formulaire
    */
   formOnChanges() {
-    this.searchForm.get('divisionControl').valueChanges.subscribe(val => {
-      this.pncFilter.division = val;
-      this.getSectorList(this.pncFilter.division);
-    });
-
-    this.searchForm.get('sectorControl').valueChanges.subscribe(val => {
-      this.pncFilter.sector = val;
-      this.getGinqList(this.pncFilter.sector);
-    });
-
-    this.searchForm.valueChanges.subscribe(val => {
+    this.searchForm.valueChanges.debounceTime(500).subscribe(val => {
       this.pncFilter.ginq = val.ginqControl;
       this.pncFilter.speciality = val.specialityControl;
       this.pncFilter.aircraftSkill = val.aircraftSkillControl;
@@ -227,6 +219,25 @@ export class PncSearchFilterComponent implements OnInit {
     });
   }
 
+  /**
+   * Active le rechargement des secteurs à chaque modification de division
+   */
+  divisionOnchanges() {
+    this.searchForm.get('divisionControl').valueChanges.subscribe(val => {
+      this.pncFilter.division = val;
+      this.getSectorList(this.pncFilter.division);
+    });
+  }
+
+    /**
+   * Active le rechargement des ginqs à chaque modification de secteur
+   */
+  sectorOnchanges() {
+    this.searchForm.get('sectorControl').valueChanges.subscribe(val => {
+      this.pncFilter.sector = val;
+      this.getGinqList(this.pncFilter.sector);
+    });
+  }
 
 
   /**
