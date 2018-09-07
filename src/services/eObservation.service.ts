@@ -1,3 +1,4 @@
+import { eFormsReportType } from './../models/eFormsReportType';
 import { EObservationProvider } from './../providers/e-observation/e-observation';
 import { Rotation } from './../models/rotation';
 import { Config } from './../configuration/environment-variables/config';
@@ -96,8 +97,8 @@ export class EObservationService {
   }
 
   getReportTypeForEForms(speciality: String) {
-    if (speciality == 'HOT' || speciality == 'STW') { return '16'; }
-    if (speciality == 'CC') { return '17'; }
-    return '18';
+    if (speciality == 'HOT' || speciality == 'STW') { return eFormsReportType.HST; }
+    if (speciality == 'CC') { return eFormsReportType.CC; }
+    return eFormsReportType.CCP;
   }
 }
