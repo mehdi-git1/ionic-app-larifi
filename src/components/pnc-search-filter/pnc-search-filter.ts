@@ -1,5 +1,5 @@
 import { ConnectivityService } from './../../services/connectivity.service';
-import { NavController, Events } from 'ionic-angular';
+import { NavController, Events, Keyboard } from 'ionic-angular';
 import { PncProvider } from './../../providers/pnc/pnc';
 import { Subject } from 'rxjs/Rx';
 import { SessionService } from './../../services/session.service';
@@ -11,6 +11,8 @@ import { PncFilter } from './../../models/pncFilter';
 import { Pnc } from './../../models/pnc';
 import { FormGroup, AbstractControl, Validators, FormBuilder } from '@angular/forms';
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+
+import $ from 'jquery';
 
 @Component({
   selector: 'pnc-search-filter',
@@ -44,12 +46,15 @@ export class PncSearchFilterComponent implements OnInit {
 
   outOfDivision: boolean;
 
+  autoCompleteTopPosition = -1;
+
   constructor(private navCtrl: NavController,
     private sessionService: SessionService,
     private formBuilder: FormBuilder,
     private pncProvider: PncProvider,
     private connectivityService: ConnectivityService,
-    private events: Events) {
+    private events: Events,
+    private keyboard: Keyboard) {
     this.connectivityService.connectionStatusChange.subscribe(connected => {
       this.initFilter();
     });
@@ -57,6 +62,45 @@ export class PncSearchFilterComponent implements OnInit {
     this.events.subscribe('parameters:ready', () => {
       this.initFilter();
     });
+
+     /**
+     * Action lorsque le clavier s'affiche
+     */
+    this.keyboard.didShow.subscribe(() => {
+      this.checkIfMaterialOpen();
+      if (this.autoCompleteTopPosition != -1){
+        $('#cdk-overlay-0').css('top', this.autoCompleteTopPosition + 'px' );
+      }
+    });
+
+    /**
+     * Action lorsque le clavier disparaît
+     */
+    this.keyboard.didHide.subscribe(() => {
+      const newHeight = window.innerHeight - this.autoCompleteTopPosition;
+      $('#mat-autocomplete-0').css('max-height', newHeight + 'px' );
+    });
+  }
+
+  /**
+   * Vérifie toutes les 100ms que l'element d'autocomplete existe
+   */
+  checkIfMaterialOpen(){
+    setTimeout(() => {
+      if ($('#mat-autocomplete-0').length != 0){
+        this.changeHeightOnOpen();
+      }else{
+        this.checkIfMaterialOpen();
+      }
+    }, 200);
+  }
+
+  /**
+   * Change la max-height de l'autocomplete en fonction de la taille de l'affichage disponible
+   */
+  changeHeightOnOpen(){
+    this.autoCompleteTopPosition = this.autoCompleteTopPosition != -1 ? this.autoCompleteTopPosition : $('#cdk-overlay-0').offset().top;
+    $('#mat-autocomplete-0').css('max-height', window.innerHeight - this.autoCompleteTopPosition + 'px' );
   }
 
   /**
@@ -201,6 +245,7 @@ export class PncSearchFilterComponent implements OnInit {
    * @param term le terme à ajouter
    */
   searchAutoComplete(term: string): void {
+    this.checkIfMaterialOpen();
     this.searchTerms.next(term);
   }
 
