@@ -211,7 +211,7 @@ export class PncSearchFilterComponent implements OnInit {
       .debounceTime(300)
       .distinctUntilChanged()
       .switchMap(
-        term => (term ? this.getAutoComplete(term) : Observable.of<Pnc[]>([]))
+        term => (term ? this.getAutoCompleteDataReturn(term) : Observable.of<Pnc[]>([]))
       )
       .catch(error => {
         return Observable.of<Pnc[]>([]);
@@ -222,7 +222,7 @@ export class PncSearchFilterComponent implements OnInit {
    * Gére plus finement le retour de l'autocomplete
    * @param term termes à rechercher pour l'autocomplete
    */
-  getAutoComplete(term){
+  getAutoCompleteDataReturn(term){
     return from(this.pncProvider.pncAutoComplete(term).then (
         data => {
           this.autoCompleteRunning = false;
