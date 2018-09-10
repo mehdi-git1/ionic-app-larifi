@@ -1,3 +1,4 @@
+import { StorageService } from './../../services/storage.service';
 import { PncHomePage } from './../pnc-home/pnc-home';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
@@ -28,6 +29,7 @@ export class AuthenticationPage implements OnInit {
     private formBuilder: FormBuilder,
     private securityProvider: SecurityProvider,
     private sessionService: SessionService,
+    private storageService: StorageService,
     private secMobilService: SecMobilService,
     public translateService: TranslateService,
     public deviceService: DeviceService,
@@ -66,32 +68,39 @@ export class AuthenticationPage implements OnInit {
       const passwordValue: string = this.loginForm.value['password'];
 
       this.secMobilService.authenticate(loginValue, passwordValue).then(x => {
-        this.putAuthenticatedUserInSession().then(authenticatedUser => {
-          this.appInitService.initParameters();
-          if (this.deviceService.isOfflineModeAvailable()) {
-            this.synchronizationProvider.synchronizeOfflineData();
-            this.synchronizationProvider.storeEDossierOffline(authenticatedUser.matricule).then(successStore => {
-              this.events.publish('EDossierOffline:stored');
-              this.hideSpinner = true;
-            }, error => {
-              this.hideSpinner = true;
-            });
-          }
-        }, error => {
-          this.secMobilService.secMobilRevokeCertificate();
-          if (error === 'secmobil.incorrect.credentials') {
-            this.errorMsg = this.translateService.instant('GLOBAL.MESSAGES.ERROR.INVALID_CREDENTIALS');
-          } else {
-            this.errorMsg = this.translateService.instant('GLOBAL.UNKNOWN_ERROR');
-          }
-          this.hideSpinner = true;
-        }).catch(
-          exception => {
-            this.errorMsg = this.translateService.instant('GLOBAL.UNKNOWN_ERROR');
+        this.storageService.initOfflineMap().then(success => {
+          this.putAuthenticatedUserInSession().then(authenticatedUser => {
+            this.appInitService.initParameters();
+            if (this.deviceService.isOfflineModeAvailable()) {
+              this.synchronizationProvider.synchronizeOfflineData();
+              this.synchronizationProvider.storeEDossierOffline(authenticatedUser.matricule).then(successStore => {
+                this.events.publish('EDossierOffline:stored');
+                this.hideSpinner = true;
+              }, error => {
+                this.hideSpinner = true;
+              });
+            }
+          }, error => {
+            this.secMobilService.secMobilRevokeCertificate();
+            if (error === 'secmobil.incorrect.credentials') {
+              this.errorMsg = this.translateService.instant('GLOBAL.MESSAGES.ERROR.INVALID_CREDENTIALS');
+            } else {
+              this.errorMsg = this.translateService.instant('GLOBAL.UNKNOWN_ERROR');
+            }
             this.hideSpinner = true;
-          }
-        );
-      });
+          }).catch(
+            exception => {
+              this.errorMsg = this.translateService.instant('GLOBAL.UNKNOWN_ERROR');
+              this.hideSpinner = true;
+            }
+          );
+        });
+      }).catch(
+        exception => {
+          this.errorMsg = this.translateService.instant('GLOBAL.MESSAGES.ERROR.INVALID_CREDENTIALS');
+          this.hideSpinner = true;
+        }
+      );
     }
   }
 
