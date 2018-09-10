@@ -14,12 +14,24 @@
               <!-- PNC -->
               <ion-item [ngClass]="{ 'item-select-disabled' : areFiltersDisabled() }">
                 <mat-form-field class="autocomplete-field">
-                  <input #pncMatricule type="text" matInput placeholder="{{'PNC_SEARCH.CRITERIA.PNC_MATRICULE' | translate}}" formControlName="pncMatriculeControl"
-                    (keyup)="searchAutoComplete(pncMatricule.value)" [matAutocomplete]="auto" [(ngModel)]="selectedPnc" autocomplete="off"
+                  <input #pncMatricule 
+                    type="text" 
+                    matInput 
+                    placeholder="{{'PNC_SEARCH.CRITERIA.PNC_MATRICULE' | translate}}" 
+                    formControlName="pncMatriculeControl"
+                    (keyup)="searchAutoComplete(pncMatricule.value)" 
+                    [matAutocomplete]="auto" 
+                    [(ngModel)]="selectedPnc" 
+                    autocomplete="off"
                     [readonly]="areFiltersDisabled()" />
                 </mat-form-field>
-                <mat-autocomplete class="mat-autocomplete" #auto="matAutocomplete" [displayWith]="displayPnc" (optionSelected)="openPncHomePage($event.option.value)">
-                  <mat-option *ngFor="let pnc of pncList | async" [value]="pnc">
+                <mat-autocomplete 
+                  class="mat-autocomplete" 
+                  #auto="matAutocomplete" 
+                  (optionSelected)="openPncHomePage($event.option.value)">
+                  <mat-option 
+                    *ngFor="let pnc of pncList | async" 
+                    [value]="pnc">
                     {{ pnc.lastName + ' ' + pnc.firstName + ' (' + pnc.matricule + ')'}}
                   </mat-option>
                 </mat-autocomplete>

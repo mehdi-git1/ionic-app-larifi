@@ -4,6 +4,8 @@
 </button>
 <button *ngIf="showSettingsIcon" ion-fab class="settings-button" (click)="goToSettingsPage()">
     <ion-icon name="settings"></ion-icon>
-</button>
-<!-- indicateur de connectivité -->
-<connectivity-indicator></connectivity-indicator>
+    <button *ngIf="showSettingsIcon && !deviceService.isBrowser()" ion-fab class="settings-button" (click)="goToSettingsPage()">
+        <ion-icon name="settings"></ion-icon>
+    </button>
+    <!-- indicateur de connectivité -->
+    <connectivity-indicator></connectivity-indicator>

@@ -3,6 +3,9 @@ import { Injectable } from '@angular/core';
 import { Config } from '../configuration/environment-variables/config';
 import { Platform, Events } from 'ionic-angular';
 import { RestRequest } from './rest.base.service';
+import { TranslateService } from '@ngx-translate/core';
+import { ToastProvider } from '../providers/toast/toast';
+// import { ConnectivityService } from './connectivity.service';
 
 declare var window: any;
 
@@ -12,7 +15,9 @@ export class SecMobilService {
     constructor(public config: Config,
         private events: Events,
         public platform: Platform,
-        private deviceService: DeviceService) {
+        private deviceService: DeviceService,
+        private translateService: TranslateService,
+        private toastProvider: ToastProvider) {
     }
 
     public init() {
@@ -120,9 +125,16 @@ export class SecMobilService {
                     }
                 },
                 (err) => {
-                    console.error('secmobile call failure : ' + err);
-                    this.events.publish('connectionStatus:disconnected');
-
+                    // Pour certains appels, il n'est pas nécessaire d'afficher le toast d'error ou de tracer l'erreur
+                    if (!request.url.includes('/api/rest/resources/pnc_photos') && !request.url.includes('/api/rest/resources/ping')) {
+                        this.events.publish('connectionStatus:disconnected');
+                        console.error('secmobile call failure sur la requete ' + request.url + ' : ' + err);
+                        let errorMessage = this.translateService.instant('GLOBAL.UNKNOWN_ERROR');
+                        if (err && err.error && err.error.detailMessage !== undefined && err.error.label === 'BUSINESS_ERROR') {
+                            errorMessage = err.error.detailMessage;
+                        }
+                        this.toastProvider.error(errorMessage);
+                    }
                     reject(err);
                 });
         });

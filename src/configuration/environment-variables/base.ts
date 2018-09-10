@@ -13,7 +13,7 @@ export abstract class BaseConfig {
   public makeOfflineModeAvailable = false;
 
   /**
-   * Vérifie qu'on ait est en local
+   * Vérifie qu'on est en local
    * @return  vrai si on est sur l'env localhost, false sinon
    */
   public isLocalhost(): boolean {

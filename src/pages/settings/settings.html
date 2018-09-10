@@ -9,7 +9,7 @@
 
 <ion-content padding>
 
-    <ion-item>
+    <ion-item *ngIf="isApp">
         <label>{{ 'SETTINGS.INIT_CACHE.BUTTON' | translate }}</label>
 
         <button ion-fab mini icon-only item-end class="parameter-button" (click)="confirmClearAndInitCache()" [disabled]="!connected">
@@ -17,7 +17,7 @@
             <ion-spinner *ngIf="initInProgress"></ion-spinner>
         </button>
     </ion-item>
-    <ion-item>
+    <ion-item *ngIf="isApp">
         <label>{{ 'SETTINGS.FORCE_SYNCHRONIZATION.BUTTON' | translate }}</label>
         <button ion-fab mini icon-only item-end class="parameter-button" (click)="forceSynchronizeOfflineData()" [disabled]="!connected">
             <ion-icon name="sync" *ngIf="!synchronizationInProgress"></ion-icon>
@@ -27,15 +27,13 @@
     <ion-item *ngIf="isApp">
         <label>{{ 'SETTINGS.CHANGE_PIN_CODE.BUTTON' | translate }}</label>
         <button ion-fab mini icon-only item-end class="parameter-button" (click)="changePinCode()" [disabled]="!connected">
-            <ion-icon name="key" *ngIf="!synchronizationInProgress"></ion-icon>
-            <ion-spinner *ngIf="synchronizationInProgress"></ion-spinner>
+            <ion-icon name="key"></ion-icon>
         </button>
     </ion-item>
     <ion-item *ngIf="isApp">
         <label>{{ 'SETTINGS.CHANGE_SECRET_QUESTION.BUTTON' | translate }}</label>
         <button ion-fab mini icon-only item-end class="parameter-button" (click)="changeSecretQuestion()" [disabled]="!connected">
-            <ion-icon name="key" *ngIf="!synchronizationInProgress"></ion-icon>
-            <ion-spinner *ngIf="synchronizationInProgress"></ion-spinner>
+            <ion-icon name="key"></ion-icon>
         </button>
     </ion-item>
 

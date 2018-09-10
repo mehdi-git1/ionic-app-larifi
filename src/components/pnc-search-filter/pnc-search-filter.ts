@@ -1,5 +1,5 @@
 import { ConnectivityService } from './../../services/connectivity.service';
-import { NavController, Events } from 'ionic-angular';
+import { NavController, Events, Keyboard } from 'ionic-angular';
 import { PncProvider } from './../../providers/pnc/pnc';
 import { Subject } from 'rxjs/Rx';
 import { SessionService } from './../../services/session.service';
@@ -11,6 +11,8 @@ import { PncFilter } from './../../models/pncFilter';
 import { Pnc } from './../../models/pnc';
 import { FormGroup, AbstractControl, Validators, FormBuilder } from '@angular/forms';
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+
+import $ from 'jquery';
 
 @Component({
   selector: 'pnc-search-filter',
@@ -44,12 +46,15 @@ export class PncSearchFilterComponent implements OnInit {
 
   outOfDivision: boolean;
 
+  autoCompleteTopPosition = -1;
+
   constructor(private navCtrl: NavController,
     private sessionService: SessionService,
     private formBuilder: FormBuilder,
     private pncProvider: PncProvider,
     private connectivityService: ConnectivityService,
-    private events: Events) {
+    private events: Events,
+    private keyboard: Keyboard) {
     this.connectivityService.connectionStatusChange.subscribe(connected => {
       this.initFilter();
     });
@@ -57,6 +62,45 @@ export class PncSearchFilterComponent implements OnInit {
     this.events.subscribe('parameters:ready', () => {
       this.initFilter();
     });
+
+     /**
+     * Action lorsque le clavier s'affiche
+     */
+    this.keyboard.didShow.subscribe(() => {
+      this.checkIfAutoCompleteIsOpen();
+      if (this.autoCompleteTopPosition != -1){
+        $('#cdk-overlay-0').css('top', this.autoCompleteTopPosition + 'px' );
+      }
+    });
+
+    /**
+     * Action lorsque le clavier disparaît
+     */
+    this.keyboard.didHide.subscribe(() => {
+      const newHeight = window.innerHeight - this.autoCompleteTopPosition;
+      $('#mat-autocomplete-0').css('max-height', newHeight + 'px' );
+    });
+  }
+
+  /**
+   * Vérifie toutes les 200ms que l'element d'autocomplete existe
+   */
+  checkIfAutoCompleteIsOpen(){
+    setTimeout(() => {
+      if ($('#mat-autocomplete-0').length != 0){
+        this.changeHeightOnOpen();
+      }else{
+        this.checkIfAutoCompleteIsOpen();
+      }
+    }, 200);
+  }
+
+  /**
+   * Change la max-height de l'autocomplete en fonction de la taille de l'affichage disponible
+   */
+  changeHeightOnOpen(){
+    this.autoCompleteTopPosition = this.autoCompleteTopPosition != -1 ? this.autoCompleteTopPosition : $('#cdk-overlay-0').offset().top;
+    $('#mat-autocomplete-0').css('max-height', window.innerHeight - this.autoCompleteTopPosition + 'px' );
   }
 
   /**
@@ -146,8 +190,10 @@ export class PncSearchFilterComponent implements OnInit {
     this.pncMatriculeControl = this.autoCompleteForm.get('pncMatriculeControl');
 
     this.initAutocompleteList();
-    this.formOnChanges();
+    this.divisionOnchanges();
+    this.sectorOnchanges();
     this.resetFilterValues();
+    this.formOnChanges();
   }
 
   /**
@@ -201,6 +247,7 @@ export class PncSearchFilterComponent implements OnInit {
    * @param term le terme à ajouter
    */
   searchAutoComplete(term: string): void {
+    this.checkIfAutoCompleteIsOpen();
     this.searchTerms.next(term);
   }
 
@@ -208,17 +255,7 @@ export class PncSearchFilterComponent implements OnInit {
    * Fonction permettant de détecter et de gérer les changements de valeur des différents éléments du formulaire
    */
   formOnChanges() {
-    this.searchForm.get('divisionControl').valueChanges.subscribe(val => {
-      this.pncFilter.division = val;
-      this.getSectorList(this.pncFilter.division);
-    });
-
-    this.searchForm.get('sectorControl').valueChanges.subscribe(val => {
-      this.pncFilter.sector = val;
-      this.getGinqList(this.pncFilter.sector);
-    });
-
-    this.searchForm.valueChanges.subscribe(val => {
+    this.searchForm.valueChanges.debounceTime(500).subscribe(val => {
       this.pncFilter.ginq = val.ginqControl;
       this.pncFilter.speciality = val.specialityControl;
       this.pncFilter.aircraftSkill = val.aircraftSkillControl;
@@ -227,6 +264,25 @@ export class PncSearchFilterComponent implements OnInit {
     });
   }
 
+  /**
+   * Active le rechargement des secteurs à chaque modification de division
+   */
+  divisionOnchanges() {
+    this.searchForm.get('divisionControl').valueChanges.subscribe(val => {
+      this.pncFilter.division = val;
+      this.getSectorList(this.pncFilter.division);
+    });
+  }
+
+    /**
+   * Active le rechargement des ginqs à chaque modification de secteur
+   */
+  sectorOnchanges() {
+    this.searchForm.get('sectorControl').valueChanges.subscribe(val => {
+      this.pncFilter.sector = val;
+      this.getGinqList(this.pncFilter.sector);
+    });
+  }
 
 
   /**

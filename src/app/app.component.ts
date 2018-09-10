@@ -109,23 +109,28 @@ export class EDossierPNC implements OnInit {
       this.secMobilService.isAuthenticated().then(() => {
         // Création du stockage local
         this.storageService.initOfflineMap().then(success => {
-
-          this.putAuthenticatedUserInSession().then(authenticatedUser => {
-            this.appInitService.initParameters();
-            if (this.deviceService.isOfflineModeAvailable()) {
-              this.synchronizationProvider.synchronizeOfflineData();
-              this.synchronizationProvider.storeEDossierOffline(authenticatedUser.matricule).then(successStore => {
-                this.events.publish('EDossierOffline:stored');
-                this.splashScreen.hide();
-              }, error => {
-                this.splashScreen.hide();
-              });
-            }
-
-          }, error => {
-            this.splashScreen.hide();
-          });
-
+          this.connectivityService.pingAPI().then(
+            pingSuccess => {
+                this.connectivityService.setConnected(true);
+                this.putAuthenticatedUserInSession().then(authenticatedUser => {
+                  this.appInitService.initParameters();
+                  if (this.deviceService.isOfflineModeAvailable()) {
+                    this.synchronizationProvider.synchronizeOfflineData();
+                    this.synchronizationProvider.storeEDossierOffline(authenticatedUser.matricule).then(successStore => {
+                      this.events.publish('EDossierOffline:stored');
+                      this.splashScreen.hide();
+                    }, error => {
+                      this.splashScreen.hide();
+                    });
+                  }
+                }, error => {
+                  this.splashScreen.hide();
+                });
+            }, pingError => {
+                this.connectivityService.setConnected(false);
+                this.connectivityService.startPingAPI();
+                this.getAuthenticatedUserFromCache();
+            });
         });
       }, error => {
         this.nav.setRoot(AuthenticationPage);
@@ -172,17 +177,24 @@ export class EDossierPNC implements OnInit {
       }
     }, error => {
       this.connectivityService.setConnected(false);
-      this.offlineSecurityProvider.getAuthenticatedUser().then(authenticatedUser => {
-        this.sessionService.authenticatedUser = authenticatedUser;
-        if (!this.deviceService.isBrowser()) {
-          this.securityModalService.displayPinPad(PinPadType.openingApp);
-        }
-        this.nav.setRoot(PncHomePage, { matricule: this.sessionService.authenticatedUser.matricule });
-      }, err => {
-        this.nav.setRoot(GenericMessagePage, { message: this.translateService.instant('GLOBAL.MESSAGES.ERROR.APPLICATION_NOT_INITIALIZED') });
-      });
+      this.getAuthenticatedUserFromCache();
     });
     return promise;
   }
 
+  /**
+   * Recupère le  user connecté en cache et redirige vers la Pnc Home Page.
+   * Si il n'y est pas, on redirige vers une page d'erreur.
+   */
+  getAuthenticatedUserFromCache() {
+    this.offlineSecurityProvider.getAuthenticatedUser().then(authenticatedUser => {
+      this.sessionService.authenticatedUser = authenticatedUser;
+      if (!this.deviceService.isBrowser()) {
+        this.securityModalService.displayPinPad(PinPadType.openingApp);
+      }
+      this.nav.setRoot(PncHomePage, { matricule: this.sessionService.authenticatedUser.matricule });
+    }, err => {
+      this.nav.setRoot(GenericMessagePage, { message: this.translateService.instant('GLOBAL.MESSAGES.ERROR.APPLICATION_NOT_INITIALIZED') });
+    });
+  }
 }
