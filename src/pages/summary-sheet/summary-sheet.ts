@@ -24,7 +24,7 @@ export class SummarySheetPage {
             try {
                 if (summarySheet && summarySheet.summarySheet) {
                     const file = new Blob([Utils.base64ToArrayBuffer(summarySheet.summarySheet)], { type: 'application/pdf' });
-                    this.previewSrc = URL.createObjectURL(summarySheet.summarySheet);
+                    this.previewSrc = URL.createObjectURL(file);
                 } else {
                     this.previewSrc = null;
                 }
