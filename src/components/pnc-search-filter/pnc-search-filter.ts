@@ -76,7 +76,7 @@ export class PncSearchFilterComponent implements OnInit {
      * Action lorsque le clavier s'affiche
      */
     this.keyboard.didShow.subscribe(() => {
-      this.checkIfMaterialOpen();
+      this.checkIfAutoCompleteIsOpen();
       if (this.autoCompleteTopPosition != -1){
         $('#cdk-overlay-0').css('top', this.autoCompleteTopPosition + 'px' );
       }
@@ -92,14 +92,14 @@ export class PncSearchFilterComponent implements OnInit {
   }
 
   /**
-   * Vérifie toutes les 100ms que l'element d'autocomplete existe
+   * Vérifie toutes les 200ms que l'element d'autocomplete existe
    */
-  checkIfMaterialOpen(){
+  checkIfAutoCompleteIsOpen(){
     setTimeout(() => {
       if ($('#mat-autocomplete-0').length != 0){
         this.changeHeightOnOpen();
       }else{
-        this.checkIfMaterialOpen();
+        this.checkIfAutoCompleteIsOpen();
       }
     }, 200);
   }
@@ -266,7 +266,7 @@ export class PncSearchFilterComponent implements OnInit {
    * @param term le terme à ajouter
    */
   searchAutoComplete(term: string): void {
-    this.checkIfMaterialOpen();
+    this.checkIfAutoCompleteIsOpen();
     term = this.utils.replaceSpecialCaracters(term);
     if (!/^[a-zA-Z0-9-]+$/.test(term)){
       this.pncMatriculeControl.setValue(term.substring(0, term.length - 1));
