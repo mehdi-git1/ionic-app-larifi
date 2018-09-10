@@ -125,9 +125,8 @@ export class SecMobilService {
                     }
                 },
                 (err) => {
-                     if (request.url.includes('/api/rest/resources/pnc_photos') || request.url.includes('/api/rest/resources/ping')) {
-                        // Dans ces cas là, il n'est pas nécessaire d'afficher le toast d'error ou de tracer l'erreur
-                     } else {
+                    // Pour certains appels, il n'est pas nécessaire d'afficher le toast d'error ou de tracer l'erreur
+                    if (!request.url.includes('/api/rest/resources/pnc_photos') && !request.url.includes('/api/rest/resources/ping')) {
                         this.events.publish('connectionStatus:disconnected');
                         console.error('secmobile call failure sur la requete ' + request.url + ' : ' + err);
                         let errorMessage = this.translateService.instant('GLOBAL.UNKNOWN_ERROR');
@@ -135,7 +134,7 @@ export class SecMobilService {
                             errorMessage = err.error.detailMessage;
                         }
                         this.toastProvider.error(errorMessage);
-                     }
+                    }
                     reject(err);
                 });
         });
