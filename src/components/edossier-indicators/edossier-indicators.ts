@@ -21,13 +21,8 @@ export class NavBarCustomComponent {
   constructor(private navCtrl: NavController,
     private navParams: NavParams,
     public connectivityService: ConnectivityService,
-<<<<<<< HEAD
-    public synchronizationProvider: SynchronizationProvider,
-    private deviceService: DeviceService) {
-=======
     public deviceService: DeviceService,
     public synchronizationProvider: SynchronizationProvider) {
->>>>>>> origin/release/sprint7
     this.connected = this.connectivityService.isConnected();
 
     this.connectivityService.connectionStatusChange.subscribe(connected => {
