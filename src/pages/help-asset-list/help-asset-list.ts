@@ -70,7 +70,7 @@ export class HelpAssetListPage {
         if (helpAsset.helpAssetType === HelpAssetType.PDF) {
             this.navCtrl.push(PdfFileViewerPage, { pdfSrc: helpAsset.url, title: helpAsset.label });
         } else if (helpAsset.helpAssetType === HelpAssetType.URL) {
-            window.open(helpAsset.url, 'location=yes');
+            window.open(helpAsset.url, '_blank');
         }
     }
 
