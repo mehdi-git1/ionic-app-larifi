@@ -31,8 +31,7 @@ export class SummarySheetProvider {
               if (!onlineSummarySheet || !onlineSummarySheet.summarySheet) {
                 resolve(null);
               }
-              const file = new Blob([Utils.base64ToArrayBuffer(onlineSummarySheet.summarySheet)], { type: 'application/pdf' });
-              const onlineData = this.summarySheetTransformerProvider.toSummarySheetFromBlob(file, matricule);
+              const onlineData = this.summarySheetTransformerProvider.toSummarySheetFromBlob(onlineSummarySheet.summarySheet, matricule);
               resolve(onlineData);
             } catch (error) {
               console.log('getSummarySheet error : ' + error);
