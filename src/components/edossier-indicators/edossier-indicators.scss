@@ -16,6 +16,10 @@ EDossier-indicators {
         ion-icon {
             font-size: 1.4em;
         }
+
+        ion-spinner * {
+            stroke: color($colors, grey90);
+        }
     }
 
     .settings-button {
