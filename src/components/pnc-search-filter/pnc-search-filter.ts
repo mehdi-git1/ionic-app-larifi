@@ -83,7 +83,7 @@ export class PncSearchFilterComponent implements OnInit {
   }
 
   /**
-   * Vérifie toutes les 100ms que l'element d'autocomplete existe
+   * Vérifie toutes les 200ms que l'element d'autocomplete existe
    */
   checkIfAutoCompleteIsOpen(){
     setTimeout(() => {
