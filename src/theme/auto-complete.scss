@@ -5,5 +5,9 @@
     background: color($colors, white);
     width: auto !important;
     max-width: none !important;
-    max-height: none !important;
 }
+
+.cdk-overlay-pane {
+    max-height: none !important;
+}    
+
