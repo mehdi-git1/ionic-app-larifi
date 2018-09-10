@@ -1,3 +1,4 @@
+import { DeviceService } from './../../services/device.service';
 import { SynchronizationProvider } from './../../providers/synchronization/synchronization';
 import { ConnectivityService } from './../../services/connectivity.service';
 import { NavController, NavParams } from 'ionic-angular';
@@ -12,13 +13,16 @@ export class NavBarCustomComponent {
 
   // On affiche par defaut les settings
   @Input() showSettingsIcon = true;
+  @Input() showSynchronisationIcon = true;
+
   connected: boolean;
   synchroInProgress: boolean;
 
   constructor(private navCtrl: NavController,
     private navParams: NavParams,
     public connectivityService: ConnectivityService,
-    public synchronizationProvider: SynchronizationProvider) {
+    public synchronizationProvider: SynchronizationProvider,
+    private deviceService: DeviceService) {
     this.connected = this.connectivityService.isConnected();
 
     this.connectivityService.connectionStatusChange.subscribe(connected => {
@@ -42,6 +46,13 @@ export class NavBarCustomComponent {
    */
   connectionToggle() {
     this.connectivityService.isConnected() ? this.connectivityService.setConnected(false) : this.connectivityService.setConnected(true);
+  }
+
+  /**
+   * Force la synchronisation des données offline
+   */
+  forceSynchronizeOfflineData() {
+    this.synchronizationProvider.synchronizeOfflineData();
   }
 
 }

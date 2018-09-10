@@ -1,5 +1,9 @@
+<button *ngIf="this.deviceService.isOfflineModeAvailable() && showSynchronisationIcon && connected" ion-fab class="synchro-button" (click)="forceSynchronizeOfflineData()">
+    <ion-icon name="refresh" *ngIf="!synchroInProgress"></ion-icon>
+    <ion-spinner *ngIf="synchroInProgress"></ion-spinner>
+</button>
 <button *ngIf="showSettingsIcon" ion-fab class="settings-button" (click)="goToSettingsPage()">
-  <ion-icon name="settings"></ion-icon>
+    <ion-icon name="settings"></ion-icon>
 </button>
 <!-- indicateur de connectivité -->
 <connectivity-indicator></connectivity-indicator>
