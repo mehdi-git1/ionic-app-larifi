@@ -73,9 +73,6 @@ export class SynchronizationProvider {
               this.updateLocalStorageFromPncSynchroResponse(pncSynchro);
               resolve(true);
             }).catch(error => {
-              // code temporaire a supprimer lors de la prochaine mise en prod.
-              this.updateLocalStorageFromPncSynchroResponse(pncSynchro);
-
               resolve(true);
             });
           }, error => {
