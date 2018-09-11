@@ -114,7 +114,7 @@ export class PncHomePage {
     }
 
     /**
-     * Dirige vers les attestations réglementaire
+     * Dirige vers l'attestation réglementaire
      */
     goToStatutoryCertificate(){
         this.navCtrl.push(StatutoryCertificatePage, { matricule: this.matricule });
