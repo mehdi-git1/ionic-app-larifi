@@ -29,6 +29,6 @@ export class DateTransformService {
         if ( !dateToTransform.includes('T')){
             dateToTransform = dateToTransform + 'T12:00';
         }
-        return this.datePipe.transform(dateToTransform.length, AppConstant.iso8601DateTimeFormat);
+        return this.datePipe.transform(dateToTransform, AppConstant.iso8601DateTimeFormat);
     }
 }
