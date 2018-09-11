@@ -1,0 +1,59 @@
+<ion-header>
+    <ion-navbar>
+        <page-header [showSettingsIcon]="false">
+            {{ 'STATUTORY_CERTIFICATE.TITLE' | translate }}
+        </page-header>
+    </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+    <div margin-top>
+        <h3 class="ss-title">{{ 'STATUTORY_CERTIFICATE.TITLE' | translate }}</h3>
+        <div class="fonction-informations" >{{ pnc?.speciality }}</div>
+    </div>
+    <mat-accordion>
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                {{ 'STATUTORY_CERTIFICATE.CATEGORIES.GENERALITY_SKILLS' | translate }}
+            </mat-expansion-panel-header>      
+            This the expansion 1 content      
+        </mat-expansion-panel>
+      
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                {{ 'STATUTORY_CERTIFICATE.CATEGORIES.PLANE_SKILLS' | translate }}
+            </mat-expansion-panel-header>      
+            This the expansion 2 content      
+        </mat-expansion-panel>
+
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                {{ 'STATUTORY_CERTIFICATE.CATEGORIES.FAMILIARIZATION_FLY' | translate }}
+            </mat-expansion-panel-header>      
+            This the expansion 3 content      
+        </mat-expansion-panel>
+
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                {{ 'STATUTORY_CERTIFICATE.CATEGORIES.ANNUAL_ELEARNING' | translate }}
+            </mat-expansion-panel-header>      
+            This the expansion 4 content      
+        </mat-expansion-panel>
+
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                {{ 'STATUTORY_CERTIFICATE.CATEGORIES.GENERALITY_SKILLS' | translate }}
+            </mat-expansion-panel-header>      
+            This the expansion 5 content      
+        </mat-expansion-panel>
+
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                {{ 'STATUTORY_CERTIFICATE.CATEGORIES.VAM' | translate }}
+            </mat-expansion-panel-header>      
+            This the expansion 6 content      
+        </mat-expansion-panel>
+
+    </mat-accordion>
+</ion-content>
