@@ -26,6 +26,9 @@ export class DateTransformService {
      * @return date au format ISO 8601
      */
     transformDateStringToIso8601Format(dateToTransform: string): string {
-        return this.datePipe.transform(dateToTransform, AppConstant.iso8601DateTimeFormat);
+        if ( !dateToTransform.includes('T')){
+            dateToTransform = dateToTransform + 'T12:00';
+        }
+        return this.datePipe.transform(dateToTransform.length, AppConstant.iso8601DateTimeFormat);
     }
 }
