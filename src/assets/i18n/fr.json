@@ -217,6 +217,8 @@
         "REINIT_FILTERS": "Réinitialiser les filtres"
     },
     "HELP_ASSET_LIST": {
+        "WEB_HELP_ASSET": "Ressources web",
+        "PDF_HELP_ASSET": "Ressources pdf",
         "TITLE": "Ressources d'aide",
         "NO_HELP_ASSETS": "Aucune ressource créée pour le moment",
         "LAST_UPDATE_DATE": "Dernière mise à jour : "
