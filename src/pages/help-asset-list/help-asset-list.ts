@@ -38,7 +38,7 @@ export class HelpAssetListPage {
     ionViewDidEnter() {
         this.pdfHelpAssets = new Array();
         // On récupère le role du pnc dans les paramètres de navigation
-        this.pdfHelpAssets.push(...this.getCommunPdfHelpAssets());
+        this.pdfHelpAssets.push(...this.getSharedPdfHelpAssets());
         if (this.navParams.get('pncRole') && this.navParams.get('pncRole') === PncRole.MANAGER) {
             this.pdfHelpAssets.push(...this.getCADPdfHelpAssets());
         } else if (this.navParams.get('pncRole') && this.navParams.get('pncRole') === PncRole.PNC) {
