@@ -74,7 +74,7 @@ export class HelpAssetListPage {
         if (helpAsset.helpAssetType === HelpAssetType.PDF) {
             this.navCtrl.push(PdfFileViewerPage, { pdfSrc: helpAsset.url, title: helpAsset.label });
         } else if (helpAsset.helpAssetType === HelpAssetType.URL) {
-            window.open(helpAsset.url, 'location=yes');
+            window.open(helpAsset.url);
         }
     }
 
@@ -118,9 +118,9 @@ export class HelpAssetListPage {
     }
 
     /**
-     * Renvoie la liste des ressources d'aide du pnc
+     * Renvoie la liste des ressources d'aide communes au cadre et au pnc
      */
-    getCommunPdfHelpAssets(): HelpAsset[] {
+    getSharedPdfHelpAssets(): HelpAsset[] {
         const helpAsset = new Array(1);
         const pdfName = 'Objectifs-compiles-CCP-CC-HST-V6.pdf';
         helpAsset[0] = new HelpAsset();
