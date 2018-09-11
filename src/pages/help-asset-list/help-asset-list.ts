@@ -17,8 +17,8 @@ import { NavController, NavParams } from 'ionic-angular';
 })
 export class HelpAssetListPage {
 
-    localHelpAssets: HelpAsset[];
-    remoteHelpAssets: HelpAsset[];
+    pdfHelpAssets: HelpAsset[];
+    webHelpAssets: HelpAsset[];
 
     pdfUrl: string;
 
@@ -36,19 +36,19 @@ export class HelpAssetListPage {
     }
 
     ionViewDidEnter() {
-        this.localHelpAssets = new Array();
+        this.pdfHelpAssets = new Array();
         // On récupère le role du pnc dans les paramètres de navigation
-        this.localHelpAssets.push(...this.getCommunHelpAssets());
+        this.pdfHelpAssets.push(...this.getSharedPdfHelpAssets());
         if (this.navParams.get('pncRole') && this.navParams.get('pncRole') === PncRole.MANAGER) {
-            this.localHelpAssets.push(...this.getCADHelpAssets());
+            this.pdfHelpAssets.push(...this.getCADPdfHelpAssets());
         } else if (this.navParams.get('pncRole') && this.navParams.get('pncRole') === PncRole.PNC) {
-            this.localHelpAssets.push(...this.getHSTHelpAssets());
+            this.pdfHelpAssets.push(...this.getHSTPdfHelpAssets());
         }
-        this.localHelpAssets.sort((a, b) => a.label < b.label ? -1 : 1);
+        this.pdfHelpAssets.sort((a, b) => a.label < b.label ? -1 : 1);
         // On récupère le role du pnc dans les paramètres de navigation
         if (this.connectivityService.isConnected() && this.navParams.get('pncRole')) {
             this.helpAssetProvider.getHelpAssetList(this.navParams.get('pncRole')).then(result => {
-                this.remoteHelpAssets = result;
+                this.webHelpAssets = result;
             }, error => { });
         }
     }
@@ -58,7 +58,11 @@ export class HelpAssetListPage {
      * @return true si c'est le cas, false sinon
      */
     loadingIsOver(): boolean {
-        return this.localHelpAssets !== undefined;
+        if (this.connectivityService.isConnected()) {
+            return this.pdfHelpAssets !== undefined && this.webHelpAssets !== undefined;
+        } else {
+            return this.pdfHelpAssets !== undefined;
+        }
     }
 
     /**
@@ -77,7 +81,7 @@ export class HelpAssetListPage {
     /**
      * renvoie la liste des ressources d'aide du cadre
      */
-    getCADHelpAssets(): HelpAsset[] {
+    getCADPdfHelpAssets(): HelpAsset[] {
         const helpAsset = new Array(3);
         const pdf1 = 'Etapes-du-Bilan-Professionnel-V4.pdf';
         helpAsset[0] = new HelpAsset();
@@ -109,14 +113,14 @@ export class HelpAssetListPage {
     /**
      * Renvoie la liste des ressources d'aide du pnc
      */
-    getHSTHelpAssets(): HelpAsset[] {
+    getHSTPdfHelpAssets(): HelpAsset[] {
         return [];
     }
 
     /**
-     * Renvoie la liste des ressources d'aide du pnc
+     * Renvoie la liste des ressources d'aide communes au cadre et au pnc
      */
-    getCommunHelpAssets(): HelpAsset[] {
+    getSharedPdfHelpAssets(): HelpAsset[] {
         const helpAsset = new Array(1);
         const pdfName = 'Objectifs-compiles-CCP-CC-HST-V6.pdf';
         helpAsset[0] = new HelpAsset();
