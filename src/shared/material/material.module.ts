@@ -19,6 +19,7 @@ import { MatProgressSpinnerModule } from '@angular/material';
 import { MatProgressBarModule } from '@angular/material';
 import { MatIconModule } from '@angular/material';
 import { MatCardModule } from '@angular/material';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 @NgModule({
     exports: [
@@ -36,7 +37,8 @@ import { MatCardModule } from '@angular/material';
         MatTooltipModule,
         MatCheckboxModule,
         MatSelectModule,
-        MatProgressBarModule
+        MatProgressBarModule,
+        MatExpansionModule
     ],
     providers: [
         { provide: DateAdapter, useClass: NativeDateAdapter },

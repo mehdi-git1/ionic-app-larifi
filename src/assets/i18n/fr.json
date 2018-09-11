@@ -33,6 +33,7 @@
         "PNC_TEAM": "Effectif PNC",
         "UPCOMING_FLIGHT": "Activité vols",
         "CREW_MEMBERS": "Liste équipage",
+        "STATUTORY_CERTIFICATE": "Attestations réglementaire",
         "UNKNOWN_ERROR": "Une erreur inconnue est survenue. Merci de recharger la page ou réessayer dans quelques minutes.",
         "COMING_SOON": "(Prochainement)",
         "MESSAGES": {
@@ -191,6 +192,17 @@
     },
     "SUMMARY_SHEET": {
         "PDF_MISSING": "Pas de fiche synthèse disponible"
+    },
+    "STATUTORY_CERTIFICATE": {
+        "TITLE": "Attestations réglementaires",
+        "CATEGORIES": {
+            "GENERALITY_SKILLS": "Compétences généralités",
+            "PLANE_SKILLS": "Compétences avions",
+            "FAMILIARIZATION_FLY": "Vol de familiarisation",
+            "MASTERING_QUALIFICATION": "Qualification Maîtrises", 
+            "ANNUAL_ELEARNING": "Elearning annuel",
+            "VAM": "VAM"
+        }
     },
     "PNC_SEARCH": {
         "TITLE": "Recherche PNC",

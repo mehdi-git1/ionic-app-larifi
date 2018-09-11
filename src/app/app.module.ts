@@ -1,3 +1,4 @@
+import { StatutoryCertificatePage } from './../pages/statutory-certificate/statutory-certificate';
 import { EObservationTransformerProvider } from './../providers/e-observation/e-observation-transformer';
 import { OnlineEObservationProvider } from './../providers/e-observation/online-e-observation';
 import { OfflineEObservationProvider } from './../providers/e-observation/offline-e-observation';
@@ -132,7 +133,8 @@ declare var window: any;
     SummarySheetPage,
     PdfFileViewerPage,
     GenericMessagePage,
-    SettingsPage
+    SettingsPage,
+    StatutoryCertificatePage
   ],
   imports: [
     BrowserModule,
@@ -167,7 +169,8 @@ declare var window: any;
     SummarySheetPage,
     PdfFileViewerPage,
     GenericMessagePage,
-    SettingsPage
+    SettingsPage,
+    StatutoryCertificatePage
   ],
   providers: [
     StatusBar,

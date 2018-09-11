@@ -16,6 +16,7 @@ import { ConnectivityService } from '../../services/connectivity.service';
 import { HelpAssetListPage } from './../help-asset-list/help-asset-list';
 import { PncSearchPage } from './../pnc-search/pnc-search';
 import { StatusBar } from '@ionic-native/status-bar';
+import { StatutoryCertificatePage } from '../statutory-certificate/statutory-certificate';
 
 
 @Component({
@@ -110,6 +111,13 @@ export class PncHomePage {
      */
     goToSummarySheet() {
         this.navCtrl.push(SummarySheetPage, { matricule: this.matricule });
+    }
+
+    /**
+     * Dirige vers les attestations réglementaire
+     */
+    goToStatutoryCertificate(){
+        this.navCtrl.push(StatutoryCertificatePage, { matricule: this.matricule });
     }
 
     /**
