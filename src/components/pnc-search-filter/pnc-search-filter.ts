@@ -1,3 +1,4 @@
+import { Utils } from './../../common/utils';
 import { ConnectivityService } from './../../services/connectivity.service';
 import { NavController, Events, Keyboard } from 'ionic-angular';
 import { PncProvider } from './../../providers/pnc/pnc';
@@ -5,6 +6,7 @@ import { Subject } from 'rxjs/Rx';
 import { SessionService } from './../../services/session.service';
 import { PncHomePage } from './../../pages/pnc-home/pnc-home';
 import { Observable } from 'rxjs/Observable';
+import { from } from 'rxjs/observable/from';
 import { Speciality } from './../../models/speciality';
 import { AppConstant } from './../../app/app.constant';
 import { PncFilter } from './../../models/pncFilter';
@@ -13,6 +15,7 @@ import { FormGroup, AbstractControl, Validators, FormBuilder } from '@angular/fo
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
 import $ from 'jquery';
+
 
 @Component({
   selector: 'pnc-search-filter',
@@ -46,7 +49,12 @@ export class PncSearchFilterComponent implements OnInit {
 
   outOfDivision: boolean;
 
+  // Défini la position top de la liste d'autocomplete
   autoCompleteTopPosition = -1;
+
+  // Défini si une recherche d'autocomplete est en cours
+  // Permet de gérer l'affichage du spinner de l'autocomplete
+  autoCompleteRunning = false;
 
   constructor(private navCtrl: NavController,
     private sessionService: SessionService,
@@ -54,7 +62,8 @@ export class PncSearchFilterComponent implements OnInit {
     private pncProvider: PncProvider,
     private connectivityService: ConnectivityService,
     private events: Events,
-    private keyboard: Keyboard) {
+    private keyboard: Keyboard,
+    private utils: Utils) {
     this.connectivityService.connectionStatusChange.subscribe(connected => {
       this.initFilter();
     });
@@ -204,11 +213,23 @@ export class PncSearchFilterComponent implements OnInit {
       .debounceTime(300)
       .distinctUntilChanged()
       .switchMap(
-        term => (term ? this.pncProvider.pncAutoComplete(term) : Observable.of<Pnc[]>([]))
+        term => (term ? this.getAutoCompleteDataReturn(term) : Observable.of<Pnc[]>([]))
       )
       .catch(error => {
         return Observable.of<Pnc[]>([]);
       });
+  }
+
+  /**
+   * Gére plus finement le retour de l'autocomplete
+   * @param term termes à rechercher pour l'autocomplete
+   */
+  getAutoCompleteDataReturn(term){
+    return from(this.pncProvider.pncAutoComplete(term).then (
+        data => {
+          this.autoCompleteRunning = false;
+          return data;
+      }));
   }
 
   /**
@@ -248,7 +269,21 @@ export class PncSearchFilterComponent implements OnInit {
    */
   searchAutoComplete(term: string): void {
     this.checkIfAutoCompleteIsOpen();
-    this.searchTerms.next(term);
+    term = this.utils.replaceSpecialCaracters(term);
+    if (!/^[a-zA-Z0-9-]+$/.test(term)){
+      this.pncMatriculeControl.setValue(term.substring(0, term.length - 1));
+    }else{
+      this.pncMatriculeControl.setValue(term);
+      this.autoCompleteRunning = true;
+      this.searchTerms.next(term);
+    }
+  }
+
+  /**
+   * Retourne true si une recherche d'autocomplete est en cours
+   */
+  isAutoCompleteRunning(){
+    return this.autoCompleteRunning;
   }
 
   /**

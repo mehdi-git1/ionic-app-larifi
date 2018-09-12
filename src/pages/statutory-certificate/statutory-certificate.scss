@@ -1,0 +1,23 @@
+.ss-title{
+    padding-top: 30px;
+    font-size: 30px;
+    padding-left: 30px;
+}
+
+.fonction-informations{
+    text-align: left;
+    font-size: 1.5em;
+    color: color($colors, grey60);
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+
+mat-expansion-panel-header{
+    background-color: color($colors, blue65);
+    font-weight: bolder !important;
+    font-size: 18px !important;
+
+    &.mat-expanded:hover, &.mat-expanded:focus{
+        background-color: color($colors, blue65) !important;  
+    }
+}
