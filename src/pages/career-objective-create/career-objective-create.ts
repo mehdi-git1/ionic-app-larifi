@@ -73,8 +73,7 @@ export class CareerObjectiveCreatePage {
         private offlinePncProvider: OfflinePncProvider,
         private offlineCareerObjectiveProvider: OfflineCareerObjectiveProvider,
         private deviceService: DeviceService,
-        private synchronizationProvider: SynchronizationProvider,
-        private changeDetector: ChangeDetectorRef) {
+        private synchronizationProvider: SynchronizationProvider) {
 
         // Options du datepicker
         this.nextEncounterDateTimeOptions = {
@@ -137,7 +136,6 @@ export class CareerObjectiveCreatePage {
         if (this.formHasBeenModified()) {
             this.confirmAbandonChanges().then(() => {
                 this.creationForm.reset();
-                this.changeDetector.detectChanges();
                 this.initPage();
             }, error => {
 
