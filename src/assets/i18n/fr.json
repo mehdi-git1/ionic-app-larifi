@@ -202,6 +202,14 @@
             "MASTERING_QUALIFICATION": "Qualification Maîtrises", 
             "ANNUAL_ELEARNING": "Elearning annuel",
             "VAM": "VAM"
+        },
+        "FAMILIARIZATION_FLIGHTS": {
+            "LC": "Long courrier",
+            "MC": "Moyen courrier"
+        },
+        "VAM": {
+            "START_DATE" : "Début",
+            "END_DATE" : "Fin"
         }
     },
     "PNC_SEARCH": {

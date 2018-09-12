@@ -10,7 +10,14 @@
 <ion-content padding>
     <div margin-top>
         <h3 class="ss-title">{{ 'STATUTORY_CERTIFICATE.TITLE' | translate }}</h3>
-        <div class="fonction-informations" [ngClass]="{'no-value' : !pnc?.speciality }">{{ pnc?.speciality }}</div>
+        <div class="fonction-informations">
+            <span [ngClass]="{'no-value' : !pnc?.speciality }">
+                {{ pnc?.speciality }}
+            </span>
+            <span *ngFor="let qualif of planeQualif | reverse" class="plane-qualif">
+                {{qualif}}
+            </span>
+        </div>
     </div>
     <mat-accordion [multi]=true>
         <mat-expansion-panel>
@@ -52,7 +59,7 @@
             <mat-expansion-panel-header>
                 {{ 'STATUTORY_CERTIFICATE.CATEGORIES.VAM' | translate }}
             </mat-expansion-panel-header>      
-            This the expansion 6 content      
+            <statutory-certificate-vam [vam]="statutoryCertificate?.vam"></statutory-certificate-vam>      
         </mat-expansion-panel>
 
     </mat-accordion>
