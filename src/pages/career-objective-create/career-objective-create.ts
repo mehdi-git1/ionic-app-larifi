@@ -95,7 +95,7 @@ export class CareerObjectiveCreatePage {
         this.monthsNames = this.translateService.instant('GLOBAL.MONTH.LONGNAME');
 
         // Initialisation du formulaire
-        this.pdf();
+        this.initForm();
 
         this.synchronizationProvider.synchroStatusChange.subscribe(synchroInProgress => {
             if (!synchroInProgress && this.careerObjective && this.careerObjective.techId) {
@@ -186,7 +186,7 @@ export class CareerObjectiveCreatePage {
     /**
      * Initialise le formulaire
      */
-    pdf() {
+    initForm() {
         this.creationForm = this.formBuilder.group({
             initiatorControl: ['', Validators.required],
             titleControl: ['', Validators.compose([Validators.maxLength(255), Validators.required])],

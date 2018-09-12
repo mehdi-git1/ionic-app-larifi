@@ -86,7 +86,7 @@
                                 <!-- Prioritaire -->
                                 <ion-item>
                                     <ion-label>{{ 'CAREER_OBJECTIVE_CREATE.FORM.PRIORITIZED' | translate }}</ion-label>
-                                    <ion-checkbox [disabled]="readOnlyByUserConnected()" [(ngModel)]="careerObjective.prioritized" checked="{{careerObjective.prioritized}}" formControlName="prioritizedControl"></ion-checkbox>
+                                    <ion-checkbox [disabled]="readOnlyByUserConnected()" [(ngModel)]="careerObjective.prioritized" [checked]="careerObjective.prioritized" formControlName="prioritizedControl"></ion-checkbox>
                                 </ion-item>
                             </ion-col>
                             <ion-col col-6>
