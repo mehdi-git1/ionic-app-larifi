@@ -18,6 +18,10 @@ export class SummarySheetPage {
     }
 
     ionViewDidEnter() {
+        this.initPage();
+    }
+
+    initPage() {
         const matricule = this.navParams.get('matricule');
         this.summarySheetProvider.getSummarySheet(matricule).then(summarySheet => {
             try {

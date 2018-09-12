@@ -36,6 +36,10 @@ export class HelpAssetListPage {
     }
 
     ionViewDidEnter() {
+        this.initPage();
+    }
+
+    initPage() {
         this.localHelpAssets = new Array();
         // On récupère le role du pnc dans les paramètres de navigation
         this.localHelpAssets.push(...this.getCommunHelpAssets());

@@ -41,8 +41,11 @@ export class CareerObjectiveListPage {
       }
     });
   }
-
   ionViewDidEnter() {
+    this.initPage();
+  }
+
+  initPage() {
     this.matricule = this.navParams.get('matricule');
     this.initCareerObjectivesList();
   }

@@ -18,7 +18,7 @@ import { CareerObjectiveStatus } from './../../models/careerObjectiveStatus';
 import { TranslateService } from '@ngx-translate/core';
 import { CareerObjectiveProvider } from './../../providers/career-objective/career-objective';
 import { CareerObjective } from './../../models/careerObjective';
-import { Component } from '@angular/core';
+import { Component, ChangeDetectorRef } from '@angular/core';
 import { NavController, NavParams, AlertController, LoadingController, Loading, IonicPage } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Pnc } from '../../models/pnc';
@@ -73,7 +73,8 @@ export class CareerObjectiveCreatePage {
         private offlinePncProvider: OfflinePncProvider,
         private offlineCareerObjectiveProvider: OfflineCareerObjectiveProvider,
         private deviceService: DeviceService,
-        private synchronizationProvider: SynchronizationProvider) {
+        private synchronizationProvider: SynchronizationProvider,
+        private changeDetector: ChangeDetectorRef) {
 
         // Options du datepicker
         this.nextEncounterDateTimeOptions = {
@@ -94,7 +95,7 @@ export class CareerObjectiveCreatePage {
         this.monthsNames = this.translateService.instant('GLOBAL.MONTH.LONGNAME');
 
         // Initialisation du formulaire
-        this.initForm();
+        this.pdf();
 
         this.synchronizationProvider.synchroStatusChange.subscribe(synchroInProgress => {
             if (!synchroInProgress && this.careerObjective && this.careerObjective.techId) {
@@ -102,10 +103,14 @@ export class CareerObjectiveCreatePage {
                     this.waypointList = result;
                 }, error => { });
             }
-          });
+        });
     }
 
-    ionViewDidLoad() {
+    ionViewDidEnter() {
+        this.initPage();
+    }
+
+    initPage() {
         // On récupère l'id de l'objectif dans les paramètres de navigation
         if (this.navParams.get('careerObjectiveId') && this.navParams.get('careerObjectiveId') !== '0') {
             // Récupération de l'objectif et des points d'étape
@@ -121,51 +126,54 @@ export class CareerObjectiveCreatePage {
             // Création
             this.careerObjective = new CareerObjective();
             this.careerObjective.pnc = new Pnc();
+            this.creationForm.reset();
             this.careerObjective.pnc.matricule = this.navParams.get('matricule');
             this.waypointList = [];
+            this.originCareerObjective = _.cloneDeep(this.careerObjective);
         }
     }
 
-    ionViewDidEnter() {
-        if (this.careerObjective && this.careerObjective.techId) {
-            this.careerObjectiveProvider.getCareerObjective(this.careerObjective.techId).then(foundCareerObjective => {
-                this.originCareerObjective = _.cloneDeep(foundCareerObjective);
-                this.careerObjective = foundCareerObjective;
-                this.originalPncComment = this.careerObjective.pncComment;
-            }, error => { });
-            this.waypointProvider.getCareerObjectiveWaypoints(this.careerObjective.techId).then(result => {
-                this.waypointList = result;
-            }, error => { });
+    refreshPage() {
+        if (this.formHasBeenModified()) {
+            this.confirmAbandonChanges().then(() => {
+                this.creationForm.reset();
+                this.changeDetector.detectChanges();
+                this.initPage();
+            }, error => {
+
+            });
         } else {
-            // Création
-            this.originCareerObjective = _.cloneDeep(this.careerObjective);
+            this.initPage();
         }
     }
 
     ionViewCanLeave() {
         if (this.formHasBeenModified()) {
-            return new Promise((resolve, reject) => {
-                // Avant de quitter la vue, on avertit l'utilisateur si ses modifications n'ont pas été enregistrées
-                this.alertCtrl.create({
-                    title: this.translateService.instant('CAREER_OBJECTIVE_CREATE.CONFIRM_BACK_WITHOUT_SAVE.TITLE'),
-                    message: this.translateService.instant('CAREER_OBJECTIVE_CREATE.CONFIRM_BACK_WITHOUT_SAVE.MESSAGE'),
-                    buttons: [
-                        {
-                            text: this.translateService.instant('GLOBAL.BUTTONS.CANCEL'),
-                            role: 'cancel',
-                            handler: () => reject()
-                        },
-                        {
-                            text: this.translateService.instant('GLOBAL.BUTTONS.CONFIRM'),
-                            handler: () => resolve()
-                        }
-                    ]
-                }).present();
-            });
-        }
-        else {
+            return this.confirmAbandonChanges();
+        } else {
             return true;
         }
+    }
+
+    confirmAbandonChanges() {
+        return new Promise((resolve, reject) => {
+            // Avant de quitter la vue, on avertit l'utilisateur si ses modifications n'ont pas été enregistrées
+            this.alertCtrl.create({
+                title: this.translateService.instant('CAREER_OBJECTIVE_CREATE.CONFIRM_BACK_WITHOUT_SAVE.TITLE'),
+                message: this.translateService.instant('CAREER_OBJECTIVE_CREATE.CONFIRM_BACK_WITHOUT_SAVE.MESSAGE'),
+                buttons: [
+                    {
+                        text: this.translateService.instant('GLOBAL.BUTTONS.CANCEL'),
+                        role: 'cancel',
+                        handler: () => reject()
+                    },
+                    {
+                        text: this.translateService.instant('GLOBAL.BUTTONS.CONFIRM'),
+                        handler: () => resolve()
+                    }
+                ]
+            }).present();
+        });
     }
 
     /**
@@ -178,7 +186,7 @@ export class CareerObjectiveCreatePage {
     /**
      * Initialise le formulaire
      */
-    initForm() {
+    pdf() {
         this.creationForm = this.formBuilder.group({
             initiatorControl: ['', Validators.required],
             titleControl: ['', Validators.compose([Validators.maxLength(255), Validators.required])],
@@ -242,7 +250,7 @@ export class CareerObjectiveCreatePage {
                     this.loading.dismiss();
                     resolve();
                 }, error => {
-                    if (!this.deviceService.isBrowser()){
+                    if (!this.deviceService.isBrowser()) {
                         this.toastProvider.error(this.translateService.instant('GLOBAL.UNKNOWN_ERROR'));
                     }
                     this.loading.dismiss();
@@ -506,7 +514,7 @@ export class CareerObjectiveCreatePage {
     /**
      * Retourne true si on est connecté / false sinon.
      */
-    isConnected(){
+    isConnected() {
         return this.connectivityService.isConnected();
     }
 }

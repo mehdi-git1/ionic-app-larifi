@@ -1,6 +1,6 @@
 <ion-header>
     <ion-navbar>
-        <page-header>
+        <page-header (refreshPage)="refreshPage()">
             <ng-container *ngIf="careerObjectiveLoadingIsOver()">
                 <ng-container *ngIf="isCreationMode(); else editTitleBlock">{{ 'CAREER_OBJECTIVE_CREATE.CREATE_TITLE' | translate }}</ng-container>
                 <ng-template #editTitleBlock>
@@ -36,7 +36,9 @@
                                 <!-- Contexte -->
                                 <ion-item>
                                     <ion-label floating>{{ 'CAREER_OBJECTIVE_CREATE.FORM.CONTEXT' | translate }}</ion-label>
+
                                     <ion-textarea [(ngModel)]="careerObjective.context" formControlName="contextControl" name="context" [readonly]="readOnlyByUserConnected()" [ngClass]="getCssClassForReadOnlyIfNeeded()" autocorrect="on"></ion-textarea>
+                                    {{careerObjective.context}}
                                 </ion-item>
                             </ion-col>
                         </ion-row>
@@ -54,7 +56,8 @@
                                 <!-- Commentaire cadre -->
                                 <ion-item>
                                     <ion-label floating>{{ 'CAREER_OBJECTIVE_CREATE.FORM.MANAGER_COMMENT' | translate }}</ion-label>
-                                    <ion-textarea [(ngModel)]="careerObjective.managerComment" formControlName="managerCommentControl" name="managerComment" [readonly]="readOnlyByUserConnected()" [ngClass]="getCssClassForReadOnlyIfNeeded()" autocorrect="on"></ion-textarea>
+                                    <ion-textarea [(ngModel)]="careerObjective.managerComment" formControlName="managerCommentControl" name="managerComment" [readonly]="readOnlyByUserConnected()" [ngClass]="getCssClassForReadOnlyIfNeeded()"
+                                        autocorrect="on"></ion-textarea>
                                 </ion-item>
                             </ion-col>
                             <ion-col col-6>
@@ -93,16 +96,8 @@
                                     <ion-label>
                                         <ion-icon name="calendar"></ion-icon>
                                     </ion-label>
-                                    <ion-datetime 
-                                        [disabled]="readOnlyByUserConnected()" 
-                                        displayFormat="DD/MM/YYYY" 
-                                        pickerFormat="DD MMMM YYYY" 
-                                        [(ngModel)]="careerObjective.nextEncounterDate"
-                                        formControlName="nextEncounterDateControl" 
-                                        [pickerOptions]="nextEncounterDateTimeOptions"
-                                        [doneText]="translateService.instant('GLOBAL.DATEPICKER.DONE')" 
-                                        [cancelText]="translateService.instant('GLOBAL.DATEPICKER.CANCEL')"
-                                        [max]="datepickerMaxDate"
+                                    <ion-datetime [disabled]="readOnlyByUserConnected()" displayFormat="DD/MM/YYYY" pickerFormat="DD MMMM YYYY" [(ngModel)]="careerObjective.nextEncounterDate" formControlName="nextEncounterDateControl"
+                                        [pickerOptions]="nextEncounterDateTimeOptions" [doneText]="translateService.instant('GLOBAL.DATEPICKER.DONE')" [cancelText]="translateService.instant('GLOBAL.DATEPICKER.CANCEL')" [max]="datepickerMaxDate"
                                         [monthNames]="monthsNames">
                                     </ion-datetime>
                                 </ion-item>
@@ -114,17 +109,8 @@
                                     <ion-label>
                                         <ion-icon name="calendar"></ion-icon>
                                     </ion-label>
-                                    <ion-datetime 
-                                        [disabled]="readOnlyByUserConnected()" 
-                                        displayFormat="DD/MM/YYYY"
-                                        pickerFormat="DD MMMM YYYY" 
-                                        [(ngModel)]="careerObjective.encounterDate"
-                                        formControlName="encounterDateControl" 
-                                        [pickerOptions]="encounterDateTimeOptions" 
-                                        [doneText]="translateService.instant('GLOBAL.DATEPICKER.DONE')"
-                                        [cancelText]="translateService.instant('GLOBAL.DATEPICKER.CANCEL')" 
-                                        [max]="datepickerMaxDate"
-                                        [monthNames]="monthsNames"></ion-datetime>
+                                    <ion-datetime [disabled]="readOnlyByUserConnected()" displayFormat="DD/MM/YYYY" pickerFormat="DD MMMM YYYY" [(ngModel)]="careerObjective.encounterDate" formControlName="encounterDateControl" [pickerOptions]="encounterDateTimeOptions"
+                                        [doneText]="translateService.instant('GLOBAL.DATEPICKER.DONE')" [cancelText]="translateService.instant('GLOBAL.DATEPICKER.CANCEL')" [max]="datepickerMaxDate" [monthNames]="monthsNames"></ion-datetime>
                                 </ion-item>
                             </ion-col>
                         </ion-row>
@@ -193,8 +179,8 @@
                 </button>
                 <!-- bouton annuler statut abandonné d'un objectif  -->
                 <button ion-button color="blue70" (click)="resumeAbandonedCareerObjective()" [disabled]="creationForm.invalid" *ngIf="securityProvider.isManager() && careerObjective.careerObjectiveStatus === CareerObjectiveStatus.ABANDONED">
-                <ion-icon name="ios-log-in" ios="ios-log-in" margin-right></ion-icon> {{ 'CAREER_OBJECTIVE_CREATE.BUTTONS.RESUME' | translate }}
-            </button>
+                    <ion-icon name="ios-log-in" ios="ios-log-in" margin-right></ion-icon> {{ 'CAREER_OBJECTIVE_CREATE.BUTTONS.RESUME' | translate }}
+                </button>
                 <!-- bouton soliciter mon instructeur -->
                 <button ion-button color="blue70" (click)="confirmCreateInstructorRequest()" *ngIf="!securityProvider.isManager() && careerObjective.careerObjectiveStatus !== undefined && isConnected()">
                     <ion-icon name="ios-chatbubbles-outline" ios="ios-chatbubbles-outline" margin-right></ion-icon> {{ 'CAREER_OBJECTIVE_CREATE.BUTTONS.CREATE_INSTRUCTOR_REQUEST' | translate }}

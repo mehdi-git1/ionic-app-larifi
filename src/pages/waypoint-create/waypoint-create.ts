@@ -69,7 +69,11 @@ export class WaypointCreatePage {
         this.initForm();
     }
 
-    ionViewDidLoad() {
+
+    ionViewDidEnter() {
+        this.initPage();
+    }
+    initPage() {
         this.careerObjectiveId = this.navParams.get('careerObjectiveId');
 
         if (this.navParams.get('waypointId') && this.navParams.get('waypointId') !== '0') {
@@ -77,43 +81,56 @@ export class WaypointCreatePage {
             this.waypointProvider.getWaypoint(this.navParams.get('waypointId')).then(waypoint => {
                 this.originWaypoint = _.cloneDeep(waypoint);
                 this.waypoint = waypoint;
-                this.waypoint.pncComment = this.waypoint.pncComment === undefined ? '' : this.waypoint.pncComment;
+                // this.waypoint.pncComment = this.waypoint.pncComment === undefined ? '' : this.waypoint.pncComment;
                 this.originalPncComment = this.waypoint.pncComment;
             }, error => { });
         } else {
             // Création
             this.waypoint = new Waypoint();
+            this.originWaypoint = _.cloneDeep(this.waypoint);
         }
     }
 
-    ionViewDidEnter() {
-        this.originWaypoint = _.cloneDeep(this.waypoint);
+    refreshPage() {
+        if (this.formHasBeenModified()) {
+            this.confirmAbandonChanges().then(() => {
+                this.creationForm.reset();
+                this.initPage();
+            }, error => {
+
+            });
+        } else {
+            this.initPage();
+        }
     }
 
     ionViewCanLeave() {
         if (this.formHasBeenModified()) {
-            return new Promise((resolve, reject) => {
-                // Avant de quitter la vue, on avertit l'utilisateur si ses modifications n'ont pas été enregistrées
-                this.alertCtrl.create({
-                    title: this.translateService.instant('WAYPOINT_CREATE.CONFIRM_BACK_WITHOUT_SAVE.TITLE'),
-                    message: this.translateService.instant('WAYPOINT_CREATE.CONFIRM_BACK_WITHOUT_SAVE.MESSAGE'),
-                    buttons: [
-                        {
-                            text: this.translateService.instant('GLOBAL.BUTTONS.CANCEL'),
-                            role: 'cancel',
-                            handler: () => reject()
-                        },
-                        {
-                            text: this.translateService.instant('GLOBAL.BUTTONS.CONFIRM'),
-                            handler: () => resolve()
-                        }
-                    ]
-                }).present();
-            });
-        }
-        else {
+            return this.confirmAbandonChanges();
+        } else {
             return true;
         }
+    }
+
+    confirmAbandonChanges() {
+        return new Promise((resolve, reject) => {
+            // Avant de quitter la vue, on avertit l'utilisateur si ses modifications n'ont pas été enregistrées
+            this.alertCtrl.create({
+                title: this.translateService.instant('WAYPOINT_CREATE.CONFIRM_BACK_WITHOUT_SAVE.TITLE'),
+                message: this.translateService.instant('WAYPOINT_CREATE.CONFIRM_BACK_WITHOUT_SAVE.MESSAGE'),
+                buttons: [
+                    {
+                        text: this.translateService.instant('GLOBAL.BUTTONS.CANCEL'),
+                        role: 'cancel',
+                        handler: () => reject()
+                    },
+                    {
+                        text: this.translateService.instant('GLOBAL.BUTTONS.CONFIRM'),
+                        handler: () => resolve()
+                    }
+                ]
+            }).present();
+        });
     }
 
     /**

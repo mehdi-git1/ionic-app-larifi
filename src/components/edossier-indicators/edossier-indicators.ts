@@ -2,7 +2,7 @@ import { DeviceService } from './../../services/device.service';
 import { SynchronizationProvider } from './../../providers/synchronization/synchronization';
 import { ConnectivityService } from './../../services/connectivity.service';
 import { NavController, NavParams } from 'ionic-angular';
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { SettingsPage } from '../../pages/settings/settings';
 
 @Component({
@@ -13,7 +13,9 @@ export class NavBarCustomComponent {
 
   // On affiche par defaut les settings
   @Input() showSettingsIcon = true;
-  @Input() showSynchronisationIcon = true;
+  @Input() showRefreshIcon = true;
+
+  @Output() refreshPage = new EventEmitter();
 
   connected: boolean;
   synchroInProgress: boolean;
@@ -32,6 +34,10 @@ export class NavBarCustomComponent {
     this.synchronizationProvider.synchroStatusChange.subscribe(synchroInProgress => {
       this.synchroInProgress = synchroInProgress;
     });
+  }
+
+  refresh() {
+    this.refreshPage.emit();
   }
 
   /**
