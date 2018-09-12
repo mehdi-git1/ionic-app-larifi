@@ -50,7 +50,6 @@ enum HaulType{
     LC= 'STATUTORY_CERTIFICATE.FAMILIARIZATION_FLIGHTS.LC',
     MC= 'STATUTORY_CERTIFICATE.FAMILIARIZATION_FLIGHTS.MC'
 }
-
 class MasteringQualification{}
 class AnnualElearning{}
 
