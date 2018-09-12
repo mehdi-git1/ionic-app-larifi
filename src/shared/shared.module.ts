@@ -23,7 +23,9 @@ export function createTranslateLoader(http: HttpClient) {
                 useFactory: (createTranslateLoader),
                 deps: [HttpClient]
             }
-        }),
+        })
+    ],
+    declarations: [
         ReversePipe
     ],
     exports: [
