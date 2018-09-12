@@ -15,6 +15,8 @@ export class StatutoryCertificatePage {
   pnc: Pnc;
   matricule: string;
 
+  planeQualif: Array<string> = ['Géné', 'A320', 'B777', 'B787'];
+
   constructor(
     private navParams: NavParams,
     private sessionService: SessionService,

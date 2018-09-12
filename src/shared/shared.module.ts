@@ -1,3 +1,4 @@
+import { ReversePipe } from './../common/pipe/reverse.pipe';
 
 import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-translate/core';
 import { NgModule } from '@angular/core';
@@ -22,12 +23,14 @@ export function createTranslateLoader(http: HttpClient) {
                 useFactory: (createTranslateLoader),
                 deps: [HttpClient]
             }
-        })
+        }),
+        ReversePipe
     ],
     exports: [
         CommonModule,
         TranslateModule,
-        AppMaterialModule
+        AppMaterialModule,
+        ReversePipe
     ],
     providers: [
     ]
