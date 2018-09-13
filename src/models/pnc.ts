@@ -1,7 +1,9 @@
+import { StatutoryCertificate } from './statutoryCertificate';
 import { Gender } from './gender';
 import { Speciality } from './speciality';
 import { Assignment } from './assignment';
 import { EDossierPncObject } from './eDossierPncObject';
+
 export class Pnc extends EDossierPncObject {
     matricule: string;
     lastName: string;
@@ -14,6 +16,7 @@ export class Pnc extends EDossierPncObject {
     manager: boolean;
     workRate: number;
     prioritized: boolean;
+    statutoryCertificate?: StatutoryCertificate;
 
     getStorageId(): string {
         return this.matricule;
