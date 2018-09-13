@@ -36,6 +36,9 @@ export class NavBarCustomComponent {
     });
   }
 
+  /**
+   * envoie un evenement pour recharger la page courante.
+   */
   refresh() {
     this.refreshPage.emit();
   }

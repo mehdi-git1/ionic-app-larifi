@@ -36,9 +36,7 @@
                                 <!-- Contexte -->
                                 <ion-item>
                                     <ion-label floating>{{ 'CAREER_OBJECTIVE_CREATE.FORM.CONTEXT' | translate }}</ion-label>
-
                                     <ion-textarea [(ngModel)]="careerObjective.context" formControlName="contextControl" name="context" [readonly]="readOnlyByUserConnected()" [ngClass]="getCssClassForReadOnlyIfNeeded()" autocorrect="on"></ion-textarea>
-                                    {{careerObjective.context}}
                                 </ion-item>
                             </ion-col>
                         </ion-row>

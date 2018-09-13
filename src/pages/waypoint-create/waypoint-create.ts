@@ -85,7 +85,6 @@ export class WaypointCreatePage {
             this.waypointProvider.getWaypoint(this.navParams.get('waypointId')).then(waypoint => {
                 this.originWaypoint = _.cloneDeep(waypoint);
                 this.waypoint = waypoint;
-                // this.waypoint.pncComment = this.waypoint.pncComment === undefined ? '' : this.waypoint.pncComment;
                 this.originalPncComment = this.waypoint.pncComment;
             }, error => { });
         } else {

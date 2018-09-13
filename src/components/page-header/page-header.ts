@@ -14,6 +14,9 @@ export class PageHeaderComponent {
   constructor() {
   }
 
+  /**
+   * envoie un evenement pour recharger la page courante.
+   */
   refresh() {
     this.refreshPage.emit();
   }

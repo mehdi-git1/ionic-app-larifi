@@ -18,7 +18,7 @@ import { CareerObjectiveStatus } from './../../models/careerObjectiveStatus';
 import { TranslateService } from '@ngx-translate/core';
 import { CareerObjectiveProvider } from './../../providers/career-objective/career-objective';
 import { CareerObjective } from './../../models/careerObjective';
-import { Component, ChangeDetectorRef } from '@angular/core';
+import { Component } from '@angular/core';
 import { NavController, NavParams, AlertController, LoadingController, Loading, IonicPage } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Pnc } from '../../models/pnc';
@@ -128,7 +128,6 @@ export class CareerObjectiveCreatePage {
             // Création
             this.careerObjective = new CareerObjective();
             this.careerObjective.pnc = new Pnc();
-            this.creationForm.reset();
             this.careerObjective.pnc.matricule = this.navParams.get('matricule');
             this.waypointList = [];
             this.originCareerObjective = _.cloneDeep(this.careerObjective);

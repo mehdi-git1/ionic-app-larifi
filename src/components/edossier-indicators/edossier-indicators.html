@@ -1,8 +1,8 @@
-<button *ngIf="showRefreshIcon && connected" ion-fab item-end class="synchro-button" (click)="refresh()">
+<button *ngIf="showRefreshIcon && connected" ion-fab item-end class="refresh-button" (click)="refresh()">
     <ion-icon name="refresh" *ngIf="!refreshInProgress"></ion-icon>
     <ion-spinner *ngIf="refreshInProgress"></ion-spinner>
 </button>
-<button *ngIf="showSettingsIcon" ion-fab class="settings-button" (click)="goToSettingsPage()">
+<button *ngIf="showSettingsIcon  && !deviceService.isBrowser()" ion-fab class="settings-button" (click)="goToSettingsPage()">
     <ion-icon name="settings"></ion-icon>
 </button>
 <!-- indicateur de connectivité -->
