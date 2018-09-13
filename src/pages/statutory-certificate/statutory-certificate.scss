@@ -26,3 +26,13 @@ mat-expansion-panel-header{
     float: right;
     padding-right: 15px;
 }
+
+.statutory-certificate-header {
+    font-size: 1.2em;
+    font-weight: 900;
+    border-bottom: 2px solid color($colors, blue70);
+}
+
+.important-date{
+    color: color($colors, red80);
+}
