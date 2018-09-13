@@ -16,7 +16,7 @@ export class StatutoryCertificatePage {
 
   pnc: Pnc;
   matricule: string;
-  statutoryCertificate: StatutoryCertificate;
+	statutoryCertificate: StatutoryCertificate;
 
   planeQualif: Array<string> = ['Géné', 'A320', 'B777', 'B787'];
 
@@ -24,7 +24,7 @@ export class StatutoryCertificatePage {
     private navParams: NavParams,
     private sessionService: SessionService,
     private pncProvider: PncProvider,
-    private statutoryCertificateProvider: StatutoryCertificateProvider
+	private statutoryCertificateProvider: StatutoryCertificateProvider
   ) {}
 
   ionViewDidEnter() {
@@ -37,7 +37,7 @@ export class StatutoryCertificatePage {
         this.pncProvider.getPnc(this.matricule).then(pnc => {
             this.pnc = pnc;
         }, error => {});
-        this.statutoryCertificateProvider.getStatutoryCertificate(this.matricule).then(statutoryCertificate => {
+		    this.statutoryCertificateProvider.getStatutoryCertificate(this.matricule).then(statutoryCertificate => {
           this.statutoryCertificate = statutoryCertificate;
         }).catch();
     }

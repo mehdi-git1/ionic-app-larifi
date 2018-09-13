@@ -1,3 +1,4 @@
+
 export class PlaneSkill{
     plane: string;
     startDate: Date;
@@ -6,3 +7,4 @@ export class PlaneSkill{
     ddvDueDate: Date;
     skillEndDate: Date;
 }
+
