@@ -33,22 +33,23 @@ export class HttpErrorInterceptor implements HttpInterceptor {
     }, err => {
       if (err instanceof HttpErrorResponse && request.url !== this.config.pingUrl) {
 
-        let errorMessage = this.translateService.instant('GLOBAL.UNKNOWN_ERROR');
-
-        if (err.error.detailMessage !== undefined && err.error.label === 'BUSINESS_ERROR') {
-          errorMessage = err.error.detailMessage;
-        }
-
-        this.toastProvider.error(errorMessage);
-
         // Bascule en mode déconnecté si le ping échoue
         if (this.deviceService.isOfflineModeAvailable()) {
-          this.connectivityService.pingAPI().then(
+          return this.connectivityService.pingAPI().then(
             success => {
+              let errorMessage = this.translateService.instant('GLOBAL.UNKNOWN_ERROR');
+
+              if (err.error.detailMessage !== undefined && err.error.label === 'BUSINESS_ERROR') {
+                errorMessage = err.error.detailMessage;
+              }
+
+              return errorMessage;
+
             },
             error => {
               // TODO : tenter de relancer l'appel en offline
-              this.events.publish('connectionStatus:disconnected');
+              // this.events.publish('connectionStatus:disconnected');
+              return 'disconnected';
             });
         }
       }
