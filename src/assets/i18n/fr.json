@@ -210,6 +210,9 @@
         "VAM": {
             "START_DATE" : "Début",
             "END_DATE" : "Fin"
+        },
+        "ERROR" : {
+            "STATUTORY_CERTIFICATE" : "Erreur lors de la récupération de  l'attestation réglementaire pour le matricule {{ matricule }}"
         }
     },
     "PNC_SEARCH": {
