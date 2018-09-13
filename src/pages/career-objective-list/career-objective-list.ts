@@ -45,6 +45,9 @@ export class CareerObjectiveListPage {
     this.initPage();
   }
 
+  /**
+   * Initialisation du contenu de la page.
+   */
   initPage() {
     this.matricule = this.navParams.get('matricule');
     this.initCareerObjectivesList();

@@ -39,6 +39,9 @@ export class HelpAssetListPage {
         this.initPage();
     }
 
+    /**
+     * Initialisation du contenu de la page.
+     */
     initPage() {
         this.pdfHelpAssets = new Array();
         // On récupère le role du pnc dans les paramètres de navigation

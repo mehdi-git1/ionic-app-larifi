@@ -21,6 +21,10 @@ export class UpcomingFlightListPage {
     ionViewDidLoad() {
         this.initPage();
     }
+
+    /**
+     * Initialisation du contenu de la page.
+     */
     initPage() {
         let matricule = '';
         if (this.navParams.get('matricule')) {

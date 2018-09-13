@@ -109,6 +109,9 @@ export class CareerObjectiveCreatePage {
         this.initPage();
     }
 
+    /**
+     * Initialisation du contenu de la page.
+     */
     initPage() {
         // On récupère l'id de l'objectif dans les paramètres de navigation
         if (this.navParams.get('careerObjectiveId') && this.navParams.get('careerObjectiveId') !== '0') {
@@ -132,6 +135,11 @@ export class CareerObjectiveCreatePage {
         }
     }
 
+    /**
+     * Verifie si des modifications ont été faites, avant d'initialiser le contenu de la page.
+     * si oui, on affiche une popup de confirmation d'abandon des modifications
+     * si non, on initialise la page.
+     */
     refreshPage() {
         if (this.formHasBeenModified()) {
             this.confirmAbandonChanges().then(() => {
@@ -153,6 +161,9 @@ export class CareerObjectiveCreatePage {
         }
     }
 
+    /**
+     * Popup d'avertissement en cas de modifications non enregistrer.
+     */
     confirmAbandonChanges() {
         return new Promise((resolve, reject) => {
             // Avant de quitter la vue, on avertit l'utilisateur si ses modifications n'ont pas été enregistrées

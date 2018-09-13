@@ -22,6 +22,9 @@ export class SummarySheetPage {
         this.initPage();
     }
 
+    /**
+     * Initialisation du contenu de la page.
+     */
     initPage() {
         const matricule = this.navParams.get('matricule');
         this.summarySheetProvider.getSummarySheet(matricule).then(summarySheet => {

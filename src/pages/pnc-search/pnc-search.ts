@@ -59,15 +59,18 @@ export class PncSearchPage implements OnInit {
         this.initSearchResults();
     }
 
-    initPage() {
-        this.ngOnInit();
-        this.ionViewDidEnter();
-    }
-
     ionViewDidEnter() {
         this.totalPncs = 0;
         this.pageSize = AppConstant.pageSize;
         this.searchPncs();
+    }
+
+    /**
+     * Initialisation du contenu de la page.
+     */
+    initPage() {
+        this.ngOnInit();
+        this.ionViewDidEnter();
     }
 
     /**
