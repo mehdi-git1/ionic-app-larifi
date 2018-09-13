@@ -121,7 +121,7 @@ export class WaypointCreatePage {
     }
 
     /**
-     * Popup d'avertissement en cas de modifications non enregistrer.
+     * Popup d'avertissement en cas de modifications non enregistrées.
      */
     confirmAbandonChanges() {
         return new Promise((resolve, reject) => {
