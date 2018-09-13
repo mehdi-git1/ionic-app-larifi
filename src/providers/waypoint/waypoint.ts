@@ -1,3 +1,4 @@
+import { isUndefined } from 'ionic-angular/util/util';
 import { DateTransformService } from './../../services/date.transform.service';
 import { WaypointTransformerProvider } from './waypoint-transformer';
 import { SessionService } from './../../services/session.service';
@@ -72,7 +73,9 @@ export class WaypointProvider {
     for (const offlineData of offlineDataArray) {
       const result = onlineDataArray.filter(onlineData => offlineData.getStorageId() === onlineData.getStorageId());
       if (result && result.length === 1) {
-        onlineDataArray[onlineDataArray.indexOf(result[0])] = offlineData;
+        if (!isUndefined(offlineData.offlineAction)) {
+          onlineDataArray[onlineDataArray.indexOf(result[0])] = offlineData;
+        }
       } else {
         onlineDataArray.push(offlineData);
       }
