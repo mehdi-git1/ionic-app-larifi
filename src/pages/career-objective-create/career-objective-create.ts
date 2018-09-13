@@ -102,10 +102,17 @@ export class CareerObjectiveCreatePage {
                     this.waypointList = result;
                 }, error => { });
             }
-          });
+        });
     }
 
-    ionViewDidLoad() {
+    ionViewDidEnter() {
+        this.initPage();
+    }
+
+    /**
+     * Initialisation du contenu de la page.
+     */
+    initPage() {
         // On récupère l'id de l'objectif dans les paramètres de navigation
         if (this.navParams.get('careerObjectiveId') && this.navParams.get('careerObjectiveId') !== '0') {
             // Récupération de l'objectif et des points d'étape
@@ -123,49 +130,58 @@ export class CareerObjectiveCreatePage {
             this.careerObjective.pnc = new Pnc();
             this.careerObjective.pnc.matricule = this.navParams.get('matricule');
             this.waypointList = [];
+            this.originCareerObjective = _.cloneDeep(this.careerObjective);
         }
     }
 
-    ionViewDidEnter() {
-        if (this.careerObjective && this.careerObjective.techId) {
-            this.careerObjectiveProvider.getCareerObjective(this.careerObjective.techId).then(foundCareerObjective => {
-                this.originCareerObjective = _.cloneDeep(foundCareerObjective);
-                this.careerObjective = foundCareerObjective;
-                this.originalPncComment = this.careerObjective.pncComment;
-            }, error => { });
-            this.waypointProvider.getCareerObjectiveWaypoints(this.careerObjective.techId).then(result => {
-                this.waypointList = result;
-            }, error => { });
+    /**
+     * Verifie si des modifications ont été faites, avant d'initialiser le contenu de la page.
+     * si oui, on affiche une popup de confirmation d'abandon des modifications
+     * si non, on initialise la page.
+     */
+    refreshPage() {
+        if (this.formHasBeenModified()) {
+            this.confirmAbandonChanges().then(() => {
+                this.creationForm.reset();
+                this.initPage();
+            }, error => {
+
+            });
         } else {
-            // Création
-            this.originCareerObjective = _.cloneDeep(this.careerObjective);
+            this.initPage();
         }
     }
 
     ionViewCanLeave() {
         if (this.formHasBeenModified()) {
-            return new Promise((resolve, reject) => {
-                // Avant de quitter la vue, on avertit l'utilisateur si ses modifications n'ont pas été enregistrées
-                this.alertCtrl.create({
-                    title: this.translateService.instant('CAREER_OBJECTIVE_CREATE.CONFIRM_BACK_WITHOUT_SAVE.TITLE'),
-                    message: this.translateService.instant('CAREER_OBJECTIVE_CREATE.CONFIRM_BACK_WITHOUT_SAVE.MESSAGE'),
-                    buttons: [
-                        {
-                            text: this.translateService.instant('GLOBAL.BUTTONS.CANCEL'),
-                            role: 'cancel',
-                            handler: () => reject()
-                        },
-                        {
-                            text: this.translateService.instant('GLOBAL.BUTTONS.CONFIRM'),
-                            handler: () => resolve()
-                        }
-                    ]
-                }).present();
-            });
-        }
-        else {
+            return this.confirmAbandonChanges();
+        } else {
             return true;
         }
+    }
+
+    /**
+     * Popup d'avertissement en cas de modifications non enregistrées.
+     */
+    confirmAbandonChanges() {
+        return new Promise((resolve, reject) => {
+            // Avant de quitter la vue, on avertit l'utilisateur si ses modifications n'ont pas été enregistrées
+            this.alertCtrl.create({
+                title: this.translateService.instant('CAREER_OBJECTIVE_CREATE.CONFIRM_BACK_WITHOUT_SAVE.TITLE'),
+                message: this.translateService.instant('CAREER_OBJECTIVE_CREATE.CONFIRM_BACK_WITHOUT_SAVE.MESSAGE'),
+                buttons: [
+                    {
+                        text: this.translateService.instant('GLOBAL.BUTTONS.CANCEL'),
+                        role: 'cancel',
+                        handler: () => reject()
+                    },
+                    {
+                        text: this.translateService.instant('GLOBAL.BUTTONS.CONFIRM'),
+                        handler: () => resolve()
+                    }
+                ]
+            }).present();
+        });
     }
 
     /**
@@ -242,7 +258,7 @@ export class CareerObjectiveCreatePage {
                     this.loading.dismiss();
                     resolve();
                 }, error => {
-                    if (!this.deviceService.isBrowser()){
+                    if (!this.deviceService.isBrowser()) {
                         this.toastProvider.error(this.translateService.instant('GLOBAL.UNKNOWN_ERROR'));
                     }
                     this.loading.dismiss();
@@ -506,7 +522,7 @@ export class CareerObjectiveCreatePage {
     /**
      * Retourne true si on est connecté / false sinon.
      */
-    isConnected(){
+    isConnected() {
         return this.connectivityService.isConnected();
     }
 }

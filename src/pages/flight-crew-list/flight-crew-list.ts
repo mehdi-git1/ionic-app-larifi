@@ -36,6 +36,13 @@ export class FlightCrewListPage {
     }
 
     ionViewDidEnter() {
+        this.initPage();
+    }
+
+    /**
+     * Initialisation du contenu de la page.
+     */
+    initPage() {
         const legId = this.navParams.get('legId');
         this.legProvider.getLeg(legId).then(legInfos => {
             this.leg = legInfos;
