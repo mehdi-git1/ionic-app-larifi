@@ -5,7 +5,6 @@ import { Platform, Events } from 'ionic-angular';
 import { RestRequest } from './rest.base.service';
 import { TranslateService } from '@ngx-translate/core';
 import { ToastProvider } from '../providers/toast/toast';
-// import { ConnectivityService } from './connectivity.service';
 
 declare var window: any;
 
@@ -127,7 +126,6 @@ export class SecMobilService {
                 (err) => {
                     // Pour certains appels, il n'est pas nécessaire d'afficher le toast d'error ou de tracer l'erreur
                     if (!request.url.includes('/api/rest/resources/ping')) {
-                        this.events.publish('connectionStatus:disconnected');
                         console.error('secmobile call failure sur la requete ' + request.url + ' : ' + err);
                         if (err && err.error && err.error.detailMessage !== undefined && err.error.label === 'BUSINESS_ERROR') {
                             this.toastProvider.error(err.error.detailMessage);
