@@ -9,4 +9,21 @@ export class Utils {
         }
         return buffer;
     }
+
+    /**
+     * verifie l'existance d'une chaine de caractères en format json et la transforme en object.
+     * @param stringJson la chaine de caractères concernée
+     */
+    public static fromStringToObject(stringJson: string){
+        if (stringJson.includes('{') && stringJson.includes('}')){
+            stringJson = stringJson.substring(stringJson.indexOf('{'), stringJson.indexOf('}') + 1 );
+            stringJson = stringJson.replace('\\', '');
+            try {
+                return JSON.parse(stringJson);
+            } catch (error) {
+                return null;
+            }
+        }
+        return null;
+    }
 }
