@@ -13,11 +13,11 @@ export class Utils {
     /**
      * verifie l'existance d'une chaine de caractères en format json et la transforme en object.
      * @param stringJson la chaine de caractères concernée
-     * @return object
+     * @return any
      */
-    public static fromStringToObject(stringJson: string): object{
-        if (stringJson.includes('{') && stringJson.includes('}')){
-            stringJson = stringJson.substring(stringJson.indexOf('{'), stringJson.indexOf('}') + 1 );
+    public static fromStringToObject(stringJson: string): any {
+        if (stringJson.includes('{') && stringJson.includes('}')) {
+            stringJson = stringJson.substring(stringJson.indexOf('{'), stringJson.indexOf('}') + 1);
             stringJson = stringJson.replace('\\', '');
             try {
                 return JSON.parse(stringJson);
