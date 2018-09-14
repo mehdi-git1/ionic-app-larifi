@@ -13,8 +13,9 @@ export class Utils {
     /**
      * verifie l'existance d'une chaine de caractères en format json et la transforme en object.
      * @param stringJson la chaine de caractères concernée
+     * @return object
      */
-    public static fromStringToObject(stringJson: string){
+    public static fromStringToObject(stringJson: string): object{
         if (stringJson.includes('{') && stringJson.includes('}')){
             stringJson = stringJson.substring(stringJson.indexOf('{'), stringJson.indexOf('}') + 1 );
             stringJson = stringJson.replace('\\', '');
