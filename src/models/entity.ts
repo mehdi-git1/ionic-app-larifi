@@ -7,5 +7,6 @@ export enum Entity {
     LEG = 'LEG',
     SUMMARY_SHEET = 'SUMMARY_SHEET',
     CREW_MEMBER = 'CREW_MEMBER',
-    PNC_PHOTO = 'PNC_PHOTO'
+    PNC_PHOTO = 'PNC_PHOTO',
+    EOBSERVATION = 'EOBSERVATION'
 }

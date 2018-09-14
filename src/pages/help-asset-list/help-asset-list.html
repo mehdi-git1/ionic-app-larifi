@@ -1,21 +1,33 @@
 <ion-header>
     <ion-navbar>
-        <ion-title>{{'HELP_ASSET_LIST.TITLE' | translate}}</ion-title>
-        <connectivity-indicator></connectivity-indicator>
+        <page-header (refreshPage)="initPage()">{{'HELP_ASSET_LIST.TITLE' | translate}}
+        </page-header>
     </ion-navbar>
 </ion-header>
+
 <ion-content padding>
     <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
     <ng-template #pageBlock>
         <div class="no-data-found" *ngIf="helpAssets && helpAssets.length == 0">{{ 'HELP_ASSET_LIST.NO_HELP_ASSETS' | translate }}</div>
+        <ion-list *ngIf="webHelpAssets && webHelpAssets.length > 0" class="help-asset-list">
+            <h3>{{ 'HELP_ASSET_LIST.WEB_HELP_ASSET' | translate }}</h3>
+            <ion-item *ngFor="let helpAsset of webHelpAssets" (click)="displayHelpAsset(helpAsset)" class="clickable">
+                <ion-thumbnail item-start>
+                    <ion-icon name="link"></ion-icon>
+                </ion-thumbnail>
+                <h4>{{helpAsset.label}}</h4>
+                <span class="suffix-tu">{{ 'HELP_ASSET_LIST.LAST_UPDATE_DATE' | translate }} {{helpAsset.lastUpdateDate | date: 'dd/MM/yyyy HH:mm' : 'UTC'}}</span>
+            </ion-item>
+        </ion-list>
 
-        <ion-list *ngIf="helpAssets && helpAssets.length > 0" class="help-asset-list">
-            <ion-item *ngFor="let helpAsset of helpAssets" (click)="displayHelpAsset(helpAsset.url)" class="clickable">
+        <ion-list *ngIf="pdfHelpAssets && pdfHelpAssets.length > 0" class="help-asset-list">
+            <h3>{{ 'HELP_ASSET_LIST.PDF_HELP_ASSET' | translate }}</h3>
+            <ion-item *ngFor="let helpAsset of pdfHelpAssets" (click)="displayHelpAsset(helpAsset)" class="clickable">
                 <ion-thumbnail item-start>
                     <ion-icon name="document"></ion-icon>
                 </ion-thumbnail>
                 <h4>{{helpAsset.label}}</h4>
-                {{ 'HELP_ASSET_LIST.LAST_UPDATE_DATE' | translate }} {{helpAsset.lastUpdateDate | date: 'dd/MM/yyyy HH:MM'}}
+                <span class="suffix-tu">{{ 'HELP_ASSET_LIST.LAST_UPDATE_DATE' | translate }} {{helpAsset.lastUpdateDate | date: 'dd/MM/yyyy HH:mm' : 'UTC'}}</span>
             </ion-item>
         </ion-list>
     </ng-template>

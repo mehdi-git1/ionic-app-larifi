@@ -16,9 +16,10 @@
 @import '../theme/label.scss';
 @import '../theme/input.scss';
 @import '../theme/button-bar.scss';
+@import '../theme/button.scss';
 @import '../theme/status.scss';
 @import '../theme/icon.scss';
-@import '../theme/navbar.scss';
+@import '../theme/modal.scss';
 @import '../node_modules/@angular/material/_theming.scss';
 @import '../theme/auto-complete.scss';
 
@@ -87,6 +88,11 @@ ion-input {
     background-color: color($colors, white);
 }
 
+ion-content > .scroll-content {
+    max-width: 1200px;
+    margin: auto;
+}
+
 .content {
     background-color: transparent;
 }
@@ -101,4 +107,23 @@ ion-input {
 
 .scroll-content {
     overflow-y: auto !important;
+}
+
+.blur {
+    filter: blur(100px);
+}
+
+.back-button.show-back-button {
+    padding-right: 50px;
+}
+
+// Pour ajouter TU après les dateTime en TU
+.suffix-tu:after {
+    content: ' TU';
+    vertical-align: super;
+    font-size: smaller;
+}
+.toolbar-content {
+    display: flex;
+    align-items: center;
 }

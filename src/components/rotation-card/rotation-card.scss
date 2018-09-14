@@ -3,17 +3,43 @@ rotation-card {
         font-weight: bold;
 
         ion-card-header {
-            height: 60px;
             display: flex;
             cursor: pointer;
-            padding: 0;
+            padding: 0 10px;
+
+            .rotation-panel {
+                display: flex;
+                flex: 1;
+                justify-content: space-around;
+            }
 
             .rotation-infos {
                 display: flex;
                 flex: 1;
-                justify-content: space-between;
+                justify-content: start;
                 align-items: center;
                 padding: 10px;
+
+                .rotation-date {
+                    padding-right: 10px;
+                }
+
+                .rotation-number {
+                    padding-left: 10px;
+                }
+            }
+
+            .rotation-spinner {
+                display: flex;
+                flex: 1;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .rotation-action {
+                display: flex;
+                flex: 1;
+                justify-content: flex-end;
             }
         }
 

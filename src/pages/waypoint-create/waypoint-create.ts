@@ -1,5 +1,5 @@
+import { DateTransformService } from './../../services/date.transform.service';
 import { AppConstant } from './../../app/app.constant';
-import { DatePipe } from '@angular/common';
 import { SecurityProvider } from './../../providers/security/security';
 import { WaypointStatusProvider } from './../../providers/waypoint-status/waypoint-status';
 import { WaypointStatus } from './../../models/waypointStatus';
@@ -12,6 +12,8 @@ import { NavController, NavParams, LoadingController, Loading, AlertController, 
 import { FormBuilder, FormGroup, Validators, FormControl, ValidatorFn, AbstractControl } from '@angular/forms';
 import { CareerObjectiveCreatePage } from './../career-objective-create/career-objective-create';
 import { ToastProvider } from './../../providers/toast/toast';
+import * as _ from 'lodash';
+import { DeviceService } from '../../services/device.service';
 
 @Component({
     selector: 'page-waypoint-create',
@@ -24,12 +26,15 @@ export class WaypointCreatePage {
     creationForm: FormGroup;
     careerObjectiveId: number;
     waypoint: Waypoint;
+    originWaypoint: Waypoint;
     loading: Loading;
     requiredOnEncounterDay: boolean;
 
     customDateTimeOptions: any;
 
     originalPncComment: string;
+
+    monthsNames;
 
     // Permet d'exposer l'enum au template
     WaypointStatus = WaypointStatus;
@@ -42,10 +47,11 @@ export class WaypointCreatePage {
         private waypointProvider: WaypointProvider,
         private toastProvider: ToastProvider,
         public waypointStatusProvider: WaypointStatusProvider,
-        private datePipe: DatePipe,
         public securityProvider: SecurityProvider,
         public loadingCtrl: LoadingController,
-        private alertCtrl: AlertController) {
+        private alertCtrl: AlertController,
+        private deviceService: DeviceService,
+        private dateTransformer: DateTransformService) {
 
         // Options du datepicker
         this.customDateTimeOptions = {
@@ -55,24 +61,94 @@ export class WaypointCreatePage {
             }]
         };
 
+        // Traduction des mois
+        this.monthsNames = this.translateService.instant('GLOBAL.MONTH.LONGNAME');
+
         this.requiredOnEncounterDay = false;
 
         this.initForm();
     }
 
+
     ionViewDidEnter() {
+        this.initPage();
+    }
+
+    /**
+     * Initialisation du contenu de la page.
+     */
+    initPage() {
         this.careerObjectiveId = this.navParams.get('careerObjectiveId');
 
         if (this.navParams.get('waypointId') && this.navParams.get('waypointId') !== '0') {
             // Récupération du point d'étape
-            this.waypointProvider.getWaypoint(this.navParams.get('waypointId')).then(result => {
-                this.waypoint = result;
+            this.waypointProvider.getWaypoint(this.navParams.get('waypointId')).then(waypoint => {
+                this.originWaypoint = _.cloneDeep(waypoint);
+                this.waypoint = waypoint;
                 this.originalPncComment = this.waypoint.pncComment;
             }, error => { });
         } else {
             // Création
             this.waypoint = new Waypoint();
+            this.originWaypoint = _.cloneDeep(this.waypoint);
         }
+    }
+
+    /**
+     * Verifie si des modifications ont été faites, avant d'initialiser le contenu de la page.
+     * si oui, on affiche une popup de confirmation d'abandon des modifications
+     * si non, on initialise la page.
+     */
+    refreshPage() {
+        if (this.formHasBeenModified()) {
+            this.confirmAbandonChanges().then(() => {
+                this.creationForm.reset();
+                this.initPage();
+            }, error => {
+
+            });
+        } else {
+            this.initPage();
+        }
+    }
+
+    ionViewCanLeave() {
+        if (this.formHasBeenModified()) {
+            return this.confirmAbandonChanges();
+        } else {
+            return true;
+        }
+    }
+
+    /**
+     * Popup d'avertissement en cas de modifications non enregistrées.
+     */
+    confirmAbandonChanges() {
+        return new Promise((resolve, reject) => {
+            // Avant de quitter la vue, on avertit l'utilisateur si ses modifications n'ont pas été enregistrées
+            this.alertCtrl.create({
+                title: this.translateService.instant('WAYPOINT_CREATE.CONFIRM_BACK_WITHOUT_SAVE.TITLE'),
+                message: this.translateService.instant('WAYPOINT_CREATE.CONFIRM_BACK_WITHOUT_SAVE.MESSAGE'),
+                buttons: [
+                    {
+                        text: this.translateService.instant('GLOBAL.BUTTONS.CANCEL'),
+                        role: 'cancel',
+                        handler: () => reject()
+                    },
+                    {
+                        text: this.translateService.instant('GLOBAL.BUTTONS.CONFIRM'),
+                        handler: () => resolve()
+                    }
+                ]
+            }).present();
+        });
+    }
+
+    /**
+     * Vérifie si le formulaire a été modifié sans être enregistré
+     */
+    formHasBeenModified() {
+        return JSON.stringify(this.originWaypoint) !== JSON.stringify(this.waypoint);
     }
 
     /**
@@ -100,44 +176,57 @@ export class WaypointCreatePage {
      * Enregistre un point d'étape au statut brouillon
      */
     saveWaypointDraft() {
-        this.waypoint.waypointStatus = WaypointStatus.DRAFT;
-        this.saveWaypoint();
+        const waypointToSave = _.cloneDeep(this.waypoint);
+        waypointToSave.waypointStatus = WaypointStatus.DRAFT;
+        this.saveWaypoint(waypointToSave);
     }
 
     /**
      * Lance le processus de création/mise à jour d'un point d'étape
+     * @param waypointToSave le point d'étape à enregistrer
      */
-    saveWaypoint() {
-        this.prepareWaypointBeforeSubmit();
+    saveWaypoint(waypointToSave: Waypoint) {
+        return new Promise((resolve, reject) => {
+            waypointToSave = this.prepareWaypointBeforeSubmit(waypointToSave);
 
-        this.loading = this.loadingCtrl.create();
-        this.loading.present();
+            this.loading = this.loadingCtrl.create();
+            this.loading.present();
 
-        this.waypointProvider
-            .createOrUpdate(this.waypoint, this.careerObjectiveId)
-            .then(savedWaypoint => {
-                this.waypoint = savedWaypoint;
+            this.waypointProvider
+                .createOrUpdate(waypointToSave, this.careerObjectiveId)
+                .then(savedWaypoint => {
+                    this.originWaypoint = _.cloneDeep(savedWaypoint);
+                    this.waypoint = savedWaypoint;
 
-                if (this.waypoint.waypointStatus === WaypointStatus.DRAFT) {
-                    this.toastProvider.success(this.translateService.instant('WAYPOINT_CREATE.SUCCESS.DRAFT_SAVED'));
-                } else {
-                    this.toastProvider.success(this.translateService.instant('WAYPOINT_CREATE.SUCCESS.WAYPOINT_SAVED'));
-                }
-                this.loading.dismiss();
-                this.navCtrl.pop();
-            }, error => {
-                this.loading.dismiss();
-            });
+                    if (this.waypoint.waypointStatus === WaypointStatus.DRAFT) {
+                        this.toastProvider.success(this.translateService.instant('WAYPOINT_CREATE.SUCCESS.DRAFT_SAVED'));
+                    } else {
+                        this.toastProvider.success(this.translateService.instant('WAYPOINT_CREATE.SUCCESS.WAYPOINT_SAVED'));
+                    }
+                    this.loading.dismiss();
+                    this.navCtrl.pop();
+                    resolve();
+                }, error => {
+                    if (!this.deviceService.isBrowser()) {
+                        this.toastProvider.error(this.translateService.instant('GLOBAL.UNKNOWN_ERROR'));
+                    }
+                    this.loading.dismiss();
+                });
+        });
     }
 
     /**
      * Prépare le point d'étape avant de l'envoyer au back :
      * Transforme les dates au format iso
+     *
+     * @param waypointToSave le point d'étape à enregistrer
+     * @return le point d'étape à enregistrer avec la date de rencontre transformée
      */
-    prepareWaypointBeforeSubmit() {
-        if (this.waypoint.encounterDate) {
-            this.waypoint.encounterDate = this.datePipe.transform(this.waypoint.encounterDate, 'yyyy-MM-ddTHH:mm');
+    prepareWaypointBeforeSubmit(waypointToSave: Waypoint): Waypoint {
+        if (waypointToSave.encounterDate) {
+            waypointToSave.encounterDate = this.dateTransformer.transformDateStringToIso8601Format(waypointToSave.encounterDate);
         }
+        return waypointToSave;
     }
 
     /**
@@ -186,10 +275,12 @@ export class WaypointCreatePage {
      */
     saveWaypointToRegisteredStatus() {
         if (this.saveActionIsValid()) {
-            this.waypoint.waypointStatus = WaypointStatus.REGISTERED;
-            this.saveWaypoint();
+            const waypointToSave = _.cloneDeep(this.waypoint);
+            waypointToSave.waypointStatus = WaypointStatus.REGISTERED;
+            this.saveWaypoint(waypointToSave);
         } else {
             this.requiredOnEncounterDay = true;
+            this.toastProvider.warning(this.translateService.instant('WAYPOINT_CREATE.ERROR.ENCOUTER_DATE_AND_ACTION_PLAN_REQUIRED'));
         }
     }
 
@@ -231,8 +322,8 @@ export class WaypointCreatePage {
      * @return vrai s'il peut enregistrer le point d'etape , faux sinon
      */
     canPncCommentBeModifiedByPnc(): boolean {
-        return !this.securityProvider.isManager() && (
-            this.waypoint.waypointStatus === WaypointStatus.REGISTERED) &&
+        return !this.securityProvider.isManager() &&
+            (this.waypoint.waypointStatus === WaypointStatus.REGISTERED) &&
             this.waypoint.pncComment !== this.originalPncComment;
     }
 
@@ -240,8 +331,17 @@ export class WaypointCreatePage {
      * Sauvegarde le pont d'etape et met a jour le commentaire pnc du point d'etape original
      */
     saveWaypointAndUpdatePncComment() {
-        this.saveWaypoint();
-        this.originalPncComment = this.waypoint.pncComment;
+        this.saveWaypoint(this.waypoint).then(() => {
+            this.originalPncComment = this.waypoint.pncComment;
+        });
+    }
+
+    /**
+     * Détermine si on peut afficher le statut ou non
+     * @return true si on peut, false sinon
+     */
+    canDisplayStatus(): boolean {
+        return this.waypoint.waypointStatus && this.waypoint.waypointStatus === this.WaypointStatus.DRAFT;
     }
 
 }

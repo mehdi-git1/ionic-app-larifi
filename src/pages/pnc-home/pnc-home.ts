@@ -15,6 +15,9 @@ import { Pnc } from '../../models/pnc';
 import { ConnectivityService } from '../../services/connectivity.service';
 import { HelpAssetListPage } from './../help-asset-list/help-asset-list';
 import { PncSearchPage } from './../pnc-search/pnc-search';
+import { StatusBar } from '@ionic-native/status-bar';
+import { StatutoryCertificatePage } from '../statutory-certificate/statutory-certificate';
+
 
 @Component({
     selector: 'page-pnc-home',
@@ -38,7 +41,10 @@ export class PncHomePage {
         private sessionService: SessionService,
         public translateService: TranslateService,
         private pncProvider: PncProvider,
-        private events: Events) {
+        private events: Events,
+        private statusBar: StatusBar) {
+
+        this.statusBar.styleLightContent();
 
         this.events.subscribe('EDossierOffline:stored', () => {
             if (this.matricule != null) {
@@ -51,6 +57,13 @@ export class PncHomePage {
     }
 
     ionViewDidEnter() {
+        this.initPage();
+    }
+
+    /**
+     * Initialisation du contenu de la page.
+     */
+    initPage() {
         if (this.navParams.get('matricule')) {
             this.matricule = this.navParams.get('matricule');
         } else if (this.sessionService.authenticatedUser) {
@@ -108,6 +121,13 @@ export class PncHomePage {
     }
 
     /**
+     * Dirige vers l'attestation réglementaire
+     */
+    goToStatutoryCertificate() {
+        this.navCtrl.push(StatutoryCertificatePage, { matricule: this.matricule });
+    }
+
+    /**
      * Précharge le eDossier du PNC si celui n'est pas cadre
      */
     downloadPncEdossier() {
@@ -132,6 +152,14 @@ export class PncHomePage {
     */
     loadingIsOver(): boolean {
         return this.pnc !== undefined;
+    }
+
+    /**
+     * Vérifie que la page courante est la homepage de la personne connectée
+     * @return vrai si c'est le cas, faux sinon
+     */
+    isMyHome(): boolean {
+        return this.matricule === this.sessionService.authenticatedUser.matricule;
     }
 
 }

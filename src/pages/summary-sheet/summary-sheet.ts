@@ -1,3 +1,4 @@
+import { Utils } from './../../common/utils';
 import { Component } from '@angular/core';
 import { NavParams, IonicPage } from 'ionic-angular';
 
@@ -18,11 +19,19 @@ export class SummarySheetPage {
     }
 
     ionViewDidEnter() {
+        this.initPage();
+    }
+
+    /**
+     * Initialisation du contenu de la page.
+     */
+    initPage() {
         const matricule = this.navParams.get('matricule');
         this.summarySheetProvider.getSummarySheet(matricule).then(summarySheet => {
             try {
                 if (summarySheet && summarySheet.summarySheet) {
-                    this.previewSrc = URL.createObjectURL(summarySheet.summarySheet);
+                    const file = new Blob([Utils.base64ToArrayBuffer(summarySheet.summarySheet)], { type: 'application/pdf' });
+                    this.previewSrc = URL.createObjectURL(file);
                 } else {
                     this.previewSrc = null;
                 }

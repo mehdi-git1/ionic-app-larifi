@@ -7,7 +7,7 @@ export class SummarySheetTransformerProvider {
   constructor() {
   }
 
-  toSummarySheetFromBlob(object: Blob, matricule: string): SummarySheet {
+  toSummarySheetFromBlob(object: string, matricule: string): SummarySheet {
     const summarySheet = new SummarySheet();
     summarySheet.summarySheet = object;
     summarySheet.matricule = matricule;

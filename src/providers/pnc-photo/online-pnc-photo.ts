@@ -35,10 +35,16 @@ export class OnlinePncPhotoProvider {
             onlinePncPhoto = this.pncPhotoTransformer.toPncPhoto(onlinePncPhoto);
             this.storageService.save(Entity.PNC_PHOTO, onlinePncPhoto);
             resolve(onlinePncPhoto);
-          });
+          }).catch(
+            error => {
+              reject(error);
+            }
+          );
         } else {
           resolve(pncPhoto);
         }
+      }).catch(error => {
+        reject(error);
       });
     });
   }

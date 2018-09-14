@@ -1,3 +1,4 @@
+import { DeviceService } from './../../services/device.service';
 import { SynchronizationProvider } from './../../providers/synchronization/synchronization';
 import { ConnectivityService } from './../../services/connectivity.service';
 import { Component } from '@angular/core';
@@ -12,7 +13,8 @@ export class ConnectivityIndicatorComponent {
   synchroInProgress: boolean;
 
   constructor(public connectivityService: ConnectivityService,
-    public synchronizationProvider: SynchronizationProvider) {
+    public synchronizationProvider: SynchronizationProvider,
+    public deviceService: DeviceService) {
     this.connected = this.connectivityService.isConnected();
 
     this.connectivityService.connectionStatusChange.subscribe(connected => {
@@ -24,10 +26,4 @@ export class ConnectivityIndicatorComponent {
     });
   }
 
-  /**
-  * bascule mode deconnecté/connecté
-  */
-  connectionToggle() {
-    this.connectivityService.isConnected() ? this.connectivityService.setConnected(false) : this.connectivityService.setConnected(true);
-  }
 }

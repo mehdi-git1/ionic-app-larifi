@@ -1,61 +1,39 @@
 <ion-header>
     <ion-navbar>
-        <ion-title>{{ 'GLOBAL.DEVELOPMENT_PROGRAM' | translate }}</ion-title>
-        <connectivity-indicator></connectivity-indicator>
+        <page-header (refreshPage)="initPage()">{{ 'GLOBAL.DEVELOPMENT_PROGRAM' | translate }}
+        </page-header>
     </ion-navbar>
 </ion-header>
 
 <ion-content padding>
     <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
     <ng-template #pageBlock>
-        <div class="add-career-objective-container">
-            <button (click)="goToCareerObjectiveCreation()" class="add-career-objective">
-                <ion-icon name="add"></ion-icon>
-                <label>{{ 'CAREER_OBJECTIVE_LIST.BUTTONS.ADD_CAREER_OBJECTIVE' | translate }}</label>
+
+        <div class="add-container">
+            <button (click)="createEObservation()" class="add-button add-eObservation clickable" *ngIf="canCreateEObservation()">
+                <label class="button-optional-information"> {{lastConsultedRotation.number}} du {{ lastConsultedRotation.departureDate | date: 'dd/MM/yyyy'}}</label>
+                <div class="button-content">
+                    <ion-icon name="ios-add-circle-outline" ios="ios-add-circle-outline"></ion-icon>
+                    <label>{{ 'CAREER_OBJECTIVE_LIST.CREATE_EOBSERVATION' | translate }}</label>
+                </div>
             </button>
         </div>
 
+        <div class="add-container">
+            <button (click)="goToCareerObjectiveCreation()" class="add-button add-career-objective clickable">
+                <div class="button-content">
+                    <ion-icon name="ios-add-circle-outline" ios="ios-add-circle-outline"></ion-icon>
+                    <label>{{ 'CAREER_OBJECTIVE_LIST.BUTTONS.ADD_CAREER_OBJECTIVE' | translate }}</label>
+                </div>
+            </button>
+            <div class="information-message">
+                {{ 'CAREER_OBJECTIVE_LIST.INFORMATION_MESSAGE' | translate }}
+            </div>
+        </div>
         <div class="career-objective-list-container">
             <div class="no-data-found" *ngIf="careerObjectiveList.length == 0">{{ 'CAREER_OBJECTIVE_LIST.NO_OBJECTIVES' | translate }}</div>
             <div *ngIf="careerObjectiveList.length > 0" class="career-objective-list">
-                <ion-card class="career-objective-card clickable" *ngFor="let careerObjective of careerObjectiveList" (click)="openCareerObjective(careerObjective.techId)">
-                    <offline-indicator [object]="careerObjective"></offline-indicator>
-                    <ion-card-content no-padding>
-                        <header>
-                            <h4>{{careerObjective.title}}</h4>
-                            <div class="status-area" float-right>
-                                <!-- Prioritaire -->
-                                <div class="icon-container">
-                                    <ion-icon *ngIf="careerObjective.prioritized" name="flag" ios="md-flag" color="red80"></ion-icon>
-                                </div>
-                                <!-- Initiateur -->
-                                <div class="icon-container">
-                                    <ion-icon name="bulb" ios="md-bulb" *ngIf="careerObjective.initiator === PncRole.PNC"></ion-icon>
-                                </div>
-                                <!-- Statut -->
-                                <ion-badge class="{{careerObjective.careerObjectiveStatus.toLowerCase()}}" *ngIf="careerObjective.careerObjectiveStatus">
-                                    {{ 'GLOBAL.CAREER_OBJECTIVE_STATUS.'+careerObjective.careerObjectiveStatus | translate }}
-                                </ion-badge>
-                            </div>
-                        </header>
-                        <ion-grid class="content">
-                            <ion-row>
-                                <ion-col>
-                                    <label>{{ 'CAREER_OBJECTIVE_LIST.LIST.CREATION_DATE' | translate }}</label>
-                                    <span class="value" [ngClass]="{'no-value' : !careerObjective.creationDate }">{{ careerObjective.creationDate | date: 'dd/MM/yyyy HH:mm'}}</span>
-                                </ion-col>
-                                <ion-col>
-                                    <label>{{ 'CAREER_OBJECTIVE_LIST.LIST.ENCOUNTER_DATE' | translate }}</label>
-                                    <span class="value" [ngClass]="{'no-value' : !careerObjective.encounterDate }">{{careerObjective.encounterDate | date: 'dd/MM/yyyy'}}</span>
-                                </ion-col>
-                                <ion-col>
-                                    <label>{{ 'CAREER_OBJECTIVE_LIST.LIST.NEXT_ENCOUNTER_DATE' | translate }}</label>
-                                    <span class="value" [ngClass]="{'no-value' : !careerObjective.nextEncounterDate }">{{careerObjective.nextEncounterDate | date: 'dd/MM/yyyy'}}</span>
-                                </ion-col>
-                            </ion-row>
-                        </ion-grid>
-                    </ion-card-content>
-                </ion-card>
+                <career-objective-card *ngFor="let careerObjective of careerObjectiveList" [careerObjective]="careerObjective" [offlineAction]="careerObjective.offlineAction" (click)="openCareerObjective(careerObjective.techId)"></career-objective-card>
             </div>
         </div>
     </ng-template>

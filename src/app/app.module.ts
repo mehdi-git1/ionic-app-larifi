@@ -1,3 +1,11 @@
+import { StatutoryCertificatePage } from './../pages/statutory-certificate/statutory-certificate';
+import { Utils } from './../common/utils';
+import { EObservationTransformerProvider } from './../providers/e-observation/e-observation-transformer';
+import { OnlineEObservationProvider } from './../providers/e-observation/online-e-observation';
+import { OfflineEObservationProvider } from './../providers/e-observation/offline-e-observation';
+import { DateTransformService } from './../services/date.transform.service';
+import { TransformerService } from './../services/transformer.service';
+import { DeviceService } from './../services/device.service';
 import { PncPhotoTransformerProvider } from './../providers/pnc-photo/pnc-photo-transformer';
 import { OfflinePncPhotoProvider } from './../providers/pnc-photo/offline-pnc-photo';
 import { OnlinePncPhotoProvider } from './../providers/pnc-photo/online-pnc-photo';
@@ -90,14 +98,22 @@ import { PncTransformerProvider } from '../providers/pnc/pnc-transformer';
 import { SynchronizationProvider } from '../providers/synchronization/synchronization';
 import { PncSynchroProvider } from '../providers/synchronization/pnc-synchro';
 
-
 import { HomePage } from './../pages/home/home';
 
 import { SummarySheetProvider } from '../providers/summary-sheet/summary-sheet';
 import { OnlineRotationProvider } from '../providers/rotation/online-rotation';
 import { OfflineRotationProvider } from '../providers/rotation/offline-rotation';
 import { GenericMessagePage } from '../pages/generic-message/generic-message';
+
+import { SecurityModalService } from '../services/security.modal.service';
+
+import { SettingsPage } from '../pages/settings/settings';
 import { PncPhotoProvider } from '../providers/pnc-photo/pnc-photo';
+import { SQLite } from '../../node_modules/@ionic-native/sqlite';
+import { EObservationProvider } from '../providers/e-observation/e-observation';
+import { StatutoryCertificateProvider } from '../providers/statutory-certificate/statutory-certificate';
+import { OnlineStatutoryCertificateProvider } from '../providers/statutory-certificate/online-statutory-certificate';
+
 
 
 declare var window: any;
@@ -119,20 +135,25 @@ declare var window: any;
     HomePage,
     SummarySheetPage,
     PdfFileViewerPage,
-    GenericMessagePage
+    GenericMessagePage,
+    SettingsPage,
+    StatutoryCertificatePage
   ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(EDossierPNC, {
-      pageTransition: 'md-transition'
+      pageTransition: 'md-transition',
+      backButtonText: ''
     }),
-    IonicStorageModule.forRoot(),
+    IonicStorageModule.forRoot({
+      driverOrder: ['sqlite', 'indexeddb', 'websql']
+    }),
     HttpClientModule,
     ComponentsModule,
     SharedModule,
     BrowserAnimationsModule,
     PdfViewerModule,
-    SimpleNotificationsModule.forRoot()
+    SimpleNotificationsModule.forRoot({ position: ['top', 'right'] })
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -150,7 +171,9 @@ declare var window: any;
     HomePage,
     SummarySheetPage,
     PdfFileViewerPage,
-    GenericMessagePage
+    GenericMessagePage,
+    SettingsPage,
+    StatutoryCertificatePage
   ],
   providers: [
     StatusBar,
@@ -158,6 +181,9 @@ declare var window: any;
     SecMobilService,
     ConnectivityService,
     StorageService,
+    DeviceService,
+    DateTransformService,
+    TransformerService,
     { provide: RestService, useFactory: createRestService, deps: [HttpClient, SecMobilService, Config] },
     { provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true },
     AppInitService,
@@ -207,10 +233,19 @@ declare var window: any;
     OfflineRotationProvider,
     OnlineLegProvider,
     OfflineLegProvider,
+    SecurityModalService,
     PncPhotoProvider,
     OnlinePncPhotoProvider,
     OfflinePncPhotoProvider,
-    PncPhotoTransformerProvider
+    PncPhotoTransformerProvider,
+    SQLite,
+    EObservationProvider,
+    OfflineEObservationProvider,
+    OnlineEObservationProvider,
+    EObservationTransformerProvider,
+    Utils,
+    StatutoryCertificateProvider,
+    OnlineStatutoryCertificateProvider
   ]
 })
 export class AppModule { }
@@ -220,10 +255,8 @@ export class AppModule { }
 // Check if we are in app mode or in web browser
 export function createRestService(http: HttpClient, secMobilService: SecMobilService, config: Config): RestService {
   if (undefined !== window.cordova && 'browser' !== window.cordova.platformId) {
-    console.log('mobile mode selected');
     return new RestMobileService(http, secMobilService);
   } else {
-    console.log('web mode selected');
     return new RestWebService(http, config);
   }
 }

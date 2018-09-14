@@ -1,0 +1,34 @@
+EDossier-indicators {
+    display: flex;
+    align-items: center;
+    margin-left: 15px;
+
+    & > * {
+        margin-right: 15px;
+    }
+
+    .refresh-button {
+        height: 30px;
+        width: 30px;
+        box-shadow: none;
+
+        ion-icon {
+            font-size: 1.4em;
+        }
+
+        ion-spinner * {
+            stroke: color($colors, grey90);
+        }
+    }
+
+    .settings-button {
+        height: 40px;
+        width: 40px;
+        box-shadow: none;
+
+        ion-icon {
+            font-size: 2.2em;
+        }
+    }
+
+}

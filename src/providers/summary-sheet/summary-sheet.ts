@@ -25,16 +25,13 @@ export class SummarySheetProvider {
   getSummarySheet(matricule: string): Promise<SummarySheet> {
     if (this.connectivityService.isConnected()) {
       return new Promise((resolve, reject) => {
-        this.offlineSummarySheetProvider.getSummarySheet(matricule).then(offlineSummarySheet => {
+
           this.onlineSummarySheetProvider.getSummarySheet(matricule).then(onlineSummarySheet => {
             try {
               if (!onlineSummarySheet || !onlineSummarySheet.summarySheet) {
                 resolve(null);
               }
-              const file = new Blob([Utils.base64ToArrayBuffer(onlineSummarySheet.summarySheet)], { type: 'application/pdf' });
-              const onlineData = this.summarySheetTransformerProvider.toSummarySheetFromBlob(file, matricule);
-              const offlineData = this.summarySheetTransformerProvider.toSummarySheet(offlineSummarySheet);
-              this.offlineProvider.flagDataAvailableOffline(onlineData, offlineData);
+              const onlineData = this.summarySheetTransformerProvider.toSummarySheetFromBlob(onlineSummarySheet.summarySheet, matricule);
               resolve(onlineData);
             } catch (error) {
               console.log('getSummarySheet error : ' + error);
@@ -43,13 +40,8 @@ export class SummarySheetProvider {
             error => {
               console.log(' error onlineSummarySheetProvider ' + error);
             });
-        },
-          error => {
-            console.log(' error offlineSummarySheetProvider ' + error);
           });
-      });
     } else {
-      console.log('offlineSummarySheetProvider');
       return this.offlineSummarySheetProvider.getSummarySheet(matricule);
     }
   }

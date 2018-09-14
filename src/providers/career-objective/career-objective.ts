@@ -1,26 +1,25 @@
-import { SessionService } from './../../services/session.service';
-import { DatePipe } from '@angular/common';
+import { DateTransformService } from './../../services/date.transform.service';
 import { CareerObjectiveTransformerProvider } from './career-objective-transformer';
-import { OfflineProvider } from './../offline/offline';
+import { SessionService } from './../../services/session.service';
 import { OnlineCareerObjectiveProvider } from './online-career-objective';
 import { ConnectivityService } from './../../services/connectivity.service';
 import { OfflineCareerObjectiveProvider } from './../career-objective/offline-career-objective';
-import { Config } from './../../configuration/environment-variables/config';
 import { CareerObjective } from './../../models/careerObjective';
 import { Injectable } from '@angular/core';
 import { RestService } from '../../services/rest.base.service';
 import { Pnc } from '../../models/pnc';
+import { OfflineAction } from '../../models/offlineAction';
+import { isUndefined } from 'ionic-angular/util/util';
 
 @Injectable()
 export class CareerObjectiveProvider {
   constructor(
     private onlineCareerObjectiveProvider: OnlineCareerObjectiveProvider,
     private offlineCareerObjectiveProvider: OfflineCareerObjectiveProvider,
-    private offlineProvider: OfflineProvider,
-    private careerObjectiveTransformer: CareerObjectiveTransformerProvider,
     private connectivityService: ConnectivityService,
     private sessionService: SessionService,
-    private datePipe: DatePipe) {
+    private dateTransformer: DateTransformService,
+    private careerObjectiveTransformer: CareerObjectiveTransformerProvider) {
   }
 
   /**
@@ -29,20 +28,38 @@ export class CareerObjectiveProvider {
    * @return la liste des objectifs du pnc
    */
   getPncCareerObjectives(matricule: string): Promise<CareerObjective[]> {
-    if (this.connectivityService.isConnected()) {
-      return new Promise((resolve, reject) => {
+    return this.connectivityService.isConnected() ?
+      new Promise((resolve, reject) => {
         this.offlineCareerObjectiveProvider.getPncCareerObjectives(matricule).then(offlineCareerObjectives => {
           this.onlineCareerObjectiveProvider.getPncCareerObjectives(matricule).then(onlineCareerObjectives => {
             const onlineData = this.careerObjectiveTransformer.toCareerObjectives(onlineCareerObjectives);
             const offlineData = this.careerObjectiveTransformer.toCareerObjectives(offlineCareerObjectives);
-            this.offlineProvider.flagDataAvailableOffline(onlineData, offlineData);
-            resolve(onlineData);
+            resolve(this.addUnsynchronizedOfflineCareerObjectivesToOnline(onlineData, offlineData));
           });
         });
-      });
-    } else {
-      return this.offlineCareerObjectiveProvider.getPncCareerObjectives(matricule);
+      })
+      :
+      this.offlineCareerObjectiveProvider.getPncCareerObjectives(matricule);
+
+  }
+
+  /**
+   * Ajoute les objectifs créés en offline et non synchonisés, à la liste des objectifs récupérés de la BDD
+   * @param onlineDataArray la liste des objectifs récupérés de la BDD.
+   * @param offlineDataArray la liste des objectifs récupérés du cache
+   */
+  addUnsynchronizedOfflineCareerObjectivesToOnline(onlineDataArray: CareerObjective[], offlineDataArray: CareerObjective[]): CareerObjective[] {
+    for (const offlineData of offlineDataArray) {
+      const result = onlineDataArray.filter(onlineData => offlineData.getStorageId() === onlineData.getStorageId());
+      if (result && result.length === 1) {
+        if (!isUndefined(offlineData.offlineAction)) {
+          onlineDataArray[onlineDataArray.indexOf(result[0])] = offlineData;
+        }
+      } else {
+        onlineDataArray.push(offlineData);
+      }
     }
+    return onlineDataArray;
   }
 
   /**
@@ -53,13 +70,13 @@ export class CareerObjectiveProvider {
   createOrUpdate(careerObjective: CareerObjective): Promise<CareerObjective> {
 
     if (careerObjective.techId === undefined) {
-      careerObjective.creationDate = this.datePipe.transform(new Date(), 'yyyy-MM-ddTHH:mm');
+      careerObjective.creationDate = this.dateTransformer.transformDateToIso8601Format(new Date());
       careerObjective.creationAuthor = new Pnc();
       careerObjective.creationAuthor.matricule = this.sessionService.authenticatedUser.matricule;
     }
     careerObjective.lastUpdateAuthor = new Pnc();
     careerObjective.lastUpdateAuthor.matricule = this.sessionService.authenticatedUser.matricule;
-    careerObjective.lastUpdateDate = this.datePipe.transform(new Date(), 'yyyy-MM-ddTHH:mm');
+    careerObjective.lastUpdateDate = this.dateTransformer.transformDateToIso8601Format(new Date());
 
     return this.connectivityService.isConnected() ?
       this.onlineCareerObjectiveProvider.createOrUpdate(careerObjective) :

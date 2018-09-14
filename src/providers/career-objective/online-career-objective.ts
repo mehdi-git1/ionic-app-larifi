@@ -1,7 +1,6 @@
 import { StorageService } from './../../services/storage.service';
 import { Entity } from './../../models/entity';
 import { CareerObjective } from './../../models/careerObjective';
-import { OfflineCareerObjectiveProvider } from './offline-career-objective';
 import { Config } from './../../configuration/environment-variables/config';
 import { Injectable } from '@angular/core';
 import { RestService } from '../../services/rest.base.service';
@@ -13,7 +12,6 @@ export class OnlineCareerObjectiveProvider {
 
   constructor(public restService: RestService,
     private config: Config,
-    private offlineCareerObjectiveProvider: OfflineCareerObjectiveProvider,
     private storageService: StorageService) {
     this.careerObjectiveUrl = `${config.backEndUrl}/career_objectives`;
   }
@@ -61,6 +59,7 @@ export class OnlineCareerObjectiveProvider {
  * @param id l'id de l'objectif pour lequel on souhaiter solliciter l'instructeur
  */
   createInstructorRequest(id: number): Promise<void> {
-    return this.restService.post(`${this.careerObjectiveUrl}/${id}/instructor_request`, null);
+    return this.restService.post(`${this.careerObjectiveUrl}/${id}/instructor_request`, {});
   }
+
 }

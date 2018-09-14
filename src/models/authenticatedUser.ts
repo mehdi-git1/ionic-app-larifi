@@ -1,3 +1,5 @@
+import { PncPin } from './pncPin';
+
 import { EDossierPncObject } from './eDossierPncObject';
 
 export class AuthenticatedUser extends EDossierPncObject {
@@ -5,6 +7,7 @@ export class AuthenticatedUser extends EDossierPncObject {
     fistName: string;
     lastName: string;
     manager: boolean;
+    pinInfo?: PncPin;
 
     getStorageId(): string {
         return this.matricule;
