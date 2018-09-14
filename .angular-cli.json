@@ -1,0 +1,33 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "project": {
+    "name": "edospnc"
+  },
+  "apps": [
+    {
+      "root": "src",
+      "outDir": "dist",
+      "assets": [
+        "assets",
+        "favicon.ico"
+      ],
+      "index": "index.html",
+      "main": "test-config/main.ts",
+      "polyfills": "test-config/polyfills.ts",
+      "test": "test-config/test.ts",
+      "tsconfig": "../tsconfig.json",
+      "testTsconfig": "test-config/tsconfig.spec.json",
+      "prefix": "app",
+      "scripts": []
+    }
+  ],
+  "test": {
+    "karma": {
+      "config": "./src/test-config/karma.conf.js"
+    }
+  },
+  "defaults": {
+    "styleExt": "css",
+    "component": {}
+  }
+}
