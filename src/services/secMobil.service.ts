@@ -1,3 +1,4 @@
+import { isUndefined } from 'ionic-angular/util/util';
 import { DeviceService } from './device.service';
 import { Injectable } from '@angular/core';
 import { Config } from '../configuration/environment-variables/config';
@@ -127,8 +128,9 @@ export class SecMobilService {
                     // Pour certains appels, il n'est pas nécessaire d'afficher le toast d'error ou de tracer l'erreur
                     if (!request.url.includes('/api/rest/resources/ping')) {
                         console.error('secmobile call failure sur la requete ' + request.url + ' : ' + err);
-                        if (err && err.error && err.error.detailMessage !== undefined && err.error.label === 'BUSINESS_ERROR') {
-                            this.toastProvider.error(err.error.detailMessage);
+                        const error = this.fromStringToObject(err);
+                        if (error && !isUndefined(error.detailMessage) && (error.label === 'BUSINESS_ERROR' || error.label === 'DB error' )) {
+                            this.toastProvider.error(error.detailMessage);
                         }else{
                             this.events.publish('connectionStatus:disconnected');
                         }
@@ -159,5 +161,18 @@ export class SecMobilService {
         return Object.keys(json).map(function (key) {
             return key + '=' + json[key];
         }).join('&');
+    }
+
+    fromStringToObject(stringJson: string){
+        if (stringJson.includes('{') && stringJson.includes('}')){
+            stringJson = stringJson.substring(stringJson.indexOf('{'), stringJson.indexOf('}') + 1 );
+            stringJson = stringJson.replace('\\', '');
+            try {
+                return JSON.parse(stringJson);
+            } catch (error) {
+                return null;
+            }
+        }
+        return null;
     }
 }
