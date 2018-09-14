@@ -5,6 +5,7 @@ import { Platform, Events } from 'ionic-angular';
 import { RestRequest } from './rest.base.service';
 import { TranslateService } from '@ngx-translate/core';
 import { ToastProvider } from '../providers/toast/toast';
+import { ConnectivityService } from './connectivity.service';
 // import { ConnectivityService } from './connectivity.service';
 
 declare var window: any;
@@ -17,7 +18,8 @@ export class SecMobilService {
         public platform: Platform,
         private deviceService: DeviceService,
         private translateService: TranslateService,
-        private toastProvider: ToastProvider) {
+        private toastProvider: ToastProvider,
+        private connectivityService: ConnectivityService) {
     }
 
     public init() {
@@ -126,14 +128,20 @@ export class SecMobilService {
                 },
                 (err) => {
                     // Pour certains appels, il n'est pas nécessaire d'afficher le toast d'error ou de tracer l'erreur
-                    if (!request.url.includes('/api/rest/resources/pnc_photos') && !request.url.includes('/api/rest/resources/ping')) {
-                        this.events.publish('connectionStatus:disconnected');
+                    if (!request.url.includes('/api/rest/resources/ping')) {
                         console.error('secmobile call failure sur la requete ' + request.url + ' : ' + err);
-                        let errorMessage = this.translateService.instant('GLOBAL.UNKNOWN_ERROR');
-                        if (err && err.error && err.error.detailMessage !== undefined && err.error.label === 'BUSINESS_ERROR') {
-                            errorMessage = err.error.detailMessage;
-                        }
-                        this.toastProvider.error(errorMessage);
+                        this.connectivityService.pingAPI().then(
+                            success => {
+                                let errorMessage = this.translateService.instant('GLOBAL.UNKNOWN_ERROR');
+                                if (err.error.detailMessage !== undefined && err.error.label === 'BUSINESS_ERROR') {
+                                    errorMessage = err.error.detailMessage;
+                                }
+                                this.toastProvider.error(errorMessage);
+                            },
+                            error => {
+                                // TODO : tenter de relancer l'appel en offline
+                                this.events.publish('connectionStatus:disconnected');
+                            });
                     }
                     reject(err);
                 });
