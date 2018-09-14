@@ -15,24 +15,10 @@
       "main": "test-config/main.ts",
       "polyfills": "test-config/polyfills.ts",
       "test": "test-config/test.ts",
-      "tsconfig": "test-config/tsconfig.app.json",
-      "testTsconfig": "test-config/tsconfig.spec.json",
+      "tsconfig": "../tsconfig.json",
+      "testTsconfig": "../tsconfig.json",
       "prefix": "app",
       "scripts": []
-    }
-  ],
-  "lint": [
-    {
-      "project": "src/test-config/tsconfig.app.json",
-      "exclude": "**/node_modules/**"
-    },
-    {
-      "project": "src/test-config/tsconfig.spec.json",
-      "exclude": "**/node_modules/**"
-    },
-    {
-      "project": "e2e/test-config/tsconfig.e2e.json",
-      "exclude": "**/node_modules/**"
     }
   ],
   "test": {

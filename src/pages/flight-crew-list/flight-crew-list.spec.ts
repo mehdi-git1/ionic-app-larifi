@@ -63,9 +63,9 @@ describe('FlightCrewListPage', () => {
 
     function createCrewMember(prioritized: boolean, particularity: string, speciality: Speciality, lastName: string): CrewMember {
         const crewMember: CrewMember = new CrewMember();
-        crewMember.prioritized = prioritized;
         crewMember.particularity = particularity;
         crewMember.pnc = new Pnc();
+        crewMember.pnc.prioritized = prioritized;
         crewMember.pnc.speciality = speciality;
         crewMember.pnc.lastName = lastName;
         return crewMember;
@@ -124,10 +124,10 @@ describe('FlightCrewListPage', () => {
         unsortedFlightCrewList.push(createCrewMember(true, 'P', Speciality.CC, 'A'));
 
         const sortedFlightCrewList = comp.sortFlightCrewList(unsortedFlightCrewList);
-        expect(sortedFlightCrewList[0].prioritized).toEqual(true);
-        expect(sortedFlightCrewList[1].prioritized).toEqual(false);
+        expect(sortedFlightCrewList[0].pnc.prioritized).toEqual(true);
+        expect(sortedFlightCrewList[1].pnc.prioritized).toEqual(false);
         expect(sortedFlightCrewList[1].particularity).toEqual('P');
-        expect(sortedFlightCrewList[2].prioritized).toEqual(false);
+        expect(sortedFlightCrewList[2].pnc.prioritized).toEqual(false);
         expect(sortedFlightCrewList[2].particularity).toEqual(null);
     });
 
