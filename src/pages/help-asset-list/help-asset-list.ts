@@ -96,7 +96,7 @@ export class HelpAssetListPage {
         helpAsset[2].url = `${this.pdfUrl}/cadre/${pdf3}`;
         helpAsset[2].label = 'Manuel Utilisateur V1';
         helpAsset[2].helpAssetType = HelpAssetType.PDF;
-        helpAsset[2].lastUpdateDate = '2018-09-06T10:00:00Z';
+        helpAsset[2].lastUpdateDate = '2018-09-14T10:00:00Z';
         const pdf4 = 'Mode-opératoire-Journal-de-bord.pdf';
         helpAsset[3] = new HelpAsset();
         helpAsset[3].url = `${this.pdfUrl}/cadre/${pdf4}`;
@@ -110,7 +110,14 @@ export class HelpAssetListPage {
      * Renvoie la liste des ressources d'aide du pnc
      */
     getHSTHelpAssets(): HelpAsset[] {
-        return [];
+        const helpAsset = new Array(1);
+        const UserManual = 'Manuel-Utilisateur-PNC-V1.0.pdf';
+        helpAsset[0] = new HelpAsset();
+        helpAsset[0].url = `${this.pdfUrl}/hst/${UserManual}`;
+        helpAsset[0].label = 'Manuel Utilisateur V1';
+        helpAsset[0].helpAssetType = HelpAssetType.PDF;
+        helpAsset[0].lastUpdateDate = '2018-09-12T10:00:00Z';
+        return helpAsset;
     }
 
     /**
