@@ -113,7 +113,7 @@ export class HelpAssetListPage {
         const helpAsset = new Array(1);
         const UserManual = 'Manuel-Utilisateur-PNC-V1.0.pdf';
         helpAsset[0] = new HelpAsset();
-        helpAsset[0].url = `${this.pdfUrl}/cadre/${UserManual}`;
+        helpAsset[0].url = `${this.pdfUrl}/hst/${UserManual}`;
         helpAsset[0].label = 'Manuel Utilisateur V1';
         helpAsset[0].helpAssetType = HelpAssetType.PDF;
         helpAsset[0].lastUpdateDate = '2018-09-17T10:00:00Z';
