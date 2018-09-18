@@ -102,7 +102,7 @@ export class CareerObjectiveCreatePage {
                     this.waypointList = result;
                 }, error => { });
             }
-          });
+        });
     }
 
     ionViewDidLoad() {
@@ -242,9 +242,6 @@ export class CareerObjectiveCreatePage {
                     this.loading.dismiss();
                     resolve();
                 }, error => {
-                    if (!this.deviceService.isBrowser()){
-                        this.toastProvider.error(this.translateService.instant('GLOBAL.UNKNOWN_ERROR'));
-                    }
                     this.loading.dismiss();
                 });
         });
@@ -506,7 +503,7 @@ export class CareerObjectiveCreatePage {
     /**
      * Retourne true si on est connecté / false sinon.
      */
-    isConnected(){
+    isConnected() {
         return this.connectivityService.isConnected();
     }
 }

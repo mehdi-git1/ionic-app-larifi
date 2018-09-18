@@ -179,9 +179,6 @@ export class WaypointCreatePage {
                     this.navCtrl.pop();
                     resolve();
                 }, error => {
-                    if (!this.deviceService.isBrowser()) {
-                        this.toastProvider.error(this.translateService.instant('GLOBAL.UNKNOWN_ERROR'));
-                    }
                     this.loading.dismiss();
                 });
         });

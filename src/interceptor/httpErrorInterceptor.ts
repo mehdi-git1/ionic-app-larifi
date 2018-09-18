@@ -1,3 +1,4 @@
+import { isUndefined } from 'ionic-angular/util/util';
 import { DeviceService } from './../services/device.service';
 import { SecurityProvider } from './../providers/security/security';
 import { ConnectivityService } from './../services/connectivity.service';
@@ -29,28 +30,32 @@ export class HttpErrorInterceptor implements HttpInterceptor {
     request: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
+    console.log('avant execution de la requete');
     return next.handle(request).do(success => {
     }, err => {
       if (err instanceof HttpErrorResponse && request.url !== this.config.pingUrl) {
 
-        // Bascule en mode déconnecté si le ping échoue
+
         if (this.deviceService.isOfflineModeAvailable()) {
+          // Bascule en mode déconnecté si le ping échoue
           return this.connectivityService.pingAPI().then(
             success => {
               let errorMessage = this.translateService.instant('GLOBAL.UNKNOWN_ERROR');
-
-              if (err.error.detailMessage !== undefined && err.error.label === 'BUSINESS_ERROR') {
+              if (err.error && !isUndefined(err.error.detailMessage) && err.error.label === 'BUSINESS_ERROR') {
                 errorMessage = err.error.detailMessage;
               }
-
-              return errorMessage;
-
+              this.toastProvider.error(errorMessage, 10000);
             },
             error => {
               // TODO : tenter de relancer l'appel en offline
-              // this.events.publish('connectionStatus:disconnected');
-              return 'disconnected';
+              this.events.publish('connectionStatus:disconnected');
             });
+        } else {
+          let errorMessage = this.translateService.instant('GLOBAL.UNKNOWN_ERROR');
+          if (err.error && !isUndefined(err.error.detailMessage) && err.error.label === 'BUSINESS_ERROR') {
+            errorMessage = err.error.detailMessage;
+          }
+          this.toastProvider.error(errorMessage, 10000);
         }
       }
     });

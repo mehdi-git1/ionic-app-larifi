@@ -89,9 +89,7 @@ export class PncSearchPage implements OnInit {
             this.filteredPncs = pagedPnc.content;
             this.totalPncs = pagedPnc.page.totalElements;
         }).catch((err) => {
-            console.log('erreur : ' + err);
-            // this.searchInProgress = false;
-            // this.toastProvider.error(this.translateService.instant('PNC_SEARCH.ERROR.SEARCH'));
+            this.searchInProgress = false;
         }
         );
     }

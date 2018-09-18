@@ -48,12 +48,11 @@ export class FlightCardComponent {
         this.offlineIndicatorComponent.refreshOffLineDateOnCurrentObject();
       }, error => {
         const errorMsg = this.translate.instant('SYNCHRONIZATION.FLIGHT_SAVED_OFFLINE_ERROR', { 'flightNumber': leg.company + leg.number });
-        this.toastProvider.error(error);
         this.toastProvider.error(errorMsg);
         this.synchroInProgress = false;
       });
     }, error => {
-      const errorMsg = this.translate.instant('SYNCHRONIZATION.FLIGHT_SAVED_OFFLINE_ERROR', { 'flightNumber': leg.company + leg.number });
+      const errorMsg = this.translate.instant('SYNCHRONIZATION.FLIGHT_SERVICE_CALL_ERROR', { 'flightNumber': leg.company + leg.number });
       this.toastProvider.error(errorMsg);
       this.synchroInProgress = false;
     });
