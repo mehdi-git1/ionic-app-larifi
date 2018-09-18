@@ -9,7 +9,7 @@ export class StatutoryCertificate {
     aircraftSkills: Array<string>;
     generalitySkills: GeneralitySkills;
     planeSkills: Array<PlaneSkill>;
-    familiarizationFlights: Array<FamiliarizationFlight>;
+    familiarizationFlights: Array<FamiliarizationFlight> ;
     masteringQualification: MasteringQualification;
     annualElearning: AnnualElearning;
     vam: VAM;

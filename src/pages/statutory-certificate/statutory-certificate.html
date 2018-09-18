@@ -24,19 +24,18 @@
             <mat-expansion-panel-header>
                 {{ 'STATUTORY_CERTIFICATE.CATEGORIES.GENERALITY_SKILLS' | translate }}
             </mat-expansion-panel-header>      
-            This the expansion 1 content      
+            <generality-skills *ngIf="statutoryCertificate" [generalitySkillsData]="statutoryCertificate.generalitySkills"></generality-skills>
         </mat-expansion-panel>
       
         <mat-expansion-panel>
             <mat-expansion-panel-header>
                 {{ 'STATUTORY_CERTIFICATE.CATEGORIES.PLANE_SKILLS' | translate }}
-            </mat-expansion-panel-header>      
-            This the expansion 2 content      
+            </mat-expansion-panel-header>          
         </mat-expansion-panel>
 
         <mat-expansion-panel>
             <mat-expansion-panel-header>
-                {{ 'STATUTORY_CERTIFICATE.CATEGORIES.FAMILIARIZATION_FLY' | translate }}
+                {{ 'STATUTORY_CERTIFICATE.CATEGORIES.FAMILIARIZATION_FLIGHT' | translate }}
             </mat-expansion-panel-header>      
             This the expansion 3 content      
         </mat-expansion-panel>

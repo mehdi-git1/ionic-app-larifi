@@ -198,10 +198,31 @@
         "CATEGORIES": {
             "GENERALITY_SKILLS": "Compétences généralités",
             "PLANE_SKILLS": "Compétences avions",
-            "FAMILIARIZATION_FLY": "Vol de familiarisation",
+            "FAMILIARIZATION_FLIGHT": "Vol de familiarisation",
             "MASTERING_QUALIFICATION": "Qualification Maîtrises", 
             "ANNUAL_ELEARNING": "Elearning annuel",
             "VAM": "VAM"
+        },
+        "GENERALITY_SKILLS": {
+            "CCA": {
+                "TITLE": "CCA",
+                "STARTDATE": "Depuis",
+                "DUEDATE": "Echéance"
+            },    
+            "PCB": {
+                "TITLE": "PCB",
+                "STARTDATE": "Depuis",
+                "VALIDITYSTARTDATE": "Date début validité",
+                "DUEDATE": "Echéance"
+            },
+            "GENE": {
+                "AIRCRAFTSKILL": "Géné",
+                "STARTDATE": "Depuis",
+                "MDCDATE": "MDC - Géné",
+                "DUEDATE": "Echéance",
+                "DDVDUEDATE": "Echéance DDV",
+                "SKILLENDDATE": "Compétent jusqu'au"
+            }    
         },
         "FAMILIARIZATION_FLIGHTS": {
             "LC": "Long courrier",

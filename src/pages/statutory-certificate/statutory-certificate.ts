@@ -24,7 +24,7 @@ export class StatutoryCertificatePage {
     private navParams: NavParams,
     private sessionService: SessionService,
     private pncProvider: PncProvider,
-	private statutoryCertificateProvider: StatutoryCertificateProvider
+	  private statutoryCertificateProvider: StatutoryCertificateProvider
   ) {}
 
   ionViewDidEnter() {

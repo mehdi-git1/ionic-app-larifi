@@ -30,7 +30,9 @@ mat-expansion-panel-header{
 .statutory-certificate-header {
     font-size: 1.2em;
     font-weight: 900;
+    background-color: transparent !important;
     border-bottom: 2px solid color($colors, blue70);
+    margin:5px;
 }
 
 .important-date{
