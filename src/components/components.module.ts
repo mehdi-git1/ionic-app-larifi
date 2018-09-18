@@ -1,3 +1,4 @@
+import { PlaneSkillsComponent } from './plane-skills/plane-skills';
 import { StatutoryCertificateDataComponent } from './statutory-certificate-data-component/statutory-certificate-data-component';
 import { IonicModule } from 'ionic-angular';
 import { DatePipe, CommonModule } from '@angular/common';
@@ -48,7 +49,8 @@ import { SecretQuestionModal } from './modals/secret-question-modal/secret-quest
     PageHeaderComponent,
     CareerObjectiveCardComponent,
     StatutoryCertificateDataComponent,
-    GeneralitySkillsComponent
+    GeneralitySkillsComponent,
+    PlaneSkillsComponent
   ],
   exports: [
     RotationCardComponent,
@@ -68,7 +70,8 @@ import { SecretQuestionModal } from './modals/secret-question-modal/secret-quest
     PncPhotoComponent,
     CareerObjectiveCardComponent,
     StatutoryCertificateDataComponent,
-    GeneralitySkillsComponent
+    GeneralitySkillsComponent,
+    PlaneSkillsComponent
   ],
   entryComponents: [
     PinPadModal,

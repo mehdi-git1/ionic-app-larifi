@@ -1,15 +1,19 @@
 import { TranslateService } from '@ngx-translate/core';
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'statutory-certificate-data-component',
   templateUrl: 'statutory-certificate-data-component.html'
 })
-export class StatutoryCertificateDataComponent{
+export class StatutoryCertificateDataComponent implements OnInit{
 
   @Input() statutoryCertificateData;
 
   constructor() {
+  }
+
+  ngOnInit(){
+    console.log('stop');
   }
 
   /**
