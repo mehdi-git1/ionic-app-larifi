@@ -1,3 +1,4 @@
+import { OfflinePncProvider } from './../../providers/pnc/offline-pnc';
 import { Speciality } from './../../models/speciality';
 import { TranslateService } from '@ngx-translate/core';
 import { ToastProvider } from './../../providers/toast/toast';
@@ -32,7 +33,8 @@ export class FlightCrewListPage {
         private toastProvider: ToastProvider,
         private translate: TranslateService,
         private pncProvider: PncProvider,
-        private sessionService: SessionService) {
+        private sessionService: SessionService,
+        private offlinePncProvider: OfflinePncProvider) {
     }
 
     ionViewDidEnter() {
@@ -131,8 +133,12 @@ export class FlightCrewListPage {
      * @param onBoardFonction la fontion a bord du pnc concerné
      */
     openPncHomePage(matricule) {
-        this.sessionService.appContext.observedPncMatricule = matricule;
-        this.navCtrl.push(PncHomePage, { matricule: matricule });
+        this.offlinePncProvider.getPnc(matricule).then(crewMember => {
+            if (crewMember || this.connectivityService.isConnected()) {
+                this.sessionService.appContext.observedPncMatricule = matricule;
+                this.navCtrl.push(PncHomePage, { matricule: matricule });
+            }
+        });
     }
 
     /**
