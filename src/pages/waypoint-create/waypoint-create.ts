@@ -96,6 +96,9 @@ export class WaypointCreatePage {
         }
     }
 
+    /**
+     * renvoie le techid de l'objectif quand on kill la page et qu'on revient sur la pércédente
+     */
     public ionViewWillLeave() {
         this.navCtrl.getPrevious().data.careerObjectiveId = this.careerObjectiveId;
     }
