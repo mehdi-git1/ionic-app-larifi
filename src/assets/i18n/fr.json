@@ -104,8 +104,8 @@
         },
         "SUCCESS": {
             "CAREER_OBJECTIVE_SAVED": "Priorité enregistrée",
-            "DRAFT_SAVED": "Proposition sauvegardée",
-            "DRAFT_DELETED": "Proposition supprimée",
+            "DRAFT_SAVED": "Proposition de la priorité sauvegardée",
+            "DRAFT_DELETED": "Proposition de la priorité supprimée",
             "CAREER_OBJECTIVE_VALIDATED": "Priorité validée",
             "CAREER_OBJECTIVE_ABANDONED": "Priorité abandonnée",
             "CAREER_OBJECTIVE_VALIDATION_CANCELED": "Validation de la priorité annulée",
@@ -171,8 +171,8 @@
         },
         "SUCCESS": {
             "WAYPOINT_SAVED": "Point d'étape enregistré",
-            "DRAFT_SAVED": "Proposition sauvegardée",
-            "DRAFT_DELETED": "Proposition supprimée"
+            "DRAFT_SAVED": "Proposition du point d'étape sauvegardée",
+            "DRAFT_DELETED": "Proposition du point d'étape supprimée"
         }
     },
     "FLIGHT_CREW_LIST": {
