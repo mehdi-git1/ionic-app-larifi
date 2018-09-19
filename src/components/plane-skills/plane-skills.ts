@@ -13,7 +13,7 @@ export class PlaneSkillsComponent implements OnInit{
   @Input() planeSkillsData: Array<PlaneSkill>;
 
 
-  // Objet temporaire pour formater les donénes à afficher
+  // Objet temporaire pour formater les données à afficher
   tempPlaneSkillData;
 
   // Tableau des valeurs à afficher

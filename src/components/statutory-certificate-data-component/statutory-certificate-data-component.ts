@@ -5,15 +5,11 @@ import { Component, Input, OnInit } from '@angular/core';
   selector: 'statutory-certificate-data-component',
   templateUrl: 'statutory-certificate-data-component.html'
 })
-export class StatutoryCertificateDataComponent implements OnInit{
+export class StatutoryCertificateDataComponent{
 
   @Input() statutoryCertificateData;
 
   constructor() {
-  }
-
-  ngOnInit(){
-    console.log('stop');
   }
 
   /**
