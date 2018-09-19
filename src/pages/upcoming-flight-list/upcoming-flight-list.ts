@@ -18,8 +18,14 @@ export class UpcomingFlightListPage {
         private pncProvider: PncProvider,
         private sessionService: SessionService) {
     }
-
     ionViewDidLoad() {
+        this.initPage();
+    }
+
+    /**
+     * Initialisation du contenu de la page.
+     */
+    initPage() {
         let matricule = '';
         if (this.navParams.get('matricule')) {
             matricule = this.navParams.get('matricule');

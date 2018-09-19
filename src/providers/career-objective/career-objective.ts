@@ -9,6 +9,7 @@ import { Injectable } from '@angular/core';
 import { RestService } from '../../services/rest.base.service';
 import { Pnc } from '../../models/pnc';
 import { OfflineAction } from '../../models/offlineAction';
+import { isUndefined } from 'ionic-angular/util/util';
 
 @Injectable()
 export class CareerObjectiveProvider {
@@ -51,7 +52,9 @@ export class CareerObjectiveProvider {
     for (const offlineData of offlineDataArray) {
       const result = onlineDataArray.filter(onlineData => offlineData.getStorageId() === onlineData.getStorageId());
       if (result && result.length === 1) {
-        onlineDataArray[onlineDataArray.indexOf(result[0])] = offlineData;
+        if (!isUndefined(offlineData.offlineAction)) {
+          onlineDataArray[onlineDataArray.indexOf(result[0])] = offlineData;
+        }
       } else {
         onlineDataArray.push(offlineData);
       }

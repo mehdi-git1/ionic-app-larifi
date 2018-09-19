@@ -111,6 +111,8 @@ import { SettingsPage } from '../pages/settings/settings';
 import { PncPhotoProvider } from '../providers/pnc-photo/pnc-photo';
 import { SQLite } from '../../node_modules/@ionic-native/sqlite';
 import { EObservationProvider } from '../providers/e-observation/e-observation';
+import { StatutoryCertificateProvider } from '../providers/statutory-certificate/statutory-certificate';
+import { OnlineStatutoryCertificateProvider } from '../providers/statutory-certificate/online-statutory-certificate';
 
 
 
@@ -241,7 +243,9 @@ declare var window: any;
     OfflineEObservationProvider,
     OnlineEObservationProvider,
     EObservationTransformerProvider,
-    Utils
+    Utils,
+    StatutoryCertificateProvider,
+    OnlineStatutoryCertificateProvider
   ]
 })
 export class AppModule { }
