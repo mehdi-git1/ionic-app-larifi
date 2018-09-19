@@ -30,17 +30,15 @@ export class HttpErrorInterceptor implements HttpInterceptor {
     request: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    console.log('avant execution de la requete');
     return next.handle(request).do(success => {
     }, err => {
       if (err instanceof HttpErrorResponse && request.url !== this.config.pingUrl) {
 
-
+        let errorMessage = this.translateService.instant('GLOBAL.UNKNOWN_ERROR');
         if (this.deviceService.isOfflineModeAvailable()) {
           // Bascule en mode déconnecté si le ping échoue
           return this.connectivityService.pingAPI().then(
             success => {
-              let errorMessage = this.translateService.instant('GLOBAL.UNKNOWN_ERROR');
               if (err.error && !isUndefined(err.error.detailMessage) && err.error.label === 'BUSINESS_ERROR') {
                 errorMessage = err.error.detailMessage;
               }
@@ -51,7 +49,6 @@ export class HttpErrorInterceptor implements HttpInterceptor {
               this.events.publish('connectionStatus:disconnected');
             });
         } else {
-          let errorMessage = this.translateService.instant('GLOBAL.UNKNOWN_ERROR');
           if (err.error && !isUndefined(err.error.detailMessage) && err.error.label === 'BUSINESS_ERROR') {
             errorMessage = err.error.detailMessage;
           }

@@ -6,7 +6,6 @@ import { Platform, Events } from 'ionic-angular';
 import { RestRequest } from './rest.base.service';
 import { TranslateService } from '@ngx-translate/core';
 import { ToastProvider } from '../providers/toast/toast';
-import { ConnectivityService } from './connectivity.service';
 
 declare var window: any;
 
@@ -138,7 +137,6 @@ export class SecMobilService {
                                 }
                                 this.toastProvider.error(errorMessage);
                             }, error => {
-                                // TODO : tenter de relancer l'appel en offline
                                 this.events.publish('connectionStatus:disconnected');
                             });
                     }
