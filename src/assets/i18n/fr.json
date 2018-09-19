@@ -34,7 +34,7 @@
         "UPCOMING_FLIGHT": "Activité vols",
         "CREW_MEMBERS": "Liste équipage",
         "STATUTORY_CERTIFICATE": "Attestation réglementaire",
-        "UNKNOWN_ERROR": "Une erreur inconnue est survenue. Merci de recharger la page ou réessayer dans quelques minutes.",
+        "UNKNOWN_ERROR": "Suite à un dysfonctionnement technique, l'opération a échoué. Nous vous invitons à réessayer dans quelques minutes. Si le problème persiste, veuillez contacter votre support.",
         "COMING_SOON": "(Prochainement)",
         "MESSAGES": {
             "ERROR": {
@@ -104,8 +104,8 @@
         },
         "SUCCESS": {
             "CAREER_OBJECTIVE_SAVED": "Priorité enregistrée",
-            "DRAFT_SAVED": "Proposition sauvegardée",
-            "DRAFT_DELETED": "Proposition supprimée",
+            "DRAFT_SAVED": "Proposition de la priorité sauvegardée",
+            "DRAFT_DELETED": "Proposition de la priorité supprimée",
             "CAREER_OBJECTIVE_VALIDATED": "Priorité validée",
             "CAREER_OBJECTIVE_ABANDONED": "Priorité abandonnée",
             "CAREER_OBJECTIVE_VALIDATION_CANCELED": "Validation de la priorité annulée",
@@ -171,8 +171,8 @@
         },
         "SUCCESS": {
             "WAYPOINT_SAVED": "Point d'étape enregistré",
-            "DRAFT_SAVED": "Proposition sauvegardée",
-            "DRAFT_DELETED": "Proposition supprimée"
+            "DRAFT_SAVED": "Proposition du point d'étape sauvegardée",
+            "DRAFT_DELETED": "Proposition du point d'étape supprimée"
         }
     },
     "FLIGHT_CREW_LIST": {
@@ -199,7 +199,7 @@
             "GENERALITY_SKILLS": "Compétences généralités",
             "PLANE_SKILLS": "Compétences avions",
             "FAMILIARIZATION_FLY": "Vol de familiarisation",
-            "MASTERING_QUALIFICATION": "Qualification Maîtrises", 
+            "MASTERING_QUALIFICATION": "Qualification Maîtrises",
             "ANNUAL_ELEARNING": "Elearning annuel",
             "VAM": "VAM"
         },
@@ -245,7 +245,9 @@
         "ROTATION_SAVED_OFFLINE": "Les PNC de la rotation {{ rotationNumber }} ont été synchronisés",
         "ROTATION_SAVED_OFFLINE_ERROR": "Un ou plusieurs PNC de la rotation {{ rotationNumber }} n'ont pas pu être synchronisés",
         "FLIGHT_SAVED_OFFLINE": "Les PNC du vol {{ flightNumber }} ont été synchronisés",
-        "FLIGHT_SAVED_OFFLINE_ERROR": "Un ou plusieurs PNC du vol {{ flightNumber }} n'ont pas pu être synchronisés"
+        "FLIGHT_SAVED_OFFLINE_ERROR": "Un ou plusieurs PNC du vol {{ flightNumber }} n'ont pas pu être synchronisés",
+        "FLIGHT_SERVICE_CALL_ERROR": "Le chargement des PNC du vol {{ flightNumber }} a échoué.",
+        "ROTATION_SERVICE_CALL_ERROR": "Le chargement des PNC de la rotation {{ rotationNumber }} a échoué."
     },
     "PIN_PAD": {
         "TITLE": {
