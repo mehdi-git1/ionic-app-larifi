@@ -105,9 +105,9 @@ export class CareerObjectiveCreatePage {
         });
     }
 
-    ionViewDidLoad() {
+    ionViewDidEnter() {
         // On récupère l'id de l'objectif dans les paramètres de navigation
-        if (this.navParams.get('careerObjectiveId') && this.navParams.get('careerObjectiveId') !== '0') {
+        if (this.navParams.get('careerObjectiveId') && this.navParams.get('careerObjectiveId') !== 0) {
             // Récupération de l'objectif et des points d'étape
             this.careerObjectiveProvider.getCareerObjective(this.navParams.get('careerObjectiveId')).then(foundCareerObjective => {
                 this.originCareerObjective = _.cloneDeep(foundCareerObjective);
@@ -123,22 +123,6 @@ export class CareerObjectiveCreatePage {
             this.careerObjective.pnc = new Pnc();
             this.careerObjective.pnc.matricule = this.navParams.get('matricule');
             this.waypointList = [];
-        }
-    }
-
-    ionViewDidEnter() {
-        if (this.careerObjective && this.careerObjective.techId) {
-            this.careerObjectiveProvider.getCareerObjective(this.careerObjective.techId).then(foundCareerObjective => {
-                this.originCareerObjective = _.cloneDeep(foundCareerObjective);
-                this.careerObjective = foundCareerObjective;
-                this.originalPncComment = this.careerObjective.pncComment;
-            }, error => { });
-            this.waypointProvider.getCareerObjectiveWaypoints(this.careerObjective.techId).then(result => {
-                this.waypointList = result;
-            }, error => { });
-        } else {
-            // Création
-            this.originCareerObjective = _.cloneDeep(this.careerObjective);
         }
     }
 

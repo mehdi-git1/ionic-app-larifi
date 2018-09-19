@@ -69,10 +69,10 @@ export class WaypointCreatePage {
         this.initForm();
     }
 
-    ionViewDidLoad() {
+    ionViewDidEnter() {
         this.careerObjectiveId = this.navParams.get('careerObjectiveId');
 
-        if (this.navParams.get('waypointId') && this.navParams.get('waypointId') !== '0') {
+        if (this.navParams.get('waypointId') && this.navParams.get('waypointId') !== 0) {
             // Récupération du point d'étape
             this.waypointProvider.getWaypoint(this.navParams.get('waypointId')).then(waypoint => {
                 this.originWaypoint = _.cloneDeep(waypoint);
@@ -83,11 +83,14 @@ export class WaypointCreatePage {
         } else {
             // Création
             this.waypoint = new Waypoint();
+            this.waypoint.careerObjective = new CareerObjective();
+            this.waypoint.careerObjective.techId = this.careerObjectiveId;
+            this.originWaypoint = _.cloneDeep(this.waypoint);
         }
     }
 
-    ionViewDidEnter() {
-        this.originWaypoint = _.cloneDeep(this.waypoint);
+    public ionViewWillLeave() {
+        this.navCtrl.getPrevious().data.careerObjectiveId = this.careerObjectiveId;
     }
 
     ionViewCanLeave() {
