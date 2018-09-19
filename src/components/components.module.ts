@@ -20,6 +20,7 @@ import { CareerObjectiveCardComponent } from './career-objective-card/career-obj
 
 import { PinPadModal } from './modals/pin-pad-modal/pin-pad-modal';
 import { PinPadComponent } from './pin-pad/pin-pad';
+import { StatutoryCertificateVamComponent } from './statutory-certificate-vam/statutory-certificate-vam';
 
 @NgModule({
   imports: [
@@ -43,7 +44,8 @@ import { PinPadComponent } from './pin-pad/pin-pad';
     PncSearchFilterComponent,
     PncPhotoComponent,
     PageHeaderComponent,
-    CareerObjectiveCardComponent
+    CareerObjectiveCardComponent,
+    StatutoryCertificateVamComponent
   ],
   exports: [
     RotationCardComponent,
@@ -61,7 +63,8 @@ import { PinPadComponent } from './pin-pad/pin-pad';
     NavBarCustomComponent,
     PncSearchFilterComponent,
     PncPhotoComponent,
-    CareerObjectiveCardComponent
+    CareerObjectiveCardComponent,
+    StatutoryCertificateVamComponent
   ],
   entryComponents: [
     PinPadModal,
