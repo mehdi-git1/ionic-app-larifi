@@ -80,7 +80,7 @@ export class WaypointCreatePage {
     initPage() {
         this.careerObjectiveId = this.navParams.get('careerObjectiveId');
 
-        if (this.navParams.get('waypointId') && this.navParams.get('waypointId') !== '0') {
+        if (this.navParams.get('waypointId') && this.navParams.get('waypointId') !== 0) {
             // Récupération du point d'étape
             this.waypointProvider.getWaypoint(this.navParams.get('waypointId')).then(waypoint => {
                 this.originWaypoint = _.cloneDeep(waypoint);
@@ -90,10 +90,18 @@ export class WaypointCreatePage {
         } else {
             // Création
             this.waypoint = new Waypoint();
+            this.waypoint.careerObjective = new CareerObjective();
+            this.waypoint.careerObjective.techId = this.careerObjectiveId;
             this.originWaypoint = _.cloneDeep(this.waypoint);
         }
     }
 
+    /**
+     * renvoie le techid de l'objectif quand on kill la page et qu'on revient sur la pércédente
+     */
+    public ionViewWillLeave() {
+        this.navCtrl.getPrevious().data.careerObjectiveId = this.careerObjectiveId;
+    }
     /**
      * Verifie si des modifications ont été faites, avant d'initialiser le contenu de la page.
      * si oui, on affiche une popup de confirmation d'abandon des modifications
@@ -207,9 +215,6 @@ export class WaypointCreatePage {
                     this.navCtrl.pop();
                     resolve();
                 }, error => {
-                    if (!this.deviceService.isBrowser()) {
-                        this.toastProvider.error(this.translateService.instant('GLOBAL.UNKNOWN_ERROR'));
-                    }
                     this.loading.dismiss();
                 });
         });
