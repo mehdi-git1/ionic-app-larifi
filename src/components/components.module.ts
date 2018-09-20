@@ -1,4 +1,4 @@
-import { StatutoryCertificateDataComponent } from './statutory-certificate-data-component/statutory-certificate-data-component';
+import { StatutoryCertificateDataComponent } from './statutory-certificate-data/statutory-certificate-data';
 import { IonicModule } from 'ionic-angular';
 import { DatePipe, CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';

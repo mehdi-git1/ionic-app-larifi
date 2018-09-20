@@ -2,8 +2,8 @@ import { TranslateService } from '@ngx-translate/core';
 import { Component, Input } from '@angular/core';
 
 @Component({
-  selector: 'statutory-certificate-data-component',
-  templateUrl: 'statutory-certificate-data-component.html'
+  selector: 'statutory-certificate-data',
+  templateUrl: 'statutory-certificate-data.html'
 })
 export class StatutoryCertificateDataComponent{
 

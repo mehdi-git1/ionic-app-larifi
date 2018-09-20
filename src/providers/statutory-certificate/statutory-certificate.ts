@@ -8,7 +8,7 @@ import { StatutoryCertificate } from '../../models/statutoryCertificate';
 export class StatutoryCertificateProvider {
 
   constructor(
-    public connectivityService: ConnectivityService,
+    private connectivityService: ConnectivityService,
     private onlineStatutoryCertificateProvider: OnlineStatutoryCertificateProvider) {
   }
 
