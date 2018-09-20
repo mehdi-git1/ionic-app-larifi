@@ -23,6 +23,7 @@ import { GeneralitySkillsComponent } from './generality-skills/generality-skills
 
 import { SecretQuestionComponent } from './secret-question/secret-question';
 import { SecretQuestionModal } from './modals/secret-question-modal/secret-question-modal';
+import { StatutoryCertificateVamComponent } from './statutory-certificate-vam/statutory-certificate-vam';
 
 @NgModule({
   imports: [
@@ -48,7 +49,8 @@ import { SecretQuestionModal } from './modals/secret-question-modal/secret-quest
     PageHeaderComponent,
     CareerObjectiveCardComponent,
     StatutoryCertificateDataComponent,
-    GeneralitySkillsComponent
+    GeneralitySkillsComponent,
+    StatutoryCertificateVamComponent
   ],
   exports: [
     RotationCardComponent,
@@ -68,7 +70,8 @@ import { SecretQuestionModal } from './modals/secret-question-modal/secret-quest
     PncPhotoComponent,
     CareerObjectiveCardComponent,
     StatutoryCertificateDataComponent,
-    GeneralitySkillsComponent
+    GeneralitySkillsComponent,
+    StatutoryCertificateVamComponent
   ],
   entryComponents: [
     PinPadModal,

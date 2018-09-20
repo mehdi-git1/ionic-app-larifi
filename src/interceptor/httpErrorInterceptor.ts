@@ -1,3 +1,4 @@
+import { isUndefined } from 'ionic-angular/util/util';
 import { DeviceService } from './../services/device.service';
 import { SecurityProvider } from './../providers/security/security';
 import { ConnectivityService } from './../services/connectivity.service';
@@ -34,22 +35,24 @@ export class HttpErrorInterceptor implements HttpInterceptor {
       if (err instanceof HttpErrorResponse && request.url !== this.config.pingUrl) {
 
         let errorMessage = this.translateService.instant('GLOBAL.UNKNOWN_ERROR');
-
-        if (err.error.detailMessage !== undefined && err.error.label === 'BUSINESS_ERROR') {
-          errorMessage = err.error.detailMessage;
-        }
-
-        this.toastProvider.error(errorMessage);
-
-        // Bascule en mode déconnecté si le ping échoue
         if (this.deviceService.isOfflineModeAvailable()) {
-          this.connectivityService.pingAPI().then(
+          // Bascule en mode déconnecté si le ping échoue
+          return this.connectivityService.pingAPI().then(
             success => {
+              if (err.error && !isUndefined(err.error.detailMessage) && err.error.label === 'BUSINESS_ERROR') {
+                errorMessage = err.error.detailMessage;
+              }
+              this.toastProvider.error(errorMessage, 10000);
             },
             error => {
               // TODO : tenter de relancer l'appel en offline
               this.events.publish('connectionStatus:disconnected');
             });
+        } else {
+          if (err.error && !isUndefined(err.error.detailMessage) && err.error.label === 'BUSINESS_ERROR') {
+            errorMessage = err.error.detailMessage;
+          }
+          this.toastProvider.error(errorMessage, 10000);
         }
       }
     });
