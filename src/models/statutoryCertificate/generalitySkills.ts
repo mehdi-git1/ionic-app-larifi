@@ -16,7 +16,7 @@ export class GeneralitySkills{
         mdcDate: Date,
         dueDate: Date,
         ddvDueDate: Date,
-        skillEndDate: Date
+        endDate: Date
     };
 
 }
