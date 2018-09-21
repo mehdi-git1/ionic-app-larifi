@@ -30,6 +30,33 @@ export class Utils {
     }
 
     /**
+     * calcul et renvoie le hashcode de l'objet concerné.
+     * @param obj l'objet dont on veut calculer son hashcode
+     */
+    public static getHashCode(obj: any): number {
+        const prime = 3;
+        let result = 1;
+        for (const type in obj) {
+            if (obj[type] && obj[type] !== '') {
+                result = result * prime + this.getCharactersUnicodeSum(JSON.stringify(obj[type]));
+            }
+        }
+        return result;
+    }
+
+    /**
+     * renvoie la somme de l'unicode des caractères d'une chaine de caractères
+     * @param string chaine de caractères concernée.
+     */
+    public static getCharactersUnicodeSum(string: String) {
+        let hash = 0;
+        for (let i = 0; i < string.length; i++) {
+            hash = hash + string.charCodeAt(i);
+        }
+        return hash;
+    }
+
+    /**
      * Remplacement de tous les caractéres accentués par leurs pendants non accentués
      * @param Texte texte à traiter
      */
