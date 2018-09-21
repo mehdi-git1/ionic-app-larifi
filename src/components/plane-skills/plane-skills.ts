@@ -61,23 +61,23 @@ export class PlaneSkillsComponent implements OnInit{
         value: this.tempPlaneSkillData.plane,
         type: 'libelle'
       }, {
-        libelle: this.translateService.instant('STATUTORY_CERTIFICATE.PLANE_SKILLS.STARTDATE'),
+        libelle: this.translateService.instant('STATUTORY_CERTIFICATE.PLANE_SKILLS.START_DATE'),
         value: this.tempPlaneSkillData.startDate,
         type: 'date'
       }, {
-        libelle: this.translateService.instant('STATUTORY_CERTIFICATE.PLANE_SKILLS.MDCDATE'),
+        libelle: this.translateService.instant('STATUTORY_CERTIFICATE.PLANE_SKILLS.MDC_DATE'),
         value: this.tempPlaneSkillData.mdcDate,
         type: 'date'
       }, {
-        libelle: this.translateService.instant('STATUTORY_CERTIFICATE.PLANE_SKILLS.DUEDATE'),
+        libelle: this.translateService.instant('STATUTORY_CERTIFICATE.PLANE_SKILLS.DUE_DATE'),
         value: this.tempPlaneSkillData.endDate,
         type: 'date'
       }, {
-        libelle: this.translateService.instant('STATUTORY_CERTIFICATE.PLANE_SKILLS.DDVDUEDATE'),
+        libelle: this.translateService.instant('STATUTORY_CERTIFICATE.PLANE_SKILLS.DDV_DUE_DATE'),
         value: this.tempPlaneSkillData.ddvDueDate,
         type: 'date'
       }, {
-        libelle: this.translateService.instant('STATUTORY_CERTIFICATE.PLANE_SKILLS.SKILLENDDATE'),
+        libelle: this.translateService.instant('STATUTORY_CERTIFICATE.PLANE_SKILLS.SKILL_END_DATE'),
         value: this.tempPlaneSkillData.endDate,
         type: 'end-date'
       }];
