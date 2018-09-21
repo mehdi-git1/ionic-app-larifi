@@ -21,7 +21,7 @@ export class StatutoryCertificateDataComponent{
     if (dataType.indexOf('date') != -1 && !dataValue){
       return 'no-value';
     }
-    if (dataType.indexOf('end-date') != -1 && dataValue > new Date()){
+    if (dataType.indexOf('end-date') != -1 && new Date(dataValue) > new Date()){
       return 'important-date';
     }
     return '';
