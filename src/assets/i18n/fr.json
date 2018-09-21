@@ -206,22 +206,20 @@
         "GENERALITY_SKILLS": {
             "CCA": {
                 "TITLE": "CCA",
-                "STARTDATE": "Depuis",
-                "DUEDATE": "Echéance"
+                "START_DATE": "Depuis"
             },    
             "PCB": {
                 "TITLE": "PCB",
-                "STARTDATE": "Depuis",
-                "VALIDITYSTARTDATE": "Date début validité",
-                "DUEDATE": "Echéance"
+                "START_DATE": "Depuis",
+                "DUE_DATE": "Echéance"
             },
             "GENE": {
-                "AIRCRAFTSKILL": "Géné",
-                "STARTDATE": "Depuis",
-                "MDCDATE": "MDC - Géné",
-                "DUEDATE": "Echéance",
-                "DDVDUEDATE": "Echéance DDV",
-                "SKILLENDDATE": "Compétent jusqu'au"
+                "AIRCRAFT_SKILL": "Géné",
+                "START_DATE": "Depuis",
+                "MDC_DATE": "MDC - Géné",
+                "DUE_DATE": "Echéance",
+                "DDV_DUE_DATE": "Echéance DDV",
+                "SKILL_END_DATE": "Compétent jusqu'au"
             }    
         },
         "FAMILIARIZATION_FLIGHTS": {
