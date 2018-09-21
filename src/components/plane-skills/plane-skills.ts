@@ -27,19 +27,24 @@ export class PlaneSkillsComponent implements OnInit{
       mdcDate:  new Array(),
       dueDate:  new Array(),
       ddvDueDate:  new Array(),
-      skillEndDate:  new Array()
+      endDate:  new Array()
     };
    }
 
   ngOnInit(){
     if (this.planeSkillsData){
       for (const i of this.planeSkillsData){
+        const endDates: Array<Date> = new Array();
+        endDates.push(i.dueDate);
+        endDates.push(i.ddvDueDate);
+        endDates.push(i.endDate);
+        const maxDate = endDates.reduce(function (a, b) { return a > b ? a : b; });
         this.tempPlaneSkillData.plane.push(i.plane);
         this.tempPlaneSkillData.startDate.push(i.startDate);
         this.tempPlaneSkillData.mdcDate.push(i.mdcDate);
-        this.tempPlaneSkillData.dueDate.push(i.dueDate);
+        this.tempPlaneSkillData.dueDate.push(i.endDate);
         this.tempPlaneSkillData.ddvDueDate.push(i.ddvDueDate);
-        this.tempPlaneSkillData.skillEndDate.push(i.skillEndDate);
+        this.tempPlaneSkillData.endDate.push(maxDate);
       }
     }else{
       this.tempPlaneSkillData.plane.push('');
@@ -47,7 +52,7 @@ export class PlaneSkillsComponent implements OnInit{
       this.tempPlaneSkillData.mdcDate.push(null);
       this.tempPlaneSkillData.dueDate.push(null);
       this.tempPlaneSkillData.ddvDueDate.push(null);
-      this.tempPlaneSkillData.skillEndDate.push(null);
+      this.tempPlaneSkillData.endDate.push(null);
     }
 
     this.planeDataDisplayed =
@@ -65,7 +70,7 @@ export class PlaneSkillsComponent implements OnInit{
         type: 'date'
       }, {
         libelle: this.translateService.instant('STATUTORY_CERTIFICATE.PLANE_SKILLS.DUEDATE'),
-        value: this.tempPlaneSkillData.dueDate,
+        value: this.tempPlaneSkillData.endDate,
         type: 'date'
       }, {
         libelle: this.translateService.instant('STATUTORY_CERTIFICATE.PLANE_SKILLS.DDVDUEDATE'),
@@ -73,7 +78,7 @@ export class PlaneSkillsComponent implements OnInit{
         type: 'date'
       }, {
         libelle: this.translateService.instant('STATUTORY_CERTIFICATE.PLANE_SKILLS.SKILLENDDATE'),
-        value: this.tempPlaneSkillData.skillEndDate,
+        value: this.tempPlaneSkillData.endDate,
         type: 'end-date'
       }];
   }
