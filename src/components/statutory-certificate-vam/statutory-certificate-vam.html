@@ -1,0 +1,12 @@
+<ion-card>
+  <ion-card-content no-padding>
+      <ion-grid><ion-row class="statutory-certificate-header">
+          <ion-col>{{ 'STATUTORY_CERTIFICATE.VAM.START_DATE' | translate }}</ion-col>
+          <ion-col>{{ 'STATUTORY_CERTIFICATE.VAM.END_DATE' | translate }}</ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col [ngClass]="{'no-value' : !vam?.validityStartDate}">{{ vam?.validityStartDate | date : 'dd/MM/yyyy' : 'UTC'}}</ion-col>
+            <ion-col [ngClass]="getCssClassForEndDate()">{{ vam?.validityEndDate | date : 'dd/MM/yyyy' : 'UTC'}}</ion-col>
+          </ion-row></ion-grid>
+  </ion-card-content>
+</ion-card>

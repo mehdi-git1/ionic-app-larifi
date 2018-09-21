@@ -13,9 +13,9 @@ export class ToastProvider {
    * Affiche un toast de succès
    * @param message le message à afficher dans le toast
    */
-  success(message: string) {
+  success(message: string, timer = 5000) {
     this.simpleNotification.success(message, '', {
-      timeOut: 5000,
+      timeOut: timer,
       showProgressBar: false,
       pauseOnHover: false,
       clickToClose: true,
@@ -28,9 +28,9 @@ export class ToastProvider {
    * Affiche un toast d'avertissement
    * @param message le message à afficher dans le toast
    */
-  warning(message: string) {
+  warning(message: string, timer = 5000) {
     this.simpleNotification.warn(message, '', {
-      timeOut: 5000,
+      timeOut: timer,
       showProgressBar: false,
       pauseOnHover: false,
       clickToClose: true,
@@ -42,9 +42,9 @@ export class ToastProvider {
    * Affiche un toast d'erreur
    * @param message le message à afficher dans le toast
    */
-  error(message: string) {
+  error(message: string, timer = 5000) {
     this.simpleNotification.error(message, '', {
-      timeOut: 5000,
+      timeOut: timer,
       showProgressBar: false,
       pauseOnHover: false,
       clickToClose: true,
@@ -56,9 +56,9 @@ export class ToastProvider {
   * Affiche un toast d'info
   * @param message le message à afficher dans le toast
   */
-  info(message: string) {
+  info(message: string, timer = 5000) {
     this.simpleNotification.info(message, '', {
-      timeOut: 5000,
+      timeOut: timer,
       showProgressBar: false,
       pauseOnHover: false,
       clickToClose: true,

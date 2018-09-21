@@ -89,20 +89,19 @@ export class RotationCardComponent {
           this.synchroInProgress = false;
           this.offlineIndicatorComponent.refreshOffLineDateOnCurrentObject();
         }, error => {
-          this.toastProvider.error(error);
           this.displayErrorMessage();
         });
       }, error => {
         this.displayErrorMessage();
       });
     }, error => {
-      this.displayErrorMessage();
+      this.toastProvider.error(this.translate.instant('SYNCHRONIZATION.ROTATION_SERVICE_CALL_ERROR', { 'rotationNumber': this.rotation.number }));
+      this.synchroInProgress = false;
     });
   }
 
   displayErrorMessage() {
-    const errorMsg = this.translate.instant('SYNCHRONIZATION.ROTATION_SAVED_OFFLINE_ERROR', { 'rotationNumber': this.rotation.number });
-    this.toastProvider.error(errorMsg);
+    this.toastProvider.error(this.translate.instant('SYNCHRONIZATION.ROTATION_SAVED_OFFLINE_ERROR', { 'rotationNumber': this.rotation.number }));
     this.synchroInProgress = false;
   }
 }

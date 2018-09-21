@@ -1,22 +1,20 @@
 export class GeneralitySkills{
     cca: {
         libelle: string ,
-        startDate: Date,
-        dueDate: Date
+        startDate: Date
     };
     pcb: {
         libelle: string,
         startDate: Date,
-        validityStartDate: Date,
         dueDate: Date
     };
     gene: {
         aircraftSkill: string,
         startDate: Date,
-        mdcDate: Date,
+        validityStartDate: Date,
         dueDate: Date,
         ddvDueDate: Date,
-        skillEndDate: Date
+        endDate: Date
     };
 
 }

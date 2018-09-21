@@ -114,7 +114,7 @@ export class CareerObjectiveCreatePage {
      */
     initPage() {
         // On récupère l'id de l'objectif dans les paramètres de navigation
-        if (this.navParams.get('careerObjectiveId') && this.navParams.get('careerObjectiveId') !== '0') {
+        if (this.navParams.get('careerObjectiveId') && this.navParams.get('careerObjectiveId') !== 0) {
             // Récupération de l'objectif et des points d'étape
             this.careerObjectiveProvider.getCareerObjective(this.navParams.get('careerObjectiveId')).then(foundCareerObjective => {
                 this.originCareerObjective = _.cloneDeep(foundCareerObjective);
@@ -258,9 +258,6 @@ export class CareerObjectiveCreatePage {
                     this.loading.dismiss();
                     resolve();
                 }, error => {
-                    if (!this.deviceService.isBrowser()) {
-                        this.toastProvider.error(this.translateService.instant('GLOBAL.UNKNOWN_ERROR'));
-                    }
                     this.loading.dismiss();
                 });
         });
