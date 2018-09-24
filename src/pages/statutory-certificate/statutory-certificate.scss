@@ -26,6 +26,17 @@ mat-expansion-panel-header{
     }
 }
 
+.mat-expansion-panel-body{
+
+    padding: 0px;
+
+    ion-card.card-md, ion-card.card-ios{
+        margin: 0px;
+        width: 100%;
+        margin-bottom: 10px;
+    }
+}
+
 .plane-qualif{
     float: right;
     padding-right: 15px;
