@@ -7,7 +7,9 @@ import { StatutoryCertificate } from '../../models/statutoryCertificate';
 @Injectable()
 export class StatutoryCertificateProvider {
 
-  constructor(public connectivityService: ConnectivityService, private onlineStatutoryCertificateProvider: OnlineStatutoryCertificateProvider) {
+  constructor(
+    private connectivityService: ConnectivityService,
+    private onlineStatutoryCertificateProvider: OnlineStatutoryCertificateProvider) {
   }
 
   /**

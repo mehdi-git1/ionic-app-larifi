@@ -1,3 +1,4 @@
+import { Utils } from './../common/utils';
 import { isUndefined } from 'ionic-angular/util/util';
 import { DeviceService } from './device.service';
 import { Injectable } from '@angular/core';
@@ -130,12 +131,12 @@ export class SecMobilService {
                     if (!request.url.includes('/api/rest/resources/ping')) {
                         this.secMobile.secMobilCallRestService(this.getPingRequest(),
                             (success) => {
-
                                 let errorMessage = this.translateService.instant('GLOBAL.UNKNOWN_ERROR');
-                                if (err && err.error && !isUndefined(err.error.detailMessage) && err.error.label === 'BUSINESS_ERROR') {
+                                err = Utils.fromStringToObject(err);
+                                if (err && !isUndefined(err.detailMessage) && err.label === 'BUSINESS_ERROR') {
                                     errorMessage = err.error.detailMessage;
                                 }
-                                this.toastProvider.error(errorMessage);
+                                this.toastProvider.error(errorMessage, 10000);
                             }, error => {
                                 this.events.publish('connectionStatus:disconnected');
                             });
@@ -177,4 +178,5 @@ export class SecMobilService {
             return key + '=' + json[key];
         }).join('&');
     }
+
 }
