@@ -11,7 +11,7 @@ export class GeneralitySkills {
     gene: {
         aircraftSkill: string,
         startDate: Date,
-        validityStartDate: Date,
+        mdcDate: Date,
         dueDate: Date,
         ddvDueDate: Date,
         endDate: Date
