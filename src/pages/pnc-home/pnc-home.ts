@@ -57,6 +57,13 @@ export class PncHomePage {
     }
 
     ionViewDidEnter() {
+        this.initPage();
+    }
+
+    /**
+     * Initialisation du contenu de la page.
+     */
+    initPage() {
         if (this.navParams.get('matricule')) {
             this.matricule = this.navParams.get('matricule');
         } else if (this.sessionService.authenticatedUser) {
@@ -116,7 +123,7 @@ export class PncHomePage {
     /**
      * Dirige vers l'attestation réglementaire
      */
-    goToStatutoryCertificate(){
+    goToStatutoryCertificate() {
         this.navCtrl.push(StatutoryCertificatePage, { matricule: this.matricule });
     }
 
@@ -135,7 +142,7 @@ export class PncHomePage {
             this.toastProvider.info(this.translateService.instant('SYNCHRONIZATION.PNC_SAVED_OFFLINE', { 'matricule': this.pnc.matricule }));
         }, error => {
             this.synchroInProgress = false;
-            this.toastProvider.error(error);
+            this.toastProvider.error(this.translateService.instant('SYNCHRONIZATION.PNC_SAVED_OFFLINE_ERROR', { 'matricule': this.pnc.matricule }));
         });
     }
 

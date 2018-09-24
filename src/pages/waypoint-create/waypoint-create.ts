@@ -69,51 +69,87 @@ export class WaypointCreatePage {
         this.initForm();
     }
 
-    ionViewDidLoad() {
+
+    ionViewDidEnter() {
+        this.initPage();
+    }
+
+    /**
+     * Initialisation du contenu de la page.
+     */
+    initPage() {
         this.careerObjectiveId = this.navParams.get('careerObjectiveId');
 
-        if (this.navParams.get('waypointId') && this.navParams.get('waypointId') !== '0') {
+        if (this.navParams.get('waypointId') && this.navParams.get('waypointId') !== 0) {
             // Récupération du point d'étape
             this.waypointProvider.getWaypoint(this.navParams.get('waypointId')).then(waypoint => {
                 this.originWaypoint = _.cloneDeep(waypoint);
                 this.waypoint = waypoint;
-                this.waypoint.pncComment = this.waypoint.pncComment === undefined ? '' : this.waypoint.pncComment;
                 this.originalPncComment = this.waypoint.pncComment;
             }, error => { });
         } else {
             // Création
             this.waypoint = new Waypoint();
+            this.waypoint.careerObjective = new CareerObjective();
+            this.waypoint.careerObjective.techId = this.careerObjectiveId;
+            this.originWaypoint = _.cloneDeep(this.waypoint);
         }
     }
 
-    ionViewDidEnter() {
-        this.originWaypoint = _.cloneDeep(this.waypoint);
+    /**
+     * renvoie le techid de l'objectif quand on kill la page et qu'on revient sur la pércédente
+     */
+    public ionViewWillLeave() {
+        this.navCtrl.getPrevious().data.careerObjectiveId = this.careerObjectiveId;
+    }
+    /**
+     * Verifie si des modifications ont été faites, avant d'initialiser le contenu de la page.
+     * si oui, on affiche une popup de confirmation d'abandon des modifications
+     * si non, on initialise la page.
+     */
+    refreshPage() {
+        if (this.formHasBeenModified()) {
+            this.confirmAbandonChanges().then(() => {
+                this.creationForm.reset();
+                this.initPage();
+            }, error => {
+
+            });
+        } else {
+            this.initPage();
+        }
     }
 
     ionViewCanLeave() {
         if (this.formHasBeenModified()) {
-            return new Promise((resolve, reject) => {
-                // Avant de quitter la vue, on avertit l'utilisateur si ses modifications n'ont pas été enregistrées
-                this.alertCtrl.create({
-                    title: this.translateService.instant('WAYPOINT_CREATE.CONFIRM_BACK_WITHOUT_SAVE.TITLE'),
-                    message: this.translateService.instant('WAYPOINT_CREATE.CONFIRM_BACK_WITHOUT_SAVE.MESSAGE'),
-                    buttons: [
-                        {
-                            text: this.translateService.instant('GLOBAL.BUTTONS.CANCEL'),
-                            role: 'cancel',
-                            handler: () => reject()
-                        },
-                        {
-                            text: this.translateService.instant('GLOBAL.BUTTONS.CONFIRM'),
-                            handler: () => resolve()
-                        }
-                    ]
-                }).present();
-            });
-        }
-        else {
+            return this.confirmAbandonChanges();
+        } else {
             return true;
         }
+    }
+
+    /**
+     * Popup d'avertissement en cas de modifications non enregistrées.
+     */
+    confirmAbandonChanges() {
+        return new Promise((resolve, reject) => {
+            // Avant de quitter la vue, on avertit l'utilisateur si ses modifications n'ont pas été enregistrées
+            this.alertCtrl.create({
+                title: this.translateService.instant('WAYPOINT_CREATE.CONFIRM_BACK_WITHOUT_SAVE.TITLE'),
+                message: this.translateService.instant('WAYPOINT_CREATE.CONFIRM_BACK_WITHOUT_SAVE.MESSAGE'),
+                buttons: [
+                    {
+                        text: this.translateService.instant('GLOBAL.BUTTONS.CANCEL'),
+                        role: 'cancel',
+                        handler: () => reject()
+                    },
+                    {
+                        text: this.translateService.instant('GLOBAL.BUTTONS.CONFIRM'),
+                        handler: () => resolve()
+                    }
+                ]
+            }).present();
+        });
     }
 
     /**
@@ -179,9 +215,6 @@ export class WaypointCreatePage {
                     this.navCtrl.pop();
                     resolve();
                 }, error => {
-                    if (!this.deviceService.isBrowser()) {
-                        this.toastProvider.error(this.translateService.instant('GLOBAL.UNKNOWN_ERROR'));
-                    }
                     this.loading.dismiss();
                 });
         });

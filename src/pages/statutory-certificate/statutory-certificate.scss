@@ -1,24 +1,27 @@
-.ss-title{
-    padding-top: 30px;
-    font-size: 30px;
-    padding-left: 30px;
-}
-
+page-statutory-certificate {
 .fonction-informations{
     text-align: left;
     font-size: 1.5em;
     color: color($colors, grey60);
-    padding-top: 30px;
-    padding-bottom: 30px;
+
+}
+
+.mat-expansion-panel {
+    margin: 16px 0;
+    margin-bottom: 16px;
+    border-radius : 5px;
 }
 
 mat-expansion-panel-header{
-    background-color: color($colors, blue65);
+    background-color: color($colors, blue75);
+    color: color($colors, white);
     font-weight: bolder !important;
     font-size: 18px !important;
-
-    &.mat-expanded:hover, &.mat-expanded:focus{
-        background-color: color($colors, blue65) !important;  
+    border-radius : 5px;
+    
+    &.mat-expanded:hover, &.mat-expanded:focus {
+        background-color: color($colors, blue75) !important;
+        height: 48px;
     }
 }
 
@@ -30,9 +33,12 @@ mat-expansion-panel-header{
 .statutory-certificate-header {
     font-size: 1.2em;
     font-weight: 900;
+    background-color: transparent !important;
     border-bottom: 2px solid color($colors, blue70);
+    margin:5px;
 }
 
 .important-date{
     color: color($colors, red80);
+}
 }

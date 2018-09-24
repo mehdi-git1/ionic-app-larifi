@@ -66,6 +66,14 @@ export class PncSearchPage implements OnInit {
     }
 
     /**
+     * Initialisation du contenu de la page.
+     */
+    initPage() {
+        this.ngOnInit();
+        this.ionViewDidEnter();
+    }
+
+    /**
      * Initialise le nombre de pnc à afficher par page et les données des listes de recherche.
      */
     initSearchResults() {
@@ -90,7 +98,6 @@ export class PncSearchPage implements OnInit {
             this.totalPncs = pagedPnc.page.totalElements;
         }).catch((err) => {
             this.searchInProgress = false;
-            this.toastProvider.error(this.translateService.instant('PNC_SEARCH.ERROR.SEARCH'));
         }
         );
     }

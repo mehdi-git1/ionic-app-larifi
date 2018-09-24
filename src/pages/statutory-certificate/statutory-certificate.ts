@@ -1,3 +1,5 @@
+import { TranslateService } from '@ngx-translate/core';
+import { ToastProvider } from './../../providers/toast/toast';
 import { StatutoryCertificate } from './../../models/statutoryCertificate';
 import { StatutoryCertificateProvider } from './../../providers/statutory-certificate/statutory-certificate';
 import { PncProvider } from './../../providers/pnc/pnc';

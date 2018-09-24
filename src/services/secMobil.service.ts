@@ -1,3 +1,5 @@
+import { Utils } from './../common/utils';
+import { isUndefined } from 'ionic-angular/util/util';
 import { DeviceService } from './device.service';
 import { Injectable } from '@angular/core';
 import { Config } from '../configuration/environment-variables/config';
@@ -5,7 +7,6 @@ import { Platform, Events } from 'ionic-angular';
 import { RestRequest } from './rest.base.service';
 import { TranslateService } from '@ngx-translate/core';
 import { ToastProvider } from '../providers/toast/toast';
-// import { ConnectivityService } from './connectivity.service';
 
 declare var window: any;
 
@@ -125,19 +126,34 @@ export class SecMobilService {
                     }
                 },
                 (err) => {
+                    console.error('secmobile call failure sur la requete ' + request.url + ' : ' + err);
                     // Pour certains appels, il n'est pas nécessaire d'afficher le toast d'error ou de tracer l'erreur
-                    if (!request.url.includes('/api/rest/resources/pnc_photos') && !request.url.includes('/api/rest/resources/ping')) {
-                        this.events.publish('connectionStatus:disconnected');
-                        console.error('secmobile call failure sur la requete ' + request.url + ' : ' + err);
-                        let errorMessage = this.translateService.instant('GLOBAL.UNKNOWN_ERROR');
-                        if (err && err.error && err.error.detailMessage !== undefined && err.error.label === 'BUSINESS_ERROR') {
-                            errorMessage = err.error.detailMessage;
-                        }
-                        this.toastProvider.error(errorMessage);
+                    if (!request.url.includes('/api/rest/resources/ping')) {
+                        this.secMobile.secMobilCallRestService(this.getPingRequest(),
+                            (success) => {
+                                let errorMessage = this.translateService.instant('GLOBAL.UNKNOWN_ERROR');
+                                err = Utils.fromStringToObject(err);
+                                if (err && !isUndefined(err.detailMessage) && err.label === 'BUSINESS_ERROR') {
+                                    errorMessage = err.error.detailMessage;
+                                }
+                                this.toastProvider.error(errorMessage, 10000);
+                            }, error => {
+                                this.events.publish('connectionStatus:disconnected');
+                            });
                     }
                     reject(err);
                 });
         });
+    }
+
+    /**
+     * construie et renvoie la requete du ping
+     */
+    getPingRequest() {
+        const request: RestRequest = new RestRequest();
+        request.method = 'GET';
+        request.url = this.config.pingUrl;
+        return request;
     }
 
     /**
@@ -162,4 +178,5 @@ export class SecMobilService {
             return key + '=' + json[key];
         }).join('&');
     }
+
 }
