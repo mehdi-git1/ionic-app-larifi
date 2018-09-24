@@ -17,7 +17,7 @@ export class StatutoryCertificateVamComponent {
     if (!this.vam || !this.vam.validityEndDate) {
       return 'no-value';
     }
-    if (this.vam && this.vam.validityEndDate && moment().isBefore(this.vam.validityEndDate) {
+    if (this.vam && this.vam.validityEndDate && moment().isBefore(this.vam.validityEndDate)) {
       return 'important-date';
     }
     return '';
