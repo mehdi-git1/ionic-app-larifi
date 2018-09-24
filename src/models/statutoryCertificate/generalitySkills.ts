@@ -1,6 +1,6 @@
 export class GeneralitySkills{
     cca: {
-        libelle: string ,
+        label: string ,
         startDate: Date
     };
     pcb: {

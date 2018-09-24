@@ -24,7 +24,7 @@ export class GeneralitySkillsComponent implements OnInit{
       cca:
         [{
             libelle: this.translateService.instant('STATUTORY_CERTIFICATE.GENERALITY_SKILLS.CCA.TITLE'),
-            value: [_.get(this.generalitySkillsData, 'cca.libelle')],
+            value: [_.get(this.generalitySkillsData, 'cca.label')],
             type: 'libelle'
           }, {
             libelle: this.translateService.instant('STATUTORY_CERTIFICATE.GENERALITY_SKILLS.CCA.START_DATE'),
@@ -51,7 +51,7 @@ export class GeneralitySkillsComponent implements OnInit{
       pcb:
         [{
             libelle: this.translateService.instant('STATUTORY_CERTIFICATE.GENERALITY_SKILLS.PCB.TITLE'),
-            value: [_.get(this.generalitySkillsData, 'pcb.libelle')],
+            value: [_.get(this.generalitySkillsData, 'pcb.label')],
             type: 'libelle'
           }, {
             libelle: this.translateService.instant('STATUTORY_CERTIFICATE.GENERALITY_SKILLS.PCB.START_DATE'),
