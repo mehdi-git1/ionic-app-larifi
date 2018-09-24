@@ -34,17 +34,12 @@ export class PlaneSkillsComponent implements OnInit{
   ngOnInit(){
     if (this.planeSkillsData){
       for (const i of this.planeSkillsData){
-        const endDates: Array<Date> = new Array();
-        endDates.push(i.dueDate);
-        endDates.push(i.ddvDueDate);
-        endDates.push(i.endDate);
-        const maxDate = endDates.reduce(function (a, b) { return a > b ? a : b; });
         this.tempPlaneSkillData.plane.push(i.plane);
         this.tempPlaneSkillData.startDate.push(i.startDate);
         this.tempPlaneSkillData.mdcDate.push(i.mdcDate);
-        this.tempPlaneSkillData.dueDate.push(i.endDate);
+        this.tempPlaneSkillData.dueDate.push(i.dueDate);
         this.tempPlaneSkillData.ddvDueDate.push(i.ddvDueDate);
-        this.tempPlaneSkillData.endDate.push(maxDate);
+        this.tempPlaneSkillData.endDate.push(i.endDate);
       }
     }else{
       this.tempPlaneSkillData.plane.push('');
@@ -70,7 +65,7 @@ export class PlaneSkillsComponent implements OnInit{
         type: 'date'
       }, {
         libelle: this.translateService.instant('STATUTORY_CERTIFICATE.PLANE_SKILLS.DUE_DATE'),
-        value: this.tempPlaneSkillData.endDate,
+        value: this.tempPlaneSkillData.dueDate,
         type: 'date'
       }, {
         libelle: this.translateService.instant('STATUTORY_CERTIFICATE.PLANE_SKILLS.DDV_DUE_DATE'),
