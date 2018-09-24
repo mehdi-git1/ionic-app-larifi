@@ -11,7 +11,7 @@ export class Utils {
     }
 
     /**
-     * verifie l'existance d'une chaine de caractères en format json et la transforme en object.
+     * Verifie l'existance d'une chaine de caractères en format json et la transforme en object.
      * @param stringJson la chaine de caractères concernée
      * @return any
      */
@@ -30,8 +30,9 @@ export class Utils {
     }
 
     /**
-     * calcul et renvoie le hashcode de l'objet concerné.
+     * Calcul et renvoie le hashcode de l'objet concerné.
      * @param obj l'objet dont on veut calculer son hashcode
+     * @return le hashcode de l'objet concerné
      */
     public static getHashCode(obj: any): number {
         const prime = 3;
@@ -45,10 +46,11 @@ export class Utils {
     }
 
     /**
-     * renvoie la somme de l'unicode des caractères d'une chaine de caractères
+     * Renvoie la somme de l'unicode des caractères d'une chaine de caractères
      * @param string chaine de caractères concernée.
+     * @return le hashcode de la chaine de caractères concernée.
      */
-    public static getCharactersUnicodeSum(string: String) {
+    public static getCharactersUnicodeSum(string: String): number {
         let hash = 0;
         for (let i = 0; i < string.length; i++) {
             hash = hash + string.charCodeAt(i);
