@@ -53,36 +53,7 @@ export class WaypointProvider extends BaseProvider{
   * @return les points d'étape récupérés
   */
   getCareerObjectiveWaypoints(careerObjectiveId: number): Promise<Waypoint[]> {
-    return this.connectivityService.isConnected() ?
-
-      new Promise((resolve, reject) => {
-        this.offlineWaypointProvider.getCareerObjectiveWaypoints(careerObjectiveId).then(offlineCareerObjectiveWaypoints => {
-          this.onlineWaypointProvider.getCareerObjectiveWaypoints(careerObjectiveId).then(onlineCareerObjectiveWaypoints => {
-            const onlineData = this.waypointTransformerProvider.toWaypoints(onlineCareerObjectiveWaypoints);
-            const offlineData = this.waypointTransformerProvider.toWaypoints(offlineCareerObjectiveWaypoints);
-            resolve(this.addUnsynchronizedOfflineCareerObjectivesToOnline(onlineData, offlineData));
-          });
-        });
-      })
-      :
-      this.offlineWaypointProvider.getCareerObjectiveWaypoints(careerObjectiveId);
-  }
-
-  /**
-   * Ajoute les points d'étape créés en offline et non synchonisés, à la liste des points d'étape récupérés de la BDD
-   * @param onlineDataArray la liste des points d'étape récupérés de la BDD.
-   * @param offlineDataArray la liste des points d'étape récupérés du cache
-   */
-  addUnsynchronizedOfflineCareerObjectivesToOnline(onlineDataArray: Waypoint[], offlineDataArray: Waypoint[]): Waypoint[] {
-    for (const offlineData of offlineDataArray) {
-      const result = onlineDataArray.filter(onlineData => offlineData.getStorageId() === onlineData.getStorageId());
-      if (result && result.length === 1) {
-        onlineDataArray[onlineDataArray.indexOf(result[0])] = offlineData;
-      } else {
-        onlineDataArray.push(offlineData);
-      }
-    }
-    return onlineDataArray;
+    return this.execFunctionProvider('getCareerObjectiveWaypoints', careerObjectiveId);
   }
 
   /**
