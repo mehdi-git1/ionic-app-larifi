@@ -1,18 +1,25 @@
+import { CareerObjectiveTransformerProvider } from './career-objective-transformer';
+import { OfflineCareerObjectiveProvider } from './offline-career-objective';
 import { StorageService } from './../../services/storage.service';
 import { Entity } from './../../models/entity';
 import { CareerObjective } from './../../models/careerObjective';
 import { Config } from './../../configuration/environment-variables/config';
 import { Injectable } from '@angular/core';
 import { RestService } from '../../services/rest.base.service';
+import { isUndefined } from 'ionic-angular/util/util';
 
 @Injectable()
 export class OnlineCareerObjectiveProvider {
   private careerObjectiveUrl: string;
 
 
-  constructor(public restService: RestService,
+  constructor(
+    public restService: RestService,
     private config: Config,
-    private storageService: StorageService) {
+    private storageService: StorageService,
+    private offlineCareerObjectiveProvider: OfflineCareerObjectiveProvider,
+    private careerObjectiveTransformer: CareerObjectiveTransformerProvider
+  ) {
     this.careerObjectiveUrl = `${config.backEndUrl}/career_objectives`;
   }
 
@@ -22,7 +29,33 @@ export class OnlineCareerObjectiveProvider {
    * @return la liste des objectifs du pnc
    */
   getPncCareerObjectives(matricule: string): Promise<CareerObjective[]> {
-    return this.restService.get(`${this.careerObjectiveUrl}/pnc/${matricule}`);
+    return this.restService.get(`${this.careerObjectiveUrl}/pnc/${matricule}`)
+    .then(onlineCareerObjectives => {
+      return this.offlineCareerObjectiveProvider.getPncCareerObjectives(matricule).then(offlineCareerObjectives => {
+        const onlineData = this.careerObjectiveTransformer.toCareerObjectives(onlineCareerObjectives);
+        const offlineData = this.careerObjectiveTransformer.toCareerObjectives(offlineCareerObjectives);
+        return (this.addUnsynchronizedOfflineCareerObjectivesToOnline(onlineData, offlineData));
+      });
+    });
+  }
+
+    /**
+   * Ajoute les objectifs créés en offline et non synchonisés, à la liste des objectifs récupérés de la BDD
+   * @param onlineDataArray la liste des objectifs récupérés de la BDD.
+   * @param offlineDataArray la liste des objectifs récupérés du cache
+   */
+  addUnsynchronizedOfflineCareerObjectivesToOnline(onlineDataArray: CareerObjective[], offlineDataArray: CareerObjective[]): CareerObjective[] {
+    for (const offlineData of offlineDataArray) {
+      const result = onlineDataArray.filter(onlineData => offlineData.getStorageId() === onlineData.getStorageId());
+      if (result && result.length === 1) {
+        if (!isUndefined(offlineData.offlineAction)) {
+          onlineDataArray[onlineDataArray.indexOf(result[0])] = offlineData;
+        }
+      } else {
+        onlineDataArray.push(offlineData);
+      }
+    }
+    return onlineDataArray;
   }
 
   /**

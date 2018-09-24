@@ -7,18 +7,25 @@ import { ConnectivityService } from './../../services/connectivity.service';
 import { Injectable } from '@angular/core';
 import { Waypoint } from './../../models/waypoint';
 import { Pnc } from '../../models/pnc';
+import { BaseProvider } from '../base.provider';
 
 
 @Injectable()
-export class WaypointProvider {
+export class WaypointProvider extends BaseProvider{
 
-
-  constructor(private connectivityService: ConnectivityService,
+  constructor(
+    protected connectivityService: ConnectivityService,
     private onlineWaypointProvider: OnlineWaypointProvider,
     private offlineWaypointProvider: OfflineWaypointProvider,
     private sessionService: SessionService,
     private dateTransformer: DateTransformService,
-    private waypointTransformerProvider: WaypointTransformerProvider) {
+    private waypointTransformerProvider: WaypointTransformerProvider
+  ) {
+    super(
+      connectivityService,
+      onlineWaypointProvider,
+      offlineWaypointProvider
+    );
   }
 
   /**
@@ -37,9 +44,7 @@ export class WaypointProvider {
     waypoint.lastUpdateAuthor.matricule = this.sessionService.authenticatedUser.matricule;
     waypoint.lastUpdateDate = this.dateTransformer.transformDateToIso8601Format(new Date());
 
-    return this.connectivityService.isConnected() ?
-      this.onlineWaypointProvider.createOrUpdate(waypoint, careerObjectiveId) :
-      this.offlineWaypointProvider.createOrUpdate(waypoint, careerObjectiveId);
+    return this.execFunctionProvider('createOrUpdate', waypoint, careerObjectiveId);
   }
 
   /**
@@ -86,9 +91,7 @@ export class WaypointProvider {
   * @return le point d'étape récupéré
   */
   getWaypoint(id: number): Promise<Waypoint> {
-    return this.connectivityService.isConnected() ?
-      this.onlineWaypointProvider.getWaypoint(id) :
-      this.offlineWaypointProvider.getWaypoint(id);
+    return this.execFunctionProvider('getWaypoint', id);
   }
 
   /**
@@ -97,9 +100,7 @@ export class WaypointProvider {
   * @return le point d'étape supprimé
   */
   delete(id: number): Promise<Waypoint> {
-    return this.connectivityService.isConnected() ?
-      this.onlineWaypointProvider.delete(id) :
-      this.offlineWaypointProvider.delete(id);
+    return this.execFunctionProvider('delete', id);
   }
 
 }
