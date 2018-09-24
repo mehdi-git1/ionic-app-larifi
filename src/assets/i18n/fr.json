@@ -222,6 +222,14 @@
                 "SKILL_END_DATE": "Compétent jusqu'au"
             }    
         },
+        "PLANE_SKILLS": {
+            "PLANE": "Avion",
+            "START_DATE": "Depuis",
+            "MDC_DATE": "MDC",
+            "DUE_DATE": "Echéance",
+            "DDV_DUE_DATE": "Echéance DDV",
+            "SKILL_END_DATE": "Compétent jusqu'au"
+        },
         "FAMILIARIZATION_FLIGHTS": {
             "LC": "Long courrier",
             "MC": "Moyen courrier"
