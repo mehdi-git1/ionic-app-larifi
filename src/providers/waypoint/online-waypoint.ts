@@ -7,6 +7,7 @@ import { Config } from './../../configuration/environment-variables/config';
 import { RestService } from '../../services/rest.base.service';
 import { Waypoint } from '../../models/waypoint';
 import { Entity } from '../../models/entity';
+import { isUndefined } from 'ionic-angular/util/util';
 
 @Injectable()
 export class OnlineWaypointProvider {
@@ -58,7 +59,9 @@ export class OnlineWaypointProvider {
     for (const offlineData of offlineDataArray) {
       const result = onlineDataArray.filter(onlineData => offlineData.getStorageId() === onlineData.getStorageId());
       if (result && result.length === 1) {
-        onlineDataArray[onlineDataArray.indexOf(result[0])] = offlineData;
+        if (!isUndefined(offlineData.offlineAction)) {
+          onlineDataArray[onlineDataArray.indexOf(result[0])] = offlineData;
+        }
       } else {
         onlineDataArray.push(offlineData);
       }
