@@ -86,7 +86,7 @@ export class GeneralitySkillsComponent implements OnInit{
             type: 'date'
           }, {
             libelle: this.translateService.instant('STATUTORY_CERTIFICATE.GENERALITY_SKILLS.GENE.MDC_DATE'),
-            value: [_.get(this.generalitySkillsData, 'gene.validityStartDate')],
+            value: [_.get(this.generalitySkillsData, 'gene.mdcDate')],
             type: 'date'
           }, {
             libelle: this.translateService.instant('STATUTORY_CERTIFICATE.GENERALITY_SKILLS.GENE.DUE_DATE'),
