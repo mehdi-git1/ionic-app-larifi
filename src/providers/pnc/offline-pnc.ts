@@ -1,3 +1,5 @@
+import { PagedPnc } from './../../models/pagedPnc';
+import { SessionService } from './../../services/session.service';
 import { AppConstant } from './../../app/app.constant';
 import { Rotation } from './../../models/rotation';
 import { Entity } from './../../models/entity';
@@ -5,11 +7,15 @@ import { StorageService } from './../../services/storage.service';
 import { Pnc } from './../../models/pnc';
 import { Injectable } from '@angular/core';
 import * as moment from 'moment';
+import { Page } from '../../models/page';
 
 @Injectable()
 export class OfflinePncProvider {
 
-  constructor(private storageService: StorageService) {
+  constructor(
+    private storageService: StorageService,
+    private sessionService: SessionService
+  ) {
   }
 
   /**
@@ -34,8 +40,26 @@ export class OfflinePncProvider {
     * Récupère les PNCs du cache
     * @return une promesse contenant les PNC trouvés
     */
-  getPncs(): Promise<Pnc[]> {
-    return this.storageService.findAllAsync(Entity.PNC);
+  getFilteredPncs(): Promise<PagedPnc> {
+    return this.storageService.findAllAsync(Entity.PNC).then(response => {
+      return this.getPnc(this.sessionService.authenticatedUser.matricule).then(connectedPnc => {
+        let filteredPnc = response;
+        if (connectedPnc.assignment.division !== 'ADM') {
+          filteredPnc = response.filter(pnc =>
+            (pnc.assignment.division === connectedPnc.assignment.division)
+            && (pnc.assignment.sector === connectedPnc.assignment.sector)
+            && (pnc.matricule !== connectedPnc.matricule));
+        }
+        filteredPnc.sort((a, b) => a.lastName < b.lastName ? -1 : 1);
+        const pagedPncResponse: PagedPnc = new PagedPnc();
+        pagedPncResponse.content = filteredPnc;
+        pagedPncResponse.page = new Page();
+        pagedPncResponse.page.size = filteredPnc.length;
+        pagedPncResponse.page.totalElements = filteredPnc.length;
+        pagedPncResponse.page.number = 0;
+        return pagedPncResponse;
+      });
+    });
   }
 
   /**
