@@ -4,15 +4,23 @@ import { OfflineLegProvider } from './offline-leg';
 import { Leg } from './../../models/leg';
 import { Injectable } from '@angular/core';
 import { ConnectivityService } from './../../services/connectivity.service';
+import { BaseProvider } from '../base.provider';
 
 @Injectable()
-export class LegProvider {
+export class LegProvider extends BaseProvider{
 
   private legUrl: string;
 
-  constructor(private connectivityService: ConnectivityService,
+  constructor(
+    protected connectivityService: ConnectivityService,
     private onlineLegProvider: OnlineLegProvider,
-    private offlineLegProvider: OfflineLegProvider) {
+    private offlineLegProvider: OfflineLegProvider
+  ) {
+      super(
+        connectivityService,
+        onlineLegProvider,
+        offlineLegProvider
+      );
   }
 
   /**
@@ -21,9 +29,7 @@ export class LegProvider {
   * @return les informations du leg
   */
   getLeg(legId: number): Promise<Leg> {
-    return this.connectivityService.isConnected() ?
-      this.onlineLegProvider.getLeg(legId) :
-      this.offlineLegProvider.getLeg(legId);
+    return this.execFunctionProvider('getLeg', legId);
   }
 
   /**
@@ -32,9 +38,7 @@ export class LegProvider {
   * @return la liste équipage d'un tronçon
   */
   getFlightCrewFromLeg(legId: number): Promise<CrewMember[]> {
-    return this.connectivityService.isConnected() ?
-      this.onlineLegProvider.getFlightCrewFromLeg(legId) :
-      this.offlineLegProvider.getFlightCrewFromLeg(legId);
+    return this.execFunctionProvider('getFlightCrewFromLeg', legId);
   }
 
 }

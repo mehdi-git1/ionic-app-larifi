@@ -6,15 +6,23 @@ import { Injectable } from '@angular/core';
 import { OnlineSummarySheetProvider } from './online-summary-sheet';
 import { SummarySheet } from '../../models/summarySheet';
 import { Utils } from '../../common/utils';
+import { BaseProvider } from '../base.provider';
 
 @Injectable()
-export class SummarySheetProvider {
+export class SummarySheetProvider extends BaseProvider {
 
-  constructor(private connectivityService: ConnectivityService,
+  constructor(
+    protected connectivityService: ConnectivityService,
     private onlineSummarySheetProvider: OnlineSummarySheetProvider,
     private offlineSummarySheetProvider: OfflineSummarySheetProvider,
     private offlineProvider: OfflineProvider,
-    private summarySheetTransformerProvider: SummarySheetTransformerProvider) {
+    private summarySheetTransformerProvider: SummarySheetTransformerProvider
+  ){
+    super(
+      connectivityService,
+      onlineSummarySheetProvider,
+      offlineSummarySheetProvider
+    );
   }
 
   /**
@@ -23,26 +31,6 @@ export class SummarySheetProvider {
     * @return la fiche synthese d'un PNC
     */
   getSummarySheet(matricule: string): Promise<SummarySheet> {
-    if (this.connectivityService.isConnected()) {
-      return new Promise((resolve, reject) => {
-
-          this.onlineSummarySheetProvider.getSummarySheet(matricule).then(onlineSummarySheet => {
-            try {
-              if (!onlineSummarySheet || !onlineSummarySheet.summarySheet) {
-                resolve(null);
-              }
-              const onlineData = this.summarySheetTransformerProvider.toSummarySheetFromBlob(onlineSummarySheet.summarySheet, matricule);
-              resolve(onlineData);
-            } catch (error) {
-              console.log('getSummarySheet error : ' + error);
-            }
-          },
-            error => {
-              console.log(' error onlineSummarySheetProvider ' + error);
-            });
-          });
-    } else {
-      return this.offlineSummarySheetProvider.getSummarySheet(matricule);
-    }
+    return this.execFunctionProvider('getSummarySheet', matricule);
   }
 }
