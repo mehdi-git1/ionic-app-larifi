@@ -5,6 +5,6 @@ export class PlaneSkill{
     mdcDate: Date;
     dueDate: Date;
     ddvDueDate: Date;
-    skillEndDate: Date;
+    endDate: Date;
 }
 

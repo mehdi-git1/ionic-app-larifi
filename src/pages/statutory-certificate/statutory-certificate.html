@@ -1,6 +1,6 @@
 <ion-header>
     <ion-navbar>
-        <page-header [showSettingsIcon]="false">
+        <page-header [showSettingsIcon]="true" [showRefreshIcon]="false">
             {{ 'STATUTORY_CERTIFICATE.TITLE' | translate }}
         </page-header>
     </ion-navbar>
@@ -27,6 +27,13 @@
                     {{ 'STATUTORY_CERTIFICATE.CATEGORIES.GENERALITY_SKILLS' | translate }}
                 </mat-expansion-panel-header>
                 <generality-skills *ngIf="statutoryCertificate" [generalitySkillsData]="statutoryCertificate.generalitySkills"></generality-skills>
+            </mat-expansion-panel>
+
+            <mat-expansion-panel *ngIf="statutoryCertificate?.planeSkills">
+                <mat-expansion-panel-header [expandedHeight]="'48px'">
+                    {{ 'STATUTORY_CERTIFICATE.CATEGORIES.PLANE_SKILLS' | translate }}
+                </mat-expansion-panel-header>
+                <plane-skills *ngIf="statutoryCertificate" [planeSkillsData]="statutoryCertificate.planeSkills"></plane-skills>
             </mat-expansion-panel>
 
             <mat-expansion-panel *ngIf="statutoryCertificate?.planeSkills">

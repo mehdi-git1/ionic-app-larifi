@@ -1,4 +1,3 @@
-import { StatutoryCertificateDataComponent } from './statutory-certificate-data/statutory-certificate-data';
 import { IonicModule } from 'ionic-angular';
 import { DatePipe, CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
@@ -23,6 +22,9 @@ import { GeneralitySkillsComponent } from './generality-skills/generality-skills
 
 import { SecretQuestionComponent } from './secret-question/secret-question';
 import { SecretQuestionModal } from './modals/secret-question-modal/secret-question-modal';
+
+import { PlaneSkillsComponent } from './plane-skills/plane-skills';
+import { StatutoryCertificateDataComponent } from './statutory-certificate-data/statutory-certificate-data';
 import { StatutoryCertificateVamComponent } from './statutory-certificate-vam/statutory-certificate-vam';
 
 @NgModule({
@@ -50,6 +52,7 @@ import { StatutoryCertificateVamComponent } from './statutory-certificate-vam/st
     CareerObjectiveCardComponent,
     StatutoryCertificateDataComponent,
     GeneralitySkillsComponent,
+    PlaneSkillsComponent,
     StatutoryCertificateVamComponent
   ],
   exports: [
@@ -71,6 +74,7 @@ import { StatutoryCertificateVamComponent } from './statutory-certificate-vam/st
     CareerObjectiveCardComponent,
     StatutoryCertificateDataComponent,
     GeneralitySkillsComponent,
+    PlaneSkillsComponent,
     StatutoryCertificateVamComponent
   ],
   entryComponents: [
