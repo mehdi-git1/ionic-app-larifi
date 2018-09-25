@@ -1,6 +1,8 @@
 import { TranslateService } from '@ngx-translate/core';
 import { Component, Input, OnInit } from '@angular/core';
 
+import * as moment from 'moment';
+
 @Component({
   selector: 'statutory-certificate-data',
   templateUrl: 'statutory-certificate-data.html'
@@ -21,7 +23,7 @@ export class StatutoryCertificateDataComponent{
     if (dataType.indexOf('date') != -1 && !dataValue){
       return 'no-value';
     }
-    if (dataType.indexOf('end-date') != -1 && dataValue > new Date()){
+    if (dataType.indexOf('end-date') != -1 && dataValue && moment().isBefore(dataValue)){
       return 'important-date';
     }
     return '';

@@ -59,7 +59,7 @@ export class GeneralitySkillsComponent implements OnInit{
             type: 'date'
           }, {
             libelle: '',
-            value: '',
+            value: [''],
             type: 'text'
           }, {
             libelle: this.translateService.instant('STATUTORY_CERTIFICATE.GENERALITY_SKILLS.PCB.DUE_DATE'),

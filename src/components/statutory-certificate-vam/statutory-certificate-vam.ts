@@ -1,25 +1,33 @@
 import { VAM } from './../../models/statutoryCertificate/vam';
-import { DateTransformService } from './../../services/date.transform.service';
-import { Component, Input } from '@angular/core';
-import * as moment from 'moment';
+import { Component, Input, OnInit } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
+
+import * as _ from 'lodash';
 @Component({
   selector: 'statutory-certificate-vam',
   templateUrl: 'statutory-certificate-vam.html'
 })
-export class StatutoryCertificateVamComponent {
+export class StatutoryCertificateVamComponent implements OnInit {
 
-  @Input() vam: VAM;
+  @Input() vamData: VAM ;
 
-  constructor(private dateTransformer: DateTransformService) {
+  // Tableau des valeurs à afficher en fonction du type de tableau
+  skillDataDisplayed: Array<object>;
+
+  constructor(private translateService: TranslateService) {
   }
 
-  getCssClassForEndDate(): string{
-    if (!this.vam || !this.vam.validityEndDate) {
-      return 'no-value';
-    }
-    if (this.vam && this.vam.validityEndDate && moment().isBefore(this.vam.validityEndDate)) {
-      return 'important-date';
-    }
-    return '';
+  ngOnInit(){
+    this.skillDataDisplayed =
+        [{
+            libelle: this.translateService.instant('STATUTORY_CERTIFICATE.VAM.START_DATE'),
+            value: [_.get(this.vamData, 'validityStartDate')],
+            type: 'date'
+          }, {
+            libelle: this.translateService.instant('STATUTORY_CERTIFICATE.VAM.END_DATE'),
+            value: [_.get(this.vamData, 'validityEndDate')],
+            type: 'end-date'
+          }
+        ];
   }
 }
