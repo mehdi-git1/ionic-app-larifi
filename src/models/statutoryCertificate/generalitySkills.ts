@@ -1,6 +1,6 @@
-export class GeneralitySkills{
+export class GeneralitySkills {
     cca: {
-        libelle: string ,
+        label: string ,
         startDate: Date
     };
     pcb: {
@@ -16,5 +16,4 @@ export class GeneralitySkills{
         ddvDueDate: Date,
         endDate: Date
     };
-
 }

@@ -18,6 +18,8 @@ export class StatutoryCertificateProvider {
    * @return l'attestation réglementaire du PNC
    */
   getStatutoryCertificate(matricule: string): Promise<StatutoryCertificate> {
-      return this.connectivityService.isConnected() ? this.onlineStatutoryCertificateProvider.getStatutoryCertificate(matricule) : null;
+    return this.connectivityService.isConnected() ?
+      this.onlineStatutoryCertificateProvider.getStatutoryCertificate(matricule) :
+      null;
   }
 }
