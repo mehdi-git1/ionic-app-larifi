@@ -36,12 +36,6 @@
                 <plane-skills *ngIf="statutoryCertificate" [planeSkillsData]="statutoryCertificate.planeSkills"></plane-skills>
             </mat-expansion-panel>
 
-            <mat-expansion-panel *ngIf="statutoryCertificate?.planeSkills">
-                <mat-expansion-panel-header [expandedHeight]="'48px'">
-                    {{ 'STATUTORY_CERTIFICATE.CATEGORIES.PLANE_SKILLS' | translate }}
-                </mat-expansion-panel-header>
-            </mat-expansion-panel>
-
             <mat-expansion-panel *ngIf="statutoryCertificate?.familiarizationFlights">
                 <mat-expansion-panel-header [expandedHeight]="'48px'">
                     {{ 'STATUTORY_CERTIFICATE.CATEGORIES.FAMILIARIZATION_FLIGHT' | translate }}
