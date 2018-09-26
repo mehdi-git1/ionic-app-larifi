@@ -111,25 +111,31 @@ export class EDossierPNC implements OnInit {
         this.storageService.initOfflineMap().then(success => {
           this.connectivityService.pingAPI().then(
             pingSuccess => {
-                this.connectivityService.setConnected(true);
-                this.putAuthenticatedUserInSession().then(authenticatedUser => {
-                  this.appInitService.initParameters();
-                  if (this.deviceService.isOfflineModeAvailable()) {
-                    this.synchronizationProvider.synchronizeOfflineData();
-                    this.synchronizationProvider.storeEDossierOffline(authenticatedUser.matricule).then(successStore => {
-                      this.events.publish('EDossierOffline:stored');
-                      this.splashScreen.hide();
-                    }, error => {
-                      this.splashScreen.hide();
-                    });
-                  }
-                }, error => {
-                  this.splashScreen.hide();
-                });
+              this.connectivityService.setConnected(true);
+              this.putAuthenticatedUserInSession().then(authenticatedUser => {
+                this.appInitService.initParameters();
+                if (this.deviceService.isOfflineModeAvailable()) {
+                  this.synchronizationProvider.synchronizeOfflineData();
+                  this.synchronizationProvider.storeEDossierOffline(authenticatedUser.matricule).then(successStore => {
+                    this.events.publish('EDossierOffline:stored');
+                    this.splashScreen.hide();
+                  }, error => {
+                    this.splashScreen.hide();
+                  });
+                }
+              }, error => {
+                this.splashScreen.hide();
+              });
             }, pingError => {
+              if (this.deviceService.isOfflineModeAvailable()) {
                 this.connectivityService.setConnected(false);
                 this.connectivityService.startPingAPI();
                 this.getAuthenticatedUserFromCache();
+              } else {
+                if (this.deviceService.isBrowser()) {
+                  this.nav.setRoot(GenericMessagePage, { message: this.translateService.instant('GLOBAL.MESSAGES.ERROR.SERVER_APPLICATION_UNAVAILABLE') });
+                }
+              }
             });
         });
       }, error => {
