@@ -1,4 +1,3 @@
-import { SummarySheetTransformerProvider } from './summary-sheet-transformer';
 import { OfflineProvider } from './../offline/offline';
 import { OfflineSummarySheetProvider } from './offline-summary-sheet';
 import { ConnectivityService } from './../../services/connectivity.service';
