@@ -231,6 +231,7 @@ export class PncSearchFilterComponent implements OnInit {
       return from(this.pncProvider.pncAutoComplete(term).then (
           data => {
             this.autoCompleteRunning = false;
+            $('#cdk-overlay-0').css('top', this.autoCompleteTopPosition + 'px' );
             return data;
         }));
       } else {
