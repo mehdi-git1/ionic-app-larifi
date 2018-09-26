@@ -4,8 +4,10 @@ import { MasteringQualification } from './statutoryCertificate/masteringQualific
 import { FamiliarizationFlight } from './statutoryCertificate/familiarizationFlight';
 import { PlaneSkill } from './statutoryCertificate/planeSkill';
 import { GeneralitySkills } from './statutoryCertificate/generalitySkills';
+import { EDossierPncObject } from './eDossierPncObject';
 
-export class StatutoryCertificate {
+export class StatutoryCertificate extends EDossierPncObject  {
+    matricule: string;
     aircraftSkills: Array<string>;
     generalitySkills: GeneralitySkills;
     planeSkills: Array<PlaneSkill>;
@@ -13,4 +15,8 @@ export class StatutoryCertificate {
     masteringQualification: MasteringQualification;
     annualElearning: AnnualElearning;
     vam: VAM;
+
+    getStorageId(): string {
+        return `${this.matricule}`;
+    }
 }

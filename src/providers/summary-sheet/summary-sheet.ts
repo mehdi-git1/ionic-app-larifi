@@ -15,8 +15,7 @@ export class SummarySheetProvider extends BaseProvider {
     protected connectivityService: ConnectivityService,
     private onlineSummarySheetProvider: OnlineSummarySheetProvider,
     private offlineSummarySheetProvider: OfflineSummarySheetProvider,
-    private offlineProvider: OfflineProvider,
-    private summarySheetTransformerProvider: SummarySheetTransformerProvider
+    private offlineProvider: OfflineProvider
   ){
     super(
       connectivityService,

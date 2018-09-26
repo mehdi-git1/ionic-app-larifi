@@ -1,3 +1,5 @@
+import { StatutoryCertificateTransformerProvider } from './../statutory-certificate/statutory-certificate-transformer';
+import { StatutoryCertificate } from './../../models/statutoryCertificate';
 import { EObservation } from './../../models/eObservation';
 import { EObservationService } from './../../services/eObservation.service';
 import { PncPhotoTransformerProvider } from './../pnc-photo/pnc-photo-transformer';
@@ -51,7 +53,8 @@ export class SynchronizationProvider {
     private sessionService: SessionService,
     private toastProvider: ToastProvider,
     private translateService: TranslateService,
-    private careerObjectiveProvider: CareerObjectiveProvider) {
+    private careerObjectiveProvider: CareerObjectiveProvider,
+    private statutoryCertificateTransformer: StatutoryCertificateTransformerProvider) {
   }
 
 
@@ -188,6 +191,10 @@ export class SynchronizationProvider {
       // Sauvegarde de la photo du PNC
       this.storageService.save(Entity.PNC_PHOTO, this.pncPhotoTransformer.toPncPhoto(pncSynchroResponse.photo), true);
       this.storageService.persistOfflineMap();
+
+      // Sauvegarde de l'attestation réglementaire
+      this.storageService.save(Entity.STATUTORY_CERTIFICATE, this.statutoryCertificateTransformer.toStatutoryCertificate(pncSynchroResponse.statutoryCertificate), true);
+
     }, error => { });
   }
 
@@ -226,6 +233,9 @@ export class SynchronizationProvider {
 
     // Suppression de la fiche synthese
     this.storageService.delete(Entity.SUMMARY_SHEET, pnc.matricule);
+
+    // Suppression de l'attestation réglementaire
+    this.storageService.delete(Entity.STATUTORY_CERTIFICATE, pnc.matricule);
   }
 
   /**
