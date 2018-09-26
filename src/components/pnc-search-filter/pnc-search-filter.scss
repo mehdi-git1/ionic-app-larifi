@@ -3,6 +3,7 @@ $margin-top-autocomplete: 12px;
 $border-input-size: 2px;
 $border-input: $border-input-size solid color($colors, grey50);
 $top-autocomplete-field: 18px;
+
 pnc-search-filter {
 
     .pnc-search-card {
@@ -24,13 +25,13 @@ pnc-search-filter {
             }
         }
 
-        .auto-complete-spinner{
+        .auto-complete-spinner {
             position: absolute;
             top: 20px;
             right: 20px;
             width: 20px;
 
-            &.spinner-ios{
+            &.spinner-ios {
                 top: 2.4em;
                 right: 2.4em;
             }
@@ -43,7 +44,7 @@ pnc-search-filter {
         }
 
         ion-card-content.opened {
-            max-height: 165px;
+            max-height: 188px;
             transition: max-height 500ms;
         }
 
@@ -68,13 +69,16 @@ pnc-search-filter {
             background: color($colors, grey50);
             width: 100%;
         }
+
         .button-md {
             margin-top: $margin-top-autocomplete;
 
         }
+
         .button-ios {
             margin-top: $top-autocomplete-field;
         }
+
         .search-pnc {
             background: color($colors, green60);
             width: 100%;
@@ -84,13 +88,13 @@ pnc-search-filter {
             font-size: smaller;
             opacity: 0;
             transition: visibility 0s linear 2000ms,
-            opacity 2000ms;
+                opacity 2000ms;
         }
 
         .show-label {
             font-size: smaller;
             transition: visibility 0s linear 0s,
-            opacity 2000ms;
+                opacity 2000ms;
         }
 
         form {
@@ -98,10 +102,12 @@ pnc-search-filter {
                 width: 100%;
                 line-height: normal;
             }
+
             .mat-form-field-infix {
                 margin-top: $margin-top-autocomplete;
                 border: $border-input;
             }
+
             .mat-form-field-label {
                 top: $top-autocomplete-field;
                 padding-left: $padding-left-ion-select;
@@ -128,6 +134,7 @@ pnc-search-filter {
             .select-placeholder {
                 color: color($colors, grey10) !important;
             }
+
             .label-md {
                 margin: 0;
             }

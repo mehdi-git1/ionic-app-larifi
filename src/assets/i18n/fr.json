@@ -207,7 +207,7 @@
             "CCA": {
                 "TITLE": "CCA",
                 "START_DATE": "Depuis"
-            },    
+            },
             "PCB": {
                 "TITLE": "PCB",
                 "START_DATE": "Depuis",
@@ -220,7 +220,7 @@
                 "DUE_DATE": "Echéance",
                 "DDV_DUE_DATE": "Echéance DDV",
                 "SKILL_END_DATE": "Compétent jusqu'au"
-            }    
+            }
         },
         "PLANE_SKILLS": {
             "PLANE": "Avion",
@@ -235,11 +235,11 @@
             "MC": "Moyen courrier"
         },
         "VAM": {
-            "START_DATE" : "Début",
-            "END_DATE" : "Fin"
+            "START_DATE": "Début",
+            "END_DATE": "Fin"
         },
-        "ERROR" : {
-            "STATUTORY_CERTIFICATE" : "Erreur lors de la récupération de  l'attestation réglementaire pour le matricule {{ matricule }}"
+        "ERROR": {
+            "STATUTORY_CERTIFICATE": "Erreur lors de la récupération de  l'attestation réglementaire pour le matricule {{ matricule }}"
         }
     },
     "PNC_SEARCH": {
@@ -253,7 +253,8 @@
             "SPECIALITY": "Fonction",
             "RELAY": "Relais",
             "AIRCRAFT_SKILL": "Spécialisation avion",
-            "WORK_RATE": "Rythme"
+            "WORK_RATE": "Rythme",
+            "PRIORITIZED": "Priorité majeure"
         },
         "DEFAULT_DATA": {
             "ALL_F": "Toutes",
