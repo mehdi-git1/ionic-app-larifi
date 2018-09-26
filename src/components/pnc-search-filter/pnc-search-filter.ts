@@ -87,9 +87,7 @@ export class PncSearchFilterComponent implements OnInit {
      */
     this.keyboard.didHide.subscribe(() => {
       const newHeight = window.innerHeight - this.autoCompleteTopPosition;
-      if (this.autoCompleteTopPosition != -1){
-        $('#cdk-overlay-0').css('top', this.autoCompleteTopPosition + 'px' );
-      }
+      $('#cdk-overlay-0').css('top', this.autoCompleteTopPosition + 'px' );
       $('#mat-autocomplete-0').css('max-height', newHeight + 'px' );
     });
   }
@@ -112,6 +110,7 @@ export class PncSearchFilterComponent implements OnInit {
    */
   changeHeightOnOpen(){
     this.autoCompleteTopPosition = this.autoCompleteTopPosition != -1 ? this.autoCompleteTopPosition : $('#cdk-overlay-0').offset().top;
+    $('#cdk-overlay-0').css('top', this.autoCompleteTopPosition + 'px' );
     $('#mat-autocomplete-0').css('max-height', window.innerHeight - this.autoCompleteTopPosition + 'px' );
   }
 
