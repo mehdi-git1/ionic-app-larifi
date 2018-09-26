@@ -272,7 +272,7 @@ export class PncSearchFilterComponent implements OnInit {
   searchAutoComplete(term: string): void {
     this.checkIfAutoCompleteIsOpen();
     term = this.utils.replaceSpecialCaracters(term);
-    if (!/^[a-zA-Z0-9-]+$/.test(term)){
+    if (!/^[a-zA-Z0-9-]+$/.test(term) && term !== ''){
       this.pncMatriculeControl.setValue(term.substring(0, term.length - 1));
     }else{
       this.pncMatriculeControl.setValue(term);
