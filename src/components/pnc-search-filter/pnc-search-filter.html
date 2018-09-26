@@ -40,7 +40,7 @@
                 </form>
                 <form novalidate [formGroup]="searchForm">
                     <ion-row>
-                        <ion-col col-2>
+                        <ion-col>
                             <!-- Division -->
                             <ion-item>
                                 <ion-label floating>{{ 'PNC_SEARCH.CRITERIA.DIVISION' | translate }}</ion-label>
@@ -50,7 +50,7 @@
                                 </ion-select>
                             </ion-item>
                         </ion-col>
-                        <ion-col col-2>
+                        <ion-col>
                             <!-- Secteur -->
                             <ion-item>
                                 <ion-label floating>{{ 'PNC_SEARCH.CRITERIA.SECTOR' | translate }}</ion-label>
@@ -60,7 +60,7 @@
                                 </ion-select>
                             </ion-item>
                         </ion-col>
-                        <ion-col col-2>
+                        <ion-col>
                             <!-- Ginq -->
                             <ion-item>
                                 <ion-label floating>{{ 'PNC_SEARCH.CRITERIA.GINQ' | translate }}</ion-label>
@@ -70,7 +70,7 @@
                                 </ion-select>
                             </ion-item>
                         </ion-col>
-                        <ion-col col-2>
+                        <ion-col>
                             <!-- Grade -->
                             <ion-item>
                                 <ion-label floating>{{ 'PNC_SEARCH.CRITERIA.SPECIALITY' | translate }}</ion-label>
@@ -80,7 +80,7 @@
                                 </ion-select>
                             </ion-item>
                         </ion-col>
-                        <ion-col col-2>
+                        <ion-col>
                             <!-- Spécialisation avion -->
                             <ion-item>
                                 <ion-label floating>{{ 'PNC_SEARCH.CRITERIA.AIRCRAFT_SKILL' | translate }}</ion-label>
@@ -90,7 +90,7 @@
                                 </ion-select>
                             </ion-item>
                         </ion-col>
-                        <ion-col col-2>
+                        <ion-col>
                             <!-- Relais -->
                             <ion-item>
                                 <ion-label floating>{{ 'PNC_SEARCH.CRITERIA.RELAY' | translate }}</ion-label>
@@ -100,12 +100,10 @@
                                 </ion-select>
                             </ion-item>
                         </ion-col>
-                    </ion-row>
-                    <ion-row>
                         <ion-col>
                             <!-- Prioritaire -->
                             <ion-item>
-                                <ion-label>{{ 'CAREER_OBJECTIVE_CREATE.FORM.PRIORITIZED' | translate }}</ion-label>
+                                <ion-label>{{ 'PNC_SEARCH.CRITERIA.PRIORITIZED' | translate }}</ion-label>
                                 <ion-checkbox [disabled]="areFiltersDisabled()" formControlName="prioritizedControl"></ion-checkbox>
                             </ion-item>
                         </ion-col>

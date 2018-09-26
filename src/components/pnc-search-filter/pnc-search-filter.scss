@@ -25,6 +25,10 @@ pnc-search-filter {
             }
         }
 
+        .col {
+            align-self: center;
+        }
+
         .auto-complete-spinner {
             position: absolute;
             top: 20px;
@@ -44,7 +48,7 @@ pnc-search-filter {
         }
 
         ion-card-content.opened {
-            max-height: 188px;
+            max-height: 165px;
             transition: max-height 500ms;
         }
 
