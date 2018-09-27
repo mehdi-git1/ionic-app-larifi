@@ -156,6 +156,10 @@ export class SynchronizationProvider {
       for (const flightCrewList of flightCrewMatrix) {
         for (const flightCrew of flightCrewList) {
           this.storageService.save(Entity.CREW_MEMBER, this.crewMemberTransformerProvider.toCrewMember(flightCrew), true);
+          // charge l'edossier PNC de chaque membre d'équipage
+          if (pncSynchroResponse.pnc.matricule != flightCrew.pnc.matricule) {
+            this.storeEDossierOffline(flightCrew.pnc.matricule).then(success => {}, error => {});
+          }
           eObservationsPromise.push(this.eObservationService.getEObservation(flightCrew.pnc.matricule, flightCrew.rotationId));
         }
       }
