@@ -254,7 +254,8 @@
             "SPECIALITY": "Fonction",
             "RELAY": "Relais",
             "AIRCRAFT_SKILL": "Spécialisation avion",
-            "WORK_RATE": "Rythme"
+            "WORK_RATE": "Rythme",
+            "PRIORITIZED": "Priorité majeure"
         },
         "DEFAULT_DATA": {
             "ALL_F": "Toutes",
