@@ -44,7 +44,8 @@
                 "PNC_NOT_FOUND": "Erreur lors de la récupérations des PNC",
                 "APPLICATION_NOT_INITIALIZED": "Application non initialisée. Veuillez vous connecter à un réseau",
                 "APPLICATION_SYNCHRO_PENDING": "Le pnc  {{ matricule }} ne peut être chargé car il est en attente de synchronisation",
-                "INVALID_CREDENTIALS": "Identifiant/mot de passe incorrect"
+                "INVALID_CREDENTIALS": "Identifiant/mot de passe incorrect",
+                "SERVER_APPLICATION_UNAVAILABLE": "Application indisponible."
             }
         },
         "BUTTONS": {
@@ -207,7 +208,7 @@
             "CCA": {
                 "TITLE": "CCA",
                 "START_DATE": "Depuis"
-            },    
+            },
             "PCB": {
                 "TITLE": "PCB",
                 "START_DATE": "Depuis",
@@ -220,7 +221,7 @@
                 "DUE_DATE": "Echéance",
                 "DDV_DUE_DATE": "Echéance DDV",
                 "SKILL_END_DATE": "Compétent jusqu'au"
-            }    
+            }
         },
         "PLANE_SKILLS": {
             "PLANE": "Avion",
@@ -235,11 +236,11 @@
             "MC": "Moyen courrier"
         },
         "VAM": {
-            "START_DATE" : "Début",
-            "END_DATE" : "Fin"
+            "START_DATE": "Début",
+            "END_DATE": "Fin"
         },
-        "ERROR" : {
-            "STATUTORY_CERTIFICATE" : "Erreur lors de la récupération de  l'attestation réglementaire pour le matricule {{ matricule }}"
+        "ERROR": {
+            "STATUTORY_CERTIFICATE": "Erreur lors de la récupération de  l'attestation réglementaire pour le matricule {{ matricule }}"
         }
     },
     "PNC_SEARCH": {
