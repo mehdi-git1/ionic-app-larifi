@@ -87,7 +87,8 @@ export class PncSearchFilterComponent implements OnInit {
      */
     this.keyboard.didHide.subscribe(() => {
       const newHeight = window.innerHeight - this.autoCompleteTopPosition;
-      $('#mat-autocomplete-0').css('max-height', newHeight + 'px');
+      $('#cdk-overlay-0').css('top', this.autoCompleteTopPosition + 'px');
+      setTimeout($('#mat-autocomplete-0').css('max-height', newHeight + 'px'), 5000);
     });
   }
 
@@ -109,6 +110,7 @@ export class PncSearchFilterComponent implements OnInit {
    */
   changeHeightOnOpen() {
     this.autoCompleteTopPosition = this.autoCompleteTopPosition != -1 ? this.autoCompleteTopPosition : $('#cdk-overlay-0').offset().top;
+    $('#cdk-overlay-0').css('top', this.autoCompleteTopPosition + 'px');
     $('#mat-autocomplete-0').css('max-height', window.innerHeight - this.autoCompleteTopPosition + 'px');
   }
 
@@ -216,7 +218,7 @@ export class PncSearchFilterComponent implements OnInit {
       .debounceTime(300)
       .distinctUntilChanged()
       .switchMap(
-        term => (term ? this.getAutoCompleteDataReturn(term) : Observable.of<Pnc[]>([]))
+        term => this.getAutoCompleteDataReturn(term)
       )
       .catch(error => {
         return Observable.of<Pnc[]>([]);
@@ -228,11 +230,17 @@ export class PncSearchFilterComponent implements OnInit {
    * @param term termes à rechercher pour l'autocomplete
    */
   getAutoCompleteDataReturn(term) {
-    return from(this.pncProvider.pncAutoComplete(term).then(
-      data => {
-        this.autoCompleteRunning = false;
-        return data;
-      }));
+    if (term) {
+      return from(this.pncProvider.pncAutoComplete(term).then(
+        data => {
+          this.autoCompleteRunning = false;
+          $('#cdk-overlay-0').css('top', this.autoCompleteTopPosition + 'px');
+          return data;
+        }));
+    } else {
+      this.autoCompleteRunning = false;
+      return Observable.of<Pnc[]>([]);
+    }
   }
 
   /**
@@ -273,7 +281,7 @@ export class PncSearchFilterComponent implements OnInit {
   searchAutoComplete(term: string): void {
     this.checkIfAutoCompleteIsOpen();
     term = this.utils.replaceSpecialCaracters(term);
-    if (!/^[a-zA-Z0-9-]+$/.test(term)) {
+    if (!/^[a-zA-Z0-9-]+$/.test(term) && term !== '') {
       this.pncMatriculeControl.setValue(term.substring(0, term.length - 1));
     } else {
       this.pncMatriculeControl.setValue(term);
