@@ -44,7 +44,8 @@
                 "PNC_NOT_FOUND": "Erreur lors de la récupérations des PNC",
                 "APPLICATION_NOT_INITIALIZED": "Application non initialisée. Veuillez vous connecter à un réseau",
                 "APPLICATION_SYNCHRO_PENDING": "Le pnc  {{ matricule }} ne peut être chargé car il est en attente de synchronisation",
-                "INVALID_CREDENTIALS": "Identifiant/mot de passe incorrect"
+                "INVALID_CREDENTIALS": "Identifiant/mot de passe incorrect",
+                "SERVER_APPLICATION_UNAVAILABLE": "Application indisponible."
             }
         },
         "BUTTONS": {
