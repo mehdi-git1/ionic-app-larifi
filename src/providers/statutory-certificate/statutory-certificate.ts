@@ -1,15 +1,23 @@
+import { OfflineStatutoryCertificateProvider } from './offline-statutory-certificate';
 import { OnlineStatutoryCertificateProvider } from './online-statutory-certificate';
 import { ConnectivityService } from './../../services/connectivity.service';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { StatutoryCertificate } from '../../models/statutoryCertificate';
+import { BaseProvider } from '../base.provider';
 
 @Injectable()
-export class StatutoryCertificateProvider {
+export class StatutoryCertificateProvider extends BaseProvider {
 
   constructor(
-    private connectivityService: ConnectivityService,
-    private onlineStatutoryCertificateProvider: OnlineStatutoryCertificateProvider) {
+    public connectivityService: ConnectivityService,
+    private onlineStatutoryCertificateProvider: OnlineStatutoryCertificateProvider,
+    private offlineStatutoryCertificateProvider: OfflineStatutoryCertificateProvider) {
+      super(
+        connectivityService,
+        onlineStatutoryCertificateProvider,
+        offlineStatutoryCertificateProvider
+      );
   }
 
   /**
@@ -18,8 +26,6 @@ export class StatutoryCertificateProvider {
    * @return l'attestation réglementaire du PNC
    */
   getStatutoryCertificate(matricule: string): Promise<StatutoryCertificate> {
-    return this.connectivityService.isConnected() ?
-      this.onlineStatutoryCertificateProvider.getStatutoryCertificate(matricule) :
-      null;
+      return this.execFunctionProvider('getStatutoryCertificate', matricule);
   }
 }

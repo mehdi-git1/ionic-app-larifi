@@ -1,3 +1,4 @@
+import { StatutoryCertificate } from './statutoryCertificate';
 import { PncPhoto } from './pncPhoto';
 import { Rotation } from './rotation';
 import { Waypoint } from './waypoint';
@@ -14,4 +15,5 @@ export class PncSynchro {
     waypoints: Waypoint[];
     rotations: Rotation[];
     legs: Leg[];
+    statutoryCertificate: StatutoryCertificate;
 }

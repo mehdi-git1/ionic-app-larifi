@@ -1,6 +1,6 @@
 <ion-header>
     <ion-navbar>
-        <page-header (refreshPage)="initPage()">
+        <page-header (refreshPage)="initPage()" [showRefreshIcon]="true">
             <div class="leg" *ngIf="leg">
                 <div class="flight-number">
                     <ion-icon name="plane" class="round-icon"></ion-icon>
