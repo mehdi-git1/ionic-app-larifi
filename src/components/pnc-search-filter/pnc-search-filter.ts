@@ -72,13 +72,13 @@ export class PncSearchFilterComponent implements OnInit {
       this.initFilter();
     });
 
-     /**
-     * Action lorsque le clavier s'affiche
-     */
+    /**
+    * Action lorsque le clavier s'affiche
+    */
     this.keyboard.didShow.subscribe(() => {
       this.checkIfAutoCompleteIsOpen();
-      if (this.autoCompleteTopPosition != -1){
-       $('#cdk-overlay-0').css('top', this.autoCompleteTopPosition + 'px' );
+      if (this.autoCompleteTopPosition != -1) {
+        $('#cdk-overlay-0').css('top', this.autoCompleteTopPosition + 'px');
       }
     });
 
@@ -87,19 +87,19 @@ export class PncSearchFilterComponent implements OnInit {
      */
     this.keyboard.didHide.subscribe(() => {
       const newHeight = window.innerHeight - this.autoCompleteTopPosition;
-      $('#cdk-overlay-0').css('top', this.autoCompleteTopPosition + 'px' );
-      setTimeout($('#mat-autocomplete-0').css('max-height', newHeight + 'px' ), 5000);
+      $('#cdk-overlay-0').css('top', this.autoCompleteTopPosition + 'px');
+      setTimeout($('#mat-autocomplete-0').css('max-height', newHeight + 'px'), 5000);
     });
   }
 
   /**
    * Vérifie toutes les 200ms que l'element d'autocomplete existe
    */
-  checkIfAutoCompleteIsOpen(){
+  checkIfAutoCompleteIsOpen() {
     setTimeout(() => {
-      if ($('#mat-autocomplete-0').length != 0){
+      if ($('#mat-autocomplete-0').length != 0) {
         this.changeHeightOnOpen();
-      }else{
+      } else {
         this.checkIfAutoCompleteIsOpen();
       }
     }, 200);
@@ -108,10 +108,10 @@ export class PncSearchFilterComponent implements OnInit {
   /**
    * Change la max-height de l'autocomplete en fonction de la taille de l'affichage disponible
    */
-  changeHeightOnOpen(){
+  changeHeightOnOpen() {
     this.autoCompleteTopPosition = this.autoCompleteTopPosition != -1 ? this.autoCompleteTopPosition : $('#cdk-overlay-0').offset().top;
-    $('#cdk-overlay-0').css('top', this.autoCompleteTopPosition + 'px' );
-    $('#mat-autocomplete-0').css('max-height', window.innerHeight - this.autoCompleteTopPosition + 'px' );
+    $('#cdk-overlay-0').css('top', this.autoCompleteTopPosition + 'px');
+    $('#mat-autocomplete-0').css('max-height', window.innerHeight - this.autoCompleteTopPosition + 'px');
   }
 
   /**
@@ -154,6 +154,9 @@ export class PncSearchFilterComponent implements OnInit {
       } else {
         this.outOfDivision = false;
         this.relayList = params['relays'];
+        this.relayList.sort((value: String, otherValue: String) => {
+          return value > otherValue ? 1 : -1;
+        });
         this.aircraftSkillList = params['aircraftSkills'];
       }
     }
@@ -226,18 +229,18 @@ export class PncSearchFilterComponent implements OnInit {
    * Gére plus finement le retour de l'autocomplete
    * @param term termes à rechercher pour l'autocomplete
    */
-  getAutoCompleteDataReturn(term){
-    if (term){
-      return from(this.pncProvider.pncAutoComplete(term).then (
-          data => {
-            this.autoCompleteRunning = false;
-            $('#cdk-overlay-0').css('top', this.autoCompleteTopPosition + 'px' );
-            return data;
+  getAutoCompleteDataReturn(term) {
+    if (term) {
+      return from(this.pncProvider.pncAutoComplete(term).then(
+        data => {
+          this.autoCompleteRunning = false;
+          $('#cdk-overlay-0').css('top', this.autoCompleteTopPosition + 'px');
+          return data;
         }));
-      } else {
-        this.autoCompleteRunning = false;
-        return  Observable.of<Pnc[]>([]);
-      }
+    } else {
+      this.autoCompleteRunning = false;
+      return Observable.of<Pnc[]>([]);
+    }
   }
 
   /**
@@ -278,9 +281,9 @@ export class PncSearchFilterComponent implements OnInit {
   searchAutoComplete(term: string): void {
     this.checkIfAutoCompleteIsOpen();
     term = this.utils.replaceSpecialCaracters(term);
-    if (!/^[a-zA-Z0-9-]+$/.test(term) && term !== ''){
+    if (!/^[a-zA-Z0-9-]+$/.test(term) && term !== '') {
       this.pncMatriculeControl.setValue(term.substring(0, term.length - 1));
-    }else{
+    } else {
       this.pncMatriculeControl.setValue(term);
       this.autoCompleteRunning = true;
       this.searchTerms.next(term);
@@ -290,7 +293,7 @@ export class PncSearchFilterComponent implements OnInit {
   /**
    * Retourne true si une recherche d'autocomplete est en cours
    */
-  isAutoCompleteRunning(){
+  isAutoCompleteRunning() {
     return this.autoCompleteRunning;
   }
 
@@ -317,9 +320,9 @@ export class PncSearchFilterComponent implements OnInit {
     });
   }
 
-    /**
-   * Active le rechargement des ginqs à chaque modification de secteur
-   */
+  /**
+ * Active le rechargement des ginqs à chaque modification de secteur
+ */
   sectorOnchanges() {
     this.searchForm.get('sectorControl').valueChanges.subscribe(val => {
       this.pncFilter.sector = val;
