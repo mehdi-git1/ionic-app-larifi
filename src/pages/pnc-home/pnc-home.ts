@@ -73,14 +73,22 @@ export class PncHomePage {
      * Dirige vers la page de visualisation des objectifs
      */
     goToCareerObjectiveList() {
-        this.navCtrl.push(CareerObjectiveListPage, { matricule: this.matricule });
+        if (this.isMyHome()) {
+            this.navCtrl.parent.select(1);
+        } else {
+            this.navCtrl.push(CareerObjectiveListPage, { matricule: this.matricule });
+        }
     }
 
     /**
      * Dirige vers la page des ressources d'aide
      */
     goToHelpAssetList() {
-        this.navCtrl.push(HelpAssetListPage, { pncRole: Speciality.getPncRole(this.pnc.speciality) });
+        if (this.isMyHome()) {
+            this.navCtrl.parent.select(3);
+        } else {
+            this.navCtrl.push(HelpAssetListPage, { pncRole: Speciality.getPncRole(this.pnc.speciality) });
+        }
     }
 
     /**
@@ -88,7 +96,11 @@ export class PncHomePage {
      */
 
     goToUpcomingFlightList() {
-        this.navCtrl.push(UpcomingFlightListPage, { matricule: this.matricule });
+        if (this.isMyHome()) {
+            this.navCtrl.parent.select(2);
+        } else {
+            this.navCtrl.push(UpcomingFlightListPage, { matricule: this.matricule });
+        }
     }
 
     /**
@@ -102,14 +114,22 @@ export class PncHomePage {
     * Dirige vers l'effectif PNC
     */
     goToPncSearch() {
-        this.navCtrl.push(PncSearchPage);
+        if (this.isMyHome()) {
+            this.navCtrl.parent.select(1);
+        } else {
+            this.navCtrl.push(PncSearchPage);
+        }
     }
 
     /**
      * Dirige vers la fiche synthèse
      */
     goToSummarySheet() {
-        this.navCtrl.push(SummarySheetPage, { matricule: this.matricule });
+        if (this.isMyHome()) {
+            this.navCtrl.parent.select(2);
+        } else {
+            this.navCtrl.push(SummarySheetPage, { matricule: this.matricule });
+        }
     }
 
     /**

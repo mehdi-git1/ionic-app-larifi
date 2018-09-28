@@ -5,5 +5,4 @@
     <ion-tab [root]="pncSearchPage" *ngIf="pnc && pnc?.speciality === Speciality.CAD" [tabTitle]="translate.instant('GLOBAL.PNC_TEAM')" tabIcon="contact"></ion-tab>
     <ion-tab [root]="upcomingFlightListPage" *ngIf="pnc && pnc?.speciality === Speciality.CAD" [tabTitle]="translate.instant('GLOBAL.UPCOMING_FLIGHT')" tabIcon="ios-plane"></ion-tab>
     <ion-tab [root]="helpAssetListPage" *ngIf="pnc" [rootParams]="roleParams" [tabTitle]="translate.instant('GLOBAL.HELP_CENTRE')" tabIcon="ios-help"></ion-tab>
-    <ion-tab [root]="statutoryCertificatePage" *ngIf="pnc" [tabTitle]="translate.instant('GLOBAL.STATUTORY_CERTIFICATE')" tabIcon="ios-calendar"></ion-tab>
-  </ion-tabs>
+</ion-tabs>

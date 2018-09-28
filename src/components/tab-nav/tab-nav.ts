@@ -1,7 +1,6 @@
 import { SessionService } from './../../services/session.service';
 import { PncProvider } from './../../providers/pnc/pnc';
 import { Nav, Events, Tabs } from 'ionic-angular';
-import { StatutoryCertificatePage } from './../../pages/statutory-certificate/statutory-certificate';
 import { SummarySheetPage } from './../../pages/summary-sheet/summary-sheet';
 import { PncSearchPage } from './../../pages/pnc-search/pnc-search';
 import { PncHomePage } from './../../pages/pnc-home/pnc-home';
@@ -35,7 +34,6 @@ export class TabNavComponent {
     helpAssetListPage = HelpAssetListPage;
     upcomingFlightListPage = UpcomingFlightListPage;
     summarySheetPage = SummarySheetPage;
-    statutoryCertificatePage = StatutoryCertificatePage;
 
     // Pages invisibles du Tab
 
@@ -87,13 +85,6 @@ export class TabNavComponent {
   }
 
   /**
-   * Redirige vers le EDossier du PNC saisi
-   */
-  goToEdossier() {
-      this.navCtrl.push(PncHomePage, { matricule: this.pnc.matricule });
-  }
-
-  /**
   * Dirige vers l'effectif PNC
   */
   goToPncSearch() {
@@ -105,13 +96,6 @@ export class TabNavComponent {
    */
   goToSummarySheet() {
       this.navCtrl.push(SummarySheetPage, { matricule: this.pnc.matricule });
-  }
-
-  /**
-   * Dirige vers l'attestation réglementaire
-   */
-  goToStatutoryCertificate() {
-      this.navCtrl.push(StatutoryCertificatePage, { matricule: this.pnc.matricule });
   }
 
 }
