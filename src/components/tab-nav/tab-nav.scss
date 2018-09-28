@@ -49,4 +49,29 @@ tab-nav {
         background: color($colors, grey20) !important; /* your background color*/
         // font-size: 40px;
       }
+   
+      .tabs-ios .tab-button[aria-selected=false] .icon {  
+        color: color($colors, white) !important; /*your  text color */
+        background: color($colors, primary) !important; /* your background color*/
+        // font-size: 40px;
+      }
+      
+      .tabs-ios .tab-button[aria-selected=false] {  
+        color: color($colors, white) !important; /* your background color*/
+        background: color($colors, primary) !important;
+        // font-size: 40px;
+        // background: #ffffff !important; /* your background color*/
+      }
+      
+      .tabs-ios .tab-button[aria-selected=true] .icon {
+        color: color($colors, white) !important; /*your  text color */
+        background: color($colors, grey20) !important; /* your background color*/
+        // font-size: 40px;
+      }
+
+      .tabs-ios .tab-button[aria-selected=true] {
+        color: color($colors, white) !important; /*your  text color */
+        background: color($colors, grey20) !important; /* your background color*/
+        // font-size: 40px;
+      }
 }
