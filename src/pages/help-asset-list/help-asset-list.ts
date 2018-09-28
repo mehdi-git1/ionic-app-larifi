@@ -3,7 +3,6 @@ import { Type } from '@angular/compiler/src/core';
 import { ConnectivityService } from './../../services/connectivity.service';
 import { DeviceService } from './../../services/device.service';
 import { TranslateService } from '@ngx-translate/core';
-import { PdfFileViewerPage } from './../pdf-file-viewer/pdf-file-viewer';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { HelpAssetProvider } from './../../providers/help-asset/help-asset';
 import { HelpAsset } from './../../models/helpAsset';
