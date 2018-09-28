@@ -1,6 +1,6 @@
 import { SessionService } from './../../services/session.service';
 import { PncProvider } from './../../providers/pnc/pnc';
-import { Nav, Events } from 'ionic-angular';
+import { Nav, Events, Tabs } from 'ionic-angular';
 import { StatutoryCertificatePage } from './../../pages/statutory-certificate/statutory-certificate';
 import { SummarySheetPage } from './../../pages/summary-sheet/summary-sheet';
 import { PncSearchPage } from './../../pages/pnc-search/pnc-search';
@@ -12,22 +12,46 @@ import { CareerObjectiveListPage } from './../../pages/career-objective-list/car
 import { Pnc } from './../../models/pnc';
 import { Component, Input, ViewChild } from '@angular/core';
 import { Speciality } from './../../models/speciality';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
-  selector: 'page-footer',
-  templateUrl: 'page-footer.html'
+  selector: 'tab-nav',
+  templateUrl: 'tab-nav.html'
 })
-export class PageFooterComponent {
+export class TabNavComponent {
 
   @Input() pnc: Pnc;
   @Input() navCtrl: Nav;
+
+    @ViewChild('tabs') tabs: Tabs;
+
   // exporter la classe enum speciality dans la page html
   Speciality = Speciality;
 
-  constructor(private events: Events, private sessionService: SessionService, private pncProvider: PncProvider) {
+  // Pages du Tab
+    pncHomePage = PncHomePage;
+    pncSearchPage = PncSearchPage;
+    careerObjectiveListPage = CareerObjectiveListPage;
+    helpAssetListPage = HelpAssetListPage;
+    upcomingFlightListPage = UpcomingFlightListPage;
+    summarySheetPage = SummarySheetPage;
+    statutoryCertificatePage = StatutoryCertificatePage;
+
+    // Pages invisibles du Tab
+
+
+    // Paramètres envoyés aux pages
+    pncParams;
+    matriculeParams;
+    roleParams;
+
+  constructor(private events: Events, private sessionService: SessionService, private pncProvider: PncProvider, private translate: TranslateService) {
     this.events.subscribe('EDossierOffline:stored', () => {
             this.pncProvider.getPnc(this.sessionService.authenticatedUser.matricule).then(pnc => {
                 this.pnc = pnc;
+                this.pncParams = this.pnc;
+                this.matriculeParams = { matricule: this.pnc.matricule };
+                this.roleParams = { pncRole: Speciality.getPncRole(this.pnc.speciality) };
             }, error => {
             });
     });

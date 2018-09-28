@@ -21,7 +21,8 @@ import { CareerObjectiveCardComponent } from './career-objective-card/career-obj
 import { PinPadModal } from './modals/pin-pad-modal/pin-pad-modal';
 import { PinPadComponent } from './pin-pad/pin-pad';
 
-import { PageFooterComponent } from './page-footer/page-footer';
+import { TabNavComponent } from './tab-nav/tab-nav';
+
 
 @NgModule({
   imports: [
@@ -46,7 +47,7 @@ import { PageFooterComponent } from './page-footer/page-footer';
     PncPhotoComponent,
     PageHeaderComponent,
     CareerObjectiveCardComponent,
-    PageFooterComponent
+    TabNavComponent
   ],
   exports: [
     RotationCardComponent,
@@ -65,7 +66,7 @@ import { PageFooterComponent } from './page-footer/page-footer';
     PncSearchFilterComponent,
     PncPhotoComponent,
     CareerObjectiveCardComponent,
-    PageFooterComponent
+    TabNavComponent
   ],
   entryComponents: [
     PinPadModal,

@@ -1,3 +1,4 @@
+import { TabNavComponent } from './../components/tab-nav/tab-nav';
 import { AppInitService } from './../services/appInit.service';
 import { PinPadType } from './../models/pinPadType';
 import { DeviceService } from './../services/device.service';
@@ -41,7 +42,7 @@ import * as moment from 'moment';
 })
 export class EDossierPNC implements OnInit {
 
-  @ViewChild('content') nav: Nav;
+ @ViewChild('content') nav: Nav;
 
   rootPage: any = HomePage;
 
@@ -192,7 +193,6 @@ export class EDossierPNC implements OnInit {
       if (!this.deviceService.isBrowser()) {
         this.securityModalService.displayPinPad(PinPadType.openingApp);
       }
-      this.nav.setRoot(PncHomePage, { matricule: this.sessionService.authenticatedUser.matricule });
     }, err => {
       this.nav.setRoot(GenericMessagePage, { message: this.translateService.instant('GLOBAL.MESSAGES.ERROR.APPLICATION_NOT_INITIALIZED') });
     });

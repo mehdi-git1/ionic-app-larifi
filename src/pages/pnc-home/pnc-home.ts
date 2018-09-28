@@ -144,7 +144,7 @@ export class PncHomePage {
      * @return vrai si c'est le cas, faux sinon
      */
     isMyHome(): boolean {
-        return this.matricule === this.sessionService.authenticatedUser.matricule;
+        return this.matricule === (this.sessionService.authenticatedUser && this.sessionService.authenticatedUser.matricule);
     }
 
 }
