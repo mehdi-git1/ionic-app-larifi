@@ -1,5 +1,5 @@
 <ion-tabs #tabs *ngIf="pnc" tabsHighlight="true" tabsPlacement="bottom">
-    <ion-tab [root]="pncHomePage" [tabTitle]="translate.instant('PNC_HOME.TITLE')" tabIcon="home"></ion-tab>
+    <ion-tab [root]="pncHomePage"  [rootParams]="matriculeParams" [tabTitle]="translate.instant('PNC_HOME.TITLE')" tabIcon="home"></ion-tab>
     <ion-tab [root]="careerObjectiveListPage" [rootParams]="matriculeParams" *ngIf="pnc && pnc?.speciality !== Speciality.CAD" [tabTitle]="translate.instant('GLOBAL.DEVELOPMENT_PROGRAM')" tabIcon="flash"></ion-tab>
     <ion-tab [root]="summarySheetPage" [rootParams]="matriculeParams" *ngIf="pnc && pnc?.speciality !== Speciality.CAD" [tabTitle]="translate.instant('GLOBAL.PNC_SUMMARY_SHEET')" tabIcon="ios-paper"></ion-tab>
     <ion-tab [root]="pncSearchPage" *ngIf="pnc && pnc?.speciality === Speciality.CAD" [tabTitle]="translate.instant('GLOBAL.PNC_TEAM')" tabIcon="contact"></ion-tab>

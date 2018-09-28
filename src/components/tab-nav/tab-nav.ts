@@ -22,6 +22,23 @@ export class TabNavComponent {
   @Input() pnc: Pnc;
   @Input() navCtrl: Nav;
 
+  _matricule: string;
+
+  @Input()
+  set matricule(matricule: string) {
+    if (matricule) {
+      this.pncProvider.getPnc(matricule).then(pnc => {
+        this._matricule = matricule;
+        this.pnc = pnc;
+        this.pncParams = this.pnc;
+        this.matriculeParams = { matricule: this.pnc.matricule };
+        this.roleParams = { pncRole: Speciality.getPncRole(this.pnc.speciality) };
+        this.navCtrl.popToRoot();
+        }, error => {
+      });
+    }
+  }
+
     @ViewChild('tabs') tabs: Tabs;
 
   // exporter la classe enum speciality dans la page html
@@ -44,15 +61,6 @@ export class TabNavComponent {
     roleParams;
 
   constructor(private events: Events, private sessionService: SessionService, private pncProvider: PncProvider, private translate: TranslateService) {
-    this.events.subscribe('EDossierOffline:stored', () => {
-            this.pncProvider.getPnc(this.sessionService.authenticatedUser.matricule).then(pnc => {
-                this.pnc = pnc;
-                this.pncParams = this.pnc;
-                this.matriculeParams = { matricule: this.pnc.matricule };
-                this.roleParams = { pncRole: Speciality.getPncRole(this.pnc.speciality) };
-            }, error => {
-            });
-    });
   }
 
     /**

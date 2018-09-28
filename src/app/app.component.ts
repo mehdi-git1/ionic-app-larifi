@@ -171,7 +171,6 @@ export class EDossierPNC implements OnInit {
         if (!this.deviceService.isBrowser()) {
           this.securityModalService.displayPinPad(PinPadType.openingApp);
         }
-        this.nav.setRoot(PncHomePage, { matricule: this.sessionService.authenticatedUser.matricule });
       }
       else {
         this.nav.setRoot(AuthenticationPage);
