@@ -232,8 +232,8 @@
             "SKILL_END_DATE": "Compétent jusqu'au"
         },
         "FAMILIARIZATION_FLIGHTS": {
-            "LC": "Long courrier",
-            "MC": "Moyen courrier"
+            "VOL": "Vol",
+            "START_DATE": "Depuis"
         },
         "VAM": {
             "START_DATE": "Début",
@@ -241,7 +241,8 @@
         },
         "ERROR": {
             "STATUTORY_CERTIFICATE": "Erreur lors de la récupération de  l'attestation réglementaire pour le matricule {{ matricule }}"
-        }
+        },
+        "NO_DATA": "Pas de données disponible"
     },
     "PNC_SEARCH": {
         "TITLE": "Recherche PNC",
