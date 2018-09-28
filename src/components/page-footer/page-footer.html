@@ -1,0 +1,37 @@
+<ion-footer>
+  <ion-toolbar no-border-top>
+    <ion-title><button  class="home-button" ion-button (click)="goToHomePage()" icon-only >
+        <ion-icon name="home"></ion-icon>
+      </button>
+    </ion-title>
+    <ion-buttons end>
+        <button *ngIf="pnc && pnc?.speciality !== Speciality.CAD" ion-button (click)="goToCareerObjectiveList()" color="orange50" outline>
+            <ion-icon name="ios-flash"></ion-icon>
+          {{ 'GLOBAL.DEVELOPMENT_PROGRAM' | translate }}
+        </button>
+        <button *ngIf="pnc && pnc?.speciality !== Speciality.CAD" ion-button (click)="goToSummarySheet()" color="grey15" outline>
+            <ion-icon name="ios-paper"></ion-icon>
+          {{ 'GLOBAL.PNC_SUMMARY_SHEET' | translate }}
+        </button>
+        <button *ngIf="pnc && pnc?.speciality === Speciality.CAD" ion-button (click)="goToPncSearch()" background-color="grey60" color="grey60" outline>
+          <ion-icon name="contact"></ion-icon>
+          {{ 'GLOBAL.PNC_TEAM' | translate }}
+        </button>
+        <button *ngIf="pnc && pnc?.speciality === Speciality.CAD" ion-button (click)="goToUpcomingFlightList()" color="blue65" outline>
+            <ion-icon name="ios-plane"></ion-icon>
+          {{ 'GLOBAL.UPCOMING_FLIGHT' | translate }}
+        </button>
+        <button *ngIf="pnc" ion-button (click)="goToHelpAssetList()" color="blue90" outline>
+            <ion-icon name="ios-help"></ion-icon>
+            {{ 'GLOBAL.HELP_CENTRE' | translate }}
+        </button>
+        <button *ngIf="pnc" ion-button (click)="goToStatutoryCertificate()"  color="red90"  outline >
+            <ion-icon name="ios-calendar"></ion-icon>
+            {{ 'GLOBAL.STATUTORY_CERTIFICATE' | translate }}
+        </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>
+<!--ion-tabs>
+    <ion-tab [root]="chatRoot" tabTitle="Chat" tabIcon="chat"></ion-tab>
+</ion-tabs-->

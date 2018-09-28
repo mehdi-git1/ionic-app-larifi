@@ -1,0 +1,21 @@
+page-footer {
+
+    ion-icon {
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+    button {
+        font-size: 1.2em;
+        font-weight: bold;
+    }
+
+    .home-button {
+        height: 40px;
+        width: 40px;
+        box-shadow: none;
+
+        ion-icon {
+            font-size: 2.2em;
+        }
+    }
+}
