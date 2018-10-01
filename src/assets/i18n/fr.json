@@ -77,19 +77,19 @@
         },
         "CONFIRM_INSTRUCTOR_REQUEST": {
             "TITLE": "Sollicitation instructeur",
-            "MESSAGE": "Confirmez vous la demande de sollicitation instructeur ?",
+            "MESSAGE": "Confirmez-vous la demande de sollicitation instructeur ?",
             "CANCEL": "Annuler",
             "CONFIRM": "Confirmer"
         },
         "CONFIRM_DRAFT_DELETE": {
             "TITLE": "Suppression de la proposition",
-            "MESSAGE": "Confirmez vous la suppression de cette proposition ?",
+            "MESSAGE": "Confirmez-vous la suppression de cette proposition ?",
             "CANCEL": "Annuler",
             "CONFIRM": "Supprimer"
         },
         "CONFIRM_BACK_WITHOUT_SAVE": {
             "TITLE": "Modifications non enregistrées",
-            "MESSAGE": "Attention, des modifications n'ont pas été enregistrées, êtes vous sûr de vouloir revenir en arrière ?"
+            "MESSAGE": "Attention, des modifications n'ont pas été enregistrées, êtes-vous sûr de vouloir revenir en arrière ?"
         },
         "BUTTONS": {
             "SAVE": "Enregistrer",
@@ -152,13 +152,13 @@
         },
         "CONFIRM_DRAFT_DELETE": {
             "TITLE": "Suppression de la proposition",
-            "MESSAGE": "Confirmez vous la suppression de cette proposition ?",
+            "MESSAGE": "Confirmez-vous la suppression de cette proposition ?",
             "CANCEL": "Annuler",
             "CONFIRM": "Supprimer"
         },
         "CONFIRM_BACK_WITHOUT_SAVE": {
             "TITLE": "Modifications non enregistrées",
-            "MESSAGE": "Attention, des modifications n'ont pas été enregistrées, êtes vous sûr de vouloir revenir en arrière ?"
+            "MESSAGE": "Attention, des modifications n'ont pas été enregistrées, êtes-vous sûr de vouloir revenir en arrière ?"
         },
         "BUTTONS": {
             "SAVE": "Enregistrer",
@@ -272,7 +272,7 @@
     "SETTINGS": {
         "TITLE": "Réglages",
         "INIT_CACHE": {
-            "BUTTON": "Réinitialiser le cache",
+            "BUTTON": "Vider le cache",
             "SUCCESS": "Réinitialisation du cache réussie"
         },
         "FORCE_SYNCHRONIZATION": {
@@ -286,7 +286,7 @@
         },
         "CONFIRM_INIT_CACHE": {
             "TITLE": "Réinitialisation du cache",
-            "MESSAGE": "Attention. Êtes vous sûre de vouloir réinitialiser le cache ?",
+            "MESSAGE": "Attention. Êtes-vous sûr de vouloir vider le cache ?",
             "MESSAGE_UNSYNCHRONIZED_DATA": "Attention. La réinitialisation du cache peut entraîner la perte de données non synchronisées.",
             "CANCEL": "Annuler",
             "CONFIRM": "Confirmer"
