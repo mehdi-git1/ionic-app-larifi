@@ -72,7 +72,7 @@ export class PncProvider {
       return this.onlinePncProvider.getFilteredPncs(pncSearchCriteria);
     } else {
       return this.offlinePncProvider.getPncs().then(response => {
-        return this.offlinePncProvider.getPnc(this.sessionService.authenticatedUser.matricule).then(connectedPnc => {
+        return this.offlinePncProvider.getPnc(this.sessionService.getActiveUser().matricule).then(connectedPnc => {
           let filteredPnc = response;
           if (connectedPnc.assignment.division !== 'ADM') {
             filteredPnc = response.filter(pnc =>

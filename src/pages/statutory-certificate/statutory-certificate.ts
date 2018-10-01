@@ -18,7 +18,7 @@ export class StatutoryCertificatePage {
 
   pnc: Pnc;
   matricule: string;
-	statutoryCertificate: StatutoryCertificate;
+  statutoryCertificate: StatutoryCertificate;
 
   planeQualif: Array<string> = ['Géné', 'A320', 'B777', 'B787'];
 
@@ -28,18 +28,18 @@ export class StatutoryCertificatePage {
     private pncProvider: PncProvider,
     private statutoryCertificateProvider: StatutoryCertificateProvider,
     private toastProvider: ToastProvider,
-    private translate: TranslateService) {}
+    private translate: TranslateService) { }
 
   ionViewDidEnter() {
     if (this.navParams.get('matricule')) {
       this.matricule = this.navParams.get('matricule');
-    } else if (this.sessionService.authenticatedUser) {
-        this.matricule = this.sessionService.authenticatedUser.matricule;
+    } else if (this.sessionService.getActiveUser()) {
+      this.matricule = this.sessionService.getActiveUser().matricule;
     }
     if (this.matricule != null) {
       this.pncProvider.getPnc(this.matricule).then(pnc => {
-          this.pnc = pnc;
-      }, error => {});
+        this.pnc = pnc;
+      }, error => { });
       this.statutoryCertificateProvider.getStatutoryCertificate(this.matricule).then(statutoryCertificate => {
         this.statutoryCertificate = statutoryCertificate;
       }).catch(error => {

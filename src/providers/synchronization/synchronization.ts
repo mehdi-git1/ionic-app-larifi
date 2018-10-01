@@ -217,7 +217,7 @@ export class SynchronizationProvider {
 
 
     //  Suppression de toutes les rotations, vols, listes d'équipage et infos pour les eObservations
-    if (this.sessionService.authenticatedUser.matricule === pnc.matricule) {
+    if (this.sessionService.getActiveUser().matricule === pnc.matricule) {
       this.storageService.deleteAll(Entity.ROTATION);
       this.storageService.deleteAll(Entity.LEG);
       this.storageService.deleteAll(Entity.CREW_MEMBER);

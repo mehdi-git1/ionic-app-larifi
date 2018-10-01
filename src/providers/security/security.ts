@@ -1,3 +1,4 @@
+import { AppConstant } from './../../app/app.constant';
 import { OfflineSecurityProvider } from './../security/offline-security';
 import { OnlineSecurityProvider } from './../security/online-security';
 import { ConnectivityService } from './../../services/connectivity.service';
@@ -20,10 +21,10 @@ export class SecurityProvider {
   * @return true si le user connecté est un cadre, false sinon
   */
   isManager(): boolean {
-    if (this.sessionService.authenticatedUser === undefined) {
+    if (this.sessionService.getActiveUser() === undefined) {
       return false;
     }
-    return this.sessionService.authenticatedUser.manager;
+    return this.sessionService.getActiveUser().manager;
   }
 
   /**
@@ -40,12 +41,22 @@ export class SecurityProvider {
    * Met à jour les données secrétes de l'utilisateur
    * @return une promesse contenant un void
    */
-  setAuthenticatedSecurityValue(authenticatedUser: AuthenticatedUser): void | Promise<void>{
+  setAuthenticatedSecurityValue(authenticatedUser: AuthenticatedUser): void | Promise<void> {
     return this.connectivityService.isConnected() ?
       this.onlineSecurityProvider.setAuthenticatedSecurityValue(authenticatedUser) :
-      this.offlineSecurityProvider.setAuthenticatedSecurityValue(authenticatedUser) ;
+      this.offlineSecurityProvider.setAuthenticatedSecurityValue(authenticatedUser);
   }
 
-
+  /**
+   * Teste si un utilisateur est admin de l'application
+   * @param authenticatedUser l'utilisateur à tester
+   * @return vrai si l'utilisateur est admin, faux sinon
+   */
+  isAdmin(authenticatedUser: AuthenticatedUser): boolean {
+    if (authenticatedUser.profiles) {
+      return authenticatedUser.profiles.indexOf(AppConstant.P_EDOSPNC_ADMIN) > -1;
+    }
+    return false;
+  }
 
 }

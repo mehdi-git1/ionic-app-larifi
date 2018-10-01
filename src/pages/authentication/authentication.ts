@@ -70,16 +70,7 @@ export class AuthenticationPage implements OnInit {
       this.secMobilService.authenticate(loginValue, passwordValue).then(x => {
         this.storageService.initOfflineMap().then(success => {
           this.putAuthenticatedUserInSession().then(authenticatedUser => {
-            this.appInitService.initParameters();
-            if (this.deviceService.isOfflineModeAvailable()) {
-              this.synchronizationProvider.synchronizeOfflineData();
-              this.synchronizationProvider.storeEDossierOffline(authenticatedUser.matricule).then(successStore => {
-                this.events.publish('EDossierOffline:stored');
-                this.hideSpinner = true;
-              }, error => {
-                this.hideSpinner = true;
-              });
-            }
+            this.events.publish('user:logged');
           }, error => {
             this.secMobilService.secMobilRevokeCertificate();
             if (error === 'secmobil.incorrect.credentials') {

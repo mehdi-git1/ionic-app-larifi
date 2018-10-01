@@ -68,7 +68,7 @@ export class SettingsPage {
   * Présente une alerte pour confirmer la suppression du brouillon
   */
   confirmClearAndInitCache() {
-    const message = this.synchronizationProvider.isPncModifiedOffline(this.sessionService.authenticatedUser.matricule) ?
+    const message = this.synchronizationProvider.isPncModifiedOffline(this.sessionService.getActiveUser().matricule) ?
       this.translateService.instant('SETTINGS.CONFIRM_INIT_CACHE.MESSAGE_UNSYNCHRONIZED_DATA') :
       this.translateService.instant('SETTINGS.CONFIRM_INIT_CACHE.MESSAGE');
 
@@ -101,7 +101,7 @@ export class SettingsPage {
    */
   initializeCache() {
     this.storageService.initOfflineMap().then(success => {
-      const authenticatedUser = this.sessionService.authenticatedUser;
+      const authenticatedUser = this.sessionService.getActiveUser();
       this.offlineSecurityProvider.overwriteAuthenticatedUser(new AuthenticatedUser().fromJSON(authenticatedUser));
       this.synchronizationProvider.storeEDossierOffline(authenticatedUser.matricule).then(successStore => {
         this.events.publish('EDossierOffline:stored');
@@ -118,14 +118,14 @@ export class SettingsPage {
   /**
    * Fonction d'affichage du changement de code pin
    */
-  changePinCode(){
+  changePinCode() {
     this.securityModalService.displayPinPad(PinPadType.askChange);
   }
 
   /**
    * Fonction d'affichage du changement de question / reponse secréte
    */
-  changeSecretQuestion(){
+  changeSecretQuestion() {
     this.securityModalService.displaySecretQuestion(SecretQuestionType.askChange);
   }
 

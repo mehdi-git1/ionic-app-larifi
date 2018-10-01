@@ -1,0 +1,25 @@
+<ion-header>
+    <ion-navbar>
+        <page-header [showSettingsIcon]="false" [showRefreshIcon]="false">{{ 'GLOBAL.APP_NAME' | translate }}
+        </page-header>
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding no-bounce>
+    <h3>{{ 'IMPERSONATE.TITLE' | translate }}</h3>
+    <ion-card>
+        <ion-card-content>
+            <form novalidate [formGroup]="autoCompleteForm">
+                <mat-form-field>
+                    <input #pncMatricule type="text" matInput placeholder="{{'PNC_SEARCH.CRITERIA.PNC_MATRICULE' | translate}}" formControlName="pncMatriculeControl" (keyup)="searchAutoComplete(pncMatricule.value)" [matAutocomplete]="auto" [(ngModel)]="selectedPnc" autocomplete="off"
+                    />
+                </mat-form-field>
+                <mat-autocomplete class="mat-autocomplete" #auto="matAutocomplete" (optionSelected)="impersonatePnc($event.option.value)">
+                    <mat-option *ngFor="let pnc of pncList | async" [value]="pnc">
+                        {{ pnc.lastName + ' ' + pnc.firstName + ' (' + pnc.matricule + ')'}}
+                    </mat-option>
+                </mat-autocomplete>
+            </form>
+        </ion-card-content>
+    </ion-card>
+</ion-content>

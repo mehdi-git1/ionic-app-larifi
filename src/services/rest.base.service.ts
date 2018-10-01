@@ -1,3 +1,4 @@
+import { SessionService } from './session.service';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
@@ -18,7 +19,8 @@ export class RestRequest {
 Injectable();
 export abstract class RestService {
 
-    constructor(protected http: HttpClient) {
+    constructor(protected http: HttpClient,
+        protected sessionService: SessionService) {
     }
 
     abstract call(request: RestRequest): Promise<any>;
@@ -46,7 +48,6 @@ export abstract class RestService {
         request.url = url;
         request.jsonData = jsonData;
         request.httpHeaders = httpHeaders;
-
 
         return this.call(request);
     }

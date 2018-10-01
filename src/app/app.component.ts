@@ -1,3 +1,4 @@
+import { ImpersonatePage } from './../pages/impersonate/impersonate';
 import { AppInitService } from './../services/appInit.service';
 import { PinPadType } from './../models/pinPadType';
 import { DeviceService } from './../services/device.service';
@@ -111,25 +112,15 @@ export class EDossierPNC implements OnInit {
         this.storageService.initOfflineMap().then(success => {
           this.connectivityService.pingAPI().then(
             pingSuccess => {
-                this.connectivityService.setConnected(true);
-                this.putAuthenticatedUserInSession().then(authenticatedUser => {
-                  this.appInitService.initParameters();
-                  if (this.deviceService.isOfflineModeAvailable()) {
-                    this.synchronizationProvider.synchronizeOfflineData();
-                    this.synchronizationProvider.storeEDossierOffline(authenticatedUser.matricule).then(successStore => {
-                      this.events.publish('EDossierOffline:stored');
-                      this.splashScreen.hide();
-                    }, error => {
-                      this.splashScreen.hide();
-                    });
-                  }
-                }, error => {
-                  this.splashScreen.hide();
-                });
+              this.connectivityService.setConnected(true);
+              this.putAuthenticatedUserInSession().then(authenticatedUser => {
+              }, error => {
+                this.splashScreen.hide();
+              });
             }, pingError => {
-                this.connectivityService.setConnected(false);
-                this.connectivityService.startPingAPI();
-                this.getAuthenticatedUserFromCache();
+              this.connectivityService.setConnected(false);
+              this.connectivityService.startPingAPI();
+              this.getAuthenticatedUserFromCache();
             });
         });
       }, error => {
@@ -155,7 +146,31 @@ export class EDossierPNC implements OnInit {
           });
         }
       });
+
+      // Déclenchement d'une authentification
+      this.events.subscribe('user:authenticated', () => {
+        this.putAuthenticatedUserInSession();
+      });
+
+      // Déclenchement d'un changement de user
+      this.events.subscribe('user:changed', () => {
+        this.initUserData();
+      });
     });
+  }
+
+  /**
+   * Initialise les données de l'utilisateur connecté (ses filtres, son cache etc)
+   */
+  initUserData() {
+    this.appInitService.initParameters();
+    if (this.deviceService.isOfflineModeAvailable()) {
+      this.synchronizationProvider.synchronizeOfflineData();
+      this.synchronizationProvider.storeEDossierOffline(this.sessionService.authenticatedUser.matricule).then(successStore => {
+        this.events.publish('EDossierOffline:stored');
+      }, error => {
+      });
+    }
   }
 
   /**
@@ -166,11 +181,17 @@ export class EDossierPNC implements OnInit {
     promise.then(authenticatedUser => {
       if (authenticatedUser) {
         this.sessionService.authenticatedUser = authenticatedUser;
-        // Gestion de l'affchage du pinPad
+        // Gestion de l'affichage du pinPad
         if (!this.deviceService.isBrowser()) {
           this.securityModalService.displayPinPad(PinPadType.openingApp);
         }
-        this.nav.setRoot(PncHomePage, { matricule: this.sessionService.authenticatedUser.matricule });
+
+        if (this.securityProvider.isAdmin(authenticatedUser) && !authenticatedUser.pnc && !this.sessionService.impersonatedPnc) {
+          this.nav.setRoot(ImpersonatePage);
+        }
+        else {
+          this.nav.setRoot(PncHomePage, { matricule: this.sessionService.getActiveUser().matricule });
+        }
       }
       else {
         this.nav.setRoot(AuthenticationPage);

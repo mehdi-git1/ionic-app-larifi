@@ -1,3 +1,4 @@
+import { SessionService } from './session.service';
 import { Config } from './../configuration/environment-variables/config';
 import { Injectable } from '@angular/core';
 import { RestService, RestRequest } from './rest.base.service';
@@ -6,8 +7,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 @Injectable()
 export class RestWebService extends RestService {
 
-    constructor(protected http: HttpClient, private config: Config) {
-        super(http);
+    constructor(protected http: HttpClient, private config: Config, protected sessionService: SessionService) {
+        super(http, sessionService);
     }
 
     public call(request: RestRequest): Promise<any> {
@@ -35,7 +36,12 @@ export class RestWebService extends RestService {
 
         // En local, on ajoute le header SM_USER pour simuler l'authent habile
         if (this.config.isLocalhost()) {
-            request.httpHeaders.headers = request.httpHeaders.headers.append('SM_USER', 'm077557');
+            request.httpHeaders.headers = request.httpHeaders.headers.append('SM_USER', 'm414147');
+        }
+
+        // On ajoute un header spécial si la fonction d'impersonnification a été utilisée
+        if (this.sessionService.impersonatedPnc && this.sessionService.impersonatedPnc.matricule) {
+            request.httpHeaders.headers = request.httpHeaders.headers.append('IMPERSONATE', this.sessionService.impersonatedPnc.matricule);
         }
 
         request.httpHeaders.headers = request.httpHeaders.headers.append('Accept', 'application/json, text/plain, */*');
