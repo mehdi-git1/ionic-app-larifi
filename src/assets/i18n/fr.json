@@ -215,7 +215,7 @@
                 "DUE_DATE": "Echéance"
             },
             "GENE": {
-                "AIRCRAFT_SKILL": "Géné",
+                "TITLE": "Géné",
                 "START_DATE": "Depuis",
                 "MDC_DATE": "MDC - Géné",
                 "DUE_DATE": "Echéance",

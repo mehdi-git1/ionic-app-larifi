@@ -9,25 +9,28 @@ import * as _ from 'lodash';
 })
 export class StatutoryCertificateVamComponent implements OnInit {
 
-  @Input() vamData: VAM ;
+  @Input() vamData: VAM;
 
   // Tableau des valeurs à afficher en fonction du type de tableau
-  skillDataDisplayed: Array<object>;
+  skillDataDisplayed;
 
   constructor(private translateService: TranslateService) {
   }
 
-  ngOnInit(){
-    this.skillDataDisplayed =
-        [{
-            libelle: this.translateService.instant('STATUTORY_CERTIFICATE.VAM.START_DATE'),
-            value: [_.get(this.vamData, 'validityStartDate')],
-            type: 'date'
-          }, {
-            libelle: this.translateService.instant('STATUTORY_CERTIFICATE.VAM.END_DATE'),
-            value: [_.get(this.vamData, 'validityEndDate')],
-            type: 'end-date'
-          }
-        ];
+  ngOnInit() {
+    this.skillDataDisplayed = {
+      headers:
+        [
+          this.translateService.instant('STATUTORY_CERTIFICATE.VAM.START_DATE'),
+          this.translateService.instant('STATUTORY_CERTIFICATE.VAM.END_DATE')
+        ],
+      values: this.vamData ?
+        [
+          { value: [_.get(this.vamData, 'validityStartDate')], type: 'date' },
+          { value: [_.get(this.vamData, 'validityEndDate')], type: 'end-date' }
+        ]
+        :
+        null
+    };
   }
 }
