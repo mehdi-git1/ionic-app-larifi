@@ -1,3 +1,4 @@
+import { Utils } from './../common/utils';
 
 import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-translate/core';
 import { NgModule } from '@angular/core';
@@ -30,6 +31,7 @@ export function createTranslateLoader(http: HttpClient) {
         AppMaterialModule
     ],
     providers: [
+        Utils
     ]
 })
 export class SharedModule {
