@@ -273,7 +273,7 @@
         "TITLE": "Réglages",
         "INIT_CACHE": {
             "BUTTON": "Vider le cache",
-            "SUCCESS": "Réinitialisation du cache réussie"
+            "SUCCESS": "Cache vidé avec succès"
         },
         "FORCE_SYNCHRONIZATION": {
             "BUTTON": "Forcer la synchronisation"
@@ -285,9 +285,9 @@
             "BUTTON": "Changer la question secrète"
         },
         "CONFIRM_INIT_CACHE": {
-            "TITLE": "Réinitialisation du cache",
+            "TITLE": "Vider le cache",
             "MESSAGE": "Attention. Êtes-vous sûr de vouloir vider le cache ?",
-            "MESSAGE_UNSYNCHRONIZED_DATA": "Attention. La réinitialisation du cache peut entraîner la perte de données non synchronisées.",
+            "MESSAGE_UNSYNCHRONIZED_DATA": "Attention. Vider le cache peut entraîner la perte de données non synchronisées.",
             "CANCEL": "Annuler",
             "CONFIRM": "Confirmer"
         }
