@@ -217,6 +217,7 @@ export class PncSearchFilterComponent implements OnInit {
         term => this.getAutoCompleteDataReturn(term)
       )
       .catch(error => {
+        this.autoCompleteRunning = false;
         return Observable.of<Pnc[]>([]);
       });
   }
