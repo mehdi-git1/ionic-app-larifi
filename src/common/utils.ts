@@ -38,7 +38,7 @@ export class Utils {
         const prime = 3;
         let result = 1;
         for (const type in obj) {
-            if (obj[type] && obj[type] !== '') {
+            if (obj[type] && typeof (obj[type]) !== 'function') {
                 result = result * prime + this.getCharactersUnicodeSum(JSON.stringify(obj[type]));
             }
         }
@@ -50,10 +50,12 @@ export class Utils {
      * @param string chaine de caractères concernée.
      * @return le hashcode de la chaine de caractères concernée.
      */
-    public static getCharactersUnicodeSum(string: String): number {
+    public static getCharactersUnicodeSum(value: string): number {
         let hash = 0;
-        for (let i = 0; i < string.length; i++) {
-            hash = hash + string.charCodeAt(i);
+        if (value !== '' && typeof (value) !== 'undefined') {
+            for (let i = 0; i < value.length; i++) {
+                hash = hash + value.charCodeAt(i);
+            }
         }
         return hash;
     }
