@@ -61,7 +61,7 @@ export class SynchronizationProvider {
    * @param matricule le matricule du PNC dont on souhaite mettre en cache le EDossier
    * @return une promesse résolue quand le EDossier est mis en cache
    */
-  storeEDossierOffline(matricule: string): Promise<boolean> {
+  storeEDossierOffline(matricule: string, storeCrewMembers: boolean = true): Promise<boolean> {
 
     return new Promise((resolve, reject) => {
       if (!this.isPncModifiedOffline(matricule)) {
@@ -126,7 +126,7 @@ export class SynchronizationProvider {
    * Gère la réponse de synchronisation du serveur. Supprime tous les objets associés au PNC pour les recréer ensuite.
    * @param pncSynchroResponse l'objet reçu du serveur
    */
-  updateLocalStorageFromPncSynchroResponse(pncSynchroResponse: PncSynchro) {
+  updateLocalStorageFromPncSynchroResponse(pncSynchroResponse: PncSynchro, storeCrewMembers: boolean = true) {
     this.deleteAllPncOfflineObject(pncSynchroResponse.pnc);
 
     this.storageService.save(Entity.PNC, this.pncTransformer.toPnc(pncSynchroResponse.pnc), true);
@@ -135,6 +135,7 @@ export class SynchronizationProvider {
       for (const rotation of pncSynchroResponse.rotations) {
         this.storageService.save(Entity.ROTATION, this.rotationTransformerProvider.toRotation(rotation), true);
       }
+
     }
 
     const crewMembersPromise: Promise<CrewMember[]>[] = new Array();
@@ -152,25 +153,42 @@ export class SynchronizationProvider {
     }
 
     Promise.all(crewMembersPromise).then(flightCrewMatrix => {
-      const eObservationsPromise: Promise<EObservation>[] = new Array();
-      for (const flightCrewList of flightCrewMatrix) {
-        for (const flightCrew of flightCrewList) {
-          this.storageService.save(Entity.CREW_MEMBER, this.crewMemberTransformerProvider.toCrewMember(flightCrew), true);
-          // charge l'edossier PNC de chaque membre d'équipage
-          if (pncSynchroResponse.pnc.matricule != flightCrew.pnc.matricule) {
-            this.storeEDossierOffline(flightCrew.pnc.matricule).then(success => {}, error => {});
+      if (storeCrewMembers) {
+        const crewMembers: Array<CrewMember> = new Array();
+        for (const flightCrewList of flightCrewMatrix) {
+          for (const flightCrew of flightCrewList) {
+            this.storageService.save(Entity.CREW_MEMBER, this.crewMemberTransformerProvider.toCrewMember(flightCrew), true);
+            if (pncSynchroResponse.pnc.matricule != flightCrew.pnc.matricule) {
+              crewMembers.push(flightCrew);
+            }
           }
-          eObservationsPromise.push(this.eObservationService.getEObservation(flightCrew.pnc.matricule, flightCrew.rotationId));
         }
+        const eObservationsPromise: Promise<EObservation>[] = new Array();
+        const crewMembersAlreadyStored: Array<String> = new Array();
+        const eObsRotationAlreadyCreated: Map<String, number[]> = new Map<String, number[]>();
+        for (const crewMember of crewMembers) {
+          // charge l'edossier PNC de chaque membre d'équipage si il n'a a pas encore été storé
+          if (crewMembersAlreadyStored.indexOf(crewMember.pnc.matricule) < 0) {
+            this.storeEDossierOffline(crewMember.pnc.matricule, false).then(success => {}, error => {});
+            crewMembersAlreadyStored.push(crewMember.pnc.matricule);
+          }
+
+          // alimente un tableau de promises du service eObs (1 appel par couple matricule/rotationId)
+          if (!eObsRotationAlreadyCreated.get(crewMember.pnc.matricule)) {
+            eObsRotationAlreadyCreated.set(crewMember.pnc.matricule, new Array());
+          }
+          if (eObsRotationAlreadyCreated.get(crewMember.pnc.matricule).indexOf(crewMember.rotationId) < 0) {
+           eObservationsPromise.push(this.eObservationService.getEObservation(crewMember.pnc.matricule, crewMember.rotationId));
+           eObsRotationAlreadyCreated.get(crewMember.pnc.matricule).push(crewMember.rotationId);
+          }
+        }
+        Promise.all(eObservationsPromise).then(eObservations => {
+          for (const eObservation of eObservations) {
+            this.storageService.save(Entity.EOBSERVATION, eObservation, true);
+          }
+          this.storageService.persistOfflineMap();
+        }, error => { });
       }
-
-      Promise.all(eObservationsPromise).then(eObservations => {
-        for (const eObservation of eObservations) {
-          this.storageService.save(Entity.EOBSERVATION, eObservation, true);
-        }
-        this.storageService.persistOfflineMap();
-      }, error => { });
-
       // Création des nouveaux objets
       for (const careerObjective of pncSynchroResponse.careerObjectives) {
         delete careerObjective.offlineAction;
