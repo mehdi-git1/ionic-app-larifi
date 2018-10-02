@@ -25,12 +25,13 @@ export class OfflineWaypointProvider {
    * Créé ou met à jour un point d'étape dans le cache
    * @param waypoint le point d'étape à sauver en cache
    * @param careerObjectiveId l'id de l'objectif du point d'étape
+   * @param online si on est connecté ou non
    * @return une promesse contenant le point d'étape sauvé en cache
    */
-  createOrUpdate(waypoint: Waypoint, careerObjectiveId: number): Promise<Waypoint> {
+  createOrUpdate(waypoint: Waypoint, careerObjectiveId: number, online: boolean = false): Promise<Waypoint> {
     waypoint.careerObjective = new CareerObjective();
     waypoint.careerObjective.techId = careerObjectiveId;
-    return this.storageService.saveAsync(Entity.WAYPOINT, waypoint);
+    return this.storageService.saveAsync(Entity.WAYPOINT, waypoint, online);
   }
 
   /**
