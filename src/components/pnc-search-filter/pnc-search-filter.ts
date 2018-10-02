@@ -301,10 +301,7 @@ export class PncSearchFilterComponent implements OnInit {
   getSectorList(division) {
     this.ginqList = null;
     this.sectorList = null;
-    if (division === 'ADM') {
-      division = 'X';
-    }
-    if (division !== AppConstant.ALL && division !== 'ADM') {
+    if (division !== AppConstant.ALL) {
       this.sectorList = Object.keys(this.sessionService.parameters.params['divisions'][division]);
     }
     if (this.sectorList && this.isDefaultValues) {
