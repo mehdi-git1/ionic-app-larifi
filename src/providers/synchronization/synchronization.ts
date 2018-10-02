@@ -59,6 +59,7 @@ export class SynchronizationProvider {
   /**
    * Stocke en cache le EDossier du PNC
    * @param matricule le matricule du PNC dont on souhaite mettre en cache le EDossier
+   * @param storeCrewMembers false si l'on ne veut pas traiter les crewmeembers des vols du Pnc
    * @return une promesse résolue quand le EDossier est mis en cache
    */
   storeEDossierOffline(matricule: string, storeCrewMembers: boolean = true): Promise<boolean> {
@@ -125,6 +126,7 @@ export class SynchronizationProvider {
   /**
    * Gère la réponse de synchronisation du serveur. Supprime tous les objets associés au PNC pour les recréer ensuite.
    * @param pncSynchroResponse l'objet reçu du serveur
+   * @param storeCrewMembers false si l'on ne veut pas traiter les crewmeembers des vols du Pnc
    */
   updateLocalStorageFromPncSynchroResponse(pncSynchroResponse: PncSynchro, storeCrewMembers: boolean = true) {
     this.deleteAllPncOfflineObject(pncSynchroResponse.pnc);
@@ -135,7 +137,6 @@ export class SynchronizationProvider {
       for (const rotation of pncSynchroResponse.rotations) {
         this.storageService.save(Entity.ROTATION, this.rotationTransformerProvider.toRotation(rotation), true);
       }
-
     }
 
     const crewMembersPromise: Promise<CrewMember[]>[] = new Array();
