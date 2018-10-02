@@ -1,3 +1,4 @@
+import { Relay } from './../../models/relay';
 import { OfflineIndicatorComponent } from './../offline-indicator/offline-indicator';
 import { Pnc } from './../../models/pnc';
 import { Component, Input, ViewChild } from '@angular/core';
@@ -38,6 +39,9 @@ export class PncCardComponent {
   @Input()
   set itemMember(val: any) {
     this.crewMember = val;
+    this.crewMember.pnc.relays.sort((relay: Relay, otherRelay: Relay) => {
+      return relay.code > otherRelay.code ? 1 : -1;
+    });
   }
 
   /**
