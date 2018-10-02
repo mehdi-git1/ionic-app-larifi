@@ -5,6 +5,8 @@ import { Injectable } from '@angular/core';
 import { StorageService } from '../../services/storage.service';
 import { CareerObjective } from '../../models/careerObjective';
 
+import * as _ from 'lodash';
+
 @Injectable()
 export class OfflineWaypointProvider {
 
@@ -29,9 +31,10 @@ export class OfflineWaypointProvider {
    * @return une promesse contenant le point d'étape sauvé en cache
    */
   createOrUpdate(waypoint: Waypoint, careerObjectiveId: number, online: boolean = false): Promise<Waypoint> {
-    waypoint.careerObjective = new CareerObjective();
-    waypoint.careerObjective.techId = careerObjectiveId;
-    return this.storageService.saveAsync(Entity.WAYPOINT, waypoint, online);
+    const wayPointToSave = _.cloneDeep(waypoint);
+    wayPointToSave.careerObjective = new CareerObjective();
+    wayPointToSave.careerObjective.techId = careerObjectiveId;
+    return this.storageService.saveAsync(Entity.WAYPOINT, wayPointToSave, online);
   }
 
   /**
