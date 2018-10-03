@@ -22,6 +22,10 @@ export class PncSearchFilterComponent implements OnInit {
 
   @Output() onSearch: EventEmitter<any> = new EventEmitter();
 
+  defaultDivision: string;
+  defaultSector: string;
+  defaultGinq: string;
+  isDefaultValues: boolean;
   valueAll = AppConstant.ALL;
   pncList: Observable<Pnc[]>;
 
@@ -63,13 +67,13 @@ export class PncSearchFilterComponent implements OnInit {
       this.initFilter();
     });
 
-     /**
-     * Action lorsque le clavier s'affiche
-     */
+    /**
+    * Action lorsque le clavier s'affiche
+    */
     this.keyboard.didShow.subscribe(() => {
       this.checkIfAutoCompleteIsOpen();
-      if (this.autoCompleteTopPosition != -1){
-        $('#cdk-overlay-0').css('top', this.autoCompleteTopPosition + 'px' );
+      if (this.autoCompleteTopPosition != -1) {
+        $('#cdk-overlay-0').css('top', this.autoCompleteTopPosition + 'px');
       }
     });
 
@@ -78,18 +82,18 @@ export class PncSearchFilterComponent implements OnInit {
      */
     this.keyboard.didHide.subscribe(() => {
       const newHeight = window.innerHeight - this.autoCompleteTopPosition;
-      $('#mat-autocomplete-0').css('max-height', newHeight + 'px' );
+      $('#mat-autocomplete-0').css('max-height', newHeight + 'px');
     });
   }
 
   /**
    * Vérifie toutes les 200ms que l'element d'autocomplete existe
    */
-  checkIfAutoCompleteIsOpen(){
+  checkIfAutoCompleteIsOpen() {
     setTimeout(() => {
-      if ($('#mat-autocomplete-0').length != 0){
+      if ($('#mat-autocomplete-0').length != 0) {
         this.changeHeightOnOpen();
-      }else{
+      } else {
         this.checkIfAutoCompleteIsOpen();
       }
     }, 200);
@@ -98,9 +102,9 @@ export class PncSearchFilterComponent implements OnInit {
   /**
    * Change la max-height de l'autocomplete en fonction de la taille de l'affichage disponible
    */
-  changeHeightOnOpen(){
+  changeHeightOnOpen() {
     this.autoCompleteTopPosition = this.autoCompleteTopPosition != -1 ? this.autoCompleteTopPosition : $('#cdk-overlay-0').offset().top;
-    $('#mat-autocomplete-0').css('max-height', window.innerHeight - this.autoCompleteTopPosition + 'px' );
+    $('#mat-autocomplete-0').css('max-height', window.innerHeight - this.autoCompleteTopPosition + 'px');
   }
 
   /**
@@ -145,28 +149,29 @@ export class PncSearchFilterComponent implements OnInit {
         this.relayList = params['relays'];
         this.aircraftSkillList = params['aircraftSkills'];
       }
+      this.defaultDivision = params['defaultDivision'];
+      this.defaultSector = params['defaultSector'];
+      this.defaultGinq = params['defaultGinq'];
     }
-
-    this.pncFilter.division = this.divisionList && this.divisionList.length === 1 ? this.divisionList[0] : AppConstant.ALL;
-    this.pncFilter.sector = this.sectorList && this.sectorList.length === 1 ? this.sectorList[0] : AppConstant.ALL;
-    this.pncFilter.ginq = this.ginqList && this.ginqList.length === 1 ? this.ginqList[0] : AppConstant.ALL;
-    this.pncFilter.speciality = this.specialityList && this.specialityList.length === 1 ? this.specialityList[0] : AppConstant.ALL;
-    this.pncFilter.aircraftSkill = this.aircraftSkillList && this.aircraftSkillList.length === 1 ? this.aircraftSkillList[0] : AppConstant.ALL;
-    this.pncFilter.relay = this.relayList && this.relayList.length === 1 ? this.relayList[0] : AppConstant.ALL;
-
   }
 
   /**
    * Réinitialise les valeurs des filtres de recherche
    */
   resetFilterValues() {
-    this.searchForm.get('divisionControl').setValue(this.divisionList && this.divisionList.length === 1 ? this.divisionList[0] : AppConstant.ALL);
-    this.searchForm.get('sectorControl').setValue(this.sectorList && this.sectorList.length === 1 ? this.sectorList[0] : AppConstant.ALL);
-    this.searchForm.get('ginqControl').setValue(this.ginqList && this.ginqList.length === 1 ? this.ginqList[0] : AppConstant.ALL);
+    this.isDefaultValues = true;
+    this.pncFilter.division = this.defaultDivision;
+    this.pncFilter.sector = this.defaultSector;
+    this.pncFilter.ginq = this.defaultGinq;
+    this.pncFilter.speciality = this.specialityList && this.specialityList.length === 1 ? this.specialityList[0] : AppConstant.ALL;
+    this.pncFilter.aircraftSkill = this.aircraftSkillList && this.aircraftSkillList.length === 1 ? this.aircraftSkillList[0] : AppConstant.ALL;
+    this.pncFilter.relay = this.relayList && this.relayList.length === 1 ? this.relayList[0] : AppConstant.ALL;
+    this.searchForm.get('divisionControl').setValue(this.defaultDivision);
     this.searchForm.get('specialityControl').setValue(this.specialityList && this.specialityList.length === 1 ? this.specialityList[0] : AppConstant.ALL);
     this.searchForm.get('aircraftSkillControl').setValue(this.aircraftSkillList && this.aircraftSkillList.length === 1 ? this.aircraftSkillList[0] : AppConstant.ALL);
     this.searchForm.get('relayControl').setValue(this.relayList && this.relayList.length === 1 ? this.relayList[0] : AppConstant.ALL);
     this.autoCompleteForm.get('pncMatriculeControl').setValue('');
+    this.isDefaultValues = false;
   }
 
   /**
@@ -269,17 +274,21 @@ export class PncSearchFilterComponent implements OnInit {
    */
   divisionOnchanges() {
     this.searchForm.get('divisionControl').valueChanges.subscribe(val => {
-      this.pncFilter.division = val;
+      if (!this.isDefaultValues) {
+        this.pncFilter.division = val;
+      }
       this.getSectorList(this.pncFilter.division);
     });
   }
 
-    /**
-   * Active le rechargement des ginqs à chaque modification de secteur
-   */
+  /**
+  * Active le rechargement des ginqs à chaque modification de secteur
+  */
   sectorOnchanges() {
     this.searchForm.get('sectorControl').valueChanges.subscribe(val => {
-      this.pncFilter.sector = val;
+      if (!this.isDefaultValues) {
+        this.pncFilter.sector = val;
+      }
       this.getGinqList(this.pncFilter.sector);
     });
   }
@@ -295,13 +304,13 @@ export class PncSearchFilterComponent implements OnInit {
     if (division !== AppConstant.ALL) {
       this.sectorList = Object.keys(this.sessionService.parameters.params['divisions'][division]);
     }
-    if (this.sectorList && this.sectorList.length === 1) {
-      this.pncFilter.sector = this.sectorList[0];
-      this.searchForm.get('sectorControl').setValue(this.sectorList[0]);
+    if (this.sectorList && this.isDefaultValues) {
+      this.pncFilter.sector = this.defaultSector;
+      this.searchForm.get('sectorControl').setValue(this.defaultSector);
     } else {
       this.pncFilter.sector = AppConstant.ALL;
+      this.searchForm.get('sectorControl').setValue(AppConstant.ALL);
     }
-    this.pncFilter.ginq = AppConstant.ALL;
   }
 
   /**
@@ -313,11 +322,12 @@ export class PncSearchFilterComponent implements OnInit {
     if (this.pncFilter.division !== AppConstant.ALL && sector !== '' && sector !== AppConstant.ALL) {
       this.ginqList = this.sessionService.parameters.params['divisions'][this.pncFilter.division][sector];
     }
-    if (this.ginqList && this.ginqList.length === 1) {
-      this.pncFilter.ginq = this.ginqList[0];
-      this.searchForm.get('ginqControl').setValue(this.ginqList[0]);
+    if (this.ginqList && this.isDefaultValues) {
+      this.pncFilter.ginq = this.defaultGinq;
+      this.searchForm.get('ginqControl').setValue(this.defaultGinq);
     } else {
       this.pncFilter.ginq = AppConstant.ALL;
+      this.searchForm.get('ginqControl').setValue(AppConstant.ALL);
     }
   }
 
