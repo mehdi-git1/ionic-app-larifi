@@ -4,7 +4,7 @@
             <ion-row class="statutory-certificate-header">
                 <ion-col *ngFor="let header of statutoryCertificateData.headers">{{header}}</ion-col>
             </ion-row>
-            <ion-row *ngIf="statutoryCertificateData.values === null ; else noStatutoryCertificateDataBlock">
+            <ion-row *ngIf="statutoryCertificateData.values === null ; else statutoryCertificateDataBlock">
                 <div class="no-familiarization-flight">{{ 'STATUTORY_CERTIFICATE.NO_DATA' | translate }}</div>
             </ion-row>
             <ng-template #statutoryCertificateDataBlock>
