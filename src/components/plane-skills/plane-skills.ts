@@ -58,8 +58,8 @@ export class PlaneSkillsComponent implements OnInit {
           { value: this.tempPlaneSkillData.plane, type: 'libelle' },
           { value: this.tempPlaneSkillData.startDate, type: 'date' },
           { value: this.tempPlaneSkillData.mdcDate, type: 'date' },
-          { value: this.tempPlaneSkillData.dueDate, type: 'date' },
-          { value: this.tempPlaneSkillData.ddvDueDate, type: 'date' },
+          { value: this.tempPlaneSkillData.dueDate, type: 'end-date' },
+          { value: this.tempPlaneSkillData.ddvDueDate, type: 'end-date' },
           { value: this.tempPlaneSkillData.endDate, type: 'end-date' }
         ]
         :
