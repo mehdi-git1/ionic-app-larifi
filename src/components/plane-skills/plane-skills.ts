@@ -17,7 +17,7 @@ export class PlaneSkillsComponent implements OnInit {
   tempPlaneSkillData;
 
   // Tableau des valeurs à afficher
-  planeDataDisplayed;
+  planeDisplayedData;
 
   constructor(public translateService: TranslateService
   ) {
@@ -43,7 +43,7 @@ export class PlaneSkillsComponent implements OnInit {
       }
     }
 
-    this.planeDataDisplayed = {
+    this.planeDisplayedData = {
       headers:
         [
           this.translateService.instant('STATUTORY_CERTIFICATE.PLANE_SKILLS.PLANE'),

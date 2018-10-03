@@ -13,14 +13,14 @@ export class GeneralitySkillsComponent implements OnInit {
   @Input() generalitySkillsData: GeneralitySkills;
 
   // Tableau des valeurs à afficher en fonction du type de tableau
-  skillDataDisplayed;
+  skillDisplayedData;
 
   constructor(public translateService: TranslateService
   ) {
   }
 
   ngOnInit() {
-    this.skillDataDisplayed = {
+    this.skillDisplayedData = {
       cca: {
         headers:
           [

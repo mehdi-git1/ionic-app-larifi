@@ -232,7 +232,7 @@
             "SKILL_END_DATE": "Compétent jusqu'au"
         },
         "FAMILIARIZATION_FLIGHTS": {
-            "VOL": "Vol",
+            "FLIGHT": "Vol",
             "START_DATE": "Depuis"
         },
         "VAM": {
@@ -242,7 +242,7 @@
         "ERROR": {
             "STATUTORY_CERTIFICATE": "Erreur lors de la récupération de  l'attestation réglementaire pour le matricule {{ matricule }}"
         },
-        "NO_DATA": "Pas de données disponible"
+        "NO_DATA": "Pas de données disponibles"
     },
     "PNC_SEARCH": {
         "TITLE": "Recherche PNC",

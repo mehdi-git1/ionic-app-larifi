@@ -12,13 +12,13 @@ export class StatutoryCertificateVamComponent implements OnInit {
   @Input() vamData: VAM;
 
   // Tableau des valeurs à afficher en fonction du type de tableau
-  skillDataDisplayed;
+  skillDisplayedData;
 
   constructor(private translateService: TranslateService) {
   }
 
   ngOnInit() {
-    this.skillDataDisplayed = {
+    this.skillDisplayedData = {
       headers:
         [
           this.translateService.instant('STATUTORY_CERTIFICATE.VAM.START_DATE'),

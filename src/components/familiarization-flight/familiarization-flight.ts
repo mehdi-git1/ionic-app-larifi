@@ -14,31 +14,31 @@ export class FamiliarizationFlightComponent implements OnInit {
   @Input() familiarizationFlightData: FamiliarizationFlights;
 
   // Tableau des valeurs à afficher en fonction du type de tableau
-  familiarizationFlightDataDisplayed;
+  familiarizationFlightDisplayedData;
 
   constructor(private translateService: TranslateService) {
   }
 
   ngOnInit() {
-    const tempFamiliarizationFlightData = { vols: new Array(), startDates: new Array() };
+    const familiarizationFlights = { flights: new Array(), startDates: new Array() };
     if (this.familiarizationFlightData && this.familiarizationFlightData.fa1Date) {
-      tempFamiliarizationFlightData.vols.push('Fam 1');
-      tempFamiliarizationFlightData.startDates.push(this.familiarizationFlightData.fa1Date);
+      familiarizationFlights.flights.push('Fam 1');
+      familiarizationFlights.startDates.push(this.familiarizationFlightData.fa1Date);
     }
     if (this.familiarizationFlightData && this.familiarizationFlightData.fa2Date) {
-      tempFamiliarizationFlightData.vols.push('Fam 2');
-      tempFamiliarizationFlightData.startDates.push(this.familiarizationFlightData.fa2Date);
+      familiarizationFlights.flights.push('Fam 2');
+      familiarizationFlights.startDates.push(this.familiarizationFlightData.fa2Date);
     }
 
 
-    this.familiarizationFlightDataDisplayed = {
+    this.familiarizationFlightDisplayedData = {
       headers: [
-        this.translateService.instant('STATUTORY_CERTIFICATE.FAMILIARIZATION_FLIGHTS.VOL'),
+        this.translateService.instant('STATUTORY_CERTIFICATE.FAMILIARIZATION_FLIGHTS.FLIGHT'),
         this.translateService.instant('STATUTORY_CERTIFICATE.FAMILIARIZATION_FLIGHTS.START_DATE')
       ], values: this.familiarizationFlightData ?
         [
-          { value: tempFamiliarizationFlightData.vols, type: 'text' },
-          { value: tempFamiliarizationFlightData.startDates, type: 'date' }
+          { value: familiarizationFlights.flights, type: 'text' },
+          { value: familiarizationFlights.startDates, type: 'date' }
         ]
         :
         null
