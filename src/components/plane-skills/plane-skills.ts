@@ -33,13 +33,13 @@ export class PlaneSkillsComponent implements OnInit {
 
   ngOnInit() {
     if (this.planeSkillsData) {
-      for (const i of this.planeSkillsData) {
-        this.tempPlaneSkillData.plane.push(i.plane);
-        this.tempPlaneSkillData.startDate.push(i.startDate);
-        this.tempPlaneSkillData.mdcDate.push(i.mdcDate);
-        this.tempPlaneSkillData.dueDate.push(i.dueDate);
-        this.tempPlaneSkillData.ddvDueDate.push(i.ddvDueDate);
-        this.tempPlaneSkillData.endDate.push(i.endDate);
+      for (const planeSkillData of this.planeSkillsData) {
+        this.tempPlaneSkillData.plane.push(planeSkillData.plane);
+        this.tempPlaneSkillData.startDate.push(planeSkillData.startDate);
+        this.tempPlaneSkillData.mdcDate.push(planeSkillData.mdcDate);
+        this.tempPlaneSkillData.dueDate.push(planeSkillData.dueDate);
+        this.tempPlaneSkillData.ddvDueDate.push(planeSkillData.ddvDueDate);
+        this.tempPlaneSkillData.endDate.push(planeSkillData.endDate);
       }
     }
 
