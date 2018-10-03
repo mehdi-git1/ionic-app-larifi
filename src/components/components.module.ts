@@ -26,6 +26,7 @@ import { SecretQuestionModal } from './modals/secret-question-modal/secret-quest
 import { PlaneSkillsComponent } from './plane-skills/plane-skills';
 import { StatutoryCertificateDataComponent } from './statutory-certificate-data/statutory-certificate-data';
 import { StatutoryCertificateVamComponent } from './statutory-certificate-vam/statutory-certificate-vam';
+import { FamiliarizationFlightComponent } from './familiarization-flight/familiarization-flight';
 
 @NgModule({
   imports: [
@@ -53,7 +54,8 @@ import { StatutoryCertificateVamComponent } from './statutory-certificate-vam/st
     StatutoryCertificateDataComponent,
     GeneralitySkillsComponent,
     PlaneSkillsComponent,
-    StatutoryCertificateVamComponent
+    StatutoryCertificateVamComponent,
+    FamiliarizationFlightComponent
   ],
   exports: [
     RotationCardComponent,
@@ -75,7 +77,8 @@ import { StatutoryCertificateVamComponent } from './statutory-certificate-vam/st
     StatutoryCertificateDataComponent,
     GeneralitySkillsComponent,
     PlaneSkillsComponent,
-    StatutoryCertificateVamComponent
+    StatutoryCertificateVamComponent,
+    FamiliarizationFlightComponent
   ],
   entryComponents: [
     PinPadModal,

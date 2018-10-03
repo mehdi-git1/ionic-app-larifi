@@ -2,16 +2,19 @@
     <ion-card-content>
         <ion-grid>
             <ion-row class="statutory-certificate-header">
-                <ion-col *ngFor="let data of statutoryCertificateData">{{data.libelle}}</ion-col>
-            </ion-row>    
-            <ion-row *ngFor="let data of statutoryCertificateData[0].value; index as i">
-                <ion-col 
-                    [ngClass]="getCssClass(data.type, data.value[i])" 
-                    *ngFor="let data of statutoryCertificateData">
-                    <span *ngIf="data.type.indexOf('date') == -1; else elseDate">{{data.value[i]}}</span>
-                    <ng-template #elseDate>{{data.value[i] | date : 'dd/MM/yyyy' : 'UTC'}}</ng-template>
-                </ion-col>
-            </ion-row>    
-        </ion-grid>            
+                <ion-col *ngFor="let header of statutoryCertificateData.headers">{{header}}</ion-col>
+            </ion-row>
+            <ion-row *ngIf="statutoryCertificateData.values === null ; else noStatutoryCertificateDataBlock">
+                <div class="no-familiarization-flight">{{ 'STATUTORY_CERTIFICATE.NO_DATA' | translate }}</div>
+            </ion-row>
+            <ng-template #statutoryCertificateDataBlock>
+                <ion-row *ngFor="let statutoryCertificate of statutoryCertificateData.values[0].value; index as i">
+                    <ion-col [ngClass]="getCssClass(data.type, data.value[i])" *ngFor="let data of statutoryCertificateData.values">
+                        <span *ngIf="data.type.indexOf('date') == -1; else elseDate">{{data.value[i]}}</span>
+                        <ng-template #elseDate>{{data.value[i] | date : 'dd/MM/yyyy' : 'UTC'}}</ng-template>
+                    </ion-col>
+                </ion-row>
+            </ng-template>
+        </ion-grid>
     </ion-card-content>
 </ion-card>
