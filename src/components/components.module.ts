@@ -27,6 +27,7 @@ import { PlaneSkillsComponent } from './plane-skills/plane-skills';
 import { StatutoryCertificateDataComponent } from './statutory-certificate-data/statutory-certificate-data';
 import { StatutoryCertificateVamComponent } from './statutory-certificate-vam/statutory-certificate-vam';
 import { MasteringQualificationComponent } from './mastering-qualification/mastering-qualification';
+import { FamiliarizationFlightComponent } from './familiarization-flight/familiarization-flight';
 
 @NgModule({
   imports: [
@@ -55,7 +56,8 @@ import { MasteringQualificationComponent } from './mastering-qualification/maste
     GeneralitySkillsComponent,
     PlaneSkillsComponent,
     StatutoryCertificateVamComponent,
-    MasteringQualificationComponent
+    MasteringQualificationComponent,
+    FamiliarizationFlightComponent
   ],
   exports: [
     RotationCardComponent,
@@ -78,7 +80,8 @@ import { MasteringQualificationComponent } from './mastering-qualification/maste
     GeneralitySkillsComponent,
     PlaneSkillsComponent,
     StatutoryCertificateVamComponent,
-    MasteringQualificationComponent
+    MasteringQualificationComponent,
+    FamiliarizationFlightComponent
   ],
   entryComponents: [
     PinPadModal,

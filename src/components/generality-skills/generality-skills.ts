@@ -8,100 +8,85 @@ import * as _ from 'lodash';
   selector: 'generality-skills',
   templateUrl: 'generality-skills.html'
 })
-export class GeneralitySkillsComponent implements OnInit{
+export class GeneralitySkillsComponent implements OnInit {
 
-  @Input() generalitySkillsData: GeneralitySkills ;
+  @Input() generalitySkillsData: GeneralitySkills;
 
   // Tableau des valeurs à afficher en fonction du type de tableau
-  skillDataDisplayed: {};
+  skillDisplayedData;
 
   constructor(public translateService: TranslateService
-   ) {
-   }
+  ) {
+  }
 
-  ngOnInit(){
-    this.skillDataDisplayed = {
-      cca:
-        [{
-            libelle: this.translateService.instant('STATUTORY_CERTIFICATE.GENERALITY_SKILLS.CCA.TITLE'),
-            value: [_.get(this.generalitySkillsData, 'cca.label')],
-            type: 'libelle'
-          }, {
-            libelle: this.translateService.instant('STATUTORY_CERTIFICATE.GENERALITY_SKILLS.CCA.START_DATE'),
-            value: [_.get(this.generalitySkillsData, 'cca.startDate')],
-            type: 'date'
-          }, {
-            libelle: '',
-            value: [''],
-            type: 'text'
-          }, {
-            libelle: '',
-            value: [''],
-            type: 'text'
-          }, {
-            libelle: '',
-            value: [''],
-            type: 'text'
-          }, {
-            libelle: '',
-            value: [''],
-            type: 'text'
-          }
-        ],
-      pcb:
-        [{
-            libelle: this.translateService.instant('STATUTORY_CERTIFICATE.GENERALITY_SKILLS.PCB.TITLE'),
-            value: [_.get(this.generalitySkillsData, 'pcb.label')],
-            type: 'libelle'
-          }, {
-            libelle: this.translateService.instant('STATUTORY_CERTIFICATE.GENERALITY_SKILLS.PCB.START_DATE'),
-            value: [_.get(this.generalitySkillsData, 'pcb.startDate')],
-            type: 'date'
-          }, {
-            libelle: '',
-            value: [''],
-            type: 'text'
-          }, {
-            libelle: this.translateService.instant('STATUTORY_CERTIFICATE.GENERALITY_SKILLS.PCB.DUE_DATE'),
-            value: [_.get(this.generalitySkillsData, 'pcb.dueDate')],
-            type: 'date'
-          }, {
-            libelle: '',
-            value: [''],
-            type: 'text'
-          }, {
-            libelle: '',
-            value: [''],
-            type: 'text'
-          }
-        ],
-      gene:
-        [{
-            libelle: this.translateService.instant('STATUTORY_CERTIFICATE.GENERALITY_SKILLS.GENE.AIRCRAFT_SKILL'),
-            value: [_.get(this.generalitySkillsData, 'gene.aircraftSkill')],
-            type: 'libelle'
-          }, {
-            libelle: this.translateService.instant('STATUTORY_CERTIFICATE.GENERALITY_SKILLS.GENE.START_DATE'),
-            value: [_.get(this.generalitySkillsData, 'gene.startDate')],
-            type: 'date'
-          }, {
-            libelle: this.translateService.instant('STATUTORY_CERTIFICATE.GENERALITY_SKILLS.GENE.MDC_DATE'),
-            value: [_.get(this.generalitySkillsData, 'gene.mdcDate')],
-            type: 'date'
-          }, {
-            libelle: this.translateService.instant('STATUTORY_CERTIFICATE.GENERALITY_SKILLS.GENE.DUE_DATE'),
-            value: [_.get(this.generalitySkillsData, 'gene.dueDate')],
-            type: 'date'
-          }, {
-            libelle: this.translateService.instant('STATUTORY_CERTIFICATE.GENERALITY_SKILLS.GENE.DDV_DUE_DATE'),
-            value: [_.get(this.generalitySkillsData, 'gene.ddvDueDate')],
-            type: 'date'
-          }, {
-            libelle: this.translateService.instant('STATUTORY_CERTIFICATE.GENERALITY_SKILLS.GENE.SKILL_END_DATE'),
-            value: [_.get(this.generalitySkillsData, 'gene.endDate')],
-            type: 'end-date'
-          }
-        ]
+  ngOnInit() {
+    this.skillDisplayedData = {
+      cca: {
+        headers:
+          [
+            this.translateService.instant('STATUTORY_CERTIFICATE.GENERALITY_SKILLS.CCA.TITLE'),
+            this.translateService.instant('STATUTORY_CERTIFICATE.GENERALITY_SKILLS.CCA.START_DATE'),
+            '',
+            '',
+            '',
+            ''
+          ],
+        values: this.generalitySkillsData && this.generalitySkillsData.cca ?
+          [
+            { value: [_.get(this.generalitySkillsData, 'cca.label')], type: 'libelle' },
+            { value: [_.get(this.generalitySkillsData, 'cca.startDate')], type: 'date' },
+            { value: [''], type: 'text' },
+            { value: [''], type: 'text' },
+            { value: [''], type: 'text' },
+            { value: [''], type: 'text' }
+          ]
+          :
+          null
+      },
+      pcb: {
+        headers:
+          [
+            this.translateService.instant('STATUTORY_CERTIFICATE.GENERALITY_SKILLS.PCB.TITLE'),
+            this.translateService.instant('STATUTORY_CERTIFICATE.GENERALITY_SKILLS.PCB.START_DATE'),
+            this.translateService.instant('STATUTORY_CERTIFICATE.GENERALITY_SKILLS.PCB.DUE_DATE'),
+            '',
+            '',
+            ''
+          ],
+        values: this.generalitySkillsData && this.generalitySkillsData.pcb ?
+          [
+            { value: [_.get(this.generalitySkillsData, 'pcb.label')], type: 'libelle' },
+            { value: [_.get(this.generalitySkillsData, 'pcb.startDate')], type: 'date' },
+            { value: [_.get(this.generalitySkillsData, 'pcb.dueDate')], type: 'date' },
+            { value: [''], type: 'text' },
+            { value: [''], type: 'text' },
+            { value: [''], type: 'text' }
+          ]
+          :
+          null
+      },
+      gene: {
+        headers:
+          [
+            this.translateService.instant('STATUTORY_CERTIFICATE.GENERALITY_SKILLS.GENE.TITLE'),
+            this.translateService.instant('STATUTORY_CERTIFICATE.GENERALITY_SKILLS.GENE.START_DATE'),
+            this.translateService.instant('STATUTORY_CERTIFICATE.GENERALITY_SKILLS.GENE.MDC_DATE'),
+            this.translateService.instant('STATUTORY_CERTIFICATE.GENERALITY_SKILLS.GENE.DUE_DATE'),
+            this.translateService.instant('STATUTORY_CERTIFICATE.GENERALITY_SKILLS.GENE.DDV_DUE_DATE'),
+            this.translateService.instant('STATUTORY_CERTIFICATE.GENERALITY_SKILLS.GENE.SKILL_END_DATE')
+          ],
+        values: this.generalitySkillsData && this.generalitySkillsData.gene ?
+          [
+            { value: [_.get(this.generalitySkillsData, 'gene.aircraftSkill')], type: 'libelle' },
+            { value: [_.get(this.generalitySkillsData, 'gene.startDate')], type: 'date' },
+            { value: [_.get(this.generalitySkillsData, 'gene.mdcDate')], type: 'date' },
+            { value: [_.get(this.generalitySkillsData, 'gene.dueDate')], type: 'end-date' },
+            { value: [_.get(this.generalitySkillsData, 'gene.ddvDueDate')], type: 'end-date' },
+            { value: [_.get(this.generalitySkillsData, 'gene.endDate')], type: 'end-date' },
+          ]
+          :
+          null
+      }
     };
   }
 

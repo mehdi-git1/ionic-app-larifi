@@ -154,6 +154,9 @@ export class PncSearchFilterComponent implements OnInit {
       } else {
         this.outOfDivision = false;
         this.relayList = params['relays'];
+        this.relayList.sort((value: String, otherValue: String) => {
+          return value > otherValue ? 1 : -1;
+        });
         this.aircraftSkillList = params['aircraftSkills'];
       }
     }
