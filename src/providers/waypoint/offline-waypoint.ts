@@ -31,10 +31,10 @@ export class OfflineWaypointProvider {
    * @return une promesse contenant le point d'étape sauvé en cache
    */
   createOrUpdate(waypoint: Waypoint, careerObjectiveId: number, online: boolean = false): Promise<Waypoint> {
-    const wayPointToSave = _.cloneDeep(waypoint);
-    wayPointToSave.careerObjective = new CareerObjective();
-    wayPointToSave.careerObjective.techId = careerObjectiveId;
-    return this.storageService.saveAsync(Entity.WAYPOINT, wayPointToSave, online);
+    const waypointToSave = _.cloneDeep(waypoint);
+    waypointToSave.careerObjective = new CareerObjective();
+    waypointToSave.careerObjective.techId = careerObjectiveId;
+    return this.storageService.saveAsync(Entity.WAYPOINT, waypointToSave, online);
   }
 
   /**
