@@ -14,8 +14,7 @@
                             <!-- PNC -->
                             <ion-item [ngClass]="{ 'item-select-disabled' : areFiltersDisabled() }">
                                 <mat-form-field class="autocomplete-field">
-                                    <input #pncMatricule type="text" matInput placeholder="{{'PNC_SEARCH.CRITERIA.PNC_MATRICULE' | translate}}" formControlName="pncMatriculeControl" (keyup)="searchAutoComplete(pncMatricule.value)" [matAutocomplete]="auto"
-                                        [(ngModel)]="selectedPnc" autocomplete="off" [readonly]="areFiltersDisabled()" />
+                                    <input #pncMatricule type="text" matInput placeholder="{{'PNC_SEARCH.CRITERIA.PNC_MATRICULE' | translate}}" formControlName="pncMatriculeControl" (keyup)="searchAutoComplete(pncMatricule.value)" [matAutocomplete]="auto" [(ngModel)]="selectedPnc" autocomplete="off" [readonly]="areFiltersDisabled()" />
                                 </mat-form-field>
                                 <mat-autocomplete class="mat-autocomplete" #auto="matAutocomplete" (optionSelected)="openPncHomePage($event.option.value)">
                                     <mat-option *ngFor="let pnc of pncList | async" [value]="pnc">
@@ -23,7 +22,7 @@
                                     </mat-option>
                                 </mat-autocomplete>
                             </ion-item>
-                            <ion-spinner class='auto-complete-spinner' *ngIf="isAutoCompleteRunning()"></ion-spinner>
+                            <ion-spinner class='auto-complete-spinner' *ngIf="autoCompleteRunning"></ion-spinner>
                         </ion-col>
                         <ion-col col-5>
                             <button ion-button icon-start (click)="resetFilterValues()" class="clear-pnc" [disabled]="clearButtonIsDisabled()">
@@ -70,8 +69,6 @@
                                 </ion-select>
                             </ion-item>
                         </ion-col>
-                        <!--/ion-row>
-          <ion-row-->
                         <ion-col col-2>
                             <!-- Grade -->
                             <ion-item>

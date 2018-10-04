@@ -48,10 +48,10 @@ export class PncSearchFilterComponent implements OnInit {
 
   outOfDivision: boolean;
 
-  // Défini la position top de la liste d'autocomplete
+  // Définit la position top de la liste d'autocomplete
   autoCompleteTopPosition = -1;
 
-  // Défini si une recherche d'autocomplete est en cours
+  // Définit si une recherche d'autocomplete est en cours
   // Permet de gérer l'affichage du spinner de l'autocomplete
   autoCompleteRunning = false;
 
@@ -224,9 +224,10 @@ export class PncSearchFilterComponent implements OnInit {
 
   /**
    * Gére plus finement le retour de l'autocomplete
+   * => Permet de gérer l'affichage du spinner et de forcer la position de l'autocompléte
    * @param term termes à rechercher pour l'autocomplete
    */
-  getAutoCompleteDataReturn(term) {
+  getAutoCompleteDataReturn(term: string): Observable<Pnc[]> {
     if (term) {
       return from(this.pncProvider.pncAutoComplete(term).then(
         data => {
@@ -285,13 +286,6 @@ export class PncSearchFilterComponent implements OnInit {
       this.autoCompleteRunning = true;
       this.searchTerms.next(term);
     }
-  }
-
-  /**
-   * Retourne true si une recherche d'autocomplete est en cours
-   */
-  isAutoCompleteRunning() {
-    return this.autoCompleteRunning;
   }
 
   /**
