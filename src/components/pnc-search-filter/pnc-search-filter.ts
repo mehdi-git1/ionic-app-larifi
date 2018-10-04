@@ -226,6 +226,7 @@ export class PncSearchFilterComponent implements OnInit {
    * Gére plus finement le retour de l'autocomplete
    * => Permet de gérer l'affichage du spinner et de forcer la position de l'autocompléte
    * @param term termes à rechercher pour l'autocomplete
+   * @return Liste des pnc retrouvé par l'autocomplete
    */
   getAutoCompleteDataReturn(term: string): Observable<Pnc[]> {
     if (term) {
