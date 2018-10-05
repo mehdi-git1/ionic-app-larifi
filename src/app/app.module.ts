@@ -1,3 +1,4 @@
+import { Utils } from './../common/utils';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { EObservationTransformerProvider } from './../providers/e-observation/e-observation-transformer';
 import { OnlineEObservationProvider } from './../providers/e-observation/online-e-observation';
@@ -236,6 +237,7 @@ declare var window: any;
     OfflineEObservationProvider,
     OnlineEObservationProvider,
     EObservationTransformerProvider,
+    Utils,
     InAppBrowser
   ]
 })
