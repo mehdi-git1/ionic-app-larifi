@@ -68,7 +68,7 @@ export class HelpAssetListPage {
      * @param helpAsseturl la ressource d'aide concernée
      */
     displayHelpAsset(helpAsset: HelpAsset) {
-        this.inAppBrowser.create(helpAsset.url, '_system', 'hideurlbar=yes');
+        this.inAppBrowser.create(helpAsset.url, '_blank', 'hideurlbar=yes');
     }
 
     /**
