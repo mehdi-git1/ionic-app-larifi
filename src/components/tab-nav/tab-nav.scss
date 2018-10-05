@@ -1,13 +1,13 @@
 tab-nav {
 
-  $menu-icon-size: 52px;
-  $tabs-ios-tab-icon-size	: 50px;
-  $tabs-md-tab-icon-size	: 50px;
-
-  ion-icon {
-    font-size: $menu-icon-size;
+  .tabs-md[tabsLayout=icon-top] .has-icon .tab-button-text {
+    margin-top: 0px;
+    margin-bottom: 4px;
   }
-
+  .tabs-ios[tabsLayout=icon-top] .has-icon .tab-button-text {
+    margin-top: 0px;
+    margin-bottom: 4px;
+  }
   .tabs-md .tab-button[aria-selected=false] .icon {  
     color: color($colors, white) !important;
     background: color($colors, primary) !important;
