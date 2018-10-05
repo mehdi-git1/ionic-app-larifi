@@ -29,7 +29,7 @@ export class Utils {
     }
 
     /**
-     * Calcul et renvoie le hashcode de l'objet concerné.
+     * Calcule et renvoie le hashcode de l'objet concerné.
      * @param obj l'objet dont on veut calculer son hashcode
      * @return le hashcode de l'objet concerné
      */
