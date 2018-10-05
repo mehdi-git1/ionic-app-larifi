@@ -1,3 +1,5 @@
+import { Utils } from './../../common/utils';
+import { from } from 'rxjs/observable/from';
 import { ConnectivityService } from './../../services/connectivity.service';
 import { NavController, Events, Keyboard } from 'ionic-angular';
 import { PncProvider } from './../../providers/pnc/pnc';
@@ -50,7 +52,12 @@ export class PncSearchFilterComponent implements OnInit {
 
   outOfDivision: boolean;
 
+  // Définit la position top de la liste d'autocomplete
   autoCompleteTopPosition = -1;
+
+  // Définit si une recherche d'autocomplete est en cours
+  // Permet de gérer l'affichage du spinner de l'autocomplete
+  autoCompleteRunning = false;
 
   constructor(private navCtrl: NavController,
     private sessionService: SessionService,
@@ -58,7 +65,8 @@ export class PncSearchFilterComponent implements OnInit {
     private pncProvider: PncProvider,
     private connectivityService: ConnectivityService,
     private events: Events,
-    private keyboard: Keyboard) {
+    private keyboard: Keyboard,
+    private utils: Utils) {
     this.connectivityService.connectionStatusChange.subscribe(connected => {
       this.initFilter();
     });
@@ -68,8 +76,8 @@ export class PncSearchFilterComponent implements OnInit {
     });
 
     /**
-    * Action lorsque le clavier s'affiche
-    */
+     * Action lorsque le clavier s'affiche
+     */
     this.keyboard.didShow.subscribe(() => {
       this.checkIfAutoCompleteIsOpen();
       if (this.autoCompleteTopPosition != -1) {
@@ -82,7 +90,8 @@ export class PncSearchFilterComponent implements OnInit {
      */
     this.keyboard.didHide.subscribe(() => {
       const newHeight = window.innerHeight - this.autoCompleteTopPosition;
-      $('#mat-autocomplete-0').css('max-height', newHeight + 'px');
+      $('#cdk-overlay-0').css('top', this.autoCompleteTopPosition + 'px');
+      setTimeout($('#mat-autocomplete-0').css('max-height', newHeight + 'px'), 5000);
     });
   }
 
@@ -104,6 +113,7 @@ export class PncSearchFilterComponent implements OnInit {
    */
   changeHeightOnOpen() {
     this.autoCompleteTopPosition = this.autoCompleteTopPosition != -1 ? this.autoCompleteTopPosition : $('#cdk-overlay-0').offset().top;
+    $('#cdk-overlay-0').css('top', this.autoCompleteTopPosition + 'px');
     $('#mat-autocomplete-0').css('max-height', window.innerHeight - this.autoCompleteTopPosition + 'px');
   }
 
@@ -202,18 +212,39 @@ export class PncSearchFilterComponent implements OnInit {
   }
 
   /**
-   * recharge la liste des pnc de l'autocompletion aprés 300ms
-   */
+    * recharge la liste des pnc de l'autocompletion aprés 300ms
+    */
   initAutocompleteList() {
     this.pncList = this.searchTerms
       .debounceTime(300)
       .distinctUntilChanged()
       .switchMap(
-        term => (term ? this.pncProvider.pncAutoComplete(term) : Observable.of<Pnc[]>([]))
+        term => this.getAutoCompleteDataReturn(term)
       )
       .catch(error => {
+        this.autoCompleteRunning = false;
         return Observable.of<Pnc[]>([]);
       });
+  }
+
+  /**
+   * Gére plus finement le retour de l'autocomplete
+   * => Permet de gérer l'affichage du spinner et de forcer la position de l'autocompléte
+   * @param term termes à rechercher pour l'autocomplete
+   * @return Liste des pnc retrouvé par l'autocomplete
+   */
+  getAutoCompleteDataReturn(term: string): Observable<Pnc[]> {
+    if (term) {
+      return from(this.pncProvider.pncAutoComplete(term).then(
+        data => {
+          this.autoCompleteRunning = false;
+          $('#cdk-overlay-0').css('top', this.autoCompleteTopPosition + 'px');
+          return data;
+        }));
+    } else {
+      this.autoCompleteRunning = false;
+      return Observable.of<Pnc[]>([]);
+    }
   }
 
   /**
@@ -253,7 +284,16 @@ export class PncSearchFilterComponent implements OnInit {
    */
   searchAutoComplete(term: string): void {
     this.checkIfAutoCompleteIsOpen();
-    this.searchTerms.next(term);
+    term = this.utils.replaceSpecialCaracters(term);
+    // On supprime le caractère entré s'il ne convient pas
+    // A savoir si il n'est pas alphanumérique / -  et si la chaine n'est pas vide
+    if (!/^[a-zA-Z0-9-]+$/.test(term) && term !== '') {
+      this.pncMatriculeControl.setValue(term.substring(0, term.length - 1));
+    } else {
+      this.pncMatriculeControl.setValue(term);
+      this.autoCompleteRunning = true;
+      this.searchTerms.next(term);
+    }
   }
 
   /**
@@ -282,8 +322,8 @@ export class PncSearchFilterComponent implements OnInit {
   }
 
   /**
-  * Active le rechargement des ginqs à chaque modification de secteur
-  */
+   * Active le rechargement des ginqs à chaque modification de secteur
+   */
   sectorOnchanges() {
     this.searchForm.get('sectorControl').valueChanges.subscribe(val => {
       if (!this.isDefaultValues) {
