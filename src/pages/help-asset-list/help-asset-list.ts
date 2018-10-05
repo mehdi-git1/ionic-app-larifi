@@ -3,13 +3,13 @@ import { Type } from '@angular/compiler/src/core';
 import { ConnectivityService } from './../../services/connectivity.service';
 import { DeviceService } from './../../services/device.service';
 import { TranslateService } from '@ngx-translate/core';
-import { PdfFileViewerPage } from './../pdf-file-viewer/pdf-file-viewer';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { HelpAssetProvider } from './../../providers/help-asset/help-asset';
 import { HelpAsset } from './../../models/helpAsset';
 import { PncRole } from './../../models/pncRole';
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
+import { InAppBrowser } from '@ionic-native/in-app-browser';
 
 @Component({
     selector: 'page-help-asset-list',
@@ -27,7 +27,9 @@ export class HelpAssetListPage {
         private deviceService: DeviceService,
         private translateService: TranslateService,
         private helpAssetProvider: HelpAssetProvider,
-        private connectivityService: ConnectivityService) {
+        private connectivityService: ConnectivityService,
+        private inAppBrowser: InAppBrowser
+    ) {
         if (this.deviceService.isBrowser()) {
             this.pdfUrl = '../assets/pdf/helpAsset';
         } else {
@@ -62,16 +64,11 @@ export class HelpAssetListPage {
     }
 
     /**
-     * renvoie vers la page d'affichage des pdf avec l'url du pdf demandé et le title à afficher dans le cas d'un pdf
-     * Ouvre une fenetre de navigation avec l'url conçernée dans la cas d'une URL.
+     * Ouvre une fenetre de navigation avec l'url conçernée (lien web ou URL PDF).
      * @param helpAsseturl la ressource d'aide concernée
      */
     displayHelpAsset(helpAsset: HelpAsset) {
-        if (helpAsset.helpAssetType === HelpAssetType.PDF) {
-            this.navCtrl.push(PdfFileViewerPage, { pdfSrc: helpAsset.url, title: helpAsset.label });
-        } else if (helpAsset.helpAssetType === HelpAssetType.URL) {
-            window.open(helpAsset.url);
-        }
+        this.inAppBrowser.create(helpAsset.url, '_system', 'hideurlbar=yes');
     }
 
     /**
