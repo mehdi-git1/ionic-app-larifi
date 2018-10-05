@@ -102,7 +102,7 @@ export class CareerObjectiveCreatePage {
                     this.waypointList = result;
                 }, error => { });
             }
-          });
+        });
     }
 
     ionViewDidLoad() {
@@ -217,7 +217,7 @@ export class CareerObjectiveCreatePage {
                     this.originCareerObjective = _.cloneDeep(savedCareerObjective);
                     this.careerObjective = savedCareerObjective;
                     // en mode connecté, mettre en cache l'objectif creé ou modifié si le pnc est en cache
-                    if (this.deviceService.isOfflineModeAvailable() && this.connectivityService.isConnected() && this.offlinePncProvider.isPncExist(this.careerObjective.pnc.matricule)) {
+                    if (this.deviceService.isOfflineModeAvailable() && this.connectivityService.isConnected() && this.offlinePncProvider.pncExists(this.careerObjective.pnc.matricule)) {
                         this.offlineCareerObjectiveProvider.createOrUpdate(this.careerObjective, true);
                     }
 
@@ -503,7 +503,7 @@ export class CareerObjectiveCreatePage {
     /**
      * Retourne true si on est connecté / false sinon.
      */
-    isConnected(){
+    isConnected() {
         return this.connectivityService.isConnected();
     }
 }

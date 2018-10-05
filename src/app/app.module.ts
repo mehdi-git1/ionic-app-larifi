@@ -1,4 +1,5 @@
 import { Utils } from './../common/utils';
+import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { EObservationTransformerProvider } from './../providers/e-observation/e-observation-transformer';
 import { OnlineEObservationProvider } from './../providers/e-observation/online-e-observation';
 import { OfflineEObservationProvider } from './../providers/e-observation/offline-e-observation';
@@ -8,7 +9,7 @@ import { DeviceService } from './../services/device.service';
 import { PncPhotoTransformerProvider } from './../providers/pnc-photo/pnc-photo-transformer';
 import { OfflinePncPhotoProvider } from './../providers/pnc-photo/offline-pnc-photo';
 import { OnlinePncPhotoProvider } from './../providers/pnc-photo/online-pnc-photo';
-import { PdfFileViewerPage } from './../pages/pdf-file-viewer/pdf-file-viewer';
+
 import { CrewMemberTransformerProvider } from './../providers/crewMember/crewMember-transformer';
 import { OnlineLegProvider } from './../providers/leg/online-leg';
 import { OfflineLegProvider } from './../providers/leg/offline-leg';
@@ -131,7 +132,6 @@ declare var window: any;
     PncSearchPage,
     HomePage,
     SummarySheetPage,
-    PdfFileViewerPage,
     GenericMessagePage,
     SettingsPage
   ],
@@ -166,7 +166,6 @@ declare var window: any;
     HelpAssetListPage,
     HomePage,
     SummarySheetPage,
-    PdfFileViewerPage,
     GenericMessagePage,
     SettingsPage
   ],
@@ -238,7 +237,8 @@ declare var window: any;
     OfflineEObservationProvider,
     OnlineEObservationProvider,
     EObservationTransformerProvider,
-    Utils
+    Utils,
+    InAppBrowser
   ]
 })
 export class AppModule { }
