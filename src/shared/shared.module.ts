@@ -1,4 +1,3 @@
-
 import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-translate/core';
 import { NgModule } from '@angular/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
@@ -28,8 +27,6 @@ export function createTranslateLoader(http: HttpClient) {
         CommonModule,
         TranslateModule,
         AppMaterialModule
-    ],
-    providers: [
     ]
 })
 export class SharedModule {

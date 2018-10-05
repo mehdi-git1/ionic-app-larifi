@@ -1,3 +1,4 @@
+import { Utils } from './../../common/utils';
 import { OfflineCareerObjectiveProvider } from './../../providers/career-objective/offline-career-objective';
 import { ConnectivityService } from './../../services/connectivity.service';
 import { DateTransformService } from './../../services/date.transform.service';
@@ -126,7 +127,7 @@ export class WaypointCreatePage {
      * Vérifie si le formulaire a été modifié sans être enregistré
      */
     formHasBeenModified() {
-        return JSON.stringify(this.originWaypoint) !== JSON.stringify(this.waypoint);
+        return Utils.getHashCode(this.originWaypoint) !== Utils.getHashCode(this.waypoint);
     }
 
     /**
