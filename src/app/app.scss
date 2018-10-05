@@ -125,16 +125,6 @@ ion-content > .scroll-content {
     font-size: smaller;
 }
 
-$toolbar-height: 56px;
-
-.ion-page {
-    height: calc(100% - $toolbar-height);
-}
-
-.tabbar {
-    height : $toolbar-height;
-}
-
 .toolbar-content {
     display: flex;
     align-items: center;
