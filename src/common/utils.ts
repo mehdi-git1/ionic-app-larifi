@@ -30,7 +30,7 @@ export class Utils {
 
     /**
      * Remplacement de tous les caractéres accentués par leurs pendants non accentués
-     * @param Texte texte à traiter
+     * @param text texte à traiter
      */
     replaceSpecialCaracters(text: string): string {
         const SpecialCharList = { 'à': 'a', 'á': 'a', 'â': 'a', 'ã': 'a', 'ä': 'a', 'å': 'a', 'ò': 'o', 'ó': 'o', 'ô': 'o', 'õ': 'o', 'ö': 'o', 'ø': 'o', 'è': 'e', 'é': 'e', 'ê': 'e', 'ë': 'e', 'ç': 'c', 'ì': 'i', 'í': 'i', 'î': 'i', 'ï': 'i', 'ù': 'u', 'ú': 'u', 'û': 'u', 'ü': 'u', 'ÿ': 'y', 'ñ': 'n' };
