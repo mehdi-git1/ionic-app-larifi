@@ -1,0 +1,48 @@
+@font-face {
+  font-family: 'edospnc';
+  src:  url('../assets/fonts/edospnc/edospnc.eot?lsn348');
+  src:  url('../assets/fonts/edospnc/edospnc.eot?lsn348#iefix') format('embedded-opentype'),
+    url('../assets/fonts/edospnc/edospnc.ttf?lsn348') format('truetype'),
+    url('../assets/fonts/edospnc/edospnc.woff?lsn348') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^="icon-"], [class*=" icon-"],
+[class^="ion-icon"], [class*="ion-icon"],
+[class^="ion-ios-icon"], [class*="ion-ios-icon"],
+[class^="ion-md-icon"], [class*="ion-md-icon"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'edospnc' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@mixin makeIcon($arg, $val) {
+  .edospnc-#{$arg}:before ,
+  .ion-ios-edospnc-#{$arg}:before ,
+  .ion-ios-edospnc-#{$arg}-outline:before ,
+  .ion-md-edospnc-#{$arg}:before ,
+  .ion-md-edospnc-#{$arg}-outline:before,
+  .icon-edospnc-#{$arg}:before  {
+    content: $val;
+    font-size: 36px;
+  }
+}
+
+@include makeIcon(pncTeam, '\e902');
+@include makeIcon(summarySheet, '\e903');
+@include makeIcon(home, '\e900');
+@include makeIcon(myBoard, '\e905');
+@include makeIcon(developmentProgram, '\e906');
+@include makeIcon(upcomingFlight, '\e907');
+@include makeIcon(helpCenter, '\e908');
+@include makeIcon(statutoryCertificate, '\e909');

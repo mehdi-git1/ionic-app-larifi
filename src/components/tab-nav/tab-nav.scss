@@ -18,13 +18,7 @@ tab-nav {
             font-size: 2.2em;
         }
     }
-
-    ion-content > .scroll-content {
-        margin-bottom: 20px !important;
-    }
-
-
-      
+    
       .tabs-md .tab-button[aria-selected=false] .icon {  
         color: color($colors, white) !important; /*your  text color */
         background: color($colors, primary) !important; /* your background color*/

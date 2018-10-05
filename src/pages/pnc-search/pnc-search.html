@@ -8,7 +8,7 @@
 <ion-content padding no-bounce>
     <pnc-search-filter (onSearch)="searchPncs()"></pnc-search-filter>
 
-    <ion-content class="filtered-pnc-list-container">
+    <div class="filtered-pnc-list-container">
         <edossier-spinner *ngIf="searchInProgress"></edossier-spinner>
 
         <span *ngIf="!searchInProgress">
@@ -22,5 +22,5 @@
         <ion-infinite-scroll (ionInfinite)="$event.waitFor(doInfinite($event))">
             <ion-infinite-scroll-content></ion-infinite-scroll-content>
         </ion-infinite-scroll>
-    </ion-content>
+    </div>
 </ion-content>
