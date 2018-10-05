@@ -39,41 +39,38 @@ export class TabNavComponent {
     }
   }
 
-    @ViewChild('tabs') tabs: Tabs;
+  @ViewChild('tabs') tabs: Tabs;
 
   // exporter la classe enum speciality dans la page html
   Speciality = Speciality;
 
   // Pages du Tab
-    pncHomePage = PncHomePage;
-    pncSearchPage = PncSearchPage;
-    careerObjectiveListPage = CareerObjectiveListPage;
-    helpAssetListPage = HelpAssetListPage;
-    upcomingFlightListPage = UpcomingFlightListPage;
-    summarySheetPage = SummarySheetPage;
+  pncHomePage = PncHomePage;
+  pncSearchPage = PncSearchPage;
+  careerObjectiveListPage = CareerObjectiveListPage;
+  helpAssetListPage = HelpAssetListPage;
+  upcomingFlightListPage = UpcomingFlightListPage;
+  summarySheetPage = SummarySheetPage;
 
-    // Pages invisibles du Tab
-
-
-    // Paramètres envoyés aux pages
-    pncParams;
-    matriculeParams;
-    roleParams;
+  // Paramètres envoyés aux pages
+  pncParams;
+  matriculeParams;
+  roleParams;
 
   constructor(private events: Events, private sessionService: SessionService, private pncProvider: PncProvider, private translate: TranslateService) {
   }
 
-    /**
-     * Dirige vers la page d'accueil
-     */
+  /**
+   * Dirige vers la page d'accueil
+   */
   goToHomePage() {
     this.navCtrl.popToRoot();
   }
 
-    /**
-     * Dirige vers la page de visualisation des objectifs
-     */
-    goToCareerObjectiveList() {
+  /**
+   * Dirige vers la page de visualisation des objectifs
+   */
+  goToCareerObjectiveList() {
       this.navCtrl.push(CareerObjectiveListPage, { matricule: this.pnc.matricule });
   }
 

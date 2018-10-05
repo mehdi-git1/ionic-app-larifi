@@ -1,4 +1,3 @@
-import { TabNavComponent } from './../components/tab-nav/tab-nav';
 import { AppInitService } from './../services/appInit.service';
 import { PinPadType } from './../models/pinPadType';
 import { DeviceService } from './../services/device.service';
