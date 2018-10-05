@@ -1,3 +1,4 @@
+import { AuthenticatedUser } from './../../models/authenticatedUser';
 import { SessionService } from './../../services/session.service';
 import { PncProvider } from './../../providers/pnc/pnc';
 import { Utils } from './../../common/utils';
@@ -6,7 +7,6 @@ import { FormGroup, AbstractControl, Validators, FormBuilder } from '@angular/fo
 import { Subject, Observable } from 'rxjs/Rx';
 import { Component } from '@angular/core';
 import { NavController, NavParams, Events } from 'ionic-angular';
-import { from } from 'rxjs/observable/from';
 import { Pnc } from '../../models/pnc';
 
 @Component({
@@ -99,7 +99,9 @@ export class ImpersonatePage {
    * @param pnc Le pnc qu'on souhaite impersonnifier
    */
   impersonatePnc(pnc: Pnc) {
-    this.sessionService.impersonatedPnc = pnc;
+    const impersonatedPnc = new AuthenticatedUser();
+    impersonatedPnc.matricule = pnc.matricule;
+    this.sessionService.impersonatedPnc = impersonatedPnc;
     this.events.publish('user:authenticated');
   }
 
