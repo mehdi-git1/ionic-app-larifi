@@ -1,3 +1,4 @@
+import { Utils } from './../../common/utils';
 import { DateTransformService } from './../../services/date.transform.service';
 import { SynchronizationProvider } from './../../providers/synchronization/synchronization';
 import { DeviceService } from './../../services/device.service';
@@ -172,7 +173,7 @@ export class CareerObjectiveCreatePage {
      * Vérifie si le formulaire a été modifié sans être enregistré
      */
     formHasBeenModified() {
-        return JSON.stringify(this.originCareerObjective) !== JSON.stringify(this.careerObjective);
+        return Utils.getHashCode(this.originCareerObjective) !== Utils.getHashCode(this.careerObjective);
     }
 
     /**
