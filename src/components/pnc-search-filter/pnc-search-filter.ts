@@ -134,7 +134,7 @@ export class PncSearchFilterComponent implements OnInit {
   }
 
   ngOnInit() {
-    // initialistation du filtre
+      // initialistation du filtre
     this.initFilter();
     // Initialisation du formulaire
     this.initForm();
@@ -170,9 +170,9 @@ export class PncSearchFilterComponent implements OnInit {
    */
   resetFilterValues() {
     this.isDefaultValues = true;
-    this.pncFilter.division = this.defaultDivision;
-    this.pncFilter.sector = this.defaultSector;
-    this.pncFilter.ginq = this.defaultGinq;
+    this.pncFilter.division = this.defaultDivision ?  this.defaultDivision : AppConstant.ALL;
+    this.pncFilter.sector = this.defaultSector ?  this.defaultSector : AppConstant.ALL;
+    this.pncFilter.ginq = this.defaultGinq ?  this.defaultGinq : AppConstant.ALL;
     this.pncFilter.speciality = this.specialityList && this.specialityList.length === 1 ? this.specialityList[0] : AppConstant.ALL;
     this.pncFilter.aircraftSkill = this.aircraftSkillList && this.aircraftSkillList.length === 1 ? this.aircraftSkillList[0] : AppConstant.ALL;
     this.pncFilter.relay = this.relayList && this.relayList.length === 1 ? this.relayList[0] : AppConstant.ALL;
@@ -189,12 +189,12 @@ export class PncSearchFilterComponent implements OnInit {
    */
   initForm() {
     this.searchForm = this.formBuilder.group({
-      divisionControl: [this.pncFilter.division],
-      sectorControl: [this.pncFilter.sector],
-      ginqControl: [this.pncFilter.ginq],
-      specialityControl: [this.pncFilter.speciality],
-      aircraftSkillControl: [this.pncFilter.aircraftSkill],
-      relayControl: [this.pncFilter.relay],
+      divisionControl: [this.pncFilter.division ?  this.pncFilter.division : AppConstant.ALL],
+      sectorControl: [this.pncFilter.sector  ?  this.pncFilter.sector : AppConstant.ALL],
+      ginqControl: [this.pncFilter.ginq  ?  this.pncFilter.ginq : AppConstant.ALL],
+      specialityControl: [this.pncFilter.speciality  ?  this.pncFilter.speciality : AppConstant.ALL],
+      aircraftSkillControl: [this.pncFilter.aircraftSkill ?  this.pncFilter.aircraftSkill : AppConstant.ALL],
+      relayControl: [this.pncFilter.relay ?  this.pncFilter.relay : AppConstant.ALL],
     });
     this.autoCompleteForm = this.formBuilder.group({
       pncMatriculeControl: [
@@ -202,13 +202,14 @@ export class PncSearchFilterComponent implements OnInit {
         Validators.compose([Validators.minLength(8), Validators.maxLength(8)])
       ]
     });
-    this.pncMatriculeControl = this.autoCompleteForm.get('pncMatriculeControl');
-
-    this.initAutocompleteList();
-    this.divisionOnchanges();
-    this.sectorOnchanges();
-    this.resetFilterValues();
-    this.formOnChanges();
+    if (this.connectivityService.isConnected()) {
+      this.pncMatriculeControl = this.autoCompleteForm.get('pncMatriculeControl');
+      this.initAutocompleteList();
+      this.divisionOnchanges();
+      this.sectorOnchanges();
+      this.resetFilterValues();
+      this.formOnChanges();
+    }
   }
 
   /**
