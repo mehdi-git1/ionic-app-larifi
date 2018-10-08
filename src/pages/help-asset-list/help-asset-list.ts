@@ -10,7 +10,7 @@ import { PncRole } from './../../models/pncRole';
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
-import { File, Entry } from '@ionic-native/file';
+import { File } from '@ionic-native/file';
 import { HttpClient } from '@angular/common/http';
 import { repeat } from '../../../node_modules/rxjs/operators';
 
@@ -75,14 +75,13 @@ export class HelpAssetListPage {
      */
     displayHelpAsset(helpAsset: HelpAsset, type : string) {
 
-        if (type!=='url' || this.deviceService.isBrowser()){
-            window.resolveLocalFileSystemURL(helpAsset.url, (entry) => {
-                this.inAppBrowser.create(
-                    entry, 
-                    '_system', 
-                    ''
-                );
-            });
+        if (type==='url' || this.deviceService.isBrowser()){
+            window.resolveLocalFileSystemURL(helpAsset.url)
+            this.inAppBrowser.create(
+                helpAsset.url, 
+                '_system', 
+                ''
+            );
             return true;
         }
 
