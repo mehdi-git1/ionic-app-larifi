@@ -10,6 +10,7 @@ import { PncRole } from './../../models/pncRole';
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
+import { File } from '@ionic-native/file';
 
 @Component({
     selector: 'page-help-asset-list',
@@ -28,7 +29,8 @@ export class HelpAssetListPage {
         private translateService: TranslateService,
         private helpAssetProvider: HelpAssetProvider,
         private connectivityService: ConnectivityService,
-        private inAppBrowser: InAppBrowser
+        private inAppBrowser: InAppBrowser,
+        private file: File
     ) {
         if (this.deviceService.isBrowser()) {
             this.pdfUrl = '../assets/pdf/helpAsset';
@@ -68,7 +70,29 @@ export class HelpAssetListPage {
      * @param helpAsseturl la ressource d'aide concernée
      */
     displayHelpAsset(helpAsset: HelpAsset) {
-        this.inAppBrowser.create(helpAsset.url, '_blank', 'hideurlbar=yes');
+        this.file.createDir(this.file.dataDirectory, 'edossier', true).then(
+            data => {
+                this.file.createFile(this.file.dataDirectory+'/edossier', 'pdfToDisplay.txt', true).then(
+                    data => {
+                        this.file.writeExistingFile(
+                            this.file.dataDirectory+'/edossier',
+                            'pdfToDisplay.txt',
+                            'test de truc a afficher'
+                        ).then (
+                            data => {
+                                this.inAppBrowser.create(
+                                    this.file.dataDirectory+'/edossier/'+'pdfToDisplay.txt', 
+                                    '_blank', 
+                                    'hideurlbar=yes,location=yes'
+                                );
+                            }
+                        )
+                    }
+                )
+            }
+        )
+
+        
     }
 
     /**
@@ -131,3 +155,4 @@ export class HelpAssetListPage {
         return helpAsset;
     }
 }
+
