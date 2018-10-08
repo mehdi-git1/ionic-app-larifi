@@ -74,8 +74,20 @@ export class HelpAssetListPage {
      */
     displayHelpAsset(helpAsset: HelpAsset) {
 
-        const rep = this.file.tempDirectory;
+        const rep = this.file.dataDirectory;
         // Récupération du fichier en blob
+        const arra = [this.file.applicationDirectory,
+            this.file.dataDirectory,
+            this.file.documentsDirectory,
+            this.file.cacheDirectory,
+            this.file.applicationStorageDirectory,
+            this.file.sharedDirectory,
+            this.file.tempDirectory,
+            this.file.externalApplicationStorageDirectory,
+            this.file.externalDataDirectory,
+            this.file.externalCacheDirectory
+        ]
+        alert('premiere etape' + arra.join('\n'));
         this.file.createDir(rep, 'edossier', true).then(
             data => {
                 this.file.createFile(rep+'/edossier', 'pdfToDisplay.pdf', true).then(
@@ -107,8 +119,8 @@ export class HelpAssetListPage {
                 }
             },
             error => {
+                alert(error);
                 alert('premiere etape' + rep);
-                alert('premiere etape' + Object.keys(this.file).join('\n'));
             }
         )
     }
