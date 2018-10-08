@@ -1,0 +1,8 @@
+<ion-tabs #tabs *ngIf="pnc" tabsHighlight="true" tabsPlacement="bottom">
+    <ion-tab [root]="pncHomePage"  [rootParams]="matriculeParams" [tabTitle]="translate.instant('PNC_HOME.TITLE')" tabIcon="edospnc-home"></ion-tab>
+    <ion-tab [root]="careerObjectiveListPage" [rootParams]="matriculeParams" *ngIf="pnc && pnc?.speciality !== Speciality.CAD" [tabTitle]="translate.instant('GLOBAL.DEVELOPMENT_PROGRAM')" tabIcon="edospnc-developmentProgram"></ion-tab>
+    <ion-tab [root]="summarySheetPage" [rootParams]="matriculeParams" *ngIf="pnc && pnc?.speciality !== Speciality.CAD" [tabTitle]="translate.instant('GLOBAL.PNC_SUMMARY_SHEET')" tabIcon="edospnc-summarySheet"></ion-tab>
+    <ion-tab [root]="pncSearchPage" *ngIf="pnc && pnc?.speciality === Speciality.CAD" [tabTitle]="translate.instant('GLOBAL.PNC_TEAM')" tabIcon="edospnc-pncTeam"></ion-tab>
+    <ion-tab [root]="upcomingFlightListPage" *ngIf="pnc && pnc?.speciality === Speciality.CAD" [tabTitle]="translate.instant('GLOBAL.UPCOMING_FLIGHT')" tabIcon="edospnc-upcomingFlight"></ion-tab>
+    <ion-tab [root]="helpAssetListPage" *ngIf="pnc" [rootParams]="roleParams" [tabTitle]="translate.instant('GLOBAL.HELP_CENTER')" tabIcon="edospnc-helpCenter"></ion-tab>
+</ion-tabs>

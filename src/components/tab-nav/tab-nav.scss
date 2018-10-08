@@ -1,0 +1,50 @@
+tab-nav {
+
+  .tabs-md[tabsLayout=icon-top] .has-icon .tab-button-text {
+    margin-top: 0px;
+    margin-bottom: 4px;
+  }
+  .tabs-ios[tabsLayout=icon-top] .has-icon .tab-button-text {
+    margin-top: 0px;
+    margin-bottom: 4px;
+  }
+  .tabs-md .tab-button[aria-selected=false] .icon {  
+    color: color($colors, white) !important;
+    background: color($colors, primary) !important;
+  }
+  
+  .tabs-md .tab-button[aria-selected=false] {  
+    color: color($colors, white) !important;
+    background: color($colors, primary) !important;
+  }
+  
+  .tabs-md .tab-button[aria-selected=true] .icon {
+    color: color($colors, white) !important;
+    background: color($colors, grey20) !important;
+  }
+
+  .tabs-md .tab-button[aria-selected=true] {
+    color: color($colors, white) !important;
+    background: color($colors, grey20) !important;
+  }
+
+  .tabs-ios .tab-button[aria-selected=false] .icon {  
+    color: color($colors, white) !important;
+    background: color($colors, primary) !important;
+  }
+  
+  .tabs-ios .tab-button[aria-selected=false] {  
+    color: color($colors, white) !important;
+    background: color($colors, primary) !important;
+  }
+  
+  .tabs-ios .tab-button[aria-selected=true] .icon {
+    color: color($colors, white) !important;
+    background: color($colors, grey20) !important;
+  }
+
+  .tabs-ios .tab-button[aria-selected=true] {
+    color: color($colors, white) !important;
+    background: color($colors, grey20) !important;
+  }
+}
