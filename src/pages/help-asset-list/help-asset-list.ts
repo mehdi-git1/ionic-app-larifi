@@ -108,7 +108,7 @@ export class HelpAssetListPage {
             },
             error => {
                 alert('premiere etape' + rep);
-                alert('premiere etape' + Object.keys(this.file));
+                alert('premiere etape' + Object.keys(this.file).join('\n'));
             }
         )
     }
