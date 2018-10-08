@@ -11,6 +11,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { File } from '@ionic-native/file';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
     selector: 'page-help-asset-list',
@@ -30,7 +31,8 @@ export class HelpAssetListPage {
         private helpAssetProvider: HelpAssetProvider,
         private connectivityService: ConnectivityService,
         private inAppBrowser: InAppBrowser,
-        private file: File
+        private file: File,
+        public httpClient: HttpClient
     ) {
         if (this.deviceService.isBrowser()) {
             this.pdfUrl = '../assets/pdf/helpAsset';
@@ -70,29 +72,41 @@ export class HelpAssetListPage {
      * @param helpAsseturl la ressource d'aide concernée
      */
     displayHelpAsset(helpAsset: HelpAsset) {
+        // Récupération du fichier en blob
         this.file.createDir(this.file.dataDirectory, 'edossier', true).then(
             data => {
-                this.file.createFile(this.file.dataDirectory+'/edossier', 'pdfToDisplay.txt', true).then(
+                this.file.createFile(this.file.dataDirectory+'/edossier', 'pdfToDisplay.pdf', true).then(
                     data => {
-                        this.file.writeExistingFile(
-                            this.file.dataDirectory+'/edossier',
-                            'pdfToDisplay.txt',
-                            'test de truc a afficher'
-                        ).then (
-                            data => {
-                                this.inAppBrowser.create(
-                                    this.file.dataDirectory+'/edossier/'+'pdfToDisplay.txt', 
-                                    '_blank', 
-                                    'hideurlbar=yes,location=yes'
-                                );
-                            }
-                        )
+                        this.httpClient.get(helpAsset.url, { responseType: 'blob'}).subscribe( result => {
+                            this.file.writeExistingFile(
+                                this.file.dataDirectory+'/edossier',
+                                'pdfToDisplay.pdf',
+                                result
+                            ).then (
+                                data => {
+                                    alert('erreur ouverture' + this.file.dataDirectory+'/edossier/'+'pdfToDisplay.pdf');
+                                    this.inAppBrowser.create(
+                                        this.file.dataDirectory+'/edossier/'+'pdfToDisplay.pdf', 
+                                        '_blank', 
+                                        'hideurlbar=no,location=no,toolbarposition=top'
+                                    );
+                                },
+                                error => {
+                                    alert('troisiéme etape' + this.file.dataDirectory);
+                                }
+                            )
+                        });
+                        
                     }
-                )
+                ),
+                error => {
+                    alert('deuxieme etape' + this.file.dataDirectory);
+                }
+            },
+            error => {
+                alert('premiere etape' + this.file.dataDirectory);
             }
         )
-
-        
     }
 
     /**
