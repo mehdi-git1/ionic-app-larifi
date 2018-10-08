@@ -10,10 +10,11 @@ import { PncRole } from './../../models/pncRole';
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
-import { File } from '@ionic-native/file';
+import { File, Entry } from '@ionic-native/file';
 import { HttpClient } from '@angular/common/http';
 import { repeat } from '../../../node_modules/rxjs/operators';
 
+declare var window;
 @Component({
     selector: 'page-help-asset-list',
     templateUrl: 'help-asset-list.html',
@@ -72,7 +73,18 @@ export class HelpAssetListPage {
      * Ouvre une fenetre de navigation avec l'url conçernée (lien web ou URL PDF).
      * @param helpAsseturl la ressource d'aide concernée
      */
-    displayHelpAsset(helpAsset: HelpAsset) {
+    displayHelpAsset(helpAsset: HelpAsset, type : string) {
+
+        if (type!=='url' || this.deviceService.isBrowser()){
+            window.resolveLocalFileSystemURL(helpAsset.url, (entry) => {
+                this.inAppBrowser.create(
+                    entry, 
+                    '_system', 
+                    ''
+                );
+            });
+            return true;
+        }
 
         const rep = this.file.dataDirectory;
         // Récupération du fichier en blob

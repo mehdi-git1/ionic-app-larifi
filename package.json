@@ -84,7 +84,8 @@
             "cordova-plugin-privacyscreen": {},
             "cordova-sqlite-storage": {},
             "cordova-plugin-inappbrowser": {},
-            "cordova-plugin-formslib": {}
+            "cordova-plugin-formslib": {},
+            "cordova-plugin-file": {}
         },
         "platforms": [
             "ios"

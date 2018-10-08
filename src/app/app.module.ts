@@ -1,5 +1,5 @@
 import { Utils } from './../common/utils';
-import { File } from '@ionic-native/file';
+import { File} from '@ionic-native/file';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { EObservationTransformerProvider } from './../providers/e-observation/e-observation-transformer';
 import { OnlineEObservationProvider } from './../providers/e-observation/online-e-observation';
