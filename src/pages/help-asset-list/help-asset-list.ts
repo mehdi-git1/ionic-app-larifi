@@ -12,6 +12,7 @@ import { NavController, NavParams } from 'ionic-angular';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { File } from '@ionic-native/file';
 import { HttpClient } from '@angular/common/http';
+import { repeat } from '../../../node_modules/rxjs/operators';
 
 @Component({
     selector: 'page-help-asset-list',
@@ -72,27 +73,29 @@ export class HelpAssetListPage {
      * @param helpAsseturl la ressource d'aide concernée
      */
     displayHelpAsset(helpAsset: HelpAsset) {
+
+        const rep = this.file.tempDirectory;
         // Récupération du fichier en blob
-        this.file.createDir(this.file.dataDirectory, 'edossier', true).then(
+        this.file.createDir(rep, 'edossier', true).then(
             data => {
-                this.file.createFile(this.file.dataDirectory+'/edossier', 'pdfToDisplay.pdf', true).then(
+                this.file.createFile(rep+'/edossier', 'pdfToDisplay.pdf', true).then(
                     data => {
                         this.httpClient.get(helpAsset.url, { responseType: 'blob'}).subscribe( result => {
                             this.file.writeExistingFile(
-                                this.file.dataDirectory+'/edossier',
+                                rep+'/edossier',
                                 'pdfToDisplay.pdf',
                                 result
                             ).then (
                                 data => {
-                                    alert('erreur ouverture' + this.file.dataDirectory+'/edossier/'+'pdfToDisplay.pdf');
+                                    alert('erreur ouverture' + rep+'/edossier/'+'pdfToDisplay.pdf');
                                     this.inAppBrowser.create(
-                                        this.file.dataDirectory+'/edossier/'+'pdfToDisplay.pdf', 
+                                        rep+'/edossier/'+'pdfToDisplay.pdf', 
                                         '_blank', 
                                         'hideurlbar=no,location=no,toolbarposition=top'
                                     );
                                 },
                                 error => {
-                                    alert('troisiéme etape' + this.file.dataDirectory);
+                                    alert('troisiéme etape' + rep);
                                 }
                             )
                         });
@@ -100,11 +103,12 @@ export class HelpAssetListPage {
                     }
                 ),
                 error => {
-                    alert('deuxieme etape' + this.file.dataDirectory);
+                    alert('deuxieme etape' + rep);
                 }
             },
             error => {
-                alert('premiere etape' + this.file.dataDirectory);
+                alert('premiere etape' + rep);
+                alert('premiere etape' + JSON.stringify(this.file));
             }
         )
     }
