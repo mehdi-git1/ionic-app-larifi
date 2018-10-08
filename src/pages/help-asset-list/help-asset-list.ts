@@ -14,7 +14,6 @@ import { File } from '@ionic-native/file';
 import { HttpClient } from '@angular/common/http';
 import { repeat } from '../../../node_modules/rxjs/operators';
 
-declare var window;
 @Component({
     selector: 'page-help-asset-list',
     templateUrl: 'help-asset-list.html',
@@ -76,7 +75,6 @@ export class HelpAssetListPage {
     displayHelpAsset(helpAsset: HelpAsset, type : string) {
 
         if (type==='url' || this.deviceService.isBrowser()){
-            window.resolveLocalFileSystemURL(helpAsset.url)
             this.inAppBrowser.create(
                 helpAsset.url, 
                 '_system', 
