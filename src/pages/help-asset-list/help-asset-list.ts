@@ -1,9 +1,6 @@
 import { HelpAssetType } from './../../models/helpAssetType';
-import { Type } from '@angular/compiler/src/core';
 import { ConnectivityService } from './../../services/connectivity.service';
 import { DeviceService } from './../../services/device.service';
-import { TranslateService } from '@ngx-translate/core';
-import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { HelpAssetProvider } from './../../providers/help-asset/help-asset';
 import { HelpAsset } from './../../models/helpAsset';
 import { PncRole } from './../../models/pncRole';
@@ -27,7 +24,6 @@ export class HelpAssetListPage {
     constructor(public navCtrl: NavController,
         public navParams: NavParams,
         private deviceService: DeviceService,
-        private translateService: TranslateService,
         private helpAssetProvider: HelpAssetProvider,
         private connectivityService: ConnectivityService,
         private inAppBrowser: InAppBrowser,
