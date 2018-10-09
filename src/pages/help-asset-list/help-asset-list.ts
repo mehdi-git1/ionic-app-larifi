@@ -75,11 +75,7 @@ export class HelpAssetListPage {
     displayHelpAsset(helpAsset: HelpAsset, type: string) {
 
         if (type === 'url' || this.deviceService.isBrowser()) {
-            this.inAppBrowser.create(
-                helpAsset.url,
-                '_system',
-                ''
-            );
+            this.inAppBrowser.create(helpAsset.url, '_system', '');
             return true;
         }
 
