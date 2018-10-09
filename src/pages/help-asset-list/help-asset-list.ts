@@ -72,12 +72,12 @@ export class HelpAssetListPage {
      * Ouvre une fenetre de navigation avec l'url conçernée (lien web ou URL PDF).
      * @param helpAsseturl la ressource d'aide concernée
      */
-    displayHelpAsset(helpAsset: HelpAsset, type : string) {
+    displayHelpAsset(helpAsset: HelpAsset, type: string) {
 
-        if (type==='url' || this.deviceService.isBrowser()){
+        if (type === 'url' || this.deviceService.isBrowser()){
             this.inAppBrowser.create(
-                helpAsset.url, 
-                '_system', 
+                helpAsset.url,
+                '_system',
                 ''
             );
             return true;
@@ -87,27 +87,18 @@ export class HelpAssetListPage {
 
         this.file.createDir(rep, 'edossier', true).then(
             data => {
-                this.file.createFile(rep+'/edossier', 'pdfToDisplay.pdf', true).then(
+                this.file.createFile(rep + '/edossier', 'pdfToDisplay.pdf', true).then(
                     data => {
                         this.httpClient.get(helpAsset.url, { responseType: 'blob'}).subscribe( result => {
-                            this.file.writeExistingFile(
-                                rep+'/edossier',
-                                'pdfToDisplay.pdf',
-                                result
-                            ).then (
+                            this.file.writeExistingFile( rep + '/edossier', 'pdfToDisplay.pdf', result).then (
                                 data => {
-                                    this.inAppBrowser.create(
-                                        rep+'/edossier/'+'pdfToDisplay.pdf', 
-                                        '_blank', 
-                                        'hideurlbar=no,location=no,toolbarposition=top'
+                                    this.inAppBrowser.create(rep + '/edossier/' + 'pdfToDisplay.pdf', '_blank', 'hideurlbar=no,location=no,toolbarposition=top'
                                     );
                                 }
-                            )
+                            );
                         });
-                    }
-                )
-            }
-        )
+                    });
+            });
     }
 
     /**
