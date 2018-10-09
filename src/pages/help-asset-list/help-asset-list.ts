@@ -12,7 +12,6 @@ import { NavController, NavParams } from 'ionic-angular';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { File } from '@ionic-native/file';
 import { HttpClient } from '@angular/common/http';
-import { repeat } from '../../../node_modules/rxjs/operators';
 
 @Component({
     selector: 'page-help-asset-list',
