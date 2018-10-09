@@ -1,15 +1,14 @@
 import { HelpAssetType } from './../../models/helpAssetType';
-import { Type } from '@angular/compiler/src/core';
 import { ConnectivityService } from './../../services/connectivity.service';
 import { DeviceService } from './../../services/device.service';
-import { TranslateService } from '@ngx-translate/core';
-import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { HelpAssetProvider } from './../../providers/help-asset/help-asset';
 import { HelpAsset } from './../../models/helpAsset';
 import { PncRole } from './../../models/pncRole';
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
+import { File } from '@ionic-native/file';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
     selector: 'page-help-asset-list',
@@ -25,10 +24,11 @@ export class HelpAssetListPage {
     constructor(public navCtrl: NavController,
         public navParams: NavParams,
         private deviceService: DeviceService,
-        private translateService: TranslateService,
         private helpAssetProvider: HelpAssetProvider,
         private connectivityService: ConnectivityService,
-        private inAppBrowser: InAppBrowser
+        private inAppBrowser: InAppBrowser,
+        private file: File,
+        public httpClient: HttpClient
     ) {
         if (this.deviceService.isBrowser()) {
             this.pdfUrl = '../assets/pdf/helpAsset';
@@ -67,8 +67,31 @@ export class HelpAssetListPage {
      * Ouvre une fenetre de navigation avec l'url conçernée (lien web ou URL PDF).
      * @param helpAsseturl la ressource d'aide concernée
      */
-    displayHelpAsset(helpAsset: HelpAsset) {
-        this.inAppBrowser.create(helpAsset.url, '_blank', 'hideurlbar=yes, location=no');
+    displayHelpAsset(helpAsset: HelpAsset, type: string) {
+
+        if (type === 'url' || this.deviceService.isBrowser()) {
+            this.inAppBrowser.create(helpAsset.url, '_system', '');
+            return true;
+        }
+
+        const rep = this.file.dataDirectory;
+        // Si on récupére un fichier PDF sur l'iPad, il faut le recréer hors des assets
+        // Pour ne pas avoir une URL en localhost, il faut créer un fichier directement sur l'IPAD
+        // Il y'a des problémes CORS avec les fichiers en localhost://
+        this.file.createDir(rep, 'edossier', true).then(
+            createDirReturn => {
+                this.file.createFile(rep + '/edossier', 'pdfToDisplay.pdf', true).then(
+                    createFileReturn => {
+                        this.httpClient.get(helpAsset.url, { responseType: 'blob' }).subscribe(result => {
+                            this.file.writeExistingFile(rep + '/edossier', 'pdfToDisplay.pdf', result).then(
+                                writingFileReturn => {
+                                    this.inAppBrowser.create(rep + '/edossier/' + 'pdfToDisplay.pdf', '_blank', 'hideurlbar=no,location=no,toolbarposition=top'
+                                    );
+                                }
+                            );
+                        });
+                    });
+            });
     }
 
     /**
@@ -131,3 +154,4 @@ export class HelpAssetListPage {
         return helpAsset;
     }
 }
+
