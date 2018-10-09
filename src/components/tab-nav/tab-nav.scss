@@ -1,4 +1,7 @@
 tab-nav {
+  .tabs-ios .tab-button{ 
+    max-width : initial;
+  }
 
   .tabs-md[tabsLayout=icon-top] .has-icon .tab-button-text {
     margin-top: 0px;
@@ -8,43 +11,41 @@ tab-nav {
     margin-top: 0px;
     margin-bottom: 4px;
   }
+
+  @mixin colorMenu($color, $background) {
+    color: color($colors, $color) !important;
+    background: color($colors, $background) !important;
+  }
+
   .tabs-md .tab-button[aria-selected=false] .icon {  
-    color: color($colors, white) !important;
-    background: color($colors, primary) !important;
+    @include colorMenu(white, primary);
   }
   
   .tabs-md .tab-button[aria-selected=false] {  
-    color: color($colors, white) !important;
-    background: color($colors, primary) !important;
+    @include colorMenu(white, primary);
   }
   
   .tabs-md .tab-button[aria-selected=true] .icon {
-    color: color($colors, white) !important;
-    background: color($colors, grey20) !important;
+    @include colorMenu(white, grey20);
   }
 
   .tabs-md .tab-button[aria-selected=true] {
-    color: color($colors, white) !important;
-    background: color($colors, grey20) !important;
+    @include colorMenu(white, grey20);
   }
 
   .tabs-ios .tab-button[aria-selected=false] .icon {  
-    color: color($colors, white) !important;
-    background: color($colors, primary) !important;
+    @include colorMenu(white, primary);
   }
   
   .tabs-ios .tab-button[aria-selected=false] {  
-    color: color($colors, white) !important;
-    background: color($colors, primary) !important;
+    @include colorMenu(white, primary);
   }
   
   .tabs-ios .tab-button[aria-selected=true] .icon {
-    color: color($colors, white) !important;
-    background: color($colors, grey20) !important;
+    @include colorMenu(white, grey20);
   }
 
   .tabs-ios .tab-button[aria-selected=true] {
-    color: color($colors, white) !important;
-    background: color($colors, grey20) !important;
+    @include colorMenu(white, grey20);
   }
 }
