@@ -2,11 +2,11 @@ import { Directive, Input, ElementRef, OnInit } from '@angular/core';
 import { AuthorizationService } from '../../services/authorization.service';
 
 @Directive({
-  selector: '[showIfUserHasPermission]'
+  selector: '[hasPermission]'
 })
-export class ShowIfUserHasPermissionDirective implements OnInit {
+export class HasPermissionDirective implements OnInit {
 
-  @Input('showIfUserHasPermission') permission: string;
+  @Input('hasPermission') permission: string;
 
   constructor(private el: ElementRef, private authorizationService: AuthorizationService) {
   }
