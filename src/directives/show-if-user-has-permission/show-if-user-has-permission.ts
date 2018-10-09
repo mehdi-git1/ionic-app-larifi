@@ -13,7 +13,7 @@ export class ShowIfUserHasPermissionDirective implements OnInit {
 
   ngOnInit () {
     if (!this.authorizationService.hasPermission(this.permission)) {
-          this.el.nativeElement.style.display = 'none';
+          this.el.nativeElement.remove();
     }
   }
 
