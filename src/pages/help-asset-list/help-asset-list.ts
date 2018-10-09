@@ -84,18 +84,6 @@ export class HelpAssetListPage {
         }
 
         const rep = this.file.dataDirectory;
-        // Récupération du fichier en blob
-        const arra = [this.file.applicationDirectory,
-            this.file.dataDirectory,
-            this.file.documentsDirectory,
-            this.file.cacheDirectory,
-            this.file.applicationStorageDirectory,
-            this.file.sharedDirectory,
-            this.file.tempDirectory,
-            this.file.externalApplicationStorageDirectory,
-            this.file.externalDataDirectory,
-            this.file.externalCacheDirectory
-        ]
 
         this.file.createDir(rep, 'edossier', true).then(
             data => {
