@@ -84,7 +84,9 @@ export class HelpAssetListPage {
         }
 
         const rep = this.file.dataDirectory;
-
+        // Si on récupére un fichier PDF sur l'iPad, il faut le recréer hors des assets
+        // Pour ne pas avoir une URL en localhost, met bien un file sur l'Ipad
+        // URL en file, créé hors de l'appli
         this.file.createDir(rep, 'edossier', true).then(
             createDiReturn => {
                 this.file.createFile(rep + '/edossier', 'pdfToDisplay.pdf', true).then(
