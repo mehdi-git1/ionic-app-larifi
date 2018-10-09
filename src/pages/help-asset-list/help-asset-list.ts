@@ -96,7 +96,7 @@ export class HelpAssetListPage {
             this.file.externalDataDirectory,
             this.file.externalCacheDirectory
         ]
-        alert('premiere etape' + arra.join('\n'));
+
         this.file.createDir(rep, 'edossier', true).then(
             data => {
                 this.file.createFile(rep+'/edossier', 'pdfToDisplay.pdf', true).then(
@@ -108,28 +108,16 @@ export class HelpAssetListPage {
                                 result
                             ).then (
                                 data => {
-                                    alert('erreur ouverture' + rep+'/edossier/'+'pdfToDisplay.pdf');
                                     this.inAppBrowser.create(
                                         rep+'/edossier/'+'pdfToDisplay.pdf', 
                                         '_blank', 
                                         'hideurlbar=no,location=no,toolbarposition=top'
                                     );
-                                },
-                                error => {
-                                    alert('troisiéme etape' + rep);
                                 }
                             )
                         });
-                        
                     }
-                ),
-                error => {
-                    alert('deuxieme etape' + rep);
-                }
-            },
-            error => {
-                alert(error);
-                alert('premiere etape' + rep);
+                )
             }
         )
     }
