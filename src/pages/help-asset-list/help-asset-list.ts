@@ -10,9 +10,6 @@ import { PncRole } from './../../models/pncRole';
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
-import { File } from '@ionic-native/file';
-import { HttpClient } from '@angular/common/http';
-import { repeat } from '../../../node_modules/rxjs/operators';
 
 @Component({
     selector: 'page-help-asset-list',
@@ -31,9 +28,7 @@ export class HelpAssetListPage {
         private translateService: TranslateService,
         private helpAssetProvider: HelpAssetProvider,
         private connectivityService: ConnectivityService,
-        private inAppBrowser: InAppBrowser,
-        private file: File,
-        public httpClient: HttpClient
+        private inAppBrowser: InAppBrowser
     ) {
         if (this.deviceService.isBrowser()) {
             this.pdfUrl = '../assets/pdf/helpAsset';
@@ -72,33 +67,8 @@ export class HelpAssetListPage {
      * Ouvre une fenetre de navigation avec l'url conçernée (lien web ou URL PDF).
      * @param helpAsseturl la ressource d'aide concernée
      */
-    displayHelpAsset(helpAsset: HelpAsset, type: string) {
-
-        if (type === 'url' || this.deviceService.isBrowser()){
-            this.inAppBrowser.create(
-                helpAsset.url,
-                '_system',
-                ''
-            );
-            return true;
-        }
-
-        const rep = this.file.dataDirectory;
-
-        this.file.createDir(rep, 'edossier', true).then(
-            data => {
-                this.file.createFile(rep + '/edossier', 'pdfToDisplay.pdf', true).then(
-                    data => {
-                        this.httpClient.get(helpAsset.url, { responseType: 'blob'}).subscribe( result => {
-                            this.file.writeExistingFile( rep + '/edossier', 'pdfToDisplay.pdf', result).then (
-                                data => {
-                                    this.inAppBrowser.create(rep + '/edossier/' + 'pdfToDisplay.pdf', '_blank', 'hideurlbar=no,location=no,toolbarposition=top'
-                                    );
-                                }
-                            );
-                        });
-                    });
-            });
+    displayHelpAsset(helpAsset: HelpAsset) {
+        this.inAppBrowser.create(helpAsset.url, '_blank', 'hideurlbar=yes, location=no');
     }
 
     /**
@@ -161,4 +131,3 @@ export class HelpAssetListPage {
         return helpAsset;
     }
 }
-
