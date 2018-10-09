@@ -84,12 +84,12 @@ export class HelpAssetListPage {
         // Pour ne pas avoir une URL en localhost, il faut créer un fichier directement sur l'IPAD
         // Il y'a des problémes CORS avec les fichiers en localhost://
         this.file.createDir(rep, 'edossier', true).then(
-            createDiReturn => {
+            createDirReturn => {
                 this.file.createFile(rep + '/edossier', 'pdfToDisplay.pdf', true).then(
                     createFileReturn => {
                         this.httpClient.get(helpAsset.url, { responseType: 'blob' }).subscribe(result => {
                             this.file.writeExistingFile(rep + '/edossier', 'pdfToDisplay.pdf', result).then(
-                                writingFilereturn => {
+                                writingFileReturn => {
                                     this.inAppBrowser.create(rep + '/edossier/' + 'pdfToDisplay.pdf', '_blank', 'hideurlbar=no,location=no,toolbarposition=top'
                                     );
                                 }
