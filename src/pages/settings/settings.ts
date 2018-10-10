@@ -1,17 +1,14 @@
+import { ImpersonatePage } from './../impersonate/impersonate';
 import { DeviceService } from './../../services/device.service';
 import { SecurityModalService } from './../../services/security.modal.service';
 import { TranslateService } from '@ngx-translate/core';
 import { ToastProvider } from './../../providers/toast/toast';
-import { UpcomingFlightListPage } from './../upcoming-flight-list/upcoming-flight-list';
 import { SessionService } from './../../services/session.service';
-import { ParametersProvider } from './../../providers/parameters/parameters';
 import { SynchronizationProvider } from './../../providers/synchronization/synchronization';
 import { StorageService } from './../../services/storage.service';
-import { AuthenticationPage } from './../authentication/authentication';
-import { SecMobilService } from './../../services/secMobil.service';
 import { ConnectivityService } from './../../services/connectivity.service';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, Events, AlertController } from 'ionic-angular';
+import { NavController, Events, AlertController } from 'ionic-angular';
 
 import { PinPadType } from './../../models/pinPadType';
 import { SecretQuestionType } from '../../models/secretQuestionType';
@@ -31,6 +28,7 @@ export class SettingsPage {
   isApp: boolean;
 
   constructor(
+    private navCtrl: NavController,
     private connectivityService: ConnectivityService,
     private storageService: StorageService,
     private events: Events,
@@ -129,4 +127,10 @@ export class SettingsPage {
     this.securityModalService.displaySecretQuestion(SecretQuestionType.askChange);
   }
 
+  /**
+   * Redirige vers la page d'impersonnification
+   */
+  impersonateNewUser(): void {
+    this.navCtrl.push(ImpersonatePage);
+  }
 }

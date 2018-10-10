@@ -40,8 +40,8 @@ export class RestWebService extends RestService {
         }
 
         // On ajoute un header spécial si la fonction d'impersonnification a été utilisée
-        if (this.sessionService.impersonatedPnc && this.sessionService.impersonatedPnc.matricule) {
-            request.httpHeaders.headers = request.httpHeaders.headers.append('IMPERSONATE', this.sessionService.impersonatedPnc.matricule);
+        if (this.sessionService.impersonatedUser && this.sessionService.impersonatedUser.matricule) {
+            request.httpHeaders.headers = request.httpHeaders.headers.append('IMPERSONATE', this.sessionService.impersonatedUser.matricule);
         }
 
         request.httpHeaders.headers = request.httpHeaders.headers.append('Accept', 'application/json, text/plain, */*');

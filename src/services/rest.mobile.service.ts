@@ -24,8 +24,8 @@ export class RestMobileService extends RestService {
                         'Accept': '*/*'
                     };
                     // On ajoute un header spécial si la fonction d'impersonnification a été utilisée
-                    if (this.sessionService.impersonatedPnc && this.sessionService.impersonatedPnc.matricule) {
-                        request.httpHeaders.IMPERSONATE = this.sessionService.impersonatedPnc.matricule;
+                    if (this.sessionService.impersonatedUser && this.sessionService.impersonatedUser.matricule) {
+                        request.httpHeaders.IMPERSONATE = this.sessionService.impersonatedUser.matricule;
                     }
                 }
                 request.jsonData = JSON.stringify(request.jsonData);

@@ -1,7 +1,9 @@
+import { SessionService } from './../../services/session.service';
+import { SecurityProvider } from './../../providers/security/security';
 import { DeviceService } from './../../services/device.service';
 import { SynchronizationProvider } from './../../providers/synchronization/synchronization';
 import { ConnectivityService } from './../../services/connectivity.service';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController } from 'ionic-angular';
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { SettingsPage } from '../../pages/settings/settings';
 
@@ -21,10 +23,11 @@ export class NavBarCustomComponent {
   synchroInProgress: boolean;
 
   constructor(private navCtrl: NavController,
-    private navParams: NavParams,
     public connectivityService: ConnectivityService,
     public deviceService: DeviceService,
-    public synchronizationProvider: SynchronizationProvider) {
+    public synchronizationProvider: SynchronizationProvider,
+    private securityProvider: SecurityProvider,
+    private sessionService: SessionService) {
     this.connected = this.connectivityService.isConnected();
 
     this.connectivityService.connectionStatusChange.subscribe(connected => {
@@ -62,6 +65,13 @@ export class NavBarCustomComponent {
    */
   forceSynchronizeOfflineData() {
     this.synchronizationProvider.synchronizeOfflineData();
+  }
+
+  /**
+   * Vérifie si l'utilisateur connecté est admin ou non
+   */
+  isAdmin() {
+    return this.securityProvider.isAdmin(this.sessionService.authenticatedUser);
   }
 
 }

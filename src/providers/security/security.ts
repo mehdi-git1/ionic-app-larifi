@@ -59,4 +59,16 @@ export class SecurityProvider {
     return false;
   }
 
+  /**
+   * Vérifie si l'impersonnification est disponible pour le user mis en session (dans impersonatedUser)
+   * @return une promesse vide (le code de retour http détermine si l'impersonnification est possible ou non)
+   */
+  isImpersonationAvailable(): Promise<void> {
+    return this.connectivityService.isConnected() ?
+      this.onlineSecurityProvider.isImpersonationAvailable() :
+      new Promise((resolve, reject) => {
+        reject();
+      });
+  }
+
 }

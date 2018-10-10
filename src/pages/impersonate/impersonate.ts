@@ -1,3 +1,4 @@
+import { SecurityProvider } from './../../providers/security/security';
 import { AuthenticatedUser } from './../../models/authenticatedUser';
 import { SessionService } from './../../services/session.service';
 import { PncProvider } from './../../providers/pnc/pnc';
@@ -6,8 +7,9 @@ import { PncHomePage } from './../pnc-home/pnc-home';
 import { FormGroup, AbstractControl, Validators, FormBuilder } from '@angular/forms';
 import { Subject, Observable } from 'rxjs/Rx';
 import { Component } from '@angular/core';
-import { NavController, NavParams, Events } from 'ionic-angular';
+import { NavController, Events } from 'ionic-angular';
 import { Pnc } from '../../models/pnc';
+import { SecurityModalService } from '../../services/security.modal.service';
 
 @Component({
   selector: 'page-impersonate',
@@ -25,11 +27,11 @@ export class ImpersonatePage {
   selectedPnc: Pnc;
 
   constructor(private navCtrl: NavController,
-    private navParams: NavParams,
     private formBuilder: FormBuilder,
     private utils: Utils,
     private pncProvider: PncProvider,
     private sessionService: SessionService,
+    private securityProvider: SecurityProvider,
     private events: Events
   ) {
     this.initForm();
@@ -75,18 +77,20 @@ export class ImpersonatePage {
   * @param term le terme à ajouter
   */
   searchAutoComplete(term: string): void {
-    term = this.utils.replaceSpecialCharacters(term);
-    if (!/^[a-zA-Z0-9-]+$/.test(term)) {
-      this.pncMatriculeControl.setValue(term.substring(0, term.length - 1));
-    } else {
-      this.pncMatriculeControl.setValue(term);
-      this.searchTerms.next(term);
-    }
+    this.searchTerms.next(term);
+  }
+
+  /**
+   * Vide le champs d'autocomplétion
+   */
+  clearPncSearch(): void {
+    this.selectedPnc = null;
   }
 
   /**
   * Affiche le PN dans l'autocomplete
-  *  @param pn le PN sélectionné
+  * @param pn le PN sélectionné
+  * @return le pnc formaté pour l'affichage
   */
   displayPnc(pnc: Pnc) {
     return pnc
@@ -98,10 +102,30 @@ export class ImpersonatePage {
    * Lance le processus permettant de se faire passer pour un PNC
    * @param pnc Le pnc qu'on souhaite impersonnifier
    */
-  impersonatePnc(pnc: Pnc) {
-    const impersonatedPnc = new AuthenticatedUser();
-    impersonatedPnc.matricule = pnc.matricule;
-    this.sessionService.impersonatedPnc = impersonatedPnc;
+  impersonateUser(pnc: Pnc): void {
+    const impersonatedUser = new AuthenticatedUser();
+    impersonatedUser.matricule = pnc.matricule;
+    this.sessionService.impersonatedUser = impersonatedUser;
+    this.securityProvider.isImpersonationAvailable().then(success => {
+      this.events.publish('user:authenticated');
+    }, error => {
+
+    });
+  }
+
+  /**
+   * Vérifie si l'utilisateur connecté peut récupérer son identité d'origine
+   * @return vrai si c'est le cas, faux sinon
+   */
+  canGetMyIdentityBack(): boolean {
+    return this.sessionService.impersonatedUser !== null && this.sessionService.authenticatedUser.pnc;
+  }
+
+  /**
+   * Enclenche la récupération de l'identité d'origine de l'utilisateur connecté en supprimant le PNC impersonnifié
+   */
+  getMyIdentityBack(): void {
+    this.sessionService.impersonatedUser = null;
     this.events.publish('user:authenticated');
   }
 

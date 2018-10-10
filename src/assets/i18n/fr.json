@@ -299,17 +299,17 @@
     "SETTINGS": {
         "TITLE": "Réglages",
         "INIT_CACHE": {
-            "BUTTON": "Réinitialiser le cache",
+            "LABEL": "Réinitialiser le cache",
             "SUCCESS": "Réinitialisation du cache réussie"
         },
         "FORCE_SYNCHRONIZATION": {
-            "BUTTON": "Forcer la synchronisation"
+            "LABEL": "Forcer la synchronisation"
         },
         "CHANGE_PIN_CODE": {
-            "BUTTON": "Changer le code pin"
+            "LABEL": "Changer le code pin"
         },
         "CHANGE_SECRET_QUESTION": {
-            "BUTTON": "Changer la question secrète"
+            "LABEL": "Changer la question secrète"
         },
         "CONFIRM_INIT_CACHE": {
             "TITLE": "Réinitialisation du cache",
@@ -317,11 +317,16 @@
             "MESSAGE_UNSYNCHRONIZED_DATA": "Attention. La réinitialisation du cache peut entraîner la perte de données non synchronisées.",
             "CANCEL": "Annuler",
             "CONFIRM": "Confirmer"
+        },
+        "IMPERSONATE_USER": {
+            "LABEL": "Impersonnifier un utilisateur"
         }
     },
     "IMPERSONATE": {
         "TITLE": "Sélection d'une identité PNC",
-        "SEARCH_PNC": "Matricule, nom, prénom"
+        "SEARCH_PNC": "Matricule, nom, prénom",
+        "BUTTONS": {
+            "GET_MY_IDENTITY_BACK": "Récupérer mon identité"
+        }
     }
-
 }

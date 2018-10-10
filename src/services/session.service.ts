@@ -7,7 +7,7 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class SessionService {
     authenticatedUser: AuthenticatedUser;
-    impersonatedPnc: AuthenticatedUser;
+    impersonatedUser: AuthenticatedUser = null;
     appContext: AppContext = new AppContext();
     parameters: Parameters;
 
@@ -15,6 +15,6 @@ export class SessionService {
      * Retourne l'utilisateur "actif". Il s'agit de l'utilisateur connecté, ou de l'utilisateur impersonnifié si celui ci existe.
      */
     getActiveUser(): AuthenticatedUser {
-        return this.impersonatedPnc ? this.impersonatedPnc : this.authenticatedUser;
+        return this.impersonatedUser ? this.impersonatedUser : this.authenticatedUser;
     }
 }
