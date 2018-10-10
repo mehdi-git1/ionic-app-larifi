@@ -87,7 +87,8 @@ export class PncSearchFilterComponent implements OnInit {
      */
     this.keyboard.didHide.subscribe(() => {
       const newHeight = window.innerHeight - this.autoCompleteTopPosition;
-      $('#mat-autocomplete-0').css('max-height', newHeight + 'px');
+      $('#cdk-overlay-0').css('top', this.autoCompleteTopPosition + 'px');
+      setTimeout($('#mat-autocomplete-0').css('max-height', newHeight + 'px'), 5000);
     });
   }
 
@@ -109,6 +110,7 @@ export class PncSearchFilterComponent implements OnInit {
    */
   changeHeightOnOpen() {
     this.autoCompleteTopPosition = this.autoCompleteTopPosition != -1 ? this.autoCompleteTopPosition : $('#cdk-overlay-0').offset().top;
+    $('#cdk-overlay-0').css('top', this.autoCompleteTopPosition + 'px');
     $('#mat-autocomplete-0').css('max-height', window.innerHeight - this.autoCompleteTopPosition + 'px');
   }
 
@@ -152,6 +154,9 @@ export class PncSearchFilterComponent implements OnInit {
       } else {
         this.outOfDivision = false;
         this.relayList = params['relays'];
+        this.relayList.sort((value: String, otherValue: String) => {
+          return value > otherValue ? 1 : -1;
+        });
         this.aircraftSkillList = params['aircraftSkills'];
       }
     }
@@ -162,6 +167,7 @@ export class PncSearchFilterComponent implements OnInit {
     this.pncFilter.speciality = this.specialityList && this.specialityList.length === 1 ? this.specialityList[0] : AppConstant.ALL;
     this.pncFilter.aircraftSkill = this.aircraftSkillList && this.aircraftSkillList.length === 1 ? this.aircraftSkillList[0] : AppConstant.ALL;
     this.pncFilter.relay = this.relayList && this.relayList.length === 1 ? this.relayList[0] : AppConstant.ALL;
+    this.pncFilter.prioritized = false;
 
   }
 
@@ -176,6 +182,7 @@ export class PncSearchFilterComponent implements OnInit {
     this.searchForm.get('aircraftSkillControl').setValue(this.aircraftSkillList && this.aircraftSkillList.length === 1 ? this.aircraftSkillList[0] : AppConstant.ALL);
     this.searchForm.get('relayControl').setValue(this.relayList && this.relayList.length === 1 ? this.relayList[0] : AppConstant.ALL);
     this.autoCompleteForm.get('pncMatriculeControl').setValue('');
+    this.searchForm.get('prioritizedControl').setValue(false);
   }
 
   /**
@@ -189,6 +196,7 @@ export class PncSearchFilterComponent implements OnInit {
       specialityControl: [this.pncFilter.speciality],
       aircraftSkillControl: [this.pncFilter.aircraftSkill],
       relayControl: [this.pncFilter.relay],
+      prioritizedControl: [false],
     });
     this.autoCompleteForm = this.formBuilder.group({
       pncMatriculeControl: [
@@ -213,7 +221,7 @@ export class PncSearchFilterComponent implements OnInit {
       .debounceTime(300)
       .distinctUntilChanged()
       .switchMap(
-        term => (term ? this.getAutoCompleteDataReturn(term) : Observable.of<Pnc[]>([]))
+        term => this.getAutoCompleteDataReturn(term)
       )
       .catch(error => {
         return Observable.of<Pnc[]>([]);
@@ -225,11 +233,17 @@ export class PncSearchFilterComponent implements OnInit {
    * @param term termes à rechercher pour l'autocomplete
    */
   getAutoCompleteDataReturn(term) {
-    return from(this.pncProvider.pncAutoComplete(term).then(
-      data => {
-        this.autoCompleteRunning = false;
-        return data;
-      }));
+    if (term) {
+      return from(this.pncProvider.pncAutoComplete(term).then(
+        data => {
+          this.autoCompleteRunning = false;
+          $('#cdk-overlay-0').css('top', this.autoCompleteTopPosition + 'px');
+          return data;
+        }));
+    } else {
+      this.autoCompleteRunning = false;
+      return Observable.of<Pnc[]>([]);
+    }
   }
 
   /**
@@ -270,7 +284,7 @@ export class PncSearchFilterComponent implements OnInit {
   searchAutoComplete(term: string): void {
     this.checkIfAutoCompleteIsOpen();
     term = this.utils.replaceSpecialCharacters(term);
-    if (!/^[a-zA-Z0-9-]+$/.test(term)) {
+    if (!/^[a-zA-Z0-9-]+$/.test(term) && term !== '') {
       this.pncMatriculeControl.setValue(term.substring(0, term.length - 1));
     } else {
       this.pncMatriculeControl.setValue(term);
@@ -295,6 +309,7 @@ export class PncSearchFilterComponent implements OnInit {
       this.pncFilter.speciality = val.specialityControl;
       this.pncFilter.aircraftSkill = val.aircraftSkillControl;
       this.pncFilter.relay = val.relayControl;
+      this.pncFilter.prioritized = val.prioritizedControl;
       this.search();
     });
   }

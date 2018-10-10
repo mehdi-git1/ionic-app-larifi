@@ -1,21 +1,19 @@
-export class GeneralitySkills{
-    cca: [{
+export class GeneralitySkills {
+    cca: {
+        label: string ,
+        startDate: Date
+    };
+    pcb: {
         libelle: string,
         startDate: Date,
         dueDate: Date
-    }];
-    pcb: [{
-        libelle: string,
-        startDate: Date,
-        validityStartDate: Date,
-        dueDate: Date
-    }];
-    gene: [{
+    };
+    gene: {
         aircraftSkill: string,
         startDate: Date,
         mdcDate: Date,
         dueDate: Date,
         ddvDueDate: Date,
-        skillEndDate: Date
-    }];
+        endDate: Date
+    };
 }

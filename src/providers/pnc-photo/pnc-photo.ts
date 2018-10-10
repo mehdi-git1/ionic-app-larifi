@@ -3,14 +3,21 @@ import { OfflinePncPhotoProvider } from './offline-pnc-photo';
 import { ConnectivityService } from './../../services/connectivity.service';
 import { PncPhoto } from './../../models/pncPhoto';
 import { Injectable } from '@angular/core';
+import { BaseProvider } from '../base.provider';
 
 @Injectable()
-export class PncPhotoProvider {
+export class PncPhotoProvider extends BaseProvider {
 
-  constructor(private connectivityService: ConnectivityService,
+  constructor(
+    protected connectivityService: ConnectivityService,
     private offlinePncPhotoProvider: OfflinePncPhotoProvider,
     private onlinePncPhotoProvider: OnlinePncPhotoProvider
   ) {
+    super(
+      connectivityService,
+      onlinePncPhotoProvider,
+      offlinePncPhotoProvider
+    );
   }
 
   /**
@@ -19,9 +26,7 @@ export class PncPhotoProvider {
   * @return la photo du PNC
   */
   getPncPhoto(matricule: string): Promise<PncPhoto> {
-    return this.connectivityService.isConnected() ?
-      this.onlinePncPhotoProvider.getPncPhoto(matricule) :
-      this.offlinePncPhotoProvider.getPncPhoto(matricule);
+    return this.execFunctionProvider('getPncPhoto', matricule);
   }
 
 }

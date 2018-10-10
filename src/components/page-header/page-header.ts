@@ -7,7 +7,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 export class PageHeaderComponent {
 
   @Input() showSettingsIcon = true;
-  @Input() showRefreshIcon = true;
+  @Input() showRefreshIcon = false;
 
   @Output() refreshPage = new EventEmitter();
 

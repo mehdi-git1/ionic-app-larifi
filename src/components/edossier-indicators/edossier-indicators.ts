@@ -15,7 +15,7 @@ export class NavBarCustomComponent {
 
   // On affiche par defaut les settings
   @Input() showSettingsIcon = true;
-  @Input() showRefreshIcon = true;
+  @Input() showRefreshIcon = false;
 
   @Output() refreshPage = new EventEmitter();
 
@@ -37,6 +37,7 @@ export class NavBarCustomComponent {
     this.synchronizationProvider.synchroStatusChange.subscribe(synchroInProgress => {
       this.synchroInProgress = synchroInProgress;
     });
+
   }
 
   /**

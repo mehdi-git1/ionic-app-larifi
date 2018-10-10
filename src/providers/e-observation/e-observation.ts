@@ -1,19 +1,25 @@
-import { Config } from './../../configuration/environment-variables/config';
 import { OfflineEObservationProvider } from './offline-e-observation';
 import { OnlineEObservationProvider } from './online-e-observation';
 import { ConnectivityService } from './../../services/connectivity.service';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { EObservation } from '../../models/eObservation';
+import { BaseProvider } from '../base.provider';
 
 @Injectable()
-export class EObservationProvider {
+export class EObservationProvider extends BaseProvider {
   private eObservationUrl: string;
 
-  constructor(private connectivityService: ConnectivityService,
+  constructor(
+    protected connectivityService: ConnectivityService,
     private onlineEObservationProvider: OnlineEObservationProvider,
-    private offlineEObservationProvider: OfflineEObservationProvider,
-    private config: Config) {
+    private offlineEObservationProvider: OfflineEObservationProvider
+  ) {
+      super(
+        connectivityService,
+        onlineEObservationProvider,
+        offlineEObservationProvider
+      );
   }
 
   /**
@@ -23,9 +29,7 @@ export class EObservationProvider {
   * @return les informations du PNC
   */
   getEObservation(matricule: string, rotationId: number): Promise<EObservation> {
-    return this.connectivityService.isConnected() ?
-      this.onlineEObservationProvider.getEObservation(matricule, rotationId) :
-      this.offlineEObservationProvider.getEObservation(matricule, rotationId);
+    return this.execFunctionProvider('getEObservation', matricule, rotationId);
   }
 
 }

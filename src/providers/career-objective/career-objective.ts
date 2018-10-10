@@ -9,17 +9,22 @@ import { Injectable } from '@angular/core';
 import { RestService } from '../../services/rest.base.service';
 import { Pnc } from '../../models/pnc';
 import { OfflineAction } from '../../models/offlineAction';
-import { isUndefined } from 'ionic-angular/util/util';
+import { BaseProvider } from '../base.provider';
 
 @Injectable()
-export class CareerObjectiveProvider {
+export class CareerObjectiveProvider extends BaseProvider{
   constructor(
     private onlineCareerObjectiveProvider: OnlineCareerObjectiveProvider,
     private offlineCareerObjectiveProvider: OfflineCareerObjectiveProvider,
-    private connectivityService: ConnectivityService,
+    protected connectivityService: ConnectivityService,
     private sessionService: SessionService,
     private dateTransformer: DateTransformService,
     private careerObjectiveTransformer: CareerObjectiveTransformerProvider) {
+      super(
+        connectivityService,
+        onlineCareerObjectiveProvider,
+        offlineCareerObjectiveProvider
+      );
   }
 
   /**
@@ -28,39 +33,9 @@ export class CareerObjectiveProvider {
    * @return la liste des objectifs du pnc
    */
   getPncCareerObjectives(matricule: string): Promise<CareerObjective[]> {
-    return this.connectivityService.isConnected() ?
-      new Promise((resolve, reject) => {
-        this.offlineCareerObjectiveProvider.getPncCareerObjectives(matricule).then(offlineCareerObjectives => {
-          this.onlineCareerObjectiveProvider.getPncCareerObjectives(matricule).then(onlineCareerObjectives => {
-            const onlineData = this.careerObjectiveTransformer.toCareerObjectives(onlineCareerObjectives);
-            const offlineData = this.careerObjectiveTransformer.toCareerObjectives(offlineCareerObjectives);
-            resolve(this.addUnsynchronizedOfflineCareerObjectivesToOnline(onlineData, offlineData));
-          });
-        });
-      })
-      :
-      this.offlineCareerObjectiveProvider.getPncCareerObjectives(matricule);
-
+    return this.execFunctionProvider('getPncCareerObjectives', matricule);
   }
 
-  /**
-   * Ajoute les objectifs créés en offline et non synchonisés, à la liste des objectifs récupérés de la BDD
-   * @param onlineDataArray la liste des objectifs récupérés de la BDD.
-   * @param offlineDataArray la liste des objectifs récupérés du cache
-   */
-  addUnsynchronizedOfflineCareerObjectivesToOnline(onlineDataArray: CareerObjective[], offlineDataArray: CareerObjective[]): CareerObjective[] {
-    for (const offlineData of offlineDataArray) {
-      const result = onlineDataArray.filter(onlineData => offlineData.getStorageId() === onlineData.getStorageId());
-      if (result && result.length === 1) {
-        if (!isUndefined(offlineData.offlineAction)) {
-          onlineDataArray[onlineDataArray.indexOf(result[0])] = offlineData;
-        }
-      } else {
-        onlineDataArray.push(offlineData);
-      }
-    }
-    return onlineDataArray;
-  }
 
   /**
    * Créé ou met à jour un objectif
@@ -78,9 +53,7 @@ export class CareerObjectiveProvider {
     careerObjective.lastUpdateAuthor.matricule = this.sessionService.getActiveUser().matricule;
     careerObjective.lastUpdateDate = this.dateTransformer.transformDateToIso8601Format(new Date());
 
-    return this.connectivityService.isConnected() ?
-      this.onlineCareerObjectiveProvider.createOrUpdate(careerObjective) :
-      this.offlineCareerObjectiveProvider.createOrUpdate(careerObjective);
+    return this.execFunctionProvider('createOrUpdate', careerObjective);
   }
 
   /**
@@ -89,9 +62,7 @@ export class CareerObjectiveProvider {
   * @return l'objectif récupéré
   */
   getCareerObjective(id: number): Promise<CareerObjective> {
-    return this.connectivityService.isConnected() ?
-      this.onlineCareerObjectiveProvider.getCareerObjective(id) :
-      this.offlineCareerObjectiveProvider.getCareerObjective(id);
+      return this.execFunctionProvider('getCareerObjective', id);
   }
 
   /**
@@ -100,9 +71,7 @@ export class CareerObjectiveProvider {
   * @return l'objectif supprimé
   */
   delete(id: number): Promise<CareerObjective> {
-    return this.connectivityService.isConnected() ?
-      this.onlineCareerObjectiveProvider.delete(id) :
-      this.offlineCareerObjectiveProvider.delete(id);
+    return this.execFunctionProvider('delete', id);
   }
 
   /**

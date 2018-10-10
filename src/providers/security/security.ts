@@ -1,19 +1,27 @@
 import { AppConstant } from './../../app/app.constant';
+import { Injectable } from '@angular/core';
+
 import { OfflineSecurityProvider } from './../security/offline-security';
 import { OnlineSecurityProvider } from './../security/online-security';
 import { ConnectivityService } from './../../services/connectivity.service';
 import { SessionService } from './../../services/session.service';
 import { AuthenticatedUser } from './../../models/authenticatedUser';
-import { Injectable } from '@angular/core';
+import { BaseProvider } from '../base.provider';
 
 @Injectable()
-export class SecurityProvider {
+export class SecurityProvider extends BaseProvider {
 
   constructor(
     private sessionService: SessionService,
-    private connectivityService: ConnectivityService,
+    protected connectivityService: ConnectivityService,
     private onlineSecurityProvider: OnlineSecurityProvider,
-    private offlineSecurityProvider: OfflineSecurityProvider) {
+    private offlineSecurityProvider: OfflineSecurityProvider
+  ) {
+    super(
+      connectivityService,
+      onlineSecurityProvider,
+      offlineSecurityProvider
+    );
   }
 
   /**
@@ -32,9 +40,7 @@ export class SecurityProvider {
    * @return une promesse contenant le user connecté
    */
   getAuthenticatedUser(): Promise<AuthenticatedUser> {
-    return this.connectivityService.isConnected() ?
-      this.onlineSecurityProvider.getAuthenticatedUser() :
-      this.offlineSecurityProvider.getAuthenticatedUser();
+    return this.execFunctionProvider('getAuthenticatedUser');
   }
 
   /**
@@ -42,9 +48,7 @@ export class SecurityProvider {
    * @return une promesse contenant un void
    */
   setAuthenticatedSecurityValue(authenticatedUser: AuthenticatedUser): void | Promise<void> {
-    return this.connectivityService.isConnected() ?
-      this.onlineSecurityProvider.setAuthenticatedSecurityValue(authenticatedUser) :
-      this.offlineSecurityProvider.setAuthenticatedSecurityValue(authenticatedUser);
+    return this.execFunctionProvider('setAuthenticatedSecurityValue', authenticatedUser);
   }
 
   /**

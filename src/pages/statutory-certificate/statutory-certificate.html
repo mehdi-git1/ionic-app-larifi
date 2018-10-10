@@ -1,6 +1,6 @@
 <ion-header>
     <ion-navbar>
-        <page-header [showSettingsIcon]="false">
+        <page-header [showSettingsIcon]="true">
             {{ 'STATUTORY_CERTIFICATE.TITLE' | translate }}
         </page-header>
     </ion-navbar>
@@ -8,59 +8,60 @@
 
 
 <ion-content padding>
-    <div margin-top>
-        <h3 class="ss-title">{{ 'STATUTORY_CERTIFICATE.TITLE' | translate }}</h3>
-        <div class="fonction-informations">
-            <span [ngClass]="{'no-value' : !pnc?.speciality }">
-                {{ pnc?.speciality }}
-            </span>
-            <span *ngFor="let qualif of planeQualif | reverse" class="plane-qualif">
-                {{qualif}}
-            </span>
+    <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
+    <ng-template #pageBlock>
+        <div margin-top>
+            <h3 class="ss-title">{{ 'STATUTORY_CERTIFICATE.TITLE' | translate }}</h3>
+            <div class="fonction-informations">
+                <span [ngClass]="{'no-value' : !pnc?.speciality }">
+                    {{ pnc?.speciality }}
+                </span>
+                <span *ngFor="let aircraftSkill of statutoryCertificate.aircraftSkills | reverse" class="plane-qualif">
+                    {{ aircraftSkill }}
+                </span>
+            </div>
         </div>
-    </div>
-    <mat-accordion [multi]=true>
-        <mat-expansion-panel>
-            <mat-expansion-panel-header>
-                {{ 'STATUTORY_CERTIFICATE.CATEGORIES.GENERALITY_SKILLS' | translate }}
-            </mat-expansion-panel-header>      
-            This the expansion 1 content      
-        </mat-expansion-panel>
-      
-        <mat-expansion-panel>
-            <mat-expansion-panel-header>
-                {{ 'STATUTORY_CERTIFICATE.CATEGORIES.PLANE_SKILLS' | translate }}
-            </mat-expansion-panel-header>      
-            This the expansion 2 content      
-        </mat-expansion-panel>
+        <mat-accordion [multi]=true>
+            <mat-expansion-panel>
+                <mat-expansion-panel-header [expandedHeight]="'48px'">
+                    {{ 'STATUTORY_CERTIFICATE.CATEGORIES.GENERALITY_SKILLS' | translate }}
+                </mat-expansion-panel-header>
+                <generality-skills *ngIf="statutoryCertificate" [generalitySkillsData]="statutoryCertificate.generalitySkills"></generality-skills>
+            </mat-expansion-panel>
+            <mat-expansion-panel>
+                <mat-expansion-panel-header [expandedHeight]="'48px'">
+                    {{ 'STATUTORY_CERTIFICATE.CATEGORIES.PLANE_SKILLS' | translate }}
+                </mat-expansion-panel-header>
+                <plane-skills *ngIf="statutoryCertificate" [planeSkillsData]="statutoryCertificate.planeSkills"></plane-skills>
+            </mat-expansion-panel>
 
-        <mat-expansion-panel>
-            <mat-expansion-panel-header>
-                {{ 'STATUTORY_CERTIFICATE.CATEGORIES.FAMILIARIZATION_FLY' | translate }}
-            </mat-expansion-panel-header>      
-            This the expansion 3 content      
-        </mat-expansion-panel>
+            <mat-expansion-panel>
+                <mat-expansion-panel-header [expandedHeight]="'48px'">
+                    {{ 'STATUTORY_CERTIFICATE.CATEGORIES.FAMILIARIZATION_FLIGHT' | translate }}
+                </mat-expansion-panel-header>
+                <familiarization-flight *ngIf="statutoryCertificate" [familiarizationFlightData]="statutoryCertificate.familiarizationFlights"></familiarization-flight>
+            </mat-expansion-panel>
 
-        <mat-expansion-panel>
-            <mat-expansion-panel-header>
-                {{ 'STATUTORY_CERTIFICATE.CATEGORIES.ANNUAL_ELEARNING' | translate }}
-            </mat-expansion-panel-header>      
-            This the expansion 4 content      
-        </mat-expansion-panel>
+            <mat-expansion-panel *ngIf="statutoryCertificate?.annualElearning">
+                <mat-expansion-panel-header [expandedHeight]="'48px'">
+                    {{ 'STATUTORY_CERTIFICATE.CATEGORIES.ANNUAL_ELEARNING' | translate }}
+                </mat-expansion-panel-header>
+                This the expansion 4 content
+            </mat-expansion-panel>
 
-        <mat-expansion-panel>
-            <mat-expansion-panel-header>
-                {{ 'STATUTORY_CERTIFICATE.CATEGORIES.GENERALITY_SKILLS' | translate }}
-            </mat-expansion-panel-header>      
-            This the expansion 5 content      
-        </mat-expansion-panel>
+            <mat-expansion-panel *ngIf="statutoryCertificate?.masteringQualification">
+                <mat-expansion-panel-header [expandedHeight]="'48px'">
+                    {{ 'STATUTORY_CERTIFICATE.CATEGORIES.MASTERING_QUALIFICATION' | translate }}
+                </mat-expansion-panel-header>
+                This the expansion 5 content
+            </mat-expansion-panel>
 
-        <mat-expansion-panel>
-            <mat-expansion-panel-header>
-                {{ 'STATUTORY_CERTIFICATE.CATEGORIES.VAM' | translate }}
-            </mat-expansion-panel-header>      
-            <statutory-certificate-vam [vam]="statutoryCertificate?.vam"></statutory-certificate-vam>      
-        </mat-expansion-panel>
-
-    </mat-accordion>
+            <mat-expansion-panel>
+                <mat-expansion-panel-header [expandedHeight]="'48px'">
+                    {{ 'STATUTORY_CERTIFICATE.CATEGORIES.VAM' | translate }}
+                </mat-expansion-panel-header>
+                <statutory-certificate-vam [vamData]="statutoryCertificate?.vam"></statutory-certificate-vam>
+            </mat-expansion-panel>
+        </mat-accordion>
+    </ng-template>
 </ion-content>

@@ -8,7 +8,6 @@ import { Pnc } from './../../models/pnc';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, Events, AlertController } from 'ionic-angular';
 
-
 @Component({
   selector: 'page-statutory-certificate',
   templateUrl: 'statutory-certificate.html',
@@ -20,15 +19,12 @@ export class StatutoryCertificatePage {
   matricule: string;
   statutoryCertificate: StatutoryCertificate;
 
-  planeQualif: Array<string> = ['Géné', 'A320', 'B777', 'B787'];
-
   constructor(
     private navParams: NavParams,
     private sessionService: SessionService,
     private pncProvider: PncProvider,
-    private statutoryCertificateProvider: StatutoryCertificateProvider,
-    private toastProvider: ToastProvider,
-    private translate: TranslateService) { }
+    private statutoryCertificateProvider: StatutoryCertificateProvider
+  ) { }
 
   ionViewDidEnter() {
     if (this.navParams.get('matricule')) {
@@ -42,11 +38,15 @@ export class StatutoryCertificatePage {
       }, error => { });
       this.statutoryCertificateProvider.getStatutoryCertificate(this.matricule).then(statutoryCertificate => {
         this.statutoryCertificate = statutoryCertificate;
-      }).catch(error => {
-        const errorMsg = this.translate.instant('STATUTORY_CERTIFICATE.ERROR.STATUTORY_CERTIFICATE', { 'matricule': this.matricule });
-        this.toastProvider.error(errorMsg);
-      });
+      }).catch();
     }
   }
 
+  /**
+     * Vérifie que le chargement est terminé
+     * @return true si c'est le cas, false sinon
+     */
+  loadingIsOver(): boolean {
+    return this.statutoryCertificate !== undefined;
+  }
 }

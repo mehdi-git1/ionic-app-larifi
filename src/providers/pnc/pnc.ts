@@ -11,18 +11,25 @@ import { Injectable } from '@angular/core';
 import { PagedPnc } from './../../models/pagedPnc';
 import { Page } from '../../models/page';
 import { RestService } from '../../services/rest.base.service';
+import { BaseProvider } from '../base.provider';
 
 @Injectable()
-export class PncProvider {
+export class PncProvider extends BaseProvider {
   private pncUrl: string;
 
-  constructor(private connectivityService: ConnectivityService,
+  constructor(
+    protected connectivityService: ConnectivityService,
     private onlinePncProvider: OnlinePncProvider,
     private offlinePncProvider: OfflinePncProvider,
     private sessionService: SessionService,
     private restService: RestService,
-    private config: Config) {
-
+    private config: Config
+  ) {
+    super(
+      connectivityService,
+      onlinePncProvider,
+      offlinePncProvider
+    );
     this.pncUrl = `${config.backEndUrl}/pncs`;
   }
 
@@ -32,9 +39,7 @@ export class PncProvider {
    * @return les informations du PNC
    */
   getPnc(matricule: string): Promise<Pnc> {
-    return this.connectivityService.isConnected() ?
-      this.onlinePncProvider.getPnc(matricule) :
-      this.offlinePncProvider.getPnc(matricule);
+    return this.execFunctionProvider('getPnc', matricule);
   }
 
 
@@ -44,9 +49,7 @@ export class PncProvider {
    * @return les rotations à venir du PNC
    */
   getUpcomingRotations(matricule: string): Promise<Rotation[]> {
-    return this.connectivityService.isConnected() ?
-      this.onlinePncProvider.getUpcomingRotations(matricule) :
-      this.offlinePncProvider.getUpcomingRotations(matricule);
+    return this.execFunctionProvider('getUpcomingRotations', matricule);
   }
 
   /**
@@ -55,9 +58,7 @@ export class PncProvider {
   * @return les deux dernières rotations opérées par le PNC
   */
   getLastPerformedRotations(matricule: string): Promise<Rotation[]> {
-    return this.connectivityService.isConnected() ?
-      this.onlinePncProvider.getLastPerformedRotations(matricule) :
-      this.offlinePncProvider.getLastPerformedRotations(matricule);
+    return this.execFunctionProvider('getLastPerformedRotations', matricule);
   }
 
   /**
@@ -67,30 +68,7 @@ export class PncProvider {
    */
   getFilteredPncs(pncFilter: PncFilter, page: number, size: number): Promise<PagedPnc> {
     const pncSearchCriteria = new PncSearchCriteria(pncFilter, page, size);
-
-    if (this.connectivityService.isConnected()) {
-      return this.onlinePncProvider.getFilteredPncs(pncSearchCriteria);
-    } else {
-      return this.offlinePncProvider.getPncs().then(response => {
-        return this.offlinePncProvider.getPnc(this.sessionService.getActiveUser().matricule).then(connectedPnc => {
-          let filteredPnc = response;
-          if (connectedPnc.assignment.division !== 'ADM') {
-            filteredPnc = response.filter(pnc =>
-              (pnc.assignment.division === connectedPnc.assignment.division)
-              && (pnc.assignment.sector === connectedPnc.assignment.sector)
-              && (pnc.matricule !== connectedPnc.matricule));
-          }
-          filteredPnc.sort((a, b) => a.lastName < b.lastName ? -1 : 1);
-          const pagedPncResponse: PagedPnc = new PagedPnc();
-          pagedPncResponse.content = filteredPnc;
-          pagedPncResponse.page = new Page();
-          pagedPncResponse.page.size = filteredPnc.length;
-          pagedPncResponse.page.totalElements = filteredPnc.length;
-          pagedPncResponse.page.number = 0;
-          return pagedPncResponse;
-        });
-      });
-    }
+    return this.execFunctionProvider('getFilteredPncs', pncSearchCriteria);
   }
 
   /**

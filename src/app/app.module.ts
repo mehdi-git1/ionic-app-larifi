@@ -114,6 +114,8 @@ import { SQLite } from '../../node_modules/@ionic-native/sqlite';
 import { EObservationProvider } from '../providers/e-observation/e-observation';
 import { StatutoryCertificateProvider } from '../providers/statutory-certificate/statutory-certificate';
 import { OnlineStatutoryCertificateProvider } from '../providers/statutory-certificate/online-statutory-certificate';
+import { StatutoryCertificateTransformerProvider } from './../providers/statutory-certificate/statutory-certificate-transformer';
+import { OfflineStatutoryCertificateProvider } from './../providers/statutory-certificate/offline-statutory-certificate';
 
 
 
@@ -248,7 +250,9 @@ declare var window: any;
     EObservationTransformerProvider,
     Utils,
     StatutoryCertificateProvider,
-    OnlineStatutoryCertificateProvider
+    OnlineStatutoryCertificateProvider,
+    OfflineStatutoryCertificateProvider,
+    StatutoryCertificateTransformerProvider
   ]
 })
 export class AppModule { }

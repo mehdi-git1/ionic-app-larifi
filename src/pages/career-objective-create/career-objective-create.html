@@ -1,6 +1,6 @@
 <ion-header>
     <ion-navbar>
-        <page-header (refreshPage)="refreshPage()">
+        <page-header (refreshPage)="refreshPage()" [showRefreshIcon]="true">
             <ng-container *ngIf="careerObjectiveLoadingIsOver()">
                 <ng-container *ngIf="isCreationMode(); else editTitleBlock">{{ 'CAREER_OBJECTIVE_CREATE.CREATE_TITLE' | translate }}</ng-container>
                 <ng-template #editTitleBlock>

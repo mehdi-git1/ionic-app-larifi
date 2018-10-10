@@ -1,5 +1,3 @@
-import { SecretQuestionComponent } from './secret-question/secret-question';
-import { SecretQuestionModal } from './modals/secret-question-modal/secret-question-modal';
 import { IonicModule } from 'ionic-angular';
 import { DatePipe, CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
@@ -20,7 +18,15 @@ import { CareerObjectiveCardComponent } from './career-objective-card/career-obj
 
 import { PinPadModal } from './modals/pin-pad-modal/pin-pad-modal';
 import { PinPadComponent } from './pin-pad/pin-pad';
+import { GeneralitySkillsComponent } from './generality-skills/generality-skills';
+
+import { SecretQuestionComponent } from './secret-question/secret-question';
+import { SecretQuestionModal } from './modals/secret-question-modal/secret-question-modal';
+
+import { PlaneSkillsComponent } from './plane-skills/plane-skills';
+import { StatutoryCertificateDataComponent } from './statutory-certificate-data/statutory-certificate-data';
 import { StatutoryCertificateVamComponent } from './statutory-certificate-vam/statutory-certificate-vam';
+import { FamiliarizationFlightComponent } from './familiarization-flight/familiarization-flight';
 
 @NgModule({
   imports: [
@@ -45,7 +51,11 @@ import { StatutoryCertificateVamComponent } from './statutory-certificate-vam/st
     PncPhotoComponent,
     PageHeaderComponent,
     CareerObjectiveCardComponent,
-    StatutoryCertificateVamComponent
+    StatutoryCertificateDataComponent,
+    GeneralitySkillsComponent,
+    PlaneSkillsComponent,
+    StatutoryCertificateVamComponent,
+    FamiliarizationFlightComponent
   ],
   exports: [
     RotationCardComponent,
@@ -64,7 +74,11 @@ import { StatutoryCertificateVamComponent } from './statutory-certificate-vam/st
     PncSearchFilterComponent,
     PncPhotoComponent,
     CareerObjectiveCardComponent,
-    StatutoryCertificateVamComponent
+    StatutoryCertificateDataComponent,
+    GeneralitySkillsComponent,
+    PlaneSkillsComponent,
+    StatutoryCertificateVamComponent,
+    FamiliarizationFlightComponent
   ],
   entryComponents: [
     PinPadModal,

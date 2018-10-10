@@ -1,6 +1,6 @@
 <ion-header>
     <ion-navbar>
-        <page-header (refreshPage)="refreshPage()">
+        <page-header (refreshPage)="refreshPage()" [showRefreshIcon]="true">
             <ng-container *ngIf="loadingIsOver()">
                 {{ 'WAYPOINT_CREATE.TITLE' | translate }}
                 <ion-badge class="{{waypoint.waypointStatus.toLowerCase()}}" *ngIf="canDisplayStatus()">

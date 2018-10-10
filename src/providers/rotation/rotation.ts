@@ -5,15 +5,21 @@ import { Injectable } from '@angular/core';
 import { OnlineRotationProvider } from './online-rotation';
 import { OfflineRotationProvider } from './offline-rotation';
 import { ConnectivityService } from './../../services/connectivity.service';
+import { BaseProvider } from '../base.provider';
 @Injectable()
-export class RotationProvider {
-
+export class RotationProvider extends BaseProvider{
   private rotationUrl: string;
 
-
-  constructor(private connectivityService: ConnectivityService,
+  constructor(
+    protected connectivityService: ConnectivityService,
     private onlineRotationProvider: OnlineRotationProvider,
-    private offlineRotationProvider: OfflineRotationProvider) {
+    private offlineRotationProvider: OfflineRotationProvider
+  ) {
+    super(
+      connectivityService,
+      onlineRotationProvider,
+      offlineRotationProvider
+    );
   }
 
   /**
@@ -22,10 +28,7 @@ export class RotationProvider {
   * @return la liste des tronçons de la rotation
   */
   getRotationLegs(rotation: Rotation): Promise<Leg[]> {
-
-    return this.connectivityService.isConnected() ?
-      this.onlineRotationProvider.getRotationLegs(rotation) :
-      this.offlineRotationProvider.getRotationLegs(rotation);
+    return this.execFunctionProvider('getRotationLegs', rotation);
   }
 
 }

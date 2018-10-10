@@ -1,3 +1,4 @@
+import { Relay } from './relay';
 import { StatutoryCertificate } from './statutoryCertificate';
 import { Gender } from './gender';
 import { Speciality } from './speciality';
@@ -11,7 +12,7 @@ export class Pnc extends EDossierPncObject {
     gender: Gender;
     speciality: Speciality;
     assignment: Assignment;
-    relays: string[];
+    relays: Relay[];
     aircraftSkills: string[];
     manager: boolean;
     workRate: number;

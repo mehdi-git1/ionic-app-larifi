@@ -1,3 +1,4 @@
+import { Utils } from './../../common/utils';
 import { DateTransformService } from './../../services/date.transform.service';
 import { AppConstant } from './../../app/app.constant';
 import { SecurityProvider } from './../../providers/security/security';
@@ -156,7 +157,7 @@ export class WaypointCreatePage {
      * Vérifie si le formulaire a été modifié sans être enregistré
      */
     formHasBeenModified() {
-        return JSON.stringify(this.originWaypoint) !== JSON.stringify(this.waypoint);
+        return Utils.getHashCode(this.originWaypoint) !== Utils.getHashCode(this.waypoint);
     }
 
     /**
