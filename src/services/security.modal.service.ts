@@ -61,7 +61,7 @@ export class SecurityModalService {
 
         this.modalType = type;
 
-        const pinCode = this.sessionService.getActiveUser().pinInfo.pinCode;
+        const pinCode = this.sessionService.authenticatedUser.pinInfo.pinCode;
 
         // Si pas de code Pin lors de l'ouverture de l'app => premiére connexion
         // On initialise donc le code pin
@@ -86,7 +86,7 @@ export class SecurityModalService {
      * Fonction permettant de gérer les données reçues du modal de pin
      */
     manageDismissPinPad() {
-        const pinCode = this.sessionService.getActiveUser().pinInfo.pinCode;
+        const pinCode = this.sessionService.authenticatedUser.pinInfo.pinCode;
         this.SecurityModal.onDidDismiss(data => {
             // Si on a tué la modal, on dismiss juste car il y'a une autre modal qui va s'afficher derriére
             if (data === 'killModal') {
@@ -105,11 +105,11 @@ export class SecurityModalService {
                 this.displayPinPad(PinPadType.firstConnexionStage2);
             } else if (this.modalType === PinPadType.firstConnexionStage2) {
                 if (this.pinValue === data) {
-                    this.sessionService.getActiveUser().pinInfo.pinCode = data;
+                    this.sessionService.authenticatedUser.pinInfo.pinCode = data;
                     // Si on vient de mot de passe oublié (donc de la réponse à la question)
                     // Ou si l'on vient du changement de mot de passe
                     if (this.comeFrom === SecretQuestionType.answerToQuestion || this.comeFrom === PinPadType.askChange) {
-                        this.securityProvider.setAuthenticatedSecurityValue(new AuthenticatedUser().fromJSON(this.sessionService.getActiveUser()));
+                        this.securityProvider.setAuthenticatedSecurityValue(new AuthenticatedUser().fromJSON(this.sessionService.authenticatedUser));
                         this.toastProvider.success(this.translateService.instant('PIN_PAD.TOAST_MESSAGE.SUCCESS_REINIT'));
                     } else {
                         // Dans le cas contraire on et sur l'init et on doit répondre aux questions
@@ -160,7 +160,7 @@ export class SecurityModalService {
             this.SecurityModal = this.modalController.create(SecretQuestionModal,
                 {
                     modalType: type,
-                    question: this.sessionService.getActiveUser().pinInfo.secretQuestion,
+                    question: this.sessionService.authenticatedUser.pinInfo.secretQuestion,
                     errorType: this.errorType
                 });
         }
@@ -188,10 +188,10 @@ export class SecurityModalService {
 
             if (this.modalType === SecretQuestionType.newQuestion) {
                 // Reprise et enregistrements des valeurs dans la session et côté back
-                this.sessionService.getActiveUser().pinInfo.matricule = this.sessionService.getActiveUser().matricule;
-                this.sessionService.getActiveUser().pinInfo.secretQuestion = data.secretQuestion;
-                this.sessionService.getActiveUser().pinInfo.secretAnswer = data.secretAnswer;
-                this.securityProvider.setAuthenticatedSecurityValue(new AuthenticatedUser().fromJSON(this.sessionService.getActiveUser()));
+                this.sessionService.authenticatedUser.pinInfo.matricule = this.sessionService.authenticatedUser.matricule;
+                this.sessionService.authenticatedUser.pinInfo.secretQuestion = data.secretQuestion;
+                this.sessionService.authenticatedUser.pinInfo.secretAnswer = data.secretAnswer;
+                this.securityProvider.setAuthenticatedSecurityValue(new AuthenticatedUser().fromJSON(this.sessionService.authenticatedUser));
                 // On affiche le bon message en fonction de si on vient de l'init on du changement de question
                 if (this.comeFrom === SecretQuestionType.askChange) {
                     this.comeFrom = null;
@@ -202,7 +202,7 @@ export class SecurityModalService {
             }
 
             if (this.modalType === SecretQuestionType.answerToQuestion) {
-                if (this.sessionService.getActiveUser().pinInfo.secretAnswer === data.secretAnswer) {
+                if (this.sessionService.authenticatedUser.pinInfo.secretAnswer === data.secretAnswer) {
                     this.comeFrom = SecretQuestionType.answerToQuestion;
                     this.displayPinPad(PinPadType.firstConnexionStage1);
                 } else {

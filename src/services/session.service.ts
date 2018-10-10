@@ -13,6 +13,7 @@ export class SessionService {
 
     /**
      * Retourne l'utilisateur "actif". Il s'agit de l'utilisateur connecté, ou de l'utilisateur impersonnifié si celui ci existe.
+     * @return l'utilisateur actif
      */
     getActiveUser(): AuthenticatedUser {
         return this.impersonatedUser ? this.impersonatedUser : this.authenticatedUser;
