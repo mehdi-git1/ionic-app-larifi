@@ -7,10 +7,16 @@ import { SessionService } from './session.service';
 @Injectable()
 export class AuthorizationService {
 
-    constructor(public sessionService: SessionService) {
+    constructor(private sessionService: SessionService) {
     }
 
-    hasPermission(permission: string) {
+    /**
+     * Vérifie que l'utilisateur connecté a les droits
+     * 
+     * @param permission nom de la permission
+     * @return true si le user a les droits
+     */
+    hasPermission(permission: string): boolean {
           if (this.sessionService && this.sessionService.authenticatedUser && this.sessionService.authenticatedUser.permissions && this.sessionService.authenticatedUser.permissions.find(userRight => {
                     return userRight === permission;
                })) {
