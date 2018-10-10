@@ -105,10 +105,7 @@ export class EDossierPNC implements OnInit {
           this.connectivityService.pingAPI().then(
             pingSuccess => {
               this.connectivityService.setConnected(true);
-              this.putAuthenticatedUserInSession().then(authenticatedUser => {
-              }, error => {
-                this.splashScreen.hide();
-              });
+              this.events.publish('user:authenticated');
             }, pingError => {
               if (this.deviceService.isOfflineModeAvailable()) {
                 this.connectivityService.setConnected(false);
@@ -131,12 +128,7 @@ export class EDossierPNC implements OnInit {
           this.toastProvider.warning(this.translateService.instant('GLOBAL.CONNECTIVITY.OFFLINE_MODE'));
         } else {
           this.toastProvider.success(this.translateService.instant('GLOBAL.CONNECTIVITY.ONLINE_MODE'));
-          this.appInitService.initParameters();
-          this.synchronizationProvider.synchronizeOfflineData();
-          this.synchronizationProvider.storeEDossierOffline(this.sessionService.getActiveUser().matricule).then(successStore => {
-            this.events.publish('EDossierOffline:stored');
-          }, error => {
-          });
+          this.initUserData();
         }
       });
 
@@ -146,8 +138,10 @@ export class EDossierPNC implements OnInit {
 
       // Déclenchement d'une authentification
       this.events.subscribe('user:authenticated', () => {
-        this.putAuthenticatedUserInSession().then(success => {
-          this.initUserData();
+        this.putAuthenticatedUserInSession().then(authenticatedUser => {
+          if (this.sessionService.getActiveUser().pnc) {
+            this.initUserData();
+          }
         });
       });
 

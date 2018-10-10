@@ -29,11 +29,10 @@ export class ImpersonatePage {
 
   constructor(private navCtrl: NavController,
     private formBuilder: FormBuilder,
-    private utils: Utils,
     private pncProvider: PncProvider,
-    private sessionService: SessionService,
     private securityProvider: SecurityProvider,
-    private events: Events
+    private events: Events,
+    public sessionService: SessionService
   ) {
     this.initForm();
   }
@@ -105,10 +104,10 @@ export class ImpersonatePage {
    */
   impersonateUser(pnc: Pnc): void {
     this.impersonatingInProgress = true;
-    const impersonatedUser = new AuthenticatedUser();
-    impersonatedUser.matricule = pnc.matricule;
-    this.sessionService.impersonatedUser = impersonatedUser;
-    this.securityProvider.isImpersonationAvailable().then(success => {
+    this.securityProvider.isImpersonationAvailable(pnc.matricule).then(success => {
+      const impersonatedUser = new AuthenticatedUser();
+      impersonatedUser.matricule = pnc.matricule;
+      this.sessionService.impersonatedUser = impersonatedUser;
       this.events.publish('user:authenticated');
       this.impersonatingInProgress = false;
     }, error => {
@@ -132,4 +131,12 @@ export class ImpersonatePage {
     this.events.publish('user:authenticated');
   }
 
+  /**
+   * Vérifie que l'utilisateur impersonnifié est complet, afin d'éviter d'afficher des infos incomplètes
+   * @return vrai si les infos sont complètes, faux sinon
+   */
+  isImpersonatedUserComplete() {
+    const impersonatedUser = this.sessionService.impersonatedUser;
+    return impersonatedUser && impersonatedUser.matricule && impersonatedUser.firstName && impersonatedUser.lastName;
+  }
 }

@@ -64,10 +64,11 @@ export class OnlineSecurityProvider {
   }
 
   /**
-   * Vérifie si l'impersonnification est disponible pour le user mis en session (dans impersonatedUser)
+   * Vérifie si l'impersonnification est disponible pour un utilisateur donné
+   * @param matricule le matricule de l'utilisateur
    * @return une promesse vide (le code de retour http détermine si l'impersonnification est possible ou non)
    */
-  isImpersonationAvailable(): Promise<void> {
-    return this.restService.get(`${this.config.backEndUrl}/check_impersonation_available`);
+  isImpersonationAvailable(matricule: string): Promise<void> {
+    return this.restService.get(`${this.config.backEndUrl}/check_impersonation_available/${matricule}`);
   }
 }

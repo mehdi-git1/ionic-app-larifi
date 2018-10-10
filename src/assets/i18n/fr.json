@@ -355,6 +355,7 @@
     "IMPERSONATE": {
         "TITLE": "Sélection d'une identité PNC",
         "SEARCH_PNC": "Matricule, nom, prénom",
+        "IMPERSONATED_USER": "Utilisateur impersonnifié",
         "BUTTONS": {
             "GET_MY_IDENTITY_BACK": "Récupérer mon identité"
         }

@@ -64,12 +64,13 @@ export class SecurityProvider extends BaseProvider {
   }
 
   /**
-   * Vérifie si l'impersonnification est disponible pour le user mis en session (dans impersonatedUser)
+   * Vérifie si l'impersonnification est disponible pour un utilisateur donné
+   * @param matricule le matricule de l'utilisateur
    * @return une promesse vide (le code de retour http détermine si l'impersonnification est possible ou non)
    */
-  isImpersonationAvailable(): Promise<void> {
+  isImpersonationAvailable(matricule: string): Promise<void> {
     return this.connectivityService.isConnected() ?
-      this.onlineSecurityProvider.isImpersonationAvailable() :
+      this.onlineSecurityProvider.isImpersonationAvailable(matricule) :
       new Promise((resolve, reject) => {
         reject();
       });

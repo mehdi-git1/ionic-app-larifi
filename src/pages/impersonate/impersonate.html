@@ -21,6 +21,10 @@
                         </mat-option>
                     </mat-autocomplete>
                 </form>
+                <div class="impersonated-user" *ngIf="isImpersonatedUserComplete()">
+                    <label>{{ 'IMPERSONATE.IMPERSONATED_USER' | translate }}</label>
+                    <span class="value">{{ sessionService.impersonatedUser.lastName + ' ' + sessionService.impersonatedUser.firstName + ' (' + sessionService.impersonatedUser.matricule + ')'}}</span>
+                </div>
                 <button ion-button *ngIf="canGetMyIdentityBack()" (click)="getMyIdentityBack()">{{'IMPERSONATE.BUTTONS.GET_MY_IDENTITY_BACK' | translate}}</button>
             </ion-card-content>
         </ion-card>

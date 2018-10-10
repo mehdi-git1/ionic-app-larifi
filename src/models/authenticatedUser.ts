@@ -4,7 +4,7 @@ import { EDossierPncObject } from './eDossierPncObject';
 
 export class AuthenticatedUser extends EDossierPncObject {
     matricule: string;
-    fistName: string;
+    firstName: string;
     lastName: string;
     manager: boolean;
     pnc: boolean;
