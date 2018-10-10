@@ -25,6 +25,7 @@ export class ImpersonatePage {
   pncList: Observable<Pnc[]>;
 
   selectedPnc: Pnc;
+  impersonatingInProgress = false;
 
   constructor(private navCtrl: NavController,
     private formBuilder: FormBuilder,
@@ -103,13 +104,15 @@ export class ImpersonatePage {
    * @param pnc Le pnc qu'on souhaite impersonnifier
    */
   impersonateUser(pnc: Pnc): void {
+    this.impersonatingInProgress = true;
     const impersonatedUser = new AuthenticatedUser();
     impersonatedUser.matricule = pnc.matricule;
     this.sessionService.impersonatedUser = impersonatedUser;
     this.securityProvider.isImpersonationAvailable().then(success => {
       this.events.publish('user:authenticated');
+      this.impersonatingInProgress = false;
     }, error => {
-
+      this.impersonatingInProgress = false;
     });
   }
 
