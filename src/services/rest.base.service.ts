@@ -14,6 +14,7 @@ export class RestRequest {
     public url: string;
     public httpHeaders: any;
     public jsonData: any;
+    public byPassImpersonatedUser: boolean;
 }
 
 Injectable();
@@ -25,8 +26,8 @@ export abstract class RestService {
 
     abstract call(request: RestRequest): Promise<any>;
 
-    get(url: string, jsonData?: any, httpHeaders?: any): Promise<any> {
-        return this.sendRequest('GET', url, jsonData, httpHeaders);
+    get(url: string, jsonData?: any, httpHeaders?: any, byPassImpersonatedUser?: boolean): Promise<any> {
+        return this.sendRequest('GET', url, jsonData, httpHeaders, byPassImpersonatedUser);
     }
 
     post(url: string, jsonData: any, httpHeaders?: any): Promise<any> {
@@ -41,13 +42,14 @@ export abstract class RestService {
         return this.sendRequest('DELETE', url, jsonData, httpHeaders);
     }
 
-    sendRequest(method: string, url: string, jsonData: any, httpHeaders?: any): Promise<any> {
+    sendRequest(method: string, url: string, jsonData: any, httpHeaders?: any, byPassImpersonatedUser?: boolean): Promise<any> {
         const request: RestRequest = new RestRequest();
 
         request.method = method;
         request.url = url;
         request.jsonData = jsonData;
         request.httpHeaders = httpHeaders;
+        request.byPassImpersonatedUser = byPassImpersonatedUser;
 
         return this.call(request);
     }

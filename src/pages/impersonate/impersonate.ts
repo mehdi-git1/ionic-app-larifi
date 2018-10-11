@@ -57,7 +57,7 @@ export class ImpersonatePage {
       .debounceTime(300)
       .distinctUntilChanged()
       .switchMap(
-        term => (term ? this.pncProvider.pncAutoComplete(term) : Observable.of<Pnc[]>([]))
+        term => (term ? this.pncProvider.pncAutoComplete(term, true) : Observable.of<Pnc[]>([]))
       )
       .catch(error => {
         return Observable.of<Pnc[]>([]);

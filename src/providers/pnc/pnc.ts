@@ -74,10 +74,11 @@ export class PncProvider extends BaseProvider {
   /**
    * Fait appel au service rest qui renvoie les 10 premier pncs conçernés.
    * @param searchText matricuel/nom/prénom
+   * @param byPassImpersonatedUser si on souhaite appeler le service en court circuitant la fonction d'impersonnification
    * @return les pncs concernés
    */
-  pncAutoComplete(search: string): Promise<Pnc[]> {
-    return this.restService.get(`${this.pncUrl}/auto_complete`, { search });
+  pncAutoComplete(search: string, byPassImpersonatedUser: boolean = false): Promise<Pnc[]> {
+    return this.restService.get(`${this.pncUrl}/auto_complete`, { search }, null, byPassImpersonatedUser);
   }
 
 }
