@@ -22,6 +22,7 @@
 @import '../theme/modal.scss';
 @import '../node_modules/@angular/material/_theming.scss';
 @import '../theme/auto-complete.scss';
+@import '../theme/edospnc-icons.scss';
 
 @include mat-core();
 
@@ -123,6 +124,7 @@ ion-content > .scroll-content {
     vertical-align: super;
     font-size: smaller;
 }
+
 .toolbar-content {
     display: flex;
     align-items: center;

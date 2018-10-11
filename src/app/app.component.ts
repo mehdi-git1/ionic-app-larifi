@@ -34,8 +34,6 @@ import { SecurityModalService } from './../services/security.modal.service';
 import * as moment from 'moment';
 
 
-
-
 @Component({
   templateUrl: 'app.html'
 })
@@ -135,70 +133,67 @@ export class EDossierPNC implements OnInit {
                 this.nav.setRoot(GenericMessagePage, { message: this.translateService.instant('GLOBAL.MESSAGES.ERROR.SERVER_APPLICATION_UNAVAILABLE') });
               }
             });
-      });
-    }, error => {
-      this.nav.setRoot(AuthenticationPage);
-      this.splashScreen.hide();
-    });
-
-    this.events.subscribe('connectionStatus:disconnected', () => {
-      this.connectivityService.startPingAPI();
-    });
-
-    // Détection d'un changement d'état de la connexion
-    this.connectivityService.connectionStatusChange.subscribe(connected => {
-      if (!connected) {
-        this.toastProvider.warning(this.translateService.instant('GLOBAL.CONNECTIVITY.OFFLINE_MODE'));
-      } else {
-        this.toastProvider.success(this.translateService.instant('GLOBAL.CONNECTIVITY.ONLINE_MODE'));
-        this.appInitService.initParameters();
-        this.synchronizationProvider.synchronizeOfflineData();
-        this.synchronizationProvider.storeEDossierOffline(this.sessionService.authenticatedUser.matricule).then(successStore => {
-          this.events.publish('EDossierOffline:stored');
-        }, error => {
         });
-      }
-    });
-  });
-}
+      }, error => {
+        this.nav.setRoot(AuthenticationPage);
+        this.splashScreen.hide();
+      });
 
-/**
-* Mettre le pnc connecté en session
-*/
-putAuthenticatedUserInSession(): Promise < AuthenticatedUser > {
-  const promise = this.securityProvider.getAuthenticatedUser();
-  promise.then(authenticatedUser => {
-    if (authenticatedUser) {
+      this.events.subscribe('connectionStatus:disconnected', () => {
+        this.connectivityService.startPingAPI();
+      });
+      // Détection d'un changement d'état de la connexion
+      this.connectivityService.connectionStatusChange.subscribe(connected => {
+        if (!connected) {
+          this.toastProvider.warning(this.translateService.instant('GLOBAL.CONNECTIVITY.OFFLINE_MODE'));
+        } else {
+          this.toastProvider.success(this.translateService.instant('GLOBAL.CONNECTIVITY.ONLINE_MODE'));
+          this.appInitService.initParameters();
+          this.synchronizationProvider.synchronizeOfflineData();
+          this.synchronizationProvider.storeEDossierOffline(this.sessionService.authenticatedUser.matricule).then(successStore => {
+            this.events.publish('EDossierOffline:stored');
+          }, error => {
+          });
+        }
+      });
+    });
+  }
+
+  /**
+  * Mettre le pnc connecté en session
+  */
+  putAuthenticatedUserInSession(): Promise<AuthenticatedUser> {
+    const promise = this.securityProvider.getAuthenticatedUser();
+    promise.then(authenticatedUser => {
+      if (authenticatedUser) {
+        this.sessionService.authenticatedUser = authenticatedUser;
+        // Gestion de l'affchage du pinPad
+        if (!this.deviceService.isBrowser()) {
+          this.securityModalService.displayPinPad(PinPadType.openingApp);
+        }
+      }
+      else {
+        this.nav.setRoot(AuthenticationPage);
+      }
+    }, error => {
+      this.connectivityService.setConnected(false);
+      this.getAuthenticatedUserFromCache();
+    });
+    return promise;
+  }
+
+  /**
+   * Recupère le  user connecté en cache et redirige vers la Pnc Home Page.
+   * Si il n'y est pas, on redirige vers une page d'erreur.
+   */
+  getAuthenticatedUserFromCache() {
+    this.offlineSecurityProvider.getAuthenticatedUser().then(authenticatedUser => {
       this.sessionService.authenticatedUser = authenticatedUser;
-      // Gestion de l'affchage du pinPad
       if (!this.deviceService.isBrowser()) {
         this.securityModalService.displayPinPad(PinPadType.openingApp);
       }
-      this.nav.setRoot(PncHomePage, { matricule: this.sessionService.authenticatedUser.matricule });
-    }
-    else {
-      this.nav.setRoot(AuthenticationPage);
-    }
-  }, error => {
-    this.connectivityService.setConnected(false);
-    this.getAuthenticatedUserFromCache();
-  });
-  return promise;
-}
-
-/**
- * Recupère le  user connecté en cache et redirige vers la Pnc Home Page.
- * Si il n'y est pas, on redirige vers une page d'erreur.
- */
-getAuthenticatedUserFromCache() {
-  this.offlineSecurityProvider.getAuthenticatedUser().then(authenticatedUser => {
-    this.sessionService.authenticatedUser = authenticatedUser;
-    if (!this.deviceService.isBrowser()) {
-      this.securityModalService.displayPinPad(PinPadType.openingApp);
-    }
-    this.nav.setRoot(PncHomePage, { matricule: this.sessionService.authenticatedUser.matricule });
-  }, err => {
-    this.nav.setRoot(GenericMessagePage, { message: this.translateService.instant('GLOBAL.MESSAGES.ERROR.APPLICATION_NOT_INITIALIZED') });
-  });
-}
+    }, err => {
+      this.nav.setRoot(GenericMessagePage, { message: this.translateService.instant('GLOBAL.MESSAGES.ERROR.APPLICATION_NOT_INITIALIZED') });
+    });
+  }
 }

@@ -4,7 +4,6 @@ import { Pnc } from './pnc';
 import { EDossierPncObject } from './eDossierPncObject';
 
 export class Waypoint extends EDossierPncObject {
-    pnc: Pnc;
     creationAuthor: Pnc;
     creationDate: string;
     lastUpdateAuthor: Pnc;

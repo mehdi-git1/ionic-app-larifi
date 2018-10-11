@@ -14,8 +14,7 @@
                             <!-- PNC -->
                             <ion-item [ngClass]="{ 'item-select-disabled' : areFiltersDisabled() }">
                                 <mat-form-field class="autocomplete-field">
-                                    <input #pncMatricule type="text" matInput placeholder="{{'PNC_SEARCH.CRITERIA.PNC_MATRICULE' | translate}}" formControlName="pncMatriculeControl" (keyup)="searchAutoComplete(pncMatricule.value)" [matAutocomplete]="auto"
-                                        [(ngModel)]="selectedPnc" autocomplete="off" [readonly]="areFiltersDisabled()" />
+                                    <input #pncMatricule type="text" matInput placeholder="{{'PNC_SEARCH.CRITERIA.PNC_MATRICULE' | translate}}" formControlName="pncMatriculeControl" (keyup)="searchAutoComplete(pncMatricule.value)" [matAutocomplete]="auto" [(ngModel)]="selectedPnc" autocomplete="off" [readonly]="areFiltersDisabled()" />
                                 </mat-form-field>
                                 <mat-autocomplete class="mat-autocomplete" #auto="matAutocomplete" (optionSelected)="openPncHomePage($event.option.value)">
                                     <mat-option *ngFor="let pnc of pncList | async" [value]="pnc">
@@ -23,7 +22,7 @@
                                     </mat-option>
                                 </mat-autocomplete>
                             </ion-item>
-                            <ion-spinner class='auto-complete-spinner' *ngIf="isAutoCompleteRunning()"></ion-spinner>
+                            <ion-spinner class='auto-complete-spinner' *ngIf="autoCompleteRunning"></ion-spinner>
                         </ion-col>
                         <ion-col col-5>
                             <button ion-button icon-start (click)="resetFilterValues()" class="clear-pnc" [disabled]="clearButtonIsDisabled()">
@@ -40,7 +39,7 @@
                 </form>
                 <form novalidate [formGroup]="searchForm">
                     <ion-row>
-                        <ion-col>
+                        <ion-col col-2>
                             <!-- Division -->
                             <ion-item>
                                 <ion-label floating>{{ 'PNC_SEARCH.CRITERIA.DIVISION' | translate }}</ion-label>
@@ -50,7 +49,7 @@
                                 </ion-select>
                             </ion-item>
                         </ion-col>
-                        <ion-col>
+                        <ion-col col-2>
                             <!-- Secteur -->
                             <ion-item>
                                 <ion-label floating>{{ 'PNC_SEARCH.CRITERIA.SECTOR' | translate }}</ion-label>
@@ -60,7 +59,7 @@
                                 </ion-select>
                             </ion-item>
                         </ion-col>
-                        <ion-col>
+                        <ion-col col-2>
                             <!-- Ginq -->
                             <ion-item>
                                 <ion-label floating>{{ 'PNC_SEARCH.CRITERIA.GINQ' | translate }}</ion-label>
@@ -70,7 +69,7 @@
                                 </ion-select>
                             </ion-item>
                         </ion-col>
-                        <ion-col>
+                        <ion-col col-2>
                             <!-- Grade -->
                             <ion-item>
                                 <ion-label floating>{{ 'PNC_SEARCH.CRITERIA.SPECIALITY' | translate }}</ion-label>
@@ -80,7 +79,7 @@
                                 </ion-select>
                             </ion-item>
                         </ion-col>
-                        <ion-col>
+                        <ion-col col-2>
                             <!-- Spécialisation avion -->
                             <ion-item>
                                 <ion-label floating>{{ 'PNC_SEARCH.CRITERIA.AIRCRAFT_SKILL' | translate }}</ion-label>
@@ -90,7 +89,7 @@
                                 </ion-select>
                             </ion-item>
                         </ion-col>
-                        <ion-col>
+                        <ion-col col-2>
                             <!-- Relais -->
                             <ion-item>
                                 <ion-label floating>{{ 'PNC_SEARCH.CRITERIA.RELAY' | translate }}</ion-label>
