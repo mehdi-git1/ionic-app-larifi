@@ -16,8 +16,8 @@ import { HttpClient } from '@angular/common/http';
 })
 export class HelpAssetListPage {
 
-    pdfHelpAssets: HelpAsset[];
-    webHelpAssets: HelpAsset[];
+    localHelpAssets: HelpAsset[];
+    remoteHelpAssets: HelpAsset[];
 
     pdfUrl: string;
 
@@ -38,26 +38,19 @@ export class HelpAssetListPage {
     }
 
     ionViewDidEnter() {
-        this.initPage();
-    }
-
-    /**
-     * Initialisation du contenu de la page.
-     */
-    initPage() {
-        this.pdfHelpAssets = new Array();
+        this.localHelpAssets = new Array();
         // On récupère le role du pnc dans les paramètres de navigation
-        this.pdfHelpAssets.push(...this.getSharedPdfHelpAssets());
+        this.localHelpAssets.push(...this.getCommunHelpAssets());
         if (this.navParams.get('pncRole') && this.navParams.get('pncRole') === PncRole.MANAGER) {
-            this.pdfHelpAssets.push(...this.getCADPdfHelpAssets());
+            this.localHelpAssets.push(...this.getCADHelpAssets());
         } else if (this.navParams.get('pncRole') && this.navParams.get('pncRole') === PncRole.PNC) {
-            this.pdfHelpAssets.push(...this.getHSTPdfHelpAssets());
+            this.localHelpAssets.push(...this.getHSTHelpAssets());
         }
-        this.pdfHelpAssets.sort((a, b) => a.label < b.label ? -1 : 1);
+        this.localHelpAssets.sort((a, b) => a.label < b.label ? -1 : 1);
         // On récupère le role du pnc dans les paramètres de navigation
         if (this.connectivityService.isConnected() && this.navParams.get('pncRole')) {
             this.helpAssetProvider.getHelpAssetList(this.navParams.get('pncRole')).then(result => {
-                this.webHelpAssets = result;
+                this.remoteHelpAssets = result;
             }, error => { });
         }
     }
@@ -67,11 +60,7 @@ export class HelpAssetListPage {
      * @return true si c'est le cas, false sinon
      */
     loadingIsOver(): boolean {
-        if (this.connectivityService.isConnected()) {
-            return this.pdfHelpAssets !== undefined && this.webHelpAssets !== undefined;
-        } else {
-            return this.pdfHelpAssets !== undefined;
-        }
+        return this.localHelpAssets !== undefined;
     }
 
     /**
@@ -108,7 +97,7 @@ export class HelpAssetListPage {
     /**
      * renvoie la liste des ressources d'aide du cadre
      */
-    getCADPdfHelpAssets(): HelpAsset[] {
+    getCADHelpAssets(): HelpAsset[] {
         const helpAsset = new Array(3);
         const pdf1 = 'Etapes-du-Bilan-Professionnel-V4.pdf';
         helpAsset[0] = new HelpAsset();
@@ -140,7 +129,7 @@ export class HelpAssetListPage {
     /**
      * Renvoie la liste des ressources d'aide du pnc
      */
-    getHSTPdfHelpAssets(): HelpAsset[] {
+    getHSTHelpAssets(): HelpAsset[] {
         const helpAsset = new Array(1);
         const UserManual = 'Manuel-Utilisateur-PNC-V1.0.pdf';
         helpAsset[0] = new HelpAsset();
@@ -152,9 +141,9 @@ export class HelpAssetListPage {
     }
 
     /**
-     * Renvoie la liste des ressources d'aide communes au cadre et au pnc
+     * Renvoie la liste des ressources d'aide du pnc
      */
-    getSharedPdfHelpAssets(): HelpAsset[] {
+    getCommunHelpAssets(): HelpAsset[] {
         const helpAsset = new Array(1);
         const pdfName = 'Objectifs-compiles-CCP-CC-HST-V6.pdf';
         helpAsset[0] = new HelpAsset();
@@ -165,4 +154,3 @@ export class HelpAssetListPage {
         return helpAsset;
     }
 }
-

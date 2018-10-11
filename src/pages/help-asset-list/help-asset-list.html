@@ -1,6 +1,6 @@
 <ion-header>
     <ion-navbar>
-        <page-header (refreshPage)="initPage()">{{'HELP_ASSET_LIST.TITLE' | translate}}
+        <page-header>{{'HELP_ASSET_LIST.TITLE' | translate}}
         </page-header>
     </ion-navbar>
 </ion-header>
@@ -18,10 +18,6 @@
                 <h4>{{helpAsset.label}}</h4>
                 <span class="suffix-tu">{{ 'HELP_ASSET_LIST.LAST_UPDATE_DATE' | translate }} {{helpAsset.lastUpdateDate | date: 'dd/MM/yyyy HH:mm' : 'UTC'}}</span>
             </ion-item>
-        </ion-list>
-
-        <ion-list *ngIf="pdfHelpAssets && pdfHelpAssets.length > 0" class="help-asset-list">
-            <h3>{{ 'HELP_ASSET_LIST.PDF_HELP_ASSET' | translate }}</h3>
             <ion-item *ngFor="let helpAsset of localHelpAssets" (click)="displayHelpAsset(helpAsset, 'pdf')" class="clickable">
                 <ion-thumbnail item-start>
                     <ion-icon name="document"></ion-icon>
