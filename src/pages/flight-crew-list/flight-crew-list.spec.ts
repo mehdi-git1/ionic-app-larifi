@@ -1,3 +1,4 @@
+import { OfflinePncProvider } from './../../providers/pnc/offline-pnc';
 import { PncTransformerProvider } from './../../providers/pnc/pnc-transformer';
 import { SessionService } from './../../services/session.service';
 import { PncProvider } from './../../providers/pnc/pnc';
@@ -20,15 +21,6 @@ import {
 } from '../../test-config/mocks-ionic';
 
 
-class GenderProviderMock { }
-class LegProviderMock { }
-class ConnectivityServiceMock { }
-class ToastProviderMock { }
-class TranslateServiceMock { }
-class PncProviderMock { }
-class SessionServiceMock { }
-class PncTransformerProviderMock { }
-
 describe('FlightCrewListPage', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
@@ -40,14 +32,15 @@ describe('FlightCrewListPage', () => {
                 { provide: Platform, useClass: PlatformMock },
                 { provide: NavController, useClass: NavMock },
                 { provide: NavParams, useClass: NavMock },
-                { provide: GenderProvider, useClass: GenderProviderMock },
-                { provide: LegProvider, useClass: LegProviderMock },
-                { provide: ConnectivityService, useClass: ConnectivityServiceMock },
-                { provide: ToastProvider, useClass: ToastProviderMock },
-                { provide: TranslateService, useClass: TranslateServiceMock },
-                { provide: PncProvider, useClass: PncProviderMock },
-                { provide: SessionService, useClass: SessionServiceMock },
-                { provide: PncTransformerProvider, useClass: PncTransformerProviderMock }
+                { provide: GenderProvider },
+                { provide: LegProvider },
+                { provide: ConnectivityService },
+                { provide: ToastProvider },
+                { provide: TranslateService },
+                { provide: PncProvider },
+                { provide: SessionService },
+                { provide: PncTransformerProvider },
+                { provide: OfflinePncProvider },
             ],
             schemas: [NO_ERRORS_SCHEMA]
         });

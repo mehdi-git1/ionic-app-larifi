@@ -9,10 +9,10 @@ import { Injectable } from '@angular/core';
 import { RestService } from '../../services/rest.base.service';
 import { Pnc } from '../../models/pnc';
 import { OfflineAction } from '../../models/offlineAction';
-import { BaseProvider } from '../base.provider';
+import { BaseProvider } from '../base/base.provider';
 
 @Injectable()
-export class CareerObjectiveProvider extends BaseProvider{
+export class CareerObjectiveProvider extends BaseProvider {
   constructor(
     private onlineCareerObjectiveProvider: OnlineCareerObjectiveProvider,
     private offlineCareerObjectiveProvider: OfflineCareerObjectiveProvider,
@@ -20,11 +20,11 @@ export class CareerObjectiveProvider extends BaseProvider{
     private sessionService: SessionService,
     private dateTransformer: DateTransformService,
     private careerObjectiveTransformer: CareerObjectiveTransformerProvider) {
-      super(
-        connectivityService,
-        onlineCareerObjectiveProvider,
-        offlineCareerObjectiveProvider
-      );
+    super(
+      connectivityService,
+      onlineCareerObjectiveProvider,
+      offlineCareerObjectiveProvider
+    );
   }
 
   /**
@@ -62,7 +62,7 @@ export class CareerObjectiveProvider extends BaseProvider{
   * @return l'objectif récupéré
   */
   getCareerObjective(id: number): Promise<CareerObjective> {
-      return this.execFunctionProvider('getCareerObjective', id);
+    return this.execFunctionProvider('getCareerObjective', id);
   }
 
   /**

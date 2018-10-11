@@ -7,11 +7,11 @@ import { ConnectivityService } from './../../services/connectivity.service';
 import { Injectable } from '@angular/core';
 import { Waypoint } from './../../models/waypoint';
 import { Pnc } from '../../models/pnc';
-import { BaseProvider } from '../base.provider';
+import { BaseProvider } from '../base/base.provider';
 
 
 @Injectable()
-export class WaypointProvider extends BaseProvider{
+export class WaypointProvider extends BaseProvider {
 
   constructor(
     protected connectivityService: ConnectivityService,

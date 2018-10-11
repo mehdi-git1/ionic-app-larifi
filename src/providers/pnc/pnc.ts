@@ -11,7 +11,7 @@ import { Injectable } from '@angular/core';
 import { PagedPnc } from './../../models/pagedPnc';
 import { Page } from '../../models/page';
 import { RestService } from '../../services/rest.base.service';
-import { BaseProvider } from '../base.provider';
+import { BaseProvider } from '../base/base.provider';
 
 @Injectable()
 export class PncProvider extends BaseProvider {

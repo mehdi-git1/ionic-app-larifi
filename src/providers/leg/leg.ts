@@ -4,10 +4,10 @@ import { OfflineLegProvider } from './offline-leg';
 import { Leg } from './../../models/leg';
 import { Injectable } from '@angular/core';
 import { ConnectivityService } from './../../services/connectivity.service';
-import { BaseProvider } from '../base.provider';
+import { BaseProvider } from '../base/base.provider';
 
 @Injectable()
-export class LegProvider extends BaseProvider{
+export class LegProvider extends BaseProvider {
 
   private legUrl: string;
 
@@ -16,11 +16,11 @@ export class LegProvider extends BaseProvider{
     private onlineLegProvider: OnlineLegProvider,
     private offlineLegProvider: OfflineLegProvider
   ) {
-      super(
-        connectivityService,
-        onlineLegProvider,
-        offlineLegProvider
-      );
+    super(
+      connectivityService,
+      onlineLegProvider,
+      offlineLegProvider
+    );
   }
 
   /**
