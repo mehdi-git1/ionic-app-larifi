@@ -38,7 +38,7 @@ export class StatutoryCertificatePage {
       }, error => { });
       this.statutoryCertificateProvider.getStatutoryCertificate(this.matricule).then(statutoryCertificate => {
         this.statutoryCertificate = statutoryCertificate;
-      }).catch();
+      }, error => { });
     }
   }
 

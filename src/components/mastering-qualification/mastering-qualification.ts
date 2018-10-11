@@ -1,22 +1,34 @@
-import { Component } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
+import { MasteringQualification } from './../../models/statutoryCertificate/masteringQualification';
+import { Component, Input, OnInit } from '@angular/core';
 
-/**
- * Generated class for the MasteringQualificationComponent component.
- *
- * See https://angular.io/api/core/Component for more info on Angular
- * Components.
- */
 @Component({
   selector: 'mastering-qualification',
   templateUrl: 'mastering-qualification.html'
 })
-export class MasteringQualificationComponent {
+export class MasteringQualificationComponent implements OnInit {
 
-  text: string;
+  @Input() masteringQualificationData: MasteringQualification;
 
-  constructor() {
-    console.log('Hello MasteringQualificationComponent Component');
-    this.text = 'Hello World';
+  // Tableau des valeurs à afficher en fonction du type de tableau
+  masteringQualificationDisplayedData;
+
+  constructor(private translateService: TranslateService) {
+
   }
+  ngOnInit() {
 
+    this.masteringQualificationDisplayedData = {
+      headers: [
+        this.translateService.instant('STATUTORY_CERTIFICATE.MASTERING_QUALIFICATION.SPECIALITY'),
+        this.translateService.instant('STATUTORY_CERTIFICATE.MASTERING_QUALIFICATION.START_DATE')
+      ], values: this.masteringQualificationData ?
+        [
+          { value: [this.masteringQualificationData.speciality], type: 'text' },
+          { value: [this.masteringQualificationData.siniorityDate], type: 'date' }
+        ]
+        :
+        null
+    };
+  }
 }

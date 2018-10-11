@@ -235,6 +235,10 @@
             "FLIGHT": "Vol",
             "START_DATE": "Depuis"
         },
+        "MASTERING_QUALIFICATION": {
+            "SPECIALITY": "Compétence faisant fonction",
+            "START_DATE": "Depuis"
+        },
         "VAM": {
             "START_DATE": "Début",
             "END_DATE": "Fin"

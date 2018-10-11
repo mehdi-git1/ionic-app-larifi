@@ -1,3 +1,7 @@
+import { Speciality } from '../speciality';
 
-export class MasteringQualification{}
+export class MasteringQualification {
+    speciality: Speciality;
+    siniorityDate: Date;
+}
 
