@@ -54,4 +54,13 @@ export class OfflineCareerObjectiveProvider {
     return this.storageService.deleteAsync(Entity.CAREER_OBJECTIVE, `${id}`);
   }
 
+  /**
+   * Vérifie si un objectif se trouve en cache
+   * @param id l'id de l'objectif
+   * @return vrai si l'objectif est trouvé en cache, faux sinon
+   */
+  careerObjectiveExists(id: number): boolean {
+    return this.storageService.findOne(Entity.CAREER_OBJECTIVE, `${id}`) !== null;
+  }
+
 }

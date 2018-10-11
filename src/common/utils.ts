@@ -30,7 +30,7 @@ export class Utils {
     }
 
     /**
-     * Calcul et renvoie le hashcode de l'objet concerné.
+     * Calcule et renvoie le hashcode de l'objet concerné.
      * @param obj l'objet dont on veut calculer son hashcode
      * @return le hashcode de l'objet concerné
      */
@@ -62,14 +62,14 @@ export class Utils {
 
     /**
      * Remplacement de tous les caractéres accentués par leurs pendants non accentués
-     * @param Texte texte à traiter
+     * @param text texte à traiter
      */
-    replaceSpecialCaracters(Texte) {
-        const tabSpec = { 'à': 'a', 'á': 'a', 'â': 'a', 'ã': 'a', 'ä': 'a', 'å': 'a', 'ò': 'o', 'ó': 'o', 'ô': 'o', 'õ': 'o', 'ö': 'o', 'ø': 'o', 'è': 'e', 'é': 'e', 'ê': 'e', 'ë': 'e', 'ç': 'c', 'ì': 'i', 'í': 'i', 'î': 'i', 'ï': 'i', 'ù': 'u', 'ú': 'u', 'û': 'u', 'ü': 'u', 'ÿ': 'y', 'ñ': 'n' };
+    replaceSpecialCaracters(text: string): string {
+        const SpecialCharList = { 'à': 'a', 'á': 'a', 'â': 'a', 'ã': 'a', 'ä': 'a', 'å': 'a', 'ò': 'o', 'ó': 'o', 'ô': 'o', 'õ': 'o', 'ö': 'o', 'ø': 'o', 'è': 'e', 'é': 'e', 'ê': 'e', 'ë': 'e', 'ç': 'c', 'ì': 'i', 'í': 'i', 'î': 'i', 'ï': 'i', 'ù': 'u', 'ú': 'u', 'û': 'u', 'ü': 'u', 'ÿ': 'y', 'ñ': 'n' };
         const reg = /[àáäâèéêëçìíîïòóôõöøùúûüÿñ]/gi;
-        return Texte.replace(reg,
+        return text.replace(reg,
             function () {
-                return tabSpec[arguments[0].toLowerCase()];
+                return SpecialCharList[arguments[0].toLowerCase()];
             }).toLowerCase();
     }
 }

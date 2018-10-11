@@ -1,4 +1,6 @@
 import { Utils } from './../../common/utils';
+import { OfflineCareerObjectiveProvider } from './../../providers/career-objective/offline-career-objective';
+import { ConnectivityService } from './../../services/connectivity.service';
 import { DateTransformService } from './../../services/date.transform.service';
 import { AppConstant } from './../../app/app.constant';
 import { SecurityProvider } from './../../providers/security/security';
@@ -15,6 +17,7 @@ import { CareerObjectiveCreatePage } from './../career-objective-create/career-o
 import { ToastProvider } from './../../providers/toast/toast';
 import * as _ from 'lodash';
 import { DeviceService } from '../../services/device.service';
+import { OfflineWaypointProvider } from '../../providers/waypoint/offline-waypoint';
 
 @Component({
     selector: 'page-waypoint-create',
@@ -52,7 +55,10 @@ export class WaypointCreatePage {
         public loadingCtrl: LoadingController,
         private alertCtrl: AlertController,
         private deviceService: DeviceService,
-        private dateTransformer: DateTransformService) {
+        private dateTransformer: DateTransformService,
+        private connectivityService: ConnectivityService,
+        private offlineCareerObjectiveProvider: OfflineCareerObjectiveProvider,
+        private offlineWaypointProvider: OfflineWaypointProvider) {
 
         // Options du datepicker
         this.customDateTimeOptions = {
@@ -206,6 +212,11 @@ export class WaypointCreatePage {
                 .then(savedWaypoint => {
                     this.originWaypoint = _.cloneDeep(savedWaypoint);
                     this.waypoint = savedWaypoint;
+
+                    // Si on est connecté et que l'objectif dont dépend le point d'étape est en cache, on met en cache le point d'étape
+                    if (this.deviceService.isOfflineModeAvailable() && this.connectivityService.isConnected() && this.offlineCareerObjectiveProvider.careerObjectiveExists(this.careerObjectiveId)) {
+                        this.offlineWaypointProvider.createOrUpdate(this.waypoint, this.careerObjectiveId, true);
+                    }
 
                     if (this.waypoint.waypointStatus === WaypointStatus.DRAFT) {
                         this.toastProvider.success(this.translateService.instant('WAYPOINT_CREATE.SUCCESS.DRAFT_SAVED'));

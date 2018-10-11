@@ -29,7 +29,7 @@
         },
         "DEVELOPMENT_PROGRAM": "Parcours de développement",
         "PNC_SUMMARY_SHEET": "Fiche synthèse PNC",
-        "HELP_CENTRE": "Ressources d'aide",
+        "HELP_CENTER": "Ressources d'aide",
         "PNC_TEAM": "Effectif PNC",
         "UPCOMING_FLIGHT": "Activité vols",
         "CREW_MEMBERS": "Liste équipage",
@@ -79,19 +79,19 @@
         },
         "CONFIRM_INSTRUCTOR_REQUEST": {
             "TITLE": "Sollicitation instructeur",
-            "MESSAGE": "Confirmez vous la demande de sollicitation instructeur ?",
+            "MESSAGE": "Confirmez-vous la demande de sollicitation instructeur ?",
             "CANCEL": "Annuler",
             "CONFIRM": "Confirmer"
         },
         "CONFIRM_DRAFT_DELETE": {
             "TITLE": "Suppression de la proposition",
-            "MESSAGE": "Confirmez vous la suppression de cette proposition ?",
+            "MESSAGE": "Confirmez-vous la suppression de cette proposition ?",
             "CANCEL": "Annuler",
             "CONFIRM": "Supprimer"
         },
         "CONFIRM_BACK_WITHOUT_SAVE": {
             "TITLE": "Modifications non enregistrées",
-            "MESSAGE": "Attention, des modifications n'ont pas été enregistrées, êtes vous sûr de vouloir revenir en arrière ?"
+            "MESSAGE": "Attention, des modifications n'ont pas été enregistrées, êtes-vous sûr de vouloir revenir en arrière ?"
         },
         "BUTTONS": {
             "SAVE": "Enregistrer",
@@ -154,13 +154,13 @@
         },
         "CONFIRM_DRAFT_DELETE": {
             "TITLE": "Suppression de la proposition",
-            "MESSAGE": "Confirmez vous la suppression de cette proposition ?",
+            "MESSAGE": "Confirmez-vous la suppression de cette proposition ?",
             "CANCEL": "Annuler",
             "CONFIRM": "Supprimer"
         },
         "CONFIRM_BACK_WITHOUT_SAVE": {
             "TITLE": "Modifications non enregistrées",
-            "MESSAGE": "Attention, des modifications n'ont pas été enregistrées, êtes vous sûr de vouloir revenir en arrière ?"
+            "MESSAGE": "Attention, des modifications n'ont pas été enregistrées, êtes-vous sûr de vouloir revenir en arrière ?"
         },
         "BUTTONS": {
             "SAVE": "Enregistrer",
@@ -333,8 +333,8 @@
     "SETTINGS": {
         "TITLE": "Réglages",
         "INIT_CACHE": {
-            "BUTTON": "Réinitialiser le cache",
-            "SUCCESS": "Réinitialisation du cache réussie"
+            "BUTTON": "Vider le cache",
+            "SUCCESS": "Cache vidé avec succès"
         },
         "FORCE_SYNCHRONIZATION": {
             "BUTTON": "Forcer la synchronisation"
@@ -346,9 +346,9 @@
             "BUTTON": "Changer la question secrète"
         },
         "CONFIRM_INIT_CACHE": {
-            "TITLE": "Réinitialisation du cache",
-            "MESSAGE": "Attention. Êtes vous sûre de vouloir réinitialiser le cache ?",
-            "MESSAGE_UNSYNCHRONIZED_DATA": "Attention. La réinitialisation du cache peut entraîner la perte de données non synchronisées.",
+            "TITLE": "Vider le cache",
+            "MESSAGE": "Attention. Êtes-vous sûr de vouloir vider le cache ?",
+            "MESSAGE_UNSYNCHRONIZED_DATA": "Attention. Vider le cache peut entraîner la perte de données non synchronisées.",
             "CANCEL": "Annuler",
             "CONFIRM": "Confirmer"
         }
