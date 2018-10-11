@@ -28,6 +28,7 @@ import { SecurityProvider } from './../../providers/security/security';
 import { LegProvider } from './../../providers/leg/leg';
 import { CareerObjectiveProvider } from '../career-objective/career-objective';
 import { CrewMember } from '../../models/crewMember';
+import { Leg } from '../../models/leg';
 @Injectable()
 export class SynchronizationProvider {
 
@@ -59,7 +60,7 @@ export class SynchronizationProvider {
   /**
    * Stocke en cache le EDossier du PNC
    * @param matricule le matricule du PNC dont on souhaite mettre en cache le EDossier
-   * @param storeCrewMembers false si l'on ne veut pas traiter les crewmeembers des vols du Pnc
+   * @param storeCrewMembers false si l'on ne veut pas charger les crewMembers des vols du Pnc
    * @return une promesse résolue quand le EDossier est mis en cache
    */
   storeEDossierOffline(matricule: string, storeCrewMembers: boolean = true): Promise<boolean> {
@@ -126,69 +127,17 @@ export class SynchronizationProvider {
   /**
    * Gère la réponse de synchronisation du serveur. Supprime tous les objets associés au PNC pour les recréer ensuite.
    * @param pncSynchroResponse l'objet reçu du serveur
-   * @param storeCrewMembers false si l'on ne veut pas traiter les crewmeembers des vols du Pnc
+   * @param storeCrewMembers false si l'on ne veut pas traiter les crewMembers des vols du Pnc
    */
   updateLocalStorageFromPncSynchroResponse(pncSynchroResponse: PncSynchro, storeCrewMembers: boolean = true) {
     this.deleteAllPncOfflineObject(pncSynchroResponse.pnc);
-
     this.storageService.save(Entity.PNC, this.pncTransformer.toPnc(pncSynchroResponse.pnc), true);
+    this.storeRotations(pncSynchroResponse.rotations);
+    const crewMembersPromisesArray = this.storeLegs(pncSynchroResponse.legs);
 
-    if (pncSynchroResponse.rotations != null) {
-      for (const rotation of pncSynchroResponse.rotations) {
-        this.storageService.save(Entity.ROTATION, this.rotationTransformerProvider.toRotation(rotation), true);
-      }
-    }
-
-    const crewMembersPromise: Promise<CrewMember[]>[] = new Array();
-
-    if (pncSynchroResponse.legs != null) {
-      for (const leg of pncSynchroResponse.legs) {
-        const techIdRotation: number = leg.rotation.techId;
-        leg.rotation = new Rotation();
-        leg.rotation.techId = techIdRotation;
-
-        this.storageService.save(Entity.LEG, this.legTransformerProvider.toLeg(leg), true);
-
-        crewMembersPromise.push(this.legProvider.getFlightCrewFromLeg(leg.techId));
-      }
-    }
-
-    Promise.all(crewMembersPromise).then(flightCrewMatrix => {
+    Promise.all(crewMembersPromisesArray).then(flightCrewMatrix => {
       if (storeCrewMembers) {
-        const crewMembers: Array<CrewMember> = new Array();
-        for (const flightCrewList of flightCrewMatrix) {
-          for (const flightCrew of flightCrewList) {
-            this.storageService.save(Entity.CREW_MEMBER, this.crewMemberTransformerProvider.toCrewMember(flightCrew), true);
-            if (pncSynchroResponse.pnc.matricule != flightCrew.pnc.matricule) {
-              crewMembers.push(flightCrew);
-            }
-          }
-        }
-        const eObservationsPromise: Promise<EObservation>[] = new Array();
-        const crewMembersAlreadyStored: Array<String> = new Array();
-        const eObsRotationAlreadyCreated: Map<String, number[]> = new Map<String, number[]>();
-        for (const crewMember of crewMembers) {
-          // charge l'edossier PNC de chaque membre d'équipage si il n'a a pas encore été storé
-          if (crewMembersAlreadyStored.indexOf(crewMember.pnc.matricule) < 0) {
-            this.storeEDossierOffline(crewMember.pnc.matricule, false).then(success => {}, error => {});
-            crewMembersAlreadyStored.push(crewMember.pnc.matricule);
-          }
-
-          // alimente un tableau de promises du service eObs (1 appel par couple matricule/rotationId)
-          if (!eObsRotationAlreadyCreated.get(crewMember.pnc.matricule)) {
-            eObsRotationAlreadyCreated.set(crewMember.pnc.matricule, new Array());
-          }
-          if (eObsRotationAlreadyCreated.get(crewMember.pnc.matricule).indexOf(crewMember.rotationId) < 0) {
-           eObservationsPromise.push(this.eObservationService.getEObservation(crewMember.pnc.matricule, crewMember.rotationId));
-           eObsRotationAlreadyCreated.get(crewMember.pnc.matricule).push(crewMember.rotationId);
-          }
-        }
-        Promise.all(eObservationsPromise).then(eObservations => {
-          for (const eObservation of eObservations) {
-            this.storageService.save(Entity.EOBSERVATION, eObservation, true);
-          }
-          this.storageService.persistOfflineMap();
-        }, error => { });
+        this.storeCrewMembers(pncSynchroResponse.pnc.matricule, flightCrewMatrix);
       }
       // Création des nouveaux objets
       for (const careerObjective of pncSynchroResponse.careerObjectives) {
@@ -204,12 +153,85 @@ export class SynchronizationProvider {
         waypoint.careerObjective.techId = careerObjectiveTechId;
         this.storageService.save(Entity.WAYPOINT, this.waypointTransformer.toWaypoint(waypoint), true);
       }
-
       // Sauvegarde de la fiche synthese
       this.storageService.save(Entity.SUMMARY_SHEET, pncSynchroResponse.summarySheet, true);
-
       // Sauvegarde de la photo du PNC
       this.storageService.save(Entity.PNC_PHOTO, this.pncPhotoTransformer.toPncPhoto(pncSynchroResponse.photo), true);
+      this.storageService.persistOfflineMap();
+    }, error => { });
+  }
+
+  /**
+   * Enregistre les rotations en cache
+   * @param rotations tableau de rotations
+   */
+  private storeRotations(rotations: Rotation[]) {
+    if (rotations != null) {
+      for (const rotation of rotations) {
+        this.storageService.save(Entity.ROTATION, this.rotationTransformerProvider.toRotation(rotation), true);
+      }
+    }
+  }
+
+  /**
+   * Enregistre les vols en cache
+   * @param legs tableau de vols
+   * @return une tableau de Promise<CrewMember> dont chaque item est la liste d'équipage d'un des vols en paramètre
+   */
+  private storeLegs(legs: Leg[]): Promise<CrewMember[]>[]{
+    const crewMembersPromisesArray: Promise<CrewMember[]>[] = new Array();
+    if (legs != null) {
+      for (const leg of legs) {
+        const techIdRotation: number = leg.rotation.techId;
+        leg.rotation = new Rotation();
+        leg.rotation.techId = techIdRotation;
+        this.storageService.save(Entity.LEG, this.legTransformerProvider.toLeg(leg), true);
+        crewMembersPromisesArray.push(this.legProvider.getFlightCrewFromLeg(leg.techId));
+      }
+    }
+    return crewMembersPromisesArray;
+  }
+
+  /**
+   * Enregistre les crewMembers en cache, ainsi que les eObservations.
+   * Un traitement est effectué afin de gérer l'unicité (par matricule) des crewMembers. De meme pour les eObservations (unicité par couple matricule/rotationId)
+   * Le crewMember correspondant au matricule en paramètre ne sera pas traité
+   * @param matricule le matricule du Pnc principal (celui dont on charge le eDossier initialement)
+   * @param flightCrewMatrix matrice de crewMembers
+   */
+  private storeCrewMembers(matricule: string, flightCrewMatrix: CrewMember[][]) {
+    const crewMembers: Array<CrewMember> = new Array();
+    for (const flightCrewList of flightCrewMatrix) {
+      for (const flightCrew of flightCrewList) {
+        this.storageService.save(Entity.CREW_MEMBER, this.crewMemberTransformerProvider.toCrewMember(flightCrew), true);
+        if (matricule != flightCrew.pnc.matricule) {
+          crewMembers.push(flightCrew);
+        }
+      }
+    }
+    const eObservationsPromises: Promise<EObservation>[] = new Array();
+    const crewMembersAlreadyStored: Array<String> = new Array();
+    const eObsRotationsAlreadyCreated: Map<String, number[]> = new Map<String, number[]>();
+    for (const crewMember of crewMembers) {
+      // charge l'edossier PNC de chaque membre d'équipage si il n'a a pas encore été storé
+      if (crewMembersAlreadyStored.indexOf(crewMember.pnc.matricule) < 0) {
+        this.storeEDossierOffline(crewMember.pnc.matricule, false);
+        crewMembersAlreadyStored.push(crewMember.pnc.matricule);
+      }
+
+      // alimente un tableau de promises du service eObs (1 appel par couple matricule/rotationId)
+      if (!eObsRotationsAlreadyCreated.get(crewMember.pnc.matricule)) {
+        eObsRotationsAlreadyCreated.set(crewMember.pnc.matricule, new Array());
+      }
+      if (eObsRotationsAlreadyCreated.get(crewMember.pnc.matricule).indexOf(crewMember.rotationId) < 0) {
+        eObservationsPromises.push(this.eObservationService.getEObservation(crewMember.pnc.matricule, crewMember.rotationId));
+        eObsRotationsAlreadyCreated.get(crewMember.pnc.matricule).push(crewMember.rotationId);
+      }
+    }
+    Promise.all(eObservationsPromises).then(eObservations => {
+      for (const eObservation of eObservations) {
+        this.storageService.save(Entity.EOBSERVATION, eObservation, true);
+      }
       this.storageService.persistOfflineMap();
     }, error => { });
   }
