@@ -18,16 +18,8 @@ import {
     NavMock,
     PlatformMock
 } from '../../test-config/mocks-ionic';
-
-
-class GenderProviderMock { }
-class LegProviderMock { }
-class ConnectivityServiceMock { }
-class ToastProviderMock { }
-class TranslateServiceMock { }
-class PncProviderMock { }
-class SessionServiceMock { }
-class PncTransformerProviderMock { }
+import { OfflinePncProvider } from '../../providers/pnc/offline-pnc';
+import { OnlinePncProvider } from '../../providers/pnc/online-pnc';
 
 describe('FlightCrewListPage', () => {
     beforeEach(() => {
@@ -40,14 +32,16 @@ describe('FlightCrewListPage', () => {
                 { provide: Platform, useClass: PlatformMock },
                 { provide: NavController, useClass: NavMock },
                 { provide: NavParams, useClass: NavMock },
-                { provide: GenderProvider, useClass: GenderProviderMock },
-                { provide: LegProvider, useClass: LegProviderMock },
-                { provide: ConnectivityService, useClass: ConnectivityServiceMock },
-                { provide: ToastProvider, useClass: ToastProviderMock },
-                { provide: TranslateService, useClass: TranslateServiceMock },
-                { provide: PncProvider, useClass: PncProviderMock },
-                { provide: SessionService, useClass: SessionServiceMock },
-                { provide: PncTransformerProvider, useClass: PncTransformerProviderMock }
+                { provide: GenderProvider},
+                { provide: LegProvider},
+                { provide: ConnectivityService},
+                { provide: ToastProvider},
+                { provide: TranslateService},
+                { provide: PncProvider},
+                { provide: OfflinePncProvider},
+                { provide: OnlinePncProvider},
+                { provide: SessionService},
+                { provide: PncTransformerProvider}
             ],
             schemas: [NO_ERRORS_SCHEMA]
         });
