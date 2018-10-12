@@ -49,10 +49,10 @@ tab-nav {
   }
   
   .tabs-ios .tab-button[aria-selected=true] .icon {
-    @include colorMenu(white, grey20);
+    @include colorMenu(primary, grey90);
   }
 
   .tabs-ios .tab-button[aria-selected=true] {
-    @include colorMenu(white, grey20);
+    @include colorMenu(primary, grey90);
   }
 }
