@@ -39,4 +39,13 @@ describe('Service: AuthenticationService', () => {
         expect(authorizationService.hasPermission("SHOW_IMPERSONNIFICATION")).toBe(true);
     });
 
+    it('User has no right to show impersonnification', () => {
+
+        const authenticatedUser = new AuthenticatedUser();
+        authenticatedUser.permissions = new Array();
+
+        sessionServiceMock.authenticatedUser = authenticatedUser;
+        expect(authorizationService.hasPermission("SHOW_IMPERSONNIFICATION")).toBe(false);
+    });
+
 });
