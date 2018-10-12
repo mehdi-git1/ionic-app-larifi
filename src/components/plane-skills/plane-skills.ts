@@ -32,7 +32,7 @@ export class PlaneSkillsComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (this.planeSkillsData) {
+    if (this.planeSkillsData && this.planeSkillsData.length > 0) {
       for (const planeSkillData of this.planeSkillsData) {
         this.tempPlaneSkillData.plane.push(planeSkillData.plane);
         this.tempPlaneSkillData.startDate.push(planeSkillData.startDate);
@@ -53,7 +53,7 @@ export class PlaneSkillsComponent implements OnInit {
           this.translateService.instant('STATUTORY_CERTIFICATE.PLANE_SKILLS.DDV_DUE_DATE'),
           this.translateService.instant('STATUTORY_CERTIFICATE.PLANE_SKILLS.SKILL_END_DATE')
         ],
-      values: this.planeSkillsData ?
+      values: this.planeSkillsData && this.planeSkillsData.length > 0 ?
         [
           { value: this.tempPlaneSkillData.plane, type: 'libelle' },
           { value: this.tempPlaneSkillData.startDate, type: 'date' },
