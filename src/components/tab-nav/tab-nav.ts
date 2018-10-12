@@ -12,6 +12,7 @@ import { Pnc } from './../../models/pnc';
 import { Component, Input, ViewChild } from '@angular/core';
 import { Speciality } from './../../models/speciality';
 import { TranslateService } from '@ngx-translate/core';
+import { StatutoryCertificatePage } from '../../pages/statutory-certificate/statutory-certificate';
 
 @Component({
   selector: 'tab-nav',
@@ -51,6 +52,7 @@ export class TabNavComponent {
   helpAssetListPage = HelpAssetListPage;
   upcomingFlightListPage = UpcomingFlightListPage;
   summarySheetPage = SummarySheetPage;
+  statutoryCertificatePage = StatutoryCertificatePage;
 
   // Paramètres envoyés aux pages
   pncParams;
@@ -71,14 +73,14 @@ export class TabNavComponent {
    * Dirige vers la page de visualisation des objectifs
    */
   goToCareerObjectiveList() {
-      this.navCtrl.push(CareerObjectiveListPage, { matricule: this.pnc.matricule });
+    this.navCtrl.push(CareerObjectiveListPage, { matricule: this.pnc.matricule });
   }
 
   /**
    * Dirige vers la page des ressources d'aide
    */
   goToHelpAssetList() {
-      this.navCtrl.push(HelpAssetListPage, { pncRole: Speciality.getPncRole(this.pnc.speciality) });
+    this.navCtrl.push(HelpAssetListPage, { pncRole: Speciality.getPncRole(this.pnc.speciality) });
   }
 
   /**
@@ -86,21 +88,28 @@ export class TabNavComponent {
    */
 
   goToUpcomingFlightList() {
-      this.navCtrl.push(UpcomingFlightListPage, { matricule: this.pnc.matricule });
+    this.navCtrl.push(UpcomingFlightListPage, { matricule: this.pnc.matricule });
   }
 
   /**
   * Dirige vers l'effectif PNC
   */
   goToPncSearch() {
-      this.navCtrl.push(PncSearchPage);
+    this.navCtrl.push(PncSearchPage);
   }
 
   /**
    * Dirige vers la fiche synthèse
    */
   goToSummarySheet() {
-      this.navCtrl.push(SummarySheetPage, { matricule: this.pnc.matricule });
+    this.navCtrl.push(SummarySheetPage, { matricule: this.pnc.matricule });
+  }
+
+  /**
+   * Dirige vers l'attestation réglementaire
+   */
+  goToStatutoryCertificate() {
+    this.navCtrl.push(StatutoryCertificatePage, { matricule: this.pnc.matricule });
   }
 
 }
