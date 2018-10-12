@@ -1,7 +1,7 @@
 import { Speciality } from '../speciality';
 
 export class MasteringQualification {
-    speciality: Speciality;
+    currentSpeciality: Speciality;
     siniorityDate: Date;
 }
 

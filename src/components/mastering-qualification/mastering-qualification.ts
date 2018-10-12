@@ -24,7 +24,7 @@ export class MasteringQualificationComponent implements OnInit {
         this.translateService.instant('STATUTORY_CERTIFICATE.MASTERING_QUALIFICATION.START_DATE')
       ], values: this.masteringQualificationData ?
         [
-          { value: [this.masteringQualificationData.speciality], type: 'text' },
+          { value: [this.masteringQualificationData.currentSpeciality], type: 'text' },
           { value: [this.masteringQualificationData.siniorityDate], type: 'date' }
         ]
         :

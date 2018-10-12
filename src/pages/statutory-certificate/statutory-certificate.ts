@@ -47,6 +47,6 @@ export class StatutoryCertificatePage {
      * @return true si c'est le cas, false sinon
      */
   loadingIsOver(): boolean {
-    return this.statutoryCertificate !== undefined;
+    return typeof this.statutoryCertificate !== 'undefined';
   }
 }
