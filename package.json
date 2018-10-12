@@ -25,6 +25,8 @@
         "@angular/platform-browser": "5.2.9",
         "@angular/platform-browser-dynamic": "5.2.9",
         "@ionic-native/core": "4.6.0",
+        "@ionic-native/file": "^4.15.0",
+        "@ionic-native/in-app-browser": "^4.15.0",
         "@ionic-native/splash-screen": "^4.6.0",
         "@ionic-native/sqlite": "^4.12.1",
         "@ionic-native/status-bar": "^4.6.0",
@@ -99,7 +101,8 @@
             "cordova-plugin-privacyscreen": {},
             "cordova-sqlite-storage": {},
             "cordova-plugin-inappbrowser": {},
-            "cordova-plugin-formslib": {}
+            "cordova-plugin-formslib": {},
+            "cordova-plugin-file": {}
         },
         "platforms": [
             "ios"
