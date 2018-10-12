@@ -1,5 +1,5 @@
 import { StatutoryCertificatePage } from './../pages/statutory-certificate/statutory-certificate';
-import { Utils } from './../common/utils';
+import { Utils } from '../common/utils/utils';
 import { EObservationTransformerProvider } from './../providers/e-observation/e-observation-transformer';
 import { OnlineEObservationProvider } from './../providers/e-observation/online-e-observation';
 import { OfflineEObservationProvider } from './../providers/e-observation/offline-e-observation';

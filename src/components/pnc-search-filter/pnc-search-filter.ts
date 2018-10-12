@@ -1,4 +1,4 @@
-import { Utils } from './../../common/utils';
+import { Utils } from '../../common/utils/utils';
 import { ConnectivityService } from './../../services/connectivity.service';
 import { NavController, Events, Keyboard } from 'ionic-angular';
 import { PncProvider } from './../../providers/pnc/pnc';
@@ -62,8 +62,8 @@ export class PncSearchFilterComponent implements OnInit {
     private pncProvider: PncProvider,
     private connectivityService: ConnectivityService,
     private events: Events,
-    private keyboard: Keyboard,
-    private utils: Utils) {
+    private keyboard: Keyboard
+  ) {
     this.connectivityService.connectionStatusChange.subscribe(connected => {
       this.initFilter();
     });
@@ -283,7 +283,8 @@ export class PncSearchFilterComponent implements OnInit {
    */
   searchAutoComplete(term: string): void {
     this.checkIfAutoCompleteIsOpen();
-    term = this.utils.replaceSpecialCaracters(term);
+    term = Utils.replaceSpecialCaracters(term);
+
     if (!/^[a-zA-Z0-9-]+$/.test(term) && term !== '') {
       this.pncMatriculeControl.setValue(term.substring(0, term.length - 1));
     } else {

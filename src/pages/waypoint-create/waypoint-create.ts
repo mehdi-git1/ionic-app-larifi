@@ -1,4 +1,4 @@
-import { Utils } from './../../common/utils';
+import { Utils } from '../../common/utils/utils';
 import { DateTransformService } from './../../services/date.transform.service';
 import { AppConstant } from './../../app/app.constant';
 import { SecurityProvider } from './../../providers/security/security';

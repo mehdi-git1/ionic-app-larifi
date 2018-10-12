@@ -4,7 +4,7 @@ import { ConnectivityService } from './../../services/connectivity.service';
 import { Injectable } from '@angular/core';
 import { OnlineSummarySheetProvider } from './online-summary-sheet';
 import { SummarySheet } from '../../models/summarySheet';
-import { Utils } from '../../common/utils';
+import { Utils } from '../../common/utils/utils';
 import { BaseProvider } from '../base/base.provider';
 
 @Injectable()
