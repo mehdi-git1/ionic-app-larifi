@@ -25,7 +25,7 @@ export class MasteringQualificationComponent implements OnInit {
       ], values: this.masteringQualificationData ?
         [
           { value: [this.masteringQualificationData.currentSpeciality], type: 'text' },
-          { value: [this.masteringQualificationData.siniorityDate], type: 'date' }
+          { value: [this.masteringQualificationData.seniorityDate], type: 'date' }
         ]
         :
         null
