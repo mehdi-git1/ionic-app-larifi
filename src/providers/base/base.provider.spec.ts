@@ -6,22 +6,22 @@ const offlineServiceMock = jasmine.createSpyObj('offlineServiceMock', ['']);
 
 
 describe('Base Provider', () => {
-    let myClass;
+    let baseProvider;
 
     beforeEach(() => {
         class MyClass extends BaseProvider { }
-        myClass = new MyClass(connectivityServiceMock, onlineServiceMock, offlineServiceMock);
+        baseProvider = new MyClass(connectivityServiceMock, onlineServiceMock, offlineServiceMock);
     });
 
     describe('Test Online/ Offline return', () => {
         it('should return onlineProvider when the connection is "on"', () => {
             connectivityServiceMock.isConnected.and.returnValue(true);
-            expect(myClass.provider).toBe(onlineServiceMock);
+            expect(baseProvider.provider).toBe(onlineServiceMock);
         });
 
-        it('should return onlineProvider when the connection is "off"', () => {
+        it('should return offlineProvider when the connection is "off"', () => {
             connectivityServiceMock.isConnected.and.returnValue(false);
-            expect(myClass.provider).toBe(offlineServiceMock);
+            expect(baseProvider.provider).toBe(offlineServiceMock);
         });
     });
 

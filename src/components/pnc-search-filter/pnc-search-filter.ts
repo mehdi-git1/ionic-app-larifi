@@ -1,5 +1,5 @@
 import { Utils } from '../../common/utils/utils';
-import { ConnectivityService } from './../../services/connectivity.service';
+import { ConnectivityService } from '../../services/connectivity/connectivity.service';
 import { NavController, Events, Keyboard } from 'ionic-angular';
 import { PncProvider } from './../../providers/pnc/pnc';
 import { Subject } from 'rxjs/Rx';

@@ -2,7 +2,7 @@ import { DateTransformService } from './../../services/date.transform.service';
 import { CareerObjectiveTransformerProvider } from './career-objective-transformer';
 import { SessionService } from './../../services/session.service';
 import { OnlineCareerObjectiveProvider } from './online-career-objective';
-import { ConnectivityService } from './../../services/connectivity.service';
+import { ConnectivityService } from '../../services/connectivity/connectivity.service';
 import { OfflineCareerObjectiveProvider } from './../career-objective/offline-career-objective';
 import { CareerObjective } from './../../models/careerObjective';
 import { Injectable } from '@angular/core';

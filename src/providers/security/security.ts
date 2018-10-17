@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { OfflineSecurityProvider } from './../security/offline-security';
 import { OnlineSecurityProvider } from './../security/online-security';
-import { ConnectivityService } from './../../services/connectivity.service';
+import { ConnectivityService } from '../../services/connectivity/connectivity.service';
 import { SessionService } from './../../services/session.service';
 import { AuthenticatedUser } from './../../models/authenticatedUser';
 import { BaseProvider } from '../base/base.provider';

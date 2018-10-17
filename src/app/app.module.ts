@@ -70,7 +70,7 @@ import { Config } from '../configuration/environment-variables/config';
 
 import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
-import { ConnectivityService } from './../services/connectivity.service';
+import { ConnectivityService } from '../services/connectivity/connectivity.service';
 import { RestService } from '../services/rest.base.service';
 import { RestMobileService } from '../services/rest.mobile.service';
 import { RestWebService } from '../services/rest.web.service';

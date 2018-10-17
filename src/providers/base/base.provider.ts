@@ -1,4 +1,4 @@
-import { ConnectivityService } from '../../services/connectivity.service';
+import { ConnectivityService } from '../../services/connectivity/connectivity.service';
 
 
 export abstract class BaseProvider {

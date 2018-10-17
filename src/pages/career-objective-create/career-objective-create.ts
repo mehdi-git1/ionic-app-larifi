@@ -7,7 +7,7 @@ import { TransformerService } from './../../services/transformer.service';
 import { Entity } from './../../models/entity';
 import { StorageService } from './../../services/storage.service';
 import { OfflinePncProvider } from './../../providers/pnc/offline-pnc';
-import { ConnectivityService } from './../../services/connectivity.service';
+import { ConnectivityService } from '../../services/connectivity/connectivity.service';
 import { AppConstant } from './../../app/app.constant';
 import { WaypointStatus } from './../../models/waypointStatus';
 import { SecurityProvider } from './../../providers/security/security';

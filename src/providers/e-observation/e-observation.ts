@@ -1,6 +1,6 @@
 import { OfflineEObservationProvider } from './offline-e-observation';
 import { OnlineEObservationProvider } from './online-e-observation';
-import { ConnectivityService } from './../../services/connectivity.service';
+import { ConnectivityService } from '../../services/connectivity/connectivity.service';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { EObservation } from '../../models/eObservation';

@@ -1,6 +1,6 @@
 import { OfflineProvider } from './../offline/offline';
 import { OfflineSummarySheetProvider } from './offline-summary-sheet';
-import { ConnectivityService } from './../../services/connectivity.service';
+import { ConnectivityService } from '../../services/connectivity/connectivity.service';
 import { Injectable } from '@angular/core';
 import { OnlineSummarySheetProvider } from './online-summary-sheet';
 import { SummarySheet } from '../../models/summarySheet';

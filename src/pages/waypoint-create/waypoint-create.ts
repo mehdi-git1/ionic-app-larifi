@@ -1,6 +1,6 @@
 import { Utils } from '../../common/utils/utils';
 import { OfflineCareerObjectiveProvider } from './../../providers/career-objective/offline-career-objective';
-import { ConnectivityService } from './../../services/connectivity.service';
+import { ConnectivityService } from '../../services/connectivity/connectivity.service';
 import { DateTransformService } from './../../services/date.transform.service';
 import { AppConstant } from './../../app/app.constant';
 import { SecurityProvider } from './../../providers/security/security';

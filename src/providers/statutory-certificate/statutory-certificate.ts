@@ -1,6 +1,6 @@
 import { OfflineStatutoryCertificateProvider } from './offline-statutory-certificate';
 import { OnlineStatutoryCertificateProvider } from './online-statutory-certificate';
-import { ConnectivityService } from './../../services/connectivity.service';
+import { ConnectivityService } from '../../services/connectivity/connectivity.service';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { StatutoryCertificate } from '../../models/statutoryCertificate';

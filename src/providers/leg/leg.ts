@@ -3,7 +3,7 @@ import { OnlineLegProvider } from './online-leg';
 import { OfflineLegProvider } from './offline-leg';
 import { Leg } from './../../models/leg';
 import { Injectable } from '@angular/core';
-import { ConnectivityService } from './../../services/connectivity.service';
+import { ConnectivityService } from '../../services/connectivity/connectivity.service';
 import { BaseProvider } from '../base/base.provider';
 
 @Injectable()

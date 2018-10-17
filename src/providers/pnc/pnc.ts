@@ -4,7 +4,7 @@ import { Config } from './../../configuration/environment-variables/config';
 import { PncFilter } from './../../models/pncFilter';
 import { OnlinePncProvider } from './online-pnc';
 import { OfflinePncProvider } from './../pnc/offline-pnc';
-import { ConnectivityService } from './../../services/connectivity.service';
+import { ConnectivityService } from '../../services/connectivity/connectivity.service';
 import { Rotation } from './../../models/rotation';
 import { Pnc } from './../../models/pnc';
 import { Injectable } from '@angular/core';
