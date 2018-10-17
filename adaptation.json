@@ -1,12 +1,13 @@
 {
     "currentConfigFile": "./src/configuration/environment-variables/config.ts",
     "defaultEnvironment": "dev",
-    "environments": [{
+    "environments": [
+        {
             "name": "prod",
             "configFile": "./src/configuration/environment-variables/prod.ts",
             "appName": "eDossierPNC",
             "appId": "com.airfrance.mobile.inhouse.edospnc",
-            "version": "1.0.2",
+            "version": "1.0.4",
             "provisioningProfile": "355c4509-9ca8-4691-9a59-d8c54b2139e4"
         },
         {
