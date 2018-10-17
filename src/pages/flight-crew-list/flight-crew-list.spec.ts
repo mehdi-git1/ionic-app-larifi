@@ -1,3 +1,4 @@
+import { OnlinePncProvider } from '../../providers/pnc/online-pnc';
 import { OfflinePncProvider } from './../../providers/pnc/offline-pnc';
 import { PncTransformerProvider } from './../../providers/pnc/pnc-transformer';
 import { SessionService } from './../../services/session.service';
@@ -38,9 +39,10 @@ describe('FlightCrewListPage', () => {
                 { provide: ToastProvider },
                 { provide: TranslateService },
                 { provide: PncProvider },
-                { provide: SessionService },
-                { provide: PncTransformerProvider },
                 { provide: OfflinePncProvider },
+                { provide: OnlinePncProvider },
+                { provide: SessionService },
+                { provide: PncTransformerProvider }
             ],
             schemas: [NO_ERRORS_SCHEMA]
         });

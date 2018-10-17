@@ -33,7 +33,7 @@ import { LegTransformerProvider } from './../providers/leg/leg-transformer';
 import { RotationTransformerProvider } from './../providers/rotation/rotation-transformer';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ErrorHandler, NgModule } from '@angular/core';
+import { ErrorHandler, NgModule, CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
 import { DatePipe } from '@angular/common';
 
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
@@ -61,6 +61,7 @@ import { ComponentsModule } from './../components/components.module';
 import { WaypointStatusProvider } from './../providers/waypoint-status/waypoint-status';
 import { HttpErrorInterceptor } from './../interceptor/httpErrorInterceptor';
 import { SessionService } from './../services/session.service';
+import { AuthorizationService } from './../services/authorization.service';
 import { SecurityProvider } from './../providers/security/security';
 import { CareerObjectiveProvider } from './../providers/career-objective/career-objective';
 
@@ -114,6 +115,7 @@ import { StatutoryCertificateProvider } from '../providers/statutory-certificate
 import { OnlineStatutoryCertificateProvider } from '../providers/statutory-certificate/online-statutory-certificate';
 import { StatutoryCertificateTransformerProvider } from './../providers/statutory-certificate/statutory-certificate-transformer';
 import { OfflineStatutoryCertificateProvider } from './../providers/statutory-certificate/offline-statutory-certificate';
+import { DirectivesModule } from '../directives/directives.module';
 
 
 
@@ -153,9 +155,13 @@ declare var window: any;
     SharedModule,
     BrowserAnimationsModule,
     PdfViewerModule,
-    SimpleNotificationsModule.forRoot({ position: ['top', 'right'] })
+    SimpleNotificationsModule.forRoot({ position: ['top', 'right'] }),
+    DirectivesModule
   ],
   bootstrap: [IonicApp],
+  schemas: [
+    CUSTOM_ELEMENTS_SCHEMA
+  ],
   entryComponents: [
     EDossierPNC,
     HomePage,
@@ -197,6 +203,7 @@ declare var window: any;
     DatePipe,
     SecurityProvider,
     SessionService,
+    AuthorizationService,
     WaypointProvider,
     WaypointStatusProvider,
     RotationProvider,

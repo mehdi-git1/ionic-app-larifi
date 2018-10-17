@@ -19,6 +19,7 @@ tab-nav {
 
   .tabs-md .tab-button[aria-selected=false] .icon {  
     @include colorMenu(white, primary);
+    font-weight: normal;
   }
   
   .tabs-md .tab-button[aria-selected=false] {  
@@ -26,11 +27,17 @@ tab-nav {
   }
   
   .tabs-md .tab-button[aria-selected=true] .icon {
-    @include colorMenu(white, grey20);
+    @include colorMenu(primary, grey90);
+    font-weight: bold;
   }
 
   .tabs-md .tab-button[aria-selected=true] {
-    @include colorMenu(white, grey20);
+    @include colorMenu(primary, grey90);
+    font-weight: bold;
+  }
+
+  .tabs-md .tab-button-text[aria-selected=true] {
+    font-weight: bold;
   }
 
   .tabs-ios .tab-button[aria-selected=false] .icon {  
@@ -42,10 +49,10 @@ tab-nav {
   }
   
   .tabs-ios .tab-button[aria-selected=true] .icon {
-    @include colorMenu(white, grey20);
+    @include colorMenu(primary, grey90);
   }
 
   .tabs-ios .tab-button[aria-selected=true] {
-    @include colorMenu(white, grey20);
+    @include colorMenu(primary, grey90);
   }
 }
