@@ -11,7 +11,7 @@ describe('utils', () => {
             expect(Utils.fromStringToObject('{"test": "t\\est"}')).toEqual({ test: 'test' });
         });
 
-        it('should detect if string is not json type and format it ', () => {
+        it('should detect if string is not json type ', () => {
             expect(Utils.fromStringToObject('test: test')).toEqual(null);
         });
 
