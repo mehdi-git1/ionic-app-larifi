@@ -28,7 +28,6 @@ export class PncSearchFilterComponent implements OnInit {
   defaultDivision: string;
   defaultSector: string;
   defaultGinq: string;
-  isDefaultValues: boolean;
   valueAll = AppConstant.ALL;
   pncList: Observable<Pnc[]>;
 
@@ -175,7 +174,6 @@ export class PncSearchFilterComponent implements OnInit {
    * Réinitialise les valeurs des filtres de recherche
    */
   resetFilterValues() {
-    this.isDefaultValues = true;
     this.pncFilter.division = this.defaultDivision ? this.defaultDivision : AppConstant.ALL;
     this.divisionOnchanges();
     this.pncFilter.sector = this.defaultSector ? this.defaultSector : AppConstant.ALL;
@@ -190,7 +188,6 @@ export class PncSearchFilterComponent implements OnInit {
     this.searchForm.get('relayControl').setValue(this.relayList && this.relayList.length === 1 ? this.relayList[0] : AppConstant.ALL);
     this.autoCompleteForm.get('pncMatriculeControl').setValue('');
     this.searchForm.get('prioritizedControl').setValue(false);
-    this.isDefaultValues = false;
     this.search();
   }
 
@@ -325,7 +322,7 @@ export class PncSearchFilterComponent implements OnInit {
    */
   divisionOnchanges() {
     this.searchForm.get('divisionControl').valueChanges.subscribe(val => {
-      if (!this.isDefaultValues) {
+      if (!this.defaultDivision) {
         this.pncFilter.division = val;
       }
       this.getSectorList(this.pncFilter.division);
@@ -337,7 +334,7 @@ export class PncSearchFilterComponent implements OnInit {
    */
   sectorOnchanges() {
     this.searchForm.get('sectorControl').valueChanges.subscribe(val => {
-      if (!this.isDefaultValues) {
+      if (!this.defaultSector) {
         this.pncFilter.sector = val;
       }
       this.getGinqList(this.pncFilter.sector);
@@ -355,7 +352,7 @@ export class PncSearchFilterComponent implements OnInit {
     if (division !== AppConstant.ALL) {
       this.sectorList = Object.keys(this.sessionService.parameters.params['divisions'][division]);
     }
-    if (this.sectorList && this.isDefaultValues) {
+    if (this.sectorList && this.defaultSector) {
       this.pncFilter.sector = this.defaultSector;
       this.searchForm.get('sectorControl').setValue(this.defaultSector);
     } else {
@@ -373,7 +370,7 @@ export class PncSearchFilterComponent implements OnInit {
     if (this.pncFilter.division !== AppConstant.ALL && sector !== '' && sector !== AppConstant.ALL) {
       this.ginqList = this.sessionService.parameters.params['divisions'][this.pncFilter.division][sector];
     }
-    if (this.ginqList && this.isDefaultValues) {
+    if (this.ginqList && this.defaultGinq) {
       this.pncFilter.ginq = this.defaultGinq;
       this.searchForm.get('ginqControl').setValue(this.defaultGinq);
     } else {
@@ -404,7 +401,7 @@ export class PncSearchFilterComponent implements OnInit {
    * @return vrai si c'est le cas, faux sinon
    */
   isMyHome(matricule: string): boolean {
-      return matricule === (this.sessionService.authenticatedUser && this.sessionService.authenticatedUser.matricule);
+    return matricule === (this.sessionService.authenticatedUser && this.sessionService.authenticatedUser.matricule);
   }
   /**
   * Ouvre/ferme le filtre
