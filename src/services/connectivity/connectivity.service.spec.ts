@@ -45,9 +45,9 @@ describe('Connectivity Service', () => {
             }));
         });
         xdescribe('should continu if the connection is KO', () => {
-            beforeEach(() => {
-                restServiceMock.get.and.returnValue(Promise.reject());
-            });
+            /* beforeEach(() => {
+                 restServiceMock.get.and.returnValue(Promise.reject());
+             }); */
             it('should not call the stopPingApi function', fakeAsync(() => {
                 connectivityService.loopPingAPI();
                 flushMicrotasks();
