@@ -2,7 +2,7 @@ import { Utils } from './utils';
 
 describe('utils', () => {
 
-    describe('should verify the fromStringToObject function', () => {
+    describe('verify the fromStringToObject function', () => {
         it('should detect if string is json type and format it ', () => {
             expect(Utils.fromStringToObject('{"test": "test"}')).toEqual({ test: 'test' });
         });
@@ -17,7 +17,7 @@ describe('utils', () => {
 
     });
 
-    describe('should verify the getHashCode function', () => {
+    describe('verify the getHashCode function', () => {
         it('should verify is the return is always a number', () => {
             expect(Utils.getHashCode('{"test": "test"}')).not.toBeNaN();
         });
@@ -27,19 +27,19 @@ describe('utils', () => {
         });
     });
 
-    describe('should verify the getCharactersUnicodeSum function', () => {
+    describe('verify the getCharactersUnicodeSum function', () => {
         it('should the return the number xx for the value azerty', () => {
             expect(Utils.getCharactersUnicodeSum('azerty')).toBe(671);
         });
     });
 
-    describe('should verify the getCharactersUnicodeSum function', () => {
+    describe('verify the getCharactersUnicodeSum function', () => {
         it('should the return the number xx for the value azerty', () => {
             expect(Utils.getCharactersUnicodeSum('azerty')).toBe(671);
         });
     });
 
-    describe('should verify the replaceSpecialCaracters function', () => {
+    describe('verify the replaceSpecialCaracters function', () => {
         it('should the return the string azerty for the value azerty => Test of correct string', () => {
             expect(Utils.replaceSpecialCaracters('azerty')).toBe('azerty');
         });

@@ -44,7 +44,7 @@ describe('Connectivity Service', () => {
                 expect(connectivityService.setConnected).toHaveBeenCalledWith(true);
             }));
         });
-        xdescribe('should continu if the connection is KO', () => {
+        xdescribe('continu if the connection is KO', () => {
             /* beforeEach(() => {
                  restServiceMock.get.and.returnValue(Promise.reject());
              }); */
