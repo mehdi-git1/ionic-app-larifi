@@ -11,7 +11,7 @@ export abstract class BaseProvider {
     }
 
     /**
-     * Récupére le provider nécessaire Online ou Offline
+     * Récupère le provider nécessaire Online ou Offline
      */
     protected get provider() {
         if (this.connectivityService.isConnected()) {
@@ -22,9 +22,9 @@ export abstract class BaseProvider {
     }
 
     /**
-     * Execute la fonction donnée puis gére les retours si probléme
+     * Exécute la fonction donnée puis gère les retours si probléme
      * @param functionName Nom de la fonction
-     * @param param Paramétres éventuels
+     * @param param Paramètres éventuels
      */
     protected execFunctionProvider(functionName: string, ...param: any[]) {
         return this.provider[functionName](param[0], param[1]).then(

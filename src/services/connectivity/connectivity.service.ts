@@ -8,7 +8,7 @@ export class ConnectivityService {
     private connected = true;
     /**
      * La variable timer permet de gérer le timer du pingAPI
-     * Et ainsi de pouvoir le stopper si on récupére le réseau
+     * Et ainsi de pouvoir le stopper si on récupère le réseau
      */
     private timer;
 
