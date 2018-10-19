@@ -148,7 +148,7 @@
             <!-- Barre de boutons -->
             <div class="button-bar-right button-bar">
                 <!-- Bouton sauvegarder objectif en brouillon -->
-                <button ion-button color="blue60" (click)="saveCareerObjectiveDraft()" [disabled]="creationForm.invalid" *ngIf="careerObjectiveStatusProvider.isTransitionOk(careerObjective.careerObjectiveStatus,CareerObjectiveStatus.DRAFT)">
+                <button ion-button color="blue60" (click)="saveCareerObjectiveDraft()" [disabled]="creationForm.invalid" *ngIf="isDraftAndCanBeModified()">
                     <ion-icon name="ios-bookmark-outline" ios="ios-bookmark-outline" margin-right></ion-icon> {{ 'CAREER_OBJECTIVE_CREATE.BUTTONS.SAVE_DRAFT' | translate }}
                 </button>
                 <!-- Bouton supprimer objectif en brouillon -->

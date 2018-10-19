@@ -9,7 +9,6 @@ import {
     NavMock,
     PlatformMock
 } from '../../test-config/mocks-ionic';
-import { IfObservable } from 'rxjs/observable/IfObservable';
 import { CareerObjectiveCreatePage } from './career-objective-create';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { CareerObjectiveProvider } from '../../providers/career-objective/career-objective';
@@ -32,6 +31,7 @@ import { CareerObjectiveStatus } from '../../models/careerObjectiveStatus';
 
 export const MY_MATRICULE: string = '01234';
 const securityProviderMock = jasmine.createSpyObj('securityProviderMock', ['isManager']);
+const careerObjectiveStatusProviderMock = jasmine.createSpyObj('careerObjectiveStatusProviderMock', ['isTransitionOk']);
 const formBuilderMock = jasmine.createSpyObj('formBuilderMock', ['group']);
 const translateServiceMock = jasmine.createSpyObj('translateServiceMock', ['instant']);
 export function createTranslateLoader(http: HttpClient) {
@@ -49,6 +49,9 @@ class SessionServiceMock {
     }
 }
 describe('Page: CareerObjectiveCreatePage', () => {
+
+    let fixture: ComponentFixture<CareerObjectiveCreatePage>;
+    let component: CareerObjectiveCreatePage;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
@@ -73,7 +76,7 @@ describe('Page: CareerObjectiveCreatePage', () => {
                 { provide: CareerObjectiveProvider},
                 { provide: WaypointProvider},
                 { provide: ToastProvider},
-                { provide: CareerObjectiveStatusProvider},
+                { provide: CareerObjectiveStatusProvider, useValue: careerObjectiveStatusProviderMock},
                 { provide: SessionService, useClass: SessionServiceMock},
                 { provide: SecurityProvider, useValue: securityProviderMock},
                 { provide: LoadingController},
@@ -86,48 +89,85 @@ describe('Page: CareerObjectiveCreatePage', () => {
             ],
             schemas: [NO_ERRORS_SCHEMA]
         });
-    });
-        let fixture: ComponentFixture<CareerObjectiveCreatePage>;
-        let component: CareerObjectiveCreatePage;
-
-        beforeEach(() => {
         fixture = TestBed.createComponent(CareerObjectiveCreatePage);
         component = fixture.componentInstance;
     });
 
-    it('User Pnc can delete draft if he is the iniator', () => {
-        expect(component).toBeDefined();
-        securityProviderMock.isManager.and.returnValue(false);
-        component.careerObjective = new CareerObjective();
-        component.careerObjective.careerObjectiveStatus = CareerObjectiveStatus.DRAFT;
-        component.careerObjective.creationAuthor = new Pnc();
-        component.careerObjective.creationAuthor.matricule = MY_MATRICULE;
+    function createDraftCareerObjective(matricule: string): CareerObjective {
+        const careerObjective = new CareerObjective();
+        careerObjective.careerObjectiveStatus = CareerObjectiveStatus.DRAFT;
+        careerObjective.creationAuthor = new Pnc();
+        careerObjective.creationAuthor.matricule = matricule;
+        return careerObjective;
+    }
 
-        const draftAndCanBeDeleted = component.isDraftAndCanBeDeleted();
-        expect(draftAndCanBeDeleted).toBe(true);
+    describe("Check Draft can be deleted", () => {
+        it("Draft should be deleted when User is Pnc and is the iniator", () => {
+            expect(component).toBeDefined();
+            securityProviderMock.isManager.and.returnValue(false);
+            component.careerObjective = createDraftCareerObjective(MY_MATRICULE);
+
+            const draftAndCanBeDeleted = component.isDraftAndCanBeDeleted();
+            expect(draftAndCanBeDeleted).toBe(true);
+        });
+
+        it("Draft shouldn't be deleted when User is Pnc and isn't the iniator", () => {
+            expect(component).toBeDefined();        
+            securityProviderMock.isManager.and.returnValue(false);
+            component.careerObjective = createDraftCareerObjective('OTHER_MATRICULE');
+
+            const draftAndCanBeDeleted = component.isDraftAndCanBeDeleted();
+            expect(draftAndCanBeDeleted).toBe(false);
+        });
+
+        it("Draft should be deleted when User is Manager and isn't the iniator", () => {
+            expect(component).toBeDefined();
+            securityProviderMock.isManager.and.returnValue(true);
+            component.careerObjective = createDraftCareerObjective('OTHER_MATRICULE');
+            const draftAndCanBeDeleted = component.isDraftAndCanBeDeleted();
+            expect(draftAndCanBeDeleted).toBe(true);
+        });
     });
 
-    it('User Pnc can\'t delete draft if he isn\'t the iniator', () => {
-        expect(component).toBeDefined();        
-        securityProviderMock.isManager.and.returnValue(false);
-        component.careerObjective = new CareerObjective();
-        component.careerObjective.careerObjectiveStatus = CareerObjectiveStatus.DRAFT;
-        component.careerObjective.creationAuthor = new Pnc();
-        component.careerObjective.creationAuthor.matricule = 'OTHER_MATRICULE';
+    describe("Draft can be modified", () => {
+        it("Draft should be modified when User is Pnc and is the iniator", () => {
+            expect(component).toBeDefined();
+            securityProviderMock.isManager.and.returnValue(false);
+            careerObjectiveStatusProviderMock.isTransitionOk.and.returnValue(true);
+            component.careerObjective = createDraftCareerObjective(MY_MATRICULE);
 
-        const draftAndCanBeDeleted = component.isDraftAndCanBeDeleted();
-        expect(draftAndCanBeDeleted).toBe(false);
+            const draftAndCanBeModified = component.isDraftAndCanBeModified();
+            expect(draftAndCanBeModified).toBe(true);
+        });
+
+        it("Priority should not be saved as draft when User is Pnc and is the iniator but priority is not draft", () => {
+            expect(component).toBeDefined();
+            securityProviderMock.isManager.and.returnValue(false);
+            careerObjectiveStatusProviderMock.isTransitionOk.and.returnValue(false);
+            component.careerObjective = createDraftCareerObjective(MY_MATRICULE);
+
+            const draftAndCanBeModified = component.isDraftAndCanBeModified();
+            expect(draftAndCanBeModified).toBe(false);
+        });
+
+        it("Draft shouldn't be modified when User is Pnc and isn't the iniator", () => {
+            expect(component).toBeDefined();        
+            securityProviderMock.isManager.and.returnValue(false);
+            careerObjectiveStatusProviderMock.isTransitionOk.and.returnValue(true);
+            component.careerObjective = createDraftCareerObjective('OTHER_MATRICULE');
+
+            const draftAndCanBeModified = component.isDraftAndCanBeModified();
+            expect(draftAndCanBeModified).toBe(false);
+        });
+
+        it("Draft should be modified when User is Manager and isn't the iniator", () => {
+            expect(component).toBeDefined();
+            securityProviderMock.isManager.and.returnValue(true);
+            careerObjectiveStatusProviderMock.isTransitionOk.and.returnValue(true);
+            component.careerObjective = createDraftCareerObjective('OTHER_MATRICULE');
+
+            const draftAndCanBeModified = component.isDraftAndCanBeModified();
+            expect(draftAndCanBeModified).toBe(true);
+        });
     });
-
-    it('User Cadre can delete draft if he isn\'t the iniator', () => {
-        expect(component).toBeDefined();
-        securityProviderMock.isManager.and.returnValue(true);
-        component.careerObjective = new CareerObjective();
-        component.careerObjective.careerObjectiveStatus = CareerObjectiveStatus.DRAFT;
-        component.careerObjective.creationAuthor = new Pnc();
-        component.careerObjective.creationAuthor.matricule = 'OTHER_MATRICULE';
-        const draftAndCanBeDeleted = component.isDraftAndCanBeDeleted();
-        expect(draftAndCanBeDeleted).toBe(true);
-    });
-
 });
