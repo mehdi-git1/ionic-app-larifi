@@ -29,7 +29,7 @@ describe('Service: AuthenticationService', () => {
         authorizationService = new AuthorizationService(sessionServiceMock);
     });
 
-    it('User has right to show impersonnification', () => {
+    it("L'utilisateur a les droits d'impersonnification si il a la permission SHOW_IMPERSONNIFICATION", () => {
 
         const authenticatedUser = new AuthenticatedUser();
         authenticatedUser.permissions = new Array();
@@ -39,7 +39,7 @@ describe('Service: AuthenticationService', () => {
         expect(authorizationService.hasPermission("SHOW_IMPERSONNIFICATION")).toBe(true);
     });
 
-    it('User has no right to show impersonnification', () => {
+    it("L'utilisateur n'a pas les droits d'impersonnification quand il n'a pas la permission SHOW_IMPERSONNIFICATION", () => {
 
         const authenticatedUser = new AuthenticatedUser();
         authenticatedUser.permissions = new Array();
