@@ -1,7 +1,7 @@
 import { isUndefined } from 'ionic-angular/util/util';
 import { DeviceService } from './../services/device.service';
 import { SecurityProvider } from './../providers/security/security';
-import { ConnectivityService } from './../services/connectivity.service';
+import { ConnectivityService } from '../services/connectivity/connectivity.service';
 import { SecMobilService } from './../services/secMobil.service';
 import { Config } from './../configuration/environment-variables/config';
 import { TranslateService } from '@ngx-translate/core';

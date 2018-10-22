@@ -9,7 +9,7 @@ import { SynchronizationProvider } from './../../providers/synchronization/synch
 import { StorageService } from './../../services/storage.service';
 import { AuthenticationPage } from './../authentication/authentication';
 import { SecMobilService } from './../../services/secMobil.service';
-import { ConnectivityService } from './../../services/connectivity.service';
+import { ConnectivityService } from '../../services/connectivity/connectivity.service';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, Events, AlertController } from 'ionic-angular';
 
@@ -118,14 +118,14 @@ export class SettingsPage {
   /**
    * Fonction d'affichage du changement de code pin
    */
-  changePinCode(){
+  changePinCode() {
     this.securityModalService.displayPinPad(PinPadType.askChange);
   }
 
   /**
    * Fonction d'affichage du changement de question / reponse secréte
    */
-  changeSecretQuestion(){
+  changeSecretQuestion() {
     this.securityModalService.displaySecretQuestion(SecretQuestionType.askChange);
   }
 

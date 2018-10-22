@@ -5,7 +5,7 @@ import { FlightCrewListPage } from './../../pages/flight-crew-list/flight-crew-l
 import { RotationProvider } from './../../providers/rotation/rotation';
 import { SynchronizationProvider } from './../../providers/synchronization/synchronization';
 import { ToastProvider } from './../../providers/toast/toast';
-import { ConnectivityService } from '../../services/connectivity.service';
+import { ConnectivityService } from '../../services/connectivity/connectivity.service';
 import { TranslateService } from '@ngx-translate/core';
 import { LegProvider } from './../../providers/leg/leg';
 
