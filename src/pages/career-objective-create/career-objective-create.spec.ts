@@ -101,8 +101,8 @@ describe('Page: CareerObjectiveCreatePage', () => {
         return careerObjective;
     }
 
-    describe("Check Draft can be deleted", () => {
-        it("Draft should be deleted when User is Pnc and is the iniator", () => {
+    describe("Véririer que la proposition peut être supprimée", () => {
+        it("La proposition doit être supprimée si l'utilisateur en est le createur et qu'il est PNC", () => {
             expect(component).toBeDefined();
             securityProviderMock.isManager.and.returnValue(false);
             component.careerObjective = createDraftCareerObjective(MY_MATRICULE);
@@ -111,7 +111,7 @@ describe('Page: CareerObjectiveCreatePage', () => {
             expect(draftAndCanBeDeleted).toBe(true);
         });
 
-        it("Draft shouldn't be deleted when User is Pnc and isn't the iniator", () => {
+        it("La proposition ne doit pas être supprimée si l'utilisateur n'en est pas le créateur et qu'il est PNC", () => {
             expect(component).toBeDefined();        
             securityProviderMock.isManager.and.returnValue(false);
             component.careerObjective = createDraftCareerObjective('OTHER_MATRICULE');
@@ -120,7 +120,7 @@ describe('Page: CareerObjectiveCreatePage', () => {
             expect(draftAndCanBeDeleted).toBe(false);
         });
 
-        it("Draft should be deleted when User is Manager and isn't the iniator", () => {
+        it("La proposition doit être supprimée si l'utilisateur n'en est pas le créateur mais qu'il est Manager", () => {
             expect(component).toBeDefined();
             securityProviderMock.isManager.and.returnValue(true);
             component.careerObjective = createDraftCareerObjective('OTHER_MATRICULE');
@@ -129,8 +129,8 @@ describe('Page: CareerObjectiveCreatePage', () => {
         });
     });
 
-    describe("Draft can be modified", () => {
-        it("Draft should be modified when User is Pnc and is the iniator", () => {
+    describe("Véririer que la proposition peut être modifiée", () => {
+        it("La proposition doit être modifiée si l'utilisateur en est le createur et qu'il est PNC", () => {
             expect(component).toBeDefined();
             securityProviderMock.isManager.and.returnValue(false);
             careerObjectiveStatusProviderMock.isTransitionOk.and.returnValue(true);
@@ -140,7 +140,7 @@ describe('Page: CareerObjectiveCreatePage', () => {
             expect(draftAndCanBeModified).toBe(true);
         });
 
-        it("Priority should not be saved as draft when User is Pnc and is the iniator but priority is not draft", () => {
+        it("La proposition ne doit pas être modifiée si l'utilisateur en est le createur et qu'il est PNC mais que la priorité n'est pas une proposition", () => {
             expect(component).toBeDefined();
             securityProviderMock.isManager.and.returnValue(false);
             careerObjectiveStatusProviderMock.isTransitionOk.and.returnValue(false);
@@ -150,7 +150,7 @@ describe('Page: CareerObjectiveCreatePage', () => {
             expect(draftAndCanBeModified).toBe(false);
         });
 
-        it("Draft shouldn't be modified when User is Pnc and isn't the iniator", () => {
+        it("La proposition ne doit pas être modifiée si l'utilisateur n'en est pas le créateur et qu'il est PNC", () => {
             expect(component).toBeDefined();        
             securityProviderMock.isManager.and.returnValue(false);
             careerObjectiveStatusProviderMock.isTransitionOk.and.returnValue(true);
@@ -160,7 +160,7 @@ describe('Page: CareerObjectiveCreatePage', () => {
             expect(draftAndCanBeModified).toBe(false);
         });
 
-        it("Draft should be modified when User is Manager and isn't the iniator", () => {
+        it("La proposition doit être modifiée si l'utiliseur n'en est pas le créateur mais qu'il est Manager", () => {
             expect(component).toBeDefined();
             securityProviderMock.isManager.and.returnValue(true);
             careerObjectiveStatusProviderMock.isTransitionOk.and.returnValue(true);
