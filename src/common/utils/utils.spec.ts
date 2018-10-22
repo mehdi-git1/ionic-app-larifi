@@ -7,7 +7,7 @@ describe('utils', () => {
             expect(Utils.fromStringToObject('{"test": "test"}')).toEqual({ test: 'test' });
         });
 
-        it('doit tester si le paramètre est una chaine de caractères de type JSON et la formatter en replaçant \\\\ par "" ', () => {
+        it('doit tester si le paramètre est une chaine de caractères de type JSON et la formatter en replaçant \\\\ par "" ', () => {
             expect(Utils.fromStringToObject('{"test": "t\\est"}')).toEqual({ test: 'test' });
         });
 
@@ -28,7 +28,7 @@ describe('utils', () => {
     });
 
     describe('vérification de la fonction getCharactersUnicodeSum', () => {
-        it('doit retourner 671 pour la cheîne azerty', () => {
+        it('doit retourner 671 pour la chaîne azerty', () => {
             expect(Utils.getCharactersUnicodeSum('azerty')).toBe(671);
         });
     });
