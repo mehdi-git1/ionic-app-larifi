@@ -10,6 +10,7 @@ export class AuthenticatedUser extends EDossierPncObject {
     pnc: boolean;
     pinInfo?: PncPin;
     profiles: string[];
+    permissions: string[];
 
     getStorageId(): string {
         return this.matricule;

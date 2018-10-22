@@ -1,6 +1,8 @@
 import { ImpersonatePage } from './../pages/impersonate/impersonate';
 import { StatutoryCertificatePage } from './../pages/statutory-certificate/statutory-certificate';
 import { Utils } from './../common/utils';
+import { File } from '@ionic-native/file';
+import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { EObservationTransformerProvider } from './../providers/e-observation/e-observation-transformer';
 import { OnlineEObservationProvider } from './../providers/e-observation/online-e-observation';
 import { OfflineEObservationProvider } from './../providers/e-observation/offline-e-observation';
@@ -10,7 +12,7 @@ import { DeviceService } from './../services/device.service';
 import { PncPhotoTransformerProvider } from './../providers/pnc-photo/pnc-photo-transformer';
 import { OfflinePncPhotoProvider } from './../providers/pnc-photo/offline-pnc-photo';
 import { OnlinePncPhotoProvider } from './../providers/pnc-photo/online-pnc-photo';
-import { PdfFileViewerPage } from './../pages/pdf-file-viewer/pdf-file-viewer';
+
 import { CrewMemberTransformerProvider } from './../providers/crewMember/crewMember-transformer';
 import { OnlineLegProvider } from './../providers/leg/online-leg';
 import { OfflineLegProvider } from './../providers/leg/offline-leg';
@@ -32,10 +34,8 @@ import { LegTransformerProvider } from './../providers/leg/leg-transformer';
 import { RotationTransformerProvider } from './../providers/rotation/rotation-transformer';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ErrorHandler, NgModule } from '@angular/core';
+import { ErrorHandler, NgModule, CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
 import { DatePipe } from '@angular/common';
-import { TranslateModule } from '@ngx-translate/core';
-import { TranslateLoader } from '@ngx-translate/core';
 
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { IonicStorageModule } from '@ionic/storage';
@@ -62,6 +62,7 @@ import { ComponentsModule } from './../components/components.module';
 import { WaypointStatusProvider } from './../providers/waypoint-status/waypoint-status';
 import { HttpErrorInterceptor } from './../interceptor/httpErrorInterceptor';
 import { SessionService } from './../services/session.service';
+import { AuthorizationService } from './../services/authorization.service';
 import { SecurityProvider } from './../providers/security/security';
 import { CareerObjectiveProvider } from './../providers/career-objective/career-objective';
 
@@ -70,7 +71,6 @@ import { AppInitService } from '../services/appInit.service';
 import { Config } from '../configuration/environment-variables/config';
 
 import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { createTranslateLoader } from '../common/translate/TranslateLoader';
 
 import { ConnectivityService } from './../services/connectivity.service';
 import { RestService } from '../services/rest.base.service';
@@ -116,6 +116,7 @@ import { StatutoryCertificateProvider } from '../providers/statutory-certificate
 import { OnlineStatutoryCertificateProvider } from '../providers/statutory-certificate/online-statutory-certificate';
 import { StatutoryCertificateTransformerProvider } from './../providers/statutory-certificate/statutory-certificate-transformer';
 import { OfflineStatutoryCertificateProvider } from './../providers/statutory-certificate/offline-statutory-certificate';
+import { DirectivesModule } from '../directives/directives.module';
 
 
 
@@ -138,7 +139,6 @@ declare var window: any;
     PncSearchPage,
     HomePage,
     SummarySheetPage,
-    PdfFileViewerPage,
     GenericMessagePage,
     SettingsPage,
     StatutoryCertificatePage
@@ -157,9 +157,13 @@ declare var window: any;
     SharedModule,
     BrowserAnimationsModule,
     PdfViewerModule,
-    SimpleNotificationsModule.forRoot({ position: ['top', 'right'] })
+    SimpleNotificationsModule.forRoot({ position: ['top', 'right'] }),
+    DirectivesModule
   ],
   bootstrap: [IonicApp],
+  schemas: [
+    CUSTOM_ELEMENTS_SCHEMA
+  ],
   entryComponents: [
     EDossierPNC,
     HomePage,
@@ -175,7 +179,6 @@ declare var window: any;
     HelpAssetListPage,
     HomePage,
     SummarySheetPage,
-    PdfFileViewerPage,
     GenericMessagePage,
     SettingsPage,
     StatutoryCertificatePage
@@ -203,6 +206,7 @@ declare var window: any;
     DatePipe,
     SecurityProvider,
     SessionService,
+    AuthorizationService,
     WaypointProvider,
     WaypointStatusProvider,
     RotationProvider,
@@ -252,7 +256,9 @@ declare var window: any;
     StatutoryCertificateProvider,
     OnlineStatutoryCertificateProvider,
     OfflineStatutoryCertificateProvider,
-    StatutoryCertificateTransformerProvider
+    StatutoryCertificateTransformerProvider,
+    InAppBrowser,
+    File
   ]
 })
 export class AppModule { }

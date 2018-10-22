@@ -16,8 +16,10 @@
                 <span [ngClass]="{'no-value' : !pnc?.speciality }">
                     {{ pnc?.speciality }}
                 </span>
-                <span *ngFor="let aircraftSkill of statutoryCertificate.aircraftSkills | reverse" class="plane-qualif">
-                    {{ aircraftSkill }}
+                <span *ngIf="statutoryCertificate">
+                    <span *ngFor="let aircraftSkill of statutoryCertificate.aircraftSkills | reverse" class="plane-qualif">
+                        {{ aircraftSkill }}
+                    </span>
                 </span>
             </div>
         </div>
@@ -26,20 +28,20 @@
                 <mat-expansion-panel-header [expandedHeight]="'48px'">
                     {{ 'STATUTORY_CERTIFICATE.CATEGORIES.GENERALITY_SKILLS' | translate }}
                 </mat-expansion-panel-header>
-                <generality-skills *ngIf="statutoryCertificate" [generalitySkillsData]="statutoryCertificate.generalitySkills"></generality-skills>
+                <generality-skills [generalitySkillsData]="statutoryCertificate?.generalitySkills"></generality-skills>
             </mat-expansion-panel>
             <mat-expansion-panel>
                 <mat-expansion-panel-header [expandedHeight]="'48px'">
                     {{ 'STATUTORY_CERTIFICATE.CATEGORIES.PLANE_SKILLS' | translate }}
                 </mat-expansion-panel-header>
-                <plane-skills *ngIf="statutoryCertificate" [planeSkillsData]="statutoryCertificate.planeSkills"></plane-skills>
+                <plane-skills [planeSkillsData]="statutoryCertificate?.planeSkills"></plane-skills>
             </mat-expansion-panel>
 
             <mat-expansion-panel>
                 <mat-expansion-panel-header [expandedHeight]="'48px'">
                     {{ 'STATUTORY_CERTIFICATE.CATEGORIES.FAMILIARIZATION_FLIGHT' | translate }}
                 </mat-expansion-panel-header>
-                <familiarization-flight *ngIf="statutoryCertificate" [familiarizationFlightData]="statutoryCertificate.familiarizationFlights"></familiarization-flight>
+                <familiarization-flight [familiarizationFlightData]="statutoryCertificate?.familiarizationFlights"></familiarization-flight>
             </mat-expansion-panel>
 
             <mat-expansion-panel *ngIf="statutoryCertificate?.annualElearning">
@@ -49,11 +51,11 @@
                 This the expansion 4 content
             </mat-expansion-panel>
 
-            <mat-expansion-panel *ngIf="statutoryCertificate?.masteringQualification">
+            <mat-expansion-panel>
                 <mat-expansion-panel-header [expandedHeight]="'48px'">
                     {{ 'STATUTORY_CERTIFICATE.CATEGORIES.MASTERING_QUALIFICATION' | translate }}
                 </mat-expansion-panel-header>
-                This the expansion 5 content
+                <mastering-qualification [masteringQualificationData]="statutoryCertificate?.masteringQualification"></mastering-qualification>
             </mat-expansion-panel>
 
             <mat-expansion-panel>

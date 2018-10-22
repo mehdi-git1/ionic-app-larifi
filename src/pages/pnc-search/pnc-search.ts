@@ -151,7 +151,19 @@ export class PncSearchPage implements OnInit {
     openPncHomePage(pnc: Pnc) {
         // Si on va sur un PNC par la recherche, on suprime de la session une enventuelle rotation.
         this.sessionService.appContext.lastConsultedRotation = null;
-        this.navCtrl.push(PncHomePage, { matricule: pnc.matricule });
+        if (this.isMyHome(pnc.matricule)) {
+            this.navCtrl.parent.select(0);
+          } else {
+            this.navCtrl.push(PncHomePage, { matricule: pnc.matricule });
+        }
+    }
+
+    /**
+     * Vérifie que la page courante est la homepage de la personne connectée
+     * @return vrai si c'est le cas, faux sinon
+     */
+    isMyHome(matricule: string): boolean {
+        return matricule === (this.sessionService.authenticatedUser && this.sessionService.authenticatedUser.matricule);
     }
 
     /**

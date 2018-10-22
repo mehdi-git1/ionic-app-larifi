@@ -190,6 +190,9 @@ export class EDossierPNC implements OnInit {
       else {
         this.nav.setRoot(AuthenticationPage);
       }
+    }, error => {
+      this.connectivityService.setConnected(false);
+      this.getAuthenticatedUserFromCache();
     });
     return promise;
   }
@@ -201,7 +204,6 @@ export class EDossierPNC implements OnInit {
   getAuthenticatedUserFromCache(): void {
     this.offlineSecurityProvider.getAuthenticatedUser().then(authenticatedUser => {
       this.sessionService.authenticatedUser = authenticatedUser;
-      // Gestion de l'affchage du pinPad
       if (!this.deviceService.isBrowser()) {
         this.securityModalService.displayPinPad(PinPadType.openingApp);
       }

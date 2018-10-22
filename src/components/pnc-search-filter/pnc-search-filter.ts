@@ -25,6 +25,10 @@ export class PncSearchFilterComponent implements OnInit {
 
   @Output() onSearch: EventEmitter<any> = new EventEmitter();
 
+  defaultDivision: string;
+  defaultSector: string;
+  defaultGinq: string;
+  isDefaultValues: boolean;
   valueAll = AppConstant.ALL;
   pncList: Observable<Pnc[]>;
 
@@ -49,10 +53,10 @@ export class PncSearchFilterComponent implements OnInit {
 
   outOfDivision: boolean;
 
-  // Défini la position top de la liste d'autocomplete
+  // Définit la position top de la liste d'autocomplete
   autoCompleteTopPosition = -1;
 
-  // Défini si une recherche d'autocomplete est en cours
+  // Définit si une recherche d'autocomplete est en cours
   // Permet de gérer l'affichage du spinner de l'autocomplete
   autoCompleteRunning = false;
 
@@ -70,11 +74,12 @@ export class PncSearchFilterComponent implements OnInit {
 
     this.events.subscribe('parameters:ready', () => {
       this.initFilter();
+      this.initForm();
     });
 
     /**
-    * Action lorsque le clavier s'affiche
-    */
+     * Action lorsque le clavier s'affiche
+     */
     this.keyboard.didShow.subscribe(() => {
       this.checkIfAutoCompleteIsOpen();
       if (this.autoCompleteTopPosition != -1) {
@@ -159,15 +164,10 @@ export class PncSearchFilterComponent implements OnInit {
         });
         this.aircraftSkillList = params['aircraftSkills'];
       }
+      this.defaultDivision = params['defaultDivision'];
+      this.defaultSector = params['defaultSector'];
+      this.defaultGinq = params['defaultGinq'];
     }
-
-    this.pncFilter.division = this.divisionList && this.divisionList.length === 1 ? this.divisionList[0] : AppConstant.ALL;
-    this.pncFilter.sector = this.sectorList && this.sectorList.length === 1 ? this.sectorList[0] : AppConstant.ALL;
-    this.pncFilter.ginq = this.ginqList && this.ginqList.length === 1 ? this.ginqList[0] : AppConstant.ALL;
-    this.pncFilter.speciality = this.specialityList && this.specialityList.length === 1 ? this.specialityList[0] : AppConstant.ALL;
-    this.pncFilter.aircraftSkill = this.aircraftSkillList && this.aircraftSkillList.length === 1 ? this.aircraftSkillList[0] : AppConstant.ALL;
-    this.pncFilter.relay = this.relayList && this.relayList.length === 1 ? this.relayList[0] : AppConstant.ALL;
-    this.pncFilter.prioritized = false;
 
   }
 
@@ -175,14 +175,23 @@ export class PncSearchFilterComponent implements OnInit {
    * Réinitialise les valeurs des filtres de recherche
    */
   resetFilterValues() {
-    this.searchForm.get('divisionControl').setValue(this.divisionList && this.divisionList.length === 1 ? this.divisionList[0] : AppConstant.ALL);
-    this.searchForm.get('sectorControl').setValue(this.sectorList && this.sectorList.length === 1 ? this.sectorList[0] : AppConstant.ALL);
-    this.searchForm.get('ginqControl').setValue(this.ginqList && this.ginqList.length === 1 ? this.ginqList[0] : AppConstant.ALL);
+    this.isDefaultValues = true;
+    this.pncFilter.division = this.defaultDivision ? this.defaultDivision : AppConstant.ALL;
+    this.divisionOnchanges();
+    this.pncFilter.sector = this.defaultSector ? this.defaultSector : AppConstant.ALL;
+    this.sectorOnchanges();
+    this.pncFilter.ginq = this.defaultGinq ? this.defaultGinq : AppConstant.ALL;
+    this.pncFilter.speciality = this.specialityList && this.specialityList.length === 1 ? this.specialityList[0] : AppConstant.ALL;
+    this.pncFilter.aircraftSkill = this.aircraftSkillList && this.aircraftSkillList.length === 1 ? this.aircraftSkillList[0] : AppConstant.ALL;
+    this.pncFilter.relay = this.relayList && this.relayList.length === 1 ? this.relayList[0] : AppConstant.ALL;
+    this.searchForm.get('divisionControl').setValue(this.defaultDivision);
     this.searchForm.get('specialityControl').setValue(this.specialityList && this.specialityList.length === 1 ? this.specialityList[0] : AppConstant.ALL);
     this.searchForm.get('aircraftSkillControl').setValue(this.aircraftSkillList && this.aircraftSkillList.length === 1 ? this.aircraftSkillList[0] : AppConstant.ALL);
     this.searchForm.get('relayControl').setValue(this.relayList && this.relayList.length === 1 ? this.relayList[0] : AppConstant.ALL);
     this.autoCompleteForm.get('pncMatriculeControl').setValue('');
     this.searchForm.get('prioritizedControl').setValue(false);
+    this.isDefaultValues = false;
+    this.search();
   }
 
   /**
@@ -190,13 +199,13 @@ export class PncSearchFilterComponent implements OnInit {
    */
   initForm() {
     this.searchForm = this.formBuilder.group({
-      divisionControl: [this.pncFilter.division],
-      sectorControl: [this.pncFilter.sector],
-      ginqControl: [this.pncFilter.ginq],
-      specialityControl: [this.pncFilter.speciality],
-      aircraftSkillControl: [this.pncFilter.aircraftSkill],
-      relayControl: [this.pncFilter.relay],
-      prioritizedControl: [false],
+      divisionControl: [this.pncFilter.division ? this.pncFilter.division : AppConstant.ALL],
+      sectorControl: [this.pncFilter.sector ? this.pncFilter.sector : AppConstant.ALL],
+      ginqControl: [this.pncFilter.ginq ? this.pncFilter.ginq : AppConstant.ALL],
+      specialityControl: [this.pncFilter.speciality ? this.pncFilter.speciality : AppConstant.ALL],
+      aircraftSkillControl: [this.pncFilter.aircraftSkill ? this.pncFilter.aircraftSkill : AppConstant.ALL],
+      relayControl: [this.pncFilter.relay ? this.pncFilter.relay : AppConstant.ALL],
+      prioritizedControl: [false]
     });
     this.autoCompleteForm = this.formBuilder.group({
       pncMatriculeControl: [
@@ -204,18 +213,17 @@ export class PncSearchFilterComponent implements OnInit {
         Validators.compose([Validators.minLength(8), Validators.maxLength(8)])
       ]
     });
-    this.pncMatriculeControl = this.autoCompleteForm.get('pncMatriculeControl');
-
-    this.initAutocompleteList();
-    this.divisionOnchanges();
-    this.sectorOnchanges();
-    this.resetFilterValues();
-    this.formOnChanges();
+    if (this.connectivityService.isConnected()) {
+      this.pncMatriculeControl = this.autoCompleteForm.get('pncMatriculeControl');
+      this.initAutocompleteList();
+      this.resetFilterValues();
+      this.formOnChanges();
+    }
   }
 
   /**
-   * recharge la liste des pnc de l'autocompletion aprés 300ms
-   */
+    * recharge la liste des pnc de l'autocompletion aprés 300ms
+    */
   initAutocompleteList() {
     this.pncList = this.searchTerms
       .debounceTime(300)
@@ -224,15 +232,18 @@ export class PncSearchFilterComponent implements OnInit {
         term => this.getAutoCompleteDataReturn(term)
       )
       .catch(error => {
+        this.autoCompleteRunning = false;
         return Observable.of<Pnc[]>([]);
       });
   }
 
   /**
    * Gére plus finement le retour de l'autocomplete
+   * => Permet de gérer l'affichage du spinner et de forcer la position de l'autocompléte
    * @param term termes à rechercher pour l'autocomplete
+   * @return Liste des pnc retrouvé par l'autocomplete
    */
-  getAutoCompleteDataReturn(term) {
+  getAutoCompleteDataReturn(term: string): Observable<Pnc[]> {
     if (term) {
       return from(this.pncProvider.pncAutoComplete(term).then(
         data => {
@@ -283,7 +294,9 @@ export class PncSearchFilterComponent implements OnInit {
    */
   searchAutoComplete(term: string): void {
     this.checkIfAutoCompleteIsOpen();
-    term = this.utils.replaceSpecialCharacters(term);
+    term = this.utils.replaceSpecialCaracters(term);
+    // On supprime le caractère entré s'il ne convient pas
+    // A savoir si il n'est pas alphanumérique / -  et si la chaine n'est pas vide
     if (!/^[a-zA-Z0-9-]+$/.test(term) && term !== '') {
       this.pncMatriculeControl.setValue(term.substring(0, term.length - 1));
     } else {
@@ -291,13 +304,6 @@ export class PncSearchFilterComponent implements OnInit {
       this.autoCompleteRunning = true;
       this.searchTerms.next(term);
     }
-  }
-
-  /**
-   * Retourne true si une recherche d'autocomplete est en cours
-   */
-  isAutoCompleteRunning() {
-    return this.autoCompleteRunning;
   }
 
   /**
@@ -319,17 +325,21 @@ export class PncSearchFilterComponent implements OnInit {
    */
   divisionOnchanges() {
     this.searchForm.get('divisionControl').valueChanges.subscribe(val => {
-      this.pncFilter.division = val;
+      if (!this.isDefaultValues) {
+        this.pncFilter.division = val;
+      }
       this.getSectorList(this.pncFilter.division);
     });
   }
 
   /**
- * Active le rechargement des ginqs à chaque modification de secteur
- */
+   * Active le rechargement des ginqs à chaque modification de secteur
+   */
   sectorOnchanges() {
     this.searchForm.get('sectorControl').valueChanges.subscribe(val => {
-      this.pncFilter.sector = val;
+      if (!this.isDefaultValues) {
+        this.pncFilter.sector = val;
+      }
       this.getGinqList(this.pncFilter.sector);
     });
   }
@@ -345,13 +355,13 @@ export class PncSearchFilterComponent implements OnInit {
     if (division !== AppConstant.ALL) {
       this.sectorList = Object.keys(this.sessionService.parameters.params['divisions'][division]);
     }
-    if (this.sectorList && this.sectorList.length === 1) {
-      this.pncFilter.sector = this.sectorList[0];
-      this.searchForm.get('sectorControl').setValue(this.sectorList[0]);
+    if (this.sectorList && this.isDefaultValues) {
+      this.pncFilter.sector = this.defaultSector;
+      this.searchForm.get('sectorControl').setValue(this.defaultSector);
     } else {
       this.pncFilter.sector = AppConstant.ALL;
+      this.searchForm.get('sectorControl').setValue(AppConstant.ALL);
     }
-    this.pncFilter.ginq = AppConstant.ALL;
   }
 
   /**
@@ -363,11 +373,12 @@ export class PncSearchFilterComponent implements OnInit {
     if (this.pncFilter.division !== AppConstant.ALL && sector !== '' && sector !== AppConstant.ALL) {
       this.ginqList = this.sessionService.parameters.params['divisions'][this.pncFilter.division][sector];
     }
-    if (this.ginqList && this.ginqList.length === 1) {
-      this.pncFilter.ginq = this.ginqList[0];
-      this.searchForm.get('ginqControl').setValue(this.ginqList[0]);
+    if (this.ginqList && this.isDefaultValues) {
+      this.pncFilter.ginq = this.defaultGinq;
+      this.searchForm.get('ginqControl').setValue(this.defaultGinq);
     } else {
       this.pncFilter.ginq = AppConstant.ALL;
+      this.searchForm.get('ginqControl').setValue(AppConstant.ALL);
     }
   }
 
@@ -380,9 +391,21 @@ export class PncSearchFilterComponent implements OnInit {
     this.initAutocompleteList();
     // Si on va sur un PNC par la recherche, on suprime de la session une enventuelle rotation.
     this.sessionService.appContext.lastConsultedRotation = null;
-    this.navCtrl.push(PncHomePage, { matricule: pnc.matricule });
+    if (this.isMyHome(pnc.matricule)) {
+      this.navCtrl.parent.select(0);
+    } else {
+      this.navCtrl.push(PncHomePage, { matricule: pnc.matricule });
+    }
+
   }
 
+  /**
+   * Vérifie que la page courante est la homepage de la personne connectée
+   * @return vrai si c'est le cas, faux sinon
+   */
+  isMyHome(matricule: string): boolean {
+    return matricule === (this.sessionService.authenticatedUser && this.sessionService.authenticatedUser.matricule);
+  }
   /**
   * Ouvre/ferme le filtre
   */

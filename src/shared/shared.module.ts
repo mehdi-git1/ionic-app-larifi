@@ -35,6 +35,7 @@ export function createTranslateLoader(http: HttpClient) {
         ReversePipe
     ],
     providers: [
+        AppMaterialModule
     ]
 })
 export class SharedModule {
