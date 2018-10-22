@@ -12,48 +12,48 @@ describe('Connectivity Service', () => {
         connectivityService = new ConnectivityService(restServiceMock, new Config());
     });
 
-    describe('setConnected function', () => {
-        it('should verify if the unconnected works', () => {
+    describe('test de la fonction setConnected', () => {
+        it('doit vérifier que la mise en deconnecté fonctionne', () => {
             connectivityService.setConnected(false);
             expect(connectivityService.isConnected()).toBe(false);
         });
 
-        it('should verify if the connected works', () => {
+        it('doit vérifier que la mise en connecté fonctionne', () => {
             connectivityService.setConnected(true);
             expect(connectivityService.isConnected()).toBe(true);
         });
     });
 
-    describe('loopPingAPI function', () => {
+    describe('test de la fonction loopPingAPI', () => {
         beforeEach(() => {
             spyOn(connectivityService, 'stopPingAPI').and.callThrough();
             spyOn(connectivityService, 'setConnected').and.callThrough();
         });
-        describe('stop if the connection is OK', () => {
+        describe('stoppe le ping si la connection est OK', () => {
             beforeEach(() => {
                 restServiceMock.get.and.returnValue(Promise.resolve());
             });
-            it('should call the stopPingApi function', fakeAsync(() => {
+            it('doit appeler la fonction stopPingApi', fakeAsync(() => {
                 connectivityService.loopPingAPI();
                 flush();
                 expect(connectivityService.stopPingAPI).toHaveBeenCalled();
             }));
-            it('should mark as connected', fakeAsync(() => {
+            it('doit marquer la connection à true', fakeAsync(() => {
                 connectivityService.loopPingAPI();
                 flush();
                 expect(connectivityService.setConnected).toHaveBeenCalledWith(true);
             }));
         });
-        xdescribe('continu if the connection is KO', () => {
+        xdescribe('continue le ping si la connexion est KO', () => {
             /* beforeEach(() => {
                  restServiceMock.get.and.returnValue(Promise.reject());
              }); */
-            it('should not call the stopPingApi function', fakeAsync(() => {
+            it('ne doit pas appeler la fonction stopPingAPI', fakeAsync(() => {
                 connectivityService.loopPingAPI();
                 flushMicrotasks();
                 expect(connectivityService.stopPingAPI).not.toHaveBeenCalled();
             }));
-            it('should mark as unconnected', fakeAsync(() => {
+            it('doit marquer la connection à false', fakeAsync(() => {
                 connectivityService.loopPingAPI();
                 flushMicrotasks();
                 expect(connectivityService.setConnected).toHaveBeenCalledWith(false);

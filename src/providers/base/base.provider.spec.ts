@@ -13,13 +13,13 @@ describe('Base Provider', () => {
         baseProvider = new MyClass(connectivityServiceMock, onlineServiceMock, offlineServiceMock);
     });
 
-    describe('Test Online/ Offline return', () => {
-        it('should return onlineProvider when the connection is "on"', () => {
+    describe('Test Online/ Offline', () => {
+        it('doit retourner le onlineProvider quand la connection est OK', () => {
             connectivityServiceMock.isConnected.and.returnValue(true);
             expect(baseProvider.provider).toBe(onlineServiceMock);
         });
 
-        it('should return offlineProvider when the connection is "off"', () => {
+        it('doit retourner le offlineProvider quand la connection est KO', () => {
             connectivityServiceMock.isConnected.and.returnValue(false);
             expect(baseProvider.provider).toBe(offlineServiceMock);
         });
