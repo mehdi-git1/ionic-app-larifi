@@ -44,6 +44,9 @@ describe('Connectivity Service', () => {
                 expect(connectivityService.setConnected).toHaveBeenCalledWith(true);
             }));
         });
+        /* Tests désactivés en attentand de trouver une solution pour
+        * tester le loop de façon propre.
+        */
         xdescribe('continue le ping si la connexion est KO', () => {
             /* beforeEach(() => {
                  restServiceMock.get.and.returnValue(Promise.reject());
