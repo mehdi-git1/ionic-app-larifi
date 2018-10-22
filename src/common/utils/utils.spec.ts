@@ -17,7 +17,7 @@ describe('utils', () => {
 
     });
 
-    describe('vérification de la fonction  getHashCode', () => {
+    describe('vérification de la fonction getHashCode', () => {
         it('doit vérifier que la fonction retourne un nombre', () => {
             expect(Utils.getHashCode('{"test": "test"}')).not.toBeNaN();
         });
