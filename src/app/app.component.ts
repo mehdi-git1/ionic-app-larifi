@@ -142,6 +142,7 @@ export class EDossierPNC implements OnInit {
           if (this.sessionService.getActiveUser().pnc) {
             this.initUserData();
           }
+          this.events.publish('user:authenticationDone');
         });
       });
 

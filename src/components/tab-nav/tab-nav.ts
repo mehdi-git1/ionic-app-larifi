@@ -20,27 +20,9 @@ import { StatutoryCertificatePage } from '../../pages/statutory-certificate/stat
 })
 export class TabNavComponent {
 
-  @Input() pnc: Pnc;
   @Input() navCtrl: Nav;
 
-  _matricule: string;
-
-  @Input()
-  set matricule(matricule: string) {
-    if (matricule) {
-      this.pncProvider.getPnc(matricule).then(pnc => {
-        this._matricule = matricule;
-        this.pnc = pnc;
-        this.pncParams = this.pnc;
-        this.matriculeParams = { matricule: this.pnc.matricule };
-        this.roleParams = { pncRole: Speciality.getPncRole(this.pnc.speciality) };
-        this.navCtrl.popToRoot();
-        }, error => {
-      });
-    }
-  }
-
-  @ViewChild('tabs') tabs: Tabs;
+  pnc: Pnc;
 
   // exporter la classe enum speciality dans la page html
   Speciality = Speciality;
@@ -59,7 +41,21 @@ export class TabNavComponent {
   matriculeParams;
   roleParams;
 
-  constructor(private events: Events, private sessionService: SessionService, private pncProvider: PncProvider, private translate: TranslateService) {
+  constructor(private sessionService: SessionService,
+    private pncProvider: PncProvider,
+    private translate: TranslateService,
+    private events: Events) {
+    this.events.subscribe('user:authenticationDone', () => {
+      if (this.sessionService.getActiveUser() && this.sessionService.getActiveUser().pnc) {
+        this.pncProvider.getPnc(this.sessionService.getActiveUser().matricule).then(pnc => {
+          this.pnc = pnc;
+          this.pncParams = this.pnc;
+          this.matriculeParams = { matricule: this.pnc.matricule };
+          this.roleParams = { pncRole: Speciality.getPncRole(this.pnc.speciality) };
+        }, error => {
+        });
+      }
+    });
   }
 
   /**
