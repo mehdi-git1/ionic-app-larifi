@@ -5,7 +5,7 @@ import { PncHomePage } from './../pnc-home/pnc-home';
 import { PncFilter } from './../../models/pncFilter';
 import { Observable } from 'rxjs/Rx';
 import { ToastProvider } from './../../providers/toast/toast';
-import { ConnectivityService } from './../../services/connectivity.service';
+import { ConnectivityService } from '../../services/connectivity/connectivity.service';
 import { CrewMember } from './../../models/crewMember';
 import { SessionService } from './../../services/session.service';
 import { GenderProvider } from './../../providers/gender/gender';

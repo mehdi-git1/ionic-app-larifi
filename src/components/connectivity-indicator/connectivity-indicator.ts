@@ -1,6 +1,6 @@
 import { DeviceService } from './../../services/device.service';
 import { SynchronizationProvider } from './../../providers/synchronization/synchronization';
-import { ConnectivityService } from './../../services/connectivity.service';
+import { ConnectivityService } from '../../services/connectivity/connectivity.service';
 import { Component } from '@angular/core';
 
 @Component({

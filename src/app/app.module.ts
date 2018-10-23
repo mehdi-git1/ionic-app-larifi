@@ -1,5 +1,5 @@
 import { StatutoryCertificatePage } from './../pages/statutory-certificate/statutory-certificate';
-import { Utils } from './../common/utils';
+import { Utils } from '../common/utils/utils';
 import { File } from '@ionic-native/file';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { EObservationTransformerProvider } from './../providers/e-observation/e-observation-transformer';
@@ -71,7 +71,7 @@ import { Config } from '../configuration/environment-variables/config';
 
 import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
-import { ConnectivityService } from './../services/connectivity.service';
+import { ConnectivityService } from '../services/connectivity/connectivity.service';
 import { RestService } from '../services/rest.base.service';
 import { RestMobileService } from '../services/rest.mobile.service';
 import { RestWebService } from '../services/rest.web.service';

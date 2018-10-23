@@ -2,10 +2,10 @@ import { Injectable } from '@angular/core';
 
 import { OfflineSecurityProvider } from './../security/offline-security';
 import { OnlineSecurityProvider } from './../security/online-security';
-import { ConnectivityService } from './../../services/connectivity.service';
+import { ConnectivityService } from '../../services/connectivity/connectivity.service';
 import { SessionService } from './../../services/session.service';
 import { AuthenticatedUser } from './../../models/authenticatedUser';
-import { BaseProvider } from '../base.provider';
+import { BaseProvider } from '../base/base.provider';
 
 @Injectable()
 export class SecurityProvider extends BaseProvider {
@@ -15,7 +15,7 @@ export class SecurityProvider extends BaseProvider {
     protected connectivityService: ConnectivityService,
     private onlineSecurityProvider: OnlineSecurityProvider,
     private offlineSecurityProvider: OfflineSecurityProvider
-  ){
+  ) {
     super(
       connectivityService,
       onlineSecurityProvider,
@@ -46,7 +46,7 @@ export class SecurityProvider extends BaseProvider {
    * Met à jour les données secrétes de l'utilisateur
    * @return une promesse contenant un void
    */
-  setAuthenticatedSecurityValue(authenticatedUser: AuthenticatedUser): void | Promise<void>{
+  setAuthenticatedSecurityValue(authenticatedUser: AuthenticatedUser): void | Promise<void> {
     return this.execFunctionProvider('setAuthenticatedSecurityValue', authenticatedUser);
   }
 

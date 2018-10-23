@@ -13,7 +13,7 @@ import { PncProvider } from './../../providers/pnc/pnc';
 import { Component } from '@angular/core';
 import { NavController, NavParams, Events } from 'ionic-angular';
 import { Pnc } from '../../models/pnc';
-import { ConnectivityService } from '../../services/connectivity.service';
+import { ConnectivityService } from '../../services/connectivity/connectivity.service';
 import { HelpAssetListPage } from './../help-asset-list/help-asset-list';
 import { PncSearchPage } from './../pnc-search/pnc-search';
 import { StatusBar } from '@ionic-native/status-bar';
