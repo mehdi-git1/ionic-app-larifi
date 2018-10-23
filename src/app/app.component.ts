@@ -1,3 +1,4 @@
+import { PncHomePage } from './../pages/pnc-home/pnc-home';
 import { ImpersonatePage } from './../pages/impersonate/impersonate';
 import { AppInitService } from './../services/appInit.service';
 import { PinPadType } from './../models/pinPadType';
