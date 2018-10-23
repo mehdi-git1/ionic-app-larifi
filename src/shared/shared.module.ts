@@ -1,4 +1,4 @@
-import { ReversePipe } from './../common/pipe/reverse.pipe';
+import { ReversePipe } from '../common/pipe/reverse/reverse.pipe';
 
 import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-translate/core';
 import { NgModule } from '@angular/core';

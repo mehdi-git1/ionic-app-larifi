@@ -2,8 +2,8 @@ import { SessionService } from './../../services/session.service';
 import { SecurityProvider } from './../../providers/security/security';
 import { DeviceService } from './../../services/device.service';
 import { SynchronizationProvider } from './../../providers/synchronization/synchronization';
-import { ConnectivityService } from './../../services/connectivity.service';
-import { NavController } from 'ionic-angular';
+import { ConnectivityService } from '../../services/connectivity/connectivity.service';
+import { NavController, NavParams } from 'ionic-angular';
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { SettingsPage } from '../../pages/settings/settings';
 

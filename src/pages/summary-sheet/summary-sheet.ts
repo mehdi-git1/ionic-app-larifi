@@ -1,4 +1,4 @@
-import { Utils } from './../../common/utils';
+import { Utils } from '../../common/utils/utils';
 import { Component } from '@angular/core';
 import { NavParams, IonicPage } from 'ionic-angular';
 

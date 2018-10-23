@@ -1,11 +1,11 @@
 import { OfflineProvider } from './../offline/offline';
 import { OfflineSummarySheetProvider } from './offline-summary-sheet';
-import { ConnectivityService } from './../../services/connectivity.service';
+import { ConnectivityService } from '../../services/connectivity/connectivity.service';
 import { Injectable } from '@angular/core';
 import { OnlineSummarySheetProvider } from './online-summary-sheet';
 import { SummarySheet } from '../../models/summarySheet';
-import { Utils } from '../../common/utils';
-import { BaseProvider } from '../base.provider';
+import { Utils } from '../../common/utils/utils';
+import { BaseProvider } from '../base/base.provider';
 
 @Injectable()
 export class SummarySheetProvider extends BaseProvider {
@@ -15,7 +15,7 @@ export class SummarySheetProvider extends BaseProvider {
     private onlineSummarySheetProvider: OnlineSummarySheetProvider,
     private offlineSummarySheetProvider: OfflineSummarySheetProvider,
     private offlineProvider: OfflineProvider
-  ){
+  ) {
     super(
       connectivityService,
       onlineSummarySheetProvider,

@@ -1,4 +1,4 @@
-import { Utils } from './../common/utils';
+import { Utils } from '../common/utils/utils';
 import { isUndefined } from 'ionic-angular/util/util';
 import { DeviceService } from './device.service';
 import { Injectable } from '@angular/core';

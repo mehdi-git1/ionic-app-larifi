@@ -1,9 +1,11 @@
+import { OnlinePncProvider } from '../../providers/pnc/online-pnc';
+import { OfflinePncProvider } from './../../providers/pnc/offline-pnc';
 import { PncTransformerProvider } from './../../providers/pnc/pnc-transformer';
 import { SessionService } from './../../services/session.service';
 import { PncProvider } from './../../providers/pnc/pnc';
 import { TranslateService } from '@ngx-translate/core';
 import { ToastProvider } from './../../providers/toast/toast';
-import { ConnectivityService } from './../../services/connectivity.service';
+import { ConnectivityService } from '../../services/connectivity/connectivity.service';
 import { LegProvider } from './../../providers/leg/leg';
 import { GenderProvider } from './../../providers/gender/gender';
 import { IonicModule, Platform, NavController, NavParams } from 'ionic-angular';
@@ -18,8 +20,7 @@ import {
     NavMock,
     PlatformMock
 } from '../../test-config/mocks-ionic';
-import { OfflinePncProvider } from '../../providers/pnc/offline-pnc';
-import { OnlinePncProvider } from '../../providers/pnc/online-pnc';
+
 
 describe('FlightCrewListPage', () => {
     beforeEach(() => {
@@ -32,16 +33,16 @@ describe('FlightCrewListPage', () => {
                 { provide: Platform, useClass: PlatformMock },
                 { provide: NavController, useClass: NavMock },
                 { provide: NavParams, useClass: NavMock },
-                { provide: GenderProvider},
-                { provide: LegProvider},
-                { provide: ConnectivityService},
-                { provide: ToastProvider},
-                { provide: TranslateService},
-                { provide: PncProvider},
-                { provide: OfflinePncProvider},
-                { provide: OnlinePncProvider},
-                { provide: SessionService},
-                { provide: PncTransformerProvider}
+                { provide: GenderProvider },
+                { provide: LegProvider },
+                { provide: ConnectivityService },
+                { provide: ToastProvider },
+                { provide: TranslateService },
+                { provide: PncProvider },
+                { provide: OfflinePncProvider },
+                { provide: OnlinePncProvider },
+                { provide: SessionService },
+                { provide: PncTransformerProvider }
             ],
             schemas: [NO_ERRORS_SCHEMA]
         });

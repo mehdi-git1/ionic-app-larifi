@@ -3,15 +3,15 @@ import { WaypointTransformerProvider } from './waypoint-transformer';
 import { SessionService } from './../../services/session.service';
 import { OnlineWaypointProvider } from './online-waypoint';
 import { OfflineWaypointProvider } from './../waypoint/offline-waypoint';
-import { ConnectivityService } from './../../services/connectivity.service';
+import { ConnectivityService } from '../../services/connectivity/connectivity.service';
 import { Injectable } from '@angular/core';
 import { Waypoint } from './../../models/waypoint';
 import { Pnc } from '../../models/pnc';
-import { BaseProvider } from '../base.provider';
+import { BaseProvider } from '../base/base.provider';
 
 
 @Injectable()
-export class WaypointProvider extends BaseProvider{
+export class WaypointProvider extends BaseProvider {
 
   constructor(
     protected connectivityService: ConnectivityService,

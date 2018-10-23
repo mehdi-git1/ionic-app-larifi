@@ -6,7 +6,7 @@ import { ToastProvider } from './../../providers/toast/toast';
 import { SessionService } from './../../services/session.service';
 import { SynchronizationProvider } from './../../providers/synchronization/synchronization';
 import { StorageService } from './../../services/storage.service';
-import { ConnectivityService } from './../../services/connectivity.service';
+import { ConnectivityService } from '../../services/connectivity/connectivity.service';
 import { Component } from '@angular/core';
 import { NavController, Events, AlertController } from 'ionic-angular';
 
