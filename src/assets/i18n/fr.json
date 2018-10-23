@@ -34,6 +34,7 @@
         "UPCOMING_FLIGHT": "Activité vols",
         "CREW_MEMBERS": "Liste équipage",
         "STATUTORY_CERTIFICATE": "Attestation réglementaire",
+        "STATUTORY_REPORTING": "Suivi réglementaire",
         "UNKNOWN_ERROR": "Suite à un dysfonctionnement technique, l'opération a échoué. Nous vous invitons à réessayer dans quelques minutes. Si le problème persiste, veuillez contacter votre support.",
         "COMING_SOON": "(Prochainement)",
         "MESSAGES": {
@@ -352,5 +353,15 @@
             "CANCEL": "Annuler",
             "CONFIRM": "Confirmer"
         }
+    },
+    "STATUTORY_REPORTING": {
+        "TITLE": "Suivi réglementaire",
+        "HEADER": {
+            "DATE": "Date",
+            "CODE": "Code",
+            "LABEL": "Libellé",
+            "RESULT": "Résultat"
+        }
     }
+
 }

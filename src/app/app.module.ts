@@ -33,7 +33,7 @@ import { LegTransformerProvider } from './../providers/leg/leg-transformer';
 import { RotationTransformerProvider } from './../providers/rotation/rotation-transformer';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ErrorHandler, NgModule, CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
+import { ErrorHandler, NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { DatePipe } from '@angular/common';
 
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
@@ -116,6 +116,7 @@ import { OnlineStatutoryCertificateProvider } from '../providers/statutory-certi
 import { StatutoryCertificateTransformerProvider } from './../providers/statutory-certificate/statutory-certificate-transformer';
 import { OfflineStatutoryCertificateProvider } from './../providers/statutory-certificate/offline-statutory-certificate';
 import { DirectivesModule } from '../directives/directives.module';
+import { StatutoryReportingPage } from '../pages/statutory-reporting/statutory-reporting';
 
 
 
@@ -139,7 +140,8 @@ declare var window: any;
     SummarySheetPage,
     GenericMessagePage,
     SettingsPage,
-    StatutoryCertificatePage
+    StatutoryCertificatePage,
+    StatutoryReportingPage
   ],
   imports: [
     BrowserModule,
@@ -178,7 +180,8 @@ declare var window: any;
     SummarySheetPage,
     GenericMessagePage,
     SettingsPage,
-    StatutoryCertificatePage
+    StatutoryCertificatePage,
+    StatutoryReportingPage
   ],
   providers: [
     StatusBar,

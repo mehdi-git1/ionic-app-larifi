@@ -1,0 +1,32 @@
+<ion-header>
+    <ion-navbar>
+        <page-header [showSettingsIcon]="true">
+            {{ 'STATUTORY_REPORTING.TITLE' | translate }}
+        </page-header>
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+    <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
+    <ng-template #pageBlock>
+        <div class="statutory-reporting-headers">
+            <ion-grid>
+                <ion-row>
+                    <ion-col col-2>
+                        {{ 'STATUTORY_REPORTING.HEADER.DATE' | translate }}
+                    </ion-col>
+                    <ion-col col-2>
+                        {{ 'STATUTORY_REPORTING.HEADER.CODE' | translate }}
+                    </ion-col>
+                    <ion-col col-4>
+                        {{ 'STATUTORY_REPORTING.HEADER.LABEL' | translate }}
+                    </ion-col>
+                    <ion-col col-4>
+                        {{ 'STATUTORY_REPORTING.HEADER.RESULT' | translate }}
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+        </div>
+        <statutory-reporting-stage [stagesList]="stagesList"></statutory-reporting-stage>
+    </ng-template>
+</ion-content>

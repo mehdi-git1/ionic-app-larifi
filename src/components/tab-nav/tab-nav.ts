@@ -1,3 +1,4 @@
+import { StatutoryReportingPage } from './../../pages/statutory-reporting/statutory-reporting';
 import { SessionService } from './../../services/session.service';
 import { PncProvider } from './../../providers/pnc/pnc';
 import { Nav, Events, Tabs } from 'ionic-angular';
@@ -35,7 +36,7 @@ export class TabNavComponent {
         this.matriculeParams = { matricule: this.pnc.matricule };
         this.roleParams = { pncRole: Speciality.getPncRole(this.pnc.speciality) };
         this.navCtrl.popToRoot();
-        }, error => {
+      }, error => {
       });
     }
   }
@@ -53,6 +54,7 @@ export class TabNavComponent {
   upcomingFlightListPage = UpcomingFlightListPage;
   summarySheetPage = SummarySheetPage;
   statutoryCertificatePage = StatutoryCertificatePage;
+  statutoryReportingPage = StatutoryReportingPage;
 
   // Paramètres envoyés aux pages
   pncParams;
@@ -110,6 +112,13 @@ export class TabNavComponent {
    */
   goToStatutoryCertificate() {
     this.navCtrl.push(StatutoryCertificatePage, { matricule: this.pnc.matricule });
+  }
+
+  /**
+   * Dirige vers le suivi réglementaire
+   */
+  goToStatutoryReporting() {
+    this.navCtrl.push(StatutoryReportingPage);
   }
 
 }

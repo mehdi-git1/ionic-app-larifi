@@ -30,6 +30,7 @@ import { MasteringQualificationComponent } from './mastering-qualification/maste
 import { FamiliarizationFlightComponent } from './familiarization-flight/familiarization-flight';
 
 import { TabNavComponent } from './tab-nav/tab-nav';
+import { StatutoryReportingStageComponent } from './statutory-reporting-stage/statutory-reporting-stage';
 
 
 @NgModule({
@@ -61,7 +62,8 @@ import { TabNavComponent } from './tab-nav/tab-nav';
     StatutoryCertificateVamComponent,
     MasteringQualificationComponent,
     FamiliarizationFlightComponent,
-    TabNavComponent
+    TabNavComponent,
+    StatutoryReportingStageComponent
   ],
   exports: [
     RotationCardComponent,
@@ -86,7 +88,8 @@ import { TabNavComponent } from './tab-nav/tab-nav';
     StatutoryCertificateVamComponent,
     MasteringQualificationComponent,
     FamiliarizationFlightComponent,
-    TabNavComponent
+    TabNavComponent,
+    StatutoryReportingStageComponent
   ],
   entryComponents: [
     PinPadModal,
