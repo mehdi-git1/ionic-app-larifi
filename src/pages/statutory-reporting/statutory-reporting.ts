@@ -1,3 +1,8 @@
+import { StatutoryReporting } from './../../models/statutoryReporting/statutory-reporting';
+import { StatutoryReportingProvider } from './../../providers/statutory-reporting/statutory-reporting';
+import { PncProvider } from './../../providers/pnc/pnc';
+import { SessionService } from './../../services/session.service';
+import { Pnc } from './../../models/pnc';
 import { Stage } from './../../models/statutoryReporting/stage';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
@@ -8,15 +13,29 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class StatutoryReportingPage {
 
-  stagesList: Stage[];
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  pnc: Pnc;
+  matricule: string;
+  statutoryReporting: StatutoryReporting;
+  constructor(private navParams: NavParams,
+    private sessionService: SessionService,
+    private pncProvider: PncProvider,
+    private statutoryReportingProvider: StatutoryReportingProvider) {
   }
 
-  ionViewDidLoad() {
-    this.stagesList = [{ date: new Date(), code: 'FPX', label: 'Formation CCP', result: '-' },
-    { date: new Date(), code: 'FPX', label: 'Formation CCP', result: '-' },
-    { date: new Date(), code: 'FPX', label: 'Formation CCP', result: '-' }];
-
+  ionViewDidEnter() {
+    if (this.navParams.get('matricule')) {
+      this.matricule = this.navParams.get('matricule');
+    } else if (this.sessionService.authenticatedUser) {
+      this.matricule = this.sessionService.authenticatedUser.matricule;
+    }
+    if (this.matricule != null) {
+      this.pncProvider.getPnc(this.matricule).then(pnc => {
+        this.pnc = pnc;
+      }, error => { });
+      this.statutoryReportingProvider.getStatutoryReporting(this.matricule).then(statutoryReporting => {
+        this.statutoryReporting = statutoryReporting;
+      }, error => { });
+    }
   }
 
   /**
@@ -24,7 +43,7 @@ export class StatutoryReportingPage {
    * @return true si c'est le cas, false sinon
    */
   loadingIsOver(): boolean {
-    return typeof this.stagesList !== 'undefined';
+    return typeof this.statutoryReporting !== 'undefined';
   }
 
 }

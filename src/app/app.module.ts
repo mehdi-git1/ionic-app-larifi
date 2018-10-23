@@ -1,3 +1,5 @@
+import { OfflineStatutoryReportingProvider } from './../providers/statutory-reporting/offline-statutory-reporting';
+import { OnlineStatutoryReportingProvider } from './../providers/statutory-reporting/online-statutory-reporting';
 import { StatutoryCertificatePage } from './../pages/statutory-certificate/statutory-certificate';
 import { Utils } from '../common/utils/utils';
 import { File } from '@ionic-native/file';
@@ -117,6 +119,7 @@ import { StatutoryCertificateTransformerProvider } from './../providers/statutor
 import { OfflineStatutoryCertificateProvider } from './../providers/statutory-certificate/offline-statutory-certificate';
 import { DirectivesModule } from '../directives/directives.module';
 import { StatutoryReportingPage } from '../pages/statutory-reporting/statutory-reporting';
+import { StatutoryReportingProvider } from '../providers/statutory-reporting/statutory-reporting';
 
 
 
@@ -258,7 +261,10 @@ declare var window: any;
     OfflineStatutoryCertificateProvider,
     StatutoryCertificateTransformerProvider,
     InAppBrowser,
-    File
+    File,
+    StatutoryReportingProvider,
+    OnlineStatutoryReportingProvider,
+    OfflineStatutoryReportingProvider
   ]
 })
 export class AppModule { }

@@ -27,6 +27,9 @@
                 </ion-row>
             </ion-grid>
         </div>
-        <statutory-reporting-stage [stagesList]="stagesList"></statutory-reporting-stage>
+        <statutory-reporting-stage *ngIf="statutoryReporting.stagesList; else noStagesBlock" [stagesList]="statutoryReporting.stagesList"></statutory-reporting-stage>
+        <ng-template #noStagesBlock>
+            <div class="no-data">{{ 'STATUTORY_REPORTING.NO_DATA' | translate }}</div>
+        </ng-template>
     </ng-template>
 </ion-content>
