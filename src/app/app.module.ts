@@ -120,6 +120,7 @@ import { OfflineStatutoryCertificateProvider } from './../providers/statutory-ce
 import { DirectivesModule } from '../directives/directives.module';
 import { StatutoryReportingPage } from '../pages/statutory-reporting/statutory-reporting';
 import { StatutoryReportingProvider } from '../providers/statutory-reporting/statutory-reporting';
+import { StatutoryReportingTransformerProvider } from '../providers/statutory-reporting/statutory-reporting-transformer';
 
 
 
@@ -264,7 +265,8 @@ declare var window: any;
     File,
     StatutoryReportingProvider,
     OnlineStatutoryReportingProvider,
-    OfflineStatutoryReportingProvider
+    OfflineStatutoryReportingProvider,
+    StatutoryReportingTransformerProvider
   ]
 })
 export class AppModule { }

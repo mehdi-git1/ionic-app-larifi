@@ -16,13 +16,6 @@ export class OnlineStatutoryReportingProvider {
      * @return le suivi réglementaire du PNC
      */
     getStatutoryReporting(matricule: string): Promise<StatutoryReporting> {
-        // return this.restService.get(`${this.config.backEndUrl}/statutory_reporting/${matricule}`);
-        return new Promise((resolve, reject) => {
-            const statutoryReporting = new StatutoryReporting();
-            // statutoryReporting.stagesList = [{ date: new Date(), code: 'FPX', label: 'Formation CCP', result: '-' },
-            // { date: new Date(), code: 'FPX', label: 'Formation CCP', result: '-' },
-            // { date: new Date(), code: 'FPX', label: 'Formation CCP', result: '-' }];
-            resolve(statutoryReporting);
-        });
+        return this.restService.get(`${this.config.backEndUrl}/statutory_reporting/${matricule}`);
     }
 }

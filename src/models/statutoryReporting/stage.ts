@@ -1,5 +1,5 @@
 export class Stage {
-    date: Date;
+    startDate: Date;
     code: string;
     label: string;
     result: string;
