@@ -145,12 +145,12 @@ export class HelpAssetListPage {
      */
     getCommunHelpAssets(): HelpAsset[] {
         const helpAsset = new Array(1);
-        const pdfName = 'Objectifs-compiles-CCP-CC-HST-V6.pdf';
+        const pdfName = 'Priorités-compilées-CCP-CC-HST-V7-1er-octobre.pdf';
         helpAsset[0] = new HelpAsset();
         helpAsset[0].url = `${this.pdfUrl}/commun/${pdfName}`;
-        helpAsset[0].label = 'Objectifs compiles CCP, CC, HST V6';
+        helpAsset[0].label = 'Priorités compilées CCP-CC-HST V7';
         helpAsset[0].helpAssetType = HelpAssetType.PDF;
-        helpAsset[0].lastUpdateDate = '2018-07-30T13:11:52Z';
+        helpAsset[0].lastUpdateDate = '2018-10-01T13:11:52Z';
         return helpAsset;
     }
 }
