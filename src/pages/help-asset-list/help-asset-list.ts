@@ -117,7 +117,7 @@ export class HelpAssetListPage {
         helpAsset[2].label = 'Manuel Utilisateur V1';
         helpAsset[2].helpAssetType = HelpAssetType.PDF;
         helpAsset[2].lastUpdateDate = '2018-09-14T10:00:00Z';
-        const pdf4 = 'Mode-opératoire-Journal-de-bord.pdf';
+        const pdf4 = 'Mode-operatoire-Journal-de-bord.pdf';
         helpAsset[3] = new HelpAsset();
         helpAsset[3].url = `${this.pdfUrl}/cadre/${pdf4}`;
         helpAsset[3].label = 'Mode opératoire, Journal de bord';
@@ -145,7 +145,7 @@ export class HelpAssetListPage {
      */
     getCommunHelpAssets(): HelpAsset[] {
         const helpAsset = new Array(1);
-        const pdfName = 'Priorités-compilées-CCP-CC-HST-V7-1er-octobre.pdf';
+        const pdfName = 'Priorites-compilees-CCP-CC-HST-V7-1er-octobre.pdf';
         helpAsset[0] = new HelpAsset();
         helpAsset[0].url = `${this.pdfUrl}/commun/${pdfName}`;
         helpAsset[0].label = 'Priorités compilées CCP-CC-HST V7';
