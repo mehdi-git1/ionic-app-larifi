@@ -9,10 +9,11 @@ import { HelpAssetListPage } from './../../pages/help-asset-list/help-asset-list
 import { CareerObjectiveListPage } from './../../pages/career-objective-list/career-objective-list';
 
 import { Pnc } from './../../models/pnc';
-import { Component, Input, ViewChild } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Speciality } from './../../models/speciality';
 import { TranslateService } from '@ngx-translate/core';
 import { StatutoryCertificatePage } from '../../pages/statutory-certificate/statutory-certificate';
+import { SecurityProvider } from '../../providers/security/security';
 
 @Component({
   selector: 'tab-nav',
@@ -44,7 +45,8 @@ export class TabNavComponent {
   constructor(private sessionService: SessionService,
     private pncProvider: PncProvider,
     private translate: TranslateService,
-    private events: Events) {
+    private events: Events,
+    public securityProvider: SecurityProvider) {
     this.events.subscribe('user:authenticationDone', () => {
       if (this.sessionService.getActiveUser() && this.sessionService.getActiveUser().pnc) {
         this.pncProvider.getPnc(this.sessionService.getActiveUser().matricule).then(pnc => {
