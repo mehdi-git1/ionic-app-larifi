@@ -44,8 +44,8 @@ export class TabNavComponent {
 
   constructor(private sessionService: SessionService,
     private pncProvider: PncProvider,
-    private translate: TranslateService,
     private events: Events,
+    public translate: TranslateService,
     public securityProvider: SecurityProvider) {
     this.events.subscribe('user:authenticationDone', () => {
       if (this.sessionService.getActiveUser() && this.sessionService.getActiveUser().pnc) {

@@ -8,7 +8,6 @@ import { Subject, Observable } from 'rxjs/Rx';
 import { Component } from '@angular/core';
 import { NavController, Events } from 'ionic-angular';
 import { Pnc } from '../../models/pnc';
-import { SecurityModalService } from '../../services/security.modal.service';
 
 @Component({
   selector: 'page-impersonate',
@@ -107,6 +106,10 @@ export class ImpersonatePage {
       const impersonatedUser = new AuthenticatedUser();
       impersonatedUser.matricule = pnc.matricule;
       this.sessionService.impersonatedUser = impersonatedUser;
+      if (this.navCtrl.parent) {
+        this.navCtrl.parent.select(0);
+        this.navCtrl.setRoot(PncHomePage);
+      }
       this.events.publish('user:authenticated');
       this.impersonatingInProgress = false;
     }, error => {
