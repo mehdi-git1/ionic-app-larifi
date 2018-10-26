@@ -239,8 +239,10 @@ export class WaypointCreatePage {
      * @return le point d'étape à enregistrer avec la date de rencontre transformée
      */
     prepareWaypointBeforeSubmit(waypointToSave: Waypoint): Waypoint {
-        if (waypointToSave.encounterDate) {
+        if (typeof waypointToSave.encounterDate !== 'undefined' && waypointToSave.encounterDate !== '') {
             waypointToSave.encounterDate = this.dateTransformer.transformDateStringToIso8601Format(waypointToSave.encounterDate);
+        } else {
+            delete waypointToSave.encounterDate;
         }
         return waypointToSave;
     }
