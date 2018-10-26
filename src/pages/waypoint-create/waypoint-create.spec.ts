@@ -1,17 +1,14 @@
-import { SessionService } from './../../services/session.service';
-
-import { DeviceService } from './../../services/device.service';
 import { IonicModule, NavController, NavParams, AlertController } from 'ionic-angular';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { TestBed, ComponentFixture, inject } from '@angular/core/testing';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
+import { FormBuilder } from '@angular/forms';
 import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
 
-
+import { AppConstant } from '../../app/app.constant';
 import { NavMock } from '../../test-config/mocks-ionic';
-import { FormBuilder } from '@angular/forms';
 import { OfflineCareerObjectiveProvider } from '../../providers/career-objective/offline-career-objective';
 import { DateTransformService } from '../../services/date.transform.service';
 import { ToastProvider } from '../../providers/toast/toast';
@@ -24,7 +21,8 @@ import { WaypointCreatePage } from './waypoint-create';
 import { OfflineWaypointProvider } from '../../providers/waypoint/offline-waypoint';
 import { WaypointStatusProvider } from '../../providers/waypoint-status/waypoint-status';
 import { Waypoint } from '../../models/waypoint';
-import { AppConstant } from '../../app/app.constant';
+import { SessionService } from './../../services/session.service';
+import { DeviceService } from './../../services/device.service';
 
 
 const translateServiceMock = jasmine.createSpyObj('translateServiceMock', ['instant']);

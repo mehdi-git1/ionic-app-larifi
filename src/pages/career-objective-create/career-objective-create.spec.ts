@@ -1,18 +1,17 @@
-import { SynchronizationProvider } from './../../providers/synchronization/synchronization';
-import { DeviceService } from './../../services/device.service';
 import { IonicModule, NavController, NavParams, AlertController } from 'ionic-angular';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { TestBed, ComponentFixture, inject } from '@angular/core/testing';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
+import { FormBuilder } from '@angular/forms';
 import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
 import { of } from 'rxjs/observable/of';
 
+import { AppConstant } from '../../app/app.constant';
 import { CareerObjectiveCreatePage } from './career-objective-create';
 import { CareerObjective } from '../../models/careerObjective';
 import { NavMock } from '../../test-config/mocks-ionic';
-import { FormBuilder } from '@angular/forms';
 import { OnlineCareerObjectiveProvider } from '../../providers/career-objective/online-career-objective';
 import { OfflineCareerObjectiveProvider } from '../../providers/career-objective/offline-career-objective';
 import { SessionService } from '../../services/session.service';
@@ -25,7 +24,8 @@ import { WaypointProvider } from './../../providers/waypoint/waypoint';
 import { CareerObjectiveTransformerProvider } from './../../providers/career-objective/career-objective-transformer';
 import { ConnectivityService } from './../../services/connectivity/connectivity.service';
 import { CareerObjectiveProvider } from './../../providers/career-objective/career-objective';
-import { AppConstant } from '../../app/app.constant';
+import { SynchronizationProvider } from './../../providers/synchronization/synchronization';
+import { DeviceService } from './../../services/device.service';
 
 
 const translateServiceMock = jasmine.createSpyObj('translateServiceMock', ['instant']);
