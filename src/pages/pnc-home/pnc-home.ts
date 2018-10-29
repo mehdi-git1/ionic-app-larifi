@@ -93,7 +93,7 @@ export class PncHomePage {
      */
     goToHelpAssetList() {
         if (this.isMyHome()) {
-            this.navCtrl.parent.select(3);
+            this.navCtrl.parent.select(5);
         } else {
             this.navCtrl.push(HelpAssetListPage, { pncRole: Speciality.getPncRole(this.pnc.speciality) });
         }
@@ -105,17 +105,10 @@ export class PncHomePage {
 
     goToUpcomingFlightList() {
         if (this.isMyHome()) {
-            this.navCtrl.parent.select(2);
+            this.navCtrl.parent.select(4);
         } else {
             this.navCtrl.push(UpcomingFlightListPage, { matricule: this.matricule });
         }
-    }
-
-    /**
-     * Redirige vers le EDossier du PNC saisi
-     */
-    goToEdossier() {
-        this.navCtrl.push(PncHomePage, { matricule: this.matricule });
     }
 
     /**
@@ -123,7 +116,7 @@ export class PncHomePage {
     */
     goToPncSearch() {
         if (this.isMyHome()) {
-            this.navCtrl.parent.select(1);
+            this.navCtrl.parent.select(3);
         } else {
             this.navCtrl.push(PncSearchPage);
         }
@@ -145,7 +138,7 @@ export class PncHomePage {
      */
     goToStatutoryCertificate() {
         if (this.isMyHome()) {
-            this.navCtrl.parent.select(4);
+            this.navCtrl.parent.select(6);
         } else {
             this.navCtrl.push(StatutoryCertificatePage, { matricule: this.matricule });
         }
