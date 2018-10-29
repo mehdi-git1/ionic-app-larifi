@@ -78,7 +78,7 @@ export class PncProvider extends BaseProvider {
    * @return les pncs concernés
    */
   pncAutoComplete(search: string, byPassImpersonatedUser: boolean = false): Promise<Pnc[]> {
-    return this.restService.get(`${this.pncUrl}/auto_complete`, { search }, null, byPassImpersonatedUser);
+    return this.restService.get(`${this.pncUrl}/auto_complete`, { search }, undefined, byPassImpersonatedUser);
   }
 
 }
