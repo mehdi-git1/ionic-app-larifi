@@ -12,6 +12,7 @@ export class Pnc extends EDossierPncObject {
     gender: Gender;
     speciality: Speciality;
     currentSpeciality: Speciality;
+    operationalSpeciality: Speciality;
     assignment: Assignment;
     relays: Relay[];
     aircraftSkills: string[];

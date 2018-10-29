@@ -1,3 +1,4 @@
+import { Utils } from './../../common/utils';
 import { SummarySheetPage } from './../summary-sheet/summary-sheet';
 import { SynchronizationProvider } from './../../providers/synchronization/synchronization';
 import { TranslateService } from '@ngx-translate/core';
@@ -31,6 +32,7 @@ export class PncHomePage {
     eObservation: EObservation;
     // exporter la classe enum speciality dans la page html
     Speciality = Speciality;
+    pncSpeciality: string;
 
     constructor(public navCtrl: NavController,
         public navParams: NavParams,
@@ -72,6 +74,7 @@ export class PncHomePage {
         if (this.matricule != null) {
             this.pncProvider.getPnc(this.matricule).then(pnc => {
                 this.pnc = pnc;
+                this.pncSpeciality = Utils.getSpecialityFromAdministrativeAndCurrent(pnc);
             }, error => {
             });
         }

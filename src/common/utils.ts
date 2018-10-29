@@ -1,3 +1,5 @@
+import { Pnc } from './../models/pnc';
+import { Speciality } from './../models/speciality';
 export class Utils {
     public static base64ToArrayBuffer(base64: string): ArrayBuffer {
         const binary: string = window.atob(base64);
@@ -58,6 +60,18 @@ export class Utils {
             }
         }
         return hash;
+    }
+
+    public static getSpecialityFromAdministrativeAndCurrent(pnc: Pnc): string {
+        return !pnc.speciality ?
+            pnc.currentSpeciality
+            : !pnc.currentSpeciality ?
+                pnc.speciality === Speciality.STW ? pnc.operationalSpeciality : pnc.speciality
+                : pnc.speciality !== pnc.currentSpeciality ?
+                    (pnc.speciality === Speciality.STW && pnc.currentSpeciality === Speciality.HOT) ?
+                        pnc.currentSpeciality
+                        : pnc.speciality === Speciality.STW ? pnc.operationalSpeciality + '/' + pnc.currentSpeciality : pnc.speciality + '/' + pnc.currentSpeciality
+                    : pnc.currentSpeciality;
     }
 
     /**
