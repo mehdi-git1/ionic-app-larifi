@@ -35,6 +35,7 @@ import { LegTransformerProvider } from './../providers/leg/leg-transformer';
 import { RotationTransformerProvider } from './../providers/rotation/rotation-transformer';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { TooltipsModule } from 'ionic-tooltips';
 import { ErrorHandler, NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { DatePipe } from '@angular/common';
 
@@ -160,6 +161,7 @@ declare var window: any;
     ComponentsModule,
     SharedModule,
     BrowserAnimationsModule,
+    TooltipsModule,
     PdfViewerModule,
     SimpleNotificationsModule.forRoot({ position: ['top', 'right'] }),
     DirectivesModule

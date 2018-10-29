@@ -9,24 +9,25 @@
 <ion-content padding>
     <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
     <ng-template #pageBlock>
-        <div class="statutory-reporting-headers">
-            <ion-grid>
-                <ion-row>
-                    <ion-col col-2>
-                        {{ 'STATUTORY_REPORTING.HEADER.DATE' | translate }}
-                    </ion-col>
-                    <ion-col col-2>
-                        {{ 'STATUTORY_REPORTING.HEADER.CODE' | translate }}
-                    </ion-col>
-                    <ion-col col-4>
-                        {{ 'STATUTORY_REPORTING.HEADER.LABEL' | translate }}
-                    </ion-col>
-                    <ion-col col-4>
-                        {{ 'STATUTORY_REPORTING.HEADER.RESULT' | translate }}
-                    </ion-col>
-                </ion-row>
-            </ion-grid>
-        </div>
+        <ion-grid>
+            <ion-row class="statutory-reporting-headers">
+                <ion-col col-2>
+                    {{ 'STATUTORY_REPORTING.HEADER.DATE' | translate }}
+                </ion-col>
+                <ion-col col-2>
+                    {{ 'STATUTORY_REPORTING.HEADER.CODE' | translate }}
+                </ion-col>
+                <ion-col col-4>
+                    {{ 'STATUTORY_REPORTING.HEADER.LABEL' | translate }}
+                </ion-col>
+                <ion-col col-3>
+                    {{ 'STATUTORY_REPORTING.HEADER.RESULT' | translate }}
+                </ion-col>
+                <ion-col col-1>
+                    <ion-icon name="help" class="round-icon" tooltip="Légende à venir" positionV="bottom"></ion-icon>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
         <statutory-reporting-stage *ngIf="statutoryReporting && statutoryReporting.stagesList; else noStagesBlock" [stagesList]="statutoryReporting.stagesList"></statutory-reporting-stage>
         <ng-template #noStagesBlock>
             <div class="no-data">{{ 'STATUTORY_REPORTING.NO_DATA' | translate }}</div>
