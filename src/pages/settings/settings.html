@@ -8,6 +8,7 @@
 
 
 <ion-content padding>
+    <!-- Paramètres accessibles uniquement en mobile -->
     <ng-container *ngIf="isApp">
         <ion-item>
             <label>{{ 'SETTINGS.INIT_CACHE.LABEL' | translate }}</label>
@@ -36,7 +37,8 @@
             </button>
         </ion-item>
     </ng-container>
-    <ng-container *ngIf="!isApp">
+    <!-- Paramètres accessibles dans les 2 modes (web et mobile) -->
+    <ng-container>
         <ion-item>
             <label>{{ 'SETTINGS.IMPERSONATE_USER.LABEL' | translate }}</label>
             <button ion-fab mini icon-only item-end (click)="impersonateNewUser()" [disabled]="!connected">
