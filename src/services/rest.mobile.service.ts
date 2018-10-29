@@ -14,19 +14,20 @@ export class RestMobileService extends RestService {
     }
 
     public call(request: RestRequest): Promise<any> {
-
+        // On ajoute un header spécial si la fonction d'impersonnification a été utilisée
+        if (!request.byPassImpersonatedUser && this.sessionService.impersonatedUser && this.sessionService.impersonatedUser.matricule) {
+            request.httpHeaders = {
+                'IMPERSONATE': this.sessionService.impersonatedUser.matricule
+            };
+        }
         if (request.method == 'POST' || request.method == 'PUT') {
             if (request.jsonData) {
                 if (!request.httpHeaders) {
                     // En mode mobile, on construit un objet JS classique, attendu par secMobile
-                    request.httpHeaders = {
+                    request.httpHeaders = Object.assign(request.httpHeaders, {
                         'Content-Type': 'application/json',
                         'Accept': '*/*'
-                    };
-                    // On ajoute un header spécial si la fonction d'impersonnification a été utilisée
-                    if (!request.byPassImpersonatedUser && this.sessionService.impersonatedUser && this.sessionService.impersonatedUser.matricule) {
-                        request.httpHeaders.IMPERSONATE = this.sessionService.impersonatedUser.matricule;
-                    }
+                    });
                 }
                 request.jsonData = JSON.stringify(request.jsonData);
             }
