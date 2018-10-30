@@ -41,7 +41,9 @@
                                     <!-- Spécialité-->
                                     <ion-col class="pnc-info">
                                         <label>{{ 'PNC_HOME.INFO_PANEL.FUNCTION' | translate }}</label>
-                                        <span class="value" [ngClass]="{'no-value' : !pnc?.speciality }">{{ pnc.speciality }}</span>
+                                        <span class="value" [ngClass]="{'no-value' : !formatedSpeciality }">
+                                            {{ formatedSpeciality }}
+                                        </span>
                                     </ion-col>
                                     <!-- Division-->
                                     <ion-col class="pnc-info">

@@ -1,16 +1,14 @@
-import { Config } from './../configuration/environment-variables/config';
+import { Config } from '../../configuration/environment-variables/config';
 import { Injectable, Output, EventEmitter } from '@angular/core';
-import { RestService } from './rest.base.service';
-
-declare var window: any;
+import { RestService } from '../rest.base.service';
 
 @Injectable()
 export class ConnectivityService {
 
     private connected = true;
     /**
-     * La variable timer permet de gére le timer du pingAPI
-     * Et ainsi de pouvoir le stopper si on récupére le réseau
+     * La variable timer permet de gérer le timer du pingAPI
+     * Et ainsi de pouvoir le stopper si on récupère le réseau
      */
     private timer;
 

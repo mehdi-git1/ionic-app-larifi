@@ -6,7 +6,8 @@ export enum Speciality {
     CCP = 'CCP',
     CC = 'CC',
     HOT = 'HOT',
-    STW = 'STW'
+    STW = 'STW',
+    SAI = 'SAI'
 }
 
 export namespace Speciality {

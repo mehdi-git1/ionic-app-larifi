@@ -16,6 +16,7 @@ import { IonicPage, NavController, NavParams, Events, AlertController } from 'io
 export class StatutoryCertificatePage {
 
   pnc: Pnc;
+  formatedSpeciality: string;
   matricule: string;
   statutoryCertificate: StatutoryCertificate;
 
@@ -35,6 +36,7 @@ export class StatutoryCertificatePage {
     if (this.matricule != null) {
       this.pncProvider.getPnc(this.matricule).then(pnc => {
         this.pnc = pnc;
+        this.formatedSpeciality = this.pncProvider.getFormatedSpeciality(pnc);
       }, error => { });
       this.statutoryCertificateProvider.getStatutoryCertificate(this.matricule).then(statutoryCertificate => {
         this.statutoryCertificate = statutoryCertificate;

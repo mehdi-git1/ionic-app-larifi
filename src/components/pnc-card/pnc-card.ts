@@ -5,7 +5,7 @@ import { Component, Input, ViewChild } from '@angular/core';
 import { CrewMember } from '../../models/crewMember';
 import { SynchronizationProvider } from './../../providers/synchronization/synchronization';
 import { ToastProvider } from './../../providers/toast/toast';
-import { ConnectivityService } from '../../services/connectivity.service';
+import { ConnectivityService } from '../../services/connectivity/connectivity.service';
 import { TranslateService } from '@ngx-translate/core';
 import { GenderProvider } from './../../providers/gender/gender';
 import { PncProvider } from './../../providers/pnc/pnc';
@@ -19,6 +19,7 @@ import { PncHomePage } from './../../pages/pnc-home/pnc-home';
 export class PncCardComponent {
 
   private crewMember: CrewMember;
+  formatedSpeciality: string;
   @Input() isCrewMember: boolean;
   @Input() disabled: boolean;
   synchroInProgress: boolean;
@@ -39,6 +40,7 @@ export class PncCardComponent {
   @Input()
   set itemMember(val: any) {
     this.crewMember = val;
+    this.formatedSpeciality = this.pncProvider.getFormatedSpeciality(this.crewMember.pnc);
     this.crewMember.pnc.relays.sort((relay: Relay, otherRelay: Relay) => {
       return relay.code > otherRelay.code ? 1 : -1;
     });

@@ -1,5 +1,5 @@
 import { HelpAssetType } from './../../models/helpAssetType';
-import { ConnectivityService } from './../../services/connectivity.service';
+import { ConnectivityService } from '../../services/connectivity/connectivity.service';
 import { DeviceService } from './../../services/device.service';
 import { HelpAssetProvider } from './../../providers/help-asset/help-asset';
 import { HelpAsset } from './../../models/helpAsset';

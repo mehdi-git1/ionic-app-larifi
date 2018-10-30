@@ -3,20 +3,19 @@ import { PinPadType } from './../models/pinPadType';
 import { DeviceService } from './../services/device.service';
 import { GenericMessagePage } from './../pages/generic-message/generic-message';
 import { OfflineSecurityProvider } from './../providers/security/offline-security';
-import { PncHomePage } from './../pages/pnc-home/pnc-home';
 import { AuthenticatedUser } from './../models/authenticatedUser';
 import { ParametersProvider } from './../providers/parameters/parameters';
 import { AuthenticationPage } from './../pages/authentication/authentication';
 import { SynchronizationProvider } from './../providers/synchronization/synchronization';
 import { ToastProvider } from './../providers/toast/toast';
-import { ConnectivityService } from './../services/connectivity.service';
+import { ConnectivityService } from '../services/connectivity/connectivity.service';
 
 import { SessionService } from './../services/session.service';
 import { SecurityProvider } from './../providers/security/security';
 
 import { Component, ViewChild, OnInit } from '@angular/core';
 
-import { Nav, Platform, Events, ModalController } from 'ionic-angular';
+import { Nav, Platform, Events } from 'ionic-angular';
 
 import { StatusBar } from '@ionic-native/status-bar';
 
