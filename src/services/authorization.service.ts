@@ -16,11 +16,14 @@ export class AuthorizationService {
      * @return true si le user a les droits
      */
     hasPermission(permission: string): boolean {
-          if (this.sessionService && this.sessionService.authenticatedUser && this.sessionService.authenticatedUser.permissions && this.sessionService.authenticatedUser.permissions.find(userRight => {
-                    return userRight === permission;
-               })) {
-               return true;
-          }
-          return false;
+        if (!permission) {
+            return false;
+        }
+        if (this.sessionService && this.sessionService.authenticatedUser && this.sessionService.authenticatedUser.permissions && this.sessionService.authenticatedUser.permissions.find(userRight => {
+                return userRight === permission;
+            })) {
+            return true;
+        }
+        return false;
      }
 }
