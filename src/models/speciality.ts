@@ -7,10 +7,6 @@ export enum Speciality {
     CC = 'CC',
     HOT = 'HOT',
     STW = 'STW',
-    CDD = 'CDD',
-    PCB = 'PCB',
-    ALT = 'ALT',
-    STA = 'STA',
     SAI = 'SAI'
 }
 

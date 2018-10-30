@@ -1,5 +1,3 @@
-import { Pnc } from './../models/pnc';
-import { Speciality } from './../models/speciality';
 export class Utils {
     public static base64ToArrayBuffer(base64: string): ArrayBuffer {
         const binary: string = window.atob(base64);
