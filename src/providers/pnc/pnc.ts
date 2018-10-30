@@ -1,3 +1,5 @@
+import { Gender } from './../../models/gender';
+import { Speciality } from './../../models/speciality';
 import { PncSearchCriteria } from './../../models/pnc-search-criteria';
 import { SessionService } from './../../services/session.service';
 import { Config } from './../../configuration/environment-variables/config';
@@ -80,5 +82,25 @@ export class PncProvider extends BaseProvider {
     return this.restService.get(`${this.pncUrl}/auto_complete`, { search });
   }
 
+  /**
+   * Renvoie la spécialité du pnc en fonction de sa spécialité adminitrative et actuelle
+   * @param pnc le pnc concerné
+   * @return la fonction du pnc à afficher
+   */
+  public getFormatedSpeciality(pnc: Pnc): string {
+    if (pnc.speciality) {
+      // si le pnc est une hotesse, en remplace sa spécialité administrative (STW) par HOT
+      pnc.speciality = pnc.speciality === Speciality.STW && pnc.gender === Gender.F ? Speciality.HOT : pnc.speciality;
+      // on teste si la spécialité administrative est égale a la spécialité actuelle
+      if (!pnc.currentSpeciality || (pnc.currentSpeciality && pnc.speciality === pnc.currentSpeciality)) {
+        return pnc.speciality;
+      }
+      // on teste si la spécialité administrative est différente dela spécialité actuelle
+      if (pnc.currentSpeciality && pnc.speciality !== pnc.currentSpeciality) {
+        return pnc.speciality + '/' + pnc.currentSpeciality;
+      }
+    } else {
+      return null;
+    }
+  }
 }
-

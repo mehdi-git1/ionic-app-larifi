@@ -62,18 +62,6 @@ export class Utils {
         return hash;
     }
 
-    public static getSpecialityFromAdministrativeAndCurrent(pnc: Pnc): string {
-        return !pnc.speciality ?
-            pnc.currentSpeciality
-            : !pnc.currentSpeciality ?
-                pnc.speciality === Speciality.STW ? pnc.operationalSpeciality : pnc.speciality
-                : pnc.speciality !== pnc.currentSpeciality ?
-                    (pnc.speciality === Speciality.STW && pnc.currentSpeciality === Speciality.HOT) ?
-                        pnc.currentSpeciality
-                        : pnc.speciality === Speciality.STW ? pnc.operationalSpeciality + '/' + pnc.currentSpeciality : pnc.speciality + '/' + pnc.currentSpeciality
-                    : pnc.currentSpeciality;
-    }
-
     /**
      * Remplacement de tous les caractéres accentués par leurs pendants non accentués
      * @param text texte à traiter

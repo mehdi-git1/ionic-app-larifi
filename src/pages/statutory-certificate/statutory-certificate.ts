@@ -1,4 +1,3 @@
-import { Utils } from './../../common/utils';
 import { TranslateService } from '@ngx-translate/core';
 import { ToastProvider } from './../../providers/toast/toast';
 import { StatutoryCertificate } from './../../models/statutoryCertificate';
@@ -17,7 +16,7 @@ import { IonicPage, NavController, NavParams, Events, AlertController } from 'io
 export class StatutoryCertificatePage {
 
   pnc: Pnc;
-  pncSpeciality: string;
+  formatedSpeciality: string;
   matricule: string;
   statutoryCertificate: StatutoryCertificate;
 
@@ -37,7 +36,7 @@ export class StatutoryCertificatePage {
     if (this.matricule != null) {
       this.pncProvider.getPnc(this.matricule).then(pnc => {
         this.pnc = pnc;
-        this.pncSpeciality = Utils.getSpecialityFromAdministrativeAndCurrent(pnc);
+        this.formatedSpeciality = this.pncProvider.getFormatedSpeciality(pnc);
       }, error => { });
       this.statutoryCertificateProvider.getStatutoryCertificate(this.matricule).then(statutoryCertificate => {
         this.statutoryCertificate = statutoryCertificate;

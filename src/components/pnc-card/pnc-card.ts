@@ -1,4 +1,3 @@
-import { Utils } from './../../common/utils';
 import { Relay } from './../../models/relay';
 import { OfflineIndicatorComponent } from './../offline-indicator/offline-indicator';
 import { Pnc } from './../../models/pnc';
@@ -20,7 +19,7 @@ import { PncHomePage } from './../../pages/pnc-home/pnc-home';
 export class PncCardComponent {
 
   private crewMember: CrewMember;
-  pncSpeciality: string;
+  formatedSpeciality: string;
   @Input() isCrewMember: boolean;
   @Input() disabled: boolean;
   synchroInProgress: boolean;
@@ -41,7 +40,7 @@ export class PncCardComponent {
   @Input()
   set itemMember(val: any) {
     this.crewMember = val;
-    this.pncSpeciality = Utils.getSpecialityFromAdministrativeAndCurrent(this.crewMember.pnc);
+    this.formatedSpeciality = this.pncProvider.getFormatedSpeciality(this.crewMember.pnc);
     this.crewMember.pnc.relays.sort((relay: Relay, otherRelay: Relay) => {
       return relay.code > otherRelay.code ? 1 : -1;
     });

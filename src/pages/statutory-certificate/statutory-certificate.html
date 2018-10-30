@@ -13,8 +13,8 @@
         <div margin-top>
             <h3 class="ss-title">{{ 'STATUTORY_CERTIFICATE.TITLE' | translate }}</h3>
             <div class="fonction-informations">
-                <span [ngClass]="{'no-value' : !pncSpeciality }">
-                    {{ pncSpeciality }}
+                <span [ngClass]="{'no-value' : !formatedSpeciality }">
+                    {{ formatedSpeciality }}
                 </span>
                 <span *ngIf="statutoryCertificate">
                     <span *ngFor="let aircraftSkill of statutoryCertificate.aircraftSkills | reverse" class="plane-qualif">
