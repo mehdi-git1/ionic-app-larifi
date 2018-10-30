@@ -13,6 +13,7 @@ import { Component, Input, ViewChild } from '@angular/core';
 import { Speciality } from './../../models/speciality';
 import { TranslateService } from '@ngx-translate/core';
 import { StatutoryCertificatePage } from '../../pages/statutory-certificate/statutory-certificate';
+import { AuthorizationService } from '../../services/authorization.service';
 
 @Component({
   selector: 'tab-nav',
@@ -59,7 +60,7 @@ export class TabNavComponent {
   matriculeParams;
   roleParams;
 
-  constructor(private events: Events, private sessionService: SessionService, private pncProvider: PncProvider, private translate: TranslateService) {
+  constructor(private events: Events, private sessionService: SessionService, private authorizationService: AuthorizationService,  private pncProvider: PncProvider, private translate: TranslateService) {
   }
 
   /**

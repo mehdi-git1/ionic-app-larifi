@@ -1,6 +1,6 @@
 import { IonicModule } from 'ionic-angular';
 import { DatePipe, CommonModule } from '@angular/common';
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RotationCardComponent } from './rotation-card/rotation-card';
 import { OfflineIndicatorComponent } from './offline-indicator/offline-indicator';
 import { ConnectivityIndicatorComponent } from './connectivity-indicator/connectivity-indicator';
@@ -30,13 +30,15 @@ import { MasteringQualificationComponent } from './mastering-qualification/maste
 import { FamiliarizationFlightComponent } from './familiarization-flight/familiarization-flight';
 
 import { TabNavComponent } from './tab-nav/tab-nav';
+import { DirectivesModule } from '../directives/directives.module';
 
 
 @NgModule({
   imports: [
     CommonModule,
     IonicModule,
-    SharedModule
+    SharedModule,
+    DirectivesModule
   ],
   declarations: [
     RotationCardComponent,
@@ -87,6 +89,9 @@ import { TabNavComponent } from './tab-nav/tab-nav';
     MasteringQualificationComponent,
     FamiliarizationFlightComponent,
     TabNavComponent
+  ],
+  schemas: [
+    CUSTOM_ELEMENTS_SCHEMA
   ],
   entryComponents: [
     PinPadModal,
