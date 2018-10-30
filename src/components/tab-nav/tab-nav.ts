@@ -113,4 +113,8 @@ export class TabNavComponent {
     this.navCtrl.push(StatutoryCertificatePage, { matricule: this.pnc.matricule });
   }
 
+  hasPermissionToViewTab(permission: string): boolean {
+    return this.pnc && this.authorizationService.hasPermission(permission);
+  }
+
 }
