@@ -5,7 +5,7 @@ import { Component, Input, ViewChild } from '@angular/core';
 import { CrewMember } from '../../models/crewMember';
 import { SynchronizationProvider } from './../../providers/synchronization/synchronization';
 import { ToastProvider } from './../../providers/toast/toast';
-import { ConnectivityService } from '../../services/connectivity.service';
+import { ConnectivityService } from '../../services/connectivity/connectivity.service';
 import { TranslateService } from '@ngx-translate/core';
 import { GenderProvider } from './../../providers/gender/gender';
 import { PncProvider } from './../../providers/pnc/pnc';

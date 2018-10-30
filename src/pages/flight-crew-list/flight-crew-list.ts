@@ -1,17 +1,15 @@
 import { OfflinePncProvider } from './../../providers/pnc/offline-pnc';
 import { Speciality } from './../../models/speciality';
-import { TranslateService } from '@ngx-translate/core';
-import { ToastProvider } from './../../providers/toast/toast';
-import { ConnectivityService } from './../../services/connectivity.service';
+
+import { ConnectivityService } from '../../services/connectivity/connectivity.service';
 import { Component } from '@angular/core';
 import { NavController, NavParams, IonicPage } from 'ionic-angular';
-import { PncProvider } from './../../providers/pnc/pnc';
+
 import { SessionService } from './../../services/session.service';
 import { Leg } from './../../models/leg';
 import { PncHomePage } from './../pnc-home/pnc-home';
 import { LegProvider } from './../../providers/leg/leg';
 import { GenderProvider } from './../../providers/gender/gender';
-import { SynchronizationProvider } from './../../providers/synchronization/synchronization';
 
 import { CrewMember } from '../../models/crewMember';
 
@@ -30,9 +28,6 @@ export class FlightCrewListPage {
         public genderProvider: GenderProvider,
         private legProvider: LegProvider,
         public connectivityService: ConnectivityService,
-        private toastProvider: ToastProvider,
-        private translate: TranslateService,
-        private pncProvider: PncProvider,
         private sessionService: SessionService,
         private offlinePncProvider: OfflinePncProvider) {
     }

@@ -1,5 +1,5 @@
 import { DeviceService } from './../../services/device.service';
-import { ConnectivityService } from './../../services/connectivity.service';
+import { ConnectivityService } from '../../services/connectivity/connectivity.service';
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({

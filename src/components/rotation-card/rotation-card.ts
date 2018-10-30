@@ -9,7 +9,7 @@ import { NavParams, NavController } from 'ionic-angular';
 import { RotationProvider } from './../../providers/rotation/rotation';
 import { Rotation } from './../../models/rotation';
 import { Component, Input, ViewChild } from '@angular/core';
-import { ConnectivityService } from '../../services/connectivity.service';
+import { ConnectivityService } from '../../services/connectivity/connectivity.service';
 import { LegProvider } from './../../providers/leg/leg';
 import { CrewMember } from '../../models/crewMember';
 
