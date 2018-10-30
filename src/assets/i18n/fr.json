@@ -249,6 +249,17 @@
         },
         "NO_DATA": "Pas de données disponibles"
     },
+    "STATUTORY_REPORTING": {
+        "TITLE": "Suivi réglementaire",
+        "HEADER": {
+            "DATE": "Date",
+            "CODE": "Code",
+            "LABEL": "Libellé",
+            "RESULT": "Résultat"
+        },
+        "ERROR": "Erreur lors de la récupération du suivi réglementaire pour le matricule {{ matricule }}",
+        "NO_DATA": "Pas de données disponibles"
+    },
     "PNC_SEARCH": {
         "TITLE": "Recherche PNC",
         "CRITERIA": {
@@ -353,17 +364,6 @@
             "CANCEL": "Annuler",
             "CONFIRM": "Confirmer"
         }
-    },
-    "STATUTORY_REPORTING": {
-        "TITLE": "Suivi réglementaire",
-        "HEADER": {
-            "DATE": "Date",
-            "CODE": "Code",
-            "LABEL": "Libellé",
-            "RESULT": "Résultat"
-        },
-        "ERROR": "Erreur lors de la récupération du suivi réglementaire pour le matricule {{ matricule }}",
-        "NO_DATA": "Pas de données disponibles"
     }
 
 }
