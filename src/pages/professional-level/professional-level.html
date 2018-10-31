@@ -1,7 +1,7 @@
 <ion-header>
     <ion-navbar>
         <page-header [showSettingsIcon]="true">
-            {{ 'STATUTORY_REPORTING.TITLE' | translate }}
+            {{ 'PROFESSIONAL_LEVEL.TITLE' | translate }}
         </page-header>
     </ion-navbar>
 </ion-header>
@@ -9,27 +9,27 @@
 <ion-content padding>
     <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
     <ng-template #pageBlock>
-        <div class="statutory-reporting-headers">
+        <div class="professional-level-headers">
             <ion-grid>
                 <ion-row>
                     <ion-col col-2>
-                        {{ 'STATUTORY_REPORTING.HEADER.DATE' | translate }}
+                        {{ 'PROFESSIONAL_LEVEL.HEADER.DATE' | translate }}
                     </ion-col>
                     <ion-col col-2>
-                        {{ 'STATUTORY_REPORTING.HEADER.CODE' | translate }}
+                        {{ 'PROFESSIONAL_LEVEL.HEADER.CODE' | translate }}
                     </ion-col>
                     <ion-col col-4>
-                        {{ 'STATUTORY_REPORTING.HEADER.LABEL' | translate }}
+                        {{ 'PROFESSIONAL_LEVEL.HEADER.LABEL' | translate }}
                     </ion-col>
                     <ion-col col-4>
-                        {{ 'STATUTORY_REPORTING.HEADER.RESULT' | translate }}
+                        {{ 'PROFESSIONAL_LEVEL.HEADER.RESULT' | translate }}
                     </ion-col>
                 </ion-row>
             </ion-grid>
         </div>
-        <statutory-reporting-stage *ngIf="statutoryReporting && statutoryReporting.stagesList; else noStagesBlock" [stagesList]="statutoryReporting.stagesList"></statutory-reporting-stage>
+        <professional-level-stage *ngIf="professionalLevel && professionalLevel.stagesList; else noStagesBlock" [stagesList]="professionalLevel.stagesList"></professional-level-stage>
         <ng-template #noStagesBlock>
-            <div class="no-data">{{ 'STATUTORY_REPORTING.NO_DATA' | translate }}</div>
+            <div class="no-data">{{ 'PROFESSIONAL_LEVEL.NO_DATA' | translate }}</div>
         </ng-template>
     </ng-template>
 </ion-content>

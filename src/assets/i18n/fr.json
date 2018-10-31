@@ -34,7 +34,7 @@
         "UPCOMING_FLIGHT": "Activité vols",
         "CREW_MEMBERS": "Liste équipage",
         "STATUTORY_CERTIFICATE": "Attestation réglementaire",
-        "STATUTORY_REPORTING": "Suivi réglementaire",
+        "PROFESSIONAL_LEVEL": "Suivi réglementaire",
         "UNKNOWN_ERROR": "Suite à un dysfonctionnement technique, l'opération a échoué. Nous vous invitons à réessayer dans quelques minutes. Si le problème persiste, veuillez contacter votre support.",
         "COMING_SOON": "(Prochainement)",
         "MESSAGES": {
@@ -249,8 +249,8 @@
         },
         "NO_DATA": "Pas de données disponibles"
     },
-    "STATUTORY_REPORTING": {
-        "TITLE": "Suivi réglementaire",
+    "PROFESSIONAL_LEVEL": {
+        "TITLE": "Niveau Pro",
         "HEADER": {
             "DATE": "Date",
             "CODE": "Code",

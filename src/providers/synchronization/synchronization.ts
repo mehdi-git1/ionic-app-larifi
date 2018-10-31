@@ -1,4 +1,4 @@
-import { StatutoryReportingTransformerProvider } from './../statutory-reporting/statutory-reporting-transformer';
+import { ProfessionalLevelTransformerProvider } from './../professional-level/professional-level-transformer';
 import { StatutoryCertificateTransformerProvider } from './../statutory-certificate/statutory-certificate-transformer';
 import { StatutoryCertificate } from './../../models/statutoryCertificate';
 import { EObservation } from './../../models/eObservation';
@@ -57,7 +57,7 @@ export class SynchronizationProvider {
     private translateService: TranslateService,
     private careerObjectiveProvider: CareerObjectiveProvider,
     private statutoryCertificateTransformer: StatutoryCertificateTransformerProvider,
-    private statutoryReportingTransformer: StatutoryReportingTransformerProvider) {
+    private professionalLevelTransformer: ProfessionalLevelTransformerProvider) {
   }
 
 
@@ -168,7 +168,7 @@ export class SynchronizationProvider {
       this.storageService.save(Entity.STATUTORY_CERTIFICATE, this.statutoryCertificateTransformer.toStatutoryCertificate(pncSynchroResponse.statutoryCertificate), true);
 
       // Sauvegarde du suivi réglementaire
-      this.storageService.save(Entity.STATUTORY_REPORTING, this.statutoryReportingTransformer.toStatutoryReporting(pncSynchroResponse.statutoryReporting), true);
+      this.storageService.save(Entity.PROFESSIONAL_LEVEL, this.professionalLevelTransformer.toProfessionalLevel(pncSynchroResponse.professionalLevel), true);
 
     }, error => { });
   }
@@ -288,7 +288,7 @@ export class SynchronizationProvider {
     this.storageService.delete(Entity.STATUTORY_CERTIFICATE, pnc.matricule);
 
     // Suppression du suivi réglementaire
-    this.storageService.delete(Entity.STATUTORY_REPORTING, pnc.matricule);
+    this.storageService.delete(Entity.PROFESSIONAL_LEVEL, pnc.matricule);
   }
 
   /**

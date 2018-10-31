@@ -1,12 +1,12 @@
 import { Entity } from './../../models/entity';
-import { StatutoryReporting } from './../../models/statutoryReporting/statutory-reporting';
+import { ProfessionalLevel } from './../../models/professionalLevel/professional-level';
 import { StorageService } from './../../services/storage.service';
 import { Injectable } from '@angular/core';
-import { Stage } from '../../models/statutoryReporting/stage';
+import { Stage } from '../../models/professionalLevel/stage';
 
 
 @Injectable()
-export class OfflineStatutoryReportingProvider {
+export class OfflineProfessionalLevelProvider {
 
     constructor(private storageService: StorageService) {
     }
@@ -16,7 +16,7 @@ export class OfflineStatutoryReportingProvider {
      * @param matricule le matricule du PNC dont on souhaite récupérer le suivi réglementaire
      * @return le suivi réglementaire du PNC
      */
-    getStatutoryReporting(matricule: string): Promise<StatutoryReporting> {
-        return this.storageService.findOneAsync(Entity.STATUTORY_REPORTING, matricule);
+    getProfessionalLevel(matricule: string): Promise<ProfessionalLevel> {
+        return this.storageService.findOneAsync(Entity.PROFESSIONAL_LEVEL, matricule);
     }
 }
