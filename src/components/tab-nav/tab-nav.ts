@@ -13,6 +13,7 @@ import { Component, Input, ViewChild } from '@angular/core';
 import { Speciality } from './../../models/speciality';
 import { TranslateService } from '@ngx-translate/core';
 import { StatutoryCertificatePage } from '../../pages/statutory-certificate/statutory-certificate';
+import { AuthorizationService } from '../../services/authorization.service';
 
 @Component({
   selector: 'tab-nav',
@@ -59,7 +60,7 @@ export class TabNavComponent {
   matriculeParams;
   roleParams;
 
-  constructor(private events: Events, private sessionService: SessionService, private pncProvider: PncProvider, private translate: TranslateService) {
+  constructor(private events: Events, private sessionService: SessionService, private authorizationService: AuthorizationService,  private pncProvider: PncProvider, private translate: TranslateService) {
   }
 
   /**
@@ -110,6 +111,15 @@ export class TabNavComponent {
    */
   goToStatutoryCertificate() {
     this.navCtrl.push(StatutoryCertificatePage, { matricule: this.pnc.matricule });
+  }
+
+  /**
+   * Vérifie si le pnc a une permission
+   * @param permission permission à vérifier
+   * return true si le pnc n'est pas null ou undefined et si il a la permission, sinon false
+   */
+  hasPermissionToViewTab(permission: string): boolean {
+    return this.pnc && this.authorizationService.hasPermission(permission);
   }
 
 }
