@@ -263,6 +263,8 @@ export class CareerObjectiveCreatePage {
     /**
      * Prépare l'objectif avant de l'envoyer au back :
      * Transforme les dates au format iso
+     * ou supprime l'entrée de l'objet si une ou plusieurs dates sont nulles
+     *
      * @param careerObjectiveToSave
      * @return l'objectif à enregistrer avec la date de rencontre transformée
      */

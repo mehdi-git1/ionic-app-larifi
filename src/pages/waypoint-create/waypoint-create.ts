@@ -233,7 +233,8 @@ export class WaypointCreatePage {
 
     /**
      * Prépare le point d'étape avant de l'envoyer au back :
-     * Transforme les dates au format iso
+     * Transforme la date au format iso
+     * ou supprime l'entrée de l'objet si la date est nulle
      *
      * @param waypointToSave le point d'étape à enregistrer
      * @return le point d'étape à enregistrer avec la date de rencontre transformée
