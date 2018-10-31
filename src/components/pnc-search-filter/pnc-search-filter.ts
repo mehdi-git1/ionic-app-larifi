@@ -28,6 +28,7 @@ export class PncSearchFilterComponent implements OnInit {
   defaultDivision: string;
   defaultSector: string;
   defaultGinq: string;
+  defaultValue: Boolean;
   valueAll = AppConstant.ALL;
   pncList: Observable<Pnc[]>;
 
@@ -174,6 +175,7 @@ export class PncSearchFilterComponent implements OnInit {
    * Réinitialise les valeurs des filtres de recherche
    */
   resetFilterValues() {
+    this.defaultValue = true;
     this.pncFilter.division = this.defaultDivision ? this.defaultDivision : AppConstant.ALL;
     this.divisionOnchanges();
     this.pncFilter.sector = this.defaultSector ? this.defaultSector : AppConstant.ALL;
@@ -189,6 +191,7 @@ export class PncSearchFilterComponent implements OnInit {
     this.autoCompleteForm.get('pncMatriculeControl').setValue('');
     this.searchForm.get('prioritizedControl').setValue(false);
     this.search();
+    this.defaultValue = false;
   }
 
   /**
@@ -322,7 +325,7 @@ export class PncSearchFilterComponent implements OnInit {
    */
   divisionOnchanges() {
     this.searchForm.get('divisionControl').valueChanges.subscribe(val => {
-      if (!this.defaultDivision) {
+      if (!this.defaultValue) {
         this.pncFilter.division = val;
       }
       this.getSectorList(this.pncFilter.division);
@@ -334,7 +337,7 @@ export class PncSearchFilterComponent implements OnInit {
    */
   sectorOnchanges() {
     this.searchForm.get('sectorControl').valueChanges.subscribe(val => {
-      if (!this.defaultSector) {
+      if (!this.defaultValue) {
         this.pncFilter.sector = val;
       }
       this.getGinqList(this.pncFilter.sector);
@@ -352,7 +355,7 @@ export class PncSearchFilterComponent implements OnInit {
     if (division !== AppConstant.ALL) {
       this.sectorList = Object.keys(this.sessionService.parameters.params['divisions'][division]);
     }
-    if (this.sectorList && this.defaultSector) {
+    if (this.defaultValue && this.sectorList && this.defaultSector && this.sectorList.find((sector) => sector === this.defaultSector)) {
       this.pncFilter.sector = this.defaultSector;
       this.searchForm.get('sectorControl').setValue(this.defaultSector);
     } else {
@@ -370,7 +373,7 @@ export class PncSearchFilterComponent implements OnInit {
     if (this.pncFilter.division !== AppConstant.ALL && sector !== '' && sector !== AppConstant.ALL) {
       this.ginqList = this.sessionService.parameters.params['divisions'][this.pncFilter.division][sector];
     }
-    if (this.ginqList && this.defaultGinq) {
+    if (this.defaultValue && this.ginqList && this.defaultGinq && this.ginqList.find((ginq) => ginq === this.defaultGinq)) {
       this.pncFilter.ginq = this.defaultGinq;
       this.searchForm.get('ginqControl').setValue(this.defaultGinq);
     } else {
