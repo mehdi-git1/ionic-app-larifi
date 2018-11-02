@@ -1,3 +1,4 @@
+import { AdminHomePage } from './../admin/home/home';
 import { DeviceService } from './../../services/device.service';
 import { SecurityModalService } from './../../services/security.modal.service';
 import { TranslateService } from '@ngx-translate/core';
@@ -41,8 +42,8 @@ export class SettingsPage {
     private alertCtrl: AlertController,
     private securityModalService: SecurityModalService,
     private deviceService: DeviceService,
-    private offlineSecurityProvider: OfflineSecurityProvider
-
+    private offlineSecurityProvider: OfflineSecurityProvider,
+    private navCtrl: NavController
   ) {
     this.connected = this.connectivityService.isConnected();
 
@@ -127,6 +128,13 @@ export class SettingsPage {
    */
   changeSecretQuestion() {
     this.securityModalService.displaySecretQuestion(SecretQuestionType.askChange);
+  }
+
+  /**
+   * Fonction permettant d'aller sur la page d'admin
+   */
+  goToAdminPage() {
+    this.navCtrl.push(AdminHomePage);
   }
 
 }

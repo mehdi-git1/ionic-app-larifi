@@ -345,12 +345,21 @@
         "CHANGE_SECRET_QUESTION": {
             "BUTTON": "Changer la question secrète"
         },
+        "ADMIN_ACCESS": {
+            "BUTTON": "Accéder au mode admin"
+        },
         "CONFIRM_INIT_CACHE": {
             "TITLE": "Vider le cache",
             "MESSAGE": "Attention. Êtes-vous sûr de vouloir vider le cache ?",
             "MESSAGE_UNSYNCHRONIZED_DATA": "Attention. Vider le cache peut entraîner la perte de données non synchronisées.",
             "CANCEL": "Annuler",
             "CONFIRM": "Confirmer"
+        }
+    },
+
+    "ADMIN": {
+        "HOME_PAGE": {
+            "TITLE": "Page d'administration"
         }
     }
 }

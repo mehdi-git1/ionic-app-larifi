@@ -1,3 +1,4 @@
+
 import { StatutoryCertificatePage } from './../pages/statutory-certificate/statutory-certificate';
 import { Utils } from '../common/utils/utils';
 import { File } from '@ionic-native/file';
@@ -33,7 +34,7 @@ import { LegTransformerProvider } from './../providers/leg/leg-transformer';
 import { RotationTransformerProvider } from './../providers/rotation/rotation-transformer';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ErrorHandler, NgModule, CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
+import { ErrorHandler, NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { DatePipe } from '@angular/common';
 
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
@@ -117,6 +118,7 @@ import { StatutoryCertificateTransformerProvider } from './../providers/statutor
 import { OfflineStatutoryCertificateProvider } from './../providers/statutory-certificate/offline-statutory-certificate';
 import { DirectivesModule } from '../directives/directives.module';
 
+import { AdminModule } from './../pages/admin/admin.module';
 
 
 declare var window: any;
@@ -156,7 +158,8 @@ declare var window: any;
     BrowserAnimationsModule,
     PdfViewerModule,
     SimpleNotificationsModule.forRoot({ position: ['top', 'right'] }),
-    DirectivesModule
+    DirectivesModule,
+    AdminModule
   ],
   bootstrap: [IonicApp],
   schemas: [
