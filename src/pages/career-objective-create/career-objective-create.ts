@@ -535,14 +535,13 @@ export class CareerObjectiveCreatePage {
         return this.careerObjective.careerObjectiveStatus === CareerObjectiveStatus.DRAFT && isInitiatorOrCadre;
     }
 
-    
     /**
      * Retourne true si c'est une proposition et qu'elle peut être modifiée par le user connecté
      * @return true si Draft && (CADRE ou auteur de la proposition)
      */
     isDraftAndCanBeModified(): boolean {
         const canBeSavedAsDraft: boolean = this.careerObjectiveStatusProvider.isTransitionOk(this.careerObjective.careerObjectiveStatus, CareerObjectiveStatus.DRAFT);
-        const isInitiatorOrCadre: boolean =  this.securityProvider.isManager() || (this.careerObjective.creationAuthor && (this.careerObjective.creationAuthor.matricule === this.sessionService.authenticatedUser.matricule));
-        return canBeSavedAsDraft && (this.careerObjective.careerObjectiveStatus === CareerObjectiveStatus.DRAFT && isInitiatorOrCadre);
+        const isInitiatorOrCadre: boolean =  this.securityProvider.isManager() || (!this.careerObjective.creationAuthor || (this.careerObjective.creationAuthor.matricule === this.sessionService.authenticatedUser.matricule));
+        return canBeSavedAsDraft && isInitiatorOrCadre && (!this.careerObjective.careerObjectiveStatus || this.careerObjective.careerObjectiveStatus === CareerObjectiveStatus.DRAFT);
     }
 }
