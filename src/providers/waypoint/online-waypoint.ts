@@ -4,7 +4,7 @@ import { OfflineWaypointProvider } from './offline-waypoint';
 import { WaypointTransformerProvider } from './waypoint-transformer';
 import { StorageService } from './../../services/storage.service';
 import { Config } from './../../configuration/environment-variables/config';
-import { RestService } from '../../services/rest.base.service';
+import { RestService } from '../../services/rest/rest.base.service';
 import { Waypoint } from '../../models/waypoint';
 import { Entity } from '../../models/entity';
 import { isUndefined } from 'ionic-angular/util/util';
@@ -41,13 +41,13 @@ export class OnlineWaypointProvider {
   getCareerObjectiveWaypoints(careerObjectiveId: number): Promise<Waypoint[]> {
     return this.restService.get(`${this.waypointUrl}/career_objective/${careerObjectiveId}`)
       .then(onlineCareerObjectiveWaypoints => {
-       return this.offlineWaypointProvider.getCareerObjectiveWaypoints(careerObjectiveId)
+        return this.offlineWaypointProvider.getCareerObjectiveWaypoints(careerObjectiveId)
           .then(offlineCareerObjectiveWaypoints => {
-        const onlineData = this.waypointTransformerProvider.toWaypoints(onlineCareerObjectiveWaypoints);
-        const offlineData = this.waypointTransformerProvider.toWaypoints(offlineCareerObjectiveWaypoints);
-        return (this.addUnsynchronizedOfflineCareerObjectivesToOnline(onlineData, offlineData));
+            const onlineData = this.waypointTransformerProvider.toWaypoints(onlineCareerObjectiveWaypoints);
+            const offlineData = this.waypointTransformerProvider.toWaypoints(offlineCareerObjectiveWaypoints);
+            return (this.addUnsynchronizedOfflineCareerObjectivesToOnline(onlineData, offlineData));
+          });
       });
-    });
   }
 
   /**

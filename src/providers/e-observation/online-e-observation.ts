@@ -2,7 +2,7 @@ import { EObservation } from './../../models/eObservation';
 import { Rotation } from '../../models/rotation';
 import { Config } from './../../configuration/environment-variables/config';
 import { Injectable } from '@angular/core';
-import { RestService } from '../../services/rest.base.service';
+import { RestService } from '../../services/rest/rest.base.service';
 
 @Injectable()
 export class OnlineEObservationProvider {

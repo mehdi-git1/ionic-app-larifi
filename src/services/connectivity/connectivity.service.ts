@@ -1,6 +1,6 @@
 import { Config } from '../../configuration/environment-variables/config';
 import { Injectable, Output, EventEmitter } from '@angular/core';
-import { RestService } from '../rest.base.service';
+import { RestService } from '../rest/rest.base.service';
 
 @Injectable()
 export class ConnectivityService {
