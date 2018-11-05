@@ -19,10 +19,10 @@ describe('ProfessionalLevelProvider', () => {
         it('L\'objet retourné devrait être de type ProfessionalLevel car l\'objet donné en entrée respecte le format de cette classe', () => {
             const object = {
                 matricule: 'plo',
-                stagesList: []
+                stages: []
             };
             const result = professionalLevelTransformerProvider.toProfessionalLevel(object);
-            expect(result.stagesList).toBeDefined();
+            expect(result.stages).toBeDefined();
         });
 
         it('L\'objet retourné ne devrait pas être de type ProfessionalLevel car l\'objet donné en entrée ne respecte pas le format de cette classe', () => {
@@ -31,7 +31,7 @@ describe('ProfessionalLevelProvider', () => {
                 stage: []
             };
             const result = professionalLevelTransformerProvider.toProfessionalLevel(object);
-            expect(result.stagesList).toBeUndefined();
+            expect(result.stages).toBeUndefined();
         });
 
         it('L\'objet retourné devrait être null car l\'objet donné en entrée est null', () => {

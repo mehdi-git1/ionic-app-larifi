@@ -8,6 +8,6 @@ export class ProfessionalLevelStageComponent {
 
   expandedHeight = '48px';
 
-  @Input() stagesList;
+  @Input() stages;
 
 }
