@@ -257,6 +257,15 @@
             "LABEL": "Libellé",
             "RESULT": "Résultat"
         },
+        "MODULE_TYPE": {
+            "PRACTICAL": "Pratique",
+            "THEORICAL": "Théorique"
+        },
+        "MODULE_STATUS": {
+           "SUCCESS": "Réussi",
+           "SUCCESS_WITH_FC": "Réussi avec FC",
+           "FAILED": "Echec"
+        },
         "ERROR": "Erreur lors de la récupération du suivi réglementaire pour le matricule {{ matricule }}",
         "NO_DATA": "Pas de données disponibles"
     },

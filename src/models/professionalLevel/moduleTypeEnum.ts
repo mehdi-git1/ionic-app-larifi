@@ -1,0 +1,4 @@
+enum ModuleTypeEnum {
+    PRACTICAL,
+    THEORICAL
+}

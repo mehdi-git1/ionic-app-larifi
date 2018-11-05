@@ -31,13 +31,16 @@ import { FamiliarizationFlightComponent } from './familiarization-flight/familia
 
 import { TabNavComponent } from './tab-nav/tab-nav';
 import { ProfessionalLevelStageComponent } from './professional-level-stage/professional-level-stage';
+import { PipesModule } from '../pipes/pipes.module';
+import { ModuleCardComponent } from './module-card/module-card';
 
 
 @NgModule({
   imports: [
     CommonModule,
     IonicModule,
-    SharedModule
+    SharedModule,
+    PipesModule
   ],
   declarations: [
     RotationCardComponent,
@@ -63,7 +66,8 @@ import { ProfessionalLevelStageComponent } from './professional-level-stage/prof
     MasteringQualificationComponent,
     FamiliarizationFlightComponent,
     TabNavComponent,
-    ProfessionalLevelStageComponent
+    ProfessionalLevelStageComponent,
+    ModuleCardComponent
   ],
   exports: [
     RotationCardComponent,
@@ -89,7 +93,8 @@ import { ProfessionalLevelStageComponent } from './professional-level-stage/prof
     MasteringQualificationComponent,
     FamiliarizationFlightComponent,
     TabNavComponent,
-    ProfessionalLevelStageComponent
+    ProfessionalLevelStageComponent,
+    ModuleCardComponent
   ],
   entryComponents: [
     PinPadModal,

@@ -1,22 +1,33 @@
 <mat-accordion [multi]=true>
-    <mat-expansion-panel *ngFor="let stage of stages">
+    <mat-expansion-panel *ngFor="let stage of _stages">
         <mat-expansion-panel-header [expandedHeight]="expandedHeight">
             <ion-grid>
                 <ion-row>
                     <ion-col col-2>
                         {{ stage.startDate | date: 'dd/MM/yyyy' }}
                     </ion-col>
-                    <ion-col col-2>
+                    <ion-col col-1>
                         {{ stage.code }}
                     </ion-col>
-                    <ion-col col-4>
+                    <ion-col col-3>
                         {{ stage.label }}
                     </ion-col>
-                    <ion-col col-4>
+                    <ion-col col-3>
+                    </ion-col>
+                    <ion-col col-2>
                         -
+                    </ion-col>
+                    <ion-col col-1>
                     </ion-col>
                 </ion-row>
             </ion-grid>
         </mat-expansion-panel-header>
+        <ion-card class="rotation">
+            <ion-card-content>
+                <ion-grid>
+                    <module-card *ngFor="let module of stage.modules" [module]="module"></module-card>
+                </ion-grid>
+            </ion-card-content>
+        </ion-card>        
     </mat-expansion-panel>
 </mat-accordion>
