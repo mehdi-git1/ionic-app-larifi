@@ -3,16 +3,12 @@ import { DateTransformService } from './../../services/date.transform.service';
 import { SynchronizationProvider } from './../../providers/synchronization/synchronization';
 import { DeviceService } from './../../services/device.service';
 import { OfflineCareerObjectiveProvider } from './../../providers/career-objective/offline-career-objective';
-import { TransformerService } from './../../services/transformer.service';
-import { Entity } from './../../models/entity';
-import { StorageService } from './../../services/storage.service';
 import { OfflinePncProvider } from './../../providers/pnc/offline-pnc';
 import { ConnectivityService } from '../../services/connectivity/connectivity.service';
 import { AppConstant } from './../../app/app.constant';
 import { WaypointStatus } from './../../models/waypointStatus';
 import { SecurityProvider } from './../../providers/security/security';
 import { WaypointProvider } from './../../providers/waypoint/waypoint';
-import { Speciality } from './../../models/speciality';
 import { CareerObjectiveStatusProvider } from './../../providers/career-objective-status/career-objective-status';
 import { ToastProvider } from './../../providers/toast/toast';
 import { CareerObjectiveStatus } from './../../models/careerObjectiveStatus';
@@ -20,8 +16,8 @@ import { TranslateService } from '@ngx-translate/core';
 import { CareerObjectiveProvider } from './../../providers/career-objective/career-objective';
 import { CareerObjective } from './../../models/careerObjective';
 import { Component } from '@angular/core';
-import { NavController, NavParams, AlertController, LoadingController, Loading, IonicPage } from 'ionic-angular';
-import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { NavController, NavParams, AlertController, LoadingController, Loading } from 'ionic-angular';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Pnc } from '../../models/pnc';
 import { Waypoint } from './../../models/waypoint';
 import { WaypointCreatePage } from './../waypoint-create/waypoint-create';
@@ -267,15 +263,21 @@ export class CareerObjectiveCreatePage {
     /**
      * Prépare l'objectif avant de l'envoyer au back :
      * Transforme les dates au format iso
+     * ou supprime l'entrée de l'objet si une ou plusieurs dates sont nulles
+     *
      * @param careerObjectiveToSave
      * @return l'objectif à enregistrer avec la date de rencontre transformée
      */
     prepareCareerObjectiveBeforeSubmit(careerObjectiveToSave: CareerObjective): CareerObjective {
-        if (careerObjectiveToSave.encounterDate !== undefined) {
+        if (typeof careerObjectiveToSave.encounterDate !== 'undefined' && careerObjectiveToSave.encounterDate !== '') {
             careerObjectiveToSave.encounterDate = this.dateTransformer.transformDateStringToIso8601Format(careerObjectiveToSave.encounterDate);
+        } else {
+            delete (careerObjectiveToSave.encounterDate);
         }
-        if (careerObjectiveToSave.nextEncounterDate !== undefined) {
+        if (typeof careerObjectiveToSave.nextEncounterDate !== 'undefined' && careerObjectiveToSave.nextEncounterDate !== '') {
             careerObjectiveToSave.nextEncounterDate = this.dateTransformer.transformDateStringToIso8601Format(careerObjectiveToSave.nextEncounterDate);
+        } else {
+            delete (careerObjectiveToSave.nextEncounterDate);
         }
         return careerObjectiveToSave;
     }
