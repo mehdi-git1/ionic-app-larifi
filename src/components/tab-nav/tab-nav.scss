@@ -1,58 +1,63 @@
 tab-nav {
-  .tabs-ios .tab-button{ 
-    max-width : initial;
-  }
+    .tabs-ios .tab-button {
+        max-width: initial;
+    }
 
-  .tabs-md[tabsLayout=icon-top] .has-icon .tab-button-text {
-    margin-top: 0px;
-    margin-bottom: 4px;
-  }
-  .tabs-ios[tabsLayout=icon-top] .has-icon .tab-button-text {
-    margin-top: 0px;
-    margin-bottom: 4px;
-  }
+    .tabs-md[tabsLayout=icon-top] .has-icon .tab-button-text {
+        margin-top: 0px;
+        margin-bottom: 4px;
+    }
 
-  @mixin colorMenu($color, $background) {
-    color: color($colors, $color) !important;
-    background: color($colors, $background) !important;
-  }
+    .tabs-ios[tabsLayout=icon-top] .has-icon .tab-button-text {
+        margin-top: 0px;
+        margin-bottom: 4px;
+    }
 
-  .tabs-md .tab-button[aria-selected=false] .icon {  
-    @include colorMenu(white, primary);
-    font-weight: normal;
-  }
-  
-  .tabs-md .tab-button[aria-selected=false] {  
-    @include colorMenu(white, primary);
-  }
-  
-  .tabs-md .tab-button[aria-selected=true] .icon {
-    @include colorMenu(primary, grey90);
-    font-weight: bold;
-  }
+    @mixin colorMenu($color, $background) {
+        color: color($colors, $color) !important;
+        background: color($colors, $background) !important;
+    }
 
-  .tabs-md .tab-button[aria-selected=true] {
-    @include colorMenu(primary, grey90);
-    font-weight: bold;
-  }
+    .tabs-md .tab-button[aria-selected=false] .icon {
+        @include colorMenu(white, primary);
+        font-weight: normal;
+    }
 
-  .tabs-md .tab-button-text[aria-selected=true] {
-    font-weight: bold;
-  }
+    .tabs-md .tab-button[aria-selected=false] {
+        @include colorMenu(white, primary);
+    }
 
-  .tabs-ios .tab-button[aria-selected=false] .icon {  
-    @include colorMenu(white, primary);
-  }
-  
-  .tabs-ios .tab-button[aria-selected=false] {  
-    @include colorMenu(white, primary);
-  }
-  
-  .tabs-ios .tab-button[aria-selected=true] .icon {
-    @include colorMenu(primary, grey90);
-  }
+    .tabs-md .tab-button[aria-selected=true] .icon {
+        @include colorMenu(primary, grey90);
+        font-weight: bold;
+    }
 
-  .tabs-ios .tab-button[aria-selected=true] {
-    @include colorMenu(primary, grey90);
-  }
+    .tabs-md .tab-button[aria-selected=true] {
+        @include colorMenu(primary, grey90);
+        font-weight: bold;
+    }
+
+    .tabs-md .tab-button-text[aria-selected=true] {
+        font-weight: bold;
+    }
+
+    .tabs-ios .tab-button[aria-selected=false] .icon {
+        @include colorMenu(white, primary);
+    }
+
+    .tabs-ios .tab-button[aria-selected=false] {
+        @include colorMenu(white, primary);
+    }
+
+    .tabs-ios .tab-button[aria-selected=true] .icon {
+        @include colorMenu(primary, grey90);
+    }
+
+    .tabs-ios .tab-button[aria-selected=true] {
+        @include colorMenu(primary, grey90);
+    }
+
+    .ion-md-briefcase {
+        padding: 6px;
+    }
 }

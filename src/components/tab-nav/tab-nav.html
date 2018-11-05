@@ -6,5 +6,5 @@
     <ion-tab [root]="upcomingFlightListPage" *ngIf="pnc && pnc?.speciality === Speciality.CAD" [tabTitle]="translate.instant('GLOBAL.UPCOMING_FLIGHT')" tabIcon="edospnc-upcomingFlight"></ion-tab>
     <ion-tab [root]="helpAssetListPage" *ngIf="pnc" [rootParams]="roleParams" [tabTitle]="translate.instant('GLOBAL.HELP_CENTER')" tabIcon="edospnc-helpCenter"></ion-tab>
     <ion-tab [root]="statutoryCertificatePage" *ngIf="pnc" [rootParams]="matriculeParams" [tabTitle]="translate.instant('GLOBAL.STATUTORY_CERTIFICATE')" tabIcon="edospnc-statutoryCertificate"></ion-tab>
-    <ion-tab [root]="professionalLevelPage" *ngIf="pnc" [tabTitle]="translate.instant('GLOBAL.PROFESSIONAL_LEVEL')" tabIcon="edospnc-statutoryCertificate"></ion-tab>
+    <ion-tab [root]="professionalLevelPage" *ngIf="pnc" [tabTitle]="translate.instant('GLOBAL.PROFESSIONAL_LEVEL')" tabIcon="md-briefcase"></ion-tab>
 </ion-tabs>
