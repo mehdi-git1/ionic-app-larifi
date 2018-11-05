@@ -6,51 +6,30 @@
     </ion-navbar>
 </ion-header>
 
+
 <ion-content padding>
     <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
     <ng-template #pageBlock>
-<<<<<<< HEAD:src/pages/statutory-reporting/statutory-reporting.html
         <ion-grid>
-            <ion-row class="statutory-reporting-headers">
+            <ion-row class="professional-level-headers">
                 <ion-col col-2>
-                    {{ 'STATUTORY_REPORTING.HEADER.DATE' | translate }}
+                    {{ 'PROFESSIONAL_LEVEL.HEADER.DATE' | translate }}
                 </ion-col>
                 <ion-col col-2>
-                    {{ 'STATUTORY_REPORTING.HEADER.CODE' | translate }}
+                    {{ 'PROFESSIONAL_LEVEL.HEADER.CODE' | translate }}
                 </ion-col>
                 <ion-col col-4>
-                    {{ 'STATUTORY_REPORTING.HEADER.LABEL' | translate }}
+                    {{ 'PROFESSIONAL_LEVEL.HEADER.LABEL' | translate }}
                 </ion-col>
                 <ion-col col-3>
-                    {{ 'STATUTORY_REPORTING.HEADER.RESULT' | translate }}
+                    {{ 'PROFESSIONAL_LEVEL.HEADER.RESULT' | translate }}
                 </ion-col>
                 <ion-col col-1>
                     <ion-icon name="help" class="round-icon" tooltip="{{ 'STATUTORY_REPORTING.HEADER.HELP' | translate }}" mobileEvent="click" positionV="bottom"></ion-icon>
                 </ion-col>
             </ion-row>
         </ion-grid>
-        <statutory-reporting-stage *ngIf="statutoryReporting && statutoryReporting.stagesList; else noStagesBlock" [stagesList]="statutoryReporting.stagesList"></statutory-reporting-stage>
-=======
-        <div class="professional-level-headers">
-            <ion-grid>
-                <ion-row>
-                    <ion-col col-2>
-                        {{ 'PROFESSIONAL_LEVEL.HEADER.DATE' | translate }}
-                    </ion-col>
-                    <ion-col col-2>
-                        {{ 'PROFESSIONAL_LEVEL.HEADER.CODE' | translate }}
-                    </ion-col>
-                    <ion-col col-4>
-                        {{ 'PROFESSIONAL_LEVEL.HEADER.LABEL' | translate }}
-                    </ion-col>
-                    <ion-col col-4>
-                        {{ 'PROFESSIONAL_LEVEL.HEADER.RESULT' | translate }}
-                    </ion-col>
-                </ion-row>
-            </ion-grid>
-        </div>
         <professional-level-stage *ngIf="professionalLevel && professionalLevel.stagesList; else noStagesBlock" [stagesList]="professionalLevel.stagesList"></professional-level-stage>
->>>>>>> feature/EDOSPNC-405:src/pages/professional-level/professional-level.html
         <ng-template #noStagesBlock>
             <div class="no-data">{{ 'PROFESSIONAL_LEVEL.NO_DATA' | translate }}</div>
         </ng-template>

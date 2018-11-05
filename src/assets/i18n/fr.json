@@ -364,7 +364,6 @@
             "CANCEL": "Annuler",
             "CONFIRM": "Confirmer"
         }
-<<<<<<< HEAD
     },
     "STATUTORY_REPORTING": {
         "TITLE": "Suivi réglementaire",
@@ -377,8 +376,5 @@
         },
         "ERROR": "Erreur lors de la récupération du suivi réglementaire pour le matricule {{ matricule }}",
         "NO_DATA": "Pas de données disponibles"
-=======
->>>>>>> feature/EDOSPNC-405
     }
-
 }
