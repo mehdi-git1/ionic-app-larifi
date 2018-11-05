@@ -10,25 +10,27 @@
 <ion-content padding>
     <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
     <ng-template #pageBlock>
-        <ion-grid>
-            <ion-row class="professional-level-headers">
-                <ion-col col-2>
-                    {{ 'PROFESSIONAL_LEVEL.HEADER.DATE' | translate }}
-                </ion-col>
-                <ion-col col-2>
-                    {{ 'PROFESSIONAL_LEVEL.HEADER.CODE' | translate }}
-                </ion-col>
-                <ion-col col-4>
-                    {{ 'PROFESSIONAL_LEVEL.HEADER.LABEL' | translate }}
-                </ion-col>
-                <ion-col col-3>
-                    {{ 'PROFESSIONAL_LEVEL.HEADER.RESULT' | translate }}
-                </ion-col>
-                <ion-col col-1>
-                    <ion-icon name="help" class="round-icon" tooltip="{{ 'STATUTORY_REPORTING.HEADER.HELP' | translate }}" mobileEvent="click" positionV="bottom"></ion-icon>
-                </ion-col>
-            </ion-row>
-        </ion-grid>
+        <div class="professional-level-headers">
+            <ion-grid>
+                <ion-row class="professional-level-row">
+                    <ion-col col-2>
+                        {{ 'PROFESSIONAL_LEVEL.HEADER.DATE' | translate }}
+                    </ion-col>
+                    <ion-col col-2>
+                        {{ 'PROFESSIONAL_LEVEL.HEADER.CODE' | translate }}
+                    </ion-col>
+                    <ion-col col-4>
+                        {{ 'PROFESSIONAL_LEVEL.HEADER.LABEL' | translate }}
+                    </ion-col>
+                    <ion-col col-3>
+                        {{ 'PROFESSIONAL_LEVEL.HEADER.RESULT' | translate }}
+                    </ion-col>
+                    <ion-col col-1>
+                        <ion-icon name="help" class="round-icon" tooltip="{{ 'PROFESSIONAL_LEVEL.HEADER.HELP' | translate }}" mobileEvent="click" positionV="bottom"></ion-icon>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+        </div>
         <professional-level-stage *ngIf="professionalLevel && professionalLevel.stages; else noStagesBlock" [stages]="professionalLevel.stages"></professional-level-stage>
 
         <ng-template #noStagesBlock>

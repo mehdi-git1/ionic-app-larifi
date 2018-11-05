@@ -255,7 +255,8 @@
             "DATE": "Date",
             "CODE": "Code",
             "LABEL": "Libellé",
-            "RESULT": "Résultat"
+            "RESULT": "Résultat",
+            "HELP": "Légende à venir"
         },
         "ERROR": "Erreur lors de la récupération du suivi réglementaire pour le matricule {{ matricule }}",
         "NO_DATA": "Pas de données disponibles"
@@ -364,17 +365,5 @@
             "CANCEL": "Annuler",
             "CONFIRM": "Confirmer"
         }
-    },
-    "STATUTORY_REPORTING": {
-        "TITLE": "Suivi réglementaire",
-        "HEADER": {
-            "DATE": "Date",
-            "CODE": "Code",
-            "LABEL": "Libellé",
-            "RESULT": "Résultat",
-            "HELP": "Légende à venir"
-        },
-        "ERROR": "Erreur lors de la récupération du suivi réglementaire pour le matricule {{ matricule }}",
-        "NO_DATA": "Pas de données disponibles"
     }
 }
