@@ -1,7 +1,7 @@
 import { Stage } from './stage';
 import { EDossierPncObject } from '../eDossierPncObject';
 
-export class StatutoryReporting extends EDossierPncObject {
+export class ProfessionalLevel extends EDossierPncObject {
     matricule: string;
     stagesList: Stage[];
 

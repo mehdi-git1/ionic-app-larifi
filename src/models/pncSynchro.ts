@@ -1,4 +1,4 @@
-import { StatutoryReporting } from './statutoryReporting/statutory-reporting';
+import { ProfessionalLevel } from './professionalLevel/professional-level';
 import { StatutoryCertificate } from './statutoryCertificate';
 import { PncPhoto } from './pncPhoto';
 import { Rotation } from './rotation';
@@ -17,5 +17,5 @@ export class PncSynchro {
     rotations: Rotation[];
     legs: Leg[];
     statutoryCertificate: StatutoryCertificate;
-    statutoryReporting: StatutoryReporting;
+    professionalLevel: ProfessionalLevel;
 }

@@ -34,7 +34,7 @@
         "UPCOMING_FLIGHT": "Activité vols",
         "CREW_MEMBERS": "Liste équipage",
         "STATUTORY_CERTIFICATE": "Attestation réglementaire",
-        "STATUTORY_REPORTING": "Suivi réglementaire",
+        "PROFESSIONAL_LEVEL": "Niveau Pro",
         "UNKNOWN_ERROR": "Suite à un dysfonctionnement technique, l'opération a échoué. Nous vous invitons à réessayer dans quelques minutes. Si le problème persiste, veuillez contacter votre support.",
         "COMING_SOON": "(Prochainement)",
         "MESSAGES": {
@@ -249,6 +249,17 @@
         },
         "NO_DATA": "Pas de données disponibles"
     },
+    "PROFESSIONAL_LEVEL": {
+        "TITLE": "Niveau Pro",
+        "HEADER": {
+            "DATE": "Date",
+            "CODE": "Code",
+            "LABEL": "Libellé",
+            "RESULT": "Résultat"
+        },
+        "ERROR": "Erreur lors de la récupération du suivi réglementaire pour le matricule {{ matricule }}",
+        "NO_DATA": "Pas de données disponibles"
+    },
     "PNC_SEARCH": {
         "TITLE": "Recherche PNC",
         "CRITERIA": {
@@ -353,6 +364,7 @@
             "CANCEL": "Annuler",
             "CONFIRM": "Confirmer"
         }
+<<<<<<< HEAD
     },
     "STATUTORY_REPORTING": {
         "TITLE": "Suivi réglementaire",
@@ -365,6 +377,8 @@
         },
         "ERROR": "Erreur lors de la récupération du suivi réglementaire pour le matricule {{ matricule }}",
         "NO_DATA": "Pas de données disponibles"
+=======
+>>>>>>> feature/EDOSPNC-405
     }
 
 }

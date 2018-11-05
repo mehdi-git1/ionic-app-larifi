@@ -1,10 +1,10 @@
-import { StatutoryReporting } from './../../models/statutoryReporting/statutory-reporting';
+import { ProfessionalLevel } from './../../models/professionalLevel/professional-level';
 import { Config } from './../../configuration/environment-variables/config';
 import { Injectable } from '@angular/core';
 import { RestService } from '../../services/rest.base.service';
 
 @Injectable()
-export class OnlineStatutoryReportingProvider {
+export class OnlineProfessionalLevelProvider {
 
     constructor(public restService: RestService,
         public config: Config) {
@@ -15,7 +15,7 @@ export class OnlineStatutoryReportingProvider {
      * @param matricule le matricule du PNC dont on souhaite récupérer le suivi réglementaire
      * @return le suivi réglementaire du PNC
      */
-    getStatutoryReporting(matricule: string): Promise<StatutoryReporting> {
-        return this.restService.get(`${this.config.backEndUrl}/statutory_reporting/${matricule}`);
+    getProfessionalLevel(matricule: string): Promise<ProfessionalLevel> {
+        return this.restService.get(`${this.config.backEndUrl}/professional_level/${matricule}`);
     }
 }
