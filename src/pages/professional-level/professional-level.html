@@ -29,7 +29,8 @@
                 </ion-col>
             </ion-row>
         </ion-grid>
-        <professional-level-stage *ngIf="professionalLevel && professionalLevel.stagesList; else noStagesBlock" [stagesList]="professionalLevel.stagesList"></professional-level-stage>
+        <professional-level-stage *ngIf="professionalLevel && professionalLevel.stages; else noStagesBlock" [stages]="professionalLevel.stages"></professional-level-stage>
+
         <ng-template #noStagesBlock>
             <div class="no-data">{{ 'PROFESSIONAL_LEVEL.NO_DATA' | translate }}</div>
         </ng-template>

@@ -16,6 +16,6 @@ export class OnlineProfessionalLevelProvider {
      * @return le suivi réglementaire du PNC
      */
     getProfessionalLevel(matricule: string): Promise<ProfessionalLevel> {
-        return this.restService.get(`${this.config.backEndUrl}/professional_level/${matricule}`);
+        return this.restService.get(`${this.config.backEndUrl}/professional_levels/${matricule}`);
     }
 }

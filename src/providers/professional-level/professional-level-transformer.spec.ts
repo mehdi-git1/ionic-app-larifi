@@ -15,28 +15,28 @@ describe('ProfessionalLevelProvider', () => {
     });
 
 
-    describe('test de la fonction toProfessionalLevel', () => {
-        it('doit vérifier que la fonction envoie bien un objet de type ProfessionalLevel', () => {
+    describe('fonction toProfessionalLevel', () => {
+        it('L\'objet retourné devrait être de type ProfessionalLevel car l\'objet donné en entrée respecte le format de cette classe', () => {
             const object = {
                 matricule: 'plo',
-                stagesList: []
+                stages: []
             };
             const result = professionalLevelTransformerProvider.toProfessionalLevel(object);
-            expect(result.stagesList).toBeDefined();
+            expect(result.stages).toBeDefined();
         });
 
-        it('doit vérifier que la fonction n\'envoie pas un objet de type ProfessionalLevel quand on envoie un objet différent du type ProfessionalLevel', () => {
+        it('L\'objet retourné ne devrait pas être de type ProfessionalLevel car l\'objet donné en entrée ne respecte pas le format de cette classe', () => {
             const object = {
                 matricule: 'plo',
                 stage: []
             };
             const result = professionalLevelTransformerProvider.toProfessionalLevel(object);
-            expect(result.stagesList).toBeUndefined();
+            expect(result.stages).toBeUndefined();
         });
 
-        it('doit vérifier que la fonction envoie null quand on envois rien en paramètre', () => {
+        it('L\'objet retourné devrait être null car l\'objet donné en entrée est null', () => {
             const result = professionalLevelTransformerProvider.toProfessionalLevel(null);
-            expect(result).toEqual(null);
+            expect(result).toBeNull();
         });
     });
 });

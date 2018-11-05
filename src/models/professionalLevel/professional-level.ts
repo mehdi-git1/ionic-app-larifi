@@ -3,7 +3,7 @@ import { EDossierPncObject } from '../eDossierPncObject';
 
 export class ProfessionalLevel extends EDossierPncObject {
     matricule: string;
-    stagesList: Stage[];
+    stages: Stage[];
 
     getStorageId(): string {
         return `${this.matricule}`;
