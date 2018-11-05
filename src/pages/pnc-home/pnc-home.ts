@@ -1,3 +1,4 @@
+import { ProfessionalLevelPage } from './../professional-level/professional-level';
 import { SummarySheetPage } from './../summary-sheet/summary-sheet';
 import { SynchronizationProvider } from './../../providers/synchronization/synchronization';
 import { TranslateService } from '@ngx-translate/core';
@@ -148,6 +149,17 @@ export class PncHomePage {
             this.navCtrl.parent.select(4);
         } else {
             this.navCtrl.push(StatutoryCertificatePage, { matricule: this.matricule });
+        }
+    }
+
+    /**
+    * Dirige vers le suivi réglementaire
+    */
+    goToProfessionalLevel() {
+        if (this.isMyHome()) {
+            this.navCtrl.parent.select(5);
+        } else {
+            this.navCtrl.push(ProfessionalLevelPage, { matricule: this.matricule });
         }
     }
 

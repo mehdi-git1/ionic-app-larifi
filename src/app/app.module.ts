@@ -1,3 +1,5 @@
+import { OfflineProfessionalLevelProvider } from './../providers/professional-level/offline-professional-level';
+import { OnlineProfessionalLevelProvider } from './../providers/professional-level/online-professional-level';
 import { StatutoryCertificatePage } from './../pages/statutory-certificate/statutory-certificate';
 import { Utils } from '../common/utils/utils';
 import { File } from '@ionic-native/file';
@@ -33,7 +35,7 @@ import { LegTransformerProvider } from './../providers/leg/leg-transformer';
 import { RotationTransformerProvider } from './../providers/rotation/rotation-transformer';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ErrorHandler, NgModule, CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
+import { ErrorHandler, NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { DatePipe } from '@angular/common';
 
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
@@ -116,6 +118,9 @@ import { OnlineStatutoryCertificateProvider } from '../providers/statutory-certi
 import { StatutoryCertificateTransformerProvider } from './../providers/statutory-certificate/statutory-certificate-transformer';
 import { OfflineStatutoryCertificateProvider } from './../providers/statutory-certificate/offline-statutory-certificate';
 import { DirectivesModule } from '../directives/directives.module';
+import { ProfessionalLevelPage } from '../pages/professional-level/professional-level';
+import { ProfessionalLevelProvider } from '../providers/professional-level/professional-level';
+import { ProfessionalLevelTransformerProvider } from '../providers/professional-level/professional-level-transformer';
 
 
 
@@ -139,7 +144,8 @@ declare var window: any;
     SummarySheetPage,
     GenericMessagePage,
     SettingsPage,
-    StatutoryCertificatePage
+    StatutoryCertificatePage,
+    ProfessionalLevelPage
   ],
   imports: [
     BrowserModule,
@@ -178,7 +184,8 @@ declare var window: any;
     SummarySheetPage,
     GenericMessagePage,
     SettingsPage,
-    StatutoryCertificatePage
+    StatutoryCertificatePage,
+    ProfessionalLevelPage
   ],
   providers: [
     StatusBar,
@@ -255,7 +262,11 @@ declare var window: any;
     OfflineStatutoryCertificateProvider,
     StatutoryCertificateTransformerProvider,
     InAppBrowser,
-    File
+    File,
+    ProfessionalLevelProvider,
+    OnlineProfessionalLevelProvider,
+    OfflineProfessionalLevelProvider,
+    ProfessionalLevelTransformerProvider
   ]
 })
 export class AppModule { }
