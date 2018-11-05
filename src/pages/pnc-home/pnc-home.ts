@@ -159,7 +159,7 @@ export class PncHomePage {
         if (this.isMyHome()) {
             this.navCtrl.parent.select(5);
         } else {
-            this.navCtrl.push(ProfessionalLevelPage);
+            this.navCtrl.push(ProfessionalLevelPage, { matricule: this.matricule });
         }
     }
 
