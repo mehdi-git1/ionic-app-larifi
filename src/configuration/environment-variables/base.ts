@@ -2,14 +2,14 @@ export enum urlGroupName {
   'CAREER_OBJECTIVE' = 'career_objectives',
   'EOBSERVATION' = 'eobservation',
   'LEG' = 'legs',
-  'PNC' = 'pnc',
+  'PNC' = 'pncs',
   'PNC_PHOTOS' = 'pnc_photos',
   'ME' = 'me',
   'PARAMETERS' = 'parameters',
   'PIN' = 'pin',
-  'STATUTORY_CERTIFICATE' = 'stautory_certificate',
+  'STATUTORY_CERTIFICATE' = 'statutory_certificate',
   'PNC_SUMMARY_SHEET' = 'pnc_summary_sheets',
-  'PNC_SYNCHRO' = 'pnc_synchro',
+  'PNC_SYNCHRO' = 'pnc_synchros',
   'WAYPOINT' = 'waypoints'
 }
 
@@ -22,7 +22,7 @@ export abstract class BaseConfig {
   public env = 'localhost';
 
   public backEndUrlList: {} = {
-    'getCareerObjectives': urlGroupName.CAREER_OBJECTIVE,
+    'careerObjectives': urlGroupName.CAREER_OBJECTIVE,
     'getCareerObjectivesById': `${urlGroupName.CAREER_OBJECTIVE}/{id}`,
     'getCareerObjectivesByPnc': `${urlGroupName.CAREER_OBJECTIVE}/pnc/{matricule}`,
     'setCareerObjectivesInstructorRequestById': `${urlGroupName.CAREER_OBJECTIVE}/{id}/instructor_request`,
