@@ -12,6 +12,9 @@ export class ModuleCardComponent {
   constructor() {
   }
 
+  /**
+   * Retourne la classe correspondant à la couleur du point en fonction du statut du module
+   */
   getModuleStatusPointCssClass(): string {
     if ('SUCCESS' == this.module.moduleResultStatus) {
       return 'green-point';
