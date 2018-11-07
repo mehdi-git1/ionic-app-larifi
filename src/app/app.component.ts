@@ -45,7 +45,7 @@ export class EDossierPNC implements OnInit {
   pinPadModalActive = false;
   switchToBackgroundDate: Date;
   pinPadShowupThresholdInSeconds = 120;
-  pncSynchroThresholdInSeconds = 3600;
+  pncSynchroThresholdInSeconds = 300;
 
   constructor(public platform: Platform,
     public statusBar: StatusBar,
@@ -60,7 +60,6 @@ export class EDossierPNC implements OnInit {
     private deviceService: DeviceService,
     private appInitService: AppInitService,
     private toastProvider: ToastProvider,
-    private parametersProvider: ParametersProvider,
     private securityProvider: SecurityProvider,
     private synchronizationProvider: SynchronizationProvider,
     private offlineSecurityProvider: OfflineSecurityProvider) {
