@@ -19,7 +19,7 @@ export class ScorePercentPipe implements PipeTransform {
 
     try {
       const num = this.strToNumber(value);
-      return Math.floor(num);
+      return Math.floor(num * 10) / 10;
     } catch (error) {
       throw invalidPipeArgumentError(ScorePercentPipe, error.message);
     }
@@ -31,7 +31,7 @@ export class ScorePercentPipe implements PipeTransform {
   }
 
   /**
-   * Transforme UN string en number
+   * Transforme un string en number
    */
   strToNumber(value: number | string): number {
     if (typeof value === 'string' && !isNaN(Number(value) - parseFloat(value))) {

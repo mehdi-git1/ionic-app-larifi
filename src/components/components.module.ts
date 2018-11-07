@@ -31,7 +31,6 @@ import { FamiliarizationFlightComponent } from './familiarization-flight/familia
 
 import { TabNavComponent } from './tab-nav/tab-nav';
 import { ProfessionalLevelStageComponent } from './professional-level-stage/professional-level-stage';
-import { PipesModule } from '../pipes/pipes.module';
 import { ModuleCardComponent } from './module-card/module-card';
 
 
@@ -39,8 +38,7 @@ import { ModuleCardComponent } from './module-card/module-card';
   imports: [
     CommonModule,
     IonicModule,
-    SharedModule,
-    PipesModule
+    SharedModule
   ],
   declarations: [
     RotationCardComponent,
@@ -99,8 +97,6 @@ import { ModuleCardComponent } from './module-card/module-card';
   entryComponents: [
     PinPadModal,
     SecretQuestionModal
-  ],
-  providers: [DatePipe]
-
+  ]
 })
 export class ComponentsModule { }

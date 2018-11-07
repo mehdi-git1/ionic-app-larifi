@@ -1,4 +1,4 @@
-enum ModuleTypeEnum {
+const enum ModuleTypeEnum {
     PRACTICAL,
     THEORICAL
 }

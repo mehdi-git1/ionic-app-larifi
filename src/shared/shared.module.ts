@@ -7,6 +7,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 
 import { AppMaterialModule } from './material/material.module';
+import { PipesModule } from '../pipes/pipes.module';
 
 
 export function createTranslateLoader(http: HttpClient) {
@@ -23,16 +24,14 @@ export function createTranslateLoader(http: HttpClient) {
                 useFactory: (createTranslateLoader),
                 deps: [HttpClient]
             }
-        })
-    ],
-    declarations: [
-        ReversePipe
+        }),
+        PipesModule
     ],
     exports: [
         CommonModule,
         TranslateModule,
         AppMaterialModule,
-        ReversePipe
+        PipesModule
     ],
     providers: [
         AppMaterialModule
