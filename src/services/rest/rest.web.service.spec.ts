@@ -18,7 +18,7 @@ describe('RestWebService', () => {
         });
     });
 
-    describe('On vérifie que l\'ensemble des URL utilisées dans l\'appli existent bien cotê back', () => {
+    describe('On vérifie que l\'ensemble des URL utilisées dans l\'appli existent bien côté back', () => {
 
         let URL = '';
         let config;

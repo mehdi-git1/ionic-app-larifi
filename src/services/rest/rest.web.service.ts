@@ -40,13 +40,12 @@ export class RestWebService extends RestService {
 
         request.httpHeaders.headers = request.httpHeaders.headers.append('Accept', 'application/json, text/plain, */*');
         request.httpHeaders.withCredentials = request.withCredential;
-        console.log(request);
 
         if (request.method === 'GET') {
             request.httpHeaders.params = request.jsonData;
             this.http.get(request.url, request.httpHeaders).subscribe(
                 data => { successCallback(data); },
-                err => { console.log(err); errorCallback(err.error); }
+                err => { errorCallback(err.error); }
             );
         }
         if (request.method === 'POST') {
