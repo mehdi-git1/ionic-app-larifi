@@ -1,0 +1,35 @@
+<ion-header>
+    <ion-navbar>
+        <page-header [showSettingsIcon]="true">
+            {{ 'PROFESSIONAL_LEVEL.TITLE' | translate }}
+        </page-header>
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+    <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
+    <ng-template #pageBlock>
+        <div class="professional-level-headers">
+            <ion-grid>
+                <ion-row>
+                    <ion-col col-2>
+                        {{ 'PROFESSIONAL_LEVEL.HEADER.DATE' | translate }}
+                    </ion-col>
+                    <ion-col col-2>
+                        {{ 'PROFESSIONAL_LEVEL.HEADER.CODE' | translate }}
+                    </ion-col>
+                    <ion-col col-4>
+                        {{ 'PROFESSIONAL_LEVEL.HEADER.LABEL' | translate }}
+                    </ion-col>
+                    <ion-col col-4>
+                        {{ 'PROFESSIONAL_LEVEL.HEADER.RESULT' | translate }}
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+        </div>
+        <professional-level-stage *ngIf="professionalLevel && professionalLevel.stages; else noStagesBlock" [stages]="professionalLevel.stages"></professional-level-stage>
+        <ng-template #noStagesBlock>
+            <div class="no-data">{{ 'PROFESSIONAL_LEVEL.NO_DATA' | translate }}</div>
+        </ng-template>
+    </ng-template>
+</ion-content>

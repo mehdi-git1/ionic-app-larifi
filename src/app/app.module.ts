@@ -1,4 +1,5 @@
-
+import { OfflineProfessionalLevelProvider } from './../providers/professional-level/offline-professional-level';
+import { OnlineProfessionalLevelProvider } from './../providers/professional-level/online-professional-level';
 import { StatutoryCertificatePage } from './../pages/statutory-certificate/statutory-certificate';
 import { Utils } from '../common/utils/utils';
 import { File } from '@ionic-native/file';
@@ -117,6 +118,9 @@ import { OnlineStatutoryCertificateProvider } from '../providers/statutory-certi
 import { StatutoryCertificateTransformerProvider } from './../providers/statutory-certificate/statutory-certificate-transformer';
 import { OfflineStatutoryCertificateProvider } from './../providers/statutory-certificate/offline-statutory-certificate';
 import { DirectivesModule } from '../directives/directives.module';
+import { ProfessionalLevelPage } from '../pages/professional-level/professional-level';
+import { ProfessionalLevelProvider } from '../providers/professional-level/professional-level';
+import { ProfessionalLevelTransformerProvider } from '../providers/professional-level/professional-level-transformer';
 
 import { AdminModule } from './../pages/admin/admin.module';
 
@@ -141,7 +145,8 @@ declare var window: any;
     SummarySheetPage,
     GenericMessagePage,
     SettingsPage,
-    StatutoryCertificatePage
+    StatutoryCertificatePage,
+    ProfessionalLevelPage
   ],
   imports: [
     BrowserModule,
@@ -181,7 +186,8 @@ declare var window: any;
     SummarySheetPage,
     GenericMessagePage,
     SettingsPage,
-    StatutoryCertificatePage
+    StatutoryCertificatePage,
+    ProfessionalLevelPage
   ],
   providers: [
     StatusBar,
@@ -258,7 +264,11 @@ declare var window: any;
     OfflineStatutoryCertificateProvider,
     StatutoryCertificateTransformerProvider,
     InAppBrowser,
-    File
+    File,
+    ProfessionalLevelProvider,
+    OnlineProfessionalLevelProvider,
+    OfflineProfessionalLevelProvider,
+    ProfessionalLevelTransformerProvider
   ]
 })
 export class AppModule { }
