@@ -1,3 +1,4 @@
+import { SecurityProvider } from './../../providers/security/security';
 import { SessionService } from './../../services/session.service';
 import { PncProvider } from './../../providers/pnc/pnc';
 import { Nav, Events, Tabs } from 'ionic-angular';
@@ -36,7 +37,7 @@ export class TabNavComponent {
         this.matriculeParams = { matricule: this.pnc.matricule };
         this.roleParams = { pncRole: Speciality.getPncRole(this.pnc.speciality) };
         this.navCtrl.popToRoot();
-        }, error => {
+      }, error => {
       });
     }
   }
@@ -60,7 +61,12 @@ export class TabNavComponent {
   matriculeParams;
   roleParams;
 
-  constructor(private events: Events, private sessionService: SessionService, private authorizationService: AuthorizationService,  private pncProvider: PncProvider, private translate: TranslateService) {
+  constructor(private events: Events,
+    private sessionService: SessionService,
+    private authorizationService: AuthorizationService,
+    private pncProvider: PncProvider,
+    private translate: TranslateService,
+    private securityProvider: SecurityProvider) {
   }
 
   /**

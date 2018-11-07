@@ -146,7 +146,7 @@ export class PncHomePage {
      * Dirige vers l'attestation réglementaire
      */
     goToStatutoryCertificate() {
-        if (this.isMyHome()) {
+        if (this.pnc.speciality !== Speciality.CAD && this.isMyHome()) {
             this.navCtrl.parent.select(4);
         } else {
             this.navCtrl.push(StatutoryCertificatePage, { matricule: this.matricule });
