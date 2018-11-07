@@ -72,4 +72,13 @@ export class Utils {
                 return SpecialCharList[arguments[0].toLowerCase()];
             }).toLowerCase();
     }
+
+    /**
+     * Vérifie qu'une chaine de caractère est vide
+     * @param value chaîne de caractères
+     * @return true si elle est vide ou null
+     */
+    public static isEmpty(value: string): boolean {
+        return !value || value == null || value.trim() === '';
+    }
 }

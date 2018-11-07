@@ -43,4 +43,25 @@ describe('utils', () => {
         });
     });
 
+    describe('vérification de la fonction isEmpty', () => {
+        it('si la valeur est undefined, la fonction doit retourner true', () => {
+            expect(Utils.isEmpty(undefined)).toBe(true);
+        });
+        it('si la valeur est nulle, la fonction doit retourner true', () => {
+            expect(Utils.isEmpty(null)).toBe(true);
+        });
+
+        it('si la valeur est vide, la fonction doit retourner true', () => {
+            expect(Utils.isEmpty('')).toBe(true);
+        });
+
+        it('si la valeur ne contient que des espaces, la fonction doit retourner true', () => {
+            expect(Utils.isEmpty('                         ')).toBe(true);
+        });
+
+        it('si la valeur contient au moins 1 caractère qui n\'est pas un espace, la fonction doit retourner false', () => {
+            expect(Utils.isEmpty('   a   ')).toBe(false);
+        });
+    });
+
 });
