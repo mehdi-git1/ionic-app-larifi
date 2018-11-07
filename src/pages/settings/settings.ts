@@ -113,21 +113,21 @@ export class SettingsPage {
   }
 
   /**
-   * Fonction d'affichage du changement de code pin
+   * Affichage du changement de code pin
    */
   changePinCode() {
     this.securityModalService.displayPinPad(PinPadType.askChange);
   }
 
   /**
-   * Fonction d'affichage du changement de question / reponse secréte
+   * Affichage du changement de question / reponse secréte
    */
   changeSecretQuestion() {
     this.securityModalService.displaySecretQuestion(SecretQuestionType.askChange);
   }
 
   /**
-   * Fonction permettant d'aller sur la page d'admin
+   * Redirige vers la page d'admin
    */
   goToAdminPage() {
     this.navCtrl.push(AdminHomePage);
