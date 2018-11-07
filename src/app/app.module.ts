@@ -74,9 +74,9 @@ import { Config } from '../configuration/environment-variables/config';
 import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { ConnectivityService } from '../services/connectivity/connectivity.service';
-import { RestService } from '../services/rest.base.service';
-import { RestMobileService } from '../services/rest.mobile.service';
-import { RestWebService } from '../services/rest.web.service';
+import { RestService } from '../services/rest/rest.base.service';
+import { RestMobileService } from '../services/rest/rest.mobile.service';
+import { RestWebService } from '../services/rest/rest.web.service';
 
 import { PncProvider } from '../providers/pnc/pnc';
 import { GenderProvider } from '../providers/gender/gender';

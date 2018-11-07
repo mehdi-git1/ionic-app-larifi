@@ -1,7 +1,6 @@
 import { PncRole } from './../../models/pncRole';
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { RestService } from '../../services/rest.base.service';
+import { RestService } from '../../services/rest/rest.base.service';
 import { Config } from './../../configuration/environment-variables/config';
 import { HelpAsset } from './../../models/helpAsset';
 

@@ -6,7 +6,7 @@ import { ConnectivityService } from '../../services/connectivity/connectivity.se
 import { OfflineCareerObjectiveProvider } from './../career-objective/offline-career-objective';
 import { CareerObjective } from './../../models/careerObjective';
 import { Injectable } from '@angular/core';
-import { RestService } from '../../services/rest.base.service';
+import { RestService } from '../../services/rest/rest.base.service';
 import { Pnc } from '../../models/pnc';
 import { OfflineAction } from '../../models/offlineAction';
 import { BaseProvider } from '../base/base.provider';
