@@ -5,7 +5,6 @@ import { SessionService } from './../../services/session.service';
 import { Pnc } from './../../models/pnc';
 import { Component } from '@angular/core';
 import { NavParams } from 'ionic-angular';
-import { AppModule } from './app.module';
 
 @Component({
   selector: 'page-professional-level',
