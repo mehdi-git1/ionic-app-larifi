@@ -255,7 +255,8 @@
             "DATE": "Date",
             "CODE": "Code",
             "LABEL": "Libellé",
-            "RESULT": "Résultat"
+            "RESULT": "Résultat",
+            "HELP": "Légende à venir"
         },
         "ERROR": "Erreur lors de la récupération du suivi réglementaire pour le matricule {{ matricule }}",
         "NO_DATA": "Pas de données disponibles"
@@ -374,5 +375,4 @@
             "TITLE": "Page d'administration"
         }
     }
-
 }

@@ -7,6 +7,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 
 import { AppMaterialModule } from './material/material.module';
+import { TooltipsModule } from 'ionic-tooltips';
 
 
 export function createTranslateLoader(http: HttpClient) {
@@ -23,7 +24,8 @@ export function createTranslateLoader(http: HttpClient) {
                 useFactory: (createTranslateLoader),
                 deps: [HttpClient]
             }
-        })
+        }),
+        TooltipsModule
     ],
     declarations: [
         ReversePipe
@@ -32,7 +34,8 @@ export function createTranslateLoader(http: HttpClient) {
         CommonModule,
         TranslateModule,
         AppMaterialModule,
-        ReversePipe
+        ReversePipe,
+        TooltipsModule
     ],
     providers: [
         AppMaterialModule
