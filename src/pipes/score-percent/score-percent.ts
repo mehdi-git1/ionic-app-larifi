@@ -29,7 +29,7 @@ export class ScorePercentPipe implements PipeTransform {
   /**
    * Transforme un string en number. Si ce n'est pas formattable, on renvoie une exception
    * @param value valeur à transformer
-   * @return number formatté
+   * @return number
    */
   strToNumber(value: number | string): number {
     if (typeof value === 'string' && !isNaN(Number(value) - parseFloat(value))) {

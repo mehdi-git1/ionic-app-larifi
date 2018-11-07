@@ -259,7 +259,7 @@
         },
         "MODULE_TYPE": {
             "PRACTICAL": "Pratique",
-            "THEORICAL": "Théorique"
+            "THEORETICAL": "Théorique"
         },
         "MODULE_STATUS": {
            "SUCCESS": "Réussi",
