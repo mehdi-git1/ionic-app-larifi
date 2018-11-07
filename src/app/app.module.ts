@@ -13,7 +13,6 @@ import { DeviceService } from './../services/device.service';
 import { PncPhotoTransformerProvider } from './../providers/pnc-photo/pnc-photo-transformer';
 import { OfflinePncPhotoProvider } from './../providers/pnc-photo/offline-pnc-photo';
 import { OnlinePncPhotoProvider } from './../providers/pnc-photo/online-pnc-photo';
-import { TooltipsModule } from 'ionic-tooltips';
 
 import { CrewMemberTransformerProvider } from './../providers/crewMember/crewMember-transformer';
 import { OnlineLegProvider } from './../providers/leg/online-leg';
@@ -161,8 +160,7 @@ declare var window: any;
     BrowserAnimationsModule,
     PdfViewerModule,
     SimpleNotificationsModule.forRoot({ position: ['top', 'right'] }),
-    DirectivesModule,
-    TooltipsModule
+    DirectivesModule
   ],
   bootstrap: [IonicApp],
   schemas: [
