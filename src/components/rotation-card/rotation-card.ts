@@ -1,6 +1,4 @@
-import { OfflineIndicatorComponent } from './../offline-indicator/offline-indicator';
 import { TranslateService } from '@ngx-translate/core';
-import { SynchronizationProvider } from './../../providers/synchronization/synchronization';
 import { ToastProvider } from './../../providers/toast/toast';
 import { SessionService } from './../../services/session.service';
 import { Leg } from './../../models/leg';
@@ -8,101 +6,50 @@ import { FlightCrewListPage } from './../../pages/flight-crew-list/flight-crew-l
 import { NavParams, NavController } from 'ionic-angular';
 import { RotationProvider } from './../../providers/rotation/rotation';
 import { Rotation } from './../../models/rotation';
-import { Component, Input, ViewChild } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ConnectivityService } from '../../services/connectivity/connectivity.service';
-import { LegProvider } from './../../providers/leg/leg';
-import { CrewMember } from '../../models/crewMember';
 
 @Component({
-  selector: 'rotation-card',
-  templateUrl: 'rotation-card.html'
+    selector: 'rotation-card',
+    templateUrl: 'rotation-card.html'
 })
 export class RotationCardComponent {
 
-  @Input() rotation: Rotation;
-  synchroInProgress: boolean;
+    @Input() rotation: Rotation;
 
-  @ViewChild(OfflineIndicatorComponent)
-  private offlineIndicatorComponent: OfflineIndicatorComponent;
-
-  constructor(private rotationProvider: RotationProvider,
-    public navCtrl: NavController,
-    public navParams: NavParams,
-    public connectivityService: ConnectivityService,
-    private legProvider: LegProvider,
-    private toastProvider: ToastProvider,
-    private synchronizationProvider: SynchronizationProvider,
-    private translate: TranslateService,
-    private sessionService: SessionService) {
-  }
-
-  /**
-  * Ouvre/ferme une rotation et récupère la liste des tronçons si elle est ouverte
-  * @param rotation La rotation à ouvrir/fermer
-  */
-  toggleRotation(rotation: Rotation) {
-    rotation.opened = !rotation.opened;
-    if (rotation.opened) {
-      rotation.loading = true;
-      this.rotationProvider.getRotationLegs(rotation).then(rotationLegs => {
-        rotation.legs = rotationLegs;
-        rotation.loading = false;
-      }, error => {
-        rotation.loading = false;
-      });
+    constructor(private rotationProvider: RotationProvider,
+        public navCtrl: NavController,
+        public navParams: NavParams,
+        public connectivityService: ConnectivityService,
+        private toastProvider: ToastProvider,
+        private translate: TranslateService,
+        private sessionService: SessionService) {
     }
-  }
 
-  goToFlightCrewListPage(leg: Leg) {
-    this.sessionService.appContext.lastConsultedRotation = this.rotation;
-    this.navCtrl.push(FlightCrewListPage, { legId: leg.techId });
-  }
-
-  /**
-  * Précharge les eDossier des PNC de la rotation en passant par le lien rotation -> leg -> crewMembers
-  */
-  downloadRotationPncsEdossier() {
-    this.synchroInProgress = true;
-    const pncsMatriculeToDownload: string[] = new Array();
-    const downloadPromises: Promise<boolean>[] = new Array();
-    const matriculePromises: Promise<CrewMember[]>[] = new Array();
-    this.rotationProvider.getRotationLegs(this.rotation).then(rotationLegs => {
-      for (const leg of rotationLegs) {
-        matriculePromises.push(this.legProvider.getFlightCrewFromLeg(leg.techId));
-      }
-      Promise.all(matriculePromises).then(values => {
-        for (const flightCrewList of values) {
-          for (const flightCrew of flightCrewList) {
-            pncsMatriculeToDownload.push(flightCrew.pnc.matricule);
-          }
+    /**
+    * Ouvre/ferme une rotation et récupère la liste des tronçons si elle est ouverte
+    * @param rotation La rotation à ouvrir/fermer
+    */
+    toggleRotation(rotation: Rotation) {
+        rotation.opened = !rotation.opened;
+        if (rotation.opened) {
+            rotation.loading = true;
+            this.rotationProvider.getRotationLegs(rotation).then(rotationLegs => {
+                rotation.legs = rotationLegs;
+                rotation.loading = false;
+            }, error => {
+                rotation.loading = false;
+            });
         }
+    }
 
-        const uniquePncsMatriculeOnRotation = pncsMatriculeToDownload.filter((value, index, self) => index === self.indexOf(value));
+    goToFlightCrewListPage(leg: Leg) {
+        this.sessionService.appContext.lastConsultedRotation = this.rotation;
+        this.navCtrl.push(FlightCrewListPage, { legId: leg.techId });
+    }
 
-        for (const matricule of uniquePncsMatriculeOnRotation) {
-          downloadPromises.push(this.synchronizationProvider.storeEDossierOffline(matricule));
-        }
-
-        Promise.all(downloadPromises).then(success => {
-          const infoMsg = this.translate.instant('SYNCHRONIZATION.ROTATION_SAVED_OFFLINE', { 'rotationNumber': this.rotation.number });
-          this.toastProvider.info(infoMsg);
-          this.synchroInProgress = false;
-          this.offlineIndicatorComponent.refreshOffLineDateOnCurrentObject();
-        }, error => {
-          this.displayErrorMessage();
-        });
-      }, error => {
-        this.displayErrorMessage();
-      });
-    }, error => {
-      this.toastProvider.error(this.translate.instant('SYNCHRONIZATION.ROTATION_SERVICE_CALL_ERROR', { 'rotationNumber': this.rotation.number }));
-      this.synchroInProgress = false;
-    });
-  }
-
-  displayErrorMessage() {
-    this.toastProvider.error(this.translate.instant('SYNCHRONIZATION.ROTATION_SAVED_OFFLINE_ERROR', { 'rotationNumber': this.rotation.number }));
-    this.synchroInProgress = false;
-  }
+    displayErrorMessage() {
+        this.toastProvider.error(this.translate.instant('SYNCHRONIZATION.ROTATION_SAVED_OFFLINE_ERROR', { 'rotationNumber': this.rotation.number }));
+    }
 }
 

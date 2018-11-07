@@ -44,8 +44,8 @@ export class EDossierPNC implements OnInit {
 
   pinPadModalActive = false;
   switchToBackgroundDate: Date;
-  inactivityDelayInSec = 120;
-
+  pinPadShowupThresholdInSeconds = 120;
+  pncSynchroThresholdInSeconds = 300;
 
   constructor(public platform: Platform,
     public statusBar: StatusBar,
@@ -60,7 +60,6 @@ export class EDossierPNC implements OnInit {
     private deviceService: DeviceService,
     private appInitService: AppInitService,
     private toastProvider: ToastProvider,
-    private parametersProvider: ParametersProvider,
     private securityProvider: SecurityProvider,
     private synchronizationProvider: SynchronizationProvider,
     private offlineSecurityProvider: OfflineSecurityProvider) {
@@ -85,9 +84,12 @@ export class EDossierPNC implements OnInit {
 
         this.platform.resume.subscribe(() => {
           // Si on a depassé le temps d'inactivité, on affiche le pin pad
-          if (moment.duration(moment().diff(moment(this.switchToBackgroundDate))).asSeconds() > this.inactivityDelayInSec && !this.deviceService.isBrowser()) {
+          if (moment.duration(moment().diff(moment(this.switchToBackgroundDate))).asSeconds() > this.pinPadShowupThresholdInSeconds) {
             this.securityModalService.forceCloseModal();
             this.securityModalService.displayPinPad(PinPadType.openingApp);
+          }
+          if (this.connectivityService.isConnected() && moment.duration(moment().diff(moment(this.switchToBackgroundDate))).asSeconds() > this.pncSynchroThresholdInSeconds) {
+            this.synchronizationProvider.storeEDossierOffline(this.sessionService.authenticatedUser.matricule);
           }
         });
 
