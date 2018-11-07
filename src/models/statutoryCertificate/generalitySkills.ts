@@ -1,6 +1,6 @@
 export class GeneralitySkills {
     cca: {
-        label: string ,
+        label: string,
         startDate: Date
     };
     pcb: {
@@ -9,7 +9,7 @@ export class GeneralitySkills {
         dueDate: Date
     };
     gene: {
-        aircraftSkill: string,
+        skillType: string,
         startDate: Date,
         mdcDate: Date,
         dueDate: Date,

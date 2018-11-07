@@ -77,7 +77,7 @@ export class GeneralitySkillsComponent implements OnInit {
           ],
         values: this.generalitySkillsData && this.generalitySkillsData.gene ?
           [
-            { value: [_.get(this.generalitySkillsData, 'gene.aircraftSkill')], type: 'libelle' },
+            { value: [_.get(this.generalitySkillsData, 'gene.skillType')], type: 'libelle' },
             { value: [_.get(this.generalitySkillsData, 'gene.startDate')], type: 'date' },
             { value: [_.get(this.generalitySkillsData, 'gene.mdcDate')], type: 'date' },
             { value: [_.get(this.generalitySkillsData, 'gene.dueDate')], type: 'end-date' },
