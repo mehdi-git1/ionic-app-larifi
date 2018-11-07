@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { RestService, RestRequest } from './rest.base.service';
-import { SecMobilService } from './secMobil.service';
+import { SecMobilService } from '../secMobil.service';
 import { HttpClient } from '@angular/common/http';
 
 

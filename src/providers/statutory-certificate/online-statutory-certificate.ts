@@ -1,7 +1,6 @@
 import { Config } from './../../configuration/environment-variables/config';
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { RestService } from '../../services/rest.base.service';
+import { RestService } from '../../services/rest/rest.base.service';
 import { StatutoryCertificate } from '../../models/statutoryCertificate';
 
 @Injectable()
