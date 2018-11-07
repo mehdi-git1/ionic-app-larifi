@@ -358,7 +358,7 @@
     },
 
     "ADMIN": {
-        "HOME_PAGE": {
+        "HOME": {
             "TITLE": "Page d'administration"
         }
     }

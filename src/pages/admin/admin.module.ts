@@ -2,7 +2,7 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 
 import { SharedModule } from './../../shared/shared.module';
-import { AdminHomePage } from './home/home';
+import { AdminHomePage } from './home/admin-home';
 import { ComponentsModule } from './../../components/components.module';
 
 @NgModule({
