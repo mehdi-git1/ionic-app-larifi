@@ -1,22 +1,19 @@
-import { DeviceService } from './../../services/device.service';
-import { SecurityModalService } from './../../services/security.modal.service';
 import { TranslateService } from '@ngx-translate/core';
 import { ToastProvider } from './../../providers/toast/toast';
-import { UpcomingFlightListPage } from './../upcoming-flight-list/upcoming-flight-list';
 import { SessionService } from './../../services/session.service';
-import { ParametersProvider } from './../../providers/parameters/parameters';
 import { SynchronizationProvider } from './../../providers/synchronization/synchronization';
 import { StorageService } from './../../services/storage.service';
-import { AuthenticationPage } from './../authentication/authentication';
-import { SecMobilService } from './../../services/secMobil.service';
 import { ConnectivityService } from '../../services/connectivity/connectivity.service';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, Events, AlertController } from 'ionic-angular';
+import { NavController, Events, AlertController } from 'ionic-angular';
 
 import { PinPadType } from './../../models/pinPadType';
 import { SecretQuestionType } from '../../models/secretQuestionType';
 import { AuthenticatedUser } from '../../models/authenticatedUser';
 import { OfflineSecurityProvider } from '../../providers/security/offline-security';
+import { AdminHomePage } from './../admin/home/admin-home';
+import { DeviceService } from './../../services/device.service';
+import { SecurityModalService } from './../../services/security.modal.service';
 
 @Component({
   selector: 'page-settings',
@@ -41,8 +38,8 @@ export class SettingsPage {
     private alertCtrl: AlertController,
     private securityModalService: SecurityModalService,
     private deviceService: DeviceService,
-    private offlineSecurityProvider: OfflineSecurityProvider
-
+    private offlineSecurityProvider: OfflineSecurityProvider,
+    private navCtrl: NavController
   ) {
     this.connected = this.connectivityService.isConnected();
 
@@ -116,17 +113,24 @@ export class SettingsPage {
   }
 
   /**
-   * Fonction d'affichage du changement de code pin
+   * Affichage du changement de code pin
    */
   changePinCode() {
     this.securityModalService.displayPinPad(PinPadType.askChange);
   }
 
   /**
-   * Fonction d'affichage du changement de question / reponse secréte
+   * Affichage du changement de question / reponse secréte
    */
   changeSecretQuestion() {
     this.securityModalService.displaySecretQuestion(SecretQuestionType.askChange);
+  }
+
+  /**
+   * Redirige vers la page d'admin
+   */
+  goToAdminPage() {
+    this.navCtrl.push(AdminHomePage);
   }
 
 }

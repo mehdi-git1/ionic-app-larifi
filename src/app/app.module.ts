@@ -122,6 +122,7 @@ import { ProfessionalLevelPage } from '../pages/professional-level/professional-
 import { ProfessionalLevelProvider } from '../providers/professional-level/professional-level';
 import { ProfessionalLevelTransformerProvider } from '../providers/professional-level/professional-level-transformer';
 
+import { AdminModule } from './../pages/admin/admin.module';
 
 
 declare var window: any;
@@ -162,7 +163,8 @@ declare var window: any;
     BrowserAnimationsModule,
     PdfViewerModule,
     SimpleNotificationsModule.forRoot({ position: ['top', 'right'] }),
-    DirectivesModule
+    DirectivesModule,
+    AdminModule
   ],
   bootstrap: [IonicApp],
   schemas: [
