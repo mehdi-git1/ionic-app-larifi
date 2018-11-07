@@ -88,7 +88,7 @@ export class EDossierPNC implements OnInit {
             this.securityModalService.forceCloseModal();
             this.securityModalService.displayPinPad(PinPadType.openingApp);
           }
-          if (moment.duration(moment().diff(moment(this.switchToBackgroundDate))).asSeconds() > this.pncSynchroThresholdInSeconds) {
+          if (this.connectivityService.isConnected() && moment.duration(moment().diff(moment(this.switchToBackgroundDate))).asSeconds() > this.pncSynchroThresholdInSeconds) {
             this.synchronizationProvider.storeEDossierOffline(this.sessionService.authenticatedUser.matricule);
           }
         });
