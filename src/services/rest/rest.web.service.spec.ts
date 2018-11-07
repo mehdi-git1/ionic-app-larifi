@@ -3,7 +3,7 @@ import { RestWebService } from './rest.web.service';
 import { Config } from '../../configuration/environment-variables/config';
 import { HttpClientModule } from '@angular/common/http';
 
-describe('Tests des appels rests en mode Web', () => {
+describe('RestWebService', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
@@ -18,7 +18,7 @@ describe('Tests des appels rests en mode Web', () => {
         });
     });
 
-    describe('On vérifie que l\'ensemble des URL définies dans l\'appli sont bien défini dans le back', () => {
+    describe('On vérifie que l\'ensemble des URL utilisées dans l\'appli existent bien cotê back', () => {
 
         let URL = '';
         let config;

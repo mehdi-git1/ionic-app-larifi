@@ -3,15 +3,15 @@ import { Utils } from './utils';
 describe('utils', () => {
 
     describe('vérification de la fonction fromStringToObject', () => {
-        it('doit tester si le paramètre est une chaîne de caractères de type JSON et la formatter ', () => {
+        it('doit retourner un objet JSON si le paramètre est une chaîne de caractères de type JSON', () => {
             expect(Utils.fromStringToObject('{"test": "test"}')).toEqual({ test: 'test' });
         });
 
-        it('doit tester si le paramètre est une chaine de caractères de type JSON et la formatter en replaçant \\\\ par "" ', () => {
+        it('doit retourner un objet JSON (en replaçant \\\\ par "") si le paramètre est une chaine de caractères de type JSON ', () => {
             expect(Utils.fromStringToObject('{"test": "t\\est"}')).toEqual({ test: 'test' });
         });
 
-        it('doit tester si le paramètre n\'est pas une chaîne de caractères de type JSON', () => {
+        it('doit retourner null si le paramètre n\'est pas une chaîne de caractères de type JSON', () => {
             expect(Utils.fromStringToObject('test: test')).toEqual(null);
         });
 
