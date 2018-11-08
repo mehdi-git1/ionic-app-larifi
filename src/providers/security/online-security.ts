@@ -1,11 +1,10 @@
 import { PncPin } from './../../models/pncPin';
 import { DeviceService } from './../../services/device.service';
-import { SecMobilService } from './../../services/secMobil.service';
 import { AuthenticatedUser } from './../../models/authenticatedUser';
 import { OfflineSecurityProvider } from './../security/offline-security';
 import { Config } from './../../configuration/environment-variables/config';
 import { Injectable } from '@angular/core';
-import { RestService } from '../../services/rest.base.service';
+import { RestService } from '../../services/rest/rest.base.service';
 
 @Injectable()
 export class OnlineSecurityProvider {

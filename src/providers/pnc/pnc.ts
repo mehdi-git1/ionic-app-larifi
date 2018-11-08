@@ -10,7 +10,7 @@ import { Pnc } from './../../models/pnc';
 import { Injectable } from '@angular/core';
 import { PagedPnc } from './../../models/pagedPnc';
 import { Page } from '../../models/page';
-import { RestService } from '../../services/rest.base.service';
+import { RestService } from '../../services/rest/rest.base.service';
 import { BaseProvider } from '../base/base.provider';
 
 @Injectable()

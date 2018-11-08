@@ -1,3 +1,4 @@
+import { ProfessionalLevelTransformerProvider } from './../professional-level/professional-level-transformer';
 import { StatutoryCertificateTransformerProvider } from './../statutory-certificate/statutory-certificate-transformer';
 import { StatutoryCertificate } from './../../models/statutoryCertificate';
 import { EObservation } from './../../models/eObservation';
@@ -55,7 +56,8 @@ export class SynchronizationProvider {
     private toastProvider: ToastProvider,
     private translateService: TranslateService,
     private careerObjectiveProvider: CareerObjectiveProvider,
-    private statutoryCertificateTransformer: StatutoryCertificateTransformerProvider) {
+    private statutoryCertificateTransformer: StatutoryCertificateTransformerProvider,
+    private professionalLevelTransformer: ProfessionalLevelTransformerProvider) {
   }
 
 
@@ -165,6 +167,9 @@ export class SynchronizationProvider {
       // Sauvegarde de l'attestation réglementaire
       this.storageService.save(Entity.STATUTORY_CERTIFICATE, this.statutoryCertificateTransformer.toStatutoryCertificate(pncSynchroResponse.statutoryCertificate), true);
 
+      // Sauvegarde du suivi réglementaire
+      this.storageService.save(Entity.PROFESSIONAL_LEVEL, this.professionalLevelTransformer.toProfessionalLevel(pncSynchroResponse.professionalLevel), true);
+
     }, error => { });
   }
 
@@ -185,7 +190,7 @@ export class SynchronizationProvider {
    * @param legs tableau de vols
    * @return une tableau de Promise<CrewMember> dont chaque item est la liste d'équipage d'un des vols en paramètre
    */
-  private storeLegs(legs: Leg[]): Promise<CrewMember[]>[]{
+  private storeLegs(legs: Leg[]): Promise<CrewMember[]>[] {
     const crewMembersPromisesArray: Promise<CrewMember[]>[] = new Array();
     if (legs != null) {
       for (const leg of legs) {
@@ -281,6 +286,9 @@ export class SynchronizationProvider {
 
     // Suppression de l'attestation réglementaire
     this.storageService.delete(Entity.STATUTORY_CERTIFICATE, pnc.matricule);
+
+    // Suppression du suivi réglementaire
+    this.storageService.delete(Entity.PROFESSIONAL_LEVEL, pnc.matricule);
   }
 
   /**

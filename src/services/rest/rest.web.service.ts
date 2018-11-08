@@ -1,5 +1,5 @@
-import { SessionService } from './session.service';
-import { Config } from './../configuration/environment-variables/config';
+import { SessionService } from './../session.service';
+import { Config } from '../../configuration/environment-variables/config';
 import { Injectable } from '@angular/core';
 import { RestService, RestRequest } from './rest.base.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -46,7 +46,6 @@ export class RestWebService extends RestService {
 
         request.httpHeaders.headers = request.httpHeaders.headers.append('Accept', 'application/json, text/plain, */*');
         request.httpHeaders.withCredentials = request.withCredential;
-
 
         if (request.method === 'GET') {
             request.httpHeaders.params = request.jsonData;

@@ -7,7 +7,6 @@ import { ConnectivityIndicatorComponent } from './connectivity-indicator/connect
 import { DownloadButtonComponent } from './download-button/download-button';
 import { PncCardComponent } from './pnc-card/pnc-card';
 import { FlightCardComponent } from './flight-card/flight-card';
-import { TranslateModule } from '@ngx-translate/core';
 import { SharedModule } from '../shared/shared.module';
 import { EdossierSpinnerComponent } from './edossier-spinner/edossier-spinner';
 import { NavBarCustomComponent } from './edossier-indicators/edossier-indicators';
@@ -30,6 +29,7 @@ import { MasteringQualificationComponent } from './mastering-qualification/maste
 import { FamiliarizationFlightComponent } from './familiarization-flight/familiarization-flight';
 
 import { TabNavComponent } from './tab-nav/tab-nav';
+import { ProfessionalLevelStageComponent } from './professional-level-stage/professional-level-stage';
 
 
 @NgModule({
@@ -61,7 +61,8 @@ import { TabNavComponent } from './tab-nav/tab-nav';
     StatutoryCertificateVamComponent,
     MasteringQualificationComponent,
     FamiliarizationFlightComponent,
-    TabNavComponent
+    TabNavComponent,
+    ProfessionalLevelStageComponent
   ],
   exports: [
     RotationCardComponent,
@@ -86,7 +87,8 @@ import { TabNavComponent } from './tab-nav/tab-nav';
     StatutoryCertificateVamComponent,
     MasteringQualificationComponent,
     FamiliarizationFlightComponent,
-    TabNavComponent
+    TabNavComponent,
+    ProfessionalLevelStageComponent
   ],
   entryComponents: [
     PinPadModal,

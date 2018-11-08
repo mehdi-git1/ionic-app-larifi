@@ -1,16 +1,10 @@
 <ion-tabs *ngIf="pnc" tabsPlacement="bottom">
-    <ion-tab [root]="pncHomePage" [rootParams]="matriculeParams" [tabTitle]="translate.instant('PNC_HOME.TITLE')"
-        tabIcon="edospnc-home"></ion-tab>
-    <ion-tab [root]="careerObjectiveListPage" [rootParams]="matriculeParams" [show]="!securityProvider.isManager()"
-        [tabTitle]="translate.instant('GLOBAL.DEVELOPMENT_PROGRAM')" tabIcon="edospnc-developmentProgram"></ion-tab>
-    <ion-tab [root]="summarySheetPage" [rootParams]="matriculeParams" [show]="!securityProvider.isManager()" [tabTitle]="translate.instant('GLOBAL.PNC_SUMMARY_SHEET')"
-        tabIcon="edospnc-summarySheet"></ion-tab>
-    <ion-tab [root]="pncSearchPage" [show]="securityProvider.isManager()" [tabTitle]="translate.instant('GLOBAL.PNC_TEAM')"
-        tabIcon="edospnc-pncTeam"></ion-tab>
-    <ion-tab [root]="upcomingFlightListPage" [show]="securityProvider.isManager()" [tabTitle]="translate.instant('GLOBAL.UPCOMING_FLIGHT')"
-        tabIcon="edospnc-upcomingFlight"></ion-tab>
-    <ion-tab [root]="helpAssetListPage" [rootParams]="roleParams" [tabTitle]="translate.instant('GLOBAL.HELP_CENTER')"
-        tabIcon="edospnc-helpCenter"></ion-tab>
-    <ion-tab [root]="statutoryCertificatePage" [rootParams]="matriculeParams" [tabTitle]="translate.instant('GLOBAL.STATUTORY_CERTIFICATE')"
-        tabIcon="edospnc-statutoryCertificate"></ion-tab>
+    <ion-tab [root]="pncHomePage" [rootParams]="matriculeParams" [tabTitle]="translate.instant('PNC_HOME.TITLE')" tabIcon="edospnc-home"></ion-tab>
+    <ion-tab [root]="careerObjectiveListPage" [rootParams]="matriculeParams" [show]="!securityProvider.isManager()" [tabTitle]="translate.instant('GLOBAL.DEVELOPMENT_PROGRAM')" tabIcon="edospnc-developmentProgram"></ion-tab>
+    <ion-tab [root]="summarySheetPage" [rootParams]="matriculeParams" [show]="!securityProvider.isManager()" [tabTitle]="translate.instant('GLOBAL.PNC_SUMMARY_SHEET')" tabIcon="edospnc-summarySheet"></ion-tab>
+    <ion-tab [root]="pncSearchPage" [show]="securityProvider.isManager()" [tabTitle]="translate.instant('GLOBAL.PNC_TEAM')" tabIcon="edospnc-pncTeam"></ion-tab>
+    <ion-tab [root]="upcomingFlightListPage" [show]="securityProvider.isManager()" [tabTitle]="translate.instant('GLOBAL.UPCOMING_FLIGHT')" tabIcon="edospnc-upcomingFlight"></ion-tab>
+    <ion-tab [root]="helpAssetListPage" [rootParams]="roleParams" [tabTitle]="translate.instant('GLOBAL.HELP_CENTER')" tabIcon="edospnc-helpCenter"></ion-tab>
+    <ion-tab [root]="statutoryCertificatePage" [rootParams]="matriculeParams" [tabTitle]="translate.instant('GLOBAL.STATUTORY_CERTIFICATE')" tabIcon="edospnc-statutoryCertificate"></ion-tab>
+    <ion-tab [root]="professionalLevelPage" [tabTitle]="translate.instant('GLOBAL.PROFESSIONAL_LEVEL')" tabIcon="md-briefcase"></ion-tab>
 </ion-tabs>

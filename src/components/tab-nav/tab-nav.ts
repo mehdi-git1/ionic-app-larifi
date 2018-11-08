@@ -1,3 +1,4 @@
+import { ProfessionalLevelPage } from './../../pages/professional-level/professional-level';
 import { SessionService } from './../../services/session.service';
 import { PncProvider } from './../../providers/pnc/pnc';
 import { Nav, Events, Tabs } from 'ionic-angular';
@@ -36,6 +37,7 @@ export class TabNavComponent {
   upcomingFlightListPage = UpcomingFlightListPage;
   summarySheetPage = SummarySheetPage;
   statutoryCertificatePage = StatutoryCertificatePage;
+  professionalLevelPage = ProfessionalLevelPage;
 
   // Paramètres envoyés aux pages
   pncParams;
@@ -108,6 +110,13 @@ export class TabNavComponent {
    */
   goToStatutoryCertificate() {
     this.navCtrl.push(StatutoryCertificatePage, { matricule: this.pnc.matricule });
+  }
+
+  /**
+   * Dirige vers le suivi réglementaire
+   */
+  goToProfessionalLevel() {
+    this.navCtrl.push(ProfessionalLevelPage);
   }
 
 }

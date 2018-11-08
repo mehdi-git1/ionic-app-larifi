@@ -8,7 +8,7 @@ import { PncProvider } from './../providers/pnc/pnc';
 import { DatePipe } from '@angular/common';
 
 import { Injectable } from '@angular/core';
-import { RestService } from './rest.base.service';
+import { RestService } from './rest/rest.base.service';
 
 declare var window: any;
 
