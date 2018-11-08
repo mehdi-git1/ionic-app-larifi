@@ -61,7 +61,37 @@ export class TabNavComponent {
   matriculeParams;
   roleParams;
 
-  constructor(private events: Events, private sessionService: SessionService, private pncProvider: PncProvider, private translate: TranslateService) {
+  tabObject = {
+    pncHome: { title: '', page: '' },
+    developementProgram: { title: '', page: '' },
+    pncSummarySheet: { title: '', page: '' },
+    pncTeam: { title: '', page: '' },
+    upcomingFlight: { title: '', page: '' },
+    helpCenter: { title: '', page: '' },
+    statutoryCertificate: { title: '', page: '' },
+    professionalLevel: { title: '', page: '' }
+  };
+
+  constructor(
+    private events: Events,
+    private sessionService: SessionService,
+    private pncProvider: PncProvider,
+    private translate: TranslateService) {
+    this.initTabObject();
+  }
+
+  /**
+   * Fonction d'initialisation des titres dynamiquement
+   */
+  initTabObject() {
+    this.tabObject.pncHome.title = this.translate.instant('PNC_HOME.TITLE');
+    this.tabObject.developementProgram.title = this.translate.instant('GLOBAL.DEVELOPMENT_PROGRAM');
+    this.tabObject.pncSummarySheet.title = this.translate.instant('GLOBAL.PNC_SUMMARY_SHEET');
+    this.tabObject.pncTeam.title = this.translate.instant('GLOBAL.PNC_TEAM');
+    this.tabObject.upcomingFlight.title = this.translate.instant('GLOBAL.UPCOMING_FLIGHT');
+    this.tabObject.helpCenter.title = this.translate.instant('GLOBAL.HELP_CENTER');
+    this.tabObject.statutoryCertificate.title = this.translate.instant('GLOBAL.STATUTORY_CERTIFICATE');
+    this.tabObject.professionalLevel.title = this.translate.instant('GLOBAL.PROFESSIONAL_LEVEL');
   }
 
   /**
@@ -76,6 +106,12 @@ export class TabNavComponent {
    */
   goToCareerObjectiveList() {
     this.navCtrl.push(CareerObjectiveListPage, { matricule: this.pnc.matricule });
+
+  }
+
+  eventTest(event) {
+    this.initTabObject();
+    console.log('event', event.root.name);
   }
 
   /**

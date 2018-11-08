@@ -15,7 +15,7 @@ import { SecurityProvider } from './../providers/security/security';
 
 import { Component, ViewChild, OnInit } from '@angular/core';
 
-import { Nav, Platform, Events } from 'ionic-angular';
+import { Nav, Platform, Events, App } from 'ionic-angular';
 
 import { StatusBar } from '@ionic-native/status-bar';
 
@@ -60,10 +60,13 @@ export class EDossierPNC implements OnInit {
     private deviceService: DeviceService,
     private appInitService: AppInitService,
     private toastProvider: ToastProvider,
-    private parametersProvider: ParametersProvider,
     private securityProvider: SecurityProvider,
     private synchronizationProvider: SynchronizationProvider,
-    private offlineSecurityProvider: OfflineSecurityProvider) {
+    private offlineSecurityProvider: OfflineSecurityProvider,
+    private app: App) {
+    app.viewWillEnter.subscribe(
+      (data) => console.log('poooppo', data.component.name)
+    );
   }
 
   ngOnInit(): void {
