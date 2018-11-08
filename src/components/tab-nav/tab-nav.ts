@@ -128,4 +128,8 @@ export class TabNavComponent {
     return this.pnc && this.authorizationService.hasPermission(permission);
   }
 
+  isManager(): boolean {
+    return this.securityProvider.isManager();
+  }
+
 }
