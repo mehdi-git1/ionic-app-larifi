@@ -38,7 +38,7 @@ describe('tab-nav component', () => {
         EventsService = TestBed.get(Events);
     });
 
-    describe('fonction tabChange', () => {
+    describe('fonction tabChange, tests au changement de tab', () => {
         let event;
         beforeEach(() => {
             event = {
@@ -51,14 +51,14 @@ describe('tab-nav component', () => {
             };
         });
 
-        it('doit changer la valeur du nom de la page de l\'event changeTab au changement de tab', () => {
+        it('doit changer la valeur du nom de la page de l\'event changeTab', () => {
             EventsService.subscribe('changeTab', (data) => {
                 expect(data.pageName).toBe('testRootName');
             });
             comp.tabChange(event);
         });
 
-        it('doit changer la valeur des data de la page de l\'event changeTab au changement de tab', () => {
+        it('doit changer la valeur des data de la page de l\'event changeTab', () => {
             EventsService.subscribe('changeTab', (data) => {
                 const objReturn = { 'data': 'testData' };
                 expect(data.pageParams).toEqual(objReturn);
