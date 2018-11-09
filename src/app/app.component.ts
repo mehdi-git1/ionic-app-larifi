@@ -64,8 +64,11 @@ export class EDossierPNC implements OnInit {
     private synchronizationProvider: SynchronizationProvider,
     private offlineSecurityProvider: OfflineSecurityProvider,
     private app: App) {
+    // A chaque changement de page, on récupére l'evenement pour la gestion du changement de tab
     app.viewWillEnter.subscribe(
-      (data) => console.log('poooppo', data.component.name)
+      (data) => {
+        this.events.publish('changeTab', data.component.name);
+      }
     );
   }
 
