@@ -33,7 +33,7 @@
         <professional-level-stage *ngIf="professionalLevel && professionalLevel.stages; else noStagesBlock" [stages]="professionalLevel.stages"></professional-level-stage>
 
         <ng-template #noStagesBlock>
-            <div class="no-data">{{ 'GLOBAL.NO_DATA' | translate }}</div>
+            <no-data></no-data>
         </ng-template>
     </ng-template>
 </ion-content>
