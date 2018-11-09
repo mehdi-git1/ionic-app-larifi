@@ -56,8 +56,8 @@ export class GeneralitySkillsComponent implements OnInit {
         values: this.generalitySkillsData && this.generalitySkillsData.pcb ?
           [
             { value: [_.get(this.generalitySkillsData, 'pcb.label')], type: 'libelle' },
-            { value: [_.get(this.generalitySkillsData, 'pcb.startDate')], type: 'date' },
-            { value: [_.get(this.generalitySkillsData, 'pcb.dueDate')], type: 'date' },
+            { value: [_.get(this.generalitySkillsData, 'pcb.validityStartDate')], type: 'date' },
+            { value: [_.get(this.generalitySkillsData, 'pcb.validityEndDate')], type: 'date' },
             { value: [''], type: 'text' },
             { value: [''], type: 'text' },
             { value: [''], type: 'text' }

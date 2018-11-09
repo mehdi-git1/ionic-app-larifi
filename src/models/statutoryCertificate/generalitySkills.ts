@@ -5,8 +5,8 @@ export class GeneralitySkills {
     };
     pcb: {
         libelle: string,
-        startDate: Date,
-        dueDate: Date
+        validityStartDate: Date,
+        validityEndDate: Date
     };
     gene: {
         skillType: string,
