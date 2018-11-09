@@ -51,14 +51,14 @@ describe('tab-nav component', () => {
             };
         });
 
-        it('doit changer la valeur du nom de la page de l\'event changeTab', () => {
+        it('doit changer la valeur du nom du pageName de l\'event changeTab', () => {
             EventsService.subscribe('changeTab', (data) => {
                 expect(data.pageName).toBe('testRootName');
             });
             comp.tabChange(event);
         });
 
-        it('doit changer la valeur des data de la page de l\'event changeTab', () => {
+        it('doit changer la valeur du pageParams de la page de l\'event changeTab', () => {
             EventsService.subscribe('changeTab', (data) => {
                 const objReturn = { 'data': 'testData' };
                 expect(data.pageParams).toEqual(objReturn);
