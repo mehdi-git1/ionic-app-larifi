@@ -1,6 +1,6 @@
 import { BaseConfig, urlGroupName } from './base';
 
-describe('Configuration base.ts', () => {
+describe('Configuration/base.ts', () => {
 
     let baseConfig: BaseConfig;
 
@@ -16,7 +16,7 @@ describe('Configuration base.ts', () => {
         };
     });
 
-    describe('Tests de la fonction getBackEndUrl', () => {
+    describe('getBackEndUrl', () => {
         it('doit retourner une bonne URL si il n\'y a pas de params', () => {
             const expectedReturn = `${baseConfig.backEndUrl}/pnc`;
             expect(baseConfig.getBackEndUrl('pnc')).toEqual(expectedReturn);

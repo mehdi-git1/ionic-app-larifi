@@ -38,7 +38,7 @@ describe('tab-nav component', () => {
         EventsService = TestBed.get(Events);
     });
 
-    describe('fonction tabChange, tests au changement de tab', () => {
+    describe('tabChange', () => {
         let event;
         beforeEach(() => {
             event = {
