@@ -5,6 +5,7 @@ import { PncTransformerProvider } from './../providers/pnc/pnc-transformer';
 import { Entity } from './../models/entity';
 import { Injectable } from '@angular/core';
 import { EDossierPncObject } from '../models/eDossierPncObject';
+import { SummarySheetTransformerProvider } from '../providers/summary-sheet/summary-sheet-transformer';
 
 @Injectable()
 export class TransformerService {
@@ -13,7 +14,8 @@ export class TransformerService {
         private pncTransformer: PncTransformerProvider,
         private careerObjectiveTransformer: CareerObjectiveTransformerProvider,
         private waypointTransformer: WaypointTransformerProvider,
-        private eObservationTransformer: EObservationTransformerProvider) {
+        private eObservationTransformer: EObservationTransformerProvider,
+        private summarySheetTransformer: SummarySheetTransformerProvider) {
     }
     /**
      * Appelle le bon transformer et transforme l'objet
@@ -23,6 +25,8 @@ export class TransformerService {
     public transformObject(type: Entity, objectToTransform: any): EDossierPncObject {
         if (Entity.PNC === type) {
             return this.pncTransformer.toPnc(objectToTransform);
+        } else if (Entity.SUMMARY_SHEET === type) {
+            return this.summarySheetTransformer.toSummarySheet(objectToTransform);
         } else if (Entity.CAREER_OBJECTIVE === type) {
             return this.careerObjectiveTransformer.toCareerObjective(objectToTransform);
         } else if (Entity.WAYPOINT === type) {
