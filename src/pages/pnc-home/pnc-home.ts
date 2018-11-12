@@ -150,7 +150,7 @@ export class PncHomePage {
     */
     goToProfessionalLevel() {
         if (this.isMyHome()) {
-            this.navCtrl.parent.select(5);
+            this.navCtrl.parent.select(7);
         } else {
             this.navCtrl.push(ProfessionalLevelPage, { matricule: this.matricule });
         }

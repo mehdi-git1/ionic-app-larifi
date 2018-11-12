@@ -30,6 +30,7 @@ import { FamiliarizationFlightComponent } from './familiarization-flight/familia
 
 import { TabNavComponent } from './tab-nav/tab-nav';
 import { ProfessionalLevelStageComponent } from './professional-level-stage/professional-level-stage';
+import { NoDataComponent } from './no-data/no-data';
 
 
 @NgModule({
@@ -62,7 +63,8 @@ import { ProfessionalLevelStageComponent } from './professional-level-stage/prof
     MasteringQualificationComponent,
     FamiliarizationFlightComponent,
     TabNavComponent,
-    ProfessionalLevelStageComponent
+    ProfessionalLevelStageComponent,
+    NoDataComponent
   ],
   exports: [
     RotationCardComponent,
@@ -88,7 +90,8 @@ import { ProfessionalLevelStageComponent } from './professional-level-stage/prof
     MasteringQualificationComponent,
     FamiliarizationFlightComponent,
     TabNavComponent,
-    ProfessionalLevelStageComponent
+    ProfessionalLevelStageComponent,
+    NoDataComponent
   ],
   entryComponents: [
     PinPadModal,

@@ -16,7 +16,7 @@ import { SecurityProvider } from './../providers/security/security';
 
 import { Component, ViewChild, OnInit } from '@angular/core';
 
-import { Nav, Platform, Events } from 'ionic-angular';
+import { Nav, Platform, Events, App } from 'ionic-angular';
 
 import { StatusBar } from '@ionic-native/status-bar';
 
@@ -59,7 +59,14 @@ export class EDossierPNC implements OnInit {
     private toastProvider: ToastProvider,
     private securityProvider: SecurityProvider,
     private synchronizationProvider: SynchronizationProvider,
-    private offlineSecurityProvider: OfflineSecurityProvider) {
+    private offlineSecurityProvider: OfflineSecurityProvider,
+    private app: App) {
+    // A chaque changement de page, on récupère l'evenement pour la gestion du changement de tab
+    app.viewWillEnter.subscribe(
+      (data) => {
+        this.events.publish('changeTab', data.component.name);
+      }
+    );
   }
 
   ngOnInit(): void {

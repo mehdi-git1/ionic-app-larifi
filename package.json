@@ -10,7 +10,7 @@
         "lint": "ionic-app-scripts lint",
         "ionic:build": "ionic-app-scripts build",
         "ionic:serve": "ionic-app-scripts serve",
-        "test": "ng test"
+        "test": "ng test --sm=false"
     },
     "dependencies": {
         "@angular/animations": "5.2.9",
