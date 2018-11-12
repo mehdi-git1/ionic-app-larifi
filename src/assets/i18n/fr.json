@@ -1,6 +1,7 @@
 {
     "GLOBAL": {
         "APP_NAME": "EDOSSIER PNC",
+        "NO_DATA": "Pas de données disponibles",
         "PNC_ROLE": {
             "MANAGER": "Manager Coach",
             "PNC": "PNC"
@@ -246,8 +247,7 @@
         },
         "ERROR": {
             "STATUTORY_CERTIFICATE": "Erreur lors de la récupération de  l'attestation réglementaire pour le matricule {{ matricule }}"
-        },
-        "NO_DATA": "Pas de données disponibles"
+        }
     },
     "PROFESSIONAL_LEVEL": {
         "TITLE": "Niveau Pro",
@@ -258,8 +258,7 @@
             "RESULT": "Résultat",
             "HELP": "Légende à venir"
         },
-        "ERROR": "Erreur lors de la récupération du suivi réglementaire pour le matricule {{ matricule }}",
-        "NO_DATA": "Pas de données disponibles"
+        "ERROR": "Erreur lors de la récupération du suivi réglementaire pour le matricule {{ matricule }}"
     },
     "PNC_SEARCH": {
         "TITLE": "Recherche PNC",
