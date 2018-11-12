@@ -2,7 +2,7 @@ import { Score } from './score';
 
 export class Module {
     date: Date;
-    moduleCode: ModuleTypeEnum;
+    moduleType: ModuleTypeEnum;
     label: string;
     moduleResultStatus: string;
     scores: Score[];
