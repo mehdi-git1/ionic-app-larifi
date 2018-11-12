@@ -13,6 +13,8 @@ import { UpcomingFlightListPage } from './../../pages/upcoming-flight-list/upcom
 import { HelpAssetListPage } from './../../pages/help-asset-list/help-asset-list';
 import { CareerObjectiveListPage } from './../../pages/career-objective-list/career-objective-list';
 import { PncProvider } from './../../providers/pnc/pnc';
+import { SessionService } from '../../services/session.service';
+import { SecurityProvider } from '../../providers/security/security';
 
 
 @Component({
@@ -21,27 +23,9 @@ import { PncProvider } from './../../providers/pnc/pnc';
 })
 export class TabNavComponent {
 
-  @Input() pnc: Pnc;
   @Input() navCtrl: Nav;
 
-  _matricule: string;
-
-  @Input()
-  set matricule(matricule: string) {
-    if (matricule) {
-      this.pncProvider.getPnc(matricule).then(pnc => {
-        this._matricule = matricule;
-        this.pnc = pnc;
-        this.pncParams = this.pnc;
-        this.matriculeParams = { matricule: this.pnc.matricule };
-        this.roleParams = { pncRole: Speciality.getPncRole(this.pnc.speciality) };
-        this.navCtrl.popToRoot();
-      }, error => {
-      });
-    }
-  }
-
-  @ViewChild('tabs') tabs: Tabs;
+  pnc: Pnc;
 
   // exporter la classe enum speciality dans la page html
   Speciality = Speciality;
@@ -55,8 +39,23 @@ export class TabNavComponent {
   constructor(
     private events: Events,
     private pncProvider: PncProvider,
-    private translate: TranslateService) {
+    private translate: TranslateService,
+    private sessionService: SessionService,
+    public securityProvider: SecurityProvider) {
     this.initTabObject();
+
+    this.events.subscribe('user:authenticationDone', () => {
+      if (this.sessionService.getActiveUser() && this.sessionService.getActiveUser().pnc) {
+        this.pncProvider.getPnc(this.sessionService.getActiveUser().matricule).then(pnc => {
+          this.pnc = pnc;
+          this.pncParams = this.pnc;
+          this.matriculeParams = { matricule: this.pnc.matricule };
+          this.roleParams = { pncRole: Speciality.getPncRole(this.pnc.speciality) };
+        }, error => {
+        });
+      }
+    });
+
     this.events.subscribe('changeTab', (data) => {
       // Pour l'instant, rien n'est fait dans ce subscribe car cela est juste une analyse
     });

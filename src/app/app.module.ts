@@ -1,3 +1,4 @@
+import { ImpersonatePage } from './../pages/impersonate/impersonate';
 import { OfflineProfessionalLevelProvider } from './../providers/professional-level/offline-professional-level';
 import { OnlineProfessionalLevelProvider } from './../providers/professional-level/online-professional-level';
 import { StatutoryCertificatePage } from './../pages/statutory-certificate/statutory-certificate';
@@ -131,6 +132,7 @@ declare var window: any;
   declarations: [
     EDossierPNC,
     HomePage,
+    ImpersonatePage,
     PncHomePage,
     AuthenticationPage,
     CareerObjectiveCreatePage,
@@ -173,6 +175,7 @@ declare var window: any;
   entryComponents: [
     EDossierPNC,
     HomePage,
+    ImpersonatePage,
     PncHomePage,
     AuthenticationPage,
     CareerObjectiveCreatePage,
@@ -198,7 +201,7 @@ declare var window: any;
     DeviceService,
     DateTransformService,
     TransformerService,
-    { provide: RestService, useFactory: createRestService, deps: [HttpClient, SecMobilService, Config] },
+    { provide: RestService, useFactory: createRestService, deps: [HttpClient, SessionService, SecMobilService, Config] },
     { provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true },
     AppInitService,
     HttpClientModule,
@@ -273,13 +276,11 @@ declare var window: any;
 })
 export class AppModule { }
 
-
-
 // Check if we are in app mode or in web browser
-export function createRestService(http: HttpClient, secMobilService: SecMobilService, config: Config): RestService {
+export function createRestService(http: HttpClient, sessionService: SessionService, secMobilService: SecMobilService, config: Config): RestService {
   if (undefined !== window.cordova && 'browser' !== window.cordova.platformId) {
-    return new RestMobileService(http, secMobilService);
+    return new RestMobileService(http, secMobilService, sessionService);
   } else {
-    return new RestWebService(http, config);
+    return new RestWebService(http, config, sessionService);
   }
 }
