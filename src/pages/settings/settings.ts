@@ -1,3 +1,4 @@
+import { SecMobilService } from './../../services/secMobil.service';
 import { TranslateService } from '@ngx-translate/core';
 import { ToastProvider } from './../../providers/toast/toast';
 import { SessionService } from './../../services/session.service';
@@ -39,7 +40,8 @@ export class SettingsPage {
     private securityModalService: SecurityModalService,
     private deviceService: DeviceService,
     private offlineSecurityProvider: OfflineSecurityProvider,
-    private navCtrl: NavController
+    private navCtrl: NavController,
+    private secMobilService: SecMobilService
   ) {
     this.connected = this.connectivityService.isConnected();
 
@@ -62,7 +64,7 @@ export class SettingsPage {
   }
 
   /**
-  * Présente une alerte pour confirmer la suppression du brouillon
+  * Présente une alerte pour confirmer la suppression du cache
   */
   confirmClearAndInitCache() {
     const message = this.synchronizationProvider.isPncModifiedOffline(this.sessionService.authenticatedUser.matricule) ?
@@ -106,6 +108,30 @@ export class SettingsPage {
       }, error => {
       });
     });
+  }
+
+  /**
+* Présente une alerte pour confirmer la suppression du cache
+*/
+  confirmRevokeCertificate() {
+    this.alertCtrl.create({
+      title: this.translateService.instant('SETTINGS.CONFIRM_REVOKE_CERTIFICATE.TITLE'),
+      message: this.translateService.instant('SETTINGS.CONFIRM_REVOKE_CERTIFICATE.MESSAGE'),
+      buttons: [
+        {
+          text: this.translateService.instant('SETTINGS.CONFIRM_REVOKE_CERTIFICATE.CANCEL'),
+          role: 'cancel'
+        },
+        {
+          text: this.translateService.instant('SETTINGS.CONFIRM_REVOKE_CERTIFICATEE.CONFIRM'),
+          handler: () => this.RevokeCertificate()
+        }
+      ]
+    }).present();
+  }
+
+  RevokeCertificate() {
+    this.secMobilService.secMobilRevokeCertificate();
   }
 
   forceSynchronizeOfflineData() {

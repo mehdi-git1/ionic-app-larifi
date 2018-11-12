@@ -25,6 +25,14 @@
         </button>
     </ion-item>
     <ion-item *ngIf="isApp">
+        <label>{{ 'SETTINGS.REVOKE_CERTIFICATE.BUTTON' | translate }}</label>
+
+        <button ion-fab mini icon-only item-end class="parameter-button" (click)="confirmRevokeCertificate()" [disabled]="!connected">
+            <ion-icon name="trash" *ngIf="!revocationInProgress"></ion-icon>
+            <ion-spinner *ngIf="revocationInProgress"></ion-spinner>
+        </button>
+    </ion-item>
+    <ion-item *ngIf="isApp">
         <label>{{ 'SETTINGS.CHANGE_PIN_CODE.BUTTON' | translate }}</label>
         <button ion-fab mini icon-only item-end class="parameter-button" (click)="changePinCode()" [disabled]="!connected">
             <ion-icon name="key"></ion-icon>
