@@ -1,6 +1,5 @@
 import { PncPin } from './../../models/pncPin';
 import { DeviceService } from './../../services/device.service';
-import { SecMobilService } from './../../services/secMobil.service';
 import { AuthenticatedUser } from './../../models/authenticatedUser';
 import { OfflineSecurityProvider } from './../security/offline-security';
 import { Config } from './../../configuration/environment-variables/config';
@@ -53,13 +52,22 @@ export class OnlineSecurityProvider {
   }
 
   /**
- * Met à jour des informations de securité de l'utilisateur
- * @param  pinValues l'objectif à créer ou mettre à jour
- * @return une promesse contenant l'objectif créé ou mis à jour
- */
+   * Met à jour des informations de securité de l'utilisateur
+   * @param  pinValues l'objectif à créer ou mettre à jour
+   * @return une promesse contenant l'objectif créé ou mis à jour
+   */
   setAuthenticatedSecurityValue(authenticatedUser: AuthenticatedUser): Promise<void> {
     return this.restService.put(this.secretInfosUrl, authenticatedUser.pinInfo).then(data => {
       this.offlineSecurityProvider.overwriteAuthenticatedUser(new AuthenticatedUser().fromJSON(authenticatedUser));
     });
+  }
+
+  /**
+   * Vérifie si l'impersonnification est disponible pour un utilisateur donné
+   * @param matricule le matricule de l'utilisateur
+   * @return une promesse vide (le code de retour http détermine si l'impersonnification est possible ou non)
+   */
+  isImpersonationAvailable(matricule: string): Promise<void> {
+    return this.restService.get(`${this.config.backEndUrl}/check_impersonation_available/${matricule}`);
   }
 }

@@ -70,8 +70,8 @@ export class PncHomePage {
     initPage() {
         if (this.navParams.get('matricule')) {
             this.matricule = this.navParams.get('matricule');
-        } else if (this.sessionService.authenticatedUser) {
-            this.matricule = this.sessionService.authenticatedUser.matricule;
+        } else if (this.sessionService.getActiveUser()) {
+            this.matricule = this.sessionService.getActiveUser().matricule;
         }
         if (this.matricule != null) {
             this.pncProvider.getPnc(this.matricule).then(pnc => {
@@ -113,13 +113,6 @@ export class PncHomePage {
         } else {
             this.navCtrl.push(UpcomingFlightListPage, { matricule: this.matricule });
         }
-    }
-
-    /**
-     * Redirige vers le EDossier du PNC saisi
-     */
-    goToEdossier() {
-        this.navCtrl.push(PncHomePage, { matricule: this.matricule });
     }
 
     /**
@@ -198,7 +191,7 @@ export class PncHomePage {
      * @return vrai si c'est le cas, faux sinon
      */
     isMyHome(): boolean {
-        return this.matricule === (this.sessionService.authenticatedUser && this.sessionService.authenticatedUser.matricule);
+        return this.matricule === (this.sessionService.getActiveUser() && this.sessionService.getActiveUser().matricule);
     }
 
 }

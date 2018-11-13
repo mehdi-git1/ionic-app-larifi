@@ -29,8 +29,8 @@ export class UpcomingFlightListPage {
         let matricule = '';
         if (this.navParams.get('matricule')) {
             matricule = this.navParams.get('matricule');
-        } else if (this.sessionService.authenticatedUser) {
-            matricule = this.sessionService.authenticatedUser.matricule;
+        } else if (this.sessionService.getActiveUser()) {
+            matricule = this.sessionService.getActiveUser().matricule;
         }
 
         this.pncProvider.getLastPerformedRotations(matricule).then(lastPerformedRotations => {

@@ -5,7 +5,7 @@
                 <ion-col *ngFor="let header of statutoryCertificateData.headers">{{header}}</ion-col>
             </ion-row>
             <ion-row *ngIf="statutoryCertificateData.values === null ; else statutoryCertificateDataBlock">
-                <div class="no-data">{{ 'STATUTORY_CERTIFICATE.NO_DATA' | translate }}</div>
+                <no-data></no-data>
             </ion-row>
             <ng-template #statutoryCertificateDataBlock>
                 <ion-row *ngFor="let statutoryCertificate of statutoryCertificateData.values[0].value; index as i">

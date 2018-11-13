@@ -160,7 +160,7 @@ export class PncSearchPage implements OnInit {
      * @return vrai si c'est le cas, faux sinon
      */
     isMyHome(matricule: string): boolean {
-        return matricule === (this.sessionService.authenticatedUser && this.sessionService.authenticatedUser.matricule);
+        return matricule === (this.sessionService.getActiveUser() && this.sessionService.getActiveUser().matricule);
     }
 
     /**

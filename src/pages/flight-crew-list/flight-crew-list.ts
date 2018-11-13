@@ -46,7 +46,7 @@ export class FlightCrewListPage {
             this.legProvider.getFlightCrewFromLeg(legId).then(flightCrew => {
                 flightCrew.forEach(crew => {
                     if (crew.pnc.matricule !== undefined) {
-                        if (crew.pnc.matricule === this.sessionService.authenticatedUser.matricule) {
+                        if (crew.pnc.matricule === this.sessionService.getActiveUser().matricule) {
                             this.sessionService.appContext.onBoardRedactorFunction = crew.onBoardFonction;
                             this.connectedCrewMember = crew;
                         }

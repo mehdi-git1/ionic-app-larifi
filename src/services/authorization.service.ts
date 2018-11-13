@@ -1,6 +1,3 @@
-import { Parameters } from './../models/Parameters';
-import { AppContext } from './../models/appContext';
-import { AuthenticatedUser } from './../models/authenticatedUser';
 import { Injectable } from '@angular/core';
 import { SessionService } from './session.service';
 
@@ -17,9 +14,10 @@ export class AuthorizationService {
      * @return true si le user a les droits
      */
     hasPermission(permission: string): boolean {
-        if (this.sessionService && this.sessionService.authenticatedUser && this.sessionService.authenticatedUser.permissions && this.sessionService.authenticatedUser.permissions.find(userRight => {
-            return userRight === permission;
-        })) {
+        if (this.sessionService && this.sessionService.getActiveUser() && this.sessionService.getActiveUser().permissions
+            && this.sessionService.getActiveUser().permissions.find(userRight => {
+                return userRight === permission;
+            })) {
             return true;
         }
         return false;

@@ -42,7 +42,7 @@ export class OfflinePncProvider {
     */
   getFilteredPncs(): Promise<PagedPnc> {
     return this.storageService.findAllAsync(Entity.PNC).then(response => {
-      return this.getPnc(this.sessionService.authenticatedUser.matricule).then(connectedPnc => {
+      return this.getPnc(this.sessionService.getActiveUser().matricule).then(connectedPnc => {
         let filteredPnc = response;
         if (connectedPnc.assignment.division !== 'ADM') {
           filteredPnc = response.filter(pnc =>

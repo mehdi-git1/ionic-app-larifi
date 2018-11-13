@@ -1,22 +1,22 @@
-import { ProfessionalLevelPage } from './../../pages/professional-level/professional-level';
-import { StatutoryCertificatePage } from './../../pages/statutory-certificate/statutory-certificate';
-import { HelpAssetListPage } from './../../pages/help-asset-list/help-asset-list';
-import { UpcomingFlightListPage } from './../../pages/upcoming-flight-list/upcoming-flight-list';
-import { PncSearchPage } from './../../pages/pnc-search/pnc-search';
-import { SummarySheetPage } from './../../pages/summary-sheet/summary-sheet';
-import { CareerObjectiveListPage } from './../../pages/career-objective-list/career-objective-list';
-import { PncHomePage } from './../../pages/pnc-home/pnc-home';
-import { TabNavService } from './../../providers/tab-nav/tab-nav.service';
 import { Component, Input, ViewChild } from '@angular/core';
 import { Nav, Events, Tabs } from 'ionic-angular';
 
 import { Pnc } from './../../models/pnc';
 import { Speciality } from './../../models/speciality';
-
+import { StatutoryCertificatePage } from '../../pages/statutory-certificate/statutory-certificate';
+import { ProfessionalLevelPage } from './../../pages/professional-level/professional-level';
+import { SummarySheetPage } from './../../pages/summary-sheet/summary-sheet';
+import { PncSearchPage } from './../../pages/pnc-search/pnc-search';
+import { PncHomePage } from './../../pages/pnc-home/pnc-home';
+import { UpcomingFlightListPage } from './../../pages/upcoming-flight-list/upcoming-flight-list';
+import { HelpAssetListPage } from './../../pages/help-asset-list/help-asset-list';
+import { CareerObjectiveListPage } from './../../pages/career-objective-list/career-objective-list';
 import { PncProvider } from './../../providers/pnc/pnc';
+import { SessionService } from '../../services/session.service';
+import { SecurityProvider } from '../../providers/security/security';
+import { TabNavService } from './../../providers/tab-nav/tab-nav.service';
 import { tabNavEnum } from '../../shared/enum/tab-nav.enum';
 import { TranslateService } from '@ngx-translate/core';
-import { SecurityProvider } from '../../providers/security/security';
 
 @Component({
   selector: 'tab-nav',
@@ -24,7 +24,6 @@ import { SecurityProvider } from '../../providers/security/security';
 })
 export class TabNavComponent {
 
-  @Input() pnc: Pnc;
   @Input() navCtrl: Nav;
 
   _matricule: string;
@@ -48,6 +47,7 @@ export class TabNavComponent {
   }
 
   @ViewChild('tabs') tabs: Tabs;
+  pnc: Pnc;
 
   // exporter la classe enum speciality dans la page html
   Speciality = Speciality;
@@ -65,8 +65,25 @@ export class TabNavComponent {
     private pncProvider: PncProvider,
     private tabNavService: TabNavService,
     private translate: TranslateService,
-    private securityProvider: SecurityProvider
+    private sessionService: SessionService,
+    public securityProvider: SecurityProvider
   ) {
+    this.events.subscribe('user:authenticationDone', () => {
+      if (this.sessionService.getActiveUser() && this.sessionService.getActiveUser().pnc) {
+        this.pncProvider.getPnc(this.sessionService.getActiveUser().matricule).then(pnc => {
+          this.pnc = pnc;
+          this.pncParams = this.pnc;
+          this.matriculeParams = { matricule: this.pnc.matricule };
+          this.roleParams = { pncRole: Speciality.getPncRole(this.pnc.speciality) };
+          this.tabsNav = this.createListOfTab();
+          this.tabNavService.setListOfTabs(this.tabsNav);
+          this.loading = false;
+          this.navCtrl.popToRoot();
+        }, error => {
+        });
+      }
+    });
+
     this.events.subscribe('changeTab', (data) => {
       // Pour l'instant, rien n'est fait dans ce subscribe car cela est juste une analyse
     });
