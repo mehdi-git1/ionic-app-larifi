@@ -1,3 +1,4 @@
+import { AuthorizationService, AuthorizationService } from './../../services/authorization.service';
 import { Injectable } from '@angular/core';
 
 import { OfflineSecurityProvider } from './../security/offline-security';
@@ -13,6 +14,7 @@ export class SecurityProvider extends BaseProvider {
   constructor(
     private sessionService: SessionService,
     protected connectivityService: ConnectivityService,
+    protected authorizationService: AuthorizationService,
     private onlineSecurityProvider: OnlineSecurityProvider,
     private offlineSecurityProvider: OfflineSecurityProvider
   ) {
@@ -32,6 +34,16 @@ export class SecurityProvider extends BaseProvider {
       return false;
     }
     return this.sessionService.authenticatedUser.manager;
+  }
+
+
+  /**
+  * Vérifie si le pnc a une permission
+  * @param permission permission à vérifier
+  * return true si le pnc n'est pas null ou undefined et si il a la permission, sinon false
+  */
+  hasPermissionToViewTab(permission: string): boolean {
+    return this.authorizationService.hasPermission(permission);
   }
 
   /**

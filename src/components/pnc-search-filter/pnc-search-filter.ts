@@ -1,3 +1,8 @@
+import { FormGroup, AbstractControl, Validators, FormBuilder } from '@angular/forms';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import $ from 'jquery';
+
+import { tabNavEnum } from './../../shared/enum/tab-nav.enum';
 import { Utils } from '../../common/utils/utils';
 import { ConnectivityService } from '../../services/connectivity/connectivity.service';
 import { NavController, Events, Keyboard } from 'ionic-angular';
@@ -11,10 +16,7 @@ import { Speciality } from './../../models/speciality';
 import { AppConstant } from './../../app/app.constant';
 import { PncFilter } from './../../models/pncFilter';
 import { Pnc } from './../../models/pnc';
-import { FormGroup, AbstractControl, Validators, FormBuilder } from '@angular/forms';
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-
-import $ from 'jquery';
+import { TabNavService } from './../../providers/tab-nav/tab-nav.service';
 
 
 @Component({
@@ -66,7 +68,8 @@ export class PncSearchFilterComponent implements OnInit {
     private pncProvider: PncProvider,
     private connectivityService: ConnectivityService,
     private events: Events,
-    private keyboard: Keyboard
+    private keyboard: Keyboard,
+    private tabNavService: TabNavService
   ) {
     this.connectivityService.connectionStatusChange.subscribe(connected => {
       this.initFilter();
@@ -93,7 +96,7 @@ export class PncSearchFilterComponent implements OnInit {
     this.keyboard.didHide.subscribe(() => {
       const newHeight = window.innerHeight - this.autoCompleteTopPosition;
       $('#cdk-overlay-0').css('top', this.autoCompleteTopPosition + 'px');
-      setTimeout($('#mat-autocomplete-0').css('max-height', newHeight + 'px'), 5000);
+      setTimeout(() => { $('#mat-autocomplete-0').css('max-height', newHeight + 'px'); }, 5000);
     });
   }
 
@@ -392,7 +395,7 @@ export class PncSearchFilterComponent implements OnInit {
     // Si on va sur un PNC par la recherche, on suprime de la session une enventuelle rotation.
     this.sessionService.appContext.lastConsultedRotation = null;
     if (this.isMyHome(pnc.matricule)) {
-      this.navCtrl.parent.select(0);
+      this.navCtrl.parent.select(this.tabNavService.findTabIndex(tabNavEnum.PNC_HOME_PAGE));
     } else {
       this.navCtrl.push(PncHomePage, { matricule: pnc.matricule });
     }
@@ -404,7 +407,7 @@ export class PncSearchFilterComponent implements OnInit {
    * @return vrai si c'est le cas, faux sinon
    */
   isMyHome(matricule: string): boolean {
-      return matricule === (this.sessionService.authenticatedUser && this.sessionService.authenticatedUser.matricule);
+    return matricule === (this.sessionService.authenticatedUser && this.sessionService.authenticatedUser.matricule);
   }
   /**
   * Ouvre/ferme le filtre
