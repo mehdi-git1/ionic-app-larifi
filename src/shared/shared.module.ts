@@ -1,5 +1,3 @@
-import { ReversePipe } from '../common/pipe/reverse/reverse.pipe';
-
 import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-translate/core';
 import { NgModule } from '@angular/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
@@ -8,6 +6,8 @@ import { CommonModule } from '@angular/common';
 
 import { AppMaterialModule } from './material/material.module';
 import { PipesModule } from '../pipes/pipes.module';
+import { TooltipsModule } from 'ionic-tooltips';
+import { ReversePipe } from '../common/pipe/reverse/reverse.pipe';
 
 
 export function createTranslateLoader(http: HttpClient) {
@@ -25,13 +25,19 @@ export function createTranslateLoader(http: HttpClient) {
                 deps: [HttpClient]
             }
         }),
-        PipesModule
+        PipesModule,
+        TooltipsModule
+    ],
+    declarations: [
+        ReversePipe
     ],
     exports: [
         CommonModule,
         TranslateModule,
         AppMaterialModule,
-        PipesModule
+        PipesModule,
+        ReversePipe,
+        TooltipsModule
     ],
     providers: [
         AppMaterialModule

@@ -4,7 +4,7 @@ import { DeviceService } from './device.service';
 import { Injectable } from '@angular/core';
 import { Config } from '../configuration/environment-variables/config';
 import { Platform, Events } from 'ionic-angular';
-import { RestRequest } from './rest.base.service';
+import { RestRequest } from './rest/rest.base.service';
 import { TranslateService } from '@ngx-translate/core';
 import { ToastProvider } from '../providers/toast/toast';
 

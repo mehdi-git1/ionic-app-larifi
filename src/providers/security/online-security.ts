@@ -1,11 +1,10 @@
 import { PncPin } from './../../models/pncPin';
 import { DeviceService } from './../../services/device.service';
-import { SecMobilService } from './../../services/secMobil.service';
 import { AuthenticatedUser } from './../../models/authenticatedUser';
 import { OfflineSecurityProvider } from './../security/offline-security';
 import { Config } from './../../configuration/environment-variables/config';
 import { Injectable } from '@angular/core';
-import { RestService } from '../../services/rest.base.service';
+import { RestService } from '../../services/rest/rest.base.service';
 
 @Injectable()
 export class OnlineSecurityProvider {
@@ -31,7 +30,7 @@ export class OnlineSecurityProvider {
       // Pour le mobile, on récupére les informations secretes (code PIN, question / réponse secréte)
       // avant de mettre l'utilisateur en session
       if (!this.deviceService.isBrowser()) {
-        return this.restService.get(`${this.secretInfosUrl}/${authenticatedUser.matricule}`).then( data => {
+        return this.restService.get(`${this.secretInfosUrl}/${authenticatedUser.matricule}`).then(data => {
           authenticatedUser.pinInfo = new PncPin;
           authenticatedUser.pinInfo.matricule = data.matricule;
           authenticatedUser.pinInfo.pinCode = data.pinCode;
@@ -52,14 +51,23 @@ export class OnlineSecurityProvider {
     });
   }
 
-    /**
+  /**
    * Met à jour des informations de securité de l'utilisateur
    * @param  pinValues l'objectif à créer ou mettre à jour
    * @return une promesse contenant l'objectif créé ou mis à jour
    */
   setAuthenticatedSecurityValue(authenticatedUser: AuthenticatedUser): Promise<void> {
-    return this.restService.put(this.secretInfosUrl, authenticatedUser.pinInfo).then( data => {
+    return this.restService.put(this.secretInfosUrl, authenticatedUser.pinInfo).then(data => {
       this.offlineSecurityProvider.overwriteAuthenticatedUser(new AuthenticatedUser().fromJSON(authenticatedUser));
     });
+  }
+
+  /**
+   * Vérifie si l'impersonnification est disponible pour un utilisateur donné
+   * @param matricule le matricule de l'utilisateur
+   * @return une promesse vide (le code de retour http détermine si l'impersonnification est possible ou non)
+   */
+  isImpersonationAvailable(matricule: string): Promise<void> {
+    return this.restService.get(`${this.config.backEndUrl}/check_impersonation_available/${matricule}`);
   }
 }

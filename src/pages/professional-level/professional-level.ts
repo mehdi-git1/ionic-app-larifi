@@ -3,9 +3,8 @@ import { ProfessionalLevelProvider } from './../../providers/professional-level/
 import { PncProvider } from './../../providers/pnc/pnc';
 import { SessionService } from './../../services/session.service';
 import { Pnc } from './../../models/pnc';
-import { Stage } from './../../models/professionalLevel/stage';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { NavParams } from 'ionic-angular';
 
 @Component({
   selector: 'page-professional-level',

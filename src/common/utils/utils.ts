@@ -79,6 +79,6 @@ export class Utils {
      * @return true si elle est vide ou null
      */
     public static isEmpty(value: any): boolean {
-        return !value || value == null || (typeof value === "string" && value.trim() === '');
+        return !value || value == null || (typeof value === 'string' && value.trim() === '');
     }
 }

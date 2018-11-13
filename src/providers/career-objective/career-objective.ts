@@ -6,7 +6,7 @@ import { ConnectivityService } from '../../services/connectivity/connectivity.se
 import { OfflineCareerObjectiveProvider } from './../career-objective/offline-career-objective';
 import { CareerObjective } from './../../models/careerObjective';
 import { Injectable } from '@angular/core';
-import { RestService } from '../../services/rest.base.service';
+import { RestService } from '../../services/rest/rest.base.service';
 import { Pnc } from '../../models/pnc';
 import { OfflineAction } from '../../models/offlineAction';
 import { BaseProvider } from '../base/base.provider';
@@ -47,10 +47,10 @@ export class CareerObjectiveProvider extends BaseProvider {
     if (careerObjective.techId === undefined) {
       careerObjective.creationDate = this.dateTransformer.transformDateToIso8601Format(new Date());
       careerObjective.creationAuthor = new Pnc();
-      careerObjective.creationAuthor.matricule = this.sessionService.authenticatedUser.matricule;
+      careerObjective.creationAuthor.matricule = this.sessionService.getActiveUser().matricule;
     }
     careerObjective.lastUpdateAuthor = new Pnc();
-    careerObjective.lastUpdateAuthor.matricule = this.sessionService.authenticatedUser.matricule;
+    careerObjective.lastUpdateAuthor.matricule = this.sessionService.getActiveUser().matricule;
     careerObjective.lastUpdateDate = this.dateTransformer.transformDateToIso8601Format(new Date());
 
     return this.execFunctionProvider('createOrUpdate', careerObjective);

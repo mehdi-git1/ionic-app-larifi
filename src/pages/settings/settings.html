@@ -8,33 +8,48 @@
 
 
 <ion-content padding>
-
-    <ion-item *ngIf="isApp">
-        <label>{{ 'SETTINGS.INIT_CACHE.BUTTON' | translate }}</label>
-
-        <button ion-fab mini icon-only item-end class="parameter-button" (click)="confirmClearAndInitCache()" [disabled]="!connected">
-            <ion-icon name="trash" *ngIf="!initInProgress"></ion-icon>
-            <ion-spinner *ngIf="initInProgress"></ion-spinner>
-        </button>
-    </ion-item>
-    <ion-item *ngIf="isApp">
-        <label>{{ 'SETTINGS.FORCE_SYNCHRONIZATION.BUTTON' | translate }}</label>
-        <button ion-fab mini icon-only item-end class="parameter-button" (click)="forceSynchronizeOfflineData()" [disabled]="!connected">
-            <ion-icon name="sync" *ngIf="!synchronizationInProgress"></ion-icon>
-            <ion-spinner *ngIf="synchronizationInProgress"></ion-spinner>
-        </button>
-    </ion-item>
-    <ion-item *ngIf="isApp">
-        <label>{{ 'SETTINGS.CHANGE_PIN_CODE.BUTTON' | translate }}</label>
-        <button ion-fab mini icon-only item-end class="parameter-button" (click)="changePinCode()" [disabled]="!connected">
-            <ion-icon name="key"></ion-icon>
-        </button>
-    </ion-item>
-    <ion-item *ngIf="isApp">
-        <label>{{ 'SETTINGS.CHANGE_SECRET_QUESTION.BUTTON' | translate }}</label>
-        <button ion-fab mini icon-only item-end class="parameter-button" (click)="changeSecretQuestion()" [disabled]="!connected">
-            <ion-icon name="key"></ion-icon>
-        </button>
-    </ion-item>
-
+    <!-- Paramètres accessibles uniquement en mobile -->
+    <ng-container *ngIf="isApp">
+        <ion-item>
+            <label>{{ 'SETTINGS.INIT_CACHE.LABEL' | translate }}</label>
+            <button ion-fab mini icon-only item-end (click)="confirmClearAndInitCache()" [disabled]="!connected">
+                <ion-icon name="trash" *ngIf="!initInProgress"></ion-icon>
+                <ion-spinner *ngIf="initInProgress"></ion-spinner>
+            </button>
+        </ion-item>
+        <ion-item>
+            <label>{{ 'SETTINGS.FORCE_SYNCHRONIZATION.LABEL' | translate }}</label>
+            <button ion-fab mini icon-only item-end (click)="forceSynchronizeOfflineData()" [disabled]="!connected">
+                <ion-icon name="sync" *ngIf="!synchronizationInProgress"></ion-icon>
+                <ion-spinner *ngIf="synchronizationInProgress"></ion-spinner>
+            </button>
+        </ion-item>
+        <ion-item>
+            <label>{{ 'SETTINGS.CHANGE_PIN_CODE.LABEL' | translate }}</label>
+            <button ion-fab mini icon-only item-end (click)="changePinCode()" [disabled]="!connected">
+                <ion-icon name="key"></ion-icon>
+            </button>
+        </ion-item>
+        <ion-item>
+            <label>{{ 'SETTINGS.CHANGE_SECRET_QUESTION.LABEL' | translate }}</label>
+            <button ion-fab mini icon-only item-end (click)="changeSecretQuestion()" [disabled]="!connected">
+                <ion-icon name="key"></ion-icon>
+            </button>
+        </ion-item>
+    </ng-container>
+    <!-- Paramètres accessibles dans les 2 modes (web et mobile) -->
+    <ng-container>
+        <ion-item>
+            <label>{{ 'SETTINGS.IMPERSONATE_USER.LABEL' | translate }}</label>
+            <button ion-fab mini icon-only item-end (click)="impersonateNewUser()" [disabled]="!connected">
+                <ion-icon name="contacts" ios="md-contacts"></ion-icon>
+            </button>
+        </ion-item>
+        <ion-item>
+            <label>{{ 'SETTINGS.ADMIN_ACCESS.BUTTON' | translate }}</label>
+            <button ion-fab mini icon-only item-end class="parameter-button" (click)="goToAdminPage()" [disabled]="!connected">
+                <ion-icon name="key"></ion-icon>
+            </button>
+        </ion-item>
+    </ng-container>
 </ion-content>

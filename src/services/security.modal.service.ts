@@ -44,8 +44,8 @@ export class SecurityModalService {
     /**
      * Fonction permettant de fermer simplement un modal sans condition
      */
-    forceCloseModal(){
-        if (this.SecurityModal){
+    forceCloseModal() {
+        if (this.SecurityModal) {
             this.SecurityModal.dismiss('killModal');
         }
     }
@@ -89,13 +89,13 @@ export class SecurityModalService {
         const pinCode = this.sessionService.authenticatedUser.pinInfo.pinCode;
         this.SecurityModal.onDidDismiss(data => {
             // Si on a tué la modal, on dismiss juste car il y'a une autre modal qui va s'afficher derriére
-            if (data === 'killModal'){
+            if (data === 'killModal') {
                 return false;
             }
 
             this.modalDisplayed.emit(false);
             // Si on a annulé l'action, on dismiss juste mais on affiche l'arriére plan
-            if (data === 'cancel'){
+            if (data === 'cancel') {
                 return false;
             }
 
@@ -108,11 +108,11 @@ export class SecurityModalService {
                     this.sessionService.authenticatedUser.pinInfo.pinCode = data;
                     // Si on vient de mot de passe oublié (donc de la réponse à la question)
                     // Ou si l'on vient du changement de mot de passe
-                    if (this.comeFrom === SecretQuestionType.answerToQuestion || this.comeFrom === PinPadType.askChange){
+                    if (this.comeFrom === SecretQuestionType.answerToQuestion || this.comeFrom === PinPadType.askChange) {
                         this.securityProvider.setAuthenticatedSecurityValue(new AuthenticatedUser().fromJSON(this.sessionService.authenticatedUser));
                         this.toastProvider.success(this.translateService.instant('PIN_PAD.TOAST_MESSAGE.SUCCESS_REINIT'));
                     } else {
-                    // Dans le cas contraire on et sur l'init et on doit répondre aux questions
+                        // Dans le cas contraire on et sur l'init et on doit répondre aux questions
                         this.displaySecretQuestion(SecretQuestionType.newQuestion);
                     }
                 } else {
@@ -126,13 +126,13 @@ export class SecurityModalService {
                     this.errorType = PinPadError.pinIncorrect;
                     this.displayPinPad(PinPadType.openingApp);
                 }
-            } else if (this.modalType === PinPadType.askChange){
-                if (pinCode != data){
+            } else if (this.modalType === PinPadType.askChange) {
+                if (pinCode != data) {
                     this.errorType = PinPadError.pinIncorrect;
                     this.displayPinPad(PinPadType.askChange);
-                } else if (this.comeFrom === SecretQuestionType.askChange){
-                     // Si on vient d'une demande de changement de question réponse on change la question réponse
-                        this.displaySecretQuestion(SecretQuestionType.newQuestion);
+                } else if (this.comeFrom === SecretQuestionType.askChange) {
+                    // Si on vient d'une demande de changement de question réponse on change la question réponse
+                    this.displaySecretQuestion(SecretQuestionType.newQuestion);
                 } else {
                     this.comeFrom = PinPadType.askChange;
                     this.displayPinPad(PinPadType.firstConnexionStage1);
@@ -151,18 +151,18 @@ export class SecurityModalService {
         this.modalType = type;
 
         // Si on vient pour changer la question, il faut d'abord demander le code pin actuel
-        if (type === SecretQuestionType.askChange){
+        if (type === SecretQuestionType.askChange) {
             this.comeFrom = SecretQuestionType.askChange;
             // On appelle le askchange qui demande l'ancien code pin
             this.displayPinPad(PinPadType.askChange);
             return false;
         } else {
             this.SecurityModal = this.modalController.create(SecretQuestionModal,
-            {
-                modalType: type,
-                question: this.sessionService.authenticatedUser.pinInfo.secretQuestion,
-                errorType: this.errorType
-            });
+                {
+                    modalType: type,
+                    question: this.sessionService.authenticatedUser.pinInfo.secretQuestion,
+                    errorType: this.errorType
+                });
         }
         // Reinitialisation de l'erreur pour éviter qu'elle ne s'affiche partout
         this.errorType = GlobalError.none;
@@ -176,13 +176,13 @@ export class SecurityModalService {
     manageDismissSecretQuestion() {
         this.SecurityModal.onDidDismiss(data => {
             // Si on a tué la modal, on dismiss juste car il y'a une aurre modal qui va s'afficher derriére
-            if (data === 'killModal'){
+            if (data === 'killModal') {
                 return false;
             }
 
             this.modalDisplayed.emit(false);
             // Si on a annulé l'action, on dismiss juste mais on affiche l'arriére plan
-            if (data === 'cancel'){
+            if (data === 'cancel') {
                 return false;
             }
 
@@ -193,7 +193,7 @@ export class SecurityModalService {
                 this.sessionService.authenticatedUser.pinInfo.secretAnswer = data.secretAnswer;
                 this.securityProvider.setAuthenticatedSecurityValue(new AuthenticatedUser().fromJSON(this.sessionService.authenticatedUser));
                 // On affiche le bon message en fonction de si on vient de l'init on du changement de question
-                if (this.comeFrom === SecretQuestionType.askChange){
+                if (this.comeFrom === SecretQuestionType.askChange) {
                     this.comeFrom = null;
                     this.toastProvider.success(this.translateService.instant('SECRET_QUESTION.TOAST_MESSAGE.SUCCESS_REINIT'));
                 } else {

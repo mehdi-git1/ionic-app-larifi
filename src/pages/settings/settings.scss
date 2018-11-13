@@ -1,5 +1,5 @@
 page-settings {
-    .parameter-button {
-        background: color($colors, secondary);
+    ion-item button {
+        background: color($colors, secondary) !important;
     }
 }

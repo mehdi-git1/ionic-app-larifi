@@ -1,3 +1,4 @@
+import { ImpersonatePage } from './../pages/impersonate/impersonate';
 import { OfflineProfessionalLevelProvider } from './../providers/professional-level/offline-professional-level';
 import { OnlineProfessionalLevelProvider } from './../providers/professional-level/online-professional-level';
 import { StatutoryCertificatePage } from './../pages/statutory-certificate/statutory-certificate';
@@ -74,9 +75,9 @@ import { Config } from '../configuration/environment-variables/config';
 import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { ConnectivityService } from '../services/connectivity/connectivity.service';
-import { RestService } from '../services/rest.base.service';
-import { RestMobileService } from '../services/rest.mobile.service';
-import { RestWebService } from '../services/rest.web.service';
+import { RestService } from '../services/rest/rest.base.service';
+import { RestMobileService } from '../services/rest/rest.mobile.service';
+import { RestWebService } from '../services/rest/rest.web.service';
 
 import { PncProvider } from '../providers/pnc/pnc';
 import { GenderProvider } from '../providers/gender/gender';
@@ -122,6 +123,7 @@ import { ProfessionalLevelPage } from '../pages/professional-level/professional-
 import { ProfessionalLevelProvider } from '../providers/professional-level/professional-level';
 import { ProfessionalLevelTransformerProvider } from '../providers/professional-level/professional-level-transformer';
 
+import { AdminModule } from './../pages/admin/admin.module';
 
 
 declare var window: any;
@@ -130,6 +132,7 @@ declare var window: any;
   declarations: [
     EDossierPNC,
     HomePage,
+    ImpersonatePage,
     PncHomePage,
     AuthenticationPage,
     CareerObjectiveCreatePage,
@@ -162,7 +165,8 @@ declare var window: any;
     BrowserAnimationsModule,
     PdfViewerModule,
     SimpleNotificationsModule.forRoot({ position: ['top', 'right'] }),
-    DirectivesModule
+    DirectivesModule,
+    AdminModule
   ],
   bootstrap: [IonicApp],
   schemas: [
@@ -171,6 +175,7 @@ declare var window: any;
   entryComponents: [
     EDossierPNC,
     HomePage,
+    ImpersonatePage,
     PncHomePage,
     AuthenticationPage,
     CareerObjectiveCreatePage,
@@ -196,7 +201,7 @@ declare var window: any;
     DeviceService,
     DateTransformService,
     TransformerService,
-    { provide: RestService, useFactory: createRestService, deps: [HttpClient, SecMobilService, Config] },
+    { provide: RestService, useFactory: createRestService, deps: [HttpClient, SessionService, SecMobilService, Config] },
     { provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true },
     AppInitService,
     HttpClientModule,
@@ -271,13 +276,11 @@ declare var window: any;
 })
 export class AppModule { }
 
-
-
 // Check if we are in app mode or in web browser
-export function createRestService(http: HttpClient, secMobilService: SecMobilService, config: Config): RestService {
+export function createRestService(http: HttpClient, sessionService: SessionService, secMobilService: SecMobilService, config: Config): RestService {
   if (undefined !== window.cordova && 'browser' !== window.cordova.platformId) {
-    return new RestMobileService(http, secMobilService);
+    return new RestMobileService(http, secMobilService, sessionService);
   } else {
-    return new RestWebService(http, config);
+    return new RestWebService(http, config, sessionService);
   }
 }

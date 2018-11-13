@@ -10,7 +10,7 @@ import { Pnc } from './../../models/pnc';
 import { Injectable } from '@angular/core';
 import { PagedPnc } from './../../models/pagedPnc';
 import { Page } from '../../models/page';
-import { RestService } from '../../services/rest.base.service';
+import { RestService } from '../../services/rest/rest.base.service';
 import { BaseProvider } from '../base/base.provider';
 
 @Injectable()
@@ -74,10 +74,11 @@ export class PncProvider extends BaseProvider {
   /**
    * Fait appel au service rest qui renvoie les 10 premier pncs conçernés.
    * @param searchText matricuel/nom/prénom
+   * @param byPassImpersonatedUser si on souhaite appeler le service en court circuitant la fonction d'impersonnification
    * @return les pncs concernés
    */
-  pncAutoComplete(search: string): Promise<Pnc[]> {
-    return this.restService.get(`${this.pncUrl}/auto_complete`, { search });
+  pncAutoComplete(search: string, byPassImpersonatedUser: boolean = false): Promise<Pnc[]> {
+    return this.restService.get(`${this.pncUrl}/auto_complete`, { search }, undefined, byPassImpersonatedUser);
   }
 
 }

@@ -2,7 +2,7 @@ import { CrewMember } from './../../models/crewMember';
 import { Config } from './../../configuration/environment-variables/config';
 import { Leg } from './../../models/leg';
 import { Injectable } from '@angular/core';
-import { RestService } from '../../services/rest.base.service';
+import { RestService } from '../../services/rest/rest.base.service';
 
 @Injectable()
 export class OnlineLegProvider {
