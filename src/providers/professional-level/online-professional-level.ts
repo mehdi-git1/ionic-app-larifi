@@ -1,6 +1,8 @@
-import { ProfessionalLevel } from './../../models/professionalLevel/professional-level';
-import { Config } from './../../configuration/environment-variables/config';
+
 import { Injectable } from '@angular/core';
+
+import { Config } from './../../configuration/environment-variables/config';
+import { ProfessionalLevel } from './../../models/professionalLevel/professional-level';
 import { RestService } from '../../services/rest/rest.base.service';
 
 @Injectable()
@@ -16,6 +18,6 @@ export class OnlineProfessionalLevelProvider {
      * @return le suivi réglementaire du PNC
      */
     getProfessionalLevel(matricule: string): Promise<ProfessionalLevel> {
-        return this.restService.get(`${this.config.backEndUrl}/professional_levels/${matricule}`);
+        return this.restService.get(this.config.getBackEndUrl('getProfessionalLevelByMatricule', [matricule]));
     }
 }

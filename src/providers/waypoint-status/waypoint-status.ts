@@ -1,14 +1,11 @@
-import { WaypointStatus } from './../../models/waypointStatus';
-import { SessionService } from './../../services/session.service';
-import { SecurityProvider } from './../security/security';
 import { Injectable } from '@angular/core';
+
+import { WaypointStatus } from './../../models/waypointStatus';
 
 @Injectable()
 export class WaypointStatusProvider {
 
-  constructor(private securityProvider: SecurityProvider,
-    private sessionService: SessionService) {
-  }
+  constructor() { }
 
   /**
   * Vérifie qu'il est possible de passer d'un statut à un autre. Autrement dit, que le workflow est respecté.

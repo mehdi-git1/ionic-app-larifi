@@ -1,17 +1,16 @@
+import { Injectable } from '@angular/core';
+import { isUndefined } from 'ionic-angular/util/util';
+
 import { CareerObjectiveTransformerProvider } from './career-objective-transformer';
 import { OfflineCareerObjectiveProvider } from './offline-career-objective';
 import { StorageService } from './../../services/storage.service';
 import { Entity } from './../../models/entity';
 import { CareerObjective } from './../../models/careerObjective';
 import { Config } from './../../configuration/environment-variables/config';
-import { Injectable } from '@angular/core';
 import { RestService } from '../../services/rest/rest.base.service';
-import { isUndefined } from 'ionic-angular/util/util';
 
 @Injectable()
 export class OnlineCareerObjectiveProvider {
-  private careerObjectiveUrl: string;
-
 
   constructor(
     public restService: RestService,
@@ -19,9 +18,7 @@ export class OnlineCareerObjectiveProvider {
     private storageService: StorageService,
     private offlineCareerObjectiveProvider: OfflineCareerObjectiveProvider,
     private careerObjectiveTransformer: CareerObjectiveTransformerProvider
-  ) {
-    this.careerObjectiveUrl = `${config.backEndUrl}/career_objectives`;
-  }
+  ) { }
 
   /**
    * Retourne les objectifs d'un pnc donné
@@ -29,7 +26,7 @@ export class OnlineCareerObjectiveProvider {
    * @return la liste des objectifs du pnc
    */
   getPncCareerObjectives(matricule: string): Promise<CareerObjective[]> {
-    return this.restService.get(`${this.careerObjectiveUrl}/pnc/${matricule}`)
+    return this.restService.get(this.config.getBackEndUrl('getCareerObjectivesByPnc', [matricule]))
       .then(onlineCareerObjectives => {
         return this.offlineCareerObjectiveProvider.getPncCareerObjectives(matricule).then(offlineCareerObjectives => {
           const onlineData = this.careerObjectiveTransformer.toCareerObjectives(onlineCareerObjectives);
@@ -64,7 +61,7 @@ export class OnlineCareerObjectiveProvider {
    * @return une promesse contenant l'objectif créé ou mis à jour
    */
   createOrUpdate(careerObjective: CareerObjective): Promise<CareerObjective> {
-    return this.restService.post(this.careerObjectiveUrl, careerObjective);
+    return this.restService.post(this.config.getBackEndUrl('careerObjectives'), careerObjective);
   }
 
   /**
@@ -73,8 +70,9 @@ export class OnlineCareerObjectiveProvider {
   * @return l'objectif récupéré
   */
   getCareerObjective(id: number): Promise<CareerObjective> {
-    return this.restService.get(`${this.careerObjectiveUrl}/${id}`);
+    return this.restService.get(this.config.getBackEndUrl('getCareerObjectivesById', [id]));
   }
+
 
   /**
   * Supprime un objectif
@@ -84,7 +82,7 @@ export class OnlineCareerObjectiveProvider {
   delete(id: number): Promise<CareerObjective> {
     this.storageService.delete(Entity.CAREER_OBJECTIVE, `${id}`);
     this.storageService.persistOfflineMap();
-    return this.restService.delete(`${this.careerObjectiveUrl}/${id}`);
+    return this.restService.delete(this.config.getBackEndUrl('deleteCareerObjectivesById', [id]));
   }
 
   /**
@@ -92,7 +90,7 @@ export class OnlineCareerObjectiveProvider {
  * @param id l'id de l'objectif pour lequel on souhaiter solliciter l'instructeur
  */
   createInstructorRequest(id: number): Promise<void> {
-    return this.restService.post(`${this.careerObjectiveUrl}/${id}/instructor_request`, {});
+    return this.restService.post(this.config.getBackEndUrl('setCareerObjectivesInstructorRequestById', [id]), {});
   }
 
 }

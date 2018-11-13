@@ -1,17 +1,16 @@
-import { EObservation } from './../../models/eObservation';
-import { Rotation } from '../../models/rotation';
-import { Config } from './../../configuration/environment-variables/config';
 import { Injectable } from '@angular/core';
+import { Config } from './../../configuration/environment-variables/config';
+
+import { EObservation } from './../../models/eObservation';
 import { RestService } from '../../services/rest/rest.base.service';
 
 @Injectable()
 export class OnlineEObservationProvider {
-  private eObservationUrl: string;
 
-  constructor(public restService: RestService,
-    public config: Config) {
-    this.eObservationUrl = `${config.backEndUrl}/eobservation`;
-  }
+  constructor(
+    public restService: RestService,
+    public config: Config
+  ) { }
 
   /**
    * Récupère une EObservation du cache à partir d'un matricule et le techId de la rotation
@@ -20,6 +19,6 @@ export class OnlineEObservationProvider {
    * @return une promesse contenant l'EObservation trouvée
    */
   getEObservation(matricule, rotationId: number): Promise<EObservation> {
-    return this.restService.get(`${this.eObservationUrl}/${matricule}/${rotationId}`);
+    return this.restService.get(this.config.getBackEndUrl('getEobservation', [matricule, rotationId]));
   }
 }
