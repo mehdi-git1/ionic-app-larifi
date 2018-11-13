@@ -7,7 +7,7 @@ import { SessionService } from './../../services/session.service';
 import { AuthenticatedUser } from './../../models/authenticatedUser';
 import { BaseProvider } from '../base/base.provider';
 
-import { AuthorizationService } from './../../services/authorization.service';
+import { AuthorizationService } from '../../services/authorization/authorization.service';
 import { AppConstant } from './../../app/app.constant';
 
 @Injectable()

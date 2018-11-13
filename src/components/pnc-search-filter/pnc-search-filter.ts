@@ -16,7 +16,7 @@ import { Speciality } from './../../models/speciality';
 import { AppConstant } from './../../app/app.constant';
 import { PncFilter } from './../../models/pncFilter';
 import { Pnc } from './../../models/pnc';
-import { TabNavService } from './../../providers/tab-nav/tab-nav.service';
+import { TabNavService } from './../../services/tab-nav/tab-nav.service';
 
 
 @Component({

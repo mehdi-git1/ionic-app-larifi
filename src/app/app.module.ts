@@ -64,7 +64,7 @@ import { ComponentsModule } from './../components/components.module';
 import { WaypointStatusProvider } from './../providers/waypoint-status/waypoint-status';
 import { HttpErrorInterceptor } from './../interceptor/httpErrorInterceptor';
 import { SessionService } from './../services/session.service';
-import { AuthorizationService } from './../services/authorization.service';
+import { AuthorizationService } from '../services/authorization/authorization.service';
 import { SecurityProvider } from './../providers/security/security';
 import { CareerObjectiveProvider } from './../providers/career-objective/career-objective';
 
@@ -124,7 +124,7 @@ import { ProfessionalLevelProvider } from '../providers/professional-level/profe
 import { ProfessionalLevelTransformerProvider } from '../providers/professional-level/professional-level-transformer';
 
 import { AdminModule } from './../pages/admin/admin.module';
-import { TabNavService } from '../providers/tab-nav/tab-nav.service';
+import { TabNavService } from '../services/tab-nav/tab-nav.service';
 
 
 declare var window: any;

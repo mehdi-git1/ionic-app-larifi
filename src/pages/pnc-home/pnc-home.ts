@@ -1,5 +1,5 @@
 import { tabNavEnum } from './../../shared/enum/tab-nav.enum';
-import { TabNavService } from './../../providers/tab-nav/tab-nav.service';
+import { TabNavService } from './../../services/tab-nav/tab-nav.service';
 import { ProfessionalLevelPage } from './../professional-level/professional-level';
 import { SummarySheetPage } from './../summary-sheet/summary-sheet';
 import { SynchronizationProvider } from './../../providers/synchronization/synchronization';

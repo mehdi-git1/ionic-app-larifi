@@ -1,5 +1,5 @@
 import { Directive, Input, ElementRef, OnInit } from '@angular/core';
-import { AuthorizationService } from '../../services/authorization.service';
+import { AuthorizationService } from '../../services/authorization/authorization.service';
 
 @Directive({
   selector: '[hasPermission]'
@@ -11,9 +11,9 @@ export class HasPermissionDirective implements OnInit {
   constructor(private el: ElementRef, private authorizationService: AuthorizationService) {
   }
 
-  ngOnInit () {
+  ngOnInit() {
     if (!this.authorizationService.hasPermission(this.permission)) {
-          this.el.nativeElement.remove();
+      this.el.nativeElement.remove();
     }
   }
 

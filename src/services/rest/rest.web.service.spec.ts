@@ -1,3 +1,4 @@
+import { SessionService } from './../session.service';
 import { TestBed, async } from '@angular/core/testing';
 import { RestWebService } from './rest.web.service';
 import { Config } from '../../configuration/environment-variables/config';
@@ -13,6 +14,7 @@ describe('RestWebService', () => {
             providers: [
                 HttpClientModule,
                 RestWebService,
+                SessionService,
                 Config
             ]
         });

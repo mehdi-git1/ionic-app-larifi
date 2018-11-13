@@ -1,4 +1,9 @@
-import { TabNavService } from './../../providers/tab-nav/tab-nav.service';
+import { TranslateService } from '@ngx-translate/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { NavController, NavParams } from 'ionic-angular';
+
+import { Pnc } from './../../models/pnc';
+import { TabNavService } from './../../services/tab-nav/tab-nav.service';
 import { PncSearchFilterComponent } from './../../components/pnc-search-filter/pnc-search-filter';
 import { AppConstant } from './../../app/app.constant';
 import { PncHomePage } from './../pnc-home/pnc-home';
@@ -8,11 +13,6 @@ import { CrewMember } from './../../models/crewMember';
 import { SessionService } from './../../services/session.service';
 
 import { PncProvider } from './../../providers/pnc/pnc';
-import { TranslateService } from '@ngx-translate/core';
-import { Pnc } from './../../models/pnc';
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
-
 
 import { tabNavEnum } from './../../shared/enum/tab-nav.enum';
 

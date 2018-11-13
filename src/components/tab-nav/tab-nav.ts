@@ -14,7 +14,7 @@ import { CareerObjectiveListPage } from './../../pages/career-objective-list/car
 import { PncProvider } from './../../providers/pnc/pnc';
 import { SessionService } from '../../services/session.service';
 import { SecurityProvider } from '../../providers/security/security';
-import { TabNavService } from './../../providers/tab-nav/tab-nav.service';
+import { TabNavService } from './../../services/tab-nav/tab-nav.service';
 import { tabNavEnum } from '../../shared/enum/tab-nav.enum';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -27,24 +27,6 @@ export class TabNavComponent {
   @Input() navCtrl: Nav;
 
   _matricule: string;
-
-  @Input()
-  set matricule(matricule: string) {
-    if (matricule) {
-      this.pncProvider.getPnc(matricule).then(pnc => {
-        this._matricule = matricule;
-        this.pnc = pnc;
-        this.pncParams = this.pnc;
-        this.matriculeParams = { matricule: this.pnc.matricule };
-        this.roleParams = { pncRole: Speciality.getPncRole(this.pnc.speciality) };
-        this.tabsNav = this.createListOfTab();
-        this.tabNavService.setListOfTabs(this.tabsNav);
-        this.loading = false;
-        this.navCtrl.popToRoot();
-      }, error => {
-      });
-    }
-  }
 
   @ViewChild('tabs') tabs: Tabs;
   pnc: Pnc;
@@ -69,7 +51,7 @@ export class TabNavComponent {
     public securityProvider: SecurityProvider
   ) {
     this.events.subscribe('user:authenticationDone', () => {
-      if (this.sessionService.getActiveUser() && this.sessionService.getActiveUser().pnc) {
+      if (this.sessionService.getActiveUser()) {
         this.pncProvider.getPnc(this.sessionService.getActiveUser().matricule).then(pnc => {
           this.pnc = pnc;
           this.pncParams = this.pnc;
