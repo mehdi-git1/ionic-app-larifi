@@ -78,7 +78,7 @@ export class Utils {
      * @param value chaîne de caractères
      * @return true si elle est vide ou null
      */
-    public static isEmpty(value: string): boolean {
-        return !value || value == null || value.trim() === '';
+    public static isEmpty(value: any): boolean {
+        return !value || value == null || (typeof value === "string" && value.trim() === '');
     }
 }
