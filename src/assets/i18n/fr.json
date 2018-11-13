@@ -267,7 +267,7 @@
            "SUCCESS_WITH_FC": "Réussi avec FC",
            "FAILED": "Echec"
         },
-        "ERROR": "Erreur lors de la récupération du suivi réglementaire pour le matricule {{ matricule }}",
+        "ERROR": "Erreur lors de la récupération du niveau pro pour le matricule {{ matricule }}",
         "NO_DATA": "Pas de données disponibles"
     },
     "PNC_SEARCH": {
