@@ -3,7 +3,7 @@ import { AuthenticatedUser } from '../../models/authenticatedUser';
 
 const sessionServiceMock = jasmine.createSpyObj('sessionServiceMock', ['getActiveUser']);
 
-describe('Service: AuthenticationService', () => {
+describe('AuthorizationService', () => {
 
     let authorizationService: AuthorizationService;
 
@@ -11,7 +11,7 @@ describe('Service: AuthenticationService', () => {
         authorizationService = new AuthorizationService(sessionServiceMock);
     });
 
-    it('User has right to show impersonnification', () => {
+    it(`doit renvoyer true si le user a le droit de voir l'impersonnification `, () => {
         const authenticatedUser = new AuthenticatedUser();
         authenticatedUser.permissions = new Array();
         authenticatedUser.permissions.push('SHOW_IMPERSONNIFICATION');
@@ -20,7 +20,7 @@ describe('Service: AuthenticationService', () => {
         expect(authorizationService.hasPermission('SHOW_IMPERSONNIFICATION')).toBe(true);
     });
 
-    it('User has no right to show impersonnification', () => {
+    it(`doit renvoyer false si le user n'a pas le droit de voir l'impersonnification `, () => {
         const authenticatedUser = new AuthenticatedUser();
         authenticatedUser.permissions = new Array();
         sessionServiceMock.getActiveUser.and.returnValue(authenticatedUser);
