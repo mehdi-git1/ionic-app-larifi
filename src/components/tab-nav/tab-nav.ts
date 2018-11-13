@@ -152,9 +152,4 @@ export class TabNavComponent {
   tabChange(event) {
     this.events.publish('changeTab', { pageName: event.root.name, pageParams: event.rootParams });
   }
-
-  /**
-   * Permet la navigation dans la nav à partir des autres pages
-   */
-
 }
