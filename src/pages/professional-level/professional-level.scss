@@ -49,8 +49,8 @@ page-professional-level {
         }
     }
 
-    ion-icon {
-        color: color($colors, blue60);
-        margin-right: 20px;
+    ion-icon.round-icon {               
+            color: color($colors, blue60);
+            margin-right: 20px;
     }
 }

@@ -24,8 +24,8 @@ export class ProfessionalLevelPage {
   ionViewDidEnter() {
     if (this.navParams.get('matricule')) {
       this.matricule = this.navParams.get('matricule');
-    } else if (this.sessionService.authenticatedUser) {
-      this.matricule = this.sessionService.authenticatedUser.matricule;
+    } else if (this.sessionService.getActiveUser()) {
+      this.matricule = this.sessionService.getActiveUser().matricule;
     }
     if (this.matricule != null) {
       this.pncProvider.getPnc(this.matricule).then(pnc => {
