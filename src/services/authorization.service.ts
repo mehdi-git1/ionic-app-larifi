@@ -12,7 +12,6 @@ export class AuthorizationService {
 
     /**
      * Vérifie que l'utilisateur connecté a les droits
-     *
      * @param permission nom de la permission
      * @return true si le user a les droits
      */
