@@ -30,6 +30,7 @@ import { FamiliarizationFlightComponent } from './familiarization-flight/familia
 
 import { TabNavComponent } from './tab-nav/tab-nav';
 import { ProfessionalLevelStageComponent } from './professional-level-stage/professional-level-stage';
+import { ModuleCardComponent } from './module-card/module-card';
 import { NoDataComponent } from './no-data/no-data';
 
 
@@ -64,6 +65,7 @@ import { NoDataComponent } from './no-data/no-data';
     FamiliarizationFlightComponent,
     TabNavComponent,
     ProfessionalLevelStageComponent,
+    ModuleCardComponent,
     NoDataComponent
   ],
   exports: [
@@ -91,13 +93,12 @@ import { NoDataComponent } from './no-data/no-data';
     FamiliarizationFlightComponent,
     TabNavComponent,
     ProfessionalLevelStageComponent,
+    ModuleCardComponent,
     NoDataComponent
   ],
   entryComponents: [
     PinPadModal,
     SecretQuestionModal
-  ],
-  providers: [DatePipe]
-
+  ]
 })
 export class ComponentsModule { }

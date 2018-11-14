@@ -87,7 +87,7 @@ export class TabNavComponent {
         display: true
       },
       {
-        id: tabNavEnum.CARRER_OBJECTIVE_LIST_PAGE,
+        id: tabNavEnum.CAREER_OBJECTIVE_LIST_PAGE,
         title: this.translate.instant('GLOBAL.DEVELOPMENT_PROGRAM'),
         page: CareerObjectiveListPage,
         icon: 'edospnc-developmentProgram',
@@ -124,7 +124,7 @@ export class TabNavComponent {
         page: HelpAssetListPage,
         icon: 'edospnc-helpCenter',
         params: this.roleParams,
-        display: this.securityProvider.isManager()
+        display: true
       },
       {
         id: tabNavEnum.STATUTORY_CERTIFICATE_PAGE,
@@ -132,7 +132,7 @@ export class TabNavComponent {
         page: StatutoryCertificatePage,
         icon: 'edospnc-statutoryCertificate',
         params: this.matriculeParams,
-        display: true
+        display: !this.securityProvider.isManager() && this.securityProvider.hasPermissionToViewTab('VIEW_STATUTORY_CERTIFICATE')
       },
       {
         id: tabNavEnum.PROFESSIONAL_LEVEL_PAGE,
@@ -140,7 +140,7 @@ export class TabNavComponent {
         page: ProfessionalLevelPage,
         icon: 'md-briefcase',
         params: '',
-        display: !this.securityProvider.isManager() && this.securityProvider.hasPermissionToViewTab('VIEW_STATUTORY_CERTIFICATE')
+        display: true
       }
     ];
   }

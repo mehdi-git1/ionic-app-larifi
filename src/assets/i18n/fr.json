@@ -258,7 +258,17 @@
             "RESULT": "Résultat",
             "HELP": "Légende à venir"
         },
-        "ERROR": "Erreur lors de la récupération du suivi réglementaire pour le matricule {{ matricule }}"
+        "MODULE_TYPE": {
+            "PRACTICAL": "Pratique",
+            "THEORETICAL": "Théorique"
+        },
+        "MODULE_STATUS": {
+           "SUCCESS": "Réussi",
+           "SUCCESS_WITH_FC": "Réussi avec FC",
+           "FAILED": "Echec"
+        },
+        "ERROR": "Erreur lors de la récupération du niveau pro pour le matricule {{ matricule }}",
+        "NO_DATA": "Pas de données disponibles"
     },
     "PNC_SEARCH": {
         "TITLE": "Recherche PNC",

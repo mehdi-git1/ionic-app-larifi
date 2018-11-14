@@ -15,13 +15,15 @@
                     <ion-col col-2>
                         {{ 'PROFESSIONAL_LEVEL.HEADER.DATE' | translate }}
                     </ion-col>
-                    <ion-col col-2>
+                    <ion-col col-1>
                         {{ 'PROFESSIONAL_LEVEL.HEADER.CODE' | translate }}
                     </ion-col>
-                    <ion-col col-4>
+                    <ion-col col-3>
                         {{ 'PROFESSIONAL_LEVEL.HEADER.LABEL' | translate }}
                     </ion-col>
                     <ion-col col-3>
+                    </ion-col>
+                    <ion-col col-2>
                         {{ 'PROFESSIONAL_LEVEL.HEADER.RESULT' | translate }}
                     </ion-col>
                     <ion-col col-1>
@@ -31,7 +33,6 @@
             </ion-grid>
         </div>
         <professional-level-stage *ngIf="professionalLevel && professionalLevel.stages; else noStagesBlock" [stages]="professionalLevel.stages"></professional-level-stage>
-
         <ng-template #noStagesBlock>
             <no-data></no-data>
         </ng-template>
