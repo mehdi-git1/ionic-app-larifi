@@ -1,19 +1,19 @@
+import { Injectable } from '@angular/core';
+
+import { Config } from './../../configuration/environment-variables/config';
 import { PncSearchCriteria } from './../../models/pnc-search-criteria';
 import { PagedPnc } from './../../models/pagedPnc';
 import { Rotation } from './../../models/rotation';
-import { Config } from './../../configuration/environment-variables/config';
-import { Injectable } from '@angular/core';
 import { RestService } from '../../services/rest/rest.base.service';
 import { Pnc } from '../../models/pnc';
 
 @Injectable()
 export class OnlinePncProvider {
-  private pncUrl: string;
 
-  constructor(public restService: RestService,
-    public config: Config) {
-    this.pncUrl = `${config.backEndUrl}/pncs`;
-  }
+  constructor(
+    public restService: RestService,
+    public config: Config
+  ) { }
 
   /**
    * Récupère les infos d'un PNC
@@ -21,7 +21,7 @@ export class OnlinePncProvider {
    * @return les informations du PNC
    */
   getPnc(matricule: string): Promise<Pnc> {
-    return this.restService.get(`${this.pncUrl}/${matricule}`);
+    return this.restService.get(this.config.getBackEndUrl('getPncByMatricule', [matricule]));
   }
 
   /**
@@ -30,7 +30,7 @@ export class OnlinePncProvider {
    * @return les rotations à venir du PNC
    */
   getUpcomingRotations(matricule: string): Promise<Rotation[]> {
-    return this.restService.get(`${this.pncUrl}/${matricule}/upcoming_rotations`);
+    return this.restService.get(this.config.getBackEndUrl('getPncUpcomingRotationsByMatricule', [matricule]));
   }
 
   /**
@@ -39,7 +39,7 @@ export class OnlinePncProvider {
   * @return les deux dernières rotations opérées par le PNC
   */
   getLastPerformedRotations(matricule: string): Promise<Rotation[]> {
-    return this.restService.get(`${this.pncUrl}/${matricule}/last_performed_rotations`);
+    return this.restService.get(this.config.getBackEndUrl('getPncLastPerformedRotationsByMatricule', [matricule]));
   }
 
 
@@ -49,7 +49,7 @@ export class OnlinePncProvider {
    * @return une promesse contenant le PNC trouvé
    */
   getFilteredPncs(pncFilter: PncSearchCriteria): Promise<PagedPnc> {
-    return this.restService.get(this.pncUrl, pncFilter).then(response =>
+    return this.restService.get(this.config.getBackEndUrl('pnc'), pncFilter).then(response =>
       response as PagedPnc
     );
   }

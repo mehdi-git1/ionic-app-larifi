@@ -1,17 +1,16 @@
 import { Injectable } from '@angular/core';
+import { isUndefined } from 'ionic-angular/util/util';
 
+import { Config } from './../../configuration/environment-variables/config';
 import { OfflineWaypointProvider } from './offline-waypoint';
 import { WaypointTransformerProvider } from './waypoint-transformer';
 import { StorageService } from './../../services/storage.service';
-import { Config } from './../../configuration/environment-variables/config';
 import { RestService } from '../../services/rest/rest.base.service';
 import { Waypoint } from '../../models/waypoint';
 import { Entity } from '../../models/entity';
-import { isUndefined } from 'ionic-angular/util/util';
 
 @Injectable()
 export class OnlineWaypointProvider {
-  private waypointUrl: string;
 
   constructor(
     public restService: RestService,
@@ -19,9 +18,7 @@ export class OnlineWaypointProvider {
     private config: Config,
     private waypointTransformerProvider: WaypointTransformerProvider,
     private offlineWaypointProvider: OfflineWaypointProvider
-  ) {
-    this.waypointUrl = `${config.backEndUrl}/waypoints`;
-  }
+  ) { }
 
   /**
    * Créé ou met à jour un point d'étape
@@ -30,7 +27,7 @@ export class OnlineWaypointProvider {
    * @return une promesse contenant le point d'étape créé ou mis à jour
    */
   createOrUpdate(waypoint: Waypoint, careerObjectiveId: number): Promise<Waypoint> {
-    return this.restService.post(`${this.waypointUrl}/career_objective/${careerObjectiveId}`, waypoint);
+    return this.restService.post(this.config.getBackEndUrl('crudWaypointByCarreObjectiveId', [careerObjectiveId]), waypoint);
   }
 
   /**
@@ -39,7 +36,7 @@ export class OnlineWaypointProvider {
   * @return les points d'étape récupérés
   */
   getCareerObjectiveWaypoints(careerObjectiveId: number): Promise<Waypoint[]> {
-    return this.restService.get(`${this.waypointUrl}/career_objective/${careerObjectiveId}`)
+    return this.restService.get(this.config.getBackEndUrl('getWaypointsByCarreObjectiveId', [careerObjectiveId]))
       .then(onlineCareerObjectiveWaypoints => {
         return this.offlineWaypointProvider.getCareerObjectiveWaypoints(careerObjectiveId)
           .then(offlineCareerObjectiveWaypoints => {
@@ -75,7 +72,7 @@ export class OnlineWaypointProvider {
   * @return le point d'étape récupéré
   */
   getWaypoint(id: number): Promise<Waypoint> {
-    return this.restService.get(`${this.waypointUrl}/${id}`);
+    return this.restService.get(this.config.getBackEndUrl('getWaypointById', [id]));
   }
 
   /**
@@ -86,7 +83,7 @@ export class OnlineWaypointProvider {
   delete(id: number): Promise<Waypoint> {
     this.storageService.delete(Entity.WAYPOINT, `${id}`);
     this.storageService.persistOfflineMap();
-    return this.restService.delete(`${this.waypointUrl}/${id}`);
+    return this.restService.delete(this.config.getBackEndUrl('deleteWaypointsById', [id]));
   }
 
 }

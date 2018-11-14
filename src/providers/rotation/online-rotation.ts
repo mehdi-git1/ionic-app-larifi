@@ -1,18 +1,17 @@
+import { Injectable } from '@angular/core';
+
 import { Config } from './../../configuration/environment-variables/config';
 import { Rotation } from './../../models/rotation';
 import { Leg } from './../../models/leg';
-import { Injectable } from '@angular/core';
 import { RestService } from '../../services/rest/rest.base.service';
 
 @Injectable()
 export class OnlineRotationProvider {
 
-    private rotationUrl: string;
-
-    constructor(private restService: RestService,
-        private config: Config) {
-        this.rotationUrl = `${config.backEndUrl}/rotations`;
-    }
+    constructor(
+        private restService: RestService,
+        private config: Config
+    ) { }
 
     /**
     * Récupère les tronçons d'une rotation
@@ -20,7 +19,7 @@ export class OnlineRotationProvider {
     * @return la liste des tronçons de la rotation
     */
     getRotationLegs(rotation: Rotation): Promise<Leg[]> {
-        return this.restService.get(`${this.rotationUrl}/${rotation.techId}/legs`);
+        return this.restService.get(this.config.getBackEndUrl('getRotationsByTechId', [rotation.techId]));
     }
 
 }

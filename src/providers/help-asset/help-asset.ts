@@ -1,18 +1,17 @@
-import { PncRole } from './../../models/pncRole';
 import { Injectable } from '@angular/core';
-import { RestService } from '../../services/rest/rest.base.service';
+
 import { Config } from './../../configuration/environment-variables/config';
+import { PncRole } from './../../models/pncRole';
+import { RestService } from '../../services/rest/rest.base.service';
 import { HelpAsset } from './../../models/helpAsset';
 
 @Injectable()
 export class HelpAssetProvider {
 
-  helpAssetUrl: string;
-
-  constructor(public restService: RestService,
-    private config: Config) {
-    this.helpAssetUrl = `${config.backEndUrl}/help_assets`;
-  }
+  constructor(
+    public restService: RestService,
+    private config: Config
+  ) { }
 
   /**
    * Fait appel au service REST qui renvois la liste des ressources d'aide
@@ -20,7 +19,7 @@ export class HelpAssetProvider {
    * @return La liste des ressources d'aides (description, nom, url)
    */
   getHelpAssetList(pncRole: PncRole): Promise<HelpAsset[]> {
-    return this.restService.get(`${this.helpAssetUrl}/pnc_role/${pncRole}`);
+    return this.restService.get(this.config.getBackEndUrl('getHelpAssetsByRoleId', [pncRole]));
   }
 
 

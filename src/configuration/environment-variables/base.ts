@@ -3,14 +3,18 @@ export enum urlGroupName {
   'EOBSERVATION' = 'eobservation',
   'LEG' = 'legs',
   'PNC' = 'pncs',
-  'PNC_PHOTOS' = 'pnc_photos',
+  'PNC_PHOTO' = 'pnc_photos',
   'ME' = 'me',
   'PARAMETERS' = 'parameters',
+  'HELP_ASSET' = 'help_assets',
   'PIN' = 'pin',
   'STATUTORY_CERTIFICATE' = 'statutory_certificate',
   'PNC_SUMMARY_SHEET' = 'pnc_summary_sheets',
   'PNC_SYNCHRO' = 'pnc_synchros',
-  'WAYPOINT' = 'waypoints'
+  'WAYPOINT' = 'waypoints',
+  'PROFESSIONAL_LEVEL' = 'professional_levels',
+  'ROTATION' = 'rotations',
+  'IMPERSONATION_AVAILABLE' = 'check_impersonation_available'
 }
 
 export abstract class BaseConfig {
@@ -24,6 +28,7 @@ export abstract class BaseConfig {
   public backEndUrlList: {} = {
     'careerObjectives': urlGroupName.CAREER_OBJECTIVE,
     'getCareerObjectivesById': `${urlGroupName.CAREER_OBJECTIVE}/{id}`,
+    'deleteCareerObjectivesById': `${urlGroupName.CAREER_OBJECTIVE}/{id}`,
     'getCareerObjectivesByPnc': `${urlGroupName.CAREER_OBJECTIVE}/pnc/{matricule}`,
     'setCareerObjectivesInstructorRequestById': `${urlGroupName.CAREER_OBJECTIVE}/{id}/instructor_request`,
     'getEobservation': `${urlGroupName.EOBSERVATION}/{matricule}/{rotationId}`,
@@ -33,8 +38,8 @@ export abstract class BaseConfig {
     'getPncByMatricule': `${urlGroupName.PNC}/{matricule}`,
     'getPncUpcomingRotationsByMatricule': `${urlGroupName.PNC}/{matricule}/upcoming_rotations`,
     'getPncLastPerformedRotationsByMatricule': `${urlGroupName.PNC}/{matricule}/last_performed_rotations`,
-    'pncPhotos': urlGroupName.PNC_PHOTOS,
-    'getPncPhotosByMatricule': `${urlGroupName.PNC_PHOTOS}/{matricule}`,
+    'pncPhotos': urlGroupName.PNC_PHOTO,
+    'getPncPhotosByMatricule': `${urlGroupName.PNC_PHOTO}/{matricule}`,
     'getSecurityInfos': urlGroupName.ME,
     'secretInfos': urlGroupName.PIN,
     'getSecretInfosByMatricule': `${urlGroupName.PIN}/{matricule}`,
@@ -42,8 +47,15 @@ export abstract class BaseConfig {
     'getSummarySheetByMatricule': `${urlGroupName.PNC_SUMMARY_SHEET}/{matricule}`,
     'pncSynchro': urlGroupName.PNC_SYNCHRO,
     'getPncSynchroByPnc': `${urlGroupName.PNC_SYNCHRO}/{matricule}`,
-    'crudWaypointsByCarreObjectiveId': `${urlGroupName.WAYPOINT}/career_objective/{careerObjectiveId}`,
-    'getParameters': urlGroupName.PARAMETERS
+    'getWaypointsByCarreObjectiveId': `${urlGroupName.WAYPOINT}/career_objective/{careerObjectiveId}`,
+    'getWaypointById': `${urlGroupName.WAYPOINT}/{waypointId}`,
+    'crudWaypointByCarreObjectiveId': `${urlGroupName.WAYPOINT}/career_objective/{careerObjectiveId}`,
+    'deleteWaypointsById': `${urlGroupName.WAYPOINT}/career_objective/{waypointId}`,
+    'getParameters': urlGroupName.PARAMETERS,
+    'getProfessionalLevelByMatricule': `${urlGroupName.PROFESSIONAL_LEVEL}/{matricule}`,
+    'getRotationsByTechId': `${urlGroupName.ROTATION}/{techId}/legs`,
+    'getImpersonationAvailableByMatricule': `${urlGroupName.IMPERSONATION_AVAILABLE}/{matricule}`,
+    'getHelpAssetsByRoleId': `${urlGroupName.HELP_ASSET}/pnc_role/{roleId}`
   };
 
   public eObsUrl = 'com.airfrance.mobile.inhouse.eformstrainingdevPNC';

@@ -1,14 +1,10 @@
-import { SecurityProvider } from './../security/security';
-import { SessionService } from './../../services/session.service';
-import { Storage } from '@ionic/storage';
 import { CareerObjectiveStatus } from './../../models/careerObjectiveStatus';
 import { Injectable } from '@angular/core';
 
 @Injectable()
 export class CareerObjectiveStatusProvider {
 
-  constructor(private securityProvider: SecurityProvider,
-    private sessionService: SessionService) {
+  constructor() {
   }
 
   /**

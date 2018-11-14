@@ -1,36 +1,32 @@
+import { Injectable } from '@angular/core';
+
+import { Config } from './../../configuration/environment-variables/config';
 import { PncPin } from './../../models/pncPin';
 import { DeviceService } from './../../services/device.service';
 import { AuthenticatedUser } from './../../models/authenticatedUser';
 import { OfflineSecurityProvider } from './../security/offline-security';
-import { Config } from './../../configuration/environment-variables/config';
-import { Injectable } from '@angular/core';
 import { RestService } from '../../services/rest/rest.base.service';
 
 @Injectable()
 export class OnlineSecurityProvider {
-  private securityUrl: string;
-  private secretInfosUrl: string;
 
   constructor(
     private restService: RestService,
     private offlineSecurityProvider: OfflineSecurityProvider,
     private config: Config,
     private deviceService: DeviceService
-  ) {
-    this.securityUrl = `${config.backEndUrl}/me`;
-    this.secretInfosUrl = `${config.backEndUrl}/pin`;
-  }
+  ) { }
 
   /**
    * Fait appel au service rest qui renvois le user connecté.
    * @return les informations du pnc
    */
   getAuthenticatedUser(): Promise<AuthenticatedUser> {
-    return this.restService.get(`${this.securityUrl}`).then(authenticatedUser => {
+    return this.restService.get(this.config.getBackEndUrl('getSecurityInfos')).then(authenticatedUser => {
       // Pour le mobile, on récupére les informations secretes (code PIN, question / réponse secréte)
       // avant de mettre l'utilisateur en session
       if (!this.deviceService.isBrowser()) {
-        return this.restService.get(`${this.secretInfosUrl}/${authenticatedUser.matricule}`).then(data => {
+        return this.restService.get(this.config.getBackEndUrl('getSecretInfosByMatricule', [authenticatedUser.matricule])).then(data => {
           authenticatedUser.pinInfo = new PncPin;
           authenticatedUser.pinInfo.matricule = data.matricule;
           authenticatedUser.pinInfo.pinCode = data.pinCode;
@@ -57,7 +53,7 @@ export class OnlineSecurityProvider {
    * @return une promesse contenant l'objectif créé ou mis à jour
    */
   setAuthenticatedSecurityValue(authenticatedUser: AuthenticatedUser): Promise<void> {
-    return this.restService.put(this.secretInfosUrl, authenticatedUser.pinInfo).then(data => {
+    return this.restService.put(this.config.getBackEndUrl('secretInfos'), authenticatedUser.pinInfo).then(data => {
       this.offlineSecurityProvider.overwriteAuthenticatedUser(new AuthenticatedUser().fromJSON(authenticatedUser));
     });
   }
@@ -68,6 +64,6 @@ export class OnlineSecurityProvider {
    * @return une promesse vide (le code de retour http détermine si l'impersonnification est possible ou non)
    */
   isImpersonationAvailable(matricule: string): Promise<void> {
-    return this.restService.get(`${this.config.backEndUrl}/check_impersonation_available/${matricule}`);
+    return this.restService.get(this.config.getBackEndUrl('getImpersonationAvailableByMatricule', [matricule]));
   }
 }

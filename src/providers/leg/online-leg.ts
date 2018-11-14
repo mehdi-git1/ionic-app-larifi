@@ -1,18 +1,17 @@
-import { CrewMember } from './../../models/crewMember';
-import { Config } from './../../configuration/environment-variables/config';
-import { Leg } from './../../models/leg';
 import { Injectable } from '@angular/core';
+
+import { Config } from './../../configuration/environment-variables/config';
+import { CrewMember } from './../../models/crewMember';
+import { Leg } from './../../models/leg';
 import { RestService } from '../../services/rest/rest.base.service';
 
 @Injectable()
 export class OnlineLegProvider {
 
-  private legUrl: string;
-
-  constructor(private restService: RestService,
-    private config: Config) {
-    this.legUrl = `${config.backEndUrl}/legs`;
-  }
+  constructor(
+    private restService: RestService,
+    private config: Config
+  ) { }
 
   /**
   * Récupère les informations d'un leg
@@ -20,7 +19,7 @@ export class OnlineLegProvider {
   * @return les informations du leg
   */
   getLeg(legId: number): Promise<Leg> {
-    return this.restService.get(`${this.legUrl}/${legId}`);
+    return this.restService.get(this.config.getBackEndUrl('getLegsById', [legId]));
   }
 
   /**
@@ -29,7 +28,7 @@ export class OnlineLegProvider {
   * @return la liste équipage d'un tronçon
   */
   getFlightCrewFromLeg(legId: number): Promise<CrewMember[]> {
-    return this.restService.get(`${this.legUrl}/${legId}/crew_members`);
+    return this.restService.get(this.config.getBackEndUrl('getLegsCrewMembersById', [legId]));
   }
 
 }
