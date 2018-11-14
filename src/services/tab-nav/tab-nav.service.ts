@@ -22,8 +22,9 @@ export class TabNavService {
     /**
      * Retourne l'index de la tab selectionné en fonction de son ID
      * @param idTab Nom de la tab voulu (correspond à l'ID de la liste => enum navTab)
+     * @return index du tab demandé
      */
-    findTabIndex(idTab) {
+    findTabIndex(idTab): number {
         return this.listOfTab.findIndex((element) => element['id'] === idTab);
     }
 
