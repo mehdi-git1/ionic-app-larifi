@@ -1,3 +1,5 @@
+import { tabNavEnum } from './../../shared/enum/tab-nav.enum';
+import { TabNavService } from './../../services/tab-nav/tab-nav.service';
 import { ProfessionalLevelPage } from './../professional-level/professional-level';
 import { SummarySheetPage } from './../summary-sheet/summary-sheet';
 import { SynchronizationProvider } from './../../providers/synchronization/synchronization';
@@ -43,7 +45,8 @@ export class PncHomePage {
         public translateService: TranslateService,
         private pncProvider: PncProvider,
         private events: Events,
-        private statusBar: StatusBar) {
+        private statusBar: StatusBar,
+        private tabNavService: TabNavService) {
 
         this.statusBar.styleLightContent();
 
@@ -83,7 +86,7 @@ export class PncHomePage {
      */
     goToCareerObjectiveList() {
         if (this.isMyHome()) {
-            this.navCtrl.parent.select(1);
+            this.navCtrl.parent.select(this.tabNavService.findTabIndex(tabNavEnum.CAREER_OBJECTIVE_LIST_PAGE));
         } else {
             this.navCtrl.push(CareerObjectiveListPage, { matricule: this.matricule });
         }
@@ -94,7 +97,7 @@ export class PncHomePage {
      */
     goToHelpAssetList() {
         if (this.isMyHome()) {
-            this.navCtrl.parent.select(5);
+            this.navCtrl.parent.select(this.tabNavService.findTabIndex(tabNavEnum.HELP_ASSET_LIST_PAGE));
         } else {
             this.navCtrl.push(HelpAssetListPage, { pncRole: Speciality.getPncRole(this.pnc.speciality) });
         }
@@ -106,7 +109,7 @@ export class PncHomePage {
 
     goToUpcomingFlightList() {
         if (this.isMyHome()) {
-            this.navCtrl.parent.select(4);
+            this.navCtrl.parent.select(this.tabNavService.findTabIndex(tabNavEnum.UPCOMING_FLIGHT_LIST_PAGE));
         } else {
             this.navCtrl.push(UpcomingFlightListPage, { matricule: this.matricule });
         }
@@ -117,7 +120,7 @@ export class PncHomePage {
     */
     goToPncSearch() {
         if (this.isMyHome()) {
-            this.navCtrl.parent.select(3);
+            this.navCtrl.parent.select(this.tabNavService.findTabIndex(tabNavEnum.PNC_SEARCH_PAGE));
         } else {
             this.navCtrl.push(PncSearchPage);
         }
@@ -128,7 +131,7 @@ export class PncHomePage {
      */
     goToSummarySheet() {
         if (this.isMyHome()) {
-            this.navCtrl.parent.select(2);
+            this.navCtrl.parent.select(this.tabNavService.findTabIndex(tabNavEnum.SUMMARY_SHEET_PAGE));
         } else {
             this.navCtrl.push(SummarySheetPage, { matricule: this.matricule });
         }
@@ -139,7 +142,7 @@ export class PncHomePage {
      */
     goToStatutoryCertificate() {
         if (this.isMyHome()) {
-            this.navCtrl.parent.select(6);
+            this.navCtrl.parent.select(this.tabNavService.findTabIndex(tabNavEnum.STATUTORY_CERTIFICATE_PAGE));
         } else {
             this.navCtrl.push(StatutoryCertificatePage, { matricule: this.matricule });
         }
@@ -150,7 +153,7 @@ export class PncHomePage {
     */
     goToProfessionalLevel() {
         if (this.isMyHome()) {
-            this.navCtrl.parent.select(7);
+            this.navCtrl.parent.select(this.tabNavService.findTabIndex(tabNavEnum.PROFESSIONAL_LEVEL_PAGE));
         } else {
             this.navCtrl.push(ProfessionalLevelPage, { matricule: this.matricule });
         }

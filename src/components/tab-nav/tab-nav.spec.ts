@@ -1,3 +1,5 @@
+import { SecurityProvider } from './../../providers/security/security';
+import { SessionService } from './../../services/session.service';
 import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { IonicModule, Events } from 'ionic-angular';
@@ -7,9 +9,14 @@ import { TranslateLoaderMock } from '../../test-config/mocks-ionic';
 import { TabNavComponent } from './tab-nav';
 import { PncProvider } from './../../providers/pnc/pnc';
 import { of } from 'rxjs/observable/of';
+import { TabNavService } from '../../services/tab-nav/tab-nav.service';
 
 const PncProviderMock = jasmine.createSpyObj('PncProviderMock', ['getPnc']);
 PncProviderMock.getPnc.and.returnValue(of({}));
+
+const SecurityProviderMock = jasmine.createSpyObj('SecurityProviderMock', ['']);
+
+const SessionServiceMock = jasmine.createSpyObj('SessionServiceMock', ['']);
 
 describe('tab-nav component', () => {
 
@@ -27,7 +34,10 @@ describe('tab-nav component', () => {
                 })
             ],
             providers: [
+                TabNavService,
                 Events,
+                { provide: SessionService, useValue: SessionServiceMock },
+                { provide: SecurityProvider, useValue: SecurityProviderMock },
                 { provide: PncProvider, useValue: PncProviderMock }
             ],
             schemas: [NO_ERRORS_SCHEMA]

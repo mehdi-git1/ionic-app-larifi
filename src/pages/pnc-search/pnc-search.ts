@@ -1,23 +1,20 @@
+import { TranslateService } from '@ngx-translate/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { NavController, NavParams } from 'ionic-angular';
+
+import { Pnc } from './../../models/pnc';
+import { TabNavService } from './../../services/tab-nav/tab-nav.service';
 import { PncSearchFilterComponent } from './../../components/pnc-search-filter/pnc-search-filter';
 import { AppConstant } from './../../app/app.constant';
-import { Config } from './../../configuration/environment-variables/config';
 import { PncHomePage } from './../pnc-home/pnc-home';
-import { PncFilter } from './../../models/pncFilter';
-import { Observable } from 'rxjs/Rx';
-import { ToastProvider } from './../../providers/toast/toast';
+
 import { ConnectivityService } from '../../services/connectivity/connectivity.service';
 import { CrewMember } from './../../models/crewMember';
 import { SessionService } from './../../services/session.service';
-import { GenderProvider } from './../../providers/gender/gender';
+
 import { PncProvider } from './../../providers/pnc/pnc';
-import { TranslateService } from '@ngx-translate/core';
-import { Pnc } from './../../models/pnc';
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { NavController, NavParams, IonicPage } from 'ionic-angular';
-import { FormBuilder, FormGroup, Validators, FormControl, AbstractControl } from '@angular/forms';
-import { Speciality } from '../../models/speciality';
-import { Subject } from 'rxjs/Rx';
-import { MAT_HAMMER_OPTIONS } from '@angular/material';
+
+import { tabNavEnum } from './../../shared/enum/tab-nav.enum';
 
 @Component({
     selector: 'page-pnc-search',
@@ -42,15 +39,15 @@ export class PncSearchPage implements OnInit {
     @ViewChild(PncSearchFilterComponent)
     pncSearchFilter: PncSearchFilterComponent;
 
-    constructor(public navCtrl: NavController,
+    constructor(
+        public navCtrl: NavController,
         public navParams: NavParams,
         public translateService: TranslateService,
         private pncProvider: PncProvider,
-        private genderProvider: GenderProvider,
         private sessionService: SessionService,
         private connectivityService: ConnectivityService,
-        private toastProvider: ToastProvider,
-        private config: Config) {
+        private tabNavService: TabNavService
+    ) {
         this.sizeOfThePage = 0;
     }
 
@@ -152,7 +149,7 @@ export class PncSearchPage implements OnInit {
         // Si on va sur un PNC par la recherche, on suprime de la session une enventuelle rotation.
         this.sessionService.appContext.lastConsultedRotation = null;
         if (this.isMyHome(pnc.matricule)) {
-            this.navCtrl.parent.select(0);
+            this.navCtrl.parent.select(this.tabNavService.findTabIndex(tabNavEnum.PNC_HOME_PAGE));
         } else {
             this.navCtrl.push(PncHomePage, { matricule: pnc.matricule });
         }

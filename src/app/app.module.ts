@@ -64,7 +64,7 @@ import { ComponentsModule } from './../components/components.module';
 import { WaypointStatusProvider } from './../providers/waypoint-status/waypoint-status';
 import { HttpErrorInterceptor } from './../interceptor/httpErrorInterceptor';
 import { SessionService } from './../services/session.service';
-import { AuthorizationService } from './../services/authorization.service';
+import { AuthorizationService } from '../services/authorization/authorization.service';
 import { SecurityProvider } from './../providers/security/security';
 import { CareerObjectiveProvider } from './../providers/career-objective/career-objective';
 
@@ -124,6 +124,7 @@ import { ProfessionalLevelProvider } from '../providers/professional-level/profe
 import { ProfessionalLevelTransformerProvider } from '../providers/professional-level/professional-level-transformer';
 
 import { AdminModule } from './../pages/admin/admin.module';
+import { TabNavService } from '../services/tab-nav/tab-nav.service';
 
 
 declare var window: any;
@@ -142,7 +143,6 @@ declare var window: any;
     PncSearchPage,
     HelpAssetListPage,
     FlightCrewListPage,
-    PncSearchPage,
     HomePage,
     SummarySheetPage,
     GenericMessagePage,
@@ -177,13 +177,13 @@ declare var window: any;
     HomePage,
     ImpersonatePage,
     PncHomePage,
+    PncSearchPage,
     AuthenticationPage,
     CareerObjectiveCreatePage,
     CareerObjectiveListPage,
     WaypointCreatePage,
     UpcomingFlightListPage,
     FlightCrewListPage,
-    PncSearchPage,
     HelpAssetListPage,
     HomePage,
     SummarySheetPage,
@@ -200,6 +200,7 @@ declare var window: any;
     StorageService,
     DeviceService,
     DateTransformService,
+    TabNavService,
     TransformerService,
     { provide: RestService, useFactory: createRestService, deps: [HttpClient, SessionService, SecMobilService, Config] },
     { provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true },
