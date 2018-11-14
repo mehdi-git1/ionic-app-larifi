@@ -81,7 +81,7 @@ describe('CareerObjectiveCreatePage', () => {
     });
 
 
-    describe('test de la fonction prepareCareerObjectiveBeforeSubmit', () => {
+    describe('prepareCareerObjectiveBeforeSubmit', () => {
         it('doit supprimer la propriété encounterDate si elle est nulle', () => {
             expect(comp).toBeDefined();
             comp.careerObjective.encounterDate = '';

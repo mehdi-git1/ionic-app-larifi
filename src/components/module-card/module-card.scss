@@ -1,0 +1,52 @@
+module-card {
+
+    $colorPointSize: 12px;
+    @mixin makeColorPoint($className, $pointColor) {
+        .#{$className} {
+            display:inline-block;
+            height:$colorPointSize;
+            width:$colorPointSize;
+            line-height:$colorPointSize;
+            text-align:center;
+            font-size:0.1em;
+            border-radius:$colorPointSize;
+            color:#fff;
+            background:color($colors, #{$pointColor});
+            position: relative;
+            right: 8px;
+        }
+    }
+    @include makeColorPoint('red-point', 'tertiary');
+    @include makeColorPoint('orange-point', 'orange50');
+    @include makeColorPoint('green-point', 'green70');
+
+    .label-bold {
+        font-weight: bold;
+    }
+
+    .score-badge {
+        background-color: color($colors, grey40);
+        margin-right: 5px;
+    }
+
+    .col {
+        border: think solid black;
+    }
+
+    .niv3-button.fab[mini] {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        float: right;
+        width: 30px;
+        height: 30px;
+        color: color($colors, white);
+        background-color:color($colors, blue60);
+        ion-icon {
+            font-size: 20px;
+        }
+        padding: 0;
+        margin: 0;
+    }
+
+}

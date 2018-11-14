@@ -1,4 +1,8 @@
 import { SecMobilService } from './../../services/secMobil.service';
+import { AdminHomePage } from './../admin/home/admin-home';
+import { ImpersonatePage } from './../impersonate/impersonate';
+import { DeviceService } from './../../services/device.service';
+import { SecurityModalService } from './../../services/security.modal.service';
 import { TranslateService } from '@ngx-translate/core';
 import { ToastProvider } from './../../providers/toast/toast';
 import { SessionService } from './../../services/session.service';
@@ -12,9 +16,6 @@ import { PinPadType } from './../../models/pinPadType';
 import { SecretQuestionType } from '../../models/secretQuestionType';
 import { AuthenticatedUser } from '../../models/authenticatedUser';
 import { OfflineSecurityProvider } from '../../providers/security/offline-security';
-import { AdminHomePage } from './../admin/home/admin-home';
-import { DeviceService } from './../../services/device.service';
-import { SecurityModalService } from './../../services/security.modal.service';
 
 @Component({
   selector: 'page-settings',
@@ -29,6 +30,7 @@ export class SettingsPage {
   isApp: boolean;
 
   constructor(
+    private navCtrl: NavController,
     private connectivityService: ConnectivityService,
     private storageService: StorageService,
     private events: Events,
@@ -39,9 +41,8 @@ export class SettingsPage {
     private alertCtrl: AlertController,
     private securityModalService: SecurityModalService,
     private deviceService: DeviceService,
-    private offlineSecurityProvider: OfflineSecurityProvider,
-    private navCtrl: NavController,
-    private secMobilService: SecMobilService
+    private secMobilService: SecMobilService,
+    private offlineSecurityProvider: OfflineSecurityProvider
   ) {
     this.connected = this.connectivityService.isConnected();
 
@@ -67,7 +68,7 @@ export class SettingsPage {
   * Présente une alerte pour confirmer la suppression du cache
   */
   confirmClearAndInitCache() {
-    const message = this.synchronizationProvider.isPncModifiedOffline(this.sessionService.authenticatedUser.matricule) ?
+    const message = this.synchronizationProvider.isPncModifiedOffline(this.sessionService.getActiveUser().matricule) ?
       this.translateService.instant('SETTINGS.CONFIRM_INIT_CACHE.MESSAGE_UNSYNCHRONIZED_DATA') :
       this.translateService.instant('SETTINGS.CONFIRM_INIT_CACHE.MESSAGE');
 
@@ -100,7 +101,7 @@ export class SettingsPage {
    */
   initializeCache() {
     this.storageService.initOfflineMap().then(success => {
-      const authenticatedUser = this.sessionService.authenticatedUser;
+      const authenticatedUser = this.sessionService.getActiveUser();
       this.offlineSecurityProvider.overwriteAuthenticatedUser(new AuthenticatedUser().fromJSON(authenticatedUser));
       this.synchronizationProvider.storeEDossierOffline(authenticatedUser.matricule).then(successStore => {
         this.events.publish('EDossierOffline:stored');
@@ -150,6 +151,13 @@ export class SettingsPage {
    */
   changeSecretQuestion() {
     this.securityModalService.displaySecretQuestion(SecretQuestionType.askChange);
+  }
+
+  /**
+   * Redirige vers la page d'impersonnification
+   */
+  impersonateNewUser(): void {
+    this.navCtrl.push(ImpersonatePage);
   }
 
   /**

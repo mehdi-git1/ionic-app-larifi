@@ -67,8 +67,8 @@ export class PncHomePage {
     initPage() {
         if (this.navParams.get('matricule')) {
             this.matricule = this.navParams.get('matricule');
-        } else if (this.sessionService.authenticatedUser) {
-            this.matricule = this.sessionService.authenticatedUser.matricule;
+        } else if (this.sessionService.getActiveUser()) {
+            this.matricule = this.sessionService.getActiveUser().matricule;
         }
         if (this.matricule != null) {
             this.pncProvider.getPnc(this.matricule).then(pnc => {
@@ -94,7 +94,7 @@ export class PncHomePage {
      */
     goToHelpAssetList() {
         if (this.isMyHome()) {
-            this.navCtrl.parent.select(3);
+            this.navCtrl.parent.select(5);
         } else {
             this.navCtrl.push(HelpAssetListPage, { pncRole: Speciality.getPncRole(this.pnc.speciality) });
         }
@@ -106,17 +106,10 @@ export class PncHomePage {
 
     goToUpcomingFlightList() {
         if (this.isMyHome()) {
-            this.navCtrl.parent.select(2);
+            this.navCtrl.parent.select(4);
         } else {
             this.navCtrl.push(UpcomingFlightListPage, { matricule: this.matricule });
         }
-    }
-
-    /**
-     * Redirige vers le EDossier du PNC saisi
-     */
-    goToEdossier() {
-        this.navCtrl.push(PncHomePage, { matricule: this.matricule });
     }
 
     /**
@@ -124,7 +117,7 @@ export class PncHomePage {
     */
     goToPncSearch() {
         if (this.isMyHome()) {
-            this.navCtrl.parent.select(1);
+            this.navCtrl.parent.select(3);
         } else {
             this.navCtrl.push(PncSearchPage);
         }
@@ -146,7 +139,7 @@ export class PncHomePage {
      */
     goToStatutoryCertificate() {
         if (this.isMyHome()) {
-            this.navCtrl.parent.select(4);
+            this.navCtrl.parent.select(6);
         } else {
             this.navCtrl.push(StatutoryCertificatePage, { matricule: this.matricule });
         }
@@ -157,7 +150,7 @@ export class PncHomePage {
     */
     goToProfessionalLevel() {
         if (this.isMyHome()) {
-            this.navCtrl.parent.select(5);
+            this.navCtrl.parent.select(7);
         } else {
             this.navCtrl.push(ProfessionalLevelPage, { matricule: this.matricule });
         }
@@ -195,7 +188,7 @@ export class PncHomePage {
      * @return vrai si c'est le cas, faux sinon
      */
     isMyHome(): boolean {
-        return this.matricule === (this.sessionService.authenticatedUser && this.sessionService.authenticatedUser.matricule);
+        return this.matricule === (this.sessionService.getActiveUser() && this.sessionService.getActiveUser().matricule);
     }
 
 }

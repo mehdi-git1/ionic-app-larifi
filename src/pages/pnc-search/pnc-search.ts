@@ -153,7 +153,7 @@ export class PncSearchPage implements OnInit {
         this.sessionService.appContext.lastConsultedRotation = null;
         if (this.isMyHome(pnc.matricule)) {
             this.navCtrl.parent.select(0);
-          } else {
+        } else {
             this.navCtrl.push(PncHomePage, { matricule: pnc.matricule });
         }
     }
@@ -163,7 +163,7 @@ export class PncSearchPage implements OnInit {
      * @return vrai si c'est le cas, faux sinon
      */
     isMyHome(matricule: string): boolean {
-        return matricule === (this.sessionService.authenticatedUser && this.sessionService.authenticatedUser.matricule);
+        return matricule === (this.sessionService.getActiveUser() && this.sessionService.getActiveUser().matricule);
     }
 
     /**

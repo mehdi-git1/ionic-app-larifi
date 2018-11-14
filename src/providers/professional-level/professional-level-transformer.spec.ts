@@ -15,7 +15,7 @@ describe('ProfessionalLevelProvider', () => {
     });
 
 
-    describe('fonction toProfessionalLevel', () => {
+    describe('toProfessionalLevel', () => {
         it('L\'objet retourné devrait être de type ProfessionalLevel car l\'objet donné en entrée respecte le format de cette classe', () => {
             const object = {
                 matricule: 'plo',

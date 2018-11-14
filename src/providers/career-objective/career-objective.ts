@@ -47,10 +47,10 @@ export class CareerObjectiveProvider extends BaseProvider {
     if (careerObjective.techId === undefined) {
       careerObjective.creationDate = this.dateTransformer.transformDateToIso8601Format(new Date());
       careerObjective.creationAuthor = new Pnc();
-      careerObjective.creationAuthor.matricule = this.sessionService.authenticatedUser.matricule;
+      careerObjective.creationAuthor.matricule = this.sessionService.getActiveUser().matricule;
     }
     careerObjective.lastUpdateAuthor = new Pnc();
-    careerObjective.lastUpdateAuthor.matricule = this.sessionService.authenticatedUser.matricule;
+    careerObjective.lastUpdateAuthor.matricule = this.sessionService.getActiveUser().matricule;
     careerObjective.lastUpdateDate = this.dateTransformer.transformDateToIso8601Format(new Date());
 
     return this.execFunctionProvider('createOrUpdate', careerObjective);

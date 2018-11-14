@@ -66,7 +66,7 @@ describe('FlightCrewListPage', () => {
         return crewMember;
     }
 
-    it('should sort flight crew list with same priority & speciality by name', () => {
+    it('Dans une liste d\'équipage sans priorité, les membres doivent être triés par spécialité, puis par nom', () => {
         expect(comp).toBeDefined();
         const unsortedFlightCrewList: CrewMember[] = new Array();
         unsortedFlightCrewList.push(createCrewMember(false, null, Speciality.STW, 'I'));
@@ -94,7 +94,7 @@ describe('FlightCrewListPage', () => {
     });
 
 
-    it('should sort flight crew list of steward & hotesse by name', () => {
+    it('Dans une liste d\'équipage ne contenant que des hotesses & stewards, les membres doivent être triés par nom', () => {
         expect(comp).toBeDefined();
         const unsortedFlightCrewList: CrewMember[] = new Array();
         unsortedFlightCrewList.push(createCrewMember(false, null, Speciality.STW, 'E'));
@@ -111,7 +111,7 @@ describe('FlightCrewListPage', () => {
         expect(sortedFlightCrewList[4].pnc.lastName).toEqual('E');
     });
 
-    it('should sort flight crew list with same name & speciality in fonction of priority', () => {
+    it('Dans une liste d\'équipage avec des membres ayant la même spécialité et le même nom, les membres doivent être triés par priorité', () => {
         expect(comp).toBeDefined();
         const unsortedFlightCrewList: CrewMember[] = new Array();
         unsortedFlightCrewList.push(createCrewMember(false, null, Speciality.CC, 'A'));
@@ -126,7 +126,7 @@ describe('FlightCrewListPage', () => {
         expect(sortedFlightCrewList[2].particularity).toEqual(null);
     });
 
-    it('should sort flight crew list by priority then by speciality then by name', () => {
+    it('Dans une liste d\'équipage, les membres doivent être triés par priorité, puis par specialité et enfin par nom', () => {
 
         expect(comp).toBeDefined();
         const unsortedFlightCrewList: CrewMember[] = new Array();
