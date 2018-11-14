@@ -11,7 +11,7 @@ export class TabNavService {
     /**
      * Met à jour la liste des tab dans le service
      * Ce tableau ne peut pas être créé dans le service, dû au fait que l'on appelle des pages pour la création,
-     * ce qui créé des redondance lors de l'appel de ce service par ces mêmes pages
+     * ce qui créé des redondances lors de l'appel de ce service par ces mêmes pages
      * @param listOfTabs liste des tabs créés
      */
     setListOfTabs(listOfTabs) {

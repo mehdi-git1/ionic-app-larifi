@@ -86,7 +86,7 @@ export class PncHomePage {
      */
     goToCareerObjectiveList() {
         if (this.isMyHome()) {
-            this.navCtrl.parent.select(this.tabNavService.findTabIndex(tabNavEnum.CARRER_OBJECTIVE_LIST_PAGE));
+            this.navCtrl.parent.select(this.tabNavService.findTabIndex(tabNavEnum.CAREER_OBJECTIVE_LIST_PAGE));
         } else {
             this.navCtrl.push(CareerObjectiveListPage, { matricule: this.matricule });
         }

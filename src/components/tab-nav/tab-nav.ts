@@ -87,7 +87,7 @@ export class TabNavComponent {
         display: true
       },
       {
-        id: tabNavEnum.CARRER_OBJECTIVE_LIST_PAGE,
+        id: tabNavEnum.CAREER_OBJECTIVE_LIST_PAGE,
         title: this.translate.instant('GLOBAL.DEVELOPMENT_PROGRAM'),
         page: CareerObjectiveListPage,
         icon: 'edospnc-developmentProgram',
