@@ -367,6 +367,15 @@
             "MESSAGE_UNSYNCHRONIZED_DATA": "Attention. Vider le cache peut entraîner la perte de données non synchronisées.",
             "CANCEL": "Annuler",
             "CONFIRM": "Confirmer"
+        },
+        "REVOKE_CERTIFICATE": {
+            "BUTTON": "Révocation de certificat"
+        },
+        "CONFIRM_REVOKE_CERTIFICATE": {
+            "TITLE": "Revocation de certificat",
+            "MESSAGE": "Attention. Êtes-vous sûr de vouloir revoquer votre certificat ?",
+            "CANCEL": "Annuler",
+            "CONFIRM": "Confirmer"
         }
     },
 

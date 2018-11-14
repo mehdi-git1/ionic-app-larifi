@@ -123,7 +123,7 @@ export class SettingsPage {
           role: 'cancel'
         },
         {
-          text: this.translateService.instant('SETTINGS.CONFIRM_REVOKE_CERTIFICATEE.CONFIRM'),
+          text: this.translateService.instant('SETTINGS.CONFIRM_REVOKE_CERTIFICATE.CONFIRM'),
           handler: () => this.RevokeCertificate()
         }
       ]

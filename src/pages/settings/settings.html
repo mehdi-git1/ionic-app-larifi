@@ -20,14 +20,12 @@
     <ion-item *ngIf="isApp">
         <label>{{ 'SETTINGS.FORCE_SYNCHRONIZATION.BUTTON' | translate }}</label>
         <button ion-fab mini icon-only item-end class="parameter-button" (click)="forceSynchronizeOfflineData()" [disabled]="!connected">
-            <ion-icon name="sync" *ngIf="!synchronizationInProgress"></ion-icon>
-            <ion-spinner *ngIf="synchronizationInProgress"></ion-spinner>
+            <ion-icon name="sync"></ion-icon>
         </button>
     </ion-item>
     <ion-item *ngIf="isApp">
         <label>{{ 'SETTINGS.REVOKE_CERTIFICATE.BUTTON' | translate }}</label>
-
-        <button ion-fab mini icon-only item-end class="parameter-button" (click)="confirmRevokeCertificate()" [disabled]="!connected">
+        <button ion-fab mini icon-only item-end class="parameter-button" (click)="confirmRevokeCertificate()">
             <ion-icon name="trash" *ngIf="!revocationInProgress"></ion-icon>
             <ion-spinner *ngIf="revocationInProgress"></ion-spinner>
         </button>
