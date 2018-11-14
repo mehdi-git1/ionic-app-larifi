@@ -42,7 +42,7 @@ export class SecurityProvider extends BaseProvider {
   /**
   * Vérifie si le pnc a une permission
   * @param permission permission à vérifier
-  * return true si le pnc n'est pas null ou undefined et si il a la permission, sinon false
+  * @return true si le pnc a la permission, sinon false
   */
   hasPermissionToViewTab(permission: string): boolean {
     return this.authorizationService.hasPermission(permission);
