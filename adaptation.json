@@ -1,12 +1,13 @@
 {
     "currentConfigFile": "./src/configuration/environment-variables/config.ts",
     "defaultEnvironment": "dev",
-    "environments": [{
+    "environments": [
+        {
             "name": "prod",
             "configFile": "./src/configuration/environment-variables/prod.ts",
             "appName": "eDossierPNC",
             "appId": "com.airfrance.mobile.inhouse.edospnc",
-            "version": "1.1.0",
+            "version": "1.1.1",
             "provisioningProfile": "355c4509-9ca8-4691-9a59-d8c54b2139e4"
         },
         {
@@ -14,7 +15,7 @@
             "configFile": "./src/configuration/environment-variables/dev.ts",
             "appName": "eDossierPNC DEV",
             "appId": "com.airfrance.mobile.inhouse.edospncDEV",
-            "version": "1.1.0",
+            "version": "1.1.1",
             "provisioningProfile": "dd4536c2-5f7c-43fe-a7e7-aea95635175f"
         },
         {
@@ -22,7 +23,7 @@
             "configFile": "./src/configuration/environment-variables/rct.ts",
             "appName": "eDossierPNC RCT",
             "appId": "com.airfrance.mobile.inhouse.edospncRCT",
-            "version": "1.1.0",
+            "version": "1.1.1",
             "provisioningProfile": "243e0ae6-754e-4784-a724-3647ba1bfa6a"
         }
     ]
