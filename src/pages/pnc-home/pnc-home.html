@@ -41,7 +41,9 @@
                                     <!-- Spécialité-->
                                     <ion-col class="pnc-info">
                                         <label>{{ 'PNC_HOME.INFO_PANEL.FUNCTION' | translate }}</label>
-                                        <span class="value" [ngClass]="{'no-value' : !pnc?.speciality }">{{ pnc.speciality }}</span>
+                                        <span class="value" [ngClass]="{'no-value' : !formatedSpeciality }">
+                                            {{ formatedSpeciality }}
+                                        </span>
                                     </ion-col>
                                     <!-- Division-->
                                     <ion-col class="pnc-info">
@@ -107,7 +109,7 @@
                     </div>
                 </ion-col>
                 <!--  Attestation réglementaire -->
-                <ion-col col-4>
+                <ion-col col-4 [hasPermission] permission="VIEW_STATUTORY_CERTIFICATE">
                     <div class="button-parent">
                         <button ion-button (click)="goToStatutoryCertificate()" color="red20">
                             {{ 'GLOBAL.STATUTORY_CERTIFICATE' | translate }}

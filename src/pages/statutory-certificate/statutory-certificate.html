@@ -11,10 +11,9 @@
     <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
     <ng-template #pageBlock>
         <div margin-top>
-            <h3 class="ss-title">{{ 'STATUTORY_CERTIFICATE.TITLE' | translate }}</h3>
             <div class="fonction-informations">
-                <span [ngClass]="{'no-value' : !pnc?.speciality }">
-                    {{ pnc?.speciality }}
+                <span [ngClass]="{'no-value' : !formatedSpeciality }">
+                    {{ formatedSpeciality }}
                 </span>
                 <span *ngIf="statutoryCertificate">
                     <span *ngFor="let aircraftSkill of statutoryCertificate.aircraftSkills | reverse" class="plane-qualif">
@@ -55,7 +54,7 @@
                 <mat-expansion-panel-header [expandedHeight]="'48px'">
                     {{ 'STATUTORY_CERTIFICATE.CATEGORIES.MASTERING_QUALIFICATION' | translate }}
                 </mat-expansion-panel-header>
-                <mastering-qualification [masteringQualificationData]="statutoryCertificate?.masteringQualification"></mastering-qualification>
+                <mastering-qualification [masteringQualificationsData]="statutoryCertificate?.masteringQualifications"></mastering-qualification>
             </mat-expansion-panel>
 
             <mat-expansion-panel>

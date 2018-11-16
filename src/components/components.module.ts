@@ -1,6 +1,6 @@
 import { IonicModule } from 'ionic-angular';
 import { DatePipe, CommonModule } from '@angular/common';
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RotationCardComponent } from './rotation-card/rotation-card';
 import { OfflineIndicatorComponent } from './offline-indicator/offline-indicator';
 import { ConnectivityIndicatorComponent } from './connectivity-indicator/connectivity-indicator';
@@ -32,13 +32,15 @@ import { TabNavComponent } from './tab-nav/tab-nav';
 import { ProfessionalLevelStageComponent } from './professional-level-stage/professional-level-stage';
 import { ModuleCardComponent } from './module-card/module-card';
 import { NoDataComponent } from './no-data/no-data';
+import { DirectivesModule } from '../directives/directives.module';
 
 
 @NgModule({
   imports: [
     CommonModule,
     IonicModule,
-    SharedModule
+    SharedModule,
+    DirectivesModule
   ],
   declarations: [
     RotationCardComponent,
@@ -95,6 +97,9 @@ import { NoDataComponent } from './no-data/no-data';
     ProfessionalLevelStageComponent,
     ModuleCardComponent,
     NoDataComponent
+  ],
+  schemas: [
+    CUSTOM_ELEMENTS_SCHEMA
   ],
   entryComponents: [
     PinPadModal,

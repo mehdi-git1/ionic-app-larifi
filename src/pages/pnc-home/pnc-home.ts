@@ -34,6 +34,7 @@ export class PncHomePage {
     eObservation: EObservation;
     // exporter la classe enum speciality dans la page html
     Speciality = Speciality;
+    formatedSpeciality: string;
 
     constructor(public navCtrl: NavController,
         public navParams: NavParams,
@@ -76,6 +77,7 @@ export class PncHomePage {
         if (this.matricule != null) {
             this.pncProvider.getPnc(this.matricule).then(pnc => {
                 this.pnc = pnc;
+                this.formatedSpeciality = this.pncProvider.getFormatedSpeciality(this.pnc);
             }, error => {
             });
         }

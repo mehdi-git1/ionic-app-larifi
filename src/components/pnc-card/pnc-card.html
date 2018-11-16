@@ -6,7 +6,7 @@
             <div class="main-info">
                 <pnc-photo [pnc]="crewMember.pnc" [size]="80"></pnc-photo>
                 <div class="identity">
-                    <span class="value speciality"> {{ crewMember.pnc.speciality }}</span>
+                    <span class="value speciality" [ngClass]="{'no-value' : !formatedSpeciality }"> {{ formatedSpeciality }}</span>
                     <span class="value lastName">{{ crewMember.pnc.lastName }}</span>
                     <span class="value firstname">{{ crewMember.pnc.firstName }}</span>
                     <span class="value">{{crewMember.pnc.matricule}}</span>

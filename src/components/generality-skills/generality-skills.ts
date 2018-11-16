@@ -56,8 +56,8 @@ export class GeneralitySkillsComponent implements OnInit {
         values: this.generalitySkillsData && this.generalitySkillsData.pcb ?
           [
             { value: [_.get(this.generalitySkillsData, 'pcb.label')], type: 'libelle' },
-            { value: [_.get(this.generalitySkillsData, 'pcb.startDate')], type: 'date' },
-            { value: [_.get(this.generalitySkillsData, 'pcb.dueDate')], type: 'date' },
+            { value: [_.get(this.generalitySkillsData, 'pcb.validityStartDate')], type: 'date' },
+            { value: [_.get(this.generalitySkillsData, 'pcb.validityEndDate')], type: 'date' },
             { value: [''], type: 'text' },
             { value: [''], type: 'text' },
             { value: [''], type: 'text' }
@@ -69,20 +69,20 @@ export class GeneralitySkillsComponent implements OnInit {
         headers:
           [
             this.translateService.instant('STATUTORY_CERTIFICATE.GENERALITY_SKILLS.GENE.TITLE'),
-            this.translateService.instant('STATUTORY_CERTIFICATE.GENERALITY_SKILLS.GENE.START_DATE'),
-            this.translateService.instant('STATUTORY_CERTIFICATE.GENERALITY_SKILLS.GENE.MDC_DATE'),
+            '',
             this.translateService.instant('STATUTORY_CERTIFICATE.GENERALITY_SKILLS.GENE.DUE_DATE'),
-            this.translateService.instant('STATUTORY_CERTIFICATE.GENERALITY_SKILLS.GENE.DDV_DUE_DATE'),
-            this.translateService.instant('STATUTORY_CERTIFICATE.GENERALITY_SKILLS.GENE.SKILL_END_DATE')
+            '',
+            '',
+            ''
           ],
         values: this.generalitySkillsData && this.generalitySkillsData.gene ?
           [
-            { value: [_.get(this.generalitySkillsData, 'gene.aircraftSkill')], type: 'libelle' },
             { value: [_.get(this.generalitySkillsData, 'gene.startDate')], type: 'date' },
-            { value: [_.get(this.generalitySkillsData, 'gene.mdcDate')], type: 'date' },
+            { value: [''], type: 'text' },
             { value: [_.get(this.generalitySkillsData, 'gene.dueDate')], type: 'end-date' },
-            { value: [_.get(this.generalitySkillsData, 'gene.ddvDueDate')], type: 'end-date' },
-            { value: [_.get(this.generalitySkillsData, 'gene.endDate')], type: 'end-date' },
+            { value: [''], type: 'text' },
+            { value: [''], type: 'text' },
+            { value: [''], type: 'text' }
           ]
           :
           null

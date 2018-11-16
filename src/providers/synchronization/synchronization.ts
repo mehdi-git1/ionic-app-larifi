@@ -1,24 +1,17 @@
 import { ProfessionalLevelTransformerProvider } from './../professional-level/professional-level-transformer';
-import { StatutoryCertificateTransformerProvider } from './../statutory-certificate/statutory-certificate-transformer';
-import { StatutoryCertificate } from './../../models/statutoryCertificate';
 import { EObservation } from './../../models/eObservation';
 import { EObservationService } from './../../services/eObservation.service';
 import { PncPhotoTransformerProvider } from './../pnc-photo/pnc-photo-transformer';
-import { PncPhotoProvider } from './../pnc-photo/pnc-photo';
 import { CareerObjective } from './../../models/careerObjective';
-import { ToastProvider } from './../toast/toast';
 import { TranslateService } from '@ngx-translate/core';
 import { SessionService } from './../../services/session.service';
 import { CrewMemberTransformerProvider } from './../crewMember/crewMember-transformer';
 import { LegTransformerProvider } from './../leg/leg-transformer';
 import { RotationTransformerProvider } from './../rotation/rotation-transformer';
-import { SummarySheet } from './../../models/summarySheet';
-import { SummarySheetProvider } from './../summary-sheet/summary-sheet';
 import { PncTransformerProvider } from './../pnc/pnc-transformer';
 import { WaypointTransformerProvider } from './../waypoint/waypoint-transformer';
 import { PncSynchro } from './../../models/pncSynchro';
 import { Observable } from 'rxjs/Rx';
-import { OfflineAction } from './../../models/offlineAction';
 import { PncSynchroProvider } from './pnc-synchro';
 import { CareerObjectiveTransformerProvider } from './../career-objective/career-objective-transformer';
 import { StorageService } from './../../services/storage.service';
@@ -29,9 +22,9 @@ import { Waypoint } from '../../models/waypoint';
 import { Rotation } from '../../models/rotation';
 import { SecurityProvider } from './../../providers/security/security';
 import { LegProvider } from './../../providers/leg/leg';
-import { CareerObjectiveProvider } from '../career-objective/career-objective';
 import { CrewMember } from '../../models/crewMember';
 import { Leg } from '../../models/leg';
+import { StatutoryCertificateTransformerProvider } from '../statutory-certificate/statutory-certificate-transformer';
 @Injectable()
 export class SynchronizationProvider {
 
@@ -48,16 +41,12 @@ export class SynchronizationProvider {
     private legTransformerProvider: LegTransformerProvider,
     private crewMemberTransformerProvider: CrewMemberTransformerProvider,
     public securityProvider: SecurityProvider,
-    private summarySheetProvider: SummarySheetProvider,
-    private pncPhotoProvider: PncPhotoProvider,
     private pncPhotoTransformer: PncPhotoTransformerProvider,
     private legProvider: LegProvider,
     private sessionService: SessionService,
-    private toastProvider: ToastProvider,
     private translateService: TranslateService,
-    private careerObjectiveProvider: CareerObjectiveProvider,
-    private statutoryCertificateTransformer: StatutoryCertificateTransformerProvider,
-    private professionalLevelTransformer: ProfessionalLevelTransformerProvider) {
+    private professionalLevelTransformer: ProfessionalLevelTransformerProvider,
+    private statutoryCertificateTransformer: StatutoryCertificateTransformerProvider) {
   }
 
 
@@ -69,28 +58,21 @@ export class SynchronizationProvider {
    * @return une promesse résolue quand le EDossier est mis en cache
    */
   storeEDossierOffline(matricule: string, storeCrewMembers: boolean = true): Promise<boolean> {
-
     return new Promise((resolve, reject) => {
+      // On ne met pas en cache si des données sont en attente de synchro
       if (!this.isPncModifiedOffline(matricule)) {
         this.pncSynchroProvider.getPncSynchro(matricule).then(pncSynchro => {
-          this.summarySheetProvider.getSummarySheet(matricule).then(summarySheet => {
-            pncSynchro.summarySheet = summarySheet;
-            this.pncPhotoProvider.getPncPhoto(matricule).then(pncPhoto => {
-              pncSynchro.photo = pncPhoto;
-              this.updateLocalStorageFromPncSynchroResponse(pncSynchro);
-              resolve(true);
-            }).catch(error => {
-              resolve(true);
-            });
-          }, error => {
-            reject(this.translateService.instant('SYNCHRONIZATION.PNC_SAVED_OFFLINE_ERROR', { 'matricule': matricule }));
-          });
+          this.updateLocalStorageFromPncSynchroResponse(pncSynchro, storeCrewMembers).then(
+            success => resolve(),
+            error => reject(this.translateService.instant('SYNCHRONIZATION.PNC_SAVED_OFFLINE_ERROR', { 'matricule': matricule }))
+          );
+        }, error => {
+          reject(this.translateService.instant('SYNCHRONIZATION.PNC_SAVED_OFFLINE_ERROR', { 'matricule': matricule }));
         });
       } else {
         reject(this.translateService.instant('GLOBAL.MESSAGES.ERROR.APPLICATION_SYNCHRO_PENDING', { 'matricule': matricule }));
       }
     });
-
   }
 
   /**
@@ -133,44 +115,51 @@ export class SynchronizationProvider {
    * Gère la réponse de synchronisation du serveur. Supprime tous les objets associés au PNC pour les recréer ensuite.
    * @param pncSynchroResponse l'objet reçu du serveur
    * @param storeCrewMembers false si l'on ne veut pas traiter les crewMembers des vols du Pnc
+   * @return une promesse qui se résout quand tout a été sauvegardé
    */
-  updateLocalStorageFromPncSynchroResponse(pncSynchroResponse: PncSynchro, storeCrewMembers: boolean = true) {
-    this.deleteAllPncOfflineObject(pncSynchroResponse.pnc);
-    this.storageService.save(Entity.PNC, this.pncTransformer.toPnc(pncSynchroResponse.pnc), true);
-    this.storeRotations(pncSynchroResponse.rotations);
-    const crewMembersPromisesArray = this.storeLegs(pncSynchroResponse.legs);
+  updateLocalStorageFromPncSynchroResponse(pncSynchroResponse: PncSynchro, storeCrewMembers: boolean = true): Promise<boolean> {
+    return new Promise((resolve, reject) => {
+      this.deleteAllPncOfflineObject(pncSynchroResponse.pnc);
+      this.storageService.save(Entity.PNC, this.pncTransformer.toPnc(pncSynchroResponse.pnc), true);
+      this.storeRotations(pncSynchroResponse.rotations);
+      const crewMembersPromisesArray = this.storeLegs(pncSynchroResponse.legs);
+      const storeCrewMembersPromises = new Array<Promise<boolean[]>>();
 
-    Promise.all(crewMembersPromisesArray).then(flightCrewMatrix => {
-      if (storeCrewMembers) {
-        this.storeCrewMembers(pncSynchroResponse.pnc.matricule, flightCrewMatrix);
-      }
-      // Création des nouveaux objets
-      for (const careerObjective of pncSynchroResponse.careerObjectives) {
-        delete careerObjective.offlineAction;
-        this.storageService.save(Entity.CAREER_OBJECTIVE, this.careerObjectiveTransformer.toCareerObjective(careerObjective), true);
-      }
-      for (const waypoint of pncSynchroResponse.waypoints) {
-        // On ajoute la clef de l'objectif à chaque point d'étape
-        delete waypoint.offlineAction;
-        // On ne garde que le techId pour réduire le volume de données en cache
-        const careerObjectiveTechId = waypoint.careerObjective.techId;
-        waypoint.careerObjective = new CareerObjective();
-        waypoint.careerObjective.techId = careerObjectiveTechId;
-        this.storageService.save(Entity.WAYPOINT, this.waypointTransformer.toWaypoint(waypoint), true);
-      }
-      // Sauvegarde de la fiche synthese
-      this.storageService.save(Entity.SUMMARY_SHEET, pncSynchroResponse.summarySheet, true);
-      // Sauvegarde de la photo du PNC
-      this.storageService.save(Entity.PNC_PHOTO, this.pncPhotoTransformer.toPncPhoto(pncSynchroResponse.photo), true);
-      this.storageService.persistOfflineMap();
+      Promise.all(crewMembersPromisesArray).then(flightCrewMatrix => {
+        if (storeCrewMembers) {
+          storeCrewMembersPromises.push(this.storeCrewMembers(pncSynchroResponse.pnc.matricule, flightCrewMatrix));
+        }
+        // Création des nouveaux objets
+        for (const careerObjective of pncSynchroResponse.careerObjectives) {
+          delete careerObjective.offlineAction;
+          this.storageService.save(Entity.CAREER_OBJECTIVE, this.careerObjectiveTransformer.toCareerObjective(careerObjective), true);
+        }
+        for (const waypoint of pncSynchroResponse.waypoints) {
+          // On ajoute la clef de l'objectif à chaque point d'étape
+          delete waypoint.offlineAction;
+          // On ne garde que le techId pour réduire le volume de données en cache
+          const careerObjectiveTechId = waypoint.careerObjective.techId;
+          waypoint.careerObjective = new CareerObjective();
+          waypoint.careerObjective.techId = careerObjectiveTechId;
+          this.storageService.save(Entity.WAYPOINT, this.waypointTransformer.toWaypoint(waypoint), true);
+        }
+        // Sauvegarde de la fiche synthese
+        this.storageService.save(Entity.SUMMARY_SHEET, pncSynchroResponse.summarySheet, true);
 
-      // Sauvegarde de l'attestation réglementaire
-      this.storageService.save(Entity.STATUTORY_CERTIFICATE, this.statutoryCertificateTransformer.toStatutoryCertificate(pncSynchroResponse.statutoryCertificate), true);
+        // Sauvegarde de la photo du PNC
+        this.storageService.save(Entity.PNC_PHOTO, this.pncPhotoTransformer.toPncPhoto(pncSynchroResponse.photo), true);
 
-      // Sauvegarde du suivi réglementaire
-      this.storageService.save(Entity.PROFESSIONAL_LEVEL, this.professionalLevelTransformer.toProfessionalLevel(pncSynchroResponse.professionalLevel), true);
+        // Sauvegarde de l'attestation réglementaire
+        this.storageService.save(Entity.STATUTORY_CERTIFICATE, this.statutoryCertificateTransformer.toStatutoryCertificate(pncSynchroResponse.statutoryCertificate), true);
 
-    }, error => { });
+
+        // Sauvegarde du suivi réglementaire
+        this.storageService.save(Entity.PROFESSIONAL_LEVEL, this.professionalLevelTransformer.toProfessionalLevel(pncSynchroResponse.professionalLevel), true);
+        this.storageService.persistOfflineMap();
+
+        Promise.all(storeCrewMembersPromises).then(success => resolve(), error => reject());
+      }, error => { });
+    });
   }
 
   /**
@@ -188,7 +177,7 @@ export class SynchronizationProvider {
   /**
    * Enregistre les vols en cache
    * @param legs tableau de vols
-   * @return une tableau de Promise<CrewMember> dont chaque item est la liste d'équipage d'un des vols en paramètre
+   * @return un tableau de Promise<CrewMember> dont chaque item est la liste d'équipage d'un des vols en paramètre
    */
   private storeLegs(legs: Leg[]): Promise<CrewMember[]>[] {
     const crewMembersPromisesArray: Promise<CrewMember[]>[] = new Array();
@@ -210,8 +199,9 @@ export class SynchronizationProvider {
    * Le crewMember correspondant au matricule en paramètre ne sera pas traité
    * @param matricule le matricule du Pnc principal (celui dont on charge le eDossier initialement)
    * @param flightCrewMatrix matrice de crewMembers
+   * @return une promesse qui se résout quand tout l'équipage a été mis en cache
    */
-  private storeCrewMembers(matricule: string, flightCrewMatrix: CrewMember[][]) {
+  private storeCrewMembers(matricule: string, flightCrewMatrix: CrewMember[][]): Promise<boolean[]> {
     const crewMembers: Array<CrewMember> = new Array();
     for (const flightCrewList of flightCrewMatrix) {
       for (const flightCrew of flightCrewList) {
@@ -222,12 +212,13 @@ export class SynchronizationProvider {
       }
     }
     const eObservationsPromises: Promise<EObservation>[] = new Array();
+    const storeEDossierOfflinePromises = new Array<Promise<boolean>>();
     const crewMembersAlreadyStored: Array<String> = new Array();
     const eObsRotationsAlreadyCreated: Map<String, number[]> = new Map<String, number[]>();
     for (const crewMember of crewMembers) {
-      // charge l'edossier PNC de chaque membre d'équipage si il n'a a pas encore été storé
+      // charge l'edossier PNC de chaque membre d'équipage si il n'a a pas encore été stocké
       if (crewMembersAlreadyStored.indexOf(crewMember.pnc.matricule) < 0) {
-        this.storeEDossierOffline(crewMember.pnc.matricule, false);
+        storeEDossierOfflinePromises.push(this.storeEDossierOffline(crewMember.pnc.matricule, false));
         crewMembersAlreadyStored.push(crewMember.pnc.matricule);
       }
 
@@ -246,6 +237,8 @@ export class SynchronizationProvider {
       }
       this.storageService.persistOfflineMap();
     }, error => { });
+
+    return Promise.all(storeEDossierOfflinePromises);
   }
 
   /**

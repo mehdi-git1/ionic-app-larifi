@@ -18,7 +18,7 @@ export class UpcomingFlightListPage {
         private pncProvider: PncProvider,
         private sessionService: SessionService) {
     }
-    ionViewDidLoad() {
+    ionViewDidEnter() {
         this.initPage();
     }
 
