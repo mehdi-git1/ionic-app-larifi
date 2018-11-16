@@ -146,7 +146,7 @@ export class EDossierPNC implements OnInit {
       // Déclenchement d'une authentification
       this.events.subscribe('user:authenticated', () => {
         this.putAuthenticatedUserInSession().then(authenticatedUser => {
-          if (this.sessionService.getActiveUser().pnc) {
+          if (this.sessionService.getActiveUser().isPnc) {
             this.initUserData();
           }
           this.events.publish('user:authenticationDone');
@@ -188,7 +188,7 @@ export class EDossierPNC implements OnInit {
           this.securityModalService.displayPinPad(PinPadType.openingApp);
         }
 
-        if (this.securityProvider.isAdmin(authenticatedUser) && !authenticatedUser.pnc && !this.sessionService.impersonatedUser) {
+        if (this.securityProvider.isAdmin(authenticatedUser) && !authenticatedUser.isPnc && !this.sessionService.impersonatedUser) {
           this.nav.setRoot(ImpersonatePage);
         }
         else {
