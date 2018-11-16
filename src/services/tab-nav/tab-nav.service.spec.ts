@@ -1,4 +1,4 @@
-import { tabNavEnum } from './../../shared/enum/tab-nav.enum';
+import { tabNavEnum } from '../../app/core/enums/tab-nav.enum';
 import { TabNavService } from './tab-nav.service';
 
 describe('tabNavService', () => {

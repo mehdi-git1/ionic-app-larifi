@@ -1,39 +1,39 @@
-import { ImpersonatePage } from './../pages/impersonate/impersonate';
-import { OfflineProfessionalLevelProvider } from './../providers/professional-level/offline-professional-level';
-import { OnlineProfessionalLevelProvider } from './../providers/professional-level/online-professional-level';
-import { StatutoryCertificatePage } from './../pages/statutory-certificate/statutory-certificate';
-import { Utils } from '../common/utils/utils';
+import { ImpersonatePage } from './modules/settings/impersonate/impersonate';
+import { OfflineProfessionalLevelProvider } from './core/services/professional-level/offline-professional-level';
+import { OnlineProfessionalLevelProvider } from './core/services/professional-level/online-professional-level';
+import { StatutoryCertificatePage } from './modules/statutory-certificate/statutory-certificate/statutory-certificate';
+import { Utils } from './shared/utils/utils';
 import { File } from '@ionic-native/file';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
-import { EObservationTransformerProvider } from './../providers/e-observation/e-observation-transformer';
-import { OnlineEObservationProvider } from './../providers/e-observation/online-e-observation';
-import { OfflineEObservationProvider } from './../providers/e-observation/offline-e-observation';
+import { EObservationTransformerProvider } from './core/services/e-observation/e-observation-transformer';
+import { OnlineEObservationProvider } from './core/services/e-observation/online-e-observation';
+import { OfflineEObservationProvider } from './core/services/e-observation/offline-e-observation';
 import { DateTransformService } from './../services/date.transform.service';
 import { TransformerService } from './../services/transformer.service';
 import { DeviceService } from './../services/device.service';
-import { PncPhotoTransformerProvider } from './../providers/pnc-photo/pnc-photo-transformer';
-import { OfflinePncPhotoProvider } from './../providers/pnc-photo/offline-pnc-photo';
-import { OnlinePncPhotoProvider } from './../providers/pnc-photo/online-pnc-photo';
+import { PncPhotoTransformerProvider } from './core/services/pnc-photo/pnc-photo-transformer';
+import { OfflinePncPhotoProvider } from './core/services/pnc-photo/offline-pnc-photo';
+import { OnlinePncPhotoProvider } from './core/services/pnc-photo/online-pnc-photo';
 
-import { CrewMemberTransformerProvider } from './../providers/crewMember/crewMember-transformer';
-import { OnlineLegProvider } from './../providers/leg/online-leg';
-import { OfflineLegProvider } from './../providers/leg/offline-leg';
+import { CrewMemberTransformerProvider } from './core/services/crewMember/crewMember-transformer';
+import { OnlineLegProvider } from './core/services/leg/online-leg';
+import { OfflineLegProvider } from './core/services/leg/offline-leg';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { SimpleNotificationsModule } from 'angular2-notifications';
 
-import { SummarySheetPage } from './../pages/summary-sheet/summary-sheet';
-import { FlightCrewListPage } from './../pages/flight-crew-list/flight-crew-list';
-import { HelpAssetListPage } from './../pages/help-asset-list/help-asset-list';
-import { PncSearchPage } from './../pages/pnc-search/pnc-search';
-import { UpcomingFlightListPage } from './../pages/upcoming-flight-list/upcoming-flight-list';
-import { WaypointCreatePage } from './../pages/waypoint-create/waypoint-create';
-import { CareerObjectiveListPage } from './../pages/career-objective-list/career-objective-list';
-import { CareerObjectiveCreatePage } from './../pages/career-objective-create/career-objective-create';
-import { AuthenticationPage } from './../pages/authentication/authentication';
-import { PncHomePage } from './../pages/pnc-home/pnc-home';
+import { SummarySheetPage } from './modules/summary-sheet/summary-sheet/summary-sheet';
+import { FlightCrewListPage } from './modules/flight-activity/flight-crew-list/flight-crew-list';
+import { HelpAssetListPage } from './modules/help-asset/help-asset-list/help-asset-list';
+import { PncSearchPage } from './modules/pnc-team/pnc-search/pnc-search';
+import { UpcomingFlightListPage } from './modules/flight-activity/upcoming-flight-list/upcoming-flight-list';
+import { WaypointCreatePage } from './modules/development-program/waypoint-create/waypoint-create';
+import { CareerObjectiveListPage } from './modules/development-program/career-objective-list/career-objective-list';
+import { CareerObjectiveCreatePage } from './modules/development-program/career-objective-create/career-objective-create';
+import { AuthenticationPage } from './modules/home/authentication/authentication';
+import { PncHomePage } from './modules/home/pnc-home/pnc-home';
 
-import { LegTransformerProvider } from './../providers/leg/leg-transformer';
-import { RotationTransformerProvider } from './../providers/rotation/rotation-transformer';
+import { LegTransformerProvider } from './core/services/leg/leg-transformer';
+import { RotationTransformerProvider } from './core/services/rotation/rotation-transformer';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ErrorHandler, NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
@@ -46,27 +46,27 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { EDossierPNC } from './app.component';
 
-import { SharedModule } from './../shared/shared.module';
+import { SharedModule } from './shared/shared.module';
 
-import { SummarySheetTransformerProvider } from './../providers/summary-sheet/summary-sheet-transformer';
-import { OnlineSummarySheetProvider } from './../providers/summary-sheet/online-summary-sheet';
-import { OfflineSummarySheetProvider } from './../providers/summary-sheet/offline-summary-sheet';
-import { OnlineWaypointProvider } from './../providers/waypoint/online-waypoint';
-import { OnlineCareerObjectiveProvider } from './../providers/career-objective/online-career-objective';
-import { OfflineWaypointProvider } from './../providers/waypoint/offline-waypoint';
-import { OfflineCareerObjectiveProvider } from './../providers/career-objective/offline-career-objective';
-import { OfflineSecurityProvider } from './../providers/security/offline-security';
-import { OnlineSecurityProvider } from './../providers/security/online-security';
+import { SummarySheetTransformerProvider } from './core/services/summary-sheet/summary-sheet-transformer';
+import { OnlineSummarySheetProvider } from './core/services/summary-sheet/online-summary-sheet';
+import { OfflineSummarySheetProvider } from './core/services/summary-sheet/offline-summary-sheet';
+import { OnlineWaypointProvider } from './core/services/waypoint/online-waypoint';
+import { OnlineCareerObjectiveProvider } from './core/services/career-objective/online-career-objective';
+import { OfflineWaypointProvider } from './core/services/waypoint/offline-waypoint';
+import { OfflineCareerObjectiveProvider } from './core/services/career-objective/offline-career-objective';
+import { OfflineSecurityProvider } from './core/services/security/offline-security';
+import { OnlineSecurityProvider } from './core/services/security/online-security';
 import { StorageService } from './../services/storage.service';
 
 import { EObservationService } from './../services/eObservation.service';
-import { ComponentsModule } from './../components/components.module';
-import { WaypointStatusProvider } from './../providers/waypoint-status/waypoint-status';
-import { HttpErrorInterceptor } from './../interceptor/httpErrorInterceptor';
+import { ComponentsModule } from './shared/components/components.module';
+import { WaypointStatusProvider } from './core/services/waypoint-status/waypoint-status';
+import { HttpErrorInterceptor } from './core/interceptor/httpErrorInterceptor';
 import { SessionService } from './../services/session.service';
 import { AuthorizationService } from '../services/authorization/authorization.service';
-import { SecurityProvider } from './../providers/security/security';
-import { CareerObjectiveProvider } from './../providers/career-objective/career-objective';
+import { SecurityProvider } from './core/services/security/security';
+import { CareerObjectiveProvider } from './core/services/career-objective/career-objective';
 
 import { SecMobilService } from '../services/secMobil.service';
 import { AppInitService } from '../services/appInit.service';
@@ -79,51 +79,49 @@ import { RestService } from '../services/rest/rest.base.service';
 import { RestMobileService } from '../services/rest/rest.mobile.service';
 import { RestWebService } from '../services/rest/rest.web.service';
 
-import { PncProvider } from '../providers/pnc/pnc';
-import { GenderProvider } from '../providers/gender/gender';
-import { ToastProvider } from '../providers/toast/toast';
-import { CareerObjectiveStatusProvider } from '../providers/career-objective-status/career-objective-status';
+import { PncProvider } from './core/services/pnc/pnc';
+import { GenderProvider } from './core/services/gender/gender';
+import { ToastProvider } from './core/services/toast/toast';
+import { CareerObjectiveStatusProvider } from './core/services/career-objective-status/career-objective-status';
 
-import { WaypointProvider } from './../providers/waypoint/waypoint';
+import { WaypointProvider } from './core/services/waypoint/waypoint';
 
-import { RotationProvider } from '../providers/rotation/rotation';
-import { HelpAssetProvider } from '../providers/help-asset/help-asset';
-import { LegProvider } from '../providers/leg/leg';
+import { RotationProvider } from './core/services/rotation/rotation';
+import { HelpAssetProvider } from './core/services/help-asset/help-asset';
+import { LegProvider } from './core/services/leg/leg';
 
-import { ParametersProvider } from '../providers/parameters/parameters';
+import { ParametersProvider } from './core/services/parameters/parameters';
 
-import { OfflineProvider } from '../providers/offline/offline';
-import { OfflinePncProvider } from '../providers/pnc/offline-pnc';
-import { OnlinePncProvider } from '../providers/pnc/online-pnc';
-import { CareerObjectiveTransformerProvider } from '../providers/career-objective/career-objective-transformer';
-import { WaypointTransformerProvider } from '../providers/waypoint/waypoint-transformer';
-import { PncTransformerProvider } from '../providers/pnc/pnc-transformer';
-import { SynchronizationProvider } from '../providers/synchronization/synchronization';
-import { PncSynchroProvider } from '../providers/synchronization/pnc-synchro';
+import { OfflineProvider } from './core/services/offline/offline';
+import { OfflinePncProvider } from './core/services/pnc/offline-pnc';
+import { OnlinePncProvider } from './core/services/pnc/online-pnc';
+import { CareerObjectiveTransformerProvider } from './core/services/career-objective/career-objective-transformer';
+import { WaypointTransformerProvider } from './core/services/waypoint/waypoint-transformer';
+import { PncTransformerProvider } from './core/services/pnc/pnc-transformer';
+import { SynchronizationProvider } from './core/services/synchronization/synchronization';
+import { PncSynchroProvider } from './core/services/synchronization/pnc-synchro';
 
-import { HomePage } from './../pages/home/home';
-
-import { SummarySheetProvider } from '../providers/summary-sheet/summary-sheet';
-import { OnlineRotationProvider } from '../providers/rotation/online-rotation';
-import { OfflineRotationProvider } from '../providers/rotation/offline-rotation';
-import { GenericMessagePage } from '../pages/generic-message/generic-message';
+import { SummarySheetProvider } from './core/services/summary-sheet/summary-sheet';
+import { OnlineRotationProvider } from './core/services/rotation/online-rotation';
+import { OfflineRotationProvider } from './core/services/rotation/offline-rotation';
+import { GenericMessagePage } from './modules/home/generic-message/generic-message';
 
 import { SecurityModalService } from '../services/security.modal.service';
 
-import { SettingsPage } from '../pages/settings/settings';
-import { PncPhotoProvider } from '../providers/pnc-photo/pnc-photo';
+import { SettingsPage } from './modules/settings/settings/settings';
+import { PncPhotoProvider } from './core/services/pnc-photo/pnc-photo';
 import { SQLite } from '../../node_modules/@ionic-native/sqlite';
-import { EObservationProvider } from '../providers/e-observation/e-observation';
-import { StatutoryCertificateProvider } from '../providers/statutory-certificate/statutory-certificate';
-import { OnlineStatutoryCertificateProvider } from '../providers/statutory-certificate/online-statutory-certificate';
-import { StatutoryCertificateTransformerProvider } from './../providers/statutory-certificate/statutory-certificate-transformer';
-import { OfflineStatutoryCertificateProvider } from './../providers/statutory-certificate/offline-statutory-certificate';
-import { DirectivesModule } from '../directives/directives.module';
-import { ProfessionalLevelPage } from '../pages/professional-level/professional-level';
-import { ProfessionalLevelProvider } from '../providers/professional-level/professional-level';
-import { ProfessionalLevelTransformerProvider } from '../providers/professional-level/professional-level-transformer';
+import { EObservationProvider } from './core/services/e-observation/e-observation';
+import { StatutoryCertificateProvider } from './core/services/statutory-certificate/statutory-certificate';
+import { OnlineStatutoryCertificateProvider } from './core/services/statutory-certificate/online-statutory-certificate';
+import { StatutoryCertificateTransformerProvider } from './core/services/statutory-certificate/statutory-certificate-transformer';
+import { OfflineStatutoryCertificateProvider } from './core/services/statutory-certificate/offline-statutory-certificate';
+import { DirectivesModule } from './shared/directives/directives.module';
+import { ProfessionalLevelPage } from './modules/professional-level/professional-level/professional-level';
+import { ProfessionalLevelProvider } from './core/services/professional-level/professional-level';
+import { ProfessionalLevelTransformerProvider } from './core/services/professional-level/professional-level-transformer';
 
-import { AdminModule } from './../pages/admin/admin.module';
+import { AdminModule } from './modules/settings/admin/admin.module';
 import { TabNavService } from '../services/tab-nav/tab-nav.service';
 
 
@@ -132,7 +130,6 @@ declare var window: any;
 @NgModule({
   declarations: [
     EDossierPNC,
-    HomePage,
     ImpersonatePage,
     PncHomePage,
     AuthenticationPage,
@@ -143,7 +140,6 @@ declare var window: any;
     PncSearchPage,
     HelpAssetListPage,
     FlightCrewListPage,
-    HomePage,
     SummarySheetPage,
     GenericMessagePage,
     SettingsPage,
@@ -174,7 +170,6 @@ declare var window: any;
   ],
   entryComponents: [
     EDossierPNC,
-    HomePage,
     ImpersonatePage,
     PncHomePage,
     PncSearchPage,
@@ -185,7 +180,6 @@ declare var window: any;
     UpcomingFlightListPage,
     FlightCrewListPage,
     HelpAssetListPage,
-    HomePage,
     SummarySheetPage,
     GenericMessagePage,
     SettingsPage,

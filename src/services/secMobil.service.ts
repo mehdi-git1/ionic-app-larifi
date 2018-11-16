@@ -1,4 +1,4 @@
-import { Utils } from '../common/utils/utils';
+import { Utils } from '../app/shared/utils/utils';
 import { isUndefined } from 'ionic-angular/util/util';
 import { DeviceService } from './device.service';
 import { Injectable } from '@angular/core';
@@ -6,7 +6,7 @@ import { Config } from '../configuration/environment-variables/config';
 import { Platform, Events } from 'ionic-angular';
 import { RestRequest } from './rest/rest.base.service';
 import { TranslateService } from '@ngx-translate/core';
-import { ToastProvider } from '../providers/toast/toast';
+import { ToastProvider } from '../app/core/services/toast/toast';
 
 declare var window: any;
 

@@ -1,5 +1,5 @@
 import { AuthorizationService } from './authorization.service';
-import { AuthenticatedUser } from '../../models/authenticatedUser';
+import { AuthenticatedUser } from '../../app/core/models/authenticatedUser';
 
 const sessionServiceMock = jasmine.createSpyObj('sessionServiceMock', ['getActiveUser']);
 

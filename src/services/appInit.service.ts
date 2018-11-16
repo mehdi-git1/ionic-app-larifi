@@ -1,5 +1,5 @@
 import { SessionService } from './session.service';
-import { ParametersProvider } from './../providers/parameters/parameters';
+import { ParametersProvider } from '../app/core/services/parameters/parameters';
 import { Injectable } from '@angular/core';
 import { Events } from 'ionic-angular';
 

@@ -1,10 +1,10 @@
-import { eFormsReportType } from './../models/eFormsReportType';
-import { EObservationProvider } from './../providers/e-observation/e-observation';
-import { Rotation } from './../models/rotation';
+import { eFormsReportType } from '../app/core/models/eFormsReportType';
+import { EObservationProvider } from '../app/core/services/e-observation/e-observation';
+import { Rotation } from '../app/core/models/rotation';
 import { Config } from './../configuration/environment-variables/config';
-import { EObservation } from './../models/eObservation';
+import { EObservation } from '../app/core/models/eObservation';
 import { SessionService } from './session.service';
-import { PncProvider } from './../providers/pnc/pnc';
+import { PncProvider } from '../app/core/services/pnc/pnc';
 import { DatePipe } from '@angular/common';
 
 import { Injectable } from '@angular/core';

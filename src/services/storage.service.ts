@@ -1,12 +1,12 @@
 import { TransformerService } from './transformer.service';
 import { AppConstant } from './../app/app.constant';
-import { OfflineAction } from './../models/offlineAction';
-import { Entity } from './../models/entity';
-import { AuthenticatedUser } from './../models/authenticatedUser';
+import { OfflineAction } from '../app/core/models/offlineAction';
+import { Entity } from '../app/core/models/entity';
+import { AuthenticatedUser } from '../app/core/models/authenticatedUser';
 import { Config } from './../configuration/environment-variables/config';
 import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage';
-import { EDossierPncObject } from '../models/eDossierPncObject';
+import { EDossierPncObject } from '../app/core/models/eDossierPncObject';
 import * as moment from 'moment';
 import * as _ from 'lodash';
 

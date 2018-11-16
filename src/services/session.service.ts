@@ -1,7 +1,7 @@
-import { Pnc } from './../models/pnc';
-import { Parameters } from './../models/Parameters';
-import { AppContext } from './../models/appContext';
-import { AuthenticatedUser } from './../models/authenticatedUser';
+import { Pnc } from '../app/core/models/pnc';
+import { Parameters } from '../app/core/models/Parameters';
+import { AppContext } from '../app/core/models/appContext';
+import { AuthenticatedUser } from '../app/core/models/authenticatedUser';
 import { Injectable } from '@angular/core';
 
 @Injectable()

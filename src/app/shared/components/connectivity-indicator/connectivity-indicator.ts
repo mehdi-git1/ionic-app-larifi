@@ -1,0 +1,30 @@
+import { Component } from '@angular/core';
+
+import { DeviceService } from '../../../../services/device.service';
+import { SynchronizationProvider } from '../../../core/services/synchronization/synchronization';
+import { ConnectivityService } from '../../../../services/connectivity/connectivity.service';
+
+@Component({
+  selector: 'connectivity-indicator',
+  templateUrl: 'connectivity-indicator.html'
+})
+export class ConnectivityIndicatorComponent {
+
+  connected: boolean;
+  synchroInProgress: boolean;
+
+  constructor(public connectivityService: ConnectivityService,
+    public synchronizationProvider: SynchronizationProvider,
+    public deviceService: DeviceService) {
+    this.connected = this.connectivityService.isConnected();
+
+    this.connectivityService.connectionStatusChange.subscribe(connected => {
+      this.connected = connected;
+    });
+
+    this.synchronizationProvider.synchroStatusChange.subscribe(synchroInProgress => {
+      this.synchroInProgress = synchroInProgress;
+    });
+  }
+
+}

@@ -1,21 +1,21 @@
-import { GlobalError } from './../models/globalError';
-import { PinPadError } from './../models/pinPadError';
-import { PinPadType } from './../models/pinPadType';
-import { SecretQuestionType } from './../models/secretQuestionType';
-import { SecurityProvider } from './../providers/security/security';
-import { ToastProvider } from './../providers/toast/toast';
-import { OfflineSecurityProvider } from './../providers/security/offline-security';
+import { GlobalError } from '../app/core/models/globalError';
+import { PinPadError } from '../app/core/models/pinPadError';
+import { PinPadType } from '../app/core/models/pinPadType';
+import { SecretQuestionType } from '../app/core/models/secretQuestionType';
+import { SecurityProvider } from '../app/core/services/security/security';
+import { ToastProvider } from '../app/core/services/toast/toast';
+import { OfflineSecurityProvider } from '../app/core/services/security/offline-security';
 import { SessionService } from './session.service';
 import { TranslateService } from '@ngx-translate/core';
 import { ModalController, ViewController, Modal } from 'ionic-angular';
 import { Injectable, Output, EventEmitter } from '@angular/core';
 
 
-import { AuthenticatedUser } from './../models/authenticatedUser';
-import { PinPadModal } from './../components/modals/pin-pad-modal/pin-pad-modal';
+import { AuthenticatedUser } from '../app/core/models/authenticatedUser';
+import { PinPadModal } from '../app/shared/components/modals/pin-pad-modal/pin-pad-modal';
 
-import { SecretQuestionModal } from '../components/modals/secret-question-modal/secret-question-modal';
-import { SecretQuestionError } from '../models/secretQuestionError';
+import { SecretQuestionModal } from '../app/shared/components/modals/secret-question-modal/secret-question-modal';
+import { SecretQuestionError } from '../app/core/models/secretQuestionError';
 
 
 @Injectable()

@@ -1,34 +1,28 @@
-import { PncHomePage } from './../pages/pnc-home/pnc-home';
-import { ImpersonatePage } from './../pages/impersonate/impersonate';
-import { AppInitService } from './../services/appInit.service';
-import { PinPadType } from './../models/pinPadType';
-import { DeviceService } from './../services/device.service';
-import { GenericMessagePage } from './../pages/generic-message/generic-message';
-import { OfflineSecurityProvider } from './../providers/security/offline-security';
-import { AuthenticatedUser } from './../models/authenticatedUser';
-import { AuthenticationPage } from './../pages/authentication/authentication';
-import { SynchronizationProvider } from './../providers/synchronization/synchronization';
-import { ToastProvider } from './../providers/toast/toast';
-import { ConnectivityService } from '../services/connectivity/connectivity.service';
-
-import { SessionService } from './../services/session.service';
-import { SecurityProvider } from './../providers/security/security';
-
 import { Component, ViewChild, OnInit } from '@angular/core';
-
 import { Nav, Platform, Events, App } from 'ionic-angular';
-
 import { StatusBar } from '@ionic-native/status-bar';
-
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { TranslateService } from '@ngx-translate/core';
+import * as moment from 'moment';
+
+import { PncHomePage } from './modules/home/pnc-home/pnc-home';
+import { ImpersonatePage } from './modules/settings/impersonate/impersonate';
+import { AppInitService } from './../services/appInit.service';
+import { PinPadType } from './core/models/pinPadType';
+import { DeviceService } from './../services/device.service';
+import { GenericMessagePage } from './modules/home/generic-message/generic-message';
+import { OfflineSecurityProvider } from './core/services/security/offline-security';
+import { AuthenticatedUser } from './core/models/authenticatedUser';
+import { AuthenticationPage } from './modules/home/authentication/authentication';
+import { SynchronizationProvider } from './core/services/synchronization/synchronization';
+import { ToastProvider } from './core/services/toast/toast';
+import { ConnectivityService } from '../services/connectivity/connectivity.service';
+import { SessionService } from './../services/session.service';
+import { SecurityProvider } from './core/services/security/security';
 import { SecMobilService } from '../services/secMobil.service';
 import { StorageService } from '../services/storage.service';
-import { HomePage } from '../pages/home/home';
-
 import { SecurityModalService } from './../services/security.modal.service';
 
-import * as moment from 'moment';
 
 @Component({
   templateUrl: 'app.html'
@@ -36,8 +30,6 @@ import * as moment from 'moment';
 export class EDossierPNC implements OnInit {
 
   @ViewChild('content') nav: Nav;
-
-  rootPage: any = HomePage;
 
   pinPadModalActive = false;
   switchToBackgroundDate: Date;
