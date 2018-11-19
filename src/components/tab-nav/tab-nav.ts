@@ -74,7 +74,6 @@ export class TabNavComponent {
     });
   }
 
-
   /**
    * initialisation des navTab
    */
@@ -140,8 +139,7 @@ export class TabNavComponent {
   }
 
   /**
-   * 
-   * @param event Permet de mettre à jour les permissions
+   * Permet de mettre à jour les permissions de façon dynamique
    */
   changePermissions() {
     this.tabsNav[this.tabNavService.findTabIndex(tabNavEnum.PNC_HOME_PAGE)].display = true;
