@@ -16,6 +16,7 @@ import { PinPadType } from './../../models/pinPadType';
 import { SecretQuestionType } from '../../models/secretQuestionType';
 import { AuthenticatedUser } from '../../models/authenticatedUser';
 import { OfflineSecurityProvider } from '../../providers/security/offline-security';
+import { AuthenticationPage } from '../authentication/authentication';
 
 @Component({
   selector: 'page-settings',
@@ -132,7 +133,11 @@ export class SettingsPage {
   }
 
   RevokeCertificate() {
-    this.secMobilService.secMobilRevokeCertificate();
+    this.secMobilService.secMobilRevokeCertificate().then(() =>
+      {
+        this.navCtrl.setRoot(AuthenticationPage);
+        this.events.publish('user:authenticationFailed');
+      });
   }
 
   forceSynchronizeOfflineData() {
