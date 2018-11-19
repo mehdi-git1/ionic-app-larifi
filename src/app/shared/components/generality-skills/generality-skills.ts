@@ -1,8 +1,8 @@
-import { GeneralitySkills } from './../../models/statutoryCertificate/generalitySkills';
 import { TranslateService } from '@ngx-translate/core';
 import { Component, Input, OnInit } from '@angular/core';
-
 import * as _ from 'lodash';
+
+import {GeneralitySkills} from '../../../core/models/statutoryCertificate/generalitySkills';
 
 @Component({
   selector: 'generality-skills',

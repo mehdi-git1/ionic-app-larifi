@@ -3,7 +3,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 
 import { Pnc } from '../../../core/models/pnc';
-import { TabNavService } from '../../../../services/tab-nav/tab-nav.service';
+import { TabNavService } from '../../../core/services/tab-nav/tab-nav.service';
 import { PncSearchFilterComponent } from '../../../shared/components/pnc-search-filter/pnc-search-filter';
 import { AppConstant } from '../../../app.constant';
 import { PncHomePage } from '../../home/pnc-home/pnc-home';

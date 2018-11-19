@@ -1,6 +1,8 @@
 import { TranslateService } from '@ngx-translate/core';
-import { MasteringQualification } from './../../models/statutoryCertificate/masteringQualification';
 import { Component, Input, OnInit } from '@angular/core';
+import {MasteringQualification} from '../../../core/models/statutoryCertificate/masteringQualification';
+
+
 
 @Component({
   selector: 'mastering-qualification',

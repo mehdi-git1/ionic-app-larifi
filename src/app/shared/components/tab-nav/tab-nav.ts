@@ -14,7 +14,7 @@ import { CareerObjectiveListPage } from '../../../modules/development-program/ca
 import { PncProvider } from '../../../core/services/pnc/pnc';
 import { SessionService } from '../../../../services/session.service';
 import { SecurityProvider } from '../../../core/services/security/security';
-import { TabNavService } from '../../../../services/tab-nav/tab-nav.service';
+import { TabNavService } from '../../../core/services/tab-nav/tab-nav.service';
 import { tabNavEnum } from '../../../core/enums/tab-nav.enum';
 import { TranslateService } from '@ngx-translate/core';
 

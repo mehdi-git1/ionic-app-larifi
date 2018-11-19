@@ -1,9 +1,8 @@
-import { HaulType } from './../../models/statutoryCertificate/haulType';
-import { FamiliarizationFlights } from './../../models/statutoryCertificate/familiarizationFlights';
 import { TranslateService } from '@ngx-translate/core';
 import { Component, OnInit, Input } from '@angular/core';
 
-import * as _ from 'lodash';
+import {FamiliarizationFlights} from '../../../core/models/statutoryCertificate/familiarizationFlights';
+
 
 @Component({
   selector: 'familiarization-flight',

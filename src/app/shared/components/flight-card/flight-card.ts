@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { Leg } from './../../models/leg';
-import { ConnectivityService } from '../../services/connectivity/connectivity.service';
+import { Leg } from '../../../core/models/leg';
+import { ConnectivityService } from '../../../../services/connectivity/connectivity.service';
 
 @Component({
     selector: 'flight-card',

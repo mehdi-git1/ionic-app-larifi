@@ -1,8 +1,9 @@
-import { OfflineAction } from './../../models/offlineAction';
-import { PncRole } from './../../models/pncRole';
-import { CareerObjective } from './../../models/careerObjective';
+import { Component, ViewChild, Input } from '@angular/core';
+
 import { OfflineIndicatorComponent } from './../offline-indicator/offline-indicator';
-import { Component, ViewChild, Input, OnInit, OnChanges } from '@angular/core';
+import {PncRole} from '../../../core/models/pncRole';
+import {CareerObjective} from '../../../core/models/careerObjective';
+
 
 @Component({
   selector: 'career-objective-card',

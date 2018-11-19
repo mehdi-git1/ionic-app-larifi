@@ -122,7 +122,7 @@ import { ProfessionalLevelProvider } from './core/services/professional-level/pr
 import { ProfessionalLevelTransformerProvider } from './core/services/professional-level/professional-level-transformer';
 
 import { AdminModule } from './modules/settings/admin/admin.module';
-import { TabNavService } from '../services/tab-nav/tab-nav.service';
+import { TabNavService } from './core/services/tab-nav/tab-nav.service';
 
 
 declare var window: any;

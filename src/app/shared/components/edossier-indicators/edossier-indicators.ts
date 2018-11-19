@@ -1,11 +1,13 @@
-import { SessionService } from './../../services/session.service';
-import { SecurityProvider } from '../../app/core/services/security/security';
-import { DeviceService } from './../../services/device.service';
-import { SynchronizationProvider } from '../../app/core/services/synchronization/synchronization';
-import { ConnectivityService } from '../../services/connectivity/connectivity.service';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController } from 'ionic-angular';
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { SettingsPage } from '../../pages/settings/settings';
+
+import { SessionService } from '../../../../services/session.service';
+import { SecurityProvider } from '../../../core/services/security/security';
+import { DeviceService } from '../../../../services/device.service';
+import { SynchronizationProvider } from '../../../core/services/synchronization/synchronization';
+import { ConnectivityService } from '../../../../services/connectivity/connectivity.service';
+import { SettingsPage } from '../../../modules/settings/settings/settings';
+
 
 @Component({
   selector: 'edossier-indicators',

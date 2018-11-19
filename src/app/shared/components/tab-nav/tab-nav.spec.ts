@@ -9,7 +9,7 @@ import { TranslateLoaderMock } from '../../../../test-config/mocks-ionic';
 import { TabNavComponent } from './tab-nav';
 import { PncProvider } from '../../../core/services/pnc/pnc';
 import { of } from 'rxjs/observable/of';
-import { TabNavService } from '../../../../services/tab-nav/tab-nav.service';
+import { TabNavService } from '../../../core/services/tab-nav/tab-nav.service';
 
 const PncProviderMock = jasmine.createSpyObj('PncProviderMock', ['getPnc']);
 PncProviderMock.getPnc.and.returnValue(of({}));
