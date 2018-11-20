@@ -35,7 +35,7 @@ export class SecurityProvider extends BaseProvider {
     if (this.sessionService.getActiveUser() === undefined) {
       return false;
     }
-    return this.sessionService.getActiveUser().manager;
+    return this.sessionService.getActiveUser().isManager;
   }
 
 
