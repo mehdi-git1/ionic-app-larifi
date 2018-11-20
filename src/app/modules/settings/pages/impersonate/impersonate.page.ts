@@ -122,7 +122,7 @@ export class ImpersonatePage {
    * @return vrai si c'est le cas, faux sinon
    */
   canGetMyIdentityBack(): boolean {
-    return this.sessionService.impersonatedUser !== null && this.sessionService.authenticatedUser.pnc;
+    return this.sessionService.impersonatedUser !== null && this.sessionService.authenticatedUser.isPnc;
   }
 
   /**

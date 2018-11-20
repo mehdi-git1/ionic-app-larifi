@@ -6,8 +6,8 @@ export class AuthenticatedUserModel extends EDossierPncObjectModel {
     matricule: string;
     firstName: string;
     lastName: string;
-    manager: boolean;
-    pnc: boolean;
+    isManager: boolean;
+    isPnc: boolean;
     pinInfo?: PncPinModel;
     profiles: string[];
     permissions: string[];
