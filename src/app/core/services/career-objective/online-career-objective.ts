@@ -1,23 +1,23 @@
 import { Injectable } from '@angular/core';
 import { isUndefined } from 'ionic-angular/util/util';
 
-import { CareerObjectiveTransformerProvider } from './career-objective-transformer';
-import { OfflineCareerObjectiveProvider } from './offline-career-objective';
-import { StorageService } from '../../../../services/storage.service';
-import { Entity } from '../../models/entity';
-import { CareerObjective } from '../../models/careerObjective';
-import { Config } from '../../../../configuration/environment-variables/config';
-import { RestService } from '../../../../services/rest/rest.base.service';
+import { StorageService } from '../../storage/storage.service';
+import { EntityEnum } from '../../enums/entity.enum';
+import { CareerObjectiveModel } from '../../models/career-objective.model';
+import { UrlConfiguration } from '../../configuration/url.configuration';
+import { RestService } from '../../http/rest/rest.base.service';
+import {OfflineCareerObjectiveService} from './offline-career-objective.service';
+import {CareerObjectiveTransformerService} from './career-objective-transformer.service';
 
 @Injectable()
-export class OnlineCareerObjectiveProvider {
+export class OnlineCareerObjectiveService {
 
   constructor(
     public restService: RestService,
-    private config: Config,
+    private config: UrlConfiguration,
     private storageService: StorageService,
-    private offlineCareerObjectiveProvider: OfflineCareerObjectiveProvider,
-    private careerObjectiveTransformer: CareerObjectiveTransformerProvider
+    private offlineCareerObjectiveService: OfflineCareerObjectiveService,
+    private careerObjectiveTransformerService: CareerObjectiveTransformerService
   ) { }
 
   /**
@@ -25,12 +25,12 @@ export class OnlineCareerObjectiveProvider {
    * @param matricule le matricule du pnc dont on souhaite récupérer les objectifs
    * @return la liste des objectifs du pnc
    */
-  getPncCareerObjectives(matricule: string): Promise<CareerObjective[]> {
+  getPncCareerObjectives(matricule: string): Promise<CareerObjectiveModel[]> {
     return this.restService.get(this.config.getBackEndUrl('getCareerObjectivesByPnc', [matricule]))
       .then(onlineCareerObjectives => {
-        return this.offlineCareerObjectiveProvider.getPncCareerObjectives(matricule).then(offlineCareerObjectives => {
-          const onlineData = this.careerObjectiveTransformer.toCareerObjectives(onlineCareerObjectives);
-          const offlineData = this.careerObjectiveTransformer.toCareerObjectives(offlineCareerObjectives);
+        return this.offlineCareerObjectiveService.getPncCareerObjectives(matricule).then(offlineCareerObjectives => {
+          const onlineData = this.careerObjectiveTransformerService.toCareerObjectives(onlineCareerObjectives);
+          const offlineData = this.careerObjectiveTransformerService.toCareerObjectives(offlineCareerObjectives);
           return (this.addUnsynchronizedOfflineCareerObjectivesToOnline(onlineData, offlineData));
         });
       });
@@ -41,7 +41,7 @@ export class OnlineCareerObjectiveProvider {
  * @param onlineDataArray la liste des objectifs récupérés de la BDD.
  * @param offlineDataArray la liste des objectifs récupérés du cache
  */
-  addUnsynchronizedOfflineCareerObjectivesToOnline(onlineDataArray: CareerObjective[], offlineDataArray: CareerObjective[]): CareerObjective[] {
+  addUnsynchronizedOfflineCareerObjectivesToOnline(onlineDataArray: CareerObjectiveModel[], offlineDataArray: CareerObjectiveModel[]): CareerObjectiveModel[] {
     for (const offlineData of offlineDataArray) {
       const result = onlineDataArray.filter(onlineData => offlineData.getStorageId() === onlineData.getStorageId());
       if (result && result.length === 1) {
@@ -60,7 +60,7 @@ export class OnlineCareerObjectiveProvider {
    * @param  careerObjective l'objectif à créer ou mettre à jour
    * @return une promesse contenant l'objectif créé ou mis à jour
    */
-  createOrUpdate(careerObjective: CareerObjective): Promise<CareerObjective> {
+  createOrUpdate(careerObjective: CareerObjectiveModel): Promise<CareerObjectiveModel> {
     return this.restService.post(this.config.getBackEndUrl('careerObjectives'), careerObjective);
   }
 
@@ -69,7 +69,7 @@ export class OnlineCareerObjectiveProvider {
   * @param id l'id de l'objectif à récupérer
   * @return l'objectif récupéré
   */
-  getCareerObjective(id: number): Promise<CareerObjective> {
+  getCareerObjective(id: number): Promise<CareerObjectiveModel> {
     return this.restService.get(this.config.getBackEndUrl('getCareerObjectivesById', [id]));
   }
 
@@ -79,8 +79,8 @@ export class OnlineCareerObjectiveProvider {
   * @param id l'id de l'objectif à supprimer
   * @return l'objectif supprimé
   */
-  delete(id: number): Promise<CareerObjective> {
-    this.storageService.delete(Entity.CAREER_OBJECTIVE, `${id}`);
+  delete(id: number): Promise<CareerObjectiveModel> {
+    this.storageService.delete(EntityEnum.CAREER_OBJECTIVE, `${id}`);
     this.storageService.persistOfflineMap();
     return this.restService.delete(this.config.getBackEndUrl('deleteCareerObjectivesById', [id]));
   }

@@ -2,11 +2,14 @@ import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-transla
 import { NgModule } from '@angular/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { CommonModule } from '@angular/common';
+import {CommonModule, DatePipe} from '@angular/common';
 
 import { AppMaterialModule } from './material/material.module';
 import { PipesModule } from './pipes/pipes.module';
 import { TooltipsModule } from 'ionic-tooltips';
+import {Utils} from './utils/utils';
+import {DirectivesModule} from './directives/directives.module';
+import {DateTransform} from './utils/date-transform';
 
 export function createTranslateLoader(http: HttpClient) {
     return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -24,17 +27,22 @@ export function createTranslateLoader(http: HttpClient) {
             }
         }),
         PipesModule,
-        TooltipsModule
+        TooltipsModule,
+      DirectivesModule
     ],
     exports: [
         CommonModule,
         TranslateModule,
         AppMaterialModule,
         PipesModule,
-        TooltipsModule
+        TooltipsModule,
+      DirectivesModule
     ],
     providers: [
-        AppMaterialModule
+        AppMaterialModule,
+      Utils,
+      DateTransform,
+      DatePipe
     ]
 })
 export class SharedModule {
