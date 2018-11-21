@@ -33,7 +33,6 @@ export class AuthenticationPage implements OnInit {
     public translateService: TranslateService,
     public deviceService: DeviceService,
     public securityModalService: ModalSecurityService,
-    private synchronizationProvider: SynchronizationService,
     private events: Events
   ) {
     this.initializeForm();
@@ -69,6 +68,7 @@ export class AuthenticationPage implements OnInit {
         this.storageService.initOfflineMap().then(success => {
           this.putAuthenticatedUserInSession().then(authenticatedUser => {
             this.events.publish('user:logged');
+            this.events.publish('user:authenticationDone');
           }, error => {
             this.secMobilService.secMobilRevokeCertificate();
             if (error === 'secmobil.incorrect.credentials') {
