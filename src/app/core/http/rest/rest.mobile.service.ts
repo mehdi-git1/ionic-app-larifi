@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 import { SessionService } from '../../services/session/session.service';
 import { RestService, RestRequest } from './rest.base.service';
 import { SecMobilService } from '../secMobil.service';
-import {Config} from '../../../../environments/config';
+import { Config } from '../../../../environments/config';
 
 
 
@@ -26,10 +26,10 @@ export class RestMobileService extends RestService {
             if (request.jsonData) {
                 if (!request.httpHeaders) {
                     // En mode mobile, on construit un objet JS classique, attendu par secMobile
-                    request.httpHeaders = Object.assign(request.httpHeaders, {
+                    request.httpHeaders = {
                         'Content-Type': 'application/json',
                         'Accept': '*/*'
-                    });
+                    };
                 }
                 request.jsonData = JSON.stringify(request.jsonData);
             }
