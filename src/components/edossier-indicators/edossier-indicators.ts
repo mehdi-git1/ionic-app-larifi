@@ -71,8 +71,8 @@ export class NavBarCustomComponent {
   /**
    * Vérifie si l'utilisateur connecté est admin ou non
    */
-  isAdmin() {
-    return this.securityProvider.isAdmin(this.sessionService.authenticatedUser);
+  isSettingsAvailable() {
+    return this.securityProvider.isAdmin(this.sessionService.authenticatedUser) || !this.deviceService.isBrowser();
   }
 
 }

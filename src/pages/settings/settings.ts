@@ -1,3 +1,4 @@
+import { SecMobilService } from './../../services/secMobil.service';
 import { AdminHomePage } from './../admin/home/admin-home';
 import { ImpersonatePage } from './../impersonate/impersonate';
 import { DeviceService } from './../../services/device.service';
@@ -15,6 +16,7 @@ import { PinPadType } from './../../models/pinPadType';
 import { SecretQuestionType } from '../../models/secretQuestionType';
 import { AuthenticatedUser } from '../../models/authenticatedUser';
 import { OfflineSecurityProvider } from '../../providers/security/offline-security';
+import { AuthenticationPage } from '../authentication/authentication';
 
 @Component({
   selector: 'page-settings',
@@ -40,6 +42,7 @@ export class SettingsPage {
     private alertCtrl: AlertController,
     private securityModalService: SecurityModalService,
     private deviceService: DeviceService,
+    private secMobilService: SecMobilService,
     private offlineSecurityProvider: OfflineSecurityProvider
   ) {
     this.connected = this.connectivityService.isConnected();
@@ -63,7 +66,7 @@ export class SettingsPage {
   }
 
   /**
-  * Présente une alerte pour confirmer la suppression du brouillon
+  * Présente une alerte pour confirmer la suppression du cache
   */
   confirmClearAndInitCache() {
     const message = this.synchronizationProvider.isPncModifiedOffline(this.sessionService.getActiveUser().matricule) ?
@@ -107,6 +110,34 @@ export class SettingsPage {
       }, error => {
       });
     });
+  }
+
+  /**
+* Présente une alerte pour confirmer la suppression du cache
+*/
+  confirmRevokeCertificate() {
+    this.alertCtrl.create({
+      title: this.translateService.instant('SETTINGS.CONFIRM_REVOKE_CERTIFICATE.TITLE'),
+      message: this.translateService.instant('SETTINGS.CONFIRM_REVOKE_CERTIFICATE.MESSAGE'),
+      buttons: [
+        {
+          text: this.translateService.instant('SETTINGS.CONFIRM_REVOKE_CERTIFICATE.CANCEL'),
+          role: 'cancel'
+        },
+        {
+          text: this.translateService.instant('SETTINGS.CONFIRM_REVOKE_CERTIFICATE.CONFIRM'),
+          handler: () => this.RevokeCertificate()
+        }
+      ]
+    }).present();
+  }
+
+  RevokeCertificate() {
+    this.secMobilService.secMobilRevokeCertificate().then(() =>
+      {
+        this.navCtrl.setRoot(AuthenticationPage);
+        this.events.publish('user:authenticationFailed');
+      });
   }
 
   forceSynchronizeOfflineData() {
