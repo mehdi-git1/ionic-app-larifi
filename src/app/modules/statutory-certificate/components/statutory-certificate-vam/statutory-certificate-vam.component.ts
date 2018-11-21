@@ -21,8 +21,8 @@ export class StatutoryCertificateVamComponent implements OnInit {
     this.skillDisplayedData = {
       headers:
         [
-          this.translateService.instant('STATUTORY_CERTIFICATE.VamModel.START_DATE'),
-          this.translateService.instant('STATUTORY_CERTIFICATE.VamModel.END_DATE')
+          this.translateService.instant('STATUTORY_CERTIFICATE.VAM.START_DATE'),
+          this.translateService.instant('STATUTORY_CERTIFICATE.VAM.END_DATE')
         ],
       values: this.vamData ?
         [
