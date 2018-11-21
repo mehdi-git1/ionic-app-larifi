@@ -117,7 +117,7 @@
                     <ng-template #waypointsBlock>
                         <!--liste des point d'étape-->
                         <h3>{{ 'CAREER_OBJECTIVE_CREATE.WAYPOINT_LIST_TITLE' | translate }}</h3>
-                        <button (click)="goToWaypointCreate()" class="add-waypoint clickable" *ngIf="careerObjective.careerObjectiveStatus === CareerObjectiveStatusEnum.REGISTERED">
+                        <button (click)="goToWaypointCreate()" class="add-waypoint clickable" *ngIf="careerObjective.careerObjectiveStatus === CareerObjectiveStatus.REGISTERED">
                             <ion-icon name="ios-add-circle-outline" ios="ios-add-circle-outline"></ion-icon>
                         </button>
                         <ion-card class="waypoint clickable" *ngFor="let waypoint of waypointList" (click)="openWaypoint(waypoint.techId)">
@@ -125,7 +125,7 @@
                             <ion-card-content>
                                 <!--Si une date de rencontre existe, on l'affiche, sinon on affiche la date de création -->
                                 <header>
-                                    <ion-icon name="create" ios="md-create" *ngIf="waypoint.waypointStatus === WaypointStatusEnum.DRAFT" float-right></ion-icon>
+                                    <ion-icon name="create" ios="md-create" *ngIf="waypoint.waypointStatus === WaypointStatus.DRAFT" float-right></ion-icon>
                                     <div class="value" *ngIf="waypoint.encounterDate; else lastUpdateDateBlock">
                                         {{ waypoint.encounterDate | date: 'dd/MM/yyyy'}}
                                     </div>
@@ -152,7 +152,7 @@
                     <ion-icon name="ios-trash-outline" ios="ios-trash-outline" margin-right></ion-icon>{{ 'CAREER_OBJECTIVE_CREATE.BUTTONS.DELETE_DRAFT' | translate }}
                 </button>
                 <!-- Bouton sauvegarder objectif -->
-                <button ion-button color="blue70" (click)="saveCareerObjectiveToRegisteredStatus()" [disabled]="creationForm.invalid" *ngIf="securityProvider.isManager() && careerObjectiveStatusService.isTransitionOk(careerObjective.careerObjectiveStatus,CareerObjectiveStatusEnum.REGISTERED)">
+                <button ion-button color="blue70" (click)="saveCareerObjectiveToRegisteredStatus()" [disabled]="creationForm.invalid" *ngIf="securityProvider.isManager() && careerObjectiveStatusService.isTransitionOk(careerObjective.careerObjectiveStatus,CareerObjectiveStatus.REGISTERED)">
                     <ion-icon name="ios-download-outline" ios="ios-download-outline" margin-right></ion-icon> {{ 'CAREER_OBJECTIVE_CREATE.BUTTONS.SAVE' | translate }}
                 </button>
                 <!-- Bouton sauvegarder commentaire pnc -->
@@ -160,19 +160,19 @@
                     <ion-icon name="ios-download-outline" ios="ios-download-outline" margin-right></ion-icon> {{ 'CAREER_OBJECTIVE_CREATE.BUTTONS.SAVE' | translate }}
                 </button>
                 <!-- Bouton valider objectif -->
-                <button ion-button color="green50" (click)="saveCareerObjectiveToValidatedStatus()" [disabled]="creationForm.invalid" *ngIf="securityProvider.isManager() && careerObjectiveStatusService.isTransitionOk(careerObjective.careerObjectiveStatus,CareerObjectiveStatusEnum.VALIDATED)">
+                <button ion-button color="green50" (click)="saveCareerObjectiveToValidatedStatus()" [disabled]="creationForm.invalid" *ngIf="securityProvider.isManager() && careerObjectiveStatusService.isTransitionOk(careerObjective.careerObjectiveStatus,CareerObjectiveStatus.VALIDATED)">
                     <ion-icon name="md-checkmark" ios="md-checkmark" margin-right></ion-icon> {{ 'CAREER_OBJECTIVE_CREATE.BUTTONS.VALIDATE' | translate }}
                 </button>
                 <!-- bouton abandonner objectif  -->
-                <button ion-button color="grey20" (click)="saveCareerObjectiveToAbandonedStatus()" [disabled]="creationForm.invalid" *ngIf="securityProvider.isManager() && careerObjectiveStatusService.isTransitionOk(careerObjective.careerObjectiveStatus,CareerObjectiveStatusEnum.ABANDONED)">
+                <button ion-button color="grey20" (click)="saveCareerObjectiveToAbandonedStatus()" [disabled]="creationForm.invalid" *ngIf="securityProvider.isManager() && careerObjectiveStatusService.isTransitionOk(careerObjective.careerObjectiveStatus,CareerObjectiveStatus.ABANDONED)">
                     <ion-icon name="ios-log-out" ios="ios-log-out" margin-right></ion-icon> {{ 'CAREER_OBJECTIVE_CREATE.BUTTONS.ABANDON' | translate }}
                 </button>
                 <!-- bouton annuler statut validé d'un objectif  -->
-                <button ion-button color="blue70" (click)="cancelCareerObjectiveValidation()" [disabled]="creationForm.invalid" *ngIf="securityProvider.isManager() && careerObjective.careerObjectiveStatus === CareerObjectiveStatusEnum.VALIDATED">
+                <button ion-button color="blue70" (click)="cancelCareerObjectiveValidation()" [disabled]="creationForm.invalid" *ngIf="securityProvider.isManager() && careerObjective.careerObjectiveStatus === CareerObjectiveStatus.VALIDATED">
                     <ion-icon name="ios-close-circle-outline" ios="ios-close-circle-outline" margin-right></ion-icon> {{ 'CAREER_OBJECTIVE_CREATE.BUTTONS.CANCEL_VALIDATION' | translate }}
                 </button>
                 <!-- bouton annuler statut abandonné d'un objectif  -->
-                <button ion-button color="blue70" (click)="resumeAbandonedCareerObjective()" [disabled]="creationForm.invalid" *ngIf="securityProvider.isManager() && careerObjective.careerObjectiveStatus === CareerObjectiveStatusEnum.ABANDONED">
+                <button ion-button color="blue70" (click)="resumeAbandonedCareerObjective()" [disabled]="creationForm.invalid" *ngIf="securityProvider.isManager() && careerObjective.careerObjectiveStatus === CareerObjectiveStatus.ABANDONED">
                     <ion-icon name="ios-log-in" ios="ios-log-in" margin-right></ion-icon> {{ 'CAREER_OBJECTIVE_CREATE.BUTTONS.RESUME' | translate }}
                 </button>
                 <!-- bouton soliciter mon instructeur -->
