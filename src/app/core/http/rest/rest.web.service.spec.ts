@@ -1,4 +1,4 @@
-import { Config } from '../../../../configuration/environment-variables/config';
+import { Config } from '../../../../environments/config';
 import { SessionService } from '../../services/session/session.service';
 import { TestBed, async } from '@angular/core/testing';
 import { RestWebService } from './rest.web.service';

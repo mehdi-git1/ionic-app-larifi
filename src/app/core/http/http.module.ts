@@ -7,7 +7,7 @@ import {RestWebService} from './rest/rest.web.service';
 import {RestService} from './rest/rest.base.service';
 import {RestMobileService} from './rest/rest.mobile.service';
 import {HttpErrorInterceptor} from '../interceptor/http-error-interceptor.service';
-import {Config} from '../../../configuration/environment-variables/config';
+import {Config} from '../../../environments/config';
 
 declare var window: any;
 

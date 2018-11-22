@@ -7,7 +7,7 @@ import { Platform, Events } from 'ionic-angular';
 import { RestRequest } from './rest/rest.base.service';
 import { TranslateService } from '@ngx-translate/core';
 import { ToastService } from '../services/toast/toast.service';
-import {Config} from '../../../configuration/environment-variables/config';
+import {Config} from '../../../environments/config';
 import {UrlConfiguration} from '../configuration/url.configuration';
 
 declare var window: any;

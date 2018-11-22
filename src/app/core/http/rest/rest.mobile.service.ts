@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 import { SessionService } from '../../services/session/session.service';
 import { RestService, RestRequest } from './rest.base.service';
 import { SecMobilService } from '../secMobil.service';
-import { Config } from '../../../../configuration/environment-variables/config';
+import { Config } from '../../../../environments/config';
 
 
 
