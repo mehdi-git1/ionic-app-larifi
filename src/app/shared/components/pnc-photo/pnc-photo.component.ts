@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges } from '@angular/core';
 import { PncModel } from '../../../core/models/pnc.model';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
@@ -9,7 +9,7 @@ import { PncPhotoService } from '../../../core/services/pnc-photo/pnc-photo.serv
   selector: 'pnc-photo',
   templateUrl: 'pnc-photo.component.html'
 })
-export class PncPhotoComponent implements OnInit {
+export class PncPhotoComponent implements OnChanges {
 
   @Input() pnc: PncModel;
   @Input() size: number;
@@ -23,7 +23,7 @@ export class PncPhotoComponent implements OnInit {
     private domSanitizer: DomSanitizer) {
   }
 
-  ngOnInit() {
+  ngOnChanges() {
     this.getPhoto();
   }
 
