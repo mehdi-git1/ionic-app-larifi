@@ -105,7 +105,8 @@
             "cordova-sqlite-storage": {},
             "cordova-plugin-inappbrowser": {},
             "cordova-plugin-formslib": {},
-            "cordova-plugin-file": {}
+            "cordova-plugin-file": {},
+            "cordova-plugin-app-version": {}
         },
         "platforms": [
             "ios"
