@@ -1,7 +1,7 @@
 import { Platform } from 'ionic-angular';
 import { Injectable } from '@angular/core';
 
-import {Config} from '../../../../environments/config';
+import {Config} from '../../../../configuration/environment-variables/config';
 
 declare var window: any;
 

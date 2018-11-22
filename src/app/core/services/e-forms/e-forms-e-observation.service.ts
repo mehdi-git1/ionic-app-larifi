@@ -7,7 +7,7 @@ import { EObservationModel } from '../../models/e-observation.model';
 import { SessionService } from '../session/session.service';
 import { PncService } from '../pnc/pnc.service';
 import { RestService } from '../../http/rest/rest.base.service';
-import { Config } from '../../../../environments/config';
+import { Config } from '../../../../configuration/environment-variables/config';
 
 declare var window: any;
 

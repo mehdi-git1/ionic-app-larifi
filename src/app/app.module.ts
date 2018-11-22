@@ -27,7 +27,7 @@ import {ServiceModule} from './core/services/service.module';
 import { ComponentsModule } from './shared/components/components.module';
 import {HttpModule} from './core/http/http.module';
 import {StorageModule} from './core/storage/storage.module';
-import {Config} from '../environments/config';
+import {Config} from '../configuration/environment-variables/config';
 import {UrlConfiguration} from './core/configuration/url.configuration';
 
 

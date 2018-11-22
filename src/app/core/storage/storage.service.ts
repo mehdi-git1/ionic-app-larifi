@@ -8,7 +8,7 @@ import { AppConstant } from '../../app.constant';
 import { OfflineActionEnum } from '../enums/offline-action.enum';
 import { EntityEnum } from '../enums/entity.enum';
 import { EDossierPncObjectModel } from '../models/e-dossier-pnc-object.model';
-import { Config } from '../../../environments/config';
+import { Config } from '../../../configuration/environment-variables/config';
 
 @Injectable()
 export class StorageService {

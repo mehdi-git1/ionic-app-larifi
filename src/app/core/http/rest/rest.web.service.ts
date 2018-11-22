@@ -2,7 +2,7 @@ import { SessionService } from '../../services/session/session.service';
 import { Injectable } from '@angular/core';
 import { RestService, RestRequest } from './rest.base.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Config } from '../../../../environments/config';
+import { Config } from '../../../../configuration/environment-variables/config';
 
 @Injectable()
 export class RestWebService extends RestService {

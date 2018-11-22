@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { SessionService } from '../../services/session/session.service';
-import {Config} from '../../../../environments/config';
+import {Config} from '../../../../configuration/environment-variables/config';
 
 /**
  * Mother class of the RestService App and RestService Web service.
