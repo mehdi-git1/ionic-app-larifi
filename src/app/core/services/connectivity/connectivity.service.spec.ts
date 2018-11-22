@@ -1,6 +1,7 @@
-import { UrlConfiguration } from '../../../../environments/dev';
+
 import { ConnectivityService } from './connectivity.service';
-import { fakeAsync, flushMicrotasks, tick, flush } from '@angular/core/testing';
+import { fakeAsync, flushMicrotasks, flush } from '@angular/core/testing';
+import { UrlConfiguration } from '../../configuration/url.configuration';
 
 const restServiceMock = jasmine.createSpyObj('restServiceMock', ['get']);
 

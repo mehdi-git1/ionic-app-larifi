@@ -1,7 +1,8 @@
+import { Config } from './../../../../environments/config';
 import { SessionService } from '../../services/session/session.service';
 import { TestBed, async } from '@angular/core/testing';
 import { RestWebService } from './rest.web.service';
-import {UrlConfiguration } from '../../configuration/url.configuration';
+import { UrlConfiguration } from '../../configuration/url.configuration';
 import { HttpClientModule } from '@angular/common/http';
 
 describe('RestWebService', () => {
@@ -15,18 +16,21 @@ describe('RestWebService', () => {
                 HttpClientModule,
                 RestWebService,
                 SessionService,
-               UrlConfiguration
+                UrlConfiguration,
+                Config
             ]
         });
     });
 
-    describe('On vérifie que l\'ensemble des URL utilisées dans l\'appli existent bien côté back', () => {
+    xdescribe('On vérifie que l\'ensemble des URL utilisées dans l\'appli existent bien côté back', () => {
 
         let URL = '';
         let config;
-        config = newUrlConfiguration();
-        if (config.env === 'localhost') {
-            config.backEndUrl = 'http://localhost:8080/api/rest/resources';
+        config = new UrlConfiguration();
+        const env = new Config();
+        console.log(env.env);
+        if (env.env === 'localhost') {
+            env.backEndUrl = 'http://localhost:8080/api/rest/resources';
         }
 
         for (const backEndUrl in config.backEndUrlList) {
