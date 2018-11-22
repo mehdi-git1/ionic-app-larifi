@@ -19,6 +19,7 @@ export enum urlGroupName {
 
 export abstract class BaseConfig {
   public appVersion = '';
+  public backEndVersionUrl = '/api/version.json';
   public backEndUrl = '/api/rest/resources';
   public pingUrl = '/api/rest/resources/ping';
   public secmobileEnv = 'rct';

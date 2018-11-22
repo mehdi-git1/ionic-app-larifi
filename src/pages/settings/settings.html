@@ -7,7 +7,7 @@
 </ion-header>
 
 
-<ion-content padding>
+<ion-content padding no-bounce>
     <!-- Paramètres accessibles uniquement en mobile -->
     <ng-container *ngIf="isApp">
         <ion-item>
@@ -58,5 +58,11 @@
                 <ion-icon name="key"></ion-icon>
             </button>
         </ion-item>
+    </ng-container>
+    <ng-container>
+        <div class="version-panel">
+            <div *ngIf="frontVersion">{{ 'GLOBAL.APP_VERSION.FRONT' | translate }} : {{frontVersion}}</div>
+            <div *ngIf="backVersion && connected"> - {{ 'GLOBAL.APP_VERSION.BACK' | translate }} : {{backVersion}}</div>
+        </div>
     </ng-container>
 </ion-content>

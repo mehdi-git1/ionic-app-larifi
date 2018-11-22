@@ -1,3 +1,4 @@
+import { AppVersion } from '@ionic-native/app-version';
 import { ImpersonatePage } from './../pages/impersonate/impersonate';
 import { OfflineProfessionalLevelProvider } from './../providers/professional-level/offline-professional-level';
 import { OnlineProfessionalLevelProvider } from './../providers/professional-level/online-professional-level';
@@ -125,6 +126,7 @@ import { ProfessionalLevelTransformerProvider } from '../providers/professional-
 
 import { AdminModule } from './../pages/admin/admin.module';
 import { TabNavService } from '../services/tab-nav/tab-nav.service';
+import { VersionProvider } from '../providers/version/version';
 
 
 declare var window: any;
@@ -272,7 +274,9 @@ declare var window: any;
     ProfessionalLevelProvider,
     OnlineProfessionalLevelProvider,
     OfflineProfessionalLevelProvider,
-    ProfessionalLevelTransformerProvider
+    ProfessionalLevelTransformerProvider,
+    AppVersion,
+    VersionProvider
   ]
 })
 export class AppModule { }

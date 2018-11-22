@@ -1,6 +1,10 @@
 {
     "GLOBAL": {
         "APP_NAME": "EDOSSIER PNC",
+        "APP_VERSION": {
+            "FRONT": "Version",
+            "BACK": "Version serveur"
+        },
         "NO_DATA": "Pas de données disponibles",
         "PNC_ROLE": {
             "MANAGER": "Manager Coach",
@@ -263,9 +267,9 @@
             "THEORETICAL": "Théorique"
         },
         "MODULE_STATUS": {
-           "SUCCESS": "Réussi",
-           "SUCCESS_WITH_FC": "Réussi avec FC",
-           "FAILED": "Echec"
+            "SUCCESS": "Réussi",
+            "SUCCESS_WITH_FC": "Réussi avec FC",
+            "FAILED": "Echec"
         },
         "ERROR": "Erreur lors de la récupération du niveau pro pour le matricule {{ matricule }}",
         "NO_DATA": "Pas de données disponibles"

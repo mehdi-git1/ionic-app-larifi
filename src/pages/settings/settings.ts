@@ -1,4 +1,5 @@
-import { SecMobilService } from './../../services/secMobil.service';
+import { VersionProvider } from './../../providers/version/version';
+import { AppVersion } from '@ionic-native/app-version';
 import { AdminHomePage } from './../admin/home/admin-home';
 import { ImpersonatePage } from './../impersonate/impersonate';
 import { DeviceService } from './../../services/device.service';
@@ -10,13 +11,12 @@ import { SynchronizationProvider } from './../../providers/synchronization/synch
 import { StorageService } from './../../services/storage.service';
 import { ConnectivityService } from '../../services/connectivity/connectivity.service';
 import { Component } from '@angular/core';
-import { NavController, Events, AlertController } from 'ionic-angular';
+import { NavController, Events, AlertController, Platform } from 'ionic-angular';
 
 import { PinPadType } from './../../models/pinPadType';
 import { SecretQuestionType } from '../../models/secretQuestionType';
 import { AuthenticatedUser } from '../../models/authenticatedUser';
 import { OfflineSecurityProvider } from '../../providers/security/offline-security';
-import { AuthenticationPage } from '../authentication/authentication';
 
 @Component({
   selector: 'page-settings',
@@ -27,6 +27,9 @@ export class SettingsPage {
   connected: boolean;
   initInProgress: boolean;
   synchronizationInProgress: boolean;
+
+  frontVersion: string;
+  backVersion: string;
 
   isApp: boolean;
 
@@ -42,8 +45,10 @@ export class SettingsPage {
     private alertCtrl: AlertController,
     private securityModalService: SecurityModalService,
     private deviceService: DeviceService,
-    private secMobilService: SecMobilService,
-    private offlineSecurityProvider: OfflineSecurityProvider
+    private offlineSecurityProvider: OfflineSecurityProvider,
+    private appVersion: AppVersion,
+    private platform: Platform,
+    private versionProvider: VersionProvider
   ) {
     this.connected = this.connectivityService.isConnected();
 
@@ -60,13 +65,15 @@ export class SettingsPage {
     });
 
     this.isApp = !this.deviceService.isBrowser();
+
+    this.getFrontAndBackVersion();
   }
 
   ionViewDidLoad() {
   }
 
   /**
-  * Présente une alerte pour confirmer la suppression du cache
+  * Présente une alerte pour confirmer la suppression du brouillon
   */
   confirmClearAndInitCache() {
     const message = this.synchronizationProvider.isPncModifiedOffline(this.sessionService.getActiveUser().matricule) ?
@@ -112,34 +119,6 @@ export class SettingsPage {
     });
   }
 
-  /**
-* Présente une alerte pour confirmer la suppression du cache
-*/
-  confirmRevokeCertificate() {
-    this.alertCtrl.create({
-      title: this.translateService.instant('SETTINGS.CONFIRM_REVOKE_CERTIFICATE.TITLE'),
-      message: this.translateService.instant('SETTINGS.CONFIRM_REVOKE_CERTIFICATE.MESSAGE'),
-      buttons: [
-        {
-          text: this.translateService.instant('SETTINGS.CONFIRM_REVOKE_CERTIFICATE.CANCEL'),
-          role: 'cancel'
-        },
-        {
-          text: this.translateService.instant('SETTINGS.CONFIRM_REVOKE_CERTIFICATE.CONFIRM'),
-          handler: () => this.RevokeCertificate()
-        }
-      ]
-    }).present();
-  }
-
-  RevokeCertificate() {
-    this.secMobilService.secMobilRevokeCertificate().then(() =>
-      {
-        this.navCtrl.setRoot(AuthenticationPage);
-        this.events.publish('user:authenticationFailed');
-      });
-  }
-
   forceSynchronizeOfflineData() {
     this.synchronizationProvider.synchronizeOfflineData();
   }
@@ -170,6 +149,22 @@ export class SettingsPage {
    */
   goToAdminPage() {
     this.navCtrl.push(AdminHomePage);
+  }
+
+  getFrontAndBackVersion() {
+    this.versionProvider.getbackVersion().then(versionJson => {
+      // this.backVersion = versionJson['app_version'];
+      this.backVersion = '1.1.1';
+      if (this.isApp) {
+        this.appVersion.getVersionNumber().then(version => this.frontVersion = version);
+      } else {
+        this.frontVersion = this.backVersion;
+      }
+    }).catch(() => {
+      if (this.isApp) {
+        this.appVersion.getVersionNumber().then(version => this.frontVersion = version);
+      }
+    });
   }
 
 }
