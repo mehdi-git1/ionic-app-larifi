@@ -1,4 +1,4 @@
-import {urlGroupEnum} from './urlGroup.enum';
+import { urlGroupEnum } from './urlGroup.enum';
 
 
 export class UrlConfiguration {
@@ -14,7 +14,7 @@ export class UrlConfiguration {
     'getLegsCrewMembersById': `${urlGroupEnum.LEG}/{legId}/crew_members`,
     'pnc': urlGroupEnum.PNC,
     'getPncByMatricule': `${urlGroupEnum.PNC}/{matricule}`,
-    'getPncAutoComplete': `${urlGroupEnum.PNC}/autocomplete`,
+    'getPncAutoComplete': `${urlGroupEnum.PNC}/auto_complete`,
     'getPncUpcomingRotationsByMatricule': `${urlGroupEnum.PNC}/{matricule}/upcoming_rotations`,
     'getPncLastPerformedRotationsByMatricule': `${urlGroupEnum.PNC}/{matricule}/last_performed_rotations`,
     'pncPhotos': urlGroupEnum.PNC_PHOTO,
@@ -35,7 +35,7 @@ export class UrlConfiguration {
     'getRotationsByTechId': `${urlGroupEnum.ROTATION}/{techId}/legs`,
     'getImpersonationAvailableByMatricule': `${urlGroupEnum.IMPERSONATION_AVAILABLE}/{matricule}`,
     'getHelpAssetsByRoleId': `${urlGroupEnum.HELP_ASSET}/pnc_role/{roleId}`,
-    'getPing' : urlGroupEnum.PING
+    'getPing': urlGroupEnum.PING
   };
 
   /**
@@ -53,7 +53,7 @@ export class UrlConfiguration {
     for (let i = 0; i < params.length; i++) {
       urlToModify = urlToModify.replace(regexToReplace, params[i]);
     }
-    return  urlToModify;
+    return urlToModify;
   }
 
 }
