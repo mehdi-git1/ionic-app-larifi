@@ -71,10 +71,10 @@ export class NavBarCustomComponent {
   }
 
   /**
-   * Vérifie si l'utilisateur connecté est admin ou non
+   * Vérifie si on peut afficher la roue dentée
    */
-  isAdmin() {
-    return this.securityProvider.isAdmin(this.sessionService.authenticatedUser);
+  isAvailable() {
+    return this.securityProvider.isAdmin(this.sessionService.authenticatedUser) || !this.deviceService.isBrowser();
   }
 
 }
