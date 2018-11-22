@@ -24,13 +24,12 @@ export class RestMobileService extends RestService {
         }
         if (request.method == 'POST' || request.method == 'PUT') {
             if (request.jsonData) {
-                if (!request.httpHeaders) {
-                    // En mode mobile, on construit un objet JS classique, attendu par secMobile
-                    request.httpHeaders = {
-                        'Content-Type': 'application/json',
-                        'Accept': '*/*'
-                    };
-                }
+                const defaultHeader = {
+                    'Content-Type': 'application/json',
+                    'Accept': '*/*'
+                };
+                request.httpHeaders = !request.httpHeaders ? defaultHeader : Object.assign(request.httpHeaders, defaultHeader);
+                // En mode mobile, on construit un objet JS classique, attendu par secMobile
                 request.jsonData = JSON.stringify(request.jsonData);
             }
         }
