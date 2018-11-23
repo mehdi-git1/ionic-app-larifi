@@ -117,7 +117,7 @@
                     </div>
                 </ion-col>
                 <!--  Niveau professionnel -->
-                <ion-col col-4>
+                <ion-col col-4 [hasPermission] permission="VIEW_PROFESSIONAL_LEVEL">
                     <div class="button-parent">
                         <button ion-button (click)="goToProfessionalLevel()" color="blue70">
                             {{ 'GLOBAL.PROFESSIONAL_LEVEL' | translate }}
