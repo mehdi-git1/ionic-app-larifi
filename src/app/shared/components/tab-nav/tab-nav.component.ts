@@ -151,7 +151,7 @@ export class TabNavComponent {
     this.tabsNav[this.tabNavService.findTabIndex(tabNavEnum.UPCOMING_FLIGHT_LIST_PAGE)].display = this.securityProvider.isManager();
     this.tabsNav[this.tabNavService.findTabIndex(tabNavEnum.HELP_ASSET_LIST_PAGE)].display = true;
     this.tabsNav[this.tabNavService.findTabIndex(tabNavEnum.STATUTORY_CERTIFICATE_PAGE)].display = !this.securityProvider.isManager() && this.securityProvider.hasPermissionToViewTab('VIEW_STATUTORY_CERTIFICATE');
-    this.tabsNav[this.tabNavService.findTabIndex(tabNavEnum.PROFESSIONAL_LEVEL_PAGE)].display = true;
+    this.tabsNav[this.tabNavService.findTabIndex(tabNavEnum.PROFESSIONAL_LEVEL_PAGE)].display = this.securityProvider.hasPermissionToViewTab('VIEW_PROFESSIONAL_LEVEL');
   }
 
   /**
