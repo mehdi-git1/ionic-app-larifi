@@ -108,7 +108,6 @@ export class ImpersonatePage {
       this.sessionService.impersonatedUser = impersonatedUser;
       if (this.navCtrl.parent) {
         this.navCtrl.setRoot(PncHomePage);
-        this.navCtrl.parent.getByIndex(1).goToRoot();
       }
       this.events.publish('user:authenticated');
       this.impersonatingInProgress = false;
