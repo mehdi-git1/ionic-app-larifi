@@ -1,7 +1,6 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Config } from '../../configuration/environment-variables/config';
 import { RestService } from '../../app/core/http/rest/rest.base.service';
+import { Config } from '../../configuration/environment-variables/config';
 
 @Injectable()
 export class VersionProvider {

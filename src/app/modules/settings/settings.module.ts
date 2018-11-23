@@ -8,6 +8,7 @@ import { ComponentsModule } from '../../shared/components/components.module';
 import { AdminHomePage } from './pages/admin/home/admin-home.page';
 import { SettingsPage } from './pages/settings/settings.page';
 import { ImpersonatePage } from './pages/impersonate/impersonate.page';
+import { Config } from '../../../configuration/environment-variables/config';
 
 
 @NgModule({
@@ -36,7 +37,8 @@ import { ImpersonatePage } from './pages/impersonate/impersonate.page';
   ],
   providers: [
     AppVersion,
-    VersionProvider
+    VersionProvider,
+    Config
   ]
 })
 
