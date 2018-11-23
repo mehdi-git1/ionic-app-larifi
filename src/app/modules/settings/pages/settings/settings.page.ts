@@ -131,7 +131,12 @@ export class SettingsPage {
    * Redirige vers la page d'impersonnification
    */
   impersonateNewUser(): void {
-    this.navCtrl.push(ImpersonatePage);
+    // On autorise l'impersonification uniquement si on se trouve sur la première stack de navigation (premier onglet)
+    if (this.navCtrl.parent.getSelected().id == 't0-0') {
+      this.navCtrl.push(ImpersonatePage);
+    } else {
+      this.toastProvider.error(this.translateService.instant('SETTINGS.IMPERSONATE_USER.FIRST_NAV_TAB_IS_MANDATORY'));
+    }
   }
 
   /**
