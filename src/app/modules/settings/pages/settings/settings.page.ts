@@ -1,16 +1,10 @@
-<<<<<<< HEAD:src/pages/settings/settings.ts
-import { VersionProvider } from './../../providers/version/version';
+import { VersionService } from './../../../../core/services/version/version.service';
+import { OfflineSecurityService } from './../../../../core/services/security/offline-security.service';
 import { AppVersion } from '@ionic-native/app-version';
-import { AdminHomePage } from './../admin/home/admin-home';
-import { ImpersonatePage } from './../impersonate/impersonate';
-import { DeviceService } from './../../services/device.service';
-import { SecurityModalService } from './../../services/security.modal.service';
-=======
 import { AdminHomePage } from '../admin/home/admin-home.page';
 import { ImpersonatePage } from '../impersonate/impersonate.page';
 import { DeviceService } from '../../../../core/services/device/device.service';
 import { ModalSecurityService } from '../../../../core/services/modal/modal-security.service';
->>>>>>> release/sprint10:src/app/modules/settings/pages/settings/settings.page.ts
 import { TranslateService } from '@ngx-translate/core';
 import { ToastService } from '../../../../core/services/toast/toast.service';
 import { SessionService } from '../../../../core/services/session/session.service';
@@ -23,7 +17,6 @@ import { NavController, Events, AlertController, Platform } from 'ionic-angular'
 import { PinPadTypeEnum } from '../../../../core/enums/security/pin-pad-type.enum';
 import { SecretQuestionTypeEnum } from '../../../../core/enums/security/secret-question-type.enum';
 import { AuthenticatedUserModel } from '../../../../core/models/authenticated-user.model';
-import { OfflineSecurityService } from '../../../../core/services/security/offline-security.service';
 
 @Component({
   selector: 'page-settings',
@@ -52,14 +45,10 @@ export class SettingsPage {
     private alertCtrl: AlertController,
     private securityModalService: ModalSecurityService,
     private deviceService: DeviceService,
-<<<<<<< HEAD:src/pages/settings/settings.ts
-    private offlineSecurityProvider: OfflineSecurityProvider,
+    private offlineSecurityService: OfflineSecurityService,
     private appVersion: AppVersion,
     private platform: Platform,
-    private versionProvider: VersionProvider
-=======
-    private offlineSecurityProvider: OfflineSecurityService
->>>>>>> release/sprint10:src/app/modules/settings/pages/settings/settings.page.ts
+    private versionVersion: VersionService
   ) {
     this.connected = this.connectivityService.isConnected();
 
@@ -121,7 +110,7 @@ export class SettingsPage {
   initializeCache() {
     this.storageService.initOfflineMap().then(success => {
       const authenticatedUser = this.sessionService.getActiveUser();
-      this.offlineSecurityProvider.overwriteAuthenticatedUser(new AuthenticatedUserModel().fromJSON(authenticatedUser));
+      this.offlineSecurityService.overwriteAuthenticatedUser(new AuthenticatedUserModel().fromJSON(authenticatedUser));
       this.synchronizationProvider.storeEDossierOffline(authenticatedUser.matricule).then(successStore => {
         this.events.publish('EDossierOffline:stored');
         this.toastProvider.info(this.translateService.instant('SETTINGS.INIT_CACHE.SUCCESS'));
@@ -163,7 +152,7 @@ export class SettingsPage {
   }
 
   getFrontAndBackVersion() {
-    this.versionProvider.getbackVersion().then(versionJson => {
+    this.versionVersion.getbackVersion().then(versionJson => {
       this.backVersion = versionJson['app_version'];
       if (this.isApp) {
         this.appVersion.getVersionNumber().then(version => this.frontVersion = version);

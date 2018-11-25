@@ -381,15 +381,6 @@
             "CANCEL": "Annuler",
             "CONFIRM": "Confirmer"
         },
-        "REVOKE_CERTIFICATE": {
-            "BUTTON": "Révocation de certificat"
-        },
-        "CONFIRM_REVOKE_CERTIFICATE": {
-            "TITLE": "Revocation de certificat",
-            "MESSAGE": "Attention. Êtes-vous sûr de vouloir revoquer votre certificat ?",
-            "CANCEL": "Annuler",
-            "CONFIRM": "Confirmer"
-        },
         "IMPERSONATE_USER": {
             "LABEL": "Impersonnifier un utilisateur"
         }

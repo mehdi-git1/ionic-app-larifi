@@ -2,6 +2,7 @@
 export abstract class BaseEnvironment {
   public appVersion = '';
   public backEndUrl = '/api/rest/resources';
+  public backEndVersionUrl = '/api/version.json';
   public secmobileEnv = 'rct';
   public appName = 'EDossierPnc';
   public env = 'localhost';

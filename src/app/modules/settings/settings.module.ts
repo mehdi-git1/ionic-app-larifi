@@ -1,4 +1,4 @@
-import { VersionProvider } from './../../../providers/version/version';
+import { VersionService } from './../../core/services/version/version.service';
 import { AppVersion } from '@ionic-native/app-version';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
@@ -36,7 +36,7 @@ import { ImpersonatePage } from './pages/impersonate/impersonate.page';
   ],
   providers: [
     AppVersion,
-    VersionProvider
+    VersionService
   ]
 })
 

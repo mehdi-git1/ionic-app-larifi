@@ -71,10 +71,6 @@ export class TabNavComponent {
       }
     });
 
-    this.events.subscribe('user:authenticationFailed', () => {
-      this.loading = true;
-    });
-
     this.events.subscribe('changeTab', (data) => {
       // Pour l'instant, rien n'est fait dans ce subscribe car cela est juste une analyse
     });

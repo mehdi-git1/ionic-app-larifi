@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import {BaseEnvironment} from './base-environment';
+import { BaseEnvironment } from './base-environment';
 
 declare var window: any;
 
@@ -12,6 +12,7 @@ export class Config extends BaseEnvironment {
 
     if (undefined !== window.cordova && 'browser' !== window.cordova.platformId) {
       this.backEndUrl = 'https://edospnc-api-dev.airfrance.fr/api/rest/resources';
+      this.backEndVersionUrl = 'https://edospnc-api-dev.airfrance.fr/api/version.json';
     } else {
       this.backEndUrl = '/api/rest/resources';
     }
