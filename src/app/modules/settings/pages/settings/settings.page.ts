@@ -1,8 +1,5 @@
-<<<<<<< HEAD
 import { VersionService } from './../../../../core/services/version/version.service';
 import { OfflineSecurityService } from './../../../../core/services/security/offline-security.service';
-=======
->>>>>>> f5752505a408d8efd4919ed44107c2449aa5a386
 import { AppVersion } from '@ionic-native/app-version';
 import { AdminHomePage } from '../admin/home/admin-home.page';
 import { ImpersonatePage } from '../impersonate/impersonate.page';
@@ -20,11 +17,6 @@ import { NavController, Events, AlertController } from 'ionic-angular';
 import { PinPadTypeEnum } from '../../../../core/enums/security/pin-pad-type.enum';
 import { SecretQuestionTypeEnum } from '../../../../core/enums/security/secret-question-type.enum';
 import { AuthenticatedUserModel } from '../../../../core/models/authenticated-user.model';
-<<<<<<< HEAD
-=======
-import { OfflineSecurityService } from '../../../../core/services/security/offline-security.service';
-import { VersionProvider } from '../../../../../providers/version/version';
->>>>>>> f5752505a408d8efd4919ed44107c2449aa5a386
 
 @Component({
   selector: 'page-settings',
@@ -53,16 +45,9 @@ export class SettingsPage {
     private alertCtrl: AlertController,
     private securityModalService: ModalSecurityService,
     private deviceService: DeviceService,
-<<<<<<< HEAD
     private offlineSecurityService: OfflineSecurityService,
     private appVersion: AppVersion,
-    private platform: Platform,
     private versionVersion: VersionService
-=======
-    private appVersion: AppVersion,
-    private versionProvider: VersionProvider,
-    private offlineSecurityService: OfflineSecurityService
->>>>>>> f5752505a408d8efd4919ed44107c2449aa5a386
   ) {
     this.connected = this.connectivityService.isConnected();
 
@@ -181,3 +166,4 @@ export class SettingsPage {
   }
 
 }
+

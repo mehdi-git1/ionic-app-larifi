@@ -382,7 +382,8 @@
             "CONFIRM": "Confirmer"
         },
         "IMPERSONATE_USER": {
-            "LABEL": "Impersonnifier un utilisateur"
+            "LABEL": "Impersonnifier un utilisateur",
+            "FIRST_NAV_TAB_IS_MANDATORY": "Vous devez vous placer sur votre page d'accueil pour pouvoir utiliser l'impersonnification"
         }
     },
     "IMPERSONATE": {
