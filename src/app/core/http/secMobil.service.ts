@@ -7,8 +7,8 @@ import { Platform, Events } from 'ionic-angular';
 import { RestRequest } from './rest/rest.base.service';
 import { TranslateService } from '@ngx-translate/core';
 import { ToastService } from '../services/toast/toast.service';
-import {Config} from '../../../environments/config';
-import {UrlConfiguration} from '../configuration/url.configuration';
+import { Config } from '../../../environments/config';
+import { UrlConfiguration } from '../configuration/url.configuration';
 
 declare var window: any;
 
@@ -156,7 +156,7 @@ export class SecMobilService {
     getPingRequest() {
         const request: RestRequest = new RestRequest();
         request.method = 'GET';
-        request.url = this.urlConfiguration.getBackEndUrl('getPing');
+        request.url = this.config.backEndUrl + '/' + this.urlConfiguration.getBackEndUrl('getPing');
         return request;
     }
 

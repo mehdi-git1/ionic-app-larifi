@@ -25,7 +25,12 @@
         <ion-card class="rotation">
             <ion-card-content>
                 <ion-grid>
-                    <module-card *ngFor="let module of stage.modules" [module]="module"></module-card>
+                    <ion-row *ngIf="stage.modules === null  || stage.modules.length === 0; else professionalLevelDataBlock">
+                        <no-data></no-data>
+                    </ion-row>
+                    <ng-template #professionalLevelDataBlock>
+                        <module-card *ngFor="let module of stage.modules" [module]="module"></module-card>
+                    </ng-template>
                 </ion-grid>
             </ion-card-content>
         </ion-card>        

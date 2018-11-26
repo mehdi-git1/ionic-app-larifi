@@ -263,9 +263,9 @@
             "THEORETICAL": "Théorique"
         },
         "MODULE_STATUS": {
-           "SUCCESS": "Réussi",
-           "SUCCESS_WITH_FC": "Réussi avec FC",
-           "FAILED": "Echec"
+            "SUCCESS": "Réussi",
+            "SUCCESS_WITH_FC": "Réussi avec FC",
+            "FAILED": "Echec"
         },
         "ERROR": "Erreur lors de la récupération du niveau pro pour le matricule {{ matricule }}",
         "NO_DATA": "Pas de données disponibles"
@@ -387,7 +387,8 @@
             "CONFIRM": "Confirmer"
         },
         "IMPERSONATE_USER": {
-            "LABEL": "Impersonnifier un utilisateur"
+            "LABEL": "Impersonnifier un utilisateur",
+            "FIRST_NAV_TAB_IS_MANDATORY": "Vous devez vous placer sur votre page d'accueil pour pouvoir utiliser l'impersonnification"
         }
     },
     "IMPERSONATE": {

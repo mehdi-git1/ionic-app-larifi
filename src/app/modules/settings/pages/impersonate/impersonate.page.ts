@@ -107,7 +107,6 @@ export class ImpersonatePage {
       impersonatedUser.matricule = pnc.matricule;
       this.sessionService.impersonatedUser = impersonatedUser;
       if (this.navCtrl.parent) {
-        this.navCtrl.parent.select(0);
         this.navCtrl.setRoot(PncHomePage);
       }
       this.events.publish('user:authenticated');
@@ -131,7 +130,6 @@ export class ImpersonatePage {
   getMyIdentityBack(): void {
     this.sessionService.impersonatedUser = null;
     if (this.navCtrl.parent) {
-      this.navCtrl.parent.select(0);
       this.navCtrl.setRoot(PncHomePage);
     }
     this.events.publish('user:authenticated');
