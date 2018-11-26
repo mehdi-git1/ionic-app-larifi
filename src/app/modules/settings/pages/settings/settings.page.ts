@@ -113,8 +113,8 @@ export class SettingsPage {
   }
 
   /**
-* Présente une alerte pour confirmer la suppression du cache
-*/
+   * Présente une alerte pour confirmer la révocation du certificat
+   */
   confirmRevokeCertificate() {
     this.alertCtrl.create({
       title: this.translateService.instant('SETTINGS.CONFIRM_REVOKE_CERTIFICATE.TITLE'),
@@ -132,9 +132,11 @@ export class SettingsPage {
     }).present();
   }
 
+  /**
+   * revoque le certificat sur ipad
+   */
   RevokeCertificate() {
-    this.secMobilService.secMobilRevokeCertificate().then(() => {
-      
+    this.secMobilService.secMobilRevokeCertificate().then(() => {    
       this.events.publish('user:authenticationFailed');
     });
   }
