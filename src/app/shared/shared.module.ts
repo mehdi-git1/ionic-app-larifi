@@ -1,15 +1,16 @@
+import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-translate/core';
 import { NgModule } from '@angular/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import {CommonModule, DatePipe} from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 
 import { AppMaterialModule } from './material/material.module';
 import { PipesModule } from './pipes/pipes.module';
 import { TooltipsModule } from 'ionic-tooltips';
-import {Utils} from './utils/utils';
-import {DirectivesModule} from './directives/directives.module';
-import {DateTransform} from './utils/date-transform';
+import { Utils } from './utils/utils';
+import { DirectivesModule } from './directives/directives.module';
+import { DateTransform } from './utils/date-transform';
 
 export function createTranslateLoader(http: HttpClient) {
     return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -28,7 +29,8 @@ export function createTranslateLoader(http: HttpClient) {
         }),
         PipesModule,
         TooltipsModule,
-      DirectivesModule
+        DirectivesModule,
+        PdfViewerModule
     ],
     exports: [
         CommonModule,
@@ -36,13 +38,14 @@ export function createTranslateLoader(http: HttpClient) {
         AppMaterialModule,
         PipesModule,
         TooltipsModule,
-      DirectivesModule
+        DirectivesModule,
+        PdfViewerModule
     ],
     providers: [
         AppMaterialModule,
-      Utils,
-      DateTransform,
-      DatePipe
+        Utils,
+        DateTransform,
+        DatePipe
     ]
 })
 export class SharedModule {
