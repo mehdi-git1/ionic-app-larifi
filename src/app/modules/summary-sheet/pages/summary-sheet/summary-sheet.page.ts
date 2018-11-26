@@ -39,7 +39,6 @@ export class SummarySheetPage {
                 console.error('createObjectURL error:' + error);
             }
         }, error => {
-            console.log('error');
         });
     }
 
