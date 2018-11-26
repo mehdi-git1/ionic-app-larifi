@@ -55,7 +55,7 @@
     <ng-container>
         <div class="version-panel">
             <div *ngIf="frontVersion">{{ 'GLOBAL.APP_VERSION.FRONT' | translate }} : {{frontVersion}}</div>
-            <div *ngIf="backVersion && connected"> - {{ 'GLOBAL.APP_VERSION.BACK' | translate }} : {{backVersion}}</div>
+            <div *ngIf="backVersion && connected && isApp"> - {{ 'GLOBAL.APP_VERSION.BACK' | translate }} : {{backVersion}}</div>
         </div>
     </ng-container>
 </ion-content>

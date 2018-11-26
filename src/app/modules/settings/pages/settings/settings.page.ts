@@ -152,7 +152,7 @@ export class SettingsPage {
 
   getFrontAndBackVersion() {
     this.versionVersion.getbackVersion().then(versionJson => {
-      this.backVersion = versionJson['app_version'];
+      this.backVersion = versionJson['appVersion'];
       if (this.isApp) {
         this.appVersion.getVersionNumber().then(version => this.frontVersion = version);
       } else {

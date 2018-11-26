@@ -156,7 +156,7 @@ export class SecMobilService {
     getPingRequest() {
         const request: RestRequest = new RestRequest();
         request.method = 'GET';
-        request.url = this.config.backEndUrl + '/' + this.urlConfiguration.getBackEndUrl('getPing');
+        request.url = this.urlConfiguration.getBackEndUrl('getPing');
         return request;
     }
 

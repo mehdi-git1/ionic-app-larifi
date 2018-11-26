@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { SessionService } from '../../services/session/session.service';
-import {Config} from '../../../../environments/config';
+import { Config } from '../../../../environments/config';
 
 /**
  * Mother class of the RestService App and RestService Web service.
@@ -21,14 +21,12 @@ export class RestRequest {
 
 Injectable();
 export abstract class RestService {
-    uri: string;
 
     constructor(
-      protected http: HttpClient,
-      protected sessionService: SessionService,
-      protected config: Config
+        protected http: HttpClient,
+        protected sessionService: SessionService,
+        protected config: Config
     ) {
-      this.uri = config.backEndUrl + '/';
     }
 
     abstract call(request: RestRequest): Promise<any>;
@@ -53,7 +51,7 @@ export abstract class RestService {
         const request: RestRequest = new RestRequest();
 
         request.method = method;
-        request.url = this.uri + url;
+        request.url = url;
         request.jsonData = jsonData;
         request.httpHeaders = httpHeaders;
         request.byPassImpersonatedUser = byPassImpersonatedUser;
