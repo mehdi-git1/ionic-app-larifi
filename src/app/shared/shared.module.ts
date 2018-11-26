@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { CommonModule, DatePipe } from '@angular/common';
+import { File } from '@ionic-native/file';
 
 import { AppMaterialModule } from './material/material.module';
 import { PipesModule } from './pipes/pipes.module';
@@ -45,7 +46,8 @@ export function createTranslateLoader(http: HttpClient) {
         AppMaterialModule,
         Utils,
         DateTransform,
-        DatePipe
+        DatePipe,
+        File
     ]
 })
 export class SharedModule {
