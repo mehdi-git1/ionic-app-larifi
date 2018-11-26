@@ -134,7 +134,7 @@ export class SettingsPage {
 
   RevokeCertificate() {
     this.secMobilService.secMobilRevokeCertificate().then(() => {
-      this.navCtrl.setRoot(AuthenticationPage);
+      
       this.events.publish('user:authenticationFailed');
     });
   }

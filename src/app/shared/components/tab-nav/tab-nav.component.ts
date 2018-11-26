@@ -18,6 +18,7 @@ import { TabNavService } from '../../../core/services/tab-nav/tab-nav.service';
 import { tabNavEnum } from '../../../core/enums/tab-nav.enum';
 import { TranslateService } from '@ngx-translate/core';
 import { SpecialityEnum } from '../../../core/enums/speciality.enum';
+import { AuthenticationPage } from '../../../modules/home/pages/authentication/authentication.page';
 
 @Component({
   selector: 'tab-nav',
@@ -69,6 +70,11 @@ export class TabNavComponent {
         }, error => {
         });
       }
+    });
+
+    this.events.subscribe('user:authenticationFailed', () => {
+      this.navCtrl.setRoot(AuthenticationPage);
+      this.loading = true;
     });
 
     this.events.subscribe('changeTab', (data) => {
