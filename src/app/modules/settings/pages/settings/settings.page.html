@@ -24,10 +24,10 @@
                 <ion-spinner *ngIf="synchronizationInProgress"></ion-spinner>
             </button>
         </ion-item>
-        <ion-item *ngIf="isApp">
+        <ion-item>
             <label>{{ 'SETTINGS.REVOKE_CERTIFICATE.BUTTON' | translate }}</label>
             <button ion-fab mini icon-only item-end class="parameter-button" (click)="confirmRevokeCertificate()">
-                <ion-icon name="trash" *ngIf="!revocationInProgress"></ion-icon>
+                <ion-icon name="log-out" *ngIf="!revocationInProgress"></ion-icon>
                 <ion-spinner *ngIf="revocationInProgress"></ion-spinner>
             </button>
         </ion-item>

@@ -126,7 +126,7 @@ export class SettingsPage {
         },
         {
           text: this.translateService.instant('SETTINGS.CONFIRM_REVOKE_CERTIFICATE.CONFIRM'),
-          handler: () => this.RevokeCertificate()
+          handler: () => this.revokeCertificate()
         }
       ]
     }).present();
@@ -135,9 +135,9 @@ export class SettingsPage {
   /**
    * revoque le certificat sur ipad
    */
-  RevokeCertificate() {
-    this.secMobilService.secMobilRevokeCertificate().then(() => {    
-      this.events.publish('user:authenticationFailed');
+  revokeCertificate() {
+    this.secMobilService.secMobilRevokeCertificate().then(() => {
+      this.events.publish('user:authenticationLogout');
     });
   }
 

@@ -72,7 +72,7 @@ export class TabNavComponent {
       }
     });
 
-    this.events.subscribe('user:authenticationFailed', () => {
+    this.events.subscribe('user:authenticationLogout', () => {
       this.navCtrl.setRoot(AuthenticationPage);
       this.loading = true;
     });
