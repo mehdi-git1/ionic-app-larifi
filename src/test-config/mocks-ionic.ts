@@ -93,6 +93,10 @@ export class NavMock {
     });
   }
 
+  public get(id): any {
+    return id;
+  }
+
   public getActive(): any {
     return {
       'instance': {
