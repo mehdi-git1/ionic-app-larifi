@@ -8,6 +8,7 @@ import { By } from '@angular/platform-browser';
 import { SummarySheetPage } from './summary-sheet.page';
 import { SummarySheetService } from './../../../../core/services/summary-sheet/summary-sheet.service';
 import { TranslateLoaderMock, NavMock } from './../../../../../test-config/mocks-ionic';
+import { CommonModule } from '@angular/common';
 
 
 describe('SummarySheet Page', () => {
@@ -32,7 +33,8 @@ describe('SummarySheet Page', () => {
                 TranslateModule.forRoot({
                     loader: { provide: TranslateLoader, useClass: TranslateLoaderMock }
                 }),
-                PdfViewerModule
+                PdfViewerModule,
+                CommonModule
             ],
             providers: [
                 { provide: NavParams, useClass: NavMock },
@@ -45,16 +47,23 @@ describe('SummarySheet Page', () => {
         comp = fixture.componentInstance;
     });
 
-    describe('affichage de la fiche synthése', () => {
+    describe('affichage de la fiche synthèse', () => {
 
-        it(`doit afficher un fichier PDF si il y'a une summary sheet  `, fakeAsync(() => {
+        beforeEach(fakeAsync(() => {
             expect(comp).toBeDefined();
             comp.initPage();
             tick();
             fixture.detectChanges();
             failureEl = fixture.debugElement.query(By.css('pdf-viewer'));
-            expect(comp.previewSrc).toContain(failureEl.attributes['ng-reflect-src']);
         }));
+
+        it(`doit afficher un fichier PDF si il y'a une summary sheet  `, () => {
+            expect(comp.previewSrc).toContain(failureEl.attributes['ng-reflect-src']);
+        });
+
+        it(`doit renvoyer le fichier PDF sous forme d'url blob`, () => {
+            expect(comp.previewSrc).toContain('blob:http://localhost');
+        });
 
     });
 
