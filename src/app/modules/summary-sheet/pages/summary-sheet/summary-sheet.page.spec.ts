@@ -57,11 +57,11 @@ describe('SummarySheet Page', () => {
             failureEl = fixture.debugElement.query(By.css('pdf-viewer'));
         }));
 
-        it(`doit afficher un fichier PDF si il y'a une summary sheet  `, () => {
+        it(`doit avoir intégrè dans le lecteur PDF le bon fichier PDF (générè dans initPage)`, () => {
             expect(comp.previewSrc).toContain(failureEl.attributes['ng-reflect-src']);
         });
 
-        it(`doit renvoyer le fichier PDF sous forme d'url blob`, () => {
+        it(`doit intégrer dans le lecteur PDF le fichier PDF sous forme d'url blob`, () => {
             expect(comp.previewSrc).toContain('blob:http://localhost');
         });
 
