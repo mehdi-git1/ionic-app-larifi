@@ -381,7 +381,7 @@
             "BUTTON": "Révocation de certificat"
         },
         "CONFIRM_REVOKE_CERTIFICATE": {
-            "TITLE": "Revocation de certificat",
+            "TITLE": "Révocation de certificat",
             "MESSAGE": "Attention. Êtes-vous sûr de vouloir revoquer votre certificat ?",
             "CANCEL": "Annuler",
             "CONFIRM": "Confirmer"
