@@ -132,13 +132,13 @@ export class SecMobilService {
                 (err) => {
                     console.error('secmobile call failure sur la requete ' + request.url + ' : ' + err);
                     // Pour certains appels, il n'est pas nécessaire d'afficher le toast d'error ou de tracer l'erreur
-                    if (!request.url.includes('/api/rest/resources/ping')) {
+                    if (!request.url.includes(this.urlConfiguration.getBackEndUrl('getPing'))) {
                         this.secMobile.secMobilCallRestService(this.getPingRequest(),
                             (success) => {
                                 let errorMessage = this.translateService.instant('GLOBAL.UNKNOWN_ERROR');
                                 err = Utils.fromStringToObject(err);
                                 if (err && !isUndefined(err.detailMessage) && err.label === 'BUSINESS_ERROR') {
-                                    errorMessage = err.error.detailMessage;
+                                    errorMessage = err.detailMessage;
                                 }
                                 this.toastProvider.error(errorMessage, 10000);
                             }, error => {
