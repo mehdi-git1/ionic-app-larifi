@@ -394,20 +394,12 @@ export class PncSearchFilterComponent implements OnInit {
     this.initAutocompleteList();
     // Si on va sur un PNC par la recherche, on suprime de la session une enventuelle rotation.
     this.sessionService.appContext.lastConsultedRotation = null;
-    if (this.isMyHome(pnc.matricule)) {
+    if (this.sessionService.isActiveUser(pnc)) {
       this.navCtrl.parent.select(this.tabNavService.findTabIndex(tabNavEnum.PNC_HOME_PAGE));
     } else {
       this.navCtrl.push(PncHomePage, { matricule: pnc.matricule });
     }
 
-  }
-
-  /**
-   * Vérifie que la page courante est la homepage de la personne connectée
-   * @return vrai si c'est le cas, faux sinon
-   */
-  isMyHome(matricule: string): boolean {
-    return matricule === (this.sessionService.getActiveUser() && this.sessionService.getActiveUser().matricule);
   }
 
   /**

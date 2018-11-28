@@ -10,7 +10,7 @@ import { PncModel } from '../../models/pnc.model';
 import { BaseService } from '../base/base.service';
 
 @Injectable()
-export class CareerObjectiveProvider extends BaseService {
+export class CareerObjectiveService extends BaseService {
   constructor(
     private onlineCareerObjectiveService: OnlineCareerObjectiveService,
     private offlineCareerObjectiveService: OfflineCareerObjectiveService,
@@ -30,7 +30,7 @@ export class CareerObjectiveProvider extends BaseService {
    * @return la liste des objectifs du pnc
    */
   getPncCareerObjectives(matricule: string): Promise<CareerObjectiveModel[]> {
-    return this.execFunctionProvider('getPncCareerObjectives', matricule);
+    return this.execFunctionService('getPncCareerObjectives', matricule);
   }
 
 
@@ -50,7 +50,7 @@ export class CareerObjectiveProvider extends BaseService {
     careerObjective.lastUpdateAuthor.matricule = this.sessionService.getActiveUser().matricule;
     careerObjective.lastUpdateDate = this.dateTransformer.transformDateToIso8601Format(new Date());
 
-    return this.execFunctionProvider('createOrUpdate', careerObjective);
+    return this.execFunctionService('createOrUpdate', careerObjective);
   }
 
   /**
@@ -59,7 +59,7 @@ export class CareerObjectiveProvider extends BaseService {
   * @return l'objectif récupéré
   */
   getCareerObjective(id: number): Promise<CareerObjectiveModel> {
-    return this.execFunctionProvider('getCareerObjective', id);
+    return this.execFunctionService('getCareerObjective', id);
   }
 
   /**
@@ -68,7 +68,7 @@ export class CareerObjectiveProvider extends BaseService {
   * @return l'objectif supprimé
   */
   delete(id: number): Promise<CareerObjectiveModel> {
-    return this.execFunctionProvider('delete', id);
+    return this.execFunctionService('delete', id);
   }
 
   /**
