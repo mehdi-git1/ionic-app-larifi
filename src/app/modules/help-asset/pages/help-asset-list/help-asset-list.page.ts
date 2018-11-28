@@ -9,12 +9,15 @@ import { NavController, NavParams } from 'ionic-angular';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { File } from '@ionic-native/file';
 import { HttpClient } from '@angular/common/http';
+import { SessionService } from '../../../../core/services/session/session.service';
 
 @Component({
     selector: 'page-help-asset-list',
     templateUrl: 'help-asset-list.page.html',
 })
 export class HelpAssetListPage {
+
+    pncRole: PncRoleEnum;
 
     localHelpAssets: HelpAssetModel[];
     remoteHelpAssets: HelpAssetModel[];
@@ -25,6 +28,7 @@ export class HelpAssetListPage {
         public navParams: NavParams,
         private deviceService: DeviceService,
         private helpAssetProvider: HelpAssetService,
+        private sessionService: SessionService,
         private connectivityService: ConnectivityService,
         private inAppBrowser: InAppBrowser,
         private file: File,
@@ -38,18 +42,23 @@ export class HelpAssetListPage {
     }
 
     ionViewDidEnter() {
+        if (this.navParams.get('pncRole')) {
+            this.pncRole = this.navParams.get('pncRole');
+        } else if (this.sessionService.getActiveUser()) {
+            this.pncRole = this.sessionService.getActiveUser().isManager ? PncRoleEnum.MANAGER : PncRoleEnum.PNC;
+        }
         this.localHelpAssets = new Array();
         // On récupère le role du pnc dans les paramètres de navigation
         this.localHelpAssets.push(...this.getCommunHelpAssets());
-        if (this.navParams.get('pncRole') && this.navParams.get('pncRole') === PncRoleEnum.MANAGER) {
+        if (this.pncRole === PncRoleEnum.MANAGER) {
             this.localHelpAssets.push(...this.getCADHelpAssets());
-        } else if (this.navParams.get('pncRole') && this.navParams.get('pncRole') === PncRoleEnum.PNC) {
+        } else if (this.pncRole === PncRoleEnum.PNC) {
             this.localHelpAssets.push(...this.getHSTHelpAssets());
         }
         this.localHelpAssets.sort((a, b) => a.label < b.label ? -1 : 1);
         // On récupère le role du pnc dans les paramètres de navigation
-        if (this.connectivityService.isConnected() && this.navParams.get('pncRole')) {
-            this.helpAssetProvider.getHelpAssetList(this.navParams.get('pncRole')).then(result => {
+        if (this.connectivityService.isConnected() && this.pncRole) {
+            this.helpAssetProvider.getHelpAssetList(this.pncRole).then(result => {
                 this.remoteHelpAssets = result;
             }, error => { });
         }
