@@ -29,7 +29,7 @@ export class PageHeaderComponent {
      * Vérifie que la page courante est la homepage de la personne connectée
      * @return vrai si c'est le cas, faux sinon
      */
-    isMyHome(): boolean {
-      return this.sessionService.isMyHome(this.pnc);
+    isActiveUser(): boolean {
+      return this.sessionService.isActiveUser(this.pnc);
   }
 }

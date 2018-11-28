@@ -197,7 +197,7 @@ export class PncHomePage {
      * @return vrai si c'est le cas, faux sinon
      */
     isMyHome(): boolean {
-        return this.sessionService.isMyHome(this.pnc);
+        return this.sessionService.isActiveUser(this.pnc);
     }
 
 }

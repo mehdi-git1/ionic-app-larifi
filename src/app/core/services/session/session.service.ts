@@ -24,8 +24,8 @@ export class SessionService {
      * Vérifie que le que le pnc consulté est le pnc connecté
      * @return vrai si c'est le cas, faux sinon
      */
-    isMyHome(pnc: PncModel): boolean {
-        if( !pnc ) {
+    isActiveUser(pnc: PncModel): boolean {
+        if ( !pnc ) {
           return false;
         }
         return pnc.matricule === (this.getActiveUser() && this.getActiveUser().matricule);

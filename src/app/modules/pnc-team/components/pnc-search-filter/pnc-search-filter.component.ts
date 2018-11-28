@@ -394,7 +394,7 @@ export class PncSearchFilterComponent implements OnInit {
     this.initAutocompleteList();
     // Si on va sur un PNC par la recherche, on suprime de la session une enventuelle rotation.
     this.sessionService.appContext.lastConsultedRotation = null;
-    if (this.sessionService.isMyHome(pnc)) {
+    if (this.sessionService.isActiveUser(pnc)) {
       this.navCtrl.parent.select(this.tabNavService.findTabIndex(tabNavEnum.PNC_HOME_PAGE));
     } else {
       this.navCtrl.push(PncHomePage, { matricule: pnc.matricule });

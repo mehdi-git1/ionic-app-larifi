@@ -26,6 +26,7 @@ import { ConnectivityService } from '../../../../core/services/connectivity/conn
 import { CareerObjectiveService } from '../../../../core/services/career-objective/career-objective.service';
 import { SynchronizationService } from '../../../../core/services/synchronization/synchronization.service';
 import { DeviceService } from '../../../../core/services/device/device.service';
+import { PncService } from '../../../../core/services/pnc/pnc.service';
 
 
 const translateServiceMock = jasmine.createSpyObj('translateServiceMock', ['instant']);
@@ -69,6 +70,7 @@ describe('CareerObjectiveCreatePage', () => {
                 { provide: WaypointService },
                 { provide: ToastService },
                 { provide: DeviceService },
+                { provide: PncService },
                 { provide: SynchronizationService, useValue: synchronizationProviderMock },
                 { provide: TranslateService, useValue: translateServiceMock }
             ],

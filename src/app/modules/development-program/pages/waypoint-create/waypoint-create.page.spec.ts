@@ -23,6 +23,7 @@ import { WaypointStatusService } from '../../../../core/services/waypoint-status
 import { WaypointModel } from '../../../../core/models/waypoint.model';
 import { SessionService } from '../../../../core/services/session/session.service';
 import { DeviceService } from '../../../../core/services/device/device.service';
+import { PncService } from '../../../../core/services/pnc/pnc.service';
 
 
 const translateServiceMock = jasmine.createSpyObj('translateServiceMock', ['instant']);
@@ -63,6 +64,7 @@ describe('WaypointCreatePage', () => {
                 { provide: ToastService },
                 { provide: DeviceService },
                 { provide: SessionService },
+                { provide: PncService },
                 { provide: TranslateService, useValue: translateServiceMock }
             ],
             schemas: [NO_ERRORS_SCHEMA]
