@@ -1,0 +1,86 @@
+<ion-header>
+    <ion-navbar>
+        <page-header [showSettingsIcon]="true">
+            {{ 'STATUTORY_REPORTING.MODULE.PRACTICAL.TITLE' | translate }}
+        </page-header>
+    </ion-navbar>
+</ion-header>
+
+<ion-spinner *ngIf="loading"></ion-spinner>
+<ion-content *ngIf="!loading" padding class="practical-module">
+    <ion-card class='title-bloc'>
+        <span class='first-text'>{{moduleData.stageCode}} - {{moduleData.name}}</span>
+        <span class='date'>{{moduleData.endDate | date: 'dd/MM/yyyy'}}</span>
+        <span class='result' [ngClass]='moduleData.resultCode'>{{moduleData.resultText}}</span>
+    </ion-card>
+    <ion-grid>
+        <ion-row>
+            <ion-col no-padding>
+                <ion-card class='score-bloc'>
+                    <p>
+                        <span class='score-bloc-title'>{{ 'STATUTORY_REPORTING.MODULE.PRACTICAL.SCORE_BLOC.BLOC_1_TITLE' | translate }} :</span>
+                        <span class='score-bloc-value'>{{moduleData.score.E1}}
+                            ({{ 'STATUTORY_REPORTING.MODULE.PRACTICAL.SCORE_BLOC.E1_TEXT' | translate }})</span>
+                        <span class='score-bloc-value'>{{moduleData.score.E2}}
+                            ({{ 'STATUTORY_REPORTING.MODULE.PRACTICAL.SCORE_BLOC.E2_TEXT' | translate }})</span>
+                    </p>
+                    <ion-grid>
+                        <ion-row>
+                            <ion-col col-2>
+                                <ion-icon name="chatbubbles"></ion-icon>
+                            </ion-col>
+                            <ion-col col-10>
+                                <span class='score-bloc-comment'>{{moduleData.score.evaluationComment}}</span>
+                            </ion-col>
+                        </ion-row>
+                    </ion-grid>
+                </ion-card>
+            </ion-col>
+            <ion-col no-padding>
+                <ion-card class='score-bloc'>
+                    <p>
+                        <span class='score-bloc-title'>{{ 'STATUTORY_REPORTING.MODULE.PRACTICAL.SCORE_BLOC.BLOC_2_TITLE' | translate }} : </span>
+                        <span class='score-bloc-value'>{{moduleData.score.FC}}</span>
+                    </p>
+                    <ion-grid>
+                        <ion-row>
+                            <ion-col col-2>
+                                <ion-icon name="chatbubbles"></ion-icon>
+                            </ion-col>
+                            <ion-col col-10>
+                                <span class='score-bloc-comment'>{{moduleData.score.FCComment}}</span>
+                            </ion-col>
+                        </ion-row>
+                    </ion-grid>
+                </ion-card>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+    <ion-grid class="title-display">
+        <ion-row class='title-row'>
+            <ion-col col-8><span>TITLE</span></ion-col>
+            <ion-col col-1>E1</ion-col>
+            <ion-col col-1>E2</ion-col>
+            <ion-col col-1>FC</ion-col>
+            <ion-col col-1>NA</ion-col>
+        </ion-row>
+    </ion-grid>
+    <ion-grid class="data-display">
+        <div *ngFor="let subModule of moduleData.subModules">
+            <ion-row class='ss-title-row'>
+                <ion-col col-8><span>{{subModule.title}}</span></ion-col>
+                <ion-col col-1></ion-col>
+                <ion-col col-1></ion-col>
+                <ion-col col-1></ion-col>
+                <ion-col col-1></ion-col>
+            </ion-row>
+            <ion-row class='data-row' *ngFor="let evaluation of subModule.evaluations">
+                <ion-col col-8><span>{{evaluation.text}}</span></ion-col>
+                <ion-col col-1 [innerHTML]="evaluation.types.E1 | replaceByPoint"></ion-col>
+                <ion-col col-1 [innerHTML]="evaluation.types.E2 | replaceByPoint"></ion-col>
+                <ion-col col-1 [innerHTML]="evaluation.types.FC | replaceByPoint"></ion-col>
+                <ion-col col-1 [innerHTML]="evaluation.types.NA | replaceByPoint"></ion-col>
+            </ion-row>
+        </div>
+    </ion-grid>
+</ion-content>

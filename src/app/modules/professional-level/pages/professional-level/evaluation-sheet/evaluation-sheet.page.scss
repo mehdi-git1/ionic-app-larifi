@@ -1,0 +1,156 @@
+.selection-dot {
+    background-color: #4cc3cc;
+    width: 10px;
+    height: 10px;
+    border-radius: 10px;
+    margin: auto;
+}
+
+.practical-module {
+    .scroll-content {
+        max-width: none;
+        margin: auto;
+        margin-top: 56px;
+        margin-bottom: 56px;
+        margin-left: 50px;
+        margin-right: 54px;
+    }
+
+    ion-card {
+
+        &.card-md,
+        &.card-ios {
+            margin: 0;
+        }
+
+        &.title-bloc {
+            margin: auto;
+            text-align: center;
+            width: max-content;
+            height: 45px;
+            padding: 10px 17px;
+            margin-bottom: 20px;
+
+            span {
+                font-size: 22px;
+                font-weight: 400;
+                margin-left: 30px;
+
+                &.first-text {
+                    color: #38393a;
+                    letter-spacing: 0.8px;
+                    margin-left: 0px;
+                }
+
+                &.date {
+                    color: #4cc3cc;
+                    letter-spacing: -0.74px;
+                }
+
+                &.result {
+                    color: #ffffff;
+                    letter-spacing: 0.13px;
+                    padding: 5px 10px;
+                    border-radius: 5px;
+                }
+
+                &.failure {
+                    background-color: #d6457c;
+                }
+
+                &.success {
+                    background-color: #55FF55;
+                }
+
+                &.notbad {
+                    background-color: #ff9b06;
+                }
+
+            }
+        }
+
+        &.score-bloc {
+            width: 100%;
+            padding-left: 30px;
+            padding-top: 10px;
+            padding-bottom: 3px;
+
+            .score-bloc-title {
+                font-weight: bold;
+                font-size: 20px;
+                letter-spacing: 0.51px;
+            }
+
+            .score-bloc-value {
+                font-weight: bold;
+                font-size: 22px;
+                margin-left: 30px;
+                letter-spacing: -0.45px;
+            }
+
+            .score-bloc-comment {
+                font-size: 22px;
+                font-weight: 300;
+                letter-spacing: -0.22px;
+            }
+
+            ion-icon {
+                color: blue;
+                font-size: 40px;
+                padding: 10px;
+            }
+        }
+    }
+
+    ion-grid {
+        padding: 0px;
+
+        ion-row.title-row,
+        ion-row.ss-title-row,
+        ion-row.data-row {
+            ion-col {
+                text-align: center;
+
+                &:first-child {
+                    text-align: left;
+
+                    span {
+                        padding-left: 39px;
+                    }
+                }
+            }
+        }
+
+        &.title-display {
+            ion-row {
+                &.title-row {
+                    background-color: #4cc3cc;
+                    margin: 10px 0px;
+                    color: #ffffff;
+                }
+            }
+        }
+
+        &.data-display {
+
+            box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14),
+                0 3px 1px -2px rgba(0, 0, 0, 0.2),
+                0 1px 5px 0 rgba(0, 0, 0, 0.12);
+
+            ion-row {
+                &.ss-title-row {
+                    background-color: #67abb7;
+                    text-transform: uppercase;
+                    color: #ffffff;
+                }
+
+                ion-col {
+                    &:not(:first-child) {
+                        border-left: 1px solid #5f9aaa;
+                    }
+                }
+            }
+        }
+    }
+
+}
