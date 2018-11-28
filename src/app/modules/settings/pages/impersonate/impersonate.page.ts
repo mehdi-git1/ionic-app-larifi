@@ -1,3 +1,4 @@
+import { Utils } from './../../../../shared/utils/utils';
 import { SecurityServer } from '../../../../core/services/security/security.server';
 import { AuthenticatedUserModel } from '../../../../core/models/authenticated-user.model';
 import { SessionService } from '../../../../core/services/session/session.service';
@@ -75,7 +76,7 @@ export class ImpersonatePage {
   * @param term le terme à ajouter
   */
   searchAutoComplete(term: string): void {
-    this.searchTerms.next(term);
+    this.searchTerms.next(Utils.replaceSpecialCaracters(term));
   }
 
   /**
