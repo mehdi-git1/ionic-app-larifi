@@ -32,13 +32,11 @@ export abstract class BaseService {
                 return data;
             },
             error => {
-                if (!this.connectivityService.isConnected()) {
-                    return this.offlineProv[functionName](param[0], param[1]).then(
-                        data => {
-                            return data;
-                        }
-                    );
-                }
+                return this.offlineProv[functionName](param[0], param[1]).then(
+                    data => {
+                        return data;
+                    }
+                );
             });
     }
 }

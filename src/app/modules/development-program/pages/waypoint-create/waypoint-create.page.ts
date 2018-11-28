@@ -90,7 +90,7 @@ export class WaypointCreatePage {
      * Initialisation du contenu de la page.
      */
     initPage() {
-        let matricule = this.navParams.get('matricule');
+        const matricule = this.navParams.get('matricule');
         if (matricule) {
             this.pncService.getPnc(matricule).then(pnc => {
                 this.pnc = pnc;
