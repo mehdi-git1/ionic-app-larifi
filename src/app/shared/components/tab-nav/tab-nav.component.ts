@@ -63,7 +63,8 @@ export class TabNavComponent {
             this.tabsNav = this.createListOfTab();
           }
           this.tabNavService.setListOfTabs(this.tabsNav);
-          this.changePermissions();
+          this.updateTabsNav();
+
           this.loading = false;
           this.navCtrl.popToRoot();
         }, error => {
@@ -86,21 +87,21 @@ export class TabNavComponent {
         title: this.translate.instant('PNC_HOME.TITLE'),
         page: PncHomePage,
         icon: 'edospnc-home',
-        params: this.matriculeParams
+        params: ''
       },
       {
         id: tabNavEnum.CAREER_OBJECTIVE_LIST_PAGE,
         title: this.translate.instant('GLOBAL.DEVELOPMENT_PROGRAM'),
         page: CareerObjectiveListPage,
         icon: 'edospnc-developmentProgram',
-        params: this.matriculeParams
+        params: ''
       },
       {
         id: tabNavEnum.SUMMARY_SHEET_PAGE,
         title: this.translate.instant('GLOBAL.PNC_SUMMARY_SHEET'),
         page: SummarySheetPage,
         icon: 'edospnc-summarySheet',
-        params: this.matriculeParams
+        params: ''
       },
       {
         id: tabNavEnum.PNC_SEARCH_PAGE,
@@ -128,7 +129,7 @@ export class TabNavComponent {
         title: this.translate.instant('GLOBAL.STATUTORY_CERTIFICATE'),
         page: StatutoryCertificatePage,
         icon: 'edospnc-statutoryCertificate',
-        params: this.matriculeParams
+        params: ''
       },
       {
         id: tabNavEnum.PROFESSIONAL_LEVEL_PAGE,
@@ -141,9 +142,17 @@ export class TabNavComponent {
   }
 
   /**
-   * Permet de mettre à jour les permissions de façon dynamique
+   * Met à jour la liste des tabs
    */
-  changePermissions() {
+  updateTabsNav() {
+    this.updatePermissions();
+    this.updateParams();
+  }
+
+  /**
+   * Met à jour les permissions de façon dynamique
+   */
+  updatePermissions() {
     this.tabsNav[this.tabNavService.findTabIndex(tabNavEnum.PNC_HOME_PAGE)].display = true;
     this.tabsNav[this.tabNavService.findTabIndex(tabNavEnum.CAREER_OBJECTIVE_LIST_PAGE)].display = !this.securityProvider.isManager();
     this.tabsNav[this.tabNavService.findTabIndex(tabNavEnum.SUMMARY_SHEET_PAGE)].display = !this.securityProvider.isManager();
@@ -152,6 +161,13 @@ export class TabNavComponent {
     this.tabsNav[this.tabNavService.findTabIndex(tabNavEnum.HELP_ASSET_LIST_PAGE)].display = true;
     this.tabsNav[this.tabNavService.findTabIndex(tabNavEnum.STATUTORY_CERTIFICATE_PAGE)].display = !this.securityProvider.isManager() && this.securityProvider.hasPermissionToViewTab('VIEW_STATUTORY_CERTIFICATE');
     this.tabsNav[this.tabNavService.findTabIndex(tabNavEnum.PROFESSIONAL_LEVEL_PAGE)].display = this.securityProvider.hasPermissionToViewTab('VIEW_PROFESSIONAL_LEVEL');
+  }
+
+  /**
+   * Met à jour paramètres transmis aux pages utilisées dans la navigation par onglet.
+   */
+  updateParams() {
+    this.tabsNav[this.tabNavService.findTabIndex(tabNavEnum.HELP_ASSET_LIST_PAGE)].params = this.roleParams;
   }
 
   /**

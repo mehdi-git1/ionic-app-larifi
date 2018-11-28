@@ -39,18 +39,19 @@ export class CareerObjectiveListPage {
       }
     });
   }
-  ionViewDidEnter() {
-    this.initPage();
-  }
 
-  /**
-   * Initialisation du contenu de la page.
-   */
-  initPage() {
-    this.matricule = this.navParams.get('matricule');
+  ionViewDidEnter() {
+    if (this.navParams.get('matricule')) {
+      this.matricule = this.navParams.get('matricule');
+    } else if (this.sessionService.getActiveUser()) {
+      this.matricule = this.sessionService.getActiveUser().matricule;
+    }
     this.initCareerObjectivesList();
   }
 
+  /**
+   * Récupère la liste des objectifs
+   */
   initCareerObjectivesList() {
     this.careerObjectiveProvider.getPncCareerObjectives(this.matricule).then(result => {
       result.sort((careerObjective: CareerObjectiveModel, otherCareerObjective: CareerObjectiveModel) => {
