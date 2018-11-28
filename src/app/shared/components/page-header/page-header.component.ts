@@ -26,7 +26,7 @@ export class PageHeaderComponent {
   }
 
     /**
-     * Vérifie que la page courante est la homepage de la personne connectée
+     * Vérifie que le pnc consulté est la personne connectée
      * @return vrai si c'est le cas, faux sinon
      */
     isActiveUser(): boolean {

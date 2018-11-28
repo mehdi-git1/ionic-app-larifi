@@ -21,7 +21,7 @@ export class SessionService {
     }
 
     /**
-     * Vérifie que le que le pnc consulté est le pnc connecté
+     * Vérifie que le que le pnc consulté est la personne connectée
      * @return vrai si c'est le cas, faux sinon
      */
     isActiveUser(pnc: PncModel): boolean {
