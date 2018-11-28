@@ -8,8 +8,10 @@ import { CareerObjectiveCreatePage } from '../career-objective-create/career-obj
 import { CareerObjectiveModel } from '../../../../core/models/career-objective.model';
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
-import { CareerObjectiveProvider } from '../../../../core/services/career-objective/career-objective.service';
+import { CareerObjectiveService } from '../../../../core/services/career-objective/career-objective.service';
 import { RotationModel } from '../../../../core/models/rotation.model';
+import { PncService } from '../../../../core/services/pnc/pnc.service';
+import { PncModel } from '../../../../core/models/pnc.model';
 
 @Component({
   selector: 'page-career-objective-list',
@@ -25,13 +27,16 @@ export class CareerObjectiveListPage {
   // Expose l'enum au template
   PncRole = PncRoleEnum;
 
+  pnc: PncModel;
+
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
-    private careerObjectiveProvider: CareerObjectiveProvider,
+    private careerObjectiveService: CareerObjectiveService,
     private eObservationService: EFormsEObservationService,
     private deviceService: DeviceService,
     private sessionService: SessionService,
-    private synchronizationProvider: SynchronizationService) {
+    private synchronizationProvider: SynchronizationService,
+    private pncService: PncService) {
     this.lastConsultedRotation = this.sessionService.appContext.lastConsultedRotation;
     this.synchronizationProvider.synchroStatusChange.subscribe(synchroInProgress => {
       if (!synchroInProgress) {
@@ -48,11 +53,15 @@ export class CareerObjectiveListPage {
    */
   initPage() {
     this.matricule = this.navParams.get('matricule');
+    this.pncService.getPnc(this.matricule).then(pnc => {
+      this.pnc = pnc;
+    }, error => {
+    });
     this.initCareerObjectivesList();
   }
 
   initCareerObjectivesList() {
-    this.careerObjectiveProvider.getPncCareerObjectives(this.matricule).then(result => {
+    this.careerObjectiveService.getPncCareerObjectives(this.matricule).then(result => {
       result.sort((careerObjective: CareerObjectiveModel, otherCareerObjective: CareerObjectiveModel) => {
         return careerObjective.creationDate < otherCareerObjective.creationDate ? 1 : -1;
       });

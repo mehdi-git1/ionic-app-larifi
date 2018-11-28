@@ -28,7 +28,7 @@ export class RotationService extends BaseService {
   * @return la liste des tronçons de la rotation
   */
   getRotationLegs(rotation: RotationModel): Promise<LegModel[]> {
-    return this.execFunctionProvider('getRotationLegs', rotation);
+    return this.execFunctionService('getRotationLegs', rotation);
   }
 
 }

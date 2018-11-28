@@ -28,7 +28,7 @@ export class LegService extends BaseService {
   * @return les informations du leg
   */
   getLeg(legId: number): Promise<LegModel> {
-    return this.execFunctionProvider('getLeg', legId);
+    return this.execFunctionService('getLeg', legId);
   }
 
   /**
@@ -37,7 +37,7 @@ export class LegService extends BaseService {
   * @return la liste équipage d'un tronçon
   */
   getFlightCrewFromLeg(legId: number): Promise<CrewMemberEnum[]> {
-    return this.execFunctionProvider('getFlightCrewFromLeg', legId);
+    return this.execFunctionService('getFlightCrewFromLeg', legId);
   }
 
 }

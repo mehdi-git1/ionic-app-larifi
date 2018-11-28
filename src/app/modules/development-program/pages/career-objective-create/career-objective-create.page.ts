@@ -13,7 +13,7 @@ import { CareerObjectiveStatusService } from '../../../../core/services/career-o
 import { ToastService } from '../../../../core/services/toast/toast.service';
 import { CareerObjectiveStatusEnum } from '../../../../core/enums/career-objective-status.enum';
 import { TranslateService } from '@ngx-translate/core';
-import { CareerObjectiveProvider } from '../../../../core/services/career-objective/career-objective.service';
+import { CareerObjectiveService } from '../../../../core/services/career-objective/career-objective.service';
 import { CareerObjectiveModel } from '../../../../core/models/career-objective.model';
 import { Component } from '@angular/core';
 import { NavController, NavParams, AlertController, LoadingController, Loading } from 'ionic-angular';
@@ -23,6 +23,7 @@ import { WaypointModel } from '../../../../core/models/waypoint.model';
 import { WaypointCreatePage } from '../waypoint-create/waypoint-create.page';
 import * as _ from 'lodash';
 import { SessionService } from '../../../../core/services/session/session.service';
+import { PncService } from '../../../../core/services/pnc/pnc.service';
 
 @Component({
     selector: 'page-career-objective-create',
@@ -48,6 +49,8 @@ export class CareerObjectiveCreatePage {
 
     originalPncComment: string;
 
+    pnc: PncModel;
+
     // Permet d'exposer l'enum au template
     CareerObjectiveStatus = CareerObjectiveStatusEnum;
     WaypointStatus = WaypointStatusEnum;
@@ -60,19 +63,20 @@ export class CareerObjectiveCreatePage {
         private alertCtrl: AlertController,
         public translateService: TranslateService,
         private formBuilder: FormBuilder,
-        private careerObjectiveProvider: CareerObjectiveProvider,
-        private waypointProvider: WaypointService,
-        private toastProvider: ToastService,
+        private careerObjectiveService: CareerObjectiveService,
+        private waypointService: WaypointService,
+        private toastService: ToastService,
         public careerObjectiveStatusService: CareerObjectiveStatusService,
-        public securityProvider: SecurityServer,
+        public securityService: SecurityServer,
         public loadingCtrl: LoadingController,
         private dateTransformer: DateTransform,
         private connectivityService: ConnectivityService,
-        private offlinePncProvider: OfflinePncService,
+        private offlinePncService: OfflinePncService,
         private offlineCareerObjectiveService: OfflineCareerObjectiveService,
         private deviceService: DeviceService,
-        private synchronizationProvider: SynchronizationService,
-        private sessionService: SessionService) {
+        private synchronizationService: SynchronizationService,
+        private sessionService: SessionService,
+        private pncService: PncService) {
 
         // Options du datepicker
         this.nextEncounterDateTimeOptions = {
@@ -95,9 +99,9 @@ export class CareerObjectiveCreatePage {
         // Initialisation du formulaire
         this.initForm();
 
-        this.synchronizationProvider.synchroStatusChange.subscribe(synchroInProgress => {
+        this.synchronizationService.synchroStatusChange.subscribe(synchroInProgress => {
             if (!synchroInProgress && this.careerObjective && this.careerObjective.techId) {
-                this.waypointProvider.getCareerObjectiveWaypoints(this.careerObjective.techId).then(result => {
+                this.waypointService.getCareerObjectiveWaypoints(this.careerObjective.techId).then(result => {
                     this.waypointList = result;
                 }, error => { });
             }
@@ -112,22 +116,29 @@ export class CareerObjectiveCreatePage {
      * Initialisation du contenu de la page.
      */
     initPage() {
+        const matricule = this.navParams.get('matricule');
+        if (matricule) {
+            this.pncService.getPnc(matricule).then(pnc => {
+                this.pnc = pnc;
+            }, error => {
+            });
+        }
         // On récupère l'id de l'objectif dans les paramètres de navigation
         if (this.navParams.get('careerObjectiveId') && this.navParams.get('careerObjectiveId') !== 0) {
             // Récupération de l'objectif et des points d'étape
-            this.careerObjectiveProvider.getCareerObjective(this.navParams.get('careerObjectiveId')).then(foundCareerObjective => {
+            this.careerObjectiveService.getCareerObjective(this.navParams.get('careerObjectiveId')).then(foundCareerObjective => {
                 this.originCareerObjective = _.cloneDeep(foundCareerObjective);
                 this.careerObjective = foundCareerObjective;
                 this.originalPncComment = this.careerObjective.pncComment;
             }, error => { });
-            this.waypointProvider.getCareerObjectiveWaypoints(this.navParams.get('careerObjectiveId')).then(result => {
+            this.waypointService.getCareerObjectiveWaypoints(this.navParams.get('careerObjectiveId')).then(result => {
                 this.waypointList = result;
             }, error => { });
         } else {
             // Création
             this.careerObjective = new CareerObjectiveModel();
             this.careerObjective.pnc = new PncModel();
-            this.careerObjective.pnc.matricule = this.navParams.get('matricule');
+            this.careerObjective.pnc.matricule = matricule;
             this.waypointList = [];
             this.originCareerObjective = _.cloneDeep(this.careerObjective);
         }
@@ -226,33 +237,33 @@ export class CareerObjectiveCreatePage {
             this.loading = this.loadingCtrl.create();
             this.loading.present();
 
-            this.careerObjectiveProvider
+            this.careerObjectiveService
                 .createOrUpdate(careerObjectiveToSave)
                 .then(savedCareerObjective => {
                     this.originCareerObjective = _.cloneDeep(savedCareerObjective);
                     this.careerObjective = savedCareerObjective;
                     // en mode connecté, mettre en cache l'objectif creé ou modifié si le pnc est en cache
-                    if (this.deviceService.isOfflineModeAvailable() && this.connectivityService.isConnected() && this.offlinePncProvider.pncExists(this.careerObjective.pnc.matricule)) {
+                    if (this.deviceService.isOfflineModeAvailable() && this.connectivityService.isConnected() && this.offlinePncService.pncExists(this.careerObjective.pnc.matricule)) {
                         this.offlineCareerObjectiveService.createOrUpdate(this.careerObjective, true);
                     }
 
                     if (this.careerObjective.careerObjectiveStatus === CareerObjectiveStatusEnum.DRAFT) {
-                        this.toastProvider.success(this.translateService.instant('CAREER_OBJECTIVE_CREATE.SUCCESS.DRAFT_SAVED'));
+                        this.toastService.success(this.translateService.instant('CAREER_OBJECTIVE_CREATE.SUCCESS.DRAFT_SAVED'));
                     } else if (this.careerObjective.careerObjectiveStatus === CareerObjectiveStatusEnum.REGISTERED) {
                         if (this.cancelValidation) {
-                            this.toastProvider.success
+                            this.toastService.success
                                 (this.translateService.instant('CAREER_OBJECTIVE_CREATE.SUCCESS.CAREER_OBJECTIVE_VALIDATION_CANCELED'));
                             this.cancelValidation = false;
                         } else if (this.cancelAbandon) {
-                            this.toastProvider.success(this.translateService.instant('CAREER_OBJECTIVE_CREATE.SUCCESS.CAREER_OBJECTIVE_RESUMED'));
+                            this.toastService.success(this.translateService.instant('CAREER_OBJECTIVE_CREATE.SUCCESS.CAREER_OBJECTIVE_RESUMED'));
                             this.cancelAbandon = false;
                         } else {
-                            this.toastProvider.success(this.translateService.instant('CAREER_OBJECTIVE_CREATE.SUCCESS.CAREER_OBJECTIVE_SAVED'));
+                            this.toastService.success(this.translateService.instant('CAREER_OBJECTIVE_CREATE.SUCCESS.CAREER_OBJECTIVE_SAVED'));
                         }
                     } else if (this.careerObjective.careerObjectiveStatus === CareerObjectiveStatusEnum.VALIDATED) {
-                        this.toastProvider.success(this.translateService.instant('CAREER_OBJECTIVE_CREATE.SUCCESS.CAREER_OBJECTIVE_VALIDATED'));
+                        this.toastService.success(this.translateService.instant('CAREER_OBJECTIVE_CREATE.SUCCESS.CAREER_OBJECTIVE_VALIDATED'));
                     } else if (this.careerObjective.careerObjectiveStatus === CareerObjectiveStatusEnum.ABANDONED) {
-                        this.toastProvider.success(this.translateService.instant('CAREER_OBJECTIVE_CREATE.SUCCESS.CAREER_OBJECTIVE_ABANDONED'));
+                        this.toastService.success(this.translateService.instant('CAREER_OBJECTIVE_CREATE.SUCCESS.CAREER_OBJECTIVE_ABANDONED'));
                     }
                     this.loading.dismiss();
                     resolve();
@@ -304,7 +315,7 @@ export class CareerObjectiveCreatePage {
             this.saveCareerObjective(careerObjectiveToSave);
         } else {
             this.requiredOnEncounterDay = true;
-            this.toastProvider.warning(this.translateService.instant('CAREER_OBJECTIVE_CREATE.ERROR.ENCOUTER_DATE_REQUIRED'));
+            this.toastService.warning(this.translateService.instant('CAREER_OBJECTIVE_CREATE.ERROR.ENCOUTER_DATE_REQUIRED'));
         }
     }
 
@@ -387,11 +398,11 @@ export class CareerObjectiveCreatePage {
         this.loading = this.loadingCtrl.create();
         this.loading.present();
 
-        this.careerObjectiveProvider
+        this.careerObjectiveService
             .delete(this.careerObjective.techId)
             .then(
                 deletedCareerObjective => {
-                    this.toastProvider.success(this.translateService.instant('CAREER_OBJECTIVE_CREATE.SUCCESS.DRAFT_DELETED'));
+                    this.toastService.success(this.translateService.instant('CAREER_OBJECTIVE_CREATE.SUCCESS.DRAFT_DELETED'));
                     this.navCtrl.pop();
                     this.loading.dismiss();
                 },
@@ -411,14 +422,14 @@ export class CareerObjectiveCreatePage {
      * Dirige vers la page de création d'un point d'étape
      */
     goToWaypointCreate() {
-        this.navCtrl.push(WaypointCreatePage, { careerObjectiveId: this.careerObjective.techId, wayPointId: 0 });
+        this.navCtrl.push(WaypointCreatePage, { matricule: this.pnc.matricule , careerObjectiveId: this.careerObjective.techId, wayPointId: 0 });
     }
 
     /**
      * Ouvrir un point d'étape existant
      */
     openWaypoint(techId: number) {
-        this.navCtrl.push(WaypointCreatePage, { careerObjectiveId: this.careerObjective.techId, waypointId: techId });
+        this.navCtrl.push(WaypointCreatePage, { matricule: this.pnc.matricule , careerObjectiveId: this.careerObjective.techId, waypointId: techId });
     }
 
     /**
@@ -426,10 +437,10 @@ export class CareerObjectiveCreatePage {
      */
     createInstructorRequest() {
 
-        this.careerObjectiveProvider
+        this.careerObjectiveService
             .createInstructorRequest(this.careerObjective.techId)
             .then(result => {
-                this.toastProvider.success(this.translateService.instant('CAREER_OBJECTIVE_CREATE.SUCCESS.CAREER_OBJECTIVE_INSTRUCTOR_REQUESTED'));
+                this.toastService.success(this.translateService.instant('CAREER_OBJECTIVE_CREATE.SUCCESS.CAREER_OBJECTIVE_INSTRUCTOR_REQUESTED'));
             },
                 error => { });
     }
@@ -476,9 +487,9 @@ export class CareerObjectiveCreatePage {
        * @return vrai si c'est un champ modifiable, faux sinon
        */
     readOnlyByUserConnected(): boolean {
-        if (this.securityProvider.isManager()) {
+        if (this.securityService.isManager()) {
             return false;
-        } else if (!this.securityProvider.isManager() &&
+        } else if (!this.securityService.isManager() &&
             (this.careerObjective.careerObjectiveStatus === CareerObjectiveStatusEnum.DRAFT ||
                 this.careerObjective.careerObjectiveStatus == undefined ||
                 this.careerObjective.careerObjectiveStatus == null)) {
@@ -493,7 +504,7 @@ export class CareerObjectiveCreatePage {
      * @return vrai s'il peut enregistrer l'objectif , faux sinon
      */
     canPncCommentBeModifiedByPnc(): boolean {
-        return !this.securityProvider.isManager() && (
+        return !this.securityService.isManager() && (
             this.careerObjective.careerObjectiveStatus === CareerObjectiveStatusEnum.REGISTERED ||
             this.careerObjective.careerObjectiveStatus === CareerObjectiveStatusEnum.VALIDATED ||
             this.careerObjective.careerObjectiveStatus === CareerObjectiveStatusEnum.ABANDONED) &&
@@ -533,7 +544,7 @@ export class CareerObjectiveCreatePage {
      * @return true si Draft && (CADRE ou auteur de la proposition)
      */
     isDraftAndCanBeDeleted(): boolean {
-        const isInitiatorOrCadre: boolean =  this.securityProvider.isManager() || (this.careerObjective.creationAuthor && (this.careerObjective.creationAuthor.matricule === this.sessionService.authenticatedUser.matricule));
+        const isInitiatorOrCadre: boolean =  this.securityService.isManager() || (this.careerObjective.creationAuthor && (this.careerObjective.creationAuthor.matricule === this.sessionService.authenticatedUser.matricule));
         return this.careerObjective.careerObjectiveStatus === CareerObjectiveStatusEnum.DRAFT && isInitiatorOrCadre;
     }
 
@@ -543,7 +554,7 @@ export class CareerObjectiveCreatePage {
      */
     isDraftAndCanBeModified(): boolean {
         const canBeSavedAsDraft: boolean = this.careerObjectiveStatusService.isTransitionOk(this.careerObjective.careerObjectiveStatus, CareerObjectiveStatusEnum.DRAFT);
-        const isInitiatorOrCadre: boolean =  this.securityProvider.isManager() || (!this.careerObjective.creationAuthor || (this.careerObjective.creationAuthor.matricule === this.sessionService.authenticatedUser.matricule));
+        const isInitiatorOrCadre: boolean =  this.securityService.isManager() || (!this.careerObjective.creationAuthor || (this.careerObjective.creationAuthor.matricule === this.sessionService.authenticatedUser.matricule));
         return canBeSavedAsDraft && isInitiatorOrCadre && (!this.careerObjective.careerObjectiveStatus || this.careerObjective.careerObjectiveStatus === CareerObjectiveStatusEnum.DRAFT);
     }
 }

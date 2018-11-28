@@ -27,6 +27,6 @@ export class SummarySheetService extends BaseService {
     * @return la fiche synthese d'un PNC
     */
   getSummarySheet(matricule: string): Promise<SummarySheetModel> {
-    return this.execFunctionProvider('getSummarySheet', matricule);
+    return this.execFunctionService('getSummarySheet', matricule);
   }
 }
