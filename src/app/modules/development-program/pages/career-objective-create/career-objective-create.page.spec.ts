@@ -23,7 +23,7 @@ import { CareerObjectiveStatusService } from '../../../../core/services/career-o
 import { WaypointService } from '../../../../core/services/waypoint/waypoint.service';
 import { CareerObjectiveTransformerService } from '../../../../core/services/career-objective/career-objective-transformer.service';
 import { ConnectivityService } from '../../../../core/services/connectivity/connectivity.service';
-import { CareerObjectiveProvider } from '../../../../core/services/career-objective/career-objective.service';
+import { CareerObjectiveService } from '../../../../core/services/career-objective/career-objective.service';
 import { SynchronizationService } from '../../../../core/services/synchronization/synchronization.service';
 import { DeviceService } from '../../../../core/services/device/device.service';
 
@@ -55,7 +55,7 @@ describe('CareerObjectiveCreatePage', () => {
                 { provide: NavParams, useClass: NavMock },
                 AlertController,
                 FormBuilder,
-                CareerObjectiveProvider,
+                CareerObjectiveService,
                 { provide: OnlineCareerObjectiveService },
                 { provide: OfflineCareerObjectiveService },
                 { provide: ConnectivityService },

@@ -197,7 +197,7 @@ export class PncHomePage {
      * @return vrai si c'est le cas, faux sinon
      */
     isMyHome(): boolean {
-        return this.matricule === (this.sessionService.getActiveUser() && this.sessionService.getActiveUser().matricule);
+        return this.sessionService.isMyHome(this.pnc);
     }
 
 }

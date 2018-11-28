@@ -26,17 +26,19 @@ export abstract class BaseService {
      * @param functionName Nom de la fonction
      * @param param Paramètres éventuels
      */
-    protected execFunctionProvider(functionName: string, ...param: any[]) {
+    protected execFunctionService(functionName: string, ...param: any[]) {
         return this.provider[functionName](param[0], param[1]).then(
             data => {
                 return data;
             },
             error => {
-                return this.offlineProv[functionName](param[0], param[1]).then(
-                    data => {
-                        return data;
-                    }
-                );
+                if (!this.connectivityService.isConnected()) {
+                    return this.offlineProv[functionName](param[0], param[1]).then(
+                        data => {
+                            return data;
+                        }
+                    );
+                }
             });
     }
 }

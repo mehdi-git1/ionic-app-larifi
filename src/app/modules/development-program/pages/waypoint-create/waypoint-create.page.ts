@@ -18,6 +18,8 @@ import { WaypointModel } from '../../../../core/models/waypoint.model';
 import { ToastService } from '../../../../core/services/toast/toast.service';
 import { DeviceService } from '../../../../core/services/device/device.service';
 import { OfflineWaypointService } from '../../../../core/services/waypoint/offline-waypoint.service';
+import { PncService } from '../../../../core/services/pnc/pnc.service';
+import { PncModel } from '../../../../core/models/pnc.model';
 
 @Component({
     selector: 'page-waypoint-create',
@@ -37,6 +39,8 @@ export class WaypointCreatePage {
     customDateTimeOptions: any;
 
     originalPncComment: string;
+
+    pnc: PncModel;
 
     monthsNames;
 
@@ -58,7 +62,8 @@ export class WaypointCreatePage {
         private dateTransformer: DateTransform,
         private connectivityService: ConnectivityService,
         private offlineCareerObjectiveService: OfflineCareerObjectiveService,
-        private offlineWaypointProvider: OfflineWaypointService) {
+        private offlineWaypointProvider: OfflineWaypointService,
+        private pncService: PncService) {
 
         // Options du datepicker
         this.customDateTimeOptions = {
@@ -85,6 +90,14 @@ export class WaypointCreatePage {
      * Initialisation du contenu de la page.
      */
     initPage() {
+        let matricule = this.navParams.get('matricule');
+        if (matricule) {
+            this.pncService.getPnc(matricule).then(pnc => {
+                this.pnc = pnc;
+            }, error => {
+            });
+        }
+
         this.careerObjectiveId = this.navParams.get('careerObjectiveId');
 
         if (this.navParams.get('waypointId') && this.navParams.get('waypointId') !== 0) {

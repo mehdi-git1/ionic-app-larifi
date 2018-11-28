@@ -1,4 +1,8 @@
-<h1 class="title">
+<h1 *ngIf="isMyHome()" class="title">
     <ng-content></ng-content>
 </h1>
+<div *ngIf="!isMyHome()" class="title">
+        <h1>{{ pnc?.lastName }} {{ pnc?.firstName }}</h1>
+        <h3><ng-content></ng-content></h3>
+</div>
 <edossier-indicators [showSettingsIcon]="showSettingsIcon" [showRefreshIcon]="showRefreshIcon" (refreshPage)="refresh()"></edossier-indicators>

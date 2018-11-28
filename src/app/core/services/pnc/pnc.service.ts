@@ -40,7 +40,7 @@ export class PncService extends BaseService {
    * @return les informations du PNC
    */
   getPnc(matricule: string): Promise<PncModel> {
-    return this.execFunctionProvider('getPnc', matricule);
+    return this.execFunctionService('getPnc', matricule);
   }
 
 
@@ -50,7 +50,7 @@ export class PncService extends BaseService {
    * @return les rotations à venir du PNC
    */
   getUpcomingRotations(matricule: string): Promise<RotationModel[]> {
-    return this.execFunctionProvider('getUpcomingRotations', matricule);
+    return this.execFunctionService('getUpcomingRotations', matricule);
   }
 
   /**
@@ -59,7 +59,7 @@ export class PncService extends BaseService {
   * @return les deux dernières rotations opérées par le PNC
   */
   getLastPerformedRotations(matricule: string): Promise<RotationModel[]> {
-    return this.execFunctionProvider('getLastPerformedRotations', matricule);
+    return this.execFunctionService('getLastPerformedRotations', matricule);
   }
 
   /**
@@ -69,7 +69,7 @@ export class PncService extends BaseService {
    */
   getFilteredPncs(pncFilter: PncFilterModel, page: number, size: number): Promise<PagedPncModel> {
     const pncSearchCriteria = new PncSearchCriteriaModel(pncFilter, page, size);
-    return this.execFunctionProvider('getFilteredPncs', pncSearchCriteria);
+    return this.execFunctionService('getFilteredPncs', pncSearchCriteria);
   }
 
   /**

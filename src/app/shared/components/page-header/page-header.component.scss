@@ -3,13 +3,28 @@ page-header {
     display: flex;
     align-items: center;
 
-    h1.title {
+    .title {
         flex: 1;
+        align-items: center;
+        text-align: center;
         padding: 0;
         margin: 0;
-        color: color($colors, white);
-        font-size: 1.2em;
-        font-weight: bold;
-        text-align: center;
+
+        h1 {
+            color: color($colors, white);
+            padding: 0;
+            margin: 0;
+            font-size: 1.2em;
+            font-weight: bold;
+
+        }
+
+        h3 {
+            color: color($colors, white);
+            padding: 0;
+            margin: 0;
+            font-weight: normal;
+            font-size: 1em;
+        }
     }
 }
