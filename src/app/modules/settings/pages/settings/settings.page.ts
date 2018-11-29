@@ -27,6 +27,7 @@ export class SettingsPage {
   connected: boolean;
   initInProgress: boolean;
   synchronizationInProgress: boolean;
+  revokationInProgress: boolean;
 
   isApp: boolean;
 
@@ -35,7 +36,7 @@ export class SettingsPage {
     private connectivityService: ConnectivityService,
     private storageService: StorageService,
     private events: Events,
-    private synchronizationProvider: SynchronizationService,
+    private synchronizationService: SynchronizationService,
     private sessionService: SessionService,
     private toastProvider: ToastService,
     private translateService: TranslateService,
@@ -55,7 +56,7 @@ export class SettingsPage {
       this.connected = connected;
     });
 
-    this.synchronizationProvider.synchroStatusChange.subscribe(synchroInProgress => {
+    this.synchronizationService.synchroStatusChange.subscribe(synchroInProgress => {
       this.synchronizationInProgress = synchroInProgress;
     });
 
@@ -69,7 +70,7 @@ export class SettingsPage {
   * Présente une alerte pour confirmer la suppression du cache
   */
   confirmClearAndInitCache() {
-    const message = this.synchronizationProvider.isPncModifiedOffline(this.sessionService.getActiveUser().matricule) ?
+    const message = this.synchronizationService.isPncModifiedOffline(this.sessionService.getActiveUser().matricule) ?
       this.translateService.instant('SETTINGS.CONFIRM_INIT_CACHE.MESSAGE_UNSYNCHRONIZED_DATA') :
       this.translateService.instant('SETTINGS.CONFIRM_INIT_CACHE.MESSAGE');
 
@@ -104,7 +105,7 @@ export class SettingsPage {
     this.storageService.initOfflineMap().then(success => {
       const authenticatedUser = this.sessionService.getActiveUser();
       this.offlineSecurityProvider.overwriteAuthenticatedUser(new AuthenticatedUserModel().fromJSON(authenticatedUser));
-      this.synchronizationProvider.storeEDossierOffline(authenticatedUser.matricule).then(successStore => {
+      this.synchronizationService.storeEDossierOffline(authenticatedUser.matricule).then(successStore => {
         this.events.publish('EDossierOffline:stored');
         this.toastProvider.info(this.translateService.instant('SETTINGS.INIT_CACHE.SUCCESS'));
       }, error => {
@@ -136,13 +137,15 @@ export class SettingsPage {
    * revoque le certificat sur ipad
    */
   revokeCertificate() {
+    this.revokationInProgress = true;
     this.secMobilService.secMobilRevokeCertificate().then(() => {
+      this.revokationInProgress = false;
       this.events.publish('user:authenticationLogout');
     });
   }
 
   forceSynchronizeOfflineData() {
-    this.synchronizationProvider.synchronizeOfflineData();
+    this.synchronizationService.synchronizeOfflineData();
   }
 
   /**

@@ -27,8 +27,8 @@
         <ion-item>
             <label>{{ 'SETTINGS.REVOKE_CERTIFICATE.BUTTON' | translate }}</label>
             <button ion-fab mini icon-only item-end class="parameter-button" (click)="confirmRevokeCertificate()">
-                <ion-icon name="log-out" *ngIf="!revocationInProgress"></ion-icon>
-                <ion-spinner *ngIf="revocationInProgress"></ion-spinner>
+                <ion-icon name="log-out" *ngIf="!revokationInProgress"></ion-icon>
+                <ion-spinner *ngIf="revokationInProgress"></ion-spinner>
             </button>
         </ion-item>
         <ion-item>

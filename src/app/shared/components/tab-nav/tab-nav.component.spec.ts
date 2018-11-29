@@ -8,7 +8,7 @@ import { TabNavComponent } from './tab-nav.component';
 import { PncService } from '../../../core/services/pnc/pnc.service';
 import { of } from 'rxjs/observable/of';
 import { TabNavService } from '../../../core/services/tab-nav/tab-nav.service';
-import {SpecialityService} from '../../../core/services/speciality/speciality.service';
+import { SpecialityService } from '../../../core/services/speciality/speciality.service';
 import { SecurityServer } from '../../../core/services/security/security.server';
 import { SessionService } from '../../../core/services/session/session.service';
 
@@ -47,7 +47,18 @@ describe('tab-nav component', () => {
 
         fixture = TestBed.createComponent(TabNavComponent);
         comp = fixture.componentInstance;
+        comp.navCtrl = jasmine.createSpyObj('NavMock', ['setRoot']);
+        comp.loading = false;
         EventsService = TestBed.get(Events);
+    });
+
+    describe('authenticationLogout', () => {
+        it('doit verifier si on cache bien la tabnav (loading = true)', () => {
+            EventsService.publish('user:authenticationLogout');
+            EventsService.subscribe('user:authenticationLogout', () => {
+                expect(comp.loading).toBe(true);
+            });
+        });
     });
 
     describe('tabChange', () => {
