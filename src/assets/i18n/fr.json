@@ -390,10 +390,16 @@
             "GET_MY_IDENTITY_BACK": "Récupérer mon identité"
         }
     },
-
     "ADMIN": {
-        "HOME": {
-            "TITLE": "Page d'administration"
+        "ADMIN_HOME": {
+            "TITLE": "Page d'administration",
+            "BUTTON": {
+                "PROFILE_MANAGEMENT": "Afficher la liste des profils"
+            }
+        },
+        "PROFILE_MANAGEMENT": {
+            "TITLE": "Page des profils"
         }
+
     }
 }

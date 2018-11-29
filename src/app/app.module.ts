@@ -1,3 +1,4 @@
+import { AdminModule } from './modules/admin/admin.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ErrorHandler, NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
@@ -49,6 +50,7 @@ import { UrlConfiguration } from './core/configuration/url.configuration';
     SettingsModule,
     StatutoryCertificateModule,
     SummarySheetModule,
+    AdminModule,
     ComponentsModule,
     SharedModule,
     HttpModule,
