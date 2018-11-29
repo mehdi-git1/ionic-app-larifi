@@ -1,3 +1,4 @@
+import { SessionService } from './../../../../core/services/session/session.service';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { IonicModule, NavParams } from 'ionic-angular';
@@ -38,7 +39,8 @@ describe('SummarySheet Page', () => {
             ],
             providers: [
                 { provide: NavParams, useClass: NavMock },
-                { provide: SummarySheetService, useValue: summarySheetServiceMock }
+                { provide: SummarySheetService, useValue: summarySheetServiceMock },
+                { provide: SessionService, useClass: SessionService }
             ],
             schemas: [NO_ERRORS_SCHEMA]
         });
