@@ -164,7 +164,9 @@ export class TabNavComponent {
    * @param event evenement déclencheur de la fonction
    */
   tabChange(event) {
-    this.clickChange();
+    if (event.tabTitle === this.translate.instant('GLOBAL.PNC_SUMMARY_SHEET')) {
+      this.clickChange();
+    }
     this.events.publish('changeTab', { pageName: event.root.name, pageParams: event.rootParams });
   }
 
