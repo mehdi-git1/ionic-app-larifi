@@ -1,3 +1,4 @@
+import { SummarySheetTransformerService } from './../../../../core/services/summary-sheet/summary-sheet-transformer.service';
 import { Component } from '@angular/core';
 import { NavController, NavParams, Events } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
@@ -58,6 +59,7 @@ export class PncHomePage {
         private tabNavService: TabNavService,
         private specialityService: SpecialityService,
         private summarySheetService: SummarySheetService,
+        private summarySheetTransformerService: SummarySheetTransformerService,
         private fileService: FileService
     ) {
 
@@ -143,20 +145,8 @@ export class PncHomePage {
      * Affiche la fiche synthèse
      */
     goToSummarySheet() {
-
-        let previewSrc = '';
         this.summarySheetService.getSummarySheet(this.matricule).then(summarySheet => {
-            try {
-                if (summarySheet && summarySheet.summarySheet) {
-                    const file = new Blob([Utils.base64ToArrayBuffer(summarySheet.summarySheet)], { type: 'application/pdf' });
-                    previewSrc = URL.createObjectURL(file);
-                    this.fileService.displayFile(FileTypeEnum.PDF, previewSrc);
-                } else {
-                    previewSrc = null;
-                }
-            } catch (error) {
-                console.error('createObjectURL error:' + error);
-            }
+            this.fileService.displayFile(FileTypeEnum.PDF, this.summarySheetTransformerService.toSummarySheetFile(summarySheet));
         }, error => {
         });
     }

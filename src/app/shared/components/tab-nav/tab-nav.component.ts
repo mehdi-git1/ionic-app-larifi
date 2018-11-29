@@ -1,5 +1,6 @@
 import { Component, Input, ViewChild } from '@angular/core';
 import { Nav, Events, Tabs } from 'ionic-angular';
+import { TranslateService } from '@ngx-translate/core';
 
 import { PncModel } from '../../../core/models/pnc.model';
 import { SpecialityService } from '../../../core/services/speciality/speciality.service';
@@ -15,12 +16,11 @@ import { SessionService } from '../../../core/services/session/session.service';
 import { SecurityServer } from '../../../core/services/security/security.server';
 import { TabNavService } from '../../../core/services/tab-nav/tab-nav.service';
 import { tabNavEnum } from '../../../core/enums/tab-nav.enum';
-import { TranslateService } from '@ngx-translate/core';
 import { SpecialityEnum } from '../../../core/enums/speciality.enum';
-import { Utils } from '../../utils/utils';
 import { FileTypeEnum } from '../../../core/enums/file-type.enum';
 import { SummarySheetService } from '../../../core/services/summary-sheet/summary-sheet.service';
 import { FileService } from '../../../core/file/file.service';
+import { SummarySheetTransformerService } from '../../../core/services/summary-sheet/summary-sheet-transformer.service';
 
 @Component({
   selector: 'tab-nav',
@@ -55,6 +55,7 @@ export class TabNavComponent {
     public securityProvider: SecurityServer,
     private specialityService: SpecialityService,
     private summarySheetService: SummarySheetService,
+    private summarySheetTransformerService: SummarySheetTransformerService,
     private fileService: FileService
   ) {
     this.events.subscribe('user:authenticationDone', () => {
@@ -171,19 +172,8 @@ export class TabNavComponent {
   }
 
   clickChange() {
-    let previewSrc = '';
     this.summarySheetService.getSummarySheet(this.pnc.matricule).then(summarySheet => {
-      try {
-        if (summarySheet && summarySheet.summarySheet) {
-          const file = new Blob([Utils.base64ToArrayBuffer(summarySheet.summarySheet)], { type: 'application/pdf' });
-          previewSrc = URL.createObjectURL(file);
-          this.fileService.displayFile(FileTypeEnum.PDF, previewSrc);
-        } else {
-          previewSrc = null;
-        }
-      } catch (error) {
-        console.error('createObjectURL error:' + error);
-      }
+      this.fileService.displayFile(FileTypeEnum.PDF, this.summarySheetTransformerService.toSummarySheetFile(summarySheet));
     }, error => {
     });
   }
