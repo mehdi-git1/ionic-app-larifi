@@ -9,6 +9,7 @@ import { SessionService } from '../../../../core/services/session/session.servic
     templateUrl: 'upcoming-flight-list.page.html',
 })
 export class UpcomingFlightListPage {
+    matricule: string;
 
     upcomingRotations: RotationModel[];
     lastPerformedRotations: RotationModel[];
@@ -26,18 +27,17 @@ export class UpcomingFlightListPage {
      * Initialisation du contenu de la page.
      */
     initPage() {
-        let matricule = '';
         if (this.navParams.get('matricule')) {
-            matricule = this.navParams.get('matricule');
+            this.matricule = this.navParams.get('matricule');
         } else if (this.sessionService.getActiveUser()) {
-            matricule = this.sessionService.getActiveUser().matricule;
+            this.matricule = this.sessionService.getActiveUser().matricule;
         }
 
-        this.pncProvider.getLastPerformedRotations(matricule).then(lastPerformedRotations => {
+        this.pncProvider.getLastPerformedRotations(this.matricule).then(lastPerformedRotations => {
             this.lastPerformedRotations = lastPerformedRotations;
         }, error => { });
 
-        this.pncProvider.getUpcomingRotations(matricule).then(upcomingRotations => {
+        this.pncProvider.getUpcomingRotations(this.matricule).then(upcomingRotations => {
             this.upcomingRotations = upcomingRotations;
         }, error => { });
     }

@@ -63,7 +63,8 @@ export class TabNavComponent {
             this.tabsNav = this.createListOfTab();
           }
           this.tabNavService.setListOfTabs(this.tabsNav);
-          this.changePermissions();
+          this.updatePermissions();
+
           this.loading = false;
           this.navCtrl.popToRoot();
         }, error => {
@@ -86,64 +87,56 @@ export class TabNavComponent {
         title: this.translate.instant('PNC_HOME.TITLE'),
         page: PncHomePage,
         icon: 'edospnc-home',
-        params: this.matriculeParams
       },
       {
         id: tabNavEnum.CAREER_OBJECTIVE_LIST_PAGE,
         title: this.translate.instant('GLOBAL.DEVELOPMENT_PROGRAM'),
         page: CareerObjectiveListPage,
         icon: 'edospnc-developmentProgram',
-        params: this.matriculeParams
       },
       {
         id: tabNavEnum.SUMMARY_SHEET_PAGE,
         title: this.translate.instant('GLOBAL.PNC_SUMMARY_SHEET'),
         page: SummarySheetPage,
         icon: 'edospnc-summarySheet',
-        params: this.matriculeParams
       },
       {
         id: tabNavEnum.PNC_SEARCH_PAGE,
         title: this.translate.instant('GLOBAL.PNC_TEAM'),
         page: PncSearchPage,
         icon: 'edospnc-pncTeam',
-        params: ''
       },
       {
         id: tabNavEnum.UPCOMING_FLIGHT_LIST_PAGE,
         title: this.translate.instant('GLOBAL.UPCOMING_FLIGHT'),
         page: UpcomingFlightListPage,
         icon: 'edospnc-upcomingFlight',
-        params: ''
       },
       {
         id: tabNavEnum.HELP_ASSET_LIST_PAGE,
         title: this.translate.instant('GLOBAL.HELP_CENTER'),
         page: HelpAssetListPage,
-        icon: 'edospnc-helpCenter',
-        params: this.roleParams
+        icon: 'edospnc-helpCenter'
       },
       {
         id: tabNavEnum.STATUTORY_CERTIFICATE_PAGE,
         title: this.translate.instant('GLOBAL.STATUTORY_CERTIFICATE'),
         page: StatutoryCertificatePage,
         icon: 'edospnc-statutoryCertificate',
-        params: this.matriculeParams
       },
       {
         id: tabNavEnum.PROFESSIONAL_LEVEL_PAGE,
         title: this.translate.instant('GLOBAL.PROFESSIONAL_LEVEL'),
         page: ProfessionalLevelPage,
         icon: 'md-briefcase',
-        params: ''
       }
     ];
   }
 
   /**
-   * Permet de mettre à jour les permissions de façon dynamique
+   * Met à jour les permissions de façon dynamique
    */
-  changePermissions() {
+  updatePermissions() {
     this.tabsNav[this.tabNavService.findTabIndex(tabNavEnum.PNC_HOME_PAGE)].display = true;
     this.tabsNav[this.tabNavService.findTabIndex(tabNavEnum.CAREER_OBJECTIVE_LIST_PAGE)].display = !this.securityProvider.isManager();
     this.tabsNav[this.tabNavService.findTabIndex(tabNavEnum.SUMMARY_SHEET_PAGE)].display = !this.securityProvider.isManager();

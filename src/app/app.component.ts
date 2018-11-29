@@ -180,7 +180,7 @@ export class EDossierPNC implements OnInit {
         }
 
         // Gestion de l'affichage du pinPad
-        if (!this.deviceService.isBrowser()) {
+        if (!this.deviceService.isBrowser() && !this.sessionService.impersonatedUser) {
           this.securityModalService.displayPinPad(PinPadTypeEnum.openingApp);
         }
 
