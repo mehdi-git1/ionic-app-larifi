@@ -5,7 +5,6 @@ import { PncModel } from '../../../core/models/pnc.model';
 import { SpecialityService } from '../../../core/services/speciality/speciality.service';
 import { StatutoryCertificatePage } from '../../../modules/statutory-certificate/pages/statutory-certificate/statutory-certificate.page';
 import { ProfessionalLevelPage } from '../../../modules/professional-level/pages/professional-level/professional-level.page';
-import { SummarySheetPage } from '../../../modules/summary-sheet/pages/summary-sheet/summary-sheet.page';
 import { PncSearchPage } from '../../../modules/pnc-team/pages/pnc-search/pnc-search.page';
 import { PncHomePage } from '../../../modules/home/pages/pnc-home/pnc-home.page';
 import { UpcomingFlightListPage } from '../../../modules/flight-activity/pages/upcoming-flight-list/upcoming-flight-list.page';
@@ -98,7 +97,7 @@ export class TabNavComponent {
       {
         id: tabNavEnum.SUMMARY_SHEET_PAGE,
         title: this.translate.instant('GLOBAL.PNC_SUMMARY_SHEET'),
-        page: SummarySheetPage,
+        page: '',
         icon: 'edospnc-summarySheet',
         params: this.matriculeParams
       },
@@ -160,5 +159,9 @@ export class TabNavComponent {
    */
   tabChange(event) {
     this.events.publish('changeTab', { pageName: event.root.name, pageParams: event.rootParams });
+  }
+
+  clickChange() {
+    alert('plop');
   }
 }
