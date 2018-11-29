@@ -13,7 +13,7 @@ export class VersionService {
      * Récupère le numéro de version du back
      * @return le numéro de version du back
      */
-    getbackVersion(): Promise<string> {
-        return this.restService.get(this.config.backEndVersionUrl);
+    getBackVersion(): Promise<string> {
+        return this.restService.get(this.config.versionFileUrl);
     }
 }

@@ -155,8 +155,11 @@ export class SettingsPage {
     this.navCtrl.push(AdminHomePage);
   }
 
+  /**
+   * Renvoie la version du front et du back en mode ipad, et seulement la version du back en mode Web
+   */
   getFrontAndBackVersion() {
-    this.versionVersion.getbackVersion().then(versionJson => {
+    this.versionVersion.getBackVersion().then(versionJson => {
       this.backVersion = versionJson['appVersion'];
       if (this.isApp) {
         this.appVersion.getVersionNumber().then(version => this.frontVersion = version);

@@ -1,11 +1,12 @@
 
 export abstract class BaseEnvironment {
   public appVersion = '';
-  public backEndUrl = '/api/rest/resources';
-  public backEndVersionUrl = '/api/version.json';
+  public contextRoot = '/api/';
+  public backEndUrl = `${this.contextRoot}rest/resources`;
   public secmobileEnv = 'rct';
   public appName = 'EDossierPnc';
   public env = 'localhost';
+  public versionFileUrl = `${this.contextRoot}version.json`;
 
   public eObsUrl = 'com.airfrance.mobile.inhouse.eformstrainingdevPNC';
   public eObsCallbackUrl = 'com.airfrance.mobile.inhouse.edospncDEV';
