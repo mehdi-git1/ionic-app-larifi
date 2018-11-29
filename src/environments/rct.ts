@@ -14,6 +14,8 @@ export class Config extends BaseEnvironment {
             this.contextRoot = 'https://edospnc-api-rct.airfrance.fr/api/';
         }
 
+        this.backEndUrl = `${this.contextRoot}rest/resources`;
+        this.versionFileUrl = `${this.contextRoot}version.json`;
         this.env = 'rct';
         this.secmobileEnv = 'rct';
         this.eObsUrl = 'com.airfrance.mobile.inhouse.eformsrctPNC';
