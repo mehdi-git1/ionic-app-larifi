@@ -53,7 +53,7 @@ export class SecurityServer extends BaseService {
    * @return une promesse contenant le user connecté
    */
   getAuthenticatedUser(): Promise<AuthenticatedUserModel> {
-    return this.execFunctionProvider('getAuthenticatedUser');
+    return this.execFunctionService('getAuthenticatedUser');
   }
 
   /**
@@ -61,7 +61,7 @@ export class SecurityServer extends BaseService {
    * @return une promesse contenant un void
    */
   setAuthenticatedSecurityValue(authenticatedUser: AuthenticatedUserModel): void | Promise<void> {
-    return this.execFunctionProvider('setAuthenticatedSecurityValue', authenticatedUser);
+    return this.execFunctionService('setAuthenticatedSecurityValue', authenticatedUser);
   }
 
   /**

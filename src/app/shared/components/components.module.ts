@@ -20,7 +20,7 @@ import { SecretQuestionModalComponent } from './modals/secret-question-modal/sec
 import { TabNavComponent } from './tab-nav/tab-nav.component';
 import { NoDataComponent } from './no-data/no-data.component';
 import { DirectivesModule } from '../directives/directives.module';
-import {SharedModule} from '../shared.module';
+import { SharedModule } from '../shared.module';
 
 
 @NgModule({

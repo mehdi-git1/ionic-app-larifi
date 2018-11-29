@@ -1,3 +1,4 @@
+import { SessionService } from './../../../../core/services/session/session.service';
 import { Utils } from '../../../../shared/utils/utils';
 import { Component } from '@angular/core';
 import { NavParams, IonicPage } from 'ionic-angular';
@@ -11,11 +12,14 @@ import { SummarySheetService } from '../../../../core/services/summary-sheet/sum
 
 export class SummarySheetPage {
 
-    public previewSrc: string;
+    matricule: string;
+
+    previewSrc: string;
 
     constructor(
-        public navParams: NavParams,
-        private summarySheetProvider: SummarySheetService) {
+        private navParams: NavParams,
+        private summarySheetProvider: SummarySheetService,
+        private sessionService: SessionService) {
     }
 
     ionViewDidEnter() {
@@ -26,8 +30,12 @@ export class SummarySheetPage {
      * Initialisation du contenu de la page.
      */
     initPage() {
-        const matricule = this.navParams.get('matricule');
-        this.summarySheetProvider.getSummarySheet(matricule).then(summarySheet => {
+        if (this.navParams.get('matricule')) {
+            this.matricule = this.navParams.get('matricule');
+        } else if (this.sessionService.getActiveUser()) {
+            this.matricule = this.sessionService.getActiveUser().matricule;
+        }
+        this.summarySheetProvider.getSummarySheet(this.matricule).then(summarySheet => {
             try {
                 if (summarySheet && summarySheet.summarySheet) {
                     const file = new Blob([Utils.base64ToArrayBuffer(summarySheet.summarySheet)], { type: 'application/pdf' });

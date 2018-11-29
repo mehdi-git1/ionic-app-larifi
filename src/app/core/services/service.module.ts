@@ -8,7 +8,7 @@ import { TransformerService } from './transformer/transformer.service';
 import { SessionService } from './session/session.service';
 import { AppInitService } from './app-init/app-init.service';
 import { PncService } from './pnc/pnc.service';
-import { CareerObjectiveProvider } from './career-objective/career-objective.service';
+import { CareerObjectiveService } from './career-objective/career-objective.service';
 import { GenderService } from './gender/gender.service';
 import { ToastService } from './toast/toast.service';
 import { CareerObjectiveStatusService } from './career-objective-status/career-objective-status.service';
@@ -78,7 +78,7 @@ import { EObservationService } from './e-observation/e-observation.service';
     TransformerService,
     AppInitService,
     PncService,
-    CareerObjectiveProvider,
+    CareerObjectiveService,
     GenderService,
     ToastService,
     CareerObjectiveStatusService,

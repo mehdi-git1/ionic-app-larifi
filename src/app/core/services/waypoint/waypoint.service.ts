@@ -43,7 +43,7 @@ export class WaypointService extends BaseService {
     waypoint.lastUpdateAuthor.matricule = this.sessionService.getActiveUser().matricule;
     waypoint.lastUpdateDate = this.dateTransformer.transformDateToIso8601Format(new Date());
 
-    return this.execFunctionProvider('createOrUpdate', waypoint, careerObjectiveId);
+    return this.execFunctionService('createOrUpdate', waypoint, careerObjectiveId);
   }
 
   /**
@@ -52,7 +52,7 @@ export class WaypointService extends BaseService {
   * @return les points d'étape récupérés
   */
   getCareerObjectiveWaypoints(careerObjectiveId: number): Promise<WaypointModel[]> {
-    return this.execFunctionProvider('getCareerObjectiveWaypoints', careerObjectiveId);
+    return this.execFunctionService('getCareerObjectiveWaypoints', careerObjectiveId);
   }
 
   /**
@@ -61,7 +61,7 @@ export class WaypointService extends BaseService {
   * @return le point d'étape récupéré
   */
   getWaypoint(id: number): Promise<WaypointModel> {
-    return this.execFunctionProvider('getWaypoint', id);
+    return this.execFunctionService('getWaypoint', id);
   }
 
   /**
@@ -70,7 +70,7 @@ export class WaypointService extends BaseService {
   * @return le point d'étape supprimé
   */
   delete(id: number): Promise<WaypointModel> {
-    return this.execFunctionProvider('delete', id);
+    return this.execFunctionService('delete', id);
   }
 
 }

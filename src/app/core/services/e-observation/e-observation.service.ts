@@ -28,7 +28,7 @@ export class EObservationService extends BaseService {
   * @return les informations du PNC
   */
   getEObservation(matricule: string, rotationId: number): Promise<EObservationModel> {
-    return this.execFunctionProvider('getEObservation', matricule, rotationId);
+    return this.execFunctionService('getEObservation', matricule, rotationId);
   }
 
 }

@@ -4,7 +4,7 @@ import { CareerObjectiveTransformerService } from '../../../core/services/career
 import { StorageService } from '../../../core/storage/storage.service';
 import { EntityEnum } from '../../../core/enums/entity.enum';
 import { WaypointService } from '../../../core/services/waypoint/waypoint.service';
-import { CareerObjectiveProvider } from '../../../core/services/career-objective/career-objective.service';
+import { CareerObjectiveService } from '../../../core/services/career-objective/career-objective.service';
 import { LegService } from '../../../core/services/leg/leg.service';
 import { RotationService } from '../../../core/services/rotation/rotation.service';
 import { WaypointModel } from '../../../core/models/waypoint.model';

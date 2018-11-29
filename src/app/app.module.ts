@@ -5,9 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { File } from '@ionic-native/file';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
-import { PdfViewerModule } from 'ng2-pdf-viewer';
 
 import { SimpleNotificationsModule } from 'angular2-notifications';
 
@@ -57,7 +55,6 @@ import { UrlConfiguration } from './core/configuration/url.configuration';
     ServiceModule,
     StorageModule,
     BrowserAnimationsModule,
-    PdfViewerModule,
     SimpleNotificationsModule.forRoot({ position: ['top', 'right'] })
   ],
   bootstrap: [IonicApp],
@@ -73,8 +70,7 @@ import { UrlConfiguration } from './core/configuration/url.configuration';
     Config,
     UrlConfiguration,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
-    InAppBrowser,
-    File,
+    InAppBrowser
   ]
 })
 export class AppModule { }
