@@ -1,7 +1,12 @@
+import { Injectable } from '@angular/core';
 import { urlGroupEnum } from './urlGroup.enum';
+import { Config } from '../../../environments/config';
 
-
+@Injectable()
 export class UrlConfiguration {
+
+  constructor(private config: Config) {
+  }
 
   public backEndUrlList: {} = {
     'careerObjectives': urlGroupEnum.CAREER_OBJECTIVE,
@@ -53,7 +58,7 @@ export class UrlConfiguration {
     for (let i = 0; i < params.length; i++) {
       urlToModify = urlToModify.replace(regexToReplace, params[i]);
     }
-    return urlToModify;
+    return `${this.config.backEndUrl}/${urlToModify}`;
   }
 
 }
