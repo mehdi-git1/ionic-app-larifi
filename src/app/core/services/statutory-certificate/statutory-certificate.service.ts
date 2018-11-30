@@ -26,6 +26,6 @@ export class StatutoryCertificateService extends BaseService {
    * @return l'attestation réglementaire du PNC
    */
   getStatutoryCertificate(matricule: string): Promise<StatutoryCertificateModel> {
-    return this.execFunctionProvider('getStatutoryCertificate', matricule);
+    return this.execFunctionService('getStatutoryCertificate', matricule);
   }
 }

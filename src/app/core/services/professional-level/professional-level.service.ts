@@ -27,7 +27,7 @@ export class ProfessionalLevelService extends BaseService {
    * @return le suivi réglementaire du PNC
    */
   getProfessionalLevel(matricule: string): Promise<ProfessionalLevelModel> {
-    return this.execFunctionProvider('getProfessionalLevel', matricule);
+    return this.execFunctionService('getProfessionalLevel', matricule);
   }
 
 }

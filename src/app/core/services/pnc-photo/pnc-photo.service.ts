@@ -26,7 +26,7 @@ export class PncPhotoService extends BaseService {
   * @return la photo du PNC
   */
   getPncPhoto(matricule: string): Promise<PncPhotoModel> {
-    return this.execFunctionProvider('getPncPhoto', matricule);
+    return this.execFunctionService('getPncPhoto', matricule);
   }
 
 }

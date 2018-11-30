@@ -377,6 +377,15 @@
             "CANCEL": "Annuler",
             "CONFIRM": "Confirmer"
         },
+        "REVOKE_CERTIFICATE": {
+            "BUTTON": "Révocation de certificat"
+        },
+        "CONFIRM_REVOKE_CERTIFICATE": {
+            "TITLE": "Révocation de certificat",
+            "MESSAGE": "Attention. Êtes-vous sûr de vouloir révoquer votre certificat ?",
+            "CANCEL": "Annuler",
+            "CONFIRM": "Confirmer"
+        },
         "IMPERSONATE_USER": {
             "LABEL": "Impersonnifier un utilisateur",
             "FIRST_NAV_TAB_IS_MANDATORY": "Vous devez vous placer sur votre page d'accueil pour pouvoir utiliser l'impersonnification"
