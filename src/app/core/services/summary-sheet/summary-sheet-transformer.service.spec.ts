@@ -1,3 +1,4 @@
+import { SummarySheetModel } from './../../models/summary.sheet.model';
 import { SummarySheetTransformerService } from './summary-sheet-transformer.service';
 
 describe('SummarySheetTransformer Service', () => {
@@ -12,8 +13,10 @@ describe('SummarySheetTransformer Service', () => {
 
     describe('toSummarySheetFile', () => {
 
-        it(`doit retourner un URL au format 'blob:http://localhost:'  `, () => {
-            const src = summarySheetTransformerService.toSummarySheetFile({ summarySheet: base64PDF });
+        it(`doit retourner une URL au format 'blob:http://localhost:'  `, () => {
+            const summaryTmp = new SummarySheetModel();
+            summaryTmp.summarySheet = base64PDF;
+            const src = summarySheetTransformerService.toSummarySheetFile(summaryTmp);
             expect(src).toContain('blob:http://localhost:');
         });
 
