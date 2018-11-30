@@ -26,8 +26,9 @@ describe('RestWebService', () => {
 
         let URL = '';
         let config;
-        config = new UrlConfiguration();
         const env = new Config();
+        config = new UrlConfiguration(env);
+
         console.log(env.env);
         if (env.env === 'localhost') {
             env.backEndUrl = 'http://localhost:8080/api/rest/resources';

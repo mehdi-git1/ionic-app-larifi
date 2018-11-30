@@ -8,7 +8,6 @@ declare var window: any;
 export class Config extends BaseEnvironment {
     constructor() {
         super();
-        this.appVersion = '1';
 
         if (undefined !== window.cordova && 'browser' !== window.cordova.platformId) {
             this.contextRoot = 'https://edospnc-api-rct.airfrance.fr/api/';

@@ -58,7 +58,7 @@ export class UrlConfiguration {
     for (let i = 0; i < params.length; i++) {
       urlToModify = urlToModify.replace(regexToReplace, params[i]);
     }
-    return this.config.backEndUrl + '/' + urlToModify;
+    return `${this.config.backEndUrl}/${urlToModify}`;
   }
 
 }
