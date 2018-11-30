@@ -85,7 +85,7 @@ describe('SettingsPage', () => {
 
     });
 
-    describe('Version front', () => {
+    describe('getFrontAndBackVersion', () => {
         beforeEach(() => {
             expect(comp).toBeDefined();
             comp.isApp = true;
