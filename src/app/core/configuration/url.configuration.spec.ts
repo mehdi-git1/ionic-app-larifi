@@ -2,9 +2,6 @@ import { UrlConfiguration } from './url.configuration';
 import { urlGroupEnum } from './urlGroup.enum';
 import { Config } from '../../../environments/config';
 
-// const ConfigMock = jasmine.createSpyObj('ConfigMock', ['backEndUrl']);
-// ConfigMock.backEndUrl.and.returnValue('');
-
 describe('Configuration/url.configuration.ts', () => {
 
     let urlConfiguration: UrlConfiguration;
