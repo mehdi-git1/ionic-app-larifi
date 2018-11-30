@@ -24,7 +24,6 @@ const SecurityProviderMock = jasmine.createSpyObj('SecurityProviderMock', ['']);
 const SessionServiceMock = jasmine.createSpyObj('SessionServiceMock', ['']);
 
 const SummarySheetServiceMock = jasmine.createSpyObj('SummarySheetServiceMock', ['getSummarySheet']);
-// SummarySheetServiceMock.getSummarySheet.and.returnValue(Promise(resolve => return true));
 
 describe('tab-nav component', () => {
 

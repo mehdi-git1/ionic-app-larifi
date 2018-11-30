@@ -7,7 +7,6 @@ import { HelpAssetModel } from '../../../../core/models/help-asset.model';
 import { PncRoleEnum } from '../../../../core/enums/pnc-role.enum';
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
-import { HttpClient } from '@angular/common/http';
 import { FileTypeEnum } from '../../../../core/enums/file-type.enum';
 
 @Component({
@@ -28,7 +27,6 @@ export class HelpAssetListPage {
         private deviceService: DeviceService,
         private helpAssetProvider: HelpAssetService,
         private connectivityService: ConnectivityService,
-        public httpClient: HttpClient,
         private fileService: FileService
     ) {
         this.fileTypeEnum = FileTypeEnum;

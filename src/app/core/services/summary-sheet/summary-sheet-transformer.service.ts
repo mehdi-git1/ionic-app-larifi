@@ -24,8 +24,8 @@ export class SummarySheetTransformerService {
   }
 
   /**
-   * transforme une summarySheet en url de type blob
-   * @param summarySheet Summary sheet à transformer
+   * Transforme une summarySheet en url de type blob
+   * @param summarySheet fiche synthèse à transformer
    */
   toSummarySheetFile(summarySheet: SummarySheetModel): string {
     let previewSrc;

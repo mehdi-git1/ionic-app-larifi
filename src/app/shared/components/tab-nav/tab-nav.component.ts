@@ -166,14 +166,13 @@ export class TabNavComponent {
    */
   tabChange(event) {
     if (event.tabTitle === this.translate.instant('GLOBAL.PNC_SUMMARY_SHEET')) {
-      console.log(event.tabTitle);
       this.summarySheetDisplay();
     }
     this.events.publish('changeTab', { pageName: event.root.name, pageParams: event.rootParams });
   }
 
   /**
-   * affichage de la summarySheet
+   * Affiche de la fiche synthèse
    */
   summarySheetDisplay() {
     this.summarySheetService.getSummarySheet(this.pnc.matricule).then(summarySheet => {
