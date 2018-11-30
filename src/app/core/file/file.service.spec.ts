@@ -17,12 +17,12 @@ describe('file Service', () => {
             expect(htmlServiceMock.displayHTML).toHaveBeenCalled();
         });
 
-        it('doit appeler la fonction displayHTML si souhaite affficher une URL', () => {
+        it('doit appeler la fonction displayHTML si on doit afficher une URL', () => {
             fileService.displayFile(FileTypeEnum.URL, '');
             expect(htmlServiceMock.displayHTML).toHaveBeenCalled();
         });
 
-        it('doit appeler la fonction displayPDF si souhaite affficher un fichier PDF', () => {
+        it('doit appeler la fonction displayPDF si on doit afficher un fichier PDF', () => {
             deviceServiceMock.isBrowser.and.returnValue(false);
             fileService.displayFile(FileTypeEnum.PDF, '');
             expect(pdfServiceMock.displayPDF).toHaveBeenCalled();

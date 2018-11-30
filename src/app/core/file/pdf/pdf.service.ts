@@ -13,15 +13,15 @@ export class PdfService {
     }
 
     /**
-    * Ouvre une fenetre de navigation avec l'url conçernée
-    * @param url  : url de la fiche synthése concernée
+    * Ouvre le fichier PDF dans un lecteur PDF avec l'url concernée
+    * @param url  : url de la fiche synthèse concernée
     */
     displayPDF(url) {
 
         const rep = this.file.dataDirectory;
-        // Si on récupére un fichier PDF sur l'iPad, il faut le recréer hors des assets
+        // Si on récupère un fichier PDF sur l'iPad, il faut le recréer hors des assets
         // Pour ne pas avoir une URL en localhost, il faut créer un fichier directement sur l'IPAD
-        // Il y'a des problémes CORS avec les fichiers en localhost://
+        // Il y'a des problèmes CORS avec les fichiers en localhost://
         this.file.createDir(rep, 'edossier', true).then(
             createDirReturn => {
                 this.file.createFile(rep + '/edossier', 'pdfToDisplay.pdf', true).then(

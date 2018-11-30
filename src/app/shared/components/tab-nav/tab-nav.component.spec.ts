@@ -72,7 +72,7 @@ describe('tab-nav component', () => {
                     data: 'testData'
                 }
             };
-            spyOn(comp, 'clickChange');
+            spyOn(comp, 'summarySheetDisplay');
             comp.pnc.matricule = 't447744';
         });
 
@@ -91,17 +91,17 @@ describe('tab-nav component', () => {
             comp.tabChange(event);
         });
 
-        it(`doit activer l'affichage de la fiche synthése si on clic sur fiche synthése`, () => {
+        it(`doit activer l'affichage de la fiche synthèse si on clic sur fiche synthèse`, () => {
             event.tabTitle = 'GLOBAL.PNC_SUMMARY_SHEET';
             comp.tabChange(event);
-            expect(comp.clickChange).toHaveBeenCalled();
+            expect(comp.summarySheetDisplay).toHaveBeenCalled();
         });
 
 
-        it(`ne doit pas activer l'affichage de la fiche synthése si on clic sur l'effectif PNC`, () => {
+        it(`ne doit pas activer l'affichage de la fiche synthèse si on clic sur l'effectif PNC`, () => {
             event.tabTitle = 'GLOBAL.PNC_TEAM';
             comp.tabChange(event);
-            expect(comp.clickChange).not.toHaveBeenCalled();
+            expect(comp.summarySheetDisplay).not.toHaveBeenCalled();
         });
 
 

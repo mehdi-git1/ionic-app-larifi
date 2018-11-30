@@ -14,6 +14,11 @@ export class FileService {
         private deviceService: DeviceService) {
     }
 
+    /**
+     * Affiche un fichier en fonction de son type
+     * @param type Type de fichier a afficher
+     * @param url url du fichier à afficher
+     */
     displayFile(type, url) {
         if (this.deviceService.isBrowser() || type === FileTypeEnum.URL) {
             this.htmlService.displayHTML(url);

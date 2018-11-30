@@ -23,7 +23,11 @@ export class SummarySheetTransformerService {
       new SummarySheetModel().fromJSON(object);
   }
 
-  toSummarySheetFile(summarySheet: any): string {
+  /**
+   * transforme une summarySheet en url de type blob
+   * @param summarySheet Summary sheet à transformer
+   */
+  toSummarySheetFile(summarySheet: SummarySheetModel): string {
     let previewSrc;
     try {
       if (summarySheet && summarySheet.summarySheet) {

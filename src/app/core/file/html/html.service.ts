@@ -9,8 +9,8 @@ export class HtmlService {
     }
 
     /**
-    * Ouvre une fenetre de navigation avec l'url conçernée
-    * @param url  : url de la fiche synthése concernée
+    * Ouvre une fenêtre de navigation avec l'url concernée
+    * @param url  : url de la fiche synthèse concernée
     */
     displayHTML(url) {
         this.inAppBrowser.create(url, '_system', '');
