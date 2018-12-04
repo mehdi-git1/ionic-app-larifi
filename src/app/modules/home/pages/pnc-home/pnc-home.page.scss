@@ -46,10 +46,11 @@ page-pnc-home {
 
             button {
                 height: inherit;
-                font-size: 2.4vw;
+                font-size: 4vmin;
                 width: 100%;
                 height: 100%;
                 border-radius: 10px;
+                white-space: normal;
             }
         }
     }
