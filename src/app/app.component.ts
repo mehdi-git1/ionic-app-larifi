@@ -141,7 +141,6 @@ export class EDossierPNC implements OnInit {
       // Déclenchement d'une authentification
       this.events.subscribe('user:authenticated', () => {
         this.putAuthenticatedUserInSession().then(authenticatedUser => {
-          console.log(this.sessionService.getActiveUser());
           if (this.sessionService.getActiveUser().isPnc) {
             this.initUserData();
           }

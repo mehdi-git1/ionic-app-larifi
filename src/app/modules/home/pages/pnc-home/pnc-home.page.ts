@@ -208,4 +208,12 @@ export class PncHomePage {
         return this.matricule === (this.sessionService.getActiveUser() && this.sessionService.getActiveUser().matricule);
     }
 
+    /**
+     * Vérifie si le PNC est manager
+     * @return vrai si le PNC est manager, faux sinon
+     */
+    isManager(): boolean {
+        return this.pnc && this.pnc.speciality === SpecialityEnum.CAD;
+    }
+
 }
