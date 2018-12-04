@@ -56,10 +56,10 @@ export class OnlineWaypointService {
     for (const offlineData of offlineDataArray) {
       const result = onlineDataArray.filter(onlineData => offlineData.getStorageId() === onlineData.getStorageId());
       if (result && result.length === 1) {
-        if (!isUndefined(offlineData.offlineAction)) {
+        if (offlineData.offlineAction && !isUndefined(offlineData.offlineAction)) {
           onlineDataArray[onlineDataArray.indexOf(result[0])] = offlineData;
         }
-      } else {
+      } else if (offlineData.offlineAction && !isUndefined(offlineData.offlineAction)) {
         onlineDataArray.push(offlineData);
       }
     }
