@@ -12,63 +12,12 @@ export class OnlineEvaluationSheetService {
     }
 
     /**
-     * Récupère le niveau pro SV d'un PNC
-     * @param matricule le matricule du PNC dont on souhaite récupérer le niveau pro SV
-     * @return le niveau pro SV du PNC
+     * Récupère la fiche d'évaluation d'un module
+     * @param moduleId l'id du module dont on souhaite récupérer la fiche d'évaluation
+     * @return la fiche d'évaluation du module
      */
-    getProfessionalLevel(matricule: string): Promise<ProfessionalLevelModel> {
-        // return this.restService.get(`${this.config.backEndUrl}/statutory_reporting/${matricule}`);
-        return new Promise((resolve, reject) => {
-            const EvaluationSheet = new ProfessionalLevelModel();
-            // EvaluationSheet.stagesList = [{ date: new Date(), code: 'FPX', label: 'Formation CCP', result: '-' },
-            // { date: new Date(), code: 'FPX', label: 'Formation CCP', result: '-' },
-            // { date: new Date(), code: 'FPX', label: 'Formation CCP', result: '-' }];
-            resolve(EvaluationSheet);
-        });
-    }
 
-    getEvaluationSheet(module: string): Promise<EvaluationSheetModel> {
-        // return new Promise((resolve, reject) => {
-        //     const moduleData = {
-        //         techID: '7785',
-        //         stageCode: 'SM9',
-        //         name: 'Portes A340',
-        //         endDate: new Date(),
-        //         resultCode: 'failure',
-        //         resultText: 'ECHEC',
-        //         score: {
-        //             E1: '70%',
-        //             E2: '85%',
-        //             evaluationComment: 'Lorem ipsum sit amet, consectetuae adipiscong elit, sad diam nonummy mibh ausimdo',
-        //             FC: '90%',
-        //             FCComment: 'Lorem ipsum sit amet, consectetuae adipiscong elit, sad diam nonummy mibh ausimdo'
-        //         },
-        //         subModules: [{
-        //             title: 'Désarmement toboggan',
-        //             evaluations: [{
-        //                 text: 'Placer le sélecteur sur disarmed',
-        //                 types: { E1: '70%' }
-        //             },
-        //             {
-        //                 text: 'Insérer la goupille de sécurité',
-        //                 types: { E1: '70%', E2: '80%' }
-        //             }]
-        //         },
-        //         {
-        //             title: 'Ouverture en mode normal',
-        //             evaluations: [{
-        //                 text: 'Vérifier porte desarmée',
-        //                 types: { E1: '70%' }
-        //             },
-        //             {
-        //                 text: 'Vérifier la présence d\'un MAC',
-        //                 types: { E1: '70%', FC: '80%' }
-        //             }]
-        //         }
-        //         ]
-        //     };
-        //     resolve(moduleData);
-        // });
-        return this.restService.get(`${this.config.backEndUrl}/professional_levels/${module}`);
+    getEvaluationSheet(moduleId: number): Promise<any> {
+        return this.restService.get(`${this.config.backEndUrl}evaluations/${moduleId}`);
     }
 }

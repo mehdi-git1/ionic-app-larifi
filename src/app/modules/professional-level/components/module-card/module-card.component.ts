@@ -1,5 +1,7 @@
+import { NavController } from 'ionic-angular';
 import { Component, Input } from '@angular/core';
 import { ModuleModel } from '../../../../core/models/professional-level/module.model';
+import { EvaluationSheetPage } from '../../pages/professional-level/evaluation-sheet/evaluation-sheet.page';
 
 @Component({
   selector: 'module-card',
@@ -9,7 +11,7 @@ export class ModuleCardComponent {
 
   @Input() module: ModuleModel;
 
-  constructor() {
+  constructor(private navCtrl: NavController) {
   }
 
   /**
@@ -24,5 +26,9 @@ export class ModuleCardComponent {
       return 'red-point';
     }
     return '';
+  }
+
+  goToEvaluationSheetPage(module: ModuleModel) {
+    this.navCtrl.push(EvaluationSheetPage, { module: module });
   }
 }

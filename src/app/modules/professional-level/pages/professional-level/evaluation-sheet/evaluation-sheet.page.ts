@@ -1,16 +1,18 @@
+import { ModuleModel } from './../../../../../core/models/professional-level/module.model';
 import { EvaluationSheetService } from './../../../../../core/services/professional-level/evaluation-sheet/evaluation-sheet.service';
 import { EvaluationSheetModel } from './../../../../../core/models/professional-level/evaluation-sheet.model';
 import { NavParams } from 'ionic-angular';
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'page-statutory-reporting-practical-module',
-    templateUrl: 'practical-module.html',
+    selector: 'page-evaluation-sheet',
+    templateUrl: 'evaluation-sheet.page.html',
 })
 
 export class EvaluationSheetPage {
 
     evaluationSheetModel: EvaluationSheetModel;
+    module: ModuleModel;
     loading: boolean;
 
     constructor(
@@ -25,17 +27,25 @@ export class EvaluationSheetPage {
     }
 
     loadData() {
-        /*  if (this.navParams.get('module')) {
-      this.statutoryReportingProvider.getPracticalEvaluationSheet(this.navParams.get('module')).then(PracticalModuleData => {
-            this.moduleData = PracticalModuleData;
-            this.loading = false;
-      }, error => { });
-  };
-*/
-        this.evaluationSheetService.getEvaluationSheet('').then(EvaluationSheetData => {
-            this.evaluationSheetModel = EvaluationSheetData;
-            this.loading = false;
-        }, error => { });
+        this.module = this.navParams.get('module');
+        if (this.module) {
+            this.evaluationSheetService.getEvaluationSheet(this.module.techId).then(evaluations => {
+                this.evaluationSheetModel = new EvaluationSheetModel();
+                evaluations.forEach(evaluation => {
+                    this.evaluationSheetModel.module = evaluation.module;
+                    if (evaluation.type === 'E1') {
+                        this.evaluationSheetModel.evaluationE1 = evaluation;
+                        this.evaluationSheetModel.evaluationComment = evaluation.comment;
+                    } else if (evaluation.type === 'E2') {
+                        this.evaluationSheetModel.evaluationE2 = evaluation;
+                        this.evaluationSheetModel.evaluationComment = evaluation.comment;
+                    } else if (evaluation.type === 'FC') {
+                        this.evaluationSheetModel.fc = evaluation;
+                    }
+                });
+                this.loading = false;
+            }, error => { });
+        }
     }
-
 }
+

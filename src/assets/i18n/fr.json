@@ -267,6 +267,15 @@
             "SUCCESS_WITH_FC": "Réussi avec FC",
             "FAILED": "Echec"
         },
+        "EVALUATION_SHEET": {
+            "TITLE": "Feuille d'évaluation",
+            "SCORE_BLOC": {
+                "BLOC_1_TITLE": "Evaluation",
+                "E1_TEXT": "E1",
+                "E2_TEXT": "E2",
+                "BLOC_2_TITLE": "FC"
+            }
+        },
         "ERROR": "Erreur lors de la récupération du niveau pro pour le matricule {{ matricule }}",
         "NO_DATA": "Pas de données disponibles"
     },

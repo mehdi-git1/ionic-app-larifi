@@ -1,7 +1,7 @@
+import { EvaluationModel } from './../../../models/professional-level/evaluation.model';
 import { OfflineEvaluationSheetService } from './offline-evaluation-sheet.service';
 import { OnlineEvaluationSheetService } from './online-evaluation-sheet.service';
 import { OnlineEObservationService } from './../../e-observation/online-e-observation.service';
-import { EvaluationSheetModel } from './../../../models/professional-level/evaluation-sheet.model';
 import { ProfessionalLevelModel } from './../../../models/professional-level/professional-level.model';
 import { ConnectivityService } from './../../connectivity/connectivity.service';
 import { Injectable } from '@angular/core';
@@ -24,16 +24,12 @@ export class EvaluationSheetService extends BaseService {
     }
 
     /**
-     * Récupère le niveau pro SV d'un PNC
-     * @param matricule le matricule du PNC dont on souhaite récupérer le niveau pro SV
-     * @return le niveau pro SV du PNC
+     * Récupère la fiche d'évaluation d'un module
+     * @param moduleId l'id du module dont on souhaite récupérer la fiche d'évaluation
+     * @return la fiche d'évaluation du module
      */
-    getProfessionalLevel(matricule: string): Promise<ProfessionalLevelModel> {
-        return this.execFunctionService('getProfessionalLevel', matricule);
-    }
-
-    getEvaluationSheet(module: string): Promise<EvaluationSheetModel> {
-        return this.execFunctionService('getEvaluationSheet', module);
+    getEvaluationSheet(moduleId: number): Promise<EvaluationModel[]> {
+        return this.execFunctionService('getEvaluationSheet', moduleId);
     }
 
 }
