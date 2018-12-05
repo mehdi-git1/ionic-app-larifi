@@ -1,3 +1,4 @@
+import { VersionService } from './../../../../core/services/version/version.service';
 import { SecMobilService } from './../../../../core/http/secMobil.service';
 import { AuthenticationPage } from './../../../home/pages/authentication/authentication.page';
 import { AdminHomePage } from '../admin/home/admin-home.page';
@@ -12,6 +13,7 @@ import { StorageService } from '../../../../core/storage/storage.service';
 import { ConnectivityService } from '../../../../core/services/connectivity/connectivity.service';
 import { Component } from '@angular/core';
 import { NavController, Events, AlertController } from 'ionic-angular';
+import { AppVersion } from '@ionic-native/app-version';
 
 import { PinPadTypeEnum } from '../../../../core/enums/security/pin-pad-type.enum';
 import { SecretQuestionTypeEnum } from '../../../../core/enums/security/secret-question-type.enum';
@@ -29,6 +31,9 @@ export class SettingsPage {
   synchronizationInProgress: boolean;
   revokationInProgress: boolean;
 
+  frontVersion: string;
+  backVersion: string;
+
   isApp: boolean;
 
   constructor(
@@ -44,7 +49,9 @@ export class SettingsPage {
     private securityModalService: ModalSecurityService,
     private deviceService: DeviceService,
     private offlineSecurityProvider: OfflineSecurityService,
-    private secMobilService: SecMobilService
+    private secMobilService: SecMobilService,
+    private appVersion: AppVersion,
+    private versionService: VersionService
   ) {
     this.connected = this.connectivityService.isConnected();
 
@@ -179,6 +186,24 @@ export class SettingsPage {
    */
   goToAdminPage() {
     this.navCtrl.push(AdminHomePage);
+  }
+
+  /**
+   * Renvoie la version du front et du back en mode ipad, et seulement la version du back en mode Web
+   */
+  getFrontAndBackVersion() {
+    this.versionService.getBackVersion().then(versionJson => {
+      this.backVersion = versionJson['appVersion'];
+      if (this.isApp) {
+        this.appVersion.getVersionNumber().then(version => this.frontVersion = version);
+      } else {
+        this.frontVersion = this.backVersion;
+      }
+    }).catch(() => {
+      if (this.isApp) {
+        this.appVersion.getVersionNumber().then(version => this.frontVersion = version);
+      }
+    });
   }
 
 }
