@@ -54,7 +54,7 @@ export class TabNavComponent {
     private specialityService: SpecialityService
   ) {
     this.events.subscribe('user:authenticationDone', () => {
-      if (this.sessionService.getActiveUser()) {
+      if (this.sessionService.getActiveUser() && this.sessionService.getActiveUser().isPnc) {
         this.pncProvider.getPnc(this.sessionService.getActiveUser().matricule).then(pnc => {
           this.pnc = pnc;
           this.pncParams = this.pnc;
