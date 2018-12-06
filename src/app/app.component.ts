@@ -113,6 +113,7 @@ export class EDossierPNC implements OnInit {
                 this.connectivityService.setConnected(false);
                 this.connectivityService.startPingAPI();
                 this.getAuthenticatedUserFromCache();
+                this.events.publish('user:authenticated');
               } else if (this.deviceService.isBrowser()) {
                 this.nav.setRoot(GenericMessagePage, { message: this.translateService.instant('GLOBAL.MESSAGES.ERROR.SERVER_APPLICATION_UNAVAILABLE') });
               }
@@ -207,9 +208,6 @@ export class EDossierPNC implements OnInit {
   getAuthenticatedUserFromCache(): void {
     this.offlineSecurityProvider.getAuthenticatedUser().then(authenticatedUser => {
       this.sessionService.authenticatedUser = authenticatedUser;
-      if (!this.deviceService.isBrowser()) {
-        this.securityModalService.displayPinPad(PinPadTypeEnum.openingApp);
-      }
       this.nav.setRoot(PncHomePage, { matricule: this.sessionService.getActiveUser().matricule });
     }, err => {
       this.nav.setRoot(GenericMessagePage, { message: this.translateService.instant('GLOBAL.MESSAGES.ERROR.APPLICATION_NOT_INITIALIZED') });
