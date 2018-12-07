@@ -1,5 +1,5 @@
 import { Utils } from './../../../../shared/utils/utils';
-import { SecurityServer } from '../../../../core/services/security/security.server';
+import { SecurityService } from '../../../../core/services/security/security.service';
 import { AuthenticatedUserModel } from '../../../../core/models/authenticated-user.model';
 import { SessionService } from '../../../../core/services/session/session.service';
 import { PncService } from '../../../../core/services/pnc/pnc.service';
@@ -29,7 +29,7 @@ export class ImpersonatePage {
   constructor(private navCtrl: NavController,
     private formBuilder: FormBuilder,
     private pncProvider: PncService,
-    private securityProvider: SecurityServer,
+    private securityProvider: SecurityService,
     private events: Events,
     public sessionService: SessionService
   ) {

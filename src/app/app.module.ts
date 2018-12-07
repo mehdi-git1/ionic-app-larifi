@@ -27,6 +27,7 @@ import { HttpModule } from './core/http/http.module';
 import { StorageModule } from './core/storage/storage.module';
 import { Config } from '../environments/config';
 import { UrlConfiguration } from './core/configuration/url.configuration';
+import { AuthenticationModule } from './core/authentication/authentication.module';
 
 
 @NgModule({
@@ -40,6 +41,7 @@ import { UrlConfiguration } from './core/configuration/url.configuration';
       backButtonText: ''
     }),
     HttpClientModule,
+    AuthenticationModule,
     DevelopmentProgramModule,
     HomeModule,
     FlightActivityModule,

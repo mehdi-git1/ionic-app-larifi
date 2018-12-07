@@ -7,7 +7,7 @@ import { OfflinePncService } from '../../../../core/services/pnc/offline-pnc.ser
 import { ConnectivityService } from '../../../../core/services/connectivity/connectivity.service';
 import { AppConstant } from '../../../../app.constant';
 import { WaypointStatusEnum } from '../../../../core/enums/waypoint.status.enum';
-import { SecurityServer } from '../../../../core/services/security/security.server';
+import { SecurityService } from '../../../../core/services/security/security.service';
 import { WaypointService } from '../../../../core/services/waypoint/waypoint.service';
 import { CareerObjectiveStatusService } from '../../../../core/services/career-objective-status/career-objective-status.service';
 import { ToastService } from '../../../../core/services/toast/toast.service';
@@ -67,7 +67,7 @@ export class CareerObjectiveCreatePage {
         private waypointService: WaypointService,
         private toastService: ToastService,
         public careerObjectiveStatusService: CareerObjectiveStatusService,
-        public securityService: SecurityServer,
+        public securityService: SecurityService,
         public loadingCtrl: LoadingController,
         private dateTransformer: DateTransform,
         private connectivityService: ConnectivityService,

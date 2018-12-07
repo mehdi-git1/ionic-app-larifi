@@ -18,7 +18,7 @@ import { SynchronizationService } from './core/services/synchronization/synchron
 import { ToastService } from './core/services/toast/toast.service';
 import { ConnectivityService } from './core/services/connectivity/connectivity.service';
 import { SessionService } from './core/services/session/session.service';
-import { SecurityServer } from './core/services/security/security.server';
+import { SecurityService } from './core/services/security/security.service';
 import { SecMobilService } from './core/http/secMobil.service';
 import { StorageService } from './core/storage/storage.service';
 import { ModalSecurityService } from './core/services/modal/modal-security.service';
@@ -49,7 +49,7 @@ export class EDossierPNC implements OnInit {
     private deviceService: DeviceService,
     private appInitService: AppInitService,
     private toastProvider: ToastService,
-    private securityProvider: SecurityServer,
+    private securityProvider: SecurityService,
     private synchronizationProvider: SynchronizationService,
     private offlineSecurityProvider: OfflineSecurityService,
     private app: App) {
@@ -112,7 +112,7 @@ export class EDossierPNC implements OnInit {
               if (this.deviceService.isOfflineModeAvailable()) {
                 this.connectivityService.setConnected(false);
                 this.connectivityService.startPingAPI();
-                this.getAuthenticatedUserFromCache();
+                //   this.getAuthenticatedUserFromCache();
               } else if (this.deviceService.isBrowser()) {
                 this.nav.setRoot(GenericMessagePage, { message: this.translateService.instant('GLOBAL.MESSAGES.ERROR.SERVER_APPLICATION_UNAVAILABLE') });
               }
@@ -140,13 +140,14 @@ export class EDossierPNC implements OnInit {
 
       // Déclenchement d'une authentification
       this.events.subscribe('user:authenticated', () => {
-        this.putAuthenticatedUserInSession().then(authenticatedUser => {
-          console.log(this.sessionService.getActiveUser());
-          if (this.sessionService.getActiveUser().isPnc) {
-            this.initUserData();
-          }
-          this.events.publish('user:authenticationDone');
-        });
+        /*  this.putAuthenticatedUserInSession().then(authenticatedUser => {
+            console.log(this.sessionService.getActiveUser());
+            if (this.sessionService.getActiveUser().isPnc) {
+              this.initUserData();
+            }
+            this.events.publish('user:authenticationDone');
+          });
+         */
       });
 
     });
@@ -166,54 +167,6 @@ export class EDossierPNC implements OnInit {
     }
   }
 
-  /**
-  * Mettre le pnc connecté en session
-  */
-  putAuthenticatedUserInSession(): Promise<AuthenticatedUserModel> {
-    const promise = this.securityProvider.getAuthenticatedUser();
-    promise.then(authenticatedUser => {
-      if (authenticatedUser) {
-        if (this.sessionService.impersonatedUser === null) {
-          this.sessionService.authenticatedUser = authenticatedUser;
-        } else {
-          this.sessionService.impersonatedUser = authenticatedUser;
-        }
 
-        // Gestion de l'affichage du pinPad
-        if (!this.deviceService.isBrowser() && !this.sessionService.impersonatedUser) {
-          this.securityModalService.displayPinPad(PinPadTypeEnum.openingApp);
-        }
 
-        if (this.securityProvider.isAdmin(authenticatedUser) && !authenticatedUser.isPnc && !this.sessionService.impersonatedUser) {
-          this.nav.setRoot(ImpersonatePage);
-        }
-        else {
-          this.nav.setRoot(PncHomePage, { matricule: this.sessionService.getActiveUser().matricule });
-        }
-      }
-      else {
-        this.nav.setRoot(AuthenticationPage);
-      }
-    }, error => {
-      this.connectivityService.setConnected(false);
-      this.getAuthenticatedUserFromCache();
-    });
-    return promise;
-  }
-
-  /**
-   * Recupère le  user connecté en cache et redirige vers la PncModel Home PageModel.
-   * Si il n'y est pas, on redirige vers une page d'erreur.
-   */
-  getAuthenticatedUserFromCache(): void {
-    this.offlineSecurityProvider.getAuthenticatedUser().then(authenticatedUser => {
-      this.sessionService.authenticatedUser = authenticatedUser;
-      if (!this.deviceService.isBrowser()) {
-        this.securityModalService.displayPinPad(PinPadTypeEnum.openingApp);
-      }
-      this.nav.setRoot(PncHomePage, { matricule: this.sessionService.getActiveUser().matricule });
-    }, err => {
-      this.nav.setRoot(GenericMessagePage, { message: this.translateService.instant('GLOBAL.MESSAGES.ERROR.APPLICATION_NOT_INITIALIZED') });
-    });
-  }
 }

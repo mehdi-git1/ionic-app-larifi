@@ -12,7 +12,7 @@ import { PinPadTypeEnum } from '../../../../core/enums/security/pin-pad-type.enu
 import { SynchronizationService } from '../../../../core/services/synchronization/synchronization.service';
 import { AuthenticatedUserModel } from '../../../../core/models/authenticated-user.model';
 import { SessionService } from '../../../../core/services/session/session.service';
-import { SecurityServer } from '../../../../core/services/security/security.server';
+import { SecurityService } from '../../../../core/services/security/security.service';
 
 @Component({
   selector: 'page-authentication',
@@ -26,7 +26,7 @@ export class AuthenticationPage {
 
   constructor(public navCtrl: NavController,
     private formBuilder: FormBuilder,
-    private securityProvider: SecurityServer,
+    private securityProvider: SecurityService,
     private sessionService: SessionService,
     private storageService: StorageService,
     private secMobilService: SecMobilService,
