@@ -1,3 +1,4 @@
+import { FileService } from './../../../../core/file/file.service';
 import { HelpAssetTypeEnum } from '../../../../core/enums/help-asset-type.enum';
 import { ConnectivityService } from '../../../../core/services/connectivity/connectivity.service';
 import { DeviceService } from '../../../../core/services/device/device.service';
@@ -6,9 +7,7 @@ import { HelpAssetModel } from '../../../../core/models/help-asset.model';
 import { PncRoleEnum } from '../../../../core/enums/pnc-role.enum';
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
-import { InAppBrowser } from '@ionic-native/in-app-browser';
-import { File } from '@ionic-native/file';
-import { HttpClient } from '@angular/common/http';
+import { FileTypeEnum } from '../../../../core/enums/file-type.enum';
 
 @Component({
     selector: 'page-help-asset-list',
@@ -19,6 +18,8 @@ export class HelpAssetListPage {
     localHelpAssets: HelpAssetModel[];
     remoteHelpAssets: HelpAssetModel[];
 
+    fileTypeEnum;
+
     pdfUrl: string;
 
     constructor(public navCtrl: NavController,
@@ -26,10 +27,9 @@ export class HelpAssetListPage {
         private deviceService: DeviceService,
         private helpAssetProvider: HelpAssetService,
         private connectivityService: ConnectivityService,
-        private inAppBrowser: InAppBrowser,
-        private file: File,
-        public httpClient: HttpClient
+        private fileService: FileService
     ) {
+        this.fileTypeEnum = FileTypeEnum;
         if (this.deviceService.isBrowser()) {
             this.pdfUrl = '../assets/pdf/helpAsset';
         } else {
@@ -68,30 +68,7 @@ export class HelpAssetListPage {
      * @param helpAsseturl la ressource d'aide concernée
      */
     displayHelpAsset(helpAsset: HelpAssetModel, type: string) {
-
-        if (type === 'url' || this.deviceService.isBrowser()) {
-            this.inAppBrowser.create(helpAsset.url, '_system', '');
-            return true;
-        }
-
-        const rep = this.file.dataDirectory;
-        // Si on récupére un fichier PDF sur l'iPad, il faut le recréer hors des assets
-        // Pour ne pas avoir une URL en localhost, il faut créer un fichier directement sur l'IPAD
-        // Il y'a des problémes CORS avec les fichiers en localhost://
-        this.file.createDir(rep, 'edossier', true).then(
-            createDirReturn => {
-                this.file.createFile(rep + '/edossier', 'pdfToDisplay.pdf', true).then(
-                    createFileReturn => {
-                        this.httpClient.get(helpAsset.url, { responseType: 'blob' }).subscribe(result => {
-                            this.file.writeExistingFile(rep + '/edossier', 'pdfToDisplay.pdf', result).then(
-                                writingFileReturn => {
-                                    this.inAppBrowser.create(rep + '/edossier/' + 'pdfToDisplay.pdf', '_blank', 'hideurlbar=no,location=no,toolbarposition=top'
-                                    );
-                                }
-                            );
-                        });
-                    });
-            });
+        this.fileService.displayFile(type, helpAsset.url);
     }
 
     /**

@@ -138,7 +138,7 @@ export class SecMobilService {
                                 let errorMessage = this.translateService.instant('GLOBAL.UNKNOWN_ERROR');
                                 err = Utils.fromStringToObject(err);
                                 if (err && !isUndefined(err.detailMessage) && err.label === 'BUSINESS_ERROR') {
-                                    errorMessage = err.error.detailMessage;
+                                    errorMessage = err.detailMessage;
                                 }
                                 this.toastProvider.error(errorMessage, 10000);
                             }, error => {
