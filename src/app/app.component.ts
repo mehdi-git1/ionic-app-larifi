@@ -153,19 +153,7 @@ export class EDossierPNC implements OnInit {
     });
   }
 
-  /**
-   * Initialise les données de l'utilisateur connecté (ses filtres, son cache etc)
-   */
-  initUserData(): void {
-    this.appInitService.initParameters();
-    if (this.deviceService.isOfflineModeAvailable()) {
-      this.synchronizationProvider.synchronizeOfflineData();
-      this.synchronizationProvider.storeEDossierOffline(this.sessionService.getActiveUser().matricule).then(successStore => {
-        this.events.publish('EDossierOffline:stored');
-      }, error => {
-      });
-    }
-  }
+
 
 
 
