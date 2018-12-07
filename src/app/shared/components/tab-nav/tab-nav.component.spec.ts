@@ -11,6 +11,10 @@ import { TabNavService } from '../../../core/services/tab-nav/tab-nav.service';
 import { SpecialityService } from '../../../core/services/speciality/speciality.service';
 import { SecurityServer } from '../../../core/services/security/security.server';
 import { SessionService } from '../../../core/services/session/session.service';
+import { SummarySheetService } from './../../../core/services/summary-sheet/summary-sheet.service';
+import { SummarySheetTransformerService } from '../../../core/services/summary-sheet/summary-sheet-transformer.service';
+import { FileService } from './../../../core/file/file.service';
+import { PncModel } from '../../../core/models/pnc.model';
 
 const PncProviderMock = jasmine.createSpyObj('PncProviderMock', ['getPnc']);
 PncProviderMock.getPnc.and.returnValue(of({}));
@@ -18,6 +22,8 @@ PncProviderMock.getPnc.and.returnValue(of({}));
 const SecurityProviderMock = jasmine.createSpyObj('SecurityProviderMock', ['']);
 
 const SessionServiceMock = jasmine.createSpyObj('SessionServiceMock', ['']);
+
+const SummarySheetServiceMock = jasmine.createSpyObj('SummarySheetServiceMock', ['getSummarySheet']);
 
 describe('tab-nav component', () => {
 
@@ -40,7 +46,10 @@ describe('tab-nav component', () => {
                 { provide: SessionService, useValue: SessionServiceMock },
                 { provide: SecurityServer, useValue: SecurityProviderMock },
                 { provide: PncService, useValue: PncProviderMock },
-                SpecialityService
+                SpecialityService,
+                { provide: SummarySheetService, useValue: SummarySheetServiceMock },
+                { provide: SummarySheetTransformerService },
+                { provide: FileService }
             ],
             schemas: [NO_ERRORS_SCHEMA]
         });
@@ -50,6 +59,7 @@ describe('tab-nav component', () => {
         comp.navCtrl = jasmine.createSpyObj('NavMock', ['setRoot']);
         comp.loading = false;
         EventsService = TestBed.get(Events);
+        comp.pnc = new PncModel();
     });
 
     describe('authenticationLogout', () => {
@@ -72,6 +82,8 @@ describe('tab-nav component', () => {
                     data: 'testData'
                 }
             };
+            spyOn(comp, 'summarySheetDisplay');
+            comp.pnc.matricule = 't447744';
         });
 
         it('doit changer la valeur du nom du pageName de l\'event changeTab', () => {
@@ -88,6 +100,21 @@ describe('tab-nav component', () => {
             });
             comp.tabChange(event);
         });
+
+        it(`doit activer l'affichage de la fiche synthèse si on clic sur fiche synthèse`, () => {
+            event.tabTitle = 'GLOBAL.PNC_SUMMARY_SHEET';
+            comp.tabChange(event);
+            expect(comp.summarySheetDisplay).toHaveBeenCalled();
+        });
+
+
+        it(`ne doit pas activer l'affichage de la fiche synthèse si on clic sur l'effectif PNC`, () => {
+            event.tabTitle = 'GLOBAL.PNC_TEAM';
+            comp.tabChange(event);
+            expect(comp.summarySheetDisplay).not.toHaveBeenCalled();
+        });
+
+
 
     });
 });
