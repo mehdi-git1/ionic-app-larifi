@@ -1,0 +1,54 @@
+rotation-card {
+    .rotation {
+        font-weight: bold;
+
+        ion-card-header {
+            display: flex;
+            cursor: pointer;
+            padding: 0 10px;
+
+            .rotation-panel {
+                display: flex;
+                flex: 1;
+                justify-content: space-around;
+            }
+
+            .rotation-infos {
+                display: flex;
+                flex: 1;
+                justify-content: start;
+                align-items: center;
+                padding: 10px;
+
+                .rotation-date {
+                    padding-right: 10px;
+                }
+
+                .rotation-number {
+                    padding-left: 10px;
+                }
+            }
+
+            .rotation-spinner {
+                display: flex;
+                flex: 1;
+                justify-content: center;
+                align-items: center;
+            }
+
+        }
+
+        ion-card-content {
+            max-height: 0;
+        }
+
+        ion-card-content.opened {
+            max-height: initial;
+        }
+
+        .card-content {
+            padding: 0;
+        }
+    }
+
+}

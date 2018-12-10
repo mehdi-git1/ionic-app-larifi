@@ -1,0 +1,60 @@
+page-pnc-home {
+
+    .grid {
+        height: 100%;
+    }
+
+    .pnc-info-panel {
+        display: flex;
+
+        .content {
+            display: flex;
+            flex-direction: column;
+
+            ion-row {
+                flex: 1;
+            }
+
+            .primary-info {
+                font-size: 1.4em;
+            }
+
+            .pnc-info {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .download-edossier {
+                display: flex;
+                justify-content: flex-end;
+                align-items: flex-end;
+            }
+        }
+    }
+
+    #nav-tile-grid {
+        flex: 1;
+
+        ion-col {
+            display: flex;
+            flex-wrap: wrap;
+            padding: 0;
+            margin: 0;
+
+            .button-parent {
+                width: 50%;
+                padding: 10px;
+
+                button {
+                    font-size: 4vmin;
+                    width: 100%;
+                    height: 100%;
+                    border-radius: 10px;
+                    white-space: normal;
+                }
+            }
+        }
+    }
+
+}

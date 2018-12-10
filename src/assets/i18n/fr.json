@@ -1,6 +1,11 @@
 {
     "GLOBAL": {
         "APP_NAME": "EDOSSIER PNC",
+        "APP_VERSION": {
+            "FRONT": "Version",
+            "BACK": "Version serveur"
+        },
+        "NO_DATA": "Pas de données disponibles",
         "PNC_ROLE": {
             "MANAGER": "Manager Coach",
             "PNC": "PNC"
@@ -237,8 +242,8 @@
             "START_DATE": "Depuis"
         },
         "MASTERING_QUALIFICATION": {
-            "SPECIALITY": "Compétence faisant fonction",
-            "START_DATE": "Depuis"
+            "STAGE": "Stage",
+            "SENIORITY_DATE": "Depuis"
         },
         "VAM": {
             "START_DATE": "Début",
@@ -246,8 +251,7 @@
         },
         "ERROR": {
             "STATUTORY_CERTIFICATE": "Erreur lors de la récupération de  l'attestation réglementaire pour le matricule {{ matricule }}"
-        },
-        "NO_DATA": "Pas de données disponibles"
+        }
     },
     "PROFESSIONAL_LEVEL": {
         "TITLE": "Niveau Pro",
@@ -255,9 +259,19 @@
             "DATE": "Date",
             "CODE": "Code",
             "LABEL": "Libellé",
-            "RESULT": "Résultat"
+            "RESULT": "Résultat",
+            "HELP": "Légende à venir"
         },
-        "ERROR": "Erreur lors de la récupération du suivi réglementaire pour le matricule {{ matricule }}",
+        "MODULE_TYPE": {
+            "PRACTICAL": "Pratique",
+            "THEORETICAL": "Théorique"
+        },
+        "MODULE_STATUS": {
+            "SUCCESS": "Réussi",
+            "SUCCESS_WITH_FC": "Réussi avec FC",
+            "FAILED": "Echec"
+        },
+        "ERROR": "Erreur lors de la récupération du niveau pro pour le matricule {{ matricule }}",
         "NO_DATA": "Pas de données disponibles"
     },
     "PNC_SEARCH": {
@@ -345,17 +359,20 @@
     "SETTINGS": {
         "TITLE": "Réglages",
         "INIT_CACHE": {
-            "BUTTON": "Vider le cache",
+            "LABEL": "Vider le cache",
             "SUCCESS": "Cache vidé avec succès"
         },
         "FORCE_SYNCHRONIZATION": {
-            "BUTTON": "Forcer la synchronisation"
+            "LABEL": "Forcer la synchronisation"
         },
         "CHANGE_PIN_CODE": {
-            "BUTTON": "Changer le code pin"
+            "LABEL": "Changer le code pin"
         },
         "CHANGE_SECRET_QUESTION": {
-            "BUTTON": "Changer la question secrète"
+            "LABEL": "Changer la question secrète"
+        },
+        "ADMIN_ACCESS": {
+            "BUTTON": "Accéder au mode admin"
         },
         "CONFIRM_INIT_CACHE": {
             "TITLE": "Vider le cache",
@@ -363,7 +380,33 @@
             "MESSAGE_UNSYNCHRONIZED_DATA": "Attention. Vider le cache peut entraîner la perte de données non synchronisées.",
             "CANCEL": "Annuler",
             "CONFIRM": "Confirmer"
+        },
+        "REVOKE_CERTIFICATE": {
+            "BUTTON": "Révocation de certificat"
+        },
+        "CONFIRM_REVOKE_CERTIFICATE": {
+            "TITLE": "Révocation de certificat",
+            "MESSAGE": "Attention. Êtes-vous sûr de vouloir révoquer votre certificat ?",
+            "CANCEL": "Annuler",
+            "CONFIRM": "Confirmer"
+        },
+        "IMPERSONATE_USER": {
+            "LABEL": "Impersonnifier un utilisateur",
+            "FIRST_NAV_TAB_IS_MANDATORY": "Vous devez vous placer sur votre page d'accueil pour pouvoir utiliser l'impersonnification"
+        }
+    },
+    "IMPERSONATE": {
+        "TITLE": "Sélection d'une identité PNC",
+        "SEARCH_PNC": "Matricule, nom, prénom",
+        "IMPERSONATED_USER": "Utilisateur impersonnifié",
+        "BUTTONS": {
+            "GET_MY_IDENTITY_BACK": "Récupérer mon identité"
+        }
+    },
+
+    "ADMIN": {
+        "HOME": {
+            "TITLE": "Page d'administration"
         }
     }
-
 }

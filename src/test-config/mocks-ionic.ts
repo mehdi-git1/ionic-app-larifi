@@ -1,5 +1,6 @@
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { of } from 'rxjs/observable/of';
 
 export class PlatformMock {
   public ready(): Promise<string> {
@@ -92,6 +93,10 @@ export class NavMock {
     });
   }
 
+  public get(id): any {
+    return id;
+  }
+
   public getActive(): any {
     return {
       'instance': {
@@ -111,3 +116,9 @@ export class NavMock {
 }
 
 export class DeepLinkerMock { }
+
+export class TranslateLoaderMock {
+  public get(key: any): any {
+    of(key);
+  }
+}
