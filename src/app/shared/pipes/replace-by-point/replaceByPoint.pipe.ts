@@ -7,7 +7,7 @@ export class ReplaceByPointPipe implements PipeTransform {
 
     transform(value) {
         let valueReturn = '';
-        if (typeof value !== 'undefined' && value !== '') {
+        if (value && typeof value !== 'undefined' && value !== '') {
             valueReturn = '<div class="selection-dot"></div>';
         }
         return valueReturn;

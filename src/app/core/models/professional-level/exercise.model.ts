@@ -1,9 +1,9 @@
 import { SubModuleModel } from './sub-module.model';
 export class ExerciseModel {
-    order: string;
+    order: number;
     eliminatory: boolean;
+    evaluationType: string;
     result: number;
     title: boolean;
     label: string;
-    subModule: SubModuleModel;
 }

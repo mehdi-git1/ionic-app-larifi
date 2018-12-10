@@ -9,9 +9,9 @@
 <ion-spinner *ngIf="loading"></ion-spinner>
 <ion-content *ngIf="!loading" padding class="evaluation-sheet">
     <ion-card class='title-bloc'>
-        <span class='first-text'>{{evaluationSheet.module?.stage?.code - evaluationSheet.module?.label}}</span>
-        <span class='date'>{{evaluationSheet.module?.endDate | date: 'dd/MM/yyyy'}}</span>
-        <span class='result' [ngClass]='module.resultCode'>{{evaluationSheet.module?.moduleResultStatus}}</span>
+        <span class='first-text'>{{evaluationSheet.stageCode}} - {{evaluationSheet.module.label}}</span>
+        <span class='date'>{{evaluationSheet.module.endDate | date: 'dd/MM/yyyy'}}</span>
+        <span class='result' [ngClass]='getCssClassForModuleStatus(module.moduleResultStatus)'>{{('PROFESSIONAL_LEVEL.MODULE_STATUS.' + evaluationSheet.module.moduleResultStatus) | translate}}</span>
     </ion-card>
     <ion-grid>
         <ion-row>
@@ -19,9 +19,9 @@
                 <ion-card class='score-bloc'>
                     <p>
                         <span class='score-bloc-title'> {{'PROFESSIONAL_LEVEL.EVALUATION_SHEET.SCORE_BLOC.BLOC_1_TITLE' | translate}} :</span>
-                        <span class='evaluationSheet.evaluationE1 && evaluationSheet.evaluationE1.score ? score-bloc-value : no-value'>{{evaluationSheet.evaluationE1.score}}
+                        <span *ngIf='evaluationSheet.e1Score' class='score-bloc-value'>{{evaluationSheet.e1Score}}
                             ( {{'PROFESSIONAL_LEVEL.EVALUATION_SHEET.SCORE_BLOC.E1_TEXT' | translate}} )</span>
-                        <span class='evaluationSheet.evaluationE2 && evaluationSheet.evaluationE2.score ? score-bloc-value : no-value'>{{evaluationSheet.evaluationE2.score}}
+                        <span *ngIf='evaluationSheet.e1Score' class='score-bloc-value'>{{evaluationSheet.e2Score}}
                             ( {{'PROFESSIONAL_LEVEL.EVALUATION_SHEET.SCORE_BLOC.E2_TEXT' | translate}} )</span>
                     </p>
                     <ion-grid>
@@ -30,17 +30,17 @@
                                 <ion-icon name="chatbubbles"></ion-icon>
                             </ion-col>
                             <ion-col col-10>
-                                <span class='evaluationSheet.evaluationComment ? score-bloc-comment : no-value'>{{ evaluationSheet.evaluationComment}}</span>
+                                <span class='evaluationSheet.evaluationComment ? score-bloc-comment : no-valuee'>{{ evaluationSheet.evaluationComment}}</span>
                             </ion-col>
                         </ion-row>
                     </ion-grid>
                 </ion-card>
             </ion-col>
-            <ion-col no-padding>
+            <ion-col no-padding *ngIf='evaluationSheet.fcScore'>
                 <ion-card class='score-bloc'>
                     <p>
                         <span class='score-bloc-title'> {{'PROFESSIONAL_LEVEL.EVALUATION_SHEET.SCORE_BLOC.BLOC_2_TITLE' | translate }} : </span>
-                        <span class='evaluationSheet.fc && evaluationSheet.fc.score ? score-bloc-value : no-value'>{{ evaluationSheet.fc.score }}</span>
+                        <span class='score-bloc-value'>{{ evaluationSheet.fcScore }}</span>
                     </p>
                     <ion-grid>
                         <ion-row>
@@ -48,7 +48,7 @@
                                 <ion-icon name="chatbubbles"></ion-icon>
                             </ion-col>
                             <ion-col col-10>
-                                <span class='evaluationSheet.fc && evaluationSheet.fc.comment ? score-bloc-comment : no-value'>{{ evaluationSheet.fc.comment}}</span>
+                                <span class='evaluationSheet.fcComment ? score-bloc-comment : no-value'>{{ evaluationSheet.fcComment}}</span>
                             </ion-col>
                         </ion-row>
                     </ion-grid>
@@ -66,21 +66,22 @@
         </ion-row>
     </ion-grid>
     <ion-grid class="data-display">
-        <div *ngFor="let subModule of evaluationSheet.subModules">
-            <ion-row class='ss-title-row'>
-                <ion-col col-8><span>subModule.label</span></ion-col>
+        <div *ngFor="let exercise of evaluationSheet.exercises">
+            <ion-row class='ss-title-row' *ngIf="exercise.title">
+                <ion-col col-8><span>{{ exercise.label }}</span></ion-col>
                 <ion-col col-1></ion-col>
                 <ion-col col-1></ion-col>
                 <ion-col col-1></ion-col>
                 <ion-col col-1></ion-col>
             </ion-row>
-            <ion-row class='data-row' *ngFor="let exercise of subModule.exercises">
-                <ion-col col-8><span>exercise.label</span></ion-col>
-                <ion-col col-1 [innerHTML]="subModule.evaluation.type === 'E1' | replaceByPoint"></ion-col>
-                <ion-col col-1 [innerHTML]="subModule.evaluation.type === 'E2' | replaceByPoint"></ion-col>
-                <ion-col col-1 [innerHTML]="subModule.evaluation.type === 'FC' | replaceByPoint"></ion-col>
-                <ion-col col-1 [innerHTML]="subModule.evaluation.type === 'NA' | replaceByPoint"></ion-col>
+            <ion-row class='data-row' *ngIf="!exercise.title">
+                <ion-col col-8><span>{{ exercise.label }}</span></ion-col>
+                <ion-col col-1 [innerHTML]="(exercise.evaluationType === 'E1' ? 'E1' : undefined) | replaceByPoint"></ion-col>
+                <ion-col col-1 [innerHTML]="(exercise.evaluationType === 'E2' ? 'E2' : undefined) | replaceByPoint"></ion-col>
+                <ion-col col-1 [innerHTML]="(exercise.evaluationType === 'FC' ? 'FC' : undefined) | replaceByPoint"></ion-col>
+                <ion-col col-1 [innerHTML]="(exercise.evaluationType === 'NA' ? 'NA' : undefined) | replaceByPoint"></ion-col>
             </ion-row>
         </div>
+
     </ion-grid>
 </ion-content>

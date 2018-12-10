@@ -11,7 +11,7 @@ import { Component } from '@angular/core';
 
 export class EvaluationSheetPage {
 
-    evaluationSheetModel: EvaluationSheetModel;
+    evaluationSheet: EvaluationSheetModel;
     module: ModuleModel;
     loading: boolean;
 
@@ -26,23 +26,25 @@ export class EvaluationSheetPage {
         this.loadData();
     }
 
+    /**
+     * Retourne la classe css du statut correspondant
+     */
+    getCssClassForModuleStatus(moduleResultStatus): string {
+        this.module = this.navParams.get('module');
+        if (moduleResultStatus === 'SUCCESS') {
+            return 'success';
+        } else if (moduleResultStatus === 'SUCCESS_WITH_FC') {
+            return 'notbad';
+        } else if (moduleResultStatus === 'FAILED') {
+            return 'failure';
+        }
+    }
+
     loadData() {
         this.module = this.navParams.get('module');
         if (this.module) {
-            this.evaluationSheetService.getEvaluationSheet(this.module.techId).then(evaluations => {
-                this.evaluationSheetModel = new EvaluationSheetModel();
-                evaluations.forEach(evaluation => {
-                    this.evaluationSheetModel.module = evaluation.module;
-                    if (evaluation.type === 'E1') {
-                        this.evaluationSheetModel.evaluationE1 = evaluation;
-                        this.evaluationSheetModel.evaluationComment = evaluation.comment;
-                    } else if (evaluation.type === 'E2') {
-                        this.evaluationSheetModel.evaluationE2 = evaluation;
-                        this.evaluationSheetModel.evaluationComment = evaluation.comment;
-                    } else if (evaluation.type === 'FC') {
-                        this.evaluationSheetModel.fc = evaluation;
-                    }
-                });
+            this.evaluationSheetService.getEvaluationSheet(this.module.techId).then(evaluationSheet => {
+                this.evaluationSheet = evaluationSheet;
                 this.loading = false;
             }, error => { });
         }

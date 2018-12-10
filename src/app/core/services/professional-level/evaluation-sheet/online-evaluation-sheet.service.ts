@@ -3,6 +3,7 @@ import { ProfessionalLevelModel } from './../../../models/professional-level/pro
 import { Injectable } from '@angular/core';
 import { RestService } from '../../../http/rest/rest.base.service';
 import { Config } from '../../../../../environments/config';
+import { EvaluationModel } from '../../../models/professional-level/evaluation.model';
 
 @Injectable()
 export class OnlineEvaluationSheetService {
@@ -17,7 +18,7 @@ export class OnlineEvaluationSheetService {
      * @return la fiche d'évaluation du module
      */
 
-    getEvaluationSheet(moduleId: number): Promise<any> {
-        return this.restService.get(`${this.config.backEndUrl}evaluations/${moduleId}`);
+    getEvaluationSheet(moduleId: number): Promise<EvaluationSheetModel> {
+        return this.restService.get(`${this.config.backEndUrl}/evaluations/${moduleId}`);
     }
 }

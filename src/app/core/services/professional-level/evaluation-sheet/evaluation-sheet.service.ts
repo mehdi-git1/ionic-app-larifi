@@ -1,3 +1,4 @@
+import { EvaluationSheetModel } from './../../../models/professional-level/evaluation-sheet.model';
 import { EvaluationModel } from './../../../models/professional-level/evaluation.model';
 import { OfflineEvaluationSheetService } from './offline-evaluation-sheet.service';
 import { OnlineEvaluationSheetService } from './online-evaluation-sheet.service';
@@ -28,7 +29,7 @@ export class EvaluationSheetService extends BaseService {
      * @param moduleId l'id du module dont on souhaite récupérer la fiche d'évaluation
      * @return la fiche d'évaluation du module
      */
-    getEvaluationSheet(moduleId: number): Promise<EvaluationModel[]> {
+    getEvaluationSheet(moduleId: number): Promise<EvaluationSheetModel> {
         return this.execFunctionService('getEvaluationSheet', moduleId);
     }
 

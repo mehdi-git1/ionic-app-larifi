@@ -18,11 +18,11 @@ export class ProfessionalLevelStageComponent {
       for (const stage of stages) {
         if (stage && stage.modules) {
           stage.modules = stage.modules.sort((module: ModuleModel, otherModule: ModuleModel) => {
-            return module.date > otherModule.date ? 1 : -1;
+            return module.endDate > otherModule.endDate ? 1 : -1;
           });
         }
       }
       this._stages = stages;
     }
   }
- }
+}
