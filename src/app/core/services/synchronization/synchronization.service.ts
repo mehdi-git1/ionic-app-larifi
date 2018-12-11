@@ -282,8 +282,11 @@ export class SynchronizationService {
     // Suppression de l'attestation réglementaire
     this.storageService.delete(EntityEnum.STATUTORY_CERTIFICATE, pnc.matricule);
 
-    // Suppression du suivi réglementaire
+    // Suppression du niveau pro SV
     this.storageService.delete(EntityEnum.PROFESSIONAL_LEVEL, pnc.matricule);
+
+    // Suppression des feuilles d'évaluation
+    this.storageService.deleteAll(EntityEnum.EVALUATION_SHEET);
   }
 
   /**

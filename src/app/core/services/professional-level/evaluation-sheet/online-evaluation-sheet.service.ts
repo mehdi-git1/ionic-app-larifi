@@ -19,6 +19,6 @@ export class OnlineEvaluationSheetService {
      */
 
     getEvaluationSheet(moduleId: number): Promise<EvaluationSheetModel> {
-        return this.restService.get(`${this.config.backEndUrl}/evaluations/${moduleId}`);
+        return this.restService.get(`${this.config.backEndUrl}/evaluation_sheets/${moduleId}`);
     }
 }
