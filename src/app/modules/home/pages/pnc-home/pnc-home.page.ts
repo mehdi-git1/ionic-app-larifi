@@ -1,13 +1,12 @@
-import { SummarySheetTransformerService } from './../../../../core/services/summary-sheet/summary-sheet-transformer.service';
 import { Component } from '@angular/core';
 import { NavController, NavParams, Events } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { TranslateService } from '@ngx-translate/core';
 
-
 import { tabNavEnum } from '../../../../core/enums/tab-nav.enum';
 import { TabNavService } from '../../../../core/services/tab-nav/tab-nav.service';
 import { ProfessionalLevelPage } from '../../../professional-level/pages/professional-level/professional-level.page';
+import { SummarySheetPage } from '../../../summary-sheet/pages/summary-sheet/summary-sheet.page';
 import { SynchronizationService } from '../../../../core/services/synchronization/synchronization.service';
 import { UpcomingFlightListPage } from '../../../flight-activity/pages/upcoming-flight-list/upcoming-flight-list.page';
 import { SessionService } from '../../../../core/services/session/session.service';
@@ -22,13 +21,8 @@ import { HelpAssetListPage } from '../../../help-asset/pages/help-asset-list/hel
 import { PncSearchPage } from '../../../pnc-team/pages/pnc-search/pnc-search.page';
 
 import { StatutoryCertificatePage } from '../../../statutory-certificate/pages/statutory-certificate/statutory-certificate.page';
-import { SpecialityEnum } from '../../../../core/enums/speciality.enum';
-import { SpecialityService } from '../../../../core/services/speciality/speciality.service';
-import { SummarySheetService } from '../../../../core/services/summary-sheet/summary-sheet.service';
-import { Utils } from '../../../../shared/utils/utils';
-import { FileService } from '../../../../core/file/file.service';
-import { FileTypeEnum } from '../../../../core/enums/file-type.enum';
-
+import {SpecialityEnum} from '../../../../core/enums/speciality.enum';
+import {SpecialityService} from '../../../../core/services/speciality/speciality.service';
 
 
 @Component({
@@ -47,27 +41,23 @@ export class PncHomePage {
 
     constructor(public navCtrl: NavController,
         public navParams: NavParams,
-        public genderService: GenderService,
-        private toastService: ToastService,
+        public genderProvider: GenderService,
+        private toastProvider: ToastService,
         private synchronizationProvider: SynchronizationService,
         public connectivityService: ConnectivityService,
         private sessionService: SessionService,
         public translateService: TranslateService,
-        private pncService: PncService,
+        private pncProvider: PncService,
         private events: Events,
         private statusBar: StatusBar,
         private tabNavService: TabNavService,
-        private specialityService: SpecialityService,
-        private summarySheetService: SummarySheetService,
-        private summarySheetTransformerService: SummarySheetTransformerService,
-        private fileService: FileService
-    ) {
+        private specialityService: SpecialityService) {
 
         this.statusBar.styleLightContent();
 
         this.events.subscribe('EDossierOffline:stored', () => {
             if (this.matricule != null) {
-                this.pncService.getPnc(this.matricule).then(pnc => {
+                this.pncProvider.getPnc(this.matricule).then(pnc => {
                     this.pnc = pnc;
                 }, error => {
                 });
@@ -89,9 +79,9 @@ export class PncHomePage {
             this.matricule = this.sessionService.getActiveUser().matricule;
         }
         if (this.matricule != null) {
-            this.pncService.getPnc(this.matricule).then(pnc => {
+            this.pncProvider.getPnc(this.matricule).then(pnc => {
                 this.pnc = pnc;
-                this.formatedSpeciality = this.pncService.getFormatedSpeciality(this.pnc);
+                this.formatedSpeciality = this.pncProvider.getFormatedSpeciality(this.pnc);
             }, error => {
             });
         }
@@ -122,6 +112,7 @@ export class PncHomePage {
     /**
      * Dirige vers la liste des prochains vols
      */
+
     goToUpcomingFlightList() {
         if (this.isMyHome()) {
             this.navCtrl.parent.select(this.tabNavService.findTabIndex(tabNavEnum.UPCOMING_FLIGHT_LIST_PAGE));
@@ -142,13 +133,14 @@ export class PncHomePage {
     }
 
     /**
-     * Affiche la fiche synthèse
+     * Dirige vers la fiche synthèse
      */
     goToSummarySheet() {
-        this.summarySheetService.getSummarySheet(this.matricule).then(summarySheet => {
-            this.fileService.displayFile(FileTypeEnum.PDF, this.summarySheetTransformerService.toSummarySheetFile(summarySheet));
-        }, error => {
-        });
+        if (this.isMyHome()) {
+            this.navCtrl.parent.select(this.tabNavService.findTabIndex(tabNavEnum.SUMMARY_SHEET_PAGE));
+        } else {
+            this.navCtrl.push(SummarySheetPage, { matricule: this.matricule });
+        }
     }
 
     /**
@@ -180,15 +172,15 @@ export class PncHomePage {
         this.synchroInProgress = true;
         this.synchronizationProvider.storeEDossierOffline(this.pnc.matricule).then(success => {
             // Appel au getPnc pour mise a jour de l'indicateur offLine
-            this.pncService.getPnc(this.matricule).then(pnc => {
+            this.pncProvider.getPnc(this.matricule).then(pnc => {
                 this.pnc = pnc;
             }, error => {
             });
             this.synchroInProgress = false;
-            this.toastService.info(this.translateService.instant('SYNCHRONIZATION.PNC_SAVED_OFFLINE', { 'matricule': this.pnc.matricule }));
+            this.toastProvider.info(this.translateService.instant('SYNCHRONIZATION.PNC_SAVED_OFFLINE', { 'matricule': this.pnc.matricule }));
         }, error => {
             this.synchroInProgress = false;
-            this.toastService.error(this.translateService.instant('SYNCHRONIZATION.PNC_SAVED_OFFLINE_ERROR', { 'matricule': this.pnc.matricule }));
+            this.toastProvider.error(this.translateService.instant('SYNCHRONIZATION.PNC_SAVED_OFFLINE_ERROR', { 'matricule': this.pnc.matricule }));
         });
     }
 
@@ -206,14 +198,6 @@ export class PncHomePage {
      */
     isMyHome(): boolean {
         return this.sessionService.isActiveUser(this.pnc);
-    }
-
-    /**
-     * Vérifie si le PNC est manager
-     * @return vrai si le PNC est manager, faux sinon
-     */
-    isManager(): boolean {
-        return this.pnc && this.pnc.speciality === SpecialityEnum.CAD;
     }
 
 }

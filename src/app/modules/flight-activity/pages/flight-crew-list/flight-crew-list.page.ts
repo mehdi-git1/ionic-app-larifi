@@ -10,7 +10,6 @@ import { LegService } from '../../../../core/services/leg/leg.service';
 import { GenderService } from '../../../../core/services/gender/gender.service';
 import { CrewMemberEnum } from '../../../../core/models/crew-member.enum';
 import {SpecialityEnum} from '../../../../core/enums/speciality.enum';
-import { PncService } from '../../../../core/services/pnc/pnc.service';
 
 @Component({
     selector: 'page-flight-crew-list',
@@ -28,7 +27,7 @@ export class FlightCrewListPage {
         private legProvider: LegService,
         public connectivityService: ConnectivityService,
         private sessionService: SessionService,
-        private pncService: PncService) {
+        private offlinePncProvider: OfflinePncService) {
     }
 
     ionViewDidEnter() {
@@ -127,7 +126,7 @@ export class FlightCrewListPage {
      * @param onBoardFonction la fontion a bord du pnc concerné
      */
     openPncHomePage(matricule) {
-        this.pncService.getPnc(matricule).then(crewMember => {
+        this.offlinePncProvider.getPnc(matricule).then(crewMember => {
             if (crewMember) {
                 this.sessionService.appContext.observedPncMatricule = matricule;
                 this.navCtrl.push(PncHomePage, { matricule: matricule });

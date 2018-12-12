@@ -101,7 +101,7 @@ export class OfflinePncService {
           return moment(rotation1.departureDate, AppConstant.isoDateFormat).isBefore(moment(rotation2.departureDate, AppConstant.isoDateFormat)) ? -1 : 1;
         });
       }
-      resolve(lastPerformedRotations != null && lastPerformedRotations.length > 0 ? lastPerformedRotations.slice(-2) : []);
+      resolve(lastPerformedRotations != null && lastPerformedRotations.length > 0 ? lastPerformedRotations.slice(0, 2) : []);
     });
   }
 

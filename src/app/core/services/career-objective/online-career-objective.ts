@@ -45,10 +45,10 @@ export class OnlineCareerObjectiveService {
     for (const offlineData of offlineDataArray) {
       const result = onlineDataArray.filter(onlineData => offlineData.getStorageId() === onlineData.getStorageId());
       if (result && result.length === 1) {
-        if (offlineData.offlineAction && !isUndefined(offlineData.offlineAction)) {
+        if (!isUndefined(offlineData.offlineAction)) {
           onlineDataArray[onlineDataArray.indexOf(result[0])] = offlineData;
         }
-      } else if (offlineData.offlineAction && !isUndefined(offlineData.offlineAction)) {
+      } else {
         onlineDataArray.push(offlineData);
       }
     }

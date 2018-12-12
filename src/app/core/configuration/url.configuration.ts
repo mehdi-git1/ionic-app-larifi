@@ -34,7 +34,7 @@ export class UrlConfiguration {
     'getWaypointsByCarreObjectiveId': `${urlGroupEnum.WAYPOINT}/career_objective/{careerObjectiveId}`,
     'getWaypointById': `${urlGroupEnum.WAYPOINT}/{waypointId}`,
     'crudWaypointByCarreObjectiveId': `${urlGroupEnum.WAYPOINT}/career_objective/{careerObjectiveId}`,
-    'deleteWaypointsById': `${urlGroupEnum.WAYPOINT}/{waypointId}`,
+    'deleteWaypointsById': `${urlGroupEnum.WAYPOINT}/career_objective/{waypointId}`,
     'getParameters': urlGroupEnum.PARAMETERS,
     'getProfessionalLevelByMatricule': `${urlGroupEnum.PROFESSIONAL_LEVEL}/{matricule}`,
     'getRotationsByTechId': `${urlGroupEnum.ROTATION}/{techId}/legs`,

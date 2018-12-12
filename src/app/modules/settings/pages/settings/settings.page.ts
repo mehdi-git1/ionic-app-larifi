@@ -1,4 +1,3 @@
-
 import { VersionService } from './../../../../core/services/version/version.service';
 import { SecMobilService } from './../../../../core/http/secMobil.service';
 import { AuthenticationPage } from './../../../home/pages/authentication/authentication.page';
@@ -20,7 +19,6 @@ import { PinPadTypeEnum } from '../../../../core/enums/security/pin-pad-type.enu
 import { SecretQuestionTypeEnum } from '../../../../core/enums/security/secret-question-type.enum';
 import { AuthenticatedUserModel } from '../../../../core/models/authenticated-user.model';
 import { OfflineSecurityService } from '../../../../core/services/security/offline-security.service';
-import { Config } from '../../../../../environments/config';
 
 @Component({
   selector: 'page-settings',
@@ -40,7 +38,6 @@ export class SettingsPage {
 
   constructor(
     private navCtrl: NavController,
-    private config: Config,
     private connectivityService: ConnectivityService,
     private storageService: StorageService,
     private events: Events,
@@ -73,8 +70,7 @@ export class SettingsPage {
     this.isApp = !this.deviceService.isBrowser();
   }
 
-  ionViewDidEnter() {
-    this.getFrontAndBackVersion();
+  ionViewDidLoad() {
   }
 
   /**
@@ -201,7 +197,7 @@ export class SettingsPage {
       if (this.isApp) {
         this.appVersion.getVersionNumber().then(version => this.frontVersion = version);
       } else {
-        this.frontVersion = this.config.appVersion;
+        this.frontVersion = this.backVersion;
       }
     }).catch(() => {
       if (this.isApp) {

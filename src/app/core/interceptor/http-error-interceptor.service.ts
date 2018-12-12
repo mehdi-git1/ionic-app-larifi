@@ -10,7 +10,7 @@ import { HttpInterceptor, HttpHandler, HttpRequest, HttpEvent, HttpErrorResponse
 import { DeviceService } from '../services/device/device.service';
 import { ConnectivityService } from '../services/connectivity/connectivity.service';
 import { SecMobilService } from '../http/secMobil.service';
-import { UrlConfiguration } from '../configuration/url.configuration';
+import {UrlConfiguration} from '../configuration/url.configuration';
 
 
 
@@ -33,7 +33,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
   ): Observable<HttpEvent<any>> {
     return next.handle(request).do(success => {
     }, err => {
-      if (err instanceof HttpErrorResponse && !request.url.includes(this.config.getBackEndUrl('getPing'))) {
+      if (err instanceof HttpErrorResponse && request.url !== this.config.getBackEndUrl('getPing')) {
 
         let errorMessage = this.translateService.instant('GLOBAL.UNKNOWN_ERROR');
         if (this.deviceService.isOfflineModeAvailable()) {
