@@ -53,36 +53,49 @@ export class AuthenticationService {
         // Ensuite on met les données utilisateur en session
         return this.putAuthenticatedUserInSession().then(putOk => {
             if (putOk) {
-                let tmpReturn: AuthenticationStatusEnum;
-                const authenticatedUser = this.sessionService.getActiveUser();
-                // Gestion du mode impersonnifié
-                if (this.isInImpersonateMode(authenticatedUser)) {
-                    tmpReturn = AuthenticationStatusEnum.IMPERSONATE_MODE;
-                } else {
-                    tmpReturn = AuthenticationStatusEnum.AUTHENTICATION_OK;
-                }
-                // Initialisation des paramétres utilisateur en tant que PNC
-                if (this.sessionService.getActiveUser().isPnc) {
-                    this.initUserData();
-                }
-                // Si le mode offline est autorisé, on met en place la gestion du offline
-                if (this.deviceService.isOfflineModeAvailable()) {
-                    return this.offlineManagement().then(result => {
-                        if (!result && this.deviceService.isBrowser()) {
-                            return AuthenticationStatusEnum.APPLI_UNAVAILABLE;
-                        }
-                        return AuthenticationStatusEnum.AUTHENTICATION_OK;
-                    }, error => {
-                        return AuthenticationStatusEnum.INIT_KO;
-                    });
-                } else {
-                    // Ici retour des cas d'affichage hors offline
-                    return Promise.resolve(tmpReturn);
-                }
+                return this.managePutauthenticationInSession();
             }
         },
-            error => AuthenticationStatusEnum.INIT_KO
+            error => {
+                if (error) {
+                    return this.managePutauthenticationInSession();
+                } else {
+                    return AuthenticationStatusEnum.INIT_KO;
+                }
+            }
         );
+    }
+
+    /**
+     * Gére la façon de mettre l'utilisateur en session
+     */
+    managePutauthenticationInSession(): Promise<AuthenticationStatusEnum> {
+        let tmpReturn: AuthenticationStatusEnum;
+        const authenticatedUser = this.sessionService.getActiveUser();
+        // Gestion du mode impersonnifié
+        if (this.isInImpersonateMode(authenticatedUser)) {
+            tmpReturn = AuthenticationStatusEnum.IMPERSONATE_MODE;
+        } else {
+            tmpReturn = AuthenticationStatusEnum.AUTHENTICATION_OK;
+        }
+        // Initialisation des paramétres utilisateur en tant que PNC
+        if (this.sessionService.getActiveUser().isPnc) {
+            this.initUserData();
+        }
+        // Si le mode offline est autorisé, on met en place la gestion du offline
+        if (this.deviceService.isOfflineModeAvailable()) {
+            return this.offlineManagement().then(result => {
+                if (!result && this.deviceService.isBrowser()) {
+                    return AuthenticationStatusEnum.APPLI_UNAVAILABLE;
+                }
+                return AuthenticationStatusEnum.AUTHENTICATION_OK;
+            }, error => {
+                return AuthenticationStatusEnum.INIT_KO;
+            });
+        } else {
+            // Ici retour des cas d'affichage hors offline
+            return Promise.resolve(tmpReturn);
+        }
     }
 
     /**

@@ -70,9 +70,10 @@ describe('AuthenticationService', () => {
                 data => expect(data).toBe(AuthenticationStatusEnum.INIT_KO)
             );
         }));
+    });
 
+    describe('managePutauthenticationInSession', () => {
         beforeEach(() => {
-            spyOn(authenticationService, 'putAuthenticatedUserInSession').and.returnValue(Promise.resolve(true));
             spyOn(authenticationService, 'isInImpersonateMode').and.returnValue(true);
         });
 
@@ -88,7 +89,7 @@ describe('AuthenticationService', () => {
                 it(`doit initialiser les paramétres pnc si l'utilisateur est un PNC`, fakeAsync(() => {
                     authenticatedUserTest.isPnc = true;
                     sessionServiceMock.getActiveUser.and.returnValue(authenticatedUserTest);
-                    authenticationService.manageUserInformationsInApp().then(
+                    authenticationService.managePutauthenticationInSession().then(
                         data => expect(authenticationService.initUserData).toHaveBeenCalled()
                     );
                 }));
@@ -96,7 +97,7 @@ describe('AuthenticationService', () => {
                 it(`ne doit pas initialiser les paramétres pnc si l'utilisateur n'est pas un PNC`, fakeAsync(() => {
                     authenticatedUserTest.isPnc = false;
                     sessionServiceMock.getActiveUser.and.returnValue(authenticatedUserTest);
-                    authenticationService.manageUserInformationsInApp().then(
+                    authenticationService.managePutauthenticationInSession().then(
                         data => expect(authenticationService.initUserData).not.toHaveBeenCalled()
                     );
                 }));
@@ -111,14 +112,14 @@ describe('AuthenticationService', () => {
 
                 it('doit renvoyer le type IMPERSONATE_MODE si on doit être en mode impersonifie', fakeAsync(() => {
                     authenticationService.isInImpersonateMode = jasmine.createSpy().and.returnValue(true);
-                    authenticationService.manageUserInformationsInApp().then(
+                    authenticationService.managePutauthenticationInSession().then(
                         data => expect(data).toBe(AuthenticationStatusEnum.IMPERSONATE_MODE)
                     );
                 }));
 
                 it('doit renvoyer le type AUTHENTICATION_OK si on ne doit pas être en mode impersonifie', fakeAsync(() => {
                     authenticationService.isInImpersonateMode = jasmine.createSpy().and.returnValue(false);
-                    authenticationService.manageUserInformationsInApp().then(
+                    authenticationService.managePutauthenticationInSession().then(
                         data => expect(data).toBe(AuthenticationStatusEnum.AUTHENTICATION_OK)
                     );
                 }));
@@ -132,7 +133,7 @@ describe('AuthenticationService', () => {
 
                 it(`doit appeler la fonction d'initialisation du cache offlineManagement`, () => {
                     spyOn(authenticationService, 'offlineManagement').and.returnValue(Promise.resolve(false));
-                    authenticationService.manageUserInformationsInApp().then(
+                    authenticationService.managePutauthenticationInSession().then(
                         data => expect(authenticationService.offlineManagement).toHaveBeenCalled()
                     );
                 });
@@ -140,7 +141,7 @@ describe('AuthenticationService', () => {
                 it('doit renvoyer le type APPLI_UNAVAILABLE si la gestion du offline renvoie false sur navigateur', fakeAsync(() => {
                     spyOn(authenticationService, 'offlineManagement').and.returnValue(Promise.resolve(false));
                     deviceServiceMock.isBrowser.and.returnValue(true);
-                    authenticationService.manageUserInformationsInApp().then(
+                    authenticationService.managePutauthenticationInSession().then(
                         data => expect(data).toBe(AuthenticationStatusEnum.APPLI_UNAVAILABLE)
                     );
                 }));
@@ -148,14 +149,14 @@ describe('AuthenticationService', () => {
                 it(`doit renvoyer le type AUTHENTICATION_OK si la gestion du offline renvoie false sur l'app`, fakeAsync(() => {
                     spyOn(authenticationService, 'offlineManagement').and.returnValue(Promise.resolve(false));
                     deviceServiceMock.isBrowser.and.returnValue(false);
-                    authenticationService.manageUserInformationsInApp().then(
+                    authenticationService.managePutauthenticationInSession().then(
                         data => expect(data).toBe(AuthenticationStatusEnum.AUTHENTICATION_OK)
                     );
                 }));
 
                 it(`doit renvoyer le type INIT_KO si la gestion du offline plante`, fakeAsync(() => {
                     spyOn(authenticationService, 'offlineManagement').and.returnValue(Promise.reject(false));
-                    authenticationService.manageUserInformationsInApp().then(
+                    authenticationService.managePutauthenticationInSession().then(
                         data => expect(data).toBe(AuthenticationStatusEnum.INIT_KO)
                     );
                 }));
