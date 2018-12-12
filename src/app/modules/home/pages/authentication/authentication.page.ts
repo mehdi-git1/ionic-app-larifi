@@ -18,7 +18,7 @@ import { SecurityServer } from '../../../../core/services/security/security.serv
   selector: 'page-authentication',
   templateUrl: 'authentication.page.html',
 })
-export class AuthenticationPage implements OnInit {
+export class AuthenticationPage {
 
   loginForm: FormGroup;
   errorMsg: string;
@@ -36,17 +36,6 @@ export class AuthenticationPage implements OnInit {
     private events: Events
   ) {
     this.initializeForm();
-  }
-
-  ngOnInit(): void {
-    this.hideSpinner = false;
-    this.secMobilService.isAuthenticated().then(() => {
-      this.hideSpinner = true;
-      this.putAuthenticatedUserInSession();
-    },
-      error => {
-        this.hideSpinner = true;
-      });
   }
 
   initializeForm() {

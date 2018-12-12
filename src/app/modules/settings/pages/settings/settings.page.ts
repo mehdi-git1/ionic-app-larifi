@@ -1,4 +1,7 @@
 import { AdminHomePage } from './../../../admin/pages/admin-home/admin-home.page';
+import { VersionService } from './../../../../core/services/version/version.service';
+import { SecMobilService } from './../../../../core/http/secMobil.service';
+import { AuthenticationPage } from './../../../home/pages/authentication/authentication.page';
 import { ImpersonatePage } from '../impersonate/impersonate.page';
 import { DeviceService } from '../../../../core/services/device/device.service';
 import { ModalSecurityService } from '../../../../core/services/modal/modal-security.service';
@@ -10,11 +13,13 @@ import { StorageService } from '../../../../core/storage/storage.service';
 import { ConnectivityService } from '../../../../core/services/connectivity/connectivity.service';
 import { Component } from '@angular/core';
 import { NavController, Events, AlertController } from 'ionic-angular';
+import { AppVersion } from '@ionic-native/app-version';
 
 import { PinPadTypeEnum } from '../../../../core/enums/security/pin-pad-type.enum';
 import { SecretQuestionTypeEnum } from '../../../../core/enums/security/secret-question-type.enum';
 import { AuthenticatedUserModel } from '../../../../core/models/authenticated-user.model';
 import { OfflineSecurityService } from '../../../../core/services/security/offline-security.service';
+import { Config } from '../../../../../environments/config';
 
 @Component({
   selector: 'page-settings',
@@ -25,22 +30,30 @@ export class SettingsPage {
   connected: boolean;
   initInProgress: boolean;
   synchronizationInProgress: boolean;
+  revokationInProgress: boolean;
+
+  frontVersion: string;
+  backVersion: string;
 
   isApp: boolean;
 
   constructor(
     private navCtrl: NavController,
+    private config: Config,
     private connectivityService: ConnectivityService,
     private storageService: StorageService,
     private events: Events,
-    private synchronizationProvider: SynchronizationService,
+    private synchronizationService: SynchronizationService,
     private sessionService: SessionService,
     private toastProvider: ToastService,
     private translateService: TranslateService,
     private alertCtrl: AlertController,
     private securityModalService: ModalSecurityService,
     private deviceService: DeviceService,
-    private offlineSecurityProvider: OfflineSecurityService
+    private offlineSecurityProvider: OfflineSecurityService,
+    private secMobilService: SecMobilService,
+    private appVersion: AppVersion,
+    private versionService: VersionService
   ) {
     this.connected = this.connectivityService.isConnected();
 
@@ -52,21 +65,22 @@ export class SettingsPage {
       this.connected = connected;
     });
 
-    this.synchronizationProvider.synchroStatusChange.subscribe(synchroInProgress => {
+    this.synchronizationService.synchroStatusChange.subscribe(synchroInProgress => {
       this.synchronizationInProgress = synchroInProgress;
     });
 
     this.isApp = !this.deviceService.isBrowser();
   }
 
-  ionViewDidLoad() {
+  ionViewDidEnter() {
+    this.getFrontAndBackVersion();
   }
 
   /**
-  * Présente une alerte pour confirmer la suppression du brouillon
+  * Présente une alerte pour confirmer la suppression du cache
   */
   confirmClearAndInitCache() {
-    const message = this.synchronizationProvider.isPncModifiedOffline(this.sessionService.getActiveUser().matricule) ?
+    const message = this.synchronizationService.isPncModifiedOffline(this.sessionService.getActiveUser().matricule) ?
       this.translateService.instant('SETTINGS.CONFIRM_INIT_CACHE.MESSAGE_UNSYNCHRONIZED_DATA') :
       this.translateService.instant('SETTINGS.CONFIRM_INIT_CACHE.MESSAGE');
 
@@ -101,7 +115,7 @@ export class SettingsPage {
     this.storageService.initOfflineMap().then(success => {
       const authenticatedUser = this.sessionService.getActiveUser();
       this.offlineSecurityProvider.overwriteAuthenticatedUser(new AuthenticatedUserModel().fromJSON(authenticatedUser));
-      this.synchronizationProvider.storeEDossierOffline(authenticatedUser.matricule).then(successStore => {
+      this.synchronizationService.storeEDossierOffline(authenticatedUser.matricule).then(successStore => {
         this.events.publish('EDossierOffline:stored');
         this.toastProvider.info(this.translateService.instant('SETTINGS.INIT_CACHE.SUCCESS'));
       }, error => {
@@ -109,8 +123,39 @@ export class SettingsPage {
     });
   }
 
+  /**
+   * Présente une alerte pour confirmer la révocation du certificat
+   */
+  confirmRevokeCertificate() {
+    this.alertCtrl.create({
+      title: this.translateService.instant('SETTINGS.CONFIRM_REVOKE_CERTIFICATE.TITLE'),
+      message: this.translateService.instant('SETTINGS.CONFIRM_REVOKE_CERTIFICATE.MESSAGE'),
+      buttons: [
+        {
+          text: this.translateService.instant('SETTINGS.CONFIRM_REVOKE_CERTIFICATE.CANCEL'),
+          role: 'cancel'
+        },
+        {
+          text: this.translateService.instant('SETTINGS.CONFIRM_REVOKE_CERTIFICATE.CONFIRM'),
+          handler: () => this.revokeCertificate()
+        }
+      ]
+    }).present();
+  }
+
+  /**
+   * revoque le certificat sur ipad
+   */
+  revokeCertificate() {
+    this.revokationInProgress = true;
+    this.secMobilService.secMobilRevokeCertificate().then(() => {
+      this.revokationInProgress = false;
+      this.events.publish('user:authenticationLogout');
+    });
+  }
+
   forceSynchronizeOfflineData() {
-    this.synchronizationProvider.synchronizeOfflineData();
+    this.synchronizationService.synchronizeOfflineData();
   }
 
   /**
@@ -144,6 +189,24 @@ export class SettingsPage {
    */
   goToAdminPage() {
     this.navCtrl.push(AdminHomePage);
+  }
+
+  /**
+   * Renvoie la version du front et du back en mode ipad, et seulement la version du back en mode Web
+   */
+  getFrontAndBackVersion() {
+    this.versionService.getBackVersion().then(versionJson => {
+      this.backVersion = versionJson['appVersion'];
+      if (this.isApp) {
+        this.appVersion.getVersionNumber().then(version => this.frontVersion = version);
+      } else {
+        this.frontVersion = this.config.appVersion;
+      }
+    }).catch(() => {
+      if (this.isApp) {
+        this.appVersion.getVersionNumber().then(version => this.frontVersion = version);
+      }
+    });
   }
 
 }

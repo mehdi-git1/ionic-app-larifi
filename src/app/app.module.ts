@@ -21,13 +21,13 @@ import { PncTeamModule } from './modules/pnc-team/pnc-team.module';
 import { ProfessionalLevelModule } from './modules/professional-level/professional-level.module';
 import { SettingsModule } from './modules/settings/settings.module';
 import { StatutoryCertificateModule } from './modules/statutory-certificate/statutory-certificate.module';
-import { SummarySheetModule } from './modules/summary-sheet/summary-sheet.module';
 import { ServiceModule } from './core/services/service.module';
 import { ComponentsModule } from './shared/components/components.module';
 import { HttpModule } from './core/http/http.module';
 import { StorageModule } from './core/storage/storage.module';
 import { Config } from '../environments/config';
 import { UrlConfiguration } from './core/configuration/url.configuration';
+import { FileModule } from './core/file/file.module';
 
 
 @NgModule({
@@ -49,11 +49,11 @@ import { UrlConfiguration } from './core/configuration/url.configuration';
     ProfessionalLevelModule,
     SettingsModule,
     StatutoryCertificateModule,
-    SummarySheetModule,
     AdminModule,
     ComponentsModule,
     SharedModule,
     HttpModule,
+    FileModule,
     ServiceModule,
     StorageModule,
     BrowserAnimationsModule,

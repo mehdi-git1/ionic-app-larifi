@@ -1,23 +1,25 @@
 
 export abstract class BaseEnvironment {
-  public appVersion = '';
-  public backEndUrl = '/api/rest/resources';
-  public secmobileEnv = 'rct';
+  public appVersion = '1.2.0';
+  public contextRoot = '/api/';
   public appName = 'EDossierPnc';
-  public env = 'localhost';
+  public backEndUrl;
+  public secmobileEnv;
 
-  public eObsUrl = 'com.airfrance.mobile.inhouse.eformstrainingdevPNC';
-  public eObsCallbackUrl = 'com.airfrance.mobile.inhouse.edospncDEV';
-  public eObsCallbackActionLabel = 'Retour eDossierPNC';
+  public env;
+  public versionFileUrl;
+
+  public eObsUrl;
+  public eObsCallbackUrl;
+  public eObsCallbackActionLabel;
 
   public makeOfflineModeAvailable = false;
 
   /**
-   * Vérifie qu'on est en local
-   * @return  vrai si on est sur l'env localhost, false sinon
-   */
-  public isLocalhost(): boolean {
+  * Vérifie qu'on est en local
+  * @return  vrai si on est sur l'env localhost, false sinon
+  */
+  isLocalhost(): boolean {
     return this.env === 'localhost';
   }
-
 }

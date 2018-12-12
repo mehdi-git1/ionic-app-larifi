@@ -1,6 +1,10 @@
 {
     "GLOBAL": {
         "APP_NAME": "EDOSSIER PNC",
+        "APP_VERSION": {
+            "FRONT": "Version",
+            "BACK": "Version serveur"
+        },
         "NO_DATA": "Pas de données disponibles",
         "PNC_ROLE": {
             "MANAGER": "Manager Coach",
@@ -35,7 +39,7 @@
         "UPCOMING_FLIGHT": "Activité vols",
         "CREW_MEMBERS": "Liste équipage",
         "STATUTORY_CERTIFICATE": "Attestation réglementaire",
-        "PROFESSIONAL_LEVEL": "Niveau Pro",
+        "PROFESSIONAL_LEVEL": "Niveau Pro SV",
         "UNKNOWN_ERROR": "Suite à un dysfonctionnement technique, l'opération a échoué. Nous vous invitons à réessayer dans quelques minutes. Si le problème persiste, veuillez contacter votre support.",
         "COMING_SOON": "(Prochainement)",
         "MESSAGES": {
@@ -374,6 +378,15 @@
             "TITLE": "Vider le cache",
             "MESSAGE": "Attention. Êtes-vous sûr de vouloir vider le cache ?",
             "MESSAGE_UNSYNCHRONIZED_DATA": "Attention. Vider le cache peut entraîner la perte de données non synchronisées.",
+            "CANCEL": "Annuler",
+            "CONFIRM": "Confirmer"
+        },
+        "REVOKE_CERTIFICATE": {
+            "BUTTON": "Révocation de certificat"
+        },
+        "CONFIRM_REVOKE_CERTIFICATE": {
+            "TITLE": "Révocation de certificat",
+            "MESSAGE": "Attention. Êtes-vous sûr de vouloir révoquer votre certificat ?",
             "CANCEL": "Annuler",
             "CONFIRM": "Confirmer"
         },

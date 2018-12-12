@@ -7,7 +7,7 @@
 </ion-header>
 
 
-<ion-content padding>
+<ion-content padding no-bounce>
     <!-- Paramètres accessibles uniquement en mobile -->
     <ng-container *ngIf="isApp">
         <ion-item>
@@ -22,6 +22,13 @@
             <button ion-fab mini icon-only item-end (click)="forceSynchronizeOfflineData()" [disabled]="!connected">
                 <ion-icon name="sync" *ngIf="!synchronizationInProgress"></ion-icon>
                 <ion-spinner *ngIf="synchronizationInProgress"></ion-spinner>
+            </button>
+        </ion-item>
+        <ion-item>
+            <label>{{ 'SETTINGS.REVOKE_CERTIFICATE.BUTTON' | translate }}</label>
+            <button ion-fab mini icon-only item-end class="parameter-button" (click)="confirmRevokeCertificate()">
+                <ion-icon name="log-out" *ngIf="!revokationInProgress"></ion-icon>
+                <ion-spinner *ngIf="revokationInProgress"></ion-spinner>
             </button>
         </ion-item>
         <ion-item>
@@ -51,5 +58,11 @@
                 <ion-icon name="key"></ion-icon>
             </button>
         </ion-item>
+    </ng-container>
+    <ng-container>
+        <div class="version-panel">
+            <div *ngIf="frontVersion">{{ 'GLOBAL.APP_VERSION.FRONT' | translate }} : {{frontVersion}}</div>
+            <div *ngIf="backVersion && connected"> - {{ 'GLOBAL.APP_VERSION.BACK' | translate }} : {{backVersion}}</div>
+        </div>
     </ng-container>
 </ion-content>

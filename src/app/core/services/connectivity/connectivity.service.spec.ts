@@ -2,6 +2,7 @@
 import { ConnectivityService } from './connectivity.service';
 import { fakeAsync, flushMicrotasks, flush } from '@angular/core/testing';
 import { UrlConfiguration } from '../../configuration/url.configuration';
+import { Config } from '../../../../environments/config';
 
 const restServiceMock = jasmine.createSpyObj('restServiceMock', ['get']);
 
@@ -10,7 +11,8 @@ describe('Connectivity Service', () => {
     let connectivityService: ConnectivityService;
 
     beforeEach(() => {
-        connectivityService = new ConnectivityService(restServiceMock, new UrlConfiguration());
+        const config = new Config();
+        connectivityService = new ConnectivityService(restServiceMock, new UrlConfiguration(config));
     });
 
     describe('test de la fonction setConnected', () => {

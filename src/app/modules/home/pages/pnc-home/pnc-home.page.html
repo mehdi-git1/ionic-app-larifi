@@ -68,57 +68,45 @@
             </ion-row>
 
             <ion-row id="nav-tile-grid" *ngIf="pnc">
-                <!-- Liste des objectifs-->
-                <ion-col col-4 *ngIf="pnc?.speciality !== Speciality.CAD">
-                    <div class="button-parent">
+                <ion-col>
+                    <!-- Liste des objectifs-->
+                    <div class="button-parent" *ngIf="!isManager()">
                         <button ion-button (click)="goToCareerObjectiveList()" color="orange50">
                             {{ 'GLOBAL.DEVELOPMENT_PROGRAM' | translate }}
                         </button>
                     </div>
-                </ion-col>
-                <!-- Fiche synthèse PNC -->
-                <ion-col col-4 *ngIf="pnc?.speciality !== Speciality.CAD">
-                    <div class="button-parent">
+                    <!-- Fiche synthèse PNC -->
+                    <div class="button-parent" *ngIf="!isManager()">
                         <button ion-button (click)="goToSummarySheet()" color="grey15">
                             {{ 'GLOBAL.PNC_SUMMARY_SHEET' | translate }}
                         </button>
                     </div>
-                </ion-col>
-                <!-- Effectif PNC -->
-                <ion-col col-4 *ngIf="pnc?.speciality === Speciality.CAD">
-                    <div class="button-parent">
+                    <!-- Effectif PNC -->
+                    <div class="button-parent" *ngIf="isManager()">
                         <button ion-button (click)="goToPncSearch()" color="grey60">
                             {{ 'GLOBAL.PNC_TEAM' | translate }}
                         </button>
                     </div>
-                </ion-col>
-                <!-- Activité vols -->
-                <ion-col col-4 *ngIf="pnc?.speciality === Speciality.CAD">
-                    <div class="button-parent">
+                    <!-- Activité vols -->
+                    <div class="button-parent" *ngIf="isManager()">
                         <button ion-button (click)="goToUpcomingFlightList()" color="blue65">
                             {{ 'GLOBAL.UPCOMING_FLIGHT' | translate }}
                         </button>
                     </div>
-                </ion-col>
-                <!-- Ressource d'aide -->
-                <ion-col col-4>
+                    <!-- Ressource d'aide -->
                     <div class="button-parent">
                         <button ion-button (click)="goToHelpAssetList()" color="blue90">
                             {{ 'GLOBAL.HELP_CENTER' | translate }}
                         </button>
                     </div>
-                </ion-col>
-                <!--  Attestation réglementaire -->
-                <ion-col col-4 [hasPermission] permission="VIEW_STATUTORY_CERTIFICATE">
-                    <div class="button-parent">
+                    <!--  Attestation réglementaire -->
+                    <div class="button-parent" *hasPermission="'VIEW_STATUTORY_CERTIFICATE'">
                         <button ion-button (click)="goToStatutoryCertificate()" color="red20">
                             {{ 'GLOBAL.STATUTORY_CERTIFICATE' | translate }}
                         </button>
                     </div>
-                </ion-col>
-                <!--  Niveau professionnel -->
-                <ion-col col-4 [hasPermission] permission="VIEW_PROFESSIONAL_LEVEL">
-                    <div class="button-parent">
+                    <!--  Niveau professionnel -->
+                    <div class="button-parent" *hasPermission="'VIEW_PROFESSIONAL_LEVEL'">
                         <button ion-button (click)="goToProfessionalLevel()" color="blue70">
                             {{ 'GLOBAL.PROFESSIONAL_LEVEL' | translate }}
                         </button>

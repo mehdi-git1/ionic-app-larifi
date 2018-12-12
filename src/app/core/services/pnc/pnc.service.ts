@@ -13,7 +13,7 @@ import { PncModel } from '../../models/pnc.model';
 import { PagedPncModel } from '../../models/paged-pnc.model';
 import { RestService } from '../../http/rest/rest.base.service';
 import { BaseService } from '../base/base.service';
-import {SpecialityEnum} from '../../enums/speciality.enum';
+import { SpecialityEnum } from '../../enums/speciality.enum';
 
 @Injectable()
 export class PncService extends BaseService {

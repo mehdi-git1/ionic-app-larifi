@@ -1,7 +1,12 @@
+import { Injectable } from '@angular/core';
 import { urlGroupEnum } from './urlGroup.enum';
+import { Config } from '../../../environments/config';
 
-
+@Injectable()
 export class UrlConfiguration {
+
+  constructor(private config: Config) {
+  }
 
   public backEndUrlList: {} = {
     'careerObjectives': urlGroupEnum.CAREER_OBJECTIVE,
@@ -29,7 +34,7 @@ export class UrlConfiguration {
     'getWaypointsByCarreObjectiveId': `${urlGroupEnum.WAYPOINT}/career_objective/{careerObjectiveId}`,
     'getWaypointById': `${urlGroupEnum.WAYPOINT}/{waypointId}`,
     'crudWaypointByCarreObjectiveId': `${urlGroupEnum.WAYPOINT}/career_objective/{careerObjectiveId}`,
-    'deleteWaypointsById': `${urlGroupEnum.WAYPOINT}/career_objective/{waypointId}`,
+    'deleteWaypointsById': `${urlGroupEnum.WAYPOINT}/{waypointId}`,
     'getParameters': urlGroupEnum.PARAMETERS,
     'getProfessionalLevelByMatricule': `${urlGroupEnum.PROFESSIONAL_LEVEL}/{matricule}`,
     'getRotationsByTechId': `${urlGroupEnum.ROTATION}/{techId}/legs`,
@@ -54,7 +59,7 @@ export class UrlConfiguration {
     for (let i = 0; i < params.length; i++) {
       urlToModify = urlToModify.replace(regexToReplace, params[i]);
     }
-    return urlToModify;
+    return `${this.config.backEndUrl}/${urlToModify}`;
   }
 
 }

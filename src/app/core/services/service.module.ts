@@ -1,4 +1,6 @@
 import { UserProfileService } from './user-profile/user-profile.service';
+import { VersionService } from './version/version.service';
+
 import { NgModule } from '@angular/core';
 
 import { ConnectivityService } from './connectivity/connectivity.service';
@@ -138,7 +140,8 @@ import { EObservationService } from './e-observation/e-observation.service';
     OfflineProfessionalLevelService,
     ProfessionalLevelTransformerService,
     SpecialityService,
-    UserProfileService
+    UserProfileService,
+    VersionService
   ]
 })
 export class ServiceModule { }
