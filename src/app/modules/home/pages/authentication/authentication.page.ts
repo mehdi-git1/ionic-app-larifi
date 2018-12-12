@@ -41,6 +41,9 @@ export class AuthenticationPage {
     });
   }
 
+  /**
+   * Permet de se connecter
+   */
   sendAuthent() {
     if (this.hideSpinner === true) {
       this.hideSpinner = false;
@@ -56,14 +59,16 @@ export class AuthenticationPage {
     }
   }
 
-  routingAuthent(authentReturn) {
+  /**
+ * Gestion du routing en fonction du paramétre d'entrée
+ * @param authentReturn retour de l'authentification
+ */
+  routingAuthent(authentReturn: AuthenticationStatusEnum) {
     if (authentReturn === AuthenticationStatusEnum.AUTHENTICATION_OK) {
       if (!this.deviceService.isBrowser() && !this.sessionService.impersonatedUser) {
         this.securityModalService.displayPinPad(PinPadTypeEnum.openingApp);
       }
       this.nav.setRoot(PncHomePage, { matricule: this.sessionService.getActiveUser().matricule });
-    } else if (authentReturn === AuthenticationStatusEnum.AUTHENTICATION_KO) {
-      this.nav.setRoot(AuthenticationPage);
     } else if (authentReturn === AuthenticationStatusEnum.INIT_KO) {
       this.nav.setRoot(GenericMessagePage, { message: this.translateService.instant('GLOBAL.MESSAGES.ERROR.APPLICATION_NOT_INITIALIZED') });
     } else if (authentReturn === AuthenticationStatusEnum.APPLI_UNAVAILABLE) {

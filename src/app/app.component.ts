@@ -1,3 +1,4 @@
+import { AuthenticatedUserModel } from './core/models/authenticated-user.model';
 import { AuthenticationStatusEnum } from './core/enums/authentication-status.enum';
 import { AuthenticationService } from './core/authentication/authentication.service';
 import { Component, ViewChild, OnInit } from '@angular/core';
@@ -110,7 +111,11 @@ export class EDossierPNC implements OnInit {
 
   }
 
-  routingApp(authentReturn) {
+  /**
+   * Gestion du routing en fonction du paramétre d'entrée
+   * @param authentReturn retour de l'authentification
+   */
+  routingApp(authentReturn: AuthenticationStatusEnum) {
     if (authentReturn === AuthenticationStatusEnum.AUTHENTICATION_OK) {
       console.log('auth');
       if (!this.deviceService.isBrowser() && !this.sessionService.impersonatedUser) {

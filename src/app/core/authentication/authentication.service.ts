@@ -32,7 +32,7 @@ export class AuthenticationService {
     /**
      * Gestion de la création des données fonctionnelles et leurs gestions dans l'appli
      */
-    initFonctionnalApp(): Promise<string> {
+    initFonctionnalApp(): Promise<AuthenticationStatusEnum> {
         // On vérifie si l'utilisateur est connecté à l'application
         return this.isAuthenticated().then(
             data => {
@@ -98,7 +98,7 @@ export class AuthenticationService {
      * @param login : login du user
      * @param password : mot de passe
      */
-    authenticateUser(login, password): Promise<string> {
+    authenticateUser(login, password): Promise<AuthenticationStatusEnum> {
         return this.secMobilService.authenticate(login, password).then(x => {
             return this.manageUserInformationsInApp();
         }, error => {
