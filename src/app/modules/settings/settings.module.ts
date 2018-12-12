@@ -9,6 +9,7 @@ import { SettingsPage } from './pages/settings/settings.page';
 import { ImpersonatePage } from './pages/impersonate/impersonate.page';
 import { Config } from '../../../environments/config';
 
+
 @NgModule({
   declarations: [
     SettingsPage,

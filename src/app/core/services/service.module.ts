@@ -1,8 +1,6 @@
 import { UserProfileService } from './user-profile/user-profile.service';
 import { VersionService } from './version/version.service';
-
 import { NgModule } from '@angular/core';
-
 import { ConnectivityService } from './connectivity/connectivity.service';
 import { TabNavService } from './tab-nav/tab-nav.service';
 import { DeviceService } from './device/device.service';
