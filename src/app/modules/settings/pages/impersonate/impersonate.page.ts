@@ -107,9 +107,7 @@ export class ImpersonatePage {
       const impersonatedUser = new AuthenticatedUserModel();
       impersonatedUser.matricule = pnc.matricule;
       this.sessionService.impersonatedUser = impersonatedUser;
-      if (this.navCtrl.parent) {
-        this.navCtrl.setRoot(PncHomePage);
-      }
+      this.navCtrl.popToRoot();
       this.events.publish('user:authenticated');
       this.impersonatingInProgress = false;
     }, error => {

@@ -42,7 +42,7 @@ export class OnlineWaypointService {
           .then(offlineCareerObjectiveWaypoints => {
             const onlineData = this.waypointTransformerProvider.toWaypoints(onlineCareerObjectiveWaypoints);
             const offlineData = this.waypointTransformerProvider.toWaypoints(offlineCareerObjectiveWaypoints);
-            return (this.addUnsynchronizedOfflineCareerObjectivesToOnline(onlineData, offlineData));
+            return (this.addUnsynchronizedOfflineWayPointToOnline(onlineData, offlineData));
           });
       });
   }
@@ -52,14 +52,14 @@ export class OnlineWaypointService {
    * @param onlineDataArray la liste des points d'étape récupérés de la BDD.
    * @param offlineDataArray la liste des points d'étape récupérés du cache
    */
-  addUnsynchronizedOfflineCareerObjectivesToOnline(onlineDataArray: WaypointModel[], offlineDataArray: WaypointModel[]): WaypointModel[] {
+  addUnsynchronizedOfflineWayPointToOnline(onlineDataArray: WaypointModel[], offlineDataArray: WaypointModel[]): WaypointModel[] {
     for (const offlineData of offlineDataArray) {
       const result = onlineDataArray.filter(onlineData => offlineData.getStorageId() === onlineData.getStorageId());
       if (result && result.length === 1) {
-        if (!isUndefined(offlineData.offlineAction)) {
+        if (offlineData.offlineAction && !isUndefined(offlineData.offlineAction)) {
           onlineDataArray[onlineDataArray.indexOf(result[0])] = offlineData;
         }
-      } else {
+      } else if (offlineData.offlineAction && !isUndefined(offlineData.offlineAction)) {
         onlineDataArray.push(offlineData);
       }
     }
