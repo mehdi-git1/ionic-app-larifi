@@ -110,9 +110,7 @@ export class ImpersonatePage {
       impersonatedUser.matricule = pnc.matricule;
       this.sessionService.impersonatedUser = impersonatedUser;
       this.navCtrl.popToRoot();
-      this.authenticationService.putAuthenticatedUserInSession().then(
-        data => this.events.publish('user:authenticationDone')
-      );
+      this.authenticationService.putAuthenticatedUserInSession();
       this.impersonatingInProgress = false;
     }, error => {
       this.impersonatingInProgress = false;
@@ -135,9 +133,7 @@ export class ImpersonatePage {
     if (this.navCtrl.parent) {
       this.navCtrl.setRoot(PncHomePage);
     }
-    this.authenticationService.putAuthenticatedUserInSession().then(
-      data => this.events.publish('user:authenticationDone')
-    );
+    this.authenticationService.putAuthenticatedUserInSession();
   }
 
   /**

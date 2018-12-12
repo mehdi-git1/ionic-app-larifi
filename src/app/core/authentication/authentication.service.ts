@@ -65,7 +65,6 @@ export class AuthenticationService {
                 if (this.sessionService.getActiveUser().isPnc) {
                     this.initUserData();
                 }
-                this.events.publish('user:authenticationDone');
                 // Si le mode offline est autorisé, on met en place la gestion du offline
                 if (this.deviceService.isOfflineModeAvailable()) {
                     return this.offlineManagement().then(result => {
@@ -132,6 +131,7 @@ export class AuthenticationService {
                     this.sessionService.impersonatedUser = authenticatedUser;
                 }
             }
+            this.events.publish('user:authenticationDone');
             return true;
         }, errorAuthentication => {
             // Si la recupération ne marche pas et si on est autorisé en offline
@@ -139,7 +139,10 @@ export class AuthenticationService {
             if (this.deviceService.isOfflineModeAvailable()) {
                 this.connectivityService.setConnected(false);
                 return this.getAuthenticatedUserFromCache().then(
-                    result => true,
+                    result => {
+                        this.events.publish('user:authenticationDone');
+                        return true;
+                    },
                     errorGetUser => false
                 );
             } else {
