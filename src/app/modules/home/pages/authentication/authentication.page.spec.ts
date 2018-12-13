@@ -26,6 +26,7 @@ describe('authenticationPage', () => {
     let comp: AuthenticationPage;
     let navCtrlService: NavController;
     let translateService: TranslateService;
+    let events: Events;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
@@ -53,6 +54,7 @@ describe('authenticationPage', () => {
         comp = fixture.componentInstance;
         translateService = TestBed.get(TranslateService);
         navCtrlService = TestBed.get(NavController);
+        events = TestBed.get(Events);
     });
 
     describe('routingAuthent', () => {
@@ -65,7 +67,9 @@ describe('authenticationPage', () => {
             sessionServiceMock.impersonatedUser = tmpAuthUser;
             sessionServiceMock.getActiveUser.and.returnValue(tmpAuthUser);
             spyOn(navCtrlService, 'setRoot').and.returnValue(true);
-            spyOn(translateService, 'instant').and.returnValue(true);
+            spyOn(translateService, 'instant').and.callFake(function (param) {
+                return param;
+            });
         });
 
         it(`doit rediriger vers la page PncHomePage en cas d'AUTHENTIFICATION_OK`, () => {
@@ -74,9 +78,16 @@ describe('authenticationPage', () => {
             expect(navCtrlService.setRoot).toHaveBeenCalledWith(PncHomePage, { matricule: tmpAuthUser.matricule });
         });
 
-        it(`doit rediriger vers la page AuthenticationPage en cas d'AUTHENTICATION_KO`, () => {
+        it(`doit publier user:authenticationDone en cas d'AUTHENTIFICATION_OK`, () => {
+            spyOn(events, 'publish').and.returnValue(true);
+            comp.routingAuthent(AuthenticationStatusEnum.AUTHENTICATION_OK);
+            expect(events.publish).toHaveBeenCalledWith('user:authenticationDone');
+        });
+
+        it(`doit mettre la valeur GLOBAL.MESSAGES.ERROR.INVALID_CREDENTIALS dans la variable errorMsg en cas d'AUTHENTICATION_KO`, () => {
             comp.routingAuthent(AuthenticationStatusEnum.AUTHENTICATION_KO);
-            expect(navCtrlService.setRoot).toHaveBeenCalledWith(AuthenticationPage);
+            expect(translateService.instant).toHaveBeenCalledWith('GLOBAL.MESSAGES.ERROR.INVALID_CREDENTIALS');
+            expect(comp.errorMsg).toBe('GLOBAL.MESSAGES.ERROR.INVALID_CREDENTIALS');
         });
 
         it(`doit rediriger vers la page GenericMessagePage en cas d'INIT_KO avec le message d'erreur suivant

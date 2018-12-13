@@ -2,7 +2,7 @@ import { AuthenticationPage } from './modules/home/pages/authentication/authenti
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-translate/core';
-import { IonicModule, Platform, Nav } from 'ionic-angular';
+import { IonicModule, Platform, Nav, Events } from 'ionic-angular';
 
 import { EDossierPNC } from './app.component';
 import { TranslateLoaderMock, StatusBarMock, SplashScreenMock, PlatformMock } from '../test-config/mocks-ionic';
@@ -34,6 +34,7 @@ describe('appComponent', () => {
     let comp: EDossierPNC;
     let navCtrl: Nav;
     let translateService: TranslateService;
+    let events: Events;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
@@ -56,7 +57,8 @@ describe('appComponent', () => {
                 { provide: TranslateService, useClass: TranslateLoaderMock },
                 { provide: SynchronizationService },
                 { provide: AuthenticationService, useValue: authenticationServiceMock },
-                { provide: ConnectivityService, useValue: connectivityServiceMock }
+                { provide: ConnectivityService, useValue: connectivityServiceMock },
+                Events
             ],
             schemas: [NO_ERRORS_SCHEMA]
         });
@@ -64,6 +66,7 @@ describe('appComponent', () => {
         fixture = TestBed.createComponent(EDossierPNC);
         comp = fixture.componentInstance;
         translateService = TestBed.get(TranslateService);
+        events = TestBed.get(Events);
     });
 
     describe('routingApp', () => {
@@ -77,13 +80,21 @@ describe('appComponent', () => {
             sessionServiceMock.getActiveUser.and.returnValue(tmpAuthUser);
             navCtrl = comp.nav;
             spyOn(navCtrl, 'setRoot').and.returnValue(true);
-            spyOn(translateService, 'instant').and.returnValue(true);
+            spyOn(translateService, 'instant').and.callFake(function (param) {
+                return param;
+            });
         });
 
         it(`doit rediriger vers la page PncHomePage en cas d'AUTHENTIFICATION_OK`, () => {
             expect(comp).toBeDefined();
             comp.routingApp(AuthenticationStatusEnum.AUTHENTICATION_OK);
             expect(navCtrl.setRoot).toHaveBeenCalledWith(PncHomePage, { matricule: tmpAuthUser.matricule });
+        });
+
+        it(`doit publier user:authenticationDone en cas d'AUTHENTIFICATION_OK`, () => {
+            spyOn(events, 'publish').and.returnValue(true);
+            comp.routingApp(AuthenticationStatusEnum.AUTHENTICATION_OK);
+            expect(events.publish).toHaveBeenCalledWith('user:authenticationDone');
         });
 
         it(`doit rediriger vers la page AuthenticationPage en cas d'AUTHENTICATION_KO`, () => {

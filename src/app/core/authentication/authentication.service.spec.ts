@@ -19,7 +19,8 @@ const securityServiceMock = jasmine.createSpyObj('securityServiceMock', ['getAut
 const appInitServiceMock = jasmine.createSpyObj('appInitServiceMock', ['initParameters']);
 const deviceServiceMock = jasmine.createSpyObj('deviceServiceMock', ['isOfflineModeAvailable', 'isBrowser']);
 const synchronizationServiceMock = jasmine.createSpyObj('synchronizationServiceMock', ['']);
-const storageServiceMock = jasmine.createSpyObj('storageServiceMock', ['']);
+const storageServiceMock = jasmine.createSpyObj('storageServiceMock', ['initOfflineMap']);
+storageServiceMock.initOfflineMap.and.returnValue(Promise.resolve(true));
 const connectivityServiceMock = jasmine.createSpyObj('connectivityServiceMock', ['setConnected']);
 const secMobilServiceMock = jasmine.createSpyObj('secMobilServiceMock', ['authenticate']);
 
