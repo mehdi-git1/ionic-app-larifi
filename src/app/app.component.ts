@@ -89,6 +89,10 @@ export class EDossierPNC implements OnInit {
         });
       }
 
+      this.events.subscribe('connectionStatus:disconnected', () => {
+        this.connectivityService.startPingAPI();
+      });
+
       // Détection d'un changement d'état de la connexion
       this.connectivityService.connectionStatusChange.subscribe(connected => {
         if (!connected) {
