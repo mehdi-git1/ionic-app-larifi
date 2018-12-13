@@ -1,4 +1,3 @@
-import { AuthenticationPage } from './modules/home/pages/authentication/authentication.page';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-translate/core';
@@ -20,6 +19,8 @@ import { AuthenticationStatusEnum } from './core/enums/authentication-status.enu
 import { AuthenticatedUserModel } from './core/models/authenticated-user.model';
 import { PncHomePage } from './modules/home/pages/pnc-home/pnc-home.page';
 import { GenericMessagePage } from './modules/home/pages/generic-message/generic-message.page';
+import { ImpersonatePage } from './modules/settings/pages/impersonate/impersonate.page';
+import { AuthenticationPage } from './modules/home/pages/authentication/authentication.page';
 
 
 const connectivityServiceMock = jasmine.createSpyObj('connectivityServiceMock', ['']);
@@ -100,6 +101,11 @@ describe('appComponent', () => {
         it(`doit rediriger vers la page AuthenticationPage en cas d'AUTHENTICATION_KO`, () => {
             comp.routingApp(AuthenticationStatusEnum.AUTHENTICATION_KO);
             expect(navCtrl.setRoot).toHaveBeenCalledWith(AuthenticationPage);
+        });
+
+        it(`doit rediriger vers la page d'impersonnification en cas d'IMPERSONATE_MODE`, () => {
+            comp.routingApp(AuthenticationStatusEnum.IMPERSONATE_MODE);
+            expect(navCtrl.setRoot).toHaveBeenCalledWith(ImpersonatePage);
         });
 
         it(`doit rediriger vers la page GenericMessagePage en cas d'INIT_KO avec le message d'erreur suivant

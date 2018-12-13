@@ -14,6 +14,7 @@ import { AuthenticationStatusEnum } from '../../../../core/enums/authentication-
 import { PncHomePage } from '../pnc-home/pnc-home.page';
 import { GenericMessagePage } from '../generic-message/generic-message.page';
 import { AuthenticationPage } from './authentication.page';
+import { ImpersonatePage } from '../../../settings/pages/impersonate/impersonate.page';
 
 const authenticationServiceMock = jasmine.createSpyObj('authenticationServiceMock', ['initFonctionnalApp']);
 const deviceServiceMock = jasmine.createSpyObj('deviceServiceMock', ['isBrowser']);
@@ -76,6 +77,11 @@ describe('authenticationPage', () => {
             expect(comp).toBeDefined();
             comp.routingAuthent(AuthenticationStatusEnum.AUTHENTICATION_OK);
             expect(navCtrlService.setRoot).toHaveBeenCalledWith(PncHomePage, { matricule: tmpAuthUser.matricule });
+        });
+
+        it(`doit rediriger vers la page d'impersonnification en cas d'IMPERSONATE_MODE`, () => {
+            comp.routingAuthent(AuthenticationStatusEnum.IMPERSONATE_MODE);
+            expect(navCtrlService.setRoot).toHaveBeenCalledWith(ImpersonatePage);
         });
 
         it(`doit publier user:authenticationDone en cas d'AUTHENTIFICATION_OK`, () => {

@@ -72,13 +72,10 @@ export class AuthenticationService {
      * Gére la façon de mettre l'utilisateur en session
      */
     managePutauthenticationInSession(): Promise<AuthenticationStatusEnum> {
-        let tmpReturn: AuthenticationStatusEnum;
         const authenticatedUser = this.sessionService.getActiveUser();
         // Gestion du mode impersonnifié
         if (this.isInImpersonateMode(authenticatedUser)) {
-            tmpReturn = AuthenticationStatusEnum.IMPERSONATE_MODE;
-        } else {
-            tmpReturn = AuthenticationStatusEnum.AUTHENTICATION_OK;
+            return Promise.resolve(AuthenticationStatusEnum.IMPERSONATE_MODE);
         }
         // Initialisation des paramétres utilisateur en tant que PNC
         if (this.sessionService.getActiveUser().isPnc) {
@@ -96,7 +93,7 @@ export class AuthenticationService {
             });
         } else {
             // Ici retour des cas d'affichage hors offline
-            return Promise.resolve(tmpReturn);
+            return Promise.resolve(AuthenticationStatusEnum.AUTHENTICATION_OK);
         }
     }
 

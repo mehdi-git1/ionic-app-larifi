@@ -1,6 +1,3 @@
-import { AuthenticatedUserModel } from './core/models/authenticated-user.model';
-import { AuthenticationStatusEnum } from './core/enums/authentication-status.enum';
-import { AuthenticationService } from './core/authentication/authentication.service';
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { Nav, Platform, Events, App } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
@@ -18,6 +15,9 @@ import { ToastService } from './core/services/toast/toast.service';
 import { ConnectivityService } from './core/services/connectivity/connectivity.service';
 import { SessionService } from './core/services/session/session.service';
 import { ModalSecurityService } from './core/services/modal/modal-security.service';
+import { ImpersonatePage } from './modules/settings/pages/impersonate/impersonate.page';
+import { AuthenticationStatusEnum } from './core/enums/authentication-status.enum';
+import { AuthenticationService } from './core/authentication/authentication.service';
 
 
 @Component({
@@ -129,6 +129,8 @@ export class EDossierPNC implements OnInit {
       this.nav.setRoot(PncHomePage, { matricule: this.sessionService.getActiveUser().matricule });
     } else if (authentReturn === AuthenticationStatusEnum.AUTHENTICATION_KO) {
       this.nav.setRoot(AuthenticationPage);
+    } else if (authentReturn === AuthenticationStatusEnum.IMPERSONATE_MODE) {
+      this.nav.setRoot(ImpersonatePage);
     } else if (authentReturn === AuthenticationStatusEnum.INIT_KO) {
       this.nav.setRoot(GenericMessagePage, { message: this.translateService.instant('GLOBAL.MESSAGES.ERROR.APPLICATION_NOT_INITIALIZED') });
     } else if (authentReturn === AuthenticationStatusEnum.APPLI_UNAVAILABLE) {

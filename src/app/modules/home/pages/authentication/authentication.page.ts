@@ -11,6 +11,7 @@ import { SessionService } from './../../../../core/services/session/session.serv
 import { AuthenticationService } from './../../../../core/authentication/authentication.service';
 import { AuthenticationStatusEnum } from '../../../../core/enums/authentication-status.enum';
 import { GenericMessagePage } from '../generic-message/generic-message.page';
+import { ImpersonatePage } from '../../../settings/pages/impersonate/impersonate.page';
 @Component({
   selector: 'page-authentication',
   templateUrl: 'authentication.page.html',
@@ -73,6 +74,8 @@ export class AuthenticationPage {
       this.nav.setRoot(PncHomePage, { matricule: this.sessionService.getActiveUser().matricule });
     } else if (authentReturn === AuthenticationStatusEnum.INIT_KO) {
       this.nav.setRoot(GenericMessagePage, { message: this.translateService.instant('GLOBAL.MESSAGES.ERROR.APPLICATION_NOT_INITIALIZED') });
+    } else if (authentReturn === AuthenticationStatusEnum.IMPERSONATE_MODE) {
+      this.nav.setRoot(ImpersonatePage);
     } else if (authentReturn === AuthenticationStatusEnum.APPLI_UNAVAILABLE) {
       this.nav.setRoot(GenericMessagePage, { message: this.translateService.instant('GLOBAL.MESSAGES.ERROR.SERVER_APPLICATION_UNAVAILABLE') });
     } else if (authentReturn === AuthenticationStatusEnum.AUTHENTICATION_KO) {
