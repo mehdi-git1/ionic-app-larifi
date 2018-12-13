@@ -144,7 +144,6 @@ export class AuthenticationService {
                     this.sessionService.impersonatedUser = authenticatedUser;
                 }
             }
-            this.events.publish('user:authenticationDone');
             return true;
         }, errorAuthentication => {
             // Si la recupération ne marche pas et si on est autorisé en offline
@@ -153,7 +152,6 @@ export class AuthenticationService {
                 this.connectivityService.setConnected(false);
                 return this.getAuthenticatedUserFromCache().then(
                     result => {
-                        this.events.publish('user:authenticationDone');
                         return true;
                     },
                     errorGetUser => false

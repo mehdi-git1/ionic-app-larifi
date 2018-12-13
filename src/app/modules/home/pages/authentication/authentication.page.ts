@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
-import { NavController } from 'ionic-angular';
+import { NavController, Events } from 'ionic-angular';
 import { TranslateService } from '@ngx-translate/core';
 
 import { PncHomePage } from '../pnc-home/pnc-home.page';
@@ -29,7 +29,8 @@ export class AuthenticationPage {
     public securityModalService: ModalSecurityService,
     private authenticationService: AuthenticationService,
     private sessionService: SessionService,
-    private nav: NavController
+    private nav: NavController,
+    private events: Events
   ) {
     this.initializeForm();
   }
@@ -65,6 +66,7 @@ export class AuthenticationPage {
  */
   routingAuthent(authentReturn: AuthenticationStatusEnum) {
     if (authentReturn === AuthenticationStatusEnum.AUTHENTICATION_OK) {
+      this.events.publish('user:authenticationDone');
       if (!this.deviceService.isBrowser() && !this.sessionService.impersonatedUser) {
         this.securityModalService.displayPinPad(PinPadTypeEnum.openingApp);
       }

@@ -13,7 +13,7 @@ export abstract class BaseEnvironment {
   public eObsCallbackUrl;
   public eObsCallbackActionLabel;
 
-  public makeOfflineModeAvailable = false;
+  public makeOfflineModeAvailable = true;
 
   /**
   * Vérifie qu'on est en local

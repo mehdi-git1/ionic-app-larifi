@@ -117,7 +117,7 @@ export class EDossierPNC implements OnInit {
    */
   routingApp(authentReturn: AuthenticationStatusEnum) {
     if (authentReturn === AuthenticationStatusEnum.AUTHENTICATION_OK) {
-      console.log('auth');
+      this.events.publish('user:authenticationDone');
       if (!this.deviceService.isBrowser() && !this.sessionService.impersonatedUser) {
         this.securityModalService.displayPinPad(PinPadTypeEnum.openingApp);
       }

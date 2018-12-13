@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-translate/core';
-import { IonicModule, NavController } from 'ionic-angular';
+import { IonicModule, NavController, Events } from 'ionic-angular';
 
 import { TranslateLoaderMock, NavMock } from '../../../../../test-config/mocks-ionic';
 import { ModalSecurityService } from '../../../../core/services/modal/modal-security.service';
@@ -43,7 +43,8 @@ describe('authenticationPage', () => {
                 { provide: ToastService },
                 { provide: NavController, useClass: NavMock },
                 { provide: TranslateService, useClass: TranslateLoaderMock },
-                { provide: AuthenticationService, useValue: authenticationServiceMock }
+                { provide: AuthenticationService, useValue: authenticationServiceMock },
+                Events
             ],
             schemas: [NO_ERRORS_SCHEMA]
         });
