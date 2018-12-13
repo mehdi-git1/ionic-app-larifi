@@ -27,18 +27,4 @@ export class ModuleCardComponent {
     }
     return '';
   }
-
-  translateType(): string {
-    if (this.module && this.module.moduleType && this.module.moduleType !== undefined) {
-      return this.translateOrEmptyService.translateConcatenateKey('PROFESSIONAL_LEVEL.MODULE_TYPE.', this.module.moduleType);
-    }
-    return '';
-  }
-
-  translateStatus(): string {
-    if (this.module && this.module.moduleResultStatus && this.module.moduleResultStatus !== undefined) {
-      return this.translateOrEmptyService.translateConcatenateKey('PROFESSIONAL_LEVEL.MODULE_STATUS.', this.module.moduleResultStatus);
-    }
-    return '';
-  }
 }
