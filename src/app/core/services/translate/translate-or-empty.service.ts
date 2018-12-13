@@ -33,12 +33,10 @@ export class TranslateOrEmptyService {
      * @return la valeur dans la fichier d'internationalisation
      */
     public translate(key: string): string {
-        console.log('key='+key);
         if (!key || key === undefined) {
             return '';
         }
         const status: string = this.translateService.instant(key);
-        console.log('status='+status);
         if (status === key) {
             return '';
         }
