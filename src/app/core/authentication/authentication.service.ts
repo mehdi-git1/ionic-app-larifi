@@ -37,7 +37,9 @@ export class AuthenticationService {
         return this.isAuthenticated().then(
             data => {
                 if (data) {
-                    return this.manageUserInformationsInApp();
+                    return this.storageService.initOfflineMap().then(success => {
+                        return this.manageUserInformationsInApp();
+                    });
                 } else {
                     return AuthenticationStatusEnum.AUTHENTICATION_KO;
                 }
@@ -173,22 +175,20 @@ export class AuthenticationService {
      * Gestion des actions à faire en mode offLine
      */
     offlineManagement(): Promise<boolean> {
-        return this.storageService.initOfflineMap().then(success => {
-            return this.connectivityService.pingAPI().then(
-                pingSuccess => {
-                    this.connectivityService.setConnected(true);
-                    this.synchronizationService.synchronizeOfflineData();
-                    return this.synchronizationService.storeEDossierOffline(this.sessionService.getActiveUser().matricule).then(successStore => {
-                        return true;
-                    }, error => {
-                        return false;
-                    });
-                }, pingError => {
-                    this.connectivityService.setConnected(false);
-                    this.connectivityService.startPingAPI();
+        return this.connectivityService.pingAPI().then(
+            pingSuccess => {
+                this.connectivityService.setConnected(true);
+                this.synchronizationService.synchronizeOfflineData();
+                return this.synchronizationService.storeEDossierOffline(this.sessionService.getActiveUser().matricule).then(successStore => {
+                    return true;
+                }, error => {
                     return false;
                 });
-        });
+            }, pingError => {
+                this.connectivityService.setConnected(false);
+                this.connectivityService.startPingAPI();
+                return false;
+            });
     }
 
     /**
