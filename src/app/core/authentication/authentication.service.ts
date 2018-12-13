@@ -54,6 +54,8 @@ export class AuthenticationService {
         return this.putAuthenticatedUserInSession().then(putOk => {
             if (putOk) {
                 return this.managePutauthenticationInSession();
+            } else {
+                return AuthenticationStatusEnum.INIT_KO;
             }
         },
             error => {
@@ -188,7 +190,7 @@ export class AuthenticationService {
                 }, pingError => {
                     this.connectivityService.setConnected(false);
                     this.connectivityService.startPingAPI();
-                    return false;
+                    return true;
                 });
         });
     }
