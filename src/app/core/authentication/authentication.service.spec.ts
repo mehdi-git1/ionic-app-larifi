@@ -85,6 +85,7 @@ describe('AuthenticationService', () => {
 
                 beforeEach(() => {
                     spyOn(authenticationService, 'initUserData').and.returnValue(true);
+                    authenticationService.isInImpersonateMode = jasmine.createSpy().and.returnValue(false);
                 });
 
                 it(`doit initialiser les paramétres pnc si l'utilisateur est un PNC`, fakeAsync(() => {
@@ -96,7 +97,7 @@ describe('AuthenticationService', () => {
                 }));
 
                 it(`ne doit pas initialiser les paramétres pnc si l'utilisateur n'est pas un PNC`, fakeAsync(() => {
-                    authenticatedUserTest.isPnc = false;
+                    authenticatedUserTest.isPnc = true;
                     sessionServiceMock.getActiveUser.and.returnValue(authenticatedUserTest);
                     authenticationService.managePutauthenticationInSession().then(
                         data => expect(authenticationService.initUserData).not.toHaveBeenCalled()
@@ -130,6 +131,7 @@ describe('AuthenticationService', () => {
 
                 beforeEach(() => {
                     deviceServiceMock.isOfflineModeAvailable.and.returnValue(true);
+                    authenticationService.isInImpersonateMode = jasmine.createSpy().and.returnValue(false);
                 });
 
                 it(`doit appeler la fonction d'initialisation du cache offlineManagement`, () => {

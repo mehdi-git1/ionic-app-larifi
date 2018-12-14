@@ -109,6 +109,13 @@ describe('authenticationPage', () => {
                 expect(translateService.instant).toHaveBeenCalledWith('GLOBAL.MESSAGES.ERROR.SERVER_APPLICATION_UNAVAILABLE');
                 expect(navCtrlService.setRoot).toHaveBeenCalledWith(GenericMessagePage, jasmine.any(Object));
             });
+
+        it(`doit rediriger vers la page GenericMessagePage en cas de retour undefined avec le message d'erreur suivant
+        'GLOBAL.MESSAGES.ERROR.APPLICATION_NOT_INITIALIZED'`, () => {
+                comp.routingAuthent(undefined);
+                expect(translateService.instant).toHaveBeenCalledWith('GLOBAL.MESSAGES.ERROR.APPLICATION_NOT_INITIALIZED');
+                expect(navCtrlService.setRoot).toHaveBeenCalledWith(GenericMessagePage, jasmine.any(Object));
+            });
     });
 
 });

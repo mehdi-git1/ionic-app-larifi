@@ -81,6 +81,8 @@ export class AuthenticationPage {
     } else if (authentReturn === AuthenticationStatusEnum.AUTHENTICATION_KO) {
       this.errorMsg = this.translateService.instant('GLOBAL.MESSAGES.ERROR.INVALID_CREDENTIALS');
       this.hideSpinner = true;
+    } else {
+      this.nav.setRoot(GenericMessagePage, { message: this.translateService.instant('GLOBAL.MESSAGES.ERROR.APPLICATION_NOT_INITIALIZED') });
     }
   }
 }
