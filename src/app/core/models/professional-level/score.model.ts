@@ -1,4 +1,4 @@
 export class ScoreModel {
-    codeEvaluation: string;
+    evaluationCode: string;
     score: number;
 }
