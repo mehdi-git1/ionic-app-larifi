@@ -97,7 +97,7 @@ describe('AuthenticationService', () => {
                 }));
 
                 it(`ne doit pas initialiser les paramétres pnc si l'utilisateur n'est pas un PNC`, fakeAsync(() => {
-                    authenticatedUserTest.isPnc = false;
+                    authenticatedUserTest.isPnc = true;
                     sessionServiceMock.getActiveUser.and.returnValue(authenticatedUserTest);
                     authenticationService.managePutauthenticationInSession().then(
                         data => expect(authenticationService.initUserData).not.toHaveBeenCalled()

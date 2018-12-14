@@ -11,6 +11,7 @@ module.exports = function(config) {
             require('karma-jasmine-html-reporter'),
             require('karma-junit-reporter'),
             require('karma-coverage-istanbul-reporter'),
+            require('karma-coverage'),
             require('@angular/cli/plugins/karma')
         ],
         client: {
@@ -23,7 +24,7 @@ module.exports = function(config) {
         angularCli: {
             environment: 'dev'
         },
-        reporters: ['progress', 'junit'],
+        reporters: ['progress', 'coverage', 'junit'],
         port: 9876,
         colors: true,
         logLevel: config.LOG_INFO,
