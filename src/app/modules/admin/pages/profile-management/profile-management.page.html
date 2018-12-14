@@ -11,7 +11,10 @@
         <ion-row>
             <ion-col>
                 <ion-item *ngFor="let userProfile of userProfiles">
-                    {{ userProfile.name }}
+                    <label>{{ userProfile.name }}</label>
+                    <button ion-fab mini icon-only item-end (click)="goToPermissionManagement(userProfile.name)">
+                        <ion-icon name="unlock" ios="md-unlock"></ion-icon>
+                    </button>
                 </ion-item>
             </ion-col>
         </ion-row>
