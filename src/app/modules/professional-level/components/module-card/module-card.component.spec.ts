@@ -16,7 +16,7 @@ describe('ModuleCardComponent', () => {
     });
 
     function checkPointColorInFunctionOfModuleStatus(moduleStatus: string, colorPointClass: string) {
-        const moduleCardComponent = new ModuleCardComponent();
+        const moduleCardComponent = new ModuleCardComponent(null);
         moduleCardComponent.module = new ModuleModel();
         moduleCardComponent.module.moduleResultStatus = moduleStatus;
         expect(moduleCardComponent.getModuleStatusPointCssClass()).toEqual(colorPointClass);

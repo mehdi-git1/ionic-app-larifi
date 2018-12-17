@@ -1,5 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { ModuleModel } from '../../../../core/models/professional-level/module.model';
+import { TranslateService } from '@ngx-translate/core';
+import { TranslateOrEmptyService } from '../../../../core/services/translate/translate-or-empty.service';
 
 @Component({
   selector: 'module-card',
@@ -9,7 +11,7 @@ export class ModuleCardComponent {
 
   @Input() module: ModuleModel;
 
-  constructor() {
+  constructor(public translateOrEmptyService: TranslateOrEmptyService) {
   }
 
   /**
