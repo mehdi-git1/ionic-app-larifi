@@ -7,6 +7,11 @@ describe('ScorePercentPipe', () => {
         expect(pipe.transform('100')).toEqual(100);
     });
 
+    it('0 doit se transformer en 0', () => {
+        const pipe = new ScorePercentPipe();
+        expect(pipe.transform('0')).toEqual(0);
+    });
+
     it('00,01 doit se transformer en 0', () => {
         const pipe = new ScorePercentPipe();
         expect(pipe.transform('00.01')).toEqual(0);

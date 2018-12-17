@@ -2,6 +2,7 @@ import { NavController } from 'ionic-angular';
 import { Component, Input } from '@angular/core';
 import { ModuleModel } from '../../../../core/models/professional-level/module.model';
 import { EvaluationSheetPage } from '../../pages/professional-level/evaluation-sheet/evaluation-sheet.page';
+import { TranslateOrEmptyService } from '../../../../core/services/translate/translate-or-empty.service';
 
 @Component({
   selector: 'module-card',
@@ -11,7 +12,8 @@ export class ModuleCardComponent {
 
   @Input() module: ModuleModel;
 
-  constructor(private navCtrl: NavController) {
+  constructor(private navCtrl: NavController,
+    private translateOrEmptyService: TranslateOrEmptyService) {
   }
 
   /**
