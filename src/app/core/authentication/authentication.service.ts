@@ -30,9 +30,9 @@ export class AuthenticationService {
     ) { }
 
     /**
-     * Gestion de la création des données fonctionnelles et leurs gestions dans l'appli
+     * Gére la création des données fonctionnelles et leurs gestions dans l'appli
      */
-    initFonctionnalApp(): Promise<AuthenticationStatusEnum> {
+    initFunctionalApp(): Promise<AuthenticationStatusEnum> {
         // On vérifie si l'utilisateur est connecté à l'application
         return this.isAuthenticated().then(
             data => {
@@ -52,15 +52,15 @@ export class AuthenticationService {
      * ou lors de l'authentification
      */
     manageUserInformationsInApp(): Promise<AuthenticationStatusEnum> {
-        // Ensuite on met les données utilisateur en session
-        return this.putAuthenticatedUserInSession().then(putOk => {
-            if (putOk) {
-                return this.managePutauthenticationInSession();
+        // On met les données utilisateur en session
+        return this.putAuthenticatedUserInSession().then(isPutOk => {
+            if (isPutOk) {
+                return this.initializeUser();
             }
         },
             error => {
                 if (error) {
-                    return this.managePutauthenticationInSession();
+                    return this.initializeUser();
                 } else {
                     return AuthenticationStatusEnum.INIT_KO;
                 }
@@ -69,9 +69,10 @@ export class AuthenticationService {
     }
 
     /**
-     * Gére la façon de mettre l'utilisateur en session
+     * Gére la façon d'initialiser l'utilisateur
+     * @return Retourne le staus de l'authentification (appli / user)
      */
-    managePutauthenticationInSession(): Promise<AuthenticationStatusEnum> {
+    initializeUser(): Promise<AuthenticationStatusEnum> {
         const authenticatedUser = this.sessionService.getActiveUser();
         // Gestion du mode impersonnifié
         if (this.isInImpersonateMode(authenticatedUser)) {
@@ -106,7 +107,7 @@ export class AuthenticationService {
     }
 
     /**
-     * Gestion de l'authentification dans l'appli via la page d'authentification
+     * Gére l'authentification dans l'appli via la page d'authentification
      * @param login : login du user
      * @param password : mot de passe
      */
@@ -132,7 +133,7 @@ export class AuthenticationService {
     }
 
     /**
-    * Mettre le pnc connecté en session
+    * Met le pnc connecté en session
     */
     putAuthenticatedUserInSession(): Promise<boolean> {
         return this.securityService.getAuthenticatedUser().then(authenticatedUser => {
@@ -169,7 +170,7 @@ export class AuthenticationService {
     }
 
     /**
-     * Gestion des actions à faire en mode offLine
+     * Gére les actions à faire en mode offLine
      */
     offlineManagement(): Promise<boolean> {
         return this.connectivityService.pingAPI().then(

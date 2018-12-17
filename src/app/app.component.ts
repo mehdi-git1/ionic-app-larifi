@@ -61,7 +61,6 @@ export class EDossierPNC implements OnInit {
   initializeApp() {
 
     this.platform.ready().then(() => {
-      console.log('ready');
 
       if (!this.deviceService.isBrowser()) {
         /**
@@ -110,7 +109,7 @@ export class EDossierPNC implements OnInit {
 
       this.translateService.setDefaultLang('fr');
       this.translateService.use('fr');
-      this.authenticationService.initFonctionnalApp().then(
+      this.authenticationService.initFunctionalApp().then(
         authentReturn => {
           this.routingApp(authentReturn);
         });
@@ -119,28 +118,32 @@ export class EDossierPNC implements OnInit {
   }
 
   /**
-   * Gestion du routing en fonction du paramétre d'entrée
+   * Gére le routage en fonction du paramétre d'entrée
    * @param authentReturn retour de l'authentification
    */
   routingApp(authentReturn: AuthenticationStatusEnum) {
-    if (authentReturn === AuthenticationStatusEnum.AUTHENTICATION_OK) {
-      this.events.publish('user:authenticationDone');
-      if (!this.deviceService.isBrowser() && !this.sessionService.impersonatedUser) {
-        this.securityModalService.displayPinPad(PinPadTypeEnum.openingApp);
-      }
-      this.nav.setRoot(PncHomePage, { matricule: this.sessionService.getActiveUser().matricule });
-    } else if (authentReturn === AuthenticationStatusEnum.AUTHENTICATION_KO) {
-      this.nav.setRoot(AuthenticationPage);
-    } else if (authentReturn === AuthenticationStatusEnum.IMPERSONATE_MODE) {
-      this.nav.setRoot(ImpersonatePage);
-    } else if (authentReturn === AuthenticationStatusEnum.INIT_KO) {
-      this.nav.setRoot(GenericMessagePage, { message: this.translateService.instant('GLOBAL.MESSAGES.ERROR.APPLICATION_NOT_INITIALIZED') });
-    } else if (authentReturn === AuthenticationStatusEnum.APPLI_UNAVAILABLE) {
-      this.nav.setRoot(GenericMessagePage, { message: this.translateService.instant('GLOBAL.MESSAGES.ERROR.SERVER_APPLICATION_UNAVAILABLE') });
-    } else {
-      this.nav.setRoot(GenericMessagePage, { message: this.translateService.instant('GLOBAL.MESSAGES.ERROR.APPLICATION_NOT_INITIALIZED') });
+    switch (authentReturn) {
+      case AuthenticationStatusEnum.AUTHENTICATION_OK:
+        this.events.publish('user:authenticationDone');
+        if (!this.deviceService.isBrowser() && !this.sessionService.impersonatedUser) {
+          this.securityModalService.displayPinPad(PinPadTypeEnum.openingApp);
+        }
+        this.nav.setRoot(PncHomePage, { matricule: this.sessionService.getActiveUser().matricule });
+        break;
+      case AuthenticationStatusEnum.AUTHENTICATION_KO:
+        this.nav.setRoot(AuthenticationPage);
+        break;
+      case AuthenticationStatusEnum.IMPERSONATE_MODE:
+        this.nav.setRoot(ImpersonatePage);
+        break;
+      case AuthenticationStatusEnum.INIT_KO:
+        this.nav.setRoot(GenericMessagePage, { message: this.translateService.instant('GLOBAL.MESSAGES.ERROR.APPLICATION_NOT_INITIALIZED') });
+        break;
+      case AuthenticationStatusEnum.APPLI_UNAVAILABLE:
+        this.nav.setRoot(GenericMessagePage, { message: this.translateService.instant('GLOBAL.MESSAGES.ERROR.SERVER_APPLICATION_UNAVAILABLE') });
+        break;
+      default:
+        this.nav.setRoot(GenericMessagePage, { message: this.translateService.instant('GLOBAL.MESSAGES.ERROR.APPLICATION_NOT_INITIALIZED') });
     }
   }
 }
-
-

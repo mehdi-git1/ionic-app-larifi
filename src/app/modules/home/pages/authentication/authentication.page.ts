@@ -66,23 +66,29 @@ export class AuthenticationPage {
  * @param authentReturn retour de l'authentification
  */
   routingAuthent(authentReturn: AuthenticationStatusEnum) {
-    if (authentReturn === AuthenticationStatusEnum.AUTHENTICATION_OK) {
-      this.events.publish('user:authenticationDone');
-      if (!this.deviceService.isBrowser() && !this.sessionService.impersonatedUser) {
-        this.securityModalService.displayPinPad(PinPadTypeEnum.openingApp);
-      }
-      this.nav.setRoot(PncHomePage, { matricule: this.sessionService.getActiveUser().matricule });
-    } else if (authentReturn === AuthenticationStatusEnum.INIT_KO) {
-      this.nav.setRoot(GenericMessagePage, { message: this.translateService.instant('GLOBAL.MESSAGES.ERROR.APPLICATION_NOT_INITIALIZED') });
-    } else if (authentReturn === AuthenticationStatusEnum.IMPERSONATE_MODE) {
-      this.nav.setRoot(ImpersonatePage);
-    } else if (authentReturn === AuthenticationStatusEnum.APPLI_UNAVAILABLE) {
-      this.nav.setRoot(GenericMessagePage, { message: this.translateService.instant('GLOBAL.MESSAGES.ERROR.SERVER_APPLICATION_UNAVAILABLE') });
-    } else if (authentReturn === AuthenticationStatusEnum.AUTHENTICATION_KO) {
-      this.errorMsg = this.translateService.instant('GLOBAL.MESSAGES.ERROR.INVALID_CREDENTIALS');
-      this.hideSpinner = true;
-    } else {
-      this.nav.setRoot(GenericMessagePage, { message: this.translateService.instant('GLOBAL.MESSAGES.ERROR.APPLICATION_NOT_INITIALIZED') });
+    switch (authentReturn) {
+      case AuthenticationStatusEnum.AUTHENTICATION_OK:
+        this.events.publish('user:authenticationDone');
+        if (!this.deviceService.isBrowser() && !this.sessionService.impersonatedUser) {
+          this.securityModalService.displayPinPad(PinPadTypeEnum.openingApp);
+        }
+        this.nav.setRoot(PncHomePage, { matricule: this.sessionService.getActiveUser().matricule });
+        break;
+      case AuthenticationStatusEnum.INIT_KO:
+        this.nav.setRoot(GenericMessagePage, { message: this.translateService.instant('GLOBAL.MESSAGES.ERROR.APPLICATION_NOT_INITIALIZED') });
+        break;
+      case AuthenticationStatusEnum.IMPERSONATE_MODE:
+        this.nav.setRoot(ImpersonatePage);
+        break;
+      case AuthenticationStatusEnum.APPLI_UNAVAILABLE:
+        this.nav.setRoot(GenericMessagePage, { message: this.translateService.instant('GLOBAL.MESSAGES.ERROR.SERVER_APPLICATION_UNAVAILABLE') });
+        break;
+      case AuthenticationStatusEnum.AUTHENTICATION_KO:
+        this.errorMsg = this.translateService.instant('GLOBAL.MESSAGES.ERROR.INVALID_CREDENTIALS');
+        this.hideSpinner = true;
+        break;
+      default:
+        this.nav.setRoot(GenericMessagePage, { message: this.translateService.instant('GLOBAL.MESSAGES.ERROR.APPLICATION_NOT_INITIALIZED') });
     }
   }
 }
