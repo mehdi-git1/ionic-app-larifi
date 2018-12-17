@@ -16,7 +16,8 @@
 [class^="ion-ios-icon"],
 [class*="ion-ios-icon"],
 [class^="ion-md-icon"],
-[class*="ion-md-icon"] {
+[class*="ion-md-icon"],
+[class*="edospnc-"] {
     /* use !important to prevent issues with browser extensions that change fonts */
     font-family: 'edospnc' !important;
     speak: none;
@@ -45,9 +46,9 @@
 }
 
 @include makeIcon(home, '\e900');
-@include makeIcon(myBoard, '\e903');
 @include makeIcon(developmentProgram, '\e901');
 @include makeIcon(helpCenter, '\e902');
+@include makeIcon(myBoard, '\e903');
 @include makeIcon(pnc, '\e904');
 @include makeIcon(pncTeam, '\e905');
 @include makeIcon(professionalLevel, '\e906');
