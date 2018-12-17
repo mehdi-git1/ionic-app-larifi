@@ -155,7 +155,7 @@ export class PncHomePage {
      * Dirige vers l'attestation réglementaire
      */
     goToStatutoryCertificate() {
-        if (this.isMyHome()) {
+        if (this.isMyHome() && !this.isManager()) {
             this.navCtrl.parent.select(this.tabNavService.findTabIndex(tabNavEnum.STATUTORY_CERTIFICATE_PAGE));
         } else {
             this.navCtrl.push(StatutoryCertificatePage, { matricule: this.matricule });
@@ -166,7 +166,7 @@ export class PncHomePage {
     * Dirige vers le suivi réglementaire
     */
     goToProfessionalLevel() {
-        if (this.isMyHome()) {
+        if (this.isMyHome() && !this.isManager()) {
             this.navCtrl.parent.select(this.tabNavService.findTabIndex(tabNavEnum.PROFESSIONAL_LEVEL_PAGE));
         } else {
             this.navCtrl.push(ProfessionalLevelPage, { matricule: this.matricule });

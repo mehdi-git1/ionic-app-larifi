@@ -13,13 +13,11 @@ export class EvaluationSheetPage {
 
     evaluationSheet: EvaluationSheetModel;
     module: ModuleModel;
-    loading: boolean;
 
     constructor(
         private navParams: NavParams,
         private evaluationSheetService: EvaluationSheetService
     ) {
-        this.loading = true;
     }
 
     ionViewDidEnter() {
@@ -45,9 +43,16 @@ export class EvaluationSheetPage {
         if (this.module) {
             this.evaluationSheetService.getEvaluationSheet(this.module.techId).then(evaluationSheet => {
                 this.evaluationSheet = evaluationSheet;
-                this.loading = false;
             }, error => { });
         }
+    }
+
+    /**
+     * Vérifie que le chargement est terminé
+     * @return true si c'est le cas, false sinon
+     */
+    loadingIsOver(): boolean {
+        return typeof this.evaluationSheet !== 'undefined';
     }
 }
 

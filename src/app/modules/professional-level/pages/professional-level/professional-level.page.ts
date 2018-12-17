@@ -21,7 +21,7 @@ export class ProfessionalLevelPage {
     private professionalLevelProvider: ProfessionalLevelService) {
   }
 
-  ionViewDidEnter() {
+  ionViewDidLoad() {
     if (this.navParams.get('matricule')) {
       this.matricule = this.navParams.get('matricule');
     } else if (this.sessionService.getActiveUser()) {

@@ -71,6 +71,7 @@
 
         &.score-bloc {
             width: 100%;
+            height: 100%;
             padding-left: 30px;
             padding-top: 10px;
             padding-bottom: 3px;
@@ -82,9 +83,14 @@
             }
 
             .score-bloc-value {
+                font-size: 22px;
+                margin-left: 20px;
+                letter-spacing: -0.45px;
+            }
+
+            .score-bloc-eval {
                 font-weight: bold;
                 font-size: 22px;
-                margin-left: 30px;
                 letter-spacing: -0.45px;
             }
 
@@ -94,11 +100,12 @@
                 letter-spacing: -0.22px;
             }
 
-            ion-icon {
-                color: blue;
-                font-size: 40px;
+            .edospnc-speechBubble:before {
+                color: #4cc3cc;
+                font-size: 58px;
                 padding: 10px;
             }
+
         }
     }
 

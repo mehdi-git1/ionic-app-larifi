@@ -284,9 +284,6 @@ export class SynchronizationService {
 
     // Suppression du niveau pro SV
     this.storageService.delete(EntityEnum.PROFESSIONAL_LEVEL, pnc.matricule);
-
-    // Suppression des feuilles d'évaluation
-    this.storageService.deleteAll(EntityEnum.EVALUATION_SHEET);
   }
 
   /**
