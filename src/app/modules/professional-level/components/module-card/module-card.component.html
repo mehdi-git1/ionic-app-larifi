@@ -4,5 +4,5 @@
     <ion-col col-3>{{module?.label}}</ion-col>
     <ion-col col-3><ion-badge class="score-badge" *ngFor="let score of module?.scores" >{{score?.score | scorePercent}} % ({{score?.evaluationCode}})</ion-badge></ion-col>
     <ion-col col-2><span [ngClass]="getModuleStatusPointCssClass()"></span>{{'PROFESSIONAL_LEVEL.MODULE_STATUS.' + module?.moduleResultStatus | translateOrEmpty}}</ion-col>
-    <ion-col col-1><button class="niv3-button" ion-fab mini><ion-icon name="paper"></ion-icon></button></ion-col>
+    <ion-col col-1></ion-col>
 </ion-row>
