@@ -20,16 +20,16 @@
                     <ion-card class='score-bloc'>
                         <p>
                             <span class='score-bloc-title'> {{'PROFESSIONAL_LEVEL.EVALUATION_SHEET.SCORE_BLOC.BLOC_EVALUATION_TITLE' | translate}} :</span>
-                            <span *ngIf='evaluationSheet?.e1Score' class='score-bloc-value'>
+                            <span *ngIf='evaluationSheet?.e1Score !== undefined' class='score-bloc-value'>
                                 {{evaluationSheet.e1Score}}%
                             </span>
-                            <span *ngIf='evaluationSheet?.e1Score' class='score-bloc-eval'>
+                            <span *ngIf='evaluationSheet?.e1Score !== undefined' class='score-bloc-eval'>
                                 ( {{'PROFESSIONAL_LEVEL.EVALUATION_SHEET.SCORE_BLOC.E1' | translate}} )
                             </span>
-                            <span *ngIf='evaluationSheet?.e2Score' class='score-bloc-value'>
-                                {{evaluationSheet.e2Score}} %
+                            <span *ngIf='evaluationSheet?.e2Score !== undefined' class='score-bloc-value'>
+                                {{evaluationSheet.e2Score}}%
                             </span>
-                            <span *ngIf='evaluationSheet?.e2Score' class='score-bloc-eval'>
+                            <span *ngIf='evaluationSheet?.e2Score !== undefined' class='score-bloc-eval'>
                                 ( {{'PROFESSIONAL_LEVEL.EVALUATION_SHEET.SCORE_BLOC.E2' | translate}} )
                             </span>
                         </p>
@@ -40,7 +40,7 @@
                                         <ion-icon class="edospnc-speechBubble" name="edospnc-speechBubble"></ion-icon>
                                     </ion-col>
                                     <ion-col col-10>
-                                        <span class='evaluationSheet?.evaluationComment ? score-bloc-comment : no-value'>
+                                        <span class="score-bloc-comment" [ngClass]="{'no-value' : !evaluationSheet.evaluationComment }">
                                             {{ evaluationSheet?.evaluationComment}}
                                         </span>
                                     </ion-col>
@@ -49,7 +49,7 @@
                         </p>
                     </ion-card>
                 </ion-col>
-                <ion-col no-padding *ngIf='evaluationSheet?.fcScore'>
+                <ion-col no-padding *ngIf='evaluationSheet?.fcScore !== undefined'>
                     <ion-card class='score-bloc'>
                         <p>
                             <span class='score-bloc-title'> {{'PROFESSIONAL_LEVEL.EVALUATION_SHEET.SCORE_BLOC.BLOC_FC_TITLE' | translate }} : </span>
@@ -61,7 +61,7 @@
                                     <ion-icon class="edospnc-speechBubble" name="edospnc-speechBubble"></ion-icon>
                                 </ion-col>
                                 <ion-col col-10>
-                                    <span class='evaluationSheet?.fcComment ? score-bloc-comment : no-value'>{{ evaluationSheet?.fcComment}}</span>
+                                    <span class="score-bloc-comment" [ngClass]="{'no-value' : !evaluationSheet.fcComment }">{{ evaluationSheet?.fcComment}}</span>
                                 </ion-col>
                             </ion-row>
                         </ion-grid>
