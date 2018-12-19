@@ -22,9 +22,8 @@ export class ProfileManagementPage {
         }, error => { });
     }
 
-    goToPermissionManagement(profileSelected: string) {
-        console.log('le profil choisi est ' + profileSelected);
-        this.navCtrl.push(PermissionManagementPage);
+    goToPermissionManagement(name) {
+        this.navCtrl.push(PermissionManagementPage, { name: name });
 
     }
 

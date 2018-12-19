@@ -1,7 +1,7 @@
 <ion-header>
     <ion-navbar>
         <page-header [showSettingsIcon]="false">
-            {{ 'ADMIN.PERMISSION_MANAGEMENT.TITLE' | translate }} {{ userProfile.name }}
+            {{ 'ADMIN.PERMISSION_MANAGEMENT.TITLE' | translate }} -- {{ userProfileName }}
         </page-header>
     </ion-navbar>
 </ion-header>
@@ -12,19 +12,22 @@
             <ion-col>
                 <ion-item>
                     <ion-label>{{ 'ADMIN.PERMISSION_MANAGEMENT.HEADER.PERMISSION_HEADER' | translate }}</ion-label>
-                    <ion-label item-right secondary>{{ 'ADMIN.PERMISSION_MANAGEMENT.HEADER.AUTORISATION_HEADER' | translate }}</ion-label>
+                    <ion-label item-right secondary>{{ 'ADMIN.PERMISSION_MANAGEMENT.HEADER.AUTORISATION_HEADER' |
+                        translate }}</ion-label>
                 </ion-item>
             </ion-col>
         </ion-row>
         <ion-row>
             <ion-col>
-                <ion-item *ngFor="let userPermission of userPermissions">
-                    <ion-label left> {{ userPermission.name }}</ion-label>
-                    <ion-checkbox item-right secondary ng-model=""></ion-checkbox>
+                <ion-item *ngFor="let userPermission of allUserPermissions; let i=index;">
+
+                    <ion-label left> {{ userPermission.name }} </ion-label>
+                    <ion-checkbox [checked]="isChecked(userPermission.name)" item-right secondary></ion-checkbox>
+
                 </ion-item>
             </ion-col>
         </ion-row>
     </ion-grid>
-    <Button ion-button>{{ 'ADMIN.PERMISSION_MANAGEMENT.BUTTON.REGISTER' | translate }}</Button>
+    <Button ion-button>{{ 'ADMIN.PERMISSION_MANAGEMENT.BUTTON.UPDATE' | translate }}</Button>
 
 </ion-content>
