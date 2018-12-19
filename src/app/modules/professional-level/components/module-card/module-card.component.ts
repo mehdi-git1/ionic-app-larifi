@@ -30,7 +30,7 @@ export class ModuleCardComponent {
     return '';
   }
 
-  goToEvaluationSheetPage(module: ModuleModel) {
-    this.navCtrl.push(EvaluationSheetPage, { module: module });
+  goToEvaluationSheetPage(moduleId: number) {
+    this.navCtrl.push(EvaluationSheetPage, { moduleId: moduleId });
   }
 }

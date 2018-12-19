@@ -1,8 +1,7 @@
-import { SubModuleModel } from './sub-module.model';
 export class ExerciseLineModel {
     label: string;
     title: boolean;
-    e1Evaluation: boolean;
-    e2Evaluation: boolean;
-    fcEvaluation: boolean;
+    e1: boolean;
+    e2: boolean;
+    fc: boolean;
 }

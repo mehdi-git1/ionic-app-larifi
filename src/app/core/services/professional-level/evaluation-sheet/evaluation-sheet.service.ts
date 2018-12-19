@@ -1,9 +1,6 @@
 import { EvaluationSheetModel } from './../../../models/professional-level/evaluation-sheet.model';
-import { EvaluationModel } from './../../../models/professional-level/evaluation.model';
 import { OfflineEvaluationSheetService } from './offline-evaluation-sheet.service';
 import { OnlineEvaluationSheetService } from './online-evaluation-sheet.service';
-import { OnlineEObservationService } from './../../e-observation/online-e-observation.service';
-import { ProfessionalLevelModel } from './../../../models/professional-level/professional-level.model';
 import { ConnectivityService } from './../../connectivity/connectivity.service';
 import { Injectable } from '@angular/core';
 import { BaseService } from '../../base/base.service';

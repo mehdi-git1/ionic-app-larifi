@@ -12,7 +12,7 @@ import { Component } from '@angular/core';
 export class EvaluationSheetPage {
 
     evaluationSheet: EvaluationSheetModel;
-    module: ModuleModel;
+    moduleId: number;
 
     constructor(
         private navParams: NavParams,
@@ -28,7 +28,6 @@ export class EvaluationSheetPage {
      * Retourne la classe css du statut correspondant
      */
     getCssClassForModuleStatus(moduleResultStatus): string {
-        this.module = this.navParams.get('module');
         if (moduleResultStatus === 'SUCCESS') {
             return 'success';
         } else if (moduleResultStatus === 'SUCCESS_WITH_FC') {
@@ -39,9 +38,10 @@ export class EvaluationSheetPage {
     }
 
     loadData() {
-        this.module = this.navParams.get('module');
-        if (this.module) {
-            this.evaluationSheetService.getEvaluationSheet(this.module.techId).then(evaluationSheet => {
+        alert('entre dans loadData');
+        this.moduleId = this.navParams.get('moduleId');
+        if (this.moduleId) {
+            this.evaluationSheetService.getEvaluationSheet(this.moduleId).then(evaluationSheet => {
                 this.evaluationSheet = evaluationSheet;
             }, error => { });
         }

@@ -12,17 +12,14 @@ export class OfflineEvaluationSheetService {
     }
 
     /**
-     * Récupère le niveau pro d'un PNC
-     * @param matricule le matricule du PNC dont on souhaite récupérer le suivi réglementaire
-     * @return le suivi réglementaire du PNC
+     * Récupère la fiche d'évaluation d'un module
+     * @param matricule le matricule du pnc
+     * @param moduleId l'id du module dont on souhaite récupérer la fiche d'évaluation
+     * @return la fiche d'évaluation du module
      */
-    getProfessionalLevel(matricule: string): Promise<ProfessionalLevelModel> {
-        return this.storageService.findOneAsync(EntityEnum.PROFESSIONAL_LEVEL, matricule);
-    }
-
-    getEvaluationSheet(module: string): Promise<EvaluationSheetModel> {
-        return this.storageService.findOneAsync(EntityEnum.PROFESSIONAL_LEVEL, module).then(result => {
-            return result;
+    getEvaluationSheet(matricule: string, moduleId: number): Promise<EvaluationSheetModel> {
+        return this.storageService.findOneAsync(EntityEnum.PROFESSIONAL_LEVEL, matricule).then(result => {
+            return result.evaluationSheets[moduleId];
         });
     }
 

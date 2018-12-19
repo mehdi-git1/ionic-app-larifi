@@ -3,7 +3,7 @@
     <ion-col col-1 class="label-bold">{{'PROFESSIONAL_LEVEL.MODULE_TYPE.' + module?.moduleType | translateOrEmpty}}</ion-col>
     <ion-col col-3>{{module?.label}}</ion-col>
     <ion-col col-3>
-        <ion-badge class="score-badge" *ngFor="let score of module?.scores"><span *ngIf="(score.score  | scorePercent) !== 100">{{score.score | scorePercent}} % ({{score.evaluation}})</span></ion-badge>
+        <ion-badge class="score-badge" *ngFor="let score of module?.scores"><span *ngIf="(score?.score  | scorePercent) !== 100">{{score?.score | scorePercent}} % ({{score?.evaluationCode}})</span></ion-badge>
     </ion-col>
     <ion-col col-2><span [ngClass]="getModuleStatusPointCssClass()"></span>{{'PROFESSIONAL_LEVEL.MODULE_STATUS.' + module?.moduleResultStatus | translateOrEmpty}}</ion-col>
     <ion-col col-1><button class="niv3-button" ion-fab mini (click)="goToEvaluationSheetPage(module)">

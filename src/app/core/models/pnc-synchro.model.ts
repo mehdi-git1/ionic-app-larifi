@@ -1,4 +1,3 @@
-import { EvaluationSheetModel } from './professional-level/evaluation-sheet.model';
 import { ProfessionalLevelModel } from './professional-level/professional-level.model';
 import { StatutoryCertificateModel } from './statutory.certificate.model';
 import { PncPhotoModel } from './pnc-photo.model';
@@ -19,5 +18,4 @@ export class PncSynchroModel {
     legs: LegModel[];
     statutoryCertificate: StatutoryCertificateModel;
     professionalLevel: ProfessionalLevelModel;
-    evaluationSheets: EvaluationSheetModel[];
 }
