@@ -140,7 +140,7 @@ export class TabNavComponent {
         id: tabNavEnum.PROFESSIONAL_LEVEL_PAGE,
         title: this.translate.instant('GLOBAL.PROFESSIONAL_LEVEL'),
         page: ProfessionalLevelPage,
-        icon: 'edospnc-professionalLevelWhite',
+        icon: 'edospnc-professionalLevel',
       }
     ];
   }
