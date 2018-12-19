@@ -280,11 +280,11 @@
                 "BLOC_FC_TITLE": "FC"
             },
             "EXERCISES_BLOC": {
-                "TITLE": "Titre",
-                "E1": "E1",
-                "E2": "E2",
-                "FC": "FC",
-                "NA": "NA"
+                "TITLE_COLUMN": "Titre",
+                "E1_COLUMN": "E1",
+                "E2_COLUMN": "E2",
+                "FC_COLUMN": "FC",
+                "NA_COLUMN": "NA"
             },
             "ERROR": "Erreur lors de la récupération du niveau pro pour le matricule {{ matricule }}",
             "NO_DATA": "Pas de données disponibles"

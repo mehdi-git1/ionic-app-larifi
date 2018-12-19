@@ -4,7 +4,7 @@ import { EDossierPncObjectModel } from '../e-dossier-pnc-object.model';
 
 export class ModuleModel extends EDossierPncObjectModel {
     id: number;
-    endDate: Date;
+    date: Date;
     stage: StageModel;
     moduleType: ModuleTypeEnum;
     label: string;

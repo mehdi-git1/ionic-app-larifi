@@ -12,15 +12,13 @@ export class ProfessionalLevelStageComponent {
 
   _stages: StageModel[];
 
-  @Input() matricule: string;
-
   @Input()
   set stages(stages: StageModel[]) {
     if (stages) {
       for (const stage of stages) {
         if (stage && stage.modules) {
           stage.modules = stage.modules.sort((module: ModuleModel, otherModule: ModuleModel) => {
-            return module.endDate > otherModule.endDate ? 1 : -1;
+            return module.date > otherModule.date ? 1 : -1;
           });
         }
       }
