@@ -64,6 +64,7 @@ import { OnlineSummarySheetService } from './summary-sheet/online-summary-sheet.
 import { LegTransformerService } from './leg/leg-transformer.service';
 import { CrewMemberTransformerService } from './crewMember/crew-member-transformer.service';
 import { EObservationService } from './e-observation/e-observation.service';
+import { TranslateOrEmptyService } from './translate/translate-or-empty.service';
 
 
 @NgModule({
@@ -139,7 +140,8 @@ import { EObservationService } from './e-observation/e-observation.service';
     ProfessionalLevelTransformerService,
     SpecialityService,
     UserProfileService,
-    VersionService
+    VersionService,
+    TranslateOrEmptyService
   ]
 })
 export class ServiceModule { }

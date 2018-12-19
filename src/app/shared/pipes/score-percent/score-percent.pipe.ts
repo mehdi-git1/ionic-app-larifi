@@ -10,17 +10,19 @@ export class ScorePercentPipe implements PipeTransform {
   constructor() {}
 
   /**
-   * Formatte une chaîne de caractère au format 00.0
+   * Formatte une chaîne de caractère au format à l'échelon inférieur
    * @param value la chaine de caractères à formatter
+   * @param decimalDigits nombre de chiffres après la virgule
    * @return la valeur formattée
    */
-  transform(value: string) {
-    if (Utils.isEmpty(value)) {
-      return null;
+  transform(value: string, decimalDigits:  number = 0) {
+    if (decimalDigits < 0) {
+      decimalDigits = 0;
     }
+    const factor = Math.pow(10, decimalDigits);
     try {
       const num = this.strToNumber(value);
-      return Math.floor(num * 10) / 10;
+      return Math.floor(num * factor) / factor;
     } catch (error) {
       throw invalidPipeArgumentError(ScorePercentPipe, error.message);
     }
