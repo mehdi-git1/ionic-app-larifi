@@ -74,8 +74,7 @@ export class NavBarCustomComponent {
    * Vérifie si on peut afficher la roue dentée
    */
   isAvailable() {
-    return true;
-    // return this.securityProvider.isAdmin(this.sessionService.authenticatedUser) || !this.deviceService.isBrowser();
+    return this.securityProvider.isAdmin(this.sessionService.authenticatedUser) || !this.deviceService.isBrowser();
   }
 
 }
