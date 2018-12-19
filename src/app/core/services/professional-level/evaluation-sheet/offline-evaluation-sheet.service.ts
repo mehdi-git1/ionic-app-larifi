@@ -19,7 +19,7 @@ export class OfflineEvaluationSheetService {
      */
     getEvaluationSheet(matricule: string, moduleId: number): Promise<EvaluationSheetModel> {
         return this.storageService.findOneAsync(EntityEnum.PROFESSIONAL_LEVEL, matricule).then(result => {
-            return result.evaluationSheets[moduleId];
+            return result.evaluationSheets.filter(evaluationSheet => evaluationSheet.module.techId === moduleId)[0];
         });
     }
 

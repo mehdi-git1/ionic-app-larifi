@@ -17,7 +17,7 @@ export class ProfessionalLevelPage {
   professionalLevel: ProfessionalLevelModel;
   constructor(private navParams: NavParams,
     private sessionService: SessionService,
-    private pncProvider: PncService,
+    private pncService: PncService,
     private professionalLevelProvider: ProfessionalLevelService) {
   }
 
@@ -28,7 +28,7 @@ export class ProfessionalLevelPage {
       this.matricule = this.sessionService.getActiveUser().matricule;
     }
     if (this.matricule != null) {
-      this.pncProvider.getPnc(this.matricule).then(pnc => {
+      this.pncService.getPnc(this.matricule).then(pnc => {
         this.pnc = pnc;
       }, error => { });
       this.professionalLevelProvider.getProfessionalLevel(this.matricule).then(professionalLevel => {

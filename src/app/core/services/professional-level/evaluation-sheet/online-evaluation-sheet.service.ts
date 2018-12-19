@@ -16,7 +16,7 @@ export class OnlineEvaluationSheetService {
      * @param moduleId l'id du module dont on souhaite récupérer la fiche d'évaluation
      * @return la fiche d'évaluation du module
      */
-    getEvaluationSheet(moduleId: number): Promise<EvaluationSheetModel> {
+    getEvaluationSheet(matricule: string, moduleId: number): Promise<EvaluationSheetModel> {
         return this.restService.get(`${this.config.backEndUrl}/evaluation_sheets/${moduleId}`);
     }
 }

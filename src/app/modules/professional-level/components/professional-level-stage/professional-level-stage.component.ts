@@ -12,6 +12,8 @@ export class ProfessionalLevelStageComponent {
 
   _stages: StageModel[];
 
+  @Input() matricule: string;
+
   @Input()
   set stages(stages: StageModel[]) {
     if (stages) {

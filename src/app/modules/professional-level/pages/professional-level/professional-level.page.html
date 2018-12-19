@@ -32,7 +32,7 @@
                 </ion-row>
             </ion-grid>
         </div>
-        <professional-level-stage *ngIf="professionalLevel && professionalLevel.stages && professionalLevel.stages.length > 0; else noStagesBlock" [stages]="professionalLevel.stages"></professional-level-stage>
+        <professional-level-stage *ngIf="professionalLevel && professionalLevel.stages && professionalLevel.stages.length > 0; else noStagesBlock" [stages]="professionalLevel.stages" [matricule]="pnc.matricule"></professional-level-stage>
         <ng-template #noStagesBlock>
             <no-data></no-data>
         </ng-template>

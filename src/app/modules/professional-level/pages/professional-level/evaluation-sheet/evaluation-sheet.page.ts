@@ -1,3 +1,6 @@
+import { PncService } from './../../../../../core/services/pnc/pnc.service';
+import { PncModel } from './../../../../../core/models/pnc.model';
+import { SessionService } from './../../../../../core/services/session/session.service';
 import { ModuleModel } from './../../../../../core/models/professional-level/module.model';
 import { EvaluationSheetService } from './../../../../../core/services/professional-level/evaluation-sheet/evaluation-sheet.service';
 import { EvaluationSheetModel } from './../../../../../core/models/professional-level/evaluation-sheet.model';
@@ -13,11 +16,14 @@ export class EvaluationSheetPage {
 
     evaluationSheet: EvaluationSheetModel;
     moduleId: number;
+    matricule: string;
+    pnc: PncModel;
 
     constructor(
         private navParams: NavParams,
-        private evaluationSheetService: EvaluationSheetService
-    ) {
+        private evaluationSheetService: EvaluationSheetService,
+        private sessionService: SessionService,
+        private pncService: PncService) {
     }
 
     ionViewDidEnter() {
@@ -38,12 +44,21 @@ export class EvaluationSheetPage {
     }
 
     loadData() {
-        alert('entre dans loadData');
-        this.moduleId = this.navParams.get('moduleId');
-        if (this.moduleId) {
-            this.evaluationSheetService.getEvaluationSheet(this.moduleId).then(evaluationSheet => {
-                this.evaluationSheet = evaluationSheet;
+        if (this.navParams.get('matricule')) {
+            this.matricule = this.navParams.get('matricule');
+        } else if (this.sessionService.getActiveUser()) {
+            this.matricule = this.sessionService.getActiveUser().matricule;
+        }
+        if (this.matricule) {
+            this.pncService.getPnc(this.matricule).then(pnc => {
+                this.pnc = pnc;
             }, error => { });
+            this.moduleId = this.navParams.get('moduleId');
+            if (this.moduleId) {
+                this.evaluationSheetService.getEvaluationSheet(this.matricule, this.moduleId).then(evaluationSheet => {
+                    this.evaluationSheet = evaluationSheet;
+                }, error => { });
+            }
         }
     }
 

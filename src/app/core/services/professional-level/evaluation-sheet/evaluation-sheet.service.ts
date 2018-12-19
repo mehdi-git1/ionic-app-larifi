@@ -26,8 +26,8 @@ export class EvaluationSheetService extends BaseService {
      * @param moduleId l'id du module dont on souhaite récupérer la fiche d'évaluation
      * @return la fiche d'évaluation du module
      */
-    getEvaluationSheet(moduleId: number): Promise<EvaluationSheetModel> {
-        return this.execFunctionService('getEvaluationSheet', moduleId);
+    getEvaluationSheet(matricule: string, moduleId: number): Promise<EvaluationSheetModel> {
+        return this.execFunctionService('getEvaluationSheet', matricule, moduleId);
     }
 
 }

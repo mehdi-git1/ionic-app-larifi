@@ -29,10 +29,10 @@
                         <no-data></no-data>
                     </ion-row>
                     <ng-template #professionalLevelDataBlock>
-                        <module-card *ngFor="let module of stage.modules" [module]="module"></module-card>
+                        <module-card *ngFor="let module of stage.modules" [module]="module" [matricule]="matricule"></module-card>
                     </ng-template>
                 </ion-grid>
             </ion-card-content>
-        </ion-card>        
+        </ion-card>
     </mat-expansion-panel>
 </mat-accordion>

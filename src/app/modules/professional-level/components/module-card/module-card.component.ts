@@ -12,6 +12,8 @@ export class ModuleCardComponent {
 
   @Input() module: ModuleModel;
 
+  @Input() matricule: string;
+
   constructor(private navCtrl: NavController,
     private translateOrEmptyService: TranslateOrEmptyService) {
   }
@@ -30,7 +32,7 @@ export class ModuleCardComponent {
     return '';
   }
 
-  goToEvaluationSheetPage(moduleId: number) {
-    this.navCtrl.push(EvaluationSheetPage, { moduleId: moduleId });
+  goToEvaluationSheetPage(matricule: string, moduleId: number) {
+    this.navCtrl.push(EvaluationSheetPage, { matricule: matricule, moduleId: moduleId });
   }
 }
