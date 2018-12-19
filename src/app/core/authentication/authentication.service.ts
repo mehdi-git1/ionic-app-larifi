@@ -70,12 +70,12 @@ export class AuthenticationService {
 
     /**
      * Gére la façon d'initialiser l'utilisateur
-     * @return Retourne le staus de l'authentification (appli / user)
+     * @return Retourne le statut de l'authentification (appli / user)
      */
     initializeUser(): Promise<AuthenticationStatusEnum> {
         const authenticatedUser = this.sessionService.getActiveUser();
         // Gestion du mode impersonnifié
-        if (this.isInImpersonateMode(authenticatedUser)) {
+        if (this.userHaveToImpersonate(authenticatedUser)) {
             return Promise.resolve(AuthenticationStatusEnum.IMPERSONATE_MODE);
         }
         // Initialisation des paramétres utilisateur en tant que PNC
@@ -99,10 +99,10 @@ export class AuthenticationService {
     }
 
     /**
-     * Permet de voir si on est en mode impersonifié
+     * Permet de voir si l'utilisateur doit être en mode impersonifié
      * @param authenticatedUser Utilisateur à tester
      */
-    isInImpersonateMode(authenticatedUser) {
+    userHaveToImpersonate(authenticatedUser) {
         return this.securityService.isAdmin(authenticatedUser) && !authenticatedUser.isPnc && !this.sessionService.impersonatedUser;
     }
 
