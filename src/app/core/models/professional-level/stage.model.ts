@@ -1,7 +1,7 @@
 import { ModuleModel } from './module.model';
 
 export class StageModel {
-    startDate: Date;
+    date: Date;
     code: string;
     label: string;
     result: string;
