@@ -29,7 +29,7 @@ module.exports = function(config) {
         logLevel: config.LOG_INFO,
         autoWatch: true,
         browsers: ['Chrome'],
-        singleRun: true,
+        singleRun: false,
         junitReporter: {
             outputDir: 'reports',
             outputFile: 'junit-report.xml'
