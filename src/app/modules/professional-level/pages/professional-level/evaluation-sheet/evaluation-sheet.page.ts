@@ -37,9 +37,9 @@ export class EvaluationSheetPage {
         if (moduleResultStatus === 'SUCCESS') {
             return 'success';
         } else if (moduleResultStatus === 'SUCCESS_WITH_FC') {
-            return 'notbad';
+            return 'successWithFC';
         } else if (moduleResultStatus === 'FAILED') {
-            return 'failure';
+            return 'failed';
         }
     }
 

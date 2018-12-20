@@ -1,5 +1,5 @@
 .selection-dot {
-    background-color: #4cc3cc;
+    background-color: color($colors, blue81);
     width: 10px;
     height: 10px;
     border-radius: 10px;
@@ -37,33 +37,33 @@
                 margin-left: 30px;
 
                 &.first-text {
-                    color: #38393a;
+                    color: color($colors, grey12);
                     letter-spacing: 0.8px;
                     margin-left: 0px;
                 }
 
                 &.date {
-                    color: #4cc3cc;
+                    color: color($colors, blue81);
                     letter-spacing: -0.74px;
                 }
 
                 &.result {
-                    color: #ffffff;
+                    color: color($colors, white);
                     letter-spacing: 0.13px;
                     padding: 0px 6px;
                     border-radius: 5px;
                 }
 
-                &.failure {
-                    background-color: #d6457c;
+                &.failed {
+                    background-color: color($colors, red15);
                 }
 
                 &.success {
-                    background-color: #18a854;
+                    background-color: color($colors, green40);
                 }
 
-                &.notbad {
-                    background-color: #ff9b06;
+                &.successWithFC {
+                    background-color: color($colors, orange80);
                 }
 
             }
@@ -95,13 +95,12 @@
             }
 
             .score-bloc-comment {
-                font-size: 22px;
                 font-weight: 300;
                 letter-spacing: -0.22px;
             }
 
             .edospnc-speechBubble:before {
-                color: #4cc3cc;
+                color: color($colors, blue81);
                 font-size: 58px;
                 padding: 10px;
             }
@@ -131,9 +130,9 @@
         &.title-display {
             ion-row {
                 &.title-row {
-                    background-color: #4cc3cc;
+                    background-color: color($colors, blue81);
                     margin: 10px 0px;
-                    color: #ffffff;
+                    color: color($colors, white);
                 }
             }
         }
@@ -141,7 +140,7 @@
         &.data-display {
 
             .odd {
-                background-color: #fafbfb;
+                background-color: color($colors, grey95);
             }
 
             box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14),
@@ -150,15 +149,15 @@
 
             ion-row {
                 &.ss-title-row {
-                    background-color: #67abb7;
+                    background-color: color($colors, blue77);
                     text-transform: uppercase;
-                    color: #ffffff;
+                    color: color($colors, white);
                     font-weight: bold;
                 }
 
                 ion-col {
                     &:not(:first-child) {
-                        border-left: 1px solid #5f9aaa;
+                        border-left: 1px solid color($colors, blue68);
                     }
                 }
             }
