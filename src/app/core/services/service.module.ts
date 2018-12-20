@@ -141,6 +141,7 @@ import { TranslateOrEmptyService } from './translate/translate-or-empty.service'
     ProfessionalLevelTransformerService,
     SpecialityService,
     VersionService,
+    UserProfileService,
     TranslateOrEmptyService
   ]
 })
