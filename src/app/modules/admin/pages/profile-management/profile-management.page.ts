@@ -22,6 +22,11 @@ export class ProfileManagementPage {
         }, error => { });
     }
 
+    /**
+    * Redirige vers la page des permissions du profil en paramètre
+    * 
+    * @param name le nom du profil pour trouver ses permissions
+    */
     goToPermissionManagement(name) {
         this.navCtrl.push(PermissionManagementPage, { name: name });
 

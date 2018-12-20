@@ -30,24 +30,25 @@ export class PermissionManagementPage {
      */
     initPage() {
 
-        // vérifie le profil habile
+        // Vérifie le profil habile
         if (this.navParams.get('name')) {
             this.userProfileName = this.navParams.get('name');
         }
 
-        // retourne la liste de toutes les permissions de l'application
+        // Retourne la liste de toutes les permissions de l'application
         this.userPermissionProvider.getAllUserPermission().then(userPermissions => {
             this.allUserPermissions = userPermissions;
         }, error => { });
 
-        // retourne la liste des permissions en fonction de profil en paramètre
+        // Retourne la liste des permissions en fonction de profil en paramètre
         this.userProfile.getUserPermissionsByUserProfile(this.userProfileName).then(userPermissionsByProfile => {
             this.userPermissionsByProfile = userPermissionsByProfile;
         }, error => { });
     }
 
     /**
-     * retourne true si la permission en paramètre est accessible au profil utilisateur défini
+     * Retourne true si la permission en paramètre est accessible au profil utilisateur défini
+     * 
      * @param userPermission une permission
      * @return true si la permission en paramètre est accessible au profil utilisateur défini
      */

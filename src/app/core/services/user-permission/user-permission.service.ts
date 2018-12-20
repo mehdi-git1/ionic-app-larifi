@@ -10,8 +10,12 @@ export class UserPermissionService {
     private config: UrlConfiguration) {
   }
 
+  /**
+  * Récupère la liste des permissions de l'application
+  *
+  * @return la lise des permissions de l'application
+  */
   public getAllUserPermission(): Promise<UserPermission[]> {
     return this.restService.get(this.config.getBackEndUrl('userPermissions'));
   }
-
 }
