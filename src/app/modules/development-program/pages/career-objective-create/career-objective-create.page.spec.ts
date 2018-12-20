@@ -18,7 +18,7 @@ import { SessionService } from '../../../../core/services/session/session.servic
 import { DateTransform } from '../../../../shared/utils/date-transform';
 import { ToastService } from '../../../../core/services/toast/toast.service';
 import { OfflinePncService } from '../../../../core/services/pnc/offline-pnc.service';
-import { SecurityServer } from '../../../../core/services/security/security.server';
+import { SecurityService } from '../../../../core/services/security/security.service';
 import { CareerObjectiveStatusService } from '../../../../core/services/career-objective-status/career-objective-status.service';
 import { WaypointService } from '../../../../core/services/waypoint/waypoint.service';
 import { CareerObjectiveTransformerService } from '../../../../core/services/career-objective/career-objective-transformer.service';
@@ -65,7 +65,7 @@ describe('CareerObjectiveCreatePage', () => {
                 DatePipe,
                 { provide: CareerObjectiveTransformerService },
                 { provide: CareerObjectiveStatusService },
-                { provide: SecurityServer },
+                { provide: SecurityService },
                 { provide: OfflinePncService },
                 { provide: WaypointService },
                 { provide: ToastService },

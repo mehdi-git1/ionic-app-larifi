@@ -1,0 +1,10 @@
+<ion-header>
+    <ion-navbar>
+        <page-header [showSettingsIcon]="false">
+            {{ 'ADMIN.ADMIN_HOME.TITLE' | translate }}
+        </page-header>
+    </ion-navbar>
+</ion-header>
+<ion-content padding no-bounce>
+    <button ion-button (click)="goToProfileManagement()"> {{ 'ADMIN.ADMIN_HOME.BUTTON.PROFILE_MANAGEMENT' | translate }} </button>
+</ion-content>

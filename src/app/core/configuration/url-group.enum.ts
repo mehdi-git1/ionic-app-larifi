@@ -15,5 +15,7 @@ export enum urlGroupEnum {
   'PROFESSIONAL_LEVEL' = 'professional_levels',
   'ROTATION' = 'rotations',
   'IMPERSONATION_AVAILABLE' = 'check_impersonation_available',
+  'USER_PROFILE' = 'user_profiles',
+  'USER_PERMISSION' = 'user_permissions',
   'PING' = 'ping'
 }

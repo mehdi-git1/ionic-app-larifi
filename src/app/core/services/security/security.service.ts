@@ -11,19 +11,19 @@ import { AuthorizationService } from '../authorization/authorization.service';
 import { AppConstant } from '../../../app.constant';
 
 @Injectable()
-export class SecurityServer extends BaseService {
+export class SecurityService extends BaseService {
 
   constructor(
     private sessionService: SessionService,
     protected connectivityService: ConnectivityService,
     protected authorizationService: AuthorizationService,
-    private onlineSecurityProvider: OnlineSecurityService,
-    private offlineSecurityProvider: OfflineSecurityService
+    private onlineSecurityService: OnlineSecurityService,
+    private offlineSecurityService: OfflineSecurityService
   ) {
     super(
       connectivityService,
-      onlineSecurityProvider,
-      offlineSecurityProvider
+      onlineSecurityService,
+      offlineSecurityService
     );
   }
 
@@ -83,7 +83,7 @@ export class SecurityServer extends BaseService {
    */
   isImpersonationAvailable(matricule: string): Promise<void> {
     return this.connectivityService.isConnected() ?
-      this.onlineSecurityProvider.isImpersonationAvailable(matricule) :
+      this.onlineSecurityService.isImpersonationAvailable(matricule) :
       new Promise((resolve, reject) => {
         reject();
       });
