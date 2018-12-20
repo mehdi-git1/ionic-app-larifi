@@ -40,6 +40,7 @@ export class UrlConfiguration {
     'getRotationsByTechId': `${urlGroupEnum.ROTATION}/{techId}/legs`,
     'getImpersonationAvailableByMatricule': `${urlGroupEnum.IMPERSONATION_AVAILABLE}/{matricule}`,
     'getHelpAssetsByRoleId': `${urlGroupEnum.HELP_ASSET}/pnc_role/{roleId}`,
+    'userProfiles': urlGroupEnum.USER_PROFILE,
     'getPing': urlGroupEnum.PING
   };
 

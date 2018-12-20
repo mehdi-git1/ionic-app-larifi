@@ -1,3 +1,4 @@
+import { AdminModule } from './modules/admin/admin.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ErrorHandler, NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
@@ -50,6 +51,7 @@ import { FileModule } from './core/file/file.module';
     ProfessionalLevelModule,
     SettingsModule,
     StatutoryCertificateModule,
+    AdminModule,
     ComponentsModule,
     SharedModule,
     HttpModule,

@@ -5,7 +5,6 @@ import { IonicPageModule } from 'ionic-angular';
 
 import { SharedModule } from '../../shared/shared.module';
 import { ComponentsModule } from '../../shared/components/components.module';
-import { AdminHomePage } from './pages/admin/home/admin-home.page';
 import { SettingsPage } from './pages/settings/settings.page';
 import { ImpersonatePage } from './pages/impersonate/impersonate.page';
 import { Config } from '../../../environments/config';
@@ -13,7 +12,6 @@ import { Config } from '../../../environments/config';
 
 @NgModule({
   declarations: [
-    AdminHomePage,
     SettingsPage,
     ImpersonatePage
   ],
@@ -23,12 +21,10 @@ import { Config } from '../../../environments/config';
     ComponentsModule
   ],
   entryComponents: [
-    AdminHomePage,
     SettingsPage,
     ImpersonatePage
   ],
   exports: [
-    AdminHomePage,
     SettingsPage,
     ImpersonatePage
   ],
