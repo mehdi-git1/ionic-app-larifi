@@ -39,13 +39,13 @@
     </ng-container>
     <!-- Paramètres accessibles dans les 2 modes (web et mobile) -->
     <ng-container>
-        <ion-item>
+        <ion-item *ngIf="isRealUserAdmin()">
             <label>{{ 'SETTINGS.IMPERSONATE_USER.LABEL' | translate }}</label>
             <button ion-fab mini icon-only item-end (click)="impersonateNewUser()" [disabled]="!connected">
                 <ion-icon name="contacts" ios="md-contacts"></ion-icon>
             </button>
         </ion-item>
-        <ion-item>
+        <ion-item *ngIf="isAdmin()">
             <label>{{ 'SETTINGS.ADMIN_ACCESS.BUTTON' | translate }}</label>
             <button ion-fab mini icon-only item-end class="parameter-button" (click)="goToAdminPage()" [disabled]="!connected">
                 <ion-icon name="key"></ion-icon>

@@ -15,6 +15,7 @@ import { PinPadTypeEnum } from '../../../../core/enums/security/pin-pad-type.enu
 import { SecretQuestionTypeEnum } from '../../../../core/enums/security/secret-question-type.enum';
 import { AuthenticatedUserModel } from '../../../../core/models/authenticated-user.model';
 import { OfflineSecurityService } from '../../../../core/services/security/offline-security.service';
+import { SecurityServer } from '../../../../core/services/security/security.server';
 
 @Component({
   selector: 'page-settings',
@@ -40,7 +41,8 @@ export class SettingsPage {
     private alertCtrl: AlertController,
     private securityModalService: ModalSecurityService,
     private deviceService: DeviceService,
-    private offlineSecurityProvider: OfflineSecurityService
+    private offlineSecurityProvider: OfflineSecurityService,
+    private securityServer: SecurityServer
   ) {
     this.connected = this.connectivityService.isConnected();
 
@@ -144,6 +146,22 @@ export class SettingsPage {
    */
   goToAdminPage() {
     this.navCtrl.push(AdminHomePage);
+  }
+
+  /**
+   * Détermine si l'utilisateur connecté est admin
+   * @return vrai si c'est le cas, faux sinon
+   */
+  isAdmin(): boolean {
+    return this.securityServer.isAdmin(this.sessionService.getActiveUser());
+  }
+
+  /**
+   * Détermine si l'utilisateur réellement (pas impersonnifié) connecté est admin
+   * @return vrai si c'est le cas, faux sinon
+   */
+  isRealUserAdmin() {
+    return this.securityServer.isAdmin(this.sessionService.authenticatedUser);
   }
 
 }
