@@ -71,7 +71,7 @@
         </ion-grid>
         <ion-grid class="title-display">
             <ion-row class='title-row'>
-                <ion-col col-8><span>{{'PROFESSIONAL_LEVEL.EVALUATION_SHEET.EXERCISES_BLOC.TITLE' | translate }}</span></ion-col>
+                <ion-col col-8><span>{{'PROFESSIONAL_LEVEL.EVALUATION_SHEET.EXERCISES_BLOC.TITLE_COLUMN' | translate }}</span></ion-col>
                 <ion-col col-1>{{'PROFESSIONAL_LEVEL.EVALUATION_SHEET.EXERCISES_BLOC.E1_COLUMN' | translate }}</ion-col>
                 <ion-col col-1>{{'PROFESSIONAL_LEVEL.EVALUATION_SHEET.EXERCISES_BLOC.E2_COLUMN' | translate }}</ion-col>
                 <ion-col col-1>{{'PROFESSIONAL_LEVEL.EVALUATION_SHEET.EXERCISES_BLOC.FC_COLUMN' | translate }}</ion-col>
@@ -79,7 +79,7 @@
             </ion-row>
         </ion-grid>
         <ion-grid class="data-display">
-            <div *ngFor="let exercise of evaluationSheet?.exercises">
+            <div *ngFor="let exercise of evaluationSheet?.exercises; index as i">
                 <ion-row class='ss-title-row' *ngIf="exercise?.title">
                     <ion-col col-8><span>{{ exercise.label }}</span></ion-col>
                     <ion-col col-1></ion-col>
@@ -87,7 +87,7 @@
                     <ion-col col-1></ion-col>
                     <ion-col col-1></ion-col>
                 </ion-row>
-                <ion-row class='data-row' *ngIf="!exercise?.title">
+                <ion-row class='data-row' *ngIf="!exercise?.title" [ngClass]="{'odd': i%2===0}">
                     <ion-col col-8><span>{{ exercise.label }}</span></ion-col>
                     <ion-col col-1 [innerHTML]="exercise?.e1 | replaceByPoint"></ion-col>
                     <ion-col col-1 [innerHTML]="exercise?.e2 | replaceByPoint"></ion-col>
