@@ -9,7 +9,7 @@ import { OfflineCareerObjectiveService } from '../../../../core/services/career-
 import { ConnectivityService } from '../../../../core/services/connectivity/connectivity.service';
 import { DateTransform } from '../../../../shared/utils/date-transform';
 import { AppConstant } from '../../../../app.constant';
-import { SecurityServer } from '../../../../core/services/security/security.server';
+import { SecurityService } from '../../../../core/services/security/security.service';
 import { WaypointStatusService } from '../../../../core/services/waypoint-status/waypoint-status.service';
 import { WaypointStatusEnum } from '../../../../core/enums/waypoint.status.enum';
 import { CareerObjectiveModel } from '../../../../core/models/career-objective.model';
@@ -55,7 +55,7 @@ export class WaypointCreatePage {
         private waypointProvider: WaypointService,
         private toastProvider: ToastService,
         public waypointStatusProvider: WaypointStatusService,
-        public securityProvider: SecurityServer,
+        public securityProvider: SecurityService,
         public loadingCtrl: LoadingController,
         private alertCtrl: AlertController,
         private deviceService: DeviceService,
