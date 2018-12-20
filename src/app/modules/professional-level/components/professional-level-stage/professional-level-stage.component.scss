@@ -7,6 +7,7 @@ professional-level-stage {
         border-radius: 5px;
         padding-left: 0px;
         height:auto;
+
         .card-content-md {
             padding: 0px;
         }
@@ -22,25 +23,18 @@ professional-level-stage {
         font-weight: bolder !important;
         font-size: 18px !important;
         border-radius: 5px;
-        padding: 0px;
-        padding-left: 0px;
         height: auto;
-        padding-top: 0px;
-        padding-bottom: 0px;
 
         &.mat-expanded:hover,
         &.mat-expanded:focus {
             background-color: color($colors, bluegrey) !important;
             height: auto;
-
         }
     }
 
     .mat-expansion-panel-header {
-        padding-left: 0px;
         height: auto;
-        padding-top: 0px;
-        padding-bottom: 0px;
+        padding: 0px 12px 0px 0px;
     }
 
     .mat-expansion-panel-body {
@@ -48,10 +42,12 @@ professional-level-stage {
         padding: 0px;
         padding-left: 0px;
         ion-card.card-md,
-        ion-card.card-ios {
+        ion-card.card-ios,
+        ion-card-content.card-content-ios {
             margin: 0px;
             width: 100%;
             margin-bottom: 10px;
+            padding: 0px 12px 0px 0px;
         }
     }
 
@@ -74,6 +70,6 @@ professional-level-stage {
     }
 
     .col {
-        padding : 5px 5px 5px 10px;
+        padding : 5px 5px 5px 5px;
     }
 }
