@@ -17,7 +17,7 @@ export class ProfileManagementPage {
     }
 
     ionViewDidEnter() {
-        this.userProfileProvider.getAllUserProfile().then(userProfiles => {
+        this.userProfileProvider.getAllUserProfiles().then(userProfiles => {
             this.userProfiles = userProfiles;
         }, error => { });
     }

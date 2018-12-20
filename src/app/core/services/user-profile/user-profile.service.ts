@@ -16,7 +16,7 @@ export class UserProfileService {
    * Récupère la liste des profils habile de l'application
    * @return la liste des profils habile
    */
-  public getAllUserProfile(): Promise<UserProfile[]> {
+  public getAllUserProfiles(): Promise<UserProfile[]> {
     return this.restService.get(this.config.getBackEndUrl('userProfiles'));
   }
 
