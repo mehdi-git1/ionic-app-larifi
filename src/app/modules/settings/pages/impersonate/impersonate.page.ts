@@ -10,7 +10,6 @@ import { Subject, Observable } from 'rxjs/Rx';
 import { Component } from '@angular/core';
 import { NavController, Events } from 'ionic-angular';
 import { PncModel } from '../../../../core/models/pnc.model';
-import { Utils } from '../../../../shared/utils/utils';
 
 @Component({
   selector: 'page-impersonate',

@@ -411,8 +411,20 @@
             }
         },
         "PROFILE_MANAGEMENT": {
-            "TITLE": "Page des profils"
+            "TITLE": "Page des profils",
+            "BUTTON": {
+                "REGISTER": "Afficher la liste des profils"
+            }
+        },
+        "PERMISSION_MANAGEMENT": {
+            "TITLE": "Page des permissions",
+            "BUTTON": {
+                "UPDATE": "MISE À JOUR"
+            },
+            "HEADER": {
+                "PERMISSION_HEADER": "Permission",
+                "AUTORISATION_HEADER": "Autoriser"
+            }
         }
-
     }
 }

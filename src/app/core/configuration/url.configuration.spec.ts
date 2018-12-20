@@ -1,5 +1,5 @@
 import { UrlConfiguration } from './url.configuration';
-import { urlGroupEnum } from './urlGroup.enum';
+import { urlGroupEnum } from './url-group.enum';
 import { Config } from '../../../environments/config';
 
 describe('Configuration/url.configuration.ts', () => {

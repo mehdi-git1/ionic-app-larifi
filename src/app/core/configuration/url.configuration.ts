@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { urlGroupEnum } from './urlGroup.enum';
+import { urlGroupEnum } from './url-group.enum';
 import { Config } from '../../../environments/config';
 
 @Injectable()
@@ -41,6 +41,8 @@ export class UrlConfiguration {
     'getImpersonationAvailableByMatricule': `${urlGroupEnum.IMPERSONATION_AVAILABLE}/{matricule}`,
     'getHelpAssetsByRoleId': `${urlGroupEnum.HELP_ASSET}/pnc_role/{roleId}`,
     'userProfiles': urlGroupEnum.USER_PROFILE,
+    'userPermissions': urlGroupEnum.USER_PERMISSION,
+    'userPermissionsByUserProfile': `${urlGroupEnum.USER_PROFILE}/{name}/${urlGroupEnum.USER_PERMISSION}`,
     'getPing': urlGroupEnum.PING
   };
 
