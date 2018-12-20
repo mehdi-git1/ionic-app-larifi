@@ -43,6 +43,12 @@ describe('utils', () => {
         });
     });
 
+    describe('removeSpaces', () => {
+        it('doit retourner "azerty" avec le paramètre " azer ty   "', () => {
+            expect(Utils.removeSpaces(' azer ty   ')).toBe('azerty');
+        });
+    });
+
     describe('vérification de la fonction isEmpty', () => {
         it('si la valeur est undefined, la fonction doit retourner true', () => {
             expect(Utils.isEmpty(undefined)).toBe(true);
