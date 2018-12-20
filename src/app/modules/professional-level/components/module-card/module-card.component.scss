@@ -21,16 +21,12 @@ module-card {
     @include makeColorPoint('green-point', 'green70');
 
     .label-bold {
-        font-weight: bold;
+        font-weight: 900;
     }
 
     .score-badge {
         background-color: color($colors, grey40);
         margin-right: 5px;
-    }
-
-    .col {
-        border: think solid black;
     }
 
     .niv3-button.fab[mini] {
@@ -49,4 +45,24 @@ module-card {
         margin: 0;
     }
 
+    .important-label {
+        font-weight: bold;
+    }
+
+    .very-important-label {
+        font-weight: bold;
+        text-decoration: underline;
+    }
+
+    .normal-label {
+        font-weight: lighter;
+    }
+
+    .col {
+        padding : 5px 5px 5px 10px;
+    }
+
+    .ion-badge {
+        line-height: normal;
+    }
 }

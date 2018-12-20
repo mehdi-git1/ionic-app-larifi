@@ -8,49 +8,34 @@ page-professional-level {
         color: color($colors, white);
         font-weight: bolder;
         font-size: 18px;
-        height: 48px;
+        height: auto;
+        padding-left: 0px;
+
+        .grid {
+            padding: 0px;         
+        }
     }
 
     .professional-level-row {
         align-items: center;
-    }
 
-    .mat-expansion-panel {
-        margin-bottom: 5px;
-        margin-top: 0px;
-        border-radius: 5px;
-    }
-
-    mat-expansion-panel-header {
-        background-color: color($colors, blue65);
-        color: color($colors, white);
-        font-weight: bolder !important;
-        font-size: 18px !important;
-        border-radius: 5px;
-        padding: 0px;
-
-        &.mat-expanded:hover,
-        &.mat-expanded:focus {
-            background-color: color($colors, blue75) !important;
-            height: 48px;
-
+        .grid {
+            padding: 0px;         
         }
     }
 
-    .mat-expansion-panel-body {
-
+    .card-content-md {
         padding: 0px;
-
-        ion-card.card-md,
-        ion-card.card-ios {
-            margin: 0px;
-            width: 100%;
-            margin-bottom: 10px;
-        }
     }
+
+
 
     ion-icon.round-icon {
-            color: color($colors, blue60);
-            margin-right: 20px;
+        color: color($colors, blue60);
+        margin-right: 20px;
+    }
+
+    .col {
+        padding : 5px 5px 5px 10px;
     }
 }
