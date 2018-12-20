@@ -70,4 +70,22 @@ module-card {
         line-height: normal;
     }
 
+    .niv3-button.fab[mini] {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        float: right;
+        width: 30px;
+        height: 30px;
+        color: color($colors, white);
+        background-color: color($colors, blue60);
+
+        ion-icon {
+            font-size: 20px;
+        }
+        float: right;
+        padding: 0;
+        margin: 0;
+    }
+
 }
