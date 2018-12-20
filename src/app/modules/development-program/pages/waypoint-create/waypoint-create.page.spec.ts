@@ -12,7 +12,7 @@ import { NavMock } from '../../../../../test-config/mocks-ionic';
 import { OfflineCareerObjectiveService } from '../../../../core/services/career-objective/offline-career-objective.service';
 import { DateTransform } from '../../../../shared/utils/date-transform';
 import { ToastService } from '../../../../core/services/toast/toast.service';
-import { SecurityServer } from '../../../../core/services/security/security.server';
+import { SecurityService } from '../../../../core/services/security/security.service';
 import { CareerObjectiveStatusService } from '../../../../core/services/career-objective-status/career-objective-status.service';
 import { WaypointService } from '../../../../core/services/waypoint/waypoint.service';
 import { CareerObjectiveTransformerService } from '../../../../core/services/career-objective/career-objective-transformer.service';
@@ -58,7 +58,7 @@ describe('WaypointCreatePage', () => {
                 DatePipe,
                 { provide: CareerObjectiveTransformerService },
                 { provide: CareerObjectiveStatusService },
-                { provide: SecurityServer },
+                { provide: SecurityService },
                 { provide: OfflineWaypointService },
                 { provide: WaypointService },
                 { provide: ToastService },

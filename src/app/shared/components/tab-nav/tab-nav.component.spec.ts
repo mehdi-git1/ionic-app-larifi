@@ -9,7 +9,7 @@ import { PncService } from '../../../core/services/pnc/pnc.service';
 import { of } from 'rxjs/observable/of';
 import { TabNavService } from '../../../core/services/tab-nav/tab-nav.service';
 import { SpecialityService } from '../../../core/services/speciality/speciality.service';
-import { SecurityServer } from '../../../core/services/security/security.server';
+import { SecurityService } from '../../../core/services/security/security.service';
 import { SessionService } from '../../../core/services/session/session.service';
 import { SummarySheetService } from './../../../core/services/summary-sheet/summary-sheet.service';
 import { SummarySheetTransformerService } from '../../../core/services/summary-sheet/summary-sheet-transformer.service';
@@ -44,7 +44,7 @@ describe('tab-nav component', () => {
                 TabNavService,
                 Events,
                 { provide: SessionService, useValue: SessionServiceMock },
-                { provide: SecurityServer, useValue: SecurityProviderMock },
+                { provide: SecurityService, useValue: SecurityProviderMock },
                 { provide: PncService, useValue: PncProviderMock },
                 SpecialityService,
                 { provide: SummarySheetService, useValue: SummarySheetServiceMock },

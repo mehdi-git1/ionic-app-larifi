@@ -10,7 +10,7 @@
                 </div>
                 <!-- Initiateur -->
                 <div class="icon-container">
-                    <ion-icon name="bulb" ios="md-bulb" *ngIf="careerObjective.initiator === PncRole.PNC"></ion-icon>
+                    <span class="edospnc-pnc" *ngIf="careerObjective.initiator === PncRole.PNC"></span>
                 </div>
                 <!-- Statut -->
                 <ion-badge class="{{careerObjective.careerObjectiveStatus.toLowerCase()}}" *ngIf="careerObjective.careerObjectiveStatus">

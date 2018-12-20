@@ -88,8 +88,15 @@ $text-color:color($colors, grey10);
 // Fonts
 // --------------------------------------------------
 @font-face {
-    font-family: 'SanFrancisco';
+    font-family: 'SanFrancisco-old';
     src: url('/assets/fonts/sanfranciscodisplay-ultralight-webfont.woff') format('woff');
+}
+
+// Fonts
+// --------------------------------------------------
+@font-face {
+    font-family: 'SanFrancisco';
+    src: url('/assets/fonts/san-francisco/SF-Pro-Display-Regular.otf') format('otf');
 }
 
 div,
@@ -205,6 +212,7 @@ ion-item.item {
 
 @media all and (-ms-high-contrast: none),
 (-ms-high-contrast: active) {
+
     /* IE10 & 11 */
     .click-block {
         // IE doesn't like this click-block, so hide it

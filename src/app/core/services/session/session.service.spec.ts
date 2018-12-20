@@ -7,7 +7,7 @@ import { PncModel } from '../../models/pnc.model';
 import { SessionService } from './session.service';
 
 describe('Session Service', () => {
-    let sessionService = new SessionService();
+    const sessionService = new SessionService();
     const AUTHENTICATED_USER_MATRICULE = '0123456';
     const IMPERSONATED_USER_MATRICULE = '6543210';
     const WRONG_MATRICULE = 'XXXXX';

@@ -1,7 +1,6 @@
 
 import { VersionService } from './../../../../core/services/version/version.service';
 import { SecMobilService } from './../../../../core/http/secMobil.service';
-import { AuthenticationPage } from './../../../home/pages/authentication/authentication.page';
 import { AdminHomePage } from './../../../admin/pages/admin-home/admin-home.page';
 import { ImpersonatePage } from '../impersonate/impersonate.page';
 import { DeviceService } from '../../../../core/services/device/device.service';
