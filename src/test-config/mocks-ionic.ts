@@ -121,4 +121,9 @@ export class TranslateLoaderMock {
   public get(key: any): any {
     of(key);
   }
+
+  public instant(key: any): any {
+    return Promise.resolve(key);
+  }
 }
+

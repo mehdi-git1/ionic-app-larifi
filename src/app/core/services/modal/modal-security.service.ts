@@ -2,7 +2,7 @@ import { GlobalErrorEnum } from '../../enums/global-error.enum';
 import { PinPadErrorEnum } from '../../enums/security/pin-pad-error.enum';
 import { PinPadTypeEnum } from '../../enums/security/pin-pad-type.enum';
 import { SecretQuestionTypeEnum } from '../../enums/security/secret-question-type.enum';
-import { SecurityServer } from '../security/security.server';
+import { SecurityService } from '../security/security.service';
 import { ToastService } from '../toast/toast.service';
 import { SessionService } from '../session/session.service';
 import { TranslateService } from '@ngx-translate/core';
@@ -34,7 +34,7 @@ export class ModalSecurityService {
         private modalController: ModalController,
         private translateService: TranslateService,
         private sessionService: SessionService,
-        private securityProvider: SecurityServer,
+        private securityProvider: SecurityService,
         private toastProvider: ToastService
     ) {
         this.errorType = GlobalErrorEnum.none;

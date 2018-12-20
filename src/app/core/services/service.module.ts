@@ -12,7 +12,7 @@ import { CareerObjectiveService } from './career-objective/career-objective.serv
 import { GenderService } from './gender/gender.service';
 import { ToastService } from './toast/toast.service';
 import { CareerObjectiveStatusService } from './career-objective-status/career-objective-status.service';
-import { SecurityServer } from './security/security.server';
+import { SecurityService } from './security/security.service';
 import { AuthorizationService } from './authorization/authorization.service';
 import { WaypointService } from './waypoint/waypoint.service';
 import { WaypointStatusService } from './waypoint-status/waypoint-status.service';
@@ -83,7 +83,7 @@ import { TranslateOrEmptyService } from './translate/translate-or-empty.service'
     GenderService,
     ToastService,
     CareerObjectiveStatusService,
-    SecurityServer,
+    SecurityService,
     SessionService,
     AuthorizationService,
     WaypointService,
