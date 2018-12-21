@@ -7,7 +7,7 @@ import { Utils } from '../../utils/utils';
 })
 export class ScorePercentPipe implements PipeTransform {
 
-  constructor() {}
+  constructor() { }
 
   /**
    * Formatte une chaîne de caractère au format à l'échelon inférieur
@@ -15,7 +15,7 @@ export class ScorePercentPipe implements PipeTransform {
    * @param decimalDigits nombre de chiffres après la virgule
    * @return la valeur formattée
    */
-  transform(value: string, decimalDigits:  number = 0) {
+  transform(value: string, decimalDigits: number = 0) {
     if (decimalDigits < 0) {
       decimalDigits = 0;
     }

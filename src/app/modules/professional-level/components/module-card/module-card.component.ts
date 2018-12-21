@@ -1,5 +1,7 @@
+import { NavController } from 'ionic-angular';
 import { Component, Input } from '@angular/core';
 import { ModuleModel } from '../../../../core/models/professional-level/module.model';
+import { EvaluationSheetPage } from '../../pages/professional-level/evaluation-sheet/evaluation-sheet.page';
 import { TranslateOrEmptyService } from '../../../../core/services/translate/translate-or-empty.service';
 
 @Component({
@@ -10,7 +12,10 @@ export class ModuleCardComponent {
 
   @Input() module: ModuleModel;
 
-  constructor(public translateOrEmptyService: TranslateOrEmptyService) {
+  @Input() matricule: string;
+
+  constructor(private navCtrl: NavController,
+    private translateOrEmptyService: TranslateOrEmptyService) {
   }
 
   /**
@@ -25,5 +30,9 @@ export class ModuleCardComponent {
       return 'red-point';
     }
     return '';
+  }
+
+  goToEvaluationSheetPage(moduleId: number) {
+    this.navCtrl.push(EvaluationSheetPage, { matricule: this.matricule, moduleId: moduleId });
   }
 }

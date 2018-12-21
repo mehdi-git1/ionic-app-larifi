@@ -271,8 +271,24 @@
             "SUCCESS_WITH_FC": "Réussi avec FC",
             "FAILED": "Echec"
         },
-        "ERROR": "Erreur lors de la récupération du niveau pro pour le matricule {{ matricule }}",
-        "NO_DATA": "Pas de données disponibles"
+        "EVALUATION_SHEET": {
+            "TITLE": "Feuille d'évaluation",
+            "SCORE_BLOC": {
+                "BLOC_EVALUATION_TITLE": "Evaluation",
+                "E1": "E1",
+                "E2": "E2",
+                "BLOC_FC_TITLE": "FC"
+            },
+            "EXERCISES_BLOC": {
+                "TITLE_COLUMN": "Titre",
+                "E1_COLUMN": "E1",
+                "E2_COLUMN": "E2",
+                "FC_COLUMN": "FC",
+                "NA_COLUMN": "Non acquis"
+            },
+            "ERROR": "Erreur lors de la récupération du niveau pro pour le matricule {{ matricule }}",
+            "NO_DATA": "Pas de données disponibles"
+        }
     },
     "PNC_SEARCH": {
         "TITLE": "Recherche PNC",

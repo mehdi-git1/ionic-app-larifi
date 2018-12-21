@@ -25,4 +25,4 @@ export class ProfessionalLevelStageComponent {
       this._stages = stages;
     }
   }
- }
+}
