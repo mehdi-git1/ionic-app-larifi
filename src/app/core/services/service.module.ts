@@ -142,6 +142,7 @@ import { TranslateOrEmptyService } from './translate/translate-or-empty.service'
     SpecialityService,
     VersionService,
     UserProfileService,
+    UserPermissionService,
     TranslateOrEmptyService
   ]
 })

@@ -1,5 +1,5 @@
 import { UserProfileService } from '../../../../core/services/user-profile/user-profile.service';
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { UserPermission } from '../../../../core/models/admin/user-permission.model';
 import { UserPermissionService } from '../../../../core/services/user-permission/user-permission.service';
 import { NavController, NavParams } from 'ionic-angular';
