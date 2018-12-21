@@ -8,7 +8,7 @@ import { StageModel } from '../../../../core/models/professional-level/stage.mod
 })
 export class ProfessionalLevelStageComponent {
 
-  expandedHeight = '48px';
+  matPanelHeaderHeight = 'auto';
 
   _stages: StageModel[];
 

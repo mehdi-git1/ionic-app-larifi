@@ -21,13 +21,13 @@
                         <p>
                             <span class='score-bloc-title'> {{'PROFESSIONAL_LEVEL.EVALUATION_SHEET.SCORE_BLOC.BLOC_EVALUATION_TITLE' | translate}} :</span>
                             <span *ngIf='evaluationSheet?.e1Score !== undefined' class='score-bloc-value'>
-                                {{evaluationSheet.e1Score}}%
+                                {{evaluationSheet.e1Score| scorePercent }}%
                             </span>
                             <span *ngIf='evaluationSheet?.e1Score !== undefined' class='score-bloc-eval'>
                                 ( {{'PROFESSIONAL_LEVEL.EVALUATION_SHEET.SCORE_BLOC.E1' | translate}} )
                             </span>
                             <span *ngIf='evaluationSheet?.e2Score !== undefined' class='score-bloc-value'>
-                                {{evaluationSheet.e2Score}}%
+                                {{evaluationSheet.e2Score | scorePercent }}%
                             </span>
                             <span *ngIf='evaluationSheet?.e2Score !== undefined' class='score-bloc-eval'>
                                 ( {{'PROFESSIONAL_LEVEL.EVALUATION_SHEET.SCORE_BLOC.E2' | translate}} )
@@ -53,7 +53,7 @@
                     <ion-card class='score-bloc'>
                         <p>
                             <span class='score-bloc-title'> {{'PROFESSIONAL_LEVEL.EVALUATION_SHEET.SCORE_BLOC.BLOC_FC_TITLE' | translate }} : </span>
-                            <span class='score-bloc-value'>{{ evaluationSheet.fcScore }}%</span>
+                            <span class='score-bloc-value'>{{ evaluationSheet.fcScore | scorePercent }}%</span>
                         </p>
                         <ion-grid>
                             <ion-row>
