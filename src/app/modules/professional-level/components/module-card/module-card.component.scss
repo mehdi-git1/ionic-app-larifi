@@ -29,10 +29,6 @@ module-card {
         margin-right: 5px;
     }
 
-    .col {
-        border: think solid black;
-    }
-
     .niv3-button.fab[mini] {
         display: flex;
         align-items: center;
@@ -45,6 +41,49 @@ module-card {
         ion-icon {
             font-size: 20px;
         }
+        padding: 0;
+        margin: 0;
+    }
+
+    .border-col {
+        border-right: 1px solid color($colors, white);
+    }
+
+    .important-label {
+        font-weight: bold;
+    }
+
+    .very-important-label {
+        font-weight: bold;
+        text-decoration: underline;
+    }
+
+    .normal-label {
+        font-weight: lighter;
+    }
+
+    .col {
+        padding : 5px 0px 5px 5px;
+    }
+
+    .ion-badge {
+        line-height: normal;
+    }
+
+    .niv3-button.fab[mini] {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        float: right;
+        width: 30px;
+        height: 30px;
+        color: color($colors, white);
+        background-color: color($colors, blue60);
+
+        ion-icon {
+            font-size: 20px;
+        }
+        float: right;
         padding: 0;
         margin: 0;
     }
