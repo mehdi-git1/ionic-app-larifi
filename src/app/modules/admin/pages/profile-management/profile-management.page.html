@@ -1,0 +1,22 @@
+<ion-header>
+    <ion-navbar>
+        <page-header [showSettingsIcon]="false">
+            {{ 'ADMIN.PROFILE_MANAGEMENT.TITLE' | translate }}
+        </page-header>
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding no-bounce>
+    <ion-grid>
+        <ion-row>
+            <ion-col>
+                <ion-item *ngFor="let userProfile of userProfiles">
+                    <label>{{ userProfile.name }}</label>
+                    <button ion-fab mini icon-only item-end (click)="goToPermissionManagement(userProfile.name)">
+                        <ion-icon name="unlock" ios="md-unlock"></ion-icon>
+                    </button>
+                </ion-item>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-content>

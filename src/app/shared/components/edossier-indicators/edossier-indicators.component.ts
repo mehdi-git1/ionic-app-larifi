@@ -2,7 +2,7 @@ import { NavController } from 'ionic-angular';
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 import { SessionService } from '../../../core/services/session/session.service';
-import { SecurityServer } from '../../../core/services/security/security.server';
+import { SecurityService } from '../../../core/services/security/security.service';
 import { DeviceService } from '../../../core/services/device/device.service';
 import { SynchronizationService } from '../../../core/services/synchronization/synchronization.service';
 import { ConnectivityService } from '../../../core/services/connectivity/connectivity.service';
@@ -28,7 +28,7 @@ export class NavBarCustomComponent {
     public connectivityService: ConnectivityService,
     public deviceService: DeviceService,
     public synchronizationProvider: SynchronizationService,
-    private securityProvider: SecurityServer,
+    private securityProvider: SecurityService,
     private sessionService: SessionService) {
     this.connected = this.connectivityService.isConnected();
 

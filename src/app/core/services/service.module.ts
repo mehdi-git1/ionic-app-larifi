@@ -1,6 +1,9 @@
+import { OnlineEvaluationSheetService } from './professional-level/evaluation-sheet/online-evaluation-sheet.service';
+import { OfflineEvaluationSheetService } from './professional-level/evaluation-sheet/offline-evaluation-sheet.service';
+import { EvaluationSheetService } from './professional-level/evaluation-sheet/evaluation-sheet.service';
+import { UserProfileService } from './user-profile/user-profile.service';
 import { VersionService } from './version/version.service';
 import { NgModule } from '@angular/core';
-
 import { ConnectivityService } from './connectivity/connectivity.service';
 import { TabNavService } from './tab-nav/tab-nav.service';
 import { DeviceService } from './device/device.service';
@@ -12,7 +15,7 @@ import { CareerObjectiveService } from './career-objective/career-objective.serv
 import { GenderService } from './gender/gender.service';
 import { ToastService } from './toast/toast.service';
 import { CareerObjectiveStatusService } from './career-objective-status/career-objective-status.service';
-import { SecurityServer } from './security/security.server';
+import { SecurityService } from './security/security.service';
 import { AuthorizationService } from './authorization/authorization.service';
 import { WaypointService } from './waypoint/waypoint.service';
 import { WaypointStatusService } from './waypoint-status/waypoint-status.service';
@@ -64,84 +67,89 @@ import { OnlineSummarySheetService } from './summary-sheet/online-summary-sheet.
 import { LegTransformerService } from './leg/leg-transformer.service';
 import { CrewMemberTransformerService } from './crewMember/crew-member-transformer.service';
 import { EObservationService } from './e-observation/e-observation.service';
+import { UserPermissionService } from './user-permission/user-permission.service';
 import { TranslateOrEmptyService } from './translate/translate-or-empty.service';
 
 
 @NgModule({
-  declarations: [
-  ],
-  imports: [
-  ],
-  providers: [
-    ConnectivityService,
-    DeviceService,
-    TabNavService,
-    TransformerService,
-    AppInitService,
-    PncService,
-    CareerObjectiveService,
-    GenderService,
-    ToastService,
-    CareerObjectiveStatusService,
-    SecurityServer,
-    SessionService,
-    AuthorizationService,
-    WaypointService,
-    WaypointStatusService,
-    RotationService,
-    LegService,
-    ParametersService,
-    HelpAssetService,
-    OfflineService,
-    OfflineCareerObjectiveService,
-    OfflinePncService,
-    OfflineCareerObjectiveService,
-    OfflineWaypointService,
-    OnlineSecurityService,
-    OfflineSecurityService,
-    OnlinePncService,
-    OnlineCareerObjectiveService,
-    OfflineCareerObjectiveService,
-    OfflineWaypointService,
-    OnlineWaypointService,
-    CareerObjectiveTransformerService,
-    WaypointTransformerService,
-    PncTransformerService,
-    SynchronizationService,
-    PncSynchroService,
-    EFormsEObservationService,
-    SummarySheetService,
-    RotationTransformerService,
-    LegTransformerService,
-    CrewMemberTransformerService,
-    OnlineSummarySheetService,
-    OfflineSummarySheetService,
-    SummarySheetTransformerService,
-    OnlineRotationService,
-    OfflineRotationService,
-    OnlineLegService,
-    OfflineLegService,
-    ModalSecurityService,
-    PncPhotoService,
-    OnlinePncPhotoService,
-    OfflinePncPhotoService,
-    PncPhotoTransformerService,
-    EObservationService,
-    OfflineEObservationService,
-    OnlineEObservationService,
-    EObservationTransformerService,
-    StatutoryCertificateService,
-    OnlineStatutoryCertificateService,
-    OfflineStatutoryCertificateService,
-    StatutoryCertificateTransformerService,
-    ProfessionalLevelService,
-    OnlineProfessionalLevelService,
-    OfflineProfessionalLevelService,
-    ProfessionalLevelTransformerService,
-    SpecialityService,
-    VersionService,
-    TranslateOrEmptyService
-  ]
+    declarations: [
+    ],
+    imports: [
+    ],
+    providers: [
+        ConnectivityService,
+        DeviceService,
+        TabNavService,
+        TransformerService,
+        AppInitService,
+        PncService,
+        CareerObjectiveService,
+        GenderService,
+        ToastService,
+        CareerObjectiveStatusService,
+        SecurityService,
+        SessionService,
+        AuthorizationService,
+        WaypointService,
+        WaypointStatusService,
+        RotationService,
+        LegService,
+        ParametersService,
+        HelpAssetService,
+        OfflineService,
+        OfflineCareerObjectiveService,
+        OfflinePncService,
+        OfflineCareerObjectiveService,
+        OfflineWaypointService,
+        OnlineSecurityService,
+        OfflineSecurityService,
+        OnlinePncService,
+        OnlineCareerObjectiveService,
+        OfflineCareerObjectiveService,
+        OfflineWaypointService,
+        OnlineWaypointService,
+        CareerObjectiveTransformerService,
+        WaypointTransformerService,
+        PncTransformerService,
+        SynchronizationService,
+        PncSynchroService,
+        EFormsEObservationService,
+        SummarySheetService,
+        RotationTransformerService,
+        LegTransformerService,
+        CrewMemberTransformerService,
+        OnlineSummarySheetService,
+        OfflineSummarySheetService,
+        SummarySheetTransformerService,
+        OnlineRotationService,
+        OfflineRotationService,
+        OnlineLegService,
+        OfflineLegService,
+        ModalSecurityService,
+        PncPhotoService,
+        OnlinePncPhotoService,
+        OfflinePncPhotoService,
+        PncPhotoTransformerService,
+        EObservationService,
+        OfflineEObservationService,
+        OnlineEObservationService,
+        EObservationTransformerService,
+        StatutoryCertificateService,
+        OnlineStatutoryCertificateService,
+        OfflineStatutoryCertificateService,
+        StatutoryCertificateTransformerService,
+        ProfessionalLevelService,
+        OnlineProfessionalLevelService,
+        OfflineProfessionalLevelService,
+        ProfessionalLevelTransformerService,
+        SpecialityService,
+        VersionService,
+        EvaluationSheetService,
+        OnlineEvaluationSheetService,
+        OfflineEvaluationSheetService,
+        UserProfileService,
+        TranslateOrEmptyService
+    ]
 })
 export class ServiceModule { }
 

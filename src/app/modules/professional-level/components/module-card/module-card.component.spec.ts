@@ -4,7 +4,7 @@ import { ModuleModel } from '../../../../core/models/professional-level/module.m
 describe('ModuleCardComponent', () => {
 
     it('Si le statut du module est SUCCESS, le point doit être vert', () => {
-        checkPointColorInFunctionOfModuleStatus('SUCCESS', 'green-point')
+        checkPointColorInFunctionOfModuleStatus('SUCCESS', 'green-point');
     });
 
     it('Si le statut du module est SUCCESS_WITH_FC, le point doit être jaune', () => {
@@ -20,11 +20,11 @@ describe('ModuleCardComponent', () => {
     });
 
     it('Si le statut du module est FAILED, le point doit être rouge', () => {
-        checkPointColorInFunctionOfModuleStatus('FAILED', 'red-point')
+        checkPointColorInFunctionOfModuleStatus('FAILED', 'red-point');
     });
 
     function checkPointColorInFunctionOfModuleStatus(moduleStatus: string, colorPointClass: string) {
-        const moduleCardComponent = new ModuleCardComponent(null);
+        const moduleCardComponent = new ModuleCardComponent(null, null);
         moduleCardComponent.module = new ModuleModel();
         moduleCardComponent.module.moduleResultStatus = moduleStatus;
         expect(moduleCardComponent.getModuleStatusPointCssClass()).toEqual(colorPointClass);

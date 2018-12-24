@@ -61,7 +61,7 @@ export class Utils {
     }
 
     /**
-     * Remplacement de tous les caractéres accentués par leurs pendants non accentués
+     * Remplace tous les caractéres accentués par leurs pendants non accentués
      * @param text texte à traiter
      * @return la chaine "assainie"
      */
@@ -72,6 +72,15 @@ export class Utils {
             function () {
                 return SpecialCharList[arguments[0].toLowerCase()];
             }).toLowerCase();
+    }
+
+    /**
+    * Supprime les espaces de la chaine de caractère donnée
+    * @param text le texte à traiter
+    * @return le nouveau texte, dépourvu de tout espace
+    */
+    public static removeSpaces(text: string): string {
+        return text.replace(/\s+/g, '');
     }
 
     /**

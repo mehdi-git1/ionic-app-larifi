@@ -1,21 +1,23 @@
 module-card {
 
     $colorPointSize: 12px;
+
     @mixin makeColorPoint($className, $pointColor) {
         .#{$className} {
-            display:inline-block;
-            height:$colorPointSize;
-            width:$colorPointSize;
-            line-height:$colorPointSize;
-            text-align:center;
-            font-size:0.1em;
-            border-radius:$colorPointSize;
-            color:#fff;
+            display: inline-block;
+            height: $colorPointSize;
+            width: $colorPointSize;
+            line-height: $colorPointSize;
+            text-align: center;
+            font-size: 0.1em;
+            border-radius: $colorPointSize;
+            color: #fff;
             background:color($colors, #{$pointColor});
             position: relative;
             right: 8px;
         }
     }
+
     @include makeColorPoint('red-point', 'tertiary');
     @include makeColorPoint('orange-point', 'orange50');
     @include makeColorPoint('yellow-point', 'yellow1');
@@ -30,8 +32,47 @@ module-card {
         margin-right: 5px;
     }
 
+    .niv3-button.fab[mini] {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        float: right;
+        width: 30px;
+        height: 30px;
+        color: color($colors, white);
+        background-color: color($colors, blue60);
+
+        ion-icon {
+            font-size: 20px;
+        }
+
+        padding: 0;
+        margin: 0;
+    }
+
+    .border-col {
+        border-right: 1px solid color($colors, white);
+    }
+
+    .important-label {
+        font-weight: bold;
+    }
+
+    .very-important-label {
+        font-weight: bold;
+        text-decoration: underline;
+    }
+
+    .normal-label {
+        font-weight: lighter;
+    }
+
     .col {
-        border: think solid black;
+        padding: 5px 0px 5px 5px;
+    }
+
+    .ion-badge {
+        line-height: normal;
     }
 
     .niv3-button.fab[mini] {
@@ -42,10 +83,13 @@ module-card {
         width: 30px;
         height: 30px;
         color: color($colors, white);
-        background-color:color($colors, blue60);
+        background-color: color($colors, blue60);
+
         ion-icon {
             font-size: 20px;
         }
+
+        float: right;
         padding: 0;
         margin: 0;
     }

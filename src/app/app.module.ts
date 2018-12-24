@@ -1,3 +1,4 @@
+import { AdminModule } from './modules/admin/admin.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ErrorHandler, NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
@@ -26,6 +27,7 @@ import { HttpModule } from './core/http/http.module';
 import { StorageModule } from './core/storage/storage.module';
 import { Config } from '../environments/config';
 import { UrlConfiguration } from './core/configuration/url.configuration';
+import { AuthenticationModule } from './core/authentication/authentication.module';
 import { FileModule } from './core/file/file.module';
 
 
@@ -40,6 +42,7 @@ import { FileModule } from './core/file/file.module';
       backButtonText: ''
     }),
     HttpClientModule,
+    AuthenticationModule,
     DevelopmentProgramModule,
     HomeModule,
     FlightActivityModule,
@@ -48,6 +51,7 @@ import { FileModule } from './core/file/file.module';
     ProfessionalLevelModule,
     SettingsModule,
     StatutoryCertificateModule,
+    AdminModule,
     ComponentsModule,
     SharedModule,
     HttpModule,

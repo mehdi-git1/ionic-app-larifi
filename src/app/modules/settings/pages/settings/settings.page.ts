@@ -1,8 +1,8 @@
+import { SecurityService } from './../../../../core/services/security/security.service';
 
 import { VersionService } from './../../../../core/services/version/version.service';
 import { SecMobilService } from './../../../../core/http/secMobil.service';
-import { AuthenticationPage } from './../../../home/pages/authentication/authentication.page';
-import { AdminHomePage } from '../admin/home/admin-home.page';
+import { AdminHomePage } from './../../../admin/pages/admin-home/admin-home.page';
 import { ImpersonatePage } from '../impersonate/impersonate.page';
 import { DeviceService } from '../../../../core/services/device/device.service';
 import { ModalSecurityService } from '../../../../core/services/modal/modal-security.service';
@@ -54,7 +54,8 @@ export class SettingsPage {
     private offlineSecurityProvider: OfflineSecurityService,
     private secMobilService: SecMobilService,
     private appVersion: AppVersion,
-    private versionService: VersionService
+    private versionService: VersionService,
+    private securityService: SecurityService
   ) {
     this.connected = this.connectivityService.isConnected();
 
@@ -208,6 +209,22 @@ export class SettingsPage {
         this.appVersion.getVersionNumber().then(version => this.frontVersion = version);
       }
     });
+  }
+
+  /**
+   * Détermine si l'utilisateur connecté est admin
+   * @return vrai si c'est le cas, faux sinon
+   */
+  isAdmin(): boolean {
+    return this.securityService.isAdmin(this.sessionService.getActiveUser());
+  }
+
+  /**
+   * Détermine si l'utilisateur réellement (pas impersonnifié) connecté est admin
+   * @return vrai si c'est le cas, faux sinon
+   */
+  isRealUserAdmin() {
+    return this.securityService.isAdmin(this.sessionService.authenticatedUser);
   }
 
 }

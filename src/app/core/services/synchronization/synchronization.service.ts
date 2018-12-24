@@ -21,7 +21,7 @@ import { EntityEnum } from '../../enums/entity.enum';
 import { PncModel } from '../../models/pnc.model';
 import { WaypointModel } from '../../models/waypoint.model';
 import { RotationModel } from '../../models/rotation.model';
-import { SecurityServer } from '../security/security.server';
+import { SecurityService } from '../security/security.service';
 import { LegService } from '../leg/leg.service';
 import { CrewMemberEnum } from '../../models/crew-member.enum';
 import { LegModel } from '../../models/leg.model';
@@ -42,7 +42,7 @@ export class SynchronizationService {
     private rotationTransformerProvider: RotationTransformerService,
     private legTransformerProvider: LegTransformerService,
     private crewMemberTransformerService: CrewMemberTransformerService,
-    public securityProvider: SecurityServer,
+    public securityProvider: SecurityService,
     private pncPhotoTransformer: PncPhotoTransformerService,
     private legProvider: LegService,
     private sessionService: SessionService,
@@ -282,7 +282,7 @@ export class SynchronizationService {
     // Suppression de l'attestation réglementaire
     this.storageService.delete(EntityEnum.STATUTORY_CERTIFICATE, pnc.matricule);
 
-    // Suppression du suivi réglementaire
+    // Suppression du niveau pro SV
     this.storageService.delete(EntityEnum.PROFESSIONAL_LEVEL, pnc.matricule);
   }
 

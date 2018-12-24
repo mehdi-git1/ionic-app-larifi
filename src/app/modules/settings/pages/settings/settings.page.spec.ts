@@ -1,3 +1,4 @@
+import { Config } from './../../../../../environments/config';
 import { VersionService } from './../../../../core/services/version/version.service';
 import { AppVersion } from '@ionic-native/app-version';
 import { of } from 'rxjs/observable/of';
@@ -10,7 +11,6 @@ import { SessionService } from './../../../../core/services/session/session.serv
 import { SynchronizationService } from './../../../../core/services/synchronization/synchronization.service';
 import { StorageService } from './../../../../core/storage/storage.service';
 import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-translate/core';
-import { FlightCrewListPage } from './../../../flight-activity/pages/flight-crew-list/flight-crew-list.page';
 import { SecMobilService } from './../../../../core/http/secMobil.service';
 import { PlatformMock, NavMock, TranslateLoaderMock } from './../../../../../test-config/mocks-ionic';
 import { IonicModule, Platform, NavController, Events, AlertController } from 'ionic-angular';
@@ -35,7 +35,8 @@ describe('SettingsPage', () => {
 
     let fixture: ComponentFixture<SettingsPage>;
     let comp: SettingsPage;
-    let EventsService;
+    let EventsService: Events;
+    let config: Config;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
@@ -63,6 +64,7 @@ describe('SettingsPage', () => {
                 { provide: OfflineSecurityService },
                 { provide: AppVersion, useValue: AppVersionMock },
                 { provide: VersionService, useValue: VersionServiceMock },
+                Config
             ],
             schemas: [NO_ERRORS_SCHEMA]
         });
@@ -71,7 +73,7 @@ describe('SettingsPage', () => {
         comp = fixture.componentInstance;
         comp.isApp = true;
         EventsService = TestBed.get(Events);
-        AppVersionMock.getVersionNumber.and.returnValue(Promise.resolve('1.1.0'));
+        config = TestBed.get(Config);
     });
 
     describe('revokeCertificate', () => {
@@ -86,9 +88,11 @@ describe('SettingsPage', () => {
     });
 
     describe('getFrontAndBackVersion', () => {
+
         beforeEach(() => {
             expect(comp).toBeDefined();
             comp.isApp = true;
+            AppVersionMock.getVersionNumber.and.returnValue(Promise.resolve('1.1.0'));
         });
 
         it('doit vérifier si la version du front est bien 1.1.0, sur ipad en mode déconnecté ', fakeAsync(() => {
@@ -106,12 +110,13 @@ describe('SettingsPage', () => {
             expect(comp.backVersion).toBe('1.2.0');
         }));
 
-        it('doit vérifier si la version du front est bien la même que celle du back (1.2.0) en web en mode connecté', fakeAsync(() => {
+        it(`doit vérifier si la version du front est bien la bonne, et la version du back est 1.2.0 en web en mode connecté`, fakeAsync(() => {
             VersionServiceMock.getBackVersion.and.returnValue(Promise.resolve({ appVersion: '1.2.0' }));
             comp.isApp = false;
             comp.getFrontAndBackVersion();
             tick();
-            expect(comp.frontVersion).toBe('1.2.0');
+            console.log(config.appVersion);
+            expect(comp.frontVersion).toBe(config.appVersion);
             expect(comp.backVersion).toBe('1.2.0');
         }));
 

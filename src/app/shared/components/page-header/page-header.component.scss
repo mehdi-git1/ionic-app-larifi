@@ -16,15 +16,20 @@ page-header {
             margin: 0;
             font-size: 1.2em;
             font-weight: bold;
-
-        }
-
-        h3 {
-            color: color($colors, white);
-            padding: 0;
-            margin: 0;
-            font-weight: normal;
-            font-size: 1em;
         }
     }
+
+    .h3 { 
+        display: block;
+        font-size: 1.17em;
+        margin-top: 1em;
+        margin-bottom: 1em;
+        margin-left: 0;
+        margin-right: 0;
+        color: color($colors, white);
+        padding: 0;
+        margin: 0;
+        font-weight: normal;
+        font-size: 1em;
+      }
 }

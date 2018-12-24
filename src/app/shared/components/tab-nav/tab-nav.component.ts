@@ -13,7 +13,7 @@ import { HelpAssetListPage } from '../../../modules/help-asset/pages/help-asset-
 import { CareerObjectiveListPage } from '../../../modules/development-program/pages/career-objective-list/career-objective-list.page';
 import { PncService } from '../../../core/services/pnc/pnc.service';
 import { SessionService } from '../../../core/services/session/session.service';
-import { SecurityServer } from '../../../core/services/security/security.server';
+import { SecurityService } from '../../../core/services/security/security.service';
 import { TabNavService } from '../../../core/services/tab-nav/tab-nav.service';
 import { tabNavEnum } from '../../../core/enums/tab-nav.enum';
 import { SpecialityEnum } from '../../../core/enums/speciality.enum';
@@ -53,7 +53,7 @@ export class TabNavComponent {
     private tabNavService: TabNavService,
     private translate: TranslateService,
     private sessionService: SessionService,
-    public securityProvider: SecurityServer,
+    public securityProvider: SecurityService,
     private specialityService: SpecialityService,
     private summarySheetService: SummarySheetService,
     private summarySheetTransformerService: SummarySheetTransformerService,
