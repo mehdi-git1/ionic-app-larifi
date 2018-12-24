@@ -20,6 +20,10 @@ export class ModuleCardComponent {
     if ('SUCCESS' == this.module.moduleResultStatus) {
       return 'green-point';
     } else if ('SUCCESS_WITH_FC' == this.module.moduleResultStatus) {
+      return 'yellow-point';
+    } else if ('SUCCESS_WITH_FC_AND_TESTS' == this.module.moduleResultStatus) {
+      return 'orange-point';
+    } else if ('SUCCESS_WITH_RETAKE' == this.module.moduleResultStatus) {
       return 'orange-point';
     } else if ('FAILED' == this.module.moduleResultStatus) {
       return 'red-point';

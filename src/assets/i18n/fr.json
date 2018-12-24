@@ -269,6 +269,8 @@
         "MODULE_STATUS": {
             "SUCCESS": "Réussi",
             "SUCCESS_WITH_FC": "Réussi avec FC",
+            "SUCCESS_WITH_FC_AND_TESTS": "Réussi avec FC + tests",
+            "SUCCESS_WITH_RETAKE": "Réussi avec rattrapage",
             "FAILED": "Echec"
         },
         "ERROR": "Erreur lors de la récupération du niveau pro pour le matricule {{ matricule }}",

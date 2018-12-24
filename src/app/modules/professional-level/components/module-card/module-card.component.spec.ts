@@ -7,8 +7,16 @@ describe('ModuleCardComponent', () => {
         checkPointColorInFunctionOfModuleStatus('SUCCESS', 'green-point')
     });
 
-    it('Si le statut du module est SUCCESS_WITH_FC, le point doit être orange', () => {
-        checkPointColorInFunctionOfModuleStatus('SUCCESS_WITH_FC', 'orange-point')
+    it('Si le statut du module est SUCCESS_WITH_FC, le point doit être jaune', () => {
+        checkPointColorInFunctionOfModuleStatus('SUCCESS_WITH_FC', 'yellow-point')
+    });
+
+    it('Si le statut du module est SUCCESS_WITH_FC_AND_TESTS, le point doit être orange', () => {
+        checkPointColorInFunctionOfModuleStatus('SUCCESS_WITH_FC_AND_TESTS', 'orange-point')
+    });
+
+    it('Si le statut du module est SUCCESS_WITH_RETAKE, le point doit être orange', () => {
+        checkPointColorInFunctionOfModuleStatus('SUCCESS_WITH_RETAKE', 'orange-point')
     });
 
     it('Si le statut du module est FAILED, le point doit être rouge', () => {
