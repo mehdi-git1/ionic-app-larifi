@@ -1,5 +1,5 @@
 <ion-card class="career-objective-card clickable">
-    <offline-indicator [object]="careerObjective" type="CAREER_OBJECTIVE"></offline-indicator>
+    <offline-indicator [offlineDataToCheck]="careerObjective" [type]="'CAREER_OBJECTIVE'"></offline-indicator>
     <ion-card-content no-padding>
         <header>
             <h4>{{careerObjective.title}}</h4>

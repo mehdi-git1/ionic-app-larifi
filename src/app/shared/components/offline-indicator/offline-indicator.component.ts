@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnChanges } from '@angular/core';
 
 import * as moment from 'moment';
 
@@ -14,25 +14,18 @@ import { EDossierPncObjectModel } from '../../../core/models/e-dossier-pnc-objec
   selector: 'offline-indicator',
   templateUrl: 'offline-indicator.component.html'
 })
-export class OfflineIndicatorComponent {
+export class OfflineIndicatorComponent implements OnChanges {
 
-  _object: any;
+
+  @Input() private type: EntityEnum;
+  @Input() private offlineDataToCheck: EDossierPncObjectModel;
 
   constructor(private offlineProvider: OfflineService,
     private storageService: StorageService,
     private transformerService: TransformerService) {
   }
 
-  @Input()
-  private type: EntityEnum;
-
-  get object(): any {
-    return this._object;
-  }
-
-  @Input()
-  set object(val: any) {
-    this._object = val;
+  ngOnChanges() {
     this.refreshOffLineDateOnCurrentObject();
   }
 
@@ -42,12 +35,12 @@ export class OfflineIndicatorComponent {
    */
   getCssClass(): string {
     // Si aucune date de stockage offline, c'est que l'objet n'est pas en cache
-    if (!this._object.offlineStorageDate) {
+    if (!this.offlineDataToCheck.offlineStorageDate) {
       return '';
     }
 
     const now = moment();
-    const offlineStorageDate = moment(this._object.offlineStorageDate, AppConstant.isoDateFormat);
+    const offlineStorageDate = moment(this.offlineDataToCheck.offlineStorageDate, AppConstant.isoDateFormat);
     const offlineDuration = moment.duration(now.diff(offlineStorageDate)).asMilliseconds();
 
     const upToDateThreshold = moment.duration(1, 'days').asMilliseconds();
@@ -67,20 +60,20 @@ export class OfflineIndicatorComponent {
    * @return vrai si l'objet est en attente de synchro, faux sinon
    */
   hasBeenModifiedOffline(): boolean {
-    return this.object.offlineAction !== undefined && this.object.offlineAction !== null;
+    return this.offlineDataToCheck.offlineAction !== undefined && this.offlineDataToCheck.offlineAction !== null;
   }
 
   /**
    * Appelle la méthode refresh du provider de l'entité correspondante afin de mettre a jour la date de l'objet en cache sur l'objet online
    */
   refreshOffLineDateOnCurrentObject(): void {
-    const transformedObject: EDossierPncObjectModel = this.transformerService.transformObject(this.type, this._object);
+    const transformedObject: EDossierPncObjectModel = this.transformerService.transformObject(this.type, this.offlineDataToCheck);
 
     if (transformedObject) {
       this.storageService.findOneAsync(this.type, transformedObject.getStorageId()).then(offlineObject => {
         const offlineData = this.transformerService.transformObject(this.type, offlineObject);
         this.offlineProvider.flagDataAvailableOffline(transformedObject, offlineData);
-        this._object = transformedObject;
+        this.offlineDataToCheck = transformedObject;
       });
     }
 
