@@ -34,7 +34,7 @@ professional-level-stage {
 
     .mat-expansion-panel-header {
         height: auto;
-        padding: 0px 12px 0px 0px;
+        padding: 0px 10px 0px 0px;
     }
 
     .mat-expansion-panel-body {
@@ -47,10 +47,12 @@ professional-level-stage {
             margin: 0px;
             width: 100%;
             margin-bottom: 10px;
-            padding: 0px 12px 0px 0px;
+            padding: 0px 18px 0px 0px;
         }
     }
-
+    .col {
+        padding : 5px 5px 5px 5px;
+    }
     .border-col {
         border-right: 1px solid color($colors, bluegrey2);
     }
@@ -67,9 +69,30 @@ professional-level-stage {
     
     .normal-label {
         font-weight: lighter;
+        font-size: 14px !important;
     }
 
-    .col {
-        padding : 5px 5px 5px 5px;
+    $colorPointSize: 12px;
+
+    @mixin makeColorPoint($className, $pointColor) {
+        .#{$className} {
+            display: inline-block;
+            height: $colorPointSize;
+            width: $colorPointSize;
+            line-height: $colorPointSize;
+            text-align: center;
+            font-size: 0.1em;
+            border-radius: $colorPointSize;
+            color: #fff;
+            background:color($colors, #{$pointColor});
+            position: relative;
+            right: 8px;
+            padding-left: 5px;
+        }
     }
+
+    @include makeColorPoint('red-point', 'tertiary');
+    @include makeColorPoint('orange-point', 'orange50');
+    @include makeColorPoint('yellow-point', 'yellow1');
+    @include makeColorPoint('green-point', 'green70');
 }

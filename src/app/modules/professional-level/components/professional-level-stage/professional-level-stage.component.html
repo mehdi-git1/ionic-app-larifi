@@ -3,7 +3,7 @@
         <mat-expansion-panel-header [expandedHeight]="matPanelHeaderHeight" [collapsedHeight]="matPanelHeaderHeight" hideToggle="true">
             <ion-grid>
                 <ion-row>
-                    <ion-col col-2 class="border-col important-label">{{ stage.date | date: 'dd/MM/yyyy' }}
+                    <ion-col col-2 class="border-col important-label">{{ stage?.date | date: 'dd/MM/yyyy' }}
                     </ion-col>
                     <ion-col col-2 class="border-col very-important-label">
                         {{ stage.code }}
@@ -11,10 +11,10 @@
                     <ion-col col-3 class="border-col normal-label">
                         {{ stage.label }}
                     </ion-col>
-                    <ion-col col-3 class="border-col">
+                    <ion-col col-2 class="border-col">
                     </ion-col>
-                    <ion-col col-2>
-                        -
+                    <ion-col col-3 class="normal-label">
+                        <span [ngClass]="getStageStatusPointCssClass(stage)"></span>{{'PROFESSIONAL_LEVEL.MODULE_STATUS.' + stage?.stageResultStatus | translateOrEmpty}}
                     </ion-col>
                 </ion-row>
             </ion-grid>

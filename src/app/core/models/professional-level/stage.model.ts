@@ -6,5 +6,6 @@ export class StageModel {
     code: string;
     label: string;
     result: string;
+    stageResultStatus: string;
     modules: ModuleModel[];
 }
