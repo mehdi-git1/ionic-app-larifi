@@ -1,25 +1,13 @@
+import { Component, Input } from '@angular/core';
+
+import * as moment from 'moment';
+
 import { TransformerService } from '../../../core/services/transformer/transformer.service';
-import { WaypointTransformerService } from '../../../core/services/waypoint/waypoint-transformer.service';
-import { CareerObjectiveTransformerService } from '../../../core/services/career-objective/career-objective-transformer.service';
 import { StorageService } from '../../../core/storage/storage.service';
 import { EntityEnum } from '../../../core/enums/entity.enum';
-import { WaypointService } from '../../../core/services/waypoint/waypoint.service';
-import { CareerObjectiveService } from '../../../core/services/career-objective/career-objective.service';
-import { LegService } from '../../../core/services/leg/leg.service';
-import { RotationService } from '../../../core/services/rotation/rotation.service';
-import { WaypointModel } from '../../../core/models/waypoint.model';
-import { CareerObjectiveModel } from '../../../core/models/career-objective.model';
-import { LegModel } from '../../../core/models/leg.model';
-import { PncTransformerService } from '../../../core/services/pnc/pnc-transformer.service';
 import { OfflineService } from '../../../core/services/offline/offline.service';
-import { PncService } from '../../../core/services/pnc/pnc.service';
-import { PncModel } from '../../../core/models/pnc.model';
 import { AppConstant } from '../../../app.constant';
-import { Component, Input, OnChanges, SimpleChanges, SimpleChange } from '@angular/core';
 import { EDossierPncObjectModel } from '../../../core/models/e-dossier-pnc-object.model';
-import * as moment from 'moment';
-import { RotationModel } from '../../../core/models/rotation.model';
-
 
 
 @Component({
@@ -81,6 +69,7 @@ export class OfflineIndicatorComponent {
   hasBeenModifiedOffline(): boolean {
     return this.object.offlineAction !== undefined && this.object.offlineAction !== null;
   }
+
   /**
    * Appelle la méthode refresh du provider de l'entité correspondante afin de mettre a jour la date de l'objet en cache sur l'objet online
    */

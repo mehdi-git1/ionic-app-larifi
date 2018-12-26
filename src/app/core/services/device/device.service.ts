@@ -1,7 +1,7 @@
 import { Platform } from 'ionic-angular';
 import { Injectable } from '@angular/core';
 
-import {Config} from '../../../../environments/config';
+import { Config } from '../../../../environments/config';
 
 declare var window: any;
 
@@ -27,6 +27,6 @@ export class DeviceService {
     * @return vrai si le mode déconnecté est disponible, faux sinon
     */
     isOfflineModeAvailable(): boolean {
-        return this.config.makeOfflineModeAvailable || !this.isBrowser();
+        return this.config.makeOfflineModeAvailable || this.isBrowser();
     }
 }
