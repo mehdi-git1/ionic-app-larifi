@@ -18,6 +18,7 @@ export class OfflineIndicatorComponent implements OnChanges {
 
 
   @Input() private type: EntityEnum;
+
   @Input() private offlineDataToCheck: EDossierPncObjectModel;
 
   constructor(private offlineProvider: OfflineService,

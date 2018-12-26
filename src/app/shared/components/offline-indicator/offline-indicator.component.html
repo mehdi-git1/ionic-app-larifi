@@ -1,4 +1,4 @@
-<div [ngClass]="getCssClass()">
+<div [ngClass]="getCssClass()" *ngIf="offlineDataToCheck">
     <div *ngIf="hasBeenModifiedOffline()" class="modified-offline">
 
     </div>
