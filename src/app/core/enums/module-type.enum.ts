@@ -1,4 +1,4 @@
 const enum ModuleTypeEnum {
-    PRACTICAL,
-    THEORETICAL
+    PRACTICAL = 'PRACTICAL',
+    THEORETICAL = 'THEORETICAL'
 }

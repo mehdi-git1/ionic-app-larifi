@@ -1,3 +1,4 @@
+import { NotValidatedQuestionsPage } from './../../pages/not-validated-questions/not-validated-questions.page';
 import { NavController } from 'ionic-angular';
 import { Component, Input } from '@angular/core';
 import { ModuleModel } from '../../../../core/models/professional-level/module.model';
@@ -32,7 +33,15 @@ export class ModuleCardComponent {
     return '';
   }
 
-  goToEvaluationSheetPage(moduleId: number) {
-    this.navCtrl.push(EvaluationSheetPage, { matricule: this.matricule, moduleId: moduleId });
+  /**
+   * Redirige vers le détail d'un module. La feuille d'évaluation s'il s'agit d'un module pratique, ou la liste des questions non validées s'il s'agit d'un module théorique
+   * @param module le module dont on souhaite avoir le détail
+   */
+  goToModuleDetail(module: ModuleModel) {
+    if (module.moduleType == ModuleTypeEnum.PRACTICAL) {
+      this.navCtrl.push(EvaluationSheetPage, { matricule: this.matricule, moduleId: module.techId });
+    } else {
+      this.navCtrl.push(NotValidatedQuestionsPage);
+    }
   }
 }
