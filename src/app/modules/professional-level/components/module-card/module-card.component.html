@@ -7,7 +7,7 @@
     </ion-col>
     <ion-col col-2>
         <span [ngClass]="getModuleStatusPointCssClass()"></span>{{'PROFESSIONAL_LEVEL.MODULE_STATUS.' + module?.moduleResultStatus | translateOrEmpty}}
-        <button class="niv3-button" ion-fab mini (click)="goToEvaluationSheetPage(module.techId)">
+        <button class="niv3-button" ion-fab mini (click)="goToModuleDetail(module)">
             <ion-icon name="paper"></ion-icon>
         </button>
     </ion-col>
