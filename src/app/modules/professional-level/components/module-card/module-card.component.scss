@@ -39,11 +39,18 @@ module-card {
         }
 
         .module-scores {
-            min-width: 170px;
+            @media (max-width: 800px) {
+                min-width: 88px;
+                max-width: 88px;
+            }
+
+            min-width: 250px;
+
             padding-left: 10px;
+            margin: 2px;
 
             .score-badge {
-                margin: 0 2px;
+                margin: 2px;
                 background-color: color($colors, grey40);
                 font-weight: normal;
             }
