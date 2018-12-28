@@ -4,22 +4,16 @@ module-card {
 
     @mixin makeColorPoint($className, $pointColor) {
         .#{$className} {
-            display: inline-block;
             height: $colorPointSize;
             width: $colorPointSize;
-            line-height: $colorPointSize;
-            text-align: center;
-            font-size: 0.1em;
             border-radius: $colorPointSize;
-            color: #fff;
             background:color($colors, #{$pointColor});
-            position: relative;
-            right: 8px;
+            margin-right: 5px;
         }
     }
 
-    @include makeColorPoint('red-point', 'tertiary');
-    @include makeColorPoint('orange-point', 'orange50');
+    @include makeColorPoint('red-point', 'red15');
+    @include makeColorPoint('orange-point', 'orange90');
     @include makeColorPoint('green-point', 'green70');
 
     .module-card {
@@ -33,16 +27,11 @@ module-card {
         }
 
         .module-date {
-            width: 150px;
+            min-width: 120px;
         }
 
         .module-type {
-            width: 90px;
-        }
-
-        .module-date,
-        .module-type {
-            font-weight: bold;
+            min-width: 90px;
         }
 
         .module-label {
@@ -50,16 +39,20 @@ module-card {
         }
 
         .module-scores {
-            width: 200px;
+            min-width: 170px;
+            padding-left: 10px;
 
             .score-badge {
-                margin: 0 5px;
+                margin: 0 2px;
                 background-color: color($colors, grey40);
+                font-weight: normal;
             }
         }
 
         .module-result {
             width: 150px;
+            display: flex;
+            align-items: center;
         }
 
 

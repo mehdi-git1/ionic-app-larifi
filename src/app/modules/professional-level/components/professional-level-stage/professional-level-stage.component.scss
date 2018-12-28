@@ -15,7 +15,7 @@ professional-level-stage {
             }
 
             &.mat-expansion-panel-header {
-                padding: 6px 10px;
+                padding: 6px 20px 6px 10px;
             }
 
             &.mat-expanded:hover,
@@ -25,17 +25,15 @@ professional-level-stage {
 
             .mat-content > label {
                 font-size: 18px;
-                font-weight: bold;
                 color: color($colors, white);
             }
 
             .stage-date {
-                width: 150px;
+                width: 120px;
             }
 
             .stage-code {
                 width: 90px;
-                text-decoration: underline;
             }
 
             .stage-label {
