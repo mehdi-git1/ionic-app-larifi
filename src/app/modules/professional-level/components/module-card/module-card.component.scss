@@ -22,75 +22,57 @@ module-card {
     @include makeColorPoint('orange-point', 'orange50');
     @include makeColorPoint('green-point', 'green70');
 
-    .label-bold {
-        font-weight: bold;
-    }
-
-    .score-badge {
-        background-color: color($colors, grey40);
-        margin-right: 5px;
-    }
-
-    .niv3-button.fab[mini] {
+    .module-card {
+        width: 100%;
         display: flex;
         align-items: center;
-        justify-content: flex-end;
-        float: right;
-        width: 30px;
-        height: 30px;
-        color: color($colors, white);
-        background-color: color($colors, blue60);
+        padding-left: 10px;
 
-        ion-icon {
-            font-size: 20px;
+        & > * {
+            color: color($colors, grey10);
         }
 
-        padding: 0;
-        margin: 0;
-    }
-
-    .border-col {
-        border-right: 1px solid color($colors, white);
-    }
-
-    .important-label {
-        font-weight: bold;
-    }
-
-    .very-important-label {
-        font-weight: bold;
-        text-decoration: underline;
-    }
-
-    .normal-label {
-        font-weight: lighter;
-    }
-
-    .col {
-        padding: 5px 0px 5px 5px;
-    }
-
-    .ion-badge {
-        line-height: normal;
-    }
-
-    .niv3-button.fab[mini] {
-        display: flex;
-        align-items: center;
-        justify-content: flex-end;
-        float: right;
-        width: 30px;
-        height: 30px;
-        color: color($colors, white);
-        background-color: color($colors, blue60);
-
-        ion-icon {
-            font-size: 20px;
+        .module-date {
+            width: 150px;
         }
 
-        float: right;
-        padding: 0;
-        margin: 0;
-    }
+        .module-type {
+            width: 90px;
+        }
 
+        .module-date,
+        .module-type {
+            font-weight: bold;
+        }
+
+        .module-label {
+            flex: 1;
+        }
+
+        .module-scores {
+            width: 200px;
+
+            .score-badge {
+                margin: 0 5px;
+                background-color: color($colors, grey40);
+            }
+        }
+
+        .module-result {
+            width: 150px;
+        }
+
+
+        .module-detail {
+            color: color($colors, white);
+            background-color: color($colors, blue60);
+            width: 30px;
+            height: 30px;
+
+            ion-icon {
+                font-size: 20px;
+            }
+        }
+
+    }
 }

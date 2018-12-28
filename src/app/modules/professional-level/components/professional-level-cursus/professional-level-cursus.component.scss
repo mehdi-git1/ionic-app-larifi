@@ -8,16 +8,21 @@ professional-level-cursus {
             background: color($colors, blue85);
             border-radius: 5px;
 
+            & > .mat-expansion-indicator {
+                display: flex;
+                transition: all linear 200ms;
+            }
+
+            &.mat-expansion-panel-header {
+                padding: 8px 10px;
+            }
+
             &.mat-expanded:hover,
             &.mat-expanded:focus,
             &.mat-expanded {
                 background: color($colors, blue85) !important;
                 border-radius: 5px;
             }
-        }
-
-        .mat-expansion-panel-header {
-            padding: 8px 10px;
         }
 
         .mat-expansion-panel-body {
