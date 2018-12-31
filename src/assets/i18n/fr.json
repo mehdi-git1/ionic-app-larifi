@@ -269,7 +269,7 @@
         "MODULE_STATUS": {
             "SUCCESS": "Réussi",
             "SUCCESS_WITH_FC": "Réussi avec FC",
-            "FAILED": "Echec"
+            "FAILED": "Non atteint"
         },
         "EVALUATION_SHEET": {
             "TITLE": "Feuille d'évaluation",
