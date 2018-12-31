@@ -20,6 +20,7 @@ module-card {
 
     @include makeColorPoint('red-point', 'tertiary');
     @include makeColorPoint('orange-point', 'orange50');
+    @include makeColorPoint('yellow-point', 'yellow1');
     @include makeColorPoint('green-point', 'green70');
 
     .label-bold {
