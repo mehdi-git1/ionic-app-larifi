@@ -14,6 +14,7 @@ module-card {
 
     @include makeColorPoint('red-point', 'red15');
     @include makeColorPoint('orange-point', 'orange90');
+    @include makeColorPoint('yellow-point', 'yellow1');
     @include makeColorPoint('green-point', 'green70');
 
     .module-card {

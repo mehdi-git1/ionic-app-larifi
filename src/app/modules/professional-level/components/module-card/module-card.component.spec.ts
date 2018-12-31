@@ -20,6 +20,10 @@ describe('ModuleCardComponent', () => {
             checkPointColorInFunctionOfModuleStatus('SUCCESS_WITH_FC', 'orange-point');
         });
 
+        it('Si le statut du module est SUCCESS_WITH_FC, le point doit être jaune', () => {
+            checkPointColorInFunctionOfModuleStatus('SUCCESS_WITH_FC', 'yellow-point')
+        });
+
         it('Si le statut du module est FAILED, le point doit être rouge', () => {
             checkPointColorInFunctionOfModuleStatus('FAILED', 'red-point');
         });

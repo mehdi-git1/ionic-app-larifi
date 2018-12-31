@@ -75,7 +75,7 @@ describe('AuthenticationService', () => {
 
     describe('managePutauthenticationInSession', () => {
         beforeEach(() => {
-            spyOn(authenticationService, 'isInImpersonateMode').and.returnValue(true);
+            spyOn(authenticationService, 'userHaveToImpersonate').and.returnValue(true);
         });
 
         describe(`Si la fonction putAuthenticatedUserInSession a réussi`, () => {
@@ -85,7 +85,7 @@ describe('AuthenticationService', () => {
 
                 beforeEach(() => {
                     spyOn(authenticationService, 'initUserData').and.returnValue(true);
-                    authenticationService.isInImpersonateMode = jasmine.createSpy().and.returnValue(false);
+                    authenticationService.userHaveToImpersonate = jasmine.createSpy().and.returnValue(false);
                 });
 
                 it(`doit initialiser les paramétres pnc si l'utilisateur est un PNC`, fakeAsync(() => {
@@ -113,14 +113,14 @@ describe('AuthenticationService', () => {
                 });
 
                 it('doit renvoyer le type IMPERSONATE_MODE si on doit être en mode impersonifie', fakeAsync(() => {
-                    authenticationService.isInImpersonateMode = jasmine.createSpy().and.returnValue(true);
+                    authenticationService.userHaveToImpersonate = jasmine.createSpy().and.returnValue(true);
                     authenticationService.initializeUser().then(
                         data => expect(data).toBe(AuthenticationStatusEnum.IMPERSONATE_MODE)
                     );
                 }));
 
                 it('doit renvoyer le type AUTHENTICATION_OK si on ne doit pas être en mode impersonifie', fakeAsync(() => {
-                    authenticationService.isInImpersonateMode = jasmine.createSpy().and.returnValue(false);
+                    authenticationService.userHaveToImpersonate = jasmine.createSpy().and.returnValue(false);
                     authenticationService.initializeUser().then(
                         data => expect(data).toBe(AuthenticationStatusEnum.AUTHENTICATION_OK)
                     );
@@ -131,7 +131,7 @@ describe('AuthenticationService', () => {
 
                 beforeEach(() => {
                     deviceServiceMock.isOfflineModeAvailable.and.returnValue(true);
-                    authenticationService.isInImpersonateMode = jasmine.createSpy().and.returnValue(false);
+                    authenticationService.userHaveToImpersonate = jasmine.createSpy().and.returnValue(false);
                 });
 
                 it(`doit appeler la fonction d'initialisation du cache offlineManagement`, () => {
@@ -174,7 +174,7 @@ describe('AuthenticationService', () => {
             const authenticatedUserModelTmp = new AuthenticatedUserModel();
             authenticatedUserModelTmp.isPnc = false;
             delete (sessionServiceMock.impersonatedUser);
-            expect(authenticationService.isInImpersonateMode(authenticatedUserModelTmp)).toBe(true);
+            expect(authenticationService.userHaveToImpersonate(authenticatedUserModelTmp)).toBe(true);
         });
 
         it(`doit renvoyer false si ! (l'utilisateur est admin, non PNC ou non impersonifié)`, () => {
@@ -183,17 +183,17 @@ describe('AuthenticationService', () => {
             securityServiceMock.isAdmin.and.returnValue(false);
             authenticatedUserModelTmp.isPnc = false;
             delete (sessionServiceMock.impersonatedUser);
-            expect(authenticationService.isInImpersonateMode(authenticatedUserModelTmp)).toBe(false);
+            expect(authenticationService.userHaveToImpersonate(authenticatedUserModelTmp)).toBe(false);
 
             securityServiceMock.isAdmin.and.returnValue(true);
             authenticatedUserModelTmp.isPnc = true;
             delete (sessionServiceMock.impersonatedUser);
-            expect(authenticationService.isInImpersonateMode(authenticatedUserModelTmp)).toBe(false);
+            expect(authenticationService.userHaveToImpersonate(authenticatedUserModelTmp)).toBe(false);
 
             securityServiceMock.isAdmin.and.returnValue(true);
             authenticatedUserModelTmp.isPnc = false;
             sessionServiceMock.impersonatedUser = new AuthenticatedUserModel();
-            expect(authenticationService.isInImpersonateMode(authenticatedUserModelTmp)).toBe(false);
+            expect(authenticationService.userHaveToImpersonate(authenticatedUserModelTmp)).toBe(false);
         });
     });
 

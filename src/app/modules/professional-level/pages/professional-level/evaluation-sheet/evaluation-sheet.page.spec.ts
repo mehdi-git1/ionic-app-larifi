@@ -9,6 +9,9 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { IonicModule, NavParams } from 'ionic-angular';
 import { async, TestBed, ComponentFixture, tick, fakeAsync } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA, DebugElement } from '@angular/core';
+import { ScorePercentPipe } from '../../../../../shared/pipes/score-percent/score-percent.pipe';
+import { SessionService } from '../../../../../core/services/session/session.service';
+import { PncService } from '../../../../../core/services/pnc/pnc.service';
 
 
 const testEvaluationSheetData = {
@@ -32,18 +35,23 @@ const testEvaluationSheetData = {
 const EvaluationSheetServiceMock = jasmine.createSpyObj('EvaluationSheetServiceMock', ['getEvaluationSheet']);
 EvaluationSheetServiceMock.getEvaluationSheet.and.returnValue(Promise.resolve(testEvaluationSheetData));
 
+const PncServiceMock = jasmine.createSpyObj('SessionServiceMock', ['getPnc']);
+PncServiceMock.getPnc.and.returnValue(Promise.resolve('ok'));
+
 
 describe('EvaluationSheetPage', () => {
 
     let fixture: ComponentFixture<EvaluationSheetPage>;
     let comp: EvaluationSheetPage;
     let failureEl: DebugElement;
+    let navParams: NavParams;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
             declarations: [
                 EvaluationSheetPage,
-                ReplaceByPointPipe
+                ReplaceByPointPipe,
+                ScorePercentPipe
             ],
             imports: [
                 IonicModule.forRoot(EvaluationSheetPage),
@@ -53,13 +61,16 @@ describe('EvaluationSheetPage', () => {
             ],
             providers: [
                 { provide: NavParams, useClass: NavMock },
-                { provide: EvaluationSheetService, useValue: EvaluationSheetServiceMock }
+                { provide: EvaluationSheetService, useValue: EvaluationSheetServiceMock },
+                { provide: SessionService },
+                { provide: PncService, useValue: PncServiceMock }
             ],
             schemas: [NO_ERRORS_SCHEMA]
         });
 
         fixture = TestBed.createComponent(EvaluationSheetPage);
         comp = fixture.componentInstance;
+        navParams = TestBed.get(NavParams);
     });
 
     beforeEach(fakeAsync(() => {
@@ -73,6 +84,17 @@ describe('EvaluationSheetPage', () => {
         fixture.detectChanges();
         failureEl = fixture.debugElement.query(By.css('.result'));
         expect(failureEl.nativeElement.className).toContain(comp.getCssClassForModuleStatus(comp.evaluationSheet.module.moduleResultStatus));
+    });
+
+    it(`doit faire disparaître le spinner lorsqu'il n'y a pas de moduleId`, () => {
+        spyOn(navParams, 'get').and.callFake(function (value) {
+            if (value === 'moduleId') {
+                return null;
+            }
+            return value;
+        });
+        failureEl = fixture.debugElement.query(By.css('edossier-spinner'));
+        expect(failureEl).toEqual(null);
     });
 
     it('doit faire disparaître le spinner lorsque les données sont récupérées', () => {
