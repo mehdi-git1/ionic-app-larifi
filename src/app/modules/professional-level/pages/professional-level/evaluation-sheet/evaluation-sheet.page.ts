@@ -58,6 +58,8 @@ export class EvaluationSheetPage {
                 this.evaluationSheetService.getEvaluationSheet(this.matricule, this.moduleId).then(evaluationSheet => {
                     this.evaluationSheet = evaluationSheet;
                 }, error => { });
+            } else {
+                this.evaluationSheet = new EvaluationSheetModel;
             }
         }
     }

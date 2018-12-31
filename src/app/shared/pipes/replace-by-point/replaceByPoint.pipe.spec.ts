@@ -8,7 +8,7 @@ describe('ReplaceByPointPipe', () => {
 
     it('doit retourner vide s\'il n\'y a un parmatére inexistant en paramétre', () => {
         const pipe = new ReplaceByPointPipe();
-        const testObj = {};
+        const testObj = undefined;
         expect(pipe.transform(testObj)).toEqual('');
     });
 
