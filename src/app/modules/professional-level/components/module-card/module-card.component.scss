@@ -18,9 +18,10 @@ module-card {
 
     .module-card {
         width: 100%;
+        height: 47px;
         display: flex;
         align-items: center;
-        padding-left: 10px;
+        padding: 0 10px;
 
         & > * {
             color: color($colors, grey10);
@@ -62,16 +63,19 @@ module-card {
             align-items: center;
         }
 
-
         .module-detail {
-            color: color($colors, white);
-            background-color: color($colors, blue60);
             width: 30px;
-            height: 30px;
 
-            ion-icon {
+            button {
+                margin: 0;
+                padding: 0;
+                color: color($colors, white);
+                background-color: color($colors, blue60);
                 font-size: 20px;
+                width: 30px;
+                height: 30px;
             }
+
         }
 
     }

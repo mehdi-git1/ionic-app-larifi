@@ -8,7 +8,9 @@
     <div class="module-result">
         <span [ngClass]="getModuleStatusPointCssClass()"></span>{{'PROFESSIONAL_LEVEL.MODULE_STATUS.' + module?.moduleResultStatus | translateOrEmpty}}
     </div>
-    <button class="module-detail" ion-fab mini (click)="goToModuleDetail(module)">
-        <ion-icon name="paper"></ion-icon>
-    </button>
+    <div class="module-detail">
+        <button *ngIf="isModuleDetailAvailable(module)" ion-fab mini (click)="goToModuleDetail(module)">
+            <ion-icon name="paper"></ion-icon>
+        </button>
+    </div>
 </div>

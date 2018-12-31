@@ -4,6 +4,7 @@ import { Component, Input } from '@angular/core';
 import { ModuleModel } from '../../../../core/models/professional-level/module.model';
 import { EvaluationSheetPage } from '../../pages/professional-level/evaluation-sheet/evaluation-sheet.page';
 import { TranslateOrEmptyService } from '../../../../core/services/translate/translate-or-empty.service';
+import { StageModel } from '../../../../core/models/professional-level/stage.model';
 
 @Component({
   selector: 'module-card',
@@ -12,6 +13,8 @@ import { TranslateOrEmptyService } from '../../../../core/services/translate/tra
 export class ModuleCardComponent {
 
   @Input() module: ModuleModel;
+
+  @Input() stage: StageModel;
 
   @Input() matricule: string;
 
@@ -41,7 +44,19 @@ export class ModuleCardComponent {
     if (module.moduleType == ModuleTypeEnum.PRACTICAL) {
       this.navCtrl.push(EvaluationSheetPage, { matricule: this.matricule, moduleId: module.techId });
     } else {
-      this.navCtrl.push(NotValidatedQuestionsPage);
+      this.navCtrl.push(NotValidatedQuestionsPage, { module: module, stage: this.stage });
     }
+  }
+
+  /**
+   * Détermine si le détail d'un module est disponible (si on a des données à afficher dans le niveau 3)
+   * @param module le module à tester
+   * @return vrai si le détail du module est disponible, faux sinon
+   */
+  isModuleDetailAvailable(module: ModuleModel): boolean {
+    if (module.moduleType == ModuleTypeEnum.THEORETICAL) {
+      return module.cursus.length > 0;
+    }
+    return true;
   }
 }

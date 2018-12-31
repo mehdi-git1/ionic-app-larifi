@@ -1,11 +1,8 @@
 <mat-expansion-panel>
     <mat-expansion-panel-header [expandedHeight]="'auto'" [collapsedHeight]="'auto'" hideToggle="true">
-        15/02/2018 - ATQP MDC SURETE 2018-19
+        {{ cursus.date | date : 'dd/MM/yyyy' : 'UTC' }} - {{ cursus.label }}
     </mat-expansion-panel-header>
     <ul class="question-list">
-        <li>Quelle est la définition de la mesure : protection des avions ?</li>
-        <li>Quels sont à minima les éléments qui définissent une prtie critique ?</li>
-        <li>En quoi consiste une fouille de sûreté de l'avion (réglementation Européenne) ?</li>
-        <li>En cas de vol ou d eperte du CMC, auprès de qui le PN doit il retirer un CMC provisoire ?</li>
+        <li *ngFor="let question of cursus.questions">{{ question.label }}</li>
     </ul>
 </mat-expansion-panel>

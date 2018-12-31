@@ -1,3 +1,4 @@
+import { CursusModel } from './../../../../core/models/professional-level/cursus.model';
 import { Component, Input } from '@angular/core';
 
 @Component({
@@ -6,6 +7,10 @@ import { Component, Input } from '@angular/core';
 })
 export class ProfessionalLevelCursusComponent {
 
-  // @Input() cursus: CursusModel[];
+  @Input() cursus: CursusModel;
+
+  constructor() {
+
+  }
 
 }
