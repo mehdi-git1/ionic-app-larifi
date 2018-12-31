@@ -1,3 +1,4 @@
+import { ModuleTypeEnum } from './../../enums/module-type.enum';
 import { CursusModel } from './cursus.model';
 import { ScoreModel } from './score.model';
 import { StageModel } from './stage.model';

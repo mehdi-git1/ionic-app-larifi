@@ -1,9 +1,9 @@
+import { ModuleTypeEnum } from './../../../../core/enums/module-type.enum';
 import { NotValidatedQuestionsPage } from './../../pages/not-validated-questions/not-validated-questions.page';
 import { NavController } from 'ionic-angular';
 import { Component, Input } from '@angular/core';
 import { ModuleModel } from '../../../../core/models/professional-level/module.model';
 import { EvaluationSheetPage } from '../../pages/professional-level/evaluation-sheet/evaluation-sheet.page';
-import { TranslateOrEmptyService } from '../../../../core/services/translate/translate-or-empty.service';
 import { StageModel } from '../../../../core/models/professional-level/stage.model';
 
 @Component({
@@ -18,8 +18,7 @@ export class ModuleCardComponent {
 
   @Input() matricule: string;
 
-  constructor(private navCtrl: NavController,
-    private translateOrEmptyService: TranslateOrEmptyService) {
+  constructor(private navCtrl: NavController) {
   }
 
   /**
