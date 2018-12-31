@@ -102,6 +102,7 @@ export class EDossierPNC implements OnInit {
         } else {
           this.toastService.success(this.translateService.instant('GLOBAL.CONNECTIVITY.ONLINE_MODE'));
           this.authenticationService.initUserData();
+          this.authenticationService.offlineManagement();
         }
       });
 
