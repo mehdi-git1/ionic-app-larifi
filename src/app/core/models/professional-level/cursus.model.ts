@@ -10,6 +10,7 @@ export class CursusModel extends EDossierPncObjectModel {
     orderNumber: CursusOrderEnum;
     label: string;
     questions: QuestionModel[];
+    date: Date;
 
     getStorageId(): string {
         return `${this.techId}`;

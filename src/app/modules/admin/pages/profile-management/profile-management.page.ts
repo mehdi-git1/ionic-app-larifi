@@ -24,7 +24,6 @@ export class ProfileManagementPage {
 
     /**
     * Redirige vers la page des permissions du profil en paramètre
-    * 
     * @param name le nom du profil pour trouver ses permissions
     */
     goToPermissionManagement(name) {
