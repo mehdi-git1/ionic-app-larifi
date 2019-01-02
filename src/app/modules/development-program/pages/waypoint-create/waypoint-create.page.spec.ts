@@ -24,6 +24,7 @@ import { WaypointModel } from '../../../../core/models/waypoint.model';
 import { SessionService } from '../../../../core/services/session/session.service';
 import { DeviceService } from '../../../../core/services/device/device.service';
 import { PncService } from '../../../../core/services/pnc/pnc.service';
+import { IsMyPage } from '../../../../shared/pipes/is_my_page/is_my_page.pipe';
 
 
 const translateServiceMock = jasmine.createSpyObj('translateServiceMock', ['instant']);
@@ -34,7 +35,9 @@ describe('WaypointCreatePage', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            declarations: [WaypointCreatePage],
+            declarations: [
+                WaypointCreatePage,
+                IsMyPage],
             imports: [
                 IonicModule.forRoot(WaypointCreatePage),
                 TranslateModule.forRoot({

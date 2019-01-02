@@ -15,6 +15,7 @@ import { SummarySheetService } from './../../../core/services/summary-sheet/summ
 import { SummarySheetTransformerService } from '../../../core/services/summary-sheet/summary-sheet-transformer.service';
 import { FileService } from './../../../core/file/file.service';
 import { PncModel } from '../../../core/models/pnc.model';
+import { IsMyPage } from '../../pipes/is_my_page/is_my_page.pipe';
 
 const PncProviderMock = jasmine.createSpyObj('PncProviderMock', ['getPnc']);
 PncProviderMock.getPnc.and.returnValue(of({}));
@@ -33,7 +34,9 @@ describe('tab-nav component', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            declarations: [TabNavComponent],
+            declarations: [
+                TabNavComponent
+            ],
             imports: [
                 IonicModule.forRoot(TabNavComponent),
                 TranslateModule.forRoot({
@@ -49,7 +52,8 @@ describe('tab-nav component', () => {
                 SpecialityService,
                 { provide: SummarySheetService, useValue: SummarySheetServiceMock },
                 { provide: SummarySheetTransformerService },
-                { provide: FileService }
+                { provide: FileService },
+                IsMyPage
             ],
             schemas: [NO_ERRORS_SCHEMA]
         });

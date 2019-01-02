@@ -12,6 +12,7 @@ import { NO_ERRORS_SCHEMA, DebugElement } from '@angular/core';
 import { ScorePercentPipe } from '../../../../../shared/pipes/score-percent/score-percent.pipe';
 import { SessionService } from '../../../../../core/services/session/session.service';
 import { PncService } from '../../../../../core/services/pnc/pnc.service';
+import { IsMyPage } from '../../../../../shared/pipes/is_my_page/is_my_page.pipe';
 
 
 const testEvaluationSheetData = {
@@ -38,6 +39,8 @@ EvaluationSheetServiceMock.getEvaluationSheet.and.returnValue(Promise.resolve(te
 const PncServiceMock = jasmine.createSpyObj('SessionServiceMock', ['getPnc']);
 PncServiceMock.getPnc.and.returnValue(Promise.resolve('ok'));
 
+const SessionServiceMock = jasmine.createSpyObj('SessionServiceMock', ['isActiveUser']);
+
 
 describe('EvaluationSheetPage', () => {
 
@@ -51,7 +54,8 @@ describe('EvaluationSheetPage', () => {
             declarations: [
                 EvaluationSheetPage,
                 ReplaceByPointPipe,
-                ScorePercentPipe
+                ScorePercentPipe,
+                IsMyPage
             ],
             imports: [
                 IonicModule.forRoot(EvaluationSheetPage),
@@ -62,7 +66,7 @@ describe('EvaluationSheetPage', () => {
             providers: [
                 { provide: NavParams, useClass: NavMock },
                 { provide: EvaluationSheetService, useValue: EvaluationSheetServiceMock },
-                { provide: SessionService },
+                { provide: SessionService, useValue: SessionServiceMock },
                 { provide: PncService, useValue: PncServiceMock }
             ],
             schemas: [NO_ERRORS_SCHEMA]
