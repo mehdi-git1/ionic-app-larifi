@@ -83,6 +83,7 @@ body,
 .nav-decor {
     // Pour surcharger le fond sur ipad
     background-color: color($colors, grey90) !important;
+    font-size: 1em;
 }
 
 ion-textarea,

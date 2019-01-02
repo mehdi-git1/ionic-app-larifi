@@ -39,6 +39,7 @@ green50:#27b899,
 green60:#5BC7A9,
 green70: #37D67A,
 grey10:#333333,
+grey11:#2c3440,
 grey12:#38393a,
 grey15:#717171,
 grey20: #585858,
@@ -127,7 +128,7 @@ button {
 
 h3 {
     color: color($colors, grey20);
-    font-weight: bold !important;
+    font-weight: bold;
 }
 
 h4 {
