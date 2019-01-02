@@ -3,7 +3,9 @@
         <label class="stage-date">{{ stage.date | date: 'dd/MM/yyyy' }} </label>
         <label class="stage-code"> {{ stage.code }} </label>
         <label class="stage-label"> {{ stage.label }} </label>
-        <label class="stage-result"></label>
+        <label class="stage-result">
+            <span [ngClass]="getStageStatusPointCssClass(stage)"></span>{{'PROFESSIONAL_LEVEL.MODULE_STATUS.' + stage?.stageResultStatus | translateOrEmpty}}
+        </label>
     </mat-expansion-panel-header>
     <div *ngIf="stage.modules === null  || stage.modules.length === 0; else professionalLevelDataBlock">
         <no-data></no-data>
