@@ -43,8 +43,8 @@
         "UPCOMING_FLIGHT": "Activité vols",
         "MY_UPCOMING_FLIGHT": "Mon activité vols",
         "CREW_MEMBERS": "Liste équipage",
-        "STATUTORY_CERTIFICATE": "Attestation réglementaire",
-        "MY_STATUTORY_CERTIFICATE": "Mon attestation réglementaire",
+        "STATUTORY_CERTIFICATE": "Profil PNC",
+        "MY_STATUTORY_CERTIFICATE": "Mon profil PNC",
         "PROFESSIONAL_LEVEL": "Niveau Pro SV",
         "MY_PROFESSIONAL_LEVEL": "Mon niveau Pro SV",
         "UNKNOWN_ERROR": "Suite à un dysfonctionnement technique, l'opération a échoué. Nous vous invitons à réessayer dans quelques minutes. Si le problème persiste, veuillez contacter votre support.",
@@ -212,8 +212,8 @@
         "PDF_MISSING": "Pas de fiche synthèse disponible"
     },
     "STATUTORY_CERTIFICATE": {
-        "TITLE": "Attestation réglementaire",
-        "MY_TITLE": "Mon attestation réglementaire",
+        "TITLE": "Profil PNC",
+        "MY_TITLE": "Mon rofil PNC",
         "CATEGORIES": {
             "GENERALITY_SKILLS": "Compétences généralités",
             "PLANE_SKILLS": "Compétences avions",
@@ -262,7 +262,7 @@
             "END_DATE": "Fin"
         },
         "ERROR": {
-            "STATUTORY_CERTIFICATE": "Erreur lors de la récupération de  l'attestation réglementaire pour le matricule {{ matricule }}"
+            "STATUTORY_CERTIFICATE": "Erreur lors de la récupération du profil PNC pour le matricule {{ matricule }}"
         }
     },
     "PROFESSIONAL_LEVEL": {
