@@ -25,7 +25,7 @@
     </ng-template>
 </ion-content>
 <ion-footer class='professional-level-footer'>
-    <h5>{{ 'PROFESSIONAL_LEVEL.LEGEND.TITLE' | translate }}</h5>
+    <h5>{{ 'PROFESSIONAL_LEVEL.LEGEND.TITLE' | translate }} :</h5>
     <div *ngFor="let item of listItemLegend; let last = last">
         <span class='sstitle-legend'>{{ item+'.TITLE' | translate }}</span> =
         <span [innerHtml]="item+'.TEXT' | translate"></span><span *ngIf="!last"> |</span>
