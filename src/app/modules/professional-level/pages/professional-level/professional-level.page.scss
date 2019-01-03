@@ -39,7 +39,19 @@ page-professional-level {
         }
     }
 
+    .professional-level-footer {
+        padding-left: 20px;
+        padding-bottom: 10px;
 
+        div {
+            display: inline;
+        }
 
+    }
+
+    .sstitle-legend {
+        color: color($colors, blue60);
+        font-weight: bold;
+    }
 
 }

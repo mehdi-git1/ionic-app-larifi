@@ -15,13 +15,25 @@ export class ProfessionalLevelPage {
   pnc: PncModel;
   matricule: string;
   professionalLevel: ProfessionalLevelModel;
+
+  listItemLegend = [];
+
   constructor(private navParams: NavParams,
     private sessionService: SessionService,
     private pncService: PncService,
     private professionalLevelProvider: ProfessionalLevelService) {
+
   }
 
   ionViewDidLoad() {
+
+    this.listItemLegend.push('PROFESSIONAL_LEVEL.LEGEND.A',
+      'PROFESSIONAL_LEVEL.LEGEND.T',
+      'PROFESSIONAL_LEVEL.LEGEND.R',
+      'PROFESSIONAL_LEVEL.LEGEND.E1',
+      'PROFESSIONAL_LEVEL.LEGEND.E2',
+      'PROFESSIONAL_LEVEL.LEGEND.FC');
+
     if (this.navParams.get('matricule')) {
       this.matricule = this.navParams.get('matricule');
     } else if (this.sessionService.getActiveUser()) {
