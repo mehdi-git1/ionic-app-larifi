@@ -1,0 +1,8 @@
+<mat-expansion-panel>
+    <mat-expansion-panel-header [expandedHeight]="'auto'" [collapsedHeight]="'auto'" hideToggle="true">
+        {{ cursus.date | date : 'dd/MM/yyyy' : 'UTC' }} - {{ cursus.label }}
+    </mat-expansion-panel-header>
+    <ul class="question-list">
+        <li *ngFor="let question of cursus.questions">{{ question.label }}</li>
+    </ul>
+</mat-expansion-panel>

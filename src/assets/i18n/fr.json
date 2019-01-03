@@ -290,6 +290,9 @@
             },
             "ERROR": "Erreur lors de la récupération du niveau pro pour le matricule {{ matricule }}",
             "NO_DATA": "Pas de données disponibles"
+        },
+        "NOT_VALIDATED_QUESTIONS": {
+            "TITLE": "Questions non validées"
         }
     },
     "PNC_SEARCH": {

@@ -1,4 +1,4 @@
-const enum ModuleTypeEnum {
-    PRACTICAL,
-    THEORETICAL
+export enum ModuleTypeEnum {
+    PRACTICAL = 'PRACTICAL',
+    THEORETICAL = 'THEORETICAL'
 }
