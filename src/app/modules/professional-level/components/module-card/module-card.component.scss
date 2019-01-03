@@ -1,74 +1,83 @@
 module-card {
 
-    .label-bold {
-        font-weight: bold;
+    $colorPointSize: 12px;
+
+    @mixin makeColorPoint($className, $pointColor) {
+        .#{$className} {
+            height: $colorPointSize;
+            width: $colorPointSize;
+            border-radius: $colorPointSize;
+            background:color($colors, #{$pointColor});
+            margin-right: 5px;
+        }
     }
 
-    .score-badge {
-        background-color: color($colors, grey40);
-        margin-right: 5px;
-    }
+    @include makeColorPoint('red-point', 'red15');
+    @include makeColorPoint('orange-point', 'orange90');
+    @include makeColorPoint('yellow-point', 'yellow1');
+    @include makeColorPoint('green-point', 'green70');
 
-    .niv3-button.fab[mini] {
+    .module-card {
+        width: 100%;
+        height: 47px;
         display: flex;
         align-items: center;
-        justify-content: flex-end;
-        float: right;
-        width: 30px;
-        height: 30px;
-        color: color($colors, white);
-        background-color: color($colors, blue60);
+        padding: 0 10px;
 
-        ion-icon {
-            font-size: 20px;
+        & > * {
+            color: color($colors, grey10);
         }
 
-        padding: 0;
-        margin: 0;
-    }
-
-    .border-col {
-        border-right: 1px solid color($colors, white);
-    }
-
-    .important-label {
-        font-weight: bold;
-    }
-
-    .very-important-label {
-        font-weight: bold;
-        text-decoration: underline;
-    }
-
-    .normal-label {
-        font-weight: lighter;
-    }
-
-    .col {
-        padding: 5px 0px 5px 5px;
-    }
-
-    .ion-badge {
-        line-height: normal;
-    }
-
-    .niv3-button.fab[mini] {
-        display: flex;
-        align-items: center;
-        justify-content: flex-end;
-        float: right;
-        width: 30px;
-        height: 30px;
-        color: color($colors, white);
-        background-color: color($colors, blue60);
-
-        ion-icon {
-            font-size: 20px;
+        .module-date {
+            min-width: 120px;
         }
 
-        float: right;
-        padding: 0;
-        margin: 0;
-    }
+        .module-type {
+            min-width: 90px;
+        }
 
+        .module-label {
+            flex: 1;
+        }
+
+        .module-scores {
+            @media (max-width: 800px) {
+                min-width: 88px;
+                max-width: 88px;
+            }
+
+            min-width: 250px;
+
+            padding-left: 10px;
+            margin: 2px;
+
+            .score-badge {
+                margin: 2px;
+                background-color: color($colors, grey40);
+                font-weight: normal;
+            }
+        }
+
+        .module-result {
+            width: 150px;
+            display: flex;
+            align-items: center;
+        }
+
+        .module-detail {
+            width: 30px;
+
+            button {
+                margin: 0;
+                padding: 0;
+                color: color($colors, white);
+                background-color: color($colors, blue60);
+                font-size: 20px;
+                width: 30px;
+                height: 30px;
+            }
+
+        }
+
+    }
 }

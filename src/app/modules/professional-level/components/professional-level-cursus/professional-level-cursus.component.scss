@@ -1,0 +1,56 @@
+professional-level-cursus {
+    mat-expansion-panel {
+        border-radius: 5px;
+
+        mat-expansion-panel-header {
+            color: color($colors, white);
+            font-weight: bold !important;
+            background: color($colors, blue85);
+            border-radius: 5px;
+
+            & > .mat-expansion-indicator {
+                display: flex;
+                transition: all linear 200ms;
+            }
+
+            &.mat-expansion-panel-header {
+                padding: 8px 10px;
+            }
+
+            &.mat-expanded:hover,
+            &.mat-expanded:focus,
+            &.mat-expanded {
+                background: color($colors, blue85) !important;
+                border-radius: 5px;
+            }
+        }
+
+        .mat-expansion-panel-body {
+            margin: 0;
+            padding: 0;
+
+            ul.question-list {
+                margin: 0;
+                padding: 0;
+                list-style-type: none;
+
+                li {
+                    padding: 5px;
+
+                    &:not(:last-child) {
+                        border-bottom: 1px solid color($colors, grey70);
+                    }
+                }
+
+                li:last-child {
+                    border-radius: 0 0 5px 5px;
+                }
+
+                li:nth-child(odd) {
+                    background: color($colors, grey95);
+                }
+            }
+        }
+    }
+
+}
