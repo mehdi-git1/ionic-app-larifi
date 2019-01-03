@@ -1,9 +1,10 @@
-
 <div class="title">
-        <h1 *ngIf="!isActiveUser()" >{{ pnc?.lastName }} {{ pnc?.firstName }}</h1>
-        <h1>
-            <span [ngClass]="{'h3': pnc && !isActiveUser()}" ><ng-content></ng-content></span>
-        </h1>
+    <h1 *ngIf="!isActiveUser()">{{ pnc?.lastName }} {{ pnc?.firstName }}</h1>
+    <h1>
+        <span [ngClass]="{'h3': pnc && !isActiveUser()}">
+            <ng-content></ng-content>
+        </span>
+    </h1>
 
 </div>
 <edossier-indicators [showSettingsIcon]="showSettingsIcon" [showRefreshIcon]="showRefreshIcon" (refreshPage)="refresh()"></edossier-indicators>

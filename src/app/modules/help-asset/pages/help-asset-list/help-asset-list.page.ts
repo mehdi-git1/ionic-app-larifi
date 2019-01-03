@@ -9,6 +9,8 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { SessionService } from '../../../../core/services/session/session.service';
 import { FileTypeEnum } from '../../../../core/enums/file-type.enum';
+import { PncModel } from '../../../../core/models/pnc.model';
+import { PncService } from '../../../../core/services/pnc/pnc.service';
 
 @Component({
     selector: 'page-help-asset-list',
@@ -17,6 +19,8 @@ import { FileTypeEnum } from '../../../../core/enums/file-type.enum';
 export class HelpAssetListPage {
 
     pncRole: PncRoleEnum;
+    matricule: string;
+    pnc: PncModel;
 
     localHelpAssets: HelpAssetModel[];
     remoteHelpAssets: HelpAssetModel[];
@@ -31,7 +35,8 @@ export class HelpAssetListPage {
         private helpAssetProvider: HelpAssetService,
         private sessionService: SessionService,
         private connectivityService: ConnectivityService,
-        private fileService: FileService
+        private fileService: FileService,
+        private pncService: PncService
     ) {
         this.fileTypeEnum = FileTypeEnum;
         if (this.deviceService.isBrowser()) {
@@ -42,6 +47,17 @@ export class HelpAssetListPage {
     }
 
     ionViewDidEnter() {
+        if (this.navParams.get('matricule')) {
+            this.matricule = this.navParams.get('matricule');
+        } else if (this.sessionService.getActiveUser()) {
+            this.matricule = this.sessionService.getActiveUser().matricule;
+        }
+        if (this.matricule != null) {
+            this.pncService.getPnc(this.matricule).then(pnc => {
+                this.pnc = pnc;
+            }, error => {
+            });
+        }
         if (this.navParams.get('pncRole')) {
             this.pncRole = this.navParams.get('pncRole');
         } else if (this.sessionService.getActiveUser()) {

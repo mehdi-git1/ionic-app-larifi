@@ -115,7 +115,7 @@ export class PncHomePage {
         if (this.isMyHome()) {
             this.navCtrl.parent.select(this.tabNavService.findTabIndex(tabNavEnum.HELP_ASSET_LIST_PAGE));
         } else {
-            this.navCtrl.push(HelpAssetListPage, { pncRole: this.specialityService.getPncRole(this.pnc.speciality) });
+            this.navCtrl.push(HelpAssetListPage, { pncRole: this.specialityService.getPncRole(this.pnc.speciality), matricule: this.matricule });
         }
     }
 

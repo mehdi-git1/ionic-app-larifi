@@ -1,7 +1,7 @@
 <ion-header>
     <ion-navbar>
         <page-header (refreshPage)="initPage()">
-            <ng-container *ngIf="isMyHome()">{{ 'PNC_HOME.TITLE' | translate }}</ng-container>
+            <ng-container *ngIf="isMyHome() && pnc">{{ 'PNC_HOME.TITLE' | isMyPage: pnc | translate }}</ng-container>
         </page-header>
     </ion-navbar>
 </ion-header>
@@ -71,43 +71,43 @@
                     <!-- Liste des objectifs-->
                     <div class="button-parent" *ngIf="!isManager()">
                         <button ion-button (click)="goToCareerObjectiveList()" color="orange50">
-                            {{ 'GLOBAL.DEVELOPMENT_PROGRAM' | translate }}
+                            {{ 'GLOBAL.DEVELOPMENT_PROGRAM' | isMyPage: pnc | translate }}
                         </button>
                     </div>
                     <!-- Fiche synthèse PNC -->
                     <div class="button-parent" *ngIf="!isManager()">
                         <button ion-button (click)="goToSummarySheet()" color="grey15">
-                            {{ 'GLOBAL.PNC_SUMMARY_SHEET' | translate }}
+                            {{ 'GLOBAL.PNC_SUMMARY_SHEET' | isMyPage: pnc | translate }}
                         </button>
                     </div>
                     <!-- Effectif PNC -->
                     <div class="button-parent" *ngIf="isManager()">
                         <button ion-button (click)="goToPncSearch()" color="grey60">
-                            {{ 'GLOBAL.PNC_TEAM' | translate }}
+                            {{ 'GLOBAL.PNC_TEAM' | isMyPage: pnc | translate }}
                         </button>
                     </div>
                     <!-- Activité vols -->
                     <div class="button-parent" *ngIf="isManager()">
                         <button ion-button (click)="goToUpcomingFlightList()" color="blue65">
-                            {{ 'GLOBAL.UPCOMING_FLIGHT' | translate }}
+                            {{ 'GLOBAL.UPCOMING_FLIGHT' | isMyPage: pnc | translate }}
                         </button>
                     </div>
                     <!-- Ressource d'aide -->
                     <div class="button-parent">
                         <button ion-button (click)="goToHelpAssetList()" color="blue90">
-                            {{ 'GLOBAL.HELP_CENTER' | translate }}
+                            {{ 'GLOBAL.HELP_CENTER' | isMyPage: pnc | translate }}
                         </button>
                     </div>
                     <!--  Attestation réglementaire -->
                     <div class="button-parent" *hasPermission="'VIEW_STATUTORY_CERTIFICATE'">
                         <button ion-button (click)="goToStatutoryCertificate()" color="red20">
-                            {{ 'GLOBAL.STATUTORY_CERTIFICATE' | translate }}
+                            {{ 'GLOBAL.STATUTORY_CERTIFICATE' | isMyPage: pnc | translate }}
                         </button>
                     </div>
                     <!--  Niveau professionnel -->
                     <div class="button-parent" *hasPermission="'VIEW_PROFESSIONAL_LEVEL'">
                         <button ion-button (click)="goToProfessionalLevel()" color="grey11">
-                            {{ 'GLOBAL.PROFESSIONAL_LEVEL' | translate }}
+                            {{ 'GLOBAL.PROFESSIONAL_LEVEL' | isMyPage: pnc | translate }}
                         </button>
                     </div>
                 </ion-col>

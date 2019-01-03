@@ -1,6 +1,7 @@
 <ion-header>
     <ion-navbar>
-        <page-header (refreshPage)="initPage()" [showRefreshIcon]="true" [pnc]="pnc">{{ 'GLOBAL.DEVELOPMENT_PROGRAM' | translate }}
+        <page-header (refreshPage)="initPage()" [showRefreshIcon]="true" [pnc]="pnc">
+            <span *ngIf='pnc'>{{ 'GLOBAL.DEVELOPMENT_PROGRAM' | isMyPage: pnc | translate }}</span>
         </page-header>
     </ion-navbar>
 </ion-header>
