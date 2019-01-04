@@ -21,13 +21,15 @@
             <div class="score-container">
                 <div class="evaluation-container">
                     <h4>
-                        {{'PROFESSIONAL_LEVEL.EVALUATION_SHEET.SCORE_BLOC.BLOC_EVALUATION_TITLE' | translate}} :
-                        <span *ngIf="evaluationSheet?.e1Score">
-                            {{evaluationSheet.e1Score| scorePercent }}% ({{'PROFESSIONAL_LEVEL.EVALUATION_SHEET.SCORE_BLOC.E1' | translate}})
-                        </span>
-                        <span *ngIf="evaluationSheet?.e2Score">
-                            {{evaluationSheet.e2Score | scorePercent }}% ({{'PROFESSIONAL_LEVEL.EVALUATION_SHEET.SCORE_BLOC.E2' | translate}})
-                        </span>
+                        <label>{{'PROFESSIONAL_LEVEL.EVALUATION_SHEET.SCORE_BLOC.BLOC_EVALUATION_TITLE' | translate}}</label>
+                        <div class="score">
+                            <span *ngIf="evaluationSheet?.e1Score">
+                                {{evaluationSheet.e1Score| scorePercent }}% ({{'PROFESSIONAL_LEVEL.EVALUATION_SHEET.SCORE_BLOC.E1' | translate}})
+                            </span>
+                            <span *ngIf="evaluationSheet?.e2Score">
+                                {{evaluationSheet.e2Score | scorePercent }}% ({{'PROFESSIONAL_LEVEL.EVALUATION_SHEET.SCORE_BLOC.E2' | translate}})
+                            </span>
+                        </div>
                     </h4>
                     <div class="comment-container">
                         <ion-icon class="edospnc-speechBubble" name="edospnc-speechBubble"></ion-icon>
@@ -38,7 +40,10 @@
                 </div>
                 <div class="fc-container" *ngIf="evaluationSheet?.fcScore">
                     <h4>
-                        {{'PROFESSIONAL_LEVEL.EVALUATION_SHEET.SCORE_BLOC.BLOC_FC_TITLE' | translate }} : {{ evaluationSheet.fcScore | scorePercent }}%
+                        <label>{{'PROFESSIONAL_LEVEL.EVALUATION_SHEET.SCORE_BLOC.BLOC_FC_TITLE' | translate }}</label>
+                        <div class="score">
+                            <span>{{ evaluationSheet.fcScore | scorePercent }}%</span>
+                        </div>
                     </h4>
                     <div class="comment-container">
                         <ion-icon name="edospnc-speechBubble"></ion-icon>

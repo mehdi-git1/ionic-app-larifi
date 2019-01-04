@@ -13,8 +13,12 @@
             background: color($colors, grey95);
             border-radius: 5px;
 
+            label {
+                margin: 0 10px;
+            }
+
             .stage-date {
-                color: color($colors, blue60);
+                color: color($colors, blue55);
             }
 
             .stage-result {
@@ -57,19 +61,31 @@
 
             h4 {
                 font-size: 1.2em;
+
+                label {
+                    font-weight: bold;
+                }
+
+                .score {
+                    display: inline;
+
+                    span {
+                        margin-left: 20px;
+                    }
+                }
             }
 
             .comment-container {
                 display: flex;
-                align-items: center;
 
                 ion-icon {
-                    color: color($colors, blue60)
+                    margin: 0 10px 10px 0;
+                    color: color($colors, blue55)
                 }
 
                 .comment {
+                    text-align: justify;
                     margin: 0;
-                    padding: 5px 10px;
                     flex: 1;
 
                     &:first-letter {
@@ -86,7 +102,7 @@
 
     .exercise-header {
         margin: 10px 0;
-        background: color($colors, blue60);
+        background: color($colors, blue55);
         border-radius: 5px;
         color: color($colors, white);
         box-shadow: 0px 0px 5px color($colors, grey70);
@@ -95,6 +111,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            text-align: center;
         }
     }
 
@@ -106,6 +123,7 @@
         .title {
             background: color($colors, bluegrey);
             color: color($colors, white);
+            text-transform: capitalize;
 
             &:first-child {
                 border-radius: 5px 5px 0 0;
@@ -127,7 +145,7 @@
                 }
 
                 &:not(:last-child) {
-                    border-right: 1px solid color($colors, bluegrey);
+                    border-right: 1px solid color($colors, grey75);
                 }
 
                 &:not(:first-child) {
