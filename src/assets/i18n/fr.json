@@ -282,7 +282,7 @@
         "MODULE_STATUS": {
             "SUCCESS": "Réussi",
             "SUCCESS_WITH_FC": "Réussi avec FC",
-            "SUCCESS_WITH_FC_AND_TESTS": "Réussi avec FC + tests",
+            "SUCCESS_WITH_FC_AND_TESTS": "Réussi avec FC + test",
             "SUCCESS_WITH_RETAKE": "Réussi avec rattrapage",
             "FAILED": "Non atteint"
         },
