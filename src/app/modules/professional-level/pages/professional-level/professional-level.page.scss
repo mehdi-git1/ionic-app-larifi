@@ -39,7 +39,27 @@ page-professional-level {
         }
     }
 
+    .professional-level-footer {
+        padding-left: 20px;
+        padding-bottom: 10px;
+        box-shadow: 1px 1px 10px color($colors, grey50);
 
+        h5 {
+            margin-top: 5px;
+            margin-bottom: 5px;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
 
+        div {
+            display: inline;
+        }
+
+    }
+
+    .sub-title-legend {
+        color: color($colors, blue60);
+        font-weight: bold;
+    }
 
 }
