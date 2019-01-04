@@ -1,7 +1,6 @@
 import { PncService } from './../../../../../core/services/pnc/pnc.service';
 import { PncModel } from './../../../../../core/models/pnc.model';
 import { SessionService } from './../../../../../core/services/session/session.service';
-import { ModuleModel } from './../../../../../core/models/professional-level/module.model';
 import { EvaluationSheetService } from './../../../../../core/services/professional-level/evaluation-sheet/evaluation-sheet.service';
 import { EvaluationSheetModel } from './../../../../../core/models/professional-level/evaluation-sheet.model';
 import { NavParams } from 'ionic-angular';
@@ -34,13 +33,18 @@ export class EvaluationSheetPage {
      * Retourne la classe css du statut correspondant
      */
     getCssClassForModuleStatus(moduleResultStatus): string {
-        if (moduleResultStatus === 'SUCCESS') {
-            return 'success';
-        } else if (moduleResultStatus === 'SUCCESS_WITH_FC') {
-            return 'successWithFC';
-        } else if (moduleResultStatus === 'FAILED') {
-            return 'failed';
+        if ('SUCCESS' == moduleResultStatus) {
+            return 'green';
+        } else if ('SUCCESS_WITH_FC' == moduleResultStatus) {
+            return 'yellow';
+        } else if ('SUCCESS_WITH_FC_AND_TESTS' == moduleResultStatus) {
+            return 'orange';
+        } else if ('SUCCESS_WITH_RETAKE' == moduleResultStatus) {
+            return 'orange';
+        } else if ('FAILED' == moduleResultStatus) {
+            return 'red';
         }
+        return '';
     }
 
     loadData() {
@@ -59,7 +63,7 @@ export class EvaluationSheetPage {
                     this.evaluationSheet = evaluationSheet;
                 }, error => { });
             } else {
-                this.evaluationSheet = new EvaluationSheetModel;
+                this.evaluationSheet = new EvaluationSheetModel();
             }
         }
     }

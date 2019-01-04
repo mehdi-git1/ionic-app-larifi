@@ -10,92 +10,66 @@
     <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
     <ng-template #pageBlock>
         <div *ngIf="evaluationSheet && evaluationSheet.module && evaluationSheet.module.techId; else noStagesBlock">
-            <ion-card class='title-bloc'>
-                <span class='first-text'>{{evaluationSheet?.stageCode}} - {{evaluationSheet?.module?.label}}</span>
-                <span class='date'>{{evaluationSheet?.module?.date | date: 'dd/MM/yyyy'}}</span>
-                <span class='result' [ngClass]='getCssClassForModuleStatus(evaluationSheet?.module?.moduleResultStatus)' *ngIf='evaluationSheet?.module?.moduleResultStatus'>{{('PROFESSIONAL_LEVEL.MODULE_STATUS.' + evaluationSheet?.module?.moduleResultStatus) | translate}}</span>
-            </ion-card>
-            <ion-grid>
+            <div class="title-container">
+                <h3>
+                    <label class="stage-code">{{evaluationSheet?.stageCode}} - {{evaluationSheet?.module?.label}}</label>
+                    <label class="stage-date">{{evaluationSheet?.module?.date | date: 'dd/MM/yyyy'}}</label>
+                    <label class="stage-result" [ngClass]='getCssClassForModuleStatus(evaluationSheet?.module?.moduleResultStatus)' *ngIf='evaluationSheet?.module?.moduleResultStatus'>{{('PROFESSIONAL_LEVEL.MODULE_STATUS.' + evaluationSheet?.module?.moduleResultStatus) | translate}}</label>
+                </h3>
+            </div>
+
+            <div class="score-container">
+                <div class="evaluation-container">
+                    <h4>
+                        {{'PROFESSIONAL_LEVEL.EVALUATION_SHEET.SCORE_BLOC.BLOC_EVALUATION_TITLE' | translate}} :
+                        <span *ngIf="evaluationSheet?.e1Score">
+                            {{evaluationSheet.e1Score| scorePercent }}% ({{'PROFESSIONAL_LEVEL.EVALUATION_SHEET.SCORE_BLOC.E1' | translate}})
+                        </span>
+                        <span *ngIf="evaluationSheet?.e2Score">
+                            {{evaluationSheet.e2Score | scorePercent }}% ({{'PROFESSIONAL_LEVEL.EVALUATION_SHEET.SCORE_BLOC.E2' | translate}})
+                        </span>
+                    </h4>
+                    <div class="comment-container">
+                        <ion-icon class="edospnc-speechBubble" name="edospnc-speechBubble"></ion-icon>
+                        <p class="comment" [ngClass]="{'no-value' : !evaluationSheet.evaluationComment }">
+                            {{ evaluationSheet?.evaluationComment}}
+                        </p>
+                    </div>
+                </div>
+                <div class="fc-container" *ngIf="evaluationSheet?.fcScore">
+                    <h4>
+                        {{'PROFESSIONAL_LEVEL.EVALUATION_SHEET.SCORE_BLOC.BLOC_FC_TITLE' | translate }} : {{ evaluationSheet.fcScore | scorePercent }}%
+                    </h4>
+                    <div class="comment-container">
+                        <ion-icon name="edospnc-speechBubble"></ion-icon>
+                        <p class="comment" [ngClass]="{'no-value' : !evaluationSheet.fcComment }">
+                            {{ evaluationSheet?.fcComment}}
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <ion-grid class="exercise-header">
                 <ion-row>
-                    <ion-col no-padding>
-                        <ion-card class='score-bloc'>
-                            <p>
-                                <span class='score-bloc-title'> {{'PROFESSIONAL_LEVEL.EVALUATION_SHEET.SCORE_BLOC.BLOC_EVALUATION_TITLE' | translate}} :</span>
-                                <span *ngIf='evaluationSheet?.e1Score !== undefined' class='score-bloc-value'>
-                                    {{evaluationSheet.e1Score| scorePercent }}%
-                                </span>
-                                <span *ngIf='evaluationSheet?.e1Score !== undefined' class='score-bloc-eval'>
-                                    ( {{'PROFESSIONAL_LEVEL.EVALUATION_SHEET.SCORE_BLOC.E1' | translate}} )
-                                </span>
-                                <span *ngIf='evaluationSheet?.e2Score !== undefined' class='score-bloc-value'>
-                                    {{evaluationSheet.e2Score | scorePercent }}%
-                                </span>
-                                <span *ngIf='evaluationSheet?.e2Score !== undefined' class='score-bloc-eval'>
-                                    ( {{'PROFESSIONAL_LEVEL.EVALUATION_SHEET.SCORE_BLOC.E2' | translate}} )
-                                </span>
-                            </p>
-                            <p>
-                                <ion-grid>
-                                    <ion-row>
-                                        <ion-col col-2>
-                                            <ion-icon class="edospnc-speechBubble" name="edospnc-speechBubble"></ion-icon>
-                                        </ion-col>
-                                        <ion-col col-10>
-                                            <span class="score-bloc-comment" [ngClass]="{'no-value' : !evaluationSheet.evaluationComment }">
-                                                {{ evaluationSheet?.evaluationComment}}
-                                            </span>
-                                        </ion-col>
-                                    </ion-row>
-                                </ion-grid>
-                            </p>
-                        </ion-card>
+                    <ion-col col-8>
+                        <!--Titre-->
                     </ion-col>
-                    <ion-col no-padding *ngIf='evaluationSheet?.fcScore !== undefined'>
-                        <ion-card class='score-bloc'>
-                            <p>
-                                <span class='score-bloc-title'> {{'PROFESSIONAL_LEVEL.EVALUATION_SHEET.SCORE_BLOC.BLOC_FC_TITLE' | translate }} : </span>
-                                <span class='score-bloc-value'>{{ evaluationSheet.fcScore | scorePercent }}%</span>
-                            </p>
-                            <ion-grid>
-                                <ion-row>
-                                    <ion-col col-2>
-                                        <ion-icon class="edospnc-speechBubble" name="edospnc-speechBubble"></ion-icon>
-                                    </ion-col>
-                                    <ion-col col-10>
-                                        <span class="score-bloc-comment" [ngClass]="{'no-value' : !evaluationSheet.fcComment }">{{ evaluationSheet?.fcComment}}</span>
-                                    </ion-col>
-                                </ion-row>
-                            </ion-grid>
-                        </ion-card>
-                    </ion-col>
-                </ion-row>
-            </ion-grid>
-            <ion-grid class="title-display">
-                <ion-row class='title-row'>
-                    <ion-col col-8><span>{{'PROFESSIONAL_LEVEL.EVALUATION_SHEET.EXERCISES_BLOC.TITLE_COLUMN' | translate }}</span></ion-col>
                     <ion-col col-1>{{'PROFESSIONAL_LEVEL.EVALUATION_SHEET.EXERCISES_BLOC.E1_COLUMN' | translate }}</ion-col>
                     <ion-col col-1>{{'PROFESSIONAL_LEVEL.EVALUATION_SHEET.EXERCISES_BLOC.E2_COLUMN' | translate }}</ion-col>
                     <ion-col col-1>{{'PROFESSIONAL_LEVEL.EVALUATION_SHEET.EXERCISES_BLOC.FC_COLUMN' | translate }}</ion-col>
                     <ion-col col-1>{{'PROFESSIONAL_LEVEL.EVALUATION_SHEET.EXERCISES_BLOC.NA_COLUMN' | translate }}</ion-col>
                 </ion-row>
             </ion-grid>
-            <ion-grid class="data-display">
-                <div *ngFor="let exercise of evaluationSheet?.exercises; index as i">
-                    <ion-row class='ss-title-row' *ngIf="exercise?.title">
-                        <ion-col col-8><span>{{ exercise.label }}</span></ion-col>
-                        <ion-col col-1></ion-col>
-                        <ion-col col-1></ion-col>
-                        <ion-col col-1></ion-col>
-                        <ion-col col-1></ion-col>
-                    </ion-row>
-                    <ion-row class='data-row' *ngIf="!exercise?.title" [ngClass]="{'odd': i%2===0}">
-                        <ion-col col-8><span>{{ exercise.label }}</span></ion-col>
+            <ion-grid class="exercise-list">
+                <ion-row *ngFor="let exercise of evaluationSheet?.exercises" [ngClass]="{'title':exercise?.title, 'exercise':!exercise?.title}">
+                    <ion-col col-8>{{ exercise.label }}</ion-col>
+                    <ng-container *ngIf="!exercise?.title">
                         <ion-col col-1 [innerHTML]="exercise?.e1 | replaceByPoint"></ion-col>
                         <ion-col col-1 [innerHTML]="exercise?.e2 | replaceByPoint"></ion-col>
                         <ion-col col-1 [innerHTML]="exercise?.fc | replaceByPoint"></ion-col>
                         <ion-col col-1 [innerHTML]="(!exercise?.e1 && !exercise?.e2 && !exercise?.fc) | replaceByPoint"></ion-col>
-                    </ion-row>
-                </div>
+                    </ng-container>
+                </ion-row>
             </ion-grid>
         </div>
     </ng-template>
