@@ -82,14 +82,6 @@ describe('EvaluationSheetPage', () => {
         tick();
     }));
 
-    it('doit afficher la bonne classe en fonction du code résultat', () => {
-        expect(comp).toBeDefined();
-        comp.evaluationSheet.module.moduleResultStatus = 'FAILED';
-        fixture.detectChanges();
-        failureEl = fixture.debugElement.query(By.css('.result'));
-        expect(failureEl.nativeElement.className).toContain(comp.getCssClassForModuleStatus(comp.evaluationSheet.module.moduleResultStatus));
-    });
-
     it(`doit faire disparaître le spinner lorsqu'il n'y a pas de moduleId`, () => {
         spyOn(navParams, 'get').and.callFake(function (value) {
             if (value === 'moduleId') {
@@ -104,6 +96,28 @@ describe('EvaluationSheetPage', () => {
     it('doit faire disparaître le spinner lorsque les données sont récupérées', () => {
         failureEl = fixture.debugElement.query(By.css('edossier-spinner'));
         expect(failureEl).toEqual(null);
+    });
+
+    describe('getCssClassForModuleStatus', () => {
+        it('doit renvoyer green si le résultat du module est SUCCESS', () => {
+            expect(comp.getCssClassForModuleStatus('SUCCESS')).toEqual('green');
+        });
+
+        it('doit renvoyer green si le résultat du module est SUCCESS_WITH_FC', () => {
+            expect(comp.getCssClassForModuleStatus('SUCCESS_WITH_FC')).toEqual('yellow');
+        });
+
+        it('doit renvoyer green si le résultat du module est SUCCESS_WITH_FC_AND_TESTS', () => {
+            expect(comp.getCssClassForModuleStatus('SUCCESS_WITH_FC_AND_TESTS')).toEqual('orange');
+        });
+
+        it('doit renvoyer green si le résultat du module est SUCCESS_WITH_RETAKE', () => {
+            expect(comp.getCssClassForModuleStatus('SUCCESS_WITH_RETAKE')).toEqual('orange');
+        });
+
+        it('doit renvoyer green si le résultat du module est FAILED', () => {
+            expect(comp.getCssClassForModuleStatus('FAILED')).toEqual('red');
+        });
     });
 
 });

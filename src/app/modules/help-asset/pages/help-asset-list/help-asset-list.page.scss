@@ -3,15 +3,20 @@ page-help-asset-list {
     .help-asset-list {
 
         ion-thumbnail {
-            font-size: 3em;
+            font-size: 2em;
             display: flex;
             justify-content: center;
             align-items: center;
         }
 
-        h4 {
-            font-size: 1.3em;
-            font-weight: bold;
+        ion-item {
+            h4 {
+                font-size: 1.2em;
+            }
+
+            span {
+                font-size: 0.9em;
+            }
         }
 
         ion-item:hover {
