@@ -45,8 +45,8 @@
         "CREW_MEMBERS": "Liste équipage",
         "STATUTORY_CERTIFICATE": "Profil PNC",
         "MY_STATUTORY_CERTIFICATE": "Mon profil PNC",
-        "PROFESSIONAL_LEVEL": "Niveau Pro SV",
-        "MY_PROFESSIONAL_LEVEL": "Mon niveau Pro SV",
+        "PROFESSIONAL_LEVEL": "Niveau pro SV",
+        "MY_PROFESSIONAL_LEVEL": "Mon niveau pro SV",
         "UNKNOWN_ERROR": "Suite à un dysfonctionnement technique, l'opération a échoué. Nous vous invitons à réessayer dans quelques minutes. Si le problème persiste, veuillez contacter votre support.",
         "COMING_SOON": "(Prochainement)",
         "MESSAGES": {
@@ -266,8 +266,8 @@
         }
     },
     "PROFESSIONAL_LEVEL": {
-        "TITLE": "Niveau Pro SV",
-        "MY_TITLE": "Mon niveau Pro SV",
+        "TITLE": "Niveau pro SV",
+        "MY_TITLE": "Mon niveau pro SV",
         "HEADER": {
             "DATE": "Date",
             "CODE": "Code",
