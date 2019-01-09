@@ -64,21 +64,4 @@ professional-level-stage {
             }
         }
     }
-
-    $colorPointSize: 12px;
-
-    @mixin makeColorPoint($className, $pointColor) {
-        .#{$className} {
-            height: $colorPointSize;
-            width: $colorPointSize;
-            border-radius: $colorPointSize;
-            background:color($colors, #{$pointColor});
-            margin-right: 5px;
-        }
-    }
-
-    @include makeColorPoint('red-point', 'red15');
-    @include makeColorPoint('orange-point', 'orange90');
-    @include makeColorPoint('yellow-point', 'yellow1');
-    @include makeColorPoint('green-point', 'green70');
 }

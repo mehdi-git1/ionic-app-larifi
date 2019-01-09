@@ -6,7 +6,7 @@
         <ion-badge class="score-badge" *ngFor="let score of module?.scores"><span *ngIf="(score?.score  | scorePercent) !== 100">{{score?.score | scorePercent}}% ({{score?.evaluationCode}})</span></ion-badge>
     </div>
     <div class="module-result">
-        <span [ngClass]="getModuleStatusPointCssClass()"></span>{{'PROFESSIONAL_LEVEL.MODULE_STATUS.' + module?.moduleResultStatus | translateOrEmpty}}
+        <span class="status-dot" [ngClass]="getStatusCssClass()"></span>{{'PROFESSIONAL_LEVEL.MODULE_STATUS.' + module?.moduleResultStatus | translateOrEmpty}}
     </div>
     <div class="module-detail">
         <button *ngIf="isModuleDetailAvailable(module)" ion-fab mini (click)="goToModuleDetail(module)">

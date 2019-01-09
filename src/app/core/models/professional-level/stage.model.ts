@@ -1,3 +1,4 @@
+import { ProfessionalLevelResultStatus } from './../../enums/professional-level-result-status.enum';
 import { ModuleModel } from './module.model';
 
 export class StageModel {
@@ -6,6 +7,6 @@ export class StageModel {
     code: string;
     label: string;
     result: string;
-    stageResultStatus: string;
+    stageResultStatus: ProfessionalLevelResultStatus;
     modules: ModuleModel[];
 }

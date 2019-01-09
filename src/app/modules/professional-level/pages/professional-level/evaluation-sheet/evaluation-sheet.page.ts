@@ -1,3 +1,5 @@
+import { ModuleModel } from './../../../../../core/models/professional-level/module.model';
+import { ProfessionalLevelResultStatusUtil } from './../../../../../shared/utils/professional-level-result-status.util';
 import { PncService } from './../../../../../core/services/pnc/pnc.service';
 import { PncModel } from './../../../../../core/models/pnc.model';
 import { SessionService } from './../../../../../core/services/session/session.service';
@@ -29,24 +31,6 @@ export class EvaluationSheetPage {
         this.loadData();
     }
 
-    /**
-     * Retourne la classe css du statut correspondant
-     */
-    getCssClassForModuleStatus(moduleResultStatus): string {
-        if ('SUCCESS' == moduleResultStatus) {
-            return 'green';
-        } else if ('SUCCESS_WITH_FC' == moduleResultStatus) {
-            return 'yellow';
-        } else if ('SUCCESS_WITH_FC_AND_TESTS' == moduleResultStatus) {
-            return 'orange';
-        } else if ('SUCCESS_WITH_RETAKE' == moduleResultStatus) {
-            return 'orange';
-        } else if ('FAILED' == moduleResultStatus) {
-            return 'red';
-        }
-        return '';
-    }
-
     loadData() {
         if (this.navParams.get('matricule')) {
             this.matricule = this.navParams.get('matricule');
@@ -74,6 +58,15 @@ export class EvaluationSheetPage {
      */
     loadingIsOver(): boolean {
         return typeof this.evaluationSheet !== 'undefined';
+    }
+
+    /**
+     * Retourne la classe CSS associée au statut du module
+     * @param module le module dont on souhaite récupérer la classe CSS du statut
+     * @return la classe CSS du statut du module
+     */
+    getStatusCssClass(module: ModuleModel): string {
+        return ProfessionalLevelResultStatusUtil.getStatusCssClass(module.moduleResultStatus);
     }
 }
 
