@@ -98,26 +98,4 @@ describe('EvaluationSheetPage', () => {
         expect(failureEl).toEqual(null);
     });
 
-    describe('getCssClassForModuleStatus', () => {
-        it('doit renvoyer green si le résultat du module est SUCCESS', () => {
-            expect(comp.getCssClassForModuleStatus('SUCCESS')).toEqual('green');
-        });
-
-        it('doit renvoyer green si le résultat du module est SUCCESS_WITH_FC', () => {
-            expect(comp.getCssClassForModuleStatus('SUCCESS_WITH_FC')).toEqual('yellow');
-        });
-
-        it('doit renvoyer green si le résultat du module est SUCCESS_WITH_FC_AND_TESTS', () => {
-            expect(comp.getCssClassForModuleStatus('SUCCESS_WITH_FC_AND_TESTS')).toEqual('orange');
-        });
-
-        it('doit renvoyer green si le résultat du module est SUCCESS_WITH_RETAKE', () => {
-            expect(comp.getCssClassForModuleStatus('SUCCESS_WITH_RETAKE')).toEqual('orange');
-        });
-
-        it('doit renvoyer green si le résultat du module est FAILED', () => {
-            expect(comp.getCssClassForModuleStatus('FAILED')).toEqual('red');
-        });
-    });
-
 });
