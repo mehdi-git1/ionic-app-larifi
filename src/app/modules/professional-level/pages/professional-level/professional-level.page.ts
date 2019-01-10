@@ -1,3 +1,4 @@
+import { StageModel } from './../../../../core/models/professional-level/stage.model';
 import { ProfessionalLevelModel } from '../../../../core/models/professional-level/professional-level.model';
 import { ProfessionalLevelService } from '../../../../core/services/professional-level/professional-level.service';
 import { PncService } from '../../../../core/services/pnc/pnc.service';
@@ -43,9 +44,25 @@ export class ProfessionalLevelPage {
       this.pncService.getPnc(this.matricule).then(pnc => {
         this.pnc = pnc;
       }, error => { });
+
       this.professionalLevelProvider.getProfessionalLevel(this.matricule).then(professionalLevel => {
+        this.sortProfessionalLevel(professionalLevel);
         this.professionalLevel = professionalLevel;
       }, error => { });
+    }
+  }
+
+  private sortProfessionalLevel(professionalLevel: ProfessionalLevelModel) {
+    // Tri de l'ordre des stages
+    professionalLevel.stages = professionalLevel.stages.sort(function (a, b) {
+      return (a.date < b.date) ? 1 : -1;
+    });
+
+    // Tri de l'ordre des modules
+    for (const stage in professionalLevel.stages) {
+      professionalLevel.stages[stage].modules = professionalLevel.stages[stage].modules.sort(function (a, b) {
+        return (a.date < b.date) ? 1 : -1;
+      });
     }
   }
 
