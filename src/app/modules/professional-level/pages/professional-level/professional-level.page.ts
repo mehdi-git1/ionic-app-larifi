@@ -1,4 +1,3 @@
-import { StageModel } from './../../../../core/models/professional-level/stage.model';
 import { ProfessionalLevelModel } from '../../../../core/models/professional-level/professional-level.model';
 import { ProfessionalLevelService } from '../../../../core/services/professional-level/professional-level.service';
 import { PncService } from '../../../../core/services/pnc/pnc.service';
@@ -6,6 +5,7 @@ import { SessionService } from '../../../../core/services/session/session.servic
 import { PncModel } from '../../../../core/models/pnc.model';
 import { Component } from '@angular/core';
 import { NavParams } from 'ionic-angular';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'page-professional-level',
@@ -22,8 +22,7 @@ export class ProfessionalLevelPage {
   constructor(private navParams: NavParams,
     private sessionService: SessionService,
     private pncService: PncService,
-    private professionalLevelProvider: ProfessionalLevelService) {
-
+    private professionalLevelService: ProfessionalLevelService) {
   }
 
   ionViewDidLoad() {
@@ -45,25 +44,36 @@ export class ProfessionalLevelPage {
         this.pnc = pnc;
       }, error => { });
 
-      this.professionalLevelProvider.getProfessionalLevel(this.matricule).then(professionalLevel => {
-        this.sortProfessionalLevel(professionalLevel);
-        this.professionalLevel = professionalLevel;
+      this.professionalLevelService.getProfessionalLevel(this.matricule).then(professionalLevelResult => {
+        this.professionalLevel = this.sortProfessionalLevel(professionalLevelResult);
       }, error => { });
     }
   }
 
-  private sortProfessionalLevel(professionalLevel: ProfessionalLevelModel) {
-    // Tri de l'ordre des stages
-    professionalLevel.stages = professionalLevel.stages.sort(function (a, b) {
-      return (a.date < b.date) ? 1 : -1;
-    });
+  /**
+   * Renvoi un clone trié du ProfessionalLevelModel passé en parametre
+   *
+   * @param professionalLevel
+   */
+  sortProfessionalLevel(professionalLevel: ProfessionalLevelModel): ProfessionalLevelModel {
+    const professionalLevelLocal: ProfessionalLevelModel = _.cloneDeep(professionalLevel);
 
-    // Tri de l'ordre des modules
-    for (const stage in professionalLevel.stages) {
-      professionalLevel.stages[stage].modules = professionalLevel.stages[stage].modules.sort(function (a, b) {
+    if (professionalLevelLocal.stages) {
+      // Tri de l'ordre des stages
+      professionalLevelLocal.stages = professionalLevelLocal.stages.sort(function (a, b) {
         return (a.date < b.date) ? 1 : -1;
       });
+
+      // Tri de l'ordre des modules
+      for (const stage in professionalLevelLocal.stages) {
+        if (professionalLevelLocal.stages[stage].modules) {
+          professionalLevelLocal.stages[stage].modules = professionalLevelLocal.stages[stage].modules.sort(function (a, b) {
+            return (a.date < b.date) ? 1 : -1;
+          });
+        }
+      }
     }
+    return professionalLevelLocal;
   }
 
   /**
