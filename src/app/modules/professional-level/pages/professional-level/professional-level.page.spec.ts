@@ -70,7 +70,7 @@ describe('EvaluationSheetPage', () => {
             expect(comp.sortProfessionalLevel(professionalLevelModel)).toEqual(professionalLevelModel);
         });
 
-        it('doit trier les stages chronologiquement (descendant) sur leur date', () => {
+        it('doit trier les stages chronologiquement (descendant) selon leur date', () => {
             expect(comp).toBeDefined();
             const professionalLevelModelCurrent = comp.sortProfessionalLevel(professionalLevelModel);
             expect(professionalLevelModelCurrent.stages[0].date).toEqual(new Date('01/03/2019'));
@@ -81,8 +81,6 @@ describe('EvaluationSheetPage', () => {
         it('doit trier les modules des stages chronologiquement (descendant) sur leur date', () => {
             expect(comp).toBeDefined();
             const professionalLevelModelCurrent = comp.sortProfessionalLevel(professionalLevelModel);
-            console.log(professionalLevelModel);
-            console.log(professionalLevelModelCurrent);
             expect(professionalLevelModelCurrent.stages[0].modules[0].date).toEqual(new Date('01/03/2019'));
             expect(professionalLevelModelCurrent.stages[0].modules[1].date).toEqual(new Date('01/02/2019'));
             expect(professionalLevelModelCurrent.stages[0].modules[2].date).toEqual(new Date('01/01/2019'));

@@ -54,26 +54,27 @@ export class ProfessionalLevelPage {
    * Renvoi un clone trié du ProfessionalLevelModel passé en parametre
    *
    * @param professionalLevel
+   * @return clone trié du ProfessionalLevelModel passé en parametre.
    */
   sortProfessionalLevel(professionalLevel: ProfessionalLevelModel): ProfessionalLevelModel {
-    const professionalLevelLocal: ProfessionalLevelModel = _.cloneDeep(professionalLevel);
+    const sortedProfessionalLevel: ProfessionalLevelModel = _.cloneDeep(professionalLevel);
 
-    if (professionalLevelLocal.stages) {
+    if (sortedProfessionalLevel.stages) {
       // Tri de l'ordre des stages
-      professionalLevelLocal.stages = professionalLevelLocal.stages.sort(function (a, b) {
+      sortedProfessionalLevel.stages = sortedProfessionalLevel.stages.sort(function (a, b) {
         return (a.date < b.date) ? 1 : -1;
       });
 
       // Tri de l'ordre des modules
-      for (const stage in professionalLevelLocal.stages) {
-        if (professionalLevelLocal.stages[stage].modules) {
-          professionalLevelLocal.stages[stage].modules = professionalLevelLocal.stages[stage].modules.sort(function (a, b) {
+      for (const stage in sortedProfessionalLevel.stages) {
+        if (sortedProfessionalLevel.stages[stage].modules) {
+          sortedProfessionalLevel.stages[stage].modules = sortedProfessionalLevel.stages[stage].modules.sort(function (a, b) {
             return (a.date < b.date) ? 1 : -1;
           });
         }
       }
     }
-    return professionalLevelLocal;
+    return sortedProfessionalLevel;
   }
 
   /**
