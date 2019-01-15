@@ -1,7 +1,8 @@
+import { ModuleModel } from './../../../../../core/models/professional-level/module.model';
+import { ProfessionalLevelResultStatusUtil } from './../../../../../shared/utils/professional-level-result-status.util';
 import { PncService } from './../../../../../core/services/pnc/pnc.service';
 import { PncModel } from './../../../../../core/models/pnc.model';
 import { SessionService } from './../../../../../core/services/session/session.service';
-import { ModuleModel } from './../../../../../core/models/professional-level/module.model';
 import { EvaluationSheetService } from './../../../../../core/services/professional-level/evaluation-sheet/evaluation-sheet.service';
 import { EvaluationSheetModel } from './../../../../../core/models/professional-level/evaluation-sheet.model';
 import { NavParams } from 'ionic-angular';
@@ -30,19 +31,6 @@ export class EvaluationSheetPage {
         this.loadData();
     }
 
-    /**
-     * Retourne la classe css du statut correspondant
-     */
-    getCssClassForModuleStatus(moduleResultStatus): string {
-        if (moduleResultStatus === 'SUCCESS') {
-            return 'success';
-        } else if (moduleResultStatus === 'SUCCESS_WITH_FC') {
-            return 'successWithFC';
-        } else if (moduleResultStatus === 'FAILED') {
-            return 'failed';
-        }
-    }
-
     loadData() {
         if (this.navParams.get('matricule')) {
             this.matricule = this.navParams.get('matricule');
@@ -59,7 +47,7 @@ export class EvaluationSheetPage {
                     this.evaluationSheet = evaluationSheet;
                 }, error => { });
             } else {
-                this.evaluationSheet = new EvaluationSheetModel;
+                this.evaluationSheet = new EvaluationSheetModel();
             }
         }
     }
@@ -70,6 +58,15 @@ export class EvaluationSheetPage {
      */
     loadingIsOver(): boolean {
         return typeof this.evaluationSheet !== 'undefined';
+    }
+
+    /**
+     * Retourne la classe CSS associée au statut du module
+     * @param module le module dont on souhaite récupérer la classe CSS du statut
+     * @return la classe CSS du statut du module
+     */
+    getStatusCssClass(module: ModuleModel): string {
+        return ProfessionalLevelResultStatusUtil.getStatusCssClass(module.moduleResultStatus);
     }
 }
 

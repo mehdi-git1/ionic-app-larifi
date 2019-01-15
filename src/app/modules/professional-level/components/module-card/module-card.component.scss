@@ -1,22 +1,5 @@
 module-card {
 
-    $colorPointSize: 12px;
-
-    @mixin makeColorPoint($className, $pointColor) {
-        .#{$className} {
-            height: $colorPointSize;
-            width: $colorPointSize;
-            border-radius: $colorPointSize;
-            background:color($colors, #{$pointColor});
-            margin-right: 5px;
-        }
-    }
-
-    @include makeColorPoint('red-point', 'red15');
-    @include makeColorPoint('orange-point', 'orange90');
-    @include makeColorPoint('yellow-point', 'yellow1');
-    @include makeColorPoint('green-point', 'green70');
-
     .module-card {
         width: 100%;
         height: 47px;
@@ -55,6 +38,7 @@ module-card {
                 margin: 2px;
                 background-color: color($colors, grey40);
                 font-weight: normal;
+                border-radius: 5px;
             }
         }
 
@@ -71,7 +55,7 @@ module-card {
                 margin: 0;
                 padding: 0;
                 color: color($colors, white);
-                background-color: color($colors, blue60);
+                background-color: color($colors, blue81);
                 font-size: 20px;
                 width: 30px;
                 height: 30px;
