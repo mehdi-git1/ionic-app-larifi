@@ -66,9 +66,9 @@ export class ProfessionalLevelPage {
       });
 
       // Tri de l'ordre des modules
-      for (const stage in sortedProfessionalLevel.stages) {
-        if (sortedProfessionalLevel.stages[stage].modules) {
-          sortedProfessionalLevel.stages[stage].modules = sortedProfessionalLevel.stages[stage].modules.sort(function (a, b) {
+      for (const stage of sortedProfessionalLevel.stages) {
+        if (stage.modules) {
+          stage.modules = stage.modules.sort(function (a, b) {
             return (a.date < b.date) ? 1 : -1;
           });
         }
