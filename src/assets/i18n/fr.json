@@ -265,6 +265,15 @@
             "STATUTORY_CERTIFICATE": "Erreur lors de la récupération du profil PNC pour le matricule {{ matricule }}"
         }
     },
+    "E_OBSERVATION": {
+        "LIST": {
+            "HEADER": {
+                "DATE": "Date de réalisation",
+                "TYPE": "Type eObservation",
+                "WRITER": "Rédacteur"
+            }
+        }
+    },
     "PROFESSIONAL_LEVEL": {
         "TITLE": "Niveau Pro SV",
         "MY_TITLE": "Mon niveau Pro SV",
