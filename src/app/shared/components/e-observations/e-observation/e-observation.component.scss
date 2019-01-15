@@ -1,0 +1,28 @@
+e-observation {
+
+    .e-observation {
+        background-color: color($colors, blue77);
+        width: 100%;
+        height: 47px;
+        display: flex;
+        align-items: center;
+        padding: 0 10px;
+
+        & > * {
+            color: color($colors, white);
+        }
+
+        .e-obs-date {
+            width: 30%;
+        }
+
+        .e-obs-type {
+            width: 30%;
+        }
+
+        .e-obs-writer {
+            width: 40%;
+        }
+
+    }
+}
