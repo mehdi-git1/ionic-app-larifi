@@ -109,7 +109,11 @@ export class ImpersonatePage {
       const impersonatedUser = new AuthenticatedUserModel();
       impersonatedUser.matricule = pnc.matricule;
       this.sessionService.impersonatedUser = impersonatedUser;
-      this.navCtrl.popToRoot();
+      if (this.navCtrl.parent) {
+        this.navCtrl.setRoot(PncHomePage);
+      } else {
+        this.navCtrl.popToRoot();
+      }
       this.authenticationService.putAuthenticatedUserInSession().then(
         data => this.events.publish('user:authenticationDone')
       );
