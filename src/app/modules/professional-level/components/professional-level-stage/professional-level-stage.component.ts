@@ -1,3 +1,4 @@
+import { PncModel } from './../../../../core/models/pnc.model';
 import { ProfessionalLevelResultStatusUtil } from './../../../../shared/utils/professional-level-result-status.util';
 import { Component, Input, OnInit } from '@angular/core';
 import { ModuleModel } from '../../../../core/models/professional-level/module.model';
@@ -12,6 +13,8 @@ export class ProfessionalLevelStageComponent {
   matPanelHeaderHeight = 'auto';
 
   _stages: StageModel[];
+
+  @Input() pnc: PncModel;
 
   @Input()
   set stages(stages: StageModel[]) {
