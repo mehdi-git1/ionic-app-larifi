@@ -18,10 +18,7 @@ import { TabNavService } from '../../../core/services/tab-nav/tab-nav.service';
 import { tabNavEnum } from '../../../core/enums/tab-nav.enum';
 import { SpecialityEnum } from '../../../core/enums/speciality.enum';
 import { AuthenticationPage } from '../../../modules/home/pages/authentication/authentication.page';
-import { FileTypeEnum } from '../../../core/enums/file-type.enum';
 import { SummarySheetService } from '../../../core/services/summary-sheet/summary-sheet.service';
-import { FileService } from '../../../core/file/file.service';
-import { SummarySheetTransformerService } from '../../../core/services/summary-sheet/summary-sheet-transformer.service';
 import { IsMyPage } from '../../pipes/is_my_page/is_my_page.pipe';
 
 @Component({
@@ -57,8 +54,6 @@ export class TabNavComponent {
     public securityProvider: SecurityService,
     private specialityService: SpecialityService,
     private summarySheetService: SummarySheetService,
-    private summarySheetTransformerService: SummarySheetTransformerService,
-    private fileService: FileService,
     private isMyPage: IsMyPage
   ) {
     this.events.subscribe('user:authenticationDone', () => {
@@ -86,10 +81,6 @@ export class TabNavComponent {
       this.navCtrl.setRoot(AuthenticationPage);
       this.loading = true;
     });
-
-    this.events.subscribe('changeTab', (data) => {
-      // Pour l'instant, rien n'est fait dans ce subscribe car cela est juste une analyse
-    });
   }
 
   /**
@@ -111,6 +102,9 @@ export class TabNavComponent {
         id: tabNavEnum.SUMMARY_SHEET_PAGE,
         page: '',
         icon: 'edospnc-summarySheet',
+        params: {
+          page: tabNavEnum.SUMMARY_SHEET_PAGE
+        }
       },
       {
         id: tabNavEnum.PNC_SEARCH_PAGE,
@@ -173,19 +167,10 @@ export class TabNavComponent {
    * @param event evenement déclencheur de la fonction
    */
   tabChange(event) {
-    if (event.tabTitle === this.translate.instant('GLOBAL.PNC_SUMMARY_SHEET')) {
-      this.summarySheetDisplay();
+    if (event.rootParams && event.rootParams.page === tabNavEnum.SUMMARY_SHEET_PAGE) {
+      this.summarySheetService.openSummarySheet(this.pnc.matricule);
     }
     this.events.publish('changeTab', { pageName: event.root.name, pageParams: event.rootParams });
   }
 
-  /**
-   * Affiche de la fiche synthèse
-   */
-  summarySheetDisplay() {
-    this.summarySheetService.getSummarySheet(this.pnc.matricule).then(summarySheet => {
-      this.fileService.displayFile(FileTypeEnum.PDF, this.summarySheetTransformerService.toSummarySheetFile(summarySheet));
-    }, error => {
-    });
-  }
 }

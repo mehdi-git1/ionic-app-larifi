@@ -1,4 +1,3 @@
-import { SummarySheetTransformerService } from './../../../../core/services/summary-sheet/summary-sheet-transformer.service';
 import { Component } from '@angular/core';
 import { NavController, NavParams, Events } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
@@ -25,9 +24,6 @@ import { StatutoryCertificatePage } from '../../../statutory-certificate/pages/s
 import { SpecialityEnum } from '../../../../core/enums/speciality.enum';
 import { SpecialityService } from '../../../../core/services/speciality/speciality.service';
 import { SummarySheetService } from '../../../../core/services/summary-sheet/summary-sheet.service';
-import { Utils } from '../../../../shared/utils/utils';
-import { FileService } from '../../../../core/file/file.service';
-import { FileTypeEnum } from '../../../../core/enums/file-type.enum';
 
 
 
@@ -58,9 +54,7 @@ export class PncHomePage {
         private statusBar: StatusBar,
         private tabNavService: TabNavService,
         private specialityService: SpecialityService,
-        private summarySheetService: SummarySheetService,
-        private summarySheetTransformerService: SummarySheetTransformerService,
-        private fileService: FileService
+        private summarySheetService: SummarySheetService
     ) {
 
         this.statusBar.styleLightContent();
@@ -145,10 +139,7 @@ export class PncHomePage {
      * Affiche la fiche synthèse
      */
     goToSummarySheet() {
-        this.summarySheetService.getSummarySheet(this.matricule).then(summarySheet => {
-            this.fileService.displayFile(FileTypeEnum.PDF, this.summarySheetTransformerService.toSummarySheetFile(summarySheet));
-        }, error => {
-        });
+        this.summarySheetService.openSummarySheet(this.matricule);
     }
 
     /**
