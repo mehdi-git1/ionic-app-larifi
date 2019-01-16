@@ -3,10 +3,10 @@
         <page-header (refreshPage)="refreshPage()" [showRefreshIcon]="true" [pnc]="pnc">
             <ng-container *ngIf="careerObjectiveLoadingIsOver()">
                 <ng-container *ngIf="isCreationMode(); else editTitleBlock">
-                    <span *ngIf='pnc'>{{ 'CAREER_OBJECTIVE_CREATE.CREATE_TITLE' | isMyPage: pnc | translate }}</span>
+                    {{ 'CAREER_OBJECTIVE_CREATE.CREATE_TITLE' | translate }}
                 </ng-container>
                 <ng-template #editTitleBlock>
-                    <span *ngIf='pnc'>{{ 'CAREER_OBJECTIVE_CREATE.EDIT_TITLE' | isMyPage: pnc | translate }}</span>
+                    {{ 'CAREER_OBJECTIVE_CREATE.EDIT_TITLE' | translate }}
                     <ion-badge class="{{careerObjective.careerObjectiveStatus.toLowerCase()}}" *ngIf="careerObjective.careerObjectiveStatus">
                         {{ 'GLOBAL.CAREER_OBJECTIVE_STATUS.'+careerObjective.careerObjectiveStatus | translate }}
                     </ion-badge>
