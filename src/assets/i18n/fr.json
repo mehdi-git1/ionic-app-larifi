@@ -290,15 +290,15 @@
                 "TEXT": "Test de rattrapage"
             },
             "E1": {
-                "TITLE": "E1",
-                "TEXT": "1<sup>ére</sup> évaluation"
+                "TITLE": "(E1)",
+                "TEXT": "1<sup>ère</sup> évaluation"
             },
             "E2": {
-                "TITLE": "E2",
-                "TEXT": "2<sup>éme</sup> évaluation"
+                "TITLE": "(E2)",
+                "TEXT": "2<sup>ème</sup> évaluation"
             },
             "FC": {
-                "TITLE": "FC",
+                "TITLE": "(FC)",
                 "TEXT": "Formation Complémentaire"
             }
         },
