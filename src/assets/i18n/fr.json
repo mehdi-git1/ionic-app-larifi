@@ -1,7 +1,6 @@
 {
     "GLOBAL": {
         "APP_NAME": "EDOSSIER PNC",
-        "MY_APP_NAME": "EDOSSIER PNC",
         "APP_VERSION": {
             "FRONT": "Version",
             "BACK": "Version serveur"
