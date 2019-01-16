@@ -30,6 +30,7 @@ export class HasPermissionDirective implements OnInit {
    */
   private updateView() {
     this.viewContainer.clear();
+    console.log(this.permission, ' ----- ', this.authorizationService.hasPermission(this.permission));
     if (this.authorizationService.hasPermission(this.permission)) {
       this.viewContainer.createEmbeddedView(this.templateRef);
     }
