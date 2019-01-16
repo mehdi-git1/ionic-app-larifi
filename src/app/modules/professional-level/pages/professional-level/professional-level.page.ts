@@ -61,16 +61,12 @@ export class ProfessionalLevelPage {
 
     if (sortedProfessionalLevel.stages) {
       // Tri de l'ordre des stages
-      sortedProfessionalLevel.stages = sortedProfessionalLevel.stages.sort(function (a, b) {
-        return (a.date < b.date) ? 1 : -1;
-      });
+      sortedProfessionalLevel.stages = sortedProfessionalLevel.stages.sort((a, b) => a.date < b.date ? 1 : -1);
 
       // Tri de l'ordre des modules
       for (const stage of sortedProfessionalLevel.stages) {
         if (stage.modules) {
-          stage.modules = stage.modules.sort(function (a, b) {
-            return (a.date < b.date) ? 1 : -1;
-          });
+          stage.modules = stage.modules.sort((a, b) => a.date < b.date ? 1 : -1);
         }
       }
     }
