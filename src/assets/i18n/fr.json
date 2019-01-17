@@ -265,7 +265,7 @@
             "STATUTORY_CERTIFICATE": "Erreur lors de la récupération du profil PNC pour le matricule {{ matricule }}"
         }
     },
-    "E_OBSERVATION": {
+    "EOBSERVATION": {
         "LIST": {
             "HEADER": {
                 "DATE": "Date de réalisation",

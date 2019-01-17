@@ -1,8 +1,8 @@
 <mat-expansion-panel>
     <mat-expansion-panel-header [expandedHeight]="matPanelHeaderHeight" [collapsedHeight]="matPanelHeaderHeight" hideToggle="true">
-        <label class="e-obs-date">{{ "E_OBSERVATION.LIST.HEADER.DATE" | translate }} </label>
-        <label class="e-obs-type"> {{ "E_OBSERVATION.LIST.HEADER.TYPE"| translate }} </label>
-        <label class="e-obs-writer"> {{ "E_OBSERVATION.LIST.HEADER.WRITER" | translate }} </label>
+        <label class="e-obs-date">{{ "EOBSERVATION.LIST.HEADER.DATE" | translate }} </label>
+        <label class="e-obs-type"> {{ "EOBSERVATION.LIST.HEADER.TYPE"| translate }} </label>
+        <label class="e-obs-writer"> {{ "EOBSERVATION.LIST.HEADER.WRITER" | translate }} </label>
     </mat-expansion-panel-header>
     <div *ngIf="EObservations.length === 0; else eObservationsDataBlock">
         <no-data></no-data>
