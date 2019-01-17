@@ -1,8 +1,8 @@
 $colorPointSize: 12px;
 
 .status-dot {
-    height: $colorPointSize;
-    width: $colorPointSize;
+    min-height: $colorPointSize;
+    min-width: $colorPointSize;
     border-radius: 100%;
     margin-right: 5px;
 }
