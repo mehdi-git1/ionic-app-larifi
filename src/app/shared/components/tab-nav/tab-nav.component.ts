@@ -15,7 +15,7 @@ import { PncService } from '../../../core/services/pnc/pnc.service';
 import { SessionService } from '../../../core/services/session/session.service';
 import { SecurityService } from '../../../core/services/security/security.service';
 import { TabNavService } from '../../../core/services/tab-nav/tab-nav.service';
-import { tabNavEnum } from '../../../core/enums/tab-nav.enum';
+import { TabNavEnum } from '../../../core/enums/tab-nav.enum';
 import { SpecialityEnum } from '../../../core/enums/speciality.enum';
 import { AuthenticationPage } from '../../../modules/home/pages/authentication/authentication.page';
 import { SummarySheetService } from '../../../core/services/summary-sheet/summary-sheet.service';
@@ -89,45 +89,45 @@ export class TabNavComponent {
   createListOfTab() {
     return [
       {
-        id: tabNavEnum.PNC_HOME_PAGE,
+        id: TabNavEnum.PNC_HOME_PAGE,
         page: PncHomePage,
         icon: 'edospnc-home',
       },
       {
-        id: tabNavEnum.CAREER_OBJECTIVE_LIST_PAGE,
+        id: TabNavEnum.CAREER_OBJECTIVE_LIST_PAGE,
         page: CareerObjectiveListPage,
         icon: 'edospnc-developmentProgram',
       },
       {
-        id: tabNavEnum.SUMMARY_SHEET_PAGE,
+        id: TabNavEnum.SUMMARY_SHEET_PAGE,
         page: '',
         icon: 'edospnc-summarySheet',
         params: {
-          page: tabNavEnum.SUMMARY_SHEET_PAGE
+          page: TabNavEnum.SUMMARY_SHEET_PAGE
         }
       },
       {
-        id: tabNavEnum.PNC_SEARCH_PAGE,
+        id: TabNavEnum.PNC_SEARCH_PAGE,
         page: PncSearchPage,
         icon: 'edospnc-pncTeam',
       },
       {
-        id: tabNavEnum.UPCOMING_FLIGHT_LIST_PAGE,
+        id: TabNavEnum.UPCOMING_FLIGHT_LIST_PAGE,
         page: UpcomingFlightListPage,
         icon: 'edospnc-upcomingFlight',
       },
       {
-        id: tabNavEnum.HELP_ASSET_LIST_PAGE,
+        id: TabNavEnum.HELP_ASSET_LIST_PAGE,
         page: HelpAssetListPage,
         icon: 'edospnc-helpCenter'
       },
       {
-        id: tabNavEnum.STATUTORY_CERTIFICATE_PAGE,
+        id: TabNavEnum.STATUTORY_CERTIFICATE_PAGE,
         page: StatutoryCertificatePage,
         icon: 'edospnc-statutoryCertificate',
       },
       {
-        id: tabNavEnum.PROFESSIONAL_LEVEL_PAGE,
+        id: TabNavEnum.PROFESSIONAL_LEVEL_PAGE,
         page: ProfessionalLevelPage,
         icon: 'edospnc-professionalLevel',
       }
@@ -138,28 +138,28 @@ export class TabNavComponent {
    * Met à jour les permissions de façon dynamique
    */
   updatePermissions() {
-    this.tabsNav[this.tabNavService.findTabIndex(tabNavEnum.PNC_HOME_PAGE)].display = true;
-    this.tabsNav[this.tabNavService.findTabIndex(tabNavEnum.CAREER_OBJECTIVE_LIST_PAGE)].display = !this.securityProvider.isManager();
-    this.tabsNav[this.tabNavService.findTabIndex(tabNavEnum.SUMMARY_SHEET_PAGE)].display = !this.securityProvider.isManager();
-    this.tabsNav[this.tabNavService.findTabIndex(tabNavEnum.PNC_SEARCH_PAGE)].display = this.securityProvider.isManager();
-    this.tabsNav[this.tabNavService.findTabIndex(tabNavEnum.UPCOMING_FLIGHT_LIST_PAGE)].display = this.securityProvider.isManager();
-    this.tabsNav[this.tabNavService.findTabIndex(tabNavEnum.HELP_ASSET_LIST_PAGE)].display = true;
-    this.tabsNav[this.tabNavService.findTabIndex(tabNavEnum.STATUTORY_CERTIFICATE_PAGE)].display = !this.securityProvider.isManager() && this.securityProvider.hasPermissionToViewTab('VIEW_STATUTORY_CERTIFICATE');
-    this.tabsNav[this.tabNavService.findTabIndex(tabNavEnum.PROFESSIONAL_LEVEL_PAGE)].display = !this.securityProvider.isManager() && this.securityProvider.hasPermissionToViewTab('VIEW_PROFESSIONAL_LEVEL');
+    this.tabsNav[this.tabNavService.findTabIndex(TabNavEnum.PNC_HOME_PAGE)].display = true;
+    this.tabsNav[this.tabNavService.findTabIndex(TabNavEnum.CAREER_OBJECTIVE_LIST_PAGE)].display = !this.securityProvider.isManager();
+    this.tabsNav[this.tabNavService.findTabIndex(TabNavEnum.SUMMARY_SHEET_PAGE)].display = !this.securityProvider.isManager();
+    this.tabsNav[this.tabNavService.findTabIndex(TabNavEnum.PNC_SEARCH_PAGE)].display = this.securityProvider.isManager();
+    this.tabsNav[this.tabNavService.findTabIndex(TabNavEnum.UPCOMING_FLIGHT_LIST_PAGE)].display = this.securityProvider.isManager();
+    this.tabsNav[this.tabNavService.findTabIndex(TabNavEnum.HELP_ASSET_LIST_PAGE)].display = true;
+    this.tabsNav[this.tabNavService.findTabIndex(TabNavEnum.STATUTORY_CERTIFICATE_PAGE)].display = !this.securityProvider.isManager() && this.securityProvider.hasPermissionToViewTab('VIEW_STATUTORY_CERTIFICATE');
+    this.tabsNav[this.tabNavService.findTabIndex(TabNavEnum.PROFESSIONAL_LEVEL_PAGE)].display = !this.securityProvider.isManager() && this.securityProvider.hasPermissionToViewTab('VIEW_PROFESSIONAL_LEVEL');
   }
 
   /**
  * Met à jour les textes affichés de façon dynamique
  */
   updateTexts() {
-    this.tabsNav[this.tabNavService.findTabIndex(tabNavEnum.PNC_HOME_PAGE)].title = this.translate.instant(this.isMyPage.transform('PNC_HOME.TITLE', this.pnc));
-    this.tabsNav[this.tabNavService.findTabIndex(tabNavEnum.CAREER_OBJECTIVE_LIST_PAGE)].title = this.translate.instant(this.isMyPage.transform('GLOBAL.DEVELOPMENT_PROGRAM', this.pnc));
-    this.tabsNav[this.tabNavService.findTabIndex(tabNavEnum.SUMMARY_SHEET_PAGE)].title = this.translate.instant(this.isMyPage.transform('GLOBAL.PNC_SUMMARY_SHEET', this.pnc));
-    this.tabsNav[this.tabNavService.findTabIndex(tabNavEnum.PNC_SEARCH_PAGE)].title = this.translate.instant(this.isMyPage.transform('GLOBAL.PNC_TEAM', this.pnc));
-    this.tabsNav[this.tabNavService.findTabIndex(tabNavEnum.UPCOMING_FLIGHT_LIST_PAGE)].title = this.translate.instant(this.isMyPage.transform('GLOBAL.UPCOMING_FLIGHT', this.pnc));
-    this.tabsNav[this.tabNavService.findTabIndex(tabNavEnum.HELP_ASSET_LIST_PAGE)].title = this.translate.instant(this.isMyPage.transform('GLOBAL.HELP_CENTER', this.pnc));
-    this.tabsNav[this.tabNavService.findTabIndex(tabNavEnum.STATUTORY_CERTIFICATE_PAGE)].title = this.translate.instant(this.isMyPage.transform('GLOBAL.STATUTORY_CERTIFICATE', this.pnc));
-    this.tabsNav[this.tabNavService.findTabIndex(tabNavEnum.PROFESSIONAL_LEVEL_PAGE)].title = this.translate.instant(this.isMyPage.transform('GLOBAL.PROFESSIONAL_LEVEL', this.pnc));
+    this.tabsNav[this.tabNavService.findTabIndex(TabNavEnum.PNC_HOME_PAGE)].title = this.translate.instant(this.isMyPage.transform('PNC_HOME.TITLE', this.pnc));
+    this.tabsNav[this.tabNavService.findTabIndex(TabNavEnum.CAREER_OBJECTIVE_LIST_PAGE)].title = this.translate.instant(this.isMyPage.transform('GLOBAL.DEVELOPMENT_PROGRAM', this.pnc));
+    this.tabsNav[this.tabNavService.findTabIndex(TabNavEnum.SUMMARY_SHEET_PAGE)].title = this.translate.instant(this.isMyPage.transform('GLOBAL.PNC_SUMMARY_SHEET', this.pnc));
+    this.tabsNav[this.tabNavService.findTabIndex(TabNavEnum.PNC_SEARCH_PAGE)].title = this.translate.instant(this.isMyPage.transform('GLOBAL.PNC_TEAM', this.pnc));
+    this.tabsNav[this.tabNavService.findTabIndex(TabNavEnum.UPCOMING_FLIGHT_LIST_PAGE)].title = this.translate.instant(this.isMyPage.transform('GLOBAL.UPCOMING_FLIGHT', this.pnc));
+    this.tabsNav[this.tabNavService.findTabIndex(TabNavEnum.HELP_ASSET_LIST_PAGE)].title = this.translate.instant(this.isMyPage.transform('GLOBAL.HELP_CENTER', this.pnc));
+    this.tabsNav[this.tabNavService.findTabIndex(TabNavEnum.STATUTORY_CERTIFICATE_PAGE)].title = this.translate.instant(this.isMyPage.transform('GLOBAL.STATUTORY_CERTIFICATE', this.pnc));
+    this.tabsNav[this.tabNavService.findTabIndex(TabNavEnum.PROFESSIONAL_LEVEL_PAGE)].title = this.translate.instant(this.isMyPage.transform('GLOBAL.PROFESSIONAL_LEVEL', this.pnc));
   }
 
   /**
@@ -167,7 +167,7 @@ export class TabNavComponent {
    * @param event evenement déclencheur de la fonction
    */
   tabChange(event) {
-    if (event.rootParams && event.rootParams.page === tabNavEnum.SUMMARY_SHEET_PAGE) {
+    if (event.rootParams && event.rootParams.page === TabNavEnum.SUMMARY_SHEET_PAGE) {
       this.summarySheetService.openSummarySheet(this.pnc.matricule);
     }
     this.events.publish('changeTab', { pageName: event.root.name, pageParams: event.rootParams });

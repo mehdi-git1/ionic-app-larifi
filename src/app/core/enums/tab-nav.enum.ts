@@ -1,4 +1,4 @@
-export enum tabNavEnum {
+export enum TabNavEnum {
     PNC_HOME_PAGE = 'PncHomePage',
     CAREER_OBJECTIVE_LIST_PAGE = 'CareerObjectiveListPage',
     SUMMARY_SHEET_PAGE = 'SummarySheetPage',
