@@ -5,6 +5,7 @@ import { SessionService } from '../../../../core/services/session/session.servic
 import { PncModel } from '../../../../core/models/pnc.model';
 import { Component } from '@angular/core';
 import { NavParams } from 'ionic-angular';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'page-professional-level',
@@ -21,8 +22,7 @@ export class ProfessionalLevelPage {
   constructor(private navParams: NavParams,
     private sessionService: SessionService,
     private pncService: PncService,
-    private professionalLevelProvider: ProfessionalLevelService) {
-
+    private professionalLevelService: ProfessionalLevelService) {
   }
 
   ionViewDidLoad() {
@@ -43,10 +43,34 @@ export class ProfessionalLevelPage {
       this.pncService.getPnc(this.matricule).then(pnc => {
         this.pnc = pnc;
       }, error => { });
-      this.professionalLevelProvider.getProfessionalLevel(this.matricule).then(professionalLevel => {
-        this.professionalLevel = professionalLevel;
+
+      this.professionalLevelService.getProfessionalLevel(this.matricule).then(professionalLevelResult => {
+        this.professionalLevel = this.sortProfessionalLevel(professionalLevelResult);
       }, error => { });
     }
+  }
+
+  /**
+   * Renvoi un clone trié du ProfessionalLevelModel passé en parametre
+   *
+   * @param professionalLevel
+   * @return clone trié du ProfessionalLevelModel passé en parametre.
+   */
+  sortProfessionalLevel(professionalLevel: ProfessionalLevelModel): ProfessionalLevelModel {
+    const sortedProfessionalLevel: ProfessionalLevelModel = _.cloneDeep(professionalLevel);
+
+    if (sortedProfessionalLevel.stages) {
+      // Tri de l'ordre des stages
+      sortedProfessionalLevel.stages = sortedProfessionalLevel.stages.sort((a, b) => a.date < b.date ? 1 : -1);
+
+      // Tri de l'ordre des modules
+      for (const stage of sortedProfessionalLevel.stages) {
+        if (stage.modules) {
+          stage.modules = stage.modules.sort((a, b) => a.date < b.date ? 1 : -1);
+        }
+      }
+    }
+    return sortedProfessionalLevel;
   }
 
   /**
