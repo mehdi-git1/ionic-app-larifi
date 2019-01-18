@@ -2,7 +2,7 @@ import { FormGroup, AbstractControl, Validators, FormBuilder } from '@angular/fo
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import $ from 'jquery';
 
-import { tabNavEnum } from '../../../../core/enums/tab-nav.enum';
+import { TabNavEnum } from '../../../../core/enums/tab-nav.enum';
 import { Utils } from '../../../../shared/utils/utils';
 import { ConnectivityService } from '../../../../core/services/connectivity/connectivity.service';
 import { NavController, Events, Keyboard } from 'ionic-angular';
@@ -16,7 +16,7 @@ import { AppConstant } from '../../../../app.constant';
 import { PncFilterModel } from '../../../../core/models/pnc-filter.model';
 import { PncModel } from '../../../../core/models/pnc.model';
 import { TabNavService } from '../../../../core/services/tab-nav/tab-nav.service';
-import {SpecialityEnum} from '../../../../core/enums/speciality.enum';
+import { SpecialityEnum } from '../../../../core/enums/speciality.enum';
 
 
 @Component({
@@ -395,7 +395,7 @@ export class PncSearchFilterComponent implements OnInit {
     // Si on va sur un PNC par la recherche, on suprime de la session une enventuelle rotation.
     this.sessionService.appContext.lastConsultedRotation = null;
     if (this.sessionService.isActiveUser(pnc)) {
-      this.navCtrl.parent.select(this.tabNavService.findTabIndex(tabNavEnum.PNC_HOME_PAGE));
+      this.navCtrl.parent.select(this.tabNavService.findTabIndex(TabNavEnum.PNC_HOME_PAGE));
     } else {
       this.navCtrl.push(PncHomePage, { matricule: pnc.matricule });
     }
