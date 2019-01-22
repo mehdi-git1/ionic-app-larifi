@@ -74,11 +74,8 @@
     },
     "CAREER_OBJECTIVE_CREATE": {
         "CREATE_TITLE": "Nouvelle priorité",
-        "MY_CREATE_TITLE": "Ma nouvelle priorité",
         "EDIT_TITLE": "Modification d'une priorité",
-        "MY_EDIT_TITLE": "Ma modification d'une priorité",
         "WAYPOINT_LIST_TITLE": "Points d'étapes",
-        "MY_WAYPOINT_LIST_TITLE": "Mes points d'étapes",
         "FORM": {
             "PNC": "PNC",
             "INITIATOR": "A l'initiative de",
@@ -471,21 +468,18 @@
     "ADMIN": {
         "ADMIN_HOME": {
             "TITLE": "Page d'administration",
-            "MY_TITLE": "Ma page d'administration",
             "BUTTON": {
                 "PROFILE_MANAGEMENT": "Afficher la liste des profils"
             }
         },
         "PROFILE_MANAGEMENT": {
             "TITLE": "Page des profils",
-            "MY_TITLE": "Ma page des profils",
             "BUTTON": {
                 "REGISTER": "Afficher la liste des profils"
             }
         },
         "PERMISSION_MANAGEMENT": {
             "TITLE": "Page des permissions",
-            "MY_TITLE": "Ma page des permissions",
             "BUTTON": {
                 "UPDATE": "MISE À JOUR"
             },
