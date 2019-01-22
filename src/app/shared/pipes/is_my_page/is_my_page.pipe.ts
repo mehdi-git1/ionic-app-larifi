@@ -15,6 +15,7 @@ export class IsMyPage implements PipeTransform {
      * Récupère le titre personnel si on est sur une de nos pages
      * Sinon, si on est sur une page d'un PNC, on met le titre normal
      * @param localizationKey une clef de localization
+     * @param pnc le pnc/user connecté
      * @return la nouvelle valeur
      */
     transform(localizationKey: string, pnc: PncModel): string {
