@@ -109,9 +109,12 @@ export class ImpersonatePage {
       const impersonatedUser = new AuthenticatedUserModel();
       impersonatedUser.matricule = pnc.matricule;
       this.sessionService.impersonatedUser = impersonatedUser;
+      // On fait la redirection aprés avoir récupéré le user impersonnifié
       this.authenticationService.putAuthenticatedUserInSession().then(
         data => {
           this.events.publish('user:authenticationDone');
+          // On redirige vers la page PncHomePage pour permettre le rechargement de celle-ci
+          // le popToRoot ne recharge pas la page en rafraichissant les données
           if (this.navCtrl.parent) {
             this.navCtrl.setRoot(PncHomePage);
           } else {
