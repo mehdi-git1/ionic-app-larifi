@@ -10,14 +10,36 @@
     <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
     <ng-template #pageBlock>
 
-        <div class="add-container">
-            <button (click)="createEObservation()" class="add-button add-eObservation clickable" *ngIf="canCreateEObservation()">
-                <label class="button-optional-information"> {{lastConsultedRotation.number}} du {{ lastConsultedRotation.departureDate | date: 'dd/MM/yyyy'}}</label>
-                <div class="button-content">
-                    <ion-icon name="ios-add-circle-outline" ios="ios-add-circle-outline"></ion-icon>
-                    <label>{{ 'CAREER_OBJECTIVE_LIST.CREATE_EOBSERVATION' | translate }}</label>
-                </div>
-            </button>
+        <div class="add-container eobservation-container" *ngIf="canCreateEObservation()">
+            <div class="eobservation-info-container inline">
+                <span>{{ 'EOBSERVATION.NEW_EOBSERVATION_HEADER.FONCTION' | translate }}</span>
+                <br />
+                <span>CC</span>
+            </div>
+            <div class="eobservation-info-container inline">
+                <span>{{ 'EOBSERVATION.NEW_EOBSERVATION_HEADER.STATUS' | translate }}</span>
+                <br />
+                <span>PCB</span>
+            </div>
+            <div class="eobservation-info-container inline">
+                <span>{{ 'EOBSERVATION.NEW_EOBSERVATION_HEADER.TYPE' | translate }}</span>
+                <br />
+                <span>LOREM IPSUM</span>
+            </div>
+            <div class="eobservation-info-container inline">
+                <span>{{lastConsultedRotation.number}}</span>
+                <br />
+                <span>{{ lastConsultedRotation.departureDate | date: 'dd/MM/yyyy'}}</span>
+            </div>
+            <div class="add-eobservation-container inline">
+                <button (click)="createEObservation()" class="add-eobservation clickable">
+                    <div class="button-content">
+                        <ion-icon class="edospnc-plus" name="edospnc-plus"></ion-icon>
+                        <label>{{ 'EOBSERVATION.NEW_EOBSERVATION_HEADER.NEW_BUTTON' | translate }}</label>
+                    </div>
+                </button>
+            </div>
+
         </div>
 
         <div class="add-container">

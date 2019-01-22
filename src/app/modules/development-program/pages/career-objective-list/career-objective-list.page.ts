@@ -103,7 +103,7 @@ export class CareerObjectiveListPage {
      * @return vrai si c'est le cas, faux sinon
      */
   canCreateEObservation(): boolean {
-    if (this.sessionService.appContext.lastConsultedRotation && !this.deviceService.isBrowser()) {
+    if (this.sessionService.appContext.lastConsultedRotation && this.deviceService.isBrowser()) {
       return true;
     } else {
       return false;
