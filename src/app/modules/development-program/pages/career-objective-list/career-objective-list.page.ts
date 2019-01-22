@@ -64,7 +64,7 @@ export class CareerObjectiveListPage {
    * Retourne le type de formulaire pour la création d'EObs
    */
   getEObsTypeForm() {
-    return EObsFormsTypeEnum[this.pnc.currentSpeciality];
+    return EObsFormsTypeEnum[this.pnc.currentSpeciality] || '---';
   }
 
   /**
