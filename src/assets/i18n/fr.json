@@ -267,9 +267,9 @@
     },
     "EOBSERVATION": {
         "NEW_EOBSERVATION_HEADER": {
-            "FONCTION": "Fonction",
+            "FUNCTION": "Fonction",
             "TYPE": "Type de formulaire",
-            "NEW_BUTTON": "Nouvelle eObservation"
+            "NEW": "Nouvelle eObservation"
         }
     },
     "PROFESSIONAL_LEVEL": {

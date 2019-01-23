@@ -1,4 +1,5 @@
-import { EObsFormsTypeEnum } from './../../../../core/enums/e-obs-forms-type.enum';
+import { EFormsTypeEnum } from '../../../../core/enums/e-forms/e-forms-type.enum';
+
 import { SynchronizationService } from '../../../../core/services/synchronization/synchronization.service';
 import { DeviceService } from '../../../../core/services/device/device.service';
 import { SessionService } from '../../../../core/services/session/session.service';
@@ -24,7 +25,6 @@ export class CareerObjectiveListPage {
   matricule: string;
   eObservation: EObservationModel;
   lastConsultedRotation: RotationModel;
-  eObsFormsTypeEnum: EObsFormsTypeEnum;
 
   // Expose l'enum au template
   PncRole = PncRoleEnum;
@@ -62,9 +62,10 @@ export class CareerObjectiveListPage {
 
   /**
    * Retourne le type de formulaire pour la création d'EObs
+   * @return retourne la valeur du type de formulaire
    */
-  getEObsTypeForm() {
-    return EObsFormsTypeEnum[this.pnc.currentSpeciality] || '---';
+  getEObsTypeForm(): string {
+    return EFormsTypeEnum.getTextType(EFormsTypeEnum['this.pnc.currentSpeciality']);
   }
 
   /**
@@ -124,6 +125,6 @@ export class CareerObjectiveListPage {
    * @return true si c'est le cas, false sinon
    */
   loadingIsOver(): boolean {
-    return this.careerObjectiveList !== undefined && this.pnc.matricule !== undefined;
+    return this.careerObjectiveList !== undefined && this.pnc !== undefined;
   }
 }

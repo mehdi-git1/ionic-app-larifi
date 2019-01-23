@@ -11,26 +11,23 @@
     <ng-template #pageBlock>
 
         <div class="add-container eobservation-container" *ngIf="canCreateEObservation()">
-            <div class="eobservation-info-container inline">
-                <span>{{ 'EOBSERVATION.NEW_EOBSERVATION_HEADER.FONCTION' | translate }}</span>
-                <br />
+            <div class="eobservation-info-container">
+                <label>{{ 'EOBSERVATION.NEW_EOBSERVATION_HEADER.FUNCTION' | translate }}</label>
                 <span>{{pnc.currentSpeciality}}</span>
             </div>
-            <div class="eobservation-info-container inline">
-                <span>{{ 'EOBSERVATION.NEW_EOBSERVATION_HEADER.TYPE' | translate }}</span>
-                <br />
-                <span>{{getEObsTypeForm()}}</span>
+            <div class="eobservation-info-container">
+                <label>{{ 'EOBSERVATION.NEW_EOBSERVATION_HEADER.TYPE' | translate }}</label>
+                <span [ngClass]="{'no-value' : !getEObsTypeForm() }">{{getEObsTypeForm()}}</span>
             </div>
-            <div class="eobservation-info-container inline">
-                <span>{{lastConsultedRotation.number}}</span>
-                <br />
+            <div class="eobservation-info-container">
+                <label>{{lastConsultedRotation.number}}</label>
                 <span>{{ lastConsultedRotation.departureDate | date: 'dd/MM/yyyy'}}</span>
             </div>
-            <div class="add-eobservation-container inline">
+            <div class="add-eobservation-container">
                 <button (click)="createEObservation()" class="add-eobservation clickable">
                     <div class="button-content">
                         <ion-icon class="edospnc-plus" name="edospnc-plus"></ion-icon>
-                        <label>{{ 'EOBSERVATION.NEW_EOBSERVATION_HEADER.NEW_BUTTON' | translate }}</label>
+                        <label>{{ 'EOBSERVATION.NEW_EOBSERVATION_HEADER.NEW' | translate }}</label>
                     </div>
                 </button>
             </div>
