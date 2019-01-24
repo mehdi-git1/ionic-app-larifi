@@ -4,7 +4,7 @@
         <label class="e-obs-type"> {{ "EOBSERVATION.LIST.HEADER.TYPE"| translate }} </label>
         <label class="e-obs-writer"> {{ "EOBSERVATION.LIST.HEADER.WRITER" | translate }} </label>
     </mat-expansion-panel-header>
-    <div *ngIf="EObservations.length === 0; else eObservationsDataBlock">
+    <div *ngIf="eObservations.length === 0; else eObservationsDataBlock">
         <no-data></no-data>
     </div>
     <ng-template #eObservationsDataBlock>

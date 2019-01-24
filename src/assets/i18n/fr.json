@@ -268,238 +268,238 @@
                 "DATE": "Date de réalisation",
                 "TYPE": "Type eObservation",
                 "WRITER": "Rédacteur"
-            },
-            "NEW_EOBSERVATION_HEADER": {
-                "FUNCTION": "Fonction",
-                "TYPE": "Type de formulaire",
-                "NEW": "Nouvelle eObservation"
             }
         },
-        "PROFESSIONAL_LEVEL": {
-            "TITLE": "Niveau pro SV",
-            "MY_TITLE": "Mon niveau pro SV",
-            "HEADER": {
-                "DATE": "Date",
-                "CODE": "Code",
-                "LABEL": "Libellé",
-                "RESULT": "Résultat",
-                "HELP": "Légende à venir"
+        "NEW_EOBSERVATION_HEADER": {
+            "FUNCTION": "Fonction",
+            "TYPE": "Type de formulaire",
+            "NEW": "Nouvelle eObservation"
+        }
+    },
+    "PROFESSIONAL_LEVEL": {
+        "TITLE": "Niveau pro SV",
+        "MY_TITLE": "Mon niveau pro SV",
+        "HEADER": {
+            "DATE": "Date",
+            "CODE": "Code",
+            "LABEL": "Libellé",
+            "RESULT": "Résultat",
+            "HELP": "Légende à venir"
+        },
+        "LEGEND": {
+            "TITLE": "Légende",
+            "A": {
+                "TITLE": "(A)",
+                "TEXT": "Test ATQP"
             },
-            "LEGEND": {
-                "TITLE": "Légende",
-                "A": {
-                    "TITLE": "(A)",
-                    "TEXT": "Test ATQP"
-                },
-                "T": {
-                    "TITLE": "(T)",
-                    "TEXT": "FC + Test"
-                },
-                "R": {
-                    "TITLE": "(R)",
-                    "TEXT": "Test de rattrapage"
-                },
-                "E1": {
-                    "TITLE": "(E1)",
-                    "TEXT": "1<sup>ère</sup> évaluation"
-                },
-                "E2": {
-                    "TITLE": "(E2)",
-                    "TEXT": "2<sup>ème</sup> évaluation"
-                },
-                "FC": {
-                    "TITLE": "(FC)",
-                    "TEXT": "Formation Complémentaire"
-                }
+            "T": {
+                "TITLE": "(T)",
+                "TEXT": "FC + Test"
             },
-            "MODULE_TYPE": {
-                "PRACTICAL": "Pratique",
-                "THEORETICAL": "Théorique"
+            "R": {
+                "TITLE": "(R)",
+                "TEXT": "Test de rattrapage"
             },
-            "MODULE_STATUS": {
-                "SUCCESS": "Réussi",
-                "SUCCESS_WITH_FC": "Réussi avec FC",
-                "SUCCESS_WITH_FC_AND_TESTS": "Réussi avec FC + test",
-                "SUCCESS_WITH_RETAKE": "Réussi avec rattrapage",
-                "FAILED": "Non atteint"
+            "E1": {
+                "TITLE": "(E1)",
+                "TEXT": "1<sup>ère</sup> évaluation"
             },
-            "EVALUATION_SHEET": {
-                "TITLE": "Feuille d'évaluation",
-                "MY_TITLE": "Ma feuille d'évaluation",
-                "SCORE_BLOC": {
-                    "BLOC_EVALUATION_TITLE": "Evaluation",
-                    "E1": "E1",
-                    "E2": "E2",
-                    "BLOC_FC_TITLE": "FC"
-                },
-                "EXERCISES_BLOC": {
-                    "TITLE_COLUMN": "Titre",
-                    "E1_COLUMN": "E1",
-                    "E2_COLUMN": "E2",
-                    "FC_COLUMN": "FC",
-                    "NA_COLUMN": "Non acquis"
-                },
-                "ERROR": "Erreur lors de la récupération du niveau pro pour le matricule {{ matricule }}",
-                "NO_DATA": "Pas de données disponibles"
+            "E2": {
+                "TITLE": "(E2)",
+                "TEXT": "2<sup>ème</sup> évaluation"
             },
-            "NOT_VALIDATED_QUESTIONS": {
-                "TITLE": "Questions non validées"
+            "FC": {
+                "TITLE": "(FC)",
+                "TEXT": "Formation Complémentaire"
             }
         },
-        "PNC_SEARCH": {
-            "TITLE": "Recherche PNC",
-            "MY_TITLE": "Ma recherche PNC",
-            "CRITERIA": {
-                "FILTERS": "Filtres",
-                "PNC_MATRICULE": "Nom, Prénom, Matricule",
-                "DIVISION": "Division",
-                "SECTOR": "Secteur",
-                "GINQ": "Ginq",
-                "SPECIALITY": "Fonction",
-                "RELAY": "Relais",
-                "AIRCRAFT_SKILL": "Spécialisation avion",
-                "WORK_RATE": "Rythme",
-                "PRIORITIZED": "Priorité majeure"
-            },
-            "DEFAULT_DATA": {
-                "ALL_F": "Toutes",
-                "ALL_M": "Tous"
-            },
-            "NO_PNC_FOUND": "Aucun pnc trouvé",
-            "END_OF_SEARCH": "Fin de la recherche",
-            "ERROR": {
-                "SEARCH": "Erreur lors de la recherche de PNC"
-            },
-            "REINIT_FILTERS": "Réinitialiser les filtres"
+        "MODULE_TYPE": {
+            "PRACTICAL": "Pratique",
+            "THEORETICAL": "Théorique"
         },
-        "HELP_ASSET_LIST": {
-            "WEB_HELP_ASSET": "Ressources web",
-            "PDF_HELP_ASSET": "Ressources pdf",
-            "TITLE": "Ressources d'aide",
-            "MY_TITLE": "Mes ressources d'aide",
-            "NO_HELP_ASSETS": "Aucune ressource créée pour le moment",
-            "LAST_UPDATE_DATE": "Dernière mise à jour : "
+        "MODULE_STATUS": {
+            "SUCCESS": "Réussi",
+            "SUCCESS_WITH_FC": "Réussi avec FC",
+            "SUCCESS_WITH_FC_AND_TESTS": "Réussi avec FC + test",
+            "SUCCESS_WITH_RETAKE": "Réussi avec rattrapage",
+            "FAILED": "Non atteint"
         },
-        "SYNCHRONIZATION": {
-            "PNC_SAVED_OFFLINE": "Le PNC {{ matricule }} a été synchronisé",
-            "PNC_SAVED_OFFLINE_ERROR": "Le PNC {{ matricule }} n'a pas pu être synchronisé",
-            "ROTATION_SAVED_OFFLINE": "Les PNC de la rotation {{ rotationNumber }} ont été synchronisés",
-            "ROTATION_SAVED_OFFLINE_ERROR": "Un ou plusieurs PNC de la rotation {{ rotationNumber }} n'ont pas pu être synchronisés",
-            "FLIGHT_SAVED_OFFLINE": "Les PNC du vol {{ flightNumber }} ont été synchronisés",
-            "FLIGHT_SAVED_OFFLINE_ERROR": "Un ou plusieurs PNC du vol {{ flightNumber }} n'ont pas pu être synchronisés",
-            "FLIGHT_SERVICE_CALL_ERROR": "Le chargement des PNC du vol {{ flightNumber }} a échoué.",
-            "ROTATION_SERVICE_CALL_ERROR": "Le chargement des PNC de la rotation {{ rotationNumber }} a échoué."
-        },
-        "PIN_PAD": {
-            "TITLE": {
-                "OPENING_APP": "Veuillez entrer votre code pin",
-                "PIN_ASK_CHANGE": "Veuillez entrer votre code pin actuel",
-                "FIRST_CONNEXION_STAGE_1": "Veuillez entrer un code pin pour sécuriser votre compte",
-                "FIRST_CONNEXION_STAGE_2": "Veuillez confirmer votre code pin"
+        "EVALUATION_SHEET": {
+            "TITLE": "Feuille d'évaluation",
+            "MY_TITLE": "Ma feuille d'évaluation",
+            "SCORE_BLOC": {
+                "BLOC_EVALUATION_TITLE": "Evaluation",
+                "E1": "E1",
+                "E2": "E2",
+                "BLOC_FC_TITLE": "FC"
             },
-            "FORGOTTEN": "Code pin oublié ?",
+            "EXERCISES_BLOC": {
+                "TITLE_COLUMN": "Titre",
+                "E1_COLUMN": "E1",
+                "E2_COLUMN": "E2",
+                "FC_COLUMN": "FC",
+                "NA_COLUMN": "Non acquis"
+            },
+            "ERROR": "Erreur lors de la récupération du niveau pro pour le matricule {{ matricule }}",
+            "NO_DATA": "Pas de données disponibles"
+        },
+        "NOT_VALIDATED_QUESTIONS": {
+            "TITLE": "Questions non validées"
+        }
+    },
+    "PNC_SEARCH": {
+        "TITLE": "Recherche PNC",
+        "MY_TITLE": "Ma recherche PNC",
+        "CRITERIA": {
+            "FILTERS": "Filtres",
+            "PNC_MATRICULE": "Nom, Prénom, Matricule",
+            "DIVISION": "Division",
+            "SECTOR": "Secteur",
+            "GINQ": "Ginq",
+            "SPECIALITY": "Fonction",
+            "RELAY": "Relais",
+            "AIRCRAFT_SKILL": "Spécialisation avion",
+            "WORK_RATE": "Rythme",
+            "PRIORITIZED": "Priorité majeure"
+        },
+        "DEFAULT_DATA": {
+            "ALL_F": "Toutes",
+            "ALL_M": "Tous"
+        },
+        "NO_PNC_FOUND": "Aucun pnc trouvé",
+        "END_OF_SEARCH": "Fin de la recherche",
+        "ERROR": {
+            "SEARCH": "Erreur lors de la recherche de PNC"
+        },
+        "REINIT_FILTERS": "Réinitialiser les filtres"
+    },
+    "HELP_ASSET_LIST": {
+        "WEB_HELP_ASSET": "Ressources web",
+        "PDF_HELP_ASSET": "Ressources pdf",
+        "TITLE": "Ressources d'aide",
+        "MY_TITLE": "Mes ressources d'aide",
+        "NO_HELP_ASSETS": "Aucune ressource créée pour le moment",
+        "LAST_UPDATE_DATE": "Dernière mise à jour : "
+    },
+    "SYNCHRONIZATION": {
+        "PNC_SAVED_OFFLINE": "Le PNC {{ matricule }} a été synchronisé",
+        "PNC_SAVED_OFFLINE_ERROR": "Le PNC {{ matricule }} n'a pas pu être synchronisé",
+        "ROTATION_SAVED_OFFLINE": "Les PNC de la rotation {{ rotationNumber }} ont été synchronisés",
+        "ROTATION_SAVED_OFFLINE_ERROR": "Un ou plusieurs PNC de la rotation {{ rotationNumber }} n'ont pas pu être synchronisés",
+        "FLIGHT_SAVED_OFFLINE": "Les PNC du vol {{ flightNumber }} ont été synchronisés",
+        "FLIGHT_SAVED_OFFLINE_ERROR": "Un ou plusieurs PNC du vol {{ flightNumber }} n'ont pas pu être synchronisés",
+        "FLIGHT_SERVICE_CALL_ERROR": "Le chargement des PNC du vol {{ flightNumber }} a échoué.",
+        "ROTATION_SERVICE_CALL_ERROR": "Le chargement des PNC de la rotation {{ rotationNumber }} a échoué."
+    },
+    "PIN_PAD": {
+        "TITLE": {
+            "OPENING_APP": "Veuillez entrer votre code pin",
+            "PIN_ASK_CHANGE": "Veuillez entrer votre code pin actuel",
+            "FIRST_CONNEXION_STAGE_1": "Veuillez entrer un code pin pour sécuriser votre compte",
+            "FIRST_CONNEXION_STAGE_2": "Veuillez confirmer votre code pin"
+        },
+        "FORGOTTEN": "Code pin oublié ?",
+        "CANCEL": "Annuler",
+        "ERASE": "Effacer",
+        "ERROR": {
+            "PIN_INCORRECT": "Code pin incorrect",
+            "PIN_INIT_INCORRECT": "Les 2 codes pin doivent être identiques"
+        },
+        "TOAST_MESSAGE": {
+            "SUCCESS_MODIF": "Code pin modifié avec succès",
+            "SUCCESS_REINIT": "Code pin réinitialisé avec succès",
+            "ERROR": "Erreur lors de la modification du code pin"
+        }
+    },
+    "SECRET_QUESTION": {
+        "TITLE": {
+            "NEW_QUESTION": "Veuillez définir une question secrète en cas d'oubli de votre code pin",
+            "ANSWER_TO_QUESTION": "Répondez à la question suivante :"
+        },
+        "LABEL": {
+            "NEW_QUESTION": "Veuillez entrer une question secrète",
+            "NEW_ANSWER": "Veuillez entrer la réponse à la question",
+            "ANSWER_TO_QUESTION": "Veuillez entrer la réponse à la question"
+        },
+        "VALIDATE": "Valider",
+        "ERROR": {
+            "ANSWER_INCORRECT": "Réponse incorrecte"
+        },
+        "TOAST_MESSAGE": {
+            "SUCCESS_INIT": "Code pin et question / réponse secrète initialisés",
+            "SUCCESS_REINIT": "Question / réponse secrète initialisées",
+            "ERROR": "Erreur lors de la modification de la question / réponse secrète"
+        }
+    },
+    "SETTINGS": {
+        "TITLE": "Réglages",
+        "MY_TITLE": "Mes réglages",
+        "INIT_CACHE": {
+            "LABEL": "Vider le cache",
+            "SUCCESS": "Cache vidé avec succès"
+        },
+        "FORCE_SYNCHRONIZATION": {
+            "LABEL": "Forcer la synchronisation"
+        },
+        "CHANGE_PIN_CODE": {
+            "LABEL": "Changer le code pin"
+        },
+        "CHANGE_SECRET_QUESTION": {
+            "LABEL": "Changer la question secrète"
+        },
+        "ADMIN_ACCESS": {
+            "BUTTON": "Accéder au mode admin"
+        },
+        "CONFIRM_INIT_CACHE": {
+            "TITLE": "Vider le cache",
+            "MESSAGE": "Attention. Êtes-vous sûr de vouloir vider le cache ?",
+            "MESSAGE_UNSYNCHRONIZED_DATA": "Attention. Vider le cache peut entraîner la perte de données non synchronisées.",
             "CANCEL": "Annuler",
-            "ERASE": "Effacer",
-            "ERROR": {
-                "PIN_INCORRECT": "Code pin incorrect",
-                "PIN_INIT_INCORRECT": "Les 2 codes pin doivent être identiques"
-            },
-            "TOAST_MESSAGE": {
-                "SUCCESS_MODIF": "Code pin modifié avec succès",
-                "SUCCESS_REINIT": "Code pin réinitialisé avec succès",
-                "ERROR": "Erreur lors de la modification du code pin"
+            "CONFIRM": "Confirmer"
+        },
+        "REVOKE_CERTIFICATE": {
+            "BUTTON": "Révocation de certificat"
+        },
+        "CONFIRM_REVOKE_CERTIFICATE": {
+            "TITLE": "Révocation de certificat",
+            "MESSAGE": "Attention. Êtes-vous sûr de vouloir révoquer votre certificat ?",
+            "CANCEL": "Annuler",
+            "CONFIRM": "Confirmer"
+        },
+        "IMPERSONATE_USER": {
+            "LABEL": "Impersonnifier un utilisateur",
+            "FIRST_NAV_TAB_IS_MANDATORY": "Vous devez vous placer sur votre page d'accueil pour pouvoir utiliser l'impersonnification"
+        }
+    },
+    "IMPERSONATE": {
+        "TITLE": "Sélection d'une identité PNC",
+        "SEARCH_PNC": "Matricule, nom, prénom",
+        "IMPERSONATED_USER": "Utilisateur impersonnifié",
+        "BUTTONS": {
+            "GET_MY_IDENTITY_BACK": "Récupérer mon identité"
+        }
+    },
+    "ADMIN": {
+        "ADMIN_HOME": {
+            "TITLE": "Page d'administration",
+            "BUTTON": {
+                "PROFILE_MANAGEMENT": "Afficher la liste des profils"
             }
         },
-        "SECRET_QUESTION": {
-            "TITLE": {
-                "NEW_QUESTION": "Veuillez définir une question secrète en cas d'oubli de votre code pin",
-                "ANSWER_TO_QUESTION": "Répondez à la question suivante :"
-            },
-            "LABEL": {
-                "NEW_QUESTION": "Veuillez entrer une question secrète",
-                "NEW_ANSWER": "Veuillez entrer la réponse à la question",
-                "ANSWER_TO_QUESTION": "Veuillez entrer la réponse à la question"
-            },
-            "VALIDATE": "Valider",
-            "ERROR": {
-                "ANSWER_INCORRECT": "Réponse incorrecte"
-            },
-            "TOAST_MESSAGE": {
-                "SUCCESS_INIT": "Code pin et question / réponse secrète initialisés",
-                "SUCCESS_REINIT": "Question / réponse secrète initialisées",
-                "ERROR": "Erreur lors de la modification de la question / réponse secrète"
+        "PROFILE_MANAGEMENT": {
+            "TITLE": "Page des profils",
+            "BUTTON": {
+                "REGISTER": "Afficher la liste des profils"
             }
         },
-        "SETTINGS": {
-            "TITLE": "Réglages",
-            "MY_TITLE": "Mes réglages",
-            "INIT_CACHE": {
-                "LABEL": "Vider le cache",
-                "SUCCESS": "Cache vidé avec succès"
+        "PERMISSION_MANAGEMENT": {
+            "TITLE": "Page des permissions",
+            "BUTTON": {
+                "UPDATE": "MISE À JOUR"
             },
-            "FORCE_SYNCHRONIZATION": {
-                "LABEL": "Forcer la synchronisation"
-            },
-            "CHANGE_PIN_CODE": {
-                "LABEL": "Changer le code pin"
-            },
-            "CHANGE_SECRET_QUESTION": {
-                "LABEL": "Changer la question secrète"
-            },
-            "ADMIN_ACCESS": {
-                "BUTTON": "Accéder au mode admin"
-            },
-            "CONFIRM_INIT_CACHE": {
-                "TITLE": "Vider le cache",
-                "MESSAGE": "Attention. Êtes-vous sûr de vouloir vider le cache ?",
-                "MESSAGE_UNSYNCHRONIZED_DATA": "Attention. Vider le cache peut entraîner la perte de données non synchronisées.",
-                "CANCEL": "Annuler",
-                "CONFIRM": "Confirmer"
-            },
-            "REVOKE_CERTIFICATE": {
-                "BUTTON": "Révocation de certificat"
-            },
-            "CONFIRM_REVOKE_CERTIFICATE": {
-                "TITLE": "Révocation de certificat",
-                "MESSAGE": "Attention. Êtes-vous sûr de vouloir révoquer votre certificat ?",
-                "CANCEL": "Annuler",
-                "CONFIRM": "Confirmer"
-            },
-            "IMPERSONATE_USER": {
-                "LABEL": "Impersonnifier un utilisateur",
-                "FIRST_NAV_TAB_IS_MANDATORY": "Vous devez vous placer sur votre page d'accueil pour pouvoir utiliser l'impersonnification"
-            }
-        },
-        "IMPERSONATE": {
-            "TITLE": "Sélection d'une identité PNC",
-            "SEARCH_PNC": "Matricule, nom, prénom",
-            "IMPERSONATED_USER": "Utilisateur impersonnifié",
-            "BUTTONS": {
-                "GET_MY_IDENTITY_BACK": "Récupérer mon identité"
-            }
-        },
-        "ADMIN": {
-            "ADMIN_HOME": {
-                "TITLE": "Page d'administration",
-                "BUTTON": {
-                    "PROFILE_MANAGEMENT": "Afficher la liste des profils"
-                }
-            },
-            "PROFILE_MANAGEMENT": {
-                "TITLE": "Page des profils",
-                "BUTTON": {
-                    "REGISTER": "Afficher la liste des profils"
-                }
-            },
-            "PERMISSION_MANAGEMENT": {
-                "TITLE": "Page des permissions",
-                "BUTTON": {
-                    "UPDATE": "MISE À JOUR"
-                },
-                "HEADER": {
-                    "PERMISSION_HEADER": "Permission",
-                    "AUTORISATION_HEADER": "Autoriser"
-                }
+            "HEADER": {
+                "PERMISSION_HEADER": "Permission",
+                "AUTORISATION_HEADER": "Autoriser"
             }
         }
     }
