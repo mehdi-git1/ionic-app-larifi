@@ -92,6 +92,10 @@ export class EFormsEObservationService {
     );
   }
 
+  /**
+   * Recupére la spécialité à envoyer a Eforms
+   * @param speciality Spécialité du PNC
+   */
   getSpecialityForEForms(speciality: string) {
     if (speciality == 'CC') { return 'C/C'; }
     if (speciality == 'HOT' || speciality == 'STW') { return 'HST'; }
