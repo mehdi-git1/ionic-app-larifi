@@ -9,7 +9,7 @@ export enum EFormsTypeEnum {
 
 export namespace EFormsTypeEnum {
     /**
-     * retourne le bon Type en fonction de l'enum
+     * retourne le bon type en fonction de l'enum
      * @param type enum à tester
      */
     export function getType(type: EFormsTypeEnum) {
@@ -23,7 +23,7 @@ export namespace EFormsTypeEnum {
     }
 
     /**
-     * retourne le bon Text de tyê de formulaire en fonction de l'enum
+     * retourne le bon texte de type de formulaire en fonction de l'enum
      * @param type enum à tester
      */
     export function getTextType(type: EFormsTypeEnum) {
