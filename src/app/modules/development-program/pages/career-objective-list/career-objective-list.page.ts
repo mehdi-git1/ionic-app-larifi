@@ -24,6 +24,8 @@ export class CareerObjectiveListPage {
   eObservation: EObservationModel;
   lastConsultedRotation: RotationModel;
 
+  eObservations: EObservationModel[];
+
   // Expose l'enum au template
   PncRole = PncRoleEnum;
 

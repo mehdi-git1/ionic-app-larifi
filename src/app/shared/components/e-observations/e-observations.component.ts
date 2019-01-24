@@ -9,7 +9,7 @@ export class EObservationsComponent {
 
   matPanelHeaderHeight = 'auto';
 
-  @Input() EObservations = [
+  @Input() eObservations = [
     {
       date: new Date(),
       type: 'EHST',
