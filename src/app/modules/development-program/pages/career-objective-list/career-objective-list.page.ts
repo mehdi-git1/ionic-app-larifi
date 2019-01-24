@@ -1,8 +1,8 @@
+import { FormsEObservationService } from './../../../../core/services/forms/forms-e-observation.service';
+import { FormsInputParamsModel } from './../../../../core/models/forms-input-params.model';
 import { SynchronizationService } from '../../../../core/services/synchronization/synchronization.service';
 import { DeviceService } from '../../../../core/services/device/device.service';
 import { SessionService } from '../../../../core/services/session/session.service';
-import { EObservationModel } from '../../../../core/models/e-observation.model';
-import { EFormsEObservationService } from '../../../../core/services/e-forms/e-forms-e-observation.service';
 import { PncRoleEnum } from '../../../../core/enums/pnc-role.enum';
 import { CareerObjectiveCreatePage } from '../career-objective-create/career-objective-create.page';
 import { CareerObjectiveModel } from '../../../../core/models/career-objective.model';
@@ -21,7 +21,7 @@ export class CareerObjectiveListPage {
 
   careerObjectiveList: CareerObjectiveModel[];
   matricule: string;
-  eObservation: EObservationModel;
+  eObservation: FormsInputParamsModel;
   lastConsultedRotation: RotationModel;
 
   // Expose l'enum au template
@@ -32,7 +32,7 @@ export class CareerObjectiveListPage {
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     private careerObjectiveService: CareerObjectiveService,
-    private eObservationService: EFormsEObservationService,
+    private formsEObservationService: FormsEObservationService,
     private deviceService: DeviceService,
     private sessionService: SessionService,
     private synchronizationProvider: SynchronizationService,
@@ -71,6 +71,18 @@ export class CareerObjectiveListPage {
   }
 
   /**
+    * Récupère la liste des eObservations
+    */
+  initCareerObjectivesList() {
+    this.careerObjectiveService.getPncCareerObjectives(this.matricule).then(result => {
+      result.sort((careerObjective: CareerObjectiveModel, otherCareerObjective: CareerObjectiveModel) => {
+        return careerObjective.creationDate < otherCareerObjective.creationDate ? 1 : -1;
+      });
+      this.careerObjectiveList = result;
+    }, error => { });
+  }
+
+  /**
    * Dirige vers la page de création d'un nouvel objectif
    */
   goToCareerObjectiveCreation() {
@@ -89,10 +101,10 @@ export class CareerObjectiveListPage {
    * Fait appel à formsLib avec les paramètres eObservation.
    */
   createEObservation() {
-    this.eObservationService.getEObservation(this.matricule, this.sessionService.appContext.lastConsultedRotation.techId).then(eObservation => {
+    this.formsEObservationService.getFormsInputParams(this.matricule, this.sessionService.appContext.lastConsultedRotation.techId).then(eObservation => {
       this.eObservation = eObservation;
       if (this.eObservation) {
-        this.eObservationService.callForms(this.eObservation);
+        this.formsEObservationService.callForms(this.eObservation);
       }
     }, error => {
     });

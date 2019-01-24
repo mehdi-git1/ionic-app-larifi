@@ -1,3 +1,4 @@
+import { FormsInputParamsModel } from './../../../../core/models/forms-input-params.model';
 import { SummarySheetTransformerService } from './../../../../core/services/summary-sheet/summary-sheet-transformer.service';
 import { Component } from '@angular/core';
 import { NavController, NavParams, Events } from 'ionic-angular';
@@ -13,7 +14,6 @@ import { UpcomingFlightListPage } from '../../../flight-activity/pages/upcoming-
 import { SessionService } from '../../../../core/services/session/session.service';
 import { ToastService } from '../../../../core/services/toast/toast.service';
 import { GenderService } from '../../../../core/services/gender/gender.service';
-import { EObservationModel } from '../../../../core/models/e-observation.model';
 import { CareerObjectiveListPage } from '../../../development-program/pages/career-objective-list/career-objective-list.page';
 import { PncService } from '../../../../core/services/pnc/pnc.service';
 import { PncModel } from '../../../../core/models/pnc.model';
@@ -40,7 +40,7 @@ export class PncHomePage {
     pnc: PncModel;
     matricule: string;
     synchroInProgress: boolean;
-    eObservation: EObservationModel;
+    eObservation: FormsInputParamsModel;
     // exporter la classe enum speciality dans la page html
     Speciality = SpecialityEnum;
     formatedSpeciality: string;
