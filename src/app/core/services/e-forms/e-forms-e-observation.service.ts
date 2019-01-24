@@ -25,6 +25,9 @@ export class EFormsEObservationService {
   ) {
   }
 
+  /**
+   * Charge le plugin FormsLib si il est chargeable
+   */
   get formsPlugin(): any {
     if (window.cordova && window.cordova.plugins && window.cordova.plugins.FormsLibPlugin) {
       return window.cordova.plugins.FormsLibPlugin;
@@ -95,6 +98,10 @@ export class EFormsEObservationService {
     return speciality;
   }
 
+  /**
+   * Recupére le type de l'eForm a renvoyer pour la création vie eForms
+   * @param speciality Spécialité du PNC
+   */
   getReportTypeForEForms(speciality: string) {
     return EFormsTypeEnum.getType(EFormsTypeEnum[speciality]);
   }

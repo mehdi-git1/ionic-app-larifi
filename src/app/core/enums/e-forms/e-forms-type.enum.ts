@@ -1,10 +1,10 @@
 export enum EFormsTypeEnum {
-    'HOT',
-    'STW',
-    'CC',
-    'CCP',
-    'ALT',
-    'PCB'
+    HOT,
+    STW,
+    CC,
+    CCP,
+    ALT,
+    PCB
 }
 
 export namespace EFormsTypeEnum {
