@@ -1,3 +1,6 @@
+import { SummarySheetTransformerService } from './summary-sheet-transformer.service';
+import { FileTypeEnum } from './../../enums/file-type.enum';
+import { FileService } from './../../file/file.service';
 import { Injectable } from '@angular/core';
 
 import { OfflineSummarySheetService } from './offline-summary-sheet.service';
@@ -12,7 +15,9 @@ export class SummarySheetService extends BaseService {
   constructor(
     protected connectivityService: ConnectivityService,
     private onlineSummarySheetProvider: OnlineSummarySheetService,
-    private offlineSummarySheetProvider: OfflineSummarySheetService
+    private offlineSummarySheetProvider: OfflineSummarySheetService,
+    private fileService: FileService,
+    private summarySheetTransformerService: SummarySheetTransformerService
   ) {
     super(
       connectivityService,
@@ -28,5 +33,16 @@ export class SummarySheetService extends BaseService {
     */
   getSummarySheet(matricule: string): Promise<SummarySheetModel> {
     return this.execFunctionService('getSummarySheet', matricule);
+  }
+
+  /**
+   * Ouvre la fiche synthèse d'un PNC
+   * @param matricule le matricule du PNC
+   */
+  openSummarySheet(matricule: string) {
+    this.getSummarySheet(matricule).then(summarySheet => {
+      this.fileService.displayFile(FileTypeEnum.PDF, this.summarySheetTransformerService.toSummarySheetFile(summarySheet));
+    }, error => {
+    });
   }
 }

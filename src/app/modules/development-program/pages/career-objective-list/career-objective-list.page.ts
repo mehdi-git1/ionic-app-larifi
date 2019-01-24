@@ -1,5 +1,7 @@
 import { FormsEObservationService } from './../../../../core/services/forms/forms-e-observation.service';
 import { FormsInputParamsModel } from './../../../../core/models/forms-input-params.model';
+import { EFormsTypeEnum } from '../../../../core/enums/e-forms/e-forms-type.enum';
+
 import { SynchronizationService } from '../../../../core/services/synchronization/synchronization.service';
 import { DeviceService } from '../../../../core/services/device/device.service';
 import { SessionService } from '../../../../core/services/session/session.service';
@@ -24,7 +26,7 @@ export class CareerObjectiveListPage {
   eObservation: FormsInputParamsModel;
   lastConsultedRotation: RotationModel;
 
-  eObservations: EObservationModel[];
+  eObservations;
 
   // Expose l'enum au template
   PncRole = PncRoleEnum;
@@ -61,6 +63,22 @@ export class CareerObjectiveListPage {
   }
 
   /**
+   * Retourne le texte du type de formulaire pour la création d'EObs
+   * @return retourne la valeur du type de formulaire
+   */
+  getEObsTextTypeForm(): string {
+    return EFormsTypeEnum.getTextType(EFormsTypeEnum[this.pnc.currentSpeciality]);
+  }
+
+  /**
+ * Retourne le type de formulaire pour la création d'EObs
+ * @return boolean pour savoir si le type d'Eform est géré actuellement
+ */
+  hasEObsTypeForm(): boolean {
+    return EFormsTypeEnum.getType(EFormsTypeEnum[this.pnc.currentSpeciality]) ? true : false;
+  }
+
+  /**
     * Récupère la liste des objectifs
     */
   initCareerObjectivesList() {
@@ -72,17 +90,6 @@ export class CareerObjectiveListPage {
     }, error => { });
   }
 
-  /**
-    * Récupère la liste des eObservations
-    */
-  initCareerObjectivesList() {
-    this.careerObjectiveService.getPncCareerObjectives(this.matricule).then(result => {
-      result.sort((careerObjective: CareerObjectiveModel, otherCareerObjective: CareerObjectiveModel) => {
-        return careerObjective.creationDate < otherCareerObjective.creationDate ? 1 : -1;
-      });
-      this.careerObjectiveList = result;
-    }, error => { });
-  }
 
   /**
    * Dirige vers la page de création d'un nouvel objectif
@@ -129,6 +136,6 @@ export class CareerObjectiveListPage {
    * @return true si c'est le cas, false sinon
    */
   loadingIsOver(): boolean {
-    return this.careerObjectiveList !== undefined;
+    return this.careerObjectiveList !== undefined && this.pnc !== undefined;
   }
 }

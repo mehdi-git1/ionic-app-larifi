@@ -82,14 +82,6 @@ describe('EvaluationSheetPage', () => {
         tick();
     }));
 
-    it('doit afficher la bonne classe en fonction du code résultat', () => {
-        expect(comp).toBeDefined();
-        comp.evaluationSheet.module.moduleResultStatus = 'FAILED';
-        fixture.detectChanges();
-        failureEl = fixture.debugElement.query(By.css('.result'));
-        expect(failureEl.nativeElement.className).toContain(comp.getCssClassForModuleStatus(comp.evaluationSheet.module.moduleResultStatus));
-    });
-
     it(`doit faire disparaître le spinner lorsqu'il n'y a pas de moduleId`, () => {
         spyOn(navParams, 'get').and.callFake(function (value) {
             if (value === 'moduleId') {

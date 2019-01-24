@@ -1,167 +1,159 @@
-.selection-dot {
-    background-color: color($colors, blue81);
-    width: 10px;
-    height: 10px;
-    border-radius: 10px;
-    margin: auto;
-}
-
 .evaluation-sheet {
-    .scroll-content {
-        max-width: none;
-        margin: auto;
-        margin-top: 56px;
-        margin-bottom: 56px;
-        margin-left: 50px;
-        margin-right: 54px;
-    }
+    .title-container {
+        display: flex;
+        justify-content: center;
+        margin: 10px 0;
 
-    ion-card {
+        h3 {
+            display: inline;
+            font-size: 1.2em;
+            font-weight: bold;
+            box-shadow: 0px 0px 5px color($colors, grey70);
+            padding: 10px 20px;
+            background: color($colors, grey95);
+            border-radius: 5px;
 
-        &.card-md,
-        &.card-ios {
-            margin: 0;
-        }
+            label {
+                margin: 0 10px;
+            }
 
-        &.title-bloc {
-            margin: auto;
-            text-align: center;
-            width: max-content;
-            height: 45px;
-            padding: 10px 17px;
-            margin-bottom: 20px;
+            .stage-date {
+                color: color($colors, blue55);
+            }
 
-            span {
-                font-size: 22px;
-                font-weight: 400;
-                margin-left: 30px;
+            .stage-result {
+                color: color($colors, white);
+                padding: 2px 5px;
+                border-radius: 5px;
 
-                &.first-text {
-                    color: color($colors, grey12);
-                    letter-spacing: 0.8px;
-                    margin-left: 0px;
-                }
-
-                &.date {
-                    color: color($colors, blue81);
-                    letter-spacing: -0.74px;
-                }
-
-                &.result {
-                    color: color($colors, white);
-                    letter-spacing: 0.13px;
-                    padding: 0px 6px;
-                    border-radius: 5px;
-                }
-
-                &.failed {
+                &.red {
                     background-color: color($colors, red15);
                 }
 
-                &.success {
-                    background-color: color($colors, green40);
+                &.green {
+                    background-color: color($colors, green70);
                 }
 
-                &.successWithFC {
-                    background-color: color($colors, orange80);
+                &.yellow {
+                    background-color: color($colors, yellow1);
                 }
 
+                &.orange {
+                    background-color: color($colors, orange90);
+                }
             }
-        }
-
-        &.score-bloc {
-            width: 100%;
-            height: 100%;
-            padding-left: 30px;
-            padding-top: 10px;
-            padding-bottom: 3px;
-
-            .score-bloc-title {
-                font-weight: bold;
-                font-size: 20px;
-                letter-spacing: 0.51px;
-            }
-
-            .score-bloc-value {
-                font-size: 22px;
-                margin-left: 20px;
-                letter-spacing: -0.45px;
-            }
-
-            .score-bloc-eval {
-                font-weight: bold;
-                font-size: 22px;
-                letter-spacing: -0.45px;
-            }
-
-            .score-bloc-comment {
-                font-weight: 300;
-                letter-spacing: -0.22px;
-            }
-
-            .edospnc-speechBubble:before {
-                color: color($colors, blue81);
-                font-size: 58px;
-                padding: 10px;
-            }
-
         }
     }
 
-    ion-grid {
-        padding: 0px;
+    .score-container {
+        display: flex;
+        box-shadow: 0px 0px 5px color($colors, grey70);
+        background: color($colors, grey95);
+        border-radius: 5px;
 
-        ion-row.title-row,
-        ion-row.ss-title-row,
-        ion-row.data-row {
-            ion-col {
-                text-align: center;
-
-                &:first-child {
-                    text-align: left;
-
-                    span {
-                        padding-left: 20px;
-                    }
-                }
-            }
+        div {
+            flex: 1;
         }
 
-        &.title-display {
-            ion-row {
-                &.title-row {
-                    background-color: color($colors, blue81);
-                    margin: 10px 0px;
-                    color: color($colors, white);
-                }
-            }
-        }
+        .evaluation-container,
+        .fc-container {
+            padding: 10px 20px;
 
-        &.data-display {
+            h4 {
+                font-size: 1.2em;
 
-            .odd {
-                background-color: color($colors, grey95);
-            }
-
-            box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14),
-            0 3px 1px -2px rgba(0, 0, 0, 0.2),
-            0 1px 5px 0 rgba(0, 0, 0, 0.12);
-
-            ion-row {
-                &.ss-title-row {
-                    background-color: color($colors, blue77);
-                    text-transform: uppercase;
-                    color: color($colors, white);
+                label {
                     font-weight: bold;
                 }
 
-                ion-col {
-                    &:not(:first-child) {
-                        border-left: 1px solid color($colors, blue68);
+                .score {
+                    display: inline;
+
+                    span {
+                        margin-left: 20px;
+                    }
+                }
+            }
+
+            .comment-container {
+                display: flex;
+
+                ion-icon {
+                    margin: 0 10px 10px 0;
+                    color: color($colors, blue55)
+                }
+
+                .comment {
+                    text-align: justify;
+                    margin: 0;
+                    flex: 1;
+
+                    &:first-letter {
+                        text-transform: capitalize;
                     }
                 }
             }
         }
+
+        .fc-container {
+            border-left: 1px solid color($colors, grey70);
+        }
     }
 
+    .exercise-header {
+        margin: 10px 0;
+        background: color($colors, blue55);
+        border-radius: 5px;
+        color: color($colors, white);
+        box-shadow: 0px 0px 5px color($colors, grey70);
+
+        ion-row > ion-col {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+    }
+
+    .exercise-list {
+        border-radius: 5px;
+        padding: 0;
+        box-shadow: 0px 0px 5px color($colors, grey70);
+
+        .title {
+            background: color($colors, bluegrey);
+            color: color($colors, white);
+            text-transform: capitalize;
+
+            &:first-child {
+                border-radius: 5px 5px 0 0;
+            }
+        }
+
+        .exercise {
+            &:nth-child(odd) {
+                background: color($colors, grey95);
+            }
+
+            &:last-child {
+                border-radius: 0 0 5px 5px;
+            }
+
+            ion-col {
+                &:first-letter {
+                    text-transform: capitalize;
+                }
+
+                &:not(:last-child) {
+                    border-right: 1px solid color($colors, grey75);
+                }
+
+                &:not(:first-child) {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                }
+            }
+        }
+    }
 }

@@ -2,7 +2,7 @@
     <ion-navbar>
         <page-header (refreshPage)="refreshPage()" [showRefreshIcon]="true" [pnc]="pnc">
             <ng-container *ngIf="loadingIsOver()">
-                <span *ngIf='pnc'>{{ 'WAYPOINT_CREATE.TITLE' | isMyPage: pnc | translate }}</span>
+                {{ 'WAYPOINT_CREATE.TITLE' | translate }}
                 <ion-badge class="{{waypoint.waypointStatus.toLowerCase()}}" *ngIf="canDisplayStatus()">
                     {{ 'GLOBAL.WAYPOINT_STATUS.'+waypoint.waypointStatus | translate }}
                 </ion-badge>

@@ -142,8 +142,17 @@ pnc-search-filter {
             .label-md {
                 margin: 0;
             }
+
+            .mat-input-element {
+                padding: 0 5px;
+            }
+
+            .mat-form-field-label-wrapper {
+                overflow: initial !important;
+            }
         }
     }
+
 }
 
 .list ion-item {

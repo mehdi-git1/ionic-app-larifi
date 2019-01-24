@@ -1,4 +1,4 @@
-import { FormsReportTypeEnum } from './../../enums/forms-report-type.enum';
+import { EFormsTypeEnum } from './../../enums/e-forms/e-forms-type.enum';
 import { FormsInputParamService } from './forms-input-param.service';
 import { FormsInputParamsModel } from './../../models/forms-input-params.model';
 import { Injectable } from '@angular/core';
@@ -25,11 +25,14 @@ export class FormsEObservationService {
   ) {
   }
 
+  /**
+   * Charge le plugin FormsLib si il est chargeable
+   */
   get formsPlugin(): any {
     if (window.cordova && window.cordova.plugins && window.cordova.plugins.FormsLibPlugin) {
       return window.cordova.plugins.FormsLibPlugin;
     } else {
-      if (window.cordova.plugins) {
+      if (window.cordova && window.cordova.plugins) {
         console.log(window.cordova.FormsLibPlugin);
       }
       console.log('Plugin not loaded we\'re in browser mode in get');
@@ -48,11 +51,11 @@ export class FormsEObservationService {
     const param = {
       FormsAppId: `${this.config.eObsUrl}`,
       method: '0',
-      reportType: this.getReportTypeForForms(formsInputParams.observedPnc.speciality),
+      reportType: this.getReportTypeForEForms(formsInputParams.observedPnc.speciality),
       callbackUrl: `${this.config.eObsCallbackUrl}`,
       callbackActionLabel: `${this.config.eObsCallbackActionLabel}`,
       archiveData: {
-        'PNCObserve.fonction': this.getSpecialityForForms(formsInputParams.observedPnc.speciality),
+        'PNCObserve.fonction': this.getSpecialityForEForms(formsInputParams.observedPnc.speciality),
         'PNCObserve.matricule': formsInputParams.observedPnc.matricule,
         'PNCObserve.nom': formsInputParams.observedPnc.lastName,
         'PNCObserve.prenom': formsInputParams.observedPnc.firstName,
@@ -71,7 +74,7 @@ export class FormsEObservationService {
         'stakeholdersinfos.2.1': formsInputParams.redactor.lastName,
         'stakeholdersinfos.2.2': formsInputParams.redactor.firstName,
         'stakeholdersinfos.2.3': formsInputParams.redactor.matricule,
-        'stakeholdersinfos.2.4': this.getSpecialityForForms(this.sessionService.appContext.onBoardRedactorFunction),
+        'stakeholdersinfos.2.4': this.getSpecialityForEForms(this.sessionService.appContext.onBoardRedactorFunction),
         'typeAvion.vol1': formsInputParams.rotationFirstLeg.aircraftType,
         'typeAvion.vol2': formsInputParams.rotationLastLeg.aircraftType,
         'version.vol1': formsInputParams.rotationFirstLeg.operatingVersion,
@@ -89,15 +92,21 @@ export class FormsEObservationService {
     );
   }
 
-  getSpecialityForForms(speciality: String) {
+  /**
+   * Recupére la spécialité à envoyer a Eforms
+   * @param speciality Spécialité du PNC
+   */
+  getSpecialityForEForms(speciality: string) {
     if (speciality == 'CC') { return 'C/C'; }
     if (speciality == 'HOT' || speciality == 'STW') { return 'HST'; }
     return speciality;
   }
 
-  getReportTypeForForms(speciality: String) {
-    if (speciality == 'HOT' || speciality == 'STW') { return FormsReportTypeEnum.EHST; }
-    if (speciality == 'CC') { return FormsReportTypeEnum.ECC; }
-    return FormsReportTypeEnum.ECCP;
+  /**
+   * Recupére le type de l'eForm a renvoyer pour la création vie eForms
+   * @param speciality Spécialité du PNC
+   */
+  getReportTypeForEForms(speciality: string) {
+    return EFormsTypeEnum.getType(EFormsTypeEnum[speciality]);
   }
 }
