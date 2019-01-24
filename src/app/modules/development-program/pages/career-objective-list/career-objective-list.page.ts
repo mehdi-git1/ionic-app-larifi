@@ -61,11 +61,19 @@ export class CareerObjectiveListPage {
   }
 
   /**
-   * Retourne le type de formulaire pour la création d'EObs
+   * Retourne le texte du type de formulaire pour la création d'EObs
    * @return retourne la valeur du type de formulaire
    */
-  getEObsTypeForm(): string {
-    return EFormsTypeEnum.getTextType(EFormsTypeEnum['this.pnc.currentSpeciality']);
+  getEObsTextTypeForm(): string {
+    return EFormsTypeEnum.getTextType(EFormsTypeEnum[this.pnc.currentSpeciality]);
+  }
+
+  /**
+ * Retourne le type de formulaire pour la création d'EObs
+ * @return boolean pour savoir si le type d'Eform est géré actuellement
+ */
+  hasEObsTypeForm(): boolean {
+    return EFormsTypeEnum.getType(EFormsTypeEnum[this.pnc.currentSpeciality]) ? true : false;
   }
 
   /**

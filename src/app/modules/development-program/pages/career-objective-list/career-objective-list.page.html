@@ -17,13 +17,13 @@
             </div>
             <div class="eobservation-info-container">
                 <label>{{ 'EOBSERVATION.NEW_EOBSERVATION_HEADER.TYPE' | translate }}</label>
-                <span [ngClass]="{'no-value' : !getEObsTypeForm() }">{{getEObsTypeForm()}}</span>
+                <span [ngClass]="{'no-value' : !getEObsTextTypeForm() }">{{getEObsTextTypeForm()}}</span>
             </div>
             <div class="eobservation-info-container">
                 <label>{{lastConsultedRotation.number}}</label>
                 <span>{{ lastConsultedRotation.departureDate | date: 'dd/MM/yyyy'}}</span>
             </div>
-            <div class="add-eobservation-container">
+            <div class="add-eobservation-container" *ngIf="hasEObsTypeForm()">
                 <button (click)="createEObservation()" class="add-eobservation clickable">
                     <div class="button-content">
                         <ion-icon class="edospnc-plus" name="edospnc-plus"></ion-icon>
