@@ -5,6 +5,8 @@ import { Component, Input } from '@angular/core';
 import { ModuleModel } from '../../../../core/models/professional-level/module.model';
 import { EvaluationSheetPage } from '../../pages/professional-level/evaluation-sheet/evaluation-sheet.page';
 import { StageModel } from '../../../../core/models/professional-level/stage.model';
+import { ProfessionalLevelResultStatusUtil } from '../../../../shared/utils/professional-level-result-status.util';
+import { PncModel } from '../../../../core/models/pnc.model';
 
 @Component({
   selector: 'module-card',
@@ -16,27 +18,17 @@ export class ModuleCardComponent {
 
   @Input() stage: StageModel;
 
-  @Input() matricule: string;
+  @Input() pnc: PncModel;
 
   constructor(private navCtrl: NavController) {
   }
 
   /**
-   * Retourne la classe correspondant à la couleur du point en fonction du statut du module
+   * Retourne la classe CSS associée au statut du module
+   * @return la classe CSS du statut du module
    */
-  getModuleStatusPointCssClass(): string {
-    if ('SUCCESS' == this.module.moduleResultStatus) {
-      return 'green-point';
-    } else if ('SUCCESS_WITH_FC' == this.module.moduleResultStatus) {
-      return 'yellow-point';
-    } else if ('SUCCESS_WITH_FC_AND_TESTS' == this.module.moduleResultStatus) {
-      return 'orange-point';
-    } else if ('SUCCESS_WITH_RETAKE' == this.module.moduleResultStatus) {
-      return 'orange-point';
-    } else if ('FAILED' == this.module.moduleResultStatus) {
-      return 'red-point';
-    }
-    return '';
+  getStatusCssClass(): string {
+    return ProfessionalLevelResultStatusUtil.getStatusCssClass(this.module.moduleResultStatus);
   }
 
   /**
@@ -45,9 +37,9 @@ export class ModuleCardComponent {
    */
   goToModuleDetail(module: ModuleModel) {
     if (module.moduleType == ModuleTypeEnum.PRACTICAL) {
-      this.navCtrl.push(EvaluationSheetPage, { matricule: this.matricule, moduleId: module.techId });
+      this.navCtrl.push(EvaluationSheetPage, { matricule: this.pnc.matricule, moduleId: module.techId });
     } else {
-      this.navCtrl.push(NotValidatedQuestionsPage, { module: module, stage: this.stage });
+      this.navCtrl.push(NotValidatedQuestionsPage, { module: module, stage: this.stage, pnc: this.pnc });
     }
   }
 

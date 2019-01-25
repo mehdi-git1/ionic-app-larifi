@@ -14,7 +14,7 @@ import { SessionService } from '../../../../core/services/session/session.servic
 
 import { PncService } from '../../../../core/services/pnc/pnc.service';
 
-import { tabNavEnum } from '../../../../core/enums/tab-nav.enum';
+import { TabNavEnum } from '../../../../core/enums/tab-nav.enum';
 
 @Component({
     selector: 'page-pnc-search',
@@ -149,7 +149,7 @@ export class PncSearchPage implements OnInit {
         // Si on va sur un PNC par la recherche, on suprime de la session une enventuelle rotation.
         this.sessionService.appContext.lastConsultedRotation = null;
         if (this.sessionService.isActiveUser(pnc)) {
-            this.navCtrl.parent.select(this.tabNavService.findTabIndex(tabNavEnum.PNC_HOME_PAGE));
+            this.navCtrl.parent.select(this.tabNavService.findTabIndex(TabNavEnum.PNC_HOME_PAGE));
         } else {
             this.navCtrl.push(PncHomePage, { matricule: pnc.matricule });
         }

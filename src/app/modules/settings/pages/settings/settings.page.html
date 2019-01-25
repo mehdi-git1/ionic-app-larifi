@@ -1,7 +1,7 @@
 <ion-header>
     <ion-navbar>
         <page-header [showSettingsIcon]="false">
-            {{ 'SETTINGS.TITLE' | isMyPage | translate }}
+            {{ 'SETTINGS.TITLE' | translate }}
         </page-header>
     </ion-navbar>
 </ion-header>
@@ -25,13 +25,6 @@
             </button>
         </ion-item>
         <ion-item>
-            <label>{{ 'SETTINGS.REVOKE_CERTIFICATE.BUTTON' | translate }}</label>
-            <button ion-fab mini icon-only item-end class="parameter-button" (click)="confirmRevokeCertificate()">
-                <ion-icon name="log-out" *ngIf="!revokationInProgress"></ion-icon>
-                <ion-spinner *ngIf="revokationInProgress"></ion-spinner>
-            </button>
-        </ion-item>
-        <ion-item>
             <label>{{ 'SETTINGS.CHANGE_PIN_CODE.LABEL' | translate }}</label>
             <button ion-fab mini icon-only item-end (click)="changePinCode()" [disabled]="!connected">
                 <ion-icon name="key"></ion-icon>
@@ -41,6 +34,13 @@
             <label>{{ 'SETTINGS.CHANGE_SECRET_QUESTION.LABEL' | translate }}</label>
             <button ion-fab mini icon-only item-end (click)="changeSecretQuestion()" [disabled]="!connected">
                 <ion-icon name="key"></ion-icon>
+            </button>
+        </ion-item>
+        <ion-item *ngIf="isAdmin()">
+            <label>{{ 'SETTINGS.REVOKE_CERTIFICATE.BUTTON' | translate }}</label>
+            <button ion-fab mini icon-only item-end class="parameter-button" (click)="confirmRevokeCertificate()">
+                <ion-icon name="log-out" *ngIf="!revokationInProgress"></ion-icon>
+                <ion-spinner *ngIf="revokationInProgress"></ion-spinner>
             </button>
         </ion-item>
     </ng-container>

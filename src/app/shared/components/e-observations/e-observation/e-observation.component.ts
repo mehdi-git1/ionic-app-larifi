@@ -7,7 +7,7 @@ import { Component, Input } from '@angular/core';
 
 export class EObservationComponent {
 
-  @Input() EObs;
+  @Input() eObs;
 
 
   constructor() {

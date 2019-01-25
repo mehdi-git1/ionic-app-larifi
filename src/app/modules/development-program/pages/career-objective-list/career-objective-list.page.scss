@@ -1,4 +1,5 @@
 page-career-objective-list {
+
     // Pour s'aligner sur les cartes en dessous
     .add-container {
         padding: 5px 10px;
@@ -24,6 +25,7 @@ page-career-objective-list {
             .button-content {
                 display: flex;
                 flex-direction: column;
+
                 ion-icon {
                     color: color($colors, grey90);
                     font-size: 4em;
@@ -35,17 +37,70 @@ page-career-objective-list {
             background: color($colors, green60);
         }
 
-        .add-eObservation {
-            background: color($colors, blue75);
-        }
 
         .information-message {
             color: color($colors, grey20);
             text-align: right;
             padding-top: 5px;
         }
+
         .information-message:before {
             content: '* ';
+        }
+
+        &.eobservation-container {
+            padding: 20px 0px;
+            margin: 10px;
+            display: flex;
+            align-items: center;
+            border: 2px solid;
+            border-color: color($colors, blue68);
+            border-radius: 5px;
+            box-shadow: 0px 0px 4px color($colors, grey12);
+
+            .eobservation-info-container {
+                flex-direction: column;
+                display: flex;
+                width: 20%;
+                text-align: center;
+
+                label {
+                    font-weight: bold;
+                    color: color($colors, grey12);
+                }
+
+                span {
+                    line-height: 27px;
+                    color: color($colors, grey40);
+                }
+
+            }
+
+            .add-eobservation-container {
+                width: 38%;
+                text-align: right;
+
+                .add-eobservation {
+                    background: color($colors, blue68);
+                    color: color($colors, white);
+                    border-radius: 33px;
+
+                    .button-content {
+                        padding: 10px 20px;
+                    }
+
+                    .edospnc-plus:before {
+                        font-size: 18px;
+                    }
+
+                    label {
+                        padding-left: 10px;
+                        font-size: 16px;
+                        color: color($colors, white);
+                    }
+                }
+
+            }
         }
     }
 }

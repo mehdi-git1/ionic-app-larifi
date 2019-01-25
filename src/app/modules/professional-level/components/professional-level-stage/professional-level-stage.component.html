@@ -4,13 +4,13 @@
         <label class="stage-code"> {{ stage.code }} </label>
         <label class="stage-label"> {{ stage.label }} </label>
         <label class="stage-result">
-            <span [ngClass]="getStageStatusPointCssClass(stage)"></span>{{'PROFESSIONAL_LEVEL.MODULE_STATUS.' + stage?.stageResultStatus | translateOrEmpty}}
+            <span class="status-dot" [ngClass]="getStatusCssClass(stage)"></span>{{'PROFESSIONAL_LEVEL.MODULE_STATUS.' + stage?.stageResultStatus | translateOrEmpty}}
         </label>
     </mat-expansion-panel-header>
     <div *ngIf="stage.modules === null  || stage.modules.length === 0; else professionalLevelDataBlock">
         <no-data></no-data>
     </div>
     <ng-template #professionalLevelDataBlock>
-        <module-card *ngFor="let module of stage.modules" [module]="module" [stage]="stage" [matricule]="stage?.matricule"></module-card>
+        <module-card *ngFor="let module of stage.modules" [module]="module" [stage]="stage" [pnc]="pnc"></module-card>
     </ng-template>
 </mat-expansion-panel>

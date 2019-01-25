@@ -1,7 +1,7 @@
 <ion-header>
     <ion-navbar>
         <page-header [showSettingsIcon]="true" [pnc]="pnc">
-            {{ 'PROFESSIONAL_LEVEL.NOT_VALIDATED_QUESTIONS.TITLE' | translate }}
+            <span *ngIf="pnc"> {{ 'PROFESSIONAL_LEVEL.NOT_VALIDATED_QUESTIONS.TITLE' | isMyPage: pnc | translate }}</span>
         </page-header>
     </ion-navbar>
 </ion-header>
