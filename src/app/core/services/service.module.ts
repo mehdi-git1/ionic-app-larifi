@@ -1,3 +1,4 @@
+import { EObservationService } from './eobservation/eobservation.service';
 import { OnlineFormsInputParamService } from './forms/online-forms-input-param.service';
 import { OfflineFormsInputParamService } from './forms/offline-forms-input-param.service';
 import { FormsInputParamService } from './forms/forms-input-param.service';
@@ -66,9 +67,10 @@ import { OnlineRotationService } from './rotation/online-rotation.service';
 import { OnlineSummarySheetService } from './summary-sheet/online-summary-sheet.service';
 import { LegTransformerService } from './leg/leg-transformer.service';
 import { CrewMemberTransformerService } from './crewMember/crew-member-transformer.service';
-import { UserPermissionService } from './user-permission/user-permission.service';
 import { TranslateOrEmptyService } from './translate/translate-or-empty.service';
 import { FormsInputParamTransformerService } from './forms/forms-input-param-transformer.service';
+import { OnlineEObservationService } from './eobservation/online-eobservation.service';
+import { OfflineEObservationService } from './eobservation/offline-eobservation.service';
 
 
 @NgModule({
@@ -147,6 +149,9 @@ import { FormsInputParamTransformerService } from './forms/forms-input-param-tra
         EvaluationSheetService,
         OnlineEvaluationSheetService,
         OfflineEvaluationSheetService,
+        EObservationService,
+        OnlineEObservationService,
+        OfflineEObservationService,
         UserProfileService,
         TranslateOrEmptyService
     ]

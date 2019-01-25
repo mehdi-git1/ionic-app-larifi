@@ -23,7 +23,7 @@ export class CareerObjectiveListPage {
 
   careerObjectiveList: CareerObjectiveModel[];
   matricule: string;
-  eObservation: FormsInputParamsModel;
+  formsInputParam: FormsInputParamsModel;
   lastConsultedRotation: RotationModel;
 
   eObservations;
@@ -110,10 +110,10 @@ export class CareerObjectiveListPage {
    * Fait appel à formsLib avec les paramètres eObservation.
    */
   createEObservation() {
-    this.formsEObservationService.getFormsInputParams(this.matricule, this.sessionService.appContext.lastConsultedRotation.techId).then(eObservation => {
-      this.eObservation = eObservation;
-      if (this.eObservation) {
-        this.formsEObservationService.callForms(this.eObservation);
+    this.formsEObservationService.getFormsInputParams(this.matricule, this.sessionService.appContext.lastConsultedRotation.techId).then(formsInputParam => {
+      this.formsInputParam = formsInputParam;
+      if (this.formsInputParam) {
+        this.formsEObservationService.callForms(this.formsInputParam);
       }
     }, error => {
     });

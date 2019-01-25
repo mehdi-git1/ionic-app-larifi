@@ -32,7 +32,7 @@ export class TransformerService {
             return this.careerObjectiveTransformer.toCareerObjective(objectToTransform);
         } else if (EntityEnum.WAYPOINT === type) {
             return this.waypointTransformer.toWaypoint(objectToTransform);
-        } else if (EntityEnum.EOBSERVATION === type) {
+        } else if (EntityEnum.FORMS_INPUT_PARAM === type) {
             return this.formsInputParamTransformer.toFormsInputParams(objectToTransform);
         } else {
             return objectToTransform;

@@ -10,7 +10,7 @@
     <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
     <ng-template #pageBlock>
 
-        <div class="add-container eobservation-container" *ngIf="canCreateEObservation()">
+        <div class="add-container eobservation-container" *ngIf="canCreateEObservation() && hasEObsTypeForm()">
             <div class="eobservation-info-container">
                 <label>{{ 'EOBSERVATION.NEW_EOBSERVATION_HEADER.FUNCTION' | translate }}</label>
                 <span>{{pnc.currentSpeciality}}</span>
@@ -23,7 +23,7 @@
                 <label>{{lastConsultedRotation.number}}</label>
                 <span>{{ lastConsultedRotation.departureDate | date: 'dd/MM/yyyy'}}</span>
             </div>
-            <div class="add-eobservation-container" *ngIf="hasEObsTypeForm()">
+            <div class="add-eobservation-container">
                 <button (click)="createEObservation()" class="add-eobservation clickable">
                     <div class="button-content">
                         <ion-icon class="edospnc-plus" name="edospnc-plus"></ion-icon>

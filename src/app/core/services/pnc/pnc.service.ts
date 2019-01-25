@@ -20,16 +20,16 @@ export class PncService extends BaseService {
 
   constructor(
     protected connectivityService: ConnectivityService,
-    private onlinePncProvider: OnlinePncService,
-    private offlinePncProvider: OfflinePncService,
+    private onlinePncService: OnlinePncService,
+    private offlinePncService: OfflinePncService,
     private sessionService: SessionService,
     private restService: RestService,
     private config: UrlConfiguration
   ) {
     super(
       connectivityService,
-      onlinePncProvider,
-      offlinePncProvider
+      onlinePncService,
+      offlinePncService
     );
 
   }
