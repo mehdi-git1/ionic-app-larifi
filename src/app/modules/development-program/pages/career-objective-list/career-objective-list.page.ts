@@ -71,18 +71,6 @@ export class CareerObjectiveListPage {
   }
 
   /**
-    * Récupère la liste des eObservations
-    */
-  initCareerObjectivesList() {
-    this.careerObjectiveService.getPncCareerObjectives(this.matricule).then(result => {
-      result.sort((careerObjective: CareerObjectiveModel, otherCareerObjective: CareerObjectiveModel) => {
-        return careerObjective.creationDate < otherCareerObjective.creationDate ? 1 : -1;
-      });
-      this.careerObjectiveList = result;
-    }, error => { });
-  }
-
-  /**
    * Dirige vers la page de création d'un nouvel objectif
    */
   goToCareerObjectiveCreation() {
@@ -115,11 +103,12 @@ export class CareerObjectiveListPage {
      * @return vrai si c'est le cas, faux sinon
      */
   canCreateEObservation(): boolean {
-    if (this.sessionService.appContext.lastConsultedRotation && !this.deviceService.isBrowser()) {
-      return true;
-    } else {
-      return false;
-    }
+    // if (this.sessionService.appContext.lastConsultedRotation && !this.deviceService.isBrowser()) {
+    //   return true;
+    // } else {
+    //   return false;
+    // }
+    return true;
   }
 
   /**
