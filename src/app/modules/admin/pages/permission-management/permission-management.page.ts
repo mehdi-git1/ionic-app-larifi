@@ -48,7 +48,6 @@ export class PermissionManagementPage {
 
     /**
      * Retourne true si la permission en paramètre est accessible au profil utilisateur défini
-     * 
      * @param userPermission une permission
      * @return true si la permission en paramètre est accessible au profil utilisateur défini
      */
@@ -61,5 +60,9 @@ export class PermissionManagementPage {
             }
         }
         return false;
+    }
+
+    isDisabled(): boolean {
+        return true;
     }
 }

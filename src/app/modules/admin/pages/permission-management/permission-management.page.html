@@ -28,6 +28,7 @@
             </ion-col>
         </ion-row>
     </ion-grid>
-    <Button ion-button>{{ 'ADMIN.PERMISSION_MANAGEMENT.BUTTON.UPDATE' | translate }}</Button>
+    <Button [disabled]="isDisabled()" ion-button>{{ 'ADMIN.PERMISSION_MANAGEMENT.BUTTON.UPDATE' |
+        translate }}</Button>
 
 </ion-content>
