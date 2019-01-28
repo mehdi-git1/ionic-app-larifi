@@ -1,7 +1,7 @@
+import { EFormsTypeEnum } from '../../enums/e-forms/e-forms-type.enum';
 import { Injectable } from '@angular/core';
 import { DatePipe } from '@angular/common';
 
-import { EFormsReportTypeEnum } from '../../enums/e-forms-report-type.enum';
 import { EObservationService } from '../e-observation/e-observation.service';
 import { EObservationModel } from '../../models/e-observation.model';
 import { SessionService } from '../session/session.service';
@@ -25,11 +25,14 @@ export class EFormsEObservationService {
   ) {
   }
 
+  /**
+   * Charge le plugin FormsLib si il est chargeable
+   */
   get formsPlugin(): any {
     if (window.cordova && window.cordova.plugins && window.cordova.plugins.FormsLibPlugin) {
       return window.cordova.plugins.FormsLibPlugin;
     } else {
-      if (window.cordova.plugins) {
+      if (window.cordova && window.cordova.plugins) {
         console.log(window.cordova.FormsLibPlugin);
       }
       console.log('Plugin not loaded we\'re in browser mode in get');
@@ -89,15 +92,21 @@ export class EFormsEObservationService {
     );
   }
 
-  getSpecialityForEForms(speciality: String) {
+  /**
+   * Recupére la spécialité à envoyer a Eforms
+   * @param speciality Spécialité du PNC
+   */
+  getSpecialityForEForms(speciality: string) {
     if (speciality == 'CC') { return 'C/C'; }
     if (speciality == 'HOT' || speciality == 'STW') { return 'HST'; }
     return speciality;
   }
 
-  getReportTypeForEForms(speciality: String) {
-    if (speciality == 'HOT' || speciality == 'STW') { return EFormsReportTypeEnum.EHST; }
-    if (speciality == 'CC') { return EFormsReportTypeEnum.ECC; }
-    return EFormsReportTypeEnum.ECCP;
+  /**
+   * Recupére le type de l'eForm a renvoyer pour la création vie eForms
+   * @param speciality Spécialité du PNC
+   */
+  getReportTypeForEForms(speciality: string) {
+    return EFormsTypeEnum.getType(EFormsTypeEnum[speciality]);
   }
 }

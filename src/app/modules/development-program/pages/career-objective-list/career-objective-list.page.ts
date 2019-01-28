@@ -1,3 +1,5 @@
+import { EFormsTypeEnum } from '../../../../core/enums/e-forms/e-forms-type.enum';
+
 import { SynchronizationService } from '../../../../core/services/synchronization/synchronization.service';
 import { DeviceService } from '../../../../core/services/device/device.service';
 import { SessionService } from '../../../../core/services/session/session.service';
@@ -59,6 +61,22 @@ export class CareerObjectiveListPage {
   }
 
   /**
+   * Retourne le texte du type de formulaire pour la création d'EObs
+   * @return retourne la valeur du type de formulaire
+   */
+  getEObsTextTypeForm(): string {
+    return EFormsTypeEnum.getTextType(EFormsTypeEnum[this.pnc.currentSpeciality]);
+  }
+
+  /**
+ * Retourne le type de formulaire pour la création d'EObs
+ * @return boolean pour savoir si le type d'Eform est géré actuellement
+ */
+  hasEObsTypeForm(): boolean {
+    return EFormsTypeEnum.getType(EFormsTypeEnum[this.pnc.currentSpeciality]) ? true : false;
+  }
+
+  /**
     * Récupère la liste des objectifs
     */
   initCareerObjectivesList() {
@@ -115,6 +133,6 @@ export class CareerObjectiveListPage {
    * @return true si c'est le cas, false sinon
    */
   loadingIsOver(): boolean {
-    return this.careerObjectiveList !== undefined;
+    return this.careerObjectiveList !== undefined && this.pnc !== undefined;
   }
 }

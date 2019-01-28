@@ -1,4 +1,13 @@
 page-upcoming-flight-list {
+    .rotation-list > h3 {
+        font-weight: normal;
+        padding: 15px 10px;
+        font-size: 1.2em;
+        background: color($colors, blue65);
+        color: color($colors, white);
+        border-radius: 5px
+    }
+
     .last-performed-rotations {
         ion-card-header {
             background: color($colors, grey70);
@@ -12,5 +21,4 @@ page-upcoming-flight-list {
             color: color($colors, white);
         }
     }
-
 }

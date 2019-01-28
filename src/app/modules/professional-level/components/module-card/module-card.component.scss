@@ -1,52 +1,67 @@
 module-card {
 
-    $colorPointSize: 12px;
-    @mixin makeColorPoint($className, $pointColor) {
-        .#{$className} {
-            display:inline-block;
-            height:$colorPointSize;
-            width:$colorPointSize;
-            line-height:$colorPointSize;
-            text-align:center;
-            font-size:0.1em;
-            border-radius:$colorPointSize;
-            color:#fff;
-            background:color($colors, #{$pointColor});
-            position: relative;
-            right: 8px;
-        }
-    }
-    @include makeColorPoint('red-point', 'tertiary');
-    @include makeColorPoint('orange-point', 'orange50');
-    @include makeColorPoint('green-point', 'green70');
-
-    .label-bold {
-        font-weight: bold;
-    }
-
-    .score-badge {
-        background-color: color($colors, grey40);
-        margin-right: 5px;
-    }
-
-    .col {
-        border: think solid black;
-    }
-
-    .niv3-button.fab[mini] {
+    .module-card {
+        width: 100%;
+        height: 47px;
         display: flex;
         align-items: center;
-        justify-content: flex-end;
-        float: right;
-        width: 30px;
-        height: 30px;
-        color: color($colors, white);
-        background-color:color($colors, blue60);
-        ion-icon {
-            font-size: 20px;
-        }
-        padding: 0;
-        margin: 0;
-    }
+        padding: 0 10px;
 
+        & > * {
+            color: color($colors, grey10);
+        }
+
+        .module-date {
+            min-width: 120px;
+        }
+
+        .module-type {
+            min-width: 90px;
+        }
+
+        .module-label {
+            flex: 1;
+        }
+
+        .module-scores {
+            @media (max-width: 800px) {
+                min-width: 88px;
+                max-width: 88px;
+            }
+
+            min-width: 250px;
+
+            padding-left: 10px;
+            margin: 2px;
+
+            .score-badge {
+                margin: 2px;
+                background-color: color($colors, grey40);
+                font-weight: normal;
+                border-radius: 5px;
+            }
+        }
+
+        .module-result {
+            width: 150px;
+            display: flex;
+            align-items: center;
+        }
+
+        .module-detail {
+            width: 30px;
+
+            button {
+                margin: 0;
+                padding: 0;
+                color: color($colors, white);
+                background-color: color($colors, blue81);
+                font-size: 20px;
+                width: 30px;
+                height: 30px;
+            }
+
+        }
+
+    }
 }

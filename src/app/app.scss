@@ -23,6 +23,7 @@
 @import '../node_modules/@angular/material/_theming.scss';
 @import '../theme/auto-complete.scss';
 @import '../theme/edospnc-icons.scss';
+@import '../theme/professional-level.scss';
 
 @include mat-core();
 
@@ -83,6 +84,7 @@ body,
 .nav-decor {
     // Pour surcharger le fond sur ipad
     background-color: color($colors, grey90) !important;
+    font-size: 1em;
 }
 
 ion-textarea,

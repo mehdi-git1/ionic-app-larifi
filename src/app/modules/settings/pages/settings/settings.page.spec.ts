@@ -17,6 +17,8 @@ import { IonicModule, Platform, NavController, Events, AlertController } from 'i
 import { SettingsPage } from './settings.page';
 import { TestBed, ComponentFixture, fakeAsync, tick } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { SecurityService } from '../../../../core/services/security/security.service';
+import { IsMyPage } from '../../../../shared/pipes/is_my_page/is_my_page.pipe';
 
 const ConnectivityServiceMock = jasmine.createSpyObj('ConnectivityServiceMock', ['isConnected']);
 ConnectivityServiceMock.connectionStatusChange = of({});
@@ -40,7 +42,10 @@ describe('SettingsPage', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            declarations: [SettingsPage],
+            declarations: [
+                SettingsPage,
+                IsMyPage
+            ],
             imports: [
                 IonicModule.forRoot(SettingsPage),
                 TranslateModule.forRoot({
@@ -64,6 +69,7 @@ describe('SettingsPage', () => {
                 { provide: OfflineSecurityService },
                 { provide: AppVersion, useValue: AppVersionMock },
                 { provide: VersionService, useValue: VersionServiceMock },
+                { provide: SecurityService },
                 Config
             ],
             schemas: [NO_ERRORS_SCHEMA]

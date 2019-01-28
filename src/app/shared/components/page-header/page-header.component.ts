@@ -25,11 +25,11 @@ export class PageHeaderComponent {
     this.refreshPage.emit();
   }
 
-    /**
-     * Vérifie que le pnc consulté est la personne connectée
-     * @return vrai si c'est le cas, faux sinon
-     */
-    isActiveUser(): boolean {
-      return this.sessionService.isActiveUser(this.pnc);
+  /**
+   * Vérifie que le pnc consulté est la personne connectée
+   * @return vrai si c'est le cas, faux sinon
+   */
+  isActiveUser(): boolean {
+    return this.sessionService.isActiveUser(this.pnc);
   }
 }

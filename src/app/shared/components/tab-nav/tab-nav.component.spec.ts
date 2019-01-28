@@ -1,3 +1,4 @@
+import { TabNavEnum } from './../../../core/enums/tab-nav.enum';
 import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { IonicModule, Events } from 'ionic-angular';
@@ -15,15 +16,17 @@ import { SummarySheetService } from './../../../core/services/summary-sheet/summ
 import { SummarySheetTransformerService } from '../../../core/services/summary-sheet/summary-sheet-transformer.service';
 import { FileService } from './../../../core/file/file.service';
 import { PncModel } from '../../../core/models/pnc.model';
+import { IsMyPage } from '../../pipes/is_my_page/is_my_page.pipe';
 
-const PncProviderMock = jasmine.createSpyObj('PncProviderMock', ['getPnc']);
-PncProviderMock.getPnc.and.returnValue(of({}));
 
-const SecurityProviderMock = jasmine.createSpyObj('SecurityProviderMock', ['']);
+const pncProviderMock = jasmine.createSpyObj('pncProviderMock', ['getPnc']);
+pncProviderMock.getPnc.and.returnValue(of({}));
 
-const SessionServiceMock = jasmine.createSpyObj('SessionServiceMock', ['']);
+const securityProviderMock = jasmine.createSpyObj('securityProviderMock', ['']);
 
-const SummarySheetServiceMock = jasmine.createSpyObj('SummarySheetServiceMock', ['getSummarySheet']);
+const sessionServiceMock = jasmine.createSpyObj('sessionServiceMock', ['']);
+
+const summarySheetServiceMock = jasmine.createSpyObj('summarySheetServiceMock', ['openSummarySheet']);
 
 describe('tab-nav component', () => {
 
@@ -33,7 +36,9 @@ describe('tab-nav component', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            declarations: [TabNavComponent],
+            declarations: [
+                TabNavComponent
+            ],
             imports: [
                 IonicModule.forRoot(TabNavComponent),
                 TranslateModule.forRoot({
@@ -43,13 +48,14 @@ describe('tab-nav component', () => {
             providers: [
                 TabNavService,
                 Events,
-                { provide: SessionService, useValue: SessionServiceMock },
-                { provide: SecurityService, useValue: SecurityProviderMock },
-                { provide: PncService, useValue: PncProviderMock },
+                { provide: SessionService, useValue: sessionServiceMock },
+                { provide: SecurityService, useValue: securityProviderMock },
+                { provide: PncService, useValue: pncProviderMock },
                 SpecialityService,
-                { provide: SummarySheetService, useValue: SummarySheetServiceMock },
+                { provide: SummarySheetService, useValue: summarySheetServiceMock },
                 { provide: SummarySheetTransformerService },
-                { provide: FileService }
+                { provide: FileService },
+                IsMyPage
             ],
             schemas: [NO_ERRORS_SCHEMA]
         });
@@ -82,7 +88,6 @@ describe('tab-nav component', () => {
                     data: 'testData'
                 }
             };
-            spyOn(comp, 'summarySheetDisplay');
             comp.pnc.matricule = 't447744';
         });
 
@@ -101,20 +106,10 @@ describe('tab-nav component', () => {
             comp.tabChange(event);
         });
 
-        it(`doit activer l'affichage de la fiche synthèse si on clic sur fiche synthèse`, () => {
-            event.tabTitle = 'GLOBAL.PNC_SUMMARY_SHEET';
+        it('doit appeler la méthode openSummarySheet si l\'onglet sélectionné est la fiche synthèse', () => {
+            event.rootParams.page = TabNavEnum.SUMMARY_SHEET_PAGE;
             comp.tabChange(event);
-            expect(comp.summarySheetDisplay).toHaveBeenCalled();
+            expect(summarySheetServiceMock.openSummarySheet).toHaveBeenCalled();
         });
-
-
-        it(`ne doit pas activer l'affichage de la fiche synthèse si on clic sur l'effectif PNC`, () => {
-            event.tabTitle = 'GLOBAL.PNC_TEAM';
-            comp.tabChange(event);
-            expect(comp.summarySheetDisplay).not.toHaveBeenCalled();
-        });
-
-
-
     });
 });

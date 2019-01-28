@@ -33,13 +33,20 @@
             "OFFLINE_MODE": "Vous êtes à présent en mode déconnecté"
         },
         "DEVELOPMENT_PROGRAM": "Parcours de développement",
+        "MY_DEVELOPMENT_PROGRAM": "Mon parcours de développement",
         "PNC_SUMMARY_SHEET": "Fiche synthèse PNC",
+        "MY_PNC_SUMMARY_SHEET": "Ma fiche synthèse PNC",
         "HELP_CENTER": "Ressources d'aide",
+        "MY_HELP_CENTER": "Mes ressources d'aide",
         "PNC_TEAM": "Effectif PNC",
+        "MY_PNC_TEAM": "Mon effectif PNC",
         "UPCOMING_FLIGHT": "Activité vols",
+        "MY_UPCOMING_FLIGHT": "Mon activité vols",
         "CREW_MEMBERS": "Liste équipage",
-        "STATUTORY_CERTIFICATE": "Attestation réglementaire",
-        "PROFESSIONAL_LEVEL": "Niveau Pro SV",
+        "STATUTORY_CERTIFICATE": "Profil PNC",
+        "MY_STATUTORY_CERTIFICATE": "Mon profil PNC",
+        "PROFESSIONAL_LEVEL": "Niveau pro SV",
+        "MY_PROFESSIONAL_LEVEL": "Mon niveau pro SV",
         "UNKNOWN_ERROR": "Suite à un dysfonctionnement technique, l'opération a échoué. Nous vous invitons à réessayer dans quelques minutes. Si le problème persiste, veuillez contacter votre support.",
         "COMING_SOON": "(Prochainement)",
         "MESSAGES": {
@@ -141,6 +148,7 @@
     },
     "PNC_HOME": {
         "TITLE": "Accueil",
+        "MY_TITLE": "Mon accueil",
         "INFO_PANEL": {
             "FUNCTION": "Fonction",
             "GINQ": "Ginq",
@@ -201,7 +209,8 @@
         "PDF_MISSING": "Pas de fiche synthèse disponible"
     },
     "STATUTORY_CERTIFICATE": {
-        "TITLE": "Attestation réglementaire",
+        "TITLE": "Profil PNC",
+        "MY_TITLE": "Mon profil PNC",
         "CATEGORIES": {
             "GENERALITY_SKILLS": "Compétences généralités",
             "PLANE_SKILLS": "Compétences avions",
@@ -250,17 +259,52 @@
             "END_DATE": "Fin"
         },
         "ERROR": {
-            "STATUTORY_CERTIFICATE": "Erreur lors de la récupération de  l'attestation réglementaire pour le matricule {{ matricule }}"
+            "STATUTORY_CERTIFICATE": "Erreur lors de la récupération du profil PNC pour le matricule {{ matricule }}"
+        }
+    },
+    "EOBSERVATION": {
+        "NEW_EOBSERVATION_HEADER": {
+            "FUNCTION": "Fonction",
+            "TYPE": "Type de formulaire",
+            "NEW": "Nouvelle eObservation"
         }
     },
     "PROFESSIONAL_LEVEL": {
-        "TITLE": "Niveau Pro",
+        "TITLE": "Niveau pro SV",
+        "MY_TITLE": "Mon niveau pro SV",
         "HEADER": {
             "DATE": "Date",
             "CODE": "Code",
             "LABEL": "Libellé",
             "RESULT": "Résultat",
             "HELP": "Légende à venir"
+        },
+        "LEGEND": {
+            "TITLE": "Légende",
+            "A": {
+                "TITLE": "(A)",
+                "TEXT": "Test ATQP"
+            },
+            "T": {
+                "TITLE": "(T)",
+                "TEXT": "FC + Test"
+            },
+            "R": {
+                "TITLE": "(R)",
+                "TEXT": "Test de rattrapage"
+            },
+            "E1": {
+                "TITLE": "(E1)",
+                "TEXT": "1<sup>ère</sup> évaluation"
+            },
+            "E2": {
+                "TITLE": "(E2)",
+                "TEXT": "2<sup>ème</sup> évaluation"
+            },
+            "FC": {
+                "TITLE": "(FC)",
+                "TEXT": "Formation Complémentaire"
+            }
         },
         "MODULE_TYPE": {
             "PRACTICAL": "Pratique",
@@ -269,13 +313,36 @@
         "MODULE_STATUS": {
             "SUCCESS": "Réussi",
             "SUCCESS_WITH_FC": "Réussi avec FC",
-            "FAILED": "Echec"
+            "SUCCESS_WITH_FC_AND_TESTS": "Réussi avec FC + test",
+            "SUCCESS_WITH_RETAKE": "Réussi avec rattrapage",
+            "FAILED": "Non atteint"
         },
-        "ERROR": "Erreur lors de la récupération du niveau pro pour le matricule {{ matricule }}",
-        "NO_DATA": "Pas de données disponibles"
+        "EVALUATION_SHEET": {
+            "TITLE": "Feuille d'évaluation",
+            "MY_TITLE": "Ma feuille d'évaluation",
+            "SCORE_BLOC": {
+                "BLOC_EVALUATION_TITLE": "Evaluation",
+                "E1": "E1",
+                "E2": "E2",
+                "BLOC_FC_TITLE": "FC"
+            },
+            "EXERCISES_BLOC": {
+                "TITLE_COLUMN": "Titre",
+                "E1_COLUMN": "E1",
+                "E2_COLUMN": "E2",
+                "FC_COLUMN": "FC",
+                "NA_COLUMN": "Non acquis"
+            },
+            "ERROR": "Erreur lors de la récupération du niveau pro pour le matricule {{ matricule }}",
+            "NO_DATA": "Pas de données disponibles"
+        },
+        "NOT_VALIDATED_QUESTIONS": {
+            "TITLE": "Questions non validées"
+        }
     },
     "PNC_SEARCH": {
         "TITLE": "Recherche PNC",
+        "MY_TITLE": "Ma recherche PNC",
         "CRITERIA": {
             "FILTERS": "Filtres",
             "PNC_MATRICULE": "Nom, Prénom, Matricule",
@@ -303,6 +370,7 @@
         "WEB_HELP_ASSET": "Ressources web",
         "PDF_HELP_ASSET": "Ressources pdf",
         "TITLE": "Ressources d'aide",
+        "MY_TITLE": "Mes ressources d'aide",
         "NO_HELP_ASSETS": "Aucune ressource créée pour le moment",
         "LAST_UPDATE_DATE": "Dernière mise à jour : "
     },
@@ -358,6 +426,7 @@
     },
     "SETTINGS": {
         "TITLE": "Réglages",
+        "MY_TITLE": "Mes réglages",
         "INIT_CACHE": {
             "LABEL": "Vider le cache",
             "SUCCESS": "Cache vidé avec succès"

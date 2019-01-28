@@ -1,38 +1,16 @@
-<mat-accordion [multi]=true>
-    <mat-expansion-panel *ngFor="let stage of _stages">
-        <mat-expansion-panel-header [expandedHeight]="expandedHeight">
-            <ion-grid>
-                <ion-row>
-                    <ion-col col-2>
-                        {{ stage.date | date: 'dd/MM/yyyy' }}
-                    </ion-col>
-                    <ion-col col-1>
-                        {{ stage.code }}
-                    </ion-col>
-                    <ion-col col-3>
-                        {{ stage.label }}
-                    </ion-col>
-                    <ion-col col-3>
-                    </ion-col>
-                    <ion-col col-2>
-                        -
-                    </ion-col>
-                    <ion-col col-1>
-                    </ion-col>
-                </ion-row>
-            </ion-grid>
-        </mat-expansion-panel-header>
-        <ion-card class="rotation">
-            <ion-card-content>
-                <ion-grid>
-                    <ion-row *ngIf="stage.modules === null  || stage.modules.length === 0; else professionalLevelDataBlock">
-                        <no-data></no-data>
-                    </ion-row>
-                    <ng-template #professionalLevelDataBlock>
-                        <module-card *ngFor="let module of stage.modules" [module]="module"></module-card>
-                    </ng-template>
-                </ion-grid>
-            </ion-card-content>
-        </ion-card>        
-    </mat-expansion-panel>
-</mat-accordion>
+<mat-expansion-panel *ngFor="let stage of _stages">
+    <mat-expansion-panel-header [expandedHeight]="matPanelHeaderHeight" [collapsedHeight]="matPanelHeaderHeight" hideToggle="true">
+        <label class="stage-date">{{ stage.date | date: 'dd/MM/yyyy' }} </label>
+        <label class="stage-code"> {{ stage.code }} </label>
+        <label class="stage-label"> {{ stage.label }} </label>
+        <label class="stage-result">
+            <span class="status-dot" [ngClass]="getStatusCssClass(stage)"></span>{{'PROFESSIONAL_LEVEL.MODULE_STATUS.' + stage?.stageResultStatus | translateOrEmpty}}
+        </label>
+    </mat-expansion-panel-header>
+    <div *ngIf="stage.modules === null  || stage.modules.length === 0; else professionalLevelDataBlock">
+        <no-data></no-data>
+    </div>
+    <ng-template #professionalLevelDataBlock>
+        <module-card *ngFor="let module of stage.modules" [module]="module" [stage]="stage" [pnc]="pnc"></module-card>
+    </ng-template>
+</mat-expansion-panel>

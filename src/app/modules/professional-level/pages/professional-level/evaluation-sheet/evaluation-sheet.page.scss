@@ -1,0 +1,159 @@
+.evaluation-sheet {
+    .title-container {
+        display: flex;
+        justify-content: center;
+        margin: 10px 0;
+
+        h3 {
+            display: inline;
+            font-size: 1.2em;
+            font-weight: bold;
+            box-shadow: 0px 0px 5px color($colors, grey70);
+            padding: 10px 20px;
+            background: color($colors, grey95);
+            border-radius: 5px;
+
+            label {
+                margin: 0 10px;
+            }
+
+            .stage-date {
+                color: color($colors, blue55);
+            }
+
+            .stage-result {
+                color: color($colors, white);
+                padding: 2px 5px;
+                border-radius: 5px;
+
+                &.red {
+                    background-color: color($colors, red15);
+                }
+
+                &.green {
+                    background-color: color($colors, green70);
+                }
+
+                &.yellow {
+                    background-color: color($colors, yellow1);
+                }
+
+                &.orange {
+                    background-color: color($colors, orange90);
+                }
+            }
+        }
+    }
+
+    .score-container {
+        display: flex;
+        box-shadow: 0px 0px 5px color($colors, grey70);
+        background: color($colors, grey95);
+        border-radius: 5px;
+
+        div {
+            flex: 1;
+        }
+
+        .evaluation-container,
+        .fc-container {
+            padding: 10px 20px;
+
+            h4 {
+                font-size: 1.2em;
+
+                label {
+                    font-weight: bold;
+                }
+
+                .score {
+                    display: inline;
+
+                    span {
+                        margin-left: 20px;
+                    }
+                }
+            }
+
+            .comment-container {
+                display: flex;
+
+                ion-icon {
+                    margin: 0 10px 10px 0;
+                    color: color($colors, blue55)
+                }
+
+                .comment {
+                    text-align: justify;
+                    margin: 0;
+                    flex: 1;
+
+                    &:first-letter {
+                        text-transform: capitalize;
+                    }
+                }
+            }
+        }
+
+        .fc-container {
+            border-left: 1px solid color($colors, grey70);
+        }
+    }
+
+    .exercise-header {
+        margin: 10px 0;
+        background: color($colors, blue55);
+        border-radius: 5px;
+        color: color($colors, white);
+        box-shadow: 0px 0px 5px color($colors, grey70);
+
+        ion-row > ion-col {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+    }
+
+    .exercise-list {
+        border-radius: 5px;
+        padding: 0;
+        box-shadow: 0px 0px 5px color($colors, grey70);
+
+        .title {
+            background: color($colors, bluegrey);
+            color: color($colors, white);
+            text-transform: capitalize;
+
+            &:first-child {
+                border-radius: 5px 5px 0 0;
+            }
+        }
+
+        .exercise {
+            &:nth-child(odd) {
+                background: color($colors, grey95);
+            }
+
+            &:last-child {
+                border-radius: 0 0 5px 5px;
+            }
+
+            ion-col {
+                &:first-letter {
+                    text-transform: capitalize;
+                }
+
+                &:not(:last-child) {
+                    border-right: 1px solid color($colors, grey75);
+                }
+
+                &:not(:first-child) {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                }
+            }
+        }
+    }
+}

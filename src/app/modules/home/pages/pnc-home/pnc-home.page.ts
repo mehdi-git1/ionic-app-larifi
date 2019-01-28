@@ -1,11 +1,10 @@
-import { SummarySheetTransformerService } from './../../../../core/services/summary-sheet/summary-sheet-transformer.service';
 import { Component } from '@angular/core';
 import { NavController, NavParams, Events } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { TranslateService } from '@ngx-translate/core';
 
 
-import { tabNavEnum } from '../../../../core/enums/tab-nav.enum';
+import { TabNavEnum } from '../../../../core/enums/tab-nav.enum';
 import { TabNavService } from '../../../../core/services/tab-nav/tab-nav.service';
 import { ProfessionalLevelPage } from '../../../professional-level/pages/professional-level/professional-level.page';
 import { SynchronizationService } from '../../../../core/services/synchronization/synchronization.service';
@@ -25,9 +24,6 @@ import { StatutoryCertificatePage } from '../../../statutory-certificate/pages/s
 import { SpecialityEnum } from '../../../../core/enums/speciality.enum';
 import { SpecialityService } from '../../../../core/services/speciality/speciality.service';
 import { SummarySheetService } from '../../../../core/services/summary-sheet/summary-sheet.service';
-import { Utils } from '../../../../shared/utils/utils';
-import { FileService } from '../../../../core/file/file.service';
-import { FileTypeEnum } from '../../../../core/enums/file-type.enum';
 
 
 
@@ -58,9 +54,7 @@ export class PncHomePage {
         private statusBar: StatusBar,
         private tabNavService: TabNavService,
         private specialityService: SpecialityService,
-        private summarySheetService: SummarySheetService,
-        private summarySheetTransformerService: SummarySheetTransformerService,
-        private fileService: FileService
+        private summarySheetService: SummarySheetService
     ) {
 
         this.statusBar.styleLightContent();
@@ -102,7 +96,7 @@ export class PncHomePage {
      */
     goToCareerObjectiveList() {
         if (this.isMyHome()) {
-            this.navCtrl.parent.select(this.tabNavService.findTabIndex(tabNavEnum.CAREER_OBJECTIVE_LIST_PAGE));
+            this.navCtrl.parent.select(this.tabNavService.findTabIndex(TabNavEnum.CAREER_OBJECTIVE_LIST_PAGE));
         } else {
             this.navCtrl.push(CareerObjectiveListPage, { matricule: this.matricule });
         }
@@ -113,9 +107,9 @@ export class PncHomePage {
      */
     goToHelpAssetList() {
         if (this.isMyHome()) {
-            this.navCtrl.parent.select(this.tabNavService.findTabIndex(tabNavEnum.HELP_ASSET_LIST_PAGE));
+            this.navCtrl.parent.select(this.tabNavService.findTabIndex(TabNavEnum.HELP_ASSET_LIST_PAGE));
         } else {
-            this.navCtrl.push(HelpAssetListPage, { pncRole: this.specialityService.getPncRole(this.pnc.speciality) });
+            this.navCtrl.push(HelpAssetListPage, { pncRole: this.specialityService.getPncRole(this.pnc.speciality), matricule: this.matricule });
         }
     }
 
@@ -124,7 +118,7 @@ export class PncHomePage {
      */
     goToUpcomingFlightList() {
         if (this.isMyHome()) {
-            this.navCtrl.parent.select(this.tabNavService.findTabIndex(tabNavEnum.UPCOMING_FLIGHT_LIST_PAGE));
+            this.navCtrl.parent.select(this.tabNavService.findTabIndex(TabNavEnum.UPCOMING_FLIGHT_LIST_PAGE));
         } else {
             this.navCtrl.push(UpcomingFlightListPage, { matricule: this.matricule });
         }
@@ -135,7 +129,7 @@ export class PncHomePage {
     */
     goToPncSearch() {
         if (this.isMyHome()) {
-            this.navCtrl.parent.select(this.tabNavService.findTabIndex(tabNavEnum.PNC_SEARCH_PAGE));
+            this.navCtrl.parent.select(this.tabNavService.findTabIndex(TabNavEnum.PNC_SEARCH_PAGE));
         } else {
             this.navCtrl.push(PncSearchPage);
         }
@@ -145,18 +139,15 @@ export class PncHomePage {
      * Affiche la fiche synthèse
      */
     goToSummarySheet() {
-        this.summarySheetService.getSummarySheet(this.matricule).then(summarySheet => {
-            this.fileService.displayFile(FileTypeEnum.PDF, this.summarySheetTransformerService.toSummarySheetFile(summarySheet));
-        }, error => {
-        });
+        this.summarySheetService.openSummarySheet(this.matricule);
     }
 
     /**
      * Dirige vers l'attestation réglementaire
      */
     goToStatutoryCertificate() {
-        if (this.isMyHome()) {
-            this.navCtrl.parent.select(this.tabNavService.findTabIndex(tabNavEnum.STATUTORY_CERTIFICATE_PAGE));
+        if (this.isMyHome() && !this.isManager()) {
+            this.navCtrl.parent.select(this.tabNavService.findTabIndex(TabNavEnum.STATUTORY_CERTIFICATE_PAGE));
         } else {
             this.navCtrl.push(StatutoryCertificatePage, { matricule: this.matricule });
         }
@@ -166,8 +157,8 @@ export class PncHomePage {
     * Dirige vers le suivi réglementaire
     */
     goToProfessionalLevel() {
-        if (this.isMyHome()) {
-            this.navCtrl.parent.select(this.tabNavService.findTabIndex(tabNavEnum.PROFESSIONAL_LEVEL_PAGE));
+        if (this.isMyHome() && !this.isManager()) {
+            this.navCtrl.parent.select(this.tabNavService.findTabIndex(TabNavEnum.PROFESSIONAL_LEVEL_PAGE));
         } else {
             this.navCtrl.push(ProfessionalLevelPage, { matricule: this.matricule });
         }

@@ -1,56 +1,65 @@
 page-professional-level {
 
-    .professional-level-headers {
-        margin-bottom: 5px;
-        padding: 0px 28px 0px 24px;
-        border-radius: 5px;
-        background-color: color($colors, blue60);
-        color: color($colors, white);
-        font-weight: bolder;
-        font-size: 18px;
-        height: 48px;
-    }
-
-    .professional-level-row {
+    .professional-level-header {
+        display: flex;
         align-items: center;
-    }
-
-    .mat-expansion-panel {
+        padding: 3px 10px;
         margin-bottom: 5px;
-        margin-top: 0px;
         border-radius: 5px;
-    }
+        background-color: color($colors, blue81);
 
-    mat-expansion-panel-header {
-        background-color: color($colors, blue65);
-        color: color($colors, white);
-        font-weight: bolder !important;
-        font-size: 18px !important;
-        border-radius: 5px;
-        padding: 0px;
+        & > label {
+            font-size: 18px;
+            font-weight: bold;
+            color: color($colors, white);
+        }
 
-        &.mat-expanded:hover,
-        &.mat-expanded:focus {
-            background-color: color($colors, blue75) !important;
-            height: 48px;
+        .stage-date {
+            width: 120px;
+        }
 
+        .stage-code {
+            width: 90px;
+        }
+
+        .stage-label {
+            flex: 1;
+        }
+
+        .stage-result {
+            width: 82px;
+        }
+
+        .help-tooltip {
+            width: 100px;
+            display: flex;
+            justify-content: flex-end;
+            font-size: 2em;
+            color: color($colors, white);
         }
     }
 
-    .mat-expansion-panel-body {
+    .professional-level-footer {
+        padding-left: 20px;
+        padding-bottom: 10px;
+        box-shadow: 1px 1px 10px color($colors, grey50);
 
-        padding: 0px;
-
-        ion-card.card-md,
-        ion-card.card-ios {
-            margin: 0px;
-            width: 100%;
-            margin-bottom: 10px;
+        h5 {
+            margin-top: 5px;
+            margin-bottom: 5px;
+            font-size: 1.5rem;
+            font-weight: bold;
         }
+
+        div {
+            display: inline;
+        }
+
     }
 
-    ion-icon.round-icon {
-            color: color($colors, blue60);
-            margin-right: 20px;
+    .sub-title-legend {
+        color: color($colors, blue60);
+        font-weight: bold;
     }
+
 }

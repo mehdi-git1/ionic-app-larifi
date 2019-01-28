@@ -1,0 +1,6 @@
+export enum CursusResultEnum {
+    SUCCESS = 'SUCCESS',
+    RETAKE = 'RETAKE',
+    RETAKE_HIGH_MEDIUM_THRESHOLD = 'RETAKE_HIGH_MEDIUM_THRESHOLD',
+    FAILED = 'FAILED'
+}

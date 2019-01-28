@@ -1,3 +1,4 @@
+import { IsMyPage } from './../../../../shared/pipes/is_my_page/is_my_page.pipe';
 import { IonicModule, NavController, NavParams, AlertController } from 'ionic-angular';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { TestBed, ComponentFixture, inject } from '@angular/core/testing';
@@ -39,7 +40,10 @@ describe('CareerObjectiveCreatePage', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            declarations: [CareerObjectiveCreatePage],
+            declarations: [
+                CareerObjectiveCreatePage,
+                IsMyPage
+            ],
             imports: [
                 IonicModule.forRoot(CareerObjectiveCreatePage),
                 TranslateModule.forRoot({

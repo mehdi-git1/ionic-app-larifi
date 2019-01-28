@@ -1,8 +1,16 @@
-<ion-row>
-    <ion-col col-2 class="label-bold">{{module?.date | date : 'dd/MM/yyyy' : 'UTC'}}</ion-col>
-    <ion-col col-1 class="label-bold">{{'PROFESSIONAL_LEVEL.MODULE_TYPE.' + module?.moduleType | translateOrEmpty}}</ion-col>
-    <ion-col col-3>{{module?.label}}</ion-col>
-    <ion-col col-3><ion-badge class="score-badge" *ngFor="let score of module?.scores" >{{score?.score | scorePercent}} % ({{score?.evaluationCode}})</ion-badge></ion-col>
-    <ion-col col-2><span [ngClass]="getModuleStatusPointCssClass()"></span>{{'PROFESSIONAL_LEVEL.MODULE_STATUS.' + module?.moduleResultStatus | translateOrEmpty}}</ion-col>
-    <ion-col col-1></ion-col>
-</ion-row>
+<div class="module-card">
+    <label class="module-date">{{module?.date | date : 'dd/MM/yyyy' : 'UTC'}}</label>
+    <label class="module-type">{{'PROFESSIONAL_LEVEL.MODULE_TYPE.' + module?.moduleType | translateOrEmpty}}</label>
+    <label class="module-label">{{module?.label}}</label>
+    <div class="module-scores">
+        <ion-badge class="score-badge" *ngFor="let score of module?.scores"><span *ngIf="(score?.score  | scorePercent) !== 100">{{score?.score | scorePercent}}% ({{score?.evaluationCode}})</span></ion-badge>
+    </div>
+    <div class="module-result">
+        <span class="status-dot" [ngClass]="getStatusCssClass()"></span>{{'PROFESSIONAL_LEVEL.MODULE_STATUS.' + module?.moduleResultStatus | translateOrEmpty}}
+    </div>
+    <div class="module-detail">
+        <button *ngIf="isModuleDetailAvailable(module)" ion-fab mini (click)="goToModuleDetail(module)">
+            <ion-icon name="paper"></ion-icon>
+        </button>
+    </div>
+</div>

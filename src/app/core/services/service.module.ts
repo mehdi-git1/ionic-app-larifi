@@ -1,3 +1,6 @@
+import { OnlineEvaluationSheetService } from './professional-level/evaluation-sheet/online-evaluation-sheet.service';
+import { OfflineEvaluationSheetService } from './professional-level/evaluation-sheet/offline-evaluation-sheet.service';
+import { EvaluationSheetService } from './professional-level/evaluation-sheet/evaluation-sheet.service';
 import { UserProfileService } from './user-profile/user-profile.service';
 import { VersionService } from './version/version.service';
 import { NgModule } from '@angular/core';
@@ -141,6 +144,9 @@ import { TranslateOrEmptyService } from './translate/translate-or-empty.service'
     ProfessionalLevelTransformerService,
     SpecialityService,
     VersionService,
+    EvaluationSheetService,
+    OnlineEvaluationSheetService,
+    OfflineEvaluationSheetService,
     UserProfileService,
     UserPermissionService,
     TranslateOrEmptyService

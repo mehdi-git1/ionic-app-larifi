@@ -1,0 +1,31 @@
+$colorPointSize: 12px;
+
+.status-dot {
+    min-height: $colorPointSize;
+    min-width: $colorPointSize;
+    border-radius: 100%;
+    margin-right: 5px;
+}
+
+.green {
+    background: color($colors, 'green70');
+}
+
+.yellow {
+    background: color($colors, 'yellow1');
+}
+
+.orange {
+    background: color($colors, 'orange90');
+}
+
+.red {
+    background: color($colors, 'red15');
+}
+
+.selection-dot {
+    background: color($colors, blue81);
+    width: 10px;
+    height: 10px;
+    border-radius: 100%;
+}
