@@ -18,7 +18,7 @@ export class OfflineEObservationService {
      * @param pnc le PNC à sauvegarder
      * @return une promesse contenant le PNC sauvé
      */
-    save(pnc: EObservationModel): Promise<EObservationModel> {
+    save(pnc: EObservationModel): Promise<EObservationModel[]> {
         return this.storageService.saveAsync(EntityEnum.EOBSERVATION, pnc);
     }
 
@@ -27,7 +27,7 @@ export class OfflineEObservationService {
      * @param matricule le matricule du PNC
      * @return une promesse contenant les EObservations trouvé
      */
-    getEObservations(matricule: string): Promise<EObservationModel> {
+    getEObservations(matricule: string): Promise<EObservationModel[]> {
         return this.storageService.findOneAsync(EntityEnum.EOBSERVATION, matricule);
     }
 

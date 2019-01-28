@@ -1,28 +1,20 @@
-import { Component, Input } from '@angular/core';
+import { EObservationModel } from './../../../core/models/eobservation.model';
+import { Component, Input, OnChanges } from '@angular/core';
 
 @Component({
   selector: 'e-observations',
   templateUrl: 'e-observations.component.html'
 })
 
-export class EObservationsComponent {
+export class EObservationsComponent implements OnChanges {
 
   matPanelHeaderHeight = 'auto';
 
-  @Input() eObservations = [
-    {
-      date: new Date(),
-      type: 'EHST',
-      writer: '14537165 - Gil Scavone'
-    },
-    {
-      date: new Date(),
-      type: 'AEV',
-      writer: '33987079 - Derquenne'
-    }
-  ];
-
+  @Input() eObservations: EObservationModel[];
 
   constructor() {
+  }
+  ngOnChanges() {
+    console.log(this.eObservations);
   }
 }

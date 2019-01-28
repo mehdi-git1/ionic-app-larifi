@@ -1,3 +1,5 @@
+import { EObservationModel } from './../../../../core/models/eobservation.model';
+import { EObservationService } from './../../../../core/services/eobservation/eobservation.service';
 import { FormsEObservationService } from './../../../../core/services/forms/forms-e-observation.service';
 import { FormsInputParamsModel } from './../../../../core/models/forms-input-params.model';
 import { EFormsTypeEnum } from '../../../../core/enums/e-forms/e-forms-type.enum';
@@ -26,7 +28,7 @@ export class CareerObjectiveListPage {
   formsInputParam: FormsInputParamsModel;
   lastConsultedRotation: RotationModel;
 
-  eObservations;
+  eObservations: EObservationModel[];
 
   // Expose l'enum au template
   PncRole = PncRoleEnum;
@@ -38,6 +40,7 @@ export class CareerObjectiveListPage {
     private careerObjectiveService: CareerObjectiveService,
     private formsEObservationService: FormsEObservationService,
     private deviceService: DeviceService,
+    private eObservationService: EObservationService,
     private sessionService: SessionService,
     private synchronizationProvider: SynchronizationService,
     private pncService: PncService) {
@@ -57,6 +60,11 @@ export class CareerObjectiveListPage {
     }
     this.pncService.getPnc(this.matricule).then(pnc => {
       this.pnc = pnc;
+      this.eObservationService.getEObservations(this.matricule).then(
+        eobs => {
+          this.eObservations = eobs;
+        }, error => {
+        });
     }, error => {
     });
     this.initCareerObjectivesList();

@@ -16,7 +16,7 @@ export class OnlineEObservationService {
      * @param matricule le matricule du PNC
      * @return une promesse contenant les EObservations trouvé
      */
-    getEObservations(matricule: string): Promise<EObservationModel> {
+    getEObservations(matricule: string): Promise<EObservationModel[]> {
         return this.restService.get(this.config.getBackEndUrl('getEobservationsByMatricule', [matricule]));
     }
 
