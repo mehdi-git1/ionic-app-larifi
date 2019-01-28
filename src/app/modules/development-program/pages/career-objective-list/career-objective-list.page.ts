@@ -135,7 +135,7 @@ export class CareerObjectiveListPage {
     if (this.sessionService.appContext.lastConsultedRotation && this.deviceService.isBrowser()) {
       return true;
     } else {
-      return false;
+      return true;
     }
   }
 
