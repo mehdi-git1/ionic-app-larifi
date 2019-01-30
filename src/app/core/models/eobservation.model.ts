@@ -1,10 +1,11 @@
 import { EDossierPncObjectModel } from './e-dossier-pnc-object.model';
+import { PncModel } from './pnc.model';
 
 export class EObservationModel extends EDossierPncObjectModel {
 
-    date: Date;
+    rotationDate: Date;
     type: string;
-    writer: string;
+    redactor: PncModel;
 
     getStorageId(): string {
         return `${this.techId}`;

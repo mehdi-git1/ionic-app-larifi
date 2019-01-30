@@ -3,7 +3,8 @@ import { BaseService } from '../base/base.service';
 import { ConnectivityService } from '../connectivity/connectivity.service';
 import { OnlineEObservationService } from './online-eobservation.service';
 import { OfflineEObservationService } from './offline-eobservation.service';
-import { EObservationModel } from '../../models/EObservation.model';
+import { EObservationModel } from '../../models/eobservation.model';
+
 
 
 @Injectable()

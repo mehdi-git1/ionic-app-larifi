@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { EntityEnum } from '../../enums/entity.enum';
 import { StorageService } from '../../storage/storage.service';
 import { SessionService } from '../session/session.service';
-import { EObservationModel } from '../../models/EObservation.model';
+import { EObservationModel } from '../../models/eobservation.model';
 
 @Injectable()
 export class OfflineEObservationService {

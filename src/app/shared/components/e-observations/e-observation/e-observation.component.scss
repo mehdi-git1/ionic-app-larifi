@@ -1,28 +1,49 @@
 e-observation {
 
-    .e-observation {
-        background-color: color($colors, blue77);
-        width: 100%;
-        height: 47px;
-        display: flex;
-        align-items: center;
-        padding: 0 10px;
+    mat-expansion-panel {
+        margin-top: 5px;
 
-        & > * {
-            color: color($colors, white);
+        mat-expansion-panel-header.e-observation {
+            background-color: color($colors, blue77);
+            width: 100%;
+            height: 47px;
+            display: flex;
+            align-items: center;
+
+            & > * {
+                color: color($colors, white);
+            }
+
+            &.mat-expansion-panel-header {
+                border-radius: 0px;
+            }
+
+            &.mat-expanded:hover,
+            &.mat-expanded:focus {
+                background-color: color($colors, blue77) !important;
+            }
+
+            label {
+                font-size: 14px !important;
+            }
+
+            .e-observation-date {
+                width: 30%;
+            }
+
+            .e-observation-type {
+                width: 30%;
+            }
+
+            .e-observation-writer {
+                width: 40%;
+
+                .paper-icon {
+                    float: right;
+                    padding-right: 30px;
+                }
+            }
+
         }
-
-        .e-observation-date {
-            width: 30%;
-        }
-
-        .e-observation-type {
-            width: 30%;
-        }
-
-        .e-observation-writer {
-            width: 40%;
-        }
-
     }
 }

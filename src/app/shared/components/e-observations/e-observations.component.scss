@@ -19,6 +19,11 @@ e-observations {
                 padding: 6px 20px 6px 10px;
             }
 
+            &.mat-expanded {
+                border-bottom-left-radius: 0px;
+                border-bottom-right-radius: 0px;
+            }
+
             &.mat-expanded:hover,
             &.mat-expanded:focus {
                 background-color: color($colors, blue68) !important;
@@ -40,19 +45,24 @@ e-observations {
             .e-obs-writer {
                 width: 40%;
             }
+
+            .edospnc-calendar:before {
+                font-size: 25px;
+            }
         }
 
         .mat-expansion-panel-body {
             padding: 0;
             margin: 0;
 
-            e-observation:first-child > .e-observa tion {
-                border-radius: 5px 5px 0 0;
-            }
-
-            e-observation:last-child > .e-observation {
-                border-radius: 0 0 5px 5px;
+            e-observation:last-child mat-expansion-panel-header {
+                border-radius: 0 0 5px 5px !important;
             }
         }
+
+        no-data .no-data {
+            padding: 10px;
+        }
+
     }
 }

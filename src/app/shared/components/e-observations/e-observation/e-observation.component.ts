@@ -7,6 +7,8 @@ import { Component, Input } from '@angular/core';
 
 export class EObservationComponent {
 
+  matPanelHeaderHeight = 'auto';
+
   @Input() eObs;
 
 

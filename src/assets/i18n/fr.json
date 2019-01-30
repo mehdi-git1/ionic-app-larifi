@@ -265,9 +265,13 @@
     "EOBSERVATION": {
         "LIST": {
             "HEADER": {
-                "DATE": "Date de réalisation",
+                "ROTATION_DATE": "Date de réalisation",
                 "TYPE": "Type eObservation",
-                "WRITER": "Rédacteur"
+                "REDACTOR": "Rédacteur"
+            },
+            "LEGEND": {
+                "LESS_THAN_3_YEARS": "eObservations réalisées sur les 3 dernières années",
+                "MORE_THAN_3_YEARS": "3 dernières eObservations réalisées"
             }
         },
         "NEW_EOBSERVATION_HEADER": {

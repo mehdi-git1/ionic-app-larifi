@@ -1,5 +1,10 @@
-<div class="e-observation">
-    <label class="e-observation-date">{{eObs?.date | date : 'dd/MM/yyyy' : 'UTC'}}</label>
-    <label class="e-observation-type">{{eObs?.type}}</label>
-    <label class="e-observation-writer">{{eObs?.writer}}</label>
-</div>
+<mat-expansion-panel *ngIf='eObs' class="mat-elevation-z">
+    <mat-expansion-panel-header class="e-observation" [expandedHeight]="matPanelHeaderHeight" [collapsedHeight]="matPanelHeaderHeight" hideToggle="true">
+        <label class="e-observation-date">{{eObs.rotationDate | date : 'dd/MM/yyyy' : 'UTC'}}</label>
+        <label class="e-observation-type">{{eObs.type}}</label>
+        <label class="e-observation-writer">
+            {{eObs.redactor.matricule}} - {{eObs.redactor.lastName}}
+            <ion-icon name="paper" class="paper-icon"></ion-icon>
+        </label>
+    </mat-expansion-panel-header>
+</mat-expansion-panel>

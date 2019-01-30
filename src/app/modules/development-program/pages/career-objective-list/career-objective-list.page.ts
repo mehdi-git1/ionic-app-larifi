@@ -60,11 +60,7 @@ export class CareerObjectiveListPage {
     }
     this.pncService.getPnc(this.matricule).then(pnc => {
       this.pnc = pnc;
-      this.eObservationService.getEObservations(this.matricule).then(
-        eobs => {
-          this.eObservations = eobs;
-        }, error => {
-        });
+      this.getEObservationsList();
     }, error => {
     });
     this.initCareerObjectivesList();
@@ -84,6 +80,20 @@ export class CareerObjectiveListPage {
  */
   hasEObsTypeForm(): boolean {
     return EFormsTypeEnum.getType(EFormsTypeEnum[this.pnc.currentSpeciality]) ? true : false;
+  }
+
+  /**
+   * Récupére la liste des eObservations
+   */
+  getEObservationsList() {
+    this.eObservationService.getEObservations(this.matricule).then(
+      eobs => {
+        eobs.sort((eObservation: EObservationModel, otherEObservation: EObservationModel) => {
+          return eObservation.rotationDate < otherEObservation.rotationDate ? 1 : -1;
+        });
+        this.eObservations = eobs;
+      }, error => {
+      });
   }
 
   /**
@@ -135,7 +145,7 @@ export class CareerObjectiveListPage {
     if (this.sessionService.appContext.lastConsultedRotation && this.deviceService.isBrowser()) {
       return true;
     } else {
-      return true;
+      return false;
     }
   }
 

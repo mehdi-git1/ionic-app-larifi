@@ -1,3 +1,4 @@
+import { EObservationTransformerService } from './eobservation/eobservation-transformer.service';
 import { EObservationService } from './eobservation/eobservation.service';
 import { OnlineFormsInputParamService } from './forms/online-forms-input-param.service';
 import { OfflineFormsInputParamService } from './forms/offline-forms-input-param.service';
@@ -152,6 +153,7 @@ import { OfflineEObservationService } from './eobservation/offline-eobservation.
         EObservationService,
         OnlineEObservationService,
         OfflineEObservationService,
+        EObservationTransformerService,
         UserProfileService,
         TranslateOrEmptyService
     ]
