@@ -1,3 +1,5 @@
+import { AbnormalLevelComponent } from './../eobservation/components/abnormal-level/abnormal-level.component';
+import { EObservationModule } from './../eobservation/eobservation.module';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 
@@ -19,7 +21,8 @@ import { CareerObjectiveCardComponent } from './components/career-objective-card
   imports: [
     [IonicPageModule.forChild(CareerObjectiveListPage)],
     SharedModule,
-    ComponentsModule
+    ComponentsModule,
+    EObservationModule
   ],
   entryComponents: [
     WaypointCreatePage,

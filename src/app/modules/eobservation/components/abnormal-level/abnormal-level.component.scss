@@ -1,0 +1,44 @@
+abnormal-level {
+
+    table {
+        width: calc(100% - 20px);
+        margin: 0 10px;
+        box-shadow: 0px 0px 5px color($colors, grey70);
+        border-collapse: collapse;
+
+        thead {
+            background: color($colors, white);
+            border-bottom: 1px solid color($colors, grey75);
+        }
+
+        th,
+        td {
+            padding: 5px;
+            text-align: center;
+            border-left: 1px solid color($colors, grey75);
+            border-right: 1px solid color($colors, grey75);
+        }
+
+        th {
+            color: color($colors, blue58);
+            font-weight: normal;
+        }
+
+
+        td {
+            color: color($colors, grey50);
+        }
+
+        tr:nth-child(odd) {
+            td {
+                background: color($colors, grey95);
+            }
+        }
+
+        tr:nth-child(even) {
+            td {
+                background: color($colors, white);
+            }
+        }
+    }
+}
