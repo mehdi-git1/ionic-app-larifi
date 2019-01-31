@@ -88,9 +88,6 @@ export class CareerObjectiveListPage {
   getEObservationsList() {
     this.eObservationService.getEObservations(this.matricule).then(
       eobs => {
-        eobs.sort((eObservation: EObservationModel, otherEObservation: EObservationModel) => {
-          return eObservation.rotationDate < otherEObservation.rotationDate ? 1 : -1;
-        });
         this.eObservations = eobs;
       }, error => {
       });

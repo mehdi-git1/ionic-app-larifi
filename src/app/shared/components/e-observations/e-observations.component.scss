@@ -19,9 +19,10 @@ e-observations {
                 padding: 6px 20px 6px 10px;
             }
 
-            &.mat-expanded {
-                border-bottom-left-radius: 0px;
-                border-bottom-right-radius: 0px;
+            &:not(.mat-expanded) {
+                box-shadow: 0 3px 1px -3px rgba(0, 0, 0, .2),
+                    0 2px 2px 0 rgba(0, 0, 0, .14),
+                    0 1px 5px 0 rgba(0, 0, 0, .12);
             }
 
             &.mat-expanded:hover,
@@ -30,6 +31,7 @@ e-observations {
             }
 
             .mat-content > label {
+                font-weight: 700;
                 font-size: 18px;
                 color: color($colors, white);
             }
@@ -54,10 +56,6 @@ e-observations {
         .mat-expansion-panel-body {
             padding: 0;
             margin: 0;
-
-            e-observation:last-child mat-expansion-panel-header {
-                border-radius: 0 0 5px 5px !important;
-            }
         }
 
         no-data .no-data {
