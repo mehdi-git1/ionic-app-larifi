@@ -1,7 +1,7 @@
 e-observation {
 
     mat-expansion-panel {
-        margin-top: 5px;
+        margin-top: 5px !important;
 
         mat-expansion-panel-header.e-observation {
             background-color: color($colors, blue77);
