@@ -137,7 +137,7 @@ export class CareerObjectiveListPage {
   }
 
   /**
-   * Rafraissement des listes de la page
+   * Rafraichit les listes de la page
    */
   refreshPage() {
     this.initCareerObjectivesList();
