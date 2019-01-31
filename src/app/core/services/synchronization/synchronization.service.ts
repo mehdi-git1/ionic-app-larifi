@@ -1,10 +1,10 @@
+import { FormsInputParamsModel } from './../../models/forms-input-params.model';
 import { Injectable, EventEmitter, Output } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs/Rx';
 
 import { ProfessionalLevelTransformerService } from '../professional-level/professional-level-transformer.service';
-import { EObservationModel } from '../../models/e-observation.model';
-import { EFormsEObservationService } from '../e-forms/e-forms-e-observation.service';
+import { FormsEObservationService } from '../forms/forms-e-observation.service';
 import { PncPhotoTransformerService } from '../pnc-photo/pnc-photo-transformer.service';
 import { CareerObjectiveModel } from '../../models/career-objective.model';
 import { SessionService } from '../session/session.service';
@@ -34,7 +34,7 @@ export class SynchronizationService {
   synchroStatusChange = new EventEmitter<boolean>();
 
   constructor(private storageService: StorageService,
-    private eObservationService: EFormsEObservationService,
+    private eObservationService: FormsEObservationService,
     private careerObjectiveTransformer: CareerObjectiveTransformerService,
     private waypointTransformer: WaypointTransformerService,
     private pncTransformer: PncTransformerService,
@@ -213,7 +213,7 @@ export class SynchronizationService {
         }
       }
     }
-    const eObservationsPromises: Promise<EObservationModel>[] = new Array();
+    const eObservationsPromises: Promise<FormsInputParamsModel>[] = new Array();
     const storeEDossierOfflinePromises = new Array<Promise<boolean>>();
     const crewMembersAlreadyStored: Array<String> = new Array();
     const eObsRotationsAlreadyCreated: Map<String, number[]> = new Map<String, number[]>();
@@ -229,7 +229,7 @@ export class SynchronizationService {
         eObsRotationsAlreadyCreated.set(crewMember.pnc.matricule, new Array());
       }
       if (eObsRotationsAlreadyCreated.get(crewMember.pnc.matricule).indexOf(crewMember.rotationId) < 0) {
-        eObservationsPromises.push(this.eObservationService.getEObservation(crewMember.pnc.matricule, crewMember.rotationId));
+        eObservationsPromises.push(this.eObservationService.getFormsInputParams(crewMember.pnc.matricule, crewMember.rotationId));
         eObsRotationsAlreadyCreated.get(crewMember.pnc.matricule).push(crewMember.rotationId);
       }
     }

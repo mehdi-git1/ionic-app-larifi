@@ -1,5 +1,7 @@
-import { EObservationModel } from '../../models/e-observation.model';
 import { Injectable } from '@angular/core';
+
+import { EObservationModel } from '../../models/eobservation.model';
+
 
 @Injectable()
 export class EObservationTransformerService {
@@ -20,4 +22,5 @@ export class EObservationTransformerService {
       object :
       new EObservationModel().fromJSON(object);
   }
+
 }

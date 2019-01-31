@@ -1,10 +1,12 @@
+import { EObservationModel } from './../../../../core/models/eobservation.model';
+import { EObservationService } from './../../../../core/services/eobservation/eobservation.service';
+import { FormsEObservationService } from './../../../../core/services/forms/forms-e-observation.service';
+import { FormsInputParamsModel } from './../../../../core/models/forms-input-params.model';
 import { EFormsTypeEnum } from '../../../../core/enums/e-forms/e-forms-type.enum';
 
 import { SynchronizationService } from '../../../../core/services/synchronization/synchronization.service';
 import { DeviceService } from '../../../../core/services/device/device.service';
 import { SessionService } from '../../../../core/services/session/session.service';
-import { EObservationModel } from '../../../../core/models/e-observation.model';
-import { EFormsEObservationService } from '../../../../core/services/e-forms/e-forms-e-observation.service';
 import { PncRoleEnum } from '../../../../core/enums/pnc-role.enum';
 import { CareerObjectiveCreatePage } from '../career-objective-create/career-objective-create.page';
 import { CareerObjectiveModel } from '../../../../core/models/career-objective.model';
@@ -23,8 +25,10 @@ export class CareerObjectiveListPage {
 
   careerObjectiveList: CareerObjectiveModel[];
   matricule: string;
-  eObservation: EObservationModel;
+  formsInputParam: FormsInputParamsModel;
   lastConsultedRotation: RotationModel;
+
+  eObservations: EObservationModel[];
 
   // Expose l'enum au template
   PncRole = PncRoleEnum;
@@ -34,8 +38,9 @@ export class CareerObjectiveListPage {
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     private careerObjectiveService: CareerObjectiveService,
-    private eObservationService: EFormsEObservationService,
+    private formsEObservationService: FormsEObservationService,
     private deviceService: DeviceService,
+    private eObservationService: EObservationService,
     private sessionService: SessionService,
     private synchronizationProvider: SynchronizationService,
     private pncService: PncService) {
@@ -55,6 +60,7 @@ export class CareerObjectiveListPage {
     }
     this.pncService.getPnc(this.matricule).then(pnc => {
       this.pnc = pnc;
+      this.getEObservationsList();
     }, error => {
     });
     this.initCareerObjectivesList();
@@ -77,6 +83,17 @@ export class CareerObjectiveListPage {
   }
 
   /**
+   * Récupére la liste des eObservations
+   */
+  getEObservationsList() {
+    this.eObservationService.getEObservations(this.matricule).then(
+      eobs => {
+        this.eObservations = eobs;
+      }, error => {
+      });
+  }
+
+  /**
     * Récupère la liste des objectifs
     */
   initCareerObjectivesList() {
@@ -87,6 +104,7 @@ export class CareerObjectiveListPage {
       this.careerObjectiveList = result;
     }, error => { });
   }
+
 
   /**
    * Dirige vers la page de création d'un nouvel objectif
@@ -107,10 +125,10 @@ export class CareerObjectiveListPage {
    * Fait appel à formsLib avec les paramètres eObservation.
    */
   createEObservation() {
-    this.eObservationService.getEObservation(this.matricule, this.sessionService.appContext.lastConsultedRotation.techId).then(eObservation => {
-      this.eObservation = eObservation;
-      if (this.eObservation) {
-        this.eObservationService.callForms(this.eObservation);
+    this.formsEObservationService.getFormsInputParams(this.matricule, this.sessionService.appContext.lastConsultedRotation.techId).then(formsInputParam => {
+      this.formsInputParam = formsInputParam;
+      if (this.formsInputParam) {
+        this.formsEObservationService.callForms(this.formsInputParam);
       }
     }, error => {
     });
@@ -121,7 +139,7 @@ export class CareerObjectiveListPage {
      * @return vrai si c'est le cas, faux sinon
      */
   canCreateEObservation(): boolean {
-    if (this.sessionService.appContext.lastConsultedRotation && !this.deviceService.isBrowser()) {
+    if (this.sessionService.appContext.lastConsultedRotation && this.deviceService.isBrowser()) {
       return true;
     } else {
       return false;
