@@ -14,7 +14,7 @@ export class OnlineEObservationService {
     ) { }
 
     /**
-     * Récupère les EObservations d'un PNC du cache à partir du back
+     * Récupère les EObservations d'un PNC à partir du back
      * @param matricule le matricule du PNC
      * @return une promesse contenant les EObservations trouvé
      */

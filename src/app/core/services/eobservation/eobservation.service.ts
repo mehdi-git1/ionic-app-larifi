@@ -26,7 +26,7 @@ export class EObservationService extends BaseService {
     /**
      * Récupère les EObservations d'un PNC du cache
      * @param matricule le matricule du PNC
-     * @return une promesse contenant les EObservations trouvé
+     * @return une promesse contenant les EObservations trouvées
      */
     getEObservations(matricule: string): Promise<EObservationModel[]> {
         return this.execFunctionService('getEObservations', matricule);

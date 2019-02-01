@@ -9,6 +9,10 @@ export class EObservationTransformerService {
   constructor() {
   }
 
+  /**
+ * Transforme le paramétre en entrée en tableau de EObservationModel
+ * @param array : Données  à transformer en EObservationModel[]
+ */
   toEObservations(array: EObservationModel[]) {
     const newArray: EObservationModel[] = [];
     for (const object of array) {
@@ -17,6 +21,10 @@ export class EObservationTransformerService {
     return newArray;
   }
 
+  /**
+ * Transforme le paramétre en entrée en objet de type EObservationModel
+ * @param object : Données à transformer en EObservationModel
+ */
   toEObservation(object: EObservationModel): EObservationModel {
     return !object ?
       object :

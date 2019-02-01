@@ -24,7 +24,7 @@ export class FormsInputParamService extends BaseService {
   /**
   * Récupère les infos d'une FormsInputParamsModel
   * @param matricule le matricule du PNC dont on souhaite récupérer l'FormsInputParamsModel
-  * @param rotation le techId de rotation concernée
+  * @param rotationId le techId de rotation concernée
   * @return les informations du PNC
   */
   getFormsInputParams(matricule: string, rotationId: number): Promise<FormsInputParamsModel> {
