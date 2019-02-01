@@ -1,11 +1,14 @@
+import { Component } from '@angular/core';
+import { NavParams } from 'ionic-angular';
+import * as _ from 'lodash';
+
 import { ProfessionalLevelModel } from '../../../../core/models/professional-level/professional-level.model';
 import { ProfessionalLevelService } from '../../../../core/services/professional-level/professional-level.service';
 import { PncService } from '../../../../core/services/pnc/pnc.service';
 import { SessionService } from '../../../../core/services/session/session.service';
 import { PncModel } from '../../../../core/models/pnc.model';
-import { Component } from '@angular/core';
-import { NavParams } from 'ionic-angular';
-import * as _ from 'lodash';
+import { EObservationModel } from '../../../../core/models/eobservation.model';
+import { EObservationService } from '../../../../core/services/eobservation/eobservation.service';
 
 @Component({
   selector: 'page-professional-level',
@@ -17,12 +20,15 @@ export class ProfessionalLevelPage {
   matricule: string;
   professionalLevel: ProfessionalLevelModel;
 
+  eObservations: EObservationModel[];
+
   listItemLegend = [];
 
   constructor(private navParams: NavParams,
     private sessionService: SessionService,
     private pncService: PncService,
-    private professionalLevelService: ProfessionalLevelService) {
+    private professionalLevelService: ProfessionalLevelService,
+    private eObservationService: EObservationService) {
   }
 
   ionViewDidLoad() {
@@ -42,6 +48,7 @@ export class ProfessionalLevelPage {
     if (this.matricule != null) {
       this.pncService.getPnc(this.matricule).then(pnc => {
         this.pnc = pnc;
+        this.getEObservationsList();
       }, error => { });
 
       this.professionalLevelService.getProfessionalLevel(this.matricule).then(professionalLevelResult => {
@@ -71,6 +78,17 @@ export class ProfessionalLevelPage {
       }
     }
     return sortedProfessionalLevel;
+  }
+
+  /**
+ * Récupére la liste des eObservations
+ */
+  getEObservationsList() {
+    this.eObservationService.getEObservations(this.matricule).then(
+      eobs => {
+        this.eObservations = eobs;
+      }, error => {
+      });
   }
 
   /**
