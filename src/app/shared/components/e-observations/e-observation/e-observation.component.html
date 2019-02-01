@@ -4,10 +4,12 @@
         <label class="e-observation-type">{{eObs.type}}</label>
         <label class="e-observation-writer">
             {{eObs.redactor.matricule}} - {{eObs.redactor.lastName}}
-            <!-- <button ion-fab mini>
-    <span class="edospnc-memo"></span>
-</button> -->
-            <ion-icon name="edospnc-memo" class="edospnc-memo"></ion-icon>
+            <div class="e-observation-detail">
+                <button ion-fab mini>
+                    <span class="edospnc-memo"></span>
+                </button>
+            </div>
+            <!-- <ion-icon name="edospnc-memo" class="edospnc-memo"></ion-icon> -->
         </label>
     </mat-expansion-panel-header>
 </mat-expansion-panel>
