@@ -135,4 +135,11 @@ export class CareerObjectiveListPage {
   loadingIsOver(): boolean {
     return this.careerObjectiveList !== undefined && this.pnc !== undefined;
   }
+
+  /**
+   * Rafraichit les listes de la page
+   */
+  refreshPage() {
+    this.initCareerObjectivesList();
+  }
 }
