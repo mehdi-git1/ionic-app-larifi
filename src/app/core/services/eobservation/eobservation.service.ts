@@ -24,7 +24,7 @@ export class EObservationService extends BaseService {
     }
 
     /**
-     * Récupère les EObservations d'un PNC du cache
+     * Récupère les EObservations d'un PNC
      * @param matricule le matricule du PNC
      * @return une promesse contenant les EObservations trouvées
      */

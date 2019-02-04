@@ -11,11 +11,12 @@ export class EObservationTransformerService {
 
   /**
  * Transforme le paramétre en entrée en tableau de EObservationModel
- * @param array : Données  à transformer en EObservationModel[]
+ * @param eObservationModelArray : Données  à transformer en EObservationModel[]
+ * @return l'objet EObservationModel[] transformé
  */
-  toEObservations(array: EObservationModel[]) {
+  toEObservations(eObservationModelArray: EObservationModel[]): EObservationModel[] {
     const newArray: EObservationModel[] = [];
-    for (const object of array) {
+    for (const object of eObservationModelArray) {
       newArray.push(this.toEObservation(object));
     }
     return newArray;
@@ -23,12 +24,13 @@ export class EObservationTransformerService {
 
   /**
  * Transforme le paramétre en entrée en objet de type EObservationModel
- * @param object : Données à transformer en EObservationModel
+ * @param eObservationModel : Données à transformer en EObservationModel
+ * @return l'objet EObservationModel transformé
  */
-  toEObservation(object: EObservationModel): EObservationModel {
-    return !object ?
-      object :
-      new EObservationModel().fromJSON(object);
+  toEObservation(eObservationModel: EObservationModel): EObservationModel {
+    return !eObservationModel ?
+      eObservationModel :
+      new EObservationModel().fromJSON(eObservationModel);
   }
 
 }

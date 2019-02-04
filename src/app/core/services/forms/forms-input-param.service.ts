@@ -22,10 +22,10 @@ export class FormsInputParamService extends BaseService {
   }
 
   /**
-  * Récupère les infos d'une FormsInputParamsModel
-  * @param matricule le matricule du PNC dont on souhaite récupérer l'FormsInputParamsModel
-  * @param rotationId le techId de rotation concernée
-  * @return les informations du PNC
+  * Récupère les filtres personnalisés d'un PNC, en fonction de ses droits et de son affectation (liste des Div, Secteurs, Ginq auxquels il a le droit etc)
+  * @param matricule le matricule du PNC dont on souhaite récupérer le FormsInputParamsModel
+  * @param rotationId le techId de la rotation concernée
+  * @return les filtres du PNC
   */
   getFormsInputParams(matricule: string, rotationId: number): Promise<FormsInputParamsModel> {
     return this.execFunctionService('getFormsInputParams', matricule, rotationId);

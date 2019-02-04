@@ -1,10 +1,11 @@
 import { EDossierPncObjectModel } from './e-dossier-pnc-object.model';
 import { PncModel } from './pnc.model';
+import { EObservationTypeEnum } from '../enums/e-observations-type.enum';
 
 export class EObservationModel extends EDossierPncObjectModel {
 
     rotationDate: Date;
-    type: string;
+    type: EObservationTypeEnum;
     redactor: PncModel;
 
     getStorageId(): string {
