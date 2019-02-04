@@ -47,6 +47,8 @@
         "MY_STATUTORY_CERTIFICATE": "Mon profil PNC",
         "PROFESSIONAL_LEVEL": "Niveau pro SV",
         "MY_PROFESSIONAL_LEVEL": "Mon niveau pro SV",
+        "CONGRATULATION_LETTERS": "Lettres de félicitations",
+        "MY_CONGRATULATION_LETTERS": "Mes lettres de félicitations",
         "UNKNOWN_ERROR": "Suite à un dysfonctionnement technique, l'opération a échoué. Nous vous invitons à réessayer dans quelques minutes. Si le problème persiste, veuillez contacter votre support.",
         "COMING_SOON": "(Prochainement)",
         "MESSAGES": {
@@ -373,6 +375,23 @@
         "MY_TITLE": "Mes ressources d'aide",
         "NO_HELP_ASSETS": "Aucune ressource créée pour le moment",
         "LAST_UPDATE_DATE": "Dernière mise à jour : "
+    },
+    "CONGRATULATION_LETTERS": {
+        "TITLE": "Lettres de félicitations",
+        "TABS": {
+            "RECEIVED_LETTERS": "Félicitations reçues",
+            "WRITTEN_LETTERS": "Félicitations rédigées"
+        },
+        "HEADER": {
+            "CREATION_DATE": "Date de rédaction",
+            "FLIGHT": "Occasion",
+            "TYPE": "Type de lettre",
+            "WRITER": "Rédacteur"
+        },
+        "TYPE": {
+            "COLLECTIVE": "Collective",
+            "INDIVIDUAL": "Individuelle"
+        }
     },
     "SYNCHRONIZATION": {
         "PNC_SAVED_OFFLINE": "Le PNC {{ matricule }} a été synchronisé",

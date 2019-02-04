@@ -98,16 +98,22 @@
                             {{ 'GLOBAL.HELP_CENTER' | isMyPage: pnc | translate }}
                         </button>
                     </div>
+                    <!--  Niveau professionnel -->
+                    <div class="button-parent" *hasPermission="'VIEW_PROFESSIONAL_LEVEL'">
+                        <button ion-button (click)="goToProfessionalLevel()" color="grey11">
+                            {{ 'GLOBAL.PROFESSIONAL_LEVEL' | isMyPage: pnc | translate }}
+                        </button>
+                    </div>
                     <!--  Attestation réglementaire -->
                     <div class="button-parent" *hasPermission="'VIEW_STATUTORY_CERTIFICATE'">
                         <button ion-button (click)="goToStatutoryCertificate()" color="red20">
                             {{ 'GLOBAL.STATUTORY_CERTIFICATE' | isMyPage: pnc | translate }}
                         </button>
                     </div>
-                    <!--  Niveau professionnel -->
-                    <div class="button-parent" *hasPermission="'VIEW_PROFESSIONAL_LEVEL'">
-                        <button ion-button (click)="goToProfessionalLevel()" color="grey11">
-                            {{ 'GLOBAL.PROFESSIONAL_LEVEL' | isMyPage: pnc | translate }}
+                    <!--  Lettres de félicitation -->
+                    <div class="button-parent">
+                        <button ion-button (click)="goToCongratulationLetters()" color="red13">
+                            {{ 'GLOBAL.CONGRATULATION_LETTERS' | isMyPage: pnc | translate }}
                         </button>
                     </div>
                 </ion-col>

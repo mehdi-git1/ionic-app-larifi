@@ -1,0 +1,23 @@
+<ion-header>
+    <ion-navbar>
+        <page-header [showSettingsIcon]="true">
+            {{ 'CONGRATULATION_LETTERS.TITLE' | translate }}
+        </page-header>
+    </ion-navbar>
+</ion-header>
+<ion-content padding no-bounce>
+    <nav class="tabs">
+        <button (click)="displayReceivedLetters()" [ngClass]="{'active': isTabActive(CongratulationLetterModeEnum.RECEIVED)}">
+            {{ 'CONGRATULATION_LETTERS.TABS.RECEIVED_LETTERS' | translate }}
+        </button>
+        <button (click)="displayWrittenLetters()" [ngClass]="{'active': isTabActive(CongratulationLetterModeEnum.WRITTEN)}">
+            {{ 'CONGRATULATION_LETTERS.TABS.WRITTEN_LETTERS' | translate }}
+        </button>
+    </nav>
+
+    <!-- Lettres reçues -->
+    <congratulation-letter-list [hidden]="!isTabActive(CongratulationLetterModeEnum.RECEIVED)" [mode]="CongratulationLetterModeEnum.RECEIVED" [congratulationLetters]="receivedCongratulationLetters"></congratulation-letter-list>
+
+    <!-- Lettres rédigées -->
+    <congratulation-letter-list [hidden]="!isTabActive(CongratulationLetterModeEnum.WRITTEN)" [mode]="CongratulationLetterModeEnum.WRITTEN" [congratulationLetters]="writtenCongratulationLetters"></congratulation-letter-list>
+</ion-content>

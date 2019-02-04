@@ -164,6 +164,14 @@ export class PncHomePage {
         }
     }
 
+    goToCongratulationLetters() {
+        if (this.isMyHome()) {
+            this.navCtrl.parent.select(this.tabNavService.findTabIndex(TabNavEnum.CONGRATULATION_LETTERS_PAGE));
+        } else {
+            this.navCtrl.push(ProfessionalLevelPage, { matricule: this.matricule });
+        }
+    }
+
     /**
      * Précharge le eDossier du PNC si celui n'est pas cadre
      */
