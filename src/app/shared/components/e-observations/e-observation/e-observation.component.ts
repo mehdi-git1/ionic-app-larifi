@@ -11,7 +11,4 @@ export class EObservationComponent {
 
   @Input() eObs;
 
-
-  constructor() {
-  }
 }
