@@ -34,14 +34,14 @@ describe('EObservationsComponent', () => {
 
     describe('defineLegendMessage', () => {
 
-        it(`doit mettre la variable isOlderThan3Years à true si une eObservations a plus de 3 ans`, () => {
+        it(`doit mettre la variable isOlderThan3Years à true si une eObservation a plus de 3 ans`, () => {
             comp.eObservations[0].rotationDate = new Date();
             comp.eObservations[1].rotationDate = new Date('01/01/2015');
             comp.defineLegendMessage();
             expect(comp.isOlderThan3Years).toBe(true);
         });
 
-        it(`doit mettre la variable isOlderThan3Years à false si une eObservations a plus de 3 ans`, () => {
+        it(`doit mettre la variable isOlderThan3Years à false si une eObservation a plus de 3 ans`, () => {
             comp.eObservations[0].rotationDate = new Date();
             comp.eObservations[1].rotationDate = new Date('31/01/2016');
             comp.defineLegendMessage();
