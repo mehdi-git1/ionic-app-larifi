@@ -29,8 +29,8 @@ export class OfflineEObservationService {
     getEObservations(matricule: string): Promise<EObservationModel[]> {
         return new Promise((resolve, reject) => {
             const eObservationList = this.storageService.findAll(EntityEnum.EOBSERVATION);
-            const eObservations = eObservationList.filter(careerObjective => {
-                return careerObjective.pnc.matricule === matricule && careerObjective.offlineAction !== OfflineActionEnum.DELETE;
+            const eObservations = eObservationList.filter(eObservation => {
+                return eObservation.pnc.matricule === matricule && eObservation.offlineAction !== OfflineActionEnum.DELETE;
             });
             resolve(eObservations);
         });

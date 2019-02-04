@@ -10,7 +10,7 @@ export class EObservationTransformerService {
   }
 
   /**
- * Transforme le paramétre en entrée en tableau de EObservationModel
+ * Transforme le paramètre en entrée en tableau de EObservationModel
  * @param eObservationModelArray : Données  à transformer en EObservationModel[]
  * @return l'objet EObservationModel[] transformé
  */
@@ -23,7 +23,7 @@ export class EObservationTransformerService {
   }
 
   /**
- * Transforme le paramétre en entrée en objet de type EObservationModel
+ * Transforme le paramètre en entrée en objet de type EObservationModel
  * @param eObservationModel : Données à transformer en EObservationModel
  * @return l'objet EObservationModel transformé
  */

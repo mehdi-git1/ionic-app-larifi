@@ -19,9 +19,9 @@ export class OnlineEObservationService {
      * @return une promesse contenant les EObservations trouvées
      */
     getEObservations(matricule: string): Promise<EObservationModel[]> {
-        return this.restService.get(this.config.getBackEndUrl('getEobservationsByMatricule', [matricule])).then(
-            EObservations => {
-                return this.eObservationTransformerService.toEObservations(EObservations);
+        return this.restService.get(this.config.getBackEndUrl('getEObservationsByMatricule', [matricule])).then(
+            eObservations => {
+                return this.eObservationTransformerService.toEObservations(eObservations);
             }
         );
     }
