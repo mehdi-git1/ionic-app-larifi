@@ -1,5 +1,4 @@
 import { EObservationTransformerService } from './../eobservation/eobservation-transformer.service';
-import { EObservationTransformerService } from './../e-observation/e-observation-transformer.service';
 import { FormsInputParamsModel } from './../../models/forms-input-params.model';
 import { Injectable, EventEmitter, Output } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
