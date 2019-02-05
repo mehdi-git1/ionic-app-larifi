@@ -1,3 +1,4 @@
+import { CongratulationLetterTransformerService } from './../congratulation-letter/congratulation-letter-transformer.service';
 import { Injectable, EventEmitter, Output } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs/Rx';
@@ -34,24 +35,23 @@ export class SynchronizationService {
   synchroStatusChange = new EventEmitter<boolean>();
 
   constructor(private storageService: StorageService,
-    private eObservationService: EFormsEObservationService,
-    private careerObjectiveTransformer: CareerObjectiveTransformerService,
     private waypointTransformer: WaypointTransformerService,
-    private pncTransformer: PncTransformerService,
     private pncSynchroProvider: PncSynchroService,
-    private rotationTransformerProvider: RotationTransformerService,
-    private legTransformerProvider: LegTransformerService,
-    private crewMemberTransformerService: CrewMemberTransformerService,
     public securityProvider: SecurityService,
-    private pncPhotoTransformer: PncPhotoTransformerService,
+    private translateService: TranslateService,
+    private eObservationService: EFormsEObservationService,
     private legProvider: LegService,
     private sessionService: SessionService,
-    private translateService: TranslateService,
+    private careerObjectiveTransformer: CareerObjectiveTransformerService,
+    private pncTransformer: PncTransformerService,
+    private pncPhotoTransformer: PncPhotoTransformerService,
+    private congratulationLetterTransformer: CongratulationLetterTransformerService,
     private professionalLevelTransformer: ProfessionalLevelTransformerService,
-    private statutoryCertificateTransformer: StatutoryCertificateTransformerService) {
+    private statutoryCertificateTransformer: StatutoryCertificateTransformerService,
+    private crewMemberTransformerService: CrewMemberTransformerService,
+    private rotationTransformerProvider: RotationTransformerService,
+    private legTransformerProvider: LegTransformerService) {
   }
-
-
 
   /**
    * Stocke en cache le EDossier du PNC
@@ -154,10 +154,14 @@ export class SynchronizationService {
         // Sauvegarde de l'attestation réglementaire
         this.storageService.save(EntityEnum.STATUTORY_CERTIFICATE, this.statutoryCertificateTransformer.toStatutoryCertificate(pncSynchroResponse.statutoryCertificate), true);
 
-
         // Sauvegarde du suivi réglementaire
         this.storageService.save(EntityEnum.PROFESSIONAL_LEVEL, this.professionalLevelTransformer.toProfessionalLevel(pncSynchroResponse.professionalLevel), true);
         this.storageService.persistOfflineMap();
+
+        // Sauvegarde des lettres de félicitation
+        for (const congratulationLetter of pncSynchroResponse.congratulationLetters) {
+          this.storageService.save(EntityEnum.CONGRATULATION_LETTER, this.congratulationLetterTransformer.toCongratulationLetter(congratulationLetter), true);
+        }
 
         Promise.all(storeCrewMembersPromises).then(success => resolve(), error => reject());
       }, error => { });

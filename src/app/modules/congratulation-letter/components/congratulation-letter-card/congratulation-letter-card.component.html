@@ -4,4 +4,4 @@
     <ng-container *ngIf="congratulationLetter?.collective; else individualLabel">{{ 'CONGRATULATION_LETTERS.TYPE.COLLECTIVE' | translate }}</ng-container>
     <ng-template #individualLabel>{{ 'CONGRATULATION_LETTERS.TYPE.INDIVIDUAL' | translate }}</ng-template>
 </span>
-<span class="writer" *ngIf="isMode(CongratulationLetterModeEnum.RECEIVED)">{{ congratulationLetter.writer.firstName }} {{ congratulationLetter.writer.lastName }}</span>
+<span class="redactor" *ngIf="isMode(CongratulationLetterModeEnum.RECEIVED)">{{ congratulationLetter.redactor.firstName }} {{ congratulationLetter.redactor.lastName }}</span>

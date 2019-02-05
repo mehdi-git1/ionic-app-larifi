@@ -1,9 +1,19 @@
 import { CongratulationLetterFlightModel } from './congratulation-letter-flight.model';
 import { PncModel } from './pnc.model';
+import { EDossierPncObjectModel } from './e-dossier-pnc-object.model';
 
-export class CongratulationLetterModel {
+export class CongratulationLetterModel extends EDossierPncObjectModel {
+    dominoId: number;
+    airlineOwner: string;
+    title: string;
+    verbatim: string;
     creationDate: Date;
-    flight: CongratulationLetterFlightModel;
     collective: boolean;
-    writer: PncModel;
+    flight: CongratulationLetterFlightModel;
+    redactor: PncModel;
+    concernedPncs: PncModel[];
+
+    getStorageId(): string {
+        return `${this.techId}`;
+    }
 }

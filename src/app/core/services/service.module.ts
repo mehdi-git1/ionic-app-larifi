@@ -1,3 +1,5 @@
+import { CongratulationLetterTransformerService } from './congratulation-letter/congratulation-letter-transformer.service';
+import { CongratulationLetterService } from './congratulation-letter/congratulation-letter.service';
 import { OnlineEvaluationSheetService } from './professional-level/evaluation-sheet/online-evaluation-sheet.service';
 import { OfflineEvaluationSheetService } from './professional-level/evaluation-sheet/offline-evaluation-sheet.service';
 import { EvaluationSheetService } from './professional-level/evaluation-sheet/evaluation-sheet.service';
@@ -69,6 +71,8 @@ import { CrewMemberTransformerService } from './crewMember/crew-member-transform
 import { EObservationService } from './e-observation/e-observation.service';
 import { UserPermissionService } from './user-permission/user-permission.service';
 import { TranslateOrEmptyService } from './translate/translate-or-empty.service';
+import { OfflineCongratulationLetterService } from './congratulation-letter/offline-congratulation-letter.service';
+import { OnlineCongratulationLetterService } from './congratulation-letter/online-congratulation-letter';
 
 
 @NgModule({
@@ -148,6 +152,10 @@ import { TranslateOrEmptyService } from './translate/translate-or-empty.service'
         OnlineEvaluationSheetService,
         OfflineEvaluationSheetService,
         UserProfileService,
+        CongratulationLetterService,
+        OfflineCongratulationLetterService,
+        OnlineCongratulationLetterService,
+        CongratulationLetterTransformerService,
         TranslateOrEmptyService
     ]
 })

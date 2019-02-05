@@ -24,6 +24,7 @@ import { StatutoryCertificatePage } from '../../../statutory-certificate/pages/s
 import { SpecialityEnum } from '../../../../core/enums/speciality.enum';
 import { SpecialityService } from '../../../../core/services/speciality/speciality.service';
 import { SummarySheetService } from '../../../../core/services/summary-sheet/summary-sheet.service';
+import { CongratulationLettersPage } from '../../../congratulation-letter/pages/congratulation-letters/congratulation-letters.page';
 
 
 
@@ -168,7 +169,7 @@ export class PncHomePage {
         if (this.isMyHome()) {
             this.navCtrl.parent.select(this.tabNavService.findTabIndex(TabNavEnum.CONGRATULATION_LETTERS_PAGE));
         } else {
-            this.navCtrl.push(ProfessionalLevelPage, { matricule: this.matricule });
+            this.navCtrl.push(CongratulationLettersPage, { matricule: this.matricule });
         }
     }
 
