@@ -1,9 +1,11 @@
+import { PncService } from './../../../../core/services/pnc/pnc.service';
 import { CongratulationLetterService } from './../../../../core/services/congratulation-letter/congratulation-letter.service';
 import { CongratulationLetterModeEnum } from '../../../../core/enums/congratulation-letter/congratulation-letter-mode.enum';
 import { NavParams } from 'ionic-angular';
 import { Component } from '@angular/core';
 import { CongratulationLetterModel } from '../../../../core/models/congratulation-letter.model';
 import { SessionService } from '../../../../core/services/session/session.service';
+import { PncModel } from '../../../../core/models/pnc.model';
 
 @Component({
     selector: 'congratulation-letters',
@@ -12,6 +14,8 @@ import { SessionService } from '../../../../core/services/session/session.servic
 export class CongratulationLettersPage {
 
     matricule: string;
+
+    pnc: PncModel;
 
     CongratulationLetterModeEnum = CongratulationLetterModeEnum;
 
@@ -23,6 +27,7 @@ export class CongratulationLettersPage {
 
     constructor(private navParams: NavParams,
         private congratulationLetterService: CongratulationLetterService,
+        private pncService: PncService,
         private sessionService: SessionService) {
     }
 
@@ -32,6 +37,10 @@ export class CongratulationLettersPage {
         } else if (this.sessionService.getActiveUser()) {
             this.matricule = this.sessionService.getActiveUser().matricule;
         }
+        this.pncService.getPnc(this.matricule).then(pnc => {
+            this.pnc = pnc;
+        }, error => { });
+
         this.selectedCongratulationLetterMode = CongratulationLetterModeEnum.RECEIVED;
 
         this.congratulationLetterService.getReceivedCongratulationLetters(this.matricule).then(receivedCongratulationLetters => {

@@ -1,8 +1,10 @@
 congratulation-letter-card {
     display: flex;
+    align-items: center;
     background: color($colors, blue77);
     color: color($colors, white);
     margin-bottom: 5px;
+    height: 33px;
     padding: 5px 10px;
     border-radius: 5px;
 

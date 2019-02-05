@@ -1,7 +1,7 @@
 <ion-header>
     <ion-navbar>
-        <page-header [showSettingsIcon]="true">
-            {{ 'CONGRATULATION_LETTERS.TITLE' | translate }}
+        <page-header [showSettingsIcon]="true" [pnc]="pnc">
+            <span *ngIf="pnc"> {{ 'CONGRATULATION_LETTERS.TITLE' | isMyPage: pnc | translate }}</span>
         </page-header>
     </ion-navbar>
 </ion-header>

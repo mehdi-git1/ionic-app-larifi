@@ -378,6 +378,7 @@
     },
     "CONGRATULATION_LETTERS": {
         "TITLE": "Lettres de félicitations",
+        "MY_TITLE": "Mes lettres de félicitations",
         "TABS": {
             "RECEIVED_LETTERS": "Félicitations reçues",
             "WRITTEN_LETTERS": "Félicitations rédigées"
