@@ -5,3 +5,7 @@
     <label class="redactor" *ngIf="isMode(CongratulationLetterModeEnum.RECEIVED)">{{ 'CONGRATULATION_LETTERS.HEADER.WRITER' | translate }}</label>
 </div>
 <congratulation-letter-card *ngFor="let congratulationLetter of congratulationLetters" [congratulationLetter]="congratulationLetter" [mode]="mode"></congratulation-letter-card>
+<ng-container *ngIf="congratulationLetters && congratulationLetters.length == 0">
+    <div class="no-data-found" *ngIf="isMode(CongratulationLetterModeEnum.RECEIVED)">{{ 'CONGRATULATION_LETTERS.NO_RECEIVED_LETTERS' | translate }}</div>
+    <div class="no-data-found" *ngIf="isMode(CongratulationLetterModeEnum.WRITTEN)">{{ 'CONGRATULATION_LETTERS.NO_WRITTEN_LETTERS' | translate }}</div>
+</ng-container>
