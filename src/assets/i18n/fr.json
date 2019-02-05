@@ -392,7 +392,9 @@
         "TYPE": {
             "COLLECTIVE": "Collective",
             "INDIVIDUAL": "Individuelle"
-        }
+        },
+        "NO_RECEIVED_LETTERS": "Pas de félicitations reçues",
+        "NO_WRITTEN_LETTERS": "Pas de félicitations rédigées"
     },
     "SYNCHRONIZATION": {
         "PNC_SAVED_OFFLINE": "Le PNC {{ matricule }} a été synchronisé",
