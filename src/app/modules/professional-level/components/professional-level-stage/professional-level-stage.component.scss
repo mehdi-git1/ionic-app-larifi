@@ -20,6 +20,11 @@ professional-level-stage {
                 padding: 6px 20px 6px 10px;
             }
 
+            &.mat-expanded {
+                border-bottom-left-radius: 0px;
+                border-bottom-right-radius: 0px;
+            }
+
             &.mat-expanded:hover,
             &.mat-expanded:focus {
                 background-color: color($colors, bluegrey) !important;

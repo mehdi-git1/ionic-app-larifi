@@ -1,6 +1,6 @@
+import { FormsInputParamTransformerService } from './../forms/forms-input-param-transformer.service';
 import { Injectable } from '@angular/core';
 
-import { EObservationTransformerService } from '../e-observation/e-observation-transformer.service';
 import { WaypointTransformerService } from '../waypoint/waypoint-transformer.service';
 import { CareerObjectiveTransformerService } from '../career-objective/career-objective-transformer.service';
 import { PncTransformerService } from '../pnc/pnc-transformer.service';
@@ -15,7 +15,7 @@ export class TransformerService {
         private pncTransformer: PncTransformerService,
         private careerObjectiveTransformer: CareerObjectiveTransformerService,
         private waypointTransformer: WaypointTransformerService,
-        private eObservationTransformer: EObservationTransformerService,
+        private formsInputParamTransformer: FormsInputParamTransformerService,
         private summarySheetTransformer: SummarySheetTransformerService) {
     }
     /**
@@ -32,8 +32,8 @@ export class TransformerService {
             return this.careerObjectiveTransformer.toCareerObjective(objectToTransform);
         } else if (EntityEnum.WAYPOINT === type) {
             return this.waypointTransformer.toWaypoint(objectToTransform);
-        } else if (EntityEnum.EOBSERVATION === type) {
-            return this.eObservationTransformer.toEObservation(objectToTransform);
+        } else if (EntityEnum.FORMS_INPUT_PARAM === type) {
+            return this.formsInputParamTransformer.toFormsInputParams(objectToTransform);
         } else {
             return objectToTransform;
         }
