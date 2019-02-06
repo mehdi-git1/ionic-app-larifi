@@ -265,6 +265,17 @@
         }
     },
     "EOBSERVATION": {
+        "LIST": {
+            "HEADER": {
+                "ROTATION_DATE": "Date de réalisation",
+                "TYPE": "Type eObservation",
+                "REDACTOR": "Rédacteur"
+            },
+            "LEGEND": {
+                "LESS_THAN_3_YEARS": "eObservations réalisées sur les 3 dernières années",
+                "MORE_THAN_3_YEARS": "dernières eObservations réalisées"
+            }
+        },
         "NEW_EOBSERVATION_HEADER": {
             "FUNCTION": "Fonction",
             "TYPE": "Type de formulaire",
@@ -279,7 +290,7 @@
             "CODE": "Code",
             "LABEL": "Libellé",
             "RESULT": "Résultat",
-            "HELP": "Légende à venir"
+            "HELP": "Vous trouverez l'explication détaillée de vos résultats de stage dans le Manex D Chapitre 3.3.4.2"
         },
         "LEGEND": {
             "TITLE": "Légende",
@@ -317,7 +328,7 @@
             "SUCCESS_WITH_FC": "Réussi avec FC",
             "SUCCESS_WITH_FC_AND_TESTS": "Réussi avec FC + test",
             "SUCCESS_WITH_RETAKE": "Réussi avec rattrapage",
-            "FAILED": "Non atteint"
+            "FAILED": "Ajournement"
         },
         "EVALUATION_SHEET": {
             "TITLE": "Feuille d'évaluation",

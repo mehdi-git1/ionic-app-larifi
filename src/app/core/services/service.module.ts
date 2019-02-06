@@ -1,5 +1,10 @@
 import { CongratulationLetterTransformerService } from './congratulation-letter/congratulation-letter-transformer.service';
 import { CongratulationLetterService } from './congratulation-letter/congratulation-letter.service';
+import { EObservationTransformerService } from './eobservation/eobservation-transformer.service';
+import { EObservationService } from './eobservation/eobservation.service';
+import { OnlineFormsInputParamService } from './forms/online-forms-input-param.service';
+import { OfflineFormsInputParamService } from './forms/offline-forms-input-param.service';
+import { FormsInputParamService } from './forms/forms-input-param.service';
 import { OnlineEvaluationSheetService } from './professional-level/evaluation-sheet/online-evaluation-sheet.service';
 import { OfflineEvaluationSheetService } from './professional-level/evaluation-sheet/offline-evaluation-sheet.service';
 import { EvaluationSheetService } from './professional-level/evaluation-sheet/evaluation-sheet.service';
@@ -39,16 +44,14 @@ import { SynchronizationService } from './synchronization/synchronization.servic
 import { PncTransformerService } from './pnc/pnc-transformer.service';
 import { WaypointTransformerService } from './waypoint/waypoint-transformer.service';
 import { PncSynchroService } from './synchronization/pnc-synchro.service';
-import { EFormsEObservationService } from './e-forms/e-forms-e-observation.service';
+import { FormsEObservationService } from './forms/forms-e-observation.service';
 import { SummarySheetTransformerService } from './summary-sheet/summary-sheet-transformer.service';
 import { OfflinePncPhotoService } from './pnc-photo/offline-pnc-photo.service';
 import { ProfessionalLevelService } from './professional-level/professional-level.service';
 import { PncPhotoTransformerService } from './pnc-photo/pnc-photo-transformer.service';
-import { EObservationTransformerService } from './e-observation/e-observation-transformer.service';
 import { RotationTransformerService } from './rotation/rotation-transformer.service';
 import { SpecialityService } from './speciality/speciality.service';
 import { SummarySheetService } from './summary-sheet/summary-sheet.service';
-import { OfflineEObservationService } from './e-observation/offline-e-observation.service';
 import { OnlineProfessionalLevelService } from './professional-level/online-professional-level.service';
 import { OnlineLegService } from './leg/online-leg.service';
 import { ProfessionalLevelTransformerService } from './professional-level/professional-level-transformer.service';
@@ -56,7 +59,6 @@ import { OnlinePncPhotoService } from './pnc-photo/online-pnc-photo.service';
 import { ModalSecurityService } from './modal/modal-security.service';
 import { OfflineLegService } from './leg/offline-leg.service';
 import { OnlineStatutoryCertificateService } from './statutory-certificate/online-statutory-certificate.service';
-import { OnlineEObservationService } from './e-observation/online-e-observation.service';
 import { PncPhotoService } from './pnc-photo/pnc-photo.service';
 import { OfflineStatutoryCertificateService } from './statutory-certificate/offline-statutory-certificate.service';
 import { StatutoryCertificateTransformerService } from './statutory-certificate/statutory-certificate-transformer.service';
@@ -68,11 +70,12 @@ import { OnlineRotationService } from './rotation/online-rotation.service';
 import { OnlineSummarySheetService } from './summary-sheet/online-summary-sheet.service';
 import { LegTransformerService } from './leg/leg-transformer.service';
 import { CrewMemberTransformerService } from './crewMember/crew-member-transformer.service';
-import { EObservationService } from './e-observation/e-observation.service';
-import { UserPermissionService } from './user-permission/user-permission.service';
 import { TranslateOrEmptyService } from './translate/translate-or-empty.service';
 import { OfflineCongratulationLetterService } from './congratulation-letter/offline-congratulation-letter.service';
 import { OnlineCongratulationLetterService } from './congratulation-letter/online-congratulation-letter';
+import { FormsInputParamTransformerService } from './forms/forms-input-param-transformer.service';
+import { OnlineEObservationService } from './eobservation/online-eobservation.service';
+import { OfflineEObservationService } from './eobservation/offline-eobservation.service';
 
 
 @NgModule({
@@ -117,7 +120,7 @@ import { OnlineCongratulationLetterService } from './congratulation-letter/onlin
         PncTransformerService,
         SynchronizationService,
         PncSynchroService,
-        EFormsEObservationService,
+        FormsEObservationService,
         SummarySheetService,
         RotationTransformerService,
         LegTransformerService,
@@ -134,10 +137,10 @@ import { OnlineCongratulationLetterService } from './congratulation-letter/onlin
         OnlinePncPhotoService,
         OfflinePncPhotoService,
         PncPhotoTransformerService,
-        EObservationService,
-        OfflineEObservationService,
-        OnlineEObservationService,
-        EObservationTransformerService,
+        FormsInputParamService,
+        OfflineFormsInputParamService,
+        OnlineFormsInputParamService,
+        FormsInputParamTransformerService,
         StatutoryCertificateService,
         OnlineStatutoryCertificateService,
         OfflineStatutoryCertificateService,
@@ -151,6 +154,10 @@ import { OnlineCongratulationLetterService } from './congratulation-letter/onlin
         EvaluationSheetService,
         OnlineEvaluationSheetService,
         OfflineEvaluationSheetService,
+        EObservationService,
+        OnlineEObservationService,
+        OfflineEObservationService,
+        EObservationTransformerService,
         UserProfileService,
         CongratulationLetterService,
         OfflineCongratulationLetterService,

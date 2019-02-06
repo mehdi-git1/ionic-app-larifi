@@ -1,0 +1,66 @@
+e-observations {
+    mat-expansion-panel {
+        border-radius: 5px;
+
+        mat-expansion-panel-header {
+            display: flex;
+            background-color: color($colors, blue68);
+            border-radius: 5px;
+            color: color($colors, white);
+            text-align: left;
+            cursor: pointer;
+
+            & > .mat-expansion-indicator {
+                display: flex;
+                transition: all linear 200ms;
+            }
+
+            &.mat-expansion-panel-header {
+                padding: 6px 20px 6px 10px;
+            }
+
+            &:not(.mat-expanded) {
+                box-shadow: 0 3px 1px -3px rgba(0, 0, 0, .2),
+                    0 2px 2px 0 rgba(0, 0, 0, .14),
+                    0 1px 5px 0 rgba(0, 0, 0, .12);
+            }
+
+            &.mat-expanded:hover,
+            &.mat-expanded:focus {
+                background-color: color($colors, blue68) !important;
+            }
+
+            .mat-content > label {
+                font-weight: 700;
+                font-size: 18px;
+                color: color($colors, white);
+            }
+
+            .e-obs-date {
+                width: 30%;
+            }
+
+            .e-obs-type {
+                width: 30%;
+            }
+
+            .e-obs-writer {
+                width: 40%;
+            }
+
+            .edospnc-calendar:before {
+                font-size: 25px;
+            }
+        }
+
+        .mat-expansion-panel-body {
+            padding: 0;
+            margin: 0;
+        }
+
+        no-data .no-data {
+            padding: 10px;
+        }
+
+    }
+}
