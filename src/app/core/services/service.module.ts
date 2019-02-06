@@ -72,7 +72,7 @@ import { LegTransformerService } from './leg/leg-transformer.service';
 import { CrewMemberTransformerService } from './crewMember/crew-member-transformer.service';
 import { TranslateOrEmptyService } from './translate/translate-or-empty.service';
 import { OfflineCongratulationLetterService } from './congratulation-letter/offline-congratulation-letter.service';
-import { OnlineCongratulationLetterService } from './congratulation-letter/online-congratulation-letter';
+import { OnlineCongratulationLetterService } from './congratulation-letter/online-congratulation-letter.service';
 import { FormsInputParamTransformerService } from './forms/forms-input-param-transformer.service';
 import { OnlineEObservationService } from './eobservation/online-eobservation.service';
 import { OfflineEObservationService } from './eobservation/offline-eobservation.service';

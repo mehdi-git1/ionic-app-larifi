@@ -1,7 +1,7 @@
 import { CongratulationLetterModel } from './../../models/congratulation-letter.model';
 import { Injectable } from '@angular/core';
 
-import { OnlineCongratulationLetterService } from './online-congratulation-letter';
+import { OnlineCongratulationLetterService } from './online-congratulation-letter.service';
 import { ConnectivityService } from '../connectivity/connectivity.service';
 import { OfflineCongratulationLetterService } from './offline-congratulation-letter.service';
 import { BaseService } from '../base/base.service';

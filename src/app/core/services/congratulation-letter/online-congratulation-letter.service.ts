@@ -1,4 +1,4 @@
-import { CongratulationLetterModel } from './../../models/congratulation-letter.model';
+import { CongratulationLetterModel } from '../../models/congratulation-letter.model';
 import { Injectable } from '@angular/core';
 import { UrlConfiguration } from '../../configuration/url.configuration';
 import { RestService } from '../../http/rest/rest.base.service';
