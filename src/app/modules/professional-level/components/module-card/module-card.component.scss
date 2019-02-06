@@ -55,10 +55,13 @@ module-card {
                 margin: 0;
                 padding: 0;
                 color: color($colors, white);
-                background-color: color($colors, blue81);
-                font-size: 20px;
+                background-color: color($colors, bluegrey);
                 width: 30px;
                 height: 30px;
+
+                span:before {
+                    font-size: 20px;
+                }
             }
 
         }

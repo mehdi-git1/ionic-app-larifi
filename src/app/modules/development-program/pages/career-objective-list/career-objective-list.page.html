@@ -1,6 +1,6 @@
 <ion-header>
     <ion-navbar>
-        <page-header (refreshPage)="initPage()" [showRefreshIcon]="true" [pnc]="pnc">
+        <page-header (refreshPage)="refreshPage()" [showRefreshIcon]="true" [pnc]="pnc">
             <span *ngIf='pnc'>{{ 'GLOBAL.DEVELOPMENT_PROGRAM' | isMyPage: pnc | translate }}</span>
         </page-header>
     </ion-navbar>
@@ -10,7 +10,7 @@
     <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
     <ng-template #pageBlock>
 
-        <div class="add-container eobservation-container" *ngIf="canCreateEObservation() && hasEObsTypeForm()">
+        <div class="add-container eobservation-creation-container" *ngIf="canCreateEObservation() && hasEObsTypeForm()">
             <div class="eobservation-info-container">
                 <label>{{ 'EOBSERVATION.NEW_EOBSERVATION_HEADER.FUNCTION' | translate }}</label>
                 <span>{{pnc.currentSpeciality}}</span>
@@ -31,6 +31,10 @@
                     </div>
                 </button>
             </div>
+        </div>
+        <div class="add-container eobservation-list-container">
+            <e-observations *ngIf="eObservations" [eObservations]="eObservations">
+            </e-observations>
         </div>
 
         <abnormal-level></abnormal-level>
