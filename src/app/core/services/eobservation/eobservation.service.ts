@@ -3,7 +3,7 @@ import { BaseService } from '../base/base.service';
 import { ConnectivityService } from '../connectivity/connectivity.service';
 import { OnlineEObservationService } from './online-eobservation.service';
 import { OfflineEObservationService } from './offline-eobservation.service';
-import { EObservationModel } from '../../models/eobservation.model';
+import { EObservationModel } from '../../models/eobservation/eobservation.model';
 
 
 
@@ -24,9 +24,9 @@ export class EObservationService extends BaseService {
     }
 
     /**
-     * Récupère les EObservations d'un PNC du cache
+     * Récupère les EObservations d'un PNC
      * @param matricule le matricule du PNC
-     * @return une promesse contenant les EObservations trouvé
+     * @return une promesse contenant les EObservations trouvées
      */
     getEObservations(matricule: string): Promise<EObservationModel[]> {
         return this.execFunctionService('getEObservations', matricule);

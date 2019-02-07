@@ -1,0 +1,15 @@
+<mat-expansion-panel *ngIf="eObservation" [disabled]="!canOpen()">
+    <mat-expansion-panel-header class="e-observation" [expandedHeight]="matPanelHeaderHeight" [collapsedHeight]="matPanelHeaderHeight" hideToggle="true">
+        <label class="e-observation-date">{{eObservation.rotationDate | date : 'dd/MM/yyyy' : 'UTC'}}</label>
+        <label class="e-observation-type">{{ getEObservationTypeLabel(eObservation.type) }}</label>
+        <label class="e-observation-writer">
+            {{eObservation.redactor.matricule}} - {{eObservation.redactor.lastName}}
+            <div class="e-observation-detail">
+                <button ion-fab mini (click)="goToEObservationDetail()">
+                    <span class="edospnc-memo"></span>
+                </button>
+            </div>
+        </label>
+    </mat-expansion-panel-header>
+    <abnormal-level [abnormalEObservationItems]="abnormalEObservationItems"></abnormal-level>
+</mat-expansion-panel>

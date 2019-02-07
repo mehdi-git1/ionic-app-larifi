@@ -1,16 +1,17 @@
 <mat-expansion-panel id="matExpansionPaneleObs" [expanded]="true" [ngClass]="{'no-data' : eObservations.length === 0}">
     <mat-expansion-panel-header [expandedHeight]="matPanelHeaderHeight" [collapsedHeight]="matPanelHeaderHeight" hideToggle="true">
-        <label class="e-obs-date">
-            <!-- <ion-icon class="edospnc-calendar" name="edospnc-calendar"></ion-icon> -->
-            {{ "EOBSERVATION.LIST.HEADER.ROTATION_DATE" | translate }}
-        </label>
-        <label class="e-obs-type"> {{ "EOBSERVATION.LIST.HEADER.TYPE"| translate }} </label>
-        <label class="e-obs-writer"> {{ "EOBSERVATION.LIST.HEADER.REDACTOR" | translate }} </label>
+        <label class="e-obs-date"> {{ 'EOBSERVATION.LIST.HEADER.ROTATION_DATE' | translate }} </label>
+        <label class="e-obs-type"> {{ 'EOBSERVATION.LIST.HEADER.TYPE' | translate }} </label>
+        <label class="e-obs-writer"> {{ 'EOBSERVATION.LIST.HEADER.REDACTOR' | translate }} </label>
+        <div class="button-placeholder">
+            <!-- Occupe de l'espace pour s'aligner avec le bouton -->
+        </div>
     </mat-expansion-panel-header>
-    <div *ngIf="eObservations.length > 0">
-        <e-observation *ngFor="let eObs of eObservations" [eObs]="eObs">
+    <no-data *ngIf="eObservations.length === 0; else eObservationsDataBlock"></no-data>
+    <ng-template #eObservationsDataBlock>
+        <e-observation *ngFor="let eObservation of eObservations" [eObservation]="eObservation">
         </e-observation>
-    </div>
+        </div>
 </mat-expansion-panel>
 <no-data *ngIf="eObservations.length === 0"></no-data>
 <div *ngIf="eObservations.length > 0">

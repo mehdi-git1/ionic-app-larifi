@@ -278,6 +278,11 @@
             "FUNCTION": "Fonction",
             "TYPE": "Type de formulaire",
             "NEW": "Nouvelle eObservation"
+        },
+        "ABNORMAL_LEVEL": {
+            "SKILL": "Constante / Compétence / Séquence",
+            "ITEM": "Rubrique / Item",
+            "LEVEL": "Niveau"
         }
     },
     "PROFESSIONAL_LEVEL": {

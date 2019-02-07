@@ -29,11 +29,4 @@ export class OfflineFormsInputParamService {
     return this.storageService.findOneAsync(EntityEnum.FORMS_INPUT_PARAM, `${matricule}-${rotationId}`);
   }
 
-  /**
-    * Récupère tout les paramètres d'entrées de tout les apppels forms du cache
-    * @return une promesse contenant tout les paramètres d'entrées de tout les appels forms trouvés
-    */
-  getAllFormsInputParams(): Promise<FormsInputParamsModel[]> {
-    return this.storageService.findAllAsync(EntityEnum.FORMS_INPUT_PARAM);
-  }
 }

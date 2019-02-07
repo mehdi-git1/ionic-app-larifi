@@ -46,6 +46,7 @@ export class FormsEObservationService {
 
   /**
    * Appel de l'application Forms avec les bons paramètres
+   * @param Paramétres du formulaire à envoyer
    */
   callForms(formsInputParams: FormsInputParamsModel) {
     const param = {
@@ -95,6 +96,7 @@ export class FormsEObservationService {
   /**
    * Recupére la spécialité à envoyer a Eforms
    * @param speciality Spécialité du PNC
+   * @return retourne la spécialitè typée pour eforms
    */
   getSpecialityForEForms(speciality: string) {
     if (speciality == 'CC') { return 'C/C'; }
@@ -105,6 +107,7 @@ export class FormsEObservationService {
   /**
    * Recupére le type de l'eForm a renvoyer pour la création vie eForms
    * @param speciality Spécialité du PNC
+   * @return retourne la spécialitè typée pour eforms
    */
   getReportTypeForEForms(speciality: string) {
     return EFormsTypeEnum.getType(EFormsTypeEnum[speciality]);

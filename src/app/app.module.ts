@@ -1,3 +1,4 @@
+import { EObservationModule } from './modules/eobservation/eobservation.module';
 import { AdminModule } from './modules/admin/admin.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -51,6 +52,7 @@ import { FileModule } from './core/file/file.module';
     ProfessionalLevelModule,
     SettingsModule,
     StatutoryCertificateModule,
+    EObservationModule,
     AdminModule,
     ComponentsModule,
     SharedModule,

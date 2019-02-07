@@ -1,3 +1,4 @@
+import { EObservationTransformerService } from './../eobservation/eobservation-transformer.service';
 import { FormsInputParamsModel } from './../../models/forms-input-params.model';
 import { Injectable, EventEmitter, Output } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
@@ -48,7 +49,8 @@ export class SynchronizationService {
     private sessionService: SessionService,
     private translateService: TranslateService,
     private professionalLevelTransformer: ProfessionalLevelTransformerService,
-    private statutoryCertificateTransformer: StatutoryCertificateTransformerService) {
+    private statutoryCertificateTransformer: StatutoryCertificateTransformerService,
+    private eObservationTransformerService: EObservationTransformerService) {
   }
 
 
@@ -154,6 +156,11 @@ export class SynchronizationService {
         // Sauvegarde de l'attestation réglementaire
         this.storageService.save(EntityEnum.STATUTORY_CERTIFICATE, this.statutoryCertificateTransformer.toStatutoryCertificate(pncSynchroResponse.statutoryCertificate), true);
 
+        // Sauvegarde des EObservations
+        for (const eObservation of pncSynchroResponse.eObservations) {
+          delete eObservation.offlineAction;
+          this.storageService.save(EntityEnum.EOBSERVATION, this.eObservationTransformerService.toEObservation(eObservation), true);
+        }
 
         // Sauvegarde du suivi réglementaire
         this.storageService.save(EntityEnum.PROFESSIONAL_LEVEL, this.professionalLevelTransformer.toProfessionalLevel(pncSynchroResponse.professionalLevel), true);

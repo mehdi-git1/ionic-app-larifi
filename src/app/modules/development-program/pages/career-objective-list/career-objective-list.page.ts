@@ -1,4 +1,4 @@
-import { EObservationModel } from './../../../../core/models/eobservation.model';
+import { EObservationModel } from '../../../../core/models/eobservation/eobservation.model';
 import { EObservationService } from './../../../../core/services/eobservation/eobservation.service';
 import { FormsEObservationService } from './../../../../core/services/forms/forms-e-observation.service';
 import { FormsInputParamsModel } from './../../../../core/models/forms-input-params.model';
@@ -139,7 +139,7 @@ export class CareerObjectiveListPage {
      * @return vrai si c'est le cas, faux sinon
      */
   canCreateEObservation(): boolean {
-    if (this.sessionService.appContext.lastConsultedRotation && this.deviceService.isBrowser()) {
+    if (this.sessionService.appContext.lastConsultedRotation && !this.deviceService.isBrowser()) {
       return true;
     } else {
       return false;
@@ -152,5 +152,12 @@ export class CareerObjectiveListPage {
    */
   loadingIsOver(): boolean {
     return this.careerObjectiveList !== undefined && this.pnc !== undefined;
+  }
+
+  /**
+   * Rafraichit les listes de la page
+   */
+  refreshPage() {
+    this.initCareerObjectivesList();
   }
 }

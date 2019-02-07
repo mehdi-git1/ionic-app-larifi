@@ -21,6 +21,8 @@ e-observation {
             }
 
             .mat-content {
+                flex: none;
+                width: 1100px;
                 align-items: center;
             }
 
@@ -30,20 +32,20 @@ e-observation {
             }
 
             label {
-                font-size: 18px !important;
+                font-size: 1.2em !important;
                 font-weight: 400;
             }
 
             .e-observation-date {
-                width: 30%;
+                flex: 3;
             }
 
             .e-observation-type {
-                width: 30%;
+                flex: 3;
             }
 
             .e-observation-writer {
-                width: 40%;
+                flex: 4;
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
