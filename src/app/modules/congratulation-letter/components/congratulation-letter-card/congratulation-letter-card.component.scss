@@ -4,7 +4,7 @@ congratulation-letter-card {
     background: color($colors, blue77);
     color: color($colors, white);
     margin-bottom: 5px;
-    height: 33px;
+    height: 40px;
     padding: 5px 10px;
     border-radius: 5px;
 
@@ -26,5 +26,15 @@ congratulation-letter-card {
 
     .redactor {
         flex: 2;
+    }
+
+    button.detail-button {
+        color: color($colors, blue77);
+        width: 30px;
+        height: 30px;
+
+        span:before {
+            font-size: 20px;
+        }
     }
 }

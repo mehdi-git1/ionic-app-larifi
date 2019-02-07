@@ -1,0 +1,82 @@
+congratulation-letter-detail {
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+
+        th {
+            background: color($colors, blue81);
+            color: color($colors, white);
+            font-weight: normal;
+            text-align: left;
+
+            &:first-child {
+                border-top-left-radius: 5px;
+            }
+
+            &:last-child {
+                border-top-right-radius: 5px;
+            }
+        }
+
+        td {
+            background: color($colors, white);
+
+            .firstName {
+                text-transform: lowercase;
+
+                &:first-letter {
+                    text-transform: capitalize;
+                }
+            }
+
+            &:first-child {
+                border-bottom-left-radius: 5px;
+            }
+
+            &:last-child {
+                border-bottom-right-radius: 5px;
+            }
+
+        }
+
+        th,
+        td {
+            padding: 5px 10px;
+        }
+
+        th:not(:first-child),
+        td:not(:first-child) {
+            border-left: 1px solid color($colors, grey75);
+        }
+    }
+
+    .verbatim-container {
+        margin-top: 20px;
+        padding: 20px;
+        box-shadow: 0 0 2px 2px rgba(0, 0, 0, .1);
+        background: color($colors, white);
+        border-radius: 3px;
+
+        label {
+            display: flex;
+            align-items: center;
+            color: color($colors, grey12);
+            font-size: 1.1em;
+
+            span {
+                color: color($colors, blue81);
+                margin-right: 10px;
+            }
+        }
+
+        .verbatim {
+            margin: 10px 0 0 0;
+            padding: 10px;
+            border-radius: 3px;
+            background: color($colors, grey95);
+            border: 1px solid color($colors, grey70);
+        }
+    }
+
+}
