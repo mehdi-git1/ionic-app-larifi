@@ -11,9 +11,8 @@
     <ng-template #eObservationsDataBlock>
         <e-observation *ngFor="let eObservation of eObservations" [eObservation]="eObservation">
         </e-observation>
-        </div>
+    </ng-template>
 </mat-expansion-panel>
-<no-data *ngIf="eObservations.length === 0"></no-data>
 <div *ngIf="eObservations.length > 0">
     <div class="information-message" *ngIf="!isOlderThan3Years">{{ 'EOBSERVATION.LIST.LEGEND.LESS_THAN_3_YEARS' | translate }}</div>
     <div class="information-message" *ngIf="isOlderThan3Years">{{eObservations.length}} {{ 'EOBSERVATION.LIST.LEGEND.MORE_THAN_3_YEARS' | translate }}</div>

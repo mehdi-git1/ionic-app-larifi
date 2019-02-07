@@ -7,7 +7,7 @@ import { ProfessionalLevelService } from '../../../../core/services/professional
 import { PncService } from '../../../../core/services/pnc/pnc.service';
 import { SessionService } from '../../../../core/services/session/session.service';
 import { PncModel } from '../../../../core/models/pnc.model';
-import { EObservationModel } from '../../../../core/models/eobservation.model';
+import { EObservationModel } from '../../../../core/models/eobservation/eobservation.model';
 import { EObservationService } from '../../../../core/services/eobservation/eobservation.service';
 
 @Component({
