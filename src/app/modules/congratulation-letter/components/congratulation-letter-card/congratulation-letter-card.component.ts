@@ -14,9 +14,6 @@ export class CongratulationLetterCardComponent {
 
   CongratulationLetterModeEnum = CongratulationLetterModeEnum;
 
-  constructor() {
-  }
-
   /**
    * Vérifie le mode d'affichage actif
    * @param mode le mode à tester
