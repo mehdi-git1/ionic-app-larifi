@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { EObservationItemModel } from '../../../../core/models/eobservation/eobservation-item.model';
+import { EObservationLevelEnum } from '../../../../core/enums/e-observations-level.enum';
 
 @Component({
   selector: 'abnormal-level',
@@ -6,8 +8,15 @@ import { Component } from '@angular/core';
 })
 export class AbnormalLevelComponent {
 
+  @Input() abnormalEObservationItems: EObservationItemModel[];
 
-  constructor() {
+  /**
+   * Récupère le label à afficher par rapport au niveau donné
+   * @param level le niveau de l'eObservation
+   * @return le label à afficher
+   */
+  getLevelLabel(level: EObservationLevelEnum): string {
+    return EObservationLevelEnum.getLabel(level);
   }
 
 }

@@ -1,11 +1,11 @@
+import { EObservationModel } from '../../../../core/models/eobservation/eobservation.model';
+import { TranslateLoaderMock } from './../../../../../test-config/mocks-ionic';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from 'ionic-angular';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
-import { TranslateLoaderMock } from '../../../../test-config/mocks-ionic';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 import { EObservationsComponent } from './e-observations.component';
-import { EObservationModel } from '../../../core/models/eobservation.model';
 
 describe('EObservationsComponent', () => {
 

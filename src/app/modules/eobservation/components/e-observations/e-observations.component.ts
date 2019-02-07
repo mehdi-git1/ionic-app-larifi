@@ -1,7 +1,6 @@
+import { EObservationModel } from '../../../../core/models/eobservation/eobservation.model';
 import { Component, Input, OnChanges } from '@angular/core';
 import * as moment from 'moment';
-
-import { EObservationModel } from './../../../core/models/eobservation.model';
 
 @Component({
   selector: 'e-observations',
@@ -26,7 +25,7 @@ export class EObservationsComponent implements OnChanges {
   /**
    * Défini la légende à afficher en fonction de l'ancienneté des eObservations
    */
-  defineLegendMessage() {
+  defineLegendMessage(): void {
     if (this.eObservations[0]) {
       this.isOlderThan3Years = moment.duration(
         moment(moment())

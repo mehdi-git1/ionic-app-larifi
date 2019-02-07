@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { EObservationModel } from '../../models/eobservation.model';
+import { EObservationModel } from '../../models/eobservation/eobservation.model';
 
 
 @Injectable()

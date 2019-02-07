@@ -1,21 +1,16 @@
 <table>
     <thead>
         <tr>
-            <th>{{ 'EOBSERVATION.ABNORMAL_LEVEL.SKILL' | translate }}</th>
-            <th>{{ 'EOBSERVATION.ABNORMAL_LEVEL.ITEM' | translate }}</th>
-            <th>{{ 'EOBSERVATION.ABNORMAL_LEVEL.LEVEL' | translate }}</th>
+            <th class="skill">{{ 'EOBSERVATION.ABNORMAL_LEVEL.SKILL' | translate }}</th>
+            <th class="item">{{ 'EOBSERVATION.ABNORMAL_LEVEL.ITEM' | translate }}</th>
+            <th class="level">{{ 'EOBSERVATION.ABNORMAL_LEVEL.LEVEL' | translate }}</th>
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <td>Relation client</td>
-            <td>Contact client</td>
-            <td>4</td>
-        </tr>
-        <tr>
-            <td>Etre et agir, standards de service</td>
-            <td>Etre disponible et à l'écoute, service 1</td>
-            <td>5</td>
+        <tr *ngFor="let eObservationItem of abnormalEObservationItems">
+            <td>{{ eObservationItem.refItemLevel.item.theme.label }}</td>
+            <td>{{ eObservationItem.refItemLevel.item.label }}</td>
+            <td>{{ getLevelLabel(eObservationItem.refItemLevel.level) }}</td>
         </tr>
     </tbody>
 </table>

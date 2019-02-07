@@ -1,4 +1,4 @@
-import { EObservationModel } from './../../../../core/models/eobservation.model';
+import { EObservationModel } from '../../../../core/models/eobservation/eobservation.model';
 import { EObservationService } from './../../../../core/services/eobservation/eobservation.service';
 import { FormsEObservationService } from './../../../../core/services/forms/forms-e-observation.service';
 import { FormsInputParamsModel } from './../../../../core/models/forms-input-params.model';

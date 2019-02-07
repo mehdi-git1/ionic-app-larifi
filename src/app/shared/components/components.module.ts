@@ -1,4 +1,3 @@
-import { EObservationsComponent } from './e-observations/e-observations.component';
 import { IonicModule } from 'ionic-angular';
 import { CommonModule } from '@angular/common';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
@@ -22,7 +21,6 @@ import { TabNavComponent } from './tab-nav/tab-nav.component';
 import { NoDataComponent } from './no-data/no-data.component';
 import { DirectivesModule } from '../directives/directives.module';
 import { SharedModule } from '../shared.module';
-import { EObservationComponent } from './e-observations/e-observation/e-observation.component';
 
 
 @NgModule({
@@ -46,9 +44,7 @@ import { EObservationComponent } from './e-observations/e-observation/e-observat
     PncPhotoComponent,
     PageHeaderComponent,
     TabNavComponent,
-    NoDataComponent,
-    EObservationsComponent,
-    EObservationComponent
+    NoDataComponent
   ],
   exports: [
     OfflineIndicatorComponent,
@@ -64,9 +60,7 @@ import { EObservationComponent } from './e-observations/e-observation/e-observat
     NavBarCustomComponent,
     PncPhotoComponent,
     TabNavComponent,
-    NoDataComponent,
-    EObservationsComponent,
-    EObservationComponent
+    NoDataComponent
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA

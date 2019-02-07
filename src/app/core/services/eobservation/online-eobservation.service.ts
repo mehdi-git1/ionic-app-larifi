@@ -2,7 +2,7 @@ import { EObservationTransformerService } from './eobservation-transformer.servi
 import { Injectable } from '@angular/core';
 import { RestService } from '../../http/rest/rest.base.service';
 import { UrlConfiguration } from '../../configuration/url.configuration';
-import { EObservationModel } from '../../models/eobservation.model';
+import { EObservationModel } from '../../models/eobservation/eobservation.model';
 
 @Injectable()
 export class OnlineEObservationService {
