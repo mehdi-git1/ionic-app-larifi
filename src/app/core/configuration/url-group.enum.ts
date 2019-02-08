@@ -17,5 +17,6 @@ export enum urlGroupEnum {
   'IMPERSONATION_AVAILABLE' = 'check_impersonation_available',
   'USER_PROFILE' = 'user_profiles',
   'USER_PERMISSION' = 'user_permissions',
-  'PING' = 'ping'
+  'PING' = 'ping',
+  'ADD_PERMISSION' = 'add_permissions'
 }

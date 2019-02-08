@@ -480,7 +480,7 @@
             }
         },
         "PROFILE_MANAGEMENT": {
-            "TITLE": "Page des profils",
+            "TITLE": "Gestion des profils",
             "BUTTON": {
                 "REGISTER": "Afficher la liste des profils"
             }
@@ -493,6 +493,12 @@
             "HEADER": {
                 "PERMISSION_HEADER": "Permission",
                 "AUTORISATION_HEADER": "Autoriser"
+            },
+            "SUCCESS": {
+                "UPDATED_PERMISSIONS": "Permissions mise à jour"
+            },
+            "ERROR": {
+                "PROFILE_UNDEFINED": "Aucun profil sélectionné"
             }
         }
     }

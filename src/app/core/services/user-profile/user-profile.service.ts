@@ -28,4 +28,14 @@ export class UserProfileService {
     return this.restService.get(this.config.getBackEndUrl('userPermissionsByUserProfile', [name]));
 
   }
+
+  /**
+   * Ajoute une liste de permissions au profil
+   * @param profileName le nom du profil
+   * @param userPermissionResourceList la liste de permission
+   * @return le profil mis à jout
+   */
+  public updatePermissions(profileName: string, userPermissionList: UserPermission[]): Promise<UserProfile> {
+    return this.restService.put(this.config.getBackEndUrl('addPermissions', [profileName]), userPermissionList);
+  }
 }
