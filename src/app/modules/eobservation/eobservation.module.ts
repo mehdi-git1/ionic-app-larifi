@@ -5,15 +5,17 @@ import { SharedModule } from '../../shared/shared.module';
 import { ComponentsModule } from '../../shared/components/components.module';
 import { EObservationComponent } from './components/e-observation/e-observation.component';
 import { EObservationsComponent } from './components/e-observations/e-observations.component';
+import { IonicModule } from 'ionic-angular';
 
 
 @NgModule({
   declarations: [
-    EObservationComponent,
     EObservationsComponent,
-    AbnormalLevelComponent,
+    EObservationComponent,
+    AbnormalLevelComponent
   ],
   imports: [
+    IonicModule,
     SharedModule,
     ComponentsModule
   ],
