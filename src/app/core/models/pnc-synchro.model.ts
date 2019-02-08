@@ -19,5 +19,5 @@ export class PncSynchroModel {
     legs: LegModel[];
     statutoryCertificate: StatutoryCertificateModel;
     professionalLevel: ProfessionalLevelModel;
-    eObservations: EObservationModel[];
+    eobservations: EObservationModel[];
 }
