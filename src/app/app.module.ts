@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import { EObservationModule } from './modules/eobservation/eobservation.module';
+=======
+import { CongratulationLetterModule } from './modules/congratulation-letter/congratulation-letter.module';
+>>>>>>> fd634ca06f859a43a1e0332c5bbdea090d874001
 import { AdminModule } from './modules/admin/admin.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -52,7 +56,11 @@ import { FileModule } from './core/file/file.module';
     ProfessionalLevelModule,
     SettingsModule,
     StatutoryCertificateModule,
+<<<<<<< HEAD
     EObservationModule,
+=======
+    CongratulationLetterModule,
+>>>>>>> fd634ca06f859a43a1e0332c5bbdea090d874001
     AdminModule,
     ComponentsModule,
     SharedModule,
