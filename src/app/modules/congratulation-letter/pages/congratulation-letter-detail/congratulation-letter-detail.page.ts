@@ -47,5 +47,12 @@ export class CongratulationLetterDetailPage {
         return this.congratulationLetter !== undefined;
     }
 
+    /**
+     * Vérifie s'il s'agit d'une lettre que l'utilisateur a rédigé
+     * @return vrai si la lettre a été rédigé par l'utilisateur, faux sinon
+     */
+    isWrittenLetter(): boolean {
+        return this.matricule === this.congratulationLetter.redactor.matricule;
+    }
 
 }
