@@ -1,3 +1,5 @@
+import { CongratulationLetterTransformerService } from './congratulation-letter/congratulation-letter-transformer.service';
+import { CongratulationLetterService } from './congratulation-letter/congratulation-letter.service';
 import { EObservationTransformerService } from './eobservation/eobservation-transformer.service';
 import { EObservationService } from './eobservation/eobservation.service';
 import { OnlineFormsInputParamService } from './forms/online-forms-input-param.service';
@@ -69,6 +71,8 @@ import { OnlineSummarySheetService } from './summary-sheet/online-summary-sheet.
 import { LegTransformerService } from './leg/leg-transformer.service';
 import { CrewMemberTransformerService } from './crewMember/crew-member-transformer.service';
 import { TranslateOrEmptyService } from './translate/translate-or-empty.service';
+import { OfflineCongratulationLetterService } from './congratulation-letter/offline-congratulation-letter.service';
+import { OnlineCongratulationLetterService } from './congratulation-letter/online-congratulation-letter.service';
 import { FormsInputParamTransformerService } from './forms/forms-input-param-transformer.service';
 import { OnlineEObservationService } from './eobservation/online-eobservation.service';
 import { OfflineEObservationService } from './eobservation/offline-eobservation.service';
@@ -155,6 +159,10 @@ import { OfflineEObservationService } from './eobservation/offline-eobservation.
         OfflineEObservationService,
         EObservationTransformerService,
         UserProfileService,
+        CongratulationLetterService,
+        OfflineCongratulationLetterService,
+        OnlineCongratulationLetterService,
+        CongratulationLetterTransformerService,
         TranslateOrEmptyService
     ]
 })

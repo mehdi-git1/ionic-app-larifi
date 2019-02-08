@@ -3,6 +3,10 @@ e-observations {
     mat-expansion-panel {
         box-shadow: none !important;
 
+        &.mat-expanded:not(.no-data) {
+            box-shadow: none !important;
+        }
+
         mat-expansion-panel-header {
             display: flex;
             background-color: color($colors, blue68);

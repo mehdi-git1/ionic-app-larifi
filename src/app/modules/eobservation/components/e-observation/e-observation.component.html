@@ -4,12 +4,12 @@
         <label class="e-observation-type">{{ getEObservationTypeLabel(eObservation.type) }}</label>
         <label class="e-observation-writer">
             {{eObservation.redactor.matricule}} - {{eObservation.redactor.lastName}}
+            <div class="e-observation-detail">
+                <button ion-fab mini>
+                    <span class="edospnc-memo"></span>
+                </button>
+            </div>
         </label>
-        <div class="button-container">
-            <button ion-fab mini (click)="goToEObservationDetail()">
-                <span class="edospnc-memo"></span>
-            </button>
-        </div>
     </mat-expansion-panel-header>
     <abnormal-level [abnormalEObservationItems]="abnormalEObservationItems"></abnormal-level>
 </mat-expansion-panel>

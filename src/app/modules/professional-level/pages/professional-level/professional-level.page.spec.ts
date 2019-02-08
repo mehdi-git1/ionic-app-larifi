@@ -1,16 +1,18 @@
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { IonicModule, NavParams } from 'ionic-angular';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+
+import { ProfessionalLevelPage } from './professional-level.page';
 import { ModuleModel } from './../../../../core/models/professional-level/module.model';
 import { StageModel } from './../../../../core/models/professional-level/stage.model';
 import { IsMyPage } from './../../../../shared/pipes/is_my_page/is_my_page.pipe';
 import { SessionService } from './../../../../core/services/session/session.service';
 import { TranslateLoaderMock, NavMock } from './../../../../../test-config/mocks-ionic';
-import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
-import { ProfessionalLevelPage } from './professional-level.page';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { IonicModule, NavParams } from 'ionic-angular';
 import { ProfessionalLevelService } from '../../../../core/services/professional-level/professional-level.service';
 import { PncService } from '../../../../core/services/pnc/pnc.service';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ProfessionalLevelModel } from '../../../../core/models/professional-level/professional-level.model';
+import { EObservationService } from '../../../../core/services/eobservation/eobservation.service';
 
 const PncServiceMock = jasmine.createSpyObj('SessionServiceMock', ['getPnc']);
 const SessionServiceMock = jasmine.createSpyObj('SessionServiceMock', ['isActiveUser']);
@@ -37,7 +39,8 @@ describe('EvaluationSheetPage', () => {
                 { provide: NavParams, useClass: NavMock },
                 { provide: ProfessionalLevelService, useValue: ProfessionalLevelServiceMock },
                 { provide: SessionService, useValue: SessionServiceMock },
-                { provide: PncService, useValue: PncServiceMock }
+                { provide: PncService, useValue: PncServiceMock },
+                EObservationService
             ],
             schemas: [NO_ERRORS_SCHEMA]
         });

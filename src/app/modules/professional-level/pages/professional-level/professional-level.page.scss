@@ -39,6 +39,12 @@ page-professional-level {
         }
     }
 
+    e-observations {
+        > mat-expansion-panel {
+            margin-top: 30px !important;
+        }
+    }
+
     .professional-level-footer {
         padding-left: 20px;
         padding-bottom: 10px;
