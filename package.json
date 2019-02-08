@@ -9,7 +9,7 @@
         "clean": "ionic-app-scripts clean",
         "build": "ionic-app-scripts build",
         "lint": "ionic-app-scripts lint",
-        "ionic:build": "node --max-old-space-size=4096 ./node_modules/@ionic/app-scripts/bin/ionic-app-scripts.js build --aot --minifyjs --minifycss --release",
+        "ionic:build": "node --max-old-space-size=2048 ./node_modules/@ionic/app-scripts/bin/ionic-app-scripts.js build --aot --minifyjs --minifycss --optimizejs --release",
         "ionic:serve": "ionic-app-scripts serve",
         "test": "ng test --sm=false"
     },
@@ -36,7 +36,6 @@
         "@ngx-translate/core": "^9.0.2",
         "@ngx-translate/http-loader": "^2.0.1",
         "angular2-notifications": "^1.0.2",
-        "cordova-android-support-gradle-release": "^1.4.4",
         "cordova-ios": "4.5.5",
         "cordova-plugin-app-version": "^0.1.9",
         "cordova-plugin-cocoapod-support": "^1.6.0",
@@ -95,9 +94,6 @@
             "cordova-plugin-device": {},
             "cordova-plugin-splashscreen": {},
             "cordova-plugin-ionic-keyboard": {},
-            "cordova-android-support-gradle-release": {
-                "ANDROID_SUPPORT_VERSION": "26.+"
-            },
             "cordova-plugin-secmobil": {
                 "APP_GROUP": "AF_GROUP"
             },
