@@ -1,6 +1,6 @@
 export enum urlGroupEnum {
   'CAREER_OBJECTIVE' = 'career_objectives',
-  'EOBSERVATION' = 'eobservation',
+  'EOBSERVATION' = 'eobservations',
   'LEG' = 'legs',
   'PNC' = 'pncs',
   'PNC_PHOTO' = 'pnc_photos',
@@ -18,5 +18,6 @@ export enum urlGroupEnum {
   'USER_PROFILE' = 'user_profiles',
   'USER_PERMISSION' = 'user_permissions',
   'PING' = 'ping',
-  'ADD_PERMISSION' = 'add_permissions'
+  'ADD_PERMISSION' = 'add_permissions',
+  'FORMS_INPUT_PARAM' = 'forms_input_params'
 }

@@ -1,10 +1,12 @@
+import { CongratulationLetterTransformerService } from './../congratulation-letter/congratulation-letter-transformer.service';
+import { EObservationTransformerService } from './../eobservation/eobservation-transformer.service';
+import { FormsInputParamsModel } from './../../models/forms-input-params.model';
 import { Injectable, EventEmitter, Output } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs/Rx';
 
 import { ProfessionalLevelTransformerService } from '../professional-level/professional-level-transformer.service';
-import { EObservationModel } from '../../models/e-observation.model';
-import { EFormsEObservationService } from '../e-forms/e-forms-e-observation.service';
+import { FormsEObservationService } from '../forms/forms-e-observation.service';
 import { PncPhotoTransformerService } from '../pnc-photo/pnc-photo-transformer.service';
 import { CareerObjectiveModel } from '../../models/career-objective.model';
 import { SessionService } from '../session/session.service';
@@ -34,24 +36,24 @@ export class SynchronizationService {
   synchroStatusChange = new EventEmitter<boolean>();
 
   constructor(private storageService: StorageService,
-    private eObservationService: EFormsEObservationService,
-    private careerObjectiveTransformer: CareerObjectiveTransformerService,
+    private eObservationService: FormsEObservationService,
     private waypointTransformer: WaypointTransformerService,
-    private pncTransformer: PncTransformerService,
     private pncSynchroProvider: PncSynchroService,
-    private rotationTransformerProvider: RotationTransformerService,
-    private legTransformerProvider: LegTransformerService,
-    private crewMemberTransformerService: CrewMemberTransformerService,
     public securityProvider: SecurityService,
-    private pncPhotoTransformer: PncPhotoTransformerService,
+    private translateService: TranslateService,
     private legProvider: LegService,
     private sessionService: SessionService,
-    private translateService: TranslateService,
+    private careerObjectiveTransformer: CareerObjectiveTransformerService,
+    private pncTransformer: PncTransformerService,
+    private pncPhotoTransformer: PncPhotoTransformerService,
+    private congratulationLetterTransformer: CongratulationLetterTransformerService,
     private professionalLevelTransformer: ProfessionalLevelTransformerService,
-    private statutoryCertificateTransformer: StatutoryCertificateTransformerService) {
+    private statutoryCertificateTransformer: StatutoryCertificateTransformerService,
+    private crewMemberTransformerService: CrewMemberTransformerService,
+    private rotationTransformerProvider: RotationTransformerService,
+    private legTransformerProvider: LegTransformerService,
+    private eObservationTransformerService: EObservationTransformerService) {
   }
-
-
 
   /**
    * Stocke en cache le EDossier du PNC
@@ -154,10 +156,20 @@ export class SynchronizationService {
         // Sauvegarde de l'attestation réglementaire
         this.storageService.save(EntityEnum.STATUTORY_CERTIFICATE, this.statutoryCertificateTransformer.toStatutoryCertificate(pncSynchroResponse.statutoryCertificate), true);
 
+        // Sauvegarde des EObservations
+        for (const eObservation of pncSynchroResponse.eobservations) {
+          delete eObservation.offlineAction;
+          this.storageService.save(EntityEnum.EOBSERVATION, this.eObservationTransformerService.toEObservation(eObservation), true);
+        }
 
         // Sauvegarde du suivi réglementaire
         this.storageService.save(EntityEnum.PROFESSIONAL_LEVEL, this.professionalLevelTransformer.toProfessionalLevel(pncSynchroResponse.professionalLevel), true);
         this.storageService.persistOfflineMap();
+
+        // Sauvegarde des lettres de félicitation
+        for (const congratulationLetter of pncSynchroResponse.congratulationLetters) {
+          this.storageService.save(EntityEnum.CONGRATULATION_LETTER, this.congratulationLetterTransformer.toCongratulationLetter(congratulationLetter), true);
+        }
 
         Promise.all(storeCrewMembersPromises).then(success => resolve(), error => reject());
       }, error => { });
@@ -213,7 +225,7 @@ export class SynchronizationService {
         }
       }
     }
-    const eObservationsPromises: Promise<EObservationModel>[] = new Array();
+    const eObservationsPromises: Promise<FormsInputParamsModel>[] = new Array();
     const storeEDossierOfflinePromises = new Array<Promise<boolean>>();
     const crewMembersAlreadyStored: Array<String> = new Array();
     const eObsRotationsAlreadyCreated: Map<String, number[]> = new Map<String, number[]>();
@@ -229,7 +241,7 @@ export class SynchronizationService {
         eObsRotationsAlreadyCreated.set(crewMember.pnc.matricule, new Array());
       }
       if (eObsRotationsAlreadyCreated.get(crewMember.pnc.matricule).indexOf(crewMember.rotationId) < 0) {
-        eObservationsPromises.push(this.eObservationService.getEObservation(crewMember.pnc.matricule, crewMember.rotationId));
+        eObservationsPromises.push(this.eObservationService.getFormsInputParams(crewMember.pnc.matricule, crewMember.rotationId));
         eObsRotationsAlreadyCreated.get(crewMember.pnc.matricule).push(crewMember.rotationId);
       }
     }

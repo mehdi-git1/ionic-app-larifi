@@ -1,0 +1,19 @@
+<mat-expansion-panel id="matExpansionPaneleObs" [expanded]="true" [ngClass]="{'no-data' : eObservations.length === 0}">
+    <mat-expansion-panel-header [expandedHeight]="matPanelHeaderHeight" [collapsedHeight]="matPanelHeaderHeight" hideToggle="true">
+        <label class="e-obs-date"> {{ 'EOBSERVATION.LIST.HEADER.ROTATION_DATE' | translate }} </label>
+        <label class="e-obs-type"> {{ 'EOBSERVATION.LIST.HEADER.TYPE' | translate }} </label>
+        <label class="e-obs-writer"> {{ 'EOBSERVATION.LIST.HEADER.REDACTOR' | translate }} </label>
+        <div class="button-placeholder">
+            <!-- Occupe de l'espace pour s'aligner avec le bouton -->
+        </div>
+    </mat-expansion-panel-header>
+    <no-data *ngIf="eObservations.length === 0; else eObservationsDataBlock"></no-data>
+    <ng-template #eObservationsDataBlock>
+        <e-observation *ngFor="let eObservation of eObservations" [eObservation]="eObservation">
+        </e-observation>
+    </ng-template>
+</mat-expansion-panel>
+<div *ngIf="eObservations.length > 0">
+    <div class="information-message" *ngIf="!isOlderThan3Years">{{ 'EOBSERVATION.LIST.LEGEND.LESS_THAN_3_YEARS' | translate }}</div>
+    <div class="information-message" *ngIf="isOlderThan3Years">{{eObservations.length}} {{ 'EOBSERVATION.LIST.LEGEND.MORE_THAN_3_YEARS' | translate }}</div>
+</div>

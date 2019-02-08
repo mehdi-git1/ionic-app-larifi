@@ -1,7 +1,7 @@
 professional-level-stage {
 
     mat-expansion-panel {
-        margin-bottom: 5px;
+        margin-bottom: 5px !important;
         border-radius: 5px;
 
         mat-expansion-panel-header {
@@ -18,6 +18,11 @@ professional-level-stage {
 
             &.mat-expansion-panel-header {
                 padding: 6px 20px 6px 10px;
+            }
+
+            &.mat-expanded {
+                border-bottom-left-radius: 0px;
+                border-bottom-right-radius: 0px;
             }
 
             &.mat-expanded:hover,
