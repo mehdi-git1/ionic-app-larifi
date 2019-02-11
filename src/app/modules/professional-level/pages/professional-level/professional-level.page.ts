@@ -9,6 +9,7 @@ import { SessionService } from '../../../../core/services/session/session.servic
 import { PncModel } from '../../../../core/models/pnc.model';
 import { EObservationModel } from '../../../../core/models/eobservation/eobservation.model';
 import { EObservationService } from '../../../../core/services/eobservation/eobservation.service';
+import { EObservationTransformerService } from '../../../../core/services/eobservation/eobservation-transformer.service';
 
 @Component({
   selector: 'page-professional-level',
@@ -28,7 +29,8 @@ export class ProfessionalLevelPage {
     private sessionService: SessionService,
     private pncService: PncService,
     private professionalLevelService: ProfessionalLevelService,
-    private eObservationService: EObservationService) {
+    private eObservationService: EObservationService,
+    private eObservationTransformerService: EObservationTransformerService) {
   }
 
   ionViewDidLoad() {
@@ -81,11 +83,21 @@ export class ProfessionalLevelPage {
   }
 
   /**
- * Récupére la liste des eObservations
- */
+   * Récupére la liste des eObservations
+   * triée pour ne garder que les écarts de notations avec "SECURITE DES VOLS" et "SURETE"
+   */
   getEObservationsList() {
     this.eObservationService.getEObservations(this.matricule).then(
       eobs => {
+        // Tri les eObservations pour ne garder que les écarts de notations avec "SECURITE DES VOLS" et "SURETE"
+        for (let i = 0; i < eobs.length; i++) {
+          eobs[i].eobservationItems = eobs[i].eobservationItems.filter(
+            function (element) {
+              const upperCaseElement = element.refItemLevel.item.theme.label.toUpperCase();
+              return upperCaseElement === 'SECURITE DES VOLS' || upperCaseElement === 'SURETE';
+            }
+          );
+        }
         this.eObservations = eobs;
       }, error => {
       });
@@ -96,7 +108,7 @@ export class ProfessionalLevelPage {
    * @return true si c'est le cas, false sinon
    */
   loadingIsOver(): boolean {
-    return typeof this.professionalLevel !== 'undefined';
+    return typeof this.professionalLevel !== 'undefined' && typeof this.eObservations !== 'undefined';
   }
 
 }

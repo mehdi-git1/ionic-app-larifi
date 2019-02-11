@@ -19,6 +19,7 @@ export class EObservationsComponent implements OnChanges {
   }
 
   ngOnChanges() {
+    console.log('eObs', this.eObservations);
     this.defineLegendMessage();
   }
 
