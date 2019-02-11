@@ -72,17 +72,12 @@ export class ProfileManagementPage {
      * Met à jour les permissions d'un profil
      */
     updatePermissions(): void {
-        // Si aucun profil n'a été selectionné, envoie une erreur
-        if (this.allPermissions == undefined) {
-            this.toastService.error(this.translateService.instant('ADMIN.PROFILE_MANAGEMENT.ERROR.PROFILE_UNDEFINED'));
-        } else {
-            const checkedPermissions = this.allPermissions.filter(permission => {
-                return permission.checked;
-            });
 
-            this.userProfileService.updatePermissions(this.selectedProfile, checkedPermissions);
-            // Informe de la réussite de la mise à jour
-            this.toastService.success(this.translateService.instant('ADMIN.PROFILE_MANAGEMENT.SUCCESS.PERMISSIONS_UPDATED'));
-        }
+        const checkedPermissions = this.allPermissions.filter(permission => {
+            return permission.checked;
+        });
+        this.userProfileService.updatePermissions(this.selectedProfile, checkedPermissions);
+        // Informe de la réussite de la mise à jour
+        this.toastService.success(this.translateService.instant('ADMIN.PROFILE_MANAGEMENT.SUCCESS.PERMISSIONS_UPDATED'));
     }
 }

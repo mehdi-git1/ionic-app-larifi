@@ -8,4 +8,13 @@ page-profile-management {
     .profileList {
         font-size: 16px;
     }
+
+    button {
+        text-align: center;
+    }
+
+    .profileList:hover {
+        background: white;
+        cursor: pointer;
+    }
 }
