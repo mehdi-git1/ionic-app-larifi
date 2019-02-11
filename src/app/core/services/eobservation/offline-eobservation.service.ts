@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { EntityEnum } from '../../enums/entity.enum';
 import { StorageService } from '../../storage/storage.service';
-import { EObservationModel } from '../../models/eobservation.model';
+import { EObservationModel } from '../../models/eobservation/eobservation.model';
 import { OfflineActionEnum } from '../../enums/offline-action.enum';
 
 @Injectable()

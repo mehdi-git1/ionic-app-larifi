@@ -280,6 +280,11 @@
             "FUNCTION": "Fonction",
             "TYPE": "Type de formulaire",
             "NEW": "Nouvelle eObservation"
+        },
+        "ABNORMAL_LEVEL": {
+            "SKILL": "Constante / Compétence / Séquence",
+            "ITEM": "Rubrique / Item",
+            "LEVEL": "Niveau"
         }
     },
     "PROFESSIONAL_LEVEL": {
@@ -395,7 +400,7 @@
             "WRITTEN_LETTERS": "Félicitations rédigées"
         },
         "HEADER": {
-            "CREATION_DATE": "Date de rédaction",
+            "CREATION_DATE": "Date rédaction",
             "FLIGHT": "Occasion",
             "TYPE": "Type de lettre",
             "WRITER": "Rédacteur"

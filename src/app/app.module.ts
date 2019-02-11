@@ -1,3 +1,4 @@
+import { EObservationModule } from './modules/eobservation/eobservation.module';
 import { CongratulationLetterModule } from './modules/congratulation-letter/congratulation-letter.module';
 import { AdminModule } from './modules/admin/admin.module';
 import { BrowserModule } from '@angular/platform-browser';
@@ -52,6 +53,7 @@ import { FileModule } from './core/file/file.module';
     ProfessionalLevelModule,
     SettingsModule,
     StatutoryCertificateModule,
+    EObservationModule,
     CongratulationLetterModule,
     AdminModule,
     ComponentsModule,

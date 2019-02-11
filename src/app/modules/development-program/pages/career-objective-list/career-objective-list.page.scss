@@ -37,17 +37,6 @@ page-career-objective-list {
             background: color($colors, green60);
         }
 
-
-        .information-message {
-            color: color($colors, grey20);
-            text-align: right;
-            padding-top: 5px;
-        }
-
-        .information-message:before {
-            content: '* ';
-        }
-
         &.eobservation-creation-container {
             padding: 20px 0px;
             margin: 10px;

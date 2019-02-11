@@ -157,7 +157,7 @@ export class SynchronizationService {
         this.storageService.save(EntityEnum.STATUTORY_CERTIFICATE, this.statutoryCertificateTransformer.toStatutoryCertificate(pncSynchroResponse.statutoryCertificate), true);
 
         // Sauvegarde des EObservations
-        for (const eObservation of pncSynchroResponse.eObservations) {
+        for (const eObservation of pncSynchroResponse.eobservations) {
           delete eObservation.offlineAction;
           this.storageService.save(EntityEnum.EOBSERVATION, this.eObservationTransformerService.toEObservation(eObservation), true);
         }
