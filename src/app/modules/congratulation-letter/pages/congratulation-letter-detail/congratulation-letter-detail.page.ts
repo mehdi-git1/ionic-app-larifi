@@ -40,7 +40,7 @@ export class CongratulationLetterDetailPage {
     }
 
     /**
-     * Teste si le chargement des ressources sont terminées
+     * Teste si le chargement des ressources est terminé
      * @return vrai si c'est le cas, faux sinon
      */
     pageLoadingIsOver(): boolean {
@@ -49,7 +49,7 @@ export class CongratulationLetterDetailPage {
 
     /**
      * Vérifie s'il s'agit d'une lettre que l'utilisateur a rédigé
-     * @return vrai si la lettre a été rédigé par l'utilisateur, faux sinon
+     * @return vrai si la lettre a été rédigée par l'utilisateur, faux sinon
      */
     isWrittenLetter(): boolean {
         return this.matricule === this.congratulationLetter.redactor.matricule;
