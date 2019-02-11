@@ -520,20 +520,16 @@
         "PROFILE_MANAGEMENT": {
             "TITLE": "Gestion des profils",
             "BUTTON": {
-                "REGISTER": "Afficher la liste des profils"
-            }
-        },
-        "PERMISSION_MANAGEMENT": {
-            "TITLE": "Page des permissions",
-            "BUTTON": {
+                "REGISTER": "Afficher la liste des profils",
                 "UPDATE": "MISE À JOUR"
             },
             "HEADER": {
-                "PERMISSION_HEADER": "Permission",
-                "AUTORISATION_HEADER": "Autoriser"
+                "PROFILE_HEADER": "Profil",
+                "PERMISSION_HEADER": "Permission"
             },
+            "LABEL": "Veuillez sélectionner un profil",
             "SUCCESS": {
-                "UPDATED_PERMISSIONS": "Permissions mise à jour"
+                "PERMISSIONS_UPDATED": "Permissions mises à jour"
             },
             "ERROR": {
                 "PROFILE_UNDEFINED": "Aucun profil sélectionné"

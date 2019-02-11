@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { RestService } from '../../http/rest/rest.base.service';
-import { UserProfile } from '../../models/admin/user-profile.model';
-import { UserPermission } from '../../models/admin/user-permission.model';
+import { UserProfileModel } from '../../models/admin/user-profile.model';
+import { UserPermissionModel } from '../../models/admin/user-permission.model';
 import { UrlConfiguration } from '../../configuration/url.configuration';
 
 @Injectable()
@@ -15,7 +15,7 @@ export class UserProfileService {
    * Récupère la liste des profils habile de l'application
    * @return la liste des profils habile
    */
-  public getAllUserProfiles(): Promise<UserProfile[]> {
+  public getAllUserProfiles(): Promise<UserProfileModel[]> {
     return this.restService.get(this.config.getBackEndUrl('userProfiles'));
   }
 
@@ -24,18 +24,18 @@ export class UserProfileService {
    * @param name le libellé du profil dont on souhaite récupérer les permissions
    * @return la liste des permissions du profil en paramètre
    */
-  public getUserPermissionsByUserProfile(name: string): Promise<UserPermission[]> {
+  public getUserPermissionsByUserProfile(name: string): Promise<UserPermissionModel[]> {
     return this.restService.get(this.config.getBackEndUrl('userPermissionsByUserProfile', [name]));
 
   }
 
   /**
-   * Ajoute une liste de permissions au profil
+   * Met à jour un profil avec une nouvelle liste de permissions
    * @param profileName le nom du profil
-   * @param userPermissionResourceList la liste de permission
-   * @return le profil mis à jout
+   * @param userPermissionList la liste de permission
+   * @return le profil mis à jour
    */
-  public updatePermissions(profileName: string, userPermissionList: UserPermission[]): Promise<UserProfile> {
-    return this.restService.put(this.config.getBackEndUrl('addPermissions', [profileName]), userPermissionList);
+  public updatePermissions(profileName: string, userPermissionList: UserPermissionModel[]): Promise<UserProfileModel> {
+    return this.restService.put(this.config.getBackEndUrl('updatePermissions', [profileName]), userPermissionList);
   }
 }

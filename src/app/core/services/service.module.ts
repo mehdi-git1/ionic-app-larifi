@@ -1,3 +1,4 @@
+import { UserPermissionService } from './user-permission/user-permission.service';
 import { CongratulationLetterTransformerService } from './congratulation-letter/congratulation-letter-transformer.service';
 import { CongratulationLetterService } from './congratulation-letter/congratulation-letter.service';
 import { EObservationTransformerService } from './eobservation/eobservation-transformer.service';
@@ -159,6 +160,7 @@ import { OfflineEObservationService } from './eobservation/offline-eobservation.
     OfflineEObservationService,
     EObservationTransformerService,
     UserProfileService,
+    UserPermissionService,
     CongratulationLetterService,
     OfflineCongratulationLetterService,
     OnlineCongratulationLetterService,

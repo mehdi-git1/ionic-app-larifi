@@ -1,4 +1,4 @@
-export class UserPermission {
+export class UserPermissionModel {
     name: string;
     checked: boolean;
 }

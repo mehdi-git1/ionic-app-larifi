@@ -9,41 +9,44 @@
 <ion-content padding no-bounce>
     <ion-grid>
         <ion-row>
+            <!-- Header du tableau -->
             <ion-col>
-                <ion-col>
-                    <ion-item *ngFor="let userProfile of userProfiles">
-                        <label>{{ userProfile.name }}</label>
-                        <button ion-fab mini icon-only item-end (click)="goToPermissionManagement(userProfile.name)">
-                            <ion-icon name="unlock" ios="md-unlock"></ion-icon>
-                        </button>
-                    </ion-item>
-                </ion-col>
+                <ion-item>
+                    <ion-label class="tab_header">{{ 'ADMIN.PROFILE_MANAGEMENT.HEADER.PROFILE_HEADER' | translate }}</ion-label>
+                </ion-item>
+            </ion-col>
+            <ion-col>
+                <ion-item>
+                    <ion-label class="tab_header">
+                        {{ 'ADMIN.PROFILE_MANAGEMENT.HEADER.PERMISSION_HEADER' | translate }}
+                        <span *ngIf="selectedProfile != null;"> - </span> {{ selectedProfile }}
+                    </ion-label>
+                </ion-item>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <!-- Liste des profils -->
+            <ion-col>
+                <ion-item class="profileList" *ngFor="let userProfile of userProfiles" (click)="goToPermissionManagement(userProfile.name)">
+                    <button ion-button color="light" full>{{ userProfile.name }}</button>
+                </ion-item>
             </ion-col>
             <ion-col>
                 <ion-row>
-                    <ion-col>
-                        <ion-item>
-                            <ion-label>{{ 'ADMIN.PERMISSION_MANAGEMENT.HEADER.PERMISSION_HEADER' | translate }}
-                            </ion-label>
-                            <ion-label item-right>
-                                {{ 'ADMIN.PERMISSION_MANAGEMENT.HEADER.AUTORISATION_HEADER' | translate }}</ion-label>
-                        </ion-item>
-                    </ion-col>
-                </ion-row>
-                <ion-row>
+                    <!-- Permissions d'un profil -->
                     <ion-col>
                         <ion-list>
+                            <ion-label *ngIf="allPermissions == null;">{{ 'ADMIN.PROFILE_MANAGEMENT.LABEL' | translate }}</ion-label>
                             <ion-item *ngFor="let permission of allPermissions">
                                 <ion-label left> {{ permission.name }} </ion-label>
-                                <ion-checkbox [(ngModel)]="permission.checked" [checked]="permission.checked" item-right
-                                    secondary>
+                                <ion-checkbox [(ngModel)]="permission.checked" [checked]="permission.checked" item-right secondary>
                                 </ion-checkbox>
                             </ion-item>
                         </ion-list>
                     </ion-col>
                 </ion-row>
                 <button ion-button (click)="updatePermissions()">
-                    {{ 'ADMIN.PERMISSION_MANAGEMENT.BUTTON.UPDATE' | translate }}
+                    {{ 'ADMIN.PROFILE_MANAGEMENT.BUTTON.UPDATE' | translate }}
                 </button>
             </ion-col>
         </ion-row>

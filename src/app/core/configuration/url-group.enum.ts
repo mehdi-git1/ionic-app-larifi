@@ -18,6 +18,5 @@ export enum urlGroupEnum {
   'USER_PROFILE' = 'user_profiles',
   'USER_PERMISSION' = 'user_permissions',
   'PING' = 'ping',
-  'ADD_PERMISSION' = 'add_permissions',
   'FORMS_INPUT_PARAM' = 'forms_input_params'
 }
