@@ -1,3 +1,4 @@
+import { CongratulationLettersPage } from './../../../modules/congratulation-letter/pages/congratulation-letters/congratulation-letters.page';
 import { Component, Input, ViewChild } from '@angular/core';
 import { Nav, Events, Tabs } from 'ionic-angular';
 import { TranslateService } from '@ngx-translate/core';
@@ -130,6 +131,11 @@ export class TabNavComponent {
         id: TabNavEnum.PROFESSIONAL_LEVEL_PAGE,
         page: ProfessionalLevelPage,
         icon: 'edospnc-professionalLevel',
+      },
+      {
+        id: TabNavEnum.CONGRATULATION_LETTERS_PAGE,
+        page: CongratulationLettersPage,
+        icon: 'ios-mail',
       }
     ];
   }
@@ -146,6 +152,7 @@ export class TabNavComponent {
     this.tabsNav[this.tabNavService.findTabIndex(TabNavEnum.HELP_ASSET_LIST_PAGE)].display = true;
     this.tabsNav[this.tabNavService.findTabIndex(TabNavEnum.STATUTORY_CERTIFICATE_PAGE)].display = !this.securityProvider.isManager() && this.securityProvider.hasPermissionToViewTab('VIEW_STATUTORY_CERTIFICATE');
     this.tabsNav[this.tabNavService.findTabIndex(TabNavEnum.PROFESSIONAL_LEVEL_PAGE)].display = !this.securityProvider.isManager() && this.securityProvider.hasPermissionToViewTab('VIEW_PROFESSIONAL_LEVEL');
+    this.tabsNav[this.tabNavService.findTabIndex(TabNavEnum.CONGRATULATION_LETTERS_PAGE)].display = true;
   }
 
   /**
@@ -160,6 +167,7 @@ export class TabNavComponent {
     this.tabsNav[this.tabNavService.findTabIndex(TabNavEnum.HELP_ASSET_LIST_PAGE)].title = this.translate.instant(this.isMyPage.transform('GLOBAL.HELP_CENTER', this.pnc));
     this.tabsNav[this.tabNavService.findTabIndex(TabNavEnum.STATUTORY_CERTIFICATE_PAGE)].title = this.translate.instant(this.isMyPage.transform('GLOBAL.STATUTORY_CERTIFICATE', this.pnc));
     this.tabsNav[this.tabNavService.findTabIndex(TabNavEnum.PROFESSIONAL_LEVEL_PAGE)].title = this.translate.instant(this.isMyPage.transform('GLOBAL.PROFESSIONAL_LEVEL', this.pnc));
+    this.tabsNav[this.tabNavService.findTabIndex(TabNavEnum.CONGRATULATION_LETTERS_PAGE)].title = this.translate.instant(this.isMyPage.transform('GLOBAL.CONGRATULATION_LETTERS', this.pnc));
   }
 
   /**

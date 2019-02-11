@@ -1,7 +1,6 @@
 import { PncModel } from './../../../../core/models/pnc.model';
 import { ProfessionalLevelResultStatusUtil } from './../../../../shared/utils/professional-level-result-status.util';
-import { Component, Input, OnInit } from '@angular/core';
-import { ModuleModel } from '../../../../core/models/professional-level/module.model';
+import { Component, Input } from '@angular/core';
 import { StageModel } from '../../../../core/models/professional-level/stage.model';
 
 @Component({
