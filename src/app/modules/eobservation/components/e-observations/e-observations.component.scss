@@ -33,11 +33,6 @@ e-observations {
                 background-color: color($colors, blue68) !important;
             }
 
-            .mat-content {
-                width: 1100px;
-                flex: none;
-            }
-
             .mat-content > label {
                 font-weight: 700;
                 font-size: 1.2em;
@@ -59,6 +54,7 @@ e-observations {
             .button-placeholder {
                 width: 70px;
             }
+
         }
 
         .mat-expansion-panel-body {

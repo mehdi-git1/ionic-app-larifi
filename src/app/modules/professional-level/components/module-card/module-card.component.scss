@@ -52,9 +52,8 @@ module-card {
             width: 30px;
 
             button {
-                margin: 0;
-                padding: 0;
                 color: color($colors, white);
+                box-shadow: none;
                 background-color: color($colors, bluegrey);
                 width: 30px;
                 height: 30px;

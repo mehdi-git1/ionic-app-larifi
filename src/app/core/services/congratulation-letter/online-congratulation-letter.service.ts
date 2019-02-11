@@ -30,4 +30,12 @@ export class OnlineCongratulationLetterService {
     return this.restService.get(this.config.getBackEndUrl('getWrittenCongratulationLettersByPnc', [pncMatricule]));
   }
 
+  /**
+   * Récupère une lettre de félicitation à partir de son id
+   * @param id l'id de la lettre
+   * @return une promesse contenant la lettre de félicitation trouvée
+   */
+  getCongratulationLetter(id: number): Promise<CongratulationLetterModel> {
+    return this.restService.get(this.config.getBackEndUrl('getCongratulationLetterById', [id]));
+  }
 }

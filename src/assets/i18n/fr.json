@@ -295,7 +295,7 @@
             "CODE": "Code",
             "LABEL": "Libellé",
             "RESULT": "Résultat",
-            "HELP": "Vous trouverez l'explication détaillée de vos résultats de stage dans le Manex D Chapitre 3.3.4.2"
+            "HELP": "Explication détaillée des résultats dans le Manex D Chapitre 3.3.4.2"
         },
         "LEGEND": {
             "TITLE": "Légende",
@@ -400,7 +400,7 @@
             "WRITTEN_LETTERS": "Félicitations rédigées"
         },
         "HEADER": {
-            "CREATION_DATE": "Date de rédaction",
+            "CREATION_DATE": "Date rédaction",
             "FLIGHT": "Occasion",
             "TYPE": "Type de lettre",
             "WRITER": "Rédacteur"
@@ -411,6 +411,19 @@
         },
         "NO_RECEIVED_LETTERS": "Pas de félicitations reçues",
         "NO_WRITTEN_LETTERS": "Pas de félicitations rédigées"
+    },
+    "CONGRATULATION_LETTER_DETAIL": {
+        "HEADER": {
+            "FLIGHT_NUMBER": "Numéro de vol",
+            "FLIGHT_DATE": "Date du vol",
+            "LETTER_TYPE": "Type de lettre",
+            "WRITER": "Rédacteur"
+        },
+        "TYPE": {
+            "COLLECTIVE": "Collective",
+            "INDIVIDUAL": "Individuelle"
+        },
+        "VERBATIM": "Verbatim"
     },
     "SYNCHRONIZATION": {
         "PNC_SAVED_OFFLINE": "Le PNC {{ matricule }} a été synchronisé",

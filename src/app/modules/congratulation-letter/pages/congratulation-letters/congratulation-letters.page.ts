@@ -29,6 +29,7 @@ export class CongratulationLettersPage {
         private congratulationLetterService: CongratulationLetterService,
         private pncService: PncService,
         private sessionService: SessionService) {
+        this.selectedCongratulationLetterMode = CongratulationLetterModeEnum.RECEIVED;
     }
 
     ionViewDidEnter() {
@@ -41,7 +42,6 @@ export class CongratulationLettersPage {
             this.pnc = pnc;
         }, error => { });
 
-        this.selectedCongratulationLetterMode = CongratulationLetterModeEnum.RECEIVED;
 
         this.congratulationLetterService.getReceivedCongratulationLetters(this.matricule).then(receivedCongratulationLetters => {
             this.receivedCongratulationLetters = receivedCongratulationLetters;
@@ -73,5 +73,13 @@ export class CongratulationLettersPage {
      */
     isTabActive(mode: CongratulationLetterModeEnum): boolean {
         return mode === this.selectedCongratulationLetterMode;
+    }
+
+    /**
+     * Vérifie que le chargement est terminé
+     * @return true si c'est le cas, false sinon
+     */
+    loadingIsOver(): boolean {
+        return this.receivedCongratulationLetters !== undefined && this.writtenCongratulationLetters !== undefined;
     }
 }

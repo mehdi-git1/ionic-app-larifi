@@ -1,0 +1,40 @@
+<ion-header>
+    <ion-navbar>
+        <page-header [showSettingsIcon]="true" [pnc]="pnc">
+            <span *ngIf="pnc"> {{ 'CONGRATULATION_LETTERS.TITLE' | isMyPage: pnc | translate }}</span>
+        </page-header>
+    </ion-navbar>
+</ion-header>
+<ion-content padding no-bounce>
+    <edossier-spinner *ngIf="!pageLoadingIsOver(); else pageBlock"></edossier-spinner>
+    <ng-template #pageBlock>
+        <table>
+            <thead>
+                <tr>
+                    <th>{{ 'CONGRATULATION_LETTER_DETAIL.HEADER.FLIGHT_NUMBER' | translate }}</th>
+                    <th>{{ 'CONGRATULATION_LETTER_DETAIL.HEADER.FLIGHT_DATE' | translate }}</th>
+                    <th>{{ 'CONGRATULATION_LETTER_DETAIL.HEADER.LETTER_TYPE' | translate }}</th>
+                    <th *ngIf="!isWrittenLetter()">{{ 'CONGRATULATION_LETTER_DETAIL.HEADER.WRITER' | translate }}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{ congratulationLetter.flight.airline }}{{ congratulationLetter.flight.number }}</td>
+                    <td>{{ congratulationLetter.flight.theoricalDate | date:'dd/MM/yyyy' }}</td>
+                    <td>
+                        <ng-container *ngIf="congratulationLetter.collective; else individualLabel">{{ 'CONGRATULATION_LETTER_DETAIL.TYPE.COLLECTIVE' | translate }}</ng-container>
+                        <ng-template #individualLabel>{{ 'CONGRATULATION_LETTER_DETAIL.TYPE.INDIVIDUAL' | translate }}</ng-template>
+                    </td>
+                    <td *ngIf="!isWrittenLetter()"><span class="lastname">{{ congratulationLetter.redactor.lastName }}</span> <span class="firstname">{{ congratulationLetter.redactor.firstName }}</span></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="verbatim-container">
+            <label><span class="edospnc-speechBubble"></span>{{ 'CONGRATULATION_LETTER_DETAIL.VERBATIM' | translate }}</label>
+            <p class="verbatim">
+                {{ congratulationLetter.verbatim }}
+            </p>
+        </div>
+    </ng-template>
+</ion-content>
