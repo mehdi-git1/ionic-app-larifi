@@ -12,6 +12,8 @@ export class CongratulationLetterListComponent {
 
   @Input() congratulationLetters: CongratulationLetterModel[];
 
+  @Input() matricule: string;
+
   CongratulationLetterModeEnum = CongratulationLetterModeEnum;
 
   /**
@@ -22,5 +24,7 @@ export class CongratulationLetterListComponent {
   isMode(mode: CongratulationLetterModeEnum): boolean {
     return this.mode === mode;
   }
+
+
 
 }

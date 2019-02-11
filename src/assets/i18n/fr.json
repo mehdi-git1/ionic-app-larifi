@@ -412,6 +412,19 @@
         "NO_RECEIVED_LETTERS": "Pas de félicitations reçues",
         "NO_WRITTEN_LETTERS": "Pas de félicitations rédigées"
     },
+    "CONGRATULATION_LETTER_DETAIL": {
+        "HEADER": {
+            "FLIGHT_NUMBER": "Numéro de vol",
+            "FLIGHT_DATE": "Date du vol",
+            "LETTER_TYPE": "Type de lettre",
+            "WRITER": "Rédacteur"
+        },
+        "TYPE": {
+            "COLLECTIVE": "Collective",
+            "INDIVIDUAL": "Individuelle"
+        },
+        "VERBATIM": "Verbatim"
+    },
     "SYNCHRONIZATION": {
         "PNC_SAVED_OFFLINE": "Le PNC {{ matricule }} a été synchronisé",
         "PNC_SAVED_OFFLINE_ERROR": "Le PNC {{ matricule }} n'a pas pu être synchronisé",
