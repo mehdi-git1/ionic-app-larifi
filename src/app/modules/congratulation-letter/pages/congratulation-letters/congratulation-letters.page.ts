@@ -74,4 +74,12 @@ export class CongratulationLettersPage {
     isTabActive(mode: CongratulationLetterModeEnum): boolean {
         return mode === this.selectedCongratulationLetterMode;
     }
+
+    /**
+     * Vérifie que le chargement est terminé
+     * @return true si c'est le cas, false sinon
+     */
+    loadingIsOver(): boolean {
+        return this.receivedCongratulationLetters !== undefined && this.writtenCongratulationLetters !== undefined;
+    }
 }
