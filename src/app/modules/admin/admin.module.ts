@@ -5,13 +5,11 @@ import { IonicPageModule } from 'ionic-angular';
 import { SharedModule } from '../../shared/shared.module';
 import { ComponentsModule } from '../../shared/components/components.module';
 import { AdminHomePage } from './pages/admin-home/admin-home.page';
-import { PermissionManagementPage } from './pages/permission-management/permission-management.page';
 
 @NgModule({
   declarations: [
     AdminHomePage,
-    ProfileManagementPage,
-    PermissionManagementPage
+    ProfileManagementPage
   ],
   imports: [
     [IonicPageModule.forChild(AdminHomePage)],
@@ -20,13 +18,11 @@ import { PermissionManagementPage } from './pages/permission-management/permissi
   ],
   entryComponents: [
     AdminHomePage,
-    ProfileManagementPage,
-    PermissionManagementPage
+    ProfileManagementPage
   ],
   exports: [
     AdminHomePage,
-    ProfileManagementPage,
-    PermissionManagementPage
+    ProfileManagementPage
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA

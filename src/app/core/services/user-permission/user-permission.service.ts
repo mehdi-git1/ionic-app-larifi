@@ -1,7 +1,7 @@
+import { UserPermissionModel } from './../../models/admin/user-permission.model';
 import { Injectable } from '@angular/core';
 import { RestService } from '../../http/rest/rest.base.service';
 import { UrlConfiguration } from '../../configuration/url.configuration';
-import { UserPermission } from '../../models/admin/user-permission.model';
 
 @Injectable()
 export class UserPermissionService {
@@ -15,7 +15,7 @@ export class UserPermissionService {
   *
   * @return la lise des permissions de l'application
   */
-  public getAllUserPermission(): Promise<UserPermission[]> {
+  public getAllUserPermission(): Promise<UserPermissionModel[]> {
     return this.restService.get(this.config.getBackEndUrl('userPermissions'));
   }
 }

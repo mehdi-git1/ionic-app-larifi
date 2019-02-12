@@ -17,8 +17,9 @@ import { EObservationService } from '../../../../core/services/eobservation/eobs
 const PncServiceMock = jasmine.createSpyObj('SessionServiceMock', ['getPnc']);
 const SessionServiceMock = jasmine.createSpyObj('SessionServiceMock', ['isActiveUser']);
 const ProfessionalLevelServiceMock = jasmine.createSpyObj('ProfessionalLevelServiceMock', ['']);
+const EObservationServiceMock = jasmine.createSpyObj('EObservationServiceMock', ['']);
 
-describe('EvaluationSheetPage', () => {
+describe('ProfessionalLevelPage', () => {
 
     let fixture: ComponentFixture<ProfessionalLevelPage>;
     let comp: ProfessionalLevelPage;
@@ -40,7 +41,7 @@ describe('EvaluationSheetPage', () => {
                 { provide: ProfessionalLevelService, useValue: ProfessionalLevelServiceMock },
                 { provide: SessionService, useValue: SessionServiceMock },
                 { provide: PncService, useValue: PncServiceMock },
-                EObservationService
+                { provide: EObservationService, useValue: EObservationServiceMock }
             ],
             schemas: [NO_ERRORS_SCHEMA]
         });
