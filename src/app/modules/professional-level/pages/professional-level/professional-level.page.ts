@@ -90,14 +90,14 @@ export class ProfessionalLevelPage {
     this.eObservationService.getEObservations(this.matricule).then(
       eobs => {
         // Tri les eObservations pour ne garder que les écarts de notations avec "SECURITE DES VOLS" et "SURETE"
-        for (let i = 0; i < eobs.length; i++) {
-          eobs[i].eobservationItems = eobs[i].eobservationItems.filter(
-            function (element) {
+        eobs.forEach(value => {
+          value.eobservationItems = value.eobservationItems.filter(
+            (element) => {
               const upperCaseElement = element.refItemLevel.item.theme.label.toUpperCase();
               return upperCaseElement === 'SECURITE DES VOLS' || upperCaseElement === 'SURETE';
             }
           );
-        }
+        });
         this.eObservations = eobs;
       }, error => {
       });
