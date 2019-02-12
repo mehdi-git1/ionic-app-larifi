@@ -543,9 +543,6 @@
             "LABEL": "Veuillez sélectionner un profil",
             "SUCCESS": {
                 "PERMISSIONS_UPDATED": "Permissions mises à jour"
-            },
-            "ERROR": {
-                "PROFILE_UNDEFINED": "Aucun profil sélectionné"
             }
         }
     }
