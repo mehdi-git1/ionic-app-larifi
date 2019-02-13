@@ -10,21 +10,21 @@
     <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
     <ng-template #pageBlock>
 
-        <div class="add-container eobservation-creation-container" *ngIf="canCreateEObservation() && hasEObsTypeForm()">
-            <div class="eobservation-info-container">
+        <div class="global-container cartridge-container eobservation-creation-container" *ngIf="canCreateEObservation() && hasEObsTypeForm()">
+            <div class="info-container eobservation-info-container">
                 <label>{{ 'EOBSERVATION.NEW_EOBSERVATION_HEADER.FUNCTION' | translate }}</label>
                 <span>{{pnc.currentSpeciality}}</span>
             </div>
-            <div class="eobservation-info-container">
+            <div class="info-container eobservation-info-container">
                 <label>{{ 'EOBSERVATION.NEW_EOBSERVATION_HEADER.TYPE' | translate }}</label>
                 <span [ngClass]="{'no-value' : !getEObsTextTypeForm() }">{{getEObsTextTypeForm()}}</span>
             </div>
-            <div class="eobservation-info-container">
+            <div class="info-container eobservation-info-container">
                 <label>{{lastConsultedRotation.number}}</label>
                 <span>{{ lastConsultedRotation.departureDate | date: 'dd/MM/yyyy'}}</span>
             </div>
-            <div class="add-eobservation-container">
-                <button (click)="createEObservation()" class="add-eobservation clickable">
+            <div class="add-container">
+                <button (click)="createEObservation()" class="add-button clickable">
                     <div class="button-content">
                         <ion-icon class="edospnc-plus" name="edospnc-plus"></ion-icon>
                         <label>{{ 'EOBSERVATION.NEW_EOBSERVATION_HEADER.NEW' | translate }}</label>
@@ -32,15 +32,15 @@
                 </button>
             </div>
         </div>
-        <div class="add-container eobservation-list-container">
+        <div class="global-container eobservation-list-container">
             <e-observations *ngIf="eObservations" [eObservations]="eObservations">
             </e-observations>
         </div>
 
 
-        <div class="add-container career-objective-creation-container">
-            <div class="add-career-objective-container">
-                <button (click)="goToCareerObjectiveCreation()" class="add-career-objective clickable">
+        <div class="global-container cartridge-container career-objective-creation-container">
+            <div class="add-container">
+                <button (click)="goToCareerObjectiveCreation()" class="add-button clickable">
                     <div class="button-content">
                         <ion-icon class="edospnc-plus" name="edospnc-plus"></ion-icon>
                         <label>{{ 'CAREER_OBJECTIVE_LIST.BUTTONS.ADD_CAREER_OBJECTIVE' | translate }}</label>
@@ -48,10 +48,8 @@
                 </button>
             </div>
         </div>
-        <div class="add-container">
-            <div class="information-message">
-                {{ 'CAREER_OBJECTIVE_LIST.INFORMATION_MESSAGE' | translate }}
-            </div>
+        <div class="information-message">
+            {{ 'CAREER_OBJECTIVE_LIST.INFORMATION_MESSAGE' | translate }}
         </div>
         <div class="career-objective-list-container">
             <div class="no-data-found" *ngIf="careerObjectiveList.length == 0">{{ 'CAREER_OBJECTIVE_LIST.NO_OBJECTIVES' | translate }}</div>

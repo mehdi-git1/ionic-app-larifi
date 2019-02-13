@@ -1,54 +1,36 @@
 page-career-objective-list {
 
+    .information-message {
+        padding: 0px 10px;
+    }
+
     // Pour s'aligner sur les cartes en dessous
-    .add-container {
+    .global-container {
         padding: 0px 10px;
 
-        .add-button {
-            position: relative;
-            width: 100%;
-            height: 90px;
-            box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12) !important;
-
-            label {
-                color: color($colors, white);
-                font-weight: bold;
-                font-size: 1.2em;
-            }
-
-            .button-optional-information {
-                position: absolute;
-                top: 5px;
-                right: 5px;
-            }
-
-            .button-content {
-                display: flex;
-                flex-direction: column;
-
-                ion-icon {
-                    color: color($colors, grey90);
-                    font-size: 4em;
-                }
-            }
-        }
-
-        &.career-objective-creation-container {
-            padding: 20px 0px;
+        &.cartridge-container {
+            padding: 20px 10px;
             margin: 10px;
             display: flex;
-            align-items: center;
             border: 2px solid;
-            border-color: color($colors, green60);
             border-radius: 5px;
-            box-shadow: 0px 0px 4px color($colors, green60);
 
-            .add-career-objective-container {
-                width: 98%;
-                text-align: right;
+            .info-container {
+                flex-direction: column;
+                display: flex;
+                flex: 1;
+                text-align: center;
 
-                .add-career-objective {
-                    background: color($colors, green60);
+                span {
+                    line-height: 27px;
+                }
+
+            }
+
+            .add-container {
+
+
+                .add-button {
                     color: color($colors, white);
                     border-radius: 33px;
                     width: 24em;
@@ -71,59 +53,39 @@ page-career-objective-list {
             }
         }
 
+        &.career-objective-creation-container {
+            border-color: color($colors, green60);
+            box-shadow: 0px 0px 4px color($colors, green60);
+            flex-direction: row-reverse;
+
+            .add-container {
+                .add-button {
+                    background: color($colors, green60);
+                }
+            }
+
+        }
+
+
         &.eobservation-creation-container {
-            padding: 20px 0px;
-            margin: 10px;
-            display: flex;
-            align-items: center;
-            border: 2px solid;
             border-color: color($colors, blue68);
-            border-radius: 5px;
             box-shadow: 0px 0px 4px color($colors, blue68);
 
             .eobservation-info-container {
-                flex-direction: column;
-                display: flex;
-                width: 20%;
-                text-align: center;
+
 
                 label {
-                    font-weight: bold;
                     color: color($colors, grey12);
                 }
 
                 span {
-                    line-height: 27px;
                     color: color($colors, grey40);
                 }
 
             }
 
-            .add-eobservation-container {
-                width: 38%;
-                text-align: right;
-
-                .add-eobservation {
-                    background: color($colors, blue68);
-                    color: color($colors, white);
-                    border-radius: 33px;
-                    width: 24em;
-
-                    .button-content {
-                        padding: 10px 20px;
-                    }
-
-                    .edospnc-plus:before {
-                        font-size: 18px;
-                    }
-
-                    label {
-                        padding-left: 10px;
-                        font-size: 16px;
-                        color: color($colors, white);
-                    }
-                }
-
+            .add-button {
+                background: color($colors, blue68);
             }
 
 
