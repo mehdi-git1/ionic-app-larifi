@@ -9,6 +9,9 @@
 <ion-content padding>
     <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
     <ng-template #pageBlock>
+        <div class="stage-container">
+            <label>{{ 'PROFESSIONAL_LEVEL.STAGE_BLOC_TITLE' | translate }}</label>
+        </div>
         <div class="professional-level-header">
             <label class="stage-date">{{ 'PROFESSIONAL_LEVEL.HEADER.DATE' | translate }}</label>
             <label class="stage-code">{{ 'PROFESSIONAL_LEVEL.HEADER.CODE' | translate }}</label>
@@ -19,6 +22,9 @@
             </div>
         </div>
         <professional-level-stage *ngIf="professionalLevel && professionalLevel.stages && professionalLevel.stages.length > 0; else noStagesBlock" [stages]="professionalLevel.stages" [pnc]="pnc"></professional-level-stage>
+        <div class="eobs-container">
+            <label>{{ 'PROFESSIONAL_LEVEL.EOBS_BLOC_TITLE' | translate }}</label>
+        </div>
         <ng-template #noStagesBlock>
             <no-data></no-data>
         </ng-template>

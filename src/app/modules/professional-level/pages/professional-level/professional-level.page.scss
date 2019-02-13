@@ -1,5 +1,19 @@
 page-professional-level {
 
+    .stage-container {
+        margin-top: 30px;
+        margin-bottom: 20px;
+        font-size: 18px;
+        color: color($colors, blue81);
+    }
+
+    .eobs-container {
+        margin-top: 30px;
+        margin-bottom: 20px;
+        font-size: 18px;
+        color: color($colors, blue81);
+    }
+
     .professional-level-header {
         display: flex;
         align-items: center;
