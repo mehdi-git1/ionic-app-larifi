@@ -10,7 +10,7 @@
             font-weight: bold;
             box-shadow: 0px 0px 5px color($colors, grey70);
             padding: 10px 20px;
-            background: color($colors, grey95);
+            background: color($colors, white);
             border-radius: 5px;
 
             label {
@@ -48,7 +48,7 @@
     .score-container {
         display: flex;
         box-shadow: 0px 0px 5px color($colors, grey70);
-        background: color($colors, grey95);
+        background: color($colors, white);
         border-radius: 5px;
 
         div {
@@ -132,7 +132,7 @@
 
         .exercise {
             &:nth-child(odd) {
-                background: color($colors, grey95);
+                background: color($colors, grey90);
             }
 
             &:last-child {
