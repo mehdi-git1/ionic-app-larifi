@@ -37,13 +37,18 @@
             </e-observations>
         </div>
 
+
+        <div class="add-container career-objective-creation-container">
+            <div class="add-career-objective-container">
+                <button (click)="goToCareerObjectiveCreation()" class="add-career-objective clickable">
+                    <div class="button-content">
+                        <ion-icon class="edospnc-plus" name="edospnc-plus"></ion-icon>
+                        <label>{{ 'CAREER_OBJECTIVE_LIST.BUTTONS.ADD_CAREER_OBJECTIVE' | translate }}</label>
+                    </div>
+                </button>
+            </div>
+        </div>
         <div class="add-container">
-            <button (click)="goToCareerObjectiveCreation()" class="add-button add-career-objective clickable">
-                <div class="button-content">
-                    <ion-icon name="ios-add-circle-outline" ios="ios-add-circle-outline"></ion-icon>
-                    <label>{{ 'CAREER_OBJECTIVE_LIST.BUTTONS.ADD_CAREER_OBJECTIVE' | translate }}</label>
-                </div>
-            </button>
             <div class="information-message">
                 {{ 'CAREER_OBJECTIVE_LIST.INFORMATION_MESSAGE' | translate }}
             </div>
