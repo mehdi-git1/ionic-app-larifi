@@ -269,7 +269,7 @@
             "HEADER": {
                 "ROTATION_DATE": "Date de réalisation",
                 "TYPE": "Type eObservation",
-                "WRITER": "Rédacteur"
+                "REDACTOR": "Rédacteur"
             },
             "LEGEND": {
                 "LESS_THAN_3_YEARS": "eObservations réalisées sur les 3 dernières années",
