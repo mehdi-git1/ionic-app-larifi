@@ -25,6 +25,7 @@ export class UrlConfiguration {
     'getPncLastPerformedRotationsByMatricule': `${urlGroupEnum.PNC}/{matricule}/last_performed_rotations`,
     'getReceivedCongratulationLettersByPnc': `${urlGroupEnum.PNC}/{matricule}/received_congratulation_letters`,
     'getWrittenCongratulationLettersByPnc': `${urlGroupEnum.PNC}/{matricule}/written_congratulation_letters`,
+    'getCongratulationLetterById': `${urlGroupEnum.CONGRATULATION_LETTER}/{congratulationLetterId}`,
     'pncPhotos': urlGroupEnum.PNC_PHOTO,
     'getPncPhotosByMatricule': `${urlGroupEnum.PNC_PHOTO}/{matricule}`,
     'getSecurityInfos': urlGroupEnum.ME,
@@ -46,7 +47,8 @@ export class UrlConfiguration {
     'userProfiles': urlGroupEnum.USER_PROFILE,
     'userPermissions': urlGroupEnum.USER_PERMISSION,
     'userPermissionsByUserProfile': `${urlGroupEnum.USER_PROFILE}/{name}/${urlGroupEnum.USER_PERMISSION}`,
-    'getPing': urlGroupEnum.PING
+    'getPing': urlGroupEnum.PING,
+    'updatePermissions': `${urlGroupEnum.USER_PROFILE}/{profileName}/update_permissions`
   };
 
   /**

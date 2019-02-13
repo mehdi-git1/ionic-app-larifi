@@ -1,3 +1,4 @@
+import { CongratulationLetterDetailPage } from './pages/congratulation-letter-detail/congratulation-letter-detail.page';
 import { CongratulationLettersPage } from './pages/congratulation-letters/congratulation-letters.page';
 import { CongratulationLetterListComponent } from './components/congratulation-letter-list/congratulation-letter-list.component';
 import { CongratulationLetterCardComponent } from './components/congratulation-letter-card/congratulation-letter-card.component';
@@ -10,6 +11,7 @@ import { ComponentsModule } from '../../shared/components/components.module';
 @NgModule({
   declarations: [
     CongratulationLettersPage,
+    CongratulationLetterDetailPage,
     CongratulationLetterListComponent,
     CongratulationLetterCardComponent
   ],
@@ -19,7 +21,8 @@ import { ComponentsModule } from '../../shared/components/components.module';
     ComponentsModule
   ],
   entryComponents: [
-    CongratulationLettersPage
+    CongratulationLettersPage,
+    CongratulationLetterDetailPage
   ],
   exports: [
     CongratulationLettersPage

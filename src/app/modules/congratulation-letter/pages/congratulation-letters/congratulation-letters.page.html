@@ -15,9 +15,12 @@
         </button>
     </nav>
 
-    <!-- Lettres reçues -->
-    <congratulation-letter-list [hidden]="!isTabActive(CongratulationLetterModeEnum.RECEIVED)" [mode]="CongratulationLetterModeEnum.RECEIVED" [congratulationLetters]="receivedCongratulationLetters"></congratulation-letter-list>
+    <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
+    <ng-template #pageBlock>
+        <!-- Lettres reçues -->
+        <congratulation-letter-list [hidden]="!isTabActive(CongratulationLetterModeEnum.RECEIVED)" [mode]="CongratulationLetterModeEnum.RECEIVED" [congratulationLetters]="receivedCongratulationLetters" [matricule]="matricule"></congratulation-letter-list>
 
-    <!-- Lettres rédigées -->
-    <congratulation-letter-list [hidden]="!isTabActive(CongratulationLetterModeEnum.WRITTEN)" [mode]="CongratulationLetterModeEnum.WRITTEN" [congratulationLetters]="writtenCongratulationLetters"></congratulation-letter-list>
+        <!-- Lettres rédigées -->
+        <congratulation-letter-list [hidden]="!isTabActive(CongratulationLetterModeEnum.WRITTEN)" [mode]="CongratulationLetterModeEnum.WRITTEN" [congratulationLetters]="writtenCongratulationLetters" [matricule]="matricule"></congratulation-letter-list>
+    </ng-template>
 </ion-content>

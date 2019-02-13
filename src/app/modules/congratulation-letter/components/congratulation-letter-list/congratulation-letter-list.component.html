@@ -1,14 +1,20 @@
-<div class="header">
-    <label class="creation-date">{{ 'CONGRATULATION_LETTERS.HEADER.CREATION_DATE' | translate }}</label>
-    <label class="flight">{{ 'CONGRATULATION_LETTERS.HEADER.FLIGHT' | translate }}</label>
-    <label class="type">{{ 'CONGRATULATION_LETTERS.HEADER.TYPE' | translate }}</label>
-    <label class="redactor" *ngIf="isMode(CongratulationLetterModeEnum.RECEIVED)">{{ 'CONGRATULATION_LETTERS.HEADER.WRITER' | translate }}</label>
-</div>
+<ng-container *ngIf="congratulationLetters && congratulationLetters.length == 0; else listBlock">
+    <div class="no-data-found" *ngIf="isMode(CongratulationLetterModeEnum.RECEIVED)">{{ 'CONGRATULATION_LETTERS.NO_RECEIVED_LETTERS' | translate }}</div>
+    <div class="no-data-found" *ngIf="isMode(CongratulationLetterModeEnum.WRITTEN)">{{ 'CONGRATULATION_LETTERS.NO_WRITTEN_LETTERS' | translate }}</div>
+</ng-container>
 
-<div class="congratulation-letter-list">
-    <congratulation-letter-card *ngFor="let congratulationLetter of congratulationLetters" [congratulationLetter]="congratulationLetter" [mode]="mode"></congratulation-letter-card>
-    <ng-container *ngIf="congratulationLetters && congratulationLetters.length == 0">
-        <div class="no-data-found" *ngIf="isMode(CongratulationLetterModeEnum.RECEIVED)">{{ 'CONGRATULATION_LETTERS.NO_RECEIVED_LETTERS' | translate }}</div>
-        <div class="no-data-found" *ngIf="isMode(CongratulationLetterModeEnum.WRITTEN)">{{ 'CONGRATULATION_LETTERS.NO_WRITTEN_LETTERS' | translate }}</div>
-    </ng-container>
-</div>
+<ng-template #listBlock>
+    <div class="header">
+        <label class="creation-date">{{ 'CONGRATULATION_LETTERS.HEADER.CREATION_DATE' | translate }}</label>
+        <label class="flight">{{ 'CONGRATULATION_LETTERS.HEADER.FLIGHT' | translate }}</label>
+        <label class="type">{{ 'CONGRATULATION_LETTERS.HEADER.TYPE' | translate }}</label>
+        <label class="redactor" *ngIf="isMode(CongratulationLetterModeEnum.RECEIVED)">{{ 'CONGRATULATION_LETTERS.HEADER.WRITER' | translate }}</label>
+        <div class="button-placeholder">
+            <!-- Bloque de l'espace pour les boutons redirigeant vers le détail d'une lettre -->
+        </div>
+    </div>
+
+    <div class="congratulation-letter-list">
+        <congratulation-letter-card *ngFor="let congratulationLetter of congratulationLetters" [congratulationLetter]="congratulationLetter" [mode]="mode" [matricule]="matricule"></congratulation-letter-card>
+    </div>
+</ng-template>

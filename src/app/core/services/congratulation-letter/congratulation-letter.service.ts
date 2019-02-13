@@ -37,6 +37,15 @@ export class CongratulationLetterService extends BaseService {
     return this.execFunctionService('getWrittenCongratulationLetters', pncMatricule);
   }
 
+  /**
+   * Récupère une lettre de félicitation à partir de son id
+   * @param id l'id de la lettre
+   * @return une promesse contenant la lettre de félicitation trouvée
+   */
+  getCongratulationLetter(id: number): Promise<CongratulationLetterModel> {
+    return this.execFunctionService('getCongratulationLetter', id);
+  }
+
 
 
 }

@@ -20,7 +20,7 @@ const SessionServiceMock = jasmine.createSpyObj('SessionServiceMock', ['isActive
 const ProfessionalLevelServiceMock = jasmine.createSpyObj('ProfessionalLevelServiceMock', ['']);
 const EObservationServiceMock = jasmine.createSpyObj('EObservationServiceMock', ['getEObservations']);
 
-describe('EvaluationSheetPage', () => {
+describe('ProfessionalLevelPage', () => {
 
     let fixture: ComponentFixture<ProfessionalLevelPage>;
     let comp: ProfessionalLevelPage;
