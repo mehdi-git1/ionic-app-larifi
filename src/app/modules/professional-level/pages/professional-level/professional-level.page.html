@@ -9,9 +9,9 @@
 <ion-content padding>
     <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
     <ng-template #pageBlock>
-        <div class="stage-container">
-            <label>{{ 'PROFESSIONAL_LEVEL.STAGE_BLOC_TITLE' | translate }}</label>
-        </div>
+
+        <!-- Stages -->
+        <h3>{{ 'PROFESSIONAL_LEVEL.STAGE_TITLE' | translate }}</h3>
         <div class="professional-level-header">
             <label class="stage-date">{{ 'PROFESSIONAL_LEVEL.HEADER.DATE' | translate }}</label>
             <label class="stage-code">{{ 'PROFESSIONAL_LEVEL.HEADER.CODE' | translate }}</label>
@@ -22,20 +22,20 @@
             </div>
         </div>
         <professional-level-stage *ngIf="professionalLevel && professionalLevel.stages && professionalLevel.stages.length > 0; else noStagesBlock" [stages]="professionalLevel.stages" [pnc]="pnc"></professional-level-stage>
-        <div class="eobs-container">
-            <label>{{ 'PROFESSIONAL_LEVEL.EOBS_BLOC_TITLE' | translate }}</label>
-        </div>
         <ng-template #noStagesBlock>
             <no-data></no-data>
         </ng-template>
-        <e-observations *ngIf="eObservations" [eObservations]="eObservations">
-        </e-observations>
+
+        <!-- eObservations -->
+        <h3>{{ 'PROFESSIONAL_LEVEL.EOBS_TITLE' | translate }}</h3>
+        <e-observations *ngIf="eObservations" [eObservations]="eObservations"></e-observations>
+
     </ng-template>
 </ion-content>
-<ion-footer class='professional-level-footer'>
+<ion-footer class="professional-level-footer">
     <h5>{{ 'PROFESSIONAL_LEVEL.LEGEND.TITLE' | translate }} :</h5>
     <div *ngFor="let item of listItemLegend; let last = last">
-        <span class='sub-title-legend'>{{ item+'.TITLE' | translate }}</span> =
+        <span class="sub-title-legend">{{ item+'.TITLE' | translate }}</span> =
         <span [innerHtml]="item+'.TEXT' | translate"></span><span *ngIf="!last"> |</span>
     </div>
 </ion-footer>

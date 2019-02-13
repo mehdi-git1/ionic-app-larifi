@@ -1,17 +1,15 @@
 page-professional-level {
 
-    .stage-container {
+    h3,
+    [padding] h3:first-child {
         margin-top: 30px;
         margin-bottom: 20px;
-        font-size: 18px;
+        font-size: 1.4em;
         color: color($colors, blue81);
     }
 
-    .eobs-container {
-        margin-top: 30px;
-        margin-bottom: 20px;
-        font-size: 18px;
-        color: color($colors, blue81);
+    [padding] h3:first-child {
+        margin-top: 15px;
     }
 
     .professional-level-header {
@@ -54,7 +52,7 @@ page-professional-level {
     }
 
     e-observations {
-        > mat-expansion-panel {
+        & > mat-expansion-panel {
             margin-top: 30px !important;
         }
     }
