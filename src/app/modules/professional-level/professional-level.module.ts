@@ -9,6 +9,7 @@ import { ProfessionalLevelPage } from './pages/professional-level/professional-l
 import { ModuleCardComponent } from './components/module-card/module-card.component';
 import { ProfessionalLevelStageComponent } from './components/professional-level-stage/professional-level-stage.component';
 import { NotValidatedQuestionsPage } from './pages/not-validated-questions/not-validated-questions.page';
+import { EObservationModule } from '../eobservation/eobservation.module';
 
 
 @NgModule({
@@ -18,12 +19,13 @@ import { NotValidatedQuestionsPage } from './pages/not-validated-questions/not-v
     NotValidatedQuestionsPage,
     ModuleCardComponent,
     ProfessionalLevelStageComponent,
-    ProfessionalLevelCursusComponent
+    ProfessionalLevelCursusComponent,
   ],
   imports: [
     [IonicPageModule.forChild(ProfessionalLevelPage)],
     SharedModule,
-    ComponentsModule
+    ComponentsModule,
+    EObservationModule
   ],
   entryComponents: [
     ProfessionalLevelPage,

@@ -1,7 +1,3 @@
-import { Injectable } from '@angular/core';
-
-import { ParametersModel } from '../../models/parameters.model';
-import { AppContextModel } from '../../models/app-context.model';
 import { AuthenticatedUserModel } from '../../models/authenticated-user.model';
 import { PncModel } from '../../models/pnc.model';
 import { SessionService } from './session.service';

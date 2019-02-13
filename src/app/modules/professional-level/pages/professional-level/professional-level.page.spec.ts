@@ -1,5 +1,5 @@
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { IonicModule, NavParams } from 'ionic-angular';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 
@@ -13,11 +13,12 @@ import { ProfessionalLevelService } from '../../../../core/services/professional
 import { PncService } from '../../../../core/services/pnc/pnc.service';
 import { ProfessionalLevelModel } from '../../../../core/models/professional-level/professional-level.model';
 import { EObservationService } from '../../../../core/services/eobservation/eobservation.service';
+import { EObservationTransformerService } from './../../../../core/services/eobservation/eobservation-transformer.service';
 
 const PncServiceMock = jasmine.createSpyObj('SessionServiceMock', ['getPnc']);
 const SessionServiceMock = jasmine.createSpyObj('SessionServiceMock', ['isActiveUser']);
 const ProfessionalLevelServiceMock = jasmine.createSpyObj('ProfessionalLevelServiceMock', ['']);
-const EObservationServiceMock = jasmine.createSpyObj('EObservationServiceMock', ['']);
+const EObservationServiceMock = jasmine.createSpyObj('EObservationServiceMock', ['getEObservations']);
 
 describe('ProfessionalLevelPage', () => {
 
@@ -41,7 +42,8 @@ describe('ProfessionalLevelPage', () => {
                 { provide: ProfessionalLevelService, useValue: ProfessionalLevelServiceMock },
                 { provide: SessionService, useValue: SessionServiceMock },
                 { provide: PncService, useValue: PncServiceMock },
-                { provide: EObservationService, useValue: EObservationServiceMock }
+                { provide: EObservationService, useValue: EObservationServiceMock },
+                EObservationTransformerService
             ],
             schemas: [NO_ERRORS_SCHEMA]
         });
@@ -90,5 +92,132 @@ describe('ProfessionalLevelPage', () => {
             expect(professionalLevelModelCurrent.stages[0].modules[2].date).toEqual(new Date('01/01/2019'));
         });
     });
+
+    describe('getEObservationsList', () => {
+        it('ne doit laisser que les ecarts de notations avec "SECURITE DES VOLS" et "SURETE"', fakeAsync(() => {
+            EObservationServiceMock.getEObservations.and.returnValue(Promise.resolve(testEobs));
+            comp.getEObservationsList();
+            tick();
+            console.log(comp.eObservations);
+            expect(comp.eObservations[0].eobservationItems.length).toBe(1);
+            expect(comp.eObservations[0].eobservationItems[0].refItemLevel.item.theme.label.toUpperCase()).toBe('SURETE');
+            expect(comp.eObservations[1].eobservationItems.length).toBe(0);
+            expect(comp.eObservations[2].eobservationItems.length).toBe(2);
+            expect(comp.eObservations[2].eobservationItems[0].refItemLevel.item.theme.label.toUpperCase()).toBe('SECURITE DES VOLS');
+            expect(comp.eObservations[2].eobservationItems[1].refItemLevel.item.theme.label.toUpperCase()).toBe('SURETE');
+        }));
+    });
+
+
+    const testEobs = [{
+        'eobservationItems': [{
+            'refItemLevel': {
+                'item': {
+                    'theme': {
+                        'parent': null,
+                        'label': 'RELATION CLIENT',
+                        'themeOrder': 50
+                    },
+                    'label': 'Contact Client',
+                    'shortLabel': 'Contact Client',
+                    'xmlKey': 'clientContact',
+                    'version': '2.0',
+                    'itemOrder': 1,
+                    'type': 'E_CC'
+                },
+                'level': 'LEVEL_4',
+                'levelDescription': 'Se présente systématiquement et individuellement aux clients J/W comme le responsable de la cabine (clients ciblés en Y, M). Initie et personnalise les échanges en cours de vol et prend congé en fin de vol'
+            },
+            'itemOrder': 1,
+            'links': []
+        }, {
+            'refItemLevel': {
+                'item': {
+                    'theme': {
+                        'parent': null,
+                        'label': 'SURETE',
+                        'themeOrder': 30
+                    },
+                    'label': 'Briefing',
+                    'shortLabel': 'Briefing',
+                    'xmlKey': 'equipeBriefing',
+                    'version': '2.0',
+                    'itemOrder': 2,
+                    'type': 'E_CC'
+                },
+                'level': 'LEVEL_4',
+                'levelDescription': 'Accueille son équipe avec attention, valorise les compétences individuelles (CC/MC), fixe des objectifs clairs en cohérence avec le contexte commercial du vol, les décline de manière structurée, concise et positive, leur donne du sens  en faisant le lien avec les projets d\'Entreprise'
+            },
+            'itemOrder': 2,
+            'links': []
+        }
+        ]
+    }, {
+        'eobservationItems': [{
+            'refItemLevel': {
+                'item': {
+                    'theme': {
+                        'parent': null,
+                        'label': 'VOLS',
+                        'themeOrder': 0
+                    },
+                    'label': 'Procédures générales d\'urgence<br>Quelles sont les particularités de l\'intervention sur un feu ou de la fumée d\'un appareil électronique en cabine ?',
+                    'shortLabel': 'Procédures générales d\'urgence',
+                    'xmlKey': 'procedureAppareilElec201605',
+                    'version': '1.0',
+                    'itemOrder': 1,
+                    'type': 'E_CC'
+                },
+                'level': 'LEVEL_3',
+                'levelDescription': 'Maitrisé : Le PNC connaît la procédure'
+            },
+            'itemOrder': 0,
+            'links': []
+        }
+        ]
+    }, {
+        'eobservationItems': [{
+            'refItemLevel': {
+                'item': {
+                    'theme': {
+                        'parent': null,
+                        'label': 'SECURITE DES VOLS',
+                        'themeOrder': 0
+                    },
+                    'label': 'Analyse des paramètres du vol',
+                    'shortLabel': 'Analyse des paramètres du vol',
+                    'xmlKey': 'securiteAnalyseParametresVol',
+                    'version': '1.0',
+                    'itemOrder': 3,
+                    'type': 'E_CC'
+                },
+                'level': 'LEVEL_3',
+                'levelDescription': 'Analyse et hiérarchise l\'ensemble des informations SV nécessaires à la réalisation du vol et les actualise régulièrement'
+            },
+            'itemOrder': 0,
+            'links': []
+        }, {
+            'refItemLevel': {
+                'item': {
+                    'theme': {
+                        'parent': null,
+                        'label': 'SURETE',
+                        'themeOrder': 0
+                    },
+                    'label': 'Briefing départ',
+                    'shortLabel': 'Briefing départ',
+                    'xmlKey': 'securiteBriefingDepart',
+                    'version': '1.0',
+                    'itemOrder': 4,
+                    'type': 'E_CC'
+                },
+                'level': 'LEVEL_3',
+                'levelDescription': 'Délivre un briefing départ en conformité avec les exigences réglementaires'
+            },
+            'itemOrder': 1,
+            'links': []
+        }
+        ]
+    }];
 
 });
