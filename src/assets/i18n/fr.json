@@ -290,6 +290,8 @@
     "PROFESSIONAL_LEVEL": {
         "TITLE": "Niveau pro SV",
         "MY_TITLE": "Mon niveau pro SV",
+        "STAGE_TITLE": "Stages réglementaires",
+        "EOBS_TITLE": "Dernières eObservations",
         "HEADER": {
             "DATE": "Date",
             "CODE": "Code",

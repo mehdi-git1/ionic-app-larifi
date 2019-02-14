@@ -9,7 +9,6 @@ import { SessionService } from '../../../../core/services/session/session.servic
 import { PncModel } from '../../../../core/models/pnc.model';
 import { EObservationModel } from '../../../../core/models/eobservation/eobservation.model';
 import { EObservationService } from '../../../../core/services/eobservation/eobservation.service';
-import { EObservationTransformerService } from '../../../../core/services/eobservation/eobservation-transformer.service';
 
 @Component({
   selector: 'page-professional-level',
@@ -29,8 +28,7 @@ export class ProfessionalLevelPage {
     private sessionService: SessionService,
     private pncService: PncService,
     private professionalLevelService: ProfessionalLevelService,
-    private eObservationService: EObservationService,
-    private eObservationTransformerService: EObservationTransformerService) {
+    private eObservationService: EObservationService) {
   }
 
   ionViewDidLoad() {
@@ -86,21 +84,18 @@ export class ProfessionalLevelPage {
    * Récupére la liste des eObservations
    * triée pour ne garder que les écarts de notations avec "SECURITE DES VOLS" et "SURETE"
    */
-  getEObservationsList() {
-    this.eObservationService.getEObservations(this.matricule).then(
-      eobs => {
-        // Tri les eObservations pour ne garder que les écarts de notations avec "SECURITE DES VOLS" et "SURETE"
-        eobs.forEach(value => {
-          value.eobservationItems = value.eobservationItems.filter(
-            (element) => {
-              const upperCaseElement = element.refItemLevel.item.theme.label.toUpperCase();
-              return upperCaseElement === 'SECURITE DES VOLS' || upperCaseElement === 'SURETE';
-            }
-          );
+  getEObservationsList(): void {
+    this.eObservationService.getEObservations(this.matricule).then(eObservations => {
+      // Tri les eObservations pour ne garder que les écarts de notations avec "SECURITE DES VOLS" et "SURETE"
+      eObservations.forEach(value => {
+        value.eobservationItems = value.eobservationItems.filter((element) => {
+          const upperCaseElement = element.refItemLevel.item.theme.label.toUpperCase();
+          return upperCaseElement === 'SECURITE DES VOLS' || upperCaseElement === 'SURETE';
         });
-        this.eObservations = eobs;
-      }, error => {
       });
+      this.eObservations = eObservations;
+    }, error => {
+    });
   }
 
   /**
@@ -108,7 +103,7 @@ export class ProfessionalLevelPage {
    * @return true si c'est le cas, false sinon
    */
   loadingIsOver(): boolean {
-    return typeof this.professionalLevel !== 'undefined' && typeof this.eObservations !== 'undefined';
+    return this.professionalLevel !== undefined && this.eObservations !== undefined;
   }
 
 }
