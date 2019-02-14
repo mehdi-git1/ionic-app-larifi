@@ -151,7 +151,7 @@ export class CareerObjectiveListPage {
    * @return true si c'est le cas, false sinon
    */
   loadingIsOver(): boolean {
-    return this.careerObjectiveList !== undefined && this.pnc !== undefined;
+    return this.careerObjectiveList !== undefined && this.pnc !== undefined && this.eObservations !== undefined;
   }
 
   /**

@@ -1,5 +1,25 @@
 page-career-objective-list {
 
+    h3,
+    [padding] h3:first-child {
+        margin-top: 30px;
+        margin-bottom: 20px;
+        margin-left: 10px;
+        font-size: 1.4em;
+    }
+
+    .eobs-title {
+        color: color($colors, blue68);
+    }
+
+    .career-objective-title {
+        color: color($colors, green45);
+    }
+
+    [padding] h3:first-child {
+        margin-top: 15px;
+    }
+
     .information-message {
         padding: 0px 10px;
     }
@@ -54,11 +74,11 @@ page-career-objective-list {
 
         &.career-objective-creation-container {
             border-color: color($colors, green60);
-            box-shadow: 0px 0px 4px color($colors, green60);
+            box-shadow: 0px 0px 4px color($colors, green45);
 
             .add-container {
                 .add-button {
-                    background: color($colors, green60);
+                    background: color($colors, green45);
                 }
             }
         }
