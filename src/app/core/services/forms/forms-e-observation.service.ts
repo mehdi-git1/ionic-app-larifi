@@ -13,7 +13,6 @@ declare var window: any;
 
 @Injectable()
 export class FormsEObservationService {
-  eObs: FormsInputParamsModel;
 
   constructor(
     private pncProvider: PncService,
@@ -50,11 +49,11 @@ export class FormsEObservationService {
    */
   callForms(formsInputParams: FormsInputParamsModel) {
     const param = {
-      eformsAppId: `${this.config.eObsUrl}`,
+      eformsAppId: `${this.config.eformsUrl}`,
       method: '0',
       reportType: this.getReportTypeForEForms(formsInputParams.observedPnc.speciality),
-      callbackUrl: `${this.config.eObsCallbackUrl}`,
-      callbackActionLabel: `${this.config.eObsCallbackActionLabel}`,
+      callbackUrl: `${this.config.eformsCallbackUrl}`,
+      callbackActionLabel: `${this.config.eformsCallbackActionLabel}`,
       archiveData: {
         'PNCObserve.fonction': this.getSpecialityForEForms(formsInputParams.observedPnc.speciality),
         'PNCObserve.matricule': formsInputParams.observedPnc.matricule,
