@@ -50,7 +50,7 @@ export class FormsEObservationService {
    */
   callForms(formsInputParams: FormsInputParamsModel) {
     const param = {
-      FormsAppId: `${this.config.eObsUrl}`,
+      eformsAppId: `${this.config.eObsUrl}`,
       method: '0',
       reportType: this.getReportTypeForEForms(formsInputParams.observedPnc.speciality),
       callbackUrl: `${this.config.eObsCallbackUrl}`,
