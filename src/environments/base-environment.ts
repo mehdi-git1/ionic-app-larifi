@@ -9,9 +9,9 @@ export abstract class BaseEnvironment {
   public env;
   public versionFileUrl;
 
-  public eObsUrl;
-  public eObsCallbackUrl;
-  public eObsCallbackActionLabel;
+  public eformsUrl;
+  public eformsCallbackUrl;
+  public eformsCallbackActionLabel;
 
   public makeOfflineModeAvailable = false;
 
