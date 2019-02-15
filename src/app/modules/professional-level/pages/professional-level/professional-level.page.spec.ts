@@ -98,7 +98,6 @@ describe('ProfessionalLevelPage', () => {
             EObservationServiceMock.getEObservations.and.returnValue(Promise.resolve(testEobs));
             comp.getEObservationsList();
             tick();
-            console.log(comp.eObservations);
             expect(comp.eObservations[0].eobservationItems.length).toBe(1);
             expect(comp.eObservations[0].eobservationItems[0].refItemLevel.item.theme.label.toUpperCase()).toBe('SURETE');
             expect(comp.eObservations[1].eobservationItems.length).toBe(0);

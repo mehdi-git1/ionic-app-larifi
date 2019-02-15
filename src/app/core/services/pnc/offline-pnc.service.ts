@@ -71,6 +71,7 @@ export class OfflinePncService {
   getUpcomingRotations(matricule: string): Promise<RotationModel[]> {
     return new Promise((resolve, reject) => {
       let upcomingRotations = this.storageService.findAll(EntityEnum.ROTATION);
+      console.log(upcomingRotations);
       if (upcomingRotations != null) {
         upcomingRotations = upcomingRotations.filter(rotation => {
           const departureDate = new Date(rotation.departureDate);
