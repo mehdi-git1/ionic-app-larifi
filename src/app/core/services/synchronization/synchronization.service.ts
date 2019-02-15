@@ -279,13 +279,22 @@ export class SynchronizationService {
         this.careerObjectiveTransformer.toCareerObjective(careerObjective).getStorageId());
     }
 
+    // supression des eObservations
+    const eObservations = this.storageService.findAll(EntityEnum.EOBSERVATION);
+    const pncEObservations = careerObjectives.filter(eObservation => {
+      return eObservation.pnc.matricule === pnc.matricule;
+    });
+    for (const eObservation of eObservations) {
+      this.storageService.delete(EntityEnum.EOBSERVATION,
+        this.eObservationTransformerService.toEObservation(eObservation).getStorageId());
+    }
 
-    //  Suppression de toutes les rotations, vols, listes d'équipage et infos pour les eObservations
+    //  Suppression de toutes les rotations, vols, listes d'équipage et infos pour les paramètres d'entrée pour lappel eforms
     if (this.sessionService.getActiveUser().matricule === pnc.matricule) {
       this.storageService.deleteAll(EntityEnum.ROTATION);
       this.storageService.deleteAll(EntityEnum.LEG);
       this.storageService.deleteAll(EntityEnum.CREW_MEMBER);
-      this.storageService.deleteAll(EntityEnum.EOBSERVATION);
+      this.storageService.deleteAll(EntityEnum.FORMS_INPUT_PARAM);
     }
 
     // Suppression de la fiche synthese
