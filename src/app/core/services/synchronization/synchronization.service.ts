@@ -225,7 +225,7 @@ export class SynchronizationService {
         }
       }
     }
-    const eObservationsPromises: Promise<FormsInputParamsModel>[] = new Array();
+    const formsInputParamsPromises: Promise<FormsInputParamsModel>[] = new Array();
     const storeEDossierOfflinePromises = new Array<Promise<boolean>>();
     const crewMembersAlreadyStored: Array<String> = new Array();
     const eObsRotationsAlreadyCreated: Map<String, number[]> = new Map<String, number[]>();
@@ -241,13 +241,13 @@ export class SynchronizationService {
         eObsRotationsAlreadyCreated.set(crewMember.pnc.matricule, new Array());
       }
       if (eObsRotationsAlreadyCreated.get(crewMember.pnc.matricule).indexOf(crewMember.rotationId) < 0) {
-        eObservationsPromises.push(this.eObservationService.getFormsInputParams(crewMember.pnc.matricule, crewMember.rotationId));
+        formsInputParamsPromises.push(this.eObservationService.getFormsInputParams(crewMember.pnc.matricule, crewMember.rotationId));
         eObsRotationsAlreadyCreated.get(crewMember.pnc.matricule).push(crewMember.rotationId);
       }
     }
-    Promise.all(eObservationsPromises).then(eObservations => {
-      for (const eObservation of eObservations) {
-        this.storageService.save(EntityEnum.EOBSERVATION, eObservation, true);
+    Promise.all(formsInputParamsPromises).then(formsInputParams => {
+      for (const formsInputParam of formsInputParams) {
+        this.storageService.save(EntityEnum.FORMS_INPUT_PARAM, formsInputParam, true);
       }
       this.storageService.persistOfflineMap();
     }, error => { });
