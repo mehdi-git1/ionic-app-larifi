@@ -25,7 +25,15 @@ export class CongratulationLetterService extends BaseService {
    * @return une promesse contenant les lettres de félicitation reçues
    */
   getReceivedCongratulationLetters(pncMatricule: string): Promise<CongratulationLetterModel[]> {
-    return this.execFunctionService('getReceivedCongratulationLetters', pncMatricule);
+    return new Promise(resolve => {
+      this.execFunctionService('getReceivedCongratulationLetters', pncMatricule).then(receivedCongratulationLetters => {
+        // On écarte les lettres que le PNC a lui même rédigé (cas des lettres collectives)
+        receivedCongratulationLetters = receivedCongratulationLetters.filter(congratulationLetter => {
+          return congratulationLetter.redactor.matricule !== pncMatricule;
+        });
+        resolve(receivedCongratulationLetters);
+      });
+    });
   }
 
   /**
