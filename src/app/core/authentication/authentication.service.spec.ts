@@ -5,6 +5,7 @@ import { Events } from 'ionic-angular';
 import { AuthenticationStatusEnum } from './../enums/authentication-status.enum';
 import { AuthenticationService } from './authentication.service';
 import { AuthenticatedUserModel } from '../models/authenticated-user.model';
+import { ToastService } from '../services/toast/toast.service';
 
 const sessionServiceMock = jasmine.createSpyObj('sessionServiceMock', ['getActiveUser']);
 
@@ -23,6 +24,8 @@ const storageServiceMock = jasmine.createSpyObj('storageServiceMock', ['initOffl
 storageServiceMock.initOfflineMap.and.returnValue(Promise.resolve(true));
 const connectivityServiceMock = jasmine.createSpyObj('connectivityServiceMock', ['setConnected']);
 const secMobilServiceMock = jasmine.createSpyObj('secMobilServiceMock', ['authenticate']);
+const ToastServiceMock = jasmine.createSpyObj('ToastServiceMock', ['success']);
+const TranslateServiceMock = jasmine.createSpyObj('TranslateServiceMock', ['instant']);
 
 describe('AuthenticationService', () => {
 
@@ -39,7 +42,8 @@ describe('AuthenticationService', () => {
             connectivityServiceMock,
             synchronizationServiceMock,
             secMobilServiceMock,
-            new Events());
+            ToastServiceMock,
+            TranslateServiceMock);
         sessionServiceMock.authenticatedUser = authenticatedUser;
     });
 
