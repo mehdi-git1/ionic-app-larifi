@@ -90,7 +90,6 @@ export class AuthenticationService {
                 if (!result && this.deviceService.isBrowser()) {
                     this.toastService.warning(this.translateService.instant('GLOBAL.MESSAGES.ERROR.SERVER_APPLICATION_UNAVAILABLE'));
                 }
-                this.toastService.success(this.translateService.instant('GLOBAL.MESSAGES.SYNCHRONIZATION.PNC_SAVED_OFFLINE'));
             }, error => {
                 this.toastService.warning(this.translateService.instant('GLOBAL.MESSAGES.ERROR.APPLICATION_NOT_INITIALIZED'));
             });
