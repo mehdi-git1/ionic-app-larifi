@@ -88,10 +88,11 @@ export class AuthenticationService {
         if (this.deviceService.isOfflineModeAvailable()) {
             this.offlineManagement().then(result => {
                 if (!result && this.deviceService.isBrowser()) {
-                    this.toastService.success(this.translateService.instant('GLOBAL.MESSAGES.ERROR.SERVER_APPLICATION_UNAVAILABLE'));
+                    this.toastService.warning(this.translateService.instant('GLOBAL.MESSAGES.ERROR.SERVER_APPLICATION_UNAVAILABLE'));
                 }
+                this.toastService.success(this.translateService.instant('GLOBAL.MESSAGES.SYNCHRONIZATION.PNC_SAVED_OFFLINE'));
             }, error => {
-                this.toastService.success(this.translateService.instant('GLOBAL.MESSAGES.ERROR.APPLICATION_NOT_INITIALIZED'));
+                this.toastService.warning(this.translateService.instant('GLOBAL.MESSAGES.ERROR.APPLICATION_NOT_INITIALIZED'));
             });
         }
         return Promise.resolve(AuthenticationStatusEnum.AUTHENTICATION_OK);
