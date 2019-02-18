@@ -1,11 +1,9 @@
 
 import { tick, fakeAsync } from '@angular/core/testing';
-import { Events } from 'ionic-angular';
 
 import { AuthenticationStatusEnum } from './../enums/authentication-status.enum';
 import { AuthenticationService } from './authentication.service';
 import { AuthenticatedUserModel } from '../models/authenticated-user.model';
-import { ToastService } from '../services/toast/toast.service';
 
 const sessionServiceMock = jasmine.createSpyObj('sessionServiceMock', ['getActiveUser']);
 
