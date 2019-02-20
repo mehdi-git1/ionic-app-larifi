@@ -91,6 +91,26 @@ describe('ProfessionalLevelPage', () => {
             expect(professionalLevelModelCurrent.stages[0].modules[1].date).toEqual(new Date('01/02/2019'));
             expect(professionalLevelModelCurrent.stages[0].modules[2].date).toEqual(new Date('01/01/2019'));
         });
+
+        it('doit trier les scores des modules par ordre A-T-R', () => {
+            professionalLevelModel.stages[1].modules[0].scores = [
+                { evaluationCode: 'T', score: 90 }, { evaluationCode: 'R', score: 90 }, { evaluationCode: 'A', score: 90 }
+            ];
+            const professionalLevelModelCurrent = comp.sortProfessionalLevel(professionalLevelModel);
+            expect(professionalLevelModelCurrent.stages[0].modules[2].scores[0].evaluationCode).toEqual('A');
+            expect(professionalLevelModelCurrent.stages[0].modules[2].scores[1].evaluationCode).toEqual('T');
+            expect(professionalLevelModelCurrent.stages[0].modules[2].scores[2].evaluationCode).toEqual('R');
+        });
+
+        it('doit trier les scores des modules par ordre E1-E2-FC', () => {
+            professionalLevelModel.stages[1].modules[0].scores = [
+                { evaluationCode: 'E2', score: 90 }, { evaluationCode: 'FC', score: 90 }, { evaluationCode: 'E1', score: 90 }
+            ];
+            const professionalLevelModelCurrent = comp.sortProfessionalLevel(professionalLevelModel);
+            expect(professionalLevelModelCurrent.stages[0].modules[2].scores[0].evaluationCode).toEqual('E1');
+            expect(professionalLevelModelCurrent.stages[0].modules[2].scores[1].evaluationCode).toEqual('E2');
+            expect(professionalLevelModelCurrent.stages[0].modules[2].scores[2].evaluationCode).toEqual('FC');
+        });
     });
 
     describe('getEObservationsList', () => {
