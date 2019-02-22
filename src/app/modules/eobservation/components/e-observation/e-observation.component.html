@@ -4,7 +4,6 @@
         <label class="e-observation-type">{{ getEObservationTypeLabel(eObservation.type) }}</label>
         <label class="e-observation-writer">
             <span *ngIf="eObservation.redactor?.lastName">{{eObservation.redactor.lastName}} <span class="firstname">{{eObservation.redactor.firstName}}</span></span>
-            <span *ngIf="!eObservation.redactor?.lastName">{{eObservation.redactor?.matricule}}</span>
         </label>
         <div class="e-observation-detail">
             <button ion-fab>
