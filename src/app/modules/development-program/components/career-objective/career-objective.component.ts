@@ -17,8 +17,6 @@ export class CareerObjectiveComponent {
   // Expose l'enum au template
   PncRole = PncRoleEnum;
 
-  matPanelHeaderHeight = '50px';
-
   @ViewChild(OfflineIndicatorComponent)
   private offlineIndicatorComponent: OfflineIndicatorComponent;
 

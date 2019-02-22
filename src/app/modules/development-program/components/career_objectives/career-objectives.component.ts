@@ -20,7 +20,7 @@ export class CareerObjectivesComponent {
 
   /**
  * Ouvre un objectif => redirige vers la page de création de l'objectif
- * @param careerObjectiveId l'id de l'objectif à ouvrir
+ * @param careerObjective L'objectif à ouvrir
  */
   openCareerObjective(careerObjective: CareerObjectiveModel) {
     this.navCtrl.push(CareerObjectiveCreatePage, { matricule: careerObjective.pnc.matricule, careerObjectiveId: careerObjective.techId });
