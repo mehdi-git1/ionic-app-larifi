@@ -21,7 +21,7 @@ export class ProfessionalLevelPage {
   professionalLevel: ProfessionalLevelModel;
 
   eObservations: EObservationModel[];
-
+  eObservationsFiltered: EObservationModel[];
   listItemLegend = [];
 
   constructor(private navParams: NavParams,
@@ -86,16 +86,29 @@ export class ProfessionalLevelPage {
    */
   getEObservationsList(): void {
     this.eObservationService.getEObservations(this.matricule).then(eObservations => {
+      this.eObservations = eObservations;
       // Tri les eObservations pour ne garder que les écarts de notations avec "SECURITE DES VOLS" et "SURETE"
-      eObservations.forEach(value => {
-        value.eobservationItems = value.eobservationItems.filter((element) => {
+     /* let eObservationToBeFiltered = _.cloneDeep(eObservations);
+      eObservationToBeFiltered.forEach(value => {
+        eObservationToBeFiltered = value.eobservationItems.filter((element) => {
           const upperCaseElement = element.refItemLevel.item.theme.label.toUpperCase();
           return upperCaseElement === 'SECURITE DES VOLS' || upperCaseElement === 'SURETE';
         });
       });
-      this.eObservations = eObservations;
+      this.eObservationsFiltered = eObservationToBeFiltered;*/
     }, error => {
     });
+  }
+
+  getFilteredEObservations(): EObservationModel[] {
+    /*let eObservationToBeFiltered = _.cloneDeep(this.eObservations);
+      eObservationToBeFiltered.forEach(value => {
+        eObservationToBeFiltered = value.eobservationItems.filter((element) => {
+          const upperCaseElement = element.refItemLevel.item.theme.label.toUpperCase();
+          return upperCaseElement === 'SECURITE DES VOLS' || upperCaseElement === 'SURETE';
+        });
+      });*/
+     return this.eObservations; 
   }
 
   /**

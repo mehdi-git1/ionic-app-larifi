@@ -5,26 +5,37 @@ import { SharedModule } from '../../shared/shared.module';
 import { ComponentsModule } from '../../shared/components/components.module';
 import { EObservationComponent } from './components/e-observation/e-observation.component';
 import { EObservationsComponent } from './components/e-observations/e-observations.component';
-import { IonicModule } from 'ionic-angular';
+import { IonicModule, IonicPageModule } from 'ionic-angular';
+import { EobservationDetailsPage } from './pages/eobservation-details/eobservation-details';
+import { ColorNumberDotComponent } from './components/color-number-dot/color-number-dot';
+import { QuestionSymbolComponent } from './components/question-symbol/question-symbol';
+
 
 
 @NgModule({
   declarations: [
     EObservationsComponent,
     EObservationComponent,
-    AbnormalLevelComponent
+    AbnormalLevelComponent,
+    ColorNumberDotComponent,
+    QuestionSymbolComponent,
+    EobservationDetailsPage
   ],
   imports: [
-    IonicModule,
+    IonicPageModule.forChild(EobservationDetailsPage),
     SharedModule,
     ComponentsModule
   ],
   entryComponents: [
+    EobservationDetailsPage
   ],
   exports: [
     EObservationComponent,
     EObservationsComponent,
-    AbnormalLevelComponent
+    AbnormalLevelComponent,
+    ColorNumberDotComponent,
+    QuestionSymbolComponent,
+    EobservationDetailsPage
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA

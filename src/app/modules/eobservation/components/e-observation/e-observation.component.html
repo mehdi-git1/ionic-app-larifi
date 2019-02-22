@@ -6,7 +6,7 @@
             {{eObservation.redactor.lastName}} <span class="firstname">{{eObservation.redactor.firstName}}</span>
         </label>
         <div class="e-observation-detail">
-            <button ion-fab>
+            <button ion-fab (click)="goToEObservationDetail($event)">
                 <span class="edospnc-memo"></span>
             </button>
         </div>

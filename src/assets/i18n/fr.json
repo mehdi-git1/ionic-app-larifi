@@ -287,6 +287,18 @@
             "SKILL": "Constante / Compétence / Séquence",
             "ITEM": "Rubrique / Item",
             "LEVEL": "Niveau"
+        },
+        "DETAILS" :{
+            "TITLE": "Restitution Formulaire",
+            "ROTATION_SUBTITLE": "Rotation",
+            "DEGRADED_CONDITIONS": "Conditions dégradées",
+            "FLIGHT_NUMBER": "N° Vol",
+            "FLIGHT_DATE": "Date Vol",
+            "STOP_STATION": "Esacles départ/arrivée",
+            "AIRCRAFT_TYPE": "Type Avion",
+            "VERSION": "Version",
+            "OCCUPANCY_RATE": "Remplissage",
+            "WORKSTATION": "Poste"
         }
     },
     "PROFESSIONAL_LEVEL": {
