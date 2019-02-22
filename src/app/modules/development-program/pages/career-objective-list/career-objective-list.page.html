@@ -50,14 +50,9 @@
                 </button>
             </div>
         </div>
-        <div class="information-message">
-            {{ 'CAREER_OBJECTIVE_LIST.INFORMATION_MESSAGE' | translate }}
-        </div>
-        <div class="career-objective-list-container">
-            <div class="no-data-found" *ngIf="careerObjectiveList.length == 0">{{ 'CAREER_OBJECTIVE_LIST.NO_OBJECTIVES' | translate }}</div>
-            <div *ngIf="careerObjectiveList.length > 0" class="career-objective-list">
-                <career-objective-card *ngFor="let careerObjective of careerObjectiveList" [careerObjective]="careerObjective" [offlineAction]="careerObjective.offlineAction" (click)="openCareerObjective(careerObjective.techId)"></career-objective-card>
-            </div>
+        <div class="global-container career-objective-list-container">
+            <career-objectives *ngIf="careerObjectives" [careerObjectives]="careerObjectives">
+            </career-objectives>
         </div>
     </ng-template>
 </ion-content>

@@ -81,6 +81,11 @@ page-career-objective-list {
                     background: color($colors, green45);
                 }
             }
+
+            &.career-objective-list-container {
+                padding: 0px 10px;
+                padding-bottom: 10px;
+            }
         }
 
 
@@ -111,4 +116,6 @@ page-career-objective-list {
             padding-bottom: 10px;
         }
     }
+
+
 }

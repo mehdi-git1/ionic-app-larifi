@@ -1,0 +1,86 @@
+career-objective {
+
+    .career-objective-card {
+        background-color: color($colors, green60);
+        display: flex;
+        border-radius: 5px !important;
+        color: color($colors, white);
+        text-align: left;
+        cursor: pointer;
+        margin: 5px 0px;
+        width: 100%;
+
+
+        ion-card-content {
+            width: 100%;
+
+            .col {
+                padding: 0px;
+                display: flex;
+                height: 40px;
+            }
+
+            span {
+                display: flex;
+                align-items: center;
+            }
+
+            .value {
+                font-size: 1.2em !important;
+                font-weight: 400;
+            }
+
+            .career-objective-date {
+                width: 120px;
+            }
+
+            .career-objective-label {
+                flex: 1;
+            }
+
+            .career-objective-icone {
+                width: 110px;
+                display: flex;
+                justify-content: flex-end;
+                padding: 3px 10px;
+
+                .edospnc-flag {
+                    width: 40px;
+                    height: 35px;
+                    border-radius: 50%;
+                    margin-right: 5px;
+                }
+
+                .edospnc-pnc {
+                    width: 40px;
+                    height: 35px;
+                    border-radius: 50%;
+                }
+
+                .edospnc-flag:before {
+                    color: color($colors, red15);
+                    background: color($colors, white);
+                    border-radius: 100%;
+                    border-color: color($colors, red15);
+                    border-style: solid;
+                    font-size: 30px;
+                }
+
+                .edospnc-pnc:before {
+                    color: color($colors, blue68);
+                    background: color($colors, white);
+                    border-radius: 100%;
+                    border-color: color($colors, blue68);
+                    border-style: solid;
+                    font-size: 30px;
+                }
+            }
+
+            .career-objective-status {
+                width: 120px;
+                display: flex;
+            }
+        }
+    }
+
+}
