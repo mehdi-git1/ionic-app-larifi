@@ -5,4 +5,5 @@ export class RestRequest {
     public httpHeaders: any;
     public jsonData: any;
     public byPassImpersonatedUser: boolean;
+    public byPassInterceptor: boolean;
 }
