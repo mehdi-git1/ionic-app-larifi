@@ -32,9 +32,9 @@ export class EObservationsArchivesPage {
         }
         this.pncService.getPnc(this.matricule).then(pnc => {
             this.pnc = pnc;
-            this.getEObservationsList();
         }, error => {
         });
+        this.getEObservationsList();
     }
 
     /**
@@ -49,9 +49,9 @@ export class EObservationsArchivesPage {
     }
 
     /**
- * Vérifie que le chargement est terminé
- * @return true si c'est le cas, false sinon
- */
+     * Vérifie que le chargement est terminé
+     * @return true si c'est le cas, false sinon
+     */
     loadingIsOver(): boolean {
         return this.eObservations !== undefined;
     }
