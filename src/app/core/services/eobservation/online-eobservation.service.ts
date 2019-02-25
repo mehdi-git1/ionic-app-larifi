@@ -26,4 +26,17 @@ export class OnlineEObservationService {
         );
     }
 
+    /**
+    * Récupère les EObservations d'un PNC à partir du back
+    * @param matricule le matricule du PNC
+    * @return une promesse contenant les EObservations trouvées
+    */
+    getAllEObservations(matricule: string): Promise<EObservationModel[]> {
+        return this.restService.get(this.config.getBackEndUrl('getAllEObservationsByMatricule', [matricule])).then(
+            eObservations => {
+                return this.eObservationTransformerService.toEObservations(eObservations);
+            }
+        );
+    }
+
 }

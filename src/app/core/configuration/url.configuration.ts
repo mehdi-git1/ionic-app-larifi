@@ -16,6 +16,7 @@ export class UrlConfiguration {
     'setCareerObjectivesInstructorRequestById': `${urlGroupEnum.CAREER_OBJECTIVE}/{id}/instructor_request`,
     'getFormsInputParams': `${urlGroupEnum.FORMS_INPUT_PARAM}/{matricule}/{rotationId}`,
     'getEObservationsByMatricule': `${urlGroupEnum.EOBSERVATION}/pnc/{matricule}`,
+    'getAllEObservationsByMatricule': `${urlGroupEnum.EOBSERVATION}/pnc/{matricule}/all`,
     'getLegsById': `${urlGroupEnum.LEG}/{legId}`,
     'getLegsCrewMembersById': `${urlGroupEnum.LEG}/{legId}/crew_members`,
     'pnc': urlGroupEnum.PNC,

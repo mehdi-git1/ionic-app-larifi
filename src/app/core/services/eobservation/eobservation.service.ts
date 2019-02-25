@@ -24,11 +24,20 @@ export class EObservationService extends BaseService {
     }
 
     /**
-     * Récupère les EObservations d'un PNC
+     * Récupère les EObservations d'un PNC (sur 3 ans ou trois derniéres)
      * @param matricule le matricule du PNC
      * @return une promesse contenant les EObservations trouvées
      */
     getEObservations(matricule: string): Promise<EObservationModel[]> {
         return this.execFunctionService('getEObservations', matricule);
+    }
+
+    /**
+ * Récupère toutes les EObservations d'un PNC
+ * @param matricule le matricule du PNC
+ * @return une promesse contenant les EObservations trouvées
+ */
+    getAllEObservations(matricule: string): Promise<EObservationModel[]> {
+        return this.onlineEObservationService.getAllEObservations(matricule);
     }
 }
