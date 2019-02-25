@@ -1,0 +1,16 @@
+<ion-header>
+    <ion-navbar>
+        <page-header (refreshPage)="refreshPage()" [showRefreshIcon]="true" [pnc]="pnc">
+            <span *ngIf="pnc">{{ 'GLOBAL.EOBSERVATIONS_ARCHIVES' | isMyPage: pnc | translate }}</span>
+        </page-header>
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+    <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
+    <div class="global-container eobservation-list-container">
+        <e-observations *ngIf="eObservations" [eObservations]="eObservations" [legend]="false">
+        </e-observations>
+    </div>
+
+</ion-content>
