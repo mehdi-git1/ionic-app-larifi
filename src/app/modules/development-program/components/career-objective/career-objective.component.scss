@@ -13,12 +13,9 @@ career-objective {
 
         ion-card-content {
             width: 100%;
-
-            .col {
-                padding: 0px;
-                display: flex;
-                height: 40px;
-            }
+            padding-left: 5px;
+            display: flex;
+            height: 40px;
 
             span {
                 display: flex;
@@ -44,35 +41,26 @@ career-objective {
                 justify-content: flex-end;
                 padding: 3px 10px;
 
-                .edospnc-flag {
-                    width: 40px;
-                    height: 35px;
-                    border-radius: 50%;
+                span:not(:last-child) {
                     margin-right: 5px;
                 }
 
-                .edospnc-pnc {
-                    width: 40px;
-                    height: 35px;
-                    border-radius: 50%;
+                .edospnc-flag:before,
+                .edospnc-pnc:before {
+                    background: color($colors, white);
+                    border-radius: 100%;
+                    border-style: solid;
+                    font-size: 30px;
                 }
 
                 .edospnc-flag:before {
                     color: color($colors, red15);
-                    background: color($colors, white);
-                    border-radius: 100%;
                     border-color: color($colors, red15);
-                    border-style: solid;
-                    font-size: 30px;
                 }
 
                 .edospnc-pnc:before {
                     color: color($colors, blue68);
-                    background: color($colors, white);
-                    border-radius: 100%;
                     border-color: color($colors, blue68);
-                    border-style: solid;
-                    font-size: 30px;
                 }
             }
 

@@ -35,8 +35,6 @@ export class CareerObjectiveListPage {
 
   pnc: PncModel;
 
-  matPanelHeaderHeight = '41px';
-
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     private careerObjectiveService: CareerObjectiveService,
