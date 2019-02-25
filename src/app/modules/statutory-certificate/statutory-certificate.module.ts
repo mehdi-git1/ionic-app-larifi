@@ -1,4 +1,4 @@
-import { MedicalAptitudesModel } from './../../core/models/statutory-certificate/medical-aptitudes.model';
+import { MedicalAptitudesComponent } from './components/medical-aptitudes/medical-aptitudes.component';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 
@@ -20,7 +20,7 @@ import { StatutoryCertificateDataComponent } from './components/statutory-certif
     MasteringQualificationComponent,
     PlaneSkillsComponent,
     StatutoryCertificateDataComponent,
-    MedicalAptitudesModel
+    MedicalAptitudesComponent
   ],
   imports: [
     [IonicPageModule.forChild(StatutoryCertificatePage)],
