@@ -59,9 +59,9 @@
 
             <mat-expansion-panel>
                 <mat-expansion-panel-header [expandedHeight]="'48px'">
-                    {{ 'STATUTORY_CERTIFICATE.CATEGORIES.VAM' | translate }}
+                    {{ 'STATUTORY_CERTIFICATE.CATEGORIES.MEDICAL_APTITUDES' | translate }}
                 </mat-expansion-panel-header>
-                <statutory-certificate-vam [vamData]="statutoryCertificate?.vam"></statutory-certificate-vam>
+                <medical-aptitudes [medicalAptitudesData]="statutoryCertificate?.medicalAptitudes"></medical-aptitudes>
             </mat-expansion-panel>
         </mat-accordion>
     </ng-template>
