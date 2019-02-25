@@ -1,0 +1,23 @@
+<edospnc-expandable-block title="{{title}}" [emptyCondition]="!comment">
+    <div *ngIf="strongPoints" class="comment-container">
+        <div *ngIf="strongPoints" >
+            <label><span class="edospnc-speechBubble"></span>{{ 'EOBSERVATION.DETAILS.STRONG_POINTS' | translate }}</label>
+            <p class="comment">
+                {{strongPoints}}
+            </p>
+        </div>
+        <div *ngIf="workingAxes" >
+            <label><span class="edospnc-speechBubble"></span>{{ 'EOBSERVATION.DETAILS.WORKING_AXES' | translate }}</label>
+            <p class="comment">
+                {{workingAxes}}
+            </p>
+        </div>
+        <div >
+            <label><span class="edospnc-speechBubble"></span>{{ 'EOBSERVATION.DETAILS.COMMENT' | translate }}</label>
+            <p class="comment">
+                {{comment}}
+            </p>
+        </div>
+    </div>
+    <div class="comment-footer"><span>{{commentDate | date: 'dd/MM/yyyy' : 'UTC'}}</span><span>{{speciality}}</span><span>{{lastName}} {{firstName}}</span></div>
+</edospnc-expandable-block>

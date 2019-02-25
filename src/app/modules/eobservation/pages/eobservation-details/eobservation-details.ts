@@ -8,6 +8,8 @@ import { EObservationItemModel } from '../../../../core/models/eobservation/eobs
 import { EobservationItemsByTheme } from '../../../../core/models/eobservation/eobservation-items-by-theme.model';
 import { EObservationLevelEnum } from '../../../../core/enums/e-observations-level.enum';
 import { ReferentialItemLevelModel } from '../../../../core/models/eobservation/referential-item-level.model';
+import { TranslateService } from '@ngx-translate/core';
+import { EObservationTypeEnum } from '../../../../core/enums/e-observations-type.enum';
 
 @Component({
   selector: 'page-eobservation-details',
@@ -21,7 +23,7 @@ export class EobservationDetailsPage {
 
   itemsSortedByTheme: EobservationItemsByTheme[] ;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private translateService: TranslateService) {
    
   }
 
@@ -58,22 +60,6 @@ export class EobservationDetailsPage {
     return itemsByTheme;
   }
 
-    /**
-   * Récupère le label à afficher par rapport au niveau donné
-   * @param level le niveau de l'eObservation
-   * @return le label à afficher
-   */
-  getLevelLabel(level: EObservationLevelEnum): string {
-    return EObservationLevelEnum.getLabel(level);
-  }
-
-  getTooltipHtml(): string {
-    return '<div class="tooltipContent">'
-    +'<div>xxCorrespondance couleur / appréciation</div>'
-    +'<div *ngFor="let referentialItemLevel of getRefItemLevelsByRefItem()">{{referentialItemLevel.level}}</div>'
-    +'</div>';
-  }
-
   getRefItemLevelsByRefItem(): ReferentialItemLevelModel[]{
     const refItemLevels = new Array<ReferentialItemLevelModel>();
     let refItemLevel = new ReferentialItemLevelModel();
@@ -93,4 +79,38 @@ export class EobservationDetailsPage {
     refItemLevels.push(refItemLevel);
     return refItemLevels;
   }
+
+  /**
+   * Vérifie qu'il y a des vols
+   * 
+   * @return true si il n'y a pas de vols dans cette eobs, sinon false
+   */
+  hasFlights(): boolean {
+    return this.eObservation && ( this.eObservation.eobservationFlights === null  || this.eObservation.eobservationFlights.length === 0);
+  }
+
+  /**
+   * Définit la couleur en fonction du statut
+   * 
+   * @return 'green' si 'TAKEN_INTO_ACCOUNT' ou 'red' si 'NOT_TAKEN_INTO_ACCOUNT'
+   */
+  getColorStatusPoint() : string{
+    if (this.eObservation && this.eObservation.state === 'TAKEN_INTO_ACCOUNT' ) {
+      return 'green';
+    } else if (this.eObservation && this.eObservation.state === 'NOT_TAKEN_INTO_ACCOUNT' ) {
+      return 'red';
+    }
+  }
+
+  /**
+   * Récupère le label du type de l'eObs
+   * @return le label à afficher
+   */
+  getTypeLabel(): string {
+    if (!this.eObservation) {
+      return '';
+    }
+    return EObservationTypeEnum.getLabel(this.eObservation.type);
+  }
+
 }

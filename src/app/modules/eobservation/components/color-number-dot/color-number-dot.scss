@@ -1,13 +1,14 @@
 color-number-dot {
 
     @mixin color-dot($color) {
-        width: 1.5em;
-        height: 1.5em;
+        width: 1.8em;
+        height: 1.8em;
         background-color: color($colors, $color);
         border-radius: 50%;
         color: color($colors, white);
-        display: inline-block;
-        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 
     .number-dot-1 {

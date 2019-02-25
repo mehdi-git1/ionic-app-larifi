@@ -15,7 +15,7 @@ export class ColorNumberDotComponent {
       return 'number-dot-1';
     } else if (this.numberText == '2') {
       return 'number-dot-2';
-    } else if (this.numberText == '3') {
+    } else if (this.numberText == '3' || this.numberText == 'C') {
       return 'number-dot-3';
     } else if (this.numberText == '4') {
       return 'number-dot-4';

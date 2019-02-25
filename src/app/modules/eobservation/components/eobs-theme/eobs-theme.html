@@ -1,0 +1,9 @@
+<edospnc-expandable-block title="{{theme.referentialTheme.label}}" [emptyCondition]="isEmptyGrid()">
+    <ion-grid>
+        <ion-row *ngFor="let eObservationItem of theme.eObservationItems">
+            <ion-col col-11 class="itemLabel"> {{eObservationItem.refItemLevel.item.label}}</ion-col>
+            <ion-col col-1 class="symbol"> <color-number-dot [numberText]="getLevelLabel(eObservationItem.refItemLevel.level)"></color-number-dot><question-symbol></question-symbol>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</edospnc-expandable-block>

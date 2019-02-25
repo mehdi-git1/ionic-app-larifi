@@ -298,7 +298,20 @@
             "AIRCRAFT_TYPE": "Type Avion",
             "VERSION": "Version",
             "OCCUPANCY_RATE": "Remplissage",
-            "WORKSTATION": "Poste"
+            "WORKSTATION": "Poste",
+            "REDACTOR_COMMENT": "Commentaire PNC Rédacteur",
+            "PNC_COMMENT": "Commentaire PNC Observé",
+            "COMMENT": "Commentaire :",
+            "STRONG_POINTS" : "Points forts :",
+            "WORKING_AXES" : "Axes de travail :",
+            "UPDATE_DATE": "Enregistré depuis le : ",
+            "SPECIALITY": "Fonction",
+            "EOBS_PNC_ASSIGNMENT": "Affectation à date de l'eObservation",
+            "STATE" : {
+                "LABEL": "Statut en cours : ",
+                "TAKEN_INTO_ACCOUNT": "Pris en compte",
+                "NOT_TAKEN_INTO_ACCOUNT": "Non pris en compte"
+            }
         }
     },
     "PROFESSIONAL_LEVEL": {

@@ -66,7 +66,7 @@ export class ProfessionalLevelPage {
   sortProfessionalLevel(professionalLevel: ProfessionalLevelModel): ProfessionalLevelModel {
     const sortedProfessionalLevel: ProfessionalLevelModel = _.cloneDeep(professionalLevel);
 
-    if (sortedProfessionalLevel.stages) {
+    if (sortedProfessionalLevel && sortedProfessionalLevel.stages) {
       // Tri de l'ordre des stages
       sortedProfessionalLevel.stages = sortedProfessionalLevel.stages.sort((a, b) => a.date < b.date ? 1 : -1);
 
@@ -95,7 +95,7 @@ export class ProfessionalLevelPage {
           return upperCaseElement === 'SECURITE DES VOLS' || upperCaseElement === 'SURETE';
         });
       });
-      this.eObservationsFiltered = eObservationToBeFiltered;*/
+      this.eObservationsFiltered = eObservationToBeFiltered; */
     }, error => {
     });
   }

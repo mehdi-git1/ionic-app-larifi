@@ -1,0 +1,12 @@
+eobs-theme{
+    ion-row:nth-child(even) {
+        background: color($colors, grey90);
+    }
+
+    .itemLabel:nth-child(even) {
+        border-right: 2px solid color($colors, white);
+    }
+    .itemLabel:nth-child(odd) {
+        border-right: 2px solid color($colors, grey75);
+    }
+}

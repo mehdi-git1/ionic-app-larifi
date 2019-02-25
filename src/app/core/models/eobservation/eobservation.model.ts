@@ -9,10 +9,15 @@ export class EObservationModel extends EDossierPncObjectModel {
     pnc: PncModel;
     rotationDate: Date;
     type: EObservationTypeEnum;
+    state: string;
     redactor: PncModel;
     eobservationItems: EObservationItemModel[];
     eobservationFlights: EObservationFlightModel[];
-
+    redactorComment: string;
+    pncComment: string;
+    redactionDate: Date;
+    redactorSpeciality: string;
+    pncSpeciality: string;
     getStorageId(): string {
         return `${this.techId}`;
     }
