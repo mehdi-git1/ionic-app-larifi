@@ -1,10 +1,10 @@
+import { RestRequest } from './rest/rest-request';
 import { Utils } from '../../shared/utils/utils';
 import { isUndefined } from 'ionic-angular/util/util';
 import { DeviceService } from '../services/device/device.service';
 import { Injectable } from '@angular/core';
 
 import { Platform, Events } from 'ionic-angular';
-import { RestRequest } from './rest/rest.base.service';
 import { TranslateService } from '@ngx-translate/core';
 import { ToastService } from '../services/toast/toast.service';
 import { Config } from '../../../environments/config';
