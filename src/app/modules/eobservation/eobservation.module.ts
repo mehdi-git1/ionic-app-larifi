@@ -11,6 +11,8 @@ import { ColorNumberDotComponent } from './components/color-number-dot/color-num
 import { QuestionSymbolComponent } from './components/question-symbol/question-symbol';
 import { EObsCommentComponent } from './components/eobs-comment/eobs-comment';
 import { EObsThemeComponent } from './components/eobs-theme/eobs-theme';
+import { EobsItemDescriptionComponent } from './components/eobs-item-description/eobs-item-description';
+import { ExitSymbolComponent } from './components/exit-symbol/exit-symbol';
 
 
 
@@ -21,17 +23,21 @@ import { EObsThemeComponent } from './components/eobs-theme/eobs-theme';
     AbnormalLevelComponent,
     ColorNumberDotComponent,
     QuestionSymbolComponent,
+    ExitSymbolComponent,
     EObsCommentComponent,
     EObsThemeComponent,
+    EobsItemDescriptionComponent,
     EobservationDetailsPage
   ],
   imports: [
     IonicPageModule.forChild(EobservationDetailsPage),
+    IonicPageModule.forChild(EobsItemDescriptionComponent),
     SharedModule,
     ComponentsModule
   ],
   entryComponents: [
-    EobservationDetailsPage
+    EobservationDetailsPage,
+    EobsItemDescriptionComponent
   ],
   exports: [
     EObservationComponent,
@@ -39,8 +45,10 @@ import { EObsThemeComponent } from './components/eobs-theme/eobs-theme';
     AbnormalLevelComponent,
     ColorNumberDotComponent,
     QuestionSymbolComponent,
+    ExitSymbolComponent,
     EObsCommentComponent,
     EObsThemeComponent,
+    EobsItemDescriptionComponent,
     EobservationDetailsPage
   ],
   schemas: [

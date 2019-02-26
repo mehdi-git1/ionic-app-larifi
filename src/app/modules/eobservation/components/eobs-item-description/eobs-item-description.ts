@@ -1,0 +1,39 @@
+import { Component, Input } from '@angular/core';
+import { ReferentialItemLevelModel } from '../../../../core/models/eobservation/referential-item-level.model';
+import { EObservationLevelEnum } from '../../../../core/enums/e-observations-level.enum';
+import { NavParams, ViewController } from 'ionic-angular';
+
+@Component({
+  selector: 'eobs-item-description',
+  templateUrl: 'eobs-item-description.html'
+})
+export class EobsItemDescriptionComponent {
+
+  @Input() descriptions: ReferentialItemLevelModel[];
+
+  constructor(private navParams: NavParams, public viewCtrl: ViewController) {
+    this.descriptions = this.navParams.get('descriptions');
+  }
+
+  /**
+   * Récupère le label à afficher par rapport au niveau donné
+   * @param level le niveau de l'eObservation
+   * @return le label à afficher
+   */
+  getLevelLabel(level: EObservationLevelEnum): string {
+    return EObservationLevelEnum.getLabel(level);
+  }
+
+  /**
+   * Récupère le label à afficher par rapport au niveau donné
+   * @param level le niveau de l'eObservation
+   * @return le label à afficher
+   */
+  getDescriptionClass(level: EObservationLevelEnum): string {
+    return 'description_' + level.toLowerCase();
+  }
+
+  closePopover() {
+    this.viewCtrl.dismiss();
+  }
+ }

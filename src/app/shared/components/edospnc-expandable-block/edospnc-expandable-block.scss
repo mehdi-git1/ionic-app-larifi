@@ -37,4 +37,13 @@ edospnc-expandable-block {
             }
         }
     }
+
+    .radio-md .radio-icon, .radio-md.radio-disabled, .item-md.item-radio-disabled  {
+        border-color: color($colors, blue55) !important;
+        opacity: 1;
+        .radio-inner {
+            opacity: 1;
+            background-color: color($colors, blue55) !important;
+        }
+    }
 }

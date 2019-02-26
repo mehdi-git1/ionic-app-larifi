@@ -12,11 +12,10 @@ page-eobservation-details {
     .rotation-info {
         display: flex;
         justify-content: flex-start;
-    }
-
-    .degraded-rotation {
-        display: flex;
-        justify-content: space-evenly;
+        label {
+            padding: 5px;
+            color: color($colors, primary);
+        }
     }
 
     ion-grid.rotation-grid {
@@ -74,5 +73,28 @@ page-eobservation-details {
         }
     }
 
+    .temporary-period {
+        display: flex;
+        align-items: center;
+        span {
+            padding: 5px;
+            padding-right: 20px;
+        }
+
+        .radio-md .radio-icon  {
+            //color: color($colors, blue55);
+            border-color: color($colors, blue55) !important;
+        }
+
+        .radio-md.radio-disabled, .item-md.item-radio-disabled  {
+            border-color: color($colors, blue55) !important;
+        }
+
+        label {
+            padding: 5px;
+            padding-right: 10px;
+            color: color($colors, primary);
+        }
+    }
 
 }

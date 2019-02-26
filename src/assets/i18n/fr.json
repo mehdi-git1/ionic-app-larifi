@@ -307,6 +307,12 @@
             "UPDATE_DATE": "Enregistré depuis le : ",
             "SPECIALITY": "Fonction",
             "EOBS_PNC_ASSIGNMENT": "Affectation à date de l'eObservation",
+            "COLOR_LEVEL_CORRESPONDANCE": "Correspondance couleur / appréciation",
+            "TEMPORARY_PERIOD": "Période temporaire",
+            "FORMATION_FLIGHT": "Vol de formation",
+            "VAL": "VAL",
+            "BILAN_FLIGHT": "Vol Bilan",
+            "EVAL": "EVAL",
             "STATE" : {
                 "LABEL": "Statut en cours : ",
                 "TAKEN_INTO_ACCOUNT": "Pris en compte",

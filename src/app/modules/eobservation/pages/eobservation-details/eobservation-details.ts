@@ -31,7 +31,6 @@ export class EobservationDetailsPage {
     if (this.navParams.get('eObservation')) {
       this.eObservation = this.navParams.get('eObservation');
       this.itemsSortedByTheme = this.sortEObservationItemsByTheme();
-      console.log(this.itemsSortedByTheme);
     }
   }
 
@@ -113,4 +112,11 @@ export class EobservationDetailsPage {
     return EObservationTypeEnum.getLabel(this.eObservation.type);
   }
 
+  /**
+   * Définit si la periode temporaire est affichable
+   * @return true si 'ECC' ou 'ECCP' et si l'une des valeurs "vol de formation" ou "val" est true
+   */
+  temporaryPeriodHasToBeDispalyed(): boolean {
+    return this.eObservation && (this.eObservation.type === 'E_CC' || this.eObservation.type === 'E_CCP') && (this.eObservation.formationFlight || this.eObservation.val);
+  }
 }

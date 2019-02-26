@@ -26,6 +26,14 @@
 </ion-grid>
 
 
+<edospnc-expandable-block *ngIf="temporaryPeriodHasToBeDispalyed()" title=" {{ 'EOBSERVATION.DETAILS.TEMPORARY_PERIOD' | translate }}">
+        <span class="temporary-period" ><span><ion-radio disabled="true" checked="{{eObservation?.formationFlight}}" value="{{eObservation?.formationFlight}}"></ion-radio>
+            <label>{{ 'EOBSERVATION.DETAILS.FORMATION_FLIGHT' | translate }}</label></span>
+        <span><ion-radio disabled="true" checked="{{eObservation?.val}}" value="{{eObservation?.val}}"></ion-radio>
+            <label>{{ 'EOBSERVATION.DETAILS.VAL' | translate }}</label></span>
+        </span>
+</edospnc-expandable-block>
+
 <edospnc-expandable-block title=" {{ 'EOBSERVATION.DETAILS.ROTATION_SUBTITLE' | translate }}" [emptyCondition]="hasFlights()">
     <div  class="rotation-info">
         <ion-grid><ion-row><ion-col col-1 class="rotation-number">{{eObservation?.rotationNumber}}</ion-col>

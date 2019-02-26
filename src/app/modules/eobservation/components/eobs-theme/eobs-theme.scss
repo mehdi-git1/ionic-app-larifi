@@ -1,4 +1,9 @@
 eobs-theme{
+
+    $popover-md-width: 320px;
+    $popover-ios-width: 320px;
+    $popover-wp-width: 320px;
+
     ion-row:nth-child(even) {
         background: color($colors, grey90);
     }
@@ -9,4 +14,9 @@ eobs-theme{
     .itemLabel:nth-child(odd) {
         border-right: 2px solid color($colors, grey75);
     }
+
+}
+
+.description-popover  .popover-content{
+    width: auto;
 }
