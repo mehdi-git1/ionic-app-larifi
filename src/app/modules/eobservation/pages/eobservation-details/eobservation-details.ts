@@ -46,7 +46,7 @@ export class EobservationDetailsPage {
   sortEObservationItemsByTheme(): EobservationItemsByTheme[]{
     const itemsByTheme = new Array<EobservationItemsByTheme>();
     if (this.eObservation && this.eObservation.eobservationItems && this.eObservation.eobservationItems.length > 0) {
-      for (let eObservationItem of this.eObservation.eobservationItems) {
+      for (const eObservationItem of this.eObservation.eobservationItems) {
         const eObservationTheme = eObservationItem.refItemLevel.item.theme;
         let themeToDisplay = itemsByTheme.find(element => eObservationTheme.label == element.referentialTheme.label);
         if (!themeToDisplay) {
@@ -81,7 +81,7 @@ export class EobservationDetailsPage {
 
   /**
    * Vérifie qu'il y a des vols
-   * 
+   *
    * @return true si il n'y a pas de vols dans cette eobs, sinon false
    */
   hasFlights(): boolean {
@@ -90,7 +90,7 @@ export class EobservationDetailsPage {
 
   /**
    * Définit la couleur en fonction du statut
-   * 
+   *
    * @return 'green' si 'TAKEN_INTO_ACCOUNT' ou 'red' si 'NOT_TAKEN_INTO_ACCOUNT'
    */
   getColorStatusPoint() : string{

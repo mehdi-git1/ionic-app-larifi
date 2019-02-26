@@ -42,7 +42,6 @@ export class EObsThemeComponent {
     const popover = this.popoverCtrl.create(EobsItemDescriptionComponent, {descriptions: eObservationItem.refItemLevel.item.levels}, {cssClass: 'description-popover'});
       popover.present({
         ev: myEvent
-        
       });
   }
 
