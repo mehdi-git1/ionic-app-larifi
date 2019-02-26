@@ -1,8 +1,10 @@
+import { NavController } from 'ionic-angular';
+import { DeviceService } from './../../../core/services/device/device.service';
 import { Component } from '@angular/core';
 
-import { DeviceService } from '../../../core/services/device/device.service';
-import { SynchronizationService } from '../../../core/services/synchronization/synchronization.service';
 import { ConnectivityService } from '../../../core/services/connectivity/connectivity.service';
+import { SynchronizationManagementPage } from '../../../modules/synchronization/pages/synchronization-management/synchronization-management.page';
+import { SynchronizationManagementService } from '../../../core/services/synchronization/synchronization-management.service';
 
 @Component({
   selector: 'connectivity-indicator',
@@ -11,20 +13,28 @@ import { ConnectivityService } from '../../../core/services/connectivity/connect
 export class ConnectivityIndicatorComponent {
 
   connected: boolean;
-  synchroInProgress: boolean;
 
-  constructor(public connectivityService: ConnectivityService,
-    public synchronizationProvider: SynchronizationService,
-    public deviceService: DeviceService) {
+  constructor(private connectivityService: ConnectivityService,
+    private synchronizationManagementService: SynchronizationManagementService,
+    public deviceService: DeviceService,
+    private navCtrl: NavController) {
     this.connected = this.connectivityService.isConnected();
 
     this.connectivityService.connectionStatusChange.subscribe(connected => {
       this.connected = connected;
     });
+  }
 
-    this.synchronizationProvider.synchroStatusChange.subscribe(synchroInProgress => {
-      this.synchroInProgress = synchroInProgress;
-    });
+  getSynchroProgress(): number {
+    return this.synchronizationManagementService.getProgress();
+  }
+
+  synchroInProgress(): boolean {
+    return (this.getSynchroProgress() > 0 && this.getSynchroProgress() < 100);
+  }
+
+  goToSynchronizationManagementPage(): void {
+    this.navCtrl.push(SynchronizationManagementPage);
   }
 
 }

@@ -1,4 +1,3 @@
-import { RestBackgroundService } from './rest/rest.background.service';
 import { NgModule } from '@angular/core';
 import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
 
@@ -18,7 +17,6 @@ declare var window: any;
   providers: [
     SecMobilService,
     { provide: RestService, useFactory: createRestService, deps: [HttpClient, SessionService, SecMobilService, Config] },
-    { provide: RestBackgroundService, useFactory: createRestBackgroundService, deps: [HttpClient, SessionService, SecMobilService, Config, RestService] },
     { provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true },
     HttpClientModule,
   ]
@@ -32,8 +30,4 @@ export function createRestService(http: HttpClient, sessionService: SessionServi
   } else {
     return new RestWebService(http, config, sessionService);
   }
-}
-
-export function createRestBackgroundService(http: HttpClient, sessionService: SessionService, secMobilService: SecMobilService, config: Config, restService: RestService): RestBackgroundService {
-  return new RestBackgroundService(http, config, sessionService, restService);
 }

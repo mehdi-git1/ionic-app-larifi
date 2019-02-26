@@ -28,6 +28,7 @@ import { LegService } from '../leg/leg.service';
 import { CrewMemberEnum } from '../../models/crew-member.enum';
 import { LegModel } from '../../models/leg.model';
 import { StatutoryCertificateTransformerService } from '../statutory-certificate/statutory-certificate-transformer.service';
+import { Events } from 'ionic-angular';
 
 @Injectable()
 export class SynchronizationService {
@@ -52,7 +53,8 @@ export class SynchronizationService {
     private crewMemberTransformerService: CrewMemberTransformerService,
     private rotationTransformerProvider: RotationTransformerService,
     private legTransformerProvider: LegTransformerService,
-    private eObservationTransformerService: EObservationTransformerService) {
+    private eObservationTransformerService: EObservationTransformerService,
+    private events: Events) {
   }
 
   /**
@@ -226,13 +228,12 @@ export class SynchronizationService {
       }
     }
     const formsInputParamsPromises: Promise<FormsInputParamsModel>[] = new Array();
-    const storeEDossierOfflinePromises = new Array<Promise<boolean>>();
     const crewMembersAlreadyStored: Array<String> = new Array();
     const eObsRotationsAlreadyCreated: Map<String, number[]> = new Map<String, number[]>();
     for (const crewMember of crewMembers) {
       // charge l'edossier PNC de chaque membre d'équipage si il n'a a pas encore été stocké
       if (crewMembersAlreadyStored.indexOf(crewMember.pnc.matricule) < 0) {
-        storeEDossierOfflinePromises.push(this.storeEDossierOffline(crewMember.pnc.matricule, false));
+        this.events.publish('SynchroRequest:add', crewMember.pnc);
         crewMembersAlreadyStored.push(crewMember.pnc.matricule);
       }
 
@@ -252,7 +253,9 @@ export class SynchronizationService {
       this.storageService.persistOfflineMap();
     }, error => { });
 
-    return Promise.all(storeEDossierOfflinePromises);
+    return new Promise((resolve) => {
+      resolve();
+    });
   }
 
   /**

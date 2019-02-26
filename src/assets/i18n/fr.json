@@ -527,6 +527,12 @@
             "GET_MY_IDENTITY_BACK": "Récupérer mon identité"
         }
     },
+    "SYNCHRONIZATION_MANAGEMENT": {
+        "TITLE": "Demandes de synchronisation",
+        "BUTTONS": {
+            "CLEAR": "Tout annuler"
+        }
+    },
     "ADMIN": {
         "ADMIN_HOME": {
             "TITLE": "Page d'administration",

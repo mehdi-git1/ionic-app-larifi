@@ -1,0 +1,16 @@
+<ion-header>
+    <ion-navbar>
+        <page-header [showSettingsIcon]="true">
+            {{ 'SYNCHRONIZATION_MANAGEMENT.TITLE' | translate }}
+        </page-header>
+    </ion-navbar>
+</ion-header>
+<ion-content padding no-bounce>
+    <h3>{{ 'SYNCHRONIZATION_MANAGEMENT.TITLE' | translate }} ({{ synchroRequestList?.length }})
+        <button ion-button [hidden]="!synchroRequestList || synchroRequestList.length == 0"
+            (click)="clearSynchroRequestList()">{{ 'SYNCHRONIZATION_MANAGEMENT.BUTTONS.CLEAR' | translate }}
+        </button>
+    </h3>
+
+    <synchro-request-list [synchroRequestList]="synchroRequestList"></synchro-request-list>
+</ion-content>

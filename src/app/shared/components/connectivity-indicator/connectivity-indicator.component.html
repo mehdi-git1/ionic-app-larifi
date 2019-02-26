@@ -1,3 +1,5 @@
-<div *ngIf="this.deviceService.isOfflineModeAvailable()" [ngClass]="{ 'offline' : !connected }">
-    <div class="synchro-in-progress" *ngIf="synchroInProgress"></div>
+<div *ngIf="this.deviceService.isOfflineModeAvailable()" [ngClass]="{ 'offline' : !connected }"
+    (click)="goToSynchronizationManagementPage()">
+    <span class="synchro-progress" [hidden]="!synchroInProgress()">{{ getSynchroProgress() }}</span>
+    <div class="synchro-in-progress" [hidden]="!synchroInProgress()"></div>
 </div>
