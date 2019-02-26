@@ -60,9 +60,9 @@ export class CareerObjectiveListPage {
     }
     this.pncService.getPnc(this.matricule).then(pnc => {
       this.pnc = pnc;
-      this.getEObservationsList();
     }, error => {
     });
+    this.getEObservationsList();
     this.initCareerObjectivesList();
   }
 
@@ -159,5 +159,6 @@ export class CareerObjectiveListPage {
    */
   refreshPage() {
     this.initCareerObjectivesList();
+    this.getEObservationsList();
   }
 }

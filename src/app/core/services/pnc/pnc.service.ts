@@ -88,7 +88,7 @@ export class PncService extends BaseService {
    * @return la fonction du pnc à afficher
    */
   public getFormatedSpeciality(pnc: PncModel): string {
-    if (pnc.speciality) {
+    if (pnc && pnc.speciality) {
       // si le pnc est une hotesse, en remplace sa spécialité administrative (STW) par HOT
       pnc.speciality = pnc.speciality === SpecialityEnum.STW && pnc.gender === GenderEnum.F ? SpecialityEnum.HOT : pnc.speciality;
       // on teste si la spécialité administrative est égale a la spécialité actuelle

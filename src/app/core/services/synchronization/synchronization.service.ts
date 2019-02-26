@@ -284,10 +284,10 @@ export class SynchronizationService {
 
     // supression des eObservations
     const eObservations = this.storageService.findAll(EntityEnum.EOBSERVATION);
-    const pncEObservations = careerObjectives.filter(eObservation => {
+    const pncEObservations = eObservations.filter(eObservation => {
       return eObservation.pnc.matricule === pnc.matricule;
     });
-    for (const eObservation of eObservations) {
+    for (const eObservation of pncEObservations) {
       this.storageService.delete(EntityEnum.EOBSERVATION,
         this.eObservationTransformerService.toEObservation(eObservation).getStorageId());
     }
