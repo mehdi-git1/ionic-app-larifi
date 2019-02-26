@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Events } from 'ionic-angular';
+import { TranslateService } from '@ngx-translate/core';
 
 import { SecMobilService } from './../http/secMobil.service';
 import { StorageService } from './../storage/storage.service';
@@ -11,7 +12,7 @@ import { AppInitService } from '../services/app-init/app-init.service';
 import { DeviceService } from '../services/device/device.service';
 import { ConnectivityService } from '../services/connectivity/connectivity.service';
 import { AuthenticationStatusEnum } from '../enums/authentication-status.enum';
-
+import { ToastService } from '../services/toast/toast.service';
 
 @Injectable()
 export class AuthenticationService {
@@ -23,10 +24,11 @@ export class AuthenticationService {
         private appInitService: AppInitService,
         private deviceService: DeviceService,
         private storageService: StorageService,
+        public translateService: TranslateService,
+        private toastService: ToastService,
         private connectivityService: ConnectivityService,
         private synchronizationService: SynchronizationService,
-        private secMobilService: SecMobilService,
-        private events: Events
+        private secMobilService: SecMobilService
     ) { }
 
     /**
@@ -84,18 +86,15 @@ export class AuthenticationService {
         }
         // Si le mode offline est autorisé, on met en place la gestion du offline
         if (this.deviceService.isOfflineModeAvailable()) {
-            return this.offlineManagement().then(result => {
+            this.offlineManagement().then(result => {
                 if (!result && this.deviceService.isBrowser()) {
-                    return AuthenticationStatusEnum.APPLI_UNAVAILABLE;
+                    this.toastService.warning(this.translateService.instant('GLOBAL.MESSAGES.ERROR.SERVER_APPLICATION_UNAVAILABLE'));
                 }
-                return AuthenticationStatusEnum.AUTHENTICATION_OK;
             }, error => {
-                return AuthenticationStatusEnum.INIT_KO;
+                this.toastService.warning(this.translateService.instant('GLOBAL.MESSAGES.ERROR.APPLICATION_NOT_INITIALIZED'));
             });
-        } else {
-            // Ici retour des cas d'affichage hors offline
-            return Promise.resolve(AuthenticationStatusEnum.AUTHENTICATION_OK);
         }
+        return Promise.resolve(AuthenticationStatusEnum.AUTHENTICATION_OK);
     }
 
     /**
