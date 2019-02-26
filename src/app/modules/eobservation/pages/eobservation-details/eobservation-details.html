@@ -34,6 +34,13 @@
         </span>
 </edospnc-expandable-block>
 
+<edospnc-expandable-block *ngIf="eObservation?.type === 'E_ALT'" title=" {{ 'EOBSERVATION.DETAILS.BILAN_FLIGHT' | translate }}">
+        <span class="temporary-period" ><span><ion-radio disabled="true" checked="{{eObservation?.vac}}" value="{{eObservation?.vac}}"></ion-radio>
+            <label>{{ 'EOBSERVATION.DETAILS.EVAL' | translate }}</label></span>
+        </span>
+</edospnc-expandable-block>
+
+
 <edospnc-expandable-block title=" {{ 'EOBSERVATION.DETAILS.ROTATION_SUBTITLE' | translate }}" [emptyCondition]="hasFlights()">
     <div  class="rotation-info">
         <ion-grid><ion-row><ion-col col-1 class="rotation-number">{{eObservation?.rotationNumber}}</ion-col>
