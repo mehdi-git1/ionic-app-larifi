@@ -31,7 +31,7 @@ export class RestMobileService extends RestService {
         // On ajoute un header spécial si la requête doit outrepasser l'intercepteur
         if (request.byPassInterceptor) {
             request.httpHeaders = Object.assign(request.httpHeaders, {
-                'BYPASS_INTERCEPTOR': true
+                'BYPASS_INTERCEPTOR': 'true'
             });
         }
 
