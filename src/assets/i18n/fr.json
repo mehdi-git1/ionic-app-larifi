@@ -228,6 +228,10 @@
                 "TITLE": "CCA",
                 "START_DATE": "Depuis"
             },
+            "SENIORITY_DATE": {
+                "TITLE": "Ancienneté PNC",
+                "START_DATE": "Depuis"
+            },
             "PCB": {
                 "TITLE": "PCB",
                 "START_DATE": "Depuis",
