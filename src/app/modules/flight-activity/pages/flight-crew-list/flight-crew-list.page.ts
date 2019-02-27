@@ -1,15 +1,14 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 
-import { OfflinePncService } from '../../../../core/services/pnc/offline-pnc.service';
 import { ConnectivityService } from '../../../../core/services/connectivity/connectivity.service';
 import { SessionService } from '../../../../core/services/session/session.service';
 import { LegModel } from '../../../../core/models/leg.model';
 import { PncHomePage } from '../../../home/pages/pnc-home/pnc-home.page';
 import { LegService } from '../../../../core/services/leg/leg.service';
 import { GenderService } from '../../../../core/services/gender/gender.service';
-import { CrewMemberEnum } from '../../../../core/models/crew-member.enum';
-import {SpecialityEnum} from '../../../../core/enums/speciality.enum';
+import { CrewMemberModel } from '../../../../core/models/crew-member.model';
+import { SpecialityEnum } from '../../../../core/enums/speciality.enum';
 import { PncService } from '../../../../core/services/pnc/pnc.service';
 
 @Component({
@@ -18,9 +17,9 @@ import { PncService } from '../../../../core/services/pnc/pnc.service';
 })
 export class FlightCrewListPage {
 
-    flightCrewList: CrewMemberEnum[];
+    flightCrewList: CrewMemberModel[];
     leg: LegModel;
-    connectedCrewMember: CrewMemberEnum;
+    connectedCrewMember: CrewMemberModel;
 
     constructor(public navCtrl: NavController,
         public navParams: NavParams,
@@ -61,11 +60,11 @@ export class FlightCrewListPage {
     }
 
     /**
-     * Tri d'une liste de CrewMemberEnum
+     * Tri d'une liste équipage
      * @param flightCrewList liste à trier
      * @return liste triée
      */
-    sortFlightCrewList(flightCrewList: CrewMemberEnum[]): CrewMemberEnum[] {
+    sortFlightCrewList(flightCrewList: CrewMemberModel[]): CrewMemberModel[] {
         return flightCrewList.sort((crewMember, otherCrewMember) => {
             return this.sortCrew(crewMember, otherCrewMember);
         });
@@ -76,7 +75,7 @@ export class FlightCrewListPage {
      * @param crewMember crewMember de base
      * @param otherCrewMember crewMember à comparer
      */
-    sortCrew(crewMember: CrewMemberEnum, otherCrewMember: CrewMemberEnum): number {
+    sortCrew(crewMember: CrewMemberModel, otherCrewMember: CrewMemberModel): number {
         if (crewMember.pnc.prioritized && otherCrewMember.pnc.prioritized) {
             return this.sortBySpeciality(crewMember, otherCrewMember);
         } else if (crewMember.pnc.prioritized && !otherCrewMember.pnc.prioritized) {
@@ -99,7 +98,7 @@ export class FlightCrewListPage {
      * @param crewMember crewMember de base
      * @param otherCrewMember crewMember à comparer
      */
-    sortBySpeciality(crewMember: CrewMemberEnum, otherCrewMember: CrewMemberEnum): number {
+    sortBySpeciality(crewMember: CrewMemberModel, otherCrewMember: CrewMemberModel): number {
         if ((crewMember.pnc.speciality === otherCrewMember.pnc.speciality) || (crewMember.pnc.speciality === SpecialityEnum.HOT && otherCrewMember.pnc.speciality === SpecialityEnum.STW) || (crewMember.pnc.speciality === SpecialityEnum.STW && otherCrewMember.pnc.speciality === SpecialityEnum.HOT)) {
             return this.sortByName(crewMember, otherCrewMember);
         } else if (crewMember.pnc.speciality === SpecialityEnum.CAD) {
@@ -117,7 +116,7 @@ export class FlightCrewListPage {
      * @param crewMember crewMember de base
      * @param otherCrewMember crewMember à comparer
      */
-    sortByName(crewMember: CrewMemberEnum, otherCrewMember: CrewMemberEnum): number {
+    sortByName(crewMember: CrewMemberModel, otherCrewMember: CrewMemberModel): number {
         return crewMember.pnc.lastName < otherCrewMember.pnc.lastName ? -1 : 1;
     }
 

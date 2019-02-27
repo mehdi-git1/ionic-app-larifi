@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { CrewMemberEnum } from '../../models/crew-member.enum';
+import { CrewMemberModel } from '../../models/crew-member.model';
 
 @Injectable()
 export class CrewMemberTransformerService {
@@ -8,18 +8,18 @@ export class CrewMemberTransformerService {
   constructor() {
   }
 
-  toCrewMembers(array: CrewMemberEnum[]) {
-    const newArray: CrewMemberEnum[] = [];
+  toCrewMembers(array: CrewMemberModel[]) {
+    const newArray: CrewMemberModel[] = [];
     for (const object of array) {
       newArray.push(this.toCrewMember(object));
     }
     return newArray;
   }
 
-  toCrewMember(object: CrewMemberEnum): CrewMemberEnum {
+  toCrewMember(object: CrewMemberModel): CrewMemberModel {
     return !object ?
       object :
-      new CrewMemberEnum().fromJSON(object);
+      new CrewMemberModel().fromJSON(object);
   }
 
 }
