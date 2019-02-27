@@ -24,10 +24,18 @@ export class SynchronizationManagementService {
     });
   }
 
+  /**
+   * Renvoie la liste des demandes de synchro
+   * @return la liste des synchros
+   */
   public getSynchroRequestList(): SynchroRequestModel[] {
     return this.synchroRequestList;
   }
 
+  /**
+   * Ajoute une demande de synchronisation pour un pnc donné
+   * @param pnc le pnc à synchroniser
+   */
   public addSynchroRequest(pnc: PncModel): void {
     const synchroRequest = new SynchroRequestModel();
     synchroRequest.pnc = pnc;
@@ -49,6 +57,9 @@ export class SynchronizationManagementService {
     this.processSynchroRequestList();
   }
 
+  /**
+   * Lance le processus de traitement de la file d'attente des demandes synchro
+   */
   public processSynchroRequestList(): void {
     const pendingSynchroRequestList = this.synchroRequestList.filter(synchroRequest => {
       return synchroRequest.synchroStatus === SynchroStatusEnum.PENDING;
@@ -63,10 +74,13 @@ export class SynchronizationManagementService {
     }
   }
 
+  /**
+   * Traite une demande de synchro
+   * @param synchroRequest la demande de synchro à traiter
+   */
   private processSynchroRequest(synchroRequest: SynchroRequestModel): void {
     synchroRequest.synchroStatus = SynchroStatusEnum.IN_PROGRESS;
     this.concurrentSynchroRequestCount++;
-    this.updateProgress();
     this.synchronizationService.storeEDossierOffline(synchroRequest.pnc.matricule, false).then(success => {
       synchroRequest.synchroStatus = SynchroStatusEnum.SUCCESSFUL;
     }, error => {
@@ -74,29 +88,41 @@ export class SynchronizationManagementService {
       synchroRequest.errorMessage = error;
     }).then(() => {
       // Finally
+      this.processedSynchroRequest++;
       this.concurrentSynchroRequestCount--;
       this.processSynchroRequestList();
     });
   }
 
-  private updateProgress(): void {
-    this.processedSynchroRequest++;
-  }
-
+  /**
+   * Récupère le pourcentage de progression de la file d'attente
+   * @return le pourcentage de progression
+   */
   public getProgress(): number {
     return Math.round((this.processedSynchroRequest / this.synchroRequestList.length) * 100);
   }
 
-  public clearSynchroRequestList(): SynchroRequestModel[] {
-    return this.synchroRequestList = new Array();
+  /**
+   * Vide la file d'attente
+   */
+  public clearSynchroRequestList(): void {
+    this.synchroRequestList = new Array();
   }
 
+  /**
+   * Supprime une demande de synchro de la file d'attente
+   * @param synchroRequest la demande à supprimer
+   */
   public deleteSynchroRequest(synchroRequest: SynchroRequestModel): void {
     _.remove(this.synchroRequestList, (requestItem) => {
       return requestItem.pnc.matricule === synchroRequest.pnc.matricule;
     });
   }
 
+  /**
+   * Remet à l'état d'origine une demande de synchro
+   * @param synchroRequest la demande de synchro à réinitialiser
+   */
   public reinitSynchroRequest(synchroRequest: SynchroRequestModel): void {
     synchroRequest.synchroStatus = SynchroStatusEnum.PENDING;
     synchroRequest.errorMessage = undefined;

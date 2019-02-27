@@ -6,11 +6,35 @@
     </ion-navbar>
 </ion-header>
 <ion-content padding no-bounce>
-    <h3>{{ 'SYNCHRONIZATION_MANAGEMENT.TITLE' | translate }} ({{ synchroRequestList?.length }})
+    <h3>
+        {{ 'SYNCHRONIZATION_MANAGEMENT.TITLE' | translate }}
         <button ion-button [hidden]="!synchroRequestList || synchroRequestList.length == 0"
             (click)="clearSynchroRequestList()">{{ 'SYNCHRONIZATION_MANAGEMENT.BUTTONS.CLEAR' | translate }}
         </button>
     </h3>
 
-    <synchro-request-list [synchroRequestList]="synchroRequestList"></synchro-request-list>
+    <nav class="tabs" *ngIf="synchroRequestList">
+        <button (click)="changeTab(SynchroRequestDisplayModeEnum.ALL)"
+            [ngClass]="{'active': isTabActive(SynchroRequestDisplayModeEnum.ALL)}">
+            {{ 'SYNCHRONIZATION_MANAGEMENT.TABS.ALL' | translate:{requestCount:synchroRequestList?.length} }}
+        </button>
+        <button (click)="changeTab(SynchroRequestDisplayModeEnum.SUCCESSFUL)"
+            [ngClass]="{'active': isTabActive(SynchroRequestDisplayModeEnum.SUCCESSFUL)}">
+            {{ 'SYNCHRONIZATION_MANAGEMENT.TABS.SUCCESSFUL' | translate:{requestCount:getSynchroRequestList(SynchroStatusEnum.SUCCESSFUL)?.length} }}
+        </button>
+        <button (click)="changeTab(SynchroRequestDisplayModeEnum.FAILED)"
+            [ngClass]="{'active': isTabActive(SynchroRequestDisplayModeEnum.FAILED)}">
+            {{ 'SYNCHRONIZATION_MANAGEMENT.TABS.FAILED' | translate:{requestCount:getSynchroRequestList(SynchroStatusEnum.FAILED)?.length} }}
+        </button>
+    </nav>
+    <synchro-request-list [synchroRequestList]="synchroRequestList"
+        [hidden]="!isTabActive(SynchroRequestDisplayModeEnum.ALL)">
+    </synchro-request-list>
+    <synchro-request-list [synchroRequestList]="getSynchroRequestList(SynchroStatusEnum.SUCCESSFUL)"
+        [hidden]="!isTabActive(SynchroRequestDisplayModeEnum.SUCCESSFUL)">
+    </synchro-request-list>
+    <synchro-request-list [synchroRequestList]="getSynchroRequestList(SynchroStatusEnum.FAILED)"
+        [hidden]="!isTabActive(SynchroRequestDisplayModeEnum.FAILED)">
+    </synchro-request-list>
+
 </ion-content>

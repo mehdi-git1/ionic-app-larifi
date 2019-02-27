@@ -531,7 +531,13 @@
         "TITLE": "Demandes de synchronisation",
         "BUTTONS": {
             "CLEAR": "Tout annuler"
-        }
+        },
+        "TABS": {
+            "ALL": "Toutes ({{ requestCount }})",
+            "SUCCESSFUL": "En succès ({{ requestCount }})",
+            "FAILED": "En échec ({{ requestCount }})"
+        },
+        "NO_SYNCHRO_REQUEST": "Aucune demande"
     },
     "ADMIN": {
         "ADMIN_HOME": {

@@ -1,2 +1,8 @@
-<synchro-request-card *ngFor="let synchroRequest of synchroRequestList" [synchroRequest]="synchroRequest">
-</synchro-request-card>
+<div class="no-data-found" *ngIf="!synchroRequestList || synchroRequestList.length == 0; else synchroRequestListBlock">
+    {{ 'SYNCHRONIZATION_MANAGEMENT.NO_SYNCHRO_REQUEST' | translate }}
+</div>
+
+<ng-template #synchroRequestListBlock>
+    <synchro-request-card *ngFor="let synchroRequest of synchroRequestList" [synchroRequest]="synchroRequest">
+    </synchro-request-card>
+</ng-template>
