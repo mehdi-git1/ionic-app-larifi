@@ -41,6 +41,17 @@ connectivity-indicator {
         animation: spin 2s linear infinite;
     }
 
+    .synchro-error-count{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 18px;
+        width: 18px;
+        border-radius: 100%;
+        background: color($colors, white);
+        color: color($colors,red70);
+    }
+
     @keyframes spin {
         0% {
             transform: rotate(0deg);

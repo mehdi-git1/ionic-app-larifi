@@ -14,26 +14,26 @@
     </h3>
 
     <nav class="tabs" *ngIf="synchroRequestList">
-        <button (click)="changeTab(SynchroRequestDisplayModeEnum.ALL)"
-            [ngClass]="{'active': isTabActive(SynchroRequestDisplayModeEnum.ALL)}">
-            {{ 'SYNCHRONIZATION_MANAGEMENT.TABS.ALL' | translate:{requestCount:synchroRequestList?.length} }}
+        <button (click)="changeTab(SynchroRequestDisplayModeEnum.PENDING)"
+            [ngClass]="{'active': isTabActive(SynchroRequestDisplayModeEnum.PENDING)}">
+            {{ 'SYNCHRONIZATION_MANAGEMENT.TABS.PENDING' | translate:{requestCount:getSynchroRequestList(SynchroRequestDisplayModeEnum.PENDING).length} }}
         </button>
         <button (click)="changeTab(SynchroRequestDisplayModeEnum.SUCCESSFUL)"
             [ngClass]="{'active': isTabActive(SynchroRequestDisplayModeEnum.SUCCESSFUL)}">
-            {{ 'SYNCHRONIZATION_MANAGEMENT.TABS.SUCCESSFUL' | translate:{requestCount:getSynchroRequestList(SynchroStatusEnum.SUCCESSFUL)?.length} }}
+            {{ 'SYNCHRONIZATION_MANAGEMENT.TABS.SUCCESSFUL' | translate:{requestCount:getSynchroRequestList(SynchroRequestDisplayModeEnum.SUCCESSFUL).length} }}
         </button>
         <button (click)="changeTab(SynchroRequestDisplayModeEnum.FAILED)"
             [ngClass]="{'active': isTabActive(SynchroRequestDisplayModeEnum.FAILED)}">
-            {{ 'SYNCHRONIZATION_MANAGEMENT.TABS.FAILED' | translate:{requestCount:getSynchroRequestList(SynchroStatusEnum.FAILED)?.length} }}
+            {{ 'SYNCHRONIZATION_MANAGEMENT.TABS.FAILED' | translate:{requestCount:getSynchroRequestList(SynchroRequestDisplayModeEnum.FAILED).length} }}
         </button>
     </nav>
-    <synchro-request-list [synchroRequestList]="synchroRequestList"
-        [hidden]="!isTabActive(SynchroRequestDisplayModeEnum.ALL)">
+    <synchro-request-list [synchroRequestList]="getSynchroRequestList(SynchroRequestDisplayModeEnum.PENDING)"
+        [hidden]="!isTabActive(SynchroRequestDisplayModeEnum.PENDING)">
     </synchro-request-list>
-    <synchro-request-list [synchroRequestList]="getSynchroRequestList(SynchroStatusEnum.SUCCESSFUL)"
+    <synchro-request-list [synchroRequestList]="getSynchroRequestList(SynchroRequestDisplayModeEnum.SUCCESSFUL)"
         [hidden]="!isTabActive(SynchroRequestDisplayModeEnum.SUCCESSFUL)">
     </synchro-request-list>
-    <synchro-request-list [synchroRequestList]="getSynchroRequestList(SynchroStatusEnum.FAILED)"
+    <synchro-request-list [synchroRequestList]="getSynchroRequestList(SynchroRequestDisplayModeEnum.FAILED)"
         [hidden]="!isTabActive(SynchroRequestDisplayModeEnum.FAILED)">
     </synchro-request-list>
 

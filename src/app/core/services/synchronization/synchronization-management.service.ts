@@ -1,7 +1,7 @@
 import { SynchronizationService } from './synchronization.service';
 import { PncModel } from './../../models/pnc.model';
 import { SynchroRequestModel } from './../../models/synchro-request.model';
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 import { SynchroStatusEnum } from '../../enums/synchronization/synchro-status.enum';
 import { Events } from 'ionic-angular';
 import * as _ from 'lodash';
@@ -15,6 +15,7 @@ export class SynchronizationManagementService {
 
   synchroRequestList = new Array<SynchroRequestModel>();
 
+  synchroErrorCount = 0;
 
   constructor(private synchronizationService: SynchronizationService,
     private connectivityService: ConnectivityService,
@@ -75,6 +76,8 @@ export class SynchronizationManagementService {
         // On ne réinitialise les compteurs que lorsque toutes les demandes ont été traitées
         this.processedSynchroRequest = 0;
         this.concurrentSynchroRequestCount = 0;
+
+        this.updateErrorCounter();
       }
     }
   }
@@ -91,6 +94,7 @@ export class SynchronizationManagementService {
     }, error => {
       synchroRequest.synchroStatus = SynchroStatusEnum.FAILED;
       synchroRequest.errorMessage = error;
+      this.updateErrorCounter();
     }).then(() => {
       // Finally
       this.processedSynchroRequest++;
@@ -112,6 +116,7 @@ export class SynchronizationManagementService {
    */
   public clearSynchroRequestList(): void {
     this.synchroRequestList = new Array();
+    this.updateErrorCounter();
   }
 
   /**
@@ -122,6 +127,7 @@ export class SynchronizationManagementService {
     _.remove(this.synchroRequestList, (requestItem) => {
       return requestItem.pnc.matricule === synchroRequest.pnc.matricule;
     });
+    this.updateErrorCounter();
   }
 
   /**
@@ -134,4 +140,20 @@ export class SynchronizationManagementService {
     this.processSynchroRequestList();
   }
 
+  /**
+   * Met à jour le compteur de requêtes en erreur
+   */
+  private updateErrorCounter() {
+    this.synchroErrorCount = this.synchroRequestList.filter(synchroRequest => {
+      return synchroRequest.synchroStatus === SynchroStatusEnum.FAILED;
+    }).length;
+  }
+
+  /**
+   * Récupère le nombre de synchro en erreur
+   * @return le nombre de synchro en erreur
+   */
+  public getSynchroErrorCount(): number {
+    return this.synchroErrorCount;
+  }
 }

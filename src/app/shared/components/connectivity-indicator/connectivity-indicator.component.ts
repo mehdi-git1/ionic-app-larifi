@@ -25,16 +25,35 @@ export class ConnectivityIndicatorComponent {
     });
   }
 
+  /**
+   * Récupère le pourcentage de progression de la synchronisation
+   * @return le pourcentage de progression
+   */
   getSynchroProgress(): number {
     return this.synchronizationManagementService.getProgress();
   }
 
+  /**
+   * Vérifie si une synchronisation est en cours
+   * @return vrai si c'est le cas, faux sinon
+   */
   synchroInProgress(): boolean {
     return (this.getSynchroProgress() > 0 && this.getSynchroProgress() < 100);
   }
 
+  /**
+   * Redirige vers la page de gestion de la synchronisation
+   */
   goToSynchronizationManagementPage(): void {
     this.navCtrl.push(SynchronizationManagementPage);
+  }
+
+  /**
+   * Récupère le nombre de synchro en erreur
+   * @return le nombre de synchro en erreur
+   */
+  getSynchroErrorCount(): number {
+    return this.synchronizationManagementService.getSynchroErrorCount();
   }
 
 }

@@ -18,7 +18,7 @@ export class SynchronizationManagementPage {
     synchroRequestList: SynchroRequestModel[];
 
     constructor(private synchronizationManagementService: SynchronizationManagementService) {
-        this.selectedDisplayMode = SynchroRequestDisplayModeEnum.ALL;
+        this.selectedDisplayMode = SynchroRequestDisplayModeEnum.PENDING;
     }
 
     ionViewDidEnter() {
@@ -30,14 +30,33 @@ export class SynchronizationManagementPage {
         this.synchroRequestList = this.synchronizationManagementService.getSynchroRequestList();
     }
 
-    getSynchroRequestList(synchroStatus: SynchroStatusEnum): SynchroRequestModel[] {
+    /**
+     * Récupère la liste des demandes de synchro en fonction du mode d'affichage demandé
+     * @return la liste des demandes correspondant au mode d'affichage
+     */
+    getSynchroRequestList(synchroRequestDisplayModeEnum: SynchroRequestDisplayModeEnum): SynchroRequestModel[] {
         if (this.synchroRequestList) {
-            return this.synchroRequestList.filter(synchroRequest => {
-                return synchroRequest.synchroStatus === synchroStatus;
-            });
+            if (synchroRequestDisplayModeEnum === SynchroRequestDisplayModeEnum.PENDING) {
+                return this.synchroRequestList.filter(synchroRequest => {
+                    return synchroRequest.synchroStatus === SynchroStatusEnum.PENDING
+                        || synchroRequest.synchroStatus === SynchroStatusEnum.IN_PROGRESS;
+                });
+            }
+
+            if (synchroRequestDisplayModeEnum === SynchroRequestDisplayModeEnum.SUCCESSFUL) {
+                return this.synchroRequestList.filter(synchroRequest => {
+                    return synchroRequest.synchroStatus === SynchroStatusEnum.SUCCESSFUL;
+                });
+            }
+
+            if (synchroRequestDisplayModeEnum === SynchroRequestDisplayModeEnum.FAILED) {
+                return this.synchroRequestList.filter(synchroRequest => {
+                    return synchroRequest.synchroStatus === SynchroStatusEnum.FAILED;
+                });
+            }
         }
 
-        return undefined;
+        return this.synchroRequestList;
     }
 
     /**

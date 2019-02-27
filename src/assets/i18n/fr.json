@@ -533,7 +533,7 @@
             "CLEAR": "Tout annuler"
         },
         "TABS": {
-            "ALL": "Toutes ({{ requestCount }})",
+            "PENDING": "En attente ({{ requestCount }})",
             "SUCCESSFUL": "En succès ({{ requestCount }})",
             "FAILED": "En échec ({{ requestCount }})"
         },

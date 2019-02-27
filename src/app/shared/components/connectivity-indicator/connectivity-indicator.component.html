@@ -1,5 +1,8 @@
 <div *ngIf="this.deviceService.isOfflineModeAvailable()" [ngClass]="{ 'offline' : !connected }"
     (click)="goToSynchronizationManagementPage()">
     <span class="synchro-progress" [hidden]="!synchroInProgress()">{{ getSynchroProgress() }}</span>
+    <span class="synchro-error-count" *ngIf="getSynchroErrorCount() > 0">
+        <ion-icon name="md-close" ios="md-close"></ion-icon>
+    </span>
     <div class="synchro-in-progress" [hidden]="!synchroInProgress()"></div>
 </div>

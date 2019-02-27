@@ -1,5 +1,5 @@
 export enum SynchroRequestDisplayModeEnum {
-    ALL = 'ALL',
+    PENDING = 'PENDING',
     SUCCESSFUL = 'SUCCESSFUL',
     FAILED = 'FAILED'
 }

@@ -10,10 +10,11 @@
     <span class="synchro-status {{ synchroRequest.synchroStatus.toLowerCase() }}"></span>
 </div>
 <div class="action-container">
-    <button ion-fab (click)="reinitSynchroRequest()" *ngIf="synchroRequest.synchroStatus === SynchroStatusEnum.FAILED">
+    <button ion-fab mini (click)="reinitSynchroRequest()"
+        *ngIf="synchroRequest.synchroStatus === SynchroStatusEnum.FAILED">
         <ion-icon name="refresh"></ion-icon>
     </button>
-    <button ion-fab (click)="deleteSynchroRequest()">
+    <button ion-fab mini (click)="deleteSynchroRequest()">
         <ion-icon name="close"></ion-icon>
     </button>
 </div>
