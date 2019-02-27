@@ -11,6 +11,7 @@
         "lint": "ionic-app-scripts lint",
         "ionic:build": "node --max-old-space-size=4096 ./node_modules/@ionic/app-scripts/bin/ionic-app-scripts.js build",
         "ionic:serve": "ionic-app-scripts serve",
+        "test:ci": "ng test --no-watch --no-progress --browsers=ChromeHeadlessCI --code-coverage",
         "test": "ng test --sm=false"
     },
     "dependencies": {
@@ -68,7 +69,7 @@
         "@angular/cli": "^1.7.4",
         "@angular/language-service": "^5.2.11",
         "@ionic/app-scripts": "^3.1.9",
-        "@types/jasmine": "~2.8.3",
+        "@types/jasmine": "^3.3.9",
         "@types/jasminewd2": "~2.0.2",
         "@types/jquery": "^3.3.6",
         "@types/node": "~6.0.60",
@@ -76,15 +77,16 @@
         "jasmine-core": "~2.99.1",
         "jasmine-spec-reporter": "~4.2.1",
         "karma": "~1.7.1",
-        "karma-chrome-launcher": "~2.2.0",
+        "karma-chrome-launcher": "^2.2.0",
         "karma-coverage": "^1.1.2",
         "karma-coverage-istanbul-reporter": "~2.0.0",
         "karma-jasmine": "~1.1.1",
         "karma-jasmine-html-reporter": "^0.2.2",
         "karma-junit-reporter": "^1.2.0",
         "protractor": "~5.1.2",
+        "puppeteer": "^1.12.2",
         "ts-node": "~4.1.0",
-        "typescript": "~2.6.2"
+        "typescript": "^3.3.3333"
     },
     "description": "An Ionic project",
     "cordova": {
