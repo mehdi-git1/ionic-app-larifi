@@ -219,9 +219,9 @@
             "GENERALITY_SKILLS": "Compétences généralités",
             "PLANE_SKILLS": "Compétences avions",
             "FAMILIARIZATION_FLIGHT": "Vol de familiarisation",
-            "MASTERING_QUALIFICATION": "Qualification Maîtrises",
+            "MASTERING_QUALIFICATION": "Qualifications Maîtrises",
             "ANNUAL_ELEARNING": "Elearning annuel",
-            "VAM": "VAM"
+            "MEDICAL_APTITUDES": "Aptitudes médicales"
         },
         "GENERALITY_SKILLS": {
             "CCA": {
@@ -258,7 +258,7 @@
             "STAGE": "Stage",
             "SENIORITY_DATE": "Depuis"
         },
-        "VAM": {
+        "MEDICAL_APTITUDES": {
             "START_DATE": "Début",
             "END_DATE": "Fin"
         },

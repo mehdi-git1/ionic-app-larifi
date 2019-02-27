@@ -1,4 +1,4 @@
-import { VamModel } from './statutory-certificate/vam.model';
+import { MedicalAptitudesModel } from './statutory-certificate/medical-aptitudes.model';
 import { AnnualElearningModel } from './statutory-certificate/annual-e-learning.model';
 import { MasteringQualificationModel } from './statutory-certificate/mastering-qualification.model';
 import { FamiliarizationFlightsModel } from './statutory-certificate/familiarization-flights.model';
@@ -14,7 +14,7 @@ export class StatutoryCertificateModel extends EDossierPncObjectModel {
     familiarizationFlights: FamiliarizationFlightsModel;
     masteringQualification: MasteringQualificationModel;
     annualElearning: AnnualElearningModel;
-    vam: VamModel;
+    medicalAptitudes: MedicalAptitudesModel;
 
     getStorageId(): string {
         return `${this.matricule}`;
