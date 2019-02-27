@@ -3,20 +3,17 @@ import { Injectable } from '@angular/core';
 
 import { EntityEnum } from '../../enums/entity.enum';
 import { StorageService } from '../../storage/storage.service';
+import { SpecialityEnum } from '../../enums/speciality.enum';
+import { SessionService } from '../session/session.service';
+import * as moment from 'moment';
+import { AppConstant } from '../../../app.constant';
+
 
 @Injectable()
 export class OfflineFormsInputParamService {
 
-  constructor(private storageService: StorageService) {
-  }
-
-  /**
-   * Sauvegarde les paramètres d'entrées de l'appel forms, dans le cache
-   * @param FormsInputParam les paramètres d'entrées de l'appel forms à sauvegarder
-   * @return une promesse contenant les paramètres d'entrées de l'appel forms sauvés
-   */
-  save(FormsInputParam: FormsInputParamsModel): Promise<FormsInputParamsModel> {
-    return this.storageService.saveAsync(EntityEnum.FORMS_INPUT_PARAM, FormsInputParam);
+  constructor(private storageService: StorageService,
+    private sessionService: SessionService) {
   }
 
   /**
@@ -26,7 +23,25 @@ export class OfflineFormsInputParamService {
    * @return une promesse contenant les paramètres d'entrées de l'appel forms trouvés
    */
   getFormsInputParams(matricule: string, rotationId: number): Promise<FormsInputParamsModel> {
-    return this.storageService.findOneAsync(EntityEnum.FORMS_INPUT_PARAM, `${matricule}-${rotationId}`);
+    return new Promise(resolve => {
+      const formsInputParams = new FormsInputParamsModel();
+
+      formsInputParams.observedPnc = this.storageService.findOne(EntityEnum.PNC, matricule);
+      formsInputParams.redactor = this.storageService.findOne(EntityEnum.PNC, this.sessionService.getActiveUser().matricule);
+      formsInputParams.rotation = this.storageService.findOne(EntityEnum.ROTATION, `${rotationId}`);
+
+      const rotationLegs = this.storageService.findAll(EntityEnum.LEG).filter(leg => {
+        return rotationId === leg.rotation.techId;
+      }).sort((leg1, leg2) => {
+        return moment(leg1.departureDate, AppConstant.isoDateFormat).isBefore(moment(leg2.departureDate, AppConstant.isoDateFormat)) ? -1 : 1;
+      });
+
+      formsInputParams.rotationFirstLeg = rotationLegs[0] === undefined ? undefined : rotationLegs[0];
+      formsInputParams.rotationLastLeg = rotationLegs[rotationLegs.length - 1] === undefined ? undefined : rotationLegs[rotationLegs.length - 1];
+
+      resolve(formsInputParams);
+    });
   }
+
 
 }
