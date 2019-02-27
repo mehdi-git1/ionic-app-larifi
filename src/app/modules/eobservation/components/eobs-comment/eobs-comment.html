@@ -19,5 +19,5 @@
             </p>
         </div>
     </div>
-    <div class="comment-footer"><span>{{commentDate | date: 'dd/MM/yyyy' : 'UTC'}}</span><span>{{speciality}}</span><span>{{lastName}} {{firstName}}</span></div>
+    <div class="comment-footer"><span *ngIf="commentDate">{{commentDate | date: 'dd/MM/yyyy' : 'UTC'}}</span><span>{{speciality}}</span><span>{{lastName}} {{firstName}}</span></div>
 </edospnc-expandable-block>

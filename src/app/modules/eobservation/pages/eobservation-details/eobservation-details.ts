@@ -93,7 +93,7 @@ export class EobservationDetailsPage {
    *
    * @return 'green' si 'TAKEN_INTO_ACCOUNT' ou 'red' si 'NOT_TAKEN_INTO_ACCOUNT'
    */
-  getColorStatusPoint() : string{
+  getColorStatusPoint(): string{
     if (this.eObservation && this.eObservation.state === 'TAKEN_INTO_ACCOUNT' ) {
       return 'green';
     } else if (this.eObservation && this.eObservation.state === 'NOT_TAKEN_INTO_ACCOUNT' ) {
@@ -110,6 +110,21 @@ export class EobservationDetailsPage {
       return '';
     }
     return EObservationTypeEnum.getLabel(this.eObservation.type);
+  }
+
+  /**
+   * Récupère le label de l'option du type de l'eObs
+   * @return le label à afficher
+   */
+  getDetailOptionType(): string {
+    if (this.eObservation && (this.eObservation.type === 'E_CC' || this.eObservation.type === 'E_CCP')) {
+      if (this.eObservation.val) {
+        return ' - VAL';
+      } else if (this.eObservation.formationFlight) {
+        return ' - FOR';
+      }
+    }
+    return '';
   }
 
   /**

@@ -1,7 +1,7 @@
 <ion-header>
   <ion-navbar>
       <page-header [showSettingsIcon]="true" [pnc]="eObservation?.pnc">
-          <span > {{ 'EOBSERVATION.DETAILS.TITLE' | translate }} {{getTypeLabel()}}</span>
+          <span > {{ 'EOBSERVATION.DETAILS.TITLE' | translate }} {{getTypeLabel()}} {{getDetailOptionType()}}</span>
       </page-header>
   </ion-navbar>
 </ion-header>
@@ -44,7 +44,7 @@
 <edospnc-expandable-block title=" {{ 'EOBSERVATION.DETAILS.ROTATION_SUBTITLE' | translate }}" [emptyCondition]="hasFlights()">
     <div  class="rotation-info">
         <ion-grid><ion-row><ion-col col-1 class="rotation-number">{{eObservation?.rotationNumber}}</ion-col>
-            <ion-col col-2>{{eObservation?.rotationDate | date: 'dd/MM/yyyy' : 'UTC'}} </ion-col>
+            <ion-col col-2><span *ngIf="eObservation?.rotationDate">{{eObservation?.rotationDate | date: 'dd/MM/yyyy' : 'UTC'}} </span></ion-col>
             <ion-col col-3><span ><ion-radio disabled="true" checked="{{eObservation?.rotationDegraded}}" value="{{eObservation?.rotationDegraded}}"></ion-radio>
             <label>{{ 'EOBSERVATION.DETAILS.DEGRADED_CONDITIONS' | translate }}</label></span></ion-col>
             <ion-col col-6 ></ion-col>
@@ -78,6 +78,6 @@
 
 <eobs-comment title="{{ 'EOBSERVATION.DETAILS.PNC_COMMENT' | translate }}" comment="{{eObservation?.pncComment}}" commentDate="{{eObservation?.redactionDate}}" speciality="{{eObservation?.pncSpeciality}}" lastName="{{eObservation?.pnc?.lastName}}" firstName="{{eObservation?.pnc?.firstName}}"></eobs-comment>
 
-<div class="state-block"><span>{{ 'EOBSERVATION.DETAILS.STATE.LABEL' | translate }} <color-status-point [colorClass]="getColorStatusPoint()"></color-status-point> {{ 'EOBSERVATION.DETAILS.STATE.' + eObservation?.state | translateOrEmpty }}</span><span>{{ 'EOBSERVATION.DETAILS.UPDATE_DATE' | translate }} {{eObservation?.redactionDate | date: 'dd/MM/yyyy' : 'UTC'}}</span></div>
+<div class="state-block"><span>{{ 'EOBSERVATION.DETAILS.STATE.LABEL' | translate }} <color-status-point [colorClass]="getColorStatusPoint()"></color-status-point> {{ 'EOBSERVATION.DETAILS.STATE.' + eObservation?.state | translateOrEmpty }}</span><span>{{ 'EOBSERVATION.DETAILS.UPDATE_DATE' | translate }} <span *ngIf="eObservation?.redactionDate">{{eObservation?.redactionDate | date: 'dd/MM/yyyy' : 'UTC'}}</span></span></div>
 
 </ion-content>
