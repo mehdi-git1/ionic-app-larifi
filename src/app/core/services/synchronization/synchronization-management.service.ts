@@ -64,10 +64,15 @@ export class SynchronizationManagementService {
     const pendingSynchroRequestList = this.synchroRequestList.filter(synchroRequest => {
       return synchroRequest.synchroStatus === SynchroStatusEnum.PENDING;
     });
+
+    const inProgressSynchroRequestList = this.synchroRequestList.filter(synchroRequest => {
+      return synchroRequest.synchroStatus === SynchroStatusEnum.IN_PROGRESS;
+    });
     if (this.concurrentSynchroRequestCount < this.MAX_CONCURRENT_SYNCHRO_REQUEST && this.connectivityService.isConnected()) {
       if (pendingSynchroRequestList.length > 0) {
         this.processSynchroRequest(pendingSynchroRequestList[0]);
-      } else {
+      } else if (inProgressSynchroRequestList.length === 0) {
+        // On ne réinitialise les compteurs que lorsque toutes les demandes ont été traitées
         this.processedSynchroRequest = 0;
         this.concurrentSynchroRequestCount = 0;
       }
