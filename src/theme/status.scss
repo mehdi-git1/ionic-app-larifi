@@ -1,3 +1,5 @@
+$colorPointSize: 12px;
+
 .draft,
 .registered,
 .validated,
@@ -26,4 +28,28 @@
 .abandoned {
     background: color($colors, grey90);
     color: color($colors, grey50);
+}
+
+.career-objective-status-dot {
+    height: $colorPointSize;
+    width: $colorPointSize;
+    border-radius: 100%;
+    margin-right: 15px;
+    display: inline-flex;
+}
+
+.draft-dot {
+    background: color($colors, grey72);
+}
+
+.registered-dot {
+    background: color($colors, orange55);
+}
+
+.validated-dot {
+    background: color($colors, green70);
+}
+
+.abandoned-dot {
+    background: color($colors, red15);
 }

@@ -23,7 +23,7 @@ import { PncModel } from '../../../../core/models/pnc.model';
 })
 export class CareerObjectiveListPage {
 
-  careerObjectiveList: CareerObjectiveModel[];
+  careerObjectives: CareerObjectiveModel[];
   matricule: string;
   formsInputParam: FormsInputParamsModel;
   lastConsultedRotation: RotationModel;
@@ -101,7 +101,7 @@ export class CareerObjectiveListPage {
       result.sort((careerObjective: CareerObjectiveModel, otherCareerObjective: CareerObjectiveModel) => {
         return careerObjective.creationDate < otherCareerObjective.creationDate ? 1 : -1;
       });
-      this.careerObjectiveList = result;
+      this.careerObjectives = result;
     }, error => { });
   }
 
@@ -111,14 +111,6 @@ export class CareerObjectiveListPage {
    */
   goToCareerObjectiveCreation() {
     this.navCtrl.push(CareerObjectiveCreatePage, { matricule: this.matricule, careerObjectiveId: 0 });
-  }
-
-  /**
-   * Ouvre un objectif => redirige vers la page de création de l'objectif
-   * @param careerObjectiveId l'id de l'objectif à ouvrir
-   */
-  openCareerObjective(careerObjectiveId: number) {
-    this.navCtrl.push(CareerObjectiveCreatePage, { matricule: this.matricule, careerObjectiveId: careerObjectiveId });
   }
 
   /**
@@ -151,7 +143,7 @@ export class CareerObjectiveListPage {
    * @return true si c'est le cas, false sinon
    */
   loadingIsOver(): boolean {
-    return this.careerObjectiveList !== undefined && this.pnc !== undefined && this.eObservations !== undefined;
+    return this.careerObjectives !== undefined && this.pnc !== undefined && this.eObservations !== undefined;
   }
 
   /**

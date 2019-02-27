@@ -140,15 +140,22 @@
         "INFORMATION_MESSAGE": "Maximum 5 priorités en cours",
         "LIST": {
             "CREATION_DATE": "Initiée le",
-            "TITLE": "Libellé",
-            "REGISTRATION_DATE": "Date d'enregistrement",
+            "TITLE": "Libellé Priorité",
             "ENCOUNTER_DATE": "Fixée le",
-            "NEXT_ENCOUNTER_DATE": "Prochain rappel"
+            "NEXT_ENCOUNTER_DATE": "Rappel",
+            "STATUS": "Statut"
         },
         "BUTTONS": {
             "ADD_CAREER_OBJECTIVE": "Nouvelle priorité"
         },
-        "CREATE_EOBSERVATION": "Nouvelle eObservation"
+        "CREATE_EOBSERVATION": "Nouvelle eObservation",
+        "STATUS": {
+            "DRAFT": "Proposition",
+            "REGISTERED": "En cours",
+            "VALIDATED": "Validée",
+            "ABANDONED": "Abandonnée"
+        }
+
     },
     "PNC_HOME": {
         "TITLE": "Accueil",
