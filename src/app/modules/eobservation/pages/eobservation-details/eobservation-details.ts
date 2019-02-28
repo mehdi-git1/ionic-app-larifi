@@ -10,6 +10,7 @@ import { EObservationLevelEnum } from '../../../../core/enums/e-observations-lev
 import { ReferentialItemLevelModel } from '../../../../core/models/eobservation/referential-item-level.model';
 import { TranslateService } from '@ngx-translate/core';
 import { EObservationTypeEnum } from '../../../../core/enums/e-observations-type.enum';
+import { EObservationFlightModel } from '../../../../core/models/eobservation/eobservation-flight.model';
 
 @Component({
   selector: 'page-eobservation-details',
@@ -24,7 +25,6 @@ export class EobservationDetailsPage {
   itemsSortedByTheme: EobservationItemsByTheme[] ;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private translateService: TranslateService) {
-   
   }
 
   ionViewDidEnter() {
@@ -46,7 +46,7 @@ export class EobservationDetailsPage {
   sortEObservationItemsByTheme(): EobservationItemsByTheme[]{
     const itemsByTheme = new Array<EobservationItemsByTheme>();
     if (this.eObservation && this.eObservation.eobservationItems && this.eObservation.eobservationItems.length > 0) {
-      for (const eObservationItem of this.eObservation.eobservationItems) {
+      for (const eObservationItem of this.eObservation.eobservationItems.sort((a, b) => a.itemOrder > b.itemOrder ? 1 : -1)) {
         const eObservationTheme = eObservationItem.refItemLevel.item.theme;
         let themeToDisplay = itemsByTheme.find(element => eObservationTheme.label == element.referentialTheme.label);
         if (!themeToDisplay) {
@@ -56,7 +56,7 @@ export class EobservationDetailsPage {
         themeToDisplay.eObservationItems.push(eObservationItem);
       }
     }
-    return itemsByTheme;
+    return itemsByTheme.sort((a, b) => a.referentialTheme.themeOrder > b.referentialTheme.themeOrder ? 1 : -1);
   }
 
   getRefItemLevelsByRefItem(): ReferentialItemLevelModel[]{
@@ -131,7 +131,15 @@ export class EobservationDetailsPage {
    * Définit si la periode temporaire est affichable
    * @return true si 'ECC' ou 'ECCP' et si l'une des valeurs "vol de formation" ou "val" est true
    */
-  temporaryPeriodHasToBeDispalyed(): boolean {
+  hasTemporaryPeriodToBeDisplayed(): boolean {
     return this.eObservation && (this.eObservation.type === 'E_CC' || this.eObservation.type === 'E_CCP') && (this.eObservation.formationFlight || this.eObservation.val);
   }
+
+  sortedFlights(): EObservationFlightModel[] {
+    if (this.eObservation && this.eObservation.eobservationFlights) {
+      return this.eObservation.eobservationFlights.sort((a, b) => a.flightOrder > b.flightOrder ? 1 : -1);
+    }
+    return new Array();
+  }
+
 }

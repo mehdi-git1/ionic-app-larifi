@@ -14,6 +14,7 @@ export class EObservationsComponent implements OnChanges {
   nbOfYearsToChangeMessage = 3;
 
   @Input() eObservations: EObservationModel[];
+  @Input() filterItems = false;
 
   constructor() {
   }
@@ -34,5 +35,22 @@ export class EObservationsComponent implements OnChanges {
     }
   }
 
-
+  /**
+   * Filtre les items de l'eobs pour ne garder que les écarts de notations avec "SECURITE DES VOLS" et "SURETE"
+   * @param eObservation eObservation dont les items sont à filtrer
+   * @return eObservation avec les items filtrés
+   */
+  filterEobsItems(eObservation: EObservationModel): EObservationModel{
+    if (this.filterItems && eObservation && eObservation.eobservationItems) {
+      eObservation.eobservationItems = eObservation.eobservationItems.filter((element) => {
+        if (element && element.refItemLevel && element.refItemLevel.item && element.refItemLevel.item.theme && element.refItemLevel.item.theme.label) {
+          const upperCaseElement = element.refItemLevel.item.theme.label.toUpperCase();
+          return upperCaseElement === 'SECURITE DES VOLS' || upperCaseElement === 'SURETE';
+        } else {
+          return false;
+        }
+      });
+    }
+    return eObservation;
+  }
 }

@@ -1,5 +1,8 @@
 page-eobservation-details {
 
+    $border-grid: 1px solid color($colors, grey75);
+    $block-border-radius: 5px;
+
     .rotation-number {
         color: color($colors, blue55);
     }
@@ -7,9 +10,10 @@ page-eobservation-details {
     .rotation-info {
         display: flex;
         justify-content: flex-start;
-        label {
-            padding: 5px;
-            color: color($colors, primary);
+
+        ion-row:first-child {
+            display: flex;
+            align-items: center; 
         }
     }
 
@@ -17,11 +21,19 @@ page-eobservation-details {
         .flight-header {
             color: color($colors, blue55);
         }
+        ion-row:first-child {
+            border-top: $border-grid;
+            border-bottom: $border-grid;
+        }
         ion-col {
-            border: 1px solid color($colors, grey75);
+            border-right: $border-grid;
         }
         ion-row:nth-child(even) {
             background: color($colors, grey90);
+        }
+
+        ion-col:last-child {
+            border: initial;
         }
     }
 
@@ -32,13 +44,21 @@ page-eobservation-details {
         justify-content: space-between;
         background: color($colors, bluegrey3);
         color : color($colors, white);
-        border-radius: 5px;
+        border-radius: $block-border-radius;
         align-items: center;
     }
 
     .speciality-grid {
         padding: 0px;
         margin-bottom : 16px;
+        box-sizing: border-box;
+        box-shadow: 0 3px 1px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
+        border-radius: $block-border-radius;
+        background: color($colors, white);
+        .grid {
+            padding: initial;
+            padding-bottom: 5px;
+        }
     }
 
     .speciality-header {
@@ -47,7 +67,7 @@ page-eobservation-details {
         background: color($colors, blue55);
         color: color($colors, white);
         font-size: 18px !important;
-        border-radius: 5px;
+        border-radius: $block-border-radius;
         display: flex;
         align-items: center;
     }
@@ -55,9 +75,6 @@ page-eobservation-details {
     .speciality-label {
         padding-left: 24px;
         background: color($colors, white);
-        box-sizing: border-box;
-        border-radius: 5px;
-        box-shadow: 0 3px 1px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
         ion-col {
             background: color($colors, white);
         }
@@ -70,16 +87,6 @@ page-eobservation-details {
     .temporary-period {
         display: flex;
         align-items: center;
-        span {
-            padding: 5px;
-            padding-right: 20px;
-        }
-
-        label {
-            padding: 5px;
-            padding-right: 10px;
-            color: color($colors, primary);
-        }
     }
 
 }

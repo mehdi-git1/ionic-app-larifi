@@ -22,7 +22,8 @@ import { NoDataComponent } from './no-data/no-data.component';
 import { DirectivesModule } from '../directives/directives.module';
 import { SharedModule } from '../shared.module';
 import { EdospncExpandableBlockComponent } from './edospnc-expandable-block/edospnc-expandable-block';
-import { ColorStatusPointComponent } from './color-status-point/color-status-point';
+import { ColorStatusPointComponent } from './color-status-point/color-status-point.component';
+import { RadioAndLabelComponent } from './radio-and-label/radio-and-label.component';
 
 
 
@@ -49,7 +50,8 @@ import { ColorStatusPointComponent } from './color-status-point/color-status-poi
     TabNavComponent,
     NoDataComponent,
     EdospncExpandableBlockComponent,
-    ColorStatusPointComponent
+    ColorStatusPointComponent,
+    RadioAndLabelComponent
   ],
   exports: [
     OfflineIndicatorComponent,
@@ -67,7 +69,8 @@ import { ColorStatusPointComponent } from './color-status-point/color-status-poi
     TabNavComponent,
     NoDataComponent,
     EdospncExpandableBlockComponent,
-    ColorStatusPointComponent
+    ColorStatusPointComponent,
+    RadioAndLabelComponent
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA

@@ -24,7 +24,7 @@ edospnc-expandable-block {
 
     .mat-expansion-panel-body {
         padding: 0px 0px 0px 0px;
-
+        background: color($colors, white);
         ion-grid {
             padding: 0px;
             ion-col.itemLabel{
@@ -38,12 +38,4 @@ edospnc-expandable-block {
         }
     }
 
-    .radio-md .radio-icon, .radio-md.radio-disabled, .item-md.item-radio-disabled  {
-        border-color: color($colors, blue55) !important;
-        opacity: 1;
-        .radio-inner {
-            opacity: 1;
-            background-color: color($colors, blue55) !important;
-        }
-    }
 }

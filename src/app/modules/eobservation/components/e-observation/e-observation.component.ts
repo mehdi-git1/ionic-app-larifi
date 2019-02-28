@@ -23,9 +23,11 @@ export class EObservationComponent implements OnChanges {
 
   ngOnChanges() {
     // On filtre les écarts de notation
-    this.abnormalEObservationItems = this.eObservation.eobservationItems.filter(eObservationItem => {
-      return this.isEObservationItemAbnormal(eObservationItem);
-    });
+    if(this.eObservation && this.eObservation.eobservationItems) {
+      this.abnormalEObservationItems = this.eObservation.eobservationItems.filter(eObservationItem => {
+        return this.isEObservationItemAbnormal(eObservationItem);
+      });
+    }
   }
 
   /**

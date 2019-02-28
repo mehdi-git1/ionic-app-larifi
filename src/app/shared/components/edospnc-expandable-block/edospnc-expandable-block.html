@@ -1,4 +1,4 @@
-<mat-expansion-panel expanded="true">
+<mat-expansion-panel [disabled]="isDisabled()" [expanded]="isExpandedByDefault()" [hideToggle]="hideToggle">
     <mat-expansion-panel-header class="block-header-label" [expandedHeight]="matPanelHeaderHeight" [collapsedHeight]="matPanelHeaderHeight" hideToggle="false">
         {{title}}
     </mat-expansion-panel-header>

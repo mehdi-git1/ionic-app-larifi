@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'color-status-point',
-  templateUrl: 'color-status-point.html'
+  templateUrl: 'color-status-point.component.html'
 })
 export class ColorStatusPointComponent {
 

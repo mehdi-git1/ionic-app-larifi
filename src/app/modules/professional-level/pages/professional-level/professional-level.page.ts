@@ -82,33 +82,14 @@ export class ProfessionalLevelPage {
 
   /**
    * Récupére la liste des eObservations
-   * triée pour ne garder que les écarts de notations avec "SECURITE DES VOLS" et "SURETE"
+   *
+   * @return la liste des eObs
    */
   getEObservationsList(): void {
     this.eObservationService.getEObservations(this.matricule).then(eObservations => {
       this.eObservations = eObservations;
-      // Tri les eObservations pour ne garder que les écarts de notations avec "SECURITE DES VOLS" et "SURETE"
-     /* let eObservationToBeFiltered = _.cloneDeep(eObservations);
-      eObservationToBeFiltered.forEach(value => {
-        eObservationToBeFiltered = value.eobservationItems.filter((element) => {
-          const upperCaseElement = element.refItemLevel.item.theme.label.toUpperCase();
-          return upperCaseElement === 'SECURITE DES VOLS' || upperCaseElement === 'SURETE';
-        });
-      });
-      this.eObservationsFiltered = eObservationToBeFiltered; */
     }, error => {
     });
-  }
-
-  getFilteredEObservations(): EObservationModel[] {
-    /*let eObservationToBeFiltered = _.cloneDeep(this.eObservations);
-      eObservationToBeFiltered.forEach(value => {
-        eObservationToBeFiltered = value.eobservationItems.filter((element) => {
-          const upperCaseElement = element.refItemLevel.item.theme.label.toUpperCase();
-          return upperCaseElement === 'SECURITE DES VOLS' || upperCaseElement === 'SURETE';
-        });
-      });*/
-     return this.eObservations; 
   }
 
   /**
