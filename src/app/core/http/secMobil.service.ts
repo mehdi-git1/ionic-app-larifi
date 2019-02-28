@@ -1,10 +1,10 @@
+import { RestRequest } from './rest/rest-request';
 import { Utils } from '../../shared/utils/utils';
 import { isUndefined } from 'ionic-angular/util/util';
 import { DeviceService } from '../services/device/device.service';
 import { Injectable } from '@angular/core';
 
 import { Platform, Events } from 'ionic-angular';
-import { RestRequest } from './rest/rest.base.service';
 import { TranslateService } from '@ngx-translate/core';
 import { ToastService } from '../services/toast/toast.service';
 import { Config } from '../../../environments/config';
@@ -125,14 +125,14 @@ export class SecMobilService {
                     } catch (error) {
                         console.error('fail : ' + error);
                         console.log(JSON.stringify(success));
-                        // en cas d objet json vide, en renvois null, et ça implique qu'on peut recevoir du back que du json
+                        // en cas d objet json vide, on renvoie null, et ça implique qu'on peut recevoir du back que du json
                         resolve(null);
                     }
                 },
                 (err) => {
                     console.error('secmobile call failure sur la requete ' + request.url + ' : ' + err);
                     // Pour certains appels, il n'est pas nécessaire d'afficher le toast d'error ou de tracer l'erreur
-                    if (!request.url.includes(this.urlConfiguration.getBackEndUrl('getPing'))) {
+                    if (!request.url.includes(this.urlConfiguration.getBackEndUrl('getPing')) && !request.headers.has('BYPASS_INTERCEPTOR')) {
                         this.secMobile.secMobilCallRestService(this.getPingRequest(),
                             (success) => {
                                 let errorMessage = this.translateService.instant('GLOBAL.UNKNOWN_ERROR');

@@ -28,6 +28,7 @@ import { LegService } from '../leg/leg.service';
 import { CrewMemberModel } from '../../models/crew-member.model';
 import { LegModel } from '../../models/leg.model';
 import { StatutoryCertificateTransformerService } from '../statutory-certificate/statutory-certificate-transformer.service';
+import { Events } from 'ionic-angular';
 
 @Injectable()
 export class SynchronizationService {
@@ -52,7 +53,8 @@ export class SynchronizationService {
     private crewMemberTransformerService: CrewMemberTransformerService,
     private rotationTransformerProvider: RotationTransformerService,
     private legTransformerProvider: LegTransformerService,
-    private eObservationTransformerService: EObservationTransformerService) {
+    private eObservationTransformerService: EObservationTransformerService,
+    private events: Events) {
   }
 
   /**
@@ -71,7 +73,7 @@ export class SynchronizationService {
             error => reject(this.translateService.instant('SYNCHRONIZATION.PNC_SAVED_OFFLINE_ERROR', { 'matricule': matricule }))
           );
         }, error => {
-          reject(this.translateService.instant('SYNCHRONIZATION.PNC_SAVED_OFFLINE_ERROR', { 'matricule': matricule }));
+          reject(error.detailMessage);
         });
       } else {
         reject(this.translateService.instant('GLOBAL.MESSAGES.ERROR.APPLICATION_SYNCHRO_PENDING', { 'matricule': matricule }));
@@ -231,7 +233,7 @@ export class SynchronizationService {
     for (const crewMember of crewMembers) {
       // charge l'edossier PNC de chaque membre d'équipage si il n'a a pas encore été stocké
       if (crewMembersAlreadyStored.indexOf(crewMember.pnc.matricule) < 0) {
-        storeEDossierOfflinePromises.push(this.storeEDossierOffline(crewMember.pnc.matricule, false));
+        this.events.publish('SynchroRequest:add', crewMember.pnc);
         crewMembersAlreadyStored.push(crewMember.pnc.matricule);
       }
     }
