@@ -43,6 +43,10 @@ export class EobservationDetailsPage {
     return crewMember;
   }
 
+  /**
+   * Trie les items d'eobs par theme
+   * @return la liste de EobservationItemsByTheme
+   */
   sortEObservationItemsByTheme(): EobservationItemsByTheme[]{
     const itemsByTheme = new Array<EobservationItemsByTheme>();
     if (this.eObservation && this.eObservation.eobservationItems && this.eObservation.eobservationItems.length > 0) {
@@ -59,6 +63,10 @@ export class EobservationDetailsPage {
     return itemsByTheme.sort((a, b) => a.referentialTheme.themeOrder > b.referentialTheme.themeOrder ? 1 : -1);
   }
 
+  /**
+   * Récupère les itemLevels referentiel de le l'item referentiel
+   * @return la liste des ReferentialItemLevelModel
+   */
   getRefItemLevelsByRefItem(): ReferentialItemLevelModel[]{
     const refItemLevels = new Array<ReferentialItemLevelModel>();
     let refItemLevel = new ReferentialItemLevelModel();
@@ -135,6 +143,9 @@ export class EobservationDetailsPage {
     return this.eObservation && (this.eObservation.type === 'E_CC' || this.eObservation.type === 'E_CCP') && (this.eObservation.formationFlight || this.eObservation.val);
   }
 
+  /**
+   * Trie les vols de l'eobs
+   */
   sortedFlights(): EObservationFlightModel[] {
     if (this.eObservation && this.eObservation.eobservationFlights) {
       return this.eObservation.eobservationFlights.sort((a, b) => a.flightOrder > b.flightOrder ? 1 : -1);

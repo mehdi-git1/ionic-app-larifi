@@ -14,8 +14,4 @@ export class ColorStatusPointComponent {
   constructor() {
   }
 
-  getColorClass(): string {
-    return this.colorClass;
-  }
-
  }

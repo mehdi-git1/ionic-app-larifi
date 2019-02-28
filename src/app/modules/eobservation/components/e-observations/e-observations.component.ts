@@ -1,6 +1,7 @@
 import { EObservationModel } from '../../../../core/models/eobservation/eobservation.model';
 import { Component, Input, OnChanges } from '@angular/core';
 import * as moment from 'moment';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'e-observations',
@@ -41,8 +42,14 @@ export class EObservationsComponent implements OnChanges {
    * @return eObservation avec les items filtrés
    */
   filterEobsItems(eObservation: EObservationModel): EObservationModel{
+    let filteredObservation = _.cloneDeep(eObservation);
+    filteredObservation.eobservationItems = new Array();
     if (this.filterItems && eObservation && eObservation.eobservationItems) {
-      eObservation.eobservationItems = eObservation.eobservationItems.filter((element) => {
+      /*for (const eObservationfilteredObservation.eobservationItems) {
+
+      } */
+      
+      filteredObservation.eobservationItems = eObservation.eobservationItems.filter((element) => {
         if (element && element.refItemLevel && element.refItemLevel.item && element.refItemLevel.item.theme && element.refItemLevel.item.theme.label) {
           const upperCaseElement = element.refItemLevel.item.theme.label.toUpperCase();
           return upperCaseElement === 'SECURITE DES VOLS' || upperCaseElement === 'SURETE';
@@ -51,6 +58,6 @@ export class EObservationsComponent implements OnChanges {
         }
       });
     }
-    return eObservation;
+    return filteredObservation;
   }
 }

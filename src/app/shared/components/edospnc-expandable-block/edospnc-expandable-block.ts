@@ -19,6 +19,10 @@ export class EdospncExpandableBlockComponent {
   constructor() {
   }
 
+  /**
+   * Détermine si le panel est étendu par défaut
+   * @return true si il est étendu, false sinon
+   */
   isExpandedByDefault(): boolean {
     if (this.hideToggle) {
       return true;
@@ -26,6 +30,10 @@ export class EdospncExpandableBlockComponent {
     return this.expanded;
   }
 
+  /**
+   * Détermine si l'expande/collapse est désactivé
+   * @return true si il est désactivé, false sinon
+   */
   isDisabled(): boolean {
     return this.hideToggle;
   }

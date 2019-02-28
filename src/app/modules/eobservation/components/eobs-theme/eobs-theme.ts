@@ -34,15 +34,20 @@ export class EObsThemeComponent {
     return this.theme.eObservationItems === null || this.theme.eObservationItems.length === 0;
   }
 
+  /**
+   * Ouvre la popover de description d'un item
+   * @param myEvent  event
+   * @param eObservationItem item
+   */
   openDescription(myEvent: Event, eObservationItem: EObservationItemModel) {
     let descriptions = new Array();
     if (eObservationItem && eObservationItem.refItemLevel && eObservationItem.refItemLevel.item && eObservationItem.refItemLevel.item.levels) {
       descriptions = eObservationItem.refItemLevel.item.levels;
     }
     const popover = this.popoverCtrl.create(EobsItemDescriptionComponent, {descriptions: eObservationItem.refItemLevel.item.levels}, {cssClass: 'description-popover'});
-      popover.present({
-        ev: myEvent
-      });
+    popover.present({
+      ev: myEvent
+    });
   }
 
  }

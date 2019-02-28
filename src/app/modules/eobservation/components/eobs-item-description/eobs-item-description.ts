@@ -33,6 +33,9 @@ export class EobsItemDescriptionComponent {
     return 'description_' + level.toLowerCase();
   }
 
+  /**
+   * Ferme la popover
+   */
   closePopover() {
     this.viewCtrl.dismiss();
   }

@@ -10,6 +10,12 @@ export class ColorNumberDotComponent {
 
   constructor() {
   }
+
+  /**
+   * Détermine la classe à utiliser en fonction du texte
+   *
+   * @return la classe à utiliser
+   */
   getNumberDotColorClass(): string {
     if (this.numberText == '1') {
       return 'number-dot-1';

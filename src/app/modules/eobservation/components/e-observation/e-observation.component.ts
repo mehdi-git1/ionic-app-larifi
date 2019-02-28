@@ -18,13 +18,16 @@ export class EObservationComponent implements OnChanges {
 
   @Input() eObservation;
 
+  @Input() filteredEObservation;
+
   constructor(private navCtrl: NavController) {
   }
 
   ngOnChanges() {
     // On filtre les écarts de notation
-    if(this.eObservation && this.eObservation.eobservationItems) {
-      this.abnormalEObservationItems = this.eObservation.eobservationItems.filter(eObservationItem => {
+    const eObs = this.filteredEObservation ? this.filteredEObservation : this.eObservation;
+    if(eObs&& eObs.eobservationItems) {
+      this.abnormalEObservationItems = eObs.eobservationItems.filter(eObservationItem => {
         return this.isEObservationItemAbnormal(eObservationItem);
       });
     }
@@ -60,6 +63,7 @@ export class EObservationComponent implements OnChanges {
 
   /**
    * Redirige vers le détail d'une eObservation
+   * @param evt event
    */
   goToEObservationDetail(evt: Event): void {
     evt.stopPropagation();
