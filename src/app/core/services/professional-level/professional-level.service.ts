@@ -40,8 +40,6 @@ export class ProfessionalLevelService extends BaseService {
   sortScoreModuleByOrder(professionalLevelModel: ProfessionalLevelModel): ProfessionalLevelModel {
     for (const stage of professionalLevelModel.stages) {
       if (stage.modules) {
-        stage.modules = stage.modules.sort((a, b) => a.date < b.date ? 1 : -1);
-
         // Tri de l'ordre des scores
         for (const module of stage.modules) {
           if (module.scores) {
