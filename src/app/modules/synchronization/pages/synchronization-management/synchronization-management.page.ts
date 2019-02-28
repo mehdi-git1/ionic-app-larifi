@@ -21,6 +21,10 @@ export class SynchronizationManagementPage {
     constructor(private synchronizationManagementService: SynchronizationManagementService,
         private connectivityService: ConnectivityService) {
         this.selectedDisplayMode = SynchroRequestDisplayModeEnum.PENDING;
+
+        this.synchronizationManagementService.synchroRequestListChange.subscribe(synchroRequestList => {
+            this.synchroRequestList = synchroRequestList;
+        });
     }
 
     ionViewDidEnter() {
@@ -29,7 +33,6 @@ export class SynchronizationManagementPage {
 
     clearSynchroRequestList(): void {
         this.synchronizationManagementService.clearSynchroRequestList();
-        this.synchroRequestList = this.synchronizationManagementService.getSynchroRequestList();
     }
 
     /**

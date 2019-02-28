@@ -15,7 +15,9 @@ export class SynchronizationManagementService {
 
   synchroRequestList = new Array<SynchroRequestModel>();
 
-  synchroErrorCount = 0;
+  synchroErrorCountChange = new EventEmitter<number>();
+  progressChange = new EventEmitter<number>();
+  synchroRequestListChange = new EventEmitter<SynchroRequestModel[]>();
 
   constructor(private synchronizationService: SynchronizationService,
     private connectivityService: ConnectivityService,
@@ -55,6 +57,9 @@ export class SynchronizationManagementService {
       this.synchroRequestList.push(synchroRequest);
     }
 
+    this.emitProgress();
+    this.emitSynchroRequestList();
+
     this.processSynchroRequestList();
   }
 
@@ -77,7 +82,7 @@ export class SynchronizationManagementService {
         this.processedSynchroRequest = 0;
         this.concurrentSynchroRequestCount = 0;
 
-        this.updateErrorCounter();
+        this.emitErrorCounter();
       }
     }
   }
@@ -94,21 +99,15 @@ export class SynchronizationManagementService {
     }, error => {
       synchroRequest.synchroStatus = SynchroStatusEnum.FAILED;
       synchroRequest.errorMessage = error;
-      this.updateErrorCounter();
+      this.emitErrorCounter();
     }).then(() => {
       // Finally
       this.processedSynchroRequest++;
       this.concurrentSynchroRequestCount--;
+      this.emitProgress();
+      this.emitSynchroRequestList();
       this.processSynchroRequestList();
     });
-  }
-
-  /**
-   * Récupère le pourcentage de progression de la file d'attente
-   * @return le pourcentage de progression
-   */
-  public getProgress(): number {
-    return Math.round((this.processedSynchroRequest / this.synchroRequestList.length) * 100);
   }
 
   /**
@@ -116,7 +115,8 @@ export class SynchronizationManagementService {
    */
   public clearSynchroRequestList(): void {
     this.synchroRequestList = new Array();
-    this.updateErrorCounter();
+    this.emitErrorCounter();
+    this.emitSynchroRequestList();
   }
 
   /**
@@ -127,7 +127,7 @@ export class SynchronizationManagementService {
     _.remove(this.synchroRequestList, (requestItem) => {
       return requestItem.pnc.matricule === synchroRequest.pnc.matricule;
     });
-    this.updateErrorCounter();
+    this.emitErrorCounter();
   }
 
   /**
@@ -141,19 +141,43 @@ export class SynchronizationManagementService {
   }
 
   /**
-   * Met à jour le compteur de requêtes en erreur
+   * Récupère le nombre de synchro en erreur
+   * @return le nombre de synchro en erreur
    */
-  private updateErrorCounter() {
-    this.synchroErrorCount = this.synchroRequestList.filter(synchroRequest => {
+  public getSynchroErrorCount(): number {
+    return this.synchroRequestList.filter(synchroRequest => {
       return synchroRequest.synchroStatus === SynchroStatusEnum.FAILED;
     }).length;
   }
 
   /**
-   * Récupère le nombre de synchro en erreur
-   * @return le nombre de synchro en erreur
+   * Récupère le pourcentage de progression de la file d'attente
+   * @return le pourcentage de progression
    */
-  public getSynchroErrorCount(): number {
-    return this.synchroErrorCount;
+  public getProgress(): number {
+    return Math.round((this.processedSynchroRequest / this.synchroRequestList.length) * 100);
   }
+
+  /**
+   * Transmet le nombre de requêtes en erreur
+   */
+  private emitErrorCounter(): void {
+
+    this.synchroErrorCountChange.emit(this.getSynchroErrorCount());
+  }
+
+  /**
+  * Transmet le pourcentage de progression de la file d'attente
+  */
+  private emitProgress(): void {
+    this.progressChange.emit(this.getProgress());
+  }
+
+  /**
+  * Transmet la liste des demandes de synchro
+  */
+  private emitSynchroRequestList(): void {
+    this.synchroRequestListChange.emit(this.synchroRequestList);
+  }
+
 }

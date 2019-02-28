@@ -14,6 +14,9 @@ export class ConnectivityIndicatorComponent {
 
   connected: boolean;
 
+  synchroErrorCount = 0;
+  synchroProgress = 0;
+
   constructor(private connectivityService: ConnectivityService,
     private synchronizationManagementService: SynchronizationManagementService,
     public deviceService: DeviceService,
@@ -23,14 +26,17 @@ export class ConnectivityIndicatorComponent {
     this.connectivityService.connectionStatusChange.subscribe(connected => {
       this.connected = connected;
     });
-  }
 
-  /**
-   * Récupère le pourcentage de progression de la synchronisation
-   * @return le pourcentage de progression
-   */
-  getSynchroProgress(): number {
-    return this.synchronizationManagementService.getProgress();
+    this.synchronizationManagementService.progressChange.subscribe(synchroProgress => {
+      this.synchroProgress = synchroProgress;
+    });
+
+    this.synchronizationManagementService.synchroErrorCountChange.subscribe(synchroErrorCount => {
+      this.synchroErrorCount = synchroErrorCount;
+    });
+
+    this.synchroErrorCount = this.synchronizationManagementService.getSynchroErrorCount();
+    this.synchroProgress = this.synchronizationManagementService.getProgress();
   }
 
   /**
@@ -38,7 +44,7 @@ export class ConnectivityIndicatorComponent {
    * @return vrai si c'est le cas, faux sinon
    */
   synchroInProgress(): boolean {
-    return (this.getSynchroProgress() > 0 && this.getSynchroProgress() < 100) && this.connected;
+    return (this.synchroProgress > 0 && this.synchroProgress < 100) && this.connected;
   }
 
   /**
@@ -46,14 +52,6 @@ export class ConnectivityIndicatorComponent {
    */
   goToSynchronizationManagementPage(): void {
     this.navCtrl.push(SynchronizationManagementPage);
-  }
-
-  /**
-   * Récupère le nombre de synchro en erreur
-   * @return le nombre de synchro en erreur
-   */
-  getSynchroErrorCount(): number {
-    return this.synchronizationManagementService.getSynchroErrorCount();
   }
 
 }
