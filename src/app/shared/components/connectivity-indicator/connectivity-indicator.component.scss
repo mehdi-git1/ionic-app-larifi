@@ -45,11 +45,11 @@ connectivity-indicator {
         display: flex;
         justify-content: center;
         align-items: center;
-        height: 18px;
-        width: 18px;
         border-radius: 100%;
-        background: color($colors, white);
         color: color($colors,red70);
+        font-size: 1.8em;
+        font-weight: 600;
+        text-shadow: 1px 1px 1px color($colors, grey70), -1px 1px 1px color($colors, grey70), 1px -1px 1px color($colors, grey70), -1px -1px 1px color($colors, grey70);
     }
 
     @keyframes spin {
