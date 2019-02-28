@@ -13,6 +13,7 @@ import { DeviceService } from '../services/device/device.service';
 import { ConnectivityService } from '../services/connectivity/connectivity.service';
 import { AuthenticationStatusEnum } from '../enums/authentication-status.enum';
 import { ToastService } from '../services/toast/toast.service';
+import { SynchronizationManagementService } from '../services/synchronization/synchronization-management.service';
 
 @Injectable()
 export class AuthenticationService {
@@ -28,6 +29,7 @@ export class AuthenticationService {
         private toastService: ToastService,
         private connectivityService: ConnectivityService,
         private synchronizationService: SynchronizationService,
+        private synchronizationManagementService: SynchronizationManagementService,
         private secMobilService: SecMobilService
     ) { }
 
@@ -177,6 +179,7 @@ export class AuthenticationService {
             pingSuccess => {
                 this.connectivityService.setConnected(true);
                 this.synchronizationService.synchronizeOfflineData();
+                this.synchronizationManagementService.processSynchroRequestList();
                 return true;
             }, pingError => {
                 this.connectivityService.setConnected(false);

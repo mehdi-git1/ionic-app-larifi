@@ -99,7 +99,6 @@ export class SynchronizationManagementService {
     }, error => {
       synchroRequest.synchroStatus = SynchroStatusEnum.FAILED;
       synchroRequest.errorMessage = error;
-      this.emitErrorCounter();
     }).then(() => {
       // Finally
       this.processedSynchroRequest++;
