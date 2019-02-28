@@ -42,13 +42,9 @@ export class EObservationsComponent implements OnChanges {
    * @return eObservation avec les items filtrés
    */
   filterEobsItems(eObservation: EObservationModel): EObservationModel{
-    let filteredObservation = _.cloneDeep(eObservation);
+    const filteredObservation = _.cloneDeep(eObservation);
     filteredObservation.eobservationItems = new Array();
     if (this.filterItems && eObservation && eObservation.eobservationItems) {
-      /*for (const eObservationfilteredObservation.eobservationItems) {
-
-      } */
-      
       filteredObservation.eobservationItems = eObservation.eobservationItems.filter((element) => {
         if (element && element.refItemLevel && element.refItemLevel.item && element.refItemLevel.item.theme && element.refItemLevel.item.theme.label) {
           const upperCaseElement = element.refItemLevel.item.theme.label.toUpperCase();

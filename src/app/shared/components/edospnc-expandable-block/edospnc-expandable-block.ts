@@ -12,9 +12,9 @@ export class EdospncExpandableBlockComponent {
 
   @Input() emptyCondition: boolean;
 
-  @Input() hideToggle: boolean = false;
+  @Input() hideToggle = false;
 
-  @Input() expanded: boolean = true;
+  @Input() expanded = true;
 
   constructor() {
   }

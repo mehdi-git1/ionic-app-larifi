@@ -13,7 +13,7 @@ export class EobsItemDescriptionComponent {
 
   constructor(private navParams: NavParams, public viewCtrl: ViewController) {
     const descriptions: ReferentialItemLevelModel[] = this.navParams.get('descriptions');
-    this.descriptions = descriptions.sort((a,b)  => a.level < b.level ? 1 : -1);
+    this.descriptions = descriptions.sort((a, b)  => a.level < b.level ? 1 : -1);
   }
 
   /**
