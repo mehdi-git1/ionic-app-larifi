@@ -70,19 +70,10 @@ export class ProfessionalLevelPage {
       // Tri de l'ordre des stages
       sortedProfessionalLevel.stages = sortedProfessionalLevel.stages.sort((a, b) => a.date < b.date ? 1 : -1);
 
-      const evaluationCodeOrder = { 'A': 0, 'T': 1, 'R': 2, 'E1': 3, 'E2': 4, 'FC': 5 };
-
       // Tri de l'ordre des modules
       for (const stage of sortedProfessionalLevel.stages) {
         if (stage.modules) {
           stage.modules = stage.modules.sort((a, b) => a.date < b.date ? 1 : -1);
-
-          // Tri de l'ordre des scores
-          for (const module of stage.modules) {
-            if (module.scores) {
-              module.scores = module.scores.sort((a, b) => evaluationCodeOrder[a.evaluationCode] > evaluationCodeOrder[b.evaluationCode] ? 1 : -1);
-            }
-          }
         }
       }
     }
