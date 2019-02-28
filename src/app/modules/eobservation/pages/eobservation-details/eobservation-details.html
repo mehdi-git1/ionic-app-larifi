@@ -41,8 +41,7 @@
         <ion-grid><ion-row>
             <ion-col col-2 class="rotation-number">{{eObservation?.rotationNumber}}</ion-col>
             <ion-col col-2><span *ngIf="eObservation?.rotationDate">{{eObservation?.rotationDate | date: 'dd/MM/yyyy' : 'UTC'}} </span></ion-col>
-            <ion-col col-3><radio-and-label disabled="true" conditionValue="{{eObservation?.rotationDegraded}}" label="{{ 'EOBSERVATION.DETAILS.DEGRADED_CONDITIONS' | translate }}"></radio-and-label></ion-col>
-            <ion-col col-5 ></ion-col>
+            <ion-col col-8><radio-and-label disabled="true" conditionValue="{{eObservation?.rotationDegraded}}" label="{{ 'EOBSERVATION.DETAILS.DEGRADED_CONDITIONS' | translate }}"></radio-and-label></ion-col>
         </ion-row></ion-grid>
     </div> 
     <ion-grid class="rotation-grid">
