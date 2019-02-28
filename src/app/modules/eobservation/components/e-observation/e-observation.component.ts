@@ -70,4 +70,18 @@ export class EObservationComponent implements OnChanges {
     this.navCtrl.push(EobservationDetailsPage, { eObservation: this.eObservation });
   }
 
+  /**
+   * Récupère le label de l'option du type de l'eObs
+   * @return le label à afficher
+   */
+  getDetailOptionType(): string {
+    if (this.eObservation && (this.eObservation.type === 'E_CC' || this.eObservation.type === 'E_CCP')) {
+      if (this.eObservation.val) {
+        return ' - VAL';
+      } else if (this.eObservation.formationFlight) {
+        return ' - FOR';
+      }
+    }
+    return '';
+  }
 }

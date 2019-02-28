@@ -8,6 +8,10 @@ eobs-theme{
         background: color($colors, grey90);
     }
 
+    .itemLabel {
+       padding-left: 24px;
+    }
+
     .itemLabel:nth-child(even) {
         border-right: 2px solid color($colors, white);
     }

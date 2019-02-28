@@ -2,8 +2,8 @@ eobs-item-description {
     background-color: color($colors,white);
     display: inline-block;
     text-align: justify;
-    border: 1px solid color($colors, grey70);
-
+    //border: 1px solid color($colors, grey70);
+    width: 100%;
     button {
         background-color: color($colors,white); 
     }

@@ -10,7 +10,7 @@ page-eobservation-details {
     .rotation-info {
         display: flex;
         justify-content: flex-start;
-
+        padding-left: 18px;
         ion-row:first-child {
             display: flex;
             align-items: center; 
@@ -21,6 +21,13 @@ page-eobservation-details {
         .flight-header {
             color: color($colors, blue55);
         }
+
+        ion-row {
+            ion-col:first-child {
+                padding-left: 24px;
+            }
+        }
+
         ion-row:first-child {
             border-top: $border-grid;
             border-bottom: $border-grid;
@@ -87,6 +94,7 @@ page-eobservation-details {
     .temporary-period {
         display: flex;
         align-items: center;
+        padding: 24px;
     }
 
 }
