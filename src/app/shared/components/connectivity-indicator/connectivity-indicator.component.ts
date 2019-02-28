@@ -38,7 +38,7 @@ export class ConnectivityIndicatorComponent {
    * @return vrai si c'est le cas, faux sinon
    */
   synchroInProgress(): boolean {
-    return (this.getSynchroProgress() > 0 && this.getSynchroProgress() < 100);
+    return (this.getSynchroProgress() > 0 && this.getSynchroProgress() < 100) && this.connected;
   }
 
   /**

@@ -537,6 +537,9 @@
             "SUCCESSFUL": "En succès ({{ requestCount }})",
             "FAILED": "En échec ({{ requestCount }})"
         },
+        "MESSAGES": {
+            "OFFLINE_INFO_MESSAGE": "La synchronisation reprendra une fois la connexion retrouvée"
+        },
         "NO_SYNCHRO_REQUEST": "Aucune demande"
     },
     "ADMIN": {

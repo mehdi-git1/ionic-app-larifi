@@ -3,6 +3,7 @@ import { SynchronizationManagementService } from '../../../../core/services/sync
 import { SynchroRequestModel } from '../../../../core/models/synchro-request.model';
 import { SynchroStatusEnum } from '../../../../core/enums/synchronization/synchro-status.enum';
 import { SynchroRequestDisplayModeEnum } from '../../../../core/enums/synchronization/synchro-request-display-mode.enum';
+import { ConnectivityService } from '../../../../core/services/connectivity/connectivity.service';
 
 @Component({
     selector: 'synchronization-management',
@@ -17,7 +18,8 @@ export class SynchronizationManagementPage {
 
     synchroRequestList: SynchroRequestModel[];
 
-    constructor(private synchronizationManagementService: SynchronizationManagementService) {
+    constructor(private synchronizationManagementService: SynchronizationManagementService,
+        private connectivityService: ConnectivityService) {
         this.selectedDisplayMode = SynchroRequestDisplayModeEnum.PENDING;
     }
 
@@ -74,6 +76,14 @@ export class SynchronizationManagementPage {
      */
     isTabActive(mode: SynchroRequestDisplayModeEnum): boolean {
         return mode === this.selectedDisplayMode;
+    }
+
+    /**
+     * Teste si on est mode déconnecté ou non
+     * @return vrai si l'appli est connecté, faux sinon
+     */
+    isConnected(): boolean {
+        return this.connectivityService.isConnected();
     }
 }
 

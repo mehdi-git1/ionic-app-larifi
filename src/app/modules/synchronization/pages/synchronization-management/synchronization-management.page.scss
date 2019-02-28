@@ -12,6 +12,10 @@ synchronization-management {
         height:44px;
     }
 
+    .offline-message{
+        color: color($colors, red70);
+    }
+
     nav.tabs {
         display: flex;
         justify-content: center;

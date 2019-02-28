@@ -32,7 +32,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
     return next.handle(request).do(success => {
     }, err => {
 
-      if (err instanceof HttpErrorResponse && !request.url.includes(this.config.getBackEndUrl('getPing')) && !request.headers.has('BYPASS_INTERCEPTOR')) {
+      if (err instanceof HttpErrorResponse && !request.url.includes(this.config.getBackEndUrl('getPing'))) {
 
         let errorMessage = this.translateService.instant('GLOBAL.UNKNOWN_ERROR');
         if (this.deviceService.isOfflineModeAvailable()) {
@@ -42,7 +42,9 @@ export class HttpErrorInterceptor implements HttpInterceptor {
               if (err.error && !isUndefined(err.error.detailMessage) && err.error.label === 'BUSINESS_ERROR') {
                 errorMessage = err.error.detailMessage;
               }
-              this.toastProvider.error(errorMessage, 10000);
+              if (!request.headers.has('BYPASS_INTERCEPTOR')) {
+                this.toastProvider.error(errorMessage, 10000);
+              }
             },
             error => {
               this.events.publish('connectionStatus:disconnected');
@@ -51,7 +53,9 @@ export class HttpErrorInterceptor implements HttpInterceptor {
           if (err.error && !isUndefined(err.error.detailMessage) && err.error.label === 'BUSINESS_ERROR') {
             errorMessage = err.error.detailMessage;
           }
-          this.toastProvider.error(errorMessage, 10000);
+          if (!request.headers.has('BYPASS_INTERCEPTOR')) {
+            this.toastProvider.error(errorMessage, 10000);
+          }
         }
       }
     });

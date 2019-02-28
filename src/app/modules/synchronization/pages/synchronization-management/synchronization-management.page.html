@@ -12,6 +12,9 @@
             (click)="clearSynchroRequestList()">{{ 'SYNCHRONIZATION_MANAGEMENT.BUTTONS.CLEAR' | translate }}
         </button>
     </h3>
+    <div class="offline-message" [hidden]="isConnected()">
+        {{ 'SYNCHRONIZATION_MANAGEMENT.MESSAGES.OFFLINE_INFO_MESSAGE' | translate }}
+    </div>
 
     <nav class="tabs" *ngIf="synchroRequestList">
         <button (click)="changeTab(SynchroRequestDisplayModeEnum.PENDING)"
