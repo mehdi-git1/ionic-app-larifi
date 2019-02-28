@@ -1,0 +1,247 @@
+<?xml version="1.0"?>
+<testsuite name="Chrome 73.0.3679 (Windows 7.0.0)" package="" timestamp="2019-02-28T09:25:03" id="0" hostname="AFR695350" tests="176" errors="0" failures="0" time="10.765">
+  <properties>
+    <property name="browser.fullName" value="Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3679.0 Safari/537.36"/>
+  </properties>
+  <testcase name="appComponent routingApp doit rediriger vers la page PncHomePage en cas d'AUTHENTIFICATION_OK" time="0.388" classname="Chrome_73_0_3679_(Windows_7_0_0).appComponent"/>
+  <testcase name="appComponent routingApp doit publier user:authenticationDone en cas d'AUTHENTIFICATION_OK" time="0.271" classname="Chrome_73_0_3679_(Windows_7_0_0).appComponent"/>
+  <testcase name="appComponent routingApp doit rediriger vers la page AuthenticationPage en cas d'AUTHENTICATION_KO" time="0.264" classname="Chrome_73_0_3679_(Windows_7_0_0).appComponent"/>
+  <testcase name="appComponent routingApp doit rediriger vers la page d'impersonnification en cas d'IMPERSONATE_MODE" time="0.281" classname="Chrome_73_0_3679_(Windows_7_0_0).appComponent"/>
+  <testcase name="appComponent routingApp doit rediriger vers la page GenericMessagePage en cas d'INIT_KO avec le message d'erreur suivant&#xA;        'GLOBAL.MESSAGES.ERROR.APPLICATION_NOT_INITIALIZED'" time="0.244" classname="Chrome_73_0_3679_(Windows_7_0_0).appComponent"/>
+  <testcase name="appComponent routingApp doit rediriger vers la page GenericMessagePage en cas d'INIT_KO avec le message d'erreur suivant&#xA;        'GLOBAL.MESSAGES.ERROR.SERVER_APPLICATION_UNAVAILABLE'" time="0.237" classname="Chrome_73_0_3679_(Windows_7_0_0).appComponent"/>
+  <testcase name="appComponent routingApp doit rediriger vers la page GenericMessagePage en cas de retour undefined avec le message d'erreur suivant&#xA;        'GLOBAL.MESSAGES.ERROR.APPLICATION_NOT_INITIALIZED'" time="0.235" classname="Chrome_73_0_3679_(Windows_7_0_0).appComponent"/>
+  <testcase name="AuthenticationService initFonctionnalApp doit retourner un message d'erreur si l'utilisateur n'est pas connecté" time="0.003" classname="Chrome_73_0_3679_(Windows_7_0_0).AuthenticationService"/>
+  <testcase name="AuthenticationService initFonctionnalApp doit appeler la fonction manageUserInformationsInApp si l'utilisateur est connecté" time="0.001" classname="Chrome_73_0_3679_(Windows_7_0_0).AuthenticationService"/>
+  <testcase name="AuthenticationService manageUserInformationsInApp doit renvoyer un message d'erreur INIT_KO si putAuthenticatedUserInSession echoue" time="0" classname="Chrome_73_0_3679_(Windows_7_0_0).AuthenticationService"/>
+  <testcase name="AuthenticationService managePutauthenticationInSession Si la fonction putAuthenticatedUserInSession a réussi gestion de l'initialisation des paramétres utilisateurs doit initialiser les paramétres pnc si l'utilisateur est un PNC" time="0" classname="Chrome_73_0_3679_(Windows_7_0_0).AuthenticationService"/>
+  <testcase name="AuthenticationService managePutauthenticationInSession Si la fonction putAuthenticatedUserInSession a réussi gestion de l'initialisation des paramétres utilisateurs ne doit pas initialiser les paramétres pnc si l'utilisateur n'est pas un PNC" time="0" classname="Chrome_73_0_3679_(Windows_7_0_0).AuthenticationService"/>
+  <testcase name="AuthenticationService managePutauthenticationInSession Si la fonction putAuthenticatedUserInSession a réussi Mode offline desactivé doit renvoyer le type IMPERSONATE_MODE si on doit être en mode impersonifie" time="0.001" classname="Chrome_73_0_3679_(Windows_7_0_0).AuthenticationService"/>
+  <testcase name="AuthenticationService managePutauthenticationInSession Si la fonction putAuthenticatedUserInSession a réussi Mode offline desactivé doit renvoyer le type AUTHENTICATION_OK si on ne doit pas être en mode impersonifie" time="0" classname="Chrome_73_0_3679_(Windows_7_0_0).AuthenticationService"/>
+  <testcase name="AuthenticationService managePutauthenticationInSession Si la fonction putAuthenticatedUserInSession a réussi Mode offline activé doit appeler la fonction d'initialisation du cache offlineManagement" time="0" classname="Chrome_73_0_3679_(Windows_7_0_0).AuthenticationService"/>
+  <testcase name="AuthenticationService managePutauthenticationInSession Si la fonction putAuthenticatedUserInSession a réussi Mode offline activé doit afficher un toast avec comme message 'GLOBAL.MESSAGES.ERROR.SERVER_APPLICATION_UNAVAILABLE' si la gestion du offline renvoie false sur navigateur" time="0.001" classname="Chrome_73_0_3679_(Windows_7_0_0).AuthenticationService"/>
+  <testcase name="AuthenticationService managePutauthenticationInSession Si la fonction putAuthenticatedUserInSession a réussi Mode offline activé doit renvoyer le type AUTHENTICATION_OK si la gestion du offline renvoie false sur l'app" time="0.001" classname="Chrome_73_0_3679_(Windows_7_0_0).AuthenticationService"/>
+  <testcase name="AuthenticationService managePutauthenticationInSession Si la fonction putAuthenticatedUserInSession a réussi Mode offline activé doit renvoyer un toast avec comme message 'GLOBAL.MESSAGES.ERROR.APPLICATION_NOT_INITIALIZED'  si la gestion du offline plante" time="0.001" classname="Chrome_73_0_3679_(Windows_7_0_0).AuthenticationService"/>
+  <testcase name="AuthenticationService isInImpersonateMode doit renvoyer true si l'utilisateur est admin, non PNC et non impersonifié" time="0" classname="Chrome_73_0_3679_(Windows_7_0_0).AuthenticationService"/>
+  <testcase name="AuthenticationService isInImpersonateMode doit renvoyer false si ! (l'utilisateur est admin, non PNC ou non impersonifié)" time="0" classname="Chrome_73_0_3679_(Windows_7_0_0).AuthenticationService"/>
+  <testcase name="AuthenticationService authenticateUser doit retourner un message d'erreur AUTHENTICATION_KO si les identifiants sont faux" time="0.001" classname="Chrome_73_0_3679_(Windows_7_0_0).AuthenticationService"/>
+  <testcase name="AuthenticationService authenticateUser doit appeler la fonction manageUserInformationsInApp si les identifiants sont bons" time="0" classname="Chrome_73_0_3679_(Windows_7_0_0).AuthenticationService"/>
+  <testcase name="AuthenticationService getAuthenticatedUserFromCache doit mettre l'utilisateur connecté (recupére du storage) en session" time="0" classname="Chrome_73_0_3679_(Windows_7_0_0).AuthenticationService"/>
+  <testcase name="AuthenticationService putAuthenticatedUserInSession doit retourner false si il n'y a pas d'utilisateur en session" time="0.001" classname="Chrome_73_0_3679_(Windows_7_0_0).AuthenticationService"/>
+  <testcase name="AuthenticationService initUserData doit vérifier que l'initialisation des paramétres se lance bien" time="0.001" classname="Chrome_73_0_3679_(Windows_7_0_0).AuthenticationService"/>
+  <testcase name="Configuration/url.configuration.ts getBackEndUrl doit retourner une bonne URL si il n'y a pas de params" time="0" classname="Chrome_73_0_3679_(Windows_7_0_0).Configuration/url.configuration.ts"/>
+  <testcase name="Configuration/url.configuration.ts getBackEndUrl Tests avec des paramêtres doit retourner une bonne URL si il'y a un params en fin d'URL" time="0.001" classname="Chrome_73_0_3679_(Windows_7_0_0).Configuration/url.configuration.ts"/>
+  <testcase name="Configuration/url.configuration.ts getBackEndUrl Tests avec des paramêtres doit retourner une bonne URL si il'y a un params en milieu d'URL" time="0.001" classname="Chrome_73_0_3679_(Windows_7_0_0).Configuration/url.configuration.ts"/>
+  <testcase name="Configuration/url.configuration.ts getBackEndUrl Tests avec des paramêtres doit retourner une bonne URL si il'y a plusieurs params" time="0" classname="Chrome_73_0_3679_(Windows_7_0_0).Configuration/url.configuration.ts"/>
+  <testcase name="EFormsTypeEnum getTextType doit retourner le type eHST si on a HOT en Specialité" time="0" classname="Chrome_73_0_3679_(Windows_7_0_0).EFormsTypeEnum"/>
+  <testcase name="EFormsTypeEnum getTextType doit retourner le type eHST si on a STW en Specialité" time="0" classname="Chrome_73_0_3679_(Windows_7_0_0).EFormsTypeEnum"/>
+  <testcase name="EFormsTypeEnum getTextType doit retourner le type eCC si on a CC en Specialité" time="0.002" classname="Chrome_73_0_3679_(Windows_7_0_0).EFormsTypeEnum"/>
+  <testcase name="EFormsTypeEnum getTextType doit retourner le type eCCP si on a CCP en Specialité" time="0" classname="Chrome_73_0_3679_(Windows_7_0_0).EFormsTypeEnum"/>
+  <testcase name="EFormsTypeEnum getTextType doit retourner le type eALT si on a ALT en Specialité" time="0.001" classname="Chrome_73_0_3679_(Windows_7_0_0).EFormsTypeEnum"/>
+  <testcase name="EFormsTypeEnum getTextType doit retourner le type ePCB si on a PCB en Specialité" time="0" classname="Chrome_73_0_3679_(Windows_7_0_0).EFormsTypeEnum"/>
+  <testcase name="EFormsTypeEnum getTextType doit retourner null si on a testLibelle en Specialité" time="0" classname="Chrome_73_0_3679_(Windows_7_0_0).EFormsTypeEnum"/>
+  <testcase name="EFormsTypeEnum getType doit retourner le type 16 si on a HOT en Specialité" time="0" classname="Chrome_73_0_3679_(Windows_7_0_0).EFormsTypeEnum"/>
+  <testcase name="EFormsTypeEnum getType doit retourner le type 16 si on a STW en Specialité" time="0" classname="Chrome_73_0_3679_(Windows_7_0_0).EFormsTypeEnum"/>
+  <testcase name="EFormsTypeEnum getType doit retourner le type 17 si on a CC en Specialité" time="0" classname="Chrome_73_0_3679_(Windows_7_0_0).EFormsTypeEnum"/>
+  <testcase name="EFormsTypeEnum getType doit retourner le type 18 si on a CCP en Specialité" time="0" classname="Chrome_73_0_3679_(Windows_7_0_0).EFormsTypeEnum"/>
+  <testcase name="EFormsTypeEnum getType doit retourner null si on a testLibelle en Specialité" time="0.002" classname="Chrome_73_0_3679_(Windows_7_0_0).EFormsTypeEnum"/>
+  <testcase name="file Service displayFile doit appeler la fonction displayHTML si on est en mode browser" time="0.001" classname="Chrome_73_0_3679_(Windows_7_0_0).file Service"/>
+  <testcase name="file Service displayFile doit appeler la fonction displayHTML si on doit afficher une URL" time="0" classname="Chrome_73_0_3679_(Windows_7_0_0).file Service"/>
+  <testcase name="file Service displayFile doit appeler la fonction displayPDF si on doit afficher un fichier PDF" time="0.001" classname="Chrome_73_0_3679_(Windows_7_0_0).file Service"/>
+  <testcase name="RestWebService On vérifie que l'ensemble des URL utilisées dans l'appli existent bien côté back doit renvoyer une réponse lors de l'appel GET getCareerObjectivesById de l'URL career_objectives/{id}" time="0" classname="Chrome_73_0_3679_(Windows_7_0_0).RestWebService">
+    <skipped/>
+  </testcase>
+  <testcase name="RestWebService On vérifie que l'ensemble des URL utilisées dans l'appli existent bien côté back doit renvoyer une réponse lors de l'appel GET getCareerObjectivesByPnc de l'URL career_objectives/pnc/{matricule}" time="0" classname="Chrome_73_0_3679_(Windows_7_0_0).RestWebService">
+    <skipped/>
+  </testcase>
+  <testcase name="RestWebService On vérifie que l'ensemble des URL utilisées dans l'appli existent bien côté back doit renvoyer une réponse lors de l'appel GET getFormsInputParams de l'URL forms_input_params/{matricule}/{rotationId}" time="0" classname="Chrome_73_0_3679_(Windows_7_0_0).RestWebService">
+    <skipped/>
+  </testcase>
+  <testcase name="RestWebService On vérifie que l'ensemble des URL utilisées dans l'appli existent bien côté back doit renvoyer une réponse lors de l'appel GET getEObservationsByMatricule de l'URL eobservations/pnc/{matricule}" time="0" classname="Chrome_73_0_3679_(Windows_7_0_0).RestWebService">
+    <skipped/>
+  </testcase>
+  <testcase name="RestWebService On vérifie que l'ensemble des URL utilisées dans l'appli existent bien côté back doit renvoyer une réponse lors de l'appel GET getLegsById de l'URL legs/{legId}" time="0" classname="Chrome_73_0_3679_(Windows_7_0_0).RestWebService">
+    <skipped/>
+  </testcase>
+  <testcase name="RestWebService On vérifie que l'ensemble des URL utilisées dans l'appli existent bien côté back doit renvoyer une réponse lors de l'appel GET getLegsCrewMembersById de l'URL legs/{legId}/crew_members" time="0" classname="Chrome_73_0_3679_(Windows_7_0_0).RestWebService">
+    <skipped/>
+  </testcase>
+  <testcase name="RestWebService On vérifie que l'ensemble des URL utilisées dans l'appli existent bien côté back doit renvoyer une réponse lors de l'appel GET getPncByMatricule de l'URL pncs/{matricule}" time="0" classname="Chrome_73_0_3679_(Windows_7_0_0).RestWebService">
+    <skipped/>
+  </testcase>
+  <testcase name="RestWebService On vérifie que l'ensemble des URL utilisées dans l'appli existent bien côté back doit renvoyer une réponse lors de l'appel GET getPncAutoComplete de l'URL pncs/auto_complete" time="0" classname="Chrome_73_0_3679_(Windows_7_0_0).RestWebService">
+    <skipped/>
+  </testcase>
+  <testcase name="RestWebService On vérifie que l'ensemble des URL utilisées dans l'appli existent bien côté back doit renvoyer une réponse lors de l'appel GET getPncUpcomingRotationsByMatricule de l'URL pncs/{matricule}/upcoming_rotations" time="0" classname="Chrome_73_0_3679_(Windows_7_0_0).RestWebService">
+    <skipped/>
+  </testcase>
+  <testcase name="RestWebService On vérifie que l'ensemble des URL utilisées dans l'appli existent bien côté back doit renvoyer une réponse lors de l'appel GET getPncLastPerformedRotationsByMatricule de l'URL pncs/{matricule}/last_performed_rotations" time="0" classname="Chrome_73_0_3679_(Windows_7_0_0).RestWebService">
+    <skipped/>
+  </testcase>
+  <testcase name="RestWebService On vérifie que l'ensemble des URL utilisées dans l'appli existent bien côté back doit renvoyer une réponse lors de l'appel GET getReceivedCongratulationLettersByPnc de l'URL pncs/{matricule}/received_congratulation_letters" time="0" classname="Chrome_73_0_3679_(Windows_7_0_0).RestWebService">
+    <skipped/>
+  </testcase>
+  <testcase name="RestWebService On vérifie que l'ensemble des URL utilisées dans l'appli existent bien côté back doit renvoyer une réponse lors de l'appel GET getWrittenCongratulationLettersByPnc de l'URL pncs/{matricule}/written_congratulation_letters" time="0" classname="Chrome_73_0_3679_(Windows_7_0_0).RestWebService">
+    <skipped/>
+  </testcase>
+  <testcase name="RestWebService On vérifie que l'ensemble des URL utilisées dans l'appli existent bien côté back doit renvoyer une réponse lors de l'appel GET getCongratulationLetterById de l'URL congratulation_letters/{congratulationLetterId}" time="0" classname="Chrome_73_0_3679_(Windows_7_0_0).RestWebService">
+    <skipped/>
+  </testcase>
+  <testcase name="RestWebService On vérifie que l'ensemble des URL utilisées dans l'appli existent bien côté back doit renvoyer une réponse lors de l'appel GET getPncPhotosByMatricule de l'URL pnc_photos/{matricule}" time="0" classname="Chrome_73_0_3679_(Windows_7_0_0).RestWebService">
+    <skipped/>
+  </testcase>
+  <testcase name="RestWebService On vérifie que l'ensemble des URL utilisées dans l'appli existent bien côté back doit renvoyer une réponse lors de l'appel GET getSecurityInfos de l'URL me" time="0" classname="Chrome_73_0_3679_(Windows_7_0_0).RestWebService">
+    <skipped/>
+  </testcase>
+  <testcase name="RestWebService On vérifie que l'ensemble des URL utilisées dans l'appli existent bien côté back doit renvoyer une réponse lors de l'appel GET getSecretInfosByMatricule de l'URL pin/{matricule}" time="0" classname="Chrome_73_0_3679_(Windows_7_0_0).RestWebService">
+    <skipped/>
+  </testcase>
+  <testcase name="RestWebService On vérifie que l'ensemble des URL utilisées dans l'appli existent bien côté back doit renvoyer une réponse lors de l'appel GET getStatutoryCertificateByMatricule de l'URL statutory_certificate/{matricule}" time="0" classname="Chrome_73_0_3679_(Windows_7_0_0).RestWebService">
+    <skipped/>
+  </testcase>
+  <testcase name="RestWebService On vérifie que l'ensemble des URL utilisées dans l'appli existent bien côté back doit renvoyer une réponse lors de l'appel GET getSummarySheetByMatricule de l'URL pnc_summary_sheets/{matricule}" time="0" classname="Chrome_73_0_3679_(Windows_7_0_0).RestWebService">
+    <skipped/>
+  </testcase>
+  <testcase name="RestWebService On vérifie que l'ensemble des URL utilisées dans l'appli existent bien côté back doit renvoyer une réponse lors de l'appel GET getPncSynchroByPnc de l'URL pnc_synchros/{matricule}" time="0" classname="Chrome_73_0_3679_(Windows_7_0_0).RestWebService">
+    <skipped/>
+  </testcase>
+  <testcase name="RestWebService On vérifie que l'ensemble des URL utilisées dans l'appli existent bien côté back doit renvoyer une réponse lors de l'appel GET getWaypointsByCarreObjectiveId de l'URL waypoints/career_objective/{careerObjectiveId}" time="0" classname="Chrome_73_0_3679_(Windows_7_0_0).RestWebService">
+    <skipped/>
+  </testcase>
+  <testcase name="RestWebService On vérifie que l'ensemble des URL utilisées dans l'appli existent bien côté back doit renvoyer une réponse lors de l'appel GET getWaypointById de l'URL waypoints/{waypointId}" time="0" classname="Chrome_73_0_3679_(Windows_7_0_0).RestWebService">
+    <skipped/>
+  </testcase>
+  <testcase name="RestWebService On vérifie que l'ensemble des URL utilisées dans l'appli existent bien côté back doit renvoyer une réponse lors de l'appel GET getParameters de l'URL parameters" time="0" classname="Chrome_73_0_3679_(Windows_7_0_0).RestWebService">
+    <skipped/>
+  </testcase>
+  <testcase name="RestWebService On vérifie que l'ensemble des URL utilisées dans l'appli existent bien côté back doit renvoyer une réponse lors de l'appel GET getProfessionalLevelByMatricule de l'URL professional_levels/{matricule}" time="0" classname="Chrome_73_0_3679_(Windows_7_0_0).RestWebService">
+    <skipped/>
+  </testcase>
+  <testcase name="RestWebService On vérifie que l'ensemble des URL utilisées dans l'appli existent bien côté back doit renvoyer une réponse lors de l'appel GET getRotationsByTechId de l'URL rotations/{techId}/legs" time="0" classname="Chrome_73_0_3679_(Windows_7_0_0).RestWebService">
+    <skipped/>
+  </testcase>
+  <testcase name="RestWebService On vérifie que l'ensemble des URL utilisées dans l'appli existent bien côté back doit renvoyer une réponse lors de l'appel GET getImpersonationAvailableByMatricule de l'URL check_impersonation_available/{matricule}" time="0" classname="Chrome_73_0_3679_(Windows_7_0_0).RestWebService">
+    <skipped/>
+  </testcase>
+  <testcase name="RestWebService On vérifie que l'ensemble des URL utilisées dans l'appli existent bien côté back doit renvoyer une réponse lors de l'appel GET getHelpAssetsByRoleId de l'URL help_assets/pnc_role/{roleId}" time="0" classname="Chrome_73_0_3679_(Windows_7_0_0).RestWebService">
+    <skipped/>
+  </testcase>
+  <testcase name="RestWebService On vérifie que l'ensemble des URL utilisées dans l'appli existent bien côté back doit renvoyer une réponse lors de l'appel GET getPing de l'URL ping" time="0" classname="Chrome_73_0_3679_(Windows_7_0_0).RestWebService">
+    <skipped/>
+  </testcase>
+  <testcase name="AuthorizationService doit renvoyer true si le user a le droit de voir l'impersonnification " time="0.001" classname="Chrome_73_0_3679_(Windows_7_0_0).AuthorizationService"/>
+  <testcase name="AuthorizationService doit renvoyer false si le user n'a pas le droit de voir l'impersonnification " time="0" classname="Chrome_73_0_3679_(Windows_7_0_0).AuthorizationService"/>
+  <testcase name="Base Provider Test Online/ Offline doit retourner le onlineProvider quand la connection est OK" time="0.003" classname="Chrome_73_0_3679_(Windows_7_0_0).Base Provider"/>
+  <testcase name="Base Provider Test Online/ Offline doit retourner le offlineProvider quand la connection est KO" time="0" classname="Chrome_73_0_3679_(Windows_7_0_0).Base Provider"/>
+  <testcase name="OfflineCareerObjectiveService getPncCareerObjectives doit retourner le career objective du PNC 778855 non supprimé en offline" time="0" classname="Chrome_73_0_3679_(Windows_7_0_0).OfflineCareerObjectiveService"/>
+  <testcase name="offlineCongratulationLetterService getReceivedCongratulationLetters doit renvoyer les lettres de felicitations recues par 787878 trié par date décroissante" time="0.001" classname="Chrome_73_0_3679_(Windows_7_0_0).offlineCongratulationLetterService"/>
+  <testcase name="offlineCongratulationLetterService getWrittenCongratulationLetters doit renvoyer les lettres de felicataions écrites par 787878 trié par date décroissante" time="0" classname="Chrome_73_0_3679_(Windows_7_0_0).offlineCongratulationLetterService"/>
+  <testcase name="Connectivity Service test de la fonction setConnected doit vérifier que la mise en deconnecté fonctionne" time="0.001" classname="Chrome_73_0_3679_(Windows_7_0_0).Connectivity Service"/>
+  <testcase name="Connectivity Service test de la fonction setConnected doit vérifier que la mise en connecté fonctionne" time="0" classname="Chrome_73_0_3679_(Windows_7_0_0).Connectivity Service"/>
+  <testcase name="Connectivity Service test de la fonction loopPingAPI stoppe le ping si la connection est OK doit appeler la fonction stopPingApi" time="0.001" classname="Chrome_73_0_3679_(Windows_7_0_0).Connectivity Service"/>
+  <testcase name="Connectivity Service test de la fonction loopPingAPI stoppe le ping si la connection est OK doit marquer la connection à true" time="0" classname="Chrome_73_0_3679_(Windows_7_0_0).Connectivity Service"/>
+  <testcase name="Connectivity Service test de la fonction loopPingAPI continue le ping si la connexion est KO ne doit pas appeler la fonction stopPingAPI" time="0" classname="Chrome_73_0_3679_(Windows_7_0_0).Connectivity Service">
+    <skipped/>
+  </testcase>
+  <testcase name="Connectivity Service test de la fonction loopPingAPI continue le ping si la connexion est KO doit marquer la connection à false" time="0" classname="Chrome_73_0_3679_(Windows_7_0_0).Connectivity Service">
+    <skipped/>
+  </testcase>
+  <testcase name="offlineEobservationService getEObservations doit retourner les Eobservations du PNC 778855 non supprimé en offline" time="0" classname="Chrome_73_0_3679_(Windows_7_0_0).offlineEobservationService"/>
+  <testcase name="offlineLegService getFlightCrewFromLeg doit remener la liste des crewMemeber pour le legId 654" time="0" classname="Chrome_73_0_3679_(Windows_7_0_0).offlineLegService"/>
+  <testcase name="OfflinePncService getFilteredPncs doit retourner tous les PNCs avec le pnc actuellement connecté => 778877 en mode ADM" time="0" classname="Chrome_73_0_3679_(Windows_7_0_0).OfflinePncService"/>
+  <testcase name="OfflinePncService getFilteredPncs doit retourner le PNC en Division=> DIV et section => SEC avec le pnc actuellement connecté => 778877" time="0.005" classname="Chrome_73_0_3679_(Windows_7_0_0).OfflinePncService"/>
+  <testcase name="OfflinePncService getUpcomingRotations doit ramener 2 rotations (les 2 avec une date supérieure à aujourdhui" time="0.001" classname="Chrome_73_0_3679_(Windows_7_0_0).OfflinePncService"/>
+  <testcase name="OfflinePncService getUpcomingRotations doit ramener un tableau vide si il n'y a pas de rotations supérieures à la date du jour" time="0.001" classname="Chrome_73_0_3679_(Windows_7_0_0).OfflinePncService"/>
+  <testcase name="OfflinePncService getLastPerformedRotations doit ramener 2 rotations (les 2 avec une date inférieurs à aujourd'hui les plus proches trié par ordre croissant)" time="0.001" classname="Chrome_73_0_3679_(Windows_7_0_0).OfflinePncService"/>
+  <testcase name="OfflinePncService getLastPerformedRotations doit ramener un tableau vide si il n'y a pas de rotations inférieures à la date du jour" time="0.001" classname="Chrome_73_0_3679_(Windows_7_0_0).OfflinePncService"/>
+  <testcase name="ProfessionalLevelService toProfessionalLevel L'objet retourné devrait être de type ProfessionalLevelModel car l'objet donné en entrée respecte le format de cette classe" time="0.001" classname="Chrome_73_0_3679_(Windows_7_0_0).ProfessionalLevelService"/>
+  <testcase name="ProfessionalLevelService toProfessionalLevel L'objet retourné ne devrait pas être de type ProfessionalLevelModel car l'objet donné en entrée ne respecte pas le format de cette classe" time="0.002" classname="Chrome_73_0_3679_(Windows_7_0_0).ProfessionalLevelService"/>
+  <testcase name="ProfessionalLevelService toProfessionalLevel L'objet retourné devrait être null car l'objet donné en entrée est null" time="0" classname="Chrome_73_0_3679_(Windows_7_0_0).ProfessionalLevelService"/>
+  <testcase name="Session Service Get Active User si il n'y a pas d'impersonnification, l'utilisateur actif doit être l'utilisateur connecté" time="0" classname="Chrome_73_0_3679_(Windows_7_0_0).Session Service"/>
+  <testcase name="Session Service Get Active User si il y a d'impersonnification, l'utilisateur actif doit être l'utilisateur impersonnifié" time="0" classname="Chrome_73_0_3679_(Windows_7_0_0).Session Service"/>
+  <testcase name="Session Service Is Active User si il n'y a pas d'impersonnification, l'utilisateur actif doit être l'utilisateur connecté" time="0" classname="Chrome_73_0_3679_(Windows_7_0_0).Session Service"/>
+  <testcase name="Session Service Is Active User si il y a d'impersonnification, l'utilisateur actif doit être l'utilisateur impersonnifié" time="0.001" classname="Chrome_73_0_3679_(Windows_7_0_0).Session Service"/>
+  <testcase name="Session Service Is Active User doit renvoyer false si il n'y a de pnc" time="0" classname="Chrome_73_0_3679_(Windows_7_0_0).Session Service"/>
+  <testcase name="SummarySheetTransformer Service toSummarySheetFile doit retourner une URL au format 'blob:http://localhost:'  " time="0.002" classname="Chrome_73_0_3679_(Windows_7_0_0).SummarySheetTransformer Service"/>
+  <testcase name="tabNavService findTabIndex doit ramener 1 lorsque le paramêtre est CareerObjectiveListPage " time="0" classname="Chrome_73_0_3679_(Windows_7_0_0).tabNavService"/>
+  <testcase name="page-profile-management profileHasPermission doit retourner true si le profil possède la permission" time="0.31" classname="Chrome_73_0_3679_(Windows_7_0_0).page-profile-management"/>
+  <testcase name="page-profile-management profileHasPermission doit retourner false si le profil possède la permission" time="0.228" classname="Chrome_73_0_3679_(Windows_7_0_0).page-profile-management"/>
+  <testcase name="page-profile-management updatePermissions doit appeler la fonction updatePermissions() avec les bons paramètres et envoyer le message 'ADMIN.PROFILE_MANAGEMENT.SUCCESS.PERMISSIONS_UPDATED'" time="0.248" classname="Chrome_73_0_3679_(Windows_7_0_0).page-profile-management"/>
+  <testcase name="CareerObjectiveCreatePage prepareCareerObjectiveBeforeSubmit doit supprimer la propriété encounterDate si elle est nulle" time="0.303" classname="Chrome_73_0_3679_(Windows_7_0_0).CareerObjectiveCreatePage"/>
+  <testcase name="CareerObjectiveCreatePage prepareCareerObjectiveBeforeSubmit doit supprimer la propriété nextEncounterDate si elle est nulle" time="0.33" classname="Chrome_73_0_3679_(Windows_7_0_0).CareerObjectiveCreatePage"/>
+  <testcase name="CareerObjectiveCreatePage prepareCareerObjectiveBeforeSubmit Mise des dates au format ISO 8601 si la propriété existe ou != &quot;&quot; doit insérer la propriété encounterDate" time="0.316" classname="Chrome_73_0_3679_(Windows_7_0_0).CareerObjectiveCreatePage"/>
+  <testcase name="CareerObjectiveCreatePage prepareCareerObjectiveBeforeSubmit Mise des dates au format ISO 8601 si la propriété existe ou != &quot;&quot; doit insérer la propriété nextEncounterDate" time="0.305" classname="Chrome_73_0_3679_(Windows_7_0_0).CareerObjectiveCreatePage"/>
+  <testcase name="WaypointCreatePage test de la fonction prepareWaypointBeforeSubmit doit supprimer la propriété encounterDate si elle est nulle" time="0.261" classname="Chrome_73_0_3679_(Windows_7_0_0).WaypointCreatePage"/>
+  <testcase name="WaypointCreatePage test de la fonction prepareWaypointBeforeSubmit doit insérer au format date ISO 8601 la propriété encounterDate si elle n'est pas nulle" time="0.24" classname="Chrome_73_0_3679_(Windows_7_0_0).WaypointCreatePage"/>
+  <testcase name="EObservationComponent isEObservationItemAbnormal doit retourner vrai si le niveau est différent de LEVEL_3, NO, C" time="0" classname="Chrome_73_0_3679_(Windows_7_0_0).EObservationComponent"/>
+  <testcase name="EObservationsComponent defineLegendMessage doit mettre la variable isOlderThan3Years à true si une eObservation a plus de 3 ans" time="0.203" classname="Chrome_73_0_3679_(Windows_7_0_0).EObservationsComponent"/>
+  <testcase name="EObservationsComponent defineLegendMessage doit mettre la variable isOlderThan3Years à false si une eObservation a plus de 3 ans" time="0.194" classname="Chrome_73_0_3679_(Windows_7_0_0).EObservationsComponent"/>
+  <testcase name="FlightCrewListPage sortFlightCrewList Dans une liste d'équipage sans priorité, les membres doivent être triés par spécialité, puis par nom" time="0.203" classname="Chrome_73_0_3679_(Windows_7_0_0).FlightCrewListPage"/>
+  <testcase name="FlightCrewListPage sortFlightCrewList Dans une liste d'équipage ne contenant que des hotesses &amp; stewards, les membres doivent être triés par nom" time="0.194" classname="Chrome_73_0_3679_(Windows_7_0_0).FlightCrewListPage"/>
+  <testcase name="FlightCrewListPage sortFlightCrewList Dans une liste d'équipage avec des membres ayant la même spécialité et le même nom, les membres doivent être triés par priorité" time="0.192" classname="Chrome_73_0_3679_(Windows_7_0_0).FlightCrewListPage"/>
+  <testcase name="FlightCrewListPage sortFlightCrewList Dans une liste d'équipage, les membres doivent être triés par priorité, puis par specialité et enfin par nom" time="0.208" classname="Chrome_73_0_3679_(Windows_7_0_0).FlightCrewListPage"/>
+  <testcase name="FlightCrewListPage openPncHomePage Dans une liste d'équipage, quand on clique sur le dossier d'un pnc, on change la valeur du pnc observé" time="0.192" classname="Chrome_73_0_3679_(Windows_7_0_0).FlightCrewListPage"/>
+  <testcase name="authenticationPage routingAuthent doit rediriger vers la page PncHomePage en cas d'AUTHENTIFICATION_OK" time="0.202" classname="Chrome_73_0_3679_(Windows_7_0_0).authenticationPage"/>
+  <testcase name="authenticationPage routingAuthent doit rediriger vers la page d'impersonnification en cas d'IMPERSONATE_MODE" time="0.196" classname="Chrome_73_0_3679_(Windows_7_0_0).authenticationPage"/>
+  <testcase name="authenticationPage routingAuthent doit publier user:authenticationDone en cas d'AUTHENTIFICATION_OK" time="0.203" classname="Chrome_73_0_3679_(Windows_7_0_0).authenticationPage"/>
+  <testcase name="authenticationPage routingAuthent doit mettre la valeur GLOBAL.MESSAGES.ERROR.INVALID_CREDENTIALS dans la variable errorMsg en cas d'AUTHENTICATION_KO" time="0.194" classname="Chrome_73_0_3679_(Windows_7_0_0).authenticationPage"/>
+  <testcase name="authenticationPage routingAuthent doit rediriger vers la page GenericMessagePage en cas d'INIT_KO avec le message d'erreur suivant&#xA;        'GLOBAL.MESSAGES.ERROR.APPLICATION_NOT_INITIALIZED'" time="0.195" classname="Chrome_73_0_3679_(Windows_7_0_0).authenticationPage"/>
+  <testcase name="authenticationPage routingAuthent doit rediriger vers la page GenericMessagePage en cas d'INIT_KO avec le message d'erreur suivant&#xA;        'GLOBAL.MESSAGES.ERROR.SERVER_APPLICATION_UNAVAILABLE'" time="0.199" classname="Chrome_73_0_3679_(Windows_7_0_0).authenticationPage"/>
+  <testcase name="authenticationPage routingAuthent doit rediriger vers la page GenericMessagePage en cas de retour undefined avec le message d'erreur suivant&#xA;        'GLOBAL.MESSAGES.ERROR.APPLICATION_NOT_INITIALIZED'" time="0.191" classname="Chrome_73_0_3679_(Windows_7_0_0).authenticationPage"/>
+  <testcase name="ModuleCardComponent isModuleDetailAvailable doit retourner vrai si le module est théorique et contient des cursus" time="0.001" classname="Chrome_73_0_3679_(Windows_7_0_0).ModuleCardComponent"/>
+  <testcase name="ModuleCardComponent isModuleDetailAvailable doit retourner faux si le module est théorique et ne contient pas de cursus" time="0.002" classname="Chrome_73_0_3679_(Windows_7_0_0).ModuleCardComponent"/>
+  <testcase name="ModuleCardComponent isModuleDetailAvailable doit retourner vrai si le module est pratique" time="0" classname="Chrome_73_0_3679_(Windows_7_0_0).ModuleCardComponent"/>
+  <testcase name="EvaluationSheetPage doit faire disparaître le spinner lorsqu'il n'y a pas de moduleId" time="0.216" classname="Chrome_73_0_3679_(Windows_7_0_0).EvaluationSheetPage"/>
+  <testcase name="EvaluationSheetPage doit faire disparaître le spinner lorsque les données sont récupérées" time="0.212" classname="Chrome_73_0_3679_(Windows_7_0_0).EvaluationSheetPage"/>
+  <testcase name="ProfessionalLevelPage sortProfessionalLevel ne doit pas modifier l'objet s'il n'y a pas de stages" time="0.215" classname="Chrome_73_0_3679_(Windows_7_0_0).ProfessionalLevelPage"/>
+  <testcase name="ProfessionalLevelPage sortProfessionalLevel doit trier les stages chronologiquement (descendant) selon leur date" time="0.227" classname="Chrome_73_0_3679_(Windows_7_0_0).ProfessionalLevelPage"/>
+  <testcase name="ProfessionalLevelPage sortProfessionalLevel doit trier les modules des stages chronologiquement (descendant) sur leur date" time="0.229" classname="Chrome_73_0_3679_(Windows_7_0_0).ProfessionalLevelPage"/>
+  <testcase name="ProfessionalLevelPage sortProfessionalLevel doit trier les scores des modules par ordre A-T-R" time="0.207" classname="Chrome_73_0_3679_(Windows_7_0_0).ProfessionalLevelPage"/>
+  <testcase name="ProfessionalLevelPage sortProfessionalLevel doit trier les scores des modules par ordre E1-E2-FC" time="0.23" classname="Chrome_73_0_3679_(Windows_7_0_0).ProfessionalLevelPage"/>
+  <testcase name="ProfessionalLevelPage getEObservationsList ne doit laisser que les ecarts de notations avec &quot;SECURITE DES VOLS&quot; et &quot;SURETE&quot;" time="0.219" classname="Chrome_73_0_3679_(Windows_7_0_0).ProfessionalLevelPage"/>
+  <testcase name="SettingsPage revokeCertificate doit verifier si on appelle bien l'event user:authenticationLogout" time="0.229" classname="Chrome_73_0_3679_(Windows_7_0_0).SettingsPage"/>
+  <testcase name="SettingsPage getFrontAndBackVersion doit vérifier si la version du front est bien 1.1.0, sur ipad en mode déconnecté " time="0.252" classname="Chrome_73_0_3679_(Windows_7_0_0).SettingsPage"/>
+  <testcase name="SettingsPage getFrontAndBackVersion doit vérifier si la version du front est bien 1.1.0, et la version du back est 1.2.0 sur ipad en mode connecté" time="0.231" classname="Chrome_73_0_3679_(Windows_7_0_0).SettingsPage"/>
+  <testcase name="SettingsPage getFrontAndBackVersion doit vérifier si la version du front est bien la bonne, et la version du back est 1.2.0 en web en mode connecté" time="0.236" classname="Chrome_73_0_3679_(Windows_7_0_0).SettingsPage"/>
+  <testcase name="tab-nav component authenticationLogout doit verifier si on cache bien la tabnav (loading = true)" time="0.19" classname="Chrome_73_0_3679_(Windows_7_0_0).tab-nav component"/>
+  <testcase name="tab-nav component tabChange doit changer la valeur du nom du pageName de l'event changeTab" time="0.187" classname="Chrome_73_0_3679_(Windows_7_0_0).tab-nav component"/>
+  <testcase name="tab-nav component tabChange doit changer la valeur du pageParams de la page de l'event changeTab" time="0.2" classname="Chrome_73_0_3679_(Windows_7_0_0).tab-nav component"/>
+  <testcase name="tab-nav component tabChange doit appeler la méthode openSummarySheet si l'onglet sélectionné est la fiche synthèse" time="0.186" classname="Chrome_73_0_3679_(Windows_7_0_0).tab-nav component"/>
+  <testcase name="IsMyPage transform doit retourner la même valeur si on n'est pas sur l'une de nos pages" time="0.002" classname="Chrome_73_0_3679_(Windows_7_0_0).IsMyPage"/>
+  <testcase name="IsMyPage transform doit retourner la même valeur avec MY_ si on est sur l'une de nos pages" time="0.001" classname="Chrome_73_0_3679_(Windows_7_0_0).IsMyPage"/>
+  <testcase name="IsMyPage addMyToTranslate doit retourner TEST_VALUE.MY_VALUE quand on entre TEST_VALUE.VALUE en paramétre" time="0" classname="Chrome_73_0_3679_(Windows_7_0_0).IsMyPage"/>
+  <testcase name="ReplaceByPointPipe doit retourner vide sil n'y a pas de données en paramêtre" time="0" classname="Chrome_73_0_3679_(Windows_7_0_0).ReplaceByPointPipe"/>
+  <testcase name="ReplaceByPointPipe doit retourner vide s'il n'y a un parmatére inexistant en paramétre" time="0" classname="Chrome_73_0_3679_(Windows_7_0_0).ReplaceByPointPipe"/>
+  <testcase name="ReplaceByPointPipe doit retourner une div de type pastille s'il y'a des données" time="0.001" classname="Chrome_73_0_3679_(Windows_7_0_0).ReplaceByPointPipe"/>
+  <testcase name="ReversePipe doit inverser le tableau entré en paramètre" time="0.002" classname="Chrome_73_0_3679_(Windows_7_0_0).ReversePipe"/>
+  <testcase name="ScorePercentPipe 100 doit se transformer en 100" time="0.001" classname="Chrome_73_0_3679_(Windows_7_0_0).ScorePercentPipe"/>
+  <testcase name="ScorePercentPipe 0 doit se transformer en 0" time="0" classname="Chrome_73_0_3679_(Windows_7_0_0).ScorePercentPipe"/>
+  <testcase name="ScorePercentPipe 00,01 doit se transformer en 0" time="0" classname="Chrome_73_0_3679_(Windows_7_0_0).ScorePercentPipe"/>
+  <testcase name="ScorePercentPipe 99,99999 doit se transformer en 99" time="0" classname="Chrome_73_0_3679_(Windows_7_0_0).ScorePercentPipe"/>
+  <testcase name="ScorePercentPipe 99,99999 doit se transformer en 99,9 si l'on veut 1 chiffre après la virgule" time="0" classname="Chrome_73_0_3679_(Windows_7_0_0).ScorePercentPipe"/>
+  <testcase name="professional-level-result-status.util getStatusCssClass doit renvoyer green si le résultat est SUCCESS" time="0.001" classname="Chrome_73_0_3679_(Windows_7_0_0).professional-level-result-status.util"/>
+  <testcase name="professional-level-result-status.util getStatusCssClass doit renvoyer yellow si le résultat est SUCCESS_WITH_FC" time="0" classname="Chrome_73_0_3679_(Windows_7_0_0).professional-level-result-status.util"/>
+  <testcase name="professional-level-result-status.util getStatusCssClass doit renvoyer orange si le résultat est SUCCESS_WITH_FC_AND_TESTS" time="0.003" classname="Chrome_73_0_3679_(Windows_7_0_0).professional-level-result-status.util"/>
+  <testcase name="professional-level-result-status.util getStatusCssClass doit renvoyer orange si le résultat est SUCCESS_WITH_RETAKE" time="0.001" classname="Chrome_73_0_3679_(Windows_7_0_0).professional-level-result-status.util"/>
+  <testcase name="professional-level-result-status.util getStatusCssClass doit renvoyer red si le résultat est FAILED" time="0.001" classname="Chrome_73_0_3679_(Windows_7_0_0).professional-level-result-status.util"/>
+  <testcase name="utils fromStringToObject doit retourner un objet JSON si le paramètre est une chaîne de caractères de type JSON" time="0.001" classname="Chrome_73_0_3679_(Windows_7_0_0).utils"/>
+  <testcase name="utils fromStringToObject doit retourner un objet JSON (en replaçant \\ par &quot;&quot;) si le paramètre est une chaine de caractères de type JSON " time="0" classname="Chrome_73_0_3679_(Windows_7_0_0).utils"/>
+  <testcase name="utils fromStringToObject doit retourner null si le paramètre n'est pas une chaîne de caractères de type JSON" time="0.001" classname="Chrome_73_0_3679_(Windows_7_0_0).utils"/>
+  <testcase name="utils getHashCode doit retourner un nombre" time="0" classname="Chrome_73_0_3679_(Windows_7_0_0).utils"/>
+  <testcase name="utils getHashCode doit être une fonction est pure" time="0.005" classname="Chrome_73_0_3679_(Windows_7_0_0).utils"/>
+  <testcase name="utils getCharactersUnicodeSum doit retourner 671 pour la chaîne azerty" time="0" classname="Chrome_73_0_3679_(Windows_7_0_0).utils"/>
+  <testcase name="utils replaceSpecialCaracters doit retourner azerty avec le paramètre azerty" time="0" classname="Chrome_73_0_3679_(Windows_7_0_0).utils"/>
+  <testcase name="utils replaceSpecialCaracters doit retourner azerty avec le paramètre àzérty" time="0" classname="Chrome_73_0_3679_(Windows_7_0_0).utils"/>
+  <testcase name="utils removeSpaces doit retourner &quot;azerty&quot; avec le paramètre &quot; azer ty   &quot;" time="0" classname="Chrome_73_0_3679_(Windows_7_0_0).utils"/>
+  <testcase name="utils vérification de la fonction isEmpty si la valeur est undefined, la fonction doit retourner true" time="0" classname="Chrome_73_0_3679_(Windows_7_0_0).utils"/>
+  <testcase name="utils vérification de la fonction isEmpty si la valeur est nulle, la fonction doit retourner true" time="0.005" classname="Chrome_73_0_3679_(Windows_7_0_0).utils"/>
+  <testcase name="utils vérification de la fonction isEmpty si la valeur est vide, la fonction doit retourner true" time="0.001" classname="Chrome_73_0_3679_(Windows_7_0_0).utils"/>
+  <testcase name="utils vérification de la fonction isEmpty si la valeur ne contient que des espaces, la fonction doit retourner true" time="0.001" classname="Chrome_73_0_3679_(Windows_7_0_0).utils"/>
+  <testcase name="utils vérification de la fonction isEmpty si la valeur contient au moins 1 caractère qui n'est pas un espace, la fonction doit retourner false" time="0" classname="Chrome_73_0_3679_(Windows_7_0_0).utils"/>
+  <system-out>
+    <![CDATA[Chrome 73.0.3679 (Windows 7.0.0) LOG: 'localhost'
+,Chrome 73.0.3679 (Windows 7.0.0) LOG: '1.6.0'
+
+]]>
+  </system-out>
+  <system-err/>
+</testsuite>
