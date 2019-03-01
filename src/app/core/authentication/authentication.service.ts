@@ -179,7 +179,7 @@ export class AuthenticationService {
             pingSuccess => {
                 this.connectivityService.setConnected(true);
                 this.synchronizationService.synchronizeOfflineData();
-                this.synchronizationManagementService.processSynchroRequestList();
+                this.synchronizationManagementService.processMaxSynchroRequest();
                 return true;
             }, pingError => {
                 this.connectivityService.setConnected(false);

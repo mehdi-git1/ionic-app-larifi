@@ -11,7 +11,6 @@ import { ConnectivityService } from '../connectivity/connectivity.service';
 export class SynchronizationManagementService {
   MAX_CONCURRENT_SYNCHRO_REQUEST = 5;
   concurrentSynchroRequestCount = 0;
-  processedSynchroRequest = 0;
 
   synchroRequestList = new Array<SynchroRequestModel>();
 
@@ -43,9 +42,6 @@ export class SynchronizationManagementService {
     const synchroRequest = new SynchroRequestModel();
     synchroRequest.pnc = pnc;
     synchroRequest.synchroStatus = SynchroStatusEnum.PENDING;
-
-    // On réinitialise le compteur pour avoir un pourcentage cohérent
-    this.processedSynchroRequest = 0;
 
     // On ajoute à la file d'attente la demande de synchro ou on relance la synchro si la demande existe déjà
     const synchroRequestFound = this.synchroRequestList.find((request) => {
@@ -79,11 +75,19 @@ export class SynchronizationManagementService {
         this.processSynchroRequest(pendingSynchroRequestList[0]);
       } else if (inProgressSynchroRequestList.length === 0) {
         // On ne réinitialise les compteurs que lorsque toutes les demandes ont été traitées
-        this.processedSynchroRequest = 0;
         this.concurrentSynchroRequestCount = 0;
 
         this.emitErrorCounter();
       }
+    }
+  }
+
+  /**
+   * Traite le maximum autorisé de demande de synchro
+   */
+  public processMaxSynchroRequest(): void {
+    for (let i = 0; i < this.MAX_CONCURRENT_SYNCHRO_REQUEST; i++) {
+      this.processSynchroRequestList();
     }
   }
 
@@ -101,7 +105,6 @@ export class SynchronizationManagementService {
       synchroRequest.errorMessage = error;
     }).then(() => {
       // Finally
-      this.processedSynchroRequest++;
       this.concurrentSynchroRequestCount--;
       this.emitProgress();
       this.emitSynchroRequestList();
@@ -154,7 +157,10 @@ export class SynchronizationManagementService {
    * @return le pourcentage de progression
    */
   public getProgress(): number {
-    return Math.round((this.processedSynchroRequest / this.synchroRequestList.length) * 100);
+    const processedSynchroRequest = this.synchroRequestList.filter(synchroRequest => {
+      return synchroRequest.synchroStatus === SynchroStatusEnum.FAILED || synchroRequest.synchroStatus === SynchroStatusEnum.SUCCESSFUL;
+    }).length;
+    return Math.round((processedSynchroRequest / this.synchroRequestList.length) * 100);
   }
 
   /**
