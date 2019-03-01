@@ -38,7 +38,7 @@ export class EObservationsArchivesPage {
     }
 
     /**
-     * Récupére la liste des eObservations
+     * Récupére la liste de toutes les eObservations d'un PNC
      */
     getEObservationsList() {
         this.eObservationService.getAllEObservations(this.matricule).then(

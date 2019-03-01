@@ -156,9 +156,9 @@ export class CareerObjectiveListPage {
   }
 
   /**
-   * Redirige vers la page des archives
+   * Redirige vers la page des archives des eObservations
    */
-  goToArchives() {
+  goToEobservationsArchives() {
     this.navCtrl.push(EObservationsArchivesPage, { matricule: this.matricule });
   }
 }
