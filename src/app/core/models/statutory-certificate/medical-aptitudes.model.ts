@@ -1,4 +1,4 @@
-export class VamModel{
+export class MedicalAptitudesModel {
     validityStartDate: Date;
     validityEndDate: Date;
 }

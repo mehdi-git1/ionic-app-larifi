@@ -69,6 +69,11 @@ page-career-objective-list {
             span {
                 line-height: 27px;
             }
+
+            &.career-objective-list-container {
+                padding: 0px 10px;
+                padding-bottom: 10px;
+            }
         }
 
         .add-container {
@@ -134,4 +139,6 @@ page-career-objective-list {
         padding: 0px 10px;
         padding-bottom: 10px;
     }
+
+
 }

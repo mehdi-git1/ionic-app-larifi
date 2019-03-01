@@ -91,6 +91,7 @@ describe('ProfessionalLevelPage', () => {
             expect(professionalLevelModelCurrent.stages[0].modules[1].date).toEqual(new Date('01/02/2019'));
             expect(professionalLevelModelCurrent.stages[0].modules[2].date).toEqual(new Date('01/01/2019'));
         });
+
     });
 
     describe('getEObservationsList', () => {
