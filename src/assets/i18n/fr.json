@@ -266,8 +266,10 @@
             "SENIORITY_DATE": "Depuis"
         },
         "MEDICAL_APTITUDES": {
-            "START_DATE": "Début",
-            "END_DATE": "Fin"
+            "MEDICAL_VISIT": {
+                "START_DATE": "Début",
+                "END_DATE": "Fin"
+            }
         },
         "ERROR": {
             "STATUTORY_CERTIFICATE": "Erreur lors de la récupération du profil PNC pour le matricule {{ matricule }}"

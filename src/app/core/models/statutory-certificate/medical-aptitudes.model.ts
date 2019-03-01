@@ -1,4 +1,6 @@
 export class MedicalAptitudesModel {
-    validityStartDate: Date;
-    validityEndDate: Date;
+    medicalVisit: {
+        validityStartDate: Date;
+        validityEndDate: Date;
+    };
 }
