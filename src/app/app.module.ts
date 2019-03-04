@@ -31,6 +31,7 @@ import { Config } from '../environments/config';
 import { UrlConfiguration } from './core/configuration/url.configuration';
 import { AuthenticationModule } from './core/authentication/authentication.module';
 import { FileModule } from './core/file/file.module';
+import { SynchronizationModule } from './modules/synchronization/synchronization.module';
 
 
 @NgModule({
@@ -55,6 +56,7 @@ import { FileModule } from './core/file/file.module';
     StatutoryCertificateModule,
     EObservationModule,
     CongratulationLetterModule,
+    SynchronizationModule,
     AdminModule,
     ComponentsModule,
     SharedModule,

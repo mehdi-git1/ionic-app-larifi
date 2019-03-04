@@ -1,10 +1,10 @@
+import { RestRequest } from './rest/rest-request';
 import { Utils } from '../../shared/utils/utils';
 import { isUndefined } from 'ionic-angular/util/util';
 import { DeviceService } from '../services/device/device.service';
 import { Injectable } from '@angular/core';
 
 import { Platform, Events } from 'ionic-angular';
-import { RestRequest } from './rest/rest.base.service';
 import { TranslateService } from '@ngx-translate/core';
 import { ToastService } from '../services/toast/toast.service';
 import { Config } from '../../../environments/config';
@@ -125,7 +125,7 @@ export class SecMobilService {
                     } catch (error) {
                         console.error('fail : ' + error);
                         console.log(JSON.stringify(success));
-                        // en cas d objet json vide, en renvois null, et ça implique qu'on peut recevoir du back que du json
+                        // en cas d objet json vide, on renvoie null, et ça implique qu'on peut recevoir du back que du json
                         resolve(null);
                     }
                 },
@@ -135,12 +135,14 @@ export class SecMobilService {
                     if (!request.url.includes(this.urlConfiguration.getBackEndUrl('getPing'))) {
                         this.secMobile.secMobilCallRestService(this.getPingRequest(),
                             (success) => {
-                                let errorMessage = this.translateService.instant('GLOBAL.UNKNOWN_ERROR');
-                                err = Utils.fromStringToObject(err);
-                                if (err && !isUndefined(err.detailMessage) && err.label === 'BUSINESS_ERROR') {
-                                    errorMessage = err.detailMessage;
+                                if (!request.headers.has('BYPASS_INTERCEPTOR')) {
+                                    let errorMessage = this.translateService.instant('GLOBAL.UNKNOWN_ERROR');
+                                    err = Utils.fromStringToObject(err);
+                                    if (err && !isUndefined(err.detailMessage) && err.label === 'BUSINESS_ERROR') {
+                                        errorMessage = err.detailMessage;
+                                    }
+                                    this.toastProvider.error(errorMessage, 10000);
                                 }
-                                this.toastProvider.error(errorMessage, 10000);
                             }, error => {
                                 this.events.publish('connectionStatus:disconnected');
                             });

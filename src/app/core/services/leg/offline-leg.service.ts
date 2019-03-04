@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { EntityEnum } from '../../enums/entity.enum';
 import { StorageService } from '../../storage/storage.service';
-import { CrewMemberEnum } from '../../models/crew-member.enum';
+import { CrewMemberModel } from '../../models/crew-member.model';
 import { LegModel } from '../../models/leg.model';
 
 @Injectable()
@@ -26,7 +26,7 @@ export class OfflineLegService {
   * @param legId l'id du tronçon dont on souhaite avoir la liste équipage
   * @return la liste équipage d'un tronçon
   */
-  getFlightCrewFromLeg(legId: number): Promise<CrewMemberEnum[]> {
+  getFlightCrewFromLeg(legId: number): Promise<CrewMemberModel[]> {
     return new Promise((resolve, reject) => {
       const crewMembers = this.storageService.findAll(EntityEnum.CREW_MEMBER);
       resolve(crewMembers.filter(crewMember => crewMember.legId === legId));

@@ -540,6 +540,21 @@
             "GET_MY_IDENTITY_BACK": "Récupérer mon identité"
         }
     },
+    "SYNCHRONIZATION_MANAGEMENT": {
+        "TITLE": "Demandes de synchronisation",
+        "BUTTONS": {
+            "CLEAR": "Tout annuler"
+        },
+        "TABS": {
+            "PENDING": "En attente ({{ requestCount }})",
+            "SUCCESSFUL": "En succès ({{ requestCount }})",
+            "FAILED": "En échec ({{ requestCount }})"
+        },
+        "MESSAGES": {
+            "OFFLINE_INFO_MESSAGE": "La synchronisation reprendra une fois la connexion retrouvée"
+        },
+        "NO_SYNCHRO_REQUEST": "Aucune demande"
+    },
     "ADMIN": {
         "ADMIN_HOME": {
             "TITLE": "Page d'administration",

@@ -13,6 +13,7 @@ import { DeviceService } from '../services/device/device.service';
 import { ConnectivityService } from '../services/connectivity/connectivity.service';
 import { AuthenticationStatusEnum } from '../enums/authentication-status.enum';
 import { ToastService } from '../services/toast/toast.service';
+import { SynchronizationManagementService } from '../services/synchronization/synchronization-management.service';
 
 @Injectable()
 export class AuthenticationService {
@@ -28,6 +29,7 @@ export class AuthenticationService {
         private toastService: ToastService,
         private connectivityService: ConnectivityService,
         private synchronizationService: SynchronizationService,
+        private synchronizationManagementService: SynchronizationManagementService,
         private secMobilService: SecMobilService
     ) { }
 
@@ -87,6 +89,7 @@ export class AuthenticationService {
         // Si le mode offline est autorisé, on met en place la gestion du offline
         if (this.deviceService.isOfflineModeAvailable()) {
             this.offlineManagement().then(result => {
+                this.synchronizationService.storeEDossierOffline(this.sessionService.getActiveUser().matricule);
                 if (!result && this.deviceService.isBrowser()) {
                     this.toastService.warning(this.translateService.instant('GLOBAL.MESSAGES.ERROR.SERVER_APPLICATION_UNAVAILABLE'));
                 }
@@ -176,11 +179,8 @@ export class AuthenticationService {
             pingSuccess => {
                 this.connectivityService.setConnected(true);
                 this.synchronizationService.synchronizeOfflineData();
-                return this.synchronizationService.storeEDossierOffline(this.sessionService.getActiveUser().matricule).then(successStore => {
-                    return true;
-                }, error => {
-                    return false;
-                });
+                this.synchronizationManagementService.processMaxSynchroRequest();
+                return true;
             }, pingError => {
                 this.connectivityService.setConnected(false);
                 this.connectivityService.startPingAPI();
