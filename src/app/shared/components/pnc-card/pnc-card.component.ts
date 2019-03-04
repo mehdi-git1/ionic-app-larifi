@@ -1,3 +1,4 @@
+import { PncModel } from './../../../core/models/pnc.model';
 import { Component, Input, ViewChild } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { TranslateService } from '@ngx-translate/core';
@@ -19,6 +20,7 @@ import { OfflineIndicatorComponent } from '../offline-indicator/offline-indicato
 export class PncCardComponent {
 
   private crewMember: CrewMemberModel;
+  private pnc: PncModel;
   formatedSpeciality: string;
   @Input() isCrewMember: boolean;
   @Input() disabled: boolean;
@@ -39,11 +41,18 @@ export class PncCardComponent {
 
   @Input()
   set itemMember(val: any) {
-    this.crewMember = val;
-    this.formatedSpeciality = this.pncProvider.getFormatedSpeciality(this.crewMember.pnc);
-    this.crewMember.pnc.relays.sort((relay: RelayModel, otherRelay: RelayModel) => {
-      return relay.code > otherRelay.code ? 1 : -1;
-    });
+    if (this.isCrewMember) {
+      this.crewMember = val;
+      this.pnc = val.pnc;
+    } else {
+      this.pnc = val;
+    }
+    if (this.pnc.relays) {
+      this.pnc.relays.sort((relay: RelayModel, otherRelay: RelayModel) => {
+        return relay.code > otherRelay.code ? 1 : -1;
+      });
+    }
+    this.formatedSpeciality = this.pncProvider.getFormatedSpeciality(this.pnc);
   }
 
   /**

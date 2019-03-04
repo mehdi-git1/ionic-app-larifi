@@ -1,9 +1,9 @@
 page-statutory-certificate {
-    .fonction-informations {
+    .aircraft-skills-informations {
         text-align: left;
         font-size: 1.5em;
         color: color($colors, grey60);
-        padding-bottom: 16px;
+        padding-bottom: 35px;
     }
 
     .mat-expansion-panel {
@@ -52,5 +52,10 @@ page-statutory-certificate {
 
     .important-date {
         color: color($colors, red80);
+    }
+
+    .card-md {
+        margin: 0px;
+        width: 100%;
     }
 }
