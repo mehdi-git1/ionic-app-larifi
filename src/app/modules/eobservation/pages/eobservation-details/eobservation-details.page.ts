@@ -2,7 +2,6 @@ import { Component, Input } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { EObservationModel } from '../../../../core/models/eobservation/eobservation.model';
 import { PncModel } from '../../../../core/models/pnc.model';
-import { CrewMemberEnum } from '../../../../core/models/crew-member.enum';
 import { ReferentialThemeModel } from '../../../../core/models/eobservation/referential-theme.model';
 import { EObservationItemModel } from '../../../../core/models/eobservation/eobservation-item.model';
 import { EobservationItemsByTheme } from '../../../../core/models/eobservation/eobservation-items-by-theme.model';
@@ -13,6 +12,7 @@ import { EObservationTypeEnum } from '../../../../core/enums/e-observations-type
 import { EObservationFlightModel } from '../../../../core/models/eobservation/eobservation-flight.model';
 import { EObservationService } from '../../../../core/services/eobservation/eobservation.service';
 import { EObservationStateEnum } from '../../../../core/enums/e-observation-state.enum';
+import { CrewMemberModel } from '../../../../core/models/crew-member.model';
 
 @Component({
   selector: 'page-eobservation-details',
@@ -35,11 +35,11 @@ export class EobservationDetailsPage {
     }
   }
 
-  /** Crée un objet CrewMemberEnum à partir d'un objet PncModel
+  /** Crée un objet CrewMember à partir d'un objet PncModel
    * @param pnc pnc à transformer
    */
   createCrewMemberObjectFromPnc(pnc: PncModel) {
-    const crewMember: CrewMemberEnum = new CrewMemberEnum();
+    const crewMember:CrewMemberModel = new CrewMemberModel();
     crewMember.pnc = pnc;
     return crewMember;
   }
