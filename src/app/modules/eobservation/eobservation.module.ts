@@ -1,6 +1,5 @@
-import { AbnormalLevelComponent } from './components/abnormal-level/abnormal-level.component';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-
+import { AbnormalLevelComponent } from './components/abnormal-level/abnormal-level.component';
 import { SharedModule } from '../../shared/shared.module';
 import { ComponentsModule } from '../../shared/components/components.module';
 import { EObservationComponent } from './components/e-observation/e-observation.component';
@@ -13,7 +12,7 @@ import { EObsCommentComponent } from './components/eobs-comment/eobs-comment.com
 import { EObsThemeComponent } from './components/eobs-theme/eobs-theme.component';
 import { EobsItemDescriptionComponent } from './components/eobs-item-description/eobs-item-description.component';
 import { ExitSymbolComponent } from './components/exit-symbol/exit-symbol.component';
-
+import { EObservationsArchivesPage } from './pages/eobservations-archives/eobservations-archives.page';
 
 
 @NgModule({
@@ -27,7 +26,8 @@ import { ExitSymbolComponent } from './components/exit-symbol/exit-symbol.compon
     EObsCommentComponent,
     EObsThemeComponent,
     EobsItemDescriptionComponent,
-    EobservationDetailsPage
+    EobservationDetailsPage,
+    EObservationsArchivesPage
   ],
   imports: [
     IonicPageModule.forChild(EobservationDetailsPage),
@@ -37,7 +37,8 @@ import { ExitSymbolComponent } from './components/exit-symbol/exit-symbol.compon
   ],
   entryComponents: [
     EobservationDetailsPage,
-    EobsItemDescriptionComponent
+    EobsItemDescriptionComponent,
+    EObservationsArchivesPage
   ],
   exports: [
     EObservationComponent,
@@ -49,7 +50,9 @@ import { ExitSymbolComponent } from './components/exit-symbol/exit-symbol.compon
     EObsCommentComponent,
     EObsThemeComponent,
     EobsItemDescriptionComponent,
-    EobservationDetailsPage
+    EobservationDetailsPage,
+    EObservationsArchivesPage
+
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA

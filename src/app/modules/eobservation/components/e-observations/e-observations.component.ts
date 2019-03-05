@@ -15,7 +15,10 @@ export class EObservationsComponent implements OnChanges {
   nbOfYearsToChangeMessage = 3;
 
   @Input() eObservations: EObservationModel[];
+
   @Input() filterItems = false;
+
+  @Input() legend = true;
 
   constructor() {
   }

@@ -1,3 +1,4 @@
+import { EObservationsArchivesPage } from './../../../eobservation/pages/eobservations-archives/eobservations-archives.page';
 import { EObservationModel } from '../../../../core/models/eobservation/eobservation.model';
 import { EObservationService } from './../../../../core/services/eobservation/eobservation.service';
 import { FormsEObservationService } from './../../../../core/services/forms/forms-e-observation.service';
@@ -152,5 +153,12 @@ export class CareerObjectiveListPage {
   refreshPage() {
     this.initCareerObjectivesList();
     this.getEObservationsList();
+  }
+
+  /**
+   * Redirige vers la page des archives des eObservations
+   */
+  goToEobservationsArchives() {
+    this.navCtrl.push(EObservationsArchivesPage, { matricule: this.matricule });
   }
 }

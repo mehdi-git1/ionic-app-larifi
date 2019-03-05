@@ -49,6 +49,8 @@
         "MY_PROFESSIONAL_LEVEL": "Mon niveau pro SV",
         "CONGRATULATION_LETTERS": "Lettres de félicitations",
         "MY_CONGRATULATION_LETTERS": "Mes lettres de félicitations",
+        "EOBSERVATIONS_ARCHIVES": "Archives d'eObservations",
+        "MY_EOBSERVATIONS_ARCHIVES": "Mes archives d'eObservations",
         "UNKNOWN_ERROR": "Suite à un dysfonctionnement technique, l'opération a échoué. Nous vous invitons à réessayer dans quelques minutes. Si le problème persiste, veuillez contacter votre support.",
         "COMING_SOON": "(Prochainement)",
         "MESSAGES": {
@@ -228,11 +230,16 @@
             "FAMILIARIZATION_FLIGHT": "Vol de familiarisation",
             "MASTERING_QUALIFICATION": "Qualifications Maîtrises",
             "ANNUAL_ELEARNING": "Elearning annuel",
-            "MEDICAL_APTITUDES": "Aptitudes médicales"
+            "MEDICAL_APTITUDES": "Aptitudes médicales",
+            "LANGUAGES": "Langues"
         },
         "GENERALITY_SKILLS": {
             "CCA": {
                 "TITLE": "CCA",
+                "START_DATE": "Depuis"
+            },
+            "SENIORITY_DATE": {
+                "TITLE": "Ancienneté PNC",
                 "START_DATE": "Depuis"
             },
             "PCB": {
@@ -266,8 +273,10 @@
             "SENIORITY_DATE": "Depuis"
         },
         "MEDICAL_APTITUDES": {
-            "START_DATE": "Début",
-            "END_DATE": "Fin"
+            "MEDICAL_VISIT": {
+                "START_DATE": "Début",
+                "END_DATE": "Fin"
+            }
         },
         "ERROR": {
             "STATUTORY_CERTIFICATE": "Erreur lors de la récupération du profil PNC pour le matricule {{ matricule }}"
@@ -283,6 +292,9 @@
             "LEGEND": {
                 "LESS_THAN_3_YEARS": "eObservations réalisées sur les 3 dernières années",
                 "MORE_THAN_3_YEARS": "dernières eObservations réalisées"
+            },
+            "LINK": {
+                "ARCHIVES": "Consulter les archives"
             }
         },
         "NEW_EOBSERVATION_HEADER": {
@@ -566,6 +578,21 @@
         "BUTTONS": {
             "GET_MY_IDENTITY_BACK": "Récupérer mon identité"
         }
+    },
+    "SYNCHRONIZATION_MANAGEMENT": {
+        "TITLE": "Demandes de synchronisation",
+        "BUTTONS": {
+            "CLEAR": "Tout annuler"
+        },
+        "TABS": {
+            "PENDING": "En attente ({{ requestCount }})",
+            "SUCCESSFUL": "En succès ({{ requestCount }})",
+            "FAILED": "En échec ({{ requestCount }})"
+        },
+        "MESSAGES": {
+            "OFFLINE_INFO_MESSAGE": "La synchronisation reprendra une fois la connexion retrouvée"
+        },
+        "NO_SYNCHRO_REQUEST": "Aucune demande"
     },
     "ADMIN": {
         "ADMIN_HOME": {

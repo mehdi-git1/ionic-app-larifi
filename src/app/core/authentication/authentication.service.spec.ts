@@ -1,7 +1,7 @@
 
 import { tick, fakeAsync } from '@angular/core/testing';
 
-import { AuthenticationStatusEnum } from './../enums/authentication-status.enum';
+import { AuthenticationStatusEnum } from '../enums/authentication-status.enum';
 import { AuthenticationService } from './authentication.service';
 import { AuthenticatedUserModel } from '../models/authenticated-user.model';
 
@@ -257,3 +257,4 @@ describe('AuthenticationService', () => {
     });
 
 });
+

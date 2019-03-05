@@ -2,7 +2,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { Component, Input, OnInit } from '@angular/core';
 import * as _ from 'lodash';
 
-import {GeneralitySkillsModel} from '../../../../core/models/statutory-certificate/generality-skills.model';
+import { GeneralitySkillsModel } from '../../../../core/models/statutory-certificate/generality-skills.model';
 
 @Component({
   selector: 'generality-skills',
@@ -35,6 +35,28 @@ export class GeneralitySkillsComponent implements OnInit {
           [
             { value: [_.get(this.generalitySkillsData, 'cca.label')], type: 'libelle' },
             { value: [_.get(this.generalitySkillsData, 'cca.startDate')], type: 'date' },
+            { value: [''], type: 'text' },
+            { value: [''], type: 'text' },
+            { value: [''], type: 'text' },
+            { value: [''], type: 'text' }
+          ]
+          :
+          null
+      },
+      seniorityDate: {
+        headers:
+          [
+            this.translateService.instant('STATUTORY_CERTIFICATE.GENERALITY_SKILLS.SENIORITY_DATE.TITLE'),
+            this.translateService.instant('STATUTORY_CERTIFICATE.GENERALITY_SKILLS.SENIORITY_DATE.START_DATE'),
+            '',
+            '',
+            '',
+            ''
+          ],
+        values: this.generalitySkillsData && this.generalitySkillsData.seniorityDate ?
+          [
+            { value: [''], type: 'text' },
+            { value: [_.get(this.generalitySkillsData, 'seniorityDate')], type: 'date' },
             { value: [''], type: 'text' },
             { value: [''], type: 'text' },
             { value: [''], type: 'text' },

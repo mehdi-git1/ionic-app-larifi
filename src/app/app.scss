@@ -137,3 +137,8 @@ ion-content > .scroll-content {
 .impersonation .toolbar .toolbar-background {
     background: color($colors, red90) !important;
 }
+
+// Toast de notification
+.simple-notification-wrapper.top {
+    top: 80px !important;
+}

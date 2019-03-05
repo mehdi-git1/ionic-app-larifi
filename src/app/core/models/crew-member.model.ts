@@ -1,7 +1,7 @@
 import { PncModel } from './pnc.model';
 import { EDossierPncObjectModel } from './e-dossier-pnc-object.model';
 
-export class CrewMemberEnum extends EDossierPncObjectModel {
+export class CrewMemberModel extends EDossierPncObjectModel {
     pnc: PncModel;
     particularity: string;
     lastEncounterDate: string;
