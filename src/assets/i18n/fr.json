@@ -306,6 +306,39 @@
             "SKILL": "Constante / Compétence / Séquence",
             "ITEM": "Rubrique / Item",
             "LEVEL": "Niveau"
+        },
+        "DETAILS" :{
+            "TITLE": "Restitution Formulaire",
+            "ROTATION_SUBTITLE": "Rotation",
+            "DEGRADED_CONDITIONS": "Conditions dégradées",
+            "FLIGHT_NUMBER": "N° Vol",
+            "FLIGHT_DATE": "Date Vol",
+            "STOP_STATION": "Escales départ/arrivée",
+            "AIRCRAFT_TYPE": "Type Avion",
+            "VERSION": "Version",
+            "OCCUPANCY_RATE": "Remplissage",
+            "WORKSTATION": "Poste",
+            "REDACTOR_COMMENT": "Commentaire PNC Rédacteur",
+            "PNC_COMMENT": "Commentaire PNC Observé",
+            "COMMENT": "Commentaire :",
+            "STRONG_POINTS" : "Points forts :",
+            "WORKING_AXES" : "Axes de travail :",
+            "UPDATE_DATE": "Enregistré depuis le : ",
+            "SPECIALITY": "Fonction",
+            "EOBS_PNC_ASSIGNMENT": "Affectation à date de l'eObservation",
+            "COLOR_LEVEL_CORRESPONDANCE": "Correspondance couleur / appréciation",
+            "TEMPORARY_PERIOD": "Période temporaire",
+            "FORMATION_FLIGHT": "Vol de formation",
+            "FORMATION_FLIGHT_TITLE_OPTION": " - FOR",
+            "VAL": "VAL",
+            "VAL_TITLE_OPTION": " - VAL",
+            "BILAN_FLIGHT": "Vol Bilan",
+            "EVAL": "EVAL",
+            "STATE" : {
+                "LABEL": "Statut en cours : ",
+                "TAKEN_INTO_ACCOUNT": "Pris en compte",
+                "NOT_TAKEN_INTO_ACCOUNT": "Non pris en compte"
+            }
         }
     },
     "PROFESSIONAL_LEVEL": {

@@ -1,0 +1,39 @@
+eobs-item-description {
+    background-color: color($colors,white);
+    display: inline-block;
+    text-align: justify;
+    width: 100%;
+
+    ion-col {
+        display: flex;
+        align-items: center;
+    }
+
+    button {
+        background-color: color($colors,white); 
+    }
+
+    .description-c {
+        color: color($colors, green70);
+    }
+
+    .description-no {
+        color: color($colors, grey50);
+    }
+
+    .description-level_1 {
+        color: color($colors, tertiary);
+    }
+
+    .description-level_2 {
+        color: color($colors, orange80);
+    }
+
+    .description-level_3 {
+        color: color($colors, green70);
+    }
+
+    .description-level_4 {
+        color: color($colors, blue70);
+    }
+}

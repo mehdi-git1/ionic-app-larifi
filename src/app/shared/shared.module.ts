@@ -8,7 +8,7 @@ import { File } from '@ionic-native/file';
 
 import { AppMaterialModule } from './material/material.module';
 import { PipesModule } from './pipes/pipes.module';
-import { TooltipsModule } from 'ionic-tooltips';
+import { TooltipsModule, TooltipController } from 'ionic-tooltips';
 import { Utils } from './utils/utils';
 import { DirectivesModule } from './directives/directives.module';
 import { DateTransform } from './utils/date-transform';
@@ -47,7 +47,8 @@ export function createTranslateLoader(http: HttpClient) {
         Utils,
         DateTransform,
         DatePipe,
-        File
+        File,
+        TooltipController
     ]
 })
 export class SharedModule {
