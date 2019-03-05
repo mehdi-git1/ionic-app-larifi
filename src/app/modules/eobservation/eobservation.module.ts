@@ -6,13 +6,13 @@ import { ComponentsModule } from '../../shared/components/components.module';
 import { EObservationComponent } from './components/e-observation/e-observation.component';
 import { EObservationsComponent } from './components/e-observations/e-observations.component';
 import { IonicModule, IonicPageModule } from 'ionic-angular';
-import { EobservationDetailsPage } from './pages/eobservation-details/eobservation-details';
-import { ColorNumberDotComponent } from './components/color-number-dot/color-number-dot';
-import { QuestionSymbolComponent } from './components/question-symbol/question-symbol';
-import { EObsCommentComponent } from './components/eobs-comment/eobs-comment';
-import { EObsThemeComponent } from './components/eobs-theme/eobs-theme';
-import { EobsItemDescriptionComponent } from './components/eobs-item-description/eobs-item-description';
-import { ExitSymbolComponent } from './components/exit-symbol/exit-symbol';
+import { EobservationDetailsPage } from './pages/eobservation-details/eobservation-details.page';
+import { ColorNumberDotComponent } from './components/color-number-dot/color-number-dot.component';
+import { QuestionSymbolComponent } from './components/question-symbol/question-symbol.component';
+import { EObsCommentComponent } from './components/eobs-comment/eobs-comment.component';
+import { EObsThemeComponent } from './components/eobs-theme/eobs-theme.component';
+import { EobsItemDescriptionComponent } from './components/eobs-item-description/eobs-item-description.component';
+import { ExitSymbolComponent } from './components/exit-symbol/exit-symbol.component';
 
 
 

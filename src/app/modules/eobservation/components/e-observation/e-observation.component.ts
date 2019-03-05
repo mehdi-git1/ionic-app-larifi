@@ -2,8 +2,11 @@ import { EObservationLevelEnum } from './../../../../core/enums/e-observations-l
 import { EObservationItemModel } from './../../../../core/models/eobservation/eobservation-item.model';
 import { Component, Input, OnChanges } from '@angular/core';
 import { EObservationTypeEnum } from '../../../../core/enums/e-observations-type.enum';
-import { EobservationDetailsPage } from '../../pages/eobservation-details/eobservation-details';
+import { EobservationDetailsPage } from '../../pages/eobservation-details/eobservation-details.page';
 import { NavController } from 'ionic-angular';
+import { EObservationModel } from '../../../../core/models/eobservation/eobservation.model';
+import { TranslateService } from '@ngx-translate/core';
+import { EObservationService } from '../../../../core/services/eobservation/eobservation.service';
 
 @Component({
   selector: 'e-observation',
@@ -16,11 +19,12 @@ export class EObservationComponent implements OnChanges {
 
   abnormalEObservationItems: EObservationItemModel[];
 
-  @Input() eObservation;
+  @Input() eObservation: EObservationModel;
 
-  @Input() filteredEObservation;
+  @Input() filteredEObservation: EObservationModel;
 
-  constructor(private navCtrl: NavController) {
+  constructor(private navCtrl: NavController, 
+              private eObservationService: EObservationService) {
   }
 
   ngOnChanges() {
@@ -75,13 +79,6 @@ export class EObservationComponent implements OnChanges {
    * @return le label à afficher
    */
   getDetailOptionType(): string {
-    if (this.eObservation && (this.eObservation.type === 'E_CC' || this.eObservation.type === 'E_CCP')) {
-      if (this.eObservation.val) {
-        return ' - VAL';
-      } else if (this.eObservation.formationFlight) {
-        return ' - FOR';
-      }
-    }
-    return '';
+    return this.eObservationService.getDetailOptionType(this.eObservation);
   }
 }

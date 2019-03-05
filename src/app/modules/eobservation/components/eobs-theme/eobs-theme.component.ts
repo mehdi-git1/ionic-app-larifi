@@ -1,13 +1,13 @@
 import { Component, Input } from '@angular/core';
 import { EobservationItemsByTheme } from '../../../../core/models/eobservation/eobservation-items-by-theme.model';
 import { EObservationLevelEnum } from '../../../../core/enums/e-observations-level.enum';
-import { EobsItemDescriptionComponent } from '../eobs-item-description/eobs-item-description';
+import { EobsItemDescriptionComponent } from '../eobs-item-description/eobs-item-description.component';
 import { PopoverController } from 'ionic-angular';
 import { EObservationItemModel } from '../../../../core/models/eobservation/eobservation-item.model';
 
 @Component({
   selector: 'eobs-theme',
-  templateUrl: 'eobs-theme.html'
+  templateUrl: 'eobs-theme.component.html'
 })
 export class EObsThemeComponent {
 

@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'eobs-comment',
-  templateUrl: 'eobs-comment.html'
+  templateUrl: 'eobs-comment.component.html'
 })
 export class EObsCommentComponent {
 

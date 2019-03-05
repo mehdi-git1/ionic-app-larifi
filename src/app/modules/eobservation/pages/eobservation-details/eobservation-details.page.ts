@@ -11,10 +11,11 @@ import { ReferentialItemLevelModel } from '../../../../core/models/eobservation/
 import { TranslateService } from '@ngx-translate/core';
 import { EObservationTypeEnum } from '../../../../core/enums/e-observations-type.enum';
 import { EObservationFlightModel } from '../../../../core/models/eobservation/eobservation-flight.model';
+import { EObservationService } from '../../../../core/services/eobservation/eobservation.service';
 
 @Component({
   selector: 'page-eobservation-details',
-  templateUrl: 'eobservation-details.html',
+  templateUrl: 'eobservation-details.page.html',
 })
 export class EobservationDetailsPage {
 
@@ -24,7 +25,9 @@ export class EobservationDetailsPage {
 
   itemsSortedByTheme: EobservationItemsByTheme[] ;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private translateService: TranslateService) {
+  constructor(public navCtrl: NavController,
+              public navParams: NavParams,
+              private eObservationService: EObservationService) {
   }
 
   ionViewDidEnter() {
@@ -125,14 +128,7 @@ export class EobservationDetailsPage {
    * @return le label à afficher
    */
   getDetailOptionType(): string {
-    if (this.eObservation && (this.eObservation.type === 'E_CC' || this.eObservation.type === 'E_CCP')) {
-      if (this.eObservation.val) {
-        return ' - VAL';
-      } else if (this.eObservation.formationFlight) {
-        return ' - FOR';
-      }
-    }
-    return '';
+    return this.eObservationService.getDetailOptionType(this.eObservation);
   }
 
   /**
@@ -140,7 +136,9 @@ export class EobservationDetailsPage {
    * @return true si 'ECC' ou 'ECCP' et si l'une des valeurs "vol de formation" ou "val" est true
    */
   hasTemporaryPeriodToBeDisplayed(): boolean {
-    return this.eObservation && (this.eObservation.type === 'E_CC' || this.eObservation.type === 'E_CCP') && (this.eObservation.formationFlight || this.eObservation.val);
+    return this.eObservation 
+    && (this.eObservation.type === EObservationTypeEnum.E_CC || this.eObservation.type === EObservationTypeEnum.E_CCP) 
+    && (this.eObservation.formationFlight || this.eObservation.val);
   }
 
   /**

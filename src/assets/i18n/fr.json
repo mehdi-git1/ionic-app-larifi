@@ -301,7 +301,7 @@
             "DEGRADED_CONDITIONS": "Conditions dégradées",
             "FLIGHT_NUMBER": "N° Vol",
             "FLIGHT_DATE": "Date Vol",
-            "STOP_STATION": "Esacles départ/arrivée",
+            "STOP_STATION": "Escales départ/arrivée",
             "AIRCRAFT_TYPE": "Type Avion",
             "VERSION": "Version",
             "OCCUPANCY_RATE": "Remplissage",
@@ -317,7 +317,9 @@
             "COLOR_LEVEL_CORRESPONDANCE": "Correspondance couleur / appréciation",
             "TEMPORARY_PERIOD": "Période temporaire",
             "FORMATION_FLIGHT": "Vol de formation",
+            "FORMATION_FLIGHT_TITLE_OPTION": " - FOR",
             "VAL": "VAL",
+            "VAL_TITLE_OPTION": " - VAL",
             "BILAN_FLIGHT": "Vol Bilan",
             "EVAL": "EVAL",
             "STATE" : {

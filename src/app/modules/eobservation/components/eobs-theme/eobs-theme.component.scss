@@ -8,17 +8,20 @@ eobs-theme{
         background: color($colors, grey90);
     }
 
-    .itemLabel {
+    .item-label {
        padding-left: 24px;
     }
 
-    .itemLabel:nth-child(even) {
+    .item-label:nth-child(even) {
         border-right: 2px solid color($colors, white);
     }
-    .itemLabel:nth-child(odd) {
+    .item-label:nth-child(odd) {
         border-right: 2px solid color($colors, grey75);
     }
-
+    .symbol {
+        display: flex;
+        align-items: center;
+    }
 }
 
 .description-popover  .popover-content{

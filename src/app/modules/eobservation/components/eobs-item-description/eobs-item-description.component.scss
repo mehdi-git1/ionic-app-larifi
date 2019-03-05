@@ -2,33 +2,38 @@ eobs-item-description {
     background-color: color($colors,white);
     display: inline-block;
     text-align: justify;
-    //border: 1px solid color($colors, grey70);
     width: 100%;
+
+    ion-col {
+        display: flex;
+        align-items: center;
+    }
+
     button {
         background-color: color($colors,white); 
     }
 
-    .description_c {
+    .description-c {
         color: color($colors, green70);
     }
 
-    .description_no {
+    .description-no {
         color: color($colors, grey50);
     }
 
-    .description_level_1 {
+    .description-level_1 {
         color: color($colors, tertiary);
     }
 
-    .description_level_2 {
+    .description-level_2 {
         color: color($colors, orange80);
     }
 
-    .description_level_3 {
+    .description-level_3 {
         color: color($colors, green70);
     }
 
-    .description_level_4 {
+    .description-level_4 {
         color: color($colors, blue70);
     }
 }

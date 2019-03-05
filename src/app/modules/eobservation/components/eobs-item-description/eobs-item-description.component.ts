@@ -5,11 +5,11 @@ import { NavParams, ViewController } from 'ionic-angular';
 
 @Component({
   selector: 'eobs-item-description',
-  templateUrl: 'eobs-item-description.html'
+  templateUrl: 'eobs-item-description.component.html'
 })
 export class EobsItemDescriptionComponent {
 
-  @Input() descriptions: ReferentialItemLevelModel[];
+  descriptions: ReferentialItemLevelModel[];
 
   constructor(private navParams: NavParams, public viewCtrl: ViewController) {
     const descriptions: ReferentialItemLevelModel[] = this.navParams.get('descriptions');
@@ -31,7 +31,7 @@ export class EobsItemDescriptionComponent {
    * @return le label à afficher
    */
   getDescriptionClass(level: EObservationLevelEnum): string {
-    return 'description_' + level.toLowerCase();
+    return 'description-' + level.toLowerCase();
   }
 
   /**

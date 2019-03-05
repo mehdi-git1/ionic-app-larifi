@@ -26,7 +26,6 @@ import { ColorStatusPointComponent } from './color-status-point/color-status-poi
 import { RadioAndLabelComponent } from './radio-and-label/radio-and-label.component';
 
 
-
 @NgModule({
   imports: [
     CommonModule,

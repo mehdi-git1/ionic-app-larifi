@@ -72,6 +72,16 @@
 
 <eobs-comment title="{{ 'EOBSERVATION.DETAILS.PNC_COMMENT' | translate }}" comment="{{eObservation?.pncComment}}" commentDate="{{eObservation?.redactionDate}}" speciality="{{eObservation?.pncSpeciality}}" lastName="{{eObservation?.pnc?.lastName}}" firstName="{{eObservation?.pnc?.firstName}}"></eobs-comment>
 
-<div class="state-block"><span>{{ 'EOBSERVATION.DETAILS.STATE.LABEL' | translate }} <color-status-point [colorClass]="getColorStatusPoint()"></color-status-point> {{ 'EOBSERVATION.DETAILS.STATE.' + eObservation?.state | translateOrEmpty }}</span><span>{{ 'EOBSERVATION.DETAILS.UPDATE_DATE' | translate }} <span *ngIf="eObservation?.redactionDate">{{eObservation?.redactionDate | date: 'dd/MM/yyyy' : 'UTC'}}</span></span></div>
+<div class="state-block">
+    <span>{{ 'EOBSERVATION.DETAILS.STATE.LABEL' | translate }} 
+        <color-status-point [colorClass]="getColorStatusPoint()">
+        </color-status-point> 
+        {{ 'EOBSERVATION.DETAILS.STATE.' + eObservation?.state | translateOrEmpty }}
+    </span>
+    <span>{{ 'EOBSERVATION.DETAILS.UPDATE_DATE' | translate }} 
+        <span *ngIf="eObservation?.redactionDate">{{eObservation?.redactionDate | date: 'dd/MM/yyyy' : 'UTC'}}
+        </span>
+    </span>
+</div>
 
 </ion-content>
