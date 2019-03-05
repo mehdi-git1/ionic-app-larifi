@@ -10,17 +10,21 @@
             </ion-row>
             <ion-row *ngFor="let statutoryCertificate of statutoryCertificateData.values[0].value; index as i" [ngClass]="{'odd' : i%2==1}" class="statutory-certificate-data">
                 <ion-col [ngClass]="getCssClass(data.type, data.value[i])" *ngFor="let data of statutoryCertificateData.values">
-                    <span *ngIf="data.type.indexOf('date') == -1; else elseDate">{{data.value[i]}}</span>
-                    <ng-template #elseDate>{{data.value[i] | date : 'dd/MM/yyyy' : 'UTC'}}</ng-template>
+                    <span *ngIf="data.value[i] !== displayTypeEnum.NTBD">
+                        <span *ngIf="data.type.indexOf('date') == -1; else elseDate">{{data.value[i]}}</span>
+                        <ng-template #elseDate>{{data.value[i] | date : 'dd/MM/yyyy' : 'UTC'}}</ng-template>
+                    </span>
                 </ion-col>
             </ion-row>
         </div>
         <div *ngIf="displayType===displayTypeEnum.LIST" class="statutory-data-list">
             <ion-row *ngFor="let statutoryCertificate of statutoryCertificateData.values[0].value; index as i" [ngClass]="{'odd' : i%2==1}" class="statutory-certificate-data">
                 <ion-col [ngClass]="getCssClass(data.type, data.value[i])" *ngFor="let data of statutoryCertificateData.values; index as j">
-                    <span class="statutory-certificate-header" *ngIf="statutoryCertificateData.headers[j]">{{statutoryCertificateData.headers[j]}} : </span>
-                    <span *ngIf="data.type.indexOf('date') == -1; else elseDate">{{data.value[i]}}</span>
-                    <ng-template #elseDate>{{data.value[i] | date : 'dd/MM/yyyy' : 'UTC'}}</ng-template>
+                    <span *ngIf="data.value[i] !== displayTypeEnum.NTBD">
+                        <span class="statutory-certificate-header" *ngIf="statutoryCertificateData.headers[j]">{{statutoryCertificateData.headers[j]}} : </span>
+                        <span *ngIf="data.type.indexOf('date') == -1; else elseDate">{{data.value[i]}}</span>
+                        <ng-template #elseDate>{{data.value[i] | date : 'dd/MM/yyyy' : 'UTC'}}</ng-template>
+                    </span>
                 </ion-col>
             </ion-row>
         </div>

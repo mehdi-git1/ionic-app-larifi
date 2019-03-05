@@ -38,13 +38,13 @@ export class GeneralitySkillsComponent implements OnInit {
     if (this.generalitySkillsData && this.generalitySkillsData.seniorityDate) {
       this.skillTitleArray.push(this.translateService.instant('STATUTORY_CERTIFICATE.GENERALITY_SKILLS.SENIORITY_DATE.TITLE'));
       this.startDateArray.push(_.get(this.generalitySkillsData, 'seniorityDate'));
-      this.dueDateArray.push('');
+      this.dueDateArray.push(StatutoryCertificateDisplayTypeEnum.NTBD);
     }
 
     this.skillTitleArray.push(this.translateService.instant('STATUTORY_CERTIFICATE.GENERALITY_SKILLS.PCB.TITLE'));
     this.skillTitleArray.push(this.translateService.instant('STATUTORY_CERTIFICATE.GENERALITY_SKILLS.GENE.TITLE'));
     this.startDateArray.push(_.get(this.generalitySkillsData, 'pcb.validityStartDate'));
-    this.startDateArray.push('');
+    this.startDateArray.push(StatutoryCertificateDisplayTypeEnum.NTBD);
     this.dueDateArray.push(_.get(this.generalitySkillsData, 'pcb.validityEndDate'));
     this.dueDateArray.push(_.get(this.generalitySkillsData, 'gene.dueDate'));
 
