@@ -1,12 +1,11 @@
-import { TranslateService } from '@ngx-translate/core';
-import { ToastService } from '../../../../core/services/toast/toast.service';
+import { StatutoryCertificateDisplayTypeEnum } from './../../../../core/enums/statutory-certificate-display-type.enum';
 import { StatutoryCertificateModel } from '../../../../core/models/statutory.certificate.model';
 import { StatutoryCertificateService } from '../../../../core/services/statutory-certificate/statutory-certificate.service';
 import { PncService } from '../../../../core/services/pnc/pnc.service';
 import { SessionService } from '../../../../core/services/session/session.service';
 import { PncModel } from '../../../../core/models/pnc.model';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, Events, AlertController } from 'ionic-angular';
+import { NavParams } from 'ionic-angular';
 
 @Component({
   selector: 'page-statutory-certificate',
@@ -19,6 +18,8 @@ export class StatutoryCertificatePage {
   formatedSpeciality: string;
   matricule: string;
   statutoryCertificate: StatutoryCertificateModel;
+
+  statutoryCertificateDisplayTypeEnum = StatutoryCertificateDisplayTypeEnum;
 
   constructor(
     private navParams: NavParams,

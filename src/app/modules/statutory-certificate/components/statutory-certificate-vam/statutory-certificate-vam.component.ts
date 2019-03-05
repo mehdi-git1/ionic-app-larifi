@@ -1,3 +1,4 @@
+import { StatutoryCertificateDisplayTypeEnum } from './../../../../core/enums/statutory-certificate-display-type.enum';
 import { VamModel } from '../../../../core/models/statutory-certificate/vam.model';
 import { Component, Input, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
@@ -10,6 +11,8 @@ import * as _ from 'lodash';
 export class StatutoryCertificateVamComponent implements OnInit {
 
   @Input() vamData: VamModel;
+  @Input() title: string;
+  @Input() displayType: StatutoryCertificateDisplayTypeEnum;
 
   // Tableau des valeurs à afficher en fonction du type de tableau
   skillDisplayedData;

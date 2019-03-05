@@ -6,48 +6,9 @@ page-statutory-certificate {
         padding-bottom: 16px;
     }
 
-    .mat-expansion-panel {
-        margin-bottom: 16px;
-        margin-top: 0px;
-        border-radius: 5px;
-    }
-
-    mat-expansion-panel-header {
-        background-color: color($colors, blue75);
-        color: color($colors, white);
-        font-size: 18px !important;
-        border-radius: 5px;
-
-        &.mat-expanded:hover,
-        &.mat-expanded:focus {
-            background-color: color($colors, blue75) !important;
-            height: 48px;
-
-        }
-    }
-
-    .mat-expansion-panel-body {
-
-        padding: 0px;
-
-        ion-card.card-md,
-        ion-card.card-ios {
-            margin: 0px;
-            width: 100%;
-            margin-bottom: 10px;
-        }
-    }
-
     .plane-qualif {
         float: right;
         padding-right: 15px;
-    }
-
-    .statutory-certificate-header {
-        font-size: 1.2em;
-        background-color: transparent !important;
-        border-bottom: 2px solid color($colors, blue70);
-        margin: 5px;
     }
 
     .important-date {

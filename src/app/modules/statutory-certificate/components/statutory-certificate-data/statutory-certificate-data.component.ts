@@ -1,7 +1,7 @@
-import { TranslateService } from '@ngx-translate/core';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 import * as moment from 'moment';
+import { StatutoryCertificateDisplayTypeEnum } from '../../../../core/enums/statutory-certificate-display-type.enum';
 
 @Component({
   selector: 'statutory-certificate-data',
@@ -10,9 +10,14 @@ import * as moment from 'moment';
 export class StatutoryCertificateDataComponent {
 
   @Input() statutoryCertificateData;
+  @Input() title;
+  @Input() displayType: StatutoryCertificateDisplayTypeEnum;
+
+  displayTypeEnum = StatutoryCertificateDisplayTypeEnum;
 
   constructor() {
   }
+
   /**
    * Gére les classes de data
    * @param dataType type de la data à gérer 'date, etc...)

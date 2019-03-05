@@ -10,6 +10,8 @@ import { PlaneSkillModel } from '../../../../core/models/statutory-certificate/p
 export class PlaneSkillsComponent implements OnInit {
 
   @Input() planeSkillsData: Array<PlaneSkillModel>;
+  @Input() title: string;
+  @Input() displayType: StatutoryCertificateDisplayTypeEnum;
 
 
   // Objet temporaire pour formater les données à afficher

@@ -1,7 +1,8 @@
 import { TranslateService } from '@ngx-translate/core';
 import { Component, OnInit, Input } from '@angular/core';
 
-import {FamiliarizationFlightsModel} from '../../../../core/models/statutory-certificate/familiarization-flights.model';
+import { FamiliarizationFlightsModel } from '../../../../core/models/statutory-certificate/familiarization-flights.model';
+import { StatutoryCertificateDisplayTypeEnum } from '../../../../core/enums/statutory-certificate-display-type.enum';
 
 
 @Component({
@@ -11,6 +12,8 @@ import {FamiliarizationFlightsModel} from '../../../../core/models/statutory-cer
 export class FamiliarizationFlightComponent implements OnInit {
 
   @Input() familiarizationFlightData: FamiliarizationFlightsModel;
+  @Input() title: string;
+  @Input() displayType: StatutoryCertificateDisplayTypeEnum;
 
   // Tableau des valeurs à afficher en fonction du type de tableau
   familiarizationFlightDisplayedData;

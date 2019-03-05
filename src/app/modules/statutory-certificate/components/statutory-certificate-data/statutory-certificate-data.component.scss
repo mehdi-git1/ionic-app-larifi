@@ -1,0 +1,55 @@
+statutory-certificate-data {
+
+    ion-grid.grid {
+        border-radius: 5px;
+        margin-bottom: 15px;
+        padding: 0;
+        box-shadow: 0px 0px 5px color($colors, grey70);
+        background: color($colors, white);
+
+        .title {
+            background: color($colors, blue81);
+            color: color($colors, white);
+
+            &:first-child {
+                border-radius: 5px 5px 0 0;
+            }
+        }
+
+        .col {
+            padding-left: 15px;
+        }
+
+        .odd {
+            background: color($colors, grey95);
+        }
+
+        .statutory-certificate-data {
+            color: color($colors, grey60);
+        }
+
+        .statutory-certificate-header {
+            font-size: 1em;
+            background-color: transparent !important;
+            color: color($colors, blue81);
+        }
+
+        .statutory-data-tab {
+            .col {
+                border-bottom: 1px solid color($colors, grey75);
+                border-right: 1px solid color($colors, grey75);
+            }
+
+            .statutory-certificate-data {
+                .col {
+                    border-right: 1px solid color($colors, grey75);
+                }
+            }
+        }
+
+        .no-data-found {
+            font-size: 1.1em;
+            margin: 5px;
+        }
+    }
+}
