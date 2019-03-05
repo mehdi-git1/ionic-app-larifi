@@ -39,7 +39,7 @@ export class EobservationDetailsPage {
    * @param pnc pnc à transformer
    */
   createCrewMemberObjectFromPnc(pnc: PncModel) {
-    const crewMember:CrewMemberModel = new CrewMemberModel();
+    const crewMember: CrewMemberModel = new CrewMemberModel();
     crewMember.pnc = pnc;
     return crewMember;
   }
