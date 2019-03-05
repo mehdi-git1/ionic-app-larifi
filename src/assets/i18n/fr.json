@@ -230,7 +230,8 @@
             "FAMILIARIZATION_FLIGHT": "Vol de familiarisation",
             "MASTERING_QUALIFICATION": "Qualifications Maîtrises",
             "ANNUAL_ELEARNING": "Elearning annuel",
-            "MEDICAL_APTITUDES": "Aptitudes médicales"
+            "MEDICAL_APTITUDES": "Aptitudes médicales",
+            "LANGUAGES": "Langues"
         },
         "GENERALITY_SKILLS": {
             "CCA": {

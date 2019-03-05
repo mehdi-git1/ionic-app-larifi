@@ -63,6 +63,13 @@
                 </mat-expansion-panel-header>
                 <medical-aptitudes [medicalAptitudesData]="statutoryCertificate?.medicalAptitudes"></medical-aptitudes>
             </mat-expansion-panel>
+
+            <mat-expansion-panel>
+                <mat-expansion-panel-header [expandedHeight]="'48px'">
+                    {{ 'STATUTORY_CERTIFICATE.CATEGORIES.LANGUAGES' | translate }}
+                </mat-expansion-panel-header>
+                <pnc-languages [languagesData]="statutoryCertificate?.languages"></pnc-languages>
+            </mat-expansion-panel>
         </mat-accordion>
     </ng-template>
 </ion-content>
