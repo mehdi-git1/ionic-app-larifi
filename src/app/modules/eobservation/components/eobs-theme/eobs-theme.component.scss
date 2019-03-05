@@ -27,5 +27,8 @@ eobs-theme{
 .description-popover  .popover-content{
     min-width: 500px;
     width: 500px;
+}
+
+.popover-md.description-popover  .popover-content{
     transform: translate(-100%, -5%) !important;
 }
