@@ -45,14 +45,32 @@ page-eobservation-details {
     }
 
     .state-block {
-        height: 48px;
-        padding: 24px;
+        height: 32px;
+        padding-right: 24px;
+        padding-left: 24px;
         display: flex;
+        align-items: center;
         justify-content: space-between;
         background: color($colors, bluegrey3);
         color : color($colors, white);
         border-radius: $block-border-radius;
-        align-items: center;
+
+        span {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-right: 5px;
+            padding-left: 5px;
+        }
+
+        .state-value {
+            padding-left: 10px;
+        }
+
+        color-status-point {
+            padding-right: 5px;
+            padding-left: 5px;
+        }
     }
 
     .speciality-grid {
@@ -62,15 +80,16 @@ page-eobservation-details {
         box-shadow: 0 3px 1px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
         border-radius: $block-border-radius;
         background: color($colors, white);
+
         .grid {
             padding: initial;
-            padding-bottom: 5px;
         }
     }
 
     .speciality-header {
-        height: 48px;
-        padding: 24px;
+        height: 32px;
+        padding-right: 24px;
+        padding-left: 24px;
         background: color($colors, blue55);
         color: color($colors, white);
         font-size: 18px !important;

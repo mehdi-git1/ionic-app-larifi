@@ -23,7 +23,7 @@ export class EObservationComponent implements OnChanges {
 
   @Input() filteredEObservation: EObservationModel;
 
-  constructor(private navCtrl: NavController, 
+  constructor(private navCtrl: NavController,
               private eObservationService: EObservationService) {
   }
 

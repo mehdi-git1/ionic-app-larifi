@@ -1,0 +1,4 @@
+export enum EObservationStateEnum {
+    TAKEN_INTO_ACCOUNT = 'TAKEN_INTO_ACCOUNT',
+    NOT_TAKEN_INTO_ACCOUNT = 'NOT_TAKEN_INTO_ACCOUNT'
+}

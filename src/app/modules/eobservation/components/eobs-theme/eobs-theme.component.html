@@ -1,4 +1,4 @@
-<edospnc-expandable-block title="{{theme.referentialTheme.label}}" [emptyCondition]="isEmptyGrid()">
+<edospnc-expandable-block mini="true" title="{{theme.referentialTheme.label}}" [emptyCondition]="isEmptyGrid()">
     <ion-grid>
         <ion-row *ngFor="let eObservationItem of theme.eObservationItems">
             <ion-col col-11 class="item-label"> {{eObservationItem.refItemLevel.item.label}}</ion-col>

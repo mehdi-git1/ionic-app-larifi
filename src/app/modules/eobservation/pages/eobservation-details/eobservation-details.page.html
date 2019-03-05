@@ -25,18 +25,18 @@
         </ion-row>
     </ion-grid>
 </div>
-<edospnc-expandable-block *ngIf="hasTemporaryPeriodToBeDisplayed()" title=" {{ 'EOBSERVATION.DETAILS.TEMPORARY_PERIOD' | translate }}">
+<edospnc-expandable-block mini="true" *ngIf="hasTemporaryPeriodToBeDisplayed()" title=" {{ 'EOBSERVATION.DETAILS.TEMPORARY_PERIOD' | translate }}">
     <span class="temporary-period">
         <radio-and-label disabled="true" conditionValue="{{eObservation?.formationFlight}}" label="{{ 'EOBSERVATION.DETAILS.FORMATION_FLIGHT' | translate }}"></radio-and-label>
         <radio-and-label disabled="true" conditionValue="{{eObservation?.val}}" label="{{ 'EOBSERVATION.DETAILS.VAL' | translate }}"></radio-and-label>
     </span>
 </edospnc-expandable-block>
 
-<edospnc-expandable-block *ngIf="eObservation?.type === 'E_ALT'" title=" {{ 'EOBSERVATION.DETAILS.BILAN_FLIGHT' | translate }}">
+<edospnc-expandable-block mini="true" *ngIf="eObservation?.type === 'E_ALT'" title=" {{ 'EOBSERVATION.DETAILS.BILAN_FLIGHT' | translate }}">
     <radio-and-label disabled="true" conditionValue="{{eObservation?.vac}}" label="{{ 'EOBSERVATION.DETAILS.EVAL' | translate }}"></radio-and-label>
 </edospnc-expandable-block>
 
-<edospnc-expandable-block title=" {{ 'EOBSERVATION.DETAILS.ROTATION_SUBTITLE' | translate }}" [emptyCondition]="hasFlights()">
+<edospnc-expandable-block mini="true" title=" {{ 'EOBSERVATION.DETAILS.ROTATION_SUBTITLE' | translate }}" [emptyCondition]="!hasFlights()">
     <div  class="rotation-info">
         <ion-grid><ion-row>
             <ion-col col-2 class="rotation-number">{{eObservation?.rotationNumber}}</ion-col>
@@ -76,7 +76,7 @@
     <span>{{ 'EOBSERVATION.DETAILS.STATE.LABEL' | translate }} 
         <color-status-point [colorClass]="getColorStatusPoint()">
         </color-status-point> 
-        {{ 'EOBSERVATION.DETAILS.STATE.' + eObservation?.state | translateOrEmpty }}
+        <span class="state-value">{{ 'EOBSERVATION.DETAILS.STATE.' + eObservation?.state | translateOrEmpty }}</span>
     </span>
     <span>{{ 'EOBSERVATION.DETAILS.UPDATE_DATE' | translate }} 
         <span *ngIf="eObservation?.redactionDate">{{eObservation?.redactionDate | date: 'dd/MM/yyyy' : 'UTC'}}

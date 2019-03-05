@@ -12,15 +12,13 @@ import { TranslateService } from '@ngx-translate/core';
 import { EObservationTypeEnum } from '../../../../core/enums/e-observations-type.enum';
 import { EObservationFlightModel } from '../../../../core/models/eobservation/eobservation-flight.model';
 import { EObservationService } from '../../../../core/services/eobservation/eobservation.service';
+import { EObservationStateEnum } from '../../../../core/enums/e-observation-state.enum';
 
 @Component({
   selector: 'page-eobservation-details',
   templateUrl: 'eobservation-details.page.html',
 })
 export class EobservationDetailsPage {
-
-  matPanelHeaderHeight = '48px';
-
   eObservation: EObservationModel;
 
   itemsSortedByTheme: EobservationItemsByTheme[] ;
@@ -96,7 +94,10 @@ export class EobservationDetailsPage {
    * @return true si il n'y a pas de vols dans cette eobs, sinon false
    */
   hasFlights(): boolean {
-    return this.eObservation && ( this.eObservation.eobservationFlights === null  || this.eObservation.eobservationFlights.length === 0);
+    if ( !this.eObservation || !this.eObservation.eobservationFlights || this.eObservation.eobservationFlights.length === 0) {
+      return false;
+    }
+    return true;
   }
 
   /**
@@ -105,9 +106,9 @@ export class EobservationDetailsPage {
    * @return 'green' si 'TAKEN_INTO_ACCOUNT' ou 'red' si 'NOT_TAKEN_INTO_ACCOUNT'
    */
   getColorStatusPoint(): string{
-    if (this.eObservation && this.eObservation.state === 'TAKEN_INTO_ACCOUNT' ) {
+    if (this.eObservation && this.eObservation.state === EObservationStateEnum.TAKEN_INTO_ACCOUNT ) {
       return 'green';
-    } else if (this.eObservation && this.eObservation.state === 'NOT_TAKEN_INTO_ACCOUNT' ) {
+    } else if (this.eObservation && this.eObservation.state === EObservationStateEnum.NOT_TAKEN_INTO_ACCOUNT ) {
       return 'red';
     }
   }
@@ -136,8 +137,8 @@ export class EobservationDetailsPage {
    * @return true si 'ECC' ou 'ECCP' et si l'une des valeurs "vol de formation" ou "val" est true
    */
   hasTemporaryPeriodToBeDisplayed(): boolean {
-    return this.eObservation 
-    && (this.eObservation.type === EObservationTypeEnum.E_CC || this.eObservation.type === EObservationTypeEnum.E_CCP) 
+    return this.eObservation
+    && (this.eObservation.type === EObservationTypeEnum.E_CC || this.eObservation.type === EObservationTypeEnum.E_CCP )
     && (this.eObservation.formationFlight || this.eObservation.val);
   }
 

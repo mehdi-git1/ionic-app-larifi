@@ -10,6 +10,8 @@ eobs-theme{
 
     .item-label {
        padding-left: 24px;
+       display: flex;
+       align-items: center;
     }
 
     .item-label:nth-child(even) {
@@ -21,6 +23,10 @@ eobs-theme{
     .symbol {
         display: flex;
         align-items: center;
+
+        color-number-dot {
+            padding-top: 2px;
+        }
     }
 }
 

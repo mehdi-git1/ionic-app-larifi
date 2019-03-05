@@ -1,4 +1,4 @@
-<edospnc-expandable-block title="{{title}}" [emptyCondition]="!comment && !strongPoints && !workingAxes">
+<edospnc-expandable-block mini="true" title="{{title}}" [emptyCondition]="!comment && !strongPoints && !workingAxes">
     <div class="comment-container">
         <div *ngIf="strongPoints" >
             <label><span class="edospnc-speechBubble"></span>{{ 'EOBSERVATION.DETAILS.STRONG_POINTS' | translate }}</label>

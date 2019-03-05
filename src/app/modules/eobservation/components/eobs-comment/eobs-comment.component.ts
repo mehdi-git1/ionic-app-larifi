@@ -6,8 +6,6 @@ import { Component, Input } from '@angular/core';
 })
 export class EObsCommentComponent {
 
-  matPanelHeaderHeight = '48px';
-
   @Input() comment: string;
 
   @Input() workingAxes: string;

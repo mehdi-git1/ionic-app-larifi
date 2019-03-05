@@ -19,6 +19,13 @@ export class EdospncExpandableBlockComponent {
   constructor() {
   }
 
+  @Input()
+  set mini(_mini: string) {
+    if ('true' === _mini) {
+      this.matPanelHeaderHeight = '32px';
+    }
+  }
+
   /**
    * Détermine si le panel est étendu par défaut
    * @return true si il est étendu, false sinon
