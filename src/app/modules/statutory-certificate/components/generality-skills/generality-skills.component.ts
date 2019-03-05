@@ -19,18 +19,35 @@ export class GeneralitySkillsComponent implements OnInit {
   skillDisplayedData;
 
   // Tableau des libelles de compétences
-  skillTitles: Array<string>;
+  skillTitleArray: Array<string>;
+
+  // Tableu des listes de START_DATE
+  startDateArray: Array<string>;
+
+  // Tableu des listes de START_DATE
+  dueDateArray: Array<string>;
 
   constructor(public translateService: TranslateService
-  ) {
-    this.skillTitles = [
-      this.translateService.instant('STATUTORY_CERTIFICATE.GENERALITY_SKILLS.CCA.TITLE'),
-      this.translateService.instant('STATUTORY_CERTIFICATE.GENERALITY_SKILLS.PCB.TITLE'),
-      this.translateService.instant('STATUTORY_CERTIFICATE.GENERALITY_SKILLS.GENE.TITLE')
-    ];
-  }
+  ) { }
 
   ngOnInit() {
+    this.skillTitleArray = [this.translateService.instant('STATUTORY_CERTIFICATE.GENERALITY_SKILLS.CCA.TITLE')];
+    this.startDateArray = [_.get(this.generalitySkillsData, 'cca.startDate')];
+    this.dueDateArray = [''];
+
+    if (this.generalitySkillsData && this.generalitySkillsData.seniorityDate) {
+      this.skillTitleArray.push(this.translateService.instant('STATUTORY_CERTIFICATE.GENERALITY_SKILLS.SENIORITY_DATE.TITLE'));
+      this.startDateArray.push(_.get(this.generalitySkillsData, 'seniorityDate'));
+      this.dueDateArray.push('');
+    }
+
+    this.skillTitleArray.push(this.translateService.instant('STATUTORY_CERTIFICATE.GENERALITY_SKILLS.PCB.TITLE'));
+    this.skillTitleArray.push(this.translateService.instant('STATUTORY_CERTIFICATE.GENERALITY_SKILLS.GENE.TITLE'));
+    this.startDateArray.push(_.get(this.generalitySkillsData, 'pcb.validityStartDate'));
+    this.startDateArray.push('');
+    this.dueDateArray.push(_.get(this.generalitySkillsData, 'pcb.validityEndDate'));
+    this.dueDateArray.push(_.get(this.generalitySkillsData, 'gene.dueDate'));
+
     this.skillDisplayedData = {
       headers:
         [
@@ -43,19 +60,9 @@ export class GeneralitySkillsComponent implements OnInit {
         ],
       values: this.generalitySkillsData ?
         [
-          { value: this.skillTitles, type: 'text' },
-          {
-            value: [_.get(this.generalitySkillsData, 'cca.startDate'),
-            _.get(this.generalitySkillsData, 'pcb.validityStartDate'),
-              ''
-            ], type: 'date'
-          },
-          {
-            value: ['',
-              _.get(this.generalitySkillsData, 'pcb.validityEndDate'),
-              _.get(this.generalitySkillsData, 'gene.dueDate')
-            ], type: 'date'
-          },
+          { value: this.skillTitleArray, type: 'text' },
+          { value: this.startDateArray, type: 'date' },
+          { value: this.dueDateArray, type: 'date' },
           { value: [''], type: 'text' },
           { value: [''], type: 'text' },
           { value: [''], type: 'text' }

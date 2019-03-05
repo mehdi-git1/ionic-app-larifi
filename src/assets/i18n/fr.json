@@ -240,12 +240,10 @@
                 "TITLE": "CCA"
             },
             "SENIORITY_DATE": {
-                "TITLE": "Ancienneté PNC",
-                "START_DATE": "Depuis"
+                "TITLE": "Ancienneté PNC"
             },
             "PCB": {
-                "TITLE": "PCB",
-                "START_DATE": "Depuis"
+                "TITLE": "PCB"
             },
             "GENE": {
                 "TITLE": "Géné",
