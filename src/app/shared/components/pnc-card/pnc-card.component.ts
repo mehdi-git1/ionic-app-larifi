@@ -2,7 +2,7 @@ import { Component, Input, ViewChild } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { TranslateService } from '@ngx-translate/core';
 
-import { CrewMemberEnum } from '../../../core/models/crew-member.enum';
+import { CrewMemberModel } from '../../../core/models/crew-member.model';
 import { SynchronizationService } from '../../../core/services/synchronization/synchronization.service';
 import { ToastService } from '../../../core/services/toast/toast.service';
 import { ConnectivityService } from '../../../core/services/connectivity/connectivity.service';
@@ -18,7 +18,7 @@ import { OfflineIndicatorComponent } from '../offline-indicator/offline-indicato
 })
 export class PncCardComponent {
 
-  private crewMember: CrewMemberEnum;
+  private crewMember: CrewMemberModel;
   formatedSpeciality: string;
   @Input() isCrewMember: boolean;
   @Input() disabled: boolean;

@@ -9,7 +9,6 @@ import { HttpInterceptor, HttpHandler, HttpRequest, HttpEvent, HttpErrorResponse
 
 import { DeviceService } from '../services/device/device.service';
 import { ConnectivityService } from '../services/connectivity/connectivity.service';
-import { SecMobilService } from '../http/secMobil.service';
 import { UrlConfiguration } from '../configuration/url.configuration';
 
 
@@ -20,7 +19,6 @@ export class HttpErrorInterceptor implements HttpInterceptor {
   constructor(
     private toastProvider: ToastService,
     private translateService: TranslateService,
-    private secMobilService: SecMobilService,
     private connectivityService: ConnectivityService,
     private deviceService: DeviceService,
     private events: Events,
@@ -33,6 +31,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
   ): Observable<HttpEvent<any>> {
     return next.handle(request).do(success => {
     }, err => {
+
       if (err instanceof HttpErrorResponse && !request.url.includes(this.config.getBackEndUrl('getPing'))) {
 
         let errorMessage = this.translateService.instant('GLOBAL.UNKNOWN_ERROR');
@@ -43,17 +42,20 @@ export class HttpErrorInterceptor implements HttpInterceptor {
               if (err.error && !isUndefined(err.error.detailMessage) && err.error.label === 'BUSINESS_ERROR') {
                 errorMessage = err.error.detailMessage;
               }
-              this.toastProvider.error(errorMessage, 10000);
+              if (!request.headers.has('BYPASS_INTERCEPTOR')) {
+                this.toastProvider.error(errorMessage, 10000);
+              }
             },
             error => {
-              // TODO : tenter de relancer l'appel en offline
               this.events.publish('connectionStatus:disconnected');
             });
         } else {
           if (err.error && !isUndefined(err.error.detailMessage) && err.error.label === 'BUSINESS_ERROR') {
             errorMessage = err.error.detailMessage;
           }
-          this.toastProvider.error(errorMessage, 10000);
+          if (!request.headers.has('BYPASS_INTERCEPTOR')) {
+            this.toastProvider.error(errorMessage, 10000);
+          }
         }
       }
     });

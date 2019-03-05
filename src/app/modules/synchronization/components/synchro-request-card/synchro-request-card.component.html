@@ -1,0 +1,19 @@
+<div class="info-container">
+    <div class="pnc-info">
+        <span class="lastName">{{ synchroRequest.pnc.lastName }}</span>
+        <span class="firstname">{{ synchroRequest.pnc.firstName }}</span>
+        <span class="matricule">{{ synchroRequest.pnc.matricule }}</span>
+    </div>
+    <div class="error-message">{{ synchroRequest.errorMessage }}</div>
+</div>
+<div class="action-container">
+    <button ion-fab mini (click)="reinitSynchroRequest()" *ngIf="synchroRequest.synchroStatus === SynchroStatusEnum.FAILED">
+        <ion-icon name="refresh"></ion-icon>
+    </button>
+    <button ion-fab mini (click)="deleteSynchroRequest()" [hidden]="true">
+        <ion-icon name="close"></ion-icon>
+    </button>
+</div>
+<div class="status-container">
+    <span class="synchro-status {{ synchroRequest.synchroStatus.toLowerCase() }}"></span>
+</div>
