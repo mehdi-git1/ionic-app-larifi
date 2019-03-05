@@ -2,6 +2,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { Component, Input, OnInit } from '@angular/core';
 
 import { PlaneSkillModel } from '../../../../core/models/statutory-certificate/plane-skill.model';
+import { StatutoryCertificateDisplayTypeEnum } from '../../../../core/enums/statutory-certificate-display-type.enum';
 
 @Component({
   selector: 'plane-skills',

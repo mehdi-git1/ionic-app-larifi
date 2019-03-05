@@ -11,7 +11,6 @@ import { GeneralitySkillsComponent } from './components/generality-skills/genera
 import { MasteringQualificationComponent } from './components/mastering-qualification/mastering-qualification.component';
 import { PlaneSkillsComponent } from './components/plane-skills/plane-skills.component';
 import { StatutoryCertificateDataComponent } from './components/statutory-certificate-data/statutory-certificate-data.component';
-import { StatutoryCertificateVamComponent } from './components/statutory-certificate-vam/statutory-certificate-vam.component';
 
 
 @NgModule({
