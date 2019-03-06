@@ -307,7 +307,7 @@
             "ITEM": "Rubrique / Item",
             "LEVEL": "Niveau"
         },
-        "DETAILS" :{
+        "DETAILS": {
             "TITLE": "Restitution Formulaire",
             "ROTATION_SUBTITLE": "Rotation",
             "DEGRADED_CONDITIONS": "Conditions dégradées",
@@ -321,8 +321,8 @@
             "REDACTOR_COMMENT": "Commentaire PNC Rédacteur",
             "PNC_COMMENT": "Commentaire PNC Observé",
             "COMMENT": "Commentaire :",
-            "STRONG_POINTS" : "Points forts :",
-            "WORKING_AXES" : "Axes de travail :",
+            "STRONG_POINTS": "Points forts :",
+            "WORKING_AXES": "Axes de travail :",
             "UPDATE_DATE": "Enregistré depuis le : ",
             "SPECIALITY": "Fonction",
             "EOBS_PNC_ASSIGNMENT": "Affectation à date de l'eObservation",
@@ -334,11 +334,29 @@
             "VAL_TITLE_OPTION": " - VAL",
             "BILAN_FLIGHT": "Vol Bilan",
             "EVAL": "EVAL",
-            "STATE" : {
+            "STATE": {
                 "LABEL": "Statut en cours : ",
                 "TAKEN_INTO_ACCOUNT": "Pris en compte",
                 "NOT_TAKEN_INTO_ACCOUNT": "Non pris en compte"
             }
+        },
+        "CONFIRM_VALIDATE": {
+            "TITLE": "Validation de l'eObservation",
+            "MESSAGE": "Vous êtes sur le point de valider votre formulaire sans avoir apposé de commentaire. Souhaitez-vous procéder à la validation ?",
+            "CONFIRM": "Oui",
+            "CANCEL": "Non"
+        },
+        "CONFIRM_BACK_WITHOUT_SAVE": {
+            "TITLE": "Modifications non enregistrées",
+            "MESSAGE": "Attention, des modifications n'ont pas été enregistrées, êtes-vous sûr de vouloir revenir en arrière ?"
+        },
+        "MESSAGES": {
+            "SUCCESS": {
+                "EOBSERVATION_VALIDATED": "eObservation validée"
+            }
+        },
+        "BUTTONS": {
+            "VALIDATE": "Valider"
         }
     },
     "PROFESSIONAL_LEVEL": {
