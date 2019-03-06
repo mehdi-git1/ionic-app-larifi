@@ -1,0 +1,30 @@
+color-number-dot {
+
+    @mixin color-dot($color) {
+        width: 1.8em;
+        height: 1.8em;
+        background-color: color($colors, $color);
+        border-radius: 50%;
+        color: color($colors, white);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .number-dot-1 {
+        @include color-dot ('tertiary');
+    }
+    .number-dot-2 {
+        @include color-dot ('orange80');
+    }
+    .number-dot-3 {
+        @include color-dot ('green70');
+    }
+    .number-dot-4 {
+        @include color-dot ('blue70');
+    }
+    .number-dot-default {
+        @include color-dot ('grey50');
+    }
+
+}

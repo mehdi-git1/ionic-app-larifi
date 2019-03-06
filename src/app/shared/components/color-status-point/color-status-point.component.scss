@@ -1,0 +1,30 @@
+color-status-point {
+    height: $colorPointSize;
+    width: $colorPointSize;
+    $colorPointSize: 12px;
+
+    .status-dot {
+        height: $colorPointSize;
+        width: $colorPointSize;
+        border-radius: 100%;
+        margin-right: 5px;
+        display: inline-flex;
+    }
+    
+    .green {
+        background: color($colors, 'green70');
+    }
+    
+    .yellow {
+        background: color($colors, 'yellow1');
+    }
+    
+    .orange {
+        background: color($colors, 'orange90');
+    }
+    
+    .red {
+        background: color($colors, 'red15');
+    }
+
+}
