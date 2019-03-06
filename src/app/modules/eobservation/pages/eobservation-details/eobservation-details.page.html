@@ -1,0 +1,87 @@
+<ion-header>
+  <ion-navbar>
+      <page-header [showSettingsIcon]="true" [pnc]="eObservation?.pnc">
+          <span > {{ 'EOBSERVATION.DETAILS.TITLE' | translate }} {{getTypeLabel()}} {{getDetailOptionType()}}</span>
+      </page-header>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+<pnc-card *ngIf="eObservation?.pnc" [itemMember]="createCrewMemberObjectFromPnc(eObservation?.pnc)"></pnc-card>
+
+<div class="speciality-grid">
+    <ion-grid>
+        <ion-row class="speciality-header">
+            <ion-col class="speciality" col-2>{{ 'EOBSERVATION.DETAILS.SPECIALITY' | translate }}</ion-col>
+            <ion-col col-10>{{ 'EOBSERVATION.DETAILS.EOBS_PNC_ASSIGNMENT' | translate }}</ion-col>
+        </ion-row>
+        <ion-row class="speciality-label">
+            <ion-col col-2>{{eObservation?.pncSpeciality}}</ion-col>
+            <ion-col col-10>
+                <span class="assignment"  *ngIf="eObservation?.pncDivision">{{ 'PNC_HOME.INFO_PANEL.DIVISION' | translate }} : {{eObservation?.pncDivision}}</span>
+                <span class="assignment"  *ngIf="eObservation?.pncSector">{{ 'PNC_HOME.INFO_PANEL.SECTOR' | translate }} : {{eObservation?.pncSector}}</span>
+                <span class="assignment"  *ngIf="eObservation?.pncGinq">{{ 'PNC_HOME.INFO_PANEL.GINQ' | translate }} : {{eObservation?.pncGinq}}</span>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</div>
+<edospnc-expandable-block mini="true" *ngIf="hasTemporaryPeriodToBeDisplayed()" title=" {{ 'EOBSERVATION.DETAILS.TEMPORARY_PERIOD' | translate }}">
+    <span class="temporary-period">
+        <radio-and-label disabled="true" conditionValue="{{eObservation?.formationFlight}}" label="{{ 'EOBSERVATION.DETAILS.FORMATION_FLIGHT' | translate }}"></radio-and-label>
+        <radio-and-label disabled="true" conditionValue="{{eObservation?.val}}" label="{{ 'EOBSERVATION.DETAILS.VAL' | translate }}"></radio-and-label>
+    </span>
+</edospnc-expandable-block>
+
+<edospnc-expandable-block mini="true" *ngIf="eObservation?.type === 'E_ALT'" title=" {{ 'EOBSERVATION.DETAILS.BILAN_FLIGHT' | translate }}">
+    <radio-and-label disabled="true" conditionValue="{{eObservation?.vac}}" label="{{ 'EOBSERVATION.DETAILS.EVAL' | translate }}"></radio-and-label>
+</edospnc-expandable-block>
+
+<edospnc-expandable-block mini="true" title=" {{ 'EOBSERVATION.DETAILS.ROTATION_SUBTITLE' | translate }}" [emptyCondition]="!hasFlights()">
+    <div  class="rotation-info">
+        <ion-grid><ion-row>
+            <ion-col col-2 class="rotation-number">{{eObservation?.rotationNumber}}</ion-col>
+            <ion-col col-2><span *ngIf="eObservation?.rotationDate">{{eObservation?.rotationDate | date: 'dd/MM/yyyy' : 'UTC'}} </span></ion-col>
+            <ion-col col-8><radio-and-label disabled="true" conditionValue="{{eObservation?.rotationDegraded}}" label="{{ 'EOBSERVATION.DETAILS.DEGRADED_CONDITIONS' | translate }}"></radio-and-label></ion-col>
+        </ion-row></ion-grid>
+    </div> 
+    <ion-grid class="rotation-grid">
+        <ion-row class="flight-header">
+            <ion-col col-2>{{ 'EOBSERVATION.DETAILS.FLIGHT_NUMBER' | translate }}</ion-col>
+            <ion-col col-2>{{ 'EOBSERVATION.DETAILS.FLIGHT_DATE' | translate }}</ion-col>
+            <ion-col col-2>{{ 'EOBSERVATION.DETAILS.STOP_STATION' | translate }}</ion-col>
+            <ion-col col-1>{{ 'EOBSERVATION.DETAILS.AIRCRAFT_TYPE' | translate }}</ion-col>
+            <ion-col col-2>{{ 'EOBSERVATION.DETAILS.VERSION' | translate }}</ion-col>
+            <ion-col col-2>{{ 'EOBSERVATION.DETAILS.OCCUPANCY_RATE' | translate }}</ion-col>
+            <ion-col col-1>{{ 'EOBSERVATION.DETAILS.WORKSTATION' | translate }}</ion-col>
+        </ion-row>
+        <ion-row *ngFor="let eObservationFlight of sortedFlights()">
+            <ion-col col-2>{{eObservationFlight?.flightNumber}}</ion-col>
+            <ion-col col-2><span *ngIf="eObservationFlight?.flightDate">{{eObservationFlight?.flightDate | date: 'dd/MM/yyyy' : 'UTC'}}</span></ion-col>
+            <ion-col col-2>{{eObservationFlight?.departureStation}} / {{eObservationFlight?.arrivalStation}}</ion-col>
+            <ion-col col-1>{{eObservationFlight?.aircraftType}}</ion-col>
+            <ion-col col-2>{{eObservationFlight?.exploitationVersion}}</ion-col>
+            <ion-col col-2>{{eObservationFlight?.occupancyRate}}</ion-col>
+            <ion-col col-1>{{eObservationFlight?.workStation}}</ion-col>
+        </ion-row>
+    </ion-grid>
+</edospnc-expandable-block>
+
+<eobs-theme *ngFor="let eObservationTheme of itemsSortedByTheme" [theme]="eObservationTheme"></eobs-theme>
+
+<eobs-comment title="{{ 'EOBSERVATION.DETAILS.REDACTOR_COMMENT' | translate }}" comment="{{eObservation?.redactorComment}}" strongPoints="{{eObservation?.strongPoints}}" workingAxes="{{eObservation?.workingAxes}}"  commentDate="{{eObservation?.redactionDate}}" speciality="{{eObservation?.redactorSpeciality}}" lastName="{{eObservation?.redactor?.lastName}}" firstName="{{eObservation?.redactor?.firstName}}"></eobs-comment>
+
+<eobs-comment title="{{ 'EOBSERVATION.DETAILS.PNC_COMMENT' | translate }}" comment="{{eObservation?.pncComment}}" commentDate="{{eObservation?.redactionDate}}" speciality="{{eObservation?.pncSpeciality}}" lastName="{{eObservation?.pnc?.lastName}}" firstName="{{eObservation?.pnc?.firstName}}"></eobs-comment>
+
+<div class="state-block">
+    <span>{{ 'EOBSERVATION.DETAILS.STATE.LABEL' | translate }} 
+        <color-status-point [colorClass]="getColorStatusPoint()">
+        </color-status-point> 
+        <span class="state-value">{{ 'EOBSERVATION.DETAILS.STATE.' + eObservation?.state | translateOrEmpty }}</span>
+    </span>
+    <span>{{ 'EOBSERVATION.DETAILS.UPDATE_DATE' | translate }} 
+        <span *ngIf="eObservation?.redactionDate">{{eObservation?.redactionDate | date: 'dd/MM/yyyy' : 'UTC'}}
+        </span>
+    </span>
+</div>
+
+</ion-content>

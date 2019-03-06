@@ -1,3 +1,4 @@
+import { LanguageModel } from './statutory-certificate/language.model';
 import { MedicalAptitudesModel } from './statutory-certificate/medical-aptitudes.model';
 import { AnnualElearningModel } from './statutory-certificate/annual-e-learning.model';
 import { MasteringQualificationModel } from './statutory-certificate/mastering-qualification.model';
@@ -15,6 +16,7 @@ export class StatutoryCertificateModel extends EDossierPncObjectModel {
     masteringQualification: MasteringQualificationModel;
     annualElearning: AnnualElearningModel;
     medicalAptitudes: MedicalAptitudesModel;
+    languages: LanguageModel[];
 
     getStorageId(): string {
         return `${this.matricule}`;

@@ -1,0 +1,9 @@
+<mat-expansion-panel [disabled]="isDisabled()" [expanded]="isExpandedByDefault()" [hideToggle]="hideToggle">
+    <mat-expansion-panel-header class="block-header-label" [expandedHeight]="matPanelHeaderHeight" [collapsedHeight]="matPanelHeaderHeight" hideToggle="false">
+        {{title}}
+    </mat-expansion-panel-header>
+    <no-data *ngIf="emptyCondition; else contentBlock"></no-data>
+    <ng-template #contentBlock>
+        <ng-content></ng-content>
+    </ng-template>
+</mat-expansion-panel>
