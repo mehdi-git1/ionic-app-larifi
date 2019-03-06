@@ -1,3 +1,4 @@
+import { RelayModel } from './../../../core/models/statutory-certificate/relay.model';
 import { Component, Input, ViewChild } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { TranslateService } from '@ngx-translate/core';
@@ -8,7 +9,6 @@ import { ToastService } from '../../../core/services/toast/toast.service';
 import { ConnectivityService } from '../../../core/services/connectivity/connectivity.service';
 import { GenderService } from '../../../core/services/gender/gender.service';
 import { PncService } from '../../../core/services/pnc/pnc.service';
-import { RelayModel } from '../../../core/models/relay.model';
 import { OfflineIndicatorComponent } from '../offline-indicator/offline-indicator.component';
 
 
