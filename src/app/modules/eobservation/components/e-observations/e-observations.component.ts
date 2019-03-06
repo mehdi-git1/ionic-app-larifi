@@ -46,6 +46,10 @@ export class EObservationsComponent implements OnChanges {
    */
   filterEobsItems(eObservation: EObservationModel): EObservationModel{
     const filteredObservation = _.cloneDeep(eObservation);
+    if (!this.filterItems) {
+      // on ne filtre pas les items dans ce cas-là
+      return eObservation;
+    }
     filteredObservation.eobservationItems = new Array();
     if (this.filterItems && eObservation && eObservation.eobservationItems) {
       filteredObservation.eobservationItems = eObservation.eobservationItems.filter((element) => {
