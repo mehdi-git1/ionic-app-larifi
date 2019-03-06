@@ -1,5 +1,4 @@
 import { DatePipe } from '@angular/common';
-import { LanguageModel } from './../../../../core/models/statutory-certificate/language.model';
 import { Component, Input, OnInit } from '@angular/core';
 
 import * as _ from 'lodash';
