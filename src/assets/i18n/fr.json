@@ -231,7 +231,8 @@
             "MASTERING_QUALIFICATION": "Qualification maîtrises",
             "ANNUAL_ELEARNING": "Elearning annuel",
             "MEDICAL_APTITUDES": "Aptitudes médicales",
-            "LANGUAGES": "Langues"
+            "LANGUAGES": "Langues",
+            "TRAVEL_DOCUMENTS": "Documents de voyage"
         },
         "GENERALITY_SKILLS": {
             "START_DATE": "Depuis le",
@@ -303,7 +304,7 @@
             "ITEM": "Rubrique / Item",
             "LEVEL": "Niveau"
         },
-        "DETAILS" :{
+        "DETAILS": {
             "TITLE": "Restitution Formulaire",
             "ROTATION_SUBTITLE": "Rotation",
             "DEGRADED_CONDITIONS": "Conditions dégradées",
@@ -317,8 +318,8 @@
             "REDACTOR_COMMENT": "Commentaire PNC Rédacteur",
             "PNC_COMMENT": "Commentaire PNC Observé",
             "COMMENT": "Commentaire :",
-            "STRONG_POINTS" : "Points forts :",
-            "WORKING_AXES" : "Axes de travail :",
+            "STRONG_POINTS": "Points forts :",
+            "WORKING_AXES": "Axes de travail :",
             "UPDATE_DATE": "Enregistré depuis le : ",
             "SPECIALITY": "Fonction",
             "EOBS_PNC_ASSIGNMENT": "Affectation à date de l'eObservation",
@@ -330,7 +331,7 @@
             "VAL_TITLE_OPTION": " - VAL",
             "BILAN_FLIGHT": "Vol Bilan",
             "EVAL": "EVAL",
-            "STATE" : {
+            "STATE": {
                 "LABEL": "Statut en cours : ",
                 "TAKEN_INTO_ACCOUNT": "Pris en compte",
                 "NOT_TAKEN_INTO_ACCOUNT": "Non pris en compte"
