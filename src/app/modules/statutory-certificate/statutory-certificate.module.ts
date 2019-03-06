@@ -1,3 +1,4 @@
+import { RelaysComponent } from './components/relay/relays.component';
 import { LanguagesComponent } from './components/languages/languages.component';
 import { MedicalAptitudesComponent } from './components/medical-aptitudes/medical-aptitudes.component';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
@@ -22,7 +23,8 @@ import { StatutoryCertificateDataComponent } from './components/statutory-certif
     PlaneSkillsComponent,
     StatutoryCertificateDataComponent,
     MedicalAptitudesComponent,
-    LanguagesComponent
+    LanguagesComponent,
+    RelaysComponent
   ],
   imports: [
     [IonicPageModule.forChild(StatutoryCertificatePage)],
