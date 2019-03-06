@@ -1,4 +1,11 @@
 pnc-card {
+
+    .card-md {
+        width: initial;
+        margin: initial;
+        margin-bottom:16px;
+    }
+
     .disabled {
         background: color($colors, grey90);
     }

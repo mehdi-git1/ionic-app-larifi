@@ -17,7 +17,8 @@ offlineSecurityServiceMock.getAuthenticatedUser.and.returnValue(
 const securityServiceMock = jasmine.createSpyObj('securityServiceMock', ['getAuthenticatedUser', 'isAdmin']);
 const appInitServiceMock = jasmine.createSpyObj('appInitServiceMock', ['initParameters']);
 const deviceServiceMock = jasmine.createSpyObj('deviceServiceMock', ['isOfflineModeAvailable', 'isBrowser']);
-const synchronizationServiceMock = jasmine.createSpyObj('synchronizationServiceMock', ['']);
+const synchronizationServiceMock = jasmine.createSpyObj('synchronizationServiceMock', ['storeEDossierOffline']);
+const synchronizationManagementServiceMock = jasmine.createSpyObj('synchronizationManagementServiceMock', ['']);
 const storageServiceMock = jasmine.createSpyObj('storageServiceMock', ['initOfflineMap']);
 storageServiceMock.initOfflineMap.and.returnValue(Promise.resolve(true));
 const connectivityServiceMock = jasmine.createSpyObj('connectivityServiceMock', ['setConnected']);
@@ -41,6 +42,7 @@ describe('AuthenticationService', () => {
             ToastServiceMock,
             connectivityServiceMock,
             synchronizationServiceMock,
+            synchronizationManagementServiceMock,
             secMobilServiceMock);
         sessionServiceMock.authenticatedUser = authenticatedUser;
     });

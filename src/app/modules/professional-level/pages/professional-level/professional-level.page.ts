@@ -21,7 +21,7 @@ export class ProfessionalLevelPage {
   professionalLevel: ProfessionalLevelModel;
 
   eObservations: EObservationModel[];
-
+  eObservationsFiltered: EObservationModel[];
   listItemLegend = [];
 
   constructor(private navParams: NavParams,
@@ -66,7 +66,7 @@ export class ProfessionalLevelPage {
   sortProfessionalLevel(professionalLevel: ProfessionalLevelModel): ProfessionalLevelModel {
     const sortedProfessionalLevel: ProfessionalLevelModel = _.cloneDeep(professionalLevel);
 
-    if (sortedProfessionalLevel.stages) {
+    if (sortedProfessionalLevel && sortedProfessionalLevel.stages) {
       // Tri de l'ordre des stages
       sortedProfessionalLevel.stages = sortedProfessionalLevel.stages.sort((a, b) => a.date < b.date ? 1 : -1);
 
@@ -82,17 +82,11 @@ export class ProfessionalLevelPage {
 
   /**
    * Récupére la liste des eObservations
-   * triée pour ne garder que les écarts de notations avec "SECURITE DES VOLS" et "SURETE"
+   *
+   * @return la liste des eObs
    */
   getEObservationsList(): void {
     this.eObservationService.getEObservations(this.matricule).then(eObservations => {
-      // Tri les eObservations pour ne garder que les écarts de notations avec "SECURITE DES VOLS" et "SURETE"
-      eObservations.forEach(value => {
-        value.eobservationItems = value.eobservationItems.filter((element) => {
-          const upperCaseElement = element.refItemLevel.item.theme.label.toUpperCase();
-          return upperCaseElement === 'SECURITE DES VOLS' || upperCaseElement === 'SURETE';
-        });
-      });
       this.eObservations = eObservations;
     }, error => {
     });
