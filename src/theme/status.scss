@@ -31,8 +31,8 @@ $colorPointSize: 12px;
 }
 
 .career-objective-status-dot {
-    height: $colorPointSize;
-    width: $colorPointSize;
+    min-height: $colorPointSize;
+    min-width: $colorPointSize;
     border-radius: 100%;
     margin-right: 15px;
     display: inline-flex;
