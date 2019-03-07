@@ -232,7 +232,8 @@
             "ANNUAL_ELEARNING": "Elearning annuel",
             "MEDICAL_APTITUDES": "Aptitudes médicales",
             "LANGUAGES": "Langues",
-            "RELAYS": "Référents / Relais"
+            "RELAYS": "Référents / Relais",
+            "TRAVEL_DOCUMENTS": "Documents / Visas"
         },
         "GENERALITY_SKILLS": {
             "START_DATE": "Depuis le",

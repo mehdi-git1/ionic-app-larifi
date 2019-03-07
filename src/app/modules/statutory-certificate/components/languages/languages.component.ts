@@ -22,10 +22,12 @@ export class LanguagesComponent implements OnInit {
 
     ngOnInit() {
         let stringOfLanguages = '';
-        this.languagesData.forEach(language => {
-            stringOfLanguages = stringOfLanguages + '[' + language.label + ' (' + language.code + ') : '
-                + language.note + ' (' + this.datePipe.transform(language.date, 'dd/MM/yyyy') + ') ] ';
-        });
+        if (this.languagesData) {
+            this.languagesData.forEach(language => {
+                stringOfLanguages = stringOfLanguages + '[' + language.label + ' (' + language.code + ') : '
+                    + language.note + ' (' + this.datePipe.transform(language.date, 'dd/MM/yyyy') + ') ] ';
+            });
+        }
         this.languagesDisplayedData = {
             headers:
                 [

@@ -12,6 +12,7 @@ import { GeneralitySkillsComponent } from './components/generality-skills/genera
 import { MasteringQualificationComponent } from './components/mastering-qualification/mastering-qualification.component';
 import { PlaneSkillsComponent } from './components/plane-skills/plane-skills.component';
 import { StatutoryCertificateDataComponent } from './components/statutory-certificate-data/statutory-certificate-data.component';
+import { TravelDocumentsComponent } from './components/travel-documents/travel-documents.component';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import { StatutoryCertificateDataComponent } from './components/statutory-certif
     StatutoryCertificateDataComponent,
     MedicalAptitudesComponent,
     LanguagesComponent,
-    RelaysComponent
+    RelaysComponent,
+    TravelDocumentsComponent
   ],
   imports: [
     [IonicPageModule.forChild(StatutoryCertificatePage)],
