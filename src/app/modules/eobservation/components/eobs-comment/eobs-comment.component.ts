@@ -52,20 +52,9 @@ export class EObsCommentComponent {
   }
 
   /**
-   * Récupère le commentaire à afficher
-   * @return le commentaire à afficher
-   */
-  getComment(): string {
-    if (this.eObservation) {
-      return this.isManagerComment() ? this.eObservation.redactorComment : this.eObservation.pncComment;
-    }
-    return undefined;
-  }
-
-  /**
-   * Teste si le commentaire à afficher est celui du PNC
-   * @return vrai si c'est le cas, faux sinon
-   */
+ * Teste si le commentaire à afficher est celui du PNC
+ * @return vrai si c'est le cas, faux sinon
+ */
   isPncComment(): boolean {
     return this.type === PncRoleEnum.PNC;
   }
