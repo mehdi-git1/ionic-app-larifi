@@ -18,7 +18,7 @@ export class PncSynchroService {
    * @return le EDossier complet du PNC
    */
   getPncSynchro(matricule: string): Promise<PncSynchroModel> {
-    return this.restService.get(this.config.getBackEndUrl('getPncSynchroByPnc', [matricule]));
+    return this.restService.get(this.config.getBackEndUrl('getPncSynchroByPnc', [matricule]), undefined, undefined, false, true);
   }
 
   /**

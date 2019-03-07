@@ -27,7 +27,28 @@ export class ProfessionalLevelService extends BaseService {
    * @return le suivi réglementaire du PNC
    */
   getProfessionalLevel(matricule: string): Promise<ProfessionalLevelModel> {
-    return this.execFunctionService('getProfessionalLevel', matricule);
+    return this.execFunctionService('getProfessionalLevel', matricule).then(professionalLevelModel => {
+      return this.sortScoreModuleByOrder(professionalLevelModel);
+    });
+  }
+
+  /**
+   * Tri les scores des modules des suivis reglémentaires par l'attribut order
+   * @param professionalLevelModel  liste des suivis reglémentaires à trier
+   * @return professionalLevelModel liste des suivis reglémentaires triés
+   */
+  sortScoreModuleByOrder(professionalLevelModel: ProfessionalLevelModel): ProfessionalLevelModel {
+    for (const stage of professionalLevelModel.stages) {
+      if (stage.modules) {
+        // Tri de l'ordre des scores
+        for (const module of stage.modules) {
+          if (module.scores) {
+            module.scores = module.scores.sort((a, b) => a.order > b.order ? 1 : -1);
+          }
+        }
+      }
+    }
+    return professionalLevelModel;
   }
 
 }

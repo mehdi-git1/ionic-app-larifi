@@ -1,8 +1,7 @@
 
 import { tick, fakeAsync } from '@angular/core/testing';
-import { Events } from 'ionic-angular';
 
-import { AuthenticationStatusEnum } from './../enums/authentication-status.enum';
+import { AuthenticationStatusEnum } from '../enums/authentication-status.enum';
 import { AuthenticationService } from './authentication.service';
 import { AuthenticatedUserModel } from '../models/authenticated-user.model';
 
@@ -18,11 +17,14 @@ offlineSecurityServiceMock.getAuthenticatedUser.and.returnValue(
 const securityServiceMock = jasmine.createSpyObj('securityServiceMock', ['getAuthenticatedUser', 'isAdmin']);
 const appInitServiceMock = jasmine.createSpyObj('appInitServiceMock', ['initParameters']);
 const deviceServiceMock = jasmine.createSpyObj('deviceServiceMock', ['isOfflineModeAvailable', 'isBrowser']);
-const synchronizationServiceMock = jasmine.createSpyObj('synchronizationServiceMock', ['']);
+const synchronizationServiceMock = jasmine.createSpyObj('synchronizationServiceMock', ['storeEDossierOffline']);
+const synchronizationManagementServiceMock = jasmine.createSpyObj('synchronizationManagementServiceMock', ['']);
 const storageServiceMock = jasmine.createSpyObj('storageServiceMock', ['initOfflineMap']);
 storageServiceMock.initOfflineMap.and.returnValue(Promise.resolve(true));
 const connectivityServiceMock = jasmine.createSpyObj('connectivityServiceMock', ['setConnected']);
 const secMobilServiceMock = jasmine.createSpyObj('secMobilServiceMock', ['authenticate']);
+const ToastServiceMock = jasmine.createSpyObj('ToastServiceMock', ['success', 'warning']);
+const TranslateServiceMock = jasmine.createSpyObj('TranslateServiceMock', ['instant']);
 
 describe('AuthenticationService', () => {
 
@@ -36,10 +38,12 @@ describe('AuthenticationService', () => {
             appInitServiceMock,
             deviceServiceMock,
             storageServiceMock,
+            TranslateServiceMock,
+            ToastServiceMock,
             connectivityServiceMock,
             synchronizationServiceMock,
-            secMobilServiceMock,
-            new Events());
+            synchronizationManagementServiceMock,
+            secMobilServiceMock);
         sessionServiceMock.authenticatedUser = authenticatedUser;
     });
 
@@ -141,11 +145,14 @@ describe('AuthenticationService', () => {
                     );
                 });
 
-                it('doit renvoyer le type APPLI_UNAVAILABLE si la gestion du offline renvoie false sur navigateur', fakeAsync(() => {
+                it(`doit afficher un toast avec comme message 'GLOBAL.MESSAGES.ERROR.SERVER_APPLICATION_UNAVAILABLE' si la gestion du offline renvoie false sur navigateur`, fakeAsync(() => {
                     spyOn(authenticationService, 'offlineManagement').and.returnValue(Promise.resolve(false));
                     deviceServiceMock.isBrowser.and.returnValue(true);
                     authenticationService.initializeUser().then(
-                        data => expect(data).toBe(AuthenticationStatusEnum.APPLI_UNAVAILABLE)
+                        data => {
+                            expect(TranslateServiceMock.instant).toHaveBeenCalledWith('GLOBAL.MESSAGES.ERROR.SERVER_APPLICATION_UNAVAILABLE');
+                            expect(ToastServiceMock.warning).toHaveBeenCalled();
+                        }
                     );
                 }));
 
@@ -157,10 +164,13 @@ describe('AuthenticationService', () => {
                     );
                 }));
 
-                it(`doit renvoyer le type INIT_KO si la gestion du offline plante`, fakeAsync(() => {
+                it(`doit renvoyer un toast avec comme message 'GLOBAL.MESSAGES.ERROR.APPLICATION_NOT_INITIALIZED'  si la gestion du offline plante`, fakeAsync(() => {
                     spyOn(authenticationService, 'offlineManagement').and.returnValue(Promise.reject(false));
                     authenticationService.initializeUser().then(
-                        data => expect(data).toBe(AuthenticationStatusEnum.INIT_KO)
+                        data => {
+                            expect(TranslateServiceMock.instant).toHaveBeenCalledWith('GLOBAL.MESSAGES.ERROR.SERVER_APPLICATION_UNAVAILABLE');
+                            expect(ToastServiceMock.warning).toHaveBeenCalled();
+                        }
                     );
                 }));
             });
@@ -249,3 +259,4 @@ describe('AuthenticationService', () => {
     });
 
 });
+

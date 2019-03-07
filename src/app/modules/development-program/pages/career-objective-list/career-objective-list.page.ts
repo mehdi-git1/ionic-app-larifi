@@ -1,3 +1,4 @@
+import { EObservationsArchivesPage } from './../../../eobservation/pages/eobservations-archives/eobservations-archives.page';
 import { EObservationModel } from '../../../../core/models/eobservation/eobservation.model';
 import { EObservationService } from './../../../../core/services/eobservation/eobservation.service';
 import { FormsEObservationService } from './../../../../core/services/forms/forms-e-observation.service';
@@ -47,6 +48,7 @@ export class CareerObjectiveListPage {
     this.lastConsultedRotation = this.sessionService.appContext.lastConsultedRotation;
     this.synchronizationProvider.synchroStatusChange.subscribe(synchroInProgress => {
       if (!synchroInProgress) {
+        this.getEObservationsList();
         this.initCareerObjectivesList();
       }
     });
@@ -60,9 +62,9 @@ export class CareerObjectiveListPage {
     }
     this.pncService.getPnc(this.matricule).then(pnc => {
       this.pnc = pnc;
-      this.getEObservationsList();
     }, error => {
     });
+    this.getEObservationsList();
     this.initCareerObjectivesList();
   }
 
@@ -86,6 +88,7 @@ export class CareerObjectiveListPage {
    * Récupére la liste des eObservations
    */
   getEObservationsList() {
+    this.eObservations = undefined;
     this.eObservationService.getEObservations(this.matricule).then(
       eobs => {
         this.eObservations = eobs;
@@ -97,6 +100,7 @@ export class CareerObjectiveListPage {
     * Récupère la liste des objectifs
     */
   initCareerObjectivesList() {
+    this.careerObjectives = undefined;
     this.careerObjectiveService.getPncCareerObjectives(this.matricule).then(result => {
       result.sort((careerObjective: CareerObjectiveModel, otherCareerObjective: CareerObjectiveModel) => {
         return careerObjective.creationDate < otherCareerObjective.creationDate ? 1 : -1;
@@ -151,5 +155,13 @@ export class CareerObjectiveListPage {
    */
   refreshPage() {
     this.initCareerObjectivesList();
+    this.getEObservationsList();
+  }
+
+  /**
+   * Redirige vers la page des archives des eObservations
+   */
+  goToEobservationsArchives() {
+    this.navCtrl.push(EObservationsArchivesPage, { matricule: this.matricule });
   }
 }

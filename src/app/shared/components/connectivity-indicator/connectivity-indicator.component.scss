@@ -4,14 +4,31 @@ connectivity-indicator {
         height: 30px;
         border-radius: 100%;
         margin-right: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        & > * {
+            position: absolute;
+        }
+
+        &:not(.offline) {
+            background: color($colors, green60);
+        }
     }
 
     .offline {
         background: color($colors, orange60);
     }
 
-    :not(.offline) {
-        background: color($colors, green60);
+    .synchro-progress {
+        font-size: 0.8em;
+        z-index: 2;
+        color: color($colors, white);
+    }
+
+    .synchro-progress:after {
+        content: '%';
     }
 
     .synchro-in-progress {
@@ -24,10 +41,22 @@ connectivity-indicator {
         animation: spin 2s linear infinite;
     }
 
+    .synchro-error-count{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 100%;
+        color: color($colors,red70);
+        font-size: 1.8em;
+        font-weight: 600;
+        text-shadow: 1px 1px 1px color($colors, grey70), -1px 1px 1px color($colors, grey70), 1px -1px 1px color($colors, grey70), -1px -1px 1px color($colors, grey70);
+    }
+
     @keyframes spin {
         0% {
             transform: rotate(0deg);
         }
+
         100% {
             transform: rotate(360deg);
         }

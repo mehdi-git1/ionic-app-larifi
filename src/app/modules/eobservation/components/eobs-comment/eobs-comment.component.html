@@ -1,0 +1,40 @@
+<edospnc-expandable-block mini="true" [title]="getTitle()" [emptyCondition]="isEmpty()" *ngIf="eObservation">
+    <div class="comment-container">
+        <ng-container *ngIf="isManagerComment(); else pncCommentBlock">
+            <div *ngIf="eObservation?.strongPoints" class="comment">
+                <label><span class="edospnc-speechBubble"></span>{{ 'EOBSERVATION.DETAILS.STRONG_POINTS' | translate }}</label>
+                <p>
+                    {{eObservation.strongPoints}}
+                </p>
+            </div>
+            <div *ngIf="eObservation?.workingAxes" class="comment">
+                <label><span class="edospnc-speechBubble"></span>{{ 'EOBSERVATION.DETAILS.WORKING_AXES' | translate }}</label>
+                <p>
+                    {{eObservation.workingAxes}}
+                </p>
+            </div>
+            <div *ngIf="eObservation.redactorComment" class="comment">
+                <label><span class="edospnc-speechBubble"></span>{{ 'EOBSERVATION.DETAILS.COMMENT' | translate }}</label>
+                <p>
+                    {{eObservation.redactorComment}}
+                </p>
+            </div>
+        </ng-container>
+        <ng-template #pncCommentBlock>
+            <div class="comment">
+                <label><span class="edospnc-speechBubble"></span>{{ 'EOBSERVATION.DETAILS.COMMENT' | translate }}</label>
+                <p *ngIf="!canEditPncComment; else editPncCommentBlock">
+                    {{eObservation.pncComment}}
+                </p>
+                <ng-template #editPncCommentBlock>
+                    <ion-textarea [(ngModel)]="eObservation.pncComment" autocorrect="on"></ion-textarea>
+                </ng-template>
+            </div>
+        </ng-template>
+    </div>
+    <div class="comment-footer">
+        <span *ngIf="eObservation?.commentDate">{{eObservation?.commentDate | date: 'dd/MM/yyyy' : 'UTC'}}</span>
+        <span>{{getAuthorSpeciality()}}</span>
+        <span>{{getCommentAuthor()?.lastName}} <span class="firstname">{{getCommentAuthor()?.firstName}}</span></span>
+    </div>
+</edospnc-expandable-block>

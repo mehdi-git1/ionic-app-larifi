@@ -9,7 +9,7 @@ import { AppConstant } from '../../../../app.constant';
 import { PncHomePage } from '../../../home/pages/pnc-home/pnc-home.page';
 
 import { ConnectivityService } from '../../../../core/services/connectivity/connectivity.service';
-import { CrewMemberEnum } from '../../../../core/models/crew-member.enum';
+import { CrewMemberModel } from '../../../../core/models/crew-member.model';
 import { SessionService } from '../../../../core/services/session/session.service';
 
 import { PncService } from '../../../../core/services/pnc/pnc.service';
@@ -130,15 +130,6 @@ export class PncSearchPage implements OnInit {
                 resolve();
             }
         });
-    }
-
-    /**Crée un objet CrewMemberEnum à partir d'un objet PncModel
-     * @param pnc pnc à transformer
-     */
-    createCrewMemberObjectFromPnc(pnc: PncModel) {
-        const crewMember: CrewMemberEnum = new CrewMemberEnum();
-        crewMember.pnc = pnc;
-        return crewMember;
     }
 
     /**

@@ -1,0 +1,129 @@
+page-eobservation-details {
+
+    $border-grid: 1px solid color($colors, grey75);
+    $block-border-radius: 5px;
+
+    .rotation-number {
+        color: color($colors, blue55);
+    }
+
+    .rotation-info {
+        display: flex;
+        justify-content: flex-start;
+
+        ion-row:first-child {
+            display: flex;
+            align-items: center;
+
+            ion-col:first-child {
+                padding-left: 24px;
+            }
+        }
+    }
+
+    ion-grid.rotation-grid {
+        .flight-header {
+            color: color($colors, blue55);
+        }
+
+        ion-row {
+            ion-col:first-child {
+                padding-left: 24px;
+            }
+        }
+
+        ion-row:first-child {
+            border-top: $border-grid;
+            border-bottom: $border-grid;
+        }
+
+        ion-col {
+            border-right: $border-grid;
+        }
+
+        ion-row:nth-child(even) {
+            background: color($colors, grey90);
+        }
+
+        ion-col:last-child {
+            border: initial;
+        }
+    }
+
+    .state-block {
+        height: 32px;
+        padding-right: 24px;
+        padding-left: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background: color($colors, bluegrey3);
+        color: color($colors, white);
+        border-radius: $block-border-radius;
+
+        span {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-right: 5px;
+            padding-left: 5px;
+        }
+
+        .state-value {
+            padding-left: 10px;
+        }
+
+        color-status-point {
+            padding-right: 5px;
+            padding-left: 5px;
+        }
+    }
+
+    .speciality-grid {
+        padding: 0px;
+        margin-bottom: 16px;
+        box-sizing: border-box;
+        box-shadow: 0 3px 1px -2px rgba(0, 0, 0, .2), 0 2px 2px 0 rgba(0, 0, 0, .14), 0 1px 5px 0 rgba(0, 0, 0, .12);
+        border-radius: $block-border-radius;
+        background: color($colors, white);
+
+        .grid {
+            padding: initial;
+        }
+    }
+
+    .speciality-header {
+        height: 32px;
+        padding-right: 24px;
+        padding-left: 24px;
+        background: color($colors, blue55);
+        color: color($colors, white);
+        font-size: 18px !important;
+        border-radius: $block-border-radius;
+        display: flex;
+        align-items: center;
+    }
+
+    .speciality-label {
+        padding-left: 24px;
+        background: color($colors, white);
+
+        ion-col {
+            background: color($colors, white);
+        }
+
+        .assignment {
+            padding-right: 15px;
+        }
+    }
+
+    .temporary-period {
+        display: flex;
+        align-items: center;
+        padding: 24px;
+    }
+
+    .button-bar {
+        margin-top: 10px;
+    }
+}

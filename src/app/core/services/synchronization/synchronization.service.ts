@@ -25,9 +25,11 @@ import { WaypointModel } from '../../models/waypoint.model';
 import { RotationModel } from '../../models/rotation.model';
 import { SecurityService } from '../security/security.service';
 import { LegService } from '../leg/leg.service';
-import { CrewMemberEnum } from '../../models/crew-member.enum';
+import { CrewMemberModel } from '../../models/crew-member.model';
 import { LegModel } from '../../models/leg.model';
 import { StatutoryCertificateTransformerService } from '../statutory-certificate/statutory-certificate-transformer.service';
+import { Events } from 'ionic-angular';
+import { EObservationModel } from '../../models/eobservation/eobservation.model';
 
 @Injectable()
 export class SynchronizationService {
@@ -52,7 +54,8 @@ export class SynchronizationService {
     private crewMemberTransformerService: CrewMemberTransformerService,
     private rotationTransformerProvider: RotationTransformerService,
     private legTransformerProvider: LegTransformerService,
-    private eObservationTransformerService: EObservationTransformerService) {
+    private eObservationTransformerService: EObservationTransformerService,
+    private events: Events) {
   }
 
   /**
@@ -71,7 +74,7 @@ export class SynchronizationService {
             error => reject(this.translateService.instant('SYNCHRONIZATION.PNC_SAVED_OFFLINE_ERROR', { 'matricule': matricule }))
           );
         }, error => {
-          reject(this.translateService.instant('SYNCHRONIZATION.PNC_SAVED_OFFLINE_ERROR', { 'matricule': matricule }));
+          reject(error.detailMessage);
         });
       } else {
         reject(this.translateService.instant('GLOBAL.MESSAGES.ERROR.APPLICATION_SYNCHRO_PENDING', { 'matricule': matricule }));
@@ -180,7 +183,7 @@ export class SynchronizationService {
    * Enregistre les rotations en cache
    * @param rotations tableau de rotations
    */
-  private storeRotations(rotations: RotationModel[]) {
+  private storeRotations(rotations: RotationModel[]): void {
     if (rotations != null) {
       for (const rotation of rotations) {
         this.storageService.save(EntityEnum.ROTATION, this.rotationTransformerProvider.toRotation(rotation), true);
@@ -191,10 +194,10 @@ export class SynchronizationService {
   /**
    * Enregistre les vols en cache
    * @param legs tableau de vols
-   * @return un tableau de Promise<CrewMemberEnum> dont chaque item est la liste d'équipage d'un des vols en paramètre
+   * @return un tableau de promesses dont chaque item est la liste d'équipage d'un des vols en paramètre
    */
-  private storeLegs(legs: LegModel[]): Promise<CrewMemberEnum[]>[] {
-    const crewMembersPromisesArray: Promise<CrewMemberEnum[]>[] = new Array();
+  private storeLegs(legs: LegModel[]): Promise<CrewMemberModel[]>[] {
+    const crewMembersPromisesArray: Promise<CrewMemberModel[]>[] = new Array();
     if (legs != null) {
       for (const leg of legs) {
         const techIdRotation: number = leg.rotation.techId;
@@ -208,15 +211,15 @@ export class SynchronizationService {
   }
 
   /**
-   * Enregistre les crewMembers en cache, ainsi que les eObservations.
-   * Un traitement est effectué afin de gérer l'unicité (par matricule) des crewMembers. De meme pour les eObservations (unicité par couple matricule/rotationId)
-   * Le crewMember correspondant au matricule en paramètre ne sera pas traité
+   * Enregistre les crewMembers en cache.
+   * Un traitement est effectué afin de gérer l'unicité (par matricule) des crewMembers.
+   * Le crewMember correspondant au matricule en paramètre ne sera pas traité.
    * @param matricule le matricule du PncModel principal (celui dont on charge le eDossier initialement)
    * @param flightCrewMatrix matrice de crewMembers
    * @return une promesse qui se résout quand tout l'équipage a été mis en cache
    */
-  private storeCrewMembers(matricule: string, flightCrewMatrix: CrewMemberEnum[][]): Promise<boolean[]> {
-    const crewMembers: Array<CrewMemberEnum> = new Array();
+  private storeCrewMembers(matricule: string, flightCrewMatrix: CrewMemberModel[][]): Promise<boolean[]> {
+    const crewMembers: Array<CrewMemberModel> = new Array();
     for (const flightCrewList of flightCrewMatrix) {
       for (const flightCrew of flightCrewList) {
         this.storageService.save(EntityEnum.CREW_MEMBER, this.crewMemberTransformerService.toCrewMember(flightCrew), true);
@@ -225,33 +228,16 @@ export class SynchronizationService {
         }
       }
     }
-    const formsInputParamsPromises: Promise<FormsInputParamsModel>[] = new Array();
+
     const storeEDossierOfflinePromises = new Array<Promise<boolean>>();
     const crewMembersAlreadyStored: Array<String> = new Array();
-    const eObsRotationsAlreadyCreated: Map<String, number[]> = new Map<String, number[]>();
     for (const crewMember of crewMembers) {
       // charge l'edossier PNC de chaque membre d'équipage si il n'a a pas encore été stocké
       if (crewMembersAlreadyStored.indexOf(crewMember.pnc.matricule) < 0) {
-        storeEDossierOfflinePromises.push(this.storeEDossierOffline(crewMember.pnc.matricule, false));
+        this.events.publish('SynchroRequest:add', crewMember.pnc);
         crewMembersAlreadyStored.push(crewMember.pnc.matricule);
       }
-
-      // alimente un tableau de promises du service eObs (1 appel par couple matricule/rotationId)
-      if (!eObsRotationsAlreadyCreated.get(crewMember.pnc.matricule)) {
-        eObsRotationsAlreadyCreated.set(crewMember.pnc.matricule, new Array());
-      }
-      if (eObsRotationsAlreadyCreated.get(crewMember.pnc.matricule).indexOf(crewMember.rotationId) < 0) {
-        formsInputParamsPromises.push(this.eObservationService.getFormsInputParams(crewMember.pnc.matricule, crewMember.rotationId));
-        eObsRotationsAlreadyCreated.get(crewMember.pnc.matricule).push(crewMember.rotationId);
-      }
     }
-    Promise.all(formsInputParamsPromises).then(formsInputParams => {
-      for (const formsInputParam of formsInputParams) {
-        this.storageService.save(EntityEnum.FORMS_INPUT_PARAM, formsInputParam, true);
-      }
-      this.storageService.persistOfflineMap();
-    }, error => { });
-
     return Promise.all(storeEDossierOfflinePromises);
   }
 
@@ -281,10 +267,10 @@ export class SynchronizationService {
 
     // supression des eObservations
     const eObservations = this.storageService.findAll(EntityEnum.EOBSERVATION);
-    const pncEObservations = careerObjectives.filter(eObservation => {
+    const pncEObservations = eObservations.filter(eObservation => {
       return eObservation.pnc.matricule === pnc.matricule;
     });
-    for (const eObservation of eObservations) {
+    for (const eObservation of pncEObservations) {
       this.storageService.delete(EntityEnum.EOBSERVATION,
         this.eObservationTransformerService.toEObservation(eObservation).getStorageId());
     }
@@ -294,7 +280,6 @@ export class SynchronizationService {
       this.storageService.deleteAll(EntityEnum.ROTATION);
       this.storageService.deleteAll(EntityEnum.LEG);
       this.storageService.deleteAll(EntityEnum.CREW_MEMBER);
-      this.storageService.deleteAll(EntityEnum.FORMS_INPUT_PARAM);
     }
 
     // Suppression de la fiche synthese
@@ -341,14 +326,15 @@ export class SynchronizationService {
   }
 
   /**
-   * Recheche tous les eDossiers nécessitant une synchronisation
+   * Recherche tous les eDossiers nécessitant une synchronisation
    * @return la liste des synchronisations à réaliser
    */
   getPncSynchroList(): PncSynchroModel[] {
     const unsynchronizedCareerObjectives = this.storageService.findAllEDossierPncObjectWithOfflineAction(EntityEnum.CAREER_OBJECTIVE);
     const unsynchronizedWaypoints = this.storageService.findAllEDossierPncObjectWithOfflineAction(EntityEnum.WAYPOINT);
+    const unsynchronizedEObservations = this.storageService.findAllEDossierPncObjectWithOfflineAction(EntityEnum.EOBSERVATION);
 
-    const pncMap = this.buildPncSynchroMap(unsynchronizedCareerObjectives, unsynchronizedWaypoints);
+    const pncMap = this.buildPncSynchroMap(unsynchronizedCareerObjectives, unsynchronizedWaypoints, unsynchronizedEObservations);
     return Array.from(pncMap.values());
   }
 
@@ -357,9 +343,10 @@ export class SynchronizationService {
    * La clef est le matricule du PNC, la valeur est l'objet PncSynchroModel.
    * @param unsynchronizedCareerObjectives la liste des objectifs à synchroniser
    * @param unsynchronizedWaypoints la liste des points d'étape à synchroniser
+   * @param unsynchronizedEObservations la liste des eObservations à synchroniser
    * @return la map contenant les objets PncSynchroModel, associés au matricule de chaque PNC
    */
-  private buildPncSynchroMap(unsynchronizedCareerObjectives: CareerObjectiveModel[], unsynchronizedWaypoints: WaypointModel[]): any {
+  private buildPncSynchroMap(unsynchronizedCareerObjectives: CareerObjectiveModel[], unsynchronizedWaypoints: WaypointModel[], unsynchronizedEObservations: EObservationModel[]): any {
     const pncMap = new Map();
     for (const careerObjective of unsynchronizedCareerObjectives) {
       if (!pncMap.get(careerObjective.pnc.matricule)) {
@@ -385,6 +372,16 @@ export class SynchronizationService {
       if (waypointCareerObjective && waypointCareerObjective.pnc) {
         pncMap.get(waypointCareerObjective.pnc.matricule).waypoints.push(waypoint);
       }
+    }
+
+    for (const eObservation of unsynchronizedEObservations) {
+      if (!pncMap.get(eObservation.pnc.matricule)) {
+        const pncSynchro = new PncSynchroModel();
+        pncSynchro.pnc = eObservation.pnc;
+        pncSynchro.eobservations = [];
+        pncMap.set(eObservation.pnc.matricule, pncSynchro);
+      }
+      pncMap.get(eObservation.pnc.matricule).eobservations.push(eObservation);
     }
 
     return pncMap;

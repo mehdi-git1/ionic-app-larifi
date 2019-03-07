@@ -49,6 +49,8 @@
         "MY_PROFESSIONAL_LEVEL": "Mon niveau pro SV",
         "CONGRATULATION_LETTERS": "Lettres de félicitations",
         "MY_CONGRATULATION_LETTERS": "Mes lettres de félicitations",
+        "EOBSERVATIONS_ARCHIVES": "Archives d'eObservations",
+        "MY_EOBSERVATIONS_ARCHIVES": "Mes archives d'eObservations",
         "UNKNOWN_ERROR": "Suite à un dysfonctionnement technique, l'opération a échoué. Nous vous invitons à réessayer dans quelques minutes. Si le problème persiste, veuillez contacter votre support.",
         "COMING_SOON": "(Prochainement)",
         "MESSAGES": {
@@ -226,25 +228,26 @@
             "GENERALITY_SKILLS": "Compétences généralités",
             "PLANE_SKILLS": "Compétences avions",
             "FAMILIARIZATION_FLIGHT": "Vol de familiarisation",
-            "MASTERING_QUALIFICATION": "Qualification Maîtrises",
+            "MASTERING_QUALIFICATION": "Qualification maîtrises",
             "ANNUAL_ELEARNING": "Elearning annuel",
-            "VAM": "VAM"
+            "MEDICAL_APTITUDES": "Aptitudes médicales",
+            "LANGUAGES": "Langues"
         },
         "GENERALITY_SKILLS": {
+            "START_DATE": "Depuis le",
+            "DUE_DATE": "Echéance",
             "CCA": {
-                "TITLE": "CCA",
-                "START_DATE": "Depuis"
+                "TITLE": "CCA"
+            },
+            "SENIORITY_DATE": {
+                "TITLE": "Ancienneté PNC"
             },
             "PCB": {
-                "TITLE": "PCB",
-                "START_DATE": "Depuis",
-                "DUE_DATE": "Echéance"
+                "TITLE": "PCB"
             },
             "GENE": {
                 "TITLE": "Géné",
-                "START_DATE": "Depuis",
                 "MDC_DATE": "MDC - Géné",
-                "DUE_DATE": "Echéance",
                 "DDV_DUE_DATE": "Echéance DDV",
                 "SKILL_END_DATE": "Compétent jusqu'au"
             }
@@ -265,9 +268,11 @@
             "STAGE": "Stage",
             "SENIORITY_DATE": "Depuis"
         },
-        "VAM": {
-            "START_DATE": "Début",
-            "END_DATE": "Fin"
+        "MEDICAL_APTITUDES": {
+            "MEDICAL_VISIT": {
+                "START_DATE": "Début",
+                "END_DATE": "Fin"
+            }
         },
         "ERROR": {
             "STATUTORY_CERTIFICATE": "Erreur lors de la récupération du profil PNC pour le matricule {{ matricule }}"
@@ -283,6 +288,9 @@
             "LEGEND": {
                 "LESS_THAN_3_YEARS": "eObservations réalisées sur les 3 dernières années",
                 "MORE_THAN_3_YEARS": "dernières eObservations réalisées"
+            },
+            "LINK": {
+                "ARCHIVES": "Consulter les archives"
             }
         },
         "NEW_EOBSERVATION_HEADER": {
@@ -294,6 +302,57 @@
             "SKILL": "Constante / Compétence / Séquence",
             "ITEM": "Rubrique / Item",
             "LEVEL": "Niveau"
+        },
+        "DETAILS": {
+            "TITLE": "Restitution Formulaire",
+            "ROTATION_SUBTITLE": "Rotation",
+            "DEGRADED_CONDITIONS": "Conditions dégradées",
+            "FLIGHT_NUMBER": "N° Vol",
+            "FLIGHT_DATE": "Date Vol",
+            "STOP_STATION": "Escales départ/arrivée",
+            "AIRCRAFT_TYPE": "Type Avion",
+            "VERSION": "Version",
+            "OCCUPANCY_RATE": "Remplissage",
+            "WORKSTATION": "Poste",
+            "REDACTOR_COMMENT": "Commentaire PNC Rédacteur",
+            "PNC_COMMENT": "Commentaire PNC Observé",
+            "COMMENT": "Commentaire :",
+            "STRONG_POINTS": "Points forts :",
+            "WORKING_AXES": "Axes de travail :",
+            "UPDATE_DATE": "Enregistré depuis le : ",
+            "SPECIALITY": "Fonction",
+            "EOBS_PNC_ASSIGNMENT": "Affectation à date de l'eObservation",
+            "COLOR_LEVEL_CORRESPONDANCE": "Correspondance couleur / appréciation",
+            "TEMPORARY_PERIOD": "Période temporaire",
+            "FORMATION_FLIGHT": "Vol de formation",
+            "FORMATION_FLIGHT_TITLE_OPTION": " - FOR",
+            "VAL": "VAL",
+            "VAL_TITLE_OPTION": " - VAL",
+            "BILAN_FLIGHT": "Vol Bilan",
+            "EVAL": "EVAL",
+            "STATE": {
+                "LABEL": "Statut en cours : ",
+                "TAKEN_INTO_ACCOUNT": "Pris en compte",
+                "NOT_TAKEN_INTO_ACCOUNT": "Non pris en compte"
+            }
+        },
+        "CONFIRM_VALIDATE": {
+            "TITLE": "Validation de l'eObservation",
+            "MESSAGE": "Vous êtes sur le point de valider votre formulaire sans avoir apposé de commentaire. Souhaitez-vous procéder à la validation ?",
+            "CONFIRM": "Oui",
+            "CANCEL": "Non"
+        },
+        "CONFIRM_BACK_WITHOUT_SAVE": {
+            "TITLE": "Modifications non enregistrées",
+            "MESSAGE": "Attention, des modifications n'ont pas été enregistrées, êtes-vous sûr de vouloir revenir en arrière ?"
+        },
+        "MESSAGES": {
+            "SUCCESS": {
+                "EOBSERVATION_VALIDATED": "eObservation validée"
+            }
+        },
+        "BUTTONS": {
+            "VALIDATE": "Valider"
         }
     },
     "PROFESSIONAL_LEVEL": {
@@ -533,6 +592,21 @@
         "BUTTONS": {
             "GET_MY_IDENTITY_BACK": "Récupérer mon identité"
         }
+    },
+    "SYNCHRONIZATION_MANAGEMENT": {
+        "TITLE": "Demandes de synchronisation",
+        "BUTTONS": {
+            "CLEAR": "Tout annuler"
+        },
+        "TABS": {
+            "PENDING": "En attente ({{ requestCount }})",
+            "SUCCESSFUL": "En succès ({{ requestCount }})",
+            "FAILED": "En échec ({{ requestCount }})"
+        },
+        "MESSAGES": {
+            "OFFLINE_INFO_MESSAGE": "La synchronisation reprendra une fois la connexion retrouvée"
+        },
+        "NO_SYNCHRO_REQUEST": "Aucune demande"
     },
     "ADMIN": {
         "ADMIN_HOME": {

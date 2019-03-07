@@ -1,13 +1,17 @@
 import { SessionService } from '../../services/session/session.service';
 import { Injectable } from '@angular/core';
-import { RestService, RestRequest } from './rest.base.service';
+import { RestService } from './rest.base.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Config } from '../../../../environments/config';
+import { RestRequest } from './rest-request';
 
 @Injectable()
 export class RestWebService extends RestService {
 
-    constructor(protected http: HttpClient, protected config: Config, protected sessionService: SessionService) {
+    constructor(
+        protected http: HttpClient,
+        protected config: Config,
+        protected sessionService: SessionService) {
         super(http, sessionService, config);
     }
 
@@ -27,7 +31,6 @@ export class RestWebService extends RestService {
     private makeHttpRequest(request: RestRequest, successCallback: (result: any) => void, errorCallback: (error: any) => void): void {
 
         if (!request.httpHeaders) {
-            // Creation en mode javascript pour passer le secmobil qui ne prends pas en compte les "objets"
             request.httpHeaders = {};
         }
         if (!request.httpHeaders.headers) {
@@ -42,6 +45,11 @@ export class RestWebService extends RestService {
         // On ajoute un header spécial si la fonction d'impersonnification a été utilisée
         if (!request.byPassImpersonatedUser && this.sessionService.impersonatedUser && this.sessionService.impersonatedUser.matricule) {
             request.httpHeaders.headers = request.httpHeaders.headers.append('IMPERSONATE', this.sessionService.impersonatedUser.matricule);
+        }
+
+        // On ajoute un header spécial si la requête doit outrepasser l'intercepteur
+        if (request.byPassInterceptor) {
+            request.httpHeaders.headers = request.httpHeaders.headers.append('BYPASS_INTERCEPTOR', 'true');
         }
 
         request.httpHeaders.headers = request.httpHeaders.headers.append('Accept', 'application/json, text/plain, */*');

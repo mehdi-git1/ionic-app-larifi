@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { UrlConfiguration } from '../../configuration/url.configuration';
-import { CrewMemberEnum } from '../../models/crew-member.enum';
+import { CrewMemberModel } from '../../models/crew-member.model';
 import { LegModel } from '../../models/leg.model';
 import { RestService } from '../../http/rest/rest.base.service';
 
@@ -27,7 +27,7 @@ export class OnlineLegService {
   * @param legId l'id du tronçon dont on souhaite avoir la liste équipage
   * @return la liste équipage d'un tronçon
   */
-  getFlightCrewFromLeg(legId: number): Promise<CrewMemberEnum[]> {
+  getFlightCrewFromLeg(legId: number): Promise<CrewMemberModel[]> {
     return this.restService.get(this.config.getBackEndUrl('getLegsCrewMembersById', [legId]));
   }
 
