@@ -13,7 +13,7 @@ export class StatutoryCertificateDataComponent {
   @Input() title;
   @Input() displayType: StatutoryCertificateDisplayTypeEnum;
 
-  displayTypeEnum = StatutoryCertificateDisplayTypeEnum;
+  StatutoryCertificateDisplayTypeEnum = StatutoryCertificateDisplayTypeEnum;
 
   constructor() {
   }

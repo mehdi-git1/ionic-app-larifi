@@ -1,6 +1,6 @@
 import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-translate/core';
 import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
-import { IonicModule, NavParams, NavController } from 'ionic-angular';
+import { IonicModule, NavParams, NavController, LoadingController, AlertController } from 'ionic-angular';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 import { TranslateLoaderMock, NavMock } from './../../../../../test-config/mocks-ionic';
@@ -9,8 +9,10 @@ import { EobservationDetailsPage } from './eobservation-details.page';
 import { EObservationModel } from '../../../../core/models/eobservation/eobservation.model';
 import { EObservationFlightModel } from '../../../../core/models/eobservation/eobservation-flight.model';
 import { EObservationStateEnum } from '../../../../core/enums/e-observation-state.enum';
-import {TranslateOrEmptyPipe} from '../../../../shared/pipes/translate-or-empty/translate-or-empty.pipe';
+import { TranslateOrEmptyPipe } from '../../../../shared/pipes/translate-or-empty/translate-or-empty.pipe';
 import { TranslateOrEmptyService } from '../../../../core/services/translate/translate-or-empty.service';
+import { SessionService } from '../../../../core/services/session/session.service';
+import { ToastService } from '../../../../core/services/toast/toast.service';
 
 const EObservationServiceMock = jasmine.createSpyObj('EObservationServiceMock', ['getEObservations']);
 const translateOrEmptyServiceMock = jasmine.createSpyObj('translateOrEmptyServiceMock', ['transform']);
@@ -33,8 +35,12 @@ describe('EobservationDetailsPage', () => {
             providers: [
                 { provide: NavParams, useClass: NavMock },
                 { provide: NavController, useClass: NavMock },
-                { provide: TranslateOrEmptyService, useValue: translateOrEmptyServiceMock },
-                { provide: EObservationService, useValue: EObservationServiceMock }
+                { provide: EObservationService, useValue: EObservationServiceMock },
+                { provide: SessionService },
+                { provide: ToastService },
+                { provide: AlertController },
+                { provide: LoadingController },
+                { provide: TranslateOrEmptyService, useValue: translateOrEmptyServiceMock }
             ],
             schemas: [NO_ERRORS_SCHEMA]
         });
@@ -64,7 +70,7 @@ describe('EobservationDetailsPage', () => {
             expect(comp.hasFlights()).toBe(true);
         });
     });
-    
+
     describe('getColorStatusPoint', () => {
         it(`Renvoie null si l'eobs est nulle`, () => {
             expect(comp).toBeDefined();
@@ -90,9 +96,9 @@ describe('EobservationDetailsPage', () => {
             comp.eObservation.state = EObservationStateEnum.NOT_TAKEN_INTO_ACCOUNT;
             expect(comp.getColorStatusPoint()).toBe('red');
         });
-        
+
     });
-    
+
     describe('sortedFlights', () => {
         it(`Trie les vols si l'eobs a des vols`, () => {
             expect(comp).toBeDefined();
@@ -107,10 +113,10 @@ describe('EobservationDetailsPage', () => {
             comp.eObservation.eobservationFlights.push(flight2);
             comp.eObservation.eobservationFlights.push(flight3);
             comp.eObservation.eobservationFlights.push(flight1);
-            let flights = comp.sortedFlights();
+            const flights = comp.sortedFlights();
             expect(flights[0].flightOrder).toBe(1);
             expect(flights[1].flightOrder).toBe(2);
             expect(flights[2].flightOrder).toBe(3);
-        });        
+        });
     });
 });

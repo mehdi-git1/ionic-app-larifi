@@ -19,7 +19,7 @@ export class StatutoryCertificatePage {
   matricule: string;
   statutoryCertificate: StatutoryCertificateModel;
 
-  statutoryCertificateDisplayTypeEnum = StatutoryCertificateDisplayTypeEnum;
+  StatutoryCertificateDisplayTypeEnum = StatutoryCertificateDisplayTypeEnum;
 
   constructor(
     private navParams: NavParams,
