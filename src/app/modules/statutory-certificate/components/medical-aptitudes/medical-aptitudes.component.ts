@@ -1,8 +1,9 @@
-import { MedicalAptitudesModel } from './../../../../core/models/statutory-certificate/medical-aptitudes.model';
 import { Component, Input, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 
 import * as _ from 'lodash';
+import { StatutoryCertificateDisplayTypeEnum } from '../../../../core/enums/statutory-certificate-display-type.enum';
+import { MedicalAptitudesModel } from './../../../../core/models/statutory-certificate/medical-aptitudes.model';
 @Component({
   selector: 'medical-aptitudes',
   templateUrl: 'medical-aptitudes.component.html'
@@ -10,6 +11,8 @@ import * as _ from 'lodash';
 export class MedicalAptitudesComponent implements OnInit {
 
   @Input() medicalAptitudesData: MedicalAptitudesModel;
+  @Input() title: string;
+  @Input() displayType: StatutoryCertificateDisplayTypeEnum;
 
   // Tableau des valeurs à afficher en fonction du type de tableau
   medicalAptitudesDisplayedData;

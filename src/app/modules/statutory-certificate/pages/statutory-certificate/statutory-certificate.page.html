@@ -16,54 +16,11 @@
                 {{ aircraftSkill }}
             </span>
         </div>
-        <mat-accordion [multi]=true>
-            <mat-expansion-panel>
-                <mat-expansion-panel-header [expandedHeight]="'48px'">
-                    {{ 'STATUTORY_CERTIFICATE.CATEGORIES.GENERALITY_SKILLS' | translate }}
-                </mat-expansion-panel-header>
-                <generality-skills [generalitySkillsData]="statutoryCertificate?.generalitySkills"></generality-skills>
-            </mat-expansion-panel>
-            <mat-expansion-panel>
-                <mat-expansion-panel-header [expandedHeight]="'48px'">
-                    {{ 'STATUTORY_CERTIFICATE.CATEGORIES.PLANE_SKILLS' | translate }}
-                </mat-expansion-panel-header>
-                <plane-skills [planeSkillsData]="statutoryCertificate?.planeSkills"></plane-skills>
-            </mat-expansion-panel>
-
-            <mat-expansion-panel>
-                <mat-expansion-panel-header [expandedHeight]="'48px'">
-                    {{ 'STATUTORY_CERTIFICATE.CATEGORIES.FAMILIARIZATION_FLIGHT' | translate }}
-                </mat-expansion-panel-header>
-                <familiarization-flight [familiarizationFlightData]="statutoryCertificate?.familiarizationFlights"></familiarization-flight>
-            </mat-expansion-panel>
-
-            <mat-expansion-panel *ngIf="statutoryCertificate?.annualElearning">
-                <mat-expansion-panel-header [expandedHeight]="'48px'">
-                    {{ 'STATUTORY_CERTIFICATE.CATEGORIES.ANNUAL_ELEARNING' | translate }}
-                </mat-expansion-panel-header>
-                This the expansion 4 content
-            </mat-expansion-panel>
-
-            <mat-expansion-panel>
-                <mat-expansion-panel-header [expandedHeight]="'48px'">
-                    {{ 'STATUTORY_CERTIFICATE.CATEGORIES.MASTERING_QUALIFICATION' | translate }}
-                </mat-expansion-panel-header>
-                <mastering-qualification [masteringQualificationsData]="statutoryCertificate?.masteringQualifications"></mastering-qualification>
-            </mat-expansion-panel>
-
-            <mat-expansion-panel>
-                <mat-expansion-panel-header [expandedHeight]="'48px'">
-                    {{ 'STATUTORY_CERTIFICATE.CATEGORIES.MEDICAL_APTITUDES' | translate }}
-                </mat-expansion-panel-header>
-                <medical-aptitudes [medicalAptitudesData]="statutoryCertificate?.medicalAptitudes"></medical-aptitudes>
-            </mat-expansion-panel>
-
-            <mat-expansion-panel>
-                <mat-expansion-panel-header [expandedHeight]="'48px'">
-                    {{ 'STATUTORY_CERTIFICATE.CATEGORIES.LANGUAGES' | translate }}
-                </mat-expansion-panel-header>
-                <pnc-languages [languagesData]="statutoryCertificate?.languages"></pnc-languages>
-            </mat-expansion-panel>
-        </mat-accordion>
+        <generality-skills [displayType]='StatutoryCertificateDisplayTypeEnum.LIST' [generalitySkillsData]="statutoryCertificate?.generalitySkills" [title]="'STATUTORY_CERTIFICATE.CATEGORIES.GENERALITY_SKILLS' | translate"></generality-skills>
+        <plane-skills [displayType]='StatutoryCertificateDisplayTypeEnum.TAB' [planeSkillsData]="statutoryCertificate?.planeSkills" [title]="'STATUTORY_CERTIFICATE.CATEGORIES.PLANE_SKILLS' | translate"></plane-skills>
+        <familiarization-flight [displayType]='StatutoryCertificateDisplayTypeEnum.LIST' [familiarizationFlightData]="statutoryCertificate?.familiarizationFlights" [title]="'STATUTORY_CERTIFICATE.CATEGORIES.FAMILIARIZATION_FLIGHT' | translate"></familiarization-flight>
+        <mastering-qualification [displayType]='StatutoryCertificateDisplayTypeEnum.LIST' [masteringQualificationsData]="statutoryCertificate?.masteringQualifications" [title]="'STATUTORY_CERTIFICATE.CATEGORIES.MASTERING_QUALIFICATION' | translate"></mastering-qualification>
+        <medical-aptitudes [displayType]='StatutoryCertificateDisplayTypeEnum.LIST' [medicalAptitudesData]="statutoryCertificate?.medicalAptitudes" [title]="'STATUTORY_CERTIFICATE.CATEGORIES.MEDICAL_APTITUDES' | translate"></medical-aptitudes>
+        <pnc-languages [displayType]='StatutoryCertificateDisplayTypeEnum.LIST' [languagesData]="statutoryCertificate?.languages" [title]="'STATUTORY_CERTIFICATE.CATEGORIES.LANGUAGES' | translate"></pnc-languages>
     </ng-template>
 </ion-content>
