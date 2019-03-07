@@ -6,6 +6,7 @@ import { OfflineEObservationService } from './offline-eobservation.service';
 import { EObservationModel } from '../../models/eobservation/eobservation.model';
 import { EObservationTypeEnum } from '../../enums/e-observations-type.enum';
 import { TranslateService } from '@ngx-translate/core';
+import { EObservationStateEnum } from '../../enums/e-observation-state.enum';
 
 
 
@@ -42,9 +43,9 @@ export class EObservationService extends BaseService {
     getDetailOptionType(eObservation): string {
         if (eObservation && (eObservation.type === EObservationTypeEnum.E_CC || eObservation.type === EObservationTypeEnum.E_CCP)) {
             if (eObservation.val) {
-            return this.translateService.instant('EOBSERVATION.DETAILS.VAL_TITLE_OPTION');
+                return this.translateService.instant('EOBSERVATION.DETAILS.VAL_TITLE_OPTION');
             } else if (eObservation.formationFlight) {
-            return this.translateService.instant('EOBSERVATION.DETAILS.FORMATION_FLIGHT_TITLE_OPTION');
+                return this.translateService.instant('EOBSERVATION.DETAILS.FORMATION_FLIGHT_TITLE_OPTION');
             }
         }
         return '';
@@ -57,5 +58,15 @@ export class EObservationService extends BaseService {
      */
     getAllEObservations(matricule: string): Promise<EObservationModel[]> {
         return this.onlineEObservationService.getAllEObservations(matricule);
+    }
+
+    /**
+     * Valide une eObservation
+     * @param eObservation l'eObservation à valider
+     * @return une promesse contenant l'eObservation validée
+     */
+    validateEObservation(eObservation: EObservationModel): Promise<EObservationModel> {
+        eObservation.state = EObservationStateEnum.TAKEN_INTO_ACCOUNT;
+        return this.execFunctionService('validateEObservation', eObservation);
     }
 }

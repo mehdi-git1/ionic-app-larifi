@@ -39,4 +39,13 @@ export class OnlineEObservationService {
         );
     }
 
+    /**
+    * Valide une eObservation
+    * @param eObservation l'eObservation à valider
+    * @return une promesse contenant l'eObservation validée
+    */
+    validateEObservation(eObservation: EObservationModel): Promise<EObservationModel> {
+        return this.restService.post(this.config.getBackEndUrl('eObservations'), eObservation);
+    }
+
 }
