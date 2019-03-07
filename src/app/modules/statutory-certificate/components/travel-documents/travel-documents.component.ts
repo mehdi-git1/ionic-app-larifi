@@ -22,10 +22,12 @@ export class TravelDocumentsComponent implements OnInit {
 
     ngOnInit() {
         let stringOfTravelDocument = '';
-        this.travelDocumentsData.forEach(travelDocument => {
-            stringOfTravelDocument = stringOfTravelDocument + '[' + travelDocument.label + ' (' + travelDocument.code + ') : '
-                + ' (' + this.datePipe.transform(travelDocument.date, 'dd/MM/yyyy') + ') ] ';
-        });
+        if (this.travelDocumentsData) {
+            this.travelDocumentsData.forEach(travelDocument => {
+                stringOfTravelDocument = stringOfTravelDocument + '[' + travelDocument.label + ' (' + travelDocument.code + ') : '
+                    + ' (' + this.datePipe.transform(travelDocument.date, 'dd/MM/yyyy') + ') ] ';
+            });
+        }
         this.travelDocumentsDisplayedData = {
             headers:
                 [
