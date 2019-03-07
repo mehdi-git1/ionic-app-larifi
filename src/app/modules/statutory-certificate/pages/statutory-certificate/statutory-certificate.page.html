@@ -8,19 +8,13 @@
 
 
 <ion-content padding>
+    <pnc-card *ngIf="pnc" [itemMember]="pnc" [isCrewMember]="false"></pnc-card>
     <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
     <ng-template #pageBlock>
-        <div margin-top>
-            <div class="fonction-informations">
-                <span [ngClass]="{'no-value' : !formatedSpeciality }">
-                    {{ formatedSpeciality }}
-                </span>
-                <span *ngIf="statutoryCertificate">
-                    <span *ngFor="let aircraftSkill of statutoryCertificate.aircraftSkills | reverse" class="plane-qualif">
-                        {{ aircraftSkill }}
-                    </span>
-                </span>
-            </div>
+        <div margin-top *ngIf="statutoryCertificate?.aircraftSkills" class="aircraft-skills-informations">
+            <span *ngFor="let aircraftSkill of statutoryCertificate.aircraftSkills | reverse" class="plane-qualif">
+                {{ aircraftSkill }}
+            </span>
         </div>
         <mat-accordion [multi]=true>
             <mat-expansion-panel>
