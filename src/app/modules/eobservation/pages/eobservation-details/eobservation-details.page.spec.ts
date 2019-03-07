@@ -1,6 +1,6 @@
 import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-translate/core';
 import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
-import { IonicModule, NavParams, NavController } from 'ionic-angular';
+import { IonicModule, NavParams, NavController, LoadingController, AlertController } from 'ionic-angular';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 import { TranslateLoaderMock, NavMock } from './../../../../../test-config/mocks-ionic';
@@ -11,6 +11,8 @@ import { EObservationFlightModel } from '../../../../core/models/eobservation/eo
 import { EObservationStateEnum } from '../../../../core/enums/e-observation-state.enum';
 import { TranslateOrEmptyPipe } from '../../../../shared/pipes/translate-or-empty/translate-or-empty.pipe';
 import { TranslateOrEmptyService } from '../../../../core/services/translate/translate-or-empty.service';
+import { SessionService } from '../../../../core/services/session/session.service';
+import { ToastService } from '../../../../core/services/toast/toast.service';
 
 const EObservationServiceMock = jasmine.createSpyObj('EObservationServiceMock', ['getEObservations']);
 const translateOrEmptyServiceMock = jasmine.createSpyObj('translateOrEmptyServiceMock', ['transform']);
@@ -33,8 +35,12 @@ describe('EobservationDetailsPage', () => {
             providers: [
                 { provide: NavParams, useClass: NavMock },
                 { provide: NavController, useClass: NavMock },
-                { provide: TranslateOrEmptyService, useValue: translateOrEmptyServiceMock },
-                { provide: EObservationService, useValue: EObservationServiceMock }
+                { provide: EObservationService, useValue: EObservationServiceMock },
+                { provide: SessionService },
+                { provide: ToastService },
+                { provide: AlertController },
+                { provide: LoadingController },
+                { provide: TranslateOrEmptyService, useValue: translateOrEmptyServiceMock }
             ],
             schemas: [NO_ERRORS_SCHEMA]
         });
