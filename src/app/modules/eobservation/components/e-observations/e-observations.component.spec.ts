@@ -92,6 +92,7 @@ describe('EObservationsComponent', () => {
     eobservationItem2.refItemLevel.item.theme = new ReferentialThemeModel();
     eobservationItem2.refItemLevel.item.theme.themeOrder = 30;
     eobservationItem2.refItemLevel.item.theme.label = 'SURETE';
+    eobservationItem2.refItemLevel.item.theme.displayedInProfessionalLevel = true;
     eobservationItem2.refItemLevel.item.label = 'Briefing';
     eobservationItem2.refItemLevel.item.shortLabel = 'Briefing';
     eobservationItem2.refItemLevel.item.xmlKey = 'equipeBriefing';

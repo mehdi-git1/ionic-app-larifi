@@ -9,6 +9,8 @@ export class ReferentialThemeModel extends EDossierPncObjectModel {
 
     themeOrder: number;
 
+    displayedInProfessionalLevel: boolean;
+
     getStorageId(): string {
         return `${this.techId}`;
     }
