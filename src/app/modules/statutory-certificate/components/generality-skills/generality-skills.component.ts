@@ -21,10 +21,10 @@ export class GeneralitySkillsComponent implements OnInit {
   // Tableau des libelles de compétences
   skillTitleArray: Array<string>;
 
-  // Tableu des listes de START_DATE
+  // Tableau des listes de START_DATE
   startDateArray: Array<string>;
 
-  // Tableu des listes de START_DATE
+  // Tableau des listes de START_DATE
   dueDateArray: Array<string>;
 
   constructor(public translateService: TranslateService

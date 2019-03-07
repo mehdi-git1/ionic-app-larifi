@@ -133,16 +133,6 @@ export class PncSearchPage implements OnInit {
     }
 
     /**
-     * Crée un objet CrewMemberModel à partir d'un objet PncModel
-     * @param pnc pnc à transformer
-     */
-    createCrewMemberObjectFromPnc(pnc: PncModel) {
-        const crewMember: CrewMemberModel = new CrewMemberModel();
-        crewMember.pnc = pnc;
-        return crewMember;
-    }
-
-    /**
      * Redirige vers la page d'accueil du pnc ou du cadre
      * @param pnc le pnc concerné
      */

@@ -29,6 +29,7 @@ import { CrewMemberModel } from '../../models/crew-member.model';
 import { LegModel } from '../../models/leg.model';
 import { StatutoryCertificateTransformerService } from '../statutory-certificate/statutory-certificate-transformer.service';
 import { Events } from 'ionic-angular';
+import { EObservationModel } from '../../models/eobservation/eobservation.model';
 
 @Injectable()
 export class SynchronizationService {
@@ -325,14 +326,15 @@ export class SynchronizationService {
   }
 
   /**
-   * Recheche tous les eDossiers nécessitant une synchronisation
+   * Recherche tous les eDossiers nécessitant une synchronisation
    * @return la liste des synchronisations à réaliser
    */
   getPncSynchroList(): PncSynchroModel[] {
     const unsynchronizedCareerObjectives = this.storageService.findAllEDossierPncObjectWithOfflineAction(EntityEnum.CAREER_OBJECTIVE);
     const unsynchronizedWaypoints = this.storageService.findAllEDossierPncObjectWithOfflineAction(EntityEnum.WAYPOINT);
+    const unsynchronizedEObservations = this.storageService.findAllEDossierPncObjectWithOfflineAction(EntityEnum.EOBSERVATION);
 
-    const pncMap = this.buildPncSynchroMap(unsynchronizedCareerObjectives, unsynchronizedWaypoints);
+    const pncMap = this.buildPncSynchroMap(unsynchronizedCareerObjectives, unsynchronizedWaypoints, unsynchronizedEObservations);
     return Array.from(pncMap.values());
   }
 
@@ -341,9 +343,10 @@ export class SynchronizationService {
    * La clef est le matricule du PNC, la valeur est l'objet PncSynchroModel.
    * @param unsynchronizedCareerObjectives la liste des objectifs à synchroniser
    * @param unsynchronizedWaypoints la liste des points d'étape à synchroniser
+   * @param unsynchronizedEObservations la liste des eObservations à synchroniser
    * @return la map contenant les objets PncSynchroModel, associés au matricule de chaque PNC
    */
-  private buildPncSynchroMap(unsynchronizedCareerObjectives: CareerObjectiveModel[], unsynchronizedWaypoints: WaypointModel[]): any {
+  private buildPncSynchroMap(unsynchronizedCareerObjectives: CareerObjectiveModel[], unsynchronizedWaypoints: WaypointModel[], unsynchronizedEObservations: EObservationModel[]): any {
     const pncMap = new Map();
     for (const careerObjective of unsynchronizedCareerObjectives) {
       if (!pncMap.get(careerObjective.pnc.matricule)) {
@@ -369,6 +372,16 @@ export class SynchronizationService {
       if (waypointCareerObjective && waypointCareerObjective.pnc) {
         pncMap.get(waypointCareerObjective.pnc.matricule).waypoints.push(waypoint);
       }
+    }
+
+    for (const eObservation of unsynchronizedEObservations) {
+      if (!pncMap.get(eObservation.pnc.matricule)) {
+        const pncSynchro = new PncSynchroModel();
+        pncSynchro.pnc = eObservation.pnc;
+        pncSynchro.eobservations = [];
+        pncMap.set(eObservation.pnc.matricule, pncSynchro);
+      }
+      pncMap.get(eObservation.pnc.matricule).eobservations.push(eObservation);
     }
 
     return pncMap;

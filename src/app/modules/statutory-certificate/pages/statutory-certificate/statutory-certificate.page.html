@@ -8,26 +8,20 @@
 
 
 <ion-content padding>
+    <pnc-card *ngIf="pnc" [itemMember]="pnc" [isCrewMember]="false"></pnc-card>
     <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
     <ng-template #pageBlock>
-        <div margin-top>
-            <div class="fonction-informations">
-                <span [ngClass]="{'no-value' : !formatedSpeciality }">
-                    {{ formatedSpeciality }}
-                </span>
-                <span *ngIf="statutoryCertificate">
-                    <span *ngFor="let aircraftSkill of statutoryCertificate.aircraftSkills | reverse" class="plane-qualif">
-                        {{ aircraftSkill }}
-                    </span>
-                </span>
-            </div>
+        <div margin-top *ngIf="statutoryCertificate?.aircraftSkills" class="aircraft-skills-informations">
+            <span *ngFor="let aircraftSkill of statutoryCertificate.aircraftSkills | reverse" class="plane-qualif">
+                {{ aircraftSkill }}
+            </span>
         </div>
-        <generality-skills [displayType]='statutoryCertificateDisplayTypeEnum.LIST' [generalitySkillsData]="statutoryCertificate?.generalitySkills" [title]="'STATUTORY_CERTIFICATE.CATEGORIES.GENERALITY_SKILLS' | translate"></generality-skills>
-        <plane-skills [displayType]='statutoryCertificateDisplayTypeEnum.TAB' [planeSkillsData]="statutoryCertificate?.planeSkills" [title]="'STATUTORY_CERTIFICATE.CATEGORIES.PLANE_SKILLS' | translate"></plane-skills>
-        <familiarization-flight [displayType]='statutoryCertificateDisplayTypeEnum.LIST' [familiarizationFlightData]="statutoryCertificate?.familiarizationFlights" [title]="'STATUTORY_CERTIFICATE.CATEGORIES.FAMILIARIZATION_FLIGHT' | translate"></familiarization-flight>
-        <mastering-qualification [displayType]='statutoryCertificateDisplayTypeEnum.LIST' [masteringQualificationsData]="statutoryCertificate?.masteringQualifications" [title]="'STATUTORY_CERTIFICATE.CATEGORIES.MASTERING_QUALIFICATION' | translate"></mastering-qualification>
-        <medical-aptitudes [displayType]='statutoryCertificateDisplayTypeEnum.LIST' [medicalAptitudesData]="statutoryCertificate?.medicalAptitudes" [title]="'STATUTORY_CERTIFICATE.CATEGORIES.MEDICAL_APTITUDES' | translate"></medical-aptitudes>
-        <pnc-languages [displayType]='statutoryCertificateDisplayTypeEnum.LIST' [languagesData]="statutoryCertificate?.languages" [title]="'STATUTORY_CERTIFICATE.CATEGORIES.LANGUAGES' | translate"></pnc-languages>
+        <generality-skills [displayType]='StatutoryCertificateDisplayTypeEnum.LIST' [generalitySkillsData]="statutoryCertificate?.generalitySkills" [title]="'STATUTORY_CERTIFICATE.CATEGORIES.GENERALITY_SKILLS' | translate"></generality-skills>
+        <plane-skills [displayType]='StatutoryCertificateDisplayTypeEnum.TAB' [planeSkillsData]="statutoryCertificate?.planeSkills" [title]="'STATUTORY_CERTIFICATE.CATEGORIES.PLANE_SKILLS' | translate"></plane-skills>
+        <familiarization-flight [displayType]='StatutoryCertificateDisplayTypeEnum.LIST' [familiarizationFlightData]="statutoryCertificate?.familiarizationFlights" [title]="'STATUTORY_CERTIFICATE.CATEGORIES.FAMILIARIZATION_FLIGHT' | translate"></familiarization-flight>
+        <mastering-qualification [displayType]='StatutoryCertificateDisplayTypeEnum.LIST' [masteringQualificationsData]="statutoryCertificate?.masteringQualifications" [title]="'STATUTORY_CERTIFICATE.CATEGORIES.MASTERING_QUALIFICATION' | translate"></mastering-qualification>
+        <medical-aptitudes [displayType]='StatutoryCertificateDisplayTypeEnum.LIST' [medicalAptitudesData]="statutoryCertificate?.medicalAptitudes" [title]="'STATUTORY_CERTIFICATE.CATEGORIES.MEDICAL_APTITUDES' | translate"></medical-aptitudes>
+        <pnc-languages [displayType]='StatutoryCertificateDisplayTypeEnum.LIST' [languagesData]="statutoryCertificate?.languages" [title]="'STATUTORY_CERTIFICATE.CATEGORIES.LANGUAGES' | translate"></pnc-languages>
         <travel-documents [displayType]='statutoryCertificateDisplayTypeEnum.LIST' [travelDocumentsData]="statutoryCertificate?.travelDocuments" [title]="'STATUTORY_CERTIFICATE.CATEGORIES.TRAVEL_DOCUMENTS' | translate"></travel-documents>
     </ng-template>
 </ion-content>

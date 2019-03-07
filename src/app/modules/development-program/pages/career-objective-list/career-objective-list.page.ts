@@ -48,6 +48,7 @@ export class CareerObjectiveListPage {
     this.lastConsultedRotation = this.sessionService.appContext.lastConsultedRotation;
     this.synchronizationProvider.synchroStatusChange.subscribe(synchroInProgress => {
       if (!synchroInProgress) {
+        this.getEObservationsList();
         this.initCareerObjectivesList();
       }
     });
@@ -87,6 +88,7 @@ export class CareerObjectiveListPage {
    * Récupére la liste des eObservations
    */
   getEObservationsList() {
+    this.eObservations = undefined;
     this.eObservationService.getEObservations(this.matricule).then(
       eobs => {
         this.eObservations = eobs;
@@ -98,6 +100,7 @@ export class CareerObjectiveListPage {
     * Récupère la liste des objectifs
     */
   initCareerObjectivesList() {
+    this.careerObjectives = undefined;
     this.careerObjectiveService.getPncCareerObjectives(this.matricule).then(result => {
       result.sort((careerObjective: CareerObjectiveModel, otherCareerObjective: CareerObjectiveModel) => {
         return careerObjective.creationDate < otherCareerObjective.creationDate ? 1 : -1;
