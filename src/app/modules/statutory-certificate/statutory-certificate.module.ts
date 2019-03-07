@@ -1,3 +1,4 @@
+import { RelaysComponent } from './components/relay/relays.component';
 import { LanguagesComponent } from './components/languages/languages.component';
 import { MedicalAptitudesComponent } from './components/medical-aptitudes/medical-aptitudes.component';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
@@ -24,6 +25,7 @@ import { TravelDocumentsComponent } from './components/travel-documents/travel-d
     StatutoryCertificateDataComponent,
     MedicalAptitudesComponent,
     LanguagesComponent,
+    RelaysComponent,
     TravelDocumentsComponent
   ],
   imports: [
