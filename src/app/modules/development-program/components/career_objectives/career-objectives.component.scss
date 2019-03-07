@@ -40,7 +40,7 @@ career-objectives {
             }
 
             .career-objective-date {
-                width: 120px;
+                min-width: 120px;
             }
 
             .career-objective-title {
@@ -48,11 +48,11 @@ career-objectives {
             }
 
             .career-objective-status {
-                width: 140px;
+                min-width: 140px;
             }
 
             .career-objective-icone {
-                width: 67px;
+                min-width: 62px;
                 justify-content: flex-end;
                 display: flex;
             }
