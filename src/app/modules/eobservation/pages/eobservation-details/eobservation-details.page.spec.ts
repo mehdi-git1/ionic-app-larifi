@@ -9,7 +9,7 @@ import { EobservationDetailsPage } from './eobservation-details.page';
 import { EObservationModel } from '../../../../core/models/eobservation/eobservation.model';
 import { EObservationFlightModel } from '../../../../core/models/eobservation/eobservation-flight.model';
 import { EObservationStateEnum } from '../../../../core/enums/e-observation-state.enum';
-import {TranslateOrEmptyPipe} from '../../../../shared/pipes/translate-or-empty/translate-or-empty.pipe';
+import { TranslateOrEmptyPipe } from '../../../../shared/pipes/translate-or-empty/translate-or-empty.pipe';
 import { TranslateOrEmptyService } from '../../../../core/services/translate/translate-or-empty.service';
 
 const EObservationServiceMock = jasmine.createSpyObj('EObservationServiceMock', ['getEObservations']);
@@ -64,7 +64,7 @@ describe('EobservationDetailsPage', () => {
             expect(comp.hasFlights()).toBe(true);
         });
     });
-    
+
     describe('getColorStatusPoint', () => {
         it(`Renvoie null si l'eobs est nulle`, () => {
             expect(comp).toBeDefined();
@@ -90,9 +90,9 @@ describe('EobservationDetailsPage', () => {
             comp.eObservation.state = EObservationStateEnum.NOT_TAKEN_INTO_ACCOUNT;
             expect(comp.getColorStatusPoint()).toBe('red');
         });
-        
+
     });
-    
+
     describe('sortedFlights', () => {
         it(`Trie les vols si l'eobs a des vols`, () => {
             expect(comp).toBeDefined();
@@ -107,10 +107,10 @@ describe('EobservationDetailsPage', () => {
             comp.eObservation.eobservationFlights.push(flight2);
             comp.eObservation.eobservationFlights.push(flight3);
             comp.eObservation.eobservationFlights.push(flight1);
-            let flights = comp.sortedFlights();
+            const flights = comp.sortedFlights();
             expect(flights[0].flightOrder).toBe(1);
             expect(flights[1].flightOrder).toBe(2);
             expect(flights[2].flightOrder).toBe(3);
-        });        
+        });
     });
 });
