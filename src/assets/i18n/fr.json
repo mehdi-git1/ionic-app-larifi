@@ -231,7 +231,8 @@
             "MASTERING_QUALIFICATION": "Qualification maîtrises",
             "ANNUAL_ELEARNING": "Elearning annuel",
             "MEDICAL_APTITUDES": "Aptitudes médicales",
-            "LANGUAGES": "Langues"
+            "LANGUAGES": "Langues",
+            "TRAVEL_DOCUMENTS": "Documents de voyage"
         },
         "GENERALITY_SKILLS": {
             "START_DATE": "Depuis le",

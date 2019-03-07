@@ -6,6 +6,7 @@ import { FamiliarizationFlightsModel } from './statutory-certificate/familiariza
 import { PlaneSkillModel } from './statutory-certificate/plane-skill.model';
 import { GeneralitySkillsModel } from './statutory-certificate/generality-skills.model';
 import { EDossierPncObjectModel } from './e-dossier-pnc-object.model';
+import { TravelDocumentsModel } from './statutory-certificate/travel-documents.model';
 
 export class StatutoryCertificateModel extends EDossierPncObjectModel {
     matricule: string;
@@ -17,6 +18,7 @@ export class StatutoryCertificateModel extends EDossierPncObjectModel {
     annualElearning: AnnualElearningModel;
     medicalAptitudes: MedicalAptitudesModel;
     languages: LanguageModel[];
+    travelDocuments: TravelDocumentsModel[];
 
     getStorageId(): string {
         return `${this.matricule}`;
