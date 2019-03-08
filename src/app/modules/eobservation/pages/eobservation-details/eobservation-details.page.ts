@@ -101,15 +101,31 @@ export class EobservationDetailsPage {
    */
   sortEObservationItemsByTheme(): EobservationItemsByTheme[] {
     const itemsByTheme = new Array<EobservationItemsByTheme>();
+
     if (this.eObservation && this.eObservation.eobservationItems && this.eObservation.eobservationItems.length > 0) {
       for (const eObservationItem of this.eObservation.eobservationItems.sort((a, b) => a.itemOrder > b.itemOrder ? 1 : -1)) {
         const eObservationTheme = eObservationItem.refItemLevel.item.theme;
-        let themeToDisplay = itemsByTheme.find(element => eObservationTheme.label == element.referentialTheme.label);
-        if (!themeToDisplay) {
-          themeToDisplay = new EobservationItemsByTheme(eObservationTheme);
-          itemsByTheme.push(themeToDisplay);
+        const parentTheme = eObservationTheme.parent;
+        if (parentTheme) {
+          let parentThemeToDisplay = itemsByTheme.find(element => parentTheme.label == element.referentialTheme.label);
+          if (!parentThemeToDisplay) {
+            parentThemeToDisplay = new EobservationItemsByTheme(parentTheme);
+            itemsByTheme.push(parentThemeToDisplay);
+          } 
+          let themeToDisplay = parentThemeToDisplay.subThemes.find(element => eObservationTheme.label == element.referentialTheme.label);
+          if(!themeToDisplay) {
+            themeToDisplay = new EobservationItemsByTheme(eObservationTheme);
+          }
+          parentThemeToDisplay.subThemes.push(themeToDisplay);
+          themeToDisplay.eObservationItems.push(eObservationItem);
+        } else {
+          let themeToDisplay = itemsByTheme.find(element => eObservationTheme.label == element.referentialTheme.label);
+          if (!themeToDisplay) {
+            themeToDisplay = new EobservationItemsByTheme(eObservationTheme);
+            itemsByTheme.push(themeToDisplay);
+          }
+          themeToDisplay.eObservationItems.push(eObservationItem);
         }
-        themeToDisplay.eObservationItems.push(eObservationItem);
       }
     }
     return itemsByTheme.sort((a, b) => a.referentialTheme.themeOrder > b.referentialTheme.themeOrder ? 1 : -1);

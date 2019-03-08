@@ -31,7 +31,16 @@ export class EObsThemeComponent {
    * @return true si il n'y a pas d'items dans ce thème, sinon false
    */
   isEmptyGrid (): boolean {
-    return this.theme.eObservationItems === null || this.theme.eObservationItems.length === 0;
+    return (this.theme.eObservationItems === null || this.theme.eObservationItems.length === 0) 
+        && !this.hasSubThemes();
+  }
+
+  /**
+   * Vérifie qu'il y a des subThemes
+   * @return true si il n'y a pas de subThemes dans ce thème, sinon false
+   */
+  hasSubThemes (): boolean {
+    return !(this.theme.subThemes === null || this.theme.subThemes.length === 0);
   }
 
   /**

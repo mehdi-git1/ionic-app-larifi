@@ -4,10 +4,12 @@ import { ReferentialThemeModel } from './referential-theme.model';
 export class EobservationItemsByTheme {
 
     referentialTheme: ReferentialThemeModel;
+    subThemes: EobservationItemsByTheme[];
     eObservationItems: EObservationItemModel[];
 
     constructor (referentialTheme: ReferentialThemeModel) {
         this.referentialTheme = referentialTheme;
         this.eObservationItems = new Array<EObservationItemModel>();
+        this.subThemes = new Array<EobservationItemsByTheme>();
     }
 }
