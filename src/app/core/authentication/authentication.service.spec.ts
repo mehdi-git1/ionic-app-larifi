@@ -15,7 +15,6 @@ offlineSecurityServiceMock.getAuthenticatedUser.and.returnValue(
 );
 
 const securityServiceMock = jasmine.createSpyObj('securityServiceMock', ['getAuthenticatedUser', 'isAdmin']);
-const appInitServiceMock = jasmine.createSpyObj('appInitServiceMock', ['initParameters']);
 const deviceServiceMock = jasmine.createSpyObj('deviceServiceMock', ['isOfflineModeAvailable', 'isBrowser']);
 const synchronizationServiceMock = jasmine.createSpyObj('synchronizationServiceMock', ['storeEDossierOffline']);
 const synchronizationManagementServiceMock = jasmine.createSpyObj('synchronizationManagementServiceMock', ['']);
@@ -35,7 +34,6 @@ describe('AuthenticationService', () => {
             sessionServiceMock,
             offlineSecurityServiceMock,
             securityServiceMock,
-            appInitServiceMock,
             deviceServiceMock,
             storageServiceMock,
             TranslateServiceMock,
@@ -83,32 +81,6 @@ describe('AuthenticationService', () => {
         });
 
         describe(`Si la fonction putAuthenticatedUserInSession a réussi`, () => {
-
-            describe(`gestion de l'initialisation des paramétres utilisateurs`, () => {
-                const authenticatedUserTest: AuthenticatedUserModel = new AuthenticatedUserModel();
-
-                beforeEach(() => {
-                    spyOn(authenticationService, 'initUserData').and.returnValue(true);
-                    authenticationService.userHaveToImpersonate = jasmine.createSpy().and.returnValue(false);
-                });
-
-                it(`doit initialiser les paramétres pnc si l'utilisateur est un PNC`, fakeAsync(() => {
-                    authenticatedUserTest.isPnc = true;
-                    sessionServiceMock.getActiveUser.and.returnValue(authenticatedUserTest);
-                    authenticationService.initializeUser().then(
-                        data => expect(authenticationService.initUserData).toHaveBeenCalled()
-                    );
-                }));
-
-                it(`ne doit pas initialiser les paramétres pnc si l'utilisateur n'est pas un PNC`, fakeAsync(() => {
-                    authenticatedUserTest.isPnc = false;
-                    sessionServiceMock.getActiveUser.and.returnValue(authenticatedUserTest);
-                    authenticationService.initializeUser().then(
-                        data => expect(authenticationService.initUserData).not.toHaveBeenCalled()
-                    );
-                }));
-            });
-
 
             describe(`Mode offline desactivé`, () => {
 
@@ -246,15 +218,6 @@ describe('AuthenticationService', () => {
                 data => expect(data).toEqual(false)
             );
         }));
-
-    });
-
-    describe('initUserData', () => {
-
-        it(`doit vérifier que l'initialisation des paramétres se lance bien`, () => {
-            authenticationService.initUserData();
-            expect(appInitServiceMock.initParameters).toHaveBeenCalled();
-        });
 
     });
 
