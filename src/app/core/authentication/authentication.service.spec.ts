@@ -43,6 +43,7 @@ describe('AuthenticationService', () => {
             synchronizationManagementServiceMock,
             secMobilServiceMock);
         sessionServiceMock.authenticatedUser = authenticatedUser;
+        sessionServiceMock.getActiveUser.and.returnValue(authenticatedUser);
     });
 
     describe('initFonctionnalApp', () => {
