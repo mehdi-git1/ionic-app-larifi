@@ -1,12 +1,11 @@
+import { CongratulationLetterModel } from './../../models/congratulation-letter.model';
 import { CongratulationLetterTransformerService } from './../congratulation-letter/congratulation-letter-transformer.service';
 import { EObservationTransformerService } from './../eobservation/eobservation-transformer.service';
-import { FormsInputParamsModel } from './../../models/forms-input-params.model';
 import { Injectable, EventEmitter, Output } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs/Rx';
 
 import { ProfessionalLevelTransformerService } from '../professional-level/professional-level-transformer.service';
-import { FormsEObservationService } from '../forms/forms-e-observation.service';
 import { PncPhotoTransformerService } from '../pnc-photo/pnc-photo-transformer.service';
 import { CareerObjectiveModel } from '../../models/career-objective.model';
 import { SessionService } from '../session/session.service';
@@ -24,7 +23,6 @@ import { PncModel } from '../../models/pnc.model';
 import { WaypointModel } from '../../models/waypoint.model';
 import { RotationModel } from '../../models/rotation.model';
 import { SecurityService } from '../security/security.service';
-import { LegService } from '../leg/leg.service';
 import { CrewMemberModel } from '../../models/crew-member.model';
 import { LegModel } from '../../models/leg.model';
 import { StatutoryCertificateTransformerService } from '../statutory-certificate/statutory-certificate-transformer.service';
@@ -38,12 +36,10 @@ export class SynchronizationService {
   synchroStatusChange = new EventEmitter<boolean>();
 
   constructor(private storageService: StorageService,
-    private eObservationService: FormsEObservationService,
     private waypointTransformer: WaypointTransformerService,
     private pncSynchroProvider: PncSynchroService,
     public securityProvider: SecurityService,
     private translateService: TranslateService,
-    private legProvider: LegService,
     private sessionService: SessionService,
     private careerObjectiveTransformer: CareerObjectiveTransformerService,
     private pncTransformer: PncTransformerService,
@@ -61,18 +57,15 @@ export class SynchronizationService {
   /**
    * Stocke en cache le EDossier du PNC
    * @param matricule le matricule du PNC dont on souhaite mettre en cache le EDossier
-   * @param storeCrewMembers false si l'on ne veut pas charger les crewMembers des vols du PncModel
    * @return une promesse résolue quand le EDossier est mis en cache
    */
-  storeEDossierOffline(matricule: string, storeCrewMembers: boolean = true): Promise<boolean> {
+  storeEDossierOffline(matricule: string): Promise<boolean> {
     return new Promise((resolve, reject) => {
       // On ne met pas en cache si des données sont en attente de synchro
       if (!this.isPncModifiedOffline(matricule)) {
         this.pncSynchroProvider.getPncSynchro(matricule).then(pncSynchro => {
-          this.updateLocalStorageFromPncSynchroResponse(pncSynchro, storeCrewMembers).then(
-            success => resolve(),
-            error => reject(this.translateService.instant('SYNCHRONIZATION.PNC_SAVED_OFFLINE_ERROR', { 'matricule': matricule }))
-          );
+          this.updateLocalStorageFromPncSynchroResponse(pncSynchro);
+          resolve(true);
         }, error => {
           reject(error.detailMessage);
         });
@@ -121,67 +114,36 @@ export class SynchronizationService {
   /**
    * Gère la réponse de synchronisation du serveur. Supprime tous les objets associés au PNC pour les recréer ensuite.
    * @param pncSynchroResponse l'objet reçu du serveur
-   * @param storeCrewMembers false si l'on ne veut pas traiter les crewMembers des vols du PncModel
-   * @return une promesse qui se résout quand tout a été sauvegardé
    */
-  updateLocalStorageFromPncSynchroResponse(pncSynchroResponse: PncSynchroModel, storeCrewMembers: boolean = true): Promise<boolean> {
-    return new Promise((resolve, reject) => {
-      this.deleteAllPncOfflineObject(pncSynchroResponse.pnc);
-      this.storageService.save(EntityEnum.PNC, this.pncTransformer.toPnc(pncSynchroResponse.pnc), true);
-      this.storeRotations(pncSynchroResponse.rotations);
-      const crewMembersPromisesArray = this.storeLegs(pncSynchroResponse.legs);
-      const storeCrewMembersPromises = new Array<Promise<boolean[]>>();
+  updateLocalStorageFromPncSynchroResponse(pncSynchroResponse: PncSynchroModel, storeCrewMembers = true): void {
+    this.deleteAllPncOfflineObject(pncSynchroResponse.pnc);
+    this.storageService.save(EntityEnum.PNC, this.pncTransformer.toPnc(pncSynchroResponse.pnc), true);
+    this.storeRotations(pncSynchroResponse.rotations);
+    this.storeLegs(pncSynchroResponse.legs);
+    this.storeCrewMembers(pncSynchroResponse.crewMembers, storeCrewMembers);
+    this.storeCareerObjectives(pncSynchroResponse.careerObjectives);
+    this.storeWaypoints(pncSynchroResponse.waypoints);
+    this.storeEObservations(pncSynchroResponse.eobservations);
+    this.storeCongratulationLetters(pncSynchroResponse.congratulationLetters);
 
-      Promise.all(crewMembersPromisesArray).then(flightCrewMatrix => {
-        if (storeCrewMembers) {
-          storeCrewMembersPromises.push(this.storeCrewMembers(pncSynchroResponse.pnc.matricule, flightCrewMatrix));
-        }
-        // Création des nouveaux objets
-        for (const careerObjective of pncSynchroResponse.careerObjectives) {
-          delete careerObjective.offlineAction;
-          this.storageService.save(EntityEnum.CAREER_OBJECTIVE, this.careerObjectiveTransformer.toCareerObjective(careerObjective), true);
-        }
-        for (const waypoint of pncSynchroResponse.waypoints) {
-          // On ajoute la clef de l'objectif à chaque point d'étape
-          delete waypoint.offlineAction;
-          // On ne garde que le techId pour réduire le volume de données en cache
-          const careerObjectiveTechId = waypoint.careerObjective.techId;
-          waypoint.careerObjective = new CareerObjectiveModel();
-          waypoint.careerObjective.techId = careerObjectiveTechId;
-          this.storageService.save(EntityEnum.WAYPOINT, this.waypointTransformer.toWaypoint(waypoint), true);
-        }
-        // Sauvegarde de la fiche synthese
-        this.storageService.save(EntityEnum.SUMMARY_SHEET, pncSynchroResponse.summarySheet, true);
+    // Sauvegarde de la fiche synthèse
+    this.storageService.save(EntityEnum.SUMMARY_SHEET, pncSynchroResponse.summarySheet, true);
 
-        // Sauvegarde de la photo du PNC
-        this.storageService.save(EntityEnum.PNC_PHOTO, this.pncPhotoTransformer.toPncPhoto(pncSynchroResponse.photo), true);
+    // Sauvegarde de la photo du PNC
+    this.storageService.save(EntityEnum.PNC_PHOTO, this.pncPhotoTransformer.toPncPhoto(pncSynchroResponse.photo), true);
 
-        // Sauvegarde de l'attestation réglementaire
-        this.storageService.save(EntityEnum.STATUTORY_CERTIFICATE, this.statutoryCertificateTransformer.toStatutoryCertificate(pncSynchroResponse.statutoryCertificate), true);
+    // Sauvegarde de l'attestation réglementaire
+    this.storageService.save(EntityEnum.STATUTORY_CERTIFICATE, this.statutoryCertificateTransformer.toStatutoryCertificate(pncSynchroResponse.statutoryCertificate), true);
 
-        // Sauvegarde des EObservations
-        for (const eObservation of pncSynchroResponse.eobservations) {
-          delete eObservation.offlineAction;
-          this.storageService.save(EntityEnum.EOBSERVATION, this.eObservationTransformerService.toEObservation(eObservation), true);
-        }
+    // Sauvegarde du suivi réglementaire
+    this.storageService.save(EntityEnum.PROFESSIONAL_LEVEL, this.professionalLevelTransformer.toProfessionalLevel(pncSynchroResponse.professionalLevel), true);
 
-        // Sauvegarde du suivi réglementaire
-        this.storageService.save(EntityEnum.PROFESSIONAL_LEVEL, this.professionalLevelTransformer.toProfessionalLevel(pncSynchroResponse.professionalLevel), true);
-        this.storageService.persistOfflineMap();
-
-        // Sauvegarde des lettres de félicitation
-        for (const congratulationLetter of pncSynchroResponse.congratulationLetters) {
-          this.storageService.save(EntityEnum.CONGRATULATION_LETTER, this.congratulationLetterTransformer.toCongratulationLetter(congratulationLetter), true);
-        }
-
-        Promise.all(storeCrewMembersPromises).then(success => resolve(), error => reject());
-      }, error => { });
-    });
+    this.storageService.persistOfflineMap();
   }
 
   /**
    * Enregistre les rotations en cache
-   * @param rotations tableau de rotations
+   * @param rotations le rotations à stocker en cache
    */
   private storeRotations(rotations: RotationModel[]): void {
     if (rotations != null) {
@@ -193,52 +155,82 @@ export class SynchronizationService {
 
   /**
    * Enregistre les vols en cache
-   * @param legs tableau de vols
-   * @return un tableau de promesses dont chaque item est la liste d'équipage d'un des vols en paramètre
+   * @param legs les vols à stocker en cache
    */
-  private storeLegs(legs: LegModel[]): Promise<CrewMemberModel[]>[] {
-    const crewMembersPromisesArray: Promise<CrewMemberModel[]>[] = new Array();
+  private storeLegs(legs: LegModel[]): void {
     if (legs != null) {
       for (const leg of legs) {
         const techIdRotation: number = leg.rotation.techId;
         leg.rotation = new RotationModel();
         leg.rotation.techId = techIdRotation;
         this.storageService.save(EntityEnum.LEG, this.legTransformerProvider.toLeg(leg), true);
-        crewMembersPromisesArray.push(this.legProvider.getFlightCrewFromLeg(leg.techId));
       }
     }
-    return crewMembersPromisesArray;
   }
 
   /**
-   * Enregistre les crewMembers en cache.
-   * Un traitement est effectué afin de gérer l'unicité (par matricule) des crewMembers.
-   * Le crewMember correspondant au matricule en paramètre ne sera pas traité.
-   * @param matricule le matricule du PncModel principal (celui dont on charge le eDossier initialement)
-   * @param flightCrewMatrix matrice de crewMembers
-   * @return une promesse qui se résout quand tout l'équipage a été mis en cache
+   * Enregistre une liste de membre d'équipage en cache
+   * @param crewMembers les membres d'équipage à stocker en cache
+   * @param storeCrewMembers si on doit déclencher la mise en cache des dossiers des membres d'équipage
    */
-  private storeCrewMembers(matricule: string, flightCrewMatrix: CrewMemberModel[][]): Promise<boolean[]> {
-    const crewMembers: Array<CrewMemberModel> = new Array();
-    for (const flightCrewList of flightCrewMatrix) {
-      for (const flightCrew of flightCrewList) {
-        this.storageService.save(EntityEnum.CREW_MEMBER, this.crewMemberTransformerService.toCrewMember(flightCrew), true);
-        if (matricule != flightCrew.pnc.matricule) {
-          crewMembers.push(flightCrew);
+  private storeCrewMembers(crewMembers: CrewMemberModel[], storeCrewMembers: boolean): void {
+    if (crewMembers) {
+      for (const crewMember of crewMembers) {
+        this.storageService.save(EntityEnum.CREW_MEMBER, this.crewMemberTransformerService.toCrewMember(crewMember), true);
+        // Ajoute en file d'attente la mise en cache du dossier du membre d'équipage sauf s'il s'agit du user connecté
+        if (storeCrewMembers && this.sessionService.getActiveUser().matricule !== crewMember.pnc.matricule) {
+          this.events.publish('SynchroRequest:add', crewMember.pnc);
         }
       }
     }
+  }
 
-    const storeEDossierOfflinePromises = new Array<Promise<boolean>>();
-    const crewMembersAlreadyStored: Array<String> = new Array();
-    for (const crewMember of crewMembers) {
-      // charge l'edossier PNC de chaque membre d'équipage si il n'a a pas encore été stocké
-      if (crewMembersAlreadyStored.indexOf(crewMember.pnc.matricule) < 0) {
-        this.events.publish('SynchroRequest:add', crewMember.pnc);
-        crewMembersAlreadyStored.push(crewMember.pnc.matricule);
-      }
+  /**
+   * Enregistre une liste d'objectifs en cache
+   * @param careerObjectives les objectifs à stocker en cache
+   */
+  private storeCareerObjectives(careerObjectives: CareerObjectiveModel[]): void {
+    for (const careerObjective of careerObjectives) {
+      delete careerObjective.offlineAction;
+      this.storageService.save(EntityEnum.CAREER_OBJECTIVE, this.careerObjectiveTransformer.toCareerObjective(careerObjective), true);
     }
-    return Promise.all(storeEDossierOfflinePromises);
+  }
+
+  /**
+   * Enregistre une liste de points d'étape en cache
+   * @param waypoints les points d'étape à stocker en cache
+   */
+  private storeWaypoints(waypoints: WaypointModel[]): void {
+    for (const waypoint of waypoints) {
+      // On ajoute la clef de l'objectif à chaque point d'étape
+      delete waypoint.offlineAction;
+      // On ne garde que le techId pour réduire le volume de données en cache
+      const careerObjectiveTechId = waypoint.careerObjective.techId;
+      waypoint.careerObjective = new CareerObjectiveModel();
+      waypoint.careerObjective.techId = careerObjectiveTechId;
+      this.storageService.save(EntityEnum.WAYPOINT, this.waypointTransformer.toWaypoint(waypoint), true);
+    }
+  }
+
+  /**
+   * Enregistre une liste d'eObservations en cache
+   * @param eObservations les eObservations à stocker en cache
+   */
+  private storeEObservations(eObservations: EObservationModel[]): void {
+    for (const eObservation of eObservations) {
+      delete eObservation.offlineAction;
+      this.storageService.save(EntityEnum.EOBSERVATION, this.eObservationTransformerService.toEObservation(eObservation), true);
+    }
+  }
+
+  /**
+   * Enregistre une liste lettres de félicitation en cache
+   * @param congratulationLetters les lettres de félicitation à stocker en cache
+   */
+  private storeCongratulationLetters(congratulationLetters: CongratulationLetterModel[]): void {
+    for (const congratulationLetter of congratulationLetters) {
+      this.storageService.save(EntityEnum.CONGRATULATION_LETTER, this.congratulationLetterTransformer.toCongratulationLetter(congratulationLetter), true);
+    }
   }
 
   /**
@@ -307,7 +299,7 @@ export class SynchronizationService {
           promiseCount = pncSynchroList.length;
           for (const pncSynchro of pncSynchroList) {
             this.pncSynchroProvider.synchronize(pncSynchro).then(pncSynchroResponse => {
-              this.updateLocalStorageFromPncSynchroResponse(pncSynchroResponse);
+              this.updateLocalStorageFromPncSynchroResponse(pncSynchroResponse, false);
               resolvedPromiseCount++;
               observer.next(true);
             }, error => {
