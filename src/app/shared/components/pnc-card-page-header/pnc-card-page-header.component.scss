@@ -1,0 +1,51 @@
+pnc-card-page-header {
+
+    .pnc-info-box {
+        border-radius: 5px;
+        margin-bottom: 15px;
+        box-shadow: 0px 0px 5px color($colors, grey70);
+        background: color($colors, white);
+
+        pnc-photo {
+            padding: 10px;
+            flex: 2;
+        }
+
+        .pnc-info-container {
+            padding: 10px 20px 10px 10px;
+            width: 100%;
+
+            .pnc-info-title {
+                display: flex;
+                color: color($colors, blue81);
+                padding: 10px;
+                text-align: center;
+
+                span {
+                    flex: 1;
+                }
+
+                .referent-instructor {
+                    flex: 5;
+                    text-align: right;
+                }
+
+            }
+
+            .pnc-info-detail {
+                display: flex;
+                text-align: center;
+
+                .pnc-info-data-title {
+                    font-weight: bold;
+                }
+
+                .pnc-info-data {
+                    line-height: 1.5em;
+                    color: color($colors, grey60);
+                }
+            }
+        }
+
+    }
+}
