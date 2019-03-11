@@ -143,7 +143,7 @@ export class SynchronizationService {
 
   /**
    * Enregistre les rotations en cache
-   * @param rotations le rotations à stocker en cache
+   * @param rotations les rotations à stocker en cache
    */
   private storeRotations(rotations: RotationModel[]): void {
     if (rotations != null) {
