@@ -3,15 +3,12 @@ import { UrlConfiguration } from './../../configuration/url.configuration';
 import { Config } from './../../../../environments/prod';
 import { PncService } from './pnc.service';
 import { OfflinePncService } from './offline-pnc.service';
-import { fakeAsync } from '@angular/core/testing';
 import { PncModel } from '../../models/pnc.model';
-import { AssignmentModel } from '../../models/assignment.model';
-import { RotationModel } from '../../models/rotation.model';
 import { SpecialityEnum } from '../../enums/speciality.enum';
 
 const connectivityServiceMock = jasmine.createSpyObj('connectivityServiceMock', ['isConnected']);
-const onlinePncServiceMock = jasmine.createSpyObj('onlinePncServiceMock', []);
-const offlinePncServiceMock = jasmine.createSpyObj('offlinePncServiceMock', []);
+const onlinePncServiceMock = jasmine.createSpyObj('onlinePncServiceMock', ['']);
+const offlinePncServiceMock = jasmine.createSpyObj('offlinePncServiceMock', ['']);
 const restServiceMock = jasmine.createSpyObj('restServiceMock', ['get']);
 
 describe('PncService', () => {
