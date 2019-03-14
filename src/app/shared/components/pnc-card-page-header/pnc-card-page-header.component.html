@@ -7,8 +7,10 @@
             <span class="value firstname">{{ pnc.firstName }}</span>
             <span class="value">{{ pnc.matricule }}</span>
             <span class="referent-instructor">
-                <span>{{ 'PNC_IDENTITY.REFERENT_INSTRUCTOR' | translate }} : </span>
-                <span [ngClass]="{'no-value' : !pnc.pncInstructorLastName}">{{pnc.pncInstructorLastName}}</span> <span class="firstname">{{pnc.pncInstructorFirstName}}</span>
+                <span *ngIf="!pnc.manager">
+                    <span>{{ 'PNC_IDENTITY.REFERENT_INSTRUCTOR' | translate }} : </span>
+                    <span [ngClass]="{'no-value' : !pnc.pncInstructorLastName}">{{pnc.pncInstructorLastName}}</span> <span class="firstname">{{pnc.pncInstructorFirstName}}</span>
+                </span>
             </span>
         </div>
         <div class="pnc-info-detail">
