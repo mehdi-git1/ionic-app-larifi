@@ -1,3 +1,5 @@
+import { MatriculesModel } from './../../models/matricules.model';
+import { Events } from 'ionic-angular';
 
 import { Injectable } from '@angular/core';
 import * as moment from 'moment';
@@ -20,7 +22,8 @@ export class OnlinePncPhotoService {
     private offlinePncPhotoProvider: OfflinePncPhotoService,
     private storageService: StorageService,
     private pncPhotoTransformer: PncPhotoTransformerService,
-    private config: UrlConfiguration
+    private config: UrlConfiguration,
+    private events: Events
   ) { }
 
   /**
@@ -32,7 +35,7 @@ export class OnlinePncPhotoService {
     return new Promise((resolve, reject) => {
       this.offlinePncPhotoProvider.getPncPhoto(matricule).then(pncPhoto => {
         if (!pncPhoto || this.photoIsExpired(pncPhoto)) {
-          this.restService.get(this.config.getBackEndUrl('getPncPhotosByMatricule', [matricule])).then(onlinePncPhoto => {
+          this.restService.get(this.config.getBackEndUrl('getPncPhotoByMatricule', [matricule])).then(onlinePncPhoto => {
             onlinePncPhoto = this.pncPhotoTransformer.toPncPhoto(onlinePncPhoto);
             this.storageService.save(EntityEnum.PNC_PHOTO, onlinePncPhoto);
             resolve(onlinePncPhoto);
@@ -51,16 +54,50 @@ export class OnlinePncPhotoService {
   }
 
   /**
+  * Met à jour les photos d'une série de PNC, si ces dernières sont dépassées.
+  * Stocke en cache les photos reçues et émet une événement pour déclencher la mise à jour des IHM
+  * @param matricules les PNC concernés
+  */
+  synchronizePncsPhotos(matricules: string[]): void {
+    this.offlinePncPhotoProvider.getPncsPhotos(matricules).then(pncsPhotos => {
+      const expiredPhotoMatricules: Array<string> = new Array();
+      pncsPhotos.forEach(pncPhoto => {
+        if (!pncPhoto || this.photoIsExpired(pncPhoto)) {
+          expiredPhotoMatricules.push(pncPhoto.matricule);
+        }
+      });
+      if (expiredPhotoMatricules.length > 0) {
+        const matriculesObject = new MatriculesModel(expiredPhotoMatricules);
+        matriculesObject.matricules = expiredPhotoMatricules;
+        this.restService.get(this.config.getBackEndUrl('pncPhotos'), matriculesObject).then(onlinePncsPhotos => {
+          onlinePncsPhotos.forEach(onlinePncPhoto => {
+            onlinePncPhoto = this.pncPhotoTransformer.toPncPhoto(onlinePncPhoto);
+            this.storageService.save(EntityEnum.PNC_PHOTO, onlinePncPhoto);
+          });
+          this.events.publish('PncPhoto:updated', expiredPhotoMatricules);
+        }, error => {
+          this.events.publish('PncPhoto:updated', expiredPhotoMatricules);
+        });
+      } else {
+        this.events.publish('PncPhoto:updated', matricules);
+      }
+    });
+  }
+
+  /**
    * Vérifie si la photo est expirée. Elle l'est au delà de 24h
    * @return vrai si la photo est en cache depuis plus de 24h, faux sinon
    */
   private photoIsExpired(pncPhoto: PncPhotoModel): boolean {
-    const now = moment();
-    const offlineStorageDate = moment(pncPhoto.offlineStorageDate, AppConstant.isoDateFormat);
-    const offlineDuration = moment.duration(now.diff(offlineStorageDate)).asMilliseconds();
+    if (pncPhoto && pncPhoto.offlineStorageDate) {
+      const now = moment();
+      const offlineStorageDate = moment(pncPhoto.offlineStorageDate, AppConstant.isoDateFormat);
+      const offlineDuration = moment.duration(now.diff(offlineStorageDate)).asMilliseconds();
 
-    const expiredThreshold = moment.duration(1, 'days').asMilliseconds();
+      const expiredThreshold = moment.duration(1, 'days').asMilliseconds();
 
-    return offlineDuration > expiredThreshold;
+      return offlineDuration > expiredThreshold;
+    }
+    return true;
   }
 }

@@ -1,3 +1,4 @@
+import { MatriculesModel } from './../../models/matricules.model';
 import { OnlinePncPhotoService } from './online-pnc-photo.service';
 import { OfflinePncPhotoService } from './offline-pnc-photo.service';
 import { ConnectivityService } from '../connectivity/connectivity.service';
@@ -27,6 +28,15 @@ export class PncPhotoService extends BaseService {
   */
   getPncPhoto(matricule: string): Promise<PncPhotoModel> {
     return this.execFunctionService('getPncPhoto', matricule);
+  }
+
+  /**
+   * Met à jour les photos d'une série de PNC, si ces dernières sont dépassées.
+   * Stocke en cache les photos reçues et émet une événement pour déclencher la mise à jour des IHM
+   * @param matricules les PNC concernés
+   */
+  synchronizePncsPhotos(matricules: string[]): void {
+    this.execFunctionService('synchronizePncsPhotos', matricules);
   }
 
 }
