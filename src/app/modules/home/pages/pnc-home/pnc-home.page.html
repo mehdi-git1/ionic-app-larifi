@@ -33,8 +33,7 @@
                                         <span class="value firstname">{{ pnc.firstName }}</span>
                                     </ion-col>
                                     <ion-col class="download-edossier">
-                                        <download-button [synchroInProgress]="synchroInProgress"
-                                            (onDownload)="downloadPncEdossier()"></download-button>
+                                        <download-button [synchroInProgress]="synchroInProgress" (onDownload)="downloadPncEdossier()"></download-button>
                                     </ion-col>
                                 </ion-row>
                                 <ion-row>
@@ -48,20 +47,17 @@
                                     <!-- Division-->
                                     <ion-col class="pnc-info">
                                         <label>{{ 'PNC_HOME.INFO_PANEL.DIVISION' | translate }}</label>
-                                        <span class="value"
-                                            [ngClass]="{'no-value' : !pnc?.assignment?.division }">{{ pnc?.assignment?.division }}</span>
+                                        <span class="value" [ngClass]="{'no-value' : !pnc?.assignment?.division }">{{ pnc?.assignment?.division }}</span>
                                     </ion-col>
                                     <!-- Secteur-->
                                     <ion-col class="pnc-info">
                                         <label>{{ 'PNC_HOME.INFO_PANEL.SECTOR' | translate }}</label>
-                                        <span class="value"
-                                            [ngClass]="{'no-value' : !pnc?.assignment?.sector }">{{ pnc?.assignment?.sector }}</span>
+                                        <span class="value" [ngClass]="{'no-value' : !pnc?.assignment?.sector }">{{ pnc?.assignment?.sector }}</span>
                                     </ion-col>
                                     <!-- Ginq-->
                                     <ion-col class="pnc-info">
                                         <label>{{ 'PNC_HOME.INFO_PANEL.GINQ' | translate }}</label>
-                                        <span class="value"
-                                            [ngClass]="{'no-value' : !pnc?.assignment?.ginq }">{{ pnc?.assignment?.ginq }}</span>
+                                        <span class="value" [ngClass]="{'no-value' : !pnc?.assignment?.ginq }">{{ pnc?.assignment?.ginq }}</span>
                                     </ion-col>
                                 </ion-row>
                             </ion-col>
@@ -76,12 +72,6 @@
                     <div class="button-parent" *ngIf="!isManager()">
                         <button ion-button (click)="goToCareerObjectiveList()" color="red14">
                             {{ 'GLOBAL.DEVELOPMENT_PROGRAM' | isMyPage: pnc | translate }}
-                        </button>
-                    </div>
-                    <!-- Fiche synthèse PNC -->
-                    <div class="button-parent" *ngIf="!isManager()">
-                        <button ion-button (click)="goToSummarySheet()" color="grey15">
-                            {{ 'GLOBAL.PNC_SUMMARY_SHEET' | isMyPage: pnc | translate }}
                         </button>
                     </div>
                     <!-- Effectif PNC -->

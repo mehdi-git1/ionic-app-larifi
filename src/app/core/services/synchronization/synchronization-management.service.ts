@@ -83,9 +83,18 @@ export class SynchronizationManagementService {
   }
 
   /**
-   * Traite le maximum autorisé de demande de synchro
+   * Reprend le processus de synchronisation de la file d'attente
+   * @param retryFailedRequest si on doit retenter les demandes en échec
    */
-  public processMaxSynchroRequest(): void {
+  public resumeSynchroRequestProcessing(retryFailedRequest = false): void {
+    if (retryFailedRequest) {
+      this.synchroRequestList.filter(synchroRequest => {
+        return synchroRequest.synchroStatus === SynchroStatusEnum.FAILED;
+      }).forEach(synchroRequest => {
+        this.reinitSynchroRequest(synchroRequest);
+      });
+    }
+
     for (let i = 0; i < this.MAX_CONCURRENT_SYNCHRO_REQUEST; i++) {
       this.processSynchroRequestList();
     }
