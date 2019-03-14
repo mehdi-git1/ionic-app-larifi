@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 
 import { GenderEnum } from '../../enums/gender.enum';
 import { PncSearchCriteriaModel } from '../../models/pnc-search-criteria.model';
-import { SessionService } from '../session/session.service';
 import { UrlConfiguration } from '../../configuration/url.configuration';
 import { PncFilterModel } from '../../models/pnc-filter.model';
 import { OnlinePncService } from './online-pnc.service';
@@ -22,7 +21,6 @@ export class PncService extends BaseService {
     protected connectivityService: ConnectivityService,
     private onlinePncService: OnlinePncService,
     private offlinePncService: OfflinePncService,
-    private sessionService: SessionService,
     private restService: RestService,
     private config: UrlConfiguration
   ) {
