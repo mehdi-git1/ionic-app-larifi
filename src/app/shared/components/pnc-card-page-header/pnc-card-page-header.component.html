@@ -6,9 +6,9 @@
             <span class="value">{{ pnc.lastName }}</span>
             <span class="value firstname">{{ pnc.firstName }}</span>
             <span class="value">{{ pnc.matricule }}</span>
-            <span class="value referent-instructor">
+            <span class="referent-instructor">
                 <span>{{ 'PNC_IDENTITY.REFERENT_INSTRUCTOR' | translate }} : </span>
-                <span>{{pnc.lastName}}</span>
+                <span [ngClass]="{'no-value' : !pnc.pncInstructorLastName}">{{pnc.pncInstructorLastName}}</span> <span class="firstname">{{pnc.pncInstructorFirstName}}</span>
             </span>
         </div>
         <div class="pnc-info-detail">
@@ -22,16 +22,20 @@
             </div>
             <div class="flex1">
                 <div class="pnc-info-data-title">{{ 'PNC_IDENTITY.RYTHM' | translate }}</div>
-                <div class="pnc-info-data" [ngClass]="{'no-value' : !pnc.workRate }">{{ pnc.workRate }} %</div>
+                <div class="pnc-info-data" [ngClass]="{'no-value' : !pnc.workRate }">{{ pnc.workRate }} <span *ngIf="pnc.workRate">%</span></div>
             </div>
             <div class="flex2">
                 <div class="pnc-info-data-title">{{ 'PNC_IDENTITY.QUALIFICATION' | translate }}</div>
-                <div class="pnc-info-data">{{ pnc.lastName}}</div>
+                <div class="pnc-info-data" [ngClass]="{'no-value' : !pnc.aircraftSkillsLabel[0] }">
+                    <span *ngFor="let label of pnc.aircraftSkillsLabel; index as i; last as l">{{label}}<span *ngIf="!l">,</span>
+                    </span>
+                </div>
             </div>
             <div class="flex1">
                 <div class="pnc-info-data-title">{{ 'PNC_IDENTITY.RELAY' | translate }}</div>
                 <div class="pnc-info-data" [ngClass]="{'no-value' : !pnc.relays[0] }">
-                    <span *ngFor="let relay of pnc.relays; index as i">{{ relay.code}}, </span>
+                    <span *ngFor="let relay of pnc.relays; index as i; last as l">{{relay.code}}<span *ngIf="!l">,</span>
+                    </span>
                 </div>
             </div>
             <div class="flex2">

@@ -5,6 +5,12 @@ page-pnc-home {
         height: 100%;
     }
 
+    pnc-card-page-header {
+        .pnc-info-box {
+            margin: 15px;
+        }
+    }
+
     .pnc-info-panel {
         display: flex;
 
