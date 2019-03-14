@@ -209,47 +209,43 @@ export class EobservationDetailsPage {
    */
   canEditPncComment(): boolean {
     return this.sessionService.getActiveUser().matricule === this.eObservation.pnc.matricule
-      && this.eObservation.state === EObservationStateEnum.NOT_TAKEN_INTO_ACCOUNT
+      && (this.originEObservation.pncComment === '' || typeof (this.originEObservation.pncComment) === 'undefined')
       && this.eObservation.type !== EObservationTypeEnum.E_ALT
       && this.eObservation.type !== EObservationTypeEnum.E_PCB;
   }
 
   /**
-   * Demande la confirmation de la validation de l'eObs si le commentaire PNC est vide
-   */
-  confirmValidateEObservation(): void {
-    if (this.eObservation.pncComment.length === 0) {
-      this.alertCtrl.create({
-        title: this.translateService.instant('EOBSERVATION.CONFIRM_VALIDATE.TITLE'),
-        message: this.translateService.instant('EOBSERVATION.CONFIRM_VALIDATE.MESSAGE'),
-        buttons: [
-          {
-            text: this.translateService.instant('EOBSERVATION.CONFIRM_VALIDATE.CANCEL'),
-            role: 'cancel'
-          },
-          {
-            text: this.translateService.instant('EOBSERVATION.CONFIRM_VALIDATE.CONFIRM'),
-            handler: () => this.validateEObservation()
-          }
-        ]
-      }).present();
-    } else {
-      this.validateEObservation();
-    }
+  * Demande la confirmation de la validation du commentaire du pnc
+  */
+  confirmValidatePncComment(): void {
+    this.alertCtrl.create({
+      title: this.translateService.instant('EOBSERVATION.CONFIRM_VALIDATE_PNC_COMMENT.TITLE'),
+      message: this.translateService.instant('EOBSERVATION.CONFIRM_VALIDATE_PNC_COMMENT.MESSAGE'),
+      buttons: [
+        {
+          text: this.translateService.instant('EOBSERVATION.CONFIRM_VALIDATE_PNC_COMMENT.CANCEL'),
+          role: 'cancel'
+        },
+        {
+          text: this.translateService.instant('EOBSERVATION.CONFIRM_VALIDATE_PNC_COMMENT.CONFIRM'),
+          handler: () => this.validatePncComment()
+        }
+      ]
+    }).present();
   }
 
   /**
-   * Valide l'eObservation (enregistre le commentaire du PNC et change son statut)
-   */
-  validateEObservation(): void {
+ * Valide le commentaire pnc de l'eObservation
+ */
+  validatePncComment(): void {
     this.loading = this.loadingCtrl.create();
     this.loading.present();
     // On transmet un objet cloné pour éviter toute modif de l'objet par le service
     const eObservationClone = _.cloneDeep(this.eObservation);
-    this.eObservationService.validateEObservation(eObservationClone).then(eObservation => {
+    this.eObservationService.validatePncComment(eObservationClone).then(eObservation => {
       this.eObservation = eObservation;
       this.originEObservation = _.cloneDeep(this.eObservation);
-      this.toastService.success(this.translateService.instant('EOBSERVATION.MESSAGES.SUCCESS.EOBSERVATION_VALIDATED'));
+      this.toastService.success(this.translateService.instant('EOBSERVATION.MESSAGES.SUCCESS.PNC_COMMENT_SAVED'));
       this.navCtrl.pop();
     }, error => { }).then(() => {
       // Finally
