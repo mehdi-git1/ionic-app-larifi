@@ -58,29 +58,32 @@ export class OnlinePncPhotoService {
   * Stocke en cache les photos reçues et émet une événement pour déclencher la mise à jour des IHM
   * @param matricules les PNC concernés
   */
-  synchronizePncsPhotos(matricules: string[]): void {
-    this.offlinePncPhotoProvider.getPncsPhotos(matricules).then(pncsPhotos => {
-      const expiredPhotoMatricules: Array<string> = new Array();
-      pncsPhotos.forEach(pncPhoto => {
-        if (!pncPhoto || this.photoIsExpired(pncPhoto)) {
-          expiredPhotoMatricules.push(pncPhoto.matricule);
+  synchronizePncsPhotos(matricules: string[]): Promise<any> {
+    return new Promise(resolve => {
+      this.offlinePncPhotoProvider.getPncsPhotos(matricules).then(pncsPhotos => {
+        const expiredPhotoMatricules: Array<string> = new Array();
+        pncsPhotos.forEach(pncPhoto => {
+          if (!pncPhoto || this.photoIsExpired(pncPhoto)) {
+            expiredPhotoMatricules.push(pncPhoto.matricule);
+          }
+        });
+        if (expiredPhotoMatricules.length > 0) {
+          const matriculesObject = new MatriculesModel(expiredPhotoMatricules);
+          matriculesObject.matricules = expiredPhotoMatricules;
+          this.restService.get(this.config.getBackEndUrl('pncPhotos'), matriculesObject).then(onlinePncsPhotos => {
+            onlinePncsPhotos.forEach(onlinePncPhoto => {
+              onlinePncPhoto = this.pncPhotoTransformer.toPncPhoto(onlinePncPhoto);
+              this.storageService.save(EntityEnum.PNC_PHOTO, onlinePncPhoto);
+            });
+            this.storageService.persistOfflineMap();
+          }, error => { }).then(() => {
+            this.events.publish('PncPhoto:updated', matricules);
+          });
+        } else {
+          this.events.publish('PncPhoto:updated', matricules);
         }
       });
-      if (expiredPhotoMatricules.length > 0) {
-        const matriculesObject = new MatriculesModel(expiredPhotoMatricules);
-        matriculesObject.matricules = expiredPhotoMatricules;
-        this.restService.get(this.config.getBackEndUrl('pncPhotos'), matriculesObject).then(onlinePncsPhotos => {
-          onlinePncsPhotos.forEach(onlinePncPhoto => {
-            onlinePncPhoto = this.pncPhotoTransformer.toPncPhoto(onlinePncPhoto);
-            this.storageService.save(EntityEnum.PNC_PHOTO, onlinePncPhoto);
-          });
-          this.events.publish('PncPhoto:updated', expiredPhotoMatricules);
-        }, error => {
-          this.events.publish('PncPhoto:updated', expiredPhotoMatricules);
-        });
-      } else {
-        this.events.publish('PncPhoto:updated', matricules);
-      }
+      resolve();
     });
   }
 

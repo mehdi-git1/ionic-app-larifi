@@ -93,8 +93,7 @@ export class PncSearchPage implements OnInit {
         this.buildFilter();
 
         this.pncProvider.getFilteredPncs(this.pncSearchFilter.pncFilter, this.page, this.sizeOfThePage).then(pagedPnc => {
-            const pncMatricules = pagedPnc.content.map(pnc => pnc.matricule);
-            this.pncPhotoService.synchronizePncsPhotos(pncMatricules);
+            this.pncPhotoService.synchronizePncsPhotos(pagedPnc.content.map(pnc => pnc.matricule));
             this.searchInProgress = false;
             this.filteredPncs = pagedPnc.content;
             this.totalPncs = pagedPnc.page.totalElements;
@@ -123,6 +122,7 @@ export class PncSearchPage implements OnInit {
                 if (this.connectivityService.isConnected()) {
                     ++this.page;
                     this.pncProvider.getFilteredPncs(this.pncSearchFilter.pncFilter, this.page, this.sizeOfThePage).then(pagedPnc => {
+                        this.pncPhotoService.synchronizePncsPhotos(pagedPnc.content.map(pnc => pnc.matricule));
                         this.filteredPncs.push(...pagedPnc.content);
                         infiniteScroll.complete();
                         resolve();

@@ -49,8 +49,11 @@ export class OfflinePncPhotoService {
    * En offline, on émet simplement l'événement afin de déclencher une récupération des photos en cache
    * @param matricules les PNC concernés
    */
-  synchronizePncsPhotos(matricules: string[]): void {
-    this.events.publish('PncPhoto:updated', matricules);
+  synchronizePncsPhotos(matricules: string[]): Promise<any> {
+    return new Promise(resolve => {
+      this.events.publish('PncPhoto:updated', matricules);
+      resolve();
+    });
   }
 
 }

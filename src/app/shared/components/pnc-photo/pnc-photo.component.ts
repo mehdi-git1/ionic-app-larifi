@@ -1,6 +1,6 @@
 import { PncPhotoModel } from './../../../core/models/pnc-photo.model';
 import { ConnectivityService } from './../../../core/services/connectivity/connectivity.service';
-import { Component, Input, OnChanges } from '@angular/core';
+import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { PncModel } from '../../../core/models/pnc.model';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
@@ -13,7 +13,7 @@ import { OfflinePncPhotoService } from '../../../core/services/pnc-photo/offline
   selector: 'pnc-photo',
   templateUrl: 'pnc-photo.component.html'
 })
-export class PncPhotoComponent implements OnChanges {
+export class PncPhotoComponent implements OnInit, OnChanges {
 
   @Input() pnc: PncModel;
   @Input() size: number;
@@ -28,8 +28,19 @@ export class PncPhotoComponent implements OnChanges {
     private genderProvider: GenderService,
     private domSanitizer: DomSanitizer,
     private events: Events) {
+  }
+
+  ngOnInit() {
+    this.offlinePncPhotoService.getPncPhoto(this.pnc.matricule).then(pncPhoto => {
+      // Si on trouve une photo dans le cache, on l'affiche, sinon on affiche un spinner
+      if (pncPhoto) {
+        this.processPncPhoto(pncPhoto);
+      } else {
+        this.loading = true;
+      }
+    });
+
     if (!this.handleCall) {
-      this.loading = true;
       this.events.subscribe('PncPhoto:updated', (updatedPhotoMatricules) => {
         if (updatedPhotoMatricules.includes(this.pnc.matricule)) {
           this.offlinePncPhotoService.getPncPhoto(this.pnc.matricule).then(pncPhoto => {
