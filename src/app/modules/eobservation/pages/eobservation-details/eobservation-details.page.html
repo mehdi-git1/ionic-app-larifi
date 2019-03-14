@@ -79,7 +79,7 @@
 
         <eobs-comment [type]="PncRoleEnum.MANAGER" [eObservation]="eObservation"></eobs-comment>
 
-        <eobs-comment [type]="PncRoleEnum.PNC" [eObservation]="eObservation" [canEditPncComment]="canEditPncComment()"></eobs-comment>
+        <eobs-comment [type]="PncRoleEnum.PNC" [eObservation]="eObservation" [canEditPncComment]="canEditPncComment()" (validatePncComment)="confirmValidatePncComment()"></eobs-comment>
 
         <div class="state-block">
             <span>{{ 'EOBSERVATION.DETAILS.STATE.LABEL' | translate }}
@@ -92,14 +92,6 @@
                 </span>
             </span>
         </div>
-
-        <div class="button-bar button-bar-right margin-top">
-            <!-- Bouton valider -->
-            <button ion-button color="green50" (click)="confirmValidateEObservation()" *ngIf="canEditPncComment()">
-                <ion-icon name="md-checkmark" ios="md-checkmark" margin-right></ion-icon> {{ 'EOBSERVATION.BUTTONS.VALIDATE' | translate }}
-            </button>
-        </div>
-
     </ng-template>
 
 </ion-content>
