@@ -1,6 +1,6 @@
 <edospnc-expandable-block mini="true" [title]="getTitle()" [emptyCondition]="isEmpty()" *ngIf="eObservation">
     <div class="comment-container">
-        <ng-container class="" *ngIf="isManagerComment(); else pncCommentBlock">
+        <ng-container *ngIf="isManagerComment(); else pncCommentBlock">
             <div class="redactor-comment-container">
                 <div *ngIf="eObservation?.strongPoints" class="comment">
                     <label><span class="edospnc-speechBubble"></span>{{ 'EOBSERVATION.DETAILS.STRONG_POINTS' | translate }}</label>

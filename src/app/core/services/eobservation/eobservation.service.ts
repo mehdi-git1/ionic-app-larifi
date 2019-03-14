@@ -61,7 +61,7 @@ export class EObservationService extends BaseService {
     }
 
     /**
-     * Enregistre le commentaire pnc de l'eobservation
+     * Valide le commentaire pnc de l'eobservation
      * @param eObservation l'eObservation conçernée
      * @return une promesse contenant l'eObservation mise a jour par le commentaire du pnc
      */
