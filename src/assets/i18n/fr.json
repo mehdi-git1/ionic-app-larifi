@@ -338,9 +338,9 @@
                 "NOT_TAKEN_INTO_ACCOUNT": "Non pris en compte"
             }
         },
-        "CONFIRM_VALIDATE": {
-            "TITLE": "Validation de l'eObservation",
-            "MESSAGE": "Vous êtes sur le point de valider votre formulaire sans avoir apposé de commentaire. Souhaitez-vous procéder à la validation ?",
+        "CONFIRM_VALIDATE_PNC_COMMENT": {
+            "TITLE": "Validation du commentaire",
+            "MESSAGE": "Vous êtes sur le point de valider votre commentaire. Souhaitez-vous procéder à la validation ?",
             "CONFIRM": "Oui",
             "CANCEL": "Non"
         },
@@ -350,11 +350,11 @@
         },
         "MESSAGES": {
             "SUCCESS": {
-                "EOBSERVATION_VALIDATED": "eObservation validée"
+                "PNC_COMMENT_SAVED": "Commentaire validé"
             }
         },
         "BUTTONS": {
-            "VALIDATE": "Valider"
+            "VALIDATE_PNC_COMMENT": "Valider"
         }
     },
     "PROFESSIONAL_LEVEL": {

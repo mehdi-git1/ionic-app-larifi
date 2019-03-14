@@ -1,16 +1,13 @@
 eobs-comment {
 
-    .comment-container div:not(:first-child) {
-        padding: 20px;
-        padding-bottom: 0px;
+    .redactor-comment-container div:first-child {
+        padding: 0px;
     }
 
-    .comment-container div:first-child {
+    .redactor-comment-container,
+    .pnc-comment-container {
         padding-left: 20px;
         padding-right: 20px;
-    }
-
-    .comment-container div:last-child {
         padding-bottom: 20px;
     }
 
@@ -37,6 +34,7 @@ eobs-comment {
         }
 
         .comment {
+
             label {
                 margin-bottom: 10px;
             }
