@@ -68,4 +68,13 @@ export class EObservationService extends BaseService {
     validatePncComment(eObservation: EObservationModel): Promise<EObservationModel> {
         return this.execFunctionService('validateEObservation', eObservation);
     }
+
+    /**
+     * Valide l'eobservation
+     * @param eObservation l'eObservation conçernée
+     * @return une promesse contenant l'eObservation mise a jour
+     */
+    validateEObservation(eObservation: EObservationModel): Promise<EObservationModel> {
+        return this.execFunctionService('validateEObservation', eObservation);
+    }
 }

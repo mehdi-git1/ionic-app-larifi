@@ -333,6 +333,7 @@
             "BILAN_FLIGHT": "Vol Bilan",
             "EVAL": "EVAL",
             "STATE": {
+                "TITLE": "Statut",
                 "LABEL": "Statut en cours : ",
                 "TAKEN_INTO_ACCOUNT": "Pris en compte",
                 "NOT_TAKEN_INTO_ACCOUNT": "Non pris en compte"
@@ -344,17 +345,25 @@
             "CONFIRM": "Oui",
             "CANCEL": "Non"
         },
+        "CONFIRM_VALIDATE": {
+            "TITLE": "Validation de l'EObservation",
+            "MESSAGE": "Vous êtes sur le point de valider votre eObservation. Souhaitez-vous procéder à la validation ?",
+            "CONFIRM": "Oui",
+            "CANCEL": "Non"
+        },
         "CONFIRM_BACK_WITHOUT_SAVE": {
             "TITLE": "Modifications non enregistrées",
             "MESSAGE": "Attention, des modifications n'ont pas été enregistrées, êtes-vous sûr de vouloir revenir en arrière ?"
         },
         "MESSAGES": {
             "SUCCESS": {
-                "PNC_COMMENT_SAVED": "Commentaire validé"
+                "PNC_COMMENT_SAVED": "Commentaire validé",
+                "VALIDATED": "EObservation validée"
             }
         },
         "BUTTONS": {
-            "VALIDATE_PNC_COMMENT": "Valider"
+            "VALIDATE_PNC_COMMENT": "Valider",
+            "VALIDATE": "Valider"
         }
     },
     "PROFESSIONAL_LEVEL": {
