@@ -25,12 +25,16 @@
                 <span>{{ lastConsultedRotation.departureDate | date: 'dd/MM/yyyy'}}</span>
             </div>
             <div class="add-container">
-                <button (click)="createEObservation()" class="add-button clickable">
+                <button (click)="displayMenu()" class="add-button clickable">
                     <div class="button-content">
                         <span class="edospnc-plus"></span>
                         <label>{{ 'EOBSERVATION.NEW_EOBSERVATION_HEADER.NEW' | translate }}</label>
                     </div>
                 </button>
+                <div class="option-menu" [ngClass]="{'block': menuDisplay}">
+                    <button (click)="createEObservation()">Settings</button>
+                    <button (click)="createEObservation()">Help</button>
+                </div>
             </div>
         </div>
         <div class="global-container eobservation-list-container">

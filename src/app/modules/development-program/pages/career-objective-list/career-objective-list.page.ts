@@ -29,6 +29,8 @@ export class CareerObjectiveListPage {
   formsInputParam: FormsInputParamsModel;
   lastConsultedRotation: RotationModel;
 
+  menuDisplay = false;
+
   eObservations: EObservationModel[];
 
   // Expose l'enum au template
@@ -163,5 +165,9 @@ export class CareerObjectiveListPage {
    */
   goToEobservationsArchives() {
     this.navCtrl.push(EObservationsArchivesPage, { matricule: this.matricule });
+  }
+
+  displayMenu() {
+    this.menuDisplay = true;
   }
 }
