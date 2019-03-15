@@ -39,14 +39,14 @@
             "appName": "eDossierPNC DEV2",
             "appId": "com.airfrance.mobile.inhouse.edospncDEV2",
             "version": "1.6.0",
-            "provisioningProfile": "dd4536c2-5f7c-43fe-a7e7-aea95635175f"
+            "provisioningProfile": "835ab94d-42b8-4991-affd-555ed7998de7"
         }, {
             "name": "rct2",
             "configFile": "./src/environments/rct2.ts",
             "appName": "eDossierPNC RCT2",
             "appId": "com.airfrance.mobile.inhouse.edospncRCT2",
             "version": "1.6.0",
-            "provisioningProfile": "243e0ae6-754e-4784-a724-3647ba1bfa6a"
+            "provisioningProfile": "4a37d037-86ca-4ffc-8c37-c17216ee2265"
         }
     ]
 }
