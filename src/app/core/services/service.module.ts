@@ -17,7 +17,6 @@ import { TabNavService } from './tab-nav/tab-nav.service';
 import { DeviceService } from './device/device.service';
 import { TransformerService } from './transformer/transformer.service';
 import { SessionService } from './session/session.service';
-import { AppInitService } from './app-init/app-init.service';
 import { PncService } from './pnc/pnc.service';
 import { CareerObjectiveService } from './career-objective/career-objective.service';
 import { GenderService } from './gender/gender.service';
@@ -29,7 +28,6 @@ import { WaypointService } from './waypoint/waypoint.service';
 import { WaypointStatusService } from './waypoint-status/waypoint-status.service';
 import { RotationService } from './rotation/rotation.service';
 import { LegService } from './leg/leg.service';
-import { ParametersService } from './parameters/parameters.service';
 import { HelpAssetService } from './help-asset/help-asset.service';
 import { OfflineService } from './offline/offline.service';
 import { OfflineCareerObjectiveService } from './career-objective/offline-career-objective.service';
@@ -90,7 +88,6 @@ import { SynchronizationManagementService } from './synchronization/synchronizat
         DeviceService,
         TabNavService,
         TransformerService,
-        AppInitService,
         PncService,
         CareerObjectiveService,
         GenderService,
@@ -103,7 +100,6 @@ import { SynchronizationManagementService } from './synchronization/synchronizat
         WaypointStatusService,
         RotationService,
         LegService,
-        ParametersService,
         HelpAssetService,
         OfflineService,
         OfflineCareerObjectiveService,

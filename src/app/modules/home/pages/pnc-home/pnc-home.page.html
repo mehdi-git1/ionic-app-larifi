@@ -19,12 +19,6 @@
                             {{ 'GLOBAL.DEVELOPMENT_PROGRAM' | isMyPage: pnc | translate }}
                         </button>
                     </div>
-                    <!-- Fiche synthèse PNC -->
-                    <div class="button-parent" *ngIf="!isManager()">
-                        <button ion-button (click)="goToSummarySheet()" color="grey15">
-                            {{ 'GLOBAL.PNC_SUMMARY_SHEET' | isMyPage: pnc | translate }}
-                        </button>
-                    </div>
                     <!-- Effectif PNC -->
                     <div class="button-parent" *ngIf="isManager()">
                         <button ion-button (click)="goToPncSearch()" color="red20">

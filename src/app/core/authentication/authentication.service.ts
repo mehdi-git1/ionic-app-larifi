@@ -8,7 +8,6 @@ import { SynchronizationService } from './../services/synchronization/synchroniz
 import { SessionService } from './../services/session/session.service';
 import { OfflineSecurityService } from '../services/security/offline-security.service';
 import { SecurityService } from '../services/security/security.service';
-import { AppInitService } from '../services/app-init/app-init.service';
 import { DeviceService } from '../services/device/device.service';
 import { ConnectivityService } from '../services/connectivity/connectivity.service';
 import { AuthenticationStatusEnum } from '../enums/authentication-status.enum';
@@ -22,7 +21,6 @@ export class AuthenticationService {
         private sessionService: SessionService,
         private offlineSecurityService: OfflineSecurityService,
         private securityService: SecurityService,
-        private appInitService: AppInitService,
         private deviceService: DeviceService,
         private storageService: StorageService,
         public translateService: TranslateService,
@@ -81,10 +79,6 @@ export class AuthenticationService {
         // Gestion du mode impersonnifié
         if (this.userHaveToImpersonate(authenticatedUser)) {
             return Promise.resolve(AuthenticationStatusEnum.IMPERSONATE_MODE);
-        }
-        // Initialisation des paramétres utilisateur en tant que PNC
-        if (this.sessionService.getActiveUser().isPnc) {
-            this.initUserData();
         }
         // Si le mode offline est autorisé, on met en place la gestion du offline
         if (this.deviceService.isOfflineModeAvailable()) {
@@ -165,13 +159,6 @@ export class AuthenticationService {
     }
 
     /**
-    * Initialise les données de l'utilisateur connecté (ses filtres, son cache etc)
-    */
-    initUserData(): void {
-        this.appInitService.initParameters();
-    }
-
-    /**
      * Gére les actions à faire en mode offLine
      */
     offlineManagement(): Promise<boolean> {
@@ -179,7 +166,7 @@ export class AuthenticationService {
             pingSuccess => {
                 this.connectivityService.setConnected(true);
                 this.synchronizationService.synchronizeOfflineData();
-                this.synchronizationManagementService.processMaxSynchroRequest();
+                this.synchronizationManagementService.resumeSynchroRequestProcessing(true);
                 return true;
             }, pingError => {
                 this.connectivityService.setConnected(false);

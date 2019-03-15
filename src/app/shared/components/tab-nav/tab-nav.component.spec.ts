@@ -1,4 +1,3 @@
-import { TabNavEnum } from './../../../core/enums/tab-nav.enum';
 import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { IonicModule, Events } from 'ionic-angular';
@@ -12,8 +11,6 @@ import { TabNavService } from '../../../core/services/tab-nav/tab-nav.service';
 import { SpecialityService } from '../../../core/services/speciality/speciality.service';
 import { SecurityService } from '../../../core/services/security/security.service';
 import { SessionService } from '../../../core/services/session/session.service';
-import { SummarySheetService } from './../../../core/services/summary-sheet/summary-sheet.service';
-import { SummarySheetTransformerService } from '../../../core/services/summary-sheet/summary-sheet-transformer.service';
 import { FileService } from './../../../core/file/file.service';
 import { PncModel } from '../../../core/models/pnc.model';
 import { IsMyPage } from '../../pipes/is_my_page/is_my_page.pipe';
@@ -26,7 +23,6 @@ const securityProviderMock = jasmine.createSpyObj('securityProviderMock', ['']);
 
 const sessionServiceMock = jasmine.createSpyObj('sessionServiceMock', ['']);
 
-const summarySheetServiceMock = jasmine.createSpyObj('summarySheetServiceMock', ['openSummarySheet']);
 
 describe('tab-nav component', () => {
 
@@ -52,8 +48,6 @@ describe('tab-nav component', () => {
                 { provide: SecurityService, useValue: securityProviderMock },
                 { provide: PncService, useValue: pncProviderMock },
                 SpecialityService,
-                { provide: SummarySheetService, useValue: summarySheetServiceMock },
-                { provide: SummarySheetTransformerService },
                 { provide: FileService },
                 IsMyPage
             ],
@@ -106,10 +100,5 @@ describe('tab-nav component', () => {
             comp.tabChange(event);
         });
 
-        it('doit appeler la méthode openSummarySheet si l\'onglet sélectionné est la fiche synthèse', () => {
-            event.rootParams.page = TabNavEnum.SUMMARY_SHEET_PAGE;
-            comp.tabChange(event);
-            expect(summarySheetServiceMock.openSummarySheet).toHaveBeenCalled();
-        });
     });
 });
