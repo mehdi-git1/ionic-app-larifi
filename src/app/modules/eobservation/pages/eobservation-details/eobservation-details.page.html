@@ -109,7 +109,7 @@
             <span>{{ 'EOBSERVATION.DETAILS.STATE.LABEL' | translate }}
                 <color-status-point [colorClass]="getColorStatusPoint()">
                 </color-status-point>
-                <span class="state-value">{{ 'EOBSERVATION.DETAILS.STATE.' + eObservation?.state | translateOrEmpty }}</span>
+                <span class="state-value">{{ 'EOBSERVATION.DETAILS.STATE.' + originEObservation?.state | translateOrEmpty }}</span>
             </span>
             <span>{{ 'EOBSERVATION.DETAILS.UPDATE_DATE' | translate }}
                 <span *ngIf="eObservation?.redactionDate">{{eObservation?.redactionDate | date: 'dd/MM/yyyy' : 'UTC'}}

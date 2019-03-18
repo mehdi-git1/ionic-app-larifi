@@ -160,9 +160,9 @@ export class EobservationDetailsPage {
    * @return 'green' si 'TAKEN_INTO_ACCOUNT' ou 'red' si 'NOT_TAKEN_INTO_ACCOUNT'
    */
   getColorStatusPoint(): string {
-    if (this.eObservation && this.eObservation.state === EObservationStateEnum.TAKEN_INTO_ACCOUNT) {
+    if (this.originEObservation && this.originEObservation.state === EObservationStateEnum.TAKEN_INTO_ACCOUNT) {
       return 'green';
-    } else if (this.eObservation && this.eObservation.state === EObservationStateEnum.NOT_TAKEN_INTO_ACCOUNT) {
+    } else if (this.originEObservation && this.originEObservation.state === EObservationStateEnum.NOT_TAKEN_INTO_ACCOUNT) {
       return 'red';
     }
   }
@@ -311,7 +311,7 @@ export class EobservationDetailsPage {
   isEObsBusinessAdmin(): boolean {
     const authenticatedUser = this.sessionService.getActiveUser();
     if (authenticatedUser && authenticatedUser.profiles) {
-      return authenticatedUser.profiles.indexOf(AppConstant.P_EDOSPNC_BUSINESS_ADMIN) > -1;
+      return authenticatedUser.profiles.indexOf(AppConstant.P_EDOSPNC_ADMIN_EOBS) > -1;
     }
     return false;
   }
