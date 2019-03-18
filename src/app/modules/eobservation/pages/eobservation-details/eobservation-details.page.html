@@ -77,12 +77,12 @@
 
         <eobs-theme *ngFor="let eObservationTheme of itemsSortedByTheme" [theme]="eObservationTheme"></eobs-theme>
 
-        <eobs-comment [type]="PncRoleEnum.MANAGER" [eObservation]="eObservation" [canEditEObs]="isBusinessAdmin()"></eobs-comment>
+        <eobs-comment [type]="PncRoleEnum.MANAGER" [eObservation]="eObservation" [canEditEObs]="isEObsBusinessAdmin()"></eobs-comment>
 
-        <eobs-comment [type]="PncRoleEnum.PNC" [eObservation]="eObservation" [canEditPncComment]="canEditPncComment()" [canEditEObs]="isBusinessAdmin()" (validatePncComment)="confirmValidatePncComment()"></eobs-comment>
+        <eobs-comment [type]="PncRoleEnum.PNC" [eObservation]="eObservation" [canEditPncComment]="canEditPncComment()" [canEditEObs]="isEObsBusinessAdmin()" (validatePncComment)="confirmValidatePncComment()"></eobs-comment>
 
 
-        <edospnc-expandable-block mini="true" title="{{ 'EOBSERVATION.DETAILS.STATE.TITLE' | translate }}" *ngIf="isBusinessAdmin()">
+        <edospnc-expandable-block mini="true" title="{{ 'EOBSERVATION.DETAILS.STATE.TITLE' | translate }}" *ngIf="isEObsBusinessAdmin()">
             <div padding>
                 <ion-list radio-group [(ngModel)]="eObservation.state">
                     <ion-item>
@@ -98,7 +98,7 @@
             </div>
         </edospnc-expandable-block>
 
-        <div class="button-bar button-bar-right margin-top" *ngIf="isBusinessAdmin()">
+        <div class="button-bar button-bar-right margin-top" *ngIf="isEObsBusinessAdmin()">
             <!-- Bouton valider l'eobs -->
             <button ion-button color="green50" (click)="confirmValidateEObservation()">
                 <ion-icon name="md-checkmark" ios="md-checkmark" margin-right></ion-icon> {{ 'EOBSERVATION.BUTTONS.VALIDATE' | translate }}

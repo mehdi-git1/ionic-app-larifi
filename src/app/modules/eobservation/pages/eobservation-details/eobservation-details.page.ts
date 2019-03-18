@@ -1,3 +1,4 @@
+import { AppConstant } from './../../../../app.constant';
 import { SecurityService } from './../../../../core/services/security/security.service';
 import { Component } from '@angular/core';
 import { NavController, NavParams, AlertController, LoadingController, Loading } from 'ionic-angular';
@@ -303,10 +304,15 @@ export class EobservationDetailsPage {
   }
 
   /**
-   * Détermine si l'utilisateur connecté est admin
-   * @return vrai si c'est le cas, faux sinon
+   * Teste si un utilisateur est admin métier des OEbservations
+   * @param authenticatedUser l'utilisateur à tester
+   * @return vrai si l'utilisateur est admin métier des EObservations, faux sinon
    */
-  isBusinessAdmin(): boolean {
-    return this.securityService.isBusinessAdmin(this.sessionService.getActiveUser());
+  isEObsBusinessAdmin(): boolean {
+    const authenticatedUser = this.sessionService.getActiveUser();
+    if (authenticatedUser && authenticatedUser.profiles) {
+      return authenticatedUser.profiles.indexOf(AppConstant.P_EDOSPNC_BUSINESS_ADMIN) > -1;
+    }
+    return false;
   }
 }

@@ -77,18 +77,6 @@ export class SecurityService extends BaseService {
   }
 
   /**
-   * Teste si un utilisateur est admin métier de l'application
-   * @param authenticatedUser l'utilisateur à tester
-   * @return vrai si l'utilisateur est admin métier, faux sinon
-   */
-  isBusinessAdmin(authenticatedUser: AuthenticatedUserModel): boolean {
-    if (authenticatedUser.profiles) {
-      return authenticatedUser.profiles.indexOf(AppConstant.P_EDOSPNC_BUSINESS_ADMIN) > -1;
-    }
-    return false;
-  }
-
-  /**
    * Vérifie si l'impersonnification est disponible pour un utilisateur donné
    * @param matricule le matricule de l'utilisateur
    * @return une promesse vide (le code de retour http détermine si l'impersonnification est possible ou non)
