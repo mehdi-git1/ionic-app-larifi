@@ -28,9 +28,9 @@ export namespace EFormsTypeEnum {
      */
     export function getTextType(type: EFormsTypeEnum) {
         switch (type) {
-            case EFormsTypeEnum['HOT']: return 'eHST';
-            case EFormsTypeEnum['STW']: return 'eHST';
-            case EFormsTypeEnum['CC']: return 'eCC';
+            case EFormsTypeEnum['HOT']: return 'eHST / eCC';
+            case EFormsTypeEnum['STW']: return 'eHST / eCC';
+            case EFormsTypeEnum['CC']: return 'eCC / eCCP';
             case EFormsTypeEnum['CCP']: return 'eCCP';
             case EFormsTypeEnum['ALT']: return 'eALT';
             case EFormsTypeEnum['PCB']: return 'ePCB';

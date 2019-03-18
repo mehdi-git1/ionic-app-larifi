@@ -3,15 +3,15 @@ import { EFormsTypeEnum } from './e-forms-type.enum';
 describe('EFormsTypeEnum', () => {
     describe('getTextType', () => {
         it(`doit retourner le type eHST si on a HOT en Specialité`, () => {
-            expect(EFormsTypeEnum.getTextType(EFormsTypeEnum['HOT'])).toEqual('eHST');
+            expect(EFormsTypeEnum.getTextType(EFormsTypeEnum['HOT'])).toEqual('eHST / eCC');
         });
 
         it(`doit retourner le type eHST si on a STW en Specialité`, () => {
-            expect(EFormsTypeEnum.getTextType(EFormsTypeEnum['STW'])).toEqual('eHST');
+            expect(EFormsTypeEnum.getTextType(EFormsTypeEnum['STW'])).toEqual('eHST / eCC');
         });
 
         it(`doit retourner le type eCC si on a CC en Specialité`, () => {
-            expect(EFormsTypeEnum.getTextType(EFormsTypeEnum['CC'])).toEqual('eCC');
+            expect(EFormsTypeEnum.getTextType(EFormsTypeEnum['CC'])).toEqual('eCC / eCCP');
         });
 
         it(`doit retourner le type eCCP si on a CCP en Specialité`, () => {

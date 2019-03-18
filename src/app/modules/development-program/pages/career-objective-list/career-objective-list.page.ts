@@ -36,6 +36,11 @@ export class CareerObjectiveListPage {
   // Expose l'enum au template
   PncRole = PncRoleEnum;
 
+  // Liste des eofmrs possible
+  eFormsList = [];
+
+  chosenEFormsType = null;
+
   pnc: PncModel;
 
   constructor(public navCtrl: NavController,
@@ -126,7 +131,7 @@ export class CareerObjectiveListPage {
     this.formsEObservationService.getFormsInputParams(this.matricule, this.sessionService.appContext.lastConsultedRotation.techId).then(formsInputParam => {
       this.formsInputParam = formsInputParam;
       if (this.formsInputParam) {
-        this.formsEObservationService.callForms(this.formsInputParam);
+        this.formsEObservationService.callForms(this.formsInputParam, this.chosenEFormsType);
       }
     }, error => {
     });
@@ -167,7 +172,26 @@ export class CareerObjectiveListPage {
     this.navCtrl.push(EObservationsArchivesPage, { matricule: this.matricule });
   }
 
+  /**
+   * Affichage du menu de la liste des eForms
+   */
   displayMenu() {
+    const typeOfForms = this.getEObsTextTypeForm();
+    if (typeOfForms.indexOf('/') == -1) {
+      this.createEObservation();
+    } else {
+      this.eFormsList = typeOfForms.split('/');
+    }
     this.menuDisplay = true;
+  }
+
+  /**
+   * Permet d'appeler le formulaire choisi
+   * @param value Valeur du formulaire choisie
+   */
+  checkBeforeCreate(value) {
+    this.chosenEFormsType = value.trim();
+    this.menuDisplay = false;
+    this.createEObservation();
   }
 }
