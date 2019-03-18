@@ -21,8 +21,8 @@
                 <span [ngClass]="{'no-value' : !getEObsTextTypeForm() }">{{getEObsTextTypeForm()}}</span>
             </div>
             <div class="info-container eobservation-info-container">
-                <label>{{lastConsultedRotation?.number}}</label>
-                <span>{{ lastConsultedRotation?.departureDate | date: 'dd/MM/yyyy'}}</span>
+                <label>{{lastConsultedRotation.number}}</label>
+                <span>{{ lastConsultedRotation.departureDate | date: 'dd/MM/yyyy'}}</span>
             </div>
             <div class="add-container">
                 <button (click)="displayMenu()" class="add-button clickable">
