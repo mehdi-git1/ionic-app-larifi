@@ -1,3 +1,4 @@
+import { SecurityService } from './../../../../core/services/security/security.service';
 import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-translate/core';
 import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { IonicModule, NavParams, NavController, LoadingController, AlertController } from 'ionic-angular';
@@ -40,7 +41,8 @@ describe('EobservationDetailsPage', () => {
                 { provide: ToastService },
                 { provide: AlertController },
                 { provide: LoadingController },
-                { provide: TranslateOrEmptyService, useValue: translateOrEmptyServiceMock }
+                { provide: TranslateOrEmptyService, useValue: translateOrEmptyServiceMock },
+                { provide: SecurityService }
             ],
             schemas: [NO_ERRORS_SCHEMA]
         });
