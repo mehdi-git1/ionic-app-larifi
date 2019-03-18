@@ -217,8 +217,8 @@ export class EobservationDetailsPage {
   }
 
   /**
-  * Demande la confirmation de la validation du commentaire du pnc
-  */
+   * Demande la confirmation de la validation du commentaire du pnc
+   */
   confirmValidatePncComment(): void {
     this.alertCtrl.create({
       title: this.translateService.instant('EOBSERVATION.CONFIRM_VALIDATE_PNC_COMMENT.TITLE'),
@@ -276,8 +276,8 @@ export class EobservationDetailsPage {
   }
 
   /**
- * Validel'eObservation
- */
+   * Validel'eObservation
+   */
   validateEObservation(): void {
     this.loading = this.loadingCtrl.create();
     this.loading.present();

@@ -83,7 +83,7 @@ export class SecurityService extends BaseService {
    */
   isBusinessAdmin(authenticatedUser: AuthenticatedUserModel): boolean {
     if (authenticatedUser.profiles) {
-      return authenticatedUser.profiles.indexOf(AppConstant.P_EDOSPNC_ADMIN_EOBS) > -1;
+      return authenticatedUser.profiles.indexOf(AppConstant.P_EDOSPNC_BUSINESS_ADMIN) > -1;
     }
     return false;
   }
