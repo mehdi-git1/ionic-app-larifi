@@ -346,7 +346,7 @@
             "CANCEL": "Non"
         },
         "CONFIRM_VALIDATE": {
-            "TITLE": "Validation de l'EObservation",
+            "TITLE": "Validation de l'eObservation",
             "MESSAGE": "Vous êtes sur le point de valider votre eObservation. Souhaitez-vous procéder à la validation ?",
             "CONFIRM": "Oui",
             "CANCEL": "Non"
@@ -358,7 +358,7 @@
         "MESSAGES": {
             "SUCCESS": {
                 "PNC_COMMENT_SAVED": "Commentaire validé",
-                "VALIDATED": "EObservation validée"
+                "VALIDATED": "eObservation validée"
             }
         },
         "BUTTONS": {
