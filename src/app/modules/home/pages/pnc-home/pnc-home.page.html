@@ -70,19 +70,13 @@
                 <ion-col>
                     <!-- Liste des objectifs-->
                     <div class="button-parent" *ngIf="!isManager()">
-                        <button ion-button (click)="goToCareerObjectiveList()" color="orange50">
+                        <button ion-button (click)="goToCareerObjectiveList()" color="red14">
                             {{ 'GLOBAL.DEVELOPMENT_PROGRAM' | isMyPage: pnc | translate }}
-                        </button>
-                    </div>
-                    <!-- Fiche synthèse PNC -->
-                    <div class="button-parent" *ngIf="!isManager()">
-                        <button ion-button (click)="goToSummarySheet()" color="grey15">
-                            {{ 'GLOBAL.PNC_SUMMARY_SHEET' | isMyPage: pnc | translate }}
                         </button>
                     </div>
                     <!-- Effectif PNC -->
                     <div class="button-parent" *ngIf="isManager()">
-                        <button ion-button (click)="goToPncSearch()" color="grey60">
+                        <button ion-button (click)="goToPncSearch()" color="red20">
                             {{ 'GLOBAL.PNC_TEAM' | isMyPage: pnc | translate }}
                         </button>
                     </div>
@@ -92,28 +86,28 @@
                             {{ 'GLOBAL.UPCOMING_FLIGHT' | isMyPage: pnc | translate }}
                         </button>
                     </div>
-                    <!-- Ressource d'aide -->
-                    <div class="button-parent">
-                        <button ion-button (click)="goToHelpAssetList()" color="blue90">
-                            {{ 'GLOBAL.HELP_CENTER' | isMyPage: pnc | translate }}
-                        </button>
-                    </div>
                     <!--  Niveau professionnel -->
                     <div class="button-parent" *hasPermission="'VIEW_PROFESSIONAL_LEVEL'">
-                        <button ion-button (click)="goToProfessionalLevel()" color="grey11">
+                        <button ion-button (click)="goToProfessionalLevel()" color="green55">
                             {{ 'GLOBAL.PROFESSIONAL_LEVEL' | isMyPage: pnc | translate }}
                         </button>
                     </div>
                     <!--  Attestation réglementaire -->
                     <div class="button-parent" *hasPermission="'VIEW_STATUTORY_CERTIFICATE'">
-                        <button ion-button (click)="goToStatutoryCertificate()" color="red20">
+                        <button ion-button (click)="goToStatutoryCertificate()" color="blue76">
                             {{ 'GLOBAL.STATUTORY_CERTIFICATE' | isMyPage: pnc | translate }}
                         </button>
                     </div>
                     <!--  Lettres de félicitation -->
                     <div class="button-parent">
-                        <button ion-button (click)="goToCongratulationLetters()" color="red13">
+                        <button ion-button (click)="goToCongratulationLetters()" color="green65">
                             {{ 'GLOBAL.CONGRATULATION_LETTERS' | isMyPage: pnc | translate }}
+                        </button>
+                    </div>
+                    <!-- Ressource d'aide -->
+                    <div class="button-parent">
+                        <button ion-button (click)="goToHelpAssetList()" color="grey14">
+                            {{ 'GLOBAL.HELP_CENTER' | isMyPage: pnc | translate }}
                         </button>
                     </div>
                 </ion-col>

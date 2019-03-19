@@ -1,14 +1,15 @@
+import { RelayModel } from './../../../core/models/statutory-certificate/relay.model';
+import { PncModel } from './../../../core/models/pnc.model';
 import { Component, Input, ViewChild } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { TranslateService } from '@ngx-translate/core';
 
-import { CrewMemberEnum } from '../../../core/models/crew-member.enum';
+import { CrewMemberModel } from '../../../core/models/crew-member.model';
 import { SynchronizationService } from '../../../core/services/synchronization/synchronization.service';
 import { ToastService } from '../../../core/services/toast/toast.service';
 import { ConnectivityService } from '../../../core/services/connectivity/connectivity.service';
 import { GenderService } from '../../../core/services/gender/gender.service';
 import { PncService } from '../../../core/services/pnc/pnc.service';
-import { RelayModel } from '../../../core/models/relay.model';
 import { OfflineIndicatorComponent } from '../offline-indicator/offline-indicator.component';
 
 
@@ -18,7 +19,8 @@ import { OfflineIndicatorComponent } from '../offline-indicator/offline-indicato
 })
 export class PncCardComponent {
 
-  private crewMember: CrewMemberEnum;
+  private crewMember: CrewMemberModel;
+  private pnc: PncModel;
   formatedSpeciality: string;
   @Input() isCrewMember: boolean;
   @Input() disabled: boolean;
@@ -39,11 +41,18 @@ export class PncCardComponent {
 
   @Input()
   set itemMember(val: any) {
-    this.crewMember = val;
-    this.formatedSpeciality = this.pncProvider.getFormatedSpeciality(this.crewMember.pnc);
-    this.crewMember.pnc.relays.sort((relay: RelayModel, otherRelay: RelayModel) => {
-      return relay.code > otherRelay.code ? 1 : -1;
-    });
+    if (this.isCrewMember) {
+      this.crewMember = val;
+      this.pnc = val.pnc;
+    } else {
+      this.pnc = val;
+    }
+    if (this.pnc.relays) {
+      this.pnc.relays.sort((relay: RelayModel, otherRelay: RelayModel) => {
+        return relay.code > otherRelay.code ? 1 : -1;
+      });
+    }
+    this.formatedSpeciality = this.pncProvider.getFormatedSpeciality(this.pnc);
   }
 
   /**

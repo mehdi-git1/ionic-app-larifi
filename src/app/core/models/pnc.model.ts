@@ -1,4 +1,4 @@
-import { RelayModel } from './relay.model';
+import { RelayModel } from './statutory-certificate/relay.model';
 import { StatutoryCertificateModel } from './statutory.certificate.model';
 import { GenderEnum } from '../enums/gender.enum';
 import { AssignmentModel } from './assignment.model';

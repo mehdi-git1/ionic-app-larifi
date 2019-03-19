@@ -13,7 +13,6 @@ declare var window: any;
 
 @Injectable()
 export class FormsEObservationService {
-  eObs: FormsInputParamsModel;
 
   constructor(
     private pncProvider: PncService,
@@ -46,15 +45,15 @@ export class FormsEObservationService {
 
   /**
    * Appel de l'application Forms avec les bons paramètres
-   * @param Paramétres du formulaire à envoyer
+   * @param formsInputParams Paramétres du formulaire à envoyer
    */
   callForms(formsInputParams: FormsInputParamsModel) {
     const param = {
-      FormsAppId: `${this.config.eObsUrl}`,
+      eformsAppId: `${this.config.eformsUrl}`,
       method: '0',
       reportType: this.getReportTypeForEForms(formsInputParams.observedPnc.speciality),
-      callbackUrl: `${this.config.eObsCallbackUrl}`,
-      callbackActionLabel: `${this.config.eObsCallbackActionLabel}`,
+      callbackUrl: `${this.config.eformsCallbackUrl}`,
+      callbackActionLabel: `${this.config.eformsCallbackActionLabel}`,
       archiveData: {
         'PNCObserve.fonction': this.getSpecialityForEForms(formsInputParams.observedPnc.speciality),
         'PNCObserve.matricule': formsInputParams.observedPnc.matricule,
@@ -99,8 +98,12 @@ export class FormsEObservationService {
    * @return retourne la spécialitè typée pour eforms
    */
   getSpecialityForEForms(speciality: string) {
-    if (speciality == 'CC') { return 'C/C'; }
-    if (speciality == 'HOT' || speciality == 'STW') { return 'HST'; }
+    if (speciality == 'CC') {
+      return 'C/C';
+    }
+    if (speciality == 'HOT' || speciality == 'STW') {
+      return 'HST';
+    }
     return speciality;
   }
 

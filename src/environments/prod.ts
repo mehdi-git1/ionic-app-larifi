@@ -16,7 +16,7 @@ export class Config extends BaseEnvironment {
         this.versionFileUrl = `${this.contextRoot}version.json`;
         this.env = 'prod';
         this.secmobileEnv = 'prod';
-        this.eObsUrl = 'com.airfrance.mobile.inhouse.eformsPNC';
-        this.eObsCallbackUrl = 'com.airfrance.mobile.inhouse.edospnc';
+        this.eformsUrl = 'com.airfrance.mobile.inhouse.eformsPNC';
+        this.eformsCallbackUrl = 'com.airfrance.mobile.inhouse.edospnc';
     }
 }

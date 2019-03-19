@@ -1,6 +1,6 @@
 
 export abstract class BaseEnvironment {
-  public appVersion = '1.5.0';
+  public appVersion = '1.6.0';
   public contextRoot = '/api/';
   public appName = 'EDossierPnc';
   public backEndUrl;
@@ -9,9 +9,9 @@ export abstract class BaseEnvironment {
   public env;
   public versionFileUrl;
 
-  public eObsUrl;
-  public eObsCallbackUrl;
-  public eObsCallbackActionLabel;
+  public eformsUrl;
+  public eformsCallbackUrl;
+  public eformsCallbackActionLabel;
 
   public makeOfflineModeAvailable = false;
 

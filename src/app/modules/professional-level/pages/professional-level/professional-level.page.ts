@@ -9,7 +9,6 @@ import { SessionService } from '../../../../core/services/session/session.servic
 import { PncModel } from '../../../../core/models/pnc.model';
 import { EObservationModel } from '../../../../core/models/eobservation/eobservation.model';
 import { EObservationService } from '../../../../core/services/eobservation/eobservation.service';
-import { EObservationTransformerService } from '../../../../core/services/eobservation/eobservation-transformer.service';
 
 @Component({
   selector: 'page-professional-level',
@@ -22,15 +21,14 @@ export class ProfessionalLevelPage {
   professionalLevel: ProfessionalLevelModel;
 
   eObservations: EObservationModel[];
-
+  eObservationsFiltered: EObservationModel[];
   listItemLegend = [];
 
   constructor(private navParams: NavParams,
     private sessionService: SessionService,
     private pncService: PncService,
     private professionalLevelService: ProfessionalLevelService,
-    private eObservationService: EObservationService,
-    private eObservationTransformerService: EObservationTransformerService) {
+    private eObservationService: EObservationService) {
   }
 
   ionViewDidLoad() {
@@ -68,7 +66,7 @@ export class ProfessionalLevelPage {
   sortProfessionalLevel(professionalLevel: ProfessionalLevelModel): ProfessionalLevelModel {
     const sortedProfessionalLevel: ProfessionalLevelModel = _.cloneDeep(professionalLevel);
 
-    if (sortedProfessionalLevel.stages) {
+    if (sortedProfessionalLevel && sortedProfessionalLevel.stages) {
       // Tri de l'ordre des stages
       sortedProfessionalLevel.stages = sortedProfessionalLevel.stages.sort((a, b) => a.date < b.date ? 1 : -1);
 
@@ -84,23 +82,14 @@ export class ProfessionalLevelPage {
 
   /**
    * Récupére la liste des eObservations
-   * triée pour ne garder que les écarts de notations avec "SECURITE DES VOLS" et "SURETE"
+   *
+   * @return la liste des eObs
    */
-  getEObservationsList() {
-    this.eObservationService.getEObservations(this.matricule).then(
-      eobs => {
-        // Tri les eObservations pour ne garder que les écarts de notations avec "SECURITE DES VOLS" et "SURETE"
-        eobs.forEach(value => {
-          value.eobservationItems = value.eobservationItems.filter(
-            (element) => {
-              const upperCaseElement = element.refItemLevel.item.theme.label.toUpperCase();
-              return upperCaseElement === 'SECURITE DES VOLS' || upperCaseElement === 'SURETE';
-            }
-          );
-        });
-        this.eObservations = eobs;
-      }, error => {
-      });
+  getEObservationsList(): void {
+    this.eObservationService.getEObservations(this.matricule).then(eObservations => {
+      this.eObservations = eObservations;
+    }, error => {
+    });
   }
 
   /**
@@ -108,7 +97,7 @@ export class ProfessionalLevelPage {
    * @return true si c'est le cas, false sinon
    */
   loadingIsOver(): boolean {
-    return typeof this.professionalLevel !== 'undefined' && typeof this.eObservations !== 'undefined';
+    return this.professionalLevel !== undefined && this.eObservations !== undefined;
   }
 
 }

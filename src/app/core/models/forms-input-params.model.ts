@@ -4,7 +4,6 @@ import { PncModel } from './pnc.model';
 import { EDossierPncObjectModel } from './e-dossier-pnc-object.model';
 
 export class FormsInputParamsModel extends EDossierPncObjectModel {
-    eObservationType: string;
     redactor: PncModel;
     observedPnc: PncModel;
     rotation: RotationModel;

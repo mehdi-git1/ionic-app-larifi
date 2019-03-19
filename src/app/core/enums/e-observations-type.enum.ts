@@ -1,5 +1,6 @@
 export enum EObservationTypeEnum {
     E_ALT = 'E_ALT',
+    E_PCB = 'E_PCB',
     E_CC = 'E_CC',
     E_CCP = 'E_CCP',
     E_HST = 'E_HST'

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Events } from 'ionic-angular';
+import { TranslateService } from '@ngx-translate/core';
 
 import { SecMobilService } from './../http/secMobil.service';
 import { StorageService } from './../storage/storage.service';
@@ -7,11 +8,11 @@ import { SynchronizationService } from './../services/synchronization/synchroniz
 import { SessionService } from './../services/session/session.service';
 import { OfflineSecurityService } from '../services/security/offline-security.service';
 import { SecurityService } from '../services/security/security.service';
-import { AppInitService } from '../services/app-init/app-init.service';
 import { DeviceService } from '../services/device/device.service';
 import { ConnectivityService } from '../services/connectivity/connectivity.service';
 import { AuthenticationStatusEnum } from '../enums/authentication-status.enum';
-
+import { ToastService } from '../services/toast/toast.service';
+import { SynchronizationManagementService } from '../services/synchronization/synchronization-management.service';
 
 @Injectable()
 export class AuthenticationService {
@@ -20,13 +21,14 @@ export class AuthenticationService {
         private sessionService: SessionService,
         private offlineSecurityService: OfflineSecurityService,
         private securityService: SecurityService,
-        private appInitService: AppInitService,
         private deviceService: DeviceService,
         private storageService: StorageService,
+        public translateService: TranslateService,
+        private toastService: ToastService,
         private connectivityService: ConnectivityService,
         private synchronizationService: SynchronizationService,
-        private secMobilService: SecMobilService,
-        private events: Events
+        private synchronizationManagementService: SynchronizationManagementService,
+        private secMobilService: SecMobilService
     ) { }
 
     /**
@@ -78,24 +80,18 @@ export class AuthenticationService {
         if (this.userHaveToImpersonate(authenticatedUser)) {
             return Promise.resolve(AuthenticationStatusEnum.IMPERSONATE_MODE);
         }
-        // Initialisation des paramétres utilisateur en tant que PNC
-        if (this.sessionService.getActiveUser().isPnc) {
-            this.initUserData();
-        }
         // Si le mode offline est autorisé, on met en place la gestion du offline
         if (this.deviceService.isOfflineModeAvailable()) {
-            return this.offlineManagement().then(result => {
+            this.offlineManagement().then(result => {
+                this.synchronizationService.storeEDossierOffline(this.sessionService.getActiveUser().matricule);
                 if (!result && this.deviceService.isBrowser()) {
-                    return AuthenticationStatusEnum.APPLI_UNAVAILABLE;
+                    this.toastService.warning(this.translateService.instant('GLOBAL.MESSAGES.ERROR.SERVER_APPLICATION_UNAVAILABLE'));
                 }
-                return AuthenticationStatusEnum.AUTHENTICATION_OK;
             }, error => {
-                return AuthenticationStatusEnum.INIT_KO;
+                this.toastService.warning(this.translateService.instant('GLOBAL.MESSAGES.ERROR.APPLICATION_NOT_INITIALIZED'));
             });
-        } else {
-            // Ici retour des cas d'affichage hors offline
-            return Promise.resolve(AuthenticationStatusEnum.AUTHENTICATION_OK);
         }
+        return Promise.resolve(AuthenticationStatusEnum.AUTHENTICATION_OK);
     }
 
     /**
@@ -163,13 +159,6 @@ export class AuthenticationService {
     }
 
     /**
-    * Initialise les données de l'utilisateur connecté (ses filtres, son cache etc)
-    */
-    initUserData(): void {
-        this.appInitService.initParameters();
-    }
-
-    /**
      * Gére les actions à faire en mode offLine
      */
     offlineManagement(): Promise<boolean> {
@@ -177,11 +166,8 @@ export class AuthenticationService {
             pingSuccess => {
                 this.connectivityService.setConnected(true);
                 this.synchronizationService.synchronizeOfflineData();
-                return this.synchronizationService.storeEDossierOffline(this.sessionService.getActiveUser().matricule).then(successStore => {
-                    return true;
-                }, error => {
-                    return false;
-                });
+                this.synchronizationManagementService.resumeSynchroRequestProcessing(true);
+                return true;
             }, pingError => {
                 this.connectivityService.setConnected(false);
                 this.connectivityService.startPingAPI();

@@ -125,6 +125,18 @@ export class HelpAssetListPage {
         helpAsset[3].label = 'Mode opératoire, Journal de bord';
         helpAsset[3].helpAssetType = HelpAssetTypeEnum.PDF;
         helpAsset[3].lastUpdateDate = '2018-07-30T13:11:52Z';
+        const pdf5 = 'Aide-a-la-redaction-vols-de-formation.pdf';
+        helpAsset[4] = new HelpAssetModel();
+        helpAsset[4].url = `${this.pdfUrl}/cadre/${pdf5}`;
+        helpAsset[4].label = 'Aide à la rédaction vols de formation';
+        helpAsset[4].helpAssetType = HelpAssetTypeEnum.PDF;
+        helpAsset[4].lastUpdateDate = '2019-02-05T00:00:00Z';
+        const pdf6 = 'Prepa-Express-Bilan-Pro.pdf';
+        helpAsset[5] = new HelpAssetModel();
+        helpAsset[5].url = `${this.pdfUrl}/cadre/${pdf6}`;
+        helpAsset[5].label = 'Prepa Express Bilan Pro';
+        helpAsset[5].helpAssetType = HelpAssetTypeEnum.PDF;
+        helpAsset[5].lastUpdateDate = '2019-02-05T00:00:00Z';
         return helpAsset;
     }
 
@@ -146,13 +158,18 @@ export class HelpAssetListPage {
      * Renvoie la liste des ressources d'aide du pnc
      */
     getCommunHelpAssets(): HelpAssetModel[] {
-        const helpAsset = new Array(1);
+        const helpAsset = new Array(2);
         const pdfName = 'Priorites-compilees-CCP-CC-HST-V7-1er-octobre.pdf';
         helpAsset[0] = new HelpAssetModel();
         helpAsset[0].url = `${this.pdfUrl}/commun/${pdfName}`;
         helpAsset[0].label = 'Priorités compilées CCP-CC-HST V7';
         helpAsset[0].helpAssetType = HelpAssetTypeEnum.PDF;
         helpAsset[0].lastUpdateDate = '2018-10-01T13:11:52Z';
+        helpAsset[1] = new HelpAssetModel();
+        helpAsset[1].url = `${this.pdfUrl}/commun/Visuel_Relais_RH_ Interactif_V03.pdf`;
+        helpAsset[1].label = 'Fiches Missions Relais';
+        helpAsset[1].helpAssetType = HelpAssetTypeEnum.PDF;
+        helpAsset[1].lastUpdateDate = '2019-02-26T00:00:00Z';
         return helpAsset;
     }
 }

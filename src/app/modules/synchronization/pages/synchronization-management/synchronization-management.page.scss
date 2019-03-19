@@ -1,0 +1,45 @@
+synchronization-management {
+
+    .scroll-content {
+        display: flex;
+        flex-direction: column;
+    }
+
+    h3{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height:44px;
+    }
+
+    .offline-message{
+        color: color($colors, red70);
+    }
+
+    nav.tabs {
+        display: flex;
+        justify-content: center;
+        border-bottom: 1px solid color($colors, grey75);
+        margin-bottom: 30px;
+
+        button {
+            color: color($colors, grey40);
+            font-size: 1.2em;
+            background: none;
+            margin: 0 20px;
+            padding: 20px 0 10px 0;
+            border-bottom: 3px solid transparent;
+        }
+
+        button.active {
+            border-bottom: 3px solid color($colors, blue81);
+        }
+    }
+
+    synchro-request-list {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        overflow-y: auto;
+    }
+}

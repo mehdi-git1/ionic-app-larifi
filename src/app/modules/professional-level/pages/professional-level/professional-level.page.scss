@@ -1,5 +1,17 @@
 page-professional-level {
 
+    h3,
+    [padding] h3:first-child {
+        margin-top: 30px;
+        margin-bottom: 20px;
+        font-size: 1.4em;
+        color: color($colors, blue81);
+    }
+
+    [padding] h3:first-child {
+        margin-top: 15px;
+    }
+
     .professional-level-header {
         display: flex;
         align-items: center;
@@ -36,12 +48,6 @@ page-professional-level {
             justify-content: flex-end;
             font-size: 2em;
             color: color($colors, white);
-        }
-    }
-
-    e-observations {
-        > mat-expansion-panel {
-            margin-top: 30px !important;
         }
     }
 

@@ -5,7 +5,6 @@ export enum urlGroupEnum {
   'PNC' = 'pncs',
   'PNC_PHOTO' = 'pnc_photos',
   'ME' = 'me',
-  'PARAMETERS' = 'parameters',
   'HELP_ASSET' = 'help_assets',
   'PIN' = 'pin',
   'STATUTORY_CERTIFICATE' = 'statutory_certificate',

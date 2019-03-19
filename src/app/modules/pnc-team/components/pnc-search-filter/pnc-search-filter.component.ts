@@ -75,7 +75,7 @@ export class PncSearchFilterComponent implements OnInit {
       this.initFilter();
     });
 
-    this.events.subscribe('parameters:ready', () => {
+    this.events.subscribe('user:authenticationDone', () => {
       this.initFilter();
       this.initForm();
     });
@@ -154,8 +154,8 @@ export class PncSearchFilterComponent implements OnInit {
     this.specialityList = Object.keys(SpecialityEnum)
       .map(k => SpecialityEnum[k])
       .filter(v => typeof v === 'string') as string[];
-    if (this.sessionService.parameters !== undefined) {
-      const params: Map<string, any> = this.sessionService.parameters.params;
+    if (this.sessionService.getActiveUser().parameters !== undefined) {
+      const params: Map<string, any> = this.sessionService.getActiveUser().parameters.params;
       this.divisionList = Object.keys(params['divisions']);
       if (this.divisionList.length === 0) {
         this.outOfDivision = true;
@@ -356,7 +356,7 @@ export class PncSearchFilterComponent implements OnInit {
     this.ginqList = null;
     this.sectorList = null;
     if (division !== AppConstant.ALL) {
-      this.sectorList = Object.keys(this.sessionService.parameters.params['divisions'][division]);
+      this.sectorList = Object.keys(this.sessionService.getActiveUser().parameters.params['divisions'][division]);
     }
     if (this.defaultValue && this.sectorList && this.defaultSector && this.sectorList.find((sector) => sector === this.defaultSector)) {
       this.pncFilter.sector = this.defaultSector;
@@ -374,7 +374,7 @@ export class PncSearchFilterComponent implements OnInit {
   getGinqList(sector) {
     this.ginqList = null;
     if (this.pncFilter.division !== AppConstant.ALL && sector !== '' && sector !== AppConstant.ALL) {
-      this.ginqList = this.sessionService.parameters.params['divisions'][this.pncFilter.division][sector];
+      this.ginqList = this.sessionService.getActiveUser().parameters.params['divisions'][this.pncFilter.division][sector];
     }
     if (this.defaultValue && this.ginqList && this.defaultGinq && this.ginqList.find((ginq) => ginq === this.defaultGinq)) {
       this.pncFilter.ginq = this.defaultGinq;

@@ -35,4 +35,13 @@ export class OfflineEObservationService {
             resolve(eObservations);
         });
     }
+
+    /**
+    * Valide une eObservation
+    * @param eObservation l'eObservation à valider
+    * @return une promesse contenant l'eObservation validée
+    */
+    validateEObservation(eObservation: EObservationModel): Promise<EObservationModel> {
+        return this.storageService.saveAsync(EntityEnum.EOBSERVATION, eObservation, false);
+    }
 }

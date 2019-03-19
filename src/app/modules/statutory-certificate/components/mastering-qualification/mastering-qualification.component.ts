@@ -1,7 +1,7 @@
 import { TranslateService } from '@ngx-translate/core';
 import { Component, Input, OnInit } from '@angular/core';
-import {MasteringQualificationModel} from '../../../../core/models/statutory-certificate/mastering-qualification.model';
-
+import { MasteringQualificationModel } from '../../../../core/models/statutory-certificate/mastering-qualification.model';
+import { StatutoryCertificateDisplayTypeEnum } from './../../../../core/enums/statutory-certificate-display-type.enum';
 
 
 @Component({
@@ -11,6 +11,8 @@ import {MasteringQualificationModel} from '../../../../core/models/statutory-cer
 export class MasteringQualificationComponent implements OnInit {
 
   @Input() masteringQualificationsData: Array<MasteringQualificationModel>;
+  @Input() title: string;
+  @Input() displayType: StatutoryCertificateDisplayTypeEnum;
 
   // Tableau des valeurs à afficher en fonction du type de tableau
   masteringQualificationDisplayedData;
