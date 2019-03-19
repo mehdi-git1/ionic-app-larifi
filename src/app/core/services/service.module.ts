@@ -1,3 +1,4 @@
+import { AppVersionService } from './app-version/app-version.service';
 import { UserPermissionService } from './user-permission/user-permission.service';
 import { CongratulationLetterTransformerService } from './congratulation-letter/congratulation-letter-transformer.service';
 import { CongratulationLetterService } from './congratulation-letter/congratulation-letter.service';
@@ -165,7 +166,8 @@ import { OfflineEObservationService } from './eobservation/offline-eobservation.
         OfflineCongratulationLetterService,
         OnlineCongratulationLetterService,
         CongratulationLetterTransformerService,
-        TranslateOrEmptyService
+        TranslateOrEmptyService,
+        AppVersionService
     ]
 })
 export class ServiceModule { }

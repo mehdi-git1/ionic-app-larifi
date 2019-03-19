@@ -10,12 +10,12 @@
     <ion-grid>
         <ion-row>
             <!-- Header du tableau -->
-            <ion-col>
+            <ion-col class="profileCol">
                 <ion-item>
                     <ion-label class="tab_header">{{ 'ADMIN.PROFILE_MANAGEMENT.HEADER.PROFILE_HEADER' | translate }}</ion-label>
                 </ion-item>
             </ion-col>
-            <ion-col>
+            <ion-col class="PermissionCol">
                 <ion-item>
                     <ion-label class="tab_header">
                         {{ 'ADMIN.PROFILE_MANAGEMENT.HEADER.PERMISSION_HEADER' | translate }}
@@ -29,13 +29,17 @@
             <ion-col>
                 <edossier-spinner *ngIf="userProfiles == undefined; else ProfileListBlock "></edossier-spinner>
                 <ng-template #ProfileListBlock>
+
                     <ion-item class="profileList" *ngFor="let userProfile of userProfiles" (click)="goToPermissionManagement(userProfile.name)">
-                        <label>{{ userProfile.name }}</label>
+                        <div class="inputGroup">
+                            <input type="radio" name="profileName" id="{{userProfile.name}}" />
+                            <label for="{{userProfile.name}}">{{ userProfile.name }}</label>
+                        </div>
                     </ion-item>
                 </ng-template>
             </ion-col>
+            <!-- Permissions d'un profil -->
             <ion-col>
-                <!-- Permissions d'un profil -->
                 <ion-label *ngIf="allPermissions == null; else permissionListBlock">{{ 'ADMIN.PROFILE_MANAGEMENT.LABEL' | translate }}</ion-label>
                 <ng-template #permissionListBlock>
                     <ion-list>

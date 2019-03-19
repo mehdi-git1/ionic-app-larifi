@@ -527,14 +527,15 @@
         "ADMIN_HOME": {
             "TITLE": "Page d'administration",
             "BUTTON": {
-                "PROFILE_MANAGEMENT": "Afficher la liste des profils"
+                "PROFILE_MANAGEMENT": "Afficher la liste des profils",
+                "APP_VERSION_MANAGEMENT": "Afficher la liste des versions"
             }
         },
         "PROFILE_MANAGEMENT": {
             "TITLE": "Gestion des profils",
             "BUTTON": {
                 "REGISTER": "Afficher la liste des profils",
-                "UPDATE": "MISE À JOUR"
+                "UPDATE": "METTRE À JOUR"
             },
             "HEADER": {
                 "PROFILE_HEADER": "Profil",
@@ -543,6 +544,27 @@
             "LABEL": "Veuillez sélectionner un profil",
             "SUCCESS": {
                 "PERMISSIONS_UPDATED": "Permissions mises à jour"
+            }
+        },
+        "APP_VERSION_MANAGEMENT": {
+            "TITLE": "Gestion des versions",
+            "BUTTON": {
+                "ADD_VERSION": "Ajouter"
+            },
+            "HEADER": {
+                "NUMBER": "numéro",
+                "CHANGELOG": "description",
+                "ACTION": "action"
+            },
+            "LABEL": {
+                "PLACEHOLDER_NUM": "Numéro de version",
+                "PLACEHOLDER_CHANGELOG": "Description"
+            },
+            "SUCCESS": {
+                "CREATE_VERSION": "Nouvelle version créée"
+            },
+            "ERROR": {
+                "UNDEFINED_NUMBER": "Veuillez renseigner un numéro de version"
             }
         }
     }
