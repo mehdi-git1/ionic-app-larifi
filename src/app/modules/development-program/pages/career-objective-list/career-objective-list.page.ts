@@ -181,8 +181,8 @@ export class CareerObjectiveListPage {
       this.createEObservation();
     } else {
       this.eFormsList = typeOfForms.split('/');
+      this.menuDisplay = true;
     }
-    this.menuDisplay = true;
   }
 
   /**
@@ -190,7 +190,7 @@ export class CareerObjectiveListPage {
    * @param value Valeur du formulaire choisie
    */
   checkBeforeCreate(value) {
-    this.chosenEFormsType = value.trim();
+    this.chosenEFormsType = this.formsEObservationService.getReportTypeForEForms(value.trim());
     this.menuDisplay = false;
     this.createEObservation();
   }
