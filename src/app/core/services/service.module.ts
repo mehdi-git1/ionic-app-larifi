@@ -76,9 +76,9 @@ import { FormsInputParamTransformerService } from './forms/forms-input-param-tra
 import { OnlineEObservationService } from './eobservation/online-eobservation.service';
 import { OfflineEObservationService } from './eobservation/offline-eobservation.service';
 import { SynchronizationManagementService } from './synchronization/synchronization-management.service';
-import { ProfessionalInterviewService } from './professional-assessment/professional-assessment.service';
-import { OnlineProfessionalInterviewService } from './professional-assessment/online-professional-assessment.service';
-import { OfflineProfessionalAssessementService } from './professional-assessment/offline-professional-assessment.service';
+import { ProfessionalInterviewService } from './professional-interview/professional-interview.service';
+import { OnlineProfessionalInterviewService } from './professional-interview/online-professional-interview.service';
+import { OfflineProfessionalAssessementService } from './professional-interview/offline-professional-interview.service';
 
 
 @NgModule({

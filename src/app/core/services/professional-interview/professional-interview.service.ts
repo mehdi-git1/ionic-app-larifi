@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { BaseService } from '../base/base.service';
 import { ConnectivityService } from '../connectivity/connectivity.service';
-import { ProfessionalInterviewModel } from '../../models/professional-assessment/professional-assessment.model';
-import { OnlineProfessionalInterviewService } from './online-professional-assessment.service';
-import { OfflineProfessionalAssessementService } from './offline-professional-assessment.service';
+import { OnlineProfessionalInterviewService } from './online-professional-interview.service';
+import { OfflineProfessionalInterviewService } from './offline-professional-interview.service';
+import {ProfessionalInterviewModel} from '../../models/professional-interview/professional-interview.model';
 
 
 
@@ -13,12 +13,12 @@ export class ProfessionalInterviewService extends BaseService {
     constructor(
         protected connectivityService: ConnectivityService,
         private onlineProfessionalInterviewService: OnlineProfessionalInterviewService,
-        private offlineProfessionalAssessementService: OfflineProfessionalAssessementService
+        private offlineProfessionalInterviewService: OfflineProfessionalInterviewService
     ) {
         super(
             connectivityService,
             onlineProfessionalInterviewService,
-            offlineProfessionalAssessementService
+            offlineProfessionalInterviewService
         );
 
     }

@@ -1,9 +1,9 @@
 import { Component, Input, OnChanges } from '@angular/core';
 
-import { ProfessionalInterviewModel } from '../../../../core/models/professional-assessment/professional-assessment.model';
+import { ProfessionalInterviewModel } from '../../../../core/models/professional-interview/professional-interview.model';
 
 @Component({
-  selector: 'professional-assessment',
+  selector: 'professional-interview',
   templateUrl: 'professional_interview.component.html'
 })
 

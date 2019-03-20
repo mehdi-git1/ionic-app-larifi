@@ -1,4 +1,4 @@
-import { ProfessionalInterviewService } from './../../../../core/services/professional-assessment/professional-assessment.service';
+import { ProfessionalInterviewService } from '../../../../core/services/professional-interview/professional-interview.service';
 import { EObservationsArchivesPage } from './../../../eobservation/pages/eobservations-archives/eobservations-archives.page';
 import { EObservationModel } from '../../../../core/models/eobservation/eobservation.model';
 import { EObservationService } from './../../../../core/services/eobservation/eobservation.service';
@@ -18,7 +18,7 @@ import { CareerObjectiveService } from '../../../../core/services/career-objecti
 import { RotationModel } from '../../../../core/models/rotation.model';
 import { PncService } from '../../../../core/services/pnc/pnc.service';
 import { PncModel } from '../../../../core/models/pnc.model';
-import { ProfessionalInterviewModel } from '../../../../core/models/professional-assessment/professional-assessment.model';
+import { ProfessionalInterviewModel } from '../../../../core/models/professional-interview/professional-interview.model';
 
 @Component({
   selector: 'page-career-objective-list',

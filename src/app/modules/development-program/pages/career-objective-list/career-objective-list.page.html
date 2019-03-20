@@ -62,8 +62,8 @@
         </div>
 
         <!-- Bilans professionnels -->
-        <h3 class="professional-assessment-title">{{ 'CAREER_OBJECTIVE_LIST.PROFESSIONAL_INTERVIEW_TITLE' | translate }}</h3>
-        <div class="global-container cartridge-container professional-assessment-creation-container">
+        <h3 class="professional-interview-title">{{ 'CAREER_OBJECTIVE_LIST.PROFESSIONAL_INTERVIEW_TITLE' | translate }}</h3>
+        <div class="global-container cartridge-container professional-interview-creation-container">
             <div class="add-container">
                 <button (click)="goToProfessionalInterviewCreation()" class="add-button clickable">
                     <div class="button-content">
@@ -73,9 +73,9 @@
                 </button>
             </div>
         </div>
-        <div class="global-container professional-assessment-list-container">
-            <professional-assessments *ngIf="professionalInterviews" [professionalInterviews]="professionalInterviews">
-            </professional-assessments>
+        <div class="global-container professional-interview-list-container">
+            <professional-interviews *ngIf="professionalInterviews" [professionalInterviews]="professionalInterviews">
+            </professional-interviews>
         </div>
     </ng-template>
 </ion-content>

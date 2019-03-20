@@ -1,5 +1,5 @@
 <mat-expansion-panel *ngIf="professionalInterview" [disabled]="!canOpen()">
-    <mat-expansion-panel-header class="professional-assessment" [expandedHeight]="matPanelHeaderHeight" [collapsedHeight]="matPanelHeaderHeight" hideToggle="true">
+    <mat-expansion-panel-header class="professional-interview" [expandedHeight]="matPanelHeaderHeight" [collapsedHeight]="matPanelHeaderHeight" hideToggle="true">
         <label class="flex3">{{professionalInterview.interviewDate | date : 'dd/MM/yyyy' : 'UTC'}}</label>
         <label class="flex3">{{professionalInterview.state}} </label>
         <label class="flex3">

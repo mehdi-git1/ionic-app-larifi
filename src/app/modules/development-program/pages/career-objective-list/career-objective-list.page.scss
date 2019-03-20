@@ -16,7 +16,7 @@ page-career-objective-list {
         color: color($colors, green45);
     }
 
-    .professional-assessment-title {
+    .professional-interview-title {
         color: color($colors, bluegrey3);
     }
 
@@ -137,16 +137,16 @@ page-career-objective-list {
     }
 
     &.eobservation-list-container,
-    &.professional-assessment-list-container {
+    &.professional-interview-list-container {
         padding: 0px 10px;
         padding-bottom: 10px;
     }
 
-    &.professional-assessment-creation-container {
+    &.professional-interview-creation-container {
         border-color: color($colors, bluegrey5);
         box-shadow: 0px 0px 4px color($colors, bluegrey5);
 
-        .professional-assessment-info-container {
+        .professional-interview-info-container {
             label {
                 color: color($colors, grey12);
             }

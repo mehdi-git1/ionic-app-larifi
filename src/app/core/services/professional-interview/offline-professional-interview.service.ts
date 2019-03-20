@@ -3,10 +3,10 @@ import { Injectable } from '@angular/core';
 import { EntityEnum } from '../../enums/entity.enum';
 import { StorageService } from '../../storage/storage.service';
 import { OfflineActionEnum } from '../../enums/offline-action.enum';
-import { ProfessionalInterviewModel } from '../../models/professional-assessment/professional-assessment.model';
+import { ProfessionalInterviewModel } from '../../models/professional-interview/professional-interview.model';
 
 @Injectable()
-export class OfflineProfessionalAssessementService {
+export class OfflineProfessionalInterviewService {
 
     constructor(
         private storageService: StorageService

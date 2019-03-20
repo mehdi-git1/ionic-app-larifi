@@ -10,8 +10,8 @@
     </mat-expansion-panel-header>
     <no-data *ngIf="professionalInterviews.length === 0; else professionalInterviewsDataBlock"></no-data>
     <ng-template #professionalInterviewsDataBlock>
-        <professional-assessment *ngFor="let professionalInterview of professionalInterviews" [professionalInterview]="professionalInterview">
-        </professional-assessment>
+        <professional-interview *ngFor="let professionalInterview of professionalInterviews" [professionalInterview]="professionalInterview">
+        </professional-interview>
     </ng-template>
 </mat-expansion-panel>
 <div *ngIf="professionalInterviews.length > 0 && legend">
