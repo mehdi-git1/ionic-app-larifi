@@ -60,5 +60,22 @@
             <career-objectives *ngIf="careerObjectives" [careerObjectives]="careerObjectives">
             </career-objectives>
         </div>
+
+        <!-- Bilans professionnels -->
+        <h3 class="professional-assessment-title">{{ 'CAREER_OBJECTIVE_LIST.PROFESSIONAL_ASSESSMENT_TITLE' | translate }}</h3>
+        <div class="global-container cartridge-container professional-assessment-creation-container">
+            <div class="add-container">
+                <button (click)="goToProfessionalAssessmentCreation()" class="add-button clickable">
+                    <div class="button-content">
+                        <span class="edospnc-plus"></span>
+                        <label>{{ 'PROFESSIONAL_ASSESSMENT.NEW_PROFESSIONAL_ASSESSMENT_HEADER.NEW' | translate }}</label>
+                    </div>
+                </button>
+            </div>
+        </div>
+        <div class="global-container professional-assessment-list-container">
+            <professional-assessments *ngIf="professionalAssessments" [professionalAssessments]="professionalAssessments">
+            </professional-assessments>
+        </div>
     </ng-template>
 </ion-content>

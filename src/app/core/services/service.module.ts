@@ -76,6 +76,9 @@ import { FormsInputParamTransformerService } from './forms/forms-input-param-tra
 import { OnlineEObservationService } from './eobservation/online-eobservation.service';
 import { OfflineEObservationService } from './eobservation/offline-eobservation.service';
 import { SynchronizationManagementService } from './synchronization/synchronization-management.service';
+import { ProfessionalAssessmentService } from './professional-assessment/professional-assessment.service';
+import { OnlineProfessionalAssessmentService } from './professional-assessment/online-professional-assessment.service';
+import { OfflineProfessionalAssessementService } from './professional-assessment/offline-professional-assessment.service';
 
 
 @NgModule({
@@ -111,6 +114,9 @@ import { SynchronizationManagementService } from './synchronization/synchronizat
         OnlinePncService,
         OnlineCareerObjectiveService,
         OfflineCareerObjectiveService,
+        ProfessionalAssessmentService,
+        OnlineProfessionalAssessmentService,
+        OfflineProfessionalAssessementService,
         OfflineWaypointService,
         OnlineWaypointService,
         CareerObjectiveTransformerService,

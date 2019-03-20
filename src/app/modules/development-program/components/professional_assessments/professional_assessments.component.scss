@@ -1,0 +1,58 @@
+professional-assessments {
+
+    mat-expansion-panel {
+        box-shadow: none !important;
+
+        &.mat-expanded:not(.no-data) {
+            box-shadow: none !important;
+        }
+
+        mat-expansion-panel-header {
+            display: flex;
+            background-color: color($colors, bluegrey5);
+            border-radius: 5px;
+            color: color($colors, white);
+            text-align: left;
+            cursor: pointer;
+
+            box-shadow: 0 3px 1px -3px rgba(0, 0, 0, .2),
+                0 2px 2px 0 rgba(0, 0, 0, .14),
+                0 1px 5px 0 rgba(0, 0, 0, .12);
+
+            & > .mat-expansion-indicator {
+                display: flex;
+                transition: all linear 200ms;
+            }
+
+            &.mat-expansion-panel-header {
+                padding: 6px 20px 6px 10px;
+            }
+
+            &.mat-expanded:hover,
+            &.mat-expanded:focus {
+                background-color: color($colors, bluegrey5) !important;
+            }
+
+            .mat-content > label {
+                font-weight: 700;
+                font-size: 1.2em;
+                color: color($colors, white);
+            }
+
+            .button-placeholder {
+                width: 70px;
+            }
+
+        }
+
+        .mat-expansion-panel-body {
+            padding: 0;
+            margin: 0;
+        }
+
+    }
+
+    .information-message {
+        margin-top: 10px;
+    }
+}

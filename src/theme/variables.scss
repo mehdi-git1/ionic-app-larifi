@@ -61,6 +61,8 @@ yellow1: #F5D359,
 bluegrey:#66A7B7,
 bluegrey2:#5FA1AF,
 bluegrey3:#5d727A,
+bluegrey4: #677A89,
+bluegrey5: #556775,
 blue50:#5AD9F6,
 blue55:#7cc3cc,
 blue58:#2DD1D4,
@@ -263,4 +265,12 @@ ion-item.item {
 
 ion-badge {
     font-size: 1.2rem !important;
+}
+
+.flex3 {
+    flex: 3;
+}
+
+.flex4 {
+    flex: 4;
 }

@@ -1,0 +1,15 @@
+<mat-expansion-panel *ngIf="professionalAssessment" [disabled]="!canOpen()">
+    <mat-expansion-panel-header class="professional-assessment" [expandedHeight]="matPanelHeaderHeight" [collapsedHeight]="matPanelHeaderHeight" hideToggle="true">
+        <label class="flex3">{{professionalAssessment.interviewDate | date : 'dd/MM/yyyy' : 'UTC'}}</label>
+        <label class="flex3">{{professionalAssessment.state}} </label>
+        <label class="flex3">
+            <span *ngIf="professionalAssessment.redactor?.lastName">{{professionalAssessment.redactor.lastName}} <span class="firstname">{{professionalAssessment.redactor.firstName}}</span></span>
+        </label>
+        <label class="flex4">{{professionalAssessment.interviewType}}</label>
+        <div class="button-detail">
+            <button ion-fab>
+                <span class="edospnc-memo"></span>
+            </button>
+        </div>
+    </mat-expansion-panel-header>
+</mat-expansion-panel>

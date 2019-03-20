@@ -1,5 +1,4 @@
 import { CareerObjectivesComponent } from './components/career_objectives/career-objectives.component';
-import { AbnormalLevelComponent } from './../eobservation/components/abnormal-level/abnormal-level.component';
 import { EObservationModule } from './../eobservation/eobservation.module';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
@@ -10,7 +9,8 @@ import { ComponentsModule } from '../../shared/components/components.module';
 import { CareerObjectiveListPage } from './pages/career-objective-list/career-objective-list.page';
 import { CareerObjectiveCreatePage } from './pages/career-objective-create/career-objective-create.page';
 import { CareerObjectiveComponent } from './components/career-objective/career-objective.component';
-
+import { ProfessionalAssessmentsComponent } from './components/professional_assessments/professional_assessments.component';
+import { ProfessionalAssessmentComponent } from './components/professional_assessment/professional_assessment.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +18,9 @@ import { CareerObjectiveComponent } from './components/career-objective/career-o
     CareerObjectiveListPage,
     CareerObjectiveCreatePage,
     CareerObjectiveComponent,
-    CareerObjectivesComponent
+    CareerObjectivesComponent,
+    ProfessionalAssessmentComponent,
+    ProfessionalAssessmentsComponent
   ],
   imports: [
     [IonicPageModule.forChild(CareerObjectiveListPage)],

@@ -34,4 +34,19 @@ export class TransformerService {
             return objectToTransform;
         }
     }
+
+    public universalTransformObjectArray(typeOfObject: { new() }, objectToTransform) {
+        const objectArray = [];
+        for (const object of objectToTransform) {
+            objectArray.push(this.universalTransformObject(typeOfObject, object));
+        }
+        console.log(objectArray);
+        return objectArray;
+    }
+
+    public universalTransformObject(typeOfObject: { new() }, objectToTransform) {
+        return !objectToTransform ?
+            objectToTransform :
+            new typeOfObject().fromJSON(objectToTransform);
+    }
 }

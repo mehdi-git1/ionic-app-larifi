@@ -1,3 +1,4 @@
+import { ProfessionalAssessmentService } from './../../../../core/services/professional-assessment/professional-assessment.service';
 import { EObservationsArchivesPage } from './../../../eobservation/pages/eobservations-archives/eobservations-archives.page';
 import { EObservationModel } from '../../../../core/models/eobservation/eobservation.model';
 import { EObservationService } from './../../../../core/services/eobservation/eobservation.service';
@@ -17,6 +18,7 @@ import { CareerObjectiveService } from '../../../../core/services/career-objecti
 import { RotationModel } from '../../../../core/models/rotation.model';
 import { PncService } from '../../../../core/services/pnc/pnc.service';
 import { PncModel } from '../../../../core/models/pnc.model';
+import { ProfessionalAssessmentModel } from '../../../../core/models/professional-assessment/professional-assessment.model';
 
 @Component({
   selector: 'page-career-objective-list',
@@ -31,6 +33,8 @@ export class CareerObjectiveListPage {
 
   eObservations: EObservationModel[];
 
+  professionalAssessments: ProfessionalAssessmentModel[];
+
   // Expose l'enum au template
   PncRole = PncRoleEnum;
 
@@ -39,6 +43,7 @@ export class CareerObjectiveListPage {
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     private careerObjectiveService: CareerObjectiveService,
+    private professionalAssessmentService: ProfessionalAssessmentService,
     private formsEObservationService: FormsEObservationService,
     private deviceService: DeviceService,
     private eObservationService: EObservationService,
@@ -66,6 +71,7 @@ export class CareerObjectiveListPage {
     });
     this.getEObservationsList();
     this.initCareerObjectivesList();
+    this.getProfessionalAssessmentList();
   }
 
   /**
@@ -92,6 +98,19 @@ export class CareerObjectiveListPage {
     this.eObservationService.getEObservations(this.matricule).then(
       eobs => {
         this.eObservations = eobs;
+      }, error => {
+      });
+  }
+
+
+  /**
+   * Récupére la liste des bilans professionel
+   */
+  getProfessionalAssessmentList() {
+    this.professionalAssessments = undefined;
+    this.professionalAssessmentService.getProfessionalAssessments(this.matricule).then(
+      pAss => {
+        this.professionalAssessments = pAss;
       }, error => {
       });
   }
@@ -164,4 +183,12 @@ export class CareerObjectiveListPage {
   goToEobservationsArchives() {
     this.navCtrl.push(EObservationsArchivesPage, { matricule: this.matricule });
   }
+
+  /**
+   * Dirige vers la page de création d'un nouvel objectif
+   */
+  goToProfessionalAssessmentCreation() {
+    return false;
+  }
+
 }

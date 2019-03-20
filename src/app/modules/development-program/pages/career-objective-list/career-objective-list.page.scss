@@ -16,6 +16,10 @@ page-career-objective-list {
         color: color($colors, green45);
     }
 
+    .professional-assessment-title {
+        color: color($colors, bluegrey3);
+    }
+
     [padding] h3:first-child {
         margin-top: 15px;
     }
@@ -118,7 +122,6 @@ page-career-objective-list {
         box-shadow: 0px 0px 4px color($colors, blue68);
 
         .eobservation-info-container {
-
             label {
                 color: color($colors, grey12);
             }
@@ -126,18 +129,36 @@ page-career-objective-list {
             span {
                 color: color($colors, grey40);
             }
-
         }
 
         .add-button {
             background: color($colors, blue68);
         }
-
     }
 
-    &.eobservation-list-container {
+    &.eobservation-list-container,
+    &.professional-assessment-list-container {
         padding: 0px 10px;
         padding-bottom: 10px;
+    }
+
+    &.professional-assessment-creation-container {
+        border-color: color($colors, bluegrey5);
+        box-shadow: 0px 0px 4px color($colors, bluegrey5);
+
+        .professional-assessment-info-container {
+            label {
+                color: color($colors, grey12);
+            }
+
+            span {
+                color: color($colors, grey40);
+            }
+        }
+
+        .add-button {
+            background: color($colors, bluegrey5);
+        }
     }
 
 
