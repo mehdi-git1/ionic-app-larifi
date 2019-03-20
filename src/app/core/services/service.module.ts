@@ -78,7 +78,7 @@ import { OfflineEObservationService } from './eobservation/offline-eobservation.
 import { SynchronizationManagementService } from './synchronization/synchronization-management.service';
 import { ProfessionalInterviewService } from './professional-interview/professional-interview.service';
 import { OnlineProfessionalInterviewService } from './professional-interview/online-professional-interview.service';
-import { OfflineProfessionalAssessementService } from './professional-interview/offline-professional-interview.service';
+import { OfflineProfessionalInterviewService } from './professional-interview/offline-professional-interview.service';
 
 
 @NgModule({
@@ -116,7 +116,7 @@ import { OfflineProfessionalAssessementService } from './professional-interview/
         OfflineCareerObjectiveService,
         ProfessionalInterviewService,
         OnlineProfessionalInterviewService,
-        OfflineProfessionalAssessementService,
+        OfflineProfessionalInterviewService,
         OfflineWaypointService,
         OnlineWaypointService,
         CareerObjectiveTransformerService,

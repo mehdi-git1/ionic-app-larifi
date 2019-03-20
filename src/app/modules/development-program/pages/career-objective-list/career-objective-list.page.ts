@@ -109,8 +109,8 @@ export class CareerObjectiveListPage {
   getProfessionalInterviewList() {
     this.professionalInterviews = undefined;
     this.professionalInterviewService.getProfessionalInterviews(this.matricule).then(
-      pAss => {
-        this.professionalInterviews = pAss;
+      interviews => {
+        this.professionalInterviews = interviews;
       }, error => {
       });
   }
