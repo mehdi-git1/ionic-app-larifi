@@ -11,7 +11,6 @@ import { OnlineEvaluationSheetService } from './professional-level/evaluation-sh
 import { OfflineEvaluationSheetService } from './professional-level/evaluation-sheet/offline-evaluation-sheet.service';
 import { EvaluationSheetService } from './professional-level/evaluation-sheet/evaluation-sheet.service';
 import { UserProfileService } from './user-profile/user-profile.service';
-import { VersionService } from './version/version.service';
 import { NgModule } from '@angular/core';
 import { ConnectivityService } from './connectivity/connectivity.service';
 import { TabNavService } from './tab-nav/tab-nav.service';
@@ -149,7 +148,6 @@ import { SynchronizationManagementService } from './synchronization/synchronizat
                 OfflineProfessionalLevelService,
                 ProfessionalLevelTransformerService,
                 SpecialityService,
-                VersionService,
                 EvaluationSheetService,
                 OnlineEvaluationSheetService,
                 OfflineEvaluationSheetService,
