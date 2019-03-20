@@ -1,3 +1,3 @@
-export enum ProfessionalAssessmentStateEnum {
+export enum ProfessionalInterviewStateEnum {
     'A' = 'A'
 }

@@ -8,7 +8,7 @@ export enum urlGroupEnum {
   'HELP_ASSET' = 'help_assets',
   'PIN' = 'pin',
   'STATUTORY_CERTIFICATE' = 'statutory_certificate',
-  'PROFESSIONAL_ASSESSMENT' = 'professional_assessment',
+  'PROFESSIONAL_INTERVIEW' = 'professional_assessment',
   'PNC_SUMMARY_SHEET' = 'pnc_summary_sheets',
   'PNC_SYNCHRO' = 'pnc_synchros',
   'WAYPOINT' = 'waypoints',

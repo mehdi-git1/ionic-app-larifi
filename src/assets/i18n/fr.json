@@ -138,7 +138,7 @@
     "CAREER_OBJECTIVE_LIST": {
         "EOBS_TITLE": "eObservations",
         "CAREER_OBJECTIVE_TITLE": "Priorités",
-        "PROFESSIONAL_ASSESSMENT_TITLE": "Bilan professionnel",
+        "PROFESSIONAL_INTERVIEW_TITLE": "Bilan professionnel",
         "NO_OBJECTIVES": "Aucune priorité pour le moment",
         "INFORMATION_MESSAGE": "Maximum 5 priorités en cours",
         "LIST": {
@@ -281,10 +281,10 @@
             "STATUTORY_CERTIFICATE": "Erreur lors de la récupération du profil PNC pour le matricule {{ matricule }}"
         }
     },
-    "PROFESSIONAL_ASSESSMENT": {
+    "PROFESSIONAL_INTERVIEW": {
         "TITLE": "Bilan professionnel",
         "MY_TITLE": "Mon bilan professionnel",
-        "NEW_PROFESSIONAL_ASSESSMENT_HEADER": {
+        "NEW_PROFESSIONAL_INTERVIEW_HEADER": {
             "NEW": "Nouveau bilan professionel"
         },
         "LIST": {

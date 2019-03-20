@@ -1,23 +1,23 @@
 import { Injectable } from '@angular/core';
 import { BaseService } from '../base/base.service';
 import { ConnectivityService } from '../connectivity/connectivity.service';
-import { ProfessionalAssessmentModel } from '../../models/professional-assessment/professional-assessment.model';
-import { OnlineProfessionalAssessmentService } from './online-professional-assessment.service';
+import { ProfessionalInterviewModel } from '../../models/professional-assessment/professional-assessment.model';
+import { OnlineProfessionalInterviewService } from './online-professional-assessment.service';
 import { OfflineProfessionalAssessementService } from './offline-professional-assessment.service';
 
 
 
 @Injectable()
-export class ProfessionalAssessmentService extends BaseService {
+export class ProfessionalInterviewService extends BaseService {
 
     constructor(
         protected connectivityService: ConnectivityService,
-        private onlineProfessionalAssessmentService: OnlineProfessionalAssessmentService,
+        private onlineProfessionalInterviewService: OnlineProfessionalInterviewService,
         private offlineProfessionalAssessementService: OfflineProfessionalAssessementService
     ) {
         super(
             connectivityService,
-            onlineProfessionalAssessmentService,
+            onlineProfessionalInterviewService,
             offlineProfessionalAssessementService
         );
 
@@ -28,8 +28,8 @@ export class ProfessionalAssessmentService extends BaseService {
      * @param matricule le matricule du PNC
      * @return une promesse contenant les EObservations trouvées
      */
-    getProfessionalAssessments(matricule: string): Promise<ProfessionalAssessmentModel[]> {
-        return this.execFunctionService('getProfessionalAssessments', matricule);
+    getProfessionalInterviews(matricule: string): Promise<ProfessionalInterviewModel[]> {
+        return this.execFunctionService('getProfessionalInterviews', matricule);
     }
 
 }

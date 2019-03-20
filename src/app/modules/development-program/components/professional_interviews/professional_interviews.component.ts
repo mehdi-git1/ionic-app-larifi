@@ -1,20 +1,20 @@
 
 import { Component, Input, OnChanges } from '@angular/core';
 
-import { ProfessionalAssessmentModel } from '../../../../core/models/professional-assessment/professional-assessment.model';
+import { ProfessionalInterviewModel } from '../../../../core/models/professional-assessment/professional-assessment.model';
 
 @Component({
   selector: 'professional-assessments',
-  templateUrl: 'professional_assessments.component.html'
+  templateUrl: 'professional_interviews.component.html'
 })
 
-export class ProfessionalAssessmentsComponent implements OnChanges {
+export class ProfessionalInterviewsComponent implements OnChanges {
 
   matPanelHeaderHeight = '41px';
   isOlderThan3Years = false;
   nbOfYearsToChangeMessage = 3;
 
-  @Input() professionalAssessments: ProfessionalAssessmentModel[];
+  @Input() professionalInterviews: ProfessionalInterviewModel[];
 
   @Input() filterItems = false;
 

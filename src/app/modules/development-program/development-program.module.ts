@@ -9,8 +9,8 @@ import { ComponentsModule } from '../../shared/components/components.module';
 import { CareerObjectiveListPage } from './pages/career-objective-list/career-objective-list.page';
 import { CareerObjectiveCreatePage } from './pages/career-objective-create/career-objective-create.page';
 import { CareerObjectiveComponent } from './components/career-objective/career-objective.component';
-import { ProfessionalAssessmentsComponent } from './components/professional_assessments/professional_assessments.component';
-import { ProfessionalAssessmentComponent } from './components/professional_assessment/professional_assessment.component';
+import { ProfessionalInterviewsComponent } from './components/professional_interviews/professional_interviews.component';
+import { ProfessionalInterviewComponent } from './components/professional_interview/professional_interview.component';
 
 @NgModule({
   declarations: [
@@ -19,8 +19,8 @@ import { ProfessionalAssessmentComponent } from './components/professional_asses
     CareerObjectiveCreatePage,
     CareerObjectiveComponent,
     CareerObjectivesComponent,
-    ProfessionalAssessmentComponent,
-    ProfessionalAssessmentsComponent
+    ProfessionalInterviewComponent,
+    ProfessionalInterviewsComponent
   ],
   imports: [
     [IonicPageModule.forChild(CareerObjectiveListPage)],

@@ -1,14 +1,14 @@
 import { PncModel } from './../pnc.model';
 import { EDossierPncObjectModel } from '../e-dossier-pnc-object.model';
-import { ProfessionalAssessmentStateEnum } from '../../enums/professional-assessment/professional-assessment-state.enum';
+import { ProfessionalInterviewStateEnum } from '../../enums/professional-assessment/professional-assessment-state.enum';
 import { InterviewTypeEnum } from '../../enums/professional-assessment/interview-type.enum';
 
-export class ProfessionalAssessmentModel extends EDossierPncObjectModel {
+export class ProfessionalInterviewModel extends EDossierPncObjectModel {
 
     pnc: PncModel;
     interviewDate: Date;
     interviewType: InterviewTypeEnum;
-    state: ProfessionalAssessmentStateEnum;
+    state: ProfessionalInterviewStateEnum;
     redactor: PncModel;
 
     getStorageId(): string {

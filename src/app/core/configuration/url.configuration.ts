@@ -34,7 +34,7 @@ export class UrlConfiguration {
     'secretInfos': urlGroupEnum.PIN,
     'getSecretInfosByMatricule': `${urlGroupEnum.PIN}/{matricule}`,
     'getStatutoryCertificateByMatricule': `${urlGroupEnum.STATUTORY_CERTIFICATE}/{matricule}`,
-    'getProfessionalAssessmentsByMatricule': `${urlGroupEnum.PROFESSIONAL_ASSESSMENT}/{matricule}`,
+    'getProfessionalInterviewsByMatricule': `${urlGroupEnum.PROFESSIONAL_INTERVIEW}/{matricule}`,
     'getSummarySheetByMatricule': `${urlGroupEnum.PNC_SUMMARY_SHEET}/{matricule}`,
     'pncSynchro': urlGroupEnum.PNC_SYNCHRO,
     'getPncSynchroByPnc': `${urlGroupEnum.PNC_SYNCHRO}/{matricule}`,

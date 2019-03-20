@@ -1,16 +1,16 @@
-import { ProfessionalAssessmentStateEnum } from './../../enums/professional-assessment/professional-assessment-state.enum';
+import { ProfessionalInterviewStateEnum } from './../../enums/professional-assessment/professional-assessment-state.enum';
 import { Injectable } from '@angular/core';
 import { RestService } from '../../http/rest/rest.base.service';
 import { UrlConfiguration } from '../../configuration/url.configuration';
 
-import { ProfessionalAssessmentModel } from '../../models/professional-assessment/professional-assessment.model';
+import { ProfessionalInterviewModel } from '../../models/professional-assessment/professional-assessment.model';
 import { TransformerService } from '../transformer/transformer.service';
 import { InterviewTypeEnum } from '../../enums/professional-assessment/interview-type.enum';
 
 
 
 @Injectable()
-export class OnlineProfessionalAssessmentService {
+export class OnlineProfessionalInterviewService {
 
     constructor(
         public restService: RestService,
@@ -23,18 +23,18 @@ export class OnlineProfessionalAssessmentService {
      * @param matricule le matricule du PNC
      * @return une promesse contenant les bilans professionel trouvées
      */
-    getProfessionalAssessments(matricule: string): Promise<ProfessionalAssessmentModel[]> {
-        const tmpArray = [new ProfessionalAssessmentModel(), new ProfessionalAssessmentModel()];
-        tmpArray[0].state = ProfessionalAssessmentStateEnum.A;
+    getProfessionalInterviews(matricule: string): Promise<ProfessionalInterviewModel[]> {
+        const tmpArray = [new ProfessionalInterviewModel(), new ProfessionalInterviewModel()];
+        tmpArray[0].state = ProfessionalInterviewStateEnum.A;
         tmpArray[0].interviewType = InterviewTypeEnum.RA;
         tmpArray[0].interviewDate = new Date();
-        tmpArray[1].state = ProfessionalAssessmentStateEnum.A;
+        tmpArray[1].state = ProfessionalInterviewStateEnum.A;
         tmpArray[1].interviewType = InterviewTypeEnum.RA;
         tmpArray[1].interviewDate = new Date();
-        this.universalTransformer.universalTransformObjectArray(ProfessionalAssessmentModel, tmpArray);
-        return this.restService.get(this.config.getBackEndUrl('getProfessionalAssessmentsByMatricule', [matricule])).then(
-            professionalAssessments => {
-                return this.universalTransformer.universalTransformObjectArray(ProfessionalAssessmentModel, professionalAssessments);
+        this.universalTransformer.universalTransformObjectArray(ProfessionalInterviewModel, tmpArray);
+        return this.restService.get(this.config.getBackEndUrl('getProfessionalInterviewsByMatricule', [matricule])).then(
+            professionalInterviews => {
+                return this.universalTransformer.universalTransformObjectArray(ProfessionalInterviewModel, professionalInterviews);
             }
         );
     }

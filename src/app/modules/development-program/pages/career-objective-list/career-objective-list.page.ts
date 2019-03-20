@@ -1,4 +1,4 @@
-import { ProfessionalAssessmentService } from './../../../../core/services/professional-assessment/professional-assessment.service';
+import { ProfessionalInterviewService } from './../../../../core/services/professional-assessment/professional-assessment.service';
 import { EObservationsArchivesPage } from './../../../eobservation/pages/eobservations-archives/eobservations-archives.page';
 import { EObservationModel } from '../../../../core/models/eobservation/eobservation.model';
 import { EObservationService } from './../../../../core/services/eobservation/eobservation.service';
@@ -18,7 +18,7 @@ import { CareerObjectiveService } from '../../../../core/services/career-objecti
 import { RotationModel } from '../../../../core/models/rotation.model';
 import { PncService } from '../../../../core/services/pnc/pnc.service';
 import { PncModel } from '../../../../core/models/pnc.model';
-import { ProfessionalAssessmentModel } from '../../../../core/models/professional-assessment/professional-assessment.model';
+import { ProfessionalInterviewModel } from '../../../../core/models/professional-assessment/professional-assessment.model';
 
 @Component({
   selector: 'page-career-objective-list',
@@ -33,7 +33,7 @@ export class CareerObjectiveListPage {
 
   eObservations: EObservationModel[];
 
-  professionalAssessments: ProfessionalAssessmentModel[];
+  professionalInterviews: ProfessionalInterviewModel[];
 
   // Expose l'enum au template
   PncRole = PncRoleEnum;
@@ -43,7 +43,7 @@ export class CareerObjectiveListPage {
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     private careerObjectiveService: CareerObjectiveService,
-    private professionalAssessmentService: ProfessionalAssessmentService,
+    private professionalInterviewService: ProfessionalInterviewService,
     private formsEObservationService: FormsEObservationService,
     private deviceService: DeviceService,
     private eObservationService: EObservationService,
@@ -71,7 +71,7 @@ export class CareerObjectiveListPage {
     });
     this.getEObservationsList();
     this.initCareerObjectivesList();
-    this.getProfessionalAssessmentList();
+    this.getProfessionalInterviewList();
   }
 
   /**
@@ -106,11 +106,11 @@ export class CareerObjectiveListPage {
   /**
    * Récupére la liste des bilans professionel
    */
-  getProfessionalAssessmentList() {
-    this.professionalAssessments = undefined;
-    this.professionalAssessmentService.getProfessionalAssessments(this.matricule).then(
+  getProfessionalInterviewList() {
+    this.professionalInterviews = undefined;
+    this.professionalInterviewService.getProfessionalInterviews(this.matricule).then(
       pAss => {
-        this.professionalAssessments = pAss;
+        this.professionalInterviews = pAss;
       }, error => {
       });
   }
@@ -187,7 +187,7 @@ export class CareerObjectiveListPage {
   /**
    * Dirige vers la page de création d'un nouvel objectif
    */
-  goToProfessionalAssessmentCreation() {
+  goToProfessionalInterviewCreation() {
     return false;
   }
 
