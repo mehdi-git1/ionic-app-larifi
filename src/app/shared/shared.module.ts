@@ -12,6 +12,7 @@ import { TooltipsModule, TooltipController } from 'ionic-tooltips';
 import { Utils } from './utils/utils';
 import { DirectivesModule } from './directives/directives.module';
 import { DateTransform } from './utils/date-transform';
+
 export function createTranslateLoader(http: HttpClient) {
     return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
