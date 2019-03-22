@@ -19,7 +19,7 @@ export class AppVersionService {
     }
 
     /**
-     * Créé une version
+     * Crée une version
      * @param appVersion la version à créer
      * @return la version créé
      */

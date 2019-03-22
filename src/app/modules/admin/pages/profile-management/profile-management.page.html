@@ -10,12 +10,13 @@
     <ion-grid>
         <ion-row>
             <!-- Header du tableau -->
-            <ion-col class="profileCol">
+            <ion-col>
                 <ion-item>
-                    <ion-label class="tab_header">{{ 'ADMIN.PROFILE_MANAGEMENT.HEADER.PROFILE_HEADER' | translate }}</ion-label>
+                    <ion-label class="tab_header">{{ 'ADMIN.PROFILE_MANAGEMENT.HEADER.PROFILE_HEADER' | translate }}
+                    </ion-label>
                 </ion-item>
             </ion-col>
-            <ion-col class="PermissionCol">
+            <ion-col>
                 <ion-item>
                     <ion-label class="tab_header">
                         {{ 'ADMIN.PROFILE_MANAGEMENT.HEADER.PERMISSION_HEADER' | translate }}
@@ -30,7 +31,8 @@
                 <edossier-spinner *ngIf="userProfiles == undefined; else ProfileListBlock "></edossier-spinner>
                 <ng-template #ProfileListBlock>
 
-                    <ion-item class="profileList" *ngFor="let userProfile of userProfiles" (click)="goToPermissionManagement(userProfile.name)">
+                    <ion-item class="profileList" *ngFor="let userProfile of userProfiles"
+                        (click)="goToPermissionManagement(userProfile.name)">
                         <div class="inputGroup">
                             <input type="radio" name="profileName" id="{{userProfile.name}}" />
                             <label for="{{userProfile.name}}">{{ userProfile.name }}</label>
@@ -40,12 +42,14 @@
             </ion-col>
             <!-- Permissions d'un profil -->
             <ion-col>
-                <ion-label *ngIf="allPermissions == null; else permissionListBlock">{{ 'ADMIN.PROFILE_MANAGEMENT.LABEL' | translate }}</ion-label>
+                <ion-label *ngIf="allPermissions == null; else permissionListBlock">
+                    {{ 'ADMIN.PROFILE_MANAGEMENT.LABEL' | translate }}</ion-label>
                 <ng-template #permissionListBlock>
                     <ion-list>
                         <ion-item *ngFor="let permission of allPermissions">
                             <ion-label left> {{ permission.name }} </ion-label>
-                            <ion-checkbox [(ngModel)]="permission.checked" [checked]="permission.checked" item-right secondary>
+                            <ion-checkbox [(ngModel)]="permission.checked" [checked]="permission.checked" item-right
+                                secondary>
                             </ion-checkbox>
                         </ion-item>
                     </ion-list>
