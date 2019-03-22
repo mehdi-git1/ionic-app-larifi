@@ -1,7 +1,7 @@
 import { AppVersionModel } from './../../../../core/models/admin/app-version.model';
 import { AppVersionService } from './../../../../core/services/app-version/app-version.service';
 import { ToastService } from '../../../../core/services/toast/toast.service';
-import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 
