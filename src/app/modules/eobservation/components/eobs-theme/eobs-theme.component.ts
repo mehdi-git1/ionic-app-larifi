@@ -12,7 +12,8 @@ import { EObservationItemModel } from '../../../../core/models/eobservation/eobs
 export class EObsThemeComponent {
 
   @Input() theme: EobservationItemsByTheme;
-
+  @Input() isPcb: boolean;
+  
   constructor(public popoverCtrl: PopoverController) {
   }
 
@@ -42,6 +43,10 @@ export class EObsThemeComponent {
   hasSubThemes (): boolean {
     return !(this.theme.subThemes === null || this.theme.subThemes.length === 0);
   }
+
+  //getEpcbStrongPoints(): EobservationItemsByTheme[]{
+    // return this.theme.subThemes.filter(a => a.eObservationItems.f)
+  //}
 
   /**
    * Ouvre la popover de description d'un item

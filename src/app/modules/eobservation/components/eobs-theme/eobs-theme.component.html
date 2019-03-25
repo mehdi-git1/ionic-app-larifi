@@ -1,18 +1,67 @@
 <edospnc-expandable-block mini="true" title="{{theme.referentialTheme.label}}" [emptyCondition]="isEmptyGrid()">
-    <span *ngIf="hasSubThemes()" >
-        <span *ngFor="let subTheme of theme.subThemes">
+    <span *ngIf="hasSubThemes()">
+        <span *ngIf="isPcb">
+            <ion-row class="pcbSubtitle">
+                <ion-col  class="subThemeLabel">{{ 'EOBSERVATION.DETAILS.SKILLS' | translate }}</ion-col>
+                <ion-col  class="subThemeLabel">{{ 'EOBSERVATION.DETAILS.STRONG_POINTS' | translate }}</ion-col>
+            </ion-row>
+        </span>
+        <span >
+            <span *ngIf="isPcb">
+                <ion-grid class="pcbGrid">
+                    <ion-row *ngFor="let subTheme of theme.subThemes">
+                        <!-- Aptitues Conforme / Améliorable -->
+                        <ion-col>
+                            <span class="pcbSkills" *ngIf="subTheme.eObservationItems && subTheme.eObservationItems.length === 1">
+                                <span class="skillLabel">
+                                    {{subTheme.referentialTheme.label}} :
+                                </span>
+
+                                <span  class="skillsValue">
+                                    <ion-list lines="none">
+                                        <radio-and-label disabled="true"
+                                        [conditionValue]="subTheme.eObservationItems[0].refItemLevel.level === 'CONFORME'" 
+                                        label="{{ 'EOBSERVATION.DETAILS.CONFORM' | translate }}">
+                                        </radio-and-label>
+                                        <radio-and-label disabled="true"
+                                        [conditionValue]="subTheme.eObservationItems[0].refItemLevel.level === 'AMELIORABLE'" 
+                                        label="{{ 'EOBSERVATION.DETAILS.IMPROVABLE' | translate }}">
+                                        </radio-and-label>
+                                    </ion-list>
+                                </span>
+                            </span>
+                        </ion-col>
+                        <!-- Points forts -->
+                        <ion-col>
+                            <span class="pcbStrongPoints" >
+                                <ion-list lines="none">
+                                    <span *ngFor="let eObservationItem of theme.eObservationItems">
+                                        <div *ngIf="eObservationItem?.refItemLevel?.item?.theme?.parent?.label === subTheme?.referentialTheme?.label">
+                                                <checkbox-and-label disabled="true"
+                                                [conditionValue]="eObservationItem?.refItemLevel?.level === 'POINT_FORT'" 
+                                                label="{{eObservationItem?.refItemLevel?.item?.label}}"></checkbox-and-label>
+                                        </div>
+                                    </span>
+                                </ion-list>
+                            </span>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+            </span>
+            <span *ngIf="!isPcb">
                 <div class="subThemeLabel">{{subTheme.referentialTheme.label}}</div>
-            <ion-grid>
-                <ion-row *ngFor="let eObservationItem of subTheme.eObservationItems">
-                    <ion-col col-11 class="item-label"> {{eObservationItem.refItemLevel.item.label}}</ion-col>
-                    <ion-col col-1 class="symbol">
-                        <color-number-dot [numberText]="getLevelLabel(eObservationItem.refItemLevel.level)">
-                        </color-number-dot>
-                        <question-symbol (click)="openDescription($event, eObservationItem)">
-                        </question-symbol>
-                    </ion-col>
-                </ion-row>
-            </ion-grid>
+                <ion-grid>
+                    <ion-row *ngFor="let eObservationItem of subTheme.eObservationItems">
+                        <ion-col col-11 class="item-label"> {{eObservationItem.refItemLevel.item.label}}</ion-col>
+                        <ion-col col-1 class="symbol">
+                            <color-number-dot [numberText]="getLevelLabel(eObservationItem.refItemLevel.level)">
+                            </color-number-dot>
+                            <question-symbol (click)="openDescription($event, eObservationItem)">
+                            </question-symbol>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+            </span>
         </span>
     </span>
     <ion-grid *ngIf="!hasSubThemes()">
@@ -26,4 +75,16 @@
                 </ion-col>
             </ion-row>
         </ion-grid>
+    <!--ion-grid *ngIf="!isPcb">
+        <ion-row *ngFor="let eObservationItem of theme.eObservationItems">
+            <ion-col col-11 class="item-label"> {{eObservationItem.refItemLevel.item.label}}</ion-col>
+            <ion-col col-1 class="symbol">
+                <color-number-dot [numberText]="getLevelLabel(eObservationItem.refItemLevel.level)">
+                </color-number-dot>
+                <question-symbol (click)="openDescription($event, eObservationItem)">
+                </question-symbol>
+            </ion-col>
+        </ion-row>
+    </ion-grid-->
+
 </edospnc-expandable-block>

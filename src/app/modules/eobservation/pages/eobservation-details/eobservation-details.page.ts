@@ -16,6 +16,8 @@ import { TranslateService } from '@ngx-translate/core';
 import { ToastService } from '../../../../core/services/toast/toast.service';
 import * as _ from 'lodash';
 import { Utils } from '../../../../shared/utils/utils';
+import { EObservationItemModel } from '../../../../core/models/eobservation/eobservation-item.model';
+import { ReferentialThemeModel } from '../../../../core/models/eobservation/referential-theme.model';
 
 @Component({
   selector: 'page-eobservation-details',
@@ -23,6 +25,7 @@ import { Utils } from '../../../../shared/utils/utils';
 })
 export class EobservationDetailsPage {
   PncRoleEnum = PncRoleEnum;
+  EObservationTypeEnum = EObservationTypeEnum;
 
   eObservation: EObservationModel;
   originEObservation: EObservationModel;
@@ -101,11 +104,12 @@ export class EobservationDetailsPage {
    */
   sortEObservationItemsByTheme(): EobservationItemsByTheme[] {
     const itemsByTheme = new Array<EobservationItemsByTheme>();
-
+    console.log(JSON.stringify(this.eObservation));
     if (this.eObservation && this.eObservation.eobservationItems && this.eObservation.eobservationItems.length > 0) {
       for (const eObservationItem of this.eObservation.eobservationItems.sort((a, b) => a.itemOrder > b.itemOrder ? 1 : -1)) {
         const eObservationTheme = eObservationItem.refItemLevel.item.theme;
-        const parentTheme = eObservationTheme.parent;
+        this.manageThemeInMap(eObservationItem, eObservationTheme, itemsByTheme, null);
+        /*const parentTheme = eObservationTheme.parent;
         if (parentTheme) {
           let parentThemeToDisplay = itemsByTheme.find(element => parentTheme.label == element.referentialTheme.label);
           if (!parentThemeToDisplay) {
@@ -113,7 +117,7 @@ export class EobservationDetailsPage {
             itemsByTheme.push(parentThemeToDisplay);
           } 
           let themeToDisplay = parentThemeToDisplay.subThemes.find(element => eObservationTheme.label == element.referentialTheme.label);
-          if(!themeToDisplay) {
+          if (!themeToDisplay) {
             themeToDisplay = new EobservationItemsByTheme(eObservationTheme);
           }
           parentThemeToDisplay.subThemes.push(themeToDisplay);
@@ -125,10 +129,44 @@ export class EobservationDetailsPage {
             itemsByTheme.push(themeToDisplay);
           }
           themeToDisplay.eObservationItems.push(eObservationItem);
-        }
+        }*/
       }
     }
-    return itemsByTheme.sort((a, b) => a.referentialTheme.themeOrder > b.referentialTheme.themeOrder ? 1 : -1);
+    const items = itemsByTheme.sort((a, b) => a.referentialTheme.themeOrder > b.referentialTheme.themeOrder ? 1 : -1);
+    console.log(JSON.stringify(items));
+    return items;
+  }
+
+  manageThemeInMap(eObservationItem: EObservationItemModel, 
+      eObservationTheme: ReferentialThemeModel, 
+      itemsByTheme: Array<EobservationItemsByTheme>,
+      parentThemeToDisplay: EobservationItemsByTheme): Array<EobservationItemsByTheme> {
+    const parentTheme = eObservationTheme.parent;
+    if (parentTheme) {
+      
+      if (!parentThemeToDisplay) {
+        parentThemeToDisplay = itemsByTheme.find(element => parentTheme.label === element.referentialTheme.label);
+        if (!parentThemeToDisplay) {
+          parentThemeToDisplay = new EobservationItemsByTheme(parentTheme);
+        }
+        // itemsByTheme.push(parentThemeToDisplay);
+      } 
+      let themeToDisplay = parentThemeToDisplay.subThemes.find(element => eObservationTheme.label === element.referentialTheme.label);
+      if (!themeToDisplay) {
+        themeToDisplay = new EobservationItemsByTheme(eObservationTheme);
+      }
+      themeToDisplay.eObservationItems.push(eObservationItem);
+      parentThemeToDisplay.subThemes.push(themeToDisplay);
+      this.manageThemeInMap(eObservationItem, parentTheme, itemsByTheme, parentThemeToDisplay);
+    } else {
+      let themeToDisplay = itemsByTheme.find(element => eObservationTheme.label === element.referentialTheme.label);
+      if (!themeToDisplay) {
+        themeToDisplay = new EobservationItemsByTheme(eObservationTheme);
+        itemsByTheme.push(themeToDisplay);
+      }
+      themeToDisplay.eObservationItems.push(eObservationItem);
+    }
+    return itemsByTheme;
   }
 
   /**
@@ -275,5 +313,9 @@ export class EobservationDetailsPage {
    */
   loadingIsOver(): boolean {
     return this.eObservation !== undefined;
+  }
+
+  isPcb(): boolean {
+    return this.eObservation && EObservationTypeEnum.E_PCB === this.eObservation.type;
   }
 }

@@ -24,6 +24,7 @@ import { SharedModule } from '../shared.module';
 import { EdospncExpandableBlockComponent } from './edospnc-expandable-block/edospnc-expandable-block';
 import { ColorStatusPointComponent } from './color-status-point/color-status-point.component';
 import { RadioAndLabelComponent } from './radio-and-label/radio-and-label.component';
+import { CheckboxAndLabelComponent } from './checkbox-and-label/checkbox-and-label.component';
 
 
 @NgModule({
@@ -50,7 +51,8 @@ import { RadioAndLabelComponent } from './radio-and-label/radio-and-label.compon
     NoDataComponent,
     EdospncExpandableBlockComponent,
     ColorStatusPointComponent,
-    RadioAndLabelComponent
+    RadioAndLabelComponent,
+    CheckboxAndLabelComponent
   ],
   exports: [
     OfflineIndicatorComponent,
@@ -69,7 +71,8 @@ import { RadioAndLabelComponent } from './radio-and-label/radio-and-label.compon
     NoDataComponent,
     EdospncExpandableBlockComponent,
     ColorStatusPointComponent,
-    RadioAndLabelComponent
+    RadioAndLabelComponent,
+    CheckboxAndLabelComponent
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA
