@@ -277,7 +277,7 @@ export class EobservationDetailsPage {
   }
 
   /**
-   * Validel'eObservation
+   * Valide l'eObservation
    */
   validateEObservation(): void {
     this.loading = this.loadingCtrl.create();
@@ -304,8 +304,7 @@ export class EobservationDetailsPage {
   }
 
   /**
-   * Teste si un utilisateur est admin métier des OEbservations
-   * @param authenticatedUser l'utilisateur à tester
+   * Teste si un utilisateur est admin métier des eObservations
    * @return vrai si l'utilisateur est admin métier des EObservations, faux sinon
    */
   isEObsBusinessAdmin(): boolean {
