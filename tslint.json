@@ -6,7 +6,7 @@
         "tslint-sonarts"
     ],
     "rules": {
-        "cognitive-complexity": [true, 18],
+        "cognitive-complexity": [true, 30],
         "arrow-return-shorthand": true,
         "callable-types": true,
         "class-name": true,
