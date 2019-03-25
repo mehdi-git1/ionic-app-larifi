@@ -70,7 +70,4 @@ export class PncCardPageHeaderComponent {
     });
   }
 
-  getAvatarPicture(gender) {
-    return this.genderProvider.getAvatarPicture(gender);
-  }
 }
