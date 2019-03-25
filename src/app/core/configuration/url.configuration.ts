@@ -41,7 +41,6 @@ export class UrlConfiguration {
     'getWaypointById': `${urlGroupEnum.WAYPOINT}/{waypointId}`,
     'crudWaypointByCarreObjectiveId': `${urlGroupEnum.WAYPOINT}/career_objective/{careerObjectiveId}`,
     'deleteWaypointsById': `${urlGroupEnum.WAYPOINT}/{waypointId}`,
-    'getParameters': urlGroupEnum.PARAMETERS,
     'getProfessionalLevelByMatricule': `${urlGroupEnum.PROFESSIONAL_LEVEL}/{matricule}`,
     'getRotationsByTechId': `${urlGroupEnum.ROTATION}/{techId}/legs`,
     'getImpersonationAvailableByMatricule': `${urlGroupEnum.IMPERSONATION_AVAILABLE}/{matricule}`,

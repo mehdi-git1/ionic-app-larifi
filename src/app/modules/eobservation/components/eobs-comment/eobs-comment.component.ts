@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, EventEmitter, Output } from '@angular/core';
 import { EObservationModel } from '../../../../core/models/eobservation/eobservation.model';
 import { PncRoleEnum } from '../../../../core/enums/pnc-role.enum';
 import { TranslateService } from '@ngx-translate/core';
@@ -10,6 +10,8 @@ import { SpecialityEnum } from '../../../../core/enums/speciality.enum';
   templateUrl: 'eobs-comment.component.html'
 })
 export class EObsCommentComponent {
+
+  @Output() validatePncComment: EventEmitter<any> = new EventEmitter();
 
   @Input() type: PncRoleEnum;
 
@@ -77,5 +79,9 @@ export class EObsCommentComponent {
     } else {
       return this.eObservation && !this.eObservation.pncComment && !this.canEditPncComment;
     }
+  }
+
+  confirmValidatePncComment(): void {
+    this.validatePncComment.next();
   }
 }

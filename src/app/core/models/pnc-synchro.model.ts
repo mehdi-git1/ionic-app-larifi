@@ -1,3 +1,4 @@
+import { CrewMemberModel } from './crew-member.model';
 import { CongratulationLetterModel } from './congratulation-letter.model';
 import { ProfessionalLevelModel } from './professional-level/professional-level.model';
 import { StatutoryCertificateModel } from './statutory.certificate.model';
@@ -17,6 +18,7 @@ export class PncSynchroModel {
     careerObjectives: CareerObjectiveModel[];
     waypoints: WaypointModel[];
     rotations: RotationModel[];
+    crewMembers: CrewMemberModel[];
     legs: LegModel[];
     statutoryCertificate: StatutoryCertificateModel;
     professionalLevel: ProfessionalLevelModel;
