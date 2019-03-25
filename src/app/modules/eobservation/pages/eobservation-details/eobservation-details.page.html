@@ -100,7 +100,7 @@
 
         <div class="button-bar button-bar-right margin-top" *ngIf="isEObsBusinessAdmin()">
             <!-- Bouton valider l'eobs -->
-            <button ion-button color="green50" (click)="confirmValidateEObservation()">
+            <button ion-button color="green50" (click)="confirmValidateEObservation()" [disabled]="!formHasBeenModified()">
                 <ion-icon name="md-checkmark" ios="md-checkmark" margin-right></ion-icon> {{ 'EOBSERVATION.BUTTONS.VALIDATE' | translate }}
             </button>
         </div>
