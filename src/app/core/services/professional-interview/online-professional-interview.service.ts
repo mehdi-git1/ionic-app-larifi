@@ -31,12 +31,12 @@ export class OnlineProfessionalInterviewService {
         tmpArray[1].state = InterviewStateEnum.A;
         tmpArray[1].interviewType = InterviewTypeEnum.RA;
         tmpArray[1].interviewDate = new Date();
-        this.universalTransformer.universalTransformObjectArray(ProfessionalInterviewModel, tmpArray);
-        return this.restService.get(this.config.getBackEndUrl('getProfessionalInterviewsByMatricule', [matricule])).then(
-            professionalInterviews => {
-                return this.universalTransformer.universalTransformObjectArray(ProfessionalInterviewModel, professionalInterviews);
-            }
-        );
+        return Promise.resolve(this.universalTransformer.universalTransformObjectArray(ProfessionalInterviewModel, tmpArray));
+        /* return this.restService.get(this.config.getBackEndUrl('getProfessionalInterviewsByMatricule', [matricule])).then(
+             professionalInterviews => {
+                 return this.universalTransformer.universalTransformObjectArray(ProfessionalInterviewModel, professionalInterviews);
+             }
+         ); */
     }
 
 }
