@@ -55,7 +55,7 @@ export class OnlinePncPhotoService {
 
   /**
   * Met à jour les photos d'une série de PNC, si ces dernières sont dépassées.
-  * Stocke en cache les photos reçues et émet une événement pour déclencher la mise à jour des IHM
+  * Stocke en cache les photos reçues et émet un événement pour déclencher la mise à jour des photos
   * @param matricules les PNC concernés
   */
   synchronizePncsPhotos(matricules: string[]): Promise<any> {
