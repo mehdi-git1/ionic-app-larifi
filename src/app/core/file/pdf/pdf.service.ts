@@ -19,17 +19,18 @@ export class PdfService {
     displayPDF(url) {
 
         const rep = this.file.dataDirectory;
+        const pdfFile = 'pdfToDisplay.pdf';
         // Si on récupère un fichier PDF sur l'iPad, il faut le recréer hors des assets
         // Pour ne pas avoir une URL en localhost, il faut créer un fichier directement sur l'IPAD
         // Il y'a des problèmes CORS avec les fichiers en localhost://
         this.file.createDir(rep, 'edossier', true).then(
             createDirReturn => {
-                this.file.createFile(rep + '/edossier', 'pdfToDisplay.pdf', true).then(
+                this.file.createFile(rep + '/edossier', pdfFile, true).then(
                     createFileReturn => {
                         this.httpClient.get(url, { responseType: 'blob' }).subscribe(result => {
-                            this.file.writeExistingFile(rep + '/edossier', 'pdfToDisplay.pdf', result).then(
+                            this.file.writeExistingFile(rep + '/edossier', pdfFile, result).then(
                                 writingFileReturn => {
-                                    this.inAppBrowser.create(rep + '/edossier/' + 'pdfToDisplay.pdf', '_blank', 'hideurlbar=no,location=no,toolbarposition=top'
+                                    this.inAppBrowser.create(rep + '/edossier/' + pdfFile, '_blank', 'hideurlbar=no,location=no,toolbarposition=top'
                                     );
                                 }
                             );
