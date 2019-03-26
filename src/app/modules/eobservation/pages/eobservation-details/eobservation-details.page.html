@@ -74,8 +74,12 @@
                 </ion-row>
             </ion-grid>
         </edospnc-expandable-block>
-
-        <eobs-theme *ngFor="let eObservationTheme of itemsSortedByTheme" [theme]="eObservationTheme" [isPcb]="isPcb()"></eobs-theme>
+        <span *ngIf="isPcb()">
+                <eobs-appreciation *ngFor="let eObservationTheme of itemsSortedByTheme" [theme]="eObservationTheme"></eobs-appreciation>
+        </span>
+        <span *ngIf="!isPcb()">
+            <eobs-theme *ngFor="let eObservationTheme of itemsSortedByTheme" [theme]="eObservationTheme"></eobs-theme>
+        </span>
 
         <eobs-comment [type]="PncRoleEnum.MANAGER" [eObservation]="eObservation"></eobs-comment>
 

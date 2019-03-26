@@ -12,7 +12,6 @@ import { EObservationItemModel } from '../../../../core/models/eobservation/eobs
 export class EObsThemeComponent {
 
   @Input() theme: EobservationItemsByTheme;
-  @Input() isPcb: boolean;
 
   constructor(public popoverCtrl: PopoverController) {
   }
