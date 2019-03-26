@@ -6,6 +6,7 @@ export class EObservationItemsByTheme {
     referentialTheme: ReferentialThemeModel;
     subThemes: EObservationItemsByTheme[];
     eObservationItems: EObservationItemModel[];
+    themeComment: string;
 
     constructor (referentialTheme: ReferentialThemeModel) {
         this.referentialTheme = referentialTheme;
