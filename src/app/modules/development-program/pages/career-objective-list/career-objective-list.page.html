@@ -33,7 +33,7 @@
                 </button>
 
                 <ion-item class="option-menu" [ngClass]="{'flex': canDisplayMenu}">
-                    <ion-select interface="popover" [placeholder]="eFormsList[0]" #optionValue (ionChange)="checkBeforeCreate(optionValue.value)">
+                    <ion-select interface="popover" [placeholder]="eFormsList[0]" #optionValue (ionChange)="getEFormsTypeBeforeCreate(optionValue.value)">
                         <ion-option *ngFor="let eForm of eFormsList" [value]="eForm">{{eForm}}</ion-option>
                     </ion-select>
                 </ion-item>

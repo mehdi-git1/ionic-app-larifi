@@ -189,7 +189,7 @@ export class CareerObjectiveListPage {
    * Appelle le formulaire choisi
    * @param value Valeur du type de formulaire choisie
    */
-  checkBeforeCreate(value) {
+  getEFormsTypeBeforeCreate(value) {
     this.chosenEFormsType = this.formsEObservationService.getReportTypeForEForms(value.trim());
     this.canDisplayMenu = false;
     this.createEObservation();
