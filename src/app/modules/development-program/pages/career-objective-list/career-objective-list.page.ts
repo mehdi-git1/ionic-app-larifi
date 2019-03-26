@@ -29,14 +29,14 @@ export class CareerObjectiveListPage {
   formsInputParam: FormsInputParamsModel;
   lastConsultedRotation: RotationModel;
 
-  menuDisplay = false;
+  canDisplayMenu = false;
 
   eObservations: EObservationModel[];
 
   // Expose l'enum au template
   PncRole = PncRoleEnum;
 
-  // Liste des eofmrs possible
+  // Liste des eForms possible
   eFormsList = [];
 
   chosenEFormsType = null;
@@ -79,7 +79,7 @@ export class CareerObjectiveListPage {
    * Retourne le texte du type de formulaire pour la création d'EObs
    * @return retourne la valeur du type de formulaire
    */
-  getEObsTextTypeForm(): string {
+  getEObsTextTypeEForm(): string {
     return EFormsTypeEnum.getTextType(EFormsTypeEnum[this.pnc.currentSpeciality]);
   }
 
@@ -176,22 +176,22 @@ export class CareerObjectiveListPage {
    * Affichage du menu de la liste des eForms
    */
   displayMenu() {
-    const typeOfForms = this.getEObsTextTypeForm();
-    if (typeOfForms.indexOf('/') == -1) {
+    const typeOfEForms = this.getEObsTextTypeEForm();
+    if (typeOfEForms.indexOf('/') == -1) {
       this.createEObservation();
     } else {
-      this.eFormsList = typeOfForms.split('/');
-      this.menuDisplay = true;
+      this.eFormsList = typeOfEForms.split('/');
+      this.canDisplayMenu = true;
     }
   }
 
   /**
-   * Permet d'appeler le formulaire choisi
-   * @param value Valeur du formulaire choisie
+   * Appelle le formulaire choisi
+   * @param value Valeur du type de formulaire choisie
    */
   checkBeforeCreate(value) {
     this.chosenEFormsType = this.formsEObservationService.getReportTypeForEForms(value.trim());
-    this.menuDisplay = false;
+    this.canDisplayMenu = false;
     this.createEObservation();
   }
 }
