@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { EobservationItemsByTheme } from '../../../../core/models/eobservation/eobservation-items-by-theme.model';
+import { EObservationItemsByTheme } from '../../../../core/models/eobservation/eobservation-items-by-theme.model';
 import { EObservationLevelEnum } from '../../../../core/enums/e-observations-level.enum';
 import { EobsItemDescriptionComponent } from '../eobs-item-description/eobs-item-description.component';
 import { PopoverController } from 'ionic-angular';
@@ -11,7 +11,7 @@ import { EObservationItemModel } from '../../../../core/models/eobservation/eobs
 })
 export class EObsThemeComponent {
 
-  @Input() theme: EobservationItemsByTheme;
+  @Input() theme: EObservationItemsByTheme;
 
   constructor(public popoverCtrl: PopoverController) {
   }

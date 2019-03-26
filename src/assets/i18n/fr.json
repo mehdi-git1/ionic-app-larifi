@@ -316,7 +316,7 @@
             "ITEM": "Rubrique / Item",
             "LEVEL": "Niveau"
         },
-        "DETAILS": {
+        "DETAIL": {
             "TITLE": "Restitution Formulaire",
             "ROTATION_SUBTITLE": "Rotation",
             "DEGRADED_CONDITIONS": "Conditions dégradées",

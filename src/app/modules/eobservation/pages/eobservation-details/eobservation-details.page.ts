@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams, AlertController, LoadingController, Loading } from 'ionic-angular';
 import { EObservationModel } from '../../../../core/models/eobservation/eobservation.model';
 import { PncModel } from '../../../../core/models/pnc.model';
-import { EobservationItemsByTheme } from '../../../../core/models/eobservation/eobservation-items-by-theme.model';
+import { EObservationItemsByTheme } from '../../../../core/models/eobservation/eobservation-items-by-theme.model';
 import { EObservationLevelEnum } from '../../../../core/enums/e-observations-level.enum';
 import { ReferentialItemLevelModel } from '../../../../core/models/eobservation/referential-item-level.model';
 import { EObservationTypeEnum } from '../../../../core/enums/e-observations-type.enum';
@@ -34,7 +34,7 @@ export class EobservationDetailsPage {
   pnc: PncModel;
   originEObservation: EObservationModel;
 
-  itemsSortedByTheme: EobservationItemsByTheme[];
+  itemsSortedByTheme: EObservationItemsByTheme[];
 
   loading: Loading;
 
@@ -108,10 +108,10 @@ export class EobservationDetailsPage {
 
   /**
    * Trie les items d'eobs par theme
-   * @return la liste de EobservationItemsByTheme
+   * @return la liste de EObservationItemsByTheme
    */
-  sortEObservationItemsByTheme(): EobservationItemsByTheme[] {
-    const itemsByTheme = new Array<EobservationItemsByTheme>();
+  sortEObservationItemsByTheme(): EObservationItemsByTheme[] {
+    const itemsByTheme = new Array<EObservationItemsByTheme>();
     if (this.eObservation && this.eObservation.eobservationItems && this.eObservation.eobservationItems.length > 0) {
       for (const eObservationItem of this.eObservation.eobservationItems.sort((a, b) => a.itemOrder > b.itemOrder ? 1 : -1)) {
         const eObservationTheme = eObservationItem.refItemLevel.item.theme;
@@ -128,23 +128,23 @@ export class EobservationDetailsPage {
    * @param eObservationTheme theme qui contient l'item
    * @param itemsByTheme map des themes/items déjà rangés
    * @param parentThemeToDisplay theme parent si il existe
-   * @return tableau de EobservationItemsByTheme
+   * @return tableau de EObservationItemsByTheme
    */
   manageThemeInMap(eObservationItem: EObservationItemModel,
       eObservationTheme: ReferentialThemeModel,
-      itemsByTheme: Array<EobservationItemsByTheme>,
-      parentThemeToDisplay: EobservationItemsByTheme): Array<EobservationItemsByTheme> {
+      itemsByTheme: Array<EObservationItemsByTheme>,
+      parentThemeToDisplay: EObservationItemsByTheme): Array<EObservationItemsByTheme> {
     const parentTheme = eObservationTheme.parent;
     if (parentTheme) {
       if (!parentThemeToDisplay) {
         parentThemeToDisplay = itemsByTheme.find(element => parentTheme.label === element.referentialTheme.label);
         if (!parentThemeToDisplay) {
-          parentThemeToDisplay = new EobservationItemsByTheme(parentTheme);
+          parentThemeToDisplay = new EObservationItemsByTheme(parentTheme);
         }
       }
       let themeToDisplay = parentThemeToDisplay.subThemes.find(element => eObservationTheme.label === element.referentialTheme.label);
       if (!themeToDisplay) {
-        themeToDisplay = new EobservationItemsByTheme(eObservationTheme);
+        themeToDisplay = new EObservationItemsByTheme(eObservationTheme);
       }
       themeToDisplay.eObservationItems.push(eObservationItem);
       parentThemeToDisplay.subThemes.push(themeToDisplay);
@@ -152,7 +152,7 @@ export class EobservationDetailsPage {
     } else {
       let themeToDisplay = itemsByTheme.find(element => eObservationTheme.label === element.referentialTheme.label);
       if (!themeToDisplay) {
-        themeToDisplay = new EobservationItemsByTheme(eObservationTheme);
+        themeToDisplay = new EObservationItemsByTheme(eObservationTheme);
         itemsByTheme.push(themeToDisplay);
       }
       themeToDisplay.eObservationItems.push(eObservationItem);
@@ -349,7 +349,7 @@ export class EobservationDetailsPage {
    * Vérifie si l'eObs est de type ePcb
    * @return true si l'eObs est de type ePcb, false sinon
    */
-  isPcb(): boolean {
+  isPcbEObs(): boolean {
     return this.eObservation && EObservationTypeEnum.E_PCB === this.eObservation.type;
   }
 
