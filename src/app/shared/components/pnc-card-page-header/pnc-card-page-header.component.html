@@ -15,15 +15,15 @@
         </div>
         <div class="pnc-info-detail">
             <div class="flex1">
-                <div class="pnc-info-data-title">{{ 'PNC_IDENTITY.SEX' | translate }}</div>
+                <div class="pnc-info-data-title">{{ 'PNC_IDENTITY.GENDER' | translate }}</div>
                 <div class="pnc-info-data">{{ pnc.gender}}</div>
             </div>
             <div class="flex1">
-                <div class="pnc-info-data-title">{{ 'PNC_IDENTITY.FUNCTION' | translate }}</div>
+                <div class="pnc-info-data-title">{{ 'PNC_IDENTITY.SPECIALITY' | translate }}</div>
                 <div class="pnc-info-data" [ngClass]="{'no-value' : !formatedSpeciality }"> {{ formatedSpeciality }}</div>
             </div>
             <div class="flex1">
-                <div class="pnc-info-data-title">{{ 'PNC_IDENTITY.RYTHM' | translate }}</div>
+                <div class="pnc-info-data-title">{{ 'PNC_IDENTITY.WORKRATE' | translate }}</div>
                 <div class="pnc-info-data" [ngClass]="{'no-value' : !pnc.workRate }">{{ pnc.workRate }} <span *ngIf="pnc.workRate">%</span></div>
             </div>
             <div class="flex2">

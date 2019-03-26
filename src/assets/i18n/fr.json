@@ -161,9 +161,9 @@
     },
     "PNC_IDENTITY": {
         "REFERENT_INSTRUCTOR": "Instructeur référent",
-        "SEX": "Sexe",
-        "FUNCTION": "Fonction",
-        "RYTHM": "Rythme",
+        "GENDER": "Sexe",
+        "SPECIALITY": "Fonction",
+        "WORKRATE": "Rythme",
         "QUALIFICATION": "Qualif",
         "RELAY": "Relais",
         "GINQ": "Ginq",
