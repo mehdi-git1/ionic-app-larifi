@@ -113,15 +113,17 @@ export class EobservationDetailsPage {
     const items = itemsByTheme.sort((a, b) => a.referentialTheme.themeOrder > b.referentialTheme.themeOrder ? 1 : -1);
     return items;
   }
-/**
- * Organise les items en fonction des themes et des thèmes parent
- * @param eObservationItem 
- * @param eObservationTheme 
- * @param itemsByTheme 
- * @param parentThemeToDisplay 
- */
-  manageThemeInMap(eObservationItem: EObservationItemModel, 
-      eObservationTheme: ReferentialThemeModel, 
+
+  /**
+   * Organise les items en fonction des themes et des thèmes parent
+   * @param eObservationItem item à ranger
+   * @param eObservationTheme theme qui contient l'item
+   * @param itemsByTheme map des themes/items déjà rangés
+   * @param parentThemeToDisplay theme parent si il existe
+   * @return tableau de EobservationItemsByTheme
+   */
+  manageThemeInMap(eObservationItem: EObservationItemModel,
+      eObservationTheme: ReferentialThemeModel,
       itemsByTheme: Array<EobservationItemsByTheme>,
       parentThemeToDisplay: EobservationItemsByTheme): Array<EobservationItemsByTheme> {
     const parentTheme = eObservationTheme.parent;
@@ -131,7 +133,7 @@ export class EobservationDetailsPage {
         if (!parentThemeToDisplay) {
           parentThemeToDisplay = new EobservationItemsByTheme(parentTheme);
         }
-      } 
+      }
       let themeToDisplay = parentThemeToDisplay.subThemes.find(element => eObservationTheme.label === element.referentialTheme.label);
       if (!themeToDisplay) {
         themeToDisplay = new EobservationItemsByTheme(eObservationTheme);
