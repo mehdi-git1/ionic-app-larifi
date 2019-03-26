@@ -175,7 +175,7 @@ export class CareerObjectiveListPage {
   /**
    * Affichage du menu de la liste des eForms
    */
-  displayMenu() {
+  displayEObservationTypeSelection() {
     const typeOfEForms = this.getEObsTextTypeEForm();
     if (typeOfEForms.indexOf('/') == -1) {
       this.createEObservation();
