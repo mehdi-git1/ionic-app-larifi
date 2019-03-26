@@ -10,7 +10,7 @@
     <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
     <ng-template #pageBlock>
 
-        <pnc-card *ngIf="eObservation?.pnc" [itemMember]="eObservation?.pnc"></pnc-card>
+        <pnc-card-page-header *ngIf="eObservation?.pnc" [itemMember]="eObservation?.pnc"></pnc-card-page-header>
 
         <div class="speciality-grid">
             <ion-grid>
@@ -77,15 +77,39 @@
 
         <eobs-theme *ngFor="let eObservationTheme of itemsSortedByTheme" [theme]="eObservationTheme"></eobs-theme>
 
-        <eobs-comment [type]="PncRoleEnum.MANAGER" [eObservation]="eObservation"></eobs-comment>
+        <eobs-comment [type]="PncRoleEnum.MANAGER" [eObservation]="eObservation" [canEditEObs]="isEObsBusinessAdmin()"></eobs-comment>
 
-        <eobs-comment [type]="PncRoleEnum.PNC" [eObservation]="eObservation" [canEditPncComment]="canEditPncComment()" (validatePncComment)="confirmValidatePncComment()"></eobs-comment>
+        <eobs-comment [type]="PncRoleEnum.PNC" [eObservation]="eObservation" [canEditPncComment]="canEditPncComment()" [canEditEObs]="isEObsBusinessAdmin()" (validatePncComment)="confirmValidatePncComment()"></eobs-comment>
+
+
+        <edospnc-expandable-block mini="true" title="{{ 'EOBSERVATION.DETAILS.STATE.TITLE' | translate }}" *ngIf="isEObsBusinessAdmin()">
+            <div padding>
+                <ion-list radio-group [(ngModel)]="eObservation.state">
+                    <ion-item>
+                        <ion-label>{{ 'EOBSERVATION.DETAILS.STATE.TAKEN_INTO_ACCOUNT' | translate }}</ion-label>
+                        <ion-radio value="TAKEN_INTO_ACCOUNT"></ion-radio>
+                    </ion-item>
+
+                    <ion-item>
+                        <ion-label>{{ 'EOBSERVATION.DETAILS.STATE.NOT_TAKEN_INTO_ACCOUNT' | translate }}</ion-label>
+                        <ion-radio value="NOT_TAKEN_INTO_ACCOUNT"></ion-radio>
+                    </ion-item>
+                </ion-list>
+            </div>
+        </edospnc-expandable-block>
+
+        <div class="button-bar button-bar-right margin-top" *ngIf="isEObsBusinessAdmin()">
+            <!-- Bouton valider l'eobs -->
+            <button ion-button color="green50" (click)="confirmValidateEObservation()" [disabled]="!formHasBeenModified()">
+                <ion-icon name="md-checkmark" ios="md-checkmark" margin-right></ion-icon> {{ 'EOBSERVATION.BUTTONS.VALIDATE' | translate }}
+            </button>
+        </div>
 
         <div class="state-block">
             <span>{{ 'EOBSERVATION.DETAILS.STATE.LABEL' | translate }}
                 <color-status-point [colorClass]="getColorStatusPoint()">
                 </color-status-point>
-                <span class="state-value">{{ 'EOBSERVATION.DETAILS.STATE.' + eObservation?.state | translateOrEmpty }}</span>
+                <span class="state-value">{{ 'EOBSERVATION.DETAILS.STATE.' + originEObservation?.state | translateOrEmpty }}</span>
             </span>
             <span>{{ 'EOBSERVATION.DETAILS.UPDATE_DATE' | translate }}
                 <span *ngIf="eObservation?.redactionDate">{{eObservation?.redactionDate | date: 'dd/MM/yyyy' : 'UTC'}}

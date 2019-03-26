@@ -8,14 +8,9 @@
 
 
 <ion-content padding>
-    <pnc-card *ngIf="pnc" [itemMember]="pnc" [isCrewMember]="false"></pnc-card>
+    <pnc-card-page-header *ngIf="pnc" [itemMember]="pnc" [isCrewMember]="false"></pnc-card-page-header>
     <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
     <ng-template #pageBlock>
-        <div margin-top *ngIf="statutoryCertificate?.aircraftSkills" class="aircraft-skills-informations">
-            <span *ngFor="let aircraftSkill of statutoryCertificate.aircraftSkills | reverse" class="plane-qualif">
-                {{ aircraftSkill }}
-            </span>
-        </div>
         <generality-skills [displayType]='StatutoryCertificateDisplayTypeEnum.LIST' [generalitySkillsData]="statutoryCertificate?.generalitySkills" [title]="'STATUTORY_CERTIFICATE.CATEGORIES.GENERALITY_SKILLS' | translate"></generality-skills>
         <plane-skills [displayType]='StatutoryCertificateDisplayTypeEnum.TAB' [planeSkillsData]="statutoryCertificate?.planeSkills" [title]="'STATUTORY_CERTIFICATE.CATEGORIES.PLANE_SKILLS' | translate"></plane-skills>
         <familiarization-flight [displayType]='StatutoryCertificateDisplayTypeEnum.LIST' [familiarizationFlightData]="statutoryCertificate?.familiarizationFlights" [title]="'STATUTORY_CERTIFICATE.CATEGORIES.FAMILIARIZATION_FLIGHT' | translate"></familiarization-flight>
