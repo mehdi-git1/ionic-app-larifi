@@ -31,7 +31,7 @@ export class OnlineEObservationService {
         return this.restServiceGetEObservations('getAllEObservationsByMatricule', matricule);
     }
 
-    /** Appel vers la back
+    /** Appel vers le back  et renvoie toutes les eObservations d'un pnc
      * @param url  url à appeler
      * @param matricule matricule du PNC
      * @return une promesse contenant les EObservations trouvées
