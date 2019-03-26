@@ -13,7 +13,7 @@ export class EObsThemeComponent {
 
   @Input() theme: EobservationItemsByTheme;
   @Input() isPcb: boolean;
-  
+
   constructor(public popoverCtrl: PopoverController) {
   }
 
@@ -32,7 +32,7 @@ export class EObsThemeComponent {
    * @return true si il n'y a pas d'items dans ce thème, sinon false
    */
   isEmptyGrid (): boolean {
-    return (this.theme.eObservationItems === null || this.theme.eObservationItems.length === 0) 
+    return (this.theme.eObservationItems === null || this.theme.eObservationItems.length === 0)
         && !this.hasSubThemes();
   }
 
