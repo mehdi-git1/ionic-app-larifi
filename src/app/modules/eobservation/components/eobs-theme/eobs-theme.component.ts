@@ -44,10 +44,6 @@ export class EObsThemeComponent {
     return !(this.theme.subThemes === null || this.theme.subThemes.length === 0);
   }
 
-  //getEpcbStrongPoints(): EobservationItemsByTheme[]{
-    // return this.theme.subThemes.filter(a => a.eObservationItems.f)
-  //}
-
   /**
    * Ouvre la popover de description d'un item
    * @param myEvent  event
