@@ -25,6 +25,7 @@ import { EdospncExpandableBlockComponent } from './edospnc-expandable-block/edos
 import { ColorStatusPointComponent } from './color-status-point/color-status-point.component';
 import { RadioAndLabelComponent } from './radio-and-label/radio-and-label.component';
 import { CheckboxAndLabelComponent } from './checkbox-and-label/checkbox-and-label.component';
+import { PncCardPageHeaderComponent } from './pnc-card-page-header/pnc-card-page-header.component';
 
 
 @NgModule({
@@ -39,6 +40,7 @@ import { CheckboxAndLabelComponent } from './checkbox-and-label/checkbox-and-lab
     ConnectivityIndicatorComponent,
     DownloadButtonComponent,
     PncCardComponent,
+    PncCardPageHeaderComponent,
     EdossierSpinnerComponent,
     PinPadComponent,
     PinPadModalComponent,
@@ -59,6 +61,7 @@ import { CheckboxAndLabelComponent } from './checkbox-and-label/checkbox-and-lab
     ConnectivityIndicatorComponent,
     DownloadButtonComponent,
     PncCardComponent,
+    PncCardPageHeaderComponent,
     EdossierSpinnerComponent,
     PinPadComponent,
     PinPadModalComponent,

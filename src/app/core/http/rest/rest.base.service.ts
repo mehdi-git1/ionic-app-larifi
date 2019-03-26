@@ -21,7 +21,7 @@ export abstract class RestService {
 
     abstract call(request: RestRequest): Promise<any>;
 
-    get(url: string, jsonData?: any, httpHeaders?: any, byPassImpersonatedUser?: boolean, byPassInterceptor?: boolean): Promise<any> {
+    get(url: string, jsonData?: any, httpHeaders?: any, byPassImpersonatedUser: boolean = false, byPassInterceptor: boolean = false): Promise<any> {
         return this.sendRequest('GET', url, jsonData, httpHeaders, byPassImpersonatedUser, byPassInterceptor);
     }
 
@@ -50,7 +50,7 @@ export abstract class RestService {
      * @param byPassImpersonatedUser si on doit outrepasser l'impersonnification
      * @param byPassInterceptor si on doit outrepasser l'intercepteur pour éviter l'affichage de toast d'erreur
      */
-    sendRequest(method: string, url: string, jsonData: any, httpHeaders?: any, byPassImpersonatedUser?: boolean, byPassInterceptor?: boolean): Promise<any> {
+    sendRequest(method: string, url: string, jsonData: any, httpHeaders?: any, byPassImpersonatedUser: boolean = false, byPassInterceptor: boolean = false): Promise<any> {
         const request: RestRequest = new RestRequest();
 
         request.method = method;

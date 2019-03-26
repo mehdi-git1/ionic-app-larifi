@@ -159,6 +159,17 @@
         }
 
     },
+    "PNC_IDENTITY": {
+        "REFERENT_INSTRUCTOR": "Instructeur référent",
+        "GENDER": "Sexe",
+        "SPECIALITY": "Fonction",
+        "WORKRATE": "Rythme",
+        "QUALIFICATION": "Qualif",
+        "RELAY": "Relais",
+        "GINQ": "Ginq",
+        "SECTOR": "Secteur",
+        "DIVISION": "Division"
+    },
     "PNC_HOME": {
         "TITLE": "Accueil",
         "MY_TITLE": "Mon accueil",

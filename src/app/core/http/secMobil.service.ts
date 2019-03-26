@@ -54,7 +54,6 @@ export class SecMobilService {
                     }
                 );
             } else {
-                // console.debug('Not in mobile mode');
                 resolve('ok');
             }
         });
@@ -81,7 +80,6 @@ export class SecMobilService {
                     }
                 );
             } else {
-                // console.debug('Not in Mobile Mode');
                 resolve('ok');
             }
         });
