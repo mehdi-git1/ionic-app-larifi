@@ -10,7 +10,7 @@
     <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
     <ng-template #pageBlock>
 
-        <pnc-card-page-header *ngIf="eObservation?.pnc" [itemMember]="eObservation?.pnc"></pnc-card-page-header>
+        <pnc-card-page-header *ngIf="pnc" [itemMember]="pnc"></pnc-card-page-header>
 
         <div class="speciality-grid">
             <ion-grid>
@@ -74,17 +74,17 @@
                 </ion-row>
             </ion-grid>
         </edospnc-expandable-block>
-        <span *ngIf="isPcb()">
-                <eobs-appreciation *ngFor="let eObservationTheme of itemsSortedByTheme" [theme]="eObservationTheme"></eobs-appreciation>
-        </span>
-        <span *ngIf="!isPcb()">
+
+        <span *ngIf="!isPcb(); else appreciationPcb">
             <eobs-theme *ngFor="let eObservationTheme of itemsSortedByTheme" [theme]="eObservationTheme"></eobs-theme>
         </span>
+        <ng-template #appreciationPcb>
+            <eobs-appreciation *ngFor="let eObservationTheme of itemsSortedByTheme" [theme]="eObservationTheme"></eobs-appreciation>
+        </ng-template>
 
         <eobs-comment [type]="PncRoleEnum.MANAGER" [eObservation]="eObservation" [canEditEObs]="isEObsBusinessAdmin()"></eobs-comment>
 
         <eobs-comment [type]="PncRoleEnum.PNC" [eObservation]="eObservation" [canEditPncComment]="canEditPncComment()" [canEditEObs]="isEObsBusinessAdmin()" (validatePncComment)="confirmValidatePncComment()"></eobs-comment>
-
 
         <edospnc-expandable-block mini="true" title="{{ 'EOBSERVATION.DETAILS.STATE.TITLE' | translate }}" *ngIf="isEObsBusinessAdmin()">
             <div padding>

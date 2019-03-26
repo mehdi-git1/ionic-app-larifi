@@ -1,7 +1,7 @@
 <edospnc-expandable-block mini="true" title="{{theme.referentialTheme.label}}" [emptyCondition]="isEmptyGrid()">
     <span *ngIf="hasSubThemes()">
         <span *ngFor="let subTheme of theme.subThemes">
-            <div class="subThemeLabel">{{subTheme.referentialTheme.label}}</div>
+            <div class="sub-theme-label">{{subTheme.referentialTheme.label}}</div>
             <ion-grid>
                 <ion-row *ngFor="let eObservationItem of subTheme.eObservationItems">
                     <ion-col col-11 class="item-label"> {{eObservationItem.refItemLevel.item.label}}</ion-col>

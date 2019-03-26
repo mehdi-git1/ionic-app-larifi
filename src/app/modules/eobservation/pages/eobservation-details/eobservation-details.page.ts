@@ -20,6 +20,7 @@ import * as _ from 'lodash';
 import { Utils } from '../../../../shared/utils/utils';
 import { EObservationItemModel } from '../../../../core/models/eobservation/eobservation-item.model';
 import { ReferentialThemeModel } from '../../../../core/models/eobservation/referential-theme.model';
+import { PncService } from '../../../../core/services/pnc/pnc.service';
 
 @Component({
   selector: 'page-eobservation-details',
@@ -30,6 +31,7 @@ export class EobservationDetailsPage {
   EObservationTypeEnum = EObservationTypeEnum;
 
   eObservation: EObservationModel;
+  pnc: PncModel;
   originEObservation: EObservationModel;
 
   itemsSortedByTheme: EobservationItemsByTheme[];
@@ -44,11 +46,14 @@ export class EobservationDetailsPage {
     private toastService: ToastService,
     private alertCtrl: AlertController,
     private loadingCtrl: LoadingController,
-    private securityService: SecurityService) {
+    private securityService: SecurityService,
+    private pncService: PncService) {
     if (this.navParams.get('eObservation')) {
       this.eObservation = this.navParams.get('eObservation');
       this.originEObservation = _.cloneDeep(this.eObservation);
-
+      this.pncService.getPnc(this.eObservation.pnc.matricule).then(pnc => {
+        this.pnc = pnc;
+      }, error => { });
       this.itemsSortedByTheme = this.sortEObservationItemsByTheme();
     }
   }

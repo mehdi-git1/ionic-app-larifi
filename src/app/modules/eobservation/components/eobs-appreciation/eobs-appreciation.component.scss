@@ -1,6 +1,6 @@
 eobs-appreciation{
 
-    .pcbGrid{
+    .pcb-grid{
         ion-row:nth-child(odd) {
             background: color($colors, grey90);
         }
@@ -13,20 +13,20 @@ eobs-appreciation{
             border-bottom: initial;
         }
 
-        .pcbSkills{
+        .pcb-skills{
             padding-left: 24px;
             display: flex;
             align-items: center;
             justify-content: space-around;
             height: 100%;
 
-            .skillsLabel {
+            .skills-label {
                 display: flex;
                 flex: 1;
                 width:auto;
             }
     
-            .skillsValue {
+            .skills-value {
                 flex: 2;
                 margin: initial;
                 padding-left: 15px;
@@ -51,7 +51,7 @@ eobs-appreciation{
         }
     }
 
-    .pcbStrongPoints{
+    .pcb-strong-points{
         display: flex;
         align-items: center;
         height: 100%;
@@ -70,19 +70,19 @@ eobs-appreciation{
 
     }
 
-    .pcbSubtitle {
+    .pcb-subtitle {
         ion-col:first-child {
             border-right: solid color($colors, grey75) 1px;
         }
     }
 
-    .pcbGrid {
+    .pcb-grid {
         ion-col:first-child {
             border-right: solid color($colors, grey75) 1px;
         }
     }
 
-    .subThemeLabel {
+    .sub-theme-label {
         width: 100%;
         padding-left: 24px;
         padding-top: 5px;

@@ -1,17 +1,17 @@
 <edospnc-expandable-block mini="true" title="{{theme.referentialTheme.label}}" [emptyCondition]="isEmptyGrid()">
-<ion-row class="pcbSubtitle">
-    <ion-col  class="subThemeLabel">{{ 'EOBSERVATION.DETAILS.SKILLS' | translate }}</ion-col>
-    <ion-col  class="subThemeLabel">{{ 'EOBSERVATION.DETAILS.STRONG_POINTS' | translate }}</ion-col>
+<ion-row class="pcb-subtitle">
+    <ion-col  class="sub-theme-label">{{ 'EOBSERVATION.DETAILS.SKILLS' | translate }}</ion-col>
+    <ion-col  class="sub-theme-label">{{ 'EOBSERVATION.DETAILS.STRONG_POINTS' | translate }}</ion-col>
 </ion-row>
-<ion-grid class="pcbGrid">
+<ion-grid class="pcb-grid">
     <ion-row *ngFor="let subTheme of theme.subThemes">
-        <!-- Aptitues Conforme / Améliorable -->
+        <!-- Aptitudes Conforme / Améliorable -->
         <ion-col>
-            <span class="pcbSkills" *ngIf="subTheme.eObservationItems && subTheme.eObservationItems.length === 1">
-                <span class="skillsLabel">
+            <span class="pcb-skills" *ngIf="subTheme.eObservationItems && subTheme.eObservationItems.length === 1">
+                <span class="skills-label">
                     {{subTheme.referentialTheme.label}} :
                 </span>
-                <span  class="skillsValue">
+                <span  class="skills-value">
                     <ion-list lines="none">
                         <radio-and-label disabled="true"
                         [conditionValue]="subTheme.eObservationItems[0].refItemLevel.level === 'CONFORME'" 
@@ -27,12 +27,12 @@
         </ion-col>
         <!-- Points forts -->
         <ion-col>
-            <span class="pcbStrongPoints" >
+            <span class="pcb-strong-points" >
                 <ion-list lines="none">
                     <span *ngFor="let eObservationItem of theme.eObservationItems">
                         <div *ngIf="eObservationItem?.refItemLevel?.item?.theme?.parent?.label === subTheme?.referentialTheme?.label">
                                 <checkbox-and-label disabled="true"
-                                [conditionValue]="eObservationItem?.refItemLevel?.level === 'POINT_FORT'" 
+                                [value]="eObservationItem?.refItemLevel?.level === 'POINT_FORT'" 
                                 label="{{eObservationItem?.refItemLevel?.item?.label}}"></checkbox-and-label>
                         </div>
                     </span>

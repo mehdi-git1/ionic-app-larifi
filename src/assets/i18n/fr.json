@@ -343,16 +343,16 @@
             "VAL_TITLE_OPTION": " - VAL",
             "BILAN_FLIGHT": "Vol Bilan",
             "EVAL": "EVAL",
+            "APPRECIATION" : "Appréciation",
+            "SKILLS" : "Aptitudes",
+            "IMPROVABLE" : "Améliorable",
+            "CONFORM" : "Conforme",
             "STATE": {
                 "TITLE": "Statut",
                 "LABEL": "Statut en cours : ",
                 "TAKEN_INTO_ACCOUNT": "Pris en compte",
                 "NOT_TAKEN_INTO_ACCOUNT": "Non pris en compte"
-            },
-            "APPRECIATION" : "Appréciation",
-            "SKILLS" : "Aptitudes",
-            "IMPROVABLE" : "Améliorable",
-            "CONFORM" : "Conforme"
+            }
         },
         "CONFIRM_VALIDATE_PNC_COMMENT": {
             "TITLE": "Validation du commentaire",

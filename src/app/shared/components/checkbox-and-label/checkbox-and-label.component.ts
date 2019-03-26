@@ -9,7 +9,7 @@ import { ConnectivityService } from '../../../core/services/connectivity/connect
 })
 export class CheckboxAndLabelComponent {
 
-  @Input() conditionValue: boolean;
+  @Input() value: boolean;
   @Input() disabled: boolean;
   @Input() label: string;
 

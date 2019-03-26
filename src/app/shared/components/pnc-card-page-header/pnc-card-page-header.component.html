@@ -28,7 +28,7 @@
             </div>
             <div class="flex2">
                 <div class="pnc-info-data-title">{{ 'PNC_IDENTITY.QUALIFICATION' | translate }}</div>
-                <div class="pnc-info-data" [ngClass]="{'no-value' : !pnc.aircraftSkillsLabel[0] }">
+                <div class="pnc-info-data" [ngClass]="{'no-value' : !pnc.aircraftSkillsLabel }">
                     <span *ngFor="let label of pnc.aircraftSkillsLabel; index as i; last as l">{{label}}<span *ngIf="!l">,</span>
                     </span>
                 </div>
