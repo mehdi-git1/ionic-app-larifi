@@ -1,3 +1,5 @@
+import { AppConstant } from './../../../../app.constant';
+import { SecurityService } from './../../../../core/services/security/security.service';
 import { Component } from '@angular/core';
 import { NavController, NavParams, AlertController, LoadingController, Loading } from 'ionic-angular';
 import { EObservationModel } from '../../../../core/models/eobservation/eobservation.model';
@@ -41,7 +43,8 @@ export class EobservationDetailsPage {
     private translateService: TranslateService,
     private toastService: ToastService,
     private alertCtrl: AlertController,
-    private loadingCtrl: LoadingController) {
+    private loadingCtrl: LoadingController,
+    private securityService: SecurityService) {
     if (this.navParams.get('eObservation')) {
       this.eObservation = this.navParams.get('eObservation');
       this.originEObservation = _.cloneDeep(this.eObservation);
@@ -194,9 +197,9 @@ export class EobservationDetailsPage {
    * @return 'green' si 'TAKEN_INTO_ACCOUNT' ou 'red' si 'NOT_TAKEN_INTO_ACCOUNT'
    */
   getColorStatusPoint(): string {
-    if (this.eObservation && this.eObservation.state === EObservationStateEnum.TAKEN_INTO_ACCOUNT) {
+    if (this.originEObservation && this.originEObservation.state === EObservationStateEnum.TAKEN_INTO_ACCOUNT) {
       return 'green';
-    } else if (this.eObservation && this.eObservation.state === EObservationStateEnum.NOT_TAKEN_INTO_ACCOUNT) {
+    } else if (this.originEObservation && this.originEObservation.state === EObservationStateEnum.NOT_TAKEN_INTO_ACCOUNT) {
       return 'red';
     }
   }
@@ -252,8 +255,8 @@ export class EobservationDetailsPage {
   }
 
   /**
-  * Demande la confirmation de la validation du commentaire du pnc
-  */
+   * Demande la confirmation de la validation du commentaire du pnc
+   */
   confirmValidatePncComment(): void {
     this.alertCtrl.create({
       title: this.translateService.instant('EOBSERVATION.CONFIRM_VALIDATE_PNC_COMMENT.TITLE'),
@@ -272,8 +275,8 @@ export class EobservationDetailsPage {
   }
 
   /**
- * Valide le commentaire pnc de l'eObservation
- */
+   * Valide le commentaire pnc de l'eObservation
+   */
   validatePncComment(): void {
     this.loading = this.loadingCtrl.create();
     this.loading.present();
@@ -291,6 +294,45 @@ export class EobservationDetailsPage {
   }
 
   /**
+   * Demande la confirmation de la validation de l'eobservation
+   */
+  confirmValidateEObservation(): void {
+    this.alertCtrl.create({
+      title: this.translateService.instant('EOBSERVATION.CONFIRM_VALIDATE.TITLE'),
+      message: this.translateService.instant('EOBSERVATION.CONFIRM_VALIDATE.MESSAGE'),
+      buttons: [
+        {
+          text: this.translateService.instant('EOBSERVATION.CONFIRM_VALIDATE.CANCEL'),
+          role: 'cancel'
+        },
+        {
+          text: this.translateService.instant('EOBSERVATION.CONFIRM_VALIDATE.CONFIRM'),
+          handler: () => this.validateEObservation()
+        }
+      ]
+    }).present();
+  }
+
+  /**
+   * Valide l'eObservation
+   */
+  validateEObservation(): void {
+    this.loading = this.loadingCtrl.create();
+    this.loading.present();
+    // On transmet un objet cloné pour éviter toute modif de l'objet par le service
+    const eObservationClone = _.cloneDeep(this.eObservation);
+    this.eObservationService.validateEObservation(eObservationClone).then(eObservation => {
+      this.eObservation = eObservation;
+      this.originEObservation = _.cloneDeep(this.eObservation);
+      this.toastService.success(this.translateService.instant('EOBSERVATION.MESSAGES.SUCCESS.VALIDATED'));
+      this.navCtrl.pop();
+    }, error => { }).then(() => {
+      // Finally
+      this.loading.dismiss();
+    });
+  }
+
+  /**
    * Vérifie que le chargement est terminé
    * @return true si c'est le cas, false sinon
    */
@@ -298,7 +340,19 @@ export class EobservationDetailsPage {
     return this.eObservation !== undefined;
   }
 
+  /**
+   * Vérifie si l'eObs est de type ePcb
+   * @return true si l'eObs est de type ePcb, false sinon
+   */
   isPcb(): boolean {
     return this.eObservation && EObservationTypeEnum.E_PCB === this.eObservation.type;
+  }
+
+  /**
+   * Teste si un utilisateur est admin métier des eObservations
+   * @return vrai si l'utilisateur est admin métier des EObservations, faux sinon
+   */
+  isEObsBusinessAdmin(): boolean {
+    return this.securityService.isEObsBusinessAdmin();
   }
 }

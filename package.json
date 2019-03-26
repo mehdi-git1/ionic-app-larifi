@@ -1,6 +1,6 @@
 {
     "name": "edospnc-cs",
-    "version": "1.6.0",
+    "version": "1.7.0",
     "author": "Ionic Framework",
     "homepage": "http://ionicframework.com/",
     "private": true,
@@ -68,7 +68,7 @@
         "@angular-devkit/core": "0.7.4",
         "@angular/cli": "1.7.4",
         "@angular/language-service": "5.2.11",
-        "@ionic/app-scripts": "3.1.9",
+        "@ionic/app-scripts": "3.2.3",
         "@types/jasmine": "2.8.9",
         "@types/jasminewd2": "2.0.5",
         "@types/jquery": "3.3.6",
