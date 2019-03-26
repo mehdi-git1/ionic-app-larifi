@@ -3,6 +3,8 @@ import { EDossierPncObjectModel } from '../e-dossier-pnc-object.model';
 
 export class ReferentialThemeModel extends EDossierPncObjectModel {
 
+    id: number;
+
     parent: ReferentialThemeModel;
 
     label: string;

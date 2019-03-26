@@ -14,6 +14,12 @@
                 </ion-row>
             </ion-grid>
         </span>
+        <div class="comment">
+            <label><span class="edospnc-speechBubble"></span>{{ 'EOBSERVATION.DETAILS.COMMENT' | translate }}</label>
+                <p>
+                    {{theme.themeComment}}
+                </p>
+        </div>
     </span>
     <ion-grid *ngIf="!hasSubThemes()">
         <ion-row *ngFor="let eObservationItem of theme.eObservationItems">
