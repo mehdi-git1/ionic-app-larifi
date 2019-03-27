@@ -29,10 +29,17 @@ export class CareerObjectiveListPage {
   formsInputParam: FormsInputParamsModel;
   lastConsultedRotation: RotationModel;
 
+  canDisplayMenu = false;
+
   eObservations: EObservationModel[];
 
   // Expose l'enum au template
   PncRole = PncRoleEnum;
+
+  // Liste des eForms possible
+  eFormsList = [];
+
+  chosenEFormsType = null;
 
   pnc: PncModel;
 
@@ -72,7 +79,7 @@ export class CareerObjectiveListPage {
    * Retourne le texte du type de formulaire pour la création d'EObs
    * @return retourne la valeur du type de formulaire
    */
-  getEObsTextTypeForm(): string {
+  getEObsTextTypeEForm(): string {
     return EFormsTypeEnum.getTextType(EFormsTypeEnum[this.pnc.currentSpeciality]);
   }
 
@@ -124,7 +131,7 @@ export class CareerObjectiveListPage {
     this.formsEObservationService.getFormsInputParams(this.matricule, this.sessionService.appContext.lastConsultedRotation.techId).then(formsInputParam => {
       this.formsInputParam = formsInputParam;
       if (this.formsInputParam) {
-        this.formsEObservationService.callForms(this.formsInputParam);
+        this.formsEObservationService.callForms(this.formsInputParam, this.chosenEFormsType);
       }
     }, error => {
     });
@@ -163,5 +170,28 @@ export class CareerObjectiveListPage {
    */
   goToEobservationsArchives() {
     this.navCtrl.push(EObservationsArchivesPage, { matricule: this.matricule });
+  }
+
+  /**
+   * Affichage du menu de la liste des eForms
+   */
+  displayEObservationTypeSelection() {
+    const typeOfEForms = this.getEObsTextTypeEForm();
+    if (typeOfEForms.indexOf('/') == -1) {
+      this.createEObservation();
+    } else {
+      this.eFormsList = typeOfEForms.split('/');
+      this.canDisplayMenu = true;
+    }
+  }
+
+  /**
+   * Appelle le formulaire choisi
+   * @param value Valeur du type de formulaire choisie
+   */
+  getEFormsTypeBeforeCreate(value) {
+    this.chosenEFormsType = this.formsEObservationService.getReportTypeForEForms(value.trim());
+    this.canDisplayMenu = false;
+    this.createEObservation();
   }
 }

@@ -25,12 +25,18 @@
                 <span>{{ lastConsultedRotation.departureDate | date: 'dd/MM/yyyy'}}</span>
             </div>
             <div class="add-container">
-                <button (click)="createEObservation()" class="add-button clickable">
+                <button (click)="displayEObservationTypeSelection()" class="add-button clickable">
                     <div class="button-content">
                         <span class="edospnc-plus"></span>
                         <label>{{ 'EOBSERVATION.NEW_EOBSERVATION_HEADER.NEW' | translate }}</label>
                     </div>
                 </button>
+
+                <ion-item class="option-menu" [ngClass]="{'flex': canDisplayMenu}">
+                    <ion-select interface="popover" [placeholder]="eFormsList[0]" #optionValue (ionChange)="getEFormsTypeBeforeCreate(optionValue.value)">
+                        <ion-option *ngFor="let eForm of eFormsList" [value]="eForm">{{eForm}}</ion-option>
+                    </ion-select>
+                </ion-item>
             </div>
         </div>
         <div class="global-container eobservation-list-container">
