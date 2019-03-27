@@ -51,9 +51,11 @@ export class EobservationDetailsPage {
     if (this.navParams.get('eObservation')) {
       this.eObservation = this.navParams.get('eObservation');
       this.originEObservation = _.cloneDeep(this.eObservation);
-      this.pncService.getPnc(this.eObservation.pnc.matricule).then(pnc => {
-        this.pnc = pnc;
-      }, error => { });
+      if (this.eObservation && this.eObservation.pnc && this.eObservation.pnc.matricule) {
+        this.pncService.getPnc(this.eObservation.pnc.matricule).then(pnc => {
+          this.pnc = pnc;
+        }, error => { });
+      }
       this.itemsSortedByTheme = this.sortEObservationItemsByTheme();
     }
   }

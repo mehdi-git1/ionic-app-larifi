@@ -49,11 +49,11 @@ export class FormsEObservationService {
    * Appel de l'application Forms avec les bons paramètres
    * @param formsInputParams Paramétres du formulaire à envoyer
    */
-  callForms(formsInputParams: FormsInputParamsModel) {
+  callForms(formsInputParams: FormsInputParamsModel, chosenEFormsType: String) {
     const param = {
       eformsAppId: `${this.config.eformsUrl}`,
       method: '0',
-      reportType: this.getReportTypeForEForms(formsInputParams.observedPnc.speciality),
+      reportType: chosenEFormsType || this.getReportTypeForEForms(formsInputParams.observedPnc.speciality),
       callbackUrl: `${this.config.eformsCallbackUrl}`,
       callbackActionLabel: `${this.config.eformsCallbackActionLabel}`,
       archiveData: {
