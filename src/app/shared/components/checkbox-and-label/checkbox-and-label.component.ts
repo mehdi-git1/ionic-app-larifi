@@ -13,7 +13,4 @@ export class CheckboxAndLabelComponent {
   @Input() disabled: boolean;
   @Input() label: string;
 
-  constructor() {
-  }
-
 }

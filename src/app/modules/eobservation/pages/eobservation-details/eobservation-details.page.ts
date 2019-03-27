@@ -120,7 +120,8 @@ export class EobservationDetailsPage {
         this.manageThemeInMap(eObservationItem, eObservationTheme, itemsByTheme, null);
       }
     }
-    const items = itemsByTheme.sort((a, b) => a.referentialTheme.themeOrder > b.referentialTheme.themeOrder ? 1 : -1);
+    let items = itemsByTheme.sort((a, b) => a.referentialTheme.themeOrder > b.referentialTheme.themeOrder ? 1 : -1);
+    items = this.addCommentsToThemes(items);
     return items;
   }
 
@@ -139,25 +140,46 @@ export class EobservationDetailsPage {
     const parentTheme = eObservationTheme.parent;
     if (parentTheme) {
       if (!parentThemeToDisplay) {
-        parentThemeToDisplay = itemsByTheme.find(element => parentTheme.label === element.referentialTheme.label);
+        parentThemeToDisplay = itemsByTheme.find(element => parentTheme.id === element.referentialTheme.id);
         if (!parentThemeToDisplay) {
           parentThemeToDisplay = new EObservationItemsByTheme(parentTheme);
         }
       }
-      let themeToDisplay = parentThemeToDisplay.subThemes.find(element => eObservationTheme.label === element.referentialTheme.label);
+      let subThemeAlreadyStored = true;
+      let themeToDisplay = parentThemeToDisplay.subThemes.find(element => eObservationTheme.id === element.referentialTheme.id);
       if (!themeToDisplay) {
         themeToDisplay = new EObservationItemsByTheme(eObservationTheme);
+        subThemeAlreadyStored = false;
       }
       themeToDisplay.eObservationItems.push(eObservationItem);
-      parentThemeToDisplay.subThemes.push(themeToDisplay);
+      if (!subThemeAlreadyStored) {
+        parentThemeToDisplay.subThemes.push(themeToDisplay);
+      }
       this.manageThemeInMap(eObservationItem, parentTheme, itemsByTheme, parentThemeToDisplay);
     } else {
-      let themeToDisplay = itemsByTheme.find(element => eObservationTheme.label === element.referentialTheme.label);
+      let themeToDisplay = itemsByTheme.find(element => eObservationTheme.id === element.referentialTheme.id);
       if (!themeToDisplay) {
         themeToDisplay = new EObservationItemsByTheme(eObservationTheme);
         itemsByTheme.push(themeToDisplay);
       }
       themeToDisplay.eObservationItems.push(eObservationItem);
+    }
+    return itemsByTheme;
+  }
+
+  /**
+   * Ajoute les commentaires aux thèmes
+   * 
+   * @param itemsByTheme tableau d'items rangés par thème
+   * @return tableau d'items rangés par thème avec les commentaires de thèmes
+   */
+  addCommentsToThemes(itemsByTheme: Array<EObservationItemsByTheme>): Array<EObservationItemsByTheme> {
+    if (this.eObservation && this.eObservation.eobservationComments && this.eObservation.eobservationComments.length > 0) {
+      for (const eObservationComment of this.eObservation.eobservationComments) {
+        const eObservationTheme = eObservationComment.refComment.theme;
+        let themeToDisplay = itemsByTheme.find(element => eObservationTheme.id === element.referentialTheme.id);
+        themeToDisplay.themeComment = eObservationComment.comment;
+      }
     }
     return itemsByTheme;
   }
