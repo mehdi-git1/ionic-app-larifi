@@ -303,7 +303,13 @@
             "INTERVIEW_DATE": "Date de l'entretien",
             "NOTICED_SKILLS": "Compétences remarquées",
             "PROFESSIONAL_DEVELOPMENT_WISH": "Souhait de développement professionnel",
-            "SUMMARY": "Synthése"
+            "SUMMARY": "Synthése",
+            "UPDATE_DATE": "Enregistré depuis le : ",
+            "STATE": {
+                "LABEL": "Statut en cours : ",
+                "TAKEN_INTO_ACCOUNT": "Pris en compte",
+                "NOT_TAKEN_INTO_ACCOUNT": "Non pris en compte"
+            }
         }
     },
     "EOBSERVATION": {
