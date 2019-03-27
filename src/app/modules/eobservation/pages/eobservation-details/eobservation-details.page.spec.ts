@@ -1,3 +1,4 @@
+import { SecurityService } from './../../../../core/services/security/security.service';
 import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-translate/core';
 import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { IonicModule, NavParams, NavController, LoadingController, AlertController } from 'ionic-angular';
@@ -40,7 +41,8 @@ describe('EobservationDetailsPage', () => {
                 { provide: ToastService },
                 { provide: AlertController },
                 { provide: LoadingController },
-                { provide: TranslateOrEmptyService, useValue: translateOrEmptyServiceMock }
+                { provide: TranslateOrEmptyService, useValue: translateOrEmptyServiceMock },
+                { provide: SecurityService }
             ],
             schemas: [NO_ERRORS_SCHEMA]
         });
@@ -79,21 +81,21 @@ describe('EobservationDetailsPage', () => {
 
         it(`Renvoie null si pas de statut dans l'eobs`, () => {
             expect(comp).toBeDefined();
-            comp.eObservation = new EObservationModel();
+            comp.originEObservation = new EObservationModel();
             expect(comp.getColorStatusPoint()).toBeUndefined();
         });
 
         it(`Renvoie green si le statut de l'eobs est TAKEN_INTO_ACCOUNT`, () => {
             expect(comp).toBeDefined();
-            comp.eObservation = new EObservationModel();
-            comp.eObservation.state = EObservationStateEnum.TAKEN_INTO_ACCOUNT;
+            comp.originEObservation = new EObservationModel();
+            comp.originEObservation.state = EObservationStateEnum.TAKEN_INTO_ACCOUNT;
             expect(comp.getColorStatusPoint()).toBe('green');
         });
 
         it(`Renvoie red si le statut de l'eobs est NOT_TAKEN_INTO_ACCOUNT`, () => {
             expect(comp).toBeDefined();
-            comp.eObservation = new EObservationModel();
-            comp.eObservation.state = EObservationStateEnum.NOT_TAKEN_INTO_ACCOUNT;
+            comp.originEObservation = new EObservationModel();
+            comp.originEObservation.state = EObservationStateEnum.NOT_TAKEN_INTO_ACCOUNT;
             expect(comp.getColorStatusPoint()).toBe('red');
         });
 

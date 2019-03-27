@@ -1,35 +1,13 @@
 page-pnc-home {
 
+
     .grid {
         height: 100%;
     }
 
-    .pnc-info-panel {
-        display: flex;
-
-        .content {
-            display: flex;
-            flex-direction: column;
-
-            ion-row {
-                flex: 1;
-            }
-
-            .primary-info {
-                font-size: 1.2em;
-            }
-
-            .pnc-info {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .download-edossier {
-                display: flex;
-                justify-content: flex-end;
-                align-items: flex-end;
-            }
+    pnc-card-page-header {
+        .pnc-info-box {
+            margin: 15px;
         }
     }
 

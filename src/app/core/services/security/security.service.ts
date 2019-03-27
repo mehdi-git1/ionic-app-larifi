@@ -89,4 +89,17 @@ export class SecurityService extends BaseService {
       });
   }
 
+
+  /**
+   * Teste si un utilisateur est admin métier des eObservations
+   * @return vrai si l'utilisateur est admin métier des EObservations, faux sinon
+   */
+  isEObsBusinessAdmin(): boolean {
+    const authenticatedUser = this.sessionService.getActiveUser();
+    if (authenticatedUser && authenticatedUser.profiles) {
+      return authenticatedUser.profiles.indexOf(AppConstant.P_EDOSPNC_ADMIN_EOBS) > -1;
+    }
+    return false;
+  }
+
 }
