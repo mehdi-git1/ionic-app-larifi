@@ -13,11 +13,8 @@ export class EObsAppreciationComponent {
 
   @Input() theme: EObservationItemsByTheme;
 
-  constructor() {
-  }
-
   /**
-   * Vérifie qu'il y a des items
+   * Vérifie qu'il y a des items dans le theme
    *
    * @return true si il n'y a pas d'items dans ce thème, sinon false
    */

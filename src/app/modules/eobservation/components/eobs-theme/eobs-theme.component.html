@@ -1,4 +1,4 @@
-<edospnc-expandable-block mini="true" title="{{theme.referentialTheme.label}}" [emptyCondition]="isEmptyGrid()">
+<edospnc-expandable-block mini="true" title="{{theme.referentialTheme.label}}" [emptyCondition]="hasItemAndSubThemes()">
     <span *ngIf="hasSubThemes()">
         <span *ngFor="let subTheme of theme.subThemes">
             <div class="sub-theme-label">{{subTheme.referentialTheme.label}}</div>
@@ -15,7 +15,7 @@
             </ion-grid>
         </span>
         <div class="comment">
-            <label><span class="edospnc-speechBubble"></span>{{ 'EOBSERVATION.DETAILS.COMMENT' | translate }}</label>
+            <label><span class="edospnc-speechBubble"></span>{{ 'EOBSERVATION.DETAIL.COMMENT' | translate }}</label>
                 <p>
                     {{theme.themeComment}}
                 </p>
