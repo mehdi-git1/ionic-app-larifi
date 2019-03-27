@@ -316,7 +316,7 @@
             "ITEM": "Rubrique / Item",
             "LEVEL": "Niveau"
         },
-        "DETAILS": {
+        "DETAIL": {
             "TITLE": "Restitution Formulaire",
             "ROTATION_SUBTITLE": "Rotation",
             "DEGRADED_CONDITIONS": "Conditions dégradées",
@@ -330,8 +330,8 @@
             "REDACTOR_COMMENT": "Commentaire PNC Rédacteur",
             "PNC_COMMENT": "Commentaire PNC Observé",
             "COMMENT": "Commentaire :",
-            "STRONG_POINTS": "Points forts :",
-            "WORKING_AXES": "Axes de travail :",
+            "STRONG_POINTS": "Points forts",
+            "WORKING_AXES": "Axes de travail",
             "UPDATE_DATE": "Enregistré depuis le : ",
             "SPECIALITY": "Fonction",
             "EOBS_PNC_ASSIGNMENT": "Affectation à date de l'eObservation",
@@ -343,6 +343,10 @@
             "VAL_TITLE_OPTION": " - VAL",
             "BILAN_FLIGHT": "Vol Bilan",
             "EVAL": "EVAL",
+            "APPRECIATION" : "Appréciation",
+            "SKILLS" : "Aptitudes",
+            "IMPROVABLE" : "Améliorable",
+            "CONFORM" : "Conforme",
             "STATE": {
                 "TITLE": "Statut",
                 "LABEL": "Statut en cours : ",

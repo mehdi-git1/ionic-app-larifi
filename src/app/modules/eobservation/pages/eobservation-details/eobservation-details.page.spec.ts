@@ -14,9 +14,11 @@ import { TranslateOrEmptyPipe } from '../../../../shared/pipes/translate-or-empt
 import { TranslateOrEmptyService } from '../../../../core/services/translate/translate-or-empty.service';
 import { SessionService } from '../../../../core/services/session/session.service';
 import { ToastService } from '../../../../core/services/toast/toast.service';
+import { PncService } from '../../../../core/services/pnc/pnc.service';
 
 const EObservationServiceMock = jasmine.createSpyObj('EObservationServiceMock', ['getEObservations']);
 const translateOrEmptyServiceMock = jasmine.createSpyObj('translateOrEmptyServiceMock', ['transform']);
+const pncServiceMock = jasmine.createSpyObj('pncServiceMock', ['getPnc']);
 describe('EobservationDetailsPage', () => {
 
     let fixture: ComponentFixture<EobservationDetailsPage>;
@@ -39,6 +41,7 @@ describe('EobservationDetailsPage', () => {
                 { provide: EObservationService, useValue: EObservationServiceMock },
                 { provide: SessionService },
                 { provide: ToastService },
+                { provide: PncService, useValue: pncServiceMock},
                 { provide: AlertController },
                 { provide: LoadingController },
                 { provide: TranslateOrEmptyService, useValue: translateOrEmptyServiceMock },

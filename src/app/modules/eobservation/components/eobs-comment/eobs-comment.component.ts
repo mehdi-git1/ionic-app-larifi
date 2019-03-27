@@ -30,9 +30,9 @@ export class EObsCommentComponent {
    */
   getTitle(): string {
     if (this.isManagerComment()) {
-      return this.translateService.instant('EOBSERVATION.DETAILS.REDACTOR_COMMENT');
+      return this.translateService.instant('EOBSERVATION.DETAIL.REDACTOR_COMMENT');
     } else {
-      return this.translateService.instant('EOBSERVATION.DETAILS.PNC_COMMENT');
+      return this.translateService.instant('EOBSERVATION.DETAIL.PNC_COMMENT');
     }
   }
 
