@@ -9,7 +9,7 @@ export enum EFormsTypeEnum {
 
 export namespace EFormsTypeEnum {
     /**
-     * retourne le bon type en fonction de l'enum
+     * Retourne le bon type en fonction de l'enum
      * @param type enum à tester
      */
     export function getType(type: EFormsTypeEnum) {
@@ -23,14 +23,14 @@ export namespace EFormsTypeEnum {
     }
 
     /**
-     * retourne le bon texte de type de formulaire en fonction de l'enum
+     * Retourne le bon texte de type de formulaire en fonction de l'enum
      * @param type enum à tester
      */
     export function getTextType(type: EFormsTypeEnum) {
         switch (type) {
-            case EFormsTypeEnum['HOT']: return 'eHST';
-            case EFormsTypeEnum['STW']: return 'eHST';
-            case EFormsTypeEnum['CC']: return 'eCC';
+            case EFormsTypeEnum['HOT']: return 'eHST / eCC';
+            case EFormsTypeEnum['STW']: return 'eHST / eCC';
+            case EFormsTypeEnum['CC']: return 'eCC / eCCP';
             case EFormsTypeEnum['CCP']: return 'eCCP';
             case EFormsTypeEnum['ALT']: return 'eALT';
             case EFormsTypeEnum['PCB']: return 'ePCB';

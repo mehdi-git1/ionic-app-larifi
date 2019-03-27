@@ -28,7 +28,7 @@ career-objective {
             }
 
             .career-objective-date {
-                width: 120px;
+                min-width: 120px;
             }
 
             .career-objective-label {
@@ -36,7 +36,7 @@ career-objective {
             }
 
             .career-objective-icone {
-                width: 110px;
+                min-width: 110px;
                 display: flex;
                 justify-content: flex-end;
                 padding: 3px 10px;
@@ -65,7 +65,7 @@ career-objective {
             }
 
             .career-objective-status {
-                width: 120px;
+                min-width: 120px;
                 display: flex;
             }
         }

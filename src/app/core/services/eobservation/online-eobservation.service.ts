@@ -19,11 +19,7 @@ export class OnlineEObservationService {
      * @return une promesse contenant les EObservations trouvées
      */
     getEObservations(matricule: string): Promise<EObservationModel[]> {
-        return this.restService.get(this.config.getBackEndUrl('getEObservationsByMatricule', [matricule])).then(
-            eObservations => {
-                return this.eObservationTransformerService.toEObservations(eObservations);
-            }
-        );
+        return this.restServiceGetEObservations('getEObservationsByMatricule', matricule);
     }
 
     /**
@@ -32,11 +28,29 @@ export class OnlineEObservationService {
     * @return une promesse contenant les EObservations trouvées
     */
     getAllEObservations(matricule: string): Promise<EObservationModel[]> {
-        return this.restService.get(this.config.getBackEndUrl('getAllEObservationsByMatricule', [matricule])).then(
+        return this.restServiceGetEObservations('getAllEObservationsByMatricule', matricule);
+    }
+
+    /** Appel vers le back  et renvoie toutes les eObservations d'un pnc
+     * @param url  url à appeler
+     * @param matricule matricule du PNC
+     * @return une promesse contenant les EObservations trouvées
+    */
+    restServiceGetEObservations(url: string, matricule: string): Promise<EObservationModel[]> {
+        return this.restService.get(this.config.getBackEndUrl(url, [matricule])).then(
             eObservations => {
                 return this.eObservationTransformerService.toEObservations(eObservations);
             }
         );
+    }
+
+    /**
+    * Valide une eObservation
+    * @param eObservation l'eObservation à valider
+    * @return une promesse contenant l'eObservation validée
+    */
+    validateEObservation(eObservation: EObservationModel): Promise<EObservationModel> {
+        return this.restService.post(this.config.getBackEndUrl('eObservations'), eObservation);
     }
 
 }

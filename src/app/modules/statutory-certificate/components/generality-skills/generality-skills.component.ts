@@ -3,6 +3,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import * as _ from 'lodash';
 
 import { GeneralitySkillsModel } from '../../../../core/models/statutory-certificate/generality-skills.model';
+import { StatutoryCertificateDisplayTypeEnum } from '../../../../core/enums/statutory-certificate-display-type.enum';
 
 @Component({
   selector: 'generality-skills',
@@ -11,104 +12,63 @@ import { GeneralitySkillsModel } from '../../../../core/models/statutory-certifi
 export class GeneralitySkillsComponent implements OnInit {
 
   @Input() generalitySkillsData: GeneralitySkillsModel;
+  @Input() title: string;
+  @Input() displayType: StatutoryCertificateDisplayTypeEnum;
 
   // Tableau des valeurs à afficher en fonction du type de tableau
   skillDisplayedData;
 
+  // Tableau des libelles de compétences
+  skillTitleArray: Array<string>;
+
+  // Tableau des listes de START_DATE
+  startDateArray: Array<string>;
+
+  // Tableau des listes de START_DATE
+  dueDateArray: Array<string>;
+
   constructor(public translateService: TranslateService
-  ) {
-  }
+  ) { }
 
   ngOnInit() {
+    this.skillTitleArray = [this.translateService.instant('STATUTORY_CERTIFICATE.GENERALITY_SKILLS.CCA.TITLE')];
+    this.startDateArray = [_.get(this.generalitySkillsData, 'cca.startDate')];
+    this.dueDateArray = [''];
+
+    if (this.generalitySkillsData && this.generalitySkillsData.seniorityDate) {
+      this.skillTitleArray.push(this.translateService.instant('STATUTORY_CERTIFICATE.GENERALITY_SKILLS.SENIORITY_DATE.TITLE'));
+      this.startDateArray.push(_.get(this.generalitySkillsData, 'seniorityDate'));
+      this.dueDateArray.push(StatutoryCertificateDisplayTypeEnum.NTBD);
+    }
+
+    this.skillTitleArray.push(this.translateService.instant('STATUTORY_CERTIFICATE.GENERALITY_SKILLS.PCB.TITLE'));
+    this.skillTitleArray.push(this.translateService.instant('STATUTORY_CERTIFICATE.GENERALITY_SKILLS.GENE.TITLE'));
+    this.startDateArray.push(_.get(this.generalitySkillsData, 'pcb.validityStartDate'));
+    this.startDateArray.push(StatutoryCertificateDisplayTypeEnum.NTBD);
+    this.dueDateArray.push(_.get(this.generalitySkillsData, 'pcb.validityEndDate'));
+    this.dueDateArray.push(_.get(this.generalitySkillsData, 'gene.dueDate'));
+
     this.skillDisplayedData = {
-      cca: {
-        headers:
-          [
-            this.translateService.instant('STATUTORY_CERTIFICATE.GENERALITY_SKILLS.CCA.TITLE'),
-            this.translateService.instant('STATUTORY_CERTIFICATE.GENERALITY_SKILLS.CCA.START_DATE'),
-            '',
-            '',
-            '',
-            ''
-          ],
-        values: this.generalitySkillsData && this.generalitySkillsData.cca ?
-          [
-            { value: [_.get(this.generalitySkillsData, 'cca.label')], type: 'libelle' },
-            { value: [_.get(this.generalitySkillsData, 'cca.startDate')], type: 'date' },
-            { value: [''], type: 'text' },
-            { value: [''], type: 'text' },
-            { value: [''], type: 'text' },
-            { value: [''], type: 'text' }
-          ]
-          :
-          null
-      },
-      seniorityDate: {
-        headers:
-          [
-            this.translateService.instant('STATUTORY_CERTIFICATE.GENERALITY_SKILLS.SENIORITY_DATE.TITLE'),
-            this.translateService.instant('STATUTORY_CERTIFICATE.GENERALITY_SKILLS.SENIORITY_DATE.START_DATE'),
-            '',
-            '',
-            '',
-            ''
-          ],
-        values: this.generalitySkillsData && this.generalitySkillsData.seniorityDate ?
-          [
-            { value: [''], type: 'text' },
-            { value: [_.get(this.generalitySkillsData, 'seniorityDate')], type: 'date' },
-            { value: [''], type: 'text' },
-            { value: [''], type: 'text' },
-            { value: [''], type: 'text' },
-            { value: [''], type: 'text' }
-          ]
-          :
-          null
-      },
-      pcb: {
-        headers:
-          [
-            this.translateService.instant('STATUTORY_CERTIFICATE.GENERALITY_SKILLS.PCB.TITLE'),
-            this.translateService.instant('STATUTORY_CERTIFICATE.GENERALITY_SKILLS.PCB.START_DATE'),
-            this.translateService.instant('STATUTORY_CERTIFICATE.GENERALITY_SKILLS.PCB.DUE_DATE'),
-            '',
-            '',
-            ''
-          ],
-        values: this.generalitySkillsData && this.generalitySkillsData.pcb ?
-          [
-            { value: [_.get(this.generalitySkillsData, 'pcb.label')], type: 'libelle' },
-            { value: [_.get(this.generalitySkillsData, 'pcb.validityStartDate')], type: 'date' },
-            { value: [_.get(this.generalitySkillsData, 'pcb.validityEndDate')], type: 'date' },
-            { value: [''], type: 'text' },
-            { value: [''], type: 'text' },
-            { value: [''], type: 'text' }
-          ]
-          :
-          null
-      },
-      gene: {
-        headers:
-          [
-            this.translateService.instant('STATUTORY_CERTIFICATE.GENERALITY_SKILLS.GENE.TITLE'),
-            '',
-            this.translateService.instant('STATUTORY_CERTIFICATE.GENERALITY_SKILLS.GENE.DUE_DATE'),
-            '',
-            '',
-            ''
-          ],
-        values: this.generalitySkillsData && this.generalitySkillsData.gene ?
-          [
-            { value: [_.get(this.generalitySkillsData, 'gene.startDate')], type: 'date' },
-            { value: [''], type: 'text' },
-            { value: [_.get(this.generalitySkillsData, 'gene.dueDate')], type: 'end-date' },
-            { value: [''], type: 'text' },
-            { value: [''], type: 'text' },
-            { value: [''], type: 'text' }
-          ]
-          :
-          null
-      }
+      headers:
+        [
+          '',
+          this.translateService.instant('STATUTORY_CERTIFICATE.GENERALITY_SKILLS.START_DATE'),
+          this.translateService.instant('STATUTORY_CERTIFICATE.GENERALITY_SKILLS.DUE_DATE'),
+          '',
+          '',
+          ''
+        ],
+      values: this.generalitySkillsData ?
+        [
+          { value: this.skillTitleArray, type: 'text' },
+          { value: this.startDateArray, type: 'date' },
+          { value: this.dueDateArray, type: 'date' },
+          { value: [''], type: 'text' },
+          { value: [''], type: 'text' },
+          { value: [''], type: 'text' }
+        ]
+        :
+        null
     };
   }
 

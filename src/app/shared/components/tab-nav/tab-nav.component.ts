@@ -54,7 +54,6 @@ export class TabNavComponent {
     private sessionService: SessionService,
     public securityProvider: SecurityService,
     private specialityService: SpecialityService,
-    private summarySheetService: SummarySheetService,
     private isMyPage: IsMyPage
   ) {
     this.events.subscribe('user:authenticationDone', () => {
@@ -100,14 +99,6 @@ export class TabNavComponent {
         icon: 'edospnc-developmentProgram',
       },
       {
-        id: TabNavEnum.SUMMARY_SHEET_PAGE,
-        page: '',
-        icon: 'edospnc-summarySheet',
-        params: {
-          page: TabNavEnum.SUMMARY_SHEET_PAGE
-        }
-      },
-      {
         id: TabNavEnum.PNC_SEARCH_PAGE,
         page: PncSearchPage,
         icon: 'edospnc-pncTeam',
@@ -146,7 +137,6 @@ export class TabNavComponent {
   updatePermissions() {
     this.tabsNav[this.tabNavService.findTabIndex(TabNavEnum.PNC_HOME_PAGE)].display = true;
     this.tabsNav[this.tabNavService.findTabIndex(TabNavEnum.CAREER_OBJECTIVE_LIST_PAGE)].display = !this.securityProvider.isManager();
-    this.tabsNav[this.tabNavService.findTabIndex(TabNavEnum.SUMMARY_SHEET_PAGE)].display = !this.securityProvider.isManager();
     this.tabsNav[this.tabNavService.findTabIndex(TabNavEnum.PNC_SEARCH_PAGE)].display = this.securityProvider.isManager();
     this.tabsNav[this.tabNavService.findTabIndex(TabNavEnum.UPCOMING_FLIGHT_LIST_PAGE)].display = this.securityProvider.isManager();
     this.tabsNav[this.tabNavService.findTabIndex(TabNavEnum.HELP_ASSET_LIST_PAGE)].display = true;
@@ -161,7 +151,6 @@ export class TabNavComponent {
   updateTexts() {
     this.tabsNav[this.tabNavService.findTabIndex(TabNavEnum.PNC_HOME_PAGE)].title = this.translate.instant(this.isMyPage.transform('PNC_HOME.TITLE', this.pnc));
     this.tabsNav[this.tabNavService.findTabIndex(TabNavEnum.CAREER_OBJECTIVE_LIST_PAGE)].title = this.translate.instant(this.isMyPage.transform('GLOBAL.DEVELOPMENT_PROGRAM', this.pnc));
-    this.tabsNav[this.tabNavService.findTabIndex(TabNavEnum.SUMMARY_SHEET_PAGE)].title = this.translate.instant(this.isMyPage.transform('GLOBAL.PNC_SUMMARY_SHEET', this.pnc));
     this.tabsNav[this.tabNavService.findTabIndex(TabNavEnum.PNC_SEARCH_PAGE)].title = this.translate.instant(this.isMyPage.transform('GLOBAL.PNC_TEAM', this.pnc));
     this.tabsNav[this.tabNavService.findTabIndex(TabNavEnum.UPCOMING_FLIGHT_LIST_PAGE)].title = this.translate.instant(this.isMyPage.transform('GLOBAL.UPCOMING_FLIGHT', this.pnc));
     this.tabsNav[this.tabNavService.findTabIndex(TabNavEnum.HELP_ASSET_LIST_PAGE)].title = this.translate.instant(this.isMyPage.transform('GLOBAL.HELP_CENTER', this.pnc));
@@ -175,9 +164,6 @@ export class TabNavComponent {
    * @param event evenement déclencheur de la fonction
    */
   tabChange(event) {
-    if (event.rootParams && event.rootParams.page === TabNavEnum.SUMMARY_SHEET_PAGE) {
-      this.summarySheetService.openSummarySheet(this.pnc.matricule);
-    }
     this.events.publish('changeTab', { pageName: event.root.name, pageParams: event.rootParams });
   }
 

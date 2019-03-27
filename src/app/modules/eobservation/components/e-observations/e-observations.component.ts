@@ -46,15 +46,14 @@ export class EObservationsComponent implements OnChanges {
    */
   filterEobsItems(eObservation: EObservationModel): EObservationModel{
     const filteredObservation = _.cloneDeep(eObservation);
+    if (!this.filterItems) {
+      // on ne filtre pas les items dans ce cas-là
+      return eObservation;
+    }
     filteredObservation.eobservationItems = new Array();
     if (this.filterItems && eObservation && eObservation.eobservationItems) {
       filteredObservation.eobservationItems = eObservation.eobservationItems.filter((element) => {
-        if (element && element.refItemLevel && element.refItemLevel.item && element.refItemLevel.item.theme && element.refItemLevel.item.theme.label) {
-          const upperCaseElement = element.refItemLevel.item.theme.label.toUpperCase();
-          return upperCaseElement === 'SECURITE DES VOLS' || upperCaseElement === 'SURETE';
-        } else {
-          return false;
-        }
+        return element && element.refItemLevel && element.refItemLevel.item && element.refItemLevel.item.theme && element.refItemLevel.item.theme.displayedInProfessionalLevel;
       });
     }
     return filteredObservation;

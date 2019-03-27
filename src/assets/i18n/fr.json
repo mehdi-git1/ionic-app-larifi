@@ -159,6 +159,17 @@
         }
 
     },
+    "PNC_IDENTITY": {
+        "REFERENT_INSTRUCTOR": "Instructeur référent",
+        "GENDER": "Sexe",
+        "SPECIALITY": "Fonction",
+        "WORKRATE": "Rythme",
+        "QUALIFICATION": "Qualif",
+        "RELAY": "Relais",
+        "GINQ": "Ginq",
+        "SECTOR": "Secteur",
+        "DIVISION": "Division"
+    },
     "PNC_HOME": {
         "TITLE": "Accueil",
         "MY_TITLE": "Mon accueil",
@@ -228,30 +239,28 @@
             "GENERALITY_SKILLS": "Compétences généralités",
             "PLANE_SKILLS": "Compétences avions",
             "FAMILIARIZATION_FLIGHT": "Vol de familiarisation",
-            "MASTERING_QUALIFICATION": "Qualifications Maîtrises",
+            "MASTERING_QUALIFICATION": "Qualification maîtrises",
             "ANNUAL_ELEARNING": "Elearning annuel",
             "MEDICAL_APTITUDES": "Aptitudes médicales",
-            "LANGUAGES": "Langues"
+            "LANGUAGES": "Langues",
+            "RELAYS": "Référents / Relais",
+            "TRAVEL_DOCUMENTS": "Documents / Visas"
         },
         "GENERALITY_SKILLS": {
+            "START_DATE": "Depuis le",
+            "DUE_DATE": "Echéance",
             "CCA": {
-                "TITLE": "CCA",
-                "START_DATE": "Depuis"
+                "TITLE": "CCA"
             },
             "SENIORITY_DATE": {
-                "TITLE": "Ancienneté PNC",
-                "START_DATE": "Depuis"
+                "TITLE": "Ancienneté PNC"
             },
             "PCB": {
-                "TITLE": "PCB",
-                "START_DATE": "Depuis",
-                "DUE_DATE": "Echéance"
+                "TITLE": "PCB"
             },
             "GENE": {
                 "TITLE": "Géné",
-                "START_DATE": "Depuis",
                 "MDC_DATE": "MDC - Géné",
-                "DUE_DATE": "Echéance",
                 "DDV_DUE_DATE": "Echéance DDV",
                 "SKILL_END_DATE": "Compétent jusqu'au"
             }
@@ -307,7 +316,7 @@
             "ITEM": "Rubrique / Item",
             "LEVEL": "Niveau"
         },
-        "DETAILS" :{
+        "DETAILS": {
             "TITLE": "Restitution Formulaire",
             "ROTATION_SUBTITLE": "Rotation",
             "DEGRADED_CONDITIONS": "Conditions dégradées",
@@ -321,8 +330,8 @@
             "REDACTOR_COMMENT": "Commentaire PNC Rédacteur",
             "PNC_COMMENT": "Commentaire PNC Observé",
             "COMMENT": "Commentaire :",
-            "STRONG_POINTS" : "Points forts :",
-            "WORKING_AXES" : "Axes de travail :",
+            "STRONG_POINTS": "Points forts :",
+            "WORKING_AXES": "Axes de travail :",
             "UPDATE_DATE": "Enregistré depuis le : ",
             "SPECIALITY": "Fonction",
             "EOBS_PNC_ASSIGNMENT": "Affectation à date de l'eObservation",
@@ -334,11 +343,38 @@
             "VAL_TITLE_OPTION": " - VAL",
             "BILAN_FLIGHT": "Vol Bilan",
             "EVAL": "EVAL",
-            "STATE" : {
+            "STATE": {
+                "TITLE": "Statut",
                 "LABEL": "Statut en cours : ",
                 "TAKEN_INTO_ACCOUNT": "Pris en compte",
                 "NOT_TAKEN_INTO_ACCOUNT": "Non pris en compte"
             }
+        },
+        "CONFIRM_VALIDATE_PNC_COMMENT": {
+            "TITLE": "Validation du commentaire",
+            "MESSAGE": "Vous êtes sur le point de valider votre commentaire. Souhaitez-vous procéder à la validation ?",
+            "CONFIRM": "Oui",
+            "CANCEL": "Non"
+        },
+        "CONFIRM_VALIDATE": {
+            "TITLE": "Validation de l'eObservation",
+            "MESSAGE": "Vous êtes sur le point de valider votre eObservation. Souhaitez-vous procéder à la validation ?",
+            "CONFIRM": "Oui",
+            "CANCEL": "Non"
+        },
+        "CONFIRM_BACK_WITHOUT_SAVE": {
+            "TITLE": "Modifications non enregistrées",
+            "MESSAGE": "Attention, des modifications n'ont pas été enregistrées, êtes-vous sûr de vouloir revenir en arrière ?"
+        },
+        "MESSAGES": {
+            "SUCCESS": {
+                "PNC_COMMENT_SAVED": "Commentaire validé",
+                "VALIDATED": "eObservation validée"
+            }
+        },
+        "BUTTONS": {
+            "VALIDATE_PNC_COMMENT": "Valider",
+            "VALIDATE": "Valider"
         }
     },
     "PROFESSIONAL_LEVEL": {

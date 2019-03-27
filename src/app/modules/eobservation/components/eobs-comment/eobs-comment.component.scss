@@ -1,16 +1,13 @@
-eobs-comment{
+eobs-comment {
 
-    .comment-container div:not(:first-child) {
-            padding: 20px;
-            padding-bottom: 0px;
+    .redactor-comment-container div:first-child {
+        padding: 0px;
     }
 
-    .comment-container div:first-child {
+    .redactor-comment-container,
+    .pnc-comment-container {
         padding-left: 20px;
         padding-right: 20px;
-    }
-
-    .comment-container div:last-child {
         padding-bottom: 20px;
     }
 
@@ -31,25 +28,46 @@ eobs-comment{
                 margin-right: 10px;
             }
         }
+
         div {
             padding-top: 15px;
         }
+
         .comment {
-            margin: 10px 0 0 0;
-            padding: 10px;
-            border-radius: 3px;
-            background: color($colors, grey95);
-            border: 1px solid color($colors, grey70);
+
+            label {
+                margin-bottom: 10px;
+            }
+
+            p,
+            ion-textarea {
+                padding: 10px;
+                border-radius: 3px;
+                background: color($colors, grey95);
+                border: 1px solid color($colors, grey70);
+            }
+
+            ion-textarea {
+                min-height: 210px !important;
+                padding: 0 !important;
+                margin: 0 !important;
+
+                textarea {
+                    min-height: 190px !important;
+                    padding: 5px !important;
+                }
+            }
         }
 
     }
+
     .comment-footer {
         height: 48px;
         background-color: color($colors, blue68);
-        color : color($colors, white);
+        color: color($colors, white);
         border-radius: 5px;
         display: flex;
-        justify-content:space-between;
+        justify-content: space-between;
         align-items: center;
         padding: 24px;
     }

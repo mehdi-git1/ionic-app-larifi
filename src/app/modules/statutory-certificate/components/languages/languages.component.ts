@@ -1,10 +1,9 @@
 import { DatePipe } from '@angular/common';
 import { LanguageModel } from './../../../../core/models/statutory-certificate/language.model';
-import { MedicalAptitudesModel } from './../../../../core/models/statutory-certificate/medical-aptitudes.model';
 import { Component, Input, OnInit } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
 
 import * as _ from 'lodash';
+import { StatutoryCertificateDisplayTypeEnum } from '../../../../core/enums/statutory-certificate-display-type.enum';
 @Component({
     selector: 'pnc-languages',
     templateUrl: 'languages.component.html'
@@ -12,6 +11,8 @@ import * as _ from 'lodash';
 export class LanguagesComponent implements OnInit {
 
     @Input() languagesData: Array<LanguageModel>;
+    @Input() title: string;
+    @Input() displayType: StatutoryCertificateDisplayTypeEnum;
 
     // Tableau des valeurs à afficher en fonction du type de tableau
     languagesDisplayedData;
@@ -21,16 +22,18 @@ export class LanguagesComponent implements OnInit {
 
     ngOnInit() {
         let stringOfLanguages = '';
-        this.languagesData.forEach(language => {
-            stringOfLanguages = stringOfLanguages + '[' + language.label + ' (' + language.code + ') : '
-                + language.note + ' (' + this.datePipe.transform(language.date, 'dd/MM/yyyy') + ') ] ';
-        });
+        if (this.languagesData) {
+            this.languagesData.forEach(language => {
+                stringOfLanguages = stringOfLanguages + '[' + language.label + ' (' + language.code + ') : '
+                    + language.note + ' (' + this.datePipe.transform(language.date, 'dd/MM/yyyy') + ') ] ';
+            });
+        }
         this.languagesDisplayedData = {
             headers:
                 [
                     ''
                 ],
-            values: this.languagesData ?
+            values: this.languagesData && this.languagesData.length > 0 ?
                 [
                     { value: [stringOfLanguages], type: 'text' }
                 ]

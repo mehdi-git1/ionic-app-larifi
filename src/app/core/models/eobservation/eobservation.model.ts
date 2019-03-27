@@ -21,9 +21,13 @@ export class EObservationModel extends EDossierPncObjectModel {
     redactorSpeciality: SpecialityEnum;
     pncSpeciality: SpecialityEnum;
     lastUpdateDate: Date;
+    lastUpdateAuthor: PncModel;
     formationFlight: boolean;
     vac: boolean;
     val: boolean;
+    strongPoints: string;
+    workingAxes: string;
+
     getStorageId(): string {
         return `${this.techId}`;
     }
