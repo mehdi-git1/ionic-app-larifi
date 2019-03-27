@@ -133,6 +133,7 @@ export class CareerObjectiveListPage {
       if (this.formsInputParam) {
         this.formsEObservationService.callForms(this.formsInputParam, this.chosenEFormsType);
       }
+      this.chosenEFormsType = null;
     }, error => {
     });
   }

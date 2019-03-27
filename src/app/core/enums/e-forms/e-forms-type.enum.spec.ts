@@ -36,6 +36,10 @@ describe('EFormsTypeEnum', () => {
             expect(EFormsTypeEnum.getType(EFormsTypeEnum['HOT'])).toEqual('16');
         });
 
+        it(`doit retourner le type 16 si le type de formuliare est eHST`, () => {
+            expect(EFormsTypeEnum.getType(EFormsTypeEnum['eHST'])).toEqual('16');
+        });
+
         it(`doit retourner le type 16 si le PNC est STW`, () => {
             expect(EFormsTypeEnum.getType(EFormsTypeEnum['STW'])).toEqual('16');
         });
@@ -44,8 +48,16 @@ describe('EFormsTypeEnum', () => {
             expect(EFormsTypeEnum.getType(EFormsTypeEnum['CC'])).toEqual('17');
         });
 
+        it(`doit retourner le type 17 si le type de formuliare est eCC`, () => {
+            expect(EFormsTypeEnum.getType(EFormsTypeEnum['eCC'])).toEqual('17');
+        });
+
         it(`doit retourner le type 18 si le PNC est CCP`, () => {
             expect(EFormsTypeEnum.getType(EFormsTypeEnum['CCP'])).toEqual('18');
+        });
+
+        it(`doit retourner le type 18 si le type de formuliare est eCCP`, () => {
+            expect(EFormsTypeEnum.getType(EFormsTypeEnum['eCCP'])).toEqual('18');
         });
 
         it(`doit retourner null si le PNC est testLibelle (inexistant)`, () => {
