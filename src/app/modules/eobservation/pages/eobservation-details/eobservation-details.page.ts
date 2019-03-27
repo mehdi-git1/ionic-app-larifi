@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams, AlertController, LoadingController, Loading } from 'ionic-angular';
 import { EObservationModel } from '../../../../core/models/eobservation/eobservation.model';
 import { PncModel } from '../../../../core/models/pnc.model';
-import { EobservationItemsByTheme } from '../../../../core/models/eobservation/eobservation-items-by-theme.model';
+import { EObservationItemsByTheme } from '../../../../core/models/eobservation/eobservation-items-by-theme.model';
 import { EObservationLevelEnum } from '../../../../core/enums/e-observations-level.enum';
 import { ReferentialItemLevelModel } from '../../../../core/models/eobservation/referential-item-level.model';
 import { EObservationTypeEnum } from '../../../../core/enums/e-observations-type.enum';
@@ -18,6 +18,9 @@ import { TranslateService } from '@ngx-translate/core';
 import { ToastService } from '../../../../core/services/toast/toast.service';
 import * as _ from 'lodash';
 import { Utils } from '../../../../shared/utils/utils';
+import { EObservationItemModel } from '../../../../core/models/eobservation/eobservation-item.model';
+import { ReferentialThemeModel } from '../../../../core/models/eobservation/referential-theme.model';
+import { PncService } from '../../../../core/services/pnc/pnc.service';
 
 @Component({
   selector: 'page-eobservation-details',
@@ -25,11 +28,13 @@ import { Utils } from '../../../../shared/utils/utils';
 })
 export class EobservationDetailsPage {
   PncRoleEnum = PncRoleEnum;
+  EObservationTypeEnum = EObservationTypeEnum;
 
   eObservation: EObservationModel;
+  pnc: PncModel;
   originEObservation: EObservationModel;
 
-  itemsSortedByTheme: EobservationItemsByTheme[];
+  itemsSortedByTheme: EObservationItemsByTheme[];
 
   loading: Loading;
 
@@ -41,11 +46,16 @@ export class EobservationDetailsPage {
     private toastService: ToastService,
     private alertCtrl: AlertController,
     private loadingCtrl: LoadingController,
-    private securityService: SecurityService) {
+    private securityService: SecurityService,
+    private pncService: PncService) {
     if (this.navParams.get('eObservation')) {
       this.eObservation = this.navParams.get('eObservation');
       this.originEObservation = _.cloneDeep(this.eObservation);
-
+      if (this.eObservation && this.eObservation.pnc && this.eObservation.pnc.matricule) {
+        this.pncService.getPnc(this.eObservation.pnc.matricule).then(pnc => {
+          this.pnc = pnc;
+        }, error => { });
+      }
       this.itemsSortedByTheme = this.sortEObservationItemsByTheme();
     }
   }
@@ -100,22 +110,56 @@ export class EobservationDetailsPage {
 
   /**
    * Trie les items d'eobs par theme
-   * @return la liste de EobservationItemsByTheme
+   * @return la liste de EObservationItemsByTheme
    */
-  sortEObservationItemsByTheme(): EobservationItemsByTheme[] {
-    const itemsByTheme = new Array<EobservationItemsByTheme>();
+  sortEObservationItemsByTheme(): EObservationItemsByTheme[] {
+    const itemsByTheme = new Array<EObservationItemsByTheme>();
     if (this.eObservation && this.eObservation.eobservationItems && this.eObservation.eobservationItems.length > 0) {
       for (const eObservationItem of this.eObservation.eobservationItems.sort((a, b) => a.itemOrder > b.itemOrder ? 1 : -1)) {
         const eObservationTheme = eObservationItem.refItemLevel.item.theme;
-        let themeToDisplay = itemsByTheme.find(element => eObservationTheme.label == element.referentialTheme.label);
-        if (!themeToDisplay) {
-          themeToDisplay = new EobservationItemsByTheme(eObservationTheme);
-          itemsByTheme.push(themeToDisplay);
-        }
-        themeToDisplay.eObservationItems.push(eObservationItem);
+        this.manageThemeInMap(eObservationItem, eObservationTheme, itemsByTheme, null);
       }
     }
-    return itemsByTheme.sort((a, b) => a.referentialTheme.themeOrder > b.referentialTheme.themeOrder ? 1 : -1);
+    const items = itemsByTheme.sort((a, b) => a.referentialTheme.themeOrder > b.referentialTheme.themeOrder ? 1 : -1);
+    return items;
+  }
+
+  /**
+   * Organise les items en fonction des themes et des thèmes parent
+   * @param eObservationItem item à ranger
+   * @param eObservationTheme theme qui contient l'item
+   * @param itemsByTheme map des themes/items déjà rangés
+   * @param parentThemeToDisplay theme parent si il existe
+   * @return tableau de EObservationItemsByTheme
+   */
+  manageThemeInMap(eObservationItem: EObservationItemModel,
+      eObservationTheme: ReferentialThemeModel,
+      itemsByTheme: Array<EObservationItemsByTheme>,
+      parentThemeToDisplay: EObservationItemsByTheme): Array<EObservationItemsByTheme> {
+    const parentTheme = eObservationTheme.parent;
+    if (parentTheme) {
+      if (!parentThemeToDisplay) {
+        parentThemeToDisplay = itemsByTheme.find(element => parentTheme.label === element.referentialTheme.label);
+        if (!parentThemeToDisplay) {
+          parentThemeToDisplay = new EObservationItemsByTheme(parentTheme);
+        }
+      }
+      let themeToDisplay = parentThemeToDisplay.subThemes.find(element => eObservationTheme.label === element.referentialTheme.label);
+      if (!themeToDisplay) {
+        themeToDisplay = new EObservationItemsByTheme(eObservationTheme);
+      }
+      themeToDisplay.eObservationItems.push(eObservationItem);
+      parentThemeToDisplay.subThemes.push(themeToDisplay);
+      this.manageThemeInMap(eObservationItem, parentTheme, itemsByTheme, parentThemeToDisplay);
+    } else {
+      let themeToDisplay = itemsByTheme.find(element => eObservationTheme.label === element.referentialTheme.label);
+      if (!themeToDisplay) {
+        themeToDisplay = new EObservationItemsByTheme(eObservationTheme);
+        itemsByTheme.push(themeToDisplay);
+      }
+      themeToDisplay.eObservationItems.push(eObservationItem);
+    }
+    return itemsByTheme;
   }
 
   /**
@@ -301,6 +345,14 @@ export class EobservationDetailsPage {
    */
   loadingIsOver(): boolean {
     return this.eObservation !== undefined;
+  }
+
+  /**
+   * Vérifie si l'eObs est de type ePcb
+   * @return true si l'eObs est de type ePcb, false sinon
+   */
+  isPcbEObs(): boolean {
+    return this.eObservation && EObservationTypeEnum.E_PCB === this.eObservation.type;
   }
 
   /**

@@ -13,6 +13,7 @@ import { EObsThemeComponent } from './components/eobs-theme/eobs-theme.component
 import { EobsItemDescriptionComponent } from './components/eobs-item-description/eobs-item-description.component';
 import { ExitSymbolComponent } from './components/exit-symbol/exit-symbol.component';
 import { EObservationsArchivesPage } from './pages/eobservations-archives/eobservations-archives.page';
+import { EObsAppreciationComponent } from './components/eobs-appreciation/eobs-appreciation.component';
 
 
 @NgModule({
@@ -25,6 +26,7 @@ import { EObservationsArchivesPage } from './pages/eobservations-archives/eobser
     ExitSymbolComponent,
     EObsCommentComponent,
     EObsThemeComponent,
+    EObsAppreciationComponent,
     EobsItemDescriptionComponent,
     EobservationDetailsPage,
     EObservationsArchivesPage
@@ -49,6 +51,7 @@ import { EObservationsArchivesPage } from './pages/eobservations-archives/eobser
     ExitSymbolComponent,
     EObsCommentComponent,
     EObsThemeComponent,
+    EObsAppreciationComponent,
     EobsItemDescriptionComponent,
     EobservationDetailsPage,
     EObservationsArchivesPage

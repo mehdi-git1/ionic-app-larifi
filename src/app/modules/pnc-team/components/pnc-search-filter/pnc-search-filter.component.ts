@@ -30,7 +30,7 @@ export class PncSearchFilterComponent implements OnInit {
   defaultDivision: string;
   defaultSector: string;
   defaultGinq: string;
-  defaultValue: Boolean;
+  defaultValue: boolean;
   valueAll = AppConstant.ALL;
   pncList: Observable<PncModel[]>;
 
@@ -43,7 +43,7 @@ export class PncSearchFilterComponent implements OnInit {
   // filtre de recherche
   pncFilter: PncFilterModel;
   // afficher/masquer le filtre
-  showFilter: Boolean = false;
+  showFilter = false;
 
   // Les listes des données du filtre
   divisionList: string[];
@@ -162,7 +162,7 @@ export class PncSearchFilterComponent implements OnInit {
       } else {
         this.outOfDivision = false;
         this.relayList = params['relays'];
-        this.relayList.sort((value: String, otherValue: String) => {
+        this.relayList.sort((value: string, otherValue: string) => {
           return value > otherValue ? 1 : -1;
         });
         this.aircraftSkillList = params['aircraftSkills'];

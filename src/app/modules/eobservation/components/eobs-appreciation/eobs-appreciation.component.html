@@ -1,0 +1,44 @@
+<edospnc-expandable-block mini="true" title="{{theme.referentialTheme.label}}" [emptyCondition]="hasItems()">
+<ion-row class="pcb-subtitle">
+    <ion-col  class="sub-theme-label">{{ 'EOBSERVATION.DETAIL.SKILLS' | translate }}</ion-col>
+    <ion-col  class="sub-theme-label">{{ 'EOBSERVATION.DETAIL.STRONG_POINTS' | translate }}</ion-col>
+</ion-row>
+<ion-grid class="pcb-grid">
+    <ion-row *ngFor="let subTheme of theme.subThemes">
+        <!-- Aptitudes Conforme / Améliorable -->
+        <ion-col>
+            <span class="pcb-skills" *ngIf="subTheme.eObservationItems && subTheme.eObservationItems.length === 1">
+                <span class="skills-label">
+                    {{subTheme?.referentialTheme?.label}} :
+                </span>
+                <span  class="skills-value">
+                    <ion-list lines="none">
+                        <radio-and-label disabled="true"
+                        [conditionValue]="subTheme.eObservationItems[0].refItemLevel.level === 'CONFORME'" 
+                        label="{{ 'EOBSERVATION.DETAIL.CONFORM' | translate }}">
+                        </radio-and-label>
+                        <radio-and-label disabled="true"
+                        [conditionValue]="subTheme.eObservationItems[0].refItemLevel.level === 'AMELIORABLE'" 
+                        label="{{ 'EOBSERVATION.DETAIL.IMPROVABLE' | translate }}">
+                        </radio-and-label>
+                    </ion-list>
+                </span>
+            </span>
+        </ion-col>
+        <!-- Points forts -->
+        <ion-col>
+            <span class="pcb-strong-points" >
+                <ion-list lines="none">
+                    <span *ngFor="let eObservationItem of theme.eObservationItems">
+                        <div *ngIf="eObservationItem?.refItemLevel?.item?.theme?.parent?.label === subTheme?.referentialTheme?.label">
+                                <checkbox-and-label disabled="true"
+                                [value]="eObservationItem?.refItemLevel?.level === 'POINT_FORT'" 
+                                label="{{eObservationItem?.refItemLevel?.item?.label}}"></checkbox-and-label>
+                        </div>
+                    </span>
+                </ion-list>
+            </span>
+        </ion-col>
+    </ion-row>
+</ion-grid>
+</edospnc-expandable-block>

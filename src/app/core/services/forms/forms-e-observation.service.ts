@@ -14,6 +14,8 @@ declare var window: any;
 @Injectable()
 export class FormsEObservationService {
 
+  dateFormat = 'dd/MM/yyyy';
+
   constructor(
     private pncProvider: PncService,
     private formsInputParamService: FormsInputParamService,
@@ -59,15 +61,15 @@ export class FormsEObservationService {
         'PNCObserve.matricule': formsInputParams.observedPnc.matricule,
         'PNCObserve.nom': formsInputParams.observedPnc.lastName,
         'PNCObserve.prenom': formsInputParams.observedPnc.firstName,
-        'date.vol1': this.datePipe.transform(formsInputParams.rotationFirstLeg.departureDate, 'dd/MM/yyyy'),
-        'date.vol2': this.datePipe.transform(formsInputParams.rotationLastLeg.departureDate, 'dd/MM/yyyy'),
+        'date.vol1': this.datePipe.transform(formsInputParams.rotationFirstLeg.departureDate, this.dateFormat),
+        'date.vol2': this.datePipe.transform(formsInputParams.rotationLastLeg.departureDate, this.dateFormat),
         'escaleArrivee.vol1': formsInputParams.rotationFirstLeg.arrivalStation,
         'escaleArrivee.vol2': formsInputParams.rotationLastLeg.arrivalStation,
         'escaleDepart.vol1': formsInputParams.rotationFirstLeg.departureStation,
         'escaleDepart.vol2': formsInputParams.rotationLastLeg.departureStation,
         'flightNumber.vol1': formsInputParams.rotationFirstLeg.company + formsInputParams.rotationFirstLeg.number,
         'flightNumber.vol2': formsInputParams.rotationLastLeg.company + formsInputParams.rotationLastLeg.number,
-        'flightinfos.pairing.date': this.datePipe.transform(formsInputParams.rotation.departureDate, 'dd/MM/yyyy'),
+        'flightinfos.pairing.date': this.datePipe.transform(formsInputParams.rotation.departureDate, this.dateFormat),
         'flightinfos.pairing.name': formsInputParams.rotation.number,
         'remplissage.vol1': '',
         'remplissage.vol2': '',
