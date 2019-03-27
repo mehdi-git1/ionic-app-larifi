@@ -8,17 +8,20 @@ page-app-version-management {
         border-collapse: collapse;
     }
 
+    table tr:nth-child(odd){
+        background-color:color($colors, grey70);
+    }
+
     thead {
         background: color($colors, blue85);
-        border-bottom: 1px solid color($colors, grey75);
+        border-bottom: 1px solid color($colors, blue60);
     }
 
     th,
     td {
         padding: 5px 10px;
         vertical-align: top;
-        border-left: 1px solid color($colors, grey75);
-        border-right: 1px solid color($colors, grey75);
+        border: none;
         margin: 0;
     }
 
