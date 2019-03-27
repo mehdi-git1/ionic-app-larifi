@@ -12,13 +12,13 @@
             <!-- Header du tableau -->
             <ion-col>
                 <ion-item>
-                    <ion-label class="tab_header">{{ 'ADMIN.PROFILE_MANAGEMENT.HEADER.PROFILE_HEADER' | translate }}
+                    <ion-label class="tab-header">{{ 'ADMIN.PROFILE_MANAGEMENT.HEADER.PROFILE_HEADER' | translate }}
                     </ion-label>
                 </ion-item>
             </ion-col>
             <ion-col>
                 <ion-item>
-                    <ion-label class="tab_header">
+                    <ion-label class="tab-header">
                         {{ 'ADMIN.PROFILE_MANAGEMENT.HEADER.PERMISSION_HEADER' | translate }}
                         <span *ngIf="selectedProfile != null;"> - </span> {{ selectedProfile }}
                     </ion-label>
@@ -31,9 +31,8 @@
                 <edossier-spinner *ngIf="userProfiles == undefined; else ProfileListBlock "></edossier-spinner>
                 <ng-template #ProfileListBlock>
 
-                    <ion-item class="profileList" *ngFor="let userProfile of userProfiles"
-                        (click)="goToPermissionManagement(userProfile.name)">
-                        <div class="inputGroup">
+                    <ion-item class="profil-list" *ngFor="let userProfile of userProfiles" (click)="goToPermissionManagement(userProfile.name)">
+                        <div class="input-group">
                             <input type="radio" name="profileName" id="{{userProfile.name}}" />
                             <label for="{{userProfile.name}}">{{ userProfile.name }}</label>
                         </div>
@@ -48,8 +47,7 @@
                     <ion-list>
                         <ion-item *ngFor="let permission of allPermissions">
                             <ion-label left> {{ permission.name }} </ion-label>
-                            <ion-checkbox [(ngModel)]="permission.checked" [checked]="permission.checked" item-right
-                                secondary>
+                            <ion-checkbox [(ngModel)]="permission.checked" [checked]="permission.checked" item-right secondary>
                             </ion-checkbox>
                         </ion-item>
                     </ion-list>

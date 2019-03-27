@@ -14,8 +14,8 @@ export class AppVersionService {
      * Récupère la liste des versions de l'application de la plus récente à la plus ancienne
      * @return la liste de toutes les versions de l'application de la plus récente à la plus ancienne
      */
-    public getAllAppVersion(): Promise<AppVersionModel[]> {
-        return this.restService.get(this.config.getBackEndUrl('getAllAppVersion'));
+    public getAllAppVersions(): Promise<AppVersionModel[]> {
+        return this.restService.get(this.config.getBackEndUrl('getAllAppVersions'));
     }
 
     /**
@@ -23,7 +23,7 @@ export class AppVersionService {
      * @param appVersion la version à créer
      * @return la version créé
      */
-    public create(appVersion: AppVersionModel): Promise<AppVersionModel> {
-        return this.restService.post(this.config.getBackEndUrl('createChangelog'), appVersion);
+    public createAppVersion(appVersion: AppVersionModel): Promise<AppVersionModel> {
+        return this.restService.post(this.config.getBackEndUrl('createAppVersion'), appVersion);
     }
 }

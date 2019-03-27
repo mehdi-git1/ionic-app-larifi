@@ -13,12 +13,6 @@ page-app-version-management {
         border-bottom: 1px solid color($colors, grey75);
     }
 
-    .tab_header {
-        text-transform: capitalize;
-        font-size: 24px;
-        font-style: normal;
-    }
-
     th,
     td {
         padding: 5px 10px;
@@ -29,6 +23,9 @@ page-app-version-management {
     }
 
     th {
+        text-transform: capitalize;
+        font-size: 24px;
+        font-style: normal;
         text-align: center;
     }
 
@@ -59,11 +56,11 @@ page-app-version-management {
         margin: 0;
     }
 
-    .submitButton {
+    .submit-button {
         margin-top: 18px;
     }
 
-    .changelogButton {
+    .changelog-button {
         width: 100%;
         margin: 0;
     }

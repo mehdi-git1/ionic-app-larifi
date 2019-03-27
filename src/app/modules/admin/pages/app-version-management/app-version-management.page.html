@@ -14,20 +14,24 @@
             <ion-row nowrap>
                 <ion-col col-3>
                     <ion-item>
-                        <ion-label floating>{{ 'ADMIN.APP_VERSION_MANAGEMENT.LABEL.PLACEHOLDER_NUM' | translate }}</ion-label>
-                        <ion-input formControlName="number" type="text" name="number" [(ngModel)]="number" required></ion-input>
+                        <ion-label floating>{{ 'ADMIN.APP_VERSION_MANAGEMENT.LABEL.VERSION_NUMBER' | translate }}
+                        </ion-label>
+                        <ion-input formControlName="number" type="text" name="number" required>
+                        </ion-input>
                     </ion-item>
                 </ion-col>
                 <ion-col col-7>
                     <ion-item>
-                        <ion-label floating>{{ 'ADMIN.APP_VERSION_MANAGEMENT.LABEL.PLACEHOLDER_CHANGELOG' | translate }}</ion-label>
-                        <ion-textarea formControlName="changelog" type="text" min-rows="1" max-rows="10" name="changelog" [(ngModel)]="changelog" class="md-textarea form-control"></ion-textarea>
+                        <ion-label floating>{{ 'ADMIN.APP_VERSION_MANAGEMENT.LABEL.CHANGELOG' | translate }}
+                        </ion-label>
+                        <ion-textarea formControlName="changelog" type="text" name="changelog" class="md-textarea form-control"></ion-textarea>
                     </ion-item>
                 </ion-col>
-                <ion-col class="submitButton" col-2>
+                <ion-col class="submit-button" col-2>
                     <ion-item>
-                        <button ion-button color="blue60" class="changelogButton" (click)="createChangelog(number,changelog)">
-                            <ion-icon name="ios-bookmark-outline" ios="ios-bookmark-outline" margin-right></ion-icon> {{ 'ADMIN.APP_VERSION_MANAGEMENT.BUTTON.ADD_VERSION' | translate }}
+                        <button ion-button color="blue60" class="changelog-button" (click)="createAppVersion()">
+                            <ion-icon name="md-add" ios="md-add" margin-right></ion-icon>
+                            {{ 'ADMIN.APP_VERSION_MANAGEMENT.BUTTON.ADD_VERSION' | translate }}
                         </button>
                     </ion-item>
                 </ion-col>
@@ -38,13 +42,14 @@
             <table>
                 <!-- Header du tableau -->
                 <thead>
-                    <th class="tab_header" col-3>{{ 'ADMIN.APP_VERSION_MANAGEMENT.HEADER.NUMBER' | translate }}</th>
-                    <th class="tab_header" col-7>{{ 'ADMIN.APP_VERSION_MANAGEMENT.HEADER.CHANGELOG' | translate }}</th>
-                    <th class="tab_header action" col-2>{{ 'ADMIN.APP_VERSION_MANAGEMENT.HEADER.ACTION' | translate }}</th>
+                    <th col-3>{{ 'ADMIN.APP_VERSION_MANAGEMENT.HEADER.NUMBER' | translate }}</th>
+                    <th col-7>{{ 'ADMIN.APP_VERSION_MANAGEMENT.HEADER.CHANGELOG' | translate }}</th>
+                    <th class="action" col-2>{{ 'ADMIN.APP_VERSION_MANAGEMENT.HEADER.ACTION' | translate }}
+                    </th>
                 </thead>
                 <!-- Liste des versions -->
-                <edossier-spinner *ngIf="allAppVersions == undefined; else AppVersionListBlock "></edossier-spinner>
-                <ng-template #AppVersionListBlock>
+                <edossier-spinner *ngIf="allAppVersions == undefined; else appVersionListBlock "></edossier-spinner>
+                <ng-template #appVersionListBlock>
                     <tbody>
                         <tr *ngFor=" let appVersion of allAppVersions">
                             <td>{{ appVersion.number }}</td>
