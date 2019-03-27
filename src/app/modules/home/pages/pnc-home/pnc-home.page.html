@@ -9,8 +9,10 @@
 <ion-content padding no-bounce>
     <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
     <ng-template #pageBlock>
-        <pnc-card-page-header *ngIf="pnc" [itemMember]="pnc"></pnc-card-page-header>
         <ion-grid>
+            <ion-row>
+                <pnc-card-page-header *ngIf="pnc" [itemMember]="pnc"></pnc-card-page-header>
+            </ion-row>
             <ion-row id="nav-tile-grid" *ngIf="pnc">
                 <ion-col>
                     <!-- Liste des objectifs-->
