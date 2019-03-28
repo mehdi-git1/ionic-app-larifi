@@ -81,8 +81,14 @@ export class FormsEObservationService {
       }
     };
 
-    console.log(param);
-
+    this.formsPlugin.callUrlAppScheme(
+      success => {
+        console.log('Success: callUrlAppScheme');
+        console.log(success);
+      },
+      error => console.log(error),
+      param
+    );
   }
 
   /**
