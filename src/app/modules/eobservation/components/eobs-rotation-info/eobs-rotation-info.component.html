@@ -1,0 +1,46 @@
+<edospnc-expandable-block mini="true" title=" {{ 'EOBSERVATION.DETAILS.ROTATION_SUBTITLE' | translate }}" [emptyCondition]="!hasFlights()">
+    <div class="rotation-info">
+        <ion-grid>
+            <ion-row>
+                <ion-col col-2 class="rotation-number">{{eObservation?.rotationNumber}}</ion-col>
+                <ion-col col-2><span *ngIf="eObservation?.rotationDate">{{eObservation?.rotationDate | date: 'dd/MM/yyyy' : 'UTC'}} </span></ion-col>
+                <ion-col col-8>
+                    <ng-container *ngIf="!editMode; else rotationDegradedEditBlock">
+                        <radio-and-label disabled="true" conditionValue="{{eObservation?.rotationDegraded}}" label="{{ 'EOBSERVATION.DETAILS.DEGRADED_CONDITIONS' | translate }}"></radio-and-label>
+                    </ng-container>
+                    <ng-template #rotationDegradedEditBlock>
+                        <ion-item>
+                            <ion-label>{{ 'EOBSERVATION.DETAILS.DEGRADED_CONDITIONS' | translate }}</ion-label>
+                            <ion-checkbox [(ngModel)]="eObservation.rotationDegraded" [checked]="eObservation.rotationDegraded"></ion-checkbox>
+                        </ion-item>
+                    </ng-template>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </div>
+    <ion-grid class="rotation-grid">
+        <ion-row class="flight-header">
+            <ion-col col-2>{{ 'EOBSERVATION.DETAILS.FLIGHT_NUMBER' | translate }}</ion-col>
+            <ion-col col-2>{{ 'EOBSERVATION.DETAILS.FLIGHT_DATE' | translate }}</ion-col>
+            <ion-col col-2>{{ 'EOBSERVATION.DETAILS.STOP_STATION' | translate }}</ion-col>
+            <ion-col col-1>{{ 'EOBSERVATION.DETAILS.AIRCRAFT_TYPE' | translate }}</ion-col>
+            <ion-col col-2>{{ 'EOBSERVATION.DETAILS.VERSION' | translate }}</ion-col>
+            <ion-col col-2>{{ 'EOBSERVATION.DETAILS.OCCUPANCY_RATE' | translate }}</ion-col>
+            <ion-col col-1>{{ 'EOBSERVATION.DETAILS.WORKSTATION' | translate }}</ion-col>
+        </ion-row>
+        <ion-row *ngFor="let eObservationFlight of sortedFlights()">
+            <ion-col col-2>{{eObservationFlight?.flightNumber}}</ion-col>
+            <ion-col col-2><span *ngIf="eObservationFlight?.flightDate">{{eObservationFlight?.flightDate | date: 'dd/MM/yyyy' : 'UTC'}}</span></ion-col>
+            <ion-col col-2>{{eObservationFlight?.departureStation}} / {{eObservationFlight?.arrivalStation}}</ion-col>
+            <ion-col col-1>{{eObservationFlight?.aircraftType}}</ion-col>
+            <ion-col col-2>{{eObservationFlight?.exploitationVersion}}</ion-col>
+            <ion-col col-2>{{eObservationFlight?.occupancyRate}}</ion-col>
+            <ion-col col-1>
+                <ng-container *ngIf="!editMode; else workStationEditBlock">{{eObservationFlight?.workStation}}</ng-container>
+                <ng-template #workStationEditBlock>
+                    <ion-input type="number" [(ngModel)]="eObservationFlight.workStation"></ion-input>
+                </ng-template>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</edospnc-expandable-block>

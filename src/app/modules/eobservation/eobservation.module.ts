@@ -13,6 +13,10 @@ import { EObsThemeComponent } from './components/eobs-theme/eobs-theme.component
 import { EobsItemDescriptionComponent } from './components/eobs-item-description/eobs-item-description.component';
 import { ExitSymbolComponent } from './components/exit-symbol/exit-symbol.component';
 import { EObservationsArchivesPage } from './pages/eobservations-archives/eobservations-archives.page';
+import { EObsBilanFlightComponent } from './components/eobs-bilan-flight/eobs-bilan-flight.component';
+import { EObsTemporaryPeriodComponent } from './components/eobs-temporary-period/eobs-temporary-period.component';
+import { EObsRotationInfoComponent } from './components/eobs-rotation-info/eobs-rotation-info.component';
+import { EObsStateComponent } from './components/eobs-state/eobs-state.component';
 
 
 @NgModule({
@@ -23,7 +27,11 @@ import { EObservationsArchivesPage } from './pages/eobservations-archives/eobser
     ColorNumberDotComponent,
     QuestionSymbolComponent,
     ExitSymbolComponent,
+    EObsTemporaryPeriodComponent,
+    EObsBilanFlightComponent,
+    EObsRotationInfoComponent,
     EObsCommentComponent,
+    EObsStateComponent,
     EObsThemeComponent,
     EobsItemDescriptionComponent,
     EobservationDetailsPage,
@@ -47,7 +55,11 @@ import { EObservationsArchivesPage } from './pages/eobservations-archives/eobser
     ColorNumberDotComponent,
     QuestionSymbolComponent,
     ExitSymbolComponent,
+    EObsTemporaryPeriodComponent,
+    EObsBilanFlightComponent,
+    EObsRotationInfoComponent,
     EObsCommentComponent,
+    EObsStateComponent,
     EObsThemeComponent,
     EobsItemDescriptionComponent,
     EobservationDetailsPage,
