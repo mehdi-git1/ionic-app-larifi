@@ -82,9 +82,9 @@
             <eobs-appreciation *ngFor="let eObservationTheme of itemsSortedByTheme" [theme]="eObservationTheme"></eobs-appreciation>
         </ng-template>
 
-        <eobs-comment [type]="PncRoleEnum.MANAGER" [eObservation]="eObservation" [canEditEObs]="isEObsBusinessAdmin()"></eobs-comment>
+        <eobs-comment *ngIf="!checkEObsType(EObservationTypeEnum.E_ALT)" [type]="PncRoleEnum.MANAGER" [eObservation]="eObservation" [canEditEObs]="isEObsBusinessAdmin()"></eobs-comment>
 
-        <eobs-comment [type]="PncRoleEnum.PNC" [eObservation]="eObservation" [canEditPncComment]="canEditPncComment()" [canEditEObs]="isEObsBusinessAdmin()" (validatePncComment)="confirmValidatePncComment()"></eobs-comment>
+        <eobs-comment *ngIf="!checkEObsType(EObservationTypeEnum.E_ALT)" [type]="PncRoleEnum.PNC" [eObservation]="eObservation" [canEditPncComment]="canEditPncComment()" [canEditEObs]="isEObsBusinessAdmin()" (validatePncComment)="confirmValidatePncComment()"></eobs-comment>
 
         <edospnc-expandable-block mini="true" title="{{ 'EOBSERVATION.DETAIL.STATE.TITLE' | translate }}" *ngIf="isEObsBusinessAdmin()">
             <div padding>
