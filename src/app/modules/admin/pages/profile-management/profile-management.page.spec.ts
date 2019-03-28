@@ -79,7 +79,7 @@ describe('page-profile-management', () => {
             });
         });
 
-        it(`doit appeler la fonction updatePermissions() avec les bons paramètres et envoyer le message 'ADMIN.PROFILE_MANAGEMENT.SUCCESS.PERMISSIONS_UPDATED'`, () => {
+        it(`doit mettre à jour la liste de permission pour un profil avec les bons paramètres et un toast de succes est affiché à l'écran de l'utilisateur`, () => {
             comp.updatePermissions();
             const tmpUser: UserPermissionModel = comp.allPermissions[0];
             tmpUser.name = 'VIEW_ALL_PNC';

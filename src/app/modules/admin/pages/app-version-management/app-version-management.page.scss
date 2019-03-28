@@ -1,0 +1,76 @@
+page-app-version-management {
+
+    table {
+        width: 100%;
+        font-size: 1.1em;
+        margin-top: 5px;
+        box-shadow: 0px 0px 5px color($colors, grey70);
+        border-collapse: collapse;
+    }
+
+    table tr:nth-child(odd){
+        background-color:color($colors, grey70);
+    }
+
+    thead {
+        background: color($colors, blue85);
+        border-bottom: 1px solid color($colors, blue60);
+    }
+
+    th,
+    td {
+        padding: 5px 10px;
+        vertical-align: top;
+        border: none;
+        margin: 0;
+    }
+
+    th {
+        text-transform: capitalize;
+        font-size: 24px;
+        font-style: normal;
+        text-align: center;
+    }
+
+    td {
+        text-align: left;
+    }
+
+    .action {
+        text-align: center;
+    }
+
+    .item-md.item-block .item-inner {
+        border: none;
+    }
+
+    ion-textarea {
+        min-height: 100px !important;
+        padding: 0 !important;
+        margin: 0 !important;
+
+        textarea {
+            min-height: 80px !important;
+            padding: 5px !important;
+        }
+    }
+
+    .label-md {
+        margin: 0;
+    }
+
+    .submit-button {
+        margin-top: 18px;
+    }
+
+    .changelog-button {
+        width: 100%;
+        margin: 0;
+    }
+
+    .item-md .item-button {
+        height: 40px;
+        font-size: 1.1em;
+    }
+
+}
