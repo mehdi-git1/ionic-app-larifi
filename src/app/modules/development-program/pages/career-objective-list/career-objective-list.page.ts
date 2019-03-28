@@ -102,7 +102,7 @@ export class CareerObjectiveListPage {
       eobs => {
         this.eObservations = eobs.sort((eObs1, eObs2) => {
           return moment(eObs1.rotationDate, AppConstant.isoDateFormat).isAfter(moment(eObs2.rotationDate, AppConstant.isoDateFormat)) ? -1 : 1;
-        });;
+        });
       }, error => {
       });
   }
