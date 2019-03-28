@@ -1,22 +1,19 @@
-import { ProfessionalInterviewModel } from './../../../../core/models/professional-interview/professional-interview.model';
+import { FormGroup, FormBuilder } from '@angular/forms';
 import { Component } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 import { NavController, NavParams, AlertController, LoadingController, Loading } from 'ionic-angular';
-import { EObservationModel } from '../../../../core/models/eobservation/eobservation.model';
+import * as _ from 'lodash';
+
 import { PncModel } from '../../../../core/models/pnc.model';
-import { EobservationItemsByTheme } from '../../../../core/models/eobservation/eobservation-items-by-theme.model';
-import { EObservationLevelEnum } from '../../../../core/enums/e-observations-level.enum';
-import { ReferentialItemLevelModel } from '../../../../core/models/eobservation/referential-item-level.model';
 import { EObservationTypeEnum } from '../../../../core/enums/e-observations-type.enum';
-import { EObservationFlightModel } from '../../../../core/models/eobservation/eobservation-flight.model';
 import { EObservationService } from '../../../../core/services/eobservation/eobservation.service';
-import { EObservationStateEnum } from '../../../../core/enums/e-observation-state.enum';
 import { CrewMemberModel } from '../../../../core/models/crew-member.model';
 import { SessionService } from '../../../../core/services/session/session.service';
 import { PncRoleEnum } from '../../../../core/enums/pnc-role.enum';
-import { TranslateService } from '@ngx-translate/core';
 import { ToastService } from '../../../../core/services/toast/toast.service';
-import * as _ from 'lodash';
+import { ProfessionalInterviewModel } from './../../../../core/models/professional-interview/professional-interview.model';
 import { Utils } from '../../../../shared/utils/utils';
+import { InterviewStateEnum } from '../../../../core/enums/professional-interview/interview-state.enum';
 
 @Component({
   selector: 'page-eobservation-details',
@@ -28,11 +25,14 @@ export class ProfessionalInterviewDetailsPage {
   professionalInterview: ProfessionalInterviewModel;
   originProfessionalInterview: ProfessionalInterviewModel;
 
+  professionalInterviewDetailForm: FormGroup;
+
   loading: Loading;
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
+    private formBuilder: FormBuilder,
     private eObservationService: EObservationService,
     private sessionService: SessionService,
     private translateService: TranslateService,
@@ -43,7 +43,9 @@ export class ProfessionalInterviewDetailsPage {
     if (this.navParams.get('professionalInterview')) {
       this.professionalInterview = this.navParams.get('eObservation');
       this.originProfessionalInterview = _.cloneDeep(this.professionalInterview);
+      this.initForm();
     }
+
   }
 
   ionViewCanLeave() {
@@ -52,6 +54,21 @@ export class ProfessionalInterviewDetailsPage {
     } else {
       return true;
     }
+  }
+
+  /**
+   * Initialise le formulaire
+   */
+  initForm() {
+    this.professionalInterviewDetailForm = this.formBuilder.group({
+      noticedSkillsControl: '',
+      professionalDevDesireControl: '',
+      summaryControl: ''
+    });
+
+    this.professionalInterviewDetailForm.valueChanges.subscribe(
+      result => console.log(this.professionalInterviewDetailForm.status)
+    );
   }
 
   /**
@@ -101,9 +118,9 @@ export class ProfessionalInterviewDetailsPage {
    * @return 'green' si 'TAKEN_INTO_ACCOUNT' ou 'red' si 'NOT_TAKEN_INTO_ACCOUNT'
    */
   getColorStatusPoint(): string {
-    if (this.professionalInterview && this.professionalInterview.state === EObservationStateEnum.TAKEN_INTO_ACCOUNT) {
+    if (this.professionalInterview && this.professionalInterview.state === InterviewStateEnum.TAKEN_INTO_ACCOUNT) {
       return 'green';
-    } else if (this.professionalInterview && this.professionalInterview.state === EObservationStateEnum.NOT_TAKEN_INTO_ACCOUNT) {
+    } else if (this.professionalInterview && this.professionalInterview.state === InterviewStateEnum.NOT_TAKEN_INTO_ACCOUNT) {
       return 'red';
     }
   }
