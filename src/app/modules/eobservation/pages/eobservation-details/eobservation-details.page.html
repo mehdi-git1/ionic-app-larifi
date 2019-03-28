@@ -36,7 +36,7 @@
         <eobs-rotation-info [eObservation]="eObservation" [editMode]="editMode"></eobs-rotation-info>
 
         <span *ngIf="!isPcbEObs(); else appreciationPcb">
-            <eobs-theme *ngFor="let eObservationTheme of itemsSortedByTheme" [theme]="eObservationTheme"></eobs-theme>
+            <eobs-theme *ngFor="let eObservationTheme of itemsSortedByTheme" [theme]="eObservationTheme" [editMode]="editMode" (commentChange)="updateEObservationComment($event)"></eobs-theme>
         </span>
         <ng-template #appreciationPcb>
             <eobs-appreciation *ngFor="let eObservationTheme of itemsSortedByTheme" [theme]="eObservationTheme"></eobs-appreciation>

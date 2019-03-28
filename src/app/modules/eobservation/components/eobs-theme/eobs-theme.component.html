@@ -16,9 +16,12 @@
         </span>
         <div class="comment">
             <label><span class="edospnc-speechBubble"></span>{{ 'EOBSERVATION.DETAIL.COMMENT' | translate }}</label>
-                <p>
-                    {{theme.themeComment}}
-                </p>
+            <p *ngIf="!editMode; else editThemeCommentBlock">
+                {{theme.eObservationComment.comment}}
+            </p>
+            <ng-template #editThemeCommentBlock>
+                <ion-textarea [(ngModel)]="theme.eObservationComment.comment" (ngModelChange)="updateComment()" autocorrect="on"></ion-textarea>
+            </ng-template>
         </div>
     </span>
     <ion-grid *ngIf="!hasSubThemes()">

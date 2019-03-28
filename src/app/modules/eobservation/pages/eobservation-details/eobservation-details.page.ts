@@ -177,7 +177,7 @@ export class EobservationDetailsPage {
       for (const eObservationComment of this.eObservation.eobservationComments) {
         const eObservationTheme = eObservationComment.refComment.theme;
         let themeToDisplay = itemsByTheme.find(element => eObservationTheme.id === element.referentialTheme.id);
-        themeToDisplay.themeComment = eObservationComment.comment;
+        themeToDisplay.eObservationComment = eObservationComment;
       }
     }
     return itemsByTheme;
@@ -206,10 +206,6 @@ export class EobservationDetailsPage {
     refItemLevels.push(refItemLevel);
     return refItemLevels;
   }
-
-
-
-
 
   /**
    * Récupère le label du type de l'eObs
@@ -338,5 +334,11 @@ export class EobservationDetailsPage {
   cancelEditMode() {
     this.editMode = false;
     this.eObservation = _.cloneDeep(this.originEObservation);
+  }
+
+  updateEObservationComment(newComment: any) {
+    this.eObservation.eobservationComments.find(eobservationComment => {
+      return eobservationComment.techId === newComment.techId;
+    }).comment = newComment.comment;
   }
 }
