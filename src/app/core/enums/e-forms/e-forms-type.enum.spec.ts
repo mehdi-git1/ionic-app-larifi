@@ -1,62 +1,40 @@
+import { SpecialityEnum } from './../speciality.enum';
 import { EFormsTypeEnum } from './e-forms-type.enum';
 
 describe('EFormsTypeEnum', () => {
     describe('getTextType', () => {
         it(`doit retourner le type eHST si le PNC est HOT`, () => {
-            expect(EFormsTypeEnum.getTextType(EFormsTypeEnum['HOT'])).toEqual('eHST / eCC');
+            expect(EFormsTypeEnum.getTextType(SpecialityEnum['HOT'])).toEqual('eHST / eCC');
         });
 
         it(`doit retourner le type eHST si le PNC est STW`, () => {
-            expect(EFormsTypeEnum.getTextType(EFormsTypeEnum['STW'])).toEqual('eHST / eCC');
+            expect(EFormsTypeEnum.getTextType(SpecialityEnum['STW'])).toEqual('eHST / eCC');
         });
 
         it(`doit retourner le type eCC si le PNC est CC`, () => {
-            expect(EFormsTypeEnum.getTextType(EFormsTypeEnum['CC'])).toEqual('eCC / eCCP');
+            expect(EFormsTypeEnum.getTextType(SpecialityEnum['CC'])).toEqual('eCC / eCCP');
         });
 
         it(`doit retourner le type eCCP si le PNC est CCP`, () => {
-            expect(EFormsTypeEnum.getTextType(EFormsTypeEnum['CCP'])).toEqual('eCCP');
-        });
-
-        it(`doit retourner le type eALT si le PNC est ALT`, () => {
-            expect(EFormsTypeEnum.getTextType(EFormsTypeEnum['ALT'])).toEqual('eALT');
-        });
-
-        it(`doit retourner le type ePCB si le PNC est PCB`, () => {
-            expect(EFormsTypeEnum.getTextType(EFormsTypeEnum['PCB'])).toEqual('ePCB');
+            expect(EFormsTypeEnum.getTextType(SpecialityEnum['CCP'])).toEqual('eCCP');
         });
 
         it(`doit retourner null si le PNC est testLibelle (inexistant)`, () => {
-            expect(EFormsTypeEnum.getTextType(EFormsTypeEnum['testLibelle'])).toEqual(null);
+            expect(EFormsTypeEnum.getTextType(SpecialityEnum['testLibelle'])).toEqual(null);
         });
     });
 
     describe('getType', () => {
-        it(`doit retourner le type 16 si le PNC est HOT`, () => {
-            expect(EFormsTypeEnum.getType(EFormsTypeEnum['HOT'])).toEqual('16');
-        });
 
-        it(`doit retourner le type 16 si le type de formuliare est eHST`, () => {
+        it(`doit retourner le type 16 si le type de formulaire est eHST`, () => {
             expect(EFormsTypeEnum.getType(EFormsTypeEnum['eHST'])).toEqual('16');
         });
 
-        it(`doit retourner le type 16 si le PNC est STW`, () => {
-            expect(EFormsTypeEnum.getType(EFormsTypeEnum['STW'])).toEqual('16');
-        });
-
-        it(`doit retourner le type 17 si le PNC est CC`, () => {
-            expect(EFormsTypeEnum.getType(EFormsTypeEnum['CC'])).toEqual('17');
-        });
-
-        it(`doit retourner le type 17 si le type de formuliare est eCC`, () => {
+        it(`doit retourner le type 17 si le type de formulaire est eCC`, () => {
             expect(EFormsTypeEnum.getType(EFormsTypeEnum['eCC'])).toEqual('17');
         });
 
-        it(`doit retourner le type 18 si le PNC est CCP`, () => {
-            expect(EFormsTypeEnum.getType(EFormsTypeEnum['CCP'])).toEqual('18');
-        });
-
-        it(`doit retourner le type 18 si le type de formuliare est eCCP`, () => {
+        it(`doit retourner le type 18 si le type de formulaire est eCCP`, () => {
             expect(EFormsTypeEnum.getType(EFormsTypeEnum['eCCP'])).toEqual('18');
         });
 

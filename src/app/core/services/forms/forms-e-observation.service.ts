@@ -1,11 +1,9 @@
-import { EFormsTypeEnum } from './../../enums/e-forms/e-forms-type.enum';
 import { FormsInputParamService } from './forms-input-param.service';
 import { FormsInputParamsModel } from './../../models/forms-input-params.model';
 import { Injectable } from '@angular/core';
 import { DatePipe } from '@angular/common';
 
 import { SessionService } from '../session/session.service';
-import { PncService } from '../pnc/pnc.service';
 import { RestService } from '../../http/rest/rest.base.service';
 import { Config } from '../../../../environments/config';
 
@@ -17,7 +15,6 @@ export class FormsEObservationService {
   dateFormat = 'dd/MM/yyyy';
 
   constructor(
-    private pncProvider: PncService,
     private formsInputParamService: FormsInputParamService,
     public sessionService: SessionService,
     public restService: RestService,
@@ -53,7 +50,7 @@ export class FormsEObservationService {
     const param = {
       eformsAppId: `${this.config.eformsUrl}`,
       method: '0',
-      reportType: chosenEFormsType || this.getReportTypeForEForms(formsInputParams.observedPnc.speciality),
+      reportType: chosenEFormsType,
       callbackUrl: `${this.config.eformsCallbackUrl}`,
       callbackActionLabel: `${this.config.eformsCallbackActionLabel}`,
       archiveData: {
@@ -84,14 +81,8 @@ export class FormsEObservationService {
       }
     };
 
-    this.formsPlugin.callUrlAppScheme(
-      success => {
-        console.log('Success: callUrlAppScheme');
-        console.log(success);
-      },
-      error => console.log(error),
-      param
-    );
+    console.log(param);
+
   }
 
   /**
@@ -107,14 +98,5 @@ export class FormsEObservationService {
       return 'HST';
     }
     return speciality;
-  }
-
-  /**
-   * Recupére le type de l'eForm a renvoyer pour la création vie eForms
-   * @param speciality Spécialité du PNC
-   * @return retourne la spécialitè typée pour eforms
-   */
-  getReportTypeForEForms(speciality: string) {
-    return EFormsTypeEnum.getType(EFormsTypeEnum[speciality]);
   }
 }
