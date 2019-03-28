@@ -49,7 +49,7 @@ export class FormsEObservationService {
    * Appel de l'application Forms avec les bons paramètres
    * @param formsInputParams Paramétres du formulaire à envoyer
    */
-  callForms(formsInputParams: FormsInputParamsModel, chosenEFormsType: String) {
+  callForms(formsInputParams: FormsInputParamsModel, chosenEFormsType: string) {
     const param = {
       eformsAppId: `${this.config.eformsUrl}`,
       method: '0',
