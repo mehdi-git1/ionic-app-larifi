@@ -9,7 +9,7 @@
             <span class="referent-instructor">
                 <span *ngIf="!pnc.manager">
                     <span>{{ 'PNC_IDENTITY.REFERENT_INSTRUCTOR' | translate }} : </span>
-                    <span [ngClass]="{'no-value' : !pnc.pncInstructor}">{{pnc.pncInstructor?.lastName}}</span> <span class="firstname">{{pnc.pncInstructor?.firstName}}</span>
+                    <span [ngClass]="{'no-value' : !pnc.pncInstructor}">{{pnc?.pncInstructor?.lastName}}</span> <span class="firstname">{{pnc?.pncInstructor?.firstName}}</span>
                 </span>
             </span>
         </div>

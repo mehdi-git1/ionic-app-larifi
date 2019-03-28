@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { EobservationItemsByTheme } from '../../../../core/models/eobservation/eobservation-items-by-theme.model';
+import { EObservationItemsByTheme } from '../../../../core/models/eobservation/eobservation-items-by-theme.model';
 import { EObservationLevelEnum } from '../../../../core/enums/e-observations-level.enum';
 import { EobsItemDescriptionComponent } from '../eobs-item-description/eobs-item-description.component';
 import { PopoverController } from 'ionic-angular';
@@ -11,7 +11,7 @@ import { EObservationItemModel } from '../../../../core/models/eobservation/eobs
 })
 export class EObsThemeComponent {
 
-  @Input() theme: EobservationItemsByTheme;
+  @Input() theme: EObservationItemsByTheme;
 
   constructor(public popoverCtrl: PopoverController) {
   }
@@ -30,8 +30,17 @@ export class EObsThemeComponent {
    *
    * @return true si il n'y a pas d'items dans ce thème, sinon false
    */
-  isEmptyGrid (): boolean {
-    return this.theme.eObservationItems === null || this.theme.eObservationItems.length === 0;
+  hasItemAndSubThemes(): boolean {
+    return (this.theme.eObservationItems === null || this.theme.eObservationItems.length === 0)
+        && !this.hasSubThemes();
+  }
+
+  /**
+   * Vérifie qu'il y a des subThemes
+   * @return true si il n'y a pas de subThemes dans ce thème, sinon false
+   */
+  hasSubThemes (): boolean {
+    return !(this.theme.subThemes === null || this.theme.subThemes.length === 0);
   }
 
   /**

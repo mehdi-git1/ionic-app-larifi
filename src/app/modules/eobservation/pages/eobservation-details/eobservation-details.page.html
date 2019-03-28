@@ -1,7 +1,7 @@
 <ion-header>
     <ion-navbar>
         <page-header [showSettingsIcon]="true" [pnc]="eObservation?.pnc">
-            <span> {{ 'EOBSERVATION.DETAILS.TITLE' | translate }} {{getTypeLabel()}} {{getDetailOptionType()}}</span>
+            <span> {{ 'EOBSERVATION.DETAIL.TITLE' | translate }} {{getTypeLabel()}} {{getDetailOptionType()}}</span>
         </page-header>
     </ion-navbar>
 </ion-header>
@@ -10,13 +10,13 @@
     <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
     <ng-template #pageBlock>
 
-        <pnc-card-page-header *ngIf="eObservation?.pnc" [itemMember]="eObservation?.pnc"></pnc-card-page-header>
+        <pnc-card-page-header *ngIf="pnc" [itemMember]="pnc"></pnc-card-page-header>
 
         <div class="speciality-grid">
             <ion-grid>
                 <ion-row class="speciality-header">
-                    <ion-col class="speciality" col-2>{{ 'EOBSERVATION.DETAILS.SPECIALITY' | translate }}</ion-col>
-                    <ion-col col-10>{{ 'EOBSERVATION.DETAILS.EOBS_PNC_ASSIGNMENT' | translate }}</ion-col>
+                    <ion-col class="speciality" col-2>{{ 'EOBSERVATION.DETAIL.SPECIALITY' | translate }}</ion-col>
+                    <ion-col col-10>{{ 'EOBSERVATION.DETAIL.EOBS_PNC_ASSIGNMENT' | translate }}</ion-col>
                 </ion-row>
                 <ion-row class="speciality-label">
                     <ion-col col-2>{{eObservation?.pncSpeciality}}</ion-col>
@@ -35,6 +35,13 @@
 
         <eobs-rotation-info [eObservation]="eObservation" [editMode]="editMode"></eobs-rotation-info>
 
+        <span *ngIf="!isPcbEObs(); else appreciationPcb">
+            <eobs-theme *ngFor="let eObservationTheme of itemsSortedByTheme" [theme]="eObservationTheme"></eobs-theme>
+        </span>
+        <ng-template #appreciationPcb>
+            <eobs-appreciation *ngFor="let eObservationTheme of itemsSortedByTheme" [theme]="eObservationTheme"></eobs-appreciation>
+        </ng-template>
+
         <eobs-theme *ngFor="let eObservationTheme of itemsSortedByTheme" [theme]="eObservationTheme"></eobs-theme>
 
         <eobs-comment [type]="PncRoleEnum.MANAGER" [eObservation]="eObservation" [editMode]="editMode"></eobs-comment>
@@ -43,7 +50,7 @@
 
         <eobs-state [eObservation]="eObservation" [editMode]="editMode"></eobs-state>
 
-        <div class="information-message" *ngIf="eObservation.lastUpdateAuthor">{{ 'EOBSERVATION.DETAILS.EDITED_BY' | translate:{lastName:eObservation.lastUpdateAuthor.lastName, firstName:eObservation.lastUpdateAuthor.firstName} }}{{ eObservation.lastUpdateDate | date : 'dd/MM/yyyy HH:mm' }}</div>
+        <div class="information-message" *ngIf="eObservation.lastUpdateAuthor">{{ 'EOBSERVATION.DETAIL.EDITED_BY' | translate:{lastName:eObservation.lastUpdateAuthor.lastName, firstName:eObservation.lastUpdateAuthor.firstName} }}{{ eObservation.lastUpdateDate | date : 'dd/MM/yyyy HH:mm' }}</div>
 
         <div class="button-bar button-bar-right margin-top-10 margin-bottom-10" *hasPermission="'EOBS_FULL_EDITION'">
             <ng-container *ngIf="!editMode; else editModeButtonsBlock">
@@ -63,6 +70,5 @@
                 </button>
             </ng-template>
         </div>
-
     </ng-template>
 </ion-content>

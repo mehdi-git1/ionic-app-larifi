@@ -5,7 +5,7 @@
             <div class="redactor-comment-container">
                 <!-- Points forts -->
                 <div *ngIf="editMode || eObservation?.strongPoints" class="comment">
-                    <label><span class="edospnc-speechBubble"></span>{{ 'EOBSERVATION.DETAILS.STRONG_POINTS' | translate }}</label>
+                    <label><span class="edospnc-speechBubble"></span>{{ 'EOBSERVATION.DETAIL.STRONG_POINTS' | translate }}</label>
                     <p *ngIf="!editMode; else editStrongPointsBlock">
                         {{eObservation.strongPoints}}
                     </p>
@@ -15,7 +15,7 @@
                 </div>
                 <!-- Axes de travail -->
                 <div *ngIf="editMode || eObservation?.workingAxes" class="comment">
-                    <label><span class="edospnc-speechBubble"></span>{{ 'EOBSERVATION.DETAILS.WORKING_AXES' | translate }}</label>
+                    <label><span class="edospnc-speechBubble"></span>{{ 'EOBSERVATION.DETAIL.WORKING_AXES' | translate }}</label>
                     <p *ngIf="!editMode; else editWorkingAxesBlock">
                         {{eObservation.workingAxes}}
                     </p>
@@ -25,7 +25,7 @@
                 </div>
                 <!-- Commentaire rédacteur -->
                 <div *ngIf="editMode || eObservation.redactorComment" class="comment">
-                    <label><span class="edospnc-speechBubble"></span>{{ 'EOBSERVATION.DETAILS.COMMENT' | translate }}</label>
+                    <label><span class="edospnc-speechBubble"></span>{{ 'EOBSERVATION.DETAIL.COMMENT' | translate }}</label>
                     <p *ngIf="!editMode; else editRedactorCommentBlock">
                         {{eObservation.redactorComment}}
                     </p>
@@ -38,7 +38,7 @@
         <!-- PNC -->
         <ng-template #pncCommentBlock>
             <div class="pnc-comment-container comment">
-                <label><span class="edospnc-speechBubble"></span>{{ 'EOBSERVATION.DETAILS.COMMENT' | translate }}</label>
+                <label><span class="edospnc-speechBubble"></span>{{ 'EOBSERVATION.DETAIL.COMMENT' | translate }}</label>
                 <p *ngIf="!canEditPncComment && !editMode; else editPncCommentBlock">
                     {{eObservation.pncComment}}
                 </p>

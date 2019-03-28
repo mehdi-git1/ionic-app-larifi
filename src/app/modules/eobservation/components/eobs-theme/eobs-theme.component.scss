@@ -4,6 +4,17 @@ eobs-theme{
     $popover-ios-width: 320px;
     $popover-wp-width: 320px;
 
+    .sub-theme-label {
+        width: 100%;
+        padding-left: 24px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        font-weight: bold;
+        color: color($colors, blue55);
+        border-top: solid color($colors, grey75) 1px;
+        border-bottom: solid color($colors, grey75) 1px;
+    }
+
     ion-row:nth-child(even) {
         background: color($colors, grey90);
     }
@@ -27,6 +38,42 @@ eobs-theme{
         color-number-dot {
             padding-top: 2px;
         }
+    }
+
+    .comment {
+        padding-left: 24px;
+        padding-right: 20px;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        border-top: double color($colors, grey75) 1px;
+
+        .commentTitle {
+            width: 100%;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            color: color($colors, blue55);
+
+        }
+
+        .edospnc-speechBubble {
+            color: color($colors, blue81);
+            padding-right: 10px;
+        }
+
+        label {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            color: color($colors, grey12);
+        }
+
+        p {
+            padding: 10px;
+            border-radius: 3px;
+            background: color($colors, grey95);
+            border: 1px solid color($colors, grey70);
+        }
+
     }
 }
 

@@ -4,7 +4,7 @@ import { SharedModule } from '../../shared/shared.module';
 import { ComponentsModule } from '../../shared/components/components.module';
 import { EObservationComponent } from './components/e-observation/e-observation.component';
 import { EObservationsComponent } from './components/e-observations/e-observations.component';
-import { IonicModule, IonicPageModule } from 'ionic-angular';
+import { IonicPageModule } from 'ionic-angular';
 import { EobservationDetailsPage } from './pages/eobservation-details/eobservation-details.page';
 import { ColorNumberDotComponent } from './components/color-number-dot/color-number-dot.component';
 import { QuestionSymbolComponent } from './components/question-symbol/question-symbol.component';
@@ -17,6 +17,7 @@ import { EObsBilanFlightComponent } from './components/eobs-bilan-flight/eobs-bi
 import { EObsTemporaryPeriodComponent } from './components/eobs-temporary-period/eobs-temporary-period.component';
 import { EObsRotationInfoComponent } from './components/eobs-rotation-info/eobs-rotation-info.component';
 import { EObsStateComponent } from './components/eobs-state/eobs-state.component';
+import { EObsAppreciationComponent } from './components/eobs-appreciation/eobs-appreciation.component';
 
 
 @NgModule({
@@ -33,6 +34,7 @@ import { EObsStateComponent } from './components/eobs-state/eobs-state.component
     EObsCommentComponent,
     EObsStateComponent,
     EObsThemeComponent,
+    EObsAppreciationComponent,
     EobsItemDescriptionComponent,
     EobservationDetailsPage,
     EObservationsArchivesPage
@@ -61,6 +63,7 @@ import { EObsStateComponent } from './components/eobs-state/eobs-state.component
     EObsCommentComponent,
     EObsStateComponent,
     EObsThemeComponent,
+    EObsAppreciationComponent,
     EobsItemDescriptionComponent,
     EobservationDetailsPage,
     EObservationsArchivesPage

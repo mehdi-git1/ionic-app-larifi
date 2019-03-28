@@ -1,7 +1,7 @@
-<edospnc-expandable-block mini="true" *ngIf="eObservation?.type === 'E_ALT'" title=" {{ 'EOBSERVATION.DETAILS.BILAN_FLIGHT' | translate }}">
+<edospnc-expandable-block mini="true" *ngIf="eObservation?.type === 'E_ALT'" title=" {{ 'EOBSERVATION.DETAIL.BILAN_FLIGHT' | translate }}">
     <span class="bilan">
         <ng-container *ngIf="!editMode; else vacEditBlock">
-            <radio-and-label disabled="true" conditionValue="{{eObservation?.vac}}" label="{{ 'EOBSERVATION.DETAILS.EVAL' | translate }}"></radio-and-label>
+            <radio-and-label disabled="true" conditionValue="{{eObservation?.vac}}" label="{{ 'EOBSERVATION.DETAIL.EVAL' | translate }}"></radio-and-label>
         </ng-container>
         <ng-template #vacEditBlock>
             <ion-item>

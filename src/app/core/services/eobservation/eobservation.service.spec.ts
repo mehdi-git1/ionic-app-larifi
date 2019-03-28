@@ -34,28 +34,28 @@ describe('EObservationComponent', () => {
             eObservation.type = EObservationTypeEnum.E_CC;
             eObservation.val = true;
             eObservationService.getDetailOptionType(eObservation);
-            expect(translateServiceMock.instant).toHaveBeenCalledWith('EOBSERVATION.DETAILS.VAL_TITLE_OPTION');
+            expect(translateServiceMock.instant).toHaveBeenCalledWith('EOBSERVATION.DETAIL.VAL_TITLE_OPTION');
         });
         it(`Le détail doit être ' - FOR' si l'eobs est de type ECC et que c'est un vol de formation`, () => {
             const eObservation = new EObservationModel();
             eObservation.type = EObservationTypeEnum.E_CC;
             eObservation.formationFlight = true;
             eObservationService.getDetailOptionType(eObservation);
-            expect(translateServiceMock.instant).toHaveBeenCalledWith('EOBSERVATION.DETAILS.FORMATION_FLIGHT_TITLE_OPTION');
+            expect(translateServiceMock.instant).toHaveBeenCalledWith('EOBSERVATION.DETAIL.FORMATION_FLIGHT_TITLE_OPTION');
         });
         it(`Le détail doit être ' - VAL' si l'eobs est de type ECCP et que val = true`, () => {
             const eObservation = new EObservationModel();
             eObservation.type = EObservationTypeEnum.E_CCP;
             eObservation.val = true;
             eObservationService.getDetailOptionType(eObservation);
-            expect(translateServiceMock.instant).toHaveBeenCalledWith('EOBSERVATION.DETAILS.VAL_TITLE_OPTION');
+            expect(translateServiceMock.instant).toHaveBeenCalledWith('EOBSERVATION.DETAIL.VAL_TITLE_OPTION');
         });
         it(`Le détail doit être ' - FOR' si l'eobs est de type ECCP et que c'est un vol de formation`, () => {
             const eObservation = new EObservationModel();
             eObservation.type = EObservationTypeEnum.E_CCP;
             eObservation.formationFlight = true;
             eObservationService.getDetailOptionType(eObservation);
-            expect(translateServiceMock.instant).toHaveBeenCalledWith('EOBSERVATION.DETAILS.FORMATION_FLIGHT_TITLE_OPTION');
+            expect(translateServiceMock.instant).toHaveBeenCalledWith('EOBSERVATION.DETAIL.FORMATION_FLIGHT_TITLE_OPTION');
         });
     });
 });
