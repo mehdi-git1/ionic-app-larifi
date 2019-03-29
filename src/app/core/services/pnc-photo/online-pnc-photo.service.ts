@@ -59,32 +59,30 @@ export class OnlinePncPhotoService {
   * @param matricules les PNC concernés
   */
   synchronizePncsPhotos(matricules: string[]): Promise<any> {
-    return new Promise(resolve => {
-      this.offlinePncPhotoProvider.getPncsPhotos(matricules).then(pncsPhotos => {
-        const expiredPhotoMatricules: Array<string> = new Array();
-        pncsPhotos.forEach(pncPhoto => {
-          if (!pncPhoto || this.photoIsExpired(pncPhoto)) {
-            expiredPhotoMatricules.push(pncPhoto.matricule);
-          }
-        });
-        if (expiredPhotoMatricules.length > 0) {
-          const matriculesObject = new MatriculesModel(expiredPhotoMatricules);
-          matriculesObject.matricules = expiredPhotoMatricules;
-          this.restService.get(this.config.getBackEndUrl('pncPhotos'), matriculesObject).then(onlinePncsPhotos => {
-            onlinePncsPhotos.forEach(onlinePncPhoto => {
-              onlinePncPhoto = this.pncPhotoTransformer.toPncPhoto(onlinePncPhoto);
-              this.storageService.save(EntityEnum.PNC_PHOTO, onlinePncPhoto);
-            });
-            this.storageService.persistOfflineMap();
-          }, error => { }).then(() => {
-            this.events.publish('PncPhoto:updated', matricules);
-          });
-        } else {
-          this.events.publish('PncPhoto:updated', matricules);
+    this.offlinePncPhotoProvider.getPncsPhotos(matricules).then(pncsPhotos => {
+      const expiredPhotoMatricules: Array<string> = new Array();
+      pncsPhotos.forEach(pncPhoto => {
+        if (!pncPhoto || this.photoIsExpired(pncPhoto)) {
+          expiredPhotoMatricules.push(pncPhoto.matricule);
         }
       });
-      resolve();
+      if (expiredPhotoMatricules.length > 0) {
+        const matriculesObject = new MatriculesModel(expiredPhotoMatricules);
+        matriculesObject.matricules = expiredPhotoMatricules;
+        this.restService.get(this.config.getBackEndUrl('pncPhotos'), matriculesObject).then(onlinePncsPhotos => {
+          onlinePncsPhotos.forEach(onlinePncPhoto => {
+            onlinePncPhoto = this.pncPhotoTransformer.toPncPhoto(onlinePncPhoto);
+            this.storageService.save(EntityEnum.PNC_PHOTO, onlinePncPhoto);
+          });
+          this.storageService.persistOfflineMap();
+        }, error => { }).then(() => {
+          this.events.publish('PncPhoto:updated', matricules);
+        });
+      } else {
+        this.events.publish('PncPhoto:updated', matricules);
+      }
     });
+    return Promise.resolve();
   }
 
   /**

@@ -35,7 +35,7 @@ export class PncPhotoService extends BaseService {
    * Stocke en cache les photos reçues et émet une événement pour déclencher la mise à jour des IHM
    * @param matricules les PNC concernés
    */
-  synchronizePncsPhotos(matricules: string[]): void {
+  synchronizePncsPhotos(matricules: string[]) {
     this.execFunctionService('synchronizePncsPhotos', matricules);
   }
 

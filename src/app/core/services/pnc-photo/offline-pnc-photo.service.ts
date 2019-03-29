@@ -16,7 +16,7 @@ export class OfflinePncPhotoService {
   /**
   * Retourne la photo d'un PNC
   * @param matricule le PNC concerné
-  * @return la photo du PNC
+  * @return une promesse contenant la photo du PNC
   */
   getPncPhoto(matricule: string): Promise<PncPhotoModel> {
     return this.storageService.findOneAsync(EntityEnum.PNC_PHOTO, matricule);
@@ -26,34 +26,31 @@ export class OfflinePncPhotoService {
   /**
   * Retourne les photos d'une liste de PNC
   * @param matricules les PNC concernés
-  * @return les photos des PNC
+  * @return une promesse contenant les photos des PNC
   */
   getPncsPhotos(matricules: string[]): Promise<PncPhotoModel[]> {
     const pncsPhotos: PncPhotoModel[] = new Array();
-    return new Promise(resolve => {
-      matricules.forEach(matricule => {
-        let pncPhoto = this.storageService.findOne(EntityEnum.PNC_PHOTO, matricule);
-        if (!pncPhoto) {
-          pncPhoto = new PncPhotoModel();
-          pncPhoto.matricule = matricule;
-          pncPhoto.offlineStorageDate = null;
-        }
-        pncsPhotos.push(pncPhoto);
-      });
-      resolve(pncsPhotos);
+    matricules.forEach(matricule => {
+      let pncPhoto = this.storageService.findOne(EntityEnum.PNC_PHOTO, matricule);
+      if (!pncPhoto) {
+        pncPhoto = new PncPhotoModel();
+        pncPhoto.matricule = matricule;
+        pncPhoto.offlineStorageDate = null;
+      }
+      pncsPhotos.push(pncPhoto);
     });
+    return Promise.resolve(pncsPhotos);
   }
 
   /**
    * Met à jour les photos d'une série de PNC, si ces dernières sont dépassées.
    * En offline, on émet simplement l'événement afin de déclencher une récupération des photos en cache
    * @param matricules les PNC concernés
+   * @return une promesse (uniquement car le service appelant nécessite d'en retourner une)
    */
   synchronizePncsPhotos(matricules: string[]): Promise<any> {
-    return new Promise(resolve => {
-      this.events.publish('PncPhoto:updated', matricules);
-      resolve();
-    });
+    this.events.publish('PncPhoto:updated', matricules);
+    return Promise.resolve();
   }
 
 }

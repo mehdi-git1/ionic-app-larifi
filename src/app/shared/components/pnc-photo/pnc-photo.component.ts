@@ -76,7 +76,7 @@ export class PncPhotoComponent implements OnInit, OnChanges {
    * Traite une photo pour l'utiliser dans le composant
    * @param pncPhoto la photo à traiter
    */
-  private processPncPhoto(pncPhoto: PncPhotoModel): void {
+  private processPncPhoto(pncPhoto: PncPhotoModel) {
     if (pncPhoto && pncPhoto.photo) {
       this.photoSrc = this.domSanitizer.bypassSecurityTrustResourceUrl(`data:image/png;base64,${pncPhoto.photo}`);
     }
