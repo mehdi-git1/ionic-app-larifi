@@ -334,11 +334,16 @@ export class EobservationDetailsPage {
   cancelEditMode() {
     this.editMode = false;
     this.eObservation = _.cloneDeep(this.originEObservation);
+    this.itemsSortedByTheme = this.sortEObservationItemsByTheme();
   }
 
-  updateEObservationComment(newComment: any) {
+  /**
+   * Mise à jour des commentaires des eObs.
+   * @param newCommentEvent événement contenant l'id et le nouveau commentaire
+   */
+  updateEObservationComment(newCommentEvent: any) {
     this.eObservation.eobservationComments.find(eobservationComment => {
-      return eobservationComment.techId === newComment.techId;
-    }).comment = newComment.comment;
+      return eobservationComment.techId === newCommentEvent.techId;
+    }).comment = newCommentEvent.comment;
   }
 }

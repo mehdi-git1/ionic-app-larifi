@@ -20,7 +20,7 @@
                 {{theme.eObservationComment.comment}}
             </p>
             <ng-template #editThemeCommentBlock>
-                <ion-textarea [(ngModel)]="theme.eObservationComment.comment" (ngModelChange)="updateComment()" autocorrect="on"></ion-textarea>
+                <ion-textarea [(ngModel)]="theme.eObservationComment.comment" (change)="updateComment()" autocorrect="on"></ion-textarea>
             </ng-template>
         </div>
     </span>
