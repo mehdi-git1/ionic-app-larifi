@@ -380,12 +380,12 @@ export class EobservationDetailsPage {
   }
 
   /**
-   * Vérifie si le type de l'eObs
-   * @param eObservationTypeEnum type d'eObs à vérifier
+   * Vérifie si le type de l'eObs est celui passé en paramètre
+   * @param eObservationType type d'eObs à vérifier
    * @return true si l'eObs est du type du paramètre, false sinon
    */
-  checkEObsType(eObservationTypeEnum: EObservationTypeEnum): boolean {
-    return this.eObservation && eObservationTypeEnum === this.eObservation.type;
+  checkEObsType(eObservationType: EObservationTypeEnum): boolean {
+    return this.eObservation && eObservationType === this.eObservation.type;
   }
 
   /**
