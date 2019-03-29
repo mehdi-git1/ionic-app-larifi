@@ -48,7 +48,7 @@
 
         <eobs-state [eObservation]="eObservation" [editMode]="editMode"></eobs-state>
 
-        <div class="information-message" *ngIf="eObservation.lastUpdateAuthor">{{ 'EOBSERVATION.DETAIL.EDITED_BY' | translate:{lastName:eObservation.lastUpdateAuthor.lastName, firstName:eObservation.lastUpdateAuthor.firstName} }}{{ eObservation.lastUpdateDate | date : 'dd/MM/yyyy HH:mm' }}</div>
+        <div class="information-message" *ngIf="eObservation.lastUpdateAuthor">{{ 'EOBSERVATION.DETAIL.EDITED_BY' | translate:{lastName:eObservation.lastUpdateAuthor.lastName, firstName:eObservation.lastUpdateAuthor.firstName, date:getLastUpdateDate()} }}</div>
 
         <div class="button-bar button-bar-right margin-top-10 margin-bottom-10" *hasPermission="'EOBS_FULL_EDITION'">
             <ng-container *ngIf="!editMode; else editModeButtonsBlock">

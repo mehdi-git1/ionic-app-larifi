@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { NavController, NavParams, AlertController, LoadingController, Loading } from 'ionic-angular';
 import { EObservationModel } from '../../../../core/models/eobservation/eobservation.model';
@@ -18,6 +19,7 @@ import { AuthorizationService } from '../../../../core/services/authorization/au
 import { EObservationItemModel } from '../../../../core/models/eobservation/eobservation-item.model';
 import { ReferentialThemeModel } from '../../../../core/models/eobservation/referential-theme.model';
 import { PncService } from '../../../../core/services/pnc/pnc.service';
+import { AppConstant } from '../../../../app.constant';
 
 @Component({
   selector: 'page-eobservation-details',
@@ -45,8 +47,8 @@ export class EobservationDetailsPage {
     private toastService: ToastService,
     private alertCtrl: AlertController,
     private loadingCtrl: LoadingController,
-    private authorizationService: AuthorizationService,
-    private pncService: PncService) {
+    private pncService: PncService,
+    private datePipe: DatePipe) {
     if (this.navParams.get('eObservation')) {
       this.eObservation = this.navParams.get('eObservation');
       this.originEObservation = _.cloneDeep(this.eObservation);
@@ -306,15 +308,6 @@ export class EobservationDetailsPage {
   }
 
   /**
-   * Teste s'il est possible d'éditer l'eObs
-   * @return true si c'est le cas, faux sinon
-   */
-  canEditEObs(): boolean {
-    return this.authorizationService.hasPermission('EOBS_FULL_EDITION');
-  }
-
-  /**
-   * Sort du mode "édition"
    * Vérifie si l'eObs est de type ePcb
    * @return true si l'eObs est de type ePcb, false sinon
    */
@@ -339,8 +332,7 @@ export class EobservationDetailsPage {
   }
 
   /**
-   * Teste si un utilisateur est admin métier des eObservations
-   * @return vrai si l'utilisateur est admin métier des EObservations, faux sinon
+   * Sort du mode "édition"
    */
   cancelEditMode() {
     this.editMode = false;
@@ -356,5 +348,13 @@ export class EobservationDetailsPage {
     this.eObservation.eobservationComments.find(eobservationComment => {
       return eobservationComment.techId === newCommentEvent.techId;
     }).comment = newCommentEvent.comment;
+  }
+
+  /**
+   * Retourne la date de dernière modification, formatée pour l'affichage
+   * @return la date de dernière modification au format dd/mm/
+   */
+  getLastUpdateDate(): string {
+    return this.datePipe.transform(this.eObservation.lastUpdateDate, 'dd/MM/yyyy HH:mm');
   }
 }
