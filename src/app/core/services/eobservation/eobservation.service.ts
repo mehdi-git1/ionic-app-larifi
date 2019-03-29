@@ -80,6 +80,8 @@ export class EObservationService extends BaseService {
     updateEObservation(eObservation: EObservationModel): Promise<EObservationModel> {
         eObservation.lastUpdateAuthor = new PncModel();
         eObservation.lastUpdateAuthor.matricule = this.sessionService.getActiveUser().matricule;
+        eObservation.lastUpdateAuthor.lastName = this.sessionService.getActiveUser().lastName;
+        eObservation.lastUpdateAuthor.firstName = this.sessionService.getActiveUser().firstName;
         eObservation.lastUpdateDate = new Date();
         return this.execFunctionService('updateEObservation', eObservation);
     }
