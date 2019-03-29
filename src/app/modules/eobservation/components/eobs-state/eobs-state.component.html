@@ -1,0 +1,24 @@
+<div class="state-block">
+    <span>
+        {{ 'EOBSERVATION.DETAIL.STATE.LABEL' | translate }}
+        <ng-container *ngIf="!editMode; else statusEditBlock">
+            <color-status-point [colorClass]="getColorStatusPoint()"></color-status-point>
+            <span class="state-value">{{ 'EOBSERVATION.DETAIL.STATE.' + eObservation?.state | translateOrEmpty }}</span>
+        </ng-container>
+        <ng-template #statusEditBlock>
+            <ul class="state-radio-button-list">
+                <li>
+                    <input type="radio" id="eObservationStateTakenIntoAccount" name="eObservationState" value="TAKEN_INTO_ACCOUNT" [(ngModel)]="eObservation.state">
+                    <label for="eObservationStateTakenIntoAccount">{{ 'EOBSERVATION.DETAIL.STATE.TAKEN_INTO_ACCOUNT' | translate }}</label>
+                </li>
+                <li>
+                    <input type="radio" id="eObservationStateNotTakenIntoAccount" name="eObservationState" value="NOT_TAKEN_INTO_ACCOUNT" [(ngModel)]="eObservation.state">
+                    <label for="eObservationStateNotTakenIntoAccount">{{ 'EOBSERVATION.DETAIL.STATE.NOT_TAKEN_INTO_ACCOUNT' | translate }}</label>
+                </li>
+            </ul>
+        </ng-template>
+    </span>
+    <span>{{ 'EOBSERVATION.DETAIL.UPDATE_DATE' | translate }}
+        <span *ngIf="eObservation?.redactionDate">{{eObservation?.redactionDate | date: 'dd/MM/yyyy' : 'UTC'}}</span>
+    </span>
+</div>

@@ -1,5 +1,3 @@
-import { AppConstant } from './../../../../app.constant';
-import { SecurityService } from './../../../../core/services/security/security.service';
 import { Component } from '@angular/core';
 import { NavController, NavParams, AlertController, LoadingController, Loading } from 'ionic-angular';
 import { EObservationModel } from '../../../../core/models/eobservation/eobservation.model';
@@ -8,9 +6,7 @@ import { EObservationItemsByTheme } from '../../../../core/models/eobservation/e
 import { EObservationLevelEnum } from '../../../../core/enums/e-observations-level.enum';
 import { ReferentialItemLevelModel } from '../../../../core/models/eobservation/referential-item-level.model';
 import { EObservationTypeEnum } from '../../../../core/enums/e-observations-type.enum';
-import { EObservationFlightModel } from '../../../../core/models/eobservation/eobservation-flight.model';
 import { EObservationService } from '../../../../core/services/eobservation/eobservation.service';
-import { EObservationStateEnum } from '../../../../core/enums/e-observation-state.enum';
 import { CrewMemberModel } from '../../../../core/models/crew-member.model';
 import { SessionService } from '../../../../core/services/session/session.service';
 import { PncRoleEnum } from '../../../../core/enums/pnc-role.enum';
@@ -18,6 +14,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { ToastService } from '../../../../core/services/toast/toast.service';
 import * as _ from 'lodash';
 import { Utils } from '../../../../shared/utils/utils';
+import { AuthorizationService } from '../../../../core/services/authorization/authorization.service';
 import { EObservationItemModel } from '../../../../core/models/eobservation/eobservation-item.model';
 import { ReferentialThemeModel } from '../../../../core/models/eobservation/referential-theme.model';
 import { PncService } from '../../../../core/services/pnc/pnc.service';
@@ -36,6 +33,8 @@ export class EobservationDetailsPage {
 
   itemsSortedByTheme: EObservationItemsByTheme[];
 
+  editMode = false;
+
   loading: Loading;
 
   constructor(public navCtrl: NavController,
@@ -46,7 +45,7 @@ export class EobservationDetailsPage {
     private toastService: ToastService,
     private alertCtrl: AlertController,
     private loadingCtrl: LoadingController,
-    private securityService: SecurityService,
+    private authorizationService: AuthorizationService,
     private pncService: PncService) {
     if (this.navParams.get('eObservation')) {
       this.eObservation = this.navParams.get('eObservation');
@@ -134,9 +133,9 @@ export class EobservationDetailsPage {
    * @return tableau de EObservationItemsByTheme
    */
   manageThemeInMap(eObservationItem: EObservationItemModel,
-      eObservationTheme: ReferentialThemeModel,
-      itemsByTheme: Array<EObservationItemsByTheme>,
-      parentThemeToDisplay: EObservationItemsByTheme): Array<EObservationItemsByTheme> {
+    eObservationTheme: ReferentialThemeModel,
+    itemsByTheme: Array<EObservationItemsByTheme>,
+    parentThemeToDisplay: EObservationItemsByTheme): Array<EObservationItemsByTheme> {
     const parentTheme = eObservationTheme.parent;
     if (parentTheme) {
       if (!parentThemeToDisplay) {
@@ -179,7 +178,7 @@ export class EobservationDetailsPage {
         const eObservationTheme = (eObservationComment && eObservationComment.refComment) ? eObservationComment.refComment.theme : null;
         if (eObservationTheme) {
           let themeToDisplay = itemsByTheme.find(element => eObservationTheme.id === element.referentialTheme.id);
-          themeToDisplay.themeComment = eObservationComment.comment;
+          themeToDisplay.eObservationComment = eObservationComment;
         }
       }
     }
@@ -211,31 +210,6 @@ export class EobservationDetailsPage {
   }
 
   /**
-   * Vérifie qu'il y a des vols
-   *
-   * @return true si il n'y a pas de vols dans cette eobs, sinon false
-   */
-  hasFlights(): boolean {
-    if (!this.eObservation || !this.eObservation.eobservationFlights || this.eObservation.eobservationFlights.length === 0) {
-      return false;
-    }
-    return true;
-  }
-
-  /**
-   * Définit la couleur en fonction du statut
-   *
-   * @return 'green' si 'TAKEN_INTO_ACCOUNT' ou 'red' si 'NOT_TAKEN_INTO_ACCOUNT'
-   */
-  getColorStatusPoint(): string {
-    if (this.originEObservation && this.originEObservation.state === EObservationStateEnum.TAKEN_INTO_ACCOUNT) {
-      return 'green';
-    } else if (this.originEObservation && this.originEObservation.state === EObservationStateEnum.NOT_TAKEN_INTO_ACCOUNT) {
-      return 'red';
-    }
-  }
-
-  /**
    * Récupère le label du type de l'eObs
    * @return le label à afficher
    */
@@ -255,29 +229,9 @@ export class EobservationDetailsPage {
   }
 
   /**
-   * Définit si la periode temporaire est affichable
-   * @return true si 'ECC' ou 'ECCP' et si l'une des valeurs "vol de formation" ou "val" est true
-   */
-  hasTemporaryPeriodToBeDisplayed(): boolean {
-    return this.eObservation
-      && (this.eObservation.type === EObservationTypeEnum.E_CC || this.eObservation.type === EObservationTypeEnum.E_CCP)
-      && (this.eObservation.formationFlight || this.eObservation.val);
-  }
-
-  /**
-   * Trie les vols de l'eobs
-   */
-  sortedFlights(): EObservationFlightModel[] {
-    if (this.eObservation && this.eObservation.eobservationFlights) {
-      return this.eObservation.eobservationFlights.sort((a, b) => a.flightOrder > b.flightOrder ? 1 : -1);
-    }
-    return new Array();
-  }
-
-  /**
-   * Teste si le commentaire PNC peut être modifié
-   * @return vrai si le commentaire peut être modifié, faux sinon
-   */
+  * Teste si le commentaire PNC peut être modifié
+  * @return vrai si le commentaire peut être modifié, faux sinon
+  */
   canEditPncComment(): boolean {
     return this.sessionService.getActiveUser().matricule === this.eObservation.pnc.matricule
       && (this.originEObservation.pncComment === '' || typeof (this.originEObservation.pncComment) === 'undefined')
@@ -288,7 +242,7 @@ export class EobservationDetailsPage {
   /**
    * Demande la confirmation de la validation du commentaire du pnc
    */
-  confirmValidatePncComment(): void {
+  confirmValidatePncComment() {
     this.alertCtrl.create({
       title: this.translateService.instant('EOBSERVATION.CONFIRM_VALIDATE_PNC_COMMENT.TITLE'),
       message: this.translateService.instant('EOBSERVATION.CONFIRM_VALIDATE_PNC_COMMENT.MESSAGE'),
@@ -308,7 +262,7 @@ export class EobservationDetailsPage {
   /**
    * Valide le commentaire pnc de l'eObservation
    */
-  validatePncComment(): void {
+  validatePncComment() {
     this.loading = this.loadingCtrl.create();
     this.loading.present();
     // On transmet un objet cloné pour éviter toute modif de l'objet par le service
@@ -325,37 +279,17 @@ export class EobservationDetailsPage {
   }
 
   /**
-   * Demande la confirmation de la validation de l'eobservation
+   * Met à jour l'eObservation
    */
-  confirmValidateEObservation(): void {
-    this.alertCtrl.create({
-      title: this.translateService.instant('EOBSERVATION.CONFIRM_VALIDATE.TITLE'),
-      message: this.translateService.instant('EOBSERVATION.CONFIRM_VALIDATE.MESSAGE'),
-      buttons: [
-        {
-          text: this.translateService.instant('EOBSERVATION.CONFIRM_VALIDATE.CANCEL'),
-          role: 'cancel'
-        },
-        {
-          text: this.translateService.instant('EOBSERVATION.CONFIRM_VALIDATE.CONFIRM'),
-          handler: () => this.validateEObservation()
-        }
-      ]
-    }).present();
-  }
-
-  /**
-   * Valide l'eObservation
-   */
-  validateEObservation(): void {
+  updateEObservation() {
     this.loading = this.loadingCtrl.create();
     this.loading.present();
     // On transmet un objet cloné pour éviter toute modif de l'objet par le service
     const eObservationClone = _.cloneDeep(this.eObservation);
-    this.eObservationService.validateEObservation(eObservationClone).then(eObservation => {
+    this.eObservationService.updateEObservation(eObservationClone).then(eObservation => {
       this.eObservation = eObservation;
       this.originEObservation = _.cloneDeep(this.eObservation);
-      this.toastService.success(this.translateService.instant('EOBSERVATION.MESSAGES.SUCCESS.VALIDATED'));
+      this.toastService.success(this.translateService.instant('EOBSERVATION.MESSAGES.SUCCESS.UPDATED'));
       this.navCtrl.pop();
     }, error => { }).then(() => {
       // Finally
@@ -372,6 +306,15 @@ export class EobservationDetailsPage {
   }
 
   /**
+   * Teste s'il est possible d'éditer l'eObs
+   * @return true si c'est le cas, faux sinon
+   */
+  canEditEObs(): boolean {
+    return this.authorizationService.hasPermission('EOBS_FULL_EDITION');
+  }
+
+  /**
+   * Sort du mode "édition"
    * Vérifie si l'eObs est de type ePcb
    * @return true si l'eObs est de type ePcb, false sinon
    */
@@ -389,10 +332,29 @@ export class EobservationDetailsPage {
   }
 
   /**
+   * Enclenche mode "édition" 
+   */
+  enterEditMode() {
+    this.editMode = true;
+  }
+
+  /**
    * Teste si un utilisateur est admin métier des eObservations
    * @return vrai si l'utilisateur est admin métier des EObservations, faux sinon
    */
-  isEObsBusinessAdmin(): boolean {
-    return this.securityService.isEObsBusinessAdmin();
+  cancelEditMode() {
+    this.editMode = false;
+    this.eObservation = _.cloneDeep(this.originEObservation);
+    this.itemsSortedByTheme = this.sortEObservationItemsByTheme();
+  }
+
+  /**
+   * Mise à jour des commentaires des eObs.
+   * @param newCommentEvent événement contenant l'id et le nouveau commentaire
+   */
+  updateEObservationComment(newCommentEvent: any) {
+    this.eObservation.eobservationComments.find(eobservationComment => {
+      return eobservationComment.techId === newCommentEvent.techId;
+    }).comment = newCommentEvent.comment;
   }
 }

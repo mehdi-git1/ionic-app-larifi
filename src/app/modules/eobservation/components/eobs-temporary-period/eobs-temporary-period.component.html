@@ -1,0 +1,6 @@
+<edospnc-expandable-block mini="true" *ngIf="hasTemporaryPeriodToBeDisplayed()" title=" {{ 'EOBSERVATION.DETAIL.TEMPORARY_PERIOD' | translate }}">
+    <span class="temporary-period">
+        <radio-and-label disabled="true" conditionValue="{{eObservation?.formationFlight}}" label="{{ 'EOBSERVATION.DETAIL.FORMATION_FLIGHT' | translate }}"></radio-and-label>
+        <radio-and-label disabled="true" conditionValue="{{eObservation?.val}}" label="{{ 'EOBSERVATION.DETAIL.VAL' | translate }}"></radio-and-label>
+    </span>
+</edospnc-expandable-block>

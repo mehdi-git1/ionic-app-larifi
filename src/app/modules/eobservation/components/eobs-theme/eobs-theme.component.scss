@@ -1,4 +1,4 @@
-eobs-theme{
+eobs-theme {
 
     $popover-md-width: 320px;
     $popover-ios-width: 320px;
@@ -20,18 +20,20 @@ eobs-theme{
     }
 
     .item-label {
-       padding-left: 24px;
-       display: flex;
-       align-items: center;
-       white-space: pre-line !important;
+        padding-left: 24px;
+        display: flex;
+        align-items: center;
+        white-space: pre-line !important;
     }
 
     .item-label:nth-child(even) {
         border-right: 2px solid color($colors, white);
     }
+
     .item-label:nth-child(odd) {
         border-right: 2px solid color($colors, grey75);
     }
+
     .symbol {
         display: flex;
         align-items: center;
@@ -68,7 +70,8 @@ eobs-theme{
             color: color($colors, grey12);
         }
 
-        .commentContent {
+        p,
+        ion-textarea {
             padding: 10px;
             border-radius: 3px;
             background: color($colors, grey95);
@@ -76,14 +79,25 @@ eobs-theme{
             white-space: pre-line;
         }
 
+        ion-textarea {
+            min-height: 210px !important;
+            padding: 0 !important;
+            margin: 0 !important;
+
+            textarea {
+                min-height: 190px !important;
+                padding: 5px !important;
+            }
+        }
+
     }
 }
 
-.description-popover  .popover-content{
+.description-popover .popover-content {
     min-width: 500px;
     width: 500px;
 }
 
-.popover-md.description-popover  .popover-content{
+.popover-md.description-popover .popover-content {
     transform: translate(-100%, -5%) !important;
 }

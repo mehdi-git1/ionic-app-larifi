@@ -4,7 +4,7 @@
             <div class="sub-theme-label">{{subTheme.referentialTheme.label}}</div>
             <ion-grid>
                 <ion-row *ngFor="let eObservationItem of subTheme.eObservationItems">
-                    <ion-col col-11 class="item-label" >{{eObservationItem.refItemLevel.item.label}}</ion-col>
+                    <ion-col col-11 class="item-label">{{eObservationItem.refItemLevel.item.label}}</ion-col>
                     <ion-col col-1 class="symbol">
                         <color-number-dot [numberText]="getLevelLabel(eObservationItem.refItemLevel.level)">
                         </color-number-dot>
@@ -16,12 +16,15 @@
         </span>
         <div class="comment">
             <label><span class="edospnc-speechBubble"></span>{{ 'EOBSERVATION.DETAIL.COMMENT' | translate }}</label>
-                <p class="commentContent">{{theme.themeComment}}</p>
+            <p *ngIf="!editMode; else editThemeCommentBlock">{{theme.eObservationComment.comment}}</p>
+            <ng-template #editThemeCommentBlock>
+                <ion-textarea [(ngModel)]="theme.eObservationComment.comment" (change)="updateComment()" autocorrect="on"></ion-textarea>
+            </ng-template>
         </div>
     </span>
     <ion-grid *ngIf="!hasSubThemes()">
         <ion-row *ngFor="let eObservationItem of theme.eObservationItems">
-            <ion-col col-11 class="item-label" >{{eObservationItem.refItemLevel.item.label}}</ion-col>
+            <ion-col col-11 class="item-label">{{eObservationItem.refItemLevel.item.label}}</ion-col>
             <ion-col col-1 class="symbol">
                 <color-number-dot [numberText]="getLevelLabel(eObservationItem.refItemLevel.level)">
                 </color-number-dot>
