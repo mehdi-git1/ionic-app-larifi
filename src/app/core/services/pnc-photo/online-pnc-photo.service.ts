@@ -19,7 +19,7 @@ export class OnlinePncPhotoService {
 
   constructor(
     private restService: RestService,
-    private offlinePncPhotoProvider: OfflinePncPhotoService,
+    private offlinePncPhotoService: OfflinePncPhotoService,
     private storageService: StorageService,
     private pncPhotoTransformer: PncPhotoTransformerService,
     private config: UrlConfiguration,
@@ -33,7 +33,7 @@ export class OnlinePncPhotoService {
   */
   getPncPhoto(matricule: string): Promise<any> {
     return new Promise((resolve, reject) => {
-      this.offlinePncPhotoProvider.getPncPhoto(matricule).then(pncPhoto => {
+      this.offlinePncPhotoService.getPncPhoto(matricule).then(pncPhoto => {
         if (!pncPhoto || this.photoIsExpired(pncPhoto)) {
           this.restService.get(this.config.getBackEndUrl('getPncPhotoByMatricule', [matricule])).then(onlinePncPhoto => {
             onlinePncPhoto = this.pncPhotoTransformer.toPncPhoto(onlinePncPhoto);
@@ -59,7 +59,7 @@ export class OnlinePncPhotoService {
   * @param matricules les PNC concernés
   */
   synchronizePncsPhotos(matricules: string[]): Promise<any> {
-    this.offlinePncPhotoProvider.getPncsPhotos(matricules).then(pncsPhotos => {
+    this.offlinePncPhotoService.getPncsPhotos(matricules).then(pncsPhotos => {
       const expiredPhotoMatricules: Array<string> = new Array();
       pncsPhotos.forEach(pncPhoto => {
         if (!pncPhoto || this.photoIsExpired(pncPhoto)) {
