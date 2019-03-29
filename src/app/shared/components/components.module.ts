@@ -24,6 +24,8 @@ import { SharedModule } from '../shared.module';
 import { EdospncExpandableBlockComponent } from './edospnc-expandable-block/edospnc-expandable-block';
 import { ColorStatusPointComponent } from './color-status-point/color-status-point.component';
 import { RadioAndLabelComponent } from './radio-and-label/radio-and-label.component';
+import { CheckboxAndLabelComponent } from './checkbox-and-label/checkbox-and-label.component';
+import { PncCardPageHeaderComponent } from './pnc-card-page-header/pnc-card-page-header.component';
 
 
 @NgModule({
@@ -38,6 +40,7 @@ import { RadioAndLabelComponent } from './radio-and-label/radio-and-label.compon
     ConnectivityIndicatorComponent,
     DownloadButtonComponent,
     PncCardComponent,
+    PncCardPageHeaderComponent,
     EdossierSpinnerComponent,
     PinPadComponent,
     PinPadModalComponent,
@@ -50,13 +53,15 @@ import { RadioAndLabelComponent } from './radio-and-label/radio-and-label.compon
     NoDataComponent,
     EdospncExpandableBlockComponent,
     ColorStatusPointComponent,
-    RadioAndLabelComponent
+    RadioAndLabelComponent,
+    CheckboxAndLabelComponent
   ],
   exports: [
     OfflineIndicatorComponent,
     ConnectivityIndicatorComponent,
     DownloadButtonComponent,
     PncCardComponent,
+    PncCardPageHeaderComponent,
     EdossierSpinnerComponent,
     PinPadComponent,
     PinPadModalComponent,
@@ -69,7 +74,8 @@ import { RadioAndLabelComponent } from './radio-and-label/radio-and-label.compon
     NoDataComponent,
     EdospncExpandableBlockComponent,
     ColorStatusPointComponent,
-    RadioAndLabelComponent
+    RadioAndLabelComponent,
+    CheckboxAndLabelComponent
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA

@@ -100,19 +100,21 @@ export class HelpAssetListPage {
      * renvoie la liste des ressources d'aide du cadre
      */
     getCADHelpAssets(): HelpAssetModel[] {
+        const updateDate20180730 = '2018-07-30T13:11:52Z';
+
         const helpAsset = new Array(3);
         const pdf1 = 'Etapes-du-Bilan-Professionnel-V4.pdf';
         helpAsset[0] = new HelpAssetModel();
         helpAsset[0].url = `${this.pdfUrl}/cadre/${pdf1}`;
         helpAsset[0].label = 'Etapes du Bilan Professionnel V4';
         helpAsset[0].helpAssetType = HelpAssetTypeEnum.PDF;
-        helpAsset[0].lastUpdateDate = '2018-07-30T13:11:52Z';
+        helpAsset[0].lastUpdateDate = updateDate20180730;
         const pdf2 = 'Livret-instructeur-V6-22juin.pdf';
         helpAsset[1] = new HelpAssetModel();
         helpAsset[1].url = `${this.pdfUrl}/cadre/${pdf2}`;
         helpAsset[1].label = 'Livret instructeur V6';
         helpAsset[1].helpAssetType = HelpAssetTypeEnum.PDF;
-        helpAsset[1].lastUpdateDate = '2018-07-30T13:11:52Z';
+        helpAsset[1].lastUpdateDate = updateDate20180730;
         const pdf3 = 'Manuel-Utilisateur-Manager-Coach-v1.pdf';
         helpAsset[2] = new HelpAssetModel();
         helpAsset[2].url = `${this.pdfUrl}/cadre/${pdf3}`;
@@ -124,7 +126,7 @@ export class HelpAssetListPage {
         helpAsset[3].url = `${this.pdfUrl}/cadre/${pdf4}`;
         helpAsset[3].label = 'Mode opératoire, Journal de bord';
         helpAsset[3].helpAssetType = HelpAssetTypeEnum.PDF;
-        helpAsset[3].lastUpdateDate = '2018-07-30T13:11:52Z';
+        helpAsset[3].lastUpdateDate = updateDate20180730;
         const pdf5 = 'Aide-a-la-redaction-vols-de-formation.pdf';
         helpAsset[4] = new HelpAssetModel();
         helpAsset[4].url = `${this.pdfUrl}/cadre/${pdf5}`;

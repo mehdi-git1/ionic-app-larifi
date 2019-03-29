@@ -4,9 +4,7 @@ import { of } from 'rxjs/observable/of';
 
 export class PlatformMock {
   public ready(): Promise<string> {
-    return new Promise((resolve) => {
-      resolve('READY');
-    });
+    return Promise.resolve('READY');
   }
 
   public getQueryParam() {
@@ -82,12 +80,14 @@ export class SplashScreenMock extends SplashScreen {
 export class NavMock {
 
   public pop(): any {
-    return new Promise(function (resolve: Function): void {
-      resolve();
-    });
+    return this.returnPromisePopPush();
   }
 
   public push(): any {
+    return this.returnPromisePopPush();
+  }
+
+  public returnPromisePopPush() {
     return new Promise(function (resolve: Function): void {
       resolve();
     });

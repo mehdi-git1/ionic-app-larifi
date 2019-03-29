@@ -1,3 +1,5 @@
+import { SessionService } from './../session/session.service';
+import { PncModel } from './../../models/pnc.model';
 import { Injectable } from '@angular/core';
 import { BaseService } from '../base/base.service';
 import { ConnectivityService } from '../connectivity/connectivity.service';
@@ -17,7 +19,8 @@ export class EObservationService extends BaseService {
         protected connectivityService: ConnectivityService,
         private onlineEObservationService: OnlineEObservationService,
         private offlineEObservationService: OfflineEObservationService,
-        private translateService: TranslateService
+        private translateService: TranslateService,
+        private sessionService: SessionService
     ) {
         super(
             connectivityService,
@@ -43,9 +46,9 @@ export class EObservationService extends BaseService {
     getDetailOptionType(eObservation): string {
         if (eObservation && (eObservation.type === EObservationTypeEnum.E_CC || eObservation.type === EObservationTypeEnum.E_CCP)) {
             if (eObservation.val) {
-                return this.translateService.instant('EOBSERVATION.DETAILS.VAL_TITLE_OPTION');
+                return this.translateService.instant('EOBSERVATION.DETAIL.VAL_TITLE_OPTION');
             } else if (eObservation.formationFlight) {
-                return this.translateService.instant('EOBSERVATION.DETAILS.FORMATION_FLIGHT_TITLE_OPTION');
+                return this.translateService.instant('EOBSERVATION.DETAIL.FORMATION_FLIGHT_TITLE_OPTION');
             }
         }
         return '';
@@ -66,6 +69,18 @@ export class EObservationService extends BaseService {
      * @return une promesse contenant l'eObservation mise a jour par le commentaire du pnc
      */
     validatePncComment(eObservation: EObservationModel): Promise<EObservationModel> {
+        return this.validateEObservation(eObservation);
+    }
+
+    /**
+     * Valide l'eobservation
+     * @param eObservation l'eObservation conçernée
+     * @return une promesse contenant l'eObservation mise a jour
+     */
+    validateEObservation(eObservation: EObservationModel): Promise<EObservationModel> {
+        eObservation.lastUpdateAuthor = new PncModel();
+        eObservation.lastUpdateAuthor.matricule = this.sessionService.getActiveUser().matricule;
+        eObservation.lastUpdateDate = new Date();
         return this.execFunctionService('validateEObservation', eObservation);
     }
 }

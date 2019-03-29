@@ -46,11 +46,9 @@ export class FlightCrewListPage {
             this.legService.getFlightCrewFromLeg(legId).then(flightCrews => {
                 this.pncPhotoService.synchronizePncsPhotos(flightCrews.map(flightCrew => flightCrew.pnc.matricule));
                 flightCrews.forEach(crew => {
-                    if (crew.pnc.matricule !== undefined) {
-                        if (crew.pnc.matricule === this.sessionService.getActiveUser().matricule) {
-                            this.sessionService.appContext.onBoardRedactorFunction = crew.onBoardFonction;
-                            this.connectedCrewMember = crew;
-                        }
+                    if (crew.pnc.matricule !== undefined && crew.pnc.matricule === this.sessionService.getActiveUser().matricule) {
+                        this.sessionService.appContext.onBoardRedactorFunction = crew.onBoardFonction;
+                        this.connectedCrewMember = crew;
                     }
                 });
                 // On supprime le PNC connecté de la liste
@@ -87,9 +85,9 @@ export class FlightCrewListPage {
             return 1;
         } else if (crewMember.particularity === 'P' && otherCrewMember.particularity === 'P') {
             return this.sortBySpeciality(crewMember, otherCrewMember);
-        } else if (crewMember.particularity === 'P' && !(otherCrewMember.particularity === 'P')) {
+        } else if (crewMember.particularity === 'P' && otherCrewMember.particularity !== 'P') {
             return -1;
-        } else if (!(crewMember.particularity === 'P') && otherCrewMember.particularity === 'P') {
+        } else if (crewMember.particularity !== 'P' && otherCrewMember.particularity === 'P') {
             return 1;
         } else {
             return this.sortBySpeciality(crewMember, otherCrewMember);
