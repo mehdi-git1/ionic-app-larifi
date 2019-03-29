@@ -23,6 +23,7 @@ eobs-theme{
        padding-left: 24px;
        display: flex;
        align-items: center;
+       white-space: pre-line !important;
     }
 
     .item-label:nth-child(even) {
@@ -67,11 +68,12 @@ eobs-theme{
             color: color($colors, grey12);
         }
 
-        p {
+        .commentContent {
             padding: 10px;
             border-radius: 3px;
             background: color($colors, grey95);
             border: 1px solid color($colors, grey70);
+            white-space: pre-line;
         }
 
     }
