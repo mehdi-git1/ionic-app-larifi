@@ -12,9 +12,6 @@ export class EObsRotationInfoComponent {
 
   @Input() editMode = false;
 
-  constructor() {
-  }
-
   /**
   * Vérifie qu'il y a des vols
   *

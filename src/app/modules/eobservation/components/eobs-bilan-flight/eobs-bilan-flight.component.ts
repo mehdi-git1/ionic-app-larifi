@@ -11,7 +11,4 @@ export class EObsBilanFlightComponent {
 
   @Input() editMode = false;
 
-  constructor() {
-  }
-
 }
