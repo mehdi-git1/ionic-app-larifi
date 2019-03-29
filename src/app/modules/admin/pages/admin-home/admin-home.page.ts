@@ -1,3 +1,4 @@
+import { AppVersionManagementPage } from './../app-version-management/app-version-management.page';
 import { ProfileManagementPage } from './../profile-management/profile-management.page';
 import { NavController } from 'ionic-angular';
 import { Component } from '@angular/core';
@@ -14,5 +15,12 @@ export class AdminHomePage {
      */
     goToProfileManagement() {
         this.navCtrl.push(ProfileManagementPage);
+    }
+
+    /**
+     * Redirige vers la page de gestion des versions
+     */
+    goToAppVersionManagement() {
+        this.navCtrl.push(AppVersionManagementPage);
     }
 }

@@ -49,7 +49,9 @@ export class UrlConfiguration {
     'userPermissions': urlGroupEnum.USER_PERMISSION,
     'userPermissionsByUserProfile': `${urlGroupEnum.USER_PROFILE}/{name}/${urlGroupEnum.USER_PERMISSION}`,
     'getPing': urlGroupEnum.PING,
-    'updatePermissions': `${urlGroupEnum.USER_PROFILE}/{profileName}/update_permissions`
+    'updatePermissions': `${urlGroupEnum.USER_PROFILE}/{profileName}/update_permissions`,
+    'getAllAppVersions': urlGroupEnum.APP_VERSION,
+    'createAppVersion': `${urlGroupEnum.APP_VERSION}/create`
   };
 
   /**
