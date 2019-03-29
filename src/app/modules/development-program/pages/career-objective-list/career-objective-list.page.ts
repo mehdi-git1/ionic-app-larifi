@@ -1,3 +1,4 @@
+import { AppConstant } from './../../../../app.constant';
 import { EObservationsArchivesPage } from './../../../eobservation/pages/eobservations-archives/eobservations-archives.page';
 import { EObservationModel } from '../../../../core/models/eobservation/eobservation.model';
 import { EObservationService } from './../../../../core/services/eobservation/eobservation.service';
@@ -18,6 +19,7 @@ import { RotationModel } from '../../../../core/models/rotation.model';
 import { PncService } from '../../../../core/services/pnc/pnc.service';
 import { PncModel } from '../../../../core/models/pnc.model';
 import { SpecialityEnum } from '../../../../core/enums/speciality.enum';
+import * as moment from 'moment';
 
 @Component({
   selector: 'page-career-objective-list',
@@ -99,7 +101,9 @@ export class CareerObjectiveListPage {
     this.eObservations = undefined;
     this.eObservationService.getEObservations(this.matricule).then(
       eobs => {
-        this.eObservations = eobs;
+        this.eObservations = eobs.sort((eObs1, eObs2) => {
+          return moment(eObs1.rotationDate, AppConstant.isoDateFormat).isAfter(moment(eObs2.rotationDate, AppConstant.isoDateFormat)) ? -1 : 1;
+        });
       }, error => {
       });
   }

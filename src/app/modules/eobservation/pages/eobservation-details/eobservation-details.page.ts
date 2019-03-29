@@ -175,9 +175,11 @@ export class EobservationDetailsPage {
   addCommentsToThemes(itemsByTheme: Array<EObservationItemsByTheme>): Array<EObservationItemsByTheme> {
     if (this.eObservation && this.eObservation.eobservationComments && this.eObservation.eobservationComments.length > 0) {
       for (const eObservationComment of this.eObservation.eobservationComments) {
-        const eObservationTheme = eObservationComment.refComment.theme;
-        let themeToDisplay = itemsByTheme.find(element => eObservationTheme.id === element.referentialTheme.id);
-        themeToDisplay.eObservationComment = eObservationComment;
+        const eObservationTheme = (eObservationComment && eObservationComment.refComment) ? eObservationComment.refComment.theme : null;
+        if (eObservationTheme) {
+          let themeToDisplay = itemsByTheme.find(element => eObservationTheme.id === element.referentialTheme.id);
+          themeToDisplay.eObservationComment = eObservationComment;
+        }
       }
     }
     return itemsByTheme;
@@ -317,7 +319,16 @@ export class EobservationDetailsPage {
    * @return true si l'eObs est de type ePcb, false sinon
    */
   isPcbEObs(): boolean {
-    return this.eObservation && EObservationTypeEnum.E_PCB === this.eObservation.type;
+    return this.checkEObsType(EObservationTypeEnum.E_PCB);
+  }
+
+  /**
+   * Vérifie si le type de l'eObs est celui passé en paramètre
+   * @param eObservationType type d'eObs à vérifier
+   * @return true si l'eObs est du type du paramètre, false sinon
+   */
+  checkEObsType(eObservationType: EObservationTypeEnum): boolean {
+    return this.eObservation && eObservationType === this.eObservation.type;
   }
 
   /**
