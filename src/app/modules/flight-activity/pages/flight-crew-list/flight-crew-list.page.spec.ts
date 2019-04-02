@@ -1,3 +1,4 @@
+import { PncPhotoService } from './../../../../core/services/pnc-photo/pnc-photo.service';
 import { PncTransformerService } from '../../../../core/services/pnc/pnc-transformer.service';
 import { SessionService } from '../../../../core/services/session/session.service';
 import { PncService } from '../../../../core/services/pnc/pnc.service';
@@ -43,6 +44,7 @@ describe('FlightCrewListPage', () => {
                 { provide: TranslateService },
                 { provide: PncService, useValue: pncServiceMock },
                 { provide: SessionService, useValue: sessionServiceMock },
+                { provide: PncPhotoService },
                 { provide: PncTransformerService }
             ],
             schemas: [NO_ERRORS_SCHEMA]

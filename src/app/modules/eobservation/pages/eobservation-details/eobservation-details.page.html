@@ -1,7 +1,7 @@
 <ion-header>
     <ion-navbar>
         <page-header [showSettingsIcon]="true" [pnc]="eObservation?.pnc">
-            <span> {{ 'EOBSERVATION.DETAILS.TITLE' | translate }} {{getTypeLabel()}} {{getDetailOptionType()}}</span>
+            <span> {{ 'EOBSERVATION.DETAIL.TITLE' | translate }} {{getTypeLabel()}} {{getDetailOptionType()}}</span>
         </page-header>
     </ion-navbar>
 </ion-header>
@@ -10,13 +10,13 @@
     <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
     <ng-template #pageBlock>
 
-        <pnc-card-page-header *ngIf="eObservation?.pnc" [itemMember]="eObservation?.pnc"></pnc-card-page-header>
+        <pnc-card-page-header *ngIf="pnc" [itemMember]="pnc"></pnc-card-page-header>
 
         <div class="speciality-grid">
             <ion-grid>
                 <ion-row class="speciality-header">
-                    <ion-col class="speciality" col-2>{{ 'EOBSERVATION.DETAILS.SPECIALITY' | translate }}</ion-col>
-                    <ion-col col-10>{{ 'EOBSERVATION.DETAILS.EOBS_PNC_ASSIGNMENT' | translate }}</ion-col>
+                    <ion-col class="speciality" col-2>{{ 'EOBSERVATION.DETAIL.SPECIALITY' | translate }}</ion-col>
+                    <ion-col col-10>{{ 'EOBSERVATION.DETAIL.EOBS_PNC_ASSIGNMENT' | translate }}</ion-col>
                 </ion-row>
                 <ion-row class="speciality-label">
                     <ion-col col-2>{{eObservation?.pncSpeciality}}</ion-col>
@@ -28,94 +28,45 @@
                 </ion-row>
             </ion-grid>
         </div>
-        <edospnc-expandable-block mini="true" *ngIf="hasTemporaryPeriodToBeDisplayed()" title=" {{ 'EOBSERVATION.DETAILS.TEMPORARY_PERIOD' | translate }}">
-            <span class="temporary-period">
-                <radio-and-label disabled="true" conditionValue="{{eObservation?.formationFlight}}" label="{{ 'EOBSERVATION.DETAILS.FORMATION_FLIGHT' | translate }}"></radio-and-label>
-                <radio-and-label disabled="true" conditionValue="{{eObservation?.val}}" label="{{ 'EOBSERVATION.DETAILS.VAL' | translate }}"></radio-and-label>
-            </span>
-        </edospnc-expandable-block>
 
-        <edospnc-expandable-block mini="true" *ngIf="eObservation?.type === 'E_ALT'" title=" {{ 'EOBSERVATION.DETAILS.BILAN_FLIGHT' | translate }}">
-            <span class="bilan">
-                <radio-and-label disabled="true" conditionValue="{{eObservation?.vac}}" label="{{ 'EOBSERVATION.DETAILS.EVAL' | translate }}"></radio-and-label>
-            </span>
-        </edospnc-expandable-block>
+        <eobs-temporary-period [eObservation]="eObservation"></eobs-temporary-period>
 
-        <edospnc-expandable-block mini="true" title=" {{ 'EOBSERVATION.DETAILS.ROTATION_SUBTITLE' | translate }}" [emptyCondition]="!hasFlights()">
-            <div class="rotation-info">
-                <ion-grid>
-                    <ion-row>
-                        <ion-col col-2 class="rotation-number">{{eObservation?.rotationNumber}}</ion-col>
-                        <ion-col col-2><span *ngIf="eObservation?.rotationDate">{{eObservation?.rotationDate | date: 'dd/MM/yyyy' : 'UTC'}} </span></ion-col>
-                        <ion-col col-8>
-                            <radio-and-label disabled="true" conditionValue="{{eObservation?.rotationDegraded}}" label="{{ 'EOBSERVATION.DETAILS.DEGRADED_CONDITIONS' | translate }}"></radio-and-label>
-                        </ion-col>
-                    </ion-row>
-                </ion-grid>
-            </div>
-            <ion-grid class="rotation-grid">
-                <ion-row class="flight-header">
-                    <ion-col col-2>{{ 'EOBSERVATION.DETAILS.FLIGHT_NUMBER' | translate }}</ion-col>
-                    <ion-col col-2>{{ 'EOBSERVATION.DETAILS.FLIGHT_DATE' | translate }}</ion-col>
-                    <ion-col col-2>{{ 'EOBSERVATION.DETAILS.STOP_STATION' | translate }}</ion-col>
-                    <ion-col col-1>{{ 'EOBSERVATION.DETAILS.AIRCRAFT_TYPE' | translate }}</ion-col>
-                    <ion-col col-2>{{ 'EOBSERVATION.DETAILS.VERSION' | translate }}</ion-col>
-                    <ion-col col-2>{{ 'EOBSERVATION.DETAILS.OCCUPANCY_RATE' | translate }}</ion-col>
-                    <ion-col col-1>{{ 'EOBSERVATION.DETAILS.WORKSTATION' | translate }}</ion-col>
-                </ion-row>
-                <ion-row *ngFor="let eObservationFlight of sortedFlights()">
-                    <ion-col col-2>{{eObservationFlight?.flightNumber}}</ion-col>
-                    <ion-col col-2><span *ngIf="eObservationFlight?.flightDate">{{eObservationFlight?.flightDate | date: 'dd/MM/yyyy' : 'UTC'}}</span></ion-col>
-                    <ion-col col-2>{{eObservationFlight?.departureStation}} / {{eObservationFlight?.arrivalStation}}</ion-col>
-                    <ion-col col-1>{{eObservationFlight?.aircraftType}}</ion-col>
-                    <ion-col col-2>{{eObservationFlight?.exploitationVersion}}</ion-col>
-                    <ion-col col-2>{{eObservationFlight?.occupancyRate}}</ion-col>
-                    <ion-col col-1>{{eObservationFlight?.workStation}}</ion-col>
-                </ion-row>
-            </ion-grid>
-        </edospnc-expandable-block>
+        <eobs-bilan-flight [eObservation]="eObservation" [editMode]="editMode"></eobs-bilan-flight>
 
-        <eobs-theme *ngFor="let eObservationTheme of itemsSortedByTheme" [theme]="eObservationTheme"></eobs-theme>
+        <eobs-rotation-info [eObservation]="eObservation" [editMode]="editMode"></eobs-rotation-info>
 
-        <eobs-comment [type]="PncRoleEnum.MANAGER" [eObservation]="eObservation" [canEditEObs]="isEObsBusinessAdmin()"></eobs-comment>
+        <span *ngIf="!isPcbEObs(); else appreciationPcb">
+            <eobs-theme *ngFor="let eObservationTheme of itemsSortedByTheme" [theme]="eObservationTheme" [editMode]="editMode" (commentChange)="updateEObservationComment($event)"></eobs-theme>
+        </span>
+        <ng-template #appreciationPcb>
+            <eobs-appreciation *ngFor="let eObservationTheme of itemsSortedByTheme" [theme]="eObservationTheme"></eobs-appreciation>
+        </ng-template>
 
-        <eobs-comment [type]="PncRoleEnum.PNC" [eObservation]="eObservation" [canEditPncComment]="canEditPncComment()" [canEditEObs]="isEObsBusinessAdmin()" (validatePncComment)="confirmValidatePncComment()"></eobs-comment>
+        <eobs-comment *ngIf="!checkEObsType(EObservationTypeEnum.E_ALT)" [type]="PncRoleEnum.MANAGER" [eObservation]="eObservation" [editMode]="editMode"></eobs-comment>
 
+        <eobs-comment *ngIf="!checkEObsType(EObservationTypeEnum.E_ALT)" [type]="PncRoleEnum.PNC" [eObservation]="eObservation" [canEditPncComment]="canEditPncComment()" [editMode]="editMode" (validatePncComment)="confirmValidatePncComment()"></eobs-comment>
 
-        <edospnc-expandable-block mini="true" title="{{ 'EOBSERVATION.DETAILS.STATE.TITLE' | translate }}" *ngIf="isEObsBusinessAdmin()">
-            <div padding>
-                <ion-list radio-group [(ngModel)]="eObservation.state">
-                    <ion-item>
-                        <ion-label>{{ 'EOBSERVATION.DETAILS.STATE.TAKEN_INTO_ACCOUNT' | translate }}</ion-label>
-                        <ion-radio value="TAKEN_INTO_ACCOUNT"></ion-radio>
-                    </ion-item>
+        <eobs-state [eObservation]="eObservation" [editMode]="editMode"></eobs-state>
 
-                    <ion-item>
-                        <ion-label>{{ 'EOBSERVATION.DETAILS.STATE.NOT_TAKEN_INTO_ACCOUNT' | translate }}</ion-label>
-                        <ion-radio value="NOT_TAKEN_INTO_ACCOUNT"></ion-radio>
-                    </ion-item>
-                </ion-list>
-            </div>
-        </edospnc-expandable-block>
+        <div class="information-message" *ngIf="eObservation.lastUpdateAuthor">{{ 'EOBSERVATION.DETAIL.EDITED_BY' | translate:{lastName:eObservation.lastUpdateAuthor.lastName, firstName:eObservation.lastUpdateAuthor.firstName, date:getLastUpdateDate()} }}</div>
 
-        <div class="button-bar button-bar-right margin-top" *ngIf="isEObsBusinessAdmin()">
-            <!-- Bouton valider l'eobs -->
-            <button ion-button color="green50" (click)="confirmValidateEObservation()" [disabled]="!formHasBeenModified()">
-                <ion-icon name="md-checkmark" ios="md-checkmark" margin-right></ion-icon> {{ 'EOBSERVATION.BUTTONS.VALIDATE' | translate }}
-            </button>
-        </div>
-
-        <div class="state-block">
-            <span>{{ 'EOBSERVATION.DETAILS.STATE.LABEL' | translate }}
-                <color-status-point [colorClass]="getColorStatusPoint()">
-                </color-status-point>
-                <span class="state-value">{{ 'EOBSERVATION.DETAILS.STATE.' + originEObservation?.state | translateOrEmpty }}</span>
-            </span>
-            <span>{{ 'EOBSERVATION.DETAILS.UPDATE_DATE' | translate }}
-                <span *ngIf="eObservation?.redactionDate">{{eObservation?.redactionDate | date: 'dd/MM/yyyy' : 'UTC'}}
-                </span>
-            </span>
+        <div class="button-bar button-bar-right margin-top-10 margin-bottom-10" *hasPermission="'EOBS_FULL_EDITION'">
+            <ng-container *ngIf="!editMode; else editModeButtonsBlock">
+                <!-- Bouton modifier l'eobs -->
+                <button ion-button color="grey20" (click)="enterEditMode()">
+                    <ion-icon name="md-create" ios="md-create" margin-right></ion-icon> {{ 'EOBSERVATION.BUTTONS.EDIT' | translate }}
+                </button>
+            </ng-container>
+            <ng-template #editModeButtonsBlock>
+                <!-- Bouton annuler modification de l'eobs -->
+                <button ion-button color="grey50" (click)="cancelEditMode()">
+                    <ion-icon name="md-close" ios="md-close" margin-right></ion-icon> {{ 'EOBSERVATION.BUTTONS.CANCEL' | translate }}
+                </button>
+                <!-- Bouton mettre à jour l'eobs -->
+                <button ion-button color="green50" (click)="updateEObservation()" [disabled]="!formHasBeenModified()">
+                    <ion-icon name="md-checkmark" ios="md-checkmark" margin-right></ion-icon> {{ 'EOBSERVATION.BUTTONS.UPDATE' | translate }}
+                </button>
+            </ng-template>
         </div>
     </ng-template>
-
 </ion-content>

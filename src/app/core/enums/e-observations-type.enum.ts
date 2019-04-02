@@ -19,6 +19,7 @@ export namespace EObservationTypeEnum {
             case EObservationTypeEnum.E_CC: return 'eCC';
             case EObservationTypeEnum.E_CCP: return 'eCCP';
             case EObservationTypeEnum.E_HST: return 'eHST';
+            case EObservationTypeEnum.E_PCB: return 'ePCB';
             default: return '';
         }
     }

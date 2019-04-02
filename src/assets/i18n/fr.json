@@ -316,7 +316,7 @@
             "ITEM": "Rubrique / Item",
             "LEVEL": "Niveau"
         },
-        "DETAILS": {
+        "DETAIL": {
             "TITLE": "Restitution Formulaire",
             "ROTATION_SUBTITLE": "Rotation",
             "DEGRADED_CONDITIONS": "Conditions dégradées",
@@ -330,8 +330,8 @@
             "REDACTOR_COMMENT": "Commentaire PNC Rédacteur",
             "PNC_COMMENT": "Commentaire PNC Observé",
             "COMMENT": "Commentaire :",
-            "STRONG_POINTS": "Points forts :",
-            "WORKING_AXES": "Axes de travail :",
+            "STRONG_POINTS": "Points forts",
+            "WORKING_AXES": "Axes de travail",
             "UPDATE_DATE": "Enregistré depuis le : ",
             "SPECIALITY": "Fonction",
             "EOBS_PNC_ASSIGNMENT": "Affectation à date de l'eObservation",
@@ -343,22 +343,20 @@
             "VAL_TITLE_OPTION": " - VAL",
             "BILAN_FLIGHT": "Vol Bilan",
             "EVAL": "EVAL",
+            "APPRECIATION": "Appréciation",
+            "SKILLS": "Aptitudes",
+            "IMPROVABLE": "Améliorable",
+            "CONFORM": "Conforme",
             "STATE": {
-                "TITLE": "Statut",
                 "LABEL": "Statut en cours : ",
                 "TAKEN_INTO_ACCOUNT": "Pris en compte",
                 "NOT_TAKEN_INTO_ACCOUNT": "Non pris en compte"
-            }
+            },
+            "EDITED_BY": "eObservation modifiée par {{lastName}} {{firstName}} le {{date}}"
         },
         "CONFIRM_VALIDATE_PNC_COMMENT": {
             "TITLE": "Validation du commentaire",
             "MESSAGE": "Vous êtes sur le point de valider votre commentaire. Souhaitez-vous procéder à la validation ?",
-            "CONFIRM": "Oui",
-            "CANCEL": "Non"
-        },
-        "CONFIRM_VALIDATE": {
-            "TITLE": "Validation de l'eObservation",
-            "MESSAGE": "Vous êtes sur le point de valider votre eObservation. Souhaitez-vous procéder à la validation ?",
             "CONFIRM": "Oui",
             "CANCEL": "Non"
         },
@@ -369,12 +367,14 @@
         "MESSAGES": {
             "SUCCESS": {
                 "PNC_COMMENT_SAVED": "Commentaire validé",
-                "VALIDATED": "eObservation validée"
+                "UPDATED": "eObservation mise à jour"
             }
         },
         "BUTTONS": {
             "VALIDATE_PNC_COMMENT": "Valider",
-            "VALIDATE": "Valider"
+            "EDIT": "Modifier",
+            "CANCEL": "Annuler",
+            "UPDATE": "Mettre à jour"
         }
     },
     "PROFESSIONAL_LEVEL": {
@@ -634,14 +634,15 @@
         "ADMIN_HOME": {
             "TITLE": "Page d'administration",
             "BUTTON": {
-                "PROFILE_MANAGEMENT": "Afficher la liste des profils"
+                "PROFILE_MANAGEMENT": "Gérer la liste des profils",
+                "APP_VERSION_MANAGEMENT": "Gérer la liste des versions"
             }
         },
         "PROFILE_MANAGEMENT": {
             "TITLE": "Gestion des profils",
             "BUTTON": {
                 "REGISTER": "Afficher la liste des profils",
-                "UPDATE": "MISE À JOUR"
+                "UPDATE": "METTRE À JOUR"
             },
             "HEADER": {
                 "PROFILE_HEADER": "Profil",
@@ -650,6 +651,27 @@
             "LABEL": "Veuillez sélectionner un profil",
             "SUCCESS": {
                 "PERMISSIONS_UPDATED": "Permissions mises à jour"
+            }
+        },
+        "APP_VERSION_MANAGEMENT": {
+            "TITLE": "Gestion des versions",
+            "BUTTON": {
+                "ADD_VERSION": "Ajouter"
+            },
+            "HEADER": {
+                "NUMBER": "numéro",
+                "CHANGELOG": "description",
+                "ACTION": "action"
+            },
+            "LABEL": {
+                "VERSION_NUMBER": "Numéro de version",
+                "CHANGELOG": "Description"
+            },
+            "SUCCESS": {
+                "CREATE_VERSION": "Nouvelle version créée"
+            },
+            "ERROR": {
+                "UNDEFINED_NUMBER": "Veuillez renseigner un numéro de version"
             }
         }
     }
