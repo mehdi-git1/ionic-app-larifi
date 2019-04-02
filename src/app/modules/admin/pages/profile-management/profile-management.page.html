@@ -12,12 +12,13 @@
             <!-- Header du tableau -->
             <ion-col>
                 <ion-item>
-                    <ion-label class="tab_header">{{ 'ADMIN.PROFILE_MANAGEMENT.HEADER.PROFILE_HEADER' | translate }}</ion-label>
+                    <ion-label class="tab-header">{{ 'ADMIN.PROFILE_MANAGEMENT.HEADER.PROFILE_HEADER' | translate }}
+                    </ion-label>
                 </ion-item>
             </ion-col>
             <ion-col>
                 <ion-item>
-                    <ion-label class="tab_header">
+                    <ion-label class="tab-header">
                         {{ 'ADMIN.PROFILE_MANAGEMENT.HEADER.PERMISSION_HEADER' | translate }}
                         <span *ngIf="selectedProfile != null;"> - </span> {{ selectedProfile }}
                     </ion-label>
@@ -29,14 +30,19 @@
             <ion-col>
                 <edossier-spinner *ngIf="userProfiles == undefined; else ProfileListBlock "></edossier-spinner>
                 <ng-template #ProfileListBlock>
-                    <ion-item class="profileList" *ngFor="let userProfile of userProfiles" (click)="goToPermissionManagement(userProfile.name)">
-                        <label>{{ userProfile.name }}</label>
+
+                    <ion-item class="profil-list" *ngFor="let userProfile of userProfiles" (click)="goToPermissionManagement(userProfile.name)">
+                        <div class="input-group">
+                            <input type="radio" name="profileName" id="{{userProfile.name}}" />
+                            <label for="{{userProfile.name}}">{{ userProfile.name }}</label>
+                        </div>
                     </ion-item>
                 </ng-template>
             </ion-col>
+            <!-- Permissions d'un profil -->
             <ion-col>
-                <!-- Permissions d'un profil -->
-                <ion-label *ngIf="allPermissions == null; else permissionListBlock">{{ 'ADMIN.PROFILE_MANAGEMENT.LABEL' | translate }}</ion-label>
+                <ion-label *ngIf="allPermissions == null; else permissionListBlock">
+                    {{ 'ADMIN.PROFILE_MANAGEMENT.LABEL' | translate }}</ion-label>
                 <ng-template #permissionListBlock>
                     <ion-list>
                         <ion-item *ngFor="let permission of allPermissions">

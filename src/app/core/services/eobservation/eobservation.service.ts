@@ -69,18 +69,20 @@ export class EObservationService extends BaseService {
      * @return une promesse contenant l'eObservation mise a jour par le commentaire du pnc
      */
     validatePncComment(eObservation: EObservationModel): Promise<EObservationModel> {
-        return this.validateEObservation(eObservation);
+        return this.updateEObservation(eObservation);
     }
 
     /**
-     * Valide l'eobservation
+     * Met à jour l'eobservation
      * @param eObservation l'eObservation conçernée
      * @return une promesse contenant l'eObservation mise a jour
      */
-    validateEObservation(eObservation: EObservationModel): Promise<EObservationModel> {
+    updateEObservation(eObservation: EObservationModel): Promise<EObservationModel> {
         eObservation.lastUpdateAuthor = new PncModel();
         eObservation.lastUpdateAuthor.matricule = this.sessionService.getActiveUser().matricule;
+        eObservation.lastUpdateAuthor.lastName = this.sessionService.getActiveUser().lastName;
+        eObservation.lastUpdateAuthor.firstName = this.sessionService.getActiveUser().firstName;
         eObservation.lastUpdateDate = new Date();
-        return this.execFunctionService('validateEObservation', eObservation);
+        return this.execFunctionService('updateEObservation', eObservation);
     }
 }
