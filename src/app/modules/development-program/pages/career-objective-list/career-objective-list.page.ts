@@ -18,6 +18,7 @@ import { CareerObjectiveService } from '../../../../core/services/career-objecti
 import { RotationModel } from '../../../../core/models/rotation.model';
 import { PncService } from '../../../../core/services/pnc/pnc.service';
 import { PncModel } from '../../../../core/models/pnc.model';
+import { SpecialityEnum } from '../../../../core/enums/speciality.enum';
 import * as moment from 'moment';
 
 @Component({
@@ -82,7 +83,7 @@ export class CareerObjectiveListPage {
    * @return retourne la valeur du type de formulaire
    */
   getEObsTextTypeEForm(): string {
-    return EFormsTypeEnum.getTextType(EFormsTypeEnum[this.pnc.currentSpeciality]);
+    return EFormsTypeEnum.getTextType(SpecialityEnum[this.pnc.currentSpeciality]);
   }
 
   /**
@@ -90,7 +91,7 @@ export class CareerObjectiveListPage {
  * @return boolean pour savoir si le type d'Eform est géré actuellement
  */
   hasEObsTypeForm(): boolean {
-    return EFormsTypeEnum.getType(EFormsTypeEnum[this.pnc.currentSpeciality]) ? true : false;
+    return this.getEObsTextTypeEForm() ? true : false;
   }
 
   /**
@@ -137,6 +138,7 @@ export class CareerObjectiveListPage {
       if (this.formsInputParam) {
         this.formsEObservationService.callForms(this.formsInputParam, this.chosenEFormsType);
       }
+      this.chosenEFormsType = null;
     }, error => {
     });
   }
@@ -182,6 +184,7 @@ export class CareerObjectiveListPage {
   displayEObservationTypeSelection() {
     const typeOfEForms = this.getEObsTextTypeEForm();
     if (typeOfEForms.indexOf('/') == -1) {
+      this.chosenEFormsType = EFormsTypeEnum.getType(EFormsTypeEnum[typeOfEForms.trim()]);
       this.createEObservation();
     } else {
       this.eFormsList = typeOfEForms.split('/');
@@ -193,8 +196,8 @@ export class CareerObjectiveListPage {
    * Appelle le formulaire choisi
    * @param value Valeur du type de formulaire choisie
    */
-  getEFormsTypeBeforeCreate(value) {
-    this.chosenEFormsType = this.formsEObservationService.getReportTypeForEForms(value.trim());
+  getEFormsTypeBeforeCreate(value: string) {
+    this.chosenEFormsType = EFormsTypeEnum.getType(EFormsTypeEnum[value.trim()]);
     this.canDisplayMenu = false;
     this.createEObservation();
   }

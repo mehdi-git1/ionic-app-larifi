@@ -10,7 +10,6 @@ import {
 import { IonicModule, NavController, Platform } from 'ionic-angular';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { TestBed, ComponentFixture } from '@angular/core/testing';
-import { EObservationModel } from '../../../../core/models/eobservation/eobservation.model';
 import { EObservationService } from '../../../../core/services/eobservation/eobservation.service';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 

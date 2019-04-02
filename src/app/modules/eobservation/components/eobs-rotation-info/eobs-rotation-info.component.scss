@@ -1,0 +1,21 @@
+eobs-rotation-info {
+
+    .rotation-info {
+
+        .rotation-number {
+            color: color($colors, blue55);
+        }
+
+        display: flex;
+        justify-content: flex-start;
+
+        ion-row:first-child {
+            display: flex;
+            align-items: center;
+
+            ion-col:first-child {
+                padding-left: 24px;
+            }
+        }
+    }
+}
