@@ -53,7 +53,7 @@ export class PncHomePage {
         private events: Events,
         private statusBar: StatusBar,
         private tabNavService: TabNavService,
-        private specialityService: SpecialityService,
+        private specialityService: SpecialityService
     ) {
 
         this.statusBar.styleLightContent();
