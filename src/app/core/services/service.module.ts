@@ -1,3 +1,4 @@
+import { UserMessageAlertService } from './user-message/user-message-alert.service';
 import { AppVersionService } from './app-version/app-version.service';
 import { UserPermissionService } from './user-permission/user-permission.service';
 import { CongratulationLetterTransformerService } from './congratulation-letter/congratulation-letter-transformer.service';
@@ -76,6 +77,8 @@ import { FormsInputParamTransformerService } from './forms/forms-input-param-tra
 import { OnlineEObservationService } from './eobservation/online-eobservation.service';
 import { OfflineEObservationService } from './eobservation/offline-eobservation.service';
 import { SynchronizationManagementService } from './synchronization/synchronization-management.service';
+import { UserMessageService } from './user-message/user-message.service';
+import { UserMessageTransformerService } from './user-message/user-message-transformer.service';
 
 
 @NgModule({
@@ -155,6 +158,9 @@ import { SynchronizationManagementService } from './synchronization/synchronizat
                 OnlineEObservationService,
                 OfflineEObservationService,
                 EObservationTransformerService,
+                UserMessageAlertService,
+                UserMessageService,
+                UserMessageTransformerService,
                 UserProfileService,
                 UserPermissionService,
                 CongratulationLetterService,

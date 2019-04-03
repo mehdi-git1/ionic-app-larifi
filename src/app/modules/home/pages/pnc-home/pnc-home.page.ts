@@ -1,3 +1,4 @@
+import { UserMessageAlertService } from './../../../../core/services/user-message/user-message-alert.service';
 import { FormsInputParamsModel } from './../../../../core/models/forms-input-params.model';
 import { Component } from '@angular/core';
 import { NavController, NavParams, Events } from 'ionic-angular';
@@ -26,8 +27,6 @@ import { SpecialityService } from '../../../../core/services/speciality/speciali
 import { SummarySheetService } from '../../../../core/services/summary-sheet/summary-sheet.service';
 import { CongratulationLettersPage } from '../../../congratulation-letter/pages/congratulation-letters/congratulation-letters.page';
 
-
-
 @Component({
     selector: 'page-pnc-home',
     templateUrl: 'pnc-home.page.html',
@@ -55,7 +54,8 @@ export class PncHomePage {
         private statusBar: StatusBar,
         private tabNavService: TabNavService,
         private specialityService: SpecialityService,
-        private summarySheetService: SummarySheetService
+        private summarySheetService: SummarySheetService,
+        private userMessageAlertService: UserMessageAlertService
     ) {
 
         this.statusBar.styleLightContent();
@@ -72,6 +72,7 @@ export class PncHomePage {
 
     ionViewDidEnter() {
         this.initPage();
+        this.userMessageAlertService.handleUserMessage();
     }
 
     /**

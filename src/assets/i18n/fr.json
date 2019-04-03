@@ -32,6 +32,10 @@
             "ONLINE_MODE": "Connexion avec le serveur rétablie",
             "OFFLINE_MODE": "Vous êtes à présent en mode déconnecté"
         },
+        "USER_MESSAGE": {
+            "TITLE": "Information importante",
+            "DISMISS_BUTTON": "Ok"
+        },
         "DEVELOPMENT_PROGRAM": "Parcours de développement",
         "MY_DEVELOPMENT_PROGRAM": "Mon parcours de développement",
         "PNC_SUMMARY_SHEET": "Fiche synthèse PNC",
@@ -635,7 +639,8 @@
             "TITLE": "Page d'administration",
             "BUTTON": {
                 "PROFILE_MANAGEMENT": "Gérer la liste des profils",
-                "APP_VERSION_MANAGEMENT": "Gérer la liste des versions"
+                "APP_VERSION_MANAGEMENT": "Gérer la liste des versions",
+                "USER_MESSAGE_MANAGEMENT": "Gérer les messages utilisateur"
             }
         },
         "PROFILE_MANAGEMENT": {
@@ -672,6 +677,20 @@
             },
             "ERROR": {
                 "UNDEFINED_NUMBER": "Veuillez renseigner un numéro de version"
+            }
+        },
+        "USER_MESSAGE_MANAGEMENT": {
+            "TITLE": "Gestion des messages poussés aux utilisateurs",
+            "NO_USER_MESSAGE_SELECTED": "Aucun message sélectionné",
+            "LABELS": {
+                "CONTENT": "Contenu",
+                "ACTIVE": "Actif"
+            },
+            "BUTTONS": {
+                "UPDATE": "Mettre à jour"
+            },
+            "MESSAGES": {
+                "UPDATE_SUCCESSFUL": "Message mis à jour"
             }
         }
     }
