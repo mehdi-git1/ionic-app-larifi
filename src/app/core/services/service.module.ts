@@ -44,13 +44,11 @@ import { PncTransformerService } from './pnc/pnc-transformer.service';
 import { WaypointTransformerService } from './waypoint/waypoint-transformer.service';
 import { PncSynchroService } from './synchronization/pnc-synchro.service';
 import { FormsEObservationService } from './forms/forms-e-observation.service';
-import { SummarySheetTransformerService } from './summary-sheet/summary-sheet-transformer.service';
 import { OfflinePncPhotoService } from './pnc-photo/offline-pnc-photo.service';
 import { ProfessionalLevelService } from './professional-level/professional-level.service';
 import { PncPhotoTransformerService } from './pnc-photo/pnc-photo-transformer.service';
 import { RotationTransformerService } from './rotation/rotation-transformer.service';
 import { SpecialityService } from './speciality/speciality.service';
-import { SummarySheetService } from './summary-sheet/summary-sheet.service';
 import { OnlineProfessionalLevelService } from './professional-level/online-professional-level.service';
 import { OnlineLegService } from './leg/online-leg.service';
 import { ProfessionalLevelTransformerService } from './professional-level/professional-level-transformer.service';
@@ -64,9 +62,7 @@ import { StatutoryCertificateTransformerService } from './statutory-certificate/
 import { OfflineRotationService } from './rotation/offline-rotation.service';
 import { OfflineProfessionalLevelService } from './professional-level/offline-professional-level.service';
 import { StatutoryCertificateService } from './statutory-certificate/statutory-certificate.service';
-import { OfflineSummarySheetService } from './summary-sheet/offline-summary-sheet.service';
 import { OnlineRotationService } from './rotation/online-rotation.service';
-import { OnlineSummarySheetService } from './summary-sheet/online-summary-sheet.service';
 import { LegTransformerService } from './leg/leg-transformer.service';
 import { CrewMemberTransformerService } from './crewMember/crew-member-transformer.service';
 import { TranslateOrEmptyService } from './translate/translate-or-empty.service';
@@ -79,92 +75,88 @@ import { SynchronizationManagementService } from './synchronization/synchronizat
 
 
 @NgModule({
-        declarations: [
-        ],
-        imports: [
-        ],
-        providers: [
-                ConnectivityService,
-                DeviceService,
-                TabNavService,
-                TransformerService,
-                PncService,
-                CareerObjectiveService,
-                GenderService,
-                ToastService,
-                CareerObjectiveStatusService,
-                SecurityService,
-                SessionService,
-                AuthorizationService,
-                WaypointService,
-                WaypointStatusService,
-                RotationService,
-                LegService,
-                HelpAssetService,
-                OfflineService,
-                OfflineCareerObjectiveService,
-                OfflinePncService,
-                OfflineCareerObjectiveService,
-                OfflineWaypointService,
-                OnlineSecurityService,
-                OfflineSecurityService,
-                OnlinePncService,
-                OnlineCareerObjectiveService,
-                OfflineCareerObjectiveService,
-                OfflineWaypointService,
-                OnlineWaypointService,
-                CareerObjectiveTransformerService,
-                WaypointTransformerService,
-                PncTransformerService,
-                SynchronizationService,
-                PncSynchroService,
-                FormsEObservationService,
-                SummarySheetService,
-                RotationTransformerService,
-                LegTransformerService,
-                CrewMemberTransformerService,
-                OnlineSummarySheetService,
-                OfflineSummarySheetService,
-                SummarySheetTransformerService,
-                OnlineRotationService,
-                OfflineRotationService,
-                OnlineLegService,
-                OfflineLegService,
-                ModalSecurityService,
-                PncPhotoService,
-                OnlinePncPhotoService,
-                OfflinePncPhotoService,
-                PncPhotoTransformerService,
-                FormsInputParamService,
-                OfflineFormsInputParamService,
-                OnlineFormsInputParamService,
-                FormsInputParamTransformerService,
-                StatutoryCertificateService,
-                OnlineStatutoryCertificateService,
-                OfflineStatutoryCertificateService,
-                StatutoryCertificateTransformerService,
-                ProfessionalLevelService,
-                OnlineProfessionalLevelService,
-                OfflineProfessionalLevelService,
-                ProfessionalLevelTransformerService,
-                SpecialityService,
-                EvaluationSheetService,
-                OnlineEvaluationSheetService,
-                OfflineEvaluationSheetService,
-                EObservationService,
-                OnlineEObservationService,
-                OfflineEObservationService,
-                EObservationTransformerService,
-                UserProfileService,
-                UserPermissionService,
-                CongratulationLetterService,
-                OfflineCongratulationLetterService,
-                OnlineCongratulationLetterService,
-                CongratulationLetterTransformerService,
-                TranslateOrEmptyService,
-                AppVersionService,
-                SynchronizationManagementService
-        ]
+    declarations: [
+    ],
+    imports: [
+    ],
+    providers: [
+        ConnectivityService,
+        DeviceService,
+        TabNavService,
+        TransformerService,
+        PncService,
+        CareerObjectiveService,
+        GenderService,
+        ToastService,
+        CareerObjectiveStatusService,
+        SecurityService,
+        SessionService,
+        AuthorizationService,
+        WaypointService,
+        WaypointStatusService,
+        RotationService,
+        LegService,
+        HelpAssetService,
+        OfflineService,
+        OfflineCareerObjectiveService,
+        OfflinePncService,
+        OfflineCareerObjectiveService,
+        OfflineWaypointService,
+        OnlineSecurityService,
+        OfflineSecurityService,
+        OnlinePncService,
+        OnlineCareerObjectiveService,
+        OfflineCareerObjectiveService,
+        OfflineWaypointService,
+        OnlineWaypointService,
+        CareerObjectiveTransformerService,
+        WaypointTransformerService,
+        PncTransformerService,
+        SynchronizationService,
+        PncSynchroService,
+        FormsEObservationService,
+        RotationTransformerService,
+        LegTransformerService,
+        CrewMemberTransformerService,
+        OnlineRotationService,
+        OfflineRotationService,
+        OnlineLegService,
+        OfflineLegService,
+        ModalSecurityService,
+        PncPhotoService,
+        OnlinePncPhotoService,
+        OfflinePncPhotoService,
+        PncPhotoTransformerService,
+        FormsInputParamService,
+        OfflineFormsInputParamService,
+        OnlineFormsInputParamService,
+        FormsInputParamTransformerService,
+        StatutoryCertificateService,
+        OnlineStatutoryCertificateService,
+        OfflineStatutoryCertificateService,
+        StatutoryCertificateTransformerService,
+        ProfessionalLevelService,
+        OnlineProfessionalLevelService,
+        OfflineProfessionalLevelService,
+        ProfessionalLevelTransformerService,
+        SpecialityService,
+        EvaluationSheetService,
+        OnlineEvaluationSheetService,
+        OfflineEvaluationSheetService,
+        EObservationService,
+        OnlineEObservationService,
+        OfflineEObservationService,
+        EObservationTransformerService,
+        UserProfileService,
+        UserPermissionService,
+        CongratulationLetterService,
+        OfflineCongratulationLetterService,
+        OnlineCongratulationLetterService,
+        CongratulationLetterTransformerService,
+        TranslateOrEmptyService,
+        AppVersionService,
+        SynchronizationManagementService
+    ]
 })
 export class ServiceModule { }
 

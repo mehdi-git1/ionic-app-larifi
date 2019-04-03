@@ -126,9 +126,6 @@ export class SynchronizationService {
     this.storeEObservations(pncSynchroResponse.eobservations);
     this.storeCongratulationLetters(pncSynchroResponse.congratulationLetters);
 
-    // Sauvegarde de la fiche synthèse
-    this.storageService.save(EntityEnum.SUMMARY_SHEET, pncSynchroResponse.summarySheet, true);
-
     // Sauvegarde de la photo du PNC
     this.storageService.save(EntityEnum.PNC_PHOTO, this.pncPhotoTransformer.toPncPhoto(pncSynchroResponse.photo), true);
 
@@ -273,9 +270,6 @@ export class SynchronizationService {
       this.storageService.deleteAll(EntityEnum.LEG);
       this.storageService.deleteAll(EntityEnum.CREW_MEMBER);
     }
-
-    // Suppression de la fiche synthese
-    this.storageService.delete(EntityEnum.SUMMARY_SHEET, pnc.matricule);
 
     // Suppression de l'attestation réglementaire
     this.storageService.delete(EntityEnum.STATUTORY_CERTIFICATE, pnc.matricule);

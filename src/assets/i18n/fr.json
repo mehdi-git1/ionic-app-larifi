@@ -34,8 +34,6 @@
         },
         "DEVELOPMENT_PROGRAM": "Parcours de développement",
         "MY_DEVELOPMENT_PROGRAM": "Mon parcours de développement",
-        "PNC_SUMMARY_SHEET": "Fiche synthèse PNC",
-        "MY_PNC_SUMMARY_SHEET": "Ma fiche synthèse PNC",
         "HELP_CENTER": "Ressources d'aide",
         "MY_HELP_CENTER": "Mes ressources d'aide",
         "PNC_TEAM": "Effectif PNC",
@@ -228,9 +226,6 @@
         "LAST_FLIGHTS": "Mes derniers vols",
         "UPCOMING_FLIGHTS": "Mes prochains vols",
         "NO_FLIGHTS": "Aucun vol trouvé"
-    },
-    "SUMMARY_SHEET": {
-        "PDF_MISSING": "Pas de fiche synthèse disponible"
     },
     "STATUTORY_CERTIFICATE": {
         "TITLE": "Profil PNC",
