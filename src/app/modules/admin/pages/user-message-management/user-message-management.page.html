@@ -16,7 +16,7 @@
                     <ion-list>
                         <ion-item *ngFor="let userMessage of userMessages" (click)="editUserMessage(userMessage)" [ngClass]="{'active':isUserMessageSelected(userMessage)}" class="clickable">
                             <span class="user-message-label">{{ userMessage.label }}</span>
-                            <span class="user-message-last-update">{{ userMessage.lastUpdate | date:'dd/MM/yyyy HH:mm' }}</span>
+                            <span class="user-message-last-update">{{ userMessage.lastUpdateDate | date:'dd/MM/yyyy HH:mm' }}</span>
                         </ion-item>
                     </ion-list>
                 </ion-col>
@@ -25,8 +25,12 @@
                     <ng-template #editUserMessageBlock>
                         <form [formGroup]="userMessageForm">
                             <ion-item>
+                                <ion-label floating>{{ 'ADMIN.USER_MESSAGE_MANAGEMENT.LABELS.TITLE' | translate }}</ion-label>
+                                <ion-input formControlName="title" [(ngModel)]="selectedUserMessage.title" type="text" maxlength="255"></ion-input>
+                            </ion-item>
+                            <ion-item>
                                 <ion-label floating>{{ 'ADMIN.USER_MESSAGE_MANAGEMENT.LABELS.CONTENT' | translate }}</ion-label>
-                                <ion-textarea formControlName="content" [(ngModel)]="selectedUserMessage.content" type="text" class="md-textarea form-control"></ion-textarea>
+                                <ion-textarea formControlName="content" [(ngModel)]="selectedUserMessage.content" maxlength="1000"></ion-textarea>
                             </ion-item>
                             <ion-item>
                                 <ion-label>{{ 'ADMIN.USER_MESSAGE_MANAGEMENT.LABELS.ACTIVE' | translate }}</ion-label>

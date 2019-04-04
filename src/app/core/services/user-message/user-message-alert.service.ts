@@ -30,14 +30,19 @@ export class UserMessageAlertService {
     const userMessage = this.sessionService.authenticatedUser.userMessage;
     if (userMessage && this.displayUserMessage(userMessage)) {
       this.userMessageAlert = this.alertCtrl.create({
-        title: this.translateService.instant('GLOBAL.USER_MESSAGE.TITLE'),
+        title: userMessage.title,
         message: userMessage.content,
         buttons: [
           {
-            text: this.translateService.instant('GLOBAL.USER_MESSAGE.DISMISS_BUTTON'),
+            text: this.translateService.instant('GLOBAL.USER_MESSAGE.BUTTONS.DISMISS'),
+            role: 'dismiss',
+            handler: () => { }
+          },
+          {
+            text: this.translateService.instant('GLOBAL.USER_MESSAGE.BUTTONS.DO_NOT_DISPLAY_ANYMORE'),
             role: 'dismiss',
             handler: () => {
-              this.dismissUserMessage(userMessage);
+              this.doNotDisplayAnymoreUserMessage(userMessage);
             }
           }
         ]
@@ -53,7 +58,7 @@ export class UserMessageAlertService {
    */
   private displayUserMessage(userMessage: UserMessageModel): boolean {
     const storedUserMessage = this.storageService.findOne(EntityEnum.USER_MESSAGE, UserMessageKeyEnum.INSTRUCTOR_MESSAGE);
-    return !storedUserMessage || !storedUserMessage.lastUpdate || this.userMessageIsFresher(userMessage, storedUserMessage);
+    return !storedUserMessage || !storedUserMessage.lastUpdateDate || this.userMessageIsFresher(userMessage, storedUserMessage);
   }
 
   /**
@@ -63,14 +68,15 @@ export class UserMessageAlertService {
    * @return vrai si le message reçu du serveur est plus récent que celui stocké en cache
    */
   private userMessageIsFresher(userMessage, storedUserMessage) {
-    return moment(userMessage.lastUpdate).isAfter(storedUserMessage.lastUpdate);
+    return moment(userMessage.lastUpdateDate).isAfter(storedUserMessage.lastUpdateDate);
   }
 
   /**
    * Masque le message pour les fois suivantes
    * @param userMessage le message qu'on souhaite masquer à l'avenir
    */
-  private dismissUserMessage(userMessage: UserMessageModel) {
+  private doNotDisplayAnymoreUserMessage(userMessage: UserMessageModel) {
     this.storageService.saveAsync(EntityEnum.USER_MESSAGE, this.userMessageTransformerService.toUserMessage(userMessage), true);
   }
+
 }

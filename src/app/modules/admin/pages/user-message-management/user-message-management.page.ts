@@ -13,9 +13,6 @@ export class UserMessageManagementPage {
 
     public userMessageForm: FormGroup;
 
-    content: AbstractControl;
-    active: AbstractControl;
-
     selectedUserMessage: UserMessageModel;
 
     userMessages: UserMessageModel[];
@@ -25,6 +22,7 @@ export class UserMessageManagementPage {
         private toastService: ToastService,
         private formBuilder: FormBuilder) {
         this.userMessageForm = formBuilder.group({
+            title: ['', [Validators.required, Validators.maxLength(255)]],
             content: ['', [Validators.required, Validators.maxLength(1000)]],
             active: ['']
         });

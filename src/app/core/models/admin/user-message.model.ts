@@ -4,8 +4,9 @@ import { EDossierPncObjectModel } from "../e-dossier-pnc-object.model";
 export class UserMessageModel extends EDossierPncObjectModel {
     key: UserMessageKeyEnum;
     label: string;
+    title: string;
     content: string;
-    lastUpdate: Date;
+    lastUpdateDate: Date;
     active: boolean;
 
     getStorageId(): string {
