@@ -112,6 +112,7 @@ export class CareerObjectiveListPage {
       interviews => {
         this.professionalInterviews = interviews;
       }, error => {
+        this.professionalInterviews = [];
       });
   }
 
