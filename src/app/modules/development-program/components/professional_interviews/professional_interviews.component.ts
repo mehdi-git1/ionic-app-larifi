@@ -11,8 +11,6 @@ import { ProfessionalInterviewModel } from '../../../../core/models/professional
 export class ProfessionalInterviewsComponent implements OnChanges {
 
   matPanelHeaderHeight = '41px';
-  isOlderThan3Years = false;
-  nbOfYearsToChangeMessage = 3;
 
   @Input() professionalInterviews: ProfessionalInterviewModel[];
 
