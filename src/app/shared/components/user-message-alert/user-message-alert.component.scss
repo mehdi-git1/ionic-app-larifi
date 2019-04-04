@@ -1,4 +1,5 @@
 user-message-alert {
+    color: color($colors, grey10);
 
     .user-message-alert-wrapper {
         display: none;
@@ -22,17 +23,20 @@ user-message-alert {
             .header {
                 padding: 10px;
                 display: flex;
-                align-items: flex-end;
+                align-items: center;
                 font-weight: bold;
+                background: color($colors, orange55);
+                border-radius: 10px 10px 0 0;
 
                 ion-icon {
-                    color: color($colors, orange55);
+                    color: color($colors, white);
                     font-size: 2.5em;
+                    margin-top: -5px;
                     margin-right: 10px;
                 }
 
                 label {
-                    color: color($colors, grey10);
+                    color: color($colors, white);
                     font-size: 1.6em;
                 }
             }
@@ -42,6 +46,7 @@ user-message-alert {
                 padding: 20px;
                 font-size: 1.1em;
                 white-space: pre-line;
+                color: color($colors, grey20);
             }
 
             .button-bar {
@@ -54,6 +59,7 @@ user-message-alert {
                     background: color($colors, grey92);
                     font-size: 1.3em;
                     border-radius: 5px;
+                    color: color($colors, grey10);
                 }
 
                 button:not(:first-child) {

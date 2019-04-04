@@ -7,6 +7,7 @@ import { SessionService } from '../session/session.service';
 import { EntityEnum } from '../../enums/entity.enum';
 
 import * as moment from 'moment';
+import { DeviceService } from '../device/device.service';
 
 
 @Injectable()
@@ -17,7 +18,9 @@ export class UserMessageAlertService {
   constructor(
     private sessionService: SessionService,
     private storageService: StorageService,
-    private userMessageTransformerService: UserMessageTransformerService) {
+    private userMessageTransformerService: UserMessageTransformerService,
+    private deviceService: DeviceService
+  ) {
   }
 
   /**
@@ -25,19 +28,29 @@ export class UserMessageAlertService {
    */
   handleUserMessage() {
     const userMessage = this.sessionService.authenticatedUser.userMessage;
-    if (userMessage && this.displayUserMessage(userMessage)) {
-      this.userMessageAlertCreation.emit(userMessage);
+    if (userMessage && this.isUserMessageToDisplay(userMessage)) {
+      this.displayUserMessage(userMessage);
     }
   }
 
   /**
-   * Vérifie si le message doit être affiché
+   * Affiche un message utilisateur
+   * @param userMessage le message utilisateur à afficher
+   */
+  public displayUserMessage(userMessage: UserMessageModel) {
+    this.userMessageAlertCreation.emit(userMessage);
+  }
+
+  /**
+   * Vérifie si le message doit être affiché.
+   * Le message ne doit être affiché qu'en mobile, et si celui ci n'est pas stocké en cache avec une date plus ancienne que celui reçu.
    * @param userMessage le message
    * @return vrai si le message doit être affiché, faux sinon
    */
-  private displayUserMessage(userMessage: UserMessageModel): boolean {
+  private isUserMessageToDisplay(userMessage: UserMessageModel): boolean {
     const storedUserMessage = this.storageService.findOne(EntityEnum.USER_MESSAGE, UserMessageKeyEnum.INSTRUCTOR_MESSAGE);
-    return !storedUserMessage || !storedUserMessage.lastUpdateDate || this.userMessageIsFresher(userMessage, storedUserMessage);
+    return this.deviceService.isBrowser() &&
+      (!storedUserMessage || !storedUserMessage.lastUpdateDate || this.userMessageIsFresher(userMessage, storedUserMessage));
   }
 
   /**

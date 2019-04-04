@@ -1,3 +1,4 @@
+import { UserMessageAlertService } from './../../../../core/services/user-message/user-message-alert.service';
 import { ToastService } from '../../../../core/services/toast/toast.service';
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
 import { Component } from '@angular/core';
@@ -18,6 +19,7 @@ export class UserMessageManagementPage {
     userMessages: UserMessageModel[];
 
     constructor(private userMessageService: UserMessageService,
+        private userMessageAlertService: UserMessageAlertService,
         private translateService: TranslateService,
         private toastService: ToastService,
         private formBuilder: FormBuilder) {
@@ -58,6 +60,13 @@ export class UserMessageManagementPage {
             this.initPage();
             this.toastService.success(this.translateService.instant('ADMIN.USER_MESSAGE_MANAGEMENT.MESSAGES.UPDATE_SUCCESSFUL'));
         }, error => { });
+    }
+
+    /**
+     * Affiche un aperçu du message en cours d'édition
+     */
+    displayOverview() {
+        this.userMessageAlertService.displayUserMessage(this.selectedUserMessage);
     }
 
     /**
