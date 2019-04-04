@@ -27,12 +27,12 @@ export abstract class BaseService {
      * @param param Paramètres éventuels
      */
     protected execFunctionService(functionName: string, ...param: any[]) {
-        return this.provider[functionName](param[0], param[1]).then(
+        return this.provider[functionName](param[0], param[1], param[2], param[3], param[4]).then(
             data => {
                 return data;
             },
             error => {
-                return this.offlineProv[functionName](param[0], param[1]).then(
+                return this.offlineProv[functionName](param[0], param[1], param[2], param[3], param[4]).then(
                     data => {
                         return data;
                     }

@@ -34,18 +34,14 @@ export class RotationCardComponent {
         rotation.opened = !rotation.opened;
         if (rotation.opened) {
             rotation.loading = true;
-            this.rotationProvider.getRotationLegs(rotation).then(rotationLegs => {
-                rotation.legs = rotationLegs;
-                rotation.loading = false;
-            }, error => {
-                rotation.loading = false;
-            });
+        } else {
+            rotation.loading = false;
         }
     }
 
     goToFlightCrewListPage(leg: LegModel) {
         this.sessionService.appContext.lastConsultedRotation = this.rotation;
-        this.navCtrl.push(FlightCrewListPage, { legId: leg.techId });
+        this.navCtrl.push(FlightCrewListPage, { company: leg.company, flightNumber: leg.number, date: leg.departureDate, origine: leg.departureStation, destination: leg.arrivalStation });
     }
 
     displayErrorMessage() {

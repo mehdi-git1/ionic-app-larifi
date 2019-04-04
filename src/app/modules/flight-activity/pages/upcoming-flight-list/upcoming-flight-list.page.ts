@@ -3,6 +3,8 @@ import { RotationModel } from '../../../../core/models/rotation.model';
 import { Component } from '@angular/core';
 import { NavController, NavParams, IonicPage } from 'ionic-angular';
 import { SessionService } from '../../../../core/services/session/session.service';
+import { AppConstant } from '../../../../app.constant';
+import * as moment from 'moment';
 
 @Component({
     selector: 'page-upcoming-flight-list',
@@ -33,13 +35,26 @@ export class UpcomingFlightListPage {
             this.matricule = this.sessionService.getActiveUser().matricule;
         }
 
-        this.pncProvider.getLastPerformedRotations(this.matricule).then(lastPerformedRotations => {
-            this.lastPerformedRotations = lastPerformedRotations;
-        }, error => { });
-
-        this.pncProvider.getUpcomingRotations(this.matricule).then(upcomingRotations => {
-            this.upcomingRotations = upcomingRotations;
-        }, error => { });
+        this.pncProvider.getAllRotations(this.matricule).then(allRotations => {
+            if (allRotations != null) {
+                this.lastPerformedRotations = allRotations.filter(rotation => {
+                    const departureDate = new Date(rotation.departureDate);
+                    const nowDate = new Date(Date.parse(Date()));
+                    return departureDate < nowDate;
+                });
+                // On tri par date de départ croissante
+                this.lastPerformedRotations = this.lastPerformedRotations.sort((rotation1, rotation2) => {
+                    return moment(rotation1.departureDate, AppConstant.isoDateFormat).isBefore(moment(rotation2.departureDate, AppConstant.isoDateFormat)) ? -1 : 1;
+                });
+                this.upcomingRotations = allRotations.filter(rotation => {
+                    const departureDate = new Date(rotation.departureDate);
+                    const nowDate = new Date(Date.parse(Date()));
+                    return departureDate > nowDate;
+                });
+            }
+            this.lastPerformedRotations = (this.lastPerformedRotations != null && this.lastPerformedRotations.length > 0 ? this.lastPerformedRotations.slice(-2) : []);
+            this.upcomingRotations = (this.upcomingRotations != null && this.upcomingRotations.length > 0 ? this.upcomingRotations : []);
+        });
     }
 
     /**

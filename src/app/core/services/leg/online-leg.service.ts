@@ -31,4 +31,13 @@ export class OnlineLegService {
     return this.restService.get(this.config.getBackEndUrl('getLegsCrewMembersById', [legId]));
   }
 
+  /**
+  * Récupère la liste équipage d'un tronçon
+  * @param leg le flight number, date, origine et destination du tronçon dont on souhaite avoir la liste équipage
+  * @return la liste équipage d'un tronçon
+  */
+  getCrewMembersFromLegWithoutID(company: String, flightNumber: String, date: String, origine: String, destination: String): Promise<CrewMemberModel[]> {
+    return this.restService.get(this.config.getBackEndUrl('getCrewMembersFromLegWithoutID', [company, flightNumber, date, origine, destination]));
+  }
+
 }
