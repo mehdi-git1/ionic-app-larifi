@@ -1,4 +1,5 @@
 <!-- Disable swipe-to-go-back because it's poor UX to combine STGB with side menus -->
+<user-message-alert #userMessageAlert></user-message-alert>
 <simple-notifications></simple-notifications>
 <ion-nav [root]="rootPage" #content swipeBackEnabled="false" [ngClass]="{'blur' : pinPadModalActive, 'impersonation': sessionService.impersonatedUser}"></ion-nav>
 <tab-nav [ngClass]="{'blur' : pinPadModalActive, 'impersonation': sessionService.impersonatedUser}" [navCtrl]="nav"></tab-nav>

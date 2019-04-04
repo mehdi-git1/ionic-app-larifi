@@ -26,6 +26,7 @@ import { ColorStatusPointComponent } from './color-status-point/color-status-poi
 import { RadioAndLabelComponent } from './radio-and-label/radio-and-label.component';
 import { CheckboxAndLabelComponent } from './checkbox-and-label/checkbox-and-label.component';
 import { PncCardPageHeaderComponent } from './pnc-card-page-header/pnc-card-page-header.component';
+import { UserMessageAlertComponent } from './user-message-alert/user-message-alert.component';
 
 
 @NgModule({
@@ -54,7 +55,8 @@ import { PncCardPageHeaderComponent } from './pnc-card-page-header/pnc-card-page
     EdospncExpandableBlockComponent,
     ColorStatusPointComponent,
     RadioAndLabelComponent,
-    CheckboxAndLabelComponent
+    CheckboxAndLabelComponent,
+    UserMessageAlertComponent
   ],
   exports: [
     OfflineIndicatorComponent,
@@ -75,7 +77,8 @@ import { PncCardPageHeaderComponent } from './pnc-card-page-header/pnc-card-page
     EdospncExpandableBlockComponent,
     ColorStatusPointComponent,
     RadioAndLabelComponent,
-    CheckboxAndLabelComponent
+    CheckboxAndLabelComponent,
+    UserMessageAlertComponent
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA

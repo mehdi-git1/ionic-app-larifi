@@ -2,24 +2,21 @@ import { UserMessageTransformerService } from './user-message-transformer.servic
 import { UserMessageKeyEnum } from './../../enums/admin/user-message-key.enum';
 import { StorageService } from './../../storage/storage.service';
 import { UserMessageModel } from './../../models/admin/user-message.model';
-import { AlertController, Alert } from 'ionic-angular';
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 import { SessionService } from '../session/session.service';
 import { EntityEnum } from '../../enums/entity.enum';
 
 import * as moment from 'moment';
-import { TranslateService } from '@ngx-translate/core';
 
 
 @Injectable()
 export class UserMessageAlertService {
 
-  userMessageAlert: Alert;
+  userMessageAlertCreation = new EventEmitter<UserMessageModel>();
 
-  constructor(private alertCtrl: AlertController,
+  constructor(
     private sessionService: SessionService,
     private storageService: StorageService,
-    private translateService: TranslateService,
     private userMessageTransformerService: UserMessageTransformerService) {
   }
 
@@ -29,25 +26,7 @@ export class UserMessageAlertService {
   handleUserMessage() {
     const userMessage = this.sessionService.authenticatedUser.userMessage;
     if (userMessage && this.displayUserMessage(userMessage)) {
-      this.userMessageAlert = this.alertCtrl.create({
-        title: userMessage.title,
-        message: userMessage.content,
-        buttons: [
-          {
-            text: this.translateService.instant('GLOBAL.USER_MESSAGE.BUTTONS.DISMISS'),
-            role: 'dismiss',
-            handler: () => { }
-          },
-          {
-            text: this.translateService.instant('GLOBAL.USER_MESSAGE.BUTTONS.DO_NOT_DISPLAY_ANYMORE'),
-            role: 'dismiss',
-            handler: () => {
-              this.doNotDisplayAnymoreUserMessage(userMessage);
-            }
-          }
-        ]
-      });
-      this.userMessageAlert.present();
+      this.userMessageAlertCreation.emit(userMessage);
     }
   }
 
@@ -75,7 +54,7 @@ export class UserMessageAlertService {
    * Masque le message pour les fois suivantes
    * @param userMessage le message qu'on souhaite masquer à l'avenir
    */
-  private doNotDisplayAnymoreUserMessage(userMessage: UserMessageModel) {
+  public doNotDisplayAnymoreMessage(userMessage: UserMessageModel) {
     this.storageService.saveAsync(EntityEnum.USER_MESSAGE, this.userMessageTransformerService.toUserMessage(userMessage), true);
   }
 
