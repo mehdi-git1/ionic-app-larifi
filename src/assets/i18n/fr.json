@@ -33,8 +33,10 @@
             "OFFLINE_MODE": "Vous êtes à présent en mode déconnecté"
         },
         "USER_MESSAGE": {
-            "TITLE": "Information importante",
-            "DISMISS_BUTTON": "Ok"
+            "BUTTONS": {
+                "DISMISS": "Ok",
+                "DO_NOT_DISPLAY_ANYMORE": "Ne plus afficher"
+            }
         },
         "DEVELOPMENT_PROGRAM": "Parcours de développement",
         "MY_DEVELOPMENT_PROGRAM": "Mon parcours de développement",
@@ -683,6 +685,7 @@
             "TITLE": "Gestion des messages poussés aux utilisateurs",
             "NO_USER_MESSAGE_SELECTED": "Aucun message sélectionné",
             "LABELS": {
+                "TITLE": "Titre",
                 "CONTENT": "Contenu",
                 "ACTIVE": "Actif"
             },
