@@ -57,6 +57,7 @@ export class PncHomePage {
         private summarySheetService: SummarySheetService,
         private userMessageAlertService: UserMessageAlertService
     ) {
+        this.userMessageAlertService.handleUserMessage();
 
         this.statusBar.styleLightContent();
 
@@ -72,7 +73,6 @@ export class PncHomePage {
 
     ionViewDidEnter() {
         this.initPage();
-        this.userMessageAlertService.handleUserMessage();
     }
 
     /**

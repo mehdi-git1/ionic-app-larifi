@@ -34,8 +34,8 @@
         },
         "USER_MESSAGE": {
             "BUTTONS": {
-                "DISMISS": "Ok",
-                "DO_NOT_DISPLAY_ANYMORE": "Ne plus afficher"
+                "DISMISS": "Fermer",
+                "DO_NOT_DISPLAY_ANYMORE": "J'ai compris"
             }
         },
         "DEVELOPMENT_PROGRAM": "Parcours de développement",
@@ -690,7 +690,8 @@
                 "ACTIVE": "Actif"
             },
             "BUTTONS": {
-                "UPDATE": "Mettre à jour"
+                "UPDATE": "Mettre à jour",
+                "OVERVIEW": "Aperçu"
             },
             "MESSAGES": {
                 "UPDATE_SUCCESSFUL": "Message mis à jour"
