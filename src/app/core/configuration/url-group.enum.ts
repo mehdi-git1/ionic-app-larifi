@@ -9,7 +9,6 @@ export enum urlGroupEnum {
   'PIN' = 'pin',
   'STATUTORY_CERTIFICATE' = 'statutory_certificate',
   'PROFESSIONAL_INTERVIEW' = 'professional_interviews',
-  'PNC_SUMMARY_SHEET' = 'pnc_summary_sheets',
   'PNC_SYNCHRO' = 'pnc_synchros',
   'WAYPOINT' = 'waypoints',
   'PROFESSIONAL_LEVEL' = 'professional_levels',
