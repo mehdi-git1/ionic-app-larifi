@@ -1,5 +1,5 @@
 export class RelayModel {
-    matricule: String;
+    matricule: string;
     code: string;
     label: string;
     startDate: Date;

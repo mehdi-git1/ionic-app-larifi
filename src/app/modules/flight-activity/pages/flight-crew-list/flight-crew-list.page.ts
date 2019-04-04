@@ -1,3 +1,4 @@
+import { PncPhotoService } from './../../../../core/services/pnc-photo/pnc-photo.service';
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 
@@ -24,10 +25,11 @@ export class FlightCrewListPage {
     constructor(public navCtrl: NavController,
         public navParams: NavParams,
         public genderProvider: GenderService,
-        private legProvider: LegService,
+        private legService: LegService,
         public connectivityService: ConnectivityService,
         private sessionService: SessionService,
-        private pncService: PncService) {
+        private pncService: PncService,
+        private pncPhotoService: PncPhotoService) {
     }
 
     ionViewDidEnter() {
@@ -39,22 +41,21 @@ export class FlightCrewListPage {
      */
     initPage() {
         const legId = this.navParams.get('legId');
-        this.legProvider.getLeg(legId).then(legInfos => {
+        this.legService.getLeg(legId).then(legInfos => {
             this.leg = legInfos;
-            this.legProvider.getFlightCrewFromLeg(legId).then(flightCrew => {
-                flightCrew.forEach(crew => {
-                    if (crew.pnc.matricule !== undefined) {
-                        if (crew.pnc.matricule === this.sessionService.getActiveUser().matricule) {
-                            this.sessionService.appContext.onBoardRedactorFunction = crew.onBoardFonction;
-                            this.connectedCrewMember = crew;
-                        }
+            this.legService.getFlightCrewFromLeg(legId).then(flightCrews => {
+                this.pncPhotoService.synchronizePncsPhotos(flightCrews.map(flightCrew => flightCrew.pnc.matricule));
+                flightCrews.forEach(crew => {
+                    if (crew.pnc.matricule !== undefined && crew.pnc.matricule === this.sessionService.getActiveUser().matricule) {
+                        this.sessionService.appContext.onBoardRedactorFunction = crew.onBoardFonction;
+                        this.connectedCrewMember = crew;
                     }
                 });
                 // On supprime le PNC connecté de la liste
                 if (this.connectedCrewMember) {
-                    flightCrew = flightCrew.filter(item => item !== this.connectedCrewMember);
+                    flightCrews = flightCrews.filter(item => item !== this.connectedCrewMember);
                 }
-                this.flightCrewList = this.sortFlightCrewList(flightCrew);
+                this.flightCrewList = this.sortFlightCrewList(flightCrews);
             }, error => { this.flightCrewList = []; });
         }, error => { });
     }
@@ -84,9 +85,9 @@ export class FlightCrewListPage {
             return 1;
         } else if (crewMember.particularity === 'P' && otherCrewMember.particularity === 'P') {
             return this.sortBySpeciality(crewMember, otherCrewMember);
-        } else if (crewMember.particularity === 'P' && !(otherCrewMember.particularity === 'P')) {
+        } else if (crewMember.particularity === 'P' && otherCrewMember.particularity !== 'P') {
             return -1;
-        } else if (!(crewMember.particularity === 'P') && otherCrewMember.particularity === 'P') {
+        } else if (crewMember.particularity !== 'P' && otherCrewMember.particularity === 'P') {
             return 1;
         } else {
             return this.sortBySpeciality(crewMember, otherCrewMember);

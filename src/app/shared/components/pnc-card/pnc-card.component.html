@@ -4,7 +4,7 @@
         <offline-indicator [object]="pnc" type="PNC"></offline-indicator>
         <div class="pnc-container">
             <div class="main-info">
-                <pnc-photo [pnc]="pnc" [size]="80"></pnc-photo>
+                <pnc-photo [pnc]="pnc" [size]="80" [handleCall]="false"></pnc-photo>
                 <div class="identity">
                     <span class="value speciality" [ngClass]="{'no-value' : !formatedSpeciality }"> {{ formatedSpeciality }}</span>
                     <span class="value lastname">{{ pnc.lastName }}</span>

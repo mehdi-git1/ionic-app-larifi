@@ -5,6 +5,7 @@ import { EObservationTypeEnum } from '../../enums/e-observations-type.enum';
 import { EObservationFlightModel } from './eobservation-flight.model';
 import { EObservationStateEnum } from '../../enums/e-observation-state.enum';
 import { SpecialityEnum } from '../../enums/speciality.enum';
+import { EObservationCommentModel } from './eobservation-comment.model';
 
 export class EObservationModel extends EDossierPncObjectModel {
 
@@ -14,6 +15,7 @@ export class EObservationModel extends EDossierPncObjectModel {
     state: EObservationStateEnum;
     redactor: PncModel;
     eobservationItems: EObservationItemModel[];
+    eobservationComments: EObservationCommentModel[];
     eobservationFlights: EObservationFlightModel[];
     redactorComment: string;
     pncComment: string;
@@ -21,6 +23,7 @@ export class EObservationModel extends EDossierPncObjectModel {
     redactorSpeciality: SpecialityEnum;
     pncSpeciality: SpecialityEnum;
     lastUpdateDate: Date;
+    lastUpdateAuthor: PncModel;
     formationFlight: boolean;
     vac: boolean;
     val: boolean;
