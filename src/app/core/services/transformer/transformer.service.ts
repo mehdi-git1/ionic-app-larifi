@@ -36,7 +36,6 @@ export class TransformerService {
         for (const object of objectToTransform) {
             objectArray.push(this.universalTransformObject(typeOfObject, object));
         }
-        console.log(objectArray);
         return objectArray;
     }
 
