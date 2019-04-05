@@ -343,10 +343,10 @@
             "VAL_TITLE_OPTION": " - VAL",
             "BILAN_FLIGHT": "Vol Bilan",
             "EVAL": "EVAL",
-            "APPRECIATION" : "Appréciation",
-            "SKILLS" : "Aptitudes",
-            "IMPROVABLE" : "Améliorable",
-            "CONFORM" : "Conforme",
+            "APPRECIATION": "Appréciation",
+            "SKILLS": "Aptitudes",
+            "IMPROVABLE": "Améliorable",
+            "CONFORM": "Conforme",
             "STATE": {
                 "TITLE": "Statut",
                 "LABEL": "Statut en cours : ",
@@ -660,19 +660,19 @@
         "APP_VERSION_MANAGEMENT": {
             "TITLE": "Gestion des versions",
             "BUTTON": {
-                "ADD_VERSION": "Ajouter"
+                "ADD_VERSION": "Ajouter",
+                "UPDATE_VERSION": "Modifier"
             },
             "HEADER": {
-                "NUMBER": "numéro",
-                "CHANGELOG": "description",
-                "ACTION": "action"
+                "NUMBER": "Numéro",
+                "CHANGELOG": "Description"
             },
             "LABEL": {
                 "VERSION_NUMBER": "Numéro de version",
                 "CHANGELOG": "Description"
             },
             "SUCCESS": {
-                "CREATE_VERSION": "Nouvelle version créée"
+                "CREATEORUPDATE_VERSION": "mise à jour effectuée"
             },
             "ERROR": {
                 "UNDEFINED_NUMBER": "Veuillez renseigner un numéro de version"
