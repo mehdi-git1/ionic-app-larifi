@@ -19,11 +19,11 @@ export class AppVersionService {
     }
 
     /**
-     * Crée une version
-     * @param appVersion la version à créer
-     * @return la version créé
+     * Crée ou met à jour une version
+     * @param appVersion la version à créer ou à mettre à jour
+     * @return la version créé ou mise à jour
      */
-    public createAppVersion(appVersion: AppVersionModel): Promise<AppVersionModel> {
-        return this.restService.post(this.config.getBackEndUrl('createAppVersion'), appVersion);
+    public createOrUpdateAppVersion(appVersion: AppVersionModel): Promise<AppVersionModel> {
+        return this.restService.post(this.config.getBackEndUrl('appVersions'), appVersion);
     }
 }

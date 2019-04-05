@@ -3,7 +3,6 @@ import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-transla
 import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { IonicModule } from 'ionic-angular';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
 
 import { TranslateLoaderMock } from './../../../../../test-config/mocks-ionic';
 
@@ -13,8 +12,8 @@ import { AppVersionService } from '../../../../core/services/app-version/app-ver
 import { ToastService } from './../../../../core/services/toast/toast.service';
 import { AppVersionModel } from '../../../../core/models/admin/app-version.model';
 
-const AppVersionServiceMock = jasmine.createSpyObj('AppVersionServiceMock', ['createAppVersion', 'getAllAppVersions']);
-AppVersionServiceMock.createAppVersion.and.returnValue(Promise.resolve());
+const AppVersionServiceMock = jasmine.createSpyObj('AppVersionServiceMock', ['createOrUpdateAppVersion', 'getAllAppVersions']);
+AppVersionServiceMock.createOrUpdateAppVersion.and.returnValue(Promise.resolve());
 AppVersionServiceMock.getAllAppVersions.and.returnValue(Promise.resolve());
 const ToastServiceMock = jasmine.createSpyObj('ToastServiceMock', ['success', 'error']);
 
@@ -37,7 +36,6 @@ describe('app-version-management', () => {
                 })
             ],
             providers: [
-                FormBuilder,
                 { provide: ToastService, useValue: ToastServiceMock },
                 { provide: TranslateService, useClass: TranslateLoaderMock },
                 { provide: AppVersionService, useValue: AppVersionServiceMock }
@@ -55,27 +53,30 @@ describe('app-version-management', () => {
         comp.allAppVersions = [];
     });
 
-    describe('createAppVersion', () => {
+    describe('createOrUpdateAppVersion', () => {
 
         beforeEach(() => {
+
             spyOn(translateService, 'instant').and.callFake(function (param) {
                 return param;
             });
 
         });
-
         let invalidNumber, validNumber: string;
         let invalidChangelog, validChangelog: string;
+        let appVersion: AppVersionModel;
 
         it(`doit envoyer un message d'erreur si le numero de version n'est pas conforme`, () => {
             // ARRANGE remplissage du formulaire avec un numéro de version vide (donc invalide) et un changelog (aucun contrôle n'est effectué dessus)
             invalidNumber = '';
             invalidChangelog = `changelog d'une version invalide`;
-            comp.appVersionForm.setValue({ number: invalidNumber, changelog: invalidChangelog });
+            appVersion = new AppVersionModel();
+            appVersion.number = invalidNumber;
+            appVersion.changelog = invalidChangelog;
             // ACT utilisation de la fonction de création de version
-            comp.createAppVersion();
+            comp.createOrUpdateAppVersion(appVersion);
             // ASSERT le formulaire est invalide et un toast d'erreur est affiché à l'écran de l'utilisateur
-            expect(comp.appVersionForm.valid).toBeFalsy();
+            expect(comp.regEx.test(appVersion.number)).toBeFalsy();
             expect(translateService.instant).toHaveBeenCalledWith('ADMIN.APP_VERSION_MANAGEMENT.ERROR.UNDEFINED_NUMBER');
         });
 
@@ -83,17 +84,19 @@ describe('app-version-management', () => {
             // ARRANGE remplissage du formulaire avec un numéro de version valide et un changelog
             validChangelog = `description de la version 1.0.0`;
             validNumber = '1.0.0';
-            comp.appVersionForm.setValue({ number: validNumber, changelog: validChangelog });
+            appVersion = new AppVersionModel();
+            appVersion.number = validNumber;
+            appVersion.changelog = validChangelog;
             // ACT utilisation de la fonction de création de version
-            comp.createAppVersion();
+            comp.createOrUpdateAppVersion(appVersion);
             tick();
             // ASSERT le formulaire est valide, la nouvelle version est intégrée et un toast de succes est affiché à l'écran de l'utilisateur
             const tmpAppVersion = new AppVersionModel();
             tmpAppVersion.number = validNumber;
             tmpAppVersion.changelog = validChangelog;
-            expect(comp.appVersionForm.valid).toBeTruthy();
-            expect(appVersionService.createAppVersion).toHaveBeenCalledWith(tmpAppVersion);
-            expect(translateService.instant).toHaveBeenCalledWith('ADMIN.APP_VERSION_MANAGEMENT.SUCCESS.CREATE_VERSION');
+            expect(comp.regEx.test(tmpAppVersion.number)).toBeTruthy();
+            expect(appVersionService.createOrUpdateAppVersion).toHaveBeenCalledWith(tmpAppVersion);
+            expect(translateService.instant).toHaveBeenCalledWith('ADMIN.APP_VERSION_MANAGEMENT.SUCCESS.CREATEORUPDATE_VERSION');
         }));
     });
 });
