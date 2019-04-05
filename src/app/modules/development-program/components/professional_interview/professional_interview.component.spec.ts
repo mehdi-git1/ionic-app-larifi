@@ -8,7 +8,7 @@ import { TranslateLoaderMock } from '../../../../../test-config/mocks-ionic';
 import { TranslateOrEmptyPipe } from '../../../../shared/pipes/translate-or-empty/translate-or-empty.pipe';
 import { TranslateOrEmptyService } from '../../../../core/services/translate/translate-or-empty.service';
 import { ProfessionalInterviewModel } from '../../../../core/models/professional-interview/professional-interview.model';
-import { InterviewStateEnum } from '../../../../core/enums/professional-interview/interview-state.enum';
+import { ProfessionalInterviewStateEnum } from '../../../../core/enums/professional-interview/professional-interview-state.enum';
 
 const translateOrEmptyServiceMock = jasmine.createSpyObj('translateOrEmptyServiceMock', ['transform']);
 
@@ -53,28 +53,28 @@ describe('ProfessionalInterviewComponent', () => {
         it(`Renvoie green si le statut de l'eobs est TAKEN_INTO_ACCOUNT`, () => {
             expect(comp).toBeDefined();
             comp.professionalInterview = new ProfessionalInterviewModel();
-            comp.professionalInterview.state = InterviewStateEnum.TAKEN_INTO_ACCOUNT;
+            comp.professionalInterview.state = ProfessionalInterviewStateEnum.TAKEN_INTO_ACCOUNT;
             expect(comp.getColorStatusPoint()).toBe('green');
         });
 
         it(`Renvoie red si le statut de l'eobs est NOT_TAKEN_INTO_ACCOUNT`, () => {
             expect(comp).toBeDefined();
             comp.professionalInterview = new ProfessionalInterviewModel();
-            comp.professionalInterview.state = InterviewStateEnum.NOT_TAKEN_INTO_ACCOUNT;
+            comp.professionalInterview.state = ProfessionalInterviewStateEnum.NOT_TAKEN_INTO_ACCOUNT;
             expect(comp.getColorStatusPoint()).toBe('red');
         });
 
-        it(`Renvoie red si le statut de l'eobs est CONSULTED`, () => {
+        it(`Renvoie red si le statut de l'eobs est AVAILABLE`, () => {
             expect(comp).toBeDefined();
             comp.professionalInterview = new ProfessionalInterviewModel();
-            comp.professionalInterview.state = InterviewStateEnum.CONSULTED;
+            comp.professionalInterview.state = ProfessionalInterviewStateEnum.AVAILABLE;
             expect(comp.getColorStatusPoint()).toBe('orange');
         });
 
         it(`Renvoie red si le statut de l'eobs est DRAFT`, () => {
             expect(comp).toBeDefined();
             comp.professionalInterview = new ProfessionalInterviewModel();
-            comp.professionalInterview.state = InterviewStateEnum.DRAFT;
+            comp.professionalInterview.state = ProfessionalInterviewStateEnum.DRAFT;
             expect(comp.getColorStatusPoint()).toBe('grey');
         });
 
