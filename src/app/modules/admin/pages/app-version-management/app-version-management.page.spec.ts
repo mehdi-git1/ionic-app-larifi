@@ -20,7 +20,7 @@ const ToastServiceMock = jasmine.createSpyObj('ToastServiceMock', ['success', 'e
 describe('app-version-management', () => {
 
     let fixture: ComponentFixture<AppVersionManagementPage>;
-    let comp: AppVersionManagementPage;
+    let appVersionManagementPage: AppVersionManagementPage;
     let appVersionService: AppVersionService;
     let translateService: TranslateService;
 
@@ -44,13 +44,13 @@ describe('app-version-management', () => {
         });
 
         fixture = TestBed.createComponent(AppVersionManagementPage);
-        comp = fixture.componentInstance;
+        appVersionManagementPage = fixture.componentInstance;
         translateService = TestBed.get(TranslateService);
         appVersionService = TestBed.get(AppVersionService);
     });
 
     beforeEach(() => {
-        comp.allAppVersions = [];
+        appVersionManagementPage.allAppVersions = [];
     });
 
     describe('createOrUpdateAppVersion', () => {
@@ -74,9 +74,9 @@ describe('app-version-management', () => {
             appVersion.number = invalidNumber;
             appVersion.changelog = invalidChangelog;
             // ACT utilisation de la fonction de création de version
-            comp.createOrUpdateAppVersion(appVersion);
+            appVersionManagementPage.createOrUpdateAppVersion(appVersion);
             // ASSERT le formulaire est invalide et un toast d'erreur est affiché à l'écran de l'utilisateur
-            expect(comp.regEx.test(appVersion.number)).toBeFalsy();
+            expect(appVersionManagementPage.versionNumberRegex.test(appVersion.number)).toBeFalsy();
             expect(translateService.instant).toHaveBeenCalledWith('ADMIN.APP_VERSION_MANAGEMENT.ERROR.UNDEFINED_NUMBER');
         });
 
@@ -88,13 +88,13 @@ describe('app-version-management', () => {
             appVersion.number = validNumber;
             appVersion.changelog = validChangelog;
             // ACT utilisation de la fonction de création de version
-            comp.createOrUpdateAppVersion(appVersion);
+            appVersionManagementPage.createOrUpdateAppVersion(appVersion);
             tick();
             // ASSERT le formulaire est valide, la nouvelle version est intégrée et un toast de succes est affiché à l'écran de l'utilisateur
             const tmpAppVersion = new AppVersionModel();
             tmpAppVersion.number = validNumber;
             tmpAppVersion.changelog = validChangelog;
-            expect(comp.regEx.test(tmpAppVersion.number)).toBeTruthy();
+            expect(appVersionManagementPage.versionNumberRegex.test(tmpAppVersion.number)).toBeTruthy();
             expect(appVersionService.createOrUpdateAppVersion).toHaveBeenCalledWith(tmpAppVersion);
             expect(translateService.instant).toHaveBeenCalledWith('ADMIN.APP_VERSION_MANAGEMENT.SUCCESS.CREATEORUPDATE_VERSION');
         }));

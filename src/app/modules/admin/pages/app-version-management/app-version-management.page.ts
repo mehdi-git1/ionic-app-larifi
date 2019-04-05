@@ -14,7 +14,7 @@ export class AppVersionManagementPage {
     number: string;
     changelog: string;
 
-    regEx = /([0-9]{1,2}[.]){2}[0-9]{1,2}/;
+    versionNumberRegex = /([0-9]{1,2}[.]){2}[0-9]{1,2}/;
 
     allAppVersions: AppVersionModel[];
     appVersion: AppVersionModel;
@@ -31,8 +31,8 @@ export class AppVersionManagementPage {
     }
 
     /**
-     * Crée ou mis a jour une Version
-     * @param appVersion la version concernée
+     * Crée ou met à jour une Version
+     * @param appVersion la version créée ou mise à jour
      */
     createOrUpdateAppVersion(appVersion: AppVersionModel): void {
         if (appVersion == null) {
@@ -42,7 +42,7 @@ export class AppVersionManagementPage {
         } else {
             this.appVersion = appVersion;
         }
-        if (!this.regEx.test(this.appVersion.number)) {
+        if (!this.versionNumberRegex.test(this.appVersion.number)) {
             return this.toastService.error(this.translateService.instant('ADMIN.APP_VERSION_MANAGEMENT.ERROR.UNDEFINED_NUMBER'));
         }
         this.appVersionService
