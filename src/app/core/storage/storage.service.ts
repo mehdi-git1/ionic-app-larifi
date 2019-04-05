@@ -51,7 +51,7 @@ export class StorageService {
    * Met à jour la map de stockage en vérifiant que toutes les entités ont leur entrée dans la map.
    * @param offlineMap la map de stockage à mettre à jour
    */
-  updateMap(offlineMap): void {
+  updateMap(offlineMap) {
     if (offlineMap === null) {
       offlineMap = {};
     }
@@ -85,9 +85,7 @@ export class StorageService {
    * @return une promesse contenant la liste des entités trouvées
    */
   findAllAsync(entity: EntityEnum): Promise<any[]> {
-    return new Promise((resolve, reject) => {
-      resolve(this.findAll(entity));
-    });
+    return Promise.resolve(this.findAll(entity));
   }
 
   /**
@@ -111,9 +109,7 @@ export class StorageService {
    * @return une promesse contenant l'entité trouvée
    */
   findOneAsync(entity: EntityEnum, storageId: string): Promise<any> {
-    return new Promise((resolve, reject) => {
-      resolve(_.cloneDeep(this.findOne(entity, storageId)));
-    });
+    return Promise.resolve(_.cloneDeep(this.findOne(entity, storageId)));
   }
 
   /**

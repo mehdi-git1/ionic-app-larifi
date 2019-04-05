@@ -28,6 +28,10 @@ page-career-objective-list {
         padding: 0px 10px;
     }
 
+    .option-menu {
+        display: none;
+    }
+
     .archives {
         cursor: pointer;
 
@@ -89,6 +93,10 @@ page-career-objective-list {
 
                 .button-content {
                     padding: 10px 20px;
+
+                    &.default {
+                        font-weight: bold;
+                    }
                 }
 
                 .edospnc-plus:before {
@@ -101,6 +109,15 @@ page-career-objective-list {
                     color: color($colors, white);
                 }
             }
+
+            .option-menu {
+                margin-top: 5px;
+
+                .item-inner {
+                    border: 0px;
+                }
+            }
+
 
         }
     }
@@ -131,7 +148,8 @@ page-career-objective-list {
             }
         }
 
-        .add-button {
+        .add-button,
+        .choice-button {
             background: color($colors, blue68);
         }
     }

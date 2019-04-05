@@ -8,8 +8,7 @@ export enum urlGroupEnum {
   'HELP_ASSET' = 'help_assets',
   'PIN' = 'pin',
   'STATUTORY_CERTIFICATE' = 'statutory_certificate',
-  'PROFESSIONAL_INTERVIEW' = 'professional_assessment',
-  'PNC_SUMMARY_SHEET' = 'pnc_summary_sheets',
+  'PROFESSIONAL_INTERVIEW' = 'professional_interviews',
   'PNC_SYNCHRO' = 'pnc_synchros',
   'WAYPOINT' = 'waypoints',
   'PROFESSIONAL_LEVEL' = 'professional_levels',
@@ -19,5 +18,6 @@ export enum urlGroupEnum {
   'USER_PERMISSION' = 'user_permissions',
   'PING' = 'ping',
   'FORMS_INPUT_PARAM' = 'forms_input_params',
-  'CONGRATULATION_LETTER' = 'congratulation_letters'
+  'CONGRATULATION_LETTER' = 'congratulation_letters',
+  'APP_VERSION' = 'app_versions'
 }

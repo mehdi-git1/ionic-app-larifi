@@ -19,6 +19,8 @@ export class EObsCommentComponent {
 
   @Input() canEditPncComment = false;
 
+  @Input() editMode = false;
+
   constructor(private translateService: TranslateService) {
   }
 
@@ -28,9 +30,9 @@ export class EObsCommentComponent {
    */
   getTitle(): string {
     if (this.isManagerComment()) {
-      return this.translateService.instant('EOBSERVATION.DETAILS.REDACTOR_COMMENT');
+      return this.translateService.instant('EOBSERVATION.DETAIL.REDACTOR_COMMENT');
     } else {
-      return this.translateService.instant('EOBSERVATION.DETAILS.PNC_COMMENT');
+      return this.translateService.instant('EOBSERVATION.DETAIL.PNC_COMMENT');
     }
   }
 
@@ -74,6 +76,10 @@ export class EObsCommentComponent {
    * @return vrai si le commentaire est vide, faux sinon
    */
   isEmpty(): boolean {
+    if (this.editMode) {
+      return false;
+    }
+
     if (this.isManagerComment()) {
       return this.eObservation && !this.eObservation.redactorComment && this.eObservation && !this.eObservation.strongPoints && !this.eObservation.workingAxes;
     } else {
@@ -84,4 +90,5 @@ export class EObsCommentComponent {
   confirmValidatePncComment(): void {
     this.validatePncComment.next();
   }
+
 }

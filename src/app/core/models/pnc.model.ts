@@ -1,3 +1,4 @@
+import { PncInstructorModel } from './pnc-instructor.model';
 import { RelayModel } from './statutory-certificate/relay.model';
 import { StatutoryCertificateModel } from './statutory.certificate.model';
 import { GenderEnum } from '../enums/gender.enum';
@@ -16,6 +17,8 @@ export class PncModel extends EDossierPncObjectModel {
     assignment: AssignmentModel;
     relays: RelayModel[];
     aircraftSkills: string[];
+    aircraftSkillsLabel: string[];
+    pncInstructor: PncInstructorModel;
     manager: boolean;
     workRate: number;
     prioritized: boolean;

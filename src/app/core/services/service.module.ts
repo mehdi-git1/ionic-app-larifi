@@ -1,3 +1,4 @@
+import { AppVersionService } from './app-version/app-version.service';
 import { UserPermissionService } from './user-permission/user-permission.service';
 import { CongratulationLetterTransformerService } from './congratulation-letter/congratulation-letter-transformer.service';
 import { CongratulationLetterService } from './congratulation-letter/congratulation-letter.service';
@@ -10,7 +11,6 @@ import { OnlineEvaluationSheetService } from './professional-level/evaluation-sh
 import { OfflineEvaluationSheetService } from './professional-level/evaluation-sheet/offline-evaluation-sheet.service';
 import { EvaluationSheetService } from './professional-level/evaluation-sheet/evaluation-sheet.service';
 import { UserProfileService } from './user-profile/user-profile.service';
-import { VersionService } from './version/version.service';
 import { NgModule } from '@angular/core';
 import { ConnectivityService } from './connectivity/connectivity.service';
 import { TabNavService } from './tab-nav/tab-nav.service';
@@ -44,13 +44,11 @@ import { PncTransformerService } from './pnc/pnc-transformer.service';
 import { WaypointTransformerService } from './waypoint/waypoint-transformer.service';
 import { PncSynchroService } from './synchronization/pnc-synchro.service';
 import { FormsEObservationService } from './forms/forms-e-observation.service';
-import { SummarySheetTransformerService } from './summary-sheet/summary-sheet-transformer.service';
 import { OfflinePncPhotoService } from './pnc-photo/offline-pnc-photo.service';
 import { ProfessionalLevelService } from './professional-level/professional-level.service';
 import { PncPhotoTransformerService } from './pnc-photo/pnc-photo-transformer.service';
 import { RotationTransformerService } from './rotation/rotation-transformer.service';
 import { SpecialityService } from './speciality/speciality.service';
-import { SummarySheetService } from './summary-sheet/summary-sheet.service';
 import { OnlineProfessionalLevelService } from './professional-level/online-professional-level.service';
 import { OnlineLegService } from './leg/online-leg.service';
 import { ProfessionalLevelTransformerService } from './professional-level/professional-level-transformer.service';
@@ -64,9 +62,7 @@ import { StatutoryCertificateTransformerService } from './statutory-certificate/
 import { OfflineRotationService } from './rotation/offline-rotation.service';
 import { OfflineProfessionalLevelService } from './professional-level/offline-professional-level.service';
 import { StatutoryCertificateService } from './statutory-certificate/statutory-certificate.service';
-import { OfflineSummarySheetService } from './summary-sheet/offline-summary-sheet.service';
 import { OnlineRotationService } from './rotation/online-rotation.service';
-import { OnlineSummarySheetService } from './summary-sheet/online-summary-sheet.service';
 import { LegTransformerService } from './leg/leg-transformer.service';
 import { CrewMemberTransformerService } from './crewMember/crew-member-transformer.service';
 import { TranslateOrEmptyService } from './translate/translate-or-empty.service';
@@ -125,13 +121,9 @@ import { OfflineProfessionalInterviewService } from './professional-interview/of
         SynchronizationService,
         PncSynchroService,
         FormsEObservationService,
-        SummarySheetService,
         RotationTransformerService,
         LegTransformerService,
         CrewMemberTransformerService,
-        OnlineSummarySheetService,
-        OfflineSummarySheetService,
-        SummarySheetTransformerService,
         OnlineRotationService,
         OfflineRotationService,
         OnlineLegService,
@@ -154,7 +146,6 @@ import { OfflineProfessionalInterviewService } from './professional-interview/of
         OfflineProfessionalLevelService,
         ProfessionalLevelTransformerService,
         SpecialityService,
-        VersionService,
         EvaluationSheetService,
         OnlineEvaluationSheetService,
         OfflineEvaluationSheetService,
@@ -168,8 +159,9 @@ import { OfflineProfessionalInterviewService } from './professional-interview/of
         OfflineCongratulationLetterService,
         OnlineCongratulationLetterService,
         CongratulationLetterTransformerService,
-        SynchronizationManagementService,
-        TranslateOrEmptyService
+        TranslateOrEmptyService,
+        AppVersionService,
+        SynchronizationManagementService
     ]
 })
 export class ServiceModule { }

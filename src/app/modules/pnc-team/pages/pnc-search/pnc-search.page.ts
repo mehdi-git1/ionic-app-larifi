@@ -1,3 +1,4 @@
+import { MatriculesModel } from './../../../../core/models/matricules.model';
 import { TranslateService } from '@ngx-translate/core';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
@@ -15,6 +16,7 @@ import { SessionService } from '../../../../core/services/session/session.servic
 import { PncService } from '../../../../core/services/pnc/pnc.service';
 
 import { TabNavEnum } from '../../../../core/enums/tab-nav.enum';
+import { PncPhotoService } from '../../../../core/services/pnc-photo/pnc-photo.service';
 
 @Component({
     selector: 'page-pnc-search',
@@ -44,6 +46,7 @@ export class PncSearchPage implements OnInit {
         public navParams: NavParams,
         public translateService: TranslateService,
         private pncProvider: PncService,
+        private pncPhotoService: PncPhotoService,
         private sessionService: SessionService,
         private connectivityService: ConnectivityService,
         private tabNavService: TabNavService
@@ -90,13 +93,13 @@ export class PncSearchPage implements OnInit {
         this.buildFilter();
 
         this.pncProvider.getFilteredPncs(this.pncSearchFilter.pncFilter, this.page, this.sizeOfThePage).then(pagedPnc => {
+            this.pncPhotoService.synchronizePncsPhotos(pagedPnc.content.map(pnc => pnc.matricule));
             this.searchInProgress = false;
             this.filteredPncs = pagedPnc.content;
             this.totalPncs = pagedPnc.page.totalElements;
         }).catch((err) => {
             this.searchInProgress = false;
-        }
-        );
+        });
     }
 
     /**
@@ -119,6 +122,7 @@ export class PncSearchPage implements OnInit {
                 if (this.connectivityService.isConnected()) {
                     ++this.page;
                     this.pncProvider.getFilteredPncs(this.pncSearchFilter.pncFilter, this.page, this.sizeOfThePage).then(pagedPnc => {
+                        this.pncPhotoService.synchronizePncsPhotos(pagedPnc.content.map(pnc => pnc.matricule));
                         this.filteredPncs.push(...pagedPnc.content);
                         infiniteScroll.complete();
                         resolve();

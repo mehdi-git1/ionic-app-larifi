@@ -19,7 +19,6 @@ import { TabNavService } from '../../../core/services/tab-nav/tab-nav.service';
 import { TabNavEnum } from '../../../core/enums/tab-nav.enum';
 import { SpecialityEnum } from '../../../core/enums/speciality.enum';
 import { AuthenticationPage } from '../../../modules/home/pages/authentication/authentication.page';
-import { SummarySheetService } from '../../../core/services/summary-sheet/summary-sheet.service';
 import { IsMyPage } from '../../pipes/is_my_page/is_my_page.pipe';
 
 @Component({

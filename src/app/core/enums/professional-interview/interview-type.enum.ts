@@ -1,3 +1,4 @@
 export enum InterviewTypeEnum {
-    'RA' = 'RA'
+    'EPP' = 'EPP',
+    'BILAN_PRO' = 'Bilan professionel'
 }
