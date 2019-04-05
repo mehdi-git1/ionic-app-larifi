@@ -1,3 +1,4 @@
+import { ProfessionalInterviewService } from './../../../../core/services/professional-interview/professional-interview.service';
 import { AppConstant } from './../../../../app.constant';
 import { OfflineCareerObjectiveService } from './../../../../core/services/career-objective/offline-career-objective.service';
 import { OnlineCareerObjectiveService } from './../../../../core/services/career-objective/online-career-objective';
@@ -56,6 +57,7 @@ describe('CareerObjectiveListPage', () => {
                 { provide: CareerObjectiveService },
                 { provide: SessionService, useValue: sessionServiceMock },
                 { provide: FormsEObservationService },
+                { provide: ProfessionalInterviewService },
                 { provide: EObservationService, useValue: eObservationServiceMock },
                 { provide: SynchronizationService, useValue: synchronizationProviderMock },
                 { provide: DeviceService },
