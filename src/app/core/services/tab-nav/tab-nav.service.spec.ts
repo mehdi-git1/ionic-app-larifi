@@ -10,7 +10,6 @@ describe('tabNavService', () => {
         tabNavService.listOfTab = [
             { id: TabNavEnum.PNC_HOME_PAGE },
             { id: TabNavEnum.CAREER_OBJECTIVE_LIST_PAGE },
-            { id: TabNavEnum.SUMMARY_SHEET_PAGE },
             { id: TabNavEnum.PNC_SEARCH_PAGE },
             { id: TabNavEnum.UPCOMING_FLIGHT_LIST_PAGE },
             { id: TabNavEnum.HELP_ASSET_LIST_PAGE },

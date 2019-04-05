@@ -24,7 +24,6 @@ import { PncSearchPage } from '../../../pnc-team/pages/pnc-search/pnc-search.pag
 import { StatutoryCertificatePage } from '../../../statutory-certificate/pages/statutory-certificate/statutory-certificate.page';
 import { SpecialityEnum } from '../../../../core/enums/speciality.enum';
 import { SpecialityService } from '../../../../core/services/speciality/speciality.service';
-import { SummarySheetService } from '../../../../core/services/summary-sheet/summary-sheet.service';
 import { CongratulationLettersPage } from '../../../congratulation-letter/pages/congratulation-letters/congratulation-letters.page';
 
 @Component({
@@ -54,7 +53,6 @@ export class PncHomePage {
         private statusBar: StatusBar,
         private tabNavService: TabNavService,
         private specialityService: SpecialityService,
-        private summarySheetService: SummarySheetService,
         private userMessageAlertService: UserMessageAlertService
     ) {
         this.userMessageAlertService.handleUserMessage();
@@ -135,13 +133,6 @@ export class PncHomePage {
         } else {
             this.navCtrl.push(PncSearchPage);
         }
-    }
-
-    /**
-     * Affiche la fiche synthèse
-     */
-    goToSummarySheet() {
-        this.summarySheetService.openSummarySheet(this.matricule);
     }
 
     /**
