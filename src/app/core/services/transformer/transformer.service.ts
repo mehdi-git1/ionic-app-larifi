@@ -5,7 +5,6 @@ import { CareerObjectiveTransformerService } from '../career-objective/career-ob
 import { PncTransformerService } from '../pnc/pnc-transformer.service';
 import { EntityEnum } from '../../enums/entity.enum';
 import { EDossierPncObjectModel } from '../../models/e-dossier-pnc-object.model';
-import { SummarySheetTransformerService } from '../summary-sheet/summary-sheet-transformer.service';
 
 @Injectable()
 export class TransformerService {
@@ -13,8 +12,7 @@ export class TransformerService {
     constructor(
         private pncTransformer: PncTransformerService,
         private careerObjectiveTransformer: CareerObjectiveTransformerService,
-        private waypointTransformer: WaypointTransformerService,
-        private summarySheetTransformer: SummarySheetTransformerService) {
+        private waypointTransformer: WaypointTransformerService) {
     }
     /**
      * Appelle le bon transformer et transforme l'objet
@@ -24,8 +22,6 @@ export class TransformerService {
     public transformObject(type: EntityEnum, objectToTransform: any): EDossierPncObjectModel {
         if (EntityEnum.PNC === type) {
             return this.pncTransformer.toPnc(objectToTransform);
-        } else if (EntityEnum.SUMMARY_SHEET === type) {
-            return this.summarySheetTransformer.toSummarySheet(objectToTransform);
         } else if (EntityEnum.CAREER_OBJECTIVE === type) {
             return this.careerObjectiveTransformer.toCareerObjective(objectToTransform);
         } else if (EntityEnum.WAYPOINT === type) {

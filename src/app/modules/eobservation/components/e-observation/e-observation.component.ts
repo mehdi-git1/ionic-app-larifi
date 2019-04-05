@@ -24,7 +24,7 @@ export class EObservationComponent implements OnChanges {
   @Input() filteredEObservation: EObservationModel;
 
   constructor(private navCtrl: NavController,
-              private eObservationService: EObservationService) {
+    private eObservationService: EObservationService) {
   }
 
   ngOnChanges() {
@@ -46,7 +46,7 @@ export class EObservationComponent implements OnChanges {
    */
   private sortByThemeOrderAndItemOrder(a: EObservationItemModel, b: EObservationItemModel): number {
     if (a && a.refItemLevel && a.refItemLevel.item && a.refItemLevel.item.theme &&
-        b && b.refItemLevel && b.refItemLevel.item && b.refItemLevel.item.theme &&
+      b && b.refItemLevel && b.refItemLevel.item && b.refItemLevel.item.theme &&
       (a.refItemLevel.item.theme.themeOrder > b.refItemLevel.item.theme.themeOrder)) {
       return 1;
     } else {
@@ -76,11 +76,12 @@ export class EObservationComponent implements OnChanges {
   }
 
   /**
-   * Vérifie si l'eObservation peut être ouverte (afin de voir les écarts de notation)
+   * Vérifie si l'eObservation peut être ouverte (afin de voir les écarts de notation).
+   * Les ePCB ne peuvent pas être ouvertes.
    * @return vrai si l'eObservation peut être ouverte, faux sinon
    */
   canOpen(): boolean {
-    return this.abnormalEObservationItems.length > 0;
+    return this.abnormalEObservationItems.length > 0 && this.eObservation.type !== EObservationTypeEnum.E_PCB;
   }
 
   /**

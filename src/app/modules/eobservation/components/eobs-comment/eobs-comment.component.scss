@@ -45,6 +45,7 @@ eobs-comment {
                 border-radius: 3px;
                 background: color($colors, grey95);
                 border: 1px solid color($colors, grey70);
+                white-space: pre-line;
             }
 
             ion-textarea {

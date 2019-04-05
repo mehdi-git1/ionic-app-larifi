@@ -34,8 +34,6 @@
         },
         "DEVELOPMENT_PROGRAM": "Parcours de développement",
         "MY_DEVELOPMENT_PROGRAM": "Mon parcours de développement",
-        "PNC_SUMMARY_SHEET": "Fiche synthèse PNC",
-        "MY_PNC_SUMMARY_SHEET": "Ma fiche synthèse PNC",
         "HELP_CENTER": "Ressources d'aide",
         "MY_HELP_CENTER": "Mes ressources d'aide",
         "PNC_TEAM": "Effectif PNC",
@@ -229,9 +227,6 @@
         "UPCOMING_FLIGHTS": "Mes prochains vols",
         "NO_FLIGHTS": "Aucun vol trouvé"
     },
-    "SUMMARY_SHEET": {
-        "PDF_MISSING": "Pas de fiche synthèse disponible"
-    },
     "STATUTORY_CERTIFICATE": {
         "TITLE": "Profil PNC",
         "MY_TITLE": "Mon profil PNC",
@@ -348,21 +343,15 @@
             "IMPROVABLE": "Améliorable",
             "CONFORM": "Conforme",
             "STATE": {
-                "TITLE": "Statut",
                 "LABEL": "Statut en cours : ",
                 "TAKEN_INTO_ACCOUNT": "Pris en compte",
                 "NOT_TAKEN_INTO_ACCOUNT": "Non pris en compte"
-            }
+            },
+            "EDITED_BY": "eObservation modifiée par {{lastName}} {{firstName}} le {{date}}"
         },
         "CONFIRM_VALIDATE_PNC_COMMENT": {
             "TITLE": "Validation du commentaire",
             "MESSAGE": "Vous êtes sur le point de valider votre commentaire. Souhaitez-vous procéder à la validation ?",
-            "CONFIRM": "Oui",
-            "CANCEL": "Non"
-        },
-        "CONFIRM_VALIDATE": {
-            "TITLE": "Validation de l'eObservation",
-            "MESSAGE": "Vous êtes sur le point de valider votre eObservation. Souhaitez-vous procéder à la validation ?",
             "CONFIRM": "Oui",
             "CANCEL": "Non"
         },
@@ -373,12 +362,14 @@
         "MESSAGES": {
             "SUCCESS": {
                 "PNC_COMMENT_SAVED": "Commentaire validé",
-                "VALIDATED": "eObservation validée"
+                "UPDATED": "eObservation mise à jour"
             }
         },
         "BUTTONS": {
             "VALIDATE_PNC_COMMENT": "Valider",
-            "VALIDATE": "Valider"
+            "EDIT": "Modifier",
+            "CANCEL": "Annuler",
+            "UPDATE": "Mettre à jour"
         }
     },
     "PROFESSIONAL_LEVEL": {

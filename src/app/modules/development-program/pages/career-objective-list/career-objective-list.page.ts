@@ -1,3 +1,4 @@
+import { AppConstant } from './../../../../app.constant';
 import { EObservationsArchivesPage } from './../../../eobservation/pages/eobservations-archives/eobservations-archives.page';
 import { EObservationModel } from '../../../../core/models/eobservation/eobservation.model';
 import { EObservationService } from './../../../../core/services/eobservation/eobservation.service';
@@ -17,6 +18,8 @@ import { CareerObjectiveService } from '../../../../core/services/career-objecti
 import { RotationModel } from '../../../../core/models/rotation.model';
 import { PncService } from '../../../../core/services/pnc/pnc.service';
 import { PncModel } from '../../../../core/models/pnc.model';
+import { SpecialityEnum } from '../../../../core/enums/speciality.enum';
+import * as moment from 'moment';
 
 @Component({
   selector: 'page-career-objective-list',
@@ -80,7 +83,7 @@ export class CareerObjectiveListPage {
    * @return retourne la valeur du type de formulaire
    */
   getEObsTextTypeEForm(): string {
-    return EFormsTypeEnum.getTextType(EFormsTypeEnum[this.pnc.currentSpeciality]);
+    return EFormsTypeEnum.getTextType(SpecialityEnum[this.pnc.currentSpeciality]);
   }
 
   /**
@@ -88,7 +91,7 @@ export class CareerObjectiveListPage {
  * @return boolean pour savoir si le type d'Eform est géré actuellement
  */
   hasEObsTypeForm(): boolean {
-    return EFormsTypeEnum.getType(EFormsTypeEnum[this.pnc.currentSpeciality]) ? true : false;
+    return this.getEObsTextTypeEForm() ? true : false;
   }
 
   /**
@@ -98,7 +101,9 @@ export class CareerObjectiveListPage {
     this.eObservations = undefined;
     this.eObservationService.getEObservations(this.matricule).then(
       eobs => {
-        this.eObservations = eobs;
+        this.eObservations = eobs.sort((eObs1, eObs2) => {
+          return moment(eObs1.rotationDate, AppConstant.isoDateFormat).isAfter(moment(eObs2.rotationDate, AppConstant.isoDateFormat)) ? -1 : 1;
+        });
       }, error => {
       });
   }
@@ -133,6 +138,7 @@ export class CareerObjectiveListPage {
       if (this.formsInputParam) {
         this.formsEObservationService.callForms(this.formsInputParam, this.chosenEFormsType);
       }
+      this.chosenEFormsType = null;
     }, error => {
     });
   }
@@ -178,6 +184,7 @@ export class CareerObjectiveListPage {
   displayEObservationTypeSelection() {
     const typeOfEForms = this.getEObsTextTypeEForm();
     if (typeOfEForms.indexOf('/') == -1) {
+      this.chosenEFormsType = EFormsTypeEnum.getType(EFormsTypeEnum[typeOfEForms.trim()]);
       this.createEObservation();
     } else {
       this.eFormsList = typeOfEForms.split('/');
@@ -189,8 +196,8 @@ export class CareerObjectiveListPage {
    * Appelle le formulaire choisi
    * @param value Valeur du type de formulaire choisie
    */
-  getEFormsTypeBeforeCreate(value) {
-    this.chosenEFormsType = this.formsEObservationService.getReportTypeForEForms(value.trim());
+  getEFormsTypeBeforeCreate(value: string) {
+    this.chosenEFormsType = EFormsTypeEnum.getType(EFormsTypeEnum[value.trim()]);
     this.canDisplayMenu = false;
     this.createEObservation();
   }
