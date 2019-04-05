@@ -6,8 +6,8 @@ import { InterviewTypeEnum } from '../../enums/professional-interview/interview-
 export class ProfessionalInterviewModel extends EDossierPncObjectModel {
 
     pnc: PncModel;
-    interviewDate: Date;
-    interviewType: InterviewTypeEnum;
+    annualProfessionalInterview: Date;
+    type: InterviewTypeEnum;
     state: InterviewStateEnum;
     redactor: PncModel;
     redactionDate: Date;
