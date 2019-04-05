@@ -13,7 +13,6 @@ export class ProfessionalInterviewsComponent {
   matPanelHeaderHeight = '41px';
 
   @Input() professionalInterviews: ProfessionalInterviewModel[];
-  @Input() filterItems = false;
   @Input() legend = true;
 
 }
