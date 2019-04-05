@@ -1,4 +1,4 @@
-export class PncInstructorModel {
+export class PncLightModel {
     firstName: string;
     lastName: string;
 

@@ -18,7 +18,7 @@ import { IonicModule, IonicPageModule } from 'ionic-angular';
     ProfessionalInterviewDetailsPage,
   ],
   exports: [
-
+    ProfessionalInterviewDetailsPage
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA

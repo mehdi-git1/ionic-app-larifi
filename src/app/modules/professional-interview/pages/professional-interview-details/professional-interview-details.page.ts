@@ -1,28 +1,25 @@
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { NavController, NavParams, AlertController, LoadingController, Loading } from 'ionic-angular';
+import { NavController, NavParams, AlertController, Loading } from 'ionic-angular';
 import * as _ from 'lodash';
 
 import { PncModel } from '../../../../core/models/pnc.model';
-import { EObservationTypeEnum } from '../../../../core/enums/e-observations-type.enum';
-import { EObservationService } from '../../../../core/services/eobservation/eobservation.service';
 import { CrewMemberModel } from '../../../../core/models/crew-member.model';
-import { SessionService } from '../../../../core/services/session/session.service';
 import { PncRoleEnum } from '../../../../core/enums/pnc-role.enum';
-import { ToastService } from '../../../../core/services/toast/toast.service';
 import { ProfessionalInterviewModel } from './../../../../core/models/professional-interview/professional-interview.model';
 import { Utils } from '../../../../shared/utils/utils';
 import { InterviewStateEnum } from '../../../../core/enums/professional-interview/interview-state.enum';
 
 @Component({
-  selector: 'page-eobservation-details',
-  templateUrl: 'eobservation-details.page.html',
+  selector: 'professional-interview-details',
+  templateUrl: 'professional-interview-details.page.html',
 })
 export class ProfessionalInterviewDetailsPage {
   PncRoleEnum = PncRoleEnum;
 
-  professionalInterview: ProfessionalInterviewModel;
+  @Input() professionalInterview: ProfessionalInterviewModel;
+
   originProfessionalInterview: ProfessionalInterviewModel;
 
   professionalInterviewDetailForm: FormGroup;
@@ -33,12 +30,8 @@ export class ProfessionalInterviewDetailsPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     private formBuilder: FormBuilder,
-    private eObservationService: EObservationService,
-    private sessionService: SessionService,
     private translateService: TranslateService,
-    private toastService: ToastService,
-    private alertCtrl: AlertController,
-    private loadingCtrl: LoadingController
+    private alertCtrl: AlertController
   ) {
     if (this.navParams.get('professionalInterview')) {
       this.professionalInterview = this.navParams.get('eObservation');
