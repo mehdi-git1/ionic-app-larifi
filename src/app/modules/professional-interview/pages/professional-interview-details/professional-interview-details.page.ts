@@ -125,75 +125,62 @@ export class ProfessionalInterviewDetailsPage {
     }
   }
 
-  /**
-   * Récupère le label du type de l'eObs
-   * @return le label à afficher
-   */
-  getTypeLabel(): string {
-    if (!this.professionalInterview) {
-      return '';
-    }
-    return EObservationTypeEnum.getLabel(this.professionalInterview.type);
-  }
-
-  /**
-   * Récupère le label de l'option du type de l'eObs
-   * @return le label à afficher
-   */
-  getDetailOptionType(): string {
-    return this.eObservationService.getDetailOptionType(this.professionalInterview);
-  }
-
 
   /**
    * Teste si le commentaire PNC peut être modifié
    * @return vrai si le commentaire peut être modifié, faux sinon
    */
+  /*
   canEditPncComment(): boolean {
     return this.sessionService.getActiveUser().matricule === this.professionalInterview.pnc.matricule
       && (this.professionalInterview.pncComment === '' || typeof (this.originProfessionalInterview.pncComment) === 'undefined')
       && this.professionalInterview.type !== EObservationTypeEnum.E_ALT
       && this.professionalInterview.type !== EObservationTypeEnum.E_PCB;
   }
+  */
 
   /**
   * Demande la confirmation de la validation du commentaire du pnc
   */
-  confirmValidatePncComment(): void {
-    this.alertCtrl.create({
-      title: this.translateService.instant('EOBSERVATION.CONFIRM_VALIDATE_PNC_COMMENT.TITLE'),
-      message: this.translateService.instant('EOBSERVATION.CONFIRM_VALIDATE_PNC_COMMENT.MESSAGE'),
-      buttons: [
-        {
-          text: this.translateService.instant('EOBSERVATION.CONFIRM_VALIDATE_PNC_COMMENT.CANCEL'),
-          role: 'cancel'
-        },
-        {
-          text: this.translateService.instant('EOBSERVATION.CONFIRM_VALIDATE_PNC_COMMENT.CONFIRM'),
-          handler: () => this.validatePncComment()
-        }
-      ]
-    }).present();
-  }
+  /*
+   confirmValidatePncComment(): void {
+     this.alertCtrl.create({
+       title: this.translateService.instant('EOBSERVATION.CONFIRM_VALIDATE_PNC_COMMENT.TITLE'),
+       message: this.translateService.instant('EOBSERVATION.CONFIRM_VALIDATE_PNC_COMMENT.MESSAGE'),
+       buttons: [
+         {
+           text: this.translateService.instant('EOBSERVATION.CONFIRM_VALIDATE_PNC_COMMENT.CANCEL'),
+           role: 'cancel'
+         },
+         {
+           text: this.translateService.instant('EOBSERVATION.CONFIRM_VALIDATE_PNC_COMMENT.CONFIRM'),
+           handler: () => this.validatePncComment()
+         }
+       ]
+     }).present();
+   }
+   */
 
   /**
  * Valide le commentaire pnc de l'eObservation
  */
-  validatePncComment(): void {
-    this.loading = this.loadingCtrl.create();
-    this.loading.present();
-    // On transmet un objet cloné pour éviter toute modif de l'objet par le service
-    const eObservationClone = _.cloneDeep(this.professionalInterview);
-    this.eObservationService.validatePncComment(eObservationClone).then(eObservation => {
-      this.professionalInterview = eObservation;
-      this.originEObservation = _.cloneDeep(this.professionalInterview);
-      this.toastService.success(this.translateService.instant('EOBSERVATION.MESSAGES.SUCCESS.PNC_COMMENT_SAVED'));
-      this.navCtrl.pop();
-    }, error => { }).then(() => {
-      // Finally
-      this.loading.dismiss();
-    });
-  }
+  /*
+    validatePncComment(): void {
+      this.loading = this.loadingCtrl.create();
+      this.loading.present();
+      // On transmet un objet cloné pour éviter toute modif de l'objet par le service
+      const eObservationClone = _.cloneDeep(this.professionalInterview);
+      this.eObservationService.validatePncComment(eObservationClone).then(eObservation => {
+        this.professionalInterview = eObservation;
+        this.originEObservation = _.cloneDeep(this.professionalInterview);
+        this.toastService.success(this.translateService.instant('EOBSERVATION.MESSAGES.SUCCESS.PNC_COMMENT_SAVED'));
+        this.navCtrl.pop();
+      }, error => { }).then(() => {
+        // Finally
+        this.loading.dismiss();
+      });
+    }
+    */
 
   /**
    * Vérifie que le chargement est terminé

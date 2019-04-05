@@ -5,7 +5,7 @@ import { ProfessionalInterviewModel } from '../../../../core/models/professional
 
 @Component({
   selector: 'professional-interviews',
-  templateUrl: 'professional_interviews.component.html'
+  templateUrl: 'professional-interviews.component.html'
 })
 
 export class ProfessionalInterviewsComponent implements OnChanges {

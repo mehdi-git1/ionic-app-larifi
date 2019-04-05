@@ -1,11 +1,13 @@
-import { Component, Input, OnChanges } from '@angular/core';
+import { NavController } from 'ionic-angular';
+import { Component, Input } from '@angular/core';
 
 import { ProfessionalInterviewModel } from '../../../../core/models/professional-interview/professional-interview.model';
 import { InterviewStateEnum } from '../../../../core/enums/professional-interview/interview-state.enum';
+import { ProfessionalInterviewDetailsPage } from '../../../professional-interview/pages/professional-interview-details/professional-interview-details.page';
 
 @Component({
   selector: 'professional-interview',
-  templateUrl: 'professional_interview.component.html'
+  templateUrl: 'professional-interview.component.html'
 })
 
 export class ProfessionalInterviewComponent {
@@ -14,7 +16,9 @@ export class ProfessionalInterviewComponent {
 
   @Input() professionalInterview: ProfessionalInterviewModel;
 
-  constructor() {
+  constructor(
+    private navCtrl: NavController
+  ) {
   }
 
   /**
@@ -33,4 +37,13 @@ export class ProfessionalInterviewComponent {
     }
   }
 
+  /**
+   * Redirige vers le detail du bilan pro
+   */
+  goToProfessionalInterviewDetail(evt: Event) {
+    evt.stopPropagation();
+    this.navCtrl.push(ProfessionalInterviewDetailsPage, { eObservation: this.professionalInterview });
+  }
+
 }
+
