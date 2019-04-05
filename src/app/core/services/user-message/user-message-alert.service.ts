@@ -67,7 +67,7 @@ export class UserMessageAlertService {
    * Masque le message pour les fois suivantes
    * @param userMessage le message qu'on souhaite masquer à l'avenir
    */
-  public doNotDisplayAnymoreMessage(userMessage: UserMessageModel) {
+  public doNotDisplayMessageAnymore(userMessage: UserMessageModel) {
     this.storageService.saveAsync(EntityEnum.USER_MESSAGE, this.userMessageTransformerService.toUserMessage(userMessage), true);
   }
 
