@@ -307,8 +307,12 @@
                 "LABEL": "Statut en cours : ",
                 "TAKEN_INTO_ACCOUNT": "Pris en compte",
                 "NOT_TAKEN_INTO_ACCOUNT": "Non pris en compte",
-                "CONSULTED": "Consulté",
+                "AVAILABLE": "Disponible",
                 "DRAFT": "Brouillon"
+            },
+            "TYPE": {
+                "EPP": "EPP",
+                "BILAN": "Bilan professionnel"
             }
         }
     },

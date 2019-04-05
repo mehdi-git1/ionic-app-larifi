@@ -9,7 +9,7 @@
         <label class="flex4">
             <span *ngIf="professionalInterview.redactor?.lastName">{{professionalInterview.redactor.lastName}} <span class="firstname">{{professionalInterview.redactor.firstName}}</span></span>
         </label>
-        <label class="flex3">{{professionalInterview.type}}</label>
+        <label class="flex3">{{ 'PROFESSIONAL_INTERVIEW.DETAILS.TYPE.' + professionalInterview?.type | translateOrEmpty }}</label>
         <div class="button-detail">
             <button ion-fab>
                 <span class="edospnc-memo"></span>

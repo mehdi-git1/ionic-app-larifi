@@ -1,5 +1,5 @@
 
-import { Component, Input, OnChanges } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 import { ProfessionalInterviewModel } from '../../../../core/models/professional-interview/professional-interview.model';
 
@@ -8,20 +8,12 @@ import { ProfessionalInterviewModel } from '../../../../core/models/professional
   templateUrl: 'professional_interviews.component.html'
 })
 
-export class ProfessionalInterviewsComponent implements OnChanges {
+export class ProfessionalInterviewsComponent {
 
   matPanelHeaderHeight = '41px';
 
   @Input() professionalInterviews: ProfessionalInterviewModel[];
-
   @Input() filterItems = false;
-
   @Input() legend = true;
-
-  constructor() {
-  }
-
-  ngOnChanges() {
-  }
 
 }

@@ -25,15 +25,15 @@ export class OfflineProfessionalInterviewService {
     /**
      * Récupère les bilans professionel d'un PNC du cache à partir de son matricule
      * @param matricule le matricule du PNC
-     * @return une promesse contenant les bilans professionel trouvées
+     * @return une promesse contenant les bilans professionel trouvés
      */
-    getEObservations(matricule: string): Promise<ProfessionalInterviewModel[]> {
-        return new Promise((resolve, reject) => {
+    getProfessionalInterviews(matricule: string): Promise<ProfessionalInterviewModel[]> {
+        return Promise.resolve().then(() => {
             const professionalInterviewList = this.storageService.findAll(EntityEnum.PROFESSIONAL_INTERVIEW);
             const professionalInterviews = professionalInterviewList.filter(professionalInterview => {
                 return professionalInterview.pnc.matricule === matricule && professionalInterview.offlineAction !== OfflineActionEnum.DELETE;
             });
-            resolve(professionalInterviews);
+            return (professionalInterviews);
         });
     }
 

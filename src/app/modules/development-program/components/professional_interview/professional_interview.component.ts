@@ -1,7 +1,7 @@
-import { Component, Input, OnChanges } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 import { ProfessionalInterviewModel } from '../../../../core/models/professional-interview/professional-interview.model';
-import { InterviewStateEnum } from '../../../../core/enums/professional-interview/interview-state.enum';
+import { ProfessionalInterviewStateEnum } from '../../../../core/enums/professional-interview/professional-interview-state.enum';
 
 @Component({
   selector: 'professional-interview',
@@ -14,9 +14,6 @@ export class ProfessionalInterviewComponent {
 
   @Input() professionalInterview: ProfessionalInterviewModel;
 
-  constructor() {
-  }
-
   /**
      * Définit la couleur en fonction du statut
      *
@@ -25,10 +22,10 @@ export class ProfessionalInterviewComponent {
   getColorStatusPoint(): string {
     if (this.professionalInterview) {
       switch (this.professionalInterview.state) {
-        case InterviewStateEnum.TAKEN_INTO_ACCOUNT: return 'green';
-        case InterviewStateEnum.NOT_TAKEN_INTO_ACCOUNT: return 'red';
-        case InterviewStateEnum.CONSULTED: return 'orange';
-        case InterviewStateEnum.DRAFT: return 'grey';
+        case ProfessionalInterviewStateEnum.TAKEN_INTO_ACCOUNT: return 'green';
+        case ProfessionalInterviewStateEnum.NOT_TAKEN_INTO_ACCOUNT: return 'red';
+        case ProfessionalInterviewStateEnum.AVAILABLE: return 'orange';
+        case ProfessionalInterviewStateEnum.DRAFT: return 'grey';
       }
     }
   }
