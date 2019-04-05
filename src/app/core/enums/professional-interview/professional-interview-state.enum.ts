@@ -1,6 +1,6 @@
-export enum InterviewStateEnum {
+export enum ProfessionalInterviewStateEnum {
     TAKEN_INTO_ACCOUNT = 'TAKEN_INTO_ACCOUNT',
     NOT_TAKEN_INTO_ACCOUNT = 'NOT_TAKEN_INTO_ACCOUNT',
-    CONSULTED = 'CONSULTED',
+    AVAILABLE = 'AVAILABLE',
     DRAFT = 'DRAFT'
 }

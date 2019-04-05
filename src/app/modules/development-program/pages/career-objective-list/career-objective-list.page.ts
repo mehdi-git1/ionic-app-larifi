@@ -116,7 +116,7 @@ export class CareerObjectiveListPage {
 
 
   /**
-   * Récupére la liste des bilans professionel
+   * Récupére la liste des bilans professionnel
    */
   getProfessionalInterviewList() {
     this.professionalInterviews = undefined;
