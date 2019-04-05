@@ -42,8 +42,8 @@ export class UserMessageAlertComponent {
   /**
    * Masque le message pour les fois suivantes
    */
-  public doNotDisplayAnymoreMessage() {
-    this.userMessageAlertService.doNotDisplayAnymoreMessage(this.userMessage);
+  public doNotDisplayMessageAnymore() {
+    this.userMessageAlertService.doNotDisplayMessageAnymore(this.userMessage);
     this.dismissMessage();
   }
 }
