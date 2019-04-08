@@ -45,7 +45,7 @@ export class LegService extends BaseService {
   * @param leg le flight number, date, origine et destination du tronçon dont on souhaite avoir la liste équipage
   * @return la liste équipage d'un tronçon
   */
-  getCrewMembersFromLegWithoutID(company: String, flightNumber: String, date: String, origine: String, destination: String): Promise<CrewMemberModel[]> {
+  getCrewMembersFromLegWithoutID(company: string, flightNumber: string, date: string, origine: string, destination: string): Promise<CrewMemberModel[]> {
     return this.execFunctionService('getCrewMembersFromLegWithoutID', company, flightNumber, date, origine, destination);
   }
 
