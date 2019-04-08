@@ -5,7 +5,7 @@ import { ProfessionalInterviewTypeEnum } from '../../enums/professional-intervie
 
 export class ProfessionalInterviewModel extends EDossierPncObjectModel {
 
-    pnc: PncModel;
+    matricule: string;
     annualProfessionalInterview: Date;
     type: ProfessionalInterviewTypeEnum;
     state: ProfessionalInterviewStateEnum;

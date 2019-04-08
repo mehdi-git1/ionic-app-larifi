@@ -1,5 +1,5 @@
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { NavController, NavParams, AlertController, Loading } from 'ionic-angular';
 import * as _ from 'lodash';
@@ -9,7 +9,8 @@ import { CrewMemberModel } from '../../../../core/models/crew-member.model';
 import { PncRoleEnum } from '../../../../core/enums/pnc-role.enum';
 import { ProfessionalInterviewModel } from './../../../../core/models/professional-interview/professional-interview.model';
 import { Utils } from '../../../../shared/utils/utils';
-import { InterviewStateEnum } from '../../../../core/enums/professional-interview/interview-state.enum';
+import { ProfessionalInterviewStateEnum } from '../../../../core/enums/professional-interview/professional-interview-state.enum';
+import { PncService } from '../../../../core/services/pnc/pnc.service';
 
 @Component({
   selector: 'professional-interview-details',
@@ -18,7 +19,8 @@ import { InterviewStateEnum } from '../../../../core/enums/professional-intervie
 export class ProfessionalInterviewDetailsPage {
   PncRoleEnum = PncRoleEnum;
 
-  @Input() professionalInterview: ProfessionalInterviewModel;
+  pnc: PncModel;
+  professionalInterview: ProfessionalInterviewModel;
 
   originProfessionalInterview: ProfessionalInterviewModel;
 
@@ -31,11 +33,17 @@ export class ProfessionalInterviewDetailsPage {
     public navParams: NavParams,
     private formBuilder: FormBuilder,
     private translateService: TranslateService,
+    private pncService: PncService,
     private alertCtrl: AlertController
   ) {
     if (this.navParams.get('professionalInterview')) {
-      this.professionalInterview = this.navParams.get('eObservation');
+      this.professionalInterview = this.navParams.get('professionalInterview');
       this.originProfessionalInterview = _.cloneDeep(this.professionalInterview);
+      if (this.professionalInterview && this.professionalInterview.matricule) {
+        this.pncService.getPnc(this.professionalInterview.matricule).then(pnc => {
+          this.pnc = pnc;
+        }, error => { });
+      }
       this.initForm();
     }
 
@@ -111,9 +119,9 @@ export class ProfessionalInterviewDetailsPage {
    * @return 'green' si 'TAKEN_INTO_ACCOUNT' ou 'red' si 'NOT_TAKEN_INTO_ACCOUNT'
    */
   getColorStatusPoint(): string {
-    if (this.professionalInterview && this.professionalInterview.state === InterviewStateEnum.TAKEN_INTO_ACCOUNT) {
+    if (this.professionalInterview && this.professionalInterview.state === ProfessionalInterviewStateEnum.TAKEN_INTO_ACCOUNT) {
       return 'green';
-    } else if (this.professionalInterview && this.professionalInterview.state === InterviewStateEnum.NOT_TAKEN_INTO_ACCOUNT) {
+    } else if (this.professionalInterview && this.professionalInterview.state === ProfessionalInterviewStateEnum.NOT_TAKEN_INTO_ACCOUNT) {
       return 'red';
     }
   }

@@ -42,7 +42,7 @@ export class ProfessionalInterviewComponent {
    */
   goToProfessionalInterviewDetail(evt: Event) {
     evt.stopPropagation();
-    this.navCtrl.push(ProfessionalInterviewDetailsPage, { eObservation: this.professionalInterview });
+    this.navCtrl.push(ProfessionalInterviewDetailsPage, { professionalInterview: this.professionalInterview });
   }
 
 }
