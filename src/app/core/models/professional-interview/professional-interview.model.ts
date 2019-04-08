@@ -9,12 +9,12 @@ export class ProfessionalInterviewModel extends EDossierPncObjectModel {
     annualProfessionalInterview: Date;
     type: ProfessionalInterviewTypeEnum;
     state: ProfessionalInterviewStateEnum;
-    redactor: PncModel;
     redactionDate: Date;
     pncDivision: string;
     pncGinq: string;
     pncSector: string;
     pncSpeciality: string;
+    instructor: PncModel;
 
     getStorageId(): string {
         return `${this.techId}`;

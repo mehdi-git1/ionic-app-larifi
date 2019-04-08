@@ -11,6 +11,7 @@ import { ProfessionalInterviewModel } from './../../../../core/models/profession
 import { Utils } from '../../../../shared/utils/utils';
 import { ProfessionalInterviewStateEnum } from '../../../../core/enums/professional-interview/professional-interview-state.enum';
 import { PncService } from '../../../../core/services/pnc/pnc.service';
+import { AppConstant } from '../../../../app.constant';
 
 @Component({
   selector: 'professional-interview-details',
@@ -23,6 +24,10 @@ export class ProfessionalInterviewDetailsPage {
   professionalInterview: ProfessionalInterviewModel;
 
   originProfessionalInterview: ProfessionalInterviewModel;
+
+  annualProfessionalInterviewOptions: any;
+  monthsNames: [];
+  datepickerMaxDate = AppConstant.datepickerMaxDate;
 
   professionalInterviewDetailForm: FormGroup;
 
@@ -47,6 +52,16 @@ export class ProfessionalInterviewDetailsPage {
       this.initForm();
     }
 
+    this.annualProfessionalInterviewOptions = {
+      buttons: [{
+        text: this.translateService.instant('GLOBAL.DATEPICKER.CLEAR'),
+        handler: () => this.professionalInterview.annualProfessionalInterview = null
+      }]
+    };
+
+    // Traduction des mois
+    this.monthsNames = this.translateService.instant('GLOBAL.MONTH.LONGNAME');
+
   }
 
   ionViewCanLeave() {
@@ -62,6 +77,7 @@ export class ProfessionalInterviewDetailsPage {
    */
   initForm() {
     this.professionalInterviewDetailForm = this.formBuilder.group({
+      annualProfessionalInterviewControl: '',
       noticedSkillsControl: '',
       professionalDevDesireControl: '',
       summaryControl: ''
