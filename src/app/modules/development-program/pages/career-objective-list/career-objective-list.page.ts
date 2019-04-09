@@ -116,13 +116,13 @@ export class CareerObjectiveListPage {
 
 
   /**
-   * Récupére la liste des bilans professionnel
+   * Récupére la liste des bilans professionnels
    */
   getProfessionalInterviewList() {
     this.professionalInterviews = undefined;
     this.professionalInterviewService.getProfessionalInterviews(this.matricule).then(
-      interviews => {
-        this.professionalInterviews = interviews;
+      professionalInterviews => {
+        this.professionalInterviews = professionalInterviews;
       }, error => {
         this.professionalInterviews = [];
       });
@@ -196,13 +196,6 @@ export class CareerObjectiveListPage {
    */
   goToEobservationsArchives() {
     this.navCtrl.push(EObservationsArchivesPage, { matricule: this.matricule });
-  }
-
-  /**
-   * Dirige vers la page de création d'un nouvel objectif
-   */
-  goToProfessionalInterviewCreation() {
-    return false;
   }
 
   /**
