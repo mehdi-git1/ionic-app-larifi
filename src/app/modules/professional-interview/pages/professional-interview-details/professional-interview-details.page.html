@@ -38,16 +38,11 @@
                 </ion-grid>
             </div>
 
-            <edospnc-expandable-block mini="true" [title]=" 'PROFESSIONAL_INTERVIEW.DETAILS.NOTICED_SKILLS' | translate ">
-                <ion-textarea formControlName="noticedSkillsControl"></ion-textarea>
-            </edospnc-expandable-block>
-
-            <edospnc-expandable-block mini="true" [title]="'PROFESSIONAL_INTERVIEW.DETAILS.PROFESSIONAL_DEVELOPMENT_DESIRE' | translate">
-                <ion-textarea formControlName="professionalDevDesireControl"></ion-textarea>
-            </edospnc-expandable-block>
-
-            <edospnc-expandable-block mini="true" [title]=" 'PROFESSIONAL_INTERVIEW.DETAILS.SUMMARY' | translate ">
-                <ion-textarea formControlName="summaryControl"></ion-textarea>
+            <edospnc-expandable-block *ngFor="let interviewTheme of professionalInterview.professionalInterviewThemes, index as i" mini="true" [title]="interviewThemes.label">
+                <div *ngFor="let item of interviewTheme, index as j">
+                    {{item.label}}
+                    <ion-textarea formControlName="noticedSkillsControl" [value]="item.value"></ion-textarea>
+                </div>
             </edospnc-expandable-block>
 
             <div class="state-block">

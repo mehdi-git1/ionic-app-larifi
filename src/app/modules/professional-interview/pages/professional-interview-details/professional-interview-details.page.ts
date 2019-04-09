@@ -26,7 +26,7 @@ export class ProfessionalInterviewDetailsPage {
   originProfessionalInterview: ProfessionalInterviewModel;
 
   annualProfessionalInterviewOptions: any;
-  monthsNames: [];
+  monthsNames;
   datepickerMaxDate = AppConstant.datepickerMaxDate;
 
   professionalInterviewDetailForm: FormGroup;

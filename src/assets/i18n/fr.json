@@ -307,9 +307,6 @@
             "SPECIALITY": "Fonction",
             "EOBS_PNC_ASSIGNMENT": "Affectation à date du Bilan Professionel",
             "INTERVIEW_DATE": "Date de l'entretien",
-            "NOTICED_SKILLS": "Compétences remarquées",
-            "PROFESSIONAL_DEVELOPMENT_DESIRE": "Souhait de développement professionnel",
-            "SUMMARY": "Synthése",
             "UPDATE_DATE": "Enregistré depuis le : ",
             "STATE": {
                 "LABEL": "Statut en cours : ",
