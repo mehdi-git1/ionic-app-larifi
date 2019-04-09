@@ -1,4 +1,4 @@
-import { AppConstant } from './../../../../app.constant';
+import { ProfessionalInterviewService } from '../../../../core/services/professional-interview/professional-interview.service';
 import { EObservationsArchivesPage } from './../../../eobservation/pages/eobservations-archives/eobservations-archives.page';
 import { EObservationModel } from '../../../../core/models/eobservation/eobservation.model';
 import { EObservationService } from './../../../../core/services/eobservation/eobservation.service';
@@ -18,8 +18,10 @@ import { CareerObjectiveService } from '../../../../core/services/career-objecti
 import { RotationModel } from '../../../../core/models/rotation.model';
 import { PncService } from '../../../../core/services/pnc/pnc.service';
 import { PncModel } from '../../../../core/models/pnc.model';
+import { ProfessionalInterviewModel } from '../../../../core/models/professional-interview/professional-interview.model';
 import { SpecialityEnum } from '../../../../core/enums/speciality.enum';
 import * as moment from 'moment';
+import { AppConstant } from '../../../../app.constant';
 
 @Component({
   selector: 'page-career-objective-list',
@@ -36,6 +38,8 @@ export class CareerObjectiveListPage {
 
   eObservations: EObservationModel[];
 
+  professionalInterviews: ProfessionalInterviewModel[];
+
   // Expose l'enum au template
   PncRole = PncRoleEnum;
 
@@ -49,6 +53,7 @@ export class CareerObjectiveListPage {
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     private careerObjectiveService: CareerObjectiveService,
+    private professionalInterviewService: ProfessionalInterviewService,
     private formsEObservationService: FormsEObservationService,
     private deviceService: DeviceService,
     private eObservationService: EObservationService,
@@ -76,6 +81,7 @@ export class CareerObjectiveListPage {
     });
     this.getEObservationsList();
     this.initCareerObjectivesList();
+    this.getProfessionalInterviewList();
   }
 
   /**
@@ -105,6 +111,20 @@ export class CareerObjectiveListPage {
           return moment(eObs1.rotationDate, AppConstant.isoDateFormat).isAfter(moment(eObs2.rotationDate, AppConstant.isoDateFormat)) ? -1 : 1;
         });
       }, error => {
+      });
+  }
+
+
+  /**
+   * Récupére la liste des bilans professionnels
+   */
+  getProfessionalInterviewList() {
+    this.professionalInterviews = undefined;
+    this.professionalInterviewService.getProfessionalInterviews(this.matricule).then(
+      professionalInterviews => {
+        this.professionalInterviews = professionalInterviews;
+      }, error => {
+        this.professionalInterviews = [];
       });
   }
 

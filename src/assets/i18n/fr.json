@@ -136,6 +136,7 @@
     "CAREER_OBJECTIVE_LIST": {
         "EOBS_TITLE": "eObservations",
         "CAREER_OBJECTIVE_TITLE": "Priorités",
+        "PROFESSIONAL_INTERVIEW_TITLE": "Bilan professionnel",
         "NO_OBJECTIVES": "Aucune priorité pour le moment",
         "INFORMATION_MESSAGE": "Maximum 5 priorités en cours",
         "LIST": {
@@ -284,6 +285,30 @@
         },
         "ERROR": {
             "STATUTORY_CERTIFICATE": "Erreur lors de la récupération du profil PNC pour le matricule {{ matricule }}"
+        }
+    },
+    "PROFESSIONAL_INTERVIEW": {
+        "LIST": {
+            "HEADER": {
+                "INTERVIEW_DATE": "Date de réalisation",
+                "STATUS": "Statut en cours",
+                "REDACTOR": "Rédacteur",
+                "INTERVIEW_TYPE": "Type d'entretien"
+            },
+            "LEGEND": "derniers BP / EPP réalisés"
+        },
+        "DETAILS": {
+            "STATE": {
+                "LABEL": "Statut en cours : ",
+                "TAKEN_INTO_ACCOUNT": "Pris en compte",
+                "NOT_TAKEN_INTO_ACCOUNT": "Non pris en compte",
+                "AVAILABLE": "Disponible",
+                "DRAFT": "Brouillon"
+            },
+            "TYPE": {
+                "EPP": "EPP",
+                "BILAN": "Bilan professionnel"
+            }
         }
     },
     "EOBSERVATION": {

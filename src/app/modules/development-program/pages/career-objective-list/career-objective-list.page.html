@@ -66,5 +66,12 @@
             <career-objectives *ngIf="careerObjectives" [careerObjectives]="careerObjectives">
             </career-objectives>
         </div>
+
+        <!-- Bilans professionnels -->
+        <h3 class="professional-interview-title">{{ 'CAREER_OBJECTIVE_LIST.PROFESSIONAL_INTERVIEW_TITLE' | translate }}</h3>
+        <div class="global-container professional-interview-list-container">
+            <professional-interviews *ngIf="professionalInterviews" [professionalInterviews]="professionalInterviews">
+            </professional-interviews>
+        </div>
     </ng-template>
 </ion-content>

@@ -1,0 +1,19 @@
+<mat-expansion-panel *ngIf="professionalInterview">
+    <mat-expansion-panel-header class="professional-interview" [expandedHeight]="matPanelHeaderHeight" [collapsedHeight]="matPanelHeaderHeight" hideToggle="true">
+        <label class="flex3">{{professionalInterview.annualProfessionalInterviewDate | date : 'dd/MM/yyyy' : 'UTC'}}</label>
+        <label class="flex3">
+            <color-status-point [colorClass]="getColorStatusPoint()">
+            </color-status-point>
+            {{ 'PROFESSIONAL_INTERVIEW.DETAILS.STATE.' + professionalInterview?.state | translateOrEmpty }}
+        </label>
+        <label class="flex4">
+            <span *ngIf="professionalInterview.instructor?.lastName">{{professionalInterview.instructor.lastName}} <span class="firstname">{{professionalInterview.instructor.firstName}}</span></span>
+        </label>
+        <label class="flex3">{{ 'PROFESSIONAL_INTERVIEW.DETAILS.TYPE.' + professionalInterview?.type | translateOrEmpty }}</label>
+        <div class="button-detail">
+            <button ion-fab>
+                <span class="edospnc-memo"></span>
+            </button>
+        </div>
+    </mat-expansion-panel-header>
+</mat-expansion-panel>
