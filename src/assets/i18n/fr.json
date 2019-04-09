@@ -288,11 +288,6 @@
         }
     },
     "PROFESSIONAL_INTERVIEW": {
-        "TITLE": "Bilan professionnel",
-        "MY_TITLE": "Mon bilan professionnel",
-        "NEW_PROFESSIONAL_INTERVIEW_HEADER": {
-            "NEW": "Nouveau bilan professionel"
-        },
         "LIST": {
             "HEADER": {
                 "INTERVIEW_DATE": "Date de réalisation",

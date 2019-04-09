@@ -39,39 +39,39 @@ describe('ProfessionalInterviewComponent', () => {
     });
 
     describe('getColorStatusPoint', () => {
-        it(`Renvoie null si l'eobs est nulle`, () => {
+        it(`Renvoie null si le bilan pro est nulle`, () => {
             expect(comp).toBeDefined();
             expect(comp.getColorStatusPoint()).toBeUndefined();
         });
 
-        it(`Renvoie null si pas de statut dans l'eobs`, () => {
+        it(`Renvoie null si pas de statut dans le bilan pro`, () => {
             expect(comp).toBeDefined();
             comp.professionalInterview = new ProfessionalInterviewModel();
             expect(comp.getColorStatusPoint()).toBeUndefined();
         });
 
-        it(`Renvoie green si le statut de l'eobs est TAKEN_INTO_ACCOUNT`, () => {
+        it(`Renvoie green si le statut du bilan pro est TAKEN_INTO_ACCOUNT`, () => {
             expect(comp).toBeDefined();
             comp.professionalInterview = new ProfessionalInterviewModel();
             comp.professionalInterview.state = ProfessionalInterviewStateEnum.TAKEN_INTO_ACCOUNT;
             expect(comp.getColorStatusPoint()).toBe('green');
         });
 
-        it(`Renvoie red si le statut de l'eobs est NOT_TAKEN_INTO_ACCOUNT`, () => {
+        it(`Renvoie red si le statut du bilan pro est NOT_TAKEN_INTO_ACCOUNT`, () => {
             expect(comp).toBeDefined();
             comp.professionalInterview = new ProfessionalInterviewModel();
             comp.professionalInterview.state = ProfessionalInterviewStateEnum.NOT_TAKEN_INTO_ACCOUNT;
             expect(comp.getColorStatusPoint()).toBe('red');
         });
 
-        it(`Renvoie red si le statut de l'eobs est AVAILABLE`, () => {
+        it(`Renvoie red si le statut du bilan pro est AVAILABLE`, () => {
             expect(comp).toBeDefined();
             comp.professionalInterview = new ProfessionalInterviewModel();
             comp.professionalInterview.state = ProfessionalInterviewStateEnum.AVAILABLE;
             expect(comp.getColorStatusPoint()).toBe('orange');
         });
 
-        it(`Renvoie red si le statut de l'eobs est DRAFT`, () => {
+        it(`Renvoie red si le statut du bilan pro est DRAFT`, () => {
             expect(comp).toBeDefined();
             comp.professionalInterview = new ProfessionalInterviewModel();
             comp.professionalInterview.state = ProfessionalInterviewStateEnum.DRAFT;

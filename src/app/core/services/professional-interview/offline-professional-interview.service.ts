@@ -23,9 +23,9 @@ export class OfflineProfessionalInterviewService {
     }
 
     /**
-     * Récupère les bilans professionel d'un PNC du cache à partir de son matricule
+     * Récupère les bilans professionels d'un PNC du cache à partir de son matricule
      * @param matricule le matricule du PNC
-     * @return une promesse contenant les bilans professionel trouvés
+     * @return une promesse contenant les bilans professionels trouvés
      */
     getProfessionalInterviews(matricule: string): Promise<ProfessionalInterviewModel[]> {
         return Promise.resolve().then(() => {

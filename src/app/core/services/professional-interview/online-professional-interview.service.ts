@@ -15,9 +15,9 @@ export class OnlineProfessionalInterviewService {
     ) { }
 
     /**
-     * Récupère les bilans professionel d'un PNC à partir du back
+     * Récupère les bilans professionels d'un PNC à partir du back
      * @param matricule le matricule du PNC
-     * @return une promesse contenant les bilans professionel trouvées
+     * @return une promesse contenant les bilans professionels trouvées
      */
     getProfessionalInterviews(matricule: string): Promise<ProfessionalInterviewModel[]> {
         return this.restService.get(this.config.getBackEndUrl('getProfessionalInterviewsByMatricule', [matricule])).then(

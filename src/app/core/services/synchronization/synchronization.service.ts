@@ -28,6 +28,8 @@ import { LegModel } from '../../models/leg.model';
 import { StatutoryCertificateTransformerService } from '../statutory-certificate/statutory-certificate-transformer.service';
 import { Events } from 'ionic-angular';
 import { EObservationModel } from '../../models/eobservation/eobservation.model';
+import { TransformerService } from '../transformer/transformer.service';
+import { ProfessionalInterviewModel } from '../../models/professional-interview/professional-interview.model';
 
 @Injectable()
 export class SynchronizationService {
@@ -46,6 +48,7 @@ export class SynchronizationService {
     private pncPhotoTransformer: PncPhotoTransformerService,
     private congratulationLetterTransformer: CongratulationLetterTransformerService,
     private professionalLevelTransformer: ProfessionalLevelTransformerService,
+    private transformerService: TransformerService,
     private statutoryCertificateTransformer: StatutoryCertificateTransformerService,
     private crewMemberTransformerService: CrewMemberTransformerService,
     private rotationTransformerProvider: RotationTransformerService,
@@ -134,6 +137,10 @@ export class SynchronizationService {
 
     // Sauvegarde du suivi réglementaire
     this.storageService.save(EntityEnum.PROFESSIONAL_LEVEL, this.professionalLevelTransformer.toProfessionalLevel(pncSynchroResponse.professionalLevel), true);
+
+    // Sauvegarde des bilans professionnels
+    this.storageService.save(EntityEnum.PROFESSIONAL_INTERVIEW, this.transformerService.universalTransformObject(ProfessionalInterviewModel, pncSynchroResponse.professionalInterview), true);
+
 
     this.storageService.persistOfflineMap();
   }
@@ -276,6 +283,9 @@ export class SynchronizationService {
 
     // Suppression du niveau pro SV
     this.storageService.delete(EntityEnum.PROFESSIONAL_LEVEL, pnc.matricule);
+
+    // Suppression des bilans professionels
+    this.storageService.delete(EntityEnum.PROFESSIONAL_INTERVIEW, pnc.matricule);
   }
 
   /**

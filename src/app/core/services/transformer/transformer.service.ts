@@ -33,8 +33,8 @@ export class TransformerService {
 
     /**
      * Transform universellement les objects en leur bon type (Tableau d'objet)
-     * @param typeOfObject Type d'object à transformer (new()) permet de définir que c'est une classe utilisable en tant que tel
-     * @param objectToTransform Object à transformer
+     * @param typeOfObject Type d'objet à transformer (new()) permet de définir que c'est une classe utilisable en tant que tel
+     * @param objectToTransform Objet à transformer
      */
     public universalTransformObjectArray(typeOfObject: { new() }, objectToTransform) {
         const objectArray = [];
@@ -45,9 +45,9 @@ export class TransformerService {
     }
 
     /**
-    * Transform universellement les objects en leur bon type (Tableau d'objet)
-    * @param typeOfObject Type d'object à transformer (new()) permet de définir que c'est une classe utilisable en tant que tel
-    * @param objectToTransform Object à transformer
+    * Transform universellement les objets en leur bon type (Tableau d'objet)
+    * @param typeOfObject Type d'objet à transformer (new()) permet de définir que c'est une classe utilisable en tant que tel
+    * @param objectToTransform Objet à transformer
     */
     public universalTransformObject(typeOfObject: { new() }, objectToTransform) {
         return !objectToTransform ?

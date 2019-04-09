@@ -3,7 +3,7 @@ import { BaseService } from '../base/base.service';
 import { ConnectivityService } from '../connectivity/connectivity.service';
 import { OnlineProfessionalInterviewService } from './online-professional-interview.service';
 import { OfflineProfessionalInterviewService } from './offline-professional-interview.service';
-import {ProfessionalInterviewModel} from '../../models/professional-interview/professional-interview.model';
+import { ProfessionalInterviewModel } from '../../models/professional-interview/professional-interview.model';
 
 
 
@@ -24,9 +24,9 @@ export class ProfessionalInterviewService extends BaseService {
     }
 
     /**
-     * Récupère les bilans professionel d'un PNC (sur 3 ans ou trois derniéres)
+     * Récupère les bilans professionels d'un PNC
      * @param matricule le matricule du PNC
-     * @return une promesse contenant les EObservations trouvées
+     * @return une promesse contenant les bilans professionels trouvés
      */
     getProfessionalInterviews(matricule: string): Promise<ProfessionalInterviewModel[]> {
         return this.execFunctionService('getProfessionalInterviews', matricule);

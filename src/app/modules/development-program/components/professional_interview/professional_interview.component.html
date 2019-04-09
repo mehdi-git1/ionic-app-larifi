@@ -1,6 +1,6 @@
 <mat-expansion-panel *ngIf="professionalInterview">
     <mat-expansion-panel-header class="professional-interview" [expandedHeight]="matPanelHeaderHeight" [collapsedHeight]="matPanelHeaderHeight" hideToggle="true">
-        <label class="flex3">{{professionalInterview.annualProfessionalInterview | date : 'dd/MM/yyyy' : 'UTC'}}</label>
+        <label class="flex3">{{professionalInterview.annualProfessionalInterviewDate | date : 'dd/MM/yyyy' : 'UTC'}}</label>
         <label class="flex3">
             <color-status-point [colorClass]="getColorStatusPoint()">
             </color-status-point>
