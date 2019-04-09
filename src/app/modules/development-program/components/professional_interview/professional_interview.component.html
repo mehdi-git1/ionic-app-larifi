@@ -10,6 +10,10 @@
             <span *ngIf="professionalInterview.instructor?.lastName">{{professionalInterview.instructor.lastName}} <span class="firstname">{{professionalInterview.instructor.firstName}}</span></span>
         </label>
         <label class="flex3">{{ 'PROFESSIONAL_INTERVIEW.DETAILS.TYPE.' + professionalInterview?.type | translateOrEmpty }}</label>
+        <div class="button-detail">
+            <button ion-fab>
 
+            </button>
+        </div>
     </mat-expansion-panel-header>
 </mat-expansion-panel>
