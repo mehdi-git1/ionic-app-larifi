@@ -9,6 +9,7 @@ import { CareerObjectiveModel } from './career-objective.model';
 import { PncModel } from './pnc.model';
 import { LegModel } from './leg.model';
 import { EObservationModel } from './eobservation/eobservation.model';
+import { ProfessionalInterviewModel } from './professional-interview/professional-interview.model';
 
 export class PncSynchroModel {
     pnc: PncModel;
@@ -22,4 +23,5 @@ export class PncSynchroModel {
     professionalLevel: ProfessionalLevelModel;
     congratulationLetters: CongratulationLetterModel[];
     eobservations: EObservationModel[];
+    professionalInterview: ProfessionalInterviewModel[];
 }

@@ -75,6 +75,9 @@ import { OfflineEObservationService } from './eobservation/offline-eobservation.
 import { SynchronizationManagementService } from './synchronization/synchronization-management.service';
 import { UserMessageService } from './user-message/user-message.service';
 import { UserMessageTransformerService } from './user-message/user-message-transformer.service';
+import { ProfessionalInterviewService } from './professional-interview/professional-interview.service';
+import { OnlineProfessionalInterviewService } from './professional-interview/online-professional-interview.service';
+import { OfflineProfessionalInterviewService } from './professional-interview/offline-professional-interview.service';
 
 
 @NgModule({
@@ -110,6 +113,9 @@ import { UserMessageTransformerService } from './user-message/user-message-trans
         OnlinePncService,
         OnlineCareerObjectiveService,
         OfflineCareerObjectiveService,
+        ProfessionalInterviewService,
+        OnlineProfessionalInterviewService,
+        OfflineProfessionalInterviewService,
         OfflineWaypointService,
         OnlineWaypointService,
         CareerObjectiveTransformerService,
