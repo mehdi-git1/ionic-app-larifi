@@ -1,3 +1,5 @@
+import { ProfessionalInterviewModel } from './../../../../core/models/professional-interview/professional-interview.model';
+import { ProfessionalInterviewDetailsPage } from './../../../professional-interview/pages/professional-interview-details/professional-interview-details.page';
 import { ProfessionalInterviewService } from '../../../../core/services/professional-interview/professional-interview.service';
 import { EObservationsArchivesPage } from './../../../eobservation/pages/eobservations-archives/eobservations-archives.page';
 import { EObservationModel } from '../../../../core/models/eobservation/eobservation.model';
@@ -147,6 +149,13 @@ export class CareerObjectiveListPage {
    */
   goToCareerObjectiveCreation() {
     this.navCtrl.push(CareerObjectiveCreatePage, { matricule: this.matricule, careerObjectiveId: 0 });
+  }
+
+  /**
+ * Dirige vers la page de création d'un nouvel objectif
+ */
+  goToProfessionalInterviewCreation() {
+    this.navCtrl.push(ProfessionalInterviewDetailsPage);
   }
 
   /**

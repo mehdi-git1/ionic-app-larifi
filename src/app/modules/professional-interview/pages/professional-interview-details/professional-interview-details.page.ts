@@ -1,3 +1,6 @@
+import { PncTransformerService } from './../../../../core/services/pnc/pnc-transformer.service';
+import { PncLightModel } from './../../../../core/models/pnc-light.model';
+import { SessionService } from './../../../../core/services/session/session.service';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { Component } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
@@ -39,7 +42,9 @@ export class ProfessionalInterviewDetailsPage {
     private formBuilder: FormBuilder,
     private translateService: TranslateService,
     private pncService: PncService,
-    private alertCtrl: AlertController
+    private alertCtrl: AlertController,
+    private sessionService: SessionService,
+    private pncTransformer: PncTransformerService
   ) {
     if (this.navParams.get('professionalInterview')) {
       this.professionalInterview = this.navParams.get('professionalInterview');
@@ -50,6 +55,9 @@ export class ProfessionalInterviewDetailsPage {
         }, error => { });
       }
       this.initForm();
+    } else {
+      this.professionalInterview = this.sessionService.getActiveUser().parameters.params['blankProfessionnalInterview'];
+      this.professionalInterview.pncAtInterviewDate = this.pncTransformer.toPncLight(this.pnc);
     }
 
     this.annualProfessionalInterviewOptions = {
