@@ -45,6 +45,7 @@ export class UrlConfiguration {
     'getRotationsByTechId': `${urlGroupEnum.ROTATION}/{techId}/legs`,
     'getImpersonationAvailableByMatricule': `${urlGroupEnum.IMPERSONATION_AVAILABLE}/{matricule}`,
     'getHelpAssetsByRoleId': `${urlGroupEnum.HELP_ASSET}/pnc_role/{roleId}`,
+    'userMessages': urlGroupEnum.USER_MESSAGE,
     'userProfiles': urlGroupEnum.USER_PROFILE,
     'userPermissions': urlGroupEnum.USER_PERMISSION,
     'userPermissionsByUserProfile': `${urlGroupEnum.USER_PROFILE}/{name}/${urlGroupEnum.USER_PERMISSION}`,
