@@ -17,7 +17,7 @@
                 </span>
                 <span>
                     <ion-item>
-                        <ion-datetime displayFormat="DD/MM/YYYY" pickerFormat="DD MMMM YYYY" [(ngModel)]="professionalInterview.annualProfessionalInterviewDate" formControlName="annualProfessionalInterviewControl" [pickerOptions]="annualProfessionalInterviewOptions" [doneText]="translateService.instant('GLOBAL.DATEPICKER.DONE')" [cancelText]="translateService.instant('GLOBAL.DATEPICKER.CANCEL')" [max]="datepickerMaxDate" [monthNames]="monthsNames">
+                        <ion-datetime displayFormat="DD/MM/YYYY" pickerFormat="DD MMMM YYYY" [(ngModel)]="professionalInterview.annualProfessionalInterviewDate" formControlName="annualProfessionalInterviewDateControl" [pickerOptions]="annualProfessionalInterviewOptions" [doneText]="translateService.instant('GLOBAL.DATEPICKER.DONE')" [cancelText]="translateService.instant('GLOBAL.DATEPICKER.CANCEL')" [max]="datepickerMaxDate" [monthNames]="monthsNames">
                         </ion-datetime>
                         <ion-label>
                             <ion-icon name="calendar"></ion-icon>
@@ -49,7 +49,7 @@
             <edospnc-expandable-block class="comment" *ngFor="let interviewTheme of professionalInterview.professionalInterviewThemes, index as i" mini="true" [title]="interviewTheme.label">
                 <div *ngFor="let item of interviewTheme.professionalInterviewItems, index as j">
                     <label *ngIf="item.label"><span class="edospnc-speechBubble"></span> {{item.label}}</label>
-                    <ion-textarea formControlName="noticedSkillsControl" [value]="item.value"></ion-textarea>
+                    <ion-textarea [value]="item.value"></ion-textarea>
                 </div>
             </edospnc-expandable-block>
 

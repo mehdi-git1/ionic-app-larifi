@@ -156,6 +156,11 @@ page-professional-interview-details {
 
 
     .comment {
+
+        textarea {
+            resize: none;
+        }
+
         .mat-expansion-panel-body {
             padding: 15px;
 
@@ -172,6 +177,10 @@ page-professional-interview-details {
                     margin-right: 15px;
                     margin-left: 15px;
                 }
+            }
+
+            div.ng-star-inserted:first-child label:first-child {
+                margin-top: 0px;
             }
 
             ion-textarea {
