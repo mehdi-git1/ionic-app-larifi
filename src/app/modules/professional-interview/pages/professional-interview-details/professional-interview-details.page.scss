@@ -1,4 +1,4 @@
-page-eobservation-details {
+page-professional-interview-details {
 
     $border-grid: 1px solid color($colors, grey75);
     $block-border-radius: 5px;
@@ -79,6 +79,10 @@ page-eobservation-details {
         }
     }
 
+    .date-block-justify {
+        justify-content: center;
+    }
+
     .speciality-grid {
         padding: 0px;
         margin-bottom: 16px;
@@ -117,20 +121,41 @@ page-eobservation-details {
         }
     }
 
-    .temporary-period {
-        display: flex;
-        align-items: center;
-        padding: 24px;
-    }
 
-    .button-bar {
-        margin-top: 10px;
-    }
 
-    .bilan {
-        display: flex;
-        align-items: center;
-        padding: 5px;
-        padding-left: 24px;
+    .comment {
+        .mat-expansion-panel-body {
+            padding: 15px;
+
+            label {
+                font-weight: bold;
+                margin: 15px 0px 10px 0px;
+                display: flex;
+                align-items: center;
+                color: color($colors, grey10);
+
+                span {
+                    font-weight: normal;
+                    color: color($colors, blue55);
+                    margin-right: 15px;
+                    margin-left: 15px;
+                }
+            }
+
+            ion-textarea {
+                padding: 10px;
+                border-radius: 3px;
+                background: color($colors, grey95);
+                border: 1px solid color($colors, grey70);
+                white-space: pre-line;
+                margin: 0 !important;
+                min-height: 210px !important;
+
+                textarea {
+                    min-height: 190px !important;
+                    padding: 5px !important;
+                }
+            }
+        }
     }
 }

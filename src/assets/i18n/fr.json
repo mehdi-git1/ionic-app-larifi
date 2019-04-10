@@ -308,6 +308,7 @@
             "EOBS_PNC_ASSIGNMENT": "Affectation à date du Bilan Professionel",
             "INTERVIEW_DATE": "Date de l'entretien",
             "UPDATE_DATE": "Enregistré depuis le : ",
+            "REDACTOR": "Rédacteur",
             "STATE": {
                 "LABEL": "Statut en cours : ",
                 "TAKEN_INTO_ACCOUNT": "Pris en compte",

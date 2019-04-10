@@ -1,4 +1,4 @@
-<mat-expansion-panel *ngIf="professionalInterview">
+<mat-expansion-panel *ngIf="professionalInterview" [disabled]="true">
     <mat-expansion-panel-header class="professional-interview" [expandedHeight]="matPanelHeaderHeight" [collapsedHeight]="matPanelHeaderHeight" hideToggle="true">
         <label class="flex3">{{professionalInterview.annualProfessionalInterviewDate | date : 'dd/MM/yyyy' : 'UTC'}}</label>
         <label class="flex3">

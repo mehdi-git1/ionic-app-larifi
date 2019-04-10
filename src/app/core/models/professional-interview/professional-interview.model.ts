@@ -11,10 +11,7 @@ export class ProfessionalInterviewModel extends EDossierPncObjectModel {
     type: ProfessionalInterviewTypeEnum;
     state: ProfessionalInterviewStateEnum;
     redactionDate: Date;
-    pncDivision: string;
-    pncGinq: string;
-    pncSector: string;
-    pncSpeciality: string;
+    pncAtInterviewDate: PncLightModel;
     instructor: PncLightModel;
     professionalInterviewThemes: ProfessionalInterviewThemeModel[];
 

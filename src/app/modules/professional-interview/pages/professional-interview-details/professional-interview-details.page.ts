@@ -14,7 +14,7 @@ import { PncService } from '../../../../core/services/pnc/pnc.service';
 import { AppConstant } from '../../../../app.constant';
 
 @Component({
-  selector: 'professional-interview-details',
+  selector: 'page-professional-interview-details',
   templateUrl: 'professional-interview-details.page.html',
 })
 export class ProfessionalInterviewDetailsPage {
@@ -55,7 +55,7 @@ export class ProfessionalInterviewDetailsPage {
     this.annualProfessionalInterviewOptions = {
       buttons: [{
         text: this.translateService.instant('GLOBAL.DATEPICKER.CLEAR'),
-        handler: () => this.professionalInterview.annualProfessionalInterview = null
+        handler: () => this.professionalInterview.annualProfessionalInterviewDate = null
       }]
     };
 

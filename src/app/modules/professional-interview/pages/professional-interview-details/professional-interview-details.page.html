@@ -11,12 +11,21 @@
     <ng-template #pageBlock>
 
         <form novalidate [formGroup]="professionalInterviewDetailForm">
-            <ion-grid>
-                <ion-row class="speciality-header">
-                    <ion-col class="speciality" col-2>{{ 'PROFESSIONAL_INTERVIEW.DETAILS.INTERVIEW_DATE' | translate }}</ion-col>
-                    <ion-datetime displayFormat="DD/MM/YYYY" pickerFormat="DD MMMM YYYY" [(ngModel)]="professionalInterview.annualProfessionalInterview" formControlName="annualProfessionalInterviewControl" [pickerOptions]="annualProfessionalInterviewOptions" [doneText]="translateService.instant('GLOBAL.DATEPICKER.DONE')" [cancelText]="translateService.instant('GLOBAL.DATEPICKER.CANCEL')" [max]="datepickerMaxDate" [monthNames]="monthsNames"></ion-datetime>
-                </ion-row>
-            </ion-grid>
+
+            <div class="state-block date-block-justify">
+                <span>{{ 'PROFESSIONAL_INTERVIEW.DETAILS.INTERVIEW_DATE' | translate }} :
+                </span>
+                <span>
+                    <ion-item>
+                        <ion-datetime displayFormat="DD/MM/YYYY" pickerFormat="DD MMMM YYYY" [(ngModel)]="professionalInterview.annualProfessionalInterviewDate" formControlName="annualProfessionalInterviewControl" [pickerOptions]="annualProfessionalInterviewOptions" [doneText]="translateService.instant('GLOBAL.DATEPICKER.DONE')" [cancelText]="translateService.instant('GLOBAL.DATEPICKER.CANCEL')" [max]="datepickerMaxDate" [monthNames]="monthsNames">
+                        </ion-datetime>
+                        <ion-label>
+                            <ion-icon name="calendar"></ion-icon>
+                        </ion-label>
+                    </ion-item>
+                </span>
+            </div>
+
 
             <pnc-card-page-header *ngIf="pnc" [itemMember]="pnc">
             </pnc-card-page-header>
@@ -30,17 +39,16 @@
                     <ion-row class="speciality-label">
                         <ion-col col-2>{{professionalInterview?.pncSpeciality}}</ion-col>
                         <ion-col col-10>
-                            <span class="assignment" *ngIf="professionalInterview?.pncDivision">{{ 'PNC_HOME.INFO_PANEL.DIVISION' | translate }} : {{professionalInterview?.pncDivision}}</span>
-                            <span class="assignment" *ngIf="professionalInterview?.pncSector">{{ 'PNC_HOME.INFO_PANEL.SECTOR' | translate }} : {{professionalInterview?.pncSector}}</span>
-                            <span class="assignment" *ngIf="professionalInterview?.pncGinq">{{ 'PNC_HOME.INFO_PANEL.GINQ' | translate }} : {{professionalInterview?.pncGinq}}</span>
+                            <span class="assignment" *ngIf="professionalInterview.pncAtInterviewDate?.division">{{ 'PNC_HOME.INFO_PANEL.DIVISION' | translate }} : {{professionalInterview.pncAtInterviewDate?.division}}</span>
+                            <span class="assignment" *ngIf="professionalInterview.pncAtInterviewDate?.sector">{{ 'PNC_HOME.INFO_PANEL.SECTOR' | translate }} : {{professionalInterview.pncAtInterviewDate?.sector}}</span>
+                            <span class="assignment" *ngIf="professionalInterview.pncAtInterviewDate?.ginq">{{ 'PNC_HOME.INFO_PANEL.GINQ' | translate }} : {{professionalInterview.pncAtInterviewDate?.ginq}}</span>
                         </ion-col>
                     </ion-row>
                 </ion-grid>
             </div>
-
-            <edospnc-expandable-block *ngFor="let interviewTheme of professionalInterview.professionalInterviewThemes, index as i" mini="true" [title]="interviewThemes.label">
-                <div *ngFor="let item of interviewTheme, index as j">
-                    {{item.label}}
+            <edospnc-expandable-block class="comment" *ngFor="let interviewTheme of professionalInterview.professionalInterviewThemes, index as i" mini="true" [title]="interviewTheme.label">
+                <div *ngFor="let item of interviewTheme.professionalInterviewItems, index as j">
+                    <label *ngIf="item.label"><span class="edospnc-speechBubble"></span> {{item.label}}</label>
                     <ion-textarea formControlName="noticedSkillsControl" [value]="item.value"></ion-textarea>
                 </div>
             </edospnc-expandable-block>
@@ -54,6 +62,9 @@
                 <span>{{ 'PROFESSIONAL_INTERVIEW.DETAILS.UPDATE_DATE' | translate }}
                     <span *ngIf="professionalInterview?.redactionDate">{{professionalInterview?.redactionDate | date: 'dd/MM/yyyy' : 'UTC'}}
                     </span>
+                </span>
+                <span>{{ 'PROFESSIONAL_INTERVIEW.DETAILS.REDACTOR' | translate }}
+                    <span *ngIf="professionalInterview.instructor?.lastName">{{professionalInterview.instructor.lastName}} <span class="firstname">{{professionalInterview.instructor.firstName}}</span></span>
                 </span>
             </div>
         </form>
