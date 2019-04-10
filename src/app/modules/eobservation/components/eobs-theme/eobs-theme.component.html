@@ -1,4 +1,4 @@
-<edospnc-expandable-block mini="true" title="{{theme.referentialTheme.label}}" [emptyCondition]="hasItemAndSubThemes()">
+<edospnc-expandable-block mini="true" title="{{theme.label}}" [emptyCondition]="hasItemAndSubThemes()">
     <span *ngIf="hasSubThemes()">
         <span *ngFor="let subTheme of theme.subThemes">
             <div class="sub-theme-label">{{subTheme.referentialTheme.label}}</div>

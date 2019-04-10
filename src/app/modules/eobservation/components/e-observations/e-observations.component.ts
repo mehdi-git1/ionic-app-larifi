@@ -20,9 +20,6 @@ export class EObservationsComponent implements OnChanges {
 
   @Input() legend = true;
 
-  constructor() {
-  }
-
   ngOnChanges() {
     this.defineLegendMessage();
   }
@@ -37,25 +34,5 @@ export class EObservationsComponent implements OnChanges {
           .diff(moment(this.eObservations[this.eObservations.length - 1].rotationDate)))
         .asYears() > this.nbOfYearsToChangeMessage;
     }
-  }
-
-  /**
-   * Filtre les items de l'eobs pour ne garder que les écarts de notations avec "SECURITE DES VOLS" et "SURETE"
-   * @param eObservation eObservation dont les items sont à filtrer
-   * @return eObservation avec les items filtrés
-   */
-  filterEobsItems(eObservation: EObservationModel): EObservationModel{
-    const filteredObservation = _.cloneDeep(eObservation);
-    if (!this.filterItems) {
-      // on ne filtre pas les items dans ce cas-là
-      return eObservation;
-    }
-    filteredObservation.eobservationItems = new Array();
-    if (this.filterItems && eObservation && eObservation.eobservationItems) {
-      filteredObservation.eobservationItems = eObservation.eobservationItems.filter((element) => {
-        return element && element.refItemLevel && element.refItemLevel.item && element.refItemLevel.item.theme && element.refItemLevel.item.theme.displayedInProfessionalLevel;
-      });
-    }
-    return filteredObservation;
   }
 }

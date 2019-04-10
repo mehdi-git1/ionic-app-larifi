@@ -1,3 +1,4 @@
+import { EObservationDisplayModeEnum } from './../../../../core/enums/eobservation/eobservation-display-mode.enum';
 import { EObservationLevelEnum } from './../../../../core/enums/e-observations-level.enum';
 import { EObservationItemModel } from './../../../../core/models/eobservation/eobservation-item.model';
 import { Component, Input, OnChanges } from '@angular/core';
@@ -7,6 +8,7 @@ import { NavController } from 'ionic-angular';
 import { EObservationModel } from '../../../../core/models/eobservation/eobservation.model';
 import { TranslateService } from '@ngx-translate/core';
 import { EObservationService } from '../../../../core/services/eobservation/eobservation.service';
+import { ReferentialThemeModel } from '../../../../core/models/eobservation/referential-theme.model';
 
 @Component({
   selector: 'e-observation',
@@ -21,7 +23,7 @@ export class EObservationComponent implements OnChanges {
 
   @Input() eObservation: EObservationModel;
 
-  @Input() filteredEObservation: EObservationModel;
+  @Input() eObservationDisplayMode: EObservationDisplayModeEnum;
 
   constructor(private navCtrl: NavController,
     private eObservationService: EObservationService) {
@@ -29,31 +31,32 @@ export class EObservationComponent implements OnChanges {
 
   ngOnChanges() {
     // On filtre les écarts de notation
-    const eObs = this.filteredEObservation ? this.filteredEObservation : this.eObservation;
-    if (eObs && eObs.eobservationItems) {
-      const abnormalEObservationItems: EObservationItemModel[] = eObs.eobservationItems.filter(eObservationItem => {
+    if (this.eObservation && this.eObservation.eobservationThemes) {
+      const allEObservationItems = new Array();
+      this.eObservation.eobservationThemes.forEach(eobservationTheme => {
+        eobservationTheme.eObservationItems.forEach(eObservationItem => {
+          if (this.themeHasToBeDisplayed(eobservationTheme)) {
+            allEObservationItems.push(eObservationItem);
+          }
+        });
+      });
+      this.abnormalEObservationItems = allEObservationItems.filter(eObservationItem => {
         return this.isEObservationItemAbnormal(eObservationItem);
       });
-      this.abnormalEObservationItems = abnormalEObservationItems.sort((a, b) => this.sortByThemeOrderAndItemOrder(a, b));
     }
   }
 
   /**
-   * Trie les ecarts de notations par ordre de theme
-   * @param a first element
-   * @param b second element
-   * @return 1 si a est après b, sinon -1
+   * Vérifie si un thème doit être affiché
+   * @param referentialTheme le thème à tester
+   * @return vrai si le thème doit être affiché, faux sinon
    */
-  private sortByThemeOrderAndItemOrder(a: EObservationItemModel, b: EObservationItemModel): number {
-    if (a && a.refItemLevel && a.refItemLevel.item && a.refItemLevel.item.theme &&
-      b && b.refItemLevel && b.refItemLevel.item && b.refItemLevel.item.theme &&
-      (a.refItemLevel.item.theme.themeOrder > b.refItemLevel.item.theme.themeOrder)) {
-      return 1;
-    } else {
-      return -1;
+  private themeHasToBeDisplayed(referentialTheme: ReferentialThemeModel): boolean {
+    if (this.eObservationDisplayMode === EObservationDisplayModeEnum.PROFESSIONAL_LEVEL) {
+      return referentialTheme.displayedInProfessionalLevel;
     }
+    return true;
   }
-
 
   /**
   * Récupère le label à afficher par rapport type d'eObservation donné

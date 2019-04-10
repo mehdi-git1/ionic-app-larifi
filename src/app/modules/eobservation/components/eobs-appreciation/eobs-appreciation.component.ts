@@ -1,9 +1,5 @@
+import { ReferentialThemeModel } from './../../../../core/models/eobservation/referential-theme.model';
 import { Component, Input } from '@angular/core';
-import { EObservationItemsByTheme } from '../../../../core/models/eobservation/eobservation-items-by-theme.model';
-import { EObservationLevelEnum } from '../../../../core/enums/e-observations-level.enum';
-import { EobsItemDescriptionComponent } from '../eobs-item-description/eobs-item-description.component';
-import { PopoverController } from 'ionic-angular';
-import { EObservationItemModel } from '../../../../core/models/eobservation/eobservation-item.model';
 
 @Component({
   selector: 'eobs-appreciation',
@@ -11,7 +7,7 @@ import { EObservationItemModel } from '../../../../core/models/eobservation/eobs
 })
 export class EObsAppreciationComponent {
 
-  @Input() theme: EObservationItemsByTheme;
+  @Input() theme: ReferentialThemeModel;
 
   /**
    * Vérifie qu'il y a des items dans le theme
@@ -22,4 +18,4 @@ export class EObsAppreciationComponent {
     return this.theme.eObservationItems === null || this.theme.eObservationItems.length === 0;
   }
 
- }
+}
