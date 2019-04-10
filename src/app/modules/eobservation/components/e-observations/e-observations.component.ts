@@ -16,7 +16,7 @@ export class EObservationsComponent implements OnChanges {
 
   @Input() eObservations: EObservationModel[];
 
-  @Input() filterItems = false;
+  @Input() eObservationDisplayMode;
 
   @Input() legend = true;
 

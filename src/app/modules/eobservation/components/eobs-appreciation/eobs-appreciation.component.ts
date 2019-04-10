@@ -15,7 +15,7 @@ export class EObsAppreciationComponent {
    * @return true si il n'y a pas d'items dans ce thème, sinon false
    */
   hasItems(): boolean {
-    return this.theme.eObservationItems === null || this.theme.eObservationItems.length === 0;
+    return this.theme.eobservationItems === null || this.theme.eobservationItems.length === 0;
   }
 
 }

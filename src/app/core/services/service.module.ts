@@ -36,7 +36,7 @@ import { OfflineWaypointService } from './waypoint/offline-waypoint.service';
 import { OnlineSecurityService } from './security/online-security.service';
 import { OfflineSecurityService } from './security/offline-security.service';
 import { OnlinePncService } from './pnc/online-pnc.service';
-import { OnlineCareerObjectiveService } from './career-objective/online-career-objective';
+import { OnlineCareerObjectiveService } from './career-objective/online-career-objective.service';
 import { OnlineWaypointService } from './waypoint/online-waypoint.service';
 import { CareerObjectiveTransformerService } from './career-objective/career-objective-transformer.service';
 import { SynchronizationService } from './synchronization/synchronization.service';

@@ -34,15 +34,33 @@ export class EObservationComponent implements OnChanges {
     if (this.eObservation && this.eObservation.eobservationThemes) {
       const allEObservationItems = new Array();
       this.eObservation.eobservationThemes.forEach(eobservationTheme => {
-        eobservationTheme.eObservationItems.forEach(eObservationItem => {
-          if (this.themeHasToBeDisplayed(eobservationTheme)) {
-            allEObservationItems.push(eObservationItem);
-          }
-        });
+        this.processTheme(eobservationTheme, allEObservationItems);
       });
+
       this.abnormalEObservationItems = allEObservationItems.filter(eObservationItem => {
         return this.isEObservationItemAbnormal(eObservationItem);
       });
+    }
+  }
+
+  /**
+   * Extrait les items d'un thème et les ajoute à une liste passée en paramètre
+   * @param referentialTheme le thème à traiter
+   * @param allEObservationItems la liste à compléter
+   */
+  private processTheme(referentialTheme: ReferentialThemeModel, allEObservationItems: EObservationItemModel[]) {
+    if (this.themeHasToBeDisplayed(referentialTheme)) {
+      if (referentialTheme.eobservationItems) {
+        for (const eObservationItem of referentialTheme.eobservationItems) {
+          eObservationItem.refItemLevel.item.theme = referentialTheme;
+          allEObservationItems.push(eObservationItem);
+        }
+      }
+      if (referentialTheme.subThemes) {
+        referentialTheme.subThemes.forEach(subTheme => {
+          this.processTheme(subTheme, allEObservationItems);
+        });
+      }
     }
   }
 
@@ -93,7 +111,7 @@ export class EObservationComponent implements OnChanges {
    */
   goToEObservationDetail(evt: Event): void {
     evt.stopPropagation();
-    this.navCtrl.push(EobservationDetailsPage, { eObservation: this.eObservation });
+    this.navCtrl.push(EobservationDetailsPage, { eObservationId: this.eObservation.techId });
   }
 
   /**

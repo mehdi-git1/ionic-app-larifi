@@ -9,8 +9,8 @@ export class ReferentialThemeModel extends EDossierPncObjectModel {
     themeOrder: number;
     displayedInProfessionalLevel: boolean;
     subThemes: ReferentialThemeModel[];
-    eObservationItems: EObservationItemModel[];
-    eObservationComment: EObservationCommentModel;
+    eobservationItems: EObservationItemModel[];
+    eobservationComment: EObservationCommentModel;
 
     getStorageId(): string {
         return `${this.techId}`;

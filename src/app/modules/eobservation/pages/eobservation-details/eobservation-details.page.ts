@@ -42,14 +42,16 @@ export class EobservationDetailsPage {
     private loadingCtrl: LoadingController,
     private pncService: PncService,
     private datePipe: DatePipe) {
-    if (this.navParams.get('eObservation')) {
-      this.eObservation = this.navParams.get('eObservation');
-      this.originEObservation = _.cloneDeep(this.eObservation);
-      if (this.eObservation && this.eObservation.pnc && this.eObservation.pnc.matricule) {
-        this.pncService.getPnc(this.eObservation.pnc.matricule).then(pnc => {
-          this.pnc = pnc;
-        }, error => { });
-      }
+    if (this.navParams.get('eObservationId')) {
+      this.eObservationService.getEObservation(this.navParams.get('eObservationId')).then(eObservation => {
+        this.eObservation = eObservation;
+        this.originEObservation = _.cloneDeep(this.eObservation);
+        if (this.eObservation && this.eObservation.pnc && this.eObservation.pnc.matricule) {
+          this.pncService.getPnc(this.eObservation.pnc.matricule).then(pnc => {
+            this.pnc = pnc;
+          }, error => { });
+        }
+      }, error => { });
     }
   }
 
