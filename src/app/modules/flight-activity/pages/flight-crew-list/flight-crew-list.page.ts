@@ -46,12 +46,10 @@ export class FlightCrewListPage {
         const origine = this.navParams.get('origine');
         const destination = this.navParams.get('destination');
         this.legService.getCrewMembersFromLegWithoutID(company, flightNumber, date, origine, destination).then(flightCrew => {
-            flightCrew.forEach(crew => {
-                if (crew.pnc.matricule !== undefined) {
-                    if (crew.pnc.matricule === this.sessionService.getActiveUser().matricule) {
-                        this.sessionService.appContext.onBoardRedactorFunction = crew.onBoardFonction;
-                        this.connectedCrewMember = crew;
-                    }
+            flightCrew.forEach(crewMembers => {
+                if (crewMembers.pnc.matricule !== undefined && crewMembers.pnc.matricule === this.sessionService.getActiveUser().matricule) {
+                    this.sessionService.appContext.onBoardRedactorFunction = crewMembers.onBoardFonction;
+                    this.connectedCrewMember = crewMembers;
                 }
             });
             // On supprime le PNC connecté de la liste

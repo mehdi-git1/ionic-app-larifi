@@ -39,7 +39,7 @@ export class UpcomingFlightListPage {
             if (allRotations != null) {
                 this.lastPerformedRotations = allRotations.filter(rotation => {
                     const departureDate = new Date(rotation.departureDate);
-                    const nowDate = new Date(Date.parse(Date()));
+                    const nowDate = new Date();
                     return departureDate < nowDate;
                 });
                 // On tri par date de départ croissante
@@ -48,7 +48,7 @@ export class UpcomingFlightListPage {
                 });
                 this.upcomingRotations = allRotations.filter(rotation => {
                     const departureDate = new Date(rotation.departureDate);
-                    const nowDate = new Date(Date.parse(Date()));
+                    const nowDate = new Date();
                     return departureDate > nowDate;
                 });
             }
