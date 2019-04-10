@@ -20,7 +20,6 @@ import { CareerObjectiveService } from '../../../../core/services/career-objecti
 import { RotationModel } from '../../../../core/models/rotation.model';
 import { PncService } from '../../../../core/services/pnc/pnc.service';
 import { PncModel } from '../../../../core/models/pnc.model';
-import { ProfessionalInterviewModel } from '../../../../core/models/professional-interview/professional-interview.model';
 import { SpecialityEnum } from '../../../../core/enums/speciality.enum';
 import * as moment from 'moment';
 import { AppConstant } from '../../../../app.constant';
