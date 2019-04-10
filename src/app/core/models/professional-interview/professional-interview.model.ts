@@ -13,6 +13,7 @@ export class ProfessionalInterviewModel extends EDossierPncObjectModel {
     redactionDate: Date;
     pncAtInterviewDate: PncLightModel;
     instructor: PncLightModel;
+    lastUpdateDate: Date;
     professionalInterviewThemes: ProfessionalInterviewThemeModel[];
 
     getStorageId(): string {
