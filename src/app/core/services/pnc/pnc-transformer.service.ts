@@ -1,12 +1,10 @@
-import { PncService } from './pnc.service';
-import { PncLightModel } from './../../models/pnc-light.model';
 import { PncModel } from '../../models/pnc.model';
 import { Injectable } from '@angular/core';
 
 @Injectable()
 export class PncTransformerService {
 
-  constructor(private pncService: PncService) {
+  constructor() {
   }
 
   toPncs(array: PncModel[]) {
@@ -21,18 +19,5 @@ export class PncTransformerService {
     return !object ?
       object :
       new PncModel().fromJSON(object);
-  }
-
-  toPncLight(pnc: PncModel): PncLightModel {
-    const pncLight = new PncLightModel();
-    pncLight.matricule = pnc.matricule;
-    pncLight.firstName = pnc.firstName;
-    pncLight.lastName = pnc.lastName;
-    pncLight.division = pnc.assignment.division;
-    pncLight.sector = pnc.assignment.sector;
-    pncLight.ginq = pnc.assignment.ginq;
-    pncLight.speciality = this.pncService.getFormatedSpeciality(pnc);
-
-    return pncLight;
   }
 }
