@@ -71,4 +71,11 @@ export class UserMessageAlertService {
     this.storageService.saveAsync(EntityEnum.USER_MESSAGE, this.userMessageTransformerService.toUserMessage(userMessage), true);
   }
 
+  /**
+   * Supprime le message utilisateur de l'utilisateur en session
+   */
+  public removeUserMessageFromActiveUser() {
+    this.sessionService.getActiveUser().userMessage = undefined;
+  }
+
 }

@@ -37,6 +37,7 @@ export class UserMessageAlertComponent {
    */
   public dismissMessage() {
     this.displayed = false;
+    this.userMessageAlertService.removeUserMessageFromActiveUser();
   }
 
   /**
