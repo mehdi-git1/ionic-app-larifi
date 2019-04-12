@@ -662,7 +662,7 @@
             "BUTTON": {
                 "PROFILE_MANAGEMENT": "Gérer la liste des profils",
                 "APP_VERSION_MANAGEMENT": "Gérer la liste des versions",
-                "USER_MESSAGE_MANAGEMENT": "Gérer les messages utilisateur"
+                "USER_MESSAGE_MANAGEMENT": "Gérer les messages aux utilisateurs"
             }
         },
         "PROFILE_MANAGEMENT": {
