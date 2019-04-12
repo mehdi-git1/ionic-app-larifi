@@ -5,10 +5,11 @@ import { NavController, NavParams, Loading } from 'ionic-angular';
 
 import { PncModel } from '../../../../core/models/pnc.model';
 import { PncRoleEnum } from '../../../../core/enums/pnc-role.enum';
-import { ProfessionalInterviewModel } from './../../../../core/models/professional-interview/professional-interview.model';
-import { ProfessionalInterviewStateEnum } from '../../../../core/enums/professional-interview/professional-interview-state.enum';
 import { PncService } from '../../../../core/services/pnc/pnc.service';
 import { AppConstant } from '../../../../app.constant';
+import { ProfessionalInterviewModel } from './../../../../core/models/professional-interview/professional-interview.model';
+import { ProfessionalInterviewTypeEnum } from '../../../../core/enums/professional-interview/professional-interview-type.enum';
+import { ProfessionalInterviewStateEnum } from '../../../../core/enums/professional-interview/professional-interview-state.enum';
 
 @Component({
   selector: 'page-professional-interview-details',
@@ -19,6 +20,7 @@ export class ProfessionalInterviewDetailsPage {
 
   pnc: PncModel;
   professionalInterview: ProfessionalInterviewModel;
+  professionalInterviewType;
 
   annualProfessionalInterviewOptions: any;
   monthsNames;
@@ -35,8 +37,17 @@ export class ProfessionalInterviewDetailsPage {
     private translateService: TranslateService,
     private pncService: PncService
   ) {
+    this.professionalInterviewType = ProfessionalInterviewTypeEnum;
+
     if (this.navParams.get('professionalInterview')) {
       this.professionalInterview = this.navParams.get('professionalInterview');
+
+      this.professionalInterview.professionalInterviewThemes.sort((theme1, theme2) => {
+        return theme1.themeOrder < theme2.themeOrder ? -1 : 1;
+      });
+
+      console.log(this.professionalInterview.professionalInterviewThemes);
+
       if (this.professionalInterview && this.professionalInterview.matricule) {
         this.pncService.getPnc(this.professionalInterview.matricule).then(pnc => {
           this.pnc = pnc;
