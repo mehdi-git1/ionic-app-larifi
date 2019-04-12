@@ -48,12 +48,12 @@
             </div>
             <edospnc-expandable-block class="comment" *ngFor="let interviewTheme of professionalInterview.professionalInterviewThemes, index as i" mini="true" [title]="interviewTheme.label">
                 <div *ngFor="let item of interviewTheme.professionalInterviewItems, index as j">
-                    <label *ngIf="item.label"><span class="edospnc-speechBubble"></span> {{item.label}}</label>
+                    <label *ngIf="item.label" class="required"><span class="edospnc-speechBubble"></span> {{item.label}} :</label>
                     <ion-textarea [value]="item.value"></ion-textarea>
                 </div>
             </edospnc-expandable-block>
 
-            <div class="state-block">
+            <div class="state-block" *ngIf="!creationMode">
                 <span>{{ 'PROFESSIONAL_INTERVIEW.DETAILS.STATE.LABEL' | translate }} :
                     <color-status-point [colorClass]="getColorStatusPoint()">
                     </color-status-point>

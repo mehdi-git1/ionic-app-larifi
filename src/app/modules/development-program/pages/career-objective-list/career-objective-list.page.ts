@@ -1,3 +1,5 @@
+import { ProfessionalInterviewDetailsPage } from './../../../professional-interview/pages/professional-interview-details/professional-interview-details.page';
+import { ProfessionalInterviewModel } from './../../../../core/models/professional-interview/professional-interview.model';
 import { ProfessionalInterviewService } from '../../../../core/services/professional-interview/professional-interview.service';
 import { EObservationsArchivesPage } from './../../../eobservation/pages/eobservations-archives/eobservations-archives.page';
 import { EObservationModel } from '../../../../core/models/eobservation/eobservation.model';
@@ -113,6 +115,12 @@ export class CareerObjectiveListPage {
       });
   }
 
+  /**
+   * Dirige vers la page de création d'un nouveau bilan professionnels
+   */
+  goToProfessionalInterviewCreation() {
+    this.navCtrl.push(ProfessionalInterviewDetailsPage, { matricule: this.matricule });
+  }
 
   /**
    * Récupére la liste des bilans professionnels
