@@ -4,9 +4,11 @@ import { ReferentialCommentModel } from './referential-comment.model';
 
 export class EObservationCommentModel extends EDossierPncObjectModel {
 
-    comment: string;
-
     refComment: ReferentialCommentModel;
+
+    eobservationId: number;
+
+    comment: string;
 
     getStorageId(): string {
         return `${this.techId}`;

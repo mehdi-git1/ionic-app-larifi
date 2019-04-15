@@ -42,6 +42,21 @@ export class EobservationDetailsPage {
     private loadingCtrl: LoadingController,
     private pncService: PncService,
     private datePipe: DatePipe) {
+    this.initPage();
+  }
+
+  ionViewCanLeave() {
+    if (this.formHasBeenModified()) {
+      return this.confirmAbandonChanges();
+    } else {
+      return true;
+    }
+  }
+
+  /**
+   * Effectue les opérations nécessaires à l'initialisation de la page
+   */
+  initPage() {
     if (this.navParams.get('eObservationId')) {
       this.eObservationService.getEObservation(this.navParams.get('eObservationId')).then(eObservation => {
         this.eObservation = eObservation;
@@ -52,14 +67,6 @@ export class EobservationDetailsPage {
           }, error => { });
         }
       }, error => { });
-    }
-  }
-
-  ionViewCanLeave() {
-    if (this.formHasBeenModified()) {
-      return this.confirmAbandonChanges();
-    } else {
-      return true;
     }
   }
 
@@ -207,8 +214,8 @@ export class EobservationDetailsPage {
     this.eObservationService.updateEObservation(eObservationClone).then(eObservation => {
       this.eObservation = eObservation;
       this.originEObservation = _.cloneDeep(this.eObservation);
+      this.editMode = false;
       this.toastService.success(this.translateService.instant('EOBSERVATION.MESSAGES.SUCCESS.UPDATED'));
-      this.navCtrl.pop();
     }, error => { }).then(() => {
       // Finally
       this.loading.dismiss();
