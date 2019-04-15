@@ -10,12 +10,11 @@ export class EObsAppreciationComponent {
   @Input() theme: ReferentialThemeModel;
 
   /**
-   * Vérifie qu'il y a des items dans le theme
+   * Vérifie que l'appréciation contient des données à afficher
    *
-   * @return true si il n'y a pas d'items dans ce thème, sinon false
+   * @return true si il y a des données dans l'appréciation, sinon false
    */
   hasItems(): boolean {
-    return this.theme.eobservationItems === null || this.theme.eobservationItems.length === 0;
+    return this.theme.subThemes && this.theme.subThemes.length > 0;
   }
-
 }
