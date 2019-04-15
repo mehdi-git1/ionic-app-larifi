@@ -37,7 +37,7 @@ export class ProfessionalInterviewDetailsPage {
   ) {
     if (this.navParams.get('professionalInterview')) {
       this.professionalInterview = this.navParams.get('professionalInterview');
-      if (this.professionalInterview && this.professionalInterview.matricule) {
+      if (this.professionalInterview.matricule) {
         this.pncService.getPnc(this.professionalInterview.matricule).then(pnc => {
           this.pnc = pnc;
         }, error => { });
