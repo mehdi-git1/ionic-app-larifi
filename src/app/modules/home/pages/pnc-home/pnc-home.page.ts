@@ -72,7 +72,6 @@ export class PncHomePage {
     }
 
     ionViewDidEnter() {
-        this.navCtrl.push(EobservationDetailsPage, { eObservationId: 116370 });
         this.initPage();
     }
 
