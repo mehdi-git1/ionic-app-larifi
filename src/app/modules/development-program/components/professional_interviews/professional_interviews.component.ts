@@ -16,8 +16,8 @@ export class ProfessionalInterviewsComponent {
   @Input() legend = true;
   @Input()
   set professionalInterviews(val: any) {
-    this.professionalInterviewTab = val.sort((pi: ProfessionalInterviewModel, otherPi: ProfessionalInterviewModel) => {
-        return pi.annualProfessionalInterviewDate < otherPi.annualProfessionalInterviewDate ? 1 : -1;
+    this.professionalInterviewTab = val.sort((professionalInterview: ProfessionalInterviewModel, professionalInterview2: ProfessionalInterviewModel) => {
+        return professionalInterview.annualProfessionalInterviewDate < professionalInterview2.annualProfessionalInterviewDate ? 1 : -1;
       });
     }
 
