@@ -61,11 +61,12 @@ export class StorageService {
 
   /**
    * Réalise les transformations nécessaires sur le cache, suite à une montée de version.
-   * ATTENTION ! Penser à supprimer ce code sur la version suivante
+   * ATTENTION ! Penser à supprimer les upgrades une fois les iPads tous passés en version supérieur
    * @param offlineMap la map récupérée du cache sur laquelle les opérations de montée de version vont être réalisées
    */
   private processStorageUpgrade(offlineMap: any) {
-    if (this.config.appVersion === '1.7.1') {
+    // Si on n'a pas d'entrée APP_DATA dans le cache, c'est que la version précédente est antérieure à la 1.7.1
+    if (!offlineMap[this.APP_DATA]) {
       delete offlineMap[EntityEnum.EOBSERVATION];
     }
   }
