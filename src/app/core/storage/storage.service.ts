@@ -1,3 +1,4 @@
+import { AppDataModel } from './../models/app-data.model';
 import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage';
 import * as moment from 'moment';
@@ -15,6 +16,8 @@ export class StorageService {
 
   private offlineMap;
   private sequenceGeneratorName = 'sequence';
+  // Clef de stockage des données applicatives
+  private APP_DATA = 'APP_DATA';
 
   constructor(
     private storage: Storage,
@@ -33,8 +36,6 @@ export class StorageService {
     });
   }
 
-
-
   /**
    * Initialise la map de stockage qui sera persistée dans le cache.
    * La map contient une entrée par entité et un numéro de séquence, utilisé pour les créations offline
@@ -42,9 +43,31 @@ export class StorageService {
    */
   initOfflineMap(): Promise<any> {
     return this.storage.get(this.config.appName).then(offlineMap => {
+      this.preInit(offlineMap);
       this.offlineMap = this.updateMap(offlineMap);
       this.persistOfflineMap();
     });
+  }
+
+  /**
+   * S'assure que la montée de version du cache ne se fait qu'une fois
+   * @param offlineMap la map récupérée du cache
+   */
+  private preInit(offlineMap: any) {
+    if (offlineMap && (!offlineMap[this.APP_DATA] || offlineMap[this.APP_DATA].appVersion !== this.config.appVersion)) {
+      this.processStorageUpgrade(offlineMap);
+    }
+  }
+
+  /**
+   * Réalise les transformations nécessaires sur le cache, suite à une montée de version.
+   * ATTENTION ! Penser à supprimer ce code sur la version suivante
+   * @param offlineMap la map récupérée du cache sur laquelle les opérations de montée de version vont être réalisées
+   */
+  private processStorageUpgrade(offlineMap: any) {
+    if (this.config.appVersion === '1.7.1') {
+      delete offlineMap[EntityEnum.EOBSERVATION];
+    }
   }
 
   /**
@@ -63,6 +86,13 @@ export class StorageService {
     if (offlineMap[this.sequenceGeneratorName] === undefined) {
       offlineMap[this.sequenceGeneratorName] = 0;
     }
+
+    // Création d'une entrée pour le stockage des données applicatives
+    if (!offlineMap[this.APP_DATA]) {
+      offlineMap[this.APP_DATA] = new AppDataModel();
+    }
+    offlineMap[this.APP_DATA].appVersion = this.config.appVersion;
+
     return offlineMap;
   }
 
