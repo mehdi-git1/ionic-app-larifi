@@ -8,7 +8,7 @@ import { NavController } from 'ionic-angular';
 import { EObservationModel } from '../../../../core/models/eobservation/eobservation.model';
 import { TranslateService } from '@ngx-translate/core';
 import { EObservationService } from '../../../../core/services/eobservation/eobservation.service';
-import { ReferentialThemeModel } from '../../../../core/models/eobservation/referential-theme.model';
+import { ReferentialThemeModel } from '../../../../core/models/eobservation/eobservation-referential-theme.model';
 
 @Component({
   selector: 'e-observation',

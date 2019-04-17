@@ -1,11 +1,10 @@
+import { EObservationTypeEnum } from './../../../../core/enums/e-observations-type.enum';
 import { DatePipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { NavController, NavParams, AlertController, LoadingController, Loading } from 'ionic-angular';
 import { EObservationModel } from '../../../../core/models/eobservation/eobservation.model';
 import { PncModel } from '../../../../core/models/pnc.model';
 import { EObservationLevelEnum } from '../../../../core/enums/e-observations-level.enum';
-import { ReferentialItemLevelModel } from '../../../../core/models/eobservation/referential-item-level.model';
-import { EObservationTypeEnum } from '../../../../core/enums/e-observations-type.enum';
 import { EObservationService } from '../../../../core/services/eobservation/eobservation.service';
 import { CrewMemberModel } from '../../../../core/models/crew-member.model';
 import { SessionService } from '../../../../core/services/session/session.service';
@@ -15,6 +14,7 @@ import { ToastService } from '../../../../core/services/toast/toast.service';
 import * as _ from 'lodash';
 import { Utils } from '../../../../shared/utils/utils';
 import { PncService } from '../../../../core/services/pnc/pnc.service';
+import { ReferentialItemLevelModel } from '../../../../core/models/eobservation/eobservation-referential-item-level.model';
 
 @Component({
   selector: 'page-eobservation-details',

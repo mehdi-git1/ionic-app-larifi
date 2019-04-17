@@ -1,4 +1,4 @@
-import { ReferentialThemeModel } from './../../../../core/models/eobservation/referential-theme.model';
+import { ReferentialThemeModel } from '../../../../core/models/eobservation/eobservation-referential-theme.model';
 import { Component, Input } from '@angular/core';
 
 @Component({

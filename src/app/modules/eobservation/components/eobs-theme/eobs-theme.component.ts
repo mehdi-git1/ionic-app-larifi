@@ -4,7 +4,7 @@ import { EObservationLevelEnum } from '../../../../core/enums/e-observations-lev
 import { EobsItemDescriptionComponent } from '../eobs-item-description/eobs-item-description.component';
 import { PopoverController } from 'ionic-angular';
 import { EObservationItemModel } from '../../../../core/models/eobservation/eobservation-item.model';
-import { ReferentialThemeModel } from '../../../../core/models/eobservation/referential-theme.model';
+import { ReferentialThemeModel } from '../../../../core/models/eobservation/eobservation-referential-theme.model';
 
 @Component({
   selector: 'eobs-theme',

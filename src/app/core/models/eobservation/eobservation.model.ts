@@ -4,7 +4,7 @@ import { EObservationTypeEnum } from '../../enums/e-observations-type.enum';
 import { EObservationFlightModel } from './eobservation-flight.model';
 import { EObservationStateEnum } from '../../enums/e-observation-state.enum';
 import { SpecialityEnum } from '../../enums/speciality.enum';
-import { ReferentialThemeModel } from './referential-theme.model';
+import { ReferentialThemeModel } from './eobservation-referential-theme.model';
 
 export class EObservationModel extends EDossierPncObjectModel {
 
