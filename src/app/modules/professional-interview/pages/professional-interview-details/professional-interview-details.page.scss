@@ -50,7 +50,7 @@ page-professional-interview-details {
         }
     }
 
-    .state-block {
+    .state-block, .comment-block, .sub-title-block {
         height: 32px;
         padding-right: 24px;
         padding-left: 24px;
@@ -60,6 +60,17 @@ page-professional-interview-details {
         background: color($colors, bluegrey3);
         color: color($colors, white);
         border-radius: $block-border-radius;
+
+        &.comment-block{
+            margin-bottom:16px;
+            border-top-left-radius: 0px;
+            border-top-right-radius: 0px;
+            background: color($colors, blue77);
+        }
+
+        &.sub-title-block{            
+            background: color($colors, blue77);
+        }
 
         span {
             display: flex;
@@ -197,6 +208,13 @@ page-professional-interview-details {
                     padding: 5px !important;
                 }
             }
+        }
+    }
+
+    .expandable-comment-block{
+        .mat-expansion-panel{
+            margin-bottom: 0px;
+
         }
     }
 }

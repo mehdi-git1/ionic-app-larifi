@@ -1,3 +1,4 @@
+import { ProfessionalInterviewCommentItemTypeEnum } from './../../../../core/enums/professional-interview/professional-interview-comment-item-type.enum';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { Component } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
@@ -10,6 +11,7 @@ import { AppConstant } from '../../../../app.constant';
 import { ProfessionalInterviewModel } from './../../../../core/models/professional-interview/professional-interview.model';
 import { ProfessionalInterviewTypeEnum } from '../../../../core/enums/professional-interview/professional-interview-type.enum';
 import { ProfessionalInterviewStateEnum } from '../../../../core/enums/professional-interview/professional-interview-state.enum';
+import { ProfessionalInterviewThemeModel } from '../../../../core/models/professional-interview/professional-interview-theme.model';
 
 @Component({
   selector: 'page-professional-interview-details',
@@ -28,6 +30,9 @@ export class ProfessionalInterviewDetailsPage {
 
   professionalInterviewDetailForm: FormGroup;
 
+  // Retient le dernier label de parant affiché
+  lastParentThemeLabel: string;
+
   loading: Loading;
 
   constructor(
@@ -43,10 +48,8 @@ export class ProfessionalInterviewDetailsPage {
       this.professionalInterview = this.navParams.get('professionalInterview');
 
       this.professionalInterview.professionalInterviewThemes.sort((theme1, theme2) => {
-        return theme1.themeOrder < theme2.themeOrder ? -1 : 1;
+        return (theme1.parentTheme.themeOrder * 10 + theme1.themeOrder) < (theme2.parentTheme.themeOrder * 10 + theme2.themeOrder) ? -1 : 1;
       });
-
-      console.log(this.professionalInterview.professionalInterviewThemes);
 
       if (this.professionalInterview && this.professionalInterview.matricule) {
         this.pncService.getPnc(this.professionalInterview.matricule).then(pnc => {
@@ -91,6 +94,41 @@ export class ProfessionalInterviewDetailsPage {
     }
   }
 
+  /**
+   * Savoir si on traite un bloc de commentaire PNC
+   * @param professionalInterviewTheme ProfessionalInterviewTheme en cours de traitement
+   */
+  isPncComment(professionalInterviewTheme: ProfessionalInterviewThemeModel){
+    return professionalInterviewTheme.professionalInterviewItems[0].key == ProfessionalInterviewCommentItemTypeEnum.PNCCOMMENT;
+  }
+
+    /**
+   * Savoir si on traite un bloc de commentaire instructeur
+   * @param professionalInterviewTheme ProfessionalInterviewTheme en cours de traitement
+   */
+  isInstructorComment(professionalInterviewTheme: ProfessionalInterviewThemeModel){
+    return professionalInterviewTheme.professionalInterviewItems[0].key == ProfessionalInterviewCommentItemTypeEnum.SYNTHESIS;
+  }
+
+  /**
+   * Affichage du sous-théme ou pas (seulement pour EPP)
+   * @param professionalInterviewTheme ProfessionalInterviewTheme en cours de traitement
+  */
+  displaySubTheme(professionalInterviewTheme: ProfessionalInterviewThemeModel){
+    return this.professionalInterview.type === ProfessionalInterviewTypeEnum.EPP && professionalInterviewTheme.parentTheme.label;
+  }
+
+  /**
+   * Retourne le bon titre à afficher pour le théme
+   * @param professionalInterviewTheme  ProfessionalInterviewTheme en cours de traitement
+   */
+  getThemeTitleToDisplay(professionalInterviewTheme: ProfessionalInterviewThemeModel){
+    if (!professionalInterviewTheme.parentTheme.label){
+      return professionalInterviewTheme.label;
+    } else {
+      return professionalInterviewTheme.parentTheme.label;
+    }
+  }
 
   /**
    * Vérifie que le chargement est terminé

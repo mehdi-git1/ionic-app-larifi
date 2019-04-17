@@ -45,12 +45,37 @@
                     </ion-row>
                 </ion-grid>
             </div>
-            <edospnc-expandable-block class="comment" *ngFor="let interviewTheme of professionalInterview.professionalInterviewThemes, index as i" mini="true" [title]="interviewTheme.label">
-                <div *ngFor="let item of interviewTheme.professionalInterviewItems, index as j">
-                    <label *ngIf="item.label"><span class="edospnc-speechBubble"></span> {{item.label}}</label>
-                    <ion-textarea [value]="item.value"></ion-textarea>
+            <div *ngFor="let interviewTheme of professionalInterview.professionalInterviewThemes, index as i">
+                <edospnc-expandable-block class="comment" [ngClass]="{'expandable-comment-block': isPncComment(interviewTheme) || isInstructorComment(interviewTheme) }" mini="true" [title]="getThemeTitleToDisplay(interviewTheme)">
+                    <div class="sub-title-block" *ngIf="displaySubTheme(interviewTheme)">
+                            <span>{{interviewTheme.label}}</span>
+                    </div>
+                    <div *ngFor="let item of interviewTheme.professionalInterviewItems, index as j">
+                        <label *ngIf="item.label"><span class="edospnc-speechBubble"></span> {{item.label}}</label>
+                        <ion-textarea [value]="item.value"></ion-textarea>
+                    </div>
+                 </edospnc-expandable-block>
+                 <div class="comment-block" *ngIf="isPncComment(interviewTheme)">
+                    <span *ngIf="professionalInterview?.pncSignatureDate">{{professionalInterview?.pncSignatureDate | date: 'dd/MM/yyyy' : 'UTC'}}</span>
+                    <span>
+                        <span *ngIf="pnc?.lastName">
+                                {{pnc.matricule}} -  
+                                {{pnc.lastName}} 
+                                <span class="firstname">{{pnc.firstName}}</span>
+                        </span>
+                    </span>
                 </div>
-            </edospnc-expandable-block>
+                <div class="comment-block" *ngIf="isInstructorComment(interviewTheme)">
+                    <span *ngIf="professionalInterview?.instructorValidationDate">{{professionalInterview?.instructorValidationDate | date: 'dd/MM/yyyy' : 'UTC'}}</span>
+                    <span>
+                        <span *ngIf="professionalInterview.instructor?.lastName">
+                                {{professionalInterview.instructor.matricule}} -  
+                                {{professionalInterview.instructor.lastName}} 
+                                <span class="firstname">{{professionalInterview.instructor.firstName}}</span>
+                        </span>
+                    </span>
+                </div>
+            </div>
 
             <div class="state-block">
                 <span>{{ 'PROFESSIONAL_INTERVIEW.DETAILS.STATE.LABEL' | translate }} :
