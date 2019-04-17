@@ -32,6 +32,7 @@ import { UrlConfiguration } from './core/configuration/url.configuration';
 import { AuthenticationModule } from './core/authentication/authentication.module';
 import { FileModule } from './core/file/file.module';
 import { SynchronizationModule } from './modules/synchronization/synchronization.module';
+import { ProfessionalInterviewModule } from './modules/professional-interview/professional-interview.module';
 
 
 @NgModule({
@@ -52,6 +53,7 @@ import { SynchronizationModule } from './modules/synchronization/synchronization
     HelpAssetModule,
     PncTeamModule,
     ProfessionalLevelModule,
+    ProfessionalInterviewModule,
     SettingsModule,
     StatutoryCertificateModule,
     EObservationModule,

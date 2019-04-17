@@ -294,6 +294,8 @@
         }
     },
     "PROFESSIONAL_INTERVIEW": {
+        "TITLE": "Bilan professionnel",
+        "MY_TITLE": "Mon bilan professionnel",
         "LIST": {
             "HEADER": {
                 "INTERVIEW_DATE": "Date de réalisation",
@@ -304,8 +306,14 @@
             "LEGEND": "derniers BP / EPP réalisés"
         },
         "DETAILS": {
+            "TITLE": "Bilan professionnel PNC",
+            "SPECIALITY": "Fonction",
+            "EOBS_PNC_ASSIGNMENT": "Affectation à date du Bilan Professionnel",
+            "INTERVIEW_DATE": "Date de l'entretien",
+            "UPDATE_DATE": "Enregistré depuis le",
+            "REDACTOR": "Rédacteur",
             "STATE": {
-                "LABEL": "Statut en cours : ",
+                "LABEL": "Statut en cours",
                 "TAKEN_INTO_ACCOUNT": "Pris en compte",
                 "NOT_TAKEN_INTO_ACCOUNT": "Non pris en compte",
                 "AVAILABLE": "Disponible",

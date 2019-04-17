@@ -11,7 +11,7 @@
         </label>
         <label class="flex3">{{ 'PROFESSIONAL_INTERVIEW.DETAILS.TYPE.' + professionalInterview?.type | translateOrEmpty }}</label>
         <div class="button-detail">
-            <button ion-fab>
+            <button ion-fab (click)="goToProfessionalInterviewDetail($event)">
                 <span class="edospnc-memo"></span>
             </button>
         </div>

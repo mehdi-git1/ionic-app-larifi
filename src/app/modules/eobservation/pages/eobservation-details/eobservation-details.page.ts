@@ -170,7 +170,7 @@ export class EobservationDetailsPage {
 
   /**
    * Ajoute les commentaires aux thèmes
-   * 
+   *
    * @param itemsByTheme tableau d'items rangés par thème
    * @return tableau d'items rangés par thème avec les commentaires de thèmes
    */
@@ -179,7 +179,7 @@ export class EobservationDetailsPage {
       for (const eObservationComment of this.eObservation.eobservationComments) {
         const eObservationTheme = (eObservationComment && eObservationComment.refComment) ? eObservationComment.refComment.theme : null;
         if (eObservationTheme) {
-          let themeToDisplay = itemsByTheme.find(element => eObservationTheme.id === element.referentialTheme.id);
+          const themeToDisplay = itemsByTheme.find(element => eObservationTheme.id === element.referentialTheme.id);
           themeToDisplay.eObservationComment = eObservationComment;
         }
       }
@@ -280,6 +280,7 @@ export class EobservationDetailsPage {
     });
   }
 
+
   /**
    * Met à jour l'eObservation
    */
@@ -325,7 +326,7 @@ export class EobservationDetailsPage {
   }
 
   /**
-   * Enclenche mode "édition" 
+   * Enclenche mode "édition"
    */
   enterEditMode() {
     this.editMode = true;
