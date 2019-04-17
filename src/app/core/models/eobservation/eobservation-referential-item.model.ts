@@ -1,7 +1,7 @@
 import { EObservationTypeEnum } from './../../enums/e-observations-type.enum';
 import { EDossierPncObjectModel } from '../e-dossier-pnc-object.model';
-import { ReferentialThemeModel } from './referential-theme.model';
-import { ReferentialItemLevelModel } from './referential-item-level.model';
+import { ReferentialThemeModel } from './eobservation-referential-theme.model';
+import { ReferentialItemLevelModel } from './eobservation-referential-item-level.model';
 
 export class ReferentialItemModel extends EDossierPncObjectModel {
 

@@ -1,3 +1,4 @@
+import { EObservationDisplayModeEnum } from './../../../../core/enums/eobservation/eobservation-display-mode.enum';
 import { AppConstant } from './../../../../app.constant';
 import { EObservationsArchivesPage } from './../../../eobservation/pages/eobservations-archives/eobservations-archives.page';
 import { EObservationModel } from '../../../../core/models/eobservation/eobservation.model';
@@ -9,7 +10,6 @@ import { EFormsTypeEnum } from '../../../../core/enums/e-forms/e-forms-type.enum
 import { SynchronizationService } from '../../../../core/services/synchronization/synchronization.service';
 import { DeviceService } from '../../../../core/services/device/device.service';
 import { SessionService } from '../../../../core/services/session/session.service';
-import { PncRoleEnum } from '../../../../core/enums/pnc-role.enum';
 import { CareerObjectiveCreatePage } from '../career-objective-create/career-objective-create.page';
 import { CareerObjectiveModel } from '../../../../core/models/career-objective.model';
 import { Component } from '@angular/core';
@@ -37,7 +37,7 @@ export class CareerObjectiveListPage {
   eObservations: EObservationModel[];
 
   // Expose l'enum au template
-  PncRole = PncRoleEnum;
+  EObservationDisplayModeEnum = EObservationDisplayModeEnum;
 
   // Liste des eForms possible
   eFormsList = [];

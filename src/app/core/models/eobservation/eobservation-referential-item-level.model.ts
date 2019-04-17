@@ -1,6 +1,6 @@
 import { EObservationLevelEnum } from './../../enums/e-observations-level.enum';
 import { EDossierPncObjectModel } from '../e-dossier-pnc-object.model';
-import { ReferentialItemModel } from './referential-item.model';
+import { ReferentialItemModel } from './eobservation-referential-item.model';
 
 export class ReferentialItemLevelModel extends EDossierPncObjectModel {
 

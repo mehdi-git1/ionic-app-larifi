@@ -1,12 +1,10 @@
+import { EObservationTypeEnum } from './../../../../core/enums/e-observations-type.enum';
 import { DatePipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { NavController, NavParams, AlertController, LoadingController, Loading } from 'ionic-angular';
 import { EObservationModel } from '../../../../core/models/eobservation/eobservation.model';
 import { PncModel } from '../../../../core/models/pnc.model';
-import { EObservationItemsByTheme } from '../../../../core/models/eobservation/eobservation-items-by-theme.model';
 import { EObservationLevelEnum } from '../../../../core/enums/e-observations-level.enum';
-import { ReferentialItemLevelModel } from '../../../../core/models/eobservation/referential-item-level.model';
-import { EObservationTypeEnum } from '../../../../core/enums/e-observations-type.enum';
 import { EObservationService } from '../../../../core/services/eobservation/eobservation.service';
 import { CrewMemberModel } from '../../../../core/models/crew-member.model';
 import { SessionService } from '../../../../core/services/session/session.service';
@@ -15,11 +13,8 @@ import { TranslateService } from '@ngx-translate/core';
 import { ToastService } from '../../../../core/services/toast/toast.service';
 import * as _ from 'lodash';
 import { Utils } from '../../../../shared/utils/utils';
-import { AuthorizationService } from '../../../../core/services/authorization/authorization.service';
-import { EObservationItemModel } from '../../../../core/models/eobservation/eobservation-item.model';
-import { ReferentialThemeModel } from '../../../../core/models/eobservation/referential-theme.model';
 import { PncService } from '../../../../core/services/pnc/pnc.service';
-import { AppConstant } from '../../../../app.constant';
+import { ReferentialItemLevelModel } from '../../../../core/models/eobservation/eobservation-referential-item-level.model';
 
 @Component({
   selector: 'page-eobservation-details',
@@ -32,8 +27,6 @@ export class EobservationDetailsPage {
   eObservation: EObservationModel;
   pnc: PncModel;
   originEObservation: EObservationModel;
-
-  itemsSortedByTheme: EObservationItemsByTheme[];
 
   editMode = false;
 
@@ -49,16 +42,7 @@ export class EobservationDetailsPage {
     private loadingCtrl: LoadingController,
     private pncService: PncService,
     private datePipe: DatePipe) {
-    if (this.navParams.get('eObservation')) {
-      this.eObservation = this.navParams.get('eObservation');
-      this.originEObservation = _.cloneDeep(this.eObservation);
-      if (this.eObservation && this.eObservation.pnc && this.eObservation.pnc.matricule) {
-        this.pncService.getPnc(this.eObservation.pnc.matricule).then(pnc => {
-          this.pnc = pnc;
-        }, error => { });
-      }
-      this.itemsSortedByTheme = this.sortEObservationItemsByTheme();
-    }
+    this.initPage();
   }
 
   ionViewCanLeave() {
@@ -66,6 +50,23 @@ export class EobservationDetailsPage {
       return this.confirmAbandonChanges();
     } else {
       return true;
+    }
+  }
+
+  /**
+   * Effectue les opérations nécessaires à l'initialisation de la page
+   */
+  initPage() {
+    if (this.navParams.get('eObservationId')) {
+      this.eObservationService.getEObservation(this.navParams.get('eObservationId')).then(eObservation => {
+        this.eObservation = eObservation;
+        this.originEObservation = _.cloneDeep(this.eObservation);
+        if (this.eObservation && this.eObservation.pnc && this.eObservation.pnc.matricule) {
+          this.pncService.getPnc(this.eObservation.pnc.matricule).then(pnc => {
+            this.pnc = pnc;
+          }, error => { });
+        }
+      }, error => { });
     }
   }
 
@@ -107,84 +108,6 @@ export class EobservationDetailsPage {
     const crewMember: CrewMemberModel = new CrewMemberModel();
     crewMember.pnc = pnc;
     return crewMember;
-  }
-
-  /**
-   * Trie les items d'eobs par theme
-   * @return la liste de EObservationItemsByTheme
-   */
-  sortEObservationItemsByTheme(): EObservationItemsByTheme[] {
-    const itemsByTheme = new Array<EObservationItemsByTheme>();
-    if (this.eObservation && this.eObservation.eobservationItems && this.eObservation.eobservationItems.length > 0) {
-      for (const eObservationItem of this.eObservation.eobservationItems.sort((a, b) => a.itemOrder > b.itemOrder ? 1 : -1)) {
-        const eObservationTheme = eObservationItem.refItemLevel.item.theme;
-        this.manageThemeInMap(eObservationItem, eObservationTheme, itemsByTheme, null);
-      }
-    }
-    let items = itemsByTheme.sort((a, b) => a.referentialTheme.themeOrder > b.referentialTheme.themeOrder ? 1 : -1);
-    items = this.addCommentsToThemes(items);
-    return items;
-  }
-
-  /**
-   * Organise les items en fonction des themes et des thèmes parent
-   * @param eObservationItem item à ranger
-   * @param eObservationTheme theme qui contient l'item
-   * @param itemsByTheme map des themes/items déjà rangés
-   * @param parentThemeToDisplay theme parent si il existe
-   * @return tableau de EObservationItemsByTheme
-   */
-  manageThemeInMap(eObservationItem: EObservationItemModel,
-    eObservationTheme: ReferentialThemeModel,
-    itemsByTheme: Array<EObservationItemsByTheme>,
-    parentThemeToDisplay: EObservationItemsByTheme): Array<EObservationItemsByTheme> {
-    const parentTheme = eObservationTheme.parent;
-    if (parentTheme) {
-      if (!parentThemeToDisplay) {
-        parentThemeToDisplay = itemsByTheme.find(element => parentTheme.id === element.referentialTheme.id);
-        if (!parentThemeToDisplay) {
-          parentThemeToDisplay = new EObservationItemsByTheme(parentTheme);
-        }
-      }
-      let subThemeAlreadyStored = true;
-      let themeToDisplay = parentThemeToDisplay.subThemes.find(element => eObservationTheme.id === element.referentialTheme.id);
-      if (!themeToDisplay) {
-        themeToDisplay = new EObservationItemsByTheme(eObservationTheme);
-        subThemeAlreadyStored = false;
-      }
-      themeToDisplay.eObservationItems.push(eObservationItem);
-      if (!subThemeAlreadyStored) {
-        parentThemeToDisplay.subThemes.push(themeToDisplay);
-      }
-      this.manageThemeInMap(eObservationItem, parentTheme, itemsByTheme, parentThemeToDisplay);
-    } else {
-      let themeToDisplay = itemsByTheme.find(element => eObservationTheme.id === element.referentialTheme.id);
-      if (!themeToDisplay) {
-        themeToDisplay = new EObservationItemsByTheme(eObservationTheme);
-        itemsByTheme.push(themeToDisplay);
-      }
-      themeToDisplay.eObservationItems.push(eObservationItem);
-    }
-    return itemsByTheme;
-  }
-
-  /**
-   * Ajoute les commentaires aux thèmes
-   * 
-   * @param itemsByTheme tableau d'items rangés par thème
-   * @return tableau d'items rangés par thème avec les commentaires de thèmes
-   */
-  addCommentsToThemes(itemsByTheme: Array<EObservationItemsByTheme>): Array<EObservationItemsByTheme> {
-    if (this.eObservation && this.eObservation.eobservationComments && this.eObservation.eobservationComments.length > 0) {
-      for (const eObservationComment of this.eObservation.eobservationComments) {
-        const eObservationTheme = (eObservationComment && eObservationComment.refComment) ? eObservationComment.refComment.theme : null;
-        if (eObservationTheme) {
-          let themeToDisplay = itemsByTheme.find(element => eObservationTheme.id === element.referentialTheme.id);
-          themeToDisplay.eObservationComment = eObservationComment;
-        }
-      }
-    }
-    return itemsByTheme;
   }
 
   /**
@@ -291,8 +214,8 @@ export class EobservationDetailsPage {
     this.eObservationService.updateEObservation(eObservationClone).then(eObservation => {
       this.eObservation = eObservation;
       this.originEObservation = _.cloneDeep(this.eObservation);
+      this.editMode = false;
       this.toastService.success(this.translateService.instant('EOBSERVATION.MESSAGES.SUCCESS.UPDATED'));
-      this.navCtrl.pop();
     }, error => { }).then(() => {
       // Finally
       this.loading.dismiss();
@@ -325,7 +248,7 @@ export class EobservationDetailsPage {
   }
 
   /**
-   * Enclenche mode "édition" 
+   * Enclenche mode "édition"
    */
   enterEditMode() {
     this.editMode = true;
@@ -337,17 +260,6 @@ export class EobservationDetailsPage {
   cancelEditMode() {
     this.editMode = false;
     this.eObservation = _.cloneDeep(this.originEObservation);
-    this.itemsSortedByTheme = this.sortEObservationItemsByTheme();
-  }
-
-  /**
-   * Mise à jour des commentaires des eObs.
-   * @param newCommentEvent événement contenant l'id et le nouveau commentaire
-   */
-  updateEObservationComment(newCommentEvent: any) {
-    this.eObservation.eobservationComments.find(eobservationComment => {
-      return eobservationComment.techId === newCommentEvent.techId;
-    }).comment = newCommentEvent.comment;
   }
 
   /**
