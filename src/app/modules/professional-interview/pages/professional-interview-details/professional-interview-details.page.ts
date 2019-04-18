@@ -29,7 +29,7 @@ export class ProfessionalInterviewDetailsPage {
   professionalInterviewDetailForm: FormGroup;
 
   loading: Loading;
-  creationMode: boolean = false;
+  creationMode = false;
 
   constructor(
     public navCtrl: NavController,
@@ -41,7 +41,6 @@ export class ProfessionalInterviewDetailsPage {
     private sessionService: SessionService,
     private pncTransformer: PncTransformerService
   ) {
-<<<<<<< HEAD
     this.professionalInterview = this.navParams.get('professionalInterview');
     if (this.professionalInterview && this.professionalInterview.matricule) {
       this.pncService.getPnc(this.professionalInterview.matricule).then(pnc => {
@@ -55,12 +54,6 @@ export class ProfessionalInterviewDetailsPage {
       });
       if (this.navParams.get('matricule')) {
         this.pncService.getPnc(this.navParams.get('matricule')).then(pnc => {
-=======
-    if (this.navParams.get('professionalInterview')) {
-      this.professionalInterview = this.navParams.get('professionalInterview');
-      if (this.professionalInterview.matricule) {
-        this.pncService.getPnc(this.professionalInterview.matricule).then(pnc => {
->>>>>>> refs/remotes/origin/release/sprint17
           this.pnc = pnc;
           this.professionalInterview.pncAtInterviewDate = this.pncTransformer.toPncLight(this.pnc);
           this.professionalInterview.pncAtInterviewDate.speciality = this.pncService.getFormatedSpeciality(this.pnc);
