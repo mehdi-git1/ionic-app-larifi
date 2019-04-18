@@ -126,7 +126,7 @@ export class ProfessionalInterviewDetailsPage {
       return 'green';
     } else if (this.professionalInterview && this.professionalInterview.state === ProfessionalInterviewStateEnum.DRAFT) {
       return 'grey';
-    }else if (this.professionalInterview && this.professionalInterview.state === ProfessionalInterviewStateEnum.NOT_TAKEN_INTO_ACCOUNT) {
+    } else if (this.professionalInterview && this.professionalInterview.state === ProfessionalInterviewStateEnum.NOT_TAKEN_INTO_ACCOUNT) {
       return 'red';
     }
   }
@@ -151,25 +151,25 @@ export class ProfessionalInterviewDetailsPage {
       this.loading.present();
 
       this.professionalInterviewService.createOrUpdate(professionalInterviewToSave)
-      .then(savedProfessionalInterview => {
-        this.originProfessionalInterview = _.cloneDeep(savedProfessionalInterview);
-        this.professionalInterview = savedProfessionalInterview;
-        // en mode connecté, mettre en cache l'objectif creé ou modifié si le pnc est en cache
-        if (this.deviceService.isOfflineModeAvailable() && this.connectivityService.isConnected()
+        .then(savedProfessionalInterview => {
+          this.originProfessionalInterview = _.cloneDeep(savedProfessionalInterview);
+          this.professionalInterview = savedProfessionalInterview;
+          // en mode connecté, mettre en cache l'objectif creé ou modifié si le pnc est en cache
+          if (this.deviceService.isOfflineModeAvailable() && this.connectivityService.isConnected()
             && this.offlinePncService.pncExists(this.professionalInterview.matricule)) {
-            this.offlineProfessionalInterviewService.createOrUpdate(this.professionalInterview, true);
-        }
+            this.offlineProfessionalInterviewService.createOrUpdate(this.professionalInterview);
+          }
 
-        if (this.professionalInterview.state === ProfessionalInterviewStateEnum.DRAFT) {
+          if (this.professionalInterview.state === ProfessionalInterviewStateEnum.DRAFT) {
             this.toastService.success(this.translateService.instant('PROFESSIONAL_INTERVIEW.SUCCESS.DRAFT_SAVED'));
-        }
-        this.loading.dismiss();
-        resolve();
-    }, error => {
-        this.loading.dismiss();
-    });
+          }
+          this.loading.dismiss();
+          resolve();
+        }, error => {
+          this.loading.dismiss();
+        });
 
-      });
+    });
   }
 
   /**
@@ -188,23 +188,32 @@ export class ProfessionalInterviewDetailsPage {
    */
   isNewOrDraftAndCanBeModified(): boolean {
     const canBeSavedAsDraft: boolean = this.professionalInterviewStatusService.isTransitionOk(this.professionalInterview.state, ProfessionalInterviewStateEnum.DRAFT);
-    const isInitiatorOrCadre: boolean =  this.securityService.isManager() || (!this.professionalInterview.instructor || (this.professionalInterview.instructor.matricule === this.sessionService.authenticatedUser.matricule));
+    const isInitiatorOrCadre: boolean = this.securityService.isManager() || (!this.professionalInterview.instructor || (this.professionalInterview.instructor.matricule === this.sessionService.authenticatedUser.matricule));
     return canBeSavedAsDraft && isInitiatorOrCadre && (!this.professionalInterview.state || this.professionalInterview.state === ProfessionalInterviewStateEnum.DRAFT);
   }
 
-    /**
-     * Prépare le bilan professionnel avant de l'envoyer au back :
-     * Transforme les dates au format iso
-     * ou supprime l'entrée de l'objet si une ou plusieurs dates sont nulles
-     *
-     * @param professionalInterviewToSave
-     * @return l'objectif à enregistrer avec la date de rencontre transformée
-     */
-    prepareProfessionalInterviewBeforeSubmit(professionalInterviewToSave: ProfessionalInterviewModel): ProfessionalInterviewModel {
-      if (typeof this.annualProfessionalInterviewDateString !== undefined && this.annualProfessionalInterviewDateString !== null) {
-        professionalInterviewToSave.annualProfessionalInterviewDate = new Date(this.annualProfessionalInterviewDateString);
-        professionalInterviewToSave.annualProfessionalInterviewDate.setHours(12);
-      }
-      return professionalInterviewToSave;
+  /**
+   * Prépare le bilan professionnel avant de l'envoyer au back :
+   * Transforme les dates au format iso
+   * ou supprime l'entrée de l'objet si une ou plusieurs dates sont nulles
+   *
+   * @param professionalInterviewToSave
+   * @return l'objectif à enregistrer avec la date de rencontre transformée
+   */
+  prepareProfessionalInterviewBeforeSubmit(professionalInterviewToSave: ProfessionalInterviewModel): ProfessionalInterviewModel {
+    if (typeof this.annualProfessionalInterviewDateString !== undefined && this.annualProfessionalInterviewDateString !== null) {
+      professionalInterviewToSave.annualProfessionalInterviewDate = new Date(this.annualProfessionalInterviewDateString);
+      professionalInterviewToSave.annualProfessionalInterviewDate.setHours(12);
     }
+    return professionalInterviewToSave;
+  }
+
+  /**
+   * Enregistre un bilan professionnel au statut validé
+   */
+  savePorfessionalInterviewToValidatedStatus() {
+    const professionalInterviewToSave = _.cloneDeep(this.professionalInterview);
+    professionalInterviewToSave.careerObjectiveStatus = ProfessionalInterviewStateEnum.TAKEN_INTO_ACCOUNT;
+    this.professionalInterviewService.createOrUpdate(professionalInterviewToSave);
+  }
 }
