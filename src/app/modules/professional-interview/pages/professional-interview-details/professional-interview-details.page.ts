@@ -119,7 +119,7 @@ export class ProfessionalInterviewDetailsPage {
         },
         {
           text: this.translateService.instant('PROFESSIONAL_INTERVIEW.DETAILS.CONFIRM_DRAFT_DELETE.CONFIRM'),
-          handler: () => this.deleteProfessionalInterviewDraft()
+          handler: () => this.deleteProfessionalInterview()
         }
       ]
     }).present();
@@ -129,21 +129,23 @@ export class ProfessionalInterviewDetailsPage {
    * Retourne true si c'est une proposition et si le pnc connecté est CADRE
    * @return true si Draft && CADRE
    */
-  isDraftAndCanBeDeleted(): boolean {
+  canBeDeleted(): boolean {
     return this.professionalInterview.state === ProfessionalInterviewStateEnum.DRAFT && this.securityService.isManager();
   }
 
   /**
-  * Supprime un bilan professionnel au statut brouillon
+  * Supprime un bilan professionnel
   */
-  deleteProfessionalInterviewDraft() {
+  deleteProfessionalInterview() {
     this.loading = this.loadingCtrl.create();
     this.loading.present();
 
     this.professionalInterviewService
       .delete(this.professionalInterview.techId)
       .then(() => {
-        this.toastService.success(this.translateService.instant('PROFESSIONAL_INTERVIEW.DETAILS.SUCCESS.DRAFT_DELETED'));
+        if (this.professionalInterview.state === ProfessionalInterviewStateEnum.DRAFT) {
+          this.toastService.success(this.translateService.instant('PROFESSIONAL_INTERVIEW.DETAILS.SUCCESS.DRAFT_DELETED'));
+        }
         this.navCtrl.pop();
         this.loading.dismiss();
       }, error => {
