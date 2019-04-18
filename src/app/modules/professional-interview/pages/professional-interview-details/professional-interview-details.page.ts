@@ -1,7 +1,9 @@
+import { PncTransformerService } from './../../../../core/services/pnc/pnc-transformer.service';
+import { SessionService } from './../../../../core/services/session/session.service';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { Component } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { NavController, NavParams, Loading } from 'ionic-angular';
+import { NavController, NavParams, Loading, AlertController } from 'ionic-angular';
 
 import { PncModel } from '../../../../core/models/pnc.model';
 import { PncRoleEnum } from '../../../../core/enums/pnc-role.enum';
@@ -27,23 +29,39 @@ export class ProfessionalInterviewDetailsPage {
   professionalInterviewDetailForm: FormGroup;
 
   loading: Loading;
+  creationMode = false;
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     private formBuilder: FormBuilder,
     private translateService: TranslateService,
-    private pncService: PncService
+    private pncService: PncService,
+    private alertCtrl: AlertController,
+    private sessionService: SessionService,
+    private pncTransformer: PncTransformerService
   ) {
-    if (this.navParams.get('professionalInterview')) {
-      this.professionalInterview = this.navParams.get('professionalInterview');
-      if (this.professionalInterview.matricule) {
-        this.pncService.getPnc(this.professionalInterview.matricule).then(pnc => {
+    this.professionalInterview = this.navParams.get('professionalInterview');
+    if (this.professionalInterview && this.professionalInterview.matricule) {
+      this.pncService.getPnc(this.professionalInterview.matricule).then(pnc => {
+        this.pnc = pnc;
+      }, error => { });
+    } else {
+      this.creationMode = true;
+      this.professionalInterview = this.sessionService.getActiveUser().parameters.params['blankProfessionnalInterview'];
+      this.professionalInterview.professionalInterviewThemes.sort((a, b) => {
+        return a.themeOrder > b.themeOrder ? 1 : -1;
+      });
+      if (this.navParams.get('matricule')) {
+        this.pncService.getPnc(this.navParams.get('matricule')).then(pnc => {
           this.pnc = pnc;
+          this.professionalInterview.pncAtInterviewDate = this.pncTransformer.toPncLight(this.pnc);
+          this.professionalInterview.pncAtInterviewDate.speciality = this.pncService.getFormatedSpeciality(this.pnc);
         }, error => { });
       }
-      this.initForm();
+
     }
+    this.initForm();
 
     this.annualProfessionalInterviewOptions = {
       buttons: [{

@@ -1,3 +1,5 @@
+import { ProfessionalInterviewDetailsPage } from './../../../professional-interview/pages/professional-interview-details/professional-interview-details.page';
+import { ProfessionalInterviewModel } from './../../../../core/models/professional-interview/professional-interview.model';
 import { ProfessionalInterviewService } from '../../../../core/services/professional-interview/professional-interview.service';
 import { EObservationDisplayModeEnum } from './../../../../core/enums/eobservation/eobservation-display-mode.enum';
 import { EObservationsArchivesPage } from './../../../eobservation/pages/eobservations-archives/eobservations-archives.page';
@@ -18,7 +20,6 @@ import { CareerObjectiveService } from '../../../../core/services/career-objecti
 import { RotationModel } from '../../../../core/models/rotation.model';
 import { PncService } from '../../../../core/services/pnc/pnc.service';
 import { PncModel } from '../../../../core/models/pnc.model';
-import { ProfessionalInterviewModel } from '../../../../core/models/professional-interview/professional-interview.model';
 import { SpecialityEnum } from '../../../../core/enums/speciality.enum';
 import * as moment from 'moment';
 import { AppConstant } from '../../../../app.constant';
@@ -114,6 +115,12 @@ export class CareerObjectiveListPage {
       });
   }
 
+  /**
+   * Dirige vers la page de création d'un nouveau bilan professionnels
+   */
+  goToProfessionalInterviewCreation() {
+    this.navCtrl.push(ProfessionalInterviewDetailsPage, { matricule: this.matricule });
+  }
 
   /**
    * Récupére la liste des bilans professionnels
