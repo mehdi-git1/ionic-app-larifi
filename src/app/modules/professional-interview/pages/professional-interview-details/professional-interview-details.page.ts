@@ -48,8 +48,14 @@ export class ProfessionalInterviewDetailsPage {
       this.professionalInterview = this.navParams.get('professionalInterview');
 
       this.professionalInterview.professionalInterviewThemes.sort((theme1, theme2) => {
-        return (theme1.parentTheme.themeOrder * 10 + theme1.themeOrder) < (theme2.parentTheme.themeOrder * 10 + theme2.themeOrder) ? -1 : 1;
+        return theme1.themeOrder  < theme2.themeOrder ? -1 : 1;
       });
+
+      for (let i = 0; i < this.professionalInterview.professionalInterviewThemes.length; i++){
+        this.professionalInterview.professionalInterviewThemes[i].subTheme.sort((ssTheme1, ssTheme2) => {
+          return ssTheme1.themeOrder  < ssTheme2.themeOrder ? -1 : 1;
+        });
+      }
 
       if (this.professionalInterview && this.professionalInterview.matricule) {
         this.pncService.getPnc(this.professionalInterview.matricule).then(pnc => {
@@ -97,36 +103,40 @@ export class ProfessionalInterviewDetailsPage {
   /**
    * Savoir si on traite un bloc de commentaire PNC
    * @param professionalInterviewTheme ProfessionalInterviewTheme en cours de traitement
+   * @return true si c'est un commentaire PNC
    */
-  isPncComment(professionalInterviewTheme: ProfessionalInterviewThemeModel){
-    return professionalInterviewTheme.professionalInterviewItems[0].key == ProfessionalInterviewCommentItemTypeEnum.PNCCOMMENT;
+  isPncComment(professionalInterviewTheme: ProfessionalInterviewThemeModel): boolean{
+     return professionalInterviewTheme.subTheme[0].professionalInterviewItems[0].key == ProfessionalInterviewCommentItemTypeEnum.PNCCOMMENT;
   }
 
     /**
    * Savoir si on traite un bloc de commentaire instructeur
    * @param professionalInterviewTheme ProfessionalInterviewTheme en cours de traitement
+   * @return true si c'est un commentaire instructeur
    */
-  isInstructorComment(professionalInterviewTheme: ProfessionalInterviewThemeModel){
-    return professionalInterviewTheme.professionalInterviewItems[0].key == ProfessionalInterviewCommentItemTypeEnum.SYNTHESIS;
+  isInstructorComment(professionalInterviewTheme: ProfessionalInterviewThemeModel): boolean{
+    return professionalInterviewTheme.subTheme[0].professionalInterviewItems[0].key == ProfessionalInterviewCommentItemTypeEnum.SYNTHESIS;
   }
 
   /**
    * Affichage du sous-théme ou pas (seulement pour EPP)
    * @param professionalInterviewTheme ProfessionalInterviewTheme en cours de traitement
+   * @return label à afficher
   */
-  displaySubTheme(professionalInterviewTheme: ProfessionalInterviewThemeModel){
-    return this.professionalInterview.type === ProfessionalInterviewTypeEnum.EPP && professionalInterviewTheme.parentTheme.label;
+  displaySubTheme(parentLabel: string): string{
+    return this.professionalInterview.type === ProfessionalInterviewTypeEnum.EPP && parentLabel;
   }
 
   /**
    * Retourne le bon titre à afficher pour le théme
    * @param professionalInterviewTheme  ProfessionalInterviewTheme en cours de traitement
-   */
-  getThemeTitleToDisplay(professionalInterviewTheme: ProfessionalInterviewThemeModel){
-    if (!professionalInterviewTheme.parentTheme.label){
-      return professionalInterviewTheme.label;
+   * @return label à afficher
+  */
+ getThemeLabel(professionalInterviewTheme: ProfessionalInterviewThemeModel){
+    if (professionalInterviewTheme.label === '' || !professionalInterviewTheme.label){
+      return professionalInterviewTheme.subTheme[0].label;
     } else {
-      return professionalInterviewTheme.parentTheme.label;
+      return professionalInterviewTheme.label;
     }
   }
 

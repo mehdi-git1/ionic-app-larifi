@@ -50,6 +50,10 @@ page-professional-interview-details {
         }
     }
 
+    .mat-expansion-panel-body .ng-star-inserted:first-child .sub-title-block{
+        margin-top:0px;
+    }
+
     .state-block, .comment-block, .sub-title-block {
         height: 32px;
         padding-right: 24px;
@@ -70,6 +74,8 @@ page-professional-interview-details {
 
         &.sub-title-block{            
             background: color($colors, blue77);
+            margin:10px -15px 10px -15px;
+            font-size: 17px;
         }
 
         span {
@@ -176,7 +182,7 @@ page-professional-interview-details {
             padding: 15px;
 
             label {
-                font-weight: bold;
+                font-size: 17px;
                 margin: 15px 0px 10px 0px;
                 display: flex;
                 align-items: center;
@@ -190,7 +196,7 @@ page-professional-interview-details {
                 }
             }
 
-            div.ng-star-inserted:first-child label:first-child {
+            div.ng-star-inserted div.ng-star-inserted:first-child label:first-child {
                 margin-top: 0px;
             }
 

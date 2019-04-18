@@ -46,13 +46,16 @@
                 </ion-grid>
             </div>
             <div *ngFor="let interviewTheme of professionalInterview.professionalInterviewThemes, index as i">
-                <edospnc-expandable-block class="comment" [ngClass]="{'expandable-comment-block': isPncComment(interviewTheme) || isInstructorComment(interviewTheme) }" mini="true" [title]="getThemeTitleToDisplay(interviewTheme)">
-                    <div class="sub-title-block" *ngIf="displaySubTheme(interviewTheme)">
-                            <span>{{interviewTheme.label}}</span>
-                    </div>
-                    <div *ngFor="let item of interviewTheme.professionalInterviewItems, index as j">
-                        <label *ngIf="item.label"><span class="edospnc-speechBubble"></span> {{item.label}}</label>
-                        <ion-textarea [value]="item.value"></ion-textarea>
+                <edospnc-expandable-block class="comment" [ngClass]="{'expandable-comment-block': isPncComment(interviewTheme) || isInstructorComment(interviewTheme) }" mini="true" [title]="getThemeLabel(interviewTheme)">
+                    
+                    <div *ngFor="let subTheme of interviewTheme.subTheme, index as j">
+                        <div class="sub-title-block" *ngIf="displaySubTheme(interviewTheme.label)">
+                                <span>{{subTheme.label}}</span>
+                        </div>
+                        <div *ngFor="let item of subTheme.professionalInterviewItems, index as j">
+                            <label *ngIf="item.label"><span class="edospnc-speechBubble"></span> {{item.label}}</label>
+                            <ion-textarea [value]="item.value"></ion-textarea>
+                        </div>
                     </div>
                  </edospnc-expandable-block>
                  <div class="comment-block" *ngIf="isPncComment(interviewTheme)">
