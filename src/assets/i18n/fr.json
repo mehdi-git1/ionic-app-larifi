@@ -291,7 +291,8 @@
         "TITLE": "Bilan professionnel",
         "MY_TITLE": "Mon bilan professionnel",
         "BUTTONS": {
-            "NEW_PROFESSIONAL_INTERVIEW": "Nouveau bilan professionel"
+            "NEW_PROFESSIONAL_INTERVIEW": "Nouveau bilan professionel",
+            "SAVE_DRAFT": "Sauvegarder le brouillon"
         },
         "LIST": {
             "HEADER": {
@@ -320,6 +321,9 @@
                 "EPP": "EPP",
                 "BILAN": "Bilan professionnel"
             }
+        },
+        "SUCCESS": {
+            "DRAFT_SAVED" : "Brouillon sauvegardé"
         }
     },
     "EOBSERVATION": {

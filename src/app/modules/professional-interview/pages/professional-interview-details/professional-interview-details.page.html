@@ -17,7 +17,7 @@
                 </span>
                 <span>
                     <ion-item>
-                        <ion-datetime displayFormat="DD/MM/YYYY" pickerFormat="DD MMMM YYYY" [(ngModel)]="professionalInterview.annualProfessionalInterviewDate" formControlName="annualProfessionalInterviewDateControl" [pickerOptions]="annualProfessionalInterviewOptions" [doneText]="translateService.instant('GLOBAL.DATEPICKER.DONE')" [cancelText]="translateService.instant('GLOBAL.DATEPICKER.CANCEL')" [max]="datepickerMaxDate" [monthNames]="monthsNames">
+                        <ion-datetime displayFormat="DD/MM/YYYY" pickerFormat="DD MMMM YYYY" [(ngModel)]="annualProfessionalInterviewDateString" formControlName="annualProfessionalInterviewDateControl" [pickerOptions]="annualProfessionalInterviewOptions" [doneText]="translateService.instant('GLOBAL.DATEPICKER.DONE')" [cancelText]="translateService.instant('GLOBAL.DATEPICKER.CANCEL')" [max]="datepickerMaxDate" [monthNames]="monthsNames">
                         </ion-datetime>
                         <ion-label>
                             <ion-icon name="calendar"></ion-icon>
@@ -66,6 +66,14 @@
                 <span>{{ 'PROFESSIONAL_INTERVIEW.DETAILS.REDACTOR' | translate }} :
                     <span *ngIf="professionalInterview.instructor?.lastName">{{professionalInterview.instructor.lastName}} <span class="firstname">{{professionalInterview.instructor.firstName}}</span></span>
                 </span>
+            </div>
+
+            <!-- Barre de boutons -->
+            <div class="button-bar-right button-bar">
+                <!-- Bouton sauvegarder objectif en brouillon -->
+                <button ion-button color="blue60" (click)="saveProfessionalInterviewDraft()" [disabled]="professionalInterviewDetailForm.invalid" *ngIf="isNewOrDraftAndCanBeModified()">
+                    <ion-icon name="ios-bookmark-outline" ios="ios-bookmark-outline" margin-right></ion-icon> {{ 'PROFESSIONAL_INTERVIEW.BUTTONS.SAVE_DRAFT' | translate }}
+                </button>
             </div>
         </form>
     </ng-template>

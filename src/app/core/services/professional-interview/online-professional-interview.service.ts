@@ -27,4 +27,12 @@ export class OnlineProfessionalInterviewService {
         );
     }
 
+    /**
+     * Créé ou met à jour un bilan professionnel
+     * @param  profesionnalInterview le bilan professionnel à créer ou mettre à jour
+     * @return une promesse contenant le bilan professionnel créé ou mis à jour
+     */
+    createOrUpdate(professionalInterview: ProfessionalInterviewModel): Promise<ProfessionalInterviewModel> {
+    return this.restService.post(this.config.getBackEndUrl('professionalInterviews'), professionalInterview);
+    }
 }
