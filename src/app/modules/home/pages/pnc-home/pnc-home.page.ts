@@ -25,6 +25,7 @@ import { StatutoryCertificatePage } from '../../../statutory-certificate/pages/s
 import { SpecialityEnum } from '../../../../core/enums/speciality.enum';
 import { SpecialityService } from '../../../../core/services/speciality/speciality.service';
 import { CongratulationLettersPage } from '../../../congratulation-letter/pages/congratulation-letters/congratulation-letters.page';
+import { EobservationDetailsPage } from '../../../eobservation/pages/eobservation-details/eobservation-details.page';
 
 @Component({
     selector: 'page-pnc-home',

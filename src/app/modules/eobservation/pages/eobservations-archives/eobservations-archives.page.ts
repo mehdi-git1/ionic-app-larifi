@@ -1,3 +1,4 @@
+import { EObservationDisplayModeEnum } from './../../../../core/enums/eobservation/eobservation-display-mode.enum';
 import { Component } from '@angular/core';
 import { NavParams } from 'ionic-angular';
 
@@ -16,6 +17,8 @@ export class EObservationsArchivesPage {
     matricule: string;
     eObservations: EObservationModel[];
     pnc: PncModel;
+
+    EObservationDisplayModeEnum = EObservationDisplayModeEnum;
 
     constructor(
         public navParams: NavParams,

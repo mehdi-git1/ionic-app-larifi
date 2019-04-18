@@ -9,7 +9,7 @@
 <ion-content padding>
     <edossier-spinner *ngIf="!loadingIsOver()"></edossier-spinner>
     <div class="global-container eobservation-list-container">
-        <e-observations *ngIf="eObservations" [eObservations]="eObservations" [legend]="false">
+        <e-observations *ngIf="eObservations" [eObservations]="eObservations" [eObservationDisplayMode]="EObservationDisplayModeEnum.DEVELOPMENT_PROGRAM" [legend]="false">
         </e-observations>
     </div>
 

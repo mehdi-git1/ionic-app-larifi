@@ -17,7 +17,7 @@ export class OfflineEObservationService {
      * @param eObservation l'eObservation à sauvegarder
      * @return une promesse contenant l'eObservation sauvée
      */
-    save(eObservation: EObservationModel): Promise<EObservationModel[]> {
+    public save(eObservation: EObservationModel): Promise<EObservationModel[]> {
         return this.storageService.saveAsync(EntityEnum.EOBSERVATION, eObservation);
     }
 
@@ -26,7 +26,7 @@ export class OfflineEObservationService {
      * @param matricule le matricule du PNC
      * @return une promesse contenant les EObservations trouvées
      */
-    getEObservations(matricule: string): Promise<EObservationModel[]> {
+    public getEObservations(matricule: string): Promise<EObservationModel[]> {
         return new Promise((resolve, reject) => {
             const eObservationList = this.storageService.findAll(EntityEnum.EOBSERVATION);
             const eObservations = eObservationList.filter(eObservation => {
@@ -41,7 +41,16 @@ export class OfflineEObservationService {
     * @param eObservation l'eObservation à valider
     * @return une promesse contenant l'eObservation validée
     */
-    updateEObservation(eObservation: EObservationModel): Promise<EObservationModel> {
+    public updateEObservation(eObservation: EObservationModel): Promise<EObservationModel> {
         return this.storageService.saveAsync(EntityEnum.EOBSERVATION, eObservation, false);
+    }
+
+    /**
+     * Récupère une eObservation à partir de son id
+     * @param id l'id de l'eObservation à récupérer
+     * @return une promesse contenant l'eObservation récupérée
+     */
+    public getEObservation(id: number): Promise<EObservationModel> {
+        return this.storageService.findOneAsync(EntityEnum.EOBSERVATION, `${id}`);
     }
 }

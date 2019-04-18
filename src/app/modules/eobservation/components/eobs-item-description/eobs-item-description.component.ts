@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { ReferentialItemLevelModel } from '../../../../core/models/eobservation/referential-item-level.model';
+import { ReferentialItemLevelModel } from '../../../../core/models/eobservation/eobservation-referential-item-level.model';
 import { EObservationLevelEnum } from '../../../../core/enums/e-observations-level.enum';
 import { NavParams, ViewController } from 'ionic-angular';
 
@@ -13,7 +13,7 @@ export class EobsItemDescriptionComponent {
 
   constructor(private navParams: NavParams, public viewCtrl: ViewController) {
     const descriptions: ReferentialItemLevelModel[] = this.navParams.get('descriptions');
-    this.descriptions = descriptions.sort((a, b)  => a.level < b.level ? 1 : -1);
+    this.descriptions = descriptions.sort((a, b) => a.level < b.level ? 1 : -1);
   }
 
   /**
@@ -40,4 +40,4 @@ export class EobsItemDescriptionComponent {
   closePopover() {
     this.viewCtrl.dismiss();
   }
- }
+}
