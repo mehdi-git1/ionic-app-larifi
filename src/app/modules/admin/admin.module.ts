@@ -1,3 +1,4 @@
+import { UserMessageManagementPage } from './pages/user-message-management/user-message-management.page';
 
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
@@ -13,7 +14,8 @@ import { ProfileManagementPage } from './pages/profile-management/profile-manage
   declarations: [
     AdminHomePage,
     ProfileManagementPage,
-    AppVersionManagementPage
+    AppVersionManagementPage,
+    UserMessageManagementPage
   ],
   imports: [
     [IonicPageModule.forChild(AdminHomePage)],
@@ -23,12 +25,14 @@ import { ProfileManagementPage } from './pages/profile-management/profile-manage
   entryComponents: [
     AdminHomePage,
     ProfileManagementPage,
-    AppVersionManagementPage
+    AppVersionManagementPage,
+    UserMessageManagementPage
   ],
   exports: [
     AdminHomePage,
     ProfileManagementPage,
-    AppVersionManagementPage
+    AppVersionManagementPage,
+    UserMessageManagementPage
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA

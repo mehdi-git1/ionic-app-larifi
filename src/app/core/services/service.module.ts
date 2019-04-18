@@ -1,3 +1,4 @@
+import { UserMessageAlertService } from './user-message/user-message-alert.service';
 import { AppVersionService } from './app-version/app-version.service';
 import { UserPermissionService } from './user-permission/user-permission.service';
 import { CongratulationLetterTransformerService } from './congratulation-letter/congratulation-letter-transformer.service';
@@ -36,7 +37,7 @@ import { OfflineWaypointService } from './waypoint/offline-waypoint.service';
 import { OnlineSecurityService } from './security/online-security.service';
 import { OfflineSecurityService } from './security/offline-security.service';
 import { OnlinePncService } from './pnc/online-pnc.service';
-import { OnlineCareerObjectiveService } from './career-objective/online-career-objective';
+import { OnlineCareerObjectiveService } from './career-objective/online-career-objective.service';
 import { OnlineWaypointService } from './waypoint/online-waypoint.service';
 import { CareerObjectiveTransformerService } from './career-objective/career-objective-transformer.service';
 import { SynchronizationService } from './synchronization/synchronization.service';
@@ -72,6 +73,8 @@ import { FormsInputParamTransformerService } from './forms/forms-input-param-tra
 import { OnlineEObservationService } from './eobservation/online-eobservation.service';
 import { OfflineEObservationService } from './eobservation/offline-eobservation.service';
 import { SynchronizationManagementService } from './synchronization/synchronization-management.service';
+import { UserMessageService } from './user-message/user-message.service';
+import { UserMessageTransformerService } from './user-message/user-message-transformer.service';
 import { ProfessionalInterviewService } from './professional-interview/professional-interview.service';
 import { OnlineProfessionalInterviewService } from './professional-interview/online-professional-interview.service';
 import { OfflineProfessionalInterviewService } from './professional-interview/offline-professional-interview.service';
@@ -153,6 +156,9 @@ import { OfflineProfessionalInterviewService } from './professional-interview/of
         OnlineEObservationService,
         OfflineEObservationService,
         EObservationTransformerService,
+        UserMessageAlertService,
+        UserMessageService,
+        UserMessageTransformerService,
         UserProfileService,
         UserPermissionService,
         CongratulationLetterService,

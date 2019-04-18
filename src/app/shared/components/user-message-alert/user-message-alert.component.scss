@@ -1,0 +1,84 @@
+user-message-alert {
+    color: color($colors, grey10);
+
+    .user-message-alert-wrapper {
+        display: none;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 1100;
+        justify-content: center;
+        align-items: center;
+
+        &.displayed {
+            display: flex;
+            position: fixed;
+        }
+
+        .alert {
+            width: 50%;
+            background: color($colors, grey92);
+            border-radius: 10px;
+
+            .header {
+                padding: 10px;
+                display: flex;
+                align-items: center;
+                font-weight: bold;
+                background: color($colors, orange55);
+                border-radius: 10px 10px 0 0;
+
+                ion-icon {
+                    color: color($colors, white);
+                    font-size: 2.5em;
+                    margin-top: -5px;
+                    margin-right: 10px;
+                }
+
+                label {
+                    color: color($colors, white);
+                    font-size: 1.6em;
+                }
+            }
+
+            .content {
+                margin: 0;
+                padding: 20px;
+                font-size: 1.1em;
+                white-space: pre-line;
+                color: color($colors, grey20);
+            }
+
+            .button-bar {
+                height: 50px;
+                display: flex;
+                border-top: 1px solid color($colors, grey72);
+
+                button {
+                    flex: 1;
+                    background: color($colors, grey92);
+                    font-size: 1.3em;
+                    border-radius: 5px;
+                    color: color($colors, grey10);
+                }
+
+                button:not(:first-child) {
+                    border-left: 1px solid color($colors, grey72);
+                }
+
+                button:first-child {
+                    border-radius: 0 0 0 10px;
+                }
+
+                button:last-child {
+                    border-radius: 0 0 10px 0;
+                    font-weight: bold;
+                }
+
+                button:hover {
+                    background: color($colors, grey90);
+                }
+            }
+        }
+    }
+}

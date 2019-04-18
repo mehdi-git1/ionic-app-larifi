@@ -1,9 +1,9 @@
-<edospnc-expandable-block mini="true" title="{{theme.referentialTheme.label}}" [emptyCondition]="hasItemAndSubThemes()">
+<edospnc-expandable-block mini="true" title="{{theme.label}}" [emptyCondition]="hasItemAndSubThemes()">
     <span *ngIf="hasSubThemes()">
         <span *ngFor="let subTheme of theme.subThemes">
-            <div class="sub-theme-label">{{subTheme.referentialTheme.label}}</div>
+            <div class="sub-theme-label">{{subTheme.label}}</div>
             <ion-grid>
-                <ion-row *ngFor="let eObservationItem of subTheme.eObservationItems">
+                <ion-row *ngFor="let eObservationItem of subTheme.eobservationItems">
                     <ion-col col-11 class="item-label">{{eObservationItem.refItemLevel.item.label}}</ion-col>
                     <ion-col col-1 class="symbol">
                         <color-number-dot [numberText]="getLevelLabel(eObservationItem.refItemLevel.level)">
@@ -16,15 +16,15 @@
         </span>
         <div class="comment">
             <label><span class="edospnc-speechBubble"></span>{{ 'EOBSERVATION.DETAIL.COMMENT' | translate }}</label>
-            <p *ngIf="!editMode; else editThemeCommentBlock">{{theme.eObservationComment.comment}}</p>
+            <p *ngIf="!editMode; else editThemeCommentBlock">{{theme.eobservationComment?.comment}}</p>
             <ng-template #editThemeCommentBlock>
-                <ion-textarea [(ngModel)]="theme.eObservationComment.comment" (change)="updateComment()" autocorrect="on"></ion-textarea>
+                <ion-textarea [(ngModel)]="theme.eobservationComment.comment" autocorrect="on"></ion-textarea>
             </ng-template>
         </div>
     </span>
     <ion-grid *ngIf="!hasSubThemes()">
-        <ion-row *ngFor="let eObservationItem of theme.eObservationItems">
-            <ion-col col-11 class="item-label">{{eObservationItem.refItemLevel.item.label}}</ion-col>
+        <ion-row *ngFor="let eObservationItem of theme.eobservationItems">
+            <ion-col col-11 class="item-label">{{eObservationItem.refItemLevel.item?.label}}</ion-col>
             <ion-col col-1 class="symbol">
                 <color-number-dot [numberText]="getLevelLabel(eObservationItem.refItemLevel.level)">
                 </color-number-dot>

@@ -35,7 +35,7 @@ export class EObservationService extends BaseService {
      * @param matricule le matricule du PNC
      * @return une promesse contenant les EObservations trouvées
      */
-    getEObservations(matricule: string): Promise<EObservationModel[]> {
+    public getEObservations(matricule: string): Promise<EObservationModel[]> {
         return this.execFunctionService('getEObservations', matricule);
     }
 
@@ -43,7 +43,7 @@ export class EObservationService extends BaseService {
      * Récupère le label de l'option du type de l'eObs
      * @return le label à afficher
      */
-    getDetailOptionType(eObservation): string {
+    public getDetailOptionType(eObservation): string {
         if (eObservation && (eObservation.type === EObservationTypeEnum.E_CC || eObservation.type === EObservationTypeEnum.E_CCP)) {
             if (eObservation.val) {
                 return this.translateService.instant('EOBSERVATION.DETAIL.VAL_TITLE_OPTION');
@@ -59,7 +59,7 @@ export class EObservationService extends BaseService {
      * @param matricule le matricule du PNC
      * @return une promesse contenant les EObservations trouvées
      */
-    getAllEObservations(matricule: string): Promise<EObservationModel[]> {
+    public getAllEObservations(matricule: string): Promise<EObservationModel[]> {
         return this.onlineEObservationService.getAllEObservations(matricule);
     }
 
@@ -68,7 +68,7 @@ export class EObservationService extends BaseService {
      * @param eObservation l'eObservation conçernée
      * @return une promesse contenant l'eObservation mise a jour par le commentaire du pnc
      */
-    validatePncComment(eObservation: EObservationModel): Promise<EObservationModel> {
+    public validatePncComment(eObservation: EObservationModel): Promise<EObservationModel> {
         return this.updateEObservation(eObservation);
     }
 
@@ -77,12 +77,21 @@ export class EObservationService extends BaseService {
      * @param eObservation l'eObservation conçernée
      * @return une promesse contenant l'eObservation mise a jour
      */
-    updateEObservation(eObservation: EObservationModel): Promise<EObservationModel> {
+    public updateEObservation(eObservation: EObservationModel): Promise<EObservationModel> {
         eObservation.lastUpdateAuthor = new PncModel();
         eObservation.lastUpdateAuthor.matricule = this.sessionService.getActiveUser().matricule;
         eObservation.lastUpdateAuthor.lastName = this.sessionService.getActiveUser().lastName;
         eObservation.lastUpdateAuthor.firstName = this.sessionService.getActiveUser().firstName;
         eObservation.lastUpdateDate = new Date();
         return this.execFunctionService('updateEObservation', eObservation);
+    }
+
+    /**
+     * Récupère une eObservation à partir de son id
+     * @param id l'id de l'eObservation à récupérer
+     * @return une promesse contenant l'eObservation récupérée
+     */
+    public getEObservation(id: number): Promise<EObservationModel> {
+        return this.execFunctionService('getEObservation', id);
     }
 }

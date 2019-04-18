@@ -1,0 +1,54 @@
+<ion-header>
+    <ion-navbar>
+        <page-header [showSettingsIcon]="false">
+            {{ 'ADMIN.USER_MESSAGE_MANAGEMENT.TITLE' | translate }}
+        </page-header>
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding no-bounce>
+
+    <edossier-spinner *ngIf="!isLoadingOver(); else pageBlock"></edossier-spinner>
+    <ng-template #pageBlock>
+        <ion-grid>
+            <ion-row>
+                <ion-col col-4>
+                    <ion-list>
+                        <ion-item *ngFor="let userMessage of userMessages" (click)="editUserMessage(userMessage)" [ngClass]="{'active':isUserMessageSelected(userMessage)}" class="clickable">
+                            <span class="user-message-label">{{ userMessage.label }}</span>
+                            <span class="user-message-last-update">{{ userMessage.lastUpdateDate | date:'dd/MM/yyyy HH:mm' }}</span>
+                        </ion-item>
+                    </ion-list>
+                </ion-col>
+                <ion-col col-8>
+                    <div *ngIf="!selectedUserMessage; else editUserMessageBlock" class="no-data-found">{{ 'ADMIN.USER_MESSAGE_MANAGEMENT.NO_USER_MESSAGE_SELECTED' | translate }}</div>
+                    <ng-template #editUserMessageBlock>
+                        <form [formGroup]="userMessageForm">
+                            <ion-item>
+                                <ion-label floating>{{ 'ADMIN.USER_MESSAGE_MANAGEMENT.LABELS.TITLE' | translate }}</ion-label>
+                                <ion-input formControlName="title" [(ngModel)]="selectedUserMessage.title" type="text" maxlength="255"></ion-input>
+                            </ion-item>
+                            <ion-item>
+                                <ion-label floating>{{ 'ADMIN.USER_MESSAGE_MANAGEMENT.LABELS.CONTENT' | translate }}</ion-label>
+                                <ion-textarea formControlName="content" [(ngModel)]="selectedUserMessage.content" maxlength="1000"></ion-textarea>
+                            </ion-item>
+                            <ion-item>
+                                <ion-label>{{ 'ADMIN.USER_MESSAGE_MANAGEMENT.LABELS.ACTIVE' | translate }}</ion-label>
+                                <ion-checkbox formControlName="active" [(ngModel)]="selectedUserMessage.active" [checked]="selectedUserMessage.active.value"></ion-checkbox>
+                            </ion-item>
+
+                            <button ion-button color="blue60" (click)="updateUserMessage()">
+                                <ion-icon name="md-create" ios="md-create"></ion-icon>
+                                {{ 'ADMIN.USER_MESSAGE_MANAGEMENT.BUTTONS.UPDATE' | translate }}
+                            </button>
+                            <button ion-button color="orange55" (click)="displayOverview()">
+                                <ion-icon name="md-bug" ios="md-bug" margin-right></ion-icon>
+                                {{ 'ADMIN.USER_MESSAGE_MANAGEMENT.BUTTONS.OVERVIEW' | translate }}
+                            </button>
+                        </form>
+                    </ng-template>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </ng-template>
+</ion-content>

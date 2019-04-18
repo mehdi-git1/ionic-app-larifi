@@ -5,7 +5,10 @@ export enum EObservationLevelEnum {
     LEVEL_4 = 'LEVEL_4',
     NO = 'NO',
     C = 'C',
-    A = 'A'
+    A = 'A',
+    CONFORME = 'CONFORME',
+    AMELIORABLE = 'AMELIORABLE',
+    POINT_FORT = 'POINT_FORT'
 }
 
 export namespace EObservationLevelEnum {

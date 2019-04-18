@@ -16,9 +16,7 @@ export class ProfessionalInterviewComponent {
 
   @Input() professionalInterview: ProfessionalInterviewModel;
 
-  constructor(
-    private navCtrl: NavController
-  ) {
+  constructor(private navCtrl: NavController ) {
   }
 
   /**
