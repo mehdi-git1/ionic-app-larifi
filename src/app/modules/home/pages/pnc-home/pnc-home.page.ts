@@ -1,3 +1,4 @@
+import { UserMessageAlertService } from './../../../../core/services/user-message/user-message-alert.service';
 import { FormsInputParamsModel } from './../../../../core/models/forms-input-params.model';
 import { Component } from '@angular/core';
 import { NavController, NavParams, Events } from 'ionic-angular';
@@ -24,8 +25,7 @@ import { StatutoryCertificatePage } from '../../../statutory-certificate/pages/s
 import { SpecialityEnum } from '../../../../core/enums/speciality.enum';
 import { SpecialityService } from '../../../../core/services/speciality/speciality.service';
 import { CongratulationLettersPage } from '../../../congratulation-letter/pages/congratulation-letters/congratulation-letters.page';
-
-
+import { EobservationDetailsPage } from '../../../eobservation/pages/eobservation-details/eobservation-details.page';
 
 @Component({
     selector: 'page-pnc-home',
@@ -53,8 +53,10 @@ export class PncHomePage {
         private events: Events,
         private statusBar: StatusBar,
         private tabNavService: TabNavService,
-        private specialityService: SpecialityService
+        private specialityService: SpecialityService,
+        private userMessageAlertService: UserMessageAlertService
     ) {
+        this.userMessageAlertService.handleUserMessage();
 
         this.statusBar.styleLightContent();
 

@@ -11,8 +11,14 @@ import { ProfessionalInterviewModel } from '../../../../core/models/professional
 export class ProfessionalInterviewsComponent {
 
   matPanelHeaderHeight = '41px';
+  professionalInterviewTab: ProfessionalInterviewModel[];
 
-  @Input() professionalInterviews: ProfessionalInterviewModel[];
   @Input() legend = true;
+  @Input()
+  set professionalInterviews(val: any) {
+    this.professionalInterviewTab = val.sort((professionalInterview: ProfessionalInterviewModel, professionalInterview2: ProfessionalInterviewModel) => {
+        return professionalInterview.annualProfessionalInterviewDate < professionalInterview2.annualProfessionalInterviewDate ? 1 : -1;
+      });
+    }
 
 }

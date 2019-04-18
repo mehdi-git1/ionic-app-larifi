@@ -1,6 +1,7 @@
 import { ProfessionalInterviewDetailsPage } from './../../../professional-interview/pages/professional-interview-details/professional-interview-details.page';
 import { ProfessionalInterviewModel } from './../../../../core/models/professional-interview/professional-interview.model';
 import { ProfessionalInterviewService } from '../../../../core/services/professional-interview/professional-interview.service';
+import { EObservationDisplayModeEnum } from './../../../../core/enums/eobservation/eobservation-display-mode.enum';
 import { EObservationsArchivesPage } from './../../../eobservation/pages/eobservations-archives/eobservations-archives.page';
 import { EObservationModel } from '../../../../core/models/eobservation/eobservation.model';
 import { EObservationService } from './../../../../core/services/eobservation/eobservation.service';
@@ -11,7 +12,6 @@ import { EFormsTypeEnum } from '../../../../core/enums/e-forms/e-forms-type.enum
 import { SynchronizationService } from '../../../../core/services/synchronization/synchronization.service';
 import { DeviceService } from '../../../../core/services/device/device.service';
 import { SessionService } from '../../../../core/services/session/session.service';
-import { PncRoleEnum } from '../../../../core/enums/pnc-role.enum';
 import { CareerObjectiveCreatePage } from '../career-objective-create/career-objective-create.page';
 import { CareerObjectiveModel } from '../../../../core/models/career-objective.model';
 import { Component } from '@angular/core';
@@ -42,7 +42,7 @@ export class CareerObjectiveListPage {
   professionalInterviews: ProfessionalInterviewModel[];
 
   // Expose l'enum au template
-  PncRole = PncRoleEnum;
+  EObservationDisplayModeEnum = EObservationDisplayModeEnum;
 
   // Liste des eForms possible
   eFormsList = [];

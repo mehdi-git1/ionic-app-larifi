@@ -1,7 +1,4 @@
 import { ProfessionalInterviewService } from './../../../../core/services/professional-interview/professional-interview.service';
-import { AppConstant } from './../../../../app.constant';
-import { OfflineCareerObjectiveService } from './../../../../core/services/career-objective/offline-career-objective.service';
-import { OnlineCareerObjectiveService } from './../../../../core/services/career-objective/online-career-objective';
 import { HasPermissionDirective } from './../../../../shared/directives/has-permission/has-permission.directive';
 import { IsMyPage } from './../../../../shared/pipes/is_my_page/is_my_page.pipe';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
