@@ -72,9 +72,6 @@ export class ProfessionalInterviewDetailsPage {
     } else {
       this.creationMode = true;
       this.professionalInterview = this.sessionService.getActiveUser().parameters.params['blankProfessionnalInterview'];
-      this.professionalInterview.professionalInterviewThemes.sort((a, b) => {
-        return a.themeOrder > b.themeOrder ? 1 : -1;
-      });
       this.originProfessionalInterview = _.cloneDeep(this.professionalInterview);
       if (this.navParams.get('matricule')) {
         this.pncService.getPnc(this.navParams.get('matricule')).then(pnc => {
@@ -85,6 +82,9 @@ export class ProfessionalInterviewDetailsPage {
       }
 
     }
+    this.professionalInterview.professionalInterviewThemes.sort((a, b) => {
+      return a.themeOrder > b.themeOrder ? 1 : -1;
+    });
     this.initForm();
 
     this.annualProfessionalInterviewOptions = {
@@ -213,7 +213,7 @@ export class ProfessionalInterviewDetailsPage {
    */
   savePorfessionalInterviewToValidatedStatus() {
     const professionalInterviewToSave = _.cloneDeep(this.professionalInterview);
-    professionalInterviewToSave.state = ProfessionalInterviewStateEnum.TAKEN_INTO_ACCOUNT;
+    professionalInterviewToSave.state = ProfessionalInterviewStateEnum.NOT_TAKEN_INTO_ACCOUNT;
     this.saveProfessionalInterview(professionalInterviewToSave);
   }
 }
