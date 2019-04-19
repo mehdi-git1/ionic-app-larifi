@@ -1,3 +1,5 @@
+import { ProfessionalInterviewTypeEnum } from './../../../../core/enums/professional-interview/professional-interview-type.enum';
+import { EObsBilanFlightComponent } from './../../../eobservation/components/eobs-bilan-flight/eobs-bilan-flight.component';
 import { DateTransform } from './../../../../shared/utils/date-transform';
 import { ProfessionalInterviewStatusService } from './../../../../core/services/professional-interview/professional-interview-status.service';
 import { SecurityService } from './../../../../core/services/security/security.service';
@@ -9,7 +11,7 @@ import { OfflineProfessionalInterviewService } from './../../../../core/services
 import { ProfessionalInterviewService } from './../../../../core/services/professional-interview/professional-interview.service';
 import { PncTransformerService } from './../../../../core/services/pnc/pnc-transformer.service';
 import { SessionService } from './../../../../core/services/session/session.service';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { NavController, NavParams, Loading, AlertController, LoadingController } from 'ionic-angular';
@@ -41,7 +43,7 @@ export class ProfessionalInterviewDetailsPage {
   professionalInterviewDetailForm: FormGroup;
 
   loading: Loading;
-  creationMode = false;
+  editionMode = false;
 
   constructor(
     public navCtrl: NavController,
@@ -70,7 +72,6 @@ export class ProfessionalInterviewDetailsPage {
         this.pnc = pnc;
       }, error => { });
     } else {
-      this.creationMode = true;
       this.professionalInterview = this.sessionService.getActiveUser().parameters.params['blankProfessionnalInterview'];
       this.professionalInterview.professionalInterviewThemes.sort((a, b) => {
         return a.themeOrder > b.themeOrder ? 1 : -1;
@@ -83,8 +84,9 @@ export class ProfessionalInterviewDetailsPage {
           this.professionalInterview.pncAtInterviewDate.speciality = this.pncService.getFormatedSpeciality(this.pnc);
         }, error => { });
       }
-
     }
+    this.annualProfessionalInterviewDateString = this.professionalInterview.annualProfessionalInterviewDate;
+    this.editionMode = this.isEditable();
     this.initForm();
 
     this.annualProfessionalInterviewOptions = {
@@ -104,16 +106,28 @@ export class ProfessionalInterviewDetailsPage {
    */
   initForm() {
     this.professionalInterviewDetailForm = this.formBuilder.group({
-      annualProfessionalInterviewDateControl: ''
+      annualProfessionalInterviewDateControl:  ['', Validators.required]
     });
 
   }
 
   /**
    * Vérifie si le formulaire a été modifié sans être enregistré
+   * @return true si il n'y a pas eu de modifications
    */
   formHasBeenModified() {
     return Utils.getHashCode(this.originProfessionalInterview) !== Utils.getHashCode(this.professionalInterview);
+  }
+  /**
+   * Vérifie que le bilan professionnel est éditable
+   * @return true si le bilan professionnel est nouveau ou si il est en brouillon et que l'utilisateur connecté est un cadre
+   */
+  isEditable() {
+    if (!this.professionalInterview || !this.professionalInterview.state
+      || (this.professionalInterview.state == ProfessionalInterviewStateEnum.DRAFT && this.securityService.isManager())) {
+      return true;
+    }
+    return false;
   }
 
   /**
@@ -162,6 +176,7 @@ export class ProfessionalInterviewDetailsPage {
 
         if (this.professionalInterview.state === ProfessionalInterviewStateEnum.DRAFT) {
             this.toastService.success(this.translateService.instant('PROFESSIONAL_INTERVIEW.SUCCESS.DRAFT_SAVED'));
+            this.navCtrl.pop();
         }
         this.loading.dismiss();
         resolve();
@@ -186,25 +201,25 @@ export class ProfessionalInterviewDetailsPage {
    * Retourne true si c'est une proposition et qu'elle peut être modifiée par le user connecté
    * @return true si Draft && (CADRE ou auteur de la proposition)
    */
-  isNewOrDraftAndCanBeModified(): boolean {
+  canBeSavedAsDraft(): boolean {
     const canBeSavedAsDraft: boolean = this.professionalInterviewStatusService.isTransitionOk(this.professionalInterview.state, ProfessionalInterviewStateEnum.DRAFT);
     const isInitiatorOrCadre: boolean =  this.securityService.isManager() || (!this.professionalInterview.instructor || (this.professionalInterview.instructor.matricule === this.sessionService.authenticatedUser.matricule));
     return canBeSavedAsDraft && isInitiatorOrCadre && (!this.professionalInterview.state || this.professionalInterview.state === ProfessionalInterviewStateEnum.DRAFT);
   }
 
-    /**
-     * Prépare le bilan professionnel avant de l'envoyer au back :
-     * Transforme les dates au format iso
-     * ou supprime l'entrée de l'objet si une ou plusieurs dates sont nulles
-     *
-     * @param professionalInterviewToSave
-     * @return l'objectif à enregistrer avec la date de rencontre transformée
-     */
-    prepareProfessionalInterviewBeforeSubmit(professionalInterviewToSave: ProfessionalInterviewModel): ProfessionalInterviewModel {
-      if (typeof this.annualProfessionalInterviewDateString !== undefined && this.annualProfessionalInterviewDateString !== null) {
-        professionalInterviewToSave.annualProfessionalInterviewDate = new Date(this.annualProfessionalInterviewDateString);
-        professionalInterviewToSave.annualProfessionalInterviewDate.setHours(12);
-      }
-      return professionalInterviewToSave;
+  /**
+   * Prépare le bilan professionnel avant de l'envoyer au back :
+   * Transforme les dates au format iso
+   * ou supprime l'entrée de l'objet si une ou plusieurs dates sont nulles
+   *
+   * @param professionalInterviewToSave
+   * @return l'objectif à enregistrer avec la date de rencontre transformée
+   */
+  prepareProfessionalInterviewBeforeSubmit(professionalInterviewToSave: ProfessionalInterviewModel): ProfessionalInterviewModel {
+    if (typeof this.annualProfessionalInterviewDateString !== undefined && this.annualProfessionalInterviewDateString !== null) {
+      professionalInterviewToSave.annualProfessionalInterviewDate = this.dateTransformer.transformDateStringToIso8601Format(this.annualProfessionalInterviewDateString);
     }
+    professionalInterviewToSave.type = ProfessionalInterviewTypeEnum.BILAN;
+    return professionalInterviewToSave;
+  }
 }

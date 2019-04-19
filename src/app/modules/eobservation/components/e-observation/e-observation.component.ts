@@ -102,7 +102,7 @@ export class EObservationComponent implements OnChanges {
    * @return vrai si l'eObservation peut être ouverte, faux sinon
    */
   canOpen(): boolean {
-    return this.abnormalEObservationItems.length > 0 && this.eObservation.type !== EObservationTypeEnum.E_PCB;
+    return this.abnormalEObservationItems != null && this.abnormalEObservationItems.length > 0 && this.eObservation.type !== EObservationTypeEnum.E_PCB;
   }
 
   /**

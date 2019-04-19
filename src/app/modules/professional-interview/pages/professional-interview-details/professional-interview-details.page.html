@@ -13,16 +13,17 @@
         <form novalidate [formGroup]="professionalInterviewDetailForm">
 
             <div class="state-block date-block-justify">
-                <span>{{ 'PROFESSIONAL_INTERVIEW.DETAILS.INTERVIEW_DATE' | translate }} :
+                <span>{{ 'PROFESSIONAL_INTERVIEW.DETAILS.INTERVIEW_DATE' | translate}} :
                 </span>
                 <span>
-                    <ion-item>
+                    <ion-item *ngIf="editionMode">
                         <ion-datetime displayFormat="DD/MM/YYYY" pickerFormat="DD MMMM YYYY" [(ngModel)]="annualProfessionalInterviewDateString" formControlName="annualProfessionalInterviewDateControl" [pickerOptions]="annualProfessionalInterviewOptions" [doneText]="translateService.instant('GLOBAL.DATEPICKER.DONE')" [cancelText]="translateService.instant('GLOBAL.DATEPICKER.CANCEL')" [max]="datepickerMaxDate" [monthNames]="monthsNames">
                         </ion-datetime>
                         <ion-label>
                             <ion-icon name="calendar"></ion-icon>
                         </ion-label>
                     </ion-item>
+                    <label *ngIf="!editionMode">{{professionalInterview.annualProfessionalInterviewDate | date:'dd/MM/yyyy' : 'UTC'}}</label>
                 </span>
             </div>
 
@@ -48,12 +49,14 @@
             </div>
             <edospnc-expandable-block class="comment" *ngFor="let interviewTheme of professionalInterview.professionalInterviewThemes, index as i" mini="true" [title]="interviewTheme.label">
                 <div *ngFor="let item of interviewTheme.professionalInterviewItems, index as j">
-                    <label *ngIf="item.label" class="required"><span class="edospnc-speechBubble"></span> {{item.label}} :</label>
-                    <ion-textarea [value]="item.value"></ion-textarea>
+                    <p *ngIf="!editionMode; else editItemValueBlock">{{item.value}}</p>
+                    <ng-template #editItemValueBlock>
+                        <ion-textarea [(ngModel)]="item.value" [ngModelOptions]="{standalone: true}" autocorrect="on"></ion-textarea>
+                    </ng-template>
                 </div>
             </edospnc-expandable-block>
 
-            <div class="state-block" *ngIf="!creationMode">
+            <div class="state-block" *ngIf="!editionMode">
                 <span>{{ 'PROFESSIONAL_INTERVIEW.DETAILS.STATE.LABEL' | translate }} :
                     <color-status-point [colorClass]="getColorStatusPoint()">
                     </color-status-point>
@@ -71,7 +74,7 @@
             <!-- Barre de boutons -->
             <div class="button-bar-right button-bar">
                 <!-- Bouton sauvegarder objectif en brouillon -->
-                <button ion-button color="blue60" (click)="saveProfessionalInterviewDraft()" [disabled]="professionalInterviewDetailForm.invalid" *ngIf="isNewOrDraftAndCanBeModified()">
+                <button ion-button color="blue60" (click)="saveProfessionalInterviewDraft()" [disabled]="professionalInterviewDetailForm.invalid" *ngIf="canBeSavedAsDraft()">
                     <ion-icon name="ios-bookmark-outline" ios="ios-bookmark-outline" margin-right></ion-icon> {{ 'PROFESSIONAL_INTERVIEW.BUTTONS.SAVE_DRAFT' | translate }}
                 </button>
             </div>
