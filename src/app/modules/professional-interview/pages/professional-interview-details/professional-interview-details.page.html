@@ -49,7 +49,7 @@
                 <edospnc-expandable-block class="comment" [ngClass]="{'expandable-comment-block': isPncComment(interviewTheme) || isInstructorComment(interviewTheme) }" mini="true" [title]="getThemeLabel(interviewTheme)">
                     
                     <div *ngFor="let subTheme of interviewTheme.subTheme, index as j">
-                        <div class="sub-title-block" *ngIf="displaySubTheme(interviewTheme.label)">
+                        <div class="sub-title-block" >
                                 <span>{{subTheme.label}}</span>
                         </div>
                         <div *ngFor="let item of subTheme.professionalInterviewItems, index as j">

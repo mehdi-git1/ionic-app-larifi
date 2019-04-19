@@ -143,15 +143,6 @@ export class ProfessionalInterviewDetailsPage {
   }
 
   /**
-   * Affichage du sous-théme ou pas (seulement pour EPP)
-   * @param professionalInterviewTheme ProfessionalInterviewTheme en cours de traitement
-   * @return label à afficher
-  */
-  displaySubTheme(parentLabel: string): string{
-    return this.professionalInterview.type === ProfessionalInterviewTypeEnum.EPP && parentLabel;
-  }
-
-  /**
    * Retourne le bon titre à afficher pour le théme
    * @param professionalInterviewTheme  ProfessionalInterviewTheme en cours de traitement
    * @return label à afficher
