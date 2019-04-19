@@ -58,7 +58,7 @@
                         </div>
                     </div>
                     <div *ngFor="let item of interviewTheme.professionalInterviewItems, index as j">
-                            <label *ngIf="item.label" class="required"><span class="edospnc-speechBubble"></span> {{item.label}}</label>
+                            <label *ngIf="item.label" class="no-margin-top required"><span class="edospnc-speechBubble"></span> {{item.label}}</label>
                             <ion-textarea [value]="item.value"></ion-textarea>
                     </div>
                  </edospnc-expandable-block>
