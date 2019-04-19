@@ -1,3 +1,4 @@
+import { EObservationDisplayModeEnum } from './../../../../core/enums/eobservation/eobservation-display-mode.enum';
 import { Component } from '@angular/core';
 import { NavParams } from 'ionic-angular';
 import * as _ from 'lodash';
@@ -23,6 +24,8 @@ export class ProfessionalLevelPage {
   eObservations: EObservationModel[];
   eObservationsFiltered: EObservationModel[];
   listItemLegend = [];
+
+  EObservationDisplayModeEnum = EObservationDisplayModeEnum;
 
   constructor(private navParams: NavParams,
     private sessionService: SessionService,

@@ -1,5 +1,5 @@
 import { EDossierPncObjectModel } from '../e-dossier-pnc-object.model';
-import { ReferentialItemLevelModel } from './referential-item-level.model';
+import { ReferentialItemLevelModel } from './eobservation-referential-item-level.model';
 
 export class EObservationItemModel extends EDossierPncObjectModel {
 

@@ -1,3 +1,4 @@
+import { UserMessageManagementPage } from './../user-message-management/user-message-management.page';
 import { AppVersionManagementPage } from './../app-version-management/app-version-management.page';
 import { ProfileManagementPage } from './../profile-management/profile-management.page';
 import { NavController } from 'ionic-angular';
@@ -22,5 +23,12 @@ export class AdminHomePage {
      */
     goToAppVersionManagement() {
         this.navCtrl.push(AppVersionManagementPage);
+    }
+
+    /**
+     * Redirige vers la page de gestion des messages utilisateur
+     */
+    goToUserMessageManagement() {
+        this.navCtrl.push(UserMessageManagementPage);
     }
 }

@@ -1,0 +1,4 @@
+export enum EObservationDisplayModeEnum {
+    PROFESSIONAL_LEVEL = 'PROFESSIONAL_LEVEL',
+    DEVELOPMENT_PROGRAM = 'DEVELOPMENT_PROGRAM'
+}

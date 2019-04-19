@@ -13,7 +13,7 @@ import { AppConstant } from '../../../../app.constant';
 import { CareerObjectiveCreatePage } from './career-objective-create.page';
 import { CareerObjectiveModel } from '../../../../core/models/career-objective.model';
 import { NavMock } from '../../../../../test-config/mocks-ionic';
-import { OnlineCareerObjectiveService } from '../../../../core/services/career-objective/online-career-objective';
+import { OnlineCareerObjectiveService } from '../../../../core/services/career-objective/online-career-objective.service';
 import { OfflineCareerObjectiveService } from '../../../../core/services/career-objective/offline-career-objective.service';
 import { SessionService } from '../../../../core/services/session/session.service';
 import { DateTransform } from '../../../../shared/utils/date-transform';
