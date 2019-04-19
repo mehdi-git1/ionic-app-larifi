@@ -298,7 +298,8 @@
         "MY_TITLE": "Mon bilan professionnel",
         "BUTTONS": {
             "NEW_PROFESSIONAL_INTERVIEW": "Nouveau bilan professionel",
-            "SAVE_DRAFT": "Sauvegarder le brouillon"
+            "SAVE_DRAFT": "Sauvegarder le brouillon",
+            "VALIDATE": "Valider"
         },
         "LIST": {
             "HEADER": {
@@ -329,7 +330,7 @@
             }
         },
         "SUCCESS": {
-            "DRAFT_SAVED" : "Brouillon sauvegardé"
+            "DRAFT_SAVED": "Brouillon sauvegardé"
         }
     },
     "EOBSERVATION": {

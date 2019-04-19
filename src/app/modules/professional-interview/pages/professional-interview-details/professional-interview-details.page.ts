@@ -213,7 +213,7 @@ export class ProfessionalInterviewDetailsPage {
    */
   savePorfessionalInterviewToValidatedStatus() {
     const professionalInterviewToSave = _.cloneDeep(this.professionalInterview);
-    professionalInterviewToSave.careerObjectiveStatus = ProfessionalInterviewStateEnum.TAKEN_INTO_ACCOUNT;
-    this.professionalInterviewService.createOrUpdate(professionalInterviewToSave);
+    professionalInterviewToSave.state = ProfessionalInterviewStateEnum.TAKEN_INTO_ACCOUNT;
+    this.saveProfessionalInterview(professionalInterviewToSave);
   }
 }
