@@ -123,7 +123,10 @@ export class ProfessionalInterviewDetailsPage {
    * @return true si c'est un commentaire PNC
    */
   isPncComment(professionalInterviewTheme: ProfessionalInterviewThemeModel): boolean{
-     return professionalInterviewTheme.subTheme[0].professionalInterviewItems[0].key == ProfessionalInterviewCommentItemTypeEnum.PNCCOMMENT;
+    if (professionalInterviewTheme.professionalInterviewItems[0]){
+     return professionalInterviewTheme.professionalInterviewItems[0].key == ProfessionalInterviewCommentItemTypeEnum.PNCCOMMENT;
+    }
+    return false;
   }
 
     /**
@@ -132,7 +135,11 @@ export class ProfessionalInterviewDetailsPage {
    * @return true si c'est un commentaire instructeur
    */
   isInstructorComment(professionalInterviewTheme: ProfessionalInterviewThemeModel): boolean{
-    return professionalInterviewTheme.subTheme[0].professionalInterviewItems[0].key == ProfessionalInterviewCommentItemTypeEnum.SYNTHESIS;
+    console.log(this.professionalInterview);
+    if (professionalInterviewTheme.professionalInterviewItems[0]){
+      return professionalInterviewTheme.professionalInterviewItems[0].key == ProfessionalInterviewCommentItemTypeEnum.SYNTHESIS;
+     }
+     return false;
   }
 
   /**
@@ -150,8 +157,8 @@ export class ProfessionalInterviewDetailsPage {
    * @return label à afficher
   */
  getThemeLabel(professionalInterviewTheme: ProfessionalInterviewThemeModel){
-    if (professionalInterviewTheme.label === '' || !professionalInterviewTheme.label){
-      return professionalInterviewTheme.subTheme[0].label;
+    if (professionalInterviewTheme.subTheme.length === 0 ){
+      return professionalInterviewTheme.professionalInterviewItems[0].label;
     } else {
       return professionalInterviewTheme.label;
     }
