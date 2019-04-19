@@ -129,6 +129,7 @@ export class SynchronizationService {
     this.storeEObservations(pncSynchroResponse.eobservations);
     this.storeCongratulationLetters(pncSynchroResponse.congratulationLetters);
 
+
     // Sauvegarde de la photo du PNC
     this.storageService.save(EntityEnum.PNC_PHOTO, this.pncPhotoTransformer.toPncPhoto(pncSynchroResponse.photo), true);
 
@@ -139,8 +140,7 @@ export class SynchronizationService {
     this.storageService.save(EntityEnum.PROFESSIONAL_LEVEL, this.professionalLevelTransformer.toProfessionalLevel(pncSynchroResponse.professionalLevel), true);
 
     // Sauvegarde des bilans professionnels
-    this.storageService.save(EntityEnum.PROFESSIONAL_INTERVIEW, this.transformerService.universalTransformObject(ProfessionalInterviewModel, pncSynchroResponse.professionalInterview), true);
-
+   this.storeProfessionalInterviews(pncSynchroResponse.professionalInterviews);
 
     this.storageService.persistOfflineMap();
   }
@@ -224,6 +224,18 @@ export class SynchronizationService {
     for (const eObservation of eObservations) {
       delete eObservation.offlineAction;
       this.storageService.save(EntityEnum.EOBSERVATION, this.eObservationTransformerService.toEObservation(eObservation), true);
+    }
+  }
+
+    /**
+   * Enregistre une liste de bilans pro en cache
+   * @param professionalInterviews les bilans pros à stocker en cache
+   */
+  private storeProfessionalInterviews(professionalInterviews: ProfessionalInterviewModel[]): void {
+    for (const professionalInterview of professionalInterviews) {
+      delete professionalInterview.offlineAction;
+      this.storageService.save(EntityEnum.PROFESSIONAL_INTERVIEW, this.transformerService.universalTransformObject(ProfessionalInterviewModel, professionalInterview), true);
+
     }
   }
 
