@@ -36,7 +36,7 @@ export class UrlConfiguration {
     'getSecretInfosByMatricule': `${urlGroupEnum.PIN}/{matricule}`,
     'getStatutoryCertificateByMatricule': `${urlGroupEnum.STATUTORY_CERTIFICATE}/{matricule}`,
     'getSummarySheetByMatricule': `${urlGroupEnum.PNC_SUMMARY_SHEET}/{matricule}`,
-    'pncSynchro': urlGroupEnum.PNC_SYNCHRO,
+    'pncSynchro': `v2/${urlGroupEnum.PNC_SYNCHRO}`,
     'getPncSynchroByPnc': `v2/${urlGroupEnum.PNC_SYNCHRO}/{matricule}`,
     'getWaypointsByCarreObjectiveId': `${urlGroupEnum.WAYPOINT}/career_objective/{careerObjectiveId}`,
     'getWaypointById': `${urlGroupEnum.WAYPOINT}/{waypointId}`,

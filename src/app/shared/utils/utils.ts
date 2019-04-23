@@ -1,4 +1,3 @@
-import * as util from 'util';
 export class Utils {
     public static base64ToArrayBuffer(base64: string): ArrayBuffer {
         const binary: string = window.atob(base64);
@@ -40,7 +39,7 @@ export class Utils {
         let result = 1;
         for (const type in obj) {
             if (obj[type] && typeof (obj[type]) !== 'function') {
-                result = result * prime + this.getCharactersUnicodeSum(util.inspect(obj[type]));
+                result = result * prime + this.getCharactersUnicodeSum(JSON.stringify(obj[type]));
             }
         }
         return result;
