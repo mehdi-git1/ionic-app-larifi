@@ -50,7 +50,11 @@ page-professional-interview-details {
         }
     }
 
-    .state-block {
+    .mat-expansion-panel-body .ng-star-inserted:first-child .sub-title-block{
+        margin-top:0px;
+    }
+
+    .state-block, .comment-block, .sub-title-block {
         height: 32px;
         padding-right: 24px;
         padding-left: 24px;
@@ -60,6 +64,19 @@ page-professional-interview-details {
         background: color($colors, bluegrey3);
         color: color($colors, white);
         border-radius: $block-border-radius;
+
+        &.comment-block{
+            margin-bottom:16px;
+            border-top-left-radius: 0px;
+            border-top-right-radius: 0px;
+            background: color($colors, blue77);
+        }
+
+        &.sub-title-block{            
+            background: color($colors, blue77);
+            margin:10px -15px 10px -15px;
+            font-size: 17px;
+        }
 
         span {
             display: flex;
@@ -165,7 +182,7 @@ page-professional-interview-details {
             padding: 15px;
 
             label {
-                font-weight: bold;
+                font-size: 17px;
                 margin: 15px 0px 10px 0px;
                 display: flex;
                 align-items: center;
@@ -179,13 +196,14 @@ page-professional-interview-details {
                 }
             }
 
+
             label.required:after {
                 content: '*';
                 padding-left: 5px;
                 color: color($colors, red80);
             }
 
-            div.ng-star-inserted:first-child label:first-child {
+            div.ng-star-inserted div.ng-star-inserted:first-child label:first-child {
                 margin-top: 0px;
             }
 
@@ -203,6 +221,13 @@ page-professional-interview-details {
                     padding: 5px !important;
                 }
             }
+        }
+    }
+
+    .expandable-comment-block{
+        .mat-expansion-panel{
+            margin-bottom: 0px;
+
         }
     }
 
