@@ -663,7 +663,7 @@
                 "CHANGELOG": "Description"
             },
             "SUCCESS": {
-                "CREATEORUPDATE_VERSION": "Mise à jour effectuée"
+                "CREATE_OR_UPDATE_VERSION": "Mise à jour effectuée"
             },
             "ERROR": {
                 "UNDEFINED_NUMBER": "Veuillez renseigner un numéro de version"

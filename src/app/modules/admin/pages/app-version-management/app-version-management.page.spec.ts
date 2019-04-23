@@ -96,7 +96,7 @@ describe('app-version-management', () => {
             tmpAppVersion.changelog = validChangelog;
             expect(appVersionManagementPage.versionNumberRegex.test(tmpAppVersion.number)).toBeTruthy();
             expect(appVersionService.createOrUpdateAppVersion).toHaveBeenCalledWith(tmpAppVersion);
-            expect(translateService.instant).toHaveBeenCalledWith('ADMIN.APP_VERSION_MANAGEMENT.SUCCESS.CREATEORUPDATE_VERSION');
+            expect(translateService.instant).toHaveBeenCalledWith('ADMIN.APP_VERSION_MANAGEMENT.SUCCESS.CREATE_OR_UPDATE_VERSION');
         }));
     });
 });
