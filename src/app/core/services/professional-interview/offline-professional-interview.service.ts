@@ -43,7 +43,7 @@ export class OfflineProfessionalInterviewService {
    * @return une promesse contenant le bilan professionnel créé ou mis à jour
    */
     createOrUpdate(professionalInterview: ProfessionalInterviewModel, online: boolean = false): Promise<ProfessionalInterviewModel> {
-        return this.storageService.saveAsync(EntityEnum.PROFESSIONAL_INTERVIEW, professionalInterview);
+        return this.storageService.saveAsync(EntityEnum.PROFESSIONAL_INTERVIEW, professionalInterview, online);
     }
 
     /**
