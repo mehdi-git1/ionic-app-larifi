@@ -129,7 +129,6 @@ export class SynchronizationService {
     this.storeEObservations(pncSynchroResponse.eobservations);
     this.storeCongratulationLetters(pncSynchroResponse.congratulationLetters);
 
-
     // Sauvegarde de la photo du PNC
     this.storageService.save(EntityEnum.PNC_PHOTO, this.pncPhotoTransformer.toPncPhoto(pncSynchroResponse.photo), true);
 
@@ -235,7 +234,6 @@ export class SynchronizationService {
     for (const professionalInterview of professionalInterviews) {
       delete professionalInterview.offlineAction;
       this.storageService.save(EntityEnum.PROFESSIONAL_INTERVIEW, this.transformerService.universalTransformObject(ProfessionalInterviewModel, professionalInterview), true);
-
     }
   }
 

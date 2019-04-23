@@ -7,7 +7,7 @@ export class ProfessionalInterviewThemeModel extends EDossierPncObjectModel {
     label: string;
     themeOrder: number;
     professionalInterviewItems: ProfessionalInterviewItemModel[];
-    subTheme: ProfessionalInterviewThemeModel[];
+    subThemes: ProfessionalInterviewThemeModel[];
 
     getStorageId(): string {
         return `${this.techId}`;

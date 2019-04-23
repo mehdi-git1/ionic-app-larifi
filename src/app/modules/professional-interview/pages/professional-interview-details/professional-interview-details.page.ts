@@ -57,7 +57,7 @@ export class ProfessionalInterviewDetailsPage {
       });
 
       for (let i = 0; i < this.professionalInterview.professionalInterviewThemes.length; i++){
-        this.professionalInterview.professionalInterviewThemes[i].subTheme.sort((ssTheme1, ssTheme2) => {
+        this.professionalInterview.professionalInterviewThemes[i].subThemes.sort((ssTheme1, ssTheme2) => {
           return ssTheme1.themeOrder  < ssTheme2.themeOrder ? -1 : 1;
         });
       }
@@ -129,7 +129,7 @@ export class ProfessionalInterviewDetailsPage {
     return false;
   }
 
-    /**
+  /**
    * Savoir si on traite un bloc de commentaire instructeur
    * @param professionalInterviewTheme ProfessionalInterviewTheme en cours de traitement
    * @return true si c'est un commentaire instructeur
@@ -146,9 +146,9 @@ export class ProfessionalInterviewDetailsPage {
    * Retourne le bon titre à afficher pour le théme
    * @param professionalInterviewTheme  ProfessionalInterviewTheme en cours de traitement
    * @return label à afficher
-  */
+   */
  getThemeLabel(professionalInterviewTheme: ProfessionalInterviewThemeModel){
-    if (professionalInterviewTheme.subTheme.length === 0 ){
+    if (professionalInterviewTheme.subThemes.length === 0 ){
       return professionalInterviewTheme.professionalInterviewItems[0].label;
     } else {
       return professionalInterviewTheme.label;
