@@ -32,4 +32,13 @@ export class ProfessionalInterviewService extends BaseService {
         return this.execFunctionService('getProfessionalInterviews', matricule);
     }
 
+    /**
+     * Supprime un bilan professionnel
+     * @param id l'id du bilan professionnel à supprimer
+     * @return une promesse disant que la suppression s'est bien passée, ou pas
+     */
+    delete(id: number): Promise<any> {
+        return this.execFunctionService('delete', id);
+    }
+
 }
