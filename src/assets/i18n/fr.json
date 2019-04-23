@@ -329,7 +329,8 @@
                 "BILAN": "Bilan professionnel"
             },
             "BUTTONS": {
-                "DELETE_DRAFT": "Supprimer le brouillon"
+                "DELETE_DRAFT": "Supprimer le brouillon",
+                "VALIDATE": "Valider"
             },
             "CONFIRM_DRAFT_DELETE": {
                 "TITLE": "Suppression du Bilan Professionnel",
@@ -338,11 +339,10 @@
                 "CONFIRM": "Supprimer"
             },
             "SUCCESS": {
-                "DRAFT_DELETED": "Proposition du bilan professionnel supprimée"
+                "DRAFT_DELETED": "Proposition du bilan professionnel supprimée",
+                "PROFESSIONAL_INTERVIEW_VALIDATED": "Bilan professionnel validé",
+                "DRAFT_SAVED": "Brouillon sauvegardé"
             }
-        },
-        "SUCCESS": {
-            "DRAFT_SAVED": "Brouillon sauvegardé"
         }
     },
     "EOBSERVATION": {

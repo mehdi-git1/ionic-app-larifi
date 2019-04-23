@@ -36,7 +36,7 @@ export class OfflineProfessionalInterviewService {
             return (professionalInterviews);
         });
     }
-    
+
     /**
      * Supprime du cache un bilan professionnel à partir de son id
      * @param id l'id du bilan professionnel à supprimer
@@ -52,11 +52,11 @@ export class OfflineProfessionalInterviewService {
         });
     }
 
-   /**
-    * Créé ou met à jour un bilan professionnel
-    * @param  profesionnalInterview le bilan professionnel à créer ou mettre à jour
-    * @return une promesse contenant le bilan professionnel créé ou mis à jour
-    */
+    /**
+     * Créé ou met à jour un bilan professionnel
+     * @param  profesionnalInterview le bilan professionnel à créer ou mettre à jour
+     * @return une promesse contenant le bilan professionnel créé ou mis à jour
+     */
     createOrUpdate(professionalInterview: ProfessionalInterviewModel): Promise<ProfessionalInterviewModel> {
         return this.storageService.saveAsync(EntityEnum.PROFESSIONAL_INTERVIEW, professionalInterview);
     }

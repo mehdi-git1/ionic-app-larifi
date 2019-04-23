@@ -36,7 +36,7 @@ export class ProfessionalInterviewService extends BaseService {
     getProfessionalInterviews(matricule: string): Promise<ProfessionalInterviewModel[]> {
         return this.execFunctionService('getProfessionalInterviews', matricule);
     }
-    
+
     /**
      * Supprime un bilan professionnel
      * @param id l'id du bilan professionnel à supprimer

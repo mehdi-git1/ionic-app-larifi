@@ -82,7 +82,7 @@
                     <ion-icon name="ios-bookmark-outline" ios="ios-bookmark-outline" margin-right></ion-icon> {{ 'PROFESSIONAL_INTERVIEW.BUTTONS.SAVE_DRAFT' | translate }}
                 </button>
                 <!-- Bouton valider bilan professionnel -->
-                <button ion-button color="green50" (click)="savePorfessionalInterviewToValidatedStatus()" [disabled]="professionalInterviewDetailForm.invalid" *ngIf="securityService.isManager()">
+                <button ion-button color="green50" (click)="savePorfessionalInterviewToValidatedStatus()" [disabled]="professionalInterviewDetailForm.invalid" *ngIf="canBeSavedAsDraft()">
                     <ion-icon name="md-checkmark" ios="md-checkmark" margin-right></ion-icon> {{ 'PROFESSIONAL_INTERVIEW.DETAILS.BUTTONS.VALIDATE' | translate }}
                 </button>
             </div>

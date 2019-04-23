@@ -106,7 +106,7 @@ export class ProfessionalInterviewDetailsPage {
    */
   initForm() {
     this.professionalInterviewDetailForm = this.formBuilder.group({
-      annualProfessionalInterviewDateControl:  ['', Validators.required]
+      annualProfessionalInterviewDateControl: ['', Validators.required]
     });
 
   }
@@ -222,7 +222,11 @@ export class ProfessionalInterviewDetailsPage {
           }
 
           if (this.professionalInterview.state === ProfessionalInterviewStateEnum.DRAFT) {
-            this.toastService.success(this.translateService.instant('PROFESSIONAL_INTERVIEW.SUCCESS.DRAFT_SAVED'));
+            this.toastService.success(this.translateService.instant('PROFESSIONAL_INTERVIEW.DETAILS.SUCCESS.DRAFT_SAVED'));
+            this.navCtrl.pop();
+          }
+          if (this.professionalInterview.state === ProfessionalInterviewStateEnum.NOT_TAKEN_INTO_ACCOUNT) {
+            this.toastService.success(this.translateService.instant('PROFESSIONAL_INTERVIEW.DETAILS.SUCCESS.PROFESSIONAL_INTERVIEW_VALIDATED'));
             this.navCtrl.pop();
           }
           this.loading.dismiss();
@@ -276,6 +280,7 @@ export class ProfessionalInterviewDetailsPage {
   savePorfessionalInterviewToValidatedStatus() {
     const professionalInterviewToSave = _.cloneDeep(this.professionalInterview);
     professionalInterviewToSave.state = ProfessionalInterviewStateEnum.NOT_TAKEN_INTO_ACCOUNT;
+    professionalInterviewToSave.matricule = this.pnc.matricule;
     this.saveProfessionalInterview(professionalInterviewToSave);
   }
 }
