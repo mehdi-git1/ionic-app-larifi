@@ -97,6 +97,13 @@
                     <span *ngIf="professionalInterview.instructor?.lastName">{{professionalInterview.instructor.lastName}} <span class="firstname">{{professionalInterview.instructor.firstName}}</span></span>
                 </span>
             </div>
+            <!-- Barre de boutons -->
+            <div class="button-bar-right button-bar">
+                <!-- Bouton supprimer bilan professionnel en brouillon -->
+                <button ion-button color="red70" (click)="confirmDeleteProfessionalInterviewDraft()" *ngIf="canBeDeleted()">
+                    <ion-icon name="ios-trash-outline" ios="ios-trash-outline" margin-right></ion-icon>{{ 'PROFESSIONAL_INTERVIEW.DETAILS.BUTTONS.DELETE_DRAFT' | translate }}
+                </button>
+            </div>
         </form>
     </ng-template>
 
