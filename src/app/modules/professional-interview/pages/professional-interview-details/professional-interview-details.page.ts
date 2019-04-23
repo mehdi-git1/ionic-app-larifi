@@ -27,16 +27,13 @@ export class ProfessionalInterviewDetailsPage {
 
   pnc: PncModel;
   professionalInterview: ProfessionalInterviewModel;
-  professionalInterviewType;
+  ProfessionalInterviewTypeEnum = ProfessionalInterviewTypeEnum;
 
   annualProfessionalInterviewOptions: any;
   monthsNames;
   datepickerMaxDate = AppConstant.datepickerMaxDate;
 
   professionalInterviewDetailForm: FormGroup;
-
-  // Retient le dernier label de parant affiché
-  lastParentThemeLabel: string;
 
   loading: Loading;
   creationMode = false;
@@ -55,7 +52,6 @@ export class ProfessionalInterviewDetailsPage {
     private loadingCtrl: LoadingController,
     private toastService: ToastService
   ) {
-    this.professionalInterviewType = ProfessionalInterviewTypeEnum;
 
     this.professionalInterview = this.navParams.get('professionalInterview');
     if (this.professionalInterview && this.professionalInterview.matricule) {
@@ -125,7 +121,7 @@ export class ProfessionalInterviewDetailsPage {
   }
 
   /**
-   * Savoir si on traite un bloc de commentaire PNC
+   * Teste si on traite un commentaire PNC
    * @param professionalInterviewTheme ProfessionalInterviewTheme en cours de traitement
    * @return true si c'est un commentaire PNC
    */
@@ -137,7 +133,7 @@ export class ProfessionalInterviewDetailsPage {
   }
 
   /**
-   * Savoir si on traite un bloc de commentaire instructeur
+   * Teste si on traite un commentaire instructeur
    * @param professionalInterviewTheme ProfessionalInterviewTheme en cours de traitement
    * @return true si c'est un commentaire instructeur
    */
@@ -155,7 +151,7 @@ export class ProfessionalInterviewDetailsPage {
    * @return label à afficher
    */
  getThemeLabel(professionalInterviewTheme: ProfessionalInterviewThemeModel){
-    if (professionalInterviewTheme.subThemes.length === 0 ){
+    if (!professionalInterviewTheme.subThemes || professionalInterviewTheme.subThemes.length === 0 ){
       return professionalInterviewTheme.professionalInterviewItems[0].label;
     } else {
       return professionalInterviewTheme.label;

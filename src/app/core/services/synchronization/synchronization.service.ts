@@ -227,8 +227,8 @@ export class SynchronizationService {
   }
 
     /**
-   * Enregistre une liste de bilans pro en cache
-   * @param professionalInterviews les bilans pros à stocker en cache
+   * Enregistre une liste de bilans professionnels en cache
+   * @param professionalInterviews les bilans professionnels à stocker en cache
    */
   private storeProfessionalInterviews(professionalInterviews: ProfessionalInterviewModel[]): void {
     for (const professionalInterview of professionalInterviews) {

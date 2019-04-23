@@ -1,8 +1,8 @@
 <ion-header>
     <ion-navbar>
         <page-header [showSettingsIcon]="true" [pnc]="professionalInterview?.pnc">
-            <span *ngIf="professionalInterview.type === professionalInterviewType.BILAN"> {{ 'PROFESSIONAL_INTERVIEW.TITLE_BILAN_PRO' | translate }} </span>
-            <span *ngIf="professionalInterview.type === professionalInterviewType.EPP"> {{ 'PROFESSIONAL_INTERVIEW.TITLE_EPP' | translate }} </span>
+            <span *ngIf="professionalInterview.type === ProfessionalInterviewTypeEnum.BILAN"> {{ 'PROFESSIONAL_INTERVIEW.TITLE_BILAN_PRO' | translate }} </span>
+            <span *ngIf="professionalInterview.type === ProfessionalInterviewTypeEnum.EPP"> {{ 'PROFESSIONAL_INTERVIEW.TITLE_EPP' | translate }} </span>
         </page-header>
     </ion-navbar>
 </ion-header>
@@ -32,8 +32,8 @@
                 <ion-grid>
                     <ion-row class="speciality-header">
                         <ion-col class="speciality" col-2>{{ 'PROFESSIONAL_INTERVIEW.DETAILS.SPECIALITY' | translate }}</ion-col>
-                        <ion-col col-10 *ngIf="professionalInterview.type === professionalInterviewType.BILAN">{{ 'PROFESSIONAL_INTERVIEW.DETAILS.EOBS_PNC_ASSIGNMENT_BILAN_PRO' | translate }}</ion-col>
-                        <ion-col col-10 *ngIf="professionalInterview.type === professionalInterviewType.EPP">{{ 'PROFESSIONAL_INTERVIEW.DETAILS.EOBS_PNC_ASSIGNMENT_EPP' | translate }}</ion-col>
+                        <ion-col col-10 *ngIf="professionalInterview.type === ProfessionalInterviewTypeEnum.BILAN">{{ 'PROFESSIONAL_INTERVIEW.DETAILS.EOBS_PNC_ASSIGNMENT_BILAN_PRO' | translate }}</ion-col>
+                        <ion-col col-10 *ngIf="professionalInterview.type === ProfessionalInterviewTypeEnum.EPP">{{ 'PROFESSIONAL_INTERVIEW.DETAILS.EOBS_PNC_ASSIGNMENT_EPP' | translate }}</ion-col>
                     </ion-row>
                     <ion-row class="speciality-label">
                         <ion-col col-2>{{professionalInterview.pncAtInterviewDate?.speciality}}</ion-col>
@@ -45,19 +45,19 @@
                     </ion-row>
                 </ion-grid>
             </div>
-            <div *ngFor="let interviewTheme of professionalInterview.professionalInterviewThemes, index as i">
+            <div *ngFor="let interviewTheme of professionalInterview.professionalInterviewThemes">
                 <edospnc-expandable-block class="comment" [ngClass]="{'expandable-comment-block': isPncComment(interviewTheme) || isInstructorComment(interviewTheme) }" mini="true" [title]="getThemeLabel(interviewTheme)">
                     
-                    <div *ngFor="let subTheme of interviewTheme.subThemes, index as j">
+                    <div *ngFor="let subTheme of interviewTheme.subThemes">
                         <div class="sub-title-block" >
                                 <span>{{subTheme.label}}</span>
                         </div>
-                        <div *ngFor="let item of subTheme.professionalInterviewItems, index as j">
+                        <div *ngFor="let item of subTheme.professionalInterviewItems">
                             <label *ngIf="item.label" class="required"><span class="edospnc-speechBubble"></span> {{item.label}}</label>
                             <ion-textarea [value]="item.value"></ion-textarea>
                         </div>
                     </div>
-                    <div *ngFor="let item of interviewTheme.professionalInterviewItems, index as j">
+                    <div *ngFor="let item of interviewTheme.professionalInterviewItems">
                             <label *ngIf="item.label" class="no-margin-top required"><span class="edospnc-speechBubble"></span> {{item.label}}</label>
                             <ion-textarea [value]="item.value"></ion-textarea>
                     </div>
