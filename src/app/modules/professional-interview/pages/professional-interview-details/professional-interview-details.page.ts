@@ -38,6 +38,7 @@ export class ProfessionalInterviewDetailsPage {
   professionalInterview: ProfessionalInterviewModel;
   originProfessionalInterview: ProfessionalInterviewModel;
   ProfessionalInterviewTypeEnum = ProfessionalInterviewTypeEnum;
+  ProfessionalInterviewStateEnum = ProfessionalInterviewStateEnum;
 
   annualProfessionalInterviewOptions: any;
   monthsNames;
@@ -298,23 +299,12 @@ export class ProfessionalInterviewDetailsPage {
   }
 
   /**
-   * Retourne true si c'est une proposition et qu'elle peut être modifiée par le user connecté
+   * Teste que le user connecté est cadre et que le bilan professionnel peut être enregsitré avec le statut en paramètre
    * @return true si Draft && (CADRE ou auteur de la proposition)
    */
-  canBeSavedAsDraft(): boolean {
-    const canBeSavedAsDraft: boolean = this.professionalInterviewStatusService.isTransitionOk(this.professionalInterview.state, ProfessionalInterviewStateEnum.DRAFT);
-    const isInitiatorOrCadre: boolean = this.securityService.isManager() || (!this.professionalInterview.instructor || (this.professionalInterview.instructor.matricule === this.sessionService.authenticatedUser.matricule));
-    return canBeSavedAsDraft && isInitiatorOrCadre;
-  }
-
-  /**
-   * Retourne true si c'est une création ou une proposition et qu'elle peut être modifiée par le user connecté
-   * @return true si Draft && (CADRE ou auteur de la proposition)
-   */
-  canBeSavedInNotTakenIntoAccountState(): boolean {
-    const canBeSavedInNotTakenIntoAccountState: boolean = this.professionalInterviewStatusService.isTransitionOk(this.professionalInterview.state, ProfessionalInterviewStateEnum.NOT_TAKEN_INTO_ACCOUNT);
-    const isInitiatorOrCadre: boolean = this.securityService.isManager() || (!this.professionalInterview.instructor || (this.professionalInterview.instructor.matricule === this.sessionService.authenticatedUser.matricule));
-    return canBeSavedInNotTakenIntoAccountState && isInitiatorOrCadre;
+  canBeSavedInState(state: ProfessionalInterviewStateEnum): boolean {
+    const canBeSaved: boolean = this.professionalInterviewStatusService.isTransitionOk(this.professionalInterview.state, state);
+    return canBeSaved && this.securityService.isManager();
   }
 
   /**

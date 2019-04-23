@@ -46,13 +46,13 @@
                     </ion-row>
                 </ion-grid>
             </div>
-                        <edospnc-expandable-block class="comment" *ngFor="let interviewTheme of professionalInterview.professionalInterviewThemes, index as i" mini="true" [title]="interviewTheme.label">
+            <edospnc-expandable-block class="comment" *ngFor="let interviewTheme of professionalInterview.professionalInterviewThemes, index as i" mini="true" [title]="interviewTheme.label">
                 <div *ngFor="let interviewTheme of professionalInterview.professionalInterviewThemes">
                     <edospnc-expandable-block class="comment" [ngClass]="{'expandable-comment-block': isPncComment(interviewTheme) || isInstructorComment(interviewTheme) }" mini="true" [title]="getThemeLabel(interviewTheme)">
-                        
+
                         <div *ngFor="let subTheme of interviewTheme.subThemes">
-                            <div class="sub-title-block" >
-                                    <span>{{subTheme.label}}</span>
+                            <div class="sub-title-block">
+                                <span>{{subTheme.label}}</span>
                             </div>
                             <div *ngFor="let item of subTheme.professionalInterviewItems">
                                 <label *ngIf="item.label" class="required"><span class="edospnc-speechBubble"></span> {{item.label}}</label>
@@ -60,17 +60,17 @@
                             </div>
                         </div>
                         <div *ngFor="let item of interviewTheme.professionalInterviewItems">
-                                <label *ngIf="item.label" class="no-margin-top required"><span class="edospnc-speechBubble"></span> {{item.label}}</label>
-                                <ion-textarea [value]="item.value"></ion-textarea>
+                            <label *ngIf="item.label" class="no-margin-top required"><span class="edospnc-speechBubble"></span> {{item.label}}</label>
+                            <ion-textarea [value]="item.value"></ion-textarea>
                         </div>
                     </edospnc-expandable-block>
                     <div class="comment-block" *ngIf="isPncComment(interviewTheme)">
                         <span *ngIf="professionalInterview?.pncSignatureDate">{{professionalInterview?.pncSignatureDate | date: 'dd/MM/yyyy' : 'UTC'}}</span>
                         <span>
                             <span *ngIf="pnc?.lastName">
-                                    {{pnc.matricule}} -  
-                                    {{pnc.lastName}} 
-                                    <span class="firstname">{{pnc.firstName}}</span>
+                                {{pnc.matricule}} -
+                                {{pnc.lastName}}
+                                <span class="firstname">{{pnc.firstName}}</span>
                             </span>
                         </span>
                     </div>
@@ -78,9 +78,9 @@
                         <span *ngIf="professionalInterview?.instructorValidationDate">{{professionalInterview?.instructorValidationDate | date: 'dd/MM/yyyy' : 'UTC'}}</span>
                         <span>
                             <span *ngIf="professionalInterview.instructor?.lastName">
-                                    {{professionalInterview.instructor.matricule}} -  
-                                    {{professionalInterview.instructor.lastName}} 
-                                    <span class="firstname">{{professionalInterview.instructor.firstName}}</span>
+                                {{professionalInterview.instructor.matricule}} -
+                                {{professionalInterview.instructor.lastName}}
+                                <span class="firstname">{{professionalInterview.instructor.firstName}}</span>
                             </span>
                         </span>
                     </div>
@@ -104,7 +104,7 @@
             <!-- Barre de boutons -->
             <div class="button-bar-right button-bar">
                 <!-- Bouton sauvegarder Bilan professionnel en brouillon -->
-                <button ion-button color="blue60" (click)="saveProfessionalInterviewDraft()" [disabled]="professionalInterviewDetailForm.invalid" *ngIf="canBeSavedAsDraft()">
+                <button ion-button color="blue60" (click)="saveProfessionalInterviewDraft()" [disabled]="professionalInterviewDetailForm.invalid" *ngIf="canBeSavedInState(ProfessionalInterviewStateEnum.DRAFT)">
                     <ion-icon name="ios-bookmark-outline" ios="ios-bookmark-outline" margin-right></ion-icon> {{ 'PROFESSIONAL_INTERVIEW.BUTTONS.SAVE_DRAFT' | translate }}
                 </button>
                 <!-- Bouton supprimer bilan professionnel en brouillon -->
@@ -112,7 +112,7 @@
                     <ion-icon name="ios-trash-outline" ios="ios-trash-outline" margin-right></ion-icon>{{ 'PROFESSIONAL_INTERVIEW.DETAILS.BUTTONS.DELETE_DRAFT' | translate }}
                 </button>
                 <!-- Bouton valider bilan professionnel -->
-                <button ion-button color="green50" (click)="savePorfessionalInterviewToValidatedStatus()" [disabled]="professionalInterviewDetailForm.invalid" *ngIf="canBeSavedAsDraft()">
+                <button ion-button color="green50" (click)="savePorfessionalInterviewToValidatedStatus()" [disabled]="professionalInterviewDetailForm.invalid" *ngIf="canBeSavedInState(ProfessionalInterviewStateEnum.NOT_TAKEN_INTO_ACCOUNT)">
                     <ion-icon name="md-checkmark" ios="md-checkmark" margin-right></ion-icon> {{ 'PROFESSIONAL_INTERVIEW.DETAILS.BUTTONS.VALIDATE' | translate }}
                 </button>
             </div>
