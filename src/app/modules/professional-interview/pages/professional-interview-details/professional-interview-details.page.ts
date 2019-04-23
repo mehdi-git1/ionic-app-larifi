@@ -65,6 +65,31 @@ export class ProfessionalInterviewDetailsPage {
     private offlinePncService: OfflinePncService,
     private dateTransformer: DateTransform
   ) {
+
+    this.annualProfessionalInterviewDateString = this.professionalInterview.annualProfessionalInterviewDate;
+    this.editionMode = this.isEditable();
+    this.initForm();
+
+    this.annualProfessionalInterviewOptions = {
+      buttons: [{
+        text: this.translateService.instant('GLOBAL.DATEPICKER.CLEAR'),
+        handler: () => this.professionalInterview.annualProfessionalInterviewDate = null
+      }]
+    };
+
+    // Traduction des mois
+    this.monthsNames = this.translateService.instant('GLOBAL.MONTH.LONGNAME');
+
+  }
+
+  ionViewWillEnter() {
+    this.initPage();
+  }
+
+  /**
+   * Initialise le contenu de la page
+   */
+  initPage() {
     this.professionalInterview = this.navParams.get('professionalInterview');
     if (this.professionalInterview && this.professionalInterview.matricule) {
       this.originProfessionalInterview = _.cloneDeep(this.professionalInterview);
@@ -85,20 +110,6 @@ export class ProfessionalInterviewDetailsPage {
         }, error => { });
       }
     }
-    this.annualProfessionalInterviewDateString = this.professionalInterview.annualProfessionalInterviewDate;
-    this.editionMode = this.isEditable();
-    this.initForm();
-
-    this.annualProfessionalInterviewOptions = {
-      buttons: [{
-        text: this.translateService.instant('GLOBAL.DATEPICKER.CLEAR'),
-        handler: () => this.professionalInterview.annualProfessionalInterviewDate = null
-      }]
-    };
-
-    // Traduction des mois
-    this.monthsNames = this.translateService.instant('GLOBAL.MONTH.LONGNAME');
-
   }
 
   /**
@@ -145,6 +156,55 @@ export class ProfessionalInterviewDetailsPage {
     }
   }
 
+  /**
+   * Verifie si des modifications ont été faites, avant d'initialiser le contenu de la page.
+   * si oui, on affiche une popup de confirmation d'abandon des modifications
+   * si non, on initialise la page.
+   */
+  refreshPage() {
+    if (this.formHasBeenModified()) {
+        this.confirmAbandonChanges().then(() => {
+            this.professionalInterviewDetailForm.reset();
+            this.initPage();
+        }, error => {
+
+        });
+    } else {
+        this.initPage();
+    }
+  }
+
+  ionViewCanLeave() {
+    if (this.formHasBeenModified()) {
+        return this.confirmAbandonChanges();
+    } else {
+        return true;
+    }
+  }
+
+  /**
+   * Popup d'avertissement en cas de modifications non enregistrées.
+   */
+  confirmAbandonChanges() {
+    return new Promise((resolve, reject) => {
+        // Avant de quitter la vue, on avertit l'utilisateur si ses modifications n'ont pas été enregistrées
+        this.alertCtrl.create({
+            title: this.translateService.instant('GLOBAL.CONFIRM_BACK_WITHOUT_SAVE.TITLE'),
+            message: this.translateService.instant('GLOBAL.CONFIRM_BACK_WITHOUT_SAVE.MESSAGE'),
+            buttons: [
+                {
+                    text: this.translateService.instant('GLOBAL.BUTTONS.CANCEL'),
+                    role: 'cancel',
+                    handler: () => reject()
+                },
+                {
+                    text: this.translateService.instant('GLOBAL.BUTTONS.CONFIRM'),
+                    handler: () => resolve()
+                }
+            ]
+        }).present();
+    });
+  }
 
   /**
    * Vérifie que le chargement est terminé
