@@ -1,3 +1,5 @@
+import { ProfessionalInterviewTransformerService } from './professional-interview/professional-interview-transformer.service';
+import { ProfessionalInterviewStatusService } from './professional-interview/professional-interview-status.service';
 import { UserMessageAlertService } from './user-message/user-message-alert.service';
 import { AppVersionService } from './app-version/app-version.service';
 import { UserPermissionService } from './user-permission/user-permission.service';
@@ -167,7 +169,9 @@ import { OfflineProfessionalInterviewService } from './professional-interview/of
         CongratulationLetterTransformerService,
         TranslateOrEmptyService,
         AppVersionService,
-        SynchronizationManagementService
+        SynchronizationManagementService,
+        ProfessionalInterviewStatusService,
+        ProfessionalInterviewTransformerService
     ]
 })
 export class ServiceModule { }

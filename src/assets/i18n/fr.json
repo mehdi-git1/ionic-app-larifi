@@ -299,7 +299,8 @@
         "TITLE_EPP": "Entretien professionnel PNC",
         "MY_TITLE_EPP": "Mon entretien professionnel PNC",
         "BUTTONS": {
-            "NEW_PROFESSIONAL_INTERVIEW": "Nouveau bilan professionnel"
+            "NEW_PROFESSIONAL_INTERVIEW": "Nouveau bilan professionnel",
+            "SAVE_DRAFT": "Sauvegarder le brouillon"
         },
         "LIST": {
             "HEADER": {
@@ -338,7 +339,8 @@
                 "CONFIRM": "Supprimer"
             },
             "SUCCESS": {
-                "DRAFT_DELETED": "Proposition du bilan professionnel supprimée"
+                "DRAFT_DELETED": "Proposition du bilan professionnel supprimée",
+                "DRAFT_SAVED" : "Brouillon sauvegardé"
             }
         }
     },
