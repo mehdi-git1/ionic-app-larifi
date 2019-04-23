@@ -222,7 +222,7 @@ export class ProfessionalInterviewDetailsPage {
         }
 
         if (this.professionalInterview.state === ProfessionalInterviewStateEnum.DRAFT) {
-            this.toastService.success(this.translateService.instant('PROFESSIONAL_INTERVIEW.SUCCESS.DRAFT_SAVED'));
+            this.toastService.success(this.translateService.instant('PROFESSIONAL_INTERVIEW.SUCCESS.DETAILS.DRAFT_SAVED'));
             this.navCtrl.pop();
         }
         this.loading.dismiss();
@@ -251,7 +251,7 @@ export class ProfessionalInterviewDetailsPage {
   canBeSavedAsDraft(): boolean {
     const canBeSavedAsDraft: boolean = this.professionalInterviewStatusService.isTransitionOk(this.professionalInterview.state, ProfessionalInterviewStateEnum.DRAFT);
     const isInitiatorOrCadre: boolean =  this.securityService.isManager() || (!this.professionalInterview.instructor || (this.professionalInterview.instructor.matricule === this.sessionService.authenticatedUser.matricule));
-    return canBeSavedAsDraft && isInitiatorOrCadre && (!this.professionalInterview.state || this.professionalInterview.state === ProfessionalInterviewStateEnum.DRAFT);
+    return canBeSavedAsDraft && isInitiatorOrCadre;
   }
 
   /**

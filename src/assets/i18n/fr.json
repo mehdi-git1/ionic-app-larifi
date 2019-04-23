@@ -337,11 +337,9 @@
                 "CONFIRM": "Supprimer"
             },
             "SUCCESS": {
-                "DRAFT_DELETED": "Proposition du bilan professionnel supprimée"
+                "DRAFT_DELETED": "Proposition du bilan professionnel supprimée",
+                "DRAFT_SAVED" : "Brouillon sauvegardé"
             }
-        },
-        "SUCCESS": {
-            "DRAFT_SAVED" : "Brouillon sauvegardé"
         }
     },
     "EOBSERVATION": {
