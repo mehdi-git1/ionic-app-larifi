@@ -45,6 +45,8 @@ export class ProfessionalInterviewDetailsPage {
   loading: Loading;
   editionMode = false;
 
+  ProfessionalInterviewStateEnum = ProfessionalInterviewStateEnum;
+
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -106,7 +108,7 @@ export class ProfessionalInterviewDetailsPage {
    */
   initForm() {
     this.professionalInterviewDetailForm = this.formBuilder.group({
-      annualProfessionalInterviewDateControl:  ['', Validators.required]
+      annualProfessionalInterviewDateControl: ['', Validators.required]
     });
 
   }
@@ -140,7 +142,7 @@ export class ProfessionalInterviewDetailsPage {
       return 'green';
     } else if (this.professionalInterview && this.professionalInterview.state === ProfessionalInterviewStateEnum.DRAFT) {
       return 'grey';
-    }else if (this.professionalInterview && this.professionalInterview.state === ProfessionalInterviewStateEnum.NOT_TAKEN_INTO_ACCOUNT) {
+    } else if (this.professionalInterview && this.professionalInterview.state === ProfessionalInterviewStateEnum.NOT_TAKEN_INTO_ACCOUNT) {
       return 'red';
     }
   }
@@ -165,26 +167,26 @@ export class ProfessionalInterviewDetailsPage {
       this.loading.present();
 
       this.professionalInterviewService.createOrUpdate(professionalInterviewToSave)
-      .then(savedProfessionalInterview => {
-        this.originProfessionalInterview = _.cloneDeep(savedProfessionalInterview);
-        this.professionalInterview = savedProfessionalInterview;
-        // en mode connecté, mettre en cache l'objectif creé ou modifié si le pnc est en cache
-        if (this.deviceService.isOfflineModeAvailable() && this.connectivityService.isConnected()
+        .then(savedProfessionalInterview => {
+          this.originProfessionalInterview = _.cloneDeep(savedProfessionalInterview);
+          this.professionalInterview = savedProfessionalInterview;
+          // en mode connecté, mettre en cache l'objectif creé ou modifié si le pnc est en cache
+          if (this.deviceService.isOfflineModeAvailable() && this.connectivityService.isConnected()
             && this.offlinePncService.pncExists(this.professionalInterview.matricule)) {
-            this.offlineProfessionalInterviewService.createOrUpdate(this.professionalInterview, true);
-        }
+            this.offlineProfessionalInterviewService.createOrUpdate(this.professionalInterview);
+          }
 
-        if (this.professionalInterview.state === ProfessionalInterviewStateEnum.DRAFT) {
+          if (this.professionalInterview.state === ProfessionalInterviewStateEnum.DRAFT) {
             this.toastService.success(this.translateService.instant('PROFESSIONAL_INTERVIEW.SUCCESS.DRAFT_SAVED'));
             this.navCtrl.pop();
-        }
-        this.loading.dismiss();
-        resolve();
-    }, error => {
-        this.loading.dismiss();
-    });
+          }
+          this.loading.dismiss();
+          resolve();
+        }, error => {
+          this.loading.dismiss();
+        });
 
-      });
+    });
   }
 
   /**
@@ -203,8 +205,36 @@ export class ProfessionalInterviewDetailsPage {
    */
   canBeSavedAsDraft(): boolean {
     const canBeSavedAsDraft: boolean = this.professionalInterviewStatusService.isTransitionOk(this.professionalInterview.state, ProfessionalInterviewStateEnum.DRAFT);
-    const isInitiatorOrCadre: boolean =  this.securityService.isManager() || (!this.professionalInterview.instructor || (this.professionalInterview.instructor.matricule === this.sessionService.authenticatedUser.matricule));
+    const isInitiatorOrCadre: boolean = this.securityService.isManager() || (!this.professionalInterview.instructor || (this.professionalInterview.instructor.matricule === this.sessionService.authenticatedUser.matricule));
     return canBeSavedAsDraft && isInitiatorOrCadre && (!this.professionalInterview.state || this.professionalInterview.state === ProfessionalInterviewStateEnum.DRAFT);
+  }
+
+  /**
+   * Teste si le bilan professionnel peut étre pris en compte par le pnc.
+   * @return true si non pris en compte && l'utilisateur connecté est le pnc concerné
+   */
+  canBeTakenIntoAccount(): boolean {
+    const canBeSavedAsTakenIntoAccount: boolean = this.professionalInterviewStatusService.isTransitionOk(this.professionalInterview.state, ProfessionalInterviewStateEnum.TAKEN_INTO_ACCOUNT);
+    const isPnc: boolean = this.professionalInterview.matricule === this.sessionService.authenticatedUser.matricule;
+    return isPnc && canBeSavedAsTakenIntoAccount;
+  }
+
+  /**
+   * Teste si le commentaire PNC peut être ajouté
+   * @return vrai si le commentaire peut être ajouté, faux sinon
+   */
+  canAddPncComment(): boolean {
+    return this.sessionService.getActiveUser().matricule === this.professionalInterview.matricule
+      && (this.professionalInterview.pncComment === '' || typeof (this.professionalInterview.pncComment) === 'undefined');
+  }
+
+  /**
+ * Vérifie si le statut du bilan professionnel est celui passé en paramètre
+ * @param eObservationType statut du bilan professionnel à vérifier
+ * @return true si le statut du bilan professionnel est celui passé en paramètre, false sinon
+ */
+  checkProfessionaInterviewState(professionalInterviewState: ProfessionalInterviewStateEnum): boolean {
+    return this.professionalInterview && professionalInterviewState === this.professionalInterview.state;
   }
 
   /**

@@ -56,6 +56,17 @@
                 </div>
             </edospnc-expandable-block>
 
+            <!-- Commentaire PNC-->
+            <edospnc-expandable-block class="comment" title="{{'PROFESSIONAL_INTERVIEW.DETAILS.PNC_COMMENT' | translate}}">
+                <div>
+                    <p *ngIf="!editionMode; else editPncCommentBlock">{{professionalInterview.pncComment}}</p>
+                    <ng-template #editPncCommentBlock>
+                        <ion-textarea [(ngModel)]="professionalInterview.pncComment" autocorrect="on"></ion-textarea>
+                    </ng-template>
+                </div>
+            </edospnc-expandable-block>
+
+
             <div class="state-block" *ngIf="!editionMode">
                 <span>{{ 'PROFESSIONAL_INTERVIEW.DETAILS.STATE.LABEL' | translate }} :
                     <color-status-point [colorClass]="getColorStatusPoint()">
@@ -76,6 +87,10 @@
                 <!-- Bouton sauvegarder objectif en brouillon -->
                 <button ion-button color="blue60" (click)="saveProfessionalInterviewDraft()" [disabled]="professionalInterviewDetailForm.invalid" *ngIf="canBeSavedAsDraft()">
                     <ion-icon name="ios-bookmark-outline" ios="ios-bookmark-outline" margin-right></ion-icon> {{ 'PROFESSIONAL_INTERVIEW.BUTTONS.SAVE_DRAFT' | translate }}
+                </button>
+                <!-- Bouton prendre en compte bilan professionnel -->
+                <button ion-button color="blue60" (click)="takenIntoAccountProfessionalInterview()" [disabled]="professionalInterviewDetailForm.invalid" *ngIf="canBeTakenIntoAccount()">
+                    <ion-icon name="ios-bookmark-outline" ios="ios-bookmark-outline" margin-right></ion-icon> {{ 'PROFESSIONAL_INTERVIEW.BUTTONS.TAKEN_INTo_ACCOUNT' | translate }}
                 </button>
             </div>
         </form>

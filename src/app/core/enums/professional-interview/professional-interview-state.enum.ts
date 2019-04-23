@@ -2,5 +2,6 @@ export enum ProfessionalInterviewStateEnum {
     TAKEN_INTO_ACCOUNT = 'TAKEN_INTO_ACCOUNT',
     NOT_TAKEN_INTO_ACCOUNT = 'NOT_TAKEN_INTO_ACCOUNT',
     AVAILABLE = 'AVAILABLE',
-    DRAFT = 'DRAFT'
+    DRAFT = 'DRAFT',
+    CONSULT = 'CONSULT'
 }

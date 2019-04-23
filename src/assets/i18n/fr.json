@@ -298,7 +298,8 @@
         "MY_TITLE": "Mon bilan professionnel",
         "BUTTONS": {
             "NEW_PROFESSIONAL_INTERVIEW": "Nouveau bilan professionel",
-            "SAVE_DRAFT": "Sauvegarder le brouillon"
+            "SAVE_DRAFT": "Sauvegarder le brouillon",
+            "TAKEN_INTO_ACCOUNT": "Prendre en compte"
         },
         "LIST": {
             "HEADER": {
@@ -326,10 +327,11 @@
             "TYPE": {
                 "EPP": "EPP",
                 "BILAN": "Bilan professionnel"
-            }
+            },
+            "PNC_COMMENT": "Commentaire du PNC"
         },
         "SUCCESS": {
-            "DRAFT_SAVED" : "Brouillon sauvegardé"
+            "DRAFT_SAVED": "Brouillon sauvegardé"
         }
     },
     "EOBSERVATION": {

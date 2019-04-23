@@ -15,6 +15,7 @@ export class ProfessionalInterviewModel extends EDossierPncObjectModel {
     instructor: PncLightModel;
     lastUpdateDate: Date;
     professionalInterviewThemes: ProfessionalInterviewThemeModel[];
+    pncComment: string;
 
     getStorageId(): string {
         return `${this.techId}`;

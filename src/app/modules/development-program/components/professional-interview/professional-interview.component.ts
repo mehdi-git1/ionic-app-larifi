@@ -16,7 +16,7 @@ export class ProfessionalInterviewComponent {
 
   @Input() professionalInterview: ProfessionalInterviewModel;
 
-  constructor(private navCtrl: NavController ) {
+  constructor(private navCtrl: NavController) {
   }
 
   /**
@@ -40,6 +40,7 @@ export class ProfessionalInterviewComponent {
    */
   goToProfessionalInterviewDetail(evt: Event) {
     evt.stopPropagation();
+    this.professionalInterview.state = ProfessionalInterviewStateEnum.CONSULT;
     this.navCtrl.push(ProfessionalInterviewDetailsPage, { professionalInterview: this.professionalInterview });
   }
 
