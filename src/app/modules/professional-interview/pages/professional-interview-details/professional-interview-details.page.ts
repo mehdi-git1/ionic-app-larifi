@@ -18,10 +18,14 @@ import { NavController, NavParams, Loading, AlertController, LoadingController }
 
 import { PncModel } from '../../../../core/models/pnc.model';
 import { PncRoleEnum } from '../../../../core/enums/pnc-role.enum';
-import { ProfessionalInterviewModel } from './../../../../core/models/professional-interview/professional-interview.model';
-import { ProfessionalInterviewStateEnum } from '../../../../core/enums/professional-interview/professional-interview-state.enum';
 import { PncService } from '../../../../core/services/pnc/pnc.service';
 import { AppConstant } from '../../../../app.constant';
+import * as _ from 'lodash';
+import { Utils } from '../../../../shared/utils/utils';
+import { ProfessionalInterviewModel } from './../../../../core/models/professional-interview/professional-interview.model';
+import { ProfessionalInterviewTypeEnum } from '../../../../core/enums/professional-interview/professional-interview-type.enum';
+import { ProfessionalInterviewStateEnum } from '../../../../core/enums/professional-interview/professional-interview-state.enum';
+import { ProfessionalInterviewThemeModel } from '../../../../core/models/professional-interview/professional-interview-theme.model';
 import * as _ from 'lodash';
 import { Utils } from '../../../../shared/utils/utils';
 
@@ -35,6 +39,7 @@ export class ProfessionalInterviewDetailsPage {
   pnc: PncModel;
   professionalInterview: ProfessionalInterviewModel;
   originProfessionalInterview: ProfessionalInterviewModel;
+  ProfessionalInterviewTypeEnum = ProfessionalInterviewTypeEnum;
 
   annualProfessionalInterviewOptions: any;
   monthsNames;
@@ -65,15 +70,29 @@ export class ProfessionalInterviewDetailsPage {
     private offlinePncService: OfflinePncService,
     private dateTransformer: DateTransform
   ) {
-    this.professionalInterview = this.navParams.get('professionalInterview');
+
+       this.professionalInterview = this.navParams.get('professionalInterview');
     if (this.professionalInterview && this.professionalInterview.matricule) {
       this.originProfessionalInterview = _.cloneDeep(this.professionalInterview);
+      this.professionalInterview.professionalInterviewThemes.sort((theme1, theme2) => {
+        return theme1.themeOrder  < theme2.themeOrder ? -1 : 1;
+      });
+
+      for (let i = 0; i < this.professionalInterview.professionalInterviewThemes.length; i++){
+        this.professionalInterview.professionalInterviewThemes[i].subThemes.sort((ssTheme1, ssTheme2) => {
+          return ssTheme1.themeOrder  < ssTheme2.themeOrder ? -1 : 1;
+        });
+      }
       this.pncService.getPnc(this.professionalInterview.matricule).then(pnc => {
         this.pnc = pnc;
       }, error => { });
     } else {
       this.professionalInterview = this.sessionService.getActiveUser().parameters.params['blankProfessionnalInterview'];
+      this.professionalInterview.professionalInterviewThemes.sort((a, b) => {
+        return a.themeOrder > b.themeOrder ? 1 : -1;
+      });
       this.originProfessionalInterview = _.cloneDeep(this.professionalInterview);
+
       if (this.navParams.get('matricule')) {
         this.pncService.getPnc(this.navParams.get('matricule')).then(pnc => {
           this.pnc = pnc;
@@ -82,9 +101,6 @@ export class ProfessionalInterviewDetailsPage {
         }, error => { });
       }
     }
-    this.professionalInterview.professionalInterviewThemes.sort((a, b) => {
-      return a.themeOrder > b.themeOrder ? 1 : -1;
-    });
     this.annualProfessionalInterviewDateString = this.professionalInterview.annualProfessionalInterviewDate;
     this.editionMode = this.isEditable();
     this.initForm();
@@ -98,6 +114,7 @@ export class ProfessionalInterviewDetailsPage {
 
     // Traduction des mois
     this.monthsNames = this.translateService.instant('GLOBAL.MONTH.LONGNAME');
+
 
   }
 
@@ -140,8 +157,48 @@ export class ProfessionalInterviewDetailsPage {
       return 'green';
     } else if (this.professionalInterview && this.professionalInterview.state === ProfessionalInterviewStateEnum.DRAFT) {
       return 'grey';
-    } else if (this.professionalInterview && this.professionalInterview.state === ProfessionalInterviewStateEnum.NOT_TAKEN_INTO_ACCOUNT) {
+    } else if (this.professionalInterview && this.professionalInterview.state === ProfessionalInterviewStateEnum.DRAFT) {
+      return 'grey';
+    }else if (this.professionalInterview && this.professionalInterview.state === ProfessionalInterviewStateEnum.NOT_TAKEN_INTO_ACCOUNT) {
       return 'red';
+    }
+  }
+
+  /**
+   * Teste si on traite un commentaire PNC
+   * @param professionalInterviewTheme ProfessionalInterviewTheme en cours de traitement
+   * @return true si c'est un commentaire PNC
+   */
+  isPncComment(professionalInterviewTheme: ProfessionalInterviewThemeModel): boolean{
+    if (professionalInterviewTheme.professionalInterviewItems[0]){
+     return professionalInterviewTheme.professionalInterviewItems[0].key == ProfessionalInterviewCommentItemTypeEnum.PNCCOMMENT;
+    }
+    return false;
+  }
+
+  /**
+   * Teste si on traite un commentaire instructeur
+   * @param professionalInterviewTheme ProfessionalInterviewTheme en cours de traitement
+   * @return true si c'est un commentaire instructeur
+   */
+  isInstructorComment(professionalInterviewTheme: ProfessionalInterviewThemeModel): boolean{
+    console.log(this.professionalInterview);
+    if (professionalInterviewTheme.professionalInterviewItems[0]){
+      return professionalInterviewTheme.professionalInterviewItems[0].key == ProfessionalInterviewCommentItemTypeEnum.SYNTHESIS;
+     }
+     return false;
+  }
+
+  /**
+   * Retourne le bon titre à afficher pour le théme
+   * @param professionalInterviewTheme  ProfessionalInterviewTheme en cours de traitement
+   * @return label à afficher
+   */
+ getThemeLabel(professionalInterviewTheme: ProfessionalInterviewThemeModel){
+    if (!professionalInterviewTheme.subThemes || professionalInterviewTheme.subThemes.length === 0 ){
+      return professionalInterviewTheme.professionalInterviewItems[0].label;
+    } else {
+      return professionalInterviewTheme.label;
     }
   }
 
@@ -212,30 +269,26 @@ export class ProfessionalInterviewDetailsPage {
       this.loading.present();
 
       this.professionalInterviewService.createOrUpdate(professionalInterviewToSave)
-        .then(savedProfessionalInterview => {
-          this.originProfessionalInterview = _.cloneDeep(savedProfessionalInterview);
-          this.professionalInterview = savedProfessionalInterview;
-          // en mode connecté, mettre en cache l'objectif creé ou modifié si le pnc est en cache
-          if (this.deviceService.isOfflineModeAvailable() && this.connectivityService.isConnected()
+      .then(savedProfessionalInterview => {
+        this.originProfessionalInterview = _.cloneDeep(savedProfessionalInterview);
+        this.professionalInterview = savedProfessionalInterview;
+        // en mode connecté, mettre en cache l'objectif creé ou modifié si le pnc est en cache
+        if (this.deviceService.isOfflineModeAvailable() && this.connectivityService.isConnected()
             && this.offlinePncService.pncExists(this.professionalInterview.matricule)) {
-            this.offlineProfessionalInterviewService.createOrUpdate(this.professionalInterview);
-          }
+            this.offlineProfessionalInterviewService.createOrUpdate(this.professionalInterview, true);
+        }
 
-          if (this.professionalInterview.state === ProfessionalInterviewStateEnum.DRAFT) {
-            this.toastService.success(this.translateService.instant('PROFESSIONAL_INTERVIEW.DETAILS.SUCCESS.DRAFT_SAVED'));
+        if (this.professionalInterview.state === ProfessionalInterviewStateEnum.DRAFT) {
+            this.toastService.success(this.translateService.instant('PROFESSIONAL_INTERVIEW.SUCCESS.DETAILS.DRAFT_SAVED'));
             this.navCtrl.pop();
-          }
-          if (this.professionalInterview.state === ProfessionalInterviewStateEnum.NOT_TAKEN_INTO_ACCOUNT) {
-            this.toastService.success(this.translateService.instant('PROFESSIONAL_INTERVIEW.DETAILS.SUCCESS.PROFESSIONAL_INTERVIEW_VALIDATED'));
-            this.navCtrl.pop();
-          }
-          this.loading.dismiss();
-          resolve();
-        }, error => {
-          this.loading.dismiss();
-        });
-
+        }
+        this.loading.dismiss();
+        resolve();
+    }, error => {
+        this.loading.dismiss();
     });
+
+      });
   }
 
   /**
@@ -254,8 +307,8 @@ export class ProfessionalInterviewDetailsPage {
    */
   canBeSavedAsDraft(): boolean {
     const canBeSavedAsDraft: boolean = this.professionalInterviewStatusService.isTransitionOk(this.professionalInterview.state, ProfessionalInterviewStateEnum.DRAFT);
-    const isInitiatorOrCadre: boolean = this.securityService.isManager() || (!this.professionalInterview.instructor || (this.professionalInterview.instructor.matricule === this.sessionService.authenticatedUser.matricule));
-    return canBeSavedAsDraft && isInitiatorOrCadre && (!this.professionalInterview.state || this.professionalInterview.state === ProfessionalInterviewStateEnum.DRAFT);
+    const isInitiatorOrCadre: boolean =  this.securityService.isManager() || (!this.professionalInterview.instructor || (this.professionalInterview.instructor.matricule === this.sessionService.authenticatedUser.matricule));
+    return canBeSavedAsDraft && isInitiatorOrCadre;
   }
 
   /**

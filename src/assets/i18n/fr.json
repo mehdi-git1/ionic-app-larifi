@@ -294,8 +294,10 @@
         }
     },
     "PROFESSIONAL_INTERVIEW": {
-        "TITLE": "Bilan professionnel",
-        "MY_TITLE": "Mon bilan professionnel",
+        "TITLE_BILAN_PRO": "Bilan professionnel",
+        "MY_TITLE_BILAN_PRO": "Mon bilan professionnel",
+        "TITLE_EPP": "Entretien professionnel PNC",
+        "MY_TITLE_EPP": "Mon entretien professionnel PNC",
         "BUTTONS": {
             "NEW_PROFESSIONAL_INTERVIEW": "Nouveau bilan professionel",
             "SAVE_DRAFT": "Sauvegarder le brouillon",
@@ -311,9 +313,9 @@
             "LEGEND": "derniers BP / EPP réalisés"
         },
         "DETAILS": {
-            "TITLE": "Bilan professionnel PNC",
             "SPECIALITY": "Fonction",
-            "EOBS_PNC_ASSIGNMENT": "Affectation à date du Bilan Professionnel",
+            "PNC_ASSIGNMENT_BILAN_PRO": "Affectation à date du Bilan Professionel",
+            "PNC_ASSIGNMENT_EPP": "Affectation à date de l'EPP",
             "INTERVIEW_DATE": "Date de l'entretien",
             "UPDATE_DATE": "Enregistré depuis le",
             "REDACTOR": "Rédacteur",
@@ -339,7 +341,7 @@
                 "CONFIRM": "Supprimer"
             },
             "SUCCESS": {
-                "DRAFT_DELETED": "Proposition du bilan professionnel supprimée",
+                "DRAFT_DELETED": "Brouillon supprimée",
                 "PROFESSIONAL_INTERVIEW_VALIDATED": "Bilan professionnel validé",
                 "DRAFT_SAVED": "Brouillon sauvegardé"
             }

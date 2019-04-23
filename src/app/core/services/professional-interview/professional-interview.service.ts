@@ -38,15 +38,6 @@ export class ProfessionalInterviewService extends BaseService {
     }
 
     /**
-     * Supprime un bilan professionnel
-     * @param id l'id du bilan professionnel à supprimer
-     * @return une promesse disant que la suppression s'est bien passée, ou pas
-     */
-    delete(id: number): Promise<any> {
-        return this.execFunctionService('delete', id);
-    }
-
-    /**
      * Créé ou met à jour un bilan professionnel
      * @param  profesionnalInterview le bilan professionnel à créer ou mettre à jour
      * @return une promesse contenant le bilan professionnel créé ou mis à jour
@@ -61,4 +52,14 @@ export class ProfessionalInterviewService extends BaseService {
 
         return this.execFunctionService('createOrUpdate', profesionnalInterview);
     }
+
+    /**
+     * Supprime un bilan professionnel
+     * @param id l'id du bilan professionnel à supprimer
+     * @return une promesse disant que la suppression s'est bien passée, ou pas
+     */
+    delete(id: number): Promise<any> {
+        return this.execFunctionService('delete', id);
+    }
+
 }
