@@ -326,6 +326,18 @@
             "TYPE": {
                 "EPP": "EPP",
                 "BILAN": "Bilan professionnel"
+            },
+            "BUTTONS": {
+                "DELETE_DRAFT": "Supprimer le brouillon"
+            },
+            "CONFIRM_DRAFT_DELETE": {
+                "TITLE": "Suppression du Bilan Professionnel",
+                "MESSAGE": "Confirmez-vous la suppression de ce brouillon ?",
+                "CANCEL": "Annuler",
+                "CONFIRM": "Supprimer"
+            },
+            "SUCCESS": {
+                "DRAFT_DELETED": "Proposition du bilan professionnel supprimée"
             }
         },
         "SUCCESS": {

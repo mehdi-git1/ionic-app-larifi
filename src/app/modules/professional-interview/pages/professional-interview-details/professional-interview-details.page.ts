@@ -145,6 +145,53 @@ export class ProfessionalInterviewDetailsPage {
     }
   }
 
+  /**
+   * Présente une alerte pour confirmer la suppression du brouillon
+   */
+  confirmDeleteProfessionalInterviewDraft() {
+    this.alertCtrl.create({
+      title: this.translateService.instant('PROFESSIONAL_INTERVIEW.DETAILS.CONFIRM_DRAFT_DELETE.TITLE'),
+      message: this.translateService.instant('PROFESSIONAL_INTERVIEW.DETAILS.CONFIRM_DRAFT_DELETE.MESSAGE'),
+      buttons: [
+        {
+          text: this.translateService.instant('PROFESSIONAL_INTERVIEW.DETAILS.CONFIRM_DRAFT_DELETE.CANCEL'),
+          role: 'cancel'
+        },
+        {
+          text: this.translateService.instant('PROFESSIONAL_INTERVIEW.DETAILS.CONFIRM_DRAFT_DELETE.CONFIRM'),
+          handler: () => this.deleteProfessionalInterview()
+        }
+      ]
+    }).present();
+  }
+
+  /**
+   * Retourne true si c'est une proposition et si le pnc connecté est CADRE
+   * @return true si Draft && CADRE
+   */
+  canBeDeleted(): boolean {
+    return this.professionalInterview.state === ProfessionalInterviewStateEnum.DRAFT && this.securityService.isManager();
+  }
+
+  /**
+  * Supprime un bilan professionnel
+  */
+  deleteProfessionalInterview() {
+    this.loading = this.loadingCtrl.create();
+    this.loading.present();
+
+    this.professionalInterviewService
+      .delete(this.professionalInterview.techId)
+      .then(() => {
+        if (this.professionalInterview.state === ProfessionalInterviewStateEnum.DRAFT) {
+          this.toastService.success(this.translateService.instant('PROFESSIONAL_INTERVIEW.DETAILS.SUCCESS.DRAFT_DELETED'));
+        }
+        this.navCtrl.pop();
+        this.loading.dismiss();
+      }, error => {
+        this.loading.dismiss();
+      });
+  }
 
   /**
    * Vérifie que le chargement est terminé
