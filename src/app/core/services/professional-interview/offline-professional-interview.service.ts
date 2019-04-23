@@ -43,6 +43,22 @@ export class OfflineProfessionalInterviewService {
    * @return une promesse contenant le bilan professionnel créé ou mis à jour
    */
     createOrUpdate(professionalInterview: ProfessionalInterviewModel, online: boolean = false): Promise<ProfessionalInterviewModel> {
-        return this.storageService.saveAsync(EntityEnum.PROFESSIONAL_INTERVIEW, professionalInterview);
+        return this.storageService.saveAsync(EntityEnum.PROFESSIONAL_INTERVIEW, professionalInterview, online);
     }
+
+    /**
+     * Supprime du cache un bilan professionnel à partir de son id
+     * @param id l'id du bilan professionnel à supprimer
+     * @return une promesse disant que la suppression s'est bien passée, ou pas
+     */
+    delete(id: number): Promise<any> {
+        return new Promise((resolve, reject) => {
+            this.storageService.deleteAsync(EntityEnum.PROFESSIONAL_INTERVIEW, `${id}`).then(() => {
+                resolve();
+            }).catch(() => {
+                reject();
+            });
+        });
+    }
+
 }
