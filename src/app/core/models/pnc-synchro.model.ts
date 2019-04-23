@@ -23,5 +23,5 @@ export class PncSynchroModel {
     professionalLevel: ProfessionalLevelModel;
     congratulationLetters: CongratulationLetterModel[];
     eobservations: EObservationModel[];
-    professionalInterview: ProfessionalInterviewModel[];
+    professionalInterviews: ProfessionalInterviewModel[];
 }
