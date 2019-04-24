@@ -72,7 +72,6 @@ export class ProfessionalInterviewDetailsPage {
 
     this.professionalInterview = this.navParams.get('professionalInterview');
     if (this.professionalInterview && this.professionalInterview.matricule) {
-      this.originProfessionalInterview = _.cloneDeep(this.professionalInterview);
       this.professionalInterview.professionalInterviewThemes.sort((theme1, theme2) => {
         return theme1.themeOrder < theme2.themeOrder ? -1 : 1;
       });
@@ -86,12 +85,10 @@ export class ProfessionalInterviewDetailsPage {
         this.pnc = pnc;
       }, error => { });
     } else {
-      this.professionalInterview = this.sessionService.getActiveUser().parameters.params['blankProfessionnalInterview'];
+      this.professionalInterview = _.cloneDeep(this.sessionService.getActiveUser().parameters.params['blankProfessionnalInterview']);
       this.professionalInterview.professionalInterviewThemes.sort((a, b) => {
         return a.themeOrder > b.themeOrder ? 1 : -1;
       });
-      this.originProfessionalInterview = _.cloneDeep(this.professionalInterview);
-
       if (this.navParams.get('matricule')) {
         this.pncService.getPnc(this.navParams.get('matricule')).then(pnc => {
           this.pnc = pnc;
@@ -100,6 +97,7 @@ export class ProfessionalInterviewDetailsPage {
         }, error => { });
       }
     }
+    this.originProfessionalInterview = _.cloneDeep(this.professionalInterview);
     this.annualProfessionalInterviewDateString = this.professionalInterview.annualProfessionalInterviewDate;
     this.editionMode = this.isEditable();
     this.initForm();
@@ -276,7 +274,7 @@ export class ProfessionalInterviewDetailsPage {
           }
 
           if (this.professionalInterview.state === ProfessionalInterviewStateEnum.DRAFT) {
-            this.toastService.success(this.translateService.instant('PROFESSIONAL_INTERVIEW.SUCCESS.DETAILS.DRAFT_SAVED'));
+            this.toastService.success(this.translateService.instant('PROFESSIONAL_INTERVIEW.DETAILS.SUCCESS.DRAFT_SAVED'));
             this.navCtrl.pop();
           }
           this.loading.dismiss();
