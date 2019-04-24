@@ -277,6 +277,10 @@ export class ProfessionalInterviewDetailsPage {
             this.toastService.success(this.translateService.instant('PROFESSIONAL_INTERVIEW.DETAILS.SUCCESS.DRAFT_SAVED'));
             this.navCtrl.pop();
           }
+          if (this.professionalInterview.state === ProfessionalInterviewStateEnum.NOT_TAKEN_INTO_ACCOUNT) {
+            this.toastService.success(this.translateService.instant('PROFESSIONAL_INTERVIEW.DETAILS.SUCCESS.VALIDATED'));
+            this.navCtrl.pop();
+          }
           this.loading.dismiss();
           resolve();
         }, error => {
