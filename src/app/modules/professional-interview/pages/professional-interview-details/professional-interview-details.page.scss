@@ -50,11 +50,13 @@ page-professional-interview-details {
         }
     }
 
-    .mat-expansion-panel-body .ng-star-inserted:first-child .sub-title-block{
-        margin-top:0px;
+    .mat-expansion-panel-body .ng-star-inserted:first-child .sub-title-block {
+        margin-top: 0px;
     }
 
-    .state-block, .comment-block, .sub-title-block {
+    .state-block,
+    .comment-block,
+    .sub-title-block {
         height: 32px;
         padding-right: 24px;
         padding-left: 24px;
@@ -65,16 +67,16 @@ page-professional-interview-details {
         color: color($colors, white);
         border-radius: $block-border-radius;
 
-        &.comment-block{
-            margin-bottom:16px;
+        &.comment-block {
+            margin-bottom: 16px;
             border-top-left-radius: 0px;
             border-top-right-radius: 0px;
             background: color($colors, blue77);
         }
 
-        &.sub-title-block{            
+        &.sub-title-block {
             background: color($colors, blue77);
-            margin:10px -15px 10px -15px;
+            margin: 10px -15px 10px -15px;
             font-size: 17px;
         }
 
@@ -220,12 +222,16 @@ page-professional-interview-details {
                     min-height: 190px !important;
                     padding: 5px !important;
                 }
+
+                .ion-textarea-read-only {
+                    background-color: color($colors, grey90);
+                }
             }
         }
     }
 
-    .expandable-comment-block{
-        .mat-expansion-panel{
+    .expandable-comment-block {
+        .mat-expansion-panel {
             margin-bottom: 0px;
 
         }

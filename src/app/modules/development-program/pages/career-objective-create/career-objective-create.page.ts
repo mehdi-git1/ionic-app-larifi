@@ -422,14 +422,14 @@ export class CareerObjectiveCreatePage {
      * Dirige vers la page de création d'un point d'étape
      */
     goToWaypointCreate() {
-        this.navCtrl.push(WaypointCreatePage, { matricule: this.pnc.matricule , careerObjectiveId: this.careerObjective.techId, wayPointId: 0 });
+        this.navCtrl.push(WaypointCreatePage, { matricule: this.pnc.matricule, careerObjectiveId: this.careerObjective.techId, wayPointId: 0 });
     }
 
     /**
      * Ouvrir un point d'étape existant
      */
     openWaypoint(techId: number) {
-        this.navCtrl.push(WaypointCreatePage, { matricule: this.pnc.matricule , careerObjectiveId: this.careerObjective.techId, waypointId: techId });
+        this.navCtrl.push(WaypointCreatePage, { matricule: this.pnc.matricule, careerObjectiveId: this.careerObjective.techId, waypointId: techId });
     }
 
     /**
@@ -484,7 +484,7 @@ export class CareerObjectiveCreatePage {
 
     /**
        * Détermine si le champs peut être modifié par l'utilisateur connecté
-       * @return vrai si c'est un champ modifiable, faux sinon
+       * @return Vrai si c'est un champ non modifiable, faux sinon
        */
     readOnlyByUserConnected(): boolean {
         if (this.securityService.isManager()) {
@@ -544,7 +544,7 @@ export class CareerObjectiveCreatePage {
      * @return true si Draft && (CADRE ou auteur de la proposition)
      */
     isDraftAndCanBeDeleted(): boolean {
-        const isInitiatorOrCadre: boolean =  this.securityService.isManager() || (this.careerObjective.creationAuthor && (this.careerObjective.creationAuthor.matricule === this.sessionService.authenticatedUser.matricule));
+        const isInitiatorOrCadre: boolean = this.securityService.isManager() || (this.careerObjective.creationAuthor && (this.careerObjective.creationAuthor.matricule === this.sessionService.authenticatedUser.matricule));
         return this.careerObjective.careerObjectiveStatus === CareerObjectiveStatusEnum.DRAFT && isInitiatorOrCadre;
     }
 
@@ -554,7 +554,7 @@ export class CareerObjectiveCreatePage {
      */
     isDraftAndCanBeModified(): boolean {
         const canBeSavedAsDraft: boolean = this.careerObjectiveStatusService.isTransitionOk(this.careerObjective.careerObjectiveStatus, CareerObjectiveStatusEnum.DRAFT);
-        const isInitiatorOrCadre: boolean =  this.securityService.isManager() || (!this.careerObjective.creationAuthor || (this.careerObjective.creationAuthor.matricule === this.sessionService.authenticatedUser.matricule));
+        const isInitiatorOrCadre: boolean = this.securityService.isManager() || (!this.careerObjective.creationAuthor || (this.careerObjective.creationAuthor.matricule === this.sessionService.authenticatedUser.matricule));
         return canBeSavedAsDraft && isInitiatorOrCadre && (!this.careerObjective.careerObjectiveStatus || this.careerObjective.careerObjectiveStatus === CareerObjectiveStatusEnum.DRAFT);
     }
 }
