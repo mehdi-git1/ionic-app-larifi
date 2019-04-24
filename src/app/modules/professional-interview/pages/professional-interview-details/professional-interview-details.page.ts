@@ -336,8 +336,8 @@ export class ProfessionalInterviewDetailsPage {
   }
 
   /**
-    * Détermine si le champs peut être modifié par l'utilisateur connecté
-    * @return Vrai si c'est un champ non modifiable, vrai sinon
+    * Détermine si le champs est en lecture seule pour l'utilisateur connecté
+    * @return Vrai si c'est un champ non modifiable, faux sinon
     */
   readOnlyByUserConnected(): boolean {
     if (!this.securityService.isManager()) {
