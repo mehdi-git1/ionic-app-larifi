@@ -294,12 +294,12 @@
         }
     },
     "PROFESSIONAL_INTERVIEW": {
-        "TITLE": "Bilan professionnel",
-        "MY_TITLE": "Mon bilan professionnel",
+        "TITLE_BILAN_PRO": "Bilan professionnel",
+        "MY_TITLE_BILAN_PRO": "Mon bilan professionnel",
+        "TITLE_EPP": "Entretien professionnel PNC",
+        "MY_TITLE_EPP": "Mon entretien professionnel PNC",
         "BUTTONS": {
-            "NEW_PROFESSIONAL_INTERVIEW": "Nouveau bilan professionel",
-            "SAVE_DRAFT": "Sauvegarder le brouillon",
-            "TAKEN_INTO_ACCOUNT": "Prendre en compte"
+            "NEW_PROFESSIONAL_INTERVIEW": "Nouveau bilan professionel"
         },
         "LIST": {
             "HEADER": {
@@ -311,9 +311,9 @@
             "LEGEND": "derniers BP / EPP réalisés"
         },
         "DETAILS": {
-            "TITLE": "Bilan professionnel PNC",
             "SPECIALITY": "Fonction",
-            "EOBS_PNC_ASSIGNMENT": "Affectation à date du Bilan Professionnel",
+            "EOBS_PNC_ASSIGNMENT_BILAN_PRO": "Affectation à date du Bilan Professionel",
+            "EOBS_PNC_ASSIGNMENT_EPP": "Affectation à date de l'EPP",
             "INTERVIEW_DATE": "Date de l'entretien",
             "UPDATE_DATE": "Enregistré depuis le",
             "REDACTOR": "Rédacteur",
@@ -328,10 +328,22 @@
                 "EPP": "EPP",
                 "BILAN": "Bilan professionnel"
             },
-            "PNC_COMMENT": "Commentaire du PNC"
-        },
-        "SUCCESS": {
-            "DRAFT_SAVED": "Brouillon sauvegardé"
+            "BUTTONS": {
+                "DELETE_DRAFT": "Supprimer le brouillon",
+                "SAVE_DRAFT": "Sauvegarder le brouillon",
+                "TAKEN_INTO_ACCOUNT": "Prendre en compte"
+            },
+            "PNC_COMMENT": "Commentaire du PNC",
+            "CONFIRM_DRAFT_DELETE": {
+                "TITLE": "Suppression du Bilan Professionnel",
+                "MESSAGE": "Confirmez-vous la suppression de ce brouillon ?",
+                "CANCEL": "Annuler",
+                "CONFIRM": "Supprimer"
+            },
+            "SUCCESS": {
+                "DRAFT_SAVED": "Brouillon sauvegardé",
+                "DRAFT_DELETED": "Proposition du bilan professionnel supprimée"
+            }
         }
     },
     "EOBSERVATION": {

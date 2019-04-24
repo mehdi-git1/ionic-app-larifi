@@ -14,6 +14,8 @@ export class ProfessionalInterviewModel extends EDossierPncObjectModel {
     pncAtInterviewDate: PncLightModel;
     instructor: PncLightModel;
     lastUpdateDate: Date;
+    instructorValidationDate: Date;
+    pncSignatureDate: Date;
     professionalInterviewThemes: ProfessionalInterviewThemeModel[];
     pncComment: string;
 

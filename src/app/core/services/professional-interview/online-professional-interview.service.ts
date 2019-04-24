@@ -1,3 +1,5 @@
+import { EntityEnum } from './../../enums/entity.enum';
+import { StorageService } from './../../storage/storage.service';
 import { Injectable } from '@angular/core';
 import { RestService } from '../../http/rest/rest.base.service';
 import { UrlConfiguration } from '../../configuration/url.configuration';
@@ -11,7 +13,8 @@ export class OnlineProfessionalInterviewService {
     constructor(
         public restService: RestService,
         public config: UrlConfiguration,
-        public universalTransformer: TransformerService
+        public universalTransformer: TransformerService,
+        private storageService: StorageService
     ) { }
 
     /**
@@ -35,4 +38,22 @@ export class OnlineProfessionalInterviewService {
     createOrUpdate(professionalInterview: ProfessionalInterviewModel): Promise<ProfessionalInterviewModel> {
     return this.restService.post(this.config.getBackEndUrl('professionalInterviews'), professionalInterview);
     }
+
+    /**
+     * Supprime un bilan professionnel
+     * @param id l'id du bilan professionnel à supprimer
+     * @return une promesse disant que la suppression s'est bien passée, ou pas
+     */
+    delete(id: number): Promise<any> {
+        return new Promise((resolve, reject) => {
+            this.storageService.delete(EntityEnum.PROFESSIONAL_INTERVIEW, `${id}`);
+            this.storageService.persistOfflineMap();
+            this.restService.delete(this.config.getBackEndUrl('deleteProfessionalInterviewById', [id])).then(() => {
+                resolve();
+            }).catch(() => {
+                reject();
+            });
+        });
+    }
+
 }
