@@ -322,7 +322,7 @@
                 "TAKEN_INTO_ACCOUNT": "Pris en compte",
                 "NOT_TAKEN_INTO_ACCOUNT": "Non pris en compte",
                 "AVAILABLE": "Disponible",
-                "CONSULT": "Consulté",
+                "CONSULTED": "Consulté",
                 "DRAFT": "Brouillon"
             },
             "TYPE": {

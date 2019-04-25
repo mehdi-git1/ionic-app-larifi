@@ -153,7 +153,7 @@ export class ProfessionalInterviewDetailsPage {
   /**
    * Définit la couleur en fonction du statut
    *
-   * @return 'green' si 'TAKEN_INTO_ACCOUNT', 'red' si 'NOT_TAKEN_INTO_ACCOUNT', 'grey' si 'DRAFT' ou 'orange' si CONSULT
+   * @return 'green' si 'TAKEN_INTO_ACCOUNT', 'red' si 'NOT_TAKEN_INTO_ACCOUNT', 'grey' si 'DRAFT' ou 'orange' si CONSULTED
    */
   getColorStatusPoint(): string {
     if (this.professionalInterview && this.professionalInterview.state === ProfessionalInterviewStateEnum.TAKEN_INTO_ACCOUNT) {
@@ -162,7 +162,7 @@ export class ProfessionalInterviewDetailsPage {
       return 'grey';
     } else if (this.professionalInterview && this.professionalInterview.state === ProfessionalInterviewStateEnum.NOT_TAKEN_INTO_ACCOUNT) {
       return 'red';
-    } else if (this.professionalInterview && this.professionalInterview.state === ProfessionalInterviewStateEnum.CONSULT) {
+    } else if (this.professionalInterview && this.professionalInterview.state === ProfessionalInterviewStateEnum.CONSULTED) {
       return 'orange';
     }
   }
@@ -341,9 +341,9 @@ export class ProfessionalInterviewDetailsPage {
    */
   saveProfessionalInterviewToConsultState() {
     const professionalInterviewToSave = _.cloneDeep(this.professionalInterview);
-    professionalInterviewToSave.state = ProfessionalInterviewStateEnum.CONSULT;
-    professionalInterviewToSave.matricule = this.pnc.matricule;
+    professionalInterviewToSave.state = ProfessionalInterviewStateEnum.CONSULTED;
     this.saveProfessionalInterview(professionalInterviewToSave);
+    this.professionalInterview.state = ProfessionalInterviewStateEnum.CONSULTED;
   }
 
   /**
@@ -370,7 +370,7 @@ export class ProfessionalInterviewDetailsPage {
    * Teste si le pnc peut ajouter son commentaire a son bilan professionnel en statut consultation
    */
   canEditPncComment() {
-    return this.professionalInterview.matricule === this.sessionService.getActiveUser().matricule && this.professionalInterview.state === ProfessionalInterviewStateEnum.CONSULT;
+    return this.professionalInterview.matricule === this.sessionService.getActiveUser().matricule && this.professionalInterview.state === ProfessionalInterviewStateEnum.CONSULTED;
   }
 
   /**
