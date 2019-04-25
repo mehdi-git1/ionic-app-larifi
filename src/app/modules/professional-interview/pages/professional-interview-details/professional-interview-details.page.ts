@@ -44,7 +44,6 @@ export class ProfessionalInterviewDetailsPage {
   monthsNames;
   datepickerMaxDate = AppConstant.datepickerMaxDate;
   annualProfessionalInterviewDateString: string;
-  professionalInterviewDetailForm: FormGroup;
 
   loading: Loading;
   editionMode = false;
@@ -69,9 +68,6 @@ export class ProfessionalInterviewDetailsPage {
     private offlinePncService: OfflinePncService,
     private dateTransformer: DateTransform
   ) {
-
-    this.initForm();
-
     this.annualProfessionalInterviewOptions = {
       buttons: [{
         text: this.translateService.instant('GLOBAL.DATEPICKER.CLEAR'),
@@ -94,6 +90,7 @@ export class ProfessionalInterviewDetailsPage {
   initPage() {
     this.professionalInterview = this.navParams.get('professionalInterview');
     if (this.professionalInterview && this.professionalInterview.matricule) {
+      this.professionalInterview = _.cloneDeep(this.professionalInterview);
       this.professionalInterview.professionalInterviewThemes.sort((theme1, theme2) => {
         return theme1.themeOrder < theme2.themeOrder ? -1 : 1;
       });
@@ -123,16 +120,6 @@ export class ProfessionalInterviewDetailsPage {
     this.originProfessionalInterview = _.cloneDeep(this.professionalInterview);
     this.annualProfessionalInterviewDateString = this.professionalInterview.annualProfessionalInterviewDate;
     this.editionMode = this.isEditable();
-  }
-
-  /**
-   * Initialise le formulaire
-   */
-  initForm() {
-    this.professionalInterviewDetailForm = this.formBuilder.group({
-      annualProfessionalInterviewDateControl: ['', Validators.required]
-    });
-
   }
 
   /**
@@ -171,11 +158,10 @@ export class ProfessionalInterviewDetailsPage {
 
   ionViewCanLeave() {
     if (this.formHasBeenModified()) {
-      return this.confirmAbandonChanges().then(() => {
-        this.professionalInterviewDetailForm.reset();
-        this.professionalInterview = _.cloneDeep(this.originProfessionalInterview);
-      }
-      );
+        return this.confirmAbandonChanges().then(() => {
+          this.professionalInterview = _.cloneDeep(this.originProfessionalInterview);
+        }
+        );
     } else {
       return true;
     }
@@ -313,7 +299,7 @@ export class ProfessionalInterviewDetailsPage {
         .then(savedProfessionalInterview => {
           this.originProfessionalInterview = _.cloneDeep(savedProfessionalInterview);
           this.professionalInterview = savedProfessionalInterview;
-          // en mode connecté, mettre en cache l'objectif creé ou modifié si le pnc est en cache
+          // en mode connecté, mettre en cache le bilan professionnel creé ou modifié si le pnc est en cache
           if (this.deviceService.isOfflineModeAvailable() && this.connectivityService.isConnected()
             && this.offlinePncService.pncExists(this.professionalInterview.matricule)) {
             this.offlineProfessionalInterviewService.createOrUpdate(this.professionalInterview, true);
