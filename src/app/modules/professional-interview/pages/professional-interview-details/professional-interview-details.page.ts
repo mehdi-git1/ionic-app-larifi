@@ -43,7 +43,6 @@ export class ProfessionalInterviewDetailsPage {
   monthsNames;
   datepickerMaxDate = AppConstant.datepickerMaxDate;
   annualProfessionalInterviewDateString: string;
-  professionalInterviewDetailForm: FormGroup;
 
   loading: Loading;
   editionMode = false;
@@ -68,9 +67,6 @@ export class ProfessionalInterviewDetailsPage {
     private offlinePncService: OfflinePncService,
     private dateTransformer: DateTransform
   ) {
-
-    this.initForm();
-
     this.annualProfessionalInterviewOptions = {
       buttons: [{
         text: this.translateService.instant('GLOBAL.DATEPICKER.CLEAR'),
@@ -93,6 +89,7 @@ export class ProfessionalInterviewDetailsPage {
   initPage() {
     this.professionalInterview = this.navParams.get('professionalInterview');
     if (this.professionalInterview && this.professionalInterview.matricule) {
+      this.professionalInterview = _.cloneDeep(this.professionalInterview);
       this.professionalInterview.professionalInterviewThemes.sort((theme1, theme2) => {
         return theme1.themeOrder < theme2.themeOrder ? -1 : 1;
       });
@@ -121,16 +118,6 @@ export class ProfessionalInterviewDetailsPage {
     this.originProfessionalInterview = _.cloneDeep(this.professionalInterview);
     this.annualProfessionalInterviewDateString = this.professionalInterview.annualProfessionalInterviewDate;
     this.editionMode = this.isEditable();
-  }
-
-  /**
-   * Initialise le formulaire
-   */
-  initForm() {
-    this.professionalInterviewDetailForm = this.formBuilder.group({
-      annualProfessionalInterviewDateControl: ['', Validators.required]
-    });
-
   }
 
   /**
@@ -170,7 +157,6 @@ export class ProfessionalInterviewDetailsPage {
   ionViewCanLeave() {
     if (this.formHasBeenModified()) {
         return this.confirmAbandonChanges().then(() => {
-          this.professionalInterviewDetailForm.reset();
           this.professionalInterview = _.cloneDeep(this.originProfessionalInterview);
         }
         );

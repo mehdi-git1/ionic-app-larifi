@@ -1,4 +1,3 @@
-import { EdospncTextAreaComponent } from './edospnc-textarea/edospnc-textarea';
 import { IonicModule } from 'ionic-angular';
 import { CommonModule } from '@angular/common';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
@@ -57,8 +56,7 @@ import { UserMessageAlertComponent } from './user-message-alert/user-message-ale
     ColorStatusPointComponent,
     RadioAndLabelComponent,
     CheckboxAndLabelComponent,
-    UserMessageAlertComponent,
-    EdospncTextAreaComponent
+    UserMessageAlertComponent
   ],
   exports: [
     OfflineIndicatorComponent,
@@ -80,8 +78,7 @@ import { UserMessageAlertComponent } from './user-message-alert/user-message-ale
     ColorStatusPointComponent,
     RadioAndLabelComponent,
     CheckboxAndLabelComponent,
-    UserMessageAlertComponent,
-    EdospncTextAreaComponent
+    UserMessageAlertComponent
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA
