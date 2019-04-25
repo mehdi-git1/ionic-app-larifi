@@ -109,13 +109,16 @@
                 <ion-icon name="ios-trash-outline" ios="ios-trash-outline" margin-right></ion-icon>{{ 'PROFESSIONAL_INTERVIEW.DETAILS.BUTTONS.DELETE_DRAFT' | translate }}
             </button>
             <!-- Bouton sauvegarder objectif en brouillon -->
-            <button ion-button color="blue60" (click)="saveProfessionalInterviewDraft()" [disabled]="!annualProfessionalInterviewDateString" *ngIf="canBeSavedAsDraft()">
+            <button ion-button color="blue60" (click)="saveProfessionalInterviewDraft()" [disabled]="!annualProfessionalInterviewDateString" *ngIf="canBeSavedInState(ProfessionalInterviewStateEnum.DRAFT)">
                 <ion-icon name="ios-bookmark-outline" ios="ios-bookmark-outline" margin-right></ion-icon> {{ 'PROFESSIONAL_INTERVIEW.DETAILS.BUTTONS.SAVE_DRAFT' | translate }}
             </button>
             <!-- Bouton valider bilan professionnel -->
-            <button ion-button color="green50" (click)="saveProfessionalInterviewToValidatedStatus()" [disabled]="professionalInterviewDetailForm.invalid" *ngIf="canBeSavedInState(ProfessionalInterviewStateEnum.NOT_TAKEN_INTO_ACCOUNT)">
+            <button ion-button color="green50" (click)="saveProfessionalInterviewToValidatedStatus()" [disabled]="!isAllIFieldsAreFilled()" *ngIf="canBeSavedInState(ProfessionalInterviewStateEnum.NOT_TAKEN_INTO_ACCOUNT)">
                 <ion-icon name="md-checkmark" ios="md-checkmark" margin-right></ion-icon> {{ 'PROFESSIONAL_INTERVIEW.DETAILS.BUTTONS.VALIDATE' | translate }}
             </button>
+        </div>
+        <div>
+            <div class="information-message">{{ 'PROFESSIONAL_INTERVIEW.DETAILS.LEGEND' | translate }}</div>
         </div>
     </ng-template>
 

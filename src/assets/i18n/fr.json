@@ -339,7 +339,8 @@
                 "DRAFT_DELETED": "Brouillon supprimé",
                 "VALIDATED": "Bilan professionnel validé",
                 "DRAFT_SAVED": "Brouillon sauvegardé"
-            }
+            },
+            "LEGEND": "Tous les champs doivent être renseignés pour valider le formulaire"
         }
     },
     "EOBSERVATION": {

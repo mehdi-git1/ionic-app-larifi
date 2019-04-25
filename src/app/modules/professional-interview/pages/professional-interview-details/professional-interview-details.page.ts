@@ -12,7 +12,7 @@ import { OfflineProfessionalInterviewService } from './../../../../core/services
 import { ProfessionalInterviewService } from './../../../../core/services/professional-interview/professional-interview.service';
 import { PncTransformerService } from './../../../../core/services/pnc/pnc-transformer.service';
 import { SessionService } from './../../../../core/services/session/session.service';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, Validators } from '@angular/forms';
 import { Component } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { NavController, NavParams, Loading, AlertController, LoadingController } from 'ionic-angular';
@@ -51,7 +51,6 @@ export class ProfessionalInterviewDetailsPage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    private formBuilder: FormBuilder,
     private translateService: TranslateService,
     private pncService: PncService,
     private alertCtrl: AlertController,
@@ -158,10 +157,10 @@ export class ProfessionalInterviewDetailsPage {
 
   ionViewCanLeave() {
     if (this.formHasBeenModified()) {
-        return this.confirmAbandonChanges().then(() => {
-          this.professionalInterview = _.cloneDeep(this.originProfessionalInterview);
-        }
-        );
+      return this.confirmAbandonChanges().then(() => {
+        this.professionalInterview = _.cloneDeep(this.originProfessionalInterview);
+      }
+      );
     } else {
       return true;
     }
@@ -330,6 +329,21 @@ export class ProfessionalInterviewDetailsPage {
     professionalInterviewToSave.state = ProfessionalInterviewStateEnum.DRAFT;
     professionalInterviewToSave.matricule = this.pnc.matricule;
     this.saveProfessionalInterview(professionalInterviewToSave);
+  }
+
+  /**
+   * Verifie que tout les champs de saisie sont remplis
+   */
+  isAllIFieldsAreFilled() {
+    let returnValue = true;
+    this.professionalInterview.professionalInterviewThemes.forEach(professionalInterviewTheme => {
+      professionalInterviewTheme.professionalInterviewItems.forEach(item => {
+        if (!item.value || typeof item.value === undefined || item.value === '') {
+          returnValue = false;
+        }
+      });
+    });
+    return returnValue;
   }
 
   /**
