@@ -1,0 +1,4 @@
+<p *ngIf="!editionMode; else editBlock">{{value}}</p>
+<ng-template #editBlock>
+    <ion-textarea [(ngModel)]="value" [ngModelOptions]="{standalone: true}" autocorrect="on"></ion-textarea>
+</ng-template>

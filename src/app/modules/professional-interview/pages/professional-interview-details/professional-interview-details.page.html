@@ -55,12 +55,12 @@
                         </div>
                         <div *ngFor="let item of subTheme.professionalInterviewItems">
                             <label *ngIf="item.label" class="required"><span class="edospnc-speechBubble"></span> {{item.label}} :</label>
-                            <ion-textarea [value]="item.value"></ion-textarea>
+                            <edospnc-textarea [value]="item.value" [editionMode]="editionMode" ></edospnc-textarea>
                         </div>
                     </div>
                     <div *ngFor="let item of interviewTheme.professionalInterviewItems">
                         <label *ngIf="item.label" class="no-margin-top required"><span class="edospnc-speechBubble"></span> {{item.label}} :</label>
-                        <ion-textarea [(ngModel)]="item.value" [ngModelOptions]="{standalone: true}" autocorrect="on"></ion-textarea>
+                        <edospnc-textarea [value]="item.value" [editionMode]="editionMode" ></edospnc-textarea>
                     </div>
                 </edospnc-expandable-block>
                 <div class="comment-block" *ngIf="isPncComment(interviewTheme)">
@@ -85,7 +85,7 @@
                 </div>
             </div>
 
-            <div class="state-block" *ngIf="!editionMode">
+            <div class="state-block" *ngIf="professionalInterview?.state">
                 <span>{{ 'PROFESSIONAL_INTERVIEW.DETAILS.STATE.LABEL' | translate }} :
                     <color-status-point [colorClass]="getColorStatusPoint()">
                     </color-status-point>
@@ -95,7 +95,7 @@
                     <span *ngIf="professionalInterview?.lastUpdateDate">{{professionalInterview?.lastUpdateDate | date: 'dd/MM/yyyy' : 'UTC'}}</span>
                 </span>
                 <span>{{ 'PROFESSIONAL_INTERVIEW.DETAILS.REDACTOR' | translate }} :
-                    <span *ngIf="professionalInterview.instructor?.lastName">{{professionalInterview.instructor.lastName}} <span class="firstname">{{professionalInterview.instructor.firstName}}</span></span>
+                    <span *ngIf="professionalInterview?.instructor?.lastName">{{professionalInterview.instructor.lastName}} <span class="firstname">{{professionalInterview.instructor.firstName}}</span></span>
                 </span>
             </div>
 

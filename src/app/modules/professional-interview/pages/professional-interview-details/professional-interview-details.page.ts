@@ -265,7 +265,7 @@ export class ProfessionalInterviewDetailsPage {
         .then(savedProfessionalInterview => {
           this.originProfessionalInterview = _.cloneDeep(savedProfessionalInterview);
           this.professionalInterview = savedProfessionalInterview;
-          // en mode connecté, mettre en cache l'objectif creé ou modifié si le pnc est en cache
+          // en mode connecté, mettre en cache le bilan professionnel creé ou modifié si le pnc est en cache
           if (this.deviceService.isOfflineModeAvailable() && this.connectivityService.isConnected()
             && this.offlinePncService.pncExists(this.professionalInterview.matricule)) {
             this.offlineProfessionalInterviewService.createOrUpdate(this.professionalInterview, true);
