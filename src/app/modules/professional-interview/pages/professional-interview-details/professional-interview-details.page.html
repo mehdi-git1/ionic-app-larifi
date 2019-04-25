@@ -55,12 +55,18 @@
                         </div>
                         <div *ngFor="let item of subTheme.professionalInterviewItems">
                             <label *ngIf="item.label" class="required"><span class="edospnc-speechBubble"></span> {{item.label}} :</label>
-                            <ion-textarea [value]="item.value"></ion-textarea>
+                            <p *ngIf="!editionMode; else editSubThemeItemBlock">{{item.value}}</p>
+                            <ng-template #editSubThemeItemBlock>
+                                <ion-textarea [value]="item.value"></ion-textarea>
+                            </ng-template>
                         </div>
                     </div>
                     <div *ngFor="let item of interviewTheme.professionalInterviewItems">
                         <label *ngIf="item.label" class="no-margin-top required"><span class="edospnc-speechBubble"></span> {{item.label}} :</label>
-                        <ion-textarea [(ngModel)]="item.value" [ngModelOptions]="{standalone: true}" autocorrect="on"></ion-textarea>
+                        <p *ngIf="!editionMode; else editThemeItemBlock">{{item.value}}</p>
+                        <ng-template #editThemeItemBlock>
+                            <ion-textarea [(ngModel)]="item.value" [ngModelOptions]="{standalone: true}" autocorrect="on"></ion-textarea>
+                        </ng-template>
                     </div>
                 </edospnc-expandable-block>
                 <div class="comment-block" *ngIf="isPncComment(interviewTheme)">
@@ -86,11 +92,11 @@
             </div>
 
             <!-- Commentaire PNC-->
-            <edospnc-expandable-block class="comment" title="{{'PROFESSIONAL_INTERVIEW.DETAILS.PNC_COMMENT' | translate}}">
+            <edospnc-expandable-block *ngIf="canEditPncComment() || professionalInterview.pncComment" class="comment" title="{{'PROFESSIONAL_INTERVIEW.DETAILS.PNC_COMMENT' | translate}}">
                 <div>
-                    <p *ngIf="!editionMode; else editPncCommentBlock">{{professionalInterview.pncComment}}</p>
+                    <p *ngIf="!canEditPncComment(); else editPncCommentBlock">{{professionalInterview.pncComment}}</p>
                     <ng-template #editPncCommentBlock>
-                        <ion-textarea [(ngModel)]="professionalInterview.pncComment" autocorrect="on"></ion-textarea>
+                        <ion-textarea [(ngModel)]="professionalInterview.pncComment" formControlName="pncCommentControl" autocorrect="on"></ion-textarea>
                     </ng-template>
                 </div>
             </edospnc-expandable-block>
@@ -118,11 +124,12 @@
                 </button>
                 <!-- Bouton sauvegarder objectif en brouillon -->
                 <button ion-button color="blue60" (click)="saveProfessionalInterviewDraft()" [disabled]="professionalInterviewDetailForm.invalid" *ngIf="canBeSavedAsDraft()">
-                    <ion-icon name="ios-bookmark-outline" ios="ios-bookmark-outline" margin-right></ion-icon> {{ 'PROFESSIONAL_INTERVIEW.BUTTONS.SAVE_DRAFT' | translate }}
+                    <ion-icon name="ios-bookmark-outline" ios="ios-bookmark-outline" margin-right></ion-icon> {{ 'PROFESSIONAL_INTERVIEW.DETAILS.BUTTONS.SAVE_DRAFT' | translate }}
                 </button>
                 <!-- Bouton prendre en compte bilan professionnel -->
-                <button ion-button color="blue60" (click)="takenIntoAccountProfessionalInterview()" [disabled]="professionalInterviewDetailForm.invalid" *ngIf="canBeTakenIntoAccount()">
-                    <ion-icon name="ios-bookmark-outline" ios="ios-bookmark-outline" margin-right></ion-icon> {{ 'PROFESSIONAL_INTERVIEW.BUTTONS.TAKEN_INTo_ACCOUNT' | translate }}
+                <button ion-button color="blue60" (click)="takenIntoAccountProfessionalInterview()" *ngIf="canBeTakenIntoAccount()">
+                    <ion-icon name="ios-bookmark-outline" ios="ios-bookmark-outline" margin-right></ion-icon> {{ 'PROFESSIONAL_INTERVIEW.DETAILS.BUTTONS.TAKEN_INTO_ACCOUNT' | translate }}
+                </button>
             </div>
         </form>
     </ng-template>

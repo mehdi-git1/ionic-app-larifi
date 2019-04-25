@@ -322,6 +322,7 @@
                 "TAKEN_INTO_ACCOUNT": "Pris en compte",
                 "NOT_TAKEN_INTO_ACCOUNT": "Non pris en compte",
                 "AVAILABLE": "Disponible",
+                "CONSULT": "Consulté",
                 "DRAFT": "Brouillon"
             },
             "TYPE": {
@@ -342,7 +343,14 @@
             },
             "SUCCESS": {
                 "DRAFT_SAVED": "Brouillon sauvegardé",
-                "DRAFT_DELETED": "Proposition du bilan professionnel supprimée"
+                "DRAFT_DELETED": "Proposition du bilan professionnel supprimée",
+                "TAKEN_INTO_ACCOUNT": "Bilan Professionnel pris en compte "
+            },
+            "CONFIRM_VALIDATE_WITHOUT_PNC_COMMENT": {
+                "TITLE": "Validation du Bilan Professionnel",
+                "MESSAGE": "Vous êtes sur le point de valider votre formulaire sans avoir apposé de commentaire. Souhaitez-vous procéder à la validation ?",
+                "CONFIRM": "Oui",
+                "CANCEL": "Non"
             }
         }
     },

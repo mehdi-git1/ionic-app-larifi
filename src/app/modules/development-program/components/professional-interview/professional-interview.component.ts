@@ -40,7 +40,6 @@ export class ProfessionalInterviewComponent {
    */
   goToProfessionalInterviewDetail(evt: Event) {
     evt.stopPropagation();
-    this.professionalInterview.state = ProfessionalInterviewStateEnum.CONSULT;
     this.navCtrl.push(ProfessionalInterviewDetailsPage, { professionalInterview: this.professionalInterview });
   }
 
