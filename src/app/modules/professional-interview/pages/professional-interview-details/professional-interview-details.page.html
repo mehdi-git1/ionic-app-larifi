@@ -1,8 +1,8 @@
 <ion-header>
     <ion-navbar>
         <page-header [showSettingsIcon]="true" [pnc]="professionalInterview?.pnc">
-            <span *ngIf="professionalInterview.type === ProfessionalInterviewTypeEnum.BILAN"> {{ 'PROFESSIONAL_INTERVIEW.TITLE_BILAN_PRO' | translate }} </span>
-            <span *ngIf="professionalInterview.type === ProfessionalInterviewTypeEnum.EPP"> {{ 'PROFESSIONAL_INTERVIEW.TITLE_EPP' | translate }} </span>
+            <span *ngIf="professionalInterview?.type === ProfessionalInterviewTypeEnum.BILAN"> {{ 'PROFESSIONAL_INTERVIEW.TITLE_BILAN_PRO' | translate }} </span>
+            <span *ngIf="professionalInterview?.type === ProfessionalInterviewTypeEnum.EPP"> {{ 'PROFESSIONAL_INTERVIEW.TITLE_EPP' | translate }} </span>
         </page-header>
     </ion-navbar>
 </ion-header>
