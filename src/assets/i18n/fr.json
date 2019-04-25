@@ -652,7 +652,8 @@
             "TITLE": "Gestion des versions",
             "BUTTON": {
                 "ADD_VERSION": "Ajouter",
-                "UPDATE_VERSION": "Modifier"
+                "UPDATE_VERSION": "Modifier",
+                "DELETE_VERSION": "Supprimer"
             },
             "HEADER": {
                 "NUMBER": "Numéro",
@@ -662,8 +663,15 @@
                 "VERSION_NUMBER": "Numéro de version",
                 "CHANGELOG": "Description"
             },
+            "CONFIRM_VERSION_DELETE": {
+                "TITLE": "Suppression de la version {{ number }}",
+                "MESSAGE": "Confirmez-vous la suppression de la version {{ number }} ?",
+                "CANCEL": "Annuler",
+                "CONFIRM": "Supprimer"
+            },
             "SUCCESS": {
-                "CREATEORUPDATE_VERSION": "mise à jour effectuée"
+                "CREATEORUPDATE_VERSION": "mise à jour effectuée",
+                "DELETE_UPDATE_VERSION": "Suppression effectuée"
             },
             "ERROR": {
                 "UNDEFINED_NUMBER": "Veuillez renseigner un numéro de version"

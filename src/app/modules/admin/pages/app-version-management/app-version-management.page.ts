@@ -2,6 +2,7 @@ import { AppVersionModel } from './../../../../core/models/admin/app-version.mod
 import { AppVersionService } from './../../../../core/services/app-version/app-version.service';
 import { ToastService } from '../../../../core/services/toast/toast.service';
 import { Component } from '@angular/core';
+import { AlertController } from 'ionic-angular';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
@@ -21,6 +22,7 @@ export class AppVersionManagementPage {
 
     constructor(private appVersionService: AppVersionService,
         private translateService: TranslateService,
+        private alertCtrl: AlertController,
         private toastService: ToastService) {
     }
 
@@ -53,5 +55,38 @@ export class AppVersionManagementPage {
                 }, error => { });
                 this.toastService.success(this.translateService.instant('ADMIN.APP_VERSION_MANAGEMENT.SUCCESS.CREATEORUPDATE_VERSION'));
             }, error => { });
+    }
+
+    /**
+    * Présente une alerte pour confirmer la suppression du brouillon
+    */
+    confirmDeleteAppVersion(appVersion: AppVersionModel): void {
+        this.alertCtrl.create({
+            title: this.translateService.instant('ADMIN.APP_VERSION_MANAGEMENT.CONFIRM_VERSION_DELETE.TITLE', { 'number': appVersion.number }),
+            message: this.translateService.instant('ADMIN.APP_VERSION_MANAGEMENT.CONFIRM_VERSION_DELETE.MESSAGE', { 'number': appVersion.number }),
+            buttons: [
+                {
+                    text: this.translateService.instant('ADMIN.APP_VERSION_MANAGEMENT.CONFIRM_VERSION_DELETE.CANCEL'),
+                    role: 'cancel'
+                },
+                {
+                    text: this.translateService.instant('ADMIN.APP_VERSION_MANAGEMENT.CONFIRM_VERSION_DELETE.CONFIRM'),
+                    handler: () => this.delete(appVersion)
+                }
+            ]
+        }).present();
+    }
+
+    /**
+     * Supprime une version
+     * @param appVersion la version à supprimer
+     */
+    delete(appVersion: AppVersionModel): void {
+        this.appVersionService.delete(appVersion.techId).then(success => {
+            this.appVersionService.getAllAppVersions().then(allAppVersions => {
+                this.allAppVersions = allAppVersions;
+            }, error => { });
+            this.toastService.success(this.translateService.instant('ADMIN.APP_VERSION_MANAGEMENT.SUCCESS.DELETE_UPDATE_VERSION'));
+        }, error => { })
     }
 }

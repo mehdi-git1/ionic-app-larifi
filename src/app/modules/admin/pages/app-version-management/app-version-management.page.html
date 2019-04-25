@@ -106,6 +106,10 @@
                                             <ion-icon name="create" margin-right> </ion-icon>
                                             {{ 'ADMIN.APP_VERSION_MANAGEMENT.BUTTON.UPDATE_VERSION' | translate }}
                                         </button>
+                                        <button ion-button color="red70" name="delete-button" class="delete-button" (click)="confirmDeleteAppVersion(appVersion)">
+                                            <ion-icon name="ios-trash-outline" ios="ios-trash-outline" margin-right></ion-icon>
+                                            {{ 'ADMIN.APP_VERSION_MANAGEMENT.BUTTON.DELETE_VERSION' | translate }}
+                                        </button>
                                     </ion-col>
                                 </ion-row>
                             </form>

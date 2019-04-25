@@ -1,20 +1,18 @@
-import { AppVersion } from '@ionic-native/app-version';
 import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-translate/core';
 import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
-import { IonicModule } from 'ionic-angular';
+import { IonicModule, AlertController } from 'ionic-angular';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 import { TranslateLoaderMock } from './../../../../../test-config/mocks-ionic';
-
 import { AppVersionManagementPage } from './app-version-management.page';
-
 import { AppVersionService } from '../../../../core/services/app-version/app-version.service';
 import { ToastService } from './../../../../core/services/toast/toast.service';
 import { AppVersionModel } from '../../../../core/models/admin/app-version.model';
 
-const AppVersionServiceMock = jasmine.createSpyObj('AppVersionServiceMock', ['createOrUpdateAppVersion', 'getAllAppVersions']);
+const AppVersionServiceMock = jasmine.createSpyObj('AppVersionServiceMock', ['createOrUpdateAppVersion', 'getAllAppVersions', 'delete']);
 AppVersionServiceMock.createOrUpdateAppVersion.and.returnValue(Promise.resolve());
 AppVersionServiceMock.getAllAppVersions.and.returnValue(Promise.resolve());
+AppVersionServiceMock.delete.and.returnValue(Promise.resolve());
 const ToastServiceMock = jasmine.createSpyObj('ToastServiceMock', ['success', 'error']);
 
 describe('app-version-management', () => {
@@ -38,7 +36,8 @@ describe('app-version-management', () => {
             providers: [
                 { provide: ToastService, useValue: ToastServiceMock },
                 { provide: TranslateService, useClass: TranslateLoaderMock },
-                { provide: AppVersionService, useValue: AppVersionServiceMock }
+                { provide: AppVersionService, useValue: AppVersionServiceMock },
+                AlertController
             ],
             schemas: [NO_ERRORS_SCHEMA]
         });
@@ -50,13 +49,12 @@ describe('app-version-management', () => {
     });
 
     beforeEach(() => {
-        comp.allAppVersions = [];
+        comp.allAppVersions = [new AppVersionModel, new AppVersionModel];
     });
 
     describe('createOrUpdateAppVersion', () => {
 
         beforeEach(() => {
-
             spyOn(translateService, 'instant').and.callFake(function (param) {
                 return param;
             });
@@ -97,6 +95,27 @@ describe('app-version-management', () => {
             expect(comp.regEx.test(tmpAppVersion.number)).toBeTruthy();
             expect(appVersionService.createOrUpdateAppVersion).toHaveBeenCalledWith(tmpAppVersion);
             expect(translateService.instant).toHaveBeenCalledWith('ADMIN.APP_VERSION_MANAGEMENT.SUCCESS.CREATEORUPDATE_VERSION');
+        }));
+    });
+
+    describe('deleteAppVersion', () => {
+
+        beforeEach(() => {
+            spyOn(translateService, 'instant').and.callFake(function (param) {
+                return param;
+            });
+        });
+
+        it(`doit envoyer un message indiquant la réussite de la suppression d'une version`, fakeAsync(() => {
+            // ARRANGE Instanciation d'une version
+            comp.allAppVersions[1].techId = 1;
+            comp.allAppVersions[1].number = "1.0.0";
+            comp.allAppVersions[1].changelog = "description de la version 1.0.0";
+            // ACT appel de la fonction de suppression de version
+            comp.delete(comp.allAppVersions[1]);
+            tick();
+            // ASSERT la version est supprimée et un toast de succes est affiché à l'écran de l'utilisateur
+            expect(translateService.instant).toHaveBeenCalledWith('ADMIN.APP_VERSION_MANAGEMENT.SUCCESS.DELETE_UPDATE_VERSION');
         }));
     });
 });
