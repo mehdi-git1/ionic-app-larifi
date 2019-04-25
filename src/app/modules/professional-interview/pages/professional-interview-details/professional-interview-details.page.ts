@@ -70,6 +70,28 @@ export class ProfessionalInterviewDetailsPage {
     private dateTransformer: DateTransform
   ) {
 
+    this.initForm();
+
+    this.annualProfessionalInterviewOptions = {
+      buttons: [{
+        text: this.translateService.instant('GLOBAL.DATEPICKER.CLEAR'),
+        handler: () => this.professionalInterview.annualProfessionalInterviewDate = null
+      }]
+    };
+
+    // Traduction des mois
+    this.monthsNames = this.translateService.instant('GLOBAL.MONTH.LONGNAME');
+
+  }
+
+  ionViewWillEnter() {
+    this.initPage();
+  }
+
+  /**
+   * Initialise le contenu de la page
+   */
+  initPage() {
     this.professionalInterview = this.navParams.get('professionalInterview');
     if (this.professionalInterview && this.professionalInterview.matricule) {
       this.professionalInterview.professionalInterviewThemes.sort((theme1, theme2) => {
@@ -86,6 +108,7 @@ export class ProfessionalInterviewDetailsPage {
       }, error => { });
     } else {
       this.professionalInterview = _.cloneDeep(this.sessionService.getActiveUser().parameters.params['blankProfessionnalInterview']);
+      this.professionalInterview.type = ProfessionalInterviewTypeEnum.BILAN;
       this.professionalInterview.professionalInterviewThemes.sort((a, b) => {
         return a.themeOrder > b.themeOrder ? 1 : -1;
       });
@@ -100,18 +123,6 @@ export class ProfessionalInterviewDetailsPage {
     this.originProfessionalInterview = _.cloneDeep(this.professionalInterview);
     this.annualProfessionalInterviewDateString = this.professionalInterview.annualProfessionalInterviewDate;
     this.editionMode = this.isEditable();
-    this.initForm();
-
-    this.annualProfessionalInterviewOptions = {
-      buttons: [{
-        text: this.translateService.instant('GLOBAL.DATEPICKER.CLEAR'),
-        handler: () => this.professionalInterview.annualProfessionalInterviewDate = null
-      }]
-    };
-
-    // Traduction des mois
-    this.monthsNames = this.translateService.instant('GLOBAL.MONTH.LONGNAME');
-
 
   }
 
@@ -157,6 +168,42 @@ export class ProfessionalInterviewDetailsPage {
     } else if (this.professionalInterview && this.professionalInterview.state === ProfessionalInterviewStateEnum.NOT_TAKEN_INTO_ACCOUNT) {
       return 'red';
     }
+  }
+
+  ionViewCanLeave() {
+    if (this.formHasBeenModified()) {
+      return this.confirmAbandonChanges().then(() => {
+        this.professionalInterviewDetailForm.reset();
+        this.professionalInterview = _.cloneDeep(this.originProfessionalInterview);
+      }
+      );
+    } else {
+      return true;
+    }
+  }
+
+  /**
+   * Popup d'avertissement en cas de modifications non enregistrées.
+   */
+  confirmAbandonChanges() {
+    return new Promise((resolve, reject) => {
+      // Avant de quitter la vue, on avertit l'utilisateur si ses modifications n'ont pas été enregistrées
+      this.alertCtrl.create({
+        title: this.translateService.instant('GLOBAL.CONFIRM_BACK_WITHOUT_SAVE.TITLE'),
+        message: this.translateService.instant('GLOBAL.CONFIRM_BACK_WITHOUT_SAVE.MESSAGE'),
+        buttons: [
+          {
+            text: this.translateService.instant('GLOBAL.BUTTONS.CANCEL'),
+            role: 'cancel',
+            handler: () => reject()
+          },
+          {
+            text: this.translateService.instant('GLOBAL.BUTTONS.CONFIRM'),
+            handler: () => resolve()
+          }
+        ]
+      }).present();
+    });
   }
 
   /**
