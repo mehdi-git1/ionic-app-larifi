@@ -336,7 +336,7 @@
                 "CONFIRM": "Supprimer"
             },
             "SUCCESS": {
-                "DRAFT_DELETED": "Brouillon supprimée",
+                "DRAFT_DELETED": "Brouillon supprimé",
                 "VALIDATED": "Bilan professionnel validé",
                 "DRAFT_SAVED": "Brouillon sauvegardé"
             }

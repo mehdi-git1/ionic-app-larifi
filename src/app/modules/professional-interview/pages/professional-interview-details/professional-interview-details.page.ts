@@ -374,7 +374,7 @@ export class ProfessionalInterviewDetailsPage {
   /**
    * Enregistre un bilan professionnel au statut validé
    */
-  savePorfessionalInterviewToValidatedStatus() {
+  saveProfessionalInterviewToValidatedStatus() {
     const professionalInterviewToSave = _.cloneDeep(this.professionalInterview);
     professionalInterviewToSave.state = ProfessionalInterviewStateEnum.NOT_TAKEN_INTO_ACCOUNT;
     professionalInterviewToSave.matricule = this.pnc.matricule;
