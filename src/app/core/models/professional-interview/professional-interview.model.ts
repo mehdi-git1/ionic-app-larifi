@@ -7,16 +7,19 @@ import { ProfessionalInterviewThemeModel } from './professional-interview-theme.
 export class ProfessionalInterviewModel extends EDossierPncObjectModel {
 
     matricule: string;
-    annualProfessionalInterviewDate: Date;
+    annualProfessionalInterviewDate: string;
     type: ProfessionalInterviewTypeEnum;
     state: ProfessionalInterviewStateEnum;
     redactionDate: Date;
     pncAtInterviewDate: PncLightModel;
     instructor: PncLightModel;
     lastUpdateDate: Date;
+    instructorValidationDate: Date;
+    pncSignatureDate: Date;
     professionalInterviewThemes: ProfessionalInterviewThemeModel[];
 
     getStorageId(): string {
         return `${this.techId}`;
     }
+
 }

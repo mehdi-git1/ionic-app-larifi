@@ -1,6 +1,6 @@
 import { EObservationItemModel } from './../../../../core/models/eobservation/eobservation-item.model';
 import { EObservationComponent } from './e-observation.component';
-import { ReferentialItemLevelModel } from '../../../../core/models/eobservation/referential-item-level.model';
+import { ReferentialItemLevelModel } from '../../../../core/models/eobservation/eobservation-referential-item-level.model';
 import { EObservationLevelEnum } from '../../../../core/enums/e-observations-level.enum';
 import {
     NavMock,

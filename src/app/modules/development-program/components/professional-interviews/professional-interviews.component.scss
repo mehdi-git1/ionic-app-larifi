@@ -33,6 +33,10 @@ professional-interviews {
                 background-color: color($colors, bluegrey5) !important;
             }
 
+            .mat-content{
+                align-items: center;
+            }
+
             .mat-content > label {
                 font-weight: 700;
                 font-size: 1.2em;
