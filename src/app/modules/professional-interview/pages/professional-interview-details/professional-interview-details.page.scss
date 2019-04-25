@@ -98,8 +98,10 @@ page-professional-interview-details {
 
     .date-block-justify {
         justify-content: center;
+        margin-bottom: 15px;
+        background-color: color($colors, bluegrey5);
 
-        .item-md.item-block .item-inner {
+        .item-md.item-block .item-inner, .item-ios.item-block .item-inner {
             padding-right: 0px;
             border-bottom: 0px;
 
@@ -113,11 +115,11 @@ page-professional-interview-details {
                 border-radius: 5px;
             }
 
-            .label-md {
+            .label-md, .label-ios {
                 margin: 13px 0px 13px 10px;
             }
 
-            .datetime-md {
+            .datetime-md, .datetime-ios {
                 padding: 0px;
             }
 

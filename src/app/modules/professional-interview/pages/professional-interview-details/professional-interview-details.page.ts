@@ -63,6 +63,15 @@ export class ProfessionalInterviewDetailsPage {
         this.professionalInterview.professionalInterviewThemes[i].subThemes.sort((ssTheme1, ssTheme2) => {
           return ssTheme1.themeOrder  < ssTheme2.themeOrder ? -1 : 1;
         });
+
+        if (this.professionalInterview.professionalInterviewThemes[i].subThemes.length > 0){
+          this.professionalInterview.professionalInterviewThemes[i].subThemes.forEach( function (value){
+            value.professionalInterviewItems.sort((item1, item2) => {
+              return item1.itemOrder < item2.itemOrder ? -1 : 1;
+            });
+          });
+        }
+
       }
       this.pncService.getPnc(this.professionalInterview.matricule).then(pnc => {
         this.pnc = pnc;
@@ -138,7 +147,6 @@ export class ProfessionalInterviewDetailsPage {
    * @return true si c'est un commentaire instructeur
    */
   isInstructorComment(professionalInterviewTheme: ProfessionalInterviewThemeModel): boolean{
-    console.log(this.professionalInterview);
     if (professionalInterviewTheme.professionalInterviewItems[0]){
       return professionalInterviewTheme.professionalInterviewItems[0].key == ProfessionalInterviewCommentItemTypeEnum.SYNTHESIS;
      }
