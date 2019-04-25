@@ -123,7 +123,6 @@ export class ProfessionalInterviewDetailsPage {
     this.originProfessionalInterview = _.cloneDeep(this.professionalInterview);
     this.annualProfessionalInterviewDateString = this.professionalInterview.annualProfessionalInterviewDate;
     this.editionMode = this.isEditable();
-
   }
 
   /**
@@ -380,31 +379,5 @@ export class ProfessionalInterviewDetailsPage {
     professionalInterviewToSave.state = ProfessionalInterviewStateEnum.NOT_TAKEN_INTO_ACCOUNT;
     professionalInterviewToSave.matricule = this.pnc.matricule;
     this.saveProfessionalInterview(professionalInterviewToSave);
-  }
-
-  /**
-    * Détermine si le champs est en lecture seule pour l'utilisateur connecté
-    * @return Vrai si c'est un champ non modifiable, faux sinon
-    */
-  readOnlyByUserConnected(): boolean {
-    if (!this.securityService.isManager()) {
-      return true;
-    }
-    if (this.securityService.isManager() &&
-      (this.professionalInterview.state === ProfessionalInterviewStateEnum.TAKEN_INTO_ACCOUNT)) {
-      return true;
-    }
-    return false;
-  }
-
-  /**
-    * Retourne la classe css de lecture seule pour un champ texte si besoin
-    */
-  getCssClassForReadOnlyIfNeeded(): string {
-    if (this.readOnlyByUserConnected()) {
-      return 'ion-textarea-read-only';
-    } else {
-      return '';
-    }
   }
 }
