@@ -28,6 +28,8 @@ import { LegModel } from '../../models/leg.model';
 import { StatutoryCertificateTransformerService } from '../statutory-certificate/statutory-certificate-transformer.service';
 import { Events } from 'ionic-angular';
 import { EObservationModel } from '../../models/eobservation/eobservation.model';
+import { TransformerService } from '../transformer/transformer.service';
+import { ProfessionalInterviewModel } from '../../models/professional-interview/professional-interview.model';
 
 @Injectable()
 export class SynchronizationService {
@@ -46,6 +48,7 @@ export class SynchronizationService {
     private pncPhotoTransformer: PncPhotoTransformerService,
     private congratulationLetterTransformer: CongratulationLetterTransformerService,
     private professionalLevelTransformer: ProfessionalLevelTransformerService,
+    private transformerService: TransformerService,
     private statutoryCertificateTransformer: StatutoryCertificateTransformerService,
     private crewMemberTransformerService: CrewMemberTransformerService,
     private rotationTransformerProvider: RotationTransformerService,
@@ -134,6 +137,9 @@ export class SynchronizationService {
     // Sauvegarde du suivi réglementaire
     this.storageService.save(EntityEnum.PROFESSIONAL_LEVEL, this.professionalLevelTransformer.toProfessionalLevel(pncSynchroResponse.professionalLevel), true);
 
+    // Sauvegarde des bilans professionnels
+   this.storeProfessionalInterviews(pncSynchroResponse.professionalInterviews);
+
     this.storageService.persistOfflineMap();
   }
 
@@ -212,9 +218,24 @@ export class SynchronizationService {
    * @param eObservations les eObservations à stocker en cache
    */
   private storeEObservations(eObservations: EObservationModel[]): void {
-    for (const eObservation of eObservations) {
-      delete eObservation.offlineAction;
-      this.storageService.save(EntityEnum.EOBSERVATION, this.eObservationTransformerService.toEObservation(eObservation), true);
+    if (eObservations) {
+      for (const eObservation of eObservations) {
+        delete eObservation.offlineAction;
+        this.storageService.save(EntityEnum.EOBSERVATION, this.eObservationTransformerService.toEObservation(eObservation), true);
+      }
+    }
+  }
+
+    /**
+   * Enregistre une liste de bilans professionnels en cache
+   * @param professionalInterviews les bilans professionnels à stocker en cache
+   */
+  private storeProfessionalInterviews(professionalInterviews: ProfessionalInterviewModel[]): void {
+    if (professionalInterviews) {
+      for (const professionalInterview of professionalInterviews) {
+        delete professionalInterview.offlineAction;
+        this.storageService.save(EntityEnum.PROFESSIONAL_INTERVIEW, this.transformerService.universalTransformObject(ProfessionalInterviewModel, professionalInterview), true);
+      }
     }
   }
 
@@ -223,8 +244,10 @@ export class SynchronizationService {
    * @param congratulationLetters les lettres de félicitation à stocker en cache
    */
   private storeCongratulationLetters(congratulationLetters: CongratulationLetterModel[]): void {
-    for (const congratulationLetter of congratulationLetters) {
-      this.storageService.save(EntityEnum.CONGRATULATION_LETTER, this.congratulationLetterTransformer.toCongratulationLetter(congratulationLetter), true);
+    if (congratulationLetters) {
+      for (const congratulationLetter of congratulationLetters) {
+        this.storageService.save(EntityEnum.CONGRATULATION_LETTER, this.congratulationLetterTransformer.toCongratulationLetter(congratulationLetter), true);
+      }
     }
   }
 
@@ -274,6 +297,9 @@ export class SynchronizationService {
 
     // Suppression du niveau pro SV
     this.storageService.delete(EntityEnum.PROFESSIONAL_LEVEL, pnc.matricule);
+
+    // Suppression des bilans professionels
+    this.storageService.delete(EntityEnum.PROFESSIONAL_INTERVIEW, pnc.matricule);
   }
 
   /**

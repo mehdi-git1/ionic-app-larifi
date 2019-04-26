@@ -1,11 +1,10 @@
-import { EObservationItemModel } from './eobservation-item.model';
 import { EDossierPncObjectModel } from '../e-dossier-pnc-object.model';
 import { PncModel } from '../pnc.model';
 import { EObservationTypeEnum } from '../../enums/e-observations-type.enum';
 import { EObservationFlightModel } from './eobservation-flight.model';
 import { EObservationStateEnum } from '../../enums/e-observation-state.enum';
 import { SpecialityEnum } from '../../enums/speciality.enum';
-import { EObservationCommentModel } from './eobservation-comment.model';
+import { ReferentialThemeModel } from './eobservation-referential-theme.model';
 
 export class EObservationModel extends EDossierPncObjectModel {
 
@@ -14,8 +13,7 @@ export class EObservationModel extends EDossierPncObjectModel {
     type: EObservationTypeEnum;
     state: EObservationStateEnum;
     redactor: PncModel;
-    eobservationItems: EObservationItemModel[];
-    eobservationComments: EObservationCommentModel[];
+    eobservationThemes: ReferentialThemeModel[];
     eobservationFlights: EObservationFlightModel[];
     redactorComment: string;
     pncComment: string;

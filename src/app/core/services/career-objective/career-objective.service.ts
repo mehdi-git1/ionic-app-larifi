@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { DateTransform } from '../../../shared/utils/date-transform';
 import { SessionService } from '../session/session.service';
-import { OnlineCareerObjectiveService } from './online-career-objective';
+import { OnlineCareerObjectiveService } from './online-career-objective.service';
 import { ConnectivityService } from '../connectivity/connectivity.service';
 import { OfflineCareerObjectiveService } from './offline-career-objective.service';
 import { CareerObjectiveModel } from '../../models/career-objective.model';

@@ -4,11 +4,9 @@ import { Component, Input, ViewChild } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { TranslateService } from '@ngx-translate/core';
 
-import { CrewMemberModel } from '../../../core/models/crew-member.model';
 import { SynchronizationService } from '../../../core/services/synchronization/synchronization.service';
 import { ToastService } from '../../../core/services/toast/toast.service';
 import { ConnectivityService } from '../../../core/services/connectivity/connectivity.service';
-import { GenderService } from '../../../core/services/gender/gender.service';
 import { PncService } from '../../../core/services/pnc/pnc.service';
 import { OfflineIndicatorComponent } from '../offline-indicator/offline-indicator.component';
 
@@ -19,7 +17,6 @@ import { OfflineIndicatorComponent } from '../offline-indicator/offline-indicato
 })
 export class PncCardPageHeaderComponent {
 
-  private crewMember: CrewMemberModel;
   private pnc: PncModel;
   formatedSpeciality: string;
   @Input() isCrewMember: boolean;
@@ -31,7 +28,6 @@ export class PncCardPageHeaderComponent {
 
   constructor(
     public navCtrl: NavController,
-    private genderProvider: GenderService,
     public connectivityService: ConnectivityService,
     private synchronizationProvider: SynchronizationService,
     private toastProvider: ToastService,
@@ -42,7 +38,6 @@ export class PncCardPageHeaderComponent {
   @Input()
   set itemMember(val: any) {
     if (this.isCrewMember) {
-      this.crewMember = val;
       this.pnc = val.pnc;
     } else {
       this.pnc = val;

@@ -16,6 +16,7 @@ export class UrlConfiguration {
     'setCareerObjectivesInstructorRequestById': `${urlGroupEnum.CAREER_OBJECTIVE}/{id}/instructor_request`,
     'getFormsInputParamsWithoutRotationId': `${urlGroupEnum.FORMS_INPUT_PARAM}/{matricule}/{number}/{departureDate}`,
     'eObservations': `${urlGroupEnum.EOBSERVATION}`,
+    'getEObservationById': `${urlGroupEnum.EOBSERVATION}/{id}`,
     'getEObservationsByMatricule': `${urlGroupEnum.EOBSERVATION}/pnc/{matricule}`,
     'getAllEObservationsByMatricule': `${urlGroupEnum.EOBSERVATION}/pnc/{matricule}/all`,
     'getLegsById': `${urlGroupEnum.LEG}/{legId}`,
@@ -36,6 +37,9 @@ export class UrlConfiguration {
     'secretInfos': urlGroupEnum.PIN,
     'getSecretInfosByMatricule': `${urlGroupEnum.PIN}/{matricule}`,
     'getStatutoryCertificateByMatricule': `${urlGroupEnum.STATUTORY_CERTIFICATE}/{matricule}`,
+    'getProfessionalInterviewsByMatricule': `${urlGroupEnum.PROFESSIONAL_INTERVIEW}/{matricule}`,
+    'professionalInterviews': urlGroupEnum.PROFESSIONAL_INTERVIEW,
+    'deleteProfessionalInterviewById': `${urlGroupEnum.PROFESSIONAL_INTERVIEW}/{id}`,
     'pncSynchro': urlGroupEnum.PNC_SYNCHRO,
     'getPncSynchroByPnc': `${urlGroupEnum.PNC_SYNCHRO}/{matricule}`,
     'getWaypointsByCarreObjectiveId': `${urlGroupEnum.WAYPOINT}/career_objective/{careerObjectiveId}`,
@@ -46,13 +50,14 @@ export class UrlConfiguration {
     'getRotationsByTechId': `${urlGroupEnum.ROTATION}/{techId}/legs`,
     'getImpersonationAvailableByMatricule': `${urlGroupEnum.IMPERSONATION_AVAILABLE}/{matricule}`,
     'getHelpAssetsByRoleId': `${urlGroupEnum.HELP_ASSET}/pnc_role/{roleId}`,
+    'userMessages': urlGroupEnum.USER_MESSAGE,
     'userProfiles': urlGroupEnum.USER_PROFILE,
     'userPermissions': urlGroupEnum.USER_PERMISSION,
     'userPermissionsByUserProfile': `${urlGroupEnum.USER_PROFILE}/{name}/${urlGroupEnum.USER_PERMISSION}`,
     'getPing': urlGroupEnum.PING,
     'updatePermissions': `${urlGroupEnum.USER_PROFILE}/{profileName}/update_permissions`,
-    'getAllAppVersions': urlGroupEnum.APP_VERSION,
-    'createAppVersion': `${urlGroupEnum.APP_VERSION}/create`
+    'appVersions': urlGroupEnum.APP_VERSION,
+    'getAllAppVersions': urlGroupEnum.APP_VERSION
   };
 
   /**

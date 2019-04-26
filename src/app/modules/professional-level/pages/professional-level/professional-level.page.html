@@ -28,7 +28,7 @@
 
         <!-- eObservations -->
         <h3>{{ 'PROFESSIONAL_LEVEL.EOBS_TITLE' | translate }}</h3>
-        <e-observations *ngIf="eObservations" [eObservations]="eObservations" filterItems="true"></e-observations>
+        <e-observations *ngIf="eObservations" [eObservations]="eObservations" [eObservationDisplayMode]="EObservationDisplayModeEnum.PROFESSIONAL_LEVEL"></e-observations>
 
     </ng-template>
 </ion-content>

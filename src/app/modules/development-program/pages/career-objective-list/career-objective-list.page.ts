@@ -1,4 +1,7 @@
-import { AppConstant } from './../../../../app.constant';
+import { ProfessionalInterviewDetailsPage } from './../../../professional-interview/pages/professional-interview-details/professional-interview-details.page';
+import { ProfessionalInterviewModel } from './../../../../core/models/professional-interview/professional-interview.model';
+import { ProfessionalInterviewService } from '../../../../core/services/professional-interview/professional-interview.service';
+import { EObservationDisplayModeEnum } from './../../../../core/enums/eobservation/eobservation-display-mode.enum';
 import { EObservationsArchivesPage } from './../../../eobservation/pages/eobservations-archives/eobservations-archives.page';
 import { EObservationModel } from '../../../../core/models/eobservation/eobservation.model';
 import { EObservationService } from './../../../../core/services/eobservation/eobservation.service';
@@ -9,7 +12,6 @@ import { EFormsTypeEnum } from '../../../../core/enums/e-forms/e-forms-type.enum
 import { SynchronizationService } from '../../../../core/services/synchronization/synchronization.service';
 import { DeviceService } from '../../../../core/services/device/device.service';
 import { SessionService } from '../../../../core/services/session/session.service';
-import { PncRoleEnum } from '../../../../core/enums/pnc-role.enum';
 import { CareerObjectiveCreatePage } from '../career-objective-create/career-objective-create.page';
 import { CareerObjectiveModel } from '../../../../core/models/career-objective.model';
 import { Component } from '@angular/core';
@@ -20,6 +22,7 @@ import { PncService } from '../../../../core/services/pnc/pnc.service';
 import { PncModel } from '../../../../core/models/pnc.model';
 import { SpecialityEnum } from '../../../../core/enums/speciality.enum';
 import * as moment from 'moment';
+import { AppConstant } from '../../../../app.constant';
 
 @Component({
   selector: 'page-career-objective-list',
@@ -36,8 +39,10 @@ export class CareerObjectiveListPage {
 
   eObservations: EObservationModel[];
 
+  professionalInterviews: ProfessionalInterviewModel[];
+
   // Expose l'enum au template
-  PncRole = PncRoleEnum;
+  EObservationDisplayModeEnum = EObservationDisplayModeEnum;
 
   // Liste des eForms possible
   eFormsList = [];
@@ -49,6 +54,7 @@ export class CareerObjectiveListPage {
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     private careerObjectiveService: CareerObjectiveService,
+    private professionalInterviewService: ProfessionalInterviewService,
     private formsEObservationService: FormsEObservationService,
     private deviceService: DeviceService,
     private eObservationService: EObservationService,
@@ -76,6 +82,7 @@ export class CareerObjectiveListPage {
     });
     this.getEObservationsList();
     this.initCareerObjectivesList();
+    this.getProfessionalInterviewList();
   }
 
   /**
@@ -105,6 +112,26 @@ export class CareerObjectiveListPage {
           return moment(eObs1.rotationDate, AppConstant.isoDateFormat).isAfter(moment(eObs2.rotationDate, AppConstant.isoDateFormat)) ? -1 : 1;
         });
       }, error => {
+      });
+  }
+
+  /**
+   * Dirige vers la page de création d'un nouveau bilan professionnels
+   */
+  goToProfessionalInterviewCreation() {
+    this.navCtrl.push(ProfessionalInterviewDetailsPage, { matricule: this.matricule });
+  }
+
+  /**
+   * Récupére la liste des bilans professionnels
+   */
+  getProfessionalInterviewList() {
+    this.professionalInterviews = undefined;
+    this.professionalInterviewService.getProfessionalInterviews(this.matricule).then(
+      professionalInterviews => {
+        this.professionalInterviews = professionalInterviews;
+      }, error => {
+        this.professionalInterviews = [];
       });
   }
 

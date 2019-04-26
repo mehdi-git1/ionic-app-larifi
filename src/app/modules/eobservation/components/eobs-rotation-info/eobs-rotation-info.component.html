@@ -38,7 +38,7 @@
             <ion-col col-1>
                 <ng-container *ngIf="!editMode; else workStationEditBlock">{{eObservationFlight?.workStation}}</ng-container>
                 <ng-template #workStationEditBlock>
-                    <ion-input type="number" [(ngModel)]="eObservationFlight.workStation"></ion-input>
+                    <ion-input type="text" [(ngModel)]="eObservationFlight.workStation"></ion-input>
                 </ng-template>
             </ion-col>
         </ion-row>

@@ -32,6 +32,12 @@
             "ONLINE_MODE": "Connexion avec le serveur rétablie",
             "OFFLINE_MODE": "Vous êtes à présent en mode déconnecté"
         },
+        "USER_MESSAGE": {
+            "BUTTONS": {
+                "DISMISS": "Fermer",
+                "DO_NOT_DISPLAY_ANYMORE": "J'ai compris"
+            }
+        },
         "DEVELOPMENT_PROGRAM": "Parcours de développement",
         "MY_DEVELOPMENT_PROGRAM": "Mon parcours de développement",
         "HELP_CENTER": "Ressources d'aide",
@@ -66,6 +72,10 @@
         "BUTTONS": {
             "CONFIRM": "Confirmer",
             "CANCEL": "Annuler"
+        },
+        "CONFIRM_BACK_WITHOUT_SAVE": {
+            "TITLE": "Modifications non enregistrées",
+            "MESSAGE": "Attention, des modifications n'ont pas été enregistrées, êtes-vous sûr de vouloir revenir en arrière ?"
         }
     },
     "AUTHENT": {
@@ -104,10 +114,6 @@
             "CANCEL": "Annuler",
             "CONFIRM": "Supprimer"
         },
-        "CONFIRM_BACK_WITHOUT_SAVE": {
-            "TITLE": "Modifications non enregistrées",
-            "MESSAGE": "Attention, des modifications n'ont pas été enregistrées, êtes-vous sûr de vouloir revenir en arrière ?"
-        },
         "BUTTONS": {
             "SAVE": "Enregistrer",
             "SAVE_DRAFT": "Sauvegarder proposition",
@@ -136,6 +142,7 @@
     "CAREER_OBJECTIVE_LIST": {
         "EOBS_TITLE": "eObservations",
         "CAREER_OBJECTIVE_TITLE": "Priorités",
+        "PROFESSIONAL_INTERVIEW_TITLE": "Bilan professionnel",
         "NO_OBJECTIVES": "Aucune priorité pour le moment",
         "INFORMATION_MESSAGE": "Maximum 5 priorités en cours",
         "LIST": {
@@ -193,10 +200,6 @@
             "MESSAGE": "Confirmez-vous la suppression de cette proposition ?",
             "CANCEL": "Annuler",
             "CONFIRM": "Supprimer"
-        },
-        "CONFIRM_BACK_WITHOUT_SAVE": {
-            "TITLE": "Modifications non enregistrées",
-            "MESSAGE": "Attention, des modifications n'ont pas été enregistrées, êtes-vous sûr de vouloir revenir en arrière ?"
         },
         "BUTTONS": {
             "SAVE": "Enregistrer",
@@ -286,6 +289,57 @@
             "STATUTORY_CERTIFICATE": "Erreur lors de la récupération du profil PNC pour le matricule {{ matricule }}"
         }
     },
+    "PROFESSIONAL_INTERVIEW": {
+        "TITLE_BILAN_PRO": "Bilan professionnel",
+        "MY_TITLE_BILAN_PRO": "Mon bilan professionnel",
+        "TITLE_EPP": "Entretien professionnel PNC",
+        "MY_TITLE_EPP": "Mon entretien professionnel PNC",
+        "BUTTONS": {
+            "NEW_PROFESSIONAL_INTERVIEW": "Nouveau bilan professionnel",
+            "SAVE_DRAFT": "Sauvegarder le brouillon"
+        },
+        "LIST": {
+            "HEADER": {
+                "INTERVIEW_DATE": "Date de réalisation",
+                "STATUS": "Statut en cours",
+                "REDACTOR": "Rédacteur",
+                "INTERVIEW_TYPE": "Type d'entretien"
+            },
+            "LEGEND": "derniers BP / EPP réalisés"
+        },
+        "DETAILS": {
+            "SPECIALITY": "Fonction",
+            "EOBS_PNC_ASSIGNMENT_BILAN_PRO": "Affectation à date du Bilan Professionel",
+            "EOBS_PNC_ASSIGNMENT_EPP": "Affectation à date de l'EPP",
+            "INTERVIEW_DATE": "Date de l'entretien",
+            "UPDATE_DATE": "Enregistré depuis le",
+            "REDACTOR": "Rédacteur",
+            "STATE": {
+                "LABEL": "Statut en cours",
+                "TAKEN_INTO_ACCOUNT": "Pris en compte",
+                "NOT_TAKEN_INTO_ACCOUNT": "Non pris en compte",
+                "AVAILABLE": "Disponible",
+                "DRAFT": "Brouillon"
+            },
+            "TYPE": {
+                "EPP": "EPP",
+                "BILAN": "Bilan professionnel"
+            },
+            "BUTTONS": {
+                "DELETE_DRAFT": "Supprimer le brouillon"
+            },
+            "CONFIRM_DRAFT_DELETE": {
+                "TITLE": "Suppression du Bilan Professionnel",
+                "MESSAGE": "Confirmez-vous la suppression de ce brouillon ?",
+                "CANCEL": "Annuler",
+                "CONFIRM": "Supprimer"
+            },
+            "SUCCESS": {
+                "DRAFT_DELETED": "Proposition du bilan professionnel supprimée",
+                "DRAFT_SAVED" : "Brouillon sauvegardé"
+            }
+        }
+    },
     "EOBSERVATION": {
         "LIST": {
             "HEADER": {
@@ -354,10 +408,6 @@
             "MESSAGE": "Vous êtes sur le point de valider votre commentaire. Souhaitez-vous procéder à la validation ?",
             "CONFIRM": "Oui",
             "CANCEL": "Non"
-        },
-        "CONFIRM_BACK_WITHOUT_SAVE": {
-            "TITLE": "Modifications non enregistrées",
-            "MESSAGE": "Attention, des modifications n'ont pas été enregistrées, êtes-vous sûr de vouloir revenir en arrière ?"
         },
         "MESSAGES": {
             "SUCCESS": {
@@ -630,7 +680,8 @@
             "TITLE": "Page d'administration",
             "BUTTON": {
                 "PROFILE_MANAGEMENT": "Gérer la liste des profils",
-                "APP_VERSION_MANAGEMENT": "Gérer la liste des versions"
+                "APP_VERSION_MANAGEMENT": "Gérer la liste des versions",
+                "USER_MESSAGE_MANAGEMENT": "Gérer les messages aux utilisateurs"
             }
         },
         "PROFILE_MANAGEMENT": {
@@ -651,22 +702,38 @@
         "APP_VERSION_MANAGEMENT": {
             "TITLE": "Gestion des versions",
             "BUTTON": {
-                "ADD_VERSION": "Ajouter"
+                "ADD_VERSION": "Ajouter",
+                "UPDATE_VERSION": "Modifier"
             },
             "HEADER": {
-                "NUMBER": "numéro",
-                "CHANGELOG": "description",
-                "ACTION": "action"
+                "NUMBER": "Numéro",
+                "CHANGELOG": "Description"
             },
             "LABEL": {
                 "VERSION_NUMBER": "Numéro de version",
                 "CHANGELOG": "Description"
             },
             "SUCCESS": {
-                "CREATE_VERSION": "Nouvelle version créée"
+                "CREATE_OR_UPDATE_VERSION": "Mise à jour effectuée"
             },
             "ERROR": {
                 "UNDEFINED_NUMBER": "Veuillez renseigner un numéro de version"
+            }
+        },
+        "USER_MESSAGE_MANAGEMENT": {
+            "TITLE": "Gestion des messages poussés aux utilisateurs",
+            "NO_USER_MESSAGE_SELECTED": "Aucun message sélectionné",
+            "LABELS": {
+                "TITLE": "Titre",
+                "CONTENT": "Contenu",
+                "ACTIVE": "Actif"
+            },
+            "BUTTONS": {
+                "UPDATE": "Mettre à jour",
+                "OVERVIEW": "Aperçu"
+            },
+            "MESSAGES": {
+                "UPDATE_SUCCESSFUL": "Message mis à jour"
             }
         }
     }

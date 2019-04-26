@@ -1,0 +1,19 @@
+<mat-expansion-panel [expanded]="true" [ngClass]="{'no-data' : professionalInterviewTab.length === 0}">
+    <mat-expansion-panel-header [expandedHeight]="matPanelHeaderHeight" [collapsedHeight]="matPanelHeaderHeight" hideToggle="true">
+        <label class="flex3"> {{ 'PROFESSIONAL_INTERVIEW.LIST.HEADER.INTERVIEW_DATE' | translate }} </label>
+        <label class="flex3"> {{ 'PROFESSIONAL_INTERVIEW.LIST.HEADER.STATUS' | translate }} </label>
+        <label class="flex4"> {{ 'PROFESSIONAL_INTERVIEW.LIST.HEADER.REDACTOR' | translate }} </label>
+        <label class="flex3"> {{ 'PROFESSIONAL_INTERVIEW.LIST.HEADER.INTERVIEW_TYPE' | translate }} </label>
+        <div class="button-placeholder">
+            <!-- Occupe de l'espace pour s'aligner avec le bouton -->
+        </div>
+    </mat-expansion-panel-header>
+    <no-data *ngIf="professionalInterviewTab.length === 0; else professionalInterviewsDataBlock"></no-data>
+    <ng-template #professionalInterviewsDataBlock>
+        <professional-interview *ngFor="let professionalInterview of professionalInterviewTab" [professionalInterview]="professionalInterview">
+        </professional-interview>
+    </ng-template>
+</mat-expansion-panel>
+<div *ngIf="professionalInterviewTab.length > 0 && legend">
+    <div class="information-message">{{professionalInterviewTab.length}} {{ 'PROFESSIONAL_INTERVIEW.LIST.LEGEND' | translate }}</div>
+</div>
