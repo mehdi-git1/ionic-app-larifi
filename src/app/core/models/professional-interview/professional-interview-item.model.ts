@@ -1,16 +1,13 @@
 import { EDossierPncObjectModel } from '../e-dossier-pnc-object.model';
 
-export class ReferentialThemeModel extends EDossierPncObjectModel {
+export class ProfessionalInterviewItemModel extends EDossierPncObjectModel {
 
     id: number;
-
-    parent: ReferentialThemeModel;
-
+    itemOrder: number;
+    key: string;
     label: string;
-
-    themeOrder: number;
-
-    displayedInProfessionalLevel: boolean;
+    value: string;
+    referentialItemId: number;
 
     getStorageId(): string {
         return `${this.techId}`;

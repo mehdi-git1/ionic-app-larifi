@@ -1,9 +1,10 @@
+import { EObservationModel } from './../../../../core/models/eobservation/eobservation.model';
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { EObservationItemsByTheme } from '../../../../core/models/eobservation/eobservation-items-by-theme.model';
 import { EObservationLevelEnum } from '../../../../core/enums/e-observations-level.enum';
 import { EobsItemDescriptionComponent } from '../eobs-item-description/eobs-item-description.component';
 import { PopoverController } from 'ionic-angular';
 import { EObservationItemModel } from '../../../../core/models/eobservation/eobservation-item.model';
+import { ReferentialThemeModel } from '../../../../core/models/eobservation/eobservation-referential-theme.model';
 
 @Component({
   selector: 'eobs-theme',
@@ -11,11 +12,9 @@ import { EObservationItemModel } from '../../../../core/models/eobservation/eobs
 })
 export class EObsThemeComponent {
 
-  @Input() theme: EObservationItemsByTheme;
+  @Input() theme: ReferentialThemeModel;
 
   @Input() editMode = false;
-
-  @Output() commentChange: EventEmitter<any> = new EventEmitter();
 
   constructor(public popoverCtrl: PopoverController) {
   }
@@ -35,7 +34,7 @@ export class EObsThemeComponent {
    * @return true si il n'y a pas d'items dans ce thème, sinon false
    */
   hasItemAndSubThemes(): boolean {
-    return (this.theme.eObservationItems === null || this.theme.eObservationItems.length === 0)
+    return (this.theme.eobservationItems === null || this.theme.eobservationItems.length === 0)
       && !this.hasSubThemes();
   }
 
@@ -61,13 +60,6 @@ export class EObsThemeComponent {
     popover.present({
       ev: myEvent
     });
-  }
-
-  /**
-   * Envoie le commentaire au composant parent pour sa mise à jour dans l'objet source
-   */
-  updateComment() {
-    this.commentChange.emit({ techId: this.theme.eObservationComment.techId, comment: this.theme.eObservationComment.comment });
   }
 
 }

@@ -4,9 +4,6 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class ProfessionalLevelTransformerService {
 
-  constructor() {
-  }
-
   toProfessionalLevel(object: any): ProfessionalLevelModel {
     return !object ?
       null :

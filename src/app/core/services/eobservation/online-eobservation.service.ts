@@ -18,7 +18,7 @@ export class OnlineEObservationService {
      * @param matricule le matricule du PNC
      * @return une promesse contenant les EObservations trouvées
      */
-    getEObservations(matricule: string): Promise<EObservationModel[]> {
+    public getEObservations(matricule: string): Promise<EObservationModel[]> {
         return this.restServiceGetEObservations('getEObservationsByMatricule', matricule);
     }
 
@@ -27,16 +27,17 @@ export class OnlineEObservationService {
     * @param matricule le matricule du PNC
     * @return une promesse contenant les EObservations trouvées
     */
-    getAllEObservations(matricule: string): Promise<EObservationModel[]> {
+    public getAllEObservations(matricule: string): Promise<EObservationModel[]> {
         return this.restServiceGetEObservations('getAllEObservationsByMatricule', matricule);
     }
 
-    /** Appel vers le back  et renvoie toutes les eObservations d'un pnc
+    /**
+     * Appel vers le back  et renvoie toutes les eObservations d'un pnc
      * @param url  url à appeler
      * @param matricule matricule du PNC
      * @return une promesse contenant les EObservations trouvées
     */
-    restServiceGetEObservations(url: string, matricule: string): Promise<EObservationModel[]> {
+    private restServiceGetEObservations(url: string, matricule: string): Promise<EObservationModel[]> {
         return this.restService.get(this.config.getBackEndUrl(url, [matricule])).then(
             eObservations => {
                 return this.eObservationTransformerService.toEObservations(eObservations);
@@ -49,8 +50,17 @@ export class OnlineEObservationService {
     * @param eObservation l'eObservation à valider
     * @return une promesse contenant l'eObservation validée
     */
-    updateEObservation(eObservation: EObservationModel): Promise<EObservationModel> {
+    public updateEObservation(eObservation: EObservationModel): Promise<EObservationModel> {
         return this.restService.post(this.config.getBackEndUrl('eObservations'), eObservation);
+    }
+
+    /**
+     * Récupère une eObservation à partir de son id
+     * @param id l'id de l'eObservation à récupérer
+     * @return une promesse contenant l'eObservation récupérée
+     */
+    public getEObservation(id: number): Promise<EObservationModel> {
+        return this.restService.get(this.config.getBackEndUrl('getEObservationById', [id]));
     }
 
 }
