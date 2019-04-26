@@ -30,9 +30,9 @@ export class AppVersionService {
     /**
      * Supprime une version
      * @param id l'id de la version à supprimer
-     * @return une promesse qui se résolve quand la suppression est faite, mais ne contenant pas la version
+     * @return une promesse qui se résout quand la suppression est faite
      */
-    delete(id: number): Promise<any> {
+    delete(id: number): Promise<void> {
         return this.restService.delete(this.config.getBackEndUrl('deleteAppVersionById', [id]));
     }
 }
