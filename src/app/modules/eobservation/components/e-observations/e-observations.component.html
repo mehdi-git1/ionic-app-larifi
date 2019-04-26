@@ -9,7 +9,7 @@
     </mat-expansion-panel-header>
     <no-data *ngIf="eObservations.length === 0; else eObservationsDataBlock"></no-data>
     <ng-template #eObservationsDataBlock>
-        <e-observation *ngFor="let eObservation of eObservations" [eObservation]="eObservation" [filteredEObservation]="filterEobsItems(eObservation)">
+        <e-observation *ngFor="let eObservation of eObservations" [eObservation]="eObservation" [eObservationDisplayMode]="eObservationDisplayMode">
         </e-observation>
     </ng-template>
 </mat-expansion-panel>

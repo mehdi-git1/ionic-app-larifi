@@ -55,12 +55,15 @@ grey70:#d5d9de,
 grey72:#D8D8D8,
 grey75:#ededed,
 grey90: #F1F1F1,
+grey92:#f8f8f8,
 grey95:#fafbfb,
 white:#fff,
 yellow1: #F5D359,
 bluegrey:#66A7B7,
 bluegrey2:#5FA1AF,
 bluegrey3:#5d727A,
+bluegrey4: #677A89,
+bluegrey5: #556775,
 blue50:#5AD9F6,
 blue55:#7cc3cc,
 blue58:#2DD1D4,
@@ -265,6 +268,8 @@ ion-badge {
     font-size: 1.2rem !important;
 }
 
+
+
 .flex {
     display: flex !important;
 }
@@ -277,6 +282,14 @@ ion-badge {
     flex: 2;
 }
 
+.flex3 {
+    flex: 3;
+}
+
+.flex4 {
+    flex: 4;
+}
+
 .w100 {
     width: 100%;
 }
@@ -285,6 +298,10 @@ ion-badge {
 /* Marges */
 .margin-top-10 {
     margin-top: 10px;
+}
+
+.no-margin-top {
+    margin-top:0px !important;
 }
 
 .margin-bottom-10 {

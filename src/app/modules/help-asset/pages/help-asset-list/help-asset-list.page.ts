@@ -168,10 +168,10 @@ export class HelpAssetListPage {
         helpAsset[0].helpAssetType = HelpAssetTypeEnum.PDF;
         helpAsset[0].lastUpdateDate = '2018-10-01T13:11:52Z';
         helpAsset[1] = new HelpAssetModel();
-        helpAsset[1].url = `${this.pdfUrl}/commun/Visuel_Relais_RH_ Interactif_V03.pdf`;
+        helpAsset[1].url = `${this.pdfUrl}/commun/Visuel_Relais_RH_ Interactif_V06.pdf`;
         helpAsset[1].label = 'Fiches Missions Relais';
         helpAsset[1].helpAssetType = HelpAssetTypeEnum.PDF;
-        helpAsset[1].lastUpdateDate = '2019-02-26T00:00:00Z';
+        helpAsset[1].lastUpdateDate = '2019-04-16T00:00:00Z';
         return helpAsset;
     }
 }
