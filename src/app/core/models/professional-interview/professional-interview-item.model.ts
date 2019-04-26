@@ -7,6 +7,7 @@ export class ProfessionalInterviewItemModel extends EDossierPncObjectModel {
     key: string;
     label: string;
     value: string;
+    referentialItemId: number;
 
     getStorageId(): string {
         return `${this.techId}`;

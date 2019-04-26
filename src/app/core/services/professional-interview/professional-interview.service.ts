@@ -42,15 +42,15 @@ export class ProfessionalInterviewService extends BaseService {
      * @param  profesionnalInterview le bilan professionnel à créer ou mettre à jour
      * @return une promesse contenant le bilan professionnel créé ou mis à jour
      */
-    createOrUpdate(profesionnalInterview: ProfessionalInterviewModel): Promise<ProfessionalInterviewModel> {
-        if (profesionnalInterview.techId === undefined) {
-            profesionnalInterview.redactionDate = new Date();
-            profesionnalInterview.instructor = new PncLightModel();
-            profesionnalInterview.instructor.matricule = this.sessionService.getActiveUser().matricule;
+    createOrUpdate(professionalInterview: ProfessionalInterviewModel): Promise<ProfessionalInterviewModel> {
+        if (professionalInterview.techId === undefined) {
+            professionalInterview.redactionDate = new Date();
+            professionalInterview.instructor = new PncLightModel();
+            professionalInterview.instructor.matricule = this.sessionService.getActiveUser().matricule;
         }
-        profesionnalInterview.lastUpdateDate = new Date();
+        professionalInterview.lastUpdateDate = new Date();
 
-        return this.execFunctionService('createOrUpdate', profesionnalInterview);
+        return this.execFunctionService('createOrUpdate', professionalInterview);
     }
 
     /**
