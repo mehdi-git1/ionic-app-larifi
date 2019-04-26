@@ -18,7 +18,7 @@ const ToastServiceMock = jasmine.createSpyObj('ToastServiceMock', ['success', 'e
 describe('app-version-management', () => {
 
     let fixture: ComponentFixture<AppVersionManagementPage>;
-    let comp: AppVersionManagementPage;
+    let appVersionManagementPage: AppVersionManagementPage;
     let appVersionService: AppVersionService;
     let translateService: TranslateService;
 
@@ -43,13 +43,13 @@ describe('app-version-management', () => {
         });
 
         fixture = TestBed.createComponent(AppVersionManagementPage);
-        comp = fixture.componentInstance;
+        appVersionManagementPage = fixture.componentInstance;
         translateService = TestBed.get(TranslateService);
         appVersionService = TestBed.get(AppVersionService);
     });
 
     beforeEach(() => {
-        comp.allAppVersions = [new AppVersionModel, new AppVersionModel];
+        appVersionManagementPage.allAppVersions = [new AppVersionModel, new AppVersionModel];
     });
 
     describe('createOrUpdateAppVersion', () => {
@@ -65,34 +65,40 @@ describe('app-version-management', () => {
         let appVersion: AppVersionModel;
 
         it(`doit envoyer un message d'erreur si le numero de version n'est pas conforme`, () => {
+
             // ARRANGE remplissage du formulaire avec un numéro de version vide (donc invalide) et un changelog (aucun contrôle n'est effectué dessus)
             invalidNumber = '';
             invalidChangelog = `changelog d'une version invalide`;
             appVersion = new AppVersionModel();
             appVersion.number = invalidNumber;
             appVersion.changelog = invalidChangelog;
+
             // ACT utilisation de la fonction de création de version
-            comp.createOrUpdateAppVersion(appVersion);
+            appVersionManagementPage.createOrUpdateAppVersion(appVersion);
+
             // ASSERT le formulaire est invalide et un toast d'erreur est affiché à l'écran de l'utilisateur
-            expect(comp.regEx.test(appVersion.number)).toBeFalsy();
+            expect(appVersionManagementPage.versionNumberRegex.test(appVersion.number)).toBeFalsy();
             expect(translateService.instant).toHaveBeenCalledWith('ADMIN.APP_VERSION_MANAGEMENT.ERROR.UNDEFINED_NUMBER');
         });
 
         it(`doit envoyer un message indiquant la réussite de la création d'une version`, fakeAsync(() => {
+
             // ARRANGE remplissage du formulaire avec un numéro de version valide et un changelog
             validChangelog = `description de la version 1.0.0`;
             validNumber = '1.0.0';
             appVersion = new AppVersionModel();
             appVersion.number = validNumber;
             appVersion.changelog = validChangelog;
+
             // ACT utilisation de la fonction de création de version
-            comp.createOrUpdateAppVersion(appVersion);
+            appVersionManagementPage.createOrUpdateAppVersion(appVersion);
             tick();
+
             // ASSERT le formulaire est valide, la nouvelle version est intégrée et un toast de succes est affiché à l'écran de l'utilisateur
             const tmpAppVersion = new AppVersionModel();
             tmpAppVersion.number = validNumber;
             tmpAppVersion.changelog = validChangelog;
-            expect(comp.regEx.test(tmpAppVersion.number)).toBeTruthy();
+            expect(appVersionManagementPage.versionNumberRegex.test(tmpAppVersion.number)).toBeTruthy();
             expect(appVersionService.createOrUpdateAppVersion).toHaveBeenCalledWith(tmpAppVersion);
             expect(translateService.instant).toHaveBeenCalledWith('ADMIN.APP_VERSION_MANAGEMENT.SUCCESS.CREATEORUPDATE_VERSION');
         }));
@@ -107,13 +113,16 @@ describe('app-version-management', () => {
         });
 
         it(`doit envoyer un message indiquant la réussite de la suppression d'une version`, fakeAsync(() => {
+
             // ARRANGE Instanciation d'une version
-            comp.allAppVersions[1].techId = 1;
-            comp.allAppVersions[1].number = "1.0.0";
-            comp.allAppVersions[1].changelog = "description de la version 1.0.0";
+            appVersionManagementPage.allAppVersions[1].techId = 1;
+            appVersionManagementPage.allAppVersions[1].number = "1.0.0";
+            appVersionManagementPage.allAppVersions[1].changelog = "description de la version 1.0.0";
+
             // ACT appel de la fonction de suppression de version
-            comp.delete(comp.allAppVersions[1]);
+            appVersionManagementPage.delete(appVersionManagementPage.allAppVersions[1]);
             tick();
+
             // ASSERT la version est supprimée et un toast de succes est affiché à l'écran de l'utilisateur
             expect(translateService.instant).toHaveBeenCalledWith('ADMIN.APP_VERSION_MANAGEMENT.SUCCESS.DELETE_UPDATE_VERSION');
         }));

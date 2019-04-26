@@ -51,7 +51,7 @@ export class UrlConfiguration {
     'updatePermissions': `${urlGroupEnum.USER_PROFILE}/{profileName}/update_permissions`,
     'appVersions': urlGroupEnum.APP_VERSION,
     'getAllAppVersions': urlGroupEnum.APP_VERSION,
-    'deleteAppVersionById': `${urlGroupEnum.APP_VERSION}/delete/{id}`
+    'deleteAppVersionById': `${urlGroupEnum.APP_VERSION}/{id}`
   };
 
   /**

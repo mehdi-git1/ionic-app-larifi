@@ -670,7 +670,7 @@
                 "CONFIRM": "Supprimer"
             },
             "SUCCESS": {
-                "CREATEORUPDATE_VERSION": "mise à jour effectuée",
+                "CREATE_OR_UPDATE_VERSION": "mise à jour effectuée",
                 "DELETE_UPDATE_VERSION": "Suppression effectuée"
             },
             "ERROR": {

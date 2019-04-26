@@ -21,7 +21,7 @@ export class AppVersionService {
     /**
      * Crée ou met à jour une version
      * @param appVersion la version à créer ou à mettre à jour
-     * @return la version créé ou mise à jour
+     * @return la version créée ou mise à jour
      */
     public createOrUpdateAppVersion(appVersion: AppVersionModel): Promise<AppVersionModel> {
         return this.restService.post(this.config.getBackEndUrl('appVersions'), appVersion);
@@ -30,9 +30,9 @@ export class AppVersionService {
     /**
      * Supprime une version
      * @param id l'id de la version à supprimer
-     * @return la version supprimée
+     * @return une promesse qui se résolve quand la suppression est faite, mais ne contenant pas la version
      */
-    delete(id: number): Promise<AppVersionModel> {
+    delete(id: number): Promise<any> {
         return this.restService.delete(this.config.getBackEndUrl('deleteAppVersionById', [id]));
     }
 }

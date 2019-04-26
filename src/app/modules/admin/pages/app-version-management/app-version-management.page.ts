@@ -15,7 +15,7 @@ export class AppVersionManagementPage {
     number: string;
     changelog: string;
 
-    regEx = /([0-9]{1,2}[.]){2}[0-9]{1,2}/;
+    versionNumberRegex = /([0-9]{1,2}[.]){2}[0-9]{1,2}/;
 
     allAppVersions: AppVersionModel[];
     appVersion: AppVersionModel;
@@ -27,14 +27,18 @@ export class AppVersionManagementPage {
     }
 
     ionViewDidEnter() {
+        this.initPage();
+    }
+
+    initPage() {
         this.appVersionService.getAllAppVersions().then(allAppVersions => {
             this.allAppVersions = allAppVersions;
         }, error => { });
     }
 
     /**
-     * Crée ou mis a jour une Version
-     * @param appVersion la version concernée
+     * Crée ou met à jour une version
+     * @param appVersion La version créée ou mise à jour
      */
     createOrUpdateAppVersion(appVersion: AppVersionModel): void {
         if (appVersion == null) {
@@ -44,22 +48,21 @@ export class AppVersionManagementPage {
         } else {
             this.appVersion = appVersion;
         }
-        if (!this.regEx.test(this.appVersion.number)) {
+        if (!this.versionNumberRegex.test(this.appVersion.number)) {
             return this.toastService.error(this.translateService.instant('ADMIN.APP_VERSION_MANAGEMENT.ERROR.UNDEFINED_NUMBER'));
         }
         this.appVersionService
             .createOrUpdateAppVersion(this.appVersion)
             .then(success => {
-                this.appVersionService.getAllAppVersions().then(allAppVersions => {
-                    this.allAppVersions = allAppVersions;
-                }, error => { });
+                this.initPage();
                 this.toastService.success(this.translateService.instant('ADMIN.APP_VERSION_MANAGEMENT.SUCCESS.CREATEORUPDATE_VERSION'));
             }, error => { });
     }
 
     /**
-    * Présente une alerte pour confirmer la suppression du brouillon
-    */
+     *  Présente une alerte pour confirmer la suppression de la version
+     * @param appVersion la version à supprimer
+     */
     confirmDeleteAppVersion(appVersion: AppVersionModel): void {
         this.alertCtrl.create({
             title: this.translateService.instant('ADMIN.APP_VERSION_MANAGEMENT.CONFIRM_VERSION_DELETE.TITLE', { 'number': appVersion.number }),
@@ -83,9 +86,7 @@ export class AppVersionManagementPage {
      */
     delete(appVersion: AppVersionModel): void {
         this.appVersionService.delete(appVersion.techId).then(success => {
-            this.appVersionService.getAllAppVersions().then(allAppVersions => {
-                this.allAppVersions = allAppVersions;
-            }, error => { });
+            this.initPage();
             this.toastService.success(this.translateService.instant('ADMIN.APP_VERSION_MANAGEMENT.SUCCESS.DELETE_UPDATE_VERSION'));
         }, error => { })
     }
