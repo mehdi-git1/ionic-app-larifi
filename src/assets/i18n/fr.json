@@ -702,19 +702,19 @@
         "APP_VERSION_MANAGEMENT": {
             "TITLE": "Gestion des versions",
             "BUTTON": {
-                "ADD_VERSION": "Ajouter"
+                "ADD_VERSION": "Ajouter",
+                "UPDATE_VERSION": "Modifier"
             },
             "HEADER": {
-                "NUMBER": "numéro",
-                "CHANGELOG": "description",
-                "ACTION": "action"
+                "NUMBER": "Numéro",
+                "CHANGELOG": "Description"
             },
             "LABEL": {
                 "VERSION_NUMBER": "Numéro de version",
                 "CHANGELOG": "Description"
             },
             "SUCCESS": {
-                "CREATE_VERSION": "Nouvelle version créée"
+                "CREATE_OR_UPDATE_VERSION": "Mise à jour effectuée"
             },
             "ERROR": {
                 "UNDEFINED_NUMBER": "Veuillez renseigner un numéro de version"
