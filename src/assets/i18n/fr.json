@@ -72,6 +72,10 @@
         "BUTTONS": {
             "CONFIRM": "Confirmer",
             "CANCEL": "Annuler"
+        },
+        "CONFIRM_BACK_WITHOUT_SAVE": {
+            "TITLE": "Modifications non enregistrées",
+            "MESSAGE": "Attention, des modifications n'ont pas été enregistrées, êtes-vous sûr de vouloir revenir en arrière ?"
         }
     },
     "AUTHENT": {
@@ -109,10 +113,6 @@
             "MESSAGE": "Confirmez-vous la suppression de cette proposition ?",
             "CANCEL": "Annuler",
             "CONFIRM": "Supprimer"
-        },
-        "CONFIRM_BACK_WITHOUT_SAVE": {
-            "TITLE": "Modifications non enregistrées",
-            "MESSAGE": "Attention, des modifications n'ont pas été enregistrées, êtes-vous sûr de vouloir revenir en arrière ?"
         },
         "BUTTONS": {
             "SAVE": "Enregistrer",
@@ -200,10 +200,6 @@
             "MESSAGE": "Confirmez-vous la suppression de cette proposition ?",
             "CANCEL": "Annuler",
             "CONFIRM": "Supprimer"
-        },
-        "CONFIRM_BACK_WITHOUT_SAVE": {
-            "TITLE": "Modifications non enregistrées",
-            "MESSAGE": "Attention, des modifications n'ont pas été enregistrées, êtes-vous sûr de vouloir revenir en arrière ?"
         },
         "BUTTONS": {
             "SAVE": "Enregistrer",
@@ -299,7 +295,8 @@
         "TITLE_EPP": "Entretien professionnel PNC",
         "MY_TITLE_EPP": "Mon entretien professionnel PNC",
         "BUTTONS": {
-            "NEW_PROFESSIONAL_INTERVIEW": "Nouveau bilan professionnel"
+            "NEW_PROFESSIONAL_INTERVIEW": "Nouveau bilan professionnel",
+            "SAVE_DRAFT": "Sauvegarder le brouillon"
         },
         "LIST": {
             "HEADER": {
@@ -338,7 +335,8 @@
                 "CONFIRM": "Supprimer"
             },
             "SUCCESS": {
-                "DRAFT_DELETED": "Proposition du bilan professionnel supprimée"
+                "DRAFT_DELETED": "Proposition du bilan professionnel supprimée",
+                "DRAFT_SAVED" : "Brouillon sauvegardé"
             }
         }
     },
@@ -410,10 +408,6 @@
             "MESSAGE": "Vous êtes sur le point de valider votre commentaire. Souhaitez-vous procéder à la validation ?",
             "CONFIRM": "Oui",
             "CANCEL": "Non"
-        },
-        "CONFIRM_BACK_WITHOUT_SAVE": {
-            "TITLE": "Modifications non enregistrées",
-            "MESSAGE": "Attention, des modifications n'ont pas été enregistrées, êtes-vous sûr de vouloir revenir en arrière ?"
         },
         "MESSAGES": {
             "SUCCESS": {

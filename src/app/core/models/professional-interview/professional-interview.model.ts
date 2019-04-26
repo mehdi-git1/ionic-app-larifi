@@ -7,7 +7,7 @@ import { ProfessionalInterviewThemeModel } from './professional-interview-theme.
 export class ProfessionalInterviewModel extends EDossierPncObjectModel {
 
     matricule: string;
-    annualProfessionalInterviewDate: Date;
+    annualProfessionalInterviewDate: string;
     type: ProfessionalInterviewTypeEnum;
     state: ProfessionalInterviewStateEnum;
     redactionDate: Date;
@@ -21,4 +21,5 @@ export class ProfessionalInterviewModel extends EDossierPncObjectModel {
     getStorageId(): string {
         return `${this.techId}`;
     }
+
 }
