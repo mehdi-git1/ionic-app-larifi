@@ -40,16 +40,12 @@ export class FlightCrewListPage {
      * Initialisation du contenu de la page.
      */
     initPage() {
-        const company = this.navParams.get('company');
-        const flightNumber = this.navParams.get('flightNumber');
-        const date = this.navParams.get('date');
-        const origine = this.navParams.get('origine');
-        const destination = this.navParams.get('destination');
-        this.legService.getCrewMembersFromLegWithoutID(company, flightNumber, date, origine, destination).then(flightCrew => {
-            flightCrew.forEach(crewMembers => {
-                if (crewMembers.pnc.matricule !== undefined && crewMembers.pnc.matricule === this.sessionService.getActiveUser().matricule) {
-                    this.sessionService.appContext.onBoardRedactorFunction = crewMembers.onBoardFonction;
-                    this.connectedCrewMember = crewMembers;
+        this.leg = this.navParams.get('leg');
+        this.legService.getCrewMembersFromLegWithoutId(this.leg.company, this.leg.number, this.leg.departureDate, this.leg.departureStation).then(flightCrew => {
+            flightCrew.forEach(crewMember => {
+                if (crewMember.pnc.matricule !== undefined && crewMember.pnc.matricule === this.sessionService.getActiveUser().matricule) {
+                    this.sessionService.appContext.onBoardRedactorFunction = crewMember.onBoardFonction;
+                    this.connectedCrewMember = crewMember;
                 }
             });
             // On supprime le PNC connecté de la liste

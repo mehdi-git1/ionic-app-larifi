@@ -19,19 +19,21 @@ export class OfflineFormsInputParamService {
   /**
    * Récupère les paramètres d'entrées de l'appel forms, du cache à partir d'un matricule et le techId de la rotation
    * @param matricule le matricule du PNC concerné
-   * @param rotationId le techId de la rotation concernée
+   * @param number le numéro de la rotation concernée
+   * @param departureDate la date de la rotation concernée
    * @return une promesse contenant les paramètres d'entrées de l'appel forms trouvés
    */
-  getFormsInputParams(matricule: string, rotationId: number): Promise<FormsInputParamsModel> {
+  getFormsInputParams(matricule: string, number: string, departureDate: string): Promise<FormsInputParamsModel> {
     return new Promise(resolve => {
       const formsInputParams = new FormsInputParamsModel();
 
       formsInputParams.observedPnc = this.storageService.findOne(EntityEnum.PNC, matricule);
       formsInputParams.redactor = this.storageService.findOne(EntityEnum.PNC, this.sessionService.getActiveUser().matricule);
-      formsInputParams.rotation = this.storageService.findOne(EntityEnum.ROTATION, `${rotationId}`);
+      formsInputParams.rotation = this.storageService.findOne(EntityEnum.ROTATION, `${number}-${departureDate}`);
 
+      const rotationStorageId = number + departureDate;
       const rotationLegs = this.storageService.findAll(EntityEnum.LEG).filter(leg => {
-        return rotationId === leg.rotation.techId;
+        return rotationStorageId === leg.rotationStorageId;
       }).sort((leg1, leg2) => {
         return moment(leg1.departureDate, AppConstant.isoDateFormat).isBefore(moment(leg2.departureDate, AppConstant.isoDateFormat)) ? -1 : 1;
       });

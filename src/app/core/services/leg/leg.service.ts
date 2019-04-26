@@ -41,12 +41,15 @@ export class LegService extends BaseService {
   }
 
   /**
-  * Récupère la liste équipage d'un tronçon
-  * @param leg la compagnie, le flight number, date, origine et destination du tronçon dont on souhaite avoir la liste équipage
-  * @return une promesse contenant la liste équipage d'un tronçon
-  */
-  getCrewMembersFromLegWithoutID(company: string, flightNumber: string, date: string, origine: string, destination: string): Promise<CrewMemberModel[]> {
-    return this.execFunctionService('getCrewMembersFromLegWithoutID', company, flightNumber, date, origine, destination);
+   * Récupère la liste équipage d'un tronçon
+   * @param company La compagnie du vol
+   * @param flightNumber Le numéro du vol
+   * @param date La date du vol
+   * @param departureStation L'escale de départ'
+   * @return une promesse contenant la liste équipage d'un tronçon
+   */
+  getCrewMembersFromLegWithoutId(company: string, flightNumber: string, date: string, departureStation: string): Promise<CrewMemberModel[]> {
+    return this.execFunctionService('getCrewMembersFromLegWithoutId', company, flightNumber, date, departureStation);
   }
 
 }

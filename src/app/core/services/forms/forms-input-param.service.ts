@@ -5,6 +5,7 @@ import { Injectable } from '@angular/core';
 import { BaseService } from '../base/base.service';
 
 import { ConnectivityService } from '../connectivity/connectivity.service';
+import { RotationModel } from '../../models/rotation.model';
 
 @Injectable()
 export class FormsInputParamService extends BaseService {
@@ -24,11 +25,11 @@ export class FormsInputParamService extends BaseService {
   /**
   * Récupère les filtres personnalisés d'un PNC, en fonction de ses droits et de son affectation (liste des Div, Secteurs, Ginq auxquels il a le droit etc)
   * @param matricule le matricule du PNC dont on souhaite récupérer le FormsInputParamsModel
-  * @param rotationId le techId de la rotation concernée
+  * @param rotation la rotation concernée
   * @return les filtres du PNC
   */
-  getFormsInputParams(matricule: string, rotationId: number): Promise<FormsInputParamsModel> {
-    return this.execFunctionService('getFormsInputParams', matricule, rotationId);
+  getFormsInputParams(matricule: string, rotation: RotationModel): Promise<FormsInputParamsModel> {
+    return this.execFunctionService('getFormsInputParams', matricule, rotation.number, rotation.departureDate);
   }
 
 }

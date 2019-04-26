@@ -6,6 +6,7 @@ import { DatePipe } from '@angular/common';
 import { SessionService } from '../session/session.service';
 import { RestService } from '../../http/rest/rest.base.service';
 import { Config } from '../../../../environments/config';
+import { RotationModel } from '../../models/rotation.model';
 
 declare var window: any;
 
@@ -38,8 +39,8 @@ export class FormsEObservationService {
     }
   }
 
-  getFormsInputParams(observedPncMatricule, rotationId: number): Promise<FormsInputParamsModel> {
-    return this.formsInputParamService.getFormsInputParams(observedPncMatricule, rotationId);
+  getFormsInputParams(observedPncMatricule, rotation: RotationModel): Promise<FormsInputParamsModel> {
+    return this.formsInputParamService.getFormsInputParams(observedPncMatricule, rotation);
   }
 
   /**

@@ -33,4 +33,19 @@ export class OfflineLegService {
     });
   }
 
+  /**
+   * Récupère la liste équipage d'un tronçon
+   * @param company la compagnie
+   * @param flightNumber le numéro de vol
+   * @param date la date du vol
+   * @param departureStation l'escale de départ
+   * @return la liste équipage d'un tronçon
+   */
+  getCrewMembersFromLegWithoutId(company: string, flightNumber: string, date: string, departureStation: string): Promise<CrewMemberModel[]> {
+    return new Promise((resolve, reject) => {
+      const crewMembers = this.storageService.findAll(EntityEnum.CREW_MEMBER);
+      resolve(crewMembers.filter(crewMember => crewMember.leg.company === company && crewMember.leg.number === flightNumber));
+    });
+  }
+
 }

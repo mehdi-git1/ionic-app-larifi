@@ -119,7 +119,6 @@ export class SynchronizationService {
     this.deleteAllPncOfflineObject(pncSynchroResponse.pnc);
     this.storageService.save(EntityEnum.PNC, this.pncTransformer.toPnc(pncSynchroResponse.pnc), true);
     this.storeRotations(pncSynchroResponse.rotations);
-    this.storeLegs(pncSynchroResponse.legs);
     this.storeCrewMembers(pncSynchroResponse.crewMembers, storeCrewMembers);
     this.storeCareerObjectives(pncSynchroResponse.careerObjectives);
     this.storeWaypoints(pncSynchroResponse.waypoints);
@@ -146,6 +145,7 @@ export class SynchronizationService {
     if (rotations != null) {
       for (const rotation of rotations) {
         this.storageService.save(EntityEnum.ROTATION, this.rotationTransformerProvider.toRotation(rotation), true);
+        this.storeLegs(rotation.legs, rotation);
       }
     }
   }
@@ -154,12 +154,10 @@ export class SynchronizationService {
    * Enregistre les vols en cache
    * @param legs les vols à stocker en cache
    */
-  private storeLegs(legs: LegModel[]): void {
+  private storeLegs(legs: LegModel[], rotation: RotationModel): void {
     if (legs != null) {
       for (const leg of legs) {
-        const techIdRotation: number = leg.rotation.techId;
-        leg.rotation = new RotationModel();
-        leg.rotation.techId = techIdRotation;
+        leg.rotationStorageId = rotation.number + rotation.departureDate;
         this.storageService.save(EntityEnum.LEG, this.legTransformerProvider.toLeg(leg), true);
       }
     }

@@ -133,7 +133,7 @@ export class CareerObjectiveListPage {
    * Fait appel à formsLib avec les paramètres eObservation.
    */
   createEObservation() {
-    this.formsEObservationService.getFormsInputParams(this.matricule, this.sessionService.appContext.lastConsultedRotation.techId).then(formsInputParam => {
+    this.formsEObservationService.getFormsInputParams(this.matricule, this.sessionService.appContext.lastConsultedRotation).then(formsInputParam => {
       this.formsInputParam = formsInputParam;
       if (this.formsInputParam) {
         this.formsEObservationService.callForms(this.formsInputParam, this.chosenEFormsType);

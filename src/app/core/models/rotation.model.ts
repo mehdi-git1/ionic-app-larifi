@@ -11,6 +11,6 @@ export class RotationModel extends EDossierPncObjectModel {
     loading: boolean;
 
     getStorageId(): string {
-        return `${this.techId}`;
+        return `${this.number}-${this.departureDate}`;
     }
 }

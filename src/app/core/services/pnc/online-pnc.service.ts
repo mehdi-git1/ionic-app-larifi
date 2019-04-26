@@ -54,4 +54,13 @@ export class OnlinePncService {
     );
   }
 
+  /**
+  * Retrouve les rotations opérées et à faire par un PNC
+  * @param matricule le matricule du PNC dont on souhaite récupérer les rotations
+  * @return une promesse contenant les rotations opérées et à faire par le PNC
+   }*/
+  getAllRotationsByMatricule(matricule: string): Promise<RotationModel[]> {
+    return this.restService.get(this.config.getBackEndUrl('getAllRotationsByMatricule', [matricule]));
+  }
+
 }

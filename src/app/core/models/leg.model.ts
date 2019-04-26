@@ -10,8 +10,9 @@ export class LegModel extends EDossierPncObjectModel {
     aircraftType: string;
     rotation: RotationModel;
     operatingVersion: string;
+    rotationStorageId: string;
 
     getStorageId(): string {
-        return `${this.techId}`;
+        return `${this.company}-${this.number}-${this.departureDate}`;
     }
 }

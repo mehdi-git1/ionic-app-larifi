@@ -41,7 +41,7 @@ export class RotationCardComponent {
 
     goToFlightCrewListPage(leg: LegModel) {
         this.sessionService.appContext.lastConsultedRotation = this.rotation;
-        this.navCtrl.push(FlightCrewListPage, { company: leg.company, flightNumber: leg.number, date: leg.departureDate, origine: leg.departureStation, destination: leg.arrivalStation });
+        this.navCtrl.push(FlightCrewListPage, { leg: leg });
     }
 
     displayErrorMessage() {
