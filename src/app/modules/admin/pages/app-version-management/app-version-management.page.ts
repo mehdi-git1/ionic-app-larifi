@@ -55,7 +55,7 @@ export class AppVersionManagementPage {
             .createOrUpdateAppVersion(this.appVersion)
             .then(success => {
                 this.initPage();
-                this.toastService.success(this.translateService.instant('ADMIN.APP_VERSION_MANAGEMENT.SUCCESS.CREATEORUPDATE_VERSION'));
+                this.toastService.success(this.translateService.instant('ADMIN.APP_VERSION_MANAGEMENT.SUCCESS.CREATE_OR_UPDATE_VERSION'));
             }, error => { });
     }
 
@@ -88,6 +88,6 @@ export class AppVersionManagementPage {
         this.appVersionService.delete(appVersion.techId).then(success => {
             this.initPage();
             this.toastService.success(this.translateService.instant('ADMIN.APP_VERSION_MANAGEMENT.SUCCESS.DELETE_UPDATE_VERSION'));
-        }, error => { })
+        }, error => { });
     }
 }
