@@ -1,7 +1,6 @@
 import { AppVersionModel } from './../../../../core/models/admin/app-version.model';
 import { AppVersionService } from './../../../../core/services/app-version/app-version.service';
 import { ToastService } from '../../../../core/services/toast/toast.service';
-import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
 import { Component } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -11,23 +10,18 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class AppVersionManagementPage {
 
-    public appVersionForm: FormGroup;
-    number: AbstractControl;
-    changelog: AbstractControl;
+    matPanelHeaderHeight = '41px';
+    number: string;
+    changelog: string;
+
+    versionNumberRegex = /([0-9]{1,2}[.]){2}[0-9]{1,2}/;
 
     allAppVersions: AppVersionModel[];
     appVersion: AppVersionModel;
 
     constructor(private appVersionService: AppVersionService,
         private translateService: TranslateService,
-        private toastService: ToastService,
-        private formBuilder: FormBuilder) {
-        this.appVersionForm = formBuilder.group({
-            number: ['', [Validators.required, Validators.pattern('^([0-9]{1,2}[.]){2}[0-9]{1,2}')]],
-            changelog: ['']
-        });
-        this.number = this.appVersionForm.controls['number'];
-        this.changelog = this.appVersionForm.controls['changelog'];
+        private toastService: ToastService) {
     }
 
     ionViewDidEnter() {
@@ -37,23 +31,27 @@ export class AppVersionManagementPage {
     }
 
     /**
-     * Crée une Version
-     * @param appVersion la version à ajouter
+     * Crée ou met à jour une Version
+     * @param appVersion la version créée ou mise à jour
      */
-    createAppVersion(): void {
-        if (!this.appVersionForm.valid) {
+    createOrUpdateAppVersion(appVersion: AppVersionModel): void {
+        if (appVersion == null) {
+            this.appVersion = new AppVersionModel();
+            this.appVersion.number = this.number;
+            this.appVersion.changelog = this.changelog;
+        } else {
+            this.appVersion = appVersion;
+        }
+        if (!this.versionNumberRegex.test(this.appVersion.number)) {
             return this.toastService.error(this.translateService.instant('ADMIN.APP_VERSION_MANAGEMENT.ERROR.UNDEFINED_NUMBER'));
         }
-        this.appVersion = new AppVersionModel();
-        this.appVersion.number = this.number.value;
-        this.appVersion.changelog = this.changelog.value;
         this.appVersionService
-            .createAppVersion(this.appVersion)
+            .createOrUpdateAppVersion(this.appVersion)
             .then(success => {
                 this.appVersionService.getAllAppVersions().then(allAppVersions => {
                     this.allAppVersions = allAppVersions;
                 }, error => { });
-                this.toastService.success(this.translateService.instant('ADMIN.APP_VERSION_MANAGEMENT.SUCCESS.CREATE_VERSION'));
+                this.toastService.success(this.translateService.instant('ADMIN.APP_VERSION_MANAGEMENT.SUCCESS.CREATE_OR_UPDATE_VERSION'));
             }, error => { });
     }
 }
