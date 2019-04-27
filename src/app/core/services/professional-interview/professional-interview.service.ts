@@ -50,8 +50,6 @@ export class ProfessionalInterviewService extends BaseService {
         }
         professionalInterview.lastUpdateAuthor = new PncLightModel();
         professionalInterview.lastUpdateAuthor.matricule = this.sessionService.getActiveUser().matricule;
-        professionalInterview.lastUpdateAuthor.lastName = this.sessionService.getActiveUser().lastName;
-        professionalInterview.lastUpdateAuthor.firstName = this.sessionService.getActiveUser().firstName;
         professionalInterview.lastUpdateDate = new Date();
 
         return this.execFunctionService('createOrUpdate', professionalInterview);
