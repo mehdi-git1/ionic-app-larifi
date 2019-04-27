@@ -69,9 +69,29 @@ export class ProfessionalInterviewDetailsPage {
     private offlinePncService: OfflinePncService,
     private dateTransformer: DateTransform
   ) {
+    this.annualProfessionalInterviewOptions = {
+      buttons: [{
+        text: this.translateService.instant('GLOBAL.DATEPICKER.CLEAR'),
+        handler: () => this.professionalInterview.annualProfessionalInterviewDate = null
+      }]
+    };
 
+    // Traduction des mois
+    this.monthsNames = this.translateService.instant('GLOBAL.MONTH.LONGNAME');
+
+  }
+
+  ionViewWillEnter() {
+    this.initPage();
+  }
+
+  /**
+   * Initialise le contenu de la page
+   */
+  initPage() {
     this.professionalInterview = this.navParams.get('professionalInterview');
     if (this.professionalInterview && this.professionalInterview.matricule) {
+    this.professionalInterview = _.cloneDeep(this.professionalInterview);
       if (this.professionalInterview.matricule === this.sessionService.getActiveUser().matricule && this.professionalInterview.state === ProfessionalInterviewStateEnum.NOT_TAKEN_INTO_ACCOUNT) {
         this.saveProfessionalInterviewToConsultState();
       }
@@ -106,29 +126,6 @@ export class ProfessionalInterviewDetailsPage {
     this.originProfessionalInterview = _.cloneDeep(this.professionalInterview);
     this.annualProfessionalInterviewDateString = this.professionalInterview.annualProfessionalInterviewDate;
     this.editionMode = this.isEditable();
-    this.initForm();
-
-    this.annualProfessionalInterviewOptions = {
-      buttons: [{
-        text: this.translateService.instant('GLOBAL.DATEPICKER.CLEAR'),
-        handler: () => this.professionalInterview.annualProfessionalInterviewDate = null
-      }]
-    };
-
-    // Traduction des mois
-    this.monthsNames = this.translateService.instant('GLOBAL.MONTH.LONGNAME');
-
-  }
-
-  /**
-   * Initialise le formulaire
-   */
-  initForm() {
-    this.professionalInterviewDetailForm = this.formBuilder.group({
-      annualProfessionalInterviewDateControl: ['', Validators.required],
-      pncCommentControl: ['']
-    });
-
   }
 
   /**
@@ -165,6 +162,41 @@ export class ProfessionalInterviewDetailsPage {
     } else if (this.professionalInterview && this.professionalInterview.state === ProfessionalInterviewStateEnum.CONSULTED) {
       return 'orange';
     }
+  }
+
+  ionViewCanLeave() {
+    if (this.formHasBeenModified()) {
+        return this.confirmAbandonChanges().then(() => {
+          this.professionalInterview = _.cloneDeep(this.originProfessionalInterview);
+        }
+        );
+    } else {
+      return true;
+    }
+  }
+
+  /**
+   * Popup d'avertissement en cas de modifications non enregistrées.
+   */
+  confirmAbandonChanges() {
+    return new Promise((resolve, reject) => {
+      // Avant de quitter la vue, on avertit l'utilisateur si ses modifications n'ont pas été enregistrées
+      this.alertCtrl.create({
+        title: this.translateService.instant('GLOBAL.CONFIRM_BACK_WITHOUT_SAVE.TITLE'),
+        message: this.translateService.instant('GLOBAL.CONFIRM_BACK_WITHOUT_SAVE.MESSAGE'),
+        buttons: [
+          {
+            text: this.translateService.instant('GLOBAL.BUTTONS.CANCEL'),
+            role: 'cancel',
+            handler: () => reject()
+          },
+          {
+            text: this.translateService.instant('GLOBAL.BUTTONS.CONFIRM'),
+            handler: () => resolve()
+          }
+        ]
+      }).present();
+    });
   }
 
   /**
@@ -303,7 +335,7 @@ export class ProfessionalInterviewDetailsPage {
         .then(savedProfessionalInterview => {
           this.originProfessionalInterview = _.cloneDeep(savedProfessionalInterview);
           this.professionalInterview = savedProfessionalInterview;
-          // en mode connecté, mettre en cache l'objectif creé ou modifié si le pnc est en cache
+          // en mode connecté, mettre en cache le bilan professionnel creé ou modifié si le pnc est en cache
           if (this.deviceService.isOfflineModeAvailable() && this.connectivityService.isConnected()
             && this.offlinePncService.pncExists(this.professionalInterview.matricule)) {
             this.offlineProfessionalInterviewService.createOrUpdate(this.professionalInterview, true);

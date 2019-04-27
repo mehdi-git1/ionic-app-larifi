@@ -1,48 +1,89 @@
 page-app-version-management {
 
-    table {
+    mat-expansion-panel {
         width: 100%;
-        font-size: 1.1em;
-        margin-top: 5px;
-        box-shadow: 0px 0px 5px color($colors, grey70);
-        border-collapse: collapse;
+        box-shadow: none !important;
+        margin-top: 5px !important;
+
+        mat-expansion-panel-header {
+            width: 100%;
+            display: flex;
+            background-color: color($colors, blue68);
+            border-radius: 5px;
+            color: color($colors, white);
+            text-align: left;
+            cursor: pointer;
+            text-overflow: ellipsis;
+
+            &.mat-expanded:hover,
+            &.mat-expanded:focus {
+                background-color: color($colors, blue68) !important;
+            }
+
+            &.mat-expansion-panel-header {
+                padding: 6px 20px 6px 10px;
+            }
+
+            .col {
+                overflow: hidden;
+                text-overflow: ellipsis !important;
+
+                label {
+                    font-weight: 700;
+                    font-size: 1.2em;
+                    color: color($colors, white);
+                    white-space: nowrap;
+                    max-width: 600px;
+                }
+            }
+        }
+
+        mat-expansion-panel.app-version-list {
+
+            mat-expansion-panel-header.app-version {
+                background-color: color($colors, blue77);
+                width: 100%;
+                height: 47px;
+                display: flex;
+                align-items: center;
+
+                & > * {
+                    color: color($colors, white);
+                }
+
+                &.mat-expansion-panel-header {
+                    box-shadow: 0 3px 1px -3px rgba(0, 0, 0, .2),
+                        0 2px 0px 0 rgba(0, 0, 0, .14),
+                        0 1px 5px 0 rgba(0, 0, 0, .12);
+                }
+
+                &.mat-expanded:hover,
+                &.mat-expanded:focus {
+                    background-color: color($colors, blue77) !important;
+                }
+
+                .mat-content {
+                    display: flex;
+                    align-items: center;
+
+                    label {
+                        font-size: 1.2em !important;
+                        font-weight: 400;
+                    }
+
+                    .expansion-button-placeholder {
+                        width: 8px;
+                    }
+                }
+            }
+        }
     }
 
-    table tr:nth-child(odd){
-        background-color:color($colors, grey70);
+    div.mat-expansion-panel-body {
+        padding: 0;
     }
 
-    thead {
-        background: color($colors, blue85);
-        border-bottom: 1px solid color($colors, blue60);
-    }
 
-    th,
-    td {
-        padding: 5px 10px;
-        vertical-align: top;
-        border: none;
-        margin: 0;
-    }
-
-    th {
-        text-transform: capitalize;
-        font-size: 24px;
-        font-style: normal;
-        text-align: center;
-    }
-
-    td {
-        text-align: left;
-    }
-
-    .action {
-        text-align: center;
-    }
-
-    .item-md.item-block .item-inner {
-        border: none;
-    }
 
     ion-textarea {
         min-height: 100px !important;
@@ -63,9 +104,17 @@ page-app-version-management {
         margin-top: 18px;
     }
 
-    .changelog-button {
+    .button {
         width: 100%;
         margin: 0;
+    }
+
+    .modify-button {
+        margin-top: 20px;
+    }
+
+    .item-md.item-block .item-inner {
+        border: none;
     }
 
     .item-md .item-button {
