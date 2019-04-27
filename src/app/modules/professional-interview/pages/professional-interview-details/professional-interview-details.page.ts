@@ -42,7 +42,6 @@ export class ProfessionalInterviewDetailsPage {
   monthsNames;
   datepickerMaxDate = AppConstant.datepickerMaxDate;
   annualProfessionalInterviewDateString: string;
-  professionalInterviewDetailForm: FormGroup;
 
   loading: Loading;
   editionMode = false;
@@ -91,7 +90,7 @@ export class ProfessionalInterviewDetailsPage {
   initPage() {
     this.professionalInterview = this.navParams.get('professionalInterview');
     if (this.professionalInterview && this.professionalInterview.matricule) {
-    this.professionalInterview = _.cloneDeep(this.professionalInterview);
+      this.professionalInterview = _.cloneDeep(this.professionalInterview);
       if (this.professionalInterview.matricule === this.sessionService.getActiveUser().matricule && this.professionalInterview.state === ProfessionalInterviewStateEnum.NOT_TAKEN_INTO_ACCOUNT) {
         this.saveProfessionalInterviewToConsultState();
       }
@@ -166,10 +165,10 @@ export class ProfessionalInterviewDetailsPage {
 
   ionViewCanLeave() {
     if (this.formHasBeenModified()) {
-        return this.confirmAbandonChanges().then(() => {
-          this.professionalInterview = _.cloneDeep(this.originProfessionalInterview);
-        }
-        );
+      return this.confirmAbandonChanges().then(() => {
+        this.professionalInterview = _.cloneDeep(this.originProfessionalInterview);
+      }
+      );
     } else {
       return true;
     }
@@ -428,7 +427,7 @@ export class ProfessionalInterviewDetailsPage {
 
   /**
  * Vérifie si le statut du bilan professionnel est celui passé en paramètre
- * @param PROFESSIONAL_INTERVIEWType statut du bilan professionnel à vérifier
+ * @param professionalInterviewState statut du bilan professionnel à vérifier
  * @return true si le statut du bilan professionnel est celui passé en paramètre, false sinon
  */
   checkProfessionaInterviewState(professionalInterviewState: ProfessionalInterviewStateEnum): boolean {

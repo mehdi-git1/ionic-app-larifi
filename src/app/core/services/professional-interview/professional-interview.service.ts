@@ -48,11 +48,8 @@ export class ProfessionalInterviewService extends BaseService {
             professionalInterview.instructor = new PncLightModel();
             professionalInterview.instructor.matricule = this.sessionService.getActiveUser().matricule;
         }
-<<<<<<< HEAD
         professionalInterview.lastUpdateAuthor = new PncLightModel();
         professionalInterview.lastUpdateAuthor.matricule = this.sessionService.getActiveUser().matricule;
-=======
->>>>>>> refs/remotes/origin/release/1.8.0
         professionalInterview.lastUpdateDate = new Date();
 
         return this.execFunctionService('createOrUpdate', professionalInterview);

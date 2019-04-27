@@ -89,48 +89,46 @@
         </div>
 
 
-            <!-- Commentaire PNC-->
-            <edospnc-expandable-block *ngIf="canEditPncComment() || professionalInterview.pncComment" class="comment" title="{{'PROFESSIONAL_INTERVIEW.DETAILS.PNC_COMMENT' | translate}}">
-                <div>
-                    <p *ngIf="!canEditPncComment(); else editPncCommentBlock">{{professionalInterview.pncComment}}</p>
-                    <ng-template #editPncCommentBlock>
-                        <ion-textarea [(ngModel)]="professionalInterview.pncComment" formControlName="pncCommentControl" autocorrect="on"></ion-textarea>
-                    </ng-template>
-                </div>
-            </edospnc-expandable-block>
-
-
-            <div class="state-block" *ngIf="!editionMode">
-                <span>{{ 'PROFESSIONAL_INTERVIEW.DETAILS.STATE.LABEL' | translate }} :
-                    <color-status-point [colorClass]="getColorStatusPoint()">
-                    </color-status-point>
-                    <span class="state-value">{{ 'PROFESSIONAL_INTERVIEW.DETAILS.STATE.' + professionalInterview?.state | translateOrEmpty }}</span>
-                </span>
-                <span>{{ 'PROFESSIONAL_INTERVIEW.DETAILS.UPDATE_DATE' | translate }} :
-                    <span *ngIf="professionalInterview?.lastUpdateDate">{{professionalInterview.lastUpdateDate | date: 'dd/MM/yyyy' : 'UTC'}}</span>
-                </span>
-                <span>{{ 'PROFESSIONAL_INTERVIEW.DETAILS.REDACTOR' | translate }} :
-                    <span *ngIf="professionalInterview.instructor?.lastName">{{professionalInterview.instructor.lastName}} <span class="firstname">{{professionalInterview.instructor.firstName}}</span></span>
-                </span>
+        <!-- Commentaire PNC-->
+        <edospnc-expandable-block *ngIf="canEditPncComment() || professionalInterview.pncComment" class="comment" title="{{'PROFESSIONAL_INTERVIEW.DETAILS.PNC_COMMENT' | translate}}">
+            <div>
+                <p *ngIf="!canEditPncComment(); else editPncCommentBlock">{{professionalInterview.pncComment}}</p>
+                <ng-template #editPncCommentBlock>
+                    <ion-textarea [(ngModel)]="professionalInterview.pncComment" formControlName="pncCommentControl" autocorrect="on"></ion-textarea>
+                </ng-template>
             </div>
+        </edospnc-expandable-block>
+
+
+        <div class="state-block" *ngIf="!editionMode">
+            <span>{{ 'PROFESSIONAL_INTERVIEW.DETAILS.STATE.LABEL' | translate }} :
+                <color-status-point [colorClass]="getColorStatusPoint()">
+                </color-status-point>
+                <span class="state-value">{{ 'PROFESSIONAL_INTERVIEW.DETAILS.STATE.' + professionalInterview?.state | translateOrEmpty }}</span>
+            </span>
+            <span>{{ 'PROFESSIONAL_INTERVIEW.DETAILS.UPDATE_DATE' | translate }} :
+                <span *ngIf="professionalInterview?.lastUpdateDate">{{professionalInterview.lastUpdateDate | date: 'dd/MM/yyyy' : 'UTC'}}</span>
+            </span>
+            <span>{{ 'PROFESSIONAL_INTERVIEW.DETAILS.REDACTOR' | translate }} :
+                <span *ngIf="professionalInterview.instructor?.lastName">{{professionalInterview.instructor.lastName}} <span class="firstname">{{professionalInterview.instructor.firstName}}</span></span>
+            </span>
         </div>
 
-            <!-- Barre de boutons -->
-            <div class="button-bar-right button-bar">
-                <!-- Bouton supprimer bilan professionnel en brouillon -->
-                <button ion-button color="red70" (click)="confirmDeleteProfessionalInterviewDraft()" *ngIf="canBeDeleted()">
-                    <ion-icon name="ios-trash-outline" ios="ios-trash-outline" margin-right></ion-icon>{{ 'PROFESSIONAL_INTERVIEW.DETAILS.BUTTONS.DELETE_DRAFT' | translate }}
-                </button>
-                <!-- Bouton sauvegarder objectif en brouillon -->
-                <button ion-button color="blue60" (click)="saveProfessionalInterviewDraft()" [disabled]="!annualProfessionalInterviewDateString             " *ngIf="canBeSavedAsDraft()">
-                    <ion-icon name="ios-bookmark-outline" ios="ios-bookmark-outline" margin-right></ion-icon> {{ 'PROFESSIONAL_INTERVIEW.DETAILS.BUTTONS.SAVE_DRAFT' | translate }}
-                </button>
-                <!-- Bouton prendre en compte bilan professionnel -->
-                <button ion-button color="blue60" (click)="takenIntoAccountProfessionalInterview()" *ngIf="canBeTakenIntoAccount()">
-                    <ion-icon name="ios-bookmark-outline" ios="ios-bookmark-outline" margin-right></ion-icon> {{ 'PROFESSIONAL_INTERVIEW.DETAILS.BUTTONS.TAKEN_INTO_ACCOUNT' | translate }}
-                </button>
-            </div>
-        </form>
+        <!-- Barre de boutons -->
+        <div class="button-bar-right button-bar">
+            <!-- Bouton supprimer bilan professionnel en brouillon -->
+            <button ion-button color="red70" (click)="confirmDeleteProfessionalInterviewDraft()" *ngIf="canBeDeleted()">
+                <ion-icon name="ios-trash-outline" ios="ios-trash-outline" margin-right></ion-icon>{{ 'PROFESSIONAL_INTERVIEW.DETAILS.BUTTONS.DELETE_DRAFT' | translate }}
+            </button>
+            <!-- Bouton sauvegarder objectif en brouillon -->
+            <button ion-button color="blue60" (click)="saveProfessionalInterviewDraft()" [disabled]="!annualProfessionalInterviewDateString             " *ngIf="canBeSavedAsDraft()">
+                <ion-icon name="ios-bookmark-outline" ios="ios-bookmark-outline" margin-right></ion-icon> {{ 'PROFESSIONAL_INTERVIEW.DETAILS.BUTTONS.SAVE_DRAFT' | translate }}
+            </button>
+            <!-- Bouton prendre en compte bilan professionnel -->
+            <button ion-button color="blue60" (click)="takenIntoAccountProfessionalInterview()" *ngIf="canBeTakenIntoAccount()">
+                <ion-icon name="ios-bookmark-outline" ios="ios-bookmark-outline" margin-right></ion-icon> {{ 'PROFESSIONAL_INTERVIEW.DETAILS.BUTTONS.TAKEN_INTO_ACCOUNT' | translate }}
+            </button>
+        </div>
     </ng-template>
 
 </ion-content>
