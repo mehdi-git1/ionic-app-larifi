@@ -52,7 +52,7 @@
                     </div>
                     <div *ngFor="let item of subTheme.professionalInterviewItems">
                         <label *ngIf="item.label" class="required"><span class="edospnc-speechBubble"></span> {{item.label}} :</label>
-                        <p *ngIf="!editionMode; else editBlock">{{value}}</p>
+                        <p *ngIf="!editionMode; else editBlock">{{item.value}}</p>
                         <ng-template #editBlock>
                             <ion-textarea [(ngModel)]="item.value" autocorrect="on"></ion-textarea>
                         </ng-template>
@@ -60,7 +60,7 @@
                 </div>
                 <div *ngFor="let item of interviewTheme.professionalInterviewItems">
                     <label *ngIf="item.label" class="no-margin-top required"><span class="edospnc-speechBubble"></span> {{item.label}} :</label>
-                    <p *ngIf="!editionMode; else editBlock">{{value}}</p>
+                    <p *ngIf="!editionMode; else editBlock">{{item.value}}</p>
                     <ng-template #editBlock>
                         <ion-textarea [(ngModel)]="item.value" autocorrect="on"></ion-textarea>
                     </ng-template>
@@ -94,13 +94,13 @@
             <div>
                 <p *ngIf="!canEditPncComment(); else editPncCommentBlock">{{professionalInterview.pncComment}}</p>
                 <ng-template #editPncCommentBlock>
-                    <ion-textarea [(ngModel)]="professionalInterview.pncComment" formControlName="pncCommentControl" autocorrect="on"></ion-textarea>
+                    <ion-textarea [(ngModel)]="professionalInterview.pncComment" autocorrect="on"></ion-textarea>
                 </ng-template>
             </div>
         </edospnc-expandable-block>
 
 
-        <div class="state-block" *ngIf="!editionMode">
+        <div class="state-block" *ngIf="professionalInterview?.state">
             <span>{{ 'PROFESSIONAL_INTERVIEW.DETAILS.STATE.LABEL' | translate }} :
                 <color-status-point [colorClass]="getColorStatusPoint()">
                 </color-status-point>
