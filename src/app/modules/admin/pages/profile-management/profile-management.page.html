@@ -1,10 +1,22 @@
 <ion-header>
     <ion-navbar>
+        <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+        <ion-title>{{ 'ADMIN.PROFILE_MANAGEMENT.TITLE' | translate }}</ion-title>
+    </ion-navbar>
+</ion-header>
+
+
+<!--
+<ion-header>
+    <ion-navbar>
         <page-header [showSettingsIcon]="false">
             {{ 'ADMIN.PROFILE_MANAGEMENT.TITLE' | translate }}
         </page-header>
     </ion-navbar>
 </ion-header>
+-->
 
 <ion-content padding no-bounce>
     <ion-grid>

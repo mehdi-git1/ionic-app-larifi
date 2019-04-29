@@ -336,7 +336,7 @@
             },
             "SUCCESS": {
                 "DRAFT_DELETED": "Proposition du bilan professionnel supprimée",
-                "DRAFT_SAVED" : "Brouillon sauvegardé"
+                "DRAFT_SAVED": "Brouillon sauvegardé"
             }
         }
     },
@@ -677,7 +677,8 @@
     },
     "ADMIN": {
         "ADMIN_HOME": {
-            "TITLE": "Page d'administration",
+            "NAV_TITLE": "Administration",
+            "BACK_TO_HOME_PAGE": "Retour",
             "BUTTON": {
                 "PROFILE_MANAGEMENT": "Gérer la liste des profils",
                 "APP_VERSION_MANAGEMENT": "Gérer la liste des versions",
