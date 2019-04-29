@@ -11,7 +11,7 @@
     <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
     <ng-template #pageBlock>
         <div class="state-block date-block-justify">
-            <span>{{ 'PROFESSIONAL_INTERVIEW.DETAILS.INTERVIEW_DATE' | translate }} : </span>
+            <span class="date-label">{{ 'PROFESSIONAL_INTERVIEW.DETAILS.INTERVIEW_DATE' | translate }} : </span>
             <span>
                 <ion-item *ngIf="editionMode">
                     <ion-datetime displayFormat="DD/MM/YYYY" pickerFormat="DD MMMM YYYY" [(ngModel)]="annualProfessionalInterviewDateString" [pickerOptions]="annualProfessionalInterviewOptions" [doneText]="translateService.instant('GLOBAL.DATEPICKER.DONE')" [cancelText]="translateService.instant('GLOBAL.DATEPICKER.CANCEL')" [max]="datepickerMaxDate" [monthNames]="monthsNames">
@@ -20,7 +20,7 @@
                         <ion-icon name="calendar"></ion-icon>
                     </ion-label>
                 </ion-item>
-                <label *ngIf="!editionMode">{{professionalInterview.annualProfessionalInterviewDate | date:'dd/MM/yyyy' : 'UTC'}}</label>
+                <label *ngIf="!editionMode" class="date-display">{{professionalInterview.annualProfessionalInterviewDate | date:'dd/MM/yyyy' : 'UTC'}}</label>
             </span>
         </div>
 
@@ -52,7 +52,7 @@
                     </div>
                     <div *ngFor="let item of subTheme.professionalInterviewItems">
                         <label *ngIf="item.label" class="required"><span class="edospnc-speechBubble"></span> {{item.label}} :</label>
-                        <p *ngIf="!editionMode; else editBlock">{{value}}</p>
+                        <p *ngIf="!editionMode; else editBlock">{{item.value}}</p>
                         <ng-template #editBlock>
                             <ion-textarea [(ngModel)]="item.value" autocorrect="on"></ion-textarea>
                         </ng-template>
@@ -60,7 +60,7 @@
                 </div>
                 <div *ngFor="let item of interviewTheme.professionalInterviewItems">
                     <label *ngIf="item.label" class="no-margin-top required"><span class="edospnc-speechBubble"></span> {{item.label}} :</label>
-                    <p *ngIf="!editionMode; else editBlock">{{value}}</p>
+                    <p *ngIf="!editionMode; else editBlock">{{item.value}}</p>
                     <ng-template #editBlock>
                         <ion-textarea [(ngModel)]="item.value" autocorrect="on"></ion-textarea>
                     </ng-template>
@@ -89,17 +89,28 @@
         </div>
 
         <div class="state-block" *ngIf="professionalInterview?.state">
-            <span>{{ 'PROFESSIONAL_INTERVIEW.DETAILS.STATE.LABEL' | translate }} :
-                <color-status-point [colorClass]="getColorStatusPoint()">
-                </color-status-point>
-                <span class="state-value">{{ 'PROFESSIONAL_INTERVIEW.DETAILS.STATE.' + professionalInterview?.state | translateOrEmpty }}</span>
-            </span>
-            <span>{{ 'PROFESSIONAL_INTERVIEW.DETAILS.UPDATE_DATE' | translate }} :
+            <div class="w30">
+                <span>
+                    <span>{{ 'PROFESSIONAL_INTERVIEW.DETAILS.STATE.LABEL' | translate }} :</span>
+                    <span>
+                        <color-status-point [colorClass]="getColorStatusPoint()">
+                        </color-status-point>
+                        <span class="state-value">{{ 'PROFESSIONAL_INTERVIEW.DETAILS.STATE.' + professionalInterview?.state | translateOrEmpty }}</span>
+                    </span>
+                </span>
+            </div>    
+            <span class="date">{{ 'PROFESSIONAL_INTERVIEW.DETAILS.UPDATE_DATE' | translate }} :
                 <span *ngIf="professionalInterview?.lastUpdateDate">{{professionalInterview?.lastUpdateDate | date: 'dd/MM/yyyy' : 'UTC'}}</span>
             </span>
-            <span>{{ 'PROFESSIONAL_INTERVIEW.DETAILS.REDACTOR' | translate }} :
-                <span *ngIf="professionalInterview?.instructor?.lastName">{{professionalInterview.instructor.lastName}} <span class="firstname">{{professionalInterview.instructor.firstName}}</span></span>
-            </span>
+            <div class="w30">
+                <span>
+                    <span>{{ 'PROFESSIONAL_INTERVIEW.DETAILS.REDACTOR' | translate }} :</span>
+                    <span class="redactor">
+                        <span *ngIf="professionalInterview.instructor?.lastName">{{professionalInterview.instructor.lastName}}</span>
+                        <span *ngIf="professionalInterview.instructor?.firstName" class="firstname">{{professionalInterview.instructor.firstName}}</span>
+                    </span>
+                </span>
+            </div>
         </div>
 
         <!-- Barre de boutons -->

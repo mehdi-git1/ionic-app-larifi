@@ -94,10 +94,19 @@ export class ProfessionalInterviewDetailsPage {
         return theme1.themeOrder < theme2.themeOrder ? -1 : 1;
       });
 
-      for (let i = 0; i < this.professionalInterview.professionalInterviewThemes.length; i++) {
-        this.professionalInterview.professionalInterviewThemes[i].subThemes.sort((ssTheme1, ssTheme2) => {
-          return ssTheme1.themeOrder < ssTheme2.themeOrder ? -1 : 1;
+      for (const theme of this.professionalInterview.professionalInterviewThemes) {
+        theme.subThemes.sort((subTheme1, subTheme2) => {
+          return subTheme1.themeOrder < subTheme2.themeOrder ? -1 : 1;
         });
+
+        if (theme.subThemes.length > 0){
+          theme.subThemes.forEach( function (value){
+            value.professionalInterviewItems.sort((item1, item2) => {
+              return item1.itemOrder < item2.itemOrder ? -1 : 1;
+            });
+          });
+        }
+
       }
       this.pncService.getPnc(this.professionalInterview.matricule).then(pnc => {
         this.pnc = pnc;
@@ -207,9 +216,8 @@ export class ProfessionalInterviewDetailsPage {
    * @param professionalInterviewTheme ProfessionalInterviewTheme en cours de traitement
    * @return true si c'est un commentaire instructeur
    */
-  isInstructorComment(professionalInterviewTheme: ProfessionalInterviewThemeModel): boolean {
-    console.log(this.professionalInterview);
-    if (professionalInterviewTheme.professionalInterviewItems[0]) {
+  isInstructorComment(professionalInterviewTheme: ProfessionalInterviewThemeModel): boolean{
+    if (professionalInterviewTheme.professionalInterviewItems[0]){
       return professionalInterviewTheme.professionalInterviewItems[0].key == ProfessionalInterviewCommentItemTypeEnum.SYNTHESIS;
     }
     return false;
