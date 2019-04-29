@@ -99,8 +99,8 @@ export class ProfessionalInterviewDetailsPage {
           return subTheme1.themeOrder < subTheme2.themeOrder ? -1 : 1;
         });
 
-        if (theme.subThemes.length > 0){
-          theme.subThemes.forEach( function (value){
+        if (theme.subThemes.length > 0) {
+          theme.subThemes.forEach(function (value) {
             value.professionalInterviewItems.sort((item1, item2) => {
               return item1.itemOrder < item2.itemOrder ? -1 : 1;
             });
@@ -216,8 +216,8 @@ export class ProfessionalInterviewDetailsPage {
    * @param professionalInterviewTheme ProfessionalInterviewTheme en cours de traitement
    * @return true si c'est un commentaire instructeur
    */
-  isInstructorComment(professionalInterviewTheme: ProfessionalInterviewThemeModel): boolean{
-    if (professionalInterviewTheme.professionalInterviewItems[0]){
+  isInstructorComment(professionalInterviewTheme: ProfessionalInterviewThemeModel): boolean {
+    if (professionalInterviewTheme.professionalInterviewItems[0]) {
       return professionalInterviewTheme.professionalInterviewItems[0].key == ProfessionalInterviewCommentItemTypeEnum.SYNTHESIS;
     }
     return false;
@@ -343,6 +343,9 @@ export class ProfessionalInterviewDetailsPage {
    * Verifie que tout les champs de saisie sont remplis
    */
   isAllIFieldsAreFilled() {
+    if (!this.annualProfessionalInterviewDateString) {
+      return false;
+    }
     let returnValue = true;
     this.professionalInterview.professionalInterviewThemes.forEach(professionalInterviewTheme => {
       professionalInterviewTheme.professionalInterviewItems.forEach(item => {
