@@ -308,8 +308,8 @@
         },
         "DETAILS": {
             "SPECIALITY": "Fonction",
-            "EOBS_PNC_ASSIGNMENT_BILAN_PRO": "Affectation à date du Bilan Professionel",
-            "EOBS_PNC_ASSIGNMENT_EPP": "Affectation à date de l'EPP",
+            "PNC_ASSIGNMENT_BILAN_PRO": "Affectation à date du Bilan Professionnel",
+            "PNC_ASSIGNMENT_EPP": "Affectation à date de l'EPP",
             "INTERVIEW_DATE": "Date de l'entretien",
             "UPDATE_DATE": "Enregistré depuis le",
             "REDACTOR": "Rédacteur",
@@ -328,7 +328,8 @@
             "BUTTONS": {
                 "DELETE_DRAFT": "Supprimer le brouillon",
                 "SAVE_DRAFT": "Sauvegarder le brouillon",
-                "TAKEN_INTO_ACCOUNT": "Prendre en compte"
+                "TAKE_INTO_ACCOUNT": "Prendre en compte",
+                "VALIDATE": "Valider"
             },
             "PNC_COMMENT": "Commentaire du PNC",
             "CONFIRM_DRAFT_DELETE": {
@@ -340,6 +341,7 @@
             "SUCCESS": {
                 "DRAFT_SAVED": "Brouillon sauvegardé",
                 "DRAFT_DELETED": "Brouillon supprimé",
+                "VALIDATED": "Bilan professionnel validé",
                 "TAKEN_INTO_ACCOUNT": "Bilan Professionnel pris en compte "
             },
             "CONFIRM_VALIDATE_WITHOUT_PNC_COMMENT": {
@@ -348,7 +350,8 @@
                 "CONFIRM": "Oui",
                 "CANCEL": "Non"
             }
-        }
+        },
+        "LEGEND": "Tous les champs doivent être renseignés pour valider le formulaire"
     },
     "EOBSERVATION": {
         "LIST": {
