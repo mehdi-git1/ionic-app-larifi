@@ -203,6 +203,14 @@ page-professional-interview-details {
             resize: none;
         }
 
+        p{
+            padding: 10px;
+            border-radius: 3px;
+            background: color($colors, grey95);
+            border: 1px solid color($colors, grey70);
+            white-space: pre-line;
+        }
+
         .mat-expansion-panel-body {
             padding: 15px;
 
