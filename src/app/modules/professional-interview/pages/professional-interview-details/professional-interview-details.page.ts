@@ -468,7 +468,7 @@ export class ProfessionalInterviewDetailsPage {
    * @return l'objectif à enregistrer avec la date de rencontre transformée
    */
   prepareProfessionalInterviewBeforeSubmit(professionalInterviewToSave: ProfessionalInterviewModel): ProfessionalInterviewModel {
-    if (typeof this.annualProfessionalInterviewDateString !== undefined && this.annualProfessionalInterviewDateString !== null) {
+    if (typeof this.annualProfessionalInterviewDateString !== 'undefined' && this.annualProfessionalInterviewDateString !== null) {
       professionalInterviewToSave.annualProfessionalInterviewDate = this.dateTransformer.transformDateStringToIso8601Format(this.annualProfessionalInterviewDateString);
     }
     professionalInterviewToSave.type = ProfessionalInterviewTypeEnum.BILAN;

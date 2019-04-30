@@ -143,11 +143,11 @@
             </button>
             <!-- Bouton prendre en compte bilan professionnel -->
             <button ion-button color="blue60" (click)="takenIntoAccountProfessionalInterview()" *ngIf="canBeTakenIntoAccount()">
-                <ion-icon name="ios-bookmark-outline" ios="ios-bookmark-outline" margin-right></ion-icon> {{ 'PROFESSIONAL_INTERVIEW.DETAILS.BUTTONS.TAKEN_INTO_ACCOUNT' | translate }}
+                <ion-icon name="ios-bookmark-outline" ios="ios-bookmark-outline" margin-right></ion-icon> {{ 'PROFESSIONAL_INTERVIEW.DETAILS.BUTTONS.TAKE_INTO_ACCOUNT' | translate }}
             </button>
         </div>
         <div>
-            <div class="information-message">{{ 'PROFESSIONAL_INTERVIEW.DETAILS.LEGEND' | translate }}</div>
+            <div class="information-message" *ngIf="canBeSavedInState(ProfessionalInterviewStateEnum.NOT_TAKEN_INTO_ACCOUNT)">{{ 'PROFESSIONAL_INTERVIEW.DETAILS.LEGEND' | translate }}</div>
         </div>
     </ng-template>
 
