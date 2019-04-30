@@ -87,6 +87,7 @@ export class SynchronizationService {
 
     const allCareerObjectives = this.storageService.findAll(EntityEnum.CAREER_OBJECTIVE);
     const allWaypoints = this.storageService.findAll(EntityEnum.WAYPOINT);
+    const allEObservations = this.storageService.findAll(EntityEnum.EOBSERVATION);
 
     const pncCareerObjectives = allCareerObjectives.filter(careerObjective => {
       return careerObjective.pnc.matricule === matricule;
@@ -99,6 +100,10 @@ export class SynchronizationService {
       }
     });
 
+    const pncEObservations = allEObservations.filter(eObservation => {
+      return eObservation.pnc.matricule === matricule;
+    });
+
     for (const careerObjective of pncCareerObjectives) {
       if (careerObjective.offlineAction) {
         return true;
@@ -107,6 +112,12 @@ export class SynchronizationService {
 
     for (const waypoint of pncWaypoints) {
       if (waypoint.offlineAction) {
+        return true;
+      }
+    }
+
+    for (const eObservation of pncEObservations) {
+      if (eObservation.offlineAction) {
         return true;
       }
     }
@@ -220,9 +231,11 @@ export class SynchronizationService {
    * @param eObservations les eObservations à stocker en cache
    */
   private storeEObservations(eObservations: EObservationModel[]): void {
-    for (const eObservation of eObservations) {
-      delete eObservation.offlineAction;
-      this.storageService.save(EntityEnum.EOBSERVATION, this.eObservationTransformerService.toEObservation(eObservation), true);
+    if (eObservations) {
+      for (const eObservation of eObservations) {
+        delete eObservation.offlineAction;
+        this.storageService.save(EntityEnum.EOBSERVATION, this.eObservationTransformerService.toEObservation(eObservation), true);
+      }
     }
   }
 
@@ -231,9 +244,11 @@ export class SynchronizationService {
    * @param professionalInterviews les bilans professionnels à stocker en cache
    */
   private storeProfessionalInterviews(professionalInterviews: ProfessionalInterviewModel[]): void {
-    for (const professionalInterview of professionalInterviews) {
-      delete professionalInterview.offlineAction;
-      this.storageService.save(EntityEnum.PROFESSIONAL_INTERVIEW, this.transformerService.universalTransformObject(ProfessionalInterviewModel, professionalInterview), true);
+    if (professionalInterviews) {
+      for (const professionalInterview of professionalInterviews) {
+        delete professionalInterview.offlineAction;
+        this.storageService.save(EntityEnum.PROFESSIONAL_INTERVIEW, this.transformerService.universalTransformObject(ProfessionalInterviewModel, professionalInterview), true);
+      }
     }
   }
 
@@ -242,8 +257,10 @@ export class SynchronizationService {
    * @param congratulationLetters les lettres de félicitation à stocker en cache
    */
   private storeCongratulationLetters(congratulationLetters: CongratulationLetterModel[]): void {
-    for (const congratulationLetter of congratulationLetters) {
-      this.storageService.save(EntityEnum.CONGRATULATION_LETTER, this.congratulationLetterTransformer.toCongratulationLetter(congratulationLetter), true);
+    if (congratulationLetters) {
+      for (const congratulationLetter of congratulationLetters) {
+        this.storageService.save(EntityEnum.CONGRATULATION_LETTER, this.congratulationLetterTransformer.toCongratulationLetter(congratulationLetter), true);
+      }
     }
   }
 
