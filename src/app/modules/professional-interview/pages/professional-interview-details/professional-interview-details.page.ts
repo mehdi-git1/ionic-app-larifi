@@ -1,17 +1,18 @@
+import { ProfessionalInterviewCommentItemTypeEnum } from './../../../../core/enums/professional-interview/professional-interview-comment-item-type.enum';
+import { ProfessionalInterviewTypeEnum } from './../../../../core/enums/professional-interview/professional-interview-type.enum';
 import { EObsBilanFlightComponent } from './../../../eobservation/components/eobs-bilan-flight/eobs-bilan-flight.component';
 import { DateTransform } from './../../../../shared/utils/date-transform';
 import { ProfessionalInterviewStatusService } from './../../../../core/services/professional-interview/professional-interview-status.service';
 import { SecurityService } from './../../../../core/services/security/security.service';
 import { OfflinePncService } from './../../../../core/services/pnc/offline-pnc.service';
 import { DeviceService } from './../../../../core/services/device/device.service';
-import { ProfessionalInterviewCommentItemTypeEnum } from './../../../../core/enums/professional-interview/professional-interview-comment-item-type.enum';
 import { ToastService } from './../../../../core/services/toast/toast.service';
 import { ConnectivityService } from './../../../../core/services/connectivity/connectivity.service';
 import { OfflineProfessionalInterviewService } from './../../../../core/services/professional-interview/offline-professional-interview.service';
 import { ProfessionalInterviewService } from './../../../../core/services/professional-interview/professional-interview.service';
 import { PncTransformerService } from './../../../../core/services/pnc/pnc-transformer.service';
 import { SessionService } from './../../../../core/services/session/session.service';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, Validators } from '@angular/forms';
 import { Component } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { NavController, NavParams, Loading, AlertController, LoadingController } from 'ionic-angular';
@@ -23,7 +24,6 @@ import { AppConstant } from '../../../../app.constant';
 import * as _ from 'lodash';
 import { Utils } from '../../../../shared/utils/utils';
 import { ProfessionalInterviewModel } from './../../../../core/models/professional-interview/professional-interview.model';
-import { ProfessionalInterviewTypeEnum } from '../../../../core/enums/professional-interview/professional-interview-type.enum';
 import { ProfessionalInterviewStateEnum } from '../../../../core/enums/professional-interview/professional-interview-state.enum';
 import { ProfessionalInterviewThemeModel } from '../../../../core/models/professional-interview/professional-interview-theme.model';
 
@@ -38,6 +38,7 @@ export class ProfessionalInterviewDetailsPage {
   professionalInterview: ProfessionalInterviewModel;
   originProfessionalInterview: ProfessionalInterviewModel;
   ProfessionalInterviewTypeEnum = ProfessionalInterviewTypeEnum;
+  ProfessionalInterviewStateEnum = ProfessionalInterviewStateEnum;
 
   annualProfessionalInterviewOptions: any;
   monthsNames;
@@ -50,7 +51,6 @@ export class ProfessionalInterviewDetailsPage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    private formBuilder: FormBuilder,
     private translateService: TranslateService,
     private pncService: PncService,
     private alertCtrl: AlertController,
@@ -94,10 +94,19 @@ export class ProfessionalInterviewDetailsPage {
         return theme1.themeOrder < theme2.themeOrder ? -1 : 1;
       });
 
-      for (let i = 0; i < this.professionalInterview.professionalInterviewThemes.length; i++) {
-        this.professionalInterview.professionalInterviewThemes[i].subThemes.sort((ssTheme1, ssTheme2) => {
-          return ssTheme1.themeOrder < ssTheme2.themeOrder ? -1 : 1;
+      for (const theme of this.professionalInterview.professionalInterviewThemes) {
+        theme.subThemes.sort((subTheme1, subTheme2) => {
+          return subTheme1.themeOrder < subTheme2.themeOrder ? -1 : 1;
         });
+
+        if (theme.subThemes.length > 0) {
+          theme.subThemes.forEach(function (value) {
+            value.professionalInterviewItems.sort((item1, item2) => {
+              return item1.itemOrder < item2.itemOrder ? -1 : 1;
+            });
+          });
+        }
+
       }
       this.pncService.getPnc(this.professionalInterview.matricule).then(pnc => {
         this.pnc = pnc;
@@ -112,7 +121,7 @@ export class ProfessionalInterviewDetailsPage {
         this.pncService.getPnc(this.navParams.get('matricule')).then(pnc => {
           this.pnc = pnc;
           this.professionalInterview.pncAtInterviewDate = this.pncTransformer.toPncLight(this.pnc);
-          this.professionalInterview.pncAtInterviewDate.speciality = this.pncService.getFormatedSpeciality(this.pnc);
+          this.professionalInterview.pncAtInterviewDate.speciality = this.pnc.currentSpeciality;
         }, error => { });
       }
     }
@@ -157,10 +166,10 @@ export class ProfessionalInterviewDetailsPage {
 
   ionViewCanLeave() {
     if (this.formHasBeenModified()) {
-        return this.confirmAbandonChanges().then(() => {
-          this.professionalInterview = _.cloneDeep(this.originProfessionalInterview);
-        }
-        );
+      return this.confirmAbandonChanges().then(() => {
+        this.professionalInterview = _.cloneDeep(this.originProfessionalInterview);
+      }
+      );
     } else {
       return true;
     }
@@ -208,7 +217,6 @@ export class ProfessionalInterviewDetailsPage {
    * @return true si c'est un commentaire instructeur
    */
   isInstructorComment(professionalInterviewTheme: ProfessionalInterviewThemeModel): boolean {
-    console.log(this.professionalInterview);
     if (professionalInterviewTheme.professionalInterviewItems[0]) {
       return professionalInterviewTheme.professionalInterviewItems[0].key == ProfessionalInterviewCommentItemTypeEnum.SYNTHESIS;
     }
@@ -308,6 +316,10 @@ export class ProfessionalInterviewDetailsPage {
             this.toastService.success(this.translateService.instant('PROFESSIONAL_INTERVIEW.DETAILS.SUCCESS.DRAFT_SAVED'));
             this.navCtrl.pop();
           }
+          if (this.professionalInterview.state === ProfessionalInterviewStateEnum.NOT_TAKEN_INTO_ACCOUNT) {
+            this.toastService.success(this.translateService.instant('PROFESSIONAL_INTERVIEW.DETAILS.SUCCESS.VALIDATED'));
+            this.navCtrl.pop();
+          }
           this.loading.dismiss();
           resolve();
         }, error => {
@@ -328,13 +340,30 @@ export class ProfessionalInterviewDetailsPage {
   }
 
   /**
-   * Retourne true si c'est une proposition et qu'elle peut être modifiée par le user connecté
+   * Verifie que tout les champs de saisie sont remplis
+   */
+  isAllIFieldsAreFilled() {
+    if (!this.annualProfessionalInterviewDateString) {
+      return false;
+    }
+    let returnValue = true;
+    this.professionalInterview.professionalInterviewThemes.forEach(professionalInterviewTheme => {
+      professionalInterviewTheme.professionalInterviewItems.forEach(item => {
+        if (!item.value || typeof item.value === undefined || item.value === '') {
+          returnValue = false;
+        }
+      });
+    });
+    return returnValue;
+  }
+
+  /**
+   * Teste que le user connecté est cadre et que le bilan professionnel peut être enregsitré avec le statut en paramètre
    * @return true si Draft && (CADRE ou auteur de la proposition)
    */
-  canBeSavedAsDraft(): boolean {
-    const canBeSavedAsDraft: boolean = this.professionalInterviewStatusService.isTransitionOk(this.professionalInterview.state, ProfessionalInterviewStateEnum.DRAFT);
-    const isInitiatorOrCadre: boolean = this.securityService.isManager() || (!this.professionalInterview.instructor || (this.professionalInterview.instructor.matricule === this.sessionService.authenticatedUser.matricule));
-    return canBeSavedAsDraft && isInitiatorOrCadre;
+  canBeSavedInState(state: ProfessionalInterviewStateEnum): boolean {
+    const canBeSaved: boolean = this.professionalInterviewStatusService.isTransitionOk(this.professionalInterview.state, state);
+    return canBeSaved && this.securityService.isManager();
   }
 
   /**
@@ -351,5 +380,15 @@ export class ProfessionalInterviewDetailsPage {
     }
     professionalInterviewToSave.type = ProfessionalInterviewTypeEnum.BILAN;
     return professionalInterviewToSave;
+  }
+
+  /**
+   * Enregistre un bilan professionnel au statut validé
+   */
+  saveProfessionalInterviewToValidatedStatus() {
+    const professionalInterviewToSave = _.cloneDeep(this.professionalInterview);
+    professionalInterviewToSave.state = ProfessionalInterviewStateEnum.NOT_TAKEN_INTO_ACCOUNT;
+    professionalInterviewToSave.matricule = this.pnc.matricule;
+    this.saveProfessionalInterview(professionalInterviewToSave);
   }
 }
