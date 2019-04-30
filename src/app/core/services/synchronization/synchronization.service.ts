@@ -87,6 +87,7 @@ export class SynchronizationService {
 
     const allCareerObjectives = this.storageService.findAll(EntityEnum.CAREER_OBJECTIVE);
     const allWaypoints = this.storageService.findAll(EntityEnum.WAYPOINT);
+    const allEObservations = this.storageService.findAll(EntityEnum.EOBSERVATION);
 
     const pncCareerObjectives = allCareerObjectives.filter(careerObjective => {
       return careerObjective.pnc.matricule === matricule;
@@ -99,6 +100,10 @@ export class SynchronizationService {
       }
     });
 
+    const pncEObservations = allEObservations.filter(eObservation => {
+      return eObservation.pnc.matricule === matricule;
+    });
+
     for (const careerObjective of pncCareerObjectives) {
       if (careerObjective.offlineAction) {
         return true;
@@ -107,6 +112,12 @@ export class SynchronizationService {
 
     for (const waypoint of pncWaypoints) {
       if (waypoint.offlineAction) {
+        return true;
+      }
+    }
+
+    for (const eObservation of pncEObservations) {
+      if (eObservation.offlineAction) {
         return true;
       }
     }

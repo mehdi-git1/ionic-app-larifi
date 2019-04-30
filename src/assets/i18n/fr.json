@@ -295,8 +295,7 @@
         "TITLE_EPP": "Entretien professionnel PNC",
         "MY_TITLE_EPP": "Mon entretien professionnel PNC",
         "BUTTONS": {
-            "NEW_PROFESSIONAL_INTERVIEW": "Nouveau bilan professionnel",
-            "SAVE_DRAFT": "Sauvegarder le brouillon"
+            "NEW_PROFESSIONAL_INTERVIEW": "Nouveau bilan professionnel"
         },
         "LIST": {
             "HEADER": {
@@ -309,8 +308,8 @@
         },
         "DETAILS": {
             "SPECIALITY": "Fonction",
-            "EOBS_PNC_ASSIGNMENT_BILAN_PRO": "Affectation à date du Bilan Professionel",
-            "EOBS_PNC_ASSIGNMENT_EPP": "Affectation à date de l'EPP",
+            "PNC_ASSIGNMENT_BILAN_PRO": "Affectation à date du Bilan Professionnel",
+            "PNC_ASSIGNMENT_EPP": "Affectation à date de l'EPP",
             "INTERVIEW_DATE": "Date de l'entretien",
             "UPDATE_DATE": "Enregistré depuis le",
             "REDACTOR": "Rédacteur",
@@ -326,7 +325,9 @@
                 "BILAN": "Bilan professionnel"
             },
             "BUTTONS": {
-                "DELETE_DRAFT": "Supprimer le brouillon"
+                "DELETE_DRAFT": "Supprimer le brouillon",
+                "SAVE_DRAFT": "Sauvegarder le brouillon",
+                "VALIDATE": "Valider"
             },
             "CONFIRM_DRAFT_DELETE": {
                 "TITLE": "Suppression du Bilan Professionnel",
@@ -335,9 +336,11 @@
                 "CONFIRM": "Supprimer"
             },
             "SUCCESS": {
-                "DRAFT_DELETED": "Proposition du bilan professionnel supprimée",
+                "DRAFT_DELETED": "Brouillon supprimé",
+                "VALIDATED": "Bilan professionnel validé",
                 "DRAFT_SAVED": "Brouillon sauvegardé"
-            }
+            },
+            "LEGEND": "Tous les champs doivent être renseignés pour valider le formulaire"
         }
     },
     "EOBSERVATION": {

@@ -50,11 +50,13 @@ page-professional-interview-details {
         }
     }
 
-    .mat-expansion-panel-body .ng-star-inserted:first-child .sub-title-block{
-        margin-top:0px;
+    .mat-expansion-panel-body .ng-star-inserted:first-child .sub-title-block {
+        margin-top: 0px;
     }
 
-    .state-block, .comment-block, .sub-title-block {
+    .state-block,
+    .comment-block,
+    .sub-title-block {
         height: 32px;
         padding-right: 24px;
         padding-left: 24px;
@@ -65,29 +67,44 @@ page-professional-interview-details {
         color: color($colors, white);
         border-radius: $block-border-radius;
 
-        &.comment-block{
-            margin-bottom:16px;
+        &.comment-block {
+            margin-bottom: 16px;
             border-top-left-radius: 0px;
             border-top-right-radius: 0px;
             background: color($colors, blue77);
         }
 
-        &.sub-title-block{            
+        &.sub-title-block {
             background: color($colors, blue77);
-            margin:10px -15px 10px -15px;
+            margin: 10px -15px 10px -15px;
             font-size: 17px;
         }
 
-        span {
+        &.state-block{
+
+            color-status-point{
+                padding-right: 0px;
+            }
+
+            .w30{
+                width:30%;
+            }
+
+            .redactor{
+                display: inline;
+            }
+
+            >span{
+                display: inline;
+            }           
+        }
+
+        &.span {
             display: flex;
             align-items: center;
             justify-content: space-between;
             padding-right: 5px;
             padding-left: 5px;
-        }
-
-        .state-value {
-            padding-left: 10px;
         }
 
         color-status-point {
@@ -98,26 +115,36 @@ page-professional-interview-details {
 
     .date-block-justify {
         justify-content: center;
+        margin-bottom: 15px;
+        background-color: color($colors, bluegrey5);
 
-        .item-md.item-block .item-inner {
+        .date-display{
+            color: color($colors, white);
+        }
+
+        .date-label{
+            padding-right: 5px;
+        }
+
+        .item-md.item-block .item-inner, .item-ios.item-block .item-inner {
             padding-right: 0px;
             border-bottom: 0px;
 
             .input-wrapper {
                 height: 25px;
-                background-color: white;
+                background-color: color($colors, white);
                 align-items: center;
                 align-content: center;
                 margin-top: 9px;
-                padding: 0px 8px 0px 9px;
+                padding: 0px 8px 0px 0px;
                 border-radius: 5px;
             }
 
-            .label-md {
+            .label-md, .label-ios {
                 margin: 13px 0px 13px 10px;
             }
 
-            .datetime-md {
+            .datetime-md, .datetime-ios {
                 padding: 0px;
             }
 
@@ -178,6 +205,14 @@ page-professional-interview-details {
             resize: none;
         }
 
+        p{
+            padding: 10px;
+            border-radius: 3px;
+            background: color($colors, grey95);
+            border: 1px solid color($colors, grey70);
+            white-space: pre-line;
+        }
+
         .mat-expansion-panel-body {
             padding: 15px;
 
@@ -224,8 +259,8 @@ page-professional-interview-details {
         }
     }
 
-    .expandable-comment-block{
-        .mat-expansion-panel{
+    .expandable-comment-block {
+        .mat-expansion-panel {
             margin-bottom: 0px;
 
         }
@@ -233,5 +268,9 @@ page-professional-interview-details {
 
     .button-bar {
         margin-top: 10px;
+    }
+
+    .information-message {
+        margin-top: 20px;
     }
 }
