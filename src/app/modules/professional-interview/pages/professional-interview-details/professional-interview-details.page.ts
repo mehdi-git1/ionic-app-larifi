@@ -115,10 +115,13 @@ export class ProfessionalInterviewDetailsPage {
           this.pnc = pnc;
           this.professionalInterview.pncAtInterviewDate = this.pncTransformer.toPncLight(this.pnc);
           this.professionalInterview.pncAtInterviewDate.speciality = this.pncService.getFormatedSpeciality(this.pnc);
+          this.originProfessionalInterview = _.cloneDeep(this.professionalInterview);
         }, error => { });
       }
     }
-    this.originProfessionalInterview = _.cloneDeep(this.professionalInterview);
+    if (!this.originProfessionalInterview) {
+      this.originProfessionalInterview = _.cloneDeep(this.professionalInterview);
+    }
     this.annualProfessionalInterviewDateString = this.professionalInterview.annualProfessionalInterviewDate;
     this.editionMode = this.isEditable();
   }
@@ -138,7 +141,8 @@ export class ProfessionalInterviewDetailsPage {
    * @return true si il n'y a pas eu de modifications
    */
   formHasBeenModified() {
-    return Utils.getHashCode(this.originProfessionalInterview) !== Utils.getHashCode(this.professionalInterview);
+    return this.annualProfessionalInterviewDateString != this.originProfessionalInterview.annualProfessionalInterviewDate
+      || Utils.getHashCode(this.originProfessionalInterview) !== Utils.getHashCode(this.professionalInterview);
   }
   /**
    * Vérifie que le bilan professionnel est éditable
