@@ -88,6 +88,18 @@
             </div>
         </div>
 
+
+        <!-- Commentaire PNC-->
+        <edospnc-expandable-block *ngIf="canEditPncComment() || professionalInterview.pncComment" class="comment" title="{{'PROFESSIONAL_INTERVIEW.DETAILS.PNC_COMMENT' | translate}}">
+            <div>
+                <p *ngIf="!canEditPncComment(); else editPncCommentBlock">{{professionalInterview.pncComment}}</p>
+                <ng-template #editPncCommentBlock>
+                    <ion-textarea [(ngModel)]="professionalInterview.pncComment" autocorrect="on"></ion-textarea>
+                </ng-template>
+            </div>
+        </edospnc-expandable-block>
+
+
         <div class="state-block" *ngIf="professionalInterview?.state">
             <div class="w30">
                 <span>
@@ -126,6 +138,10 @@
             <!-- Bouton valider bilan professionnel -->
             <button ion-button color="green50" (click)="saveProfessionalInterviewToValidatedStatus()" [disabled]="!isAllIFieldsAreFilled()" *ngIf="canBeSavedInState(ProfessionalInterviewStateEnum.NOT_TAKEN_INTO_ACCOUNT)">
                 <ion-icon name="md-checkmark" ios="md-checkmark" margin-right></ion-icon> {{ 'PROFESSIONAL_INTERVIEW.DETAILS.BUTTONS.VALIDATE' | translate }}
+            </button>
+            <!-- Bouton prendre en compte bilan professionnel -->
+            <button ion-button color="blue60" (click)="takenIntoAccountProfessionalInterview()" *ngIf="canBeTakenIntoAccount()">
+                <ion-icon name="ios-bookmark-outline" ios="ios-bookmark-outline" margin-right></ion-icon> {{ 'PROFESSIONAL_INTERVIEW.DETAILS.BUTTONS.TAKEN_INTO_ACCOUNT' | translate }}
             </button>
         </div>
         <div>

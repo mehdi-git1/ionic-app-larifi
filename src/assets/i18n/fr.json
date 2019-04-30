@@ -318,6 +318,7 @@
                 "TAKEN_INTO_ACCOUNT": "Pris en compte",
                 "NOT_TAKEN_INTO_ACCOUNT": "Non pris en compte",
                 "AVAILABLE": "Disponible",
+                "CONSULTED": "Consulté",
                 "DRAFT": "Brouillon"
             },
             "TYPE": {
@@ -327,8 +328,10 @@
             "BUTTONS": {
                 "DELETE_DRAFT": "Supprimer le brouillon",
                 "SAVE_DRAFT": "Sauvegarder le brouillon",
+                "TAKE_INTO_ACCOUNT": "Prendre en compte",
                 "VALIDATE": "Valider"
             },
+            "PNC_COMMENT": "Commentaire du PNC",
             "CONFIRM_DRAFT_DELETE": {
                 "TITLE": "Suppression du Bilan Professionnel",
                 "MESSAGE": "Confirmez-vous la suppression de ce brouillon ?",
@@ -336,12 +339,19 @@
                 "CONFIRM": "Supprimer"
             },
             "SUCCESS": {
+                "DRAFT_SAVED": "Brouillon sauvegardé",
                 "DRAFT_DELETED": "Brouillon supprimé",
                 "VALIDATED": "Bilan professionnel validé",
-                "DRAFT_SAVED": "Brouillon sauvegardé"
+                "TAKEN_INTO_ACCOUNT": "Bilan Professionnel pris en compte "
             },
-            "LEGEND": "Tous les champs doivent être renseignés pour valider le formulaire"
-        }
+            "CONFIRM_VALIDATE_WITHOUT_PNC_COMMENT": {
+                "TITLE": "Validation du Bilan Professionnel",
+                "MESSAGE": "Vous êtes sur le point de valider votre formulaire sans avoir apposé de commentaire. Souhaitez-vous procéder à la validation ?",
+                "CONFIRM": "Oui",
+                "CANCEL": "Non"
+            }
+        },
+        "LEGEND": "Tous les champs doivent être renseignés pour valider le formulaire"
     },
     "EOBSERVATION": {
         "LIST": {

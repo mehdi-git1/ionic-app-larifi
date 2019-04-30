@@ -1,3 +1,4 @@
+import { PncModel } from './../pnc.model';
 import { EDossierPncObjectModel } from '../e-dossier-pnc-object.model';
 import { ProfessionalInterviewStateEnum } from '../../enums/professional-interview/professional-interview-state.enum';
 import { ProfessionalInterviewTypeEnum } from '../../enums/professional-interview/professional-interview-type.enum';
@@ -14,9 +15,11 @@ export class ProfessionalInterviewModel extends EDossierPncObjectModel {
     pncAtInterviewDate: PncLightModel;
     instructor: PncLightModel;
     lastUpdateDate: Date;
+    lastUpdateAuthor: PncLightModel;
     instructorValidationDate: Date;
     pncSignatureDate: Date;
     professionalInterviewThemes: ProfessionalInterviewThemeModel[];
+    pncComment: string;
 
     getStorageId(): string {
         return `${this.techId}`;

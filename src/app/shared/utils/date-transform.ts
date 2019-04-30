@@ -26,6 +26,9 @@ export class DateTransform {
      * @return date au format ISO 8601
      */
     transformDateStringToIso8601Format(dateToTransform: string): string {
+        if (!dateToTransform) {
+            return null;
+        }
         if (!dateToTransform.includes('T')) {
             dateToTransform = dateToTransform + 'T12:00';
         }
