@@ -31,7 +31,7 @@ export class OfflineProfessionalInterviewService {
         return Promise.resolve().then(() => {
             const professionalInterviewList = this.storageService.findAll(EntityEnum.PROFESSIONAL_INTERVIEW);
             const professionalInterviews = professionalInterviewList.filter(professionalInterview => {
-                return professionalInterview.pnc.matricule === matricule && professionalInterview.offlineAction !== OfflineActionEnum.DELETE;
+                return professionalInterview.matricule === matricule && professionalInterview.offlineAction !== OfflineActionEnum.DELETE;
             });
             return (professionalInterviews);
         });
