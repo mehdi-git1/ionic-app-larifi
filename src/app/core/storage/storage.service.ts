@@ -105,7 +105,7 @@ export class StorageService {
   findAll(entity: EntityEnum): any[] {
     const array = [];
     for (const entry of Object.keys(this.offlineMap[entity])) {
-      array.push(this.offlineMap[entity][entry]);
+      array.push(_.cloneDeep(this.offlineMap[entity][entry]));
     }
     return array;
   }
