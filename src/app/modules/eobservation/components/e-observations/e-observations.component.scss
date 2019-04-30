@@ -9,10 +9,11 @@ e-observations {
 
         mat-expansion-panel-header {
             display: flex;
+            align-items: center;
             background-color: color($colors, blue68);
             border-radius: 5px;
             color: color($colors, white);
-            text-align: left;
+
             cursor: pointer;
 
             box-shadow: 0 3px 1px -3px rgba(0, 0, 0, .2),
@@ -31,6 +32,10 @@ e-observations {
             &.mat-expanded:hover,
             &.mat-expanded:focus {
                 background-color: color($colors, blue68) !important;
+            }
+
+            .mat-content {
+                align-items: center;
             }
 
             .mat-content > label {

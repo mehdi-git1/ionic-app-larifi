@@ -30,8 +30,8 @@
             <ion-grid>
                 <ion-row class="speciality-header">
                     <ion-col class="speciality" col-2>{{ 'PROFESSIONAL_INTERVIEW.DETAILS.SPECIALITY' | translate }}</ion-col>
-                    <ion-col col-10 *ngIf="professionalInterview.type === ProfessionalInterviewTypeEnum.BILAN">{{ 'PROFESSIONAL_INTERVIEW.DETAILS.EOBS_PNC_ASSIGNMENT_BILAN_PRO' | translate }}</ion-col>
-                    <ion-col col-10 *ngIf="professionalInterview.type === ProfessionalInterviewTypeEnum.EPP">{{ 'PROFESSIONAL_INTERVIEW.DETAILS.EOBS_PNC_ASSIGNMENT_EPP' | translate }}</ion-col>
+                    <ion-col col-10 *ngIf="professionalInterview.type === ProfessionalInterviewTypeEnum.BILAN">{{ 'PROFESSIONAL_INTERVIEW.DETAILS.PNC_ASSIGNMENT_BILAN_PRO' | translate }}</ion-col>
+                    <ion-col col-10 *ngIf="professionalInterview.type === ProfessionalInterviewTypeEnum.EPP">{{ 'PROFESSIONAL_INTERVIEW.DETAILS.PNC_ASSIGNMENT_EPP' | translate }}</ion-col>
                 </ion-row>
                 <ion-row class="speciality-label">
                     <ion-col col-2>{{professionalInterview.pncAtInterviewDate?.speciality}}</ion-col>

@@ -399,6 +399,9 @@ export class ProfessionalInterviewDetailsPage {
    * Verifie que tout les champs de saisie sont remplis
    */
   isAllIFieldsAreFilled() {
+    if (!this.annualProfessionalInterviewDateString) {
+      return false;
+    }
     let returnValue = true;
     this.professionalInterview.professionalInterviewThemes.forEach(professionalInterviewTheme => {
       professionalInterviewTheme.professionalInterviewItems.forEach(item => {

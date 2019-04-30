@@ -12,7 +12,6 @@ career-objectives {
             background-color: color($colors, green45);
             border-radius: 5px;
             color: color($colors, white);
-            text-align: left;
             cursor: pointer;
 
             box-shadow: 0 3px 1px -3px rgba(0, 0, 0, .2),
@@ -31,6 +30,10 @@ career-objectives {
             &.mat-expanded:hover,
             &.mat-expanded:focus {
                 background-color: color($colors, green45) !important;
+            }
+
+            .mat-content {
+                align-items: center;
             }
 
             .mat-content > label {
