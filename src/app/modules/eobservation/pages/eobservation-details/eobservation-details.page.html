@@ -10,45 +10,47 @@
     <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
     <ng-template #pageBlock>
 
-        <pnc-card-page-header *ngIf="pnc" [itemMember]="pnc"></pnc-card-page-header>
+        <div class="selectable">
+            <pnc-card-page-header *ngIf="pnc" [itemMember]="pnc"></pnc-card-page-header>
 
-        <div class="speciality-grid">
-            <ion-grid>
-                <ion-row class="speciality-header">
-                    <ion-col class="speciality" col-2>{{ 'EOBSERVATION.DETAIL.SPECIALITY' | translate }}</ion-col>
-                    <ion-col col-10>{{ 'EOBSERVATION.DETAIL.EOBS_PNC_ASSIGNMENT' | translate }}</ion-col>
-                </ion-row>
-                <ion-row class="speciality-label">
-                    <ion-col col-2>{{eObservation?.pncSpeciality}}</ion-col>
-                    <ion-col col-10>
-                        <span class="assignment" *ngIf="eObservation?.pncDivision">{{ 'PNC_HOME.INFO_PANEL.DIVISION' | translate }} : {{eObservation?.pncDivision}}</span>
-                        <span class="assignment" *ngIf="eObservation?.pncSector">{{ 'PNC_HOME.INFO_PANEL.SECTOR' | translate }} : {{eObservation?.pncSector}}</span>
-                        <span class="assignment" *ngIf="eObservation?.pncGinq">{{ 'PNC_HOME.INFO_PANEL.GINQ' | translate }} : {{eObservation?.pncGinq}}</span>
-                    </ion-col>
-                </ion-row>
-            </ion-grid>
+            <div class="speciality-grid">
+                <ion-grid>
+                    <ion-row class="speciality-header">
+                        <ion-col class="speciality" col-2>{{ 'EOBSERVATION.DETAIL.SPECIALITY' | translate }}</ion-col>
+                        <ion-col col-10>{{ 'EOBSERVATION.DETAIL.EOBS_PNC_ASSIGNMENT' | translate }}</ion-col>
+                    </ion-row>
+                    <ion-row class="speciality-label">
+                        <ion-col col-2>{{eObservation?.pncSpeciality}}</ion-col>
+                        <ion-col col-10>
+                            <span class="assignment" *ngIf="eObservation?.pncDivision">{{ 'PNC_HOME.INFO_PANEL.DIVISION' | translate }} : {{eObservation?.pncDivision}}</span>
+                            <span class="assignment" *ngIf="eObservation?.pncSector">{{ 'PNC_HOME.INFO_PANEL.SECTOR' | translate }} : {{eObservation?.pncSector}}</span>
+                            <span class="assignment" *ngIf="eObservation?.pncGinq">{{ 'PNC_HOME.INFO_PANEL.GINQ' | translate }} : {{eObservation?.pncGinq}}</span>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+            </div>
+
+            <eobs-temporary-period [eObservation]="eObservation"></eobs-temporary-period>
+
+            <eobs-bilan-flight [eObservation]="eObservation" [editMode]="editMode"></eobs-bilan-flight>
+
+            <eobs-rotation-info [eObservation]="eObservation" [editMode]="editMode"></eobs-rotation-info>
+
+            <span *ngIf="!isPcbEObs(); else appreciationPcb">
+                <eobs-theme *ngFor="let eObservationTheme of eObservation.eobservationThemes" [theme]="eObservationTheme" [editMode]="editMode"></eobs-theme>
+            </span>
+            <ng-template #appreciationPcb>
+                <eobs-appreciation *ngFor="let eObservationTheme of eObservation.eobservationThemes" [theme]="eObservationTheme"></eobs-appreciation>
+            </ng-template>
+
+            <eobs-comment *ngIf="!checkEObsType(EObservationTypeEnum.E_ALT)" [type]="PncRoleEnum.MANAGER" [eObservation]="eObservation" [editMode]="editMode"></eobs-comment>
+
+            <eobs-comment *ngIf="!checkEObsType(EObservationTypeEnum.E_ALT)" [type]="PncRoleEnum.PNC" [eObservation]="eObservation" [canEditPncComment]="canEditPncComment()" [editMode]="editMode" (validatePncComment)="confirmValidatePncComment()"></eobs-comment>
+
+            <eobs-state [eObservation]="eObservation" [editMode]="editMode"></eobs-state>
+
+            <div class="information-message" *ngIf="eObservation.lastUpdateAuthor">{{ 'EOBSERVATION.DETAIL.EDITED_BY' | translate:{lastName:eObservation.lastUpdateAuthor.lastName, firstName:eObservation.lastUpdateAuthor.firstName, date:getLastUpdateDate()} }}</div>
         </div>
-
-        <eobs-temporary-period [eObservation]="eObservation"></eobs-temporary-period>
-
-        <eobs-bilan-flight [eObservation]="eObservation" [editMode]="editMode"></eobs-bilan-flight>
-
-        <eobs-rotation-info [eObservation]="eObservation" [editMode]="editMode"></eobs-rotation-info>
-
-        <span *ngIf="!isPcbEObs(); else appreciationPcb">
-            <eobs-theme *ngFor="let eObservationTheme of eObservation.eobservationThemes" [theme]="eObservationTheme" [editMode]="editMode"></eobs-theme>
-        </span>
-        <ng-template #appreciationPcb>
-            <eobs-appreciation *ngFor="let eObservationTheme of eObservation.eobservationThemes" [theme]="eObservationTheme"></eobs-appreciation>
-        </ng-template>
-
-        <eobs-comment *ngIf="!checkEObsType(EObservationTypeEnum.E_ALT)" [type]="PncRoleEnum.MANAGER" [eObservation]="eObservation" [editMode]="editMode"></eobs-comment>
-
-        <eobs-comment *ngIf="!checkEObsType(EObservationTypeEnum.E_ALT)" [type]="PncRoleEnum.PNC" [eObservation]="eObservation" [canEditPncComment]="canEditPncComment()" [editMode]="editMode" (validatePncComment)="confirmValidatePncComment()"></eobs-comment>
-
-        <eobs-state [eObservation]="eObservation" [editMode]="editMode"></eobs-state>
-
-        <div class="information-message" *ngIf="eObservation.lastUpdateAuthor">{{ 'EOBSERVATION.DETAIL.EDITED_BY' | translate:{lastName:eObservation.lastUpdateAuthor.lastName, firstName:eObservation.lastUpdateAuthor.firstName, date:getLastUpdateDate()} }}</div>
 
         <div class="button-bar button-bar-right margin-top-10 margin-bottom-10" *hasPermission="'EOBS_FULL_EDITION'">
             <ng-container *ngIf="!editMode; else editModeButtonsBlock">
