@@ -1,3 +1,4 @@
+import { ProfessionalInterviewThemeModel } from './../../../../core/models/professional-interview/professional-interview-theme.model';
 import { ProfessionalInterviewCommentItemTypeEnum } from './../../../../core/enums/professional-interview/professional-interview-comment-item-type.enum';
 import { ProfessionalInterviewTypeEnum } from './../../../../core/enums/professional-interview/professional-interview-type.enum';
 import { EObsBilanFlightComponent } from './../../../eobservation/components/eobs-bilan-flight/eobs-bilan-flight.component';
@@ -25,7 +26,6 @@ import * as _ from 'lodash';
 import { Utils } from '../../../../shared/utils/utils';
 import { ProfessionalInterviewModel } from './../../../../core/models/professional-interview/professional-interview.model';
 import { ProfessionalInterviewStateEnum } from '../../../../core/enums/professional-interview/professional-interview-state.enum';
-import { ProfessionalInterviewThemeModel } from '../../../../core/models/professional-interview/professional-interview-theme.model';
 
 @Component({
   selector: 'page-professional-interview-details',
@@ -90,16 +90,18 @@ export class ProfessionalInterviewDetailsPage {
     this.professionalInterview = this.navParams.get('professionalInterview');
     if (this.professionalInterview && this.professionalInterview.matricule) {
       this.professionalInterview = _.cloneDeep(this.professionalInterview);
+      if (this.professionalInterview.matricule === this.sessionService.getActiveUser().matricule && this.professionalInterview.state === ProfessionalInterviewStateEnum.NOT_TAKEN_INTO_ACCOUNT) {
+        this.saveProfessionalInterviewToConsultState();
+      }
       this.professionalInterview.professionalInterviewThemes.sort((theme1, theme2) => {
         return theme1.themeOrder < theme2.themeOrder ? -1 : 1;
       });
 
       for (const theme of this.professionalInterview.professionalInterviewThemes) {
-        theme.subThemes.sort((subTheme1, subTheme2) => {
-          return subTheme1.themeOrder < subTheme2.themeOrder ? -1 : 1;
-        });
-
         if (theme.subThemes.length > 0) {
+          theme.subThemes.sort((subTheme1, subTheme2) => {
+            return subTheme1.themeOrder < subTheme2.themeOrder ? -1 : 1;
+          });
           theme.subThemes.forEach(function (value) {
             value.professionalInterviewItems.sort((item1, item2) => {
               return item1.itemOrder < item2.itemOrder ? -1 : 1;
@@ -143,7 +145,7 @@ export class ProfessionalInterviewDetailsPage {
    */
   isEditable() {
     if (!this.professionalInterview || !this.professionalInterview.state
-      || (this.professionalInterview.state == ProfessionalInterviewStateEnum.DRAFT && this.securityService.isManager())) {
+      || (this.professionalInterview.state != ProfessionalInterviewStateEnum.TAKEN_INTO_ACCOUNT && this.securityService.isManager())) {
       return true;
     }
     return false;
@@ -152,7 +154,7 @@ export class ProfessionalInterviewDetailsPage {
   /**
    * Définit la couleur en fonction du statut
    *
-   * @return 'green' si 'TAKEN_INTO_ACCOUNT', 'red' si 'NOT_TAKEN_INTO_ACCOUNT' ou 'grey' si 'DRAFT'
+   * @return 'green' si 'TAKEN_INTO_ACCOUNT', 'red' si 'NOT_TAKEN_INTO_ACCOUNT', 'grey' si 'DRAFT' ou 'orange' si CONSULTED
    */
   getColorStatusPoint(): string {
     if (this.professionalInterview && this.professionalInterview.state === ProfessionalInterviewStateEnum.TAKEN_INTO_ACCOUNT) {
@@ -161,6 +163,8 @@ export class ProfessionalInterviewDetailsPage {
       return 'grey';
     } else if (this.professionalInterview && this.professionalInterview.state === ProfessionalInterviewStateEnum.NOT_TAKEN_INTO_ACCOUNT) {
       return 'red';
+    } else if (this.professionalInterview && this.professionalInterview.state === ProfessionalInterviewStateEnum.CONSULTED) {
+      return 'orange';
     }
   }
 
@@ -257,6 +261,34 @@ export class ProfessionalInterviewDetailsPage {
   }
 
   /**
+   * Demande la confirmation de la validation du bilan professionnel sans le commentaire du pnc
+   */
+  confirmValidateWithoutPncComment() {
+    this.alertCtrl.create({
+      title: this.translateService.instant('PROFESSIONAL_INTERVIEW.DETAILS.CONFIRM_VALIDATE_WITHOUT_PNC_COMMENT.TITLE'),
+      message: this.translateService.instant('PROFESSIONAL_INTERVIEW.DETAILS.CONFIRM_VALIDATE_WITHOUT_PNC_COMMENT.MESSAGE'),
+      buttons: [
+        {
+          text: this.translateService.instant('PROFESSIONAL_INTERVIEW.DETAILS.CONFIRM_VALIDATE_WITHOUT_PNC_COMMENT.CANCEL'),
+          role: 'cancel'
+        },
+        {
+          text: this.translateService.instant('PROFESSIONAL_INTERVIEW.DETAILS.CONFIRM_VALIDATE_WITHOUT_PNC_COMMENT.CONFIRM'),
+          handler: () => this.saveProfessionalInterviewToTakenIntoAccountState()
+        }
+      ]
+    }).present();
+  }
+
+  takenIntoAccountProfessionalInterview() {
+    if (!this.professionalInterview.pncComment || this.professionalInterview.pncComment === '' || typeof (this.professionalInterview.pncComment) === 'undefined') {
+      this.confirmValidateWithoutPncComment();
+    } else {
+      this.saveProfessionalInterviewToTakenIntoAccountState();
+    }
+  }
+
+  /**
    * Retourne true si c'est une proposition et si le pnc connecté est CADRE
    * @return true si Draft && CADRE
    */
@@ -316,6 +348,10 @@ export class ProfessionalInterviewDetailsPage {
             this.toastService.success(this.translateService.instant('PROFESSIONAL_INTERVIEW.DETAILS.SUCCESS.DRAFT_SAVED'));
             this.navCtrl.pop();
           }
+          if (this.professionalInterview.state === ProfessionalInterviewStateEnum.TAKEN_INTO_ACCOUNT) {
+            this.toastService.success(this.translateService.instant('PROFESSIONAL_INTERVIEW.DETAILS.SUCCESS.TAKEN_INTO_ACCOUNT'));
+            this.navCtrl.pop();
+          }
           if (this.professionalInterview.state === ProfessionalInterviewStateEnum.NOT_TAKEN_INTO_ACCOUNT) {
             this.toastService.success(this.translateService.instant('PROFESSIONAL_INTERVIEW.DETAILS.SUCCESS.VALIDATED'));
             this.navCtrl.pop();
@@ -335,6 +371,26 @@ export class ProfessionalInterviewDetailsPage {
   saveProfessionalInterviewDraft() {
     const professionalInterviewToSave = _.cloneDeep(this.professionalInterview);
     professionalInterviewToSave.state = ProfessionalInterviewStateEnum.DRAFT;
+    professionalInterviewToSave.matricule = this.pnc.matricule;
+    this.saveProfessionalInterview(professionalInterviewToSave);
+  }
+
+  /**
+   * Enregistre le bilan professionnel au statut consultation
+   */
+  saveProfessionalInterviewToConsultState() {
+    const professionalInterviewToSave = _.cloneDeep(this.professionalInterview);
+    professionalInterviewToSave.state = ProfessionalInterviewStateEnum.CONSULTED;
+    this.saveProfessionalInterview(professionalInterviewToSave);
+    this.professionalInterview.state = ProfessionalInterviewStateEnum.CONSULTED;
+  }
+
+  /**
+   * Enregistre le bilan professionnel au statut pris en compte
+   */
+  saveProfessionalInterviewToTakenIntoAccountState() {
+    const professionalInterviewToSave = _.cloneDeep(this.professionalInterview);
+    professionalInterviewToSave.state = ProfessionalInterviewStateEnum.TAKEN_INTO_ACCOUNT;
     professionalInterviewToSave.matricule = this.pnc.matricule;
     this.saveProfessionalInterview(professionalInterviewToSave);
   }
@@ -364,6 +420,43 @@ export class ProfessionalInterviewDetailsPage {
   canBeSavedInState(state: ProfessionalInterviewStateEnum): boolean {
     const canBeSaved: boolean = this.professionalInterviewStatusService.isTransitionOk(this.professionalInterview.state, state);
     return canBeSaved && this.securityService.isManager();
+  }
+
+  /**
+   * Teste si le pnc peut ajouter son commentaire a son bilan professionnel en statut consultation
+   */
+  canEditPncComment() {
+    return this.professionalInterview.matricule === this.sessionService.getActiveUser().matricule && this.professionalInterview.state === ProfessionalInterviewStateEnum.CONSULTED;
+  }
+
+  /**
+   * Teste si le bilan professionnel peut étre pris en compte par le pnc.
+   * @return true si non pris en compte && l'utilisateur connecté est le pnc concerné
+   */
+  canBeTakenIntoAccount(): boolean {
+    const canBeSavedAsTakenIntoAccount: boolean = this.professionalInterviewStatusService.isTransitionOk(this.professionalInterview.state, ProfessionalInterviewStateEnum.TAKEN_INTO_ACCOUNT);
+    const isPnc: boolean = this.professionalInterview.matricule === this.sessionService.getActiveUser().matricule;
+    return isPnc && canBeSavedAsTakenIntoAccount;
+  }
+
+
+
+  /**
+   * Teste si le commentaire PNC peut être ajouté
+   * @return vrai si le commentaire peut être ajouté, faux sinon
+   */
+  canAddPncComment(): boolean {
+    return this.sessionService.getActiveUser().matricule === this.professionalInterview.matricule
+      && (this.professionalInterview.pncComment === '' || typeof (this.professionalInterview.pncComment) === 'undefined');
+  }
+
+  /**
+ * Vérifie si le statut du bilan professionnel est celui passé en paramètre
+ * @param professionalInterviewState statut du bilan professionnel à vérifier
+ * @return true si le statut du bilan professionnel est celui passé en paramètre, false sinon
+ */
+  checkProfessionaInterviewState(professionalInterviewState: ProfessionalInterviewStateEnum): boolean {
+    return this.professionalInterview && professionalInterviewState === this.professionalInterview.state;
   }
 
   /**
