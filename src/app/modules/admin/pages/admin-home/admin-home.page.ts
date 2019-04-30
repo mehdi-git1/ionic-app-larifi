@@ -18,12 +18,12 @@ export class AdminHomePage {
     rootPage: any = ProfileManagementPage;
     activePage: any;
 
-    pages: Array<{ title: string, component: any }>;
+    adminPages: Array<{ title: string, component: any }>;
 
     constructor(public menuCtrl: MenuController,
         private translateService: TranslateService
     ) {
-        this.pages = [
+        this.adminPages = [
             { title: this.translateService.instant('ADMIN.ADMIN_HOME.BUTTON.PROFILE_MANAGEMENT'), component: ProfileManagementPage },
             { title: this.translateService.instant('ADMIN.ADMIN_HOME.BUTTON.APP_VERSION_MANAGEMENT'), component: AppVersionManagementPage },
             { title: this.translateService.instant('ADMIN.ADMIN_HOME.BUTTON.USER_MESSAGE_MANAGEMENT'), component: UserMessageManagementPage }
@@ -31,7 +31,7 @@ export class AdminHomePage {
     }
 
     ionViewWillEnter() {
-        this.activePage = this.pages[0];
+        this.activePage = this.adminPages[0];
     }
 
     /**
@@ -55,9 +55,7 @@ export class AdminHomePage {
      * permet de savoir si une page est active ou non
      * @param page activé
      */
-    checkActive(page) {
+    isActive(page) {
         return page == this.activePage;
     }
-
-
 }
