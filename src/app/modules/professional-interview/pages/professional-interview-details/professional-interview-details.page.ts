@@ -70,7 +70,10 @@ export class ProfessionalInterviewDetailsPage {
     this.annualProfessionalInterviewOptions = {
       buttons: [{
         text: this.translateService.instant('GLOBAL.DATEPICKER.CLEAR'),
-        handler: () => this.professionalInterview.annualProfessionalInterviewDate = null
+        handler: () => {
+          this.annualProfessionalInterviewDateString = null;
+          this.professionalInterview.annualProfessionalInterviewDate = null;
+        }
       }]
     };
 
