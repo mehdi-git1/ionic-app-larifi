@@ -5,7 +5,6 @@ import { TranslateService } from '@ngx-translate/core';
 import { UserMessageManagementPage } from './../user-message-management/user-message-management.page';
 import { AppVersionManagementPage } from './../app-version-management/app-version-management.page';
 import { ProfileManagementPage } from './../profile-management/profile-management.page';
-import { PncHomePage } from 'E:/git/edospnc-cs/src/app/modules/home/pages/pnc-home/pnc-home.page';
 
 @Component({
     selector: 'admin-home',
