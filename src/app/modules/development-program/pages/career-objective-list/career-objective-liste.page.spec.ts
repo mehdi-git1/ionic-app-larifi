@@ -1,3 +1,4 @@
+import { SecurityService } from './../../../../core/services/security/security.service';
 import { ProfessionalInterviewService } from './../../../../core/services/professional-interview/professional-interview.service';
 import { HasPermissionDirective } from './../../../../shared/directives/has-permission/has-permission.directive';
 import { IsMyPage } from './../../../../shared/pipes/is_my_page/is_my_page.pipe';
@@ -59,6 +60,7 @@ describe('CareerObjectiveListPage', () => {
                 { provide: SynchronizationService, useValue: synchronizationProviderMock },
                 { provide: DeviceService },
                 { provide: PncService },
+                { provide: SecurityService}
             ],
             schemas: [NO_ERRORS_SCHEMA]
         });
