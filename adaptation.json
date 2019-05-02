@@ -15,7 +15,7 @@
             "appName": "eDossierPNC DEV",
             "appId": "com.airfrance.mobile.inhouse.edospncDEV",
             "version": "1.8.0",
-            "provisioningProfile": "dd4536c2-5f7c-43fe-a7e7-aea95635175f"
+            "provisioningProfile": "7617e89b-0fae-497d-9bef-bce83e575858"
         },
         {
             "name": "rct",
@@ -23,7 +23,7 @@
             "appName": "eDossierPNC RCT",
             "appId": "com.airfrance.mobile.inhouse.edospncRCT",
             "version": "1.8.0",
-            "provisioningProfile": "243e0ae6-754e-4784-a724-3647ba1bfa6a"
+            "provisioningProfile": "2c6bc84a-a5dc-414e-99b0-2164e2686655"
         },
 
         {
