@@ -476,7 +476,8 @@ export class ProfessionalInterviewDetailsPage {
    */
   prepareProfessionalInterviewBeforeSubmit(professionalInterviewToSave: ProfessionalInterviewModel): ProfessionalInterviewModel {
     if (typeof this.annualProfessionalInterviewDateString !== 'undefined' && this.annualProfessionalInterviewDateString !== null) {
-      professionalInterviewToSave.annualProfessionalInterviewDate = this.dateTransformer.transformDateStringToIso8601Format(this.annualProfessionalInterviewDateString);
+      this.annualProfessionalInterviewDateString = this.dateTransformer.transformDateStringToIso8601Format(this.annualProfessionalInterviewDateString);
+      professionalInterviewToSave.annualProfessionalInterviewDate =  this.annualProfessionalInterviewDateString;
     }
     professionalInterviewToSave.type = ProfessionalInterviewTypeEnum.BILAN;
     return professionalInterviewToSave;
