@@ -1,7 +1,6 @@
 import { ProfessionalInterviewThemeModel } from './../../../../core/models/professional-interview/professional-interview-theme.model';
 import { ProfessionalInterviewCommentItemTypeEnum } from './../../../../core/enums/professional-interview/professional-interview-comment-item-type.enum';
 import { ProfessionalInterviewTypeEnum } from './../../../../core/enums/professional-interview/professional-interview-type.enum';
-import { EObsBilanFlightComponent } from './../../../eobservation/components/eobs-bilan-flight/eobs-bilan-flight.component';
 import { DateTransform } from './../../../../shared/utils/date-transform';
 import { ProfessionalInterviewStatusService } from './../../../../core/services/professional-interview/professional-interview-status.service';
 import { SecurityService } from './../../../../core/services/security/security.service';
@@ -13,7 +12,6 @@ import { OfflineProfessionalInterviewService } from './../../../../core/services
 import { ProfessionalInterviewService } from './../../../../core/services/professional-interview/professional-interview.service';
 import { PncTransformerService } from './../../../../core/services/pnc/pnc-transformer.service';
 import { SessionService } from './../../../../core/services/session/session.service';
-import { FormGroup, Validators } from '@angular/forms';
 import { Component } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { NavController, NavParams, Loading, AlertController, LoadingController } from 'ionic-angular';

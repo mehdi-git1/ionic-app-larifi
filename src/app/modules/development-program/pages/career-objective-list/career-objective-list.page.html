@@ -81,6 +81,12 @@
         <div class="global-container professional-interview-list-container">
             <professional-interviews *ngIf="professionalInterviews" [professionalInterviews]="professionalInterviews">
             </professional-interviews>
+            <div>
+                <div *ngIf="professionalInterviews" class="information-message archives">
+                    <span class="edospnc-archive"></span>
+                    <a (click)="goToprofessionalInterviewsArchives()">{{ 'EOBSERVATION.LIST.LINK.ARCHIVES' | translate }}</a>
+                </div>
+            </div>
         </div>
     </ng-template>
 </ion-content>

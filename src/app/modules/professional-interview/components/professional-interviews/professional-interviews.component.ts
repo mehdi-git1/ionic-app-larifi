@@ -2,6 +2,7 @@
 import { Component, Input } from '@angular/core';
 
 import { ProfessionalInterviewModel } from '../../../../core/models/professional-interview/professional-interview.model';
+import { ProfessionalInterviewStateEnum } from '../../../../core/enums/professional-interview/professional-interview-state.enum';
 
 @Component({
   selector: 'professional-interviews',
@@ -20,5 +21,11 @@ export class ProfessionalInterviewsComponent {
         return professionalInterview.annualProfessionalInterviewDate < professionalInterview2.annualProfessionalInterviewDate ? 1 : -1;
       });
     }
+
+  getNumberOfRealisedInterviews(): number {
+    return this.professionalInterviewTab.filter(
+      interview => interview.state != ProfessionalInterviewStateEnum.DRAFT
+    ).length;
+  }
 
 }
