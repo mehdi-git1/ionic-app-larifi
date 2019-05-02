@@ -198,6 +198,7 @@ export class CareerObjectiveListPage {
   refreshPage() {
     this.initCareerObjectivesList();
     this.getEObservationsList();
+    this.getProfessionalInterviewList();
   }
 
   /**
