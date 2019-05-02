@@ -17,6 +17,14 @@ export class ProfessionalInterviewStatusService {
       // Liste des nouveaux statuts authorisés
       return [ProfessionalInterviewStateEnum.DRAFT, ProfessionalInterviewStateEnum.NOT_TAKEN_INTO_ACCOUNT].indexOf(newStatus) > -1;
     }
+    /**
+     * Pour un bilan professionnel en statut consulter, on a le droit de:
+     * le prendre en compte.
+    */
+    if (currentStatus === ProfessionalInterviewStateEnum.CONSULTED) {
+      // Liste des nouveaux statuts authorisés
+      return [ProfessionalInterviewStateEnum.TAKEN_INTO_ACCOUNT].indexOf(newStatus) > -1;
+    }
     return false;
   }
 }
