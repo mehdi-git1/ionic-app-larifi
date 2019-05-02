@@ -36,7 +36,7 @@ export class OnlineProfessionalInterviewService {
      * @return une promesse contenant le bilan professionnel créé ou mis à jour
      */
     createOrUpdate(professionalInterview: ProfessionalInterviewModel): Promise<ProfessionalInterviewModel> {
-    return this.restService.post(this.config.getBackEndUrl('professionalInterviews'), professionalInterview);
+        return this.restService.post(this.config.getBackEndUrl('professionalInterviews'), professionalInterview);
     }
 
     /**

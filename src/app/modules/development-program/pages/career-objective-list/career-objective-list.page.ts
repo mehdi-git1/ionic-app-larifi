@@ -1,3 +1,4 @@
+import { SecurityService } from './../../../../core/services/security/security.service';
 import { ProfessionalInterviewDetailsPage } from './../../../professional-interview/pages/professional-interview-details/professional-interview-details.page';
 import { ProfessionalInterviewModel } from './../../../../core/models/professional-interview/professional-interview.model';
 import { ProfessionalInterviewService } from '../../../../core/services/professional-interview/professional-interview.service';
@@ -60,7 +61,8 @@ export class CareerObjectiveListPage {
     private eObservationService: EObservationService,
     private sessionService: SessionService,
     private synchronizationProvider: SynchronizationService,
-    private pncService: PncService) {
+    private pncService: PncService,
+    private securityService: SecurityService) {
     this.lastConsultedRotation = this.sessionService.appContext.lastConsultedRotation;
     this.synchronizationProvider.synchroStatusChange.subscribe(synchroInProgress => {
       if (!synchroInProgress) {
@@ -196,6 +198,7 @@ export class CareerObjectiveListPage {
   refreshPage() {
     this.initCareerObjectivesList();
     this.getEObservationsList();
+    this.getProfessionalInterviewList();
   }
 
   /**

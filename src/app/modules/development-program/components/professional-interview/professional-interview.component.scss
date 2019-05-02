@@ -29,6 +29,10 @@ professional-interview {
                 display: flex;
                 align-items: center;
 
+                .status-dot{
+                    margin-right: 6px;
+                }
+
                 label {
                     font-size: 1.2em !important;
                     font-weight: 400;

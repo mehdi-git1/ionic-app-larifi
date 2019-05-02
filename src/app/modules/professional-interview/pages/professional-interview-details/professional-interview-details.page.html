@@ -10,106 +10,120 @@
 <ion-content padding>
     <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
     <ng-template #pageBlock>
-        <div class="state-block date-block-justify">
-            <span class="date-label">{{ 'PROFESSIONAL_INTERVIEW.DETAILS.INTERVIEW_DATE' | translate }} : </span>
-            <span>
-                <ion-item *ngIf="editionMode">
-                    <ion-datetime displayFormat="DD/MM/YYYY" pickerFormat="DD MMMM YYYY" [(ngModel)]="annualProfessionalInterviewDateString" [pickerOptions]="annualProfessionalInterviewOptions" [doneText]="translateService.instant('GLOBAL.DATEPICKER.DONE')" [cancelText]="translateService.instant('GLOBAL.DATEPICKER.CANCEL')" [max]="datepickerMaxDate" [monthNames]="monthsNames">
-                    </ion-datetime>
-                    <ion-label>
-                        <ion-icon name="calendar"></ion-icon>
-                    </ion-label>
-                </ion-item>
-                <label *ngIf="!editionMode" class="date-display">{{professionalInterview.annualProfessionalInterviewDate | date:'dd/MM/yyyy' : 'UTC'}}</label>
-            </span>
-        </div>
+        <div class="selectable">
+            <div class="state-block date-block-justify">
+                <span class="date-label">{{ 'PROFESSIONAL_INTERVIEW.DETAILS.INTERVIEW_DATE' | translate }} : </span>
+                <span>
+                    <ion-item *ngIf="editionMode">
+                        <ion-datetime displayFormat="DD/MM/YYYY" pickerFormat="DD MMMM YYYY" [(ngModel)]="annualProfessionalInterviewDateString" [pickerOptions]="annualProfessionalInterviewOptions" [doneText]="translateService.instant('GLOBAL.DATEPICKER.DONE')" [cancelText]="translateService.instant('GLOBAL.DATEPICKER.CANCEL')" [max]="datepickerMaxDate" [monthNames]="monthsNames">
+                        </ion-datetime>
+                        <ion-label>
+                            <ion-icon name="calendar"></ion-icon>
+                        </ion-label>
+                    </ion-item>
+                    <label *ngIf="!editionMode" class="date-display">{{professionalInterview.annualProfessionalInterviewDate | date:'dd/MM/yyyy' : 'UTC'}}</label>
+                </span>
+            </div>
 
-        <pnc-card-page-header *ngIf="pnc" [itemMember]="pnc"></pnc-card-page-header>
+            <pnc-card-page-header *ngIf="pnc" [itemMember]="pnc"></pnc-card-page-header>
 
-        <div class="speciality-grid">
-            <ion-grid>
-                <ion-row class="speciality-header">
-                    <ion-col class="speciality" col-2>{{ 'PROFESSIONAL_INTERVIEW.DETAILS.SPECIALITY' | translate }}</ion-col>
-                    <ion-col col-10 *ngIf="professionalInterview.type === ProfessionalInterviewTypeEnum.BILAN">{{ 'PROFESSIONAL_INTERVIEW.DETAILS.PNC_ASSIGNMENT_BILAN_PRO' | translate }}</ion-col>
-                    <ion-col col-10 *ngIf="professionalInterview.type === ProfessionalInterviewTypeEnum.EPP">{{ 'PROFESSIONAL_INTERVIEW.DETAILS.PNC_ASSIGNMENT_EPP' | translate }}</ion-col>
-                </ion-row>
-                <ion-row class="speciality-label">
-                    <ion-col col-2>{{professionalInterview.pncAtInterviewDate?.speciality}}</ion-col>
-                    <ion-col col-10>
-                        <span class="assignment" *ngIf="professionalInterview.pncAtInterviewDate?.division">{{ 'PNC_HOME.INFO_PANEL.DIVISION' | translate }} : {{professionalInterview.pncAtInterviewDate?.division}}</span>
-                        <span class="assignment" *ngIf="professionalInterview.pncAtInterviewDate?.sector">{{ 'PNC_HOME.INFO_PANEL.SECTOR' | translate }} : {{professionalInterview.pncAtInterviewDate?.sector}}</span>
-                        <span class="assignment" *ngIf="professionalInterview.pncAtInterviewDate?.ginq">{{ 'PNC_HOME.INFO_PANEL.GINQ' | translate }} : {{professionalInterview.pncAtInterviewDate?.ginq}}</span>
-                    </ion-col>
-                </ion-row>
-            </ion-grid>
-        </div>
-        <div *ngFor="let interviewTheme of professionalInterview.professionalInterviewThemes">
-            <edospnc-expandable-block class="comment" [ngClass]="{'expandable-comment-block': isPncComment(interviewTheme) || isInstructorComment(interviewTheme) }" mini="true" [title]="getThemeLabel(interviewTheme)">
+            <div class="speciality-grid">
+                <ion-grid>
+                    <ion-row class="speciality-header">
+                        <ion-col class="speciality" col-2>{{ 'PROFESSIONAL_INTERVIEW.DETAILS.SPECIALITY' | translate }}</ion-col>
+                        <ion-col col-10 *ngIf="professionalInterview.type === ProfessionalInterviewTypeEnum.BILAN">{{ 'PROFESSIONAL_INTERVIEW.DETAILS.PNC_ASSIGNMENT_BILAN_PRO' | translate }}</ion-col>
+                        <ion-col col-10 *ngIf="professionalInterview.type === ProfessionalInterviewTypeEnum.EPP">{{ 'PROFESSIONAL_INTERVIEW.DETAILS.PNC_ASSIGNMENT_EPP' | translate }}</ion-col>
+                    </ion-row>
+                    <ion-row class="speciality-label">
+                        <ion-col col-2>{{professionalInterview.pncAtInterviewDate?.speciality}}</ion-col>
+                        <ion-col col-10>
+                            <span class="assignment" *ngIf="professionalInterview.pncAtInterviewDate?.division">{{ 'PNC_HOME.INFO_PANEL.DIVISION' | translate }} : {{professionalInterview.pncAtInterviewDate?.division}}</span>
+                            <span class="assignment" *ngIf="professionalInterview.pncAtInterviewDate?.sector">{{ 'PNC_HOME.INFO_PANEL.SECTOR' | translate }} : {{professionalInterview.pncAtInterviewDate?.sector}}</span>
+                            <span class="assignment" *ngIf="professionalInterview.pncAtInterviewDate?.ginq">{{ 'PNC_HOME.INFO_PANEL.GINQ' | translate }} : {{professionalInterview.pncAtInterviewDate?.ginq}}</span>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+            </div>
+            <div *ngFor="let interviewTheme of professionalInterview.professionalInterviewThemes">
+                <edospnc-expandable-block class="comment" [ngClass]="{'expandable-comment-block': isPncComment(interviewTheme) || isInstructorComment(interviewTheme) }" mini="true" [title]="getThemeLabel(interviewTheme)">
 
-                <div *ngFor="let subTheme of interviewTheme.subThemes">
-                    <div class="sub-title-block">
-                        <span>{{subTheme.label}}</span>
+                    <div *ngFor="let subTheme of interviewTheme.subThemes">
+                        <div class="sub-title-block">
+                            <span>{{subTheme.label}}</span>
+                        </div>
+                        <div *ngFor="let item of subTheme.professionalInterviewItems">
+                            <label *ngIf="item.label" class="required"><span class="edospnc-speechBubble"></span> {{item.label}} :</label>
+                            <p *ngIf="!editionMode; else editBlock">{{item.value}}</p>
+                            <ng-template #editBlock>
+                                <ion-textarea [(ngModel)]="item.value" autocorrect="on"></ion-textarea>
+                            </ng-template>
+                        </div>
                     </div>
-                    <div *ngFor="let item of subTheme.professionalInterviewItems">
-                        <label *ngIf="item.label" class="required"><span class="edospnc-speechBubble"></span> {{item.label}} :</label>
+                    <div *ngFor="let item of interviewTheme.professionalInterviewItems">
+                        <label *ngIf="item.label" class="no-margin-top required"><span class="edospnc-speechBubble"></span> {{item.label}} :</label>
                         <p *ngIf="!editionMode; else editBlock">{{item.value}}</p>
                         <ng-template #editBlock>
                             <ion-textarea [(ngModel)]="item.value" autocorrect="on"></ion-textarea>
                         </ng-template>
                     </div>
+                </edospnc-expandable-block>
+                <div class="comment-block" *ngIf="isPncComment(interviewTheme)">
+                    <span *ngIf="professionalInterview?.pncSignatureDate">{{professionalInterview?.pncSignatureDate | date: 'dd/MM/yyyy' : 'UTC'}}</span>
+                    <span>
+                        <span *ngIf="pnc?.lastName">
+                            {{pnc.matricule}} -
+                            {{pnc.lastName}}
+                            <span class="firstname">{{pnc.firstName}}</span>
+                        </span>
+                    </span>
                 </div>
-                <div *ngFor="let item of interviewTheme.professionalInterviewItems">
-                    <label *ngIf="item.label" class="no-margin-top required"><span class="edospnc-speechBubble"></span> {{item.label}} :</label>
-                    <p *ngIf="!editionMode; else editBlock">{{item.value}}</p>
-                    <ng-template #editBlock>
-                        <ion-textarea [(ngModel)]="item.value" autocorrect="on"></ion-textarea>
+                <div class="comment-block" *ngIf="isInstructorComment(interviewTheme)">
+                    <span *ngIf="professionalInterview?.instructorValidationDate">{{professionalInterview?.instructorValidationDate | date: 'dd/MM/yyyy' : 'UTC'}}</span>
+                    <span>
+                        <span *ngIf="professionalInterview.instructor?.lastName">
+                            {{professionalInterview.instructor.matricule}} -
+                            {{professionalInterview.instructor.lastName}}
+                            <span class="firstname">{{professionalInterview.instructor.firstName}}</span>
+                        </span>
+                    </span>
+                </div>
+            </div>
+
+
+            <!-- Commentaire PNC-->
+            <edospnc-expandable-block *ngIf="canEditPncComment() || professionalInterview.pncComment" class="comment" title="{{'PROFESSIONAL_INTERVIEW.DETAILS.PNC_COMMENT' | translate}}">
+                <div>
+                    <p *ngIf="!canEditPncComment(); else editPncCommentBlock">{{professionalInterview.pncComment}}</p>
+                    <ng-template #editPncCommentBlock>
+                        <ion-textarea [(ngModel)]="professionalInterview.pncComment" autocorrect="on"></ion-textarea>
                     </ng-template>
                 </div>
             </edospnc-expandable-block>
-            <div class="comment-block" *ngIf="isPncComment(interviewTheme)">
-                <span *ngIf="professionalInterview?.pncSignatureDate">{{professionalInterview?.pncSignatureDate | date: 'dd/MM/yyyy' : 'UTC'}}</span>
-                <span>
-                    <span *ngIf="pnc?.lastName">
-                        {{pnc.matricule}} -
-                        {{pnc.lastName}}
-                        <span class="firstname">{{pnc.firstName}}</span>
-                    </span>
-                </span>
-            </div>
-            <div class="comment-block" *ngIf="isInstructorComment(interviewTheme)">
-                <span *ngIf="professionalInterview?.instructorValidationDate">{{professionalInterview?.instructorValidationDate | date: 'dd/MM/yyyy' : 'UTC'}}</span>
-                <span>
-                    <span *ngIf="professionalInterview.instructor?.lastName">
-                        {{professionalInterview.instructor.matricule}} -
-                        {{professionalInterview.instructor.lastName}}
-                        <span class="firstname">{{professionalInterview.instructor.firstName}}</span>
-                    </span>
-                </span>
-            </div>
-        </div>
 
-        <div class="state-block" *ngIf="professionalInterview?.state">
-            <div class="w30">
-                <span>
-                    <span>{{ 'PROFESSIONAL_INTERVIEW.DETAILS.STATE.LABEL' | translate }} :</span>
+
+            <div class="state-block" *ngIf="professionalInterview?.state">
+                <div class="w30">
                     <span>
-                        <color-status-point [colorClass]="getColorStatusPoint()">
-                        </color-status-point>
-                        <span class="state-value">{{ 'PROFESSIONAL_INTERVIEW.DETAILS.STATE.' + professionalInterview?.state | translateOrEmpty }}</span>
+                        <span>{{ 'PROFESSIONAL_INTERVIEW.DETAILS.STATE.LABEL' | translate }} :</span>
+                        <span>
+                            <color-status-point [colorClass]="getColorStatusPoint()">
+                            </color-status-point>
+                            <span class="state-value">{{ 'PROFESSIONAL_INTERVIEW.DETAILS.STATE.' + professionalInterview?.state | translateOrEmpty }}</span>
+                        </span>
                     </span>
+                </div>
+                <span class="date">{{ 'PROFESSIONAL_INTERVIEW.DETAILS.UPDATE_DATE' | translate }} :
+                    <span *ngIf="professionalInterview?.lastUpdateDate">{{professionalInterview?.lastUpdateDate | date: 'dd/MM/yyyy' : 'UTC'}}</span>
                 </span>
-            </div>
-            <span class="date">{{ 'PROFESSIONAL_INTERVIEW.DETAILS.UPDATE_DATE' | translate }} :
-                <span *ngIf="professionalInterview?.lastUpdateDate">{{professionalInterview?.lastUpdateDate | date: 'dd/MM/yyyy' : 'UTC'}}</span>
-            </span>
-            <div class="w30">
-                <span>
-                    <span>{{ 'PROFESSIONAL_INTERVIEW.DETAILS.REDACTOR' | translate }} :</span>
-                    <span class="redactor">
-                        <span *ngIf="professionalInterview.instructor?.lastName">{{professionalInterview.instructor.lastName}}</span>
-                        <span *ngIf="professionalInterview.instructor?.firstName" class="firstname">{{professionalInterview.instructor.firstName}}</span>
+                <div class="w30">
+                    <span>
+                        <span>{{ 'PROFESSIONAL_INTERVIEW.DETAILS.REDACTOR' | translate }} :</span>
+                        <span class="redactor">
+                            <span *ngIf="professionalInterview.instructor?.lastName">{{professionalInterview.instructor.lastName}}</span>
+                            <span *ngIf="professionalInterview.instructor?.firstName" class="firstname">{{professionalInterview.instructor.firstName}}</span>
+                        </span>
                     </span>
-                </span>
+                </div>
             </div>
         </div>
 
@@ -127,9 +141,13 @@
             <button ion-button color="green50" (click)="saveProfessionalInterviewToValidatedStatus()" [disabled]="!isAllIFieldsAreFilled()" *ngIf="canBeSavedInState(ProfessionalInterviewStateEnum.NOT_TAKEN_INTO_ACCOUNT)">
                 <ion-icon name="md-checkmark" ios="md-checkmark" margin-right></ion-icon> {{ 'PROFESSIONAL_INTERVIEW.DETAILS.BUTTONS.VALIDATE' | translate }}
             </button>
+            <!-- Bouton prendre en compte bilan professionnel -->
+            <button ion-button color="blue60" (click)="takenIntoAccountProfessionalInterview()" *ngIf="canBeTakenIntoAccount()">
+                <ion-icon name="ios-bookmark-outline" ios="ios-bookmark-outline" margin-right></ion-icon> {{ 'PROFESSIONAL_INTERVIEW.DETAILS.BUTTONS.TAKE_INTO_ACCOUNT' | translate }}
+            </button>
         </div>
         <div>
-            <div class="information-message">{{ 'PROFESSIONAL_INTERVIEW.DETAILS.LEGEND' | translate }}</div>
+            <div class="information-message" *ngIf="canBeSavedInState(ProfessionalInterviewStateEnum.NOT_TAKEN_INTO_ACCOUNT)">{{ 'PROFESSIONAL_INTERVIEW.DETAILS.LEGEND' | translate }}</div>
         </div>
     </ng-template>
 
