@@ -1,7 +1,7 @@
 import { UserMessageManagementPage } from './pages/user-message-management/user-message-management.page';
 
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { IonicPageModule } from 'ionic-angular';
+import { IonicPageModule, IonicModule } from 'ionic-angular';
 
 import { SharedModule } from '../../shared/shared.module';
 import { ComponentsModule } from '../../shared/components/components.module';
@@ -18,6 +18,14 @@ import { ProfileManagementPage } from './pages/profile-management/profile-manage
     UserMessageManagementPage
   ],
   imports: [
+    IonicModule.forRoot(AdminHomePage, {
+      menuType: 'push',
+      platform: {
+        ios: {
+          menuType: 'overlay',
+        }
+      }
+    }),
     [IonicPageModule.forChild(AdminHomePage)],
     SharedModule,
     ComponentsModule
