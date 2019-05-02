@@ -1,20 +1,18 @@
-import { AppVersion } from '@ionic-native/app-version';
 import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-translate/core';
 import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
-import { IonicModule } from 'ionic-angular';
+import { IonicModule, AlertController } from 'ionic-angular';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 import { TranslateLoaderMock } from './../../../../../test-config/mocks-ionic';
-
 import { AppVersionManagementPage } from './app-version-management.page';
-
 import { AppVersionService } from '../../../../core/services/app-version/app-version.service';
 import { ToastService } from './../../../../core/services/toast/toast.service';
 import { AppVersionModel } from '../../../../core/models/admin/app-version.model';
 
-const AppVersionServiceMock = jasmine.createSpyObj('AppVersionServiceMock', ['createOrUpdateAppVersion', 'getAllAppVersions']);
+const AppVersionServiceMock = jasmine.createSpyObj('AppVersionServiceMock', ['createOrUpdateAppVersion', 'getAllAppVersions', 'delete']);
 AppVersionServiceMock.createOrUpdateAppVersion.and.returnValue(Promise.resolve());
 AppVersionServiceMock.getAllAppVersions.and.returnValue(Promise.resolve());
+AppVersionServiceMock.delete.and.returnValue(Promise.resolve());
 const ToastServiceMock = jasmine.createSpyObj('ToastServiceMock', ['success', 'error']);
 
 describe('app-version-management', () => {
@@ -38,7 +36,8 @@ describe('app-version-management', () => {
             providers: [
                 { provide: ToastService, useValue: ToastServiceMock },
                 { provide: TranslateService, useClass: TranslateLoaderMock },
-                { provide: AppVersionService, useValue: AppVersionServiceMock }
+                { provide: AppVersionService, useValue: AppVersionServiceMock },
+                AlertController
             ],
             schemas: [NO_ERRORS_SCHEMA]
         });
@@ -50,13 +49,12 @@ describe('app-version-management', () => {
     });
 
     beforeEach(() => {
-        appVersionManagementPage.allAppVersions = [];
+        appVersionManagementPage.allAppVersions = [new AppVersionModel, new AppVersionModel];
     });
 
     describe('createOrUpdateAppVersion', () => {
 
         beforeEach(() => {
-
             spyOn(translateService, 'instant').and.callFake(function (param) {
                 return param;
             });
@@ -67,29 +65,35 @@ describe('app-version-management', () => {
         let appVersion: AppVersionModel;
 
         it(`doit envoyer un message d'erreur si le numero de version n'est pas conforme`, () => {
+
             // ARRANGE remplissage du formulaire avec un numéro de version vide (donc invalide) et un changelog (aucun contrôle n'est effectué dessus)
             invalidNumber = '';
             invalidChangelog = `changelog d'une version invalide`;
             appVersion = new AppVersionModel();
             appVersion.number = invalidNumber;
             appVersion.changelog = invalidChangelog;
+
             // ACT utilisation de la fonction de création de version
             appVersionManagementPage.createOrUpdateAppVersion(appVersion);
+
             // ASSERT le formulaire est invalide et un toast d'erreur est affiché à l'écran de l'utilisateur
             expect(appVersionManagementPage.versionNumberRegex.test(appVersion.number)).toBeFalsy();
             expect(translateService.instant).toHaveBeenCalledWith('ADMIN.APP_VERSION_MANAGEMENT.ERROR.UNDEFINED_NUMBER');
         });
 
         it(`doit envoyer un message indiquant la réussite de la création d'une version`, fakeAsync(() => {
+
             // ARRANGE remplissage du formulaire avec un numéro de version valide et un changelog
             validChangelog = `description de la version 1.0.0`;
             validNumber = '1.0.0';
             appVersion = new AppVersionModel();
             appVersion.number = validNumber;
             appVersion.changelog = validChangelog;
+
             // ACT utilisation de la fonction de création de version
             appVersionManagementPage.createOrUpdateAppVersion(appVersion);
             tick();
+
             // ASSERT le formulaire est valide, la nouvelle version est intégrée et un toast de succes est affiché à l'écran de l'utilisateur
             const tmpAppVersion = new AppVersionModel();
             tmpAppVersion.number = validNumber;
@@ -97,6 +101,30 @@ describe('app-version-management', () => {
             expect(appVersionManagementPage.versionNumberRegex.test(tmpAppVersion.number)).toBeTruthy();
             expect(appVersionService.createOrUpdateAppVersion).toHaveBeenCalledWith(tmpAppVersion);
             expect(translateService.instant).toHaveBeenCalledWith('ADMIN.APP_VERSION_MANAGEMENT.SUCCESS.CREATE_OR_UPDATE_VERSION');
+        }));
+    });
+
+    describe('deleteAppVersion', () => {
+
+        beforeEach(() => {
+            spyOn(translateService, 'instant').and.callFake(function (param) {
+                return param;
+            });
+        });
+
+        it(`doit envoyer un message indiquant la réussite de la suppression d'une version`, fakeAsync(() => {
+
+            // ARRANGE Instanciation d'une version
+            appVersionManagementPage.allAppVersions[1].techId = 1;
+            appVersionManagementPage.allAppVersions[1].number = "1.0.0";
+            appVersionManagementPage.allAppVersions[1].changelog = "description de la version 1.0.0";
+
+            // ACT appel de la fonction de suppression de version
+            appVersionManagementPage.delete(appVersionManagementPage.allAppVersions[1]);
+            tick();
+
+            // ASSERT la version est supprimée et un toast de succes est affiché à l'écran de l'utilisateur
+            expect(translateService.instant).toHaveBeenCalledWith('ADMIN.APP_VERSION_MANAGEMENT.SUCCESS.DELETE_UPDATE_VERSION');
         }));
     });
 });
