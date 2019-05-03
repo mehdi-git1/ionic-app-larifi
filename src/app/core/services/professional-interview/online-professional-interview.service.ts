@@ -36,16 +36,9 @@ export class OnlineProfessionalInterviewService {
      * @return une promesse contenant le bilan professionnel créé ou mis à jour
      */
     createOrUpdate(professionalInterview: ProfessionalInterviewModel): Promise<ProfessionalInterviewModel> {
-        return new Promise((resolve, reject) => {
-            this.storageService.saveAsync(EntityEnum.PROFESSIONAL_INTERVIEW, professionalInterview, true);
-            this.storageService.persistOfflineMap();
-            this.restService.post(this.config.getBackEndUrl('professionalInterviews'), professionalInterview).then(
-                professionalInterviewReturn => {
-                resolve(professionalInterviewReturn);
-            }).catch(() => {
-                reject();
-            });
-        });
+        this.storageService.saveAsync(EntityEnum.PROFESSIONAL_INTERVIEW, professionalInterview, true);
+        this.storageService.persistOfflineMap();
+        return this.restService.post(this.config.getBackEndUrl('professionalInterviews'), professionalInterview);
     }
 
     /**
