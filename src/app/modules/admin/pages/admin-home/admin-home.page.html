@@ -1,12 +1,19 @@
-<ion-header>
-    <ion-navbar>
-        <page-header [showSettingsIcon]="false">
-            {{ 'ADMIN.ADMIN_HOME.TITLE' | translate }}
-        </page-header>
-    </ion-navbar>
-</ion-header>
-<ion-content padding no-bounce>
-    <button ion-button (click)="goToProfileManagement()"> {{ 'ADMIN.ADMIN_HOME.BUTTON.PROFILE_MANAGEMENT' | translate }} </button>
-    <button ion-button (click)="goToAppVersionManagement()"> {{ 'ADMIN.ADMIN_HOME.BUTTON.APP_VERSION_MANAGEMENT' | translate }} </button>
-    <button ion-button (click)="goToUserMessageManagement()"> {{ 'ADMIN.ADMIN_HOME.BUTTON.USER_MESSAGE_MANAGEMENT' | translate }} </button>
-</ion-content>
+<ion-menu side="left" [content]="adminMenu">
+
+    <ion-header>
+        <ion-toolbar>
+            <ion-title>{{ 'ADMIN.ADMIN_HOME.NAV_TITLE' | translate }}</ion-title>
+        </ion-toolbar>
+    </ion-header>
+
+    <ion-content>
+        <ion-list>
+            <ion-item *ngFor="let adminPage of adminPages">
+                <button class="page" [class.active-link]="isActive(adminPage)" (click)="openPage(adminPage)">{{ adminPage.title }}</button>
+            </ion-item>
+        </ion-list>
+    </ion-content>
+
+</ion-menu>
+
+<ion-nav #adminMenu [root]="rootPage" swipeBackEnabled="false"></ion-nav>

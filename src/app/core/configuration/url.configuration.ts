@@ -55,7 +55,8 @@ export class UrlConfiguration {
     'getPing': urlGroupEnum.PING,
     'updatePermissions': `${urlGroupEnum.USER_PROFILE}/{profileName}/update_permissions`,
     'appVersions': urlGroupEnum.APP_VERSION,
-    'getAllAppVersions': urlGroupEnum.APP_VERSION
+    'getAllAppVersions': urlGroupEnum.APP_VERSION,
+    'deleteAppVersionById': `${urlGroupEnum.APP_VERSION}/{id}`
   };
 
   /**
