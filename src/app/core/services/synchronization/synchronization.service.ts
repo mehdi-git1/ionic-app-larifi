@@ -314,13 +314,13 @@ export class SynchronizationService {
     this.storageService.delete(EntityEnum.PROFESSIONAL_LEVEL, pnc.matricule);
 
     // Suppression des bilans professionnels
-    const professionalinterviews = this.storageService.findAll(EntityEnum.PROFESSIONAL_INTERVIEW);
-    const pncProfessionalinterviews = professionalinterviews.filter(professionalinterview => {
-      return professionalinterview.matricule === pnc.matricule;
+    const professionalInterviews = this.storageService.findAll(EntityEnum.PROFESSIONAL_INTERVIEW);
+    const pncProfessionalInterviews = professionalInterviews.filter(professionalInterview => {
+      return professionalInterview.matricule === pnc.matricule;
     });
-    for (const professionalinterview of pncProfessionalinterviews) {
+    for (const professionalInterview of pncProfessionalInterviews) {
       this.storageService.delete(EntityEnum.PROFESSIONAL_INTERVIEW,
-        this.professionalInterviewTransformerService.toProfessionalInterview(professionalinterview).getStorageId());
+        this.professionalInterviewTransformerService.toProfessionalInterview(professionalInterview).getStorageId());
     }
   }
 
