@@ -475,7 +475,6 @@ export class ProfessionalInterviewDetailsPage {
     if (typeof this.professionalInterview.annualProfessionalInterviewDate !== 'undefined' && this.professionalInterview.annualProfessionalInterviewDate !== null) {
       professionalInterviewToSave.annualProfessionalInterviewDate = this.dateTransformer.transformDateStringToIso8601Format(this.professionalInterview.annualProfessionalInterviewDate);
     }
-    professionalInterviewToSave.type = ProfessionalInterviewTypeEnum.BILAN;
     return professionalInterviewToSave;
   }
 
