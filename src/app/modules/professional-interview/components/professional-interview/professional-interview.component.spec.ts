@@ -65,10 +65,10 @@ describe('ProfessionalInterviewComponent', () => {
             expect(comp.getColorStatusPoint()).toBe('red');
         });
 
-        it(`Renvoie red si le statut du bilan pro est AVAILABLE`, () => {
+        it(`Renvoie orange si le statut du bilan pro est CONSULTED`, () => {
             expect(comp).toBeDefined();
             comp.professionalInterview = new ProfessionalInterviewModel();
-            comp.professionalInterview.state = ProfessionalInterviewStateEnum.AVAILABLE;
+            comp.professionalInterview.state = ProfessionalInterviewStateEnum.CONSULTED;
             expect(comp.getColorStatusPoint()).toBe('orange');
         });
 

@@ -1,0 +1,763 @@
+{
+    "GLOBAL": {
+        "APP_NAME": "EDOSSIER PNC",
+        "APP_VERSION": {
+            "FRONT": "Version",
+            "BACK": "Version serveur"
+        },
+        "NO_DATA": "Pas de données disponibles",
+        "PNC_ROLE": {
+            "MANAGER": "Manager Coach",
+            "PNC": "PNC"
+        },
+        "DATEPICKER": {
+            "CANCEL": "Annuler",
+            "DONE": "Valider",
+            "CLEAR": "Vider"
+        },
+        "MONTH": {
+            "LONGNAME": "Janvier, Février, Mars , Avril, Mai, Juin, Juillet, Août, Septembre, Octobre, Novembre, Décembre"
+        },
+        "CAREER_OBJECTIVE_STATUS": {
+            "DRAFT": "PROPOSITION",
+            "REGISTERED": "EN COURS",
+            "VALIDATED": "VALIDÉE",
+            "ABANDONED": "ABANDONNÉE"
+        },
+        "WAYPOINT_STATUS": {
+            "DRAFT": "PROPOSITION",
+            "REGISTERED": "EN COURS"
+        },
+        "CONNECTIVITY": {
+            "ONLINE_MODE": "Connexion avec le serveur rétablie",
+            "OFFLINE_MODE": "Vous êtes à présent en mode déconnecté"
+        },
+        "USER_MESSAGE": {
+            "BUTTONS": {
+                "DISMISS": "Fermer",
+                "DO_NOT_DISPLAY_ANYMORE": "J'ai compris"
+            }
+        },
+        "DEVELOPMENT_PROGRAM": "Parcours de développement",
+        "MY_DEVELOPMENT_PROGRAM": "Mon parcours de développement",
+        "HELP_CENTER": "Ressources d'aide",
+        "MY_HELP_CENTER": "Mes ressources d'aide",
+        "PNC_TEAM": "Effectif PNC",
+        "MY_PNC_TEAM": "Mon effectif PNC",
+        "UPCOMING_FLIGHT": "Activité vols",
+        "MY_UPCOMING_FLIGHT": "Mon activité vols",
+        "CREW_MEMBERS": "Liste équipage",
+        "STATUTORY_CERTIFICATE": "Profil PNC",
+        "MY_STATUTORY_CERTIFICATE": "Mon profil PNC",
+        "PROFESSIONAL_LEVEL": "Niveau pro SV",
+        "MY_PROFESSIONAL_LEVEL": "Mon niveau pro SV",
+        "CONGRATULATION_LETTERS": "Lettres de félicitations",
+        "MY_CONGRATULATION_LETTERS": "Mes lettres de félicitations",
+        "EOBSERVATIONS_ARCHIVES": "Archives d'eObservations",
+        "MY_EOBSERVATIONS_ARCHIVES": "Mes archives d'eObservations",
+        "UNKNOWN_ERROR": "Suite à un dysfonctionnement technique, l'opération a échoué. Nous vous invitons à réessayer dans quelques minutes. Si le problème persiste, veuillez contacter votre support.",
+        "COMING_SOON": "(Prochainement)",
+        "MESSAGES": {
+            "ERROR": {
+                "MANDATORY_FIELD": "Le champ est obligatoire",
+                "BAD_FORMAT": "Format incorrect",
+                "MATRICULE_WRONG_SIZE": "Le matricule doit faire 8 caractères",
+                "PNC_NOT_FOUND": "Erreur lors de la récupérations des PNC",
+                "APPLICATION_NOT_INITIALIZED": "Application non initialisée. Veuillez vous connecter à un réseau",
+                "APPLICATION_SYNCHRO_PENDING": "Le pnc  {{ matricule }} ne peut être chargé car il est en attente de synchronisation",
+                "INVALID_CREDENTIALS": "Identifiant/mot de passe incorrect",
+                "SERVER_APPLICATION_UNAVAILABLE": "Application indisponible."
+            }
+        },
+        "BUTTONS": {
+            "CONFIRM": "Confirmer",
+            "CANCEL": "Annuler"
+        },
+        "CONFIRM_BACK_WITHOUT_SAVE": {
+            "TITLE": "Modifications non enregistrées",
+            "MESSAGE": "Attention, des modifications n'ont pas été enregistrées, êtes-vous sûr de vouloir revenir en arrière ?"
+        }
+    },
+    "AUTHENT": {
+        "AUTHENTICATION": "Authentification",
+        "LOGIN": "Identifiant",
+        "PASSWORD": "PIN + Token",
+        "VALIDATE": "Valider"
+    },
+    "CAREER_OBJECTIVE_CREATE": {
+        "CREATE_TITLE": "Nouvelle priorité",
+        "EDIT_TITLE": "Modification d'une priorité",
+        "WAYPOINT_LIST_TITLE": "Points d'étapes",
+        "FORM": {
+            "PNC": "PNC",
+            "INITIATOR": "A l'initiative de",
+            "TITLE": "Libellé",
+            "CONTEXT": "Origine/Contexte",
+            "ACTION_PLAN": "Plan d'action et ressources utiles",
+            "MANAGER_COMMENT": "Commentaire Manager Coach",
+            "PNC_COMMENT": "Commentaire PNC",
+            "NEXT_ENCOUNTER_DATE": "Prochain rappel",
+            "ENCOUNTER_DATE": "Fixée le",
+            "PRIORITIZED": "Priorité majeure",
+            "CREATION_DATE": "Créée le",
+            "REQUIRED_ON_ENCOUNTER_DAY": " (Saisie obligatoire le jour de la rencontre)"
+        },
+        "CONFIRM_INSTRUCTOR_REQUEST": {
+            "TITLE": "Sollicitation instructeur",
+            "MESSAGE": "Confirmez-vous la demande de sollicitation instructeur ?",
+            "CANCEL": "Annuler",
+            "CONFIRM": "Confirmer"
+        },
+        "CONFIRM_DRAFT_DELETE": {
+            "TITLE": "Suppression de la proposition",
+            "MESSAGE": "Confirmez-vous la suppression de cette proposition ?",
+            "CANCEL": "Annuler",
+            "CONFIRM": "Supprimer"
+        },
+        "BUTTONS": {
+            "SAVE": "Enregistrer",
+            "SAVE_DRAFT": "Sauvegarder proposition",
+            "DELETE_DRAFT": "Supprimer proposition",
+            "VALIDATE": "Valider",
+            "ABANDON": "Abandonner",
+            "CANCEL_VALIDATION": "Annuler la validation",
+            "RESUME": "Reprendre la priorité",
+            "CREATE_INSTRUCTOR_REQUEST": "Solliciter mon instructeur"
+        },
+        "SUCCESS": {
+            "CAREER_OBJECTIVE_SAVED": "Priorité enregistrée",
+            "DRAFT_SAVED": "Proposition de la priorité sauvegardée",
+            "DRAFT_DELETED": "Proposition de la priorité supprimée",
+            "CAREER_OBJECTIVE_VALIDATED": "Priorité validée",
+            "CAREER_OBJECTIVE_ABANDONED": "Priorité abandonnée",
+            "CAREER_OBJECTIVE_VALIDATION_CANCELED": "Validation de la priorité annulée",
+            "CAREER_OBJECTIVE_RESUMED": "Priorité reprise",
+            "CAREER_OBJECTIVE_INSTRUCTOR_REQUESTED": "Demande envoyée"
+        },
+        "ERROR": {
+            "CAREER_OBJECTIVE_CREATION_FAILED": "La création de la priorité a échouée",
+            "ENCOUTER_DATE_REQUIRED": "Veuillez renseigner la date à laquelle la priorité a été fixée"
+        }
+    },
+    "CAREER_OBJECTIVE_LIST": {
+        "EOBS_TITLE": "eObservations",
+        "CAREER_OBJECTIVE_TITLE": "Priorités",
+        "PROFESSIONAL_INTERVIEW_TITLE": "Bilan professionnel",
+        "NO_OBJECTIVES": "Aucune priorité pour le moment",
+        "INFORMATION_MESSAGE": "Maximum 5 priorités en cours",
+        "LIST": {
+            "CREATION_DATE": "Initiée le",
+            "TITLE": "Libellé Priorité",
+            "ENCOUNTER_DATE": "Fixée le",
+            "NEXT_ENCOUNTER_DATE": "Rappel",
+            "STATUS": "Statut"
+        },
+        "BUTTONS": {
+            "ADD_CAREER_OBJECTIVE": "Nouvelle priorité"
+        },
+        "CREATE_EOBSERVATION": "Nouvelle eObservation",
+        "STATUS": {
+            "DRAFT": "Proposition",
+            "REGISTERED": "En cours",
+            "VALIDATED": "Validée",
+            "ABANDONED": "Abandonnée"
+        }
+
+    },
+    "PNC_IDENTITY": {
+        "REFERENT_INSTRUCTOR": "Instructeur référent",
+        "GENDER": "Sexe",
+        "SPECIALITY": "Fonction",
+        "WORKRATE": "Rythme",
+        "QUALIFICATION": "Qualif",
+        "RELAY": "Relais",
+        "GINQ": "Ginq",
+        "SECTOR": "Secteur",
+        "DIVISION": "Division"
+    },
+    "PNC_HOME": {
+        "TITLE": "Accueil",
+        "MY_TITLE": "Mon accueil",
+        "INFO_PANEL": {
+            "FUNCTION": "Fonction",
+            "GINQ": "Ginq",
+            "SECTOR": "Secteur",
+            "DIVISION": "Division"
+        }
+    },
+    "WAYPOINT_CREATE": {
+        "TITLE": "Point d'étape",
+        "FORM": {
+            "CONTEXT": "Origine/Contexte",
+            "ACTION_PERFORMED": "Action réalisée",
+            "MANAGER_COMMENT": "Commentaire Manager Coach",
+            "PNC_COMMENT": "Commentaire PNC",
+            "ENCOUNTER_DATE": "Date du point d'étape",
+            "REQUIRED_ON_ENCOUNTER_DAY": " (Saisie obligatoire le jour de la rencontre)"
+        },
+        "CONFIRM_DRAFT_DELETE": {
+            "TITLE": "Suppression de la proposition",
+            "MESSAGE": "Confirmez-vous la suppression de cette proposition ?",
+            "CANCEL": "Annuler",
+            "CONFIRM": "Supprimer"
+        },
+        "BUTTONS": {
+            "SAVE": "Enregistrer",
+            "SAVE_DRAFT": "Sauvegarder proposition",
+            "DELETE_DRAFT": "Supprimer proposition"
+        },
+        "ERROR": {
+            "ENCOUTER_DATE_AND_ACTION_PLAN_REQUIRED": "Veuillez renseigner l'action réalisée et la date du point d'étape"
+        },
+        "SUCCESS": {
+            "WAYPOINT_SAVED": "Point d'étape enregistré",
+            "DRAFT_SAVED": "Proposition du point d'étape sauvegardée",
+            "DRAFT_DELETED": "Proposition du point d'étape supprimée"
+        }
+    },
+    "FLIGHT_CREW_LIST": {
+        "LIST": {
+            "RELAYS": "Relais",
+            "FUNCTION": "Fonction",
+            "LAST_IN_FLIGHT_ENCOUNTER_DATE": "Dernière rencontre Vol",
+            "LAST_ON_GROUND_ENCOUNTER_DATE": "Dernière rencontre Sol"
+        },
+        "ERROR": "Erreur lors de la récupération de la liste équipage du vol {{flightNumber}}"
+    },
+    "UPCOMING_FLIGHT_LIST": {
+        "TITLE": "Liste de vos prochains vols rencontre",
+        "LAST_FLIGHTS": "Mes derniers vols",
+        "UPCOMING_FLIGHTS": "Mes prochains vols",
+        "NO_FLIGHTS": "Aucun vol trouvé"
+    },
+    "STATUTORY_CERTIFICATE": {
+        "TITLE": "Profil PNC",
+        "MY_TITLE": "Mon profil PNC",
+        "CATEGORIES": {
+            "GENERALITY_SKILLS": "Compétences généralités",
+            "PLANE_SKILLS": "Compétences avions",
+            "FAMILIARIZATION_FLIGHT": "Vol de familiarisation",
+            "MASTERING_QUALIFICATION": "Qualification maîtrises",
+            "ANNUAL_ELEARNING": "Elearning annuel",
+            "MEDICAL_APTITUDES": "Aptitudes médicales",
+            "LANGUAGES": "Langues",
+            "RELAYS": "Référents / Relais",
+            "TRAVEL_DOCUMENTS": "Documents / Visas"
+        },
+        "GENERALITY_SKILLS": {
+            "START_DATE": "Depuis le",
+            "DUE_DATE": "Echéance",
+            "CCA": {
+                "TITLE": "CCA"
+            },
+            "SENIORITY_DATE": {
+                "TITLE": "Ancienneté PNC"
+            },
+            "PCB": {
+                "TITLE": "PCB"
+            },
+            "GENE": {
+                "TITLE": "Géné",
+                "MDC_DATE": "MDC - Géné",
+                "DDV_DUE_DATE": "Echéance DDV",
+                "SKILL_END_DATE": "Compétent jusqu'au"
+            }
+        },
+        "PLANE_SKILLS": {
+            "PLANE": "Avion",
+            "START_DATE": "Depuis",
+            "MDC_DATE": "MDC",
+            "DUE_DATE": "Echéance",
+            "DDV_DUE_DATE": "Echéance DDV",
+            "SKILL_END_DATE": "Compétent jusqu'au"
+        },
+        "FAMILIARIZATION_FLIGHTS": {
+            "FLIGHT": "Vol",
+            "START_DATE": "Depuis"
+        },
+        "MASTERING_QUALIFICATION": {
+            "STAGE": "Stage",
+            "SENIORITY_DATE": "Depuis"
+        },
+        "MEDICAL_APTITUDES": {
+            "MEDICAL_VISIT": {
+                "START_DATE": "Début",
+                "END_DATE": "Fin"
+            }
+        },
+        "ERROR": {
+            "STATUTORY_CERTIFICATE": "Erreur lors de la récupération du profil PNC pour le matricule {{ matricule }}"
+        }
+    },
+    "PROFESSIONAL_INTERVIEW": {
+        "TITLE_BILAN_PRO": "Bilan professionnel",
+        "MY_TITLE_BILAN_PRO": "Mon bilan professionnel",
+        "TITLE_EPP": "Entretien professionnel PNC",
+        "MY_TITLE_EPP": "Mon entretien professionnel PNC",
+        "BUTTONS": {
+            "NEW_PROFESSIONAL_INTERVIEW": "Nouveau bilan professionnel"
+        },
+        "LIST": {
+            "HEADER": {
+                "INTERVIEW_DATE": "Date de réalisation",
+                "STATUS": "Statut en cours",
+                "REDACTOR": "Rédacteur",
+                "INTERVIEW_TYPE": "Type d'entretien"
+            },
+            "LEGEND": "derniers BP / EPP réalisés"
+        },
+        "DETAILS": {
+            "SPECIALITY": "Fonction",
+            "PNC_ASSIGNMENT_BILAN_PRO": "Affectation à date du Bilan Professionnel",
+            "PNC_ASSIGNMENT_EPP": "Affectation à date de l'EPP",
+            "INTERVIEW_DATE": "Date de l'entretien",
+            "UPDATE_DATE": "Enregistré depuis le",
+            "REDACTOR": "Rédacteur",
+            "STATE": {
+                "LABEL": "Statut en cours",
+                "TAKEN_INTO_ACCOUNT": "Pris en compte",
+                "NOT_TAKEN_INTO_ACCOUNT": "Non pris en compte",
+                "AVAILABLE": "Disponible",
+                "CONSULTED": "Consulté",
+                "DRAFT": "Brouillon"
+            },
+            "TYPE": {
+                "EPP": "EPP",
+                "BILAN": "Bilan professionnel"
+            },
+            "BUTTONS": {
+                "DELETE_DRAFT": "Supprimer le brouillon",
+                "SAVE_DRAFT": "Sauvegarder le brouillon",
+                "TAKE_INTO_ACCOUNT": "Prendre en compte",
+                "VALIDATE": "Valider"
+            },
+            "PNC_COMMENT": "Commentaire du PNC",
+            "CONFIRM_DRAFT_DELETE": {
+                "TITLE": "Suppression du Bilan Professionnel",
+                "MESSAGE": "Confirmez-vous la suppression de ce brouillon ?",
+                "CANCEL": "Annuler",
+                "CONFIRM": "Supprimer"
+            },
+            "SUCCESS": {
+                "DRAFT_SAVED": "Brouillon sauvegardé",
+                "DRAFT_DELETED": "Brouillon supprimé",
+                "VALIDATED": "Bilan professionnel validé",
+                "TAKEN_INTO_ACCOUNT": "Bilan Professionnel pris en compte "
+            },
+            "CONFIRM_VALIDATE_WITHOUT_PNC_COMMENT": {
+                "TITLE": "Validation du Bilan Professionnel",
+                "MESSAGE": "Vous êtes sur le point de valider votre formulaire sans avoir apposé de commentaire. Souhaitez-vous procéder à la validation ?",
+                "CONFIRM": "Oui",
+                "CANCEL": "Non"
+            },
+            "LEGEND": "Tous les champs doivent être renseignés pour valider le formulaire"
+        }
+    },
+    "EOBSERVATION": {
+        "LIST": {
+            "HEADER": {
+                "ROTATION_DATE": "Date de réalisation",
+                "TYPE": "Type eObservation",
+                "REDACTOR": "Rédacteur"
+            },
+            "LEGEND": {
+                "LESS_THAN_3_YEARS": "eObservations réalisées sur les 3 dernières années",
+                "MORE_THAN_3_YEARS": "dernières eObservations réalisées"
+            },
+            "LINK": {
+                "ARCHIVES": "Consulter les archives"
+            }
+        },
+        "NEW_EOBSERVATION_HEADER": {
+            "FUNCTION": "Fonction",
+            "TYPE": "Type de formulaire",
+            "NEW": "Nouvelle eObservation"
+        },
+        "ABNORMAL_LEVEL": {
+            "SKILL": "Constante / Compétence / Séquence",
+            "ITEM": "Rubrique / Item",
+            "LEVEL": "Niveau"
+        },
+        "DETAIL": {
+            "TITLE": "Restitution Formulaire",
+            "ROTATION_SUBTITLE": "Rotation",
+            "DEGRADED_CONDITIONS": "Conditions dégradées",
+            "FLIGHT_NUMBER": "N° Vol",
+            "FLIGHT_DATE": "Date Vol",
+            "STOP_STATION": "Escales départ/arrivée",
+            "AIRCRAFT_TYPE": "Type Avion",
+            "VERSION": "Version",
+            "OCCUPANCY_RATE": "Remplissage",
+            "WORKSTATION": "Poste",
+            "REDACTOR_COMMENT": "Commentaire PNC Rédacteur",
+            "PNC_COMMENT": "Commentaire PNC Observé",
+            "COMMENT": "Commentaire :",
+            "STRONG_POINTS": "Points forts",
+            "WORKING_AXES": "Axes de travail",
+            "UPDATE_DATE": "Enregistré depuis le : ",
+            "SPECIALITY": "Fonction",
+            "EOBS_PNC_ASSIGNMENT": "Affectation à date de l'eObservation",
+            "COLOR_LEVEL_CORRESPONDANCE": "Correspondance couleur / appréciation",
+            "TEMPORARY_PERIOD": "Période temporaire",
+            "FORMATION_FLIGHT": "Vol de formation",
+            "FORMATION_FLIGHT_TITLE_OPTION": " - FOR",
+            "VAL": "VAL",
+            "VAL_TITLE_OPTION": " - VAL",
+            "BILAN_FLIGHT": "Vol Bilan",
+            "EVAL": "EVAL",
+            "APPRECIATION": "Appréciation",
+            "SKILLS": "Aptitudes",
+            "IMPROVABLE": "Améliorable",
+            "CONFORM": "Conforme",
+            "STATE": {
+                "LABEL": "Statut en cours : ",
+                "TAKEN_INTO_ACCOUNT": "Pris en compte",
+                "NOT_TAKEN_INTO_ACCOUNT": "Non pris en compte"
+            },
+            "EDITED_BY": "eObservation modifiée par {{lastName}} {{firstName}} le {{date}}"
+        },
+        "CONFIRM_VALIDATE_PNC_COMMENT": {
+            "TITLE": "Validation du commentaire",
+            "MESSAGE": "Vous êtes sur le point de valider votre commentaire. Souhaitez-vous procéder à la validation ?",
+            "CONFIRM": "Oui",
+            "CANCEL": "Non"
+        },
+        "MESSAGES": {
+            "SUCCESS": {
+                "PNC_COMMENT_SAVED": "Commentaire validé",
+                "UPDATED": "eObservation mise à jour"
+            }
+        },
+        "BUTTONS": {
+            "VALIDATE_PNC_COMMENT": "Valider",
+            "EDIT": "Modifier",
+            "CANCEL": "Annuler",
+            "UPDATE": "Mettre à jour"
+        }
+    },
+    "PROFESSIONAL_LEVEL": {
+        "TITLE": "Niveau pro SV",
+        "MY_TITLE": "Mon niveau pro SV",
+        "STAGE_TITLE": "Stages réglementaires",
+        "EOBS_TITLE": "eObservations",
+        "HEADER": {
+            "DATE": "Date",
+            "CODE": "Code",
+            "LABEL": "Libellé",
+            "RESULT": "Résultat",
+            "HELP": "Explication détaillée des résultats dans le Manex D Chapitre 3.3.4.2"
+        },
+        "LEGEND": {
+            "TITLE": "Légende",
+            "A": {
+                "TITLE": "(A)",
+                "TEXT": "Test ATQP"
+            },
+            "T": {
+                "TITLE": "(T)",
+                "TEXT": "FC + Test"
+            },
+            "R": {
+                "TITLE": "(R)",
+                "TEXT": "Test de rattrapage"
+            },
+            "E1": {
+                "TITLE": "(E1)",
+                "TEXT": "1<sup>ère</sup> évaluation"
+            },
+            "E2": {
+                "TITLE": "(E2)",
+                "TEXT": "2<sup>ème</sup> évaluation"
+            },
+            "FC": {
+                "TITLE": "(FC)",
+                "TEXT": "Formation Complémentaire"
+            }
+        },
+        "MODULE_TYPE": {
+            "PRACTICAL": "Pratique",
+            "THEORETICAL": "Théorique"
+        },
+        "MODULE_STATUS": {
+            "SUCCESS": "Réussi",
+            "SUCCESS_WITH_FC": "Réussi avec FC",
+            "SUCCESS_WITH_FC_AND_TESTS": "Réussi avec FC + test",
+            "SUCCESS_WITH_RETAKE": "Réussi avec rattrapage",
+            "FAILED": "Ajournement"
+        },
+        "EVALUATION_SHEET": {
+            "TITLE": "Feuille d'évaluation",
+            "MY_TITLE": "Ma feuille d'évaluation",
+            "SCORE_BLOC": {
+                "BLOC_EVALUATION_TITLE": "Evaluation",
+                "E1": "E1",
+                "E2": "E2",
+                "BLOC_FC_TITLE": "FC"
+            },
+            "EXERCISES_BLOC": {
+                "TITLE_COLUMN": "Titre",
+                "E1_COLUMN": "E1",
+                "E2_COLUMN": "E2",
+                "FC_COLUMN": "FC",
+                "NA_COLUMN": "Non acquis"
+            },
+            "ERROR": "Erreur lors de la récupération du niveau pro pour le matricule {{ matricule }}",
+            "NO_DATA": "Pas de données disponibles"
+        },
+        "NOT_VALIDATED_QUESTIONS": {
+            "TITLE": "Questions non validées"
+        }
+    },
+    "PNC_SEARCH": {
+        "TITLE": "Recherche PNC",
+        "MY_TITLE": "Ma recherche PNC",
+        "CRITERIA": {
+            "FILTERS": "Filtres",
+            "PNC_MATRICULE": "Nom, Prénom, Matricule",
+            "DIVISION": "Division",
+            "SECTOR": "Secteur",
+            "GINQ": "Ginq",
+            "SPECIALITY": "Fonction",
+            "RELAY": "Relais",
+            "AIRCRAFT_SKILL": "Spécialisation avion",
+            "WORK_RATE": "Rythme",
+            "PRIORITIZED": "Priorité majeure"
+        },
+        "DEFAULT_DATA": {
+            "ALL_F": "Toutes",
+            "ALL_M": "Tous"
+        },
+        "NO_PNC_FOUND": "Aucun pnc trouvé",
+        "END_OF_SEARCH": "Fin de la recherche",
+        "ERROR": {
+            "SEARCH": "Erreur lors de la recherche de PNC"
+        },
+        "REINIT_FILTERS": "Réinitialiser les filtres"
+    },
+    "HELP_ASSET_LIST": {
+        "WEB_HELP_ASSET": "Ressources web",
+        "PDF_HELP_ASSET": "Ressources pdf",
+        "TITLE": "Ressources d'aide",
+        "MY_TITLE": "Mes ressources d'aide",
+        "NO_HELP_ASSETS": "Aucune ressource créée pour le moment",
+        "LAST_UPDATE_DATE": "Dernière mise à jour : "
+    },
+    "CONGRATULATION_LETTERS": {
+        "TITLE": "Lettres de félicitations",
+        "MY_TITLE": "Mes lettres de félicitations",
+        "TABS": {
+            "RECEIVED_LETTERS": "Félicitations reçues",
+            "WRITTEN_LETTERS": "Félicitations rédigées"
+        },
+        "HEADER": {
+            "CREATION_DATE": "Date rédaction",
+            "FLIGHT": "Occasion",
+            "TYPE": "Type de lettre",
+            "WRITER": "Rédacteur"
+        },
+        "TYPE": {
+            "COLLECTIVE": "Collective",
+            "INDIVIDUAL": "Individuelle"
+        },
+        "NO_RECEIVED_LETTERS": "Pas de félicitations reçues",
+        "NO_WRITTEN_LETTERS": "Pas de félicitations rédigées"
+    },
+    "CONGRATULATION_LETTER_DETAIL": {
+        "HEADER": {
+            "FLIGHT_NUMBER": "Numéro de vol",
+            "FLIGHT_DATE": "Date du vol",
+            "LETTER_TYPE": "Type de lettre",
+            "WRITER": "Rédacteur"
+        },
+        "TYPE": {
+            "COLLECTIVE": "Collective",
+            "INDIVIDUAL": "Individuelle"
+        },
+        "VERBATIM": "Verbatim"
+    },
+    "SYNCHRONIZATION": {
+        "PNC_SAVED_OFFLINE": "Le PNC {{ matricule }} a été synchronisé",
+        "PNC_SAVED_OFFLINE_ERROR": "Le PNC {{ matricule }} n'a pas pu être synchronisé",
+        "ROTATION_SAVED_OFFLINE": "Les PNC de la rotation {{ rotationNumber }} ont été synchronisés",
+        "ROTATION_SAVED_OFFLINE_ERROR": "Un ou plusieurs PNC de la rotation {{ rotationNumber }} n'ont pas pu être synchronisés",
+        "FLIGHT_SAVED_OFFLINE": "Les PNC du vol {{ flightNumber }} ont été synchronisés",
+        "FLIGHT_SAVED_OFFLINE_ERROR": "Un ou plusieurs PNC du vol {{ flightNumber }} n'ont pas pu être synchronisés",
+        "FLIGHT_SERVICE_CALL_ERROR": "Le chargement des PNC du vol {{ flightNumber }} a échoué.",
+        "ROTATION_SERVICE_CALL_ERROR": "Le chargement des PNC de la rotation {{ rotationNumber }} a échoué."
+    },
+    "PIN_PAD": {
+        "TITLE": {
+            "OPENING_APP": "Veuillez entrer votre code pin",
+            "PIN_ASK_CHANGE": "Veuillez entrer votre code pin actuel",
+            "FIRST_CONNEXION_STAGE_1": "Veuillez entrer un code pin pour sécuriser votre compte",
+            "FIRST_CONNEXION_STAGE_2": "Veuillez confirmer votre code pin"
+        },
+        "FORGOTTEN": "Code pin oublié ?",
+        "CANCEL": "Annuler",
+        "ERASE": "Effacer",
+        "ERROR": {
+            "PIN_INCORRECT": "Code pin incorrect",
+            "PIN_INIT_INCORRECT": "Les 2 codes pin doivent être identiques"
+        },
+        "TOAST_MESSAGE": {
+            "SUCCESS_MODIF": "Code pin modifié avec succès",
+            "SUCCESS_REINIT": "Code pin réinitialisé avec succès",
+            "ERROR": "Erreur lors de la modification du code pin"
+        }
+    },
+    "SECRET_QUESTION": {
+        "TITLE": {
+            "NEW_QUESTION": "Veuillez définir une question secrète en cas d'oubli de votre code pin",
+            "ANSWER_TO_QUESTION": "Répondez à la question suivante :"
+        },
+        "LABEL": {
+            "NEW_QUESTION": "Veuillez entrer une question secrète",
+            "NEW_ANSWER": "Veuillez entrer la réponse à la question",
+            "ANSWER_TO_QUESTION": "Veuillez entrer la réponse à la question"
+        },
+        "VALIDATE": "Valider",
+        "ERROR": {
+            "ANSWER_INCORRECT": "Réponse incorrecte"
+        },
+        "TOAST_MESSAGE": {
+            "SUCCESS_INIT": "Code pin et question / réponse secrète initialisés",
+            "SUCCESS_REINIT": "Question / réponse secrète initialisées",
+            "ERROR": "Erreur lors de la modification de la question / réponse secrète"
+        }
+    },
+    "SETTINGS": {
+        "TITLE": "Réglages",
+        "MY_TITLE": "Mes réglages",
+        "INIT_CACHE": {
+            "LABEL": "Vider le cache",
+            "SUCCESS": "Cache vidé avec succès"
+        },
+        "FORCE_SYNCHRONIZATION": {
+            "LABEL": "Forcer la synchronisation"
+        },
+        "CHANGE_PIN_CODE": {
+            "LABEL": "Changer le code pin"
+        },
+        "CHANGE_SECRET_QUESTION": {
+            "LABEL": "Changer la question secrète"
+        },
+        "ADMIN_ACCESS": {
+            "BUTTON": "Accéder au mode admin"
+        },
+        "CONFIRM_INIT_CACHE": {
+            "TITLE": "Vider le cache",
+            "MESSAGE": "Attention. Êtes-vous sûr de vouloir vider le cache ?",
+            "MESSAGE_UNSYNCHRONIZED_DATA": "Attention. Vider le cache peut entraîner la perte de données non synchronisées.",
+            "CANCEL": "Annuler",
+            "CONFIRM": "Confirmer"
+        },
+        "REVOKE_CERTIFICATE": {
+            "BUTTON": "Révocation de certificat"
+        },
+        "CONFIRM_REVOKE_CERTIFICATE": {
+            "TITLE": "Révocation de certificat",
+            "MESSAGE": "Attention. Êtes-vous sûr de vouloir révoquer votre certificat ?",
+            "CANCEL": "Annuler",
+            "CONFIRM": "Confirmer"
+        },
+        "IMPERSONATE_USER": {
+            "LABEL": "Impersonnifier un utilisateur",
+            "FIRST_NAV_TAB_IS_MANDATORY": "Vous devez vous placer sur votre page d'accueil pour pouvoir utiliser l'impersonnification"
+        }
+    },
+    "IMPERSONATE": {
+        "TITLE": "Sélection d'une identité PNC",
+        "SEARCH_PNC": "Matricule, nom, prénom",
+        "IMPERSONATED_USER": "Utilisateur impersonnifié",
+        "BUTTONS": {
+            "GET_MY_IDENTITY_BACK": "Récupérer mon identité"
+        }
+    },
+    "SYNCHRONIZATION_MANAGEMENT": {
+        "TITLE": "Demandes de synchronisation",
+        "BUTTONS": {
+            "CLEAR": "Tout annuler"
+        },
+        "TABS": {
+            "PENDING": "En attente ({{ requestCount }})",
+            "SUCCESSFUL": "En succès ({{ requestCount }})",
+            "FAILED": "En échec ({{ requestCount }})"
+        },
+        "MESSAGES": {
+            "OFFLINE_INFO_MESSAGE": "La synchronisation reprendra une fois la connexion retrouvée"
+        },
+        "NO_SYNCHRO_REQUEST": "Aucune demande"
+    },
+    "ADMIN": {
+        "ADMIN_HOME": {
+            "NAV_TITLE": "Administration",
+            "BACK_TO_HOME_PAGE": "Retour",
+            "BUTTON": {
+                "PROFILE_MANAGEMENT": "Gérer la liste des profils",
+                "APP_VERSION_MANAGEMENT": "Gérer la liste des versions",
+                "USER_MESSAGE_MANAGEMENT": "Gérer les messages aux utilisateurs"
+            }
+        },
+        "PROFILE_MANAGEMENT": {
+            "TITLE": "Gestion des profils",
+            "BUTTON": {
+                "REGISTER": "Afficher la liste des profils",
+                "UPDATE": "METTRE À JOUR"
+            },
+            "HEADER": {
+                "PROFILE_HEADER": "Profil",
+                "PERMISSION_HEADER": "Permission"
+            },
+            "LABEL": "Veuillez sélectionner un profil",
+            "SUCCESS": {
+                "PERMISSIONS_UPDATED": "Permissions mises à jour"
+            }
+        },
+        "APP_VERSION_MANAGEMENT": {
+            "TITLE": "Gestion des versions",
+            "BUTTON": {
+                "ADD_VERSION": "Ajouter",
+                "UPDATE_VERSION": "Modifier",
+                "DELETE_VERSION": "Supprimer"
+            },
+            "HEADER": {
+                "NUMBER": "Numéro",
+                "CHANGELOG": "Description"
+            },
+            "LABEL": {
+                "VERSION_NUMBER": "Numéro de version",
+                "CHANGELOG": "Description"
+            },
+            "CONFIRM_VERSION_DELETE": {
+                "TITLE": "Suppression de la version {{ number }}",
+                "MESSAGE": "Confirmez-vous la suppression de la version {{ number }} ?",
+                "CANCEL": "Annuler",
+                "CONFIRM": "Supprimer"
+            },
+            "SUCCESS": {
+                "CREATE_OR_UPDATE_VERSION": "mise à jour effectuée",
+                "DELETE_UPDATE_VERSION": "Suppression effectuée"
+
+            },
+            "ERROR": {
+                "UNDEFINED_NUMBER": "Veuillez renseigner un numéro de version"
+            }
+        },
+        "USER_MESSAGE_MANAGEMENT": {
+            "TITLE": "Gestion des messages poussés aux utilisateurs",
+            "NO_USER_MESSAGE_SELECTED": "Aucun message sélectionné",
+            "LABELS": {
+                "TITLE": "Titre",
+                "CONTENT": "Contenu",
+                "ACTIVE": "Actif"
+            },
+            "BUTTONS": {
+                "UPDATE": "Mettre à jour",
+                "OVERVIEW": "Aperçu"
+            },
+            "MESSAGES": {
+                "UPDATE_SUCCESSFUL": "Message mis à jour"
+            }
+        }
+    }
+}
