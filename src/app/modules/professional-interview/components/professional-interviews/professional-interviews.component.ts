@@ -22,6 +22,9 @@ export class ProfessionalInterviewsComponent {
       });
     }
 
+    /**
+     * Récupére le nombre de bilan pro / EPP réalisés (hors statut brouillon)
+     */
   getNumberOfRealisedInterviews(): number {
     return this.professionalInterviewTab.filter(
       interview => interview.state != ProfessionalInterviewStateEnum.DRAFT

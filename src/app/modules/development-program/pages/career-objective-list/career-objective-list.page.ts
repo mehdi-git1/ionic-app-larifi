@@ -50,7 +50,7 @@ export class CareerObjectiveListPage {
   // Liste des eForms possible
   eFormsList = [];
 
-  // Nombre maw de non draft à afficher
+  // Nombre max de non draft à afficher
   maxNoDraftToDisplay = 3;
 
   chosenEFormsType = null;

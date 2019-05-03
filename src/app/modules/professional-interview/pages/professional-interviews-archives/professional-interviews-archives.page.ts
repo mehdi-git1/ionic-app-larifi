@@ -36,7 +36,7 @@ export class ProfessionalInterviewsArchivesPage {
     }
 
     /**
-     * Récupére la liste de toutes les bilans professionels d'un PNC
+     * Récupére la liste de toutes les bilans professionnels d'un PNC
      */
     getProfessionalInterviewsList() {
         this.professionalInterviewService.getProfessionalInterviews(this.matricule).then(
