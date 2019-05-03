@@ -24,6 +24,7 @@ export class ProfessionalInterviewsComponent {
 
     /**
      * Récupére le nombre de bilan pro / EPP réalisés (hors statut brouillon)
+     * @return nombre de bilan pro
      */
   getNumberOfRealisedInterviews(): number {
     return this.professionalInterviewTab.filter(

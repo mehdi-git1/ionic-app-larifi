@@ -55,6 +55,7 @@
         "MY_CONGRATULATION_LETTERS": "Mes lettres de félicitations",
         "EOBSERVATIONS_ARCHIVES": "Archives d'eObservations",
         "MY_EOBSERVATIONS_ARCHIVES": "Mes archives d'eObservations",
+        "PROFESSIONAL_INTERVIEWS_ARCHIVES": "Archives de bilans professionnels / EPP",
         "UNKNOWN_ERROR": "Suite à un dysfonctionnement technique, l'opération a échoué. Nous vous invitons à réessayer dans quelques minutes. Si le problème persiste, veuillez contacter votre support.",
         "COMING_SOON": "(Prochainement)",
         "MESSAGES": {
@@ -304,7 +305,10 @@
                 "REDACTOR": "Rédacteur",
                 "INTERVIEW_TYPE": "Type d'entretien"
             },
-            "LEGEND": "derniers BP / EPP réalisés"
+            "LEGEND": "derniers BP / EPP réalisés",
+            "LINK": {
+                "ARCHIVES": "Consulter les archives"
+            }
         },
         "DETAILS": {
             "SPECIALITY": "Fonction",

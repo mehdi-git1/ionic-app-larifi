@@ -234,7 +234,7 @@ export class CareerObjectiveListPage {
   /**
    * Redirige vers la page des archives des bilans professionnels
    */
-  goToprofessionalInterviewsArchives(){
+  goToProfessionalInterviewsArchives(){
     this.navCtrl.push(ProfessionalInterviewsArchivesPage, { matricule: this.matricule });
   }
 
