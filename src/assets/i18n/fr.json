@@ -333,7 +333,7 @@
             },
             "PNC_COMMENT": "Commentaire du PNC",
             "CONFIRM_DRAFT_DELETE": {
-                "TITLE": "Suppression du Bilan Professionnel",
+                "TITLE": "Suppression du brouillon",
                 "MESSAGE": "Confirmez-vous la suppression de ce brouillon ?",
                 "CANCEL": "Annuler",
                 "CONFIRM": "Supprimer"
@@ -341,11 +341,14 @@
             "SUCCESS": {
                 "DRAFT_SAVED": "Brouillon sauvegardé",
                 "DRAFT_DELETED": "Brouillon supprimé",
-                "VALIDATED": "Bilan professionnel validé",
-                "TAKEN_INTO_ACCOUNT": "Bilan Professionnel pris en compte "
+                "PI_VALIDATED": "Bilan professionnel validé",
+                "EPP_VALIDATED": "EPP validé",
+                "PI_TAKEN_INTO_ACCOUNT": "Bilan Professionnel pris en compte ",
+                "EPP_TAKEN_INTO_ACCOUNT": "EPP pris en compte"
             },
             "CONFIRM_VALIDATE_WITHOUT_PNC_COMMENT": {
-                "TITLE": "Validation du Bilan Professionnel",
+                "PI_TITLE": "Validation du Bilan Professionnel",
+                "EPP_TITLE": "Validation de l'EPP",
                 "MESSAGE": "Vous êtes sur le point de valider votre formulaire sans avoir apposé de commentaire. Souhaitez-vous procéder à la validation ?",
                 "CONFIRM": "Oui",
                 "CANCEL": "Non"
