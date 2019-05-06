@@ -81,6 +81,12 @@
         <div class="global-container professional-interview-list-container">
             <professional-interviews *ngIf="professionalInterviews" [professionalInterviews]="professionalInterviews">
             </professional-interviews>
+            <div *hasPermission="'PROFESSIONAL_INTERVIEW_FULL_EDITION'">
+                <div *ngIf="professionalInterviews" class="information-message archives">
+                    <span class="edospnc-archive"></span>
+                    <a (click)="goToProfessionalInterviewsArchives()">{{ 'PROFESSIONAL_INTERVIEWS.LIST.LINK.ARCHIVES' | translate }}</a>
+                </div>
+            </div>
         </div>
     </ng-template>
 </ion-content>
