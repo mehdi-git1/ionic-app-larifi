@@ -36,11 +36,11 @@ export class ProfessionalInterviewComponent {
   }
 
   /**
-   * Redirige vers le detail du bilan pro
+   * Redirige vers le détail du bilan pro
    */
   goToProfessionalInterviewDetail(evt: Event) {
     evt.stopPropagation();
-    this.navCtrl.push(ProfessionalInterviewDetailsPage, { professionalInterview: this.professionalInterview });
+    this.navCtrl.push(ProfessionalInterviewDetailsPage, { professionalInterviewId: this.professionalInterview.techId });
   }
 
 }

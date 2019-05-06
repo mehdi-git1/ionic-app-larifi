@@ -1,12 +1,10 @@
 import { PncLightModel } from './../../models/pnc-light.model';
-import { PncModel } from './../../models/pnc.model';
 import { Injectable } from '@angular/core';
 import { BaseService } from '../base/base.service';
 import { ConnectivityService } from '../connectivity/connectivity.service';
 import { OnlineProfessionalInterviewService } from './online-professional-interview.service';
 import { OfflineProfessionalInterviewService } from './offline-professional-interview.service';
 import { ProfessionalInterviewModel } from '../../models/professional-interview/professional-interview.model';
-import { DateTransform } from '../../../shared/utils/date-transform';
 import { SessionService } from '../session/session.service';
 
 
@@ -17,7 +15,6 @@ export class ProfessionalInterviewService extends BaseService {
         protected connectivityService: ConnectivityService,
         private onlineProfessionalInterviewService: OnlineProfessionalInterviewService,
         private offlineProfessionalInterviewService: OfflineProfessionalInterviewService,
-        private dateTransformer: DateTransform,
         private sessionService: SessionService
     ) {
         super(
@@ -33,8 +30,17 @@ export class ProfessionalInterviewService extends BaseService {
      * @param matricule le matricule du PNC
      * @return une promesse contenant les bilans professionels trouvés
      */
-    getProfessionalInterviews(matricule: string): Promise<ProfessionalInterviewModel[]> {
+    public getProfessionalInterviews(matricule: string): Promise<ProfessionalInterviewModel[]> {
         return this.execFunctionService('getProfessionalInterviews', matricule);
+    }
+
+    /**
+    * Récupère un bilan professionel à partir de son id
+    * @param id l'id du bilan professionnel à récupérer
+    * @return une promesse contenant le bilan professionnel récupéré
+    */
+    public getProfessionalInterview(id: number): Promise<ProfessionalInterviewModel> {
+        return this.execFunctionService('getProfessionalInterview', id);
     }
 
     /**
@@ -42,7 +48,7 @@ export class ProfessionalInterviewService extends BaseService {
      * @param  profesionnalInterview le bilan professionnel à créer ou mettre à jour
      * @return une promesse contenant le bilan professionnel créé ou mis à jour
      */
-    createOrUpdate(professionalInterview: ProfessionalInterviewModel): Promise<ProfessionalInterviewModel> {
+    public createOrUpdate(professionalInterview: ProfessionalInterviewModel): Promise<ProfessionalInterviewModel> {
         if (professionalInterview.techId === undefined) {
             professionalInterview.redactionDate = new Date();
             professionalInterview.instructor = new PncLightModel();
@@ -52,6 +58,8 @@ export class ProfessionalInterviewService extends BaseService {
         }
         professionalInterview.lastUpdateAuthor = new PncLightModel();
         professionalInterview.lastUpdateAuthor.matricule = this.sessionService.getActiveUser().matricule;
+        professionalInterview.lastUpdateAuthor.lastName = this.sessionService.getActiveUser().lastName.toUpperCase();
+        professionalInterview.lastUpdateAuthor.firstName = this.sessionService.getActiveUser().firstName;
         professionalInterview.lastUpdateDate = new Date();
 
         return this.execFunctionService('createOrUpdate', professionalInterview);
@@ -62,7 +70,7 @@ export class ProfessionalInterviewService extends BaseService {
      * @param id l'id du bilan professionnel à supprimer
      * @return une promesse disant que la suppression s'est bien passée, ou pas
      */
-    delete(id: number): Promise<any> {
+    public delete(id: number): Promise<any> {
         return this.execFunctionService('delete', id);
     }
 

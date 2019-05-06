@@ -22,7 +22,7 @@ export class OnlineProfessionalInterviewService {
      * @param matricule le matricule du PNC
      * @return une promesse contenant les bilans professionels trouvées
      */
-    getProfessionalInterviews(matricule: string): Promise<ProfessionalInterviewModel[]> {
+    public getProfessionalInterviews(matricule: string): Promise<ProfessionalInterviewModel[]> {
         return this.restService.get(this.config.getBackEndUrl('getProfessionalInterviewsByMatricule', [matricule])).then(
             professionalInterviews => {
                 return this.universalTransformer.universalTransformObjectArray(ProfessionalInterviewModel, professionalInterviews);
@@ -31,12 +31,21 @@ export class OnlineProfessionalInterviewService {
     }
 
     /**
+     * Récupère un bilan professionel à partir de son id
+     * @param id l'id du bilan professionnel à récupérer
+     * @return une promesse contenant le bilan professionnel récupéré
+     */
+    public getProfessionalInterview(id: number): Promise<ProfessionalInterviewModel> {
+        return this.restService.get(this.config.getBackEndUrl('getProfessionalInterviewById', [id]));
+    }
+
+    /**
      * Créé ou met à jour un bilan professionnel
      * @param  profesionnalInterview le bilan professionnel à créer ou mettre à jour
      * @return une promesse contenant le bilan professionnel créé ou mis à jour
      */
-    createOrUpdate(professionalInterview: ProfessionalInterviewModel): Promise<ProfessionalInterviewModel> {
-    return this.restService.post(this.config.getBackEndUrl('professionalInterviews'), professionalInterview);
+    public createOrUpdate(professionalInterview: ProfessionalInterviewModel): Promise<ProfessionalInterviewModel> {
+        return this.restService.post(this.config.getBackEndUrl('professionalInterviews'), professionalInterview);
     }
 
     /**
@@ -44,7 +53,7 @@ export class OnlineProfessionalInterviewService {
      * @param id l'id du bilan professionnel à supprimer
      * @return une promesse disant que la suppression s'est bien passée, ou pas
      */
-    delete(id: number): Promise<any> {
+    public delete(id: number): Promise<any> {
         return new Promise((resolve, reject) => {
             this.storageService.delete(EntityEnum.PROFESSIONAL_INTERVIEW, `${id}`);
             this.storageService.persistOfflineMap();
