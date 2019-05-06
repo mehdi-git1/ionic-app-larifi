@@ -14,9 +14,6 @@ describe('offlineEobservationService', () => {
 
     beforeEach(() => {
         offlineEObservationService = new OfflineEObservationService(storageServiceMock);
-    });
-
-    beforeEach(() => {
         eObservationModelArray = [new EObservationModel(), new EObservationModel(), new EObservationModel()];
         eObservationModelArray[0].pnc = new PncModel();
         eObservationModelArray[0].pnc.matricule = '778855';

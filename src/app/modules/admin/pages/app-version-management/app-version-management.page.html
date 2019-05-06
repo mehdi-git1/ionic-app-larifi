@@ -1,8 +1,9 @@
 <ion-header>
     <ion-navbar>
-        <page-header [showSettingsIcon]="false">
-            {{ 'ADMIN.APP_VERSION_MANAGEMENT.TITLE' | translate }}
-        </page-header>
+        <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+        <ion-title>{{ 'ADMIN.APP_VERSION_MANAGEMENT.TITLE' | translate }}</ion-title>
     </ion-navbar>
 </ion-header>
 
@@ -105,6 +106,10 @@
                                         <button ion-button color="blue60" name="modify-button" class="modify-button" (click)="createOrUpdateAppVersion(appVersion)">
                                             <ion-icon name="create" margin-right> </ion-icon>
                                             {{ 'ADMIN.APP_VERSION_MANAGEMENT.BUTTON.UPDATE_VERSION' | translate }}
+                                        </button>
+                                        <button ion-button color="red70" name="delete-button" class="delete-button" (click)="confirmDeleteAppVersion(appVersion)">
+                                            <ion-icon name="ios-trash-outline" ios="ios-trash-outline" margin-right></ion-icon>
+                                            {{ 'ADMIN.APP_VERSION_MANAGEMENT.BUTTON.DELETE_VERSION' | translate }}
                                         </button>
                                     </ion-col>
                                 </ion-row>

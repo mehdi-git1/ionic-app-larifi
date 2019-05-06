@@ -2,6 +2,7 @@ import { AppVersionModel } from './../../../../core/models/admin/app-version.mod
 import { AppVersionService } from './../../../../core/services/app-version/app-version.service';
 import { ToastService } from '../../../../core/services/toast/toast.service';
 import { Component } from '@angular/core';
+import { AlertController } from 'ionic-angular';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
@@ -21,18 +22,23 @@ export class AppVersionManagementPage {
 
     constructor(private appVersionService: AppVersionService,
         private translateService: TranslateService,
+        private alertCtrl: AlertController,
         private toastService: ToastService) {
     }
 
     ionViewDidEnter() {
+        this.initPage();
+    }
+
+    initPage() {
         this.appVersionService.getAllAppVersions().then(allAppVersions => {
             this.allAppVersions = allAppVersions;
         }, error => { });
     }
 
     /**
-     * Crée ou met à jour une Version
-     * @param appVersion la version créée ou mise à jour
+     * Crée ou met à jour une version
+     * @param appVersion La version créée ou mise à jour
      */
     createOrUpdateAppVersion(appVersion: AppVersionModel): void {
         if (appVersion == null) {
@@ -48,10 +54,40 @@ export class AppVersionManagementPage {
         this.appVersionService
             .createOrUpdateAppVersion(this.appVersion)
             .then(success => {
-                this.appVersionService.getAllAppVersions().then(allAppVersions => {
-                    this.allAppVersions = allAppVersions;
-                }, error => { });
+                this.initPage();
                 this.toastService.success(this.translateService.instant('ADMIN.APP_VERSION_MANAGEMENT.SUCCESS.CREATE_OR_UPDATE_VERSION'));
             }, error => { });
+    }
+
+    /**
+     *  Présente une alerte pour confirmer la suppression de la version
+     * @param appVersion la version à supprimer
+     */
+    confirmDeleteAppVersion(appVersion: AppVersionModel): void {
+        this.alertCtrl.create({
+            title: this.translateService.instant('ADMIN.APP_VERSION_MANAGEMENT.CONFIRM_VERSION_DELETE.TITLE', { 'number': appVersion.number }),
+            message: this.translateService.instant('ADMIN.APP_VERSION_MANAGEMENT.CONFIRM_VERSION_DELETE.MESSAGE', { 'number': appVersion.number }),
+            buttons: [
+                {
+                    text: this.translateService.instant('ADMIN.APP_VERSION_MANAGEMENT.CONFIRM_VERSION_DELETE.CANCEL'),
+                    role: 'cancel'
+                },
+                {
+                    text: this.translateService.instant('ADMIN.APP_VERSION_MANAGEMENT.CONFIRM_VERSION_DELETE.CONFIRM'),
+                    handler: () => this.delete(appVersion)
+                }
+            ]
+        }).present();
+    }
+
+    /**
+     * Supprime une version
+     * @param appVersion la version à supprimer
+     */
+    delete(appVersion: AppVersionModel): void {
+        this.appVersionService.delete(appVersion.techId).then(success => {
+            this.initPage();
+            this.toastService.success(this.translateService.instant('ADMIN.APP_VERSION_MANAGEMENT.SUCCESS.DELETE_UPDATE_VERSION'));
+        }, error => { });
     }
 }
