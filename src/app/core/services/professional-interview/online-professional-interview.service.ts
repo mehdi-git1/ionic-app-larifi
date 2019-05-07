@@ -36,7 +36,9 @@ export class OnlineProfessionalInterviewService {
      * @return une promesse contenant le bilan professionnel créé ou mis à jour
      */
     createOrUpdate(professionalInterview: ProfessionalInterviewModel): Promise<ProfessionalInterviewModel> {
-    return this.restService.post(this.config.getBackEndUrl('professionalInterviews'), professionalInterview);
+        this.storageService.saveAsync(EntityEnum.PROFESSIONAL_INTERVIEW, professionalInterview, true);
+        this.storageService.persistOfflineMap();
+        return this.restService.post(this.config.getBackEndUrl('professionalInterviews'), professionalInterview);
     }
 
     /**
@@ -55,5 +57,4 @@ export class OnlineProfessionalInterviewService {
             });
         });
     }
-
 }

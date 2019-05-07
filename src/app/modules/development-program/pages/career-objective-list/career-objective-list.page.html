@@ -68,7 +68,7 @@
 
         <!-- Bilans professionnels -->
         <h3 class="professional-interview-title">{{ 'CAREER_OBJECTIVE_LIST.PROFESSIONAL_INTERVIEW_TITLE' | translate }}</h3>
-        <div class="global-container cartridge-container professional-interview-creation-container">
+        <div *ngIf="securityService.isManager()" class="global-container cartridge-container professional-interview-creation-container">
             <div class="add-container">
                 <button (click)="goToProfessionalInterviewCreation()" class="add-button clickable">
                     <div class="button-content">
@@ -81,6 +81,12 @@
         <div class="global-container professional-interview-list-container">
             <professional-interviews *ngIf="professionalInterviews" [professionalInterviews]="professionalInterviews">
             </professional-interviews>
+            <div *hasPermission="'PROFESSIONAL_INTERVIEW_FULL_EDITION'">
+                <div *ngIf="professionalInterviews" class="information-message archives">
+                    <span class="edospnc-archive"></span>
+                    <a (click)="goToProfessionalInterviewsArchives()">{{ 'PROFESSIONAL_INTERVIEW.LIST.LINK.ARCHIVES' | translate }}</a>
+                </div>
+            </div>
         </div>
     </ng-template>
 </ion-content>

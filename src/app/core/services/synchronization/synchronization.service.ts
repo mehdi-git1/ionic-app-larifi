@@ -1,3 +1,4 @@
+import { ProfessionalInterviewTransformerService } from './../professional-interview/professional-interview-transformer.service';
 import { CongratulationLetterModel } from './../../models/congratulation-letter.model';
 import { CongratulationLetterTransformerService } from './../congratulation-letter/congratulation-letter-transformer.service';
 import { EObservationTransformerService } from './../eobservation/eobservation-transformer.service';
@@ -54,6 +55,7 @@ export class SynchronizationService {
     private rotationTransformerProvider: RotationTransformerService,
     private legTransformerProvider: LegTransformerService,
     private eObservationTransformerService: EObservationTransformerService,
+    private professionalInterviewTransformerService: ProfessionalInterviewTransformerService,
     private events: Events) {
   }
 
@@ -87,6 +89,7 @@ export class SynchronizationService {
 
     const allCareerObjectives = this.storageService.findAll(EntityEnum.CAREER_OBJECTIVE);
     const allWaypoints = this.storageService.findAll(EntityEnum.WAYPOINT);
+    const allEObservations = this.storageService.findAll(EntityEnum.EOBSERVATION);
 
     const pncCareerObjectives = allCareerObjectives.filter(careerObjective => {
       return careerObjective.pnc.matricule === matricule;
@@ -99,6 +102,10 @@ export class SynchronizationService {
       }
     });
 
+    const pncEObservations = allEObservations.filter(eObservation => {
+      return eObservation.pnc.matricule === matricule;
+    });
+
     for (const careerObjective of pncCareerObjectives) {
       if (careerObjective.offlineAction) {
         return true;
@@ -107,6 +114,12 @@ export class SynchronizationService {
 
     for (const waypoint of pncWaypoints) {
       if (waypoint.offlineAction) {
+        return true;
+      }
+    }
+
+    for (const eObservation of pncEObservations) {
+      if (eObservation.offlineAction) {
         return true;
       }
     }
@@ -298,8 +311,15 @@ export class SynchronizationService {
     // Suppression du niveau pro SV
     this.storageService.delete(EntityEnum.PROFESSIONAL_LEVEL, pnc.matricule);
 
-    // Suppression des bilans professionels
-    this.storageService.delete(EntityEnum.PROFESSIONAL_INTERVIEW, pnc.matricule);
+    // Suppression des bilans professionnels
+    const professionalInterviews = this.storageService.findAll(EntityEnum.PROFESSIONAL_INTERVIEW);
+    const pncProfessionalInterviews = professionalInterviews.filter(professionalInterview => {
+      return professionalInterview.matricule === pnc.matricule;
+    });
+    for (const professionalInterview of pncProfessionalInterviews) {
+      this.storageService.delete(EntityEnum.PROFESSIONAL_INTERVIEW,
+        this.professionalInterviewTransformerService.toProfessionalInterview(professionalInterview).getStorageId());
+    }
   }
 
   /**
@@ -343,8 +363,9 @@ export class SynchronizationService {
     const unsynchronizedCareerObjectives = this.storageService.findAllEDossierPncObjectWithOfflineAction(EntityEnum.CAREER_OBJECTIVE);
     const unsynchronizedWaypoints = this.storageService.findAllEDossierPncObjectWithOfflineAction(EntityEnum.WAYPOINT);
     const unsynchronizedEObservations = this.storageService.findAllEDossierPncObjectWithOfflineAction(EntityEnum.EOBSERVATION);
+    const unsynchronizedProfessionalInterviews = this.storageService.findAllEDossierPncObjectWithOfflineAction(EntityEnum.PROFESSIONAL_INTERVIEW);
 
-    const pncMap = this.buildPncSynchroMap(unsynchronizedCareerObjectives, unsynchronizedWaypoints, unsynchronizedEObservations);
+    const pncMap = this.buildPncSynchroMap(unsynchronizedCareerObjectives, unsynchronizedWaypoints, unsynchronizedEObservations, unsynchronizedProfessionalInterviews);
     return Array.from(pncMap.values());
   }
 
@@ -356,7 +377,7 @@ export class SynchronizationService {
    * @param unsynchronizedEObservations la liste des eObservations à synchroniser
    * @return la map contenant les objets PncSynchroModel, associés au matricule de chaque PNC
    */
-  private buildPncSynchroMap(unsynchronizedCareerObjectives: CareerObjectiveModel[], unsynchronizedWaypoints: WaypointModel[], unsynchronizedEObservations: EObservationModel[]): any {
+  private buildPncSynchroMap(unsynchronizedCareerObjectives: CareerObjectiveModel[], unsynchronizedWaypoints: WaypointModel[], unsynchronizedEObservations: EObservationModel[], unsynchronizedProfessionalInterviews: ProfessionalInterviewModel[]): any {
     const pncMap = new Map();
     for (const careerObjective of unsynchronizedCareerObjectives) {
       if (!pncMap.get(careerObjective.pnc.matricule)) {
@@ -392,6 +413,22 @@ export class SynchronizationService {
         pncMap.set(eObservation.pnc.matricule, pncSynchro);
       }
       pncMap.get(eObservation.pnc.matricule).eobservations.push(eObservation);
+    }
+
+    if (unsynchronizedProfessionalInterviews) {
+      for (const professionalInterview of unsynchronizedProfessionalInterviews) {
+        if (!pncMap.get(professionalInterview.matricule)) {
+          const pncSynchro = new PncSynchroModel();
+          pncSynchro.pnc = new PncModel();
+          pncSynchro.pnc.matricule = professionalInterview.matricule;
+          pncSynchro.pnc.firstName = professionalInterview.pncAtInterviewDate.firstName;
+          pncSynchro.pnc.lastName = professionalInterview.pncAtInterviewDate.lastName;
+          pncSynchro.pnc.speciality = professionalInterview.pncAtInterviewDate.speciality;
+          pncSynchro.professionalInterviews = [];
+          pncMap.set(professionalInterview.matricule, pncSynchro);
+        }
+        pncMap.get(professionalInterview.matricule).professionalInterviews.push(professionalInterview);
+      }
     }
 
     return pncMap;

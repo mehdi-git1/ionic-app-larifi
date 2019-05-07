@@ -1,3 +1,5 @@
+import { ProfessionalInterviewTransformerService } from './../professional-interview/professional-interview-transformer.service';
+import { ProfessionalInterviewComponent } from '../../../modules/professional-interview/components/professional-interview/professional-interview.component';
 import { Injectable } from '@angular/core';
 
 import { WaypointTransformerService } from '../waypoint/waypoint-transformer.service';
@@ -12,8 +14,10 @@ export class TransformerService {
     constructor(
         private pncTransformer: PncTransformerService,
         private careerObjectiveTransformer: CareerObjectiveTransformerService,
-        private waypointTransformer: WaypointTransformerService) {
+        private waypointTransformer: WaypointTransformerService,
+        private professionalInterviewTransformer: ProfessionalInterviewTransformerService) {
     }
+
     /**
      * Appelle le bon transformer et transforme l'objet
      * @param type type de l'objet
@@ -26,6 +30,8 @@ export class TransformerService {
             return this.careerObjectiveTransformer.toCareerObjective(objectToTransform);
         } else if (EntityEnum.WAYPOINT === type) {
             return this.waypointTransformer.toWaypoint(objectToTransform);
+        } else if (EntityEnum.PROFESSIONAL_INTERVIEW === type) {
+            return this.professionalInterviewTransformer.toProfessionalInterview(objectToTransform);
         } else {
             return objectToTransform;
         }

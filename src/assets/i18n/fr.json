@@ -55,6 +55,7 @@
         "MY_CONGRATULATION_LETTERS": "Mes lettres de félicitations",
         "EOBSERVATIONS_ARCHIVES": "Archives d'eObservations",
         "MY_EOBSERVATIONS_ARCHIVES": "Mes archives d'eObservations",
+        "PROFESSIONAL_INTERVIEWS_ARCHIVES": "Archives de bilans professionnels / EPP",
         "UNKNOWN_ERROR": "Suite à un dysfonctionnement technique, l'opération a échoué. Nous vous invitons à réessayer dans quelques minutes. Si le problème persiste, veuillez contacter votre support.",
         "COMING_SOON": "(Prochainement)",
         "MESSAGES": {
@@ -295,8 +296,7 @@
         "TITLE_EPP": "Entretien professionnel PNC",
         "MY_TITLE_EPP": "Mon entretien professionnel PNC",
         "BUTTONS": {
-            "NEW_PROFESSIONAL_INTERVIEW": "Nouveau bilan professionnel",
-            "SAVE_DRAFT": "Sauvegarder le brouillon"
+            "NEW_PROFESSIONAL_INTERVIEW": "Nouveau bilan professionnel"
         },
         "LIST": {
             "HEADER": {
@@ -305,12 +305,15 @@
                 "REDACTOR": "Rédacteur",
                 "INTERVIEW_TYPE": "Type d'entretien"
             },
-            "LEGEND": "derniers BP / EPP réalisés"
+            "LEGEND": "derniers BP / EPP réalisés",
+            "LINK": {
+                "ARCHIVES": "Consulter les archives"
+            }
         },
         "DETAILS": {
             "SPECIALITY": "Fonction",
-            "EOBS_PNC_ASSIGNMENT_BILAN_PRO": "Affectation à date du Bilan Professionel",
-            "EOBS_PNC_ASSIGNMENT_EPP": "Affectation à date de l'EPP",
+            "PNC_ASSIGNMENT_BILAN_PRO": "Affectation à date du Bilan Professionnel",
+            "PNC_ASSIGNMENT_EPP": "Affectation à date de l'EPP",
             "INTERVIEW_DATE": "Date de l'entretien",
             "UPDATE_DATE": "Enregistré depuis le",
             "REDACTOR": "Rédacteur",
@@ -319,6 +322,7 @@
                 "TAKEN_INTO_ACCOUNT": "Pris en compte",
                 "NOT_TAKEN_INTO_ACCOUNT": "Non pris en compte",
                 "AVAILABLE": "Disponible",
+                "CONSULTED": "Consulté",
                 "DRAFT": "Brouillon"
             },
             "TYPE": {
@@ -326,18 +330,34 @@
                 "BILAN": "Bilan professionnel"
             },
             "BUTTONS": {
-                "DELETE_DRAFT": "Supprimer le brouillon"
+                "DELETE_DRAFT": "Supprimer le brouillon",
+                "SAVE_DRAFT": "Sauvegarder le brouillon",
+                "TAKE_INTO_ACCOUNT": "Prendre en compte",
+                "VALIDATE": "Valider"
             },
+            "PNC_COMMENT": "Commentaire du PNC",
             "CONFIRM_DRAFT_DELETE": {
-                "TITLE": "Suppression du Bilan Professionnel",
+                "TITLE": "Suppression du brouillon",
                 "MESSAGE": "Confirmez-vous la suppression de ce brouillon ?",
                 "CANCEL": "Annuler",
                 "CONFIRM": "Supprimer"
             },
             "SUCCESS": {
-                "DRAFT_DELETED": "Proposition du bilan professionnel supprimée",
-                "DRAFT_SAVED" : "Brouillon sauvegardé"
-            }
+                "DRAFT_SAVED": "Brouillon sauvegardé",
+                "DRAFT_DELETED": "Brouillon supprimé",
+                "PI_VALIDATED": "Bilan professionnel validé",
+                "EPP_VALIDATED": "EPP validé",
+                "PI_TAKEN_INTO_ACCOUNT": "Bilan Professionnel pris en compte ",
+                "EPP_TAKEN_INTO_ACCOUNT": "EPP pris en compte"
+            },
+            "CONFIRM_VALIDATE_WITHOUT_PNC_COMMENT": {
+                "PI_TITLE": "Validation du Bilan Professionnel",
+                "EPP_TITLE": "Validation de l'EPP",
+                "MESSAGE": "Vous êtes sur le point de valider votre formulaire sans avoir apposé de commentaire. Souhaitez-vous procéder à la validation ?",
+                "CONFIRM": "Oui",
+                "CANCEL": "Non"
+            },
+            "LEGEND": "Tous les champs doivent être renseignés pour valider le formulaire"
         }
     },
     "EOBSERVATION": {
@@ -677,7 +697,8 @@
     },
     "ADMIN": {
         "ADMIN_HOME": {
-            "TITLE": "Page d'administration",
+            "NAV_TITLE": "Administration",
+            "BACK_TO_HOME_PAGE": "Retour",
             "BUTTON": {
                 "PROFILE_MANAGEMENT": "Gérer la liste des profils",
                 "APP_VERSION_MANAGEMENT": "Gérer la liste des versions",
@@ -703,7 +724,8 @@
             "TITLE": "Gestion des versions",
             "BUTTON": {
                 "ADD_VERSION": "Ajouter",
-                "UPDATE_VERSION": "Modifier"
+                "UPDATE_VERSION": "Modifier",
+                "DELETE_VERSION": "Supprimer"
             },
             "HEADER": {
                 "NUMBER": "Numéro",
@@ -713,8 +735,16 @@
                 "VERSION_NUMBER": "Numéro de version",
                 "CHANGELOG": "Description"
             },
+            "CONFIRM_VERSION_DELETE": {
+                "TITLE": "Suppression de la version {{ number }}",
+                "MESSAGE": "Confirmez-vous la suppression de la version {{ number }} ?",
+                "CANCEL": "Annuler",
+                "CONFIRM": "Supprimer"
+            },
             "SUCCESS": {
-                "CREATE_OR_UPDATE_VERSION": "Mise à jour effectuée"
+                "CREATE_OR_UPDATE_VERSION": "mise à jour effectuée",
+                "DELETE_UPDATE_VERSION": "Suppression effectuée"
+
             },
             "ERROR": {
                 "UNDEFINED_NUMBER": "Veuillez renseigner un numéro de version"

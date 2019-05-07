@@ -14,6 +14,6 @@
         </professional-interview>
     </ng-template>
 </mat-expansion-panel>
-<div *ngIf="professionalInterviewTab.length > 0 && legend">
-    <div class="information-message">{{professionalInterviewTab.length}} {{ 'PROFESSIONAL_INTERVIEW.LIST.LEGEND' | translate }}</div>
+<div *ngIf="getNumberOfRealisedInterviews() > 0 && legend">
+    <div class="information-message">{{getNumberOfRealisedInterviews() }} {{ 'PROFESSIONAL_INTERVIEW.LIST.LEGEND' | translate }}</div>
 </div>

@@ -3,7 +3,7 @@ import { NavController } from 'ionic-angular';
 
 import { ProfessionalInterviewModel } from '../../../../core/models/professional-interview/professional-interview.model';
 import { ProfessionalInterviewStateEnum } from '../../../../core/enums/professional-interview/professional-interview-state.enum';
-import { ProfessionalInterviewDetailsPage } from '../../../professional-interview/pages/professional-interview-details/professional-interview-details.page';
+import { ProfessionalInterviewDetailsPage } from '../../pages/professional-interview-details/professional-interview-details.page';
 
 @Component({
   selector: 'professional-interview',
@@ -16,7 +16,7 @@ export class ProfessionalInterviewComponent {
 
   @Input() professionalInterview: ProfessionalInterviewModel;
 
-  constructor(private navCtrl: NavController ) {
+  constructor(private navCtrl: NavController) {
   }
 
   /**
@@ -29,7 +29,7 @@ export class ProfessionalInterviewComponent {
       switch (this.professionalInterview.state) {
         case ProfessionalInterviewStateEnum.TAKEN_INTO_ACCOUNT: return 'green';
         case ProfessionalInterviewStateEnum.NOT_TAKEN_INTO_ACCOUNT: return 'red';
-        case ProfessionalInterviewStateEnum.AVAILABLE: return 'orange';
+        case ProfessionalInterviewStateEnum.CONSULTED: return 'orange';
         case ProfessionalInterviewStateEnum.DRAFT: return 'grey';
       }
     }

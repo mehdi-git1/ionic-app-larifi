@@ -15,10 +15,10 @@ export class UrlConfiguration {
     'getCareerObjectivesByPnc': `${urlGroupEnum.CAREER_OBJECTIVE}/pnc/{matricule}`,
     'setCareerObjectivesInstructorRequestById': `${urlGroupEnum.CAREER_OBJECTIVE}/{id}/instructor_request`,
     'getFormsInputParamsWithoutRotationId': `${urlGroupEnum.FORMS_INPUT_PARAM}/{matricule}/{number}/{departureDate}`,
-    'eObservations': `${urlGroupEnum.EOBSERVATION}`,
-    'getEObservationById': `${urlGroupEnum.EOBSERVATION}/{id}`,
-    'getEObservationsByMatricule': `${urlGroupEnum.EOBSERVATION}/pnc/{matricule}`,
-    'getAllEObservationsByMatricule': `${urlGroupEnum.EOBSERVATION}/pnc/{matricule}/all`,
+    'eObservations': `v2/${urlGroupEnum.EOBSERVATION}`,
+    'getEObservationById': `v2/${urlGroupEnum.EOBSERVATION}/{id}`,
+    'getEObservationsByMatricule': `v2/${urlGroupEnum.EOBSERVATION}/pnc/{matricule}`,
+    'getAllEObservationsByMatricule': `v2/${urlGroupEnum.EOBSERVATION}/pnc/{matricule}/all`,
     'getLegsById': `${urlGroupEnum.LEG}/{legId}`,
     'getLegsCrewMembersById': `${urlGroupEnum.LEG}/{legId}/crew_members`,
     'getCrewMembersFromLegWithoutId': `${urlGroupEnum.LEG}/crew_members/{company}/{flightNumber}/{date}/{departureStation}`,
@@ -40,8 +40,8 @@ export class UrlConfiguration {
     'getProfessionalInterviewsByMatricule': `${urlGroupEnum.PROFESSIONAL_INTERVIEW}/{matricule}`,
     'professionalInterviews': urlGroupEnum.PROFESSIONAL_INTERVIEW,
     'deleteProfessionalInterviewById': `${urlGroupEnum.PROFESSIONAL_INTERVIEW}/{id}`,
-    'pncSynchro': urlGroupEnum.PNC_SYNCHRO,
-    'getPncSynchroByPnc': `${urlGroupEnum.PNC_SYNCHRO}/{matricule}`,
+    'pncSynchro': `v2/${urlGroupEnum.PNC_SYNCHRO}`,
+    'getPncSynchroByPnc': `v2/${urlGroupEnum.PNC_SYNCHRO}/{matricule}`,
     'getWaypointsByCarreObjectiveId': `${urlGroupEnum.WAYPOINT}/career_objective/{careerObjectiveId}`,
     'getWaypointById': `${urlGroupEnum.WAYPOINT}/{waypointId}`,
     'crudWaypointByCarreObjectiveId': `${urlGroupEnum.WAYPOINT}/career_objective/{careerObjectiveId}`,
@@ -57,7 +57,8 @@ export class UrlConfiguration {
     'getPing': urlGroupEnum.PING,
     'updatePermissions': `${urlGroupEnum.USER_PROFILE}/{profileName}/update_permissions`,
     'appVersions': urlGroupEnum.APP_VERSION,
-    'getAllAppVersions': urlGroupEnum.APP_VERSION
+    'getAllAppVersions': urlGroupEnum.APP_VERSION,
+    'deleteAppVersionById': `${urlGroupEnum.APP_VERSION}/{id}`
   };
 
   /**
