@@ -1,9 +1,11 @@
-import { AppVersionModel } from './../../../../core/models/admin/app-version.model';
-import { AppVersionService } from './../../../../core/services/app-version/app-version.service';
-import { ToastService } from '../../../../core/services/toast/toast.service';
 import { Component } from '@angular/core';
 import { AlertController } from 'ionic-angular';
 import { TranslateService } from '@ngx-translate/core';
+
+import { AppVersionModel } from './../../../../core/models/admin/app-version.model';
+
+import { AppVersionService } from './../../../../core/services/app-version/app-version.service';
+import { ToastService } from '../../../../core/services/toast/toast.service';
 
 @Component({
     selector: 'page-app-version-management',

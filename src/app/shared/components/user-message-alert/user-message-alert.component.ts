@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component } from '@angular/core';
 
 import { UserMessageModel } from '../../../core/models/admin/user-message.model';
 
@@ -6,8 +6,7 @@ import { UserMessageAlertService } from '../../../core/services/user-message/use
 
 @Component({
   selector: 'user-message-alert',
-  templateUrl: 'user-message-alert.component.html',
-  encapsulation: ViewEncapsulation.None
+  templateUrl: 'user-message-alert.component.html'
 })
 
 export class UserMessageAlertComponent {
