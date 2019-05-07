@@ -55,6 +55,8 @@
         "MY_CONGRATULATION_LETTERS": "Mes lettres de félicitations",
         "EOBSERVATIONS_ARCHIVES": "Archives d'eObservations",
         "MY_EOBSERVATIONS_ARCHIVES": "Mes archives d'eObservations",
+        "LOGBOOK": "Journal de bord",
+        "MY_LOGBOOK": "Mon journal de bord",
         "UNKNOWN_ERROR": "Suite à un dysfonctionnement technique, l'opération a échoué. Nous vous invitons à réessayer dans quelques minutes. Si le problème persiste, veuillez contacter votre support.",
         "COMING_SOON": "(Prochainement)",
         "MESSAGES": {
@@ -574,6 +576,25 @@
             "INDIVIDUAL": "Individuelle"
         },
         "VERBATIM": "Verbatim"
+    },
+    "LOGBOOK": {
+        "TITLE": "Journal de bord",
+        "MY_TITLE": "Mon journal de bord",
+        "BUTTONS" : {
+            "ADD_LOG" : "Nouvel évènement"
+        },
+        "EDIT": {
+            "CREATE_TITLE" : "Créer un nouvel évènement",
+            "EVENT_DATE" : "Date de l'évènement",
+            "PNC_ORIGIN" : "Origine PNC",
+            "IMPORTANT" : "Important",
+            "HIDE" : "Masquer",
+            "CATEGORY" : "Catégorie",
+            "EVENT_TITLE" : "Titre de l'évènement",
+            "EVENT_DESCRIPTION" : "Description de l'évènement",
+            "CONCERNED_PERSONS_LIST" : "Liste des personnes concernées",
+            "ADD_CONTACT" : "Ajouter un contact"
+        }
     },
     "SYNCHRONIZATION": {
         "PNC_SAVED_OFFLINE": "Le PNC {{ matricule }} a été synchronisé",
