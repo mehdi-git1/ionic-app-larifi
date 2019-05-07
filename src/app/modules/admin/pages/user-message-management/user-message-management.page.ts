@@ -1,22 +1,28 @@
-import { UserMessageAlertService } from './../../../../core/services/user-message/user-message-alert.service';
-import { ToastService } from '../../../../core/services/toast/toast.service';
-import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
+
 import { UserMessageModel } from '../../../../core/models/admin/user-message.model';
+
 import { UserMessageService } from '../../../../core/services/user-message/user-message.service';
+import { UserMessageAlertService } from './../../../../core/services/user-message/user-message-alert.service';
+import { ToastService } from '../../../../core/services/toast/toast.service';
+
+import { TextEditorModeEnum } from './../../../../core/enums/text-editor-mode.enum';
 
 @Component({
     selector: 'page-user-message-management',
-    templateUrl: 'user-message-management.page.html',
+    templateUrl: 'user-message-management.page.html'
 })
 export class UserMessageManagementPage {
 
-    public userMessageForm: FormGroup;
+    userMessageForm: FormGroup;
 
     selectedUserMessage: UserMessageModel;
 
     userMessages: UserMessageModel[];
+
+    textEditorModeEnum = TextEditorModeEnum.LIGHT;
 
     constructor(private userMessageService: UserMessageService,
         private userMessageAlertService: UserMessageAlertService,
@@ -25,7 +31,7 @@ export class UserMessageManagementPage {
         private formBuilder: FormBuilder) {
         this.userMessageForm = formBuilder.group({
             title: ['', [Validators.maxLength(255)]],
-            content: ['', [Validators.maxLength(1000)]],
+            content: ['', [Validators.maxLength(5000)]],
             active: ['']
         });
     }
@@ -84,5 +90,13 @@ export class UserMessageManagementPage {
      */
     isLoadingOver(): boolean {
         return this.userMessages !== undefined;
+    }
+
+    /**
+     * Récupère le contenu du WYSIWYG de l'enfant
+     * @param content contenu du WYSIWYG
+     */
+    manageContent(content) {
+        this.selectedUserMessage.content = content;
     }
 }

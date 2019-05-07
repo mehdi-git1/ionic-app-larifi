@@ -2,6 +2,11 @@ import { IonicModule } from 'ionic-angular';
 import { CommonModule } from '@angular/common';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
+import { NgxEditorModule } from 'ngx-editor';
+import { AngularFontAwesomeModule } from 'angular-font-awesome';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
+import { HttpClientModule } from '@angular/common/http';
+
 import { OfflineIndicatorComponent } from './offline-indicator/offline-indicator.component';
 import { ConnectivityIndicatorComponent } from './connectivity-indicator/connectivity-indicator.component';
 import { DownloadButtonComponent } from './download-button/download-button.component';
@@ -27,6 +32,7 @@ import { RadioAndLabelComponent } from './radio-and-label/radio-and-label.compon
 import { CheckboxAndLabelComponent } from './checkbox-and-label/checkbox-and-label.component';
 import { PncCardPageHeaderComponent } from './pnc-card-page-header/pnc-card-page-header.component';
 import { UserMessageAlertComponent } from './user-message-alert/user-message-alert.component';
+import { TextEditorComponent } from './text-editor/text-editor.component';
 
 
 @NgModule({
@@ -34,7 +40,11 @@ import { UserMessageAlertComponent } from './user-message-alert/user-message-ale
     CommonModule,
     IonicModule,
     DirectivesModule,
-    SharedModule
+    SharedModule,
+    NgxEditorModule,
+    AngularFontAwesomeModule,
+    TooltipModule,
+    HttpClientModule
   ],
   declarations: [
     OfflineIndicatorComponent,
@@ -56,7 +66,8 @@ import { UserMessageAlertComponent } from './user-message-alert/user-message-ale
     ColorStatusPointComponent,
     RadioAndLabelComponent,
     CheckboxAndLabelComponent,
-    UserMessageAlertComponent
+    UserMessageAlertComponent,
+    TextEditorComponent
   ],
   exports: [
     OfflineIndicatorComponent,
@@ -78,7 +89,8 @@ import { UserMessageAlertComponent } from './user-message-alert/user-message-ale
     ColorStatusPointComponent,
     RadioAndLabelComponent,
     CheckboxAndLabelComponent,
-    UserMessageAlertComponent
+    UserMessageAlertComponent,
+    TextEditorComponent
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA

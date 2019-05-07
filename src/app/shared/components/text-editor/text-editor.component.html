@@ -1,0 +1,3 @@
+<div *ngIf="parentForm" [formGroup]="parentForm">
+    <app-ngx-editor formControlName="{{ctrlForm}}" (keyup)="contentChange()" [(ngModel)]="content" [config]="editorConfig"></app-ngx-editor>
+</div>
