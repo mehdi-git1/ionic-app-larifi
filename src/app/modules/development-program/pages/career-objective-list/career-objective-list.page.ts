@@ -24,6 +24,8 @@ import { PncModel } from '../../../../core/models/pnc.model';
 import { SpecialityEnum } from '../../../../core/enums/speciality.enum';
 import * as moment from 'moment';
 import { AppConstant } from '../../../../app.constant';
+import { ProfessionalInterviewsArchivesPage } from '../../../professional-interview/pages/professional-interviews-archives/professional-interviews-archives.page';
+import { ProfessionalInterviewStateEnum } from '../../../../core/enums/professional-interview/professional-interview-state.enum';
 
 @Component({
   selector: 'page-career-objective-list',
@@ -47,6 +49,9 @@ export class CareerObjectiveListPage {
 
   // Liste des eForms possible
   eFormsList = [];
+
+  // Nombre max de non draft à afficher
+  maxNoDraftToDisplay = 3;
 
   chosenEFormsType = null;
 
@@ -129,7 +134,24 @@ export class CareerObjectiveListPage {
   getProfessionalInterviewList() {
     this.professionalInterviewService.getProfessionalInterviews(this.matricule).then(
       professionalInterviews => {
-        this.professionalInterviews = professionalInterviews;
+        this.professionalInterviews = professionalInterviews.sort((professionalInterview1: ProfessionalInterviewModel, professionalInterview2: ProfessionalInterviewModel) => {
+          return professionalInterview1.annualProfessionalInterviewDate < professionalInterview2.annualProfessionalInterviewDate ? 1 : -1;
+        });
+
+        // On ne récupére que les Draft et les 3 derniers autres bilan
+        let nbOfNoDraft = 0;
+        const tmpProfessionalInterviewsTab = [];
+        this.professionalInterviews.forEach( (professionalInterview: ProfessionalInterviewModel) => {
+          if (professionalInterview.state === ProfessionalInterviewStateEnum.DRAFT || nbOfNoDraft < this.maxNoDraftToDisplay){
+            tmpProfessionalInterviewsTab.push(professionalInterview);
+            if (professionalInterview.state !== ProfessionalInterviewStateEnum.DRAFT){
+              nbOfNoDraft++;
+            }
+          }
+        });
+        this.professionalInterviews = tmpProfessionalInterviewsTab;
+
+        console.log(this.professionalInterviews);
       }, error => {
         this.professionalInterviews = [];
       });
@@ -203,6 +225,14 @@ export class CareerObjectiveListPage {
    */
   goToEobservationsArchives() {
     this.navCtrl.push(EObservationsArchivesPage, { matricule: this.matricule });
+  }
+
+
+  /**
+   * Redirige vers la page des archives des bilans professionnels
+   */
+  goToProfessionalInterviewsArchives(){
+    this.navCtrl.push(ProfessionalInterviewsArchivesPage, { matricule: this.matricule });
   }
 
   /**

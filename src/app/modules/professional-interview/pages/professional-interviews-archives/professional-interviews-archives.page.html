@@ -1,0 +1,16 @@
+<ion-header>
+    <ion-navbar>
+        <page-header (refreshPage)="refreshPage()" [showRefreshIcon]="true" [pnc]="pnc">
+            <span *ngIf="pnc">{{ 'GLOBAL.PROFESSIONAL_INTERVIEWS_ARCHIVES' | isMyPage: pnc | translate }}</span>
+        </page-header>
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+    <edossier-spinner *ngIf="!loadingIsOver()"></edossier-spinner>
+    <div class="global-container professional-interview-list-container" *ngIf="loadingIsOver()">
+        <professional-interviews [professionalInterviews]="professionalInterviews" [legend]="false">
+        </professional-interviews>
+    </div>
+
+</ion-content>
