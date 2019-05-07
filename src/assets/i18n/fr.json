@@ -520,7 +520,7 @@
         "MY_TITLE": "Ma recherche PNC",
         "CRITERIA": {
             "FILTERS": "Filtres",
-            "PNC_MATRICULE": "Nom, Prénom, Matricule",
+            "PNC_MATRICULE": "Nom Prénom ou Matricule",
             "DIVISION": "Division",
             "SECTOR": "Secteur",
             "GINQ": "Ginq",

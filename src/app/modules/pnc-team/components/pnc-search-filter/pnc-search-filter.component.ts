@@ -130,14 +130,6 @@ export class PncSearchFilterComponent implements OnInit {
     this.onSearch.next();
   }
 
-  /**
-   * Action déclenchée lors du click
-   * @param evt event : click
-   */
-  refreshSearch(): void {
-    this.onSearch.next();
-  }
-
   ngOnInit() {
     // initialistation du filtre
     this.initFilter();
@@ -300,7 +292,7 @@ export class PncSearchFilterComponent implements OnInit {
     term = Utils.replaceSpecialCaracters(term);
     // On supprime le caractère entré s'il ne convient pas
     // A savoir si il n'est pas alphanumérique / -  et si la chaine n'est pas vide
-    if (!/^[a-zA-Z0-9-]+$/.test(term) && term !== '') {
+    if (!(/^[a-z]{0,1}[0-9]+$/.test(term) || /^[a-zA-Z- ]+$/.test(term)) && term !== '') {
       this.pncMatriculeControl.setValue(term.substring(0, term.length - 1));
     } else {
       this.pncMatriculeControl.setValue(term);
