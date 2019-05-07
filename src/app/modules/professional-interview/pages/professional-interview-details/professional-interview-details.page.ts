@@ -315,9 +315,9 @@ export class ProfessionalInterviewDetailsPage {
   }
 
   /**
-   * Prend en compte un bilan professionnelp
+   * Prend en compte un bilan professionnel
    */
-  takenIntoAccountProfessionalInterview() {
+  takeIntoAccountProfessionalInterview() {
     if (!this.professionalInterview.pncComment || this.professionalInterview.pncComment === '' || typeof (this.professionalInterview.pncComment) === 'undefined') {
       this.confirmValidateWithoutPncComment();
     } else {
