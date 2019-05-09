@@ -116,8 +116,8 @@ describe('app-version-management', () => {
 
             // ARRANGE Instanciation d'une version
             appVersionManagementPage.allAppVersions[1].techId = 1;
-            appVersionManagementPage.allAppVersions[1].number = "1.0.0";
-            appVersionManagementPage.allAppVersions[1].changelog = "description de la version 1.0.0";
+            appVersionManagementPage.allAppVersions[1].number = '1.0.0';
+            appVersionManagementPage.allAppVersions[1].changelog = 'description de la version 1.0.0';
 
             // ACT appel de la fonction de suppression de version
             appVersionManagementPage.delete(appVersionManagementPage.allAppVersions[1]);

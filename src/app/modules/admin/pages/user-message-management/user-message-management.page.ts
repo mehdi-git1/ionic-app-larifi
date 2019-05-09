@@ -22,7 +22,8 @@ export class UserMessageManagementPage {
 
     userMessages: UserMessageModel[];
 
-    textEditorModeEnum = TextEditorModeEnum.LIGHT;
+    textEditorModeEnum = TextEditorModeEnum.FULL;
+    formIsExist = true;
 
     constructor(private userMessageService: UserMessageService,
         private userMessageAlertService: UserMessageAlertService,

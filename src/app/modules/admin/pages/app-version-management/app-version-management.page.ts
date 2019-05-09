@@ -7,6 +7,8 @@ import { AppVersionModel } from './../../../../core/models/admin/app-version.mod
 import { AppVersionService } from './../../../../core/services/app-version/app-version.service';
 import { ToastService } from '../../../../core/services/toast/toast.service';
 
+import { TextEditorModeEnum } from './../../../../core/enums/text-editor-mode.enum';
+
 @Component({
     selector: 'page-app-version-management',
     templateUrl: 'app-version-management.page.html',
@@ -21,6 +23,11 @@ export class AppVersionManagementPage {
 
     allAppVersions: AppVersionModel[];
     appVersion: AppVersionModel;
+
+    selectedAppVersion: AppVersionModel;
+
+    textEditorModeEnum = TextEditorModeEnum.FULL;
+    formIsExist = false;
 
     constructor(private appVersionService: AppVersionService,
         private translateService: TranslateService,
@@ -91,5 +98,27 @@ export class AppVersionManagementPage {
             this.initPage();
             this.toastService.success(this.translateService.instant('ADMIN.APP_VERSION_MANAGEMENT.SUCCESS.DELETE_UPDATE_VERSION'));
         }, error => { });
+    }
+
+    /**
+     * Permet de savoir quelle version est à créer ou à modifier
+     * @param userMessage le message à modifier
+     */
+    editAppVersion(appVersion: AppVersionModel) {
+        this.selectedAppVersion = appVersion;
+    }
+
+    /**
+     * Récupère le contenu du WYSIWYG de l'enfant
+     * @param content contenu du WYSIWYG
+     */
+    manageContent(content) {
+        // pour créer une version sinon pour modifier une version
+        if (this.selectedAppVersion == undefined) {
+            this.changelog = content;
+
+        } else {
+            this.selectedAppVersion.changelog = content;
+        }
     }
 }

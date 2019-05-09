@@ -22,10 +22,8 @@
                     </ion-item>
                 </ion-col>
                 <ion-col col-7>
-                    <ion-item>
-                        <ion-label floating>{{ 'ADMIN.APP_VERSION_MANAGEMENT.LABEL.CHANGELOG' | translate }}
-                        </ion-label>
-                        <ion-textarea type="text" name="changelog" [(ngModel)]="changelog" class="md-textarea form-control"></ion-textarea>
+                    <ion-item (click)="editAppVersion(appVersion)">
+                        <text-editor [textEditorMode]="textEditorModeEnum" [(content)]="changelog" [formIsExist]="formIsExist" (returnContent)="manageContent($event)"></text-editor>
                     </ion-item>
                 </ion-col>
                 <ion-col class="submit-button" col-2>
@@ -95,11 +93,8 @@
                                         </ion-item>
                                     </ion-col>
                                     <ion-col col-7>
-                                        <ion-item>
-                                            <ion-label floating>{{ 'ADMIN.APP_VERSION_MANAGEMENT.LABEL.CHANGELOG' | translate }}
-                                            </ion-label>
-                                            <ion-textarea type="text" name="modify-changelog" [(ngModel)]="appVersion.changelog" [(value)]="appVersion.changelog" class="md-textarea form-control">
-                                            </ion-textarea>
+                                        <ion-item (click)="editAppVersion(appVersion)">
+                                            <text-editor [textEditorMode]="textEditorModeEnum" [formIsExist]="formIsExist" [(content)]="appVersion.changelog" [formIsExist]="'FALSE'" (returnContent)="manageContent($event)"></text-editor>
                                         </ion-item>
                                     </ion-col>
                                     <ion-col col-2>

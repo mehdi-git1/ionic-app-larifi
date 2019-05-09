@@ -14,6 +14,8 @@ export class TextEditorComponent {
 
     @Input() parentForm: FormGroup;
 
+    @Input() formIsExist: boolean;
+
     @Input() ctrlForm: string;
 
     @Input() textEditorMode = TextEditorModeEnum.FULL;
