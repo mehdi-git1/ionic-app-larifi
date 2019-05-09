@@ -21,7 +21,7 @@ export class UpcomingFlightListPage {
         private pncProvider: PncService,
         private sessionService: SessionService) {
     }
-    ionViewDidEnter() {
+    ionViewDidLoad() {
         this.initPage();
     }
 
@@ -43,9 +43,7 @@ export class UpcomingFlightListPage {
                     return departureDate < nowDate;
                 });
                 // On tri par date de départ croissante
-                this.lastPerformedRotations = this.lastPerformedRotations.sort((rotation1, rotation2) => {
-                    return moment(rotation1.departureDate, AppConstant.isoDateFormat).isBefore(moment(rotation2.departureDate, AppConstant.isoDateFormat)) ? -1 : 1;
-                });
+                this.lastPerformedRotations = this.sortByAscendingDepartureDate(this.lastPerformedRotations);
                 this.upcomingRotations = allRotations.filter(rotation => {
                     const departureDate = new Date(rotation.departureDate);
                     const nowDate = new Date();
@@ -54,6 +52,17 @@ export class UpcomingFlightListPage {
             }
             this.lastPerformedRotations = (this.lastPerformedRotations != null && this.lastPerformedRotations.length > 0 ? this.lastPerformedRotations.slice(-2) : []);
             this.upcomingRotations = (this.upcomingRotations != null && this.upcomingRotations.length > 0 ? this.upcomingRotations : []);
+        });
+    }
+
+    /**
+     * Retourne la liste de rotations passée en paramètre triée par date de départ
+     * @param rotations une liste de rotations
+     * @return la liste des rotations triée par date de rotation
+     */
+    private sortByAscendingDepartureDate(rotations: Array<RotationModel>) {
+        return this.lastPerformedRotations.sort((rotation1, rotation2) => {
+            return moment(rotation1.departureDate, AppConstant.isoDateFormat).isBefore(moment(rotation2.departureDate, AppConstant.isoDateFormat)) ? -1 : 1;
         });
     }
 
