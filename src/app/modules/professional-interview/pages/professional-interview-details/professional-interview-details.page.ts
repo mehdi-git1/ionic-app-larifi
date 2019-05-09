@@ -413,7 +413,7 @@ export class ProfessionalInterviewDetailsPage {
               this.navCtrl.pop();
             }
           } else {
-            this.toastService.success(this.translateService.instant('PROFESSIONAL_INTERVIEW.DETAILS.SUCCESS.UPDATED'));
+            this.toastService.success(this.professionalInterview.type == this.ProfessionalInterviewTypeEnum.BILAN ? this.translateService.instant('PROFESSIONAL_INTERVIEW.DETAILS.SUCCESS.PI_UPDATED') : this.translateService.instant('PROFESSIONAL_INTERVIEW.DETAILS.SUCCESS.EPP_UPDATED'));
             this.editionMode = false;
           }
 
