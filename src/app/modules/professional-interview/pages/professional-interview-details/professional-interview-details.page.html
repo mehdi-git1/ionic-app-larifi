@@ -91,7 +91,7 @@
 
 
             <!-- Commentaire PNC-->
-            <edospnc-expandable-block mini="true" *ngIf="canEditPncComment() || professionalInterview.pncComment" class="comment" title="{{'PROFESSIONAL_INTERVIEW.DETAILS.PNC_COMMENT' | translate}}">
+            <edospnc-expandable-block mini="true" *ngIf="canEditPncComment() || pncCommentIsNotEmpty()" class="comment" title="{{'PROFESSIONAL_INTERVIEW.DETAILS.PNC_COMMENT' | translate}}">
                 <div>
                     <p *ngIf="!canEditPncComment(); else editPncCommentBlock">{{professionalInterview.pncComment}}</p>
                     <ng-template #editPncCommentBlock>

@@ -189,11 +189,18 @@ export class ProfessionalInterviewDetailsPage {
     }
 
     // Manager
-    if (this.securityService.isManager() && this.professionalInterview.state != ProfessionalInterviewStateEnum.TAKEN_INTO_ACCOUNT) {
+    if (this.professionalInterview.state == ProfessionalInterviewStateEnum.DRAFT && this.securityService.isManager()) {
       return true;
     }
 
     return false;
+  }
+
+  pncCommentIsNotEmpty() {
+    if (!this.professionalInterview.pncComment || typeof (this.professionalInterview.pncComment) === 'undefined' || this.professionalInterview.pncComment.trim() == '') {
+      return false;
+    }
+    return true;
   }
 
   /**
@@ -299,7 +306,7 @@ export class ProfessionalInterviewDetailsPage {
    */
   confirmValidateWithoutPncComment() {
     this.alertCtrl.create({
-      title: this.translateService.instant('PROFESSIONAL_INTERVIEW.DETAILS.CONFIRM_VALIDATE_WITHOUT_PNC_COMMENT.TITLE'),
+      title: this.translateService.instant(this.professionalInterview.type == this.ProfessionalInterviewTypeEnum.BILAN ? 'PROFESSIONAL_INTERVIEW.DETAILS.CONFIRM_VALIDATE_WITHOUT_PNC_COMMENT.PI_TITLE' : 'PROFESSIONAL_INTERVIEW.DETAILS.CONFIRM_VALIDATE_WITHOUT_PNC_COMMENT.EPP_TITLE'),
       message: this.translateService.instant('PROFESSIONAL_INTERVIEW.DETAILS.CONFIRM_VALIDATE_WITHOUT_PNC_COMMENT.MESSAGE'),
       buttons: [
         {
@@ -387,11 +394,11 @@ export class ProfessionalInterviewDetailsPage {
               this.navCtrl.pop();
             }
             if (this.professionalInterview.state === ProfessionalInterviewStateEnum.TAKEN_INTO_ACCOUNT) {
-              this.toastService.success(this.translateService.instant('PROFESSIONAL_INTERVIEW.DETAILS.SUCCESS.TAKEN_INTO_ACCOUNT'));
+              this.toastService.success(this.professionalInterview.type == this.ProfessionalInterviewTypeEnum.BILAN ? this.translateService.instant('PROFESSIONAL_INTERVIEW.DETAILS.SUCCESS.PI_TAKEN_INTO_ACCOUNT') : this.translateService.instant('PROFESSIONAL_INTERVIEW.DETAILS.SUCCESS.EPP_TAKEN_INTO_ACCOUNT'));
               this.navCtrl.pop();
             }
             if (this.professionalInterview.state === ProfessionalInterviewStateEnum.NOT_TAKEN_INTO_ACCOUNT) {
-              this.toastService.success(this.translateService.instant('PROFESSIONAL_INTERVIEW.DETAILS.SUCCESS.VALIDATED'));
+              this.toastService.success(this.professionalInterview.type == this.ProfessionalInterviewTypeEnum.BILAN ? this.translateService.instant('PROFESSIONAL_INTERVIEW.DETAILS.SUCCESS.PI_VALIDATED') : this.translateService.instant('PROFESSIONAL_INTERVIEW.DETAILS.SUCCESS.EPP_VALIDATED'));
               this.navCtrl.pop();
             }
           } else {
