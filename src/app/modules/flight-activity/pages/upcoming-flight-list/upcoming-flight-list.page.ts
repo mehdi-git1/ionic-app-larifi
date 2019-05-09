@@ -36,32 +36,49 @@ export class UpcomingFlightListPage {
         }
 
         this.pncProvider.getAllRotations(this.matricule).then(allRotations => {
-            if (allRotations != null) {
-                this.lastPerformedRotations = allRotations.filter(rotation => {
-                    const departureDate = new Date(rotation.departureDate);
-                    const nowDate = new Date();
-                    return departureDate < nowDate;
-                });
-                // On tri par date de départ croissante
-                this.lastPerformedRotations = this.sortByAscendingDepartureDate(this.lastPerformedRotations);
-                this.upcomingRotations = allRotations.filter(rotation => {
-                    const departureDate = new Date(rotation.departureDate);
-                    const nowDate = new Date();
-                    return departureDate > nowDate;
-                });
-            }
-            this.lastPerformedRotations = (this.lastPerformedRotations != null && this.lastPerformedRotations.length > 0 ? this.lastPerformedRotations.slice(-2) : []);
-            this.upcomingRotations = (this.upcomingRotations != null && this.upcomingRotations.length > 0 ? this.upcomingRotations : []);
+            // Tri des rotations par date ascendante
+            allRotations = this.sortByAscendingDepartureDate(allRotations);
+
+            this.lastPerformedRotations = this.getLastPerformedRotations(allRotations);
+            this.upcomingRotations = this.getUpcomingRotations(allRotations);
+        }, error => { });
+    }
+
+    /**
+     * Retourne les deux dernières rotations passées
+     * @param rotations une liste de rotations
+     * @return les deux dernières rotations passées
+     */
+    private getLastPerformedRotations(rotations: Array<RotationModel>): Array<RotationModel> {
+        return rotations.filter(rotation => {
+            return moment(rotation.departureDate).isBefore(moment());
+        }).slice(-2);
+    }
+
+    /**
+    * Retourne les rotations à venir
+    * @param rotations une liste de rotations
+    * @return les rotations à venir
+    */
+    private getUpcomingRotations(rotations: Array<RotationModel>): Array<RotationModel> {
+        return rotations.filter(rotation => {
+            return moment(rotation.departureDate).isAfter(moment());
         });
     }
 
     /**
-     * Retourne la liste de rotations passée en paramètre triée par date de départ
+     * Tri les rotations et tronçons par date de départ ascendante
      * @param rotations une liste de rotations
      * @return la liste des rotations triée par date de rotation
      */
     private sortByAscendingDepartureDate(rotations: Array<RotationModel>) {
-        return this.lastPerformedRotations.sort((rotation1, rotation2) => {
+        rotations.forEach(rotation => {
+            rotation.legs.sort((leg1, leg2) => {
+                return moment(leg1.departureDate, AppConstant.isoDateFormat).isBefore(moment(leg2.departureDate, AppConstant.isoDateFormat)) ? -1 : 1;
+            });
+        });
+
+        return rotations.sort((rotation1, rotation2) => {
             return moment(rotation1.departureDate, AppConstant.isoDateFormat).isBefore(moment(rotation2.departureDate, AppConstant.isoDateFormat)) ? -1 : 1;
         });
     }
