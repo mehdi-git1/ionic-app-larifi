@@ -117,23 +117,8 @@ export class ProfessionalInterviewDetailsPage {
       if (this.professionalInterview.matricule === this.sessionService.getActiveUser().matricule && this.professionalInterview.state === ProfessionalInterviewStateEnum.NOT_TAKEN_INTO_ACCOUNT) {
         this.saveProfessionalInterviewToConsultState();
       }
-      this.professionalInterview.professionalInterviewThemes.sort((theme1, theme2) => {
-        return theme1.themeOrder < theme2.themeOrder ? -1 : 1;
-      });
+      this.sortProfessionalInterviewItems();
 
-      for (const theme of this.professionalInterview.professionalInterviewThemes) {
-        if (theme.subThemes.length > 0) {
-          theme.subThemes.sort((subTheme1, subTheme2) => {
-            return subTheme1.themeOrder < subTheme2.themeOrder ? -1 : 1;
-          });
-          theme.subThemes.forEach(function (value) {
-            value.professionalInterviewItems.sort((item1, item2) => {
-              return item1.itemOrder < item2.itemOrder ? -1 : 1;
-            });
-          });
-        }
-
-      }
       this.pncService.getPnc(this.professionalInterview.matricule).then(pnc => {
         this.pnc = pnc;
       }, error => { });
@@ -143,6 +128,29 @@ export class ProfessionalInterviewDetailsPage {
       }
       this.editionMode = this.isEditable();
     });
+  }
+
+  /**
+   * Tri les thèmes et items du bilan professionnel
+   */
+  private sortProfessionalInterviewItems() {
+    this.professionalInterview.professionalInterviewThemes.sort((theme1, theme2) => {
+      return theme1.themeOrder < theme2.themeOrder ? -1 : 1;
+    });
+
+    for (const theme of this.professionalInterview.professionalInterviewThemes) {
+      if (theme.subThemes.length > 0) {
+        theme.subThemes.sort((subTheme1, subTheme2) => {
+          return subTheme1.themeOrder < subTheme2.themeOrder ? -1 : 1;
+        });
+        theme.subThemes.forEach(function (value) {
+          value.professionalInterviewItems.sort((item1, item2) => {
+            return item1.itemOrder < item2.itemOrder ? -1 : 1;
+          });
+        });
+      }
+
+    }
   }
 
   /**
@@ -382,6 +390,9 @@ export class ProfessionalInterviewDetailsPage {
         .then(savedProfessionalInterview => {
           this.originProfessionalInterview = _.cloneDeep(savedProfessionalInterview);
           this.professionalInterview = savedProfessionalInterview;
+
+          this.sortProfessionalInterviewItems();
+
           // en mode connecté, mettre en cache le bilan professionnel créé ou modifié si le pnc est en cache
           if (this.deviceService.isOfflineModeAvailable() && this.connectivityService.isConnected()
             && this.offlinePncService.pncExists(this.professionalInterview.matricule)) {
