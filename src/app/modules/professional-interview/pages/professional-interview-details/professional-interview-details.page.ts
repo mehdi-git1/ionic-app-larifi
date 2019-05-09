@@ -254,7 +254,7 @@ export class ProfessionalInterviewDetailsPage {
    */
   confirmDeleteProfessionalInterviewDraft() {
     this.alertCtrl.create({
-      title: this.translateService.instant(this.professionalInterview.type == this.ProfessionalInterviewTypeEnum.BILAN ? 'PROFESSIONAL_INTERVIEW.DETAILS.CONFIRM_DRAFT_DELETE.PI_TITLE' : 'PROFESSIONAL_INTERVIEW.DETAILS.CONFIRM_DRAFT_DELETE.EPP_TITLE'),
+      title: this.translateService.instant('PROFESSIONAL_INTERVIEW.DETAILS.CONFIRM_DRAFT_DELETE.TITLE'),
       message: this.translateService.instant('PROFESSIONAL_INTERVIEW.DETAILS.CONFIRM_DRAFT_DELETE.MESSAGE'),
       buttons: [
         {
