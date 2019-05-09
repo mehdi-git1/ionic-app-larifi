@@ -333,7 +333,9 @@
                 "DELETE_DRAFT": "Supprimer le brouillon",
                 "SAVE_DRAFT": "Sauvegarder le brouillon",
                 "TAKE_INTO_ACCOUNT": "Prendre en compte",
-                "VALIDATE": "Valider"
+                "VALIDATE": "Valider",
+                "MODIFY": "Modifier",
+                "CANCEL": "Annuler"
             },
             "PNC_COMMENT": "Commentaire du PNC",
             "CONFIRM_DRAFT_DELETE": {
@@ -348,7 +350,8 @@
                 "PI_VALIDATED": "Bilan professionnel validé",
                 "EPP_VALIDATED": "EPP validé",
                 "PI_TAKEN_INTO_ACCOUNT": "Bilan Professionnel pris en compte ",
-                "EPP_TAKEN_INTO_ACCOUNT": "EPP pris en compte"
+                "EPP_TAKEN_INTO_ACCOUNT": "EPP pris en compte",
+                "UPDATED": "Bilan professionel modifié"
             },
             "CONFIRM_VALIDATE_WITHOUT_PNC_COMMENT": {
                 "PI_TITLE": "Validation du Bilan Professionnel",
@@ -357,7 +360,8 @@
                 "CONFIRM": "Oui",
                 "CANCEL": "Non"
             },
-            "LEGEND": "Tous les champs doivent être renseignés pour valider le formulaire"
+            "LEGEND": "Tous les champs doivent être renseignés pour valider le formulaire",
+            "EDITED_BY": "Bilan professionnel modifié par {{lastName}} {{firstName}} le {{date}}"
         }
     },
     "EOBSERVATION": {

@@ -10,6 +10,9 @@ export class AuthenticatedUserModel extends EDossierPncObjectModel {
     lastName: string;
     isManager: boolean;
     isPnc: boolean;
+    isRds: boolean;
+    isRdd: boolean;
+    isBaseProvinceManager: boolean;
     pinInfo?: PncPinModel;
     profiles: string[];
     permissions: string[];

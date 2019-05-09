@@ -59,6 +59,7 @@ export class CareerObjectiveListPage {
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
+    public securityService: SecurityService,
     private careerObjectiveService: CareerObjectiveService,
     private professionalInterviewService: ProfessionalInterviewService,
     private formsEObservationService: FormsEObservationService,
@@ -66,8 +67,7 @@ export class CareerObjectiveListPage {
     private eObservationService: EObservationService,
     private sessionService: SessionService,
     private synchronizationProvider: SynchronizationService,
-    private pncService: PncService,
-    private securityService: SecurityService) {
+    private pncService: PncService) {
     this.lastConsultedRotation = this.sessionService.appContext.lastConsultedRotation;
     this.synchronizationProvider.synchroStatusChange.subscribe(synchroInProgress => {
       if (!synchroInProgress) {
@@ -112,7 +112,6 @@ export class CareerObjectiveListPage {
    * Récupére la liste des eObservations
    */
   getEObservationsList() {
-    this.eObservations = undefined;
     this.eObservationService.getEObservations(this.matricule).then(
       eobs => {
         this.eObservations = eobs.sort((eObs1, eObs2) => {
@@ -123,7 +122,7 @@ export class CareerObjectiveListPage {
   }
 
   /**
-   * Dirige vers la page de création d'un nouveau bilan professionnels
+   * Dirige vers la page de création d'un nouveau bilan professionnel
    */
   goToProfessionalInterviewCreation() {
     this.navCtrl.push(ProfessionalInterviewDetailsPage, { matricule: this.matricule });
@@ -133,7 +132,6 @@ export class CareerObjectiveListPage {
    * Récupére la liste des bilans professionnels
    */
   getProfessionalInterviewList() {
-    this.professionalInterviews = undefined;
     this.professionalInterviewService.getProfessionalInterviews(this.matricule).then(
       professionalInterviews => {
         this.professionalInterviews = professionalInterviews.sort((professionalInterview1: ProfessionalInterviewModel, professionalInterview2: ProfessionalInterviewModel) => {
@@ -163,7 +161,6 @@ export class CareerObjectiveListPage {
     * Récupère la liste des objectifs
     */
   initCareerObjectivesList() {
-    this.careerObjectives = undefined;
     this.careerObjectiveService.getPncCareerObjectives(this.matricule).then(result => {
       result.sort((careerObjective: CareerObjectiveModel, otherCareerObjective: CareerObjectiveModel) => {
         return careerObjective.creationDate < otherCareerObjective.creationDate ? 1 : -1;
