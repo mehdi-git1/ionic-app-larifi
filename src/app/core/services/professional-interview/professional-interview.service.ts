@@ -26,16 +26,16 @@ export class ProfessionalInterviewService extends BaseService {
     }
 
     /**
-     * Récupère les bilans professionels d'un PNC
+     * Récupère les bilans professionnels d'un PNC
      * @param matricule le matricule du PNC
-     * @return une promesse contenant les bilans professionels trouvés
+     * @return une promesse contenant les bilans professionnels trouvés
      */
     public getProfessionalInterviews(matricule: string): Promise<ProfessionalInterviewModel[]> {
         return this.execFunctionService('getProfessionalInterviews', matricule);
     }
 
     /**
-    * Récupère un bilan professionel à partir de son id
+    * Récupère un bilan professionnel à partir de son id
     * @param id l'id du bilan professionnel à récupérer
     * @return une promesse contenant le bilan professionnel récupéré
     */

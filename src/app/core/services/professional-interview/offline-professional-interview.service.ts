@@ -14,18 +14,18 @@ export class OfflineProfessionalInterviewService {
     }
 
     /**
-     * Sauvegarde un bilan professionel dans le cache
-     * @param professionalInterview le bilan professionel à sauvegarder
-     * @return une promesse contenant le bilan professionel sauvé
+     * Sauvegarde un bilan professionnel dans le cache
+     * @param professionalInterview le bilan professionnel à sauvegarder
+     * @return une promesse contenant le bilan professionnel sauvé
      */
     public save(professionalInterview: ProfessionalInterviewModel): Promise<ProfessionalInterviewModel[]> {
         return this.storageService.saveAsync(EntityEnum.PROFESSIONAL_INTERVIEW, professionalInterview);
     }
 
     /**
-     * Récupère les bilans professionels d'un PNC du cache à partir de son matricule
+     * Récupère les bilans professionnels d'un PNC du cache à partir de son matricule
      * @param matricule le matricule du PNC
-     * @return une promesse contenant les bilans professionels trouvés
+     * @return une promesse contenant les bilans professionnels trouvés
      */
     public getProfessionalInterviews(matricule: string): Promise<ProfessionalInterviewModel[]> {
         return Promise.resolve().then(() => {
@@ -38,7 +38,7 @@ export class OfflineProfessionalInterviewService {
     }
 
     /**
-    * Récupère un bilan professionel à partir de son id
+    * Récupère un bilan professionnel à partir de son id
     * @param id l'id du bilan professionnel à récupérer
     * @return une promesse contenant le bilan professionnel récupéré
     */
