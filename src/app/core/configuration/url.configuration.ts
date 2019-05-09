@@ -23,7 +23,7 @@ export class UrlConfiguration {
     'getLegsCrewMembersById': `${urlGroupEnum.LEG}/{legId}/crew_members`,
     'pnc': urlGroupEnum.PNC,
     'getPncByMatricule': `${urlGroupEnum.PNC}/{matricule}`,
-    'getPncAutoComplete': `${urlGroupEnum.PNC}/auto_complete`,
+    'getPncAutoComplete': `v2/${urlGroupEnum.PNC}/auto_complete`,
     'getPncUpcomingRotationsByMatricule': `${urlGroupEnum.PNC}/{matricule}/upcoming_rotations`,
     'getPncLastPerformedRotationsByMatricule': `${urlGroupEnum.PNC}/{matricule}/last_performed_rotations`,
     'getReceivedCongratulationLettersByPnc': `${urlGroupEnum.PNC}/{matricule}/received_congratulation_letters`,
