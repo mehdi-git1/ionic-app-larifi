@@ -37,6 +37,7 @@ export class RestMobileService extends RestService {
 
         if ((request.method == 'POST' || request.method == 'PUT') && request.jsonData) {
             request.httpHeaders = Object.assign(request.httpHeaders, {
+                'Content-Type': 'application/json',
                 'Accept': '*/*'
             });
 
