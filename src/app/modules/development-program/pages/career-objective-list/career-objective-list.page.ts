@@ -258,4 +258,12 @@ export class CareerObjectiveListPage {
     this.canDisplayMenu = false;
     this.createEObservation();
   }
+
+    /**
+   * Vérifie si le mode admin est disponible
+   * @return vrai si le mode admin est disponible, faux sinon
+   */
+  isAdminModeAvailable(): boolean {
+    return this.securityService.isProfessionalInterviewAdminModeAvailable();
+  }
 }

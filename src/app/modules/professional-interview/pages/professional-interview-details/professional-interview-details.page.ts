@@ -563,10 +563,7 @@ export class ProfessionalInterviewDetailsPage {
    * @return vrai si le mode admin est disponible, faux sinon
    */
   isAdminModeAvailable(): boolean {
-    return (this.authorizationService.hasPermission('PROFESSIONAL_INTERVIEW_FULL_EDITION')
-      || this.sessionService.getActiveUser().isRdd
-      || this.sessionService.getActiveUser().isRds
-      || this.sessionService.getActiveUser().isBaseProvinceManager)
+    return this.securityService.isProfessionalInterviewAdminModeAvailable()
       && (this.professionalInterview.state === ProfessionalInterviewStateEnum.NOT_TAKEN_INTO_ACCOUNT
         || this.professionalInterview.state === ProfessionalInterviewStateEnum.TAKEN_INTO_ACCOUNT
         || this.professionalInterview.state === ProfessionalInterviewStateEnum.CONSULTED);

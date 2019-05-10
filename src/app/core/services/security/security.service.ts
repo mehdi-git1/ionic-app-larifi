@@ -89,4 +89,15 @@ export class SecurityService extends BaseService {
       });
   }
 
+  /**
+   * Vérifie si le mode admin est disponible pour les bilans professionnels
+   * @return vrai si le mode admin est disponible, faux sinon
+   */
+  isProfessionalInterviewAdminModeAvailable(): boolean {
+    return (this.authorizationService.hasPermission('PROFESSIONAL_INTERVIEW_FULL_EDITION')
+      || this.sessionService.getActiveUser().isRdd
+      || this.sessionService.getActiveUser().isRds
+      || this.sessionService.getActiveUser().isBaseProvinceManager);
+  }
+
 }
