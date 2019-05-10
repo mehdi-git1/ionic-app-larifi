@@ -42,10 +42,10 @@ export class PncService extends BaseService {
   }
 
   /**
-  * Retrouve les rotations opérées et à faire par un PNC
-  * @param matricule le matricule du PNC dont on souhaite récupérer les rotations
-  * @return une promesse contenant les rotations opérées et à faire par le PNC
-   }*/
+   * Retrouve les rotations opérées et à faire par un PNC
+   * @param matricule le matricule du PNC dont on souhaite récupérer les rotations
+   * @return une promesse contenant les rotations opérées et à faire par le PNC
+   */
   getAllRotations(matricule: string): Promise<RotationModel[]> {
     return this.execFunctionService('getAllRotationsByMatricule', matricule);
   }
