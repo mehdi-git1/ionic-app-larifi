@@ -1,6 +1,6 @@
 <ion-header>
     <ion-navbar>
-        <page-header [showSettingsIcon]="true">
+        <page-header [showSettingsIcon]="true"  [pnc]="pnc">
             {{ 'LOGBOOK.TITLE' | translate }}
         </page-header>
     </ion-navbar>
@@ -8,12 +8,9 @@
 <ion-content padding no-bounce>
     <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
     <ng-template #pageBlock>
-        <div class="global-container cartridge-container">
-            <ion-button color="primary" (click)="goToLogbookCreation()">
-                <ion-icon slot="start" name="add"></ion-icon>
-                {{ 'LOGBOOK.BUTTONS.ADD_LOG' | translate }}
-            </ion-button>
+        <pnc-card-page-header *ngIf="pnc" [itemMember]="pnc"></pnc-card-page-header>
+        <div *ngIf="isManager()">
+            <button color="blueDaisy" (click)="goToLogbookCreation()" ion-button block>{{ 'LOGBOOK.BUTTONS.ADD_LOG' | translate }}</button>
         </div>
-
     </ng-template>
 </ion-content>

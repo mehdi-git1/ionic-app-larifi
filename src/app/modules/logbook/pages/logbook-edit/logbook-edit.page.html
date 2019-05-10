@@ -1,6 +1,6 @@
 <ion-header>
     <ion-navbar>
-        <page-header [showSettingsIcon]="true">
+        <page-header [showSettingsIcon]="true"  [pnc]="pnc">
             {{ 'LOGBOOK.TITLE' | translate }}
         </page-header>
     </ion-navbar>
@@ -11,44 +11,57 @@
         <h3>{{ 'LOGBOOK.EDIT.CREATE_TITLE' | translate }}</h3>
         <hr>
         <ion-grid>
-            <ion-row>
-                <ion-item>
+            <ion-row class="horizontal-items-in-row">
+                <ion-item class="event-date">
                     <ion-label>{{ 'LOGBOOK.EDIT.EVENT_DATE' | translate }}</ion-label>
-                    <ion-datetime displayFormat="DD/MM/YYYY" [(ngModel)]="logbookEvent.eventDate"></ion-datetime>
+                    <ion-datetime [placeholder]="eventDateString" displayFormat="DD/MM/YYYY" [(ngModel)]="logbookEvent.eventDate"></ion-datetime>
                 </ion-item>
-                <ion-item>
-                    <ion-label>{{ 'LOGBOOK.EDIT.PNC_ORIGIN' | translate }}</ion-label>
-                    <ion-checkbox [(ngModel)]="logbookEvent.pncOrigin" [checked]="logbookEvent.pncOrigin"></ion-checkbox>
+                <ion-item class="event-checkbox" item-end>
+                    <ion-label item-end>{{ 'LOGBOOK.EDIT.PNC_ORIGIN' | translate }}</ion-label>
+                    <ion-checkbox item-end [(ngModel)]="logbookEvent.pncInitiator" [checked]="logbookEvent.pncInitiator"></ion-checkbox>
                 </ion-item>
-                <ion-item>
+                <ion-item  class="event-checkbox" item-end>
                     <ion-label>{{ 'LOGBOOK.EDIT.IMPORTANT' | translate }}</ion-label>
-                    <ion-checkbox [(ngModel)]="logbookEvent.important" [checked]="logbookEvent.important"></ion-checkbox>
+                    <ion-checkbox item-end [(ngModel)]="logbookEvent.important" [checked]="logbookEvent.important"></ion-checkbox>
                 </ion-item>
-                <ion-item>
+                <ion-item  class="event-checkbox" item-end>
                     <ion-label>{{ 'LOGBOOK.EDIT.HIDE' | translate }}</ion-label>
-                    <ion-checkbox [(ngModel)]="logbookEvent.hidden" [checked]="logbookEvent.hidden"></ion-checkbox>
+                    <ion-checkbox item-end [(ngModel)]="logbookEvent.hidden" [checked]="logbookEvent.hidden"></ion-checkbox>
                 </ion-item>
             </ion-row>
             <ion-row>
-                <ion-item class="option-menu">
-                    <ion-label floating>{{ 'LOGBOOK.EDIT.CATEGORY' | translate }}</ion-label>
-                    <ion-select interface="popover" [placeholder]="Categorie" >
-                        <ion-option *ngFor="let category of LogbookCategoryEnum.values()" [value]="category">{{LogbookCategoryEnum[category]}}</ion-option>
-                    </ion-select>
-                </ion-item>
+                <ion-col>
+                    <ion-item class="category">
+                        <ion-label floating>{{ 'LOGBOOK.EDIT.CATEGORY' | translate }}</ion-label>
+                        <ion-select interface="popover" [placeholder]="Categorie" [(ngModel)]="logbookEvent.category">
+                            <ion-option *ngFor="let category of logbookEventCategories" [value]="category">{{category?.label}}</ion-option>
+                        </ion-select>
+                    </ion-item>
+                </ion-col>
             </ion-row>
             <ion-row>
                 <ion-item>
                     <ion-label floating>{{ 'LOGBOOK.EDIT.EVENT_TITLE' | translate }}</ion-label>
-                    <ion-textarea [(ngModel)]="logbookEvent.eventTitle" autocorrect="on"></ion-textarea>
+                    <ion-textarea [(ngModel)]="logbookEvent.title" autocorrect="on"></ion-textarea>
                 </ion-item>
             </ion-row>
             <ion-row>
                 <ion-item>
                     <ion-label floating>{{ 'LOGBOOK.EDIT.EVENT_DESCRIPTION' | translate }}</ion-label>
-                    <ion-textarea [(ngModel)]="logbookEvent.descriptionTitle" autocorrect="on"></ion-textarea>
+                    <ion-textarea class="big-textarea" [(ngModel)]="logbookEvent.content" autocorrect="on"></ion-textarea>
                 </ion-item>
             </ion-row>
         </ion-grid>
+            <!-- Barre de boutons -->
+            <div class="button-bar-right button-bar">
+                    <!-- Bouton Annuler -->
+                    <button ion-button color="grey75" (click)="confirmCancel()">
+                        {{ 'LOGBOOK.EDIT.BUTTONS.CANCEL' | translate }}
+                    </button>
+                    <!-- Bouton Valider -->
+                    <button ion-button color="blueDaisy" (click)="saveLogbookEvent()" [disabled]="!canBeSaved()">
+                        {{ 'LOGBOOK.EDIT.BUTTONS.VALIDATE' | translate }}
+                    </button>
+                </div>
     </ng-template>
 </ion-content>

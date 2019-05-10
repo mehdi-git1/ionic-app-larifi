@@ -593,7 +593,17 @@
             "EVENT_TITLE" : "Titre de l'évènement",
             "EVENT_DESCRIPTION" : "Description de l'évènement",
             "CONCERNED_PERSONS_LIST" : "Liste des personnes concernées",
-            "ADD_CONTACT" : "Ajouter un contact"
+            "ADD_CONTACT" : "Ajouter un contact",
+            "LOGBOOK_SAVED" : "Evénement validé",
+            "CONFIRM_CANCEL_MESSAGE" : "Confirmez-vous l'annulation de la création de l'événement ?",
+            "CONCERNED_PNCS" : "Liste des personnes concernées :",
+            "CONCERNED_PNC" : "PNC Concerné",
+            "SELECT_ALL" : "Tout sélectionner",
+            "SEARCH" : "Rechercher",
+            "BUTTONS" : {
+                "CANCEL" : "Annuler",
+                "VALIDATE" : "Valider"
+            }
         }
     },
     "SYNCHRONIZATION": {
