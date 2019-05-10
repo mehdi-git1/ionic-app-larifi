@@ -22,12 +22,10 @@ export class AppVersionManagementPage {
     versionNumberRegex = /([0-9]{1,2}[.]){2}[0-9]{1,2}/;
 
     allAppVersions: AppVersionModel[];
-    appVersion: AppVersionModel;
 
     selectedAppVersion: AppVersionModel;
 
     textEditorModeEnum = TextEditorModeEnum.FULL;
-    formIsExist = false;
 
     constructor(private appVersionService: AppVersionService,
         private translateService: TranslateService,
@@ -46,22 +44,30 @@ export class AppVersionManagementPage {
     }
 
     /**
+     * Permet de savoir quelle version est à créer ou à modifier
+     * @param appVersion la version à modifier
+     */
+    editAppVersion(appVersion: AppVersionModel) {
+        this.selectedAppVersion = appVersion;
+    }
+
+    /**
      * Crée ou met à jour une version
      * @param appVersion La version créée ou mise à jour
      */
     createOrUpdateAppVersion(appVersion: AppVersionModel): void {
         if (appVersion == null) {
-            this.appVersion = new AppVersionModel();
-            this.appVersion.number = this.number;
-            this.appVersion.changelog = this.changelog;
+            this.selectedAppVersion = new AppVersionModel();
+            this.selectedAppVersion.number = this.number;
+            this.selectedAppVersion.changelog = this.changelog;
         } else {
-            this.appVersion = appVersion;
+            this.selectedAppVersion = appVersion;
         }
-        if (!this.versionNumberRegex.test(this.appVersion.number)) {
+        if (!this.versionNumberRegex.test(this.selectedAppVersion.number)) {
             return this.toastService.error(this.translateService.instant('ADMIN.APP_VERSION_MANAGEMENT.ERROR.UNDEFINED_NUMBER'));
         }
         this.appVersionService
-            .createOrUpdateAppVersion(this.appVersion)
+            .createOrUpdateAppVersion(this.selectedAppVersion)
             .then(success => {
                 this.initPage();
                 this.toastService.success(this.translateService.instant('ADMIN.APP_VERSION_MANAGEMENT.SUCCESS.CREATE_OR_UPDATE_VERSION'));
@@ -98,14 +104,6 @@ export class AppVersionManagementPage {
             this.initPage();
             this.toastService.success(this.translateService.instant('ADMIN.APP_VERSION_MANAGEMENT.SUCCESS.DELETE_UPDATE_VERSION'));
         }, error => { });
-    }
-
-    /**
-     * Permet de savoir quelle version est à créer ou à modifier
-     * @param userMessage le message à modifier
-     */
-    editAppVersion(appVersion: AppVersionModel) {
-        this.selectedAppVersion = appVersion;
     }
 
     /**

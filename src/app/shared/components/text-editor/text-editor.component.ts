@@ -20,7 +20,7 @@ export class TextEditorComponent {
 
     @Input() textEditorMode = TextEditorModeEnum.FULL;
 
-    @Output() returnContent = new EventEmitter();
+    @Output() contentFromChild = new EventEmitter();
 
     editorConfig;
 
@@ -57,6 +57,6 @@ export class TextEditorComponent {
      * envoie le contenu du WYSIWYG au parent
      */
     contentChange() {
-        this.returnContent.emit(this.content);
+        this.contentFromChild.emit(this.content);
     }
 }

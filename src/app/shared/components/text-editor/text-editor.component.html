@@ -1,8 +1,8 @@
 <!-- Si un formControl agit sur le WYSIWYG -->
-<div *ngIf="parentForm && formIsExist == true " [formGroup]="parentForm">
-    <app-ngx-editor formControlName="{{ctrlForm}}" (keyup)="contentChange()" [(ngModel)]="content" [config]="editorConfig"></app-ngx-editor>
+<div *ngIf="parentForm && ctrlForm; else withoutControlForm" [formGroup]="parentForm">
+    <app-ngx-editor formControlName="{{ctrlForm}}" [(ngModel)]="content" [config]="editorConfig"></app-ngx-editor>
 </div>
 
-<div *ngIf="formIsExist == false">
-    <app-ngx-editor (keyup)="contentChange()" [(ngModel)]="content" [config]="editorConfig"></app-ngx-editor>
-</div>
+<ng-template #withoutControlForm>
+    <app-ngx-editor (keyup)="contentChange()" [(ngModel)]=" content" [config]="editorConfig"></app-ngx-editor>
+</ng-template>

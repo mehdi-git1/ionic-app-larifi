@@ -1,6 +1,8 @@
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Component } from '@angular/core';
+import { Component, ViewChild, AfterViewInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
+
+import { TextEditorComponent } from '../../../../shared/components/text-editor/text-editor.component';
 
 import { UserMessageModel } from '../../../../core/models/admin/user-message.model';
 
@@ -14,7 +16,9 @@ import { TextEditorModeEnum } from './../../../../core/enums/text-editor-mode.en
     selector: 'page-user-message-management',
     templateUrl: 'user-message-management.page.html'
 })
-export class UserMessageManagementPage {
+export class UserMessageManagementPage implements AfterViewInit {
+
+    @ViewChild(TextEditorComponent) textEditorReference;
 
     userMessageForm: FormGroup;
 
@@ -23,7 +27,6 @@ export class UserMessageManagementPage {
     userMessages: UserMessageModel[];
 
     textEditorModeEnum = TextEditorModeEnum.FULL;
-    formIsExist = true;
 
     constructor(private userMessageService: UserMessageService,
         private userMessageAlertService: UserMessageAlertService,
@@ -36,6 +39,8 @@ export class UserMessageManagementPage {
             active: ['']
         });
     }
+
+    ngAfterViewInit() { }
 
     ionViewDidEnter() {
         this.initPage();
@@ -63,6 +68,7 @@ export class UserMessageManagementPage {
      * @param userMessage le message à mettre à jour
      */
     updateUserMessage() {
+        this.selectedUserMessage.content = this.textEditorReference.content;
         this.userMessageService.update(this.selectedUserMessage).then(userMessage => {
             this.initPage();
             this.toastService.success(this.translateService.instant('ADMIN.USER_MESSAGE_MANAGEMENT.MESSAGES.UPDATE_SUCCESSFUL'));
@@ -73,6 +79,7 @@ export class UserMessageManagementPage {
      * Affiche un aperçu du message en cours d'édition
      */
     displayOverview() {
+        this.selectedUserMessage.content = this.textEditorReference.content;
         this.userMessageAlertService.displayUserMessage(this.selectedUserMessage);
     }
 
@@ -91,13 +98,5 @@ export class UserMessageManagementPage {
      */
     isLoadingOver(): boolean {
         return this.userMessages !== undefined;
-    }
-
-    /**
-     * Récupère le contenu du WYSIWYG de l'enfant
-     * @param content contenu du WYSIWYG
-     */
-    manageContent(content) {
-        this.selectedUserMessage.content = content;
     }
 }
