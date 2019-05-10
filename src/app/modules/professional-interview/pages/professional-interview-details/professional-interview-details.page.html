@@ -91,7 +91,7 @@
 
 
             <!-- Commentaire PNC-->
-            <edospnc-expandable-block mini="true" *ngIf="canEditPncComment() || professionalInterview.pncComment" class="comment" title="{{'PROFESSIONAL_INTERVIEW.DETAILS.PNC_COMMENT' | translate}}">
+            <edospnc-expandable-block mini="true" *ngIf="canEditPncComment() || pncCommentIsNotEmpty()" class="comment" title="{{'PROFESSIONAL_INTERVIEW.DETAILS.PNC_COMMENT' | translate}}">
                 <div>
                     <p *ngIf="!canEditPncComment(); else editPncCommentBlock">{{professionalInterview.pncComment}}</p>
                     <ng-template #editPncCommentBlock>
@@ -125,30 +125,45 @@
                     </span>
                 </div>
             </div>
+            <div class="information-message align-left" *ngIf="professionalInterview.lastUpdateAuthor">{{ 'PROFESSIONAL_INTERVIEW.DETAILS.EDITED_BY' | translate:{lastName:professionalInterview.lastUpdateAuthor.lastName, firstName:professionalInterview.lastUpdateAuthor.firstName, date:getLastUpdateDate()} }}</div>
         </div>
 
         <!-- Barre de boutons -->
         <div class="button-bar-right button-bar">
-            <!-- Bouton supprimer bilan professionnel en brouillon -->
-            <button ion-button color="red70" (click)="confirmDeleteProfessionalInterviewDraft()" *ngIf="canBeDeleted()">
-                <ion-icon name="ios-trash-outline" ios="ios-trash-outline" margin-right></ion-icon>{{ 'PROFESSIONAL_INTERVIEW.DETAILS.BUTTONS.DELETE_DRAFT' | translate }}
-            </button>
-            <!-- Bouton sauvegarder objectif en brouillon -->
-            <button ion-button color="blue60" (click)="saveProfessionalInterviewDraft()" [disabled]="!this.professionalInterview.annualProfessionalInterviewDate" *ngIf="canBeSavedInState(ProfessionalInterviewStateEnum.DRAFT)">
-                <ion-icon name="ios-bookmark-outline" ios="ios-bookmark-outline" margin-right></ion-icon> {{ 'PROFESSIONAL_INTERVIEW.DETAILS.BUTTONS.SAVE_DRAFT' | translate }}
-            </button>
-            <!-- Bouton valider bilan professionnel -->
-            <button ion-button color="green50" (click)="saveProfessionalInterviewToValidatedStatus()" [disabled]="!isAllIFieldsAreFilled()" *ngIf="canBeSavedInState(ProfessionalInterviewStateEnum.NOT_TAKEN_INTO_ACCOUNT)">
-                <ion-icon name="md-checkmark" ios="md-checkmark" margin-right></ion-icon> {{ 'PROFESSIONAL_INTERVIEW.DETAILS.BUTTONS.VALIDATE' | translate }}
-            </button>
-            <!-- Bouton prendre en compte bilan professionnel -->
-            <button ion-button color="blue60" (click)="takenIntoAccountProfessionalInterview()" *ngIf="canBeTakenIntoAccount()">
-                <ion-icon name="ios-bookmark-outline" ios="ios-bookmark-outline" margin-right></ion-icon> {{ 'PROFESSIONAL_INTERVIEW.DETAILS.BUTTONS.TAKE_INTO_ACCOUNT' | translate }}
-            </button>
+            <ng-container *ngIf="isAdminModeAvailable(); else regularUserActions">
+                <!-- Bouton modifier un bilan professionnel -->
+                <button ion-button color="blue60" (click)="enterEditMode()" *ngIf="!editionMode">
+                    <ion-icon name="md-create" ios="md-create" margin-right></ion-icon> {{ 'PROFESSIONAL_INTERVIEW.DETAILS.BUTTONS.MODIFY' | translate }}
+                </button>
+                <!-- Bouton annuler la modification d'un bilan professionnel -->
+                <button ion-button color="grey14" (click)="cancelEditMode()" *ngIf="editionMode">
+                    <ion-icon name="md-close" ios="md-close" margin-right></ion-icon> {{ 'PROFESSIONAL_INTERVIEW.DETAILS.BUTTONS.CANCEL' | translate }}
+                </button>
+                <!-- Bouton valider les modifications d'un bilan professionnel -->
+                <button ion-button color="green50" (click)="saveProfessionalInterview(professionalInterview)" [disabled]="!formHasBeenModified()" *ngIf="editionMode">
+                    <ion-icon name="md-checkmark" ios="md-checkmark" margin-right></ion-icon> {{ 'PROFESSIONAL_INTERVIEW.DETAILS.BUTTONS.VALIDATE' | translate }}
+                </button>
+            </ng-container>
+            <ng-template #regularUserActions>
+                <!-- Bouton supprimer bilan professionnel en brouillon -->
+                <button ion-button color="red70" (click)="confirmDeleteProfessionalInterviewDraft()" *ngIf="canBeDeleted()">
+                    <ion-icon name="ios-trash-outline" ios="ios-trash-outline" margin-right></ion-icon>{{ 'PROFESSIONAL_INTERVIEW.DETAILS.BUTTONS.DELETE_DRAFT' | translate }}
+                </button>
+                <!-- Bouton sauvegarder objectif en brouillon -->
+                <button ion-button color="blue60" (click)="saveProfessionalInterviewDraft()" [disabled]="!this.professionalInterview.annualProfessionalInterviewDate" *ngIf="canBeSavedInState(ProfessionalInterviewStateEnum.DRAFT)">
+                    <ion-icon name="ios-bookmark-outline" ios="ios-bookmark-outline" margin-right></ion-icon> {{ 'PROFESSIONAL_INTERVIEW.DETAILS.BUTTONS.SAVE_DRAFT' | translate }}
+                </button>
+                <!-- Bouton valider bilan professionnel -->
+                <button ion-button color="green50" (click)="saveProfessionalInterviewToValidatedStatus()" [disabled]="!isAllIFieldsAreFilled()" *ngIf="canBeSavedInState(ProfessionalInterviewStateEnum.NOT_TAKEN_INTO_ACCOUNT)">
+                    <ion-icon name="md-checkmark" ios="md-checkmark" margin-right></ion-icon> {{ 'PROFESSIONAL_INTERVIEW.DETAILS.BUTTONS.VALIDATE' | translate }}
+                </button>
+                <!-- Bouton prendre en compte bilan professionnel -->
+                <button ion-button color="blue60" (click)="takeIntoAccountProfessionalInterview()" *ngIf="canBeTakenIntoAccount()">
+                    <ion-icon name="ios-bookmark-outline" ios="ios-bookmark-outline" margin-right></ion-icon> {{ 'PROFESSIONAL_INTERVIEW.DETAILS.BUTTONS.TAKE_INTO_ACCOUNT' | translate }}
+                </button>
+            </ng-template>
         </div>
-        <div>
-            <div class="information-message" *ngIf="canBeSavedInState(ProfessionalInterviewStateEnum.NOT_TAKEN_INTO_ACCOUNT)">{{ 'PROFESSIONAL_INTERVIEW.DETAILS.LEGEND' | translate }}</div>
-        </div>
-    </ng-template>
+        <div class="information-message" *ngIf="canBeSavedInState(ProfessionalInterviewStateEnum.NOT_TAKEN_INTO_ACCOUNT)">{{ 'PROFESSIONAL_INTERVIEW.DETAILS.LEGEND' | translate }}</div>
 
+    </ng-template>
 </ion-content>

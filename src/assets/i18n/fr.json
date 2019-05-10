@@ -57,6 +57,7 @@
         "MY_EOBSERVATIONS_ARCHIVES": "Mes archives d'eObservations",
         "LOGBOOK": "Journal de bord",
         "MY_LOGBOOK": "Mon journal de bord",
+        "PROFESSIONAL_INTERVIEWS_ARCHIVES": "Archives de bilans professionnels / EPP",
         "UNKNOWN_ERROR": "Suite à un dysfonctionnement technique, l'opération a échoué. Nous vous invitons à réessayer dans quelques minutes. Si le problème persiste, veuillez contacter votre support.",
         "COMING_SOON": "(Prochainement)",
         "MESSAGES": {
@@ -306,7 +307,10 @@
                 "REDACTOR": "Rédacteur",
                 "INTERVIEW_TYPE": "Type d'entretien"
             },
-            "LEGEND": "derniers BP / EPP réalisés"
+            "LEGEND": "derniers BP / EPP réalisés",
+            "LINK": {
+                "ARCHIVES": "Consulter les archives"
+            }
         },
         "DETAILS": {
             "SPECIALITY": "Fonction",
@@ -331,11 +335,13 @@
                 "DELETE_DRAFT": "Supprimer le brouillon",
                 "SAVE_DRAFT": "Sauvegarder le brouillon",
                 "TAKE_INTO_ACCOUNT": "Prendre en compte",
-                "VALIDATE": "Valider"
+                "VALIDATE": "Valider",
+                "MODIFY": "Modifier",
+                "CANCEL": "Annuler"
             },
             "PNC_COMMENT": "Commentaire du PNC",
             "CONFIRM_DRAFT_DELETE": {
-                "TITLE": "Suppression du Bilan Professionnel",
+                "TITLE": "Suppression du brouillon",
                 "MESSAGE": "Confirmez-vous la suppression de ce brouillon ?",
                 "CANCEL": "Annuler",
                 "CONFIRM": "Supprimer"
@@ -343,16 +349,22 @@
             "SUCCESS": {
                 "DRAFT_SAVED": "Brouillon sauvegardé",
                 "DRAFT_DELETED": "Brouillon supprimé",
-                "VALIDATED": "Bilan professionnel validé",
-                "TAKEN_INTO_ACCOUNT": "Bilan Professionnel pris en compte "
+                "PI_VALIDATED": "Bilan professionnel validé",
+                "EPP_VALIDATED": "EPP validé",
+                "PI_TAKEN_INTO_ACCOUNT": "Bilan Professionnel pris en compte ",
+                "EPP_TAKEN_INTO_ACCOUNT": "EPP pris en compte",
+                "PI_UPDATED": "Bilan professionel modifié",
+                "EPP_UPDATED": "EPP modifié"
             },
             "CONFIRM_VALIDATE_WITHOUT_PNC_COMMENT": {
-                "TITLE": "Validation du Bilan Professionnel",
+                "PI_TITLE": "Validation du Bilan Professionnel",
+                "EPP_TITLE": "Validation de l'EPP",
                 "MESSAGE": "Vous êtes sur le point de valider votre formulaire sans avoir apposé de commentaire. Souhaitez-vous procéder à la validation ?",
                 "CONFIRM": "Oui",
                 "CANCEL": "Non"
             },
-            "LEGEND": "Tous les champs doivent être renseignés pour valider le formulaire"
+            "LEGEND": "Tous les champs doivent être renseignés pour valider le formulaire",
+            "EDITED_BY": "Bilan professionnel modifié par {{lastName}} {{firstName}} le {{date}}"
         }
     },
     "EOBSERVATION": {

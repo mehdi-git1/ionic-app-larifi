@@ -1,5 +1,5 @@
 import { ProfessionalInterviewTransformerService } from './../professional-interview/professional-interview-transformer.service';
-import { ProfessionalInterviewComponent } from './../../../modules/development-program/components/professional-interview/professional-interview.component';
+import { ProfessionalInterviewComponent } from '../../../modules/professional-interview/components/professional-interview/professional-interview.component';
 import { Injectable } from '@angular/core';
 
 import { WaypointTransformerService } from '../waypoint/waypoint-transformer.service';
