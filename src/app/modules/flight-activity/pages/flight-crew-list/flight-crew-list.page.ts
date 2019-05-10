@@ -41,7 +41,7 @@ export class FlightCrewListPage {
      */
     initPage() {
         this.leg = this.navParams.get('leg');
-        this.legService.getCrewMembersFromLegWithoutId(this.leg.company, this.leg.number, this.leg.departureDate, this.leg.departureStation).then(flightCrews => {
+        this.legService.getCrewMembersFromLeg(this.leg).then(flightCrews => {
             this.pncPhotoService.synchronizePncsPhotos(flightCrews.map(flightCrew => flightCrew.pnc.matricule));
             flightCrews.forEach(crewMember => {
                 if (crewMember.pnc.matricule !== undefined && crewMember.pnc.matricule === this.sessionService.getActiveUser().matricule) {
