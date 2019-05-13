@@ -81,7 +81,7 @@
         <div class="global-container professional-interview-list-container">
             <professional-interviews *ngIf="professionalInterviews" [professionalInterviews]="professionalInterviews">
             </professional-interviews>
-            <div *hasPermission="'PROFESSIONAL_INTERVIEW_FULL_EDITION'">
+            <div  *ngIf="isAdminModeAvailable()">
                 <div *ngIf="professionalInterviews" class="information-message archives">
                     <span class="edospnc-archive"></span>
                     <a (click)="goToProfessionalInterviewsArchives()">{{ 'PROFESSIONAL_INTERVIEW.LIST.LINK.ARCHIVES' | translate }}</a>
