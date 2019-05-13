@@ -43,7 +43,6 @@ export class ProfessionalInterviewDetailsPage {
   annualProfessionalInterviewOptions: any;
   monthsNames;
   datepickerMaxDate = AppConstant.datepickerMaxDate;
-  annualProfessionalInterviewDateString: string;
 
   loading: Loading;
   editionMode = false;
@@ -71,7 +70,6 @@ export class ProfessionalInterviewDetailsPage {
       buttons: [{
         text: this.translateService.instant('GLOBAL.DATEPICKER.CLEAR'),
         handler: () => {
-          this.annualProfessionalInterviewDateString = null;
           this.professionalInterview.annualProfessionalInterviewDate = null;
         }
       }]
@@ -134,7 +132,6 @@ export class ProfessionalInterviewDetailsPage {
     if (!this.originProfessionalInterview) {
       this.originProfessionalInterview = _.cloneDeep(this.professionalInterview);
     }
-    this.annualProfessionalInterviewDateString = this.professionalInterview.annualProfessionalInterviewDate;
     this.editionMode = this.isEditable();
   }
 
@@ -143,7 +140,7 @@ export class ProfessionalInterviewDetailsPage {
    * @return true si il n'y a pas eu de modifications
    */
   formHasBeenModified() {
-    return this.annualProfessionalInterviewDateString != this.originProfessionalInterview.annualProfessionalInterviewDate
+    return this.professionalInterview.annualProfessionalInterviewDate != this.originProfessionalInterview.annualProfessionalInterviewDate
       || Utils.getHashCode(this.originProfessionalInterview) !== Utils.getHashCode(this.professionalInterview);
   }
   /**
@@ -406,7 +403,7 @@ export class ProfessionalInterviewDetailsPage {
    * Verifie que tout les champs de saisie sont remplis
    */
   isAllIFieldsAreFilled() {
-    if (!this.annualProfessionalInterviewDateString) {
+    if (!this.professionalInterview.annualProfessionalInterviewDate) {
       return false;
     }
     let returnValue = true;
@@ -475,11 +472,9 @@ export class ProfessionalInterviewDetailsPage {
    * @return l'objectif à enregistrer avec la date de rencontre transformée
    */
   prepareProfessionalInterviewBeforeSubmit(professionalInterviewToSave: ProfessionalInterviewModel): ProfessionalInterviewModel {
-    if (typeof this.annualProfessionalInterviewDateString !== 'undefined' && this.annualProfessionalInterviewDateString !== null) {
-      this.annualProfessionalInterviewDateString = this.dateTransformer.transformDateStringToIso8601Format(this.annualProfessionalInterviewDateString);
-      professionalInterviewToSave.annualProfessionalInterviewDate =  this.annualProfessionalInterviewDateString;
+    if (typeof this.professionalInterview.annualProfessionalInterviewDate !== 'undefined' && this.professionalInterview.annualProfessionalInterviewDate !== null) {
+      professionalInterviewToSave.annualProfessionalInterviewDate = this.dateTransformer.transformDateStringToIso8601Format(this.professionalInterview.annualProfessionalInterviewDate);
     }
-    professionalInterviewToSave.type = ProfessionalInterviewTypeEnum.BILAN;
     return professionalInterviewToSave;
   }
 
