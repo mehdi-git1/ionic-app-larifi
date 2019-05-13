@@ -23,7 +23,7 @@
                 </ion-col>
                 <ion-col col-7>
                     <ion-item (click)="editAppVersion()">
-                        <text-editor [content]="changelog" name="changelog" (contentFromChild)="manageContent($event)"></text-editor>
+                        <text-editor [textEditorMode]="TextEditorModeEnum.FULL" [content]="changelog" name="changelog" (contentFromChild)="manageContent($event)"></text-editor>
                     </ion-item>
                 </ion-col>
                 <ion-col class="submit-button" col-2>
@@ -94,7 +94,7 @@
                                     </ion-col>
                                     <ion-col col-7>
                                         <ion-item (click)="editAppVersion(appVersion)">
-                                            <text-editor [content]="appVersion.changelog" (contentFromChild)="manageContent($event)"></text-editor>
+                                            <text-editor [textEditorMode]="TextEditorModeEnum.FULL" [content]="appVersion.changelog" (contentFromChild)="manageContent($event)"></text-editor>
                                         </ion-item>
                                     </ion-col>
                                     <ion-col col-2>

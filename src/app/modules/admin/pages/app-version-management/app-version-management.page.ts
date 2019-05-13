@@ -25,8 +25,6 @@ export class AppVersionManagementPage {
 
     selectedAppVersion: AppVersionModel;
 
-    textEditorModeEnum = TextEditorModeEnum.FULL;
-
     constructor(private appVersionService: AppVersionService,
         private translateService: TranslateService,
         private alertCtrl: AlertController,
