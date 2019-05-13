@@ -6,9 +6,6 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class LogbookEventTransformerService {
 
-  constructor() {
-  }
-
   toLogbookEvents(array: LogbookEventModel[]) {
     const newArray: LogbookEventModel[] = [];
     for (const object of array) {
