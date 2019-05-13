@@ -333,6 +333,7 @@
                 "DELETE_DRAFT": "Supprimer le brouillon",
                 "SAVE_DRAFT": "Sauvegarder le brouillon",
                 "TAKE_INTO_ACCOUNT": "Prendre en compte",
+                "SAVE": "Enregistrer",
                 "VALIDATE": "Valider",
                 "MODIFY": "Modifier",
                 "CANCEL": "Annuler"
@@ -361,6 +362,13 @@
                 "CONFIRM": "Oui",
                 "CANCEL": "Non"
             },
+            "CONFIRM_COMMENT": {
+                "TITLE": "Enregistrement du Bilan Professionnel",
+                "MESSAGE": "Une fois enregistré, votre commentaire ne sera plus modifiable",
+                "CONFIRM": "Enregistrer",
+                "CANCEL": "Modifier Commentaire"
+            },
+            "ACKNOWLEDGEMENT": "J'accuse réception",
             "LEGEND": "Tous les champs doivent être renseignés pour valider le formulaire",
             "EDITED_BY": "Bilan professionnel modifié par {{lastName}} {{firstName}} le {{date}}"
         }
