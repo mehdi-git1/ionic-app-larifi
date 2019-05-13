@@ -26,6 +26,8 @@ export class UserMessageManagementPage implements AfterViewInit {
 
     userMessages: UserMessageModel[];
 
+    textEditorMode: TextEditorModeEnum;
+
     constructor(private userMessageService: UserMessageService,
         private userMessageAlertService: UserMessageAlertService,
         private translateService: TranslateService,

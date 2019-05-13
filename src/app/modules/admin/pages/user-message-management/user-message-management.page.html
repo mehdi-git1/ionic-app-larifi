@@ -30,9 +30,10 @@
                                 <ion-input formControlName="title" [(ngModel)]="selectedUserMessage.title" type="text" maxlength="255"></ion-input>
                             </ion-item>
                             <ion-item>
-                                <text-editor [textEditorMode]="TextEditorModeEnum.FULL" [(content)]="selectedUserMessage.content" [parentForm]="userMessageForm" [ctrlForm]="'content'"></text-editor>
+                                <text-editor [(content)]="selectedUserMessage.content" [parentForm]="userMessageForm" [ctrlForm]="'content'"></text-editor>
+
                             </ion-item>
-                            <p>test : {{ selectedUserMessage.content }}</p>
+                            <p>test {{textEditorMode}}</p>
                             <ion-item>
                                 <ion-label>{{ 'ADMIN.USER_MESSAGE_MANAGEMENT.LABELS.ACTIVE' | translate }}</ion-label>
                                 <ion-checkbox formControlName="active" [(ngModel)]="selectedUserMessage.active" [checked]="selectedUserMessage.active.value"></ion-checkbox>
