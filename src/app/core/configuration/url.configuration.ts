@@ -41,7 +41,7 @@ export class UrlConfiguration {
     'deleteProfessionalInterviewById': `${urlGroupEnum.PROFESSIONAL_INTERVIEW}/{id}`,
     'getProfessionalInterviewById': `${urlGroupEnum.PROFESSIONAL_INTERVIEW}/{id}`,
     'pncSynchro': `v2/${urlGroupEnum.PNC_SYNCHRO}`,
-    'getPncSynchroByPnc': `v2/${urlGroupEnum.PNC_SYNCHRO}/{matricule}`,
+    'getPncSynchroByPnc': `v3/${urlGroupEnum.PNC_SYNCHRO}/{matricule}`,
     'getWaypointsByCarreObjectiveId': `${urlGroupEnum.WAYPOINT}/career_objective/{careerObjectiveId}`,
     'getWaypointById': `${urlGroupEnum.WAYPOINT}/{waypointId}`,
     'crudWaypointByCarreObjectiveId': `${urlGroupEnum.WAYPOINT}/career_objective/{careerObjectiveId}`,

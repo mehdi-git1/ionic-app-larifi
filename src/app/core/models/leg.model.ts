@@ -8,7 +8,6 @@ export class LegModel extends EDossierPncObjectModel {
     departureStation: string;
     arrivalStation: string;
     aircraftType: string;
-    rotation: RotationModel;
     operatingVersion: string;
     rotationStorageId: string;
 

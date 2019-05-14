@@ -52,7 +52,7 @@ export class SynchronizationService {
     private transformerService: TransformerService,
     private statutoryCertificateTransformer: StatutoryCertificateTransformerService,
     private crewMemberTransformerService: CrewMemberTransformerService,
-    private rotationTransformerProvider: RotationTransformerService,
+    private rotationTransformerService: RotationTransformerService,
     private legTransformerProvider: LegTransformerService,
     private eObservationTransformerService: EObservationTransformerService,
     private professionalInterviewTransformerService: ProfessionalInterviewTransformerService,
@@ -163,7 +163,7 @@ export class SynchronizationService {
   private storeRotations(rotations: RotationModel[]) {
     if (rotations != null) {
       for (const rotation of rotations) {
-        this.storageService.save(EntityEnum.ROTATION, this.rotationTransformerProvider.toRotation(rotation), true);
+        this.storageService.save(EntityEnum.ROTATION, this.rotationTransformerService.toRotation(rotation), true);
         this.storeLegs(rotation.legs, rotation);
       }
     }
@@ -176,7 +176,7 @@ export class SynchronizationService {
   private storeLegs(legs: LegModel[], rotation: RotationModel) {
     if (legs != null) {
       for (const leg of legs) {
-        leg.rotationStorageId = rotation.number + rotation.departureDate;
+        leg.rotationStorageId = this.rotationTransformerService.toRotation(rotation).getStorageId();
         this.storageService.save(EntityEnum.LEG, this.legTransformerProvider.toLeg(leg), true);
       }
     }
