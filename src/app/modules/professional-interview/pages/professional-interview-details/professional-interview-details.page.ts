@@ -315,7 +315,7 @@ export class ProfessionalInterviewDetailsPage {
   }
 
   /**
-   * Demande la confirmation de la validation du bilan professionnel sans le commentaire du pnc
+   * Demande la confirmation de la validation du bilan professionnel avec le commentaire du pnc
    */
   confirmValidateWithoutPncComment() {
     this.alertCtrl.create({

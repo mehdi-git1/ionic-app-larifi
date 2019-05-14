@@ -363,7 +363,7 @@
                 "CANCEL": "Non"
             },
             "CONFIRM_COMMENT": {
-                "TITLE": "Enregistrement du Bilan Professionnel",
+                "TITLE": "Enregistrement du Formulaire",
                 "MESSAGE": "Une fois enregistré, votre commentaire ne sera plus modifiable",
                 "CONFIRM": "Enregistrer",
                 "CANCEL": "Modifier Commentaire"
