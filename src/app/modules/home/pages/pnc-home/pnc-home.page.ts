@@ -1,3 +1,4 @@
+import { AppVersionAlertService } from './../../../../core/services/app-version/app-version-alert.service';
 import { UserMessageAlertService } from './../../../../core/services/user-message/user-message-alert.service';
 import { FormsInputParamsModel } from './../../../../core/models/forms-input-params.model';
 import { Component } from '@angular/core';
@@ -54,9 +55,11 @@ export class PncHomePage {
         private statusBar: StatusBar,
         private tabNavService: TabNavService,
         private specialityService: SpecialityService,
-        private userMessageAlertService: UserMessageAlertService
+        private userMessageAlertService: UserMessageAlertService,
+        private appVersionAlertService: AppVersionAlertService
     ) {
         this.userMessageAlertService.handleUserMessage();
+        this.appVersionAlertService.handleAppVersion();
 
         this.statusBar.styleLightContent();
 

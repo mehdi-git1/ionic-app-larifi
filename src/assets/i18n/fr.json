@@ -3,7 +3,10 @@
         "APP_NAME": "EDOSSIER PNC",
         "APP_VERSION": {
             "FRONT": "Version",
-            "BACK": "Version serveur"
+            "BACK": "Version serveur",
+            "LABELS": {
+                "TITLE": "Note de la mise à jour {{ version }} "
+            }
         },
         "NO_DATA": "Pas de données disponibles",
         "PNC_ROLE": {
