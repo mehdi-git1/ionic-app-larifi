@@ -73,6 +73,7 @@
             }
         },
         "BUTTONS": {
+            "VALIDATE": "Valider",
             "CONFIRM": "Confirmer",
             "CANCEL": "Annuler"
         },
