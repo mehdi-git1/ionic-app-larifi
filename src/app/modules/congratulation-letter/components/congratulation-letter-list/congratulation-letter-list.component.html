@@ -1,3 +1,4 @@
+<warning-text></warning-text>
 <ng-container *ngIf="congratulationLetters && congratulationLetters.length == 0; else listBlock">
     <div class="no-data-found" *ngIf="isMode(CongratulationLetterModeEnum.RECEIVED)">{{ 'CONGRATULATION_LETTERS.NO_RECEIVED_LETTERS' | translate }}</div>
     <div class="no-data-found" *ngIf="isMode(CongratulationLetterModeEnum.WRITTEN)">{{ 'CONGRATULATION_LETTERS.NO_WRITTEN_LETTERS' | translate }}</div>
