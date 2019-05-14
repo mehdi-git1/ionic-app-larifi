@@ -1,7 +1,7 @@
 <ion-header>
     <ion-navbar>
         <page-header [showSettingsIcon]="true"  [pnc]="pnc">
-            {{ 'LOGBOOK.TITLE' | translate }}
+            {{ 'GLOBAL.LOGBOOK' | isMyPage: pnc | translate }}
         </page-header>
     </ion-navbar>
 </ion-header>

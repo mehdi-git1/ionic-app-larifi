@@ -1,7 +1,7 @@
 <ion-header>
     <ion-navbar>
         <page-header [showSettingsIcon]="true"  [pnc]="pnc">
-            {{ 'LOGBOOK.TITLE' | translate }}
+            {{ 'GLOBAL.LOGBOOK' | isMyPage: pnc | translate }}
         </page-header>
     </ion-navbar>
 </ion-header>
@@ -56,11 +56,11 @@
             <div class="button-bar-right button-bar">
                     <!-- Bouton Annuler -->
                     <button ion-button color="grey75" (click)="confirmCancel()">
-                        {{ 'LOGBOOK.EDIT.BUTTONS.CANCEL' | translate }}
+                        {{ 'GLOBAL.BUTTONS.CANCEL' | translate }}
                     </button>
                     <!-- Bouton Valider -->
                     <button ion-button color="blueDaisy" (click)="saveLogbookEvent()" [disabled]="!canBeSaved()">
-                        {{ 'LOGBOOK.EDIT.BUTTONS.VALIDATE' | translate }}
+                        {{ 'GLOBAL.BUTTONS.VALIDATE' | translate }}
                     </button>
                 </div>
     </ng-template>
