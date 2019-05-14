@@ -90,8 +90,8 @@ export class SecurityService extends BaseService {
   }
 
   /**
-   * Vérifie si le mode admin est disponible pour les bilans professionnels
-   * @return vrai si le mode admin est disponible, faux sinon
+   * Vérifie si l'utilisateur connecté est admin des bilans professionnels
+   * @return vrai si l'utilisateur est admin des bilans pro, faux sinon
    */
   isProfessionalInterviewAdmin(): boolean {
     return (this.authorizationService.hasPermission('PROFESSIONAL_INTERVIEW_FULL_EDITION')
