@@ -91,9 +91,9 @@
 
 
             <!-- Commentaire PNC-->
-            <edospnc-expandable-block mini="true" *ngIf="isConcernedPnc() || !isPncCommentEditable" class="comment" title="{{'PROFESSIONAL_INTERVIEW.DETAILS.PNC_COMMENT' | translate}}">
+            <edospnc-expandable-block mini="true" *ngIf="isConcernedPnc() || !isPncCommentEditable || isAdminModeAvailable()" class="comment" title="{{'PROFESSIONAL_INTERVIEW.DETAILS.PNC_COMMENT' | translate}}">
                 <div>
-                    <p *ngIf="!isPncCommentEditable; else editPncCommentBlock">{{professionalInterview.pncComment}}</p>
+                    <p *ngIf="!isPncCommentEditable && !editionMode; else editPncCommentBlock">{{professionalInterview.pncComment}}</p>
                     <ng-template #editPncCommentBlock>
                         <ion-textarea [(ngModel)]="professionalInterview.pncComment" autocorrect="on"></ion-textarea>
                     </ng-template>

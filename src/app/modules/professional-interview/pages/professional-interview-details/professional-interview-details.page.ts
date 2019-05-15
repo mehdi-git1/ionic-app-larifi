@@ -130,7 +130,7 @@ export class ProfessionalInterviewDetailsPage {
         this.originProfessionalInterview = _.cloneDeep(this.professionalInterview);
       }
       this.editionMode = this.isEditable();
-      this.isPncCommentEditable = !this.pncCommentIsNotEmpty();
+      this.isPncCommentEditable = (this.isConcernedPnc() && !this.pncCommentIsNotEmpty()) || (this.isAdminModeAvailable() && this.editionMode) ;
     });
   }
 
@@ -209,6 +209,9 @@ export class ProfessionalInterviewDetailsPage {
     return false;
   }
 
+  /**
+   * Vérifie si le commentaire pnc est vide
+   */
   pncCommentIsNotEmpty() {
     if (!this.professionalInterview.pncComment || typeof (this.professionalInterview.pncComment) === 'undefined' || this.professionalInterview.pncComment.trim() == '') {
       return false;
@@ -315,7 +318,7 @@ export class ProfessionalInterviewDetailsPage {
   }
 
   /**
-   * Demande la confirmation de la validation du bilan professionnel avec le commentaire du pnc
+   * Demande la confirmation de la validation du bilan professionnel sans le commentaire du pnc
    */
   confirmValidateWithoutPncComment() {
     this.alertCtrl.create({
@@ -335,7 +338,7 @@ export class ProfessionalInterviewDetailsPage {
   }
 
   /**
-   * Demande la confirmation de la validation du bilan professionnel sans le commentaire du pnc
+   * Demande la confirmation de la validation du bilan professionnel avec le commentaire du pnc
    */
   confirmSaveWithPncComment() {
     this.alertCtrl.create({
@@ -515,14 +518,6 @@ export class ProfessionalInterviewDetailsPage {
    */
   isConcernedPnc(): boolean {
     return this.professionalInterview.matricule === this.sessionService.getActiveUser().matricule;
-  }
-
-  /**
-   * Vérifie si le pnc peut éditer le commentaire de son bilan professionnel
-   */
-  canEditPncComment(): boolean {
-    return this.isConcernedPnc()
-      && this.isPncCommentEditable;
   }
 
   /**
