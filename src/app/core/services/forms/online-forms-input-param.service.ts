@@ -14,13 +14,12 @@ export class OnlineFormsInputParamService {
   ) { }
 
   /**
-   * Récupère une FormsInputParamsModel du cache à partir d'un matricule et le techId de la rotation
+   * Récupère une FormsInputParamsModel à partir d'un matricule et d'une rotation
    * @param matricule le matricule du PNC concerné
-   * @param number  le numéro de la rotation concernée
-   * @param departureDate  la date de la rotation concernée
-   * @return une promesse contenant l'FormsInputParamsModel trouvée
+   * @param rotation la rotation concernée
+   * @return une promesse contenant le FormsInputParamsModel trouvée
    */
-  getFormsInputParams(matricule, number: string, departureDate: string): Promise<FormsInputParamsModel> {
-    return this.restService.get(this.config.getBackEndUrl('getFormsInputParams', [matricule, number, departureDate]));
+  getFormsInputParams(matricule, rotation: RotationModel): Promise<FormsInputParamsModel> {
+    return this.restService.get(this.config.getBackEndUrl('getFormsInputParams', [matricule, rotation.number, rotation.departureDate]));
   }
 }
