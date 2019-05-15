@@ -290,15 +290,9 @@ export class PncSearchFilterComponent implements OnInit {
   searchAutoComplete(term: string): void {
     this.checkIfAutoCompleteIsOpen();
     term = Utils.replaceSpecialCaracters(term);
-    // On supprime le caractère entré s'il ne convient pas
-    // A savoir si il n'est pas alphanumérique / -  et si la chaine n'est pas vide
-    // if (!(/^[a-z]{0,1}[0-9]+$/.test(term) || /^[a-zA-Z- ]+$/.test(term)) && term !== '') {
-    //   this.pncMatriculeControl.setValue(term.substring(0, term.length - 1));
-    // } else {
     this.pncMatriculeControl.setValue(term);
     this.autoCompleteRunning = true;
     this.searchTerms.next(term);
-    // }
   }
 
   /**
