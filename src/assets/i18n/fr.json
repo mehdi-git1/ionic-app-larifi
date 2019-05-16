@@ -353,14 +353,8 @@
                 "PI_TAKEN_INTO_ACCOUNT": "Bilan Professionnel pris en compte ",
                 "EPP_TAKEN_INTO_ACCOUNT": "EPP pris en compte",
                 "PI_UPDATED": "Bilan professionel modifié",
-                "EPP_UPDATED": "EPP modifié"
-            },
-            "CONFIRM_VALIDATE_WITHOUT_PNC_COMMENT": {
-                "PI_TITLE": "Validation du Bilan Professionnel",
-                "EPP_TITLE": "Validation de l'EPP",
-                "MESSAGE": "Vous êtes sur le point de valider votre formulaire sans avoir apposé de commentaire. Souhaitez-vous procéder à la validation ?",
-                "CONFIRM": "Oui",
-                "CANCEL": "Non"
+                "EPP_UPDATED": "EPP modifié",
+                "COMMENT_ADDED": "Commentaire ajouté"
             },
             "CONFIRM_COMMENT": {
                 "TITLE": "Enregistrement du Formulaire",
