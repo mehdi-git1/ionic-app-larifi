@@ -14,7 +14,6 @@ export class UrlConfiguration {
     'deleteCareerObjectivesById': `${urlGroupEnum.CAREER_OBJECTIVE}/{id}`,
     'getCareerObjectivesByPnc': `${urlGroupEnum.CAREER_OBJECTIVE}/pnc/{matricule}`,
     'setCareerObjectivesInstructorRequestById': `${urlGroupEnum.CAREER_OBJECTIVE}/{id}/instructor_request`,
-    'getFormsInputParams': `${urlGroupEnum.FORMS_INPUT_PARAM}/{matricule}/{number}/{departureDate}`,
     'eObservations': `v2/${urlGroupEnum.EOBSERVATION}`,
     'getEObservationById': `v2/${urlGroupEnum.EOBSERVATION}/{id}`,
     'getEObservationsByMatricule': `v2/${urlGroupEnum.EOBSERVATION}/pnc/{matricule}`,

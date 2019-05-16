@@ -126,7 +126,7 @@ export class FlightCrewListPage {
     openPncHomePage(matricule) {
         this.pncService.getPnc(matricule).then(crewMember => {
             if (crewMember) {
-                this.sessionService.appContext.observedPncMatricule = matricule;
+                this.sessionService.appContext.observedPnc = crewMember;
                 this.navCtrl.push(PncHomePage, { matricule: matricule });
             }
         });

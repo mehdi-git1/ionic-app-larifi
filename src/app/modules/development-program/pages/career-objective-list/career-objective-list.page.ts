@@ -101,9 +101,9 @@ export class CareerObjectiveListPage {
   }
 
   /**
- * Retourne le type de formulaire pour la création d'EObs
- * @return boolean pour savoir si le type d'Eform est géré actuellement
- */
+   * Retourne le type de formulaire pour la création d'EObs
+   * @return boolean pour savoir si le type d'Eform est géré actuellement
+   */
   hasEObsTypeForm(): boolean {
     return this.getEObsTextTypeEForm() ? true : false;
   }
@@ -151,7 +151,6 @@ export class CareerObjectiveListPage {
         });
         this.professionalInterviews = tmpProfessionalInterviewsTab;
 
-        console.log(this.professionalInterviews);
       }, error => {
         this.professionalInterviews = [];
       });
@@ -181,20 +180,17 @@ export class CareerObjectiveListPage {
    * Fait appel à formsLib avec les paramètres eObservation.
    */
   createEObservation() {
-    this.formsEObservationService.getFormsInputParams(this.matricule, this.sessionService.appContext.lastConsultedRotation).then(formsInputParam => {
-      this.formsInputParam = formsInputParam;
-      if (this.formsInputParam) {
-        this.formsEObservationService.callForms(this.formsInputParam, this.chosenEFormsType);
-      }
-      this.chosenEFormsType = null;
-    }, error => {
-    });
+    this.formsInputParam = this.formsEObservationService.getFormsInputParams();
+    if (this.formsInputParam) {
+      this.formsEObservationService.callForms(this.formsInputParam, this.chosenEFormsType);
+    }
+    this.chosenEFormsType = null;
   }
 
   /**
-     * Détermine si on peut créer une nouvelle eObservation
-     * @return vrai si c'est le cas, faux sinon
-     */
+   * Détermine si on peut créer une nouvelle eObservation
+   * @return vrai si c'est le cas, faux sinon
+   */
   canCreateEObservation(): boolean {
     if (this.sessionService.appContext.lastConsultedRotation && !this.deviceService.isBrowser()) {
       return true;
