@@ -1,5 +1,7 @@
-import { AppVersionModel } from '../../models/admin/app-version.model';
 import { Injectable } from '@angular/core';
+
+import { AppVersionModel } from '../../models/admin/app-version.model';
+
 
 @Injectable()
 export class AppVersionTransformerService {
