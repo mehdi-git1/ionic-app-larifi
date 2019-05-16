@@ -393,7 +393,6 @@ export class ProfessionalInterviewDetailsPage {
       professionalInterviewToSave = this.prepareProfessionalInterviewBeforeSubmit(professionalInterviewToSave);
       this.loading = this.loadingCtrl.create();
       this.loading.present();
-      const oldProfessionalInterviewState = this.professionalInterview.state;
 
       this.professionalInterviewService.createOrUpdate(professionalInterviewToSave)
         .then(savedProfessionalInterview => {
@@ -409,7 +408,7 @@ export class ProfessionalInterviewDetailsPage {
             this.offlineProfessionalInterviewService.createOrUpdate(this.professionalInterview, true);
           }
 
-          if (this.professionalInterview.state === oldProfessionalInterviewState) {
+          if (this.professionalInterview.state === professionalInterviewPreviousState) {
             this.toastService.success(this.professionalInterview.type == this.ProfessionalInterviewTypeEnum.BILAN ? this.translateService.instant('PROFESSIONAL_INTERVIEW.DETAILS.SUCCESS.PI_UPDATED') : this.translateService.instant('PROFESSIONAL_INTERVIEW.DETAILS.SUCCESS.EPP_UPDATED'));
             if (this.isAdminModeAvailable()) {
               this.editionMode = false;
