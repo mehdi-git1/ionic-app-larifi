@@ -130,7 +130,7 @@ export class ProfessionalInterviewDetailsPage {
         this.originProfessionalInterview = _.cloneDeep(this.professionalInterview);
       }
       this.editionMode = this.isEditable();
-      this.isPncCommentEditable = (this.isConcernedPnc() && !this.pncCommentIsNotEmpty()) || (this.isAdminModeAvailable() && this.editionMode) ;
+      this.isPncCommentEditable = (this.isConcernedPnc() && !this.pncCommentIsNotEmpty()) || (this.isAdminModeAvailable() && this.editionMode);
     });
   }
 
@@ -342,7 +342,7 @@ export class ProfessionalInterviewDetailsPage {
    */
   confirmSaveWithPncComment() {
     this.alertCtrl.create({
-      title: this.translateService.instant('PROFESSIONAL_INTERVIEW.DETAILS.CONFIRM_COMMENT.TITLE' ),
+      title: this.translateService.instant('PROFESSIONAL_INTERVIEW.DETAILS.CONFIRM_COMMENT.TITLE'),
       message: this.translateService.instant('PROFESSIONAL_INTERVIEW.DETAILS.CONFIRM_COMMENT.MESSAGE'),
       buttons: [
         {
@@ -415,6 +415,7 @@ export class ProfessionalInterviewDetailsPage {
       professionalInterviewToSave = this.prepareProfessionalInterviewBeforeSubmit(professionalInterviewToSave);
       this.loading = this.loadingCtrl.create();
       this.loading.present();
+      const oldProfessionalInterviewStatus = this.professionalInterview.state;
 
       this.professionalInterviewService.createOrUpdate(professionalInterviewToSave)
         .then(savedProfessionalInterview => {
@@ -429,20 +430,20 @@ export class ProfessionalInterviewDetailsPage {
             this.offlineProfessionalInterviewService.createOrUpdate(this.professionalInterview, true);
           }
 
-          if (!this.isAdminModeAvailable()) {
-            if (this.professionalInterview.state === ProfessionalInterviewStateEnum.DRAFT) {
-              this.toastService.success(this.translateService.instant('PROFESSIONAL_INTERVIEW.DETAILS.SUCCESS.DRAFT_SAVED'));
-              this.navCtrl.pop();
-            }
-            if (this.professionalInterview.state === ProfessionalInterviewStateEnum.TAKEN_INTO_ACCOUNT) {
-              this.toastService.success(this.professionalInterview.type == this.ProfessionalInterviewTypeEnum.BILAN ? this.translateService.instant('PROFESSIONAL_INTERVIEW.DETAILS.SUCCESS.PI_TAKEN_INTO_ACCOUNT') : this.translateService.instant('PROFESSIONAL_INTERVIEW.DETAILS.SUCCESS.EPP_TAKEN_INTO_ACCOUNT'));
-              this.navCtrl.pop();
-            }
-            if (this.professionalInterview.state === ProfessionalInterviewStateEnum.NOT_TAKEN_INTO_ACCOUNT) {
-              this.toastService.success(this.professionalInterview.type == this.ProfessionalInterviewTypeEnum.BILAN ? this.translateService.instant('PROFESSIONAL_INTERVIEW.DETAILS.SUCCESS.PI_VALIDATED') : this.translateService.instant('PROFESSIONAL_INTERVIEW.DETAILS.SUCCESS.EPP_VALIDATED'));
-              this.navCtrl.pop();
-            }
-          } else {
+
+          if (this.professionalInterview.state === ProfessionalInterviewStateEnum.DRAFT) {
+            this.toastService.success(this.translateService.instant('PROFESSIONAL_INTERVIEW.DETAILS.SUCCESS.DRAFT_SAVED'));
+            this.navCtrl.pop();
+          }
+          if (this.professionalInterview.state === ProfessionalInterviewStateEnum.TAKEN_INTO_ACCOUNT) {
+            this.toastService.success(this.professionalInterview.type == this.ProfessionalInterviewTypeEnum.BILAN ? this.translateService.instant('PROFESSIONAL_INTERVIEW.DETAILS.SUCCESS.PI_TAKEN_INTO_ACCOUNT') : this.translateService.instant('PROFESSIONAL_INTERVIEW.DETAILS.SUCCESS.EPP_TAKEN_INTO_ACCOUNT'));
+            this.navCtrl.pop();
+          }
+          if (this.professionalInterview.state === ProfessionalInterviewStateEnum.NOT_TAKEN_INTO_ACCOUNT) {
+            this.toastService.success(this.professionalInterview.type == this.ProfessionalInterviewTypeEnum.BILAN ? this.translateService.instant('PROFESSIONAL_INTERVIEW.DETAILS.SUCCESS.PI_VALIDATED') : this.translateService.instant('PROFESSIONAL_INTERVIEW.DETAILS.SUCCESS.EPP_VALIDATED'));
+            this.navCtrl.pop();
+          }
+          if (this.professionalInterview.state === oldProfessionalInterviewStatus) {
             this.toastService.success(this.professionalInterview.type == this.ProfessionalInterviewTypeEnum.BILAN ? this.translateService.instant('PROFESSIONAL_INTERVIEW.DETAILS.SUCCESS.PI_UPDATED') : this.translateService.instant('PROFESSIONAL_INTERVIEW.DETAILS.SUCCESS.EPP_UPDATED'));
             this.editionMode = false;
           }
