@@ -51,12 +51,19 @@
                             {{ 'GLOBAL.CONGRATULATION_LETTERS' | isMyPage: pnc | translate }}
                         </button>
                     </div>
+                    <!-- Journal de Bord -->
+                    <div class="button-parent" *hasPermission="'VIEW_LOGBOOK'">
+                        <button ion-button (click)="goToLogbook()" color="red13">
+                            {{ 'GLOBAL.LOGBOOK' | isMyPage: pnc | translate }}
+                        </button>
+                    </div>
                     <!-- Ressource d'aide -->
                     <div class="button-parent">
                         <button ion-button (click)="goToHelpAssetList()" color="grey14">
                             {{ 'GLOBAL.HELP_CENTER' | isMyPage: pnc | translate }}
                         </button>
                     </div>
+
                 </ion-col>
             </ion-row>
         </ion-grid>

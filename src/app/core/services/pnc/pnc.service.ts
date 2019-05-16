@@ -77,7 +77,7 @@ export class PncService extends BaseService {
    * @return les pncs concernés
    */
   pncAutoComplete(search: string, byPassImpersonatedUser: boolean = false): Promise<PncModel[]> {
-    return this.restService.get(this.config.getBackEndUrl('getPncAutoComplete'), { search }, undefined, byPassImpersonatedUser);
+    return this.restService.post(this.config.getBackEndUrl('getPncAutoComplete'), { searchText: search }, undefined, byPassImpersonatedUser);
   }
 
   /**
