@@ -318,26 +318,6 @@ export class ProfessionalInterviewDetailsPage {
   }
 
   /**
-   * Demande la confirmation de la validation du bilan professionnel sans le commentaire du pnc
-   */
-  confirmValidateWithoutPncComment() {
-    this.alertCtrl.create({
-      title: this.translateService.instant(this.professionalInterview.type == this.ProfessionalInterviewTypeEnum.BILAN ? 'PROFESSIONAL_INTERVIEW.DETAILS.CONFIRM_VALIDATE_WITHOUT_PNC_COMMENT.PI_TITLE' : 'PROFESSIONAL_INTERVIEW.DETAILS.CONFIRM_VALIDATE_WITHOUT_PNC_COMMENT.EPP_TITLE'),
-      message: this.translateService.instant('PROFESSIONAL_INTERVIEW.DETAILS.CONFIRM_VALIDATE_WITHOUT_PNC_COMMENT.MESSAGE'),
-      buttons: [
-        {
-          text: this.translateService.instant('PROFESSIONAL_INTERVIEW.DETAILS.CONFIRM_VALIDATE_WITHOUT_PNC_COMMENT.CANCEL'),
-          role: 'cancel'
-        },
-        {
-          text: this.translateService.instant('PROFESSIONAL_INTERVIEW.DETAILS.CONFIRM_VALIDATE_WITHOUT_PNC_COMMENT.CONFIRM'),
-          handler: () => this.saveProfessionalInterviewToTakenIntoAccountState()
-        }
-      ]
-    }).present();
-  }
-
-  /**
    * Demande la confirmation de la validation du bilan professionnel avec le commentaire du pnc
    */
   confirmSaveWithPncComment() {
@@ -361,9 +341,7 @@ export class ProfessionalInterviewDetailsPage {
    * Prend en compte un bilan professionnel
    */
   takeIntoAccountProfessionalInterview() {
-    if (!this.professionalInterview.pncComment || this.professionalInterview.pncComment === '' || typeof (this.professionalInterview.pncComment) === 'undefined') {
-      this.confirmValidateWithoutPncComment();
-    } else if (this.isPncCommentEditable && this.professionalInterview.pncComment) {
+    if (!this.isAdminModeAvailable && this.isPncCommentEditable && this.professionalInterview.pncComment) {
       this.confirmSaveWithPncComment();
     } else {
       this.saveProfessionalInterviewToTakenIntoAccountState();
@@ -415,10 +393,10 @@ export class ProfessionalInterviewDetailsPage {
       professionalInterviewToSave = this.prepareProfessionalInterviewBeforeSubmit(professionalInterviewToSave);
       this.loading = this.loadingCtrl.create();
       this.loading.present();
-      const oldProfessionalInterviewStatus = this.professionalInterview.state;
 
       this.professionalInterviewService.createOrUpdate(professionalInterviewToSave)
         .then(savedProfessionalInterview => {
+          const professionalInterviewPreviousState = this.originProfessionalInterview.state;
           this.originProfessionalInterview = _.cloneDeep(savedProfessionalInterview);
           this.professionalInterview = savedProfessionalInterview;
 
@@ -430,9 +408,13 @@ export class ProfessionalInterviewDetailsPage {
             this.offlineProfessionalInterviewService.createOrUpdate(this.professionalInterview, true);
           }
 
-          if (this.professionalInterview.state === oldProfessionalInterviewStatus) {
+          if (this.professionalInterview.state === professionalInterviewPreviousState) {
             this.toastService.success(this.professionalInterview.type == this.ProfessionalInterviewTypeEnum.BILAN ? this.translateService.instant('PROFESSIONAL_INTERVIEW.DETAILS.SUCCESS.PI_UPDATED') : this.translateService.instant('PROFESSIONAL_INTERVIEW.DETAILS.SUCCESS.EPP_UPDATED'));
-            this.editionMode = false;
+            if (this.isAdminModeAvailable()) {
+              this.editionMode = false;
+            } else {
+              this.navCtrl.pop();
+            }
           } else {
             if (this.professionalInterview.state === ProfessionalInterviewStateEnum.DRAFT) {
               this.toastService.success(this.translateService.instant('PROFESSIONAL_INTERVIEW.DETAILS.SUCCESS.DRAFT_SAVED'));
@@ -447,7 +429,6 @@ export class ProfessionalInterviewDetailsPage {
               this.navCtrl.pop();
             }
           }
-
 
           this.loading.dismiss();
           resolve();
