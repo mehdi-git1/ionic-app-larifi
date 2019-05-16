@@ -575,10 +575,11 @@ export class ProfessionalInterviewDetailsPage {
    * @return vrai si le mode admin est disponible, faux sinon
    */
   isAdminModeAvailable(): boolean {
-    return this.securityService.isProfessionalInterviewAdmin()
-      && (this.professionalInterview.state === ProfessionalInterviewStateEnum.NOT_TAKEN_INTO_ACCOUNT
-        || this.professionalInterview.state === ProfessionalInterviewStateEnum.TAKEN_INTO_ACCOUNT
-        || this.professionalInterview.state === ProfessionalInterviewStateEnum.CONSULTED);
+    return (this.professionalInterview.state === ProfessionalInterviewStateEnum.NOT_TAKEN_INTO_ACCOUNT
+      || this.professionalInterview.state === ProfessionalInterviewStateEnum.TAKEN_INTO_ACCOUNT
+      || this.professionalInterview.state === ProfessionalInterviewStateEnum.CONSULTED)
+      && (this.sessionService.getActiveUser().matricule === this.professionalInterview.instructor.matricule
+        || this.securityService.isProfessionalInterviewAdmin());
   }
 
   /**
