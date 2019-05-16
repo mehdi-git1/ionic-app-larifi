@@ -1,15 +1,13 @@
 <ion-header>
     <ion-navbar>
         <page-header [showSettingsIcon]="true"  [pnc]="pnc">
-            {{ 'GLOBAL.LOGBOOK' | isMyPage: pnc | translate }}
+            {{ 'LOGBOOK.EDIT.EVENT_CREATION' | isMyPage: pnc | translate }}
         </page-header>
     </ion-navbar>
 </ion-header>
 <ion-content padding no-bounce>
     <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
     <ng-template #pageBlock>
-        <h3>{{ 'LOGBOOK.EDIT.CREATE_TITLE' | translate }}</h3>
-        <hr>
         <ion-grid>
             <ion-row class="horizontal-items-in-row">
                 <ion-item class="event-date">
@@ -23,10 +21,6 @@
                 <ion-item  class="event-checkbox" item-end>
                     <ion-label>{{ 'LOGBOOK.EDIT.IMPORTANT' | translate }}</ion-label>
                     <ion-checkbox item-end [(ngModel)]="logbookEvent.important" [checked]="logbookEvent.important"></ion-checkbox>
-                </ion-item>
-                <ion-item  class="event-checkbox" item-end>
-                    <ion-label>{{ 'LOGBOOK.EDIT.HIDE' | translate }}</ion-label>
-                    <ion-checkbox item-end [(ngModel)]="logbookEvent.hidden" [checked]="logbookEvent.hidden"></ion-checkbox>
                 </ion-item>
             </ion-row>
             <ion-row>
@@ -42,7 +36,7 @@
             <ion-row>
                 <ion-item>
                     <ion-label floating>{{ 'LOGBOOK.EDIT.EVENT_TITLE' | translate }}</ion-label>
-                    <ion-textarea [(ngModel)]="logbookEvent.title" autocorrect="on"></ion-textarea>
+                    <ion-input [(ngModel)]="logbookEvent.title" autocorrect="on" maxlength="255" scroll="false"></ion-input>
                 </ion-item>
             </ion-row>
             <ion-row>

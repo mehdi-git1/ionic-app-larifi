@@ -595,7 +595,7 @@
             "ADD_LOG" : "Nouvel évènement"
         },
         "EDIT": {
-            "CREATE_TITLE" : "Créer un nouvel évènement",
+            "EVENT_CREATION" : "Création d'un nouvel événement",
             "EVENT_DATE" : "Date de l'évènement",
             "PNC_ORIGIN" : "Origine PNC",
             "IMPORTANT" : "Important",

@@ -1,3 +1,4 @@
+import { AuthorizationService } from './../../../../core/services/authorization/authorization.service';
 import { UserMessageAlertService } from './../../../../core/services/user-message/user-message-alert.service';
 import { FormsInputParamsModel } from './../../../../core/models/forms-input-params.model';
 import { Component } from '@angular/core';
@@ -55,7 +56,8 @@ export class PncHomePage {
         private statusBar: StatusBar,
         private tabNavService: TabNavService,
         private specialityService: SpecialityService,
-        private userMessageAlertService: UserMessageAlertService
+        private userMessageAlertService: UserMessageAlertService,
+        private authorizationService: AuthorizationService
     ) {
         this.userMessageAlertService.handleUserMessage();
 
@@ -217,4 +219,12 @@ export class PncHomePage {
         return this.pnc && this.pnc.speciality === SpecialityEnum.CAD;
     }
 
+    /**
+     * Détermine si le journal de bord est disponible
+     */
+    canViewLogBook(): boolean {
+        const isMyHomeAndImPnc = this.isMyHome() && !this.isManager();
+        const isNotMyHomeAndIHaveLogbookPermission = !this.isMyHome() && this.authorizationService.hasPermission('VIEW_LOGBOOK');
+        return isNotMyHomeAndIHaveLogbookPermission || isMyHomeAndImPnc;
+    }
 }
