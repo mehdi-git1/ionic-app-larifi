@@ -1,11 +1,9 @@
 import { EntityEnum } from '../../enums/entity.enum';
 import { AppVersionModel } from '../../models/admin/app-version.model';
 import { AppVersionAlertService } from './app-version-alert.service';
-import * as moment from 'moment';
 
 const sessionServiceMock = jasmine.createSpyObj('sessionServiceMock', ['getActiveUser']);
 const storageServiceMock = jasmine.createSpyObj('storageServiceMock', ['findOne', 'saveAsync']);
-const deviceServiceMock = jasmine.createSpyObj('deviceServiceMock', ['isBrowser']);
 const appVersionTransformerServiceMock = jasmine.createSpyObj('appVersionTransformerServiceMock', ['toAppVersion']);
 
 describe('AppVersionAlertService', () => {
@@ -13,82 +11,76 @@ describe('AppVersionAlertService', () => {
   let appVersionAlertService: AppVersionAlertService;
 
   beforeEach(() => {
-    appVersionAlertService = new AppVersionAlertService(sessionServiceMock, storageServiceMock, appVersionTransformerServiceMock, deviceServiceMock);
+    appVersionAlertService = new AppVersionAlertService(sessionServiceMock, storageServiceMock, appVersionTransformerServiceMock);
   });
 
 
   describe('displayAppVersion', () => {
 
-    it(`L'affichage du message doit être déclenché`, () => {
+    it(`L'affichage de version doit être déclenché`, () => {
+
+      // ARRANGE
       const appVersion = new AppVersionModel();
       const appVersionAlertCreationSpy = jasmine.createSpyObj('appVersionAlertCreationSpy', ['emit']);
       appVersionAlertService.appVersionAlertCreation = appVersionAlertCreationSpy;
 
+      // ACT
       appVersionAlertService.displayAppVersion(appVersion);
 
+      // ASSERT
       expect(appVersionAlertCreationSpy.emit).toHaveBeenCalledWith(appVersion);
     });
   });
 
   describe('isAppVersionToDisplay', () => {
 
-    it(`Le message utilisateur ne devrait pas être affiché en mode web`, () => {
+    it(`Une version non présente en cache doit être affichée`, () => {
+
+      // ARRANGE
       const appVersion = new AppVersionModel();
-      deviceServiceMock.isBrowser.and.returnValue(true);
+      appVersion.techId = 1;
+      appVersion.number = '2.0.0';
 
-      const result = appVersionAlertService['isAppVersionToDisplay'](appVersion);
-
-      expect(result).toBeFalsy();
-    });
-
-    it(`Un message utilisateur non présent en cache doit être affiché`, () => {
-      const appVersion = new AppVersionModel();
-      deviceServiceMock.isBrowser.and.returnValue(false);
+      // ACT
+      appVersionTransformerServiceMock.toAppVersion.and.returnValue(appVersion);
       storageServiceMock.findOne.and.returnValue(undefined);
 
+      // ASSERT
       const result = appVersionAlertService['isAppVersionToDisplay'](appVersion);
-
       expect(result).toBeTruthy();
     });
 
-    it(`Un message utilisateur plus récent que celui présent en cache doit être affiché`, () => {
+    it(`Une version identique à celle présente en cache ne doit pas être affichée`, () => {
+
+      // ARRANGE
       const appVersion = new AppVersionModel();
-      appVersion.lastUpdateDate = moment().toDate();
-      deviceServiceMock.isBrowser.and.returnValue(false);
-      const storedAppVersion = new AppVersionModel();
-      storedAppVersion.lastUpdateDate = moment().subtract(1, 'hours').toDate();
-      storageServiceMock.findOne.and.returnValue(storedAppVersion);
+      appVersion.techId = 1;
+      appVersion.number = '2.0.0';
 
+      // ACT
+      appVersionTransformerServiceMock.toAppVersion.and.returnValue(appVersion);
+      storageServiceMock.findOne.and.returnValue(appVersion);
+
+      // ASSERT
       const result = appVersionAlertService['isAppVersionToDisplay'](appVersion);
-
-      expect(result).toBeTruthy();
-    });
-
-    it(`Un message utilisateur plus ancien ou identique à celui présent en cache ne doit pas être affiché`, () => {
-      const appVersion = new AppVersionModel();
-      appVersion.lastUpdateDate = moment().toDate();
-      deviceServiceMock.isBrowser.and.returnValue(false);
-      const storedAppVersion = new AppVersionModel();
-      storedAppVersion.lastUpdateDate = appVersion.lastUpdateDate;
-      storageServiceMock.findOne.and.returnValue(storedAppVersion);
-
-      const result = appVersionAlertService['isAppVersionToDisplay'](appVersion);
-
       expect(result).toBeFalsy();
     });
   });
 
   describe('doNotDisplayMessageAnymore', () => {
 
-    it(`Le message utilisateur doit être stocké en cache si ce dernier ne doit plus être affiché`, () => {
+    it(`La version doit être stockée en cache si cette dernière ne doit plus être affichée`, () => {
+
+      // ARRANGE
       const appVersion = new AppVersionModel();
-      appVersion.key = AppVersionKeyEnum.INSTRUCTOR_MESSAGE;
+      appVersion.techId = 1;
       appVersionTransformerServiceMock.toAppVersion.and.returnValue(appVersion);
 
+      // ACT
       appVersionAlertService.doNotDisplayMessageAnymore(appVersion);
 
-      expect(storageServiceMock.saveAsync).toHaveBeenCalledWith(EntityEnum.USER_MESSAGE, appVersion, true);
+      // ASSERT
+      expect(storageServiceMock.saveAsync).toHaveBeenCalledWith(EntityEnum.APP_VERSION, appVersion, true);
     });
   });
-
 });
