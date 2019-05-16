@@ -25,7 +25,7 @@
                         <ion-label>
                             <ion-icon name="calendar"></ion-icon>
                         </ion-label>
-                        <ion-datetime displayFormat="DD/MM/YYYY" pickerFormat="DD MMMM YYYY" name="releaseDate" [(ngModel)]="releaseDate"></ion-datetime>
+                        <ion-datetime displayFormat="DD/MM/YYYY" pickerFormat="DD MMMM YYYY" name="releaseDate" [(ngModel)]="releaseDate" [doneText]="translateService.instant('GLOBAL.DATEPICKER.DONE')" [cancelText]="translateService.instant('GLOBAL.DATEPICKER.CANCEL')" [max]="datepickerMaxDate" [monthNames]="monthsNames"></ion-datetime>
                     </ion-item>
                 </ion-col>
                 <ion-col col-7>
@@ -82,7 +82,7 @@
                                             <ion-label>
                                                 <ion-icon name="calendar"></ion-icon>
                                             </ion-label>
-                                            <ion-datetime displayFormat="DD/MM/YYYY" pickerFormat="DD MMMM YYYY" name="realeaseDate" [(ngModel)]="appVersion.releaseDate"></ion-datetime>
+                                            <ion-datetime displayFormat="DD/MM/YYYY" pickerFormat="DD MMMM YYYY" name="realeaseDate" [(ngModel)]="appVersion.releaseDate" [doneText]="translateService.instant('GLOBAL.DATEPICKER.DONE')" [cancelText]="translateService.instant('GLOBAL.DATEPICKER.CANCEL')" [max]="datepickerMaxDate" [monthNames]="monthsNames"></ion-datetime>
                                         </ion-item>
                                     </ion-col>
                                     <ion-col col-7>

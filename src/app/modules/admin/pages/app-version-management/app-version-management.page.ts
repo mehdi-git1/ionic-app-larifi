@@ -5,6 +5,7 @@ import { ToastService } from '../../../../core/services/toast/toast.service';
 import { Component } from '@angular/core';
 import { AlertController } from 'ionic-angular';
 import { TranslateService } from '@ngx-translate/core';
+import { AppConstant } from '../../../../app.constant';
 
 @Component({
     selector: 'page-app-version-management',
@@ -17,6 +18,7 @@ export class AppVersionManagementPage {
     changelog: string;
     releaseDate: string;
 
+    datepickerMaxDate = AppConstant.datepickerMaxDate;
     monthsNames: any;
 
     versionNumberRegex = /([0-9]{1,2}[.]){2}[0-9]{1,2}/;
