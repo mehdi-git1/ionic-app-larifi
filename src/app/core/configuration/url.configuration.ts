@@ -23,7 +23,7 @@ export class UrlConfiguration {
     'getLegsCrewMembersById': `${urlGroupEnum.LEG}/{legId}/crew_members`,
     'pnc': urlGroupEnum.PNC,
     'getPncByMatricule': `${urlGroupEnum.PNC}/{matricule}`,
-    'getPncAutoComplete': `${urlGroupEnum.PNC}/auto_complete`,
+    'getPncAutoComplete': `v2/${urlGroupEnum.PNC}/auto_complete`,
     'getPncUpcomingRotationsByMatricule': `${urlGroupEnum.PNC}/{matricule}/upcoming_rotations`,
     'getPncLastPerformedRotationsByMatricule': `${urlGroupEnum.PNC}/{matricule}/last_performed_rotations`,
     'getReceivedCongratulationLettersByPnc': `${urlGroupEnum.PNC}/{matricule}/received_congratulation_letters`,
@@ -57,7 +57,8 @@ export class UrlConfiguration {
     'updatePermissions': `${urlGroupEnum.USER_PROFILE}/{profileName}/update_permissions`,
     'appVersions': urlGroupEnum.APP_VERSION,
     'getAllAppVersions': urlGroupEnum.APP_VERSION,
-    'deleteAppVersionById': `${urlGroupEnum.APP_VERSION}/{id}`
+    'deleteAppVersionById': `${urlGroupEnum.APP_VERSION}/{id}`,
+    'logbookEvents': urlGroupEnum.LOGBOOK_EVENT
   };
 
   /**

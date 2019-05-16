@@ -1,3 +1,4 @@
+import { LogbookModule } from './modules/logbook/logbook.module';
 import { EObservationModule } from './modules/eobservation/eobservation.module';
 import { CongratulationLetterModule } from './modules/congratulation-letter/congratulation-letter.module';
 import { AdminModule } from './modules/admin/admin.module';
@@ -62,6 +63,7 @@ registerLocaleData(localeFr);
     StatutoryCertificateModule,
     EObservationModule,
     CongratulationLetterModule,
+    LogbookModule,
     SynchronizationModule,
     AdminModule,
     ComponentsModule,

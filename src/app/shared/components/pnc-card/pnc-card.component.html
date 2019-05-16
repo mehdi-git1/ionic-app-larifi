@@ -58,11 +58,20 @@
                 </div>
             </div>
             <div class="flag-panel">
-                <download-button [synchroInProgress]="synchroInProgress" (onDownload)="downloadPncEdossier(pnc.matricule)"></download-button>
-                <!-- Prioritaire -->
-                <ion-icon *ngIf="pnc.prioritized" name="flag" ios="md-flag" color="red80"></ion-icon>
-                <!-- Particularite -->
-                <span class="value">{{crewMember?.particularity }}</span>
+
+                <div>
+                    <download-button [synchroInProgress]="synchroInProgress" (onDownload)="downloadPncEdossier(pnc.matricule)"></download-button>
+                </div>
+                <div class="sub-flag-panel">
+                    <!-- Prioritaire -->
+                    <ion-icon *ngIf="pnc.prioritized" name="flag" ios="md-flag" color="red80"></ion-icon>
+                    <!-- Si au moins une Priorité en cours -->
+                    <ion-icon *ngIf="pnc.hasAtLeastOnePriorityInProgress" name="flag" ios="md-flag" color="green70"></ion-icon>
+                </div>
+                <div>
+                    <!-- Particularite -->
+                    <span class="value">{{crewMember?.particularity }}</span>
+                </div>
             </div>
         </div>
     </ion-card-content>

@@ -20,6 +20,7 @@ export class ProfessionalInterviewModel extends EDossierPncObjectModel {
     pncSignatureDate: Date;
     professionalInterviewThemes: ProfessionalInterviewThemeModel[];
     pncComment: string;
+    pncAcknowledgement: boolean;
 
     getStorageId(): string {
         return `${this.techId}`;

@@ -25,8 +25,8 @@ export abstract class RestService {
         return this.sendRequest('GET', url, jsonData, httpHeaders, byPassImpersonatedUser, byPassInterceptor);
     }
 
-    post(url: string, jsonData: any, httpHeaders?: any): Promise<any> {
-        return this.sendRequest('POST', url, jsonData, httpHeaders);
+    post(url: string, jsonData: any, httpHeaders?: any, byPassImpersonatedUser: boolean = false): Promise<any> {
+        return this.sendRequest('POST', url, jsonData, httpHeaders, byPassImpersonatedUser);
     }
 
     put(url: string, jsonData: any, httpHeaders?: any): Promise<any> {
