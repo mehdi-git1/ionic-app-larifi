@@ -26,6 +26,7 @@ import { SpecialityEnum } from '../../../../core/enums/speciality.enum';
 import { SpecialityService } from '../../../../core/services/speciality/speciality.service';
 import { CongratulationLettersPage } from '../../../congratulation-letter/pages/congratulation-letters/congratulation-letters.page';
 import { EobservationDetailsPage } from '../../../eobservation/pages/eobservation-details/eobservation-details.page';
+import { LogbookPage } from '../../../logbook/pages/logbook/logbook.page';
 
 @Component({
     selector: 'page-pnc-home',
@@ -164,6 +165,13 @@ export class PncHomePage {
         } else {
             this.navCtrl.push(CongratulationLettersPage, { matricule: this.matricule });
         }
+    }
+
+    /**
+    * Dirige vers le Journal De Bord
+    */
+    goToLogbook() {
+        this.navCtrl.push(LogbookPage, { matricule: this.matricule });
     }
 
     /**

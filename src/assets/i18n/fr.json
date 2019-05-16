@@ -55,6 +55,8 @@
         "MY_CONGRATULATION_LETTERS": "Mes lettres de félicitations",
         "EOBSERVATIONS_ARCHIVES": "Archives d'eObservations",
         "MY_EOBSERVATIONS_ARCHIVES": "Mes archives d'eObservations",
+        "LOGBOOK": "Journal de bord",
+        "MY_LOGBOOK": "Mon journal de bord",
         "PROFESSIONAL_INTERVIEWS_ARCHIVES": "Archives de bilans professionnels / EPP",
         "UNKNOWN_ERROR": "Suite à un dysfonctionnement technique, l'opération a échoué. Nous vous invitons à réessayer dans quelques minutes. Si le problème persiste, veuillez contacter votre support.",
         "COMING_SOON": "(Prochainement)",
@@ -71,6 +73,7 @@
             }
         },
         "BUTTONS": {
+            "VALIDATE": "Valider",
             "CONFIRM": "Confirmer",
             "CANCEL": "Annuler"
         },
@@ -333,6 +336,7 @@
                 "DELETE_DRAFT": "Supprimer le brouillon",
                 "SAVE_DRAFT": "Sauvegarder le brouillon",
                 "TAKE_INTO_ACCOUNT": "Prendre en compte",
+                "SAVE": "Enregistrer",
                 "VALIDATE": "Valider",
                 "MODIFY": "Modifier",
                 "CANCEL": "Annuler"
@@ -351,7 +355,8 @@
                 "EPP_VALIDATED": "EPP validé",
                 "PI_TAKEN_INTO_ACCOUNT": "Bilan Professionnel pris en compte ",
                 "EPP_TAKEN_INTO_ACCOUNT": "EPP pris en compte",
-                "UPDATED": "Bilan professionel modifié"
+                "PI_UPDATED": "Bilan professionel modifié",
+                "EPP_UPDATED": "EPP modifié"
             },
             "CONFIRM_VALIDATE_WITHOUT_PNC_COMMENT": {
                 "PI_TITLE": "Validation du Bilan Professionnel",
@@ -360,6 +365,13 @@
                 "CONFIRM": "Oui",
                 "CANCEL": "Non"
             },
+            "CONFIRM_COMMENT": {
+                "TITLE": "Enregistrement du Formulaire",
+                "MESSAGE": "Une fois enregistré, votre commentaire ne sera plus modifiable",
+                "CONFIRM": "Enregistrer",
+                "CANCEL": "Modifier Commentaire"
+            },
+            "ACKNOWLEDGEMENT": "J'accuse réception",
             "LEGEND": "Tous les champs doivent être renseignés pour valider le formulaire",
             "EDITED_BY": "Bilan professionnel modifié par {{lastName}} {{firstName}} le {{date}}"
         }
@@ -524,7 +536,7 @@
         "MY_TITLE": "Ma recherche PNC",
         "CRITERIA": {
             "FILTERS": "Filtres",
-            "PNC_MATRICULE": "Nom, Prénom, Matricule",
+            "PNC_MATRICULE": "Nom Prénom ou Matricule",
             "DIVISION": "Division",
             "SECTOR": "Secteur",
             "GINQ": "Ginq",
@@ -585,6 +597,29 @@
             "INDIVIDUAL": "Individuelle"
         },
         "VERBATIM": "Verbatim"
+    },
+    "LOGBOOK": {
+        "BUTTONS" : {
+            "ADD_LOG" : "Nouvel évènement"
+        },
+        "EDIT": {
+            "CREATE_TITLE" : "Créer un nouvel évènement",
+            "EVENT_DATE" : "Date de l'évènement",
+            "PNC_ORIGIN" : "Origine PNC",
+            "IMPORTANT" : "Important",
+            "HIDE" : "Masquer",
+            "CATEGORY" : "Catégorie",
+            "EVENT_TITLE" : "Titre de l'évènement",
+            "EVENT_DESCRIPTION" : "Description de l'évènement",
+            "CONCERNED_PERSONS_LIST" : "Liste des personnes concernées",
+            "ADD_CONTACT" : "Ajouter un contact",
+            "LOGBOOK_SAVED" : "Evénement validé",
+            "CONFIRM_CANCEL_MESSAGE" : "Confirmez-vous l'annulation de la création de l'événement ?",
+            "CONCERNED_PNCS" : "Liste des personnes concernées :",
+            "CONCERNED_PNC" : "PNC Concerné",
+            "SELECT_ALL" : "Tout sélectionner",
+            "SEARCH" : "Rechercher"
+        }
     },
     "SYNCHRONIZATION": {
         "PNC_SAVED_OFFLINE": "Le PNC {{ matricule }} a été synchronisé",

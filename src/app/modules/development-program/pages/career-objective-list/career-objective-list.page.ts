@@ -141,10 +141,10 @@ export class CareerObjectiveListPage {
         // On ne récupére que les Draft et les 3 derniers autres bilan
         let nbOfNoDraft = 0;
         const tmpProfessionalInterviewsTab = [];
-        this.professionalInterviews.forEach( (professionalInterview: ProfessionalInterviewModel) => {
-          if (professionalInterview.state === ProfessionalInterviewStateEnum.DRAFT || nbOfNoDraft < this.maxNoDraftToDisplay){
+        this.professionalInterviews.forEach((professionalInterview: ProfessionalInterviewModel) => {
+          if (professionalInterview.state === ProfessionalInterviewStateEnum.DRAFT || nbOfNoDraft < this.maxNoDraftToDisplay) {
             tmpProfessionalInterviewsTab.push(professionalInterview);
-            if (professionalInterview.state !== ProfessionalInterviewStateEnum.DRAFT){
+            if (professionalInterview.state !== ProfessionalInterviewStateEnum.DRAFT) {
               nbOfNoDraft++;
             }
           }
@@ -231,7 +231,7 @@ export class CareerObjectiveListPage {
   /**
    * Redirige vers la page des archives des bilans professionnels
    */
-  goToProfessionalInterviewsArchives(){
+  goToProfessionalInterviewsArchives() {
     this.navCtrl.push(ProfessionalInterviewsArchivesPage, { matricule: this.matricule });
   }
 
@@ -257,5 +257,13 @@ export class CareerObjectiveListPage {
     this.chosenEFormsType = EFormsTypeEnum.getType(EFormsTypeEnum[value.trim()]);
     this.canDisplayMenu = false;
     this.createEObservation();
+  }
+
+  /**
+   * Vérifie si le mode admin est disponible
+   * @return vrai si le mode admin est disponible, faux sinon
+   */
+  isAdminModeAvailable(): boolean {
+    return this.securityService.isProfessionalInterviewAdmin();
   }
 }

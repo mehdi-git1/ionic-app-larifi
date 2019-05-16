@@ -78,7 +78,7 @@ export class ImpersonatePage {
   * @param term le terme à ajouter
   */
   searchAutoComplete(term: string): void {
-    this.searchTerms.next(Utils.removeSpaces(Utils.replaceSpecialCaracters(term)));
+    this.searchTerms.next(Utils.replaceSpecialCaracters(term));
   }
 
   /**
