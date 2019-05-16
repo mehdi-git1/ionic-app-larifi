@@ -23,7 +23,7 @@ export class UrlConfiguration {
     'getLegsCrewMembersById': `${urlGroupEnum.LEG}/{legId}/crew_members`,
     'pnc': urlGroupEnum.PNC,
     'getPncByMatricule': `${urlGroupEnum.PNC}/{matricule}`,
-    'getPncAutoComplete': `${urlGroupEnum.PNC}/auto_complete`,
+    'getPncAutoComplete': `v2/${urlGroupEnum.PNC}/auto_complete`,
     'getPncUpcomingRotationsByMatricule': `${urlGroupEnum.PNC}/{matricule}/upcoming_rotations`,
     'getPncLastPerformedRotationsByMatricule': `${urlGroupEnum.PNC}/{matricule}/last_performed_rotations`,
     'getReceivedCongratulationLettersByPnc': `${urlGroupEnum.PNC}/{matricule}/received_congratulation_letters`,
@@ -35,9 +35,10 @@ export class UrlConfiguration {
     'secretInfos': urlGroupEnum.PIN,
     'getSecretInfosByMatricule': `${urlGroupEnum.PIN}/{matricule}`,
     'getStatutoryCertificateByMatricule': `${urlGroupEnum.STATUTORY_CERTIFICATE}/{matricule}`,
-    'getProfessionalInterviewsByMatricule': `${urlGroupEnum.PROFESSIONAL_INTERVIEW}/{matricule}`,
+    'getProfessionalInterviewsByMatricule': `${urlGroupEnum.PROFESSIONAL_INTERVIEW}/pnc/{matricule}`,
     'professionalInterviews': urlGroupEnum.PROFESSIONAL_INTERVIEW,
     'deleteProfessionalInterviewById': `${urlGroupEnum.PROFESSIONAL_INTERVIEW}/{id}`,
+    'getProfessionalInterviewById': `${urlGroupEnum.PROFESSIONAL_INTERVIEW}/{id}`,
     'pncSynchro': `v2/${urlGroupEnum.PNC_SYNCHRO}`,
     'getPncSynchroByPnc': `v2/${urlGroupEnum.PNC_SYNCHRO}/{matricule}`,
     'getWaypointsByCarreObjectiveId': `${urlGroupEnum.WAYPOINT}/career_objective/{careerObjectiveId}`,
@@ -56,7 +57,8 @@ export class UrlConfiguration {
     'updatePermissions': `${urlGroupEnum.USER_PROFILE}/{profileName}/update_permissions`,
     'appVersions': urlGroupEnum.APP_VERSION,
     'getAllAppVersions': urlGroupEnum.APP_VERSION,
-    'deleteAppVersionById': `${urlGroupEnum.APP_VERSION}/{id}`
+    'deleteAppVersionById': `${urlGroupEnum.APP_VERSION}/{id}`,
+    'logbookEvents': urlGroupEnum.LOGBOOK_EVENT
   };
 
   /**

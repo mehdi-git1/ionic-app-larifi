@@ -1,0 +1,9 @@
+log-book {
+
+    ion-button {
+        // TODO : A supprimer avec Daisy
+        @extend .button-md;
+        @extend .button;
+        background-color: color($colors, blueDaisy);
+    }
+}
