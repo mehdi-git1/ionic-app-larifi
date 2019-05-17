@@ -52,7 +52,7 @@
                         </button>
                     </div>
                     <!-- Journal de Bord -->
-                    <div class="button-parent" *hasPermission="'VIEW_LOGBOOK'">
+                    <div class="button-parent" *ngIf="canViewLogBook()">
                         <button ion-button (click)="goToLogbook()" color="red13">
                             {{ 'GLOBAL.LOGBOOK' | isMyPage: pnc | translate }}
                         </button>

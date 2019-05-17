@@ -117,6 +117,9 @@ export class ProfessionalInterviewDetailsPage {
   loadProfessionalInterview() {
     this.professionalInterviewService.getProfessionalInterview(this.navParams.get('professionalInterviewId')).then(professionalInterview => {
       this.professionalInterview = professionalInterview;
+      if (!this.originProfessionalInterview) {
+        this.originProfessionalInterview = _.cloneDeep(this.professionalInterview);
+      }
       if (this.professionalInterview.matricule === this.sessionService.getActiveUser().matricule && this.professionalInterview.state === ProfessionalInterviewStateEnum.NOT_TAKEN_INTO_ACCOUNT) {
         this.saveProfessionalInterviewToConsultState();
       }
@@ -125,12 +128,8 @@ export class ProfessionalInterviewDetailsPage {
       this.pncService.getPnc(this.professionalInterview.matricule).then(pnc => {
         this.pnc = pnc;
       }, error => { });
-
-      if (!this.originProfessionalInterview) {
-        this.originProfessionalInterview = _.cloneDeep(this.professionalInterview);
-      }
       this.editionMode = this.isEditable();
-      this.isPncCommentEditable = (this.isConcernedPnc() && !this.pncCommentIsNotEmpty()) || (this.isAdminModeAvailable() && this.editionMode) ;
+      this.isPncCommentEditable = (this.isConcernedPnc() && !this.pncCommentIsNotEmpty()) || (this.isAdminModeAvailable() && this.editionMode);
     });
   }
 
@@ -318,31 +317,11 @@ export class ProfessionalInterviewDetailsPage {
   }
 
   /**
-   * Demande la confirmation de la validation du bilan professionnel sans le commentaire du pnc
-   */
-  confirmValidateWithoutPncComment() {
-    this.alertCtrl.create({
-      title: this.translateService.instant(this.professionalInterview.type == this.ProfessionalInterviewTypeEnum.BILAN ? 'PROFESSIONAL_INTERVIEW.DETAILS.CONFIRM_VALIDATE_WITHOUT_PNC_COMMENT.PI_TITLE' : 'PROFESSIONAL_INTERVIEW.DETAILS.CONFIRM_VALIDATE_WITHOUT_PNC_COMMENT.EPP_TITLE'),
-      message: this.translateService.instant('PROFESSIONAL_INTERVIEW.DETAILS.CONFIRM_VALIDATE_WITHOUT_PNC_COMMENT.MESSAGE'),
-      buttons: [
-        {
-          text: this.translateService.instant('PROFESSIONAL_INTERVIEW.DETAILS.CONFIRM_VALIDATE_WITHOUT_PNC_COMMENT.CANCEL'),
-          role: 'cancel'
-        },
-        {
-          text: this.translateService.instant('PROFESSIONAL_INTERVIEW.DETAILS.CONFIRM_VALIDATE_WITHOUT_PNC_COMMENT.CONFIRM'),
-          handler: () => this.saveProfessionalInterviewToTakenIntoAccountState()
-        }
-      ]
-    }).present();
-  }
-
-  /**
    * Demande la confirmation de la validation du bilan professionnel avec le commentaire du pnc
    */
   confirmSaveWithPncComment() {
     this.alertCtrl.create({
-      title: this.translateService.instant('PROFESSIONAL_INTERVIEW.DETAILS.CONFIRM_COMMENT.TITLE' ),
+      title: this.translateService.instant('PROFESSIONAL_INTERVIEW.DETAILS.CONFIRM_COMMENT.TITLE'),
       message: this.translateService.instant('PROFESSIONAL_INTERVIEW.DETAILS.CONFIRM_COMMENT.MESSAGE'),
       buttons: [
         {
@@ -361,9 +340,7 @@ export class ProfessionalInterviewDetailsPage {
    * Prend en compte un bilan professionnel
    */
   takeIntoAccountProfessionalInterview() {
-    if (!this.professionalInterview.pncComment || this.professionalInterview.pncComment === '' || typeof (this.professionalInterview.pncComment) === 'undefined') {
-      this.confirmValidateWithoutPncComment();
-    } else if (this.isPncCommentEditable && this.professionalInterview.pncComment) {
+    if (!this.isAdminModeAvailable && this.isPncCommentEditable && this.professionalInterview.pncComment) {
       this.confirmSaveWithPncComment();
     } else {
       this.saveProfessionalInterviewToTakenIntoAccountState();
@@ -418,6 +395,7 @@ export class ProfessionalInterviewDetailsPage {
 
       this.professionalInterviewService.createOrUpdate(professionalInterviewToSave)
         .then(savedProfessionalInterview => {
+          const professionalInterviewPreviousState = this.originProfessionalInterview.state;
           this.originProfessionalInterview = _.cloneDeep(savedProfessionalInterview);
           this.professionalInterview = savedProfessionalInterview;
 
@@ -429,7 +407,14 @@ export class ProfessionalInterviewDetailsPage {
             this.offlineProfessionalInterviewService.createOrUpdate(this.professionalInterview, true);
           }
 
-          if (!this.isAdminModeAvailable()) {
+          if (this.professionalInterview.state === professionalInterviewPreviousState) {
+            this.toastService.success(this.professionalInterview.type == this.ProfessionalInterviewTypeEnum.BILAN ? this.translateService.instant('PROFESSIONAL_INTERVIEW.DETAILS.SUCCESS.PI_UPDATED') : this.translateService.instant('PROFESSIONAL_INTERVIEW.DETAILS.SUCCESS.EPP_UPDATED'));
+            if (this.isAdminModeAvailable()) {
+              this.editionMode = false;
+            } else {
+              this.navCtrl.pop();
+            }
+          } else {
             if (this.professionalInterview.state === ProfessionalInterviewStateEnum.DRAFT) {
               this.toastService.success(this.translateService.instant('PROFESSIONAL_INTERVIEW.DETAILS.SUCCESS.DRAFT_SAVED'));
               this.navCtrl.pop();
@@ -442,9 +427,6 @@ export class ProfessionalInterviewDetailsPage {
               this.toastService.success(this.professionalInterview.type == this.ProfessionalInterviewTypeEnum.BILAN ? this.translateService.instant('PROFESSIONAL_INTERVIEW.DETAILS.SUCCESS.PI_VALIDATED') : this.translateService.instant('PROFESSIONAL_INTERVIEW.DETAILS.SUCCESS.EPP_VALIDATED'));
               this.navCtrl.pop();
             }
-          } else {
-            this.toastService.success(this.professionalInterview.type == this.ProfessionalInterviewTypeEnum.BILAN ? this.translateService.instant('PROFESSIONAL_INTERVIEW.DETAILS.SUCCESS.PI_UPDATED') : this.translateService.instant('PROFESSIONAL_INTERVIEW.DETAILS.SUCCESS.EPP_UPDATED'));
-            this.editionMode = false;
           }
 
           this.loading.dismiss();
@@ -592,10 +574,11 @@ export class ProfessionalInterviewDetailsPage {
    * @return vrai si le mode admin est disponible, faux sinon
    */
   isAdminModeAvailable(): boolean {
-    return this.securityService.isProfessionalInterviewAdmin()
-      && (this.professionalInterview.state === ProfessionalInterviewStateEnum.NOT_TAKEN_INTO_ACCOUNT
-        || this.professionalInterview.state === ProfessionalInterviewStateEnum.TAKEN_INTO_ACCOUNT
-        || this.professionalInterview.state === ProfessionalInterviewStateEnum.CONSULTED);
+    return (this.professionalInterview.state === ProfessionalInterviewStateEnum.NOT_TAKEN_INTO_ACCOUNT
+      || this.professionalInterview.state === ProfessionalInterviewStateEnum.TAKEN_INTO_ACCOUNT
+      || this.professionalInterview.state === ProfessionalInterviewStateEnum.CONSULTED)
+      && (this.sessionService.getActiveUser().matricule === this.professionalInterview.instructor.matricule
+        || this.securityService.isProfessionalInterviewAdmin());
   }
 
   /**
