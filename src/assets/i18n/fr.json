@@ -119,14 +119,15 @@
             "CONFIRM": "Supprimer"
         },
         "BUTTONS": {
-            "SAVE": "Enregistrer",
-            "SAVE_DRAFT": "Sauvegarder proposition",
-            "DELETE_DRAFT": "Supprimer proposition",
-            "VALIDATE": "Valider",
+            "SEND": "Envoyer",
+            "UPDATE": "Mettre à jour",
+            "SAVE_DRAFT": "Enregistrer le brouillon",
+            "DELETE_DRAFT": "Supprimer le brouillon",
+            "VALIDATE": "Clôturer",
             "ABANDON": "Abandonner",
             "CANCEL_VALIDATION": "Annuler la validation",
             "RESUME": "Reprendre la priorité",
-            "CREATE_INSTRUCTOR_REQUEST": "Solliciter mon instructeur"
+            "CREATE_INSTRUCTOR_REQUEST": "Notifier mon instructeur"
         },
         "SUCCESS": {
             "CAREER_OBJECTIVE_SAVED": "Priorité enregistrée",
@@ -336,6 +337,7 @@
                 "DELETE_DRAFT": "Supprimer le brouillon",
                 "SAVE_DRAFT": "Sauvegarder le brouillon",
                 "TAKE_INTO_ACCOUNT": "Prendre en compte",
+                "SAVE": "Enregistrer",
                 "VALIDATE": "Valider",
                 "MODIFY": "Modifier",
                 "CANCEL": "Annuler"
@@ -354,16 +356,17 @@
                 "EPP_VALIDATED": "EPP validé",
                 "PI_TAKEN_INTO_ACCOUNT": "Bilan Professionnel pris en compte ",
                 "EPP_TAKEN_INTO_ACCOUNT": "EPP pris en compte",
-                "PI_UPDATED": "Bilan professionel modifié",
-                "EPP_UPDATED": "EPP modifié"
+                "PI_UPDATED": "Bilan professionnel modifié",
+                "EPP_UPDATED": "EPP modifié",
+                "COMMENT_ADDED": "Commentaire ajouté"
             },
-            "CONFIRM_VALIDATE_WITHOUT_PNC_COMMENT": {
-                "PI_TITLE": "Validation du Bilan Professionnel",
-                "EPP_TITLE": "Validation de l'EPP",
-                "MESSAGE": "Vous êtes sur le point de valider votre formulaire sans avoir apposé de commentaire. Souhaitez-vous procéder à la validation ?",
-                "CONFIRM": "Oui",
-                "CANCEL": "Non"
+            "CONFIRM_COMMENT": {
+                "TITLE": "Enregistrement du Formulaire",
+                "MESSAGE": "Une fois enregistré, votre commentaire ne sera plus modifiable",
+                "CONFIRM": "Enregistrer",
+                "CANCEL": "Modifier Commentaire"
             },
+            "ACKNOWLEDGEMENT": "J'accuse réception",
             "LEGEND": "Tous les champs doivent être renseignés pour valider le formulaire",
             "EDITED_BY": "Bilan professionnel modifié par {{lastName}} {{firstName}} le {{date}}"
         }
@@ -528,7 +531,7 @@
         "MY_TITLE": "Ma recherche PNC",
         "CRITERIA": {
             "FILTERS": "Filtres",
-            "PNC_MATRICULE": "Nom, Prénom, Matricule",
+            "PNC_MATRICULE": "Nom Prénom ou Matricule",
             "DIVISION": "Division",
             "SECTOR": "Secteur",
             "GINQ": "Ginq",
@@ -591,8 +594,8 @@
         "VERBATIM": "Verbatim"
     },
     "LOGBOOK": {
-        "BUTTONS" : {
-            "ADD_LOG" : "Nouvel évènement"
+        "BUTTONS": {
+            "ADD_LOG": "Nouvel évènement"
         },
         "EDIT": {
             "EVENT_CREATION" : "Création d'un nouvel événement",

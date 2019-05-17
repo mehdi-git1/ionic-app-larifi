@@ -89,4 +89,15 @@ export class SecurityService extends BaseService {
       });
   }
 
+  /**
+   * Vérifie si l'utilisateur connecté est admin des bilans professionnels
+   * @return vrai si l'utilisateur est admin des bilans pro, faux sinon
+   */
+  isProfessionalInterviewAdmin(): boolean {
+    return (this.authorizationService.hasPermission('PROFESSIONAL_INTERVIEW_FULL_EDITION')
+      || this.sessionService.getActiveUser().isRdd
+      || this.sessionService.getActiveUser().isRds
+      || this.sessionService.getActiveUser().isBaseProvinceManager);
+  }
+
 }

@@ -22,6 +22,7 @@ export class PncModel extends EDossierPncObjectModel {
     manager: boolean;
     workRate: number;
     prioritized: boolean;
+    hasAtLeastOnePriorityInProgress: boolean;
     statutoryCertificate?: StatutoryCertificateModel;
 
     getStorageId(): string {

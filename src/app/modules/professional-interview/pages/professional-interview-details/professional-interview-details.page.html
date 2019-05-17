@@ -91,9 +91,9 @@
 
 
             <!-- Commentaire PNC-->
-            <edospnc-expandable-block mini="true" *ngIf="canEditPncComment() || pncCommentIsNotEmpty()" class="comment" title="{{'PROFESSIONAL_INTERVIEW.DETAILS.PNC_COMMENT' | translate}}">
+            <edospnc-expandable-block mini="true" *ngIf="isConcernedPnc() || (!isPncCommentEditable && pncCommentIsNotEmpty()) || isAdminModeAvailable()" class="comment" title="{{'PROFESSIONAL_INTERVIEW.DETAILS.PNC_COMMENT' | translate}}">
                 <div>
-                    <p *ngIf="!canEditPncComment(); else editPncCommentBlock">{{professionalInterview.pncComment}}</p>
+                    <p *ngIf="!isPncCommentEditable && !editionMode; else editPncCommentBlock">{{professionalInterview.pncComment}}</p>
                     <ng-template #editPncCommentBlock>
                         <ion-textarea [(ngModel)]="professionalInterview.pncComment" autocorrect="on"></ion-textarea>
                     </ng-template>
@@ -145,6 +145,10 @@
                 </button>
             </ng-container>
             <ng-template #regularUserActions>
+                <span class="checkbox-container" *ngIf="isConcernedPnc()">
+                    <ion-checkbox [disabled]="!canBeTakenIntoAccount() || professionalInterview.state === ProfessionalInterviewStateEnum.TAKEN_INTO_ACCOUNT" [(ngModel)]="professionalInterview.pncAcknowledgement" [checked]="professionalInterview.pncAcknowledgement"></ion-checkbox>
+                    <label>{{ 'PROFESSIONAL_INTERVIEW.DETAILS.ACKNOWLEDGEMENT' | translate }}</label>
+                </span>
                 <!-- Bouton supprimer bilan professionnel en brouillon -->
                 <button ion-button color="red70" (click)="confirmDeleteProfessionalInterviewDraft()" *ngIf="canBeDeleted()">
                     <ion-icon name="ios-trash-outline" ios="ios-trash-outline" margin-right></ion-icon>{{ 'PROFESSIONAL_INTERVIEW.DETAILS.BUTTONS.DELETE_DRAFT' | translate }}
@@ -158,8 +162,8 @@
                     <ion-icon name="md-checkmark" ios="md-checkmark" margin-right></ion-icon> {{ 'PROFESSIONAL_INTERVIEW.DETAILS.BUTTONS.VALIDATE' | translate }}
                 </button>
                 <!-- Bouton prendre en compte bilan professionnel -->
-                <button ion-button color="blue60" (click)="takeIntoAccountProfessionalInterview()" *ngIf="canBeTakenIntoAccount()">
-                    <ion-icon name="ios-bookmark-outline" ios="ios-bookmark-outline" margin-right></ion-icon> {{ 'PROFESSIONAL_INTERVIEW.DETAILS.BUTTONS.TAKE_INTO_ACCOUNT' | translate }}
+                <button ion-button color="blue60" (click)="takeIntoAccountProfessionalInterview()" *ngIf="canBeTakenIntoAccount()" [disabled]="!professionalInterview.pncAcknowledgement">
+                    <ion-icon name="ios-bookmark-outline" ios="ios-bookmark-outline" margin-right></ion-icon> {{ 'PROFESSIONAL_INTERVIEW.DETAILS.BUTTONS.SAVE' | translate }}
                 </button>
             </ng-template>
         </div>

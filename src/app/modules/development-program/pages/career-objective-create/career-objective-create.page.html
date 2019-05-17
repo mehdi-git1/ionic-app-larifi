@@ -155,7 +155,9 @@
                 </button>
                 <!-- Bouton sauvegarder objectif -->
                 <button ion-button color="blue70" (click)="saveCareerObjectiveToRegisteredStatus()" [disabled]="creationForm.invalid" *ngIf="securityService.isManager() && careerObjectiveStatusService.isTransitionOk(careerObjective.careerObjectiveStatus,CareerObjectiveStatus.REGISTERED)">
-                    <ion-icon name="ios-download-outline" ios="ios-download-outline" margin-right></ion-icon> {{ 'CAREER_OBJECTIVE_CREATE.BUTTONS.SAVE' | translate }}
+                    <ion-icon name="ios-download-outline" ios="ios-download-outline" margin-right></ion-icon>
+                    <span *ngIf="!careerObjective.careerObjectiveStatus || careerObjective.careerObjectiveStatus === CareerObjectiveStatus.DRAFT">{{ 'CAREER_OBJECTIVE_CREATE.BUTTONS.SEND' | translate }}</span>
+                    <span *ngIf="careerObjective.careerObjectiveStatus === CareerObjectiveStatus.REGISTERED">{{ 'CAREER_OBJECTIVE_CREATE.BUTTONS.UPDATE' | translate }}</span>
                 </button>
                 <!-- Bouton sauvegarder commentaire pnc -->
                 <button ion-button color="blue70" (click)="saveCareerObjectiveAndUpdatePncComment()" [disabled]="creationForm.invalid" *ngIf="canPncCommentBeModifiedByPnc()">
