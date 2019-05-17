@@ -4,7 +4,7 @@ import { CongratulationLetterModule } from './modules/congratulation-letter/cong
 import { AdminModule } from './modules/admin/admin.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ErrorHandler, NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { ErrorHandler, NgModule, CUSTOM_ELEMENTS_SCHEMA, LOCALE_ID } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
@@ -35,7 +35,10 @@ import { FileModule } from './core/file/file.module';
 import { SynchronizationModule } from './modules/synchronization/synchronization.module';
 import { ProfessionalInterviewModule } from './modules/professional-interview/professional-interview.module';
 
+import localeFr from '@angular/common/locales/fr';
+import { registerLocaleData } from '@angular/common';
 
+registerLocaleData(localeFr);
 @NgModule({
   declarations: [
     EDossierPNC
@@ -79,6 +82,7 @@ import { ProfessionalInterviewModule } from './modules/professional-interview/pr
     EDossierPNC
   ],
   providers: [
+    { provide: LOCALE_ID, useValue: 'fr-FR' },
     StatusBar,
     SplashScreen,
     Config,
