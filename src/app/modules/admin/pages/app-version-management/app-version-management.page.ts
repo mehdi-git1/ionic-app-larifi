@@ -107,10 +107,10 @@ export class AppVersionManagementPage {
     }
 
     /**
-     * Récupère le contenu du WYSIWYG de l'enfant
+     * Récupère le contenu du WYSIWYG$
      * @param content contenu du WYSIWYG
      */
-    manageContent(content) {
+    setContent(content) {
         // pour créer une version sinon pour modifier une version
         if (this.selectedAppVersion == undefined) {
             this.changelog = content;
