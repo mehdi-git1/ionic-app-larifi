@@ -1,33 +1,35 @@
-import { AppVersionAlertService } from './../../../../core/services/app-version/app-version-alert.service';
-import { UserMessageAlertService } from './../../../../core/services/user-message/user-message-alert.service';
-import { FormsInputParamsModel } from './../../../../core/models/forms-input-params.model';
+
 import { Component } from '@angular/core';
 import { NavController, NavParams, Events } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { TranslateService } from '@ngx-translate/core';
 
-
 import { TabNavEnum } from '../../../../core/enums/tab-nav.enum';
-import { TabNavService } from '../../../../core/services/tab-nav/tab-nav.service';
+import { SpecialityEnum } from '../../../../core/enums/speciality.enum';
+
+import { FormsInputParamsModel } from './../../../../core/models/forms-input-params.model';
+import { PncModel } from '../../../../core/models/pnc.model';
+
 import { ProfessionalLevelPage } from '../../../professional-level/pages/professional-level/professional-level.page';
-import { SynchronizationService } from '../../../../core/services/synchronization/synchronization.service';
 import { UpcomingFlightListPage } from '../../../flight-activity/pages/upcoming-flight-list/upcoming-flight-list.page';
+import { CareerObjectiveListPage } from '../../../development-program/pages/career-objective-list/career-objective-list.page';
+import { HelpAssetListPage } from '../../../help-asset/pages/help-asset-list/help-asset-list.page';
+import { PncSearchPage } from '../../../pnc-team/pages/pnc-search/pnc-search.page';
+import { StatutoryCertificatePage } from '../../../statutory-certificate/pages/statutory-certificate/statutory-certificate.page';
+import { LogbookPage } from '../../../logbook/pages/logbook/logbook.page';
+import { CongratulationLettersPage } from '../../../congratulation-letter/pages/congratulation-letters/congratulation-letters.page';
+
+import { AppVersionAlertService } from './../../../../core/services/app-version/app-version-alert.service';
+import { AuthorizationService } from './../../../../core/services/authorization/authorization.service';
+import { UserMessageAlertService } from './../../../../core/services/user-message/user-message-alert.service';
+import { TabNavService } from '../../../../core/services/tab-nav/tab-nav.service';
+import { SynchronizationService } from '../../../../core/services/synchronization/synchronization.service';
 import { SessionService } from '../../../../core/services/session/session.service';
 import { ToastService } from '../../../../core/services/toast/toast.service';
 import { GenderService } from '../../../../core/services/gender/gender.service';
-import { CareerObjectiveListPage } from '../../../development-program/pages/career-objective-list/career-objective-list.page';
 import { PncService } from '../../../../core/services/pnc/pnc.service';
-import { PncModel } from '../../../../core/models/pnc.model';
 import { ConnectivityService } from '../../../../core/services/connectivity/connectivity.service';
-import { HelpAssetListPage } from '../../../help-asset/pages/help-asset-list/help-asset-list.page';
-import { PncSearchPage } from '../../../pnc-team/pages/pnc-search/pnc-search.page';
-
-import { StatutoryCertificatePage } from '../../../statutory-certificate/pages/statutory-certificate/statutory-certificate.page';
-import { SpecialityEnum } from '../../../../core/enums/speciality.enum';
 import { SpecialityService } from '../../../../core/services/speciality/speciality.service';
-import { CongratulationLettersPage } from '../../../congratulation-letter/pages/congratulation-letters/congratulation-letters.page';
-import { EobservationDetailsPage } from '../../../eobservation/pages/eobservation-details/eobservation-details.page';
-import { LogbookPage } from '../../../logbook/pages/logbook/logbook.page';
 
 @Component({
     selector: 'page-pnc-home',
@@ -57,7 +59,8 @@ export class PncHomePage {
         private tabNavService: TabNavService,
         private specialityService: SpecialityService,
         private userMessageAlertService: UserMessageAlertService,
-        private appVersionAlertService: AppVersionAlertService
+        private appVersionAlertService: AppVersionAlertService,
+        private authorizationService: AuthorizationService
     ) {
         this.userMessageAlertService.handleUserMessage();
         this.appVersionAlertService.handleAppVersion();
@@ -220,4 +223,12 @@ export class PncHomePage {
         return this.pnc && this.pnc.speciality === SpecialityEnum.CAD;
     }
 
+    /**
+     * Détermine si le journal de bord est disponible
+     */
+    canViewLogBook(): boolean {
+        const isMyHomeAndImPnc = this.isMyHome() && !this.isManager();
+        const isNotMyHomeAndIHaveLogbookPermission = !this.isMyHome() && this.authorizationService.hasPermission('VIEW_LOGBOOK');
+        return isNotMyHomeAndIHaveLogbookPermission || isMyHomeAndImPnc;
+    }
 }

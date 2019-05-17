@@ -26,11 +26,10 @@
                             <ng-container *ngIf="congratulationLetter.collective; else individualLabel">{{ 'CONGRATULATION_LETTER_DETAIL.TYPE.COLLECTIVE' | translate }}</ng-container>
                             <ng-template #individualLabel>{{ 'CONGRATULATION_LETTER_DETAIL.TYPE.INDIVIDUAL' | translate }}</ng-template>
                         </td>
-                        <td *ngIf="!isWrittenLetter()"><span class="lastname">{{ congratulationLetter.redactor.lastName }}</span> <span class="firstname">{{ congratulationLetter.redactor.firstName }}</span></td>
+                        <td *ngIf="!isWrittenLetter()"><span class="last-name">{{ congratulationLetter.redactor.lastName }}</span> <span class="first-name">{{ congratulationLetter.redactor.firstName }}</span> <span class="current-speciality">({{ congratulationLetter.redactorSpeciality }})</span></td>
                     </tr>
                 </tbody>
             </table>
-
             <div class="verbatim-container">
                 <label><span class="edospnc-speechBubble"></span>{{ 'CONGRATULATION_LETTER_DETAIL.VERBATIM' | translate }}</label>
                 <p class="verbatim">{{ congratulationLetter.verbatim }}</p>

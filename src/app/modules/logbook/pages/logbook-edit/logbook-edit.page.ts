@@ -26,6 +26,7 @@ export class LogbookEditPage implements OnInit  {
     loading: Loading;
     pnc: PncModel;
     eventDateString: string;
+    monthsNames;
 
     constructor(private sessionService: SessionService,
         private navCtrl: NavController,
@@ -37,6 +38,8 @@ export class LogbookEditPage implements OnInit  {
         private dateTransformer: DateTransform,
         private onlineLogbookEventService: OnlineLogbookEventService,
         private pncService: PncService) {
+        // Traduction des mois
+        this.monthsNames = this.translateService.instant('GLOBAL.MONTH.LONGNAME');
         const matricule = this.navParams.get('matricule');
         this.pncService.getPnc(matricule).then(pnc => {
             this.pnc = pnc;

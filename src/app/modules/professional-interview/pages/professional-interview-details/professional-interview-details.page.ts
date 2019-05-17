@@ -117,6 +117,9 @@ export class ProfessionalInterviewDetailsPage {
   loadProfessionalInterview() {
     this.professionalInterviewService.getProfessionalInterview(this.navParams.get('professionalInterviewId')).then(professionalInterview => {
       this.professionalInterview = professionalInterview;
+      if (!this.originProfessionalInterview) {
+        this.originProfessionalInterview = _.cloneDeep(this.professionalInterview);
+      }
       if (this.professionalInterview.matricule === this.sessionService.getActiveUser().matricule && this.professionalInterview.state === ProfessionalInterviewStateEnum.NOT_TAKEN_INTO_ACCOUNT) {
         this.saveProfessionalInterviewToConsultState();
       }
@@ -125,10 +128,6 @@ export class ProfessionalInterviewDetailsPage {
       this.pncService.getPnc(this.professionalInterview.matricule).then(pnc => {
         this.pnc = pnc;
       }, error => { });
-
-      if (!this.originProfessionalInterview) {
-        this.originProfessionalInterview = _.cloneDeep(this.professionalInterview);
-      }
       this.editionMode = this.isEditable();
       this.isPncCommentEditable = (this.isConcernedPnc() && !this.pncCommentIsNotEmpty()) || (this.isAdminModeAvailable() && this.editionMode);
     });
@@ -575,10 +574,11 @@ export class ProfessionalInterviewDetailsPage {
    * @return vrai si le mode admin est disponible, faux sinon
    */
   isAdminModeAvailable(): boolean {
-    return this.securityService.isProfessionalInterviewAdmin()
-      && (this.professionalInterview.state === ProfessionalInterviewStateEnum.NOT_TAKEN_INTO_ACCOUNT
-        || this.professionalInterview.state === ProfessionalInterviewStateEnum.TAKEN_INTO_ACCOUNT
-        || this.professionalInterview.state === ProfessionalInterviewStateEnum.CONSULTED);
+    return (this.professionalInterview.state === ProfessionalInterviewStateEnum.NOT_TAKEN_INTO_ACCOUNT
+      || this.professionalInterview.state === ProfessionalInterviewStateEnum.TAKEN_INTO_ACCOUNT
+      || this.professionalInterview.state === ProfessionalInterviewStateEnum.CONSULTED)
+      && (this.sessionService.getActiveUser().matricule === this.professionalInterview.instructor.matricule
+        || this.securityService.isProfessionalInterviewAdmin());
   }
 
   /**
