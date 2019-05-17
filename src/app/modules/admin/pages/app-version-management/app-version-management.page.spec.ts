@@ -3,6 +3,10 @@ import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testin
 import { IonicModule, AlertController } from 'ionic-angular';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 
+import { DateTransform } from '../../../../shared/utils/date-transform';
+import { DatePipe } from '@angular/common';
+import { AppConstant } from '../../../../app.constant';
+
 import { TranslateLoaderMock } from './../../../../../test-config/mocks-ionic';
 import { AppVersionManagementPage } from './app-version-management.page';
 import { AppVersionService } from '../../../../core/services/app-version/app-version.service';
@@ -37,6 +41,8 @@ describe('app-version-management', () => {
                 { provide: ToastService, useValue: ToastServiceMock },
                 { provide: TranslateService, useClass: TranslateLoaderMock },
                 { provide: AppVersionService, useValue: AppVersionServiceMock },
+                DateTransform,
+                DatePipe,
                 AlertController
             ],
             schemas: [NO_ERRORS_SCHEMA]
@@ -58,10 +64,10 @@ describe('app-version-management', () => {
             spyOn(translateService, 'instant').and.callFake(function (param) {
                 return param;
             });
-
         });
         let invalidNumber, validNumber: string;
         let invalidChangelog, validChangelog: string;
+        let validReleaseDate: string;
         let appVersion: AppVersionModel;
 
         it(`doit envoyer un message d'erreur si le numero de version n'est pas conforme`, () => {
@@ -86,9 +92,11 @@ describe('app-version-management', () => {
             // ARRANGE remplissage du formulaire avec un numéro de version valide et un changelog
             validChangelog = `description de la version 1.0.0`;
             validNumber = '1.0.0';
+            validReleaseDate = null;
             appVersion = new AppVersionModel();
             appVersion.number = validNumber;
             appVersion.changelog = validChangelog;
+            appVersion.releaseDate = validReleaseDate;
 
             // ACT utilisation de la fonction de création de version
             appVersionManagementPage.createOrUpdateAppVersion(appVersion);
@@ -98,6 +106,7 @@ describe('app-version-management', () => {
             const tmpAppVersion = new AppVersionModel();
             tmpAppVersion.number = validNumber;
             tmpAppVersion.changelog = validChangelog;
+            tmpAppVersion.releaseDate = null;
             expect(appVersionManagementPage.versionNumberRegex.test(tmpAppVersion.number)).toBeTruthy();
             expect(appVersionService.createOrUpdateAppVersion).toHaveBeenCalledWith(tmpAppVersion);
             expect(translateService.instant).toHaveBeenCalledWith('ADMIN.APP_VERSION_MANAGEMENT.SUCCESS.CREATE_OR_UPDATE_VERSION');
