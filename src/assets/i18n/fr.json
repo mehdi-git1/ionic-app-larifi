@@ -685,6 +685,9 @@
         "ADMIN_ACCESS": {
             "BUTTON": "Accéder au mode admin"
         },
+        "APP_VERSION": {
+            "LABEL": "Accèder à l'historique des versions"
+        },
         "CONFIRM_INIT_CACHE": {
             "TITLE": "Vider le cache",
             "MESSAGE": "Attention. Êtes-vous sûr de vouloir vider le cache ?",

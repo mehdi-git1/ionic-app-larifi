@@ -1,19 +1,23 @@
-import { VersionService } from '../../core/services/version/version.service';
-import { AppVersion } from '@ionic-native/app-version';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { AppVersion } from '@ionic-native/app-version';
 import { IonicPageModule } from 'ionic-angular';
+
+import { Config } from '../../../environments/config';
 
 import { SharedModule } from '../../shared/shared.module';
 import { ComponentsModule } from '../../shared/components/components.module';
+
 import { SettingsPage } from './pages/settings/settings.page';
 import { ImpersonatePage } from './pages/impersonate/impersonate.page';
-import { Config } from '../../../environments/config';
+import { AppVersionHistoryPage } from './pages/app-version-history/app-version-history.page';
 
+import { VersionService } from '../../core/services/version/version.service';
 
 @NgModule({
   declarations: [
     SettingsPage,
-    ImpersonatePage
+    ImpersonatePage,
+    AppVersionHistoryPage
   ],
   imports: [
     [IonicPageModule.forChild(SettingsPage)],
@@ -22,11 +26,13 @@ import { Config } from '../../../environments/config';
   ],
   entryComponents: [
     SettingsPage,
-    ImpersonatePage
+    ImpersonatePage,
+    AppVersionHistoryPage
   ],
   exports: [
     SettingsPage,
-    ImpersonatePage
+    ImpersonatePage,
+    AppVersionHistoryPage
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA

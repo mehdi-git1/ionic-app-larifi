@@ -1,0 +1,40 @@
+<ion-header>
+    <ion-navbar>
+        <page-header [showSettingsIcon]="false">
+            {{ 'GLOBAL.APP_NAME' | translate }}
+        </page-header>
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding no-bounce>
+    <edossier-spinner *ngIf="!isLoadingOver(); else pageBlock"></edossier-spinner>
+    <ng-template #pageBlock>
+        <ion-grid>
+            <ion-row>
+                <ion-col col-4>
+                    <ion-list>
+                        <ion-item *ngFor="let appVersion of appVersions" (click)="editAppVersion(appVersion)" class="edit-app-version" [ngClass]="{'active':isAppVersionSelected(appVersion)}" class="clickable">
+                            <div class="circle">
+                                <ion-icon class="app-version-icon" name="document"></ion-icon>
+                            </div>
+                            <span class="app-version-number">{{ appVersion.number }}</span>
+                            <span class="app-version-release-date">{{ appVersion.releaseDate | date:'dd MMM yyyy':'UTC' }}</span>
+                        </ion-item>
+                    </ion-list>
+                </ion-col>
+                <ion-col col-8>
+                    <div *ngIf="!selectedAppVersion; else editAppVersionBlock" class="no-data-found">{{ 'SETTINGS.APP_VERSION_HISTORY.NO_APP_VERSION_SELECTED' | translate }}</div>
+                    <ng-template #editAppVersionBlock>
+                        <ion-item>
+                            <label>{{ selectedAppVersion.number }}</label>
+                        </ion-item>
+                        <ion-item>
+                            <p [innerHTML]="selectedAppVersion.changelog"></p>
+                        </ion-item>
+                    </ng-template>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </ng-template>
+
+</ion-content>
