@@ -52,7 +52,7 @@ export class SynchronizationService {
     private transformerService: TransformerService,
     private statutoryCertificateTransformer: StatutoryCertificateTransformerService,
     private crewMemberTransformerService: CrewMemberTransformerService,
-    private rotationTransformerProvider: RotationTransformerService,
+    private rotationTransformerService: RotationTransformerService,
     private legTransformerProvider: LegTransformerService,
     private eObservationTransformerService: EObservationTransformerService,
     private professionalInterviewTransformerService: ProfessionalInterviewTransformerService,
@@ -135,7 +135,6 @@ export class SynchronizationService {
     this.deleteAllPncOfflineObject(pncSynchroResponse.pnc);
     this.storageService.save(EntityEnum.PNC, this.pncTransformer.toPnc(pncSynchroResponse.pnc), true);
     this.storeRotations(pncSynchroResponse.rotations);
-    this.storeLegs(pncSynchroResponse.legs);
     this.storeCrewMembers(pncSynchroResponse.crewMembers, storeCrewMembers);
     this.storeCareerObjectives(pncSynchroResponse.careerObjectives);
     this.storeWaypoints(pncSynchroResponse.waypoints);
@@ -152,7 +151,7 @@ export class SynchronizationService {
     this.storageService.save(EntityEnum.PROFESSIONAL_LEVEL, this.professionalLevelTransformer.toProfessionalLevel(pncSynchroResponse.professionalLevel), true);
 
     // Sauvegarde des bilans professionnels
-   this.storeProfessionalInterviews(pncSynchroResponse.professionalInterviews);
+    this.storeProfessionalInterviews(pncSynchroResponse.professionalInterviews);
 
     this.storageService.persistOfflineMap();
   }
@@ -161,10 +160,11 @@ export class SynchronizationService {
    * Enregistre les rotations en cache
    * @param rotations les rotations à stocker en cache
    */
-  private storeRotations(rotations: RotationModel[]): void {
+  private storeRotations(rotations: RotationModel[]) {
     if (rotations != null) {
       for (const rotation of rotations) {
-        this.storageService.save(EntityEnum.ROTATION, this.rotationTransformerProvider.toRotation(rotation), true);
+        this.storageService.save(EntityEnum.ROTATION, this.rotationTransformerService.toRotation(rotation), true);
+        this.storeLegs(rotation.legs, rotation);
       }
     }
   }
@@ -173,12 +173,10 @@ export class SynchronizationService {
    * Enregistre les vols en cache
    * @param legs les vols à stocker en cache
    */
-  private storeLegs(legs: LegModel[]): void {
+  private storeLegs(legs: LegModel[], rotation: RotationModel) {
     if (legs != null) {
       for (const leg of legs) {
-        const techIdRotation: number = leg.rotation.techId;
-        leg.rotation = new RotationModel();
-        leg.rotation.techId = techIdRotation;
+        leg.rotationStorageId = this.rotationTransformerService.toRotation(rotation).getStorageId();
         this.storageService.save(EntityEnum.LEG, this.legTransformerProvider.toLeg(leg), true);
       }
     }
@@ -241,10 +239,10 @@ export class SynchronizationService {
     }
   }
 
-    /**
-   * Enregistre une liste de bilans professionnels en cache
-   * @param professionalInterviews les bilans professionnels à stocker en cache
-   */
+  /**
+ * Enregistre une liste de bilans professionnels en cache
+ * @param professionalInterviews les bilans professionnels à stocker en cache
+ */
   private storeProfessionalInterviews(professionalInterviews: ProfessionalInterviewModel[]): void {
     if (professionalInterviews) {
       for (const professionalInterview of professionalInterviews) {

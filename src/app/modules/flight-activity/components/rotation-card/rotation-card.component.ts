@@ -3,11 +3,9 @@ import { ToastService } from '../../../../core/services/toast/toast.service';
 import { SessionService } from '../../../../core/services/session/session.service';
 import { LegModel } from '../../../../core/models/leg.model';
 import { FlightCrewListPage } from '../../pages/flight-crew-list/flight-crew-list.page';
-import { NavParams, NavController } from 'ionic-angular';
-import { RotationService } from '../../../../core/services/rotation/rotation.service';
+import { NavController } from 'ionic-angular';
 import { RotationModel } from '../../../../core/models/rotation.model';
 import { Component, Input } from '@angular/core';
-import { ConnectivityService } from '../../../../core/services/connectivity/connectivity.service';
 
 @Component({
     selector: 'rotation-card',
@@ -17,10 +15,7 @@ export class RotationCardComponent {
 
     @Input() rotation: RotationModel;
 
-    constructor(private rotationProvider: RotationService,
-        public navCtrl: NavController,
-        public navParams: NavParams,
-        public connectivityService: ConnectivityService,
+    constructor(private navCtrl: NavController,
         private toastProvider: ToastService,
         private translate: TranslateService,
         private sessionService: SessionService) {
@@ -32,20 +27,11 @@ export class RotationCardComponent {
     */
     toggleRotation(rotation: RotationModel) {
         rotation.opened = !rotation.opened;
-        if (rotation.opened) {
-            rotation.loading = true;
-            this.rotationProvider.getRotationLegs(rotation).then(rotationLegs => {
-                rotation.legs = rotationLegs;
-                rotation.loading = false;
-            }, error => {
-                rotation.loading = false;
-            });
-        }
     }
 
     goToFlightCrewListPage(leg: LegModel) {
         this.sessionService.appContext.lastConsultedRotation = this.rotation;
-        this.navCtrl.push(FlightCrewListPage, { legId: leg.techId });
+        this.navCtrl.push(FlightCrewListPage, { leg: leg });
     }
 
     displayErrorMessage() {
