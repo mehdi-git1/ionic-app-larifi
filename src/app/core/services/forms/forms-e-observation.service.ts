@@ -1,4 +1,4 @@
-import { FormsInputParamService } from './forms-input-param.service';
+import { AppConstant } from './../../../app.constant';
 import { FormsInputParamsModel } from './../../models/forms-input-params.model';
 import { Injectable } from '@angular/core';
 import { DatePipe } from '@angular/common';
@@ -6,6 +6,8 @@ import { DatePipe } from '@angular/common';
 import { SessionService } from '../session/session.service';
 import { RestService } from '../../http/rest/rest.base.service';
 import { Config } from '../../../../environments/config';
+import { PncModel } from '../../models/pnc.model';
+import * as moment from 'moment';
 
 declare var window: any;
 
@@ -15,7 +17,6 @@ export class FormsEObservationService {
   dateFormat = 'dd/MM/yyyy';
 
   constructor(
-    private formsInputParamService: FormsInputParamService,
     public sessionService: SessionService,
     public restService: RestService,
     public config: Config,
@@ -38,8 +39,29 @@ export class FormsEObservationService {
     }
   }
 
-  getFormsInputParams(observedPncMatricule, rotationId: number): Promise<FormsInputParamsModel> {
-    return this.formsInputParamService.getFormsInputParams(observedPncMatricule, rotationId);
+  /**
+   * Récupère les paramètres d'entrée nécessaires à l'ouverture d'un formulaire d'eObs prérempli
+   * @return un objet contenant les paramètres d'entrée nécessaires à l'appel d'Eforms
+   */
+  getFormsInputParams(): FormsInputParamsModel {
+    const formsInputParams = new FormsInputParamsModel();
+
+    formsInputParams.observedPnc = this.sessionService.appContext.observedPnc;
+    formsInputParams.redactor = new PncModel();
+    formsInputParams.redactor.matricule = this.sessionService.getActiveUser().matricule;
+    formsInputParams.redactor.lastName = this.sessionService.getActiveUser().lastName;
+    formsInputParams.redactor.firstName = this.sessionService.getActiveUser().firstName;
+
+    formsInputParams.rotation = this.sessionService.appContext.lastConsultedRotation;
+
+    const rotationLegs = this.sessionService.appContext.lastConsultedRotation.legs.sort((leg1, leg2) => {
+      return moment(leg1.departureDate, AppConstant.isoDateFormat).isBefore(moment(leg2.departureDate, AppConstant.isoDateFormat)) ? -1 : 1;
+    });
+
+    formsInputParams.rotationFirstLeg = rotationLegs[0] === undefined ? undefined : rotationLegs[0];
+    formsInputParams.rotationLastLeg = rotationLegs[rotationLegs.length - 1] === undefined ? undefined : rotationLegs[rotationLegs.length - 1];
+
+    return formsInputParams;
   }
 
   /**

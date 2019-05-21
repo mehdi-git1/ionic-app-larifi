@@ -40,24 +40,21 @@ export class FlightCrewListPage {
      * Initialisation du contenu de la page.
      */
     initPage() {
-        const legId = this.navParams.get('legId');
-        this.legService.getLeg(legId).then(legInfos => {
-            this.leg = legInfos;
-            this.legService.getFlightCrewFromLeg(legId).then(flightCrews => {
-                this.pncPhotoService.synchronizePncsPhotos(flightCrews.map(flightCrew => flightCrew.pnc.matricule));
-                flightCrews.forEach(crew => {
-                    if (crew.pnc.matricule !== undefined && crew.pnc.matricule === this.sessionService.getActiveUser().matricule) {
-                        this.sessionService.appContext.onBoardRedactorFunction = crew.onBoardFonction;
-                        this.connectedCrewMember = crew;
-                    }
-                });
-                // On supprime le PNC connecté de la liste
-                if (this.connectedCrewMember) {
-                    flightCrews = flightCrews.filter(item => item !== this.connectedCrewMember);
+        this.leg = this.navParams.get('leg');
+        this.legService.getCrewMembersFromLeg(this.leg).then(flightCrews => {
+            this.pncPhotoService.synchronizePncsPhotos(flightCrews.map(flightCrew => flightCrew.pnc.matricule));
+            flightCrews.forEach(crewMember => {
+                if (crewMember.pnc.matricule !== undefined && crewMember.pnc.matricule === this.sessionService.getActiveUser().matricule) {
+                    this.sessionService.appContext.onBoardRedactorFunction = crewMember.onBoardFonction;
+                    this.connectedCrewMember = crewMember;
                 }
-                this.flightCrewList = this.sortFlightCrewList(flightCrews);
-            }, error => { this.flightCrewList = []; });
-        }, error => { });
+            });
+            // On supprime le PNC connecté de la liste
+            if (this.connectedCrewMember) {
+                flightCrews = flightCrews.filter(item => item !== this.connectedCrewMember);
+            }
+            this.flightCrewList = this.sortFlightCrewList(flightCrews);
+        }, error => { this.flightCrewList = []; });
     }
 
     /**
@@ -129,7 +126,7 @@ export class FlightCrewListPage {
     openPncHomePage(matricule) {
         this.pncService.getPnc(matricule).then(crewMember => {
             if (crewMember) {
-                this.sessionService.appContext.observedPncMatricule = matricule;
+                this.sessionService.appContext.observedPnc = crewMember;
                 this.navCtrl.push(PncHomePage, { matricule: matricule });
             }
         });
@@ -140,7 +137,7 @@ export class FlightCrewListPage {
     * @return true si c'est le cas, false sinon
     */
     loadingIsOver(): boolean {
-        return this.leg !== undefined && this.flightCrewList !== undefined;
+        return this.flightCrewList !== undefined;
     }
 
 }

@@ -26,7 +26,6 @@ import { StatutoryCertificatePage } from '../../../statutory-certificate/pages/s
 import { SpecialityEnum } from '../../../../core/enums/speciality.enum';
 import { SpecialityService } from '../../../../core/services/speciality/speciality.service';
 import { CongratulationLettersPage } from '../../../congratulation-letter/pages/congratulation-letters/congratulation-letters.page';
-import { EobservationDetailsPage } from '../../../eobservation/pages/eobservation-details/eobservation-details.page';
 import { LogbookPage } from '../../../logbook/pages/logbook/logbook.page';
 
 @Component({
@@ -161,6 +160,9 @@ export class PncHomePage {
         }
     }
 
+    /**
+    * Dirige vers les lettres de félicitation
+    */
     goToCongratulationLetters() {
         if (this.isMyHome()) {
             this.navCtrl.parent.select(this.tabNavService.findTabIndex(TabNavEnum.CONGRATULATION_LETTERS_PAGE));

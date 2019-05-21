@@ -4,11 +4,13 @@ import { EntityEnum } from '../../enums/entity.enum';
 import { RotationModel } from '../../models/rotation.model';
 import { LegModel } from '../../models/leg.model';
 import { StorageService } from '../../storage/storage.service';
+import { RotationTransformerService } from './rotation-transformer.service';
 
 @Injectable()
 export class OfflineRotationService {
 
-    constructor(private storageService: StorageService) {
+    constructor(private storageService: StorageService,
+        private rotationTransformerService: RotationTransformerService) {
     }
 
     /**
@@ -17,10 +19,8 @@ export class OfflineRotationService {
     * @return la liste des tronçons de la rotation
     */
     getRotationLegs(rotation: RotationModel): Promise<LegModel[]> {
-        return new Promise((resolve, reject) => {
-            const legs = this.storageService.findAll(EntityEnum.LEG);
-            resolve(legs.filter(leg => leg.rotation.techId === rotation.techId));
-        });
+        const legs = this.storageService.findAll(EntityEnum.LEG);
+        return Promise.resolve(legs.filter(leg => leg.rotationStorageId === this.rotationTransformerService.toRotation(rotation).getStorageId()));
     }
 
     /**
