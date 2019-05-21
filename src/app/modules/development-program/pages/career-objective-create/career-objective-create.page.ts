@@ -230,7 +230,7 @@ export class CareerObjectiveCreatePage {
      * Lance le processus de création/mise à jour d'un objectif
      * @param careerObjectiveToSave l'objectif à enregistrer
      */
-    saveCareerObjective(careerObjectiveToSave: CareerObjectiveModel) {
+    saveCareerObjective(careerObjectiveToSave: CareerObjectiveModel, saveType: string) {
         return new Promise((resolve, reject) => {
             careerObjectiveToSave = this.prepareCareerObjectiveBeforeSubmit(careerObjectiveToSave);
 
@@ -257,8 +257,10 @@ export class CareerObjectiveCreatePage {
                         } else if (this.cancelAbandon) {
                             this.toastService.success(this.translateService.instant('CAREER_OBJECTIVE_CREATE.SUCCESS.CAREER_OBJECTIVE_RESUMED'));
                             this.cancelAbandon = false;
-                        } else {
+                        } else if (!saveType) {
                             this.toastService.success(this.translateService.instant('CAREER_OBJECTIVE_CREATE.SUCCESS.CAREER_OBJECTIVE_SAVED'));
+                        } else {
+                            this.toastService.success(this.translateService.instant('CAREER_OBJECTIVE_CREATE.SUCCESS.CAREER_OBJECTIVE_UPDATED'));
                         }
                     } else if (this.careerObjective.careerObjectiveStatus === CareerObjectiveStatusEnum.VALIDATED) {
                         this.toastService.success(this.translateService.instant('CAREER_OBJECTIVE_CREATE.SUCCESS.CAREER_OBJECTIVE_VALIDATED'));
@@ -301,18 +303,18 @@ export class CareerObjectiveCreatePage {
     saveCareerObjectiveDraft() {
         const careerObjectiveToSave = _.cloneDeep(this.careerObjective);
         careerObjectiveToSave.careerObjectiveStatus = CareerObjectiveStatusEnum.DRAFT;
-        this.saveCareerObjective(careerObjectiveToSave);
+        this.saveCareerObjective(careerObjectiveToSave, null);
     }
 
     /**
      * Enregistre un objectif au statut enregistré
      */
-    saveCareerObjectiveToRegisteredStatus() {
+    saveCareerObjectiveToRegisteredStatus(saveType: string) {
         if (this.careerObjective.encounterDate) {
             const careerObjectiveToSave = _.cloneDeep(this.careerObjective);
             careerObjectiveToSave.careerObjectiveStatus = CareerObjectiveStatusEnum.REGISTERED;
             careerObjectiveToSave.registrationDate = this.dateTransformer.transformDateToIso8601Format(new Date());
-            this.saveCareerObjective(careerObjectiveToSave);
+            this.saveCareerObjective(careerObjectiveToSave, saveType);
         } else {
             this.requiredOnEncounterDay = true;
             this.toastService.warning(this.translateService.instant('CAREER_OBJECTIVE_CREATE.ERROR.ENCOUTER_DATE_REQUIRED'));
@@ -326,7 +328,7 @@ export class CareerObjectiveCreatePage {
         if (this.careerObjective.encounterDate) {
             const careerObjectiveToSave = _.cloneDeep(this.careerObjective);
             careerObjectiveToSave.careerObjectiveStatus = CareerObjectiveStatusEnum.VALIDATED;
-            this.saveCareerObjective(careerObjectiveToSave);
+            this.saveCareerObjective(careerObjectiveToSave, null);
         } else {
             this.requiredOnEncounterDay = true;
         }
@@ -339,7 +341,7 @@ export class CareerObjectiveCreatePage {
         if (this.careerObjective.encounterDate) {
             const careerObjectiveToSave = _.cloneDeep(this.careerObjective);
             careerObjectiveToSave.careerObjectiveStatus = CareerObjectiveStatusEnum.ABANDONED;
-            this.saveCareerObjective(careerObjectiveToSave);
+            this.saveCareerObjective(careerObjectiveToSave, null);
         } else {
             this.requiredOnEncounterDay = true;
         }
@@ -353,7 +355,7 @@ export class CareerObjectiveCreatePage {
             const careerObjectiveToSave = _.cloneDeep(this.careerObjective);
             this.cancelValidation = true;
             careerObjectiveToSave.careerObjectiveStatus = CareerObjectiveStatusEnum.REGISTERED;
-            this.saveCareerObjective(careerObjectiveToSave);
+            this.saveCareerObjective(careerObjectiveToSave, null);
         } else {
             this.requiredOnEncounterDay = true;
         }
@@ -367,7 +369,7 @@ export class CareerObjectiveCreatePage {
             const careerObjectiveToSave = _.cloneDeep(this.careerObjective);
             this.cancelAbandon = true;
             careerObjectiveToSave.careerObjectiveStatus = CareerObjectiveStatusEnum.REGISTERED;
-            this.saveCareerObjective(careerObjectiveToSave);
+            this.saveCareerObjective(careerObjectiveToSave, null);
         }
     }
 

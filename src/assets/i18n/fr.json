@@ -131,8 +131,9 @@
         },
         "SUCCESS": {
             "CAREER_OBJECTIVE_SAVED": "Priorité envoyée",
-            "DRAFT_SAVED": "Proposition de la priorité sauvegardée",
-            "DRAFT_DELETED": "Proposition de la priorité supprimée",
+            "CAREER_OBJECTIVE_UPDATED": "Priorité mise à jour",
+            "DRAFT_SAVED": "Brouillon enregistré",
+            "DRAFT_DELETED": "Brouillon supprimé",
             "CAREER_OBJECTIVE_VALIDATED": "Priorité clôturée",
             "CAREER_OBJECTIVE_ABANDONED": "Priorité abandonnée",
             "CAREER_OBJECTIVE_VALIDATION_CANCELED": "La clôture de la priorité a été annulée",
