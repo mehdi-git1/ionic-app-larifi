@@ -125,17 +125,17 @@
             "DELETE_DRAFT": "Supprimer le brouillon",
             "VALIDATE": "Clôturer",
             "ABANDON": "Abandonner",
-            "CANCEL_VALIDATION": "Annuler la validation",
+            "CANCEL_VALIDATION": "Annuler la clôture",
             "RESUME": "Reprendre la priorité",
             "CREATE_INSTRUCTOR_REQUEST": "Notifier mon instructeur"
         },
         "SUCCESS": {
-            "CAREER_OBJECTIVE_SAVED": "Priorité enregistrée",
+            "CAREER_OBJECTIVE_SAVED": "Priorité envoyée",
             "DRAFT_SAVED": "Proposition de la priorité sauvegardée",
             "DRAFT_DELETED": "Proposition de la priorité supprimée",
-            "CAREER_OBJECTIVE_VALIDATED": "Priorité validée",
+            "CAREER_OBJECTIVE_VALIDATED": "Priorité clôturée",
             "CAREER_OBJECTIVE_ABANDONED": "Priorité abandonnée",
-            "CAREER_OBJECTIVE_VALIDATION_CANCELED": "Validation de la priorité annulée",
+            "CAREER_OBJECTIVE_VALIDATION_CANCELED": "La Clôture de la priorité a été annulée",
             "CAREER_OBJECTIVE_RESUMED": "Priorité reprise",
             "CAREER_OBJECTIVE_INSTRUCTOR_REQUESTED": "Demande envoyée"
         },
