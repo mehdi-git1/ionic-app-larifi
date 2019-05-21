@@ -222,11 +222,13 @@ export class PncHomePage {
     }
 
     /**
-     * Détermine si le journal de bord est disponible
+     * Détermine si le journal de bord est disponible. Il est disponible si on a la permission requise et  :
+     *  - soit je suis Pnc et c'est mon eDossier
+     *  - soit je suis Cadre et ce n'est pas mon eDossier, mais celui d'un Pnc
      */
     canViewLogBook(): boolean {
         const isMyHomeAndImPnc = this.isMyHome() && !this.isManager();
-        const isNotMyHomeAndIHaveLogbookPermission = !this.isMyHome() && this.authorizationService.hasPermission('VIEW_LOGBOOK');
-        return isNotMyHomeAndIHaveLogbookPermission || isMyHomeAndImPnc;
+        const isAPncHomeAndImManager = !this.isMyHome() && !this.isManager() && this.sessionService.getActiveUser().isManager;
+        return this.authorizationService.hasPermission('VIEW_LOGBOOK') && (isAPncHomeAndImManager || isMyHomeAndImPnc);
     }
 }
