@@ -748,11 +748,11 @@
     "ADMIN": {
         "ADMIN_HOME": {
             "NAV_TITLE": "Administration",
-            "BACK_TO_HOME_PAGE": "Retour",
             "BUTTON": {
                 "PROFILE_MANAGEMENT": "Gérer la liste des profils",
                 "APP_VERSION_MANAGEMENT": "Gérer la liste des versions",
-                "USER_MESSAGE_MANAGEMENT": "Gérer les messages aux utilisateurs"
+                "USER_MESSAGE_MANAGEMENT": "Gérer les messages aux utilisateurs",
+                "RETURN_TO_HOME": "Retour à la page d'accueil"
             }
         },
         "PROFILE_MANAGEMENT": {
