@@ -113,7 +113,7 @@
                         <ion-row class="details">
                             <ion-col>
                                 <div class="information-message align-left" *ngIf="careerObjective.creationAuthor">
-                                    {{ 'CAREER_OBJECTIVE_CREATE.DETAILS.CREATED_BY' | translate }} <span class="lastname">{{careerObjective.creationAuthor.lastName}}</span> <span class="firstname">{{careerObjective.creationAuthor.firstName}}</span> {{ 'CAREER_OBJECTIVE_CREATE.DETAILS.DATE_LABEL' | translate:{date:getCreationDate()} }}
+                                    {{ 'CAREER_OBJECTIVE_CREATE.DETAILS.CREATED_BY' | translate }} <span class="lastname">{{careerObjective.creationAuthor.lastName}}</span> <span class="firstname">{{careerObjective.creationAuthor.firstName}}</span>
                                 </div>
                                 <div class="information-message align-left" *ngIf="careerObjective.lastUpdateAuthor && careerObjective.creationDate !== careerObjective.lastUpdateDate">
                                     {{ 'CAREER_OBJECTIVE_CREATE.DETAILS.UPDATED_BY' | translate }} <span class="lastname">{{careerObjective.lastUpdateAuthor.lastName}}</span> <span class="firstname">{{careerObjective.lastUpdateAuthor.firstName}}</span> {{ 'CAREER_OBJECTIVE_CREATE.DETAILS.DATE_LABEL' | translate:{date:getLastUpdateDate()} }}
