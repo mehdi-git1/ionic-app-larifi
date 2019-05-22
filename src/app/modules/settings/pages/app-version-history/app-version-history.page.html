@@ -29,13 +29,11 @@
                         </ion-item>
                     </ion-list>
                 </ion-col>
-                <ion-col>
+                <ion-col col-8>
                     <div *ngIf="!selectedAppVersion; else editAppVersionBlock" class="no-data-found">{{ 'APP_VERSION_HISTORY.NO_APP_VERSION_SELECTED' | translate }}</div>
                     <ng-template #editAppVersionBlock>
                         <h3>{{ 'APP_VERSION_HISTORY.LABELS.VERSION_NOTE' | translate }} {{ selectedAppVersion.number }}</h3>
-                        <ion-item>
-                            <p [innerHTML]="selectedAppVersion.changelog"></p>
-                        </ion-item>
+                        <p [innerHTML]="selectedAppVersion.changelog"></p>
                     </ng-template>
                 </ion-col>
             </ion-row>

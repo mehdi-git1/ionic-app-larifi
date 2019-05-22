@@ -775,7 +775,8 @@
             "BUTTON": {
                 "ADD_VERSION": "Ajouter",
                 "UPDATE_VERSION": "Modifier",
-                "DELETE_VERSION": "Supprimer"
+                "DELETE_VERSION": "Supprimer",
+                "OVERVIEW": "Aperçu"
             },
             "LABEL": {
                 "VERSION_NUMBER": "Numéro de version",

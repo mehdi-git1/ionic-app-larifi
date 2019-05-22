@@ -1,3 +1,4 @@
+import { AppVersionAlertService } from './../../../../core/services/app-version/app-version-alert.service';
 import { DateTransform } from './../../../../shared/utils/date-transform';
 import { AppVersionModel } from './../../../../core/models/admin/app-version.model';
 import { AppVersionService } from './../../../../core/services/app-version/app-version.service';
@@ -32,7 +33,8 @@ export class AppVersionManagementPage {
         private dateTransformer: DateTransform,
         private translateService: TranslateService,
         private alertCtrl: AlertController,
-        private toastService: ToastService) {
+        private toastService: ToastService,
+        private appVersionAlertService: AppVersionAlertService) {
 
         // Traduction des mois
         this.monthsNames = this.translateService.instant('GLOBAL.MONTH.LONGNAME');
@@ -104,4 +106,13 @@ export class AppVersionManagementPage {
             this.toastService.success(this.translateService.instant('ADMIN.APP_VERSION_MANAGEMENT.SUCCESS.DELETE_UPDATE_VERSION'));
         }, error => { });
     }
+
+    /**
+    * Affiche un aperçu de la version
+    * @param appVersion la version dont on souhaite voir l'aperçu
+    */
+    displayOverview(appVersion: AppVersionModel) {
+        this.appVersionAlertService.displayAppVersion(appVersion);
+    }
+
 }

@@ -1,16 +1,10 @@
 app-version-alert {
-    $header-color: color($colors, grey10);
-    color: color($colors, grey10);
-
     .app-version-alert-wrapper {
         display: none;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
         background: rgba(0, 0, 0, 0.5);
         z-index: 1100;
-        outline: 0;
+        height: 100%;
+        width: 100%;
         overflow-x: hidden;
         overflow-y: auto;
 
@@ -24,8 +18,17 @@ app-version-alert {
             position: relative;
             width: auto;
             max-width: 50%;
-            margin: .5rem auto;
-            margin-top: 50px;
+
+            @media (max-width: 1100px) {
+                max-width: 80%;
+            }
+
+            @media (max-width: 800px) {
+                max-width: 90%;
+            }
+
+
+            margin: 10% auto;
             background: color($colors, grey92);
             border-radius: 10px;
 
@@ -34,7 +37,7 @@ app-version-alert {
                 display: flex;
                 align-items: center;
                 font-weight: bold;
-                background: $header-color;
+                background: color($colors, grey10);
                 border-radius: 10px 10px 0 0;
 
                 ion-icon {

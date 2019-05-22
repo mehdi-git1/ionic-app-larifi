@@ -46,6 +46,12 @@
     </ng-container>
     <!-- Paramètres accessibles dans les 2 modes (web et mobile) -->
     <ng-container>
+        <ion-item>
+            <label>{{ 'SETTINGS.APP_VERSION.LABEL' | translate }}</label>
+            <button ion-fab mini icon-only item-end (click)="goToAppVersionHistory()" [disabled]="!connected">
+                <ion-icon name="ios-archive"></ion-icon>
+            </button>
+        </ion-item>
         <ion-item *ngIf="isRealUserAdmin()">
             <label>{{ 'SETTINGS.IMPERSONATE_USER.LABEL' | translate }}</label>
             <button ion-fab mini icon-only item-end (click)="impersonateNewUser()" [disabled]="!connected">
@@ -56,12 +62,6 @@
             <label>{{ 'SETTINGS.ADMIN_ACCESS.BUTTON' | translate }}</label>
             <button ion-fab mini icon-only item-end class="parameter-button" (click)="goToAdminPage()" [disabled]="!connected">
                 <ion-icon name="md-build"></ion-icon>
-            </button>
-        </ion-item>
-        <ion-item>
-            <label>{{ 'SETTINGS.APP_VERSION.LABEL' | translate }}</label>
-            <button ion-fab mini icon-only item-end (click)="goToAppVersionHistory()" [disabled]="!connected">
-                <ion-icon name="ios-archive"></ion-icon>
             </button>
         </ion-item>
     </ng-container>
