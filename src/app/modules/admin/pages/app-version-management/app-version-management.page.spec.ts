@@ -1,3 +1,4 @@
+import { AppVersionAlertService } from './../../../../core/services/app-version/app-version-alert.service';
 import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-translate/core';
 import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { IonicModule, AlertController } from 'ionic-angular';
@@ -5,7 +6,6 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 import { DateTransform } from '../../../../shared/utils/date-transform';
 import { DatePipe } from '@angular/common';
-import { AppConstant } from '../../../../app.constant';
 
 import { TranslateLoaderMock } from './../../../../../test-config/mocks-ionic';
 import { AppVersionManagementPage } from './app-version-management.page';
@@ -13,11 +13,13 @@ import { AppVersionService } from '../../../../core/services/app-version/app-ver
 import { ToastService } from './../../../../core/services/toast/toast.service';
 import { AppVersionModel } from '../../../../core/models/admin/app-version.model';
 
-const AppVersionServiceMock = jasmine.createSpyObj('AppVersionServiceMock', ['createOrUpdateAppVersion', 'getAllAppVersions', 'delete']);
-AppVersionServiceMock.createOrUpdateAppVersion.and.returnValue(Promise.resolve());
-AppVersionServiceMock.getAllAppVersions.and.returnValue(Promise.resolve());
-AppVersionServiceMock.delete.and.returnValue(Promise.resolve());
-const ToastServiceMock = jasmine.createSpyObj('ToastServiceMock', ['success', 'error']);
+const appVersionServiceMock = jasmine.createSpyObj('AppVersionServiceMock', ['createOrUpdateAppVersion', 'getAllAppVersions', 'delete']);
+const appVersionAlertServiceMock = jasmine.createSpyObj('AppVersionAlertServiceMock', ['displayAppVersion']);
+
+appVersionServiceMock.createOrUpdateAppVersion.and.returnValue(Promise.resolve());
+appVersionServiceMock.getAllAppVersions.and.returnValue(Promise.resolve());
+appVersionServiceMock.delete.and.returnValue(Promise.resolve());
+const toastServiceMock = jasmine.createSpyObj('ToastServiceMock', ['success', 'error']);
 
 describe('app-version-management', () => {
 
@@ -38,9 +40,10 @@ describe('app-version-management', () => {
                 })
             ],
             providers: [
-                { provide: ToastService, useValue: ToastServiceMock },
+                { provide: ToastService, useValue: toastServiceMock },
                 { provide: TranslateService, useClass: TranslateLoaderMock },
-                { provide: AppVersionService, useValue: AppVersionServiceMock },
+                { provide: AppVersionService, useValue: appVersionServiceMock },
+                { provide: AppVersionAlertService, useValue: appVersionAlertServiceMock },
                 DateTransform,
                 DatePipe,
                 AlertController
