@@ -1,0 +1,13 @@
+<div class="app-version-alert-wrapper" [ngClass]="{'displayed': displayed}">
+    <div class="alert">
+        <div class="header">
+            <ion-icon class="header-icon" ios="md-alert" name="md-alert"></ion-icon>
+            <label>{{ 'GLOBAL.APP_VERSION.LABELS.TITLE' | translate }} {{ appVersion.number }}</label>
+            <label class="release-date">{{ appVersion.releaseDate | date:'dd MMM yyyy':'UTC' }} </label>
+            <button (click)="doNotDisplayMessageAnymore()">
+                <ion-icon name="close"></ion-icon>
+            </button>
+        </div>
+        <p class="content" [innerHTML]="appVersion.changelog"></p>
+    </div>
+</div>

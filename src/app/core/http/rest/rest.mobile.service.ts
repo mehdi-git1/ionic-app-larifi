@@ -19,7 +19,9 @@ export class RestMobileService extends RestService {
     }
 
     public call(request: RestRequest): Promise<any> {
-        request.httpHeaders = {};
+        request.httpHeaders = {
+            'APP_VERSION': this.config.appVersion
+        };
 
         // On ajoute un header spécial si la fonction d'impersonnification a été utilisée
         if (!request.byPassImpersonatedUser && this.sessionService.impersonatedUser && this.sessionService.impersonatedUser.matricule) {

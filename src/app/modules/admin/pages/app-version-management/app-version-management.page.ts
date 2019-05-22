@@ -1,9 +1,11 @@
+import { DateTransform } from './../../../../shared/utils/date-transform';
 import { AppVersionModel } from './../../../../core/models/admin/app-version.model';
 import { AppVersionService } from './../../../../core/services/app-version/app-version.service';
 import { ToastService } from '../../../../core/services/toast/toast.service';
 import { Component } from '@angular/core';
 import { AlertController } from 'ionic-angular';
 import { TranslateService } from '@ngx-translate/core';
+import { AppConstant } from '../../../../app.constant';
 
 @Component({
     selector: 'page-app-version-management',
@@ -14,16 +16,26 @@ export class AppVersionManagementPage {
     matPanelHeaderHeight = '41px';
     number: string;
     changelog: string;
+    releaseDate: string;
+
+    datepickerMaxDate = AppConstant.datepickerMaxDate;
+    monthsNames: any;
 
     versionNumberRegex = /([0-9]{1,2}[.]){2}[0-9]{1,2}/;
 
     allAppVersions: AppVersionModel[];
     appVersion: AppVersionModel;
 
+
+
     constructor(private appVersionService: AppVersionService,
+        private dateTransformer: DateTransform,
         private translateService: TranslateService,
         private alertCtrl: AlertController,
         private toastService: ToastService) {
+
+        // Traduction des mois
+        this.monthsNames = this.translateService.instant('GLOBAL.MONTH.LONGNAME');
     }
 
     ionViewDidEnter() {
@@ -45,8 +57,10 @@ export class AppVersionManagementPage {
             this.appVersion = new AppVersionModel();
             this.appVersion.number = this.number;
             this.appVersion.changelog = this.changelog;
+            this.appVersion.releaseDate = this.dateTransformer.transformDateStringToIso8601Format(this.releaseDate);
         } else {
             this.appVersion = appVersion;
+            this.appVersion.releaseDate = this.dateTransformer.transformDateStringToIso8601Format(this.appVersion.releaseDate);
         }
         if (!this.versionNumberRegex.test(this.appVersion.number)) {
             return this.toastService.error(this.translateService.instant('ADMIN.APP_VERSION_MANAGEMENT.ERROR.UNDEFINED_NUMBER'));

@@ -1,3 +1,5 @@
+import { AppVersionTransformerService } from './app-version/app-version-transformer.service';
+import { AppVersionAlertService } from './app-version/app-version-alert.service';
 import { ProfessionalInterviewTransformerService } from './professional-interview/professional-interview-transformer.service';
 import { ProfessionalInterviewStatusService } from './professional-interview/professional-interview-status.service';
 import { UserMessageAlertService } from './user-message/user-message-alert.service';
@@ -162,6 +164,8 @@ import { OnlineLogbookEventService } from './logbook/online-logbook-event.servic
         CongratulationLetterTransformerService,
         TranslateOrEmptyService,
         AppVersionService,
+        AppVersionAlertService,
+        AppVersionTransformerService,
         SynchronizationManagementService,
         ProfessionalInterviewStatusService,
         ProfessionalInterviewTransformerService,
