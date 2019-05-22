@@ -45,7 +45,6 @@ export class AppVersionManagementPage {
     initPage() {
         this.appVersionService.getAllAppVersions().then(allAppVersions => {
             this.allAppVersions = allAppVersions;
-            console.log(this.allAppVersions);
         }, error => { });
     }
 
@@ -54,7 +53,6 @@ export class AppVersionManagementPage {
      * @param appVersion La version créée ou mise à jour
      */
     createOrUpdateAppVersion(appVersion: AppVersionModel): void {
-        console.log(this.releaseDate);
         if (appVersion == null) {
             this.appVersion = new AppVersionModel();
             this.appVersion.number = this.number;
