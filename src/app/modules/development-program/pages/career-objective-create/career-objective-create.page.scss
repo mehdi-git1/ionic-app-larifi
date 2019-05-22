@@ -30,13 +30,19 @@ page-career-objective-create {
                 .ion-textarea-read-only {
                     background-color: color($colors, grey90);
                 }
+
+                .details {
+                    margin-top: 10px;
+                }
             }
 
             .waypoint-list {
                 flex: 1;
+
                 h3 {
                     text-align: center !important;
                 }
+
                 .add-waypoint {
                     background: color($colors, green50);
                     width: calc(100% - 20px);
