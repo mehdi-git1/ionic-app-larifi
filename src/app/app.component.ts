@@ -1,3 +1,4 @@
+import { InsupportedNavigatorMessagePage } from './modules/home/pages/insupported-navigator/insupported-navigator-message.page';
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { Nav, Platform, Events, App } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
@@ -122,28 +123,41 @@ export class EDossierPNC implements OnInit {
    * @param authentReturn retour de l'authentification
    */
   routingApp(authentReturn: AuthenticationStatusEnum) {
-    switch (authentReturn) {
-      case AuthenticationStatusEnum.AUTHENTICATION_OK:
-        this.events.publish('user:authenticationDone');
-        if (!this.deviceService.isBrowser() && !this.sessionService.impersonatedUser) {
-          this.securityModalService.displayPinPad(PinPadTypeEnum.openingApp);
-        }
-        this.nav.setRoot(PncHomePage, { matricule: this.sessionService.getActiveUser().matricule });
-        break;
-      case AuthenticationStatusEnum.AUTHENTICATION_KO:
-        this.nav.setRoot(AuthenticationPage);
-        break;
-      case AuthenticationStatusEnum.IMPERSONATE_MODE:
-        this.nav.setRoot(ImpersonatePage);
-        break;
-      case AuthenticationStatusEnum.INIT_KO:
-        this.nav.setRoot(GenericMessagePage, { message: this.translateService.instant('GLOBAL.MESSAGES.ERROR.APPLICATION_NOT_INITIALIZED') });
-        break;
-      case AuthenticationStatusEnum.APPLI_UNAVAILABLE:
-        this.nav.setRoot(GenericMessagePage, { message: this.translateService.instant('GLOBAL.MESSAGES.ERROR.SERVER_APPLICATION_UNAVAILABLE') });
-        break;
-      default:
-        this.nav.setRoot(GenericMessagePage, { message: this.translateService.instant('GLOBAL.MESSAGES.ERROR.APPLICATION_NOT_INITIALIZED') });
+    if (this.isIE()) {
+      this.nav.setRoot(InsupportedNavigatorMessagePage);
+    } else {
+      switch (authentReturn) {
+        case AuthenticationStatusEnum.AUTHENTICATION_OK:
+          this.events.publish('user:authenticationDone');
+          if (!this.deviceService.isBrowser() && !this.sessionService.impersonatedUser) {
+            this.securityModalService.displayPinPad(PinPadTypeEnum.openingApp);
+          }
+          this.nav.setRoot(PncHomePage, { matricule: this.sessionService.getActiveUser().matricule });
+          break;
+        case AuthenticationStatusEnum.AUTHENTICATION_KO:
+          this.nav.setRoot(AuthenticationPage);
+          break;
+        case AuthenticationStatusEnum.IMPERSONATE_MODE:
+          this.nav.setRoot(ImpersonatePage);
+          break;
+        case AuthenticationStatusEnum.INIT_KO:
+          this.nav.setRoot(GenericMessagePage, { message: this.translateService.instant('GLOBAL.MESSAGES.ERROR.APPLICATION_NOT_INITIALIZED') });
+          break;
+        case AuthenticationStatusEnum.APPLI_UNAVAILABLE:
+          this.nav.setRoot(GenericMessagePage, { message: this.translateService.instant('GLOBAL.MESSAGES.ERROR.SERVER_APPLICATION_UNAVAILABLE') });
+          break;
+        default:
+          this.nav.setRoot(GenericMessagePage, { message: this.translateService.instant('GLOBAL.MESSAGES.ERROR.APPLICATION_NOT_INITIALIZED') });
+      }
     }
+  }
+
+  isIE() {
+    const match = navigator.userAgent.search(/(?:Edge|MSIE|Trident\/.*; rv:)/);
+    let isIE = false;
+    if (match !== -1) {
+      isIE = true;
+    }
+    return isIE;
   }
 }

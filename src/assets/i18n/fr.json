@@ -80,6 +80,11 @@
         "CONFIRM_BACK_WITHOUT_SAVE": {
             "TITLE": "Modifications non enregistrées",
             "MESSAGE": "Attention, des modifications n'ont pas été enregistrées, êtes-vous sûr de vouloir revenir en arrière ?"
+        },
+        "APPLICATION_UNSUPPORTED": {
+            "TITLE": "eDossierPNC n'est pas compatible avec ce navigateur",
+            "MESSAGE": "Veuillez utiliser Firefox ou Google Chrome (à télécharger et à installer sur votre PC)",
+            "MENTION": "Pour tout besoin d'accompagnement, veuillez contactez le 1324"
         }
     },
     "AUTHENT": {
@@ -598,22 +603,22 @@
             "ADD_LOG": "Nouvel évènement"
         },
         "EDIT": {
-            "EVENT_CREATION" : "Création d'un nouvel évènement",
-            "EVENT_DATE" : "Date de l'évènement",
-            "PNC_ORIGIN" : "Origine PNC",
-            "IMPORTANT" : "Important",
-            "HIDE" : "Masquer",
-            "CATEGORY" : "Catégorie",
-            "EVENT_TITLE" : "Titre de l'évènement",
-            "EVENT_DESCRIPTION" : "Description de l'évènement",
-            "CONCERNED_PERSONS_LIST" : "Liste des personnes concernées",
-            "ADD_CONTACT" : "Ajouter un contact",
-            "LOGBOOK_SAVED" : "Evénement validé",
-            "CONFIRM_CANCEL_MESSAGE" : "Confirmez-vous l'annulation de la création de l'évènement ?",
-            "CONCERNED_PNCS" : "Liste des personnes concernées :",
-            "CONCERNED_PNC" : "PNC Concerné",
-            "SELECT_ALL" : "Tout sélectionner",
-            "SEARCH" : "Rechercher"
+            "EVENT_CREATION": "Création d'un nouvel évènement",
+            "EVENT_DATE": "Date de l'évènement",
+            "PNC_ORIGIN": "Origine PNC",
+            "IMPORTANT": "Important",
+            "HIDE": "Masquer",
+            "CATEGORY": "Catégorie",
+            "EVENT_TITLE": "Titre de l'évènement",
+            "EVENT_DESCRIPTION": "Description de l'évènement",
+            "CONCERNED_PERSONS_LIST": "Liste des personnes concernées",
+            "ADD_CONTACT": "Ajouter un contact",
+            "LOGBOOK_SAVED": "Evénement validé",
+            "CONFIRM_CANCEL_MESSAGE": "Confirmez-vous l'annulation de la création de l'évènement ?",
+            "CONCERNED_PNCS": "Liste des personnes concernées :",
+            "CONCERNED_PNC": "PNC Concerné",
+            "SELECT_ALL": "Tout sélectionner",
+            "SEARCH": "Rechercher"
         }
     },
     "SYNCHRONIZATION": {
