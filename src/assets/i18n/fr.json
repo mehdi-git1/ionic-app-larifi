@@ -59,7 +59,6 @@
         "MY_LOGBOOK": "Mon journal de bord",
         "PROFESSIONAL_INTERVIEWS_ARCHIVES": "Archives de bilans professionnels / EPP",
         "UNKNOWN_ERROR": "Suite à un dysfonctionnement technique, l'opération a échoué. Nous vous invitons à réessayer dans quelques minutes. Si le problème persiste, veuillez contacter votre support.",
-        "COMING_SOON": "(Prochainement)",
         "MESSAGES": {
             "ERROR": {
                 "MANDATORY_FIELD": "Le champ est obligatoire",
@@ -598,22 +597,22 @@
             "ADD_LOG": "Nouvel évènement"
         },
         "EDIT": {
-            "EVENT_CREATION" : "Création d'un nouvel évènement",
-            "EVENT_DATE" : "Date de l'évènement",
-            "PNC_ORIGIN" : "Origine PNC",
-            "IMPORTANT" : "Important",
-            "HIDE" : "Masquer",
-            "CATEGORY" : "Catégorie",
-            "EVENT_TITLE" : "Titre de l'évènement",
-            "EVENT_DESCRIPTION" : "Description de l'évènement",
-            "CONCERNED_PERSONS_LIST" : "Liste des personnes concernées",
-            "ADD_CONTACT" : "Ajouter un contact",
-            "LOGBOOK_SAVED" : "Evénement validé",
-            "CONFIRM_CANCEL_MESSAGE" : "Confirmez-vous l'annulation de la création de l'évènement ?",
-            "CONCERNED_PNCS" : "Liste des personnes concernées :",
-            "CONCERNED_PNC" : "PNC Concerné",
-            "SELECT_ALL" : "Tout sélectionner",
-            "SEARCH" : "Rechercher"
+            "EVENT_CREATION": "Création d'un nouvel évènement",
+            "EVENT_DATE": "Date de l'évènement",
+            "PNC_ORIGIN": "Origine PNC",
+            "IMPORTANT": "Important",
+            "HIDE": "Masquer",
+            "CATEGORY": "Catégorie",
+            "EVENT_TITLE": "Titre de l'évènement",
+            "EVENT_DESCRIPTION": "Description de l'évènement",
+            "CONCERNED_PERSONS_LIST": "Liste des personnes concernées",
+            "ADD_CONTACT": "Ajouter un contact",
+            "LOGBOOK_SAVED": "Evénement validé",
+            "CONFIRM_CANCEL_MESSAGE": "Confirmez-vous l'annulation de la création de l'évènement ?",
+            "CONCERNED_PNCS": "Liste des personnes concernées :",
+            "CONCERNED_PNC": "PNC Concerné",
+            "SELECT_ALL": "Tout sélectionner",
+            "SEARCH": "Rechercher"
         }
     },
     "SYNCHRONIZATION": {
