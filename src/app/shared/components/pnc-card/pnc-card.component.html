@@ -47,12 +47,12 @@
                     <!-- Dernière rencontre en vol -->
                     <div class="pnc-info" *ngIf="isCrewMember">
                         <label>{{ 'FLIGHT_CREW_LIST.LIST.LAST_IN_FLIGHT_ENCOUNTER_DATE' | translate }}</label>
-                        <span class="value">{{ 'GLOBAL.COMING_SOON' | translate }}</span>
+                        <span class="value" [ngClass]="{'no-value' : !crewMember.lastInFlightEncounterDate }">{{ crewMember.lastInFlightEncounterDate | date:'dd/MM/yyyy' }}</span>
                     </div>
                     <!-- Dernière rencontre en sol -->
                     <div class="pnc-info" *ngIf="isCrewMember">
                         <label>{{ 'FLIGHT_CREW_LIST.LIST.LAST_ON_GROUND_ENCOUNTER_DATE' | translate }}</label>
-                        <span class="value">{{ 'GLOBAL.COMING_SOON' | translate }}</span>
+                        <span class="value" [ngClass]="{'no-value' : !crewMember.lastOnGroundEncounterDate }">{{ crewMember.lastOnGroundEncounterDate | date:'dd/MM/yyyy' }}</span>
                     </div>
 
                 </div>
