@@ -12,6 +12,7 @@ export class CongratulationLetterModel extends EDossierPncObjectModel {
     flight: CongratulationLetterFlightModel;
     redactor: PncModel;
     concernedPncs: PncModel[];
+    redactorSpeciality: string;
 
     getStorageId(): string {
         return `${this.techId}`;

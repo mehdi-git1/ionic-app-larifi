@@ -1,3 +1,4 @@
+import { AuthorizationService } from './../../../../core/services/authorization/authorization.service';
 import { UserMessageAlertService } from './../../../../core/services/user-message/user-message-alert.service';
 import { FormsInputParamsModel } from './../../../../core/models/forms-input-params.model';
 import { Component } from '@angular/core';
@@ -25,7 +26,6 @@ import { StatutoryCertificatePage } from '../../../statutory-certificate/pages/s
 import { SpecialityEnum } from '../../../../core/enums/speciality.enum';
 import { SpecialityService } from '../../../../core/services/speciality/speciality.service';
 import { CongratulationLettersPage } from '../../../congratulation-letter/pages/congratulation-letters/congratulation-letters.page';
-import { EobservationDetailsPage } from '../../../eobservation/pages/eobservation-details/eobservation-details.page';
 import { LogbookPage } from '../../../logbook/pages/logbook/logbook.page';
 
 @Component({
@@ -55,7 +55,8 @@ export class PncHomePage {
         private statusBar: StatusBar,
         private tabNavService: TabNavService,
         private specialityService: SpecialityService,
-        private userMessageAlertService: UserMessageAlertService
+        private userMessageAlertService: UserMessageAlertService,
+        private authorizationService: AuthorizationService
     ) {
         this.userMessageAlertService.handleUserMessage();
 
@@ -159,6 +160,9 @@ export class PncHomePage {
         }
     }
 
+    /**
+    * Dirige vers les lettres de félicitation
+    */
     goToCongratulationLetters() {
         if (this.isMyHome()) {
             this.navCtrl.parent.select(this.tabNavService.findTabIndex(TabNavEnum.CONGRATULATION_LETTERS_PAGE));
@@ -217,4 +221,14 @@ export class PncHomePage {
         return this.pnc && this.pnc.speciality === SpecialityEnum.CAD;
     }
 
+    /**
+     * Détermine si le journal de bord est disponible. Il est disponible si on a la permission requise et  :
+     *  - soit je suis Pnc et c'est mon eDossier
+     *  - soit je suis Cadre et ce n'est pas mon eDossier, mais celui d'un Pnc
+     */
+    canViewLogBook(): boolean {
+        const isMyHomeAndImPnc = this.isMyHome() && !this.isManager();
+        const isAPncHomeAndImManager = !this.isMyHome() && !this.isManager() && this.sessionService.getActiveUser().isManager;
+        return this.authorizationService.hasPermission('VIEW_LOGBOOK') && (isAPncHomeAndImManager || isMyHomeAndImPnc);
+    }
 }

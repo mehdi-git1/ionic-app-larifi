@@ -59,7 +59,6 @@
         "MY_LOGBOOK": "Mon journal de bord",
         "PROFESSIONAL_INTERVIEWS_ARCHIVES": "Archives de bilans professionnels / EPP",
         "UNKNOWN_ERROR": "Suite à un dysfonctionnement technique, l'opération a échoué. Nous vous invitons à réessayer dans quelques minutes. Si le problème persiste, veuillez contacter votre support.",
-        "COMING_SOON": "(Prochainement)",
         "MESSAGES": {
             "ERROR": {
                 "MANDATORY_FIELD": "Le champ est obligatoire",
@@ -125,17 +124,18 @@
             "DELETE_DRAFT": "Supprimer le brouillon",
             "VALIDATE": "Clôturer",
             "ABANDON": "Abandonner",
-            "CANCEL_VALIDATION": "Annuler la validation",
+            "CANCEL_VALIDATION": "Annuler la clôture",
             "RESUME": "Reprendre la priorité",
             "CREATE_INSTRUCTOR_REQUEST": "Notifier mon instructeur"
         },
         "SUCCESS": {
-            "CAREER_OBJECTIVE_SAVED": "Priorité enregistrée",
-            "DRAFT_SAVED": "Proposition de la priorité sauvegardée",
-            "DRAFT_DELETED": "Proposition de la priorité supprimée",
-            "CAREER_OBJECTIVE_VALIDATED": "Priorité validée",
+            "CAREER_OBJECTIVE_SAVED": "Priorité envoyée",
+            "CAREER_OBJECTIVE_UPDATED": "Priorité mise à jour",
+            "DRAFT_SAVED": "Brouillon enregistré",
+            "DRAFT_DELETED": "Brouillon supprimé",
+            "CAREER_OBJECTIVE_VALIDATED": "Priorité clôturée",
             "CAREER_OBJECTIVE_ABANDONED": "Priorité abandonnée",
-            "CAREER_OBJECTIVE_VALIDATION_CANCELED": "Validation de la priorité annulée",
+            "CAREER_OBJECTIVE_VALIDATION_CANCELED": "La clôture de la priorité a été annulée",
             "CAREER_OBJECTIVE_RESUMED": "Priorité reprise",
             "CAREER_OBJECTIVE_INSTRUCTOR_REQUESTED": "Demande envoyée"
         },
@@ -598,7 +598,7 @@
             "ADD_LOG": "Nouvel évènement"
         },
         "EDIT": {
-            "CREATE_TITLE": "Créer un nouvel évènement",
+            "EVENT_CREATION": "Création d'un nouvel évènement",
             "EVENT_DATE": "Date de l'évènement",
             "PNC_ORIGIN": "Origine PNC",
             "IMPORTANT": "Important",
@@ -609,7 +609,7 @@
             "CONCERNED_PERSONS_LIST": "Liste des personnes concernées",
             "ADD_CONTACT": "Ajouter un contact",
             "LOGBOOK_SAVED": "Evénement validé",
-            "CONFIRM_CANCEL_MESSAGE": "Confirmez-vous l'annulation de la création de l'événement ?",
+            "CONFIRM_CANCEL_MESSAGE": "Confirmez-vous l'annulation de la création de l'évènement ?",
             "CONCERNED_PNCS": "Liste des personnes concernées :",
             "CONCERNED_PNC": "PNC Concerné",
             "SELECT_ALL": "Tout sélectionner",
