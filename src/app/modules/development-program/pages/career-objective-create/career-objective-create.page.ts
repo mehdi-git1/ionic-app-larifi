@@ -39,6 +39,7 @@ export class CareerObjectiveCreatePage {
     waypointList: WaypointModel[];
     nextEncounterDateTimeOptions: any;
     encounterDateTimeOptions: any;
+    carrerObjectiveToKeep: any;
 
     loading: Loading;
 
@@ -257,7 +258,7 @@ export class CareerObjectiveCreatePage {
                         } else if (this.cancelAbandon) {
                             this.toastService.success(this.translateService.instant('CAREER_OBJECTIVE_CREATE.SUCCESS.CAREER_OBJECTIVE_RESUMED'));
                             this.cancelAbandon = false;
-                        } else if (!careerObjectiveToSave.techId) {
+                        } else if (!careerObjectiveToSave.techId || this.carrerObjectiveToKeep.careerObjectiveStatus === CareerObjectiveStatusEnum.DRAFT) {
                             this.toastService.success(this.translateService.instant('CAREER_OBJECTIVE_CREATE.SUCCESS.CAREER_OBJECTIVE_SAVED'));
                         } else {
                             this.toastService.success(this.translateService.instant('CAREER_OBJECTIVE_CREATE.SUCCESS.CAREER_OBJECTIVE_UPDATED'));
@@ -312,6 +313,7 @@ export class CareerObjectiveCreatePage {
     saveCareerObjectiveToRegisteredStatus() {
         if (this.careerObjective.encounterDate) {
             const careerObjectiveToSave = _.cloneDeep(this.careerObjective);
+            this.carrerObjectiveToKeep = _.cloneDeep(this.careerObjective);
             careerObjectiveToSave.careerObjectiveStatus = CareerObjectiveStatusEnum.REGISTERED;
             careerObjectiveToSave.registrationDate = this.dateTransformer.transformDateToIso8601Format(new Date());
             this.saveCareerObjective(careerObjectiveToSave);
