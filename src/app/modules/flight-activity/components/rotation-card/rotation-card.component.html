@@ -5,9 +5,6 @@
                 <span class="rotation-date suffix-tu">{{ rotation.departureDate | date : 'dd/MM/yyyy' : 'UTC' }}</span>
                 <span class="rotation-number">{{ rotation.number }}</span>
             </span>
-            <span class="rotation-spinner">
-                <ion-spinner [ngClass]="{'hidden':!rotation.loading}" color="white"></ion-spinner>
-            </span>
         </div>
     </ion-card-header>
     <ion-card-content [ngClass]="{'opened' : rotation.opened}">

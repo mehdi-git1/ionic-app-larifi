@@ -13,6 +13,9 @@ describe('OfflinePncService', () => {
     let pncArray: Array<PncModel>;
     let rotationsArray: Array<RotationModel>;
 
+    const M123456 = 'm123456';
+    const M223456 = 'm223456';
+
     beforeEach(() => {
         offlinePncService = new OfflinePncService(storageServiceMock, sessionServiceMock);
     });
@@ -64,67 +67,20 @@ describe('OfflinePncService', () => {
 
     });
 
-    describe('getUpcomingRotations', () => {
+    describe('getAllRotationsByMatricule', () => {
 
         beforeEach(() => {
             rotationsArray = [new RotationModel(), new RotationModel(), new RotationModel()];
         });
 
-        it('doit ramener 2 rotations (les 2 avec une date supérieure à aujourdhui', fakeAsync(() => {
-            rotationsArray[0].departureDate = new Date('01/01/2058').toISOString();
-            rotationsArray[1].departureDate = new Date('01/01/2068').toISOString();
-            rotationsArray[2].departureDate = new Date('01/01/2008').toISOString();
+        it(`On devrait avoir 3 rotations en cache`, fakeAsync(() => {
             storageServiceMock.findAll.and.returnValue(rotationsArray);
-            offlinePncService.getUpcomingRotations('').then(
+
+            offlinePncService.getAllRotationsByMatricule(null).then(
                 upcomingRotations => {
-                    expect(upcomingRotations.length).toBe(2);
-                    expect(upcomingRotations[0].departureDate).toBe(new Date('01/01/2058').toISOString());
-                    expect(upcomingRotations[1].departureDate).toBe(new Date('01/01/2068').toISOString());
-                }
-            );
-        }));
-
-        it(`doit ramener un tableau vide si il n'y a pas de rotations supérieures à la date du jour`, fakeAsync(() => {
-            rotationsArray[0].departureDate = new Date('01/01/2005').toISOString();
-            rotationsArray[1].departureDate = new Date('01/01/2006').toISOString();
-            rotationsArray[2].departureDate = new Date('01/01/2008').toISOString();
-            storageServiceMock.findAll.and.returnValue(rotationsArray);
-            offlinePncService.getUpcomingRotations('').then(
-                upcomingRotations => {
-                    expect(upcomingRotations.length).toBe(0);
-                }
-            );
-        }));
-
-    });
-
-
-    describe('getLastPerformedRotations', () => {
-        it(`doit ramener 2 rotations (les 2 avec une date inférieurs à aujourd'hui les plus proches trié par ordre croissant)`, fakeAsync(() => {
-            rotationsArray[0].departureDate = new Date('01/01/2018').toISOString();
-            rotationsArray[1].departureDate = new Date('01/01/2008').toISOString();
-            rotationsArray[2].departureDate = new Date('01/01/2014').toISOString();
-            storageServiceMock.findAll.and.returnValue(rotationsArray);
-            offlinePncService.getLastPerformedRotations('').then(
-                upcomingRotations => {
-                    expect(upcomingRotations.length).toBe(2);
-                    expect(upcomingRotations[1].departureDate).toBe(new Date('01/01/2018').toISOString());
-                    expect(upcomingRotations[0].departureDate).toBe(new Date('01/01/2014').toISOString());
-                }
-            );
-        }));
-
-        it(`doit ramener un tableau vide si il n'y a pas de rotations inférieures à la date du jour`, fakeAsync(() => {
-            rotationsArray[0].departureDate = new Date('01/01/2055').toISOString();
-            rotationsArray[1].departureDate = new Date('01/01/2056').toISOString();
-            rotationsArray[2].departureDate = new Date('01/01/2058').toISOString();
-            storageServiceMock.findAll.and.returnValue(rotationsArray);
-            offlinePncService.getLastPerformedRotations('').then(
-                upcomingRotations => {
-                    expect(upcomingRotations.length).toBe(0);
+                    expect(upcomingRotations.length).toBe(3);
                 }
             );
         }));
     });
-
 });
