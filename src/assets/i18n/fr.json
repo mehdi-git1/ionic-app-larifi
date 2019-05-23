@@ -5,7 +5,7 @@
             "FRONT": "Version",
             "BACK": "Version serveur",
             "LABELS": {
-                "TITLE": "Note de la mise à jour"
+                "TITLE": "Nouveautés de la version"
             }
         },
         "NO_DATA": "Pas de données disponibles",
@@ -724,9 +724,9 @@
         "TITLE": "Liste des versions de l'application",
         "LABELS": {
             "NUMBER": "Version",
-            "RELEASE_DATE": "Mise à jour du",
+            "RELEASE_DATE": "du",
             "APP_VERSION_LIST": "Historique",
-            "VERSION_NOTE": "Note de la version"
+            "VERSION_NOTE": "Nouveautés de la version"
         },
         "NO_APP_VERSION_SELECTED": "Aucune version sélectionnée"
     },
