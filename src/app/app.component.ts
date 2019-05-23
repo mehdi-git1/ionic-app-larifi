@@ -154,6 +154,8 @@ export class EDossierPNC implements OnInit {
 
   /**
    * Verifie le type du navigateur utilisé
+   *
+   * @return vrai si l'application est lancé avec Internet explorer ou edge, faux sinon.
    */
   isInternetExplorer() {
     return navigator.userAgent.search(/(?:Edge|MSIE|Trident\/.*; rv:)/) !== -1;
