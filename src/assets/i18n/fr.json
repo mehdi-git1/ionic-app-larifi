@@ -83,7 +83,7 @@
         },
         "APPLICATION_UNSUPPORTED": {
             "TITLE": "eDossierPNC n'est pas compatible avec ce navigateur",
-            "MESSAGE": "Veuillez utiliser Firefox ou Google Chrome (à télécharger et à installer sur votre PC)",
+            "MESSAGE": "Veuillez utiliser les navigateurs Firefox ou Google Chrome (à télécharger et à installer sur votre PC)",
             "MENTION": "Pour tout besoin d'accompagnement, veuillez contactez le 1324"
         }
     },

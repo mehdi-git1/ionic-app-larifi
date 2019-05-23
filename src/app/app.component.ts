@@ -1,4 +1,4 @@
-import { InsupportedNavigatorMessagePage } from './modules/home/pages/insupported-navigator/insupported-navigator-message.page';
+import { UnsupportedNavigatorMessagePage } from './modules/home/pages/unsupported-navigator/unsupported-navigator-message.page';
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { Nav, Platform, Events, App } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
@@ -123,8 +123,8 @@ export class EDossierPNC implements OnInit {
    * @param authentReturn retour de l'authentification
    */
   routingApp(authentReturn: AuthenticationStatusEnum) {
-    if (this.isIE()) {
-      this.nav.setRoot(InsupportedNavigatorMessagePage);
+    if (this.isInternetExplorer()) {
+      this.nav.setRoot(UnsupportedNavigatorMessagePage);
     } else {
       switch (authentReturn) {
         case AuthenticationStatusEnum.AUTHENTICATION_OK:
@@ -152,12 +152,10 @@ export class EDossierPNC implements OnInit {
     }
   }
 
-  isIE() {
-    const match = navigator.userAgent.search(/(?:Edge|MSIE|Trident\/.*; rv:)/);
-    let isIE = false;
-    if (match !== -1) {
-      isIE = true;
-    }
-    return isIE;
+  /**
+   * Verifie le type du navigateur utilisé
+   */
+  isInternetExplorer() {
+    return navigator.userAgent.search(/(?:Edge|MSIE|Trident\/.*; rv:)/) !== -1;
   }
 }
