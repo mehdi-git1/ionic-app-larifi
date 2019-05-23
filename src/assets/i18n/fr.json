@@ -367,7 +367,7 @@
                 "CANCEL": "Modifier Commentaire"
             },
             "ACKNOWLEDGEMENT": "J'accuse réception",
-            "LEGEND": "Tous les champs ainsi que la date de l'entretien doivent être renseigner pour valider le formulaire",
+            "LEGEND": "Tous les champs ainsi que la date de l'entretien doivent être renseignés pour valider le formulaire",
             "EDITED_BY": "Bilan professionnel modifié par {{lastName}} {{firstName}} le {{date}}"
         }
     },
