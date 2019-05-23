@@ -241,15 +241,14 @@ export class CareerObjectiveCreatePage {
                 .createOrUpdate(careerObjectiveToSave)
                 .then(savedCareerObjective => {
                     this.originCareerObjective = _.cloneDeep(savedCareerObjective);
-                    this.careerObjective = savedCareerObjective;
                     // en mode connecté, mettre en cache l'objectif creé ou modifié si le pnc est en cache
-                    if (this.deviceService.isOfflineModeAvailable() && this.connectivityService.isConnected() && this.offlinePncService.pncExists(this.careerObjective.pnc.matricule)) {
-                        this.offlineCareerObjectiveService.createOrUpdate(this.careerObjective, true);
+                    if (this.deviceService.isOfflineModeAvailable() && this.connectivityService.isConnected() && this.offlinePncService.pncExists(savedCareerObjective.pnc.matricule)) {
+                        this.offlineCareerObjectiveService.createOrUpdate(savedCareerObjective, true);
                     }
 
-                    if (this.careerObjective.careerObjectiveStatus === CareerObjectiveStatusEnum.DRAFT) {
+                    if (savedCareerObjective.careerObjectiveStatus === CareerObjectiveStatusEnum.DRAFT) {
                         this.toastService.success(this.translateService.instant('CAREER_OBJECTIVE_CREATE.SUCCESS.DRAFT_SAVED'));
-                    } else if (this.careerObjective.careerObjectiveStatus === CareerObjectiveStatusEnum.REGISTERED) {
+                    } else if (savedCareerObjective.careerObjectiveStatus === CareerObjectiveStatusEnum.REGISTERED) {
                         if (this.cancelValidation) {
                             this.toastService.success
                                 (this.translateService.instant('CAREER_OBJECTIVE_CREATE.SUCCESS.CAREER_OBJECTIVE_VALIDATION_CANCELED'));
@@ -257,14 +256,17 @@ export class CareerObjectiveCreatePage {
                         } else if (this.cancelAbandon) {
                             this.toastService.success(this.translateService.instant('CAREER_OBJECTIVE_CREATE.SUCCESS.CAREER_OBJECTIVE_RESUMED'));
                             this.cancelAbandon = false;
-                        } else {
+                        } else if (!careerObjectiveToSave.techId || this.careerObjective.careerObjectiveStatus === CareerObjectiveStatusEnum.DRAFT) {
                             this.toastService.success(this.translateService.instant('CAREER_OBJECTIVE_CREATE.SUCCESS.CAREER_OBJECTIVE_SAVED'));
+                        } else {
+                            this.toastService.success(this.translateService.instant('CAREER_OBJECTIVE_CREATE.SUCCESS.CAREER_OBJECTIVE_UPDATED'));
                         }
-                    } else if (this.careerObjective.careerObjectiveStatus === CareerObjectiveStatusEnum.VALIDATED) {
+                    } else if (savedCareerObjective.careerObjectiveStatus === CareerObjectiveStatusEnum.VALIDATED) {
                         this.toastService.success(this.translateService.instant('CAREER_OBJECTIVE_CREATE.SUCCESS.CAREER_OBJECTIVE_VALIDATED'));
-                    } else if (this.careerObjective.careerObjectiveStatus === CareerObjectiveStatusEnum.ABANDONED) {
+                    } else if (savedCareerObjective.careerObjectiveStatus === CareerObjectiveStatusEnum.ABANDONED) {
                         this.toastService.success(this.translateService.instant('CAREER_OBJECTIVE_CREATE.SUCCESS.CAREER_OBJECTIVE_ABANDONED'));
                     }
+                    this.careerObjective = savedCareerObjective;
                     this.loading.dismiss();
                     resolve();
                 }, error => {

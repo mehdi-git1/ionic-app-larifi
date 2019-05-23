@@ -340,7 +340,8 @@ export class ProfessionalInterviewDetailsPage {
    * Prend en compte un bilan professionnel
    */
   takeIntoAccountProfessionalInterview() {
-    if (!this.isAdminModeAvailable && this.isPncCommentEditable && this.professionalInterview.pncComment) {
+    const isAdminButNotEditionAdminMode = this.isAdminModeAvailable() && !this.editionMode;
+    if ((!this.isAdminModeAvailable() ||  isAdminButNotEditionAdminMode) && this.isPncCommentEditable && this.professionalInterview.pncComment) {
       this.confirmSaveWithPncComment();
     } else {
       this.saveProfessionalInterviewToTakenIntoAccountState();

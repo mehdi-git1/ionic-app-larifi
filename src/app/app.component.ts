@@ -1,3 +1,4 @@
+import { UnsupportedNavigatorMessagePage } from './modules/home/pages/unsupported-navigator/unsupported-navigator-message.page';
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { Nav, Platform, Events, App } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
@@ -59,11 +60,15 @@ export class EDossierPNC implements OnInit {
 
     this.platform.ready().then(() => {
 
-      if (!this.deviceService.isBrowser()) {
-        /**
-        * On ajoute une écoute sur un paramétre pour savoir si la popin est activée ou pas pour afficher un blur
-        * et une interdiction de cliquer avant d'avoir mis le bon code pin
-        */
+      if (this.deviceService.isBrowser()) {
+        if (this.isInternetExplorer()) {
+          this.nav.setRoot(UnsupportedNavigatorMessagePage);
+          return;
+        }
+      } else {
+
+        /* On ajoute une écoute sur un paramétre pour savoir si la popin est activée ou pas pour afficher
+        un blur et une interdiction de cliquer avant d'avoir mis le bon code pin */
         this.securityModalService.modalDisplayed.subscribe(data => {
           this.pinPadModalActive = data;
         });
@@ -112,5 +117,14 @@ export class EDossierPNC implements OnInit {
         });
     });
 
+  }
+
+  /**
+   * Verifie le type du navigateur utilisé
+   *
+   * @return vrai si l'application est lancé avec Internet explorer ou edge, faux sinon.
+   */
+  isInternetExplorer() {
+    return navigator.userAgent.search(/(?:Edge|MSIE|Trident\/.*; rv:)/) !== -1;
   }
 }
