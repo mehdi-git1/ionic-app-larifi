@@ -107,8 +107,8 @@
             "REQUIRED_ON_ENCOUNTER_DAY": " (Saisie obligatoire le jour de la rencontre)"
         },
         "DETAILS": {
-            "CREATED_BY": "Créé par ",
-            "UPDATED_BY": "Modifié par ",
+            "CREATED_BY": "Créée par ",
+            "UPDATED_BY": "Modifiée par ",
             "DATE_LABEL": " le {{date}}"
         },
         "CONFIRM_INSTRUCTOR_REQUEST": {
