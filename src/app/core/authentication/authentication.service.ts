@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Events } from 'ionic-angular';
 import { TranslateService } from '@ngx-translate/core';
 
 import { SecMobilService } from './../http/secMobil.service';
@@ -33,12 +32,13 @@ export class AuthenticationService {
 
     /**
      * Gére la création des données fonctionnelles et leurs gestions dans l'appli
+     * @return une promesse contenant le statut de l'authentification
      */
     initFunctionalApp(): Promise<AuthenticationStatusEnum> {
         // On vérifie si l'utilisateur est connecté à l'application
         return this.isAuthenticated().then(
-            data => {
-                if (data) {
+            isAuthenticated => {
+                if (isAuthenticated) {
                     return this.storageService.initOfflineMap().then(success => {
                         return this.manageUserInformationsInApp();
                     });
@@ -50,8 +50,26 @@ export class AuthenticationService {
     }
 
     /**
+     * Vérifie si on est connecté (en mobile uniquement). En web, l'utilisateur n'a pas besoin d'authentification.
+     * @return vrai si l'utilisateur a passé l'authentification (s'il a un certificat secMobile ou s'il est en web), faux sinon
+     */
+    isAuthenticated(): Promise<boolean> {
+        if (!this.deviceService.isBrowser()) {
+            this.secMobilService.init();
+            return this.secMobilService.isAuthenticated().then(() => {
+                return true;
+            }, error => {
+                return false;
+            });
+        } else {
+            return Promise.resolve(true);
+        }
+    }
+
+    /**
      * Permet de gérer le stockage des informations user au chargement de l'app
      * ou lors de l'authentification
+     * @return une promesse contenant le statut de l'authentification
      */
     manageUserInformationsInApp(): Promise<AuthenticationStatusEnum> {
         // On met les données utilisateur en session
@@ -59,14 +77,13 @@ export class AuthenticationService {
             if (isPutOk) {
                 return this.initializeUser();
             }
-        },
-            error => {
-                if (error) {
-                    return this.initializeUser();
-                } else {
-                    return AuthenticationStatusEnum.INIT_KO;
-                }
+        }, error => {
+            if (error) {
+                return this.initializeUser();
+            } else {
+                return AuthenticationStatusEnum.INIT_KO;
             }
+        }
         );
     }
 
@@ -97,8 +114,9 @@ export class AuthenticationService {
     /**
      * Permet de voir si l'utilisateur doit être en mode impersonifié
      * @param authenticatedUser Utilisateur à tester
+     * @return vrai si l'utilisateur doit s'impersonnifier, faux sinon
      */
-    userHaveToImpersonate(authenticatedUser) {
+    userHaveToImpersonate(authenticatedUser): boolean {
         return this.securityService.isAdmin(authenticatedUser) && !authenticatedUser.isPnc && !this.sessionService.impersonatedUser;
     }
 
@@ -175,20 +193,6 @@ export class AuthenticationService {
             });
     }
 
-    /**
-     * Vérifie si on est connecté (en fonction du type de device)
-     */
-    isAuthenticated(): Promise<boolean> {
-        if (!this.deviceService.isBrowser()) {
-            this.secMobilService.init();
-            return this.secMobilService.isAuthenticated().then(() => {
-                return true;
-            }, error => {
-                return false;
-            });
-        } else {
-            return Promise.resolve(true);
-        }
-    }
+
 
 }

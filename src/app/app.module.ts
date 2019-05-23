@@ -34,6 +34,7 @@ import { AuthenticationModule } from './core/authentication/authentication.modul
 import { FileModule } from './core/file/file.module';
 import { SynchronizationModule } from './modules/synchronization/synchronization.module';
 import { ProfessionalInterviewModule } from './modules/professional-interview/professional-interview.module';
+import { RoutingModule } from './core/routing/routing.module';
 
 
 @NgModule({
@@ -48,6 +49,7 @@ import { ProfessionalInterviewModule } from './modules/professional-interview/pr
     }),
     HttpClientModule,
     AuthenticationModule,
+    RoutingModule,
     DevelopmentProgramModule,
     HomeModule,
     FlightActivityModule,
