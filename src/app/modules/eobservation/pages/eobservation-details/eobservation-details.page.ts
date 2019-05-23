@@ -1,6 +1,6 @@
 import { EObservationTypeEnum } from './../../../../core/enums/e-observations-type.enum';
 import { DatePipe } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, ElementRef } from '@angular/core';
 import { NavController, NavParams, AlertController, LoadingController, Loading } from 'ionic-angular';
 import { EObservationModel } from '../../../../core/models/eobservation/eobservation.model';
 import { PncModel } from '../../../../core/models/pnc.model';
@@ -15,6 +15,11 @@ import * as _ from 'lodash';
 import { Utils } from '../../../../shared/utils/utils';
 import { PncService } from '../../../../core/services/pnc/pnc.service';
 import { ReferentialItemLevelModel } from '../../../../core/models/eobservation/eobservation-referential-item-level.model';
+
+
+declare var window: any;
+declare var screen: any;
+declare var cordova: any;
 
 @Component({
   selector: 'page-eobservation-details',
@@ -41,8 +46,30 @@ export class EobservationDetailsPage {
     private alertCtrl: AlertController,
     private loadingCtrl: LoadingController,
     private pncService: PncService,
-    private datePipe: DatePipe) {
+    private datePipe: DatePipe,
+    private el: ElementRef) {
     this.initPage();
+  }
+
+  print() {
+    if (window.Popupcordova && window.cordova.plugins) {
+        const orientation = screen.orientation.type;
+        this.toastService.info(orientation);
+        let options = {
+            name: 'myDoc',
+            landscape: true,
+            documentSize: 'A4',
+            type: 'share',
+            fileName: 'aa.pdf'
+        };
+        let payload = _.template('<head><link rel="stylesheet" style="<%=css_file%>"> '+this.el.nativeElement.innerHTML);
+        let cssFile = window.getComputedStyle(this.el.nativeElement);
+        cordova.plugins.pdf.fromData(payload({css_file: cssFile}), options)
+        .then(result => this.toastService.info('OK'))
+        .catch(err => this.toastService.error(err));
+    } else {
+        this.toastService.error('Erreur, impression impossible. Veuillez réessayer ultérieurement');           
+    }
   }
 
   ionViewCanLeave() {

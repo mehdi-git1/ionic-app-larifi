@@ -30,6 +30,8 @@
         "@ionic-native/core": "4.6.0",
         "@ionic-native/file": "4.15.0",
         "@ionic-native/in-app-browser": "4.15.0",
+        "@ionic-native/printer": "^4.20.0",
+        "@ionic-native/screen-orientation": "^4.20.0",
         "@ionic-native/splash-screen": "4.6.0",
         "@ionic-native/sqlite": "4.12.1",
         "@ionic-native/status-bar": "4.6.0",
@@ -38,15 +40,19 @@
         "@ngx-translate/http-loader": "2.0.1",
         "angular2-notifications": "1.0.2",
         "cordova-ios": "5.0.0",
+        "cordova-pdf-generator": "^2.0.8",
         "cordova-plugin-app-version": "0.1.9",
         "cordova-plugin-cocoapod-support": "1.6.0",
         "cordova-plugin-compat": "1.2.0",
         "cordova-plugin-device": "2.0.2",
+        "cordova-plugin-file": "~6.0.1",
         "cordova-plugin-formslib": "1.0.11",
         "cordova-plugin-inappbrowser": "3.0.0",
         "cordova-plugin-ionic-keyboard": "2.1.2",
         "cordova-plugin-ionic-webview": "2.1.0",
+        "cordova-plugin-printer": "^0.8.0",
         "cordova-plugin-privacyscreen": "0.3.1",
+        "cordova-plugin-screen-orientation": "^3.0.1",
         "cordova-plugin-secmobil": "2.0.77",
         "cordova-plugin-splashscreen": "5.0.2",
         "cordova-plugin-statusbar": "2.4.2",
@@ -62,8 +68,7 @@
         "prod": "1.0.1",
         "rxjs": "5.5.8",
         "sw-toolbox": "3.6.0",
-        "zone.js": "0.8.20",
-        "cordova-plugin-file": "~6.0.1"
+        "zone.js": "0.8.20"
     },
     "devDependencies": {
         "@angular-devkit/core": "0.7.4",
@@ -108,7 +113,10 @@
             "cordova-plugin-inappbrowser": {},
             "cordova-plugin-formslib": {},
             "cordova-plugin-file": {},
-            "cordova-plugin-app-version": {}
+            "cordova-plugin-app-version": {},
+            "cordova-pdf-generator": {},
+            "cordova-plugin-printer": {},
+            "cordova-plugin-screen-orientation": {}
         },
         "platforms": [
             "ios"
