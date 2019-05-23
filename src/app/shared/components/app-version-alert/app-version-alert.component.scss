@@ -1,0 +1,75 @@
+app-version-alert {
+    $header-color: color($colors, grey10);
+    color: color($colors, grey10);
+
+    .app-version-alert-wrapper {
+        display: none;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 1100;
+        outline: 0;
+        overflow-x: hidden;
+        overflow-y: auto;
+
+        &.displayed {
+            display: block;
+            position: fixed;
+            opacity: 1;
+        }
+
+        .alert {
+            position: relative;
+            width: auto;
+            max-width: 50%;
+            margin: .5rem auto;
+            margin-top: 50px;
+            background: color($colors, grey92);
+            border-radius: 10px;
+
+            .header {
+                padding: 10px;
+                display: flex;
+                align-items: center;
+                font-weight: bold;
+                background: $header-color;
+                border-radius: 10px 10px 0 0;
+
+                ion-icon {
+                    color: color($colors, white);
+                    font-size: 2.5em;
+
+                    &.header-icon {
+                        margin-top: -5px;
+                        margin-right: 10px;
+                    }
+                }
+
+                label {
+                    flex: 1;
+                    color: color($colors, white);
+                    font-size: 1.6em;
+
+                    &.release-date {
+                        text-align: end;
+                        margin-right: 10px;
+                    }
+                }
+
+                button {
+                    background: transparent;
+                }
+            }
+
+            .content {
+                margin: 0;
+                padding: 20px;
+                font-size: 1.1em;
+                white-space: pre-line;
+                color: color($colors, grey20);
+            }
+        }
+    }
+}
