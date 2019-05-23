@@ -83,15 +83,13 @@ page-app-version-management {
         padding: 0;
     }
 
-
-
     ion-textarea {
-        min-height: 100px !important;
+        min-height: 200px !important;
         padding: 0 !important;
         margin: 0 !important;
 
         textarea {
-            min-height: 80px !important;
+            min-height: 180px !important;
             padding: 5px !important;
         }
     }
@@ -110,7 +108,8 @@ page-app-version-management {
     }
 
     .modify-button,
-    .delete-button {
+    .delete-button,
+    .overview-button {
         margin-top: 20px;
     }
 

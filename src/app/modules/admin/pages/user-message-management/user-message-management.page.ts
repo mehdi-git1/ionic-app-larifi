@@ -1,6 +1,6 @@
 import { UserMessageAlertService } from './../../../../core/services/user-message/user-message-alert.service';
 import { ToastService } from '../../../../core/services/toast/toast.service';
-import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { UserMessageModel } from '../../../../core/models/admin/user-message.model';
