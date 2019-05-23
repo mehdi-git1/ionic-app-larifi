@@ -45,9 +45,13 @@ export class CareerObjectiveService extends BaseService {
       careerObjective.creationDate = this.dateTransformer.transformDateToIso8601Format(new Date());
       careerObjective.creationAuthor = new PncModel();
       careerObjective.creationAuthor.matricule = this.sessionService.getActiveUser().matricule;
+      careerObjective.creationAuthor.lastName = this.sessionService.getActiveUser().lastName;
+      careerObjective.creationAuthor.firstName = this.sessionService.getActiveUser().firstName;
     }
     careerObjective.lastUpdateAuthor = new PncModel();
     careerObjective.lastUpdateAuthor.matricule = this.sessionService.getActiveUser().matricule;
+    careerObjective.lastUpdateAuthor.lastName = this.sessionService.getActiveUser().lastName;
+    careerObjective.lastUpdateAuthor.firstName = this.sessionService.getActiveUser().firstName;
     careerObjective.lastUpdateDate = this.dateTransformer.transformDateToIso8601Format(new Date());
 
     return this.execFunctionService('createOrUpdate', careerObjective);

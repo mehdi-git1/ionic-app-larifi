@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Utils } from '../../../../shared/utils/utils';
 import { DateTransform } from '../../../../shared/utils/date-transform';
 import { SynchronizationService } from '../../../../core/services/synchronization/synchronization.service';
@@ -76,7 +77,8 @@ export class CareerObjectiveCreatePage {
         private deviceService: DeviceService,
         private synchronizationService: SynchronizationService,
         private sessionService: SessionService,
-        private pncService: PncService) {
+        private pncService: PncService,
+        private datePipe: DatePipe) {
 
         // Options du datepicker
         this.nextEncounterDateTimeOptions = {
@@ -558,5 +560,23 @@ export class CareerObjectiveCreatePage {
         const canBeSavedAsDraft: boolean = this.careerObjectiveStatusService.isTransitionOk(this.careerObjective.careerObjectiveStatus, CareerObjectiveStatusEnum.DRAFT);
         const isInitiatorOrCadre: boolean = this.securityService.isManager() || (!this.careerObjective.creationAuthor || (this.careerObjective.creationAuthor.matricule === this.sessionService.authenticatedUser.matricule));
         return canBeSavedAsDraft && isInitiatorOrCadre && (!this.careerObjective.careerObjectiveStatus || this.careerObjective.careerObjectiveStatus === CareerObjectiveStatusEnum.DRAFT);
+    }
+
+
+    /**
+     * Retourne la date de création, formatée pour l'affichage
+     * @return la date de création 
+     */
+    getCreationDate(): string {
+        return this.datePipe.transform(this.careerObjective.creationDate, 'dd/MM/yyyy HH:mm');
+    }
+
+
+    /**
+     * Retourne la date de dernière modification, formatée pour l'affichage
+     * @return la date de dernière modification
+     */
+    getLastUpdateDate(): string {
+        return this.datePipe.transform(this.careerObjective.lastUpdateDate, 'dd/MM/yyyy HH:mm');
     }
 }

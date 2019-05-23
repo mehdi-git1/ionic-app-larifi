@@ -110,6 +110,11 @@
             "CREATION_DATE": "Créée le",
             "REQUIRED_ON_ENCOUNTER_DAY": " (Saisie obligatoire le jour de la rencontre)"
         },
+        "DETAILS": {
+            "CREATED_BY": "Créée par ",
+            "UPDATED_BY": "Modifiée par ",
+            "DATE_LABEL": " le {{date}}"
+        },
         "CONFIRM_INSTRUCTOR_REQUEST": {
             "TITLE": "Sollicitation instructeur",
             "MESSAGE": "Confirmez-vous la demande de sollicitation instructeur ?",
