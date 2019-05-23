@@ -1,6 +1,6 @@
 import { EObservationTypeEnum } from './../../../../core/enums/e-observations-type.enum';
 import { DatePipe } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { NavController, NavParams, AlertController, LoadingController, Loading } from 'ionic-angular';
 import { EObservationModel } from '../../../../core/models/eobservation/eobservation.model';
 import { PncModel } from '../../../../core/models/pnc.model';
@@ -29,7 +29,7 @@ export class EobservationDetailsPage {
   originEObservation: EObservationModel;
 
   editMode = false;
-
+  pdfFileName: string;
   loading: Loading;
 
   constructor(public navCtrl: NavController,
@@ -64,6 +64,9 @@ export class EobservationDetailsPage {
         if (this.eObservation && this.eObservation.pnc && this.eObservation.pnc.matricule) {
           this.pncService.getPnc(this.eObservation.pnc.matricule).then(pnc => {
             this.pnc = pnc;
+            const nowString = this.datePipe.transform(Date.now(), 'yyyyMMddHHmmss');
+            const pncMatricule = this.pnc ? this.pnc.matricule : '';
+            this.pdfFileName = 'EOBS_' + pncMatricule + '_' + nowString + '.pdf';
           }, error => { });
         }
       }, error => { });

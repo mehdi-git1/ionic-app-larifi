@@ -1,3 +1,4 @@
+import { PdfButtonComponent } from './pdf-button/pdf-button.component';
 import { IonicModule } from 'ionic-angular';
 import { CommonModule } from '@angular/common';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
@@ -56,7 +57,8 @@ import { UserMessageAlertComponent } from './user-message-alert/user-message-ale
     ColorStatusPointComponent,
     RadioAndLabelComponent,
     CheckboxAndLabelComponent,
-    UserMessageAlertComponent
+    UserMessageAlertComponent,
+    PdfButtonComponent
   ],
   exports: [
     OfflineIndicatorComponent,
@@ -78,7 +80,8 @@ import { UserMessageAlertComponent } from './user-message-alert/user-message-ale
     ColorStatusPointComponent,
     RadioAndLabelComponent,
     CheckboxAndLabelComponent,
-    UserMessageAlertComponent
+    UserMessageAlertComponent,
+    PdfButtonComponent
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA
