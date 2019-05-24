@@ -1,3 +1,4 @@
+import { UnsupportedNavigatorMessagePage } from './modules/home/pages/unsupported-navigator/unsupported-navigator-message.page';
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { Nav, Platform, Events, App } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
@@ -122,28 +123,41 @@ export class EDossierPNC implements OnInit {
    * @param authentReturn retour de l'authentification
    */
   routingApp(authentReturn: AuthenticationStatusEnum) {
-    switch (authentReturn) {
-      case AuthenticationStatusEnum.AUTHENTICATION_OK:
-        this.events.publish('user:authenticationDone');
-        if (!this.deviceService.isBrowser() && !this.sessionService.impersonatedUser) {
-          this.securityModalService.displayPinPad(PinPadTypeEnum.openingApp);
-        }
-        this.nav.setRoot(PncHomePage, { matricule: this.sessionService.getActiveUser().matricule });
-        break;
-      case AuthenticationStatusEnum.AUTHENTICATION_KO:
-        this.nav.setRoot(AuthenticationPage);
-        break;
-      case AuthenticationStatusEnum.IMPERSONATE_MODE:
-        this.nav.setRoot(ImpersonatePage);
-        break;
-      case AuthenticationStatusEnum.INIT_KO:
-        this.nav.setRoot(GenericMessagePage, { message: this.translateService.instant('GLOBAL.MESSAGES.ERROR.APPLICATION_NOT_INITIALIZED') });
-        break;
-      case AuthenticationStatusEnum.APPLI_UNAVAILABLE:
-        this.nav.setRoot(GenericMessagePage, { message: this.translateService.instant('GLOBAL.MESSAGES.ERROR.SERVER_APPLICATION_UNAVAILABLE') });
-        break;
-      default:
-        this.nav.setRoot(GenericMessagePage, { message: this.translateService.instant('GLOBAL.MESSAGES.ERROR.APPLICATION_NOT_INITIALIZED') });
+    if (this.isInternetExplorer()) {
+      this.nav.setRoot(UnsupportedNavigatorMessagePage);
+    } else {
+      switch (authentReturn) {
+        case AuthenticationStatusEnum.AUTHENTICATION_OK:
+          this.events.publish('user:authenticationDone');
+          if (!this.deviceService.isBrowser() && !this.sessionService.impersonatedUser) {
+            this.securityModalService.displayPinPad(PinPadTypeEnum.openingApp);
+          }
+          this.nav.setRoot(PncHomePage, { matricule: this.sessionService.getActiveUser().matricule });
+          break;
+        case AuthenticationStatusEnum.AUTHENTICATION_KO:
+          this.nav.setRoot(AuthenticationPage);
+          break;
+        case AuthenticationStatusEnum.IMPERSONATE_MODE:
+          this.nav.setRoot(ImpersonatePage);
+          break;
+        case AuthenticationStatusEnum.INIT_KO:
+          this.nav.setRoot(GenericMessagePage, { message: this.translateService.instant('GLOBAL.MESSAGES.ERROR.APPLICATION_NOT_INITIALIZED') });
+          break;
+        case AuthenticationStatusEnum.APPLI_UNAVAILABLE:
+          this.nav.setRoot(GenericMessagePage, { message: this.translateService.instant('GLOBAL.MESSAGES.ERROR.SERVER_APPLICATION_UNAVAILABLE') });
+          break;
+        default:
+          this.nav.setRoot(GenericMessagePage, { message: this.translateService.instant('GLOBAL.MESSAGES.ERROR.APPLICATION_NOT_INITIALIZED') });
+      }
     }
+  }
+
+  /**
+   * Verifie le type du navigateur utilisé
+   *
+   * @return vrai si l'application est lancé avec Internet explorer ou edge, faux sinon.
+   */
+  isInternetExplorer() {
+    return navigator.userAgent.search(/(?:Edge|MSIE|Trident\/.*; rv:)/) !== -1;
   }
 }
