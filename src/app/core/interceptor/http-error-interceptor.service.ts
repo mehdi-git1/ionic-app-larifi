@@ -42,7 +42,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
               if (err.error && !isUndefined(err.error.detailMessage) && err.error.label === 'BUSINESS_ERROR') {
                 errorMessage = err.error.detailMessage;
               }
-              if (!request.headers.has('BYPASS_INTERCEPTOR')) {
+              if (request.headers && !request.headers.has('BYPASS_INTERCEPTOR')) {
                 this.toastProvider.error(errorMessage, 10000);
               }
             },
@@ -53,7 +53,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
           if (err.error && !isUndefined(err.error.detailMessage) && err.error.label === 'BUSINESS_ERROR') {
             errorMessage = err.error.detailMessage;
           }
-          if (!request.headers.has('BYPASS_INTERCEPTOR')) {
+          if (request.headers && !request.headers.has('BYPASS_INTERCEPTOR')) {
             this.toastProvider.error(errorMessage, 10000);
           }
         }
