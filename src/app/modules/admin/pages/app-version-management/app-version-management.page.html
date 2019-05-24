@@ -20,6 +20,13 @@
                         <ion-input type="text" name="number" [(ngModel)]="number" required>
                         </ion-input>
                     </ion-item>
+                    <ion-label>{{ 'ADMIN.APP_VERSION_MANAGEMENT.LABEL.RELEASE_DATE' | translate }}</ion-label>
+                    <ion-item>
+                        <ion-label>
+                            <ion-icon name="calendar"></ion-icon>
+                        </ion-label>
+                        <ion-datetime displayFormat="DD/MM/YYYY" pickerFormat="DD MMMM YYYY" name="releaseDate" [(ngModel)]="releaseDate" [doneText]="translateService.instant('GLOBAL.DATEPICKER.DONE')" [cancelText]="translateService.instant('GLOBAL.DATEPICKER.CANCEL')" [max]="datepickerMaxDate" [monthNames]="monthsNames"></ion-datetime>
+                    </ion-item>
                 </ion-col>
                 <ion-col col-7>
                     <ion-item>
@@ -41,26 +48,6 @@
         <ion-row nowrap>
             <!-- Header du tableau -->
             <mat-expansion-panel id="matExpansionPanelAppVersion" class="title" [expanded]="true">
-                <mat-expansion-panel-header [expandedHeight]="matPanelHeaderHeight" [collapsedHeight]="matPanelHeaderHeight" hideToggle="true">
-                    <ion-grid>
-                        <ion-row>
-                            <ion-col col-3>
-                                <label class="app-version-number">
-                                    {{ 'ADMIN.APP_VERSION_MANAGEMENT.HEADER.NUMBER' | translate }}
-                                </label>
-                            </ion-col>
-                            <ion-col col-7>
-                                <label class="app-version-changelog">
-                                    {{ 'ADMIN.APP_VERSION_MANAGEMENT.HEADER.CHANGELOG' | translate }} </label>
-                            </ion-col>
-                            <ion-col col-2>
-                                <div class="button-placeholder">
-                                    <!-- Occupe de l'espace pour s'aligner avec le bouton -->
-                                </div>
-                            </ion-col>
-                        </ion-row>
-                    </ion-grid>
-                </mat-expansion-panel-header>
                 <edossier-spinner *ngIf="allAppVersions == undefined; else appVersionsDataBlock "></edossier-spinner>
                 <!-- Liste des versions -->
                 <ng-template #appVersionsDataBlock>
@@ -68,11 +55,8 @@
                         <mat-expansion-panel-header class="app-version" [expandedHeight]="matPanelHeaderHeight" [collapsedHeight]="matPanelHeaderHeight" hideToggle="true">
                             <ion-grid>
                                 <ion-row>
-                                    <ion-col col-3>
+                                    <ion-col col-10>
                                         <label class="app-version-number">{{ appVersion.number}}</label>
-                                    </ion-col>
-                                    <ion-col col-7>
-                                        <label class="app-version-changelog">{{ appVersion.changelog }}</label>
                                     </ion-col>
                                     <ion-col col-2>
                                         <div class="expansion-button-placeholder">
@@ -93,6 +77,13 @@
                                             <ion-input type="text" name="modify-number" [(ngModel)]="appVersion.number" [value]="appVersion.number" required>
                                             </ion-input>
                                         </ion-item>
+                                        <ion-label>{{ 'ADMIN.APP_VERSION_MANAGEMENT.LABEL.RELEASE_DATE' | translate }}</ion-label>
+                                        <ion-item>
+                                            <ion-label>
+                                                <ion-icon name="calendar"></ion-icon>
+                                            </ion-label>
+                                            <ion-datetime displayFormat="DD/MM/YYYY" pickerFormat="DD MMMM YYYY" name="realeaseDate" [(ngModel)]="appVersion.releaseDate" [doneText]="translateService.instant('GLOBAL.DATEPICKER.DONE')" [cancelText]="translateService.instant('GLOBAL.DATEPICKER.CANCEL')" [max]="datepickerMaxDate" [monthNames]="monthsNames"></ion-datetime>
+                                        </ion-item>
                                     </ion-col>
                                     <ion-col col-7>
                                         <ion-item>
@@ -110,6 +101,10 @@
                                         <button ion-button color="red70" name="delete-button" class="delete-button" (click)="confirmDeleteAppVersion(appVersion)">
                                             <ion-icon name="ios-trash-outline" ios="ios-trash-outline" margin-right></ion-icon>
                                             {{ 'ADMIN.APP_VERSION_MANAGEMENT.BUTTON.DELETE_VERSION' | translate }}
+                                        </button>
+                                        <button ion-button color="orange55" class="overview-button" (click)="displayOverview(appVersion)">
+                                            <ion-icon name="md-bug" ios="md-bug" margin-right></ion-icon>
+                                            {{ 'ADMIN.APP_VERSION_MANAGEMENT.BUTTON.OVERVIEW' | translate }}
                                         </button>
                                     </ion-col>
                                 </ion-row>

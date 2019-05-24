@@ -1,7 +1,10 @@
 import { Injectable } from '@angular/core';
-import { RestService } from '../../http/rest/rest.base.service';
-import { AppVersionModel } from '../../models/admin/app-version.model';
+
 import { UrlConfiguration } from '../../configuration/url.configuration';
+
+import { AppVersionModel } from '../../models/admin/app-version.model';
+
+import { RestService } from '../../http/rest/rest.base.service';
 
 @Injectable()
 export class AppVersionService {

@@ -1,8 +1,5 @@
-import { EntityEnum } from './../../../core/enums/entity.enum';
 import { Component } from '@angular/core';
 import { UserMessageAlertService } from '../../../core/services/user-message/user-message-alert.service';
-import { UserMessageTransformerService } from '../../../core/services/user-message/user-message-transformer.service';
-import { StorageService } from '../../../core/storage/storage.service';
 import { UserMessageModel } from '../../../core/models/admin/user-message.model';
 
 @Component({
