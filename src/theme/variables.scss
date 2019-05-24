@@ -217,11 +217,6 @@ ion-select {
     }
 }
 
-.item-input-has-focus .input,
-.input:focus-within {
-    border: 2px solid gray !important;
-}
-
 $text-input-md-show-focus-highlight: false;
 
 
@@ -320,4 +315,8 @@ ion-badge {
 
 .margin-bottom-10 {
     margin-bottom: 10px;
+}
+
+.margin-right-10 {
+    margin-right: 10px;
 }

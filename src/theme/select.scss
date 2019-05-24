@@ -1,16 +1,9 @@
-ion-input.input {
+ion-select {
     border-radius: 4px;
     border: 1px solid color($colors, grey50);
+    padding: 0 5px;
 
     &:focus-within {
         border-color: color($colors, primary);
     }
-
-    &.ng-dirty.ng-invalid {
-        border-color: color($colors, red80);
-    }
-}
-
-.input-md {
-    background-color: white;
 }

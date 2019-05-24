@@ -1,4 +1,7 @@
-ion-input.input {
+ion-textarea.input {
+    padding: 0 !important;
+    margin: 0 !important;
+
     border-radius: 4px;
     border: 1px solid color($colors, grey50);
 
@@ -6,11 +9,8 @@ ion-input.input {
         border-color: color($colors, primary);
     }
 
-    &.ng-dirty.ng-invalid {
-        border-color: color($colors, red80);
+    textarea {
+        padding: 5px !important;
     }
-}
 
-.input-md {
-    background-color: white;
 }
