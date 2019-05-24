@@ -1,11 +1,6 @@
-import { ToastService } from './../../../core/services/toast/toast.service';
-import { Component, Input, ElementRef } from '@angular/core';
-import * as jsPDF from 'jspdf';
-import html2canvas from 'html2canvas';
+import { Component, Input} from '@angular/core';
 import { PdfGeneratorService } from '../../../core/services/pdf-generator/pdf-generator.service';
 
-declare var window: any;
-window.html2canvas = html2canvas;
 @Component({
   selector: 'pdf-button',
   templateUrl: 'pdf-button.component.html'
@@ -16,8 +11,7 @@ export class PdfButtonComponent {
 
   @Input() elementToPrint: HTMLElement;
 
-  constructor(private toastService: ToastService,
-              private pdfGeneratorService: PdfGeneratorService) {
+  constructor(private pdfGeneratorService: PdfGeneratorService) {
   }
 
   /**

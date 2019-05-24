@@ -1,11 +1,10 @@
 import { AuthorizationService } from './../../../../core/services/authorization/authorization.service';
 import { UserMessageAlertService } from './../../../../core/services/user-message/user-message-alert.service';
 import { FormsInputParamsModel } from './../../../../core/models/forms-input-params.model';
-import { Component, ElementRef } from '@angular/core';
+import { Component} from '@angular/core';
 import { NavController, NavParams, Events } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { TranslateService } from '@ngx-translate/core';
-// import {ScreenOrientation} from '@ionic-native/screen-orientation';
 
 import { TabNavEnum } from '../../../../core/enums/tab-nav.enum';
 import { TabNavService } from '../../../../core/services/tab-nav/tab-nav.service';
@@ -29,9 +28,6 @@ import { ProfessionalInterviewCommentItemTypeEnum } from '../../../../core/enums
 import { CongratulationLettersPage } from '../../../congratulation-letter/pages/congratulation-letters/congratulation-letters.page';
 import { LogbookPage } from '../../../logbook/pages/logbook/logbook.page';
 
-declare var window: any;
-declare var screen: any;
-declare var cordova: any;
 @Component({
     selector: 'page-pnc-home',
     templateUrl: 'pnc-home.page.html',
@@ -60,9 +56,7 @@ export class PncHomePage {
         private tabNavService: TabNavService,
         private specialityService: SpecialityService,
         private userMessageAlertService: UserMessageAlertService,
-        private authorizationService: AuthorizationService,
-        private el: ElementRef
-        //private screenOrientation: ScreenOrientation
+        private authorizationService: AuthorizationService
     ) {
         this.userMessageAlertService.handleUserMessage();
 
@@ -238,22 +232,4 @@ export class PncHomePage {
         return this.authorizationService.hasPermission('VIEW_LOGBOOK') && (isAPncHomeAndImManager || isMyHomeAndImPnc);
     }
 
-    print() {
-        if (window.cordova && window.cordova.plugins && window.cordova.plugins.printer) {
-            const orientation = screen.orientation.type;
-            this.toastService.info(orientation);
-            let options = {
-                name: 'myDoc',
-                landcape: true,
-                documentSize: 'A4',
-                type: 'share',
-                fileName: 'aa.pdf'
-            };
-            cordova.plugins.pdf.fromData(this.el.nativeElement.innerHTML, options)
-            .then(result => this.toastService.info('OK'))
-            .catch(err => this.toastService.error(err));
-        } else {
-            this.toastService.error('Erreur, impression impossible. Veuillez réessayer ultérieurement');           
-        }
-    }
 }

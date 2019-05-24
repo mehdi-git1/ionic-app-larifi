@@ -9,7 +9,6 @@
 <ion-content padding no-bounce>
     <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
     <ng-template #pageBlock>
-        <button ion-button (click)="print()"><ion-icon name="print" ></ion-icon></button>
         <ion-grid>
             <ion-row>
                 <pnc-card-page-header *ngIf="pnc" [itemMember]="pnc"></pnc-card-page-header>
