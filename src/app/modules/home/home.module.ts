@@ -1,3 +1,4 @@
+import { UnsupportedNavigatorMessagePage } from './pages/unsupported-navigator/unsupported-navigator-message.page';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 
@@ -12,7 +13,8 @@ import { AuthenticationPage } from './pages/authentication/authentication.page';
   declarations: [
     PncHomePage,
     GenericMessagePage,
-    AuthenticationPage
+    AuthenticationPage,
+    UnsupportedNavigatorMessagePage
   ],
   imports: [
     [IonicPageModule.forChild(PncHomePage)],
@@ -21,7 +23,8 @@ import { AuthenticationPage } from './pages/authentication/authentication.page';
   ],
   entryComponents: [
     GenericMessagePage,
-    AuthenticationPage
+    AuthenticationPage,
+    UnsupportedNavigatorMessagePage
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA

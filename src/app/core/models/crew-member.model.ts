@@ -5,8 +5,9 @@ import { EDossierPncObjectModel } from './e-dossier-pnc-object.model';
 export class CrewMemberModel extends EDossierPncObjectModel {
     pnc: PncModel;
     particularity: string;
-    lastEncounterDate: string;
     onBoardFonction: string;
+    lastOnGroundEncounterDate: Date;
+    lastInFlightEncounterDate: Date;
     leg: LegModel;
 
     getStorageId(): string {

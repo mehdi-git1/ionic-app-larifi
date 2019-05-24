@@ -1,26 +1,30 @@
-import { SecurityService } from './../../../../core/services/security/security.service';
+import { Component } from '@angular/core';
+import { AppVersion } from '@ionic-native/app-version';
+import { TranslateService } from '@ngx-translate/core';
+import { NavController, Events, AlertController } from 'ionic-angular';
 
-import { VersionService } from '../../../../core/services/version/version.service';
-import { SecMobilService } from './../../../../core/http/secMobil.service';
+import { Config } from '../../../../../environments/config';
+
+import { PinPadTypeEnum } from '../../../../core/enums/security/pin-pad-type.enum';
+import { SecretQuestionTypeEnum } from '../../../../core/enums/security/secret-question-type.enum';
+
+import { AuthenticatedUserModel } from '../../../../core/models/authenticated-user.model';
+
 import { AdminHomePage } from './../../../admin/pages/admin-home/admin-home.page';
 import { ImpersonatePage } from '../impersonate/impersonate.page';
+import { AppVersionHistoryPage } from '../app-version-history/app-version-history.page';
+
+import { SecurityService } from './../../../../core/services/security/security.service';
+import { VersionService } from '../../../../core/services/version/version.service';
+import { SecMobilService } from './../../../../core/http/secMobil.service';
 import { DeviceService } from '../../../../core/services/device/device.service';
 import { ModalSecurityService } from '../../../../core/services/modal/modal-security.service';
-import { TranslateService } from '@ngx-translate/core';
 import { ToastService } from '../../../../core/services/toast/toast.service';
 import { SessionService } from '../../../../core/services/session/session.service';
 import { SynchronizationService } from '../../../../core/services/synchronization/synchronization.service';
 import { StorageService } from '../../../../core/storage/storage.service';
 import { ConnectivityService } from '../../../../core/services/connectivity/connectivity.service';
-import { Component } from '@angular/core';
-import { NavController, Events, AlertController } from 'ionic-angular';
-import { AppVersion } from '@ionic-native/app-version';
-
-import { PinPadTypeEnum } from '../../../../core/enums/security/pin-pad-type.enum';
-import { SecretQuestionTypeEnum } from '../../../../core/enums/security/secret-question-type.enum';
-import { AuthenticatedUserModel } from '../../../../core/models/authenticated-user.model';
 import { OfflineSecurityService } from '../../../../core/services/security/offline-security.service';
-import { Config } from '../../../../../environments/config';
 
 @Component({
   selector: 'page-settings',
@@ -191,6 +195,13 @@ export class SettingsPage {
    */
   goToAdminPage() {
     this.navCtrl.push(AdminHomePage);
+  }
+
+  /**
+   * Redirige vers la page d'historique de versions
+   */
+  goToAppVersionHistory() {
+    this.navCtrl.push(AppVersionHistoryPage);
   }
 
   /**

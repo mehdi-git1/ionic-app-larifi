@@ -3,7 +3,10 @@
         "APP_NAME": "EDOSSIER PNC",
         "APP_VERSION": {
             "FRONT": "Version",
-            "BACK": "Version serveur"
+            "BACK": "Version serveur",
+            "LABELS": {
+                "TITLE": "Nouveautés de la version"
+            }
         },
         "NO_DATA": "Pas de données disponibles",
         "PNC_ROLE": {
@@ -59,7 +62,6 @@
         "MY_LOGBOOK": "Mon journal de bord",
         "PROFESSIONAL_INTERVIEWS_ARCHIVES": "Archives de bilans professionnels / EPP",
         "UNKNOWN_ERROR": "Suite à un dysfonctionnement technique, l'opération a échoué. Nous vous invitons à réessayer dans quelques minutes. Si le problème persiste, veuillez contacter votre support.",
-        "COMING_SOON": "(Prochainement)",
         "MESSAGES": {
             "ERROR": {
                 "MANDATORY_FIELD": "Le champ est obligatoire",
@@ -80,6 +82,11 @@
         "CONFIRM_BACK_WITHOUT_SAVE": {
             "TITLE": "Modifications non enregistrées",
             "MESSAGE": "Attention, des modifications n'ont pas été enregistrées, êtes-vous sûr de vouloir revenir en arrière ?"
+        },
+        "APPLICATION_UNSUPPORTED": {
+            "TITLE": "eDossierPNC n'est pas compatible avec ce navigateur",
+            "MESSAGE": "Veuillez utiliser les navigateurs Firefox ou Google Chrome (à télécharger et à installer sur votre PC)",
+            "MENTION": "Pour tout besoin d'accompagnement, veuillez contactez le 1324"
         }
     },
     "AUTHENT": {
@@ -106,6 +113,11 @@
             "CREATION_DATE": "Créée le",
             "REQUIRED_ON_ENCOUNTER_DAY": " (Saisie obligatoire le jour de la rencontre)"
         },
+        "DETAILS": {
+            "CREATED_BY": "Créée par ",
+            "UPDATED_BY": "Modifiée par ",
+            "DATE_LABEL": " le {{date}}"
+        },
         "CONFIRM_INSTRUCTOR_REQUEST": {
             "TITLE": "Sollicitation instructeur",
             "MESSAGE": "Confirmez-vous la demande de sollicitation instructeur ?",
@@ -125,17 +137,18 @@
             "DELETE_DRAFT": "Supprimer le brouillon",
             "VALIDATE": "Clôturer",
             "ABANDON": "Abandonner",
-            "CANCEL_VALIDATION": "Annuler la validation",
+            "CANCEL_VALIDATION": "Annuler la clôture",
             "RESUME": "Reprendre la priorité",
             "CREATE_INSTRUCTOR_REQUEST": "Notifier mon instructeur"
         },
         "SUCCESS": {
-            "CAREER_OBJECTIVE_SAVED": "Priorité enregistrée",
-            "DRAFT_SAVED": "Proposition de la priorité sauvegardée",
-            "DRAFT_DELETED": "Proposition de la priorité supprimée",
-            "CAREER_OBJECTIVE_VALIDATED": "Priorité validée",
+            "CAREER_OBJECTIVE_SAVED": "Priorité envoyée",
+            "CAREER_OBJECTIVE_UPDATED": "Priorité mise à jour",
+            "DRAFT_SAVED": "Brouillon enregistré",
+            "DRAFT_DELETED": "Brouillon supprimé",
+            "CAREER_OBJECTIVE_VALIDATED": "Priorité clôturée",
             "CAREER_OBJECTIVE_ABANDONED": "Priorité abandonnée",
-            "CAREER_OBJECTIVE_VALIDATION_CANCELED": "Validation de la priorité annulée",
+            "CAREER_OBJECTIVE_VALIDATION_CANCELED": "La clôture de la priorité a été annulée",
             "CAREER_OBJECTIVE_RESUMED": "Priorité reprise",
             "CAREER_OBJECTIVE_INSTRUCTOR_REQUESTED": "Demande envoyée"
         },
@@ -224,8 +237,8 @@
         "LIST": {
             "RELAYS": "Relais",
             "FUNCTION": "Fonction",
-            "LAST_IN_FLIGHT_ENCOUNTER_DATE": "Dernière rencontre Vol",
-            "LAST_ON_GROUND_ENCOUNTER_DATE": "Dernière rencontre Sol"
+            "LAST_IN_FLIGHT_ENCOUNTER_DATE": "Dernière rencontre Vol (eObs)",
+            "LAST_ON_GROUND_ENCOUNTER_DATE": "Dernière rencontre Sol (BP)"
         },
         "ERROR": "Erreur lors de la récupération de la liste équipage du vol {{flightNumber}}"
     },
@@ -367,7 +380,7 @@
                 "CANCEL": "Modifier Commentaire"
             },
             "ACKNOWLEDGEMENT": "J'accuse réception",
-            "LEGEND": "Tous les champs doivent être renseignés pour valider le formulaire",
+            "LEGEND": "Tous les champs ainsi que la date de l'entretien doivent être renseignés pour valider le formulaire",
             "EDITED_BY": "Bilan professionnel modifié par {{lastName}} {{firstName}} le {{date}}"
         }
     },
@@ -598,22 +611,22 @@
             "ADD_LOG": "Nouvel évènement"
         },
         "EDIT": {
-            "EVENT_CREATION" : "Création d'un nouvel évènement",
-            "EVENT_DATE" : "Date de l'évènement",
-            "PNC_ORIGIN" : "Origine PNC",
-            "IMPORTANT" : "Important",
-            "HIDE" : "Masquer",
-            "CATEGORY" : "Catégorie",
-            "EVENT_TITLE" : "Titre de l'évènement",
-            "EVENT_DESCRIPTION" : "Description de l'évènement",
-            "CONCERNED_PERSONS_LIST" : "Liste des personnes concernées",
-            "ADD_CONTACT" : "Ajouter un contact",
-            "LOGBOOK_SAVED" : "Evénement validé",
-            "CONFIRM_CANCEL_MESSAGE" : "Confirmez-vous l'annulation de la création de l'évènement ?",
-            "CONCERNED_PNCS" : "Liste des personnes concernées :",
-            "CONCERNED_PNC" : "PNC Concerné",
-            "SELECT_ALL" : "Tout sélectionner",
-            "SEARCH" : "Rechercher"
+            "EVENT_CREATION": "Création d'un nouvel évènement",
+            "EVENT_DATE": "Date de l'évènement",
+            "PNC_ORIGIN": "Origine PNC",
+            "IMPORTANT": "Important",
+            "HIDE": "Masquer",
+            "CATEGORY": "Catégorie",
+            "EVENT_TITLE": "Titre de l'évènement",
+            "EVENT_DESCRIPTION": "Description de l'évènement",
+            "CONCERNED_PERSONS_LIST": "Liste des personnes concernées",
+            "ADD_CONTACT": "Ajouter un contact",
+            "LOGBOOK_SAVED": "Evénement validé",
+            "CONFIRM_CANCEL_MESSAGE": "Confirmez-vous l'annulation de la création de l'évènement ?",
+            "CONCERNED_PNCS": "Liste des personnes concernées :",
+            "CONCERNED_PNC": "PNC Concerné",
+            "SELECT_ALL": "Tout sélectionner",
+            "SEARCH": "Rechercher"
         }
     },
     "SYNCHRONIZATION": {
@@ -685,6 +698,9 @@
         "ADMIN_ACCESS": {
             "BUTTON": "Accéder au mode admin"
         },
+        "APP_VERSION": {
+            "LABEL": "Accèder à l'historique des versions"
+        },
         "CONFIRM_INIT_CACHE": {
             "TITLE": "Vider le cache",
             "MESSAGE": "Attention. Êtes-vous sûr de vouloir vider le cache ?",
@@ -714,6 +730,16 @@
             "GET_MY_IDENTITY_BACK": "Récupérer mon identité"
         }
     },
+    "APP_VERSION_HISTORY": {
+        "TITLE": "Liste des versions de l'application",
+        "LABELS": {
+            "NUMBER": "Version",
+            "RELEASE_DATE": "du",
+            "APP_VERSION_LIST": "Historique",
+            "VERSION_NOTE": "Nouveautés de la version"
+        },
+        "NO_APP_VERSION_SELECTED": "Aucune version sélectionnée"
+    },
     "SYNCHRONIZATION_MANAGEMENT": {
         "TITLE": "Demandes de synchronisation",
         "BUTTONS": {
@@ -732,11 +758,11 @@
     "ADMIN": {
         "ADMIN_HOME": {
             "NAV_TITLE": "Administration",
-            "BACK_TO_HOME_PAGE": "Retour",
             "BUTTON": {
                 "PROFILE_MANAGEMENT": "Gérer la liste des profils",
                 "APP_VERSION_MANAGEMENT": "Gérer la liste des versions",
-                "USER_MESSAGE_MANAGEMENT": "Gérer les messages aux utilisateurs"
+                "USER_MESSAGE_MANAGEMENT": "Gérer les messages aux utilisateurs",
+                "RETURN_TO_HOME": "Retour à la page d'accueil"
             }
         },
         "PROFILE_MANAGEMENT": {
@@ -759,15 +785,13 @@
             "BUTTON": {
                 "ADD_VERSION": "Ajouter",
                 "UPDATE_VERSION": "Modifier",
-                "DELETE_VERSION": "Supprimer"
-            },
-            "HEADER": {
-                "NUMBER": "Numéro",
-                "CHANGELOG": "Description"
+                "DELETE_VERSION": "Supprimer",
+                "OVERVIEW": "Aperçu"
             },
             "LABEL": {
                 "VERSION_NUMBER": "Numéro de version",
-                "CHANGELOG": "Description"
+                "CHANGELOG": "Description",
+                "RELEASE_DATE": "Date de mise en prod"
             },
             "CONFIRM_VERSION_DELETE": {
                 "TITLE": "Suppression de la version {{ number }}",
@@ -776,7 +800,7 @@
                 "CONFIRM": "Supprimer"
             },
             "SUCCESS": {
-                "CREATE_OR_UPDATE_VERSION": "mise à jour effectuée",
+                "CREATE_OR_UPDATE_VERSION": "Mise à jour effectuée",
                 "DELETE_UPDATE_VERSION": "Suppression effectuée"
 
             },

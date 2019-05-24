@@ -167,7 +167,7 @@ describe('FlightCrewListPage', () => {
                 const matricule = 'XXX';
                 comp.openPncHomePage(matricule);
                 expect(this.sessionService.appContext.observedPncMatricule).toEqual(matricule);
-            })
+            });
         });
     });
 

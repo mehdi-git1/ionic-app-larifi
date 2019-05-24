@@ -1,3 +1,5 @@
+import { AppVersionTransformerService } from './app-version/app-version-transformer.service';
+import { AppVersionAlertService } from './app-version/app-version-alert.service';
 import { ProfessionalInterviewTransformerService } from './professional-interview/professional-interview-transformer.service';
 import { ProfessionalInterviewStatusService } from './professional-interview/professional-interview-status.service';
 import { UserMessageAlertService } from './user-message/user-message-alert.service';
@@ -163,6 +165,8 @@ import { PdfGeneratorService } from './pdf-generator/pdf-generator.service';
         CongratulationLetterTransformerService,
         TranslateOrEmptyService,
         AppVersionService,
+        AppVersionAlertService,
+        AppVersionTransformerService,
         SynchronizationManagementService,
         ProfessionalInterviewStatusService,
         ProfessionalInterviewTransformerService,

@@ -5,6 +5,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { UserMessageManagementPage } from './../user-message-management/user-message-management.page';
 import { AppVersionManagementPage } from './../app-version-management/app-version-management.page';
 import { ProfileManagementPage } from './../profile-management/profile-management.page';
+import { PncHomePage } from '../../../home/pages/pnc-home/pnc-home.page';
 
 @Component({
     selector: 'admin-home',
@@ -56,5 +57,13 @@ export class AdminHomePage {
      */
     isActive(page) {
         return page == this.activePage;
+    }
+
+    /**
+     * Redirige vers la page d'accueil
+     */
+    returnToHomePage() {
+        this.nav.setRoot(PncHomePage);
+        this.menuCtrl.close();
     }
 }

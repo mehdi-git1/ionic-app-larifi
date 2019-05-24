@@ -1,0 +1,47 @@
+page-app-version-history {
+
+    ion-col {
+        .col {
+            margin: 5px;
+        }
+    }
+
+    .list {
+        ion-item {
+
+            ion-label {
+                display: flex;
+            }
+        }
+    }
+
+    .history-title {
+        color: color($colors, green50);
+    }
+
+    .description {
+        margin-left: 10px;
+
+        .app-version-number {
+            font-size: 1.1em;
+            margin-bottom: 5px;
+            display: block;
+            flex: 1;
+        }
+    }
+
+    .active {
+        background: color($colors, green50);
+        color: white;
+    }
+
+    .circle {
+        padding: 10px;
+        font-size: 20px;
+    }
+
+    p {
+        white-space: pre-line;
+    }
+
+}

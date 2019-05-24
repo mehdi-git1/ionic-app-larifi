@@ -1,7 +1,11 @@
+import { AppVersionAlertService } from './../../../../core/services/app-version/app-version-alert.service';
 import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-translate/core';
 import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { IonicModule, AlertController } from 'ionic-angular';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
+
+import { DateTransform } from '../../../../shared/utils/date-transform';
+import { DatePipe } from '@angular/common';
 
 import { TranslateLoaderMock } from './../../../../../test-config/mocks-ionic';
 import { AppVersionManagementPage } from './app-version-management.page';
@@ -9,11 +13,13 @@ import { AppVersionService } from '../../../../core/services/app-version/app-ver
 import { ToastService } from './../../../../core/services/toast/toast.service';
 import { AppVersionModel } from '../../../../core/models/admin/app-version.model';
 
-const AppVersionServiceMock = jasmine.createSpyObj('AppVersionServiceMock', ['createOrUpdateAppVersion', 'getAllAppVersions', 'delete']);
-AppVersionServiceMock.createOrUpdateAppVersion.and.returnValue(Promise.resolve());
-AppVersionServiceMock.getAllAppVersions.and.returnValue(Promise.resolve());
-AppVersionServiceMock.delete.and.returnValue(Promise.resolve());
-const ToastServiceMock = jasmine.createSpyObj('ToastServiceMock', ['success', 'error']);
+const appVersionServiceMock = jasmine.createSpyObj('AppVersionServiceMock', ['createOrUpdateAppVersion', 'getAllAppVersions', 'delete']);
+const appVersionAlertServiceMock = jasmine.createSpyObj('AppVersionAlertServiceMock', ['displayAppVersion']);
+
+appVersionServiceMock.createOrUpdateAppVersion.and.returnValue(Promise.resolve());
+appVersionServiceMock.getAllAppVersions.and.returnValue(Promise.resolve());
+appVersionServiceMock.delete.and.returnValue(Promise.resolve());
+const toastServiceMock = jasmine.createSpyObj('ToastServiceMock', ['success', 'error']);
 
 describe('app-version-management', () => {
 
@@ -34,9 +40,12 @@ describe('app-version-management', () => {
                 })
             ],
             providers: [
-                { provide: ToastService, useValue: ToastServiceMock },
+                { provide: ToastService, useValue: toastServiceMock },
                 { provide: TranslateService, useClass: TranslateLoaderMock },
-                { provide: AppVersionService, useValue: AppVersionServiceMock },
+                { provide: AppVersionService, useValue: appVersionServiceMock },
+                { provide: AppVersionAlertService, useValue: appVersionAlertServiceMock },
+                DateTransform,
+                DatePipe,
                 AlertController
             ],
             schemas: [NO_ERRORS_SCHEMA]
@@ -58,10 +67,10 @@ describe('app-version-management', () => {
             spyOn(translateService, 'instant').and.callFake(function (param) {
                 return param;
             });
-
         });
         let invalidNumber, validNumber: string;
         let invalidChangelog, validChangelog: string;
+        let validReleaseDate: string;
         let appVersion: AppVersionModel;
 
         it(`doit envoyer un message d'erreur si le numero de version n'est pas conforme`, () => {
@@ -86,9 +95,11 @@ describe('app-version-management', () => {
             // ARRANGE remplissage du formulaire avec un numéro de version valide et un changelog
             validChangelog = `description de la version 1.0.0`;
             validNumber = '1.0.0';
+            validReleaseDate = null;
             appVersion = new AppVersionModel();
             appVersion.number = validNumber;
             appVersion.changelog = validChangelog;
+            appVersion.releaseDate = validReleaseDate;
 
             // ACT utilisation de la fonction de création de version
             appVersionManagementPage.createOrUpdateAppVersion(appVersion);
@@ -98,6 +109,7 @@ describe('app-version-management', () => {
             const tmpAppVersion = new AppVersionModel();
             tmpAppVersion.number = validNumber;
             tmpAppVersion.changelog = validChangelog;
+            tmpAppVersion.releaseDate = null;
             expect(appVersionManagementPage.versionNumberRegex.test(tmpAppVersion.number)).toBeTruthy();
             expect(appVersionService.createOrUpdateAppVersion).toHaveBeenCalledWith(tmpAppVersion);
             expect(translateService.instant).toHaveBeenCalledWith('ADMIN.APP_VERSION_MANAGEMENT.SUCCESS.CREATE_OR_UPDATE_VERSION');
@@ -116,8 +128,8 @@ describe('app-version-management', () => {
 
             // ARRANGE Instanciation d'une version
             appVersionManagementPage.allAppVersions[1].techId = 1;
-            appVersionManagementPage.allAppVersions[1].number = "1.0.0";
-            appVersionManagementPage.allAppVersions[1].changelog = "description de la version 1.0.0";
+            appVersionManagementPage.allAppVersions[1].number = '1.0.0';
+            appVersionManagementPage.allAppVersions[1].changelog = 'description de la version 1.0.0';
 
             // ACT appel de la fonction de suppression de version
             appVersionManagementPage.delete(appVersionManagementPage.allAppVersions[1]);
