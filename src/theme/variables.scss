@@ -92,8 +92,15 @@ $colors: (primary: #00818E,
     red85:#e31a79,
     red90:#C0504D);
 
+// Couleur par défaut du texte
 $text-color:color($colors, grey10);
 
+// Checkbox
+$checkbox-ios-icon-background-color-on:color($colors, secondary);
+$checkbox-ios-icon-border-color-on:color($colors, secondary);
+
+$checkbox-md-icon-background-color-on:color($colors, secondary);
+$checkbox-md-icon-border-color-on:color($colors, secondary);
 
 
 // App iOS Variables
