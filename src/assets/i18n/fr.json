@@ -3,7 +3,10 @@
         "APP_NAME": "EDOSSIER PNC",
         "APP_VERSION": {
             "FRONT": "Version",
-            "BACK": "Version serveur"
+            "BACK": "Version serveur",
+            "LABELS": {
+                "TITLE": "Nouveautés de la version"
+            }
         },
         "NO_DATA": "Pas de données disponibles",
         "PNC_ROLE": {
@@ -695,6 +698,9 @@
         "ADMIN_ACCESS": {
             "BUTTON": "Accéder au mode admin"
         },
+        "APP_VERSION": {
+            "LABEL": "Accèder à l'historique des versions"
+        },
         "CONFIRM_INIT_CACHE": {
             "TITLE": "Vider le cache",
             "MESSAGE": "Attention. Êtes-vous sûr de vouloir vider le cache ?",
@@ -724,6 +730,16 @@
             "GET_MY_IDENTITY_BACK": "Récupérer mon identité"
         }
     },
+    "APP_VERSION_HISTORY": {
+        "TITLE": "Liste des versions de l'application",
+        "LABELS": {
+            "NUMBER": "Version",
+            "RELEASE_DATE": "du",
+            "APP_VERSION_LIST": "Historique",
+            "VERSION_NOTE": "Nouveautés de la version"
+        },
+        "NO_APP_VERSION_SELECTED": "Aucune version sélectionnée"
+    },
     "SYNCHRONIZATION_MANAGEMENT": {
         "TITLE": "Demandes de synchronisation",
         "BUTTONS": {
@@ -742,11 +758,11 @@
     "ADMIN": {
         "ADMIN_HOME": {
             "NAV_TITLE": "Administration",
-            "BACK_TO_HOME_PAGE": "Retour",
             "BUTTON": {
                 "PROFILE_MANAGEMENT": "Gérer la liste des profils",
                 "APP_VERSION_MANAGEMENT": "Gérer la liste des versions",
-                "USER_MESSAGE_MANAGEMENT": "Gérer les messages aux utilisateurs"
+                "USER_MESSAGE_MANAGEMENT": "Gérer les messages aux utilisateurs",
+                "RETURN_TO_HOME": "Retour à la page d'accueil"
             }
         },
         "PROFILE_MANAGEMENT": {
@@ -769,15 +785,13 @@
             "BUTTON": {
                 "ADD_VERSION": "Ajouter",
                 "UPDATE_VERSION": "Modifier",
-                "DELETE_VERSION": "Supprimer"
-            },
-            "HEADER": {
-                "NUMBER": "Numéro",
-                "CHANGELOG": "Description"
+                "DELETE_VERSION": "Supprimer",
+                "OVERVIEW": "Aperçu"
             },
             "LABEL": {
                 "VERSION_NUMBER": "Numéro de version",
-                "CHANGELOG": "Description"
+                "CHANGELOG": "Description",
+                "RELEASE_DATE": "Date de mise en prod"
             },
             "CONFIRM_VERSION_DELETE": {
                 "TITLE": "Suppression de la version {{ number }}",
@@ -786,7 +800,7 @@
                 "CONFIRM": "Supprimer"
             },
             "SUCCESS": {
-                "CREATE_OR_UPDATE_VERSION": "mise à jour effectuée",
+                "CREATE_OR_UPDATE_VERSION": "Mise à jour effectuée",
                 "DELETE_UPDATE_VERSION": "Suppression effectuée"
 
             },

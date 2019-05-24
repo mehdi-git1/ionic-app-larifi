@@ -11,6 +11,9 @@
             <ion-item *ngFor="let adminPage of adminPages">
                 <button class="page" [class.active-link]="isActive(adminPage)" (click)="openPage(adminPage)">{{ adminPage.title }}</button>
             </ion-item>
+            <ion-item>
+                <button class="page home-page" (click)="returnToHomePage()">{{ 'ADMIN.ADMIN_HOME.BUTTON.RETURN_TO_HOME' | translate }}</button>
+            </ion-item>
         </ion-list>
     </ion-content>
 

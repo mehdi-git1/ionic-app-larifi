@@ -37,6 +37,9 @@ export class RestWebService extends RestService {
             request.httpHeaders.headers = new HttpHeaders();
         }
 
+        // Ajout de la version de l'application dans chaque requête
+        request.httpHeaders.headers = request.httpHeaders.headers.append('APP_VERSION', this.config.appVersion);
+
         // En local, on ajoute le header SM_USER pour simuler l'authent habile
         if (this.config.isLocalhost()) {
             request.httpHeaders.headers = request.httpHeaders.headers.append('SM_USER', '07755754');
