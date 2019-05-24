@@ -14,6 +14,8 @@ declare var cordova: any;
 @Injectable()
 export class PdfGeneratorService {
 
+  private cssFile = 'www/build/main.css';
+
   constructor(private toastService: ToastService) {
   }
 
@@ -24,19 +26,16 @@ export class PdfGeneratorService {
    */
   generatePdf(elementToPrint: HTMLElement, pdfFileName: string) {
     if (cordova && cordova.plugins && cordova.plugins.pdf) {
-      let options = {
-          name: 'myDoc',
+      const options = {
+          name: pdfFileName,
           documentSize: 'A4',
           type: 'share',
           fileName: pdfFileName
       };
-      let payload = _.template('<head><link rel="stylesheet" style="www/build/main.css"></head>' + elementToPrint.innerHTML);
-      //let payload = _.template(this.elementToPrint.nativeElement.innerHTML);
+      const payload = _.template('<head><link rel="stylesheet" href="<%=css_file%>"></head>' + elementToPrint.innerHTML);
 
-      //let cssFile = window.getComputedStyle(this.el.nativeElement);
-      let cssFile = 'www/build/main.css';
-      cordova.plugins.pdf.fromData(payload(), options)
-      .then(result => this.toastService.info('OK'))
+      cordova.plugins.pdf.fromData(payload({css_file : this.cssFile}), options)
+      .then()
       .catch(err => this.toastService.error(err));
     } else  {
       const opt = {
