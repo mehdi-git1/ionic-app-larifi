@@ -9,7 +9,7 @@ professional-interviews {
 
         mat-expansion-panel-header {
             display: flex;
-            background-color: color($colors, bluegrey5);
+            background-color: #556775;
             border-radius: 5px;
             color: color($colors, white);
             text-align: left;
@@ -30,10 +30,10 @@ professional-interviews {
 
             &.mat-expanded:hover,
             &.mat-expanded:focus {
-                background-color: color($colors, bluegrey5) !important;
+                background-color: #556775 !important;
             }
 
-            .mat-content{
+            .mat-content {
                 align-items: center;
             }
 

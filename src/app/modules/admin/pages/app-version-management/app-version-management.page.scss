@@ -8,7 +8,7 @@ page-app-version-management {
         mat-expansion-panel-header {
             width: 100%;
             display: flex;
-            background-color: color($colors, blue68);
+            background-color: #5f9aaa;
             border-radius: 5px;
             color: color($colors, white);
             text-align: left;
@@ -17,7 +17,7 @@ page-app-version-management {
 
             &.mat-expanded:hover,
             &.mat-expanded:focus {
-                background-color: color($colors, blue68) !important;
+                background-color: #5f9aaa !important;
             }
 
             &.mat-expansion-panel-header {
@@ -41,7 +41,7 @@ page-app-version-management {
         mat-expansion-panel.app-version-list {
 
             mat-expansion-panel-header.app-version {
-                background-color: color($colors, blue77);
+                background-color: #67abb7;
                 width: 100%;
                 height: 47px;
                 display: flex;
@@ -59,7 +59,7 @@ page-app-version-management {
 
                 &.mat-expanded:hover,
                 &.mat-expanded:focus {
-                    background-color: color($colors, blue77) !important;
+                    background-color: #67abb7 !important;
                 }
 
                 .mat-content {

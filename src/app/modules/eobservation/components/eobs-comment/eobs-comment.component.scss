@@ -24,7 +24,7 @@ eobs-comment {
             font-size: 1.1em;
 
             span {
-                color: color($colors, blue81);
+                color: #4cc3cc;
                 margin-right: 10px;
             }
         }
@@ -64,7 +64,7 @@ eobs-comment {
 
     .comment-footer {
         height: 48px;
-        background-color: color($colors, blue68);
+        background-color: #5f9aaa;
         color: color($colors, white);
         border-radius: 5px;
         display: flex;

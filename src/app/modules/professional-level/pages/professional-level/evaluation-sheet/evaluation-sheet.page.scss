@@ -18,7 +18,7 @@
             }
 
             .stage-date {
-                color: color($colors, blue55);
+                color: #7cc3cc;
             }
 
             .stage-result {
@@ -27,7 +27,7 @@
                 border-radius: 5px;
 
                 &.red {
-                    background-color: color($colors, red15);
+                    background-color: #D6457C;
                 }
 
                 &.green {
@@ -80,7 +80,7 @@
 
                 ion-icon {
                     margin: 0 10px 10px 0;
-                    color: color($colors, blue55)
+                    color: #7cc3cc;
                 }
 
                 .comment {
@@ -102,7 +102,7 @@
 
     .exercise-header {
         margin: 10px 0;
-        background: color($colors, blue55);
+        background: #7cc3cc;
         border-radius: 5px;
         color: color($colors, white);
         box-shadow: 0px 0px 5px #d5d9de;
@@ -121,7 +121,7 @@
         box-shadow: 0px 0px 5px #d5d9de;
 
         .title {
-            background: color($colors, bluegrey);
+            background: #66A7B7;
             color: color($colors, white);
             text-transform: capitalize;
 

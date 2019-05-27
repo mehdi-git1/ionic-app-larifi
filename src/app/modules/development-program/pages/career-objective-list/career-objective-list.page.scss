@@ -9,7 +9,7 @@ page-career-objective-list {
     }
 
     .eobs-title {
-        color: color($colors, blue68);
+        color: #5f9aaa;
     }
 
     .career-objective-title {
@@ -17,7 +17,7 @@ page-career-objective-list {
     }
 
     .professional-interview-title {
-        color: color($colors, bluegrey3);
+        color: #5d727A;
     }
 
     [padding] h3:first-child {
@@ -37,7 +37,7 @@ page-career-objective-list {
 
         span,
         a {
-            color: color($colors, blue68);
+            color: #5f9aaa;
         }
 
         a {
@@ -135,8 +135,8 @@ page-career-objective-list {
 
 
     &.eobservation-creation-container {
-        border-color: color($colors, blue68);
-        box-shadow: 0px 0px 4px color($colors, blue68);
+        border-color: #5f9aaa;
+        box-shadow: 0px 0px 4px #5f9aaa;
 
         .eobservation-info-container {
             label {
@@ -150,7 +150,7 @@ page-career-objective-list {
 
         .add-button,
         .choice-button {
-            background: color($colors, blue68);
+            background: #5f9aaa;
         }
     }
 
@@ -161,8 +161,8 @@ page-career-objective-list {
     }
 
     &.professional-interview-creation-container {
-        border-color: color($colors, bluegrey5);
-        box-shadow: 0px 0px 4px color($colors, bluegrey5);
+        border-color: #556775;
+        box-shadow: 0px 0px 4px #556775;
 
         .professional-interview-info-container {
             label {
@@ -175,7 +175,7 @@ page-career-objective-list {
         }
 
         .add-button {
-            background: color($colors, bluegrey5);
+            background: #556775;
         }
     }
 

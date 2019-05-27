@@ -4,7 +4,7 @@ page-professional-interview-details {
     $block-border-radius: 5px;
 
     .rotation-number {
-        color: color($colors, blue55);
+        color: #7cc3cc;
     }
 
     .rotation-info {
@@ -23,7 +23,7 @@ page-professional-interview-details {
 
     ion-grid.rotation-grid {
         .flight-header {
-            color: color($colors, blue55);
+            color: #7cc3cc;
         }
 
         ion-row {
@@ -63,7 +63,7 @@ page-professional-interview-details {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        background: color($colors, bluegrey3);
+        background: #5d727A;
         color: color($colors, white);
         border-radius: $block-border-radius;
 
@@ -71,11 +71,11 @@ page-professional-interview-details {
             margin-bottom: 16px;
             border-top-left-radius: 0px;
             border-top-right-radius: 0px;
-            background: color($colors, blue77);
+            background: #67abb7;
         }
 
         &.sub-title-block {
-            background: color($colors, blue77);
+            background: #67abb7;
             margin: 10px -15px 10px -15px;
             font-size: 17px;
         }
@@ -116,7 +116,7 @@ page-professional-interview-details {
     .date-block-justify {
         justify-content: center;
         margin-bottom: 15px;
-        background-color: color($colors, bluegrey5);
+        background-color: #556775;
 
         .date-display {
             color: color($colors, white);
@@ -179,7 +179,7 @@ page-professional-interview-details {
         height: 32px;
         padding-right: 24px;
         padding-left: 24px;
-        background: color($colors, blue55);
+        background: #7cc3cc;
         color: color($colors, white);
         font-size: 18px !important;
         border-radius: $block-border-radius;
@@ -228,7 +228,7 @@ page-professional-interview-details {
 
                 span {
                     font-weight: normal;
-                    color: color($colors, blue55);
+                    color: #7cc3cc;
                     margin-right: 15px;
                     margin-left: 15px;
                 }

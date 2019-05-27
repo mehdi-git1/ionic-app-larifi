@@ -18,9 +18,9 @@ checkbox-and-label {
         }
 
         .checkbox-md .checkbox-checked {
-            border-color: color($colors, blue55) !important;
+            border-color: #7cc3cc !important;
             background-color: color($colors, white) !important;
-            color: color($colors, blue55) !important;
+            color: #7cc3cc !important;
         }
 
         .checkbox-md.checkbox-disabled,
@@ -31,7 +31,7 @@ checkbox-and-label {
 
             .checkbox-inner {
                 opacity: 1;
-                border-color: color($colors, blue55) !important;
+                border-color: #7cc3cc !important;
             }
         }
 

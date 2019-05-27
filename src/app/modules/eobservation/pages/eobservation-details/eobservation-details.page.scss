@@ -5,7 +5,7 @@ page-eobservation-details {
 
     ion-grid.rotation-grid {
         .flight-header {
-            color: color($colors, blue55);
+            color: #7cc3cc;
         }
 
         ion-row {
@@ -49,7 +49,7 @@ page-eobservation-details {
         height: 32px;
         padding-right: 24px;
         padding-left: 24px;
-        background: color($colors, blue55);
+        background: #7cc3cc;
         color: color($colors, white);
         font-size: 18px !important;
         border-radius: $block-border-radius;
