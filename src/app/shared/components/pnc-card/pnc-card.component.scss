@@ -99,6 +99,14 @@ pnc-card {
 
             .sub-flag-panel {
                 word-spacing: 0.4em;
+
+                .prioritized {
+                    color: #E53A40;
+                }
+
+                .at-least-one-priority {
+                    color: #71D18A;
+                }
             }
         }
     }

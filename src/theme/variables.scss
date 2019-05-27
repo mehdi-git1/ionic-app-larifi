@@ -33,11 +33,9 @@ $colors: (primary: #00818E,
     green50:#27b899,
     green55:#31A29A,
     green65:#aec46c,
-    green70: #71D18A,
     grey14:#626c75,
     grey20: #585858,
     grey50: #94959A,
-    grey90: #F1F1F1,
     white:#fff,
     blue60:#25b5d6,
     blue65:#417496,
@@ -46,8 +44,7 @@ $colors: (primary: #00818E,
     red13:#98647E,
     red14:#A53279,
     red20:#DD586F,
-    red70:#e24c4c,
-    red80:#E53A40);
+    red70:#e24c4c);
 
 // Couleur par défaut du texte
 $text-color:#333333;
@@ -203,7 +200,7 @@ ion-item.item {
 }
 
 .ion-page > .content {
-    background-color: #F1F1F1;
+    background-color: #FAFBFB;
 }
 
 @media all and (-ms-high-contrast: none),

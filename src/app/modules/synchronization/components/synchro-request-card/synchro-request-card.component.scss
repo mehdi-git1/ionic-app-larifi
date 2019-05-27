@@ -31,7 +31,7 @@ synchro-request-card {
         }
 
         .error-message {
-            color: color($colors, red80);
+            color: #E53A40;
         }
     }
 
@@ -51,11 +51,11 @@ synchro-request-card {
             }
 
             &.successful {
-                background: color($colors, green70);
+                background: #71D18A;
             }
 
             &.failed {
-                background: color($colors, red80);
+                background: #E53A40;
             }
         }
     }

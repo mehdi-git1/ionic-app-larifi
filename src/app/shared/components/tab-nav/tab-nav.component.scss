@@ -28,12 +28,12 @@ tab-nav {
     }
 
     .tabs-md .tab-button[aria-selected=true] .icon {
-        @include colorMenu(primary, grey90);
+        @include colorMenu(primary, white);
         font-weight: bold;
     }
 
     .tabs-md .tab-button[aria-selected=true] {
-        @include colorMenu(primary, grey90);
+        @include colorMenu(primary, white);
         font-weight: bold;
     }
 
@@ -50,11 +50,11 @@ tab-nav {
     }
 
     .tabs-ios .tab-button[aria-selected=true] .icon {
-        @include colorMenu(primary, grey90);
+        @include colorMenu(primary, white);
     }
 
     .tabs-ios .tab-button[aria-selected=true] {
-        @include colorMenu(primary, grey90);
+        @include colorMenu(primary, white);
     }
 
     .ion-md-briefcase {
