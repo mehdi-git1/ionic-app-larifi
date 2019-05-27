@@ -1,3 +1,4 @@
+import { DeviceService } from './../device/device.service';
 import { ToastService } from './../toast/toast.service';
 import { Injectable, ElementRef } from '@angular/core';
 import { RestService } from '../../http/rest/rest.base.service';
@@ -16,7 +17,8 @@ export class PdfGeneratorService {
 
   private cssFile = 'www/build/main.css';
 
-  constructor(private toastService: ToastService) {
+  constructor(private toastService: ToastService,
+              private deviceService: DeviceService) {
   }
 
   /**
@@ -25,7 +27,7 @@ export class PdfGeneratorService {
    * @param pdfFileName nom du fichier PDF généré
    */
   generatePdf(elementToPrint: HTMLElement, pdfFileName: string) {
-    if (cordova && cordova.plugins && cordova.plugins.pdf) {
+    if (!this.deviceService.isBrowser() && cordova && cordova.plugins && cordova.plugins.pdf) {
       const options = {
           name: pdfFileName,
           documentSize: 'A4',
