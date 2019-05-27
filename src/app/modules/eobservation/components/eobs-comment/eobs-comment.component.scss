@@ -13,14 +13,14 @@ eobs-comment {
 
     .comment-container {
 
-        box-shadow: 0px 0px 5px color($colors, grey70);
+        box-shadow: 0px 0px 5px #d5d9de;
         background: color($colors, white);
         border-radius: 3px;
 
         label {
             display: flex;
             align-items: center;
-            color: color($colors, grey12);
+            color: #38393a;
             font-size: 1.1em;
 
             span {
@@ -43,8 +43,8 @@ eobs-comment {
             ion-textarea {
                 padding: 10px;
                 border-radius: 3px;
-                background: color($colors, grey95);
-                border: 1px solid color($colors, grey70);
+                background: #F1F1F1;
+                border: 1px solid #d5d9de;
                 white-space: pre-line;
             }
 

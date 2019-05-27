@@ -3,7 +3,7 @@ pnc-card-page-header {
     .pnc-info-box {
         border-radius: 4px;
         margin-bottom: 15px;
-        box-shadow: 0px 0px 5px color($colors, grey70);
+        box-shadow: 0px 0px 5px #d5d9de;
         background: color($colors, white);
 
         offline-indicator div {
@@ -47,7 +47,7 @@ pnc-card-page-header {
 
                 .pnc-info-data {
                     line-height: 1.5em;
-                    color: color($colors, grey60);
+                    color: #8B7D72;
                 }
             }
         }

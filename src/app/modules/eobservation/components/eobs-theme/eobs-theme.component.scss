@@ -11,12 +11,12 @@ eobs-theme {
         padding-bottom: 5px;
         font-weight: bold;
         color: color($colors, blue55);
-        border-top: solid color($colors, grey75) 1px;
-        border-bottom: solid color($colors, grey75) 1px;
+        border-top: solid #ededed 1px;
+        border-bottom: solid #ededed 1px;
     }
 
     ion-row:nth-child(even) {
-        background: color($colors, grey90);
+        background: #F1F1F1;
     }
 
     .item-label {
@@ -31,7 +31,7 @@ eobs-theme {
     }
 
     .item-label:nth-child(odd) {
-        border-right: 2px solid color($colors, grey75);
+        border-right: 2px solid #ededed;
     }
 
     .symbol {
@@ -48,7 +48,7 @@ eobs-theme {
         padding-right: 20px;
         padding-top: 20px;
         padding-bottom: 20px;
-        border-top: double color($colors, grey75) 1px;
+        border-top: double #ededed 1px;
 
         .commentTitle {
             width: 100%;
@@ -67,15 +67,15 @@ eobs-theme {
             margin-bottom: 10px;
             display: flex;
             align-items: center;
-            color: color($colors, grey12);
+            color: #38393a;
         }
 
         p,
         ion-textarea {
             padding: 10px;
             border-radius: 3px;
-            background: color($colors, grey95);
-            border: 1px solid color($colors, grey70);
+            background: #F1F1F1;
+            border: 1px solid #d5d9de;
             white-space: pre-line;
         }
 

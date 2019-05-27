@@ -4,7 +4,7 @@ statutory-certificate-data {
         border-radius: 5px;
         margin-bottom: 15px;
         padding: 0;
-        box-shadow: 0px 0px 5px color($colors, grey70);
+        box-shadow: 0px 0px 5px #d5d9de;
         background: color($colors, white);
 
         .title {
@@ -21,15 +21,15 @@ statutory-certificate-data {
         }
 
         .odd {
-            background: color($colors, grey95);
+            background: #F1F1F1;
         }
 
         ion-row:nth-child(even) {
-            background: color($colors, grey90);
+            background: #F1F1F1;
         }
 
         .statutory-certificate-data {
-            color: color($colors, grey60);
+            color: #8B7D72;
         }
 
         .statutory-certificate-header {
@@ -40,13 +40,13 @@ statutory-certificate-data {
 
         .statutory-data-tab {
             .col {
-                border-bottom: 1px solid color($colors, grey75);
-                border-right: 1px solid color($colors, grey75);
+                border-bottom: 1px solid #ededed;
+                border-right: 1px solid #ededed;
             }
 
             .statutory-certificate-data {
                 .col {
-                    border-right: 1px solid color($colors, grey75);
+                    border-right: 1px solid #ededed;
                 }
             }
         }

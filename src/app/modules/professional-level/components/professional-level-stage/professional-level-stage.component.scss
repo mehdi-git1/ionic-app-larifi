@@ -61,7 +61,7 @@ professional-level-stage {
             margin: 0;
 
             module-card:not(:last-child) > .module-card {
-                border-bottom: 1px solid color($colors, grey70);
+                border-bottom: 1px solid #d5d9de;
             }
 
             module-card:last-child > .module-card {
@@ -69,7 +69,7 @@ professional-level-stage {
             }
 
             module-card:nth-child(odd) > .module-card {
-                background: color($colors, grey90);
+                background: #F1F1F1;
             }
         }
     }

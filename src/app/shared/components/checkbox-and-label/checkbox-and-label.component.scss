@@ -1,6 +1,6 @@
 checkbox-and-label {
     padding-bottom: 5px;
-    
+
     .container {
         display: flex;
         align-items: center;
@@ -14,22 +14,25 @@ checkbox-and-label {
         }
 
         .checkbox-md .checkbox-icon {
-            border-color: color($colors, grey70) !important;
+            border-color: #d5d9de !important;
         }
+
         .checkbox-md .checkbox-checked {
             border-color: color($colors, blue55) !important;
             background-color: color($colors, white) !important;
             color: color($colors, blue55) !important;
         }
 
-        .checkbox-md.checkbox-disabled, .item-md.item-checkbox-disabled {
-            border-color: color($colors, grey70) !important;
+        .checkbox-md.checkbox-disabled,
+        .item-md.item-checkbox-disabled {
+            border-color: #d5d9de !important;
             opacity: 1;
-            margin : 0px;
+            margin: 0px;
+
             .checkbox-inner {
                 opacity: 1;
                 border-color: color($colors, blue55) !important;
-            }  
+            }
         }
 
     }

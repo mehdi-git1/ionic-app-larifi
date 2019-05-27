@@ -29,41 +29,16 @@ $app-direction: ltr;
 // The "primary" color is the only required color in the map.
 $colors: (primary: #00818E,
     secondary: #AB004D,
-    primary-dark:#005461,
-    primary-light:#25B1BE,
-    secondary-dark:#750026,
-    secondary-light:#E31A79,
-    tertiary:#E53A40,
-    orange50:#EA9252,
     orange55: #F4B65B,
-    orange60:#F5A623,
-    orange80:#ff9b06,
-    orange90:#EF9E67,
-    green40:#18a854,
-    green45:#3CAF90,
     green50:#27b899,
     green55:#31A29A,
-    green60:#5BC7A9,
     green65:#aec46c,
     green70: #71D18A,
-    grey10:#333333,
-    grey11:#2c3440,
-    grey12:#38393a,
-    grey13:#413C48,
     grey14:#626c75,
-    grey15:#717171,
     grey20: #585858,
-    grey40:#888,
     grey50: #94959A,
-    grey60:#8B7D72,
-    grey70:#d5d9de,
-    grey72:#D8D8D8,
-    grey75:#ededed,
     grey90: #F1F1F1,
-    grey92:#f8f8f8,
-    grey95:#fafbfb,
     white:#fff,
-    yellow1: #F5D359,
     bluegrey:#66A7B7,
     bluegrey2:#5FA1AF,
     bluegrey3:#5d727A,
@@ -93,7 +68,7 @@ $colors: (primary: #00818E,
     red90:#C0504D);
 
 // Couleur par défaut du texte
-$text-color:color($colors, grey10);
+$text-color:#333333;
 
 // Checkbox
 $checkbox-ios-icon-background-color-on:color($colors, secondary);
@@ -246,7 +221,7 @@ ion-item.item {
 }
 
 .ion-page > .content {
-    background-color: color($colors, grey95);
+    background-color: #F1F1F1;
 }
 
 @media all and (-ms-high-contrast: none),

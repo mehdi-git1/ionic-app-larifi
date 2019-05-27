@@ -1,5 +1,5 @@
 eobs-item-description {
-    background-color: color($colors,white);
+    background-color: color($colors, white);
     display: inline-block;
     text-align: justify;
     width: 100%;
@@ -10,7 +10,7 @@ eobs-item-description {
     }
 
     button {
-        background-color: color($colors,white); 
+        background-color: color($colors, white);
     }
 
     .description-c {
@@ -22,11 +22,11 @@ eobs-item-description {
     }
 
     .description-level_1 {
-        color: color($colors, tertiary);
+        color: color($colors, red80);
     }
 
     .description-level_2 {
-        color: color($colors, orange80);
+        color: #ff9b06;
     }
 
     .description-level_3 {

@@ -1,6 +1,6 @@
 page-professional-interview-details {
 
-    $border-grid: 1px solid color($colors, grey75);
+    $border-grid: 1px solid #ededed;
     $block-border-radius: 5px;
 
     .rotation-number {
@@ -42,7 +42,7 @@ page-professional-interview-details {
         }
 
         ion-row:nth-child(even) {
-            background: color($colors, grey90);
+            background: #F1F1F1;
         }
 
         ion-col:last-child {
@@ -211,8 +211,8 @@ page-professional-interview-details {
         p {
             padding: 10px;
             border-radius: 3px;
-            background: color($colors, grey95);
-            border: 1px solid color($colors, grey70);
+            background: #F1F1F1;
+            border: 1px solid #d5d9de;
             white-space: pre-line;
         }
 
@@ -224,7 +224,7 @@ page-professional-interview-details {
                 margin: 15px 0px 10px 0px;
                 display: flex;
                 align-items: center;
-                color: color($colors, grey10);
+                color: #333333;
 
                 span {
                     font-weight: normal;
@@ -248,8 +248,8 @@ page-professional-interview-details {
             ion-textarea {
                 padding: 10px;
                 border-radius: 3px;
-                background: color($colors, grey95);
-                border: 1px solid color($colors, grey70);
+                background: #F1F1F1;
+                border: 1px solid #d5d9de;
                 white-space: pre-line;
                 margin: 0 !important;
                 min-height: 210px !important;
@@ -272,7 +272,7 @@ page-professional-interview-details {
     .button-bar {
         margin-top: 10px;
     }
-    
+
     .checkbox-container {
         display: flex;
         align-items: center;

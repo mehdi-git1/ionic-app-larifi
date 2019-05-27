@@ -1,6 +1,6 @@
 page-eobservation-details {
 
-    $border-grid: 1px solid color($colors, grey75);
+    $border-grid: 1px solid #ededed;
     $block-border-radius: 5px;
 
     ion-grid.rotation-grid {
@@ -24,7 +24,7 @@ page-eobservation-details {
         }
 
         ion-row:nth-child(even) {
-            background: color($colors, grey90);
+            background: #F1F1F1;
         }
 
         ion-col:last-child {
