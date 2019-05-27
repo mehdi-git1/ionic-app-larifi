@@ -1,10 +1,14 @@
 pnc-card-page-header {
 
     .pnc-info-box {
-        border-radius: 5px;
+        border-radius: 4px;
         margin-bottom: 15px;
         box-shadow: 0px 0px 5px color($colors, grey70);
         background: color($colors, white);
+
+        offline-indicator div {
+            border-radius: 4px 0 0 4px;
+        }
 
         pnc-photo {
             padding: 10px;
