@@ -1,5 +1,5 @@
 $padding-left-ion-select: 5px;
-$margin-top-autocomplete: 12px;
+$margin-top-autocomplete: 15px;
 $border-input-size: 2px;
 $border-input: $border-input-size solid color($colors, grey50);
 $top-autocomplete-field: 18px;
@@ -109,7 +109,6 @@ pnc-search-filter {
 
             .mat-form-field-infix {
                 margin-top: $margin-top-autocomplete;
-                border: $border-input;
             }
 
             .mat-form-field-label {
@@ -119,10 +118,6 @@ pnc-search-filter {
 
             .mat-form-field-wrapper {
                 padding-bottom: 0em;
-            }
-
-            ion-select {
-                border: $border-input;
             }
 
             .label-inactive-filters {
