@@ -12,23 +12,23 @@ color-number-dot {
     }
 
     .number-dot-1 {
-        @include color-dot ('#E53A40');
+        @include color-dot (#E53A40);
     }
 
     .number-dot-2 {
-        @include color-dot ('#ff9b06');
+        @include color-dot (#ff9b06);
     }
 
     .number-dot-3 {
-        @include color-dot ('#71D18A');
+        @include color-dot (#71D18A);
     }
 
     .number-dot-4 {
-        @include color-dot ('#3b7ae2');
+        @include color-dot (#3b7ae2);
     }
 
     .number-dot-default {
-        @include color-dot ('#94959A');
+        @include color-dot (#94959A);
     }
 
 }
