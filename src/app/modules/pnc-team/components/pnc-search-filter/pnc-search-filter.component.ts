@@ -189,6 +189,7 @@ export class PncSearchFilterComponent implements OnInit {
     this.searchForm.get('prioritizedControl').setValue(false);
     this.search();
     this.defaultValue = false;
+    this.getAutoCompleteDataReturn(null);
   }
 
   /**
@@ -211,10 +212,10 @@ export class PncSearchFilterComponent implements OnInit {
       ]
     });
     if (this.connectivityService.isConnected()) {
-      this.pncMatriculeControl = this.autoCompleteForm.get('pncMatriculeControl');
       this.initAutocompleteList();
       this.resetFilterValues();
       this.formOnChanges();
+      this.pncMatriculeControl = this.autoCompleteForm.get('pncMatriculeControl');
     }
   }
 
@@ -223,7 +224,11 @@ export class PncSearchFilterComponent implements OnInit {
     */
   initAutocompleteList() {
     this.pncList = this.searchTerms
+<<<<<<< HEAD
       .debounceTime(500)
+=======
+      .debounceTime(600)
+>>>>>>> 0a7c45bb3572f9f6903a3a70c08119bc3b9a2bee
       .distinctUntilChanged()
       .switchMap(
         term => this.getAutoCompleteDataReturn(term)
