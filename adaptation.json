@@ -6,7 +6,7 @@
             "configFile": "./src/environments/prod.ts",
             "appName": "eDossierPNC",
             "appId": "com.airfrance.mobile.inhouse.edospnc",
-            "version": "1.8.0",
+            "version": "1.8.1",
             "provisioningProfile": "d1e5c6ec-d806-4a5f-ac6e-88e840d40451"
         },
         {
@@ -14,7 +14,7 @@
             "configFile": "./src/environments/dev.ts",
             "appName": "eDossierPNC DEV",
             "appId": "com.airfrance.mobile.inhouse.edospncDEV",
-            "version": "1.8.0",
+            "version": "1.8.1",
             "provisioningProfile": "399df0cb-55df-4aeb-9f3a-1efbe662c106"
         },
         {
@@ -22,7 +22,7 @@
             "configFile": "./src/environments/rct.ts",
             "appName": "eDossierPNC RCT",
             "appId": "com.airfrance.mobile.inhouse.edospncRCT",
-            "version": "1.8.0",
+            "version": "1.8.1",
             "provisioningProfile": "2c6bc84a-a5dc-414e-99b0-2164e2686655"
         },
 
@@ -31,21 +31,21 @@
             "configFile": "./src/environments/preprod.ts",
             "appName": "eDossierPNC PREPROD",
             "appId": "com.airfrance.mobile.inhouse.edospncPREPROD",
-            "version": "1.8.0",
+            "version": "1.8.1",
             "provisioningProfile": "9df57435-868f-48b7-8aea-3665cfeaf8f4"
         }, {
             "name": "dev2",
             "configFile": "./src/environments/dev2.ts",
             "appName": "eDossierPNC DEV2",
             "appId": "com.airfrance.mobile.inhouse.edospncDEV2",
-            "version": "1.8.0",
+            "version": "1.8.1",
             "provisioningProfile": "835ab94d-42b8-4991-affd-555ed7998de7"
         }, {
             "name": "rct2",
             "configFile": "./src/environments/rct2.ts",
             "appName": "eDossierPNC RCT2",
             "appId": "com.airfrance.mobile.inhouse.edospncRCT2",
-            "version": "1.8.0",
+            "version": "1.8.1",
             "provisioningProfile": "4a37d037-86ca-4ffc-8c37-c17216ee2265"
         }
     ]
