@@ -22,7 +22,7 @@ abnormal-level {
         }
 
         th {
-            color: #2DD1D4;
+            color: color($colors, primary);
             font-weight: normal;
 
             &.skill {

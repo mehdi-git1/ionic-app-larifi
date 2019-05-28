@@ -20,7 +20,7 @@ congratulation-letters {
             }
 
             button.active {
-                border-bottom: 3px solid #4cc3cc;
+                border-bottom: 3px solid color($colors, secondary-light);
             }
         }
 

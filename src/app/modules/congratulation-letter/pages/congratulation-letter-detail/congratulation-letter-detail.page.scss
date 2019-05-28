@@ -7,7 +7,7 @@ congratulation-letter-detail {
         border-radius: 5px;
 
         th {
-            background: #4cc3cc;
+            background: color($colors, primary-light);
             color: color($colors, white);
             font-weight: normal;
             text-align: left;
@@ -59,7 +59,7 @@ congratulation-letter-detail {
             font-size: 1.1em;
 
             span {
-                color: #4cc3cc;
+                color: color($colors, secondary-light);
                 margin-right: 10px;
             }
         }

@@ -24,7 +24,7 @@ $colorPointSize: 12px;
 }
 
 .selection-dot {
-    background: #4cc3cc;
+    background: color($colors, primary-light);
     width: 10px;
     height: 10px;
     border-radius: 100%;

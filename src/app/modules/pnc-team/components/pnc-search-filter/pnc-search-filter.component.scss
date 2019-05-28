@@ -1,7 +1,5 @@
 $padding-left-ion-select: 5px;
 $margin-top-autocomplete: 15px;
-$border-input-size: 2px;
-$border-input: $border-input-size solid color($colors, grey50);
 $top-autocomplete-field: 18px;
 
 pnc-search-filter {
@@ -70,7 +68,6 @@ pnc-search-filter {
         }
 
         .clear-pnc {
-            background: color($colors, grey50);
             width: 100%;
         }
 
@@ -84,7 +81,6 @@ pnc-search-filter {
         }
 
         .search-pnc {
-            background: #5BC7A9;
             width: 100%;
         }
 
@@ -128,10 +124,6 @@ pnc-search-filter {
                 justify-content: right;
                 align-items: right;
                 text-align: right;
-            }
-
-            .select-placeholder {
-                color: #333333 !important;
             }
 
             .label-md {

@@ -8,7 +8,7 @@ statutory-certificate-data {
         background: color($colors, white);
 
         .title {
-            background: #4cc3cc;
+            background: color($colors, primary-light);
             color: color($colors, white);
 
             &:first-child {
@@ -35,7 +35,7 @@ statutory-certificate-data {
         .statutory-certificate-header {
             font-size: 1em;
             background-color: transparent !important;
-            color: #4cc3cc;
+            color: color($colors, primary-light);
         }
 
         .statutory-data-tab {

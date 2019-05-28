@@ -54,12 +54,12 @@ eobs-theme {
             width: 100%;
             padding-top: 5px;
             padding-bottom: 5px;
-            color: #7cc3cc;
+            color: color($colors, primary-light);
 
         }
 
         .edospnc-speechBubble {
-            color: #4cc3cc;
+            color: color($colors, primary-light);
             padding-right: 10px;
         }
 

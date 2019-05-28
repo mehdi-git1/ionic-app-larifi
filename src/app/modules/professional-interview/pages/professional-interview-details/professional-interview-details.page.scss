@@ -71,11 +71,11 @@ page-professional-interview-details {
             margin-bottom: 16px;
             border-top-left-radius: 0px;
             border-top-right-radius: 0px;
-            background: #67abb7;
+            background: color($colors, primary-light);
         }
 
         &.sub-title-block {
-            background: #67abb7;
+            background: color($colors, primary-light);
             margin: 10px -15px 10px -15px;
             font-size: 17px;
         }
