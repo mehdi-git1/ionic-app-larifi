@@ -50,13 +50,9 @@ $colors: (primary: #00818E,
 // Couleur par défaut du texte
 $text-color:#333333;
 
-// Checkbox
-$checkbox-ios-icon-background-color-on:color($colors, secondary);
-$checkbox-ios-icon-border-color-on:color($colors, secondary);
-
-$checkbox-md-icon-background-color-on:color($colors, secondary);
-$checkbox-md-icon-border-color-on:color($colors, secondary);
-
+// Radio
+$radio-ios-color-on:color($colors, secondary);
+$radio-md-color-on:$radio-ios-color-on;
 
 // App iOS Variables
 // --------------------------------------------------
@@ -133,8 +129,6 @@ h4 {
 }
 
 ion-card {
-    border-radius: 0px !important;
-
     .card-header {
         color: black;
         background-color: lightgray;

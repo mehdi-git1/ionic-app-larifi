@@ -3,8 +3,7 @@ page-upcoming-flight-list {
         font-weight: normal;
         padding: 15px 10px;
         font-size: 1.2em;
-        background: color($colors, primary-light);
-        color: color($colors, white);
+        color: color($colors, primary);
         border-radius: 5px
     }
 
@@ -17,7 +16,7 @@ page-upcoming-flight-list {
 
     .upcoming-rotations {
         ion-card-header {
-            background: #255271;
+            background: color($colors, primary-light);
             color: color($colors, white);
         }
     }

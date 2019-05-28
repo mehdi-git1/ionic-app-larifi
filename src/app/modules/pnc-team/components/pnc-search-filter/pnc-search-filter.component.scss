@@ -5,6 +5,11 @@ $top-autocomplete-field: 18px;
 pnc-search-filter {
 
     .pnc-search-card {
+
+        margin: 0 0 20px 0;
+        border-radius: 4px;
+        width: 100%;
+
         ion-card-header {
             height: 50px;
             display: flex;

@@ -15,6 +15,7 @@
 @import '../theme/toast.scss';
 @import '../theme/label.scss';
 @import '../theme/input.scss';
+@import '../theme/checkbox.scss';
 @import '../theme/textarea.scss';
 @import '../theme/select.scss';
 @import '../theme/button-bar.scss';
@@ -26,6 +27,7 @@
 @import '../theme/auto-complete.scss';
 @import '../theme/edospnc-icons.scss';
 @import '../theme/professional-level.scss';
+@import '../theme/navbar.scss';
 
 @include mat-core();
 
@@ -61,7 +63,7 @@
     }
 
     .app-loader {
-        border: 16px solid color($colors, grey50);
+        border: 16px solid #ccc;
         border-top: 16px solid color($colors, primary);
 
         border-radius: 50%;

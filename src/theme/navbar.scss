@@ -1,0 +1,5 @@
+ion-navbar.toolbar {
+    & > .toolbar-background {
+        background: color($colors, primary-dark);
+    }
+}
