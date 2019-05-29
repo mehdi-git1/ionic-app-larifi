@@ -1,4 +1,10 @@
 tab-nav {
+
+    .tab-button[aria-selected=false] .icon,
+    .tab-button[aria-selected=false] {
+        color: #333;
+    }
+
     .tabs[tabsLayout=icon-top] .has-icon .tab-button-text {
         margin-top: 0px;
         margin-bottom: 4px;
