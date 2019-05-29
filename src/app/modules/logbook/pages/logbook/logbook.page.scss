@@ -7,6 +7,14 @@ log-book {
         background-color: color($colors, primary);
     }
 
+    .edospnc-important:before, 
+    .ion-ios-edospnc-important:before, .ion-ios-edospnc-important-outline:before, 
+    .ion-md-edospnc-important:before, .ion-md-edospnc-important-outline:before, 
+    .icon-edospnc-important:before {
+        color: red;
+        font-size: 18px;
+    }
+
     .logbook-event-grid{
 
         ion-row:nth-child(even) {
@@ -14,7 +22,7 @@ log-book {
         }
 
         ion-row:nth-child(odd) {
-            background: #327eff;
+            background: color($colors-secondary, grey95);
         }
 
         ion-row:first-child {
@@ -34,17 +42,45 @@ log-book {
         }
 
         mat-row:nth-child(odd) {
-            background: #327eff;
+            background: #F1F1F1;
         }
 
         .mat-header-row {
-            border-bottom-color: #327eff;
+            border-bottom-color: color($colors-secondary, grey95);
         }
 
         .mat-row {
             display: flex;
             border-bottom: none;
         }
+
+        .mat-column-child-events{
+            flex: 0 0 20px !important;
+        }
+
+        .mat-column-title {
+            flex: 0 0 400px !important;
+        }
+
+        .mat-column-actions {
+            flex: 0 0 60px !important;
+            text-align: center;
+        }
+
+        .mat-column-origin {
+            flex: 0 0 75px !important;
+            text-align: center;
+        }
+        .mat-column-date {
+            flex: 0 0 100px !important;
+        }
+        .mat-column-specific {
+            flex: 0 0 20px !important;
+        }
+        .mat-sort-header-container {
+            display:flex;
+            justify-content:center;
+          }
     }
 
     .item-label {
@@ -90,17 +126,6 @@ log-book {
         background: color($colors, white);
     }
     
-    .table-header {
-        min-height: 64px;
-        padding: 8px 24px 0;
-        background: color($colors, white);
-    }
-    
-    .mat-form-field {
-        font-size: 14px;
-        width: 100%;
-    }
-    
     .mat-table {
         overflow: auto;
         max-height: 500px;
@@ -108,5 +133,5 @@ log-book {
 }
 
 .popover-md.action-menu-popover .popover-content {
-    transform: translate(-80%, 45%) !important;
+    transform: translate(-80%, 25%) !important;
 }

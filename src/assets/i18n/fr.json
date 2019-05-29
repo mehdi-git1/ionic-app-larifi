@@ -615,6 +615,7 @@
         "REDACTOR" : "Rédacteur",
         "ORIGIN" : "Origine",
         "ACTIONS" : "Actions",
+        "UNAIVALABLE_OFFLINE" : "Les événements ne sont pas disponibles hors connexion",
         "BUTTONS": {
             "ADD_LOG": "Nouvel évènement"
         },

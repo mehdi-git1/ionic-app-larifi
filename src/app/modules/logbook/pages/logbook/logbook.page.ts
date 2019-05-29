@@ -16,7 +16,7 @@ import { MatTableDataSource, MatSort } from '@angular/material';
 })
 export class LogbookPage implements OnInit {
 
-    displayedLogbookEventsColumns: string[] = ['eventDate', 'creationDate', 'category', 'event', 'origin', 'author', 'actions'];
+    displayedLogbookEventsColumns: string[] = ['childEvents', 'eventDate', 'creationDate', 'category', 'important', 'attach', 'event', 'origin', 'author', 'actions'];
     pnc: PncModel;
 
     logbookEvents: LogbookEventModel[];
@@ -101,10 +101,13 @@ export class LogbookPage implements OnInit {
         });
     }
 
-    applyFilter(filterValue: string) {
-        filterValue = filterValue.trim(); // Remove whitespace
-        filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
-        this.dataSourceLogbookEvent.filter = filterValue;
+    /**
+     * Vérifie si il y a des évènements liés
+     * TODO : A implémenter une fois que la fonctionnalité des évènements liés est implémentée
+     * @return true si il y a des évènements liés, false sinon
+     */
+    logbookEventHasChdilds(): boolean {
+        return false;
     }
 
 }
