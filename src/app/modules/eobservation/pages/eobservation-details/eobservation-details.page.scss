@@ -75,13 +75,15 @@ page-eobservation-details {
 
         pdf-button {
 
-            .button {
+            .button .button-md .button-ios {
                 background-color: white;
                 color: color($colors, grey20);
+                border-color: color($colors, grey20);
             }
-            .button:hover {
+            .button:hover .button-md:hover .button-ios:hover {
                 background-color: white;
                 color: color($colors, grey20);
+                border-color: color($colors, grey20);
             }
         }
     }
