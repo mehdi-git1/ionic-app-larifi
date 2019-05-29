@@ -9,7 +9,7 @@ div.mat-form-field-infix {
     }
 
     &.ng-dirty.ng-invalid {
-        border-color: #E53A40;
+        border-color: color($colors-secondary, red80);
     }
 }
 

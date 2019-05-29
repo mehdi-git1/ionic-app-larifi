@@ -6,7 +6,7 @@ professional-level-stage {
 
         mat-expansion-panel-header {
             display: flex;
-            background-color: #66A7B7;
+            background-color: color($colors-secondary, bluegrey10);
             border-radius: 5px;
             color: color($colors, white);
             cursor: pointer;
@@ -27,7 +27,7 @@ professional-level-stage {
 
             &.mat-expanded:hover,
             &.mat-expanded:focus {
-                background-color: #66A7B7 !important;
+                background-color: color($colors-secondary, bluegrey10) !important;
             }
 
             .mat-content > label {

@@ -14,13 +14,13 @@ $colorPointSize: 12px;
 }
 
 .registered {
-    background: #F5A623;
+    background: color($colors, orange55);
     color: color($colors, white);
 
 }
 
 .validated {
-    background: #5BC7A9;
+    background: color($colors-secondary, green60);
     color: color($colors, white);
 
 }
@@ -47,9 +47,9 @@ $colorPointSize: 12px;
 }
 
 .validated-dot {
-    background: #71D18A;
+    background: color($colors-secondary, green70);
 }
 
 .abandoned-dot {
-    background: #D6457C;
+    background: color($colors-secondary, red15);
 }

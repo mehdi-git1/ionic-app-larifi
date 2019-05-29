@@ -27,19 +27,19 @@
                 border-radius: 5px;
 
                 &.red {
-                    background-color: #D6457C;
+                    background-color: color($colors-secondary, red15);
                 }
 
                 &.green {
-                    background-color: #71D18A;
+                    background-color: color($colors-secondary, green70);
                 }
 
                 &.yellow {
-                    background-color: #F5D359;
+                    background-color: color($colors-secondary, yellow10);
                 }
 
                 &.orange {
-                    background-color: #EF9E67;
+                    background-color: color($colors, orange55);
                 }
             }
         }
@@ -121,7 +121,7 @@
         box-shadow: 0px 0px 5px color($colors-secondary, grey70);
 
         .title {
-            background: #66A7B7;
+            background: color($colors-secondary, bluegrey10);
             color: color($colors, white);
             text-transform: capitalize;
 

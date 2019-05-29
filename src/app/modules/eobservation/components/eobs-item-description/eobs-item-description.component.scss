@@ -14,7 +14,7 @@ eobs-item-description {
     }
 
     .description-c {
-        color: #71D18A;
+        color: color($colors-secondary, green70);
     }
 
     .description-no {
@@ -22,15 +22,15 @@ eobs-item-description {
     }
 
     .description-level_1 {
-        color: #E53A40;
+        color: color($colors-secondary, red80);
     }
 
     .description-level_2 {
-        color: #ff9b06;
+        color: color($colors, orange55);
     }
 
     .description-level_3 {
-        color: #71D18A;
+        color: color($colors-secondary, green70);
     }
 
     .description-level_4 {

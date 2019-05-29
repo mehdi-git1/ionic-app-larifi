@@ -4,7 +4,7 @@ professional-interview {
         margin-top: 5px !important;
 
         mat-expansion-panel-header.professional-interview {
-            background-color: #677A89;
+            background-color: color($colors-secondary, bluegrey40);
             width: 100%;
             height: 47px;
             display: flex;
@@ -22,7 +22,7 @@ professional-interview {
 
             &.mat-expanded:hover,
             &.mat-expanded:focus {
-                background-color: #677A89 !important;
+                background-color: color($colors-secondary, bluegrey40) !important;
             }
 
             .mat-content {
@@ -44,7 +44,7 @@ professional-interview {
                     button {
                         background-color: color($colors, white);
                         box-shadow: none;
-                        color: #677A89;
+                        color: color($colors-secondary, bluegrey40);
                         width: 30px;
                         height: 30px;
 

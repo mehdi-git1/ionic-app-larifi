@@ -63,7 +63,7 @@
     }
 
     .app-loader {
-        border: 16px solid #ccc;
+        border: 16px solid color($colors-secondary, grey70);
         border-top: 16px solid color($colors, primary);
 
         border-radius: 50%;

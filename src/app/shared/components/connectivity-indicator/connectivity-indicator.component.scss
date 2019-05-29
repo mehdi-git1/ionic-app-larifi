@@ -13,12 +13,12 @@ connectivity-indicator {
         }
 
         &:not(.offline) {
-            background: #5BC7A9;
+            background: color($colors-secondary, green60);
         }
     }
 
     .offline {
-        background: #F5A623;
+        background: color($colors, orange55);
     }
 
     .synchro-progress {

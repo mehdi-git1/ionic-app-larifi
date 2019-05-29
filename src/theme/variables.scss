@@ -67,15 +67,11 @@ $colors-secondary:(blue55:#7cc3cc,
     green70:#71D18A,
     red15:#D6457C,
     red80:#E53A40,
-    red85:#e31a79,
     bluegrey10:#66A7B7,
     bluegrey30:#5d727A,
     bluegrey40:#677A89,
     bluegrey50:#556775,
-    yellow10:#F5D359,
-    orange60:#F5A623,
-    orange80:#ff9b06,
-    orange90:#EF9E67);
+    yellow10:#F5D359);
 
 
 
@@ -199,14 +195,6 @@ ion-select {
 }
 
 $text-input-md-show-focus-highlight: false;
-
-
-.label-md-primary,
-.item-input .label-md-primary,
-.item-select .label-md-primary,
-.item-datetime .label-md-primary {
-    color: #999 !important;
-}
 
 .item-inner {
     padding-right: 0px !important;

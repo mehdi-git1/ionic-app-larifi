@@ -13,11 +13,11 @@ page-career-objective-list {
     }
 
     .career-objective-title {
-        color: #3CAF90;
+        color: color($colors-secondary, green45);
     }
 
     .professional-interview-title {
-        color: #5d727A;
+        color: color($colors-secondary, bluegrey30);
     }
 
     [padding] h3:first-child {
@@ -123,12 +123,12 @@ page-career-objective-list {
     }
 
     &.career-objective-creation-container {
-        border-color: #5BC7A9;
-        box-shadow: 0px 0px 4px #3CAF90;
+        border-color: color($colors-secondary, green60);
+        box-shadow: 0px 0px 4px color($colors-secondary, green45);
 
         .add-container {
             .add-button {
-                background: #3CAF90;
+                background: color($colors-secondary, green45);
             }
         }
     }
@@ -161,8 +161,8 @@ page-career-objective-list {
     }
 
     &.professional-interview-creation-container {
-        border-color: #556775;
-        box-shadow: 0px 0px 4px #556775;
+        border-color: color($colors-secondary, bluegrey50);
+        box-shadow: 0px 0px 4px color($colors-secondary, bluegrey50);
 
         .professional-interview-info-container {
             label {
@@ -175,7 +175,7 @@ page-career-objective-list {
         }
 
         .add-button {
-            background: #556775;
+            background: color($colors-secondary, bluegrey50);
         }
     }
 

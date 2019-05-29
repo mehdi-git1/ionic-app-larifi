@@ -12,19 +12,19 @@ color-status-point {
     }
 
     .green {
-        background: #71D18A;
+        background: color($colors-secondary, green70);
     }
 
     .yellow {
-        background: #F5D359;
+        background: color($colors-secondary, yellow10);
     }
 
     .orange {
-        background: #EF9E67;
+        background: color($colors, orange55);
     }
 
     .red {
-        background: #D6457C;
+        background: color($colors-secondary, red15);
     }
 
     .grey {
