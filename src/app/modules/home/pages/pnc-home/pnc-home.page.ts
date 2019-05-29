@@ -1,3 +1,4 @@
+import { LogbookDetailsPage } from './../../../logbook/pages/logbook-details/logbook-details.page';
 
 import { Component } from '@angular/core';
 import { NavController, NavParams, Events } from 'ionic-angular';
@@ -235,5 +236,14 @@ export class PncHomePage {
         const isMyHomeAndImPnc = this.isMyHome() && !this.isManager();
         const isAPncHomeAndImManager = !this.isMyHome() && !this.isManager() && this.sessionService.getActiveUser().isManager;
         return this.authorizationService.hasPermission('VIEW_LOGBOOK') && (isAPncHomeAndImManager || isMyHomeAndImPnc);
+    }
+
+    /**
+ * Dirige vers la page de détail d'un évènement du journal de bord
+ */
+    goToLogbookDetails() {
+        if (this.pnc) {
+            this.navCtrl.push(LogbookDetailsPage);
+        }
     }
 }

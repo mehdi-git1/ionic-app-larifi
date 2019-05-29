@@ -627,6 +627,11 @@
             "CONCERNED_PNC": "PNC Concerné",
             "SELECT_ALL": "Tout sélectionner",
             "SEARCH": "Rechercher"
+        },
+        "DETAILS": {
+            "EVENT_DATE": "Evènement du ",
+            "CREATED_THE": "Créé le ",
+            "NOTIFIED_PNCS": "Personnes notifiées"
         }
     },
     "SYNCHRONIZATION": {

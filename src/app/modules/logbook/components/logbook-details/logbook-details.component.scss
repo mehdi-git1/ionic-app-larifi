@@ -1,0 +1,40 @@
+logbook-details {
+
+    .logbook-event-card {
+        padding: 10px 20px;
+    }
+
+    .logbook-info-container {
+        padding: 10px 20px 10px 10px;
+        width: 100%;
+
+        .logbook-info {
+            display: flex;
+            justify-content: space-between;
+            height: 30px;
+
+            .title {
+                font-size: 1.2em;
+                color: color($colors, blue90);
+
+            }
+
+            .category-label {
+                background-color: color($colors, grey90);
+                border-radius: 4px;
+                opacity: 80%;
+                padding: 10px;
+            }
+        }
+
+        ion-label {
+            font-weight: bold;
+        }
+
+
+
+        .logbook-info-content {
+            white-space: pre-line;
+        }
+    }
+}

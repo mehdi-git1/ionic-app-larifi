@@ -1,3 +1,4 @@
+import { LogbookDetailsPage } from './../logbook-details/logbook-details.page';
 import { SecurityService } from './../../../../core/services/security/security.service';
 import { PncModel } from './../../../../core/models/pnc.model';
 import { PncService } from './../../../../core/services/pnc/pnc.service';
@@ -16,11 +17,11 @@ export class LogbookPage {
     constructor(public navCtrl: NavController,
         public navParams: NavParams,
         private pncService: PncService,
-        private securityService: SecurityService){
+        private securityService: SecurityService) {
         const matricule = this.navParams.get('matricule');
         this.pncService.getPnc(matricule).then(pnc => {
             this.pnc = pnc;
-            }, error => { });
+        }, error => { });
     }
 
     /**
@@ -28,7 +29,16 @@ export class LogbookPage {
      */
     goToLogbookCreation() {
         if (this.pnc) {
-            this.navCtrl.push(LogbookEditPage, { matricule: this.pnc.matricule});
+            this.navCtrl.push(LogbookEditPage, { matricule: this.pnc.matricule });
+        }
+    }
+
+    /**
+     * Dirige vers la page de détail d'un évènement du journal de bord
+     */
+    goToLogbookDetails() {
+        if (this.pnc) {
+            this.navCtrl.push(LogbookDetailsPage);
         }
     }
 

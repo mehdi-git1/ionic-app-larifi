@@ -5,6 +5,7 @@ import { LogbookEventCategory } from './logbook-event-category';
 export class LogbookEventModel extends Serializable {
     id: number;
     pnc: PncLightModel;
+    redactor: PncLightModel;
     eventDate: string;
     creationDate: Date;
     lastUpdateDate: Date;

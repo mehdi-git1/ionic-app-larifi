@@ -1,0 +1,19 @@
+<ion-header>
+    <ion-navbar>
+        <page-header [showSettingsIcon]="true" [pnc]="pnc">
+            {{ 'GLOBAL.LOGBOOK' | isMyPage: pnc | translate }}
+        </page-header>
+    </ion-navbar>
+</ion-header>
+<ion-content padding no-bounce>
+    <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
+    <ng-template #pageBlock>
+        <div class="logbook-info-box selectable" *ngFor="let logbookEvent of logbookEvents">
+            <div class="logbook-info-date">
+                <span class="value">{{ 'LOGBOOK.DETAILS.EVENT_DATE' | translate }} {{ logbookEvent.eventDate | date:'dd/MM/yyyy'}}</span>
+            </div>
+            <div class="draw-ligne"></div>
+            <logbook-details [logbookEvent]="logbookEvent"></logbook-details>
+        </div>
+    </ng-template>
+</ion-content>

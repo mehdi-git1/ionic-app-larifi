@@ -1,6 +1,6 @@
 <ion-header>
     <ion-navbar>
-        <page-header [showSettingsIcon]="true"  [pnc]="pnc">
+        <page-header [showSettingsIcon]="true" [pnc]="pnc">
             {{ 'GLOBAL.LOGBOOK' | isMyPage: pnc | translate }}
         </page-header>
     </ion-navbar>
@@ -12,5 +12,6 @@
         <div *ngIf="isManager()">
             <button color="blueDaisy" (click)="goToLogbookCreation()" ion-button block>{{ 'LOGBOOK.BUTTONS.ADD_LOG' | translate }}</button>
         </div>
+        <button color="blueDaisy" (click)="goToLogbookDetails()" ion-button block>{{ 'LOGBOOK.BUTTONS.LOG_DETAIL' | translate }}</button>
     </ng-template>
 </ion-content>

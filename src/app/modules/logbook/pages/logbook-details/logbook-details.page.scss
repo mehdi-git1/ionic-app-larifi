@@ -1,0 +1,14 @@
+page-logbook-details {
+
+    .draw-ligne {
+        margin: 20px 10px;
+        border-top: 2px solid color($colors, grey50);
+    }
+
+    .logbook-info-date {
+        text-align: center;
+        position: relative;
+        top: 25px;
+        background-color: color($colors, grey90);
+    }
+}

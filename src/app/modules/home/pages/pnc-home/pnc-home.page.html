@@ -13,6 +13,7 @@
             <ion-row>
                 <pnc-card-page-header *ngIf="pnc" [itemMember]="pnc"></pnc-card-page-header>
             </ion-row>
+            <button color="blueDaisy" (click)="goToLogbookDetails()" ion-button block>{{ 'LOGBOOK.BUTTONS.LOG_DETAIL' | translate }}</button>
             <ion-row id="nav-tile-grid" *ngIf="pnc">
                 <ion-col>
                     <!-- Liste des objectifs-->

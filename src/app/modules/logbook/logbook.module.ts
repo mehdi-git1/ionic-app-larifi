@@ -1,3 +1,5 @@
+import { LogbookDetailsComponent } from './components/logbook-details/logbook-details.component';
+import { LogbookDetailsPage } from './pages/logbook-details/logbook-details.page';
 import { LogbookEditPage } from './pages/logbook-edit/logbook-edit.page';
 import { LogbookPage } from './pages/logbook/logbook.page';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
@@ -8,7 +10,9 @@ import { ComponentsModule } from '../../shared/components/components.module';
 @NgModule({
   declarations: [
     LogbookPage,
-    LogbookEditPage
+    LogbookEditPage,
+    LogbookDetailsPage,
+    LogbookDetailsComponent
   ],
   imports: [
     [IonicPageModule.forChild(LogbookPage)],
@@ -17,11 +21,15 @@ import { ComponentsModule } from '../../shared/components/components.module';
   ],
   entryComponents: [
     LogbookPage,
-    LogbookEditPage
+    LogbookEditPage,
+    LogbookDetailsPage,
+    LogbookDetailsComponent
   ],
   exports: [
     LogbookPage,
-    LogbookEditPage
+    LogbookEditPage,
+    LogbookDetailsPage,
+    LogbookDetailsComponent
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA
