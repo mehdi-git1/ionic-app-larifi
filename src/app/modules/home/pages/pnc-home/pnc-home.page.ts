@@ -236,4 +236,5 @@ export class PncHomePage {
         const isAPncHomeAndImManager = !this.isMyHome() && !this.isManager() && this.sessionService.getActiveUser().isManager;
         return this.authorizationService.hasPermission('VIEW_LOGBOOK') && (isAPncHomeAndImManager || isMyHomeAndImPnc);
     }
+
 }

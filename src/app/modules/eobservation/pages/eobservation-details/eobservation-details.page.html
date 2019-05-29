@@ -9,7 +9,6 @@
 <ion-content padding>
     <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
     <ng-template #pageBlock>
-
         <div class="selectable">
             <pnc-card-page-header *ngIf="pnc" [itemMember]="pnc"></pnc-card-page-header>
 

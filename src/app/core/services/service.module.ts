@@ -79,6 +79,7 @@ import { ProfessionalInterviewService } from './professional-interview/professio
 import { OnlineProfessionalInterviewService } from './professional-interview/online-professional-interview.service';
 import { OfflineProfessionalInterviewService } from './professional-interview/offline-professional-interview.service';
 import { OnlineLogbookEventService } from './logbook/online-logbook-event.service';
+import { PdfGeneratorService } from './pdf-generator/pdf-generator.service';
 
 
 @NgModule({
@@ -169,7 +170,8 @@ import { OnlineLogbookEventService } from './logbook/online-logbook-event.servic
         SynchronizationManagementService,
         ProfessionalInterviewStatusService,
         ProfessionalInterviewTransformerService,
-        OnlineLogbookEventService
+        OnlineLogbookEventService,
+        PdfGeneratorService
     ]
 })
 export class ServiceModule { }
