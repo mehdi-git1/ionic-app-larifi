@@ -14,19 +14,19 @@ $colorPointSize: 12px;
 }
 
 .registered {
-    background: color($colors, orange60);
+    background: #F5A623;
     color: color($colors, white);
 
 }
 
 .validated {
-    background: color($colors, green60);
+    background: #5BC7A9;
     color: color($colors, white);
 
 }
 
 .abandoned {
-    background: color($colors, grey90);
+    background: #F1F1F1;
     color: color($colors, grey50);
 }
 
@@ -39,7 +39,7 @@ $colorPointSize: 12px;
 }
 
 .draft-dot {
-    background: color($colors, grey72);
+    background: #D8D8D8;
 }
 
 .registered-dot {
@@ -47,9 +47,9 @@ $colorPointSize: 12px;
 }
 
 .validated-dot {
-    background: color($colors, green70);
+    background: #71D18A;
 }
 
 .abandoned-dot {
-    background: color($colors, red15);
+    background: #D6457C;
 }

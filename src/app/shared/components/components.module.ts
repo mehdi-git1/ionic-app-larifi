@@ -1,3 +1,4 @@
+import { PdfButtonComponent } from './pdf-button/pdf-button.component';
 import { IonicModule } from 'ionic-angular';
 import { CommonModule } from '@angular/common';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
@@ -58,6 +59,7 @@ import { AppVersionAlertComponent } from './app-version-alert/app-version-alert.
     RadioAndLabelComponent,
     CheckboxAndLabelComponent,
     UserMessageAlertComponent,
+    PdfButtonComponent,
     AppVersionAlertComponent
   ],
   exports: [
@@ -81,6 +83,7 @@ import { AppVersionAlertComponent } from './app-version-alert/app-version-alert.
     RadioAndLabelComponent,
     CheckboxAndLabelComponent,
     UserMessageAlertComponent,
+    PdfButtonComponent,
     AppVersionAlertComponent
   ],
   schemas: [

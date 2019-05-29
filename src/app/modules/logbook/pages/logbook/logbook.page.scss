@@ -14,7 +14,7 @@ log-book {
         }
 
         ion-row:nth-child(odd) {
-            background: color($colors, grey90);
+            background: #327eff;
         }
 
         ion-row:first-child {
@@ -34,11 +34,11 @@ log-book {
         }
 
         mat-row:nth-child(odd) {
-            background: color($colors, grey90);
+            background: #327eff;
         }
 
         .mat-header-row {
-            border-bottom-color: color($colors, grey90);
+            border-bottom-color: #327eff;
         }
 
         .mat-row {

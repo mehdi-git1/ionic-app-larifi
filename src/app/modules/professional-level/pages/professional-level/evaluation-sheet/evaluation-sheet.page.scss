@@ -8,7 +8,7 @@
             display: inline;
             font-size: 1.2em;
             font-weight: bold;
-            box-shadow: 0px 0px 5px color($colors, grey70);
+            box-shadow: 0px 0px 5px #d5d9de;
             padding: 10px 20px;
             background: color($colors, white);
             border-radius: 5px;
@@ -18,7 +18,7 @@
             }
 
             .stage-date {
-                color: color($colors, blue55);
+                color: #7cc3cc;
             }
 
             .stage-result {
@@ -27,19 +27,19 @@
                 border-radius: 5px;
 
                 &.red {
-                    background-color: color($colors, red15);
+                    background-color: #D6457C;
                 }
 
                 &.green {
-                    background-color: color($colors, green70);
+                    background-color: #71D18A;
                 }
 
                 &.yellow {
-                    background-color: color($colors, yellow1);
+                    background-color: #F5D359;
                 }
 
                 &.orange {
-                    background-color: color($colors, orange90);
+                    background-color: #EF9E67;
                 }
             }
         }
@@ -47,7 +47,7 @@
 
     .score-container {
         display: flex;
-        box-shadow: 0px 0px 5px color($colors, grey70);
+        box-shadow: 0px 0px 5px #d5d9de;
         background: color($colors, white);
         border-radius: 5px;
 
@@ -80,7 +80,7 @@
 
                 ion-icon {
                     margin: 0 10px 10px 0;
-                    color: color($colors, blue55)
+                    color: #7cc3cc;
                 }
 
                 .comment {
@@ -96,16 +96,16 @@
         }
 
         .fc-container {
-            border-left: 1px solid color($colors, grey70);
+            border-left: 1px solid #d5d9de;
         }
     }
 
     .exercise-header {
         margin: 10px 0;
-        background: color($colors, blue55);
+        background: #7cc3cc;
         border-radius: 5px;
         color: color($colors, white);
-        box-shadow: 0px 0px 5px color($colors, grey70);
+        box-shadow: 0px 0px 5px #d5d9de;
 
         ion-row > ion-col {
             display: flex;
@@ -118,10 +118,10 @@
     .exercise-list {
         border-radius: 5px;
         padding: 0;
-        box-shadow: 0px 0px 5px color($colors, grey70);
+        box-shadow: 0px 0px 5px #d5d9de;
 
         .title {
-            background: color($colors, bluegrey);
+            background: #66A7B7;
             color: color($colors, white);
             text-transform: capitalize;
 
@@ -132,7 +132,7 @@
 
         .exercise {
             &:nth-child(odd) {
-                background: color($colors, grey90);
+                background: #F1F1F1;
             }
 
             &:last-child {
@@ -145,7 +145,7 @@
                 }
 
                 &:not(:last-child) {
-                    border-right: 1px solid color($colors, grey75);
+                    border-right: 1px solid #ededed;
                 }
 
                 &:not(:first-child) {

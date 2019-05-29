@@ -16,7 +16,7 @@ page-app-version-history {
     }
 
     .history-title {
-        color: color($colors, green50);
+        color: color($colors, primary);
     }
 
     .description {
@@ -31,7 +31,7 @@ page-app-version-history {
     }
 
     .active {
-        background: color($colors, green50);
+        background: color($colors, primary);
         color: white;
     }
 

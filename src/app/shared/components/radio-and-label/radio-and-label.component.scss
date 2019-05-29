@@ -11,13 +11,16 @@ radio-and-label {
             padding-left: 5px;
         }
 
-        .radio-md .radio-icon, .radio-md.radio-disabled, .item-md.item-radio-disabled  {
-            border-color: color($colors, blue55) !important;
+        .radio-md .radio-icon,
+        .radio-md.radio-disabled,
+        .item-md.item-radio-disabled {
+            border-color: #7cc3cc !important;
             opacity: 1;
-            margin : 0px;
+            margin: 0px;
+
             .radio-inner {
                 opacity: 1;
-                background-color: color($colors, blue55) !important;
+                background-color: #7cc3cc !important;
             }
         }
 

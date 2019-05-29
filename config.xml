@@ -72,5 +72,9 @@
     <plugin name="cordova-plugin-formslib" spec="^1.0.11" />
     <plugin name="cordova-plugin-file" spec="~6.0.1" />
     <plugin name="cordova-plugin-app-version" spec="^0.1.9" />
+    <plugin name="cordova-pdf-generator" spec="^2.0.8" />
+    <plugin name="cordova-plugin-printer" spec="^0.8.0" />
+    <plugin name="cordova-plugin-screen-orientation" spec="^3.0.1" />
     <engine name="ios" spec="5.0.0" />
+    <plugin name="cordova-pdf-generator" spec="^2.0.8" />
 </widget>

@@ -5,7 +5,7 @@ professional-level-cursus {
         mat-expansion-panel-header {
             color: color($colors, white);
             font-weight: bold !important;
-            background: color($colors, blue81);
+            background: color($colors, primary-light);
             border-radius: 5px;
 
             & > .mat-expansion-indicator {
@@ -20,7 +20,7 @@ professional-level-cursus {
             &.mat-expanded:hover,
             &.mat-expanded:focus,
             &.mat-expanded {
-                background: color($colors, blue81) !important;
+                background: color($colors, primary-light) !important;
                 border-radius: 5px;
             }
         }
@@ -38,7 +38,7 @@ professional-level-cursus {
                     padding: 5px;
 
                     &:not(:last-child) {
-                        border-bottom: 1px solid color($colors, grey70);
+                        border-bottom: 1px solid #d5d9de;
                     }
                 }
 
@@ -47,7 +47,7 @@ professional-level-cursus {
                 }
 
                 li:nth-child(odd) {
-                    background: color($colors, grey90);
+                    background: #F1F1F1;
                 }
             }
         }

@@ -29,7 +29,7 @@ export class EobservationDetailsPage {
   originEObservation: EObservationModel;
 
   editMode = false;
-
+  pdfFileName: string;
   loading: Loading;
 
   constructor(public navCtrl: NavController,
@@ -64,6 +64,9 @@ export class EobservationDetailsPage {
         if (this.eObservation && this.eObservation.pnc && this.eObservation.pnc.matricule) {
           this.pncService.getPnc(this.eObservation.pnc.matricule).then(pnc => {
             this.pnc = pnc;
+            const nowString = this.datePipe.transform(Date.now(), 'yyyyMMddHHmmss');
+            const pncMatricule = this.pnc ? this.pnc.matricule : '';
+            this.pdfFileName = 'EOBS_' + pncMatricule + '_' + nowString + '.pdf';
           }, error => { });
         }
       }, error => { });

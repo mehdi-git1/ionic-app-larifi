@@ -9,7 +9,7 @@ career-objectives {
 
         mat-expansion-panel-header {
             display: flex;
-            background-color: color($colors, green45);
+            background-color: #3CAF90;
             border-radius: 5px;
             color: color($colors, white);
             cursor: pointer;
@@ -29,7 +29,7 @@ career-objectives {
 
             &.mat-expanded:hover,
             &.mat-expanded:focus {
-                background-color: color($colors, green45) !important;
+                background-color: #3CAF90 !important;
             }
 
             .mat-content {
