@@ -72,6 +72,18 @@ page-eobservation-details {
 
     .button-bar {
         margin-top: 10px;
+
+        pdf-button {
+
+            .button {
+                background-color: white;
+                color: color($colors, grey20);
+            }
+            .button:hover {
+                background-color: white;
+                color: color($colors, grey20);
+            }
+        }
     }
 
     .information-message {
