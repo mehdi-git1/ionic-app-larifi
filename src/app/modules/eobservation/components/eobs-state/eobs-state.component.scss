@@ -6,7 +6,7 @@ eobs-state {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        background: #5d727A;
+        background: color($colors-secondary, bluegrey30);
         color: color($colors, white);
         border-radius: 5px;
 

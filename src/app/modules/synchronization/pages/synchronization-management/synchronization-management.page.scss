@@ -19,11 +19,11 @@ synchronization-management {
     nav.tabs {
         display: flex;
         justify-content: center;
-        border-bottom: 1px solid #ededed;
+        border-bottom: 1px solid color($colors-secondary, grey75);
         margin-bottom: 30px;
 
         button {
-            color: #888;
+            color: color($colors-secondary, grey40);
             font-size: 1.2em;
             background: none;
             margin: 0 20px;

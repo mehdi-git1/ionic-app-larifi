@@ -3,7 +3,7 @@ eobs-rotation-info {
     .rotation-info {
 
         .rotation-number {
-            color: #7cc3cc;
+            color: color($colors-secondary, blue55);
         }
 
         display: flex;

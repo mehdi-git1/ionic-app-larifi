@@ -14,7 +14,7 @@ pnc-card {
     }
 
     .disabled {
-        background: #F1F1F1;
+        background: color($colors-secondary, grey95);
     }
 
     .pnc-info-panel {
@@ -101,11 +101,11 @@ pnc-card {
                 word-spacing: 0.4em;
 
                 .prioritized {
-                    color: #E53A40;
+                    color: color($colors-secondary, red80);
                 }
 
                 .at-least-one-priority {
-                    color: #71D18A;
+                    color: color($colors-secondary, green70);
                 }
             }
         }

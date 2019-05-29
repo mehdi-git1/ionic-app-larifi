@@ -31,7 +31,7 @@ synchro-request-card {
         }
 
         .error-message {
-            color: #E53A40;
+            color: color($colors-secondary, red80);
         }
     }
 
@@ -47,15 +47,15 @@ synchro-request-card {
             border-radius: 100%;
 
             &.in_progress {
-                background: #F5D359;
+                background: color($colors-secondary, yellow10);
             }
 
             &.successful {
-                background: #71D18A;
+                background: color($colors-secondary, green70);
             }
 
             &.failed {
-                background: #E53A40;
+                background: color($colors-secondary, red80);
             }
         }
     }

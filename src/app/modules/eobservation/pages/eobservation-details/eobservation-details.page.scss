@@ -1,11 +1,11 @@
 page-eobservation-details {
 
-    $border-grid: 1px solid #ededed;
+    $border-grid: 1px solid color($colors-secondary, grey75);
     $block-border-radius: 5px;
 
     ion-grid.rotation-grid {
         .flight-header {
-            color: #7cc3cc;
+            color: color($colors-secondary, blue55);
         }
 
         ion-row {
@@ -24,7 +24,7 @@ page-eobservation-details {
         }
 
         ion-row:nth-child(even) {
-            background: #F1F1F1;
+            background: color($colors-secondary, grey95);
         }
 
         ion-col:last-child {
@@ -49,7 +49,7 @@ page-eobservation-details {
         height: 32px;
         padding-right: 24px;
         padding-left: 24px;
-        background: #7cc3cc;
+        background: color($colors-secondary, blue55);
         color: color($colors, white);
         font-size: 18px !important;
         border-radius: $block-border-radius;
@@ -72,6 +72,20 @@ page-eobservation-details {
 
     .button-bar {
         margin-top: 10px;
+
+        pdf-button {
+
+            .button .button-md .button-ios {
+                background-color: white;
+                color: color($colors, grey20);
+                border-color: color($colors, grey20);
+            }
+            .button:hover .button-md:hover .button-ios:hover {
+                background-color: white;
+                color: color($colors, grey20);
+                border-color: color($colors, grey20);
+            }
+        }
     }
 
     .information-message {

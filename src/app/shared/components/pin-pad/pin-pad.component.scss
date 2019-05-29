@@ -19,7 +19,7 @@ pin-pad {
 
     .error-text {
         text-align: center;
-        color: #E53A40;
+        color: color($colors-secondary, red80);
     }
 
     .forgotten-pin {

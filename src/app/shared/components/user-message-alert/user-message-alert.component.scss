@@ -1,5 +1,5 @@
 user-message-alert {
-    color: #333333;
+    color: color($colors-secondary, grey10);
 
     .user-message-alert-wrapper {
         display: none;
@@ -17,7 +17,7 @@ user-message-alert {
 
         .alert {
             width: 50%;
-            background: #F1F1F1;
+            background: color($colors-secondary, grey95);
             border-radius: 10px;
 
             .header {
@@ -52,18 +52,18 @@ user-message-alert {
             .button-bar {
                 height: 50px;
                 display: flex;
-                border-top: 1px solid #D8D8D8;
+                border-top: 1px solid color($colors-secondary, grey72);
 
                 button {
                     flex: 1;
-                    background: #F1F1F1;
+                    background: color($colors-secondary, grey95);
                     font-size: 1.3em;
                     border-radius: 5px;
-                    color: #333333;
+                    color: color($colors-secondary, grey10);
                 }
 
                 button:not(:first-child) {
-                    border-left: 1px solid #D8D8D8;
+                    border-left: 1px solid color($colors-secondary, grey72);
                 }
 
                 button:first-child {
@@ -76,7 +76,7 @@ user-message-alert {
                 }
 
                 button:hover {
-                    background: #F1F1F1;
+                    background: color($colors-secondary, grey95);
                 }
             }
         }

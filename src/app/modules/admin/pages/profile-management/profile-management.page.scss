@@ -18,11 +18,11 @@ page-profile-management {
     }
 
     .button-md {
-        background: cadetblue;
+        background: color($colors, primary);
     }
 
     .input-group {
-        background-color: #fff;
+        background-color: color($colors, white);
         position: relative;
 
         label {
@@ -38,7 +38,7 @@ page-profile-management {
                 height: 10px;
                 border-radius: 50%;
                 content: '';
-                background-color: cadetblue;
+                background-color: color($colors, primary);
                 position: absolute;
                 left: 50%;
                 top: 50%;
@@ -50,7 +50,7 @@ page-profile-management {
         }
 
         input:checked ~ label {
-            color: #fff;
+            color: color($colors, white);
 
             &:before {
                 transform: translate(-50%, -50%) scale3d(56, 56, 1);

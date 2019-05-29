@@ -8,7 +8,7 @@
             display: inline;
             font-size: 1.2em;
             font-weight: bold;
-            box-shadow: 0px 0px 5px #d5d9de;
+            box-shadow: 0px 0px 5px color($colors-secondary, grey70);
             padding: 10px 20px;
             background: color($colors, white);
             border-radius: 5px;
@@ -18,7 +18,7 @@
             }
 
             .stage-date {
-                color: #7cc3cc;
+                color: color($colors-secondary, blue55);
             }
 
             .stage-result {
@@ -27,19 +27,19 @@
                 border-radius: 5px;
 
                 &.red {
-                    background-color: #D6457C;
+                    background-color: color($colors-secondary, red15);
                 }
 
                 &.green {
-                    background-color: #71D18A;
+                    background-color: color($colors-secondary, green70);
                 }
 
                 &.yellow {
-                    background-color: #F5D359;
+                    background-color: color($colors-secondary, yellow10);
                 }
 
                 &.orange {
-                    background-color: #EF9E67;
+                    background-color: color($colors, orange55);
                 }
             }
         }
@@ -47,7 +47,7 @@
 
     .score-container {
         display: flex;
-        box-shadow: 0px 0px 5px #d5d9de;
+        box-shadow: 0px 0px 5px color($colors-secondary, grey70);
         background: color($colors, white);
         border-radius: 5px;
 
@@ -80,7 +80,7 @@
 
                 ion-icon {
                     margin: 0 10px 10px 0;
-                    color: #7cc3cc;
+                    color: color($colors-secondary, blue55);
                 }
 
                 .comment {
@@ -96,16 +96,16 @@
         }
 
         .fc-container {
-            border-left: 1px solid #d5d9de;
+            border-left: 1px solid color($colors-secondary, grey70);
         }
     }
 
     .exercise-header {
         margin: 10px 0;
-        background: #7cc3cc;
+        background: color($colors-secondary, blue55);
         border-radius: 5px;
         color: color($colors, white);
-        box-shadow: 0px 0px 5px #d5d9de;
+        box-shadow: 0px 0px 5px color($colors-secondary, grey70);
 
         ion-row > ion-col {
             display: flex;
@@ -118,10 +118,10 @@
     .exercise-list {
         border-radius: 5px;
         padding: 0;
-        box-shadow: 0px 0px 5px #d5d9de;
+        box-shadow: 0px 0px 5px color($colors-secondary, grey70);
 
         .title {
-            background: #66A7B7;
+            background: color($colors-secondary, bluegrey10);
             color: color($colors, white);
             text-transform: capitalize;
 
@@ -132,7 +132,7 @@
 
         .exercise {
             &:nth-child(odd) {
-                background: #F1F1F1;
+                background: color($colors-secondary, grey95);
             }
 
             &:last-child {
@@ -145,7 +145,7 @@
                 }
 
                 &:not(:last-child) {
-                    border-right: 1px solid #ededed;
+                    border-right: 1px solid color($colors-secondary, grey75);
                 }
 
                 &:not(:first-child) {
