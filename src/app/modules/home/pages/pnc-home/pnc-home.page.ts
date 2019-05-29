@@ -239,8 +239,8 @@ export class PncHomePage {
     }
 
     /**
- * Dirige vers la page de détail d'un évènement du journal de bord
- */
+     * Dirige vers la page de détail d'un évènement du journal de bord
+     */
     goToLogbookDetails() {
         if (this.pnc) {
             this.navCtrl.push(LogbookDetailsPage);

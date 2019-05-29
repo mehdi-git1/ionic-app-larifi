@@ -35,6 +35,7 @@ import { AuthenticationModule } from './core/authentication/authentication.modul
 import { FileModule } from './core/file/file.module';
 import { SynchronizationModule } from './modules/synchronization/synchronization.module';
 import { ProfessionalInterviewModule } from './modules/professional-interview/professional-interview.module';
+import { RoutingModule } from './core/routing/routing.module';
 
 import localeFr from '@angular/common/locales/fr';
 import { registerLocaleData } from '@angular/common';
@@ -52,6 +53,7 @@ registerLocaleData(localeFr);
     }),
     HttpClientModule,
     AuthenticationModule,
+    RoutingModule,
     DevelopmentProgramModule,
     HomeModule,
     FlightActivityModule,
