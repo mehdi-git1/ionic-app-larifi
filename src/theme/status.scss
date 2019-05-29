@@ -26,7 +26,7 @@ $colorPointSize: 12px;
 }
 
 .abandoned {
-    background: #F1F1F1;
+    background: color($colors-secondary, grey95);
     color: color($colors, grey50);
 }
 
@@ -39,7 +39,7 @@ $colorPointSize: 12px;
 }
 
 .draft-dot {
-    background: #D8D8D8;
+    background: color($colors-secondary, grey72);
 }
 
 .registered-dot {

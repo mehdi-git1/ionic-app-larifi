@@ -38,7 +38,7 @@ professional-level-cursus {
                     padding: 5px;
 
                     &:not(:last-child) {
-                        border-bottom: 1px solid #d5d9de;
+                        border-bottom: 1px solid color($colors-secondary, grey70);
                     }
                 }
 
@@ -47,7 +47,7 @@ professional-level-cursus {
                 }
 
                 li:nth-child(odd) {
-                    background: #F1F1F1;
+                    background: color($colors-secondary, grey95);
                 }
             }
         }

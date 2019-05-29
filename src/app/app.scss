@@ -91,7 +91,7 @@ body,
 .app-root,
 .nav-decor {
     // Pour surcharger le fond sur ipad
-    background-color: #FAFBFB !important;
+    background-color: color($colors-secondary, grey98) !important;
     font-size: 1em;
 }
 
@@ -143,7 +143,7 @@ ion-content > .scroll-content {
 
 // Impersonification
 .impersonation .toolbar .toolbar-background {
-    background: #C0504D !important;
+    background: color($colors, red20) !important;
 }
 
 // Toast de notification

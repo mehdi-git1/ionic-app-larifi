@@ -2,7 +2,7 @@ tab-nav {
 
     .tab-button[aria-selected=false] .icon,
     .tab-button[aria-selected=false] {
-        color: #333;
+        color: color($colors-secondary, grey10);
     }
 
     .tabs[tabsLayout=icon-top] .has-icon .tab-button-text {
