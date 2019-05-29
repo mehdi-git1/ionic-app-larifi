@@ -22,7 +22,7 @@ export class PdfGeneratorService {
   }
 
   /**
-   * Génère un pdf correspondant à l'élément HTML en paramère
+   * Génère un pdf correspondant à l'élément HTML en paramètre
    * @param elementToPrint élément HTML
    * @param pdfFileName nom du fichier PDF généré
    */
