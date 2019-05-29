@@ -4,6 +4,109 @@ log-book {
         // TODO : A supprimer avec Daisy
         @extend .button-md;
         @extend .button;
-        background-color: color($colors, blueDaisy);
+        background-color: color($colors, primary);
     }
+
+    .logbook-event-grid{
+
+        ion-row:nth-child(even) {
+            background: color($colors, white);
+        }
+
+        ion-row:nth-child(odd) {
+            background: color($colors, grey90);
+        }
+
+        ion-row:first-child {
+            background: color($colors, white) !important;
+            border-bottom: 1px solid grey;
+        }
+
+        ion-row > ion-col {
+            align-items: center;
+        }
+    }
+
+    mat-table {
+
+        mat-row:nth-child(even) {
+            background: color($colors, white);
+        }
+
+        mat-row:nth-child(odd) {
+            background: color($colors, grey90);
+        }
+
+        .mat-header-row {
+            border-bottom-color: color($colors, grey90);
+        }
+
+        .mat-row {
+            display: flex;
+            border-bottom: none;
+        }
+    }
+
+    .item-label {
+        display: inline-block;
+        vertical-align: middle;
+    }
+
+    .button-bar {
+        position: fixed;
+        bottom: 40px;
+        display: flex;
+        align-items: flex-end;
+        width: 90%;
+        justify-content: flex-end;
+        button {
+            align-self: flex-end;
+        }
+    }
+
+    .important-label {
+        min-width: 10px;
+        color:red;
+        font-size: 150%;
+        font-weight: bold;
+    }
+
+    .edospnc-pnc:before {
+        font-size: 60px;
+    }
+
+    table {
+        width: 100%;
+    }
+
+    mat-table {
+        width: 100%;
+    }
+
+    .table-container {
+        display: flex;
+        flex-direction: column;
+        min-width: 300px;
+        background: color($colors, white);
+    }
+    
+    .table-header {
+        min-height: 64px;
+        padding: 8px 24px 0;
+        background: color($colors, white);
+    }
+    
+    .mat-form-field {
+        font-size: 14px;
+        width: 100%;
+    }
+    
+    .mat-table {
+        overflow: auto;
+        max-height: 500px;
+    }
+}
+
+.popover-md.action-menu-popover .popover-content {
+    transform: translate(-80%, 45%) !important;
 }

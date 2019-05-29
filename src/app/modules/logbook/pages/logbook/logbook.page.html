@@ -9,8 +9,94 @@
     <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
     <ng-template #pageBlock>
         <pnc-card-page-header *ngIf="pnc" [itemMember]="pnc"></pnc-card-page-header>
-        <div *ngIf="isManager()">
-            <button color="blueDaisy" (click)="goToLogbookCreation()" ion-button block>{{ 'LOGBOOK.BUTTONS.ADD_LOG' | translate }}</button>
+        <!--ion-grid *ngIf="hasLogbookEvents()" class="logbook-event-grid">
+            <ion-row class="logbook-event-grid-header">
+                <ion-col col-1></ion-col>
+                <ion-col col-1>{{ 'LOGBOOK.EVENT_DATE' | translate }}</ion-col>
+                <ion-col col-1>{{ 'LOGBOOK.CREATION_DATE' | translate }}</ion-col>
+                <ion-col col-2>{{ 'LOGBOOK.CATEGORY' | translate }}</ion-col>
+                <ion-col col-3>{{ 'LOGBOOK.EVENT' | translate }}</ion-col>
+                <ion-col col-1>{{ 'LOGBOOK.ORIGIN' | translate }}</ion-col>
+                <ion-col col-2>{{ 'LOGBOOK.REDACTOR' | translate }}</ion-col>
+                <ion-col col-1>{{ 'LOGBOOK.ACTIONS' | translate }}</ion-col>
+            </ion-row>
+            <ion-row class="logbook-event-grid-row" *ngFor="let logbookEvent of logbookEvents">
+                <ion-col col-1></ion-col>
+                <ion-col class="item-label" col-1>{{logbookEvent.eventDate | date:'dd/MM/yyyy' }}</ion-col>
+                <ion-col class="item-label" col-1>{{logbookEvent.creationDate | date:'dd/MM/yyyy' }}</ion-col>
+                <ion-col class="item-label" col-2><ion-badge color="secondary">{{logbookEvent.category?.label}}</ion-badge></ion-col>
+                <ion-col class="item-label" col-3><span class="important-label"><span *ngIf="logbookEvent.important">!</span></span>{{logbookEvent.title}}</ion-col>
+                <ion-col class="item-label" col-1><ion-icon *ngIf="logbookEvent.pncInitiator" class="edospnc-pnc action-icon" name="edospnc-pnc" ></ion-icon></ion-col>
+                <ion-col class="item-label" col-2>{{logbookEvent.lastUpdateAuthor?.firstName}} {{logbookEvent.lastUpdateAuthor?.lastName}}</ion-col>
+                <ion-col class="item-label" col-1><span class="edospnc-more"></span><ion-icon class="edospnc-more action-icon" name="edospnc-more" (click)="openActionsMenu($event, logbookEvent)"></ion-icon></ion-col>
+            </ion-row>
+            <div class="button-bar" *ngIf="isManager()">
+                <button ion-button (click)="goToLogbookCreation()" >{{ 'LOGBOOK.BUTTONS.ADD_LOG' | translate }}</button>
+            </div>
+        </ion-grid-->
+        <!--mat-table #table [dataSource]="logbookEvents" >
+            <ng-container matColumnDef="categoryLabel">
+                <th mat-header-cell *matHeaderCellDef> No. </th>
+                <td mat-cell *matCellDef="let logbookEvent"> {{logbookEvent.category?.label}} </td>
+            </ng-container>
+            <ng-container matColumnDef="title">
+                <th mat-header-cell *matHeaderCellDef> Name </th>
+                <td mat-cell *matCellDef="let logbookEvent"> {{logbookEvent.title}} </td>
+            </ng-container>
+            <ng-container matColumnDef="authorLastName">
+                <th mat-header-cell *matHeaderCellDef> Weight </th>
+                <td mat-cell *matCellDef="let logbookEvent"> {{logbookEvent.lastUpdateAuthor?.lastName}} </td>
+            </ng-container>
+            <ng-container matColumnDef="symbol">
+                <th mat-header-cell *matHeaderCellDef> Symbol </th>
+                <td mat-cell *matCellDef="let element"><ion-icon class="edospnc-more action-icon" name="edospnc-more" (click)="openActionsMenu($event, logbookEvent)"></ion-icon></td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </mat-table-->
+
+        <div *ngIf="logbookEvents" class="table-container mat-elevation-z8">
+            <div class="table-header">
+                <mat-form-field>
+                <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+                </mat-form-field>
+            </div>
+            
+            <mat-table #table [dataSource]="dataSourceLogbookEvent" matSort>
+                <ng-container matColumnDef="eventDate">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'LOGBOOK.EVENT_DATE' | translate }}</mat-header-cell>
+                    <mat-cell *matCellDef="let logbookEvent">{{logbookEvent.eventDate | date:'dd/MM/yyyy' }}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="creationDate">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'LOGBOOK.CREATION_DATE' | translate }}</mat-header-cell>
+                    <mat-cell *matCellDef="let logbookEvent">{{logbookEvent.creationDate | date:'dd/MM/yyyy' }}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="category">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'LOGBOOK.CATEGORY' | translate }}</mat-header-cell>
+                    <mat-cell *matCellDef="let logbookEvent"><ion-badge color="primary">{{logbookEvent.category?.label}}</ion-badge></mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="event">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'LOGBOOK.EVENT' | translate }}</mat-header-cell>
+                    <mat-cell *matCellDef="let logbookEvent"><ion-icon *ngIf="logbookEvent.important" ios="ios-more" md="md-more"></ion-icon>{{logbookEvent.title}}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="origin">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'LOGBOOK.ORIGIN' | translate }}</mat-header-cell>
+                    <mat-cell *matCellDef="let logbookEvent"><ion-icon *ngIf="logbookEvent.pncInitiator" color="primary" class="edospnc-pnc action-icon" name="edospnc-pnc" ></ion-icon></mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="author">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'LOGBOOK.REDACTOR' | translate }}</mat-header-cell>
+                    <mat-cell *matCellDef="let logbookEvent">{{logbookEvent.lastUpdateAuthor?.firstName}} {{logbookEvent.lastUpdateAuthor?.lastName}}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="actions">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'LOGBOOK.ACTIONS' | translate }}</mat-header-cell>
+                    <mat-cell *matCellDef="let logbookEvent"><ion-icon class="edospnc-more action-icon" name="edospnc-more" (click)="openActionsMenu($event, logbookEvent)"></ion-icon></mat-cell>
+                </ng-container>              
+                <mat-header-row *matHeaderRowDef="displayedLogbookEventsColumns"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedLogbookEventsColumns;"></mat-row>
+            </mat-table>
+            <div class="button-bar" *ngIf="isManager()">
+                <button ion-button color="primary" (click)="goToLogbookCreation()" icon-start><ion-icon name="add"></ion-icon>{{ 'LOGBOOK.BUTTONS.ADD_LOG' | translate }}</button>
+            </div>
         </div>
     </ng-template>
 </ion-content>
