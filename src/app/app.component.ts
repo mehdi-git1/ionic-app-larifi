@@ -6,19 +6,15 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
 
-import { PncHomePage } from './modules/home/pages/pnc-home/pnc-home.page';
 import { PinPadTypeEnum } from './core/enums/security/pin-pad-type.enum';
 import { DeviceService } from './core/services/device/device.service';
-import { GenericMessagePage } from './modules/home/pages/generic-message/generic-message.page';
-import { AuthenticationPage } from './modules/home/pages/authentication/authentication.page';
 import { SynchronizationService } from './core/services/synchronization/synchronization.service';
 import { ToastService } from './core/services/toast/toast.service';
 import { ConnectivityService } from './core/services/connectivity/connectivity.service';
 import { SessionService } from './core/services/session/session.service';
 import { ModalSecurityService } from './core/services/modal/modal-security.service';
-import { ImpersonatePage } from './modules/settings/pages/impersonate/impersonate.page';
-import { AuthenticationStatusEnum } from './core/enums/authentication-status.enum';
 import { AuthenticationService } from './core/authentication/authentication.service';
+import { RoutingService } from './core/routing/routing.service';
 
 
 @Component({
@@ -46,7 +42,8 @@ export class EDossierPNC implements OnInit {
     private toastService: ToastService,
     private synchronizationProvider: SynchronizationService,
     private authenticationService: AuthenticationService,
-    private app: App) {
+    private app: App,
+    private routingService: RoutingService) {
     // A chaque changement de page, on récupère l'evenement pour la gestion du changement de tab
     app.viewWillEnter.subscribe(
       (data) => {
@@ -63,11 +60,15 @@ export class EDossierPNC implements OnInit {
 
     this.platform.ready().then(() => {
 
-      if (!this.deviceService.isBrowser()) {
-        /**
-        * On ajoute une écoute sur un paramétre pour savoir si la popin est activée ou pas pour afficher un blur
-        * et une interdiction de cliquer avant d'avoir mis le bon code pin
-        */
+      if (this.deviceService.isBrowser()) {
+        if (this.isInternetExplorer()) {
+          this.nav.setRoot(UnsupportedNavigatorMessagePage);
+          return;
+        }
+      } else {
+
+        /* On ajoute une écoute sur un paramétre pour savoir si la popin est activée ou pas pour afficher
+        un blur et une interdiction de cliquer avant d'avoir mis le bon code pin */
         this.securityModalService.modalDisplayed.subscribe(data => {
           this.pinPadModalActive = data;
         });
@@ -85,7 +86,7 @@ export class EDossierPNC implements OnInit {
           }
         });
 
-        /** On ajoute un evenement pour savoir si on entre en mode background */
+        /** On ajoute un événement pour savoir si on entre en mode background */
         this.platform.pause.subscribe(() => {
           this.switchToBackgroundDate = new Date();
         });
@@ -112,44 +113,10 @@ export class EDossierPNC implements OnInit {
       this.translateService.use('fr');
       this.authenticationService.initFunctionalApp().then(
         authentReturn => {
-          this.routingApp(authentReturn);
+          this.routingService.handleAuthenticationStatus(authentReturn, this.nav);
         });
     });
 
-  }
-
-  /**
-   * Gére le routage en fonction du paramétre d'entrée
-   * @param authentReturn retour de l'authentification
-   */
-  routingApp(authentReturn: AuthenticationStatusEnum) {
-    if (this.isInternetExplorer()) {
-      this.nav.setRoot(UnsupportedNavigatorMessagePage);
-    } else {
-      switch (authentReturn) {
-        case AuthenticationStatusEnum.AUTHENTICATION_OK:
-          this.events.publish('user:authenticationDone');
-          if (!this.deviceService.isBrowser() && !this.sessionService.impersonatedUser) {
-            this.securityModalService.displayPinPad(PinPadTypeEnum.openingApp);
-          }
-          this.nav.setRoot(PncHomePage, { matricule: this.sessionService.getActiveUser().matricule });
-          break;
-        case AuthenticationStatusEnum.AUTHENTICATION_KO:
-          this.nav.setRoot(AuthenticationPage);
-          break;
-        case AuthenticationStatusEnum.IMPERSONATE_MODE:
-          this.nav.setRoot(ImpersonatePage);
-          break;
-        case AuthenticationStatusEnum.INIT_KO:
-          this.nav.setRoot(GenericMessagePage, { message: this.translateService.instant('GLOBAL.MESSAGES.ERROR.APPLICATION_NOT_INITIALIZED') });
-          break;
-        case AuthenticationStatusEnum.APPLI_UNAVAILABLE:
-          this.nav.setRoot(GenericMessagePage, { message: this.translateService.instant('GLOBAL.MESSAGES.ERROR.SERVER_APPLICATION_UNAVAILABLE') });
-          break;
-        default:
-          this.nav.setRoot(GenericMessagePage, { message: this.translateService.instant('GLOBAL.MESSAGES.ERROR.APPLICATION_NOT_INITIALIZED') });
-      }
-    }
   }
 
   /**
