@@ -1,7 +1,7 @@
 career-objective {
 
     .career-objective-card {
-        background-color: color($colors, green60);
+        background-color: #5BC7A9;
         display: flex;
         border-radius: 5px !important;
         color: color($colors, white);
@@ -54,13 +54,13 @@ career-objective {
                 }
 
                 .edospnc-flag:before {
-                    color: color($colors, red15);
-                    border-color: color($colors, red15);
+                    color: #D6457C;
+                    border-color: #D6457C;
                 }
 
                 .edospnc-pnc:before {
-                    color: color($colors, blue68);
-                    border-color: color($colors, blue68);
+                    color: #5f9aaa;
+                    border-color: #5f9aaa;
                 }
             }
 

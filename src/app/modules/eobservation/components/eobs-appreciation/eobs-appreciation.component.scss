@@ -1,19 +1,20 @@
-eobs-appreciation{
+eobs-appreciation {
 
-    .pcb-grid{
+    .pcb-grid {
         ion-row:nth-child(odd) {
-            background: color($colors, grey90);
+            background: #F1F1F1;
         }
 
         ion-row:nth-child(even) {
             background: color($colors, white);
         }
 
-        .list-md .item-block .item-inner,.list-md .item-block .item-inner  {
+        .list-md .item-block .item-inner,
+        .list-md .item-block .item-inner {
             border-bottom: initial;
         }
 
-        .pcb-skills{
+        .pcb-skills {
             padding-left: 24px;
             display: flex;
             align-items: center;
@@ -23,9 +24,9 @@ eobs-appreciation{
             .skills-label {
                 display: flex;
                 flex: 1;
-                width:auto;
+                width: auto;
             }
-    
+
             .skills-value {
                 flex: 2;
                 margin: initial;
@@ -34,7 +35,7 @@ eobs-appreciation{
                 flex-direction: column;
                 align-items: flex-start;
                 justify-content: space-around;
-                width:auto;
+                width: auto;
 
                 .list-md {
                     margin: initial;
@@ -51,10 +52,11 @@ eobs-appreciation{
         }
     }
 
-    .pcb-strong-points{
+    .pcb-strong-points {
         display: flex;
         align-items: center;
         height: 100%;
+
         ion-list {
             display: flex;
             align-items: space-around;
@@ -72,13 +74,13 @@ eobs-appreciation{
 
     .pcb-subtitle {
         ion-col:first-child {
-            border-right: solid color($colors, grey75) 1px;
+            border-right: solid #ededed 1px;
         }
     }
 
     .pcb-grid {
         ion-col:first-child {
-            border-right: solid color($colors, grey75) 1px;
+            border-right: solid #ededed 1px;
         }
     }
 
@@ -87,8 +89,8 @@ eobs-appreciation{
         padding-left: 24px;
         padding-top: 5px;
         padding-bottom: 5px;
-        color: color($colors, blue55);
-        border-top: solid color($colors, grey75) 1px;
-        border-bottom: solid color($colors, grey75) 1px;
+        color: #7cc3cc;
+        border-top: solid #ededed 1px;
+        border-bottom: solid #ededed 1px;
     }
 }

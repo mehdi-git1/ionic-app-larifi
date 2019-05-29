@@ -12,18 +12,18 @@ offline-indicator {
             height: 100%;
 
             background: repeating-linear-gradient(135deg,
-                transparent,
-                transparent 8px,
-                rgba(255, 255, 255, 1) 8px,
-                rgba(255, 255, 255, 1) 10px);
+                    transparent,
+                    transparent 8px,
+                    rgba(255, 255, 255, 1) 8px,
+                    rgba(255, 255, 255, 1) 10px);
         }
     }
 
     .up-to-date {
-        background: color($colors, blue68);
+        background: #5f9aaa;
     }
 
     .out-dated {
-        background: color($colors, orange90);
+        background: #EF9E67;
     }
 }

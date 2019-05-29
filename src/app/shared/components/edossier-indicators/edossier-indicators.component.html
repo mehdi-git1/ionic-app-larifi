@@ -1,8 +1,8 @@
-<button *ngIf="showRefreshIcon && connected" color="secondary" ion-fab item-end class="refresh-button" (click)="refresh()">
+<button *ngIf="showRefreshIcon && connected" color="primary-light" ion-fab item-end class="refresh-button" (click)="refresh()">
     <ion-icon name="refresh" *ngIf="!refreshInProgress"></ion-icon>
     <ion-spinner *ngIf="refreshInProgress"></ion-spinner>
 </button>
-<button *ngIf="showSettingsIcon && isAvailable()" ion-fab class="settings-button" (click)="goToSettingsPage()">
+<button *ngIf="showSettingsIcon && isAvailable()" ion-fab class="settings-button" (click)="goToSettingsPage()" color="primary-dark">
     <ion-icon name="settings"></ion-icon>
 </button>
 <!-- indicateur de connectivité -->
