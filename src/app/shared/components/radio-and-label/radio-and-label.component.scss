@@ -14,13 +14,13 @@ radio-and-label {
         .radio-md .radio-icon,
         .radio-md.radio-disabled,
         .item-md.item-radio-disabled {
-            border-color: #7cc3cc !important;
+            border-color: color($colors-secondary, blue55) !important;
             opacity: 1;
             margin: 0px;
 
             .radio-inner {
                 opacity: 1;
-                background-color: #7cc3cc !important;
+                background-color: color($colors-secondary, blue55) !important;
             }
         }
 

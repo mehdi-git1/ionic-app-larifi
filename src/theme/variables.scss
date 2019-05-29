@@ -27,6 +27,9 @@ $app-direction: ltr;
 // to match your app's branding. Ionic uses a Sass map of
 // colors so you can add, rename and remove colors as needed.
 // The "primary" color is the only required color in the map.
+
+// ATTENTION !!! Limiter les couleurs de cette map aux couleurs du thème de l'appli, celles utilisées dans les composants ionic
+// Ajouter trop de couleurs à cette map ralentit considérablement la génération CSS
 $colors: (primary: #00818E,
     secondary: #AB004D,
     primary-dark:#005461,
@@ -47,8 +50,33 @@ $colors: (primary: #00818E,
     red20:#DD586F,
     red70:#e24c4c);
 
+$colors-secondary:(blue55:#7cc3cc,
+    blue68:#5f9aaa,
+    blue77:#67abb7,
+    grey10:#333,
+    grey12:#38393a,
+    grey40:#888,
+    grey60:#8B7D72,
+    grey70:#d5d9de,
+    grey72:#D8D8D8,
+    grey75:#ededed,
+    grey95:#F1F1F1,
+    grey98:#FAFBFB,
+    green45:#3CAF90,
+    green60:#5BC7A9,
+    green70:#71D18A,
+    red15:#D6457C,
+    red80:#E53A40,
+    bluegrey10:#66A7B7,
+    bluegrey30:#5d727A,
+    bluegrey40:#677A89,
+    bluegrey50:#556775,
+    yellow10:#F5D359);
+
+
+
 // Couleur par défaut du texte
-$text-color:#333333;
+$text-color:color($colors-secondary, grey10);
 
 // Radio
 $radio-ios-color-on:color($colors, secondary);
@@ -168,14 +196,6 @@ ion-select {
 
 $text-input-md-show-focus-highlight: false;
 
-
-.label-md-primary,
-.item-input .label-md-primary,
-.item-select .label-md-primary,
-.item-datetime .label-md-primary {
-    color: #999 !important;
-}
-
 .item-inner {
     padding-right: 0px !important;
 
@@ -195,7 +215,7 @@ ion-item.item {
 }
 
 .ion-page > .content {
-    background-color: #FAFBFB;
+    background-color: color($colors-secondary, grey98);
 }
 
 @media all and (-ms-high-contrast: none),

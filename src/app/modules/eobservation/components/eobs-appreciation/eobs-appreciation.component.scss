@@ -2,7 +2,7 @@ eobs-appreciation {
 
     .pcb-grid {
         ion-row:nth-child(odd) {
-            background: #F1F1F1;
+            background: color($colors-secondary, grey95);
         }
 
         ion-row:nth-child(even) {
@@ -74,13 +74,13 @@ eobs-appreciation {
 
     .pcb-subtitle {
         ion-col:first-child {
-            border-right: solid #ededed 1px;
+            border-right: solid color($colors-secondary, grey75) 1px;
         }
     }
 
     .pcb-grid {
         ion-col:first-child {
-            border-right: solid #ededed 1px;
+            border-right: solid color($colors-secondary, grey75) 1px;
         }
     }
 
@@ -89,8 +89,8 @@ eobs-appreciation {
         padding-left: 24px;
         padding-top: 5px;
         padding-bottom: 5px;
-        color: #7cc3cc;
-        border-top: solid #ededed 1px;
-        border-bottom: solid #ededed 1px;
+        color: color($colors-secondary, blue55);
+        border-top: solid color($colors-secondary, grey75) 1px;
+        border-bottom: solid color($colors-secondary, grey75) 1px;
     }
 }

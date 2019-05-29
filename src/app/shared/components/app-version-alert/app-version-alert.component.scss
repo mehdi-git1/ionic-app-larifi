@@ -29,7 +29,7 @@ app-version-alert {
 
 
             margin: 10% auto;
-            background: #F1F1F1;
+            background: color($colors-secondary, grey95);
             border-radius: 10px;
 
             .header {
@@ -37,7 +37,7 @@ app-version-alert {
                 display: flex;
                 align-items: center;
                 font-weight: bold;
-                background: #e31a79;
+                background: color($colors, secondary-light);
                 border-radius: 10px 10px 0 0;
 
                 ion-icon {

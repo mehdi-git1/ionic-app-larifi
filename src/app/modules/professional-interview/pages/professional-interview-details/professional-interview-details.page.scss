@@ -1,10 +1,10 @@
 page-professional-interview-details {
 
-    $border-grid: 1px solid #ededed;
+    $border-grid: 1px solid color($colors-secondary, grey75);
     $block-border-radius: 5px;
 
     .rotation-number {
-        color: #7cc3cc;
+        color: color($colors-secondary, blue55);
     }
 
     .rotation-info {
@@ -23,7 +23,7 @@ page-professional-interview-details {
 
     ion-grid.rotation-grid {
         .flight-header {
-            color: #7cc3cc;
+            color: color($colors-secondary, blue55);
         }
 
         ion-row {
@@ -42,7 +42,7 @@ page-professional-interview-details {
         }
 
         ion-row:nth-child(even) {
-            background: #F1F1F1;
+            background: color($colors-secondary, grey95);
         }
 
         ion-col:last-child {
@@ -63,7 +63,7 @@ page-professional-interview-details {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        background: #5d727A;
+        background: color($colors-secondary, bluegrey30);
         color: color($colors, white);
         border-radius: $block-border-radius;
 
@@ -116,7 +116,7 @@ page-professional-interview-details {
     .date-block-justify {
         justify-content: center;
         margin-bottom: 15px;
-        background-color: #556775;
+        background-color: color($colors-secondary, bluegrey50);
 
         .date-display {
             color: color($colors, white);
@@ -179,7 +179,7 @@ page-professional-interview-details {
         height: 32px;
         padding-right: 24px;
         padding-left: 24px;
-        background: #7cc3cc;
+        background: color($colors-secondary, blue55);
         color: color($colors, white);
         font-size: 18px !important;
         border-radius: $block-border-radius;
@@ -211,8 +211,8 @@ page-professional-interview-details {
         p {
             padding: 10px;
             border-radius: 3px;
-            background: #F1F1F1;
-            border: 1px solid #d5d9de;
+            background: color($colors-secondary, grey95);
+            border: 1px solid color($colors-secondary, grey70);
             white-space: pre-line;
         }
 
@@ -224,11 +224,11 @@ page-professional-interview-details {
                 margin: 15px 0px 10px 0px;
                 display: flex;
                 align-items: center;
-                color: #333333;
+                color: color($colors-secondary, grey10);
 
                 span {
                     font-weight: normal;
-                    color: #7cc3cc;
+                    color: color($colors-secondary, blue55);
                     margin-right: 15px;
                     margin-left: 15px;
                 }
@@ -238,7 +238,7 @@ page-professional-interview-details {
             label.required:after {
                 content: '*';
                 padding-left: 5px;
-                color: #E53A40;
+                color: color($colors-secondary, red80);
             }
 
             div.ng-star-inserted div.ng-star-inserted:first-child label:first-child {
@@ -248,7 +248,6 @@ page-professional-interview-details {
             ion-textarea {
                 padding: 10px;
                 border-radius: 3px;
-                background: #F8F8F8;
                 white-space: pre-line;
                 margin: 0 !important;
                 min-height: 210px !important;

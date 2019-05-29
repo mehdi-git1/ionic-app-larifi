@@ -9,8 +9,8 @@ page-upcoming-flight-list {
 
     .last-performed-rotations {
         ion-card-header {
-            background: #d5d9de;
-            color: #888;
+            background: color($colors-secondary, grey70);
+            color: color($colors-secondary, grey40);
         }
     }
 
