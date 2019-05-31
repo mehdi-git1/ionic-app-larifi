@@ -4,7 +4,6 @@ import { NavController, NavParams, Events } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { TranslateService } from '@ngx-translate/core';
 
-import { TabNavEnum } from '../../../../core/enums/tab-nav.enum';
 import { SpecialityEnum } from '../../../../core/enums/speciality.enum';
 
 import { FormsInputParamsModel } from './../../../../core/models/forms-input-params.model';
@@ -56,7 +55,6 @@ export class PncHomePage {
         private pncService: PncService,
         private events: Events,
         private statusBar: StatusBar,
-        private tabNavService: TabNavService,
         private specialityService: SpecialityService,
         private userMessageAlertService: UserMessageAlertService,
         private appVersionAlertService: AppVersionAlertService,
@@ -104,7 +102,7 @@ export class PncHomePage {
      */
     goToCareerObjectiveList() {
         if (this.isMyHome()) {
-            this.navCtrl.parent.select(this.tabNavService.findTabIndex(TabNavEnum.CAREER_OBJECTIVE_LIST_PAGE));
+            this.navCtrl.setRoot(CongratulationLettersPage);
         } else {
             this.navCtrl.push(CareerObjectiveListPage, { matricule: this.matricule });
         }
@@ -115,7 +113,7 @@ export class PncHomePage {
      */
     goToHelpAssetList() {
         if (this.isMyHome()) {
-            this.navCtrl.parent.select(this.tabNavService.findTabIndex(TabNavEnum.HELP_ASSET_LIST_PAGE));
+            this.navCtrl.setRoot(HelpAssetListPage);
         } else {
             this.navCtrl.push(HelpAssetListPage, { pncRole: this.specialityService.getPncRole(this.pnc.speciality), matricule: this.matricule });
         }
@@ -126,7 +124,7 @@ export class PncHomePage {
      */
     goToUpcomingFlightList() {
         if (this.isMyHome()) {
-            this.navCtrl.parent.select(this.tabNavService.findTabIndex(TabNavEnum.UPCOMING_FLIGHT_LIST_PAGE));
+            this.navCtrl.setRoot(UpcomingFlightListPage);
         } else {
             this.navCtrl.push(UpcomingFlightListPage, { matricule: this.matricule });
         }
@@ -137,7 +135,7 @@ export class PncHomePage {
     */
     goToPncSearch() {
         if (this.isMyHome()) {
-            this.navCtrl.parent.select(this.tabNavService.findTabIndex(TabNavEnum.PNC_SEARCH_PAGE));
+            this.navCtrl.setRoot(PncSearchPage);
         } else {
             this.navCtrl.push(PncSearchPage);
         }
@@ -148,7 +146,7 @@ export class PncHomePage {
      */
     goToStatutoryCertificate() {
         if (this.isMyHome() && !this.isManager()) {
-            this.navCtrl.parent.select(this.tabNavService.findTabIndex(TabNavEnum.STATUTORY_CERTIFICATE_PAGE));
+            this.navCtrl.setRoot(StatutoryCertificatePage);
         } else {
             this.navCtrl.push(StatutoryCertificatePage, { matricule: this.matricule });
         }
@@ -159,7 +157,7 @@ export class PncHomePage {
     */
     goToProfessionalLevel() {
         if (this.isMyHome() && !this.isManager()) {
-            this.navCtrl.parent.select(this.tabNavService.findTabIndex(TabNavEnum.PROFESSIONAL_LEVEL_PAGE));
+            this.navCtrl.setRoot(ProfessionalLevelPage);
         } else {
             this.navCtrl.push(ProfessionalLevelPage, { matricule: this.matricule });
         }
@@ -170,7 +168,7 @@ export class PncHomePage {
     */
     goToCongratulationLetters() {
         if (this.isMyHome()) {
-            this.navCtrl.parent.select(this.tabNavService.findTabIndex(TabNavEnum.CONGRATULATION_LETTERS_PAGE));
+            this.navCtrl.setRoot(CongratulationLettersPage);
         } else {
             this.navCtrl.push(CongratulationLettersPage, { matricule: this.matricule });
         }

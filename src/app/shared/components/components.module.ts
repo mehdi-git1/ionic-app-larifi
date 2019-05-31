@@ -1,3 +1,4 @@
+import { HamburgerNavComponent } from './hamburger-nav/hamburger-nav.component';
 import { PdfButtonComponent } from './pdf-button/pdf-button.component';
 import { IonicModule } from 'ionic-angular';
 import { CommonModule } from '@angular/common';
@@ -53,6 +54,7 @@ import { AppVersionAlertComponent } from './app-version-alert/app-version-alert.
     PncPhotoComponent,
     PageHeaderComponent,
     TabNavComponent,
+    HamburgerNavComponent,
     NoDataComponent,
     EdospncExpandableBlockComponent,
     ColorStatusPointComponent,
@@ -77,6 +79,7 @@ import { AppVersionAlertComponent } from './app-version-alert/app-version-alert.
     NavBarCustomComponent,
     PncPhotoComponent,
     TabNavComponent,
+    HamburgerNavComponent,
     NoDataComponent,
     EdospncExpandableBlockComponent,
     ColorStatusPointComponent,
