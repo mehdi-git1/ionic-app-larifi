@@ -10,15 +10,19 @@
                             <span class="value">{{ logbookEvent.title }}</span>
                         </div>
                         <div class="icons">
-                            <span class="edospnc-important" *ngIf="logbookEvent.important"></span>
-                            <span class="edospnc-pnc" *ngIf="logbookEvent.pncInitiator"></span>
-                        </div>
-                        <div class="category">
-                            <span class="category-label value">{{ logbookEvent.category.label }}</span>
+                            <div>
+                                <span class="edospnc-important" *ngIf="logbookEvent.important"></span>
+                            </div>
+                            <div>
+                                <span class="edospnc-pnc" *ngIf="logbookEvent.pncInitiator"></span>
+                            </div>
+                            <div class="category-label">
+                                <span class="value">{{ logbookEvent.category.label }}</span>
+                            </div>
                         </div>
                     </div>
                     <div class="logbook-info">
-                        <div>
+                        <div class="redactor">
                             <span>{{ logbookEvent?.redactor.lastName }} {{ logbookEvent?.redactor.firstName | titlecase }}</span>
                         </div>
                         <div>
@@ -29,7 +33,7 @@
                 <div class="logbook-info-content">
                     <p>{{ logbookEvent.content }}</p>
                 </div>
-                <div *ngIf="isManager()">
+                <div class="logbook-notified-pnc" *ngIf="isManager()">
                     <div>
                         <ion-label>{{ 'LOGBOOK.DETAILS.NOTIFIED_PNCS' | translate }} :</ion-label>
                     </div>

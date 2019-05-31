@@ -15,23 +15,23 @@ logbook-details {
             .logbook-info {
                 display: flex;
                 justify-content: space-between;
-                height: 40px;
+                height: 25px;
 
                 .title {
-                    flex: 3;
+                    flex: 2;
 
                     span {
                         font-size: 1.2em;
-                        color: color($colors, blue90);
+                        color: color($colors-secondary, blue77);
                     }
                 }
 
                 .creation-date-info {
-                    color: color($colors, grey15);
+                    color: color($colors, grey50);
                 }
 
                 .icons {
-                    flex: 1;
+                    flex: 2;
                     justify-content: flex-end;
                     display: flex;
 
@@ -40,29 +40,33 @@ logbook-details {
                     }
                 }
 
-                .category {
-                    flex: 1;
-                    justify-content: flex-end;
-                    display: flex;
-                }
-
                 .edospnc-important::before {
-                    color: color($colors, tertiary);
+                    color: color($colors-secondary, red80);
                     font-size: 24px;
                 }
 
                 .edospnc-pnc::before {
-                    color: color($colors, blue90);
+                    color: color($colors-secondary, blue77);
                     font-size: 50px;
                     position: relative;
-                    top: -9px;
+                    top: -14px;
                 }
 
                 .category-label {
-                    height: 30px;
-                    background-color: color($colors, grey90);
-                    border-radius: 4px;
-                    padding: 5px 10px;
+                    padding-top: 2px;
+
+                    span {
+                        height: 30px;
+                        background-color: color($colors-secondary, grey70);
+                        border-radius: 4px;
+                        padding: 5px 10px;
+                        font-weight: normal;
+                    }
+                }
+
+                .redactor {
+                    position: relative;
+                    top: -4px;
                 }
             }
 
@@ -75,6 +79,12 @@ logbook-details {
             .logbook-info-content {
                 p {
                     white-space: pre-line;
+                }
+            }
+
+            .logbook-notified-pnc {
+                ion-label {
+                    margin-bottom: 4px;
                 }
             }
         }
