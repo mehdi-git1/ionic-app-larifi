@@ -103,16 +103,16 @@ export class HamburgerNavComponent {
                     available: this.securityService.isManager()
                 },
                 {
-                    label: this.translateService.instant('GLOBAL.MY_STATUTORY_CERTIFICATE'),
-                    component: StatutoryCertificatePage,
-                    icon: 'edospnc-statutoryCertificate',
-                    available: !this.securityService.isManager() && this.securityService.hasPermissionToViewTab('VIEW_STATUTORY_CERTIFICATE')
-                },
-                {
                     label: this.translateService.instant('GLOBAL.MY_PROFESSIONAL_LEVEL'),
                     component: ProfessionalLevelPage,
                     icon: 'edospnc-professionalLevel',
-                    available: !this.securityService.isManager() && this.securityService.hasPermissionToViewTab('VIEW_PROFESSIONAL_LEVEL')
+                    available: this.securityService.hasPermissionToViewTab('VIEW_PROFESSIONAL_LEVEL')
+                },
+                {
+                    label: this.translateService.instant('GLOBAL.MY_STATUTORY_CERTIFICATE'),
+                    component: StatutoryCertificatePage,
+                    icon: 'edospnc-statutoryCertificate',
+                    available: this.securityService.hasPermissionToViewTab('VIEW_STATUTORY_CERTIFICATE')
                 },
                 {
                     label: this.translateService.instant('GLOBAL.MY_CONGRATULATION_LETTERS'),
