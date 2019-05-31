@@ -2,7 +2,7 @@ page-statutory-certificate {
     .aircraft-skills-informations {
         text-align: left;
         font-size: 1.5em;
-        color: color($colors, grey60);
+        color: color($colors-secondary, grey60);
         padding-bottom: 35px;
     }
 
@@ -12,7 +12,7 @@ page-statutory-certificate {
     }
 
     .important-date {
-        color: color($colors, red80);
+        color: color($colors-secondary, red80);
     }
 
     .card-md {

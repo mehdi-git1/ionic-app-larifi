@@ -28,7 +28,7 @@ page-career-objective-create {
                 }
 
                 .ion-textarea-read-only {
-                    background-color: color($colors, grey90);
+                    background-color: color($colors-secondary, grey95);
                 }
 
                 .details {
@@ -56,7 +56,7 @@ page-career-objective-create {
                     align-items: center;
 
                     ion-icon {
-                        color: color($colors, grey90);
+                        color: color($colors-secondary, grey95);
                         font-size: 2em;
                         font-weight: bold;
                         margin-right: 10px;

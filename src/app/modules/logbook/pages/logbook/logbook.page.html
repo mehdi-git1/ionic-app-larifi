@@ -10,7 +10,7 @@
     <ng-template #pageBlock>
         <pnc-card-page-header *ngIf="pnc" [itemMember]="pnc"></pnc-card-page-header>
         <div *ngIf="isManager()">
-            <button color="blueDaisy" (click)="goToLogbookCreation()" ion-button block>{{ 'LOGBOOK.BUTTONS.ADD_LOG' | translate }}</button>
+            <button color="primary" (click)="goToLogbookCreation()" ion-button block>{{ 'LOGBOOK.BUTTONS.ADD_LOG' | translate }}</button>
         </div>
         <button color="blueDaisy" (click)="goToLogbookDetails()" ion-button block>{{ 'LOGBOOK.BUTTONS.LOG_DETAIL' | translate }}</button>
     </ng-template>

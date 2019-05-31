@@ -1,11 +1,15 @@
 rotation-card {
+
     .rotation {
-        font-weight: bold;
+
+        border-radius: 4px;
 
         ion-card-header {
             display: flex;
             cursor: pointer;
             padding: 0 10px;
+            border-radius: 4px;
+            font-size: 1.2em;
 
             .rotation-panel {
                 display: flex;
@@ -40,6 +44,10 @@ rotation-card {
 
         .card-content {
             padding: 0;
+        }
+
+        flight-card {
+            border-bottom: 1px solid color($colors-secondary, grey75);
         }
     }
 

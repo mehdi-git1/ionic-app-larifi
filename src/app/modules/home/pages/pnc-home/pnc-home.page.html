@@ -36,7 +36,7 @@
                     </div>
                     <!--  Niveau professionnel -->
                     <div class="button-parent" *hasPermission="'VIEW_PROFESSIONAL_LEVEL'">
-                        <button ion-button (click)="goToProfessionalLevel()" color="green55">
+                        <button ion-button (click)="goToProfessionalLevel()" color="primary">
                             {{ 'GLOBAL.PROFESSIONAL_LEVEL' | isMyPage: pnc | translate }}
                         </button>
                     </div>
@@ -54,13 +54,13 @@
                     </div>
                     <!-- Journal de Bord -->
                     <div class="button-parent" *ngIf="canViewLogBook()">
-                        <button ion-button (click)="goToLogbook()" color="red13">
+                        <button ion-button (click)="goToLogbook()" color="primary-light">
                             {{ 'GLOBAL.LOGBOOK' | isMyPage: pnc | translate }}
                         </button>
                     </div>
                     <!-- Ressource d'aide -->
                     <div class="button-parent">
-                        <button ion-button (click)="goToHelpAssetList()" color="grey14">
+                        <button ion-button (click)="goToHelpAssetList()" color="grey20">
                             {{ 'GLOBAL.HELP_CENTER' | isMyPage: pnc | translate }}
                         </button>
                     </div>

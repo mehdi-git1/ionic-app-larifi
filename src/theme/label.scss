@@ -5,7 +5,7 @@
  ion-label.required::after {
      content: "*";
      padding-left: 5px;
-     color: color($colors, red80);
+     color: color($colors-secondary, red80);
  }
 
  .value {

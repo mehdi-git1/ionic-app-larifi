@@ -64,9 +64,9 @@
                 </div>
                 <div class="sub-flag-panel">
                     <!-- Prioritaire -->
-                    <ion-icon *ngIf="pnc.prioritized" name="flag" ios="md-flag" color="red80"></ion-icon>
+                    <ion-icon class="prioritized" *ngIf="pnc.prioritized" name="flag" ios="md-flag"></ion-icon>
                     <!-- Si au moins une Priorité en cours -->
-                    <ion-icon *ngIf="pnc.hasAtLeastOnePriorityInProgress" name="flag" ios="md-flag" color="green70"></ion-icon>
+                    <ion-icon class="at-least-one-priority" *ngIf="pnc.hasAtLeastOnePriorityInProgress" name="flag" ios="md-flag"></ion-icon>
                 </div>
                 <div>
                     <!-- Particularite -->

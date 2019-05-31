@@ -7,7 +7,7 @@ edospnc-expandable-block {
     }
 
     mat-expansion-panel-header {
-        background: color($colors, blue55);
+        background: color($colors-secondary, blue55);
         color: color($colors, white);
         font-size: 18px !important;
         border-radius: 5px;
@@ -15,7 +15,7 @@ edospnc-expandable-block {
         &.mat-expanded:hover,
         &.mat-expanded:focus,
         &.mat-expanded {
-            background: color($colors, blue55)  !important;
+            background: color($colors-secondary, blue55) !important;
             color: color($colors, white);
             height: 32px;
         }
@@ -25,13 +25,15 @@ edospnc-expandable-block {
     .mat-expansion-panel-body {
         padding: 0px 0px 0px 0px;
         background: color($colors, white);
+
         ion-grid {
             padding: 0px;
-            ion-col.itemLabel{
+
+            ion-col.itemLabel {
                 text-align: justify;
             }
 
-            ion-col.symbol{
+            ion-col.symbol {
                 display: flex;
                 justify-content: space-evenly;
             }

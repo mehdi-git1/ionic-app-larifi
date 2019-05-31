@@ -7,7 +7,7 @@ page-user-message-management {
     }
 
     .active {
-        background: color($colors, grey75);
+        background: color($colors-secondary, grey75);
     }
 
     ion-textarea {
@@ -22,7 +22,7 @@ page-user-message-management {
     }
 
     ion-col:first-child {
-        border-right: 2px solid color($colors, grey70);
+        border-right: 2px solid color($colors-secondary, grey70);
     }
 
     ion-icon[name=md-create] {
