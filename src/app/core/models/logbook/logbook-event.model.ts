@@ -2,6 +2,7 @@ import { Serializable } from './../../../shared/utils/serializable';
 import { PncLightModel } from './../pnc-light.model';
 import { PncModel } from './../pnc.model';
 import { LogbookEventCategory } from './logbook-event-category';
+import { LogbookEventNotifiedEmail } from './logbook-notified-email.model';
 export class LogbookEventModel extends Serializable {
     id: number;
     pnc: PncLightModel;
@@ -17,5 +18,5 @@ export class LogbookEventModel extends Serializable {
     title: string;
     content: string;
     notifiedPncs: PncLightModel[];
-    notifiedRecipients: string[];
+    notifiedRecipients: LogbookEventNotifiedEmail[];
 }

@@ -6,21 +6,23 @@
             <div class="logbook-info-container">
                 <div>
                     <div class="logbook-info">
-                        <div class="">
-                            <span class="title value">{{ logbookEvent.title }}</span>
+                        <div class="title">
+                            <span class="value">{{ logbookEvent.title }}</span>
                         </div>
-                        <div class="">
-                            <span class="value" *ngIf="logbookEvent.important">!</span>
+                        <div class="icons">
+                            <span class="edospnc-important" *ngIf="logbookEvent.important"></span>
                             <span class="edospnc-pnc" *ngIf="logbookEvent.pncInitiator"></span>
+                        </div>
+                        <div class="category">
                             <span class="category-label value">{{ logbookEvent.category.label }}</span>
                         </div>
                     </div>
                     <div class="logbook-info">
-                        <div class="">
-                            <span class="value">{{ logbookEvent?.redactor.lastName }} {{ logbookEvent?.redactor.firstName }}</span>
+                        <div>
+                            <span>{{ logbookEvent?.redactor.lastName }} {{ logbookEvent?.redactor.firstName | titlecase }}</span>
                         </div>
-                        <div class="">
-                            <span class="value">{{ 'LOGBOOK.DETAILS.CREATED_THE' | translate }} {{ logbookEvent.creationDate | date:'dd/MM/yyyy'}}</span>
+                        <div>
+                            <span class="creation-date-info">{{ 'LOGBOOK.DETAILS.CREATED_THE' | translate }} {{ logbookEvent.creationDate | date:'dd/MM/yyyy'}}</span>
                         </div>
                     </div>
                 </div>
@@ -28,12 +30,19 @@
                     <p>{{ logbookEvent.content }}</p>
                 </div>
                 <div *ngIf="isManager()">
-                    <ion-label>{{ 'LOGBOOK.DETAILS.NOTIFIED_PNCS' | translate }} :</ion-label>
-                </div>
-                <div *ngIf="isManager()" [ngClass]="{'no-value' : !logbookEvent.notifiedPncs[0] }">
-                    <span *ngFor="let pnc of logbookEvent.notifiedPncs; index as i; last as l">{{pnc.lastName}} {{pnc.firstName}} ({{pnc.speciality}})
-                        <span *ngIf="!l">;</span>
-                    </span>
+                    <div>
+                        <ion-label>{{ 'LOGBOOK.DETAILS.NOTIFIED_PNCS' | translate }} :</ion-label>
+                    </div>
+                    <div [ngClass]="{'no-value' : !logbookEvent.notifiedPncs[0] }">
+                        <span *ngFor="let pnc of logbookEvent.notifiedPncs; last as l">{{pnc.lastName}} {{pnc.firstName | titlecase}} ({{pnc.speciality}}<span *ngIf="pnc.currentSpeciality && pnc.speciality !== pnc.currentSpeciality">/{{pnc.currentSpeciality}}</span>)
+                            <span *ngIf="!l">;</span>
+                        </span>
+                    </div>
+                    <div *ngIf="logbookEvent.notifiedRecipients">
+                        <span *ngFor="let email of logbookEvent.notifiedRecipients; last as l">{{ email.emailAddress }}
+                            <span *ngIf="!l">;</span>
+                        </span>
+                    </div>
                 </div>
             </div>
         </div>

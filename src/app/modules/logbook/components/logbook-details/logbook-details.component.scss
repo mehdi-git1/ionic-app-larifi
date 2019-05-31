@@ -2,39 +2,81 @@ logbook-details {
 
     .logbook-event-card {
         padding: 10px 20px;
-    }
 
-    .logbook-info-container {
-        padding: 10px 20px 10px 10px;
-        width: 100%;
-
-        .logbook-info {
-            display: flex;
-            justify-content: space-between;
-            height: 30px;
-
-            .title {
-                font-size: 1.2em;
-                color: color($colors, blue90);
-
-            }
-
-            .category-label {
-                background-color: color($colors, grey90);
-                border-radius: 4px;
-                opacity: 80%;
-                padding: 10px;
-            }
-        }
-
-        ion-label {
-            font-weight: bold;
+        pnc-photo {
+            margin: 20px;
         }
 
 
+        .logbook-info-container {
+            padding: 10px 20px 10px 10px;
+            width: 100%;
 
-        .logbook-info-content {
-            white-space: pre-line;
+            .logbook-info {
+                display: flex;
+                justify-content: space-between;
+                height: 40px;
+
+                .title {
+                    flex: 3;
+
+                    span {
+                        font-size: 1.2em;
+                        color: color($colors, blue90);
+                    }
+                }
+
+                .creation-date-info {
+                    color: color($colors, grey15);
+                }
+
+                .icons {
+                    flex: 1;
+                    justify-content: flex-end;
+                    display: flex;
+
+                    span.edospnc-important {
+                        padding-top: 5px;
+                    }
+                }
+
+                .category {
+                    flex: 1;
+                    justify-content: flex-end;
+                    display: flex;
+                }
+
+                .edospnc-important::before {
+                    color: color($colors, tertiary);
+                    font-size: 24px;
+                }
+
+                .edospnc-pnc::before {
+                    color: color($colors, blue90);
+                    font-size: 50px;
+                    position: relative;
+                    top: -9px;
+                }
+
+                .category-label {
+                    height: 30px;
+                    background-color: color($colors, grey90);
+                    border-radius: 4px;
+                    padding: 5px 10px;
+                }
+            }
+
+            ion-label {
+                font-weight: bold;
+            }
+
+
+
+            .logbook-info-content {
+                p {
+                    white-space: pre-line;
+                }
+            }
         }
     }
 }

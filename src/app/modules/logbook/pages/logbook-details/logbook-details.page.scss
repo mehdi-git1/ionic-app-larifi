@@ -2,13 +2,15 @@ page-logbook-details {
 
     .draw-ligne {
         margin: 20px 10px;
-        border-top: 2px solid color($colors, grey50);
+        border-top: 1px solid color($colors, secondary);
+        flex: 2;
     }
 
     .logbook-info-date {
+        flex: 1;
         text-align: center;
         position: relative;
-        top: 25px;
-        background-color: color($colors, grey90);
+        top: 14px;
+
     }
 }
