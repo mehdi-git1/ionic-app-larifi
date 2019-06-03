@@ -1,7 +1,9 @@
+import { MatriculesModel } from './../../../../core/models/matricules.model';
+import { LogbookEventDetailsPage } from './../../pages/logbook-event-details/logbook-event-details.page';
 import { Component, Input } from '@angular/core';
 import { ReferentialItemLevelModel } from '../../../../core/models/eobservation/eobservation-referential-item-level.model';
 import { EObservationLevelEnum } from '../../../../core/enums/e-observations-level.enum';
-import { NavParams, ViewController } from 'ionic-angular';
+import { NavParams, ViewController, NavController } from 'ionic-angular';
 import { LogbookEventModel } from '../../../../core/models/logbook/logbook-event.model';
 
 @Component({
@@ -12,8 +14,17 @@ export class LogbookEventActionMenuComponent {
 
   logbookEvent: LogbookEventModel;
 
-  constructor(private navParams: NavParams, public viewCtrl: ViewController) {
+  constructor(private navParams: NavParams,
+    public viewCtrl: ViewController,
+    private navCtrl: NavController) {
     this.logbookEvent = this.navParams.get('logbookEvent');
+  }
+
+  /**
+   * Dirige vers la page de détail d'un évènement du journal de bord
+   */
+  goToLogbookEventDetails() {
+    this.navCtrl.push(LogbookEventDetailsPage, { matricule: this.logbookEvent.pnc.matricule, groupId: this.logbookEvent.groupId });
   }
 
   /**

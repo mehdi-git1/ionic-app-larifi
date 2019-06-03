@@ -63,10 +63,6 @@ export class LogbookPage implements OnInit {
         }
     }
 
-    ionViewDidLoad() {
-
-    }
-
     /**
      * Vérifie si il y a des évènements de journal de bord
      * @return true si il n'y a pas d'évènements, sinon false
@@ -99,10 +95,8 @@ export class LogbookPage implements OnInit {
     /**
      * Dirige vers la page de détail d'un évènement du journal de bord
      */
-    goToLogbookEventDetails() {
-        if (this.pnc) {
-            this.navCtrl.push(LogbookEventDetailsPage);
-        }
+    goToLogbookEventDetails(groupId: number) {
+        this.navCtrl.push(LogbookEventDetailsPage, { matricule: this.pnc.matricule, groupId: groupId });
     }
 
     /**

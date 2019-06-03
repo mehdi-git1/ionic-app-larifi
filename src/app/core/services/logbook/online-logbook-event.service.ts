@@ -41,12 +41,12 @@ export class OnlineLogbookEventService {
     }
 
     /**
-     * Récupère l'évènement à partir de son id
-     * @param id l'id de l'évènement parent
-     * @return une promesse contenant l'évènement récupéré
+     * Récupère le ou les évènements à partir de leur group id
+     * @param id le group id du ou des évènements à récupérer
+     * @return une promesse contenant le ou les évènements récupérés
      */
-    public getLogbookEventById(id: number): Promise<LogbookEventModel[]> {
-        return this.restService.get(this.config.getBackEndUrl('getLogbookEventById', [id]));
+    public getLogbookEventsByGroupId(id: number): Promise<LogbookEventModel[]> {
+        return this.restService.get(this.config.getBackEndUrl('getLogbookEventsByGroupId', [id]));
     }
 
     /**

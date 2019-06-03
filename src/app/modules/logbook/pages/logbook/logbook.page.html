@@ -33,7 +33,7 @@
             <ng-container matColumnDef="eventDate">
                 <mat-header-cell class="mat-column-date" *matHeaderCellDef mat-sort-header>{{ 'LOGBOOK.EVENT_DATE' | translate }}</mat-header-cell>
                 <mat-cell *matCellDef="let eventGroup" class="mat-column-date">
-                    <div class="child-event" *ngFor="let logbookEvent of eventGroup.logbookEvents; let logbookEventIndex = index">
+                    <div class="child-event" *ngFor="let logbookEvent of eventGroup.logbookEvents; let logbookEventIndex = index" (click)="goToLogbookEventDetails(logbookEvent.groupId)">
                         <div *ngIf="eventGroup.expanded || logbookEventIndex === 0">
                             {{logbookEvent.eventDate | date:'dd/MM/yyyy' }}
                         </div>
@@ -43,7 +43,7 @@
             <ng-container matColumnDef="creationDate">
                 <mat-header-cell class="mat-column-date" *matHeaderCellDef mat-sort-header>{{ 'LOGBOOK.CREATION_DATE' | translate }}</mat-header-cell>
                 <mat-cell class="mat-column-date" *matCellDef="let eventGroup">
-                    <div class="child-event" *ngFor="let logbookEvent of eventGroup.logbookEvents; let logbookEventIndex = index">
+                    <div class="child-event" *ngFor="let logbookEvent of eventGroup.logbookEvents; let logbookEventIndex = index" (click)="goToLogbookEventDetails(logbookEvent.groupId)">
                         <div *ngIf="eventGroup.expanded || logbookEventIndex === 0">
                             {{logbookEvent.creationDate | date:'dd/MM/yyyy' }}
                         </div>
@@ -53,7 +53,7 @@
             <ng-container matColumnDef="category">
                 <mat-header-cell *matHeaderCellDef class="mat-column-category" mat-sort-header>{{ 'LOGBOOK.CATEGORY' | translate }}</mat-header-cell>
                 <mat-cell *matCellDef="let eventGroup" class="mat-column-category">
-                    <div class="child-event" *ngFor="let logbookEvent of eventGroup.logbookEvents; let logbookEventIndex = index">
+                    <div class="child-event" *ngFor="let logbookEvent of eventGroup.logbookEvents; let logbookEventIndex = index" (click)="goToLogbookEventDetails(logbookEvent.groupId)">
                         <div class="category-label" *ngIf="eventGroup.expanded || logbookEventIndex === 0">
                             {{logbookEvent.category?.label}}
                         </div>
@@ -84,7 +84,7 @@
             <ng-container matColumnDef="event">
                 <mat-header-cell class="mat-column-title" *matHeaderCellDef mat-sort-header>{{ 'LOGBOOK.EVENT' | translate }}</mat-header-cell>
                 <mat-cell class="mat-column-title" *matCellDef="let eventGroup">
-                    <div class="child-event" *ngFor="let logbookEvent of eventGroup.logbookEvents; let logbookEventIndex = index">
+                    <div class="child-event" *ngFor="let logbookEvent of eventGroup.logbookEvents; let logbookEventIndex = index" (click)="goToLogbookEventDetails(logbookEvent.groupId)">
                         <div *ngIf="eventGroup.expanded || logbookEventIndex === 0">
                             {{logbookEvent.title}}
                         </div>
@@ -94,7 +94,7 @@
             <ng-container matColumnDef="origin">
                 <mat-header-cell class="mat-column-origin" *matHeaderCellDef mat-sort-header>{{ 'LOGBOOK.ORIGIN' | translate }}</mat-header-cell>
                 <mat-cell class="mat-column-origin" *matCellDef="let eventGroup">
-                    <div *ngFor="let logbookEvent of eventGroup.logbookEvents; let logbookEventIndex = index">
+                    <div *ngFor="let logbookEvent of eventGroup.logbookEvents; let logbookEventIndex = index" (click)="goToLogbookEventDetails(logbookEvent.groupId)">
                         <div *ngIf="eventGroup.expanded || logbookEventIndex === 0">
                             <ion-icon *ngIf="logbookEvent.pncInitiator" color="primary" class="edospnc-pnc action-icon" name="edospnc-pnc">
                             </ion-icon>
@@ -105,7 +105,7 @@
             <ng-container matColumnDef="author">
                 <mat-header-cell *matHeaderCellDef class="mat-column-redactor" mat-sort-header>{{ 'LOGBOOK.REDACTOR' | translate }}</mat-header-cell>
                 <mat-cell *matCellDef="let eventGroup" class="mat-column-redactor">
-                    <div class="child-event" *ngFor="let logbookEvent of eventGroup.logbookEvents; let logbookEventIndex = index">
+                    <div class="child-event" *ngFor="let logbookEvent of eventGroup.logbookEvents; let logbookEventIndex = index" (click)="goToLogbookEventDetails(logbookEvent.groupId)">
                         <div *ngIf="eventGroup.expanded || logbookEventIndex === 0">
                             {{logbookEvent.lastUpdateAuthor?.firstName}} {{logbookEvent.lastUpdateAuthor?.lastName}}
                         </div>
