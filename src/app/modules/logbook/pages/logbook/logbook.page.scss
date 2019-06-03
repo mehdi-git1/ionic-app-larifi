@@ -1,5 +1,9 @@
 log-book {
 
+    .scroll-content {
+        margin-bottom: 0px !important;
+    }
+
     ion-button {
         // TODO : A supprimer avec Daisy
         @extend .button-md;
@@ -8,13 +12,16 @@ log-book {
     }
 
     .edospnc-important:before, 
-    .ion-ios-edospnc-important:before, .ion-ios-edospnc-important-outline:before, 
-    .ion-md-edospnc-important:before, .ion-md-edospnc-important-outline:before, 
+    .ion-ios-edospnc-important:before,
+    .ion-md-edospnc-important:before, 
     .icon-edospnc-important:before {
         color: red;
         font-size: 18px;
     }
 
+    .edospnc-pnc:before, .ion-ios-edospnc-pnc:before, .ion-ios-edospnc-pnc-outline:before, .ion-md-edospnc-pnc:before, .ion-md-edospnc-pnc-outline:before, .icon-edospnc-pnc:before {
+        font-size: 40px;
+    }
     .logbook-event-grid{
 
         ion-row:nth-child(even) {
@@ -59,11 +66,17 @@ log-book {
         }
 
         .mat-column-title {
-            flex: 0 0 400px !important;
+            min-width: 120px;
         }
-
+        .mat-column-category{
+            flex: 0 0 140px !important;
+        }
+        .mat-column-redactor {
+            min-width: 100px;
+            max-width: 200px;
+        }
         .mat-column-actions {
-            flex: 0 0 60px !important;
+            flex: 0 0 50px !important;
             text-align: center;
         }
 
@@ -72,15 +85,57 @@ log-book {
             text-align: center;
         }
         .mat-column-date {
-            flex: 0 0 100px !important;
+            flex: 0 0 80px !important;
         }
         .mat-column-specific {
             flex: 0 0 20px !important;
         }
-        .mat-sort-header-container {
-            display:flex;
-            justify-content:center;
-          }
+
+        .child-dots {
+            //display: flex;
+            //flex-direction: column;
+        }
+
+        .invisible-arrow {
+            visibility: hidden; 
+        }
+
+        .child-event {
+            margin-top: 15px;
+            margin-bottom: 15px;
+            height: 100%;
+            top:0px;
+            ion-icon:not(:first-child) {
+                visibility: hidden;
+            }
+        }
+
+        .status-dot {
+            background: color($colors, primary);
+            color: color($colors, primary);
+            margin-left: auto;
+            margin-right: auto;
+            height: 7px;
+            width: 7px;
+            min-height: 7px;
+            min-width: 7px;
+            border-radius: 100%;
+            //padding-right: 5px;
+            //padding-left: 5px;
+        }
+
+        .status-dot::after {
+            content:"";
+            border-radius: 100%;
+            //position:absolute;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 0.6em;
+            width:2px;
+            height:2px;
+            background:black;
+            //z-index:-1;
+        }
     }
 
     .item-label {
@@ -89,11 +144,11 @@ log-book {
     }
 
     .button-bar {
-        position: fixed;
-        bottom: 40px;
+        position: -webkit-sticky;
+        position: sticky;
+        bottom: 50px;
         display: flex;
         align-items: flex-end;
-        width: 90%;
         justify-content: flex-end;
         button {
             align-self: flex-end;
@@ -106,9 +161,13 @@ log-book {
         font-size: 150%;
         font-weight: bold;
     }
-
-    .edospnc-pnc:before {
-        font-size: 60px;
+    .category-label {
+        flex: 1;
+        background-color: color($colors, primary);
+        color: color($colors, white);
+        border-radius: 4px;
+        -webkit-border-radius: 4px;
+        text-align: center;
     }
 
     table {
@@ -128,7 +187,6 @@ log-book {
     
     .mat-table {
         overflow: auto;
-        max-height: 500px;
     }
 }
 
