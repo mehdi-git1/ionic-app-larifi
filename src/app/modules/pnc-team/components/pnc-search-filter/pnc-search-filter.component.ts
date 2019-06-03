@@ -2,7 +2,6 @@ import { FormGroup, AbstractControl, Validators, FormBuilder } from '@angular/fo
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import $ from 'jquery';
 
-import { TabNavEnum } from '../../../../core/enums/tab-nav.enum';
 import { Utils } from '../../../../shared/utils/utils';
 import { ConnectivityService } from '../../../../core/services/connectivity/connectivity.service';
 import { NavController, Events, Keyboard } from 'ionic-angular';
@@ -15,7 +14,6 @@ import { from } from 'rxjs/observable/from';
 import { AppConstant } from '../../../../app.constant';
 import { PncFilterModel } from '../../../../core/models/pnc-filter.model';
 import { PncModel } from '../../../../core/models/pnc.model';
-import { TabNavService } from '../../../../core/services/tab-nav/tab-nav.service';
 import { SpecialityEnum } from '../../../../core/enums/speciality.enum';
 
 
@@ -68,8 +66,7 @@ export class PncSearchFilterComponent implements OnInit {
     private pncProvider: PncService,
     private connectivityService: ConnectivityService,
     private events: Events,
-    private keyboard: Keyboard,
-    private tabNavService: TabNavService
+    private keyboard: Keyboard
   ) {
     this.connectivityService.connectionStatusChange.subscribe(connected => {
       this.initFilter();

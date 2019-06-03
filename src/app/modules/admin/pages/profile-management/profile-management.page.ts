@@ -1,3 +1,4 @@
+import { TabNavModeEnum } from './../../../../core/enums/tab-nav-mode.enum';
 import { UserPermissionModel } from './../../../../core/models/admin/user-permission.model';
 import { Component } from '@angular/core';
 import { UserProfileModel } from '../../../../core/models/admin/user-profile.model';
@@ -16,6 +17,8 @@ export class ProfileManagementPage {
     selectedProfile: string;
     allPermissions: UserPermissionModel[];
     profilePermissions: UserPermissionModel[];
+
+    TabNavModeEnum = TabNavModeEnum;
 
     constructor(
         private translateService: TranslateService,

@@ -1,14 +1,11 @@
 <ion-header>
     <ion-navbar>
-        <button ion-button menuToggle>
-            <ion-icon name="menu"></ion-icon>
-        </button>
         <ion-title>{{ 'ADMIN.USER_MESSAGE_MANAGEMENT.TITLE' | translate }}</ion-title>
     </ion-navbar>
+    <tab-nav [mode]="TabNavModeEnum.ADMIN"></tab-nav>
 </ion-header>
 
-<ion-content padding no-bounce>
-
+<ion-content padding>
     <edossier-spinner *ngIf="!isLoadingOver(); else pageBlock"></edossier-spinner>
     <ng-template #pageBlock>
         <ion-grid>

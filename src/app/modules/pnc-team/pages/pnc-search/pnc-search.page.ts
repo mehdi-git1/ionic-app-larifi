@@ -1,21 +1,17 @@
-import { MatriculesModel } from './../../../../core/models/matricules.model';
 import { TranslateService } from '@ngx-translate/core';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 
 import { PncModel } from '../../../../core/models/pnc.model';
-import { TabNavService } from '../../../../core/services/tab-nav/tab-nav.service';
 import { PncSearchFilterComponent } from '../../components/pnc-search-filter/pnc-search-filter.component';
 import { AppConstant } from '../../../../app.constant';
 import { PncHomePage } from '../../../home/pages/pnc-home/pnc-home.page';
 
 import { ConnectivityService } from '../../../../core/services/connectivity/connectivity.service';
-import { CrewMemberModel } from '../../../../core/models/crew-member.model';
 import { SessionService } from '../../../../core/services/session/session.service';
 
 import { PncService } from '../../../../core/services/pnc/pnc.service';
 
-import { TabNavEnum } from '../../../../core/enums/tab-nav.enum';
 import { PncPhotoService } from '../../../../core/services/pnc-photo/pnc-photo.service';
 
 @Component({
@@ -48,8 +44,7 @@ export class PncSearchPage implements OnInit {
         private pncProvider: PncService,
         private pncPhotoService: PncPhotoService,
         private sessionService: SessionService,
-        private connectivityService: ConnectivityService,
-        private tabNavService: TabNavService
+        private connectivityService: ConnectivityService
     ) {
         this.sizeOfThePage = 0;
     }

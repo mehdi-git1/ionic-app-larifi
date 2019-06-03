@@ -1,24 +1,32 @@
 tab-nav {
 
-    .tab-button[aria-selected=false] .icon,
-    .tab-button[aria-selected=false] {
-        color: color($colors-secondary, grey10);
-    }
+    .tab-list {
+        display: flex;
+        overflow-x: auto;
+        background: color($colors, white);
+        color: color($colors, grey50);
+        flex-wrap: nowrap;
 
-    .tabs[tabsLayout=icon-top] .has-icon .tab-button-text {
-        margin-top: 0px;
-        margin-bottom: 4px;
-    }
+        .tab {
+            flex: 0 0 auto;
+            display: flex;
+            align-items: center;
+            padding: 15px 0;
+            margin: 0 30px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: bold;
+            border-bottom: 3px solid transparent;
 
-    .tab-button[aria-selected=true] .icon,
-    .tab-button[aria-selected=true] {
-        background: color($colors, primary);
-        color: color($colors, white) !important;
-        font-weight: bold;
-    }
+            &.active,
+            &:hover {
+                color: color($colors, primary);
+                border-bottom: 3px solid color($colors, primary);
+            }
 
-
-    .ion-md-briefcase {
-        padding: 6px;
+            ion-icon {
+                margin-right: 10px;
+            }
+        }
     }
 }

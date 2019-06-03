@@ -1,3 +1,4 @@
+import { ProfileManagementPage } from './../../../admin/pages/profile-management/profile-management.page';
 
 import { Component } from '@angular/core';
 import { NavController, NavParams, Events } from 'ionic-angular';
@@ -21,7 +22,6 @@ import { CongratulationLettersPage } from '../../../congratulation-letter/pages/
 import { AppVersionAlertService } from './../../../../core/services/app-version/app-version-alert.service';
 import { AuthorizationService } from './../../../../core/services/authorization/authorization.service';
 import { UserMessageAlertService } from './../../../../core/services/user-message/user-message-alert.service';
-import { TabNavService } from '../../../../core/services/tab-nav/tab-nav.service';
 import { SynchronizationService } from '../../../../core/services/synchronization/synchronization.service';
 import { SessionService } from '../../../../core/services/session/session.service';
 import { ToastService } from '../../../../core/services/toast/toast.service';

@@ -1,3 +1,11 @@
-<ion-tabs #tabs *ngIf="!loading" tabsPlacement="bottom" (ionChange)="tabChange($event)">
-    <ion-tab *ngFor="let tabNav of tabsNav" [root]="tabNav.page" [rootParams]="tabNav.params" [show]="tabNav.display" [tabTitle]="tabNav.title" [tabIcon]="tabNav.icon"></ion-tab>
-</ion-tabs>
+<nav class="tab-list clickable">
+    <!-- Retour vers home si mode admin -->
+    <span *ngIf="mode === TabNavModeEnum.ADMIN" class="tab" (click)="goToHome()">
+        <ion-icon name="ios-arrow-back"></ion-icon>{{ 'ADMIN.ADMIN_NAV_TABS.HOME' | translate }}
+    </span>
+    <ng-container *ngFor="let tab of tabList">
+        <span *ngIf="tab.available" class="tab" (click)="openTab(tab)" [class.active]="isActive(tab)">
+            {{ tab.label }}
+        </span>
+    </ng-container>
+</nav>

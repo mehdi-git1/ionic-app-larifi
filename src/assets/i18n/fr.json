@@ -754,14 +754,11 @@
         "NO_SYNCHRO_REQUEST": "Aucune demande"
     },
     "ADMIN": {
-        "ADMIN_HOME": {
-            "NAV_TITLE": "Administration",
-            "BUTTON": {
-                "PROFILE_MANAGEMENT": "Gérer la liste des profils",
-                "APP_VERSION_MANAGEMENT": "Gérer la liste des versions",
-                "USER_MESSAGE_MANAGEMENT": "Gérer les messages aux utilisateurs",
-                "RETURN_TO_HOME": "Retour à la page d'accueil"
-            }
+        "ADMIN_NAV_TABS": {
+            "HOME": "Accueil",
+            "PROFILE_MANAGEMENT": "Permissions",
+            "APP_VERSION_MANAGEMENT": "Versions",
+            "USER_MESSAGE_MANAGEMENT": "Messages utilisateurs"
         },
         "PROFILE_MANAGEMENT": {
             "TITLE": "Gestion des profils",
