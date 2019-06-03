@@ -341,7 +341,7 @@ export class ProfessionalInterviewDetailsPage {
    */
   takeIntoAccountProfessionalInterview() {
     const isAdminButNotEditionAdminMode = this.isAdminModeAvailable() && !this.editionMode;
-    if ((!this.isAdminModeAvailable() ||  isAdminButNotEditionAdminMode) && this.isPncCommentEditable && this.professionalInterview.pncComment) {
+    if ((!this.isAdminModeAvailable() || isAdminButNotEditionAdminMode) && this.isPncCommentEditable && this.professionalInterview.pncComment) {
       this.confirmSaveWithPncComment();
     } else {
       this.saveProfessionalInterviewToTakenIntoAccountState();
@@ -466,6 +466,7 @@ export class ProfessionalInterviewDetailsPage {
     const professionalInterviewToSave = _.cloneDeep(this.professionalInterview);
     professionalInterviewToSave.state = ProfessionalInterviewStateEnum.TAKEN_INTO_ACCOUNT;
     professionalInterviewToSave.matricule = this.pnc.matricule;
+    professionalInterviewToSave.pncSignatureDate = new Date();
     this.saveProfessionalInterview(professionalInterviewToSave);
   }
 
@@ -552,6 +553,7 @@ export class ProfessionalInterviewDetailsPage {
     const professionalInterviewToSave = _.cloneDeep(this.professionalInterview);
     professionalInterviewToSave.state = ProfessionalInterviewStateEnum.NOT_TAKEN_INTO_ACCOUNT;
     professionalInterviewToSave.matricule = this.pnc.matricule;
+    professionalInterviewToSave.instructorValidationDate = new Date();
     this.saveProfessionalInterview(professionalInterviewToSave);
   }
 
