@@ -9,9 +9,127 @@
     <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
     <ng-template #pageBlock>
         <pnc-card-page-header *ngIf="pnc" [itemMember]="pnc"></pnc-card-page-header>
-        <div *ngIf="isManager()">
-            <button color="primary" (click)="goToLogbookCreation()" ion-button block>{{ 'LOGBOOK.BUTTONS.ADD_LOG' | translate }}</button>
+        <mat-table *ngIf="groupedEventsMap" class="table-container mat-elevation-z8" #table [dataSource]="dataSourceLogbookEvent" matSort>
+            <ng-container matColumnDef="childEvents">
+                <mat-header-cell class="mat-column-child-events" *matHeaderCellDef></mat-header-cell>
+                <mat-cell *matCellDef="let eventGroup" class="mat-column-child-events">
+                    <span *ngFor="let logbookEvent of eventGroup.logbookEvents; let logbookEventIndex = index">
+                        <ion-icon [ngClass]="{'invisible-arrow': logbookEventIndex != 0}" *ngIf="groupHasManyEvents(eventGroup)" ios="ios-arrow-{{eventGroup.expanded?'down':'up'}}" md="ios-arrow-{{eventGroup.expanded?'down':'up'}}" (click)="collapseEventGroup(eventGroup)">
+                        </ion-icon>
+                    </span>
+                </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="childDots">
+                <mat-header-cell class="mat-column-child-events" *matHeaderCellDef></mat-header-cell>
+                <mat-cell *matCellDef="let eventGroup" class="mat-column-child-events child-dots">
+                    <div class="child-event" *ngFor="let logbookEvent of eventGroup.logbookEvents; let logbookEventIndex = index">
+                        <div *ngIf="eventGroup.expanded || logbookEventIndex === 0">
+                            <color-status-point class="big-point" *ngIf="groupHasManyEvents(eventGroup)" [colorClass]="green">
+                            </color-status-point>
+                        </div>
+                    </div>
+                </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="eventDate">
+                <mat-header-cell class="mat-column-date" *matHeaderCellDef mat-sort-header>{{ 'LOGBOOK.EVENT_DATE' | translate }}</mat-header-cell>
+                <mat-cell *matCellDef="let eventGroup" class="mat-column-date">
+                    <div class="child-event" *ngFor="let logbookEvent of eventGroup.logbookEvents; let logbookEventIndex = index">
+                        <div *ngIf="eventGroup.expanded || logbookEventIndex === 0">
+                            {{logbookEvent.eventDate | date:'dd/MM/yyyy' }}
+                        </div>
+                    </div>
+                </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="creationDate">
+                <mat-header-cell class="mat-column-date" *matHeaderCellDef mat-sort-header>{{ 'LOGBOOK.CREATION_DATE' | translate }}</mat-header-cell>
+                <mat-cell class="mat-column-date" *matCellDef="let eventGroup">
+                    <div class="child-event" *ngFor="let logbookEvent of eventGroup.logbookEvents; let logbookEventIndex = index">
+                        <div *ngIf="eventGroup.expanded || logbookEventIndex === 0">
+                            {{logbookEvent.creationDate | date:'dd/MM/yyyy' }}
+                        </div>
+                    </div>
+                </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="category">
+                <mat-header-cell *matHeaderCellDef class="mat-column-category" mat-sort-header>{{ 'LOGBOOK.CATEGORY' | translate }}</mat-header-cell>
+                <mat-cell *matCellDef="let eventGroup" class="mat-column-category">
+                    <div class="child-event" *ngFor="let logbookEvent of eventGroup.logbookEvents; let logbookEventIndex = index">
+                        <div class="category-label" *ngIf="eventGroup.expanded || logbookEventIndex === 0">
+                            {{logbookEvent.category?.label}}
+                        </div>
+                    </div>
+                </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="important">
+                <mat-header-cell class="mat-column-specific" *matHeaderCellDef></mat-header-cell>
+                <mat-cell *matCellDef="let eventGroup" class="mat-column-specific">
+                    <div class="child-event" *ngFor="let logbookEvent of eventGroup.logbookEvents; let logbookEventIndex = index">
+                        <div *ngIf="eventGroup.expanded || logbookEventIndex === 0">
+                            <ion-icon class="important-icon" *ngIf="logbookEvent.important" name="edospnc-important">
+                            </ion-icon>
+                        </div>
+                    </div>
+                </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="attach">
+                <mat-header-cell class="mat-column-specific" *matHeaderCellDef></mat-header-cell>
+                <mat-cell *matCellDef="let eventGroup" class="mat-column-specific">
+                    <div class="child-event" *ngFor="let logbookEvent of eventGroup.logbookEvents; let logbookEventIndex = index">
+                        <div *ngIf="eventGroup.expanded || logbookEventIndex === 0">
+                            <ion-icon *ngIf="logbookEventHasChdilds()" name="attach"></ion-icon>
+                        </div>
+                    </div>
+                </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="event">
+                <mat-header-cell class="mat-column-title" *matHeaderCellDef mat-sort-header>{{ 'LOGBOOK.EVENT' | translate }}</mat-header-cell>
+                <mat-cell class="mat-column-title" *matCellDef="let eventGroup">
+                    <div class="child-event" *ngFor="let logbookEvent of eventGroup.logbookEvents; let logbookEventIndex = index">
+                        <div *ngIf="eventGroup.expanded || logbookEventIndex === 0">
+                            {{logbookEvent.title}}
+                        </div>
+                    </div>
+                </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="origin">
+                <mat-header-cell class="mat-column-origin" *matHeaderCellDef mat-sort-header>{{ 'LOGBOOK.ORIGIN' | translate }}</mat-header-cell>
+                <mat-cell class="mat-column-origin" *matCellDef="let eventGroup">
+                    <div *ngFor="let logbookEvent of eventGroup.logbookEvents; let logbookEventIndex = index">
+                        <div *ngIf="eventGroup.expanded || logbookEventIndex === 0">
+                            <ion-icon *ngIf="logbookEvent.pncInitiator" color="primary" class="edospnc-pnc action-icon" name="edospnc-pnc">
+                            </ion-icon>
+                        </div>
+                    </div>
+                </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="author">
+                <mat-header-cell *matHeaderCellDef class="mat-column-redactor" mat-sort-header>{{ 'LOGBOOK.REDACTOR' | translate }}</mat-header-cell>
+                <mat-cell *matCellDef="let eventGroup" class="mat-column-redactor">
+                    <div class="child-event" *ngFor="let logbookEvent of eventGroup.logbookEvents; let logbookEventIndex = index">
+                        <div *ngIf="eventGroup.expanded || logbookEventIndex === 0">
+                            {{logbookEvent.lastUpdateAuthor?.firstName}} {{logbookEvent.lastUpdateAuthor?.lastName}}
+                        </div>
+                    </div>
+                </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="actions">
+                <mat-header-cell class="mat-column-actions" *matHeaderCellDef>{{ 'LOGBOOK.ACTIONS' | translate }}</mat-header-cell>
+                <mat-cell class="mat-column-actions" *matCellDef="let eventGroup">
+                    <div class="child-event" *ngFor="let logbookEvent of eventGroup.logbookEvents; let logbookEventIndex = index">
+                        <div *ngIf="eventGroup.expanded || logbookEventIndex === 0">
+                            <ion-icon class="action-icon" ios="md-more" md="md-more" (click)="openActionsMenu($event, logbookEvent)">
+                            </ion-icon>
+                        </div>
+                    </div>
+                </mat-cell>
+            </ng-container>
+            <mat-header-row *matHeaderRowDef="displayedLogbookEventsColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedLogbookEventsColumns;"></mat-row>
+        </mat-table>
+        <div class="button-bar" *ngIf="isManager()">
+            <button ion-button color="primary" (click)="goToLogbookCreation()" icon-start>
+                <ion-icon name="add"></ion-icon>{{ 'LOGBOOK.BUTTONS.ADD_LOG' | translate }}
+            </button>
         </div>
-        <button color="blueDaisy" (click)="goToLogbookEventDetails()" ion-button block>{{ 'LOGBOOK.BUTTONS.LOG_DETAIL' | translate }}</button>
     </ng-template>
 </ion-content>

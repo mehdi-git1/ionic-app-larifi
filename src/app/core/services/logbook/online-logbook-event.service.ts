@@ -41,12 +41,20 @@ export class OnlineLogbookEventService {
     }
 
     /**
-     * Récupère des évènement à partir de leur id parent
+     * Récupère l'évènement à partir de son id
      * @param id l'id de l'évènement parent
-     * @return une promesse contenant les évènements récupérés
+     * @return une promesse contenant l'évènement récupéré
      */
-    public getLogbookEvents(id: number): Promise<LogbookEventModel[]> {
+    public getLogbookEventById(id: number): Promise<LogbookEventModel[]> {
         return this.restService.get(this.config.getBackEndUrl('getLogbookEventById', [id]));
     }
 
+    /**
+     * Récupère l'évènement du journal de bord'
+     * @param matricule le matricule du PNC dont on souhaite récupérer l'évènement du journal de bord'
+     * @return l'évènement du journal de bord'
+     */
+    getLogbookEvents(matricule: string): Promise<LogbookEventModel[]> {
+        return this.restService.get(this.config.getBackEndUrl('getLogbookEvents', [matricule]));
+    }
 }
