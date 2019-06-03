@@ -1,6 +1,5 @@
 import { SecurityService } from './../../../core/services/security/security.service';
 import { AuthenticationPage } from './../../../modules/home/pages/authentication/authentication.page';
-import { AuthenticatedUserModel } from './../../../core/models/authenticated-user.model';
 import { CongratulationLettersPage } from './../../../modules/congratulation-letter/pages/congratulation-letters/congratulation-letters.page';
 import { ProfessionalLevelPage } from './../../../modules/professional-level/pages/professional-level/professional-level.page';
 import { StatutoryCertificatePage } from './../../../modules/statutory-certificate/pages/statutory-certificate/statutory-certificate.page';
@@ -12,7 +11,6 @@ import { PncHomePage } from './../../../modules/home/pages/pnc-home/pnc-home.pag
 import { Component, Input } from '@angular/core';
 import { Nav, MenuController, Events } from 'ionic-angular';
 import { TranslateService } from '@ngx-translate/core';
-import { Session } from 'selenium-webdriver';
 import { SessionService } from '../../../core/services/session/session.service';
 import { PncModel } from '../../../core/models/pnc.model';
 import { SettingsPage } from '../../../modules/settings/pages/settings/settings.page';
