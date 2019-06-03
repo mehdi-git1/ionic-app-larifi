@@ -1,4 +1,4 @@
-import { LogbookDetailsPage } from './../../../logbook/pages/logbook-details/logbook-details.page';
+import { LogbookEventDetailsPage } from './../../../logbook/pages/logbook-event-details/logbook-event-details.page';
 
 import { Component } from '@angular/core';
 import { NavController, NavParams, Events } from 'ionic-angular';
@@ -241,9 +241,9 @@ export class PncHomePage {
     /**
      * Dirige vers la page de détail d'un évènement du journal de bord
      */
-    goToLogbookDetails() {
+    goToLogbookEventDetails() {
         if (this.pnc) {
-            this.navCtrl.push(LogbookDetailsPage);
+            this.navCtrl.push(LogbookEventDetailsPage);
         }
     }
 }

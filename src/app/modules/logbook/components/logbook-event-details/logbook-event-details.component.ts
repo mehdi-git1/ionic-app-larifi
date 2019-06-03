@@ -4,10 +4,10 @@ import { Component, Input } from '@angular/core';
 import { LogbookEventModel } from '../../../../core/models/logbook/logbook-event.model';
 import { OnlineLogbookEventService } from '../../../../core/services/logbook/online-logbook-event.service';
 @Component({
-    selector: 'logbook-details',
-    templateUrl: 'logbook-details.component.html'
+    selector: 'logbook-event-details',
+    templateUrl: 'logbook-event-details.component.html'
 })
-export class LogbookDetailsComponent {
+export class LogbookEventDetailsComponent {
 
     @Input() logbookEvent: LogbookEventModel;
 

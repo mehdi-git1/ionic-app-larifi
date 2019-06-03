@@ -1,4 +1,4 @@
-import { LogbookDetailsPage } from './../logbook-details/logbook-details.page';
+import { LogbookEventDetailsPage } from './../logbook-event-details/logbook-event-details.page';
 import { SecurityService } from './../../../../core/services/security/security.service';
 import { PncModel } from './../../../../core/models/pnc.model';
 import { PncService } from './../../../../core/services/pnc/pnc.service';
@@ -36,9 +36,9 @@ export class LogbookPage {
     /**
      * Dirige vers la page de détail d'un évènement du journal de bord
      */
-    goToLogbookDetails() {
+    goToLogbookEventDetails() {
         if (this.pnc) {
-            this.navCtrl.push(LogbookDetailsPage);
+            this.navCtrl.push(LogbookEventDetailsPage);
         }
     }
 

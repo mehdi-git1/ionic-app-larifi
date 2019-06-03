@@ -8,10 +8,10 @@ import { Component } from '@angular/core';
 import { LogbookEditPage } from '../logbook-edit/logbook-edit.page';
 
 @Component({
-    selector: 'page-logbook-details',
-    templateUrl: 'logbook-details.page.html',
+    selector: 'page-logbook-event-details',
+    templateUrl: 'logbook-event-details.page.html',
 })
-export class LogbookDetailsPage {
+export class LogbookEventDetailsPage {
 
     private logbookEvents: LogbookEventModel[];
 
@@ -20,7 +20,7 @@ export class LogbookDetailsPage {
         private onlineLogbookEventService: OnlineLogbookEventService) {
         this.onlineLogbookEventService.getLogbookEvents(1).then(
             logbookEvents => {
-                this.logbookEvents = logbookEvents;
+                this.logbookEvents = logbookEvents.sort((a, b) => a.eventDate < b.eventDate ? 1 : -1);;
             });
     }
 
