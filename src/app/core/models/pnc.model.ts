@@ -19,6 +19,7 @@ export class PncModel extends EDossierPncObjectModel {
     aircraftSkills: string[];
     aircraftSkillsLabel: string[];
     pncInstructor: PncLightModel;
+    pncRds: PncLightModel;
     manager: boolean;
     workRate: number;
     prioritized: boolean;

@@ -8,4 +8,6 @@ export class PncLightModel {
     division: string;
     ginq: string;
     sector: string;
+    isInstructor = false;
+    isRds = false;
 }

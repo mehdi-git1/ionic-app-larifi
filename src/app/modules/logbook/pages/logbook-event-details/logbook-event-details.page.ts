@@ -38,15 +38,23 @@ export class LogbookEventDetailsPage implements OnInit {
         if (matricule != null) {
             this.pncService.getPnc(matricule).then(pnc => {
                 this.pnc = pnc;
+                if (typeof this.navParams.get('groupId') !== 'undefined') {
+                    const groupId = this.navParams.get('groupId');
+                    this.onlineLogbookEventService.getLogbookEventsByGroupId(groupId).then(
+                        logbookEvents => {
+                            this.logbookEvents = logbookEvents.sort((a, b) => a.eventDate < b.eventDate ? 1 : -1);
+                            this.logbookEvents.forEach(logbookEvent => {
+                                logbookEvent.notifiedPncs.forEach(notifiedPnc => {
+                                    if (pnc.pncInstructor && notifiedPnc.matricule === pnc.pncInstructor.matricule) {
+                                        notifiedPnc.isInstructor = true;
+                                    } else if (pnc.pncRds && notifiedPnc.matricule === pnc.pncRds.matricule) {
+                                        notifiedPnc.isRds = true;
+                                    }
+                                });
+                            });
+                        });
+                }
             }, error => { });
-
-            if (typeof this.navParams.get('groupId') !== 'undefined') {
-                const groupId = this.navParams.get('groupId');
-                this.onlineLogbookEventService.getLogbookEventsByGroupId(groupId).then(
-                    logbookEvents => {
-                        this.logbookEvents = logbookEvents.sort((a, b) => a.eventDate < b.eventDate ? 1 : -1);
-                    });
-            }
         }
     }
 

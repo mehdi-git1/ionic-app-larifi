@@ -185,6 +185,7 @@
     },
     "PNC_IDENTITY": {
         "REFERENT_INSTRUCTOR": "Instructeur référent",
+        "RDS": "RDS",
         "GENDER": "Sexe",
         "SPECIALITY": "Fonction",
         "WORKRATE": "Rythme",
