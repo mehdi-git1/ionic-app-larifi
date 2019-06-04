@@ -10,7 +10,7 @@
     <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
     <ng-template #pageBlock>
         <div class="selectable" #eObservationInformations>
-            <pnc-card-page-header *ngIf="pnc" [itemMember]="pnc"></pnc-card-page-header>
+            <pnc-card-page-header *ngIf="pnc" [pnc]="pnc"></pnc-card-page-header>
 
             <div class="speciality-grid">
                 <ion-grid>

@@ -38,11 +38,6 @@ export class TabNavService {
         if (mode === TabNavModeEnum.EDOSSIER) {
             return [
                 {
-                    label: this.translateService.instant('PNC_HOME.TITLE'),
-                    component: PncHomePage,
-                    available: true
-                },
-                {
                     label: this.translateService.instant('GLOBAL.MY_DEVELOPMENT_PROGRAM'),
                     component: CareerObjectiveListPage,
                     available: !this.securityService.isManager()

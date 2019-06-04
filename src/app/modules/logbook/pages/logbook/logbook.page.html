@@ -8,7 +8,7 @@
 <ion-content padding no-bounce>
     <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
     <ng-template #pageBlock>
-        <pnc-card-page-header *ngIf="pnc" [itemMember]="pnc"></pnc-card-page-header>
+        <pnc-card-page-header *ngIf="pnc" [pnc]="pnc"></pnc-card-page-header>
         <div *ngIf="isManager()">
             <button color="primary" (click)="goToLogbookCreation()" ion-button block>{{ 'LOGBOOK.BUTTONS.ADD_LOG' | translate }}</button>
         </div>
