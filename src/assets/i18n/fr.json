@@ -77,7 +77,8 @@
         "BUTTONS": {
             "VALIDATE": "Valider",
             "CONFIRM": "Confirmer",
-            "CANCEL": "Annuler"
+            "CANCEL": "Annuler",
+            "EXPORT": "Exporter"
         },
         "CONFIRM_BACK_WITHOUT_SAVE": {
             "TITLE": "Modifications non enregistrées",
