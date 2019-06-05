@@ -10,7 +10,7 @@
     <ng-template #pageBlock>
         <pnc-card-page-header *ngIf="pnc" [itemMember]="pnc"></pnc-card-page-header>
             <span *ngIf="groupedEvents" >
-                <ion-grid class="logbook-event-grid" [sortableGrid]="groupedEvents">
+                <ion-grid class="logbook-event-grid selectable" [sortableGrid]="groupedEvents">
                     <ion-row class="headers">
                         <ion-col class="arrow"></ion-col>
                         <ion-col class="column-date" columnName="eventDate" sort>{{ 'LOGBOOK.EVENT_DATE' | translate }}<ion-icon id="sortIcon" class="sort-icon"  color="black" 
@@ -52,7 +52,7 @@
                                         </ion-icon>
                                     </ion-col>
                                     <ion-col class="column-specific" >
-                                        <ion-icon  name="attach"></ion-icon>
+                                        <ion-icon *ngIf="logbookEventHasChilds()"  name="attach"></ion-icon>
                                     </ion-col>
                                     <ion-col  class="column-title" >
                                         {{logbookEvent.title}}
@@ -62,7 +62,7 @@
                                         </ion-icon>
                                     </ion-col>
                                     <ion-col  class="column-redactor" >
-                                        {{logbookEvent.lastUpdateAuthor?.firstName}} {{logbookEvent.lastUpdateAuthor?.lastName}}
+                                        {{logbookEvent.lastUpdateAuthor?.lastName}} {{logbookEvent.lastUpdateAuthor?.firstName | titlecase}} 
                                     </ion-col>
                                     <ion-col class="actions" >
                                         <ion-icon class="action-icon" ios="md-more" md="md-more" (click)="openActionsMenu($event, logbookEvent)">
