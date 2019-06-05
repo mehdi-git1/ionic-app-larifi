@@ -1,6 +1,18 @@
 import { Injectable, ElementRef, EventEmitter, Output, Renderer2, RendererFactory2 } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 
+export class SortGridColumnEvent {
+    ionGridElement: ElementRef;
+    columnName: string;
+    constructor(
+      ionGridElement: ElementRef,
+      columnName: string
+    ) {
+      this.ionGridElement = ionGridElement;
+      this.columnName = columnName;
+    }
+}
+
 @Injectable()
 export class SortService {
     public static SORT_ICON_ID = 'sortIcon';
@@ -46,16 +58,4 @@ export class SortService {
         return child;
     }
 
-}
-
-export class SortGridColumnEvent {
-    ionGridElement: ElementRef;
-    columnName: string;
-    constructor(
-      ionGridElement: ElementRef,
-      columnName: string
-    ) {
-      this.ionGridElement = ionGridElement;
-      this.columnName = columnName;
-    }
 }

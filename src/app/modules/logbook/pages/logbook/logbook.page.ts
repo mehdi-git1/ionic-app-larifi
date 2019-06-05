@@ -13,6 +13,7 @@ import { Component, ViewChild, AfterViewInit, OnInit } from '@angular/core';
 import { LogbookEditPage } from '../logbook-edit/logbook-edit.page';
 import { MatTableDataSource, MatSort } from '@angular/material';
 import * as moment from 'moment';
+import * as _ from 'lodash';
 
 @Component({
     selector: 'log-book',
@@ -63,15 +64,34 @@ export class LogbookPage {
             });
             // Tri des events de chaque groupe par date d'évènement
             for (const groupedEvent of Array.from(groupedEventsMap.values())) {
-                groupedEvent.logbookEvents = groupedEvent.logbookEvents.sort((event1, event2) => {
-                    return moment(event1.eventDate, AppConstant.isoDateFormat).isBefore(moment(event2.eventDate, AppConstant.isoDateFormat)) ? 1 : -1;
-                });
+                groupedEvent.logbookEvents = this.sortLogbookEventsByEventDate(groupedEvent.logbookEvents);
                 this.groupedEvents.push(groupedEvent);
             }
             this.dataSourceLogbookEvent = new MatTableDataSource(this.groupedEvents);
             this.dataSourceLogbookEvent.sort = this.sort;
           }, error => { });
         }
+    }
+
+    /**
+     * Tri d'une liste d'évèneemnts de journal de bord
+     * @param logbookEvents liste d'évèneemnts de journal de bord
+     * @return liste triée
+     */
+    sortLogbookEventsByEventDate(logbookEvents: LogbookEventModel[]): LogbookEventModel[] {
+        return logbookEvents.sort((event1, event2) => {
+            return this.sortByEventDate(event1, event2);
+        });
+    }
+
+    /**
+     * Comparaison de 2 évèneemnts de journal de bord par date d'évènement
+     * @param event1 1er évèneemnt de journal de bord
+     * @param event2 2eme évèneemnt de journal de bord
+     * @return 1 si le 1er évènement est avant le 2e, sinon -1
+     */
+    sortByEventDate(event1: LogbookEventModel, event2: LogbookEventModel): number {
+        return moment(event1.eventDate, AppConstant.isoDateFormat).isBefore(moment(event2.eventDate, AppConstant.isoDateFormat)) ? 1 : -1;
     }
 
     /**
