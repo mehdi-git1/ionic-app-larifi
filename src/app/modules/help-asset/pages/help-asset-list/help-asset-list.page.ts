@@ -139,6 +139,13 @@ export class HelpAssetListPage {
         helpAsset[5].label = 'Prepa Express Bilan Pro';
         helpAsset[5].helpAssetType = HelpAssetTypeEnum.PDF;
         helpAsset[5].lastUpdateDate = '2019-02-05T00:00:00Z';
+        const pdf7 = 'Les_Bilans_Pro_dans_eDossierPNC.pdf';
+        helpAsset[6] = new HelpAssetModel();
+        helpAsset[6].url = `${this.pdfUrl}/cadre/${pdf7}`;
+        helpAsset[6].label = 'Les Bilans Pro dans eDossierPNC';
+        helpAsset[6].helpAssetType = HelpAssetTypeEnum.PDF;
+        helpAsset[6].lastUpdateDate = '2019-05-24T00:00:00Z';
+
         return helpAsset;
     }
 
