@@ -1,3 +1,4 @@
+import { CareerObjectiveListPage } from './../../../development-program/pages/career-objective-list/career-objective-list.page';
 import { PncPhotoService } from './../../../../core/services/pnc-photo/pnc-photo.service';
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
@@ -124,10 +125,10 @@ export class FlightCrewListPage {
      * @param onBoardFonction la fontion a bord du pnc concerné
      */
     openPncHomePage(matricule) {
-        this.pncService.getPnc(matricule).then(crewMember => {
-            if (crewMember) {
-                this.sessionService.appContext.observedPnc = crewMember;
-                this.navCtrl.push(PncHomePage, { matricule: matricule });
+        this.pncService.getPnc(matricule).then(pnc => {
+            if (pnc) {
+                this.sessionService.appContext.observedPnc = pnc;
+                this.navCtrl.push(CareerObjectiveListPage, { matricule: matricule });
             }
         });
     }

@@ -1,3 +1,4 @@
+import { AuthorizationService } from './../../../core/services/authorization/authorization.service';
 import { SecurityService } from './../../../core/services/security/security.service';
 import { AuthenticationPage } from './../../../modules/home/pages/authentication/authentication.page';
 import { CongratulationLettersPage } from './../../../modules/congratulation-letter/pages/congratulation-letters/congratulation-letters.page';
@@ -33,6 +34,7 @@ export class HamburgerNavComponent {
         private menuCtrl: MenuController,
         private sessionService: SessionService,
         private securityService: SecurityService,
+        private authorizationService: AuthorizationService,
         private events: Events
     ) {
         this.initMenu();
@@ -104,13 +106,13 @@ export class HamburgerNavComponent {
                     label: this.translateService.instant('GLOBAL.MY_PROFESSIONAL_LEVEL'),
                     component: ProfessionalLevelPage,
                     icon: 'edospnc-professionalLevel',
-                    available: this.securityService.hasPermissionToViewTab('VIEW_PROFESSIONAL_LEVEL')
+                    available: this.authorizationService.hasPermission('VIEW_PROFESSIONAL_LEVEL')
                 },
                 {
                     label: this.translateService.instant('GLOBAL.MY_STATUTORY_CERTIFICATE'),
                     component: StatutoryCertificatePage,
                     icon: 'edospnc-statutoryCertificate',
-                    available: this.securityService.hasPermissionToViewTab('VIEW_STATUTORY_CERTIFICATE')
+                    available: this.authorizationService.hasPermission('VIEW_STATUTORY_CERTIFICATE')
                 },
                 {
                     label: this.translateService.instant('GLOBAL.MY_CONGRATULATION_LETTERS'),

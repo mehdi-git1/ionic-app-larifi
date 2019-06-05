@@ -1,3 +1,4 @@
+import { TabNavModeEnum } from './../../../../core/enums/tab-nav-mode.enum';
 import { ProfileManagementPage } from './../../../admin/pages/profile-management/profile-management.page';
 
 import { Component } from '@angular/core';

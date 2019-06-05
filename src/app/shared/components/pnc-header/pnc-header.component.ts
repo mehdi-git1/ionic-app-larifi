@@ -1,6 +1,7 @@
+import { SessionService } from '../../../core/services/session/session.service';
 import { RelayModel } from '../../../core/models/statutory-certificate/relay.model';
 import { PncModel } from '../../../core/models/pnc.model';
-import { Component, Input, ViewChild } from '@angular/core';
+import { Component, Input, ViewChild, OnInit, OnChanges } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 
 import { SynchronizationService } from '../../../core/services/synchronization/synchronization.service';
@@ -10,12 +11,12 @@ import { OfflineIndicatorComponent } from '../offline-indicator/offline-indicato
 
 
 @Component({
-  selector: 'pnc-card-page-header',
-  templateUrl: 'pnc-card-page-header.component.html'
+  selector: 'pnc-header',
+  templateUrl: 'pnc-header.component.html'
 })
-export class PncCardPageHeaderComponent {
+export class PncHeaderComponent implements OnChanges {
 
-  pnc: PncModel;
+  @Input() pnc: PncModel;
   formatedSpeciality: string;
   synchroInProgress: boolean;
 
@@ -26,18 +27,27 @@ export class PncCardPageHeaderComponent {
     private synchronizationService: SynchronizationService,
     private toastService: ToastService,
     private translateService: TranslateService,
-    private pncService: PncService) {
+    private pncService: PncService,
+    private sessionService: SessionService) {
+  }
+
+  ngOnChanges() {
+    if (this.pnc) {
+      if (!this.sessionService.isActiveUser(this.pnc)) {
+        this.sessionService.visitedPnc = this.pnc;
+      }
+      if (this.pnc.relays) {
+        this.pnc.relays.sort((relay: RelayModel, otherRelay: RelayModel) => {
+          return relay.code > otherRelay.code ? 1 : -1;
+        });
+      }
+    }
   }
 
   /**
    * Récupère les relais formatés pour l'affichage
    */
   getFormatedSpeciality(): string {
-    if (this.pnc.relays) {
-      this.pnc.relays.sort((relay: RelayModel, otherRelay: RelayModel) => {
-        return relay.code > otherRelay.code ? 1 : -1;
-      });
-    }
     return this.pncService.getFormatedSpeciality(this.pnc);
   }
 

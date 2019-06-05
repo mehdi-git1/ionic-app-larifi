@@ -1,3 +1,4 @@
+import { PncHeaderComponent } from './pnc-header/pnc-header.component';
 import { HamburgerNavComponent } from './hamburger-nav/hamburger-nav.component';
 import { PdfButtonComponent } from './pdf-button/pdf-button.component';
 import { IonicModule } from 'ionic-angular';
@@ -27,9 +28,9 @@ import { EdospncExpandableBlockComponent } from './edospnc-expandable-block/edos
 import { ColorStatusPointComponent } from './color-status-point/color-status-point.component';
 import { RadioAndLabelComponent } from './radio-and-label/radio-and-label.component';
 import { CheckboxAndLabelComponent } from './checkbox-and-label/checkbox-and-label.component';
-import { PncCardPageHeaderComponent } from './pnc-card-page-header/pnc-card-page-header.component';
 import { UserMessageAlertComponent } from './user-message-alert/user-message-alert.component';
 import { AppVersionAlertComponent } from './app-version-alert/app-version-alert.component';
+import { PncEdossierHeaderComponent } from './pnc-edossier-header/pnc-edossier-header.component';
 
 
 @NgModule({
@@ -44,7 +45,7 @@ import { AppVersionAlertComponent } from './app-version-alert/app-version-alert.
     ConnectivityIndicatorComponent,
     DownloadButtonComponent,
     PncCardComponent,
-    PncCardPageHeaderComponent,
+    PncHeaderComponent,
     EdossierSpinnerComponent,
     PinPadComponent,
     PinPadModalComponent,
@@ -54,6 +55,7 @@ import { AppVersionAlertComponent } from './app-version-alert/app-version-alert.
     PncPhotoComponent,
     PageHeaderComponent,
     TabNavComponent,
+    PncEdossierHeaderComponent,
     HamburgerNavComponent,
     NoDataComponent,
     EdospncExpandableBlockComponent,
@@ -69,7 +71,7 @@ import { AppVersionAlertComponent } from './app-version-alert/app-version-alert.
     ConnectivityIndicatorComponent,
     DownloadButtonComponent,
     PncCardComponent,
-    PncCardPageHeaderComponent,
+    PncHeaderComponent,
     EdossierSpinnerComponent,
     PinPadComponent,
     PinPadModalComponent,
@@ -79,6 +81,7 @@ import { AppVersionAlertComponent } from './app-version-alert/app-version-alert.
     NavBarCustomComponent,
     PncPhotoComponent,
     TabNavComponent,
+    PncEdossierHeaderComponent,
     HamburgerNavComponent,
     NoDataComponent,
     EdospncExpandableBlockComponent,

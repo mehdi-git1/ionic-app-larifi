@@ -1,4 +1,9 @@
 tab-nav {
+    font-family: Excellence;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    background: color($colors, white);
 
     .tab-list {
         display: flex;
@@ -27,6 +32,11 @@ tab-nav {
             ion-icon {
                 margin-right: 10px;
             }
+        }
+
+        // Pour éviter l'absence de margin-right sur un overflow-x
+        .placeholder-margin {
+            flex: 0 0 1px;
         }
     }
 }

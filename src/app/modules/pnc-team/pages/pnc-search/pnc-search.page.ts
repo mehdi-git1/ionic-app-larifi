@@ -1,3 +1,4 @@
+import { CareerObjectiveListPage } from './../../../development-program/pages/career-objective-list/career-objective-list.page';
 import { TranslateService } from '@ngx-translate/core';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
@@ -141,7 +142,7 @@ export class PncSearchPage implements OnInit {
         if (this.sessionService.isActiveUser(pnc)) {
             this.navCtrl.setRoot(PncHomePage);
         } else {
-            this.navCtrl.push(PncHomePage, { matricule: pnc.matricule });
+            this.navCtrl.setRoot(CareerObjectiveListPage, { matricule: pnc.matricule });
         }
     }
 

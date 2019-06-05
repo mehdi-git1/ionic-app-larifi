@@ -1,0 +1,44 @@
+<div class="header-container">
+    <div class="card-container selectable" *ngIf="pnc">
+        <offline-indicator [object]="pnc" type="PNC"></offline-indicator>
+        <pnc-photo [pnc]="pnc" [size]="70"></pnc-photo>
+        <div class="pnc-info-container">
+            <div class="pnc-name"><span class="firstname">{{ pnc.firstName }}</span>&nbsp;<span class="lastname">{{ pnc.lastName }}</span></div>
+            <div class="pnc-speciality" [ngClass]="{'no-value' : !getFormatedSpeciality() }"> {{ getFormatedSpeciality() }}</div>
+            <div class="pnc-matricule">{{ pnc.matricule }}</div>
+            <div class="work-rate-container small-size">
+                <div class="work-rate">{{ pnc.workRate }}%</div>
+            </div>
+        </div>
+        <div class="work-rate-container full-size">
+            <div class="work-rate">{{ pnc.workRate }}%</div>
+        </div>
+        <div class="data-container">
+            <ion-icon name="ios-plane"></ion-icon>
+            <div class="pnc-info-data" [ngClass]="{'no-value' : !pnc.aircraftSkillsLabel || !pnc.aircraftSkillsLabel[0] }">
+                <span *ngFor="let label of pnc.aircraftSkillsLabel; index as i; last as l">{{label}}<span *ngIf="!l">, </span></span>
+            </div>
+        </div>
+        <div class="data-container">
+            <ion-icon ios="md-pin" name="md-pin"></ion-icon>
+            <div class="pnc-info-data" [ngClass]="{'no-value' : !pnc.relays[0] }">
+                <span *ngFor="let relay of pnc.relays; index as i; last as l">{{relay.code}}<span *ngIf="!l">,</span></span>
+            </div>
+        </div>
+        <div class="data-container">
+            <ion-icon ios="md-pricetag" name="md-pricetag"></ion-icon>
+            <div class="pnc-info-data">
+                <span [ngClass]="{'no-value' : !pnc?.assignment?.division }">{{ pnc?.assignment?.division }}/</span><span [ngClass]="{'no-value' : !pnc?.assignment?.sector }">{{ pnc?.assignment?.sector }}/</span><span [ngClass]="{'no-value' : !pnc?.assignment?.ginq }">{{ pnc?.assignment?.ginq }}</span>
+            </div>
+        </div>
+        <div class="pnc-instructor" *ngIf="!pnc.manager">
+            <ion-icon ios="md-school" name="md-school"></ion-icon>
+            <div class="pnc-info-data">
+                <span [ngClass]="{'no-value' : !pnc?.pncInstructor }"><span class="firstname">{{pnc?.pncInstructor?.firstName}}</span>&nbsp;<span class="lastname">{{pnc?.pncInstructor?.lastName}}</span></span>
+            </div>
+        </div>
+        <div class="button-container">
+            <download-button [synchroInProgress]="synchroInProgress" (onDownload)="downloadPncEdossier(pnc.matricule)"></download-button>
+        </div>
+    </div>
+</div>

@@ -4,6 +4,7 @@
             <span *ngIf='pnc'> {{ 'PROFESSIONAL_LEVEL.TITLE' | isMyPage: pnc | translate }}</span>
         </page-header>
     </ion-navbar>
+    <pnc-edossier-header [pnc]="pnc"></pnc-edossier-header>
 </ion-header>
 
 <ion-content padding>

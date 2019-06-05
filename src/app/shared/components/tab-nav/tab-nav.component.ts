@@ -3,6 +3,7 @@ import { TabNavService } from './../../../core/services/tab-nav/tab-nav.service'
 import { Component, Input, OnInit } from '@angular/core';
 import { Events, NavController } from 'ionic-angular';
 import { PncHomePage } from '../../../modules/home/pages/pnc-home/pnc-home.page';
+import { SessionService } from '../../../core/services/session/session.service';
 
 @Component({
   selector: 'tab-nav',
@@ -19,7 +20,8 @@ export class TabNavComponent implements OnInit {
   constructor(
     private events: Events,
     private navCtrl: NavController,
-    private tabNavService: TabNavService
+    private tabNavService: TabNavService,
+    private sessionService: SessionService
   ) {
     this.events.subscribe('user:authenticationDone', () => {
       this.initTabNav();
@@ -43,7 +45,11 @@ export class TabNavComponent implements OnInit {
    */
   openTab(tab: any) {
     this.tabNavService.setActiveTab(this.mode, tab);
-    this.navCtrl.setRoot(tab.component);
+    let navParams = {};
+    if (this.mode === TabNavModeEnum.EDOSSIER && !this.sessionService.isActiveUser(this.sessionService.visitedPnc)) {
+      navParams = { matricule: this.sessionService.visitedPnc.matricule };
+    }
+    this.navCtrl.setRoot(tab.component, navParams);
   }
 
   /**
