@@ -132,6 +132,7 @@
             "CONFIRM": "Supprimer"
         },
         "BUTTONS": {
+            "SAVE": "Enregistrer",
             "SEND": "Envoyer",
             "UPDATE": "Mettre à jour",
             "SAVE_DRAFT": "Enregistrer le brouillon",
