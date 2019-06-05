@@ -565,7 +565,7 @@ export class CareerObjectiveCreatePage {
 
     /**
      * Retourne la date de création, formatée pour l'affichage
-     * @return la date de création 
+     * @return la date de création
      */
     getCreationDate(): string {
         return this.datePipe.transform(this.careerObjective.creationDate, 'dd/MM/yyyy HH:mm');

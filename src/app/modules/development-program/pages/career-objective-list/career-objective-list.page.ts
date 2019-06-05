@@ -1,10 +1,10 @@
+import { EObservationModel } from './../../../../core/models/eobservation/eobservation.model';
 import { SecurityService } from './../../../../core/services/security/security.service';
 import { ProfessionalInterviewDetailsPage } from './../../../professional-interview/pages/professional-interview-details/professional-interview-details.page';
 import { ProfessionalInterviewModel } from './../../../../core/models/professional-interview/professional-interview.model';
 import { ProfessionalInterviewService } from '../../../../core/services/professional-interview/professional-interview.service';
 import { EObservationDisplayModeEnum } from './../../../../core/enums/eobservation/eobservation-display-mode.enum';
 import { EObservationsArchivesPage } from './../../../eobservation/pages/eobservations-archives/eobservations-archives.page';
-import { EObservationModel } from '../../../../core/models/eobservation/eobservation.model';
 import { EObservationService } from './../../../../core/services/eobservation/eobservation.service';
 import { FormsEObservationService } from './../../../../core/services/forms/forms-e-observation.service';
 import { FormsInputParamsModel } from './../../../../core/models/forms-input-params.model';
@@ -101,11 +101,14 @@ export class CareerObjectiveListPage {
   }
 
   /**
-   * Retourne le type de formulaire pour la création d'EObs
-   * @return boolean pour savoir si le type d'Eform est géré actuellement
+   * Vérifie si le type de formulaire est géré
+   * @return true si il est géré, sinon false
    */
   hasEObsTypeForm(): boolean {
-    return this.getEObsTextTypeEForm() ? true : false;
+    if (this.getEObsTextTypeEForm()) {
+      return true;
+    }
+    return false;
   }
 
   /**
@@ -114,11 +117,19 @@ export class CareerObjectiveListPage {
   getEObservationsList() {
     this.eObservationService.getEObservations(this.matricule).then(
       eobs => {
-        this.eObservations = eobs.sort((eObs1, eObs2) => {
-          return moment(eObs1.rotationDate, AppConstant.isoDateFormat).isAfter(moment(eObs2.rotationDate, AppConstant.isoDateFormat)) ? -1 : 1;
-        });
+        this.eObservations = this.sortEObsByRotationDate(eobs);
       }, error => {
       });
+  }
+
+  /**
+   * Trie la liste des eObservations par date de rotation
+   * @param eObservations liste de eObservations
+   * @return liste de eObservations triées
+   */
+  sortEObsByRotationDate(eObservations: EObservationModel[]): EObservationModel[] {
+    return eObservations.sort((eObs1, eObs2) =>
+      moment(eObs1.rotationDate, AppConstant.isoDateFormat).isAfter(moment(eObs2.rotationDate, AppConstant.isoDateFormat)) ? -1 : 1 );
   }
 
   /**
@@ -134,9 +145,7 @@ export class CareerObjectiveListPage {
   getProfessionalInterviewList() {
     this.professionalInterviewService.getProfessionalInterviews(this.matricule).then(
       professionalInterviews => {
-        this.professionalInterviews = professionalInterviews.sort((professionalInterview1: ProfessionalInterviewModel, professionalInterview2: ProfessionalInterviewModel) => {
-          return professionalInterview1.annualProfessionalInterviewDate < professionalInterview2.annualProfessionalInterviewDate ? 1 : -1;
-        });
+        this.professionalInterviews = this.sortProfessionalInterviewsByAnnualProfessionalInterviewDate(professionalInterviews);
 
         // On ne récupére que les Draft et les 3 derniers autres bilan
         let nbOfNoDraft = 0;
@@ -154,6 +163,16 @@ export class CareerObjectiveListPage {
       }, error => {
         this.professionalInterviews = [];
       });
+  }
+
+  /**
+   * Trie la liste des bilans professionnels par date d'entretien
+   * @param professionalInterviews liste de bilans professionnels
+   * @return liste des bilans professionnels triés
+   */
+  sortProfessionalInterviewsByAnnualProfessionalInterviewDate(professionalInterviews: ProfessionalInterviewModel[]): ProfessionalInterviewModel[] {
+    return professionalInterviews.sort((professionalInterview1, professionalInterview2) =>
+      professionalInterview1.annualProfessionalInterviewDate < professionalInterview2.annualProfessionalInterviewDate ? 1 : -1);
   }
 
   /**

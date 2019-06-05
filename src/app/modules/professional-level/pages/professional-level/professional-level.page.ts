@@ -1,3 +1,5 @@
+import { ModuleModel } from './../../../../core/models/professional-level/module.model';
+import { StageModel } from './../../../../core/models/professional-level/stage.model';
 import { EObservationDisplayModeEnum } from './../../../../core/enums/eobservation/eobservation-display-mode.enum';
 import { Component } from '@angular/core';
 import { NavParams } from 'ionic-angular';
@@ -71,16 +73,34 @@ export class ProfessionalLevelPage {
 
     if (sortedProfessionalLevel && sortedProfessionalLevel.stages) {
       // Tri de l'ordre des stages
-      sortedProfessionalLevel.stages = sortedProfessionalLevel.stages.sort((a, b) => a.date < b.date ? 1 : -1);
+      sortedProfessionalLevel.stages = this.sortStagesByDate(sortedProfessionalLevel.stages);
 
       // Tri de l'ordre des modules
       for (const stage of sortedProfessionalLevel.stages) {
         if (stage.modules) {
-          stage.modules = stage.modules.sort((a, b) => a.date < b.date ? 1 : -1);
+          stage.modules = this.sortModulesByDate(stage.modules);
         }
       }
     }
     return sortedProfessionalLevel;
+  }
+
+  /**
+   * Trie la liste des stages par ordre
+   * @param stages liste de stages
+   * @return liste de stages triés
+   */
+  sortStagesByDate(stages: StageModel[]): StageModel[] {
+    return stages.sort((a, b) => a.date < b.date ? 1 : -1);
+  }
+
+  /**
+   * Trie la liste des modules par ordre
+   * @param modules liste de modules
+   * @return liste de modules triés
+   */
+  sortModulesByDate(modules: ModuleModel[]): ModuleModel[] {
+    return modules.sort((a, b) => a.date < b.date ? 1 : -1);
   }
 
   /**

@@ -1,3 +1,4 @@
+import { LegModel } from './../../models/leg.model';
 import { AppConstant } from './../../../app.constant';
 import { FormsInputParamsModel } from './../../models/forms-input-params.model';
 import { Injectable } from '@angular/core';
@@ -54,14 +55,21 @@ export class FormsEObservationService {
 
     formsInputParams.rotation = this.sessionService.appContext.lastConsultedRotation;
 
-    const rotationLegs = this.sessionService.appContext.lastConsultedRotation.legs.sort((leg1, leg2) => {
-      return moment(leg1.departureDate, AppConstant.isoDateFormat).isBefore(moment(leg2.departureDate, AppConstant.isoDateFormat)) ? -1 : 1;
-    });
+    const rotationLegs = this.sortLegsByDepartureDate( this.sessionService.appContext.lastConsultedRotation.legs);
 
     formsInputParams.rotationFirstLeg = rotationLegs[0] === undefined ? undefined : rotationLegs[0];
     formsInputParams.rotationLastLeg = rotationLegs[rotationLegs.length - 1] === undefined ? undefined : rotationLegs[rotationLegs.length - 1];
 
     return formsInputParams;
+  }
+
+  /**
+   * Trie la liste des vols par date de départ
+   * @param flights liste de vols
+   * @return liste de vols triés
+   */
+  sortLegsByDepartureDate(flights: LegModel[]): LegModel[] {
+    return flights.sort((leg1, leg2) => moment(leg1.departureDate, AppConstant.isoDateFormat).isBefore(moment(leg2.departureDate, AppConstant.isoDateFormat)) ? 1 : -1);
   }
 
   /**

@@ -1,3 +1,4 @@
+import { ScoreModel } from './../../models/professional-level/score.model';
 import { Injectable } from '@angular/core';
 
 import { OfflineProfessionalLevelService } from './offline-professional-level.service';
@@ -43,12 +44,21 @@ export class ProfessionalLevelService extends BaseService {
         // Tri de l'ordre des scores
         for (const module of stage.modules) {
           if (module.scores) {
-            module.scores = module.scores.sort((a, b) => a.order > b.order ? 1 : -1);
+            module.scores = this.sortScoresByOrder(module.scores);
           }
         }
       }
     }
     return professionalLevelModel;
+  }
+
+  /**
+   * Trie la liste des scores par ordre
+   * @param scores liste de scores
+   * @return liste de scores triés
+   */
+  sortScoresByOrder(scores: ScoreModel[]): ScoreModel[] {
+    return scores.sort((a, b) => a.order > b.order ? 1 : -1);
   }
 
 }
