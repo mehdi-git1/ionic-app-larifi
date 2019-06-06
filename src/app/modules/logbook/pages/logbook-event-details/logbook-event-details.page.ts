@@ -1,3 +1,4 @@
+import { AppConstant } from './../../../../app.constant';
 import { SessionService } from './../../../../core/services/session/session.service';
 import { OnlineLogbookEventService } from './../../../../core/services/logbook/online-logbook-event.service';
 import { LogbookEventModel } from './../../../../core/models/logbook/logbook-event.model';
@@ -42,7 +43,7 @@ export class LogbookEventDetailsPage implements OnInit {
                     const groupId = this.navParams.get('groupId');
                     this.onlineLogbookEventService.getLogbookEventsByGroupId(groupId).then(
                         logbookEvents => {
-                            this.logbookEvents = logbookEvents.sort((a, b) => a.eventDate < b.eventDate ? 1 : -1);
+                            this.logbookEvents = this.sortLogbookEventsByEventDate(logbookEvents);
                             this.logbookEvents.forEach(logbookEvent => {
                                 logbookEvent.notifiedPncs.forEach(notifiedPnc => {
                                     if (pnc.pncInstructor && notifiedPnc.matricule === pnc.pncInstructor.matricule) {
@@ -58,6 +59,26 @@ export class LogbookEventDetailsPage implements OnInit {
         }
     }
 
+    /**
+     * Tri d'une liste d'évènements de journal de bord
+     * @param logbookEvents liste d'évènements de journal de bord
+     * @return liste triée
+     */
+    sortLogbookEventsByEventDate(logbookEvents: LogbookEventModel[]): LogbookEventModel[] {
+        return logbookEvents.sort((event1, event2) => {
+            return this.sortByEventDate(event1, event2);
+        });
+    }
+
+    /**
+     * Comparaison de 2 évènements de journal de bord par date d'évènement
+     * @param event1 1er évènement de journal de bord
+     * @param event2 2eme évènement de journal de bord
+     * @return 1 si le 1er évènement est avant le 2e, sinon -1
+     */
+    sortByEventDate(event1: LogbookEventModel, event2: LogbookEventModel): number {
+        return event1.eventDate < event2.eventDate ? 1 : -1;
+    }
 
     /**
      * Vérifie que le chargement est terminé
