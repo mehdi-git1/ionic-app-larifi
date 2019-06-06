@@ -75,6 +75,6 @@
     <plugin name="cordova-pdf-generator" spec="^2.0.8" />
     <plugin name="cordova-plugin-printer" spec="^0.8.0" />
     <plugin name="cordova-plugin-screen-orientation" spec="^3.0.1" />
-    <engine name="ios" spec="5.0.0" />
     <plugin name="cordova-pdf-generator" spec="^2.0.8" />
+    <engine name="ios" spec="5.0.0" />
 </widget>
