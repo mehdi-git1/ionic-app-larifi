@@ -43,6 +43,7 @@ export class LogbookPage {
     }
 
     ionViewWillEnter() {
+        this.groupedEvents = new Array<LogbookEventGroupModel>();
         let matricule = this.navParams.get('matricule');
         if (this.navParams.get('matricule')) {
             matricule = this.navParams.get('matricule');
