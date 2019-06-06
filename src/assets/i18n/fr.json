@@ -186,6 +186,7 @@
     },
     "PNC_IDENTITY": {
         "REFERENT_INSTRUCTOR": "Instructeur référent",
+        "RDS": "RDS",
         "GENDER": "Sexe",
         "SPECIALITY": "Fonction",
         "WORKRATE": "Rythme",
@@ -609,14 +610,14 @@
         "VERBATIM": "Verbatim"
     },
     "LOGBOOK": {
-        "EVENT_DATE" : "Date de l'évènement",
-        "CREATION_DATE" : "Date de création",
-        "CATEGORY" : "Catégorie",
-        "EVENT" : "Evènement",
-        "REDACTOR" : "Rédacteur",
-        "ORIGIN" : "Origine",
-        "ACTIONS" : "Actions",
-        "UNAIVALABLE_OFFLINE" : "Les événements ne sont pas disponibles hors connexion",
+        "EVENT_DATE": "Date de l'évènement",
+        "CREATION_DATE": "Date de création",
+        "CATEGORY": "Catégorie",
+        "EVENT": "Evènement",
+        "REDACTOR": "Rédacteur",
+        "ORIGIN": "Origine",
+        "ACTIONS": "Actions",
+        "UNAIVALABLE_OFFLINE": "Les événements ne sont pas disponibles hors connexion",
         "BUTTONS": {
             "ADD_LOG": "Nouvel évènement"
         },
@@ -638,8 +639,14 @@
             "SELECT_ALL": "Tout sélectionner",
             "SEARCH": "Rechercher"
         },
+        "DETAILS": {
+            "EVENT_DATE": "Evènement du ",
+            "CREATED_THE": "Créé le ",
+            "NOTIFIED_PNCS": "Personnes notifiées"
+        },
         "ACTION_MENU": {
             "MODIFY": "Modifier",
+            "DISPLAY": "Visualiser",
             "ADD_LINKED_EVENT": "Ajouter un évènement lié",
             "FORWARD": "Transférer",
             "DELETE_ALL": "Supprimer tout"

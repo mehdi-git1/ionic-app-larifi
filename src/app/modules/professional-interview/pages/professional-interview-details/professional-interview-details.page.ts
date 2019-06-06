@@ -1,4 +1,3 @@
-import { ProfessionalInterviewStateEnum } from './../../../../core/enums/professional-interview/professional-interview-state.enum';
 import { DatePipe } from '@angular/common';
 import { ProfessionalInterviewCommentItemTypeEnum } from './../../../../core/enums/professional-interview/professional-interview-comment-item-type.enum';
 import { AuthorizationService } from './../../../../core/services/authorization/authorization.service';
