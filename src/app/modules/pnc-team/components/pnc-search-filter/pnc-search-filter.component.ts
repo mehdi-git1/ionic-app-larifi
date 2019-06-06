@@ -173,6 +173,7 @@ export class PncSearchFilterComponent implements OnInit {
    * Réinitialise les valeurs des filtres de recherche
    */
   resetFilterValues() {
+    this.selectedPnc = null;
     this.defaultValue = true;
     this.pncFilter.division = this.defaultDivision ? this.defaultDivision : AppConstant.ALL;
     this.divisionOnchanges();
@@ -187,6 +188,7 @@ export class PncSearchFilterComponent implements OnInit {
     this.searchForm.get('aircraftSkillControl').setValue(this.aircraftSkillList && this.aircraftSkillList.length === 1 ? this.aircraftSkillList[0] : AppConstant.ALL);
     this.searchForm.get('relayControl').setValue(this.relayList && this.relayList.length === 1 ? this.relayList[0] : AppConstant.ALL);
     this.autoCompleteForm.get('pncMatriculeControl').setValue('');
+    this.autoCompleteRunning = false;
     this.searchForm.get('prioritizedControl').setValue(false);
     this.search();
     this.defaultValue = false;
@@ -212,19 +214,19 @@ export class PncSearchFilterComponent implements OnInit {
       ]
     });
     if (this.connectivityService.isConnected()) {
-      this.pncMatriculeControl = this.autoCompleteForm.get('pncMatriculeControl');
       this.initAutocompleteList();
       this.resetFilterValues();
       this.formOnChanges();
+      this.pncMatriculeControl = this.autoCompleteForm.get('pncMatriculeControl');
     }
   }
 
   /**
-    * recharge la liste des pnc de l'autocompletion aprés 300ms
+    * recharge la liste des pnc de l'autocompletion aprés 500ms
     */
   initAutocompleteList() {
     this.pncList = this.searchTerms
-      .debounceTime(300)
+      .debounceTime(500)
       .distinctUntilChanged()
       .switchMap(
         term => this.getAutoCompleteDataReturn(term)
