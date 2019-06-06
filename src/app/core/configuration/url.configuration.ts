@@ -59,7 +59,7 @@ export class UrlConfiguration {
     'getAllAppVersions': urlGroupEnum.APP_VERSION,
     'deleteAppVersionById': `${urlGroupEnum.APP_VERSION}/{id}`,
     'logbookEvents': urlGroupEnum.LOGBOOK_EVENT,
-    'getLogbookEvents': `${urlGroupEnum.LOGBOOK_EVENT}/{matricule}`,
+    'getLogbookEvents': `${urlGroupEnum.LOGBOOK_EVENT}/pnc/{matricule}`,
   };
 
   /**
