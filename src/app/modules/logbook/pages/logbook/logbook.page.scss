@@ -1,9 +1,160 @@
 log-book {
 
+    .scroll-content {
+        margin-bottom: 0px !important;
+    }
+
     ion-button {
         // TODO : A supprimer avec Daisy
         @extend .button-md;
         @extend .button;
-        background-color: color($colors, blueDaisy);
+        background-color: color($colors, primary);
     }
+
+    .logbook-event-grid{
+        box-shadow: 0 16px 24px 2px rgba(0, 0, 0, .14), 0 6px 30px 5px rgba(0, 0, 0, .12), 0 8px 10px -5px rgba(0, 0, 0, .2);
+
+        .child-event-grid {
+            padding: 0px;
+        }
+
+        .events-number {
+            background: color($colors, primary);
+            color: color($colors, white);
+            font-size: 12px;
+            $padding-side: 5px;
+            margin-left: 5px;
+            padding-left: $padding-side;
+            padding-right: $padding-side;
+            border-radius: 100%;
+            align-items: center;
+            display: inline-flex;
+        }
+    
+        .edospnc-important:before, 
+        .ion-ios-edospnc-important:before,
+        .ion-md-edospnc-important:before, 
+        .icon-edospnc-important:before {
+            font-size: 18px;
+        }
+    
+        .edospnc-pnc:before, 
+        .ion-ios-edospnc-pnc:before, 
+        .ion-ios-edospnc-pnc-outline:before, 
+        .ion-md-edospnc-pnc:before, 
+        .ion-md-edospnc-pnc-outline:before, 
+        .icon-edospnc-pnc:before {
+            font-size: 40px;
+        }
+
+        .child-count {
+            display: flex;
+            flex-direction: row;
+        }
+        .arrow {
+            flex: 0 0 45px !important;
+            text-align: center;
+        }
+
+        .actions {
+            flex: 0 0 50px !important;
+            text-align: center;
+        }
+
+        ion-row {
+            border : none;
+        }
+        ion-row.groupedEventRow:nth-child(even) {
+            background: color($colors, white);
+        }
+
+        ion-row.groupedEventRow:nth-child(odd) {
+            background: color($colors-secondary, grey95);
+        }
+
+        ion-row.headers {
+            font-size: 12px;
+            background: color($colors, white) !important;
+            border-bottom: 1px solid color($colors-secondary, grey95);
+        }
+
+        ion-row > ion-col {
+            align-items: center;
+        }
+
+        .column-child-events{
+            flex: 0 0 20px !important;
+        }
+    
+        .column-child-dots{
+            flex: 0 0 20px !important;
+        }
+    
+        .column-title {
+            min-width: 120px;
+        }
+        .column-category{
+            flex: 0 0 120px !important;
+            min-width: 50px;
+        }
+        .column-redactor {
+            min-width: 100px;
+            max-width: 200px;
+        }
+        .column-actions {
+            flex: 0 0 40px !important;
+            text-align: center;
+        }
+    
+        .column-origin {
+            flex: 0 0 60px !important;
+            text-align: center;
+        }
+    
+        .origin-value {
+            padding: 0px;
+        }
+    
+        .column-date {
+            flex: 0 0 90px !important;
+            min-width: 90px;
+            max-width: 90px;
+        }
+        .column-specific {
+            flex: 0 0 20px !important;
+            min-width: 20px;
+            max-width: 20px;
+        }
+
+        .category-label {
+            flex: 1;
+            background-color: color($colors, primary);
+            color: color($colors, white);
+            border-radius: 4px;
+            -webkit-border-radius: 4px;
+            text-align: center;
+            padding: 3px;
+        }
+    }
+
+    .button-bar {
+        position: -webkit-sticky;
+        position: sticky;
+        bottom: 50px;
+        display: flex;
+        align-items: flex-end;
+        justify-content: flex-end;
+        button {
+            align-self: flex-end;
+            font-size: 15px;
+            .ion-md-add:before, .ion-ios-add:before {
+                font-size: 18px;
+                vertical-align: middle;
+            }
+        }
+    }
+}
+
+.popover-md.action-menu-popover .popover-content {
+    transform: translate(-80%, 25%) !important;
 }

@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Utils } from '../../../../shared/utils/utils';
 import { DateTransform } from '../../../../shared/utils/date-transform';
 import { SynchronizationService } from '../../../../core/services/synchronization/synchronization.service';
@@ -51,6 +52,8 @@ export class CareerObjectiveCreatePage {
 
     pnc: PncModel;
 
+    notificationInstructor = false;
+
     // Permet d'exposer l'enum au template
     CareerObjectiveStatus = CareerObjectiveStatusEnum;
     WaypointStatus = WaypointStatusEnum;
@@ -76,7 +79,8 @@ export class CareerObjectiveCreatePage {
         private deviceService: DeviceService,
         private synchronizationService: SynchronizationService,
         private sessionService: SessionService,
-        private pncService: PncService) {
+        private pncService: PncService,
+        private datePipe: DatePipe) {
 
         // Options du datepicker
         this.nextEncounterDateTimeOptions = {
@@ -245,9 +249,12 @@ export class CareerObjectiveCreatePage {
                     if (this.deviceService.isOfflineModeAvailable() && this.connectivityService.isConnected() && this.offlinePncService.pncExists(savedCareerObjective.pnc.matricule)) {
                         this.offlineCareerObjectiveService.createOrUpdate(savedCareerObjective, true);
                     }
-
                     if (savedCareerObjective.careerObjectiveStatus === CareerObjectiveStatusEnum.DRAFT) {
-                        this.toastService.success(this.translateService.instant('CAREER_OBJECTIVE_CREATE.SUCCESS.DRAFT_SAVED'));
+                        if (!this.notificationInstructor) {
+                            this.toastService.success(this.translateService.instant('CAREER_OBJECTIVE_CREATE.SUCCESS.DRAFT_SAVED'));
+                        } else {
+                            this.createInstructorRequest();
+                        }
                     } else if (savedCareerObjective.careerObjectiveStatus === CareerObjectiveStatusEnum.REGISTERED) {
                         if (this.cancelValidation) {
                             this.toastService.success
@@ -438,7 +445,6 @@ export class CareerObjectiveCreatePage {
      * Envoi au serveur une demande de sollicitation instructeur pour l'objectif
      */
     createInstructorRequest() {
-
         this.careerObjectiveService
             .createInstructorRequest(this.careerObjective.techId)
             .then(result => {
@@ -449,7 +455,7 @@ export class CareerObjectiveCreatePage {
 
 
     /**
-    * Présente une alerte pour confirmer la suppression du brouillon
+    * Présente une alerte pour la notification du brouillon
     */
     confirmCreateInstructorRequest() {
         this.alertCtrl.create({
@@ -462,10 +468,11 @@ export class CareerObjectiveCreatePage {
                 },
                 {
                     text: this.translateService.instant('CAREER_OBJECTIVE_CREATE.CONFIRM_INSTRUCTOR_REQUEST.CONFIRM'),
-                    handler: () => this.createInstructorRequest()
+                    handler: () => this.saveCareerObjectiveDraft()
                 }
             ]
         }).present();
+        this.notificationInstructor = true;
     }
 
     /**
@@ -558,5 +565,23 @@ export class CareerObjectiveCreatePage {
         const canBeSavedAsDraft: boolean = this.careerObjectiveStatusService.isTransitionOk(this.careerObjective.careerObjectiveStatus, CareerObjectiveStatusEnum.DRAFT);
         const isInitiatorOrCadre: boolean = this.securityService.isManager() || (!this.careerObjective.creationAuthor || (this.careerObjective.creationAuthor.matricule === this.sessionService.authenticatedUser.matricule));
         return canBeSavedAsDraft && isInitiatorOrCadre && (!this.careerObjective.careerObjectiveStatus || this.careerObjective.careerObjectiveStatus === CareerObjectiveStatusEnum.DRAFT);
+    }
+
+
+    /**
+     * Retourne la date de création, formatée pour l'affichage
+     * @return la date de création
+     */
+    getCreationDate(): string {
+        return this.datePipe.transform(this.careerObjective.creationDate, 'dd/MM/yyyy HH:mm');
+    }
+
+
+    /**
+     * Retourne la date de dernière modification, formatée pour l'affichage
+     * @return la date de dernière modification
+     */
+    getLastUpdateDate(): string {
+        return this.datePipe.transform(this.careerObjective.lastUpdateDate, 'dd/MM/yyyy HH:mm');
     }
 }

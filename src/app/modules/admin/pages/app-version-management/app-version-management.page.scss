@@ -8,7 +8,7 @@ page-app-version-management {
         mat-expansion-panel-header {
             width: 100%;
             display: flex;
-            background-color: color($colors, blue68);
+            background-color: color($colors-secondary, blue68);
             border-radius: 5px;
             color: color($colors, white);
             text-align: left;
@@ -17,7 +17,7 @@ page-app-version-management {
 
             &.mat-expanded:hover,
             &.mat-expanded:focus {
-                background-color: color($colors, blue68) !important;
+                background-color: color($colors-secondary, blue68) !important;
             }
 
             &.mat-expansion-panel-header {
@@ -41,7 +41,7 @@ page-app-version-management {
         mat-expansion-panel.app-version-list {
 
             mat-expansion-panel-header.app-version {
-                background-color: color($colors, blue77);
+                background-color: color($colors, primary-light);
                 width: 100%;
                 height: 47px;
                 display: flex;
@@ -59,7 +59,7 @@ page-app-version-management {
 
                 &.mat-expanded:hover,
                 &.mat-expanded:focus {
-                    background-color: color($colors, blue77) !important;
+                    background-color: color($colors, primary-light) !important;
                 }
 
                 .mat-content {
@@ -83,15 +83,13 @@ page-app-version-management {
         padding: 0;
     }
 
-
-
     ion-textarea {
-        min-height: 100px !important;
+        min-height: 200px !important;
         padding: 0 !important;
         margin: 0 !important;
 
         textarea {
-            min-height: 80px !important;
+            min-height: 180px !important;
             padding: 5px !important;
         }
     }
@@ -110,7 +108,8 @@ page-app-version-management {
     }
 
     .modify-button,
-    .delete-button {
+    .delete-button,
+    .overview-button {
         margin-top: 20px;
     }
 

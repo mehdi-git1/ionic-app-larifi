@@ -9,8 +9,7 @@
 <ion-content padding>
     <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
     <ng-template #pageBlock>
-
-        <div class="selectable">
+        <div class="selectable" #eObservationInformations>
             <pnc-card-page-header *ngIf="pnc" [itemMember]="pnc"></pnc-card-page-header>
 
             <div class="speciality-grid">
@@ -52,23 +51,26 @@
             <div class="information-message" *ngIf="eObservation.lastUpdateAuthor">{{ 'EOBSERVATION.DETAIL.EDITED_BY' | translate:{lastName:eObservation.lastUpdateAuthor.lastName, firstName:eObservation.lastUpdateAuthor.firstName, date:getLastUpdateDate()} }}</div>
         </div>
 
-        <div class="button-bar button-bar-right margin-top-10 margin-bottom-10" *hasPermission="'EOBS_FULL_EDITION'">
-            <ng-container *ngIf="!editMode; else editModeButtonsBlock">
-                <!-- Bouton modifier l'eobs -->
-                <button ion-button color="grey20" (click)="enterEditMode()">
-                    <ion-icon name="md-create" ios="md-create" margin-right></ion-icon> {{ 'EOBSERVATION.BUTTONS.EDIT' | translate }}
-                </button>
-            </ng-container>
-            <ng-template #editModeButtonsBlock>
-                <!-- Bouton annuler modification de l'eobs -->
-                <button ion-button color="grey50" (click)="cancelEditMode()">
-                    <ion-icon name="md-close" ios="md-close" margin-right></ion-icon> {{ 'EOBSERVATION.BUTTONS.CANCEL' | translate }}
-                </button>
-                <!-- Bouton mettre à jour l'eobs -->
-                <button ion-button color="green50" (click)="updateEObservation()" [disabled]="!formHasBeenModified()">
-                    <ion-icon name="md-checkmark" ios="md-checkmark" margin-right></ion-icon> {{ 'EOBSERVATION.BUTTONS.UPDATE' | translate }}
-                </button>
-            </ng-template>
+        <div class="button-bar button-bar-right margin-top-10 margin-bottom-10">
+            <pdf-button elementToPrint="eObservationInformations" pdfFileName="pdfFileName"></pdf-button>
+            <span *hasPermission="'EOBS_FULL_EDITION'">
+                <ng-container *ngIf="!editMode; else editModeButtonsBlock">
+                    <!-- Bouton modifier l'eobs -->
+                    <button ion-button color="grey20" (click)="enterEditMode()">
+                        <ion-icon name="md-create" ios="md-create" margin-right></ion-icon> {{ 'EOBSERVATION.BUTTONS.EDIT' | translate }}
+                    </button>
+                </ng-container>
+                <ng-template #editModeButtonsBlock>
+                    <!-- Bouton annuler modification de l'eobs -->
+                    <button ion-button color="grey50" (click)="cancelEditMode()">
+                        <ion-icon name="md-close" ios="md-close" margin-right></ion-icon> {{ 'EOBSERVATION.BUTTONS.CANCEL' | translate }}
+                    </button>
+                    <!-- Bouton mettre à jour l'eobs -->
+                    <button ion-button color="green50" (click)="updateEObservation()" [disabled]="!formHasBeenModified()">
+                        <ion-icon name="md-checkmark" ios="md-checkmark" margin-right></ion-icon> {{ 'EOBSERVATION.BUTTONS.UPDATE' | translate }}
+                    </button>
+                </ng-template>
+            </span>
         </div>
     </ng-template>
 </ion-content>

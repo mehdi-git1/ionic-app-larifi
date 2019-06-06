@@ -110,6 +110,16 @@
                                 </ion-item>
                             </ion-col>
                         </ion-row>
+                        <ion-row class="details">
+                            <ion-col>
+                                <div class="information-message align-left" *ngIf="careerObjective.creationAuthor">
+                                    {{ 'CAREER_OBJECTIVE_CREATE.DETAILS.CREATED_BY' | translate }} <span class="lastname">{{careerObjective.creationAuthor.lastName}}</span> <span class="firstname">{{careerObjective.creationAuthor.firstName}}</span>
+                                </div>
+                                <div class="information-message align-left" *ngIf="careerObjective.lastUpdateAuthor && careerObjective.creationDate !== careerObjective.lastUpdateDate">
+                                    {{ 'CAREER_OBJECTIVE_CREATE.DETAILS.UPDATED_BY' | translate }} <span class="lastname">{{careerObjective.lastUpdateAuthor.lastName}}</span> <span class="firstname">{{careerObjective.lastUpdateAuthor.firstName}}</span> {{ 'CAREER_OBJECTIVE_CREATE.DETAILS.DATE_LABEL' | translate:{date:getLastUpdateDate()} }}
+                                </div>
+                            </ion-col>
+                        </ion-row>
                     </ion-grid>
                 </ion-scroll>
 
@@ -179,8 +189,8 @@
                 <button ion-button color="blue70" (click)="resumeAbandonedCareerObjective()" [disabled]="creationForm.invalid" *ngIf="securityService.isManager() && careerObjective.careerObjectiveStatus === CareerObjectiveStatus.ABANDONED">
                     <ion-icon name="ios-log-in" ios="ios-log-in" margin-right></ion-icon> {{ 'CAREER_OBJECTIVE_CREATE.BUTTONS.RESUME' | translate }}
                 </button>
-                <!-- bouton soliciter mon instructeur -->
-                <button ion-button color="blue70" (click)="confirmCreateInstructorRequest()" *ngIf="!securityService.isManager() && careerObjective.careerObjectiveStatus !== undefined && isConnected()">
+                <!-- Bouton sauvegarder objectif en brouillon et notifie mon instructeur -->
+                <button ion-button color="blue70" (click)="confirmCreateInstructorRequest()" [disabled]="creationForm.invalid" *ngIf=" isDraftAndCanBeModified()">
                     <ion-icon name="ios-chatbubbles-outline" ios="ios-chatbubbles-outline" margin-right></ion-icon> {{ 'CAREER_OBJECTIVE_CREATE.BUTTONS.CREATE_INSTRUCTOR_REQUEST' | translate }}
                 </button>
             </div>

@@ -15,6 +15,9 @@
 @import '../theme/toast.scss';
 @import '../theme/label.scss';
 @import '../theme/input.scss';
+@import '../theme/checkbox.scss';
+@import '../theme/textarea.scss';
+@import '../theme/select.scss';
 @import '../theme/button-bar.scss';
 @import '../theme/button.scss';
 @import '../theme/status.scss';
@@ -24,6 +27,8 @@
 @import '../theme/auto-complete.scss';
 @import '../theme/edospnc-icons.scss';
 @import '../theme/professional-level.scss';
+@import '../theme/navbar.scss';
+@import '../theme/typography.scss';
 
 @include mat-core();
 
@@ -59,7 +64,7 @@
     }
 
     .app-loader {
-        border: 16px solid color($colors, grey50);
+        border: 16px solid color($colors-secondary, grey70);
         border-top: 16px solid color($colors, primary);
 
         border-radius: 50%;
@@ -87,8 +92,9 @@ body,
 .app-root,
 .nav-decor {
     // Pour surcharger le fond sur ipad
-    background-color: color($colors, grey90) !important;
+    background-color: color($colors-secondary, grey98) !important;
     font-size: 1em;
+    font-family: OpenSans, Arial, Helvetica, sans-serif;
 }
 
 ion-textarea,
@@ -139,10 +145,33 @@ ion-content > .scroll-content {
 
 // Impersonification
 .impersonation .toolbar .toolbar-background {
-    background: color($colors, red90) !important;
+    background: color($colors, red20) !important;
 }
 
 // Toast de notification
 .simple-notification-wrapper.top {
     top: 80px !important;
+}
+
+.sort-icon {
+    padding-left: 5px;
+}
+
+ion-badge[outline],
+ion-badge[outline][color="primary"] {
+	color: color($colors, primary);
+	border: solid 1px color($colors, primary);
+	background: none;
+}
+
+ion-badge[outline][color="secondary"] {
+	color: color($colors, secondary);
+	border: solid 1px color($colors, secondary);
+	background: none;
+}
+
+ion-badge[outline][color="secondary"] {
+	color: color($colors, secondary);
+	border: solid 1px color($colors, secondary);
+	background: none;
 }

@@ -10,13 +10,13 @@ eobs-theme {
         padding-top: 5px;
         padding-bottom: 5px;
         font-weight: bold;
-        color: color($colors, blue55);
-        border-top: solid color($colors, grey75) 1px;
-        border-bottom: solid color($colors, grey75) 1px;
+        color: color($colors-secondary, blue55);
+        border-top: solid color($colors-secondary, grey75) 1px;
+        border-bottom: solid color($colors-secondary, grey75) 1px;
     }
 
     ion-row:nth-child(even) {
-        background: color($colors, grey90);
+        background: color($colors-secondary, grey95);
     }
 
     .item-label {
@@ -31,7 +31,7 @@ eobs-theme {
     }
 
     .item-label:nth-child(odd) {
-        border-right: 2px solid color($colors, grey75);
+        border-right: 2px solid color($colors-secondary, grey75);
     }
 
     .symbol {
@@ -48,18 +48,18 @@ eobs-theme {
         padding-right: 20px;
         padding-top: 20px;
         padding-bottom: 20px;
-        border-top: double color($colors, grey75) 1px;
+        border-top: double color($colors-secondary, grey75) 1px;
 
         .commentTitle {
             width: 100%;
             padding-top: 5px;
             padding-bottom: 5px;
-            color: color($colors, blue55);
+            color: color($colors, primary-light);
 
         }
 
         .edospnc-speechBubble {
-            color: color($colors, blue81);
+            color: color($colors, primary-light);
             padding-right: 10px;
         }
 
@@ -67,15 +67,13 @@ eobs-theme {
             margin-bottom: 10px;
             display: flex;
             align-items: center;
-            color: color($colors, grey12);
+            color: color($colors-secondary, grey12);
         }
 
         p,
         ion-textarea {
             padding: 10px;
             border-radius: 3px;
-            background: color($colors, grey95);
-            border: 1px solid color($colors, grey70);
             white-space: pre-line;
         }
 

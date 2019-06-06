@@ -1,3 +1,4 @@
+import { PdfButtonComponent } from './pdf-button/pdf-button.component';
 import { IonicModule } from 'ionic-angular';
 import { CommonModule } from '@angular/common';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
@@ -27,6 +28,7 @@ import { RadioAndLabelComponent } from './radio-and-label/radio-and-label.compon
 import { CheckboxAndLabelComponent } from './checkbox-and-label/checkbox-and-label.component';
 import { PncCardPageHeaderComponent } from './pnc-card-page-header/pnc-card-page-header.component';
 import { UserMessageAlertComponent } from './user-message-alert/user-message-alert.component';
+import { AppVersionAlertComponent } from './app-version-alert/app-version-alert.component';
 
 
 @NgModule({
@@ -56,7 +58,9 @@ import { UserMessageAlertComponent } from './user-message-alert/user-message-ale
     ColorStatusPointComponent,
     RadioAndLabelComponent,
     CheckboxAndLabelComponent,
-    UserMessageAlertComponent
+    UserMessageAlertComponent,
+    PdfButtonComponent,
+    AppVersionAlertComponent
   ],
   exports: [
     OfflineIndicatorComponent,
@@ -78,7 +82,9 @@ import { UserMessageAlertComponent } from './user-message-alert/user-message-ale
     ColorStatusPointComponent,
     RadioAndLabelComponent,
     CheckboxAndLabelComponent,
-    UserMessageAlertComponent
+    UserMessageAlertComponent,
+    PdfButtonComponent,
+    AppVersionAlertComponent
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA

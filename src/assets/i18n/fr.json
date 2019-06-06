@@ -3,7 +3,10 @@
         "APP_NAME": "EDOSSIER PNC",
         "APP_VERSION": {
             "FRONT": "Version",
-            "BACK": "Version serveur"
+            "BACK": "Version serveur",
+            "LABELS": {
+                "TITLE": "Nouveautés de la version"
+            }
         },
         "NO_DATA": "Pas de données disponibles",
         "PNC_ROLE": {
@@ -74,7 +77,8 @@
         "BUTTONS": {
             "VALIDATE": "Valider",
             "CONFIRM": "Confirmer",
-            "CANCEL": "Annuler"
+            "CANCEL": "Annuler",
+            "EXPORT": "Exporter"
         },
         "CONFIRM_BACK_WITHOUT_SAVE": {
             "TITLE": "Modifications non enregistrées",
@@ -110,6 +114,11 @@
             "CREATION_DATE": "Créée le",
             "REQUIRED_ON_ENCOUNTER_DAY": " (Saisie obligatoire le jour de la rencontre)"
         },
+        "DETAILS": {
+            "CREATED_BY": "Créée par ",
+            "UPDATED_BY": "Modifiée par ",
+            "DATE_LABEL": " le {{date}}"
+        },
         "CONFIRM_INSTRUCTOR_REQUEST": {
             "TITLE": "Sollicitation instructeur",
             "MESSAGE": "Confirmez-vous la demande de sollicitation instructeur ?",
@@ -123,6 +132,7 @@
             "CONFIRM": "Supprimer"
         },
         "BUTTONS": {
+            "SAVE": "Enregistrer",
             "SEND": "Envoyer",
             "UPDATE": "Mettre à jour",
             "SAVE_DRAFT": "Enregistrer le brouillon",
@@ -142,7 +152,7 @@
             "CAREER_OBJECTIVE_ABANDONED": "Priorité abandonnée",
             "CAREER_OBJECTIVE_VALIDATION_CANCELED": "La clôture de la priorité a été annulée",
             "CAREER_OBJECTIVE_RESUMED": "Priorité reprise",
-            "CAREER_OBJECTIVE_INSTRUCTOR_REQUESTED": "Demande envoyée"
+            "CAREER_OBJECTIVE_INSTRUCTOR_REQUESTED": "Brouillon enregistré et instructeur notifié"
         },
         "ERROR": {
             "CAREER_OBJECTIVE_CREATION_FAILED": "La création de la priorité a échouée",
@@ -599,6 +609,14 @@
         "VERBATIM": "Verbatim"
     },
     "LOGBOOK": {
+        "EVENT_DATE" : "Date de l'évènement",
+        "CREATION_DATE" : "Date de création",
+        "CATEGORY" : "Catégorie",
+        "EVENT" : "Evènement",
+        "REDACTOR" : "Rédacteur",
+        "ORIGIN" : "Origine",
+        "ACTIONS" : "Actions",
+        "UNAIVALABLE_OFFLINE" : "Les événements ne sont pas disponibles hors connexion",
         "BUTTONS": {
             "ADD_LOG": "Nouvel évènement"
         },
@@ -619,6 +637,12 @@
             "CONCERNED_PNC": "PNC Concerné",
             "SELECT_ALL": "Tout sélectionner",
             "SEARCH": "Rechercher"
+        },
+        "ACTION_MENU": {
+            "MODIFY": "Modifier",
+            "ADD_LINKED_EVENT": "Ajouter un évènement lié",
+            "FORWARD": "Transférer",
+            "DELETE_ALL": "Supprimer tout"
         }
     },
     "SYNCHRONIZATION": {
@@ -690,6 +714,9 @@
         "ADMIN_ACCESS": {
             "BUTTON": "Accéder au mode admin"
         },
+        "APP_VERSION": {
+            "LABEL": "Accèder à l'historique des versions"
+        },
         "CONFIRM_INIT_CACHE": {
             "TITLE": "Vider le cache",
             "MESSAGE": "Attention. Êtes-vous sûr de vouloir vider le cache ?",
@@ -719,6 +746,16 @@
             "GET_MY_IDENTITY_BACK": "Récupérer mon identité"
         }
     },
+    "APP_VERSION_HISTORY": {
+        "TITLE": "Liste des versions de l'application",
+        "LABELS": {
+            "NUMBER": "Version",
+            "RELEASE_DATE": "du",
+            "APP_VERSION_LIST": "Historique",
+            "VERSION_NOTE": "Nouveautés de la version"
+        },
+        "NO_APP_VERSION_SELECTED": "Aucune version sélectionnée"
+    },
     "SYNCHRONIZATION_MANAGEMENT": {
         "TITLE": "Demandes de synchronisation",
         "BUTTONS": {
@@ -737,11 +774,11 @@
     "ADMIN": {
         "ADMIN_HOME": {
             "NAV_TITLE": "Administration",
-            "BACK_TO_HOME_PAGE": "Retour",
             "BUTTON": {
                 "PROFILE_MANAGEMENT": "Gérer la liste des profils",
                 "APP_VERSION_MANAGEMENT": "Gérer la liste des versions",
-                "USER_MESSAGE_MANAGEMENT": "Gérer les messages aux utilisateurs"
+                "USER_MESSAGE_MANAGEMENT": "Gérer les messages aux utilisateurs",
+                "RETURN_TO_HOME": "Retour à la page d'accueil"
             }
         },
         "PROFILE_MANAGEMENT": {
@@ -764,15 +801,13 @@
             "BUTTON": {
                 "ADD_VERSION": "Ajouter",
                 "UPDATE_VERSION": "Modifier",
-                "DELETE_VERSION": "Supprimer"
-            },
-            "HEADER": {
-                "NUMBER": "Numéro",
-                "CHANGELOG": "Description"
+                "DELETE_VERSION": "Supprimer",
+                "OVERVIEW": "Aperçu"
             },
             "LABEL": {
                 "VERSION_NUMBER": "Numéro de version",
-                "CHANGELOG": "Description"
+                "CHANGELOG": "Description",
+                "RELEASE_DATE": "Date de mise en prod"
             },
             "CONFIRM_VERSION_DELETE": {
                 "TITLE": "Suppression de la version {{ number }}",
@@ -781,7 +816,7 @@
                 "CONFIRM": "Supprimer"
             },
             "SUCCESS": {
-                "CREATE_OR_UPDATE_VERSION": "mise à jour effectuée",
+                "CREATE_OR_UPDATE_VERSION": "Mise à jour effectuée",
                 "DELETE_UPDATE_VERSION": "Suppression effectuée"
 
             },

@@ -15,6 +15,7 @@ export class LogbookEventModel extends Serializable {
     category: LogbookEventCategory;
     title: string;
     content: string;
+    groupId: number;
     notifiedPncs: PncLightModel[];
     notifiedRecipients: string[];
 }

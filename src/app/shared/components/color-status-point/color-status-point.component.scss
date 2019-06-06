@@ -10,25 +10,27 @@ color-status-point {
         margin-right: 5px;
         display: inline-flex;
     }
-    
+
     .green {
-        background: color($colors, 'green70');
+        background: color($colors-secondary, green70);
     }
-    
+
     .yellow {
-        background: color($colors, 'yellow1');
+        background: color($colors-secondary, yellow10);
     }
-    
+
     .orange {
-        background: color($colors, 'orange90');
+        background: color($colors, orange55);
     }
-    
+
     .red {
-        background: color($colors, 'red15');
+        background: color($colors-secondary, red15);
     }
 
     .grey {
-        background: color($colors, 'grey72');
+        background: color($colors-secondary, grey72);
     }
-
+    .black {
+        background:  black;
+    }
 }

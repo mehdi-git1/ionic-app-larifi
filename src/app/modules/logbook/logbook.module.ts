@@ -1,3 +1,4 @@
+import { LogbookEventActionMenuComponent } from './components/logbook-event-action-menu/logbook-event-action-menu.component';
 import { LogbookEditPage } from './pages/logbook-edit/logbook-edit.page';
 import { LogbookPage } from './pages/logbook/logbook.page';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
@@ -8,7 +9,8 @@ import { ComponentsModule } from '../../shared/components/components.module';
 @NgModule({
   declarations: [
     LogbookPage,
-    LogbookEditPage
+    LogbookEditPage,
+    LogbookEventActionMenuComponent
   ],
   imports: [
     [IonicPageModule.forChild(LogbookPage)],
@@ -17,7 +19,8 @@ import { ComponentsModule } from '../../shared/components/components.module';
   ],
   entryComponents: [
     LogbookPage,
-    LogbookEditPage
+    LogbookEditPage,
+    LogbookEventActionMenuComponent
   ],
   exports: [
     LogbookPage,
