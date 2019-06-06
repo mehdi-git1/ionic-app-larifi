@@ -42,7 +42,7 @@ export class LogbookPage {
         public popoverCtrl: PopoverController) {
     }
 
-    ionViewDidLoad() {
+    ionViewWillEnter() {
         let matricule = this.navParams.get('matricule');
         if (this.navParams.get('matricule')) {
             matricule = this.navParams.get('matricule');
