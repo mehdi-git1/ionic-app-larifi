@@ -25,6 +25,9 @@ import { SpecialityEnum } from '../../../../core/enums/speciality.enum';
 })
 export class PncSearchFilterComponent implements OnInit {
 
+  private static CDK_OVERLAY_0 = '#cdk-overlay-0';
+  private static MAT_AUTOCOMPLETE_0 = '#mat-autocomplete-0';
+
   @Output() onSearch: EventEmitter<any> = new EventEmitter();
 
   defaultDivision: string;
@@ -86,7 +89,7 @@ export class PncSearchFilterComponent implements OnInit {
     this.keyboard.didShow.subscribe(() => {
       this.checkIfAutoCompleteIsOpen();
       if (this.autoCompleteTopPosition != -1) {
-        $('#cdk-overlay-0').css('top', this.autoCompleteTopPosition + 'px');
+        $(PncSearchFilterComponent.CDK_OVERLAY_0).css('top', this.autoCompleteTopPosition + 'px');
       }
     });
 
@@ -95,8 +98,8 @@ export class PncSearchFilterComponent implements OnInit {
      */
     this.keyboard.didHide.subscribe(() => {
       const newHeight = window.innerHeight - this.autoCompleteTopPosition;
-      $('#cdk-overlay-0').css('top', this.autoCompleteTopPosition + 'px');
-      setTimeout(() => { $('#mat-autocomplete-0').css('max-height', newHeight + 'px'); }, 5000);
+      $(PncSearchFilterComponent.CDK_OVERLAY_0).css('top', this.autoCompleteTopPosition + 'px');
+      setTimeout(() => { $(PncSearchFilterComponent.MAT_AUTOCOMPLETE_0).css('max-height', newHeight + 'px'); }, 5000);
     });
   }
 
@@ -105,7 +108,7 @@ export class PncSearchFilterComponent implements OnInit {
    */
   checkIfAutoCompleteIsOpen() {
     setTimeout(() => {
-      if ($('#mat-autocomplete-0').length != 0) {
+      if ($(PncSearchFilterComponent.MAT_AUTOCOMPLETE_0).length != 0) {
         this.changeHeightOnOpen();
       } else {
         this.checkIfAutoCompleteIsOpen();
@@ -117,9 +120,9 @@ export class PncSearchFilterComponent implements OnInit {
    * Change la max-height de l'autocomplete en fonction de la taille de l'affichage disponible
    */
   changeHeightOnOpen() {
-    this.autoCompleteTopPosition = this.autoCompleteTopPosition != -1 ? this.autoCompleteTopPosition : $('#cdk-overlay-0').offset().top;
-    $('#cdk-overlay-0').css('top', this.autoCompleteTopPosition + 'px');
-    $('#mat-autocomplete-0').css('max-height', window.innerHeight - this.autoCompleteTopPosition + 'px');
+    this.autoCompleteTopPosition = this.autoCompleteTopPosition != -1 ? this.autoCompleteTopPosition : $(PncSearchFilterComponent.CDK_OVERLAY_0).offset().top;
+    $(PncSearchFilterComponent.CDK_OVERLAY_0).css('top', this.autoCompleteTopPosition + 'px');
+    $(PncSearchFilterComponent.MAT_AUTOCOMPLETE_0).css('max-height', window.innerHeight - this.autoCompleteTopPosition + 'px');
   }
 
   /**
@@ -243,7 +246,7 @@ export class PncSearchFilterComponent implements OnInit {
       return from(this.pncProvider.pncAutoComplete(term).then(
         data => {
           this.autoCompleteRunning = false;
-          $('#cdk-overlay-0').css('top', this.autoCompleteTopPosition + 'px');
+          $(PncSearchFilterComponent.CDK_OVERLAY_0).css('top', this.autoCompleteTopPosition + 'px');
           return data;
         }));
     } else {

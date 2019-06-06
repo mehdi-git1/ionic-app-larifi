@@ -21,6 +21,10 @@ export class ProfessionalInterviewModel extends EDossierPncObjectModel {
     professionalInterviewThemes: ProfessionalInterviewThemeModel[];
     pncComment: string;
     pncAcknowledgement: boolean;
+    friendlyId: number;
+    fromDate: Date;
+    toDate: Date;
+    signingBlock: boolean;
 
     getStorageId(): string {
         return `${this.techId}`;

@@ -132,6 +132,7 @@
             "CONFIRM": "Supprimer"
         },
         "BUTTONS": {
+            "SAVE": "Enregistrer",
             "SEND": "Envoyer",
             "UPDATE": "Mettre à jour",
             "SAVE_DRAFT": "Enregistrer le brouillon",
@@ -151,7 +152,7 @@
             "CAREER_OBJECTIVE_ABANDONED": "Priorité abandonnée",
             "CAREER_OBJECTIVE_VALIDATION_CANCELED": "La clôture de la priorité a été annulée",
             "CAREER_OBJECTIVE_RESUMED": "Priorité reprise",
-            "CAREER_OBJECTIVE_INSTRUCTOR_REQUESTED": "Demande envoyée"
+            "CAREER_OBJECTIVE_INSTRUCTOR_REQUESTED": "Brouillon enregistré et instructeur notifié"
         },
         "ERROR": {
             "CAREER_OBJECTIVE_CREATION_FAILED": "La création de la priorité a échouée",

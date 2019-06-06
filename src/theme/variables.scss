@@ -109,30 +109,16 @@ $radio-md-color-on:$radio-ios-color-on;
 
 
 // Fonts
-// --------------------------------------------------
+// Excellence in motion
 @font-face {
-    font-family: 'SanFrancisco-old';
-    src: url('/assets/fonts/sanfranciscodisplay-ultralight-webfont.woff') format('woff');
+    font-family: 'Excellence';
+    src: url('/assets/fonts/excellence/Regular/ExcellenceInMotionScreen-Regular.woff') format('woff');
 }
 
-// Fonts
-// --------------------------------------------------
+// Open Sans
 @font-face {
-    font-family: 'SanFrancisco';
-    src: url('/assets/fonts/san-francisco/SF-Pro-Display-Regular.otf') format('otf');
-}
-
-div,
-p,
-span,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-button {
-    font-family: SanFrancisco, Arial, Helvetica, sans-serif;
+    font-family: 'OpenSans';
+    src: url('/assets/fonts/open-sans/Regular/OpenSans-Regular.woff') format('woff');
 }
 
 h3 {
@@ -160,7 +146,6 @@ ion-card {
     .card-header {
         color: black;
         background-color: lightgray;
-        font-family: SanFrancisco, Arial, Helvetica, sans-serif;
         font-size: 1.4em;
     }
 

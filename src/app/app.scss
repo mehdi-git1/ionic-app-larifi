@@ -28,6 +28,7 @@
 @import '../theme/edospnc-icons.scss';
 @import '../theme/professional-level.scss';
 @import '../theme/navbar.scss';
+@import '../theme/typography.scss';
 
 @include mat-core();
 
@@ -93,6 +94,7 @@ body,
     // Pour surcharger le fond sur ipad
     background-color: color($colors-secondary, grey98) !important;
     font-size: 1em;
+    font-family: OpenSans, Arial, Helvetica, sans-serif;
 }
 
 ion-textarea,
@@ -149,4 +151,27 @@ ion-content > .scroll-content {
 // Toast de notification
 .simple-notification-wrapper.top {
     top: 80px !important;
+}
+
+.sort-icon {
+    padding-left: 5px;
+}
+
+ion-badge[outline],
+ion-badge[outline][color="primary"] {
+	color: color($colors, primary);
+	border: solid 1px color($colors, primary);
+	background: none;
+}
+
+ion-badge[outline][color="secondary"] {
+	color: color($colors, secondary);
+	border: solid 1px color($colors, secondary);
+	background: none;
+}
+
+ion-badge[outline][color="secondary"] {
+	color: color($colors, secondary);
+	border: solid 1px color($colors, secondary);
+	background: none;
 }

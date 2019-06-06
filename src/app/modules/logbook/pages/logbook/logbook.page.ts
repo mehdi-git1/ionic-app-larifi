@@ -1,4 +1,6 @@
 import { LogbookEventDetailsPage } from './../logbook-event-details/logbook-event-details.page';
+import { AppConstant } from './../../../../app.constant';
+import { DateTransform } from './../../../../shared/utils/date-transform';
 import { LogbookEventGroupModel } from './../../../../core/models/logbook/logbook-event-group.model';
 import { LogbookEventActionMenuComponent } from './../../components/logbook-event-action-menu/logbook-event-action-menu.component';
 import { LogbookEventModel } from './../../../../core/models/logbook/logbook-event.model';
@@ -11,18 +13,22 @@ import { NavController, NavParams, PopoverController } from 'ionic-angular';
 import { Component, ViewChild, AfterViewInit, OnInit } from '@angular/core';
 import { LogbookEditPage } from '../logbook-edit/logbook-edit.page';
 import { MatTableDataSource, MatSort } from '@angular/material';
+import * as moment from 'moment';
+import * as _ from 'lodash';
 
 @Component({
     selector: 'log-book',
     templateUrl: 'logbook.page.html',
 })
-export class LogbookPage implements OnInit {
+export class LogbookPage {
 
-    displayedLogbookEventsColumns: string[] = ['childEvents', 'childDots', 'eventDate', 'creationDate', 'category', 'important', 'attach', 'event', 'origin', 'author', 'actions'];
+    displayedLogbookEventsColumns: string[] = ['childEvents', 'eventDate', 'creationDate', 'category', 'important', 'attach', 'event', 'origin', 'author', 'actions'];
     pnc: PncModel;
 
-    logbookEvents: LogbookEventModel[];
-    groupedEventsMap = new Array<LogbookEventGroupModel>();
+    sortAscending = false;
+    sortedColumn: string;
+
+    groupedEvents = new Array<LogbookEventGroupModel>();
     dataSourceLogbookEvent: MatTableDataSource<LogbookEventGroupModel>;
     @ViewChild(MatSort) sort: MatSort;
 
@@ -31,11 +37,12 @@ export class LogbookPage implements OnInit {
         private pncService: PncService,
         private securityService: SecurityService,
         private sessionService: SessionService,
+        private dateTransform: DateTransform,
         private onlineLogbookEventService: OnlineLogbookEventService,
         public popoverCtrl: PopoverController) {
     }
 
-    ngOnInit() {
+    ionViewDidLoad() {
         let matricule = this.navParams.get('matricule');
         if (this.navParams.get('matricule')) {
             matricule = this.navParams.get('matricule');
@@ -43,24 +50,49 @@ export class LogbookPage implements OnInit {
             matricule = this.sessionService.getActiveUser().matricule;
         }
         if (matricule != null) {
-            this.pncService.getPnc(matricule).then(pnc => {
-                this.pnc = pnc;
-            }, error => { });
+          this.pncService.getPnc(matricule).then(pnc => {
+            this.pnc = pnc;
+          }, error => { });
 
-            this.onlineLogbookEventService.getLogbookEvents(matricule).then(logbookEvents => {
-                const groupedEventsMap = new Map<number, LogbookEventGroupModel>();
-                logbookEvents.forEach(logbookEvent => {
-                    if (!groupedEventsMap.has(logbookEvent.groupId)) {
-                        groupedEventsMap.set(logbookEvent.groupId, new LogbookEventGroupModel(logbookEvent.groupId));
-                    }
-                    groupedEventsMap.get(logbookEvent.groupId).logbookEvents.push(logbookEvent);
-                });
-                this.groupedEventsMap = Array.from(groupedEventsMap.values());
-                this.logbookEvents = logbookEvents;
-                this.dataSourceLogbookEvent = new MatTableDataSource(this.groupedEventsMap);
-                this.dataSourceLogbookEvent.sort = this.sort;
-            }, error => { });
+          this.onlineLogbookEventService.getLogbookEvents(matricule).then(logbookEvents => {
+            // Tri des évènements par groupId
+            const groupedEventsMap = new Map<number, LogbookEventGroupModel>();
+            logbookEvents.forEach(logbookEvent => {
+                if (!groupedEventsMap.has(logbookEvent.groupId)) {
+                    groupedEventsMap.set(logbookEvent.groupId, new LogbookEventGroupModel(logbookEvent.groupId, this.dateTransform));
+                }
+                groupedEventsMap.get(logbookEvent.groupId).logbookEvents.push(logbookEvent);
+            });
+            // Tri des events de chaque groupe par date d'évènement
+            for (const groupedEvent of Array.from(groupedEventsMap.values())) {
+                groupedEvent.logbookEvents = this.sortLogbookEventsByEventDate(groupedEvent.logbookEvents);
+                this.groupedEvents.push(groupedEvent);
+            }
+            this.dataSourceLogbookEvent = new MatTableDataSource(this.groupedEvents);
+            this.dataSourceLogbookEvent.sort = this.sort;
+          }, error => { });
         }
+    }
+
+    /**
+     * Tri d'une liste d'évènements de journal de bord
+     * @param logbookEvents liste d'évènements de journal de bord
+     * @return liste triée
+     */
+    sortLogbookEventsByEventDate(logbookEvents: LogbookEventModel[]): LogbookEventModel[] {
+        return logbookEvents.sort((event1, event2) => {
+            return this.sortByEventDate(event1, event2);
+        });
+    }
+
+    /**
+     * Comparaison de 2 évènements de journal de bord par date d'évènement
+     * @param event1 1er évènement de journal de bord
+     * @param event2 2eme évènement de journal de bord
+     * @return 1 si le 1er évènement est avant le 2e, sinon -1
+     */
+    sortByEventDate(event1: LogbookEventModel, event2: LogbookEventModel): number {
+        return moment(event1.eventDate, AppConstant.isoDateFormat).isBefore(moment(event2.eventDate, AppConstant.isoDateFormat)) ? 1 : -1;
     }
 
     /**
@@ -68,7 +100,7 @@ export class LogbookPage implements OnInit {
      * @return true si il n'y a pas d'évènements, sinon false
      */
     hasLogbookEvents(): boolean {
-        return !(this.groupedEventsMap === undefined || this.groupedEventsMap === null || this.groupedEventsMap.length === 0);
+        return !(this.groupedEvents === undefined || this.groupedEvents === null || this.groupedEvents.length === 0);
     }
 
     /**
@@ -79,7 +111,11 @@ export class LogbookPage implements OnInit {
         return !(eventGroup === undefined || eventGroup === null || eventGroup.logbookEvents.length <= 1);
     }
 
-    collapseEventGroup(eventGroup: LogbookEventGroupModel) {
+    /**
+     * Ouvre ou ferme un bloc d'évènements liés
+     * @param eventGroup groupe d'évènements de journal de bord
+     */
+    collapseOrExpandEventGroup(eventGroup: LogbookEventGroupModel) {
         eventGroup.expanded = !eventGroup.expanded;
     }
 
@@ -104,7 +140,7 @@ export class LogbookPage implements OnInit {
      * @return true si c'est le cas, false sinon
      */
     loadingIsOver(): boolean {
-        return this.groupedEventsMap !== undefined;
+        return this.groupedEvents !== undefined;
     }
 
     /**
@@ -132,7 +168,7 @@ export class LogbookPage implements OnInit {
      * TODO : A implémenter une fois que la fonctionnalité des évènements liés est implémentée
      * @return true si il y a des évènements liés, false sinon
      */
-    logbookEventHasChdilds(): boolean {
+    logbookEventHasChilds(): boolean {
         return false;
     }
 
