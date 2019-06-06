@@ -57,7 +57,7 @@ export class OfflineCongratulationLetterService {
    */
   sortCongratulationLettersByCreationDate(congratulationLetters: CongratulationLetterModel[]): CongratulationLetterModel[] {
     return congratulationLetters.sort((letter1, letter2) =>
-    moment(letter1.creationDate, AppConstant.isoDateFormat).isAfter(moment(letter2.creationDate, AppConstant.isoDateFormat)) ? -1 : 1;
+      moment(letter1.creationDate, AppConstant.isoDateFormat).isAfter(moment(letter2.creationDate, AppConstant.isoDateFormat)) ? -1 : 1);
   }
 
   /**
