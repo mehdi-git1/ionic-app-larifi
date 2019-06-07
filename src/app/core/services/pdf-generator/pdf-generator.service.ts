@@ -26,7 +26,7 @@ export class PdfGeneratorService {
    * @param pdfFileName nom du fichier PDF généré
    */
   generatePdf(elementToPrint: HTMLElement, pdfFileName: string) {
-    if (!this.deviceService.isBrowser() && cordova && cordova.plugins && cordova.plugins.pdf) {
+    /*if (!this.deviceService.isBrowser() && cordova && cordova.plugins && cordova.plugins.pdf) {
       const options = {
           name: pdfFileName,
           documentSize: 'A4',
@@ -62,6 +62,6 @@ export class PdfGeneratorService {
         }
       };
       html2pdf().from(elementToPrint).set(opt).save();
-    }
+    }*/
   }
 }
