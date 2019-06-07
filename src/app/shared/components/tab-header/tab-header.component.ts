@@ -44,7 +44,7 @@ export class TabHeaderComponent {
   openTab(tab: any) {
     this.tabHeaderService.setActiveTab(this.mode, tab);
     let navParams = {};
-    if (this.mode === TabNavModeEnum.EDOSSIER && !this.sessionService.isActiveUser(this.sessionService.visitedPnc)) {
+    if (this.mode === TabNavModeEnum.EDOSSIER && this.sessionService.visitedPnc && !this.sessionService.isActiveUser(this.sessionService.visitedPnc)) {
       navParams = { matricule: this.sessionService.visitedPnc.matricule };
     }
     this.navCtrl.setRoot(tab.component, navParams);

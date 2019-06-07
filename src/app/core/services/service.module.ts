@@ -1,3 +1,4 @@
+import { TabHeaderService } from './tab-header/tab-header.service';
 import { AppVersionTransformerService } from './app-version/app-version-transformer.service';
 import { AppVersionAlertService } from './app-version/app-version-alert.service';
 import { ProfessionalInterviewTransformerService } from './professional-interview/professional-interview-transformer.service';
@@ -91,6 +92,7 @@ import { PdfGeneratorService } from './pdf-generator/pdf-generator.service';
         ConnectivityService,
         DeviceService,
         TabNavService,
+        TabHeaderService,
         TransformerService,
         PncService,
         CareerObjectiveService,

@@ -22,7 +22,8 @@ export class PncEdossierHeaderComponent {
      * @return vrai si la navigation par onglet est disponible, faux sinon
      */
     isTabNavAvailable(): boolean {
-        return this.sessionService.visitedPnc && !this.sessionService.isActiveUser(this.sessionService.visitedPnc);
+        return !this.sessionService.getActiveUser().isManager
+            || this.sessionService.visitedPnc && !this.sessionService.isActiveUser(this.sessionService.visitedPnc);
     }
 
 }

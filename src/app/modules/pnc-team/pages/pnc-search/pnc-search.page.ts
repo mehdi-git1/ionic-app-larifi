@@ -14,6 +14,7 @@ import { SessionService } from '../../../../core/services/session/session.servic
 import { PncService } from '../../../../core/services/pnc/pnc.service';
 
 import { PncPhotoService } from '../../../../core/services/pnc-photo/pnc-photo.service';
+import { ProfessionalLevelPage } from '../../../professional-level/pages/professional-level/professional-level.page';
 
 @Component({
     selector: 'page-pnc-search',
@@ -150,7 +151,11 @@ export class PncSearchPage implements OnInit {
             this.pncService.getPnc(pnc.matricule).then(pncFound => {
                 loading.dismiss();
                 this.sessionService.visitedPnc = pncFound;
-                this.navCtrl.setRoot(CareerObjectiveListPage, { matricule: pnc.matricule });
+                if (this.sessionService.visitedPnc.manager) {
+                    this.navCtrl.setRoot(ProfessionalLevelPage, { matricule: pnc.matricule });
+                } else {
+                    this.navCtrl.setRoot(CareerObjectiveListPage, { matricule: pnc.matricule });
+                }
             });
         }
     }

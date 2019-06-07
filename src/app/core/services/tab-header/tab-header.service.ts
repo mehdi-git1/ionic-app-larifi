@@ -1,3 +1,4 @@
+import { PncModel } from './../../models/pnc.model';
 import { SessionService } from '../session/session.service';
 import { AuthorizationService } from '../authorization/authorization.service';
 import { LogbookPage } from '../../../modules/logbook/pages/logbook/logbook.page';
@@ -18,15 +19,13 @@ export class TabHeaderService {
 
     activeTab: any;
 
+    pnc: PncModel;
+
     constructor(
         private translateService: TranslateService,
         private authorizationService: AuthorizationService,
         private sessionService: SessionService
     ) {
-        this.activeTab = {
-            EDOSSIER: CareerObjectiveListPage,
-            ADMIN: ProfileManagementPage
-        };
     }
 
     /**
@@ -35,12 +34,21 @@ export class TabHeaderService {
     * @return une liste contenant les entrées à afficher dans les onglets
     */
     getTabList(mode: TabNavModeEnum) {
+        const currentPnc = this.sessionService.visitedPnc == undefined ? this.sessionService.getActiveUser().authenticatedPnc : this.sessionService.visitedPnc;
+        if (currentPnc != this.pnc) {
+            this.pnc = currentPnc;
+            this.activeTab = {
+                EDOSSIER: this.pnc.manager ? ProfessionalLevelPage : CareerObjectiveListPage,
+                ADMIN: ProfileManagementPage
+            };
+        }
+
         if (mode === TabNavModeEnum.EDOSSIER) {
             return [
                 {
                     label: this.translateService.instant('GLOBAL.DEVELOPMENT_PROGRAM'),
                     component: CareerObjectiveListPage,
-                    available: !this.sessionService.visitedPnc.manager
+                    available: !this.pnc.manager
                 },
                 {
                     label: this.translateService.instant('GLOBAL.PROFESSIONAL_LEVEL'),
