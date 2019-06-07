@@ -28,5 +28,4 @@ export class TabNavService {
         return this.tabList.findIndex((element) => element['id'] === idTab);
     }
 
-
 }
