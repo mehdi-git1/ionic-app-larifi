@@ -52,7 +52,7 @@
         </div>
 
         <div class="button-bar button-bar-right margin-top-10 margin-bottom-10">
-            <pdf-button elementToPrint="eObservationInformations" pdfFileName="pdfFileName"></pdf-button>
+            <pdf-button [elementToPrint]="eObservationInformations" [pdfFileName]="pdfFileName"></pdf-button>
             <span *hasPermission="'EOBS_FULL_EDITION'">
                 <ng-container *ngIf="!editMode; else editModeButtonsBlock">
                     <!-- Bouton modifier l'eobs -->
