@@ -49,7 +49,8 @@ export class PncSearchPage implements OnInit {
         private pncPhotoService: PncPhotoService,
         private sessionService: SessionService,
         private connectivityService: ConnectivityService,
-        private loadingCtrl: LoadingController
+        private loadingCtrl: LoadingController,
+        private tabNavService: TabNavService
     ) {
         this.sizeOfThePage = 0;
     }
@@ -154,7 +155,7 @@ export class PncSearchPage implements OnInit {
     visitEdossier(pnc: PncModel) {
         if (this.sessionService.isActiveUser(pnc)) {
             this.sessionService.visitedPnc = undefined;
-            //this.navCtrl.parent.select(this.tabNavService.findTabIndex(TabNavEnum.PNC_HOME_PAGE));
+            this.navCtrl.parent.select(this.tabNavService.findTabIndex(TabNavEnum.PNC_HOME_PAGE));
         } else {
             const loading = this.loadingCtrl.create();
             loading.present();

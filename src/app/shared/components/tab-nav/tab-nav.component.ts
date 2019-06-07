@@ -30,19 +30,9 @@ export class TabNavComponent {
 
   @Input() navCtrl: Nav;
 
-  _matricule: string;
-
-  @ViewChild('tabs') tabs: Tabs;
   pnc: PncModel;
 
-  // exporter la classe enum speciality dans la page html
-  Speciality = SpecialityEnum;
-
-  // Paramètres envoyés aux pages
-  pncParams;
-  matriculeParams;
-  roleParams;
-  tabsNav;
+  tabList: Array<any>;
 
   loading = true;
 
@@ -52,24 +42,19 @@ export class TabNavComponent {
     private tabNavService: TabNavService,
     private translate: TranslateService,
     private sessionService: SessionService,
-    public securityProvider: SecurityService,
-    private specialityService: SpecialityService,
+    public securityService: SecurityService,
     private authorizationService: AuthorizationService,
-    private isMyPage: IsMyPage
+    private isMyPage: IsMyPage,
+    private translateService: TranslateService
   ) {
     this.events.subscribe('user:authenticationDone', () => {
       if (this.sessionService.getActiveUser() && this.sessionService.getActiveUser().isPnc) {
         this.pncProvider.getPnc(this.sessionService.getActiveUser().matricule).then(pnc => {
           this.pnc = pnc;
-          this.pncParams = this.pnc;
-          this.matriculeParams = { matricule: this.pnc.matricule };
-          this.roleParams = { pncRole: this.specialityService.getPncRole(this.pnc.speciality) };
-          if (!this.tabsNav) {
-            this.tabsNav = this.createListOfTab();
+          if (!this.tabList) {
+            this.tabList = this.getTabList();
           }
-          this.tabNavService.setListOfTabs(this.tabsNav);
-          this.updateTexts();
-          this.updatePermissions();
+          this.tabNavService.setTabList(this.tabList);
 
           this.loading = false;
           this.navCtrl.popToRoot();
@@ -85,79 +70,40 @@ export class TabNavComponent {
   }
 
   /**
-   * initialisation des navTab
-   */
-  createListOfTab() {
+    * Récupère la liste des onglets à afficher dans le menu de navigation
+    * @return la liste des onglets du menu de navigation
+    */
+  getTabList(): Array<any> {
     return [
       {
         id: TabNavEnum.PNC_HOME_PAGE,
+        title: this.translateService.instant('PNC_HOME.TITLE'),
         page: PncHomePage,
         icon: 'edospnc-home',
-      },
-      {
-        id: TabNavEnum.CAREER_OBJECTIVE_LIST_PAGE,
-        page: CareerObjectiveListPage,
-        icon: 'edospnc-developmentProgram',
+        available: true
       },
       {
         id: TabNavEnum.PNC_SEARCH_PAGE,
+        title: this.translateService.instant('GLOBAL.MY_PNC_TEAM'),
         page: PncSearchPage,
         icon: 'edospnc-pncTeam',
+        available: this.securityService.isManager()
       },
       {
         id: TabNavEnum.UPCOMING_FLIGHT_LIST_PAGE,
+        title: this.translateService.instant('GLOBAL.MY_UPCOMING_FLIGHT'),
         page: UpcomingFlightListPage,
         icon: 'edospnc-upcomingFlight',
+        available: this.securityService.isManager()
       },
       {
         id: TabNavEnum.HELP_ASSET_LIST_PAGE,
+        title: this.translateService.instant('GLOBAL.MY_HELP_CENTER'),
         page: HelpAssetListPage,
-        icon: 'edospnc-helpCenter'
-      },
-      {
-        id: TabNavEnum.STATUTORY_CERTIFICATE_PAGE,
-        page: StatutoryCertificatePage,
-        icon: 'edospnc-statutoryCertificate',
-      },
-      {
-        id: TabNavEnum.PROFESSIONAL_LEVEL_PAGE,
-        page: ProfessionalLevelPage,
-        icon: 'edospnc-professionalLevel',
-      },
-      {
-        id: TabNavEnum.CONGRATULATION_LETTERS_PAGE,
-        page: CongratulationLettersPage,
-        icon: 'ios-mail',
+        icon: 'edospnc-helpCenter',
+        available: true
       }
     ];
-  }
-
-  /**
-   * Met à jour les permissions de façon dynamique
-   */
-  updatePermissions() {
-    this.tabsNav[this.tabNavService.findTabIndex(TabNavEnum.PNC_HOME_PAGE)].display = true;
-    this.tabsNav[this.tabNavService.findTabIndex(TabNavEnum.CAREER_OBJECTIVE_LIST_PAGE)].display = !this.securityProvider.isManager();
-    this.tabsNav[this.tabNavService.findTabIndex(TabNavEnum.PNC_SEARCH_PAGE)].display = this.securityProvider.isManager();
-    this.tabsNav[this.tabNavService.findTabIndex(TabNavEnum.UPCOMING_FLIGHT_LIST_PAGE)].display = this.securityProvider.isManager();
-    this.tabsNav[this.tabNavService.findTabIndex(TabNavEnum.HELP_ASSET_LIST_PAGE)].display = true;
-    this.tabsNav[this.tabNavService.findTabIndex(TabNavEnum.STATUTORY_CERTIFICATE_PAGE)].display = !this.securityProvider.isManager() && this.authorizationService.hasPermission('VIEW_STATUTORY_CERTIFICATE');
-    this.tabsNav[this.tabNavService.findTabIndex(TabNavEnum.PROFESSIONAL_LEVEL_PAGE)].display = !this.securityProvider.isManager() && this.authorizationService.hasPermission('VIEW_PROFESSIONAL_LEVEL');
-    this.tabsNav[this.tabNavService.findTabIndex(TabNavEnum.CONGRATULATION_LETTERS_PAGE)].display = true;
-  }
-
-  /**
- * Met à jour les textes affichés de façon dynamique
- */
-  updateTexts() {
-    this.tabsNav[this.tabNavService.findTabIndex(TabNavEnum.PNC_HOME_PAGE)].title = this.translate.instant(this.isMyPage.transform('PNC_HOME.TITLE', this.pnc));
-    this.tabsNav[this.tabNavService.findTabIndex(TabNavEnum.CAREER_OBJECTIVE_LIST_PAGE)].title = this.translate.instant(this.isMyPage.transform('GLOBAL.DEVELOPMENT_PROGRAM', this.pnc));
-    this.tabsNav[this.tabNavService.findTabIndex(TabNavEnum.PNC_SEARCH_PAGE)].title = this.translate.instant(this.isMyPage.transform('GLOBAL.PNC_TEAM', this.pnc));
-    this.tabsNav[this.tabNavService.findTabIndex(TabNavEnum.UPCOMING_FLIGHT_LIST_PAGE)].title = this.translate.instant(this.isMyPage.transform('GLOBAL.UPCOMING_FLIGHT', this.pnc));
-    this.tabsNav[this.tabNavService.findTabIndex(TabNavEnum.HELP_ASSET_LIST_PAGE)].title = this.translate.instant(this.isMyPage.transform('GLOBAL.HELP_CENTER', this.pnc));
-    this.tabsNav[this.tabNavService.findTabIndex(TabNavEnum.STATUTORY_CERTIFICATE_PAGE)].title = this.translate.instant(this.isMyPage.transform('GLOBAL.STATUTORY_CERTIFICATE', this.pnc));
-    this.tabsNav[this.tabNavService.findTabIndex(TabNavEnum.PROFESSIONAL_LEVEL_PAGE)].title = this.translate.instant(this.isMyPage.transform('GLOBAL.PROFESSIONAL_LEVEL', this.pnc));
-    this.tabsNav[this.tabNavService.findTabIndex(TabNavEnum.CONGRATULATION_LETTERS_PAGE)].title = this.translate.instant(this.isMyPage.transform('GLOBAL.CONGRATULATION_LETTERS', this.pnc));
   }
 
   /**
