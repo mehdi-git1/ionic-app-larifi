@@ -115,7 +115,11 @@ export class ImpersonatePage {
           this.events.publish('user:authenticationDone');
           // On redirige vers la page PncHomePage pour permettre le rechargement de celle-ci
           // le popToRoot ne recharge pas la page en rafraichissant les données
-          this.navCtrl.setRoot(PncHomePage);
+          if (this.navCtrl.parent) {
+            this.navCtrl.setRoot(PncHomePage);
+          } else {
+            this.navCtrl.popToRoot();
+          }
         }
       );
       this.impersonatingInProgress = false;
@@ -137,7 +141,9 @@ export class ImpersonatePage {
    */
   getMyIdentityBack(): void {
     this.sessionService.impersonatedUser = null;
-    this.navCtrl.setRoot(PncHomePage);
+    if (this.navCtrl.parent) {
+      this.navCtrl.setRoot(PncHomePage);
+    }
     this.authenticationService.putAuthenticatedUserInSession().then(
       data => this.events.publish('user:authenticationDone')
     );

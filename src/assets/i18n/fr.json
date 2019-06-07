@@ -719,6 +719,7 @@
             "CONFIRM": "Confirmer"
         },
         "IMPERSONATE_USER": {
+            "FIRST_NAV_TAB_IS_MANDATORY": "Vous devez vous placer sur votre page d'accueil pour pouvoir utiliser l'impersonnification",
             "LABEL": "Impersonnifier un utilisateur"
         }
     },

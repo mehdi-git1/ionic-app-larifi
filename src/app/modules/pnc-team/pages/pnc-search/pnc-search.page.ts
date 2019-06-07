@@ -1,3 +1,5 @@
+import { TabNavService } from './../../../../core/services/tab-nav/tab-nav.service';
+import { TabNavEnum } from './../../../../core/enums/tab-nav.enum';
 import { PncHomePage } from './../../../home/pages/pnc-home/pnc-home.page';
 import { CareerObjectiveListPage } from './../../../development-program/pages/career-objective-list/career-objective-list.page';
 import { TranslateService } from '@ngx-translate/core';
@@ -142,9 +144,17 @@ export class PncSearchPage implements OnInit {
         // Si on va sur un PNC par la recherche, on suprime de la session une enventuelle rotation.
         this.sessionService.appContext.lastConsultedRotation = null;
 
+        this.visitEdossier(pnc);
+    }
+
+    /**
+     * Visite le eDossier d'un PNC
+     * @param pnc le pnc dont on souhaite consulter le eDossier
+     */
+    visitEdossier(pnc: PncModel) {
         if (this.sessionService.isActiveUser(pnc)) {
             this.sessionService.visitedPnc = undefined;
-            this.navCtrl.setRoot(PncHomePage);
+            //this.navCtrl.parent.select(this.tabNavService.findTabIndex(TabNavEnum.PNC_HOME_PAGE));
         } else {
             const loading = this.loadingCtrl.create();
             loading.present();

@@ -149,7 +149,7 @@ export class HamburgerNavComponent {
      */
     openPage(page: any) {
         this.activePage = page;
-        this.navCtrl.setRoot(page.component);
+        this.navCtrl.parent.setRoot(page.component);
         this.menuCtrl.close();
     }
 

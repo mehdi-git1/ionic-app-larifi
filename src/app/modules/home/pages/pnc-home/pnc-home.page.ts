@@ -1,3 +1,4 @@
+import { TabNavService } from './../../../../core/services/tab-nav/tab-nav.service';
 import { TabNavModeEnum } from './../../../../core/enums/tab-nav-mode.enum';
 import { ProfileManagementPage } from './../../../admin/pages/profile-management/profile-management.page';
 
@@ -30,6 +31,7 @@ import { GenderService } from '../../../../core/services/gender/gender.service';
 import { PncService } from '../../../../core/services/pnc/pnc.service';
 import { ConnectivityService } from '../../../../core/services/connectivity/connectivity.service';
 import { SpecialityService } from '../../../../core/services/speciality/speciality.service';
+import { TabNavEnum } from '../../../../core/enums/tab-nav.enum';
 
 @Component({
     selector: 'page-pnc-home',
@@ -59,7 +61,8 @@ export class PncHomePage {
         private specialityService: SpecialityService,
         private userMessageAlertService: UserMessageAlertService,
         private appVersionAlertService: AppVersionAlertService,
-        private authorizationService: AuthorizationService
+        private authorizationService: AuthorizationService,
+        private tabNavService: TabNavService
     ) {
         this.userMessageAlertService.handleUserMessage();
         this.appVersionAlertService.handleAppVersion();
@@ -103,7 +106,7 @@ export class PncHomePage {
      */
     goToCareerObjectiveList() {
         if (this.isMyHome()) {
-            this.navCtrl.setRoot(CongratulationLettersPage);
+            this.navCtrl.parent.select(this.tabNavService.findTabIndex(TabNavEnum.CAREER_OBJECTIVE_LIST_PAGE));
         } else {
             this.navCtrl.push(CareerObjectiveListPage, { matricule: this.matricule });
         }
@@ -114,7 +117,7 @@ export class PncHomePage {
      */
     goToHelpAssetList() {
         if (this.isMyHome()) {
-            this.navCtrl.setRoot(HelpAssetListPage);
+            this.navCtrl.parent.select(this.tabNavService.findTabIndex(TabNavEnum.HELP_ASSET_LIST_PAGE));
         } else {
             this.navCtrl.push(HelpAssetListPage, { pncRole: this.specialityService.getPncRole(this.pnc.speciality), matricule: this.matricule });
         }
@@ -125,7 +128,7 @@ export class PncHomePage {
      */
     goToUpcomingFlightList() {
         if (this.isMyHome()) {
-            this.navCtrl.setRoot(UpcomingFlightListPage);
+            this.navCtrl.parent.select(this.tabNavService.findTabIndex(TabNavEnum.UPCOMING_FLIGHT_LIST_PAGE));
         } else {
             this.navCtrl.push(UpcomingFlightListPage, { matricule: this.matricule });
         }
@@ -136,7 +139,7 @@ export class PncHomePage {
     */
     goToPncSearch() {
         if (this.isMyHome()) {
-            this.navCtrl.setRoot(PncSearchPage);
+            this.navCtrl.parent.select(this.tabNavService.findTabIndex(TabNavEnum.PNC_SEARCH_PAGE));
         } else {
             this.navCtrl.push(PncSearchPage);
         }
@@ -147,7 +150,7 @@ export class PncHomePage {
      */
     goToStatutoryCertificate() {
         if (this.isMyHome() && !this.isManager()) {
-            this.navCtrl.setRoot(StatutoryCertificatePage);
+            this.navCtrl.parent.select(this.tabNavService.findTabIndex(TabNavEnum.STATUTORY_CERTIFICATE_PAGE));
         } else {
             this.navCtrl.push(StatutoryCertificatePage, { matricule: this.matricule });
         }
@@ -158,7 +161,7 @@ export class PncHomePage {
     */
     goToProfessionalLevel() {
         if (this.isMyHome() && !this.isManager()) {
-            this.navCtrl.setRoot(ProfessionalLevelPage);
+            this.navCtrl.parent.select(this.tabNavService.findTabIndex(TabNavEnum.PROFESSIONAL_LEVEL_PAGE));
         } else {
             this.navCtrl.push(ProfessionalLevelPage, { matricule: this.matricule });
         }
@@ -169,7 +172,7 @@ export class PncHomePage {
     */
     goToCongratulationLetters() {
         if (this.isMyHome()) {
-            this.navCtrl.setRoot(CongratulationLettersPage);
+            this.navCtrl.parent.select(this.tabNavService.findTabIndex(TabNavEnum.CONGRATULATION_LETTERS_PAGE));
         } else {
             this.navCtrl.push(CongratulationLettersPage, { matricule: this.matricule });
         }

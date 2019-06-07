@@ -5,7 +5,8 @@
 <simple-notifications></simple-notifications>
 
 <!-- Menu hamburger-->
-<ion-menu side="left" [content]="content">
+<!--<ion-menu side="left" [content]="content">
     <hamburger-nav [navCtrl]="nav"></hamburger-nav>
-</ion-menu>
+</ion-menu>-->
 <ion-nav [root]="rootPage" #content swipeBackEnabled="false" [ngClass]="{'blur' : pinPadModalActive, 'impersonation': sessionService.impersonatedUser}"></ion-nav>
+<tab-nav [ngClass]="{'blur' : pinPadModalActive, 'impersonation': sessionService.impersonatedUser}" [navCtrl]="nav"></tab-nav>
