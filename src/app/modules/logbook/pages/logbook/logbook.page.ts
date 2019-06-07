@@ -1,3 +1,5 @@
+import { ConnectivityService } from './../../../../core/services/connectivity/connectivity.service';
+import { LogbookEventDetailsPage } from './../logbook-event-details/logbook-event-details.page';
 import { AppConstant } from './../../../../app.constant';
 import { DateTransform } from './../../../../shared/utils/date-transform';
 import { LogbookEventGroupModel } from './../../../../core/models/logbook/logbook-event-group.model';
@@ -28,8 +30,6 @@ export class LogbookPage {
     sortedColumn: string;
 
     groupedEvents = new Array<LogbookEventGroupModel>();
-    dataSourceLogbookEvent: MatTableDataSource<LogbookEventGroupModel>;
-    @ViewChild(MatSort) sort: MatSort;
 
     constructor(public navCtrl: NavController,
         public navParams: NavParams,
@@ -38,7 +38,8 @@ export class LogbookPage {
         private securityService: SecurityService,
         private dateTransform: DateTransform,
         private onlineLogbookEventService: OnlineLogbookEventService,
-        public popoverCtrl: PopoverController){
+        public popoverCtrl: PopoverController,
+        private connectivityService: ConnectivityService) {
     }
 
     ionViewDidLoad() {
@@ -67,8 +68,6 @@ export class LogbookPage {
                 groupedEvent.logbookEvents = this.sortLogbookEventsByEventDate(groupedEvent.logbookEvents);
                 this.groupedEvents.push(groupedEvent);
             }
-            this.dataSourceLogbookEvent = new MatTableDataSource(this.groupedEvents);
-            this.dataSourceLogbookEvent.sort = this.sort;
           }, error => { });
         }
     }
@@ -114,7 +113,8 @@ export class LogbookPage {
      * Ouvre ou ferme un bloc d'évènements liés
      * @param eventGroup groupe d'évènements de journal de bord
      */
-    collapseOrExpandEventGroup(eventGroup: LogbookEventGroupModel) {
+    collapseOrExpandEventGroup(myEvent: Event, eventGroup: LogbookEventGroupModel) {
+        myEvent.stopPropagation();
         eventGroup.expanded = !eventGroup.expanded;
     }
 
@@ -149,6 +149,7 @@ export class LogbookPage {
      * @param eObservationItem item
      */
     openActionsMenu(myEvent: Event, logbookEvent: LogbookEventModel) {
+        myEvent.stopPropagation();
         const popover = this.popoverCtrl.create(LogbookEventActionMenuComponent, { logbookEvent: logbookEvent }, { cssClass: 'action-menu-popover' });
         popover.present({
             ev: myEvent
@@ -162,6 +163,14 @@ export class LogbookPage {
      */
     logbookEventHasChilds(): boolean {
         return false;
+    }
+
+    /**
+     * Vérifie si on peut créer un évènement
+     * @return true si on est Manager et qu'on est en ligne
+     */
+    isEventCreationAvailable(): boolean {
+        return this.isManager() && this.connectivityService.isConnected();
     }
 
 }
