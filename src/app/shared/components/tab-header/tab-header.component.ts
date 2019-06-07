@@ -1,15 +1,15 @@
-import { TabNavModeEnum } from './../../../core/enums/tab-nav-mode.enum';
-import { TabNavService } from './../../../core/services/tab-nav/tab-nav.service';
-import { Component, Input, OnInit } from '@angular/core';
+import { TabNavModeEnum } from '../../../core/enums/tab-nav-mode.enum';
+import { Component, Input } from '@angular/core';
 import { Events, NavController } from 'ionic-angular';
 import { PncHomePage } from '../../../modules/home/pages/pnc-home/pnc-home.page';
 import { SessionService } from '../../../core/services/session/session.service';
+import { TabHeaderService } from '../../../core/services/tab-header/tab-header.service';
 
 @Component({
-  selector: 'tab-nav',
-  templateUrl: 'tab-nav.component.html'
+  selector: 'tab-header',
+  templateUrl: 'tab-header.component.html'
 })
-export class TabNavComponent {
+export class TabHeaderComponent {
 
   @Input() mode: TabNavModeEnum = TabNavModeEnum.EDOSSIER;
 
@@ -20,7 +20,7 @@ export class TabNavComponent {
   constructor(
     private events: Events,
     private navCtrl: NavController,
-    private tabNavService: TabNavService,
+    private tabHeaderService: TabHeaderService,
     private sessionService: SessionService
   ) {
     this.initTabNav();
@@ -34,7 +34,7 @@ export class TabNavComponent {
    * Initialise les onglets
    */
   initTabNav() {
-    this.tabList = this.tabNavService.getTabList(this.mode);
+    this.tabList = this.tabHeaderService.getTabList(this.mode);
   }
 
   /**
@@ -42,7 +42,7 @@ export class TabNavComponent {
    * @param tab l'onglet vers lequel naviguer
    */
   openTab(tab: any) {
-    this.tabNavService.setActiveTab(this.mode, tab);
+    this.tabHeaderService.setActiveTab(this.mode, tab);
     let navParams = {};
     if (this.mode === TabNavModeEnum.EDOSSIER && !this.sessionService.isActiveUser(this.sessionService.visitedPnc)) {
       navParams = { matricule: this.sessionService.visitedPnc.matricule };
@@ -56,7 +56,7 @@ export class TabNavComponent {
    * @return vrai s'il s'agit de l'onglet actif, faux sinon
    */
   isActive(tab: any): boolean {
-    return this.tabNavService.isActiveTab(this.mode, tab);
+    return this.tabHeaderService.isActiveTab(this.mode, tab);
   }
 
   /**

@@ -1,12 +1,12 @@
+import { PncHomePage } from './../../../home/pages/pnc-home/pnc-home.page';
 import { CareerObjectiveListPage } from './../../../development-program/pages/career-objective-list/career-objective-list.page';
 import { TranslateService } from '@ngx-translate/core';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, LoadingController } from 'ionic-angular';
 
 import { PncModel } from '../../../../core/models/pnc.model';
 import { PncSearchFilterComponent } from '../../components/pnc-search-filter/pnc-search-filter.component';
 import { AppConstant } from '../../../../app.constant';
-import { PncHomePage } from '../../../home/pages/pnc-home/pnc-home.page';
 
 import { ConnectivityService } from '../../../../core/services/connectivity/connectivity.service';
 import { SessionService } from '../../../../core/services/session/session.service';
@@ -42,10 +42,11 @@ export class PncSearchPage implements OnInit {
         public navCtrl: NavController,
         public navParams: NavParams,
         public translateService: TranslateService,
-        private pncProvider: PncService,
+        private pncService: PncService,
         private pncPhotoService: PncPhotoService,
         private sessionService: SessionService,
-        private connectivityService: ConnectivityService
+        private connectivityService: ConnectivityService,
+        private loadingCtrl: LoadingController
     ) {
         this.sizeOfThePage = 0;
     }
@@ -88,7 +89,7 @@ export class PncSearchPage implements OnInit {
         this.searchInProgress = true;
         this.buildFilter();
 
-        this.pncProvider.getFilteredPncs(this.pncSearchFilter.pncFilter, this.page, this.sizeOfThePage).then(pagedPnc => {
+        this.pncService.getFilteredPncs(this.pncSearchFilter.pncFilter, this.page, this.sizeOfThePage).then(pagedPnc => {
             this.pncPhotoService.synchronizePncsPhotos(pagedPnc.content.map(pnc => pnc.matricule));
             this.searchInProgress = false;
             this.filteredPncs = pagedPnc.content;
@@ -117,7 +118,7 @@ export class PncSearchPage implements OnInit {
             if (this.filteredPncs.length < this.totalPncs) {
                 if (this.connectivityService.isConnected()) {
                     ++this.page;
-                    this.pncProvider.getFilteredPncs(this.pncSearchFilter.pncFilter, this.page, this.sizeOfThePage).then(pagedPnc => {
+                    this.pncService.getFilteredPncs(this.pncSearchFilter.pncFilter, this.page, this.sizeOfThePage).then(pagedPnc => {
                         this.pncPhotoService.synchronizePncsPhotos(pagedPnc.content.map(pnc => pnc.matricule));
                         this.filteredPncs.push(...pagedPnc.content);
                         infiniteScroll.complete();
@@ -139,10 +140,18 @@ export class PncSearchPage implements OnInit {
     openPncHomePage(pnc: PncModel) {
         // Si on va sur un PNC par la recherche, on suprime de la session une enventuelle rotation.
         this.sessionService.appContext.lastConsultedRotation = null;
+
         if (this.sessionService.isActiveUser(pnc)) {
+            this.sessionService.visitedPnc = undefined;
             this.navCtrl.setRoot(PncHomePage);
         } else {
-            this.navCtrl.setRoot(CareerObjectiveListPage, { matricule: pnc.matricule });
+            const loading = this.loadingCtrl.create();
+            loading.present();
+            this.pncService.getPnc(pnc.matricule).then(pncFound => {
+                loading.dismiss();
+                this.sessionService.visitedPnc = pncFound;
+                this.navCtrl.setRoot(CareerObjectiveListPage, { matricule: pnc.matricule });
+            });
         }
     }
 

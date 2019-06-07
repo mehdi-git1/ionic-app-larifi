@@ -1,7 +1,6 @@
-import { SessionService } from '../../../core/services/session/session.service';
 import { RelayModel } from '../../../core/models/statutory-certificate/relay.model';
 import { PncModel } from '../../../core/models/pnc.model';
-import { Component, Input, ViewChild, OnInit, OnChanges } from '@angular/core';
+import { Component, Input, ViewChild, OnChanges } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 
 import { SynchronizationService } from '../../../core/services/synchronization/synchronization.service';
@@ -27,20 +26,14 @@ export class PncHeaderComponent implements OnChanges {
     private synchronizationService: SynchronizationService,
     private toastService: ToastService,
     private translateService: TranslateService,
-    private pncService: PncService,
-    private sessionService: SessionService) {
+    private pncService: PncService) {
   }
 
   ngOnChanges() {
-    if (this.pnc) {
-      if (!this.sessionService.isActiveUser(this.pnc)) {
-        this.sessionService.visitedPnc = this.pnc;
-      }
-      if (this.pnc.relays) {
-        this.pnc.relays.sort((relay: RelayModel, otherRelay: RelayModel) => {
-          return relay.code > otherRelay.code ? 1 : -1;
-        });
-      }
+    if (this.pnc && this.pnc.relays) {
+      this.pnc.relays.sort((relay: RelayModel, otherRelay: RelayModel) => {
+        return relay.code > otherRelay.code ? 1 : -1;
+      });
     }
   }
 

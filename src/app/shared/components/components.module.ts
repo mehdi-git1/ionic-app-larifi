@@ -1,3 +1,4 @@
+import { TabHeaderComponent } from './tab-header/tab-header.component';
 import { PncHeaderComponent } from './pnc-header/pnc-header.component';
 import { HamburgerNavComponent } from './hamburger-nav/hamburger-nav.component';
 import { PdfButtonComponent } from './pdf-button/pdf-button.component';
@@ -55,6 +56,7 @@ import { PncEdossierHeaderComponent } from './pnc-edossier-header/pnc-edossier-h
     PncPhotoComponent,
     PageHeaderComponent,
     TabNavComponent,
+    TabHeaderComponent,
     PncEdossierHeaderComponent,
     HamburgerNavComponent,
     NoDataComponent,
@@ -81,6 +83,7 @@ import { PncEdossierHeaderComponent } from './pnc-edossier-header/pnc-edossier-h
     NavBarCustomComponent,
     PncPhotoComponent,
     TabNavComponent,
+    TabHeaderComponent,
     PncEdossierHeaderComponent,
     HamburgerNavComponent,
     NoDataComponent,

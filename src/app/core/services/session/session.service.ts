@@ -11,7 +11,7 @@ export class SessionService {
     impersonatedUser: AuthenticatedUserModel = null;
     appContext: AppContextModel = new AppContextModel();
     parameters: ParametersModel;
-
+    // Dernier pnc "visité" (le dernier eDossier qu'on a visité)
     visitedPnc: PncModel;
 
     /**

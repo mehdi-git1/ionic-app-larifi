@@ -1,5 +1,6 @@
+import { SessionService } from './../../../core/services/session/session.service';
 import { TabNavModeEnum } from './../../../core/enums/tab-nav-mode.enum';
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { PncModel } from '../../../core/models/pnc.model';
 
 @Component({
@@ -8,19 +9,20 @@ import { PncModel } from '../../../core/models/pnc.model';
 })
 export class PncEdossierHeaderComponent {
 
-    @Input() pnc: PncModel;
+    pnc: PncModel;
 
     TabNavModeEnum = TabNavModeEnum;
 
-    constructor() {
+    constructor(private sessionService: SessionService) {
+        this.pnc = this.sessionService.visitedPnc !== undefined ? this.sessionService.visitedPnc : this.sessionService.getActiveUser().authenticatedPnc;
     }
 
     /**
-     * Vérifie si le pnc connecté peut voir le header
-     * @return vrai si le pnc connecté peut voir le header, faux sinon
+     * Navigation par onglet disponible uniquement lorsqu'on visite le eDossier d'une autre personne que soit même
+     * @return vrai si la navigation par onglet est disponible, faux sinon
      */
-    canViewPncHeader(): boolean {
-        return true;
+    isTabNavAvailable(): boolean {
+        return this.sessionService.visitedPnc && !this.sessionService.isActiveUser(this.sessionService.visitedPnc);
     }
 
 }

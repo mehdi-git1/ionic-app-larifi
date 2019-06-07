@@ -1,2 +1,2 @@
-<pnc-header *ngIf="canViewPncHeader()" [pnc]="pnc"></pnc-header>
-<tab-nav [mode]="TabNavModeEnum.EDOSSIER"></tab-nav>
+<pnc-header [pnc]="pnc"></pnc-header>
+<tab-nav *ngIf="isTabNavAvailable()" [mode]="TabNavModeEnum.EDOSSIER"></tab-nav>

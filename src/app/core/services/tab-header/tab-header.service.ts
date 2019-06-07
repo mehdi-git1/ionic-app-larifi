@@ -1,20 +1,20 @@
-import { SessionService } from './../session/session.service';
-import { AuthorizationService } from './../authorization/authorization.service';
-import { LogbookPage } from './../../../modules/logbook/pages/logbook/logbook.page';
-import { TabNavModeEnum } from './../../enums/tab-nav-mode.enum';
-import { UserMessageManagementPage } from './../../../modules/admin/pages/user-message-management/user-message-management.page';
-import { AppVersionManagementPage } from './../../../modules/admin/pages/app-version-management/app-version-management.page';
-import { ProfileManagementPage } from './../../../modules/admin/pages/profile-management/profile-management.page';
-import { HelpAssetListPage } from './../../../modules/help-asset/pages/help-asset-list/help-asset-list.page';
-import { CongratulationLettersPage } from './../../../modules/congratulation-letter/pages/congratulation-letters/congratulation-letters.page';
-import { StatutoryCertificatePage } from './../../../modules/statutory-certificate/pages/statutory-certificate/statutory-certificate.page';
-import { ProfessionalLevelPage } from './../../../modules/professional-level/pages/professional-level/professional-level.page';
-import { CareerObjectiveListPage } from './../../../modules/development-program/pages/career-objective-list/career-objective-list.page';
+import { SessionService } from '../session/session.service';
+import { AuthorizationService } from '../authorization/authorization.service';
+import { LogbookPage } from '../../../modules/logbook/pages/logbook/logbook.page';
+import { TabNavModeEnum } from '../../enums/tab-nav-mode.enum';
+import { UserMessageManagementPage } from '../../../modules/admin/pages/user-message-management/user-message-management.page';
+import { AppVersionManagementPage } from '../../../modules/admin/pages/app-version-management/app-version-management.page';
+import { ProfileManagementPage } from '../../../modules/admin/pages/profile-management/profile-management.page';
+import { HelpAssetListPage } from '../../../modules/help-asset/pages/help-asset-list/help-asset-list.page';
+import { CongratulationLettersPage } from '../../../modules/congratulation-letter/pages/congratulation-letters/congratulation-letters.page';
+import { StatutoryCertificatePage } from '../../../modules/statutory-certificate/pages/statutory-certificate/statutory-certificate.page';
+import { ProfessionalLevelPage } from '../../../modules/professional-level/pages/professional-level/professional-level.page';
+import { CareerObjectiveListPage } from '../../../modules/development-program/pages/career-objective-list/career-objective-list.page';
 import { Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 
 @Injectable()
-export class TabNavService {
+export class TabHeaderService {
 
     activeTab: any;
 

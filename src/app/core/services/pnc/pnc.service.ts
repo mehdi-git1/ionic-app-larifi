@@ -1,3 +1,6 @@
+import { CareerObjectiveListPage } from './../../../modules/development-program/pages/career-objective-list/career-objective-list.page';
+import { PncHomePage } from './../../../modules/home/pages/pnc-home/pnc-home.page';
+import { NavController } from 'ionic-angular';
 import { Injectable } from '@angular/core';
 
 import { GenderEnum } from '../../enums/gender.enum';
@@ -13,6 +16,7 @@ import { PagedPncModel } from '../../models/paged-pnc.model';
 import { RestService } from '../../http/rest/rest.base.service';
 import { BaseService } from '../base/base.service';
 import { SpecialityEnum } from '../../enums/speciality.enum';
+import { SessionService } from '../session/session.service';
 
 @Injectable()
 export class PncService extends BaseService {
@@ -22,7 +26,8 @@ export class PncService extends BaseService {
     private onlinePncService: OnlinePncService,
     private offlinePncService: OfflinePncService,
     private restService: RestService,
-    private config: UrlConfiguration
+    private config: UrlConfiguration,
+    private sessionService: SessionService
   ) {
     super(
       connectivityService,
@@ -91,4 +96,5 @@ export class PncService extends BaseService {
       return null;
     }
   }
+
 }
