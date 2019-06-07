@@ -4,7 +4,7 @@ import { PncHomePage } from './../../../home/pages/pnc-home/pnc-home.page';
 import { CareerObjectiveListPage } from './../../../development-program/pages/career-objective-list/career-objective-list.page';
 import { TranslateService } from '@ngx-translate/core';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { NavController, NavParams, LoadingController } from 'ionic-angular';
+import { NavParams, Events } from 'ionic-angular';
 
 import { PncModel } from '../../../../core/models/pnc.model';
 import { PncSearchFilterComponent } from '../../components/pnc-search-filter/pnc-search-filter.component';
@@ -16,7 +16,6 @@ import { SessionService } from '../../../../core/services/session/session.servic
 import { PncService } from '../../../../core/services/pnc/pnc.service';
 
 import { PncPhotoService } from '../../../../core/services/pnc-photo/pnc-photo.service';
-import { ProfessionalLevelPage } from '../../../professional-level/pages/professional-level/professional-level.page';
 
 @Component({
     selector: 'page-pnc-search',
@@ -42,15 +41,13 @@ export class PncSearchPage implements OnInit {
     pncSearchFilter: PncSearchFilterComponent;
 
     constructor(
-        public navCtrl: NavController,
         public navParams: NavParams,
         public translateService: TranslateService,
         private pncService: PncService,
         private pncPhotoService: PncPhotoService,
         private sessionService: SessionService,
         private connectivityService: ConnectivityService,
-        private loadingCtrl: LoadingController,
-        private tabNavService: TabNavService
+        private events: Events
     ) {
         this.sizeOfThePage = 0;
     }
@@ -145,30 +142,7 @@ export class PncSearchPage implements OnInit {
         // Si on va sur un PNC par la recherche, on suprime de la session une enventuelle rotation.
         this.sessionService.appContext.lastConsultedRotation = null;
 
-        this.visitEdossier(pnc);
-    }
-
-    /**
-     * Visite le eDossier d'un PNC
-     * @param pnc le pnc dont on souhaite consulter le eDossier
-     */
-    visitEdossier(pnc: PncModel) {
-        if (this.sessionService.isActiveUser(pnc)) {
-            this.sessionService.visitedPnc = undefined;
-            this.navCtrl.parent.select(this.tabNavService.findTabIndex(TabNavEnum.PNC_HOME_PAGE));
-        } else {
-            const loading = this.loadingCtrl.create();
-            loading.present();
-            this.pncService.getPnc(pnc.matricule).then(pncFound => {
-                loading.dismiss();
-                this.sessionService.visitedPnc = pncFound;
-                if (this.sessionService.visitedPnc.manager) {
-                    this.navCtrl.setRoot(ProfessionalLevelPage, { matricule: pnc.matricule });
-                } else {
-                    this.navCtrl.setRoot(CareerObjectiveListPage, { matricule: pnc.matricule });
-                }
-            });
-        }
+        this.events.publish('EDossier:visited', pnc);
     }
 
     /**

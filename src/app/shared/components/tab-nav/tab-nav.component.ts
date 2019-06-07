@@ -1,5 +1,9 @@
-import { Component, Input } from '@angular/core';
-import { Nav, Events } from 'ionic-angular';
+import { PncModel } from './../../../core/models/pnc.model';
+import { CareerObjectiveListPage } from './../../../modules/development-program/pages/career-objective-list/career-objective-list.page';
+import { ProfessionalLevelPage } from './../../../modules/professional-level/pages/professional-level/professional-level.page';
+import { PncService } from './../../../core/services/pnc/pnc.service';
+import { Component, Input, ViewChild } from '@angular/core';
+import { Nav, Events, LoadingController, Tabs } from 'ionic-angular';
 import { TranslateService } from '@ngx-translate/core';
 
 import { PncSearchPage } from '../../../modules/pnc-team/pages/pnc-search/pnc-search.page';
@@ -19,6 +23,7 @@ import { SessionService } from '../../../core/services/session/session.service';
 export class TabNavComponent {
 
   @Input() navCtrl: Nav;
+  @ViewChild('tabs') tabs: Tabs;
 
   tabList: Array<any>;
 
@@ -29,8 +34,15 @@ export class TabNavComponent {
     private tabNavService: TabNavService,
     public securityService: SecurityService,
     private translateService: TranslateService,
-    private sessionService: SessionService
+    private sessionService: SessionService,
+    private pncService: PncService,
+    private loadingCtrl: LoadingController
   ) {
+
+    // Gère la visite d'un eDossier
+    this.handleEdossierVisit();
+
+
     this.events.subscribe('user:authenticationDone', () => {
       this.tabList = this.getTabList();
       this.tabNavService.setTabList(this.tabList);
@@ -81,6 +93,13 @@ export class TabNavComponent {
         page: HelpAssetListPage,
         icon: 'edospnc-helpCenter',
         available: true
+      },
+      {
+        id: TabNavEnum.VISITED_PNC,
+        title: '',
+        page: CareerObjectiveListPage,
+        icon: 'md-person',
+        available: false
       }
     ];
   }
@@ -99,6 +118,46 @@ export class TabNavComponent {
    */
   isTabNavAvailable(): boolean {
     return !this.loading && this.sessionService.getActiveUser() && this.sessionService.getActiveUser().isManager;
+  }
+
+
+  /**
+   * Il est impossible de gérer ce traitement dans un service (problème d'injection inconnu). On gère donc cela avec un système d'events..
+   */
+  handleEdossierVisit(): void {
+    this.events.subscribe('EDossier:visited', pnc => {
+      if (this.sessionService.isActiveUser(pnc)) {
+        this.sessionService.visitedPnc = undefined;
+        this.tabs.select(this.tabNavService.findTabIndex(TabNavEnum.PNC_HOME_PAGE));
+      } else {
+        const loading = this.loadingCtrl.create();
+        loading.present();
+        this.pncService.getPnc(pnc.matricule).then(pncFound => {
+          loading.dismiss();
+          this.sessionService.visitedPnc = pncFound;
+
+          this.addEDossierTab(pnc);
+          this.tabs.select(this.tabNavService.findTabIndex(TabNavEnum.VISITED_PNC));
+        });
+      }
+    });
+  }
+
+  /**
+   * Ajoute à la tabNav une entrée vers le dossier d'un PNC et redirige vers cette entrée
+   * @param pnc le pnc à ajouter à la tabNav
+   */
+  addEDossierTab(pnc: PncModel) {
+    const pncTab = {
+      id: TabNavEnum.VISITED_PNC,
+      title: `${pnc.firstName} ${pnc.lastName}`,
+      page: this.sessionService.visitedPnc.manager ? ProfessionalLevelPage : CareerObjectiveListPage,
+      icon: 'md-person',
+      available: true
+    };
+
+    this.tabList[this.getTabList().length] = pncTab;
+    this.tabNavService.setTabList(this.tabList);
   }
 
 }

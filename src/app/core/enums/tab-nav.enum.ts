@@ -4,9 +4,5 @@ export enum TabNavEnum {
     PNC_SEARCH_PAGE = 'PncSearchPage',
     UPCOMING_FLIGHT_LIST_PAGE = 'UpcomingFlightListPage',
     HELP_ASSET_LIST_PAGE = 'HelpAssetListPage',
-    STATUTORY_CERTIFICATE_PAGE = 'StatutoryCertificatePage',
-    PROFESSIONAL_LEVEL_PAGE = 'ProfessionalLevelPage',
-    CONGRATULATION_LETTERS_PAGE = 'CongratulationLettersPage',
-    LOGBOOK_PAGE = 'LogbookPage',
     VISITED_PNC = 'VISITED_PNC'
 }
