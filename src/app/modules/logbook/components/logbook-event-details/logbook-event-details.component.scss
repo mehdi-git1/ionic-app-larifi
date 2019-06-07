@@ -7,7 +7,6 @@ logbook-event-details {
             margin: 20px;
         }
 
-
         .logbook-info-container {
             padding: 10px 20px 10px 10px;
             width: 100%;
@@ -47,9 +46,8 @@ logbook-event-details {
 
                 .edospnc-pnc::before {
                     color: color($colors-secondary, blue77);
-                    font-size: 50px;
-                    position: relative;
-                    top: -14px;
+                    font-size: 20px;
+                    padding-right: 10px;
                 }
 
                 .category-label {

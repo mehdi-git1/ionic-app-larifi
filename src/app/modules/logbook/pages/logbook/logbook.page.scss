@@ -43,7 +43,7 @@ log-book {
         .ion-md-edospnc-pnc:before, 
         .ion-md-edospnc-pnc-outline:before, 
         .icon-edospnc-pnc:before {
-            font-size: 40px;
+            font-size: 20px;
         }
 
         .child-count {
@@ -117,10 +117,6 @@ log-book {
             text-align: center;
         }
     
-        .origin-value {
-            padding: 0px;
-        }
-    
         .column-date {
             flex: 0 0 90px !important;
             min-width: 95px;
@@ -139,7 +135,6 @@ log-book {
             border-radius: 4px;
             -webkit-border-radius: 4px;
             text-align: center;
-            padding: 3px;
         }
     }
 
