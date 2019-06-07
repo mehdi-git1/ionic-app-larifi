@@ -28,6 +28,7 @@
 @import '../theme/edospnc-icons.scss';
 @import '../theme/professional-level.scss';
 @import '../theme/navbar.scss';
+@import '../theme/typography.scss';
 
 @include mat-core();
 
@@ -93,6 +94,7 @@ body,
     // Pour surcharger le fond sur ipad
     background-color: color($colors-secondary, grey98) !important;
     font-size: 1em;
+    font-family: OpenSans, Arial, Helvetica, sans-serif;
 }
 
 ion-textarea,

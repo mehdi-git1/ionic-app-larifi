@@ -52,6 +52,8 @@ export class CareerObjectiveCreatePage {
 
     pnc: PncModel;
 
+    notificationInstructor = false;
+
     // Permet d'exposer l'enum au template
     CareerObjectiveStatus = CareerObjectiveStatusEnum;
     WaypointStatus = WaypointStatusEnum;
@@ -247,9 +249,12 @@ export class CareerObjectiveCreatePage {
                     if (this.deviceService.isOfflineModeAvailable() && this.connectivityService.isConnected() && this.offlinePncService.pncExists(savedCareerObjective.pnc.matricule)) {
                         this.offlineCareerObjectiveService.createOrUpdate(savedCareerObjective, true);
                     }
-
                     if (savedCareerObjective.careerObjectiveStatus === CareerObjectiveStatusEnum.DRAFT) {
-                        this.toastService.success(this.translateService.instant('CAREER_OBJECTIVE_CREATE.SUCCESS.DRAFT_SAVED'));
+                        if (!this.notificationInstructor) {
+                            this.toastService.success(this.translateService.instant('CAREER_OBJECTIVE_CREATE.SUCCESS.DRAFT_SAVED'));
+                        } else {
+                            this.createInstructorRequest();
+                        }
                     } else if (savedCareerObjective.careerObjectiveStatus === CareerObjectiveStatusEnum.REGISTERED) {
                         if (this.cancelValidation) {
                             this.toastService.success
@@ -440,7 +445,6 @@ export class CareerObjectiveCreatePage {
      * Envoi au serveur une demande de sollicitation instructeur pour l'objectif
      */
     createInstructorRequest() {
-
         this.careerObjectiveService
             .createInstructorRequest(this.careerObjective.techId)
             .then(result => {
@@ -451,7 +455,7 @@ export class CareerObjectiveCreatePage {
 
 
     /**
-    * Présente une alerte pour confirmer la suppression du brouillon
+    * Présente une alerte pour la notification du brouillon
     */
     confirmCreateInstructorRequest() {
         this.alertCtrl.create({
@@ -464,10 +468,11 @@ export class CareerObjectiveCreatePage {
                 },
                 {
                     text: this.translateService.instant('CAREER_OBJECTIVE_CREATE.CONFIRM_INSTRUCTOR_REQUEST.CONFIRM'),
-                    handler: () => this.createInstructorRequest()
+                    handler: () => this.saveCareerObjectiveDraft()
                 }
             ]
         }).present();
+        this.notificationInstructor = true;
     }
 
     /**
@@ -565,7 +570,7 @@ export class CareerObjectiveCreatePage {
 
     /**
      * Retourne la date de création, formatée pour l'affichage
-     * @return la date de création 
+     * @return la date de création
      */
     getCreationDate(): string {
         return this.datePipe.transform(this.careerObjective.creationDate, 'dd/MM/yyyy HH:mm');

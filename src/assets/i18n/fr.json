@@ -132,6 +132,7 @@
             "CONFIRM": "Supprimer"
         },
         "BUTTONS": {
+            "SAVE": "Enregistrer",
             "SEND": "Envoyer",
             "UPDATE": "Mettre à jour",
             "SAVE_DRAFT": "Enregistrer le brouillon",
@@ -151,7 +152,7 @@
             "CAREER_OBJECTIVE_ABANDONED": "Priorité abandonnée",
             "CAREER_OBJECTIVE_VALIDATION_CANCELED": "La clôture de la priorité a été annulée",
             "CAREER_OBJECTIVE_RESUMED": "Priorité reprise",
-            "CAREER_OBJECTIVE_INSTRUCTOR_REQUESTED": "Demande envoyée"
+            "CAREER_OBJECTIVE_INSTRUCTOR_REQUESTED": "Brouillon enregistré et instructeur notifié"
         },
         "ERROR": {
             "CAREER_OBJECTIVE_CREATION_FAILED": "La création de la priorité a échouée",
@@ -185,6 +186,7 @@
     },
     "PNC_IDENTITY": {
         "REFERENT_INSTRUCTOR": "Instructeur référent",
+        "RDS": "RDS",
         "GENDER": "Sexe",
         "SPECIALITY": "Fonction",
         "WORKRATE": "Rythme",
@@ -564,7 +566,7 @@
         "ERROR": {
             "SEARCH": "Erreur lors de la recherche de PNC"
         },
-        "REINIT_FILTERS": "Réinitialiser les filtres"
+        "REINIT_FILTERS": "Réinitialiser la recherche"
     },
     "HELP_ASSET_LIST": {
         "WEB_HELP_ASSET": "Ressources web",
@@ -608,14 +610,14 @@
         "VERBATIM": "Verbatim"
     },
     "LOGBOOK": {
-        "EVENT_DATE" : "Date de l'évènement",
-        "CREATION_DATE" : "Date de création",
-        "CATEGORY" : "Catégorie",
-        "EVENT" : "Evènement",
-        "REDACTOR" : "Rédacteur",
-        "ORIGIN" : "Origine",
-        "ACTIONS" : "Actions",
-        "UNAIVALABLE_OFFLINE" : "Les événements ne sont pas disponibles hors connexion",
+        "EVENT_DATE": "Date de l'évènement",
+        "CREATION_DATE": "Date de création",
+        "CATEGORY": "Catégorie",
+        "EVENT": "Evènement",
+        "REDACTOR": "Rédacteur",
+        "ORIGIN": "Origine",
+        "ACTIONS": "Actions",
+        "UNAIVALABLE_OFFLINE": "Les événements ne sont pas disponibles hors connexion",
         "BUTTONS": {
             "ADD_LOG": "Nouvel évènement"
         },
@@ -637,8 +639,14 @@
             "SELECT_ALL": "Tout sélectionner",
             "SEARCH": "Rechercher"
         },
+        "DETAILS": {
+            "EVENT_DATE": "Evènement du ",
+            "CREATED_THE": "Créé le ",
+            "NOTIFIED_PNCS": "Personnes notifiées"
+        },
         "ACTION_MENU": {
             "MODIFY": "Modifier",
+            "DISPLAY": "Visualiser",
             "ADD_LINKED_EVENT": "Ajouter un évènement lié",
             "FORWARD": "Transférer",
             "DELETE_ALL": "Supprimer tout"

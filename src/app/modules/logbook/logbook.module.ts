@@ -1,3 +1,5 @@
+import { LogbookEventDetailsComponent } from './components/logbook-event-details/logbook-event-details.component';
+import { LogbookEventDetailsPage } from './pages/logbook-event-details/logbook-event-details.page';
 import { LogbookEventActionMenuComponent } from './components/logbook-event-action-menu/logbook-event-action-menu.component';
 import { LogbookEditPage } from './pages/logbook-edit/logbook-edit.page';
 import { LogbookPage } from './pages/logbook/logbook.page';
@@ -10,6 +12,8 @@ import { ComponentsModule } from '../../shared/components/components.module';
   declarations: [
     LogbookPage,
     LogbookEditPage,
+    LogbookEventDetailsPage,
+    LogbookEventDetailsComponent,
     LogbookEventActionMenuComponent
   ],
   imports: [
@@ -20,11 +24,15 @@ import { ComponentsModule } from '../../shared/components/components.module';
   entryComponents: [
     LogbookPage,
     LogbookEditPage,
+    LogbookEventDetailsPage,
+    LogbookEventDetailsComponent,
     LogbookEventActionMenuComponent
   ],
   exports: [
     LogbookPage,
-    LogbookEditPage
+    LogbookEditPage,
+    LogbookEventDetailsPage,
+    LogbookEventDetailsComponent
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA

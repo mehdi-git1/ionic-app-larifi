@@ -4,7 +4,10 @@ export class PncLightModel {
     firstName: string;
     lastName: string;
     speciality: SpecialityEnum;
+    currentSpeciality: SpecialityEnum;
     division: string;
     ginq: string;
     sector: string;
+    isInstructor = false;
+    isRds = false;
 }

@@ -29,11 +29,24 @@ export class OnlineLogbookEventService {
     createOrUpdate(logbookEvent: LogbookEventModel): Promise<LogbookEventModel> {
         if (logbookEvent.id === undefined) {
             logbookEvent.creationDate = new Date();
+            logbookEvent.redactor = new PncLightModel();
+            logbookEvent.redactor.matricule = this.sessionService.getActiveUser().matricule;
+            logbookEvent.redactor.lastName = this.sessionService.getActiveUser().lastName;
+            logbookEvent.redactor.firstName = this.sessionService.getActiveUser().firstName;
         }
         logbookEvent.lastUpdateAuthor = new PncLightModel();
         logbookEvent.lastUpdateAuthor.matricule = this.sessionService.getActiveUser().matricule;
         logbookEvent.lastUpdateDate = new Date();
         return this.restService.post(this.config.getBackEndUrl('logbookEvents'), logbookEvent);
+    }
+
+    /**
+     * Récupère le ou les évènements à partir de leur group id
+     * @param id le group id du ou des évènements à récupérer
+     * @return une promesse contenant le ou les évènements récupérés
+     */
+    public getLogbookEventsByGroupId(id: number): Promise<LogbookEventModel[]> {
+        return this.restService.get(this.config.getBackEndUrl('getLogbookEventsByGroupId', [id]));
     }
 
     /**

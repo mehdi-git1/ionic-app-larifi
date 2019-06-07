@@ -1,6 +1,6 @@
 <ion-header>
     <ion-navbar>
-        <page-header [showSettingsIcon]="true"  [pnc]="pnc">
+        <page-header [showSettingsIcon]="true" [pnc]="pnc">
             {{ 'GLOBAL.LOGBOOK' | isMyPage: pnc | translate }}
         </page-header>
     </ion-navbar>
@@ -9,18 +9,21 @@
     <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
     <ng-template #pageBlock>
         <pnc-card-page-header *ngIf="pnc" [itemMember]="pnc"></pnc-card-page-header>
-            <span *ngIf="groupedEvents" >
-                <ion-grid class="logbook-event-grid selectable" [sortableGrid]="groupedEvents">
-                    <ion-row class="headers">
-                        <ion-col class="arrow"></ion-col>
-                        <ion-col class="column-date" columnName="eventDate" sort>{{ 'LOGBOOK.EVENT_DATE' | translate }}<ion-icon id="sortIcon" class="sort-icon"  color="black" 
-                            ios="md-arrow-dropdown" md="md-arrow-dropdown"></ion-icon></ion-col>
-                        <ion-col class="column-date" columnName="creationDate" sort>{{ 'LOGBOOK.CREATION_DATE' | translate }}</ion-col>
-                        <ion-col class="column-category" columnName="category" sort>{{ 'LOGBOOK.CATEGORY' | translate }}</ion-col>
-                        <ion-col class="column-specific"></ion-col>
-                        <ion-col class="column-specific"></ion-col>
-                        <ion-col class="column-title" columnName="event" sort>
-                            {{ 'LOGBOOK.EVENT' | translate }}
+        <span *ngIf="groupedEvents && groupedEvents.length > 0; else noEventsBlock" >
+            <ion-grid class="logbook-event-grid selectable" [sortableGrid]="groupedEvents">
+                <ion-row class="headers">
+                    <ion-col class="arrow"></ion-col>
+                    <ion-col class="column-date" columnName="eventDate" sort>{{ 'LOGBOOK.EVENT_DATE' | translate }}<ion-icon id="sortIcon" class="sort-icon"  color="black" 
+                        ios="md-arrow-dropdown" md="md-arrow-dropdown"></ion-icon></ion-col>
+                    <ion-col class="column-date" columnName="creationDate" sort>{{ 'LOGBOOK.CREATION_DATE' | translate }}</ion-col>
+                    <ion-col class="column-category" columnName="category" sort>{{ 'LOGBOOK.CATEGORY' | translate }}</ion-col>
+                    <ion-col class="column-specific"></ion-col>
+                    <ion-col class="column-specific"></ion-col>
+                    <ion-col class="column-title" columnName="event" sort>
+                        {{ 'LOGBOOK.EVENT' | translate }}
+                    </ion-col>
+                    <ion-col  class="column-origin" columnName="origin" sort>
+                            {{ 'LOGBOOK.ORIGIN' | translate }}
                         </ion-col>
                     <ion-col  class="column-redactor" columnName="author" sort>
                             {{ 'LOGBOOK.REDACTOR' | translate }}

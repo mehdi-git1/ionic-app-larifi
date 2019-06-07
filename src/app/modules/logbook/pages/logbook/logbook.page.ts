@@ -34,20 +34,21 @@ export class LogbookPage {
     constructor(public navCtrl: NavController,
         public navParams: NavParams,
         private pncService: PncService,
-        private sessionService: SessionService,
         private securityService: SecurityService,
+        private sessionService: SessionService,
         private dateTransform: DateTransform,
         private onlineLogbookEventService: OnlineLogbookEventService,
         public popoverCtrl: PopoverController,
         private connectivityService: ConnectivityService) {
     }
 
-    ionViewDidLoad() {
+    ionViewWillEnter() {
+        this.groupedEvents = new Array<LogbookEventGroupModel>();
         let matricule = this.navParams.get('matricule');
         if (this.navParams.get('matricule')) {
-          matricule = this.navParams.get('matricule');
+            matricule = this.navParams.get('matricule');
         } else if (this.sessionService.getActiveUser()) {
-          matricule = this.sessionService.getActiveUser().matricule;
+            matricule = this.sessionService.getActiveUser().matricule;
         }
         if (matricule != null) {
           this.pncService.getPnc(matricule).then(pnc => {
@@ -73,8 +74,8 @@ export class LogbookPage {
     }
 
     /**
-     * Tri d'une liste d'évèneemnts de journal de bord
-     * @param logbookEvents liste d'évèneemnts de journal de bord
+     * Tri d'une liste d'évènements de journal de bord
+     * @param logbookEvents liste d'évènements de journal de bord
      * @return liste triée
      */
     sortLogbookEventsByEventDate(logbookEvents: LogbookEventModel[]): LogbookEventModel[] {
@@ -84,9 +85,9 @@ export class LogbookPage {
     }
 
     /**
-     * Comparaison de 2 évèneemnts de journal de bord par date d'évènement
-     * @param event1 1er évèneemnt de journal de bord
-     * @param event2 2eme évèneemnt de journal de bord
+     * Comparaison de 2 évènements de journal de bord par date d'évènement
+     * @param event1 1er évènement de journal de bord
+     * @param event2 2eme évènement de journal de bord
      * @return 1 si le 1er évènement est avant le 2e, sinon -1
      */
     sortByEventDate(event1: LogbookEventModel, event2: LogbookEventModel): number {
@@ -123,8 +124,15 @@ export class LogbookPage {
      */
     goToLogbookCreation() {
         if (this.pnc) {
-            this.navCtrl.push(LogbookEditPage, { matricule: this.pnc.matricule});
+            this.navCtrl.push(LogbookEditPage, { matricule: this.pnc.matricule });
         }
+    }
+
+    /**
+     * Dirige vers la page de détail d'un évènement du journal de bord
+     */
+    goToLogbookEventDetails(groupId: number) {
+        this.navCtrl.push(LogbookEventDetailsPage, { matricule: this.pnc.matricule, groupId: groupId });
     }
 
     /**

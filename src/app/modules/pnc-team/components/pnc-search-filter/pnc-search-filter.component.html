@@ -25,7 +25,7 @@
                             <ion-spinner class='auto-complete-spinner' *ngIf="autoCompleteRunning"></ion-spinner>
                         </ion-col>
                         <ion-col col-5>
-                            <button ion-button icon-start (click)="resetFilterValues()" class="clear-pnc" [disabled]="clearButtonIsDisabled()" color="primary-light" outline>
+                            <button ion-button icon-start (click)="initForm()" class="clear-pnc" [disabled]="clearButtonIsDisabled()" color="primary-light" outline>
                                 <ion-icon name="trash"></ion-icon>
                                 {{ 'PNC_SEARCH.REINIT_FILTERS' | translate }}
                             </button>

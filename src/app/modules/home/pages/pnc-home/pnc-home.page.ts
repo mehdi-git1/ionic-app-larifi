@@ -1,3 +1,4 @@
+import { LogbookEventDetailsPage } from './../../../logbook/pages/logbook-event-details/logbook-event-details.page';
 
 import { Component } from '@angular/core';
 import { NavController, NavParams, Events } from 'ionic-angular';
@@ -237,4 +238,12 @@ export class PncHomePage {
         return this.authorizationService.hasPermission('VIEW_LOGBOOK') && (isAPncHomeAndImManager || isMyHomeAndImPnc);
     }
 
+    /**
+     * Dirige vers la page de détail d'un évènement du journal de bord
+     */
+    goToLogbookEventDetails() {
+        if (this.pnc) {
+            this.navCtrl.push(LogbookEventDetailsPage);
+        }
+    }
 }
