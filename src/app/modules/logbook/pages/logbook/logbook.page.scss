@@ -4,6 +4,8 @@ log-book {
         margin-bottom: 0px !important;
     }
 
+    .pointer {cursor: pointer;}
+
     ion-button {
         // TODO : A supprimer avec Daisy
         @extend .button-md;
@@ -15,6 +17,16 @@ log-book {
 
         .child-event-grid {
             padding: 0px;
+            height: 100%;
+            justify-content: center;
+            ion-row > ion-col {
+                justify-content: center;
+                align-content: center;
+                /*display: flex!important;
+                justify-content: center;
+                //align-content: center!important;
+                align-items: center!important;*/
+            }
         }
 
         .events-number {
@@ -157,5 +169,5 @@ log-book {
 }
 
 .popover-md.action-menu-popover .popover-content {
-    transform: translate(-80%, 12%) !important;
+    transform: translate(-68%, 12%) !important;
 }

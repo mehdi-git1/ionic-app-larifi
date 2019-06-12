@@ -55,22 +55,38 @@ export class LogbookPage {
             this.pnc = pnc;
           }, error => { });
 
-          this.onlineLogbookEventService.getLogbookEvents(matricule).then(logbookEvents => {
-            // Tri des évènements par groupId
-            const groupedEventsMap = new Map<number, LogbookEventGroupModel>();
-            logbookEvents.forEach(logbookEvent => {
-                if (!groupedEventsMap.has(logbookEvent.groupId)) {
-                    groupedEventsMap.set(logbookEvent.groupId, new LogbookEventGroupModel(logbookEvent.groupId, this.dateTransform));
-                }
-                groupedEventsMap.get(logbookEvent.groupId).logbookEvents.push(logbookEvent);
-            });
-            // Tri des events de chaque groupe par date d'évènement
-            for (const groupedEvent of Array.from(groupedEventsMap.values())) {
-                groupedEvent.logbookEvents = this.sortLogbookEventsByEventDate(groupedEvent.logbookEvents);
-                this.groupedEvents.push(groupedEvent);
-            }
-          }, error => { });
+          this.getLogbookEvents(matricule);
         }
+    }
+
+    /**
+     * Rafraîchit la page
+     */
+    refreshPage() {
+        this.groupedEvents = new Array<LogbookEventGroupModel>();
+        this.getLogbookEvents(this.pnc.matricule);
+    }
+
+    /**
+     * Gère la réception des évènements du journal de bord du Pnc
+     * @param logbookEvents evènements du journal de bord
+     */
+    private getLogbookEvents(matricule: string) {
+        this.onlineLogbookEventService.getLogbookEvents(matricule).then(logbookEvents =>
+        // Tri des évènements par groupId
+        {const groupedEventsMap = new Map<number, LogbookEventGroupModel>();
+        logbookEvents.forEach(logbookEvent => {
+            if (!groupedEventsMap.has(logbookEvent.groupId)) {
+                groupedEventsMap.set(logbookEvent.groupId, new LogbookEventGroupModel(logbookEvent.groupId, this.dateTransform));
+            }
+            groupedEventsMap.get(logbookEvent.groupId).logbookEvents.push(logbookEvent);
+        });
+        // Tri des events de chaque groupe par date d'évènement
+        for (const groupedEvent of Array.from(groupedEventsMap.values())) {
+            groupedEvent.logbookEvents = this.sortLogbookEventsByEventDate(groupedEvent.logbookEvents);
+            this.groupedEvents.push(groupedEvent);
+        }}
+        , error => { });
     }
 
     /**
@@ -181,4 +197,12 @@ export class LogbookPage {
         return this.isManager() && this.connectivityService.isConnected();
     }
 
+    /**
+     * Vérifie que l'on est en mode connecté
+     * @return true si on est en mode connecté, false sinon
+     */
+    isConnected(): boolean {
+        console.log(this.connectivityService.isConnected());
+        return this.connectivityService.isConnected();
+    }
 }

@@ -25,6 +25,7 @@ export class LogbookEventActionMenuComponent {
    */
   goToLogbookEventDetails() {
     this.navCtrl.push(LogbookEventDetailsPage, { matricule: this.logbookEvent.pnc.matricule, groupId: this.logbookEvent.groupId });
+    this.viewCtrl.dismiss();
   }
 
   /**

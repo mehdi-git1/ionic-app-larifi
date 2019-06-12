@@ -23,6 +23,7 @@ export class SortDirective implements OnInit {
 
   ngOnInit() {
     this.ionGridElement =  this.getOwnerGridElement(this.element.nativeElement);
+    this.element.nativeElement.style.cursor = 'pointer';
     this.columnSortedSubscription =  this.sortService.sortColumnEvent.subscribe(event => {
       if (event.ionGridElement === this.ionGridElement) {
         const sortIcon = this.getSortIcon(this.element.nativeElement);

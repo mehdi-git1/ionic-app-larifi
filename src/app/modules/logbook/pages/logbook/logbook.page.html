@@ -1,6 +1,6 @@
 <ion-header>
     <ion-navbar>
-        <page-header [showSettingsIcon]="true" [pnc]="pnc">
+        <page-header [showSettingsIcon]="true" [pnc]="pnc" (refreshPage)="refreshPage()" [showRefreshIcon]="true">
             {{ 'GLOBAL.LOGBOOK' | isMyPage: pnc | translate }}
         </page-header>
     </ion-navbar>
@@ -9,80 +9,83 @@
     <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
     <ng-template #pageBlock>
         <pnc-card-page-header *ngIf="pnc" [itemMember]="pnc"></pnc-card-page-header>
-        <span *ngIf="groupedEvents && groupedEvents.length > 0; else noEventsBlock" >
-            <ion-grid class="logbook-event-grid selectable" [sortableGrid]="groupedEvents">
-                <ion-row class="headers">
-                    <ion-col class="arrow"></ion-col>
-                    <ion-col class="column-date" columnName="eventDate" sort>{{ 'LOGBOOK.EVENT_DATE' | translate }}<ion-icon id="sortIcon" class="sort-icon"  color="black" 
-                        ios="md-arrow-dropdown" md="md-arrow-dropdown"></ion-icon></ion-col>
-                    <ion-col class="column-date" columnName="creationDate" sort>{{ 'LOGBOOK.CREATION_DATE' | translate }}</ion-col>
-                    <ion-col class="column-category" columnName="category" sort>{{ 'LOGBOOK.CATEGORY' | translate }}</ion-col>
-                    <ion-col class="column-specific"></ion-col>
-                    <ion-col class="column-specific"></ion-col>
-                    <ion-col class="column-title" columnName="event" sort>
-                        {{ 'LOGBOOK.EVENT' | translate }}
-                    </ion-col>
-                    <ion-col  class="column-origin" columnName="origin" sort>
-                            {{ 'LOGBOOK.ORIGIN' | translate }}
+        <span *ngIf="isConnected(); else notConnectedBlock">
+            <span *ngIf="groupedEvents && groupedEvents.length > 0; else noEventsBlock" >
+                <ion-grid class="logbook-event-grid selectable" [sortableGrid]="groupedEvents">
+                    <ion-row class="headers">
+                        <ion-col class="arrow"></ion-col>
+                        <ion-col class="column-date" columnName="eventDate" sort>{{ 'LOGBOOK.EVENT_DATE' | translate }}<ion-icon id="sortIcon" class="sort-icon"  color="black" 
+                            ios="md-arrow-dropdown" md="md-arrow-dropdown"></ion-icon></ion-col>
+                        <ion-col class="column-category" columnName="category" sort>{{ 'LOGBOOK.CATEGORY' | translate }}</ion-col>
+                        <ion-col class="column-specific"></ion-col>
+                        <ion-col class="column-specific"></ion-col>
+                        <ion-col class="column-title" columnName="event" sort>
+                            {{ 'LOGBOOK.EVENT' | translate }}
                         </ion-col>
-                    <ion-col  class="column-redactor" columnName="author" sort>
-                            {{ 'LOGBOOK.REDACTOR' | translate }}
-                    </ion-col>
-                    <ion-col class="actions" *ngIf="isManager()">
-                            {{ 'LOGBOOK.ACTIONS' | translate }}
-                    </ion-col>
-                </ion-row>
-                <ion-row class="groupedEventRow" *ngFor="let groupedEvent of groupedEvents">
-                    <ion-grid class="child-event-grid">
-                        <span *ngFor="let logbookEvent of groupedEvent.logbookEvents; let logbookEventIndex = index">
-                            <ion-row  *ngIf="groupedEvent.expanded || logbookEventIndex === 0" (click)="goToLogbookEventDetails(logbookEvent.groupId)">
-                                <ion-col class="arrow">
-                                    <div class="child-count" *ngIf="groupHasManyEvents(groupedEvent) && logbookEventIndex === 0" (click)="collapseOrExpandEventGroup($event, groupedEvent)">
-                                        <ion-icon color="primary" 
-                                            ios="md-arrow-drop{{groupedEvent.expanded?'down':'up'}}" md="md-arrow-drop{{groupedEvent.expanded?'up':'down'}}">
+                        <ion-col  class="column-origin" columnName="origin" sort>
+                                {{ 'LOGBOOK.ORIGIN' | translate }}
+                            </ion-col>
+                        <ion-col  class="column-redactor" columnName="author" sort>
+                                {{ 'LOGBOOK.REDACTOR' | translate }}
+                        </ion-col>
+                        <ion-col class="actions" *ngIf="isManager()">
+                                {{ 'LOGBOOK.ACTIONS' | translate }}
+                        </ion-col>
+                    </ion-row>
+                    <ion-row class="groupedEventRow" *ngFor="let groupedEvent of groupedEvents">
+                        <ion-grid class="child-event-grid">
+                            <span *ngFor="let logbookEvent of groupedEvent.logbookEvents; let logbookEventIndex = index">
+                                <ion-row  *ngIf="groupedEvent.expanded || logbookEventIndex === 0" (click)="goToLogbookEventDetails(logbookEvent.groupId)">
+                                    <ion-col class="arrow">
+                                        <div class="child-count pointer" *ngIf="groupHasManyEvents(groupedEvent) && logbookEventIndex === 0" (click)="collapseOrExpandEventGroup($event, groupedEvent)">
+                                            <ion-icon color="primary" 
+                                                ios="md-arrow-drop{{groupedEvent.expanded?'down':'up'}}" md="md-arrow-drop{{groupedEvent.expanded?'up':'down'}}">
+                                            </ion-icon>
+                                            <span class="events-number" *ngIf="!groupedEvent.expanded">{{groupedEvent.logbookEvents.length}}</span>
+                                        </div>
+                                    </ion-col>
+                                    <ion-col class="column-date">{{logbookEvent.eventDate | date:'dd/MM/yyyy' }}</ion-col>
+                                    <ion-col class="column-category" ><div class="category-label" >{{logbookEvent.category?.label}}</div></ion-col>
+                                    <ion-col class="column-specific" >
+                                        <ion-icon class="important-icon" color="secondary" *ngIf="logbookEvent.important" name="edospnc-important">
                                         </ion-icon>
-                                        <span class="events-number" *ngIf="!groupedEvent.expanded">{{groupedEvent.logbookEvents.length}}</span>
-                                    </div>
-                                </ion-col>
-                                <ion-col class="column-date">{{logbookEvent.eventDate | date:'dd/MM/yyyy' }}</ion-col>
-                                <ion-col class="column-date">{{logbookEvent.creationDate | date:'dd/MM/yyyy' }}</ion-col>
-                                <ion-col class="column-category" ><div class="category-label" >{{logbookEvent.category?.label}}</div></ion-col>
-                                <ion-col class="column-specific" >
-                                    <ion-icon class="important-icon" color="secondary" *ngIf="logbookEvent.important" name="edospnc-important">
-                                    </ion-icon>
-                                </ion-col>
-                                <ion-col class="column-specific" >
-                                    <ion-icon *ngIf="logbookEventHasChilds()"  name="attach"></ion-icon>
-                                </ion-col>
-                                <ion-col  class="column-title" >
-                                    {{logbookEvent.title}}
-                                </ion-col>
-                                <ion-col  class="column-origin" >
-                                    <ion-icon *ngIf="logbookEvent.pncInitiator" color="primary" class="edospnc-pnc action-icon" name="edospnc-pnc">
-                                    </ion-icon>
-                                </ion-col>
-                                <ion-col  class="column-redactor" >
-                                    {{logbookEvent.lastUpdateAuthor?.lastName}} {{logbookEvent.lastUpdateAuthor?.firstName | titlecase}} 
-                                </ion-col>
-                                <ion-col class="actions" *ngIf="isManager()">
-                                    <div *ngIf="logbookEventIndex === 0" (click)="openActionsMenu($event, logbookEvent)">
-                                        <ion-icon  class="action-icon" ios="md-more" md="md-more">
+                                    </ion-col>
+                                    <ion-col class="column-specific" >
+                                        <ion-icon *ngIf="logbookEventHasChilds()"  name="attach"></ion-icon>
+                                    </ion-col>
+                                    <ion-col  class="column-title" >
+                                        {{logbookEvent.title}}
+                                    </ion-col>
+                                    <ion-col  class="column-origin" >
+                                        <ion-icon *ngIf="logbookEvent.pncInitiator" color="primary" class="edospnc-pnc action-icon" name="edospnc-pnc">
                                         </ion-icon>
-                                    </div>
-                                </ion-col>
-                            </ion-row>
-                        </span>
-                    </ion-grid>
-                </ion-row>
-            </ion-grid>
-        </span>
-        <ng-template #noEventsBlock>
+                                    </ion-col>
+                                    <ion-col  class="column-redactor" >
+                                        {{logbookEvent.lastUpdateAuthor?.lastName}} {{logbookEvent.lastUpdateAuthor?.firstName | titlecase}} 
+                                    </ion-col>
+                                    <ion-col class="actions" *ngIf="isManager()">
+                                        <div class="pointer" *ngIf="logbookEventIndex === 0" (click)="openActionsMenu($event, logbookEvent)">
+                                            <ion-icon  class="action-icon" ios="md-more" md="md-more">
+                                            </ion-icon>
+                                        </div>
+                                    </ion-col>
+                                </ion-row>
+                            </span>
+                        </ion-grid>
+                    </ion-row>
+                </ion-grid>
+            </span>
+            <ng-template #noEventsBlock>
                 <no-data></no-data>
+            </ng-template>
+            <div class="button-bar" *ngIf="isEventCreationAvailable()">
+                <button ion-button color="primary" (click)="goToLogbookCreation()" icon-start>
+                    <ion-icon name="add"></ion-icon><span>{{ 'LOGBOOK.BUTTONS.ADD_LOG' | translate }}</span>
+                </button>
+            </div>
+        </span>
+        <ng-template #notConnectedBlock>
+            {{ 'LOGBOOK.UNAIVALABLE_OFFLINE' | translate }}
         </ng-template>
-        <div class="button-bar" *ngIf="isEventCreationAvailable()">
-            <button ion-button color="primary" (click)="goToLogbookCreation()" icon-start>
-                <ion-icon name="add"></ion-icon><span>{{ 'LOGBOOK.BUTTONS.ADD_LOG' | translate }}</span>
-            </button>
-        </div>
     </ng-template>
 </ion-content>
