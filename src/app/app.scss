@@ -90,12 +90,16 @@
 
 body,
 .app-root,
-.nav-decor,
-ion-app.md,
-ion-app.ios {
+.nav-decor {
     // Pour surcharger le fond sur ipad
     background-color: color($colors-secondary, grey98) !important;
     font-size: 1em;
+    font-family: OpenSans, Arial, Helvetica, sans-serif;
+}
+
+ion-app.md,
+ion-app.ios {
+    background-color: color($colors-secondary, grey98) !important;
     font-family: OpenSans, Arial, Helvetica, sans-serif;
 }
 
