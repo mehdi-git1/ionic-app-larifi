@@ -36,7 +36,7 @@ export class TabHeaderService {
         if (currentPnc != this.pnc) {
             this.pnc = currentPnc;
             this.activeTab = {
-                EDOSSIER: this.pnc.manager ? ProfessionalLevelPage : CareerObjectiveListPage,
+                EDOSSIER: this.pnc && this.pnc.manager ? ProfessionalLevelPage : CareerObjectiveListPage,
                 ADMIN: ProfileManagementPage
             };
         }
