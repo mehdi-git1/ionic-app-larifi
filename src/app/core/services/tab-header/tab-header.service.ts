@@ -29,11 +29,9 @@ export class TabHeaderService {
     }
 
     /**
-    * Retourne la liste des entrées à afficher dans les onglets en fonction du mode donné
-    * @param mode le mode d'affichage demandé
-    * @return une liste contenant les entrées à afficher dans les onglets
-    */
-    getTabList(mode: TabHeaderModeEnum) {
+     * Initialise la navigation par onglet
+     */
+    initTabHeader() {
         const currentPnc = this.sessionService.visitedPnc == undefined ? this.sessionService.getActiveUser().authenticatedPnc : this.sessionService.visitedPnc;
         if (currentPnc != this.pnc) {
             this.pnc = currentPnc;
@@ -42,6 +40,15 @@ export class TabHeaderService {
                 ADMIN: ProfileManagementPage
             };
         }
+    }
+
+    /**
+    * Retourne la liste des entrées à afficher dans les onglets en fonction du mode donné
+    * @param mode le mode d'affichage demandé
+    * @return une liste contenant les entrées à afficher dans les onglets
+    */
+    getTabList(mode: TabHeaderModeEnum) {
+        this.initTabHeader();
 
         if (mode === TabHeaderModeEnum.EDOSSIER) {
             return [

@@ -9,8 +9,9 @@ import { Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { SecurityService } from '../security/security.service';
 import { PncModel } from '../../models/pnc.model';
-import { SessionService } from '../session/session.service';
 import { Events } from 'ionic-angular';
+import { TabHeaderService } from '../tab-header/tab-header.service';
+import { TabHeaderModeEnum } from '../../enums/tab-header-mode.enum';
 
 @Injectable()
 export class TabNavService {
@@ -19,7 +20,7 @@ export class TabNavService {
 
     constructor(private translateService: TranslateService,
         private securityService: SecurityService,
-        private sessionService: SessionService,
+        private tabHeaderService: TabHeaderService,
         private events: Events) {
         this.initTabList();
 
@@ -73,13 +74,6 @@ export class TabNavService {
                 available: this.securityService.isManager()
             },
             {
-                id: TabNavEnum.HELP_ASSET_LIST_PAGE,
-                title: this.translateService.instant('GLOBAL.MY_HELP_CENTER'),
-                page: HelpAssetListPage,
-                icon: 'edospnc-helpCenter',
-                available: true
-            },
-            {
                 id: TabNavEnum.VISITED_PNC,
                 title: ' ',
                 page: CareerObjectiveListPage,
@@ -92,6 +86,13 @@ export class TabNavService {
                 page: ProfessionalLevelPage,
                 icon: 'md-person',
                 available: false
+            },
+            {
+                id: TabNavEnum.HELP_ASSET_LIST_PAGE,
+                title: this.translateService.instant('GLOBAL.MY_HELP_CENTER'),
+                page: HelpAssetListPage,
+                icon: 'edospnc-helpCenter',
+                available: true
             }
         ];
     }
