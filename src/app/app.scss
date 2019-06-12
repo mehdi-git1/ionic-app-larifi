@@ -90,7 +90,9 @@
 
 body,
 .app-root,
-.nav-decor {
+.nav-decor,
+ion-app.md,
+ion-app.ios {
     // Pour surcharger le fond sur ipad
     background-color: color($colors-secondary, grey98) !important;
     font-size: 1em;
@@ -159,19 +161,19 @@ ion-content > .scroll-content {
 
 ion-badge[outline],
 ion-badge[outline][color="primary"] {
-	color: color($colors, primary);
-	border: solid 1px color($colors, primary);
-	background: none;
+    color: color($colors, primary);
+    border: solid 1px color($colors, primary);
+    background: none;
 }
 
 ion-badge[outline][color="secondary"] {
-	color: color($colors, secondary);
-	border: solid 1px color($colors, secondary);
-	background: none;
+    color: color($colors, secondary);
+    border: solid 1px color($colors, secondary);
+    background: none;
 }
 
 ion-badge[outline][color="secondary"] {
-	color: color($colors, secondary);
-	border: solid 1px color($colors, secondary);
-	background: none;
+    color: color($colors, secondary);
+    border: solid 1px color($colors, secondary);
+    background: none;
 }
