@@ -53,8 +53,6 @@ logbook-event-details {
                     .ion-md-edospnc-important:before,
                     .icon-edospnc-important:before {
                         font-size: 18px;
-                        position: relative;
-                        top: 2px;
                         padding-right: 10px;
                     }
 
@@ -64,9 +62,8 @@ logbook-event-details {
                     .ion-md-edospnc-pnc:before,
                     .ion-md-edospnc-pnc-outline:before,
                     .icon-edospnc-pnc:before {
-                        font-size: 40px;
-                        position: relative;
-                        top: -8px;
+                        font-size: 20px;
+                        padding-right: 10px;
                     }
 
                     .category-label {
