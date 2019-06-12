@@ -3,14 +3,14 @@ page-logbook-event-details {
     .draw-ligne {
         margin: 22px 10px;
         border-top: 1px solid color($colors-secondary, grey70);
-        flex: 2;
+        flex: 5;
     }
 
     .logbook-info-date {
-        flex: 1;
+        flex: 2;
         text-align: center;
         position: relative;
-        top: 14px;
+        top: 12px;
 
         span {
             white-space: nowrap;
