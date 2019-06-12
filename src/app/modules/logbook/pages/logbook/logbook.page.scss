@@ -15,6 +15,7 @@ log-book {
 
         .child-event-grid {
             padding: 0px;
+            height: 100%; 
         }
 
         .events-number {
@@ -157,5 +158,5 @@ log-book {
 }
 
 .popover-md.action-menu-popover .popover-content {
-    transform: translate(-80%, 12%) !important;
+    transform: translate(-68%, 12%) !important;
 }
