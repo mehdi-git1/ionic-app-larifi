@@ -70,6 +70,7 @@ export class LogbookPage {
     /**
      * Gère la réception des évènements du journal de bord du Pnc
      * @param logbookEvents evènements du journal de bord
+     * @param matricule le matricule du Pnc
      */
     private getLogbookEvents(matricule: string) {
         this.onlineLogbookEventService.getLogbookEvents(matricule).then(logbookEvents =>
@@ -174,7 +175,7 @@ export class LogbookPage {
      */
     openActionsMenu(myEvent: Event, logbookEvent: LogbookEventModel) {
         myEvent.stopPropagation();
-        const popover = this.popoverCtrl.create(LogbookEventActionMenuComponent, { logbookEvent: logbookEvent }, { cssClass: 'action-menu-popover' });
+        const popover = this.popoverCtrl.create(LogbookEventActionMenuComponent, { logbookEvent: logbookEvent}, { cssClass: 'action-menu-popover' });
         popover.present({
             ev: myEvent
         });

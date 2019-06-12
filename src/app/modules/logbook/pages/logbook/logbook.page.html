@@ -37,7 +37,7 @@
                             <span *ngFor="let logbookEvent of groupedEvent.logbookEvents; let logbookEventIndex = index">
                                 <ion-row  *ngIf="groupedEvent.expanded || logbookEventIndex === 0" (click)="goToLogbookEventDetails(logbookEvent.groupId)" align-items-center>
                                     <ion-col class="arrow">
-                                        <div class="child-count pointer" *ngIf="groupHasManyEvents(groupedEvent) && logbookEventIndex === 0" (click)="collapseOrExpandEventGroup($event, groupedEvent)">
+                                        <div class="child-count clickable" *ngIf="groupHasManyEvents(groupedEvent) && logbookEventIndex === 0" (click)="collapseOrExpandEventGroup($event, groupedEvent)">
                                             <ion-icon color="primary" 
                                                 ios="md-arrow-drop{{groupedEvent.expanded?'down':'up'}}" md="md-arrow-drop{{groupedEvent.expanded?'up':'down'}}">
                                             </ion-icon>
@@ -64,7 +64,7 @@
                                         {{logbookEvent.lastUpdateAuthor?.lastName}} {{logbookEvent.lastUpdateAuthor?.firstName | titlecase}} 
                                     </ion-col>
                                     <ion-col class="actions" *ngIf="isManager()">
-                                        <div class="pointer" *ngIf="logbookEventIndex === 0" (click)="openActionsMenu($event, logbookEvent)">
+                                        <div class="clickable" *ngIf="logbookEventIndex === 0" (click)="openActionsMenu($event, logbookEvent)">
                                             <ion-icon  class="action-icon" ios="md-more" md="md-more">
                                             </ion-icon>
                                         </div>
