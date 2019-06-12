@@ -55,7 +55,7 @@ export class TabHeaderService {
                 {
                     label: this.translateService.instant('GLOBAL.DEVELOPMENT_PROGRAM'),
                     component: CareerObjectiveListPage,
-                    available: !this.pnc.manager
+                    available: this.pnc && !this.pnc.manager
                 },
                 {
                     label: this.translateService.instant('GLOBAL.PROFESSIONAL_LEVEL'),
@@ -113,7 +113,7 @@ export class TabHeaderService {
      * @return vrai si l'onglet donné est actif, faux sinon
      */
     isActiveTab(mode: TabHeaderModeEnum, tab: any): boolean {
-        return this.activeTab[mode] == tab.component;
+        return this.activeTab && this.activeTab[mode] == tab.component;
     }
 
     /**
