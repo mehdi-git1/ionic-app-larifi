@@ -33,10 +33,5 @@ tab-header {
                 margin-right: 10px;
             }
         }
-
-        // Pour éviter l'absence de margin-right sur un overflow-x
-        .placeholder-margin {
-            flex: 0 0 1px;
-        }
     }
 }
