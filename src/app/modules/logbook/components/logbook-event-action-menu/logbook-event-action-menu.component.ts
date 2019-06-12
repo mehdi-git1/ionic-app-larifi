@@ -14,16 +14,19 @@ export class LogbookEventActionMenuComponent {
 
   logbookEvent: LogbookEventModel;
 
+  navCtrl: NavController
+
   constructor(private navParams: NavParams,
-    public viewCtrl: ViewController,
-    private navCtrl: NavController) {
+    public viewCtrl: ViewController) {
     this.logbookEvent = this.navParams.get('logbookEvent');
+    this.navCtrl = this.navParams.get('navCtrl');
   }
 
   /**
    * Dirige vers la page de détail d'un évènement du journal de bord
    */
   goToLogbookEventDetails() {
+    this.viewCtrl.dismiss();
     this.navCtrl.push(LogbookEventDetailsPage, { matricule: this.logbookEvent.pnc.matricule, groupId: this.logbookEvent.groupId });
   }
 
