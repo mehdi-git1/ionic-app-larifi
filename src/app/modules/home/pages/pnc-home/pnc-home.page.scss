@@ -15,7 +15,7 @@ page-pnc-home {
 
             .button-parent {
                 width: 50%;
-                padding: 10px;
+                padding: 20px;
 
                 button {
                     font-size: 3vmin;
@@ -23,6 +23,28 @@ page-pnc-home {
                     height: 100%;
                     border-radius: 10px;
                     white-space: normal;
+
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    background: color($colors-secondary, grey98);
+                    border: 2px solid;
+                }
+
+                .professional-level {
+                    border-color: color($colors, primary);
+                }
+
+                .statutory-certificate {
+                    border-color: color($colors, blue76);
+                }
+
+                .congratulation-letters {
+                    border-color: color($colors, green65);
+                }
+
+                .help-center {
+                    border-color: color($colors, grey20);
                 }
             }
         }
