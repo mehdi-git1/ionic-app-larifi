@@ -12,7 +12,6 @@ log-book {
     }
 
     .logbook-event-grid{
-        box-shadow: 0 16px 24px 2px rgba(0, 0, 0, .14), 0 6px 30px 5px rgba(0, 0, 0, .12), 0 8px 10px -5px rgba(0, 0, 0, .2);
 
         .child-event-grid {
             padding: 0px;
@@ -44,7 +43,7 @@ log-book {
         .ion-md-edospnc-pnc:before, 
         .ion-md-edospnc-pnc-outline:before, 
         .icon-edospnc-pnc:before {
-            font-size: 40px;
+            font-size: 20px;
         }
 
         .child-count {
@@ -59,23 +58,30 @@ log-book {
         .actions {
             flex: 0 0 50px !important;
             text-align: center;
+            div {
+                width:100%;
+                height: 100%;
+            }
         }
 
         ion-row {
             border : none;
         }
         ion-row.groupedEventRow:nth-child(even) {
-            background: color($colors, white);
+            background: color($colors-secondary, grey95);            
         }
 
         ion-row.groupedEventRow:nth-child(odd) {
-            background: color($colors-secondary, grey95);
+            background: color($colors, white);
         }
 
         ion-row.headers {
             font-size: 12px;
             background: color($colors, white) !important;
             border-bottom: 1px solid color($colors-secondary, grey95);
+            ion-col {
+                font-weight: bold;
+            }
         }
 
         ion-row > ion-col {
@@ -107,18 +113,14 @@ log-book {
         }
     
         .column-origin {
-            flex: 0 0 60px !important;
+            flex: 0 0 67px !important;
             text-align: center;
-        }
-    
-        .origin-value {
-            padding: 0px;
         }
     
         .column-date {
             flex: 0 0 90px !important;
-            min-width: 90px;
-            max-width: 90px;
+            min-width: 95px;
+            max-width: 95px;
         }
         .column-specific {
             flex: 0 0 20px !important;
@@ -133,7 +135,6 @@ log-book {
             border-radius: 4px;
             -webkit-border-radius: 4px;
             text-align: center;
-            padding: 3px;
         }
     }
 
@@ -156,5 +157,5 @@ log-book {
 }
 
 .popover-md.action-menu-popover .popover-content {
-    transform: translate(-80%, 25%) !important;
+    transform: translate(-80%, 12%) !important;
 }
