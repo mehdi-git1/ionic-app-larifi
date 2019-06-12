@@ -1,4 +1,4 @@
-export enum TabNavModeEnum {
+export enum TabHeaderModeEnum {
     EDOSSIER = 'EDOSSIER',
     ADMIN = 'ADMIN'
 }

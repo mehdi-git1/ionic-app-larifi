@@ -2,7 +2,7 @@ import { PncModel } from './../../models/pnc.model';
 import { SessionService } from '../session/session.service';
 import { AuthorizationService } from '../authorization/authorization.service';
 import { LogbookPage } from '../../../modules/logbook/pages/logbook/logbook.page';
-import { TabNavModeEnum } from '../../enums/tab-nav-mode.enum';
+import { TabHeaderModeEnum } from '../../enums/tab-header-mode.enum';
 import { UserMessageManagementPage } from '../../../modules/admin/pages/user-message-management/user-message-management.page';
 import { AppVersionManagementPage } from '../../../modules/admin/pages/app-version-management/app-version-management.page';
 import { ProfileManagementPage } from '../../../modules/admin/pages/profile-management/profile-management.page';
@@ -33,7 +33,7 @@ export class TabHeaderService {
     * @param mode le mode d'affichage demandé
     * @return une liste contenant les entrées à afficher dans les onglets
     */
-    getTabList(mode: TabNavModeEnum) {
+    getTabList(mode: TabHeaderModeEnum) {
         const currentPnc = this.sessionService.visitedPnc == undefined ? this.sessionService.getActiveUser().authenticatedPnc : this.sessionService.visitedPnc;
         if (currentPnc != this.pnc) {
             this.pnc = currentPnc;
@@ -43,7 +43,7 @@ export class TabHeaderService {
             };
         }
 
-        if (mode === TabNavModeEnum.EDOSSIER) {
+        if (mode === TabHeaderModeEnum.EDOSSIER) {
             return [
                 {
                     label: this.translateService.instant('GLOBAL.DEVELOPMENT_PROGRAM'),
@@ -105,7 +105,7 @@ export class TabHeaderService {
      * @param tab l'onglet à tester
      * @return vrai si l'onglet donné est actif, faux sinon
      */
-    isActiveTab(mode: TabNavModeEnum, tab: any): boolean {
+    isActiveTab(mode: TabHeaderModeEnum, tab: any): boolean {
         return this.activeTab[mode] == tab.component;
     }
 
@@ -114,7 +114,7 @@ export class TabHeaderService {
      * @param mode le mode concerné
      * @param tab l'onglet à définir comme actif
      */
-    setActiveTab(mode: TabNavModeEnum, tab: any) {
+    setActiveTab(mode: TabHeaderModeEnum, tab: any) {
         this.activeTab[mode] = tab.component;
     }
 

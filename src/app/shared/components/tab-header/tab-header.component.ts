@@ -1,4 +1,4 @@
-import { TabNavModeEnum } from '../../../core/enums/tab-nav-mode.enum';
+import { TabHeaderModeEnum } from '../../../core/enums/tab-header-mode.enum';
 import { Component, Input } from '@angular/core';
 import { Events, NavController } from 'ionic-angular';
 import { PncHomePage } from '../../../modules/home/pages/pnc-home/pnc-home.page';
@@ -11,11 +11,11 @@ import { TabHeaderService } from '../../../core/services/tab-header/tab-header.s
 })
 export class TabHeaderComponent {
 
-  @Input() mode: TabNavModeEnum = TabNavModeEnum.EDOSSIER;
+  @Input() mode: TabHeaderModeEnum = TabHeaderModeEnum.EDOSSIER;
 
   tabList: Array<any>;
 
-  TabNavModeEnum = TabNavModeEnum;
+  TabNavModeEnum = TabHeaderModeEnum;
 
   constructor(
     private events: Events,
@@ -44,7 +44,7 @@ export class TabHeaderComponent {
   openTab(tab: any) {
     this.tabHeaderService.setActiveTab(this.mode, tab);
     let navParams = {};
-    if (this.mode === TabNavModeEnum.EDOSSIER && this.sessionService.visitedPnc && !this.sessionService.isActiveUser(this.sessionService.visitedPnc)) {
+    if (this.mode === TabHeaderModeEnum.EDOSSIER && this.sessionService.visitedPnc && !this.sessionService.isActiveUser(this.sessionService.visitedPnc)) {
       navParams = { matricule: this.sessionService.visitedPnc.matricule };
     }
     this.navCtrl.setRoot(tab.component, navParams);

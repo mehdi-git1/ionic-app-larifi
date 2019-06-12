@@ -1,5 +1,5 @@
 import { TabNavService } from './../../../../core/services/tab-nav/tab-nav.service';
-import { TabNavModeEnum } from './../../../../core/enums/tab-nav-mode.enum';
+import { TabHeaderModeEnum } from '../../../../core/enums/tab-header-mode.enum';
 import { ProfileManagementPage } from './../../../admin/pages/profile-management/profile-management.page';
 
 import { Component } from '@angular/core';

@@ -1,5 +1,5 @@
 import { SessionService } from './../../../core/services/session/session.service';
-import { TabNavModeEnum } from './../../../core/enums/tab-nav-mode.enum';
+import { TabHeaderModeEnum } from '../../../core/enums/tab-header-mode.enum';
 import { Component } from '@angular/core';
 import { PncModel } from '../../../core/models/pnc.model';
 
@@ -11,7 +11,7 @@ export class PncEdossierHeaderComponent {
 
     pnc: PncModel;
 
-    TabNavModeEnum = TabNavModeEnum;
+    TabNavModeEnum = TabHeaderModeEnum;
 
     constructor(private sessionService: SessionService) {
         this.pnc = this.sessionService.visitedPnc !== undefined ? this.sessionService.visitedPnc : this.sessionService.getActiveUser().authenticatedPnc;
