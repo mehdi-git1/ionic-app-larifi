@@ -1,6 +1,6 @@
 import { TranslateService } from '@ngx-translate/core';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { NavParams, Events, NavController } from 'ionic-angular';
+import { Events } from 'ionic-angular';
 
 import { PncModel } from '../../../../core/models/pnc.model';
 import { PncSearchFilterComponent } from '../../components/pnc-search-filter/pnc-search-filter.component';
@@ -37,8 +37,6 @@ export class PncSearchPage implements OnInit {
     pncSearchFilter: PncSearchFilterComponent;
 
     constructor(
-        public navCtrl: NavController,
-        public navParams: NavParams,
         public translateService: TranslateService,
         private pncService: PncService,
         private pncPhotoService: PncPhotoService,
@@ -139,7 +137,7 @@ export class PncSearchPage implements OnInit {
         // Si on va sur un PNC par la recherche, on suprime de la session une enventuelle rotation.
         this.sessionService.appContext.lastConsultedRotation = null;
 
-        this.events.publish('EDossier:visited', pnc, this.navCtrl);
+        this.events.publish('EDossier:visited', pnc);
     }
 
     /**
