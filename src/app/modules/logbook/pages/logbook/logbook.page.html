@@ -35,7 +35,7 @@
                     <ion-row class="groupedEventRow" *ngFor="let groupedEvent of groupedEvents">
                         <ion-grid class="child-event-grid">
                             <span *ngFor="let logbookEvent of groupedEvent.logbookEvents; let logbookEventIndex = index">
-                                <ion-row  *ngIf="groupedEvent.expanded || logbookEventIndex === 0" (click)="goToLogbookEventDetails(logbookEvent.groupId)">
+                                <ion-row  *ngIf="groupedEvent.expanded || logbookEventIndex === 0" (click)="goToLogbookEventDetails(logbookEvent.groupId)" align-items-center>
                                     <ion-col class="arrow">
                                         <div class="child-count pointer" *ngIf="groupHasManyEvents(groupedEvent) && logbookEventIndex === 0" (click)="collapseOrExpandEventGroup($event, groupedEvent)">
                                             <ion-icon color="primary" 
