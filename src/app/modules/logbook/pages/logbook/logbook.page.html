@@ -4,7 +4,7 @@
             {{ 'GLOBAL.LOGBOOK' | isMyPage: pnc | translate }}
         </page-header>
     </ion-navbar>
-    <pnc-edossier-header [pnc]="pnc"></pnc-edossier-header>
+    <pnc-edossier-header></pnc-edossier-header>
 </ion-header>
 <ion-content padding no-bounce>
     <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
