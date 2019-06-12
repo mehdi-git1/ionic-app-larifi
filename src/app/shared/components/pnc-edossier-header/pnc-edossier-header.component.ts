@@ -20,7 +20,7 @@ export class PncEdossierHeaderComponent implements OnInit {
 
     ngOnInit() {
         // On affiche le header de navigation du PNC visité que si on ne se trouve pas sur le premier onglet de la navbar
-        if (this.sessionService.visitedPnc !== undefined && this.isMyHomeTabSelected()) {
+        if (this.sessionService.visitedPnc !== undefined && this.isVisitedPncTabSelected()) {
             this.pnc = this.sessionService.visitedPnc;
         } else {
             this.pnc = this.sessionService.getActiveUser().authenticatedPnc;
@@ -33,15 +33,15 @@ export class PncEdossierHeaderComponent implements OnInit {
      */
     isTabNavAvailable(): boolean {
         return !this.sessionService.getActiveUser().isManager
-            || this.isMyHomeTabSelected();
+            || this.isVisitedPncTabSelected();
     }
 
     /**
-     * Teste si l'onglet de la navBar sélectionné est l'onglet principal
+     * Teste si l'onglet de la navBar sélectionné est sur les onglets des dossiers visités
      * @return vrai si c'est le cas, faux sinon
      */
-    isMyHomeTabSelected(): boolean {
-        return this.navCtrl.parent && this.navCtrl.parent.getSelected() && this.navCtrl.parent.getSelected().id != 't0-0';
+    isVisitedPncTabSelected(): boolean {
+        return this.navCtrl.parent && this.navCtrl.parent.getSelected() && (this.navCtrl.parent.getSelected().id == 't0-3' || this.navCtrl.parent.getSelected().id == 't0-4');
     }
 
 }
