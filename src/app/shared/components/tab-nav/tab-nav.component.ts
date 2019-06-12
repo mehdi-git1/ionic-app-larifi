@@ -198,4 +198,11 @@ export class TabNavComponent {
     }
   }
 
+  /**
+   * Vérifie si la navigation par onglet est disponible. Celle ci est dispo uniquement pour les cadres
+   * @return vrai si la navigation par onglet est disponible, faux sinon
+   */
+  isAvailable(): boolean {
+    return this.sessionService.getActiveUser() && this.sessionService.getActiveUser().isManager;
+  }
 }
