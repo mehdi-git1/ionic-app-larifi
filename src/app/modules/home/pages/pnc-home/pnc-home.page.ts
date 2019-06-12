@@ -105,11 +105,7 @@ export class PncHomePage {
      * Dirige vers la page de visualisation des objectifs
      */
     goToCareerObjectiveList() {
-        if (this.isMyHome()) {
-            this.navCtrl.parent.select(this.tabNavService.findTabIndex(TabNavEnum.CAREER_OBJECTIVE_LIST_PAGE));
-        } else {
-            this.navCtrl.push(CareerObjectiveListPage, { matricule: this.matricule });
-        }
+        this.navCtrl.push(CareerObjectiveListPage, { matricule: this.matricule });
     }
 
     /**
@@ -117,7 +113,7 @@ export class PncHomePage {
      */
     goToHelpAssetList() {
         if (this.isMyHome()) {
-            this.navCtrl.parent.select(this.tabNavService.findTabIndex(TabNavEnum.HELP_ASSET_LIST_PAGE));
+            this.navCtrl.parent.select(this.tabNavService.getTabIndex(TabNavEnum.HELP_ASSET_LIST_PAGE));
         } else {
             this.navCtrl.push(HelpAssetListPage, { pncRole: this.specialityService.getPncRole(this.pnc.speciality), matricule: this.matricule });
         }
@@ -128,7 +124,7 @@ export class PncHomePage {
      */
     goToUpcomingFlightList() {
         if (this.isMyHome()) {
-            this.navCtrl.parent.select(this.tabNavService.findTabIndex(TabNavEnum.UPCOMING_FLIGHT_LIST_PAGE));
+            this.navCtrl.parent.select(this.tabNavService.getTabIndex(TabNavEnum.UPCOMING_FLIGHT_LIST_PAGE));
         } else {
             this.navCtrl.push(UpcomingFlightListPage, { matricule: this.matricule });
         }
@@ -139,7 +135,7 @@ export class PncHomePage {
     */
     goToPncSearch() {
         if (this.isMyHome()) {
-            this.navCtrl.parent.select(this.tabNavService.findTabIndex(TabNavEnum.PNC_SEARCH_PAGE));
+            this.navCtrl.parent.select(this.tabNavService.getTabIndex(TabNavEnum.PNC_SEARCH_PAGE));
         } else {
             this.navCtrl.push(PncSearchPage);
         }
@@ -149,33 +145,21 @@ export class PncHomePage {
      * Dirige vers l'attestation réglementaire
      */
     goToStatutoryCertificate() {
-        if (this.isMyHome() && !this.isManager()) {
-            this.navCtrl.parent.select(this.tabNavService.findTabIndex(TabNavEnum.STATUTORY_CERTIFICATE_PAGE));
-        } else {
-            this.navCtrl.push(StatutoryCertificatePage, { matricule: this.matricule });
-        }
+        this.navCtrl.push(StatutoryCertificatePage, { matricule: this.matricule });
     }
 
     /**
     * Dirige vers le suivi réglementaire
     */
     goToProfessionalLevel() {
-        if (this.isMyHome() && !this.isManager()) {
-            this.navCtrl.parent.select(this.tabNavService.findTabIndex(TabNavEnum.PROFESSIONAL_LEVEL_PAGE));
-        } else {
-            this.navCtrl.push(ProfessionalLevelPage, { matricule: this.matricule });
-        }
+        this.navCtrl.push(ProfessionalLevelPage, { matricule: this.matricule });
     }
 
     /**
     * Dirige vers les lettres de félicitation
     */
     goToCongratulationLetters() {
-        if (this.isMyHome()) {
-            this.navCtrl.parent.select(this.tabNavService.findTabIndex(TabNavEnum.CONGRATULATION_LETTERS_PAGE));
-        } else {
-            this.navCtrl.push(CongratulationLettersPage, { matricule: this.matricule });
-        }
+        this.navCtrl.push(CongratulationLettersPage, { matricule: this.matricule });
     }
 
     /**

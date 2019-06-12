@@ -1,10 +1,6 @@
-import { TabNavService } from './../../../../core/services/tab-nav/tab-nav.service';
-import { TabNavEnum } from './../../../../core/enums/tab-nav.enum';
-import { PncHomePage } from './../../../home/pages/pnc-home/pnc-home.page';
-import { CareerObjectiveListPage } from './../../../development-program/pages/career-objective-list/career-objective-list.page';
 import { TranslateService } from '@ngx-translate/core';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { NavParams, Events } from 'ionic-angular';
+import { NavParams, Events, NavController } from 'ionic-angular';
 
 import { PncModel } from '../../../../core/models/pnc.model';
 import { PncSearchFilterComponent } from '../../components/pnc-search-filter/pnc-search-filter.component';
@@ -41,6 +37,7 @@ export class PncSearchPage implements OnInit {
     pncSearchFilter: PncSearchFilterComponent;
 
     constructor(
+        public navCtrl: NavController,
         public navParams: NavParams,
         public translateService: TranslateService,
         private pncService: PncService,
@@ -142,7 +139,7 @@ export class PncSearchPage implements OnInit {
         // Si on va sur un PNC par la recherche, on suprime de la session une enventuelle rotation.
         this.sessionService.appContext.lastConsultedRotation = null;
 
-        this.events.publish('EDossier:visited', pnc);
+        this.events.publish('EDossier:visited', pnc, this.navCtrl);
     }
 
     /**
