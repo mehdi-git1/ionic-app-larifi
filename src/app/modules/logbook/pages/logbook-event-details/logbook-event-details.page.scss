@@ -1,7 +1,7 @@
 page-logbook-event-details {
 
     .draw-ligne {
-        margin: 20px 10px;
+        margin: 22px 10px;
         border-top: 1px solid color($colors-secondary, grey70);
         flex: 2;
     }
@@ -11,6 +11,10 @@ page-logbook-event-details {
         text-align: center;
         position: relative;
         top: 14px;
+
+        span {
+            white-space: nowrap;
+        }
 
     }
 }

@@ -12,71 +12,87 @@ logbook-event-details {
             padding: 10px 20px 10px 10px;
             width: 100%;
 
-            .logbook-info {
+            .logbook-head {
                 display: flex;
-                justify-content: space-between;
-                height: 25px;
 
-                .title {
-                    flex: 2;
+                .left-logbook-info {
+                    flex: 3;
 
-                    span {
-                        font-size: 1.2em;
-                        color: color($colors-secondary, blue77);
+                    .title {
+
+                        span {
+                            font-size: 1.2em;
+                            color: color($colors-secondary, blue77);
+                        }
                     }
                 }
 
-                .creation-date-info {
-                    color: color($colors, grey50);
-                }
+                .right-logbook-info {
+                    flex: 1;
 
-                .icons {
-                    flex: 2;
-                    justify-content: flex-end;
-                    display: flex;
-
-                    span.edospnc-important {
-                        padding-top: 5px;
+                    .creation-date-info {
+                        display: flex;
+                        justify-content: flex-end;
+                        color: color($colors, grey50);
                     }
-                }
 
-                .edospnc-important::before {
-                    color: color($colors-secondary, red80);
-                    font-size: 24px;
-                }
+                    .icons {
+                        flex: 2;
+                        justify-content: flex-end;
+                        display: flex;
+                        margin: 8px 0px;
+                        height: 25px;
 
-                .edospnc-pnc::before {
-                    color: color($colors-secondary, blue77);
-                    font-size: 50px;
-                    position: relative;
-                    top: -14px;
-                }
-
-                .category-label {
-                    padding-top: 2px;
-
-                    span {
-                        height: 30px;
-                        background-color: color($colors-secondary, grey70);
-                        border-radius: 4px;
-                        padding: 5px 10px;
-                        font-weight: normal;
+                        span.edospnc-important {
+                            padding-top: 5px;
+                        }
                     }
+
+
+                    .edospnc-important:before,
+                    .ion-ios-edospnc-important:before,
+                    .ion-md-edospnc-important:before,
+                    .icon-edospnc-important:before {
+                        font-size: 18px;
+                        position: relative;
+                        top: 2px;
+                    }
+
+                    .edospnc-pnc:before,
+                    .ion-ios-edospnc-pnc:before,
+                    .ion-ios-edospnc-pnc-outline:before,
+                    .ion-md-edospnc-pnc:before,
+                    .ion-md-edospnc-pnc-outline:before,
+                    .icon-edospnc-pnc:before {
+                        font-size: 40px;
+                        position: relative;
+                        top: -8px;
+                    }
+
+                    .category-label {
+
+                        span {
+                            height: 30px;
+                            background-color: color($colors-secondary, grey70);
+                            border-radius: 4px;
+                            padding: 5px 10px;
+                            font-weight: normal;
+                            white-space: nowrap;
+                        }
+                    }
+
+
                 }
 
-                .redactor {
-                    position: relative;
-                    top: -4px;
+                ion-label {
+                    font-weight: bold;
                 }
             }
-
-            ion-label {
-                font-weight: bold;
-            }
-
 
 
             .logbook-info-content {
+                margin-top: 10px;
+
                 p {
                     white-space: pre-line;
                 }
