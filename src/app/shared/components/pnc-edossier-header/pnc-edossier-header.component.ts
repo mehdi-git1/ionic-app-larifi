@@ -1,4 +1,4 @@
-import { NavController } from 'ionic-angular';
+import { NavController, Events } from 'ionic-angular';
 import { SessionService } from './../../../core/services/session/session.service';
 import { TabHeaderModeEnum } from '../../../core/enums/tab-header-mode.enum';
 import { Component, OnInit } from '@angular/core';
@@ -15,10 +15,22 @@ export class PncEdossierHeaderComponent implements OnInit {
     TabNavModeEnum = TabHeaderModeEnum;
 
     constructor(private sessionService: SessionService,
-        private navCtrl: NavController) {
+        private navCtrl: NavController,
+        private events: Events) {
+
+        this.events.subscribe('changeTab', () => {
+            this.init();
+        });
     }
 
     ngOnInit() {
+        this.init();
+    }
+
+    /**
+     * Initialisation du composant
+     */
+    init() {
         // On affiche le header de navigation du PNC visité que si on ne se trouve pas sur le premier onglet de la navbar
         if (this.sessionService.visitedPnc !== undefined && this.isVisitedPncTabSelected()) {
             this.pnc = this.sessionService.visitedPnc;
