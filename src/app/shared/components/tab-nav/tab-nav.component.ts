@@ -74,17 +74,17 @@ export class TabNavComponent {
       {
         id: TabNavEnum.PNC_HOME_PAGE,
         page: PncHomePage,
-        icon: 'edospnc-home',
+        icon: 'md-home',
       },
       {
         id: TabNavEnum.PNC_SEARCH_PAGE,
         page: PncSearchPage,
-        icon: 'edospnc-pncTeam',
+        icon: 'md-contacts',
       },
       {
         id: TabNavEnum.UPCOMING_FLIGHT_LIST_PAGE,
         page: UpcomingFlightListPage,
-        icon: 'edospnc-upcomingFlight',
+        icon: 'md-jet',
       },
       {
         id: TabNavEnum.VISITED_PNC,
@@ -99,7 +99,7 @@ export class TabNavComponent {
       {
         id: TabNavEnum.HELP_ASSET_LIST_PAGE,
         page: HelpAssetListPage,
-        icon: 'edospnc-helpCenter'
+        icon: 'md-help'
       }
     ];
   }

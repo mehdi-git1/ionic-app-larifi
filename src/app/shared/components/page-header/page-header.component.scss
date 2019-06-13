@@ -3,10 +3,6 @@ page-header {
     display: flex;
     align-items: center;
 
-    .hamburger {
-        order: 0;
-    }
-
     .title {
         color: color($colors, white);
         flex: 1;

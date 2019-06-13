@@ -1,6 +1,5 @@
 import { TabHeaderComponent } from './tab-header/tab-header.component';
 import { PncHeaderComponent } from './pnc-header/pnc-header.component';
-import { HamburgerNavComponent } from './hamburger-nav/hamburger-nav.component';
 import { PdfButtonComponent } from './pdf-button/pdf-button.component';
 import { IonicModule } from 'ionic-angular';
 import { CommonModule } from '@angular/common';
@@ -58,7 +57,6 @@ import { PncEdossierHeaderComponent } from './pnc-edossier-header/pnc-edossier-h
     TabNavComponent,
     TabHeaderComponent,
     PncEdossierHeaderComponent,
-    HamburgerNavComponent,
     NoDataComponent,
     EdospncExpandableBlockComponent,
     ColorStatusPointComponent,
@@ -85,7 +83,6 @@ import { PncEdossierHeaderComponent } from './pnc-edossier-header/pnc-edossier-h
     TabNavComponent,
     TabHeaderComponent,
     PncEdossierHeaderComponent,
-    HamburgerNavComponent,
     NoDataComponent,
     EdospncExpandableBlockComponent,
     ColorStatusPointComponent,
