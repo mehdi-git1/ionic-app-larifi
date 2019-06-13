@@ -12,6 +12,11 @@ logbook-edit {
         display: flex;
         /* autoprefixer: off */
         height: fill-available;
+        height: stretch;
+        height: -webkit-fill-available;
+        height: -moz-available;
+        max-height: -webkit-fill-available;
+        max-height: -moz-available;
         max-height: stretch;
     }
     .item-md.item-block .item-inner {
@@ -92,6 +97,11 @@ logbook-edit {
             align-items: stretch;
             /* autoprefixer: off */
             height: fill-available;
+            height: stretch;
+            height: -webkit-fill-available;
+            height: -moz-available;
+            max-height: -webkit-fill-available;
+            max-height: -moz-available;
             max-height: stretch;
             display: flex;
             textarea {
