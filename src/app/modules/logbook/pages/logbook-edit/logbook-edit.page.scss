@@ -1,10 +1,18 @@
 logbook-edit {
+    $ion-textarea-row-margin: 25px;
+
+    ion-content {
+        .scroll-content {
+            display: flex;
+            flex-direction: column;
+        }
+    }
 
     ion-grid {
-        ion-row {
-            padding-top: 5px;
-            padding-bottom: 5px;
-        }
+        display: flex;
+        /* autoprefixer: off */
+        height: fill-available;
+        max-height: stretch;
     }
     .item-md.item-block .item-inner {
         border-bottom: initial;
@@ -63,13 +71,32 @@ logbook-edit {
         }
     }
 
-    ion-textarea.big-textarea {
-        min-height: 210px !important;
-        padding: 0 !important;
-        margin: 0 !important;
-        textarea {
-            min-height: 190px !important;
-            padding: 5px !important;
+    .title-row {
+        margin-top: $ion-textarea-row-margin !important;
+    }
+
+    .event-title {
+        display: flex;
+        height: fit-content;
+    }
+    .event-length {
+        width: 100%;
+        font-size: smaller;
+        align-content: flex-end;
+        text-align: right;
+    }
+
+    .description-row {
+        margin-top: $ion-textarea-row-margin !important;
+        ion-textarea.big-textarea {
+            align-items: stretch;
+            /* autoprefixer: off */
+            height: fill-available;
+            max-height: stretch;
+            display: flex;
+            textarea {
+                align-items: stretch;
+            }
         }
     }
 

@@ -76,6 +76,7 @@
         },
         "BUTTONS": {
             "VALIDATE": "Valider",
+            "SAVE": "Enregistrer",
             "CONFIRM": "Confirmer",
             "CANCEL": "Annuler",
             "EXPORT": "Exporter"
@@ -632,7 +633,7 @@
             "EVENT_DESCRIPTION": "Description de l'évènement",
             "CONCERNED_PERSONS_LIST": "Liste des personnes concernées",
             "ADD_CONTACT": "Ajouter un contact",
-            "LOGBOOK_SAVED": "Evénement validé",
+            "LOGBOOK_SAVED": "Evénement enregistré",
             "CONFIRM_CANCEL_MESSAGE": "Confirmez-vous l'annulation de la création de l'évènement ?",
             "CONCERNED_PNCS": "Liste des personnes concernées :",
             "CONCERNED_PNC": "PNC Concerné",

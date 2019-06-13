@@ -175,3 +175,11 @@ ion-badge[outline][color="secondary"] {
 	border: solid 1px color($colors, secondary);
 	background: none;
 }
+
+@mixin truncate-text($nbLines) {
+
+    display: -webkit-box;
+    -webkit-line-clamp: $nbLines;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}

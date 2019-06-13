@@ -8,7 +8,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { NavController, AlertController, LoadingController, Loading, NavParams } from 'ionic-angular';
 import { SessionService } from './../../../../core/services/session/session.service';
 import { LogbookEventModel } from './../../../../core/models/logbook/logbook-event.model';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { LogbookEventCategory } from '../../../../core/models/logbook/logbook-event-category';
 import * as _ from 'lodash';
 import { PncLightModel } from '../../../../core/models/pnc-light.model';
@@ -27,6 +27,8 @@ export class LogbookEditPage implements OnInit  {
     pnc: PncModel;
     eventDateString: string;
     monthsNames;
+
+    titleMaxLength = 100;
 
     constructor(private sessionService: SessionService,
         private navCtrl: NavController,
