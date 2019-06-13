@@ -378,7 +378,6 @@ export class PncSearchFilterComponent implements OnInit {
     this.selectedPnc = undefined;
     this.initAutocompleteList();
 
-    console.log(pnc);
     this.pncSelected.emit(pnc);
   }
 

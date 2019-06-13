@@ -1,14 +1,10 @@
-import { CareerObjectiveListPage } from './../../../development-program/pages/career-objective-list/career-objective-list.page';
 import { PncPhotoService } from './../../../../core/services/pnc-photo/pnc-photo.service';
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavParams, Events, LoadingController } from 'ionic-angular';
 
-import { ConnectivityService } from '../../../../core/services/connectivity/connectivity.service';
 import { SessionService } from '../../../../core/services/session/session.service';
 import { LegModel } from '../../../../core/models/leg.model';
-import { PncHomePage } from '../../../home/pages/pnc-home/pnc-home.page';
 import { LegService } from '../../../../core/services/leg/leg.service';
-import { GenderService } from '../../../../core/services/gender/gender.service';
 import { CrewMemberModel } from '../../../../core/models/crew-member.model';
 import { SpecialityEnum } from '../../../../core/enums/speciality.enum';
 import { PncService } from '../../../../core/services/pnc/pnc.service';
@@ -23,14 +19,14 @@ export class FlightCrewListPage {
     leg: LegModel;
     connectedCrewMember: CrewMemberModel;
 
-    constructor(public navCtrl: NavController,
-        public navParams: NavParams,
-        public genderProvider: GenderService,
+    constructor(
+        private navParams: NavParams,
         private legService: LegService,
-        public connectivityService: ConnectivityService,
         private sessionService: SessionService,
         private pncService: PncService,
-        private pncPhotoService: PncPhotoService) {
+        private pncPhotoService: PncPhotoService,
+        private loadingCtrl: LoadingController,
+        private events: Events) {
     }
 
     ionViewDidEnter() {
@@ -125,10 +121,13 @@ export class FlightCrewListPage {
      * @param onBoardFonction la fontion a bord du pnc concerné
      */
     openPncHomePage(matricule) {
+        const loading = this.loadingCtrl.create();
+        loading.present();
         this.pncService.getPnc(matricule).then(pnc => {
+            loading.dismiss();
             if (pnc) {
                 this.sessionService.appContext.observedPnc = pnc;
-                this.navCtrl.push(CareerObjectiveListPage, { matricule: matricule });
+                this.events.publish('EDossier:visited', pnc);
             }
         });
     }
