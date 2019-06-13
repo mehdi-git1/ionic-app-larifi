@@ -26,15 +26,8 @@ export class TabNavComponent {
 
   @Input() navCtrl: Nav;
 
-  _matricule: string;
-
   @ViewChild('tabs') tabs: Tabs;
-  pnc: PncModel;
 
-  // Paramètres envoyés aux pages
-  pncParams;
-  matriculeParams;
-  roleParams;
   tabsNav;
 
   loading = true;
@@ -48,28 +41,19 @@ export class TabNavComponent {
     private translate: TranslateService,
     private sessionService: SessionService,
     public securityProvider: SecurityService,
-    private specialityService: SpecialityService,
-    private isMyPage: IsMyPage,
     private loadingCtrl: LoadingController
   ) {
     this.events.subscribe('user:authenticationDone', () => {
-      if (this.sessionService.getActiveUser() && this.sessionService.getActiveUser().isPnc) {
-        this.pncService.getPnc(this.sessionService.getActiveUser().matricule).then(pnc => {
-          this.pnc = pnc;
-          this.pncParams = this.pnc;
-          this.matriculeParams = { matricule: this.pnc.matricule };
-          this.roleParams = { pncRole: this.specialityService.getPncRole(this.pnc.speciality) };
-          if (!this.tabsNav) {
-            this.tabsNav = this.createListOfTab();
-          }
-          this.tabNavService.setListOfTabs(this.tabsNav);
-          this.updateTexts();
-          this.updatePermissions();
+      if (!this.tabsNav) {
+        this.tabsNav = this.createListOfTab();
+      }
+      this.tabNavService.setListOfTabs(this.tabsNav);
+      this.updateTexts();
+      this.updatePermissions();
 
-          this.loading = false;
-          this.navCtrl.popToRoot();
-        }, error => {
-        });
+      this.loading = false;
+      if (this.navCtrl.canGoBack()) {
+        this.navCtrl.popToRoot();
       }
     });
 
@@ -136,12 +120,12 @@ export class TabNavComponent {
  * Met à jour les textes affichés de façon dynamique
  */
   updateTexts() {
-    this.tabsNav[this.tabNavService.getTabIndex(TabNavEnum.PNC_HOME_PAGE)].title = this.translate.instant(this.isMyPage.transform('PNC_HOME.TITLE', this.pnc));
-    this.tabsNav[this.tabNavService.getTabIndex(TabNavEnum.PNC_SEARCH_PAGE)].title = this.translate.instant(this.isMyPage.transform('GLOBAL.PNC_TEAM', this.pnc));
-    this.tabsNav[this.tabNavService.getTabIndex(TabNavEnum.UPCOMING_FLIGHT_LIST_PAGE)].title = this.translate.instant(this.isMyPage.transform('GLOBAL.UPCOMING_FLIGHT', this.pnc));
+    this.tabsNav[this.tabNavService.getTabIndex(TabNavEnum.PNC_HOME_PAGE)].title = this.translate.instant('PNC_HOME.TITLE');
+    this.tabsNav[this.tabNavService.getTabIndex(TabNavEnum.PNC_SEARCH_PAGE)].title = this.translate.instant('GLOBAL.MY_PNC_TEAM');
+    this.tabsNav[this.tabNavService.getTabIndex(TabNavEnum.UPCOMING_FLIGHT_LIST_PAGE)].title = this.translate.instant('GLOBAL.MY_UPCOMING_FLIGHT');
     this.tabsNav[this.tabNavService.getTabIndex(TabNavEnum.VISITED_PNC)].title = ' ';
     this.tabsNav[this.tabNavService.getTabIndex(TabNavEnum.VISITED_MANAGER)].title = ' ';
-    this.tabsNav[this.tabNavService.getTabIndex(TabNavEnum.HELP_ASSET_LIST_PAGE)].title = this.translate.instant(this.isMyPage.transform('GLOBAL.HELP_CENTER', this.pnc));
+    this.tabsNav[this.tabNavService.getTabIndex(TabNavEnum.HELP_ASSET_LIST_PAGE)].title = this.translate.instant('GLOBAL.MY_HELP_CENTER');
   }
 
   /**
@@ -205,4 +189,5 @@ export class TabNavComponent {
   isAvailable(): boolean {
     return this.sessionService.getActiveUser() && this.sessionService.getActiveUser().isManager;
   }
+
 }
