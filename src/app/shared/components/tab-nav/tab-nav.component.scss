@@ -5,20 +5,11 @@ tab-nav {
         color: color($colors, grey50);
     }
 
-    .tabs[tabsLayout=icon-top] .has-icon .tab-button-text {
-        margin-top: 0px;
-        margin-bottom: 4px;
-    }
-
     .tab-button[aria-selected=true] .icon,
     .tab-button[aria-selected=true] {
         background: color($colors, primary);
         color: color($colors, white) !important;
         font-weight: bold;
-    }
-
-    .ion-md-briefcase {
-        padding: 6px;
     }
 
     .tabbar [class*="ion-md"] {

@@ -23,8 +23,7 @@ tab-header {
             font-weight: bold;
             border-bottom: 2px solid transparent;
 
-            &.active,
-            &:hover {
+            &.active {
                 color: color($colors, secondary);
                 border-bottom: 2px solid color($colors, secondary);
             }
