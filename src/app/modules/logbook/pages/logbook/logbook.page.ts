@@ -29,7 +29,7 @@ export class LogbookPage {
     sortAscending = false;
     sortedColumn: string;
 
-    groupedEvents = new Array<LogbookEventGroupModel>();
+    groupedEvents: Array<LogbookEventGroupModel>;
 
     constructor(public navCtrl: NavController,
         public navParams: NavParams,
@@ -43,7 +43,6 @@ export class LogbookPage {
     }
 
     ionViewWillEnter() {
-        this.groupedEvents = new Array<LogbookEventGroupModel>();
         let matricule = this.navParams.get('matricule');
         if (this.navParams.get('matricule')) {
             matricule = this.navParams.get('matricule');
@@ -73,9 +72,9 @@ export class LogbookPage {
      * @param matricule le matricule du Pnc
      */
     private getLogbookEvents(matricule: string) {
-        this.onlineLogbookEventService.getLogbookEvents(matricule).then(logbookEvents =>
+        this.onlineLogbookEventService.getLogbookEvents(matricule).then(logbookEvents => {
         // Tri des évènements par groupId
-        {
+            this.groupedEvents = new Array<LogbookEventGroupModel>();
             const groupedEventsMap = new Map<number, LogbookEventGroupModel>();
             logbookEvents.forEach(logbookEvent => {
                 if (!groupedEventsMap.has(logbookEvent.groupId)) {
@@ -87,9 +86,10 @@ export class LogbookPage {
             for (const groupedEvent of Array.from(groupedEventsMap.values())) {
                 groupedEvent.logbookEvents = this.sortLogbookEventsByEventDate(groupedEvent.logbookEvents);
                 this.groupedEvents.push(groupedEvent);
-            }
-        }
-            , error => { });
+            }}
+        , error => {
+            this.groupedEvents = new Array<LogbookEventGroupModel>();
+         });
     }
 
     /**
@@ -159,7 +159,7 @@ export class LogbookPage {
      * @return true si c'est le cas, false sinon
      */
     loadingIsOver(): boolean {
-        return this.groupedEvents !== undefined;
+        return  this.groupedEvents && this.groupedEvents !== undefined;
     }
 
     /**
