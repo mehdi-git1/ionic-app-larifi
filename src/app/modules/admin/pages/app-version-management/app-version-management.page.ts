@@ -28,7 +28,7 @@ export class AppVersionManagementPage {
     allAppVersions: AppVersionModel[];
     appVersion: AppVersionModel;
 
-    TabNavModeEnum = TabHeaderModeEnum;
+    TabHeaderModeEnum = TabHeaderModeEnum;
 
     constructor(private appVersionService: AppVersionService,
         private dateTransformer: DateTransform,

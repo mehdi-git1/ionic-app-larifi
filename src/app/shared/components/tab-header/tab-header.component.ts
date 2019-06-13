@@ -1,5 +1,5 @@
 import { TabHeaderModeEnum } from '../../../core/enums/tab-header-mode.enum';
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Events, NavController } from 'ionic-angular';
 import { PncHomePage } from '../../../modules/home/pages/pnc-home/pnc-home.page';
 import { SessionService } from '../../../core/services/session/session.service';
@@ -9,7 +9,7 @@ import { TabHeaderService } from '../../../core/services/tab-header/tab-header.s
   selector: 'tab-header',
   templateUrl: 'tab-header.component.html'
 })
-export class TabHeaderComponent {
+export class TabHeaderComponent implements OnInit {
 
   @Input() mode: TabHeaderModeEnum = TabHeaderModeEnum.EDOSSIER;
 
@@ -23,11 +23,13 @@ export class TabHeaderComponent {
     private tabHeaderService: TabHeaderService,
     private sessionService: SessionService
   ) {
-    this.initTabNav();
-
     this.events.subscribe('user:authenticationDone', () => {
       this.initTabNav();
     });
+  }
+
+  ngOnInit() {
+    this.initTabNav();
   }
 
   /**

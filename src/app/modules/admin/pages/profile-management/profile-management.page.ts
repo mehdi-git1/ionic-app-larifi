@@ -18,7 +18,7 @@ export class ProfileManagementPage {
     allPermissions: UserPermissionModel[];
     profilePermissions: UserPermissionModel[];
 
-    TabNavModeEnum = TabHeaderModeEnum;
+    TabHeaderModeEnum = TabHeaderModeEnum;
 
     constructor(
         private translateService: TranslateService,

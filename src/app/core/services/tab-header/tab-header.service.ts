@@ -28,19 +28,25 @@ export class TabHeaderService {
         private authorizationService: AuthorizationService,
         private sessionService: SessionService
     ) {
+        this.activeTab = {
+            EDOSSIER: CareerObjectiveListPage,
+            ADMIN: ProfileManagementPage
+        };
     }
 
     /**
      * Initialise la navigation par onglet
+     * @param mode le mode d'affichage
      */
-    initTabHeader() {
-        const currentPnc = this.sessionService.visitedPnc == undefined ? this.sessionService.getActiveUser().authenticatedPnc : this.sessionService.visitedPnc;
-        if (currentPnc != this.pnc) {
-            this.pnc = currentPnc;
-            this.activeTab = {
-                EDOSSIER: this.pnc && this.pnc.manager ? ProfessionalLevelPage : CareerObjectiveListPage,
-                ADMIN: ProfileManagementPage
-            };
+    initTabHeader(mode: TabHeaderModeEnum) {
+        if (mode === TabHeaderModeEnum.EDOSSIER) {
+            const currentPnc = this.sessionService.visitedPnc == undefined ? this.sessionService.getActiveUser().authenticatedPnc : this.sessionService.visitedPnc;
+            if (currentPnc != this.pnc) {
+                this.pnc = currentPnc;
+                this.activeTab.EDOSSIER = this.pnc && this.pnc.manager ? ProfessionalLevelPage : CareerObjectiveListPage;
+            }
+        } else {
+            this.activeTab.ADMIN = ProfileManagementPage;
         }
     }
 
@@ -50,7 +56,7 @@ export class TabHeaderService {
     * @return une liste contenant les entrées à afficher dans les onglets
     */
     getTabList(mode: TabHeaderModeEnum) {
-        this.initTabHeader();
+        this.initTabHeader(mode);
 
         if (mode === TabHeaderModeEnum.EDOSSIER) {
             return [

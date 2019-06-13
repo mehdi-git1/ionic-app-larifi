@@ -19,7 +19,7 @@ export class UserMessageManagementPage {
 
     userMessages: UserMessageModel[];
 
-    TabNavModeEnum = TabHeaderModeEnum;
+    TabHeaderModeEnum = TabHeaderModeEnum;
 
     constructor(private userMessageService: UserMessageService,
         private userMessageAlertService: UserMessageAlertService,
