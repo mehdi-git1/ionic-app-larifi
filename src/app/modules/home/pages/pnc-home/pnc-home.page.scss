@@ -16,36 +16,39 @@ page-pnc-home {
             .button-parent {
                 width: 50%;
                 padding: 20px;
+                display: flex;
+                flex-direction: column;
+
+                h3 {
+                    padding: 5px 5px;
+                    margin-bottom: 20px;
+                    border-bottom: 2px solid color($colors-secondary, grey75);
+
+                    &:after {
+                        content: ' ';
+                        display: block;
+                        position: relative;
+                        left: -5px;
+                        bottom: -11px;
+                        width: 30px;
+                        height: 6px;
+                        background: color($colors, primary-dark);
+                    }
+                }
 
                 button {
                     font-size: 3vmin;
                     width: 100%;
-                    height: 100%;
+                    flex: 1;
                     border-radius: 10px;
                     white-space: normal;
 
                     display: flex;
                     justify-content: center;
                     align-items: center;
-                    background: color($colors-secondary, grey98);
-                    border: 2px solid;
+                    background: color($colors, white);
                 }
 
-                .professional-level {
-                    border-color: color($colors, primary);
-                }
-
-                .statutory-certificate {
-                    border-color: color($colors, blue76);
-                }
-
-                .congratulation-letters {
-                    border-color: color($colors, green65);
-                }
-
-                .help-center {
-                    border-color: color($colors, grey20);
-                }
             }
         }
     }

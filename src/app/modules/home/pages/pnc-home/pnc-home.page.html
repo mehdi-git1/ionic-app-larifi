@@ -15,26 +15,30 @@
                 <ion-col>
                     <!--  Niveau professionnel -->
                     <div class="button-parent" *hasPermission="'VIEW_PROFESSIONAL_LEVEL'">
-                        <button (click)="goToProfessionalLevel()" class="professional-level">
-                            {{ 'GLOBAL.PROFESSIONAL_LEVEL' | translate }}
+                        <h3 class="mat-title">{{ 'GLOBAL.PROFESSIONAL_LEVEL' | translate }}</h3>
+                        <button (click)="goToProfessionalLevel()" class="elevation-2">
+
                         </button>
                     </div>
                     <!--  Attestation réglementaire -->
                     <div class="button-parent" *hasPermission="'VIEW_STATUTORY_CERTIFICATE'">
-                        <button (click)="goToStatutoryCertificate()" class="statutory-certificate">
-                            {{ 'GLOBAL.STATUTORY_CERTIFICATE' | translate }}
+                        <h3 class="mat-title">{{ 'GLOBAL.STATUTORY_CERTIFICATE' | translate }}</h3>
+                        <button (click)="goToStatutoryCertificate()" class="elevation-2">
+
                         </button>
                     </div>
                     <!--  Lettres de félicitation -->
                     <div class="button-parent">
-                        <button (click)="goToCongratulationLetters()" class="congratulation-letters">
-                            {{ 'GLOBAL.CONGRATULATION_LETTERS' | translate }}
+                        <h3 class="mat-title">{{ 'GLOBAL.CONGRATULATION_LETTERS' | translate }}</h3>
+                        <button (click)="goToCongratulationLetters()" class="elevation-2">
+
                         </button>
                     </div>
                     <!-- Ressource d'aide -->
                     <div class="button-parent">
-                        <button (click)="goToHelpAssetList()" class="help-center">
-                            {{ 'GLOBAL.HELP_CENTER' | translate }}
+                        <h3 class="mat-title">{{ 'GLOBAL.HELP_CENTER' | translate }}</h3>
+                        <button (click)="goToHelpAssetList()" class="elevation-2">
+
                         </button>
                     </div>
                 </ion-col>
