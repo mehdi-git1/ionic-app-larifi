@@ -52,8 +52,6 @@ export class CareerObjectiveCreatePage {
 
     pnc: PncModel;
 
-    notificationInstructor = false;
-
     // Permet d'exposer l'enum au template
     CareerObjectiveStatus = CareerObjectiveStatusEnum;
     WaypointStatus = WaypointStatusEnum;
@@ -250,10 +248,10 @@ export class CareerObjectiveCreatePage {
                         this.offlineCareerObjectiveService.createOrUpdate(savedCareerObjective, true);
                     }
                     if (savedCareerObjective.careerObjectiveStatus === CareerObjectiveStatusEnum.DRAFT) {
-                        if (!this.notificationInstructor) {
-                            this.toastService.success(this.translateService.instant('CAREER_OBJECTIVE_CREATE.SUCCESS.DRAFT_SAVED'));
+                        if (this.careerObjective.notification) {
+                            this.toastService.success(this.translateService.instant('CAREER_OBJECTIVE_CREATE.SUCCESS.CAREER_OBJECTIVE_INSTRUCTOR_REQUESTED'));
                         } else {
-                            this.createInstructorRequest(savedCareerObjective);
+                            this.toastService.success(this.translateService.instant('CAREER_OBJECTIVE_CREATE.SUCCESS.DRAFT_SAVED'));
                         }
                     } else if (savedCareerObjective.careerObjectiveStatus === CareerObjectiveStatusEnum.REGISTERED) {
                         if (this.cancelValidation) {
@@ -472,7 +470,7 @@ export class CareerObjectiveCreatePage {
                 }
             ]
         }).present();
-        this.notificationInstructor = true;
+        this.careerObjective.notification = true;
     }
 
     /**
@@ -570,7 +568,7 @@ export class CareerObjectiveCreatePage {
 
     /**
      * Retourne la date de création, formatée pour l'affichage
-     * @return la date de création 
+     * @return la date de création
      */
     getCreationDate(): string {
         return this.datePipe.transform(this.careerObjective.creationDate, 'dd/MM/yyyy HH:mm');
