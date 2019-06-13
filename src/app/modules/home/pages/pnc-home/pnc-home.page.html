@@ -1,69 +1,46 @@
 <ion-header>
     <ion-navbar>
         <page-header (refreshPage)="initPage()">
-            <ng-container *ngIf="isMyHome() && pnc">{{ 'PNC_HOME.TITLE' | isMyPage: pnc | translate }}</ng-container>
+            <ng-container>{{ 'PNC_HOME.MY_TITLE' | translate }}</ng-container>
         </page-header>
     </ion-navbar>
+    <pnc-edossier-header></pnc-edossier-header>
 </ion-header>
 
 <ion-content padding no-bounce>
     <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
     <ng-template #pageBlock>
         <ion-grid>
-            <ion-row>
-                <pnc-card-page-header *ngIf="pnc" [itemMember]="pnc"></pnc-card-page-header>
-            </ion-row>
             <ion-row id="nav-tile-grid" *ngIf="pnc">
                 <ion-col>
-                    <!-- Liste des objectifs-->
-                    <div class="button-parent" *ngIf="!isManager()">
-                        <button ion-button (click)="goToCareerObjectiveList()" color="red14">
-                            {{ 'GLOBAL.DEVELOPMENT_PROGRAM' | isMyPage: pnc | translate }}
-                        </button>
-                    </div>
-                    <!-- Effectif PNC -->
-                    <div class="button-parent" *ngIf="isManager()">
-                        <button ion-button (click)="goToPncSearch()" color="red20">
-                            {{ 'GLOBAL.PNC_TEAM' | isMyPage: pnc | translate }}
-                        </button>
-                    </div>
-                    <!-- Activité vols -->
-                    <div class="button-parent" *ngIf="isManager()">
-                        <button ion-button (click)="goToUpcomingFlightList()" color="blue65">
-                            {{ 'GLOBAL.UPCOMING_FLIGHT' | isMyPage: pnc | translate }}
-                        </button>
-                    </div>
                     <!--  Niveau professionnel -->
                     <div class="button-parent" *hasPermission="'VIEW_PROFESSIONAL_LEVEL'">
-                        <button ion-button (click)="goToProfessionalLevel()" color="primary">
-                            {{ 'GLOBAL.PROFESSIONAL_LEVEL' | isMyPage: pnc | translate }}
+                        <h3 class="mat-title">{{ 'GLOBAL.MY_PROFESSIONAL_LEVEL' | translate }}</h3>
+                        <button (click)="goToProfessionalLevel()" class="elevation-2">
+                            <span class="icon-af icon-af-C-metier-niv-pro"></span>
                         </button>
                     </div>
                     <!--  Attestation réglementaire -->
                     <div class="button-parent" *hasPermission="'VIEW_STATUTORY_CERTIFICATE'">
-                        <button ion-button (click)="goToStatutoryCertificate()" color="blue76">
-                            {{ 'GLOBAL.STATUTORY_CERTIFICATE' | isMyPage: pnc | translate }}
+                        <h3 class="mat-title">{{ 'GLOBAL.MY_STATUTORY_CERTIFICATE' | translate }}</h3>
+                        <button (click)="goToStatutoryCertificate()" class="elevation-2">
+                            <ion-icon name="md-person" ios="md-person"></ion-icon>
                         </button>
                     </div>
                     <!--  Lettres de félicitation -->
                     <div class="button-parent">
-                        <button ion-button (click)="goToCongratulationLetters()" color="green65">
-                            {{ 'GLOBAL.CONGRATULATION_LETTERS' | isMyPage: pnc | translate }}
-                        </button>
-                    </div>
-                    <!-- Journal de Bord -->
-                    <div class="button-parent" *ngIf="canViewLogBook()">
-                        <button ion-button (click)="goToLogbook()" color="primary-light">
-                            {{ 'GLOBAL.LOGBOOK' | isMyPage: pnc | translate }}
+                        <h3 class="mat-title">{{ 'GLOBAL.MY_CONGRATULATION_LETTERS' | translate }}</h3>
+                        <button (click)="goToCongratulationLetters()" class="elevation-2">
+                            <ion-icon name="md-mail" ios="ios-mail"></ion-icon>
                         </button>
                     </div>
                     <!-- Ressource d'aide -->
                     <div class="button-parent">
-                        <button ion-button (click)="goToHelpAssetList()" color="grey20">
-                            {{ 'GLOBAL.HELP_CENTER' | isMyPage: pnc | translate }}
+                        <h3 class="mat-title">{{ 'GLOBAL.MY_HELP_CENTER' | translate }}</h3>
+                        <button (click)="goToHelpAssetList()" class="elevation-2">
+                            <ion-icon name="md-help-circle" ios="md-help-circle"></ion-icon>
                         </button>
                     </div>
-
                 </ion-col>
             </ion-row>
         </ion-grid>

@@ -1,0 +1,36 @@
+tab-header {
+    font-family: Excellence;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    background: color($colors, white);
+
+    .tab-list {
+        display: flex;
+        overflow-x: auto;
+        background: color($colors, white);
+        color: color($colors, primary);
+        flex-wrap: nowrap;
+
+        .tab {
+            flex: 0 0 auto;
+            display: flex;
+            align-items: center;
+            padding: 15px 0;
+            margin: 0 30px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: bold;
+            border-bottom: 2px solid transparent;
+
+            &.active {
+                color: color($colors, secondary);
+                border-bottom: 2px solid color($colors, secondary);
+            }
+
+            ion-icon {
+                margin-right: 10px;
+            }
+        }
+    }
+}

@@ -8,24 +8,27 @@
     font-family: icons-bootstrap-AF;
     font-style: normal;
     font-weight: 400;
-    src: url(../../fonts/betty/icons-bootstrap-AF.eot)
+    src: url('../assets/fonts/betty/icons-bootstrap-AF.eot')
 }
 
 @font-face {
     font-family: icons-bootstrap-AF;
     font-style: normal;
     font-weight: 400;
-    src: url(../../fonts/betty/icons-bootstrap-AF.eot);
-    src: url(../../fonts/betty/icons-bootstrap-AF.eot?#iefix) format("embedded-opentype"),
-    url(../../fonts/betty/icons-bootstrap-AF.woff) format("woff"),
-    url(../../fonts/betty/icons-bootstrap-AF.ttf) format("truetype"),
-    url(../../fonts/betty/icons-bootstrap-AF.svg?#icons-bootstrap-AF) format("svg")
+    src: url('../assets/fonts/betty/icons-bootstrap-AF.eot');
+    src: url('../assets/fonts/betty/icons-bootstrap-AF.eot?#iefix') format("embedded-opentype"),
+        url('../assets/fonts/betty/icons-bootstrap-AF.woff') format("woff"),
+        url('../assets/fonts/betty/icons-bootstrap-AF.ttf') format("truetype"),
+        url('../assets/fonts/betty/icons-bootstrap-AF.svg?#icons-bootstrap-AF') format("svg")
 }
 
-.glyphicon,
+[class^="icon-af"],
+[class^="ion-md-icon-af"],
+[class^="ion-ios-icon-af"],
+.tab-button-icon,
 .icon-af {
     display: inline-block;
-    font-family: icons-bootstrap-AF;
+    font-family: icons-bootstrap-AF !important;
     font-style: normal;
     font-weight: 400;
     line-height: 1;

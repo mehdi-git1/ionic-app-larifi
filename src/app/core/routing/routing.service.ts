@@ -1,3 +1,4 @@
+import { CareerObjectiveListPage } from './../../modules/development-program/pages/career-objective-list/career-objective-list.page';
 import { AuthenticationPage } from './../../modules/home/pages/authentication/authentication.page';
 import { TranslateService } from '@ngx-translate/core';
 import { ImpersonatePage } from './../../modules/settings/pages/impersonate/impersonate.page';
@@ -32,7 +33,7 @@ export class RoutingService {
                 if (!this.deviceService.isBrowser() && !this.sessionService.impersonatedUser) {
                     this.modalSecurityService.displayPinPad(PinPadTypeEnum.openingApp);
                 }
-                navCtrl.setRoot(PncHomePage, { matricule: this.sessionService.getActiveUser().matricule });
+                navCtrl.setRoot(this.sessionService.getActiveUser().isManager ? PncHomePage : CareerObjectiveListPage, { matricule: this.sessionService.getActiveUser().matricule });
                 break;
             case AuthenticationStatusEnum.INIT_KO:
                 navCtrl.setRoot(GenericMessagePage, { message: this.translateService.instant('GLOBAL.MESSAGES.ERROR.APPLICATION_NOT_INITIALIZED') });

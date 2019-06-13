@@ -1,3 +1,4 @@
+import { TabHeaderModeEnum } from '../../../../core/enums/tab-header-mode.enum';
 import { AppVersionAlertService } from './../../../../core/services/app-version/app-version-alert.service';
 import { DateTransform } from './../../../../shared/utils/date-transform';
 import { AppVersionModel } from './../../../../core/models/admin/app-version.model';
@@ -27,7 +28,7 @@ export class AppVersionManagementPage {
     allAppVersions: AppVersionModel[];
     appVersion: AppVersionModel;
 
-
+    TabHeaderModeEnum = TabHeaderModeEnum;
 
     constructor(private appVersionService: AppVersionService,
         private dateTransformer: DateTransform,
