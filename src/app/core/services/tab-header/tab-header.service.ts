@@ -1,3 +1,5 @@
+import { UpcomingFlightListPage } from './../../../modules/flight-activity/pages/upcoming-flight-list/upcoming-flight-list.page';
+import { PncSearchPage } from './../../../modules/pnc-team/pages/pnc-search/pnc-search.page';
 import { PncModel } from './../../models/pnc.model';
 import { SessionService } from '../session/session.service';
 import { AuthorizationService } from '../authorization/authorization.service';
@@ -76,6 +78,11 @@ export class TabHeaderService {
                     label: this.translateService.instant('GLOBAL.LOGBOOK'),
                     component: LogbookPage,
                     available: this.authorizationService.hasPermission('VIEW_LOGBOOK')
+                },
+                {
+                    label: this.translateService.instant('GLOBAL.UPCOMING_FLIGHT'),
+                    component: UpcomingFlightListPage,
+                    available: this.pnc && this.pnc.manager
                 },
                 {
                     label: this.translateService.instant('GLOBAL.HELP_CENTER'),

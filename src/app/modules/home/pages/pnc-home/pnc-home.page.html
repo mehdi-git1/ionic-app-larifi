@@ -15,30 +15,30 @@
                 <ion-col>
                     <!--  Niveau professionnel -->
                     <div class="button-parent" *hasPermission="'VIEW_PROFESSIONAL_LEVEL'">
-                        <h3 class="mat-title">{{ 'GLOBAL.PROFESSIONAL_LEVEL' | translate }}</h3>
+                        <h3 class="mat-title">{{ 'GLOBAL.MY_PROFESSIONAL_LEVEL' | translate }}</h3>
                         <button (click)="goToProfessionalLevel()" class="elevation-2">
-
+                            <span class="icon-af icon-af-C-metier-niv-pro"></span>
                         </button>
                     </div>
                     <!--  Attestation réglementaire -->
                     <div class="button-parent" *hasPermission="'VIEW_STATUTORY_CERTIFICATE'">
-                        <h3 class="mat-title">{{ 'GLOBAL.STATUTORY_CERTIFICATE' | translate }}</h3>
+                        <h3 class="mat-title">{{ 'GLOBAL.MY_STATUTORY_CERTIFICATE' | translate }}</h3>
                         <button (click)="goToStatutoryCertificate()" class="elevation-2">
-
+                            <ion-icon name="md-person" ios="md-person"></ion-icon>
                         </button>
                     </div>
                     <!--  Lettres de félicitation -->
                     <div class="button-parent">
-                        <h3 class="mat-title">{{ 'GLOBAL.CONGRATULATION_LETTERS' | translate }}</h3>
+                        <h3 class="mat-title">{{ 'GLOBAL.MY_CONGRATULATION_LETTERS' | translate }}</h3>
                         <button (click)="goToCongratulationLetters()" class="elevation-2">
-
+                            <ion-icon name="md-mail" ios="ios-mail"></ion-icon>
                         </button>
                     </div>
                     <!-- Ressource d'aide -->
                     <div class="button-parent">
-                        <h3 class="mat-title">{{ 'GLOBAL.HELP_CENTER' | translate }}</h3>
+                        <h3 class="mat-title">{{ 'GLOBAL.MY_HELP_CENTER' | translate }}</h3>
                         <button (click)="goToHelpAssetList()" class="elevation-2">
-
+                            <ion-icon name="md-help-circle" ios="md-help-circle"></ion-icon>
                         </button>
                     </div>
                 </ion-col>

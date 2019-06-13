@@ -47,6 +47,22 @@ page-pnc-home {
                     justify-content: center;
                     align-items: center;
                     background: color($colors, white);
+
+                    ion-icon {
+                        font-size: 3em;
+                        color: color($colors, primary-light);
+                    }
+
+                    .icon-af-B-digital-presse {
+                        font-size: 2.3em;
+                        color: color($colors, primary-light);
+
+                    }
+
+                    .icon-af-C-metier-niv-pro {
+                        font-size: 3em;
+                        color: color($colors, primary-light);
+                    }
                 }
 
             }

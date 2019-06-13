@@ -52,8 +52,14 @@ pnc-card {
                         font-size: 1.5em;
                     }
 
-                    .lastname {
+                    .lastname,
+                    .firstname {
                         font-size: 1.2em;
+                        color: color($colors, primary);
+                    }
+
+                    .matricule {
+                        color: color($colors, grey20);
                     }
                 }
             }

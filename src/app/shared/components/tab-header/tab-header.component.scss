@@ -9,7 +9,7 @@ tab-header {
         display: flex;
         overflow-x: auto;
         background: color($colors, white);
-        color: color($colors, grey50);
+        color: color($colors, primary);
         flex-wrap: nowrap;
 
         .tab {
@@ -21,12 +21,12 @@ tab-header {
             text-transform: uppercase;
             letter-spacing: 1px;
             font-weight: bold;
-            border-bottom: 3px solid transparent;
+            border-bottom: 2px solid transparent;
 
             &.active,
             &:hover {
-                color: color($colors, primary);
-                border-bottom: 3px solid color($colors, primary);
+                color: color($colors, secondary);
+                border-bottom: 2px solid color($colors, secondary);
             }
 
             ion-icon {

@@ -2,7 +2,7 @@ tab-nav {
 
     .tab-button[aria-selected=false] .icon,
     .tab-button[aria-selected=false] {
-        color: color($colors-secondary, grey10);
+        color: color($colors, grey50);
     }
 
     .tabs[tabsLayout=icon-top] .has-icon .tab-button-text {
@@ -17,8 +17,13 @@ tab-nav {
         font-weight: bold;
     }
 
-
     .ion-md-briefcase {
         padding: 6px;
     }
+
+    .tabbar [class*="ion-md"] {
+        color: color($colors, grey20) !important;
+        font-size: 2em !important;
+    }
+
 }

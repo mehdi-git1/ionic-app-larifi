@@ -99,7 +99,7 @@ export class TabNavComponent {
       {
         id: TabNavEnum.HELP_ASSET_LIST_PAGE,
         page: HelpAssetListPage,
-        icon: 'md-help'
+        icon: 'md-help-circle'
       }
     ];
   }
