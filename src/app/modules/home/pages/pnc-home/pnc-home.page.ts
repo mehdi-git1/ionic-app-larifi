@@ -13,16 +13,10 @@ import { FormsInputParamsModel } from './../../../../core/models/forms-input-par
 import { PncModel } from '../../../../core/models/pnc.model';
 
 import { ProfessionalLevelPage } from '../../../professional-level/pages/professional-level/professional-level.page';
-import { UpcomingFlightListPage } from '../../../flight-activity/pages/upcoming-flight-list/upcoming-flight-list.page';
-import { CareerObjectiveListPage } from '../../../development-program/pages/career-objective-list/career-objective-list.page';
-import { HelpAssetListPage } from '../../../help-asset/pages/help-asset-list/help-asset-list.page';
-import { PncSearchPage } from '../../../pnc-team/pages/pnc-search/pnc-search.page';
 import { StatutoryCertificatePage } from '../../../statutory-certificate/pages/statutory-certificate/statutory-certificate.page';
-import { LogbookPage } from '../../../logbook/pages/logbook/logbook.page';
 import { CongratulationLettersPage } from '../../../congratulation-letter/pages/congratulation-letters/congratulation-letters.page';
 
 import { AppVersionAlertService } from './../../../../core/services/app-version/app-version-alert.service';
-import { AuthorizationService } from './../../../../core/services/authorization/authorization.service';
 import { UserMessageAlertService } from './../../../../core/services/user-message/user-message-alert.service';
 import { SynchronizationService } from '../../../../core/services/synchronization/synchronization.service';
 import { SessionService } from '../../../../core/services/session/session.service';
@@ -30,7 +24,6 @@ import { ToastService } from '../../../../core/services/toast/toast.service';
 import { GenderService } from '../../../../core/services/gender/gender.service';
 import { PncService } from '../../../../core/services/pnc/pnc.service';
 import { ConnectivityService } from '../../../../core/services/connectivity/connectivity.service';
-import { SpecialityService } from '../../../../core/services/speciality/speciality.service';
 import { TabNavEnum } from '../../../../core/enums/tab-nav.enum';
 
 @Component({
@@ -42,9 +35,6 @@ export class PncHomePage {
     pnc: PncModel;
     matricule: string;
     synchroInProgress: boolean;
-    eObservation: FormsInputParamsModel;
-    // exporter la classe enum speciality dans la page html
-    Speciality = SpecialityEnum;
     formatedSpeciality: string;
 
     constructor(public navCtrl: NavController,
@@ -58,10 +48,8 @@ export class PncHomePage {
         private pncService: PncService,
         private events: Events,
         private statusBar: StatusBar,
-        private specialityService: SpecialityService,
         private userMessageAlertService: UserMessageAlertService,
         private appVersionAlertService: AppVersionAlertService,
-        private authorizationService: AuthorizationService,
         private tabNavService: TabNavService
     ) {
         this.userMessageAlertService.handleUserMessage();
@@ -101,45 +89,15 @@ export class PncHomePage {
         }
     }
 
-    /**
-     * Dirige vers la page de visualisation des objectifs
-     */
-    goToCareerObjectiveList() {
-        this.navCtrl.push(CareerObjectiveListPage, { matricule: this.matricule });
-    }
 
     /**
      * Dirige vers la page des ressources d'aide
      */
     goToHelpAssetList() {
-        if (this.isMyHome()) {
-            this.navCtrl.parent.select(this.tabNavService.getTabIndex(TabNavEnum.HELP_ASSET_LIST_PAGE));
-        } else {
-            this.navCtrl.push(HelpAssetListPage, { pncRole: this.specialityService.getPncRole(this.pnc.speciality), matricule: this.matricule });
-        }
+        this.navCtrl.parent.select(this.tabNavService.getTabIndex(TabNavEnum.HELP_ASSET_LIST_PAGE));
     }
 
-    /**
-     * Dirige vers la liste des prochains vols
-     */
-    goToUpcomingFlightList() {
-        if (this.isMyHome()) {
-            this.navCtrl.parent.select(this.tabNavService.getTabIndex(TabNavEnum.UPCOMING_FLIGHT_LIST_PAGE));
-        } else {
-            this.navCtrl.push(UpcomingFlightListPage, { matricule: this.matricule });
-        }
-    }
 
-    /**
-    * Dirige vers l'effectif PNC
-    */
-    goToPncSearch() {
-        if (this.isMyHome()) {
-            this.navCtrl.parent.select(this.tabNavService.getTabIndex(TabNavEnum.PNC_SEARCH_PAGE));
-        } else {
-            this.navCtrl.push(PncSearchPage);
-        }
-    }
 
     /**
      * Dirige vers l'attestation réglementaire
@@ -160,13 +118,6 @@ export class PncHomePage {
     */
     goToCongratulationLetters() {
         this.navCtrl.push(CongratulationLettersPage, { matricule: this.matricule });
-    }
-
-    /**
-    * Dirige vers le Journal De Bord
-    */
-    goToLogbook() {
-        this.navCtrl.push(LogbookPage, { matricule: this.matricule });
     }
 
     /**
@@ -194,33 +145,6 @@ export class PncHomePage {
     */
     loadingIsOver(): boolean {
         return this.pnc !== undefined;
-    }
-
-    /**
-     * Vérifie que la page courante est la homepage de la personne connectée
-     * @return vrai si c'est le cas, faux sinon
-     */
-    isMyHome(): boolean {
-        return this.sessionService.isActiveUser(this.pnc);
-    }
-
-    /**
-     * Vérifie si le PNC est manager
-     * @return vrai si le PNC est manager, faux sinon
-     */
-    isManager(): boolean {
-        return this.pnc && this.pnc.speciality === SpecialityEnum.CAD;
-    }
-
-    /**
-     * Détermine si le journal de bord est disponible. Il est disponible si on a la permission requise et  :
-     *  - soit je suis Pnc et c'est mon eDossier
-     *  - soit je suis Cadre et ce n'est pas mon eDossier, mais celui d'un Pnc
-     */
-    canViewLogBook(): boolean {
-        const isMyHomeAndImPnc = this.isMyHome() && !this.isManager();
-        const isAPncHomeAndImManager = !this.isMyHome() && !this.isManager() && this.sessionService.getActiveUser().isManager;
-        return this.authorizationService.hasPermission('VIEW_LOGBOOK') && (isAPncHomeAndImManager || isMyHomeAndImPnc);
     }
 
 }

@@ -1,7 +1,7 @@
 <ion-header>
     <ion-navbar>
         <page-header (refreshPage)="initPage()">
-            <ng-container *ngIf="isMyHome() && pnc">{{ 'PNC_HOME.TITLE' | isMyPage: pnc | translate }}</ng-container>
+            <ng-container>{{ 'PNC_HOME.MY_TITLE' | translate }}</ng-container>
         </page-header>
     </ion-navbar>
     <pnc-edossier-header></pnc-edossier-header>
