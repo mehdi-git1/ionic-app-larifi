@@ -51,11 +51,11 @@ export class LogbookPage {
             matricule = this.sessionService.getActiveUser().matricule;
         }
         if (matricule != null) {
-          this.pncService.getPnc(matricule).then(pnc => {
-            this.pnc = pnc;
-          }, error => { });
+            this.pncService.getPnc(matricule).then(pnc => {
+                this.pnc = pnc;
+            }, error => { });
 
-          this.getLogbookEvents(matricule);
+            this.getLogbookEvents(matricule);
         }
     }
 
@@ -75,19 +75,21 @@ export class LogbookPage {
     private getLogbookEvents(matricule: string) {
         this.onlineLogbookEventService.getLogbookEvents(matricule).then(logbookEvents =>
         // Tri des évènements par groupId
-        {const groupedEventsMap = new Map<number, LogbookEventGroupModel>();
-        logbookEvents.forEach(logbookEvent => {
-            if (!groupedEventsMap.has(logbookEvent.groupId)) {
-                groupedEventsMap.set(logbookEvent.groupId, new LogbookEventGroupModel(logbookEvent.groupId, this.dateTransform));
+        {
+            const groupedEventsMap = new Map<number, LogbookEventGroupModel>();
+            logbookEvents.forEach(logbookEvent => {
+                if (!groupedEventsMap.has(logbookEvent.groupId)) {
+                    groupedEventsMap.set(logbookEvent.groupId, new LogbookEventGroupModel(logbookEvent.groupId, this.dateTransform));
+                }
+                groupedEventsMap.get(logbookEvent.groupId).logbookEvents.push(logbookEvent);
+            });
+            // Tri des events de chaque groupe par date d'évènement
+            for (const groupedEvent of Array.from(groupedEventsMap.values())) {
+                groupedEvent.logbookEvents = this.sortLogbookEventsByEventDate(groupedEvent.logbookEvents);
+                this.groupedEvents.push(groupedEvent);
             }
-            groupedEventsMap.get(logbookEvent.groupId).logbookEvents.push(logbookEvent);
-        });
-        // Tri des events de chaque groupe par date d'évènement
-        for (const groupedEvent of Array.from(groupedEventsMap.values())) {
-            groupedEvent.logbookEvents = this.sortLogbookEventsByEventDate(groupedEvent.logbookEvents);
-            this.groupedEvents.push(groupedEvent);
-        }}
-        , error => { });
+        }
+            , error => { });
     }
 
     /**
@@ -175,7 +177,7 @@ export class LogbookPage {
      */
     openActionsMenu(myEvent: Event, logbookEvent: LogbookEventModel) {
         myEvent.stopPropagation();
-        const popover = this.popoverCtrl.create(LogbookEventActionMenuComponent, { logbookEvent: logbookEvent}, { cssClass: 'action-menu-popover' });
+        const popover = this.popoverCtrl.create(LogbookEventActionMenuComponent, { logbookEvent: logbookEvent, navCtrl: this.navCtrl }, { cssClass: 'action-menu-popover' });
         popover.present({
             ev: myEvent
         });

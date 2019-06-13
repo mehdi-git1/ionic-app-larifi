@@ -97,6 +97,12 @@ body,
     font-family: OpenSans, Arial, Helvetica, sans-serif;
 }
 
+ion-app.md,
+ion-app.ios {
+    background-color: color($colors-secondary, grey98) !important;
+    font-family: OpenSans, Arial, Helvetica, sans-serif;
+}
+
 ion-textarea,
 ion-input {
     background-color: color($colors, white);
@@ -159,19 +165,19 @@ ion-content > .scroll-content {
 
 ion-badge[outline],
 ion-badge[outline][color="primary"] {
-	color: color($colors, primary);
-	border: solid 1px color($colors, primary);
-	background: none;
+    color: color($colors, primary);
+    border: solid 1px color($colors, primary);
+    background: none;
 }
 
 ion-badge[outline][color="secondary"] {
-	color: color($colors, secondary);
-	border: solid 1px color($colors, secondary);
-	background: none;
+    color: color($colors, secondary);
+    border: solid 1px color($colors, secondary);
+    background: none;
 }
 
 ion-badge[outline][color="secondary"] {
-	color: color($colors, secondary);
-	border: solid 1px color($colors, secondary);
-	background: none;
+    color: color($colors, secondary);
+    border: solid 1px color($colors, secondary);
+    background: none;
 }
