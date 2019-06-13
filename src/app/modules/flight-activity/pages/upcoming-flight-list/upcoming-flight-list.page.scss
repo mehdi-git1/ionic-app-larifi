@@ -9,14 +9,14 @@ page-upcoming-flight-list {
 
     .last-performed-rotations {
         ion-card-header {
-            background: color($colors-secondary, grey70);
-            color: color($colors-secondary, grey40);
+            background: color($colors, primary-light);
+            color: color($colors, white);
         }
     }
 
     .upcoming-rotations {
         ion-card-header {
-            background: color($colors, primary-light);
+            background: color($colors, primary-dark);
             color: color($colors, white);
         }
     }

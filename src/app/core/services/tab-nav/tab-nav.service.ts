@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { TabNavEnum } from '../../enums/tab-nav.enum';
 
 @Injectable()
 export class TabNavService {
@@ -24,8 +25,17 @@ export class TabNavService {
      * @param idTab Nom de la tab voulu (correspond à l'ID de la liste => enum navTab)
      * @return index du tab demandé
      */
-    findTabIndex(idTab): number {
+    getTabIndex(idTab): number {
         return this.listOfTab.findIndex((element) => element['id'] === idTab);
+    }
+
+    /**
+     * Retourne l'onglet demandé
+     * @param tabNav Id du tab voulu
+     * @return l'onglet demandé
+     */
+    getTab(tabNav: TabNavEnum): any {
+        return this.listOfTab[this.getTabIndex(tabNav)];
     }
 
 

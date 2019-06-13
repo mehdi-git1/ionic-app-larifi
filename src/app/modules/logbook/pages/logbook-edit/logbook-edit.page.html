@@ -33,16 +33,17 @@
                     </ion-item>
                 </ion-col>
             </ion-row>
-            <ion-row>
+            <ion-row class="title-row">
                 <ion-item>
                     <ion-label class="required" floating>{{ 'LOGBOOK.EDIT.EVENT_TITLE' | translate }}</ion-label>
-                    <ion-input [(ngModel)]="logbookEvent.title" autocorrect="on" maxlength="255"></ion-input>
+                    <ion-textarea  class="event-title" [(ngModel)]="logbookEvent.title" rows="2" autocorrect="on" [maxlength]="titleMaxLength" #eventTitle></ion-textarea>
                 </ion-item>
+                <span class="event-length">{{eventTitle.value.length}}/{{titleMaxLength}}</span>
             </ion-row>
-            <ion-row>
+            <ion-row class="description-row">
                 <ion-item>
                     <ion-label class="required" floating>{{ 'LOGBOOK.EDIT.EVENT_DESCRIPTION' | translate }}</ion-label>
-                    <ion-textarea class="big-textarea" [(ngModel)]="logbookEvent.content" autocorrect="on"></ion-textarea>
+                    <ion-textarea class="big-textarea" [(ngModel)]="logbookEvent.content" autocorrect="on" #descriptionTextArea></ion-textarea>
                 </ion-item>
             </ion-row>
         </ion-grid>
@@ -54,7 +55,7 @@
             </button>
             <!-- Bouton Valider -->
             <button ion-button color="primary" (click)="saveLogbookEvent()" [disabled]="!canBeSaved()">
-                {{ 'GLOBAL.BUTTONS.VALIDATE' | translate }}
+                {{ 'GLOBAL.BUTTONS.SAVE' | translate }}
             </button>
         </div>
     </ng-template>

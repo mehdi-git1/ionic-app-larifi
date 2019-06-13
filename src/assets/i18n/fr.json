@@ -76,6 +76,7 @@
         },
         "BUTTONS": {
             "VALIDATE": "Valider",
+            "SAVE": "Enregistrer",
             "CONFIRM": "Confirmer",
             "CANCEL": "Annuler",
             "EXPORT": "Exporter",
@@ -633,7 +634,7 @@
             "EVENT_DESCRIPTION": "Description de l'évènement",
             "CONCERNED_PERSONS_LIST": "Liste des personnes concernées",
             "ADD_CONTACT": "Ajouter un contact",
-            "LOGBOOK_SAVED": "Evénement validé",
+            "LOGBOOK_SAVED": "Evénement enregistré",
             "CONFIRM_CANCEL_MESSAGE": "Confirmez-vous l'annulation de la création de l'évènement ?",
             "CONCERNED_PNCS": "Liste des personnes concernées :",
             "CONCERNED_PNC": "PNC Concerné",
@@ -704,8 +705,7 @@
         }
     },
     "SETTINGS": {
-        "TITLE": "Réglages",
-        "MY_TITLE": "Mes réglages",
+        "TITLE": "Paramètres",
         "INIT_CACHE": {
             "LABEL": "Vider le cache",
             "SUCCESS": "Cache vidé avec succès"
@@ -742,8 +742,8 @@
             "CONFIRM": "Confirmer"
         },
         "IMPERSONATE_USER": {
-            "LABEL": "Impersonnifier un utilisateur",
-            "FIRST_NAV_TAB_IS_MANDATORY": "Vous devez vous placer sur votre page d'accueil pour pouvoir utiliser l'impersonnification"
+            "FIRST_NAV_TAB_IS_MANDATORY": "Vous devez vous placer sur votre page d'accueil pour pouvoir utiliser l'impersonnification",
+            "LABEL": "Impersonnifier un utilisateur"
         }
     },
     "IMPERSONATE": {
@@ -780,14 +780,11 @@
         "NO_SYNCHRO_REQUEST": "Aucune demande"
     },
     "ADMIN": {
-        "ADMIN_HOME": {
-            "NAV_TITLE": "Administration",
-            "BUTTON": {
-                "PROFILE_MANAGEMENT": "Gérer la liste des profils",
-                "APP_VERSION_MANAGEMENT": "Gérer la liste des versions",
-                "USER_MESSAGE_MANAGEMENT": "Gérer les messages aux utilisateurs",
-                "RETURN_TO_HOME": "Retour à la page d'accueil"
-            }
+        "ADMIN_NAV_TABS": {
+            "HOME": "Accueil",
+            "PROFILE_MANAGEMENT": "Permissions",
+            "APP_VERSION_MANAGEMENT": "Versions",
+            "USER_MESSAGE_MANAGEMENT": "Messages utilisateurs"
         },
         "PROFILE_MANAGEMENT": {
             "TITLE": "Gestion des profils",

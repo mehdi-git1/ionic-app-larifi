@@ -21,7 +21,8 @@ export class UpcomingFlightListPage {
         private pncProvider: PncService,
         private sessionService: SessionService) {
     }
-    ionViewDidLoad() {
+
+    ionViewDidEnter() {
         this.initPage();
     }
 
@@ -35,6 +36,8 @@ export class UpcomingFlightListPage {
             this.matricule = this.sessionService.getActiveUser().matricule;
         }
 
+        this.lastPerformedRotations = undefined;
+        this.upcomingRotations = undefined;
         this.pncProvider.getAllRotations(this.matricule).then(allRotations => {
             // Tri des rotations par date ascendante
             allRotations = this.sortByAscendingDepartureDate(allRotations);

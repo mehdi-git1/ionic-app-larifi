@@ -6,7 +6,7 @@
 </ion-header>
 
 <ion-content padding no-bounce>
-    <pnc-search-filter (onSearch)="searchPncs()"></pnc-search-filter>
+    <pnc-search-filter (onSearch)="searchPncs()" (pncSelected)="openPncHomePage($event)"></pnc-search-filter>
 
     <ion-content class="filtered-pnc-list-container">
         <edossier-spinner *ngIf="searchInProgress"></edossier-spinner>

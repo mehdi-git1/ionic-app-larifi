@@ -4,14 +4,6 @@ page-pnc-home {
         height: 100%;
     }
 
-    pnc-card-page-header {
-        width: 100%;
-
-        .pnc-info-box {
-            margin: 15px;
-        }
-    }
-
     #nav-tile-grid {
         flex: 1;
 
@@ -23,15 +15,56 @@ page-pnc-home {
 
             .button-parent {
                 width: 50%;
-                padding: 10px;
+                padding: 20px;
+                display: flex;
+                flex-direction: column;
+
+                h3 {
+                    padding: 5px 5px;
+                    margin-bottom: 20px;
+                    border-bottom: 2px solid color($colors-secondary, grey75);
+
+                    &:after {
+                        content: ' ';
+                        display: block;
+                        position: relative;
+                        left: -5px;
+                        bottom: -11px;
+                        width: 30px;
+                        height: 6px;
+                        background: color($colors, primary-dark);
+                    }
+                }
 
                 button {
                     font-size: 3vmin;
                     width: 100%;
-                    height: 100%;
+                    flex: 1;
                     border-radius: 10px;
                     white-space: normal;
+
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    background: color($colors, white);
+
+                    ion-icon {
+                        font-size: 3em;
+                        color: color($colors, primary-light);
+                    }
+
+                    .icon-af-B-digital-presse {
+                        font-size: 2.3em;
+                        color: color($colors, primary-light);
+
+                    }
+
+                    .icon-af-C-metier-niv-pro {
+                        font-size: 3em;
+                        color: color($colors, primary-light);
+                    }
                 }
+
             }
         }
     }

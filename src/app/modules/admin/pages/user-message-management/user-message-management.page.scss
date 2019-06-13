@@ -6,7 +6,7 @@ page-user-message-management {
         display: block;
     }
 
-    .active {
+    ion-item.active {
         background: color($colors-secondary, grey75);
     }
 

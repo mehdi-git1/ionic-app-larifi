@@ -127,4 +127,5 @@ export class EDossierPNC implements OnInit {
   isInternetExplorer() {
     return navigator.userAgent.search(/(?:Edge|MSIE|Trident\/.*; rv:)/) !== -1;
   }
+
 }

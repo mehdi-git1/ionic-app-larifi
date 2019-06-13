@@ -1,7 +1,12 @@
 log-book {
 
-    .scroll-content {
-        margin-bottom: 0px !important;
+    $nbLinesMaxOnRow: 2;
+
+    ion-content {
+        .scroll-content {
+            display: flex;
+            flex-direction: column;
+        }
     }
 
     ion-button {
@@ -82,13 +87,18 @@ log-book {
             border-bottom: 1px solid color($colors-secondary, grey95);
             ion-col {
                 font-weight: bold;
+                display: flex;
             }
         }
 
         ion-row > ion-col {
             align-items: center;
+            max-height: 48px;
         }
 
+        .event-row {
+            height: 48px;
+        }
         .column-child-events{
             flex: 0 0 20px !important;
         }
@@ -100,6 +110,11 @@ log-book {
         .column-title {
             min-width: 120px;
         }
+
+        .truncate-text {
+            @include truncate-text($nbLinesMaxOnRow);
+        }
+
         .column-category{
             flex: 0 0 120px !important;
             min-width: 50px;

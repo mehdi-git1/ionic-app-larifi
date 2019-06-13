@@ -9,18 +9,15 @@ describe('tabNavService', () => {
         tabNavService = new TabNavService();
         tabNavService.listOfTab = [
             { id: TabNavEnum.PNC_HOME_PAGE },
-            { id: TabNavEnum.CAREER_OBJECTIVE_LIST_PAGE },
             { id: TabNavEnum.PNC_SEARCH_PAGE },
             { id: TabNavEnum.UPCOMING_FLIGHT_LIST_PAGE },
-            { id: TabNavEnum.HELP_ASSET_LIST_PAGE },
-            { id: TabNavEnum.STATUTORY_CERTIFICATE_PAGE },
-            { id: TabNavEnum.PROFESSIONAL_LEVEL_PAGE }
+            { id: TabNavEnum.HELP_ASSET_LIST_PAGE }
         ];
     });
 
     describe('findTabIndex', () => {
-        it(`doit ramener 1 lorsque le paramêtre est ${TabNavEnum.CAREER_OBJECTIVE_LIST_PAGE} `, () => {
-            const indexReturn = tabNavService.findTabIndex(TabNavEnum.CAREER_OBJECTIVE_LIST_PAGE);
+        it(`doit ramener  lorsque le paramêtre est ${TabNavEnum.PNC_SEARCH_PAGE} `, () => {
+            const indexReturn = tabNavService.getTabIndex(TabNavEnum.PNC_SEARCH_PAGE);
             expect(indexReturn).toBe(1);
         });
     });
