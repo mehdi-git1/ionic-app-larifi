@@ -8,13 +8,13 @@ import { NavController, Events, Keyboard } from 'ionic-angular';
 import { PncService } from '../../../../core/services/pnc/pnc.service';
 import { Subject } from 'rxjs/Rx';
 import { SessionService } from '../../../../core/services/session/session.service';
-import { PncHomePage } from '../../../home/pages/pnc-home/pnc-home.page';
 import { Observable } from 'rxjs/Observable';
 import { from } from 'rxjs/observable/from';
 import { AppConstant } from '../../../../app.constant';
 import { PncFilterModel } from '../../../../core/models/pnc-filter.model';
 import { PncModel } from '../../../../core/models/pnc.model';
 import { SpecialityEnum } from '../../../../core/enums/speciality.enum';
+import { TabNavService } from '../../../../core/services/tab-nav/tab-nav.service';
 
 
 @Component({
@@ -22,6 +22,8 @@ import { SpecialityEnum } from '../../../../core/enums/speciality.enum';
   templateUrl: 'pnc-search-filter.component.html'
 })
 export class PncSearchFilterComponent implements OnInit {
+  private static CDK_OVERLAY_0 = '#cdk-overlay-0';
+  private static MAT_AUTOCOMPLETE_0 = '#mat-autocomplete-0';
 
   @Output() onSearch: EventEmitter<any> = new EventEmitter();
 
@@ -68,7 +70,8 @@ export class PncSearchFilterComponent implements OnInit {
     private pncProvider: PncService,
     private connectivityService: ConnectivityService,
     private events: Events,
-    private keyboard: Keyboard
+    private keyboard: Keyboard,
+    private tabNavService: TabNavService
   ) {
     this.connectivityService.connectionStatusChange.subscribe(connected => {
       this.initFilter();
@@ -85,7 +88,7 @@ export class PncSearchFilterComponent implements OnInit {
     this.keyboard.didShow.subscribe(() => {
       this.checkIfAutoCompleteIsOpen();
       if (this.autoCompleteTopPosition != -1) {
-        $('#cdk-overlay-0').css('top', this.autoCompleteTopPosition + 'px');
+        $(PncSearchFilterComponent.CDK_OVERLAY_0).css('top', this.autoCompleteTopPosition + 'px');
       }
     });
 
@@ -94,8 +97,8 @@ export class PncSearchFilterComponent implements OnInit {
      */
     this.keyboard.didHide.subscribe(() => {
       const newHeight = window.innerHeight - this.autoCompleteTopPosition;
-      $('#cdk-overlay-0').css('top', this.autoCompleteTopPosition + 'px');
-      setTimeout(() => { $('#mat-autocomplete-0').css('max-height', newHeight + 'px'); }, 5000);
+      $(PncSearchFilterComponent.CDK_OVERLAY_0).css('top', this.autoCompleteTopPosition + 'px');
+      setTimeout(() => { $(PncSearchFilterComponent.MAT_AUTOCOMPLETE_0).css('max-height', newHeight + 'px'); }, 5000);
     });
   }
 
@@ -104,7 +107,7 @@ export class PncSearchFilterComponent implements OnInit {
    */
   checkIfAutoCompleteIsOpen() {
     setTimeout(() => {
-      if ($('#mat-autocomplete-0').length != 0) {
+      if ($(PncSearchFilterComponent.MAT_AUTOCOMPLETE_0).length != 0) {
         this.changeHeightOnOpen();
       } else {
         this.checkIfAutoCompleteIsOpen();
@@ -116,9 +119,9 @@ export class PncSearchFilterComponent implements OnInit {
    * Change la max-height de l'autocomplete en fonction de la taille de l'affichage disponible
    */
   changeHeightOnOpen() {
-    this.autoCompleteTopPosition = this.autoCompleteTopPosition != -1 ? this.autoCompleteTopPosition : $('#cdk-overlay-0').offset().top;
-    $('#cdk-overlay-0').css('top', this.autoCompleteTopPosition + 'px');
-    $('#mat-autocomplete-0').css('max-height', window.innerHeight - this.autoCompleteTopPosition + 'px');
+    this.autoCompleteTopPosition = this.autoCompleteTopPosition != -1 ? this.autoCompleteTopPosition : $(PncSearchFilterComponent.CDK_OVERLAY_0).offset().top;
+    $(PncSearchFilterComponent.CDK_OVERLAY_0).css('top', this.autoCompleteTopPosition + 'px');
+    $(PncSearchFilterComponent.MAT_AUTOCOMPLETE_0).css('max-height', window.innerHeight - this.autoCompleteTopPosition + 'px');
   }
 
   /**
@@ -169,6 +172,7 @@ export class PncSearchFilterComponent implements OnInit {
    * Réinitialise les valeurs des filtres de recherche
    */
   resetFilterValues() {
+    this.selectedPnc = null;
     this.defaultValue = true;
     this.pncFilter.division = this.defaultDivision ? this.defaultDivision : AppConstant.ALL;
     this.divisionOnchanges();
@@ -183,6 +187,7 @@ export class PncSearchFilterComponent implements OnInit {
     this.searchForm.get('aircraftSkillControl').setValue(this.aircraftSkillList && this.aircraftSkillList.length === 1 ? this.aircraftSkillList[0] : AppConstant.ALL);
     this.searchForm.get('relayControl').setValue(this.relayList && this.relayList.length === 1 ? this.relayList[0] : AppConstant.ALL);
     this.autoCompleteForm.get('pncMatriculeControl').setValue('');
+    this.autoCompleteRunning = false;
     this.searchForm.get('prioritizedControl').setValue(false);
     this.search();
     this.defaultValue = false;
@@ -212,15 +217,16 @@ export class PncSearchFilterComponent implements OnInit {
       this.initAutocompleteList();
       this.resetFilterValues();
       this.formOnChanges();
+      this.pncMatriculeControl = this.autoCompleteForm.get('pncMatriculeControl');
     }
   }
 
   /**
-    * recharge la liste des pnc de l'autocompletion aprés 300ms
+    * recharge la liste des pnc de l'autocompletion aprés 500ms
     */
   initAutocompleteList() {
     this.pncList = this.searchTerms
-      .debounceTime(300)
+      .debounceTime(500)
       .distinctUntilChanged()
       .switchMap(
         term => this.getAutoCompleteDataReturn(term)
@@ -242,7 +248,7 @@ export class PncSearchFilterComponent implements OnInit {
       return from(this.pncProvider.pncAutoComplete(term).then(
         data => {
           this.autoCompleteRunning = false;
-          $('#cdk-overlay-0').css('top', this.autoCompleteTopPosition + 'px');
+          $(PncSearchFilterComponent.CDK_OVERLAY_0).css('top', this.autoCompleteTopPosition + 'px');
           return data;
         }));
     } else {

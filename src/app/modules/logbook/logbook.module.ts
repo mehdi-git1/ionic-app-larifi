@@ -1,3 +1,6 @@
+import { LogbookEventDetailsComponent } from './components/logbook-event-details/logbook-event-details.component';
+import { LogbookEventDetailsPage } from './pages/logbook-event-details/logbook-event-details.page';
+import { LogbookEventActionMenuComponent } from './components/logbook-event-action-menu/logbook-event-action-menu.component';
 import { LogbookEditPage } from './pages/logbook-edit/logbook-edit.page';
 import { LogbookPage } from './pages/logbook/logbook.page';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
@@ -8,7 +11,10 @@ import { ComponentsModule } from '../../shared/components/components.module';
 @NgModule({
   declarations: [
     LogbookPage,
-    LogbookEditPage
+    LogbookEditPage,
+    LogbookEventDetailsPage,
+    LogbookEventDetailsComponent,
+    LogbookEventActionMenuComponent
   ],
   imports: [
     [IonicPageModule.forChild(LogbookPage)],
@@ -17,11 +23,16 @@ import { ComponentsModule } from '../../shared/components/components.module';
   ],
   entryComponents: [
     LogbookPage,
-    LogbookEditPage
+    LogbookEditPage,
+    LogbookEventDetailsPage,
+    LogbookEventDetailsComponent,
+    LogbookEventActionMenuComponent
   ],
   exports: [
     LogbookPage,
-    LogbookEditPage
+    LogbookEditPage,
+    LogbookEventDetailsPage,
+    LogbookEventDetailsComponent
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA

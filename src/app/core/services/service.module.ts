@@ -1,4 +1,5 @@
 import { TabHeaderService } from './tab-header/tab-header.service';
+import { SortService } from './sort/sort.service';
 import { AppVersionTransformerService } from './app-version/app-version-transformer.service';
 import { AppVersionAlertService } from './app-version/app-version-alert.service';
 import { ProfessionalInterviewTransformerService } from './professional-interview/professional-interview-transformer.service';
@@ -173,7 +174,8 @@ import { PdfGeneratorService } from './pdf-generator/pdf-generator.service';
         ProfessionalInterviewStatusService,
         ProfessionalInterviewTransformerService,
         OnlineLogbookEventService,
-        PdfGeneratorService
+        PdfGeneratorService,
+        SortService
     ]
 })
 export class ServiceModule { }

@@ -1,15 +1,8 @@
 import { TabNavService } from './../../../../core/services/tab-nav/tab-nav.service';
-import { TabHeaderModeEnum } from '../../../../core/enums/tab-header-mode.enum';
-import { ProfileManagementPage } from './../../../admin/pages/profile-management/profile-management.page';
-
 import { Component } from '@angular/core';
 import { NavController, NavParams, Events } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { TranslateService } from '@ngx-translate/core';
-
-import { SpecialityEnum } from '../../../../core/enums/speciality.enum';
-
-import { FormsInputParamsModel } from './../../../../core/models/forms-input-params.model';
 import { PncModel } from '../../../../core/models/pnc.model';
 
 import { ProfessionalLevelPage } from '../../../professional-level/pages/professional-level/professional-level.page';
@@ -37,14 +30,12 @@ export class PncHomePage {
     synchroInProgress: boolean;
     formatedSpeciality: string;
 
-    constructor(public navCtrl: NavController,
-        public navParams: NavParams,
-        public genderService: GenderService,
+    constructor(private navCtrl: NavController,
+        private navParams: NavParams,
         private toastService: ToastService,
         private synchronizationProvider: SynchronizationService,
-        public connectivityService: ConnectivityService,
         private sessionService: SessionService,
-        public translateService: TranslateService,
+        private translateService: TranslateService,
         private pncService: PncService,
         private events: Events,
         private statusBar: StatusBar,
@@ -89,15 +80,12 @@ export class PncHomePage {
         }
     }
 
-
     /**
      * Dirige vers la page des ressources d'aide
      */
     goToHelpAssetList() {
         this.navCtrl.parent.select(this.tabNavService.getTabIndex(TabNavEnum.HELP_ASSET_LIST_PAGE));
     }
-
-
 
     /**
      * Dirige vers l'attestation réglementaire

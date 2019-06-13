@@ -29,6 +29,10 @@ export class OnlineLogbookEventService {
     createOrUpdate(logbookEvent: LogbookEventModel): Promise<LogbookEventModel> {
         if (logbookEvent.id === undefined) {
             logbookEvent.creationDate = new Date();
+            logbookEvent.redactor = new PncLightModel();
+            logbookEvent.redactor.matricule = this.sessionService.getActiveUser().matricule;
+            logbookEvent.redactor.lastName = this.sessionService.getActiveUser().lastName;
+            logbookEvent.redactor.firstName = this.sessionService.getActiveUser().firstName;
         }
         logbookEvent.lastUpdateAuthor = new PncLightModel();
         logbookEvent.lastUpdateAuthor.matricule = this.sessionService.getActiveUser().matricule;
@@ -36,4 +40,21 @@ export class OnlineLogbookEventService {
         return this.restService.post(this.config.getBackEndUrl('logbookEvents'), logbookEvent);
     }
 
+    /**
+     * Récupère le ou les évènements à partir de leur group id
+     * @param id le group id du ou des évènements à récupérer
+     * @return une promesse contenant le ou les évènements récupérés
+     */
+    public getLogbookEventsByGroupId(id: number): Promise<LogbookEventModel[]> {
+        return this.restService.get(this.config.getBackEndUrl('getLogbookEventsByGroupId', [id]));
+    }
+
+    /**
+     * Récupère l'évènement du journal de bord'
+     * @param matricule le matricule du PNC dont on souhaite récupérer l'évènement du journal de bord'
+     * @return l'évènement du journal de bord'
+     */
+    getLogbookEvents(matricule: string): Promise<LogbookEventModel[]> {
+        return this.restService.get(this.config.getBackEndUrl('getLogbookEvents', [matricule]));
+    }
 }
