@@ -25,6 +25,8 @@ export class PncSearchFilterComponent implements OnInit {
 
   @Output() onSearch: EventEmitter<any> = new EventEmitter();
 
+  @Output() pncSelected: EventEmitter<any> = new EventEmitter();
+
   defaultDivision: string;
   defaultSector: string;
   defaultGinq: string;
@@ -375,14 +377,9 @@ export class PncSearchFilterComponent implements OnInit {
   openPncHomePage(pnc: PncModel) {
     this.selectedPnc = undefined;
     this.initAutocompleteList();
-    // Si on va sur un PNC par la recherche, on suprime de la session une enventuelle rotation.
-    this.sessionService.appContext.lastConsultedRotation = null;
-    if (this.sessionService.isActiveUser(pnc)) {
-      this.navCtrl.setRoot(PncHomePage);
-    } else {
-      this.navCtrl.push(PncHomePage, { matricule: pnc.matricule });
-    }
 
+    console.log(pnc);
+    this.pncSelected.emit(pnc);
   }
 
   /**
