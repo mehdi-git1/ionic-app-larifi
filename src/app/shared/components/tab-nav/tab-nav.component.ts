@@ -1,25 +1,22 @@
-import { CongratulationLettersPage } from './../../../modules/congratulation-letter/pages/congratulation-letters/congratulation-letters.page';
+import { HelpAssetListPage } from './../../../modules/help-asset/pages/help-asset-list/help-asset-list.page';
+import { PncSearchPage } from './../../../modules/pnc-team/pages/pnc-search/pnc-search.page';
+import { IsMyPage } from './../../pipes/is_my_page/is_my_page.pipe';
+import { SecurityService } from './../../../core/services/security/security.service';
+import { ProfessionalLevelPage } from './../../../modules/professional-level/pages/professional-level/professional-level.page';
+import { PncModel } from './../../../core/models/pnc.model';
+import { CareerObjectiveListPage } from './../../../modules/development-program/pages/career-objective-list/career-objective-list.page';
+import { PncService } from './../../../core/services/pnc/pnc.service';
 import { Component, Input, ViewChild } from '@angular/core';
-import { Nav, Events, Tabs } from 'ionic-angular';
-import { TranslateService } from '@ngx-translate/core';
+import { Nav, Events, LoadingController, Tabs } from 'ionic-angular';
 
-import { PncModel } from '../../../core/models/pnc.model';
-import { SpecialityService } from '../../../core/services/speciality/speciality.service';
-import { StatutoryCertificatePage } from '../../../modules/statutory-certificate/pages/statutory-certificate/statutory-certificate.page';
-import { ProfessionalLevelPage } from '../../../modules/professional-level/pages/professional-level/professional-level.page';
-import { PncSearchPage } from '../../../modules/pnc-team/pages/pnc-search/pnc-search.page';
-import { PncHomePage } from '../../../modules/home/pages/pnc-home/pnc-home.page';
-import { UpcomingFlightListPage } from '../../../modules/flight-activity/pages/upcoming-flight-list/upcoming-flight-list.page';
-import { HelpAssetListPage } from '../../../modules/help-asset/pages/help-asset-list/help-asset-list.page';
-import { CareerObjectiveListPage } from '../../../modules/development-program/pages/career-objective-list/career-objective-list.page';
-import { PncService } from '../../../core/services/pnc/pnc.service';
-import { SessionService } from '../../../core/services/session/session.service';
-import { SecurityService } from '../../../core/services/security/security.service';
 import { TabNavService } from '../../../core/services/tab-nav/tab-nav.service';
 import { TabNavEnum } from '../../../core/enums/tab-nav.enum';
-import { SpecialityEnum } from '../../../core/enums/speciality.enum';
 import { AuthenticationPage } from '../../../modules/home/pages/authentication/authentication.page';
-import { IsMyPage } from '../../pipes/is_my_page/is_my_page.pipe';
+import { SessionService } from '../../../core/services/session/session.service';
+import { SpecialityService } from '../../../core/services/speciality/speciality.service';
+import { TranslateService } from '@ngx-translate/core';
+import { PncHomePage } from '../../../modules/home/pages/pnc-home/pnc-home.page';
+import { UpcomingFlightListPage } from '../../../modules/flight-activity/pages/upcoming-flight-list/upcoming-flight-list.page';
 
 @Component({
   selector: 'tab-nav',
@@ -29,50 +26,34 @@ export class TabNavComponent {
 
   @Input() navCtrl: Nav;
 
-  _matricule: string;
-
   @ViewChild('tabs') tabs: Tabs;
-  pnc: PncModel;
 
-  // exporter la classe enum speciality dans la page html
-  Speciality = SpecialityEnum;
-
-  // Paramètres envoyés aux pages
-  pncParams;
-  matriculeParams;
-  roleParams;
   tabsNav;
 
   loading = true;
 
+  initVisitedPnc: PncModel;
+
   constructor(
     private events: Events,
-    private pncProvider: PncService,
+    private pncService: PncService,
     private tabNavService: TabNavService,
     private translate: TranslateService,
     private sessionService: SessionService,
     public securityProvider: SecurityService,
-    private specialityService: SpecialityService,
-    private isMyPage: IsMyPage
+    private loadingCtrl: LoadingController
   ) {
     this.events.subscribe('user:authenticationDone', () => {
-      if (this.sessionService.getActiveUser() && this.sessionService.getActiveUser().isPnc) {
-        this.pncProvider.getPnc(this.sessionService.getActiveUser().matricule).then(pnc => {
-          this.pnc = pnc;
-          this.pncParams = this.pnc;
-          this.matriculeParams = { matricule: this.pnc.matricule };
-          this.roleParams = { pncRole: this.specialityService.getPncRole(this.pnc.speciality) };
-          if (!this.tabsNav) {
-            this.tabsNav = this.createListOfTab();
-          }
-          this.tabNavService.setListOfTabs(this.tabsNav);
-          this.updateTexts();
-          this.updatePermissions();
+      if (!this.tabsNav) {
+        this.tabsNav = this.createListOfTab();
+      }
+      this.tabNavService.setListOfTabs(this.tabsNav);
+      this.updateTexts();
+      this.updatePermissions();
 
-          this.loading = false;
-          this.navCtrl.popToRoot();
-        }, error => {
-        });
+      this.loading = false;
+      if (this.navCtrl.canGoBack()) {
+        this.navCtrl.popToRoot();
       }
     });
 
@@ -80,6 +61,9 @@ export class TabNavComponent {
       this.navCtrl.setRoot(AuthenticationPage);
       this.loading = true;
     });
+
+    // Gère la visite d'un eDossier
+    this.handleEdossierVisit();
   }
 
   /**
@@ -90,42 +74,32 @@ export class TabNavComponent {
       {
         id: TabNavEnum.PNC_HOME_PAGE,
         page: PncHomePage,
-        icon: 'edospnc-home',
-      },
-      {
-        id: TabNavEnum.CAREER_OBJECTIVE_LIST_PAGE,
-        page: CareerObjectiveListPage,
-        icon: 'edospnc-developmentProgram',
+        icon: 'md-home',
       },
       {
         id: TabNavEnum.PNC_SEARCH_PAGE,
         page: PncSearchPage,
-        icon: 'edospnc-pncTeam',
+        icon: 'md-contacts',
       },
       {
         id: TabNavEnum.UPCOMING_FLIGHT_LIST_PAGE,
         page: UpcomingFlightListPage,
-        icon: 'edospnc-upcomingFlight',
+        icon: 'md-jet',
+      },
+      {
+        id: TabNavEnum.VISITED_PNC,
+        page: CareerObjectiveListPage,
+        icon: 'md-person'
+      },
+      {
+        id: TabNavEnum.VISITED_MANAGER,
+        page: ProfessionalLevelPage,
+        icon: 'md-person'
       },
       {
         id: TabNavEnum.HELP_ASSET_LIST_PAGE,
         page: HelpAssetListPage,
-        icon: 'edospnc-helpCenter'
-      },
-      {
-        id: TabNavEnum.STATUTORY_CERTIFICATE_PAGE,
-        page: StatutoryCertificatePage,
-        icon: 'edospnc-statutoryCertificate',
-      },
-      {
-        id: TabNavEnum.PROFESSIONAL_LEVEL_PAGE,
-        page: ProfessionalLevelPage,
-        icon: 'edospnc-professionalLevel',
-      },
-      {
-        id: TabNavEnum.CONGRATULATION_LETTERS_PAGE,
-        page: CongratulationLettersPage,
-        icon: 'ios-mail',
+        icon: 'md-help-circle'
       }
     ];
   }
@@ -134,28 +108,24 @@ export class TabNavComponent {
    * Met à jour les permissions de façon dynamique
    */
   updatePermissions() {
-    this.tabsNav[this.tabNavService.findTabIndex(TabNavEnum.PNC_HOME_PAGE)].display = true;
-    this.tabsNav[this.tabNavService.findTabIndex(TabNavEnum.CAREER_OBJECTIVE_LIST_PAGE)].display = !this.securityProvider.isManager();
-    this.tabsNav[this.tabNavService.findTabIndex(TabNavEnum.PNC_SEARCH_PAGE)].display = this.securityProvider.isManager();
-    this.tabsNav[this.tabNavService.findTabIndex(TabNavEnum.UPCOMING_FLIGHT_LIST_PAGE)].display = this.securityProvider.isManager();
-    this.tabsNav[this.tabNavService.findTabIndex(TabNavEnum.HELP_ASSET_LIST_PAGE)].display = true;
-    this.tabsNav[this.tabNavService.findTabIndex(TabNavEnum.STATUTORY_CERTIFICATE_PAGE)].display = !this.securityProvider.isManager() && this.securityProvider.hasPermissionToViewTab('VIEW_STATUTORY_CERTIFICATE');
-    this.tabsNav[this.tabNavService.findTabIndex(TabNavEnum.PROFESSIONAL_LEVEL_PAGE)].display = !this.securityProvider.isManager() && this.securityProvider.hasPermissionToViewTab('VIEW_PROFESSIONAL_LEVEL');
-    this.tabsNav[this.tabNavService.findTabIndex(TabNavEnum.CONGRATULATION_LETTERS_PAGE)].display = true;
+    this.tabsNav[this.tabNavService.getTabIndex(TabNavEnum.PNC_HOME_PAGE)].display = true;
+    this.tabsNav[this.tabNavService.getTabIndex(TabNavEnum.PNC_SEARCH_PAGE)].display = this.securityProvider.isManager();
+    this.tabsNav[this.tabNavService.getTabIndex(TabNavEnum.UPCOMING_FLIGHT_LIST_PAGE)].display = this.securityProvider.isManager();
+    this.tabsNav[this.tabNavService.getTabIndex(TabNavEnum.VISITED_PNC)].display = false;
+    this.tabsNav[this.tabNavService.getTabIndex(TabNavEnum.VISITED_MANAGER)].display = false;
+    this.tabsNav[this.tabNavService.getTabIndex(TabNavEnum.HELP_ASSET_LIST_PAGE)].display = true;
   }
 
   /**
  * Met à jour les textes affichés de façon dynamique
  */
   updateTexts() {
-    this.tabsNav[this.tabNavService.findTabIndex(TabNavEnum.PNC_HOME_PAGE)].title = this.translate.instant(this.isMyPage.transform('PNC_HOME.TITLE', this.pnc));
-    this.tabsNav[this.tabNavService.findTabIndex(TabNavEnum.CAREER_OBJECTIVE_LIST_PAGE)].title = this.translate.instant(this.isMyPage.transform('GLOBAL.DEVELOPMENT_PROGRAM', this.pnc));
-    this.tabsNav[this.tabNavService.findTabIndex(TabNavEnum.PNC_SEARCH_PAGE)].title = this.translate.instant(this.isMyPage.transform('GLOBAL.PNC_TEAM', this.pnc));
-    this.tabsNav[this.tabNavService.findTabIndex(TabNavEnum.UPCOMING_FLIGHT_LIST_PAGE)].title = this.translate.instant(this.isMyPage.transform('GLOBAL.UPCOMING_FLIGHT', this.pnc));
-    this.tabsNav[this.tabNavService.findTabIndex(TabNavEnum.HELP_ASSET_LIST_PAGE)].title = this.translate.instant(this.isMyPage.transform('GLOBAL.HELP_CENTER', this.pnc));
-    this.tabsNav[this.tabNavService.findTabIndex(TabNavEnum.STATUTORY_CERTIFICATE_PAGE)].title = this.translate.instant(this.isMyPage.transform('GLOBAL.STATUTORY_CERTIFICATE', this.pnc));
-    this.tabsNav[this.tabNavService.findTabIndex(TabNavEnum.PROFESSIONAL_LEVEL_PAGE)].title = this.translate.instant(this.isMyPage.transform('GLOBAL.PROFESSIONAL_LEVEL', this.pnc));
-    this.tabsNav[this.tabNavService.findTabIndex(TabNavEnum.CONGRATULATION_LETTERS_PAGE)].title = this.translate.instant(this.isMyPage.transform('GLOBAL.CONGRATULATION_LETTERS', this.pnc));
+    this.tabsNav[this.tabNavService.getTabIndex(TabNavEnum.PNC_HOME_PAGE)].title = this.translate.instant('PNC_HOME.MY_TITLE');
+    this.tabsNav[this.tabNavService.getTabIndex(TabNavEnum.PNC_SEARCH_PAGE)].title = this.translate.instant('GLOBAL.MY_PNC_TEAM');
+    this.tabsNav[this.tabNavService.getTabIndex(TabNavEnum.UPCOMING_FLIGHT_LIST_PAGE)].title = this.translate.instant('GLOBAL.MY_UPCOMING_FLIGHT');
+    this.tabsNav[this.tabNavService.getTabIndex(TabNavEnum.VISITED_PNC)].title = ' ';
+    this.tabsNav[this.tabNavService.getTabIndex(TabNavEnum.VISITED_MANAGER)].title = ' ';
+    this.tabsNav[this.tabNavService.getTabIndex(TabNavEnum.HELP_ASSET_LIST_PAGE)].title = this.translate.instant('GLOBAL.MY_HELP_CENTER');
   }
 
   /**
@@ -163,7 +133,61 @@ export class TabNavComponent {
    * @param event evenement déclencheur de la fonction
    */
   tabChange(event) {
+    // Dans le cas où une visite d'eDossier a été demandée, on attend que le changement d'onglet ait été fait pour charger la page racine correctement
+    if (this.initVisitedPnc) {
+      this.tabs.getSelected().setRoot(this.initVisitedPnc.manager ? ProfessionalLevelPage : CareerObjectiveListPage, { matricule: this.initVisitedPnc.matricule });
+      this.initVisitedPnc = undefined;
+    }
+
     this.events.publish('changeTab', { pageName: event.root.name, pageParams: event.rootParams });
+  }
+
+  /**
+   * Il est impossible de gérer ce traitement dans un service (problème d'injection inconnu). On gère donc cela avec un système d'events..
+   */
+  handleEdossierVisit(): void {
+    this.events.subscribe('EDossier:visited', (pnc) => {
+      if (this.sessionService.isActiveUser(pnc)) {
+        this.sessionService.visitedPnc = undefined;
+        this.tabs.select(this.tabNavService.getTabIndex(TabNavEnum.PNC_HOME_PAGE));
+      } else {
+        const loading = this.loadingCtrl.create();
+        loading.present();
+        this.pncService.getPnc(pnc.matricule).then(pncFound => {
+          loading.dismiss();
+          this.sessionService.visitedPnc = pncFound;
+
+          this.addEDossierTab(pnc);
+          this.tabs.select(this.tabNavService.getTabIndex(pnc.manager ? TabNavEnum.VISITED_MANAGER : TabNavEnum.VISITED_PNC));
+          this.initVisitedPnc = pnc;
+        });
+      }
+    });
+  }
+
+  /**
+    * Ajoute à la tabNav une entrée vers le dossier d'un PNC et redirige vers cette entrée
+    * @param pnc le pnc à ajouter à la tabNav
+    */
+  addEDossierTab(pnc: PncModel) {
+    this.tabsNav[this.tabNavService.getTabIndex(TabNavEnum.VISITED_MANAGER)].display = false;
+    this.tabsNav[this.tabNavService.getTabIndex(TabNavEnum.VISITED_PNC)].display = false;
+
+    if (pnc.manager) {
+      this.tabsNav[this.tabNavService.getTabIndex(TabNavEnum.VISITED_MANAGER)].title = `${pnc.firstName} ${pnc.lastName}`;
+      this.tabsNav[this.tabNavService.getTabIndex(TabNavEnum.VISITED_MANAGER)].display = true;
+    } else {
+      this.tabsNav[this.tabNavService.getTabIndex(TabNavEnum.VISITED_PNC)].title = `${pnc.firstName} ${pnc.lastName}`;
+      this.tabsNav[this.tabNavService.getTabIndex(TabNavEnum.VISITED_PNC)].display = true;
+    }
+  }
+
+  /**
+   * Vérifie si la navigation par onglet est disponible. Celle ci est dispo uniquement pour les cadres
+   * @return vrai si la navigation par onglet est disponible, faux sinon
+   */
+  isAvailable(): boolean {
+    return this.sessionService.getActiveUser() && this.sessionService.getActiveUser().isManager;
   }
 
 }

@@ -1,3 +1,4 @@
+import { ProfileManagementPage } from './../../../admin/pages/profile-management/profile-management.page';
 import { Component } from '@angular/core';
 import { AppVersion } from '@ionic-native/app-version';
 import { TranslateService } from '@ngx-translate/core';
@@ -10,7 +11,6 @@ import { SecretQuestionTypeEnum } from '../../../../core/enums/security/secret-q
 
 import { AuthenticatedUserModel } from '../../../../core/models/authenticated-user.model';
 
-import { AdminHomePage } from './../../../admin/pages/admin-home/admin-home.page';
 import { ImpersonatePage } from '../impersonate/impersonate.page';
 import { AppVersionHistoryPage } from '../app-version-history/app-version-history.page';
 
@@ -194,7 +194,7 @@ export class SettingsPage {
    * Redirige vers la page d'admin
    */
   goToAdminPage() {
-    this.navCtrl.push(AdminHomePage);
+    this.navCtrl.push(ProfileManagementPage);
   }
 
   /**

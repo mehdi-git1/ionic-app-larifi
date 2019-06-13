@@ -14,6 +14,7 @@
             </ng-container>
         </page-header>
     </ion-navbar>
+    <pnc-header [pnc]="pnc"></pnc-header>
 </ion-header>
 
 <ion-content padding no-bounce>
@@ -190,7 +191,7 @@
                     <ion-icon name="ios-log-in" ios="ios-log-in" margin-right></ion-icon> {{ 'CAREER_OBJECTIVE_CREATE.BUTTONS.RESUME' | translate }}
                 </button>
                 <!-- Bouton sauvegarder objectif en brouillon et notifie mon instructeur -->
-                <button ion-button color="blue70" (click)="confirmCreateInstructorRequest()" [disabled]="creationForm.invalid" *ngIf=" isDraftAndCanBeModified()">
+                <button ion-button color="blue70" (click)="confirmCreateInstructorRequest()" [disabled]="creationForm.invalid" *ngIf=" isDraftAndCanBeModified() && !securityService.isManager()">
                     <ion-icon name="ios-chatbubbles-outline" ios="ios-chatbubbles-outline" margin-right></ion-icon> {{ 'CAREER_OBJECTIVE_CREATE.BUTTONS.CREATE_INSTRUCTOR_REQUEST' | translate }}
                 </button>
             </div>

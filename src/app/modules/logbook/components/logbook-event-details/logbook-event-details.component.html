@@ -4,26 +4,26 @@
         <div class="flex">
             <pnc-photo [pnc]="logbookEvent.redactor" [size]="50"></pnc-photo>
             <div class="logbook-info-container">
-                <div>
-                    <div class="logbook-info">
+                <div class="logbook-header">
+                    <div class="left-logbook-info">
                         <div class="title">
                             <span class="value">{{ logbookEvent.title }}</span>
                         </div>
+                        <div class="redactor">
+                            <span>{{ logbookEvent?.redactor.lastName }} {{ logbookEvent?.redactor.firstName | titlecase }}</span>
+                        </div>
+                    </div>
+                    <div class="right-logbook-info">
                         <div class="icons">
                             <div>
-                                <span class="edospnc-important" *ngIf="logbookEvent.important"></span>
+                                <ion-icon class="edospnc-important" color="secondary" *ngIf="logbookEvent.important"></ion-icon>
                             </div>
                             <div>
-                                <span class="edospnc-pnc" *ngIf="logbookEvent.pncInitiator"></span>
+                                <ion-icon class="edospnc-pnc" color="primary" *ngIf="logbookEvent.pncInitiator"></ion-icon>
                             </div>
                             <div class="category-label">
                                 <span class="value">{{ logbookEvent.category.label }}</span>
                             </div>
-                        </div>
-                    </div>
-                    <div class="logbook-info">
-                        <div class="redactor">
-                            <span>{{ logbookEvent?.redactor.lastName }} {{ logbookEvent?.redactor.firstName | titlecase }}</span>
                         </div>
                         <div>
                             <span class="creation-date-info">{{ 'LOGBOOK.DETAILS.CREATED_THE' | translate }} {{ logbookEvent.creationDate | date:'dd/MM/yyyy'}}</span>

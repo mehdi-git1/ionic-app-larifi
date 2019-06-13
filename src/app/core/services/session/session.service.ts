@@ -11,6 +11,8 @@ export class SessionService {
     impersonatedUser: AuthenticatedUserModel = null;
     appContext: AppContextModel = new AppContextModel();
     parameters: ParametersModel;
+    // Dernier pnc "visité" (le dernier eDossier qu'on a visité)
+    visitedPnc: PncModel;
 
     /**
      * Retourne l'utilisateur "actif". Il s'agit de l'utilisateur connecté, ou de l'utilisateur impersonnifié si celui ci existe.
@@ -25,8 +27,8 @@ export class SessionService {
      * @return vrai si c'est le cas, faux sinon
      */
     isActiveUser(pnc: PncModel): boolean {
-        if ( !pnc ) {
-          return false;
+        if (!pnc) {
+            return false;
         }
         return pnc.matricule === (this.getActiveUser() && this.getActiveUser().matricule);
     }

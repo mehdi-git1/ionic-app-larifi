@@ -1,3 +1,4 @@
+import { TabHeaderModeEnum } from '../../../../core/enums/tab-header-mode.enum';
 import { UserMessageAlertService } from './../../../../core/services/user-message/user-message-alert.service';
 import { ToastService } from '../../../../core/services/toast/toast.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -17,6 +18,8 @@ export class UserMessageManagementPage {
     selectedUserMessage: UserMessageModel;
 
     userMessages: UserMessageModel[];
+
+    TabHeaderModeEnum = TabHeaderModeEnum;
 
     constructor(private userMessageService: UserMessageService,
         private userMessageAlertService: UserMessageAlertService,

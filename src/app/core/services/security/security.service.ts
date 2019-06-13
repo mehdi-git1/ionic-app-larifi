@@ -38,16 +38,6 @@ export class SecurityService extends BaseService {
     return this.sessionService.getActiveUser().isManager;
   }
 
-
-  /**
-  * Vérifie si le pnc a une permission
-  * @param permission permission à vérifier
-  * @return true si le pnc a la permission, sinon false
-  */
-  hasPermissionToViewTab(permission: string): boolean {
-    return this.authorizationService.hasPermission(permission);
-  }
-
   /**
    * Récupère le user connecté à l'application
    * @return une promesse contenant le user connecté

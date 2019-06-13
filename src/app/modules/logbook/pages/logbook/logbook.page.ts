@@ -50,11 +50,11 @@ export class LogbookPage {
             matricule = this.sessionService.getActiveUser().matricule;
         }
         if (matricule != null) {
-          this.pncService.getPnc(matricule).then(pnc => {
-            this.pnc = pnc;
-          }, error => { });
+            this.pncService.getPnc(matricule).then(pnc => {
+                this.pnc = pnc;
+            }, error => { });
 
-          this.getLogbookEvents(matricule);
+            this.getLogbookEvents(matricule);
         }
     }
 
@@ -177,7 +177,7 @@ export class LogbookPage {
      */
     openActionsMenu(myEvent: Event, logbookEvent: LogbookEventModel) {
         myEvent.stopPropagation();
-        const popover = this.popoverCtrl.create(LogbookEventActionMenuComponent, { logbookEvent: logbookEvent}, { cssClass: 'action-menu-popover' });
+        const popover = this.popoverCtrl.create(LogbookEventActionMenuComponent, { logbookEvent: logbookEvent, navCtrl: this.navCtrl }, { cssClass: 'action-menu-popover' });
         popover.present({
             ev: myEvent
         });

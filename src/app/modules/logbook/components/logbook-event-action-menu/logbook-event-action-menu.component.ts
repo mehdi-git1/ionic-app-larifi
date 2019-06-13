@@ -14,10 +14,12 @@ export class LogbookEventActionMenuComponent {
 
   logbookEvent: LogbookEventModel;
 
+  navCtrl: NavController
+
   constructor(private navParams: NavParams,
-    public viewCtrl: ViewController,
-    private navCtrl: NavController) {
+    public viewCtrl: ViewController) {
     this.logbookEvent = this.navParams.get('logbookEvent');
+    this.navCtrl = this.navParams.get('navCtrl');
   }
 
   /**
