@@ -78,7 +78,8 @@
             "VALIDATE": "Valider",
             "CONFIRM": "Confirmer",
             "CANCEL": "Annuler",
-            "EXPORT": "Exporter"
+            "EXPORT": "Exporter",
+            "UPDATE": "MODIFIER"
         },
         "CONFIRM_BACK_WITHOUT_SAVE": {
             "TITLE": "Modifications non enregistrées",
