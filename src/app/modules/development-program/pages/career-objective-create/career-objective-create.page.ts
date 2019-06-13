@@ -253,7 +253,7 @@ export class CareerObjectiveCreatePage {
                         if (!this.notificationInstructor) {
                             this.toastService.success(this.translateService.instant('CAREER_OBJECTIVE_CREATE.SUCCESS.DRAFT_SAVED'));
                         } else {
-                            this.createInstructorRequest();
+                            this.createInstructorRequest(savedCareerObjective);
                         }
                     } else if (savedCareerObjective.careerObjectiveStatus === CareerObjectiveStatusEnum.REGISTERED) {
                         if (this.cancelValidation) {
@@ -444,9 +444,9 @@ export class CareerObjectiveCreatePage {
     /**
      * Envoi au serveur une demande de sollicitation instructeur pour l'objectif
      */
-    createInstructorRequest() {
+    createInstructorRequest(savedCareerObjective) {
         this.careerObjectiveService
-            .createInstructorRequest(this.careerObjective.techId)
+            .createInstructorRequest(savedCareerObjective.techId)
             .then(result => {
                 this.toastService.success(this.translateService.instant('CAREER_OBJECTIVE_CREATE.SUCCESS.CAREER_OBJECTIVE_INSTRUCTOR_REQUESTED'));
             },
