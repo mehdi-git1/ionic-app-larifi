@@ -51,12 +51,31 @@ export class LogbookPage {
             matricule = this.sessionService.getActiveUser().matricule;
         }
         if (matricule != null) {
-          this.pncService.getPnc(matricule).then(pnc => {
-            this.pnc = pnc;
-          }, error => { });
+            this.pncService.getPnc(matricule).then(pnc => {
+                this.pnc = pnc;
+            }, error => { });
 
-          this.onlineLogbookEventService.getLogbookEvents(matricule).then(logbookEvents => {
-            // Tri des évènements par groupId
+            this.getLogbookEvents(matricule);
+        }
+    }
+
+    /**
+     * Rafraîchit la page
+     */
+    refreshPage() {
+        this.groupedEvents = new Array<LogbookEventGroupModel>();
+        this.getLogbookEvents(this.pnc.matricule);
+    }
+
+    /**
+     * Gère la réception des évènements du journal de bord du Pnc
+     * @param logbookEvents evènements du journal de bord
+     * @param matricule le matricule du Pnc
+     */
+    private getLogbookEvents(matricule: string) {
+        this.onlineLogbookEventService.getLogbookEvents(matricule).then(logbookEvents =>
+        // Tri des évènements par groupId
+        {
             const groupedEventsMap = new Map<number, LogbookEventGroupModel>();
             logbookEvents.forEach(logbookEvent => {
                 if (!groupedEventsMap.has(logbookEvent.groupId)) {
@@ -69,8 +88,8 @@ export class LogbookPage {
                 groupedEvent.logbookEvents = this.sortLogbookEventsByEventDate(groupedEvent.logbookEvents);
                 this.groupedEvents.push(groupedEvent);
             }
-          }, error => { });
         }
+            , error => { });
     }
 
     /**
@@ -181,4 +200,12 @@ export class LogbookPage {
         return this.isManager() && this.connectivityService.isConnected();
     }
 
+    /**
+     * Vérifie que l'on est en mode connecté
+     * @return true si on est en mode connecté, false sinon
+     */
+    isConnected(): boolean {
+        console.log(this.connectivityService.isConnected());
+        return this.connectivityService.isConnected();
+    }
 }
