@@ -460,7 +460,7 @@ export class CareerObjectiveCreatePage {
     }
 
     /**
-    * Affecte le booléen isInstructorToBeNotified à true.
+    * La méthode sauvegarde le brouillon, tout en envoyant une notification à l'instructeur
     */
     saveCareerObjectiveDraftWithNotification() {
         this.careerObjective.instructorToBeNotified = true;
