@@ -248,7 +248,7 @@ export class CareerObjectiveCreatePage {
                         this.offlineCareerObjectiveService.createOrUpdate(savedCareerObjective, true);
                     }
                     if (savedCareerObjective.careerObjectiveStatus === CareerObjectiveStatusEnum.DRAFT) {
-                        if (this.careerObjective.notification) {
+                        if (this.careerObjective.instructorToBeNotified) {
                             this.toastService.success(this.translateService.instant('CAREER_OBJECTIVE_CREATE.SUCCESS.CAREER_OBJECTIVE_INSTRUCTOR_REQUESTED'));
                         } else {
                             this.toastService.success(this.translateService.instant('CAREER_OBJECTIVE_CREATE.SUCCESS.DRAFT_SAVED'));
@@ -440,19 +440,6 @@ export class CareerObjectiveCreatePage {
     }
 
     /**
-     * Envoi au serveur une demande de sollicitation instructeur pour l'objectif
-     */
-    createInstructorRequest(savedCareerObjective) {
-        this.careerObjectiveService
-            .createInstructorRequest(savedCareerObjective.techId)
-            .then(result => {
-                this.toastService.success(this.translateService.instant('CAREER_OBJECTIVE_CREATE.SUCCESS.CAREER_OBJECTIVE_INSTRUCTOR_REQUESTED'));
-            },
-                error => { });
-    }
-
-
-    /**
     * Présente une alerte pour la notification du brouillon
     */
     confirmCreateInstructorRequest() {
@@ -466,11 +453,18 @@ export class CareerObjectiveCreatePage {
                 },
                 {
                     text: this.translateService.instant('CAREER_OBJECTIVE_CREATE.CONFIRM_INSTRUCTOR_REQUEST.CONFIRM'),
-                    handler: () => this.saveCareerObjectiveDraft()
+                    handler: () => this.saveCareerObjectiveDraftWithNotification()
                 }
             ]
         }).present();
-        this.careerObjective.notification = true;
+    }
+
+    /**
+    * Affecte le booléen isInstructorToBeNotified à true.
+    */
+    saveCareerObjectiveDraftWithNotification() {
+        this.careerObjective.instructorToBeNotified = true;
+        this.saveCareerObjectiveDraft();
     }
 
     /**

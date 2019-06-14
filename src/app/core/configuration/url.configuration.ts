@@ -39,7 +39,7 @@ export class UrlConfiguration {
     'professionalInterviews': urlGroupEnum.PROFESSIONAL_INTERVIEW,
     'deleteProfessionalInterviewById': `${urlGroupEnum.PROFESSIONAL_INTERVIEW}/{id}`,
     'getProfessionalInterviewById': `${urlGroupEnum.PROFESSIONAL_INTERVIEW}/{id}`,
-    'pncSynchro': `v2/${urlGroupEnum.PNC_SYNCHRO}`,
+    'pncSynchro': `v3/${urlGroupEnum.PNC_SYNCHRO}`,
     'getPncSynchroByPnc': `v3/${urlGroupEnum.PNC_SYNCHRO}/{matricule}`,
     'getWaypointsByCarreObjectiveId': `${urlGroupEnum.WAYPOINT}/career_objective/{careerObjectiveId}`,
     'getWaypointById': `${urlGroupEnum.WAYPOINT}/{waypointId}`,
