@@ -5,9 +5,6 @@ import { IonicModule } from 'ionic-angular';
 import { CommonModule } from '@angular/common';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
-import { NgxEditorModule } from 'ngx-editor';
-import { AngularFontAwesomeModule } from 'angular-font-awesome';
-import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { HttpClientModule } from '@angular/common/http';
 
 import { OfflineIndicatorComponent } from './offline-indicator/offline-indicator.component';
@@ -48,9 +45,6 @@ import { PncEdossierHeaderComponent } from './pnc-edossier-header/pnc-edossier-h
     IonicModule,
     DirectivesModule,
     SharedModule,
-    NgxEditorModule,
-    AngularFontAwesomeModule,
-    TooltipModule,
     HttpClientModule
   ],
   declarations: [
@@ -76,7 +70,6 @@ import { PncEdossierHeaderComponent } from './pnc-edossier-header/pnc-edossier-h
     RadioAndLabelComponent,
     CheckboxAndLabelComponent,
     UserMessageAlertComponent,
-    TextEditorComponent,
     PdfButtonComponent,
     AppVersionAlertComponent
 
@@ -104,7 +97,6 @@ import { PncEdossierHeaderComponent } from './pnc-edossier-header/pnc-edossier-h
     RadioAndLabelComponent,
     CheckboxAndLabelComponent,
     UserMessageAlertComponent,
-    TextEditorComponent,
     PdfButtonComponent,
     AppVersionAlertComponent
   ],

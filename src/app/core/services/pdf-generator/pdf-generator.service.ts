@@ -6,8 +6,9 @@ import { UserProfileModel } from '../../models/admin/user-profile.model';
 import { UserPermissionModel } from '../../models/admin/user-permission.model';
 import { UrlConfiguration } from '../../configuration/url.configuration';
 import * as _ from 'lodash';
-/*import * as jsPDF from 'jspdf';
-import html2pdf from 'html2pdf.js';*/
+
+// import * as jsPDF from 'jspdf';
+// import html2pdf from 'html2pdf.js';
 
 declare var cordova: any;
 
@@ -17,7 +18,7 @@ export class PdfGeneratorService {
   private cssFile = 'www/build/main.css';
 
   constructor(private toastService: ToastService,
-              private deviceService: DeviceService) {
+    private deviceService: DeviceService) {
   }
 
   /**
@@ -26,7 +27,8 @@ export class PdfGeneratorService {
    * @param pdfFileName nom du fichier PDF généré
    */
   generatePdf(elementToPrint: HTMLElement, pdfFileName: string) {
-    /*if (!this.deviceService.isBrowser() && cordova && cordova.plugins && cordova.plugins.pdf) {
+    /*
+    if (!this.deviceService.isBrowser() && cordova && cordova.plugins && cordova.plugins.pdf) {
       const options = {
           name: pdfFileName,
           documentSize: 'A4',
@@ -62,6 +64,7 @@ export class PdfGeneratorService {
         }
       };
       html2pdf().from(elementToPrint).set(opt).save();
-    }*/
+    }
+    */
   }
 }
