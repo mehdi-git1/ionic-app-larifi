@@ -1,6 +1,5 @@
 import { HelpAssetListPage } from './../../../modules/help-asset/pages/help-asset-list/help-asset-list.page';
 import { PncSearchPage } from './../../../modules/pnc-team/pages/pnc-search/pnc-search.page';
-import { IsMyPage } from './../../pipes/is_my_page/is_my_page.pipe';
 import { SecurityService } from './../../../core/services/security/security.service';
 import { ProfessionalLevelPage } from './../../../modules/professional-level/pages/professional-level/professional-level.page';
 import { PncModel } from './../../../core/models/pnc.model';
@@ -13,7 +12,6 @@ import { TabNavService } from '../../../core/services/tab-nav/tab-nav.service';
 import { TabNavEnum } from '../../../core/enums/tab-nav.enum';
 import { AuthenticationPage } from '../../../modules/home/pages/authentication/authentication.page';
 import { SessionService } from '../../../core/services/session/session.service';
-import { SpecialityService } from '../../../core/services/speciality/speciality.service';
 import { TranslateService } from '@ngx-translate/core';
 import { PncHomePage } from '../../../modules/home/pages/pnc-home/pnc-home.page';
 import { UpcomingFlightListPage } from '../../../modules/flight-activity/pages/upcoming-flight-list/upcoming-flight-list.page';
@@ -40,7 +38,7 @@ export class TabNavComponent {
     private tabNavService: TabNavService,
     private translate: TranslateService,
     private sessionService: SessionService,
-    public securityProvider: SecurityService,
+    private securityService: SecurityService,
     private loadingCtrl: LoadingController
   ) {
     this.events.subscribe('user:authenticationDone', () => {
@@ -109,8 +107,8 @@ export class TabNavComponent {
    */
   updatePermissions() {
     this.tabsNav[this.tabNavService.getTabIndex(TabNavEnum.PNC_HOME_PAGE)].display = true;
-    this.tabsNav[this.tabNavService.getTabIndex(TabNavEnum.PNC_SEARCH_PAGE)].display = this.securityProvider.isManager();
-    this.tabsNav[this.tabNavService.getTabIndex(TabNavEnum.UPCOMING_FLIGHT_LIST_PAGE)].display = this.securityProvider.isManager();
+    this.tabsNav[this.tabNavService.getTabIndex(TabNavEnum.PNC_SEARCH_PAGE)].display = this.securityService.isManager();
+    this.tabsNav[this.tabNavService.getTabIndex(TabNavEnum.UPCOMING_FLIGHT_LIST_PAGE)].display = this.securityService.isManager();
     this.tabsNav[this.tabNavService.getTabIndex(TabNavEnum.VISITED_PNC)].display = false;
     this.tabsNav[this.tabNavService.getTabIndex(TabNavEnum.VISITED_MANAGER)].display = false;
     this.tabsNav[this.tabNavService.getTabIndex(TabNavEnum.HELP_ASSET_LIST_PAGE)].display = true;
@@ -188,6 +186,14 @@ export class TabNavComponent {
    */
   isAvailable(): boolean {
     return this.sessionService.getActiveUser() && this.sessionService.getActiveUser().isManager;
+  }
+
+  /**
+   * Vérifie si la navbar doit être masquée. Elle doit l'être si on est un PNC non impersonnifié, sinon la navigation ne fonctionne pas.
+   * @return vrai si la navbar doit être masquée, faux sinon
+   */
+  isNavBarHidden() {
+    return this.sessionService.impersonatedUser == undefined && !this.isAvailable();
   }
 
 }
