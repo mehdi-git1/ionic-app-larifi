@@ -19,6 +19,9 @@ logbook-edit {
         max-height: -webkit-fill-available;
         max-height: -moz-available;
         max-height: stretch;
+        ion-row {
+            min-height: 80px;
+        }
     }
     .item-md.item-block .item-inner {
         border-bottom: initial;
