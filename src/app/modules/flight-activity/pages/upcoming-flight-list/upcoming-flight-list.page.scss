@@ -3,21 +3,20 @@ page-upcoming-flight-list {
         font-weight: normal;
         padding: 15px 10px;
         font-size: 1.2em;
-        background: color($colors, blue65);
-        color: color($colors, white);
+        color: color($colors, primary);
         border-radius: 5px
     }
 
     .last-performed-rotations {
         ion-card-header {
-            background: color($colors, grey70);
-            color: color($colors, grey40);
+            background: color($colors, primary-light);
+            color: color($colors, white);
         }
     }
 
     .upcoming-rotations {
         ion-card-header {
-            background: color($colors, blue75);
+            background: color($colors, primary-dark);
             color: color($colors, white);
         }
     }

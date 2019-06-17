@@ -8,7 +8,7 @@ module-card {
         padding: 0 10px;
 
         & > * {
-            color: color($colors, grey10);
+            color: color($colors-secondary, grey10);
         }
 
         .module-date {
@@ -36,7 +36,7 @@ module-card {
 
             .score-badge {
                 margin: 2px;
-                background-color: color($colors, grey40);
+                background-color: color($colors-secondary, grey40);
                 font-weight: normal;
                 border-radius: 5px;
             }
@@ -54,7 +54,7 @@ module-card {
             button {
                 color: color($colors, white);
                 box-shadow: none;
-                background-color: color($colors, bluegrey);
+                background-color: color($colors-secondary, bluegrey10);
                 width: 30px;
                 height: 30px;
 

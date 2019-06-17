@@ -27,69 +27,60 @@ $app-direction: ltr;
 // to match your app's branding. Ionic uses a Sass map of
 // colors so you can add, rename and remove colors as needed.
 // The "primary" color is the only required color in the map.
-$colors: (primary: #2c2e34,
-secondary: #9BAEC8,
-tertiary:#E53A40,
-orange50:#EA9252,
-orange55: #F4B65B,
-orange60:#F5A623,
-orange80:#ff9b06,
-orange90:#EF9E67,
-green40:#18a854,
-green45:#3CAF90,
-green50:#27b899,
-green55:#31A29A,
-green60:#5BC7A9,
-green65:#aec46c,
-green70: #71D18A,
-grey10:#333333,
-grey11:#2c3440,
-grey12:#38393a,
-grey13:#413C48,
-grey14:#626c75,
-grey15:#717171,
-grey20: #585858,
-grey40:#888,
-grey50: #94959A,
-grey60:#8B7D72,
-grey70:#d5d9de,
-grey72:#D8D8D8,
-grey75:#ededed,
-grey90: #F1F1F1,
-grey92:#f8f8f8,
-grey95:#fafbfb,
-white:#fff,
-yellow1: #F5D359,
-bluegrey:#66A7B7,
-bluegrey2:#5FA1AF,
-bluegrey3:#5d727A,
-bluegrey4: #677A89,
-bluegrey5: #556775,
-blue50:#5AD9F6,
-blue55:#7cc3cc,
-blue58:#2DD1D4,
-blue60:#25b5d6,
-blue65:#417496,
-blue68:#5f9aaa,
-blue70:#3b7ae2,
-blue75:#255271,
-blue76:#41436A,
-blue77:#67abb7,
-blue80:#89D8FB,
-blue81:#4cc3cc,
-blue85:#4CC2CC,
-blue90:#268671,
-red13:#98647E,
-red14:#A53279,
-red15:#D6457C,
-red20:#DD586F,
-red70:#e24c4c,
-red80:#E53A40,
-red90:#C0504D,
-blueDaisy: #0000CA);
-$text-color:color($colors, grey10);
+
+// ATTENTION !!! Limiter les couleurs de cette map aux couleurs du thème de l'appli, celles utilisées dans les composants ionic
+// Ajouter trop de couleurs à cette map ralentit considérablement la génération CSS
+$colors: (primary: #00818E,
+    secondary: #AB004D,
+    primary-dark:#005461,
+    primary-light: #25B1BE,
+    secondary-dark:#750026,
+    secondary-light:#E31A79,
+    orange55: #F4B65B,
+    green50:#27b899,
+    green65:#aec46c,
+    grey20: #585858,
+    grey50: #94959A,
+    white:#fff,
+    blue60:#25b5d6,
+    blue65:#417496,
+    blue70:#3b7ae2,
+    blue76:#41436A,
+    red14:#A53279,
+    red20:#DD586F,
+    red70:#e24c4c);
+
+$colors-secondary:(blue55:#7cc3cc,
+    blue68:#5f9aaa,
+    blue77:#67abb7,
+    grey10:#333,
+    grey12:#38393a,
+    grey40:#888,
+    grey60:#8B7D72,
+    grey70:#D5D9DE,
+    grey72:#D8D8D8,
+    grey75:#e8e5e5,
+    grey95:#F1F1F1,
+    grey98:#FAFBFB,
+    green45:#3CAF90,
+    green60:#5BC7A9,
+    green70:#71D18A,
+    red15:#D6457C,
+    red80:#E53A40,
+    bluegrey10:#66A7B7,
+    bluegrey30:#5d727A,
+    bluegrey40:#677A89,
+    bluegrey50:#556775,
+    yellow10:#F5D359);
 
 
+
+// Couleur par défaut du texte
+$text-color:color($colors-secondary, grey10);
+
+// Radio
+$radio-ios-color-on:color($colors, secondary);
+$radio-md-color-on:$radio-ios-color-on;
 
 // App iOS Variables
 // --------------------------------------------------
@@ -118,30 +109,16 @@ $text-color:color($colors, grey10);
 
 
 // Fonts
-// --------------------------------------------------
+// Excellence in motion
 @font-face {
-    font-family: 'SanFrancisco-old';
-    src: url('/assets/fonts/sanfranciscodisplay-ultralight-webfont.woff') format('woff');
+    font-family: 'Excellence';
+    src: url('/assets/fonts/excellence/Regular/ExcellenceInMotionScreen-Regular.woff') format('woff');
 }
 
-// Fonts
-// --------------------------------------------------
+// Open Sans
 @font-face {
-    font-family: 'SanFrancisco';
-    src: url('/assets/fonts/san-francisco/SF-Pro-Display-Regular.otf') format('otf');
-}
-
-div,
-p,
-span,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-button {
-    font-family: SanFrancisco, Arial, Helvetica, sans-serif;
+    font-family: 'OpenSans';
+    src: url('/assets/fonts/open-sans/Regular/OpenSans-Regular.woff') format('woff');
 }
 
 h3 {
@@ -166,12 +143,9 @@ h4 {
 }
 
 ion-card {
-    border-radius: 0px !important;
-
     .card-header {
         color: black;
         background-color: lightgray;
-        font-family: SanFrancisco, Arial, Helvetica, sans-serif;
         font-size: 1.4em;
     }
 
@@ -205,20 +179,7 @@ ion-select {
     }
 }
 
-.item-input-has-focus .input,
-.input:focus-within {
-    border: 2px solid gray !important;
-}
-
 $text-input-md-show-focus-highlight: false;
-
-
-.label-md-primary,
-.item-input .label-md-primary,
-.item-select .label-md-primary,
-.item-datetime .label-md-primary {
-    color: #999 !important;
-}
 
 .item-inner {
     padding-right: 0px !important;
@@ -239,7 +200,7 @@ ion-item.item {
 }
 
 .ion-page > .content {
-    background-color: color($colors, grey95);
+    background-color: color($colors-secondary, grey98);
 }
 
 @media all and (-ms-high-contrast: none),
@@ -308,4 +269,8 @@ ion-badge {
 
 .margin-bottom-10 {
     margin-bottom: 10px;
+}
+
+.margin-right-10 {
+    margin-right: 10px;
 }

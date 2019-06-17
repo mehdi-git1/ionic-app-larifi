@@ -9,15 +9,15 @@ page-career-objective-list {
     }
 
     .eobs-title {
-        color: color($colors, blue68);
+        color: color($colors-secondary, blue68);
     }
 
     .career-objective-title {
-        color: color($colors, green45);
+        color: color($colors-secondary, green45);
     }
 
     .professional-interview-title {
-        color: color($colors, bluegrey3);
+        color: color($colors-secondary, bluegrey30);
     }
 
     [padding] h3:first-child {
@@ -37,7 +37,7 @@ page-career-objective-list {
 
         span,
         a {
-            color: color($colors, blue68);
+            color: color($colors-secondary, blue68);
         }
 
         a {
@@ -123,34 +123,34 @@ page-career-objective-list {
     }
 
     &.career-objective-creation-container {
-        border-color: color($colors, green60);
-        box-shadow: 0px 0px 4px color($colors, green45);
+        border-color: color($colors-secondary, green60);
+        box-shadow: 0px 0px 4px color($colors-secondary, green45);
 
         .add-container {
             .add-button {
-                background: color($colors, green45);
+                background: color($colors-secondary, green45);
             }
         }
     }
 
 
     &.eobservation-creation-container {
-        border-color: color($colors, blue68);
-        box-shadow: 0px 0px 4px color($colors, blue68);
+        border-color: color($colors-secondary, blue68);
+        box-shadow: 0px 0px 4px color($colors-secondary, blue68);
 
         .eobservation-info-container {
             label {
-                color: color($colors, grey12);
+                color: color($colors-secondary, grey12);
             }
 
             span {
-                color: color($colors, grey40);
+                color: color($colors-secondary, grey40);
             }
         }
 
         .add-button,
         .choice-button {
-            background: color($colors, blue68);
+            background: color($colors-secondary, blue68);
         }
     }
 
@@ -161,21 +161,21 @@ page-career-objective-list {
     }
 
     &.professional-interview-creation-container {
-        border-color: color($colors, bluegrey5);
-        box-shadow: 0px 0px 4px color($colors, bluegrey5);
+        border-color: color($colors-secondary, bluegrey50);
+        box-shadow: 0px 0px 4px color($colors-secondary, bluegrey50);
 
         .professional-interview-info-container {
             label {
-                color: color($colors, grey12);
+                color: color($colors-secondary, grey12);
             }
 
             span {
-                color: color($colors, grey40);
+                color: color($colors-secondary, grey40);
             }
         }
 
         .add-button {
-            background: color($colors, bluegrey5);
+            background: color($colors-secondary, bluegrey50);
         }
     }
 

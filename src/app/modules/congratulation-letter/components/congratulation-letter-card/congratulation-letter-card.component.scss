@@ -1,7 +1,7 @@
 congratulation-letter-card {
     display: flex;
     align-items: center;
-    background: color($colors, blue77);
+    background: color($colors, primary-light);
     color: color($colors, white);
     margin-bottom: 5px;
     height: 40px;
@@ -29,7 +29,7 @@ congratulation-letter-card {
     }
 
     button.detail-button {
-        color: color($colors, blue77);
+        color: color($colors, primary);
         width: 30px;
         height: 30px;
         box-shadow: none;

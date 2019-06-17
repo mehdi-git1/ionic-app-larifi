@@ -1,3 +1,9 @@
+.button-bar {
+    & > button:not(:first-child) {
+        margin-left: 10px;
+    }
+}
+
 .button-bar-right {
     display: flex;
     justify-content: flex-end;

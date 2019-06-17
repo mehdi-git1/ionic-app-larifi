@@ -1,6 +1,11 @@
+import { TabHeaderModeEnum } from '../../../../core/enums/tab-header-mode.enum';
+import { AppVersionAlertService } from './../../../../core/services/app-version/app-version-alert.service';
+import { DateTransform } from './../../../../shared/utils/date-transform';
+
 import { Component } from '@angular/core';
 import { AlertController } from 'ionic-angular';
 import { TranslateService } from '@ngx-translate/core';
+import { AppConstant } from '../../../../app.constant';
 
 import { AppVersionModel } from './../../../../core/models/admin/app-version.model';
 
@@ -18,6 +23,10 @@ export class AppVersionManagementPage {
     matPanelHeaderHeight = '41px';
     number: string;
     changelog: string;
+    releaseDate: string;
+
+    datepickerMaxDate = AppConstant.datepickerMaxDate;
+    monthsNames: any;
 
     versionNumberRegex = /([0-9]{1,2}[.]){2}[0-9]{1,2}/;
 
@@ -27,10 +36,17 @@ export class AppVersionManagementPage {
 
     textEditorMode: TextEditorModeEnum;
 
+    TabHeaderModeEnum = TabHeaderModeEnum;
+
     constructor(private appVersionService: AppVersionService,
+        private dateTransformer: DateTransform,
         private translateService: TranslateService,
         private alertCtrl: AlertController,
-        private toastService: ToastService) {
+        private toastService: ToastService,
+        private appVersionAlertService: AppVersionAlertService) {
+
+        // Traduction des mois
+        this.monthsNames = this.translateService.instant('GLOBAL.MONTH.LONGNAME');
     }
 
     ionViewDidEnter() {
@@ -60,8 +76,10 @@ export class AppVersionManagementPage {
             this.selectedAppVersion = new AppVersionModel();
             this.selectedAppVersion.number = this.number;
             this.selectedAppVersion.changelog = this.changelog;
+            this.selectedAppVersion.releaseDate = this.dateTransformer.transformDateStringToIso8601Format(this.releaseDate);
         } else {
             this.selectedAppVersion = appVersion;
+            this.selectedAppVersion.releaseDate = this.dateTransformer.transformDateStringToIso8601Format(this.selectedAppVersion.releaseDate);
         }
         if (!this.versionNumberRegex.test(this.selectedAppVersion.number)) {
             return this.toastService.error(this.translateService.instant('ADMIN.APP_VERSION_MANAGEMENT.ERROR.UNDEFINED_NUMBER'));
@@ -118,5 +136,13 @@ export class AppVersionManagementPage {
         } else {
             this.selectedAppVersion.changelog = content;
         }
+    }
+
+    /**
+    * Affiche un aperçu de la version
+    * @param appVersion la version dont on souhaite voir l'aperçu
+    */
+    displayOverview(appVersion: AppVersionModel) {
+        this.appVersionAlertService.displayAppVersion(appVersion);
     }
 }

@@ -4,6 +4,7 @@ pnc-card {
         width: initial;
         margin: initial;
         margin-bottom: 16px;
+        border-radius: 4px !important;
     }
 
     .card-ios {
@@ -13,7 +14,7 @@ pnc-card {
     }
 
     .disabled {
-        background: color($colors, grey90);
+        background: color($colors-secondary, grey95);
     }
 
     .pnc-info-panel {
@@ -51,8 +52,14 @@ pnc-card {
                         font-size: 1.5em;
                     }
 
-                    .lastname {
+                    .lastname,
+                    .firstname {
                         font-size: 1.2em;
+                        color: color($colors, primary);
+                    }
+
+                    .matricule {
+                        color: color($colors, grey20);
                     }
                 }
             }
@@ -98,6 +105,14 @@ pnc-card {
 
             .sub-flag-panel {
                 word-spacing: 0.4em;
+
+                .prioritized {
+                    color: color($colors-secondary, red80);
+                }
+
+                .at-least-one-priority {
+                    color: color($colors-secondary, green70);
+                }
             }
         }
     }

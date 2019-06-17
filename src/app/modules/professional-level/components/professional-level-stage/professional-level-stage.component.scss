@@ -6,7 +6,7 @@ professional-level-stage {
 
         mat-expansion-panel-header {
             display: flex;
-            background-color: color($colors, bluegrey);
+            background-color: color($colors-secondary, bluegrey10);
             border-radius: 5px;
             color: color($colors, white);
             cursor: pointer;
@@ -27,7 +27,7 @@ professional-level-stage {
 
             &.mat-expanded:hover,
             &.mat-expanded:focus {
-                background-color: color($colors, bluegrey) !important;
+                background-color: color($colors-secondary, bluegrey10) !important;
             }
 
             .mat-content > label {
@@ -61,7 +61,7 @@ professional-level-stage {
             margin: 0;
 
             module-card:not(:last-child) > .module-card {
-                border-bottom: 1px solid color($colors, grey70);
+                border-bottom: 1px solid color($colors-secondary, grey70);
             }
 
             module-card:last-child > .module-card {
@@ -69,7 +69,7 @@ professional-level-stage {
             }
 
             module-card:nth-child(odd) > .module-card {
-                background: color($colors, grey90);
+                background: color($colors-secondary, grey95);
             }
         }
     }

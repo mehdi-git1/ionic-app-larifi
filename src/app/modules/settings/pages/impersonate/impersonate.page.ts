@@ -1,3 +1,4 @@
+import { CareerObjectiveListPage } from './../../../development-program/pages/career-objective-list/career-objective-list.page';
 import { AuthenticationService } from './../../../../core/authentication/authentication.service';
 import { Utils } from './../../../../shared/utils/utils';
 import { SecurityService } from '../../../../core/services/security/security.service';
@@ -112,11 +113,12 @@ export class ImpersonatePage {
       // On fait la redirection aprés avoir récupéré le user impersonnifié
       this.authenticationService.putAuthenticatedUserInSession().then(
         data => {
+          this.sessionService.visitedPnc = undefined;
           this.events.publish('user:authenticationDone');
           // On redirige vers la page PncHomePage pour permettre le rechargement de celle-ci
           // le popToRoot ne recharge pas la page en rafraichissant les données
           if (this.navCtrl.parent) {
-            this.navCtrl.setRoot(PncHomePage);
+            this.navCtrl.setRoot(this.sessionService.getActiveUser().isManager ? PncHomePage : CareerObjectiveListPage);
           } else {
             this.navCtrl.popToRoot();
           }

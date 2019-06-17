@@ -1,3 +1,7 @@
+import { TabHeaderService } from './tab-header/tab-header.service';
+import { SortService } from './sort/sort.service';
+import { AppVersionTransformerService } from './app-version/app-version-transformer.service';
+import { AppVersionAlertService } from './app-version/app-version-alert.service';
 import { ProfessionalInterviewTransformerService } from './professional-interview/professional-interview-transformer.service';
 import { ProfessionalInterviewStatusService } from './professional-interview/professional-interview-status.service';
 import { UserMessageAlertService } from './user-message/user-message-alert.service';
@@ -7,9 +11,6 @@ import { CongratulationLetterTransformerService } from './congratulation-letter/
 import { CongratulationLetterService } from './congratulation-letter/congratulation-letter.service';
 import { EObservationTransformerService } from './eobservation/eobservation-transformer.service';
 import { EObservationService } from './eobservation/eobservation.service';
-import { OnlineFormsInputParamService } from './forms/online-forms-input-param.service';
-import { OfflineFormsInputParamService } from './forms/offline-forms-input-param.service';
-import { FormsInputParamService } from './forms/forms-input-param.service';
 import { OnlineEvaluationSheetService } from './professional-level/evaluation-sheet/online-evaluation-sheet.service';
 import { OfflineEvaluationSheetService } from './professional-level/evaluation-sheet/offline-evaluation-sheet.service';
 import { EvaluationSheetService } from './professional-level/evaluation-sheet/evaluation-sheet.service';
@@ -71,7 +72,6 @@ import { CrewMemberTransformerService } from './crewMember/crew-member-transform
 import { TranslateOrEmptyService } from './translate/translate-or-empty.service';
 import { OfflineCongratulationLetterService } from './congratulation-letter/offline-congratulation-letter.service';
 import { OnlineCongratulationLetterService } from './congratulation-letter/online-congratulation-letter.service';
-import { FormsInputParamTransformerService } from './forms/forms-input-param-transformer.service';
 import { OnlineEObservationService } from './eobservation/online-eobservation.service';
 import { OfflineEObservationService } from './eobservation/offline-eobservation.service';
 import { SynchronizationManagementService } from './synchronization/synchronization-management.service';
@@ -81,6 +81,7 @@ import { ProfessionalInterviewService } from './professional-interview/professio
 import { OnlineProfessionalInterviewService } from './professional-interview/online-professional-interview.service';
 import { OfflineProfessionalInterviewService } from './professional-interview/offline-professional-interview.service';
 import { OnlineLogbookEventService } from './logbook/online-logbook-event.service';
+import { PdfGeneratorService } from './pdf-generator/pdf-generator.service';
 
 
 @NgModule({
@@ -92,6 +93,7 @@ import { OnlineLogbookEventService } from './logbook/online-logbook-event.servic
         ConnectivityService,
         DeviceService,
         TabNavService,
+        TabHeaderService,
         TransformerService,
         PncService,
         CareerObjectiveService,
@@ -139,10 +141,6 @@ import { OnlineLogbookEventService } from './logbook/online-logbook-event.servic
         OnlinePncPhotoService,
         OfflinePncPhotoService,
         PncPhotoTransformerService,
-        FormsInputParamService,
-        OfflineFormsInputParamService,
-        OnlineFormsInputParamService,
-        FormsInputParamTransformerService,
         StatutoryCertificateService,
         OnlineStatutoryCertificateService,
         OfflineStatutoryCertificateService,
@@ -170,10 +168,14 @@ import { OnlineLogbookEventService } from './logbook/online-logbook-event.servic
         CongratulationLetterTransformerService,
         TranslateOrEmptyService,
         AppVersionService,
+        AppVersionAlertService,
+        AppVersionTransformerService,
         SynchronizationManagementService,
         ProfessionalInterviewStatusService,
         ProfessionalInterviewTransformerService,
-        OnlineLogbookEventService
+        OnlineLogbookEventService,
+        PdfGeneratorService,
+        SortService
     ]
 })
 export class ServiceModule { }

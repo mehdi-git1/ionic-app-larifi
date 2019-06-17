@@ -64,48 +64,6 @@ export class OfflinePncService {
   }
 
   /**
-   * Récupère les rotations à venir d'un PNC
-   * @param matricule le matricule du PNC dont on souhaite récupérer les rotations à venir
-   * @return une promesse contenant la liste des rotations du PNC
-   */
-  getUpcomingRotations(matricule: string): Promise<RotationModel[]> {
-    return new Promise((resolve, reject) => {
-      let upcomingRotations = this.storageService.findAll(EntityEnum.ROTATION);
-      if (upcomingRotations != null) {
-        upcomingRotations = upcomingRotations.filter(rotation => {
-          const departureDate = new Date(rotation.departureDate);
-          const nowDate = new Date(Date.parse(Date()));
-          return departureDate > nowDate;
-        });
-      }
-      resolve(upcomingRotations != null && upcomingRotations.length > 0 ? upcomingRotations : []);
-    });
-  }
-
-  /**
-  * Retrouve les deux dernières rotations opérées par un PNC
-  * @param matricule le matricule du PNC dont on souhaite récupérer les dernières rotations opérées
-  * @return les deux dernières rotations opérées par le PNC
-  */
-  getLastPerformedRotations(matricule: string): Promise<RotationModel[]> {
-    return new Promise((resolve, reject) => {
-      let lastPerformedRotations = this.storageService.findAll(EntityEnum.ROTATION);
-      if (lastPerformedRotations != null) {
-        lastPerformedRotations = lastPerformedRotations.filter(rotation => {
-          const departureDate = new Date(rotation.departureDate);
-          const nowDate = new Date(Date.parse(Date()));
-          return departureDate < nowDate;
-        });
-        // On tri par date de départ croissante
-        lastPerformedRotations = lastPerformedRotations.sort((rotation1, rotation2) => {
-          return moment(rotation1.departureDate, AppConstant.isoDateFormat).isBefore(moment(rotation2.departureDate, AppConstant.isoDateFormat)) ? -1 : 1;
-        });
-      }
-      resolve(lastPerformedRotations != null && lastPerformedRotations.length > 0 ? lastPerformedRotations.slice(-2) : []);
-    });
-  }
-
-  /**
    * Vérifie si un pnc se trouve en cache
    * @param matricule le matricule du pnc
    * @return vrai si le pnc est trouvé en cache, faux sinon
@@ -114,4 +72,12 @@ export class OfflinePncService {
     return this.storageService.findOne(EntityEnum.PNC, matricule) !== null;
   }
 
+  /**
+  * Retrouve les rotations opérées et à faire par un PNC
+  * @param matricule le matricule du PNC dont on souhaite récupérer les rotations
+  * @return une promesse contenant les rotations opérées et à faire par le PNC
+   }*/
+  getAllRotationsByMatricule(matricule: string): Promise<RotationModel[]> {
+    return this.storageService.findAllAsync(EntityEnum.ROTATION);
+  }
 }

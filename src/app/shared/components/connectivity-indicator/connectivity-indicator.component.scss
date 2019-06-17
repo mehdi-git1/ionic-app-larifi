@@ -13,12 +13,12 @@ connectivity-indicator {
         }
 
         &:not(.offline) {
-            background: color($colors, green60);
+            background: color($colors-secondary, green60);
         }
     }
 
     .offline {
-        background: color($colors, orange60);
+        background: color($colors, orange55);
     }
 
     .synchro-progress {
@@ -32,7 +32,7 @@ connectivity-indicator {
     }
 
     .synchro-in-progress {
-        border: 3px solid color($colors, grey90);
+        border: 3px solid color($colors-secondary, grey95);
         border-top: 3px solid color($colors, primary);
 
         border-radius: 50%;
@@ -41,15 +41,18 @@ connectivity-indicator {
         animation: spin 2s linear infinite;
     }
 
-    .synchro-error-count{
+    .synchro-error-count {
         display: flex;
         justify-content: center;
         align-items: center;
         border-radius: 100%;
-        color: color($colors,red70);
+        color: color($colors, red70);
         font-size: 1.8em;
         font-weight: 600;
-        text-shadow: 1px 1px 1px color($colors, grey70), -1px 1px 1px color($colors, grey70), 1px -1px 1px color($colors, grey70), -1px -1px 1px color($colors, grey70);
+        text-shadow: 1px 1px 1px color($colors-secondary, grey70),
+            -1px 1px 1px color($colors-secondary, grey70),
+            1px -1px 1px color($colors-secondary, grey70),
+            -1px -1px 1px color($colors-secondary, grey70);
     }
 
     @keyframes spin {

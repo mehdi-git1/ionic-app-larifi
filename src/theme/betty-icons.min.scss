@@ -1,0 +1,1864 @@
+/*!
+ * Bootstrap v3.3.2 (http://getbootstrap.com)
+ * Copyright 2011-2017 Twitter, Inc.
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+ */
+
+@font-face {
+    font-family: icons-bootstrap-AF;
+    font-style: normal;
+    font-weight: 400;
+    src: url('../assets/fonts/betty/icons-bootstrap-AF.eot')
+}
+
+@font-face {
+    font-family: icons-bootstrap-AF;
+    font-style: normal;
+    font-weight: 400;
+    src: url('../assets/fonts/betty/icons-bootstrap-AF.eot');
+    src: url('../assets/fonts/betty/icons-bootstrap-AF.eot?#iefix') format("embedded-opentype"),
+        url('../assets/fonts/betty/icons-bootstrap-AF.woff') format("woff"),
+        url('../assets/fonts/betty/icons-bootstrap-AF.ttf') format("truetype"),
+        url('../assets/fonts/betty/icons-bootstrap-AF.svg?#icons-bootstrap-AF') format("svg")
+}
+
+[class^="icon-af"],
+[class^="ion-md-icon-af"],
+[class^="ion-ios-icon-af"],
+.tab-button-icon,
+.icon-af {
+    display: inline-block;
+    font-family: icons-bootstrap-AF !important;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1;
+    text-decoration: inherit;
+    text-transform: none;
+    vertical-align: middle;
+    speak: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale
+}
+
+.glyphicon-align-justify:before,
+.icon-af-A-basic-align14:before {
+    content: "\f101"
+}
+
+.glyphicon-align-right:before,
+.icon-af-A-basic-align15:before {
+    content: "\f102"
+}
+
+.glyphicon-align-left:before,
+.icon-af-A-basic-align16:before {
+    content: "\f103"
+}
+
+.icon-af-A-basic-android4:before {
+    content: "\f104"
+}
+
+.icon-af-A-basic-angle-double-down:before {
+    content: "\f105"
+}
+
+.icon-af-A-basic-angle-double-left:before {
+    content: "\f106"
+}
+
+.icon-af-A-basic-angle-double-right:before {
+    content: "\f107"
+}
+
+.icon-af-A-basic-angle-double-up:before {
+    content: "\f108"
+}
+
+.glyphicon-menu-down:before,
+.icon-af-A-basic-angle-down:before {
+    content: "\f109"
+}
+
+.glyphicon-menu-left:before,
+.icon-af-A-basic-angle-left:before {
+    content: "\f10a"
+}
+
+.glyphicon-menu-right:before,
+.icon-af-A-basic-angle-right:before {
+    content: "\f10b"
+}
+
+.glyphicon-menu-up:before,
+.icon-af-A-basic-angle-up:before {
+    content: "\f10c"
+}
+
+.icon-af-A-basic-apple22:before {
+    content: "\f10d"
+}
+
+.icon-af-A-basic-archive15:before {
+    content: "\f10e"
+}
+
+.glyphicon-triangle-right:before,
+.icon-af-A-basic-arrowhead5:before {
+    content: "\f10f"
+}
+
+.icon-af-A-basic-at:before {
+    content: "\f110"
+}
+
+.icon-af-A-basic-calendar51:before {
+    content: "\f111"
+}
+
+.glyphicon-calendar:before,
+.icon-af-A-basic-calendar52:before {
+    content: "\f112"
+}
+
+.glyphicon-triangle-left:before,
+.icon-af-A-basic-caret4:before {
+    content: "\f113"
+}
+
+.glyphicon-triangle-bottom:before,
+.icon-af-A-basic-caret5:before {
+    content: "\f114"
+}
+
+.glyphicon-triangle-top:before,
+.icon-af-A-basic-caret6:before {
+    content: "\f115"
+}
+
+.glyphicon-check:before,
+.icon-af-A-basic-check30:before {
+    content: "\f116"
+}
+
+.icon-af-A-basic-check31:before {
+    content: "\f117"
+}
+
+.glyphicon-chevron-down:before,
+.icon-af-A-basic-chevron-down:before {
+    content: "\f118"
+}
+
+.icon-af-A-basic-chevron-left:before {
+    content: "\f119"
+}
+
+.icon-af-A-basic-chevron-right:before {
+    content: "\f11a"
+}
+
+.glyphicon-chevron-up:before,
+.icon-af-A-basic-chevron-up:before {
+    content: "\f11b"
+}
+
+.glyphicon-circle-arrow-up:before,
+.icon-af-A-basic-chevron17:before {
+    content: "\f11c"
+}
+
+.glyphicon-circle-arrow-right:before,
+.icon-af-A-basic-chevron19:before {
+    content: "\f11d"
+}
+
+.glyphicon-circle-arrow-down:before,
+.icon-af-A-basic-chevron23:before {
+    content: "\f11e"
+}
+
+.glyphicon-circle-arrow-left:before,
+.icon-af-A-basic-chevron24:before {
+    content: "\f11f"
+}
+
+.icon-af-A-basic-circle33:before {
+    content: "\f120"
+}
+
+.icon-af-A-basic-circular56:before {
+    content: "\f121"
+}
+
+.glyphicon-cloud-upload:before,
+.icon-af-A-basic-cloud106:before {
+    content: "\f122"
+}
+
+.glyphicon-cloud-download:before,
+.icon-af-A-basic-cloud107:before {
+    content: "\f123"
+}
+
+.glyphicon-comment:before,
+.icon-af-A-basic-comment32:before {
+    content: "\f124"
+}
+
+.icon-af-A-basic-comment33:before {
+    content: "\f125"
+}
+
+.icon-af-A-basic-comments16:before {
+    content: "\f126"
+}
+
+.icon-af-A-basic-computer:before {
+    content: "\f127"
+}
+
+.icon-af-A-basic-copy10:before {
+    content: "\f128"
+}
+
+.icon-af-A-basic-correct8:before {
+    content: "\f129"
+}
+
+.glyphicon-remove-sign:before,
+.icon-af-A-basic-cross41:before {
+    content: "\f12a"
+}
+
+.icon-af-A-basic-dashboard2:before {
+    content: "\f12b"
+}
+
+.icon-af-A-basic-delivery7:before {
+    content: "\f12c"
+}
+
+.icon-af-A-basic-download63:before {
+    content: "\f12d"
+}
+
+.icon-af-A-basic-dropbox13:before {
+    content: "\f12e"
+}
+
+.glyphicon-globe:before,
+.icon-af-A-basic-earth17:before {
+    content: "\f12f"
+}
+
+.glyphicon-euro:before,
+.icon-af-A-basic-euro29:before {
+    content: "\f130"
+}
+
+.icon-af-A-basic-exclamation9:before {
+    content: "\f131"
+}
+
+.icon-af-A-basic-facebook26:before {
+    content: "\f132"
+}
+
+.glyphicon-file:before,
+.icon-af-A-basic-file28:before {
+    content: "\f133"
+}
+
+.icon-af-A-basic-folder64:before {
+    content: "\f134"
+}
+
+.glyphicon-gbp:before,
+.icon-af-A-basic-gbp:before {
+    content: "\f135"
+}
+
+.icon-af-A-basic-group41:before {
+    content: "\f136"
+}
+
+.icon-af-A-basic-half14:before {
+    content: "\f137"
+}
+
+.glyphicon-heart-empty:before,
+.icon-af-A-basic-heart-o:before {
+    content: "\f138"
+}
+
+.icon-af-A-basic-heart:before {
+    content: "\f139"
+}
+
+.icon-af-A-basic-inbox12:before {
+    content: "\f13a"
+}
+
+.icon-af-A-basic-information34:before {
+    content: "\f13b"
+}
+
+.glyphicon-info-sign:before,
+.icon-af-A-basic-information35:before {
+    content: "\f13c"
+}
+
+.glyphicon-jpy:before,
+.icon-af-A-basic-jpy:before {
+    content: "\f13d"
+}
+
+.glyphicon-list-alt:before,
+.icon-af-A-basic-list28:before {
+    content: "\f13e"
+}
+
+.icon-af-A-basic-list29:before {
+    content: "\f13f"
+}
+
+.glyphicon-list:before,
+.icon-af-A-basic-listing1:before {
+    content: "\f140"
+}
+
+.icon-af-A-basic-location28:before {
+    content: "\f141"
+}
+
+.icon-af-A-basic-map25:before {
+    content: "\f142"
+}
+
+.icon-af-A-basic-minus-square-o:before {
+    content: "\f143"
+}
+
+.icon-af-A-basic-minus-square:before {
+    content: "\f144"
+}
+
+.icon-af-A-basic-minus18:before {
+    content: "\f145"
+}
+
+.icon-af-A-basic-mobile29:before {
+    content: "\f146"
+}
+
+.icon-af-A-basic-open94:before {
+    content: "\f147"
+}
+
+.icon-af-A-basic-open96:before {
+    content: "\f148"
+}
+
+.icon-af-A-basic-paper47:before {
+    content: "\f149"
+}
+
+.glyphicon-pushpin:before,
+.icon-af-A-basic-paper48:before {
+    content: "\f14a"
+}
+
+.icon-af-A-basic-play39:before {
+    content: "\f14b"
+}
+
+.icon-af-A-basic-plus25:before {
+    content: "\f14c"
+}
+
+.icon-af-A-basic-poubelle:before {
+    content: "\f14d"
+}
+
+.glyphicon-off:before,
+.icon-af-A-basic-power27:before {
+    content: "\f14e"
+}
+
+.icon-af-A-basic-printing1:before {
+    content: "\f14f"
+}
+
+.icon-af-A-basic-question22:before {
+    content: "\f150"
+}
+
+.icon-af-A-basic-quote2:before {
+    content: "\f151"
+}
+
+.icon-af-A-basic-refresh36:before {
+    content: "\f152"
+}
+
+.icon-af-A-basic-refresh37:before {
+    content: "\f153"
+}
+
+.icon-af-A-basic-remove10:before {
+    content: "\f154"
+}
+
+.icon-af-A-basic-remove11:before {
+    content: "\f155"
+}
+
+.glyphicon-menu-hamburger:before,
+.icon-af-A-basic-reorder:before {
+    content: "\f156"
+}
+
+.icon-af-A-basic-right28:before {
+    content: "\f157"
+}
+
+.icon-af-A-basic-rss25:before {
+    content: "\f158"
+}
+
+.icon-af-A-basic-shuffle:before {
+    content: "\f159"
+}
+
+.glyphicon-signal:before,
+.icon-af-A-basic-signal22:before {
+    content: "\f15a"
+}
+
+.icon-af-A-basic-sort14:before {
+    content: "\f15b"
+}
+
+.icon-af-A-basic-speech59:before {
+    content: "\f15c"
+}
+
+.icon-af-A-basic-spinner8:before {
+    content: "\f15d"
+}
+
+.icon-af-A-basic-star-half:before {
+    content: "\f15e"
+}
+
+.icon-af-A-basic-star:before {
+    content: "\f15f"
+}
+
+.glyphicon-star-empty:before,
+.icon-af-A-basic-star61:before {
+    content: "\f160"
+}
+
+.icon-af-A-basic-star62:before {
+    content: "\f161"
+}
+
+.icon-af-A-basic-suitcase24:before {
+    content: "\f162"
+}
+
+.icon-af-A-basic-tablet:before {
+    content: "\f163"
+}
+
+.glyphicon-tag:before,
+.icon-af-A-basic-tag32:before {
+    content: "\f164"
+}
+
+.glyphicon-tags:before,
+.icon-af-A-basic-tags2:before {
+    content: "\f165"
+}
+
+.icon-af-A-basic-telephone65:before {
+    content: "\f166"
+}
+
+.glyphicon-earphone:before,
+.icon-af-A-basic-telephone66:before {
+    content: "\f167"
+}
+
+.icon-af-A-basic-text59:before {
+    content: "\f168"
+}
+
+.icon-af-A-basic-text61:before {
+    content: "\f169"
+}
+
+.glyphicon-thumbs-down:before,
+.icon-af-A-basic-thumbs25:before {
+    content: "\f16a"
+}
+
+.glyphicon-thumbs-up:before,
+.icon-af-A-basic-thumbs26:before {
+    content: "\f16b"
+}
+
+.icon-af-A-basic-time7:before {
+    content: "\f16c"
+}
+
+.icon-af-A-basic-travaux:before {
+    content: "\f16d"
+}
+
+.icon-af-A-basic-twitter15:before {
+    content: "\f16e"
+}
+
+.icon-af-A-basic-twitter16:before {
+    content: "\f16f"
+}
+
+.icon-af-A-basic-undo5:before {
+    content: "\f170"
+}
+
+.icon-af-A-basic-upload40:before {
+    content: "\f171"
+}
+
+.glyphicon-usd:before,
+.icon-af-A-basic-usd:before {
+    content: "\f172"
+}
+
+.icon-af-A-basic-user77:before {
+    content: "\f173"
+}
+
+.icon-af-A-basic-user78:before {
+    content: "\f174"
+}
+
+.icon-af-A-basic-vimeo10:before {
+    content: "\f175"
+}
+
+.glyphicon-volume-off:before,
+.icon-af-A-basic-volume28:before {
+    content: "\f176"
+}
+
+.glyphicon-volume-up:before,
+.icon-af-A-basic-volume29:before {
+    content: "\f177"
+}
+
+.icon-af-A-basic-warning18:before {
+    content: "\f178"
+}
+
+.icon-af-A-basic-wheelchair2:before {
+    content: "\f179"
+}
+
+.icon-af-A-basic-youtube14:before {
+    content: "\f17a"
+}
+
+.icon-af-A-basic-youtube15:before {
+    content: "\f17b"
+}
+
+.glyphicon-zoom-in:before,
+.icon-af-A-basic-zoom27:before {
+    content: "\f17c"
+}
+
+.glyphicon-zoom-out:before,
+.icon-af-A-basic-zoom28:before {
+    content: "\f17d"
+}
+
+.icon-af-B-digital-agent-piste:before {
+    content: "\f17e"
+}
+
+.icon-af-B-digital-ampoule:before {
+    content: "\f17f"
+}
+
+.icon-af-B-digital-andmore:before {
+    content: "\f180"
+}
+
+.icon-af-B-digital-appareil-photo:before {
+    content: "\f181"
+}
+
+.icon-af-B-digital-avionausol:before {
+    content: "\f182"
+}
+
+.icon-af-B-digital-avionenvol:before {
+    content: "\f183"
+}
+
+.icon-af-B-digital-avoir-electronique:before {
+    content: "\f184"
+}
+
+.icon-af-B-digital-bagage:before {
+    content: "\f185"
+}
+
+.icon-af-B-digital-billets:before {
+    content: "\f186"
+}
+
+.icon-af-B-digital-bls:before {
+    content: "\f187"
+}
+
+.icon-af-B-digital-boussole:before {
+    content: "\f188"
+}
+
+.icon-af-B-digital-bulles:before {
+    content: "\f189"
+}
+
+.icon-af-B-digital-bus-navette:before {
+    content: "\f18a"
+}
+
+.icon-af-B-digital-caddie:before {
+    content: "\f18b"
+}
+
+.glyphicon-gift:before,
+.icon-af-B-digital-cadeau:before {
+    content: "\f18c"
+}
+
+.icon-af-B-digital-cadenas:before {
+    content: "\f18d"
+}
+
+.glyphicon-picture:before,
+.icon-af-B-digital-cadre-photo:before {
+    content: "\f18e"
+}
+
+.icon-af-B-digital-calendrier:before {
+    content: "\f18f"
+}
+
+.icon-af-B-digital-camera:before {
+    content: "\f190"
+}
+
+.icon-af-B-digital-cargo:before {
+    content: "\f191"
+}
+
+.icon-af-B-digital-cartable:before {
+    content: "\f192"
+}
+
+.icon-af-B-digital-carte-abonnement-2:before {
+    content: "\f193"
+}
+
+.icon-af-B-digital-carte-identite:before {
+    content: "\f194"
+}
+
+.icon-af-B-digital-carte-paiement:before {
+    content: "\f195"
+}
+
+.icon-af-B-digital-carte:before {
+    content: "\f196"
+}
+
+.glyphicon-headphones:before,
+.icon-af-B-digital-casque-musique:before {
+    content: "\f197"
+}
+
+.icon-af-B-digital-changer-de-vol:before {
+    content: "\f198"
+}
+
+.icon-af-B-digital-clap-cinema:before {
+    content: "\f199"
+}
+
+.icon-af-B-digital-clavie:before {
+    content: "\f19a"
+}
+
+.icon-af-B-digital-client-bagage:before {
+    content: "\f19b"
+}
+
+.icon-af-B-digital-client-immobile:before {
+    content: "\f19c"
+}
+
+.icon-af-B-digital-client-marche:before {
+    content: "\f19d"
+}
+
+.glyphicon-ok:before,
+.icon-af-B-digital-coche:before {
+    content: "\f19e"
+}
+
+.glyphicon-heart:before,
+.icon-af-B-digital-coeur:before {
+    content: "\f19f"
+}
+
+.icon-af-B-digital-convertisseur:before {
+    content: "\f1a0"
+}
+
+.icon-af-B-digital-correspondance-avion-train:before {
+    content: "\f1a1"
+}
+
+.icon-af-B-digital-crayon-editer:before {
+    content: "\f1a2"
+}
+
+.glyphicon-remove:before,
+.icon-af-B-digital-cross:before {
+    content: "\f1a3"
+}
+
+.icon-af-B-digital-deposebagage:before {
+    content: "\f1a4"
+}
+
+.icon-af-B-digital-donation-caritative:before {
+    content: "\f1a5"
+}
+
+.icon-af-B-digital-dossier:before {
+    content: "\f1a6"
+}
+
+.icon-af-B-digital-douche:before {
+    content: "\f1a7"
+}
+
+.glyphicon-download-alt:before,
+.icon-af-B-digital-download:before {
+    content: "\f1a8"
+}
+
+.glyphicon-envelope:before,
+.icon-af-B-digital-enveloppe:before {
+    content: "\f1a9"
+}
+
+.icon-af-B-digital-facture:before {
+    content: "\f1aa"
+}
+
+.icon-af-B-digital-favoris-af:before {
+    content: "\f1ab"
+}
+
+.glyphicon-star:before,
+.icon-af-B-digital-favoris:before {
+    content: "\f1ac"
+}
+
+.icon-af-B-digital-fichiers:before {
+    content: "\f1ad"
+}
+
+.glyphicon-chevron-right:before,
+.icon-af-B-digital-fleche-navigation-droite:before {
+    content: "\f1ae"
+}
+
+.glyphicon-chevron-left:before,
+.icon-af-B-digital-fleche-navigation-gauche:before {
+    content: "\f1af"
+}
+
+.icon-af-B-digital-flight-2:before {
+    content: "\f1b0"
+}
+
+.icon-af-B-digital-flight1:before {
+    content: "\f1b1"
+}
+
+.icon-af-B-digital-flighttrack:before {
+    content: "\f1b2"
+}
+
+.icon-af-B-digital-flyingblue:before {
+    content: "\f1b3"
+}
+
+.icon-af-B-digital-gmail:before {
+    content: "\f1b4"
+}
+
+.icon-af-B-digital-google:before {
+    content: "\f1b5"
+}
+
+.icon-af-B-digital-google__x2B_:before {
+    content: "\f1b6"
+}
+
+.icon-af-B-digital-guitare:before {
+    content: "\f1b7"
+}
+
+.icon-af-B-digital-hotel:before {
+    content: "\f1b8"
+}
+
+.icon-af-B-digital-ife-ecran:before {
+    content: "\f1b9"
+}
+
+.icon-af-B-digital-ife-morelikethis:before {
+    content: "\f1ba"
+}
+
+.icon-af-B-digital-ife-telecommande:before {
+    content: "\f1bb"
+}
+
+.icon-af-B-digital-ife-trailer:before {
+    content: "\f1bc"
+}
+
+.icon-af-B-digital-image:before {
+    content: "\f1bd"
+}
+
+.glyphicon-print:before,
+.icon-af-B-digital-imprimante:before {
+    content: "\f1be"
+}
+
+.icon-af-B-digital-info:before {
+    content: "\f1bf"
+}
+
+.icon-af-B-digital-kids-solo-um:before {
+    content: "\f1c0"
+}
+
+.icon-af-B-digital-kids:before {
+    content: "\f1c1"
+}
+
+.icon-af-B-digital-landingaircraft:before {
+    content: "\f1c2"
+}
+
+.icon-af-B-digital-lapremiere:before {
+    content: "\f1c3"
+}
+
+.glyphicon-map-marker:before,
+.icon-af-B-digital-localisation:before {
+    content: "\f1c4"
+}
+
+.glyphicon-search:before,
+.icon-af-B-digital-loupe-recherche:before {
+    content: "\f1c5"
+}
+
+.icon-af-B-digital-macaron:before {
+    content: "\f1c6"
+}
+
+.icon-af-B-digital-maison-acceuil:before {
+    content: "\f1c7"
+}
+
+.icon-af-B-digital-malette:before {
+    content: "\f1c8"
+}
+
+.icon-af-B-digital-manette-jeux:before {
+    content: "\f1c9"
+}
+
+.icon-af-B-digital-masque1:before {
+    content: "\f1ca"
+}
+
+.icon-af-B-digital-masque2:before {
+    content: "\f1cb"
+}
+
+.icon-af-B-digital-megaphone:before {
+    content: "\f1cc"
+}
+
+.icon-af-B-digital-menu-hamburger:before {
+    content: "\f1cd"
+}
+
+.glyphicon-minus:before,
+.icon-af-B-digital-minus:before {
+    content: "\f1ce"
+}
+
+.glyphicon-phone:before,
+.icon-af-B-digital-mobile:before {
+    content: "\f1cf"
+}
+
+.icon-af-B-digital-monde:before {
+    content: "\f1d0"
+}
+
+.glyphicon-music:before,
+.icon-af-B-digital-note-musique:before {
+    content: "\f1d1"
+}
+
+.icon-af-B-digital-oeil-explorer:before {
+    content: "\f1d2"
+}
+
+.icon-af-B-digital-options-bagages:before {
+    content: "\f1d3"
+}
+
+.glyphicon-cog:before,
+.icon-af-B-digital-parametres:before {
+    content: "\f1d4"
+}
+
+.icon-af-B-digital-passeport:before {
+    content: "\f1d5"
+}
+
+.icon-af-B-digital-personnelsol-1:before {
+    content: "\f1d6"
+}
+
+.icon-af-B-digital-personnelsol-2:before {
+    content: "\f1d7"
+}
+
+.icon-af-B-digital-personnelsol-3:before {
+    content: "\f1d8"
+}
+
+.glyphicon-play:before,
+.icon-af-B-digital-play:before {
+    content: "\f1d9"
+}
+
+.glyphicon-plus:before,
+.icon-af-B-digital-plus:before {
+    content: "\f1da"
+}
+
+.icon-af-B-digital-point-exclamation:before {
+    content: "\f1db"
+}
+
+.icon-af-B-digital-point-interrogation:before {
+    content: "\f1dc"
+}
+
+.icon-af-B-digital-presse:before {
+    content: "\f1dd"
+}
+
+.icon-af-B-digital-puce-active:before {
+    content: "\f1de"
+}
+
+.glyphicon-repeat:before,
+.icon-af-B-digital-refresh:before {
+    content: "\f1df"
+}
+
+.icon-af-B-digital-restauration-boisson:before {
+    content: "\f1e0"
+}
+
+.icon-af-B-digital-restauration-cafe:before {
+    content: "\f1e1"
+}
+
+.glyphicon-cutlery:before,
+.icon-af-B-digital-restauration-couverts:before {
+    content: "\f1e2"
+}
+
+.icon-af-B-digital-restauration-plateau:before {
+    content: "\f1e3"
+}
+
+.icon-af-B-digital-restauration-vin:before {
+    content: "\f1e4"
+}
+
+.icon-af-B-digital-share:before {
+    content: "\f1e5"
+}
+
+.icon-af-B-digital-shopping-supprimerwishlist:before {
+    content: "\f1e6"
+}
+
+.icon-af-B-digital-shopping:before {
+    content: "\f1e7"
+}
+
+.icon-af-B-digital-siege:before {
+    content: "\f1e8"
+}
+
+.icon-af-B-digital-siegesup:before {
+    content: "\f1e9"
+}
+
+.icon-af-B-digital-snack:before {
+    content: "\f1ea"
+}
+
+.icon-af-B-digital-tgv:before {
+    content: "\f1eb"
+}
+
+.icon-af-B-digital-toureiffel:before {
+    content: "\f1ec"
+}
+
+.icon-af-B-digital-train:before {
+    content: "\f1ed"
+}
+
+.icon-af-B-digital-trophee:before {
+    content: "\f1ee"
+}
+
+.icon-af-B-digital-tv:before {
+    content: "\f1ef"
+}
+
+.glyphicon-open:before,
+.icon-af-B-digital-upload:before {
+    content: "\f1f0"
+}
+
+.glyphicon-user:before,
+.icon-af-B-digital-user:before {
+    content: "\f1f1"
+}
+
+.icon-af-B-digital-useradd:before {
+    content: "\f1f2"
+}
+
+.icon-af-B-digital-videeo:before {
+    content: "\f1f3"
+}
+
+.icon-af-C-flight-additional-1:before {
+    content: "\f1f4"
+}
+
+.icon-af-C-flight-additional-2:before {
+    content: "\f1f5"
+}
+
+.icon-af-C-flight-cancelled:before {
+    content: "\f1f6"
+}
+
+.icon-af-C-metier-BusArrivee:before {
+    content: "\f1f7"
+}
+
+.icon-af-C-metier-BusDepart:before {
+    content: "\f1f8"
+}
+
+.icon-af-C-metier-a-330-340:before {
+    content: "\f1f9"
+}
+
+.icon-af-C-metier-a-380:before {
+    content: "\f1fa"
+}
+
+.icon-af-C-metier-a320:before {
+    content: "\f1fb"
+}
+
+.glyphicon-refresh:before,
+.icon-af-C-metier-actualisation:before {
+    content: "\f1fc"
+}
+
+.icon-af-C-metier-amerique:before {
+    content: "\f1fd"
+}
+
+.icon-af-C-metier-ameriques:before {
+    content: "\f1fe"
+}
+
+.icon-af-C-metier-amo:before {
+    content: "\f1ff"
+}
+
+.icon-af-C-metier-and-more:before {
+    content: "\f200"
+}
+
+.icon-af-C-metier-ascenseur:before {
+    content: "\f201"
+}
+
+.icon-af-C-metier-asie-avion:before {
+    content: "\f202"
+}
+
+.icon-af-C-metier-asie:before {
+    content: "\f203"
+}
+
+.icon-af-C-metier-aspirateur:before {
+    content: "\f204"
+}
+
+.icon-af-C-metier-aveugle:before {
+    content: "\f205"
+}
+
+.icon-af-C-metier-avion-au-sol:before {
+    content: "\f206"
+}
+
+.icon-af-C-metier-avion-decolle:before {
+    content: "\f207"
+}
+
+.icon-af-C-metier-avion-en-vol:before {
+    content: "\f208"
+}
+
+.icon-af-C-metier-b-747:before {
+    content: "\f209"
+}
+
+.icon-af-C-metier-b-777:before {
+    content: "\f20a"
+}
+
+.icon-af-C-metier-bagage-animal:before {
+    content: "\f20b"
+}
+
+.icon-af-C-metier-bagage-excedent:before {
+    content: "\f20c"
+}
+
+.icon-af-C-metier-bagage-leger:before {
+    content: "\f20d"
+}
+
+.icon-af-C-metier-bagage-main:before {
+    content: "\f20e"
+}
+
+.icon-af-C-metier-bagage-tag:before {
+    content: "\f20f"
+}
+
+.icon-af-C-metier-bagage-volumineux:before {
+    content: "\f210"
+}
+
+.icon-af-C-metier-balance:before {
+    content: "\f211"
+}
+
+.icon-af-C-metier-barre-verticale:before {
+    content: "\f212"
+}
+
+.icon-af-C-metier-bebe:before {
+    content: "\f213"
+}
+
+.icon-af-C-metier-berlin:before {
+    content: "\f214"
+}
+
+.icon-af-C-metier-billet:before {
+    content: "\f215"
+}
+
+.icon-af-C-metier-bit-a320:before {
+    content: "\f216"
+}
+
+.icon-af-C-metier-borne:before {
+    content: "\f217"
+}
+
+.icon-af-C-metier-bouche:before {
+    content: "\f218"
+}
+
+.icon-af-C-metier-bulles-chat:before {
+    content: "\f219"
+}
+
+.icon-af-C-metier-bus:before {
+    content: "\f21a"
+}
+
+.icon-af-C-metier-busArrivee-A:before {
+    content: "\f21b"
+}
+
+.icon-af-C-metier-busDepart-D:before {
+    content: "\f21c"
+}
+
+.icon-af-C-metier-business:before {
+    content: "\f21d"
+}
+
+.icon-af-C-metier-cabine:before {
+    content: "\f21e"
+}
+
+.icon-af-C-metier-cadre-pnc-instructeur:before {
+    content: "\f21f"
+}
+
+.icon-af-C-metier-cafe:before {
+    content: "\f220"
+}
+
+.icon-af-C-metier-cargo:before {
+    content: "\f221"
+}
+
+.icon-af-C-metier-carte-abonnement:before {
+    content: "\f222"
+}
+
+.icon-af-C-metier-carte-didentite:before {
+    content: "\f223"
+}
+
+.icon-af-C-metier-carte-embarquement:before {
+    content: "\f224"
+}
+
+.icon-af-C-metier-casier:before {
+    content: "\f225"
+}
+
+.icon-af-C-metier-ceintre-coussin-desabled:before {
+    content: "\f226"
+}
+
+.icon-af-C-metier-ceintre-coussin:before {
+    content: "\f227"
+}
+
+.icon-af-C-metier-charlatte:before {
+    content: "\f228"
+}
+
+.icon-af-C-metier-chef-de-cabine:before {
+    content: "\f229"
+}
+
+.icon-af-C-metier-choisir-siege:before {
+    content: "\f22a"
+}
+
+.icon-af-C-metier-city-trip:before {
+    content: "\f22b"
+}
+
+.icon-af-C-metier-clavier-2:before {
+    content: "\f22c"
+}
+
+.icon-af-C-metier-cle-plate-off:before {
+    content: "\f22d"
+}
+
+.icon-af-C-metier-cle-plate:before {
+    content: "\f22e"
+}
+
+.icon-af-C-metier-co-pilote:before {
+    content: "\f22f"
+}
+
+.icon-af-C-metier-cockpit:before {
+    content: "\f230"
+}
+
+.icon-af-C-metier-coi:before {
+    content: "\f231"
+}
+
+.icon-af-C-metier-commandant-de-bord:before {
+    content: "\f232"
+}
+
+.icon-af-C-metier-comptoir-depose-bagage:before {
+    content: "\f233"
+}
+
+.icon-af-C-metier-correspondance-air-fer:before {
+    content: "\f234"
+}
+
+.icon-af-C-metier-correspondance-fer-air:before {
+    content: "\f235"
+}
+
+.icon-af-C-metier-couverts:before {
+    content: "\f236"
+}
+
+.icon-af-C-metier-depose-bagage:before {
+    content: "\f237"
+}
+
+.icon-af-C-metier-document-vol:before {
+    content: "\f238"
+}
+
+.icon-af-C-metier-douane-passeport:before {
+    content: "\f239"
+}
+
+.icon-af-C-metier-drapeau:before {
+    content: "\f23a"
+}
+
+.icon-af-C-metier-e-casier:before {
+    content: "\f23b"
+}
+
+.icon-af-C-metier-e-doc-de-vol:before {
+    content: "\f23c"
+}
+
+.icon-af-C-metier-e-ticket:before {
+    content: "\f23d"
+}
+
+.icon-af-C-metier-economy:before {
+    content: "\f23e"
+}
+
+.icon-af-C-metier-eme-sens:before {
+    content: "\f23f"
+}
+
+.icon-af-C-metier-encombrement-valise:before {
+    content: "\f240"
+}
+
+.icon-af-C-metier-enfants:before {
+    content: "\f241"
+}
+
+.icon-af-C-metier-enregistrement-auto:before {
+    content: "\f242"
+}
+
+.icon-af-C-metier-enregistrement-automatique:before {
+    content: "\f243"
+}
+
+.icon-af-C-metier-enregistrement-internet-2:before {
+    content: "\f244"
+}
+
+.icon-af-C-metier-enregistrement-internet:before {
+    content: "\f245"
+}
+
+.icon-af-C-metier-enregistrement-mobile:before {
+    content: "\f246"
+}
+
+.icon-af-C-metier-enregistrement-siege:before {
+    content: "\f247"
+}
+
+.icon-af-C-metier-equipage:before {
+    content: "\f248"
+}
+
+.icon-af-C-metier-escalator-descendant:before {
+    content: "\f249"
+}
+
+.icon-af-C-metier-escalator-montant:before {
+    content: "\f24a"
+}
+
+.icon-af-C-metier-escale:before {
+    content: "\f24b"
+}
+
+.icon-af-C-metier-etiquette-bagage:before {
+    content: "\f24c"
+}
+
+.icon-af-C-metier-europe:before {
+    content: "\f24d"
+}
+
+.icon-af-C-metier-europe_avion:before {
+    content: "\f24e"
+}
+
+.icon-af-C-metier-exploitation-pilotes:before {
+    content: "\f24f"
+}
+
+.icon-af-C-metier-femme-enceinte:before {
+    content: "\f250"
+}
+
+.icon-af-C-metier-femme:before {
+    content: "\f251"
+}
+
+.icon-af-C-metier-fichier:before {
+    content: "\f252"
+}
+
+.icon-af-C-metier-fille:before {
+    content: "\f253"
+}
+
+.glyphicon-arrow-down:before,
+.icon-af-C-metier-fleche-bas:before {
+    content: "\f254"
+}
+
+.glyphicon-arrow-up:before,
+.icon-af-C-metier-fleche-haut:before {
+    content: "\f255"
+}
+
+.icon-af-C-metier-flight-track:before {
+    content: "\f256"
+}
+
+.icon-af-C-metier-flocon-off:before {
+    content: "\f257"
+}
+
+.icon-af-C-metier-flocon:before {
+    content: "\f258"
+}
+
+.icon-af-C-metier-forum:before {
+    content: "\f259"
+}
+
+.icon-af-C-metier-france:before {
+    content: "\f25a"
+}
+
+.icon-af-C-metier-gare-tgv:before {
+    content: "\f25b"
+}
+
+.icon-af-C-metier-garon:before {
+    content: "\f25c"
+}
+
+.icon-af-C-metier-golf:before {
+    content: "\f25d"
+}
+
+.icon-af-C-metier-groupe-2:before {
+    content: "\f25e"
+}
+
+.icon-af-C-metier-groupe:before {
+    content: "\f25f"
+}
+
+.icon-af-C-metier-homme:before {
+    content: "\f260"
+}
+
+.icon-af-C-metier-horloge:before {
+    content: "\f261"
+}
+
+.icon-af-C-metier-ife-ecrans:before {
+    content: "\f262"
+}
+
+.icon-af-C-metier-ife-more-like-this:before {
+    content: "\f263"
+}
+
+.icon-af-C-metier-la-premiere:before {
+    content: "\f264"
+}
+
+.icon-af-C-metier-londres:before {
+    content: "\f265"
+}
+
+.icon-af-C-metier-main:before {
+    content: "\f266"
+}
+
+.icon-af-C-metier-maison-acceuil:before {
+    content: "\f267"
+}
+
+.icon-af-C-metier-masque-1:before {
+    content: "\f268"
+}
+
+.icon-af-C-metier-masque-2:before {
+    content: "\f269"
+}
+
+.icon-af-C-metier-meridiens:before {
+    content: "\f26a"
+}
+
+.icon-af-C-metier-montre:before {
+    content: "\f26b"
+}
+
+.icon-af-C-metier-multiselect:before {
+    content: "\f26c"
+}
+
+.icon-af-C-metier-nature:before {
+    content: "\f26d"
+}
+
+.icon-af-C-metier-navigation-droite:before {
+    content: "\f26e"
+}
+
+.icon-af-C-metier-navigation-gauche:before {
+    content: "\f26f"
+}
+
+.icon-af-C-metier-niv-pro:before {
+    content: "\f270"
+}
+
+.icon-af-C-metier-nuages-pluie:before {
+    content: "\f271"
+}
+
+.icon-af-C-metier-number:before {
+    content: "\f272"
+}
+
+.icon-af-C-metier-objet-dangereux:before {
+    content: "\f273"
+}
+
+.icon-af-C-metier-oeil:before {
+    content: "\f274"
+}
+
+.icon-af-C-metier-operation:before {
+    content: "\f275"
+}
+
+.icon-af-C-metier-oreille:before {
+    content: "\f276"
+}
+
+.icon-af-C-metier-osv:before {
+    content: "\f277"
+}
+
+.icon-af-C-metier-palette-colis:before {
+    content: "\f278"
+}
+
+.icon-af-C-metier-parasol-mer:before {
+    content: "\f279"
+}
+
+.icon-af-C-metier-parasol-palmier:before {
+    content: "\f27a"
+}
+
+.icon-af-C-metier-parasol-soleil:before {
+    content: "\f27b"
+}
+
+.icon-af-C-metier-paris:before {
+    content: "\f27c"
+}
+
+.icon-af-C-metier-passport:before {
+    content: "\f27d"
+}
+
+.icon-af-C-metier-personne-a-mobilite-reduite:before {
+    content: "\f27e"
+}
+
+.icon-af-C-metier-personne-agee:before {
+    content: "\f27f"
+}
+
+.icon-af-C-metier-personnel-sol:before {
+    content: "\f280"
+}
+
+.icon-af-C-metier-plateau-repas:before {
+    content: "\f281"
+}
+
+.icon-af-C-metier-pnc-off:before {
+    content: "\f282"
+}
+
+.icon-af-C-metier-pnc:before {
+    content: "\f283"
+}
+
+.icon-af-C-metier-pnt:before {
+    content: "\f284"
+}
+
+.icon-af-C-metier-point-dexclamation:before {
+    content: "\f285"
+}
+
+.icon-af-C-metier-point-dinterrogation:before {
+    content: "\f286"
+}
+
+.icon-af-C-metier-pompe-essence:before {
+    content: "\f287"
+}
+
+.icon-af-C-metier-preparation-vol:before {
+    content: "\f288"
+}
+
+.icon-af-C-metier-puce-active-inactive:before {
+    content: "\f289"
+}
+
+.icon-af-C-metier-rencontrer-assister:before {
+    content: "\f28a"
+}
+
+.icon-af-C-metier-reservation-af:before {
+    content: "\f28b"
+}
+
+.icon-af-C-metier-robinet:before {
+    content: "\f28c"
+}
+
+.icon-af-C-metier-ruban-premiere:before {
+    content: "\f28d"
+}
+
+.icon-af-C-metier-salon:before {
+    content: "\f28e"
+}
+
+.icon-af-C-metier-saphir:before {
+    content: "\f28f"
+}
+
+.icon-af-C-metier-shopping-2:before {
+    content: "\f290"
+}
+
+.icon-af-C-metier-shopping-supprimer-wishlist:before {
+    content: "\f291"
+}
+
+.icon-af-C-metier-siege-sup:before {
+    content: "\f292"
+}
+
+.icon-af-C-metier-sieges:before {
+    content: "\f293"
+}
+
+.icon-af-C-metier-simulateur:before {
+    content: "\f294"
+}
+
+.icon-af-C-metier-soleil:before {
+    content: "\f295"
+}
+
+.icon-af-C-metier-sourd:before {
+    content: "\f296"
+}
+
+.icon-af-C-metier-tapis-bagage:before {
+    content: "\f297"
+}
+
+.icon-af-C-metier-telephone-pnc:before {
+    content: "\f298"
+}
+
+.icon-af-C-metier-telephone-pnt:before {
+    content: "\f299"
+}
+
+.icon-af-C-metier-text:before {
+    content: "\f29a"
+}
+
+.icon-af-C-metier-timestamp:before {
+    content: "\f29b"
+}
+
+.icon-af-C-metier-tour-eiffel:before {
+    content: "\f29c"
+}
+
+.icon-af-C-metier-uniqueselect:before {
+    content: "\f29d"
+}
+
+.icon-af-C-metier-video:before {
+    content: "\f29e"
+}
+
+.icon-af-C-metier-vin:before {
+    content: "\f29f"
+}
+
+.icon-af-C-metier-vol-1:before {
+    content: "\f2a0"
+}
+
+.icon-af-C-metier-vol-2:before {
+    content: "\f2a1"
+}
+
+.icon-af-C-metier-vol-3:before {
+    content: "\f2a2"
+}
+
+.icon-af-C-metier-voyageur-bagage:before {
+    content: "\f2a3"
+}
+
+.icon-af-C-metier-voyageur-bebe:before {
+    content: "\f2a4"
+}
+
+.icon-af-C-metier-voyageur:before {
+    content: "\f2a5"
+}
+
+.icon-af-C-robinet:before {
+    content: "\f2a6"
+}
+
+.icon-af-D-brw-chrome:before {
+    content: "\f2a7"
+}
+
+.icon-af-D-brw-explorer:before {
+    content: "\f2a8"
+}
+
+.icon-af-D-brw-firefox:before {
+    content: "\f2a9"
+}
+
+.icon-af-D-brw-opera:before {
+    content: "\f2aa"
+}
+
+.icon-af-D-brw-safari-01:before {
+    content: "\f2ab"
+}
+
+.icon-af-D-prog-angularjs:before {
+    content: "\f2ac"
+}
+
+.icon-af-D-prog-css3-01:before {
+    content: "\f2ad"
+}
+
+.icon-af-D-prog-css3-02:before {
+    content: "\f2ae"
+}
+
+.icon-af-D-prog-html5-01:before {
+    content: "\f2af"
+}
+
+.icon-af-D-prog-html5-02:before {
+    content: "\f2b0"
+}
+
+.icon-af-D-prog-js01:before {
+    content: "\f2b1"
+}
+
+.icon-af-D-prog-js02:before {
+    content: "\f2b2"
+}
+
+.icon-af-D-prog-nodejs01:before {
+    content: "\f2b3"
+}
+
+.icon-af-D-prog-nodejs02:before {
+    content: "\f2b4"
+}
+
+.icon-af-D-sn-yammer:before {
+    content: "\f2b5"
+}

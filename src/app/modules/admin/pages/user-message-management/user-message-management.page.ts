@@ -1,5 +1,9 @@
+
+import { TabHeaderModeEnum } from '../../../../core/enums/tab-header-mode.enum';
+
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component, ViewChild, AfterViewInit } from '@angular/core';
+
 import { TranslateService } from '@ngx-translate/core';
 
 import { TextEditorComponent } from '../../../../shared/components/text-editor/text-editor.component';
@@ -27,6 +31,9 @@ export class UserMessageManagementPage implements AfterViewInit {
     userMessages: UserMessageModel[];
 
     textEditorMode: TextEditorModeEnum;
+
+    TabHeaderModeEnum = TabHeaderModeEnum;
+
 
     constructor(private userMessageService: UserMessageService,
         private userMessageAlertService: UserMessageAlertService,

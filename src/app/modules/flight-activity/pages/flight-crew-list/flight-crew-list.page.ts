@@ -1,13 +1,10 @@
 import { PncPhotoService } from './../../../../core/services/pnc-photo/pnc-photo.service';
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavParams, Events, LoadingController } from 'ionic-angular';
 
-import { ConnectivityService } from '../../../../core/services/connectivity/connectivity.service';
 import { SessionService } from '../../../../core/services/session/session.service';
 import { LegModel } from '../../../../core/models/leg.model';
-import { PncHomePage } from '../../../home/pages/pnc-home/pnc-home.page';
 import { LegService } from '../../../../core/services/leg/leg.service';
-import { GenderService } from '../../../../core/services/gender/gender.service';
 import { CrewMemberModel } from '../../../../core/models/crew-member.model';
 import { SpecialityEnum } from '../../../../core/enums/speciality.enum';
 import { PncService } from '../../../../core/services/pnc/pnc.service';
@@ -22,14 +19,14 @@ export class FlightCrewListPage {
     leg: LegModel;
     connectedCrewMember: CrewMemberModel;
 
-    constructor(public navCtrl: NavController,
-        public navParams: NavParams,
-        public genderProvider: GenderService,
+    constructor(
+        private navParams: NavParams,
         private legService: LegService,
-        public connectivityService: ConnectivityService,
         private sessionService: SessionService,
         private pncService: PncService,
-        private pncPhotoService: PncPhotoService) {
+        private pncPhotoService: PncPhotoService,
+        private loadingCtrl: LoadingController,
+        private events: Events) {
     }
 
     ionViewDidEnter() {
@@ -40,24 +37,21 @@ export class FlightCrewListPage {
      * Initialisation du contenu de la page.
      */
     initPage() {
-        const legId = this.navParams.get('legId');
-        this.legService.getLeg(legId).then(legInfos => {
-            this.leg = legInfos;
-            this.legService.getFlightCrewFromLeg(legId).then(flightCrews => {
-                this.pncPhotoService.synchronizePncsPhotos(flightCrews.map(flightCrew => flightCrew.pnc.matricule));
-                flightCrews.forEach(crew => {
-                    if (crew.pnc.matricule !== undefined && crew.pnc.matricule === this.sessionService.getActiveUser().matricule) {
-                        this.sessionService.appContext.onBoardRedactorFunction = crew.onBoardFonction;
-                        this.connectedCrewMember = crew;
-                    }
-                });
-                // On supprime le PNC connecté de la liste
-                if (this.connectedCrewMember) {
-                    flightCrews = flightCrews.filter(item => item !== this.connectedCrewMember);
+        this.leg = this.navParams.get('leg');
+        this.legService.getCrewMembersFromLeg(this.leg).then(flightCrews => {
+            this.pncPhotoService.synchronizePncsPhotos(flightCrews.map(flightCrew => flightCrew.pnc.matricule));
+            flightCrews.forEach(crewMember => {
+                if (crewMember.pnc.matricule !== undefined && crewMember.pnc.matricule === this.sessionService.getActiveUser().matricule) {
+                    this.sessionService.appContext.onBoardRedactorFunction = crewMember.onBoardFonction;
+                    this.connectedCrewMember = crewMember;
                 }
-                this.flightCrewList = this.sortFlightCrewList(flightCrews);
-            }, error => { this.flightCrewList = []; });
-        }, error => { });
+            });
+            // On supprime le PNC connecté de la liste
+            if (this.connectedCrewMember) {
+                flightCrews = flightCrews.filter(item => item !== this.connectedCrewMember);
+            }
+            this.flightCrewList = this.sortFlightCrewList(flightCrews);
+        }, error => { this.flightCrewList = []; });
     }
 
     /**
@@ -127,10 +121,13 @@ export class FlightCrewListPage {
      * @param onBoardFonction la fontion a bord du pnc concerné
      */
     openPncHomePage(matricule) {
-        this.pncService.getPnc(matricule).then(crewMember => {
-            if (crewMember) {
-                this.sessionService.appContext.observedPncMatricule = matricule;
-                this.navCtrl.push(PncHomePage, { matricule: matricule });
+        const loading = this.loadingCtrl.create();
+        loading.present();
+        this.pncService.getPnc(matricule).then(pnc => {
+            loading.dismiss();
+            if (pnc) {
+                this.sessionService.appContext.observedPnc = pnc;
+                this.events.publish('EDossier:visited', pnc);
             }
         });
     }
@@ -140,7 +137,7 @@ export class FlightCrewListPage {
     * @return true si c'est le cas, false sinon
     */
     loadingIsOver(): boolean {
-        return this.leg !== undefined && this.flightCrewList !== undefined;
+        return this.flightCrewList !== undefined;
     }
 
 }

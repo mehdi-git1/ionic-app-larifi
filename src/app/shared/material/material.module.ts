@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { MatTooltipModule } from '@angular/material';
+import { MatTooltipModule, MatSortModule } from '@angular/material';
 import { MatButtonModule } from '@angular/material';
 import { MatDatepickerModule } from '@angular/material';
 import { MatCheckboxModule } from '@angular/material';
@@ -30,6 +30,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
         MatInputModule,
         MatToolbarModule,
         MatTableModule,
+        MatSortModule,
         MatListModule,
         MatAutocompleteModule,
         MatProgressSpinnerModule,

@@ -1,0 +1,16 @@
+ion-textarea.input {
+    padding: 0 !important;
+    margin: 0 !important;
+
+    border-radius: 4px;
+    border: 1px solid color($colors, grey50);
+
+    &:focus-within {
+        border-color: color($colors, primary);
+    }
+
+    textarea {
+        padding: 5px !important;
+    }
+
+}

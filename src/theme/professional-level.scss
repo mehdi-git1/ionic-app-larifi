@@ -8,23 +8,23 @@ $colorPointSize: 12px;
 }
 
 .green {
-    background: color($colors, 'green70');
+    background: color($colors-secondary, green70);
 }
 
 .yellow {
-    background: color($colors, 'yellow1');
+    background: color($colors-secondary, yellow10);
 }
 
 .orange {
-    background: color($colors, 'orange90');
+    background: color($colors, orange55);
 }
 
 .red {
-    background: color($colors, 'red15');
+    background: color($colors-secondary, red15);
 }
 
 .selection-dot {
-    background: color($colors, blue81);
+    background: color($colors, primary-light);
     width: 10px;
     height: 10px;
     border-radius: 100%;

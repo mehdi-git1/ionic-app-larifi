@@ -1,21 +1,16 @@
-import { MatriculesModel } from './../../../../core/models/matricules.model';
 import { TranslateService } from '@ngx-translate/core';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { Events } from 'ionic-angular';
 
 import { PncModel } from '../../../../core/models/pnc.model';
-import { TabNavService } from '../../../../core/services/tab-nav/tab-nav.service';
 import { PncSearchFilterComponent } from '../../components/pnc-search-filter/pnc-search-filter.component';
 import { AppConstant } from '../../../../app.constant';
-import { PncHomePage } from '../../../home/pages/pnc-home/pnc-home.page';
 
 import { ConnectivityService } from '../../../../core/services/connectivity/connectivity.service';
-import { CrewMemberModel } from '../../../../core/models/crew-member.model';
 import { SessionService } from '../../../../core/services/session/session.service';
 
 import { PncService } from '../../../../core/services/pnc/pnc.service';
 
-import { TabNavEnum } from '../../../../core/enums/tab-nav.enum';
 import { PncPhotoService } from '../../../../core/services/pnc-photo/pnc-photo.service';
 
 @Component({
@@ -42,14 +37,12 @@ export class PncSearchPage implements OnInit {
     pncSearchFilter: PncSearchFilterComponent;
 
     constructor(
-        public navCtrl: NavController,
-        public navParams: NavParams,
         public translateService: TranslateService,
-        private pncProvider: PncService,
+        private pncService: PncService,
         private pncPhotoService: PncPhotoService,
         private sessionService: SessionService,
         private connectivityService: ConnectivityService,
-        private tabNavService: TabNavService
+        private events: Events
     ) {
         this.sizeOfThePage = 0;
     }
@@ -92,7 +85,7 @@ export class PncSearchPage implements OnInit {
         this.searchInProgress = true;
         this.buildFilter();
 
-        this.pncProvider.getFilteredPncs(this.pncSearchFilter.pncFilter, this.page, this.sizeOfThePage).then(pagedPnc => {
+        this.pncService.getFilteredPncs(this.pncSearchFilter.pncFilter, this.page, this.sizeOfThePage).then(pagedPnc => {
             this.pncPhotoService.synchronizePncsPhotos(pagedPnc.content.map(pnc => pnc.matricule));
             this.searchInProgress = false;
             this.filteredPncs = pagedPnc.content;
@@ -121,7 +114,7 @@ export class PncSearchPage implements OnInit {
             if (this.filteredPncs.length < this.totalPncs) {
                 if (this.connectivityService.isConnected()) {
                     ++this.page;
-                    this.pncProvider.getFilteredPncs(this.pncSearchFilter.pncFilter, this.page, this.sizeOfThePage).then(pagedPnc => {
+                    this.pncService.getFilteredPncs(this.pncSearchFilter.pncFilter, this.page, this.sizeOfThePage).then(pagedPnc => {
                         this.pncPhotoService.synchronizePncsPhotos(pagedPnc.content.map(pnc => pnc.matricule));
                         this.filteredPncs.push(...pagedPnc.content);
                         infiniteScroll.complete();
@@ -143,11 +136,8 @@ export class PncSearchPage implements OnInit {
     openPncHomePage(pnc: PncModel) {
         // Si on va sur un PNC par la recherche, on suprime de la session une enventuelle rotation.
         this.sessionService.appContext.lastConsultedRotation = null;
-        if (this.sessionService.isActiveUser(pnc)) {
-            this.navCtrl.parent.select(this.tabNavService.findTabIndex(TabNavEnum.PNC_HOME_PAGE));
-        } else {
-            this.navCtrl.push(PncHomePage, { matricule: pnc.matricule });
-        }
+
+        this.events.publish('EDossier:visited', pnc);
     }
 
     /**

@@ -28,9 +28,7 @@ export class OfflineCongratulationLetterService {
         return concernedPncs.length > 0;
       });
       // On tri par date de création décroissante
-      receivedCongratulationLetters = receivedCongratulationLetters.sort((letter1, letter2) => {
-        return moment(letter1.creationDate, AppConstant.isoDateFormat).isAfter(moment(letter2.creationDate, AppConstant.isoDateFormat)) ? -1 : 1;
-      });
+      receivedCongratulationLetters = this.sortCongratulationLettersByCreationDate(receivedCongratulationLetters);
       resolve(receivedCongratulationLetters);
     });
   }
@@ -47,11 +45,19 @@ export class OfflineCongratulationLetterService {
         return congratulationLetter.redactor.matricule === pncMatricule;
       });
       // On tri par date de création décroissante
-      writtenCongratulationLetters = writtenCongratulationLetters.sort((letter1, letter2) => {
-        return moment(letter1.creationDate, AppConstant.isoDateFormat).isAfter(moment(letter2.creationDate, AppConstant.isoDateFormat)) ? -1 : 1;
-      });
+      writtenCongratulationLetters = this.sortCongratulationLettersByCreationDate(writtenCongratulationLetters);
       resolve(writtenCongratulationLetters);
     });
+  }
+
+  /**
+   * Trie la liste des lettres de félicitations par date de rotation
+   * @param congratulationLetters liste de lettres de félicitations
+   * @return liste de lettres de félicitations triées
+   */
+  sortCongratulationLettersByCreationDate(congratulationLetters: CongratulationLetterModel[]): CongratulationLetterModel[] {
+    return congratulationLetters.sort((letter1, letter2) =>
+      moment(letter1.creationDate, AppConstant.isoDateFormat).isAfter(moment(letter2.creationDate, AppConstant.isoDateFormat)) ? -1 : 1);
   }
 
   /**

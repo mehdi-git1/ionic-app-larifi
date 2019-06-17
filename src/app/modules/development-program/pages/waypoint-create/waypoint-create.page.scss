@@ -3,6 +3,7 @@ page-waypoint-create {
         min-height: 210px !important;
         padding: 0 !important;
         margin: 0 !important;
+
         textarea {
             min-height: 190px !important;
             padding: 5px !important;
@@ -10,7 +11,7 @@ page-waypoint-create {
     }
 
     .ion-textarea-read-only {
-        background-color: color($colors, grey90);
+        background-color: color($colors-secondary, grey95);
     }
 
 }

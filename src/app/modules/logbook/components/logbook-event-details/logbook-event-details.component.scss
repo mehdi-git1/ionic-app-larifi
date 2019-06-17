@@ -1,0 +1,103 @@
+logbook-event-details {
+
+    .logbook-event-card {
+        padding: 10px 20px;
+
+        pnc-photo {
+            margin: 20px;
+        }
+
+        .logbook-info-container {
+            padding: 10px 20px 10px 10px;
+            width: 100%;
+
+            .logbook-header {
+                display: flex;
+
+                .left-logbook-info {
+                    flex: 3;
+
+                    .title {
+                        margin: 6px 0px;
+
+                        span {
+                            font-size: 1.2em;
+                            color: color($colors-secondary, blue77);
+                        }
+                    }
+                }
+
+                .right-logbook-info {
+                    flex: 1;
+
+                    .creation-date-info {
+                        display: flex;
+                        justify-content: flex-end;
+                        color: color($colors, grey50);
+                    }
+
+                    .icons {
+                        flex: 2;
+                        justify-content: flex-end;
+                        display: flex;
+                        margin: 8px 0px;
+                        height: 25px;
+
+                        span.edospnc-important {
+                            padding-top: 5px;
+                        }
+                    }
+
+
+                    .edospnc-important:before,
+                    .ion-ios-edospnc-important:before,
+                    .ion-md-edospnc-important:before,
+                    .icon-edospnc-important:before {
+                        font-size: 18px;
+                        padding-right: 10px;
+                    }
+
+                    .edospnc-pnc:before,
+                    .ion-ios-edospnc-pnc:before,
+                    .ion-ios-edospnc-pnc-outline:before,
+                    .ion-md-edospnc-pnc:before,
+                    .ion-md-edospnc-pnc-outline:before,
+                    .icon-edospnc-pnc:before {
+                        font-size: 20px;
+                        padding-right: 10px;
+                    }
+
+                    .category-label {
+
+                        span {
+                            height: 30px;
+                            background-color: color($colors-secondary, grey70);
+                            border-radius: 4px;
+                            padding: 5px 10px;
+                            font-weight: normal;
+                            white-space: nowrap;
+                        }
+                    }
+
+
+                }
+            }
+
+
+            .logbook-info-content {
+                margin-top: 10px;
+
+                p {
+                    white-space: pre-line;
+                }
+            }
+
+            .logbook-notified-pnc {
+                ion-label {
+                    margin-bottom: 4px;
+                    font-weight: bold;
+                }
+            }
+        }
+    }
+}

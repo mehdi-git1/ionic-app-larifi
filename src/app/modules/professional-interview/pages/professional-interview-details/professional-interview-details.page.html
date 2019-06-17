@@ -5,6 +5,7 @@
             <span *ngIf="professionalInterview?.type === ProfessionalInterviewTypeEnum.EPP"> {{ 'PROFESSIONAL_INTERVIEW.TITLE_EPP' | translate }} </span>
         </page-header>
     </ion-navbar>
+    <pnc-header [pnc]="pnc"></pnc-header>
 </ion-header>
 
 <ion-content padding>
@@ -24,8 +25,6 @@
                     <label *ngIf="!editionMode" class="date-display">{{professionalInterview.annualProfessionalInterviewDate | date:'dd/MM/yyyy' : 'UTC'}}</label>
                 </span>
             </div>
-
-            <pnc-card-page-header *ngIf="pnc" [itemMember]="pnc"></pnc-card-page-header>
 
             <div class="speciality-grid">
                 <ion-grid>
@@ -91,7 +90,7 @@
 
 
             <!-- Commentaire PNC-->
-            <edospnc-expandable-block mini="true" *ngIf="isConcernedPnc() || (!isPncCommentEditable && pncCommentIsNotEmpty()) || isAdminModeAvailable()" class="comment" title="{{'PROFESSIONAL_INTERVIEW.DETAILS.PNC_COMMENT' | translate}}">
+            <edospnc-expandable-block mini="true" [emptyCondition]="!isPncCommentEditable && !editionMode && !professionalInterview.pncComment" *ngIf="isConcernedPnc() || (!isPncCommentEditable && pncCommentIsNotEmpty()) || isAdminModeAvailable()" class="comment" title="{{'PROFESSIONAL_INTERVIEW.DETAILS.PNC_COMMENT' | translate}}">
                 <div>
                     <p *ngIf="!isPncCommentEditable && !editionMode; else editPncCommentBlock">{{professionalInterview.pncComment}}</p>
                     <ng-template #editPncCommentBlock>
@@ -136,7 +135,7 @@
                     <ion-icon name="md-create" ios="md-create" margin-right></ion-icon> {{ 'PROFESSIONAL_INTERVIEW.DETAILS.BUTTONS.MODIFY' | translate }}
                 </button>
                 <!-- Bouton annuler la modification d'un bilan professionnel -->
-                <button ion-button color="grey14" (click)="cancelEditMode()" *ngIf="editionMode">
+                <button ion-button color="grey20" (click)="cancelEditMode()" *ngIf="editionMode">
                     <ion-icon name="md-close" ios="md-close" margin-right></ion-icon> {{ 'PROFESSIONAL_INTERVIEW.DETAILS.BUTTONS.CANCEL' | translate }}
                 </button>
                 <!-- Bouton valider les modifications d'un bilan professionnel -->

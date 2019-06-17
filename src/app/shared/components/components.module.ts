@@ -1,3 +1,6 @@
+import { TabHeaderComponent } from './tab-header/tab-header.component';
+import { PncHeaderComponent } from './pnc-header/pnc-header.component';
+import { PdfButtonComponent } from './pdf-button/pdf-button.component';
 import { IonicModule } from 'ionic-angular';
 import { CommonModule } from '@angular/common';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
@@ -30,9 +33,13 @@ import { EdospncExpandableBlockComponent } from './edospnc-expandable-block/edos
 import { ColorStatusPointComponent } from './color-status-point/color-status-point.component';
 import { RadioAndLabelComponent } from './radio-and-label/radio-and-label.component';
 import { CheckboxAndLabelComponent } from './checkbox-and-label/checkbox-and-label.component';
-import { PncCardPageHeaderComponent } from './pnc-card-page-header/pnc-card-page-header.component';
 import { UserMessageAlertComponent } from './user-message-alert/user-message-alert.component';
+
 import { TextEditorComponent } from './text-editor/text-editor.component';
+
+import { AppVersionAlertComponent } from './app-version-alert/app-version-alert.component';
+import { PncEdossierHeaderComponent } from './pnc-edossier-header/pnc-edossier-header.component';
+
 
 
 @NgModule({
@@ -51,7 +58,7 @@ import { TextEditorComponent } from './text-editor/text-editor.component';
     ConnectivityIndicatorComponent,
     DownloadButtonComponent,
     PncCardComponent,
-    PncCardPageHeaderComponent,
+    PncHeaderComponent,
     EdossierSpinnerComponent,
     PinPadComponent,
     PinPadModalComponent,
@@ -61,20 +68,25 @@ import { TextEditorComponent } from './text-editor/text-editor.component';
     PncPhotoComponent,
     PageHeaderComponent,
     TabNavComponent,
+    TabHeaderComponent,
+    PncEdossierHeaderComponent,
     NoDataComponent,
     EdospncExpandableBlockComponent,
     ColorStatusPointComponent,
     RadioAndLabelComponent,
     CheckboxAndLabelComponent,
     UserMessageAlertComponent,
-    TextEditorComponent
+    TextEditorComponent,
+    PdfButtonComponent,
+    AppVersionAlertComponent
+
   ],
   exports: [
     OfflineIndicatorComponent,
     ConnectivityIndicatorComponent,
     DownloadButtonComponent,
     PncCardComponent,
-    PncCardPageHeaderComponent,
+    PncHeaderComponent,
     EdossierSpinnerComponent,
     PinPadComponent,
     PinPadModalComponent,
@@ -84,13 +96,17 @@ import { TextEditorComponent } from './text-editor/text-editor.component';
     NavBarCustomComponent,
     PncPhotoComponent,
     TabNavComponent,
+    TabHeaderComponent,
+    PncEdossierHeaderComponent,
     NoDataComponent,
     EdospncExpandableBlockComponent,
     ColorStatusPointComponent,
     RadioAndLabelComponent,
     CheckboxAndLabelComponent,
     UserMessageAlertComponent,
-    TextEditorComponent
+    TextEditorComponent,
+    PdfButtonComponent,
+    AppVersionAlertComponent
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA

@@ -1,12 +1,15 @@
 $padding-left-ion-select: 5px;
-$margin-top-autocomplete: 12px;
-$border-input-size: 2px;
-$border-input: $border-input-size solid color($colors, grey50);
+$margin-top-autocomplete: 15px;
 $top-autocomplete-field: 18px;
 
 pnc-search-filter {
 
     .pnc-search-card {
+
+        margin: 0 0 20px 0;
+        border-radius: 4px;
+        width: 100%;
+
         ion-card-header {
             height: 50px;
             display: flex;
@@ -48,7 +51,7 @@ pnc-search-filter {
         }
 
         ion-card-content.opened {
-            max-height: 165px;
+            max-height: 170px;
             transition: max-height 500ms;
         }
 
@@ -70,7 +73,6 @@ pnc-search-filter {
         }
 
         .clear-pnc {
-            background: color($colors, grey50);
             width: 100%;
         }
 
@@ -84,7 +86,6 @@ pnc-search-filter {
         }
 
         .search-pnc {
-            background: color($colors, green60);
             width: 100%;
         }
 
@@ -109,7 +110,6 @@ pnc-search-filter {
 
             .mat-form-field-infix {
                 margin-top: $margin-top-autocomplete;
-                border: $border-input;
             }
 
             .mat-form-field-label {
@@ -121,10 +121,6 @@ pnc-search-filter {
                 padding-bottom: 0em;
             }
 
-            ion-select {
-                border: $border-input;
-            }
-
             .label-inactive-filters {
                 color: color($colors, grey20);
                 font-weight: bold;
@@ -133,10 +129,6 @@ pnc-search-filter {
                 justify-content: right;
                 align-items: right;
                 text-align: right;
-            }
-
-            .select-placeholder {
-                color: color($colors, grey10) !important;
             }
 
             .label-md {
