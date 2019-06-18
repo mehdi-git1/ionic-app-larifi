@@ -14,7 +14,7 @@ export class LogbookEventActionMenuComponent {
 
   logbookEvent: LogbookEventModel;
 
-  navCtrl: NavController
+  navCtrl: NavController;
 
   constructor(private navParams: NavParams,
     public viewCtrl: ViewController) {
@@ -27,6 +27,14 @@ export class LogbookEventActionMenuComponent {
    */
   goToLogbookEventDetails() {
     this.navCtrl.push(LogbookEventDetailsPage, { matricule: this.logbookEvent.pnc.matricule, groupId: this.logbookEvent.groupId });
+    this.viewCtrl.dismiss();
+  }
+
+  /**
+   * Ajoute un évènement lié
+   */
+  addLinkedEvent() {
+    this.navCtrl.push(LogbookEventDetailsPage, { matricule: this.logbookEvent.pnc.matricule, groupId: this.logbookEvent.groupId, createLinkedEvent: true });
     this.viewCtrl.dismiss();
   }
 

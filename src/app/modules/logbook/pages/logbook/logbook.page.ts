@@ -62,7 +62,7 @@ export class LogbookPage {
      * Rafraîchit la page
      */
     refreshPage() {
-        this.groupedEvents = new Array<LogbookEventGroupModel>();
+        this.groupedEvents = null;
         this.getLogbookEvents(this.pnc.matricule);
     }
 
@@ -205,7 +205,6 @@ export class LogbookPage {
      * @return true si on est en mode connecté, false sinon
      */
     isConnected(): boolean {
-        console.log(this.connectivityService.isConnected());
         return this.connectivityService.isConnected();
     }
 }

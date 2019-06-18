@@ -6,57 +6,9 @@
     </ion-navbar>
 </ion-header>
 <ion-content padding no-bounce>
+    <logbook-event-create #logbookEventCreate></logbook-event-create>
     <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
     <ng-template #pageBlock>
-        <ion-grid>
-            <ion-row class="horizontal-items-in-row">
-                <ion-item class="event-date">
-                    <ion-label class="required">{{ 'LOGBOOK.EDIT.EVENT_DATE' | translate }}</ion-label>
-                    <ion-datetime [placeholder]="eventDateString" displayFormat="DD/MM/YYYY" pickerFormat="DD MMMM YYYY" [(ngModel)]="logbookEvent.eventDate" [doneText]="translateService.instant('GLOBAL.DATEPICKER.DONE')" [cancelText]="translateService.instant('GLOBAL.DATEPICKER.CANCEL')" [monthNames]="monthsNames"></ion-datetime>
-                </ion-item>
-                <ion-item class="event-checkbox" item-end>
-                    <ion-label item-end>{{ 'LOGBOOK.EDIT.PNC_ORIGIN' | translate }}</ion-label>
-                    <ion-checkbox item-end [(ngModel)]="logbookEvent.pncInitiator" [checked]="logbookEvent.pncInitiator"></ion-checkbox>
-                </ion-item>
-                <ion-item class="event-checkbox" item-end>
-                    <ion-label>{{ 'LOGBOOK.EDIT.IMPORTANT' | translate }}</ion-label>
-                    <ion-checkbox item-end [(ngModel)]="logbookEvent.important" [checked]="logbookEvent.important"></ion-checkbox>
-                </ion-item>
-            </ion-row>
-            <ion-row>
-                <ion-col>
-                    <ion-item class="category">
-                        <ion-label class="required" floating>{{ 'LOGBOOK.EDIT.CATEGORY' | translate }}</ion-label>
-                        <ion-select interface="popover" [placeholder]="Categorie" [(ngModel)]="logbookEvent.category">
-                            <ion-option *ngFor="let category of logbookEventCategories" [value]="category">{{category?.label}}</ion-option>
-                        </ion-select>
-                    </ion-item>
-                </ion-col>
-            </ion-row>
-            <ion-row class="title-row">
-                <ion-item>
-                    <ion-label class="required" floating>{{ 'LOGBOOK.EDIT.EVENT_TITLE' | translate }}</ion-label>
-                    <ion-textarea  class="event-title" [(ngModel)]="logbookEvent.title" rows="2" autocorrect="on" [maxlength]="titleMaxLength" #eventTitle></ion-textarea>
-                </ion-item>
-                <span class="event-length">{{eventTitle.value.length}}/{{titleMaxLength}}</span>
-            </ion-row>
-            <ion-row class="description-row">
-                <ion-item>
-                    <ion-label class="required" floating>{{ 'LOGBOOK.EDIT.EVENT_DESCRIPTION' | translate }}</ion-label>
-                    <ion-textarea class="big-textarea" [(ngModel)]="logbookEvent.content" autocorrect="on" #descriptionTextArea></ion-textarea>
-                </ion-item>
-            </ion-row>
-        </ion-grid>
-        <!-- Barre de boutons -->
-        <div class="button-bar-right button-bar">
-            <!-- Bouton Annuler -->
-            <button ion-button color="primary" outline (click)="confirmCancel()">
-                {{ 'GLOBAL.BUTTONS.CANCEL' | translate }}
-            </button>
-            <!-- Bouton Valider -->
-            <button ion-button color="primary" (click)="saveLogbookEvent()" [disabled]="!canBeSaved()">
-                {{ 'GLOBAL.BUTTONS.SAVE' | translate }}
-            </button>
-        </div>
+        
     </ng-template>
 </ion-content>

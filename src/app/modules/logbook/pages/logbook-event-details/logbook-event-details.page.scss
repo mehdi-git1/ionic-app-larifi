@@ -15,6 +15,15 @@ page-logbook-event-details {
         span {
             white-space: nowrap;
         }
-
     }
+
+    .opaque {
+        -webkit-filter: contrast(50%);
+        filter: contrast(50%);
+        logbook-event-create {
+            -webkit-filter: contrast(100%);
+            filter: contrast(100%);
+        }
+    }
+
 }
