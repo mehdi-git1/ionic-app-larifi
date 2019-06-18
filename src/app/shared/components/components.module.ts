@@ -5,6 +5,7 @@ import { IonicModule } from 'ionic-angular';
 import { CommonModule } from '@angular/common';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
+
 import { HttpClientModule } from '@angular/common/http';
 
 import { OfflineIndicatorComponent } from './offline-indicator/offline-indicator.component';
@@ -33,10 +34,8 @@ import { CheckboxAndLabelComponent } from './checkbox-and-label/checkbox-and-lab
 import { UserMessageAlertComponent } from './user-message-alert/user-message-alert.component';
 
 import { TextEditorComponent } from './text-editor/text-editor.component';
-
 import { AppVersionAlertComponent } from './app-version-alert/app-version-alert.component';
 import { PncEdossierHeaderComponent } from './pnc-edossier-header/pnc-edossier-header.component';
-
 
 
 @NgModule({
@@ -71,7 +70,8 @@ import { PncEdossierHeaderComponent } from './pnc-edossier-header/pnc-edossier-h
     CheckboxAndLabelComponent,
     UserMessageAlertComponent,
     PdfButtonComponent,
-    AppVersionAlertComponent
+    AppVersionAlertComponent,
+    TextEditorComponent
 
   ],
   exports: [

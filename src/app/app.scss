@@ -30,6 +30,9 @@
 @import '../theme/typography.scss';
 @import '../theme/elevation.scss';
 
+@import "../node_modules/quill/dist/quill.core.css";
+@import "../node_modules/quill/dist/quill.snow.css";
+
 // webfonts/icons
 @import '../theme/edospnc-icons.scss';
 @import '../theme/betty-icons.min.scss';

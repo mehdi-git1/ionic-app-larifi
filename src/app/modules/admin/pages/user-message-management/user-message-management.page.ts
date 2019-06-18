@@ -1,7 +1,7 @@
 
 import { TabHeaderModeEnum } from '../../../../core/enums/tab-header-mode.enum';
 
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Component, ViewChild, AfterViewInit } from '@angular/core';
 
 import { TranslateService } from '@ngx-translate/core';
@@ -34,6 +34,7 @@ export class UserMessageManagementPage implements AfterViewInit {
 
     TabHeaderModeEnum = TabHeaderModeEnum;
 
+    item: FormControl;
 
     constructor(private userMessageService: UserMessageService,
         private userMessageAlertService: UserMessageAlertService,
@@ -45,6 +46,10 @@ export class UserMessageManagementPage implements AfterViewInit {
             content: ['', [Validators.maxLength(5000)]],
             active: ['']
         });
+    }
+
+    ionViewWillLoad() {
+        this.item = this.formBuilder.control('');
     }
 
     ngAfterViewInit() { }
