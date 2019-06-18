@@ -193,16 +193,6 @@ export class LogbookEventCreateComponent  implements OnInit {
      * Confirme l'annulation des modifications
      */
     confirmCancel() {
-        if (this.formHasBeenModified()) {
-            return this. confirmAbandonChanges().then(() => {
-                this.logbookSavedEvent.emit(new LogbookSavedEvent(null));
-                return true;
-            }).catch(() => {
-                return false;
-            });
-        }  else {
-            this.logbookSavedEvent.emit(new LogbookSavedEvent(null));
-            return true;
-        }
+        this.logbookSavedEvent.emit(new LogbookSavedEvent(null));
     }
 }
