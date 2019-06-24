@@ -1,6 +1,6 @@
 import { EObservationTypeEnum } from './../../../../core/enums/e-observations-type.enum';
 import { DatePipe } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild, Renderer2 } from '@angular/core';
 import { NavController, NavParams, AlertController, LoadingController, Loading } from 'ionic-angular';
 import { EObservationModel } from '../../../../core/models/eobservation/eobservation.model';
 import { PncModel } from '../../../../core/models/pnc.model';
@@ -21,6 +21,10 @@ import { ReferentialItemLevelModel } from '../../../../core/models/eobservation/
   templateUrl: 'eobservation-details.page.html',
 })
 export class EobservationDetailsPage {
+
+  @ViewChild('eObservationInformations') eObservationInformations: ElementRef;
+  @ViewChild('pncCard') pncCard: ElementRef;
+
   PncRoleEnum = PncRoleEnum;
   EObservationTypeEnum = EObservationTypeEnum;
 
@@ -61,12 +65,12 @@ export class EobservationDetailsPage {
       this.eObservationService.getEObservation(this.navParams.get('eObservationId')).then(eObservation => {
         this.eObservation = eObservation;
         this.originEObservation = _.cloneDeep(this.eObservation);
+        const redactionDateString = this.datePipe.transform(this.eObservation.redactionDate, 'yyyyMMddHHmmss');
+        const pncMatricule = this.eObservation && this.eObservation.pnc ? this.eObservation.pnc.matricule : '';
+        this.pdfFileName = 'EOBS_' + pncMatricule + '_' + redactionDateString + '.pdf';
         if (this.eObservation && this.eObservation.pnc && this.eObservation.pnc.matricule) {
           this.pncService.getPnc(this.eObservation.pnc.matricule).then(pnc => {
             this.pnc = pnc;
-            const nowString = this.datePipe.transform(Date.now(), 'yyyyMMddHHmmss');
-            const pncMatricule = this.pnc ? this.pnc.matricule : '';
-            this.pdfFileName = 'EOBS_' + pncMatricule + '_' + nowString + '.pdf';
           }, error => { });
         }
       }, error => { });

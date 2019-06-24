@@ -1,5 +1,5 @@
 import { DeviceService } from './../../../core/services/device/device.service';
-import { Component, Input} from '@angular/core';
+import { Component, Input, Renderer2 } from '@angular/core';
 import { PdfGeneratorService } from '../../../core/services/pdf-generator/pdf-generator.service';
 
 @Component({
@@ -9,6 +9,8 @@ import { PdfGeneratorService } from '../../../core/services/pdf-generator/pdf-ge
 export class PdfButtonComponent {
 
   @Input() pdfFileName: string;
+
+  @Input() pncCard: HTMLElement;
 
   @Input() elementToPrint: HTMLElement;
 
@@ -20,7 +22,14 @@ export class PdfButtonComponent {
    * Génère le pdf
    */
   generatePdf() {
-    this.pdfGeneratorService.generatePdf(this.elementToPrint, this.pdfFileName);
+    let element = '<div>';
+    if (this.pncCard) {
+      element += this.pncCard.innerHTML;
+    }
+    if (this.elementToPrint) {
+      element += this.elementToPrint.innerHTML + '</div>';
+    }
+    this.pdfGeneratorService.generatePdfFromHtmlString(element, this.pdfFileName);
   }
 
   /**
