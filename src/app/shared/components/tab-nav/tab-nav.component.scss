@@ -12,9 +12,9 @@ tab-nav {
         font-weight: bold;
     }
 
-    .tabbar [class*="ion-md"] {
+    .tabbar .icon {
         color: color($colors, grey20) !important;
-        font-size: 2em !important;
+        font-size: 3rem !important;
     }
 
     .not-visible .tabbar {
