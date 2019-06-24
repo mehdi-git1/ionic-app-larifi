@@ -71,7 +71,7 @@ export class TabNavComponent {
     return [
       {
         id: TabNavEnum.PNC_HOME_PAGE,
-        page: PncHomePage,
+        page: this.sessionService.getActiveUser().isManager ? PncHomePage : CareerObjectiveListPage,
         icon: 'md-home',
       },
       {
@@ -111,7 +111,7 @@ export class TabNavComponent {
     this.tabsNav[this.tabNavService.getTabIndex(TabNavEnum.UPCOMING_FLIGHT_LIST_PAGE)].display = this.securityService.isManager();
     this.tabsNav[this.tabNavService.getTabIndex(TabNavEnum.VISITED_PNC)].display = false;
     this.tabsNav[this.tabNavService.getTabIndex(TabNavEnum.VISITED_MANAGER)].display = false;
-    this.tabsNav[this.tabNavService.getTabIndex(TabNavEnum.HELP_ASSET_LIST_PAGE)].display = true;
+    this.tabsNav[this.tabNavService.getTabIndex(TabNavEnum.HELP_ASSET_LIST_PAGE)].display = this.securityService.isManager();
   }
 
   /**
@@ -186,14 +186,6 @@ export class TabNavComponent {
    */
   isAvailable(): boolean {
     return this.sessionService.getActiveUser() && this.sessionService.getActiveUser().isManager;
-  }
-
-  /**
-   * Vérifie si la navbar doit être masquée. Elle doit l'être si on est un PNC non impersonnifié, sinon la navigation ne fonctionne pas.
-   * @return vrai si la navbar doit être masquée, faux sinon
-   */
-  isNavBarHidden() {
-    return this.sessionService.impersonatedUser == undefined && !this.isAvailable();
   }
 
 }

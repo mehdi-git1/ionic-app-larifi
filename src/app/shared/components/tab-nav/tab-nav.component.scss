@@ -17,4 +17,8 @@ tab-nav {
         font-size: 2em !important;
     }
 
+    .not-visible .tabbar {
+        display: none;
+    }
+
 }

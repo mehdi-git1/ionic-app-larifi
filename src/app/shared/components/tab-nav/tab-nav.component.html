@@ -1,3 +1,3 @@
-<ion-tabs #tabs *ngIf="!loading" tabsPlacement="bottom" (ionChange)="tabChange($event)" [hidden]="isNavBarHidden()">
-    <ion-tab *ngFor="let tabNav of tabsNav" [root]="tabNav.page" [rootParams]="tabNav.params" [show]="tabNav.display && isAvailable()" [tabTitle]="tabNav.title" [tabIcon]="tabNav.icon"></ion-tab>
+<ion-tabs #tabs *ngIf="!loading" tabsPlacement="bottom" (ionChange)="tabChange($event)" [class.not-visible]="!isAvailable()">
+    <ion-tab *ngFor="let tabNav of tabsNav" [root]="tabNav.page" [rootParams]="tabNav.params" [show]="tabNav.display" [tabTitle]="tabNav.title" [tabIcon]="tabNav.icon"></ion-tab>
 </ion-tabs>
