@@ -6,10 +6,10 @@ import { UserProfileModel } from '../../models/admin/user-profile.model';
 import { UserPermissionModel } from '../../models/admin/user-permission.model';
 import { UrlConfiguration } from '../../configuration/url.configuration';
 import * as _ from 'lodash';
-import * as jsPDF from 'jspdf';
-import html2pdf from 'html2pdf.js';
 
 declare var cordova: any;
+declare var jsPDF;
+declare var html2pdf;
 
 @Injectable()
 export class PdfGeneratorService {
