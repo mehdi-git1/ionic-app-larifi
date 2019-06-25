@@ -1,7 +1,6 @@
 career-objective {
 
     .career-objective-card {
-        background-color: color($colors-secondary, green60);
         display: flex;
         border-radius: 5px !important;
         color: color($colors, white);
@@ -23,8 +22,8 @@ career-objective {
             }
 
             .value {
-                font-size: 1.2em !important;
-                font-weight: 400;
+                font-weight: normal;
+                color: color($colors, primary-light);
             }
 
             .career-objective-date {
