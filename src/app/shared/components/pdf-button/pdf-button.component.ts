@@ -1,3 +1,4 @@
+import { DeviceService } from './../../../core/services/device/device.service';
 import { Component, Input} from '@angular/core';
 import { PdfGeneratorService } from '../../../core/services/pdf-generator/pdf-generator.service';
 
@@ -9,16 +10,36 @@ export class PdfButtonComponent {
 
   @Input() pdfFileName: string;
 
+  @Input() pncCard: HTMLElement;
+
   @Input() elementToPrint: HTMLElement;
 
-  constructor(private pdfGeneratorService: PdfGeneratorService) {
+  constructor(private pdfGeneratorService: PdfGeneratorService,
+    private deviceService: DeviceService) {
   }
 
   /**
    * Génère le pdf
    */
   generatePdf() {
-    this.pdfGeneratorService.generatePdf(this.elementToPrint, this.pdfFileName);
+    let element = '<div>';
+    if (this.pncCard) {
+      element += this.pncCard.innerHTML;
+    }
+    if (this.elementToPrint) {
+      element += this.elementToPrint.innerHTML + '</div>';
+    }
+    this.pdfGeneratorService.generatePdfFromHtmlString(element, this.pdfFileName);
   }
 
+  /**
+   * Vérifie que le bouton est disponible sur cette plateforme
+   */
+  isAvailable() {
+    if ( this.deviceService.isBrowser()) {
+      return true;
+    } else {
+      return false;
+    }
+  }
  }

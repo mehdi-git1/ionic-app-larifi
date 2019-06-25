@@ -48,7 +48,7 @@ registerLocaleData(localeFr);
   imports: [
     BrowserModule,
     IonicModule.forRoot(EDossierPNC, {
-      pageTransition: 'md-transition',
+      pageTransition: 'ios-transition',
       backButtonText: ''
     }),
     HttpClientModule,

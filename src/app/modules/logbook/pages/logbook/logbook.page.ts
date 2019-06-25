@@ -62,7 +62,7 @@ export class LogbookPage {
      * Rafraîchit la page
      */
     refreshPage() {
-        this.groupedEvents = new Array<LogbookEventGroupModel>();
+        this.groupedEvents = null;
         this.getLogbookEvents(this.pnc.matricule);
     }
 
@@ -179,9 +179,7 @@ export class LogbookPage {
     openActionsMenu(myEvent: Event, logbookEvent: LogbookEventModel) {
         myEvent.stopPropagation();
         const popover = this.popoverCtrl.create(LogbookEventActionMenuComponent, { logbookEvent: logbookEvent, navCtrl: this.navCtrl }, { cssClass: 'action-menu-popover' });
-        popover.present({
-            ev: myEvent
-        });
+        popover.present({ev : myEvent});
     }
 
     /**
@@ -206,7 +204,6 @@ export class LogbookPage {
      * @return true si on est en mode connecté, false sinon
      */
     isConnected(): boolean {
-        console.log(this.connectivityService.isConnected());
         return this.connectivityService.isConnected();
     }
 }

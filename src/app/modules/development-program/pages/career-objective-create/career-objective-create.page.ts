@@ -52,8 +52,6 @@ export class CareerObjectiveCreatePage {
 
     pnc: PncModel;
 
-    notificationInstructor = false;
-
     // Permet d'exposer l'enum au template
     CareerObjectiveStatus = CareerObjectiveStatusEnum;
     WaypointStatus = WaypointStatusEnum;
@@ -250,10 +248,10 @@ export class CareerObjectiveCreatePage {
                         this.offlineCareerObjectiveService.createOrUpdate(savedCareerObjective, true);
                     }
                     if (savedCareerObjective.careerObjectiveStatus === CareerObjectiveStatusEnum.DRAFT) {
-                        if (!this.notificationInstructor) {
-                            this.toastService.success(this.translateService.instant('CAREER_OBJECTIVE_CREATE.SUCCESS.DRAFT_SAVED'));
+                        if (this.careerObjective.instructorToBeNotified) {
+                            this.toastService.success(this.translateService.instant('CAREER_OBJECTIVE_CREATE.SUCCESS.CAREER_OBJECTIVE_INSTRUCTOR_REQUESTED'));
                         } else {
-                            this.createInstructorRequest(savedCareerObjective);
+                            this.toastService.success(this.translateService.instant('CAREER_OBJECTIVE_CREATE.SUCCESS.DRAFT_SAVED'));
                         }
                     } else if (savedCareerObjective.careerObjectiveStatus === CareerObjectiveStatusEnum.REGISTERED) {
                         if (this.cancelValidation) {
@@ -442,19 +440,6 @@ export class CareerObjectiveCreatePage {
     }
 
     /**
-     * Envoi au serveur une demande de sollicitation instructeur pour l'objectif
-     */
-    createInstructorRequest(savedCareerObjective) {
-        this.careerObjectiveService
-            .createInstructorRequest(savedCareerObjective.techId)
-            .then(result => {
-                this.toastService.success(this.translateService.instant('CAREER_OBJECTIVE_CREATE.SUCCESS.CAREER_OBJECTIVE_INSTRUCTOR_REQUESTED'));
-            },
-                error => { });
-    }
-
-
-    /**
     * Présente une alerte pour la notification du brouillon
     */
     confirmCreateInstructorRequest() {
@@ -468,11 +453,18 @@ export class CareerObjectiveCreatePage {
                 },
                 {
                     text: this.translateService.instant('CAREER_OBJECTIVE_CREATE.CONFIRM_INSTRUCTOR_REQUEST.CONFIRM'),
-                    handler: () => this.saveCareerObjectiveDraft()
+                    handler: () => this.saveCareerObjectiveDraftWithNotification()
                 }
             ]
         }).present();
-        this.notificationInstructor = true;
+    }
+
+    /**
+    * Sauvegarde le brouillon, tout en envoyant une notification à l'instructeur
+    */
+    saveCareerObjectiveDraftWithNotification() {
+        this.careerObjective.instructorToBeNotified = true;
+        this.saveCareerObjectiveDraft();
     }
 
     /**

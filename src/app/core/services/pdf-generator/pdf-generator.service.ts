@@ -6,10 +6,10 @@ import { UserProfileModel } from '../../models/admin/user-profile.model';
 import { UserPermissionModel } from '../../models/admin/user-permission.model';
 import { UrlConfiguration } from '../../configuration/url.configuration';
 import * as _ from 'lodash';
-/*import * as jsPDF from 'jspdf';
-import html2pdf from 'html2pdf.js';*/
 
 declare var cordova: any;
+declare var jsPDF;
+declare var html2pdf;
 
 @Injectable()
 export class PdfGeneratorService {
@@ -25,20 +25,21 @@ export class PdfGeneratorService {
    * @param elementToPrint élément HTML
    * @param pdfFileName nom du fichier PDF généré
    */
-  generatePdf(elementToPrint: HTMLElement, pdfFileName: string) {
-    /*if (!this.deviceService.isBrowser() && cordova && cordova.plugins && cordova.plugins.pdf) {
-      const options = {
-          name: pdfFileName,
-          documentSize: 'A4',
-          type: 'share',
-          fileName: pdfFileName
-      };
-      const payload = _.template('<head><link rel="stylesheet" href="<%=css_file%>"></head>' + elementToPrint.innerHTML);
+  generatePdfFromHTMLElement(elementToPrint: HTMLElement, pdfFileName: string) {
+    this.generatePdf(elementToPrint, pdfFileName);
+  }
 
-      cordova.plugins.pdf.fromData(payload({css_file : this.cssFile}), options)
-      .then()
-      .catch(err => this.toastService.error(err));
-    } else  {
+  /**
+   * Génère un pdf correspondant à l'élément HTML en paramètre
+   * @param elementToPrint élément HTML
+   * @param pdfFileName nom du fichier PDF généré
+   */
+  generatePdfFromHtmlString(elementToPrint: string, pdfFileName: string) {
+    this.generatePdf(elementToPrint, pdfFileName);
+  }
+
+  private generatePdf(elementToPrint: any, pdfFileName: string) {
+    if (this.deviceService.isBrowser())  {
       const opt = {
         margin: 15,
         filename: pdfFileName,
@@ -62,6 +63,6 @@ export class PdfGeneratorService {
         }
       };
       html2pdf().from(elementToPrint).set(opt).save();
-    }*/
+    }
   }
 }
