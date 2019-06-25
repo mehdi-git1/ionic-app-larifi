@@ -145,9 +145,7 @@ export class LogbookEventDetailsPage implements OnInit {
     }
 
     selectedLogbookEvent(logbookEvent: LogbookEventModel) {
-        if (logbookEventAlreadyInEdition()) {
 
-        }
         this.logbookEventTechId = logbookEvent.techId;
     }
 
