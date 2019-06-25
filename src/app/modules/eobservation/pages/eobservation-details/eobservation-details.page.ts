@@ -1,6 +1,6 @@
 import { EObservationTypeEnum } from './../../../../core/enums/e-observations-type.enum';
 import { DatePipe } from '@angular/common';
-import { Component, ElementRef, ViewChild, Renderer2 } from '@angular/core';
+import { Component} from '@angular/core';
 import { NavController, NavParams, AlertController, LoadingController, Loading } from 'ionic-angular';
 import { EObservationModel } from '../../../../core/models/eobservation/eobservation.model';
 import { PncModel } from '../../../../core/models/pnc.model';
@@ -21,9 +21,6 @@ import { ReferentialItemLevelModel } from '../../../../core/models/eobservation/
   templateUrl: 'eobservation-details.page.html',
 })
 export class EobservationDetailsPage {
-
-  @ViewChild('eObservationInformations') eObservationInformations: ElementRef;
-  @ViewChild('pncCard') pncCard: ElementRef;
 
   PncRoleEnum = PncRoleEnum;
   EObservationTypeEnum = EObservationTypeEnum;

@@ -1,5 +1,5 @@
 import { DeviceService } from './../../../core/services/device/device.service';
-import { Component, Input, Renderer2 } from '@angular/core';
+import { Component, Input} from '@angular/core';
 import { PdfGeneratorService } from '../../../core/services/pdf-generator/pdf-generator.service';
 
 @Component({
@@ -33,7 +33,7 @@ export class PdfButtonComponent {
   }
 
   /**
-   * Vérifie que le bouton est disponible pour la platform
+   * Vérifie que le bouton est disponible sur cette plateforme
    */
   isAvailable() {
     if ( this.deviceService.isBrowser()) {
