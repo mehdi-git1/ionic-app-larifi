@@ -132,7 +132,7 @@ export class LogbookEventDetailsPage implements OnInit {
     }
 
     ionViewCanLeave() {
-        if (this.logbookEventSaved) {
+        if (this.logbookEventSaved || (!this.editionMode && !this.createLinkedEvent)) {
             return true;
         }
         let logbookEventDetailsComponent: LogbookEventDetailsComponent;

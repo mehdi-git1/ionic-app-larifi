@@ -70,7 +70,7 @@ export class LogbookEventDetailsComponent implements OnInit {
         if (this.mode === LogbookEventModeEnum.CREATION || this.mode === LogbookEventModeEnum.LINKED_CREATION) {
             this.editEvent = true;
             this.logbookEvent = new LogbookEventModel();
-            if (typeof this.groupId !== 'undefined' && this.groupId) {
+            if (typeof this.groupId !== 'undefined') {
                 this.logbookEvent.groupId = this.groupId;
             }
             this.logbookEvent.pnc = new PncLightModel();
