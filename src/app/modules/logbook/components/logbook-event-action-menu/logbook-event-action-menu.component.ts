@@ -14,7 +14,7 @@ export class LogbookEventActionMenuComponent {
 
   logbookEvent: LogbookEventModel;
 
-  navCtrl: NavController
+  navCtrl: NavController;
 
   constructor(private navParams: NavParams,
     public viewCtrl: ViewController) {
