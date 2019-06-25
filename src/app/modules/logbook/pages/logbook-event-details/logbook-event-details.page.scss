@@ -1,20 +1,20 @@
 page-logbook-event-details {
+    .button-bar {
+        position: -webkit-sticky;
+        bottom: 50px;
+        display: flex;
+        align-items: flex-end;
+        justify-content: flex-end;
 
-    .draw-ligne {
-        margin: 22px 10px;
-        border-top: 1px solid color($colors-secondary, grey70);
-        flex: 5;
-    }
+        button {
+            align-self: flex-end;
+            font-size: 15px;
 
-    .logbook-info-date {
-        flex: 2;
-        text-align: center;
-        position: relative;
-        top: 12px;
-
-        span {
-            white-space: nowrap;
+            .ion-md-add:before,
+            .ion-ios-add:before {
+                font-size: 18px;
+                vertical-align: middle;
+            }
         }
-
     }
 }

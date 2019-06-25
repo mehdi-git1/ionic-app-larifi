@@ -23,10 +23,10 @@ export class LogbookEventActionMenuComponent {
   }
 
   /**
-   * Dirige vers la page de détail d'un évènement du journal de bord
+   * Ajoute un évènement lié
    */
-  goToLogbookEventDetails() {
-    this.navCtrl.push(LogbookEventDetailsPage, { matricule: this.logbookEvent.pnc.matricule, groupId: this.logbookEvent.groupId });
+  addLinkedEvent() {
+    this.navCtrl.push(LogbookEventDetailsPage, { matricule: this.logbookEvent.pnc.matricule, groupId: this.logbookEvent.groupId, createLinkedEvent: true });
     this.viewCtrl.dismiss();
   }
 

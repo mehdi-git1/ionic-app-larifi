@@ -79,8 +79,7 @@
             "SAVE": "Enregistrer",
             "CONFIRM": "Confirmer",
             "CANCEL": "Annuler",
-            "EXPORT": "Exporter",
-            "UPDATE": "MODIFIER"
+            "EXPORT": "Exporter"
         },
         "CONFIRM_BACK_WITHOUT_SAVE": {
             "TITLE": "Modifications non enregistrées",
@@ -621,7 +620,11 @@
         "ACTIONS": "Actions",
         "UNAIVALABLE_OFFLINE": "Les événements ne sont pas disponibles hors connexion",
         "BUTTONS": {
-            "ADD_LOG": "Nouvel évènement"
+            "ADD_LOG": "Nouvel évènement",
+            "MODIFY": "Modifier",
+            "CANCEL": "Annuler",
+            "UPDATE": "Mettre à jour",
+            "SAVE": "Enregistrer"
         },
         "EDIT": {
             "EVENT_CREATION": "Création d'un nouvel évènement",
@@ -635,7 +638,9 @@
             "CONCERNED_PERSONS_LIST": "Liste des personnes concernées",
             "ADD_CONTACT": "Ajouter un contact",
             "LOGBOOK_SAVED": "Evénement enregistré",
-            "CONFIRM_CANCEL_MESSAGE": "Confirmez-vous l'annulation de la création de l'évènement ?",
+            "LOGBOOK_UPDATED": "Evénement mis à jour",
+            "CONFIRM_CANCEL_UPDATE_MESSAGE": "Confirmez-vous l'annulation de la modification de l'évènement ?",
+            "CONFIRM_CANCEL_CREATE_MESSAGE": "Confirmez-vous l'annulation de la création de l'évènement ?",
             "CONCERNED_PNCS": "Liste des personnes concernées :",
             "CONCERNED_PNC": "PNC Concerné",
             "SELECT_ALL": "Tout sélectionner",

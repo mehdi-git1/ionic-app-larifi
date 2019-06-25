@@ -1,3 +1,8 @@
+import { LogbookEventDetailsComponent } from './../../components/logbook-event-details/logbook-event-details.component';
+import { TranslateService } from '@ngx-translate/core';
+import { TransformerService } from './../../../../core/services/transformer/transformer.service';
+import { Utils } from './../../../../shared/utils/utils';
+import { LogbookEventModeEnum } from './../../../../core/enums/logbook-event/logbook-event-mode.enum';
 import { AppConstant } from './../../../../app.constant';
 import { SessionService } from './../../../../core/services/session/session.service';
 import { OnlineLogbookEventService } from './../../../../core/services/logbook/online-logbook-event.service';
@@ -5,9 +10,10 @@ import { LogbookEventModel } from './../../../../core/models/logbook/logbook-eve
 import { SecurityService } from './../../../../core/services/security/security.service';
 import { PncModel } from './../../../../core/models/pnc.model';
 import { PncService } from './../../../../core/services/pnc/pnc.service';
-import { NavController, NavParams } from 'ionic-angular';
-import { Component, OnInit } from '@angular/core';
+import { NavController, NavParams, Events, AlertController } from 'ionic-angular';
+import { Component, OnInit, ViewChild, ViewChildren } from '@angular/core';
 import { LogbookEditPage } from '../logbook-edit/logbook-edit.page';
+import * as _ from 'lodash';
 
 @Component({
     selector: 'page-logbook-event-details',
@@ -17,47 +23,79 @@ export class LogbookEventDetailsPage implements OnInit {
 
     private logbookEvents: LogbookEventModel[];
     pnc: PncModel;
+    logbookEvent: LogbookEventModel;
+    originLogbookEvent: LogbookEventModel;
+    logbookEventSaved = false;
+
+    createLinkedEvent = false;
+    groupId: number;
+    logbookEventTechId: number;
+
+    LogbookEventModeEnum = LogbookEventModeEnum;
+
+    @ViewChildren('logbookEventDetails') logbookEventDetails: LogbookEventDetailsComponent[];
+
+    @ViewChild('linkedLogbookEventCreate') linkedLogbookEventCreate: LogbookEventDetailsComponent;
 
     constructor(
         public navCtrl: NavController,
         private onlineLogbookEventService: OnlineLogbookEventService,
         private navParams: NavParams,
         private sessionService: SessionService,
-        private pncService: PncService
+        private pncService: PncService,
+        private events: Events,
+        private alertCtrl: AlertController,
+        private translateService: TranslateService,
+        private securityService: SecurityService
     ) {
-
-
     }
 
     ngOnInit() {
-        let matricule = this.navParams.get('matricule');
-        if (this.navParams.get('matricule')) {
-            matricule = this.navParams.get('matricule');
-        } else if (this.sessionService.getActiveUser()) {
-            matricule = this.sessionService.getActiveUser().matricule;
+        this.createLinkedEvent = this.navParams.get('createLinkedEvent');
+        if (this.sessionService.visitedPnc) {
+            this.pnc = this.sessionService.visitedPnc;
+        } else {
+            this.pnc = this.sessionService.getActiveUser().authenticatedPnc;
         }
-        if (matricule != null) {
-            this.pncService.getPnc(matricule).then(pnc => {
-                this.pnc = pnc;
-                if (typeof this.navParams.get('groupId') !== 'undefined') {
-                    const groupId = this.navParams.get('groupId');
-                    this.onlineLogbookEventService.getLogbookEventsByGroupId(groupId).then(
-                        logbookEvents => {
-                            this.logbookEvents = this.sortLogbookEventsByEventDate(logbookEvents);
-                            this.logbookEvents.forEach(logbookEvent => {
-                                logbookEvent.notifiedPncs.forEach(notifiedPnc => {
-                                    if (pnc.pncInstructor && notifiedPnc.matricule === pnc.pncInstructor.matricule) {
-                                        notifiedPnc.isInstructor = true;
-                                    } else if (pnc.pncRds && notifiedPnc.matricule === pnc.pncRds.matricule) {
-                                        notifiedPnc.isRds = true;
-                                    }
-                                });
-                            });
-                        });
-                }
-            }, error => { });
+
+        if (typeof this.navParams.get('groupId') !== 'undefined') {
+            const groupId = this.navParams.get('groupId');
+            this.groupId = groupId;
+            this.getLogbookEventsByGroupId(this.groupId, this.pnc);
         }
+
+        this.events.subscribe('LogbookEvent:saved', () => {
+            this.logbookEventSaved = true;
+            this.createLinkedEvent = false;
+            this.getLogbookEventsByGroupId(this.groupId, this.pnc);
+        });
+        this.events.subscribe('LinkedLogbookEvent:canceled', () => {
+            this.createLinkedEvent = false;
+        });
     }
+
+
+    /**
+     * Récupère les évènements du groupe
+     * @param groupId identifiant du groupe
+     * @param pnc pnc
+     */
+    getLogbookEventsByGroupId(groupId: number, pnc: PncModel) {
+        this.onlineLogbookEventService.getLogbookEventsByGroupId(groupId).then(
+            logbookEvents => {
+                this.logbookEvents = this.sortLogbookEventsByEventDate(logbookEvents);
+                this.logbookEvents.forEach(logbookEvent => {
+                    logbookEvent.notifiedPncs.forEach(notifiedPnc => {
+                        if (pnc.pncInstructor && notifiedPnc.matricule === pnc.pncInstructor.matricule) {
+                            notifiedPnc.isInstructor = true;
+                        } else if (pnc.pncRds && notifiedPnc.matricule === pnc.pncRds.matricule) {
+                            notifiedPnc.isRds = true;
+                        }
+                    });
+                });
+            });
+    }
+
 
     /**
      * Tri d'une liste d'évènements de journal de bord
@@ -86,6 +124,52 @@ export class LogbookEventDetailsPage implements OnInit {
      */
     loadingIsOver(): boolean {
         return true;
+    }
+
+    ionViewCanLeave() {
+        if (this.logbookEventSaved) {
+            return true;
+        }
+        let logbookEventDetailsComponent: LogbookEventDetailsComponent;
+        if (this.createLinkedEvent) {
+            logbookEventDetailsComponent = this.linkedLogbookEventCreate;
+        } else {
+
+            this.logbookEventDetails.forEach(logbookEvent => {
+                if (logbookEvent.logbookEvent.techId === this.logbookEventTechId) {
+                    logbookEventDetailsComponent = logbookEvent;
+                }
+            });
+        }
+        return logbookEventDetailsComponent.confirmCancel();
+    }
+
+    selectedLogbookEvent(logbookEvent: LogbookEventModel) {
+        if (logbookEventAlreadyInEdition()) {
+
+        }
+        this.logbookEventTechId = logbookEvent.techId;
+    }
+
+    logbookEventAlreadyInEdition() {
+        this.logbookEventDetails.forEach(logbookEvent => {
+            if (logbookEvent.editEvent) {
+                return true;
+            }
+        });
+        return false;
+    }
+
+    createLinkedLogookEvent() {
+        this.createLinkedEvent = true;
+    }
+
+    /**
+     * Vérifie si le PNC est manager
+     * @return vrai si le PNC est manager, faux sinon
+     */
+    isManager(): boolean {
+        return this.securityService.isManager();
     }
 }
 
