@@ -19,7 +19,6 @@ export class LogbookEventModel extends EDossierPncObjectModel {
     groupId: number;
     notifiedPncs: PncLightModel[];
     notifiedRecipients: LogbookEventNotifiedEmail[];
-    saved: boolean;
 
     getStorageId(): string {
         return `${this.techId}`;

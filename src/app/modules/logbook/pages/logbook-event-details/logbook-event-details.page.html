@@ -16,7 +16,7 @@
     <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
     <ng-template #pageBlock>
         <div class="logbook-info-box selectable" *ngFor="let logbookEvent of logbookEvents">
-            <logbook-event-details id="logbookEvent.techId" #logbookEventDetails (edition)="selectedLogbookEvent($event)" [logbookEvent]="logbookEvent" [mode]="LogbookEventModeEnum.DETAILS"></logbook-event-details>
+            <logbook-event-details #logbookEventDetails (edition)="selectedLogbookEvent($event)" [logbookEvent]="logbookEvent" [mode]="LogbookEventModeEnum.DETAILS"></logbook-event-details>
         </div>
     </ng-template>
 </ion-content>

@@ -95,7 +95,7 @@ export class LogbookEventDetailsComponent implements OnInit {
     }
 
     /**
-     * Renvoie à la page mere l'évènement a éditer.
+     * Envoie un event avec l'évènement à editer, à la page parente.
      */
     editLogbookEvent() {
         if (this.canEditEvent()) {
@@ -104,9 +104,9 @@ export class LogbookEventDetailsComponent implements OnInit {
     }
 
     /**
-     * annule la création de l'évènement
+     * Annule la création / modification de l'évènement en appuyant sur le bouton annuler.
      */
-    cancelLogbookEventCreation() {
+    cancelLogbookEventCreationOrEdition() {
         this.cancelFromButton = true;
         this.confirmCancel();
     }
@@ -153,7 +153,7 @@ export class LogbookEventDetailsComponent implements OnInit {
             // Avant de quitter la vue, on avertit l'utilisateur si ses modifications n'ont pas été enregistrées
             this.alertCtrl.create({
                 title: this.translateService.instant('GLOBAL.CONFIRM_BACK_WITHOUT_SAVE.TITLE'),
-                message: this.mode == LogbookEventModeEnum.CREATION ? this.translateService.instant('LOGBOOK.EDIT.CONFIRM_CANCEL_CREATE_MESSAGE') : this.translateService.instant('LOGBOOK.EDIT.CONFIRM_CANCEL_UPDATE_MESSAGE'),
+                message: this.mode == LogbookEventModeEnum.CREATION || this.mode == LogbookEventModeEnum.LINKED_CREATION ? this.translateService.instant('LOGBOOK.EDIT.CONFIRM_CANCEL_CREATE_MESSAGE') : this.translateService.instant('LOGBOOK.EDIT.CONFIRM_CANCEL_UPDATE_MESSAGE'),
                 buttons: [
                     {
                         text: this.translateService.instant('GLOBAL.BUTTONS.CANCEL'),
@@ -252,14 +252,4 @@ export class LogbookEventDetailsComponent implements OnInit {
         const rds = this.pnc && this.pnc.pncRds && this.sessionService.getActiveUser().matricule === this.pnc.pncRds.matricule;
         return redactor || instructor || rds;
     }
-
-    /**
-     * Définie le mode de création d'un évènement (création d'un évènement ou d'un évènement lié)
-     */
-    // addLogbookEvent() {
-    //     if (this.groupId) {
-    //         return this.mode === LogbookEventModeEnum.LINKED_CREATION;
-    //     }
-    //     return this.mode === LogbookEventModeEnum.CREATION;
-    // }
 }

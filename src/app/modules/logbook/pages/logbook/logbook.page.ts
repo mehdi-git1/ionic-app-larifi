@@ -87,10 +87,9 @@ export class LogbookPage {
                 groupedEvent.logbookEvents = this.sortLogbookEventsByEventDate(groupedEvent.logbookEvents);
                 this.groupedEvents.push(groupedEvent);
             }
-        }
-            , error => {
-                this.groupedEvents = new Array<LogbookEventGroupModel>();
-            });
+        }, error => {
+            this.groupedEvents = new Array<LogbookEventGroupModel>();
+        });
     }
 
     /**
@@ -179,7 +178,7 @@ export class LogbookPage {
     openActionsMenu(myEvent: Event, logbookEvent: LogbookEventModel) {
         myEvent.stopPropagation();
         const popover = this.popoverCtrl.create(LogbookEventActionMenuComponent, { logbookEvent: logbookEvent, navCtrl: this.navCtrl }, { cssClass: 'action-menu-popover' });
-        popover.present({ev : myEvent});
+        popover.present({ ev: myEvent });
     }
 
     /**

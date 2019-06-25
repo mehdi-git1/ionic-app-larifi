@@ -149,6 +149,10 @@ export class LogbookEventDetailsPage implements OnInit {
         return logbookEventDetailsComponent.confirmCancel();
     }
 
+    /**
+     * Determine l'évènement a modifier, et bloque la modification des autres évènements liés.
+     * @param logbookEvent L'évènement à modifier
+     */
     selectedLogbookEvent(logbookEvent: LogbookEventModel) {
         if (!this.logbookEventTechId && !this.createLinkedEvent) {
             this.logbookEventTechId = logbookEvent.techId;
@@ -161,6 +165,9 @@ export class LogbookEventDetailsPage implements OnInit {
         }
     }
 
+    /**
+     * Permet de créer un évènement lié.
+     */
     createLinkedLogookEvent() {
         this.createLinkedEvent = true;
     }

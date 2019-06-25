@@ -23,7 +23,6 @@ export class LogbookEditPage {
 
     logbookEvent: LogbookEventModel;
     originLogbookEvent: LogbookEventModel;
-    loading: Loading;
 
     LogbookEventModeEnum = LogbookEventModeEnum;
 
