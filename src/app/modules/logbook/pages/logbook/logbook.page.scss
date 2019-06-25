@@ -21,6 +21,17 @@ log-book {
         .child-event-grid {
             padding: 0px;
             height: 100%; 
+            ion-row {
+                display: flex;
+                height: 100%;
+                align-items: center;
+                ion-col {
+                    display: flex;
+                    height: 100%;
+                    align-items: center;
+                    max-height: 48px;
+                }
+            }
         }
 
         .events-number {
@@ -91,10 +102,7 @@ log-book {
             }
         }
 
-        ion-row > ion-col {
-            align-items: center;
-            max-height: 48px;
-        }
+
 
         .event-row {
             height: 48px;
@@ -173,5 +181,5 @@ log-book {
 }
 
 .popover-md.action-menu-popover .popover-content {
-    transform: translate(-68%, 12%) !important;
+    transform: translate(-30px) !important;
 }

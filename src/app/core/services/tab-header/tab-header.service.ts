@@ -1,5 +1,4 @@
 import { UpcomingFlightListPage } from './../../../modules/flight-activity/pages/upcoming-flight-list/upcoming-flight-list.page';
-import { PncSearchPage } from './../../../modules/pnc-team/pages/pnc-search/pnc-search.page';
 import { PncModel } from './../../models/pnc.model';
 import { SessionService } from '../session/session.service';
 import { AuthorizationService } from '../authorization/authorization.service';

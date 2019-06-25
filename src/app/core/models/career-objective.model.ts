@@ -22,6 +22,7 @@ export class CareerObjectiveModel extends EDossierPncObjectModel {
     encounterDate: string;
     prioritized: boolean;
     waypoints: WaypointModel[];
+    instructorToBeNotified: boolean;
 
     getStorageId(): string {
         return `${this.techId}`;
