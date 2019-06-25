@@ -94,6 +94,9 @@ export class LogbookEventDetailsComponent implements OnInit {
         }
     }
 
+    /**
+     * Renvoie à la page mere l'évènement a éditer.
+     */
     editLogbookEvent() {
         if (this.canEditEvent()) {
             this.edition.emit(this.logbookEvent);
@@ -250,10 +253,13 @@ export class LogbookEventDetailsComponent implements OnInit {
         return redactor || instructor || rds;
     }
 
-    addLogbookEvent() {
-        if (this.groupId) {
-            return this.mode === LogbookEventModeEnum.LINKED_CREATION;
-        }
-        return this.mode === LogbookEventModeEnum.CREATION;
-    }
+    /**
+     * Définie le mode de création d'un évènement (création d'un évènement ou d'un évènement lié)
+     */
+    // addLogbookEvent() {
+    //     if (this.groupId) {
+    //         return this.mode === LogbookEventModeEnum.LINKED_CREATION;
+    //     }
+    //     return this.mode === LogbookEventModeEnum.CREATION;
+    // }
 }
