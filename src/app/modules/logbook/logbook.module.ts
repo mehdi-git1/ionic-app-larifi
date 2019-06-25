@@ -1,4 +1,3 @@
-import { LogbookEventCreateComponent } from './components/logbook-event-create.component.ts/logbook-event-create.component';
 import { LogbookEventDetailsComponent } from './components/logbook-event-details/logbook-event-details.component';
 import { LogbookEventDetailsPage } from './pages/logbook-event-details/logbook-event-details.page';
 import { LogbookEventActionMenuComponent } from './components/logbook-event-action-menu/logbook-event-action-menu.component';
@@ -15,8 +14,7 @@ import { ComponentsModule } from '../../shared/components/components.module';
     LogbookEditPage,
     LogbookEventDetailsPage,
     LogbookEventDetailsComponent,
-    LogbookEventActionMenuComponent,
-    LogbookEventCreateComponent
+    LogbookEventActionMenuComponent
   ],
   imports: [
     [IonicPageModule.forChild(LogbookPage)],
@@ -28,8 +26,7 @@ import { ComponentsModule } from '../../shared/components/components.module';
     LogbookEditPage,
     LogbookEventDetailsPage,
     LogbookEventDetailsComponent,
-    LogbookEventActionMenuComponent,
-    LogbookEventCreateComponent
+    LogbookEventActionMenuComponent
   ],
   exports: [
     LogbookPage,
