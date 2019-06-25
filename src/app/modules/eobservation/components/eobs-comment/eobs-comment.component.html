@@ -49,6 +49,6 @@
     <div class="comment-footer">
         <span *ngIf="eObservation?.commentDate">{{eObservation?.commentDate | date: 'dd/MM/yyyy' : 'UTC'}}</span>
         <span>{{getAuthorSpeciality()}}</span>
-        <span>{{getCommentAuthor()?.lastName}} <span>{{getCommentAuthor()?.firstName | titlecase}}</span></span>
+        <span>{{getCommentAuthor()?.lastName}} <span class="firstname">{{getCommentAuthor()?.firstName}}</span></span>
     </div>
 </edospnc-expandable-block>
