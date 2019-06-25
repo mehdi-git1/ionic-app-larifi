@@ -28,6 +28,7 @@ export class LogbookEventDetailsPage implements OnInit {
     logbookEventSaved = false;
 
     createLinkedEvent = false;
+    editionMode = false;
     groupId: number;
     logbookEventTechId: number;
 
@@ -68,11 +69,13 @@ export class LogbookEventDetailsPage implements OnInit {
             this.logbookEventSaved = true;
             this.createLinkedEvent = false;
             this.logbookEventTechId = null;
+            this.editionMode = false;
             this.getLogbookEventsByGroupId(this.groupId, this.pnc);
         });
         this.events.subscribe('LinkedLogbookEvent:canceled', () => {
             this.createLinkedEvent = false;
             this.logbookEventTechId = null;
+            this.editionMode = false;
         });
     }
 
@@ -147,11 +150,12 @@ export class LogbookEventDetailsPage implements OnInit {
     }
 
     selectedLogbookEvent(logbookEvent: LogbookEventModel) {
-        if (!this.logbookEventTechId) {
+        if (!this.logbookEventTechId && !this.createLinkedEvent) {
             this.logbookEventTechId = logbookEvent.techId;
             this.logbookEventDetails.forEach(item => {
                 if (item.logbookEvent.techId === logbookEvent.techId) {
                     item.editEvent = true;
+                    this.editionMode = true;
                 }
             });
         }

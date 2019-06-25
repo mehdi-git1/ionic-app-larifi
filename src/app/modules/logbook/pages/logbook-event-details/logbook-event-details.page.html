@@ -7,7 +7,7 @@
 </ion-header>
 <ion-content padding no-bounce>
     <div class="button-bar" *ngIf="isManager()">
-        <button ion-button color="primary" (click)="createLinkedLogookEvent()" icon-start>
+        <button ion-button color="primary" (click)="createLinkedLogookEvent()" icon-start [disabled]="editionMode">
             <ion-icon name="add"></ion-icon>
             <span>{{ 'LOGBOOK.ACTION_MENU.ADD_LINKED_EVENT' | translate }}</span>
         </button>
