@@ -81,6 +81,20 @@ export class PncHomePage {
     }
 
     /**
+    * Dirige vers la liste des prochains vols
+    */
+    goToUpcomingFlightList() {
+        this.navCtrl.parent.select(this.tabNavService.getTabIndex(TabNavEnum.UPCOMING_FLIGHT_LIST_PAGE));
+    }
+
+    /**
+    * Dirige vers l'effectif PNC
+    */
+    goToPncSearch() {
+        this.navCtrl.parent.select(this.tabNavService.getTabIndex(TabNavEnum.PNC_SEARCH_PAGE));
+    }
+
+    /**
      * Dirige vers la page des ressources d'aide
      */
     goToHelpAssetList() {
