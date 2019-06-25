@@ -31,6 +31,14 @@ export class LogbookEventActionMenuComponent {
   }
 
   /**
+   * Ajoute un évènement lié
+   */
+  addLinkedEvent() {
+    this.navCtrl.push(LogbookEventDetailsPage, { matricule: this.logbookEvent.pnc.matricule, groupId: this.logbookEvent.groupId, createLinkedEvent: true });
+    this.viewCtrl.dismiss();
+  }
+
+  /**
    * Ferme la popover
    */
   closePopover() {
