@@ -14,6 +14,7 @@ logbook-event-create {
         height: stretch;
         height: -webkit-fill-available;
         height: -moz-available;
+        height: 100%;
         max-height: -webkit-fill-available;
         max-height: -moz-available;
         max-height: stretch;
@@ -92,6 +93,7 @@ logbook-event-create {
 
     .description-row {
         margin-top: $ion-textarea-row-margin !important;
+        height: 100%;
         ion-textarea.big-textarea {
             align-items: stretch;
             /* autoprefixer: off */
@@ -99,6 +101,7 @@ logbook-event-create {
             height: stretch;
             height: -webkit-fill-available;
             height: -moz-available;
+            height: 100%;
             max-height: -webkit-fill-available;
             max-height: -moz-available;
             max-height: stretch;
