@@ -96,7 +96,6 @@ export class LogbookEventDetailsComponent implements OnInit {
 
     editLogbookEvent() {
         if (this.canEditEvent()) {
-            this.editEvent = true;
             this.edition.emit(this.logbookEvent);
         }
     }

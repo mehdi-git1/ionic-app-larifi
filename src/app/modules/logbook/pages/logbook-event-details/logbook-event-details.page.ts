@@ -10,7 +10,7 @@ import { LogbookEventModel } from './../../../../core/models/logbook/logbook-eve
 import { SecurityService } from './../../../../core/services/security/security.service';
 import { PncModel } from './../../../../core/models/pnc.model';
 import { PncService } from './../../../../core/services/pnc/pnc.service';
-import { NavController, NavParams, Events, AlertController } from 'ionic-angular';
+import { NavController, NavParams, Events, AlertController, Item } from 'ionic-angular';
 import { Component, OnInit, ViewChild, ViewChildren } from '@angular/core';
 import { LogbookEditPage } from '../logbook-edit/logbook-edit.page';
 import * as _ from 'lodash';
@@ -67,10 +67,12 @@ export class LogbookEventDetailsPage implements OnInit {
         this.events.subscribe('LogbookEvent:saved', () => {
             this.logbookEventSaved = true;
             this.createLinkedEvent = false;
+            this.logbookEventTechId = null;
             this.getLogbookEventsByGroupId(this.groupId, this.pnc);
         });
         this.events.subscribe('LinkedLogbookEvent:canceled', () => {
             this.createLinkedEvent = false;
+            this.logbookEventTechId = null;
         });
     }
 
@@ -145,17 +147,14 @@ export class LogbookEventDetailsPage implements OnInit {
     }
 
     selectedLogbookEvent(logbookEvent: LogbookEventModel) {
-
-        this.logbookEventTechId = logbookEvent.techId;
-    }
-
-    logbookEventAlreadyInEdition() {
-        this.logbookEventDetails.forEach(logbookEvent => {
-            if (logbookEvent.editEvent) {
-                return true;
-            }
-        });
-        return false;
+        if (!this.logbookEventTechId) {
+            this.logbookEventTechId = logbookEvent.techId;
+            this.logbookEventDetails.forEach(item => {
+                if (item.logbookEvent.techId === logbookEvent.techId) {
+                    item.editEvent = true;
+                }
+            });
+        }
     }
 
     createLinkedLogookEvent() {
