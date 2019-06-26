@@ -37,6 +37,23 @@
                 <ion-textarea class="big-textarea" [(ngModel)]="logbookEvent.content" autocorrect="on" #descriptionTextArea></ion-textarea>
             </ion-item>
         </ion-row>
+        <ion-row class="notification-row">
+            <ion-col class="persons-to-notify">
+                <ion-label class="required" floating>{{ 'LOGBOOK.EDIT.PERSONS_TO_NOTIFY' | translate }}</ion-label>
+                <ion-item class="event-checkbox">
+                    <span class="value" [ngClass]="{'no-value' : pnc.pncInstructor }">{{ pnc.pncInstructor.lastName }} {{ pnc.pncInstructor.firstName }} </span>
+                    <ion-label>({{ 'PNC_IDENTITY.REFERENT_INSTRUCTOR' | translate }})</ion-label>
+                    <ion-checkbox [checked]="pnc.isInstructor"></ion-checkbox>
+                </ion-item>
+                <ion-item class="event-checkbox">
+                    <span class="value" [ngClass]="{'no-value' : pnc.pncRds }">{{ pnc.pncRds.lastName }} {{ pnc.pncRds.firstName }} </span>
+                    <ion-label>({{ 'PNC_IDENTITY.RDS' | translate }})</ion-label>
+                    <ion-checkbox></ion-checkbox>
+                </ion-item>
+            </ion-col>
+            <ion-col class="other-contact">
+            </ion-col>
+        </ion-row>
     </ion-grid>
     <!-- Barre de boutons -->
     <div class="button-bar-right button-bar">
