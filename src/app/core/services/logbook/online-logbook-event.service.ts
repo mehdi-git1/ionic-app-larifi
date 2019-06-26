@@ -34,9 +34,6 @@ export class OnlineLogbookEventService {
             logbookEvent.redactor.lastName = this.sessionService.getActiveUser().lastName;
             logbookEvent.redactor.firstName = this.sessionService.getActiveUser().firstName;
         }
-        logbookEvent.lastUpdateAuthor = new PncLightModel();
-        logbookEvent.lastUpdateAuthor.matricule = this.sessionService.getActiveUser().matricule;
-        logbookEvent.lastUpdateDate = new Date();
         return this.restService.post(this.config.getBackEndUrl('logbookEvents'), logbookEvent);
     }
 

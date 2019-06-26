@@ -104,9 +104,9 @@ export class LogbookEventDetailsComponent implements OnInit {
     }
 
     /**
-  * Présente une alerte pour confirmer la suppression du brouillon
-  */
-    confirmDeleteCareerObjectiveDraft() {
+     * Présente une alerte pour confirmer la suppression du brouillon
+     */
+    confirmDeleteLogBookEvent() {
         this.alertCtrl.create({
             title: this.translateService.instant('LOGBOOK.DELETE.CONFIRM_DELETE.TITLE'),
             message: this.translateService.instant('LOGBOOK.DELETE.CONFIRM_DELETE.MESSAGE'),
@@ -134,7 +134,7 @@ export class LogbookEventDetailsComponent implements OnInit {
             .then(
                 deletedlogbookEvent => {
                     this.toastService.success(this.translateService.instant('LOGBOOK.DELETE.SUCCESS'));
-                    this.navCtrl.pop();
+                    this.events.publish('LogbookEvent:deleted');
                     this.loading.dismiss();
                 },
                 error => {
