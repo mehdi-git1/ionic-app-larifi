@@ -82,7 +82,7 @@ export class TabHeaderService {
                 {
                     label: this.translateService.instant('GLOBAL.LOGBOOK'),
                     component: LogbookPage,
-                    available: this.authorizationService.hasPermission('VIEW_LOGBOOK')
+                    available: this.pnc && !this.pnc.manager && this.authorizationService.hasPermission('VIEW_LOGBOOK')
                 },
                 {
                     label: this.translateService.instant('GLOBAL.UPCOMING_FLIGHT'),
