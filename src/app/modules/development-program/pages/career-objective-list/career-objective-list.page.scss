@@ -27,7 +27,6 @@ page-career-objective-list {
         display: flex;
         justify-content: space-between;
         align-items: flex-end;
-
     }
 
     button {
@@ -46,20 +45,12 @@ page-career-objective-list {
         display: flex;
         justify-content: space-between;
         align-items: center;
+        height: 66px;
         margin-bottom: 10px;
         padding: 10px;
         border-radius: 4px;
         background: color($colors, white);
         border: 1px solid color($colors-secondary, grey75);
-
-        .option-menu {
-            display: none;
-            margin-top: 5px;
-
-            .item-inner {
-                border: 0px;
-            }
-        }
 
         .info-container {
             display: flex;
@@ -70,6 +61,21 @@ page-career-objective-list {
                 font-weight: bold;
             }
         }
+
+        .add-container {
+            display: flex;
+            justify-content: flex-end;
+
+            ion-select {
+                width: 300px;
+
+                .item-inner {
+                    border: 0px;
+                }
+            }
+
+        }
+
     }
 
     .archives {
@@ -93,6 +99,4 @@ page-career-objective-list {
             content: '';
         }
     }
-
-
 }

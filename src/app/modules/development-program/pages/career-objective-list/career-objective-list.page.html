@@ -16,7 +16,7 @@
             <div class="eobservation-creation-container" *ngIf="canCreateEObservation() && hasEObsTypeForm()">
                 <div class="info-container">
                     <label>{{ 'EOBSERVATION.NEW_EOBSERVATION_HEADER.FUNCTION' | translate }}</label>
-                    <span>{{pnc.currentSpeciality}}</span>
+                    <span>{{getFormatedSpeciality(pnc)}}</span>
                 </div>
                 <div class="info-container">
                     <label>{{ 'EOBSERVATION.NEW_EOBSERVATION_HEADER.TYPE' | translate }}</label>
@@ -27,16 +27,14 @@
                     <span>{{ lastConsultedRotation.departureDate | date: 'dd/MM/yyyy'}}</span>
                 </div>
                 <div class="add-container">
-                    <button ion-button (click)="displayEObservationTypeSelection()" color="primary-dark">
+                    <button ion-button (click)="displayEObservationTypeSelection()" color="primary-dark" [hidden]="canDisplayMenu">
                         <ion-icon name="md-add" ios="md-add"></ion-icon>
                         <label>{{ 'EOBSERVATION.NEW_EOBSERVATION_HEADER.NEW' | translate }}</label>
                     </button>
 
-                    <ion-item class="option-menu" [ngClass]="{'flex': canDisplayMenu}">
-                        <ion-select interface="popover" [placeholder]="eFormsList[0]" #optionValue (ionChange)="getEFormsTypeBeforeCreate(optionValue.value)">
-                            <ion-option *ngFor="let eForm of eFormsList" [value]="eForm">{{eForm}}</ion-option>
-                        </ion-select>
-                    </ion-item>
+                    <ion-select [hidden]="!canDisplayMenu" interface="popover" [placeholder]="eFormsList[0]" #optionValue (ionChange)="getEFormsTypeBeforeCreate(optionValue.value)">
+                        <ion-option *ngFor="let eForm of eFormsList" [value]="eForm">{{eForm}}</ion-option>
+                    </ion-select>
                 </div>
             </div>
             <div class="list-container">
