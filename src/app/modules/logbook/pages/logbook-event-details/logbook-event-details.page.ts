@@ -145,18 +145,18 @@ export class LogbookEventDetailsPage implements OnInit {
         if (this.logbookEventSaved || (!this.editionMode && !this.createLinkedEvent)) {
             return true;
         }
-        let logbookEventDetailsComponent: LogbookEventComponent;
+        let logbookEventComponent: LogbookEventComponent;
         if (this.createLinkedEvent) {
-            logbookEventDetailsComponent = this.linkedLogbookEventCreate;
+            logbookEventComponent = this.linkedLogbookEventCreate;
         } else {
 
             this.logbookEventDetails.forEach(logbookEvent => {
                 if (logbookEvent.logbookEvent.techId === this.logbookEventTechId) {
-                    logbookEventDetailsComponent = logbookEvent;
+                    logbookEventComponent = logbookEvent;
                 }
             });
         }
-        return logbookEventDetailsComponent.confirmCancel();
+        return logbookEventComponent.confirmCancel();
     }
 
     /**
