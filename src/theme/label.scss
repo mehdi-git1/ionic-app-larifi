@@ -21,7 +21,7 @@
      text-transform: lowercase;
  }
 
- .firstname:first-letter {
+ .firstname::first-letter {
      text-transform: uppercase;
  }
 
