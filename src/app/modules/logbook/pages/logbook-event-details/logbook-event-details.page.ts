@@ -1,4 +1,8 @@
-import { LogbookEventCreateComponent } from './../../components/logbook-event-create.component.ts/logbook-event-create.component';
+import { LogbookEventDetailsComponent } from './../../components/logbook-event-details/logbook-event-details.component';
+import { TranslateService } from '@ngx-translate/core';
+import { TransformerService } from './../../../../core/services/transformer/transformer.service';
+import { Utils } from './../../../../shared/utils/utils';
+import { LogbookEventModeEnum } from './../../../../core/enums/logbook-event/logbook-event-mode.enum';
 import { AppConstant } from './../../../../app.constant';
 import { SessionService } from './../../../../core/services/session/session.service';
 import { OnlineLogbookEventService } from './../../../../core/services/logbook/online-logbook-event.service';
@@ -6,9 +10,10 @@ import { LogbookEventModel } from './../../../../core/models/logbook/logbook-eve
 import { SecurityService } from './../../../../core/services/security/security.service';
 import { PncModel } from './../../../../core/models/pnc.model';
 import { PncService } from './../../../../core/services/pnc/pnc.service';
-import { NavController, NavParams } from 'ionic-angular';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { NavController, NavParams, Events, AlertController, Item } from 'ionic-angular';
+import { Component, OnInit, ViewChild, ViewChildren } from '@angular/core';
 import { LogbookEditPage } from '../logbook-edit/logbook-edit.page';
+import * as _ from 'lodash';
 
 @Component({
     selector: 'page-logbook-event-details',
@@ -18,62 +23,60 @@ export class LogbookEventDetailsPage implements OnInit {
 
     private logbookEvents: LogbookEventModel[];
     pnc: PncModel;
-    createLinkedEvent = false;
-    groupId: number;
+    logbookEvent: LogbookEventModel;
+    originLogbookEvent: LogbookEventModel;
+    logbookEventSaved = false;
 
-    @ViewChild('logbookEventCreate') logbookEventCreate: LogbookEventCreateComponent;
+    createLinkedEvent = false;
+    editionMode = false;
+    groupId: number;
+    logbookEventTechId: number;
+
+    LogbookEventModeEnum = LogbookEventModeEnum;
+
+    @ViewChildren('logbookEventDetails') logbookEventDetails: LogbookEventDetailsComponent[];
+
+    @ViewChild('linkedLogbookEventCreate') linkedLogbookEventCreate: LogbookEventDetailsComponent;
 
     constructor(
         public navCtrl: NavController,
         private onlineLogbookEventService: OnlineLogbookEventService,
         private navParams: NavParams,
         private sessionService: SessionService,
-        private pncService: PncService
+        private pncService: PncService,
+        private events: Events,
+        private alertCtrl: AlertController,
+        private translateService: TranslateService,
+        private securityService: SecurityService
     ) {
-
-    }
-
-    ionViewDidLoad() {
-        this.logbookEventCreate.logbookSavedEvent.subscribe(event => {
-            if ( event != null ) {
-                this.getLogbookEventsByGroupId(this.groupId, this.pnc);
-            }
-            this.createLinkedEvent = false;
-        });
-    }
-
-    ionViewCanLeave() {
-        if (!this.createLinkedEvent) {
-            return true;
-        }
-        return this.logbookEventCreate.cancelEdition();
     }
 
     ngOnInit() {
-        let matricule = this.navParams.get('matricule');
-        if (this.navParams.get('matricule')) {
-            matricule = this.navParams.get('matricule');
-        } else if (this.sessionService.getActiveUser()) {
-            matricule = this.sessionService.getActiveUser().matricule;
-        }
-
-        if (this.navParams.get('createLinkedEvent')) {
-            this.createLinkedEvent = this.navParams.get('createLinkedEvent');
+        this.createLinkedEvent = this.navParams.get('createLinkedEvent');
+        if (this.sessionService.visitedPnc) {
+            this.pnc = this.sessionService.visitedPnc;
         } else {
+            this.pnc = this.sessionService.getActiveUser().authenticatedPnc;
+        }
+
+        if (typeof this.navParams.get('groupId') !== 'undefined') {
+            const groupId = this.navParams.get('groupId');
+            this.groupId = groupId;
+            this.getLogbookEventsByGroupId(this.groupId, this.pnc);
+        }
+
+        this.events.subscribe('LogbookEvent:saved', () => {
+            this.logbookEventSaved = true;
             this.createLinkedEvent = false;
-        }
-
-        if (matricule != null) {
-            this.pncService.getPnc(matricule).then(pnc => {
-                this.pnc = pnc;
-                if (typeof this.navParams.get('groupId') !== 'undefined') {
-                    const groupId = this.navParams.get('groupId');
-                    this.groupId = groupId;
-                    this.getLogbookEventsByGroupId(this.groupId, this.pnc);
-                }
-            }, error => { });
-        }
-
+            this.logbookEventTechId = null;
+            this.editionMode = false;
+            this.getLogbookEventsByGroupId(this.groupId, this.pnc);
+        });
+        this.events.subscribe('LinkedLogbookEvent:canceled', () => {
+            this.createLinkedEvent = false;
+            this.logbookEventTechId = null;
+            this.editionMode = false;
+        });
     }
 
 
@@ -97,6 +100,7 @@ export class LogbookEventDetailsPage implements OnInit {
                 });
             });
     }
+
 
     /**
      * Tri d'une liste d'évènements de journal de bord
@@ -124,7 +128,56 @@ export class LogbookEventDetailsPage implements OnInit {
      * @return true si c'est le cas, false sinon
      */
     loadingIsOver(): boolean {
-        return true;
+        return this.logbookEvents !== undefined && this.logbookEvents !== null;
+    }
+
+    ionViewCanLeave() {
+        if (this.logbookEventSaved || (!this.editionMode && !this.createLinkedEvent)) {
+            return true;
+        }
+        let logbookEventDetailsComponent: LogbookEventDetailsComponent;
+        if (this.createLinkedEvent) {
+            logbookEventDetailsComponent = this.linkedLogbookEventCreate;
+        } else {
+
+            this.logbookEventDetails.forEach(logbookEvent => {
+                if (logbookEvent.logbookEvent.techId === this.logbookEventTechId) {
+                    logbookEventDetailsComponent = logbookEvent;
+                }
+            });
+        }
+        return logbookEventDetailsComponent.confirmCancel();
+    }
+
+    /**
+     * Determine l'évènement a modifier, et bloque la modification des autres évènements liés.
+     * @param logbookEvent L'évènement à modifier
+     */
+    selectedLogbookEvent(logbookEvent: LogbookEventModel) {
+        if (!this.logbookEventTechId && !this.createLinkedEvent) {
+            this.logbookEventTechId = logbookEvent.techId;
+            this.logbookEventDetails.forEach(item => {
+                if (item.logbookEvent.techId === logbookEvent.techId) {
+                    item.editEvent = true;
+                    this.editionMode = true;
+                }
+            });
+        }
+    }
+
+    /**
+     * Permet de créer un évènement lié.
+     */
+    createLinkedLogookEvent() {
+        this.createLinkedEvent = true;
+    }
+
+    /**
+     * Vérifie si le PNC est manager
+     * @return vrai si le PNC est manager, faux sinon
+     */
+    isManager(): boolean {
+        return this.securityService.isManager();
     }
 }
 

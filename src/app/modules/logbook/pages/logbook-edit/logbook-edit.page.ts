@@ -1,4 +1,5 @@
-import { LogbookEventCreateComponent } from './../../components/logbook-event-create.component.ts/logbook-event-create.component';
+import { LogbookEventDetailsComponent } from './../../components/logbook-event-details/logbook-event-details.component';
+import { LogbookEventModeEnum } from './../../../../core/enums/logbook-event/logbook-event-mode.enum';
 import { ToastService } from './../../../../core/services/toast/toast.service';
 import { PncService } from './../../../../core/services/pnc/pnc.service';
 import { PncModel } from './../../../../core/models/pnc.model';
@@ -6,7 +7,7 @@ import { OnlineLogbookEventService } from './../../../../core/services/logbook/o
 import { DateTransform } from './../../../../shared/utils/date-transform';
 import { Utils } from './../../../../shared/utils/utils';
 import { TranslateService } from '@ngx-translate/core';
-import { NavController, AlertController, LoadingController, Loading, NavParams } from 'ionic-angular';
+import { NavController, AlertController, LoadingController, Loading, NavParams, Events } from 'ionic-angular';
 import { SessionService } from './../../../../core/services/session/session.service';
 import { LogbookEventModel } from './../../../../core/models/logbook/logbook-event.model';
 import { Component, Input, OnInit, ViewChild, ElementRef, ViewChildren, AfterViewInit } from '@angular/core';
@@ -18,47 +19,48 @@ import { PncLightModel } from '../../../../core/models/pnc-light.model';
     selector: 'logbook-edit',
     templateUrl: 'logbook-edit.page.html',
 })
-export class LogbookEditPage implements OnInit {
+export class LogbookEditPage {
 
     logbookEvent: LogbookEventModel;
-    loading: Loading;
-    pnc: PncModel;
+    originLogbookEvent: LogbookEventModel;
 
-    @ViewChild('logbookEventCreate') logbookEventCreate: LogbookEventCreateComponent;
+    LogbookEventModeEnum = LogbookEventModeEnum;
+
+    logbookEventSaved = false;
+    logbookEventCanceled = false;
+
+    @ViewChild('logbookEventCreate') logbookEventCreate: LogbookEventDetailsComponent;
 
     constructor(private sessionService: SessionService,
         private navCtrl: NavController,
-        public navParams: NavParams,
+        private navParams: NavParams,
         private translateService: TranslateService,
         private loadingCtrl: LoadingController,
-        private pncService: PncService) {
-    }
-
-    ngOnInit() {
-        const matricule = this.navParams.get('matricule');
-        this.pncService.getPnc(matricule).then(pnc => {
-            this.pnc = pnc;
-            this.logbookEvent = new LogbookEventModel();
-            this.logbookEvent.pnc = new PncLightModel();
-            this.logbookEvent.pnc.matricule = this.pnc.matricule;
-            }, error => { });
-    }
-
-    ionViewDidLoad() {
-        this.logbookEventCreate.logbookSavedEvent.subscribe(event => {
-            this.navCtrl.pop();
+        private dateTransformer: DateTransform,
+        private onlineLogbookEventService: OnlineLogbookEventService,
+        private pncService: PncService,
+        private events: Events) {
+        this.events.subscribe('LinkedLogbookEvent:saved', () => {
+            this.logbookEventSaved = true;
+        });
+        this.events.subscribe('LinkedLogbookEvent:canceled', () => {
+            this.logbookEventCanceled = true;
         });
     }
 
     ionViewCanLeave() {
-        return this.logbookEventCreate.cancelEdition();
+        if (this.logbookEventSaved || this.logbookEventCanceled) {
+            return true;
+        }
+        return this.logbookEventCreate.confirmCancel();
     }
 
     /**
-     * Vérifie que le chargement est terminé
-     * @return true si c'est le cas, false sinon
-     */
-    loadingIsOver(): boolean {
-        return this.logbookEvent !== undefined && this.logbookEvent !== null;
+    * Vérifie si le formulaire a été modifié sans être enregistré
+    * @return true si il n'y a pas eu de modifications
+    */
+    formHasBeenModified() {
+        return this.logbookEvent.eventDate != this.originLogbookEvent.eventDate
+            || Utils.getHashCode(this.originLogbookEvent) !== Utils.getHashCode(this.logbookEvent);
     }
 }

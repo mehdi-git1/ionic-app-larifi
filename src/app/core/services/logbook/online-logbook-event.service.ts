@@ -27,7 +27,7 @@ export class OnlineLogbookEventService {
      * @return une promesse contenant l'évènement du journal de bord créé ou mis à jour
      */
     createOrUpdate(logbookEvent: LogbookEventModel): Promise<LogbookEventModel> {
-        if (logbookEvent.id === undefined) {
+        if (logbookEvent.techId === undefined) {
             logbookEvent.creationDate = new Date();
             logbookEvent.redactor = new PncLightModel();
             logbookEvent.redactor.matricule = this.sessionService.getActiveUser().matricule;

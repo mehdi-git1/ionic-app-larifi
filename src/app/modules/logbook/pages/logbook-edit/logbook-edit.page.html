@@ -6,5 +6,8 @@
     </ion-navbar>
 </ion-header>
 <ion-content padding no-bounce>
-    <logbook-event-create #logbookEventCreate></logbook-event-create>
+    <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
+    <ng-template #pageBlock>
+        <logbook-event-details #logbookEventCreate [mode]="LogbookEventModeEnum.CREATION"></logbook-event-details>
+    </ng-template>
 </ion-content>

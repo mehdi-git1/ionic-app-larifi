@@ -6,20 +6,17 @@
     </ion-navbar>
 </ion-header>
 <ion-content padding no-bounce>
-    <logbook-event-create *ngIf="createLinkedEvent" [groupId]="groupId" #logbookEventCreate></logbook-event-create>
+    <div class="button-bar" *ngIf="isManager()">
+        <button ion-button color="primary" (click)="createLinkedLogookEvent()" icon-start [disabled]="editionMode || createLinkedEvent">
+            <ion-icon name="add"></ion-icon>
+            <span>{{ 'LOGBOOK.ACTION_MENU.ADD_LINKED_EVENT' | translate }}</span>
+        </button>
+    </div>
+    <logbook-event-details *ngIf="createLinkedEvent" #linkedLogbookEventCreate [groupId]="groupId" [mode]="LogbookEventModeEnum.LINKED_CREATION"></logbook-event-details>
     <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
-    <ng-template  #pageBlock>
-        <div [ngClass]="{'opaque' : createLinkedEvent}" >
-            <div class="logbook-info-box selectable" *ngFor="let logbookEvent of logbookEvents">
-                <div class="flex">
-                    <div class="draw-ligne"></div>
-                    <div class="logbook-info-date">
-                        <span class="value">{{ 'LOGBOOK.DETAILS.EVENT_DATE' | translate }} {{ logbookEvent.eventDate | date:'dd/MM/yyyy'}}</span>
-                    </div>
-                    <div class="draw-ligne"></div>
-                </div>
-                <logbook-event-details [logbookEvent]="logbookEvent"></logbook-event-details>
-            </div>
+    <ng-template #pageBlock>
+        <div class="logbook-info-box selectable" *ngFor="let logbookEvent of logbookEvents">
+            <logbook-event-details #logbookEventDetails (edition)="selectedLogbookEvent($event)" [logbookEvent]="logbookEvent" [mode]="LogbookEventModeEnum.DETAILS"></logbook-event-details>
         </div>
     </ng-template>
 </ion-content>
