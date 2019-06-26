@@ -1,3 +1,4 @@
+import { CareerObjectiveListPage } from './../../../development-program/pages/career-objective-list/career-objective-list.page';
 import { TabNavService } from './../../../../core/services/tab-nav/tab-nav.service';
 import { Component } from '@angular/core';
 import { NavController, NavParams, Events } from 'ionic-angular';
@@ -14,9 +15,7 @@ import { UserMessageAlertService } from './../../../../core/services/user-messag
 import { SynchronizationService } from '../../../../core/services/synchronization/synchronization.service';
 import { SessionService } from '../../../../core/services/session/session.service';
 import { ToastService } from '../../../../core/services/toast/toast.service';
-import { GenderService } from '../../../../core/services/gender/gender.service';
 import { PncService } from '../../../../core/services/pnc/pnc.service';
-import { ConnectivityService } from '../../../../core/services/connectivity/connectivity.service';
 import { TabNavEnum } from '../../../../core/enums/tab-nav.enum';
 
 @Component({

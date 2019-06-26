@@ -7,6 +7,10 @@ export enum EFormsTypeEnum {
 }
 
 export namespace EFormsTypeEnum {
+    const EHST_ECC = 'eHST / eCC';
+    const ECC_ECCP = 'eCC / eCCP';
+    const ECCP = 'eCCP';
+
     /**
      * Retourne le bon type en fonction de l'enum
      * @param type enum à tester
@@ -26,10 +30,12 @@ export namespace EFormsTypeEnum {
      */
     export function getTextType(type: SpecialityEnum) {
         switch (type) {
-            case SpecialityEnum['HOT']: return 'eHST / eCC';
-            case SpecialityEnum['STW']: return 'eHST / eCC';
-            case SpecialityEnum['CC']: return 'eCC / eCCP';
-            case SpecialityEnum['CCP']: return 'eCCP';
+            case SpecialityEnum['HOT']: return EHST_ECC;
+            case SpecialityEnum['STW']: return EHST_ECC;
+            case SpecialityEnum['CC']: return ECC_ECCP;
+            case SpecialityEnum['CCT']: return EHST_ECC;
+            case SpecialityEnum['CCP']: return ECCP;
+            case SpecialityEnum['CCPT']: return ECC_ECCP;
             default: return null;
         }
     }
