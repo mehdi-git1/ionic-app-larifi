@@ -1,46 +1,82 @@
 page-career-objective-list {
 
-    h3,
-    [padding] h3:first-child {
+    .eobservation-block {
+        margin-top: 20px;
+        margin-bottom: 10px;
+    }
+
+    .career-objective-block,
+    .professional-interview-block {
         margin-top: 30px;
-        margin-bottom: 20px;
-        margin-left: 10px;
-        font-size: 1.4em;
+        margin-bottom: 10px;
     }
 
-    .eobs-title {
-        color: color($colors-secondary, blue68);
+    .eobservation-block h3 {
+        color: color($colors, primary);
     }
 
-    .career-objective-title {
-        color: color($colors-secondary, green45);
+    .career-objective-block h3 {
+        color: color($colors, primary-light);
     }
 
-    .professional-interview-title {
-        color: color($colors-secondary, bluegrey30);
+    .professional-interview-block h3 {
+        color: color($colors, primary-dark);
     }
 
-    [padding] h3:first-child {
-        margin-top: 15px;
+    h3 {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+
     }
 
-    .information-message {
-        padding: 0px 10px;
+    button {
+        width: 300px;
+
+        ion-icon {
+            margin-right: 10px;
+        }
+
+        label {
+            color: color($colors, white);
+        }
     }
 
-    .option-menu {
-        display: none;
+    .eobservation-creation-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+        padding: 10px;
+        border-radius: 4px;
+        background: color($colors, white);
+        border: 1px solid color($colors-secondary, grey75);
+
+        .option-menu {
+            display: none;
+            margin-top: 5px;
+
+            .item-inner {
+                border: 0px;
+            }
+        }
+
+        .info-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            span {
+                font-weight: bold;
+            }
+        }
     }
 
     .archives {
-        cursor: pointer;
 
         span,
         a {
             color: color($colors-secondary, blue68);
-        }
-
-        a {
             text-decoration: underline;
         }
 
@@ -52,130 +88,6 @@ page-career-objective-list {
 
         &.information-message:before {
             content: '';
-        }
-    }
-}
-
-// Pour s'aligner sur les cartes en dessous
-.global-container {
-    padding: 0px 10px;
-
-    &.cartridge-container {
-        padding: 20px 10px;
-        margin: 10px;
-        display: flex;
-        justify-content: flex-end;
-        border: 2px solid;
-        border-radius: 5px;
-
-        .info-container {
-            flex-direction: column;
-            display: flex;
-            flex: 1;
-            text-align: center;
-
-            span {
-                line-height: 27px;
-            }
-
-            &.career-objective-list-container {
-                padding: 0px 10px;
-                padding-bottom: 10px;
-            }
-        }
-
-        .add-container {
-
-            .add-button {
-                color: color($colors, white);
-                border-radius: 33px;
-                width: 350px;
-
-                .button-content {
-                    padding: 10px 20px;
-
-                    &.default {
-                        font-weight: bold;
-                    }
-                }
-
-                .edospnc-plus:before {
-                    font-size: 1.2em;
-                }
-
-                label {
-                    padding-left: 10px;
-                    font-size: 1.2em;
-                    color: color($colors, white);
-                }
-            }
-
-            .option-menu {
-                margin-top: 5px;
-
-                .item-inner {
-                    border: 0px;
-                }
-            }
-
-
-        }
-    }
-
-    &.career-objective-creation-container {
-        border-color: color($colors-secondary, green60);
-        box-shadow: 0px 0px 4px color($colors-secondary, green45);
-
-        .add-container {
-            .add-button {
-                background: color($colors-secondary, green45);
-            }
-        }
-    }
-
-
-    &.eobservation-creation-container {
-        border-color: color($colors-secondary, blue68);
-        box-shadow: 0px 0px 4px color($colors-secondary, blue68);
-
-        .eobservation-info-container {
-            label {
-                color: color($colors-secondary, grey12);
-            }
-
-            span {
-                color: color($colors-secondary, grey40);
-            }
-        }
-
-        .add-button,
-        .choice-button {
-            background: color($colors-secondary, blue68);
-        }
-    }
-
-    &.eobservation-list-container,
-    &.professional-interview-list-container {
-        padding: 0px 10px;
-        padding-bottom: 10px;
-    }
-
-    &.professional-interview-creation-container {
-        border-color: color($colors-secondary, bluegrey50);
-        box-shadow: 0px 0px 4px color($colors-secondary, bluegrey50);
-
-        .professional-interview-info-container {
-            label {
-                color: color($colors-secondary, grey12);
-            }
-
-            span {
-                color: color($colors-secondary, grey40);
-            }
-        }
-
-        .add-button {
-            background: color($colors-secondary, bluegrey50);
         }
     }
 

@@ -4,7 +4,7 @@ professional-interview {
         margin-top: 5px !important;
 
         mat-expansion-panel-header.professional-interview {
-            background-color: color($colors-secondary, bluegrey40);
+            background-color: color($colors, white);
             width: 100%;
             height: 47px;
             display: flex;
@@ -14,15 +14,9 @@ professional-interview {
                 color: color($colors, white);
             }
 
-            &.mat-expansion-panel-header {
-                box-shadow: 0 3px 1px -3px rgba(0, 0, 0, .2),
-                    0 2px 0px 0 rgba(0, 0, 0, .14),
-                    0 1px 5px 0 rgba(0, 0, 0, .12);
-            }
-
             &.mat-expanded:hover,
             &.mat-expanded:focus {
-                background-color: color($colors-secondary, bluegrey40) !important;
+                background-color: color($colors, white) !important;
             }
 
             .mat-content {
@@ -34,8 +28,7 @@ professional-interview {
                 }
 
                 label {
-                    font-size: 1.2em !important;
-                    font-weight: 400;
+                    color: color($colors, primary-dark);
                 }
 
                 .button-detail {
@@ -44,7 +37,7 @@ professional-interview {
                     button {
                         background-color: color($colors, white);
                         box-shadow: none;
-                        color: color($colors-secondary, bluegrey40);
+                        color: color($colors, primary-dark);
                         width: 30px;
                         height: 30px;
 

@@ -9,15 +9,10 @@ professional-interviews {
 
         mat-expansion-panel-header {
             display: flex;
-            background-color: color($colors-secondary, bluegrey50);
+            background-color: color($colors, primary-dark);
             border-radius: 5px;
             color: color($colors, white);
             text-align: left;
-            cursor: pointer;
-
-            box-shadow: 0 3px 1px -3px rgba(0, 0, 0, .2),
-                0 2px 2px 0 rgba(0, 0, 0, .14),
-                0 1px 5px 0 rgba(0, 0, 0, .12);
 
             & > .mat-expansion-indicator {
                 display: flex;
@@ -30,14 +25,14 @@ professional-interviews {
 
             &.mat-expanded:hover,
             &.mat-expanded:focus {
-                background-color: color($colors-secondary, bluegrey50) !important;
+                background-color: color($colors, primary-dark) !important;
             }
 
             .mat-content {
                 align-items: center;
             }
 
-            .mat-content > label {
+            &.header label {
                 font-weight: 700;
                 font-size: 1.2em;
                 color: color($colors, white);
