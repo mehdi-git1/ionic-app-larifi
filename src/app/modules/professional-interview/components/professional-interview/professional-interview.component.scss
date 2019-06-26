@@ -35,14 +35,14 @@ professional-interview {
                     margin-right: 40px;
 
                     button {
-                        background-color: color($colors, white);
+                        background-color: color($colors, primary);
                         box-shadow: none;
-                        color: color($colors, primary);
+                        color: color($colors, white);
                         width: 30px;
                         height: 30px;
 
                         span:before {
-                            font-size: 20px;
+                            font-size: 18px;
                         }
                     }
                 }
