@@ -57,4 +57,13 @@ export class OnlineLogbookEventService {
     getLogbookEvents(matricule: string): Promise<LogbookEventModel[]> {
         return this.restService.get(this.config.getBackEndUrl('getLogbookEvents', [matricule]));
     }
+
+    /**
+     * Supprime un évènement à partir de son id
+     * @param id l'id de l'évènement à supprimer
+     * @return une promesse contenant l'objectif supprimé
+     */
+    delete(id: number): Promise<LogbookEventModel> {
+        return this.restService.delete(this.config.getBackEndUrl('deleteLogbookEventById', [id]));
+    }
 }

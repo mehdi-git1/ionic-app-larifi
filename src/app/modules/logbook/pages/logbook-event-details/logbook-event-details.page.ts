@@ -77,6 +77,13 @@ export class LogbookEventDetailsPage implements OnInit {
             this.logbookEventTechId = null;
             this.editionMode = false;
         });
+        this.events.subscribe('LogbookEvent:deleted', () => {
+            this.getLogbookEventsByGroupId(this.groupId, this.pnc).then(() => {
+                if (this.logbookEvents.length === 0) {
+                    this.navCtrl.pop();
+                }
+            });
+        });
     }
 
 
@@ -86,19 +93,22 @@ export class LogbookEventDetailsPage implements OnInit {
      * @param pnc pnc
      */
     getLogbookEventsByGroupId(groupId: number, pnc: PncModel) {
-        this.onlineLogbookEventService.getLogbookEventsByGroupId(groupId).then(
-            logbookEvents => {
-                this.logbookEvents = this.sortLogbookEventsByEventDate(logbookEvents);
-                this.logbookEvents.forEach(logbookEvent => {
-                    logbookEvent.notifiedPncs.forEach(notifiedPnc => {
-                        if (pnc.pncInstructor && notifiedPnc.matricule === pnc.pncInstructor.matricule) {
-                            notifiedPnc.isInstructor = true;
-                        } else if (pnc.pncRds && notifiedPnc.matricule === pnc.pncRds.matricule) {
-                            notifiedPnc.isRds = true;
-                        }
+        return new Promise((resolve, reject) => {
+            this.onlineLogbookEventService.getLogbookEventsByGroupId(groupId).then(
+                logbookEvents => {
+                    this.logbookEvents = this.sortLogbookEventsByEventDate(logbookEvents);
+                    this.logbookEvents.forEach(logbookEvent => {
+                        logbookEvent.notifiedPncs.forEach(notifiedPnc => {
+                            if (pnc.pncInstructor && notifiedPnc.matricule === pnc.pncInstructor.matricule) {
+                                notifiedPnc.isInstructor = true;
+                            } else if (pnc.pncRds && notifiedPnc.matricule === pnc.pncRds.matricule) {
+                                notifiedPnc.isRds = true;
+                            }
+                        });
                     });
+                    resolve();
                 });
-            });
+        });
     }
 
 
