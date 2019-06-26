@@ -1,4 +1,3 @@
-import { CareerObjectiveListPage } from './../../../development-program/pages/career-objective-list/career-objective-list.page';
 import { TabNavService } from './../../../../core/services/tab-nav/tab-nav.service';
 import { Component } from '@angular/core';
 import { NavController, NavParams, Events } from 'ionic-angular';
