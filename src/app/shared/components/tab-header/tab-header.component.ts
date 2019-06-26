@@ -1,5 +1,5 @@
 import { TabHeaderModeEnum } from '../../../core/enums/tab-header-mode.enum';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 import { Events, NavController } from 'ionic-angular';
 import { PncHomePage } from '../../../modules/home/pages/pnc-home/pnc-home.page';
 import { SessionService } from '../../../core/services/session/session.service';
@@ -9,13 +9,15 @@ import { TabHeaderService } from '../../../core/services/tab-header/tab-header.s
   selector: 'tab-header',
   templateUrl: 'tab-header.component.html'
 })
-export class TabHeaderComponent implements OnInit {
+export class TabHeaderComponent implements OnInit, AfterViewInit {
 
   @Input() mode: TabHeaderModeEnum = TabHeaderModeEnum.EDOSSIER;
 
+  @ViewChild('tabListRef') tabListRef: ElementRef;
+
   tabList: Array<any>;
 
-  TabNavModeEnum = TabHeaderModeEnum;
+  TabHeaderModeEnum = TabHeaderModeEnum;
 
   constructor(
     private events: Events,
@@ -30,6 +32,11 @@ export class TabHeaderComponent implements OnInit {
 
   ngOnInit() {
     this.initTabNav();
+  }
+
+  ngAfterViewInit() {
+    const selectedTabId = this.tabHeaderService.getActiveTab(this.mode);
+    this.tabListRef.nativeElement.querySelector(`#${selectedTabId}`).scrollIntoView({ behavior: 'instant', block: 'center', inline: 'center' });
   }
 
   /**
@@ -67,5 +74,4 @@ export class TabHeaderComponent implements OnInit {
   goToHome() {
     this.navCtrl.setRoot(PncHomePage);
   }
-
 }

@@ -14,6 +14,7 @@ import { ProfessionalLevelPage } from '../../../modules/professional-level/pages
 import { CareerObjectiveListPage } from '../../../modules/development-program/pages/career-objective-list/career-objective-list.page';
 import { Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
+import { TabHeaderEnum } from '../../enums/tab-header.enum';
 
 @Injectable()
 export class TabHeaderService {
@@ -28,8 +29,8 @@ export class TabHeaderService {
         private sessionService: SessionService
     ) {
         this.activeTab = {
-            EDOSSIER: CareerObjectiveListPage,
-            ADMIN: ProfileManagementPage
+            EDOSSIER: TabHeaderEnum.CAREER_OBJECTIVE_LIST_PAGE,
+            ADMIN: TabHeaderEnum.PROFILE_MANAGEMENT_PAGE
         };
     }
 
@@ -42,10 +43,10 @@ export class TabHeaderService {
             const currentPnc = this.sessionService.visitedPnc == undefined ? this.sessionService.getActiveUser().authenticatedPnc : this.sessionService.visitedPnc;
             if (currentPnc != this.pnc) {
                 this.pnc = currentPnc;
-                this.activeTab.EDOSSIER = this.pnc && this.pnc.manager ? ProfessionalLevelPage : CareerObjectiveListPage;
+                this.activeTab.EDOSSIER = this.pnc && this.pnc.manager ? TabHeaderEnum.PROFESSIONAL_LEVEL_PAGE : TabHeaderEnum.CAREER_OBJECTIVE_LIST_PAGE;
             }
         } else {
-            this.activeTab.ADMIN = ProfileManagementPage;
+            this.activeTab.ADMIN = TabHeaderEnum.PROFILE_MANAGEMENT_PAGE;
         }
     }
 
@@ -60,36 +61,43 @@ export class TabHeaderService {
         if (mode === TabHeaderModeEnum.EDOSSIER) {
             return [
                 {
+                    id: TabHeaderEnum.CAREER_OBJECTIVE_LIST_PAGE,
                     label: this.translateService.instant('GLOBAL.DEVELOPMENT_PROGRAM'),
                     component: CareerObjectiveListPage,
                     available: this.pnc && !this.pnc.manager
                 },
                 {
+                    id: TabHeaderEnum.PROFESSIONAL_LEVEL_PAGE,
                     label: this.translateService.instant('GLOBAL.PROFESSIONAL_LEVEL'),
                     component: ProfessionalLevelPage,
                     available: this.authorizationService.hasPermission('VIEW_PROFESSIONAL_LEVEL')
                 },
                 {
+                    id: TabHeaderEnum.STATUTORY_CERTIFICATE_PAGE,
                     label: this.translateService.instant('GLOBAL.STATUTORY_CERTIFICATE'),
                     component: StatutoryCertificatePage,
                     available: this.authorizationService.hasPermission('VIEW_STATUTORY_CERTIFICATE')
                 },
                 {
+                    id: TabHeaderEnum.CONGRATULATION_LETTERS_PAGE,
                     label: this.translateService.instant('GLOBAL.CONGRATULATION_LETTERS'),
                     component: CongratulationLettersPage,
                     available: true
                 },
                 {
+                    id: TabHeaderEnum.LOGBOOK_PAGE,
                     label: this.translateService.instant('GLOBAL.LOGBOOK'),
                     component: LogbookPage,
                     available: this.pnc && !this.pnc.manager && this.authorizationService.hasPermission('VIEW_LOGBOOK')
                 },
                 {
+                    id: TabHeaderEnum.UPCOMING_FLIGHT_LIST_PAGE,
                     label: this.translateService.instant('GLOBAL.UPCOMING_FLIGHT'),
                     component: UpcomingFlightListPage,
                     available: this.pnc && this.pnc.manager
                 },
                 {
+                    id: TabHeaderEnum.HELP_ASSET_LIST_PAGE,
                     label: this.translateService.instant('GLOBAL.HELP_CENTER'),
                     component: HelpAssetListPage,
                     available: true
@@ -100,16 +108,19 @@ export class TabHeaderService {
             // Entrées du mode admin
             return [
                 {
+                    id: TabHeaderEnum.PROFILE_MANAGEMENT_PAGE,
                     label: this.translateService.instant('ADMIN.ADMIN_NAV_TABS.PROFILE_MANAGEMENT'),
                     component: ProfileManagementPage,
                     available: true
                 },
                 {
+                    id: TabHeaderEnum.APP_VERSION_MANAGEMENT_PAGE,
                     label: this.translateService.instant('ADMIN.ADMIN_NAV_TABS.APP_VERSION_MANAGEMENT'),
                     component: AppVersionManagementPage,
                     available: true
                 },
                 {
+                    id: TabHeaderEnum.USER_MESSAGE_MANAGEMENT_PAGE,
                     label: this.translateService.instant('ADMIN.ADMIN_NAV_TABS.USER_MESSAGE_MANAGEMENT'),
                     component: UserMessageManagementPage,
                     available: true
@@ -125,7 +136,7 @@ export class TabHeaderService {
      * @return vrai si l'onglet donné est actif, faux sinon
      */
     isActiveTab(mode: TabHeaderModeEnum, tab: any): boolean {
-        return this.activeTab && this.activeTab[mode] == tab.component;
+        return this.activeTab && this.activeTab[mode] == tab.id;
     }
 
     /**
@@ -134,7 +145,16 @@ export class TabHeaderService {
      * @param tab l'onglet à définir comme actif
      */
     setActiveTab(mode: TabHeaderModeEnum, tab: any) {
-        this.activeTab[mode] = tab.component;
+        this.activeTab[mode] = tab.id;
+    }
+
+    /**
+     * Retourne l'onglet actif du mode d'affichage demandé
+     * @param tabHeaderMode le mode d'affichage demandé
+     * @return l'élément actif du mode d'affichage demandé
+     */
+    getActiveTab(tabHeaderMode: TabHeaderModeEnum) {
+        return this.activeTab[tabHeaderMode];
     }
 
 }

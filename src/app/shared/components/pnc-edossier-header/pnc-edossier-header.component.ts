@@ -12,7 +12,7 @@ export class PncEdossierHeaderComponent implements OnInit {
 
     pnc: PncModel;
 
-    TabNavModeEnum = TabHeaderModeEnum;
+    TabHeaderModeEnum = TabHeaderModeEnum;
 
     constructor(private sessionService: SessionService,
         private navCtrl: NavController,
