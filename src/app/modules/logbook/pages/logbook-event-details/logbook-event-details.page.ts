@@ -128,7 +128,7 @@ export class LogbookEventDetailsPage implements OnInit {
      * @return true si c'est le cas, false sinon
      */
     loadingIsOver(): boolean {
-        return true;
+        return this.logbookEvents !== undefined && this.logbookEvents !== null;
     }
 
     ionViewCanLeave() {

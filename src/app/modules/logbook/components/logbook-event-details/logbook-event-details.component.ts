@@ -50,7 +50,7 @@ export class LogbookEventDetailsComponent implements OnInit {
         private translateService: TranslateService,
         private sessionService: SessionService,
         private onlineLogbookEventService: OnlineLogbookEventService,
-        public navCtrl: NavController,
+        private navCtrl: NavController,
         private toastService: ToastService,
         private loadingCtrl: LoadingController,
         private dateTransformer: DateTransform,
@@ -193,7 +193,7 @@ export class LogbookEventDetailsComponent implements OnInit {
                     this.originLogbookEvent = _.cloneDeep(savedLogbookEvent);
                     this.logbookEvent = savedLogbookEvent;
                     this.events.publish('LogbookEvent:saved');
-                    if (this.mode === LogbookEventModeEnum.CREATION) {
+                    if (this.mode === LogbookEventModeEnum.CREATION || this.mode === LogbookEventModeEnum.LINKED_CREATION) {
                         this.toastService.success(this.translateService.instant('LOGBOOK.EDIT.LOGBOOK_SAVED'));
                         this.navCtrl.pop();
                     } else {

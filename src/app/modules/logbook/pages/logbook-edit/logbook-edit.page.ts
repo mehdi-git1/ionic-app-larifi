@@ -33,7 +33,7 @@ export class LogbookEditPage {
 
     constructor(private sessionService: SessionService,
         private navCtrl: NavController,
-        public navParams: NavParams,
+        private navParams: NavParams,
         private translateService: TranslateService,
         private loadingCtrl: LoadingController,
         private dateTransformer: DateTransform,
@@ -62,13 +62,5 @@ export class LogbookEditPage {
     formHasBeenModified() {
         return this.logbookEvent.eventDate != this.originLogbookEvent.eventDate
             || Utils.getHashCode(this.originLogbookEvent) !== Utils.getHashCode(this.logbookEvent);
-    }
-
-    /**
-     * Vérifie que le chargement est terminé
-     * @return true si c'est le cas, false sinon
-     */
-    loadingIsOver(): boolean {
-        return this.logbookEvent !== undefined && this.logbookEvent !== null;
     }
 }
