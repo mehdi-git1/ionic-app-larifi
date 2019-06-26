@@ -624,7 +624,8 @@
             "MODIFY": "Modifier",
             "CANCEL": "Annuler",
             "UPDATE": "Mettre à jour",
-            "SAVE": "Enregistrer"
+            "SAVE": "Enregistrer",
+            "DELETE": "Supprimer"
         },
         "EDIT": {
             "EVENT_CREATION": "Création d'un nouvel évènement",
@@ -645,6 +646,13 @@
             "CONCERNED_PNC": "PNC Concerné",
             "SELECT_ALL": "Tout sélectionner",
             "SEARCH": "Rechercher"
+        },
+        "DELETE": {
+            "CONFIRM_DELETE": {
+                "TITLE": "Suppression",
+                "MESSAGE": "Confirmez-vous la suppression de l'événement ?"
+            },
+            "SUCCESS": "Evénement supprimé"
         },
         "DETAILS": {
             "EVENT_DATE": "Evènement du ",

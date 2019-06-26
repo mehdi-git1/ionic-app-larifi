@@ -104,6 +104,45 @@ export class LogbookEventComponent implements OnInit {
     }
 
     /**
+     * Présente une alerte pour confirmer la suppression du brouillon
+     */
+    confirmDeleteLogBookEvent() {
+        this.alertCtrl.create({
+            title: this.translateService.instant('LOGBOOK.DELETE.CONFIRM_DELETE.TITLE'),
+            message: this.translateService.instant('LOGBOOK.DELETE.CONFIRM_DELETE.MESSAGE'),
+            buttons: [
+                {
+                    text: this.translateService.instant('GLOBAL.BUTTONS.CANCEL'),
+                    role: 'cancel'
+                },
+                {
+                    text: this.translateService.instant('GLOBAL.BUTTONS.CONFIRM'),
+                    handler: () => this.deleteLogbookEvent()
+                }
+            ]
+        }).present();
+    }
+
+    /**
+    * Supprime un évènement
+    */
+    deleteLogbookEvent() {
+        this.loading = this.loadingCtrl.create();
+        this.loading.present();
+
+        this.onlineLogbookEventService.delete(this.logbookEvent.techId)
+            .then(
+                deletedlogbookEvent => {
+                    this.toastService.success(this.translateService.instant('LOGBOOK.DELETE.SUCCESS'));
+                    this.events.publish('LogbookEvent:deleted');
+                    this.loading.dismiss();
+                },
+                error => {
+                    this.loading.dismiss();
+                });
+    }
+
+    /**
      * Annule la création / modification de l'évènement en appuyant sur le bouton annuler.
      */
     cancelLogbookEventCreationOrEdition() {
