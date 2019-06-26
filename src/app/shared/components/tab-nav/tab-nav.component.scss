@@ -14,11 +14,14 @@ tab-nav {
 
     .tabbar .icon {
         color: color($colors, grey20) !important;
-        font-size: 3rem !important;
+        font-size: 4rem !important;
     }
 
     .not-visible .tabbar {
         display: none;
     }
 
+    ion-icon {
+        height: auto !important;
+    }
 }
