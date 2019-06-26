@@ -27,7 +27,7 @@
                     <span>{{ lastConsultedRotation.departureDate | date: 'dd/MM/yyyy'}}</span>
                 </div>
                 <div class="add-container">
-                    <button ion-button (click)="displayEObservationTypeSelection()" color="primary">
+                    <button ion-button (click)="displayEObservationTypeSelection()" color="primary-dark">
                         <ion-icon name="md-add" ios="md-add"></ion-icon>
                         <label>{{ 'EOBSERVATION.NEW_EOBSERVATION_HEADER.NEW' | translate }}</label>
                     </button>
@@ -68,7 +68,7 @@
         <div class="professional-interview-block">
             <h3>
                 {{ 'CAREER_OBJECTIVE_LIST.PROFESSIONAL_INTERVIEW_TITLE' | translate }}
-                <button ion-button *ngIf="securityService.isManager()" (click)="goToProfessionalInterviewCreation()" color="primary-dark">
+                <button ion-button *ngIf="securityService.isManager()" (click)="goToProfessionalInterviewCreation()" color="primary">
                     <ion-icon name="md-add" ios="md-add"></ion-icon>
                     <label>{{ 'PROFESSIONAL_INTERVIEW.BUTTONS.NEW_PROFESSIONAL_INTERVIEW' | translate }}</label>
                 </button>

@@ -10,7 +10,7 @@ e-observations {
         mat-expansion-panel-header {
             display: flex;
             align-items: center;
-            background-color: color($colors, primary);
+            background-color: color($colors, primary-dark);
             border-radius: 5px;
 
             & > .mat-expansion-indicator {
@@ -24,7 +24,7 @@ e-observations {
 
             &.mat-expanded:hover,
             &.mat-expanded:focus {
-                background-color: color($colors, primary) !important;
+                background-color: color($colors, primary-dark) !important;
             }
 
             .mat-content {

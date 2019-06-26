@@ -20,7 +20,7 @@ e-observation {
                 align-items: center;
 
                 label {
-                    color: color($colors, primary) !important;
+                    color: color($colors, primary-dark) !important;
                 }
 
                 .e-observation-date {
@@ -41,7 +41,7 @@ e-observation {
                     button {
                         background-color: color($colors, white);
                         box-shadow: none;
-                        color: color($colors, primary);
+                        color: color($colors, primary-dark);
                         width: 30px;
                         height: 30px;
 

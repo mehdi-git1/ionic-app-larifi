@@ -25,21 +25,12 @@ page-pnc-home {
                     font-weight: bold;
                     padding: 5px 5px;
                     margin-bottom: 20px;
-                    border-bottom: 2px solid color($colors-secondary, grey75);
 
-                    &:after {
-                        content: ' ';
-                        display: block;
-                        position: relative;
-                        left: -5px;
-                        bottom: -11px;
-                        width: 30px;
-                        height: 6px;
-                        background: color($colors, primary-dark);
-                    }
                 }
 
                 button {
+                    display: flex;
+                    flex-direction: column;
                     font-size: 3vmin;
                     width: 100%;
                     flex: 1;
@@ -50,6 +41,7 @@ page-pnc-home {
                     justify-content: center;
                     align-items: center;
                     background: color($colors, white);
+                    box-shadow: 0 5px 8px 0 rgba(37, 177, 190, 0.2);
 
                     ion-icon {
                         font-size: 3em;
