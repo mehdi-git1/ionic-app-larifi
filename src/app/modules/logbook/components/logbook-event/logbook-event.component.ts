@@ -195,7 +195,9 @@ export class LogbookEventComponent implements OnInit {
                     this.events.publish('LogbookEvent:saved');
                     if (this.mode === LogbookEventModeEnum.CREATION || this.mode === LogbookEventModeEnum.LINKED_EVENT_CREATION) {
                         this.toastService.success(this.translateService.instant('LOGBOOK.EDIT.LOGBOOK_SAVED'));
-                        this.navCtrl.pop();
+                        if (this.mode === LogbookEventModeEnum.CREATION) {
+                            this.navCtrl.pop();
+                        }
                     } else {
                         this.toastService.success(this.translateService.instant('LOGBOOK.EDIT.LOGBOOK_UPDATED'));
                         this.editEvent = false;
