@@ -1,5 +1,5 @@
-import { ConnectivityService } from './../../../../core/services/connectivity/connectivity.service';
 import { LogbookEventDetailsPage } from './../logbook-event-details/logbook-event-details.page';
+import { ConnectivityService } from './../../../../core/services/connectivity/connectivity.service';
 import { AppConstant } from './../../../../app.constant';
 import { DateTransform } from './../../../../shared/utils/date-transform';
 import { LogbookEventGroupModel } from './../../../../core/models/logbook/logbook-event-group.model';
@@ -12,7 +12,7 @@ import { PncModel } from './../../../../core/models/pnc.model';
 import { PncService } from './../../../../core/services/pnc/pnc.service';
 import { NavController, NavParams, PopoverController } from 'ionic-angular';
 import { Component, ViewChild, AfterViewInit, OnInit } from '@angular/core';
-import { LogbookEditPage } from '../logbook-edit/logbook-edit.page';
+import { LogbookCreatePage } from '../logbook-create/logbook-create.page';
 import { MatTableDataSource, MatSort } from '@angular/material';
 import * as moment from 'moment';
 import * as _ from 'lodash';
@@ -73,7 +73,7 @@ export class LogbookPage {
      */
     private getLogbookEvents(matricule: string) {
         this.onlineLogbookEventService.getLogbookEvents(matricule).then(logbookEvents => {
-        // Tri des évènements par groupId
+            // Tri des évènements par groupId
             this.groupedEvents = new Array<LogbookEventGroupModel>();
             const groupedEventsMap = new Map<number, LogbookEventGroupModel>();
             logbookEvents.forEach(logbookEvent => {
@@ -86,10 +86,10 @@ export class LogbookPage {
             for (const groupedEvent of Array.from(groupedEventsMap.values())) {
                 groupedEvent.logbookEvents = this.sortLogbookEventsByEventDate(groupedEvent.logbookEvents);
                 this.groupedEvents.push(groupedEvent);
-            }}
-        , error => {
+            }
+        }, error => {
             this.groupedEvents = new Array<LogbookEventGroupModel>();
-         });
+        });
     }
 
     /**
@@ -143,7 +143,7 @@ export class LogbookPage {
      */
     goToLogbookCreation() {
         if (this.pnc) {
-            this.navCtrl.push(LogbookEditPage, { matricule: this.pnc.matricule });
+            this.navCtrl.push(LogbookCreatePage, { matricule: this.pnc.matricule });
         }
     }
 
@@ -159,7 +159,7 @@ export class LogbookPage {
      * @return true si c'est le cas, false sinon
      */
     loadingIsOver(): boolean {
-        return  this.groupedEvents && this.groupedEvents !== undefined;
+        return this.groupedEvents && this.groupedEvents !== undefined;
     }
 
     /**
@@ -178,7 +178,7 @@ export class LogbookPage {
     openActionsMenu(myEvent: Event, logbookEvent: LogbookEventModel) {
         myEvent.stopPropagation();
         const popover = this.popoverCtrl.create(LogbookEventActionMenuComponent, { logbookEvent: logbookEvent, navCtrl: this.navCtrl }, { cssClass: 'action-menu-popover' });
-        popover.present({ev : myEvent});
+        popover.present({ ev: myEvent });
     }
 
     /**

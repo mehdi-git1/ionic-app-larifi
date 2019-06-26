@@ -23,14 +23,6 @@ export class LogbookEventActionMenuComponent {
   }
 
   /**
-   * Dirige vers la page de détail d'un évènement du journal de bord
-   */
-  goToLogbookEventDetails() {
-    this.navCtrl.push(LogbookEventDetailsPage, { matricule: this.logbookEvent.pnc.matricule, groupId: this.logbookEvent.groupId });
-    this.viewCtrl.dismiss();
-  }
-
-  /**
    * Ajoute un évènement lié
    */
   addLinkedEvent() {
