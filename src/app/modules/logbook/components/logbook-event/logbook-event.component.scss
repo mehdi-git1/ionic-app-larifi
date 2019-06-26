@@ -1,4 +1,4 @@
-logbook-event-details {
+logbook-event {
 
     .draw-ligne {
         margin: 22px 10px;
@@ -149,7 +149,7 @@ logbook-event-details {
         border-bottom: initial;
     }
 
-    .horizontal-items-in-row {
+    .event-date-and-checkbox-row {
         display: flex;
         flex-direction: row;
         justify-content: space-between;

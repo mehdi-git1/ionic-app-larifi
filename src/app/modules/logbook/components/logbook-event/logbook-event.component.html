@@ -1,6 +1,6 @@
 <div *ngIf="editEvent; else pageBlock">
     <ion-grid>
-        <ion-row class="horizontal-items-in-row">
+        <ion-row class="event-date-and-checkbox-row">
             <ion-item class="event-date">
                 <ion-label class="required">{{ 'LOGBOOK.EDIT.EVENT_DATE' | translate }}</ion-label>
                 <ion-datetime [placeholder]="eventDateString" displayFormat="DD/MM/YYYY" pickerFormat="DD MMMM YYYY" [(ngModel)]="logbookEvent.eventDate" [doneText]="translateService.instant('GLOBAL.DATEPICKER.DONE')" [cancelText]="translateService.instant('GLOBAL.DATEPICKER.CANCEL')" [monthNames]="monthsNames"></ion-datetime>
@@ -46,7 +46,7 @@
         </button>
         <!-- Bouton enregistrer ou mettre à jour-->
         <button ion-button color="primary" (click)="saveLogbookEvent()" [disabled]="!canBeSaved()">
-            <span *ngIf="mode === LogbookEventModeEnum.CREATION || mode === LogbookEventModeEnum.LINKED_CREATION; else updateButton">{{ 'LOGBOOK.BUTTONS.SAVE' | translate }}</span>
+            <span *ngIf="mode === LogbookEventModeEnum.CREATION || mode === LogbookEventModeEnum.LINKED_EVENT_CREATION; else updateButton">{{ 'LOGBOOK.BUTTONS.SAVE' | translate }}</span>
             <ng-template #updateButton>
                 {{ 'LOGBOOK.BUTTONS.UPDATE' | translate }}
             </ng-template>

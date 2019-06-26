@@ -16,10 +16,10 @@ import { OnlineLogbookEventService } from '../../../../core/services/logbook/onl
 import * as _ from 'lodash';
 
 @Component({
-    selector: 'logbook-event-details',
-    templateUrl: 'logbook-event-details.component.html'
+    selector: 'logbook-event',
+    templateUrl: 'logbook-event.component.html'
 })
-export class LogbookEventDetailsComponent implements OnInit {
+export class LogbookEventComponent implements OnInit {
 
     @Input() logbookEvent: LogbookEventModel;
 
@@ -50,7 +50,7 @@ export class LogbookEventDetailsComponent implements OnInit {
         private translateService: TranslateService,
         private sessionService: SessionService,
         private onlineLogbookEventService: OnlineLogbookEventService,
-        public navCtrl: NavController,
+        private navCtrl: NavController,
         private toastService: ToastService,
         private loadingCtrl: LoadingController,
         private dateTransformer: DateTransform,
@@ -67,7 +67,7 @@ export class LogbookEventDetailsComponent implements OnInit {
         } else {
             this.pnc = this.sessionService.getActiveUser().authenticatedPnc;
         }
-        if (this.mode === LogbookEventModeEnum.CREATION || this.mode === LogbookEventModeEnum.LINKED_CREATION) {
+        if (this.mode === LogbookEventModeEnum.CREATION || this.mode === LogbookEventModeEnum.LINKED_EVENT_CREATION) {
             this.editEvent = true;
             this.logbookEvent = new LogbookEventModel();
             if (typeof this.groupId !== 'undefined') {
@@ -192,7 +192,7 @@ export class LogbookEventDetailsComponent implements OnInit {
             // Avant de quitter la vue, on avertit l'utilisateur si ses modifications n'ont pas été enregistrées
             this.alertCtrl.create({
                 title: this.translateService.instant('GLOBAL.CONFIRM_BACK_WITHOUT_SAVE.TITLE'),
-                message: this.mode == LogbookEventModeEnum.CREATION || this.mode == LogbookEventModeEnum.LINKED_CREATION ? this.translateService.instant('LOGBOOK.EDIT.CONFIRM_CANCEL_CREATE_MESSAGE') : this.translateService.instant('LOGBOOK.EDIT.CONFIRM_CANCEL_UPDATE_MESSAGE'),
+                message: this.mode == LogbookEventModeEnum.CREATION || this.mode == LogbookEventModeEnum.LINKED_EVENT_CREATION ? this.translateService.instant('LOGBOOK.EDIT.CONFIRM_CANCEL_CREATE_MESSAGE') : this.translateService.instant('LOGBOOK.EDIT.CONFIRM_CANCEL_UPDATE_MESSAGE'),
                 buttons: [
                     {
                         text: this.translateService.instant('GLOBAL.BUTTONS.CANCEL'),
@@ -232,9 +232,11 @@ export class LogbookEventDetailsComponent implements OnInit {
                     this.originLogbookEvent = _.cloneDeep(savedLogbookEvent);
                     this.logbookEvent = savedLogbookEvent;
                     this.events.publish('LogbookEvent:saved');
-                    if (this.mode === LogbookEventModeEnum.CREATION) {
+                    if (this.mode === LogbookEventModeEnum.CREATION || this.mode === LogbookEventModeEnum.LINKED_EVENT_CREATION) {
                         this.toastService.success(this.translateService.instant('LOGBOOK.EDIT.LOGBOOK_SAVED'));
-                        this.navCtrl.pop();
+                        if (this.mode === LogbookEventModeEnum.CREATION) {
+                            this.navCtrl.pop();
+                        }
                     } else {
                         this.toastService.success(this.translateService.instant('LOGBOOK.EDIT.LOGBOOK_UPDATED'));
                         this.editEvent = false;

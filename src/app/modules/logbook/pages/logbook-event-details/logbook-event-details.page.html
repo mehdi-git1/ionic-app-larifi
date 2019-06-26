@@ -12,11 +12,11 @@
             <span>{{ 'LOGBOOK.ACTION_MENU.ADD_LINKED_EVENT' | translate }}</span>
         </button>
     </div>
-    <logbook-event-details *ngIf="createLinkedEvent" #linkedLogbookEventCreate [groupId]="groupId" [mode]="LogbookEventModeEnum.LINKED_CREATION"></logbook-event-details>
+    <logbook-event *ngIf="createLinkedEvent" #linkedLogbookEventCreate [groupId]="groupId" [mode]="LogbookEventModeEnum.LINKED_EVENT_CREATION"></logbook-event>
     <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
     <ng-template #pageBlock>
         <div class="logbook-info-box selectable" *ngFor="let logbookEvent of logbookEvents">
-            <logbook-event-details #logbookEventDetails (edition)="selectedLogbookEvent($event)" [logbookEvent]="logbookEvent" [mode]="LogbookEventModeEnum.DETAILS"></logbook-event-details>
+            <logbook-event #logbookEventDetails (edition)="selectedLogbookEvent($event)" [logbookEvent]="logbookEvent" [mode]="LogbookEventModeEnum.DETAILS"></logbook-event>
         </div>
     </ng-template>
 </ion-content>

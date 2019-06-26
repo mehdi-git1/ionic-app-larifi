@@ -168,7 +168,7 @@
         "INFORMATION_MESSAGE": "Maximum 5 priorités en cours",
         "LIST": {
             "CREATION_DATE": "Initiée le",
-            "TITLE": "Libellé Priorité",
+            "TITLE": "Libellé priorité",
             "ENCOUNTER_DATE": "Fixée le",
             "NEXT_ENCOUNTER_DATE": "Rappel",
             "STATUS": "Statut"

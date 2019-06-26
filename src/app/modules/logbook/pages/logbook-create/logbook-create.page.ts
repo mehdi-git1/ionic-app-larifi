@@ -1,4 +1,4 @@
-import { LogbookEventDetailsComponent } from './../../components/logbook-event-details/logbook-event-details.component';
+import { LogbookEventComponent } from './../../components/logbook-event/logbook-event.component';
 import { LogbookEventModeEnum } from './../../../../core/enums/logbook-event/logbook-event-mode.enum';
 import { ToastService } from './../../../../core/services/toast/toast.service';
 import { PncService } from './../../../../core/services/pnc/pnc.service';
@@ -16,10 +16,10 @@ import * as _ from 'lodash';
 import { PncLightModel } from '../../../../core/models/pnc-light.model';
 
 @Component({
-    selector: 'logbook-edit',
-    templateUrl: 'logbook-edit.page.html',
+    selector: 'logbook-create',
+    templateUrl: 'logbook-create.page.html',
 })
-export class LogbookEditPage {
+export class LogbookCreatePage {
 
     logbookEvent: LogbookEventModel;
     originLogbookEvent: LogbookEventModel;
@@ -29,11 +29,11 @@ export class LogbookEditPage {
     logbookEventSaved = false;
     logbookEventCanceled = false;
 
-    @ViewChild('logbookEventCreate') logbookEventCreate: LogbookEventDetailsComponent;
+    @ViewChild('logbookEventCreate') logbookEventCreate: LogbookEventComponent;
 
     constructor(private sessionService: SessionService,
         private navCtrl: NavController,
-        public navParams: NavParams,
+        private navParams: NavParams,
         private translateService: TranslateService,
         private loadingCtrl: LoadingController,
         private dateTransformer: DateTransform,
