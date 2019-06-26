@@ -1,4 +1,4 @@
-import { LogbookEventDetailsComponent } from './../../components/logbook-event-details/logbook-event-details.component';
+import { LogbookEventComponent } from './../../components/logbook-event/logbook-event.component';
 import { TranslateService } from '@ngx-translate/core';
 import { TransformerService } from './../../../../core/services/transformer/transformer.service';
 import { Utils } from './../../../../shared/utils/utils';
@@ -12,7 +12,7 @@ import { PncModel } from './../../../../core/models/pnc.model';
 import { PncService } from './../../../../core/services/pnc/pnc.service';
 import { NavController, NavParams, Events, AlertController, Item } from 'ionic-angular';
 import { Component, OnInit, ViewChild, ViewChildren } from '@angular/core';
-import { LogbookEditPage } from '../logbook-edit/logbook-edit.page';
+import { LogbookCreatePage } from '../logbook-create/logbook-create.page';
 import * as _ from 'lodash';
 
 @Component({
@@ -34,9 +34,9 @@ export class LogbookEventDetailsPage implements OnInit {
 
     LogbookEventModeEnum = LogbookEventModeEnum;
 
-    @ViewChildren('logbookEventDetails') logbookEventDetails: LogbookEventDetailsComponent[];
+    @ViewChildren('logbookEventDetails') logbookEventDetails: LogbookEventComponent[];
 
-    @ViewChild('linkedLogbookEventCreate') linkedLogbookEventCreate: LogbookEventDetailsComponent;
+    @ViewChild('linkedLogbookEventCreate') linkedLogbookEventCreate: LogbookEventComponent;
 
     constructor(
         public navCtrl: NavController,
@@ -135,7 +135,7 @@ export class LogbookEventDetailsPage implements OnInit {
         if (this.logbookEventSaved || (!this.editionMode && !this.createLinkedEvent)) {
             return true;
         }
-        let logbookEventDetailsComponent: LogbookEventDetailsComponent;
+        let logbookEventDetailsComponent: LogbookEventComponent;
         if (this.createLinkedEvent) {
             logbookEventDetailsComponent = this.linkedLogbookEventCreate;
         } else {

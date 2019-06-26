@@ -46,7 +46,7 @@
         </button>
         <!-- Bouton enregistrer ou mettre à jour-->
         <button ion-button color="primary" (click)="saveLogbookEvent()" [disabled]="!canBeSaved()">
-            <span *ngIf="mode === LogbookEventModeEnum.CREATION || mode === LogbookEventModeEnum.LINKED_CREATION; else updateButton">{{ 'LOGBOOK.BUTTONS.SAVE' | translate }}</span>
+            <span *ngIf="mode === LogbookEventModeEnum.CREATION || mode === LogbookEventModeEnum.LINKED_EVENT_CREATION; else updateButton">{{ 'LOGBOOK.BUTTONS.SAVE' | translate }}</span>
             <ng-template #updateButton>
                 {{ 'LOGBOOK.BUTTONS.UPDATE' | translate }}
             </ng-template>
