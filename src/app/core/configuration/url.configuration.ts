@@ -60,7 +60,8 @@ export class UrlConfiguration {
     'deleteAppVersionById': `${urlGroupEnum.APP_VERSION}/{id}`,
     'logbookEvents': urlGroupEnum.LOGBOOK_EVENT,
     'getLogbookEventsByGroupId': `${urlGroupEnum.LOGBOOK_EVENT}/event_group/{groupId}`,
-    'getLogbookEvents': `${urlGroupEnum.LOGBOOK_EVENT}/pnc/{matricule}`
+    'getLogbookEvents': `${urlGroupEnum.LOGBOOK_EVENT}/pnc/{matricule}`,
+    'deleteLogbookEventById': `${urlGroupEnum.LOGBOOK_EVENT}/{id}`
   };
 
   /**
@@ -78,7 +79,7 @@ export class UrlConfiguration {
     for (let i = 0; i < params.length; i++) {
       urlToModify = urlToModify.replace(regexToReplace, params[i]);
     }
-    return `${this.config.backEndUrl}/${urlToModify}`;
+    return `${this.config.backEndUrl} / ${urlToModify} `;
   }
 
 }

@@ -123,6 +123,10 @@
                         <button ion-button color="primary" (click)="editLogbookEvent()">
                             {{ 'LOGBOOK.BUTTONS.MODIFY' | translate }}
                         </button>
+                        <!-- Bouton supprimer -->
+                        <button ion-button color="primary" (click)="deleteLogbookEvent(logbookEvent.techId)">
+                            {{ 'LOGBOOK.BUTTONS.DELETE' | translate }}
+                        </button>
                     </div>
                 </div>
             </div>
