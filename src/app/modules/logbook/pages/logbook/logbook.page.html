@@ -17,21 +17,21 @@
             </div>
             <span *ngIf="groupedEvents && groupedEvents.length > 0; else noEventsBlock">
                 <ion-grid class="logbook-event-grid selectable" [sortableGrid]="groupedEvents">
-                    <ion-row class="headers">
+                    <ion-row class="headers" align-items-center>
                         <ion-col class="arrow"></ion-col>
                         <ion-col class="column-date" columnName="eventDate" sort>{{ 'LOGBOOK.EVENT_DATE' | translate }}
                             <ion-icon id="sortIcon" class="sort-icon" color="black" ios="md-arrow-dropdown" md="md-arrow-dropdown"></ion-icon>
                         </ion-col>
-                        <ion-col class="column-category" columnName="category" sort>{{ 'LOGBOOK.CATEGORY' | translate }}</ion-col>
+                        <ion-col class="column-category" columnName="category">{{ 'LOGBOOK.CATEGORY' | translate }}</ion-col>
                         <ion-col class="column-specific"></ion-col>
                         <ion-col class="column-specific"></ion-col>
-                        <ion-col class="column-title" columnName="event" sort>
+                        <ion-col class="column-title" columnName="event">
                             {{ 'LOGBOOK.EVENT' | translate }}
                         </ion-col>
-                        <ion-col class="column-origin" columnName="origin" sort>
+                        <ion-col class="column-origin" columnName="origin">
                             {{ 'LOGBOOK.ORIGIN' | translate }}
                         </ion-col>
-                        <ion-col class="column-redactor" columnName="author" sort>
+                        <ion-col class="column-redactor" columnName="author">
                             {{ 'LOGBOOK.REDACTOR' | translate }}
                         </ion-col>
                         <ion-col class="actions" *ngIf="isManager()">
@@ -68,7 +68,7 @@
                                         </ion-icon>
                                     </ion-col>
                                     <ion-col class="column-redactor">
-                                        <span class="truncate-text">{{logbookEvent.lastUpdateAuthor?.lastName}} {{logbookEvent.lastUpdateAuthor?.firstName | titlecase}}</span>
+                                        <span class="truncate-text">{{logbookEvent.redactor?.lastName}} {{logbookEvent.redactor?.firstName | titlecase}}</span>
                                     </ion-col>
                                     <ion-col class="actions" *ngIf="isManager()">
                                         <div class="clickable" *ngIf="logbookEventIndex === 0" (click)="openActionsMenu($event, logbookEvent)">
