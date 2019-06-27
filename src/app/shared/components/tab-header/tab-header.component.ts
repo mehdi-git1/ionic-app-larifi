@@ -1,3 +1,4 @@
+import { CareerObjectiveListPage } from './../../../modules/development-program/pages/career-objective-list/career-objective-list.page';
 import { TabHeaderModeEnum } from '../../../core/enums/tab-header-mode.enum';
 import { Component, Input, OnInit, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 import { Events, NavController } from 'ionic-angular';
@@ -72,6 +73,6 @@ export class TabHeaderComponent implements OnInit, AfterViewInit {
    * Retour à la page d'accueil
    */
   goToHome() {
-    this.navCtrl.setRoot(PncHomePage);
+    this.navCtrl.setRoot(this.sessionService.getActiveUser().isManager ? PncHomePage : CareerObjectiveListPage);
   }
 }
