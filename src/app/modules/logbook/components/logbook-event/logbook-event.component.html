@@ -102,7 +102,7 @@
                         <div>
                             <ion-label>{{ 'LOGBOOK.DETAILS.NOTIFIED_PNCS' | translate }} :</ion-label>
                         </div>
-                        <div [ngClass]="{'no-value' : !logbookEvent.notifiedPncs }">
+                        <div [ngClass]="{'no-value' : logbookEvent.notifiedPncs.length === 0 }">
                             <span *ngFor="let pnc of logbookEvent.notifiedPncs; last as l">{{pnc.lastName}} {{pnc.firstName | titlecase}}
                                 <span *ngIf="pnc.isInstructor">({{ 'PNC_IDENTITY.REFERENT_INSTRUCTOR' | translate }})</span>
                                 <span *ngIf="pnc.isRds">({{ 'PNC_IDENTITY.RDS' | translate }})</span>
