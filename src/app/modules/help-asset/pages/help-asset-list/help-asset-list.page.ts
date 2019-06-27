@@ -11,6 +11,7 @@ import { SessionService } from '../../../../core/services/session/session.servic
 import { FileTypeEnum } from '../../../../core/enums/file-type.enum';
 import { PncModel } from '../../../../core/models/pnc.model';
 import { PncService } from '../../../../core/services/pnc/pnc.service';
+import { TabHeaderEnum } from '../../../../core/enums/tab-header.enum';
 
 @Component({
     selector: 'page-help-asset-list',
@@ -28,6 +29,8 @@ export class HelpAssetListPage {
     fileTypeEnum;
 
     pdfUrl: string;
+
+    TabHeaderEnum = TabHeaderEnum;
 
     constructor(public navCtrl: NavController,
         public navParams: NavParams,

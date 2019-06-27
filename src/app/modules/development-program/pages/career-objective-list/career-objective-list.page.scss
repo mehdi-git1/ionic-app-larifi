@@ -1,18 +1,18 @@
 page-career-objective-list {
 
     .eobservation-block {
-        margin-top: 20px;
+        margin-top: 40px;
         margin-bottom: 10px;
     }
 
     .career-objective-block,
     .professional-interview-block {
-        margin-top: 30px;
+        margin-top: 60px;
         margin-bottom: 10px;
     }
 
     .eobservation-block h3 {
-        color: color($colors, primary);
+        color: color($colors, primary-dark);
     }
 
     .career-objective-block h3 {
@@ -20,17 +20,16 @@ page-career-objective-list {
     }
 
     .professional-interview-block h3 {
-        color: color($colors, primary-dark);
+        color: color($colors, primary);
     }
 
     h3 {
         display: flex;
         justify-content: space-between;
-        align-items: flex-end;
-
+        align-items: center;
     }
 
-    button {
+    ion-content button {
         width: 300px;
 
         ion-icon {
@@ -46,20 +45,12 @@ page-career-objective-list {
         display: flex;
         justify-content: space-between;
         align-items: center;
+        height: 66px;
         margin-bottom: 10px;
         padding: 10px;
         border-radius: 4px;
         background: color($colors, white);
         border: 1px solid color($colors-secondary, grey75);
-
-        .option-menu {
-            display: none;
-            margin-top: 5px;
-
-            .item-inner {
-                border: 0px;
-            }
-        }
 
         .info-container {
             display: flex;
@@ -70,6 +61,21 @@ page-career-objective-list {
                 font-weight: bold;
             }
         }
+
+        .add-container {
+            display: flex;
+            justify-content: flex-end;
+
+            ion-select {
+                width: 300px;
+
+                .item-inner {
+                    border: 0px;
+                }
+            }
+
+        }
+
     }
 
     .archives {
@@ -77,6 +83,9 @@ page-career-objective-list {
         span,
         a {
             color: color($colors-secondary, blue68);
+        }
+
+        a {
             text-decoration: underline;
         }
 
@@ -90,6 +99,4 @@ page-career-objective-list {
             content: '';
         }
     }
-
-
 }

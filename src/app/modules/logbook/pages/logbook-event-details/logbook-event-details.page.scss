@@ -4,15 +4,5 @@ page-logbook-event-details {
         display: flex;
         align-items: flex-end;
         justify-content: flex-end;
-
-        button {
-            align-self: flex-end;
-            font-size: 15px;
-
-            .ion-md-add:before,
-            .ion-ios-add:before {
-                font-size: 18px;
-            }
-        }
     }
 }

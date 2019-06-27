@@ -1,12 +1,12 @@
 <ion-header>
     <ion-navbar>
-        <page-header>
+        <page-header [pnc]="pnc">
             <span *ngIf="pnc">
                 {{'HELP_ASSET_LIST.TITLE' | isMyPage:pnc | translate}}
             </span>
         </page-header>
     </ion-navbar>
-    <pnc-edossier-header></pnc-edossier-header>
+    <pnc-edossier-header [activeTab]="TabHeaderEnum.HELP_ASSET_LIST_PAGE"></pnc-edossier-header>
 </ion-header>
 
 <ion-content padding>

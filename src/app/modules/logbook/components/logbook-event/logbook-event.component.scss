@@ -1,4 +1,4 @@
-logbook-event-details {
+logbook-event {
 
     .draw-ligne {
         margin: 22px 10px;
@@ -135,7 +135,7 @@ logbook-event-details {
         }
     }
 
-    $ion-textarea-row-margin: 25px;
+    $ion-textarea-row-margin:10px;
 
     ion-grid {
         display: flex;
@@ -221,7 +221,6 @@ logbook-event-details {
     }
 
     .description-row {
-        margin-top: $ion-textarea-row-margin !important;
 
         ion-textarea.big-textarea {
             align-items: stretch;
@@ -232,6 +231,10 @@ logbook-event-details {
                 align-items: stretch;
             }
         }
+    }
+
+    .information-message {
+        text-align: left;
     }
 
 }

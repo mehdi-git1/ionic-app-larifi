@@ -1,71 +1,56 @@
 page-pnc-home {
 
-    .grid {
-        height: 100%;
-    }
-
     #nav-tile-grid {
-        flex: 1;
+        height: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        padding: 0;
+        margin: 0;
 
-        ion-col {
+        .button-parent {
+            width: 50%;
+            padding: 20px;
             display: flex;
-            flex-wrap: wrap;
-            padding: 0;
-            margin: 0;
+            flex-direction: column;
 
-            .button-parent {
-                width: 50%;
-                padding: 20px;
+            h3 {
+                font-size: 2.8rem;
+                font-family: Excellence, OpenSans, Arial;
+                font-weight: bold;
+                padding: 5px 5px;
+            }
+
+            button {
                 display: flex;
                 flex-direction: column;
+                font-size: 3vmin;
+                width: 100%;
+                flex: 1;
+                border-radius: 10px;
+                white-space: normal;
 
-                h3 {
-                    padding: 5px 5px;
-                    margin-bottom: 20px;
-                    border-bottom: 2px solid color($colors-secondary, grey75);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background: color($colors, white);
+                box-shadow: 0 5px 8px 0 rgba(37, 177, 190, 0.2);
 
-                    &:after {
-                        content: ' ';
-                        display: block;
-                        position: relative;
-                        left: -5px;
-                        bottom: -11px;
-                        width: 30px;
-                        height: 6px;
-                        background: color($colors, primary-dark);
+                ion-icon,
+                .icon-af-C-metier-niv-pro {
+                    @media (max-height: 800px) {
+                        font-size: 6rem;
                     }
+
+                    @media (min-height: 800px) {
+                        font-size: 8rem;
+                    }
+
+                    color: color($colors, primary-light);
                 }
 
-                button {
-                    font-size: 3vmin;
-                    width: 100%;
-                    flex: 1;
-                    border-radius: 10px;
-                    white-space: normal;
-
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    background: color($colors, white);
-
-                    ion-icon {
-                        font-size: 3em;
-                        color: color($colors, primary-light);
-                    }
-
-                    .icon-af-B-digital-presse {
-                        font-size: 2.3em;
-                        color: color($colors, primary-light);
-
-                    }
-
-                    .icon-af-C-metier-niv-pro {
-                        font-size: 3em;
-                        color: color($colors, primary-light);
-                    }
-                }
 
             }
+
         }
     }
 

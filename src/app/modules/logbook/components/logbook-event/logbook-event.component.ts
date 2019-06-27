@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { PncLightModel } from './../../../../core/models/pnc-light.model';
 import { PncModel } from './../../../../core/models/pnc.model';
 import { PncService } from './../../../../core/services/pnc/pnc.service';
@@ -16,10 +17,10 @@ import { OnlineLogbookEventService } from '../../../../core/services/logbook/onl
 import * as _ from 'lodash';
 
 @Component({
-    selector: 'logbook-event-details',
-    templateUrl: 'logbook-event-details.component.html'
+    selector: 'logbook-event',
+    templateUrl: 'logbook-event.component.html'
 })
-export class LogbookEventDetailsComponent implements OnInit {
+export class LogbookEventComponent implements OnInit {
 
     @Input() logbookEvent: LogbookEventModel;
 
@@ -34,9 +35,9 @@ export class LogbookEventDetailsComponent implements OnInit {
     monthsNames;
     pnc: PncModel;
     techId: number;
+    loading: Loading;
 
     logbookEventCategories: LogbookEventCategory[];
-    loading: Loading;
     originLogbookEvent: LogbookEventModel;
 
     titleMaxLength = 100;
@@ -56,7 +57,8 @@ export class LogbookEventDetailsComponent implements OnInit {
         private dateTransformer: DateTransform,
         private events: Events,
         private alertCtrl: AlertController,
-        private pncService: PncService) {
+        private pncService: PncService,
+        private datePipe: DatePipe) {
         // Traduction des mois
         this.monthsNames = this.translateService.instant('GLOBAL.MONTH.LONGNAME');
     }
@@ -67,7 +69,7 @@ export class LogbookEventDetailsComponent implements OnInit {
         } else {
             this.pnc = this.sessionService.getActiveUser().authenticatedPnc;
         }
-        if (this.mode === LogbookEventModeEnum.CREATION || this.mode === LogbookEventModeEnum.LINKED_CREATION) {
+        if (this.mode === LogbookEventModeEnum.CREATION || this.mode === LogbookEventModeEnum.LINKED_EVENT_CREATION) {
             this.editEvent = true;
             this.logbookEvent = new LogbookEventModel();
             if (typeof this.groupId !== 'undefined') {
@@ -98,9 +100,11 @@ export class LogbookEventDetailsComponent implements OnInit {
      * Envoie un event avec l'évènement à editer, à la page parente.
      */
     editLogbookEvent() {
-        if (this.canEditEvent()) {
-            this.edition.emit(this.logbookEvent);
-        }
+        this.edition.emit(this.logbookEvent);
+    }
+
+    canDeleteLogbookEvent() {
+        this.events.publish('LogbookEvent:ToDelete', this.logbookEvent);
     }
 
     /**
@@ -153,7 +157,7 @@ export class LogbookEventDetailsComponent implements OnInit {
             // Avant de quitter la vue, on avertit l'utilisateur si ses modifications n'ont pas été enregistrées
             this.alertCtrl.create({
                 title: this.translateService.instant('GLOBAL.CONFIRM_BACK_WITHOUT_SAVE.TITLE'),
-                message: this.mode == LogbookEventModeEnum.CREATION || this.mode == LogbookEventModeEnum.LINKED_CREATION ? this.translateService.instant('LOGBOOK.EDIT.CONFIRM_CANCEL_CREATE_MESSAGE') : this.translateService.instant('LOGBOOK.EDIT.CONFIRM_CANCEL_UPDATE_MESSAGE'),
+                message: this.mode == LogbookEventModeEnum.CREATION || this.mode == LogbookEventModeEnum.LINKED_EVENT_CREATION ? this.translateService.instant('LOGBOOK.EDIT.CONFIRM_CANCEL_CREATE_MESSAGE') : this.translateService.instant('LOGBOOK.EDIT.CONFIRM_CANCEL_UPDATE_MESSAGE'),
                 buttons: [
                     {
                         text: this.translateService.instant('GLOBAL.BUTTONS.CANCEL'),
@@ -193,9 +197,11 @@ export class LogbookEventDetailsComponent implements OnInit {
                     this.originLogbookEvent = _.cloneDeep(savedLogbookEvent);
                     this.logbookEvent = savedLogbookEvent;
                     this.events.publish('LogbookEvent:saved');
-                    if (this.mode === LogbookEventModeEnum.CREATION || this.mode === LogbookEventModeEnum.LINKED_CREATION) {
+                    if (this.mode === LogbookEventModeEnum.CREATION || this.mode === LogbookEventModeEnum.LINKED_EVENT_CREATION) {
                         this.toastService.success(this.translateService.instant('LOGBOOK.EDIT.LOGBOOK_SAVED'));
-                        this.navCtrl.pop();
+                        if (this.mode === LogbookEventModeEnum.CREATION) {
+                            this.navCtrl.pop();
+                        }
                     } else {
                         this.toastService.success(this.translateService.instant('LOGBOOK.EDIT.LOGBOOK_UPDATED'));
                         this.editEvent = false;
@@ -251,5 +257,13 @@ export class LogbookEventDetailsComponent implements OnInit {
         const instructor = this.pnc && this.pnc.pncInstructor && this.sessionService.getActiveUser().matricule === this.pnc.pncInstructor.matricule;
         const rds = this.pnc && this.pnc.pncRds && this.sessionService.getActiveUser().matricule === this.pnc.pncRds.matricule;
         return redactor || instructor || rds;
+    }
+
+    /**
+     * Retourne la date de dernière modification, formatée pour l'affichage
+     * @return la date de dernière modification au format dd/mm/
+     */
+    getLastUpdateDate(): string {
+        return this.datePipe.transform(this.logbookEvent.lastUpdateDate, 'dd/MM/yyyy à HH:mm');
     }
 }

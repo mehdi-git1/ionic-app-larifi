@@ -168,7 +168,7 @@
         "INFORMATION_MESSAGE": "Maximum 5 priorités en cours",
         "LIST": {
             "CREATION_DATE": "Initiée le",
-            "TITLE": "Libellé Priorité",
+            "TITLE": "Libellé priorité",
             "ENCOUNTER_DATE": "Fixée le",
             "NEXT_ENCOUNTER_DATE": "Rappel",
             "STATUS": "Statut"
@@ -624,7 +624,8 @@
             "MODIFY": "Modifier",
             "CANCEL": "Annuler",
             "UPDATE": "Mettre à jour",
-            "SAVE": "Enregistrer"
+            "SAVE": "Enregistrer",
+            "DELETE": "Supprimer"
         },
         "EDIT": {
             "EVENT_CREATION": "Création d'un nouvel évènement",
@@ -646,10 +647,18 @@
             "SELECT_ALL": "Tout sélectionner",
             "SEARCH": "Rechercher"
         },
+        "DELETE": {
+            "CONFIRM_DELETE": {
+                "TITLE": "Suppression",
+                "MESSAGE": "Confirmez-vous la suppression de l'événement ?"
+            },
+            "SUCCESS": "Evénement supprimé"
+        },
         "DETAILS": {
             "EVENT_DATE": "Evènement du ",
             "CREATED_THE": "Créé le ",
-            "NOTIFIED_PNCS": "Personnes notifiées"
+            "NOTIFIED_PNCS": "Personnes notifiées",
+            "EDITED_BY": "Evènement modifié par {{lastName}} {{firstName}} le {{date}}"
         },
         "ACTION_MENU": {
             "MODIFY": "Modifier",

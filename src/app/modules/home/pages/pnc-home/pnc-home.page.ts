@@ -14,9 +14,7 @@ import { UserMessageAlertService } from './../../../../core/services/user-messag
 import { SynchronizationService } from '../../../../core/services/synchronization/synchronization.service';
 import { SessionService } from '../../../../core/services/session/session.service';
 import { ToastService } from '../../../../core/services/toast/toast.service';
-import { GenderService } from '../../../../core/services/gender/gender.service';
 import { PncService } from '../../../../core/services/pnc/pnc.service';
-import { ConnectivityService } from '../../../../core/services/connectivity/connectivity.service';
 import { TabNavEnum } from '../../../../core/enums/tab-nav.enum';
 
 @Component({
@@ -78,6 +76,20 @@ export class PncHomePage {
             }, error => {
             });
         }
+    }
+
+    /**
+    * Dirige vers la liste des prochains vols
+    */
+    goToUpcomingFlightList() {
+        this.navCtrl.parent.select(this.tabNavService.getTabIndex(TabNavEnum.UPCOMING_FLIGHT_LIST_PAGE));
+    }
+
+    /**
+    * Dirige vers l'effectif PNC
+    */
+    goToPncSearch() {
+        this.navCtrl.parent.select(this.tabNavService.getTabIndex(TabNavEnum.PNC_SEARCH_PAGE));
     }
 
     /**

@@ -1,5 +1,5 @@
-import { ConnectivityService } from './../../../../core/services/connectivity/connectivity.service';
 import { LogbookEventDetailsPage } from './../logbook-event-details/logbook-event-details.page';
+import { ConnectivityService } from './../../../../core/services/connectivity/connectivity.service';
 import { AppConstant } from './../../../../app.constant';
 import { DateTransform } from './../../../../shared/utils/date-transform';
 import { LogbookEventGroupModel } from './../../../../core/models/logbook/logbook-event-group.model';
@@ -12,10 +12,11 @@ import { PncModel } from './../../../../core/models/pnc.model';
 import { PncService } from './../../../../core/services/pnc/pnc.service';
 import { NavController, NavParams, PopoverController } from 'ionic-angular';
 import { Component, ViewChild, AfterViewInit, OnInit } from '@angular/core';
-import { LogbookEditPage } from '../logbook-edit/logbook-edit.page';
+import { LogbookCreatePage } from '../logbook-create/logbook-create.page';
 import { MatTableDataSource, MatSort } from '@angular/material';
 import * as moment from 'moment';
 import * as _ from 'lodash';
+import { TabHeaderEnum } from '../../../../core/enums/tab-header.enum';
 
 @Component({
     selector: 'log-book',
@@ -30,6 +31,8 @@ export class LogbookPage {
     sortedColumn: string;
 
     groupedEvents: Array<LogbookEventGroupModel>;
+
+    TabHeaderEnum = TabHeaderEnum;
 
     constructor(public navCtrl: NavController,
         public navParams: NavParams,
@@ -143,7 +146,7 @@ export class LogbookPage {
      */
     goToLogbookCreation() {
         if (this.pnc) {
-            this.navCtrl.push(LogbookEditPage, { matricule: this.pnc.matricule });
+            this.navCtrl.push(LogbookCreatePage, { matricule: this.pnc.matricule });
         }
     }
 

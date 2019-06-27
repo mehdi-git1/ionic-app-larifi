@@ -9,6 +9,10 @@ log-book {
         }
     }
 
+    .scroll-content {
+        padding-top: 40px !important;
+    }
+
     ion-button {
         // TODO : A supprimer avec Daisy
         @extend .button-md;
@@ -16,15 +20,17 @@ log-book {
         background-color: color($colors, primary);
     }
 
-    .logbook-event-grid{
+    .logbook-event-grid {
 
         .child-event-grid {
             padding: 0px;
-            height: 100%; 
+            height: 100%;
+
             ion-row {
                 display: flex;
                 height: 100%;
                 align-items: center;
+
                 ion-col {
                     display: flex;
                     height: 100%;
@@ -46,19 +52,19 @@ log-book {
             align-items: center;
             display: inline-flex;
         }
-    
-        .edospnc-important:before, 
+
+        .edospnc-important:before,
         .ion-ios-edospnc-important:before,
-        .ion-md-edospnc-important:before, 
+        .ion-md-edospnc-important:before,
         .icon-edospnc-important:before {
             font-size: 18px;
         }
-    
-        .edospnc-pnc:before, 
-        .ion-ios-edospnc-pnc:before, 
-        .ion-ios-edospnc-pnc-outline:before, 
-        .ion-md-edospnc-pnc:before, 
-        .ion-md-edospnc-pnc-outline:before, 
+
+        .edospnc-pnc:before,
+        .ion-ios-edospnc-pnc:before,
+        .ion-ios-edospnc-pnc-outline:before,
+        .ion-md-edospnc-pnc:before,
+        .ion-md-edospnc-pnc-outline:before,
         .icon-edospnc-pnc:before {
             font-size: 20px;
         }
@@ -66,7 +72,9 @@ log-book {
         .child-count {
             display: flex;
             flex-direction: row;
+            width: 100%;
         }
+
         .arrow {
             flex: 0 0 45px !important;
             text-align: center;
@@ -75,17 +83,19 @@ log-book {
         .actions {
             flex: 0 0 50px !important;
             text-align: center;
+
             div {
-                width:100%;
+                width: 100%;
                 height: 100%;
             }
         }
 
         ion-row {
-            border : none;
+            border: none;
         }
+
         ion-row.groupedEventRow:nth-child(even) {
-            background: color($colors-secondary, grey95);            
+            background: color($colors-secondary, grey95);
         }
 
         ion-row.groupedEventRow:nth-child(odd) {
@@ -96,9 +106,9 @@ log-book {
             font-size: 12px;
             background: color($colors, white) !important;
             border-bottom: 1px solid color($colors-secondary, grey95);
+
             ion-col {
                 font-weight: bold;
-                display: flex;
             }
         }
 
@@ -107,14 +117,15 @@ log-book {
         .event-row {
             height: 48px;
         }
-        .column-child-events{
+
+        .column-child-events {
             flex: 0 0 20px !important;
         }
-    
-        .column-child-dots{
+
+        .column-child-dots {
             flex: 0 0 20px !important;
         }
-    
+
         .column-title {
             min-width: 120px;
         }
@@ -123,29 +134,32 @@ log-book {
             @include truncate-text($nbLinesMaxOnRow);
         }
 
-        .column-category{
+        .column-category {
             flex: 0 0 120px !important;
             min-width: 50px;
         }
+
         .column-redactor {
             min-width: 100px;
             max-width: 200px;
         }
+
         .column-actions {
             flex: 0 0 40px !important;
             text-align: center;
         }
-    
+
         .column-origin {
             flex: 0 0 67px !important;
             text-align: center;
         }
-    
+
         .column-date {
             flex: 0 0 90px !important;
             min-width: 95px;
             max-width: 95px;
         }
+
         .column-specific {
             flex: 0 0 20px !important;
             min-width: 20px;
@@ -169,10 +183,13 @@ log-book {
         display: flex;
         align-items: flex-end;
         justify-content: flex-end;
+
         button {
             align-self: flex-end;
             font-size: 15px;
-            .ion-md-add:before, .ion-ios-add:before {
+
+            .ion-md-add:before,
+            .ion-ios-add:before {
                 font-size: 18px;
                 vertical-align: middle;
             }
