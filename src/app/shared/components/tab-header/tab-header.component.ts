@@ -1,3 +1,4 @@
+import { PncRoleEnum } from './../../../core/enums/pnc-role.enum';
 import { CareerObjectiveListPage } from './../../../modules/development-program/pages/career-objective-list/career-objective-list.page';
 import { TabHeaderModeEnum } from '../../../core/enums/tab-header-mode.enum';
 import { Component, Input, OnInit, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
@@ -58,7 +59,10 @@ export class TabHeaderComponent implements OnInit, AfterViewInit {
   openTab(tab: any) {
     let navParams = {};
     if (this.mode === TabHeaderModeEnum.EDOSSIER && this.sessionService.visitedPnc && !this.sessionService.isActiveUser(this.sessionService.visitedPnc)) {
-      navParams = { matricule: this.sessionService.visitedPnc.matricule };
+      navParams = {
+        matricule: this.sessionService.visitedPnc.matricule,
+        pncRole: this.sessionService.visitedPnc.manager ? PncRoleEnum.MANAGER : PncRoleEnum.PNC
+      };
     }
     this.navCtrl.setRoot(tab.component, navParams);
   }
