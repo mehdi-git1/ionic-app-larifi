@@ -31,7 +31,6 @@ export class LogbookEventComponent implements OnInit {
     @Output() edition: EventEmitter<any> = new EventEmitter();
 
     editEvent = false;
-    deleteEvent = false;
     eventDateString: string;
     monthsNames;
     pnc: PncModel;

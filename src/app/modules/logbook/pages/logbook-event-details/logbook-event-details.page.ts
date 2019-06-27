@@ -175,8 +175,6 @@ export class LogbookEventDetailsPage implements OnInit {
                 if (item.logbookEvent.techId === logbookEvent.techId) {
                     item.editEvent = true;
                     this.editionMode = true;
-                } else {
-                    item.editEvent = false;
                 }
             });
         }
