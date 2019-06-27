@@ -12,6 +12,7 @@ import { SessionService } from '../../../../core/services/session/session.servic
 import { PncModel } from '../../../../core/models/pnc.model';
 import { EObservationModel } from '../../../../core/models/eobservation/eobservation.model';
 import { EObservationService } from '../../../../core/services/eobservation/eobservation.service';
+import { TabHeaderEnum } from '../../../../core/enums/tab-header.enum';
 
 @Component({
   selector: 'page-professional-level',
@@ -28,6 +29,7 @@ export class ProfessionalLevelPage {
   listItemLegend = [];
 
   EObservationDisplayModeEnum = EObservationDisplayModeEnum;
+  TabHeaderEnum = TabHeaderEnum;
 
   constructor(private navParams: NavParams,
     private sessionService: SessionService,

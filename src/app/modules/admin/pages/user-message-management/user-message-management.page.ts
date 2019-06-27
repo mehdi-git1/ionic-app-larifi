@@ -1,3 +1,4 @@
+import { TabHeaderEnum } from './../../../../core/enums/tab-header.enum';
 import { TabHeaderModeEnum } from '../../../../core/enums/tab-header-mode.enum';
 import { UserMessageAlertService } from './../../../../core/services/user-message/user-message-alert.service';
 import { ToastService } from '../../../../core/services/toast/toast.service';
@@ -20,6 +21,7 @@ export class UserMessageManagementPage {
     userMessages: UserMessageModel[];
 
     TabHeaderModeEnum = TabHeaderModeEnum;
+    TabHeaderEnum = TabHeaderEnum;
 
     constructor(private userMessageService: UserMessageService,
         private userMessageAlertService: UserMessageAlertService,
