@@ -4,7 +4,7 @@
             <span *ngIf="pnc"> {{ 'CONGRATULATION_LETTERS.TITLE' | isMyPage: pnc | translate }}</span>
         </page-header>
     </ion-navbar>
-    <pnc-edossier-header></pnc-edossier-header>
+    <pnc-edossier-header [activeTab]="TabHeaderEnum.CONGRATULATION_LETTERS_PAGE"></pnc-edossier-header>
 </ion-header>
 <ion-content padding no-bounce>
     <nav class="tabs">

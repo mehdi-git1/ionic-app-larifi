@@ -1,3 +1,4 @@
+import { TabHeaderEnum } from './../../../../core/enums/tab-header.enum';
 import { PncService } from './../../../../core/services/pnc/pnc.service';
 import { CongratulationLetterService } from './../../../../core/services/congratulation-letter/congratulation-letter.service';
 import { CongratulationLetterModeEnum } from '../../../../core/enums/congratulation-letter/congratulation-letter-mode.enum';
@@ -24,6 +25,8 @@ export class CongratulationLettersPage {
     receivedCongratulationLetters: CongratulationLetterModel[];
 
     writtenCongratulationLetters: CongratulationLetterModel[];
+
+    TabHeaderEnum = TabHeaderEnum;
 
     constructor(private navParams: NavParams,
         private congratulationLetterService: CongratulationLetterService,
