@@ -1,6 +1,6 @@
 <ion-header>
     <ion-navbar>
-        <page-header>
+        <page-header [pnc]="pnc">
             <span *ngIf="pnc">
                 {{'HELP_ASSET_LIST.TITLE' | isMyPage:pnc | translate}}
             </span>

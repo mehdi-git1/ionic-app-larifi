@@ -1,6 +1,9 @@
 <ion-header>
     <ion-navbar>
-        <page-header (refreshPage)="initPage()" [showRefreshIcon]="true">{{ 'GLOBAL.UPCOMING_FLIGHT' | isMyPage | translate }}
+        <page-header (refreshPage)="initPage()" [showRefreshIcon]="true" [pnc]="pnc">
+            <span *ngIf="pnc">
+                {{ 'GLOBAL.UPCOMING_FLIGHT' | isMyPage:pnc | translate }}
+            </span>
         </page-header>
     </ion-navbar>
     <pnc-edossier-header [activeTab]="TabHeaderEnum.UPCOMING_FLIGHT_LIST_PAGE"></pnc-edossier-header>

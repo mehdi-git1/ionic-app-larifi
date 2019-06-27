@@ -1,3 +1,4 @@
+import { PncModel } from './../../../../core/models/pnc.model';
 import { TabHeaderEnum } from './../../../../core/enums/tab-header.enum';
 import { PncService } from '../../../../core/services/pnc/pnc.service';
 import { RotationModel } from '../../../../core/models/rotation.model';
@@ -14,14 +15,16 @@ import * as moment from 'moment';
 export class UpcomingFlightListPage {
     matricule: string;
 
+    pnc: PncModel;
+
     upcomingRotations: RotationModel[];
     lastPerformedRotations: RotationModel[];
 
     TabHeaderEnum = TabHeaderEnum;
 
-    constructor(public navCtrl: NavController,
-        public navParams: NavParams,
-        private pncProvider: PncService,
+    constructor(private navCtrl: NavController,
+        private navParams: NavParams,
+        private pncService: PncService,
         private sessionService: SessionService) {
     }
 
@@ -39,9 +42,13 @@ export class UpcomingFlightListPage {
             this.matricule = this.sessionService.getActiveUser().matricule;
         }
 
+        this.pncService.getPnc(this.matricule).then(pnc => {
+            this.pnc = pnc;
+        }, error => { });
+
         this.lastPerformedRotations = undefined;
         this.upcomingRotations = undefined;
-        this.pncProvider.getAllRotations(this.matricule).then(allRotations => {
+        this.pncService.getAllRotations(this.matricule).then(allRotations => {
             // Tri des rotations par date ascendante
             allRotations = this.sortByAscendingDepartureDate(allRotations);
 
