@@ -5,6 +5,7 @@ import { Events, NavController } from 'ionic-angular';
 import { PncHomePage } from '../../../modules/home/pages/pnc-home/pnc-home.page';
 import { SessionService } from '../../../core/services/session/session.service';
 import { TabHeaderService } from '../../../core/services/tab-header/tab-header.service';
+import { TabHeaderEnum } from '../../../core/enums/tab-header.enum';
 
 @Component({
   selector: 'tab-header',
@@ -13,6 +14,8 @@ import { TabHeaderService } from '../../../core/services/tab-header/tab-header.s
 export class TabHeaderComponent implements OnInit, AfterViewInit {
 
   @Input() mode: TabHeaderModeEnum = TabHeaderModeEnum.EDOSSIER;
+
+  @Input() activeTab: TabHeaderEnum;
 
   @ViewChild('tabListRef') tabListRef: ElementRef;
 
@@ -36,8 +39,9 @@ export class TabHeaderComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    const selectedTabId = this.tabHeaderService.getActiveTab(this.mode);
-    this.tabListRef.nativeElement.querySelector(`#${selectedTabId}`).scrollIntoView({ behavior: 'instant', block: 'center', inline: 'center' });
+    if (this.tabListRef && this.tabListRef.nativeElement.querySelector(`#${this.activeTab}`)) {
+      this.tabListRef.nativeElement.querySelector(`#${this.activeTab}`).scrollIntoView({ behavior: 'instant', block: 'center', inline: 'center' });
+    }
   }
 
   /**
@@ -52,7 +56,6 @@ export class TabHeaderComponent implements OnInit, AfterViewInit {
    * @param tab l'onglet vers lequel naviguer
    */
   openTab(tab: any) {
-    this.tabHeaderService.setActiveTab(this.mode, tab);
     let navParams = {};
     if (this.mode === TabHeaderModeEnum.EDOSSIER && this.sessionService.visitedPnc && !this.sessionService.isActiveUser(this.sessionService.visitedPnc)) {
       navParams = { matricule: this.sessionService.visitedPnc.matricule };
@@ -66,7 +69,7 @@ export class TabHeaderComponent implements OnInit, AfterViewInit {
    * @return vrai s'il s'agit de l'onglet actif, faux sinon
    */
   isActive(tab: any): boolean {
-    return this.tabHeaderService.isActiveTab(this.mode, tab);
+    return this.activeTab == tab.id;
   }
 
   /**

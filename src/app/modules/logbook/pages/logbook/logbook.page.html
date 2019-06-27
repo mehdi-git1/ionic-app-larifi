@@ -4,7 +4,7 @@
             {{ 'GLOBAL.LOGBOOK' | isMyPage: pnc | translate }}
         </page-header>
     </ion-navbar>
-    <pnc-edossier-header></pnc-edossier-header>
+    <pnc-edossier-header [activeTab]="TabHeaderEnum.LOGBOOK_PAGE"></pnc-edossier-header>
 </ion-header>
 <ion-content padding no-bounce>
     <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
@@ -15,7 +15,7 @@
                     <ion-icon name="add"></ion-icon><span>{{ 'LOGBOOK.BUTTONS.ADD_LOG' | translate }}</span>
                 </button>
             </div>
-            <span *ngIf="groupedEvents && groupedEvents.length > 0; else noEventsBlock" >
+            <span *ngIf="groupedEvents && groupedEvents.length > 0; else noEventsBlock">
                 <ion-grid class="logbook-event-grid selectable" [sortableGrid]="groupedEvents">
                     <ion-row class="headers">
                         <ion-col class="arrow"></ion-col>
@@ -60,14 +60,14 @@
                                     <ion-col class="column-specific">
                                         <ion-icon *ngIf="logbookEventHasChilds()" name="attach"></ion-icon>
                                     </ion-col>
-                                    <ion-col class="column-title" >
+                                    <ion-col class="column-title">
                                         <span class="truncate-text">{{logbookEvent.title}}</span>
                                     </ion-col>
                                     <ion-col class="column-origin">
                                         <ion-icon *ngIf="logbookEvent.pncInitiator" color="primary" class="edospnc-pnc action-icon" name="edospnc-pnc">
                                         </ion-icon>
                                     </ion-col>
-                                    <ion-col  class="column-redactor" >
+                                    <ion-col class="column-redactor">
                                         <span class="truncate-text">{{logbookEvent.lastUpdateAuthor?.lastName}} {{logbookEvent.lastUpdateAuthor?.firstName | titlecase}}</span>
                                     </ion-col>
                                     <ion-col class="actions" *ngIf="isManager()">

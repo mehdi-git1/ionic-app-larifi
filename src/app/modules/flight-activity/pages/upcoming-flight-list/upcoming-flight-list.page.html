@@ -3,7 +3,7 @@
         <page-header (refreshPage)="initPage()" [showRefreshIcon]="true">{{ 'GLOBAL.UPCOMING_FLIGHT' | isMyPage | translate }}
         </page-header>
     </ion-navbar>
-    <pnc-edossier-header></pnc-edossier-header>
+    <pnc-edossier-header [activeTab]="TabHeaderEnum.UPCOMING_FLIGHT_LIST_PAGE"></pnc-edossier-header>
 </ion-header>
 
 <ion-content padding>

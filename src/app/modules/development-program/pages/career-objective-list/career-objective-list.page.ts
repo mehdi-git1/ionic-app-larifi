@@ -1,3 +1,4 @@
+import { TabHeaderEnum } from './../../../../core/enums/tab-header.enum';
 import { EObservationModel } from './../../../../core/models/eobservation/eobservation.model';
 import { SecurityService } from './../../../../core/services/security/security.service';
 import { ProfessionalInterviewDetailsPage } from './../../../professional-interview/pages/professional-interview-details/professional-interview-details.page';
@@ -46,6 +47,7 @@ export class CareerObjectiveListPage {
 
   // Expose l'enum au template
   EObservationDisplayModeEnum = EObservationDisplayModeEnum;
+  TabHeaderEnum = TabHeaderEnum;
 
   // Liste des eForms possible
   eFormsList = [];

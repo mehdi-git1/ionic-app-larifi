@@ -19,8 +19,6 @@ import { TabHeaderEnum } from '../../enums/tab-header.enum';
 @Injectable()
 export class TabHeaderService {
 
-    activeTab: any;
-
     pnc: PncModel;
 
     constructor(
@@ -28,26 +26,6 @@ export class TabHeaderService {
         private authorizationService: AuthorizationService,
         private sessionService: SessionService
     ) {
-        this.activeTab = {
-            EDOSSIER: TabHeaderEnum.CAREER_OBJECTIVE_LIST_PAGE,
-            ADMIN: TabHeaderEnum.PROFILE_MANAGEMENT_PAGE
-        };
-    }
-
-    /**
-     * Initialise la navigation par onglet
-     * @param mode le mode d'affichage
-     */
-    initTabHeader(mode: TabHeaderModeEnum) {
-        if (mode === TabHeaderModeEnum.EDOSSIER) {
-            const currentPnc = this.sessionService.visitedPnc == undefined ? this.sessionService.getActiveUser().authenticatedPnc : this.sessionService.visitedPnc;
-            if (currentPnc != this.pnc) {
-                this.pnc = currentPnc;
-                this.activeTab.EDOSSIER = this.pnc && this.pnc.manager ? TabHeaderEnum.PROFESSIONAL_LEVEL_PAGE : TabHeaderEnum.CAREER_OBJECTIVE_LIST_PAGE;
-            }
-        } else {
-            this.activeTab.ADMIN = TabHeaderEnum.PROFILE_MANAGEMENT_PAGE;
-        }
     }
 
     /**
@@ -56,7 +34,7 @@ export class TabHeaderService {
     * @return une liste contenant les entrées à afficher dans les onglets
     */
     getTabList(mode: TabHeaderModeEnum) {
-        this.initTabHeader(mode);
+        this.pnc = this.sessionService.visitedPnc == undefined ? this.sessionService.getActiveUser().authenticatedPnc : this.sessionService.visitedPnc;
 
         if (mode === TabHeaderModeEnum.EDOSSIER) {
             return [
@@ -127,34 +105,6 @@ export class TabHeaderService {
                 }
             ];
         }
-    }
-
-    /**
-     * Teste si un onglet est actif, pour un mode donné
-     * @param mode le mode concerné
-     * @param tab l'onglet à tester
-     * @return vrai si l'onglet donné est actif, faux sinon
-     */
-    isActiveTab(mode: TabHeaderModeEnum, tab: any): boolean {
-        return this.activeTab && this.activeTab[mode] == tab.id;
-    }
-
-    /**
-     * Définit un onglet comme actif, dans un mode donné
-     * @param mode le mode concerné
-     * @param tab l'onglet à définir comme actif
-     */
-    setActiveTab(mode: TabHeaderModeEnum, tab: any) {
-        this.activeTab[mode] = tab.id;
-    }
-
-    /**
-     * Retourne l'onglet actif du mode d'affichage demandé
-     * @param tabHeaderMode le mode d'affichage demandé
-     * @return l'élément actif du mode d'affichage demandé
-     */
-    getActiveTab(tabHeaderMode: TabHeaderModeEnum) {
-        return this.activeTab[tabHeaderMode];
     }
 
 }

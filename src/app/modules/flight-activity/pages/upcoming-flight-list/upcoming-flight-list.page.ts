@@ -1,3 +1,4 @@
+import { TabHeaderEnum } from './../../../../core/enums/tab-header.enum';
 import { PncService } from '../../../../core/services/pnc/pnc.service';
 import { RotationModel } from '../../../../core/models/rotation.model';
 import { Component } from '@angular/core';
@@ -15,6 +16,8 @@ export class UpcomingFlightListPage {
 
     upcomingRotations: RotationModel[];
     lastPerformedRotations: RotationModel[];
+
+    TabHeaderEnum = TabHeaderEnum;
 
     constructor(public navCtrl: NavController,
         public navParams: NavParams,

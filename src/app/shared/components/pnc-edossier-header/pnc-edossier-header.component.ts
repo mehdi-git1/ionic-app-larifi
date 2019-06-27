@@ -1,8 +1,9 @@
 import { NavController, Events } from 'ionic-angular';
 import { SessionService } from './../../../core/services/session/session.service';
 import { TabHeaderModeEnum } from '../../../core/enums/tab-header-mode.enum';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { PncModel } from '../../../core/models/pnc.model';
+import { TabHeaderEnum } from '../../../core/enums/tab-header.enum';
 
 @Component({
     selector: 'pnc-edossier-header',
@@ -11,6 +12,8 @@ import { PncModel } from '../../../core/models/pnc.model';
 export class PncEdossierHeaderComponent implements OnInit {
 
     pnc: PncModel;
+
+    @Input() activeTab: TabHeaderEnum;
 
     TabHeaderModeEnum = TabHeaderModeEnum;
 
