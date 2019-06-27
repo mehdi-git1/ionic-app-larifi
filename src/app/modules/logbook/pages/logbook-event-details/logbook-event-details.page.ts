@@ -1,3 +1,4 @@
+import { ToastService } from './../../../../core/services/toast/toast.service';
 import { LogbookEventComponent } from './../../components/logbook-event/logbook-event.component';
 import { TranslateService } from '@ngx-translate/core';
 import { TransformerService } from './../../../../core/services/transformer/transformer.service';
@@ -10,7 +11,7 @@ import { LogbookEventModel } from './../../../../core/models/logbook/logbook-eve
 import { SecurityService } from './../../../../core/services/security/security.service';
 import { PncModel } from './../../../../core/models/pnc.model';
 import { PncService } from './../../../../core/services/pnc/pnc.service';
-import { NavController, NavParams, Events, AlertController, Item } from 'ionic-angular';
+import { NavController, NavParams, Events, AlertController, Item, Loading, LoadingController } from 'ionic-angular';
 import { Component, OnInit, ViewChild, ViewChildren } from '@angular/core';
 import { LogbookCreatePage } from '../logbook-create/logbook-create.page';
 import * as _ from 'lodash';
@@ -31,6 +32,7 @@ export class LogbookEventDetailsPage implements OnInit {
     editionMode = false;
     groupId: number;
     logbookEventTechId: number;
+    loading: Loading;
 
     LogbookEventModeEnum = LogbookEventModeEnum;
 
@@ -47,12 +49,16 @@ export class LogbookEventDetailsPage implements OnInit {
         private events: Events,
         private alertCtrl: AlertController,
         private translateService: TranslateService,
-        private securityService: SecurityService
+        private securityService: SecurityService,
+        private toastService: ToastService,
+        private loadingCtrl: LoadingController
     ) {
     }
 
     ngOnInit() {
-        this.createLinkedEvent = this.navParams.get('createLinkedEvent');
+        if (this.navParams.get('createLinkedEvent')) {
+            this.createLinkedEvent = this.navParams.get('createLinkedEvent');
+        }
         if (this.sessionService.visitedPnc) {
             this.pnc = this.sessionService.visitedPnc;
         } else {
@@ -77,12 +83,11 @@ export class LogbookEventDetailsPage implements OnInit {
             this.logbookEventTechId = null;
             this.editionMode = false;
         });
-        this.events.subscribe('LogbookEvent:deleted', () => {
-            this.getLogbookEventsByGroupId(this.groupId, this.pnc).then(() => {
-                if (this.logbookEvents.length === 0) {
-                    this.navCtrl.pop();
-                }
-            });
+        this.events.subscribe('LogbookEvent:ToDelete', (logbookEvent) => {
+            if (!this.editionMode && !this.createLinkedEvent) {
+                this.logbookEvent = logbookEvent;
+                this.confirmDeleteLogBookEvent();
+            }
         });
     }
 
@@ -170,6 +175,8 @@ export class LogbookEventDetailsPage implements OnInit {
                 if (item.logbookEvent.techId === logbookEvent.techId) {
                     item.editEvent = true;
                     this.editionMode = true;
+                } else {
+                    item.editEvent = false;
                 }
             });
         }
@@ -180,6 +187,49 @@ export class LogbookEventDetailsPage implements OnInit {
      */
     createLinkedLogookEvent() {
         this.createLinkedEvent = true;
+    }
+
+    /**
+     * Présente une alerte pour confirmer la suppression du brouillon
+     */
+    confirmDeleteLogBookEvent() {
+        this.alertCtrl.create({
+            title: this.translateService.instant('LOGBOOK.DELETE.CONFIRM_DELETE.TITLE'),
+            message: this.translateService.instant('LOGBOOK.DELETE.CONFIRM_DELETE.MESSAGE'),
+            buttons: [
+                {
+                    text: this.translateService.instant('GLOBAL.BUTTONS.CANCEL'),
+                    role: 'cancel'
+                },
+                {
+                    text: this.translateService.instant('GLOBAL.BUTTONS.CONFIRM'),
+                    handler: () => this.deleteLogbookEvent()
+                }
+            ]
+        }).present();
+    }
+
+    /**
+    * Supprime un évènement
+    */
+    deleteLogbookEvent() {
+        this.loading = this.loadingCtrl.create();
+        this.loading.present();
+
+        this.onlineLogbookEventService.delete(this.logbookEvent.techId)
+            .then(
+                deletedlogbookEvent => {
+                    this.toastService.success(this.translateService.instant('LOGBOOK.DELETE.SUCCESS'));
+                    this.getLogbookEventsByGroupId(this.groupId, this.pnc).then(() => {
+                        if (this.logbookEvents.length === 0) {
+                            this.navCtrl.pop();
+                        }
+                    });
+                    this.loading.dismiss();
+                },
+                error => {
+                    this.loading.dismiss();
+                });
     }
 
     /**

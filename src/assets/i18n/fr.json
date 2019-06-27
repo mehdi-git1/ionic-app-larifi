@@ -657,7 +657,8 @@
         "DETAILS": {
             "EVENT_DATE": "Evènement du ",
             "CREATED_THE": "Créé le ",
-            "NOTIFIED_PNCS": "Personnes notifiées"
+            "NOTIFIED_PNCS": "Personnes notifiées",
+            "EDITED_BY": "Evènement modifié par {{lastName}} {{firstName}} le {{date}}"
         },
         "ACTION_MENU": {
             "MODIFY": "Modifier",
