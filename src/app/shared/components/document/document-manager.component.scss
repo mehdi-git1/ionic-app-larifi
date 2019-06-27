@@ -1,0 +1,60 @@
+document-manager {
+
+    width: 100%;
+    display: flex;
+
+    .file-upload ion-input
+    {
+        display: none;
+    }
+
+    .file-upload ion-label
+    {
+        width: 80px;
+        cursor: pointer;
+    }
+    .file-upload-button {
+        width: 100%;
+        align-content: flex-end;
+        text-align: right;
+        cursor: pointer;
+    }
+    .attach-icon {
+        font-size:  30px;
+    }
+
+    .attachments {
+        width: auto;
+        display: flex;
+        margin-top: 5px;
+
+        .file-wrapper {
+            border: 1px solid color($colors-secondary, grey70);
+            border-radius: 4px;
+            margin-right: 10px;
+            padding: 0px 5px;
+            background-color: color($colors, white);
+            display: flex;
+        }
+
+        .file {
+            width: auto;
+            padding: 2px;
+            display: flex;
+        }
+
+        .file-icon {
+            padding-right: 5px;
+            width: auto;
+        }
+
+        .remove-file-button {
+            padding-left: 10px;
+            cursor: pointer;
+        }
+
+        .truncate-text {
+            @include truncate-text(1);
+        }
+    }
+}

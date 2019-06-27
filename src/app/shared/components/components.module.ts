@@ -1,3 +1,4 @@
+import { DocumentManagerComponent } from './document/document-manager.component';
 import { TabHeaderComponent } from './tab-header/tab-header.component';
 import { PncHeaderComponent } from './pnc-header/pnc-header.component';
 import { PdfButtonComponent } from './pdf-button/pdf-button.component';
@@ -64,7 +65,8 @@ import { PncEdossierHeaderComponent } from './pnc-edossier-header/pnc-edossier-h
     CheckboxAndLabelComponent,
     UserMessageAlertComponent,
     PdfButtonComponent,
-    AppVersionAlertComponent
+    AppVersionAlertComponent,
+    DocumentManagerComponent
   ],
   exports: [
     OfflineIndicatorComponent,
@@ -90,7 +92,8 @@ import { PncEdossierHeaderComponent } from './pnc-edossier-header/pnc-edossier-h
     CheckboxAndLabelComponent,
     UserMessageAlertComponent,
     PdfButtonComponent,
-    AppVersionAlertComponent
+    AppVersionAlertComponent,
+    DocumentManagerComponent
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA

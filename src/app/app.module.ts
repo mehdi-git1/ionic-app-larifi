@@ -1,3 +1,5 @@
+import { FileChooser } from '@ionic-native/file-chooser';
+import { File } from '@ionic-native/file';
 import { LogbookModule } from './modules/logbook/logbook.module';
 import { EObservationModule } from './modules/eobservation/eobservation.module';
 import { CongratulationLetterModule } from './modules/congratulation-letter/congratulation-letter.module';
@@ -91,7 +93,9 @@ registerLocaleData(localeFr);
     Config,
     UrlConfiguration,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
-    InAppBrowser
+    InAppBrowser,
+    File,
+    FileChooser
   ]
 })
 export class AppModule { }

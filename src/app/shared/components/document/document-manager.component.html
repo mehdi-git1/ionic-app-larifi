@@ -1,0 +1,11 @@
+<span class="attachments">
+    <span class="file-wrapper" *ngFor="let document of documents" >
+        <span class="file">
+            <img class="file-icon" width="25" height="25" [src]="getFileTypeIcon(document)"/><span [ngClass]="{'truncate-text' : document.fileName.length > 20}">{{ document.fileName }}</span><span *ngIf="editMode" class="remove-file-button" (click)="removeFile(document)">x</span>
+        </span>
+    </span>
+    <label *ngIf="editMode" class="file-upload-button" for="file">
+        <ion-icon class="attach-icon" name="attach"></ion-icon>
+        <input type="file" #fileUpload (change)="addFile($event) "id="file" style="display: none" name="image" multiple="" data-original-title="upload photos">
+    </label>
+</span>

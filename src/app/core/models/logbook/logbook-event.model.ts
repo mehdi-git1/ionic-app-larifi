@@ -1,3 +1,4 @@
+import { DocumentModel } from './../document.model';
 import { LogbookEventNotifiedEmail } from './logbook-event-notified-email.model';
 import { PncLightModel } from './../pnc-light.model';
 import { PncModel } from './../pnc.model';
@@ -19,8 +20,11 @@ export class LogbookEventModel extends EDossierPncObjectModel {
     groupId: number;
     notifiedPncs: PncLightModel[];
     notifiedRecipients: LogbookEventNotifiedEmail[];
+    attachmentFiles: Array<DocumentModel> = new Array();
+    lightAttachmentFiles: Array<DocumentModel> = new Array();
 
     getStorageId(): string {
         return `${this.techId}`;
     }
+
 }
