@@ -23,11 +23,11 @@ export enum DocumentTypeEnum {
 
 }
 
-export const DocumentTypeIconFileName = new Map<DocumentTypeEnum, string>([
-    [DocumentTypeEnum.IMAGE, 'picture.svg'],
-    [DocumentTypeEnum.PDF, 'pdf.svg'],
-    [DocumentTypeEnum.DOC, 'doc.svg'],
-    [DocumentTypeEnum.PPT, 'ppt.svg'],
-    [DocumentTypeEnum.XLS, 'xls.svg'],
-    [DocumentTypeEnum.OTHER, 'doc.svg']
+export const DocumentTypeIconFileName = new Map<string, string>([
+    ['IMAGE', 'picture.svg'],
+    ['PDF', 'pdf.svg'],
+    ['DOC', 'doc.svg'],
+    ['PPT', 'ppt.svg'],
+    ['XLS', 'xls.svg'],
+    ['OTHER', 'doc.svg']
   ]);

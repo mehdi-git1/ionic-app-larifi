@@ -68,13 +68,13 @@ export class DocumentManagerComponent {
     if (file.type === pdfType) {
       return DocumentTypeEnum.PDF;
     }
-    if (file.type === pptType) {
+    if (file.type === pptType || file.type === pptType2) {
       return DocumentTypeEnum.PPT;
     }
-    if (file.type === docType) {
+    if (file.type === docType || file.type === docType2) {
       return DocumentTypeEnum.DOC;
     }
-    if (file.type === excelType) {
+    if (file.type === excelType || file.type === excelType2) {
       return DocumentTypeEnum.XLS;
     }
     return DocumentTypeEnum.OTHER;
@@ -85,6 +85,6 @@ export class DocumentManagerComponent {
    * @param document document
    */
   getFileTypeIcon(document: DocumentModel) {
-    return iconFolderPath + DocumentTypeIconFileName[document.type];
+    return iconFolderPath + DocumentTypeIconFileName.get(document.type);
   }
 }

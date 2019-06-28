@@ -27,6 +27,7 @@ document-manager {
         width: auto;
         display: flex;
         margin-top: 5px;
+        flex-wrap: wrap;
 
         .file-wrapper {
             border: 1px solid color($colors-secondary, grey70);
@@ -35,26 +36,39 @@ document-manager {
             padding: 0px 5px;
             background-color: color($colors, white);
             display: flex;
+            margin-top: 5px;
         }
 
         .file {
-            width: auto;
             padding: 2px;
             display: flex;
-        }
+            height: 30px;
+            overflow: hidden;
+            width: 150px;
+            justify-content: space-between;
+            .icon-and-filename {
+                display: flex;
+                .file-icon {
+                    padding-right: 5px;
+                    width: auto;
+                    display: flex;
+                }
+        
+                .remove-file-button {
+                    padding-left: 10px;
+                    cursor: pointer;
+                }
+        
+                .filename {
+                    display: flex;
+                }
 
-        .file-icon {
-            padding-right: 5px;
-            width: auto;
-        }
-
-        .remove-file-button {
-            padding-left: 10px;
-            cursor: pointer;
-        }
-
-        .truncate-text {
-            @include truncate-text(1);
+                .truncate-text {
+                    width: 100px;
+                    display: flex;
+                    @include truncate-text(1);
+                }
+            }
         }
     }
 }
