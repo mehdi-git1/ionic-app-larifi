@@ -38,14 +38,14 @@ describe('documentManager', () => {
         const arrayOfBlob = new Array<Blob>();
         const file = new File( arrayOfBlob, 'test-file.pdf', { type: 'application/pdf'});
         const fileType = documentManagerComponent.getFileTypeFromFile(file);
-        expect(fileType).toBe(DocumentTypeEnum.IMAGE);
+        expect(fileType).toBe(DocumentTypeEnum.PDF);
       });
 
-      it(`doit ramener OTHER si le fichier est ni de type pdf ni de type image`, () => {
+      it(`doit ramener OTHER si le fichier n'est pas d'un type géré par l'application`, () => {
         const arrayOfBlob = new Array<Blob>();
         const file = new File( arrayOfBlob, 'test-file.zip', { type: 'application/zip'});
         const fileType = documentManagerComponent.getFileTypeFromFile(file);
-        expect(fileType).toBe(DocumentTypeEnum.IMAGE);
+        expect(fileType).toBe(DocumentTypeEnum.OTHER);
       });
     });
 
