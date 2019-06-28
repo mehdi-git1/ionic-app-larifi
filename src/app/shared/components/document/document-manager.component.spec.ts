@@ -1,8 +1,8 @@
-import { ComponentFixture, TestBed } from "../../../../../node_modules/@angular/core/testing";
-import { IonicModule } from "../../../../../node_modules/ionic-angular/umd";
-import { NO_ERRORS_SCHEMA } from "../../../../../node_modules/@angular/core";
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { IonicModule } from 'ionic-angular';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { DocumentManagerComponent } from './document-manager.component';
-import { DocumentTypeEnum } from "../../../core/models/document.model";
+import { DocumentTypeEnum } from '../../../core/models/document.model';
 
 describe('documentManager', () => {
 
@@ -16,9 +16,7 @@ describe('documentManager', () => {
             imports: [
                 IonicModule.forRoot(DocumentManagerComponent)
             ],
-            providers: [
-                
-            ],
+            providers: [],
             schemas: [NO_ERRORS_SCHEMA]
         });
     });
