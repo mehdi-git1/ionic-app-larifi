@@ -1,6 +1,6 @@
 import { DocumentModel, DocumentTypeEnum, DocumentTypeIconFileName } from './../../../core/models/document.model';
-import { DeviceService } from './../../../core/services/device/device.service';
 import { Component, ViewChild, ElementRef, Input } from '@angular/core';
+
 const iconFolderPath = 'assets/imgs/';
 const imageType = 'image';
 const pdfType = 'application/pdf';
@@ -10,6 +10,7 @@ const excelType = 'application/vnd.ms-excel';
 const excelType2 = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
 const docType = 'application/msword';
 const docType2 = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document';
+
 @Component({
   selector: 'document-manager',
   templateUrl: 'document-manager.component.html'
