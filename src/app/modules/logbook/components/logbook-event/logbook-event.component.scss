@@ -135,7 +135,7 @@ logbook-event {
         }
     }
 
-    $ion-textarea-row-margin: 25px;
+    $ion-textarea-row-margin:10px;
 
     ion-grid {
         display: flex;
@@ -221,7 +221,6 @@ logbook-event {
     }
 
     .description-row {
-        margin-top: $ion-textarea-row-margin !important;
 
         ion-textarea.big-textarea {
             align-items: stretch;
@@ -232,6 +231,10 @@ logbook-event {
                 align-items: stretch;
             }
         }
+    }
+
+    .information-message {
+        text-align: left;
     }
 
 }

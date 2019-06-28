@@ -16,6 +16,7 @@ import { LogbookCreatePage } from '../logbook-create/logbook-create.page';
 import { MatTableDataSource, MatSort } from '@angular/material';
 import * as moment from 'moment';
 import * as _ from 'lodash';
+import { TabHeaderEnum } from '../../../../core/enums/tab-header.enum';
 
 @Component({
     selector: 'log-book',
@@ -30,6 +31,8 @@ export class LogbookPage {
     sortedColumn: string;
 
     groupedEvents: Array<LogbookEventGroupModel>;
+
+    TabHeaderEnum = TabHeaderEnum;
 
     constructor(public navCtrl: NavController,
         public navParams: NavParams,

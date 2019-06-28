@@ -27,7 +27,7 @@
         <ion-row class="title-row">
             <ion-item>
                 <ion-label class="required" floating>{{ 'LOGBOOK.EDIT.EVENT_TITLE' | translate }}</ion-label>
-                <ion-textarea class="event-title" [(ngModel)]="logbookEvent.title" rows="2" autocorrect="on" [maxlength]="titleMaxLength" #eventTitle></ion-textarea>
+                <ion-input #eventTitle type="text" class="event-title" [(ngModel)]="logbookEvent.title" autocorrect="on" [maxlength]="titleMaxLength"></ion-input>
             </ion-item>
             <span class="event-length">{{eventTitle.value.length}}/{{titleMaxLength}}</span>
         </ion-row>
@@ -133,6 +133,9 @@
                             <button ion-button color="primary" (click)="confirmDeleteLogBookEvent()">
                                 {{ 'LOGBOOK.BUTTONS.DELETE' | translate }}
                             </button>
+                        </div>
+                        <div class="information-message" *ngIf="logbookEvent.lastUpdateAuthor">{{ 'LOGBOOK.DETAILS.EDITED_BY' | translate:{lastName:logbookEvent.lastUpdateAuthor.lastName, firstName:logbookEvent.lastUpdateAuthor.firstName,
+                            date:getLastUpdateDate()} }}
                         </div>
                     </div>
                 </div>

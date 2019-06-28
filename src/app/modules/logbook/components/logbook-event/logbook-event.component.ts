@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { PncLightModel } from './../../../../core/models/pnc-light.model';
 import { PncModel } from './../../../../core/models/pnc.model';
 import { PncService } from './../../../../core/services/pnc/pnc.service';
@@ -34,9 +35,9 @@ export class LogbookEventComponent implements OnInit {
     monthsNames;
     pnc: PncModel;
     techId: number;
+    loading: Loading;
 
     logbookEventCategories: LogbookEventCategory[];
-    loading: Loading;
     originLogbookEvent: LogbookEventModel;
 
     titleMaxLength = 100;
@@ -56,7 +57,8 @@ export class LogbookEventComponent implements OnInit {
         private dateTransformer: DateTransform,
         private events: Events,
         private alertCtrl: AlertController,
-        private pncService: PncService) {
+        private pncService: PncService,
+        private datePipe: DatePipe) {
         // Traduction des mois
         this.monthsNames = this.translateService.instant('GLOBAL.MONTH.LONGNAME');
     }
@@ -98,48 +100,11 @@ export class LogbookEventComponent implements OnInit {
      * Envoie un event avec l'évènement à editer, à la page parente.
      */
     editLogbookEvent() {
-        if (this.canEditEvent()) {
-            this.edition.emit(this.logbookEvent);
-        }
+        this.edition.emit(this.logbookEvent);
     }
 
-    /**
-     * Présente une alerte pour confirmer la suppression du brouillon
-     */
-    confirmDeleteLogBookEvent() {
-        this.alertCtrl.create({
-            title: this.translateService.instant('LOGBOOK.DELETE.CONFIRM_DELETE.TITLE'),
-            message: this.translateService.instant('LOGBOOK.DELETE.CONFIRM_DELETE.MESSAGE'),
-            buttons: [
-                {
-                    text: this.translateService.instant('GLOBAL.BUTTONS.CANCEL'),
-                    role: 'cancel'
-                },
-                {
-                    text: this.translateService.instant('GLOBAL.BUTTONS.CONFIRM'),
-                    handler: () => this.deleteLogbookEvent()
-                }
-            ]
-        }).present();
-    }
-
-    /**
-    * Supprime un évènement
-    */
-    deleteLogbookEvent() {
-        this.loading = this.loadingCtrl.create();
-        this.loading.present();
-
-        this.onlineLogbookEventService.delete(this.logbookEvent.techId)
-            .then(
-                deletedlogbookEvent => {
-                    this.toastService.success(this.translateService.instant('LOGBOOK.DELETE.SUCCESS'));
-                    this.events.publish('LogbookEvent:deleted');
-                    this.loading.dismiss();
-                },
-                error => {
-                    this.loading.dismiss();
-                });
+    canDeleteLogbookEvent() {
+        this.events.publish('LogbookEvent:ToDelete', this.logbookEvent);
     }
 
     /**
@@ -300,5 +265,13 @@ export class LogbookEventComponent implements OnInit {
         const instructor = this.pnc && this.pnc.pncInstructor && this.sessionService.getActiveUser().matricule === this.pnc.pncInstructor.matricule;
         const rds = this.pnc && this.pnc.pncRds && this.sessionService.getActiveUser().matricule === this.pnc.pncRds.matricule;
         return redactor || instructor || rds;
+    }
+
+    /**
+     * Retourne la date de dernière modification, formatée pour l'affichage
+     * @return la date de dernière modification au format dd/mm/
+     */
+    getLastUpdateDate(): string {
+        return this.datePipe.transform(this.logbookEvent.lastUpdateDate, 'dd/MM/yyyy à HH:mm');
     }
 }

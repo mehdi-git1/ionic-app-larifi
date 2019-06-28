@@ -6,6 +6,7 @@ import { SessionService } from '../../../../core/services/session/session.servic
 import { PncModel } from '../../../../core/models/pnc.model';
 import { Component } from '@angular/core';
 import { NavParams } from 'ionic-angular';
+import { TabHeaderEnum } from '../../../../core/enums/tab-header.enum';
 
 @Component({
   selector: 'page-statutory-certificate',
@@ -20,6 +21,7 @@ export class StatutoryCertificatePage {
   statutoryCertificate: StatutoryCertificateModel;
 
   StatutoryCertificateDisplayTypeEnum = StatutoryCertificateDisplayTypeEnum;
+  TabHeaderEnum = TabHeaderEnum;
 
   constructor(
     private navParams: NavParams,
