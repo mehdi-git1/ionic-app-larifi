@@ -33,10 +33,11 @@ export class OnlineLogbookEventService {
             logbookEvent.redactor.matricule = this.sessionService.getActiveUser().matricule;
             logbookEvent.redactor.lastName = this.sessionService.getActiveUser().lastName;
             logbookEvent.redactor.firstName = this.sessionService.getActiveUser().firstName;
+        } else {
+            logbookEvent.lastUpdateAuthor = new PncLightModel();
+            logbookEvent.lastUpdateAuthor.matricule = this.sessionService.getActiveUser().matricule;
+            logbookEvent.lastUpdateDate = new Date();
         }
-        logbookEvent.lastUpdateAuthor = new PncLightModel();
-        logbookEvent.lastUpdateAuthor.matricule = this.sessionService.getActiveUser().matricule;
-        logbookEvent.lastUpdateDate = new Date();
         return this.restService.post(this.config.getBackEndUrl('logbookEvents'), logbookEvent);
     }
 
