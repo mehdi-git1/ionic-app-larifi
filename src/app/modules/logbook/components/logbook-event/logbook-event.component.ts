@@ -105,6 +105,9 @@ export class LogbookEventComponent implements OnInit {
         this.editionOrDeletion.emit(this.logbookEvent);
     }
 
+    /**
+     * Envoie un event avec l'évènement à supprimer, à la page parente.
+     */
     deleteLogbookEvent() {
         this.logbookEvent.mode = LogbookEventModeEnum.DELETION;
         this.originLogbookEvent = _.cloneDeep(this.logbookEvent);
