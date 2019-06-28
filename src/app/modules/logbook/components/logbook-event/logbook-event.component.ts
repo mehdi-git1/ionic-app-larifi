@@ -28,7 +28,7 @@ export class LogbookEventComponent implements OnInit {
 
     @Input() groupId: number;
 
-    @Output() edition: EventEmitter<any> = new EventEmitter();
+    @Output() editionOrDeletion: EventEmitter<any> = new EventEmitter();
 
     editEvent = false;
     eventDateString: string;
@@ -102,13 +102,13 @@ export class LogbookEventComponent implements OnInit {
     editLogbookEvent() {
         this.logbookEvent.mode = LogbookEventModeEnum.EDITION;
         this.originLogbookEvent = _.cloneDeep(this.logbookEvent);
-        this.edition.emit(this.logbookEvent);
+        this.editionOrDeletion.emit(this.logbookEvent);
     }
 
-    canDeleteLogbookEvent() {
+    deleteLogbookEvent() {
         this.logbookEvent.mode = LogbookEventModeEnum.DELETION;
         this.originLogbookEvent = _.cloneDeep(this.logbookEvent);
-        this.edition.emit(this.logbookEvent);
+        this.editionOrDeletion.emit(this.logbookEvent);
     }
 
     /**

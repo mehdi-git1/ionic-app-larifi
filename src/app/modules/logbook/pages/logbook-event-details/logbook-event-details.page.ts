@@ -159,7 +159,7 @@ export class LogbookEventDetailsPage implements OnInit {
     }
 
     /**
-     * Determine l'évènement a modifier, et bloque la modification des autres évènements liés.
+     * Determine l'évènement à modifier ou à supprimer, et bloque la modification et la suppression des autres évènements liés.
      * @param logbookEvent L'évènement à modifier
      */
     selectedLogbookEvent(logbookEvent: LogbookEventModel) {
