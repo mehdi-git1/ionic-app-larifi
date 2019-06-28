@@ -1,3 +1,4 @@
+import { LogbookEventModeEnum } from './../../enums/logbook-event/logbook-event-mode.enum';
 import { LogbookEventNotifiedEmail } from './logbook-event-notified-email.model';
 import { PncLightModel } from './../pnc-light.model';
 import { PncModel } from './../pnc.model';
@@ -19,6 +20,7 @@ export class LogbookEventModel extends EDossierPncObjectModel {
     groupId: number;
     notifiedPncs: PncLightModel[];
     notifiedRecipients: LogbookEventNotifiedEmail[];
+    mode: LogbookEventModeEnum;
 
     getStorageId(): string {
         return `${this.techId}`;
