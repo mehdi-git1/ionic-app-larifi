@@ -102,7 +102,7 @@
                         <div>
                             <ion-label>{{ 'LOGBOOK.DETAILS.NOTIFIED_PNCS' | translate }} :</ion-label>
                         </div>
-                        <div [ngClass]="{'no-value' : logbookEvent.notifiedPncs.length === 0 }">
+                        <div [ngClass]="{'no-value' : !logbookEvent.notifiedPncs || logbookEvent.notifiedPncs.length === 0 }">
                             <span *ngFor="let pnc of logbookEvent.notifiedPncs; last as l">{{pnc.lastName}} {{pnc.firstName | titlecase}}
                                 <span *ngIf="pnc.isInstructor">({{ 'PNC_IDENTITY.REFERENT_INSTRUCTOR' | translate }})</span>
                                 <span *ngIf="pnc.isRds">({{ 'PNC_IDENTITY.RDS' | translate }})</span>
@@ -118,6 +118,9 @@
                             </span>
                         </div>
                     </div>
+                    <div class="information-message" *ngIf="logbookEvent.lastUpdateAuthor">{{ 'LOGBOOK.DETAILS.EDITED_BY' | translate:{lastName:logbookEvent.lastUpdateAuthor.lastName, firstName:logbookEvent.lastUpdateAuthor.firstName,
+                        date:getLastUpdateDate()} }}
+                    </div>
                     <div class="logbook-button-bar button-bar-right button-bar" *ngIf="canEditEvent()">
                         <!-- Bouton supprimer -->
                         <button ion-button color="primary" (click)="canDeleteLogbookEvent()">
@@ -127,9 +130,6 @@
                         <button ion-button color="primary" (click)="editLogbookEvent()">
                             {{ 'LOGBOOK.BUTTONS.MODIFY' | translate }}
                         </button>
-                    </div>
-                    <div class="information-message" *ngIf="logbookEvent.lastUpdateAuthor">{{ 'LOGBOOK.DETAILS.EDITED_BY' | translate:{lastName:logbookEvent.lastUpdateAuthor.lastName, firstName:logbookEvent.lastUpdateAuthor.firstName,
-                        date:getLastUpdateDate()} }}
                     </div>
                 </div>
             </div>

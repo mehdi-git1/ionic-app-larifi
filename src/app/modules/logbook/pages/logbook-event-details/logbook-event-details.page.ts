@@ -83,12 +83,6 @@ export class LogbookEventDetailsPage implements OnInit {
             this.logbookEventTechId = null;
             this.editionMode = false;
         });
-        this.events.subscribe('LogbookEvent:ToDelete', (logbookEvent) => {
-            if (!this.editionMode && !this.createLinkedEvent) {
-                this.logbookEvent = logbookEvent;
-                this.confirmDeleteLogBookEvent();
-            }
-        });
     }
 
 
@@ -169,12 +163,17 @@ export class LogbookEventDetailsPage implements OnInit {
      * @param logbookEvent L'évènement à modifier
      */
     selectedLogbookEvent(logbookEvent: LogbookEventModel) {
-        if (!this.logbookEventTechId && !this.createLinkedEvent) {
+        if (!this.editionMode && !this.createLinkedEvent) {
             this.logbookEventTechId = logbookEvent.techId;
             this.logbookEventDetails.forEach(item => {
                 if (item.logbookEvent.techId === logbookEvent.techId) {
-                    item.editEvent = true;
-                    this.editionMode = true;
+                    if (logbookEvent.mode === LogbookEventModeEnum.DELETION) {
+                        this.logbookEvent = logbookEvent;
+                        this.confirmDeleteLogBookEvent();
+                    } else if (logbookEvent.mode === LogbookEventModeEnum.EDITION) {
+                        item.editEvent = true;
+                        this.editionMode = true;
+                    }
                 }
             });
         }

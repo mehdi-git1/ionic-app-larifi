@@ -100,11 +100,15 @@ export class LogbookEventComponent implements OnInit {
      * Envoie un event avec l'évènement à editer, à la page parente.
      */
     editLogbookEvent() {
+        this.logbookEvent.mode = LogbookEventModeEnum.EDITION;
+        this.originLogbookEvent = _.cloneDeep(this.logbookEvent);
         this.edition.emit(this.logbookEvent);
     }
 
     canDeleteLogbookEvent() {
-        this.events.publish('LogbookEvent:ToDelete', this.logbookEvent);
+        this.logbookEvent.mode = LogbookEventModeEnum.DELETION;
+        this.originLogbookEvent = _.cloneDeep(this.logbookEvent);
+        this.edition.emit(this.logbookEvent);
     }
 
     /**
