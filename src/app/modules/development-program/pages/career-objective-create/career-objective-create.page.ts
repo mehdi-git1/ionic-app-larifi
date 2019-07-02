@@ -379,40 +379,60 @@ export class CareerObjectiveCreatePage {
     }
 
     /**
-    * Présente une alerte pour confirmer la suppression du brouillon
-    */
-    confirmDeleteCareerObjectiveDraft() {
+     * Présente une alerte pour confirmer la suppression de la priorité
+     */
+    confirmDeleteCareerObjective() {
+        if (this.careerObjective.careerObjectiveStatus === CareerObjectiveStatusEnum.DRAFT) {
+            this.confirmDelete(this.translateService.instant('CAREER_OBJECTIVE_CREATE.CONFIRM_DRAFT_DELETE.TITLE'),
+                this.translateService.instant('CAREER_OBJECTIVE_CREATE.CONFIRM_DRAFT_DELETE.MESSAGE'),
+                this.translateService.instant('CAREER_OBJECTIVE_CREATE.CONFIRM_DRAFT_DELETE.CANCEL'),
+                this.translateService.instant('CAREER_OBJECTIVE_CREATE.CONFIRM_DRAFT_DELETE.CONFIRM'));
+        } else {
+            this.confirmDelete(this.translateService.instant('CAREER_OBJECTIVE_CREATE.CONFIRM_DELETE.TITLE'),
+                this.translateService.instant('CAREER_OBJECTIVE_CREATE.CONFIRM_DELETE.MESSAGE'),
+                this.translateService.instant('CAREER_OBJECTIVE_CREATE.CONFIRM_DELETE.CANCEL'),
+                this.translateService.instant('CAREER_OBJECTIVE_CREATE.CONFIRM_DELETE.CONFIRM'));
+        }
+    }
+
+    /**
+     * Présente une alerte pour confirmer la suppression de la priorité
+     */
+    confirmDelete(title: string, message: string, cancelLabel: string, confirmLabel: string) {
         this.alertCtrl.create({
-            title: this.translateService.instant('CAREER_OBJECTIVE_CREATE.CONFIRM_DRAFT_DELETE.TITLE'),
-            message: this.translateService.instant('CAREER_OBJECTIVE_CREATE.CONFIRM_DRAFT_DELETE.MESSAGE'),
+            title: title,
+            message: message,
             buttons: [
                 {
-                    text: this.translateService.instant('CAREER_OBJECTIVE_CREATE.CONFIRM_DRAFT_DELETE.CANCEL'),
+                    text: cancelLabel,
                     role: 'cancel'
                 },
                 {
-                    text: this.translateService.instant('CAREER_OBJECTIVE_CREATE.CONFIRM_DRAFT_DELETE.CONFIRM'),
-                    handler: () => this.deleteCareerObjectiveDraft()
+                    text: confirmLabel,
+                    handler: () => this.deleteCareerObjective()
                 }
             ]
         }).present();
     }
 
     /**
-    * Supprime un objectif au statut brouillon
+    * Supprime un objectif
     */
-    deleteCareerObjectiveDraft() {
+    deleteCareerObjective() {
         this.loading = this.loadingCtrl.create();
         this.loading.present();
 
         this.careerObjectiveService
             .delete(this.careerObjective.techId)
-            .then(
-                deletedCareerObjective => {
+            .then(deletedCareerObjective => {
+                if (this.careerObjective.careerObjectiveStatus === CareerObjectiveStatusEnum.DRAFT) {
                     this.toastService.success(this.translateService.instant('CAREER_OBJECTIVE_CREATE.SUCCESS.DRAFT_DELETED'));
-                    this.navCtrl.pop();
-                    this.loading.dismiss();
-                },
+                } else {
+                    this.toastService.success(this.translateService.instant('CAREER_OBJECTIVE_CREATE.SUCCESS.DELETED'));
+                }
+                this.navCtrl.pop();
+                this.loading.dismiss();
+            },
                 error => {
                     this.loading.dismiss();
                 });
@@ -547,6 +567,14 @@ export class CareerObjectiveCreatePage {
     isDraftAndCanBeDeleted(): boolean {
         const isInitiatorOrCadre: boolean = this.securityService.isManager() || (this.careerObjective.creationAuthor && (this.careerObjective.creationAuthor.matricule === this.sessionService.authenticatedUser.matricule));
         return this.careerObjective.careerObjectiveStatus === CareerObjectiveStatusEnum.DRAFT && isInitiatorOrCadre;
+    }
+
+    /**
+     * Vérifie que la fonction de suppression est disponible. C'est le cas si la priorité a dépassé le statut brouillon et que l'utilisateur est cadre.
+     * @return vrai la priorité peut être supprimée
+     */
+    canBeDeleted(): boolean {
+        return this.careerObjective.careerObjectiveStatus !== CareerObjectiveStatusEnum.DRAFT && this.securityService.isManager();
     }
 
     /**

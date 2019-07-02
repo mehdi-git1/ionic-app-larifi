@@ -161,8 +161,12 @@
                     <ion-icon name="ios-bookmark-outline" ios="ios-bookmark-outline" margin-right></ion-icon> {{ 'CAREER_OBJECTIVE_CREATE.BUTTONS.SAVE_DRAFT' | translate }}
                 </button>
                 <!-- Bouton supprimer objectif en brouillon -->
-                <button ion-button color="red70" (click)="confirmDeleteCareerObjectiveDraft()" [disabled]="deletionInProgress" *ngIf="isDraftAndCanBeDeleted()">
+                <button ion-button color="red70" (click)="confirmDeleteCareerObjective()" *ngIf="isDraftAndCanBeDeleted()">
                     <ion-icon name="ios-trash-outline" ios="ios-trash-outline" margin-right></ion-icon>{{ 'CAREER_OBJECTIVE_CREATE.BUTTONS.DELETE_DRAFT' | translate }}
+                </button>
+                <!-- Bouton supprimer objectif -->
+                <button ion-button color="red70" (click)="confirmDeleteCareerObjective()" *ngIf="canBeDeleted()">
+                    <ion-icon name="ios-trash-outline" ios="ios-trash-outline" margin-right></ion-icon>{{ 'CAREER_OBJECTIVE_CREATE.BUTTONS.DELETE' | translate }}
                 </button>
                 <!-- Bouton sauvegarder objectif -->
                 <button ion-button color="blue70" (click)="saveCareerObjectiveToRegisteredStatus()" [disabled]="creationForm.invalid" *ngIf="securityService.isManager() && careerObjectiveStatusService.isTransitionOk(careerObjective.careerObjectiveStatus,CareerObjectiveStatus.REGISTERED)">
