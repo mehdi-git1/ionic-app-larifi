@@ -132,12 +132,19 @@
             "CANCEL": "Annuler",
             "CONFIRM": "Supprimer"
         },
+        "CONFIRM_DELETE": {
+            "TITLE": "Suppression de la priorité",
+            "MESSAGE": "Êtes vous sûr de vouloir supprimer cette priorité ?",
+            "CANCEL": "Annuler",
+            "CONFIRM": "Supprimer"
+        },
         "BUTTONS": {
             "SAVE": "Enregistrer",
             "SEND": "Envoyer",
             "UPDATE": "Mettre à jour",
             "SAVE_DRAFT": "Enregistrer le brouillon",
             "DELETE_DRAFT": "Supprimer le brouillon",
+            "DELETE": "Supprimer",
             "VALIDATE": "Clôturer",
             "ABANDON": "Abandonner",
             "CANCEL_VALIDATION": "Annuler la clôture",
@@ -148,6 +155,7 @@
             "CAREER_OBJECTIVE_SAVED": "Priorité envoyée",
             "CAREER_OBJECTIVE_UPDATED": "Priorité mise à jour",
             "DRAFT_SAVED": "Brouillon enregistré",
+            "DELETED": "Priorité supprimée",
             "DRAFT_DELETED": "Brouillon supprimé",
             "CAREER_OBJECTIVE_VALIDATED": "Priorité clôturée",
             "CAREER_OBJECTIVE_ABANDONED": "Priorité abandonnée",

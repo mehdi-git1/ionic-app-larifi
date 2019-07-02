@@ -28,7 +28,7 @@ export class LogbookEventComponent implements OnInit {
 
     @Input() groupId: number;
 
-    @Output() edition: EventEmitter<any> = new EventEmitter();
+    @Output() editionOrDeletion: EventEmitter<any> = new EventEmitter();
 
     editEvent = false;
     eventDateString: string;
@@ -100,11 +100,18 @@ export class LogbookEventComponent implements OnInit {
      * Envoie un event avec l'évènement à editer, à la page parente.
      */
     editLogbookEvent() {
-        this.edition.emit(this.logbookEvent);
+        this.logbookEvent.mode = LogbookEventModeEnum.EDITION;
+        this.originLogbookEvent = _.cloneDeep(this.logbookEvent);
+        this.editionOrDeletion.emit(this.logbookEvent);
     }
 
-    canDeleteLogbookEvent() {
-        this.events.publish('LogbookEvent:ToDelete', this.logbookEvent);
+    /**
+     * Envoie un event avec l'évènement à supprimer, à la page parente.
+     */
+    deleteLogbookEvent() {
+        this.logbookEvent.mode = LogbookEventModeEnum.DELETION;
+        this.originLogbookEvent = _.cloneDeep(this.logbookEvent);
+        this.editionOrDeletion.emit(this.logbookEvent);
     }
 
     /**
