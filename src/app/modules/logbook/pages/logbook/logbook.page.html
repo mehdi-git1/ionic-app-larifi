@@ -58,7 +58,7 @@
                                         </ion-icon>
                                     </ion-col>
                                     <ion-col class="column-specific">
-                                        <ion-icon *ngIf="logbookEventHasChilds()" name="attach"></ion-icon>
+                                        <ion-icon *ngIf="logbookEventHasAttachments(logbookEvent)" name="attach"></ion-icon>
                                     </ion-col>
                                     <ion-col class="column-title">
                                         <span class="truncate-text">{{logbookEvent.title}}</span>

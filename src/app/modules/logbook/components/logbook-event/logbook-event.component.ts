@@ -191,6 +191,14 @@ export class LogbookEventComponent implements OnInit {
     }
 
     /**
+     * Vérifie que le chargement est terminé
+     * @return true si c'est le cas, false sinon
+     */
+    loadingIsOver(): boolean {
+        return this.logbookEvent !== undefined && this.logbookEvent !== null;
+    }
+
+    /**
      * Enregistre l'évènement du journal de bord
      */
     saveLogbookEvent() {

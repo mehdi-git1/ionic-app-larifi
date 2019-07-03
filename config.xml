@@ -70,7 +70,8 @@
     <plugin name="cordova-sqlite-storage" spec="^2.4.0" />
     <plugin name="cordova-plugin-inappbrowser" spec="~3.0.0" />
     <plugin name="cordova-plugin-formslib" spec="^1.0.11" />
-    <plugin name="cordova-plugin-file" spec="~6.0.1" />
     <plugin name="cordova-plugin-app-version" spec="^0.1.9" />
+    <plugin name="cordova-plugin-file" spec="~6.0.1" />
+    <plugin name="cordova-plugin-filechooser" spec="~1.2.0" />
     <engine name="ios" spec="5.0.0" />
 </widget>
