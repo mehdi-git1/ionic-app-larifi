@@ -189,7 +189,7 @@ export class LogbookPage {
      * @return true si il y a des pièces jointes, false sinon
      */
     logbookEventHasAttachments(logbookEvent: LogbookEventModel): boolean {
-        return logbookEvent.lightAttachmentFiles && logbookEvent.lightAttachmentFiles.length > 0;
+        return logbookEvent.attachmentFiles && logbookEvent.attachmentFiles.length > 0;
     }
 
     /**

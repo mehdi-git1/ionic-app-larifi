@@ -122,7 +122,7 @@
                             </div>
                         </div>
                         <div>
-                            <document-manager [documents]="logbookEvent.lightAttachmentFiles" [editMode]="false"></document-manager>
+                            <document-manager [documents]="logbookEvent.attachmentFiles" [editMode]="false"></document-manager>
                         </div>
                         <div [ngClass]="{'no-value' : !logbookEvent.notifiedPncs || logbookEvent.notifiedPncs.length === 0 }">
                             <span *ngFor="let pnc of logbookEvent.notifiedPncs; last as l">{{pnc.lastName}} {{pnc.firstName | titlecase}}

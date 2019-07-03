@@ -1,15 +1,9 @@
 import { DocumentModel, DocumentTypeEnum, DocumentTypeIconFileName } from './../../../core/models/document.model';
 import { Component, ViewChild, ElementRef, Input } from '@angular/core';
+import { PopoverController } from 'ionic-angular';
 
 const iconFolderPath = 'assets/imgs/';
-const imageType = 'image';
-const pdfType = 'application/pdf';
-const pptType = 'application/vnd.ms-powerpoint';
-const pptType2 = 'application/vnd.openxmlformats-officedocument.presentationml.presentation';
-const excelType = 'application/vnd.ms-excel';
-const excelType2 = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
-const docType = 'application/msword';
-const docType2 = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document';
+const BASE_64 = 'base64,';
 
 @Component({
   selector: 'document-manager',
@@ -26,7 +20,7 @@ export class DocumentManagerComponent {
 
   @Input() editMode: boolean;
 
-  constructor() {
+  constructor(public popoverCtrl: PopoverController) {
   }
 
   /**
@@ -40,8 +34,9 @@ export class DocumentManagerComponent {
       let content;
       myReader.onloadend = (e) => {
           content = myReader.result;
-          const type = this.getFileTypeFromFile(file);
-          const newDocument = new DocumentModel(file.name, type, btoa(content));
+          const base64Index = content.indexOf(BASE_64);
+          const base64Content = content.substring(base64Index + BASE_64.length, content.length);
+          const newDocument = new DocumentModel(file.name, file.type, base64Content);
           this.documents.push(newDocument);
       };
       myReader.readAsDataURL(file);
@@ -58,33 +53,11 @@ export class DocumentManagerComponent {
   }
 
   /**
-   * Récupère le type de fichier à partir du fichier
-   * @param file Fichier à checker
-   */
-  getFileTypeFromFile(file: File): DocumentTypeEnum {
-    if (file.type && file.type.startsWith(imageType)) {
-      return DocumentTypeEnum.IMAGE;
-    }
-    if (file.type === pdfType) {
-      return DocumentTypeEnum.PDF;
-    }
-    if (file.type === pptType || file.type === pptType2) {
-      return DocumentTypeEnum.PPT;
-    }
-    if (file.type === docType || file.type === docType2) {
-      return DocumentTypeEnum.DOC;
-    }
-    if (file.type === excelType || file.type === excelType2) {
-      return DocumentTypeEnum.XLS;
-    }
-    return DocumentTypeEnum.OTHER;
-  }
-
-  /**
    * Récupère le chemin vers le fichier de l'icone
    * @param document document
    */
   getFileTypeIcon(document: DocumentModel) {
     return iconFolderPath + DocumentTypeIconFileName.get(document.type);
   }
+
 }

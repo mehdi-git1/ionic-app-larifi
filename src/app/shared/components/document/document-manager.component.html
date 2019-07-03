@@ -1,9 +1,9 @@
 <span class="attachments">
     <span class="file-wrapper" *ngFor="let document of documents" >
-        <span class="file">
+        <span class="file" (click)="openDocument($event, document)">
             <span class="icon-and-filename">
                 <img class="file-icon" width="25" height="25" [src]="getFileTypeIcon(document)"/>
-                <span [ngClass]="{'filename' :  document.fileName.length <= 15, 'truncate-text' : document.fileName.length > 15}">{{ document.fileName }}</span>
+                <span class="filename">{{ document.fileName }}</span>
             </span>
             <span *ngIf="editMode" class="remove-file-button" (click)="removeFile(document)">x</span>
         </span>
