@@ -26,7 +26,7 @@ describe('documentManager', () => {
         documentManagerComponent = fixture.componentInstance;
     });
 
-    describe('getFileTypeFromFile', () => {
+    /*describe('getFileTypeFromFile', () => {
       it(`doit ramener IMAGE si le fichier est de type image`, () => {
         const arrayOfBlob = new Array<Blob>();
         const file = new File( arrayOfBlob, 'test-file.jpg', { type: 'image/jpeg'});
@@ -47,6 +47,6 @@ describe('documentManager', () => {
         const fileType = documentManagerComponent.getFileTypeFromFile(file);
         expect(fileType).toBe(DocumentTypeEnum.OTHER);
       });
-    });
+    });*/
 
 });
