@@ -1,0 +1,10 @@
+<span (click)="closeImgViewer()">
+    <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock" ></edossier-spinner>
+    <ng-template #pageBlock>
+        <span class="document" #imageViewer >
+            <img *ngIf="type === DocumentTypeEnum.IMAGE" [src]="base64FileContent" />
+            <!--iframe class="document-pdf" *ngIf="type === DocumentTypeEnum.PDF" [src]="base64FileContent"></iframe-->
+            <embed class="document-pdf" name="plugin" id="plugin" [src]="base64FileContent" type="application/pdf" internalinstanceid="26">
+        </span>
+    </ng-template>
+</span>
