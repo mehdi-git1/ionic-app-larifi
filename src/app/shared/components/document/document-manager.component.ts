@@ -58,12 +58,17 @@ export class DocumentManagerComponent {
   /**
    * Récupère le chemin vers le fichier de l'icone
    * @param document document
+   * @return le chemin vers le fichier de l'icone 
    */
   getFileTypeIcon(document: DocumentModel) {
     return iconFolderPath + DocumentTypeIconFileName.get(document.type);
   }
 
-  openDocument(myEvent: Event, document: DocumentModel) {
+  /**
+   * Ouvre la visionneuse de document
+   * @param document document à visionner
+   */
+  openDocument(document: DocumentModel) {
     const popover = this.popoverCtrl.create(DocumentViewerComponent, { document: document }, { cssClass: 'document-viewer-popover' });
     popover.present({ });
   }
