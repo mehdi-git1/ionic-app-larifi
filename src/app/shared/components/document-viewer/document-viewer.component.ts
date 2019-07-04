@@ -29,23 +29,39 @@ export class DocumentViewerComponent {
   set document(document: DocumentModel) {
       this.type = document.type;
     if (document && document.id) {
-        if (document.type !== DocumentTypeEnum.IMAGE && document.type !== DocumentTypeEnum.PDF) {
-            this.toastService.warning(this.translateService.instant('GLOBAL.DOCUMENT.PREVIEW_NOT_AVAILABLE'));
-            this.viewController.dismiss();
-        } else {
+        if (this.isPreviewable(document.type)) {
             this.documentService.getDocument(document.id).then(documentResult => {
-                if (documentResult.type === DocumentTypeEnum.IMAGE || documentResult.type === DocumentTypeEnum.PDF) {
-                    this.base64FileContent = this.domSanitizer.bypassSecurityTrustResourceUrl('data:' + documentResult.mimeType + ';base64,' + documentResult.content);
-                }
+                this.base64FileContent = this.domSanitizer.bypassSecurityTrustResourceUrl('data:' + documentResult.mimeType + ';base64,' + documentResult.content);
             }).catch(err => {
-                this.viewController.dismiss();
-                this.toastService.warning(this.translateService.instant('GLOBAL.DOCUMENT.PREVIEW_NOT_AVAILABLE'));
+                this.previewUnavailable();
             });
+        } else {
+            this.previewUnavailable();
         }
     }
   }
 
-  closeImgViewer() {
+  /**
+   * Vérifie si le type de document est prévisualisable
+   * @param type type de document
+   * @return true si le document est de type image ou pdf
+   */
+  private isPreviewable(type: DocumentTypeEnum): boolean {
+    return type === DocumentTypeEnum.IMAGE || type === DocumentTypeEnum.PDF;
+  }
+
+  /**
+   * Affiche un message de prévisualiation non disponible
+   */
+  private previewUnavailable()  {
+    this.viewController.dismiss();
+    this.toastService.warning(this.translateService.instant('GLOBAL.DOCUMENT.PREVIEW_NOT_AVAILABLE'));
+  }
+
+  /**
+   * Ferme le viewer
+   */
+  closeDocumentViewer() {
     this.viewController.dismiss();
   }
 
