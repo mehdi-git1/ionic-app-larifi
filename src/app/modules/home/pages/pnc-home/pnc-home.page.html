@@ -26,14 +26,14 @@
                 </button>
             </div>
             <!--  Niveau professionnel -->
-            <div class="button-parent" *hasPermission="'VIEW_PROFESSIONAL_LEVEL'">
+            <div class="button-parent">
                 <button (click)="goToProfessionalLevel()">
                     <span class="icon-af icon-af-C-metier-niv-pro"></span>
                     <h3>{{ 'GLOBAL.MY_PROFESSIONAL_LEVEL' | translate }}</h3>
                 </button>
             </div>
             <!--  Attestation réglementaire -->
-            <div class="button-parent" *hasPermission="'VIEW_STATUTORY_CERTIFICATE'">
+            <div class="button-parent">
                 <button (click)="goToStatutoryCertificate()">
                     <ion-icon name="md-person" ios="md-person"></ion-icon>
                     <h3>{{ 'GLOBAL.MY_STATUTORY_CERTIFICATE' | translate }}</h3>
