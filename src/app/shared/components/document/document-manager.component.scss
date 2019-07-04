@@ -55,12 +55,13 @@ document-manager {
                 }
                 
                 .filename {
-                    font-weight: bold;
                     display:inline-block;
                     white-space: nowrap;
                     overflow: hidden;
                     text-overflow: ellipsis;
                     margin: auto;
+                    min-width: 60px;
+                    font-family: OpenSans, Arial, Helvetica, sans-serif;
                 }
             }
 
