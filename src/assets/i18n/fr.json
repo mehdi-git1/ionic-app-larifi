@@ -79,7 +79,9 @@
             "SAVE": "Enregistrer",
             "CONFIRM": "Confirmer",
             "CANCEL": "Annuler",
-            "EXPORT": "Exporter"
+            "EXPORT": "Exporter",
+            "YES": "Oui",
+            "NO": "Non"
         },
         "CONFIRM_BACK_WITHOUT_SAVE": {
             "TITLE": "Modifications non enregistrées",
@@ -653,7 +655,18 @@
             "CONCERNED_PNCS": "Liste des personnes concernées :",
             "CONCERNED_PNC": "PNC Concerné",
             "SELECT_ALL": "Tout sélectionner",
-            "SEARCH": "Rechercher"
+            "SEARCH": "Rechercher",
+            "PERSONS_TO_NOTIFY": "Personnes à notifier"
+        },
+        "NOTIFICATION": {
+            "CONFIRM_NOTIFICATION": {
+                "TITLE": "Notification",
+                "MESSAGE": "Souhaitez-vous notifier les destinataires ?"
+            },
+            "CONFIRM_WITHOUT_NOTIFICATION": {
+                "TITLE": "Enregistrer sans notifier",
+                "MESSAGE": "Confirmez-vous l'enregistrement de l'événement sans envoi de notification ?"
+            }
         },
         "DELETE": {
             "CONFIRM_DELETE": {

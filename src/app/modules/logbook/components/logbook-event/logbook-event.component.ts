@@ -80,6 +80,11 @@ export class LogbookEventComponent implements OnInit {
             this.logbookEvent.category = new LogbookEventCategory();
             const eventDate: Date = new Date();
             this.logbookEvent.eventDate = this.dateTransformer.transformDateToIso8601Format(eventDate);
+            this.logbookEvent.mode = this.mode;
+            this.logbookEvent.notifiedPncs = new Array();
+            if (this.pnc.pncInstructor && this.pnc.pncInstructor.matricule !== this.sessionService.getActiveUser().matricule) {
+                this.logbookEvent.notifiedPncs.push(this.pnc.pncInstructor);
+            }
         }
         this.originLogbookEvent = _.cloneDeep(this.logbookEvent);
         this.eventDateString = this.logbookEvent ? this.logbookEvent.eventDate : this.dateTransformer.transformDateToIso8601Format(new Date());
@@ -129,7 +134,6 @@ export class LogbookEventComponent implements OnInit {
         if (this.formHasBeenModified()) {
             return this.confirmAbandonChanges().then(() => {
                 this.logbookEvent = _.cloneDeep(this.originLogbookEvent);
-                this.editEvent = false;
                 if (this.cancelFromButton && this.mode === LogbookEventModeEnum.CREATION) {
                     this.navCtrl.pop();
                     this.cancelFromButton = false;
@@ -143,13 +147,13 @@ export class LogbookEventComponent implements OnInit {
                 return false;
             });
         } else {
-            this.editEvent = false;
             if (this.cancelFromButton && this.mode === LogbookEventModeEnum.CREATION) {
                 this.navCtrl.pop();
                 this.cancelFromButton = false;
-            } else {
-                this.events.publish('LinkedLogbookEvent:canceled');
+            } else if (this.cancelFromButton) {
+                this.editEvent = false;
             }
+            this.events.publish('LinkedLogbookEvent:canceled');
             return true;
         }
 
@@ -221,6 +225,77 @@ export class LogbookEventComponent implements OnInit {
         });
     }
 
+    confirmUpdateLogbookEvent() {
+        if (this.logbookEvent.notifiedPncs) {
+            this.confirmNotifyPncs().then(() => {
+                this.saveLogbookEvent();
+            });
+        } else {
+            this.saveLogbookEvent();
+        }
+    }
+
+    confirmSaveLogbookEvent() {
+        if (!this.logbookEvent.notifiedPncs || this.logbookEvent.notifiedPncs.length === 0) {
+            this.confirmWithoutNotification().then(() => {
+                this.saveLogbookEvent();
+            }).catch(() => { });
+        } else {
+            this.saveLogbookEvent();
+        }
+    }
+
+    /**
+     * Popup de demande de notification en cas de modification d'un évènement.
+     */
+    confirmNotifyPncs() {
+        return new Promise((resolve, reject) => {
+            this.alertCtrl.create({
+                title: this.translateService.instant('LOGBOOK.NOTIFICATION.CONFIRM_NOTIFICATION.TITLE'),
+                message: this.translateService.instant('LOGBOOK.NOTIFICATION.CONFIRM_NOTIFICATION.MESSAGE'),
+                buttons: [
+                    {
+                        text: this.translateService.instant('GLOBAL.BUTTONS.YES'),
+                        handler: () => {
+                            this.logbookEvent.sentNotification = true;
+                            resolve();
+                        }
+                    },
+                    {
+                        text: this.translateService.instant('GLOBAL.BUTTONS.NO'),
+                        handler: () => {
+                            this.logbookEvent.sentNotification = false;
+                            resolve();
+                        }
+                    }
+                ]
+            }).present();
+        });
+    }
+
+    /**
+     * Popup de demande de confirmation sans envoi de notification
+     */
+    confirmWithoutNotification() {
+        return new Promise((resolve, reject) => {
+            this.alertCtrl.create({
+                title: this.translateService.instant('LOGBOOK.NOTIFICATION.CONFIRM_WITHOUT_NOTIFICATION.TITLE'),
+                message: this.translateService.instant('LOGBOOK.NOTIFICATION.CONFIRM_WITHOUT_NOTIFICATION.MESSAGE'),
+                buttons: [
+                    {
+                        text: this.translateService.instant('GLOBAL.BUTTONS.CANCEL'),
+                        role: 'cancel',
+                        handler: () => reject()
+                    },
+                    {
+                        text: this.translateService.instant('GLOBAL.BUTTONS.CONFIRM'),
+                        handler: () => resolve()
+                    }
+                ]
+            }).present();
+        });
+    }
+
     /**
      * Prépare l'évènement du journal de bord avant de l'envoyer au back :
      * Transforme les dates au format iso
@@ -272,5 +347,33 @@ export class LogbookEventComponent implements OnInit {
      */
     getLastUpdateDate(): string {
         return this.datePipe.transform(this.logbookEvent.lastUpdateDate, 'dd/MM/yyyy à HH:mm');
+    }
+
+    /**
+     * Verifie si le pnc est notifié
+     * @param pncLight le pnc concerné
+     * @return true si le pnc est notifié, false sinon
+     */
+    isPncNotified(pncLight: PncLightModel): boolean {
+        if (!pncLight || !pncLight.matricule || !this.logbookEvent.notifiedPncs) {
+            return false;
+        }
+        let result: boolean;
+        this.logbookEvent.notifiedPncs.forEach(pnc => {
+            if (pnc.matricule === pncLight.matricule) {
+                result = true;
+            }
+        });
+        return result;
+    }
+
+    updatePncNotifiedList(myEvent: any, pncLight: PncLightModel) {
+        if (myEvent.checked) {
+            this.logbookEvent.notifiedPncs.push(pncLight);
+        } else {
+            this.logbookEvent.notifiedPncs = this.logbookEvent.notifiedPncs.filter(pnc =>
+                pnc.matricule !== pncLight.matricule);
+        }
+
     }
 }

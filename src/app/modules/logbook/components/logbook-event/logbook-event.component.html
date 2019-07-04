@@ -39,19 +39,18 @@
         </ion-row>
         <ion-row class="notification-row">
             <ion-col class="persons-to-notify">
-                <ion-label class="required" floating>{{ 'LOGBOOK.EDIT.PERSONS_TO_NOTIFY' | translate }}</ion-label>
+                <ion-label>{{ 'LOGBOOK.EDIT.PERSONS_TO_NOTIFY' | translate }} :</ion-label>
                 <ion-item class="event-checkbox">
-                    <span class="value" [ngClass]="{'no-value' : pnc.pncInstructor }">{{ pnc.pncInstructor.lastName }} {{ pnc.pncInstructor.firstName }} </span>
-                    <ion-label>({{ 'PNC_IDENTITY.REFERENT_INSTRUCTOR' | translate }})</ion-label>
-                    <ion-checkbox [checked]="pnc.isInstructor"></ion-checkbox>
+                    <ion-label><span [ngClass]="{'no-value' : !pnc.pncInstructor }">{{ pnc.pncInstructor?.lastName }} {{ pnc.pncInstructor?.firstName  | titlecase}} </span> ({{ 'PNC_IDENTITY.REFERENT_INSTRUCTOR' | translate }})</ion-label>
+
+                    <ion-checkbox [disabled]="!pnc.pncInstructor" (ionChange)="updatePncNotifiedList($event, pnc.pncInstructor)" [checked]="isPncNotified(pnc.pncInstructor)"></ion-checkbox>
                 </ion-item>
                 <ion-item class="event-checkbox">
-                    <span class="value" [ngClass]="{'no-value' : pnc.pncRds }">{{ pnc.pncRds.lastName }} {{ pnc.pncRds.firstName }} </span>
-                    <ion-label>({{ 'PNC_IDENTITY.RDS' | translate }})</ion-label>
-                    <ion-checkbox></ion-checkbox>
+                    <ion-label><span [ngClass]="{'no-value' : !pnc.pncRds }">{{ pnc.pncRds?.lastName}} {{ pnc.pncRds?.firstName  | titlecase}} </span> ({{ 'PNC_IDENTITY.RDS' | translate }})</ion-label>
+                    <ion-checkbox [disabled]="!pnc.pncRds" (ionChange)="updatePncNotifiedList($event, pnc.pncRds)" [checked]="isPncNotified(pnc.pncRds)"></ion-checkbox>
                 </ion-item>
             </ion-col>
-            <ion-col class="other-contact">
+            <ion-col class="other-contacts">
             </ion-col>
         </ion-row>
     </ion-grid>
@@ -62,11 +61,12 @@
             {{ 'LOGBOOK.BUTTONS.CANCEL' | translate }}
         </button>
         <!-- Bouton enregistrer ou mettre à jour-->
-        <button ion-button color="primary" (click)="saveLogbookEvent()" [disabled]="!canBeSaved()">
-            <span *ngIf="mode === LogbookEventModeEnum.CREATION || mode === LogbookEventModeEnum.LINKED_EVENT_CREATION; else updateButton">{{ 'LOGBOOK.BUTTONS.SAVE' | translate }}</span>
-            <ng-template #updateButton>
-                {{ 'LOGBOOK.BUTTONS.UPDATE' | translate }}
-            </ng-template>
+        <button ion-button *ngIf="logbookEvent.mode === LogbookEventModeEnum.CREATION || logbookEvent.mode === LogbookEventModeEnum.LINKED_EVENT_CREATION" color="primary" (click)="confirmSaveLogbookEvent()" [disabled]="!canBeSaved()">
+            {{ 'LOGBOOK.BUTTONS.SAVE' | translate }}
+        </button>
+        <!-- Bouton enregistrer ou mettre à jour-->
+        <button ion-button *ngIf="logbookEvent.mode === LogbookEventModeEnum.EDITION" color="primary" (click)="confirmUpdateLogbookEvent()" [disabled]="!canBeSaved()">
+            {{ 'LOGBOOK.BUTTONS.UPDATE' | translate }}
         </button>
     </div>
 
