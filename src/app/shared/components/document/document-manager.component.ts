@@ -1,6 +1,8 @@
 import { DocumentModel, DocumentTypeEnum, DocumentTypeIconFileName } from './../../../core/models/document.model';
 import { Component, ViewChild, ElementRef, Input } from '@angular/core';
 import { PopoverController } from 'ionic-angular';
+import { DocumentViewerComponent } from '../document-viewer/document-viewer.component';
+import { DocumentService } from '../../../core/services/document/document.service';
 
 const iconFolderPath = 'assets/imgs/';
 const BASE_64 = 'base64,';
@@ -20,7 +22,7 @@ export class DocumentManagerComponent {
 
   @Input() editMode: boolean;
 
-  constructor(public popoverCtrl: PopoverController) {
+  constructor(public popoverCtrl: PopoverController, private documentService: DocumentService) {
   }
 
   /**
@@ -36,7 +38,8 @@ export class DocumentManagerComponent {
           content = myReader.result;
           const base64Index = content.indexOf(BASE_64);
           const base64Content = content.substring(base64Index + BASE_64.length, content.length);
-          const newDocument = new DocumentModel(file.name, file.type, base64Content);
+          const type = this.documentService.getFileTypeFromFile(file.type);
+          const newDocument = new DocumentModel(file.name, type, file.type, base64Content);
           this.documents.push(newDocument);
       };
       myReader.readAsDataURL(file);
@@ -60,4 +63,8 @@ export class DocumentManagerComponent {
     return iconFolderPath + DocumentTypeIconFileName.get(document.type);
   }
 
+  openDocument(myEvent: Event, document: DocumentModel) {
+    const popover = this.popoverCtrl.create(DocumentViewerComponent, { document: document }, { cssClass: 'document-viewer-popover' });
+    popover.present({ });
+  }
 }
