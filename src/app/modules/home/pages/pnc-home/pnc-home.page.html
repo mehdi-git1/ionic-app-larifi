@@ -12,14 +12,14 @@
     <ng-template #pageBlock>
         <div id="nav-tile-grid" *ngIf="pnc">
             <!--  Recherche effectif -->
-            <div class="button-parent" *hasPermission="'VIEW_PROFESSIONAL_LEVEL'">
+            <div class="button-parent">
                 <button (click)="goToPncSearch()">
                     <ion-icon name="md-contacts" ios="md-contacts"></ion-icon>
                     <h3>{{ 'GLOBAL.MY_PNC_TEAM' | translate }}</h3>
                 </button>
             </div>
             <!--  Activité vols -->
-            <div class="button-parent" *hasPermission="'VIEW_PROFESSIONAL_LEVEL'">
+            <div class="button-parent">
                 <button (click)="goToUpcomingFlightList()">
                     <ion-icon name="md-jet" ios="md-jet"></ion-icon>
                     <h3>{{ 'GLOBAL.MY_UPCOMING_FLIGHT' | translate }}</h3>
