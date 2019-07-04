@@ -12,12 +12,14 @@ import { ImpersonatePage } from './pages/impersonate/impersonate.page';
 import { AppVersionHistoryPage } from './pages/app-version-history/app-version-history.page';
 
 import { VersionService } from '../../core/services/version/version.service';
+import { LegalTermsPage } from './pages/legal-terms/legal-terms.page';
 
 @NgModule({
   declarations: [
     SettingsPage,
     ImpersonatePage,
-    AppVersionHistoryPage
+    AppVersionHistoryPage,
+    LegalTermsPage
   ],
   imports: [
     [IonicPageModule.forChild(SettingsPage)],
@@ -27,12 +29,14 @@ import { VersionService } from '../../core/services/version/version.service';
   entryComponents: [
     SettingsPage,
     ImpersonatePage,
-    AppVersionHistoryPage
+    AppVersionHistoryPage,
+    LegalTermsPage
   ],
   exports: [
     SettingsPage,
     ImpersonatePage,
-    AppVersionHistoryPage
+    AppVersionHistoryPage,
+    LegalTermsPage
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA

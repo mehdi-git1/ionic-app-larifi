@@ -1,0 +1,17 @@
+page-legal-terms {
+
+    ion-content {
+
+        .scroll-content {
+            padding-top: 40px !important;
+            text-align: justify;
+
+            h2 {
+                color: color($colors, primary);
+                font-size: 1.2em;
+                margin-top: 30px;
+                font-weight: bold;
+            }
+        }
+    }
+}

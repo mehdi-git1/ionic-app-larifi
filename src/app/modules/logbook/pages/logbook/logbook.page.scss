@@ -6,11 +6,8 @@ log-book {
         .scroll-content {
             display: flex;
             flex-direction: column;
+            padding-top: 40px !important;
         }
-    }
-
-    .scroll-content {
-        padding-top: 40px !important;
     }
 
     ion-button {
