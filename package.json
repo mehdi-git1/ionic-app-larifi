@@ -40,6 +40,7 @@
         "angular2-notifications": "1.0.2",
         "cordova-ios": "5.0.0",
         "cordova-plugin-app-version": "0.1.9",
+        "cordova-plugin-camera": "^4.0.3",
         "cordova-plugin-cocoapod-support": "1.6.0",
         "cordova-plugin-compat": "1.2.0",
         "cordova-plugin-device": "2.0.2",
@@ -109,7 +110,8 @@
             "cordova-plugin-formslib": {},
             "cordova-plugin-file": {},
             "cordova-plugin-app-version": {},
-            "cordova-plugin-filechooser": {}
+            "cordova-plugin-filechooser": {},
+            "cordova-plugin-camera": {}
         },
         "platforms": [
             "ios"
