@@ -121,6 +121,10 @@ ion-content > .scroll-content {
     margin: auto;
 }
 
+.scroll-content {
+    overflow-y: auto !important;
+}
+
 .content {
     background-color: transparent;
 }
@@ -131,10 +135,6 @@ ion-content > .scroll-content {
 
 .hidden {
     visibility: hidden;
-}
-
-.scroll-content {
-    overflow-y: auto !important;
 }
 
 .blur {
