@@ -3,7 +3,8 @@
     <ng-template #pageBlock>
         <span class="document" #imageViewer >
             <img class="document-image"*ngIf="type === DocumentTypeEnum.IMAGE" [src]="base64FileContent" />
-            <embed class="document-pdf" height="100%" width="100%" name="plugin" id="plugin" [src]="base64FileContent" type="application/pdf" internalinstanceid="26">
+            <pdf-viewer [base64]="base64FileContent"></pdf-viewer>
+            <!--embed class="document-pdf" height="100%" width="100%" name="plugin" id="plugin" [src]="base64FileContent" type="application/pdf" internalinstanceid="26"-->
         </span>
     </ng-template>
 </span>
