@@ -4,15 +4,15 @@ import * as PDFJS from 'pdfjs-dist/webpack.js';
 import { PDFPageProxy, PDFPageViewport, PDFRenderTask } from 'pdfjs-dist';
 
 @Component({
-    selector: 'pdf-viewer',
+    selector: 'pdf-viewer-edospnc',
     templateUrl: 'pdf-viewer.component.html'
 })
 export class PdfViewerComponent {
     pdfDocument: PDFJS.PDFDocumentProxy;
     PDFJSViewer = PDFJS;
     pageContainerUnique = {
-        width: 0 as number,
-        height: 0 as number,
+        width: 0,
+        height: 0,
         element: null as HTMLElement,
         canvas: null as HTMLCanvasElement,
         textContainer: null as HTMLElement,
@@ -24,11 +24,18 @@ export class PdfViewerComponent {
     @ViewChild('canvasWrapper') canvasWrapperRef: ElementRef;
     @ViewChild('textContainer') textContainerRef: ElementRef;
 
+    currentPageNumber = 1;
+    nbPages: number;
+    isRenderProcessing = false;
+
     constructor(public navCtrl: NavController) {
-        console.log(this.PDFJSViewer);
     }
     @Input()
     set base64(base64: string) {
+        this.pageContainerUnique.element = this.pageContainerRef.nativeElement as HTMLElement;
+        this.pageContainerUnique.canvasWrapper = this.canvasWrapperRef.nativeElement as HTMLCanvasElement;
+        this.pageContainerUnique.canvas = this.canvasRef.nativeElement as HTMLCanvasElement;
+        this.pageContainerUnique.textContainer = this.textContainerRef.nativeElement as HTMLCanvasElement;
         const raw = window.atob(base64);
         const rawLength = raw.length;
         var array = new Uint8Array(new ArrayBuffer(rawLength));
@@ -39,10 +46,9 @@ export class PdfViewerComponent {
         this.PDFJSViewer.getDocument(pdfAsArray)
         .then(pdf => {
             this.pdfDocument = pdf;
-            console.log("pdf loaded:"); console.dir(this.pdfDocument);
-            return this.loadPage(1);
+            this.nbPages = this.pdfDocument.numPages;
+            return this.loadPage(this.currentPageNumber);
         }).then((pdfPage) => {
-            console.dir(pdfPage);
         }).catch(e => {
             console.error(e);
             return false;
@@ -53,40 +59,54 @@ export class PdfViewerComponent {
         this.pageContainerUnique.canvasWrapper = this.canvasWrapperRef.nativeElement as HTMLCanvasElement;
         this.pageContainerUnique.canvas = this.canvasRef.nativeElement as HTMLCanvasElement;
         this.pageContainerUnique.textContainer = this.textContainerRef.nativeElement as HTMLCanvasElement;
-        //this.loadPdf('assets/pdf1.pdf');
     }
-    
-    loadPdf(pdfPath: string): Promise<boolean> {
 
-        return this.PDFJSViewer.getDocument(pdfPath)
-            .then(pdf => {
-                this.pdfDocument = pdf;
-                console.log("pdf loaded:"); console.dir(this.pdfDocument);
-                return this.loadPage(1);
-            }).then((pdfPage) => {
-                console.dir(pdfPage);
-            }).catch(e => {
-                console.error(e);
-                return false;
+    loadPage(pageNum: number = 1): Promise<number> {
+            let pdfPage: PDFPageProxy;
+            return this.pdfDocument.getPage(pageNum).then(thisPage => {
+                pdfPage = thisPage;
+                const pageHasBeenRendered = this.renderOnePage(pdfPage);
+                return pageNum;
+            }).then(() => {
+                return pageNum;
             });
     }
 
-    loadPage(pageNum: number = 1) {
-        let pdfPage: PDFPageProxy;
+    goToPage(pageNumberToDisplay: number) {
+        if (!this.isRenderProcessing) {
+            this.loadPage(pageNumberToDisplay).then(pageDisplayedNumber => {
+                this.currentPageNumber = pageDisplayedNumber;
+            });
+        }
+    }
+    openPreviousPage() {
+        if (!this.isFirstPage() ) {
+            const pageToDisplay = this.currentPageNumber - 1;
+            this.goToPage(pageToDisplay);
+        } else {
+            this.goToPage(1);
+        }
+    }
 
-        return this.pdfDocument.getPage(pageNum).then(thisPage => {
-            pdfPage = thisPage;
-            return this.renderOnePage(pdfPage);
-        }).then(() => {
-            return pdfPage;
-        });
+    openNextPage() {
+        if (!this.isLastPage()) {
+            const pageToDisplay = this.currentPageNumber + 1;
+            this.goToPage(pageToDisplay);
+        } else {
+            this.goToPage(this.nbPages);
+        }
+    }
 
-    } // loadpage()
+    isLastPage(): boolean {
+        return this.currentPageNumber >= this.nbPages;
+    }
 
-
+    isFirstPage(): boolean {
+        return this.currentPageNumber === 1;
+    }
 
     async renderOnePage(pdfPage: PDFPageProxy) {
-
+        this.isRenderProcessing = true;
         let textContainer: HTMLElement;
         let canvas: HTMLCanvasElement;
         let wrapper: HTMLElement;
@@ -105,7 +125,7 @@ export class PdfViewerComponent {
         canvasContext.mozImageSmoothingEnabled = false;
         canvasContext.oImageSmoothingEnabled = false;*/
 
-        let viewport = pdfPage.getViewport(1) as PDFPageViewport;
+        const viewport = pdfPage.getViewport(1) as PDFPageViewport;
 
         canvas.width = viewport.width;
         canvas.height = viewport.height;
@@ -116,56 +136,39 @@ export class PdfViewerComponent {
         textContainer.style.width = `${viewport.width}px`;
         textContainer.style.height = `${viewport.height}px`;
 
-        //fix for 4K
-
-
         if (window.devicePixelRatio > 1) {
-            let canvasWidth = canvas.width;
-            let canvasHeight = canvas.height;
-
+            const canvasWidth = canvas.width;
+            const canvasHeight = canvas.height;
             canvas.width = canvasWidth * window.devicePixelRatio;
             canvas.height = canvasHeight * window.devicePixelRatio;
-            canvas.style.width = canvasWidth + "px";
-            canvas.style.height = canvasHeight + "px";
-
+            canvas.style.width = canvasWidth + 'px';
+            canvas.style.height = canvasHeight + 'px';
             canvasContext.scale(window.devicePixelRatio, window.devicePixelRatio);
         }
 
         // THIS RENDERS THE PAGE !!!!!!
-
-
-        let renderTask: PDFRenderTask = pdfPage.render({
+        const renderTask: PDFRenderTask = pdfPage.render({
             canvasContext,
             viewport
         });
 
-        let container = textContainer;
+        const container = textContainer;
 
         return renderTask.then(() => {
-            //console.error("I WORK JUST UNTIL HERE");
-
-
             return pdfPage.getTextContent();
-
         }).then((textContent) => {
-
             let textLayer: HTMLElement;
-
-
             textLayer = this.pageContainerUnique.textContainer
-
-
             while (textLayer.lastChild) {
                 textLayer.removeChild(textLayer.lastChild);
             }
-
             this.PDFJSViewer.renderTextLayer({
                 textContent,
                 container,
                 viewport,
                 textDivs: []
             });
-
+            this.isRenderProcessing = false;
             return true;
         });
     }

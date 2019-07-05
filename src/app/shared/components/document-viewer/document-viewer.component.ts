@@ -17,6 +17,7 @@ export class DocumentViewerComponent {
     documentFile: File;
     type: DocumentTypeEnum;
     base64FileContent: SafeUrl;
+    base64FileContentAndType: SafeUrl;
     @ViewChild('imageViewer') imageViewer: ElementRef;
 
   constructor(private domSanitizer: DomSanitizer, private navParams: NavParams, private viewController: ViewController,
@@ -31,7 +32,8 @@ export class DocumentViewerComponent {
     if (document && document.id) {
         if (this.isPreviewable(document.type)) {
             this.documentService.getDocument(document.id).then(documentResult => {
-                this.base64FileContent = this.domSanitizer.bypassSecurityTrustResourceUrl('data:' + documentResult.mimeType + ';base64,' + documentResult.content);
+              this.base64FileContentAndType = this.domSanitizer.bypassSecurityTrustResourceUrl('data:' + documentResult.mimeType + ';base64,' + documentResult.content);
+              this.base64FileContent = documentResult.content;
             }).catch(err => {
                 this.previewUnavailable();
             });

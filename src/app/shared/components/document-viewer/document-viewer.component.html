@@ -1,9 +1,10 @@
-<span (click)="closeDocumentViewer()">
+<span>
+    <span class="close-viewer-button" (click)="closeDocumentViewer()"><ion-icon name="md-close-circle" ></ion-icon></span>
     <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock" ></edossier-spinner>
     <ng-template #pageBlock>
         <span class="document" #imageViewer >
-            <img class="document-image"*ngIf="type === DocumentTypeEnum.IMAGE" [src]="base64FileContent" />
-            <pdf-viewer [base64]="base64FileContent"></pdf-viewer>
+            <img class="document-image"*ngIf="type === DocumentTypeEnum.IMAGE" [src]="base64FileContentAndType" />
+            <pdf-viewer-edospnc class="document-pdf" [base64]="base64FileContent"></pdf-viewer-edospnc>
             <!--embed class="document-pdf" height="100%" width="100%" name="plugin" id="plugin" [src]="base64FileContent" type="application/pdf" internalinstanceid="26"-->
         </span>
     </ng-template>
