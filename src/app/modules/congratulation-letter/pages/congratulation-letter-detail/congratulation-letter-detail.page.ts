@@ -1,3 +1,4 @@
+import { CongratulationLetterFlightModel } from './../../../../core/models/congratulation-letter-flight.model';
 import { CongratulationLetterModel } from './../../../../core/models/congratulation-letter.model';
 import { SessionService } from './../../../../core/services/session/session.service';
 import { PncModel } from './../../../../core/models/pnc.model';
@@ -53,6 +54,15 @@ export class CongratulationLetterDetailPage {
      */
     isWrittenLetter(): boolean {
         return this.matricule === this.congratulationLetter.redactor.matricule;
+    }
+
+    /**
+     * Retourne la date du vol, formatée pour l'affichage
+     * @param flight le vol dont on souhaite avoir la date formatée
+     * @return la date formatée du vol
+     */
+    getFormatedFlightDate(flight: CongratulationLetterFlightModel): string {
+        return this.congratulationLetterService.getFormatedFlightDate(flight);
     }
 
 }

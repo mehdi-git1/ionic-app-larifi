@@ -1,3 +1,5 @@
+import { DatePipe } from '@angular/common';
+import { CongratulationLetterFlightModel } from './../../models/congratulation-letter-flight.model';
 import { CongratulationLetterModel } from './../../models/congratulation-letter.model';
 import { Injectable } from '@angular/core';
 
@@ -11,7 +13,8 @@ export class CongratulationLetterService extends BaseService {
   constructor(
     private onlineCongratulationLetterService: OnlineCongratulationLetterService,
     private offlineCongratulationLetterService: OfflineCongratulationLetterService,
-    protected connectivityService: ConnectivityService) {
+    protected connectivityService: ConnectivityService,
+    private datePipe: DatePipe) {
     super(
       connectivityService,
       onlineCongratulationLetterService,
@@ -55,5 +58,13 @@ export class CongratulationLetterService extends BaseService {
   }
 
 
+  /**
+   * Retourne la date du vol, formatée pour l'affichage
+   * @param flight le vol dont on souhaite avoir la date formatée
+   * @return la date formatée du vol
+   */
+  getFormatedFlightDate(flight: CongratulationLetterFlightModel): string {
+    return this.datePipe.transform(flight.theoricalDate, 'dd/MM/yyyy');
+  }
 
 }

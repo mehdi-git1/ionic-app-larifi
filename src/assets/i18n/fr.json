@@ -593,10 +593,12 @@
             "WRITTEN_LETTERS": "Félicitations rédigées"
         },
         "HEADER": {
-            "CREATION_DATE": "Date rédaction",
             "FLIGHT": "Occasion",
             "TYPE": "Type de lettre",
             "WRITER": "Rédacteur"
+        },
+        "VALUE": {
+            "FLIGHT": "{{airline}}{{flightNumber}} du {{flightDate}}"
         },
         "TYPE": {
             "COLLECTIVE": "Collective",
@@ -607,10 +609,12 @@
     },
     "CONGRATULATION_LETTER_DETAIL": {
         "HEADER": {
-            "FLIGHT_NUMBER": "Numéro de vol",
-            "FLIGHT_DATE": "Date du vol",
+            "FLIGHT": "Occasion",
             "LETTER_TYPE": "Type de lettre",
             "WRITER": "Rédacteur"
+        },
+        "VALUE": {
+            "FLIGHT": "{{airline}}{{flightNumber}} du {{flightDate}}"
         },
         "TYPE": {
             "COLLECTIVE": "Collective",
