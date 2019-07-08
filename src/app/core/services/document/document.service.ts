@@ -51,4 +51,13 @@ export class DocumentService {
         }
         return DocumentTypeEnum.OTHER;
     }
+
+    /**
+     * Vérifie si le type de document est prévisualisable
+     * @param type type de document
+     * @return true si le document est de type image ou pdf
+     */
+    isPreviewable(type: DocumentTypeEnum): boolean {
+        return type === DocumentTypeEnum.IMAGE || type === DocumentTypeEnum.PDF;
+    }
 }

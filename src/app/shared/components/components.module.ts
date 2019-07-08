@@ -33,8 +33,6 @@ import { UserMessageAlertComponent } from './user-message-alert/user-message-ale
 import { AppVersionAlertComponent } from './app-version-alert/app-version-alert.component';
 import { PncEdossierHeaderComponent } from './pnc-edossier-header/pnc-edossier-header.component';
 import { DocumentViewerComponent } from './document-viewer/document-viewer.component';
-import { PdfViewerComponent } from './pdf-viewer/pdf-viewer.component';
-
 
 @NgModule({
   imports: [
@@ -69,8 +67,7 @@ import { PdfViewerComponent } from './pdf-viewer/pdf-viewer.component';
     PdfButtonComponent,
     AppVersionAlertComponent,
     DocumentManagerComponent,
-    DocumentViewerComponent,
-    PdfViewerComponent
+    DocumentViewerComponent
   ],
   exports: [
     OfflineIndicatorComponent,
@@ -98,8 +95,7 @@ import { PdfViewerComponent } from './pdf-viewer/pdf-viewer.component';
     PdfButtonComponent,
     AppVersionAlertComponent,
     DocumentManagerComponent,
-    DocumentViewerComponent,
-    PdfViewerComponent
+    DocumentViewerComponent
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA

@@ -34,21 +34,30 @@ export class DocumentViewerComponent {
       this.type = document.type;
     if (document && document.id) {
         if (this.isPreviewable(document.type)) {
+          if (document.content) {
+            this.displayDocument(document);
+          } else {
             this.documentService.getDocument(document.id).then(documentResult => {
-              if (document.type === DocumentTypeEnum.IMAGE) {
-                this.base64FileContentAndType = this.domSanitizer.bypassSecurityTrustResourceUrl('data:' + documentResult.mimeType + ';base64,' + documentResult.content);
-              } else if (document.type === DocumentTypeEnum.PDF) {
-                this.viewController.dismiss();
-                this.fileService.displayFile(FileTypeEnum.PDF, this.base64FiletoUrl(documentResult.content));
-              } else {
-                this.previewUnavailable();
-              }
+              document.content = documentResult.content;
+              this.displayDocument(documentResult);
             }).catch(err => {
                 this.previewUnavailable();
             });
+          }
         } else {
             this.previewUnavailable();
         }
+    }
+  }
+
+  displayDocument(document: DocumentModel) {
+    if (document.type === DocumentTypeEnum.IMAGE) {
+      this.base64FileContentAndType = this.domSanitizer.bypassSecurityTrustResourceUrl('data:' + document.mimeType + ';base64,' + document.content);
+    } else if (document.type === DocumentTypeEnum.PDF) {
+      this.viewController.dismiss();
+      this.fileService.displayFile(FileTypeEnum.PDF, this.base64FiletoUrl(document.content));
+    } else {
+      this.previewUnavailable();
     }
   }
 
@@ -81,7 +90,7 @@ export class DocumentViewerComponent {
    * @return true si le document est de type image ou pdf
    */
   private isPreviewable(type: DocumentTypeEnum): boolean {
-    return type === DocumentTypeEnum.IMAGE || type === DocumentTypeEnum.PDF;
+    return this.documentService.isPreviewable(type);
   }
 
   /**
