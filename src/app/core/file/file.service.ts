@@ -6,14 +6,21 @@ import { PdfService } from './pdf/pdf.service';
 import { DeviceService } from '../services/device/device.service';
 import { saveAs } from 'file-saver';
 import { Utils } from '../../shared/utils/utils';
+import { FileTransfer} from '@ionic-native/file-transfer';
+import { ToastController } from '../../../../node_modules/ionic-angular/umd';
+import { ToastService } from '../services/toast/toast.service';
 
+declare var window: any;
 @Injectable()
 export class FileService {
 
     constructor(
         private pdfService: PdfService,
         private htmlService: HtmlService,
-        private deviceService: DeviceService) {
+        private deviceService: DeviceService,
+        private file: File,
+        private fileTransfer: FileTransfer,
+        private toastService: ToastService) {
     }
 
     /**
@@ -33,7 +40,15 @@ export class FileService {
         const blob = new Blob([Utils.base64ToArrayBuffer(base64File)], { type: mimeType });
         var url = URL.createObjectURL(blob);
         saveAs(blob, fileName);
-        window.open(url);
+        if (this.deviceService.isBrowser()) {
+            window.open(url);
+            this.toastService.info('Fichier téléchargé.');
+        } else {
+            const fileTransferInstance = this.fileTransfer.create();
+            fileTransferInstance.download(url, window.cordova.file.dataDirectory + fileName).then((entry) => {
+                this.toastService.info('Fichier téléchargé.');
+            }, (error) => this.toastService.error('Erreur lors du téléchargement du fichier'));
+        }
     }
 }
 
