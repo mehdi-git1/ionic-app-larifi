@@ -81,5 +81,6 @@
     <plugin name="cordova-plugin-filechooser" spec="~1.2.0" />
     <plugin name="cordova-plugin-camera" spec="^4.0.3" />
     <plugin name="cordova-plugin-file-transfer" spec="^1.7.1" />
+    <plugin name="cordova-plugin-file-opener2" spec="~2.2.0" />
     <engine name="ios" spec="5.0.0" />
 </widget>

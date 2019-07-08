@@ -45,14 +45,11 @@ export class PdfService {
     */
    displayPDFFromBase64(base64FileContent: string, fileName: string) {
     const rep = this.file.dataDirectory;
-    //this.httpClient.get(url, { responseType: 'blob' }).subscribe(result => {
         this.file.writeExistingFile(rep + '/edossier', fileName, base64FileContent).then(
             writingFileReturn => {
                 this.inAppBrowser.create(rep + '/edossier/' + fileName, '_blank', 'hideurlbar=no,location=no,toolbarposition=top'
                 );
             }
         );
-    //});
-
     }
 }

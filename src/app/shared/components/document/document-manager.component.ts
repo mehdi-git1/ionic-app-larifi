@@ -59,7 +59,7 @@ export class DocumentManagerComponent {
   /**
    * Récupère le chemin vers le fichier de l'icone
    * @param document document
-   * @return le chemin vers le fichier de l'icone 
+   * @return le chemin vers le fichier de l'icone
    */
   getFileTypeIcon(document: DocumentModel) {
     return iconFolderPath + DocumentTypeIconFileName.get(document.type);
@@ -70,7 +70,7 @@ export class DocumentManagerComponent {
    * @param document document à visionner
    */
   openDocument(document: DocumentModel) {
-    if  (this.documentService.isPreviewable(document.type)) {
+    if (this.documentService.isPreviewable(document.type)) {
       const popover = this.popoverCtrl.create(DocumentViewerComponent, { document: document }, { cssClass: 'document-viewer-popover' });
       popover.present({ });
     } else {
