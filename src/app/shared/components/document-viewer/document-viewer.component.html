@@ -1,4 +1,4 @@
-<span [ngClass]="{'invisible': type != DocumentTypeEnum.IMAGE, 'visible': type === DocumentTypeEnum.IMAGE}">
+<span [ngClass]="{'viewer': true, 'visible': isImageType()}">
     <span class="close-viewer-button" (click)="closeDocumentViewer()"><ion-icon name="md-close-circle" ></ion-icon></span>
     <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock" ></edossier-spinner>
     <ng-template #pageBlock>

@@ -52,6 +52,10 @@ export class DocumentViewerComponent {
     }
   }
 
+  isImageType() {
+    return this.type === DocumentTypeEnum.IMAGE;
+  }
+
   /**
    * Transforme un fichier en base64 en url de type blob
    * @param base64File fichier en base64

@@ -5,7 +5,7 @@
     left: 0 !important;
     width: 100%;
     height: 100%;
-    background-color: rgba(167, 167, 167, 0.6);
+    background-color: rgba(167, 167, 167, 0);
     justify-content: center;
 }
 
@@ -15,13 +15,17 @@
 }
 
 document-viewer {
-    display: flex;
-    background-color: rgba(145, 132, 132, 0);
-    z-index: 1100;
-    width: 100%;
-    height: 100%;
-    max-width: 100%;
-    max-height: 100%;
+
+    .viewer {
+        display: flex;
+        visibility: hidden;
+        background-color: rgba(167, 167, 167, 0.6);
+        z-index: 1100;
+        width: 100%;
+        height: 100%;
+        max-width: 100%;
+        max-height: 100%;   
+    }
 
     cursor: pointer;
     span {
@@ -43,10 +47,12 @@ document-viewer {
 
     .invisible {
         display: none;
+        visibility: hidden;
     }
 
     .visible {
         display: flex;
+        visibility: visible
     }
 
     .close-viewer-button {
@@ -60,26 +66,11 @@ document-viewer {
         height: auto;
     }
 
-
     .document {
         display: block;
         max-width: 100%;
         max-height: 100%;
         justify-content: center;
-        .document-pdf {
-            max-height: 100%;
-            max-width: 100%;
-            height: 100%;
-            justify-content: center;
-            display: block;
-            margin: auto;
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            margin: auto;
-        }
         .document-image {
             max-height: 100%;
             max-width: 100%;
