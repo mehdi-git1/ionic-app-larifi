@@ -6,6 +6,9 @@ import { DocumentService } from '../../../core/services/document/document.servic
 import { PdfService } from '../../../core/file/pdf/pdf.service';
 import { ToastService } from '../../../core/services/toast/toast.service';
 import { TranslateService } from '@ngx-translate/core';
+import { FileService } from '../../../core/file/file.service';
+import { FileTypeEnum } from '../../../core/enums/file-type.enum';
+import { Utils } from '../../utils/utils';
 
 
 @Component({
@@ -21,7 +24,7 @@ export class DocumentViewerComponent {
     @ViewChild('imageViewer') imageViewer: ElementRef;
 
   constructor(private domSanitizer: DomSanitizer, private navParams: NavParams, private viewController: ViewController,
-    private documentService: DocumentService, private pdfService: PdfService, private toastService: ToastService, private translateService: TranslateService) {
+    private documentService: DocumentService, private pdfService: PdfService, private toastService: ToastService, private translateService: TranslateService, private fileService: FileService) {
     const document: DocumentModel = this.navParams.get('document');
     this.document = document;
   }
@@ -32,8 +35,14 @@ export class DocumentViewerComponent {
     if (document && document.id) {
         if (this.isPreviewable(document.type)) {
             this.documentService.getDocument(document.id).then(documentResult => {
-              this.base64FileContentAndType = this.domSanitizer.bypassSecurityTrustResourceUrl('data:' + documentResult.mimeType + ';base64,' + documentResult.content);
-              this.base64FileContent = documentResult.content;
+              if (document.type === DocumentTypeEnum.IMAGE) {
+                this.base64FileContentAndType = this.domSanitizer.bypassSecurityTrustResourceUrl('data:' + documentResult.mimeType + ';base64,' + documentResult.content);
+              } else if (document.type === DocumentTypeEnum.PDF) {
+                this.viewController.dismiss();
+                this.fileService.displayFile(FileTypeEnum.PDF, this.base64FiletoUrl(documentResult.content));
+              } else {
+                this.previewUnavailable();
+              }
             }).catch(err => {
                 this.previewUnavailable();
             });
@@ -41,6 +50,25 @@ export class DocumentViewerComponent {
             this.previewUnavailable();
         }
     }
+  }
+
+  /**
+   * Transforme un fichier en base64 en url de type blob
+   * @param base64File fichier en base64
+   */
+  base64FiletoUrl(base64File: string): string {
+    let previewSrc;
+    try {
+      if (base64File) {
+        const file = new Blob([Utils.base64ToArrayBuffer(base64File)], { type: 'application/pdf' });
+        previewSrc = URL.createObjectURL(file);
+      } else {
+        previewSrc = null;
+      }
+    } catch (error) {
+      console.error('createObjectURL error:' + error);
+    }
+    return previewSrc;
   }
 
   /**
@@ -68,7 +96,7 @@ export class DocumentViewerComponent {
   }
 
   loadingIsOver(): boolean {
-      return this.base64FileContent && this.base64FileContent !== undefined;
+      return this.base64FileContentAndType && this.base64FileContentAndType !== undefined;
   }
 
 }
