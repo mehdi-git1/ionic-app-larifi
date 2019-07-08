@@ -98,7 +98,10 @@
                                 <ion-label floating>{{ 'PNC_SEARCH.CRITERIA.RELAY' | translate }}</ion-label>
                                 <ion-select interface="popover" [compareWith]="compareFn" formControlName="relayControl" [disabled]="areFiltersDisabled()" [placeholder]="('PNC_SEARCH.DEFAULT_DATA.ALL_M' | translate )">
                                     <ion-option *ngIf="!relayList || relayList.length != 1" [value]="valueAll">{{ 'PNC_SEARCH.DEFAULT_DATA.ALL_M' | translate }}</ion-option>
-                                    <ion-option *ngFor="let relayKey of relayList" [value]="relayKey">{{relayKey}}</ion-option>
+                                    <ion-option *ngFor="let relay of relayList" [value]="relay.code">
+                                        {{relay.code}}
+                                        <ng-container *ngIf="relay.label"> - {{relay.label}}</ng-container>
+                                    </ion-option>
                                 </ion-select>
                             </ion-item>
                         </ion-col>

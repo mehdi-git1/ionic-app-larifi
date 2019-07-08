@@ -17,6 +17,7 @@ import { PncFilterModel } from '../../../../core/models/pnc-filter.model';
 import { PncModel } from '../../../../core/models/pnc.model';
 import { SpecialityEnum } from '../../../../core/enums/speciality.enum';
 import { SectorModel } from '../../../../core/models/sector.model';
+import { RelayModel } from '../../../../core/models/statutory-certificate/relay.model';
 
 @Component({
   selector: 'pnc-search-filter',
@@ -52,7 +53,7 @@ export class PncSearchFilterComponent implements OnInit {
   divisionList: Array<DivisionModel>;
   sectorList: Array<SectorModel>;
   ginqList: Array<GinqModel>;
-  relayList: string[];
+  relayList: Array<RelayModel>;
   aircraftSkillList: string[];
   specialityList: string[];
 
@@ -155,9 +156,8 @@ export class PncSearchFilterComponent implements OnInit {
         this.outOfDivision = true;
       } else {
         this.outOfDivision = false;
-        this.relayList = appInitData.relays;
-        this.relayList.sort((value: string, otherValue: string) => {
-          return value > otherValue ? 1 : -1;
+        this.relayList = appInitData.relays.sort((relay1, relay2) => {
+          return relay1.code > relay2.code ? 1 : -1;
         });
         this.aircraftSkillList = appInitData.aircraftSkills;
       }
@@ -181,7 +181,7 @@ export class PncSearchFilterComponent implements OnInit {
     this.pncFilter.ginq = this.defaultGinq ? this.defaultGinq : AppConstant.ALL;
     this.pncFilter.speciality = this.specialityList && this.specialityList.length === 1 ? this.specialityList[0] : AppConstant.ALL;
     this.pncFilter.aircraftSkill = this.aircraftSkillList && this.aircraftSkillList.length === 1 ? this.aircraftSkillList[0] : AppConstant.ALL;
-    this.pncFilter.relay = this.relayList && this.relayList.length === 1 ? this.relayList[0] : AppConstant.ALL;
+    this.pncFilter.relay = this.relayList && this.relayList.length === 1 ? this.relayList[0].code : AppConstant.ALL;
     this.searchForm.get('divisionControl').setValue(this.defaultDivision);
     this.searchForm.get('specialityControl').setValue(this.specialityList && this.specialityList.length === 1 ? this.specialityList[0] : AppConstant.ALL);
     this.searchForm.get('aircraftSkillControl').setValue(this.aircraftSkillList && this.aircraftSkillList.length === 1 ? this.aircraftSkillList[0] : AppConstant.ALL);
