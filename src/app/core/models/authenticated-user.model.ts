@@ -2,7 +2,7 @@ import { UserMessageModel } from './admin/user-message.model';
 import { AppVersionModel } from './admin/app-version.model';
 import { PncPinModel } from './pnc-pin.model';
 import { EDossierPncObjectModel } from './e-dossier-pnc-object.model';
-import { ParametersModel } from './parameters.model';
+import { AppInitDataModel } from './app-init-data.model';
 import { PncModel } from './pnc.model';
 
 export class AuthenticatedUserModel extends EDossierPncObjectModel {
@@ -18,7 +18,7 @@ export class AuthenticatedUserModel extends EDossierPncObjectModel {
     pinInfo?: PncPinModel;
     profiles: string[];
     permissions: string[];
-    parameters: ParametersModel;
+    appInitData: AppInitDataModel;
     userMessage: UserMessageModel;
     appVersion: AppVersionModel;
 

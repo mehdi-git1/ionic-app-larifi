@@ -1,3 +1,5 @@
+import { GinqModel } from './../../../../core/models/ginq.model';
+import { DivisionModel } from './../../../../core/models/division.model';
 import { FormGroup, AbstractControl, Validators, FormBuilder } from '@angular/forms';
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import $ from 'jquery';
@@ -14,8 +16,7 @@ import { AppConstant } from '../../../../app.constant';
 import { PncFilterModel } from '../../../../core/models/pnc-filter.model';
 import { PncModel } from '../../../../core/models/pnc.model';
 import { SpecialityEnum } from '../../../../core/enums/speciality.enum';
-import { TabNavService } from '../../../../core/services/tab-nav/tab-nav.service';
-
+import { SectorModel } from '../../../../core/models/sector.model';
 
 @Component({
   selector: 'pnc-search-filter',
@@ -48,9 +49,9 @@ export class PncSearchFilterComponent implements OnInit {
   showFilter = false;
 
   // Les listes des données du filtre
-  divisionList: string[];
-  sectorList: string[];
-  ginqList: string[];
+  divisionList: Array<DivisionModel>;
+  sectorList: Array<SectorModel>;
+  ginqList: Array<GinqModel>;
   relayList: string[];
   aircraftSkillList: string[];
   specialityList: string[];
@@ -70,8 +71,7 @@ export class PncSearchFilterComponent implements OnInit {
     private pncProvider: PncService,
     private connectivityService: ConnectivityService,
     private events: Events,
-    private keyboard: Keyboard,
-    private tabNavService: TabNavService
+    private keyboard: Keyboard
   ) {
     this.connectivityService.connectionStatusChange.subscribe(connected => {
       this.initFilter();
@@ -148,22 +148,22 @@ export class PncSearchFilterComponent implements OnInit {
     this.specialityList = Object.keys(SpecialityEnum)
       .map(k => SpecialityEnum[k])
       .filter(v => typeof v === 'string') as string[];
-    if (this.sessionService.getActiveUser().parameters !== undefined) {
-      const params: Map<string, any> = this.sessionService.getActiveUser().parameters.params;
-      this.divisionList = Object.keys(params['divisions']);
+    if (this.sessionService.getActiveUser().appInitData !== undefined) {
+      const appInitData = this.sessionService.getActiveUser().appInitData;
+      this.divisionList = appInitData.divisionSectorGinqTree;
       if (this.divisionList.length === 0) {
         this.outOfDivision = true;
       } else {
         this.outOfDivision = false;
-        this.relayList = params['relays'];
+        this.relayList = appInitData.relays;
         this.relayList.sort((value: string, otherValue: string) => {
           return value > otherValue ? 1 : -1;
         });
-        this.aircraftSkillList = params['aircraftSkills'];
+        this.aircraftSkillList = appInitData.aircraftSkills;
       }
-      this.defaultDivision = params['defaultDivision'];
-      this.defaultSector = params['defaultSector'];
-      this.defaultGinq = params['defaultGinq'];
+      this.defaultDivision = appInitData.defaultDivision;
+      this.defaultSector = appInitData.defaultSector;
+      this.defaultGinq = appInitData.defaultGinq;
     }
 
   }
@@ -338,18 +338,17 @@ export class PncSearchFilterComponent implements OnInit {
     });
   }
 
-
   /**
-   * Charge la liste des secteurs associé a la division choisi
-   * @param sector secteur concerné.
+   * Charge la liste des secteurs associée à la division choisie
+   * @param division la division choisie
    */
-  getSectorList(division) {
+  getSectorList(division: string) {
     this.ginqList = null;
     this.sectorList = null;
     if (division !== AppConstant.ALL) {
-      this.sectorList = Object.keys(this.sessionService.getActiveUser().parameters.params['divisions'][division]);
+      this.sectorList = this.divisionList.find(divisionItem => divisionItem.code === division).sectors;
     }
-    if (this.defaultValue && this.sectorList && this.defaultSector && this.sectorList.find((sector) => sector === this.defaultSector)) {
+    if (this.defaultValue && this.sectorList && this.defaultSector && this.sectorList.find((sector) => sector.code === this.defaultSector)) {
       this.pncFilter.sector = this.defaultSector;
       this.searchForm.get('sectorControl').setValue(this.defaultSector);
     } else {
@@ -359,15 +358,18 @@ export class PncSearchFilterComponent implements OnInit {
   }
 
   /**
-   * Charge la liste des ginq associé au secteur choisi
-   * @param sector secteur concerné.
+   * Charge la liste des ginq associée au secteur choisi
+   * @param sector le secteur choisi
    */
-  getGinqList(sector) {
+  getGinqList(sector: string) {
     this.ginqList = null;
     if (this.pncFilter.division !== AppConstant.ALL && sector !== '' && sector !== AppConstant.ALL) {
-      this.ginqList = this.sessionService.getActiveUser().parameters.params['divisions'][this.pncFilter.division][sector];
+      this.ginqList = this.divisionList.find(divisionItem => divisionItem.code === this.pncFilter.division)
+        .sectors
+        .find(sectorItem => sectorItem.code === sector)
+        .ginqs;
     }
-    if (this.defaultValue && this.ginqList && this.defaultGinq && this.ginqList.find((ginq) => ginq === this.defaultGinq)) {
+    if (this.defaultValue && this.ginqList && this.defaultGinq && this.ginqList.find((ginq) => ginq.code === this.defaultGinq)) {
       this.pncFilter.ginq = this.defaultGinq;
       this.searchForm.get('ginqControl').setValue(this.defaultGinq);
     } else {

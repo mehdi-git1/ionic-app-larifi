@@ -45,7 +45,10 @@
                                 <ion-label floating>{{ 'PNC_SEARCH.CRITERIA.DIVISION' | translate }}</ion-label>
                                 <ion-select interface="popover" [compareWith]="compareFn" formControlName="divisionControl" [disabled]="areFiltersDisabled()" [placeholder]="('PNC_SEARCH.DEFAULT_DATA.ALL_F' | translate )">
                                     <ion-option *ngIf="!divisionList || divisionList.length != 1" [value]="valueAll">{{ 'PNC_SEARCH.DEFAULT_DATA.ALL_F' | translate }}</ion-option>
-                                    <ion-option *ngFor="let divisionKey of divisionList" [value]="divisionKey">{{divisionKey}}</ion-option>
+                                    <ion-option *ngFor="let division of divisionList" [value]="division.code">
+                                        {{division.code}}
+                                        <ng-container *ngIf="division.longCode"> - {{division.longCode}}</ng-container>
+                                    </ion-option>
                                 </ion-select>
                             </ion-item>
                         </ion-col>
@@ -55,7 +58,7 @@
                                 <ion-label floating>{{ 'PNC_SEARCH.CRITERIA.SECTOR' | translate }}</ion-label>
                                 <ion-select interface="popover" [compareWith]="compareFn" formControlName="sectorControl" [disabled]="areFiltersDisabled()" [placeholder]="('PNC_SEARCH.DEFAULT_DATA.ALL_M' | translate )">
                                     <ion-option *ngIf="!sectorList || sectorList.length != 1" [value]="valueAll">{{ 'PNC_SEARCH.DEFAULT_DATA.ALL_M' | translate }}</ion-option>
-                                    <ion-option *ngFor="let sectorKey of sectorList" [value]="sectorKey">{{sectorKey}}</ion-option>
+                                    <ion-option *ngFor="let sector of sectorList" [value]="sector.code">{{sector.code}}</ion-option>
                                 </ion-select>
                             </ion-item>
                         </ion-col>
@@ -65,7 +68,7 @@
                                 <ion-label floating>{{ 'PNC_SEARCH.CRITERIA.GINQ' | translate }}</ion-label>
                                 <ion-select interface="popover" [compareWith]="compareFn" formControlName="ginqControl" [disabled]="areFiltersDisabled()" [placeholder]="('PNC_SEARCH.DEFAULT_DATA.ALL_M' | translate )">
                                     <ion-option *ngIf="!ginqList || ginqList.length != 1" [value]="valueAll">{{ 'PNC_SEARCH.DEFAULT_DATA.ALL_M' | translate }}</ion-option>
-                                    <ion-option *ngFor="let ginqKey of ginqList" [value]="ginqKey">{{ginqKey}}</ion-option>
+                                    <ion-option *ngFor="let ginq of ginqList" [value]="ginq.code">{{ginq.code}}</ion-option>
                                 </ion-select>
                             </ion-item>
                         </ion-col>

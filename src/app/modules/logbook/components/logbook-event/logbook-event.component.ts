@@ -90,9 +90,8 @@ export class LogbookEventComponent implements OnInit {
     * Initialise la liste déroulante des catégories depuis les paramètres
     */
     initForm() {
-        if (this.sessionService.getActiveUser().parameters !== undefined) {
-            const params: Map<string, any> = this.sessionService.getActiveUser().parameters.params;
-            this.logbookEventCategories = params['logbookEventCategories'];
+        if (this.sessionService.getActiveUser().appInitData !== undefined) {
+            this.logbookEventCategories = this.sessionService.getActiveUser().appInitData.logbookEventCategories;
         }
     }
 
