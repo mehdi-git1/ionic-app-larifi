@@ -102,6 +102,18 @@ export class LogbookEventComponent implements OnInit {
     }
 
     /**
+     *  deux valeurs et renvois true si elles sont égales
+     * @param e1 premiere valeur à comparér
+     * @param e2 Deuxieme valeur à comparér
+     */
+    compareFn(e1: string, e2: string): boolean {
+        if (e1 === e2) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
      * Envoie un event avec l'évènement à editer, à la page parente.
      */
     editLogbookEvent() {
