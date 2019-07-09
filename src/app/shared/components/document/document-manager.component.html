@@ -1,7 +1,7 @@
 <span class="attachments">
     <span class="files">
         <span class="file-wrapper" *ngFor="let document of documents" >
-            <span class="file" >
+            <span class="file" (click)="openDocument(document)">
                 <span class="icon-and-filename">
                     <img class="file-icon" width="25" height="25" [src]="getFileTypeIcon(document)"/>
                     <span class="filename">{{ document.fileName }}</span>

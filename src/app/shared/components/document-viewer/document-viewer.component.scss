@@ -1,0 +1,88 @@
+.document-viewer-popover .popover-content {
+    display: flex;
+    position: absolute;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(167, 167, 167, 0);
+    justify-content: center;
+}
+
+.document-viewer-popover .popover-viewport {
+    width: 100%;
+    height: 100%;
+}
+
+document-viewer {
+
+    .viewer {
+        display: flex;
+        visibility: hidden;
+        background-color: rgba(0, 0, 0, 0.80);
+        z-index: 1100;
+        width: 100%;
+        height: 100%;
+        max-width: 100%;
+        max-height: 100%;   
+    }
+
+    cursor: pointer;
+    span {
+        width: 100%;
+        height: 100%;
+    }
+    edossier-spinner {
+        opacity: 1;
+        filter: alpha(opacity=100);
+    }
+    justify-content: center;
+    @media (max-width: 1100px) {
+        max-width: 80%;
+    }
+
+    @media (max-width: 800px) {
+        max-width: 90%;
+    }
+
+    .invisible {
+        display: none;
+        visibility: hidden;
+    }
+
+    .visible {
+        display: flex;
+        visibility: visible
+    }
+
+    .close-viewer-button {
+        z-index: 3000;
+        font-size: 30px;
+        color: white;
+        position: absolute;
+        right: 100px;
+        top: 15px;
+        width: auto;
+        height: auto;
+    }
+
+    .document {
+        display: block;
+        max-width: 100%;
+        max-height: 100%;
+        justify-content: center;
+        .document-image {
+            max-height: 100%;
+            max-width: 100%;
+            display: block;
+            margin: auto;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            margin: auto;
+        }
+
+    }
+}
