@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 
-import { ParametersModel } from '../../models/parameters.model';
 import { AppContextModel } from '../../models/app-context.model';
 import { AuthenticatedUserModel } from '../../models/authenticated-user.model';
 import { PncModel } from '../../models/pnc.model';
@@ -10,7 +9,6 @@ export class SessionService {
     authenticatedUser: AuthenticatedUserModel;
     impersonatedUser: AuthenticatedUserModel = null;
     appContext: AppContextModel = new AppContextModel();
-    parameters: ParametersModel;
     // Dernier pnc "visité" (le dernier eDossier qu'on a visité)
     visitedPnc: PncModel;
 

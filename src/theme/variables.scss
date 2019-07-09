@@ -115,10 +115,20 @@ $radio-md-color-on:$radio-ios-color-on;
     src: url('/assets/fonts/excellence/Regular/ExcellenceInMotionScreen-Regular.woff') format('woff');
 }
 
+@font-face {
+    font-family: 'ExcellenceBold';
+    src: url('/assets/fonts/excellence/Bold/ExcellenceInMotionScreen-Bold.woff') format('woff');
+}
+
 // Open Sans
 @font-face {
     font-family: 'OpenSans';
     src: url('/assets/fonts/open-sans/Regular/OpenSans-Regular.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'OpenSansBold';
+    src: url('/assets/fonts/open-sans/Bold/OpenSans-Bold.woff') format('woff');
 }
 
 h3 {

@@ -14,13 +14,9 @@ career-objective {
             width: 100%;
             padding-left: 5px;
             display: flex;
+            align-items: center;
             height: 40px;
             font-size: 15px;
-
-            span {
-                display: flex;
-                align-items: center;
-            }
 
             .value {
                 font-weight: normal;
@@ -33,15 +29,19 @@ career-objective {
 
             .career-objective-label {
                 flex: 1;
-                text-overflow: ellipsis;
-                white-space: nowrap;
-                overflow: hidden;
+                padding-right: 10px;
+            }
+
+            .career-objective-status {
+                display: flex;
+                align-items: center;
             }
 
             .career-objective-icone {
                 min-width: 110px;
                 display: flex;
                 justify-content: flex-end;
+                align-items: center;
                 padding: 3px 10px;
 
                 span:not(:last-child) {

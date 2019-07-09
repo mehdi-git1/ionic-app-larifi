@@ -90,9 +90,8 @@ export class LogbookEventComponent implements OnInit {
     * Initialise la liste déroulante des catégories depuis les paramètres
     */
     initForm() {
-        if (this.sessionService.getActiveUser().parameters !== undefined) {
-            const params: Map<string, any> = this.sessionService.getActiveUser().parameters.params;
-            this.logbookEventCategories = params['logbookEventCategories'];
+        if (this.sessionService.getActiveUser().appInitData !== undefined) {
+            this.logbookEventCategories = this.sessionService.getActiveUser().appInitData.logbookEventCategories;
         }
     }
 
@@ -188,6 +187,14 @@ export class LogbookEventComponent implements OnInit {
     formHasBeenModified() {
         return this.logbookEvent.eventDate != this.originLogbookEvent.eventDate
             || Utils.getHashCode(this.originLogbookEvent) !== Utils.getHashCode(this.logbookEvent);
+    }
+
+    /**
+     * Vérifie que le chargement est terminé
+     * @return true si c'est le cas, false sinon
+     */
+    loadingIsOver(): boolean {
+        return this.logbookEvent !== undefined && this.logbookEvent !== null;
     }
 
     /**

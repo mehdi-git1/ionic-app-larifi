@@ -160,7 +160,7 @@ export class ProfessionalInterviewDetailsPage {
    * Prépare un formulaire de création pour un nouveau bilan professionnel
    */
   createNewProfessionalInterview() {
-    this.professionalInterview = _.cloneDeep(this.sessionService.getActiveUser().parameters.params['blankProfessionnalInterview']);
+    this.professionalInterview = _.cloneDeep(this.sessionService.getActiveUser().appInitData.blankProfessionalInterview);
     this.professionalInterview.type = ProfessionalInterviewTypeEnum.BILAN;
     this.professionalInterview.professionalInterviewThemes.sort((a, b) => {
       return a.themeOrder > b.themeOrder ? 1 : -1;

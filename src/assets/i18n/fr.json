@@ -90,6 +90,10 @@
             "MESSAGE": "Veuillez utiliser les navigateurs Firefox ou Google Chrome (à télécharger et à installer sur votre PC)",
             "MENTION": "Pour tout besoin d'accompagnement, veuillez contactez le 1324"
         }
+        ,
+        "DOCUMENT": {
+            "PREVIEW_NOT_AVAILABLE":"L'aperçu n'est pas disponible pour ce fichier"
+        }
     },
     "AUTHENT": {
         "AUTHENTICATION": "Authentification",
@@ -770,6 +774,9 @@
         "IMPERSONATE_USER": {
             "FIRST_NAV_TAB_IS_MANDATORY": "Vous devez vous placer sur votre page d'accueil pour pouvoir utiliser l'impersonnification",
             "LABEL": "Impersonnifier un utilisateur"
+        },
+        "LEGAL_TERMS": {
+            "LABEL": "Mentions d'information RGPD"
         }
     },
     "IMPERSONATE": {
