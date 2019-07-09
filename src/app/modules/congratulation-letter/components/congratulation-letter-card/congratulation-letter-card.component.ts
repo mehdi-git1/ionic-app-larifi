@@ -1,10 +1,12 @@
 import { CongratulationLetterFlightModel } from './../../../../core/models/congratulation-letter-flight.model';
 import { CongratulationLetterService } from './../../../../core/services/congratulation-letter/congratulation-letter.service';
-import { NavController } from 'ionic-angular';
+import { NavController, PopoverController } from 'ionic-angular';
 import { CongratulationLetterDetailPage } from './../../pages/congratulation-letter-detail/congratulation-letter-detail.page';
 import { CongratulationLetterModeEnum } from './../../../../core/enums/congratulation-letter/congratulation-letter-mode.enum';
 import { Component, Input } from '@angular/core';
 import { CongratulationLetterModel } from '../../../../core/models/congratulation-letter.model';
+import { SecurityService } from './../../../../core/services/security/security.service';
+import { CongratulationLetterActionMenuComponent } from './../../components/congratulation-letter-action-menu/congratulation-letter-action-menu.component';
 
 @Component({
   selector: 'congratulation-letter-card',
@@ -21,6 +23,8 @@ export class CongratulationLetterCardComponent {
   CongratulationLetterModeEnum = CongratulationLetterModeEnum;
 
   constructor(private navCtrl: NavController,
+    private securityService: SecurityService,
+    public popoverCtrl: PopoverController,
     private congratulationLetterService: CongratulationLetterService
   ) {
   }
@@ -49,5 +53,24 @@ export class CongratulationLetterCardComponent {
    */
   getFormatedFlightDate(flight: CongratulationLetterFlightModel): string {
     return this.congratulationLetterService.getFormatedFlightDate(flight);
+  }
+
+  /**
+  * Vérifie si le PNC est manager
+  * @return vrai si le PNC est manager, faux sinon
+  */
+  isManager(): boolean {
+    return this.securityService.isManager();
+  }
+
+  /**
+   * Ouvre la popover de description d'un item
+   * @param myEvent  event
+   * @param eObservationItem item
+   */
+  openActionsMenu(myEvent: Event, congratulationLetter: CongratulationLetterModel) {
+    myEvent.stopPropagation();
+    const popover = this.popoverCtrl.create(CongratulationLetterActionMenuComponent, { congratulationLetter: congratulationLetter }, { cssClass: 'action-menu-popover' });
+    popover.present({ ev: myEvent });
   }
 }

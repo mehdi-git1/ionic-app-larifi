@@ -57,6 +57,17 @@ export class CongratulationLetterService extends BaseService {
     return this.execFunctionService('getCongratulationLetter', id);
   }
 
+  /**
+ * Supprime une lettre de félicitation à partir de son id
+ * @param id l'id de la lettre
+ * @return le lettre supprimée
+ */
+  delete(id: number): Promise<CongratulationLetterModel> {
+    //return this.execFunctionService('delete', id);
+    return new Promise(resolve => {
+      resolve();
+    });
+  }
 
   /**
    * Retourne la date du vol, formatée pour l'affichage

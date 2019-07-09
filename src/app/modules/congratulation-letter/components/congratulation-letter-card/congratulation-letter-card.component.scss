@@ -24,6 +24,11 @@ congratulation-letter-card {
         flex: 2;
     }
 
+    .actions {
+        width: 30px;
+        text-align: center;
+    }
+
     button.detail-button {
         color: color($colors, primary);
         width: 30px;

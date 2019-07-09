@@ -89,10 +89,9 @@
             "TITLE": "eDossierPNC n'est pas compatible avec ce navigateur",
             "MESSAGE": "Veuillez utiliser les navigateurs Firefox ou Google Chrome (à télécharger et à installer sur votre PC)",
             "MENTION": "Pour tout besoin d'accompagnement, veuillez contactez le 1324"
-        }
-        ,
+        },
         "DOCUMENT": {
-            "PREVIEW_NOT_AVAILABLE":"L'aperçu n'est pas disponible pour ce fichier"
+            "PREVIEW_NOT_AVAILABLE": "L'aperçu n'est pas disponible pour ce fichier"
         }
     },
     "AUTHENT": {
@@ -609,7 +608,13 @@
             "INDIVIDUAL": "Individuelle"
         },
         "NO_RECEIVED_LETTERS": "Pas de félicitations reçues",
-        "NO_WRITTEN_LETTERS": "Pas de félicitations rédigées"
+        "NO_WRITTEN_LETTERS": "Pas de félicitations rédigées",
+        "ACTION_MENU": {
+            "DELETE_CONGRATULATION_LETTER": "Supprimer"
+        },
+        "TOAST": {
+            "DELETE_SUCCESS": "Lettre de félicitations supprimée"
+        }
     },
     "CONGRATULATION_LETTER_DETAIL": {
         "HEADER": {
