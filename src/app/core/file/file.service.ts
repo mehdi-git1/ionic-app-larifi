@@ -43,6 +43,12 @@ export class FileService {
         }
     }
 
+    /**
+     * Télécharge / ouvre un fichier 
+     * @param mimeType type du fichier
+     * @param fileName  nom du fichier 
+     * @param base64File fichier en base64
+     */
     downloadFile(mimeType: string, fileName: string, base64File: string) {
         if (this.deviceService.isBrowser()) {
             const blob = new Blob([Utils.base64ToArrayBuffer(base64File)], { type: mimeType });
@@ -81,8 +87,9 @@ export class FileService {
     }
 
     /**
-     * Transforme un fichier en base64 en url de type blob
+     * Transforme un fichier base64 en url de type blob
      * @param base64File fichier en base64
+     * @return url
      */
     base64FiletoUrl(base64File: string, mimeType: string): string {
         let previewSrc;

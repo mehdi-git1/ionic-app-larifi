@@ -24,13 +24,13 @@
             <param name="ios-package" value="CDVCamera" />
         </feature>
         <config-file parent="NSCameraUsageDescription" platform="ios" target="*-Info.plist">
-            <string>You can take photos</string>
+            <string>Prendre des photos afin de les utiliser en tant que pièces jointes</string>
         </config-file>
         <config-file parent="NSPhotoLibraryAddUsageDescription" platform="ios" target="*-Info.plist">
-            <string>You can take photos</string>
+            <string>Ajouter des images/photos sur l'appareil</string>
         </config-file>
         <config-file parent="NSPhotoLibraryUsageDescription" platform="ios" target="*-Info.plist">
-            <string>You can take photos</string>
+            <string>Lire des images/photos depuis l'appareil</string>
         </config-file>
         <preference name="CordovaWebViewEngine" value="CDVWKWebViewEngine" />
         <preference name="StatusBarStyle" value="#FFFFFF" />

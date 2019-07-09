@@ -50,6 +50,10 @@ export class DocumentViewerComponent {
     }
   }
 
+  /**
+   * Affiche le document
+   * @param document le document à afficher
+   */
   displayDocument(document: DocumentModel) {
     if (document.type === DocumentTypeEnum.IMAGE) {
       this.base64FileContentAndType = this.domSanitizer.bypassSecurityTrustResourceUrl('data:' + document.mimeType + ';base64,' + document.content);
@@ -61,6 +65,10 @@ export class DocumentViewerComponent {
     }
   }
 
+  /**
+   * Vérifie que le document est de type image
+   * @return true si le document est de type image, false sinon
+   */
   isImageType() {
     return this.type === DocumentTypeEnum.IMAGE;
   }
@@ -89,6 +97,10 @@ export class DocumentViewerComponent {
     this.viewController.dismiss();
   }
 
+  /**
+   * Vérifie que le contenu de la visionneuse est chargé
+   * @return true si le contenu est chargé, false sinon
+   */
   loadingIsOver(): boolean {
       return this.base64FileContentAndType && this.base64FileContentAndType !== undefined;
   }

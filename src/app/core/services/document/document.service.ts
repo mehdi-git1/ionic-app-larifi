@@ -33,7 +33,7 @@ export class DocumentService {
      * Récupère le type de fichier à partir du fichier
      * @param mimeType Mime Type to check
      */
-    public getFileTypeFromFile(mimeType: string): DocumentTypeEnum {
+    public getDocumentTypeFromMimeType(mimeType: string): DocumentTypeEnum {
         if (mimeType && mimeType.startsWith(imageType)) {
         return DocumentTypeEnum.IMAGE;
         }

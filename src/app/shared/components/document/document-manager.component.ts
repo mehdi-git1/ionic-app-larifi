@@ -39,7 +39,7 @@ export class DocumentManagerComponent {
           content = myReader.result;
           const base64Index = content.indexOf(BASE_64);
           const base64Content = content.substring(base64Index + BASE_64.length, content.length);
-          const type = this.documentService.getFileTypeFromFile(file.type);
+          const type = this.documentService.getDocumentTypeFromMimeType(file.type);
           const newDocument = new DocumentModel(file.name, type, file.type, base64Content);
           this.documents.push(newDocument);
       };

@@ -39,7 +39,7 @@ export class PdfService {
             });
     }
 
-        /**
+    /**
     * Ouvre le fichier PDF dans un lecteur PDF avec l'url concernée
     * @param base64FileContent  : contenu du fichier en  Base 64
     */
