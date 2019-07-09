@@ -4,13 +4,13 @@ import { FileService } from './file.service';
 const deviceServiceMock = jasmine.createSpyObj('deviceServiceMock', ['isBrowser']);
 const pdfServiceMock = jasmine.createSpyObj('pdfServiceMock', ['displayPDF']);
 const htmlServiceMock = jasmine.createSpyObj('htmlServiceMock', ['displayHTML']);
-const fileTransferMock = jasmine.createSpyObj('fileTransferMock', []);
-const toastServiceMock = jasmine.createSpyObj('toastServiceMock', []);
-const fileMock = jasmine.createSpyObj('fileMock', []);
-const fileOpenerMock = jasmine.createSpyObj('fileOpenerMock', []);
-const inAppBrowserMock = jasmine.createSpyObj('inAppBrowserMock', []);
-const httpClientMock = jasmine.createSpyObj('httpClientMock', []);
-const translateServiceMock = jasmine.createSpyObj('translateServiceMock', []);
+const fileTransferMock = jasmine.createSpyObj('fileTransferMock', ['']);
+const toastServiceMock = jasmine.createSpyObj('toastServiceMock', ['']);
+const fileMock = jasmine.createSpyObj('fileMock', ['']);
+const fileOpenerMock = jasmine.createSpyObj('fileOpenerMock', ['']);
+const inAppBrowserMock = jasmine.createSpyObj('inAppBrowserMock', ['']);
+const httpClientMock = jasmine.createSpyObj('httpClientMock', ['']);
+const translateServiceMock = jasmine.createSpyObj('translateServiceMock', ['']);
 
 describe('file Service', () => {
 
