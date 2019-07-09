@@ -13,6 +13,7 @@ import { ToastService } from '../services/toast/toast.service';
 import { DomSanitizer } from '../../../../node_modules/@angular/platform-browser';
 import { InAppBrowser } from '../../../../node_modules/@ionic-native/in-app-browser';
 import { HttpClient } from '../../../../node_modules/@angular/common/http';
+import { TranslateService } from '@ngx-translate/core';
 
 declare var window: any;
 @Injectable()
@@ -27,7 +28,8 @@ export class FileService {
         private file: File,
         private fileOpener: FileOpener,
         private inAppBrowser: InAppBrowser,
-        private httpClient: HttpClient) {
+        private httpClient: HttpClient,
+        private translateService: TranslateService) {
     }
 
     /**
@@ -44,15 +46,14 @@ export class FileService {
     }
 
     /**
-     * Télécharge / ouvre un fichier 
+     * Télécharge / ouvre un fichier
      * @param mimeType type du fichier
-     * @param fileName  nom du fichier 
+     * @param fileName  nom du fichier
      * @param base64File fichier en base64
      */
     downloadFile(mimeType: string, fileName: string, base64File: string) {
         if (this.deviceService.isBrowser()) {
             const blob = new Blob([Utils.base64ToArrayBuffer(base64File)], { type: mimeType });
-            const url = URL.createObjectURL(blob);
             saveAs(blob, fileName);
         } else {
             const rep = this.file.dataDirectory;
@@ -73,13 +74,17 @@ export class FileService {
                                         mimeType
                                         ).then((res) => {
                                         }).catch(err => {
-                                            this.toastService.error('Erreur lors de l\'ouverture du fichier : ' + JSON.stringify(err));
+                                            this.errorOpeningFile(err);
                                         }
                                     );
                                 }
-                            );
+                            ).catch(err => {
+                                this.errorOpeningFile(err);
+                            });
                         });
                     });
+                }).catch(err => {
+                    this.errorOpeningFile(err);
                 });
         }
     }
@@ -99,9 +104,16 @@ export class FileService {
                 previewSrc = null;
             }
         } catch (error) {
-        console.error('createObjectURL error:' + error);
+            this.errorOpeningFile(error);
         }
         return previewSrc;
+    }
+
+    /**
+     * Affiche le message d'erreur lors de l'ouverture du fichier
+     */
+    private errorOpeningFile(error: any) {
+        this.toastService.error(this.translateService.instant('GLOBAL.DOCUMENT.OPEN_FILE_ERROR') + JSON.stringify(error));
     }
 }
 

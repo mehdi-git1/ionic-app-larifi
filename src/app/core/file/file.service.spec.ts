@@ -10,6 +10,8 @@ const fileMock = jasmine.createSpyObj('fileMock', []);
 const fileOpenerMock = jasmine.createSpyObj('fileOpenerMock', []);
 const inAppBrowserMock = jasmine.createSpyObj('inAppBrowserMock', []);
 const httpClientMock = jasmine.createSpyObj('httpClientMock', []);
+const translateServiceMock = jasmine.createSpyObj('translateServiceMock', []);
+
 describe('file Service', () => {
 
     const fileService = new FileService(pdfServiceMock, htmlServiceMock, deviceServiceMock, fileTransferMock,
@@ -17,7 +19,8 @@ describe('file Service', () => {
          fileMock,
          fileOpenerMock,
          inAppBrowserMock,
-         httpClientMock);
+         httpClientMock, 
+         translateServiceMock);
 
     describe('displayFile', () => {
 

@@ -43,7 +43,7 @@ export class PdfService {
     * Ouvre le fichier PDF dans un lecteur PDF avec l'url concernée
     * @param base64FileContent  : contenu du fichier en  Base 64
     */
-   displayPDFFromBase64(base64FileContent: string, fileName: string) {
+    displayPDFFromBase64(base64FileContent: string, fileName: string) {
         const rep = this.file.dataDirectory;
         this.file.writeExistingFile(rep + '/edossier', fileName, base64FileContent).then(
             writingFileReturn => {
