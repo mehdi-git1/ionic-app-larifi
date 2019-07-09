@@ -38,17 +38,15 @@ pnc-card {
                     display: flex;
                     flex-direction: column;
                     align-items: center;
-                    justify-content: space-around;
+                    justify-content: center;
 
                     span {
-                        display: block;
                         text-overflow: ellipsis;
                         white-space: nowrap;
                         overflow: hidden;
                     }
 
                     .speciality {
-                        flex: 1;
                         font-size: 1.5em;
                     }
 
@@ -104,14 +102,45 @@ pnc-card {
             }
 
             .sub-flag-panel {
-                word-spacing: 0.4em;
+                display: flex;
+                justify-content: flex-end;
+                align-items: center;
+                padding-top: 10px;
+
+                & > span {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    margin-left: 10px;
+                    border-radius: 100%;
+                    height: 35px;
+                    width: 35px;
+                    border: 3px solid;
+                }
 
                 .prioritized {
-                    color: color($colors-secondary, red80);
+                    color: color($colors, secondary);
+                    border-color: color($colors, secondary);
                 }
 
                 .at-least-one-priority {
-                    color: color($colors-secondary, green70);
+                    color: color($colors, primary);
+                    border-color: color($colors, primary);
+                }
+            }
+
+            .particularity {
+
+                span {
+                    color: color($colors, grey50);
+                    margin-top: 10px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    border-radius: 100%;
+                    border: 3px solid color($colors, grey50);
+                    height: 35px;
+                    width: 35px;
                 }
             }
         }

@@ -178,12 +178,11 @@ export class LogbookPage {
     }
 
     /**
-     * Vérifie si il y a des évènements liés
-     * TODO : A implémenter une fois que la fonctionnalité des évènements liés est implémentée
-     * @return true si il y a des évènements liés, false sinon
+     * Vérifie si il y a des pièces jointes
+     * @return true si il y a des pièces jointes, false sinon
      */
-    logbookEventHasChilds(): boolean {
-        return false;
+    logbookEventHasAttachments(logbookEvent: LogbookEventModel): boolean {
+        return logbookEvent.attachmentFiles && logbookEvent.attachmentFiles.length > 0;
     }
 
     /**

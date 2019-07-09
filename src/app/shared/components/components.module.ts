@@ -1,3 +1,4 @@
+import { DocumentManagerComponent } from './document/document-manager.component';
 import { TabHeaderComponent } from './tab-header/tab-header.component';
 import { PncHeaderComponent } from './pnc-header/pnc-header.component';
 import { PdfButtonComponent } from './pdf-button/pdf-button.component';
@@ -31,7 +32,7 @@ import { CheckboxAndLabelComponent } from './checkbox-and-label/checkbox-and-lab
 import { UserMessageAlertComponent } from './user-message-alert/user-message-alert.component';
 import { AppVersionAlertComponent } from './app-version-alert/app-version-alert.component';
 import { PncEdossierHeaderComponent } from './pnc-edossier-header/pnc-edossier-header.component';
-
+import { DocumentViewerComponent } from './document-viewer/document-viewer.component';
 
 @NgModule({
   imports: [
@@ -64,7 +65,9 @@ import { PncEdossierHeaderComponent } from './pnc-edossier-header/pnc-edossier-h
     CheckboxAndLabelComponent,
     UserMessageAlertComponent,
     PdfButtonComponent,
-    AppVersionAlertComponent
+    AppVersionAlertComponent,
+    DocumentManagerComponent,
+    DocumentViewerComponent
   ],
   exports: [
     OfflineIndicatorComponent,
@@ -90,14 +93,17 @@ import { PncEdossierHeaderComponent } from './pnc-edossier-header/pnc-edossier-h
     CheckboxAndLabelComponent,
     UserMessageAlertComponent,
     PdfButtonComponent,
-    AppVersionAlertComponent
+    AppVersionAlertComponent,
+    DocumentManagerComponent,
+    DocumentViewerComponent
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA
   ],
   entryComponents: [
     PinPadModalComponent,
-    SecretQuestionModalComponent
+    SecretQuestionModalComponent,
+    DocumentViewerComponent
   ]
 })
 export class ComponentsModule { }

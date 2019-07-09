@@ -64,13 +64,13 @@
                 </div>
                 <div class="sub-flag-panel">
                     <!-- Prioritaire -->
-                    <ion-icon class="prioritized" *ngIf="pnc.prioritized" name="flag" ios="md-flag"></ion-icon>
+                    <span class="edospnc-flag prioritized" *ngIf="pnc.prioritized"></span>
                     <!-- Si au moins une Priorité en cours -->
-                    <ion-icon class="at-least-one-priority" *ngIf="pnc.hasAtLeastOnePriorityInProgress" name="flag" ios="md-flag"></ion-icon>
+                    <span class="edospnc-flag at-least-one-priority" *ngIf="pnc.hasAtLeastOnePriorityInProgress"></span>
                 </div>
-                <div>
+                <div class="particularity">
                     <!-- Particularite -->
-                    <span class="value">{{crewMember?.particularity }}</span>
+                    <span class="value" *ngIf="crewMember?.particularity">{{crewMember?.particularity }}</span>
                 </div>
             </div>
         </div>

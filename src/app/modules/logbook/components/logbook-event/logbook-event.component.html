@@ -37,6 +37,9 @@
                 <ion-textarea class="big-textarea" [(ngModel)]="logbookEvent.content" autocorrect="on" #descriptionTextArea></ion-textarea>
             </ion-item>
         </ion-row>
+        <ion-row>
+            <document-manager [documents]="logbookEvent.attachmentFiles" [editMode]="true"></document-manager>
+        </ion-row>
         <ion-row class="notification-row">
             <ion-col class="persons-to-notify">
                 <ion-label>{{ 'LOGBOOK.EDIT.PERSONS_TO_NOTIFY' | translate }} :</ion-label>
@@ -60,11 +63,11 @@
         <button ion-button color="primary" outline (click)="cancelLogbookEventCreationOrEdition()">
             {{ 'LOGBOOK.BUTTONS.CANCEL' | translate }}
         </button>
-        <!-- Bouton enregistrer ou mettre à jour-->
+        <!-- Bouton enregistrer -->
         <button ion-button *ngIf="logbookEvent.mode === LogbookEventModeEnum.CREATION || logbookEvent.mode === LogbookEventModeEnum.LINKED_EVENT_CREATION" color="primary" (click)="confirmSaveLogbookEvent()" [disabled]="!canBeSaved()">
             {{ 'LOGBOOK.BUTTONS.SAVE' | translate }}
         </button>
-        <!-- Bouton enregistrer ou mettre à jour-->
+        <!-- Bouton mettre à jour-->
         <button ion-button *ngIf="logbookEvent.mode === LogbookEventModeEnum.EDITION" color="primary" (click)="confirmUpdateLogbookEvent()" [disabled]="!canBeSaved()">
             {{ 'LOGBOOK.BUTTONS.UPDATE' | translate }}
         </button>
@@ -78,78 +81,90 @@
         <div class="logbook-info-date">
             <span class="value">{{ 'LOGBOOK.DETAILS.EVENT_DATE' | translate }} {{ logbookEvent.eventDate | date:'dd/MM/yyyy'}}</span>
         </div>
-        <div class="draw-ligne"></div>
-    </div>
-    <ion-card class="selectable logbook-event-card" [ngClass]="{'clickable':disabled,'disabled':disabled}">
 
-        <ion-card-content no-padding class="pnc-info-panel">
-            <div class="flex">
-                <pnc-photo [pnc]="logbookEvent.redactor" [size]="50"></pnc-photo>
-                <div class="logbook-info-container">
-                    <div class="logbook-header">
-                        <div class="left-logbook-info">
-                            <div class="title">
-                                <span class="value">{{ logbookEvent.title }}</span>
+    </div>
+    <ng-template #pageBlock>
+
+        <div class="flex">
+            <div class="draw-ligne"></div>
+            <div class="logbook-info-date">
+                <span class="value">{{ 'LOGBOOK.DETAILS.EVENT_DATE' | translate }} {{ logbookEvent.eventDate | date:'dd/MM/yyyy'}}</span>
+            </div>
+            <div class="draw-ligne"></div>
+        </div>
+        <ion-card class="selectable logbook-event-card" [ngClass]="{'clickable':disabled,'disabled':disabled}">
+
+            <ion-card-content no-padding class="pnc-info-panel">
+                <div class="flex">
+                    <pnc-photo [pnc]="logbookEvent.redactor" [size]="50"></pnc-photo>
+                    <div class="logbook-info-container">
+                        <div class="logbook-header">
+                            <div class="left-logbook-info">
+                                <div class="title">
+                                    <span class="value">{{ logbookEvent.title }}</span>
+                                </div>
+                                <div class="redactor">
+                                    <span>{{ logbookEvent?.redactor.lastName }} {{ logbookEvent?.redactor.firstName | titlecase }}</span>
+                                </div>
                             </div>
-                            <div class="redactor">
-                                <span>{{ logbookEvent?.redactor.lastName }} {{ logbookEvent?.redactor.firstName | titlecase }}</span>
-                            </div>
-                        </div>
-                        <div class="right-logbook-info">
-                            <div class="icons">
-                                <div>
-                                    <ion-icon class="edospnc-important" color="secondary" *ngIf="logbookEvent.important"></ion-icon>
+                            <div class="right-logbook-info">
+                                <div class="icons">
+                                    <div>
+                                        <ion-icon class="edospnc-important" color="secondary" *ngIf="logbookEvent.important"></ion-icon>
+                                    </div>
+                                    <div>
+                                        <ion-icon class="edospnc-pnc" color="primary" *ngIf="logbookEvent.pncInitiator"></ion-icon>
+                                    </div>
+                                    <div class="category-label">
+                                        <span class="value">{{ logbookEvent.category.label }}</span>
+                                    </div>
                                 </div>
                                 <div>
-                                    <ion-icon class="edospnc-pnc" color="primary" *ngIf="logbookEvent.pncInitiator"></ion-icon>
+                                    <span class="creation-date-info">{{ 'LOGBOOK.DETAILS.CREATED_THE' | translate }} {{ logbookEvent.creationDate | date:'dd/MM/yyyy'}}</span>
                                 </div>
-                                <div class="category-label">
-                                    <span class="value">{{ logbookEvent.category.label }}</span>
-                                </div>
-                            </div>
-                            <div>
-                                <span class="creation-date-info">{{ 'LOGBOOK.DETAILS.CREATED_THE' | translate }} {{ logbookEvent.creationDate | date:'dd/MM/yyyy'}}</span>
                             </div>
                         </div>
-                    </div>
-                    <div class="logbook-info-content">
-                        <p>{{ logbookEvent.content }}</p>
-                    </div>
-                    <div class="logbook-notified-pnc" *ngIf="isManager()">
+                        <div class="logbook-info-content">
+                            <p>{{ logbookEvent.content }}</p>
+                        </div>
                         <div>
-                            <ion-label>{{ 'LOGBOOK.DETAILS.NOTIFIED_PNCS' | translate }} :</ion-label>
+                            <document-manager [documents]="logbookEvent.attachmentFiles" [editMode]="false"></document-manager>
                         </div>
-                        <div [ngClass]="{'no-value' : !logbookEvent.notifiedPncs || logbookEvent.notifiedPncs.length === 0 }">
-                            <span *ngFor="let pnc of logbookEvent.notifiedPncs; last as l">{{pnc.lastName}} {{pnc.firstName | titlecase}}
-                                <span *ngIf="pnc.isInstructor">({{ 'PNC_IDENTITY.REFERENT_INSTRUCTOR' | translate }})</span>
-                                <span *ngIf="pnc.isRds">({{ 'PNC_IDENTITY.RDS' | translate }})</span>
-                                <span *ngIf="!pnc.isInstructor && !pnc.isRds">({{pnc.speciality}}
-                                    <span *ngIf="pnc.currentSpeciality && pnc.speciality !== pnc.currentSpeciality">/{{pnc.currentSpeciality}}</span>
-                                </span>)
-                                <span *ngIf="!l">;</span>
-                            </span>
+                        <div class="logbook-notified-pnc" *ngIf="isManager()">
+                            <div>
+                                <ion-label>{{ 'LOGBOOK.DETAILS.NOTIFIED_PNCS' | translate }} :</ion-label>
+                            </div>
+                            <div [ngClass]="{'no-value' : !logbookEvent.notifiedPncs || logbookEvent.notifiedPncs.length === 0 }">
+                                <span *ngFor="let pnc of logbookEvent.notifiedPncs; last as l">{{pnc.lastName}} {{pnc.firstName | titlecase}}
+                                    <span *ngIf="pnc.isInstructor">({{ 'PNC_IDENTITY.REFERENT_INSTRUCTOR' | translate }})</span>
+                                    <span *ngIf="pnc.isRds">({{ 'PNC_IDENTITY.RDS' | translate }})</span>
+                                    <span *ngIf="!pnc.isInstructor && !pnc.isRds">({{pnc.speciality}}
+                                        <span *ngIf="pnc.currentSpeciality && pnc.speciality !== pnc.currentSpeciality">/{{pnc.currentSpeciality}}</span>
+                                    </span>)
+                                    <span *ngIf="!l">;</span>
+                                </span>
+                            </div>
+                            <div *ngIf="logbookEvent.notifiedRecipients">
+                                <span *ngFor="let email of logbookEvent.notifiedRecipients; last as l">{{ email.emailAddress }}
+                                    <span *ngIf="!l">;</span>
+                                </span>
+                            </div>
                         </div>
-                        <div *ngIf="logbookEvent.notifiedRecipients">
-                            <span *ngFor="let email of logbookEvent.notifiedRecipients; last as l">{{ email.emailAddress }}
-                                <span *ngIf="!l">;</span>
-                            </span>
+                        <div class="information-message" *ngIf="logbookEvent.lastUpdateAuthor">{{ 'LOGBOOK.DETAILS.EDITED_BY' | translate:{lastName:logbookEvent.lastUpdateAuthor.lastName, firstName:logbookEvent.lastUpdateAuthor.firstName,
+                            date:getLastUpdateDate()} }}
                         </div>
-                    </div>
-                    <div class="information-message" *ngIf="logbookEvent.lastUpdateAuthor">{{ 'LOGBOOK.DETAILS.EDITED_BY' | translate:{lastName:logbookEvent.lastUpdateAuthor.lastName, firstName:logbookEvent.lastUpdateAuthor.firstName,
-                        date:getLastUpdateDate()} }}
-                    </div>
-                    <div class="logbook-button-bar button-bar-right button-bar" *ngIf="canEditEvent()">
-                        <!-- Bouton supprimer -->
-                        <button ion-button color="primary" (click)="deleteLogbookEvent()">
-                            {{ 'LOGBOOK.BUTTONS.DELETE' | translate }}
-                        </button>
-                        <!-- Bouton modifier -->
-                        <button ion-button color="primary" (click)="editLogbookEvent()">
-                            {{ 'LOGBOOK.BUTTONS.MODIFY' | translate }}
-                        </button>
+                        <div class="logbook-button-bar button-bar-right button-bar" *ngIf="canEditEvent()">
+                            <!-- Bouton supprimer -->
+                            <button ion-button color="primary" (click)="deleteLogbookEvent()">
+                                {{ 'LOGBOOK.BUTTONS.DELETE' | translate }}
+                            </button>
+                            <!-- Bouton modifier -->
+                            <button ion-button color="primary" (click)="editLogbookEvent()">
+                                {{ 'LOGBOOK.BUTTONS.MODIFY' | translate }}
+                            </button>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </ion-card-content>
-    </ion-card>
-</ng-template>
+            </ion-card-content>
+        </ion-card>
+    </ng-template>
