@@ -1,3 +1,5 @@
+import { CongratulationLetterFlightModel } from './../../../../core/models/congratulation-letter-flight.model';
+import { CongratulationLetterService } from './../../../../core/services/congratulation-letter/congratulation-letter.service';
 import { NavController } from 'ionic-angular';
 import { CongratulationLetterDetailPage } from './../../pages/congratulation-letter-detail/congratulation-letter-detail.page';
 import { CongratulationLetterModeEnum } from './../../../../core/enums/congratulation-letter/congratulation-letter-mode.enum';
@@ -18,8 +20,9 @@ export class CongratulationLetterCardComponent {
 
   CongratulationLetterModeEnum = CongratulationLetterModeEnum;
 
-  constructor(private navCtrl: NavController) {
-
+  constructor(private navCtrl: NavController,
+    private congratulationLetterService: CongratulationLetterService
+  ) {
   }
 
   /**
@@ -39,4 +42,12 @@ export class CongratulationLetterCardComponent {
     this.navCtrl.push(CongratulationLetterDetailPage, { matricule: this.matricule, congratulationLetterId: congratulationLetter.techId });
   }
 
+  /**
+   * Retourne la date du vol, formatée pour l'affichage
+   * @param flight le vol dont on souhaite avoir la date formatée
+   * @return la date formatée du vol
+   */
+  getFormatedFlightDate(flight: CongratulationLetterFlightModel): string {
+    return this.congratulationLetterService.getFormatedFlightDate(flight);
+  }
 }
