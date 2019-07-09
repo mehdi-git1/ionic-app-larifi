@@ -55,7 +55,7 @@ export class DocumentViewerComponent {
       this.base64FileContentAndType = this.domSanitizer.bypassSecurityTrustResourceUrl('data:' + document.mimeType + ';base64,' + document.content);
     } else if (document.type === DocumentTypeEnum.PDF) {
       this.viewController.dismiss();
-      this.fileService.displayFile(FileTypeEnum.PDF, this.base64FiletoUrl(document.content));
+      this.fileService.displayFile(FileTypeEnum.PDF, this.fileService.base64FiletoUrl(document.content, document.mimeType));
     } else {
       this.previewUnavailable();
     }
@@ -63,25 +63,6 @@ export class DocumentViewerComponent {
 
   isImageType() {
     return this.type === DocumentTypeEnum.IMAGE;
-  }
-
-  /**
-   * Transforme un fichier en base64 en url de type blob
-   * @param base64File fichier en base64
-   */
-  base64FiletoUrl(base64File: string): string {
-    let previewSrc;
-    try {
-      if (base64File) {
-        const file = new Blob([Utils.base64ToArrayBuffer(base64File)], { type: 'application/pdf' });
-        previewSrc = URL.createObjectURL(file);
-      } else {
-        previewSrc = null;
-      }
-    } catch (error) {
-      console.error('createObjectURL error:' + error);
-    }
-    return previewSrc;
   }
 
   /**

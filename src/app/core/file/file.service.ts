@@ -10,6 +10,9 @@ import { FileTransfer } from '@ionic-native/file-transfer';
 import { FileOpener } from '@ionic-native/file-opener';
 import { File } from '@ionic-native/file';
 import { ToastService } from '../services/toast/toast.service';
+import { DomSanitizer } from '../../../../node_modules/@angular/platform-browser';
+import { InAppBrowser } from '../../../../node_modules/@ionic-native/in-app-browser';
+import { HttpClient } from '../../../../node_modules/@angular/common/http';
 
 declare var window: any;
 @Injectable()
@@ -22,7 +25,9 @@ export class FileService {
         private fileTransfer: FileTransfer,
         private toastService: ToastService,
         private file: File,
-        private fileOpener: FileOpener) {
+        private fileOpener: FileOpener,
+        private inAppBrowser: InAppBrowser,
+        private httpClient: HttpClient) {
     }
 
     /**
@@ -39,98 +44,59 @@ export class FileService {
     }
 
     downloadFile(mimeType: string, fileName: string, base64File: string) {
-        const blob = new Blob([Utils.base64ToArrayBuffer(base64File)], { type: mimeType });
-        const url = URL.createObjectURL(blob);
         if (this.deviceService.isBrowser()) {
+            const blob = new Blob([Utils.base64ToArrayBuffer(base64File)], { type: mimeType });
+            const url = URL.createObjectURL(blob);
             saveAs(blob, fileName);
             window.open(url);
-            this.toastService.info('Fichier téléchargé.');
+            this.toastService.info('Fichier téléchargé');
         } else {
-            this.toastService.info('Fichier Debut.');
+            const rep = this.file.dataDirectory;
+            const url = this.base64FiletoUrl(base64File, mimeType);
 
-            fetch('data:' + mimeType + ';base,' + base64File, {method: 'GET'})
-            .then(res => res.blob()).then(blob => {
-                window.file.writeFile(window.file.externalApplicationStorageDirectory, fileName, blob, { replace: true }).then(res => {
-                    this.fileOpener.open(
-                      res.toInternalURL(),
-                      'application/pdf'
-                    ).then((res) => {
-      
-                    }).catch(err => {
-                    this.toastService.error('open error');
+            // Si on récupère un fichier sur l'iPad, il faut le recréer hors des assets
+            // Pour ne pas avoir une URL en localhost, il faut créer un fichier directement sur l'IPAD
+            // Il y'a des problèmes CORS avec les fichiers en localhost://
+            this.file.createDir(rep, 'edossier', true).then(
+                createDirReturn => {
+                    this.file.createFile(rep + '/edossier', fileName, true).then(
+                        createFileReturn => {
+                            this.httpClient.get(url, { responseType: 'blob' }).subscribe(result => {
+                                this.file.writeExistingFile(rep + '/edossier', fileName, result).then(
+                                    writingFileReturn => {
+                                        this.fileOpener.open(
+                                        createFileReturn.nativeURL,
+                                        mimeType
+                                        ).then((res) => {
+                                        }).catch(err => {
+                                            this.toastService.error('Erreur lors de l\'ouverture du fichier : ' + JSON.stringify(err));
+                                        }
+                                    );
+                                }
+                            );
+                        });
                     });
-                }).catch(err => {
-                    this.toastService.error('save error');
-                  });
-            }).catch( (err) => this.toastService.error('Erreur lors du téléchargement du fichier' + err));
-
-            /*const fileTransferInstance = this.fileTransfer.create();
-            this.toastService.info('Fichier Donwload...');
-            fileTransferInstance.download(url, window.cordova.file.dataDirectory + fileName).then((entry) => {
-                this.toastService.info('Fichier téléchargé.');
-            }, (error) => this.toastService.error('Erreur lors du téléchargement du fichier'));*/
-            //this.savebase64AsPDF(fileName, base64File, mimeType);
-            //this.savebase64AsPDF(fileName, blob);
-            //this.toastService.info('Fichier téléchargé.');
+                });
         }
     }
 
-
     /**
-     * Convert a base64 string in a Blob according to the data and contentType.
-     * 
-     * @param b64Data {String} Pure base64 string without contentType
-     * @param contentType {String} the content type of the file i.e (application/pdf - text/plain)
-     * @param sliceSize {Int} SliceSize to process the byteCharacters
-     * @see http://stackoverflow.com/questions/16245767/creating-a-blob-from-a-base64-string-in-javascript
-     * @return Blob
+     * Transforme un fichier en base64 en url de type blob
+     * @param base64File fichier en base64
      */
-    b64toBlob(b64Data, contentType, sliceSize = 0) {
-        contentType = contentType || '';
-        sliceSize = sliceSize || 512;
-
-        var byteCharacters = atob(b64Data);
-        var byteArrays = [];
-
-        for (var offset = 0; offset < byteCharacters.length; offset += sliceSize) {
-            var slice = byteCharacters.slice(offset, offset + sliceSize);
-
-            var byteNumbers = new Array(slice.length);
-            for (var i = 0; i < slice.length; i++) {
-                byteNumbers[i] = slice.charCodeAt(i);
+    base64FiletoUrl(base64File: string, mimeType: string): string {
+        let previewSrc;
+        try {
+            if (base64File) {
+                const file = new Blob([Utils.base64ToArrayBuffer(base64File)], { type: mimeType });
+                previewSrc = URL.createObjectURL(file);
+            } else {
+                previewSrc = null;
             }
-
-            var byteArray = new Uint8Array(byteNumbers);
-
-            byteArrays.push(byteArray);
+        } catch (error) {
+        console.error('createObjectURL error:' + error);
         }
-        var blob = new Blob(byteArrays, {type: contentType});
-        return blob;
-    }
-
-    /**
-    * Create a PDF file according to its database64 content only.
-    * 
-    * @param folderpath {String} The folder where the file will be created
-    * @param filename {String} The name of the file that will be created
-    * @param content {Base64 String} Important : The content can't contain the following string (data:application/pdf;base64). Only the base64 string is expected.
-    */
-    savebase64AsPDF(filename, blob) {
-    // Convert the base64 string in a Blob
-   // const blob = this.b64toBlob(content,contentType);
-
-    console.log("Starting to write the file :3");
-
-    window.resolveLocalFileSystemURL(window.cordova.file.syncedDataDirectory, function(dir) {
-        console.log("Access to the directory granted succesfully");
-        dir.getFile(filename, {create:true}, function(file) {
-            file.createWriter(function(fileWriter) {
-                fileWriter.write(blob);
-            }, function(){
-                alert('Unable to save file in path '+ window.cordova.file.syncedDataDirectory);
-            });
-        });
-    });
+        return previewSrc;
     }
 }
 

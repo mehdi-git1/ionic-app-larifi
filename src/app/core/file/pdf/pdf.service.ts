@@ -44,7 +44,7 @@ export class PdfService {
     * @param base64FileContent  : contenu du fichier en  Base 64
     */
    displayPDFFromBase64(base64FileContent: string, fileName: string) {
-    const rep = this.file.dataDirectory;
+        const rep = this.file.dataDirectory;
         this.file.writeExistingFile(rep + '/edossier', fileName, base64FileContent).then(
             writingFileReturn => {
                 this.inAppBrowser.create(rep + '/edossier/' + fileName, '_blank', 'hideurlbar=no,location=no,toolbarposition=top'

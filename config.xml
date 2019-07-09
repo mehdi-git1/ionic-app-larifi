@@ -26,6 +26,12 @@
         <config-file parent="NSCameraUsageDescription" platform="ios" target="*-Info.plist">
             <string>You can take photos</string>
         </config-file>
+        <config-file parent="NSPhotoLibraryAddUsageDescription" platform="ios" target="*-Info.plist">
+            <string>You can take photos</string>
+        </config-file>
+        <config-file parent="NSPhotoLibraryUsageDescription" platform="ios" target="*-Info.plist">
+            <string>You can take photos</string>
+        </config-file>
         <preference name="CordovaWebViewEngine" value="CDVWKWebViewEngine" />
         <preference name="StatusBarStyle" value="#FFFFFF" />
         <allow-intent href="itms:*" />
