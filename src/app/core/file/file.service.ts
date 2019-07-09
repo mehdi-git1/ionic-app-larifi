@@ -54,8 +54,6 @@ export class FileService {
             const blob = new Blob([Utils.base64ToArrayBuffer(base64File)], { type: mimeType });
             const url = URL.createObjectURL(blob);
             saveAs(blob, fileName);
-            window.open(url);
-            this.toastService.info('Fichier téléchargé');
         } else {
             const rep = this.file.dataDirectory;
             const url = this.base64FiletoUrl(base64File, mimeType);
