@@ -1,3 +1,4 @@
+import { ConnectivityService } from './../../../../core/services/connectivity/connectivity.service';
 import { DateTransform } from './../../../../shared/utils/date-transform';
 import { ToastService } from './../../../../core/services/toast/toast.service';
 import { CongratulationLetterRedactorTypeEnum } from './../../../../core/enums/congratulation-letter/congratulation-letter-redactor-type.enum';
@@ -49,6 +50,7 @@ export class CongratulationLetterCreatePage {
         private toastService: ToastService,
         private alertCtrl: AlertController,
         private dateTransformer: DateTransform,
+        private connectivityService: ConnectivityService,
         public translateService: TranslateService
     ) {
         // Traduction des mois
@@ -215,6 +217,7 @@ export class CongratulationLetterCreatePage {
      */
     selectPncRedactor(redactor: PncModel) {
         this.congratulationLetter.redactor = redactor;
+        this.congratulationLetter.redactorSpeciality = redactor.speciality;
     }
 
     /**
@@ -222,6 +225,7 @@ export class CongratulationLetterCreatePage {
      */
     clearPncSearch(): void {
         this.congratulationLetter.redactor = null;
+        this.congratulationLetter.redactorSpeciality = null;
         this.selectedRedactor = null;
     }
 
@@ -250,7 +254,9 @@ export class CongratulationLetterCreatePage {
         this.congratulationLetter.flight.theoricalDate = this.dateTransformer.transformDateStringToIso8601Format(this.congratulationLetter.flight.theoricalDate);
 
         this.congratulationLetterService.createOrUpdate(this.congratulationLetter).then(congratulationLetter => {
+            this.originCongratulationLetter = _.cloneDeep(this.congratulationLetter);
             this.toastService.success(this.translateService.instant('CONGRATULATION_LETTER_CREATE.SUCCESS.LETTER_CREATED'));
+            this.navCtrl.pop();
         }, error => { });
     }
 
@@ -258,7 +264,8 @@ export class CongratulationLetterCreatePage {
      * Vérifie si le formulaire est valide
      */
     isFormValid(): boolean {
-        return this.creationForm.valid &&
+        return this.connectivityService.isConnected() &&
+            this.creationForm.valid &&
             (this.congratulationLetter.redactorType !== CongratulationLetterRedactorTypeEnum.PNC || this.congratulationLetter.redactor != null);
     }
 }

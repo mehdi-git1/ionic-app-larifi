@@ -18,8 +18,10 @@
 
     <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
     <ng-template #pageBlock>
-        <div class="button-bar button-bar-right">
-            <button ion-button (click)="createNewLetter()">{{ 'CONGRATULATION_LETTERS.BUTTONS.CREATE_NEW_LETTER' | translate }}</button>
+        <div class="button-bar button-bar-right" *ngIf="canCreateLetter()">
+            <button ion-button (click)="createNewLetter()">
+                <ion-icon name="md-add" ios="md-add"></ion-icon>{{ 'CONGRATULATION_LETTERS.BUTTONS.CREATE_NEW_LETTER' | translate }}
+            </button>
         </div>
 
         <!-- Lettres reçues -->

@@ -1,6 +1,6 @@
 congratulation-letter-create {
 
-    label {
+    ion-col > label {
         color: color($colors-secondary, grey10);
 
         &:after {
@@ -32,9 +32,19 @@ congratulation-letter-create {
         border-bottom-left-radius: 0;
     }
 
+    .letter-type-col {
+        @media(min-width: 800px) {
+            justify-content: flex-end;
+        }
+    }
+
     .redactor-autocomplete {
-        width: 300px;
+        width: 350px;
         font-size: initial;
+
+        label {
+            padding: 5px 10px;
+        }
     }
 
     ion-textarea {
@@ -48,7 +58,8 @@ congratulation-letter-create {
         }
     }
 
-    ion-list.list-md {
+    ion-list.list-md,
+    ion-list.list-ios {
         margin: 0;
     }
 }

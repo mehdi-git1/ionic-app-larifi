@@ -642,7 +642,8 @@
                 "PAX": "Client - PAX",
                 "PNT": "PNT",
                 "OTHER": "Autre",
-                "AUTOCOMPLETE": "Matricule, Nom, Prénom"
+                "REDACTOR_AUTOCOMPLETE": "PNC rédacteur",
+                "REDACTOR_AUTOCOMPLETE_PLACEHOLDER": "Matricule, Nom, Prénom"
             },
             "VERBATIM": "Verbatim"
         },

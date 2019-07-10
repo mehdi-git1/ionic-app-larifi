@@ -4,6 +4,7 @@ ion-list.horizontal {
 
     ion-item {
         width: auto;
+        border: none !important;
 
         &:not(:first-child) {
             margin-left: 20px;
