@@ -598,7 +598,7 @@
             "WRITER": "Rédacteur"
         },
         "VALUE": {
-            "FLIGHT": "{{airline}}{{flightNumber}} du {{flightDate}}"
+            "FLIGHT": "{{airline}}{{flightNumber}} - {{flightDate}}"
         },
         "TYPE": {
             "COLLECTIVE": "Collective",
@@ -617,7 +617,7 @@
             "WRITER": "Rédacteur"
         },
         "VALUE": {
-            "FLIGHT": "{{airline}}{{flightNumber}} du {{flightDate}}"
+            "FLIGHT": "{{airline}}{{flightNumber}} - {{flightDate}}"
         },
         "TYPE": {
             "COLLECTIVE": "Collective",

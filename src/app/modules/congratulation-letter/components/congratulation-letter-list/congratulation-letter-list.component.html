@@ -1,11 +1,10 @@
-<warning-text></warning-text>
 <ng-container *ngIf="congratulationLetters && congratulationLetters.length == 0; else listBlock">
     <div class="no-data-found" *ngIf="isMode(CongratulationLetterModeEnum.RECEIVED)">{{ 'CONGRATULATION_LETTERS.NO_RECEIVED_LETTERS' | translate }}</div>
     <div class="no-data-found" *ngIf="isMode(CongratulationLetterModeEnum.WRITTEN)">{{ 'CONGRATULATION_LETTERS.NO_WRITTEN_LETTERS' | translate }}</div>
 </ng-container>
 
 <ng-template #listBlock>
-    <div class="header">
+    <div class="header elevation-2">
         <label class="flight">{{ 'CONGRATULATION_LETTERS.HEADER.FLIGHT' | translate }}</label>
         <label class="type">{{ 'CONGRATULATION_LETTERS.HEADER.TYPE' | translate }}</label>
         <label class="redactor" *ngIf="isMode(CongratulationLetterModeEnum.RECEIVED)">{{ 'CONGRATULATION_LETTERS.HEADER.WRITER' | translate }}</label>
