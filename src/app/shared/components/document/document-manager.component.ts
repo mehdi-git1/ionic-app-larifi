@@ -24,9 +24,11 @@ export class DocumentManagerComponent {
 
   @Input() editMode: boolean;
 
-  constructor(public popoverCtrl: PopoverController, 
-    private documentService: DocumentService, 
-    private fileService: FileService, 
+  loading = false;
+
+  constructor(public popoverCtrl: PopoverController,
+    private documentService: DocumentService,
+    private fileService: FileService,
     private deviceService: DeviceService) {
   }
 
@@ -78,13 +80,16 @@ export class DocumentManagerComponent {
       const popover = this.popoverCtrl.create(DocumentViewerComponent, { document: document }, { cssClass: 'document-viewer-popover' });
       popover.present({ });
     } else {
+      this.loading = true;
       if (!document.content) {
         this.documentService.getDocument(document.id).then(documentResult => {
           document.content = documentResult.content;
           this.fileService.downloadFile(documentResult.mimeType, documentResult.fileName, documentResult.content);
-        });
+          this.loading = false;
+        }).catch((error) => {this.loading = false;});
       } else {
         this.fileService.downloadFile(document.mimeType, document.fileName, document.content);
+        this.loading = false;
       }
     }
   }
