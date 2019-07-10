@@ -93,7 +93,7 @@
         ,
         "DOCUMENT": {
             "PREVIEW_NOT_AVAILABLE": "L'aperçu n'est pas disponible pour ce fichier",
-            "OPEN_FILE_ERROR": "Erreur lors de l'ouverture du fichier : "
+            "OPEN_FILE_ERROR": "Erreur lors de l'ouverture du fichier"
         }
     },
     "AUTHENT": {

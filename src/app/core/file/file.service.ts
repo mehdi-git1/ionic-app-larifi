@@ -113,7 +113,7 @@ export class FileService {
      * Affiche le message d'erreur lors de l'ouverture du fichier
      */
     private errorOpeningFile(error: any) {
-        this.toastService.error(this.translateService.instant('GLOBAL.DOCUMENT.OPEN_FILE_ERROR') + JSON.stringify(error));
+        this.toastService.error(this.translateService.instant('GLOBAL.DOCUMENT.OPEN_FILE_ERROR') + ' : ' + JSON.stringify(error));
     }
 }
 
