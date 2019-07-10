@@ -20,6 +20,18 @@
         <feature name="CDVWKWebViewEngine">
             <param name="ios-package" value="CDVWKWebViewEngine" />
         </feature>
+        <feature name="Camera">
+            <param name="ios-package" value="CDVCamera" />
+        </feature>
+        <config-file parent="NSCameraUsageDescription" platform="ios" target="*-Info.plist">
+            <string>Prendre des photos afin de les utiliser en tant que pièces jointes</string>
+        </config-file>
+        <config-file parent="NSPhotoLibraryAddUsageDescription" platform="ios" target="*-Info.plist">
+            <string>Ajouter des images/photos sur l'appareil</string>
+        </config-file>
+        <config-file parent="NSPhotoLibraryUsageDescription" platform="ios" target="*-Info.plist">
+            <string>Lire des images/photos depuis l'appareil</string>
+        </config-file>
         <preference name="CordovaWebViewEngine" value="CDVWKWebViewEngine" />
         <preference name="StatusBarStyle" value="#FFFFFF" />
         <allow-intent href="itms:*" />
@@ -73,5 +85,8 @@
     <plugin name="cordova-plugin-app-version" spec="^0.1.9" />
     <plugin name="cordova-plugin-file" spec="~6.0.1" />
     <plugin name="cordova-plugin-filechooser" spec="~1.2.0" />
+    <plugin name="cordova-plugin-camera" spec="^4.0.3" />
+    <plugin name="cordova-plugin-file-transfer" spec="^1.7.1" />
+    <plugin name="cordova-plugin-file-opener2" spec="~2.2.0" />
     <engine name="ios" spec="5.0.0" />
 </widget>
