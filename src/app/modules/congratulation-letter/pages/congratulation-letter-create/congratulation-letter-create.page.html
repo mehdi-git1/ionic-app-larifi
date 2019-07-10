@@ -58,7 +58,7 @@
                     </ion-col>
                 </ion-row>
                 <ion-row *ngIf="displayPncSelection">
-                    <ion-col>
+                    <ion-col class="flex align-center">
                         <label for="redactorAutoComplete">{{'CONGRATULATION_LETTER_CREATE.FORM.REDACTOR.REDACTOR_AUTOCOMPLETE' | translate}}</label>
                         <mat-form-field class="redactor-autocomplete" floatLabel="never">
                             <input #redactorAutoComplete name="redactorAutoComplete" formControlName="redactorAutoCompleteControl" placeholder="{{'CONGRATULATION_LETTER_CREATE.FORM.REDACTOR.REDACTOR_AUTOCOMPLETE_PLACEHOLDER' | translate}}" [(ngModel)]="selectedRedactor" type="text" matInput (keyup)="searchAutoComplete(redactorAutoComplete.value)" [matAutocomplete]="auto" autocomplete="off" />
@@ -69,6 +69,7 @@
                                 {{ pnc.lastName + ' ' + pnc.firstName + ' (' + pnc.matricule + ')'}}
                             </mat-option>
                         </mat-autocomplete>
+                        <ion-icon name="checkmark" ios="md-checkmark" *ngIf="congratulationLetter.redactor" color="secondary"></ion-icon>
                     </ion-col>
                 </ion-row>
                 <ion-row>

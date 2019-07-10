@@ -42,9 +42,19 @@ congratulation-letter-create {
         width: 350px;
         font-size: initial;
 
-        label {
-            padding: 5px 10px;
+        .mat-input-wrapper {
+            padding: 0;
+
+            label {
+                padding: 5px 10px;
+            }
         }
+    }
+
+    ion-icon[name="checkmark"] {
+        font-size: 2em;
+        font-weight: bold;
+        margin-left: 10px;
     }
 
     ion-textarea {
