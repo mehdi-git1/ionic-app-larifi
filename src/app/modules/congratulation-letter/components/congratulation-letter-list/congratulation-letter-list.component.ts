@@ -1,3 +1,4 @@
+import { SecurityService } from './../../../../core/services/security/security.service';
 import { CongratulationLetterModeEnum } from './../../../../core/enums/congratulation-letter/congratulation-letter-mode.enum';
 import { Component, Input } from '@angular/core';
 import { CongratulationLetterModel } from '../../../../core/models/congratulation-letter.model';
