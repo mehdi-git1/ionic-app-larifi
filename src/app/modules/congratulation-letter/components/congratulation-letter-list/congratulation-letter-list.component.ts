@@ -1,3 +1,4 @@
+import { ConnectivityService } from './../../../../core/services/connectivity/connectivity.service';
 import { SecurityService } from './../../../../core/services/security/security.service';
 import { CongratulationLetterModeEnum } from './../../../../core/enums/congratulation-letter/congratulation-letter-mode.enum';
 import { Component, Input } from '@angular/core';
@@ -17,7 +18,8 @@ export class CongratulationLetterListComponent {
 
   CongratulationLetterModeEnum = CongratulationLetterModeEnum;
 
-  constructor(private securityService: SecurityService) {
+  constructor(private securityService: SecurityService,
+    private connectivityService: ConnectivityService) {
   }
 
   /**
@@ -37,4 +39,11 @@ export class CongratulationLetterListComponent {
     return this.securityService.isManager();
   }
 
+  /**
+   * Vérifie que l'on est en mode connecté
+   * @return true si on est en mode connecté, false sinon
+   */
+  isConnected(): boolean {
+    return this.connectivityService.isConnected();
+  }
 }

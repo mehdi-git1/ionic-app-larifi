@@ -1,3 +1,4 @@
+import { ConnectivityService } from './../../../../core/services/connectivity/connectivity.service';
 import { CongratulationLetterFlightModel } from './../../../../core/models/congratulation-letter-flight.model';
 import { CongratulationLetterService } from './../../../../core/services/congratulation-letter/congratulation-letter.service';
 import { NavController, PopoverController } from 'ionic-angular';
@@ -25,8 +26,8 @@ export class CongratulationLetterCardComponent {
   constructor(private navCtrl: NavController,
     private securityService: SecurityService,
     public popoverCtrl: PopoverController,
-    private congratulationLetterService: CongratulationLetterService
-  ) {
+    private congratulationLetterService: CongratulationLetterService,
+    private connectivityService: ConnectivityService) {
   }
 
   /**
@@ -61,6 +62,14 @@ export class CongratulationLetterCardComponent {
   */
   isManager(): boolean {
     return this.securityService.isManager();
+  }
+
+  /**
+   * Vérifie que l'on est en mode connecté
+   * @return true si on est en mode connecté, false sinon
+   */
+  isConnected(): boolean {
+    return this.connectivityService.isConnected();
   }
 
   /**
