@@ -58,15 +58,13 @@ export class CongratulationLetterService extends BaseService {
   }
 
   /**
- * Supprime une lettre de félicitation à partir de son id
- * @param id l'id de la lettre
- * @return le lettre supprimée
- */
-  delete(id: number): Promise<CongratulationLetterModel> {
-    //return this.execFunctionService('delete', id);
-    return new Promise(resolve => {
-      resolve();
-    });
+   * Supprime le lien entre une lettre de félicitation et un pnc à partir de son id et du matricule
+   * @param id l'id de la lettre de félicitation
+   * @param pncMatricule le matricule du pnc
+   * @return une promesse contenant la lettre de félicitation
+   */
+  delete(id: number, pncMatricule: string): Promise<CongratulationLetterModel> {
+    return this.execFunctionService('delete', id, pncMatricule);
   }
 
   /**

@@ -69,4 +69,16 @@ export class OfflineCongratulationLetterService {
     return this.storageService.findOneAsync(EntityEnum.CONGRATULATION_LETTER, `${id}`);
   }
 
+  /**
+   * Supprime le lien entre une lettre de félicitation et un pnc à partir de son id et du matricule
+   * Methode non disponible en offLine
+   * @param id l'id de la lettre de félicitation
+   * @param pncMatricule le matricule du pnc
+   * @return une promesse contenant la lettre de félicitation
+   */
+  delete(id: number, pncMatricule: string): Promise<CongratulationLetterModel> {
+    return new Promise((reject) => {
+      reject();
+    });
+  }
 }

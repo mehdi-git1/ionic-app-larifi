@@ -16,6 +16,9 @@ export class CongratulationLetterListComponent {
 
   CongratulationLetterModeEnum = CongratulationLetterModeEnum;
 
+  constructor(private securityService: SecurityService) {
+  }
+
   /**
    * Vérifie le mode d'affichage actif
    * @param mode le mode à tester
@@ -25,6 +28,12 @@ export class CongratulationLetterListComponent {
     return this.mode === mode;
   }
 
-
+  /**
+  * Vérifie si le PNC est manager
+  * @return vrai si le PNC est manager, faux sinon
+  */
+  isManager(): boolean {
+    return this.securityService.isManager();
+  }
 
 }

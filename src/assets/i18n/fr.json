@@ -614,6 +614,12 @@
         },
         "TOAST": {
             "DELETE_SUCCESS": "Lettre de félicitations supprimée"
+        },
+        "CONFIRM_DELETE": {
+            "TITLE": "Suppression de la lettre de félicitations",
+            "MESSAGE": "Confirmez-vous la suppression de cette lettre de félicitations ?",
+            "CANCEL": "Annuler",
+            "CONFIRM": "Supprimer"
         }
     },
     "CONGRATULATION_LETTER_DETAIL": {
