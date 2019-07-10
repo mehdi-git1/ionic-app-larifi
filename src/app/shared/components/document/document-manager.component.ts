@@ -86,7 +86,9 @@ export class DocumentManagerComponent {
           document.content = documentResult.content;
           this.fileService.downloadFile(documentResult.mimeType, documentResult.fileName, documentResult.content);
           this.loading = false;
-        }).catch((error) => {this.loading = false;});
+        }).catch((error) => {
+          this.loading = false;
+        });
       } else {
         this.fileService.downloadFile(document.mimeType, document.fileName, document.content);
         this.loading = false;
