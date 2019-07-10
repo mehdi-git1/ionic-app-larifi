@@ -35,6 +35,11 @@ log-book {
                     max-height: 48px;
                 }
             }
+
+            .column-origin {
+                text-align: center;
+                justify-content: center;        
+            }
         }
 
         .events-number {
@@ -78,7 +83,7 @@ log-book {
         }
 
         .actions {
-            flex: 0 0 50px !important;
+            flex: 0 0 60px !important;
             text-align: center;
 
             div {
@@ -109,8 +114,6 @@ log-book {
             }
         }
 
-
-
         .event-row {
             height: 48px;
         }
@@ -133,12 +136,11 @@ log-book {
 
         .column-category {
             flex: 0 0 120px !important;
-            min-width: 50px;
         }
 
         .column-redactor {
-            min-width: 100px;
-            max-width: 200px;
+            min-width: 80px;
+            max-width: 160px;
         }
 
         .column-actions {
@@ -147,14 +149,13 @@ log-book {
         }
 
         .column-origin {
-            flex: 0 0 67px !important;
-            text-align: center;
+            flex: 0 0 67px !important;         
         }
 
         .column-date {
-            flex: 0 0 90px !important;
-            min-width: 100px;
-            max-width: 100px;
+            flex: 0 0 110px !important;
+            min-width: 110px;
+            max-width: 110px;
         }
 
         .column-specific {
