@@ -1,0 +1,16 @@
+ion-list.horizontal {
+    display: flex;
+    align-items: center;
+
+    ion-item {
+        width: auto;
+
+        &:not(:first-child) {
+            margin-left: 20px;
+        }
+
+        & > .item-inner {
+            border: none !important;
+        }
+    }
+}

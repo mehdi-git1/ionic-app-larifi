@@ -1,8 +1,9 @@
+import { CongratulationLetterCreatePage } from './../congratulation-letter-create/congratulation-letter-create.page';
 import { TabHeaderEnum } from './../../../../core/enums/tab-header.enum';
 import { PncService } from './../../../../core/services/pnc/pnc.service';
 import { CongratulationLetterService } from './../../../../core/services/congratulation-letter/congratulation-letter.service';
 import { CongratulationLetterModeEnum } from '../../../../core/enums/congratulation-letter/congratulation-letter-mode.enum';
-import { NavParams } from 'ionic-angular';
+import { NavParams, NavController } from 'ionic-angular';
 import { Component } from '@angular/core';
 import { CongratulationLetterModel } from '../../../../core/models/congratulation-letter.model';
 import { SessionService } from '../../../../core/services/session/session.service';
@@ -29,6 +30,7 @@ export class CongratulationLettersPage {
     TabHeaderEnum = TabHeaderEnum;
 
     constructor(private navParams: NavParams,
+        private navCtrl: NavController,
         private congratulationLetterService: CongratulationLetterService,
         private pncService: PncService,
         private sessionService: SessionService) {
@@ -84,5 +86,12 @@ export class CongratulationLettersPage {
      */
     loadingIsOver(): boolean {
         return this.receivedCongratulationLetters !== undefined && this.writtenCongratulationLetters !== undefined;
+    }
+
+    /**
+     * Redirige vers la page de création d'une nouvelle lettre
+     */
+    createNewLetter() {
+        this.navCtrl.push(CongratulationLetterCreatePage, { matricule: this.matricule });
     }
 }

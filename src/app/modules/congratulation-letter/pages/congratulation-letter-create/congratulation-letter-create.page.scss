@@ -1,0 +1,54 @@
+congratulation-letter-create {
+
+    label {
+        color: color($colors-secondary, grey10);
+
+        &:after {
+            content: ' :';
+            margin-right: 10px;
+        }
+    }
+
+    .flight-date {
+        height: 40px;
+        width: 120px;
+        font-size: initial;
+        padding: 0 15px;
+        display: flex;
+        align-items: center;
+    }
+
+    .flight-airline {
+        width: 60px;
+        flex: none;
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+
+    .flight-number {
+        width: 100px;
+        flex: none;
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+    }
+
+    .redactor-autocomplete {
+        width: 300px;
+        font-size: initial;
+    }
+
+    ion-textarea {
+        min-height: 310px !important;
+        padding: 0 !important;
+        margin: 0 !important;
+
+        textarea {
+            min-height: 290px !important;
+            padding: 5px !important;
+        }
+    }
+
+    ion-list.list-md {
+        margin: 0;
+    }
+}

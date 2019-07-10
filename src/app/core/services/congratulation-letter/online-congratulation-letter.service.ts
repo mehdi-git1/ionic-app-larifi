@@ -38,4 +38,14 @@ export class OnlineCongratulationLetterService {
   getCongratulationLetter(id: number): Promise<CongratulationLetterModel> {
     return this.restService.get(this.config.getBackEndUrl('getCongratulationLetterById', [id]));
   }
+
+  /**
+   * Créé une lettre de félicitation
+   * @param congratulationLetter la lettre à créer/modifier
+   * @return une promesse contenant la lettre créée/modifiée
+   */
+  createOrUpdate(congratulationLetter: CongratulationLetterModel): Promise<CongratulationLetterModel> {
+    return this.restService.post(this.config.getBackEndUrl('congratulationLetters'), congratulationLetter);
+  }
+
 }
