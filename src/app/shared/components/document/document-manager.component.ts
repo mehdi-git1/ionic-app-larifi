@@ -4,6 +4,7 @@ import { PopoverController } from 'ionic-angular';
 import { DocumentViewerComponent } from '../document-viewer/document-viewer.component';
 import { DocumentService } from '../../../core/services/document/document.service';
 import { FileService } from '../../../core/file/file.service';
+import { DeviceService } from '../../../core/services/device/device.service';
 
 const iconFolderPath = 'assets/imgs/';
 const BASE_64 = 'base64,';
@@ -23,7 +24,10 @@ export class DocumentManagerComponent {
 
   @Input() editMode: boolean;
 
-  constructor(public popoverCtrl: PopoverController, private documentService: DocumentService, private fileService: FileService) {
+  constructor(public popoverCtrl: PopoverController, 
+    private documentService: DocumentService, 
+    private fileService: FileService, 
+    private deviceService: DeviceService) {
   }
 
   /**
@@ -70,7 +74,7 @@ export class DocumentManagerComponent {
    * @param document document à visionner
    */
   openDocument(document: DocumentModel) {
-    if (this.documentService.isPreviewable(document.type)) {
+    if (this.documentService.isPreviewable(document.type) && this.deviceService.isBrowser()) {
       const popover = this.popoverCtrl.create(DocumentViewerComponent, { document: document }, { cssClass: 'document-viewer-popover' });
       popover.present({ });
     } else {
