@@ -1,6 +1,7 @@
 import { CongratulationLetterModeEnum } from './../../../../core/enums/congratulation-letter/congratulation-letter-mode.enum';
 import { Component, Input } from '@angular/core';
 import { CongratulationLetterModel } from '../../../../core/models/congratulation-letter.model';
+import { PncModel } from '../../../../core/models/pnc.model';
 
 @Component({
   selector: 'congratulation-letter-list',
@@ -12,7 +13,7 @@ export class CongratulationLetterListComponent {
 
   @Input() congratulationLetters: CongratulationLetterModel[];
 
-  @Input() matricule: string;
+  @Input() pnc: PncModel;
 
   CongratulationLetterModeEnum = CongratulationLetterModeEnum;
 

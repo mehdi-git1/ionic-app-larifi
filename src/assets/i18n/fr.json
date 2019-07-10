@@ -610,7 +610,8 @@
         "NO_RECEIVED_LETTERS": "Pas de félicitations reçues",
         "NO_WRITTEN_LETTERS": "Pas de félicitations rédigées",
         "ACTION_MENU": {
-            "DELETE_CONGRATULATION_LETTER": "Supprimer"
+            "DELETE_CONGRATULATION_LETTER": "Supprimer",
+            "FIX_RECIPIENT": "Corriger le destinataire"
         },
         "TOAST": {
             "DELETE_SUCCESS": "Lettre de félicitations supprimée"

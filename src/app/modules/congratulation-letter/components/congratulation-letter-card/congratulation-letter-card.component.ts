@@ -7,6 +7,7 @@ import { Component, Input } from '@angular/core';
 import { CongratulationLetterModel } from '../../../../core/models/congratulation-letter.model';
 import { SecurityService } from './../../../../core/services/security/security.service';
 import { CongratulationLetterActionMenuComponent } from './../../components/congratulation-letter-action-menu/congratulation-letter-action-menu.component';
+import { PncModel } from '../../../../core/models/pnc.model';
 
 @Component({
   selector: 'congratulation-letter-card',
@@ -18,7 +19,7 @@ export class CongratulationLetterCardComponent {
 
   @Input() congratulationLetter: CongratulationLetterModel;
 
-  @Input() matricule: string;
+  @Input() pnc: PncModel;
 
   CongratulationLetterModeEnum = CongratulationLetterModeEnum;
 
@@ -43,7 +44,7 @@ export class CongratulationLetterCardComponent {
   * @param congratulationLetter la lettre qu'on souhaite afficher
   */
   goToCongratulationLetterDetail(congratulationLetter: CongratulationLetterModel): void {
-    this.navCtrl.push(CongratulationLetterDetailPage, { matricule: this.matricule, congratulationLetterId: congratulationLetter.techId });
+    this.navCtrl.push(CongratulationLetterDetailPage, { matricule: this.pnc.matricule, congratulationLetterId: congratulationLetter.techId });
   }
 
   /**
@@ -70,7 +71,7 @@ export class CongratulationLetterCardComponent {
    */
   openActionsMenu(myEvent: Event, congratulationLetter: CongratulationLetterModel) {
     myEvent.stopPropagation();
-    const popover = this.popoverCtrl.create(CongratulationLetterActionMenuComponent, { congratulationLetter: congratulationLetter }, { cssClass: 'action-menu-popover' });
+    const popover = this.popoverCtrl.create(CongratulationLetterActionMenuComponent, { congratulationLetter: congratulationLetter, pnc: this.pnc }, { cssClass: 'action-menu-popover' });
     popover.present({ ev: myEvent });
   }
 }

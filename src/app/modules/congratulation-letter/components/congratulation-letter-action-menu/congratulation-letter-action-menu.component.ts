@@ -1,9 +1,11 @@
 import { CongratulationLetterService } from './../../../../core/services/congratulation-letter/congratulation-letter.service';
 import { Component } from '@angular/core';
-import { NavParams, ViewController, LoadingController, Loading } from 'ionic-angular';
+import { NavParams, ViewController, LoadingController, Loading, PopoverController } from 'ionic-angular';
 import { CongratulationLetterModel } from '../../../../core/models/congratulation-letter.model';
 import { ToastService } from '../../../../core/services/toast/toast.service';
 import { TranslateService } from '@ngx-translate/core';
+import { FixRecipientComponent } from '../fix-recipient/fix-recipient.component';
+import { PncModel } from '../../../../core/models/pnc.model';
 
 @Component({
   selector: 'congratulation-letter-action-menu',
@@ -12,6 +14,7 @@ import { TranslateService } from '@ngx-translate/core';
 export class CongratulationLetterActionMenuComponent {
 
   congratulationLetter: CongratulationLetterModel;
+  pnc: PncModel;
 
   loading: Loading;
 
@@ -20,8 +23,10 @@ export class CongratulationLetterActionMenuComponent {
     public translateService: TranslateService,
     public loadingCtrl: LoadingController,
     private toastService: ToastService,
-    public viewCtrl: ViewController) {
+    public viewCtrl: ViewController,
+    public popoverCtrl: PopoverController) {
     this.congratulationLetter = this.navParams.get('congratulationLetter');
+    this.pnc = this.navParams.get('pnc');
   }
 
   /**
@@ -41,6 +46,16 @@ export class CongratulationLetterActionMenuComponent {
           this.loading.dismiss();
         });
 
+    this.viewCtrl.dismiss();
+  }
+
+  /**
+   * Corriger le destinataire
+   */
+  fixRecipient(event: Event) {
+    event.stopPropagation();
+    const popover = this.popoverCtrl.create(FixRecipientComponent, { congratulationLetter: this.congratulationLetter, pnc: this.pnc }, { cssClass: 'fix-recipient-popover' });
+    popover.present({});
     this.viewCtrl.dismiss();
   }
 

@@ -1,0 +1,29 @@
+<span *ngIf="congratulationLetter && pnc">
+<div class="congratulation-letter-title-label">Titre de la Lettre :</div>
+<div class="congratulation-letter-title">{{congratulationLetter.title}}</div>
+<div class="congratulation-letter-pnc">Pnc actuellement félicité : {{pnc.firstName | titlecase}} {{pnc.lastName | titlecase}}</div>
+<div class="congratulation-letter-new-recipient">Nouveau destinataire</div>
+<div class="congratulation-letter-autocomplete">
+    <ion-item>
+        <mat-form-field class="autocomplete-field">
+            <input #pncMatricule type="text" matInput placeholder="{{'PNC_SEARCH.CRITERIA.PNC_MATRICULE' | translate}}" (keyup)="searchAutoComplete(pncMatricule.value)" [matAutocomplete]="auto" [(ngModel)]="selectedPnc" autocomplete="off" />
+        </mat-form-field>
+        <mat-autocomplete class="mat-autocomplete" #auto="matAutocomplete" (optionSelected)="selectPnc($event.option.value)">
+            <mat-option *ngFor="let pnc of pncList | async" [value]="pnc">
+                {{ pnc.lastName + ' ' + pnc.firstName + ' (' + pnc.matricule + ')'}}
+            </mat-option>
+        </mat-autocomplete>
+    </ion-item>
+    <ion-spinner class='auto-complete-spinner' *ngIf="autoCompleteRunning"></ion-spinner>
+</div>
+<div class="button-bar button-bar-right margin-top-10 margin-bottom-10">
+    <!-- Bouton annuler modification de l'eobs -->
+    <button ion-button color="grey50" (click)="cancel()">
+        <ion-icon name="md-close" ios="md-close" margin-right></ion-icon> {{ 'GLOBAL.BUTTONS.CANCEL' | translate }}
+    </button>
+    <!-- Bouton mettre à jour l'eobs -->
+    <button ion-button color="green50" (click)="fixRecipient()" [disabled]="!selectedPnc">
+        <ion-icon name="md-checkmark" ios="md-checkmark" margin-right></ion-icon> {{ 'GLOBAL.BUTTONS.VALIDATE' | translate }}
+    </button>
+</div>
+</span>

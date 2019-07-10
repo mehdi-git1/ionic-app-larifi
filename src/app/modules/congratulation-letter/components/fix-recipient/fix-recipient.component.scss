@@ -1,0 +1,39 @@
+.fix-recipient-popover .popover-content {
+    display: flex;
+    height: auto;
+    width: 100%;
+    justify-content: center;
+    border-radius: 10px;
+    //background-color: rgba(0, 0, 0, 0.80);
+}
+
+.fix-recipient-popover .popover-viewport {
+    height: auto;
+    width: 100%;
+}
+
+fix-recipient {
+    font-family: OpenSans, Arial, Helvetica, sans-serif;
+    display: flex;
+    height: auto;
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+
+    .congratulation-letter-title {
+        font-weight: bold;
+        margin : 10px;
+    }
+    .congratulation-letter-title-label {
+        margin : 10px;
+    }
+    .congratulation-letter-pnc {
+        margin : 10px;
+    }
+    .congratulation-letter-new-recipient {
+        margin : 10px;
+    }
+    .congratulation-letter-autocomplete {
+        margin: auto;
+    }
+}
