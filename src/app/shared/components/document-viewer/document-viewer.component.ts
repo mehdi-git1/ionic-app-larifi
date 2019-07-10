@@ -32,17 +32,19 @@ export class DocumentViewerComponent {
   @Input()
   set document(document: DocumentModel) {
       this.type = document.type;
-    if (document && document.id) {
+    if (document) {
         if (this.isPreviewable(document.type)) {
           if (document.content) {
             this.displayDocument(document);
-          } else {
+          } else if (document.id) {
             this.documentService.getDocument(document.id).then(documentResult => {
               document.content = documentResult.content;
               this.displayDocument(documentResult);
             }).catch(err => {
                 this.previewUnavailable();
             });
+          } else {
+            this.previewUnavailable();
           }
         } else {
             this.previewUnavailable();
