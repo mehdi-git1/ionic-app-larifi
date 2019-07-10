@@ -34,7 +34,7 @@ export class CongratulationLettersPage {
         private events: Events,
         private sessionService: SessionService) {
         this.selectedCongratulationLetterMode = CongratulationLetterModeEnum.RECEIVED;
-        events.subscribe('reload_congratulation_letter_list', () => {
+        events.subscribe('CongratulationLetter:deleted', () => {
             this.initPage();
         });
     }

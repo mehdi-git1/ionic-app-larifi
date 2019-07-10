@@ -25,7 +25,7 @@ export class CongratulationLetterCardComponent {
 
   constructor(private navCtrl: NavController,
     private securityService: SecurityService,
-    public popoverCtrl: PopoverController,
+    private popoverCtrl: PopoverController,
     private congratulationLetterService: CongratulationLetterService,
     private connectivityService: ConnectivityService) {
   }
@@ -75,7 +75,7 @@ export class CongratulationLetterCardComponent {
   /**
    * Ouvre la popover de description d'un item
    * @param myEvent  event
-   * @param eObservationItem item
+   * @param congratulationLetter la lettre dont le menu d'actions a été ouvert
    */
   openActionsMenu(myEvent: Event, congratulationLetter: CongratulationLetterModel) {
     myEvent.stopPropagation();

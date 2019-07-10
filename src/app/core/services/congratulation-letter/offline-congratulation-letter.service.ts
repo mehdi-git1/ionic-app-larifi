@@ -76,7 +76,7 @@ export class OfflineCongratulationLetterService {
    * @param pncMatricule le matricule du pnc
    * @return une promesse contenant la lettre de félicitation
    */
-  delete(id: number, pncMatricule: string): Promise<CongratulationLetterModel> {
+  delete(id: number, pncMatricule: string) {
     return new Promise((reject) => {
       reject();
     });

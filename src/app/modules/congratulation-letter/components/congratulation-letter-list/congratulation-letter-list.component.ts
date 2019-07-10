@@ -32,9 +32,9 @@ export class CongratulationLetterListComponent {
   }
 
   /**
-  * Vérifie si le PNC est manager
-  * @return vrai si le PNC est manager, faux sinon
-  */
+   * Vérifie si le PNC est manager
+   * @return vrai si le PNC est manager, faux sinon
+   */
   isManager(): boolean {
     return this.securityService.isManager();
   }
