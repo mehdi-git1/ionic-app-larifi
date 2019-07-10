@@ -41,6 +41,8 @@ export class CongratulationLetterCreatePage {
 
     CongratulationLetterRedactorTypeEnum = CongratulationLetterRedactorTypeEnum;
 
+    readonly AF = 'AF';
+
     constructor(private navParams: NavParams,
         private navCtrl: NavController,
         private congratulationLetterService: CongratulationLetterService,
@@ -62,6 +64,8 @@ export class CongratulationLetterCreatePage {
 
         this.handleAutocompleteSearch();
 
+        this.congratulationLetter = this.buildNewCongratulationLetter();
+
         // Options du datepicker
         this.flightDateTimeOptions = {
             buttons: [{
@@ -73,26 +77,13 @@ export class CongratulationLetterCreatePage {
     }
 
     ionViewDidEnter() {
-        let matricule;
-        if (this.navParams.get('matricule')) {
-            matricule = this.navParams.get('matricule');
-        } else if (this.sessionService.getActiveUser()) {
-            matricule = this.sessionService.getActiveUser().matricule;
+        if (this.sessionService.visitedPnc) {
+            this.pnc = this.sessionService.visitedPnc;
         }
-        this.pncService.getPnc(matricule).then(pnc => {
-            this.pnc = pnc;
 
-            this.congratulationLetter = this.buildNewCongratulationLetter();
+        this.congratulationLetter = this.buildNewCongratulationLetter();
 
-            this.congratulationLetter = new CongratulationLetterModel();
-            this.congratulationLetter.collective = false;
-            this.congratulationLetter.redactorType = CongratulationLetterRedactorTypeEnum.PNC;
-            this.congratulationLetter.flight = new CongratulationLetterFlightModel();
-            this.congratulationLetter.flight.airline = 'AF';
-            this.congratulationLetter.concernedPncs = new Array();
-            this.congratulationLetter.concernedPncs.push(this.pnc);
-            this.originCongratulationLetter = _.cloneDeep(this.congratulationLetter);
-        }, error => { });
+        this.originCongratulationLetter = _.cloneDeep(this.congratulationLetter);
     }
 
     ionViewCanLeave() {
@@ -109,11 +100,11 @@ export class CongratulationLetterCreatePage {
      */
     buildNewCongratulationLetter(): CongratulationLetterModel {
         const congratulationLetter = new CongratulationLetterModel();
-        congratulationLetter.airlineOwner = 'AF';
+        congratulationLetter.airlineOwner = this.AF;
         congratulationLetter.collective = false;
         congratulationLetter.redactorType = CongratulationLetterRedactorTypeEnum.PNC;
         congratulationLetter.flight = new CongratulationLetterFlightModel();
-        congratulationLetter.flight.airline = 'AF';
+        congratulationLetter.flight.airline = this.AF;
         congratulationLetter.concernedPncs = new Array();
         congratulationLetter.concernedPncs.push(this.pnc);
 

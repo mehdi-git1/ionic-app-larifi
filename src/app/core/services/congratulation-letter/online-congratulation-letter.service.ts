@@ -40,7 +40,7 @@ export class OnlineCongratulationLetterService {
   }
 
   /**
-   * Créé une lettre de félicitation
+   * Crée une lettre de félicitation
    * @param congratulationLetter la lettre à créer/modifier
    * @return une promesse contenant la lettre créée/modifiée
    */

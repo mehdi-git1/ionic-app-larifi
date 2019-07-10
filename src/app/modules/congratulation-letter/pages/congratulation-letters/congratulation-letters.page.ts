@@ -94,7 +94,7 @@ export class CongratulationLettersPage {
      * Redirige vers la page de création d'une nouvelle lettre
      */
     createNewLetter() {
-        this.navCtrl.push(CongratulationLetterCreatePage, { matricule: this.matricule });
+        this.navCtrl.push(CongratulationLetterCreatePage);
     }
 
     /**
