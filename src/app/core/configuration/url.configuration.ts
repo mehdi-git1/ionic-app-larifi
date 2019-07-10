@@ -1,3 +1,4 @@
+import { DirectivesModule } from './../../shared/directives/directives.module';
 import { Injectable } from '@angular/core';
 import { urlGroupEnum } from './url-group.enum';
 import { Config } from '../../../environments/config';
@@ -62,7 +63,8 @@ export class UrlConfiguration {
     'logbookEvents': urlGroupEnum.LOGBOOK_EVENT,
     'getLogbookEventsByGroupId': `${urlGroupEnum.LOGBOOK_EVENT}/event_group/{groupId}`,
     'getLogbookEvents': `${urlGroupEnum.LOGBOOK_EVENT}/pnc/{matricule}`,
-    'deleteLogbookEventById': `${urlGroupEnum.LOGBOOK_EVENT}/{id}`
+    'deleteLogbookEventById': `${urlGroupEnum.LOGBOOK_EVENT}/{id}`,
+    'getDocumentById': `${urlGroupEnum.DOCUMENT}/{documentId}`,
   };
 
   /**

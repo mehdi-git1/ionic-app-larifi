@@ -21,5 +21,6 @@ export enum urlGroupEnum {
   'FORMS_INPUT_PARAM' = 'forms_input_params',
   'CONGRATULATION_LETTER' = 'congratulation_letters',
   'APP_VERSION' = 'app_versions',
-  'LOGBOOK_EVENT' = 'logbook_events'
+  'LOGBOOK_EVENT' = 'logbook_events',
+  'DOCUMENT' = 'documents'
 }
