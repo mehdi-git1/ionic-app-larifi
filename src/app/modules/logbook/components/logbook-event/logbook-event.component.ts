@@ -101,12 +101,12 @@ export class LogbookEventComponent implements OnInit {
     }
 
     /**
-     *  deux valeurs et renvois true si elles sont égales
-     * @param e1 premiere valeur à comparér
-     * @param e2 Deuxieme valeur à comparér
+     *  Compare deux categories et renvois true si elles sont égales
+     * @param e1 premiere categorie à comparér
+     * @param e2 Deuxieme categorie à comparér
      */
-    compareFn(e1: string, e2: string): boolean {
-        if (e1 === e2) {
+    compareCategories(category1: LogbookEventCategory, category2: LogbookEventCategory): boolean {
+        if (category1.id === category2.id) {
             return true;
         }
         return false;
