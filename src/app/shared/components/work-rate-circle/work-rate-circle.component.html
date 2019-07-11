@@ -1,0 +1,7 @@
+<svg class="work-rate-svg" [attr.height]="diameter" [attr.width]="diameter">
+    <circle class="progress-meter" fill="transparent" [attr.stroke-width]="strokeWidth" [attr.r]="radius" [attr.cx]="center" [attr.cy]="center" />
+    <circle class="progress-value" fill="transparent" [attr.stroke-width]="strokeWidth" [attr.r]="radius" [attr.cx]="center" [attr.cy]="center" [style.strokeDasharray]="circumference" [style.strokeDashoffset]="offset" />
+</svg>
+<div class="content">
+    {{workRate}} %
+</div>
