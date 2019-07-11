@@ -4,13 +4,12 @@ page-flight-crew-list {
     }
 
     .leg {
-        font-size: 1.4em;
-        background: color($colors, white);
-        color: color($colors, primary);
+        font-size: 1.3em;
+        color: color($colors, secondary);
         max-width: 1200px;
         height: 70px;
         margin: auto;
-        padding: 10px;
+        padding: 20px;
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -20,7 +19,7 @@ page-flight-crew-list {
             align-items: center;
 
             ion-icon {
-                background: color($colors, primary);
+                background: color($colors, secondary);
                 color: color($colors, white);
                 margin-right: 10px;
             }
