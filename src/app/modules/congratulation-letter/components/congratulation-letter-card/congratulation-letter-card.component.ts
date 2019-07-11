@@ -40,9 +40,9 @@ export class CongratulationLetterCardComponent {
   }
 
   /**
-  * Redirige vers la page de détail d'une lettre de félicitation
-  * @param congratulationLetter la lettre qu'on souhaite afficher
-  */
+   * Redirige vers la page de détail d'une lettre de félicitation
+   * @param congratulationLetter la lettre qu'on souhaite afficher
+   */
   goToCongratulationLetterDetail(congratulationLetter: CongratulationLetterModel): void {
     this.navCtrl.push(CongratulationLetterDetailPage, { matricule: this.matricule, congratulationLetterId: congratulationLetter.techId });
   }
@@ -57,9 +57,9 @@ export class CongratulationLetterCardComponent {
   }
 
   /**
-  * Vérifie si le PNC est manager
-  * @return vrai si le PNC est manager, faux sinon
-  */
+   * Vérifie si le PNC est manager
+   * @return vrai si le PNC est manager, faux sinon
+   */
   isManager(): boolean {
     return this.securityService.isManager();
   }
