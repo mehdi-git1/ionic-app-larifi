@@ -2,7 +2,7 @@ import { TabHeaderEnum } from './../../../../core/enums/tab-header.enum';
 import { PncService } from './../../../../core/services/pnc/pnc.service';
 import { CongratulationLetterService } from './../../../../core/services/congratulation-letter/congratulation-letter.service';
 import { CongratulationLetterModeEnum } from '../../../../core/enums/congratulation-letter/congratulation-letter-mode.enum';
-import { NavParams } from 'ionic-angular';
+import { NavParams, Events } from 'ionic-angular';
 import { Component } from '@angular/core';
 import { CongratulationLetterModel } from '../../../../core/models/congratulation-letter.model';
 import { SessionService } from '../../../../core/services/session/session.service';
@@ -31,11 +31,19 @@ export class CongratulationLettersPage {
     constructor(private navParams: NavParams,
         private congratulationLetterService: CongratulationLetterService,
         private pncService: PncService,
+        private events: Events,
         private sessionService: SessionService) {
         this.selectedCongratulationLetterMode = CongratulationLetterModeEnum.RECEIVED;
+        events.subscribe('CongratulationLetterList:refresh', () => {
+            this.refresh();
+        });
     }
 
     ionViewDidEnter() {
+        this.initPage();
+    }
+
+    initPage() {
         if (this.navParams.get('matricule')) {
             this.matricule = this.navParams.get('matricule');
         } else if (this.sessionService.getActiveUser()) {
@@ -44,8 +52,10 @@ export class CongratulationLettersPage {
         this.pncService.getPnc(this.matricule).then(pnc => {
             this.pnc = pnc;
         }, error => { });
+        this.refresh();
+    }
 
-
+    refresh() {
         this.congratulationLetterService.getReceivedCongratulationLetters(this.matricule).then(receivedCongratulationLetters => {
             this.receivedCongratulationLetters = receivedCongratulationLetters;
         }, error => { });

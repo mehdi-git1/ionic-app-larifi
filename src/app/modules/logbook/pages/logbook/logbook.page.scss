@@ -124,7 +124,10 @@ log-book {
         }
 
         .column-title {
-            min-width: 120px;
+            display: block;
+            flex: 0 0 auto !important;
+            width: 100%;
+            // min-width: 120px;
         }
 
         .truncate-text {
@@ -149,6 +152,7 @@ log-book {
         .column-origin {
             flex: 0 0 67px !important;
             text-align: center;
+            
         }
 
         .column-date {

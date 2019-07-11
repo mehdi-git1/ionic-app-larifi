@@ -22,10 +22,10 @@ export class OnlineCongratulationLetterService {
   }
 
   /**
-  * Récupère les lettres de félicitation rédigées par un PNC
-  * @param pncMatricule le matricule du PNC
-  * @return une promesse contenant les lettres de félicitation rédigées
-  */
+   * Récupère les lettres de félicitation rédigées par un PNC
+   * @param pncMatricule le matricule du PNC
+   * @return une promesse contenant les lettres de félicitation rédigées
+   */
   getWrittenCongratulationLetters(pncMatricule: string): Promise<CongratulationLetterModel[]> {
     return this.restService.get(this.config.getBackEndUrl('getWrittenCongratulationLettersByPnc', [pncMatricule]));
   }
@@ -37,5 +37,15 @@ export class OnlineCongratulationLetterService {
    */
   getCongratulationLetter(id: number): Promise<CongratulationLetterModel> {
     return this.restService.get(this.config.getBackEndUrl('getCongratulationLetterById', [id]));
+  }
+
+  /**
+   * Corrige le destinataire de la lettre de félicitations
+   * @param congratulationLetterId identifiant de la lettre de félicitations
+   * @param oldMatricule matricule du pnc incorrect
+   * @param fixedMatricule matricule du Pnc corrigé
+   */
+  fixCongratulationLetterRecipient(congratulationLetterId: number, oldMatricule: string, fixedMatricule: string): Promise<CongratulationLetterModel> {
+    return this.restService.post(this.config.getBackEndUrl('fixCongratulationLetterRecipient', [congratulationLetterId]), {oldMatricule : oldMatricule, fixedMatricule: fixedMatricule});
   }
 }

@@ -1,29 +1,44 @@
 <span *ngIf="congratulationLetter && pnc">
-<div class="congratulation-letter-title-label">Titre de la Lettre :</div>
-<div class="congratulation-letter-title">{{congratulationLetter.title}}</div>
-<div class="congratulation-letter-pnc">Pnc actuellement félicité : {{pnc.firstName | titlecase}} {{pnc.lastName | titlecase}}</div>
-<div class="congratulation-letter-new-recipient">Nouveau destinataire</div>
+<div class="congratulation-letter-title">{{ 'CONGRATULATION_LETTERS.VALUE.FLIGHT' | translate:{airline:congratulationLetter.flight.airline, flightNumber:congratulationLetter.flight.number, flightDate:getFormatedFlightDate(congratulationLetter.flight)} }}</div>
+<div class="congratulation-letter-pnc">{{ 'CONGRATULATION_LETTERS.FIX_RECIPIENT.CURRENT_CONGRATULATED_PNC' | translate}} : {{pnc.firstName | titlecase}} {{pnc.lastName | titlecase}} ({{pnc.speciality}})</div>
+<div class="congratulation-letter-new-recipient">{{ 'CONGRATULATION_LETTERS.FIX_RECIPIENT.NEW_RECIPIENT' | translate}}</div>
 <div class="congratulation-letter-autocomplete">
     <ion-item>
         <mat-form-field class="autocomplete-field">
-            <input #pncMatricule type="text" matInput placeholder="{{'PNC_SEARCH.CRITERIA.PNC_MATRICULE' | translate}}" (keyup)="searchAutoComplete(pncMatricule.value)" [matAutocomplete]="auto" [(ngModel)]="selectedPnc" autocomplete="off" />
+            <mat-chip-list class="chip-list" #chipList>
+                <mat-chip class="selected-pnc-chip" *ngIf="pncHasBeenSelected()"
+                    selectable="false"
+                    removable="true"
+                    (removed)="deselectPnc()">
+                    <span class="selected-pnc">{{selectedPnc?.lastName}} {{selectedPnc?.firstName}}</span>
+                    <mat-icon matChipRemove class="remove-selected-pnc" (click)="deselectPnc()">x</mat-icon>
+                </mat-chip>
+                <div class="pnc-input-block">
+                    <ion-icon *ngIf="!pncHasBeenSelected()" class="search-icon" name="search"></ion-icon>
+                    <input class="pnc-input" [disabled]="pncHasBeenSelected()" #pncInput type="text" matInput 
+                    placeholder="{{'PNC_SEARCH.CRITERIA.PNC_MATRICULE' | translate}}" (keyup)="searchAutoComplete(pncInput.value)" 
+                    [matAutocomplete]="auto" autocomplete="off" />
+                </div>
+            </mat-chip-list>
         </mat-form-field>
-        <mat-autocomplete class="mat-autocomplete" #auto="matAutocomplete" (optionSelected)="selectPnc($event.option.value)">
+        <mat-autocomplete class="mat-autocomplete" #auto (optionSelected)="selectPnc($event.option.value)">
             <mat-option *ngFor="let pnc of pncList | async" [value]="pnc">
                 {{ pnc.lastName + ' ' + pnc.firstName + ' (' + pnc.matricule + ')'}}
             </mat-option>
         </mat-autocomplete>
     </ion-item>
-    <ion-spinner class='auto-complete-spinner' *ngIf="autoCompleteRunning"></ion-spinner>
+    <div class="spinner-overlay" *ngIf="autoCompleteRunning">
+        <ion-spinner class="auto-complete-spinner" ></ion-spinner>
+    </div>
 </div>
-<div class="button-bar button-bar-right margin-top-10 margin-bottom-10">
+<div class="button-bar margin-top-10 margin-bottom-10">
     <!-- Bouton annuler modification de l'eobs -->
-    <button ion-button color="grey50" (click)="cancel()">
-        <ion-icon name="md-close" ios="md-close" margin-right></ion-icon> {{ 'GLOBAL.BUTTONS.CANCEL' | translate }}
+    <button ion-button outline color="grey50" (click)="cancel()">
+        {{ 'GLOBAL.BUTTONS.CANCEL' | translate }}
     </button>
     <!-- Bouton mettre à jour l'eobs -->
-    <button ion-button color="green50" (click)="fixRecipient()" [disabled]="!selectedPnc">
-        <ion-icon name="md-checkmark" ios="md-checkmark" margin-right></ion-icon> {{ 'GLOBAL.BUTTONS.VALIDATE' | translate }}
+    <button ion-button color="grey50" (click)="fixRecipient()" [disabled]="!pncHasBeenSelected()">
+        {{ 'GLOBAL.BUTTONS.VALIDATE' | translate }}
     </button>
 </div>
 </span>
