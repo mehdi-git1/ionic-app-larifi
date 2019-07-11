@@ -63,7 +63,7 @@ export class CongratulationLetterService extends BaseService {
    * @param pncMatricule le matricule du pnc
    */
   delete(id: number, pncMatricule: string) {
-    return this.execFunctionService('delete', id, pncMatricule);
+    return this.onlineCongratulationLetterService.delete(id, pncMatricule);
   }
 
   /**
