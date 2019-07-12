@@ -29,6 +29,7 @@ export class UrlConfiguration {
     'getReceivedCongratulationLettersByPnc': `${urlGroupEnum.PNC}/{matricule}/received_congratulation_letters`,
     'getWrittenCongratulationLettersByPnc': `${urlGroupEnum.PNC}/{matricule}/written_congratulation_letters`,
     'getAllRotationsByMatricule': `${urlGroupEnum.PNC}/{matricule}/rotations`,
+    'congratulationLetters': urlGroupEnum.CONGRATULATION_LETTER,
     'getCongratulationLetterById': `${urlGroupEnum.CONGRATULATION_LETTER}/{congratulationLetterId}`,
     'pncPhotos': urlGroupEnum.PNC_PHOTO,
     'getPncPhotoByMatricule': `${urlGroupEnum.PNC_PHOTO}/{matricule}`,
