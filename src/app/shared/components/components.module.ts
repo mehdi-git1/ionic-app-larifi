@@ -32,6 +32,7 @@ import { CheckboxAndLabelComponent } from './checkbox-and-label/checkbox-and-lab
 import { UserMessageAlertComponent } from './user-message-alert/user-message-alert.component';
 import { AppVersionAlertComponent } from './app-version-alert/app-version-alert.component';
 import { PncEdossierHeaderComponent } from './pnc-edossier-header/pnc-edossier-header.component';
+import { PncAutoCompleteComponent } from './pnc-autocomplete/pnc-autocomplete.component';
 
 
 @NgModule({
@@ -66,7 +67,8 @@ import { PncEdossierHeaderComponent } from './pnc-edossier-header/pnc-edossier-h
     UserMessageAlertComponent,
     PdfButtonComponent,
     AppVersionAlertComponent,
-    DocumentManagerComponent
+    DocumentManagerComponent,
+    PncAutoCompleteComponent
   ],
   exports: [
     OfflineIndicatorComponent,
@@ -93,7 +95,8 @@ import { PncEdossierHeaderComponent } from './pnc-edossier-header/pnc-edossier-h
     UserMessageAlertComponent,
     PdfButtonComponent,
     AppVersionAlertComponent,
-    DocumentManagerComponent
+    DocumentManagerComponent,
+    PncAutoCompleteComponent
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA

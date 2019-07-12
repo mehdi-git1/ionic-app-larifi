@@ -20,19 +20,10 @@ import { CongratulationLetterFlightModel } from '../../../../core/models/congrat
     templateUrl: 'fix-recipient.component.html'
 })
 export class FixRecipientComponent {
-    private static CDK_OVERLAY_0 = '#cdk-overlay-0';
-    private static MAT_AUTOCOMPLETE_0 = '#mat-autocomplete-0';
-    congratulationLetter: CongratulationLetterModel;
+
     pnc: PncModel;
     selectedPnc: PncModel;
-    searchTerms = new Subject<string>();
-    pncList: Observable<PncModel[]>;
-    // Définit la position top de la liste d'autocomplete
-    autoCompleteTopPosition = -1;
-    autoCompleteRunning: boolean;
-    removable = true;
-
-    @ViewChild('pncInput') fruitInput: ElementRef;
+    congratulationLetter: CongratulationLetterModel;
 
     constructor(private navParams: NavParams,
         public congratulationLetterService: CongratulationLetterService,
@@ -44,7 +35,6 @@ export class FixRecipientComponent {
         private events: Events) {
         this.congratulationLetter = this.navParams.get('congratulationLetter');
         this.pnc = this.navParams.get('pnc');
-        this.initAutocompleteList();
     }
 
     /**
@@ -83,87 +73,11 @@ export class FixRecipientComponent {
     }
 
     /**
-    * Recharge la liste des pncs de l'autocompletion aprés 500ms
-    */
-    initAutocompleteList() {
-        this.pncList = this.searchTerms
-        .debounceTime(500)
-        .distinctUntilChanged()
-        .switchMap(
-            term => this.getAutoCompleteDataReturn(term)
-        )
-        .catch(error => {
-            this.autoCompleteRunning = false;
-            return Observable.of<PncModel[]>([]);
-        });
-    }
-
-    /**
      * Vérifie si un Pnc a été séléctionné
      * @return true si un Pnc a été séléctionné, false sinon
      */
     pncHasBeenSelected(): boolean {
         return this.selectedPnc && this.selectedPnc !== undefined && this.selectedPnc.matricule != null;
-    }
-
-    /**
-     * Déselectionne le Pnc
-     */
-    deselectPnc() {
-        this.selectedPnc = null;
-    }
-
-    /**
-     * Gére plus finement le retour de l'autocomplete
-     * => Permet de gérer l'affichage du spinner et de forcer la position de l'autocompléte
-     * @param term termes à rechercher pour l'autocomplete
-     * @return Liste des pnc retrouvé par l'autocomplete
-     */
-    getAutoCompleteDataReturn(term: string): Observable<PncModel[]> {
-        if (term) {
-        return from(this.pncProvider.pncAutoComplete(term).then(
-            data => {
-            this.autoCompleteRunning = false;
-            $(FixRecipientComponent.CDK_OVERLAY_0).css('top', this.autoCompleteTopPosition + 'px');
-            return data;
-            }));
-        } else {
-        this.autoCompleteRunning = false;
-        return Observable.of<PncModel[]>([]);
-        }
-    }
-
-    /**
-     * Sélectionne le Pnc
-     * @param pnc pnc sélectionné
-     */
-    selectPnc(pnc: any) {
-        this.selectedPnc = pnc;
-        this.fruitInput.nativeElement.value = ' ';
-    }
-
-    /**
-    * Ajoute un terme au flux
-    * @param term le terme à ajouter
-    */
-    searchAutoComplete(term: string): void {
-        this.checkIfAutoCompleteIsOpen();
-        term = Utils.replaceSpecialCaracters(term);
-        this.autoCompleteRunning = true;
-        this.searchTerms.next(term);
-    }
-
-    /**
-     * Vérifie toutes les 200ms que l'element d'autocomplete existe
-     */
-    checkIfAutoCompleteIsOpen() {
-        setTimeout(() => {
-        if ($(FixRecipientComponent.MAT_AUTOCOMPLETE_0).length != 0) {
-            this.changeHeightOnOpen();
-        } else {
-            this.checkIfAutoCompleteIsOpen();
-        }
-        }, 200);
     }
 
     /**
@@ -175,12 +89,4 @@ export class FixRecipientComponent {
         return this.congratulationLetterService.getFormatedFlightDate(flight);
     }
 
-    /**
-     * Change la max-height de l'autocomplete en fonction de la taille de l'affichage disponible
-     */
-    changeHeightOnOpen() {
-        this.autoCompleteTopPosition = this.autoCompleteTopPosition != -1 ? this.autoCompleteTopPosition : $(FixRecipientComponent.CDK_OVERLAY_0).offset().top;
-        $(FixRecipientComponent.CDK_OVERLAY_0).css('top', this.autoCompleteTopPosition + 'px');
-        $(FixRecipientComponent.MAT_AUTOCOMPLETE_0).css('max-height', window.innerHeight - this.autoCompleteTopPosition + 'px');
-    }
 }

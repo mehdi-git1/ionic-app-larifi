@@ -8,35 +8,23 @@
 
         <ion-grid>
             <span>
-                <form novalidate [formGroup]="autoCompleteForm">
-                    <ion-row>
-                        <ion-col col-6>
-                            <!-- PNC -->
-                            <ion-item [ngClass]="{ 'item-select-disabled' : areFiltersDisabled() }">
-                                <mat-form-field class="autocomplete-field">
-                                    <input #pncMatricule type="text" matInput placeholder="{{'PNC_SEARCH.CRITERIA.PNC_MATRICULE' | translate}}" formControlName="pncMatriculeControl" (keyup)="searchAutoComplete(pncMatricule.value)" [matAutocomplete]="auto" [(ngModel)]="selectedPnc" autocomplete="off" [readonly]="areFiltersDisabled()" />
-                                </mat-form-field>
-                                <mat-autocomplete class="mat-autocomplete" #auto="matAutocomplete" (optionSelected)="openPncHomePage($event.option.value)">
-                                    <mat-option *ngFor="let pnc of pncList | async" [value]="pnc">
-                                        {{ pnc.lastName + ' ' + pnc.firstName + ' (' + pnc.matricule + ')'}}
-                                    </mat-option>
-                                </mat-autocomplete>
-                            </ion-item>
-                            <ion-spinner class='auto-complete-spinner' *ngIf="autoCompleteRunning"></ion-spinner>
-                        </ion-col>
-                        <ion-col col-5>
-                            <button ion-button icon-start (click)="initForm()" class="clear-pnc" [disabled]="clearButtonIsDisabled()" color="primary-light" outline>
-                                <ion-icon name="trash"></ion-icon>
-                                {{ 'PNC_SEARCH.REINIT_FILTERS' | translate }}
-                            </button>
-                        </ion-col>
-                        <ion-col col-1>
-                            <button ion-button icon-start (click)="search()" class="search-pnc" color="primary-light">
-                                <ion-icon name="refresh"></ion-icon>
-                            </button>
-                        </ion-col>
-                    </ion-row>
-                </form>
+                <ion-row>
+                    <ion-col col-6>
+                        <!-- PNC -->
+                        <pnc-autocomplete (onSelectPnc)="openPncHomePage($event)"  [ngModelOptions]="{standalone: true}"></pnc-autocomplete>
+                    </ion-col>
+                    <ion-col col-5>
+                        <button ion-button icon-start (click)="initForm()" class="clear-pnc" [disabled]="clearButtonIsDisabled()" color="primary-light" outline>
+                            <ion-icon name="trash"></ion-icon>
+                            {{ 'PNC_SEARCH.REINIT_FILTERS' | translate }}
+                        </button>
+                    </ion-col>
+                    <ion-col col-1>
+                        <button ion-button icon-start (click)="search()" class="search-pnc" color="primary-light">
+                            <ion-icon name="refresh"></ion-icon>
+                        </button>
+                    </ion-col>
+                </ion-row>
                 <form novalidate [formGroup]="searchForm">
                     <ion-row>
                         <ion-col>
