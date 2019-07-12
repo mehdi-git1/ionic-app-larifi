@@ -4,7 +4,6 @@
     width: 100%;
     justify-content: center;
     border-radius: 10px;
-    //background-color: rgba(0, 0, 0, 0.80);
 }
 
 .fix-recipient-popover .popover-viewport {
@@ -53,7 +52,6 @@ fix-recipient {
                 }
             } 
         }
-
     }
 
     .autocomplete-field {
@@ -74,7 +72,6 @@ fix-recipient {
             display: -webkit-box;
             .selected-pnc-chip {
                 color: color($colors, primary);
-                //background-color: color($colors-secondary, grey95);
                 text-align: center;
                 vertical-align: -webkit-baseline-middle;
                 width: 100%;
