@@ -244,6 +244,9 @@ export class LogbookEventComponent implements OnInit {
         });
     }
 
+    /**
+     * Confirme la modification d'un évènement avec ou sans notification des personne concernés
+     */
     confirmUpdateLogbookEvent() {
         if (this.logbookEvent.notifiedPncs) {
             this.confirmNotifyPncs().then(() => {
@@ -254,6 +257,9 @@ export class LogbookEventComponent implements OnInit {
         }
     }
 
+    /**
+     * Confirme l'enregistrement d'un évènement sans notifier les personne concernés
+     */
     confirmSaveLogbookEvent() {
         if (!this.logbookEvent.notifiedPncs || this.logbookEvent.notifiedPncs.length === 0) {
             this.confirmWithoutNotification().then(() => {
@@ -386,6 +392,11 @@ export class LogbookEventComponent implements OnInit {
         return result;
     }
 
+    /**
+     * Ajoute le pnc coché a la liste des pnc à notifier
+     * @param myEvent l'event lié a la case à cocher
+     * @param pncLight le pnc concerné
+     */
     updatePncNotifiedList(myEvent: any, pncLight: PncLightModel) {
         if (myEvent.checked) {
             this.logbookEvent.notifiedPncs.push(pncLight);
