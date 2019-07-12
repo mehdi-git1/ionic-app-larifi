@@ -13,7 +13,7 @@ import { Component } from '@angular/core';
 import { PncService } from '../../../../core/services/pnc/pnc.service';
 import { TranslateService } from '@ngx-translate/core';
 import { Utils } from '../../../../shared/utils/utils';
-import { Subject, Observable } from 'rxjs/RX';
+import { Subject, Observable } from 'rxjs/Rx';
 import * as _ from 'lodash';
 
 @Component({
