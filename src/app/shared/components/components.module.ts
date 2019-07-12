@@ -1,3 +1,4 @@
+import { WorkRateCircleComponent } from './work-rate-circle/work-rate-circle.component';
 import { DocumentManagerComponent } from './document/document-manager.component';
 import { TabHeaderComponent } from './tab-header/tab-header.component';
 import { PncHeaderComponent } from './pnc-header/pnc-header.component';
@@ -67,7 +68,8 @@ import { DocumentViewerComponent } from './document-viewer/document-viewer.compo
     PdfButtonComponent,
     AppVersionAlertComponent,
     DocumentManagerComponent,
-    DocumentViewerComponent
+    DocumentViewerComponent,
+    WorkRateCircleComponent
   ],
   exports: [
     OfflineIndicatorComponent,
@@ -95,7 +97,8 @@ import { DocumentViewerComponent } from './document-viewer/document-viewer.compo
     PdfButtonComponent,
     AppVersionAlertComponent,
     DocumentManagerComponent,
-    DocumentViewerComponent
+    DocumentViewerComponent,
+    WorkRateCircleComponent
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA
