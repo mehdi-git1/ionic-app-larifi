@@ -613,7 +613,19 @@
             "CREATE_NEW_LETTER": "Rédiger / insérer une lettre de félicitations"
         },
         "NO_RECEIVED_LETTERS": "Pas de félicitations reçues",
-        "NO_WRITTEN_LETTERS": "Pas de félicitations rédigées"
+        "NO_WRITTEN_LETTERS": "Pas de félicitations rédigées",
+        "ACTION_MENU": {
+            "DELETE_CONGRATULATION_LETTER": "Supprimer"
+        },
+        "TOAST": {
+            "DELETE_SUCCESS": "Lettre de félicitations supprimée"
+        },
+        "CONFIRM_DELETE": {
+            "TITLE": "Suppression de la lettre de félicitations",
+            "MESSAGE": "Confirmez-vous la suppression de cette lettre de félicitations ?",
+            "CANCEL": "Annuler",
+            "CONFIRM": "Supprimer"
+        }
     },
     "CONGRATULATION_LETTER_DETAIL": {
         "HEADER": {

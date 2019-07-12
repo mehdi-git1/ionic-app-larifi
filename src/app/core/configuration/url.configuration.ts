@@ -31,6 +31,7 @@ export class UrlConfiguration {
     'getAllRotationsByMatricule': `${urlGroupEnum.PNC}/{matricule}/rotations`,
     'congratulationLetters': urlGroupEnum.CONGRATULATION_LETTER,
     'getCongratulationLetterById': `${urlGroupEnum.CONGRATULATION_LETTER}/{congratulationLetterId}`,
+    'deleteCongratulationLetterByIdAndMatricule': `${urlGroupEnum.CONGRATULATION_LETTER}/{id}/{matricule}`,
     'pncPhotos': urlGroupEnum.PNC_PHOTO,
     'getPncPhotoByMatricule': `${urlGroupEnum.PNC_PHOTO}/{matricule}`,
     'getSecurityInfos': urlGroupEnum.ME,
