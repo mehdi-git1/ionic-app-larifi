@@ -11,8 +11,9 @@
             <div class="pnc-input-block">
                 <ion-icon *ngIf="!pncHasBeenSelected()" class="search-icon" name="search"></ion-icon>
                 <input class="pnc-input" [disabled]="pncHasBeenSelected()" #pncInput type="text" matInput 
-                placeholder="{{'PNC_SEARCH.CRITERIA.PNC_MATRICULE' | translate}}" (keyup)="searchAutoComplete(pncInput.value)" 
+                placeholder="{{'PNC_AUTOCOMPLETE.PLACEHOLDER' | translate}}" (keyup)="searchAutoComplete(pncInput.value)" 
                 [matAutocomplete]="auto" autocomplete="off" [readonly]="areFiltersDisabled()"/>
+                <ion-icon *ngIf="!pncHasBeenSelected() && pncInput && pncInput.value " name="backspace" class="clickable" (click)="clearPncSearch()"></ion-icon>
             </div>
         </mat-chip-list>
     </mat-form-field>

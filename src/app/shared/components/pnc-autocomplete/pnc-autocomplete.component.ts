@@ -40,7 +40,7 @@ export class PncAutoCompleteComponent extends AbstractValueAccessor {
           $(PncAutoCompleteComponent.CDK_OVERLAY_0).css('top', this.autoCompleteTopPosition + 'px');
         }
       });
-  
+
       /**
        * Action lorsque le clavier disparaît
        */
@@ -53,8 +53,8 @@ export class PncAutoCompleteComponent extends AbstractValueAccessor {
     }
 
     /**
-    * Recharge la liste des pncs de l'autocompletion aprés 500ms
-    */
+     * Recharge la liste des pncs de l'autocompletion aprés 500ms
+     */
     initAutocompleteList() {
         this.pncList = this.searchTerms
         .debounceTime(500)
@@ -74,6 +74,13 @@ export class PncAutoCompleteComponent extends AbstractValueAccessor {
      */
     pncHasBeenSelected(): boolean {
         return this.value && this.value !== undefined && this.value.matricule != null;
+    }
+
+    /**
+     *
+     */
+    clearPncSearch() {
+        this.pncInput.nativeElement.value = '';
     }
 
     /**

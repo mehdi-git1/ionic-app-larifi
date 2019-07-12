@@ -100,6 +100,9 @@
         "PASSWORD": "PIN + Token",
         "VALIDATE": "Valider"
     },
+    "PNC_AUTOCOMPLETE" : {
+        "PLACEHOLDER": "Nom Prénom ou Matricule"
+    },
     "CAREER_OBJECTIVE_CREATE": {
         "CREATE_TITLE": "Nouvelle priorité",
         "EDIT_TITLE": "Modification d'une priorité",
@@ -559,7 +562,7 @@
         "MY_TITLE": "Ma recherche PNC",
         "CRITERIA": {
             "FILTERS": "Filtres",
-            "PNC_MATRICULE": "Nom Prénom ou Matricule",
+
             "DIVISION": "Division",
             "SECTOR": "Secteur",
             "GINQ": "Ginq",
