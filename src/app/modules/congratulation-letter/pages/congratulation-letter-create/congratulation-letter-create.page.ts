@@ -112,8 +112,8 @@ export class CongratulationLetterCreatePage {
     }
 
     /**
-    * Vérifie si le formulaire a été modifié sans être enregistré
-    */
+     * Vérifie si le formulaire a été modifié sans être enregistré
+     */
     formHasBeenModified() {
         return Utils.getHashCode(this.originCongratulationLetter) !== Utils.getHashCode(this.congratulationLetter);
     }
@@ -143,8 +143,8 @@ export class CongratulationLetterCreatePage {
     }
 
     /**
-    * Initialise le formulaire
-    */
+     * Initialise le formulaire
+     */
     initForm() {
         this.creationForm = this.formBuilder.group({
             flightDateControl: ['', Validators.required],
@@ -242,6 +242,7 @@ export class CongratulationLetterCreatePage {
      * Valide la création de la lettre
      */
     submitLetter() {
+        this.congratulationLetter.creationDate = new Date();
         this.congratulationLetter.flight.theoricalDate = this.dateTransformer.transformDateStringToIso8601Format(this.congratulationLetter.flight.theoricalDate);
 
         this.congratulationLetterService.createOrUpdate(this.congratulationLetter).then(congratulationLetter => {
