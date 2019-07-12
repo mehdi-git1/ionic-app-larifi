@@ -5,7 +5,7 @@
                 selectable="false"
                 removable="true"
                 (removed)="deselectPnc()">
-                <span class="selected-pnc">{{_value?.lastName}} {{_value?.firstName}}</span>
+                <span class="selected-pnc">{{value?.lastName}} {{value?.firstName}}</span>
                 <mat-icon matChipRemove class="remove-selected-pnc" (click)="deselectPnc()"><ion-icon name="md-close"></ion-icon></mat-icon>
             </mat-chip>
             <div class="pnc-input-block">

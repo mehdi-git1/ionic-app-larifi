@@ -57,6 +57,7 @@ export class CongratulationLetterActionMenuComponent {
 
   /**
    * Corriger le destinataire
+   * @param event
    */
   fixRecipient(event: Event) {
     event.stopPropagation();

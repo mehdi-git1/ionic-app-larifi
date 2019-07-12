@@ -32,23 +32,23 @@ export class PncAutoCompleteComponent extends AbstractValueAccessor {
             private connectivityService: ConnectivityService,
             private keyboard: Keyboard) {
         super();
-            /**
+    /**
      * Action lorsque le clavier s'affiche
      */
     this.keyboard.didShow.subscribe(() => {
         if (this.autoCompleteTopPosition != -1) {
-          $(PncAutoCompleteComponent.CDK_OVERLAY_0).css('top', this.autoCompleteTopPosition + 'px');
+            $(PncAutoCompleteComponent.CDK_OVERLAY_0).css('top', this.autoCompleteTopPosition + 'px');
         }
-      });
+    });
 
-      /**
-       * Action lorsque le clavier disparaît
-       */
-      this.keyboard.didHide.subscribe(() => {
+    /**
+     * Action lorsque le clavier disparaît
+     */
+    this.keyboard.didHide.subscribe(() => {
         const newHeight = window.innerHeight - this.autoCompleteTopPosition;
         $(PncAutoCompleteComponent.CDK_OVERLAY_0).css('top', this.autoCompleteTopPosition + 'px');
         setTimeout(() => { $(PncAutoCompleteComponent.MAT_AUTOCOMPLETE_0).css('max-height', newHeight + 'px'); }, 5000);
-      });
+        });
         this.initAutocompleteList();
     }
 
@@ -77,7 +77,7 @@ export class PncAutoCompleteComponent extends AbstractValueAccessor {
     }
 
     /**
-     *
+     * Vide le champs de saisie
      */
     clearPncSearch() {
         this.pncInput.nativeElement.value = '';
@@ -124,14 +124,17 @@ export class PncAutoCompleteComponent extends AbstractValueAccessor {
         this.pncInput.nativeElement.value = ' ';
     }
 
+    /**
+     * Vérifique si l'on est online
+     */
     areFiltersDisabled(): boolean {
         return !this.connectivityService.isConnected();
     }
 
     /**
-    * Ajoute un terme au flux
-    * @param term le terme à ajouter
-    */
+     * Ajoute un terme au flux
+     * @param term le terme à ajouter
+     */
     searchAutoComplete(term: string): void {
         this.checkIfAutoCompleteIsOpen();
         term = Utils.replaceSpecialCaracters(term);
@@ -151,6 +154,7 @@ export class PncAutoCompleteComponent extends AbstractValueAccessor {
         }
         }, 200);
     }
+
     /**
      * Change la max-height de l'autocomplete en fonction de la taille de l'affichage disponible
      */
