@@ -282,9 +282,9 @@ export class CongratulationLetterCreatePage {
 
 
     /**
-   * Retourne la date de dernière modification, formatée pour l'affichage
-   * @return la date de dernière modification au format dd/mm/yyyy hh:mm
-   */
+     * Retourne la date de dernière modification, formatée pour l'affichage
+     * @return la date de dernière modification au format dd/mm/yyyy hh:mm
+     */
     getLastUpdateDate(): string {
         return this.datePipe.transform(this.congratulationLetter.lastUpdateDate, 'dd/MM/yyyy HH:mm');
     }

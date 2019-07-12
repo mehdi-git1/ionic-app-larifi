@@ -39,6 +39,7 @@
                 <label><span class="edospnc-speechBubble"></span>{{ 'CONGRATULATION_LETTER_DETAIL.VERBATIM' | translate }}</label>
                 <p class="verbatim">{{ congratulationLetter.verbatim }}</p>
             </div>
+            <div class="information-message align-left" *ngIf="congratulationLetter.lastUpdateAuthor">{{ 'CONGRATULATION_LETTER_CREATE.UPDATED_BY' | translate:{lastName:congratulationLetter.lastUpdateAuthor.lastName, firstName:congratulationLetter.lastUpdateAuthor.firstName, date:getLastUpdateDate()} }}</div>
         </div>
     </ng-template>
 </ion-content>

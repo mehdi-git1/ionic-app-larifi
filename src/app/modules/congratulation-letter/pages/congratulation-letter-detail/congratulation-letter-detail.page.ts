@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { CongratulationLetterRedactorTypeEnum } from './../../../../core/enums/congratulation-letter/congratulation-letter-redactor-type.enum';
 import { CongratulationLetterFlightModel } from './../../../../core/models/congratulation-letter-flight.model';
 import { CongratulationLetterModel } from './../../../../core/models/congratulation-letter.model';
@@ -24,7 +25,8 @@ export class CongratulationLetterDetailPage {
     constructor(private navParams: NavParams,
         private congratulationLetterService: CongratulationLetterService,
         private pncService: PncService,
-        private sessionService: SessionService
+        private sessionService: SessionService,
+        private datePipe: DatePipe
     ) {
     }
 
@@ -66,6 +68,14 @@ export class CongratulationLetterDetailPage {
      */
     getFormatedFlightDate(flight: CongratulationLetterFlightModel): string {
         return this.congratulationLetterService.getFormatedFlightDate(flight);
+    }
+
+    /**
+     * Retourne la date de dernière modification, formatée pour l'affichage
+     * @return la date de dernière modification au format dd/mm/yyyy hh:mm
+     */
+    getLastUpdateDate(): string {
+        return this.datePipe.transform(this.congratulationLetter.lastUpdateDate, 'dd/MM/yyyy HH:mm');
     }
 
 }
