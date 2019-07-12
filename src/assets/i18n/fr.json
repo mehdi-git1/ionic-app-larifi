@@ -632,6 +632,12 @@
                 "TITLE": "Correction du destinataire",
                 "LABEL": "Etes-vous sûr de vouloir procéder au changement de destinataire ?"
             }
+        },
+        "CONFIRM_DELETE": {
+            "TITLE": "Suppression de la lettre de félicitations",
+            "MESSAGE": "Confirmez-vous la suppression de cette lettre de félicitations ?",
+            "CANCEL": "Annuler",
+            "CONFIRM": "Supprimer"
         }
     },
     "CONGRATULATION_LETTER_DETAIL": {

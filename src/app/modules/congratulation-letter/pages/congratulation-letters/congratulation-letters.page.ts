@@ -4,7 +4,7 @@ import { TabHeaderEnum } from './../../../../core/enums/tab-header.enum';
 import { PncService } from './../../../../core/services/pnc/pnc.service';
 import { CongratulationLetterService } from './../../../../core/services/congratulation-letter/congratulation-letter.service';
 import { CongratulationLetterModeEnum } from '../../../../core/enums/congratulation-letter/congratulation-letter-mode.enum';
-import { NavParams, NavController, Events } from 'ionic-angular';
+import { NavParams, Events, NavController } from 'ionic-angular';
 import { Component } from '@angular/core';
 import { CongratulationLetterModel } from '../../../../core/models/congratulation-letter.model';
 import { SessionService } from '../../../../core/services/session/session.service';

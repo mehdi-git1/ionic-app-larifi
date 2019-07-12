@@ -11,7 +11,7 @@
         <div class="button-placeholder">
             <!-- Bloc pour les boutons redirigeant vers le détail d'une lettre -->
         </div>
-        <div class="action-placeholder">
+        <div class="action-placeholder" *ngIf="isManager() && isConnected()">
             <!-- Bloc pour le bouton d'actions -->
         </div>
     </div>

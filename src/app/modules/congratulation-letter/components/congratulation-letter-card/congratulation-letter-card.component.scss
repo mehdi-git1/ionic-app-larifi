@@ -28,20 +28,13 @@ congratulation-letter-card {
         }
 
         button.detail-button {
-            color: color($colors, primary);
+            background: color($colors, primary-light);
+            color: color($colors, white);
             width: 30px;
             height: 30px;
             box-shadow: none;
-            button.detail-button {
-                background: color($colors, primary-light);
-                color: color($colors, white);
-                width: 30px;
-                height: 30px;
-                box-shadow: none;
-
-                span:before {
-                    font-size: 20px;
-                }
+            span:before {
+                font-size: 20px;
             }
         }
     }

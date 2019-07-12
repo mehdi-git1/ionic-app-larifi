@@ -1,3 +1,4 @@
+import { ConnectivityService } from './../../../../core/services/connectivity/connectivity.service';
 import { CongratulationLetterRedactorTypeEnum } from './../../../../core/enums/congratulation-letter/congratulation-letter-redactor-type.enum';
 import { CongratulationLetterFlightModel } from './../../../../core/models/congratulation-letter-flight.model';
 import { CongratulationLetterService } from './../../../../core/services/congratulation-letter/congratulation-letter.service';
@@ -27,9 +28,9 @@ export class CongratulationLetterCardComponent {
 
   constructor(private navCtrl: NavController,
     private securityService: SecurityService,
-    public popoverCtrl: PopoverController,
-    private congratulationLetterService: CongratulationLetterService
-  ) {
+    private popoverCtrl: PopoverController,
+    private congratulationLetterService: CongratulationLetterService,
+    private connectivityService: ConnectivityService) {
   }
 
   /**
@@ -42,9 +43,9 @@ export class CongratulationLetterCardComponent {
   }
 
   /**
-  * Redirige vers la page de détail d'une lettre de félicitation
-  * @param congratulationLetter la lettre qu'on souhaite afficher
-  */
+   * Redirige vers la page de détail d'une lettre de félicitation
+   * @param congratulationLetter la lettre qu'on souhaite afficher
+   */
   goToCongratulationLetterDetail(congratulationLetter: CongratulationLetterModel): void {
     this.navCtrl.push(CongratulationLetterDetailPage, { matricule: this.pnc.matricule, congratulationLetterId: congratulationLetter.techId });
   }
@@ -59,17 +60,25 @@ export class CongratulationLetterCardComponent {
   }
 
   /**
-  * Vérifie si le PNC est manager
-  * @return vrai si le PNC est manager, faux sinon
-  */
+   * Vérifie si le PNC est manager
+   * @return vrai si le PNC est manager, faux sinon
+   */
   isManager(): boolean {
     return this.securityService.isManager();
   }
 
   /**
+   * Vérifie que l'on est en mode connecté
+   * @return true si on est en mode connecté, false sinon
+   */
+  isConnected(): boolean {
+    return this.connectivityService.isConnected();
+  }
+
+  /**
    * Ouvre la popover de description d'un item
    * @param myEvent  event
-   * @param eObservationItem item
+   * @param congratulationLetter la lettre dont le menu d'actions a été ouvert
    */
   openActionsMenu(myEvent: Event, congratulationLetter: CongratulationLetterModel) {
     myEvent.stopPropagation();

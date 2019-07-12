@@ -13,7 +13,6 @@ import { PncService } from './../../../../core/services/pnc/pnc.service';
 import { NavController, NavParams, PopoverController } from 'ionic-angular';
 import { Component, ViewChild, AfterViewInit, OnInit } from '@angular/core';
 import { LogbookCreatePage } from '../logbook-create/logbook-create.page';
-import { MatTableDataSource, MatSort } from '@angular/material';
 import * as moment from 'moment';
 import * as _ from 'lodash';
 import { TabHeaderEnum } from '../../../../core/enums/tab-header.enum';
