@@ -16,6 +16,7 @@
 @import '../theme/label.scss';
 @import '../theme/input.scss';
 @import '../theme/checkbox.scss';
+@import '../theme/radio.scss';
 @import '../theme/textarea.scss';
 @import '../theme/select.scss';
 @import '../theme/button-bar.scss';
@@ -29,6 +30,7 @@
 @import '../theme/navbar.scss';
 @import '../theme/typography.scss';
 @import '../theme/elevation.scss';
+@import '../theme/flex.scss';
 
 // webfonts/icons
 @import '../theme/edospnc-icons.scss';
@@ -89,6 +91,7 @@
 }
 
 .back-button {
+    position: absolute;
     color: color($colors, white);
 }
 

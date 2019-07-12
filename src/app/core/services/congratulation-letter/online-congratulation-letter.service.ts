@@ -73,4 +73,14 @@ export class OnlineCongratulationLetterService {
       }).catch(() => reject());
     });
   }
+
+  /**
+   * Crée une lettre de félicitation
+   * @param congratulationLetter la lettre à créer/modifier
+   * @return une promesse contenant la lettre créée/modifiée
+   */
+  createOrUpdate(congratulationLetter: CongratulationLetterModel): Promise<CongratulationLetterModel> {
+    return this.restService.post(this.config.getBackEndUrl('congratulationLetters'), congratulationLetter);
+  }
+
 }

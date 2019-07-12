@@ -1,3 +1,4 @@
+import { CongratulationLetterCreatePage } from './pages/congratulation-letter-create/congratulation-letter-create.page';
 import { CongratulationLetterDetailPage } from './pages/congratulation-letter-detail/congratulation-letter-detail.page';
 import { CongratulationLettersPage } from './pages/congratulation-letters/congratulation-letters.page';
 import { CongratulationLetterListComponent } from './components/congratulation-letter-list/congratulation-letter-list.component';
@@ -14,6 +15,7 @@ import { ComponentsModule } from '../../shared/components/components.module';
   declarations: [
     CongratulationLettersPage,
     CongratulationLetterDetailPage,
+    CongratulationLetterCreatePage,
     CongratulationLetterListComponent,
     CongratulationLetterCardComponent,
     WarningTextComponent,
@@ -27,7 +29,8 @@ import { ComponentsModule } from '../../shared/components/components.module';
   entryComponents: [
     CongratulationLettersPage,
     CongratulationLetterDetailPage,
-    CongratulationLetterActionMenuComponent
+    CongratulationLetterActionMenuComponent,
+    CongratulationLetterCreatePage
   ],
   exports: [
     CongratulationLettersPage

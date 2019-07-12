@@ -1,8 +1,10 @@
+import { ConnectivityService } from './../../../../core/services/connectivity/connectivity.service';
+import { CongratulationLetterCreatePage } from './../congratulation-letter-create/congratulation-letter-create.page';
 import { TabHeaderEnum } from './../../../../core/enums/tab-header.enum';
 import { PncService } from './../../../../core/services/pnc/pnc.service';
 import { CongratulationLetterService } from './../../../../core/services/congratulation-letter/congratulation-letter.service';
 import { CongratulationLetterModeEnum } from '../../../../core/enums/congratulation-letter/congratulation-letter-mode.enum';
-import { NavParams, Events } from 'ionic-angular';
+import { NavParams, Events, NavController } from 'ionic-angular';
 import { Component } from '@angular/core';
 import { CongratulationLetterModel } from '../../../../core/models/congratulation-letter.model';
 import { SessionService } from '../../../../core/services/session/session.service';
@@ -29,10 +31,12 @@ export class CongratulationLettersPage {
     TabHeaderEnum = TabHeaderEnum;
 
     constructor(private navParams: NavParams,
+        private navCtrl: NavController,
         private congratulationLetterService: CongratulationLetterService,
         private pncService: PncService,
         private events: Events,
-        private sessionService: SessionService) {
+        private sessionService: SessionService,
+        private connectivityService: ConnectivityService) {
         this.selectedCongratulationLetterMode = CongratulationLetterModeEnum.RECEIVED;
         events.subscribe('CongratulationLetter:deleted', () => {
             this.initPage();
@@ -93,5 +97,22 @@ export class CongratulationLettersPage {
      */
     loadingIsOver(): boolean {
         return this.receivedCongratulationLetters !== undefined && this.writtenCongratulationLetters !== undefined;
+    }
+
+    /**
+     * Redirige vers la page de création d'une nouvelle lettre
+     */
+    createNewLetter() {
+        this.navCtrl.push(CongratulationLetterCreatePage);
+    }
+
+    /**
+     * Vérifie si l'utilisateur peut créer une lettre. Pour créer une lettre, il faut être cadre, connecté, et ne pas être sur son propre dossier.
+     * @return vrai si c'est le cas, faux sinon
+     */
+    canCreateLetter(): boolean {
+        return this.connectivityService.isConnected()
+            && this.sessionService.getActiveUser().matricule !== this.matricule
+            && this.sessionService.getActiveUser().isManager;
     }
 }
