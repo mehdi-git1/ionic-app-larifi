@@ -60,16 +60,6 @@ pnc-header {
 
             font-size: 1.1em;
             margin:0 20px;
-
-            .work-rate {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                height: 60px;
-                width: 60px;
-                border: 6px solid color($colors-secondary, grey75);
-                border-radius: 100%;
-            }
         }
 
         .work-rate-container.small-size {

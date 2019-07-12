@@ -1,6 +1,15 @@
 page-flight-crew-list {
+    ion-header {
+        height: 126px;
+    }
 
     .leg {
+        font-size: 1.3em;
+        color: color($colors, secondary);
+        max-width: 1200px;
+        height: 70px;
+        margin: auto;
+        padding: 20px;
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -10,8 +19,9 @@ page-flight-crew-list {
             align-items: center;
 
             ion-icon {
-                color: color($colors, primary);
-                margin-right: 20px;
+                background: color($colors, secondary);
+                color: color($colors, white);
+                margin-right: 10px;
             }
         }
     }
