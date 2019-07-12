@@ -28,26 +28,26 @@ export class PncAutoCompleteComponent extends AbstractValueAccessor {
     @Output() onSelectPnc: EventEmitter<any> = new EventEmitter();
     @ViewChild('pncInput') pncInput: ElementRef;
 
-    constructor(private pncService: PncService, 
+    constructor(private pncService: PncService,
             private connectivityService: ConnectivityService,
             private keyboard: Keyboard) {
         super();
-    /**
-     * Action lorsque le clavier s'affiche
-     */
-    this.keyboard.didShow.subscribe(() => {
-        if (this.autoCompleteTopPosition != -1) {
-            $(PncAutoCompleteComponent.CDK_OVERLAY_0).css('top', this.autoCompleteTopPosition + 'px');
-        }
-    });
+        /**
+         * Action lorsque le clavier s'affiche
+         */
+        this.keyboard.didShow.subscribe(() => {
+            if (this.autoCompleteTopPosition != -1) {
+                $(PncAutoCompleteComponent.CDK_OVERLAY_0).css('top', this.autoCompleteTopPosition + 'px');
+            }
+        });
 
-    /**
-     * Action lorsque le clavier disparaît
-     */
-    this.keyboard.didHide.subscribe(() => {
-        const newHeight = window.innerHeight - this.autoCompleteTopPosition;
-        $(PncAutoCompleteComponent.CDK_OVERLAY_0).css('top', this.autoCompleteTopPosition + 'px');
-        setTimeout(() => { $(PncAutoCompleteComponent.MAT_AUTOCOMPLETE_0).css('max-height', newHeight + 'px'); }, 5000);
+        /**
+         * Action lorsque le clavier disparaît
+         */
+        this.keyboard.didHide.subscribe(() => {
+            const newHeight = window.innerHeight - this.autoCompleteTopPosition;
+            $(PncAutoCompleteComponent.CDK_OVERLAY_0).css('top', this.autoCompleteTopPosition + 'px');
+            setTimeout(() => { $(PncAutoCompleteComponent.MAT_AUTOCOMPLETE_0).css('max-height', newHeight + 'px'); }, 5000);
         });
         this.initAutocompleteList();
     }
