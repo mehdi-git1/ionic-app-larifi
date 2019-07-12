@@ -48,4 +48,14 @@ export class OnlineCongratulationLetterService {
   fixCongratulationLetterRecipient(congratulationLetterId: number, oldMatricule: string, fixedMatricule: string): Promise<CongratulationLetterModel> {
     return this.restService.post(this.config.getBackEndUrl('fixCongratulationLetterRecipient', [congratulationLetterId]), {oldMatricule : oldMatricule, fixedMatricule: fixedMatricule});
   }
+
+  /**
+   * Crée une lettre de félicitation
+   * @param congratulationLetter la lettre à créer/modifier
+   * @return une promesse contenant la lettre créée/modifiée
+   */
+  createOrUpdate(congratulationLetter: CongratulationLetterModel): Promise<CongratulationLetterModel> {
+    return this.restService.post(this.config.getBackEndUrl('congratulationLetters'), congratulationLetter);
+  }
+
 }

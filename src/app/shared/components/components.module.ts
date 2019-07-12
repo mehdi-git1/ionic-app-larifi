@@ -1,3 +1,4 @@
+import { WorkRateCircleComponent } from './work-rate-circle/work-rate-circle.component';
 import { DocumentManagerComponent } from './document/document-manager.component';
 import { TabHeaderComponent } from './tab-header/tab-header.component';
 import { PncHeaderComponent } from './pnc-header/pnc-header.component';
@@ -33,7 +34,7 @@ import { UserMessageAlertComponent } from './user-message-alert/user-message-ale
 import { AppVersionAlertComponent } from './app-version-alert/app-version-alert.component';
 import { PncEdossierHeaderComponent } from './pnc-edossier-header/pnc-edossier-header.component';
 import { PncAutoCompleteComponent } from './pnc-autocomplete/pnc-autocomplete.component';
-
+import { DocumentViewerComponent } from './document-viewer/document-viewer.component';
 
 @NgModule({
   imports: [
@@ -68,7 +69,9 @@ import { PncAutoCompleteComponent } from './pnc-autocomplete/pnc-autocomplete.co
     PdfButtonComponent,
     AppVersionAlertComponent,
     DocumentManagerComponent,
-    PncAutoCompleteComponent
+    PncAutoCompleteComponent,
+    DocumentViewerComponent,
+    WorkRateCircleComponent
   ],
   exports: [
     OfflineIndicatorComponent,
@@ -96,14 +99,17 @@ import { PncAutoCompleteComponent } from './pnc-autocomplete/pnc-autocomplete.co
     PdfButtonComponent,
     AppVersionAlertComponent,
     DocumentManagerComponent,
-    PncAutoCompleteComponent
+    PncAutoCompleteComponent,
+    DocumentViewerComponent,
+    WorkRateCircleComponent
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA
   ],
   entryComponents: [
     PinPadModalComponent,
-    SecretQuestionModalComponent
+    SecretQuestionModalComponent,
+    DocumentViewerComponent
   ]
 })
 export class ComponentsModule { }

@@ -1,3 +1,4 @@
+import { DirectivesModule } from './../../shared/directives/directives.module';
 import { Injectable } from '@angular/core';
 import { urlGroupEnum } from './url-group.enum';
 import { Config } from '../../../environments/config';
@@ -28,6 +29,7 @@ export class UrlConfiguration {
     'getReceivedCongratulationLettersByPnc': `${urlGroupEnum.PNC}/{matricule}/received_congratulation_letters`,
     'getWrittenCongratulationLettersByPnc': `${urlGroupEnum.PNC}/{matricule}/written_congratulation_letters`,
     'getAllRotationsByMatricule': `${urlGroupEnum.PNC}/{matricule}/rotations`,
+    'congratulationLetters': urlGroupEnum.CONGRATULATION_LETTER,
     'getCongratulationLetterById': `${urlGroupEnum.CONGRATULATION_LETTER}/{congratulationLetterId}`,
     'pncPhotos': urlGroupEnum.PNC_PHOTO,
     'getPncPhotoByMatricule': `${urlGroupEnum.PNC_PHOTO}/{matricule}`,
@@ -62,7 +64,8 @@ export class UrlConfiguration {
     'getLogbookEventsByGroupId': `${urlGroupEnum.LOGBOOK_EVENT}/event_group/{groupId}`,
     'getLogbookEvents': `${urlGroupEnum.LOGBOOK_EVENT}/pnc/{matricule}`,
     'deleteLogbookEventById': `${urlGroupEnum.LOGBOOK_EVENT}/{id}`,
-    'fixCongratulationLetterRecipient': `${urlGroupEnum.CONGRATULATION_LETTER}/recipients/{id}`
+    'fixCongratulationLetterRecipient': `${urlGroupEnum.CONGRATULATION_LETTER}/recipients/{id}`,
+    'getDocumentById': `${urlGroupEnum.DOCUMENT}/{documentId}`
   };
 
   /**

@@ -91,7 +91,8 @@
             "MENTION": "Pour tout besoin d'accompagnement, veuillez contactez le 1324"
         },
         "DOCUMENT": {
-            "PREVIEW_NOT_AVAILABLE": "L'aperçu n'est pas disponible pour ce fichier"
+            "PREVIEW_NOT_AVAILABLE": "L'aperçu n'est pas disponible pour ce fichier",
+            "OPEN_FILE_ERROR": "Erreur lors de l'ouverture du fichier"
         }
     },
     "AUTHENT": {
@@ -252,6 +253,7 @@
         }
     },
     "FLIGHT_CREW_LIST": {
+        "TITLE": "Liste équipage",
         "LIST": {
             "RELAYS": "Relais",
             "FUNCTION": "Fonction",
@@ -604,11 +606,14 @@
             "WRITER": "Rédacteur"
         },
         "VALUE": {
-            "FLIGHT": "{{airline}}{{flightNumber}} du {{flightDate}}"
+            "FLIGHT": "{{airline}}{{flightNumber}} - {{flightDate}}"
         },
         "TYPE": {
             "COLLECTIVE": "Collective",
             "INDIVIDUAL": "Individuelle"
+        },
+        "BUTTONS": {
+            "CREATE_NEW_LETTER": "Rédiger / insérer une lettre de félicitations"
         },
         "NO_RECEIVED_LETTERS": "Pas de félicitations reçues",
         "NO_WRITTEN_LETTERS": "Pas de félicitations rédigées",
@@ -636,13 +641,44 @@
             "WRITER": "Rédacteur"
         },
         "VALUE": {
-            "FLIGHT": "{{airline}}{{flightNumber}} du {{flightDate}}"
+            "FLIGHT": "{{airline}}{{flightNumber}} - {{flightDate}}"
         },
         "TYPE": {
             "COLLECTIVE": "Collective",
             "INDIVIDUAL": "Individuelle"
         },
         "VERBATIM": "Verbatim"
+    },
+    "CONGRATULATION_LETTER_CREATE": {
+        "TITLE": "Créer une nouvelle lettre de félicitations",
+        "FORM": {
+            "FLIGHT_DATE": "Date du vol",
+            "FLIGHT_AIRLINE": "Compagnie",
+            "FLIGHT_NUMBER": "N° de vol",
+            "LETTER_TYPE": {
+                "LABEL": "Type de lettre",
+                "INDIVIDUAL": "Individuelle",
+                "COLLECTIVE": "Collective"
+            },
+            "REDACTOR": {
+                "LABEL": "Rédacteur",
+                "PNC": "PNC",
+                "PAX": "Client - PAX",
+                "PNT": "PNT",
+                "OTHER": "Autre",
+                "REDACTOR_AUTOCOMPLETE": "PNC rédacteur",
+                "REDACTOR_AUTOCOMPLETE_PLACEHOLDER": "Matricule, Nom, Prénom"
+            },
+            "VERBATIM": "Verbatim"
+        },
+        "BUTTONS": {
+            "CANCEL": "Annuler",
+            "SUBMIT": "Valider"
+        },
+        "SUCCESS": {
+            "LETTER_CREATED": "Lettre de félicitation créée"
+        },
+        "ALL_FIELDS_ARE_MANDATORY": "Tous les champs doivent être renseignés pour valider le formulaire"
     },
     "LOGBOOK": {
         "EVENT_DATE": "Date de l'évènement",

@@ -1,0 +1,16 @@
+work-rate-circle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .progress-value {
+        stroke: color($colors-secondary, grey75);
+        transform: rotate(-90deg);
+        transform-origin: 50% 50%;
+    }
+
+    .content {
+        position: absolute;
+    }
+
+}

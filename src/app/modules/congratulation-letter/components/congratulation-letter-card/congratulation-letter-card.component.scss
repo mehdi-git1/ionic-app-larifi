@@ -1,42 +1,48 @@
 congratulation-letter-card {
-    display: flex;
-    align-items: center;
-    background: color($colors, primary-light);
-    color: color($colors, white);
-    margin-bottom: 5px;
-    height: 40px;
-    padding: 5px 10px;
-    border-radius: 5px;
 
-    box-shadow: 0 3px 1px -2px rgba(0, 0, 0, .2),
-        0 2px 2px 0 rgba(0, 0, 0, .14),
-        0 1px 5px 0 rgba(0, 0, 0, .12);
+    .congratulation-letter {
+        display: flex;
+        align-items: center;
+        background: color($colors, white);
+        color: color($colors, primary-light);
+        margin-bottom: 5px;
+        height: 40px;
+        padding: 5px 10px;
+        border-radius: 5px;
 
-    .flight {
-        flex: 1;
-    }
+        .flight {
+            flex: 1;
+        }
 
-    .type {
-        flex: 1;
-    }
+        .type {
+            flex: 1;
+        }
 
-    .redactor {
-        flex: 2;
-    }
+        .redactor {
+            flex: 2;
+        }
 
-    .actions {
-        width: 30px;
-        text-align: center;
-    }
+        .actions {
+            width: 30px;
+            text-align: center;
+        }
 
-    button.detail-button {
-        color: color($colors, primary);
-        width: 30px;
-        height: 30px;
-        box-shadow: none;
+        button.detail-button {
+            color: color($colors, primary);
+            width: 30px;
+            height: 30px;
+            box-shadow: none;
+            button.detail-button {
+                background: color($colors, primary-light);
+                color: color($colors, white);
+                width: 30px;
+                height: 30px;
+                box-shadow: none;
 
-        span:before {
-            font-size: 20px;
+                span:before {
+                    font-size: 20px;
+                }
+            }
         }
     }
 }

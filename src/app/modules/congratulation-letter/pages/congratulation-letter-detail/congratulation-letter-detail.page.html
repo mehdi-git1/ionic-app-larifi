@@ -19,12 +19,19 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td>{{ 'CONGRATULATION_LETTERS.VALUE.FLIGHT' | translate:{airline:congratulationLetter.flight.airline, flightNumber:congratulationLetter.flight.number, flightDate:getFormatedFlightDate(congratulationLetter.flight)} }}</td>
+                        <td class="suffix-tu">{{ 'CONGRATULATION_LETTERS.VALUE.FLIGHT' | translate:{airline:congratulationLetter.flight.airline, flightNumber:congratulationLetter.flight.number, flightDate:getFormatedFlightDate(congratulationLetter.flight)} }}</td>
                         <td>
                             <ng-container *ngIf="congratulationLetter.collective; else individualLabel">{{ 'CONGRATULATION_LETTER_DETAIL.TYPE.COLLECTIVE' | translate }}</ng-container>
                             <ng-template #individualLabel>{{ 'CONGRATULATION_LETTER_DETAIL.TYPE.INDIVIDUAL' | translate }}</ng-template>
                         </td>
-                        <td *ngIf="!isWrittenLetter()"><span class="last-name">{{ congratulationLetter.redactor.lastName }}</span> <span class="first-name">{{ congratulationLetter.redactor.firstName }}</span> <span class="current-speciality">({{ congratulationLetter.redactorSpeciality }})</span></td>
+                        <td *ngIf="!isWrittenLetter()">
+                            <ng-container *ngIf="congratulationLetter.redactorType === CongratulationLetterRedactorTypeEnum.PNC; else notPncRedactorBlock">
+                                <span class="last-name">{{ congratulationLetter.redactor.lastName }}</span> <span class="first-name">{{ congratulationLetter.redactor.firstName }}</span> <span class="current-speciality">({{ congratulationLetter.redactorSpeciality }})</span>
+                            </ng-container>
+                            <ng-template #notPncRedactorBlock>
+                                {{ 'CONGRATULATION_LETTER_CREATE.FORM.REDACTOR.'+congratulationLetter.redactorType | translate }}
+                            </ng-template>
+                        </td>
                     </tr>
                 </tbody>
             </table>

@@ -1,3 +1,4 @@
+import { CongratulationLetterRedactorTypeEnum } from './../../../../core/enums/congratulation-letter/congratulation-letter-redactor-type.enum';
 import { CongratulationLetterFlightModel } from './../../../../core/models/congratulation-letter-flight.model';
 import { CongratulationLetterService } from './../../../../core/services/congratulation-letter/congratulation-letter.service';
 import { NavController, PopoverController } from 'ionic-angular';
@@ -22,6 +23,7 @@ export class CongratulationLetterCardComponent {
   @Input() pnc: PncModel;
 
   CongratulationLetterModeEnum = CongratulationLetterModeEnum;
+  CongratulationLetterRedactorTypeEnum = CongratulationLetterRedactorTypeEnum;
 
   constructor(private navCtrl: NavController,
     private securityService: SecurityService,
