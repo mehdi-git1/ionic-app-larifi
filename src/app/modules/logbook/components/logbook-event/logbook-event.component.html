@@ -68,7 +68,7 @@
             {{ 'LOGBOOK.BUTTONS.SAVE' | translate }}
         </button>
         <!-- Bouton mettre à jour-->
-        <button ion-button *ngIf="logbookEvent.mode === LogbookEventModeEnum.EDITION" color="primary" (click)="confirmUpdateLogbookEvent()" [disabled]="!canBeSaved()">
+        <button ion-button *ngIf="logbookEvent.mode === LogbookEventModeEnum.EDITION" color="primary" (click)="confirmUpdateLogbookEvent()" [disabled]="!canBeUpdated()">
             {{ 'LOGBOOK.BUTTONS.UPDATE' | translate }}
         </button>
     </div>
@@ -131,7 +131,7 @@
                                 <span *ngIf="pnc.isRds">({{ 'PNC_IDENTITY.RDS' | translate }})</span>
                                 <span *ngIf="!pnc.isInstructor && !pnc.isRds">({{pnc.speciality}}
                                     <span *ngIf="pnc.currentSpeciality && pnc.speciality !== pnc.currentSpeciality">/{{pnc.currentSpeciality}}</span>
-                                </span>)
+                                </span>
                                 <span *ngIf="!l">;</span>
                             </span>
                         </div>

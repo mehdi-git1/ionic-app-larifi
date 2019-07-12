@@ -151,6 +151,7 @@ export class LogbookEventComponent implements OnInit {
                 } else {
                     this.events.publish('LinkedLogbookEvent:canceled');
                 }
+                this.editEvent = false;
                 return true;
             }
             ).catch(() => {
@@ -280,16 +281,16 @@ export class LogbookEventComponent implements OnInit {
                 message: this.translateService.instant('LOGBOOK.NOTIFICATION.CONFIRM_NOTIFICATION.MESSAGE'),
                 buttons: [
                     {
-                        text: this.translateService.instant('GLOBAL.BUTTONS.YES'),
+                        text: this.translateService.instant('GLOBAL.BUTTONS.NO'),
                         handler: () => {
-                            this.logbookEvent.sentNotification = true;
+                            this.logbookEvent.sendNotification = false;
                             resolve();
                         }
                     },
                     {
-                        text: this.translateService.instant('GLOBAL.BUTTONS.NO'),
+                        text: this.translateService.instant('GLOBAL.BUTTONS.YES'),
                         handler: () => {
-                            this.logbookEvent.sentNotification = false;
+                            this.logbookEvent.sendNotification = true;
                             resolve();
                         }
                     }
@@ -344,6 +345,14 @@ export class LogbookEventComponent implements OnInit {
         return !(!this.logbookEvent
             || !this.logbookEvent.category.id || !this.logbookEvent.eventDate
             || !this.logbookEvent.title || !this.logbookEvent.content);
+    }
+
+    /**
+     * Vérifie que les éléments obligatoires sont rempli et qu'une modification est faite.
+     * @return true si l'évènement peut être enregistré
+     */
+    public canBeUpdated(): boolean {
+        return this.canBeSaved() && this.formHasBeenModified();
     }
 
 
