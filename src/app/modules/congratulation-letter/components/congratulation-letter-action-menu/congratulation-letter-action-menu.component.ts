@@ -45,7 +45,7 @@ export class CongratulationLetterActionMenuComponent {
       .delete(this.congratulationLetter.techId, this.concernedPncMatricule)
       .then(deletedcongratulationLetter => {
         this.toastService.success(this.translateService.instant('CONGRATULATION_LETTERS.TOAST.DELETE_SUCCESS'));
-        this.events.publish('CongratulationLetterList:refresh');
+        this.events.publish('CongratulationLetter:deleted');
         this.loading.dismiss();
       },
         error => {

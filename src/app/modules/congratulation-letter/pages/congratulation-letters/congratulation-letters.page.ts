@@ -41,6 +41,9 @@ export class CongratulationLettersPage {
         events.subscribe('CongratulationLetterList:refresh', () => {
             this.refresh();
         });
+        events.subscribe('CongratulationLetter:deleted', () => {
+            this.refresh();
+        });
     }
 
     ionViewDidEnter() {
@@ -68,6 +71,7 @@ export class CongratulationLettersPage {
             this.writtenCongratulationLetters = writtenCongratulationLetters;
         }, error => { });
     }
+
 
     /**
      * Affiche les lettres reçues
