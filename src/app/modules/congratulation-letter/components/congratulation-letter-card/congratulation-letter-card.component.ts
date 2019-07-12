@@ -6,6 +6,7 @@ import { CongratulationLetterDetailPage } from './../../pages/congratulation-let
 import { CongratulationLetterModeEnum } from './../../../../core/enums/congratulation-letter/congratulation-letter-mode.enum';
 import { Component, Input } from '@angular/core';
 import { CongratulationLetterModel } from '../../../../core/models/congratulation-letter.model';
+import { CongratulationLetterCreatePage } from '../../pages/congratulation-letter-create/congratulation-letter-create.page';
 
 @Component({
   selector: 'congratulation-letter-card',
@@ -52,4 +53,9 @@ export class CongratulationLetterCardComponent {
   getFormatedFlightDate(flight: CongratulationLetterFlightModel): string {
     return this.congratulationLetterService.getFormatedFlightDate(flight);
   }
+
+  editLetter() {
+    this.navCtrl.push(CongratulationLetterCreatePage, { congratulationLetterId: this.congratulationLetter.techId });
+  }
+
 }

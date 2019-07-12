@@ -76,6 +76,7 @@
                     <ion-col>
                         <ion-label fixed>{{ 'CONGRATULATION_LETTER_CREATE.FORM.VERBATIM' | translate }}</ion-label>
                         <ion-textarea [(ngModel)]="congratulationLetter.verbatim" formControlName="verbatimControl" autocorrect="on"></ion-textarea>
+                        <div class="information-message align-left" *ngIf="congratulationLetter.lastUpdateAuthor">{{ 'CONGRATULATION_LETTER_CREATE.UPDATED_BY' | translate:{lastName:congratulationLetter.lastUpdateAuthor.lastName, firstName:congratulationLetter.lastUpdateAuthor.firstName, date:getLastUpdateDate()} }}</div>
                     </ion-col>
                 </ion-row>
                 <ion-row>

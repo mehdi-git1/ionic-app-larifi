@@ -8,6 +8,7 @@ import { OnlineCongratulationLetterService } from './online-congratulation-lette
 import { ConnectivityService } from '../connectivity/connectivity.service';
 import { OfflineCongratulationLetterService } from './offline-congratulation-letter.service';
 import { BaseService } from '../base/base.service';
+import { SessionService } from '../session/session.service';
 
 @Injectable()
 export class CongratulationLetterService extends BaseService {
@@ -15,6 +16,7 @@ export class CongratulationLetterService extends BaseService {
     private onlineCongratulationLetterService: OnlineCongratulationLetterService,
     private offlineCongratulationLetterService: OfflineCongratulationLetterService,
     protected connectivityService: ConnectivityService,
+    private sessionService: SessionService,
     private datePipe: DatePipe) {
     super(
       connectivityService,
@@ -74,6 +76,14 @@ export class CongratulationLetterService extends BaseService {
    * @return une promesse contenant la lettre créée/modifiée
    */
   createOrUpdate(congratulationLetter: CongratulationLetterModel): Promise<CongratulationLetterModel> {
+    if (congratulationLetter.techId === undefined) {
+      congratulationLetter.creationDate = new Date();
+      congratulationLetter.creationAuthor = this.sessionService.getActiveUser().authenticatedPnc;
+    } else {
+      congratulationLetter.lastUpdateDate = new Date();
+      congratulationLetter.lastUpdateAuthor = this.sessionService.getActiveUser().authenticatedPnc;
+    }
+
     return this.onlineCongratulationLetterService.createOrUpdate(congratulationLetter);
   }
 

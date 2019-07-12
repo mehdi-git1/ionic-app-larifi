@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { ConnectivityService } from './../../../../core/services/connectivity/connectivity.service';
 import { DateTransform } from './../../../../shared/utils/date-transform';
 import { ToastService } from './../../../../core/services/toast/toast.service';
@@ -23,7 +24,7 @@ import * as _ from 'lodash';
 export class CongratulationLetterCreatePage {
 
     pnc: PncModel;
-
+    creationMode = true;
     creationForm: FormGroup;
 
     congratulationLetter: CongratulationLetterModel;
@@ -53,6 +54,7 @@ export class CongratulationLetterCreatePage {
         private alertCtrl: AlertController,
         private dateTransformer: DateTransform,
         private connectivityService: ConnectivityService,
+        private datePipe: DatePipe,
         public translateService: TranslateService
     ) {
         // Traduction des mois
@@ -63,8 +65,6 @@ export class CongratulationLetterCreatePage {
         this.handlePncSelectionDisplay();
 
         this.handleAutocompleteSearch();
-
-        this.congratulationLetter = this.buildNewCongratulationLetter();
 
         // Options du datepicker
         this.flightDateTimeOptions = {
@@ -77,13 +77,28 @@ export class CongratulationLetterCreatePage {
     }
 
     ionViewDidEnter() {
+
         if (this.sessionService.visitedPnc) {
             this.pnc = this.sessionService.visitedPnc;
         }
 
-        this.congratulationLetter = this.buildNewCongratulationLetter();
+        if (this.navParams.get('congratulationLetterId')) {
+            // Mode édition
+            this.creationMode = false;
+            this.congratulationLetterService.getCongratulationLetter(this.navParams.get('congratulationLetterId')).then(congratulationLetter => {
+                this.congratulationLetter = congratulationLetter;
+                if (this.congratulationLetter.redactorType === CongratulationLetterRedactorTypeEnum.PNC) {
+                    this.selectedRedactor = this.congratulationLetter.redactor;
+                }
+                this.originCongratulationLetter = _.cloneDeep(this.congratulationLetter);
+            });
+        } else {
+            // Mode création
+            this.creationMode = true;
+            this.congratulationLetter = this.buildNewCongratulationLetter();
+            this.originCongratulationLetter = _.cloneDeep(this.congratulationLetter);
+        }
 
-        this.originCongratulationLetter = _.cloneDeep(this.congratulationLetter);
     }
 
     ionViewCanLeave() {
@@ -176,7 +191,7 @@ export class CongratulationLetterCreatePage {
      * @return vrai si c'est le cas, faux sinon
      */
     pageLoadingIsOver(): boolean {
-        return this.pnc !== undefined;
+        return this.congratulationLetter != undefined;
     }
 
     /**
@@ -239,15 +254,19 @@ export class CongratulationLetterCreatePage {
     }
 
     /**
-     * Valide la création de la lettre
+     * Valide la création/modification de la lettre
      */
     submitLetter() {
-        this.congratulationLetter.creationDate = new Date();
         this.congratulationLetter.flight.theoricalDate = this.dateTransformer.transformDateStringToIso8601Format(this.congratulationLetter.flight.theoricalDate);
 
         this.congratulationLetterService.createOrUpdate(this.congratulationLetter).then(congratulationLetter => {
             this.originCongratulationLetter = _.cloneDeep(this.congratulationLetter);
-            this.toastService.success(this.translateService.instant('CONGRATULATION_LETTER_CREATE.SUCCESS.LETTER_CREATED'));
+            if (this.creationMode) {
+                this.toastService.success(this.translateService.instant('CONGRATULATION_LETTER_CREATE.SUCCESS.LETTER_CREATED'));
+            }
+            else {
+                this.toastService.success(this.translateService.instant('CONGRATULATION_LETTER_CREATE.SUCCESS.LETTER_UPDATED'));
+            }
             this.navCtrl.pop();
         }, error => { });
     }
@@ -259,5 +278,14 @@ export class CongratulationLetterCreatePage {
         return this.connectivityService.isConnected() &&
             this.creationForm.valid &&
             (this.congratulationLetter.redactorType !== CongratulationLetterRedactorTypeEnum.PNC || this.congratulationLetter.redactor != null);
+    }
+
+
+    /**
+   * Retourne la date de dernière modification, formatée pour l'affichage
+   * @return la date de dernière modification au format dd/mm/yyyy hh:mm
+   */
+    getLastUpdateDate(): string {
+        return this.datePipe.transform(this.congratulationLetter.lastUpdateDate, 'dd/MM/yyyy HH:mm');
     }
 }

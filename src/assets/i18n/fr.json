@@ -657,9 +657,11 @@
             "SUBMIT": "Valider"
         },
         "SUCCESS": {
-            "LETTER_CREATED": "Lettre de félicitation créée"
+            "LETTER_CREATED": "Lettre de félicitation créée",
+            "LETTER_UPDATED": "Lettre de félicitation modifiée"
         },
-        "ALL_FIELDS_ARE_MANDATORY": "Tous les champs doivent être renseignés pour valider le formulaire"
+        "ALL_FIELDS_ARE_MANDATORY": "Tous les champs doivent être renseignés pour valider le formulaire",
+        "UPDATED_BY": "Lettre de félicitations modifiée par {{lastName}} {{firstName}} le {{date}}"
     },
     "LOGBOOK": {
         "EVENT_DATE": "Date de l'évènement",

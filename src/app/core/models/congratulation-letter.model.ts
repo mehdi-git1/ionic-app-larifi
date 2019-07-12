@@ -9,6 +9,9 @@ export class CongratulationLetterModel extends EDossierPncObjectModel {
     title: string;
     verbatim: string;
     creationDate: Date;
+    creationAuthor: PncModel;
+    lastUpdateDate: Date;
+    lastUpdateAuthor: PncModel;
     collective: boolean;
     flight: CongratulationLetterFlightModel;
     redactor: PncModel;
