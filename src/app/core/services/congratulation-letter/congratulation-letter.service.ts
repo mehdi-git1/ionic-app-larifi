@@ -65,7 +65,7 @@ export class CongratulationLetterService extends BaseService {
    * @return la date formatée du vol
    */
   getFormatedFlightDate(flight: CongratulationLetterFlightModel): string {
-    return this.datePipe.transform(flight.theoricalDate, 'dd/MM/yyyy');
+    return this.datePipe.transform(flight.theoricalDate, 'dd/MM/yyyy', 'UTC');
   }
 
   /**
