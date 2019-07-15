@@ -10,6 +10,7 @@ import { IonicPageModule } from 'ionic-angular';
 
 import { SharedModule } from '../../shared/shared.module';
 import { ComponentsModule } from '../../shared/components/components.module';
+import { FixRecipientComponent } from './components/fix-recipient/fix-recipient.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { ComponentsModule } from '../../shared/components/components.module';
     CongratulationLetterListComponent,
     CongratulationLetterCardComponent,
     WarningTextComponent,
-    CongratulationLetterActionMenuComponent
+    CongratulationLetterActionMenuComponent,
+    FixRecipientComponent
   ],
   imports: [
     [IonicPageModule.forChild(CongratulationLettersPage)],
@@ -30,6 +32,7 @@ import { ComponentsModule } from '../../shared/components/components.module';
     CongratulationLettersPage,
     CongratulationLetterDetailPage,
     CongratulationLetterActionMenuComponent,
+    FixRecipientComponent,
     CongratulationLetterCreatePage
   ],
   exports: [

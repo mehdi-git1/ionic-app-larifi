@@ -101,6 +101,9 @@
         "PASSWORD": "PIN + Token",
         "VALIDATE": "Valider"
     },
+    "PNC_AUTOCOMPLETE" : {
+        "PLACEHOLDER": "Nom Prénom ou Matricule"
+    },
     "CAREER_OBJECTIVE_CREATE": {
         "CREATE_TITLE": "Nouvelle priorité",
         "EDIT_TITLE": "Modification d'une priorité",
@@ -561,7 +564,7 @@
         "MY_TITLE": "Ma recherche PNC",
         "CRITERIA": {
             "FILTERS": "Filtres",
-            "PNC_MATRICULE": "Nom Prénom ou Matricule",
+
             "DIVISION": "Division",
             "SECTOR": "Secteur",
             "GINQ": "Ginq",
@@ -615,10 +618,20 @@
         "NO_RECEIVED_LETTERS": "Pas de félicitations reçues",
         "NO_WRITTEN_LETTERS": "Pas de félicitations rédigées",
         "ACTION_MENU": {
-            "DELETE_CONGRATULATION_LETTER": "Supprimer"
+            "DELETE_CONGRATULATION_LETTER": "Supprimer",
+            "FIX_RECIPIENT": "Corriger le destinataire"
         },
         "TOAST": {
             "DELETE_SUCCESS": "Lettre de félicitations supprimée"
+        },
+        "FIX_RECIPIENT": {
+            "CURRENT_CONGRATULATED_PNC": "PNC actuellement félicité",
+            "NEW_RECIPIENT": "Nouveau destinataire",
+            "RECIPIENT_FIXED": "Destinataire de la lettre corrigé",
+            "CONFIRMATION_POPOVER": {
+                "TITLE": "Correction du destinataire pour la lettre de félicitations {{airline}} {{flightNumber}} {{flightDate}}",
+                "LABEL": "Etes-vous sûr de vouloir réaffecter la lettre du destinataire {{oldPncConcernedFirstName}} {{oldPncConcernedLastName}} à {{newPncConcernedFirstName}} {{newPncConcernedLastName}}  ?"
+            }
         },
         "CONFIRM_DELETE": {
             "TITLE": "Suppression de la lettre de félicitations",

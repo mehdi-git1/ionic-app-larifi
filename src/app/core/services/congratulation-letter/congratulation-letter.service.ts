@@ -87,4 +87,14 @@ export class CongratulationLetterService extends BaseService {
     return this.onlineCongratulationLetterService.createOrUpdate(congratulationLetter);
   }
 
+
+  /**
+   * Corrige le destinataire de la lettre de félicitations
+   * @param congratulationLetterId identifiant de la lettre de félicitations
+   * @param oldMatricule matricule du pnc incorrect
+   * @param fixedMatricule matricule du Pnc corrigé
+   */
+  fixCongratulationLetterRecipient(congratulationLetterId: number, oldMatricule: string, fixedMatricule: string): Promise<CongratulationLetterModel> {
+    return this.onlineCongratulationLetterService.fixCongratulationLetterRecipient(congratulationLetterId, oldMatricule, fixedMatricule);
+  }
 }

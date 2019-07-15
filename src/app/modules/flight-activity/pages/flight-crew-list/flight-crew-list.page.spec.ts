@@ -2,7 +2,8 @@ import { PncPhotoService } from './../../../../core/services/pnc-photo/pnc-photo
 import { PncTransformerService } from '../../../../core/services/pnc/pnc-transformer.service';
 import { SessionService } from '../../../../core/services/session/session.service';
 import { PncService } from '../../../../core/services/pnc/pnc.service';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateService, TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { ToastService } from '../../../../core/services/toast/toast.service';
 import { ConnectivityService } from '../../../../core/services/connectivity/connectivity.service';
 import { LegService } from '../../../../core/services/leg/leg.service';
@@ -21,6 +22,7 @@ import {
 import { SpecialityEnum } from '../../../../core/enums/speciality.enum';
 import { of } from 'rxjs/observable/of';
 import { async } from 'q';
+import { HttpClient } from '@angular/common/http';
 
 const pncServiceMock = jasmine.createSpyObj('pncServiceMock', ['getPnc']);
 pncServiceMock.getPnc.and.returnValue(of({}));
@@ -31,7 +33,14 @@ describe('FlightCrewListPage', () => {
         TestBed.configureTestingModule({
             declarations: [FlightCrewListPage],
             imports: [
-                IonicModule.forRoot(FlightCrewListPage)
+                IonicModule.forRoot(FlightCrewListPage),
+                TranslateModule.forRoot({
+                    loader: {
+                        provide: TranslateLoader,
+                        useFactory: (http: HttpClient) => new TranslateHttpLoader(http, './assets/i18n/', '.json'),
+                        deps: [HttpClient]
+                    }
+                })
             ],
             providers: [
                 { provide: Platform, useClass: PlatformMock },
