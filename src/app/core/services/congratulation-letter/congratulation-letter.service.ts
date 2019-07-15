@@ -33,7 +33,7 @@ export class CongratulationLetterService extends BaseService {
       this.execFunctionService('getReceivedCongratulationLetters', pncMatricule).then(receivedCongratulationLetters => {
         // On écarte les lettres que le PNC a lui même rédigé (cas des lettres collectives)
         receivedCongratulationLetters = receivedCongratulationLetters.filter(congratulationLetter => {
-          return congratulationLetter.redactorType !== CongratulationLetterRedactorTypeEnum.PNC || (congratulationLetter.redactor && congratulationLetter.redactor.matricule !== pncMatricule);
+          return congratulationLetter.redactorType !== CongratulationLetterRedactorTypeEnum.PNC || (congratulationLetter.redactor || congratulationLetter.redactor.matricule !== pncMatricule);
         });
         resolve(receivedCongratulationLetters);
       });
