@@ -9,7 +9,7 @@
             <span class="last-name">{{ congratulationLetter.redactor.lastName }}</span> <span class="first-name">{{ congratulationLetter.redactor.firstName }}</span> <span class="current-speciality">({{ congratulationLetter.redactorSpeciality }})</span>
         </ng-container>
         <ng-template #notPncRedactorBlock>
-            {{ 'CONGRATULATION_LETTER_CREATE.FORM.REDACTOR.'+congratulationLetter.redactorType | translate }}
+            {{ 'CONGRATULATION_LETTER_CREATE.FORM.REDACTOR.' + congratulationLetter.redactorType | translate }}
         </ng-template>
     </span>
     <button ion-fab class="detail-button" color="white" (click)="goToCongratulationLetterDetail(congratulationLetter)">

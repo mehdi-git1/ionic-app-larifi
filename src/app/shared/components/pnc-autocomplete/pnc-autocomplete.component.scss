@@ -9,8 +9,8 @@ pnc-autocomplete {
     }
 
     .mat-form-field-infix {
-        margin-top: $margin-top-autocomplete;
-        padding: 0px;
+        margin-top: $margin-top-autocomplete !important;
+        padding: 0px !important;
     }
 
     .mat-form-field-label {
@@ -38,6 +38,24 @@ pnc-autocomplete {
             .search-icon {
                 margin-left: 5px;
             }
+            .clear-button {
+                position: absolute;
+                right: 5px;
+            }
+        }
+        .mat-form-field-label {
+            top: 0px;
+            padding-left: 0px;
+            left: 0px;
+            margin-top: 0px;
+            padding-bottom: 5px;
+        }
+        .mat-form-field-empty.mat-form-field-label {
+            top: $top-autocomplete-field;
+            padding-left: $padding-left-ion-select;
+            left: 28px;
+            margin-top: 3px;
+            padding-bottom: 0px;
         }
         .chip-list {
             display: -webkit-box;

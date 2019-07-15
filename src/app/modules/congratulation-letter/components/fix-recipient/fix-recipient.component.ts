@@ -47,10 +47,12 @@ export class FixRecipientComponent {
     /**
      * Présente une alerte pour confirmer la correction du destinataire
      */
-    fixRecipient() {
+    fixRecipient(selectedPnc: PncModel) {
         this.alertCtrl.create({
-            title: this.translateService.instant('CONGRATULATION_LETTERS.FIX_RECIPIENT.CONFIRMATION_POPOVER.TITLE'),
-            message: this.translateService.instant('CONGRATULATION_LETTERS.FIX_RECIPIENT.CONFIRMATION_POPOVER.LABEL'),
+            title: this.translateService.instant('CONGRATULATION_LETTERS.FIX_RECIPIENT.CONFIRMATION_POPOVER.TITLE',
+            { airline: this.congratulationLetter.flight.airline, flightNumber: this.congratulationLetter.flight.number, flightDate: this.getFormatedFlightDate(this.congratulationLetter.flight)}),
+            message: this.translateService.instant('CONGRATULATION_LETTERS.FIX_RECIPIENT.CONFIRMATION_POPOVER.LABEL',
+            {oldPncConcernedLastName: this.pnc.lastName, oldPncConcernedFirstName: this.pnc.firstName, newPncConcernedLastName: selectedPnc.lastName, newPncConcernedFirstName: selectedPnc.firstName}),
             buttons: [
                 {
                     text: this.translateService.instant('GLOBAL.BUTTONS.CANCEL'),
@@ -59,7 +61,7 @@ export class FixRecipientComponent {
                 {
                     text: this.translateService.instant('GLOBAL.BUTTONS.CONFIRM'),
                     handler: () => {
-                        this.congratulationLetterService.fixCongratulationLetterRecipient(this.congratulationLetter.techId, this.pnc.matricule, this.selectedPnc.matricule)
+                        this.congratulationLetterService.fixCongratulationLetterRecipient(this.congratulationLetter.techId, this.pnc.matricule, selectedPnc.matricule)
                         .then( congratulationLetter => {
                             this.events.publish('CongratulationLetterList:refresh');
                             this.viewCtrl.dismiss();

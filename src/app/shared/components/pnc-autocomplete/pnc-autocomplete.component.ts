@@ -98,15 +98,19 @@ export class PncAutoCompleteComponent extends AbstractValueAccessor {
      */
     getAutoCompleteDataReturn(term: string): Observable<PncModel[]> {
         if (term) {
-        return from(this.pncService.pncAutoComplete(term).then(
+            return from(this.pncService.pncAutoComplete(term).then(
             data => {
-            this.autoCompleteRunning = false;
-            $(PncAutoCompleteComponent.CDK_OVERLAY_0).css('top', this.autoCompleteTopPosition + 'px');
-            return data;
-            }));
+                this.autoCompleteRunning = false;
+                $(PncAutoCompleteComponent.CDK_OVERLAY_0).css('top', this.autoCompleteTopPosition + 'px');
+                return data;
+            }).catch(err => {
+                this.autoCompleteRunning = false;
+                return err;
+            }
+            ));
         } else {
-        this.autoCompleteRunning = false;
-        return Observable.of<PncModel[]>([]);
+            this.autoCompleteRunning = false;
+            return Observable.of<PncModel[]>([]);
         }
     }
 

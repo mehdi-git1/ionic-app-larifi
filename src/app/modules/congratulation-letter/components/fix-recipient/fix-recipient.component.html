@@ -1,9 +1,9 @@
-<span *ngIf="congratulationLetter && pnc">
+<span class="fix-recipient-content" *ngIf="congratulationLetter && pnc">
 <div class="congratulation-letter-title">{{ 'CONGRATULATION_LETTERS.VALUE.FLIGHT' | translate:{airline:congratulationLetter.flight.airline, flightNumber:congratulationLetter.flight.number, flightDate:getFormatedFlightDate(congratulationLetter.flight)} }}</div>
-<div class="congratulation-letter-pnc">{{ 'CONGRATULATION_LETTERS.FIX_RECIPIENT.CURRENT_CONGRATULATED_PNC' | translate}} : {{pnc.firstName | titlecase}} {{pnc.lastName | titlecase}} ({{pnc.speciality}})</div>
+<div class="congratulation-letter-pnc">{{ 'CONGRATULATION_LETTERS.FIX_RECIPIENT.CURRENT_CONGRATULATED_PNC' | translate}} : <div>{{pnc.firstName | titlecase}} {{pnc.lastName | titlecase}} ({{pnc.speciality}})</div></div>
 <div class="congratulation-letter-new-recipient">{{ 'CONGRATULATION_LETTERS.FIX_RECIPIENT.NEW_RECIPIENT' | translate}}</div>
 <div class="congratulation-letter-autocomplete">
-    <pnc-autocomplete [(ngModel)]="selectedPnc"></pnc-autocomplete>
+    <pnc-autocomplete [(ngModel)]="selectedPnc" (onSelectPnc)="fixRecipient($event)"></pnc-autocomplete>
 </div>
 <div class="button-bar margin-top-10 margin-bottom-10">
     <!-- Bouton annuler modification de l'eobs -->

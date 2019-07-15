@@ -625,12 +625,12 @@
             "DELETE_SUCCESS": "Lettre de félicitations supprimée"
         },
         "FIX_RECIPIENT": {
-            "CURRENT_CONGRATULATED_PNC": "Pnc actuellement félicité",
+            "CURRENT_CONGRATULATED_PNC": "PNC actuellement félicité",
             "NEW_RECIPIENT": "Nouveau destinataire",
             "RECIPIENT_FIXED": "Destinataire de la lettre corrigé",
             "CONFIRMATION_POPOVER": {
-                "TITLE": "Correction du destinataire",
-                "LABEL": "Etes-vous sûr de vouloir procéder au changement de destinataire ?"
+                "TITLE": "Correction du destinataire pour la lettre de félicitations {{airline}} {{flightNumber}} {{flightDate}}",
+                "LABEL": "Etes-vous sûr de vouloir réaffecter la lettre du destinataire {{oldPncConcernedFirstName}} {{oldPncConcernedLastName}} à {{newPncConcernedFirstName}} {{newPncConcernedLastName}}  ?"
             }
         },
         "CONFIRM_DELETE": {

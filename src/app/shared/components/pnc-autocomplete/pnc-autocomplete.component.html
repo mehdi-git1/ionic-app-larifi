@@ -13,7 +13,7 @@
                 <input class="pnc-input" [disabled]="pncHasBeenSelected()" #pncInput type="text" matInput 
                 placeholder="{{'PNC_AUTOCOMPLETE.PLACEHOLDER' | translate}}" (keyup)="searchAutoComplete(pncInput.value)" 
                 [matAutocomplete]="auto" autocomplete="off" [readonly]="areFiltersDisabled()"/>
-                <ion-icon *ngIf="!pncHasBeenSelected() && pncInput && pncInput.value " name="backspace" class="clickable" (click)="clearPncSearch()"></ion-icon>
+                <ion-icon *ngIf="!pncHasBeenSelected() && pncInput && pncInput.value " name="backspace" class="clear-button clickable" (click)="clearPncSearch()"></ion-icon>
             </div>
         </mat-chip-list>
     </mat-form-field>

@@ -4,20 +4,28 @@
     width: 100%;
     justify-content: center;
     border-radius: 10px;
+    min-width:350px !important;
 }
 
 .fix-recipient-popover .popover-viewport {
     height: auto;
     width: 100%;
+    min-width: 350px;
 }
 
 fix-recipient {
+    margin-top: 10px;
     font-family: OpenSans, Arial, Helvetica, sans-serif;
     display: flex;
     height: auto;
     width: 100%;
     justify-content: center;
     text-align: center;
+
+    .fix-recipient-content {
+        margin: 10px;
+        width: 100%;
+    }
 
     .congratulation-letter-title {
         font-weight: bold;
@@ -28,13 +36,12 @@ fix-recipient {
     }
     .congratulation-letter-pnc {
         margin : 5px;
-        font-size : 0.8em;
     }
     .congratulation-letter-new-recipient {
         margin-top : 20px;
         margin-bottom : 5px;
         font-weight: bold;
-        color: color($colors, primary);
+        color: color($colors, primary-light);
     }
     .congratulation-letter-autocomplete {
         margin: auto;
@@ -71,7 +78,7 @@ fix-recipient {
         .chip-list {
             display: -webkit-box;
             .selected-pnc-chip {
-                color: color($colors, primary);
+                color: color($colors, primary-light);
                 text-align: center;
                 vertical-align: -webkit-baseline-middle;
                 width: 100%;
