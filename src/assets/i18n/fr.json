@@ -91,8 +91,7 @@
             "TITLE": "eDossierPNC n'est pas compatible avec ce navigateur",
             "MESSAGE": "Veuillez utiliser les navigateurs Firefox ou Google Chrome (à télécharger et à installer sur votre PC)",
             "MENTION": "Pour tout besoin d'accompagnement, veuillez contactez le 1324"
-        }
-        ,
+        },
         "DOCUMENT": {
             "PREVIEW_NOT_AVAILABLE": "L'aperçu n'est pas disponible pour ce fichier",
             "OPEN_FILE_ERROR": "Erreur lors de l'ouverture du fichier"
@@ -668,9 +667,13 @@
                 "TITLE": "Notification",
                 "MESSAGE": "Souhaitez-vous notifier les destinataires ?"
             },
-            "CONFIRM_WITHOUT_NOTIFICATION": {
+            "CONFIRM_CREATE_WITHOUT_NOTIFICATION": {
                 "TITLE": "Enregistrer sans notifier",
                 "MESSAGE": "Confirmez-vous l'enregistrement de l'événement sans envoi de notification ?"
+            },
+            "CONFIRM_EDIT_WITHOUT_NOTIFICATION": {
+                "TITLE": "Mettre à jour sans notifier",
+                "MESSAGE": "Confirmez-vous la mise a jour de l'événement sans envoi de notification ?"
             }
         },
         "DELETE": {

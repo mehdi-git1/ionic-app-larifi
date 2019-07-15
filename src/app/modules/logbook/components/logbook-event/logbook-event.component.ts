@@ -102,8 +102,8 @@ export class LogbookEventComponent implements OnInit {
 
     /**
      *  Compare deux categories et renvois true si elles sont égales
-     * @param e1 premiere categorie à comparér
-     * @param e2 Deuxieme categorie à comparér
+     * @param category1 premiere categorie à comparér
+     * @param category2 Deuxieme categorie à comparér
      */
     compareCategories(category1: LogbookEventCategory, category2: LogbookEventCategory): boolean {
         if (category1.id === category2.id) {
@@ -249,10 +249,14 @@ export class LogbookEventComponent implements OnInit {
      * Confirme la modification d'un évènement avec ou sans notification des personne concernés
      */
     confirmUpdateLogbookEvent() {
-        if (this.logbookEvent.notifiedPncs) {
+        if (this.logbookEvent.notifiedPncs && this.logbookEvent.notifiedPncs.length > 0) {
             this.confirmNotifyPncs().then(() => {
                 this.saveLogbookEvent();
             });
+        } else if (this.logbookEvent.notifiedPncs && this.logbookEvent.notifiedPncs.length === 0) {
+            this.confirmWithoutNotification().then(() => {
+                this.saveLogbookEvent();
+            }).catch(() => { });
         } else {
             this.saveLogbookEvent();
         }
@@ -305,8 +309,8 @@ export class LogbookEventComponent implements OnInit {
     confirmWithoutNotification() {
         return new Promise((resolve, reject) => {
             this.alertCtrl.create({
-                title: this.translateService.instant('LOGBOOK.NOTIFICATION.CONFIRM_WITHOUT_NOTIFICATION.TITLE'),
-                message: this.translateService.instant('LOGBOOK.NOTIFICATION.CONFIRM_WITHOUT_NOTIFICATION.MESSAGE'),
+                title: this.mode === LogbookEventModeEnum.CREATION || this.mode === LogbookEventModeEnum.LINKED_EVENT_CREATION ? this.translateService.instant('LOGBOOK.NOTIFICATION.CONFIRM_CREATE_WITHOUT_NOTIFICATION.TITLE') : this.translateService.instant('LOGBOOK.NOTIFICATION.CONFIRM_EDIT_WITHOUT_NOTIFICATION.TITLE'),
+                message: this.mode === LogbookEventModeEnum.CREATION || this.mode === LogbookEventModeEnum.LINKED_EVENT_CREATION ? this.translateService.instant('LOGBOOK.NOTIFICATION.CONFIRM_CREATE_WITHOUT_NOTIFICATION.MESSAGE') : this.translateService.instant('LOGBOOK.NOTIFICATION.CONFIRM_EDIT_WITHOUT_NOTIFICATION.MESSAGE'),
                 buttons: [
                     {
                         text: this.translateService.instant('GLOBAL.BUTTONS.CANCEL'),
