@@ -56,7 +56,7 @@ export class CongratulationLetterActionMenuComponent {
   }
 
   /**
-   * Corriger le destinataire
+   * Corrige le destinataire
    * @param event
    */
   fixRecipient(event: Event) {
