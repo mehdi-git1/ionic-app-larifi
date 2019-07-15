@@ -23,7 +23,6 @@ export class LogbookEventModel extends EDossierPncObjectModel {
     notifiedRecipients: LogbookEventNotifiedEmail[];
     attachmentFiles: Array<DocumentModel> = new Array();
     mode: LogbookEventModeEnum;
-    sendNotification: boolean;
 
     getStorageId(): string {
         return `${this.techId}`;

@@ -143,7 +143,9 @@ export class LogbookEventComponent implements OnInit {
      */
     confirmCancel() {
         if (this.formHasBeenModified()) {
-            return this.confirmAbandonChanges().then(() => {
+            const title = this.translateService.instant('GLOBAL.CONFIRM_BACK_WITHOUT_SAVE.TITLE');
+            const message = this.mode == LogbookEventModeEnum.CREATION || this.mode == LogbookEventModeEnum.LINKED_EVENT_CREATION ? this.translateService.instant('LOGBOOK.EDIT.CONFIRM_CANCEL_CREATE_MESSAGE') : this.translateService.instant('LOGBOOK.EDIT.CONFIRM_CANCEL_UPDATE_MESSAGE');
+            return this.confirmationPopoup(title, message).then(() => {
                 this.logbookEvent = _.cloneDeep(this.originLogbookEvent);
                 if (this.cancelFromButton && this.mode === LogbookEventModeEnum.CREATION) {
                     this.navCtrl.pop();
@@ -175,12 +177,13 @@ export class LogbookEventComponent implements OnInit {
     /**
      * Popup d'avertissement en cas de modifications non enregistrées.
      */
-    confirmAbandonChanges() {
+
+    confirmationPopoup(title: string, message: string) {
         return new Promise((resolve, reject) => {
             // Avant de quitter la vue, on avertit l'utilisateur si ses modifications n'ont pas été enregistrées
             this.alertCtrl.create({
-                title: this.translateService.instant('GLOBAL.CONFIRM_BACK_WITHOUT_SAVE.TITLE'),
-                message: this.mode == LogbookEventModeEnum.CREATION || this.mode == LogbookEventModeEnum.LINKED_EVENT_CREATION ? this.translateService.instant('LOGBOOK.EDIT.CONFIRM_CANCEL_CREATE_MESSAGE') : this.translateService.instant('LOGBOOK.EDIT.CONFIRM_CANCEL_UPDATE_MESSAGE'),
+                title: title,
+                message: message,
                 buttons: [
                     {
                         text: this.translateService.instant('GLOBAL.BUTTONS.CANCEL'),
@@ -250,11 +253,13 @@ export class LogbookEventComponent implements OnInit {
      */
     confirmUpdateLogbookEvent() {
         if (this.logbookEvent.notifiedPncs && this.logbookEvent.notifiedPncs.length > 0) {
-            this.confirmNotifyPncs().then(() => {
+            return this.confirmationPopoup(this.translateService.instant('LOGBOOK.NOTIFICATION.CONFIRM_NOTIFICATION.TITLE'), this.translateService.instant('LOGBOOK.NOTIFICATION.CONFIRM_NOTIFICATION.MESSAGE')).then(() => {
                 this.saveLogbookEvent();
             });
         } else if (this.logbookEvent.notifiedPncs && this.logbookEvent.notifiedPncs.length === 0) {
-            this.confirmWithoutNotification().then(() => {
+            const title = LogbookEventModeEnum.CREATION || this.mode === LogbookEventModeEnum.LINKED_EVENT_CREATION ? this.translateService.instant('LOGBOOK.NOTIFICATION.CONFIRM_CREATE_WITHOUT_NOTIFICATION.TITLE') : this.translateService.instant('LOGBOOK.NOTIFICATION.CONFIRM_EDIT_WITHOUT_NOTIFICATION.TITLE');
+            const message = LogbookEventModeEnum.CREATION || this.mode === LogbookEventModeEnum.LINKED_EVENT_CREATION ? this.translateService.instant('LOGBOOK.NOTIFICATION.CONFIRM_CREATE_WITHOUT_NOTIFICATION.MESSAGE') : this.translateService.instant('LOGBOOK.NOTIFICATION.CONFIRM_EDIT_WITHOUT_NOTIFICATION.MESSAGE');
+            this.confirmationPopoup(title, message).then(() => {
                 this.saveLogbookEvent();
             }).catch(() => { });
         } else {
@@ -267,63 +272,14 @@ export class LogbookEventComponent implements OnInit {
      */
     confirmSaveLogbookEvent() {
         if (!this.logbookEvent.notifiedPncs || this.logbookEvent.notifiedPncs.length === 0) {
-            this.confirmWithoutNotification().then(() => {
+            const title = LogbookEventModeEnum.CREATION || this.mode === LogbookEventModeEnum.LINKED_EVENT_CREATION ? this.translateService.instant('LOGBOOK.NOTIFICATION.CONFIRM_CREATE_WITHOUT_NOTIFICATION.TITLE') : this.translateService.instant('LOGBOOK.NOTIFICATION.CONFIRM_EDIT_WITHOUT_NOTIFICATION.TITLE');
+            const message = LogbookEventModeEnum.CREATION || this.mode === LogbookEventModeEnum.LINKED_EVENT_CREATION ? this.translateService.instant('LOGBOOK.NOTIFICATION.CONFIRM_CREATE_WITHOUT_NOTIFICATION.MESSAGE') : this.translateService.instant('LOGBOOK.NOTIFICATION.CONFIRM_EDIT_WITHOUT_NOTIFICATION.MESSAGE');
+            this.confirmationPopoup(title, message).then(() => {
                 this.saveLogbookEvent();
             }).catch(() => { });
         } else {
             this.saveLogbookEvent();
         }
-    }
-
-    /**
-     * Popup de demande de notification en cas de modification d'un évènement.
-     */
-    confirmNotifyPncs() {
-        return new Promise((resolve, reject) => {
-            this.alertCtrl.create({
-                title: this.translateService.instant('LOGBOOK.NOTIFICATION.CONFIRM_NOTIFICATION.TITLE'),
-                message: this.translateService.instant('LOGBOOK.NOTIFICATION.CONFIRM_NOTIFICATION.MESSAGE'),
-                buttons: [
-                    {
-                        text: this.translateService.instant('GLOBAL.BUTTONS.NO'),
-                        handler: () => {
-                            this.logbookEvent.sendNotification = false;
-                            resolve();
-                        }
-                    },
-                    {
-                        text: this.translateService.instant('GLOBAL.BUTTONS.YES'),
-                        handler: () => {
-                            this.logbookEvent.sendNotification = true;
-                            resolve();
-                        }
-                    }
-                ]
-            }).present();
-        });
-    }
-
-    /**
-     * Popup de demande de confirmation sans envoi de notification
-     */
-    confirmWithoutNotification() {
-        return new Promise((resolve, reject) => {
-            this.alertCtrl.create({
-                title: this.mode === LogbookEventModeEnum.CREATION || this.mode === LogbookEventModeEnum.LINKED_EVENT_CREATION ? this.translateService.instant('LOGBOOK.NOTIFICATION.CONFIRM_CREATE_WITHOUT_NOTIFICATION.TITLE') : this.translateService.instant('LOGBOOK.NOTIFICATION.CONFIRM_EDIT_WITHOUT_NOTIFICATION.TITLE'),
-                message: this.mode === LogbookEventModeEnum.CREATION || this.mode === LogbookEventModeEnum.LINKED_EVENT_CREATION ? this.translateService.instant('LOGBOOK.NOTIFICATION.CONFIRM_CREATE_WITHOUT_NOTIFICATION.MESSAGE') : this.translateService.instant('LOGBOOK.NOTIFICATION.CONFIRM_EDIT_WITHOUT_NOTIFICATION.MESSAGE'),
-                buttons: [
-                    {
-                        text: this.translateService.instant('GLOBAL.BUTTONS.CANCEL'),
-                        role: 'cancel',
-                        handler: () => reject()
-                    },
-                    {
-                        text: this.translateService.instant('GLOBAL.BUTTONS.CONFIRM'),
-                        handler: () => resolve()
-                    }
-                ]
-            }).present();
-        });
     }
 
     /**

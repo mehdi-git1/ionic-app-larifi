@@ -632,7 +632,7 @@
         "REDACTOR": "Rédacteur",
         "ORIGIN": "Origine",
         "ACTIONS": "Actions",
-        "UNAIVALABLE_OFFLINE": "Les événements ne sont pas disponibles hors connexion",
+        "UNAIVALABLE_OFFLINE": "Les évènements ne sont pas disponibles hors connexion",
         "BUTTONS": {
             "ADD_LOG": "Nouvel évènement",
             "MODIFY": "Modifier",
@@ -669,17 +669,17 @@
             },
             "CONFIRM_CREATE_WITHOUT_NOTIFICATION": {
                 "TITLE": "Enregistrer sans notifier",
-                "MESSAGE": "Confirmez-vous l'enregistrement de l'événement sans envoi de notification ?"
+                "MESSAGE": "Confirmez-vous l'enregistrement de l'évènement sans envoi de notification ?"
             },
             "CONFIRM_EDIT_WITHOUT_NOTIFICATION": {
                 "TITLE": "Mettre à jour sans notifier",
-                "MESSAGE": "Confirmez-vous la mise a jour de l'événement sans envoi de notification ?"
+                "MESSAGE": "Confirmez-vous la mise à jour de l'évènement sans envoi de notification ?"
             }
         },
         "DELETE": {
             "CONFIRM_DELETE": {
                 "TITLE": "Suppression",
-                "MESSAGE": "Confirmez-vous la suppression de l'événement ?"
+                "MESSAGE": "Confirmez-vous la suppression de l'évènement ?"
             },
             "SUCCESS": "Evénement supprimé"
         },
