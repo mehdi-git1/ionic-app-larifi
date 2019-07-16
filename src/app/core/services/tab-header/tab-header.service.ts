@@ -1,5 +1,4 @@
 import { UpcomingFlightListPage } from './../../../modules/flight-activity/pages/upcoming-flight-list/upcoming-flight-list.page';
-import { PncSearchPage } from './../../../modules/pnc-team/pages/pnc-search/pnc-search.page';
 import { PncModel } from './../../models/pnc.model';
 import { SessionService } from '../session/session.service';
 import { AuthorizationService } from '../authorization/authorization.service';
@@ -15,11 +14,10 @@ import { ProfessionalLevelPage } from '../../../modules/professional-level/pages
 import { CareerObjectiveListPage } from '../../../modules/development-program/pages/career-objective-list/career-objective-list.page';
 import { Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
+import { TabHeaderEnum } from '../../enums/tab-header.enum';
 
 @Injectable()
 export class TabHeaderService {
-
-    activeTab: any;
 
     pnc: PncModel;
 
@@ -28,26 +26,6 @@ export class TabHeaderService {
         private authorizationService: AuthorizationService,
         private sessionService: SessionService
     ) {
-        this.activeTab = {
-            EDOSSIER: CareerObjectiveListPage,
-            ADMIN: ProfileManagementPage
-        };
-    }
-
-    /**
-     * Initialise la navigation par onglet
-     * @param mode le mode d'affichage
-     */
-    initTabHeader(mode: TabHeaderModeEnum) {
-        if (mode === TabHeaderModeEnum.EDOSSIER) {
-            const currentPnc = this.sessionService.visitedPnc == undefined ? this.sessionService.getActiveUser().authenticatedPnc : this.sessionService.visitedPnc;
-            if (currentPnc != this.pnc) {
-                this.pnc = currentPnc;
-                this.activeTab.EDOSSIER = this.pnc && this.pnc.manager ? ProfessionalLevelPage : CareerObjectiveListPage;
-            }
-        } else {
-            this.activeTab.ADMIN = ProfileManagementPage;
-        }
     }
 
     /**
@@ -56,41 +34,48 @@ export class TabHeaderService {
     * @return une liste contenant les entrées à afficher dans les onglets
     */
     getTabList(mode: TabHeaderModeEnum) {
-        this.initTabHeader(mode);
+        this.pnc = this.sessionService.visitedPnc == undefined ? this.sessionService.getActiveUser().authenticatedPnc : this.sessionService.visitedPnc;
 
         if (mode === TabHeaderModeEnum.EDOSSIER) {
             return [
                 {
+                    id: TabHeaderEnum.CAREER_OBJECTIVE_LIST_PAGE,
                     label: this.translateService.instant('GLOBAL.DEVELOPMENT_PROGRAM'),
                     component: CareerObjectiveListPage,
                     available: this.pnc && !this.pnc.manager
                 },
                 {
+                    id: TabHeaderEnum.PROFESSIONAL_LEVEL_PAGE,
                     label: this.translateService.instant('GLOBAL.PROFESSIONAL_LEVEL'),
                     component: ProfessionalLevelPage,
                     available: this.authorizationService.hasPermission('VIEW_PROFESSIONAL_LEVEL')
                 },
                 {
+                    id: TabHeaderEnum.STATUTORY_CERTIFICATE_PAGE,
                     label: this.translateService.instant('GLOBAL.STATUTORY_CERTIFICATE'),
                     component: StatutoryCertificatePage,
                     available: this.authorizationService.hasPermission('VIEW_STATUTORY_CERTIFICATE')
                 },
                 {
+                    id: TabHeaderEnum.CONGRATULATION_LETTERS_PAGE,
                     label: this.translateService.instant('GLOBAL.CONGRATULATION_LETTERS'),
                     component: CongratulationLettersPage,
                     available: true
                 },
                 {
+                    id: TabHeaderEnum.LOGBOOK_PAGE,
                     label: this.translateService.instant('GLOBAL.LOGBOOK'),
                     component: LogbookPage,
-                    available: this.authorizationService.hasPermission('VIEW_LOGBOOK')
+                    available: this.pnc && !this.pnc.manager && this.authorizationService.hasPermission('VIEW_LOGBOOK')
                 },
                 {
+                    id: TabHeaderEnum.UPCOMING_FLIGHT_LIST_PAGE,
                     label: this.translateService.instant('GLOBAL.UPCOMING_FLIGHT'),
                     component: UpcomingFlightListPage,
                     available: this.pnc && this.pnc.manager
                 },
                 {
+                    id: TabHeaderEnum.HELP_ASSET_LIST_PAGE,
                     label: this.translateService.instant('GLOBAL.HELP_CENTER'),
                     component: HelpAssetListPage,
                     available: true
@@ -101,41 +86,25 @@ export class TabHeaderService {
             // Entrées du mode admin
             return [
                 {
+                    id: TabHeaderEnum.PROFILE_MANAGEMENT_PAGE,
                     label: this.translateService.instant('ADMIN.ADMIN_NAV_TABS.PROFILE_MANAGEMENT'),
                     component: ProfileManagementPage,
                     available: true
                 },
                 {
+                    id: TabHeaderEnum.APP_VERSION_MANAGEMENT_PAGE,
                     label: this.translateService.instant('ADMIN.ADMIN_NAV_TABS.APP_VERSION_MANAGEMENT'),
                     component: AppVersionManagementPage,
                     available: true
                 },
                 {
+                    id: TabHeaderEnum.USER_MESSAGE_MANAGEMENT_PAGE,
                     label: this.translateService.instant('ADMIN.ADMIN_NAV_TABS.USER_MESSAGE_MANAGEMENT'),
                     component: UserMessageManagementPage,
                     available: true
                 }
             ];
         }
-    }
-
-    /**
-     * Teste si un onglet est actif, pour un mode donné
-     * @param mode le mode concerné
-     * @param tab l'onglet à tester
-     * @return vrai si l'onglet donné est actif, faux sinon
-     */
-    isActiveTab(mode: TabHeaderModeEnum, tab: any): boolean {
-        return this.activeTab && this.activeTab[mode] == tab.component;
-    }
-
-    /**
-     * Définit un onglet comme actif, dans un mode donné
-     * @param mode le mode concerné
-     * @param tab l'onglet à définir comme actif
-     */
-    setActiveTab(mode: TabHeaderModeEnum, tab: any) {
-        this.activeTab[mode] = tab.component;
     }
 
 }

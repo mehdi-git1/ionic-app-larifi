@@ -52,6 +52,12 @@
                 <ion-icon name="ios-archive"></ion-icon>
             </button>
         </ion-item>
+        <ion-item>
+            <label>{{ 'SETTINGS.LEGAL_TERMS.LABEL' | translate }}</label>
+            <button ion-fab mini icon-only item-end (click)="goToLegalTerms()">
+                <ion-icon name="document" ios="md-document"></ion-icon>
+            </button>
+        </ion-item>
         <ion-item *ngIf="isRealUserAdmin()">
             <label>{{ 'SETTINGS.IMPERSONATE_USER.LABEL' | translate }}</label>
             <button ion-fab mini icon-only item-end (click)="impersonateNewUser()" [disabled]="!connected">

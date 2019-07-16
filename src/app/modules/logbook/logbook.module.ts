@@ -1,7 +1,7 @@
-import { LogbookEventDetailsComponent } from './components/logbook-event-details/logbook-event-details.component';
 import { LogbookEventDetailsPage } from './pages/logbook-event-details/logbook-event-details.page';
+import { LogbookEventComponent } from './components/logbook-event/logbook-event.component';
 import { LogbookEventActionMenuComponent } from './components/logbook-event-action-menu/logbook-event-action-menu.component';
-import { LogbookEditPage } from './pages/logbook-edit/logbook-edit.page';
+import { LogbookCreatePage } from './pages/logbook-create/logbook-create.page';
 import { LogbookPage } from './pages/logbook/logbook.page';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
@@ -11,9 +11,9 @@ import { ComponentsModule } from '../../shared/components/components.module';
 @NgModule({
   declarations: [
     LogbookPage,
-    LogbookEditPage,
+    LogbookCreatePage,
     LogbookEventDetailsPage,
-    LogbookEventDetailsComponent,
+    LogbookEventComponent,
     LogbookEventActionMenuComponent
   ],
   imports: [
@@ -23,16 +23,16 @@ import { ComponentsModule } from '../../shared/components/components.module';
   ],
   entryComponents: [
     LogbookPage,
-    LogbookEditPage,
+    LogbookCreatePage,
     LogbookEventDetailsPage,
-    LogbookEventDetailsComponent,
+    LogbookEventComponent,
     LogbookEventActionMenuComponent
   ],
   exports: [
     LogbookPage,
-    LogbookEditPage,
+    LogbookCreatePage,
     LogbookEventDetailsPage,
-    LogbookEventDetailsComponent
+    LogbookEventComponent
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA

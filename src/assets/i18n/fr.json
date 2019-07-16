@@ -89,6 +89,10 @@
             "TITLE": "eDossierPNC n'est pas compatible avec ce navigateur",
             "MESSAGE": "Veuillez utiliser les navigateurs Firefox ou Google Chrome (à télécharger et à installer sur votre PC)",
             "MENTION": "Pour tout besoin d'accompagnement, veuillez contactez le 1324"
+        },
+        "DOCUMENT": {
+            "PREVIEW_NOT_AVAILABLE": "L'aperçu n'est pas disponible pour ce fichier",
+            "OPEN_FILE_ERROR": "Erreur lors de l'ouverture du fichier"
         }
     },
     "AUTHENT": {
@@ -132,12 +136,19 @@
             "CANCEL": "Annuler",
             "CONFIRM": "Supprimer"
         },
+        "CONFIRM_DELETE": {
+            "TITLE": "Suppression de la priorité",
+            "MESSAGE": "Êtes vous sûr de vouloir supprimer cette priorité ?",
+            "CANCEL": "Annuler",
+            "CONFIRM": "Supprimer"
+        },
         "BUTTONS": {
             "SAVE": "Enregistrer",
             "SEND": "Envoyer",
             "UPDATE": "Mettre à jour",
             "SAVE_DRAFT": "Enregistrer le brouillon",
             "DELETE_DRAFT": "Supprimer le brouillon",
+            "DELETE": "Supprimer",
             "VALIDATE": "Clôturer",
             "ABANDON": "Abandonner",
             "CANCEL_VALIDATION": "Annuler la clôture",
@@ -148,6 +159,7 @@
             "CAREER_OBJECTIVE_SAVED": "Priorité envoyée",
             "CAREER_OBJECTIVE_UPDATED": "Priorité mise à jour",
             "DRAFT_SAVED": "Brouillon enregistré",
+            "DELETED": "Priorité supprimée",
             "DRAFT_DELETED": "Brouillon supprimé",
             "CAREER_OBJECTIVE_VALIDATED": "Priorité clôturée",
             "CAREER_OBJECTIVE_ABANDONED": "Priorité abandonnée",
@@ -168,7 +180,7 @@
         "INFORMATION_MESSAGE": "Maximum 5 priorités en cours",
         "LIST": {
             "CREATION_DATE": "Initiée le",
-            "TITLE": "Libellé Priorité",
+            "TITLE": "Libellé priorité",
             "ENCOUNTER_DATE": "Fixée le",
             "NEXT_ENCOUNTER_DATE": "Rappel",
             "STATUS": "Statut"
@@ -238,6 +250,7 @@
         }
     },
     "FLIGHT_CREW_LIST": {
+        "TITLE": "Liste équipage",
         "LIST": {
             "RELAYS": "Relais",
             "FUNCTION": "Fonction",
@@ -585,30 +598,80 @@
             "WRITTEN_LETTERS": "Félicitations rédigées"
         },
         "HEADER": {
-            "CREATION_DATE": "Date rédaction",
             "FLIGHT": "Occasion",
             "TYPE": "Type de lettre",
             "WRITER": "Rédacteur"
+        },
+        "VALUE": {
+            "FLIGHT": "{{airline}}{{flightNumber}} - {{flightDate}}"
         },
         "TYPE": {
             "COLLECTIVE": "Collective",
             "INDIVIDUAL": "Individuelle"
         },
+        "BUTTONS": {
+            "CREATE_NEW_LETTER": "Rédiger / insérer une lettre de félicitations"
+        },
         "NO_RECEIVED_LETTERS": "Pas de félicitations reçues",
-        "NO_WRITTEN_LETTERS": "Pas de félicitations rédigées"
+        "NO_WRITTEN_LETTERS": "Pas de félicitations rédigées",
+        "ACTION_MENU": {
+            "DELETE_CONGRATULATION_LETTER": "Supprimer"
+        },
+        "TOAST": {
+            "DELETE_SUCCESS": "Lettre de félicitations supprimée"
+        },
+        "CONFIRM_DELETE": {
+            "TITLE": "Suppression de la lettre de félicitations",
+            "MESSAGE": "Confirmez-vous la suppression de cette lettre de félicitations ?",
+            "CANCEL": "Annuler",
+            "CONFIRM": "Supprimer"
+        }
     },
     "CONGRATULATION_LETTER_DETAIL": {
         "HEADER": {
-            "FLIGHT_NUMBER": "Numéro de vol",
-            "FLIGHT_DATE": "Date du vol",
+            "FLIGHT": "Occasion",
             "LETTER_TYPE": "Type de lettre",
             "WRITER": "Rédacteur"
+        },
+        "VALUE": {
+            "FLIGHT": "{{airline}}{{flightNumber}} - {{flightDate}}"
         },
         "TYPE": {
             "COLLECTIVE": "Collective",
             "INDIVIDUAL": "Individuelle"
         },
         "VERBATIM": "Verbatim"
+    },
+    "CONGRATULATION_LETTER_CREATE": {
+        "TITLE": "Créer une nouvelle lettre de félicitations",
+        "FORM": {
+            "FLIGHT_DATE": "Date du vol",
+            "FLIGHT_AIRLINE": "Compagnie",
+            "FLIGHT_NUMBER": "N° de vol",
+            "LETTER_TYPE": {
+                "LABEL": "Type de lettre",
+                "INDIVIDUAL": "Individuelle",
+                "COLLECTIVE": "Collective"
+            },
+            "REDACTOR": {
+                "LABEL": "Rédacteur",
+                "PNC": "PNC",
+                "PAX": "Client - PAX",
+                "PNT": "PNT",
+                "OTHER": "Autre",
+                "REDACTOR_AUTOCOMPLETE": "PNC rédacteur",
+                "REDACTOR_AUTOCOMPLETE_PLACEHOLDER": "Matricule, Nom, Prénom"
+            },
+            "VERBATIM": "Verbatim"
+        },
+        "BUTTONS": {
+            "CANCEL": "Annuler",
+            "SUBMIT": "Valider"
+        },
+        "SUCCESS": {
+            "LETTER_CREATED": "Lettre de félicitation créée"
+        },
+        "ALL_FIELDS_ARE_MANDATORY": "Tous les champs doivent être renseignés pour valider le formulaire"
     },
     "LOGBOOK": {
         "EVENT_DATE": "Date de l'évènement",
@@ -620,7 +683,12 @@
         "ACTIONS": "Actions",
         "UNAIVALABLE_OFFLINE": "Les événements ne sont pas disponibles hors connexion",
         "BUTTONS": {
-            "ADD_LOG": "Nouvel évènement"
+            "ADD_LOG": "Nouvel évènement",
+            "MODIFY": "Modifier",
+            "CANCEL": "Annuler",
+            "UPDATE": "Mettre à jour",
+            "SAVE": "Enregistrer",
+            "DELETE": "Supprimer"
         },
         "EDIT": {
             "EVENT_CREATION": "Création d'un nouvel évènement",
@@ -634,16 +702,26 @@
             "CONCERNED_PERSONS_LIST": "Liste des personnes concernées",
             "ADD_CONTACT": "Ajouter un contact",
             "LOGBOOK_SAVED": "Evénement enregistré",
-            "CONFIRM_CANCEL_MESSAGE": "Confirmez-vous l'annulation de la création de l'évènement ?",
+            "LOGBOOK_UPDATED": "Evénement mis à jour",
+            "CONFIRM_CANCEL_UPDATE_MESSAGE": "Confirmez-vous l'annulation de la modification de l'évènement ?",
+            "CONFIRM_CANCEL_CREATE_MESSAGE": "Confirmez-vous l'annulation de la création de l'évènement ?",
             "CONCERNED_PNCS": "Liste des personnes concernées :",
             "CONCERNED_PNC": "PNC Concerné",
             "SELECT_ALL": "Tout sélectionner",
             "SEARCH": "Rechercher"
         },
+        "DELETE": {
+            "CONFIRM_DELETE": {
+                "TITLE": "Suppression",
+                "MESSAGE": "Confirmez-vous la suppression de l'événement ?"
+            },
+            "SUCCESS": "Evénement supprimé"
+        },
         "DETAILS": {
             "EVENT_DATE": "Evènement du ",
             "CREATED_THE": "Créé le ",
-            "NOTIFIED_PNCS": "Personnes notifiées"
+            "NOTIFIED_PNCS": "Personnes notifiées",
+            "EDITED_BY": "Evènement modifié par {{lastName}} {{firstName}} le {{date}}"
         },
         "ACTION_MENU": {
             "MODIFY": "Modifier",
@@ -743,6 +821,9 @@
         "IMPERSONATE_USER": {
             "FIRST_NAV_TAB_IS_MANDATORY": "Vous devez vous placer sur votre page d'accueil pour pouvoir utiliser l'impersonnification",
             "LABEL": "Impersonnifier un utilisateur"
+        },
+        "LEGAL_TERMS": {
+            "LABEL": "Mentions d'information RGPD"
         }
     },
     "IMPERSONATE": {

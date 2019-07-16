@@ -1,4 +1,4 @@
-
+import { TabHeaderEnum } from './../../../../core/enums/tab-header.enum';
 import { TabHeaderModeEnum } from '../../../../core/enums/tab-header-mode.enum';
 
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
@@ -33,6 +33,7 @@ export class UserMessageManagementPage implements AfterViewInit {
     textEditorMode: TextEditorModeEnum;
 
     TabHeaderModeEnum = TabHeaderModeEnum;
+    TabHeaderEnum = TabHeaderEnum;
 
     item: FormControl;
 

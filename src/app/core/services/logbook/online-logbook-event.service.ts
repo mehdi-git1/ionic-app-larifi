@@ -27,16 +27,17 @@ export class OnlineLogbookEventService {
      * @return une promesse contenant l'évènement du journal de bord créé ou mis à jour
      */
     createOrUpdate(logbookEvent: LogbookEventModel): Promise<LogbookEventModel> {
-        if (logbookEvent.id === undefined) {
+        if (logbookEvent.techId === undefined) {
             logbookEvent.creationDate = new Date();
             logbookEvent.redactor = new PncLightModel();
             logbookEvent.redactor.matricule = this.sessionService.getActiveUser().matricule;
             logbookEvent.redactor.lastName = this.sessionService.getActiveUser().lastName;
             logbookEvent.redactor.firstName = this.sessionService.getActiveUser().firstName;
+        } else {
+            logbookEvent.lastUpdateAuthor = new PncLightModel();
+            logbookEvent.lastUpdateAuthor.matricule = this.sessionService.getActiveUser().matricule;
+            logbookEvent.lastUpdateDate = new Date();
         }
-        logbookEvent.lastUpdateAuthor = new PncLightModel();
-        logbookEvent.lastUpdateAuthor.matricule = this.sessionService.getActiveUser().matricule;
-        logbookEvent.lastUpdateDate = new Date();
         return this.restService.post(this.config.getBackEndUrl('logbookEvents'), logbookEvent);
     }
 
@@ -56,5 +57,14 @@ export class OnlineLogbookEventService {
      */
     getLogbookEvents(matricule: string): Promise<LogbookEventModel[]> {
         return this.restService.get(this.config.getBackEndUrl('getLogbookEvents', [matricule]));
+    }
+
+    /**
+     * Supprime un évènement à partir de son id
+     * @param id l'id de l'évènement à supprimer
+     * @return une promesse contenant l'objectif supprimé
+     */
+    delete(id: number): Promise<LogbookEventModel> {
+        return this.restService.delete(this.config.getBackEndUrl('deleteLogbookEventById', [id]));
     }
 }

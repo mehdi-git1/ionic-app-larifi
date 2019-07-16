@@ -25,6 +25,7 @@ import { SynchronizationService } from '../../../../core/services/synchronizatio
 import { StorageService } from '../../../../core/storage/storage.service';
 import { ConnectivityService } from '../../../../core/services/connectivity/connectivity.service';
 import { OfflineSecurityService } from '../../../../core/services/security/offline-security.service';
+import { LegalTermsPage } from '../legal-terms/legal-terms.page';
 
 @Component({
   selector: 'page-settings',
@@ -202,6 +203,13 @@ export class SettingsPage {
    */
   goToAppVersionHistory() {
     this.navCtrl.push(AppVersionHistoryPage);
+  }
+
+  /**
+   * Redirige vers la page des termes légaux (GPDR etc)
+   */
+  goToLegalTerms() {
+    this.navCtrl.push(LegalTermsPage);
   }
 
   /**

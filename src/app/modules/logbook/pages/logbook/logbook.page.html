@@ -4,7 +4,7 @@
             {{ 'GLOBAL.LOGBOOK' | isMyPage: pnc | translate }}
         </page-header>
     </ion-navbar>
-    <pnc-edossier-header></pnc-edossier-header>
+    <pnc-edossier-header [activeTab]="TabHeaderEnum.LOGBOOK_PAGE"></pnc-edossier-header>
 </ion-header>
 <ion-content padding no-bounce>
     <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
@@ -15,23 +15,23 @@
                     <ion-icon name="add"></ion-icon><span>{{ 'LOGBOOK.BUTTONS.ADD_LOG' | translate }}</span>
                 </button>
             </div>
-            <span *ngIf="groupedEvents && groupedEvents.length > 0; else noEventsBlock" >
+            <span *ngIf="groupedEvents && groupedEvents.length > 0; else noEventsBlock">
                 <ion-grid class="logbook-event-grid selectable" [sortableGrid]="groupedEvents">
-                    <ion-row class="headers">
+                    <ion-row class="headers" align-items-center>
                         <ion-col class="arrow"></ion-col>
                         <ion-col class="column-date" columnName="eventDate" sort>{{ 'LOGBOOK.EVENT_DATE' | translate }}
                             <ion-icon id="sortIcon" class="sort-icon" color="black" ios="md-arrow-dropdown" md="md-arrow-dropdown"></ion-icon>
                         </ion-col>
-                        <ion-col class="column-category" columnName="category" sort>{{ 'LOGBOOK.CATEGORY' | translate }}</ion-col>
+                        <ion-col class="column-category" columnName="category">{{ 'LOGBOOK.CATEGORY' | translate }}</ion-col>
                         <ion-col class="column-specific"></ion-col>
                         <ion-col class="column-specific"></ion-col>
-                        <ion-col class="column-title" columnName="event" sort>
+                        <ion-col class="column-title" columnName="event">
                             {{ 'LOGBOOK.EVENT' | translate }}
                         </ion-col>
-                        <ion-col class="column-origin" columnName="origin" sort>
+                        <ion-col class="column-origin" columnName="origin">
                             {{ 'LOGBOOK.ORIGIN' | translate }}
                         </ion-col>
-                        <ion-col class="column-redactor" columnName="author" sort>
+                        <ion-col class="column-redactor" columnName="author">
                             {{ 'LOGBOOK.REDACTOR' | translate }}
                         </ion-col>
                         <ion-col class="actions" *ngIf="isManager()">
@@ -40,8 +40,8 @@
                     </ion-row>
                     <ion-row class="groupedEventRow" *ngFor="let groupedEvent of groupedEvents">
                         <ion-grid class="child-event-grid">
-                            <span class="event-row"  *ngFor="let logbookEvent of groupedEvent.logbookEvents; let logbookEventIndex = index">
-                                <ion-row  *ngIf="groupedEvent.expanded || logbookEventIndex === 0" (click)="goToLogbookEventDetails(logbookEvent.groupId)" align-items-center>
+                            <span *ngFor="let logbookEvent of groupedEvent.logbookEvents; let logbookEventIndex = index">
+                                <ion-row class="event-row" *ngIf="groupedEvent.expanded || logbookEventIndex === 0" (click)="goToLogbookEventDetails(logbookEvent.groupId)" align-items-center>
                                     <ion-col class="arrow">
                                         <div class="child-count clickable" *ngIf="groupHasManyEvents(groupedEvent) && logbookEventIndex === 0" (click)="collapseOrExpandEventGroup($event, groupedEvent)">
                                             <ion-icon color="primary" ios="md-arrow-drop{{groupedEvent.expanded?'down':'up'}}" md="md-arrow-drop{{groupedEvent.expanded?'up':'down'}}">
@@ -58,21 +58,21 @@
                                         </ion-icon>
                                     </ion-col>
                                     <ion-col class="column-specific">
-                                        <ion-icon *ngIf="logbookEventHasChilds()" name="attach"></ion-icon>
+                                        <ion-icon *ngIf="logbookEventHasAttachments(logbookEvent)" name="attach"></ion-icon>
                                     </ion-col>
-                                    <ion-col class="column-title" >
+                                    <ion-col class="column-title">
                                         <span class="truncate-text">{{logbookEvent.title}}</span>
                                     </ion-col>
                                     <ion-col class="column-origin">
-                                        <ion-icon *ngIf="logbookEvent.pncInitiator" color="primary" class="edospnc-pnc action-icon" name="edospnc-pnc">
+                                        <ion-icon *ngIf="logbookEvent.pncInitiator" color="primary" class="edospnc-pnc" name="edospnc-pnc">
                                         </ion-icon>
                                     </ion-col>
-                                    <ion-col  class="column-redactor" >
-                                        <span class="truncate-text">{{logbookEvent.lastUpdateAuthor?.lastName}} {{logbookEvent.lastUpdateAuthor?.firstName | titlecase}}</span>
+                                    <ion-col class="column-redactor">
+                                        <span class="truncate-text">{{logbookEvent.redactor?.lastName}} {{logbookEvent.redactor?.firstName | titlecase}}</span>
                                     </ion-col>
                                     <ion-col class="actions" *ngIf="isManager()">
                                         <div class="clickable" *ngIf="logbookEventIndex === 0" (click)="openActionsMenu($event, logbookEvent)">
-                                            <ion-icon class="action-icon" ios="md-more" md="md-more">
+                                            <ion-icon ios="md-more" md="md-more">
                                             </ion-icon>
                                         </div>
                                     </ion-col>

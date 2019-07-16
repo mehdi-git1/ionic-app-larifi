@@ -1,0 +1,7 @@
+export enum LogbookEventModeEnum {
+    CREATION = 'CREATION',
+    LINKED_EVENT_CREATION = 'LINKED_EVENT_CREATION',
+    EDITION = 'EDITION',
+    DETAILS = 'DETAILS',
+    DELETION = 'DELETION'
+}

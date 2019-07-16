@@ -1,5 +1,5 @@
-import { ConnectivityService } from './../../../../core/services/connectivity/connectivity.service';
 import { LogbookEventDetailsPage } from './../logbook-event-details/logbook-event-details.page';
+import { ConnectivityService } from './../../../../core/services/connectivity/connectivity.service';
 import { AppConstant } from './../../../../app.constant';
 import { DateTransform } from './../../../../shared/utils/date-transform';
 import { LogbookEventGroupModel } from './../../../../core/models/logbook/logbook-event-group.model';
@@ -12,10 +12,10 @@ import { PncModel } from './../../../../core/models/pnc.model';
 import { PncService } from './../../../../core/services/pnc/pnc.service';
 import { NavController, NavParams, PopoverController } from 'ionic-angular';
 import { Component, ViewChild, AfterViewInit, OnInit } from '@angular/core';
-import { LogbookEditPage } from '../logbook-edit/logbook-edit.page';
-import { MatTableDataSource, MatSort } from '@angular/material';
+import { LogbookCreatePage } from '../logbook-create/logbook-create.page';
 import * as moment from 'moment';
 import * as _ from 'lodash';
+import { TabHeaderEnum } from '../../../../core/enums/tab-header.enum';
 
 @Component({
     selector: 'log-book',
@@ -30,6 +30,8 @@ export class LogbookPage {
     sortedColumn: string;
 
     groupedEvents: Array<LogbookEventGroupModel>;
+
+    TabHeaderEnum = TabHeaderEnum;
 
     constructor(public navCtrl: NavController,
         public navParams: NavParams,
@@ -62,7 +64,7 @@ export class LogbookPage {
      * Rafraîchit la page
      */
     refreshPage() {
-        this.groupedEvents = new Array<LogbookEventGroupModel>();
+        this.groupedEvents = null;
         this.getLogbookEvents(this.pnc.matricule);
     }
 
@@ -73,7 +75,7 @@ export class LogbookPage {
      */
     private getLogbookEvents(matricule: string) {
         this.onlineLogbookEventService.getLogbookEvents(matricule).then(logbookEvents => {
-        // Tri des évènements par groupId
+            // Tri des évènements par groupId
             this.groupedEvents = new Array<LogbookEventGroupModel>();
             const groupedEventsMap = new Map<number, LogbookEventGroupModel>();
             logbookEvents.forEach(logbookEvent => {
@@ -86,10 +88,10 @@ export class LogbookPage {
             for (const groupedEvent of Array.from(groupedEventsMap.values())) {
                 groupedEvent.logbookEvents = this.sortLogbookEventsByEventDate(groupedEvent.logbookEvents);
                 this.groupedEvents.push(groupedEvent);
-            }}
-        , error => {
+            }
+        }, error => {
             this.groupedEvents = new Array<LogbookEventGroupModel>();
-         });
+        });
     }
 
     /**
@@ -143,7 +145,7 @@ export class LogbookPage {
      */
     goToLogbookCreation() {
         if (this.pnc) {
-            this.navCtrl.push(LogbookEditPage, { matricule: this.pnc.matricule });
+            this.navCtrl.push(LogbookCreatePage, { matricule: this.pnc.matricule });
         }
     }
 
@@ -159,7 +161,7 @@ export class LogbookPage {
      * @return true si c'est le cas, false sinon
      */
     loadingIsOver(): boolean {
-        return  this.groupedEvents && this.groupedEvents !== undefined;
+        return this.groupedEvents && this.groupedEvents !== undefined;
     }
 
     /**
@@ -178,18 +180,15 @@ export class LogbookPage {
     openActionsMenu(myEvent: Event, logbookEvent: LogbookEventModel) {
         myEvent.stopPropagation();
         const popover = this.popoverCtrl.create(LogbookEventActionMenuComponent, { logbookEvent: logbookEvent, navCtrl: this.navCtrl }, { cssClass: 'action-menu-popover' });
-        popover.present({
-            ev: myEvent
-        });
+        popover.present({ ev: myEvent });
     }
 
     /**
-     * Vérifie si il y a des évènements liés
-     * TODO : A implémenter une fois que la fonctionnalité des évènements liés est implémentée
-     * @return true si il y a des évènements liés, false sinon
+     * Vérifie si il y a des pièces jointes
+     * @return true si il y a des pièces jointes, false sinon
      */
-    logbookEventHasChilds(): boolean {
-        return false;
+    logbookEventHasAttachments(logbookEvent: LogbookEventModel): boolean {
+        return logbookEvent.attachmentFiles && logbookEvent.attachmentFiles.length > 0;
     }
 
     /**
@@ -205,7 +204,6 @@ export class LogbookPage {
      * @return true si on est en mode connecté, false sinon
      */
     isConnected(): boolean {
-        console.log(this.connectivityService.isConnected());
         return this.connectivityService.isConnected();
     }
 }

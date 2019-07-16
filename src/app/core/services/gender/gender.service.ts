@@ -27,10 +27,10 @@ export class GenderService {
    * */
   getAvatarPicture(gender: GenderEnum) {
     if (gender === GenderEnum.M) {
-      return this.deviceService.isBrowser() ? '../../assets/imgs/man-default-picture.png' : './assets/imgs/man-default-picture.png';
+      return this.deviceService.isBrowser() ? '../../assets/imgs/man-default-picture.svg' : './assets/imgs/man-default-picture.svg';
     }
     if (gender === GenderEnum.F) {
-      return this.deviceService.isBrowser() ? '../../assets/imgs/woman-default-picture.png' : './assets/imgs/woman-default-picture.png';
+      return this.deviceService.isBrowser() ? '../../assets/imgs/woman-default-picture.svg' : './assets/imgs/woman-default-picture.svg';
     }
   }
 

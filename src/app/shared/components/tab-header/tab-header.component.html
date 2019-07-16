@@ -1,10 +1,10 @@
-<nav class="tab-list clickable">
+<nav #tabListRef class="tab-list clickable">
     <!-- Retour vers home si mode admin -->
-    <span *ngIf="mode === TabNavModeEnum.ADMIN" class="tab" (click)="goToHome()">
+    <span *ngIf="mode === TabHeaderModeEnum.ADMIN" class="tab" (click)="goToHome()">
         <ion-icon name="ios-arrow-back"></ion-icon>{{ 'ADMIN.ADMIN_NAV_TABS.HOME' | translate }}
     </span>
     <ng-container *ngFor="let tab of tabList">
-        <span *ngIf="tab.available" class="tab" (click)="openTab(tab)" [class.active]="isActive(tab)">
+        <span id="{{tab.id}}" *ngIf=" tab.available" class="tab" (click)="openTab(tab)" [class.active]="isActive(tab)">
             {{ tab.label }}
         </span>
     </ng-container>

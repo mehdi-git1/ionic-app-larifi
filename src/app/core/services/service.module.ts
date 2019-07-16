@@ -1,3 +1,4 @@
+import { DocumentService } from './document/document.service';
 import { TabHeaderService } from './tab-header/tab-header.service';
 import { SortService } from './sort/sort.service';
 import { AppVersionTransformerService } from './app-version/app-version-transformer.service';
@@ -175,7 +176,8 @@ import { PdfGeneratorService } from './pdf-generator/pdf-generator.service';
         ProfessionalInterviewTransformerService,
         OnlineLogbookEventService,
         PdfGeneratorService,
-        SortService
+        SortService,
+        DocumentService
     ]
 })
 export class ServiceModule { }

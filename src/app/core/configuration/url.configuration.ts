@@ -1,3 +1,4 @@
+import { DirectivesModule } from './../../shared/directives/directives.module';
 import { Injectable } from '@angular/core';
 import { urlGroupEnum } from './url-group.enum';
 import { Config } from '../../../environments/config';
@@ -28,7 +29,9 @@ export class UrlConfiguration {
     'getReceivedCongratulationLettersByPnc': `${urlGroupEnum.PNC}/{matricule}/received_congratulation_letters`,
     'getWrittenCongratulationLettersByPnc': `${urlGroupEnum.PNC}/{matricule}/written_congratulation_letters`,
     'getAllRotationsByMatricule': `${urlGroupEnum.PNC}/{matricule}/rotations`,
+    'congratulationLetters': urlGroupEnum.CONGRATULATION_LETTER,
     'getCongratulationLetterById': `${urlGroupEnum.CONGRATULATION_LETTER}/{congratulationLetterId}`,
+    'deleteCongratulationLetterByIdAndMatricule': `${urlGroupEnum.CONGRATULATION_LETTER}/{id}/{matricule}`,
     'pncPhotos': urlGroupEnum.PNC_PHOTO,
     'getPncPhotoByMatricule': `${urlGroupEnum.PNC_PHOTO}/{matricule}`,
     'getSecurityInfos': urlGroupEnum.ME,
@@ -39,7 +42,7 @@ export class UrlConfiguration {
     'professionalInterviews': urlGroupEnum.PROFESSIONAL_INTERVIEW,
     'deleteProfessionalInterviewById': `${urlGroupEnum.PROFESSIONAL_INTERVIEW}/{id}`,
     'getProfessionalInterviewById': `${urlGroupEnum.PROFESSIONAL_INTERVIEW}/{id}`,
-    'pncSynchro': `v2/${urlGroupEnum.PNC_SYNCHRO}`,
+    'pncSynchro': `v3/${urlGroupEnum.PNC_SYNCHRO}`,
     'getPncSynchroByPnc': `v3/${urlGroupEnum.PNC_SYNCHRO}/{matricule}`,
     'getWaypointsByCarreObjectiveId': `${urlGroupEnum.WAYPOINT}/career_objective/{careerObjectiveId}`,
     'getWaypointById': `${urlGroupEnum.WAYPOINT}/{waypointId}`,
@@ -60,7 +63,9 @@ export class UrlConfiguration {
     'deleteAppVersionById': `${urlGroupEnum.APP_VERSION}/{id}`,
     'logbookEvents': urlGroupEnum.LOGBOOK_EVENT,
     'getLogbookEventsByGroupId': `${urlGroupEnum.LOGBOOK_EVENT}/event_group/{groupId}`,
-    'getLogbookEvents': `${urlGroupEnum.LOGBOOK_EVENT}/pnc/{matricule}`
+    'getLogbookEvents': `${urlGroupEnum.LOGBOOK_EVENT}/pnc/{matricule}`,
+    'deleteLogbookEventById': `${urlGroupEnum.LOGBOOK_EVENT}/{id}`,
+    'getDocumentById': `${urlGroupEnum.DOCUMENT}/{documentId}`,
   };
 
   /**

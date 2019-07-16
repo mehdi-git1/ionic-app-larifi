@@ -1,3 +1,4 @@
+import { TabHeaderEnum } from './../../../../core/enums/tab-header.enum';
 import { EObservationModel } from './../../../../core/models/eobservation/eobservation.model';
 import { SecurityService } from './../../../../core/services/security/security.service';
 import { ProfessionalInterviewDetailsPage } from './../../../professional-interview/pages/professional-interview-details/professional-interview-details.page';
@@ -46,6 +47,7 @@ export class CareerObjectiveListPage {
 
   // Expose l'enum au template
   EObservationDisplayModeEnum = EObservationDisplayModeEnum;
+  TabHeaderEnum = TabHeaderEnum;
 
   // Liste des eForms possible
   eFormsList = [];
@@ -57,9 +59,9 @@ export class CareerObjectiveListPage {
 
   pnc: PncModel;
 
-  constructor(public navCtrl: NavController,
-    public navParams: NavParams,
-    public securityService: SecurityService,
+  constructor(private navCtrl: NavController,
+    private navParams: NavParams,
+    private securityService: SecurityService,
     private careerObjectiveService: CareerObjectiveService,
     private professionalInterviewService: ProfessionalInterviewService,
     private formsEObservationService: FormsEObservationService,
@@ -105,10 +107,7 @@ export class CareerObjectiveListPage {
    * @return true si il est géré, sinon false
    */
   hasEObsTypeForm(): boolean {
-    if (this.getEObsTextTypeEForm()) {
-      return true;
-    }
-    return false;
+    return this.getEObsTextTypeEForm() != undefined;
   }
 
   /**
@@ -129,7 +128,7 @@ export class CareerObjectiveListPage {
    */
   sortEObsByRotationDate(eObservations: EObservationModel[]): EObservationModel[] {
     return eObservations.sort((eObs1, eObs2) =>
-      moment(eObs1.rotationDate, AppConstant.isoDateFormat).isAfter(moment(eObs2.rotationDate, AppConstant.isoDateFormat)) ? -1 : 1 );
+      moment(eObs1.rotationDate, AppConstant.isoDateFormat).isAfter(moment(eObs2.rotationDate, AppConstant.isoDateFormat)) ? -1 : 1);
   }
 
   /**
@@ -280,5 +279,14 @@ export class CareerObjectiveListPage {
    */
   isAdminModeAvailable(): boolean {
     return this.securityService.isProfessionalInterviewAdmin();
+  }
+
+  /**
+   * Renvoie la spécialité du pnc à afficher
+   * @param pnc le pnc concerné
+   * @return la fonction du pnc à afficher
+   */
+  getFormatedSpeciality(pnc: PncModel): string {
+    return this.pncService.getFormatedSpeciality(pnc);
   }
 }

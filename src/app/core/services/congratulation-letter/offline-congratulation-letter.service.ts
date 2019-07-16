@@ -68,5 +68,4 @@ export class OfflineCongratulationLetterService {
   getCongratulationLetter(id: number): Promise<CongratulationLetterModel> {
     return this.storageService.findOneAsync(EntityEnum.CONGRATULATION_LETTER, `${id}`);
   }
-
 }

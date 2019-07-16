@@ -1,4 +1,22 @@
-logbook-event-details {
+logbook-event {
+
+    .draw-ligne {
+        margin: 22px 10px;
+        border-top: 1px solid color($colors-secondary, grey70);
+        flex: 5;
+    }
+
+    .logbook-info-date {
+        flex: 2;
+        text-align: center;
+        position: relative;
+        top: 12px;
+
+        span {
+            white-space: nowrap;
+        }
+
+    }
 
     .logbook-event-card {
         padding: 10px 20px;
@@ -98,6 +116,133 @@ logbook-event-details {
                     font-weight: bold;
                 }
             }
+
+            .logbook-button-bar {
+
+                button {
+                    font-size: 14px;
+                    font-weight: bold;
+                    font-style: normal;
+                    font-stretch: normal;
+                    line-height: 1.29;
+                    letter-spacing: 0.7px;
+                    text-align: center;
+                    background-color: transparent;
+                    color: color($colors-secondary, grey10);
+                    box-shadow: none;
+                }
+            }
         }
     }
+
+    $ion-textarea-row-margin:10px;
+
+    ion-grid {
+        display: flex;
+    }
+
+    .item-md.item-block .item-inner {
+        border-bottom: initial;
+    }
+
+    .item-ios.item-block .item-inner {
+        border-bottom: initial;
+    }
+
+    .event-date-and-checkbox-row {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+
+        ion-item {
+            width: auto;
+        }
+
+        .event-date {
+            flex-grow: 4;
+
+            ion-label {
+                flex: initial;
+            }
+        }
+
+        .event-checkbox {
+            flex-grow: 1;
+            text-align: end;
+        }
+
+        .item.item-md .checkbox-md {
+            position: static;
+            display: block;
+            margin: 9px 15px 9px 4px;
+        }
+
+        .item-md.item-block .item-inner {
+            border-bottom: initial;
+        }
+
+        .item.item-ios .checkbox-ios {
+            position: static;
+            display: block;
+            margin: 9px 15px 9px 4px;
+        }
+
+        .item-ios.item-block .item-inner {
+            border-bottom: initial;
+        }
+    }
+
+    .col {
+        padding: 0px;
+    }
+
+    .category {
+        width: 255px;
+
+        ion-select {
+            padding-left: 5px;
+        }
+    }
+
+    .title-row {
+        margin-top: $ion-textarea-row-margin !important;
+    }
+
+    .event-title {
+        display: flex;
+        height: fit-content;
+    }
+
+    .event-length {
+        width: 100%;
+        font-size: smaller;
+        align-content: flex-end;
+        text-align: right;
+    }
+
+    .description-row {
+
+        ion-textarea.big-textarea {
+            align-items: stretch;
+            height: 290px;
+            display: flex;
+
+            textarea {
+                align-items: stretch;
+            }
+        }
+    }
+
+    .information-message {
+        text-align: left;
+    }
+
+}
+
+.popover-md .popover-content {
+    width: 275px;
+}
+
+.popover-ios .popover-content {
+    width: 275px;
 }

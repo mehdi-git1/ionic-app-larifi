@@ -6,8 +6,8 @@ import { EntityEnum } from '../../enums/entity.enum';
 import { CareerObjectiveModel } from '../../models/career-objective.model';
 import { UrlConfiguration } from '../../configuration/url.configuration';
 import { RestService } from '../../http/rest/rest.base.service';
-import {OfflineCareerObjectiveService} from './offline-career-objective.service';
-import {CareerObjectiveTransformerService} from './career-objective-transformer.service';
+import { OfflineCareerObjectiveService } from './offline-career-objective.service';
+import { CareerObjectiveTransformerService } from './career-objective-transformer.service';
 
 @Injectable()
 export class OnlineCareerObjectiveService {
@@ -83,14 +83,6 @@ export class OnlineCareerObjectiveService {
     this.storageService.delete(EntityEnum.CAREER_OBJECTIVE, `${id}`);
     this.storageService.persistOfflineMap();
     return this.restService.delete(this.config.getBackEndUrl('deleteCareerObjectivesById', [id]));
-  }
-
-  /**
- * Envoi au serveur une demande de sollicitation instructeur pour l'objectif
- * @param id l'id de l'objectif pour lequel on souhaiter solliciter l'instructeur
- */
-  createInstructorRequest(id: number): Promise<void> {
-    return this.restService.post(this.config.getBackEndUrl('setCareerObjectivesInstructorRequestById', [id]), {});
   }
 
 }

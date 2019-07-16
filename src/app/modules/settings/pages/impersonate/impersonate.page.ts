@@ -144,7 +144,7 @@ export class ImpersonatePage {
   getMyIdentityBack(): void {
     this.sessionService.impersonatedUser = null;
     if (this.navCtrl.parent) {
-      this.navCtrl.setRoot(PncHomePage);
+      this.navCtrl.setRoot(this.sessionService.getActiveUser().isManager ? PncHomePage : CareerObjectiveListPage);
     }
     this.authenticationService.putAuthenticatedUserInSession().then(
       data => this.events.publish('user:authenticationDone')

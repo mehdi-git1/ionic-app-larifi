@@ -9,14 +9,9 @@ career-objectives {
 
         mat-expansion-panel-header {
             display: flex;
-            background-color: color($colors-secondary, green45);
+            background-color: color($colors, primary-light);
             border-radius: 5px;
             color: color($colors, white);
-            cursor: pointer;
-
-            box-shadow: 0 3px 1px -3px rgba(0, 0, 0, .2),
-                0 2px 2px 0 rgba(0, 0, 0, .14),
-                0 1px 5px 0 rgba(0, 0, 0, .12);
 
             & > .mat-expansion-indicator {
                 display: flex;
@@ -29,7 +24,7 @@ career-objectives {
 
             &.mat-expanded:hover,
             &.mat-expanded:focus {
-                background-color: color($colors-secondary, green45) !important;
+                background-color: color($colors, primary-light) !important;
             }
 
             .mat-content {
@@ -68,7 +63,4 @@ career-objectives {
 
     }
 
-    .information-message {
-        margin-top: 10px;
-    }
 }

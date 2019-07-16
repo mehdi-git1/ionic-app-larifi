@@ -1,0 +1,9 @@
+<span [ngClass]="{'viewer': true, 'visible': isImageType()}">
+    <span class="close-viewer-button" (click)="closeDocumentViewer()"><ion-icon name="md-close-circle" ></ion-icon></span>
+    <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock" ></edossier-spinner>
+    <ng-template #pageBlock>
+        <span class="document" #imageViewer >
+            <img class="document-image"*ngIf="type === DocumentTypeEnum.IMAGE" [src]="base64FileContentAndType" />
+        </span>
+    </ng-template>
+</span>

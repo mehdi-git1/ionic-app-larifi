@@ -1,7 +1,7 @@
 export class CongratulationLetterFlightModel {
     airline: string;
     number: string;
-    theoricalDate: Date;
+    theoricalDate: string;
     departureStation: string;
     arrivalStation: string;
 }

@@ -16,6 +16,7 @@
 @import '../theme/label.scss';
 @import '../theme/input.scss';
 @import '../theme/checkbox.scss';
+@import '../theme/radio.scss';
 @import '../theme/textarea.scss';
 @import '../theme/select.scss';
 @import '../theme/button-bar.scss';
@@ -29,6 +30,7 @@
 @import '../theme/navbar.scss';
 @import '../theme/typography.scss';
 @import '../theme/elevation.scss';
+@import '../theme/flex.scss';
 
 @import "../node_modules/quill/dist/quill.core.css";
 @import "../node_modules/quill/dist/quill.snow.css";
@@ -92,6 +94,7 @@
 }
 
 .back-button {
+    position: absolute;
     color: color($colors, white);
 }
 
@@ -110,6 +113,10 @@ ion-app.ios {
     font-family: OpenSans, Arial, Helvetica, sans-serif;
 }
 
+.header-ios {
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2);
+}
+
 ion-textarea,
 ion-input {
     background-color: color($colors, white);
@@ -118,6 +125,10 @@ ion-input {
 ion-content > .scroll-content {
     max-width: 1200px;
     margin: auto;
+}
+
+.scroll-content {
+    overflow-y: auto !important;
 }
 
 .content {
@@ -130,10 +141,6 @@ ion-content > .scroll-content {
 
 .hidden {
     visibility: hidden;
-}
-
-.scroll-content {
-    overflow-y: auto !important;
 }
 
 .blur {

@@ -1,7 +1,6 @@
 career-objective {
 
     .career-objective-card {
-        background-color: color($colors-secondary, green60);
         display: flex;
         border-radius: 5px !important;
         color: color($colors, white);
@@ -15,16 +14,13 @@ career-objective {
             width: 100%;
             padding-left: 5px;
             display: flex;
+            align-items: center;
             height: 40px;
-
-            span {
-                display: flex;
-                align-items: center;
-            }
+            font-size: 15px;
 
             .value {
-                font-size: 1.2em !important;
-                font-weight: 400;
+                font-weight: normal;
+                color: color($colors, primary-light);
             }
 
             .career-objective-date {
@@ -33,12 +29,19 @@ career-objective {
 
             .career-objective-label {
                 flex: 1;
+                padding-right: 10px;
+            }
+
+            .career-objective-status {
+                display: flex;
+                align-items: center;
             }
 
             .career-objective-icone {
                 min-width: 110px;
                 display: flex;
                 justify-content: flex-end;
+                align-items: center;
                 padding: 3px 10px;
 
                 span:not(:last-child) {

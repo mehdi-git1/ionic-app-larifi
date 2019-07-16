@@ -4,7 +4,7 @@
             <span *ngIf="pnc"> {{ 'CONGRATULATION_LETTERS.TITLE' | isMyPage: pnc | translate }}</span>
         </page-header>
     </ion-navbar>
-    <pnc-edossier-header></pnc-edossier-header>
+    <pnc-edossier-header [activeTab]="TabHeaderEnum.CONGRATULATION_LETTERS_PAGE"></pnc-edossier-header>
 </ion-header>
 <ion-content padding no-bounce>
     <nav class="tabs">
@@ -18,6 +18,14 @@
 
     <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
     <ng-template #pageBlock>
+        <warning-text></warning-text>
+
+        <div class="button-bar button-bar-right" *ngIf="canCreateLetter()">
+            <button ion-button (click)="createNewLetter()" color="primary-light">
+                <ion-icon name="md-add" ios="md-add"></ion-icon>{{ 'CONGRATULATION_LETTERS.BUTTONS.CREATE_NEW_LETTER' | translate }}
+            </button>
+        </div>
+
         <!-- Lettres reçues -->
         <congratulation-letter-list [hidden]="!isTabActive(CongratulationLetterModeEnum.RECEIVED)" [mode]="CongratulationLetterModeEnum.RECEIVED" [congratulationLetters]="receivedCongratulationLetters" [matricule]="matricule"></congratulation-letter-list>
 
