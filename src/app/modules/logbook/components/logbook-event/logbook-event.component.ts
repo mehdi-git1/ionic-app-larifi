@@ -80,6 +80,11 @@ export class LogbookEventComponent implements OnInit {
             this.logbookEvent.category = new LogbookEventCategory();
             const eventDate: Date = new Date();
             this.logbookEvent.eventDate = this.dateTransformer.transformDateToIso8601Format(eventDate);
+            this.logbookEvent.mode = this.mode;
+            this.logbookEvent.notifiedPncs = new Array();
+            if (this.pnc.pncInstructor && this.pnc.pncInstructor.matricule !== this.sessionService.getActiveUser().matricule) {
+                this.logbookEvent.notifiedPncs.push(this.pnc.pncInstructor);
+            }
         }
         this.originLogbookEvent = _.cloneDeep(this.logbookEvent);
         this.eventDateString = this.logbookEvent ? this.logbookEvent.eventDate : this.dateTransformer.transformDateToIso8601Format(new Date());
@@ -93,6 +98,18 @@ export class LogbookEventComponent implements OnInit {
         if (this.sessionService.getActiveUser().appInitData !== undefined) {
             this.logbookEventCategories = this.sessionService.getActiveUser().appInitData.logbookEventCategories;
         }
+    }
+
+    /**
+     *  Compare deux categories et renvois true si elles sont égales
+     * @param category1 premiere categorie à comparér
+     * @param category2 Deuxieme categorie à comparér
+     */
+    compareCategories(category1: LogbookEventCategory, category2: LogbookEventCategory): boolean {
+        if (category1.id === category2.id) {
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -126,15 +143,17 @@ export class LogbookEventComponent implements OnInit {
      */
     confirmCancel() {
         if (this.formHasBeenModified()) {
-            return this.confirmAbandonChanges().then(() => {
+            const title = this.translateService.instant('GLOBAL.CONFIRM_BACK_WITHOUT_SAVE.TITLE');
+            const message = this.mode == LogbookEventModeEnum.CREATION || this.mode == LogbookEventModeEnum.LINKED_EVENT_CREATION ? this.translateService.instant('LOGBOOK.EDIT.CONFIRM_CANCEL_CREATE_MESSAGE') : this.translateService.instant('LOGBOOK.EDIT.CONFIRM_CANCEL_UPDATE_MESSAGE');
+            return this.confirmationPopoup(title, message).then(() => {
                 this.logbookEvent = _.cloneDeep(this.originLogbookEvent);
-                this.editEvent = false;
                 if (this.cancelFromButton && this.mode === LogbookEventModeEnum.CREATION) {
                     this.navCtrl.pop();
                     this.cancelFromButton = false;
                 } else {
                     this.events.publish('LinkedLogbookEvent:canceled');
                 }
+                this.editEvent = false;
                 return true;
             }
             ).catch(() => {
@@ -142,13 +161,13 @@ export class LogbookEventComponent implements OnInit {
                 return false;
             });
         } else {
-            this.editEvent = false;
             if (this.cancelFromButton && this.mode === LogbookEventModeEnum.CREATION) {
                 this.navCtrl.pop();
                 this.cancelFromButton = false;
-            } else {
-                this.events.publish('LinkedLogbookEvent:canceled');
+            } else if (this.cancelFromButton) {
+                this.editEvent = false;
             }
+            this.events.publish('LinkedLogbookEvent:canceled');
             return true;
         }
 
@@ -158,12 +177,13 @@ export class LogbookEventComponent implements OnInit {
     /**
      * Popup d'avertissement en cas de modifications non enregistrées.
      */
-    confirmAbandonChanges() {
+
+    confirmationPopoup(title: string, message: string) {
         return new Promise((resolve, reject) => {
             // Avant de quitter la vue, on avertit l'utilisateur si ses modifications n'ont pas été enregistrées
             this.alertCtrl.create({
-                title: this.translateService.instant('GLOBAL.CONFIRM_BACK_WITHOUT_SAVE.TITLE'),
-                message: this.mode == LogbookEventModeEnum.CREATION || this.mode == LogbookEventModeEnum.LINKED_EVENT_CREATION ? this.translateService.instant('LOGBOOK.EDIT.CONFIRM_CANCEL_CREATE_MESSAGE') : this.translateService.instant('LOGBOOK.EDIT.CONFIRM_CANCEL_UPDATE_MESSAGE'),
+                title: title,
+                message: message,
                 buttons: [
                     {
                         text: this.translateService.instant('GLOBAL.BUTTONS.CANCEL'),
@@ -229,6 +249,40 @@ export class LogbookEventComponent implements OnInit {
     }
 
     /**
+     * Confirme la modification d'un évènement avec ou sans notification des personne concernés
+     */
+    confirmUpdateLogbookEvent() {
+        if (this.logbookEvent.notifiedPncs && this.logbookEvent.notifiedPncs.length > 0) {
+            return this.confirmationPopoup(this.translateService.instant('LOGBOOK.NOTIFICATION.CONFIRM_NOTIFICATION.TITLE'), this.translateService.instant('LOGBOOK.NOTIFICATION.CONFIRM_NOTIFICATION.MESSAGE')).then(() => {
+                this.saveLogbookEvent();
+            }).catch(() => { });
+        } else if (this.logbookEvent.notifiedPncs && this.logbookEvent.notifiedPncs.length === 0) {
+            const title = LogbookEventModeEnum.CREATION || this.mode === LogbookEventModeEnum.LINKED_EVENT_CREATION ? this.translateService.instant('LOGBOOK.NOTIFICATION.CONFIRM_CREATE_WITHOUT_NOTIFICATION.TITLE') : this.translateService.instant('LOGBOOK.NOTIFICATION.CONFIRM_EDIT_WITHOUT_NOTIFICATION.TITLE');
+            const message = LogbookEventModeEnum.CREATION || this.mode === LogbookEventModeEnum.LINKED_EVENT_CREATION ? this.translateService.instant('LOGBOOK.NOTIFICATION.CONFIRM_CREATE_WITHOUT_NOTIFICATION.MESSAGE') : this.translateService.instant('LOGBOOK.NOTIFICATION.CONFIRM_EDIT_WITHOUT_NOTIFICATION.MESSAGE');
+            this.confirmationPopoup(title, message).then(() => {
+                this.saveLogbookEvent();
+            }).catch(() => { });
+        } else {
+            this.saveLogbookEvent();
+        }
+    }
+
+    /**
+     * Confirme l'enregistrement d'un évènement sans notifier les personne concernés
+     */
+    confirmSaveLogbookEvent() {
+        if (!this.logbookEvent.notifiedPncs || this.logbookEvent.notifiedPncs.length === 0) {
+            const title = LogbookEventModeEnum.CREATION || this.mode === LogbookEventModeEnum.LINKED_EVENT_CREATION ? this.translateService.instant('LOGBOOK.NOTIFICATION.CONFIRM_CREATE_WITHOUT_NOTIFICATION.TITLE') : this.translateService.instant('LOGBOOK.NOTIFICATION.CONFIRM_EDIT_WITHOUT_NOTIFICATION.TITLE');
+            const message = LogbookEventModeEnum.CREATION || this.mode === LogbookEventModeEnum.LINKED_EVENT_CREATION ? this.translateService.instant('LOGBOOK.NOTIFICATION.CONFIRM_CREATE_WITHOUT_NOTIFICATION.MESSAGE') : this.translateService.instant('LOGBOOK.NOTIFICATION.CONFIRM_EDIT_WITHOUT_NOTIFICATION.MESSAGE');
+            this.confirmationPopoup(title, message).then(() => {
+                this.saveLogbookEvent();
+            }).catch(() => { });
+        } else {
+            this.saveLogbookEvent();
+        }
+    }
+
+    /**
      * Prépare l'évènement du journal de bord avant de l'envoyer au back :
      * Transforme les dates au format iso
      * ou supprime l'entrée de l'objet si une ou plusieurs dates sont nulles
@@ -251,6 +305,14 @@ export class LogbookEventComponent implements OnInit {
         return !(!this.logbookEvent
             || !this.logbookEvent.category.id || !this.logbookEvent.eventDate
             || !this.logbookEvent.title || !this.logbookEvent.content);
+    }
+
+    /**
+     * Vérifie que les éléments obligatoires sont rempli et qu'une modification est faite.
+     * @return true si l'évènement peut être enregistré
+     */
+    public canBeUpdated(): boolean {
+        return this.canBeSaved() && this.formHasBeenModified();
     }
 
 
@@ -279,5 +341,38 @@ export class LogbookEventComponent implements OnInit {
      */
     getLastUpdateDate(): string {
         return this.datePipe.transform(this.logbookEvent.lastUpdateDate, 'dd/MM/yyyy à HH:mm');
+    }
+
+    /**
+     * Verifie si le pnc est notifié
+     * @param pncLight le pnc concerné
+     * @return true si le pnc est notifié, false sinon
+     */
+    isPncNotified(pncLight: PncLightModel): boolean {
+        if (!pncLight || !pncLight.matricule || !this.logbookEvent.notifiedPncs) {
+            return false;
+        }
+        let result: boolean;
+        this.logbookEvent.notifiedPncs.forEach(pnc => {
+            if (pnc.matricule === pncLight.matricule) {
+                result = true;
+            }
+        });
+        return result;
+    }
+
+    /**
+     * Ajoute le pnc coché a la liste des pnc à notifier
+     * @param myEvent l'event lié a la case à cocher
+     * @param pncLight le pnc concerné
+     */
+    updatePncNotifiedList(myEvent: any, pncLight: PncLightModel) {
+        if (myEvent.checked) {
+            this.logbookEvent.notifiedPncs.push(pncLight);
+        } else {
+            this.logbookEvent.notifiedPncs = this.logbookEvent.notifiedPncs.filter(pnc =>
+                pnc.matricule !== pncLight.matricule);
+        }
+
     }
 }
