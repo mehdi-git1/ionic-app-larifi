@@ -1,3 +1,4 @@
+import { CongratulationLetterModeEnum } from './../../../../core/enums/congratulation-letter/congratulation-letter-mode.enum';
 import { CongratulationLetterService } from './../../../../core/services/congratulation-letter/congratulation-letter.service';
 import { Component } from '@angular/core';
 import { CongratulationLetterModel } from '../../../../core/models/congratulation-letter.model';
@@ -15,6 +16,9 @@ import { Events } from 'ionic-angular';
 export class CongratulationLetterActionMenuComponent {
 
   congratulationLetter: CongratulationLetterModel;
+
+  mode: CongratulationLetterModeEnum;
+
   pnc: PncModel;
 
   concernedPncMatricule: string;
@@ -31,6 +35,7 @@ export class CongratulationLetterActionMenuComponent {
     private alertCtrl: AlertController,
     private events: Events) {
     this.congratulationLetter = this.navParams.get('congratulationLetter');
+    this.mode = this.navParams.get('congratulationLetterMode');
     this.pnc = this.navParams.get('pnc');
   }
 
@@ -42,7 +47,7 @@ export class CongratulationLetterActionMenuComponent {
     this.loading.present();
 
     this.congratulationLetterService
-      .delete(this.congratulationLetter.techId, this.pnc.matricule)
+      .delete(this.congratulationLetter.techId, this.pnc.matricule, this.mode)
       .then(deletedcongratulationLetter => {
         this.toastService.success(this.translateService.instant('CONGRATULATION_LETTERS.TOAST.DELETE_SUCCESS'));
         this.events.publish('CongratulationLetter:deleted');

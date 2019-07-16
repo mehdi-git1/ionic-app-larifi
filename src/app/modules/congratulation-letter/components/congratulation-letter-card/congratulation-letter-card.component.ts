@@ -82,7 +82,7 @@ export class CongratulationLetterCardComponent {
    */
   openActionsMenu(myEvent: Event, congratulationLetter: CongratulationLetterModel) {
     myEvent.stopPropagation();
-    const popover = this.popoverCtrl.create(CongratulationLetterActionMenuComponent, { congratulationLetter: congratulationLetter, pnc: this.pnc }, { cssClass: 'action-menu-popover' });
+    const popover = this.popoverCtrl.create(CongratulationLetterActionMenuComponent, { congratulationLetter: congratulationLetter, pnc: this.pnc, congratulationLetterMode: this.mode }, { cssClass: 'action-menu-popover' });
     popover.present({ ev: myEvent });
   }
 }

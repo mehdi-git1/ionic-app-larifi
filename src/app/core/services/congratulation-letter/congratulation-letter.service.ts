@@ -1,3 +1,4 @@
+import { CongratulationLetterModeEnum } from './../../enums/congratulation-letter/congratulation-letter-mode.enum';
 import { CongratulationLetterRedactorTypeEnum } from './../../enums/congratulation-letter/congratulation-letter-redactor-type.enum';
 import { DatePipe } from '@angular/common';
 import { CongratulationLetterFlightModel } from './../../models/congratulation-letter-flight.model';
@@ -33,9 +34,9 @@ export class CongratulationLetterService extends BaseService {
       this.execFunctionService('getReceivedCongratulationLetters', pncMatricule).then(receivedCongratulationLetters => {
         // On écarte les lettres que le PNC a lui même rédigé (cas des lettres collectives) ou qui sont de type PNC
         receivedCongratulationLetters = receivedCongratulationLetters.filter(congratulationLetter => {
-          return congratulationLetter.redactorType !== CongratulationLetterRedactorTypeEnum.PNC 
-          || !congratulationLetter.redactor 
-          || (congratulationLetter.redactor && congratulationLetter.redactor.matricule !== pncMatricule);
+          return congratulationLetter.redactorType !== CongratulationLetterRedactorTypeEnum.PNC
+            || !congratulationLetter.redactor
+            || (congratulationLetter.redactor && congratulationLetter.redactor.matricule !== pncMatricule);
         });
         resolve(receivedCongratulationLetters);
       });
@@ -65,8 +66,13 @@ export class CongratulationLetterService extends BaseService {
    * @param id l'id de la lettre de félicitation
    * @param pncMatricule le matricule du pnc
    */
-  delete(id: number, pncMatricule: string) {
-    return this.onlineCongratulationLetterService.delete(id, pncMatricule);
+  delete(id: number, pncMatricule: string, mode: CongratulationLetterModeEnum) {
+    if (mode === CongratulationLetterModeEnum.RECEIVED) {
+      return this.onlineCongratulationLetterService.deleteReceivedCongratulationLetter(id, pncMatricule);
+    }
+    else {
+      return this.onlineCongratulationLetterService.deleteWrittenCongratulationLetter(id);
+    }
   }
 
   /**

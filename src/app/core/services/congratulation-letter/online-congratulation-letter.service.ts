@@ -49,17 +49,17 @@ export class OnlineCongratulationLetterService {
    * @param fixedMatricule matricule du Pnc corrigé
    */
   fixCongratulationLetterRecipient(congratulationLetterId: number, oldMatricule: string, fixedMatricule: string): Promise<CongratulationLetterModel> {
-    return this.restService.post(this.config.getBackEndUrl('fixCongratulationLetterRecipient', [congratulationLetterId]), {oldMatricule : oldMatricule, fixedMatricule: fixedMatricule});
+    return this.restService.post(this.config.getBackEndUrl('fixCongratulationLetterRecipient', [congratulationLetterId]), { oldMatricule: oldMatricule, fixedMatricule: fixedMatricule });
   }
 
   /**
-   * Supprime le lien entre une lettre de félicitation et un pnc à partir de son id et du matricule
+   * Supprime le lien entre une lettre de félicitation recue et un pnc à partir de son id et du matricule
    * @param id l'id de la lettre de félicitation
    * @param pncMatricule le matricule du pnc
    */
-  delete(id: number, pncMatricule: string) {
+  deleteReceivedCongratulationLetter(id: number, pncMatricule: string) {
     return new Promise((resolve, reject) => {
-      this.restService.delete(this.config.getBackEndUrl('deleteCongratulationLetterByIdAndMatricule', [id, pncMatricule])).then(() => {
+      this.restService.delete(this.config.getBackEndUrl('deleteReceivedCongratulationLetterByIdAndMatricule', [id, pncMatricule])).then(() => {
         // On supprime le lien entre le PNC et la lettre en cache
         const localCongratulationLetter = this.storageService.findOne(EntityEnum.CONGRATULATION_LETTER, `${id}`);
 
@@ -77,6 +77,27 @@ export class OnlineCongratulationLetterService {
             localCongratulationLetter.concernedPncs = filteredConcernedPnc;
             this.storageService.save(EntityEnum.CONGRATULATION_LETTER, localCongratulationLetter, true);
           }
+          this.storageService.persistOfflineMap();
+        }
+        resolve();
+      }).catch(() => reject());
+    });
+  }
+
+  /**
+   * Supprime l'auteur d'une lettre de félicitation à partir de son id
+   * @param id l'id de la lettre de félicitation
+   */
+  deleteWrittenCongratulationLetter(id: number) {
+    return new Promise((resolve, reject) => {
+      this.restService.delete(this.config.getBackEndUrl('deleteWrittenCongratulationLetterById', [id])).then(() => {
+        // On supprime le lien entre le PNC et la lettre en cache
+        const localCongratulationLetter = this.storageService.findOne(EntityEnum.CONGRATULATION_LETTER, `${id}`);
+
+        if (localCongratulationLetter) {
+          // On supprime le redacteur
+          localCongratulationLetter.redactor = null;
+          this.storageService.save(EntityEnum.CONGRATULATION_LETTER, localCongratulationLetter, true);
           this.storageService.persistOfflineMap();
         }
         resolve();
