@@ -171,12 +171,6 @@ logbook-event {
             text-align: end;
         }
 
-        .item.item-md .checkbox-md {
-            position: static;
-            display: block;
-            margin: 9px 15px 9px 4px;
-        }
-
         .item-md.item-block .item-inner {
             border-bottom: initial;
         }
@@ -190,6 +184,12 @@ logbook-event {
         .item-ios.item-block .item-inner {
             border-bottom: initial;
         }
+    }
+
+    .item.item-md .checkbox-md {
+        position: static;
+        display: block;
+        margin: 9px 15px 9px 4px;
     }
 
     .col {
@@ -233,8 +233,38 @@ logbook-event {
         }
     }
 
+    .notification-row {
+
+        margin-top: 20px;
+        padding-left: 10px;
+        padding-bottom: 50px;
+        border-radius: 4px;
+        border: 1px solid color($colors, grey50);
+        width: 100%;
+        font-size: 1.6rem;
+
+        .persons-to-notify {
+            flex: 4;
+
+            ion-item {
+                div.input-wrapper {
+                    border-bottom: 1px solid color($colors, grey50);
+
+                    .no-value:after {
+                        padding: 0px 15px;
+                    }
+                }
+            }
+        }
+
+        .other-contacts {
+            flex: 5;
+        }
+    }
+
     .information-message {
         text-align: left;
+        margin-top: 15px;
     }
 
 }

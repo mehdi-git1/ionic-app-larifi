@@ -79,7 +79,9 @@
             "SAVE": "Enregistrer",
             "CONFIRM": "Confirmer",
             "CANCEL": "Annuler",
-            "EXPORT": "Exporter"
+            "EXPORT": "Exporter",
+            "YES": "Oui",
+            "NO": "Non"
         },
         "CONFIRM_BACK_WITHOUT_SAVE": {
             "TITLE": "Modifications non enregistrées",
@@ -631,7 +633,7 @@
         "REDACTOR": "Rédacteur",
         "ORIGIN": "Origine",
         "ACTIONS": "Actions",
-        "UNAIVALABLE_OFFLINE": "Les événements ne sont pas disponibles hors connexion",
+        "UNAIVALABLE_OFFLINE": "Les évènements ne sont pas disponibles hors connexion",
         "BUTTONS": {
             "ADD_LOG": "Nouvel évènement",
             "MODIFY": "Modifier",
@@ -658,12 +660,27 @@
             "CONCERNED_PNCS": "Liste des personnes concernées :",
             "CONCERNED_PNC": "PNC Concerné",
             "SELECT_ALL": "Tout sélectionner",
-            "SEARCH": "Rechercher"
+            "SEARCH": "Rechercher",
+            "PERSONS_TO_NOTIFY": "Personnes à notifier"
+        },
+        "NOTIFICATION": {
+            "CONFIRM_NOTIFICATION": {
+                "TITLE": "Notification",
+                "MESSAGE": "Souhaitez-vous notifier les destinataires ?"
+            },
+            "CONFIRM_CREATE_WITHOUT_NOTIFICATION": {
+                "TITLE": "Enregistrer sans notifier",
+                "MESSAGE": "Confirmez-vous l'enregistrement de l'évènement sans envoi de notification ?"
+            },
+            "CONFIRM_EDIT_WITHOUT_NOTIFICATION": {
+                "TITLE": "Mettre à jour sans notifier",
+                "MESSAGE": "Confirmez-vous la mise à jour de l'évènement sans envoi de notification ?"
+            }
         },
         "DELETE": {
             "CONFIRM_DELETE": {
                 "TITLE": "Suppression",
-                "MESSAGE": "Confirmez-vous la suppression de l'événement ?"
+                "MESSAGE": "Confirmez-vous la suppression de l'évènement ?"
             },
             "SUCCESS": "Evénement supprimé"
         },
