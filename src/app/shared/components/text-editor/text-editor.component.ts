@@ -22,31 +22,28 @@ export class TextEditorComponent {
 
     editorConfig;
 
+
+
     constructor() {
 
         // config du WYSIWYG par défaut
         this.editorConfig = {
-            editable: true,
-            spellcheck: true,
-            height: 'auto',
-            minHeight: '20rem',
-            width: 'auto',
-            minWidth: '5rem',
-            translate: 'no',
-            placeholder: '',
-            enableToolbar: true,
-            showToolbar: true
         };
+
 
         // liste des options dans la barre d'outils
         if (this.textEditorMode == TextEditorModeEnum.FULL) {
             this.editorConfig.toolbar = [
-                ['bold', 'italic', 'underline', 'strikeThrough'],
-                ['fontName', 'fontSize', 'color'],
-                ['justifyLeft', 'justifyCenter', 'justifyRight', 'justifyFull', 'indent', 'outdent'],
-                ['undo', 'redo'],
-                ['horizontalLine', 'orderedList', 'unorderedList'],
-                ['link', 'unlink']
+                ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
+
+                [{ 'header': 1 }, { 'header': 2 }],               // custom button values
+                [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+                [{ 'indent': '-1' }, { 'indent': '+1' }],          // outdent/indent
+
+                [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
+                [{ 'font': [] }],
+                [{ 'align': [] }],
+                ['link']
             ];
         }
     }

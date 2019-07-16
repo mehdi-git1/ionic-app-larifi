@@ -1,8 +1,6 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { IonicPageModule, IonicModule } from 'ionic-angular';
 
-import { QuillModule } from 'ngx-quill';
-import { ReactiveFormsModule } from '@angular/forms';
 
 import { SharedModule } from '../../shared/shared.module';
 import { ComponentsModule } from '../../shared/components/components.module';
@@ -29,8 +27,6 @@ import { UserMessageManagementPage } from './pages/user-message-management/user-
     [IonicPageModule.forChild(ProfileManagementPage)],
     SharedModule,
     ComponentsModule,
-    QuillModule,
-    ReactiveFormsModule
   ],
   entryComponents: [
     ProfileManagementPage,

@@ -12,11 +12,9 @@
             <ion-row>
                 <ion-col col-4>
                     <ion-list>
-                        <ion-item *ngFor="let userMessage of userMessages" (click)="editUserMessage(userMessage)"
-                            [ngClass]="{'active':isUserMessageSelected(userMessage)}" class="clickable">
+                        <ion-item *ngFor="let userMessage of userMessages" (click)="editUserMessage(userMessage)" [ngClass]="{'active':isUserMessageSelected(userMessage)}" class="clickable">
                             <span class="user-message-label">{{ userMessage.label }}</span>
-                            <span
-                                class="user-message-last-update">{{ userMessage.lastUpdateDate | date:'dd/MM/yyyy HH:mm' }}</span>
+                            <span class="user-message-last-update">{{ userMessage.lastUpdateDate | date:'dd/MM/yyyy HH:mm' }}</span>
                         </ion-item>
                     </ion-list>
                 </ion-col>
@@ -28,22 +26,18 @@
                             <ion-item>
                                 <ion-label floating>{{ 'ADMIN.USER_MESSAGE_MANAGEMENT.LABELS.TITLE' | translate }}
                                 </ion-label>
-                                <ion-input formControlName="title" [(ngModel)]="selectedUserMessage.title" type="text"
-                                    maxlength="255"></ion-input>
+                                <ion-input formControlName="title" [(ngModel)]="selectedUserMessage.title" type="text" maxlength="255"></ion-input>
                             </ion-item>
                             <ion-item>
                                 <!-- <text-editor [(content)]="selectedUserMessage.content" [parentForm]="userMessageForm" [ctrlForm]="'content'"></text-editor> -->
-                                <text-editor [formControlItem]="item" placeholderText="A sample of placeholder text">
-                                </text-editor>
+                                <text-editor [(content)]="selectedUserMessage.content" [parentForm]="userMessageForm" [ctrlForm]="'content'"></text-editor>
                             </ion-item>
                             <p>test {{textEditorMode}}</p>
                             <ion-item>
                                 <ion-label>{{ 'ADMIN.USER_MESSAGE_MANAGEMENT.LABELS.ACTIVE' | translate }}</ion-label>
-                                <ion-checkbox formControlName="active" [(ngModel)]="selectedUserMessage.active"
-                                    [checked]="selectedUserMessage.active.value"></ion-checkbox>
+                                <ion-checkbox formControlName="active" [(ngModel)]="selectedUserMessage.active" [checked]="selectedUserMessage.active.value"></ion-checkbox>
                             </ion-item>
-                            <button ion-button color="blue60" (click)="updateUserMessage()"
-                                [disabled]="userMessageForm.invalid">
+                            <button ion-button color="blue60" (click)="updateUserMessage()" [disabled]="userMessageForm.invalid">
                                 <ion-icon name="md-create" ios="md-create"></ion-icon>
                                 {{ 'ADMIN.USER_MESSAGE_MANAGEMENT.BUTTONS.UPDATE' | translate }}
                             </button>
@@ -55,7 +49,6 @@
                     </ng-template>
                 </ion-col>
             </ion-row>
-            <quill-editor></quill-editor>
         </ion-grid>
     </ng-template>
 </ion-content>

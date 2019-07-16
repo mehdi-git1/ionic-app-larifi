@@ -7,6 +7,8 @@ import { IonicModule } from 'ionic-angular';
 import { CommonModule } from '@angular/common';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
+import { QuillModule } from 'ngx-quill';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { HttpClientModule } from '@angular/common/http';
 
@@ -46,7 +48,9 @@ import { DocumentViewerComponent } from './document-viewer/document-viewer.compo
     IonicModule,
     DirectivesModule,
     SharedModule,
-    HttpClientModule
+    HttpClientModule,
+    QuillModule,
+    ReactiveFormsModule
   ],
   declarations: [
     OfflineIndicatorComponent,
@@ -106,7 +110,8 @@ import { DocumentViewerComponent } from './document-viewer/document-viewer.compo
     AppVersionAlertComponent,
     DocumentManagerComponent,
     DocumentViewerComponent,
-    WorkRateCircleComponent
+    WorkRateCircleComponent,
+    TextEditorComponent
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA
