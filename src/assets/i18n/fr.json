@@ -630,7 +630,7 @@
             "RECIPIENT_FIXED": "Destinataire de la lettre corrigé",
             "CONFIRMATION_POPOVER": {
                 "TITLE": "Correction du destinataire pour la lettre de félicitations {{airline}} {{flightNumber}} {{flightDate}}",
-                "LABEL": "Etes-vous sûr de vouloir réaffecter la lettre du destinataire {{oldPncConcernedFirstName}} {{oldPncConcernedLastName}} à {{newPncConcernedFirstName}} {{newPncConcernedLastName}}  ?"
+                "LABEL": "La lettre de Félicitations de {{oldPncConcernedFirstName}} {{oldPncConcernedLastName}} sera déplacée vers le eDossier de  {{newPncConcernedFirstName}} {{newPncConcernedLastName}}. Confirmez-vous cette action ?"
             }
         },
         "CONFIRM_DELETE": {
