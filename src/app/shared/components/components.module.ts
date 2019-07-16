@@ -40,6 +40,7 @@ import { UserMessageAlertComponent } from './user-message-alert/user-message-ale
 import { TextEditorComponent } from './text-editor/text-editor.component';
 import { AppVersionAlertComponent } from './app-version-alert/app-version-alert.component';
 import { PncEdossierHeaderComponent } from './pnc-edossier-header/pnc-edossier-header.component';
+import { PncAutoCompleteComponent } from './pnc-autocomplete/pnc-autocomplete.component';
 import { DocumentViewerComponent } from './document-viewer/document-viewer.component';
 
 @NgModule({
@@ -79,6 +80,7 @@ import { DocumentViewerComponent } from './document-viewer/document-viewer.compo
     AppVersionAlertComponent,
     TextEditorComponent,
     DocumentManagerComponent,
+    PncAutoCompleteComponent,
     DocumentViewerComponent,
     WorkRateCircleComponent
 
@@ -109,6 +111,7 @@ import { DocumentViewerComponent } from './document-viewer/document-viewer.compo
     PdfButtonComponent,
     AppVersionAlertComponent,
     DocumentManagerComponent,
+    PncAutoCompleteComponent,
     DocumentViewerComponent,
     WorkRateCircleComponent,
     TextEditorComponent

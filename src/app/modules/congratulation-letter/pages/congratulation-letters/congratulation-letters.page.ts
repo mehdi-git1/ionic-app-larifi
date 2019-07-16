@@ -38,8 +38,11 @@ export class CongratulationLettersPage {
         private sessionService: SessionService,
         private connectivityService: ConnectivityService) {
         this.selectedCongratulationLetterMode = CongratulationLetterModeEnum.RECEIVED;
+        events.subscribe('CongratulationLetterList:refresh', () => {
+            this.refresh();
+        });
         events.subscribe('CongratulationLetter:deleted', () => {
-            this.initPage();
+            this.refresh();
         });
     }
 
@@ -56,8 +59,10 @@ export class CongratulationLettersPage {
         this.pncService.getPnc(this.matricule).then(pnc => {
             this.pnc = pnc;
         }, error => { });
+        this.refresh();
+    }
 
-
+    refresh() {
         this.congratulationLetterService.getReceivedCongratulationLetters(this.matricule).then(receivedCongratulationLetters => {
             this.receivedCongratulationLetters = receivedCongratulationLetters;
         }, error => { });

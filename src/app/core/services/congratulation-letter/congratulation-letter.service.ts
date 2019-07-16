@@ -31,9 +31,11 @@ export class CongratulationLetterService extends BaseService {
   getReceivedCongratulationLetters(pncMatricule: string): Promise<CongratulationLetterModel[]> {
     return new Promise(resolve => {
       this.execFunctionService('getReceivedCongratulationLetters', pncMatricule).then(receivedCongratulationLetters => {
-        // On écarte les lettres que le PNC a lui même rédigé (cas des lettres collectives)
+        // On écarte les lettres que le PNC a lui même rédigé (cas des lettres collectives) ou qui sont de type PNC
         receivedCongratulationLetters = receivedCongratulationLetters.filter(congratulationLetter => {
-          return congratulationLetter.redactorType !== CongratulationLetterRedactorTypeEnum.PNC || congratulationLetter.redactor.matricule !== pncMatricule;
+          return congratulationLetter.redactorType !== CongratulationLetterRedactorTypeEnum.PNC 
+          || !congratulationLetter.redactor 
+          || (congratulationLetter.redactor && congratulationLetter.redactor.matricule !== pncMatricule);
         });
         resolve(receivedCongratulationLetters);
       });
@@ -85,4 +87,14 @@ export class CongratulationLetterService extends BaseService {
     return this.onlineCongratulationLetterService.createOrUpdate(congratulationLetter);
   }
 
+
+  /**
+   * Corrige le destinataire de la lettre de félicitations
+   * @param congratulationLetterId identifiant de la lettre de félicitations
+   * @param oldMatricule matricule du pnc incorrect
+   * @param fixedMatricule matricule du Pnc corrigé
+   */
+  fixCongratulationLetterRecipient(congratulationLetterId: number, oldMatricule: string, fixedMatricule: string): Promise<CongratulationLetterModel> {
+    return this.onlineCongratulationLetterService.fixCongratulationLetterRecipient(congratulationLetterId, oldMatricule, fixedMatricule);
+  }
 }

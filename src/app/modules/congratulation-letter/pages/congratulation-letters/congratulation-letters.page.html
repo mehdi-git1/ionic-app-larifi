@@ -27,9 +27,9 @@
         </div>
 
         <!-- Lettres reçues -->
-        <congratulation-letter-list [hidden]="!isTabActive(CongratulationLetterModeEnum.RECEIVED)" [mode]="CongratulationLetterModeEnum.RECEIVED" [congratulationLetters]="receivedCongratulationLetters" [matricule]="matricule"></congratulation-letter-list>
+        <congratulation-letter-list [hidden]="!isTabActive(CongratulationLetterModeEnum.RECEIVED)" [mode]="CongratulationLetterModeEnum.RECEIVED" [congratulationLetters]="receivedCongratulationLetters" [pnc]="pnc"></congratulation-letter-list>
 
         <!-- Lettres rédigées -->
-        <congratulation-letter-list [hidden]="!isTabActive(CongratulationLetterModeEnum.WRITTEN)" [mode]="CongratulationLetterModeEnum.WRITTEN" [congratulationLetters]="writtenCongratulationLetters" [matricule]="matricule"></congratulation-letter-list>
+        <congratulation-letter-list [hidden]="!isTabActive(CongratulationLetterModeEnum.WRITTEN)" [mode]="CongratulationLetterModeEnum.WRITTEN" [congratulationLetters]="writtenCongratulationLetters" [pnc]="pnc"></congratulation-letter-list>
     </ng-template>
 </ion-content>
