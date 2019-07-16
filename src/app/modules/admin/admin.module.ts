@@ -26,7 +26,7 @@ import { UserMessageManagementPage } from './pages/user-message-management/user-
     }),
     [IonicPageModule.forChild(ProfileManagementPage)],
     SharedModule,
-    ComponentsModule,
+    ComponentsModule
   ],
   entryComponents: [
     ProfileManagementPage,

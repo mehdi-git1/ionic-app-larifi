@@ -1,3 +1,4 @@
+import { MatToolbarModule } from '@angular/material';
 import { FormGroup } from '@angular/forms';
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 
@@ -18,29 +19,32 @@ export class TextEditorComponent {
 
     @Input() textEditorMode = TextEditorModeEnum.FULL;
 
+    @Input() placeholder;
+
     @Output() contentFromChild = new EventEmitter();
 
     editorConfig;
-
-
 
     constructor() {
 
         // config du WYSIWYG par défaut
         this.editorConfig = {
-        };
+            toolbar: [
 
+            ]
+
+        };
 
         // liste des options dans la barre d'outils
         if (this.textEditorMode == TextEditorModeEnum.FULL) {
             this.editorConfig.toolbar = [
-                ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
+                ['bold', 'italic', 'underline', 'strike'],
 
-                [{ 'header': 1 }, { 'header': 2 }],               // custom button values
+                [{ 'header': 1 }, { 'header': 2 }],
                 [{ 'list': 'ordered' }, { 'list': 'bullet' }],
-                [{ 'indent': '-1' }, { 'indent': '+1' }],          // outdent/indent
+                [{ 'indent': '-1' }, { 'indent': '+1' }],
 
-                [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
+                [{ 'color': [] }, { 'background': [] }],
                 [{ 'font': [] }],
                 [{ 'align': [] }],
                 ['link']

@@ -1,8 +1,8 @@
 <!-- Si un formControl agit sur le WYSIWYG -->
 <div *ngIf="parentForm && ctrlForm; else withoutControlForm" [formGroup]="parentForm">
-    <quill-editor formControlName="{{ctrlForm}}" [config]="editorConfig" [(ngModel)]="content"></quill-editor>
+    <quill-editor formControlName="{{ctrlForm}}" [placeholder]="placeholder" [modules]="editorConfig" [(ngModel)]="content"></quill-editor>
 </div>
 
 <ng-template #withoutControlForm>
-    <quill-editor (keyup)="contentChange()" [config]="editorConfig" [(ngModel)]="content"></quill-editor>
+    <quill-editor (keyup)="contentChange()" [placeholder]="placeholder" [modules]="editorConfig" [(ngModel)]="content"></quill-editor>
 </ng-template>
