@@ -52,7 +52,7 @@ export class FixRecipientComponent {
             title: this.translateService.instant('CONGRATULATION_LETTERS.FIX_RECIPIENT.CONFIRMATION_POPOVER.TITLE',
             { airline: this.congratulationLetter.flight.airline, flightNumber: this.congratulationLetter.flight.number, flightDate: this.getFormatedFlightDate(this.congratulationLetter.flight)}),
             message: this.translateService.instant('CONGRATULATION_LETTERS.FIX_RECIPIENT.CONFIRMATION_POPOVER.LABEL',
-            {oldPncConcernedLastName: this.pnc.lastName, oldPncConcernedFirstName: this.pnc.firstName, newPncConcernedLastName: selectedPnc.lastName, newPncConcernedFirstName: selectedPnc.firstName}),
+            {oldPncConcernedLastName: this.pnc.lastName.toUpperCase(), oldPncConcernedFirstName: Utils.capitalize(this.pnc.firstName), newPncConcernedLastName: selectedPnc.lastName.toUpperCase(), newPncConcernedFirstName: Utils.capitalize(selectedPnc.firstName)}),
             buttons: [
                 {
                     text: this.translateService.instant('GLOBAL.BUTTONS.CANCEL'),
