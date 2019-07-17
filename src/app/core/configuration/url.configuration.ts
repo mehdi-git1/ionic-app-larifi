@@ -31,6 +31,8 @@ export class UrlConfiguration {
     'getAllRotationsByMatricule': `${urlGroupEnum.PNC}/{matricule}/rotations`,
     'congratulationLetters': urlGroupEnum.CONGRATULATION_LETTER,
     'getCongratulationLetterById': `${urlGroupEnum.CONGRATULATION_LETTER}/{congratulationLetterId}`,
+    'deleteReceivedCongratulationLetterByIdAndMatricule': `${urlGroupEnum.CONGRATULATION_LETTER}/{id}/{matricule}`,
+    'deleteWrittenCongratulationLetterById': `${urlGroupEnum.CONGRATULATION_LETTER}/redactor/{id}`,
     'pncPhotos': urlGroupEnum.PNC_PHOTO,
     'getPncPhotoByMatricule': `${urlGroupEnum.PNC_PHOTO}/{matricule}`,
     'getSecurityInfos': urlGroupEnum.ME,
@@ -64,7 +66,8 @@ export class UrlConfiguration {
     'getLogbookEventsByGroupId': `${urlGroupEnum.LOGBOOK_EVENT}/event_group/{groupId}`,
     'getLogbookEvents': `${urlGroupEnum.LOGBOOK_EVENT}/pnc/{matricule}`,
     'deleteLogbookEventById': `${urlGroupEnum.LOGBOOK_EVENT}/{id}`,
-    'getDocumentById': `${urlGroupEnum.DOCUMENT}/{documentId}`,
+    'fixCongratulationLetterRecipient': `${urlGroupEnum.CONGRATULATION_LETTER}/recipients/{id}`,
+    'getDocumentById': `${urlGroupEnum.DOCUMENT}/{documentId}`
   };
 
   /**

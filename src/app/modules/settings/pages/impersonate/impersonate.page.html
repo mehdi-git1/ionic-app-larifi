@@ -10,17 +10,7 @@
     <div class="container">
         <ion-card>
             <ion-card-content>
-                <form novalidate [formGroup]="autoCompleteForm">
-                    <mat-form-field>
-                        <input #pncMatricule type="text" matInput placeholder="{{'IMPERSONATE.SEARCH_PNC' | translate}}" formControlName="pncMatriculeControl" (keyup)="searchAutoComplete(pncMatricule.value)" [matAutocomplete]="auto" [(ngModel)]="selectedPnc" autocomplete="off" />
-                        <ion-icon name="backspace" class="clickable" (click)="clearPncSearch()"></ion-icon>
-                    </mat-form-field>
-                    <mat-autocomplete class="mat-autocomplete" #auto="matAutocomplete" [displayWith]="displayPnc" (optionSelected)="impersonateUser($event.option.value)">
-                        <mat-option *ngFor="let pnc of pncList | async" [value]="pnc">
-                            {{ pnc.lastName + ' ' + pnc.firstName + ' (' + pnc.matricule + ')'}}
-                        </mat-option>
-                    </mat-autocomplete>
-                </form>
+                <pnc-autocomplete [(ngModel)]="selectedPnc" (onSelectPnc)="impersonateUser($event)"  [ngModelOptions]="{standalone: true}"></pnc-autocomplete>
                 <div class="impersonated-user" *ngIf="isImpersonatedUserComplete()">
                     <label>{{ 'IMPERSONATE.IMPERSONATED_USER' | translate }}</label>
                     <span class="value">{{ sessionService.impersonatedUser.lastName + ' ' + sessionService.impersonatedUser.firstName + ' (' + sessionService.impersonatedUser.matricule + ')'}}</span>

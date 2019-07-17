@@ -64,7 +64,7 @@
                                         <span class="truncate-text">{{logbookEvent.title}}</span>
                                     </ion-col>
                                     <ion-col class="column-origin">
-                                        <ion-icon *ngIf="logbookEvent.pncInitiator" color="primary" class="edospnc-pnc action-icon" name="edospnc-pnc">
+                                        <ion-icon *ngIf="logbookEvent.pncInitiator" color="primary" class="edospnc-pnc" name="edospnc-pnc">
                                         </ion-icon>
                                     </ion-col>
                                     <ion-col class="column-redactor">
@@ -72,7 +72,7 @@
                                     </ion-col>
                                     <ion-col class="actions" *ngIf="isManager()">
                                         <div class="clickable" *ngIf="logbookEventIndex === 0" (click)="openActionsMenu($event, logbookEvent)">
-                                            <ion-icon class="action-icon" ios="md-more" md="md-more">
+                                            <ion-icon ios="md-more" md="md-more">
                                             </ion-icon>
                                         </div>
                                     </ion-col>

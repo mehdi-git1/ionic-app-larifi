@@ -42,7 +42,7 @@ export class OfflineCongratulationLetterService {
     return new Promise((resolve) => {
       const congratulationLetterList = this.storageService.findAll(EntityEnum.CONGRATULATION_LETTER);
       let writtenCongratulationLetters = congratulationLetterList.filter(congratulationLetter => {
-        return congratulationLetter.redactor.matricule === pncMatricule;
+        return congratulationLetter.redactor && congratulationLetter.redactor.matricule === pncMatricule;
       });
       // On tri par date de création décroissante
       writtenCongratulationLetters = this.sortCongratulationLettersByCreationDate(writtenCongratulationLetters);
@@ -68,5 +68,4 @@ export class OfflineCongratulationLetterService {
   getCongratulationLetter(id: number): Promise<CongratulationLetterModel> {
     return this.storageService.findOneAsync(EntityEnum.CONGRATULATION_LETTER, `${id}`);
   }
-
 }

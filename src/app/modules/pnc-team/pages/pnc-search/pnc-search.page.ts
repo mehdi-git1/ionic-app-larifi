@@ -87,9 +87,9 @@ export class PncSearchPage implements OnInit {
 
         this.pncService.getFilteredPncs(this.pncSearchFilter.pncFilter, this.page, this.sizeOfThePage).then(pagedPnc => {
             this.pncPhotoService.synchronizePncsPhotos(pagedPnc.content.map(pnc => pnc.matricule));
-            this.searchInProgress = false;
             this.filteredPncs = pagedPnc.content;
             this.totalPncs = pagedPnc.page.totalElements;
+            this.searchInProgress = false;
         }).catch((err) => {
             this.searchInProgress = false;
         });

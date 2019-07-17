@@ -1,3 +1,4 @@
+import { CongratulationLetterModeEnum } from './../../enums/congratulation-letter/congratulation-letter-mode.enum';
 import { CongratulationLetterRedactorTypeEnum } from './../../enums/congratulation-letter/congratulation-letter-redactor-type.enum';
 import { DatePipe } from '@angular/common';
 import { CongratulationLetterFlightModel } from './../../models/congratulation-letter-flight.model';
@@ -33,9 +34,11 @@ export class CongratulationLetterService extends BaseService {
   getReceivedCongratulationLetters(pncMatricule: string): Promise<CongratulationLetterModel[]> {
     return new Promise(resolve => {
       this.execFunctionService('getReceivedCongratulationLetters', pncMatricule).then(receivedCongratulationLetters => {
-        // On écarte les lettres que le PNC a lui même rédigé (cas des lettres collectives)
+        // On écarte les lettres que le PNC a lui même rédigé (cas des lettres collectives) ou qui sont de type PNC
         receivedCongratulationLetters = receivedCongratulationLetters.filter(congratulationLetter => {
-          return congratulationLetter.redactorType !== CongratulationLetterRedactorTypeEnum.PNC || congratulationLetter.redactor.matricule !== pncMatricule;
+          return congratulationLetter.redactorType !== CongratulationLetterRedactorTypeEnum.PNC
+            || !congratulationLetter.redactor
+            || (congratulationLetter.redactor && congratulationLetter.redactor.matricule !== pncMatricule);
         });
         resolve(receivedCongratulationLetters);
       });
@@ -60,6 +63,19 @@ export class CongratulationLetterService extends BaseService {
     return this.execFunctionService('getCongratulationLetter', id);
   }
 
+  /**
+   * Supprime le lien entre une lettre de félicitation et un pnc à partir de son id et du matricule
+   * @param id l'id de la lettre de félicitation
+   * @param pncMatricule le matricule du pnc
+   */
+  delete(id: number, pncMatricule: string, mode: CongratulationLetterModeEnum) {
+    if (mode === CongratulationLetterModeEnum.RECEIVED) {
+      return this.onlineCongratulationLetterService.deleteReceivedCongratulationLetter(id, pncMatricule);
+    }
+    else {
+      return this.onlineCongratulationLetterService.deleteWrittenCongratulationLetter(id);
+    }
+  }
 
   /**
    * Retourne la date du vol, formatée pour l'affichage
@@ -87,4 +103,14 @@ export class CongratulationLetterService extends BaseService {
     return this.onlineCongratulationLetterService.createOrUpdate(congratulationLetter);
   }
 
+
+  /**
+   * Corrige le destinataire de la lettre de félicitations
+   * @param congratulationLetterId identifiant de la lettre de félicitations
+   * @param oldMatricule matricule du pnc incorrect
+   * @param fixedMatricule matricule du Pnc corrigé
+   */
+  fixCongratulationLetterRecipient(congratulationLetterId: number, oldMatricule: string, fixedMatricule: string): Promise<CongratulationLetterModel> {
+    return this.onlineCongratulationLetterService.fixCongratulationLetterRecipient(congratulationLetterId, oldMatricule, fixedMatricule);
+  }
 }

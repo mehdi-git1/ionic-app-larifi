@@ -18,13 +18,6 @@ import { PncModel } from '../../../../core/models/pnc.model';
 })
 export class ImpersonatePage {
 
-  searchTerms = new Subject<string>();
-
-  autoCompleteForm: FormGroup;
-  pncMatriculeControl: AbstractControl;
-
-  pncList: Observable<PncModel[]>;
-
   selectedPnc: PncModel;
   impersonatingInProgress = false;
 
@@ -36,34 +29,6 @@ export class ImpersonatePage {
     public sessionService: SessionService,
     public authenticationService: AuthenticationService
   ) {
-    this.initForm();
-  }
-
-  initForm() {
-    this.autoCompleteForm = this.formBuilder.group({
-      pncMatriculeControl: [
-        '',
-        Validators.compose([Validators.minLength(8), Validators.maxLength(8)])
-      ]
-    });
-    this.pncMatriculeControl = this.autoCompleteForm.get('pncMatriculeControl');
-
-    this.initAutocompleteList();
-  }
-
-  /**
-   * recharge la liste des pnc de l'autocompletion aprés 300ms
-   */
-  initAutocompleteList() {
-    this.pncList = this.searchTerms
-      .debounceTime(300)
-      .distinctUntilChanged()
-      .switchMap(
-        term => (term ? this.pncProvider.pncAutoComplete(term, true) : Observable.of<PncModel[]>([]))
-      )
-      .catch(error => {
-        return Observable.of<PncModel[]>([]);
-      });
   }
 
   /**
@@ -72,32 +37,6 @@ export class ImpersonatePage {
   */
   openPncHomePage(pnc: PncModel) {
     this.navCtrl.push(PncHomePage, { matricule: pnc.matricule });
-  }
-
-  /**
-  * Ajoute un terme au flux
-  * @param term le terme à ajouter
-  */
-  searchAutoComplete(term: string): void {
-    this.searchTerms.next(Utils.replaceSpecialCaracters(term));
-  }
-
-  /**
-   * Vide le champs d'autocomplétion
-   */
-  clearPncSearch(): void {
-    this.selectedPnc = null;
-  }
-
-  /**
-  * Affiche le PN dans l'autocomplete
-  * @param pn le PN sélectionné
-  * @return le pnc formaté pour l'affichage
-  */
-  displayPnc(pnc: PncModel) {
-    return pnc
-      ? pnc.firstName + ' ' + pnc.lastName + ' (' + pnc.matricule + ')'
-      : pnc;
   }
 
   /**

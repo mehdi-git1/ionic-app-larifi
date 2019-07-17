@@ -22,13 +22,17 @@ congratulation-letter-card {
             flex: 2;
         }
 
+        .actions {
+            width: 30px;
+            text-align: center;
+        }
+
         button.detail-button {
             background: color($colors, primary-light);
             color: color($colors, white);
             width: 30px;
             height: 30px;
             box-shadow: none;
-
             span:before {
                 font-size: 20px;
             }
