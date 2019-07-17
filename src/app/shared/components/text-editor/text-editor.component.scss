@@ -676,7 +676,7 @@ text-editor {
     }
 
     .ql-snow .ql-formats {
-        display: inline-block;
+        display: table-cell;
         vertical-align: middle;
     }
 
@@ -1152,15 +1152,7 @@ text-editor {
     }
 
     .ql-snow .ql-tooltip[data-mode=link]::before {
-        content: "Enter link:";
-    }
-
-    .ql-snow .ql-tooltip[data-mode=formula]::before {
-        content: "Enter formula:";
-    }
-
-    .ql-snow .ql-tooltip[data-mode=video]::before {
-        content: "Enter video:";
+        content: "Entrer un lien:";
     }
 
     .ql-snow a {
