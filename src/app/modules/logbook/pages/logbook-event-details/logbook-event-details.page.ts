@@ -163,7 +163,7 @@ export class LogbookEventDetailsPage implements OnInit {
      * @param logbookEvent L'évènement à modifier
      */
     selectedLogbookEvent(logbookEvent: LogbookEventModel) {
-        if (!this.editionMode && !this.createLinkedEvent) {
+        if (logbookEvent.techId && !this.editionMode && !this.createLinkedEvent) {
             this.logbookEventTechId = logbookEvent.techId;
             this.logbookEventDetails.forEach(item => {
                 if (item.logbookEvent.techId === logbookEvent.techId) {
