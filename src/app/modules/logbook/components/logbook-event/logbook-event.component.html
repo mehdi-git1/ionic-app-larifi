@@ -44,41 +44,21 @@
             <ion-col class="persons-to-notify">
                 <ion-label>{{ 'LOGBOOK.EDIT.PERSONS_TO_NOTIFY' | translate }} :</ion-label>
                 <ion-item class="event-checkbox">
-                    <ion-label><span [ngClass]="{'no-value' : !pnc.pncInstructor }">{{ pnc.pncInstructor?.lastName }} {{ pnc.pncInstructor?.firstName  | titlecase}} </span> ({{ 'PNC_IDENTITY.REFERENT_INSTRUCTOR' | translate }})</ion-label>
+                    <ion-label>
+                        <span [ngClass]="{'no-value' : !pnc.pncInstructor }">{{ pnc.pncInstructor?.lastName }} {{ pnc.pncInstructor?.firstName | titlecase}} </span> ({{ 'PNC_IDENTITY.REFERENT_INSTRUCTOR'
+                        | translate }})</ion-label>
 
                     <ion-checkbox [disabled]="!pnc.pncInstructor" (ionChange)="updatePncNotifiedList($event, pnc.pncInstructor)" [checked]="isPncNotified(pnc.pncInstructor)"></ion-checkbox>
                 </ion-item>
                 <ion-item class="event-checkbox">
-                    <ion-label><span [ngClass]="{'no-value' : !pnc.pncRds }">{{ pnc.pncRds?.lastName}} {{ pnc.pncRds?.firstName  | titlecase}} </span> ({{ 'PNC_IDENTITY.RDS' | translate }})</ion-label>
+                    <ion-label>
+                        <span [ngClass]="{'no-value' : !pnc.pncRds }">{{ pnc.pncRds?.lastName}} {{ pnc.pncRds?.firstName | titlecase}} </span> ({{ 'PNC_IDENTITY.RDS' |
+                        translate }})</ion-label>
                     <ion-checkbox [disabled]="!pnc.pncRds" (ionChange)="updatePncNotifiedList($event, pnc.pncRds)" [checked]="isPncNotified(pnc.pncRds)"></ion-checkbox>
                 </ion-item>
             </ion-col>
-        </ion-row>
-        <ion-row>
-            <ion-col>
-                <ion-item class="category">
-                    <ion-label class="required" floating>{{ 'LOGBOOK.EDIT.CATEGORY' | translate }}</ion-label>
-                    <ion-select class="select-category" interface="popover" [placeholder]="Categorie" [(ngModel)]="logbookEvent.category.id">
-                        <ion-option *ngFor="let category of logbookEventCategories" [value]="category.id">{{category?.label}}</ion-option>
-                    </ion-select>
-                </ion-item>
+            <ion-col class="other-contacts">
             </ion-col>
-        </ion-row>
-        <ion-row class="title-row">
-            <ion-item>
-                <ion-label class="required" floating>{{ 'LOGBOOK.EDIT.EVENT_TITLE' | translate }}</ion-label>
-                <ion-input #eventTitle type="text" class="event-title" [(ngModel)]="logbookEvent.title" autocorrect="on" [maxlength]="titleMaxLength"></ion-input>
-            </ion-item>
-            <span class="event-length">{{eventTitle.value.length}}/{{titleMaxLength}}</span>
-        </ion-row>
-        <ion-row class="description-row">
-            <ion-item>
-                <ion-label class="required" floating>{{ 'LOGBOOK.EDIT.EVENT_DESCRIPTION' | translate }}</ion-label>
-                <ion-textarea class="big-textarea" [(ngModel)]="logbookEvent.content" autocorrect="on" #descriptionTextArea></ion-textarea>
-            </ion-item>
-        </ion-row>
-        <ion-row>
-            <document-manager [documents]="logbookEvent.attachmentFiles" [editMode]="true"></document-manager>
         </ion-row>
     </ion-grid>
     <!-- Barre de boutons -->
@@ -96,7 +76,6 @@
             {{ 'LOGBOOK.BUTTONS.UPDATE' | translate }}
         </button>
     </div>
-
 
 </div>
 <ng-template #pageBlock>
@@ -167,7 +146,7 @@
                         </div>
                     </div>
                     <div class="information-message" *ngIf="logbookEvent.lastUpdateAuthor">{{ 'LOGBOOK.DETAILS.EDITED_BY' | translate:{lastName:logbookEvent.lastUpdateAuthor.lastName, firstName:logbookEvent.lastUpdateAuthor.firstName,
-                            date:getLastUpdateDate()} }}
+                        date:getLastUpdateDate()} }}
                     </div>
                     <div class="logbook-button-bar button-bar-right button-bar" *ngIf="canEditEvent()">
                         <!-- Bouton supprimer -->
