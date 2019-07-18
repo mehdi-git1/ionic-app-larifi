@@ -91,4 +91,16 @@ export class Utils {
     public static isEmpty(value: any): boolean {
         return !value || value == null || (typeof value === 'string' && value.trim() === '');
     }
+
+    /**
+     * Capitalise un mot
+     * @param word mot à capitaliser
+     * @return mot capitalisé
+     */
+    public static capitalize(word: string): string {
+        if (!word) {
+            return word;
+        }
+        return word[0].toUpperCase() + word.substr(1).toLowerCase();
+    }
 }

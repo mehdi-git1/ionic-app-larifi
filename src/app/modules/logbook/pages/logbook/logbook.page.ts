@@ -45,19 +45,12 @@ export class LogbookPage {
     }
 
     ionViewWillEnter() {
-        let matricule = this.navParams.get('matricule');
-        if (this.navParams.get('matricule')) {
-            matricule = this.navParams.get('matricule');
-        } else if (this.sessionService.getActiveUser()) {
-            matricule = this.sessionService.getActiveUser().matricule;
+        if (this.sessionService.visitedPnc) {
+            this.pnc = this.sessionService.visitedPnc;
+        } else {
+            this.pnc = this.sessionService.getActiveUser().authenticatedPnc;
         }
-        if (matricule != null) {
-            this.pncService.getPnc(matricule).then(pnc => {
-                this.pnc = pnc;
-            }, error => { });
-
-            this.getLogbookEvents(matricule);
-        }
+        this.getLogbookEvents(this.pnc.matricule);
     }
 
     /**
