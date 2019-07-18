@@ -79,22 +79,23 @@
         <ion-row>
             <document-manager [documents]="logbookEvent.attachmentFiles" [editMode]="true"></document-manager>
         </ion-row>
+
+        <!-- Barre de boutons -->
+        <div class="button-bar-right button-bar">
+            <!-- Bouton Annuler -->
+            <button ion-button color="primary" outline (click)="cancelLogbookEventCreationOrEdition()">
+                {{ 'LOGBOOK.BUTTONS.CANCEL' | translate }}
+            </button>
+            <!-- Bouton enregistrer -->
+            <button ion-button *ngIf="logbookEvent.mode === LogbookEventModeEnum.CREATION || logbookEvent.mode === LogbookEventModeEnum.LINKED_EVENT_CREATION" color="primary" (click)="confirmSaveLogbookEvent()" [disabled]="!canBeSaved()">
+                {{ 'LOGBOOK.BUTTONS.SAVE' | translate }}
+            </button>
+            <!-- Bouton mettre à jour-->
+            <button ion-button *ngIf="logbookEvent.mode === LogbookEventModeEnum.EDITION" color="primary" (click)="confirmUpdateLogbookEvent()" [disabled]="!canBeUpdated()">
+                {{ 'LOGBOOK.BUTTONS.UPDATE' | translate }}
+            </button>
+        </div>
     </ion-grid>
-    <!-- Barre de boutons -->
-    <div class="button-bar-right button-bar">
-        <!-- Bouton Annuler -->
-        <button ion-button color="primary" outline (click)="cancelLogbookEventCreationOrEdition()">
-            {{ 'LOGBOOK.BUTTONS.CANCEL' | translate }}
-        </button>
-        <!-- Bouton enregistrer -->
-        <button ion-button *ngIf="logbookEvent.mode === LogbookEventModeEnum.CREATION || logbookEvent.mode === LogbookEventModeEnum.LINKED_EVENT_CREATION" color="primary" (click)="confirmSaveLogbookEvent()" [disabled]="!canBeSaved()">
-            {{ 'LOGBOOK.BUTTONS.SAVE' | translate }}
-        </button>
-        <!-- Bouton mettre à jour-->
-        <button ion-button *ngIf="logbookEvent.mode === LogbookEventModeEnum.EDITION" color="primary" (click)="confirmUpdateLogbookEvent()" [disabled]="!canBeUpdated()">
-            {{ 'LOGBOOK.BUTTONS.UPDATE' | translate }}
-        </button>
-    </div>
 </div>
 <ng-template #pageBlock>
 
