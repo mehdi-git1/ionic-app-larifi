@@ -52,6 +52,7 @@
                     <ion-label><span [ngClass]="{'no-value' : !pnc.pncRds }">{{ pnc.pncRds?.lastName}} {{ pnc.pncRds?.firstName  | titlecase}} </span> ({{ 'PNC_IDENTITY.RDS' | translate }})</ion-label>
                     <ion-checkbox [disabled]="!pnc.pncRds" (ionChange)="updatePncNotifiedList($event, pnc.pncRds)" [checked]="isPncNotified(pnc.pncRds)"></ion-checkbox>
                 </ion-item>
+            </ion-col>
         </ion-row>
         <ion-row>
             <ion-col>
@@ -95,6 +96,8 @@
             {{ 'LOGBOOK.BUTTONS.UPDATE' | translate }}
         </button>
     </div>
+
+
 </div>
 <ng-template #pageBlock>
 
