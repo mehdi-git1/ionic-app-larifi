@@ -29,10 +29,7 @@ export class TextEditorComponent {
 
         // config du WYSIWYG par défaut
         this.editorConfig = {
-            toolbar: [
-
-            ]
-
+            toolbar: []
         };
 
         // liste des options dans la barre d'outils

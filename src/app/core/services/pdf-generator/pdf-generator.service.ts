@@ -38,7 +38,6 @@ export class PdfGeneratorService {
     this.generatePdf(elementToPrint, pdfFileName);
   }
 
-
   private generatePdf(elementToPrint: any, pdfFileName: string) {
     if (this.deviceService.isBrowser()) {
       const opt = {
