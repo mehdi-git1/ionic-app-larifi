@@ -60,10 +60,6 @@ export class CongratulationLetterCardComponent {
     return this.congratulationLetterService.getFormatedFlightDate(flight);
   }
 
-  editLetter() {
-    this.navCtrl.push(CongratulationLetterCreatePage, { congratulationLetterId: this.congratulationLetter.techId });
-  }
-
   /**
    * Vérifie si le PNC est manager
    * @return vrai si le PNC est manager, faux sinon

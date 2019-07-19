@@ -15,9 +15,6 @@
     <button ion-fab class="detail-button" color="white" (click)="goToCongratulationLetterDetail(congratulationLetter)">
         <span class="edospnc-memo"></span>
     </button>
-    <button ion-fab class="detail-button" color="white" (click)="editLetter(congratulationLetter)">
-        <ion-icon name="md-create"></ion-icon>
-    </button>
     <span class="actions" *ngIf="isManager() && isConnected()">
         <div class="clickable" (click)="openActionsMenu($event, congratulationLetter, matricule)">
             <ion-icon ios="md-more" md="md-more">

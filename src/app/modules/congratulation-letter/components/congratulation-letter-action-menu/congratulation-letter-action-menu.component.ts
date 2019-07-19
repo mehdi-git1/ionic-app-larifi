@@ -6,8 +6,9 @@ import { ToastService } from '../../../../core/services/toast/toast.service';
 import { TranslateService } from '@ngx-translate/core';
 import { FixRecipientComponent } from '../fix-recipient/fix-recipient.component';
 import { PncModel } from '../../../../core/models/pnc.model';
-import { NavParams, ViewController, LoadingController, Loading, AlertController, PopoverController } from 'ionic-angular';
+import { NavParams, ViewController, LoadingController, Loading, AlertController, PopoverController, NavController } from 'ionic-angular';
 import { Events } from 'ionic-angular';
+import { CongratulationLetterCreatePage } from '../../pages/congratulation-letter-create/congratulation-letter-create.page';
 
 @Component({
   selector: 'congratulation-letter-action-menu',
@@ -26,6 +27,7 @@ export class CongratulationLetterActionMenuComponent {
   loading: Loading;
 
   constructor(private navParams: NavParams,
+    public navCtrl: NavController,
     public congratulationLetterService: CongratulationLetterService,
     public translateService: TranslateService,
     public loadingCtrl: LoadingController,
@@ -37,6 +39,11 @@ export class CongratulationLetterActionMenuComponent {
     this.congratulationLetter = this.navParams.get('congratulationLetter');
     this.mode = this.navParams.get('congratulationLetterMode');
     this.pnc = this.navParams.get('pnc');
+  }
+
+  updateCongratulationLetter() {
+    this.navCtrl.push(CongratulationLetterCreatePage, { congratulationLetterId: this.congratulationLetter.techId });
+    this.viewCtrl.dismiss();
   }
 
   /**

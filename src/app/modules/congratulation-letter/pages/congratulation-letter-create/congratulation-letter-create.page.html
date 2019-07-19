@@ -83,7 +83,7 @@
                     <ion-col>
                         <div class="button-bar button-bar-right">
                             <button ion-button outline (click)="cancelCreation()">{{ 'CONGRATULATION_LETTER_CREATE.BUTTONS.CANCEL' | translate }}</button>
-                            <button ion-button [disabled]="!isFormValid()" (click)="submitLetter()">{{ 'CONGRATULATION_LETTER_CREATE.BUTTONS.SUBMIT' | translate }}</button>
+                            <button ion-button [disabled]="!isFormValid() && formHasBeenModified()" (click)="submitLetter()">{{ 'CONGRATULATION_LETTER_CREATE.BUTTONS.SUBMIT' | translate }}</button>
                         </div>
                         <div class="information-message align-right">{{ 'CONGRATULATION_LETTER_CREATE.ALL_FIELDS_ARE_MANDATORY' | translate }}</div>
                     </ion-col>

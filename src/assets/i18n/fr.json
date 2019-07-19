@@ -103,7 +103,7 @@
         "PASSWORD": "PIN + Token",
         "VALIDATE": "Valider"
     },
-    "PNC_AUTOCOMPLETE" : {
+    "PNC_AUTOCOMPLETE": {
         "PLACEHOLDER": "Nom Prénom ou Matricule"
     },
     "CAREER_OBJECTIVE_CREATE": {
@@ -621,7 +621,8 @@
         "NO_WRITTEN_LETTERS": "Pas de félicitations rédigées",
         "ACTION_MENU": {
             "DELETE_CONGRATULATION_LETTER": "Supprimer",
-            "FIX_RECIPIENT": "Corriger le destinataire"
+            "FIX_RECIPIENT": "Corriger le destinataire",
+            "UPDATE_CONGRATULATION_LETTER": "Modifier"
         },
         "TOAST": {
             "DELETE_SUCCESS": "Lettre de félicitations supprimée"
