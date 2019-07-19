@@ -574,7 +574,7 @@ export class CareerObjectiveCreatePage {
      * @return vrai la priorité peut être supprimée
      */
     canBeDeleted(): boolean {
-        return this.careerObjective.careerObjectiveStatus !== CareerObjectiveStatusEnum.DRAFT && this.securityService.isManager();
+        return this.careerObjective.careerObjectiveStatus && this.careerObjective.careerObjectiveStatus !== CareerObjectiveStatusEnum.DRAFT && this.securityService.isManager();
     }
 
     /**
