@@ -127,7 +127,7 @@ export class AppVersionManagementPage {
     }
 
     /**
-     * Récupère le contenu du WYSIWYG$
+     * Récupère le contenu du WYSIWYG
      * @param content contenu du WYSIWYG
      */
     setContent(content) {

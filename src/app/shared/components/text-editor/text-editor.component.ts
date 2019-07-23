@@ -1,3 +1,4 @@
+import { QuillModule, QuillConfig, QuillEditorComponent, QuillToolbarConfig, QuillFormat } from 'ngx-quill';
 import { MatToolbarModule } from '@angular/material';
 import { FormGroup } from '@angular/forms';
 import { Component, Input, Output, EventEmitter } from '@angular/core';
@@ -15,11 +16,11 @@ export class TextEditorComponent {
 
     @Input() parentForm: FormGroup;
 
-    @Input() ctrlForm: string;
+    @Input() controlForm: string;
 
     @Input() textEditorMode = TextEditorModeEnum.FULL;
 
-    @Input() placeholder;
+    @Input() placeholder: string;
 
     @Output() contentFromChild = new EventEmitter();
 

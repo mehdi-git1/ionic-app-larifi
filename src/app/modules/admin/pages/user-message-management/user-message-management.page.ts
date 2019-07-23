@@ -20,7 +20,7 @@ import { TextEditorModeEnum } from './../../../../core/enums/text-editor-mode.en
     selector: 'page-user-message-management',
     templateUrl: 'user-message-management.page.html'
 })
-export class UserMessageManagementPage implements AfterViewInit {
+export class UserMessageManagementPage {
 
     @ViewChild(TextEditorComponent) textEditorReference;
 
@@ -30,12 +30,8 @@ export class UserMessageManagementPage implements AfterViewInit {
 
     userMessages: UserMessageModel[];
 
-    textEditorMode: TextEditorModeEnum;
-
     TabHeaderModeEnum = TabHeaderModeEnum;
     TabHeaderEnum = TabHeaderEnum;
-
-    item: FormControl;
 
     constructor(private userMessageService: UserMessageService,
         private userMessageAlertService: UserMessageAlertService,
@@ -48,12 +44,6 @@ export class UserMessageManagementPage implements AfterViewInit {
             active: ['']
         });
     }
-
-    ionViewWillLoad() {
-        this.item = this.formBuilder.control('');
-    }
-
-    ngAfterViewInit() { }
 
     ionViewDidEnter() {
         this.initPage();
@@ -81,7 +71,6 @@ export class UserMessageManagementPage implements AfterViewInit {
      * @param userMessage le message à mettre à jour
      */
     updateUserMessage() {
-        this.selectedUserMessage.content = this.textEditorReference.content;
         this.userMessageService.update(this.selectedUserMessage).then(userMessage => {
             this.initPage();
             this.toastService.success(this.translateService.instant('ADMIN.USER_MESSAGE_MANAGEMENT.MESSAGES.UPDATE_SUCCESSFUL'));
@@ -92,7 +81,6 @@ export class UserMessageManagementPage implements AfterViewInit {
      * Affiche un aperçu du message en cours d'édition
      */
     displayOverview() {
-        this.selectedUserMessage.content = this.textEditorReference.content;
         this.userMessageAlertService.displayUserMessage(this.selectedUserMessage);
     }
 
@@ -111,5 +99,9 @@ export class UserMessageManagementPage implements AfterViewInit {
      */
     isLoadingOver(): boolean {
         return this.userMessages !== undefined;
+    }
+
+    onSubmit() {
+        this.selectedUserMessage.content = this.textEditorReference.content;
     }
 }

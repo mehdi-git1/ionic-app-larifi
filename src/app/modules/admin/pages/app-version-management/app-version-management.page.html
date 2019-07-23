@@ -27,7 +27,7 @@
                 </ion-col>
                 <ion-col col-7>
                     <ion-item (click)="editAppVersion()">
-                        <text-editor [content]="changelog" [placeholder]="'ADMIN.APP_VERSION_MANAGEMENT.LABEL.CHANGELOG' | translate" name="changelog" (contentFromChild)="setContent($event)"></text-editor>
+                        <text-editor [content]="changelog" [placeholder]="'ADMIN.APP_VERSION_MANAGEMENT.LABEL.CHANGELOG' | translate" name="changelog" (contentChange)="setContent($event)"></text-editor>
                     </ion-item>
                 </ion-col>
                 <ion-col class="submit-button" col-2>
@@ -82,7 +82,7 @@
                                     </ion-col>
                                     <ion-col col-7>
                                         <ion-item (click)="editAppVersion(appVersion)">
-                                            <text-editor [content]="appVersion.changelog" [placeholder]="'ADMIN.APP_VERSION_MANAGEMENT.LABEL.CHANGELOG' | translate" (contentFromChild)="setContent($event)"></text-editor>
+                                            <text-editor [content]="appVersion.changelog" [placeholder]="'ADMIN.APP_VERSION_MANAGEMENT.LABEL.CHANGELOG' | translate" (contentChange)="setContent($event)"></text-editor>
                                         </ion-item>
                                     </ion-col>
                                     <ion-col col-2>
