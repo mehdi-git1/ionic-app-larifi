@@ -1,3 +1,5 @@
+import { SessionService } from './../session/session.service';
+import { PncLightModel } from './../../models/pnc-light.model';
 import { CongratulationLetterModeEnum } from './../../enums/congratulation-letter/congratulation-letter-mode.enum';
 import { CongratulationLetterRedactorTypeEnum } from './../../enums/congratulation-letter/congratulation-letter-redactor-type.enum';
 import { DatePipe } from '@angular/common';
@@ -16,7 +18,8 @@ export class CongratulationLetterService extends BaseService {
     private onlineCongratulationLetterService: OnlineCongratulationLetterService,
     private offlineCongratulationLetterService: OfflineCongratulationLetterService,
     protected connectivityService: ConnectivityService,
-    private datePipe: DatePipe) {
+    private datePipe: DatePipe,
+    private sessionService: SessionService) {
     super(
       connectivityService,
       onlineCongratulationLetterService,
@@ -90,6 +93,14 @@ export class CongratulationLetterService extends BaseService {
    * @return une promesse contenant la lettre créée/modifiée
    */
   createOrUpdate(congratulationLetter: CongratulationLetterModel): Promise<CongratulationLetterModel> {
+    if (congratulationLetter.techId === undefined) {
+      congratulationLetter.creationAuthor = new PncLightModel();
+      congratulationLetter.creationAuthor.matricule = this.sessionService.getActiveUser().matricule;
+    } else {
+      congratulationLetter.lastUpdateAuthor = new PncLightModel();
+      congratulationLetter.lastUpdateAuthor.matricule = this.sessionService.getActiveUser().matricule;
+      congratulationLetter.lastUpdateDate = new Date();
+    }
     return this.onlineCongratulationLetterService.createOrUpdate(congratulationLetter);
   }
 
