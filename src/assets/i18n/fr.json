@@ -22,13 +22,13 @@
             "LONGNAME": "Janvier, Février, Mars , Avril, Mai, Juin, Juillet, Août, Septembre, Octobre, Novembre, Décembre"
         },
         "CAREER_OBJECTIVE_STATUS": {
-            "DRAFT": "PROPOSITION",
+            "DRAFT": "BROUILLON",
             "REGISTERED": "EN COURS",
             "VALIDATED": "VALIDÉE",
             "ABANDONED": "ABANDONNÉE"
         },
         "WAYPOINT_STATUS": {
-            "DRAFT": "PROPOSITION",
+            "DRAFT": "BROUILLON",
             "REGISTERED": "EN COURS"
         },
         "CONNECTIVITY": {
@@ -103,7 +103,7 @@
         "PASSWORD": "PIN + Token",
         "VALIDATE": "Valider"
     },
-    "PNC_AUTOCOMPLETE" : {
+    "PNC_AUTOCOMPLETE": {
         "PLACEHOLDER": "Nom Prénom ou Matricule"
     },
     "CAREER_OBJECTIVE_CREATE": {
@@ -130,14 +130,14 @@
             "DATE_LABEL": " le {{date}}"
         },
         "CONFIRM_INSTRUCTOR_REQUEST": {
-            "TITLE": "Sollicitation instructeur",
-            "MESSAGE": "Confirmez-vous la demande de sollicitation instructeur ?",
+            "TITLE": "Notification manager",
+            "MESSAGE": "Confirmez-vous la demande de notification manager ?",
             "CANCEL": "Annuler",
             "CONFIRM": "Confirmer"
         },
         "CONFIRM_DRAFT_DELETE": {
-            "TITLE": "Suppression de la proposition",
-            "MESSAGE": "Confirmez-vous la suppression de cette proposition ?",
+            "TITLE": "Suppression du brouillon",
+            "MESSAGE": "Confirmez-vous la suppression de ce brouillon ?",
             "CANCEL": "Annuler",
             "CONFIRM": "Supprimer"
         },
@@ -158,7 +158,7 @@
             "ABANDON": "Abandonner",
             "CANCEL_VALIDATION": "Annuler la clôture",
             "RESUME": "Reprendre la priorité",
-            "CREATE_INSTRUCTOR_REQUEST": "Notifier mon instructeur"
+            "CREATE_INSTRUCTOR_REQUEST": "Notifier mon manager"
         },
         "SUCCESS": {
             "CAREER_OBJECTIVE_SAVED": "Priorité envoyée",
@@ -195,7 +195,7 @@
         },
         "CREATE_EOBSERVATION": "Nouvelle eObservation",
         "STATUS": {
-            "DRAFT": "Proposition",
+            "DRAFT": "Brouillon",
             "REGISTERED": "En cours",
             "VALIDATED": "Validée",
             "ABANDONED": "Abandonnée"
@@ -235,23 +235,23 @@
             "REQUIRED_ON_ENCOUNTER_DAY": " (Saisie obligatoire le jour de la rencontre)"
         },
         "CONFIRM_DRAFT_DELETE": {
-            "TITLE": "Suppression de la proposition",
-            "MESSAGE": "Confirmez-vous la suppression de cette proposition ?",
+            "TITLE": "Suppression du brouillon",
+            "MESSAGE": "Confirmez-vous la suppression de ce brouillon ?",
             "CANCEL": "Annuler",
             "CONFIRM": "Supprimer"
         },
         "BUTTONS": {
             "SAVE": "Enregistrer",
-            "SAVE_DRAFT": "Sauvegarder proposition",
-            "DELETE_DRAFT": "Supprimer proposition"
+            "SAVE_DRAFT": "Sauvegarder brouillon",
+            "DELETE_DRAFT": "Supprimer brouillon"
         },
         "ERROR": {
             "ENCOUTER_DATE_AND_ACTION_PLAN_REQUIRED": "Veuillez renseigner l'action réalisée et la date du point d'étape"
         },
         "SUCCESS": {
             "WAYPOINT_SAVED": "Point d'étape enregistré",
-            "DRAFT_SAVED": "Proposition du point d'étape sauvegardée",
-            "DRAFT_DELETED": "Proposition du point d'étape supprimée"
+            "DRAFT_SAVED": "Brouillon du point d'étape sauvegardée",
+            "DRAFT_DELETED": "Brouillon du point d'étape supprimée"
         }
     },
     "FLIGHT_CREW_LIST": {

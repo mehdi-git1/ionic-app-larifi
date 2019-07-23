@@ -561,8 +561,8 @@ export class CareerObjectiveCreatePage {
     }
 
     /**
-     * Retourne true si c'est une proposition et qu'elle peut être supprimée par le user connecté
-     * @return true si Draft && (CADRE ou auteur de la proposition)
+     * Retourne true si c'est une brouillon et qu'elle peut être supprimée par le user connecté
+     * @return true si Draft && (CADRE ou auteur de la brouillon)
      */
     isDraftAndCanBeDeleted(): boolean {
         const isInitiatorOrCadre: boolean = this.securityService.isManager() || (this.careerObjective.creationAuthor && (this.careerObjective.creationAuthor.matricule === this.sessionService.authenticatedUser.matricule));
@@ -578,8 +578,8 @@ export class CareerObjectiveCreatePage {
     }
 
     /**
-     * Retourne true si c'est une proposition et qu'elle peut être modifiée par le user connecté
-     * @return true si Draft && (CADRE ou auteur de la proposition)
+     * Retourne true si c'est une brouillon et qu'elle peut être modifiée par le user connecté
+     * @return true si Draft && (CADRE ou auteur de la brouillon)
      */
     isDraftAndCanBeModified(): boolean {
         const canBeSavedAsDraft: boolean = this.careerObjectiveStatusService.isTransitionOk(this.careerObjective.careerObjectiveStatus, CareerObjectiveStatusEnum.DRAFT);
