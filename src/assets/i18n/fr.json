@@ -103,7 +103,7 @@
         "PASSWORD": "PIN + Token",
         "VALIDATE": "Valider"
     },
-    "PNC_AUTOCOMPLETE" : {
+    "PNC_AUTOCOMPLETE": {
         "PLACEHOLDER": "Nom Prénom ou Matricule"
     },
     "CAREER_OBJECTIVE_CREATE": {
@@ -558,7 +558,7 @@
             "NO_DATA": "Pas de données disponibles"
         },
         "NOT_VALIDATED_QUESTIONS": {
-            "TITLE": "Questions non validées"
+            "MY_TITLE": "Questions non validées"
         }
     },
     "PNC_SEARCH": {
