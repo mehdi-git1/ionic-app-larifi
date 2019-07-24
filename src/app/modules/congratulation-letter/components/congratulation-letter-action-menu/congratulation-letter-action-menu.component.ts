@@ -26,8 +26,9 @@ export class CongratulationLetterActionMenuComponent {
 
   loading: Loading;
 
+  navCtrl: NavController;
+
   constructor(private navParams: NavParams,
-    public navCtrl: NavController,
     public congratulationLetterService: CongratulationLetterService,
     public translateService: TranslateService,
     public loadingCtrl: LoadingController,
@@ -39,8 +40,12 @@ export class CongratulationLetterActionMenuComponent {
     this.congratulationLetter = this.navParams.get('congratulationLetter');
     this.mode = this.navParams.get('congratulationLetterMode');
     this.pnc = this.navParams.get('pnc');
+    this.navCtrl = this.navParams.get('navCtrl');
   }
 
+  /**
+   * Met à jour une lettre de félicitation
+   */
   updateCongratulationLetter() {
     this.navCtrl.push(CongratulationLetterCreatePage, { congratulationLetterId: this.congratulationLetter.techId });
     this.viewCtrl.dismiss();
@@ -105,4 +110,5 @@ export class CongratulationLetterActionMenuComponent {
   closePopover() {
     this.viewCtrl.dismiss();
   }
+
 }

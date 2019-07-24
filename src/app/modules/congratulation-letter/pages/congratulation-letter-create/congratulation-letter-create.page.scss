@@ -42,6 +42,10 @@ congratulation-letter-create {
         width: 350px;
         font-size: initial;
 
+        ion-spinner {
+            margin-right: 5px;
+        }
+
         .mat-input-wrapper {
             padding: 0;
 
