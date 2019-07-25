@@ -19,10 +19,6 @@ export class CongratulationLetterModel extends EDossierPncObjectModel {
     concernedPncs: PncModel[];
     redactorSpeciality: string;
     redactorType: CongratulationLetterRedactorTypeEnum;
-    creationAuthor: PncLightModel;
-    lastUpdateAuthor: PncLightModel;
-    lastUpdateDate: Date;
-
 
     getStorageId(): string {
         return `${this.techId}`;
