@@ -250,8 +250,8 @@
         },
         "SUCCESS": {
             "WAYPOINT_SAVED": "Point d'étape enregistré",
-            "DRAFT_SAVED": "Brouillon du point d'étape sauvegardée",
-            "DRAFT_DELETED": "Brouillon du point d'étape supprimée"
+            "DRAFT_SAVED": "Brouillon du point d'étape sauvegardé",
+            "DRAFT_DELETED": "Brouillon du point d'étape supprimé"
         }
     },
     "FLIGHT_CREW_LIST": {
