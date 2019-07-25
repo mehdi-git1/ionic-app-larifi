@@ -1,3 +1,5 @@
+import { SessionService } from './../session/session.service';
+import { PncLightModel } from './../../models/pnc-light.model';
 import { CongratulationLetterModeEnum } from './../../enums/congratulation-letter/congratulation-letter-mode.enum';
 import { CongratulationLetterRedactorTypeEnum } from './../../enums/congratulation-letter/congratulation-letter-redactor-type.enum';
 import { DatePipe } from '@angular/common';

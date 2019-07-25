@@ -1,3 +1,4 @@
+import { PncLightModel } from './pnc-light.model';
 import { CongratulationLetterRedactorTypeEnum } from './../enums/congratulation-letter/congratulation-letter-redactor-type.enum';
 import { CongratulationLetterFlightModel } from './congratulation-letter-flight.model';
 import { PncModel } from './pnc.model';
@@ -18,6 +19,10 @@ export class CongratulationLetterModel extends EDossierPncObjectModel {
     concernedPncs: PncModel[];
     redactorSpeciality: string;
     redactorType: CongratulationLetterRedactorTypeEnum;
+    creationAuthor: PncLightModel;
+    lastUpdateAuthor: PncLightModel;
+    lastUpdateDate: Date;
+
 
     getStorageId(): string {
         return `${this.techId}`;
