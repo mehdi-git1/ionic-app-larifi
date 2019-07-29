@@ -312,6 +312,8 @@ export class CongratulationLetterCreatePage {
      * @return vrai si le verbatim peut être modifié, faux sinon
      */
     verbatimCanBeEdited() {
-        return this.creationMode || (this.congratulationLetter.redactor != undefined && this.sessionService.getActiveUser().matricule === this.congratulationLetter.redactor.matricule);
+        return this.creationMode
+        || ((this.congratulationLetter.redactor != undefined && this.sessionService.getActiveUser().matricule === this.congratulationLetter.redactor.matricule)
+            || (this.congratulationLetter.creationAuthor != undefined && this.sessionService.getActiveUser().matricule === this.congratulationLetter.creationAuthor.matricule));
     }
 }
