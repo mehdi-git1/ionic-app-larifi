@@ -349,7 +349,7 @@ export class ProfessionalInterviewDetailsPage {
   }
 
   /**
-   * Retourne true si c'est une proposition et si le pnc connecté est CADRE
+   * Retourne true si c'est un brouillon et si le pnc connecté est CADRE
    * @return true si Draft && CADRE
    */
   canBeDeleted(): boolean {
@@ -498,7 +498,7 @@ export class ProfessionalInterviewDetailsPage {
 
   /**
    * Teste que le user connecté est cadre et que le bilan professionnel peut être enregsitré avec le statut en paramètre
-   * @return true si Draft && (CADRE ou auteur de la proposition)
+   * @return true si Draft && (CADRE ou auteur du brouillon)
    */
   canBeSavedInState(state: ProfessionalInterviewStateEnum): boolean {
     const canBeSaved: boolean = this.professionalInterviewStatusService.isTransitionOk(this.professionalInterview.state, state);
