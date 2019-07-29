@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { ConnectivityService } from './../../../../core/services/connectivity/connectivity.service';
 import { DateTransform } from './../../../../shared/utils/date-transform';
 import { ToastService } from './../../../../core/services/toast/toast.service';
@@ -15,6 +16,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { Utils } from '../../../../shared/utils/utils';
 import { Subject, Observable } from 'rxjs/Rx';
 import * as _ from 'lodash';
+import { pairwise } from 'rxjs/operators';
 
 @Component({
     selector: 'congratulation-letter-create',
@@ -23,7 +25,8 @@ import * as _ from 'lodash';
 export class CongratulationLetterCreatePage {
 
     pnc: PncModel;
-
+    creationMode = true;
+    submitInProgress = false;
     creationForm: FormGroup;
 
     congratulationLetter: CongratulationLetterModel;
@@ -34,7 +37,7 @@ export class CongratulationLetterCreatePage {
     monthsNames;
     flightDateTimeOptions;
 
-    autoCompleteRunning = false;
+    autoCompleteInProgress = false;
     searchTerms = new Subject<string>();
     redactorSearchList: Observable<PncModel[]>;
     selectedRedactor: PncModel;
@@ -53,6 +56,7 @@ export class CongratulationLetterCreatePage {
         private alertCtrl: AlertController,
         private dateTransformer: DateTransform,
         private connectivityService: ConnectivityService,
+        private datePipe: DatePipe,
         public translateService: TranslateService
     ) {
         // Traduction des mois
@@ -63,8 +67,6 @@ export class CongratulationLetterCreatePage {
         this.handlePncSelectionDisplay();
 
         this.handleAutocompleteSearch();
-
-        this.congratulationLetter = this.buildNewCongratulationLetter();
 
         // Options du datepicker
         this.flightDateTimeOptions = {
@@ -77,13 +79,29 @@ export class CongratulationLetterCreatePage {
     }
 
     ionViewDidEnter() {
+
         if (this.sessionService.visitedPnc) {
             this.pnc = this.sessionService.visitedPnc;
         }
 
-        this.congratulationLetter = this.buildNewCongratulationLetter();
-
-        this.originCongratulationLetter = _.cloneDeep(this.congratulationLetter);
+        if (this.navParams.get('congratulationLetterId')) {
+            // Mode édition
+            this.creationMode = false;
+            this.congratulationLetterService.getCongratulationLetter(this.navParams.get('congratulationLetterId')).then(congratulationLetter => {
+                this.congratulationLetter = congratulationLetter;
+                if (this.congratulationLetter.redactorType === CongratulationLetterRedactorTypeEnum.PNC) {
+                    this.selectedRedactor = this.congratulationLetter.redactor;
+                    this.displayPncSelection = true;
+                }
+                this.originCongratulationLetter = _.cloneDeep(this.congratulationLetter);
+            });
+        } else {
+            // Mode création
+            this.creationMode = true;
+            this.displayPncSelection = true;
+            this.congratulationLetter = this.buildNewCongratulationLetter();
+            this.originCongratulationLetter = _.cloneDeep(this.congratulationLetter);
+        }
     }
 
     ionViewCanLeave() {
@@ -161,14 +179,15 @@ export class CongratulationLetterCreatePage {
      * Gère l'affichage de la sélection du PNC rédacteur. Si le choix "PNC" est sélectionné, on affiche l'outil de sélection du PNC
      */
     handlePncSelectionDisplay() {
-        this.creationForm.get('redactorTypeControl').valueChanges.subscribe(redactorType => {
-            if (redactorType === CongratulationLetterRedactorTypeEnum.PNC) {
-                this.displayPncSelection = true;
-                this.clearPncSearch();
-            } else {
-                this.displayPncSelection = false;
-            }
-        });
+        this.creationForm.get('redactorTypeControl').valueChanges.pipe(pairwise())
+            .subscribe(([previousRedactorType, newRedactorType]: [CongratulationLetterRedactorTypeEnum, CongratulationLetterRedactorTypeEnum]) => {
+                if (newRedactorType === CongratulationLetterRedactorTypeEnum.PNC) {
+                    this.displayPncSelection = true;
+                } else {
+                    this.clearPncSearch();
+                    this.displayPncSelection = false;
+                }
+            });
     }
 
     /**
@@ -176,7 +195,7 @@ export class CongratulationLetterCreatePage {
      * @return vrai si c'est le cas, faux sinon
      */
     pageLoadingIsOver(): boolean {
-        return this.pnc !== undefined;
+        return this.congratulationLetter != undefined;
     }
 
     /**
@@ -195,7 +214,17 @@ export class CongratulationLetterCreatePage {
             .debounceTime(300)
             .distinctUntilChanged()
             .switchMap(
-                term => (term ? this.pncService.pncAutoComplete(term, true) : Observable.of<PncModel[]>([]))
+                term => {
+                    if (term) {
+                        this.autoCompleteInProgress = true;
+                        const autoCompletePromise = this.pncService.pncAutoComplete(term, true);
+                        // On enchaine 2 then pour atteindre le "finally"
+                        autoCompletePromise.then().then(() => { this.autoCompleteInProgress = false; });
+                        return autoCompletePromise;
+                    } else {
+                        return Observable.of<PncModel[]>([]);
+                    }
+                }
             )
             .catch(error => {
                 return Observable.of<PncModel[]>([]);
@@ -239,17 +268,24 @@ export class CongratulationLetterCreatePage {
     }
 
     /**
-     * Valide la création de la lettre
+     * Valide la création/modification de la lettre
      */
     submitLetter() {
-        this.congratulationLetter.creationDate = new Date();
+        this.submitInProgress = true;
         this.congratulationLetter.flight.theoricalDate = this.dateTransformer.transformDateStringToIso8601Format(this.congratulationLetter.flight.theoricalDate);
 
         this.congratulationLetterService.createOrUpdate(this.congratulationLetter).then(congratulationLetter => {
             this.originCongratulationLetter = _.cloneDeep(this.congratulationLetter);
-            this.toastService.success(this.translateService.instant('CONGRATULATION_LETTER_CREATE.SUCCESS.LETTER_CREATED'));
+            if (this.creationMode) {
+                this.toastService.success(this.translateService.instant('CONGRATULATION_LETTER_CREATE.SUCCESS.LETTER_CREATED'));
+            }
+            else {
+                this.toastService.success(this.translateService.instant('CONGRATULATION_LETTER_CREATE.SUCCESS.LETTER_UPDATED'));
+            }
             this.navCtrl.pop();
-        }, error => { });
+        }, error => { }).then(() => {
+            this.submitInProgress = false;
+        });
     }
 
     /**
@@ -259,5 +295,25 @@ export class CongratulationLetterCreatePage {
         return this.connectivityService.isConnected() &&
             this.creationForm.valid &&
             (this.congratulationLetter.redactorType !== CongratulationLetterRedactorTypeEnum.PNC || this.congratulationLetter.redactor != null);
+    }
+
+
+    /**
+     * Retourne la date de dernière modification, formatée pour l'affichage
+     * @return la date de dernière modification au format dd/mm/yyyy hh:mm
+     */
+    getLastUpdateDate(): string {
+        return this.datePipe.transform(this.congratulationLetter.lastUpdateDate, 'dd/MM/yyyy HH:mm');
+    }
+
+    /**
+     * Teste si le verbatim peut être modifié.<br>
+     * Le verbatim peut être modifié qu'en cas de création, ou de modification quand l'auteur de la modification est le rédacteur de la lettre
+     * @return vrai si le verbatim peut être modifié, faux sinon
+     */
+    verbatimCanBeEdited() {
+        return this.creationMode
+        || ((this.congratulationLetter.redactor != undefined && this.sessionService.getActiveUser().matricule === this.congratulationLetter.redactor.matricule)
+            || (this.congratulationLetter.creationAuthor != undefined && this.sessionService.getActiveUser().matricule === this.congratulationLetter.creationAuthor.matricule));
     }
 }

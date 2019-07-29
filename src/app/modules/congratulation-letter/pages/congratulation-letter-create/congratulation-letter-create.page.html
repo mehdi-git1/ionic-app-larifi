@@ -1,7 +1,10 @@
 <ion-header>
     <ion-navbar>
         <page-header [showSettingsIcon]="true" [pnc]="pnc">
-            <span *ngIf="pnc"> {{ 'CONGRATULATION_LETTER_CREATE.TITLE' | isMyPage: pnc | translate }}</span>
+            <ng-container *ngIf="pnc">
+                <span *ngIf="creationMode; else updateTitle">{{ 'CONGRATULATION_LETTER_CREATE.TITLE_CREATE' | isMyPage: pnc | translate }}</span>
+                <ng-template #updateTitle>{{ 'CONGRATULATION_LETTER_CREATE.TITLE_UPDATE' | isMyPage: pnc | translate }}</ng-template>
+            </ng-container>
         </page-header>
     </ion-navbar>
 </ion-header>
@@ -62,6 +65,7 @@
                         <label for="redactorAutoComplete">{{'CONGRATULATION_LETTER_CREATE.FORM.REDACTOR.REDACTOR_AUTOCOMPLETE' | translate}}</label>
                         <mat-form-field class="redactor-autocomplete" floatLabel="never">
                             <input #redactorAutoComplete name="redactorAutoComplete" formControlName="redactorAutoCompleteControl" placeholder="{{'CONGRATULATION_LETTER_CREATE.FORM.REDACTOR.REDACTOR_AUTOCOMPLETE_PLACEHOLDER' | translate}}" [(ngModel)]="selectedRedactor" type="text" matInput (keyup)="searchAutoComplete(redactorAutoComplete.value)" [matAutocomplete]="auto" autocomplete="off" />
+                            <ion-spinner *ngIf="autoCompleteInProgress"></ion-spinner>
                             <ion-icon name="backspace" class="clickable" (click)="clearPncSearch()"></ion-icon>
                         </mat-form-field>
                         <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayPnc" (optionSelected)="selectPncRedactor($event.option.value)">
@@ -74,15 +78,22 @@
                 </ion-row>
                 <ion-row>
                     <ion-col>
-                        <ion-label fixed>{{ 'CONGRATULATION_LETTER_CREATE.FORM.VERBATIM' | translate }}</ion-label>
-                        <ion-textarea [(ngModel)]="congratulationLetter.verbatim" formControlName="verbatimControl" autocorrect="on"></ion-textarea>
+                        <ion-label>
+                            {{ 'CONGRATULATION_LETTER_CREATE.FORM.VERBATIM' | translate }}
+                            <strong [hidden]="verbatimCanBeEdited()">&nbsp;({{ 'CONGRATULATION_LETTER_CREATE.VERBATIM_EDITABLE_BY_REDACTOR_ONLY' | translate }})</strong>
+                        </ion-label>
+                        <ion-textarea [(ngModel)]="congratulationLetter.verbatim" formControlName="verbatimControl" autocorrect="on" [readonly]="!verbatimCanBeEdited()"></ion-textarea>
+                        <div class="information-message align-left" *ngIf="congratulationLetter.lastUpdateAuthor">{{ 'CONGRATULATION_LETTER_CREATE.UPDATED_BY' | translate:{lastName:congratulationLetter.lastUpdateAuthor.lastName, firstName:congratulationLetter.lastUpdateAuthor.firstName, date:getLastUpdateDate()} }}</div>
                     </ion-col>
                 </ion-row>
                 <ion-row>
                     <ion-col>
                         <div class="button-bar button-bar-right">
                             <button ion-button outline (click)="cancelCreation()">{{ 'CONGRATULATION_LETTER_CREATE.BUTTONS.CANCEL' | translate }}</button>
-                            <button ion-button [disabled]="!isFormValid()" (click)="submitLetter()">{{ 'CONGRATULATION_LETTER_CREATE.BUTTONS.SUBMIT' | translate }}</button>
+                            <button ion-button [disabled]="!isFormValid() || submitInProgress" (click)="submitLetter()">
+                                <ion-spinner *ngIf="submitInProgress"></ion-spinner>
+                                {{ 'CONGRATULATION_LETTER_CREATE.BUTTONS.SUBMIT' | translate }}
+                            </button>
                         </div>
                         <div class="information-message align-right">{{ 'CONGRATULATION_LETTER_CREATE.ALL_FIELDS_ARE_MANDATORY' | translate }}</div>
                     </ion-col>

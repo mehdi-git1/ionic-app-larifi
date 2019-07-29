@@ -7,6 +7,7 @@ import { CongratulationLetterDetailPage } from './../../pages/congratulation-let
 import { CongratulationLetterModeEnum } from './../../../../core/enums/congratulation-letter/congratulation-letter-mode.enum';
 import { Component, Input } from '@angular/core';
 import { CongratulationLetterModel } from '../../../../core/models/congratulation-letter.model';
+import { CongratulationLetterCreatePage } from '../../pages/congratulation-letter-create/congratulation-letter-create.page';
 import { SecurityService } from './../../../../core/services/security/security.service';
 import { CongratulationLetterActionMenuComponent } from './../../components/congratulation-letter-action-menu/congratulation-letter-action-menu.component';
 import { PncModel } from '../../../../core/models/pnc.model';
@@ -82,7 +83,7 @@ export class CongratulationLetterCardComponent {
    */
   openActionsMenu(myEvent: Event, congratulationLetter: CongratulationLetterModel) {
     myEvent.stopPropagation();
-    const popover = this.popoverCtrl.create(CongratulationLetterActionMenuComponent, { congratulationLetter: congratulationLetter, pnc: this.pnc, congratulationLetterMode: this.mode }, { cssClass: 'action-menu-popover' });
+    const popover = this.popoverCtrl.create(CongratulationLetterActionMenuComponent, { congratulationLetter: congratulationLetter, pnc: this.pnc, congratulationLetterMode: this.mode, navCtrl: this.navCtrl }, { cssClass: 'action-menu-popover' });
     popover.present({ ev: myEvent });
   }
 }
