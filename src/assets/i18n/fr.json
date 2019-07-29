@@ -895,25 +895,7 @@
             }
         },
         "APP_VERSION_MANAGEMENT": {
-            "APP_VERSION_LIST": {
-                "APP_VERSION_TITLE": "Versions",
-                "BUTTONS": {
-                    "ADD_APP_VERSION": "Nouvelle version"
-                }
-            },
             "TITLE": "Gestion des versions",
-            "BUTTON": {
-                "ADD_VERSION": "Ajouter",
-                "UPDATE_VERSION": "Modifier",
-                "DELETE_VERSION": "Supprimer",
-                "OVERVIEW": "Aperçu",
-                "CANCEL_CREATE_OR_UPDATE": "Annuler"
-            },
-            "LABEL": {
-                "VERSION_NUMBER": "Numéro de version",
-                "CHANGELOG": "Description",
-                "RELEASE_DATE": "Date de mise en prod"
-            },
             "CONFIRM_VERSION_DELETE": {
                 "TITLE": "Suppression de la version {{ number }}",
                 "MESSAGE": "Confirmez-vous la suppression de la version {{ number }} ?",
@@ -923,10 +905,33 @@
             "SUCCESS": {
                 "CREATE_OR_UPDATE_VERSION": "Mise à jour effectuée",
                 "DELETE_UPDATE_VERSION": "Suppression effectuée"
-
             },
             "ERROR": {
                 "UNDEFINED_NUMBER": "Veuillez renseigner un numéro de version"
+            }
+        },
+        "APP_VERSION_LIST": {
+            "TITLE": "Versions",
+            "BUTTONS": {
+                "ADD_APP_VERSION": "Nouvelle version"
+            },
+            "LIST": {
+                "RELEASE_DATE": "Date de sortie",
+                "VERSION_NUMBER": "Numéro de version"
+            }
+        },
+        "APP_VERSION_CREATE": {
+            "LABEL": {
+                "VERSION_NUMBER": "Numéro de version",
+                "RELEASE_DATE": "Date de sortie",
+                "CHANGELOG": "Description"
+            },
+            "BUTTON": {
+                "ADD_VERSION": "Ajouter",
+                "UPDATE_VERSION": "Modifier",
+                "DELETE_VERSION": "Supprimer",
+                "OVERVIEW": "Aperçu",
+                "CANCEL_CREATE_OR_UPDATE": "Annuler"
             }
         },
         "USER_MESSAGE_MANAGEMENT": {

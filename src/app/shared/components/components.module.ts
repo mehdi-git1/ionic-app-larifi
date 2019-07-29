@@ -1,3 +1,4 @@
+import { TextEditorReadOnlyComponent } from './text-editor-read-only/text-editor-read-only.component';
 import { WorkRateCircleComponent } from './work-rate-circle/work-rate-circle.component';
 import { DocumentManagerComponent } from './document/document-manager.component';
 import { TabHeaderComponent } from './tab-header/tab-header.component';
@@ -43,6 +44,7 @@ import { PncEdossierHeaderComponent } from './pnc-edossier-header/pnc-edossier-h
 import { PncAutoCompleteComponent } from './pnc-autocomplete/pnc-autocomplete.component';
 import { DocumentViewerComponent } from './document-viewer/document-viewer.component';
 
+
 @NgModule({
   imports: [
     CommonModule,
@@ -82,7 +84,8 @@ import { DocumentViewerComponent } from './document-viewer/document-viewer.compo
     DocumentManagerComponent,
     PncAutoCompleteComponent,
     DocumentViewerComponent,
-    WorkRateCircleComponent
+    WorkRateCircleComponent,
+    TextEditorReadOnlyComponent
 
   ],
   exports: [
@@ -114,7 +117,8 @@ import { DocumentViewerComponent } from './document-viewer/document-viewer.compo
     PncAutoCompleteComponent,
     DocumentViewerComponent,
     WorkRateCircleComponent,
-    TextEditorComponent
+    TextEditorComponent,
+    TextEditorReadOnlyComponent
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA

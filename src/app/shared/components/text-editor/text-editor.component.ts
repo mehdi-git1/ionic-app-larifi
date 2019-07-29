@@ -1,5 +1,3 @@
-import { QuillModule, QuillConfig, QuillEditorComponent, QuillToolbarConfig, QuillFormat } from 'ngx-quill';
-import { MatToolbarModule } from '@angular/material';
 import { FormGroup } from '@angular/forms';
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 
@@ -48,6 +46,8 @@ export class TextEditorComponent {
                 ['link']
             ];
         }
+
+
     }
 
     /**

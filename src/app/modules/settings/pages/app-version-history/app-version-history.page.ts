@@ -43,7 +43,6 @@ export class AppVersionHistoryPage {
      */
     editAppVersion(appVersion: AppVersionModel) {
         this.selectedAppVersion = appVersion;
-        console.log(this.selectedAppVersion);
     }
 
     /**

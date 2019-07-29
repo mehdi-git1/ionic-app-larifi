@@ -6,7 +6,6 @@ page-app-version-list {
 
     .app-version-block {
         margin-bottom: 10px;
-        margin-top: 60px;
     }
 
     .app-version-block h3 {
@@ -19,14 +18,11 @@ page-app-version-list {
         align-items: center;
     }
 
-    ion-content button {
+    .new-version {
         width: 300px;
 
-        .new-version {
-            ion-icon {
-
-                margin-right: 10px;
-            }
+        ion-icon {
+            margin-right: 10px;
         }
 
         label {

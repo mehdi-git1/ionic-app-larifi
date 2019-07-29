@@ -1,12 +1,15 @@
-import { AppVersionListPage } from './../../page/app-version-list/app-version-list.page';
-import { AppVersionAlertService } from './../../../../../../core/services/app-version/app-version-alert.service';
+import { Component, Input } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
+import { NavController, AlertController } from 'ionic-angular';
+
+import { AppVersionModel } from './../../../../../../core/models/admin/app-version.model';
+
+import { AppVersionListPage } from './../../page/app-version-list/app-version-list.page';
+import { AppVersionCreatePage } from '../../page/app-version-create/app-version-create.page';
+
+import { AppVersionAlertService } from './../../../../../../core/services/app-version/app-version-alert.service';
 import { ToastService } from './../../../../../../core/services/toast/toast.service';
 import { AppVersionService } from './../../../../../../core/services/app-version/app-version.service';
-import { AppVersionModel } from './../../../../../../core/models/admin/app-version.model';
-import { NavController, AlertController } from 'ionic-angular';
-import { Component, Input } from '@angular/core';
-import { AppVersionCreatePage } from '../../page/app-version-create/app-version-create.page';
 
 @Component({
   selector: 'app-version',
@@ -62,7 +65,6 @@ export class AppVersionComponent {
    * Dirige vers la page de création d'un nouvel objectif
    */
   goToAppVersionUpdate(appVersion: AppVersionModel) {
-    console.log('version à update', appVersion.techId);
     this.navCtrl.push(AppVersionCreatePage, { appVersionId: appVersion.techId });
   }
 

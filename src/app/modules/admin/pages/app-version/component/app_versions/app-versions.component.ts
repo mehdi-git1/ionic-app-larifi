@@ -1,5 +1,5 @@
-import { AppVersionModel } from './../../../../../../core/models/admin/app-version.model';
 import { Component, Input } from '@angular/core';
+import { AppVersionModel } from './../../../../../../core/models/admin/app-version.model';
 
 @Component({
   selector: 'app-versions',

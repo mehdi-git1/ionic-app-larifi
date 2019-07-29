@@ -1,6 +1,8 @@
 <ion-header>
     <ion-navbar>
-        <ion-title>{{ 'ADMIN.APP_VERSION_MANAGEMENT.TITLE' | translate }}</ion-title>
+        <page-header [showSettingsIcon]="false">
+            <span> {{ 'ADMIN.APP_VERSION_MANAGEMENT.TITLE' | translate }}</span>
+        </page-header>
     </ion-navbar>
     <tab-header [mode]="TabHeaderModeEnum.ADMIN" [activeTab]="TabHeaderEnum.APP_VERSION_MANAGEMENT_PAGE"></tab-header>
 </ion-header>
@@ -9,13 +11,12 @@
     <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
     <ng-template #pageBlock>
 
-        <!-- Priorités -->
         <div class="app-version-block">
             <h3>
-                {{ 'ADMIN.APP_VERSION_MANAGEMENT.APP_VERSION_LIST.APP_VERSION_TITLE' | translate }}
+                {{ 'ADMIN.APP_VERSION_LIST.TITLE' | translate }}
                 <button ion-button class="new-version" (click)="goToAppVersionCreation()" color="primary-light">
                     <ion-icon name="md-add" ios="md-add"></ion-icon>
-                    <label>{{ 'ADMIN.APP_VERSION_MANAGEMENT.APP_VERSION_LIST.BUTTONS.ADD_APP_VERSION' | translate }}</label>
+                    <label>{{ 'ADMIN.APP_VERSION_LIST.BUTTONS.ADD_APP_VERSION' | translate }}</label>
                 </button>
             </h3>
             <div class="list-container">

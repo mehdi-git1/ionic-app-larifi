@@ -1,19 +1,25 @@
-import { Utils } from './../../../../../../shared/utils/utils';
-import { AppVersionListPage } from './../app-version-list/app-version-list.page';
-import { AppVersionService } from './../../../../../../core/services/app-version/app-version.service';
-import { AppVersionModel } from './../../../../../../core/models/admin/app-version.model';
-import { DateTransform } from '../../../../../../shared/utils/date-transform';
-import { AppConstant } from '../../../../../../app.constant';
-import { SecurityService } from '../../../../../../core/services/security/security.service';
-import { ToastService } from '../../../../../../core/services/toast/toast.service';
-import { TranslateService } from '@ngx-translate/core';
 import { Component } from '@angular/core';
-import { NavController, NavParams, AlertController, LoadingController, Loading } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import * as _ from 'lodash';
+import { TranslateService } from '@ngx-translate/core';
+import { NavController, NavParams, AlertController, LoadingController, Loading } from 'ionic-angular';
+
+import { AppConstant } from '../../../../../../app.constant';
+import { Utils } from './../../../../../../shared/utils/utils';
+import { DateTransform } from '../../../../../../shared/utils/date-transform';
+
 import { TabHeaderModeEnum } from '../../../../../../core/enums/tab-header-mode.enum';
 import { TabHeaderEnum } from '../../../../../../core/enums/tab-header.enum';
+
+import { AppVersionListPage } from './../app-version-list/app-version-list.page';
+
+import { AppVersionService } from './../../../../../../core/services/app-version/app-version.service';
+import { SecurityService } from '../../../../../../core/services/security/security.service';
+import { ToastService } from '../../../../../../core/services/toast/toast.service';
 import { AppVersionAlertService } from '../../../../../../core/services/app-version/app-version-alert.service';
+
+import { AppVersionModel } from './../../../../../../core/models/admin/app-version.model';
+import * as _ from 'lodash';
+
 
 @Component({
     selector: 'page-app-version-create',
@@ -131,10 +137,11 @@ export class AppVersionCreatePage {
         if (!this.versionNumberRegex.test(this.appVersion.number)) {
             return this.toastService.error(this.translateService.instant('ADMIN.APP_VERSION_MANAGEMENT.ERROR.UNDEFINED_NUMBER'));
         }
+        this.originAppVersion = this.appVersion;
         this.appVersionService
             .createOrUpdateAppVersion(this.appVersion)
             .then(success => {
-                this.initPage();
+                this.goToAppVersionManagement();
                 this.toastService.success(this.translateService.instant('ADMIN.APP_VERSION_MANAGEMENT.SUCCESS.CREATE_OR_UPDATE_VERSION'));
             }, error => { });
     }
@@ -144,7 +151,6 @@ export class AppVersionCreatePage {
      * @param appVersion la version à supprimer
      */
     confirmDeleteAppVersion(appVersion: AppVersionModel): void {
-        console.log('delete', appVersion.techId);
         this.alertCtrl.create({
             title: this.translateService.instant('ADMIN.APP_VERSION_MANAGEMENT.CONFIRM_VERSION_DELETE.TITLE', { 'number': appVersion.number }),
             message: this.translateService.instant('ADMIN.APP_VERSION_MANAGEMENT.CONFIRM_VERSION_DELETE.MESSAGE', { 'number': appVersion.number }),
@@ -168,7 +174,7 @@ export class AppVersionCreatePage {
     delete(appVersion: AppVersionModel): void {
 
         this.appVersionService.delete(appVersion.techId).then(success => {
-            this.initPage();
+            this.goToAppVersionManagement();
             this.toastService.success(this.translateService.instant('ADMIN.APP_VERSION_MANAGEMENT.SUCCESS.DELETE_UPDATE_VERSION'));
         }, error => { });
     }
@@ -207,7 +213,6 @@ export class AppVersionCreatePage {
      */
     setContent(content) {
         this.appVersion.changelog = content;
-        console.log(this.appVersion.changelog);
     }
 
 }

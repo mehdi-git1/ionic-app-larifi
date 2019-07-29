@@ -1,14 +1,14 @@
-import { AppVersionModel } from './../../../../../../core/models/admin/app-version.model';
-import { AppVersionService } from './../../../../../../core/services/app-version/app-version.service';
-import { AppVersionCreatePage } from './../app-version-create/app-version-create.page';
+import { Component } from '@angular/core';
+import { NavController } from 'ionic-angular';
+
 import { TabHeaderModeEnum } from './../../../../../../core/enums/tab-header-mode.enum';
 import { TabHeaderEnum } from '../../../../../../core/enums/tab-header.enum';
 
-import { Component } from '@angular/core';
-import { NavController, AlertController } from 'ionic-angular';
-import * as moment from 'moment';
-import { TranslateService } from '@ngx-translate/core';
-import { ToastService } from '../../../../../../core/services/toast/toast.service';
+import { AppVersionModel } from './../../../../../../core/models/admin/app-version.model';
+
+import { AppVersionCreatePage } from './../app-version-create/app-version-create.page';
+
+import { AppVersionService } from './../../../../../../core/services/app-version/app-version.service';
 
 @Component({
   selector: 'page-app-version-list',
@@ -23,10 +23,7 @@ export class AppVersionListPage {
 
   constructor(
     private appVersionService: AppVersionService,
-    private navCtrl: NavController,
-    private translateService: TranslateService,
-    private alertCtrl: AlertController,
-    private toastService: ToastService) {
+    private navCtrl: NavController) {
   }
 
   ionViewDidEnter() {

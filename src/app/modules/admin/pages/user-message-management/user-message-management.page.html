@@ -1,6 +1,8 @@
 <ion-header>
     <ion-navbar>
-        <ion-title>{{ 'ADMIN.USER_MESSAGE_MANAGEMENT.TITLE' | translate }}</ion-title>
+        <page-header [showSettingsIcon]="false">
+            <span> {{ 'ADMIN.USER_MESSAGE_MANAGEMENT.TITLE' | translate }}</span>
+        </page-header>
     </ion-navbar>
     <tab-header [mode]="TabHeaderModeEnum.ADMIN" [activeTab]="TabHeaderEnum.USER_MESSAGE_MANAGEMENT_PAGE"></tab-header>
 </ion-header>
