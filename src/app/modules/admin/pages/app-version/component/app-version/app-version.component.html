@@ -1,0 +1,17 @@
+<ion-card class="app-version-card clickable elevation-1">
+    <ion-card-content no-padding>
+        <span class="value app-version-release-date">{{appVersion.releaseDate | date : 'dd/MM/yyyy' : 'UTC'}}</span>
+        <span class="value app-version-number">{{ appVersion.number }}</span>
+        <div class="value app-version-icone">
+            <button ion-fab mini icon-only item-end class="detail-button" color="white" (click)="goToAppVersionUpdate(appVersion)">
+                <ion-icon name="create"> </ion-icon>
+            </button>
+            <button ion-fab mini icon-only item-end class="detail-button" color="white" (click)="confirmDeleteAppVersion(appVersion)">
+                <ion-icon name="ios-trash-outline" ios="ios-trash-outline"></ion-icon>
+            </button>
+            <button ion-fab mini icon-only item-end class="detail-button" color="white" (click)="displayOverview(appVersion)">
+                <ion-icon name="md-bug" ios="md-bug"></ion-icon>
+            </button>
+        </div>
+    </ion-card-content>
+</ion-card>

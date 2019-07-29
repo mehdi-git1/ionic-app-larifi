@@ -1,8 +1,8 @@
 import { TabHeaderEnum } from './../../../../core/enums/tab-header.enum';
 import { TabHeaderModeEnum } from '../../../../core/enums/tab-header-mode.enum';
 
-import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
-import { Component, ViewChild, AfterViewInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, ViewChild } from '@angular/core';
 
 import { TranslateService } from '@ngx-translate/core';
 
@@ -14,7 +14,6 @@ import { UserMessageService } from '../../../../core/services/user-message/user-
 import { UserMessageAlertService } from './../../../../core/services/user-message/user-message-alert.service';
 import { ToastService } from '../../../../core/services/toast/toast.service';
 
-import { TextEditorModeEnum } from './../../../../core/enums/text-editor-mode.enum';
 
 @Component({
     selector: 'page-user-message-management',
@@ -101,7 +100,11 @@ export class UserMessageManagementPage {
         return this.userMessages !== undefined;
     }
 
-    onSubmit() {
-        this.selectedUserMessage.content = this.textEditorReference.content;
+    /**
+     * Récupère le contenu du WYSIWYG
+     * @param content contenu du WYSIWYG
+     */
+    setContent(content) {
+        this.selectedUserMessage.content = content;
     }
 }

@@ -101,7 +101,7 @@
         "PASSWORD": "PIN + Token",
         "VALIDATE": "Valider"
     },
-    "PNC_AUTOCOMPLETE" : {
+    "PNC_AUTOCOMPLETE": {
         "PLACEHOLDER": "Nom Prénom ou Matricule"
     },
     "CAREER_OBJECTIVE_CREATE": {
@@ -895,12 +895,19 @@
             }
         },
         "APP_VERSION_MANAGEMENT": {
+            "APP_VERSION_LIST": {
+                "APP_VERSION_TITLE": "Versions",
+                "BUTTONS": {
+                    "ADD_APP_VERSION": "Nouvelle version"
+                }
+            },
             "TITLE": "Gestion des versions",
             "BUTTON": {
                 "ADD_VERSION": "Ajouter",
                 "UPDATE_VERSION": "Modifier",
                 "DELETE_VERSION": "Supprimer",
-                "OVERVIEW": "Aperçu"
+                "OVERVIEW": "Aperçu",
+                "CANCEL_CREATE_OR_UPDATE": "Annuler"
             },
             "LABEL": {
                 "VERSION_NUMBER": "Numéro de version",

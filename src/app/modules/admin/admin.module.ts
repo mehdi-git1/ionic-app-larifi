@@ -1,18 +1,16 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { IonicPageModule, IonicModule } from 'ionic-angular';
 
-
 import { SharedModule } from '../../shared/shared.module';
 import { ComponentsModule } from '../../shared/components/components.module';
 
-import { AppVersionManagementPage } from './pages/app-version-management/app-version-management.page';
 import { ProfileManagementPage } from './pages/profile-management/profile-management.page';
 import { UserMessageManagementPage } from './pages/user-message-management/user-message-management.page';
+import { AppVersionManagementModule } from './pages/app-version/app-version-management.module';
 
 @NgModule({
   declarations: [
     ProfileManagementPage,
-    AppVersionManagementPage,
     UserMessageManagementPage
   ],
   imports: [
@@ -26,16 +24,15 @@ import { UserMessageManagementPage } from './pages/user-message-management/user-
     }),
     [IonicPageModule.forChild(ProfileManagementPage)],
     SharedModule,
-    ComponentsModule
+    ComponentsModule,
+    AppVersionManagementModule
   ],
   entryComponents: [
     ProfileManagementPage,
-    AppVersionManagementPage,
     UserMessageManagementPage
   ],
   exports: [
     ProfileManagementPage,
-    AppVersionManagementPage,
     UserMessageManagementPage
   ],
   schemas: [

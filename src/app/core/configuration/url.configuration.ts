@@ -60,6 +60,7 @@ export class UrlConfiguration {
     'updatePermissions': `${urlGroupEnum.USER_PROFILE}/{profileName}/update_permissions`,
     'appVersions': urlGroupEnum.APP_VERSION,
     'getAllAppVersions': urlGroupEnum.APP_VERSION,
+    'getAppVersionById': `${urlGroupEnum.APP_VERSION}/{id}`,
     'deleteAppVersionById': `${urlGroupEnum.APP_VERSION}/{id}`,
     'logbookEvents': urlGroupEnum.LOGBOOK_EVENT,
     'getLogbookEventsByGroupId': `${urlGroupEnum.LOGBOOK_EVENT}/event_group/{groupId}`,
