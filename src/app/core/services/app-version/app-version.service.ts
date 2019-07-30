@@ -22,6 +22,15 @@ export class AppVersionService {
     }
 
     /**
+     * Récupère une version de l'application
+     * @param appVersion la version à récupérer
+     * @return la version récupérée
+     */
+    public getAppVersionById(id: number): Promise<AppVersionModel> {
+        return this.restService.get(this.config.getBackEndUrl('getAppVersionById', [id]));
+    }
+
+    /**
      * Crée ou met à jour une version
      * @param appVersion la version à créer ou à mettre à jour
      * @return la version créée ou mise à jour

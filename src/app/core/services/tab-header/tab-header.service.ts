@@ -5,7 +5,7 @@ import { AuthorizationService } from '../authorization/authorization.service';
 import { LogbookPage } from '../../../modules/logbook/pages/logbook/logbook.page';
 import { TabHeaderModeEnum } from '../../enums/tab-header-mode.enum';
 import { UserMessageManagementPage } from '../../../modules/admin/pages/user-message-management/user-message-management.page';
-import { AppVersionManagementPage } from '../../../modules/admin/pages/app-version-management/app-version-management.page';
+import { AppVersionListPage } from './../../../modules/admin/pages/app-version/page/app-version-list/app-version-list.page';
 import { ProfileManagementPage } from '../../../modules/admin/pages/profile-management/profile-management.page';
 import { HelpAssetListPage } from '../../../modules/help-asset/pages/help-asset-list/help-asset-list.page';
 import { CongratulationLettersPage } from '../../../modules/congratulation-letter/pages/congratulation-letters/congratulation-letters.page';
@@ -94,7 +94,7 @@ export class TabHeaderService {
                 {
                     id: TabHeaderEnum.APP_VERSION_MANAGEMENT_PAGE,
                     label: this.translateService.instant('ADMIN.ADMIN_NAV_TABS.APP_VERSION_MANAGEMENT'),
-                    component: AppVersionManagementPage,
+                    component: AppVersionListPage,
                     available: true
                 },
                 {
