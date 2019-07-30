@@ -36,8 +36,6 @@
 @import '../theme/edospnc-icons.scss';
 @import '../theme/betty-icons.min.scss';
 
-@import '~quill/dist/quill.snow.css';
-
 @include mat-core();
 
 // A utiliser sur les éléments cliquables (les labels ont un style contraire, on est obligé de les surcharger) */
