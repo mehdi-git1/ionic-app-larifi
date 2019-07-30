@@ -1,11 +1,11 @@
 import { Component, Input } from '@angular/core';
 
 @Component({
-    selector: 'read-only',
-    templateUrl: 'text-editor-read-only.component.html',
+    selector: 'html-view',
+    templateUrl: 'html-view.component.html',
 })
 
-export class TextEditorReadOnlyComponent {
+export class HtmlViewComponent {
 
     @Input() content: string;
 

@@ -1,4 +1,8 @@
-read-only {
+html-view {
+
+    .ql-toolbar {
+        margin-top: -80px;
+    }
 
     .ql-container {
         box-sizing: border-box;
@@ -31,7 +35,6 @@ read-only {
     }
 
     .ql-editor {
-        margin-top: -80px;
         box-sizing: border-box;
         line-height: 1.42;
         outline: none;
@@ -1110,7 +1113,7 @@ read-only {
     }
 
     .ql-snow .ql-tooltip[data-mode=link]::before {
-        content: "Entrer un lien:";
+        content: "Entrer un lien :";
     }
 
     .ql-snow a {

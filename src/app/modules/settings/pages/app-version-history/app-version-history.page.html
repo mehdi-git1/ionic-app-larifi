@@ -33,7 +33,9 @@
                     <div *ngIf="!selectedAppVersion; else editAppVersionBlock" class="no-data-found">{{ 'APP_VERSION_HISTORY.NO_APP_VERSION_SELECTED' | translate }}</div>
                     <ng-template #editAppVersionBlock>
                         <h3>{{ 'APP_VERSION_HISTORY.LABELS.VERSION_NOTE' | translate }} {{ selectedAppVersion.number }}</h3>
-                        <p [innerHTML]="selectedAppVersion.changelog"></p>
+                        <p class="content">
+                            <html-view [content]="selectedAppVersion.changelog"></html-view>
+                        </p>
                     </ng-template>
                 </ion-col>
             </ion-row>
