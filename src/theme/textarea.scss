@@ -13,7 +13,7 @@ ion-textarea.input {
         padding: 5px !important;
     }
 
-    &[ng-reflect-readonly="true"] {
+    &.readonly {
         background: color($colors-secondary, grey75);
     }
 
