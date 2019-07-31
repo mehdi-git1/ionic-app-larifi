@@ -39,7 +39,7 @@
                 <label><span class="edospnc-speechBubble"></span>{{ 'CONGRATULATION_LETTER_DETAIL.VERBATIM' | translate }}</label>
                 <p class="verbatim">{{ congratulationLetter.verbatim }}</p>
                 <div>
-                    <document-manager [documents]="congratulationLetter.documents" [editMode]="false"></document-manager>
+                    <document-manager [documents]="congratulationLetter.documents" [readonly]="true"></document-manager>
                 </div>
             </div>
 

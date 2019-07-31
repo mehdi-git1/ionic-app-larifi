@@ -24,7 +24,7 @@ export class DocumentManagerComponent {
 
   @Input() documents: Array<DocumentModel>;
 
-  @Input() editMode: boolean;
+  @Input() readonly: boolean;
 
   loading = false;
 
