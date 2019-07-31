@@ -38,7 +38,7 @@
             </ion-item>
         </ion-row>
         <ion-row>
-            <document-manager [documents]="logbookEvent.attachmentFiles" [editMode]="true"></document-manager>
+            <document-manager [documents]="logbookEvent.attachmentFiles" [readonly]="false"></document-manager>
         </ion-row>
         <ion-row class="notification-row">
             <ion-col class="persons-to-notify">
@@ -123,7 +123,7 @@
                         <p>{{ logbookEvent.content }}</p>
                     </div>
                     <div>
-                        <document-manager [documents]="logbookEvent.attachmentFiles" [editMode]="false"></document-manager>
+                        <document-manager [documents]="logbookEvent.attachmentFiles" [readonly]="true"></document-manager>
                     </div>
                     <div class="logbook-notified-pnc" *ngIf="isManager()">
                         <div>

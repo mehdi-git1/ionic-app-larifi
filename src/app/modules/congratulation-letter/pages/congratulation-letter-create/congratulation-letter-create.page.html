@@ -88,6 +88,11 @@
                 </ion-row>
                 <ion-row>
                     <ion-col>
+                        <document-manager [documents]="congratulationLetter.documents" [readonly]="false"></document-manager>
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col>
                         <div class="button-bar button-bar-right">
                             <button ion-button outline (click)="cancelCreation()">{{ 'CONGRATULATION_LETTER_CREATE.BUTTONS.CANCEL' | translate }}</button>
                             <button ion-button [disabled]="!isFormValid() || submitInProgress" (click)="submitLetter()">

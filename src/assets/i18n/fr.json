@@ -82,7 +82,8 @@
             "CANCEL": "Annuler",
             "EXPORT": "Exporter",
             "YES": "Oui",
-            "NO": "Non"
+            "NO": "Non",
+            "OK": "Ok"
         },
         "CONFIRM_BACK_WITHOUT_SAVE": {
             "TITLE": "Modifications non enregistrées",
@@ -658,7 +659,13 @@
             "COLLECTIVE": "Collective",
             "INDIVIDUAL": "Individuelle"
         },
-        "VERBATIM": "Verbatim"
+        "VERBATIM": "Verbatim",
+        "ATTACHMENT_FILES": {
+            "VISUALIZATION_UNAVAILABLE": {
+                "TITLE": "Visualisation indisponible",
+                "MESSAGE": "Les pièces jointes ne sont pas disponibles en mode déconnecté."
+            }
+        }
     },
     "CONGRATULATION_LETTER_CREATE": {
         "TITLE_CREATE": "Créer une nouvelle lettre de félicitations",
