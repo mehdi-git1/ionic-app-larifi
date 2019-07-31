@@ -27,14 +27,26 @@ congratulation-letter-card {
             text-align: center;
         }
 
-        button.detail-button {
-            background: color($colors, primary-light);
-            color: color($colors, white);
-            width: 30px;
-            height: 30px;
-            box-shadow: none;
-            span:before {
-                font-size: 20px;
+        .others {
+            width: 83px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: flex-end;
+
+            button.detail-button {
+                background: color($colors, primary-light);
+                color: color($colors, white);
+                width: 30px;
+                height: 30px;
+                box-shadow: none;
+
+                span:before {
+                    font-size: 20px;
+                }
+            }
+
+            #attach {
+                margin-right: 8px;
             }
         }
     }
