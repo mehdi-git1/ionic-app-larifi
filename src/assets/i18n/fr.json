@@ -61,6 +61,7 @@
         "LOGBOOK": "Journal de bord",
         "MY_LOGBOOK": "Mon journal de bord",
         "PROFESSIONAL_INTERVIEWS_ARCHIVES": "Archives de bilans professionnels / EPP",
+        "MY_PROFESSIONAL_INTERVIEWS_ARCHIVES": "Mes archives de bilans professionnels / EPP",
         "UNKNOWN_ERROR": "Suite à un dysfonctionnement technique, l'opération a échoué. Nous vous invitons à réessayer dans quelques minutes. Si le problème persiste, veuillez contacter votre support.",
         "MESSAGES": {
             "ERROR": {
@@ -558,7 +559,8 @@
             "NO_DATA": "Pas de données disponibles"
         },
         "NOT_VALIDATED_QUESTIONS": {
-            "MY_TITLE": "Questions non validées"
+            "MY_TITLE": "Mes questions non validées",
+            "TITLE": "Questions non validées"
         }
     },
     "PNC_SEARCH": {
