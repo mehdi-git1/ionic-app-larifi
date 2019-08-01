@@ -103,7 +103,7 @@
         "PASSWORD": "PIN + Token",
         "VALIDATE": "Valider"
     },
-    "PNC_AUTOCOMPLETE" : {
+    "PNC_AUTOCOMPLETE": {
         "PLACEHOLDER": "Nom Prénom ou Matricule"
     },
     "CAREER_OBJECTIVE_CREATE": {
@@ -574,7 +574,9 @@
             "RELAY": "Relais",
             "AIRCRAFT_SKILL": "Spécialisation avion",
             "WORK_RATE": "Rythme",
-            "PRIORITIZED": "Priorité majeure"
+            "PRIORITIZED": "Priorité majeure",
+            "PRIORITY": "Priorité en cours",
+            "NO_PRIORITY": "Aucune priorité"
         },
         "DEFAULT_DATA": {
             "ALL_F": "Toutes",
