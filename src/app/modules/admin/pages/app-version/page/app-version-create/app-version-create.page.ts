@@ -188,9 +188,9 @@ export class AppVersionCreatePage {
     }
 
     /**
-     * Affiche un aperçu de la version
-     * @param appVersion la version dont on souhaite voir l'aperçu
-     */
+  * Affiche un aperçu de la version
+  * @param appVersion la version dont on souhaite voir l'aperçu
+  */
     displayOverview(appVersion: AppVersionModel) {
         this.appVersionAlertService.displayAppVersion(appVersion);
     }

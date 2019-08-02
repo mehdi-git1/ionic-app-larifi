@@ -7,6 +7,9 @@ import { IonicModule } from 'ionic-angular';
 import { CommonModule } from '@angular/common';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
+import { QuillModule } from 'ngx-quill';
+import { ReactiveFormsModule } from '@angular/forms';
+
 import { HttpClientModule } from '@angular/common/http';
 
 import { OfflineIndicatorComponent } from './offline-indicator/offline-indicator.component';
@@ -48,7 +51,9 @@ import { HtmlViewComponent } from './html-view/html-view.component';
     IonicModule,
     DirectivesModule,
     SharedModule,
-    HttpClientModule
+    HttpClientModule,
+    QuillModule,
+    ReactiveFormsModule
   ],
   declarations: [
     OfflineIndicatorComponent,

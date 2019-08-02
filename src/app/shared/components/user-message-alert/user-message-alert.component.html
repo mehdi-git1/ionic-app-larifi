@@ -5,7 +5,7 @@
             <label>{{ userMessage.title }}</label>
         </div>
         <div class="content">
-            <div [innerHTML]="userMessage.content"></div>
+            <html-view [content]="userMessage.content"></html-view>
         </div>
         <div class="button-bar">
             <button (click)="dismissMessage()">{{ 'GLOBAL.USER_MESSAGE.BUTTONS.DISMISS' | translate }}</button>
