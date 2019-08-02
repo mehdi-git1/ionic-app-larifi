@@ -42,11 +42,16 @@ export class GeneralitySkillsComponent implements OnInit {
     }
 
     this.skillTitleArray.push(this.translateService.instant('STATUTORY_CERTIFICATE.GENERALITY_SKILLS.PCB.TITLE'));
-    this.skillTitleArray.push(this.translateService.instant('STATUTORY_CERTIFICATE.GENERALITY_SKILLS.GENE.TITLE'));
     this.startDateArray.push(_.get(this.generalitySkillsData, 'pcb.validityStartDate'));
     this.startDateArray.push(StatutoryCertificateDisplayTypeEnum.NTBD);
     this.dueDateArray.push(_.get(this.generalitySkillsData, 'pcb.validityEndDate'));
-    this.dueDateArray.push(_.get(this.generalitySkillsData, 'gene.dueDate'));
+
+    const pcbValidityEndDate = new Date(_.get(this.generalitySkillsData, 'pcb.validityEndDate'));
+    const newDate = new Date();
+    if (pcbValidityEndDate == undefined || pcbValidityEndDate < newDate) {
+      this.skillTitleArray.push(this.translateService.instant('STATUTORY_CERTIFICATE.GENERALITY_SKILLS.GENE.TITLE'));
+      this.dueDateArray.push(_.get(this.generalitySkillsData, 'gene.dueDate'));
+    }
 
     this.skillDisplayedData = {
       headers:
