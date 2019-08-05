@@ -170,7 +170,7 @@
             "CAREER_OBJECTIVE_ABANDONED": "Priorité abandonnée",
             "CAREER_OBJECTIVE_VALIDATION_CANCELED": "La clôture de la priorité a été annulée",
             "CAREER_OBJECTIVE_RESUMED": "Priorité reprise",
-            "CAREER_OBJECTIVE_INSTRUCTOR_REQUESTED": "Brouillon enregistré et instructeur notifié"
+            "CAREER_OBJECTIVE_INSTRUCTOR_REQUESTED": "Brouillon enregistré et manager notifié"
         },
         "ERROR": {
             "CAREER_OBJECTIVE_CREATION_FAILED": "La création de la priorité a échouée",
