@@ -575,7 +575,7 @@
             "AIRCRAFT_SKILL": "Spécialisation avion",
             "WORK_RATE": "Rythme",
             "PRIORITIZED": "Priorité majeure",
-            "PRIORITY": "Priorité en cours",
+            "PRIORITY_IN_PROGRESS": "Priorité en cours",
             "NO_PRIORITY": "Aucune priorité"
         },
         "DEFAULT_DATA": {
