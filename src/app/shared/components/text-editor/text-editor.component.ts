@@ -1,5 +1,5 @@
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 import { TextEditorModeEnum } from '../../../core/enums/text-editor-mode.enum';
 
@@ -41,13 +41,10 @@ export class TextEditorComponent {
                 [{ 'indent': '-1' }, { 'indent': '+1' }],
 
                 [{ 'color': [] }, { 'background': [] }],
-                [{ 'font': [] }],
                 [{ 'align': [] }],
                 ['link']
             ];
         }
-
-
     }
 
     /**

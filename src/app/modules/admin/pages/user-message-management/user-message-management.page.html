@@ -31,7 +31,7 @@
                                 <ion-input formControlName="title" [(ngModel)]="selectedUserMessage.title" type="text" maxlength="255"></ion-input>
                             </ion-item>
                             <ion-item>
-                                <ion-textarea [(ngModel)]="selectedUserMessage.content" [placeholder]="'ADMIN.USER_MESSAGE_MANAGEMENT.LABELS.CONTENT' | translate" formControlName="content"></ion-textarea>
+                                <text-editor [content]="selectedUserMessage.content" [placeholder]="'ADMIN.USER_MESSAGE_MANAGEMENT.LABELS.CONTENT' | translate" [parentForm]="userMessageForm" [controlForm]="'content'" (contentChange)="setContent($event)"></text-editor>
                             </ion-item>
                             <ion-item>
                                 <ion-label>{{ 'ADMIN.USER_MESSAGE_MANAGEMENT.LABELS.ACTIVE' | translate }}</ion-label>
@@ -42,7 +42,7 @@
                                 {{ 'ADMIN.USER_MESSAGE_MANAGEMENT.BUTTONS.UPDATE' | translate }}
                             </button>
                             <button ion-button color="orange55" (click)="displayOverview()">
-                                <ion-icon name="md-bug" ios="md-bug" margin-right></ion-icon>
+                                <ion-icon ios="ios-search" md="md-search" margin-right></ion-icon>
                                 {{ 'ADMIN.USER_MESSAGE_MANAGEMENT.BUTTONS.OVERVIEW' | translate }}
                             </button>
                         </form>
