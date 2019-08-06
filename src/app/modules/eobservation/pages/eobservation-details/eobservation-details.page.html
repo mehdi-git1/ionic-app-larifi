@@ -4,7 +4,7 @@
             <span> {{ 'EOBSERVATION.DETAIL.TITLE' | translate }} {{getTypeLabel()}} {{getDetailOptionType()}}</span>
         </page-header>
     </ion-navbar>
-    <span  #pncCard>
+    <span #pncCard>
         <pnc-header [pnc]="pnc"></pnc-header>
     </span>
 </ion-header>
@@ -56,6 +56,10 @@
             <pdf-button [elementToPrint]="eObservationInformations" [pncCard]="pncCard" [pdfFileName]="pdfFileName"></pdf-button>
             <span *hasPermission="'EOBS_FULL_EDITION'">
                 <ng-container *ngIf="!editMode; else editModeButtonsBlock">
+                    <!-- Bouton supprimer objectif en brouillon -->
+                    <button ion-button color="red70" (click)="confirmDeleteEObservation()">
+                        <ion-icon name="ios-trash-outline" ios="ios-trash-outline" margin-right></ion-icon>{{ 'EOBSERVATION.BUTTONS.DELETE' | translate }}
+                    </button>
                     <!-- Bouton modifier l'eobs -->
                     <button ion-button color="grey20" (click)="enterEditMode()">
                         <ion-icon name="md-create" ios="md-create" margin-right></ion-icon> {{ 'EOBSERVATION.BUTTONS.EDIT' | translate }}

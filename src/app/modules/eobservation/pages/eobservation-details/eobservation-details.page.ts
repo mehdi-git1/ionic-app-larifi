@@ -1,6 +1,6 @@
 import { EObservationTypeEnum } from './../../../../core/enums/e-observations-type.enum';
 import { DatePipe } from '@angular/common';
-import { Component} from '@angular/core';
+import { Component } from '@angular/core';
 import { NavController, NavParams, AlertController, LoadingController, Loading } from 'ionic-angular';
 import { EObservationModel } from '../../../../core/models/eobservation/eobservation.model';
 import { PncModel } from '../../../../core/models/pnc.model';
@@ -220,11 +220,44 @@ export class EobservationDetailsPage {
       this.eObservation = eObservation;
       this.originEObservation = _.cloneDeep(this.eObservation);
       this.editMode = false;
-      this.toastService.success(this.translateService.instant('EOBSERVATION.MESSAGES.SUCCESS.UPDATED'));
+      if (this.eObservation.isDeleted) {
+        this.toastService.success(this.translateService.instant('EOBSERVATION.MESSAGES.SUCCESS.DELETED'));
+        this.navCtrl.pop();
+      } else {
+        this.toastService.success(this.translateService.instant('EOBSERVATION.MESSAGES.SUCCESS.UPDATED'));
+      }
     }, error => { }).then(() => {
       // Finally
       this.loading.dismiss();
     });
+  }
+
+  /**
+    * Confirmation de suppression de l'eObservation
+    */
+  confirmDeleteEObservation() {
+    this.alertCtrl.create({
+      title: this.translateService.instant('EOBSERVATION.CONFIRM_DELETE.TITLE'),
+      message: this.translateService.instant('EOBSERVATION.CONFIRM_DELETE.MESSAGE'),
+      buttons: [
+        {
+          text: this.translateService.instant('EOBSERVATION.CONFIRM_DELETE.CANCEL'),
+          role: 'cancel'
+        },
+        {
+          text: this.translateService.instant('EOBSERVATION.CONFIRM_DELETE.CONFIRM'),
+          handler: () => this.isDeleted()
+        }
+      ]
+    }).present();
+  }
+
+  /**
+   * Change la valeur du booléen "isDeleted"
+   */
+  isDeleted() {
+    this.eObservation.isDeleted = true;
+    this.updateEObservation()
   }
 
   /**
