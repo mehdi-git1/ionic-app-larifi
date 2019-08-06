@@ -1,13 +1,15 @@
-import { EObservationDisplayModeEnum } from './../../../../core/enums/eobservation/eobservation-display-mode.enum';
-import { Component } from '@angular/core';
 import { NavParams } from 'ionic-angular';
 
-import { EObservationService } from '../../../../core/services/eobservation/eobservation.service';
-import { SessionService } from '../../../../core/services/session/session.service';
-import { PncService } from '../../../../core/services/pnc/pnc.service';
+import { Component } from '@angular/core';
+
+import {
+    EObservationDisplayModeEnum
+} from '../../../../core/enums/eobservation/eobservation-display-mode.enum';
 import { EObservationModel } from '../../../../core/models/eobservation/eobservation.model';
 import { PncModel } from '../../../../core/models/pnc.model';
-
+import { EObservationService } from '../../../../core/services/eobservation/eobservation.service';
+import { PncService } from '../../../../core/services/pnc/pnc.service';
+import { SessionService } from '../../../../core/services/session/session.service';
 
 @Component({
     selector: 'e-observations-archives',
@@ -23,20 +25,15 @@ export class EObservationsArchivesPage {
     constructor(
         public navParams: NavParams,
         private eObservationService: EObservationService,
-        private sessionService: SessionService,
-        private pncService: PncService) {
+        private pncService: PncService,
+        private sessionService: SessionService) {
     }
 
     ionViewDidEnter() {
-        if (this.navParams.get('matricule')) {
-            this.matricule = this.navParams.get('matricule');
-        } else if (this.sessionService.getActiveUser()) {
-            this.matricule = this.sessionService.getActiveUser().matricule;
-        }
+        this.matricule = this.sessionService.getActiveUser().matricule;
         this.pncService.getPnc(this.matricule).then(pnc => {
             this.pnc = pnc;
-        }, error => {
-        });
+        }, error => { });
         this.getEObservationsList();
     }
 

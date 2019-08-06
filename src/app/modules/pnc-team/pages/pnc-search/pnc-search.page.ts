@@ -1,17 +1,17 @@
-import { TranslateService } from '@ngx-translate/core';
-import { Component, OnInit, ViewChild } from '@angular/core';
 import { Events } from 'ionic-angular';
 
-import { PncModel } from '../../../../core/models/pnc.model';
-import { PncSearchFilterComponent } from '../../components/pnc-search-filter/pnc-search-filter.component';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
+
 import { AppConstant } from '../../../../app.constant';
-
+import { PncModel } from '../../../../core/models/pnc.model';
 import { ConnectivityService } from '../../../../core/services/connectivity/connectivity.service';
-import { SessionService } from '../../../../core/services/session/session.service';
-
-import { PncService } from '../../../../core/services/pnc/pnc.service';
-
 import { PncPhotoService } from '../../../../core/services/pnc-photo/pnc-photo.service';
+import { PncService } from '../../../../core/services/pnc/pnc.service';
+import { SessionService } from '../../../../core/services/session/session.service';
+import {
+    PncSearchFilterComponent
+} from '../../components/pnc-search-filter/pnc-search-filter.component';
 
 @Component({
     selector: 'page-pnc-search',
@@ -136,7 +136,6 @@ export class PncSearchPage implements OnInit {
     openPncHomePage(pnc: PncModel) {
         // Si on va sur un PNC par la recherche, on suprime de la session une enventuelle rotation.
         this.sessionService.appContext.lastConsultedRotation = null;
-
         this.events.publish('EDossier:visited', pnc);
     }
 

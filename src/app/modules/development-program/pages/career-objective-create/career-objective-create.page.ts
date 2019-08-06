@@ -1,30 +1,42 @@
+import {
+    AlertController, Loading, LoadingController, NavController, NavParams
+} from 'ionic-angular';
+import * as _ from 'lodash';
+
 import { DatePipe } from '@angular/common';
-import { Utils } from '../../../../shared/utils/utils';
-import { DateTransform } from '../../../../shared/utils/date-transform';
-import { SynchronizationService } from '../../../../core/services/synchronization/synchronization.service';
-import { DeviceService } from '../../../../core/services/device/device.service';
-import { OfflineCareerObjectiveService } from '../../../../core/services/career-objective/offline-career-objective.service';
-import { OfflinePncService } from '../../../../core/services/pnc/offline-pnc.service';
-import { ConnectivityService } from '../../../../core/services/connectivity/connectivity.service';
-import { AppConstant } from '../../../../app.constant';
-import { WaypointStatusEnum } from '../../../../core/enums/waypoint.status.enum';
-import { SecurityService } from '../../../../core/services/security/security.service';
-import { WaypointService } from '../../../../core/services/waypoint/waypoint.service';
-import { CareerObjectiveStatusService } from '../../../../core/services/career-objective-status/career-objective-status.service';
-import { ToastService } from '../../../../core/services/toast/toast.service';
-import { CareerObjectiveStatusEnum } from '../../../../core/enums/career-objective-status.enum';
-import { TranslateService } from '@ngx-translate/core';
-import { CareerObjectiveService } from '../../../../core/services/career-objective/career-objective.service';
-import { CareerObjectiveModel } from '../../../../core/models/career-objective.model';
 import { Component } from '@angular/core';
-import { NavController, NavParams, AlertController, LoadingController, Loading } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { TranslateService } from '@ngx-translate/core';
+
+import { AppConstant } from '../../../../app.constant';
+import { CareerObjectiveStatusEnum } from '../../../../core/enums/career-objective-status.enum';
+import { WaypointStatusEnum } from '../../../../core/enums/waypoint.status.enum';
+import { CareerObjectiveModel } from '../../../../core/models/career-objective.model';
 import { PncModel } from '../../../../core/models/pnc.model';
 import { WaypointModel } from '../../../../core/models/waypoint.model';
-import { WaypointCreatePage } from '../waypoint-create/waypoint-create.page';
-import * as _ from 'lodash';
-import { SessionService } from '../../../../core/services/session/session.service';
+import {
+    CareerObjectiveStatusService
+} from '../../../../core/services/career-objective-status/career-objective-status.service';
+import {
+    CareerObjectiveService
+} from '../../../../core/services/career-objective/career-objective.service';
+import {
+    OfflineCareerObjectiveService
+} from '../../../../core/services/career-objective/offline-career-objective.service';
+import { ConnectivityService } from '../../../../core/services/connectivity/connectivity.service';
+import { DeviceService } from '../../../../core/services/device/device.service';
+import { OfflinePncService } from '../../../../core/services/pnc/offline-pnc.service';
 import { PncService } from '../../../../core/services/pnc/pnc.service';
+import { SecurityService } from '../../../../core/services/security/security.service';
+import { SessionService } from '../../../../core/services/session/session.service';
+import {
+    SynchronizationService
+} from '../../../../core/services/synchronization/synchronization.service';
+import { ToastService } from '../../../../core/services/toast/toast.service';
+import { WaypointService } from '../../../../core/services/waypoint/waypoint.service';
+import { DateTransform } from '../../../../shared/utils/date-transform';
+import { Utils } from '../../../../shared/utils/utils';
+import { WaypointCreatePage } from '../waypoint-create/waypoint-create.page';
 
 @Component({
     selector: 'page-career-objective-create',
@@ -118,13 +130,10 @@ export class CareerObjectiveCreatePage {
      * Initialisation du contenu de la page.
      */
     initPage() {
-        const matricule = this.navParams.get('matricule');
-        if (matricule) {
-            this.pncService.getPnc(matricule).then(pnc => {
-                this.pnc = pnc;
-            }, error => {
-            });
-        }
+        const matricule = this.sessionService.getActiveUser().matricule;
+        this.pncService.getPnc(matricule).then(pnc => {
+            this.pnc = pnc;
+        }, error => { });
         // On récupère l'id de l'objectif dans les paramètres de navigation
         if (this.navParams.get('careerObjectiveId') && this.navParams.get('careerObjectiveId') !== 0) {
             // Récupération de l'objectif et des points d'étape

@@ -1,13 +1,21 @@
-import { DatePipe } from '@angular/common';
-import { CongratulationLetterRedactorTypeEnum } from './../../../../core/enums/congratulation-letter/congratulation-letter-redactor-type.enum';
-import { CongratulationLetterFlightModel } from './../../../../core/models/congratulation-letter-flight.model';
-import { CongratulationLetterModel } from './../../../../core/models/congratulation-letter.model';
-import { SessionService } from './../../../../core/services/session/session.service';
-import { PncModel } from './../../../../core/models/pnc.model';
-import { CongratulationLetterService } from './../../../../core/services/congratulation-letter/congratulation-letter.service';
 import { NavParams } from 'ionic-angular';
+
+import { DatePipe } from '@angular/common';
 import { Component } from '@angular/core';
+
+import {
+    CongratulationLetterRedactorTypeEnum
+} from '../../../../core/enums/congratulation-letter/congratulation-letter-redactor-type.enum';
+import {
+    CongratulationLetterFlightModel
+} from '../../../../core/models/congratulation-letter-flight.model';
+import { CongratulationLetterModel } from '../../../../core/models/congratulation-letter.model';
+import { PncModel } from '../../../../core/models/pnc.model';
+import {
+    CongratulationLetterService
+} from '../../../../core/services/congratulation-letter/congratulation-letter.service';
 import { PncService } from '../../../../core/services/pnc/pnc.service';
+import { SessionService } from '../../../../core/services/session/session.service';
 
 @Component({
     selector: 'congratulation-letter-detail',
@@ -31,11 +39,7 @@ export class CongratulationLetterDetailPage {
     }
 
     ionViewDidEnter() {
-        if (this.navParams.get('matricule')) {
-            this.matricule = this.navParams.get('matricule');
-        } else if (this.sessionService.getActiveUser()) {
-            this.matricule = this.sessionService.getActiveUser().matricule;
-        }
+        this.matricule = this.sessionService.getActiveUser().matricule;
         this.pncService.getPnc(this.matricule).then(pnc => {
             this.pnc = pnc;
         }, error => { });

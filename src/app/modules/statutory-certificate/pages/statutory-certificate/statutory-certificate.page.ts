@@ -1,12 +1,18 @@
-import { StatutoryCertificateDisplayTypeEnum } from './../../../../core/enums/statutory-certificate-display-type.enum';
+import { NavParams } from 'ionic-angular';
+
+import { Component } from '@angular/core';
+
+import {
+    StatutoryCertificateDisplayTypeEnum
+} from '../../../../core/enums/statutory-certificate-display-type.enum';
+import { TabHeaderEnum } from '../../../../core/enums/tab-header.enum';
+import { PncModel } from '../../../../core/models/pnc.model';
 import { StatutoryCertificateModel } from '../../../../core/models/statutory.certificate.model';
-import { StatutoryCertificateService } from '../../../../core/services/statutory-certificate/statutory-certificate.service';
 import { PncService } from '../../../../core/services/pnc/pnc.service';
 import { SessionService } from '../../../../core/services/session/session.service';
-import { PncModel } from '../../../../core/models/pnc.model';
-import { Component } from '@angular/core';
-import { NavParams } from 'ionic-angular';
-import { TabHeaderEnum } from '../../../../core/enums/tab-header.enum';
+import {
+    StatutoryCertificateService
+} from '../../../../core/services/statutory-certificate/statutory-certificate.service';
 
 @Component({
   selector: 'page-statutory-certificate',
@@ -31,20 +37,14 @@ export class StatutoryCertificatePage {
   ) { }
 
   ionViewDidEnter() {
-    if (this.navParams.get('matricule')) {
-      this.matricule = this.navParams.get('matricule');
-    } else if (this.sessionService.getActiveUser()) {
-      this.matricule = this.sessionService.getActiveUser().matricule;
-    }
-    if (this.matricule != null) {
-      this.pncProvider.getPnc(this.matricule).then(pnc => {
-        this.pnc = pnc;
-        this.formatedSpeciality = this.pncProvider.getFormatedSpeciality(pnc);
-      }, error => { });
-      this.statutoryCertificateProvider.getStatutoryCertificate(this.matricule).then(statutoryCertificate => {
-        this.statutoryCertificate = statutoryCertificate;
-      }, error => { });
-    }
+    this.matricule = this.sessionService.getActiveUser().matricule;
+    this.pncProvider.getPnc(this.matricule).then(pnc => {
+      this.pnc = pnc;
+      this.formatedSpeciality = this.pncProvider.getFormatedSpeciality(pnc);
+    }, error => { });
+    this.statutoryCertificateProvider.getStatutoryCertificate(this.matricule).then(statutoryCertificate => {
+      this.statutoryCertificate = statutoryCertificate;
+    }, error => { });
   }
 
   /**

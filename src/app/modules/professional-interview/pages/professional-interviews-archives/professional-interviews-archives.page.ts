@@ -1,11 +1,16 @@
-import { ProfessionalInterviewService } from './../../../../core/services/professional-interview/professional-interview.service';
-import { ProfessionalInterviewModel } from './../../../../core/models/professional-interview/professional-interview.model';
-import { Component } from '@angular/core';
 import { NavParams } from 'ionic-angular';
 
-import { SessionService } from '../../../../core/services/session/session.service';
-import { PncService } from '../../../../core/services/pnc/pnc.service';
+import { Component } from '@angular/core';
+
 import { PncModel } from '../../../../core/models/pnc.model';
+import {
+    ProfessionalInterviewModel
+} from '../../../../core/models/professional-interview/professional-interview.model';
+import { PncService } from '../../../../core/services/pnc/pnc.service';
+import {
+    ProfessionalInterviewService
+} from '../../../../core/services/professional-interview/professional-interview.service';
+import { SessionService } from '../../../../core/services/session/session.service';
 
 @Component({
     selector: 'professional-interviews-archives',
@@ -23,11 +28,7 @@ export class ProfessionalInterviewsArchivesPage {
     }
 
     ionViewDidEnter() {
-        if (this.navParams.get('matricule')) {
-            this.matricule = this.navParams.get('matricule');
-        } else if (this.sessionService.getActiveUser()) {
-            this.matricule = this.sessionService.getActiveUser().matricule;
-        }
+        this.matricule = this.sessionService.getActiveUser().matricule;
         this.pncService.getPnc(this.matricule).then(pnc => {
             this.pnc = pnc;
         }, error => {

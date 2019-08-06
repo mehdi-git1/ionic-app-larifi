@@ -29,17 +29,16 @@ export class PncHomePage {
     formatedSpeciality: string;
 
     constructor(private navCtrl: NavController,
-        private navParams: NavParams,
         private toastService: ToastService,
         private synchronizationProvider: SynchronizationService,
-        private sessionService: SessionService,
         private translateService: TranslateService,
         private pncService: PncService,
         private events: Events,
         private statusBar: StatusBar,
         private userMessageAlertService: UserMessageAlertService,
         private appVersionAlertService: AppVersionAlertService,
-        private tabNavService: TabNavService
+        private tabNavService: TabNavService,
+        private sessionService: SessionService
     ) {
         this.userMessageAlertService.handleUserMessage();
         this.appVersionAlertService.handleAppVersion();
@@ -64,18 +63,11 @@ export class PncHomePage {
      * Initialisation du contenu de la page.
      */
     initPage() {
-        if (this.navParams.get('matricule')) {
-            this.matricule = this.navParams.get('matricule');
-        } else if (this.sessionService.getActiveUser()) {
-            this.matricule = this.sessionService.getActiveUser().matricule;
-        }
-        if (this.matricule != null) {
-            this.pncService.getPnc(this.matricule).then(pnc => {
-                this.pnc = pnc;
-                this.formatedSpeciality = this.pncService.getFormatedSpeciality(this.pnc);
-            }, error => {
-            });
-        }
+        this.matricule = this.sessionService.getActiveUser().matricule;
+        this.pncService.getPnc(this.matricule).then(pnc => {
+            this.pnc = pnc;
+            this.formatedSpeciality = this.pncService.getFormatedSpeciality(this.pnc);
+        }, error => { });
     }
 
     /**
@@ -129,8 +121,7 @@ export class PncHomePage {
             // Appel au getPnc pour mise a jour de l'indicateur offLine
             this.pncService.getPnc(this.matricule).then(pnc => {
                 this.pnc = pnc;
-            }, error => {
-            });
+            }, error => { });
             this.synchroInProgress = false;
             this.toastService.info(this.translateService.instant('SYNCHRONIZATION.PNC_SAVED_OFFLINE', { 'matricule': this.pnc.matricule }));
         }, error => {

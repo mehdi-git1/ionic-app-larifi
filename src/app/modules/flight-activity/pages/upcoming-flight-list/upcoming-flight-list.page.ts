@@ -1,12 +1,14 @@
-import { PncModel } from './../../../../core/models/pnc.model';
-import { TabHeaderEnum } from './../../../../core/enums/tab-header.enum';
-import { PncService } from '../../../../core/services/pnc/pnc.service';
-import { RotationModel } from '../../../../core/models/rotation.model';
-import { Component } from '@angular/core';
-import { NavController, NavParams, IonicPage } from 'ionic-angular';
-import { SessionService } from '../../../../core/services/session/session.service';
-import { AppConstant } from '../../../../app.constant';
+import { NavController, NavParams } from 'ionic-angular';
 import * as moment from 'moment';
+
+import { Component } from '@angular/core';
+
+import { AppConstant } from '../../../../app.constant';
+import { TabHeaderEnum } from '../../../../core/enums/tab-header.enum';
+import { PncModel } from '../../../../core/models/pnc.model';
+import { RotationModel } from '../../../../core/models/rotation.model';
+import { PncService } from '../../../../core/services/pnc/pnc.service';
+import { SessionService } from '../../../../core/services/session/session.service';
 
 @Component({
     selector: 'page-upcoming-flight-list',
@@ -36,12 +38,7 @@ export class UpcomingFlightListPage {
      * Initialisation du contenu de la page.
      */
     initPage() {
-        if (this.navParams.get('matricule')) {
-            this.matricule = this.navParams.get('matricule');
-        } else if (this.sessionService.getActiveUser()) {
-            this.matricule = this.sessionService.getActiveUser().matricule;
-        }
-
+        this.matricule = this.sessionService.getActiveUser().matricule;
         this.pncService.getPnc(this.matricule).then(pnc => {
             this.pnc = pnc;
         }, error => { });
