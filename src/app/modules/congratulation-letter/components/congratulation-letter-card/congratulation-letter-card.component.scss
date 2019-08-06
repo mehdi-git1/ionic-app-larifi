@@ -16,6 +16,13 @@ congratulation-letter-card {
 
         .type {
             flex: 1;
+            display: flex;
+            align-items: center;
+
+            .attach-icon {
+                margin-left: 10px;
+                font-size: 1.8em;
+            }
         }
 
         .redactor {
@@ -24,7 +31,7 @@ congratulation-letter-card {
 
 
         .user-actions {
-            width: 120px;
+            width: 80px;
             display: flex;
             align-items: center;
             justify-content: flex-end;
@@ -43,11 +50,6 @@ congratulation-letter-card {
                 span:before {
                     font-size: 20px;
                 }
-            }
-
-            .attach-icon {
-                margin-right: 15px;
-                font-size: 2em;
             }
 
             .actions-button {
