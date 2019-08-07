@@ -56,8 +56,8 @@
             <pdf-button [elementToPrint]="eObservationInformations" [pncCard]="pncCard" [pdfFileName]="pdfFileName"></pdf-button>
             <span *hasPermission="'EOBS_FULL_EDITION'">
                 <ng-container *ngIf="!editMode; else editModeButtonsBlock">
-                    <!-- Bouton supprimer objectif en brouillon -->
-                    <button ion-button color="red70" (click)="confirmDeleteEObservation()">
+                    <!-- Bouton supprimer l'eobs -->
+                    <button ion-button color="red70" (click)="confirmDeleteEObservation()" [disabled]="isConnected()">
                         <ion-icon name="ios-trash-outline" ios="ios-trash-outline" margin-right></ion-icon>{{ 'EOBSERVATION.BUTTONS.DELETE' | translate }}
                     </button>
                     <!-- Bouton modifier l'eobs -->

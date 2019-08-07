@@ -15,6 +15,7 @@ import * as _ from 'lodash';
 import { Utils } from '../../../../shared/utils/utils';
 import { PncService } from '../../../../core/services/pnc/pnc.service';
 import { ReferentialItemLevelModel } from '../../../../core/models/eobservation/eobservation-referential-item-level.model';
+import { ConnectivityService } from '../../../../core/services/connectivity/connectivity.service';
 
 @Component({
   selector: 'page-eobservation-details',
@@ -42,6 +43,7 @@ export class EobservationDetailsPage {
     private alertCtrl: AlertController,
     private loadingCtrl: LoadingController,
     private pncService: PncService,
+    private connectivityService: ConnectivityService,
     private datePipe: DatePipe) {
     this.initPage();
   }
@@ -246,18 +248,25 @@ export class EobservationDetailsPage {
         },
         {
           text: this.translateService.instant('EOBSERVATION.CONFIRM_DELETE.CONFIRM'),
-          handler: () => this.isDeleted()
+          handler: () => this.isMarkedAsDeleted()
         }
       ]
     }).present();
   }
 
   /**
-   * Change la valeur du booléen "isDeleted"
+   * Marque l'eObs comme supprimée et appelle la méthode pour la mise à jour"
    */
-  isDeleted() {
+  isMarkedAsDeleted() {
     this.eObservation.isDeleted = true;
-    this.updateEObservation()
+    this.updateEObservation();
+  }
+
+  /**
+   * Retourne un booléen en fonction de l'état du réseau
+   */
+  isConnected(): boolean {
+    return !this.connectivityService.isConnected();
   }
 
   /**
