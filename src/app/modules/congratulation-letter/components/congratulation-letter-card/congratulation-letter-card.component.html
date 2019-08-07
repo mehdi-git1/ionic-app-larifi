@@ -3,6 +3,7 @@
     <span class="type">
         <ng-container *ngIf="congratulationLetter.collective; else individualLabel">{{ 'CONGRATULATION_LETTERS.TYPE.COLLECTIVE' | translate }}</ng-container>
         <ng-template #individualLabel>{{ 'CONGRATULATION_LETTERS.TYPE.INDIVIDUAL' | translate }}</ng-template>
+        <ion-icon class="attach-icon" name="attach" *ngIf="congratulationLetter.documents.length > 0"></ion-icon>
     </span>
     <span class="redactor" *ngIf="isMode(CongratulationLetterModeEnum.RECEIVED)">
         <ng-container *ngIf="congratulationLetter.redactorType === CongratulationLetterRedactorTypeEnum.PNC; else notPncRedactorBlock">
@@ -13,15 +14,11 @@
         </ng-template>
     </span>
     <span class="user-actions">
-        <ion-icon id="attach-icon" name="attach"></ion-icon>
-        <button ion-fab class="detail-button" color="white" (click)="goToCongratulationLetterDetail(congratulationLetter)">
+        <button ion-fab class="detail-button" (click)="goToCongratulationLetterDetail(congratulationLetter)">
             <span class="edospnc-memo"></span>
         </button>
-        <span class="actions" *ngIf="isManager() && isConnected()">
-            <div class="clickable" (click)="openActionsMenu($event, congratulationLetter, matricule)">
-                <ion-icon ios="md-more" md="md-more">
-                </ion-icon>
-            </div>
-        </span>
+        <button ion-fab class="actions-button" (click)="openActionsMenu($event, congratulationLetter, matricule)" *ngIf="isManager() && isConnected()">
+            <ion-icon ios="md-more" md="md-more"></ion-icon>
+        </button>
     </span>
 </div>
