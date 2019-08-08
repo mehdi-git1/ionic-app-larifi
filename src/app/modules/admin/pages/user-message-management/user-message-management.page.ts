@@ -1,19 +1,19 @@
-import { TabHeaderEnum } from './../../../../core/enums/tab-header.enum';
-import { TabHeaderModeEnum } from '../../../../core/enums/tab-header-mode.enum';
-
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component, ViewChild } from '@angular/core';
-
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 
-import { TextEditorComponent } from '../../../../shared/components/text-editor/text-editor.component';
-
+import { TabHeaderModeEnum } from '../../../../core/enums/tab-header-mode.enum';
+import { TabHeaderEnum } from '../../../../core/enums/tab-header.enum';
+import { TextEditorModeEnum } from '../../../../core/enums/text-editor-mode.enum';
 import { UserMessageModel } from '../../../../core/models/admin/user-message.model';
-
-import { UserMessageService } from '../../../../core/services/user-message/user-message.service';
-import { UserMessageAlertService } from './../../../../core/services/user-message/user-message-alert.service';
 import { ToastService } from '../../../../core/services/toast/toast.service';
-
+import {
+    UserMessageAlertService
+} from '../../../../core/services/user-message/user-message-alert.service';
+import { UserMessageService } from '../../../../core/services/user-message/user-message.service';
+import {
+    TextEditorComponent
+} from '../../../../shared/components/text-editor/text-editor.component';
 
 @Component({
     selector: 'page-user-message-management',
@@ -26,6 +26,8 @@ export class UserMessageManagementPage {
     userMessageForm: FormGroup;
 
     selectedUserMessage: UserMessageModel;
+
+    get TextEditorModeEnum() { return TextEditorModeEnum; }
 
     userMessages: UserMessageModel[];
 
