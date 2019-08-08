@@ -16,22 +16,29 @@ congratulation-letter-card {
 
         .type {
             flex: 1;
+            display: flex;
+            align-items: center;
+
+            .attach-icon {
+                margin-left: 10px;
+                font-size: 1.8em;
+            }
         }
 
         .redactor {
             flex: 2;
         }
 
-        .actions {
-            width: 30px;
-            text-align: center;
-        }
 
         .user-actions {
-            width: 83px;
-            display: inline-flex;
+            width: 80px;
+            display: flex;
             align-items: center;
             justify-content: flex-end;
+
+            & > * {
+                margin-left: 10px;
+            }
 
             button.detail-button {
                 background: color($colors, primary-light);
@@ -45,9 +52,18 @@ congratulation-letter-card {
                 }
             }
 
-            #attach-icon {
-                margin-right: 8px;
+            .actions-button {
+                background: transparent;
+                color: color($colors, primary-light);
+                width: 30px;
+                height: 30px;
+                box-shadow: none;
+
+                ion-icon {
+                    font-size: 2em;
+                }
             }
+
         }
     }
 }
