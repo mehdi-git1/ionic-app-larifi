@@ -477,17 +477,25 @@
             "CONFIRM": "Oui",
             "CANCEL": "Non"
         },
+        "CONFIRM_DELETE": {
+            "TITLE": "Suppression",
+            "MESSAGE": "Confirmez-vous la suppression de l'eObservation ?",
+            "CONFIRM": "Confirmer",
+            "CANCEL": "Annuler"
+        },
         "MESSAGES": {
             "SUCCESS": {
                 "PNC_COMMENT_SAVED": "Commentaire validé",
-                "UPDATED": "eObservation mise à jour"
+                "UPDATED": "eObservation mise à jour",
+                "DELETED": "eObservation supprimée"
             }
         },
         "BUTTONS": {
             "VALIDATE_PNC_COMMENT": "Valider",
             "EDIT": "Modifier",
             "CANCEL": "Annuler",
-            "UPDATE": "Mettre à jour"
+            "UPDATE": "Mettre à jour",
+            "DELETE": "Supprimer"
         }
     },
     "PROFESSIONAL_LEVEL": {

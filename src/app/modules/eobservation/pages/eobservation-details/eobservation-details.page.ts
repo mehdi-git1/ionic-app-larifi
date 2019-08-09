@@ -1,6 +1,6 @@
 import { EObservationTypeEnum } from './../../../../core/enums/e-observations-type.enum';
 import { DatePipe } from '@angular/common';
-import { Component} from '@angular/core';
+import { Component } from '@angular/core';
 import { NavController, NavParams, AlertController, LoadingController, Loading } from 'ionic-angular';
 import { EObservationModel } from '../../../../core/models/eobservation/eobservation.model';
 import { PncModel } from '../../../../core/models/pnc.model';
@@ -15,6 +15,7 @@ import * as _ from 'lodash';
 import { Utils } from '../../../../shared/utils/utils';
 import { PncService } from '../../../../core/services/pnc/pnc.service';
 import { ReferentialItemLevelModel } from '../../../../core/models/eobservation/eobservation-referential-item-level.model';
+import { ConnectivityService } from '../../../../core/services/connectivity/connectivity.service';
 
 @Component({
   selector: 'page-eobservation-details',
@@ -42,6 +43,7 @@ export class EobservationDetailsPage {
     private alertCtrl: AlertController,
     private loadingCtrl: LoadingController,
     private pncService: PncService,
+    private connectivityService: ConnectivityService,
     private datePipe: DatePipe) {
     this.initPage();
   }
@@ -220,11 +222,51 @@ export class EobservationDetailsPage {
       this.eObservation = eObservation;
       this.originEObservation = _.cloneDeep(this.eObservation);
       this.editMode = false;
-      this.toastService.success(this.translateService.instant('EOBSERVATION.MESSAGES.SUCCESS.UPDATED'));
+      if (this.eObservation.isDeleted) {
+        this.toastService.success(this.translateService.instant('EOBSERVATION.MESSAGES.SUCCESS.DELETED'));
+        this.navCtrl.pop();
+      } else {
+        this.toastService.success(this.translateService.instant('EOBSERVATION.MESSAGES.SUCCESS.UPDATED'));
+      }
     }, error => { }).then(() => {
       // Finally
       this.loading.dismiss();
     });
+  }
+
+  /**
+    * Confirmation de suppression de l'eObservation
+    */
+  confirmDeleteEObservation() {
+    this.alertCtrl.create({
+      title: this.translateService.instant('EOBSERVATION.CONFIRM_DELETE.TITLE'),
+      message: this.translateService.instant('EOBSERVATION.CONFIRM_DELETE.MESSAGE'),
+      buttons: [
+        {
+          text: this.translateService.instant('EOBSERVATION.CONFIRM_DELETE.CANCEL'),
+          role: 'cancel'
+        },
+        {
+          text: this.translateService.instant('EOBSERVATION.CONFIRM_DELETE.CONFIRM'),
+          handler: () => this.isMarkedAsDeleted()
+        }
+      ]
+    }).present();
+  }
+
+  /**
+   * Marque l'eObs comme supprimée et appelle la méthode pour la mise à jour"
+   */
+  isMarkedAsDeleted() {
+    this.eObservation.isDeleted = true;
+    this.updateEObservation();
+  }
+
+  /**
+   * Retourne un booléen en fonction de l'état du réseau
+   */
+  isConnected(): boolean {
+    return !this.connectivityService.isConnected();
   }
 
   /**
