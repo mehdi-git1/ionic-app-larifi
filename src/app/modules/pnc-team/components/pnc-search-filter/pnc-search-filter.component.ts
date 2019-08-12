@@ -36,6 +36,9 @@ export class PncSearchFilterComponent implements OnInit {
   defaultGinq: string;
   defaultValue: boolean;
   valueAll = AppConstant.ALL;
+  prioritized: boolean;
+  priority: boolean;
+  noPriority: boolean;
 
   searchForm: FormGroup;
 
@@ -132,8 +135,13 @@ export class PncSearchFilterComponent implements OnInit {
     this.searchForm.get('aircraftSkillControl').setValue(this.aircraftSkillList && this.aircraftSkillList.length === 1 ? this.aircraftSkillList[0] : AppConstant.ALL);
     this.searchForm.get('relayControl').setValue(this.relayList && this.relayList.length === 1 ? this.relayList[0] : AppConstant.ALL);
     this.searchForm.get('prioritizedControl').setValue(false);
+    this.searchForm.get('hasAtLeastOnePriorityInProgressControl').setValue(false);
+    this.searchForm.get('hasNoPriorityControl').setValue(false);
     this.search();
     this.defaultValue = false;
+    this.priority = false;
+    this.noPriority = false;
+    this.prioritized = false;
   }
 
   /**
@@ -147,7 +155,9 @@ export class PncSearchFilterComponent implements OnInit {
       specialityControl: [this.pncFilter.speciality ? this.pncFilter.speciality : AppConstant.ALL],
       aircraftSkillControl: [this.pncFilter.aircraftSkill ? this.pncFilter.aircraftSkill : AppConstant.ALL],
       relayControl: [this.pncFilter.relay ? this.pncFilter.relay : AppConstant.ALL],
-      prioritizedControl: [false]
+      prioritizedControl: [false],
+      hasAtLeastOnePriorityInProgressControl: [false],
+      hasNoPriorityControl: [false]
     });
     if (this.connectivityService.isConnected()) {
       this.resetFilterValues();
@@ -177,6 +187,8 @@ export class PncSearchFilterComponent implements OnInit {
       this.pncFilter.aircraftSkill = val.aircraftSkillControl;
       this.pncFilter.relay = val.relayControl;
       this.pncFilter.prioritized = val.prioritizedControl;
+      this.pncFilter.hasAtLeastOnePriorityInProgress = val.hasAtLeastOnePriorityInProgressControl;
+      this.pncFilter.hasNoPriority = val.hasNoPriorityControl;
       this.search();
     });
   }

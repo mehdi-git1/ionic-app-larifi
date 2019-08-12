@@ -28,10 +28,6 @@ pnc-search-filter {
             }
         }
 
-        .col {
-            align-self: center;
-        }
-
         .auto-complete-spinner {
             position: absolute;
             top: 20px;
@@ -51,7 +47,7 @@ pnc-search-filter {
         }
 
         ion-card-content.opened {
-            max-height: 170px;
+            max-height: 220px;
             transition: max-height 500ms;
         }
 
@@ -102,6 +98,14 @@ pnc-search-filter {
                 opacity 2000ms;
         }
 
+        ion-row.filters-row {
+            ion-col {
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-end;
+            }
+        }
+
         form {
             .label-inactive-filters {
                 color: color($colors, grey20);
@@ -118,9 +122,34 @@ pnc-search-filter {
             }
 
         }
+
+        // Checkbox
+        .checkbox-container {
+            padding-bottom: 2px;
+
+            .item-checkbox {
+                &.item-block {
+                    min-height: 20%;
+                    align-self: flex-end !important;
+                }
+
+                .label {
+                    margin: 0;
+                }
+
+                .checkbox {
+                    margin-right: 3px;
+                    padding-right: 3px;
+                    margin-left: 0px;
+                    padding-left: 0px;
+                }
+            }
+        }
     }
 
 }
+
+
 
 .list ion-item {
     ion-label {

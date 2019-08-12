@@ -27,6 +27,7 @@ export class EObservationModel extends EDossierPncObjectModel {
     val: boolean;
     strongPoints: string;
     workingAxes: string;
+    isDeleted: boolean;
 
     getStorageId(): string {
         return `${this.techId}`;
