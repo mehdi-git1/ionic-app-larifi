@@ -62,10 +62,10 @@ export class TabHeaderComponent implements OnInit, AfterViewInit {
    */
   openTab(tab: any) {
     let navParams = {};
-    if (this.mode === TabHeaderModeEnum.EDOSSIER && this.sessionService.visitedPnc && !this.sessionService.isActiveUser(this.sessionService.visitedPnc)) {
+    if (this.mode === TabHeaderModeEnum.EDOSSIER && !this.sessionService.isActiveUser(this.sessionService.visitedPnc)) {
       navParams = {
-        matricule: this.sessionService.visitedPnc.matricule,
-        pncRole: this.sessionService.visitedPnc.manager ? PncRoleEnum.MANAGER : PncRoleEnum.PNC
+        matricule: this.sessionService.visitedPnc ? this.sessionService.visitedPnc.matricule : this.sessionService.getActiveUser(),
+        pncRole: this.sessionService.visitedPnc && this.sessionService.visitedPnc.manager ? PncRoleEnum.MANAGER : PncRoleEnum.PNC
       };
     }
     this.navCtrl.setRoot(tab.component, navParams);

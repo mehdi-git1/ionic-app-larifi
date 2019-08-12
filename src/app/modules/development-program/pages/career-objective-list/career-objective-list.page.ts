@@ -89,11 +89,13 @@ export class CareerObjectiveListPage {
     private deviceService: DeviceService,
     private eObservationService: EObservationService,
     private sessionService: SessionService,
-    private synchronizationProvider: SynchronizationService,
+    private synchronizationService: SynchronizationService,
     private pncService: PncService) {
     this.lastConsultedRotation = this.sessionService.appContext.lastConsultedRotation;
-    this.synchronizationProvider.synchroStatusChange.subscribe(synchroInProgress => {
-      if (!synchroInProgress) {
+
+    this.synchronizationService.synchroStatusChange.subscribe(synchroInProgress => {
+
+      if (!synchroInProgress && this.matricule) {
         this.getEObservationsList();
         this.initCareerObjectivesList();
       }
@@ -101,7 +103,7 @@ export class CareerObjectiveListPage {
   }
 
   ionViewDidEnter() {
-    this.matricule = this.sessionService.getActiveUser().matricule;
+    this.matricule = this.navParams.get('matricule');
     this.pncService.getPnc(this.matricule).then(pnc => {
       this.pnc = pnc;
     }, error => { });
