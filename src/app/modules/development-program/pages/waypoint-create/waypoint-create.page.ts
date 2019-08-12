@@ -101,7 +101,7 @@ export class WaypointCreatePage {
      * Initialisation du contenu de la page.
      */
     initPage() {
-        this.pncService.getPnc(this.sessionService.getActiveUser().matricule).then(pnc => {
+        this.pncService.getPnc(this.navParams.get('matricule')).then(pnc => {
             this.pnc = pnc;
         }, error => { });
 

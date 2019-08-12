@@ -37,7 +37,7 @@ export class StatutoryCertificatePage {
   ) { }
 
   ionViewDidEnter() {
-    this.matricule = this.sessionService.getActiveUser().matricule;
+    this.matricule = this.navParams.get('matricule');
     this.pncProvider.getPnc(this.matricule).then(pnc => {
       this.pnc = pnc;
       this.formatedSpeciality = this.pncProvider.getFormatedSpeciality(pnc);

@@ -1,21 +1,33 @@
-import { TabNavService } from './../../../../core/services/tab-nav/tab-nav.service';
+import { Events, NavController } from 'ionic-angular';
+
 import { Component } from '@angular/core';
-import { NavController, NavParams, Events } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { TranslateService } from '@ngx-translate/core';
-import { PncModel } from '../../../../core/models/pnc.model';
 
-import { ProfessionalLevelPage } from '../../../professional-level/pages/professional-level/professional-level.page';
-import { StatutoryCertificatePage } from '../../../statutory-certificate/pages/statutory-certificate/statutory-certificate.page';
-import { CongratulationLettersPage } from '../../../congratulation-letter/pages/congratulation-letters/congratulation-letters.page';
-
-import { AppVersionAlertService } from './../../../../core/services/app-version/app-version-alert.service';
-import { UserMessageAlertService } from './../../../../core/services/user-message/user-message-alert.service';
-import { SynchronizationService } from '../../../../core/services/synchronization/synchronization.service';
-import { SessionService } from '../../../../core/services/session/session.service';
-import { ToastService } from '../../../../core/services/toast/toast.service';
-import { PncService } from '../../../../core/services/pnc/pnc.service';
 import { TabNavEnum } from '../../../../core/enums/tab-nav.enum';
+import { PncModel } from '../../../../core/models/pnc.model';
+import {
+    AppVersionAlertService
+} from '../../../../core/services/app-version/app-version-alert.service';
+import { PncService } from '../../../../core/services/pnc/pnc.service';
+import { SessionService } from '../../../../core/services/session/session.service';
+import {
+    SynchronizationService
+} from '../../../../core/services/synchronization/synchronization.service';
+import { TabNavService } from '../../../../core/services/tab-nav/tab-nav.service';
+import { ToastService } from '../../../../core/services/toast/toast.service';
+import {
+    UserMessageAlertService
+} from '../../../../core/services/user-message/user-message-alert.service';
+import {
+    CongratulationLettersPage
+} from '../../../congratulation-letter/pages/congratulation-letters/congratulation-letters.page';
+import {
+    ProfessionalLevelPage
+} from '../../../professional-level/pages/professional-level/professional-level.page';
+import {
+    StatutoryCertificatePage
+} from '../../../statutory-certificate/pages/statutory-certificate/statutory-certificate.page';
 
 @Component({
     selector: 'page-pnc-home',

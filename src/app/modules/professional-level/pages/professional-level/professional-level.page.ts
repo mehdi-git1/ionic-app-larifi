@@ -54,7 +54,7 @@ export class ProfessionalLevelPage {
       'PROFESSIONAL_LEVEL.LEGEND.E2',
       'PROFESSIONAL_LEVEL.LEGEND.FC');
 
-    this.matricule = this.sessionService.getActiveUser().matricule;
+    this.matricule = this.navParams.get('matricule');
     this.pncService.getPnc(this.matricule).then(pnc => {
       this.pnc = pnc;
       this.getEObservationsList();

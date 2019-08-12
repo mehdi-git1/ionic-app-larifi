@@ -130,7 +130,7 @@ export class CareerObjectiveCreatePage {
      * Initialisation du contenu de la page.
      */
     initPage() {
-        const matricule = this.sessionService.getActiveUser().matricule;
+        const matricule = this.navParams.get('matricule');
         this.pncService.getPnc(matricule).then(pnc => {
             this.pnc = pnc;
         }, error => { });

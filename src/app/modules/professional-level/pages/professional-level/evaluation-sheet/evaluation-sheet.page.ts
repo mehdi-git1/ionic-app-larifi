@@ -40,7 +40,8 @@ export class EvaluationSheetPage {
     }
 
     loadData() {
-        this.matricule = this.sessionService.getActiveUser().matricule;
+
+        this.matricule = this.navParams.get('matricule');
         this.pncService.getPnc(this.matricule).then(pnc => {
             this.pnc = pnc;
         }, error => { });

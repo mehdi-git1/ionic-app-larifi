@@ -52,7 +52,7 @@ export class HelpAssetListPage {
     }
 
     ionViewDidEnter() {
-        this.matricule = this.sessionService.getActiveUser().matricule;
+        this.matricule = this.navParams.get('matricule');
         this.pncService.getPnc(this.matricule).then(pnc => {
             this.pnc = pnc;
         }, error => {
