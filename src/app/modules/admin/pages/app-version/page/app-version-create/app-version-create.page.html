@@ -36,12 +36,7 @@
                         <ion-row>
                             <ion-col col-12>
                                 <!-- Changelog -->
-                                <ion-label stacked>{{ 'ADMIN.APP_VERSION_CREATE.LABEL.CHANGELOG' | translate }}</ion-label>
-                                <ion-item>
-                                    <ion-item>
-                                        <text-editor [textEditorMode]="TextEditorModeEnum.FULL" [content]="appVersion.changelog" [placeholder]="'ADMIN.APP_VERSION_CREATE.LABEL.CHANGELOG' | translate" name="changelog" [parentForm]="creationAppVersionForm" [controlForm]="'changelogControl'" (contentChange)="setContent($event)"></text-editor>
-                                    </ion-item>
-                                </ion-item>
+                                <text-editor [textEditorMode]="TextEditorModeEnum.FULL" [content]="appVersion.changelog" [placeholder]="'ADMIN.APP_VERSION_CREATE.LABEL.CHANGELOG' | translate" name="changelog" [parentForm]="creationAppVersionForm" [controlForm]="'changelogControl'" (contentChange)="setContent($event)"></text-editor>
                             </ion-col>
                         </ion-row>
                     </ion-grid>
