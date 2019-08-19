@@ -1,20 +1,39 @@
-import { UpcomingFlightListPage } from './../../../modules/flight-activity/pages/upcoming-flight-list/upcoming-flight-list.page';
-import { PncModel } from './../../models/pnc.model';
-import { SessionService } from '../session/session.service';
-import { AuthorizationService } from '../authorization/authorization.service';
-import { LogbookPage } from '../../../modules/logbook/pages/logbook/logbook.page';
-import { TabHeaderModeEnum } from '../../enums/tab-header-mode.enum';
-import { UserMessageManagementPage } from '../../../modules/admin/pages/user-message-management/user-message-management.page';
-import { AppVersionListPage } from './../../../modules/admin/pages/app-version/page/app-version-list/app-version-list.page';
-import { ProfileManagementPage } from '../../../modules/admin/pages/profile-management/profile-management.page';
-import { HelpAssetListPage } from '../../../modules/help-asset/pages/help-asset-list/help-asset-list.page';
-import { CongratulationLettersPage } from '../../../modules/congratulation-letter/pages/congratulation-letters/congratulation-letters.page';
-import { StatutoryCertificatePage } from '../../../modules/statutory-certificate/pages/statutory-certificate/statutory-certificate.page';
-import { ProfessionalLevelPage } from '../../../modules/professional-level/pages/professional-level/professional-level.page';
-import { CareerObjectiveListPage } from '../../../modules/development-program/pages/career-objective-list/career-objective-list.page';
 import { Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
+
+import {
+    AppVersionListPage
+} from '../../../modules/admin/pages/app-version/page/app-version-list/app-version-list.page';
+import {
+    ProfileManagementPage
+} from '../../../modules/admin/pages/profile-management/profile-management.page';
+import {
+    UserMessageManagementPage
+} from '../../../modules/admin/pages/user-message-management/user-message-management.page';
+import {
+    CongratulationLettersPage
+} from '../../../modules/congratulation-letter/pages/congratulation-letters/congratulation-letters.page';
+import {
+    DevelopmentProgramPage
+} from '../../../modules/development-program/development-program.page';
+import {
+    UpcomingFlightListPage
+} from '../../../modules/flight-activity/pages/upcoming-flight-list/upcoming-flight-list.page';
+import {
+    HelpAssetListPage
+} from '../../../modules/help-asset/pages/help-asset-list/help-asset-list.page';
+import { LogbookPage } from '../../../modules/logbook/pages/logbook/logbook.page';
+import {
+    ProfessionalLevelPage
+} from '../../../modules/professional-level/pages/professional-level/professional-level.page';
+import {
+    StatutoryCertificatePage
+} from '../../../modules/statutory-certificate/pages/statutory-certificate/statutory-certificate.page';
+import { TabHeaderModeEnum } from '../../enums/tab-header-mode.enum';
 import { TabHeaderEnum } from '../../enums/tab-header.enum';
+import { PncModel } from '../../models/pnc.model';
+import { AuthorizationService } from '../authorization/authorization.service';
+import { SessionService } from '../session/session.service';
 
 @Injectable()
 export class TabHeaderService {
@@ -39,9 +58,9 @@ export class TabHeaderService {
         if (mode === TabHeaderModeEnum.EDOSSIER) {
             return [
                 {
-                    id: TabHeaderEnum.CAREER_OBJECTIVE_LIST_PAGE,
+                    id: TabHeaderEnum.DEVELOPMENT_PROGRAM_PAGE,
                     label: this.translateService.instant('GLOBAL.DEVELOPMENT_PROGRAM'),
-                    component: CareerObjectiveListPage,
+                    component: DevelopmentProgramPage,
                     available: this.pnc && !this.pnc.manager
                 },
                 {

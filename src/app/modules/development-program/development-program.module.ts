@@ -1,15 +1,23 @@
-import { ProfessionalInterviewModule } from './../professional-interview/professional-interview.module';
-import { CareerObjectivesComponent } from './components/career_objectives/career-objectives.component';
-import { EObservationModule } from './../eobservation/eobservation.module';
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 
-import { WaypointCreatePage } from './pages/waypoint-create/waypoint-create.page';
-import { SharedModule } from '../../shared/shared.module';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
+
 import { ComponentsModule } from '../../shared/components/components.module';
-import { CareerObjectiveListPage } from './pages/career-objective-list/career-objective-list.page';
-import { CareerObjectiveCreatePage } from './pages/career-objective-create/career-objective-create.page';
+import { SharedModule } from '../../shared/shared.module';
+import { EObservationModule } from '../eobservation/eobservation.module';
+import {
+    ProfessionalInterviewModule
+} from '../professional-interview/professional-interview.module';
 import { CareerObjectiveComponent } from './components/career-objective/career-objective.component';
+import {
+    CareerObjectivesComponent
+} from './components/career_objectives/career-objectives.component';
+import { DevelopmentProgramPage } from './development-program.page';
+import {
+    CareerObjectiveCreatePage
+} from './pages/career-objective-create/career-objective-create.page';
+import { CareerObjectiveListPage } from './pages/career-objective-list/career-objective-list.page';
+import { WaypointCreatePage } from './pages/waypoint-create/waypoint-create.page';
 
 @NgModule({
   declarations: [
@@ -17,10 +25,11 @@ import { CareerObjectiveComponent } from './components/career-objective/career-o
     CareerObjectiveListPage,
     CareerObjectiveCreatePage,
     CareerObjectiveComponent,
-    CareerObjectivesComponent
+    CareerObjectivesComponent,
+    DevelopmentProgramPage
   ],
   imports: [
-    [IonicPageModule.forChild(CareerObjectiveListPage)],
+    [IonicPageModule.forChild(DevelopmentProgramPage)],
     SharedModule,
     ComponentsModule,
     EObservationModule,

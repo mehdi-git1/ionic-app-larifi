@@ -1,0 +1,105 @@
+page-development-program {
+
+    .scroll-content {
+        padding-top: 40px !important;
+    }
+
+    .eobservation-block {
+        margin-bottom: 10px;
+    }
+
+    .career-objective-block,
+    .professional-interview-block {
+        margin-top: 60px;
+        margin-bottom: 10px;
+    }
+
+    .eobservation-block h3 {
+        color: color($colors, primary-dark);
+    }
+
+    .career-objective-block h3 {
+        color: color($colors, primary-light);
+    }
+
+    .professional-interview-block h3 {
+        color: color($colors, primary);
+    }
+
+    h3 {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    ion-content button {
+        width: 300px;
+
+        ion-icon {
+            margin-right: 10px;
+        }
+
+        label {
+            color: color($colors, white);
+        }
+    }
+
+    .eobservation-creation-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 66px;
+        margin-bottom: 10px;
+        padding: 10px;
+        border-radius: 4px;
+        background: color($colors, white);
+        border: 1px solid color($colors-secondary, grey75);
+
+        .info-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            span {
+                font-weight: bold;
+            }
+        }
+
+        .add-container {
+            display: flex;
+            justify-content: flex-end;
+
+            ion-select {
+                width: 300px;
+
+                .item-inner {
+                    border: 0px;
+                }
+            }
+
+        }
+
+    }
+
+    .archives {
+
+        span,
+        a {
+            color: color($colors-secondary, blue68);
+        }
+
+        a {
+            text-decoration: underline;
+        }
+
+        .edospnc-archive:before {
+            font-size: 26px;
+            position: relative;
+            top: 4px;
+        }
+
+        &.information-message:before {
+            content: '';
+        }
+    }
+}
