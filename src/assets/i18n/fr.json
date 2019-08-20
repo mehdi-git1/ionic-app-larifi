@@ -710,7 +710,7 @@
         },
         "ALL_FIELDS_ARE_MANDATORY": "Tous les champs doivent être renseignés pour valider le formulaire",
         "UPDATED_BY": "Lettre de félicitations modifiée par {{lastName}} {{firstName}} le {{date}}",
-        "VERBATIM_EDITABLE_BY_REDACTOR_ONLY": "Seul le rédacteur/créateur de la lettre de félicitations peut modifier le verbatim/pièces jointes"
+        "VERBATIM_EDITABLE_BY_REDACTOR_ONLY": "Seul le cadre rédacteur/créateur de la lettre de félicitations peut modifier le verbatim/pièces jointes"
     },
     "LOGBOOK": {
         "EVENT_DATE": "Date de l'évènement",
