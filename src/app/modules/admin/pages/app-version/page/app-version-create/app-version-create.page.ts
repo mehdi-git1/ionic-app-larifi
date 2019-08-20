@@ -1,25 +1,26 @@
+import {
+    AlertController, Loading, LoadingController, NavController, NavParams
+} from 'ionic-angular';
+import * as _ from 'lodash';
+
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
-import { NavController, NavParams, AlertController, LoadingController, Loading } from 'ionic-angular';
 
 import { AppConstant } from '../../../../../../app.constant';
-import { Utils } from './../../../../../../shared/utils/utils';
-import { DateTransform } from '../../../../../../shared/utils/date-transform';
-
 import { TabHeaderModeEnum } from '../../../../../../core/enums/tab-header-mode.enum';
 import { TabHeaderEnum } from '../../../../../../core/enums/tab-header.enum';
-
-import { AppVersionListPage } from './../app-version-list/app-version-list.page';
-
-import { AppVersionService } from './../../../../../../core/services/app-version/app-version.service';
+import { TextEditorModeEnum } from '../../../../../../core/enums/text-editor-mode.enum';
+import { AppVersionModel } from '../../../../../../core/models/admin/app-version.model';
+import {
+    AppVersionAlertService
+} from '../../../../../../core/services/app-version/app-version-alert.service';
+import { AppVersionService } from '../../../../../../core/services/app-version/app-version.service';
 import { SecurityService } from '../../../../../../core/services/security/security.service';
 import { ToastService } from '../../../../../../core/services/toast/toast.service';
-import { AppVersionAlertService } from '../../../../../../core/services/app-version/app-version-alert.service';
-
-import { AppVersionModel } from './../../../../../../core/models/admin/app-version.model';
-import * as _ from 'lodash';
-
+import { DateTransform } from '../../../../../../shared/utils/date-transform';
+import { Utils } from '../../../../../../shared/utils/utils';
+import { AppVersionListPage } from '../app-version-list/app-version-list.page';
 
 @Component({
     selector: 'page-app-version-create',
@@ -29,6 +30,8 @@ export class AppVersionCreatePage {
 
     TabHeaderModeEnum = TabHeaderModeEnum;
     TabHeaderEnum = TabHeaderEnum;
+
+    get TextEditorModeEnum() { return TextEditorModeEnum; }
 
     datepickerMaxDate = AppConstant.datepickerMaxDate;
     monthsNames: any;

@@ -10,5 +10,7 @@ export class PncFilterModel {
     aircraftSkill: string;
     relay: string;
     prioritized: boolean;
+    hasAtLeastOnePriorityInProgress: boolean;
+    hasNoPriority: boolean;
 
 }

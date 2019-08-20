@@ -1,5 +1,5 @@
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 import { TextEditorModeEnum } from '../../../core/enums/text-editor-mode.enum';
 
@@ -8,7 +8,7 @@ import { TextEditorModeEnum } from '../../../core/enums/text-editor-mode.enum';
     templateUrl: 'text-editor.component.html',
 })
 
-export class TextEditorComponent {
+export class TextEditorComponent implements OnInit {
 
     @Input() content: string;
 
@@ -16,40 +16,48 @@ export class TextEditorComponent {
 
     @Input() controlForm: string;
 
-    @Input() textEditorMode = TextEditorModeEnum.FULL;
+    @Input() textEditorMode: TextEditorModeEnum;
 
     @Input() placeholder: string;
 
     @Output() contentChange = new EventEmitter();
 
-    editorConfig;
+    editorConfig = {};
 
-    constructor() {
+    constructor() { }
 
-        // config du WYSIWYG par défaut
-        this.editorConfig = {
-            toolbar: []
-        };
-
-        // liste des options dans la barre d'outils
-        if (this.textEditorMode == TextEditorModeEnum.FULL) {
-            this.editorConfig.toolbar = [
-                ['bold', 'italic', 'underline', 'strike'],
-
-                [{ 'header': 1 }, { 'header': 2 }],
-                [{ 'list': 'ordered' }, { 'list': 'bullet' }],
-                [{ 'indent': '-1' }, { 'indent': '+1' }],
-
-                [{ 'color': [] }, { 'background': [] }],
-                [{ 'font': [] }],
-                [{ 'align': [] }],
-                ['link']
-            ];
+    ngOnInit() {
+        if (this.textEditorMode) {
+            // liste des options dans la barre d'outils
+            if (this.textEditorMode == TextEditorModeEnum.FULL) {
+                this.editorConfig = {
+                    toolbar: [
+                        ['bold', 'italic', 'underline', 'strike'],
+                        [{ 'list': 'ordered' }, { 'list': 'bullet' }, { 'indent': '-1' }, { 'indent': '+1' }],
+                        [{ 'size': [] }],
+                        [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+                        [{ 'color': [] }, { 'background': [] }],
+                        [{ 'align': [] }],
+                        ['clean'],
+                        ['link']
+                    ]
+                };
+            }
+            if (this.textEditorMode == TextEditorModeEnum.LIGHT) {
+                this.editorConfig = {
+                    toolbar: [
+                        ['bold', 'italic', 'underline', 'strike'],
+                        [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+                        [{ 'font': [] }, { 'size': [] }],
+                        [{ 'color': [] }],
+                        [{ 'align': [] }],
+                        ['clean'],
+                        ['link']
+                    ]
+                };
+            }
         }
-
-
     }
-
     /**
      * envoie le contenu du WYSIWYG au parent
      */

@@ -36,20 +36,9 @@
                         <ion-row>
                             <ion-col col-12>
                                 <!-- Changelog -->
-                                <ion-label stacked>{{ 'ADMIN.APP_VERSION_CREATE.LABEL.CHANGELOG' | translate }}</ion-label>
-                                <ion-item>
-                                    <ion-item>
-                                        <text-editor [content]="appVersion.changelog" [placeholder]="'ADMIN.APP_VERSION_CREATE.LABEL.CHANGELOG' | translate" name="changelog" [parentForm]="creationAppVersionForm" [controlForm]="'changelogControl'" (contentChange)="setContent($event)"></text-editor>
-                                    </ion-item>
-                                </ion-item>
+                                <text-editor [textEditorMode]="TextEditorModeEnum.FULL" [content]="appVersion.changelog" [placeholder]="'ADMIN.APP_VERSION_CREATE.LABEL.CHANGELOG' | translate" name="changelog" [parentForm]="creationAppVersionForm" [controlForm]="'changelogControl'" (contentChange)="setContent($event)"></text-editor>
                             </ion-col>
                         </ion-row>
-                        <ion-row>
-                            <ion-col col-12>
-                                <quill-view-html [content]="appVersion.changelog" theme="snow"></quill-view-html>
-                            </ion-col>
-                        </ion-row>
-
                     </ion-grid>
                 </ion-scroll>
             </div>
@@ -57,7 +46,7 @@
             <!-- Barre de boutons -->
             <div class="button-bar-right button-bar">
                 <!-- Bouton abandon -->
-                <button ion-button color="red70" (click)="goToAppVersionManagement()">
+                <button ion-button color="primary" outline (click)="goToAppVersionManagement()">
                     <ion-icon name="arrow-back" margin-right></ion-icon>
                     {{ 'ADMIN.APP_VERSION_CREATE.BUTTON.CANCEL_CREATE_OR_UPDATE' | translate }}
                 </button>

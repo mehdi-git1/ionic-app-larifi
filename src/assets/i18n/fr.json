@@ -172,7 +172,7 @@
             "CAREER_OBJECTIVE_ABANDONED": "Priorité abandonnée",
             "CAREER_OBJECTIVE_VALIDATION_CANCELED": "La clôture de la priorité a été annulée",
             "CAREER_OBJECTIVE_RESUMED": "Priorité reprise",
-            "CAREER_OBJECTIVE_INSTRUCTOR_REQUESTED": "Brouillon enregistré et instructeur notifié"
+            "CAREER_OBJECTIVE_INSTRUCTOR_REQUESTED": "Brouillon enregistré et manager notifié"
         },
         "ERROR": {
             "CAREER_OBJECTIVE_CREATION_FAILED": "La création de la priorité a échouée",
@@ -477,17 +477,25 @@
             "CONFIRM": "Oui",
             "CANCEL": "Non"
         },
+        "CONFIRM_DELETE": {
+            "TITLE": "Suppression",
+            "MESSAGE": "Confirmez-vous la suppression de l'eObservation ?",
+            "CONFIRM": "Confirmer",
+            "CANCEL": "Annuler"
+        },
         "MESSAGES": {
             "SUCCESS": {
                 "PNC_COMMENT_SAVED": "Commentaire validé",
-                "UPDATED": "eObservation mise à jour"
+                "UPDATED": "eObservation mise à jour",
+                "DELETED": "eObservation supprimée"
             }
         },
         "BUTTONS": {
             "VALIDATE_PNC_COMMENT": "Valider",
             "EDIT": "Modifier",
             "CANCEL": "Annuler",
-            "UPDATE": "Mettre à jour"
+            "UPDATE": "Mettre à jour",
+            "DELETE": "Supprimer"
         }
     },
     "PROFESSIONAL_LEVEL": {
@@ -577,7 +585,9 @@
             "RELAY": "Relais",
             "AIRCRAFT_SKILL": "Spécialisation avion",
             "WORK_RATE": "Rythme",
-            "PRIORITIZED": "Priorité majeure"
+            "PRIORITIZED": "Priorité majeure",
+            "PRIORITY_IN_PROGRESS": "Priorité en cours",
+            "NO_PRIORITY": "Aucune priorité"
         },
         "DEFAULT_DATA": {
             "ALL_F": "Toutes",
@@ -700,7 +710,7 @@
         },
         "ALL_FIELDS_ARE_MANDATORY": "Tous les champs doivent être renseignés pour valider le formulaire",
         "UPDATED_BY": "Lettre de félicitations modifiée par {{lastName}} {{firstName}} le {{date}}",
-        "VERBATIM_EDITABLE_BY_REDACTOR_ONLY": "Seul le rédacteur/créateur de la lettre de félicitations peut modifier le verbatim"
+        "VERBATIM_EDITABLE_BY_REDACTOR_ONLY": "Seul le rédacteur/créateur de la lettre de félicitations peut modifier le verbatim/pièces jointes"
     },
     "LOGBOOK": {
         "EVENT_DATE": "Date de l'évènement",

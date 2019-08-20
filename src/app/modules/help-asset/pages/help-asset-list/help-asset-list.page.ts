@@ -100,6 +100,7 @@ export class HelpAssetListPage {
      */
     getCADHelpAssets(): HelpAssetModel[] {
         const updateDate20180730 = '2018-07-30T13:11:52Z';
+        const updateDate20190808 = '2019-08-08T11:33:52Z';
 
         const helpAsset = new Array(3);
         const pdf1 = 'Etapes-du-Bilan-Professionnel-V4.pdf';
@@ -150,6 +151,30 @@ export class HelpAssetListPage {
         helpAsset[7].label = 'JDB dans eDossierPNC';
         helpAsset[7].helpAssetType = HelpAssetTypeEnum.PDF;
         helpAsset[7].lastUpdateDate = '2019-07-23T00:00:00Z';
+        const pdf9 = 'Prepa-express-vol-de-formation-CC.pdf';
+        helpAsset[8] = new HelpAssetModel();
+        helpAsset[8].url = `${this.pdfUrl}/cadre/${pdf9}`;
+        helpAsset[8].label = 'Prepa Express Vol de Formation CC';
+        helpAsset[8].helpAssetType = HelpAssetTypeEnum.PDF;
+        helpAsset[8].lastUpdateDate = updateDate20190808;
+        const pdf10 = 'Prepa-express-vol-de-formation-CCP.pdf';
+        helpAsset[9] = new HelpAssetModel();
+        helpAsset[9].url = `${this.pdfUrl}/cadre/${pdf10}`;
+        helpAsset[9].label = 'Prepa Express Vol de Formation CCP';
+        helpAsset[9].helpAssetType = HelpAssetTypeEnum.PDF;
+        helpAsset[9].lastUpdateDate = updateDate20190808;
+        const pdf11 = 'Prepa-express-vol-de-validation-CC.pdf';
+        helpAsset[10] = new HelpAssetModel();
+        helpAsset[10].url = `${this.pdfUrl}/cadre/${pdf11}`;
+        helpAsset[10].label = 'Prepa Express Vol de Validation CC';
+        helpAsset[10].helpAssetType = HelpAssetTypeEnum.PDF;
+        helpAsset[10].lastUpdateDate = updateDate20190808;
+        const pdf12 = 'Prepa-express-vol-de-validation-CCP.pdf';
+        helpAsset[11] = new HelpAssetModel();
+        helpAsset[11].url = `${this.pdfUrl}/cadre/${pdf12}`;
+        helpAsset[11].label = 'Prepa Express Vol de Validation CCP';
+        helpAsset[11].helpAssetType = HelpAssetTypeEnum.PDF;
+        helpAsset[11].lastUpdateDate = updateDate20190808;
 
         return helpAsset;
     }
@@ -180,10 +205,10 @@ export class HelpAssetListPage {
         helpAsset[0].helpAssetType = HelpAssetTypeEnum.PDF;
         helpAsset[0].lastUpdateDate = '2018-10-01T13:11:52Z';
         helpAsset[1] = new HelpAssetModel();
-        helpAsset[1].url = `${this.pdfUrl}/commun/Visuel_Relais_RH_ Interactif_V06.pdf`;
+        helpAsset[1].url = `${this.pdfUrl}/commun/Visuel_Relais_RH_ Interactif_V08.pdf`;
         helpAsset[1].label = 'Fiches Missions Relais';
         helpAsset[1].helpAssetType = HelpAssetTypeEnum.PDF;
-        helpAsset[1].lastUpdateDate = '2019-04-16T00:00:00Z';
+        helpAsset[1].lastUpdateDate = '2019-08-08T00:00:00Z';
         return helpAsset;
     }
 }
