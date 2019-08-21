@@ -1,16 +1,18 @@
-import { CareerObjectiveListPage } from './../../../development-program/pages/career-objective-list/career-objective-list.page';
-import { AuthenticationService } from './../../../../core/authentication/authentication.service';
-import { Utils } from './../../../../shared/utils/utils';
-import { SecurityService } from '../../../../core/services/security/security.service';
-import { AuthenticatedUserModel } from '../../../../core/models/authenticated-user.model';
-import { SessionService } from '../../../../core/services/session/session.service';
-import { PncService } from '../../../../core/services/pnc/pnc.service';
-import { PncHomePage } from '../../../home/pages/pnc-home/pnc-home.page';
-import { FormGroup, AbstractControl, Validators, FormBuilder } from '@angular/forms';
-import { Subject, Observable } from 'rxjs/Rx';
+import { Events, NavController } from 'ionic-angular';
+
 import { Component } from '@angular/core';
-import { NavController, Events } from 'ionic-angular';
+import { FormBuilder } from '@angular/forms';
+
+import { AuthenticationService } from '../../../../core/authentication/authentication.service';
+import { AuthenticatedUserModel } from '../../../../core/models/authenticated-user.model';
 import { PncModel } from '../../../../core/models/pnc.model';
+import { PncService } from '../../../../core/services/pnc/pnc.service';
+import { SecurityService } from '../../../../core/services/security/security.service';
+import { SessionService } from '../../../../core/services/session/session.service';
+import {
+    CareerObjectiveListPage
+} from '../../../development-program/pages/career-objective-list/career-objective-list.page';
+import { PncHomePage } from '../../../home/pages/pnc-home/pnc-home.page';
 
 @Component({
   selector: 'page-impersonate',
@@ -83,7 +85,7 @@ export class ImpersonatePage {
   getMyIdentityBack(): void {
     this.sessionService.impersonatedUser = null;
     if (this.navCtrl.parent) {
-      this.navCtrl.setRoot(this.sessionService.getActiveUser().isManager ? PncHomePage : CareerObjectiveListPage);
+      this.navCtrl.setRoot(this.sessionService.getActiveUser().isManager ? PncHomePage : CareerObjectiveListPage, { matricule: this.sessionService.getActiveUser().matricule });
     }
     this.authenticationService.putAuthenticatedUserInSession().then(
       data => this.events.publish('user:authenticationDone')

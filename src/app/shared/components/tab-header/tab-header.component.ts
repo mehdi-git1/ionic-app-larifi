@@ -64,7 +64,7 @@ export class TabHeaderComponent implements OnInit, AfterViewInit {
     let navParams = {};
     if (this.mode === TabHeaderModeEnum.EDOSSIER && !this.sessionService.isActiveUser(this.sessionService.visitedPnc)) {
       navParams = {
-        matricule: this.sessionService.visitedPnc ? this.sessionService.visitedPnc.matricule : this.sessionService.getActiveUser(),
+        matricule: this.sessionService.visitedPnc ? this.sessionService.visitedPnc.matricule : this.sessionService.getActiveUser().matricule,
         pncRole: this.sessionService.visitedPnc && this.sessionService.visitedPnc.manager ? PncRoleEnum.MANAGER : PncRoleEnum.PNC
       };
     }

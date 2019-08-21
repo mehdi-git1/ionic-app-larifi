@@ -3,6 +3,7 @@ import { Events, LoadingController, Nav, Tabs } from 'ionic-angular';
 import { Component, Input, ViewChild } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 
+import { PncRoleEnum } from '../../../core/enums/pnc-role.enum';
 import { TabNavEnum } from '../../../core/enums/tab-nav.enum';
 import { PncModel } from '../../../core/models/pnc.model';
 import { PncService } from '../../../core/services/pnc/pnc.service';
@@ -41,6 +42,8 @@ export class TabNavComponent {
 
   initVisitedPnc: PncModel;
 
+  rootParams;
+
   constructor(
     private events: Events,
     private pncService: PncService,
@@ -53,6 +56,10 @@ export class TabNavComponent {
     this.events.subscribe('user:authenticationDone', () => {
       if (!this.tabsNav) {
         this.tabsNav = this.createListOfTab();
+        this.rootParams = {
+          matricule: this.sessionService.visitedPnc ? this.sessionService.visitedPnc.matricule : this.sessionService.getActiveUser().matricule,
+          pncRole: this.sessionService.visitedPnc && this.sessionService.visitedPnc.manager ? PncRoleEnum.MANAGER : PncRoleEnum.PNC
+        };
       }
       this.tabNavService.setListOfTabs(this.tabsNav);
       this.updateTexts();
