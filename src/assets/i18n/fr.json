@@ -699,7 +699,9 @@
                 "REDACTOR_AUTOCOMPLETE_PLACEHOLDER": "Matricule, Nom, Prénom"
             },
             "VERBATIM": "Verbatim",
-            "COLLECTIVE_WARNING": "Cette lettre collective sera insérée dans le eDossier de {{lastName}} {{firstName}} mais n'alimentera pas les eDossiers du reste de l'équipage"
+            "COLLECTIVE_WARNING_PART1": "Cette lettre collective sera insérée dans le eDossier de ",
+            "COLLECTIVE_WARNING_PART2": " mais n'alimentera pas les eDossiers du reste de l'équipage"
+
         },
         "BUTTONS": {
             "CANCEL": "Annuler",

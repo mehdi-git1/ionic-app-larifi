@@ -100,7 +100,12 @@
                                 {{ 'CONGRATULATION_LETTER_CREATE.BUTTONS.SUBMIT' | translate }}
                             </button>
                         </div>
-                        <div class="information-message align-right collective-warning" *ngIf="congratulationLetter.collective === true || congratulationLetter.collective === 'true'">{{ 'CONGRATULATION_LETTER_CREATE.FORM.COLLECTIVE_WARNING' | translate:{lastName:pnc.lastName, firstName:pnc.firstName} }}</div>
+                        <div class="information-message align-right collective-warning" *ngIf="congratulationLetter.collective === true || congratulationLetter.collective === 'true'">
+                            {{ 'CONGRATULATION_LETTER_CREATE.FORM.COLLECTIVE_WARNING_PART1' | translate }}
+                            <span class="lastname">{{ pnc.lastName }}</span>
+                            <span class="firstname">{{ pnc.firstName }}</span>
+                            {{ 'CONGRATULATION_LETTER_CREATE.FORM.COLLECTIVE_WARNING_PART2' | translate }}
+                        </div>
                     </ion-col>
                 </ion-row>
             </ion-grid>
