@@ -18,5 +18,8 @@ export class Config extends BaseEnvironment {
         this.secmobileEnv = 'prod';
         this.eformsUrl = 'com.airfrance.mobile.inhouse.eformsPNC';
         this.eformsCallbackUrl = 'com.airfrance.mobile.inhouse.edospnc';
+
+        this.friendlyUrl = 'http://friendly.airfrance.fr';
+
     }
 }

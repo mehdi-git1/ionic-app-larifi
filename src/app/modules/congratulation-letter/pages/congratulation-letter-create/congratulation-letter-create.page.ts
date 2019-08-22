@@ -1,22 +1,30 @@
-import { DatePipe } from '@angular/common';
-import { ConnectivityService } from './../../../../core/services/connectivity/connectivity.service';
-import { DateTransform } from './../../../../shared/utils/date-transform';
-import { ToastService } from './../../../../core/services/toast/toast.service';
-import { CongratulationLetterRedactorTypeEnum } from './../../../../core/enums/congratulation-letter/congratulation-letter-redactor-type.enum';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { CongratulationLetterFlightModel } from '../../../../core/models/congratulation-letter-flight.model';
-import { CongratulationLetterModel } from '../../../../core/models/congratulation-letter.model';
-import { SessionService } from '../../../../core/services/session/session.service';
-import { PncModel } from '../../../../core/models/pnc.model';
-import { CongratulationLetterService } from '../../../../core/services/congratulation-letter/congratulation-letter.service';
-import { NavParams, NavController, AlertController } from 'ionic-angular';
-import { Component } from '@angular/core';
-import { PncService } from '../../../../core/services/pnc/pnc.service';
-import { TranslateService } from '@ngx-translate/core';
-import { Utils } from '../../../../shared/utils/utils';
-import { Subject, Observable } from 'rxjs/Rx';
+import { AlertController, NavController, NavParams } from 'ionic-angular';
 import * as _ from 'lodash';
 import { pairwise } from 'rxjs/operators';
+import { Observable, Subject } from 'rxjs/Rx';
+
+import { DatePipe } from '@angular/common';
+import { Component } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { TranslateService } from '@ngx-translate/core';
+
+import {
+    CongratulationLetterRedactorTypeEnum
+} from '../../../../core/enums/congratulation-letter/congratulation-letter-redactor-type.enum';
+import {
+    CongratulationLetterFlightModel
+} from '../../../../core/models/congratulation-letter-flight.model';
+import { CongratulationLetterModel } from '../../../../core/models/congratulation-letter.model';
+import { PncModel } from '../../../../core/models/pnc.model';
+import {
+    CongratulationLetterService
+} from '../../../../core/services/congratulation-letter/congratulation-letter.service';
+import { ConnectivityService } from '../../../../core/services/connectivity/connectivity.service';
+import { PncService } from '../../../../core/services/pnc/pnc.service';
+import { SessionService } from '../../../../core/services/session/session.service';
+import { ToastService } from '../../../../core/services/toast/toast.service';
+import { DateTransform } from '../../../../shared/utils/date-transform';
+import { Utils } from '../../../../shared/utils/utils';
 
 @Component({
     selector: 'congratulation-letter-create',
@@ -166,8 +174,8 @@ export class CongratulationLetterCreatePage {
     initForm() {
         this.creationForm = this.formBuilder.group({
             flightDateControl: ['', Validators.required],
-            flightAirlineControl: ['', Validators.compose([Validators.minLength(2), Validators.maxLength(2), Validators.required])],
-            flightNumberControl: ['', Validators.compose([Validators.minLength(3), Validators.maxLength(5), Validators.required])],
+            flightAirlineControl: ['', Validators.compose([Validators.minLength(2), Validators.maxLength(2)])],
+            flightNumberControl: ['', Validators.compose([Validators.minLength(3), Validators.maxLength(5)])],
             letterTypeControl: ['', Validators.required],
             redactorTypeControl: ['', Validators.required],
             verbatimControl: ['', Validators.compose([Validators.required, Validators.maxLength(4000)])],
@@ -313,7 +321,8 @@ export class CongratulationLetterCreatePage {
      */
     verbatimCanBeEdited() {
         return this.creationMode
-        || ((this.congratulationLetter.redactor != undefined && this.sessionService.getActiveUser().matricule === this.congratulationLetter.redactor.matricule)
-            || (this.congratulationLetter.creationAuthor != undefined && this.sessionService.getActiveUser().matricule === this.congratulationLetter.creationAuthor.matricule));
+            || ((this.congratulationLetter.redactor != undefined && this.sessionService.getActiveUser().matricule === this.congratulationLetter.redactor.matricule)
+                || (this.congratulationLetter.creationAuthor != undefined && this.sessionService.getActiveUser().matricule === this.congratulationLetter.creationAuthor.matricule));
     }
+
 }
