@@ -711,9 +711,11 @@
             "LETTER_CREATED": "Lettre de félicitations créée",
             "LETTER_UPDATED": "Lettre de félicitations modifiée"
         },
-        "CREATED_BY": "Créée par {{lastName}} {{firstName}}",
-        "UPDATED_BY": "Lettre de félicitations modifiée par {{lastName}} {{firstName}} le {{date}}",
-        "VERBATIM_EDITABLE_BY_REDACTOR_ONLY": "Seul le cadre rédacteur/créateur de la lettre de félicitations peut modifier le verbatim/pièces jointes"
+        "ALL_FIELDS_ARE_MANDATORY": "Tous les champs doivent être renseignés pour valider le formulaire",
+        "CREATED_BY": "Créée par ",
+        "UPDATED_BY": "Lettre de félicitations modifiée par ",
+        "VERBATIM_EDITABLE_BY_REDACTOR_ONLY": "Seul le cadre rédacteur/créateur de la lettre de félicitations peut modifier le verbatim/pièces jointes",
+        "DATE_LABEL": " le {{date}}"
     },
     "LOGBOOK": {
         "EVENT_DATE": "Date de l'évènement",
