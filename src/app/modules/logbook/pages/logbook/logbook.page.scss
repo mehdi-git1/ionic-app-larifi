@@ -201,3 +201,13 @@ log-book {
 .popover-md.action-menu-popover .popover-content {
     transform: translate(-30px) !important;
 }
+
+.edospnc-archive:before {
+    font-size: 26px;
+    position: relative;
+    top: 4px;
+}
+
+.information-message:before {
+    content: '';
+}

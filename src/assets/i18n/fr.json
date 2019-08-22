@@ -721,6 +721,7 @@
         "ORIGIN": "Origine",
         "ACTIONS": "Actions",
         "UNAIVALABLE_OFFLINE": "Les évènements ne sont pas disponibles hors connexion",
+        "ARCHIVE_LINK_LABEL": "Historique Friendly",
         "BUTTONS": {
             "ADD_LOG": "Nouvel évènement",
             "MODIFY": "Modifier",
