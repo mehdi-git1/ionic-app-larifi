@@ -42,6 +42,7 @@
                     <document-manager [documents]="congratulationLetter.documents" [readonly]="true"></document-manager>
                 </div>
             </div>
+            <div class="information-message align-left" *ngIf="congratulationLetter.creationAuthor">{{ 'CONGRATULATION_LETTER_CREATE.CREATED_BY' | translate:{lastName:congratulationLetter.creationAuthor.lastName, firstName:congratulationLetter.creationAuthor.firstName} }}</div>
 
             <div class="information-message align-left" *ngIf="congratulationLetter.lastUpdateAuthor">{{ 'CONGRATULATION_LETTER_CREATE.UPDATED_BY' | translate:{lastName:congratulationLetter.lastUpdateAuthor.lastName, firstName:congratulationLetter.lastUpdateAuthor.firstName, date:getLastUpdateDate()} }}</div>
         </div>
