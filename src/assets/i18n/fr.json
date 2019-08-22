@@ -24,7 +24,7 @@
         "CAREER_OBJECTIVE_STATUS": {
             "DRAFT": "BROUILLON",
             "REGISTERED": "EN COURS",
-            "VALIDATED": "VALIDÉE",
+            "VALIDATED": "CLÔTURÉE",
             "ABANDONED": "ABANDONNÉE"
         },
         "WAYPOINT_STATUS": {
@@ -199,13 +199,13 @@
         "STATUS": {
             "DRAFT": "Brouillon",
             "REGISTERED": "En cours",
-            "VALIDATED": "Validée",
+            "VALIDATED": "Clôturée",
             "ABANDONED": "Abandonnée"
         }
 
     },
     "PNC_IDENTITY": {
-        "REFERENT_INSTRUCTOR": "Instructeur référent",
+        "REFERENT_INSTRUCTOR": "Manager",
         "RDS": "RDS",
         "GENDER": "Sexe",
         "SPECIALITY": "Fonction",
