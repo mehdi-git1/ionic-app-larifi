@@ -86,7 +86,7 @@
                 <no-data></no-data>
             </ng-template>
             <!-- Archives Friendly -->
-            <div class="information-message archives">
+            <div class="information-message archives" *ngIf="isFriendlyLinkAvailable()">
                 <span class="edospnc-archive"></span>
                 <a href="{{getFriendlyLink()}}" target="friendly">{{ 'LOGBOOK.ARCHIVE_LINK_LABEL' | translate }}</a>
             </div>
