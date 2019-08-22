@@ -15,7 +15,7 @@
             <ion-grid>
                 <ion-row>
                     <ion-col col-lg-3 col-md-6 class="flex align-center">
-                        <label>{{ 'CONGRATULATION_LETTER_CREATE.FORM.FLIGHT_DATE' | translate }}</label>
+                        <label class="required">{{ 'CONGRATULATION_LETTER_CREATE.FORM.FLIGHT_DATE' | translate }}</label>
                         <ion-datetime class="input-like flight-date" formControlName="flightDateControl" displayFormat="DD/MM/YYYY" pickerFormat="DD MMMM YYYY" [pickerOptions]="flightDateTimeOptions" [(ngModel)]="congratulationLetter.flight.theoricalDate" [doneText]="translateService.instant('GLOBAL.DATEPICKER.DONE')" [cancelText]="translateService.instant('GLOBAL.DATEPICKER.CANCEL')" [monthNames]="monthsNames"></ion-datetime>
                     </ion-col>
                     <ion-col col-lg-3 col-md-6 class="flex align-center">
@@ -24,7 +24,7 @@
                         <ion-input class="flight-number" type="text" [(ngModel)]="congratulationLetter.flight.number" formControlName="flightNumberControl" maxlength="5"></ion-input>
                     </ion-col>
                     <ion-col col-lg-6 col-md-12 class="flex align-center letter-type-col">
-                        <label>{{ 'CONGRATULATION_LETTER_CREATE.FORM.LETTER_TYPE.LABEL' | translate }}</label>
+                        <label class="required">{{ 'CONGRATULATION_LETTER_CREATE.FORM.LETTER_TYPE.LABEL' | translate }}</label>
                         <ion-list class="horizontal" radio-group [(ngModel)]="congratulationLetter.collective" formControlName="letterTypeControl">
                             <ion-item>
                                 <ion-label>{{ 'CONGRATULATION_LETTER_CREATE.FORM.LETTER_TYPE.INDIVIDUAL' | translate }}</ion-label>
@@ -39,7 +39,7 @@
                 </ion-row>
                 <ion-row>
                     <ion-col class="flex align-center">
-                        <label>{{ 'CONGRATULATION_LETTER_CREATE.FORM.REDACTOR.LABEL' | translate }}</label>
+                        <label class="required">{{ 'CONGRATULATION_LETTER_CREATE.FORM.REDACTOR.LABEL' | translate }}</label>
                         <ion-list class="horizontal" [(ngModel)]="congratulationLetter.redactorType" formControlName="redactorTypeControl" radio-group>
                             <ion-item>
                                 <ion-label>{{ 'CONGRATULATION_LETTER_CREATE.FORM.REDACTOR.PNC' | translate }}</ion-label>
@@ -100,7 +100,6 @@
                                 {{ 'CONGRATULATION_LETTER_CREATE.BUTTONS.SUBMIT' | translate }}
                             </button>
                         </div>
-                        <div class="information-message align-right">{{ 'CONGRATULATION_LETTER_CREATE.ALL_FIELDS_ARE_MANDATORY' | translate }}</div>
                         <div class="information-message align-right collective-warning" *ngIf="congratulationLetter.collective === true || congratulationLetter.collective === 'true'">{{ 'CONGRATULATION_LETTER_CREATE.FORM.COLLECTIVE_WARNING' | translate:{lastName:pnc.lastName, firstName:pnc.firstName} }}</div>
                     </ion-col>
                 </ion-row>

@@ -174,8 +174,8 @@ export class CongratulationLetterCreatePage {
     initForm() {
         this.creationForm = this.formBuilder.group({
             flightDateControl: ['', Validators.required],
-            flightAirlineControl: ['', Validators.compose([Validators.minLength(2), Validators.maxLength(2), Validators.required])],
-            flightNumberControl: ['', Validators.compose([Validators.minLength(3), Validators.maxLength(5), Validators.required])],
+            flightAirlineControl: ['', Validators.compose([Validators.minLength(2), Validators.maxLength(2)])],
+            flightNumberControl: ['', Validators.compose([Validators.minLength(3), Validators.maxLength(5)])],
             letterTypeControl: ['', Validators.required],
             redactorTypeControl: ['', Validators.required],
             verbatimControl: ['', Validators.compose([Validators.required, Validators.maxLength(4000)])],
