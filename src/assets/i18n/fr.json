@@ -698,7 +698,8 @@
                 "REDACTOR_AUTOCOMPLETE": "PNC rédacteur",
                 "REDACTOR_AUTOCOMPLETE_PLACEHOLDER": "Matricule, Nom, Prénom"
             },
-            "VERBATIM": "Verbatim"
+            "VERBATIM": "Verbatim",
+            "COLLECTIVE_WARNING": "Cette lettre collective sera insérée dans le eDossier de {{lastName}} {{firstName}} mais n'alimentera pas les eDossiers du reste de l'équipage"
         },
         "BUTTONS": {
             "CANCEL": "Annuler",

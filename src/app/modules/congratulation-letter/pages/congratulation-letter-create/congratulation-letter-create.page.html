@@ -101,6 +101,7 @@
                             </button>
                         </div>
                         <div class="information-message align-right">{{ 'CONGRATULATION_LETTER_CREATE.ALL_FIELDS_ARE_MANDATORY' | translate }}</div>
+                        <div class="information-message align-right collective-warning" *ngIf="congratulationLetter.collective === true || congratulationLetter.collective === 'true'">{{ 'CONGRATULATION_LETTER_CREATE.FORM.COLLECTIVE_WARNING' | translate:{lastName:pnc.lastName, firstName:pnc.firstName} }}</div>
                     </ion-col>
                 </ion-row>
             </ion-grid>

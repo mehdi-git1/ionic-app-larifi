@@ -76,4 +76,9 @@ congratulation-letter-create {
     ion-list.list-ios {
         margin: 0;
     }
+
+    .collective-warning {
+        color: color($colors, red70);
+        font-size: 1.1em;
+    }
 }
