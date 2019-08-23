@@ -103,4 +103,12 @@ export class Utils {
         }
         return word[0].toUpperCase() + word.substr(1).toLowerCase();
     }
+
+    /**
+     * Récupère une chaine de caractère vide si la valeur est null
+     * @return une chaine vide, ou la valeur passée en paramètre si celle ci est non null
+     */
+    public static getEmptyStringIfNull(value: string) {
+        return value == null ? '' : value;
+    }
 }

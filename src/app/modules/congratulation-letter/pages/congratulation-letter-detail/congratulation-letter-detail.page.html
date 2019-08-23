@@ -19,7 +19,7 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td class="suffix-tu">{{ 'CONGRATULATION_LETTERS.VALUE.FLIGHT' | translate:{airline:congratulationLetter.flight.airline, flightNumber:congratulationLetter.flight.number, flightDate:getFormatedFlightDate(congratulationLetter.flight)} }}</td>
+                        <td class="suffix-tu">{{ 'CONGRATULATION_LETTERS.VALUE.FLIGHT' | translate:{airline:getEmptyStringIfNull(congratulationLetter.flight.airline), flightNumber:getEmptyStringIfNull(congratulationLetter.flight.number), flightDate:getFormatedFlightDate(congratulationLetter.flight)} }}</td>
                         <td>
                             <ng-container *ngIf="congratulationLetter.collective; else individualLabel">{{ 'CONGRATULATION_LETTER_DETAIL.TYPE.COLLECTIVE' | translate }}</ng-container>
                             <ng-template #individualLabel>{{ 'CONGRATULATION_LETTER_DETAIL.TYPE.INDIVIDUAL' | translate }}</ng-template>

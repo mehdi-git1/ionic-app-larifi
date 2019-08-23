@@ -16,6 +16,7 @@ import {
 } from '../../../../core/services/congratulation-letter/congratulation-letter.service';
 import { PncService } from '../../../../core/services/pnc/pnc.service';
 import { SessionService } from '../../../../core/services/session/session.service';
+import { Utils } from '../../../../shared/utils/utils';
 
 @Component({
     selector: 'congratulation-letter-detail',
@@ -82,4 +83,11 @@ export class CongratulationLetterDetailPage {
         return this.datePipe.transform(this.congratulationLetter.lastUpdateDate, 'dd/MM/yyyy HH:mm');
     }
 
+    /**
+     * Récupère une chaine de caractère vide si la valeur est null
+     * @return une chaine vide, ou la valeur passée en paramètre si celle ci est non null
+     */
+    getEmptyStringIfNull(value: string) {
+        return Utils.getEmptyStringIfNull(value);
+    }
 }
