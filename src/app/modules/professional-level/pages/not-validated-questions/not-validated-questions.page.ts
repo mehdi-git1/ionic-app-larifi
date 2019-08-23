@@ -1,8 +1,11 @@
-import { ModuleModel } from './../../../../core/models/professional-level/module.model';
-import { Component } from '@angular/core';
 import { NavParams } from 'ionic-angular';
-import { StageModel } from '../../../../core/models/professional-level/stage.model';
+
+import { Component } from '@angular/core';
+
+import { CursusOrderEnum } from '../../../../core/enums/cursus-order.enum';
 import { PncModel } from '../../../../core/models/pnc.model';
+import { ModuleModel } from '../../../../core/models/professional-level/module.model';
+import { StageModel } from '../../../../core/models/professional-level/stage.model';
 
 @Component({
   selector: 'not-validated-questions',
@@ -21,5 +24,16 @@ export class NotValidatedQuestionsPage {
   }
 
   ionViewDidLoad() {
+    this.sortModuleCursus();
   }
+
+  /**
+   * Trie les parcours des modules dans l'ordre suivant : TVVC, TVT, TVT_R
+   */
+  sortModuleCursus() {
+    this.module.cursus.sort((cursus1, cursus2) => {
+      return CursusOrderEnum.getDisplayOrder(cursus1.orderNumber) > CursusOrderEnum.getDisplayOrder(cursus2.orderNumber) ? 1 : -1;
+    });
+  }
+
 }
