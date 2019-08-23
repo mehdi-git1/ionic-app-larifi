@@ -23,7 +23,7 @@
             <!-- Points forts -->
             <ion-col>
                 <span class="pcb-strong-points">
-                    <ion-list lines="none">
+                    <ion-list *ngIf="subTheme && subTheme.subThemes && subTheme.subThemes.length > 0 && subTheme.subThemes[0].eobservationItems" lines="none">
                         <span *ngFor="let eobservationItem of subTheme.subThemes[0].eobservationItems">
                             <checkbox-and-label disabled="true" [value]="true" label="{{eobservationItem.refItemLevel.item.label}}"></checkbox-and-label>
                         </span>
