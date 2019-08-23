@@ -178,7 +178,7 @@ export class CongratulationLetterCreatePage {
             flightNumberControl: ['', Validators.compose([Validators.minLength(3), Validators.maxLength(5)])],
             letterTypeControl: ['', Validators.required],
             redactorTypeControl: ['', Validators.required],
-            verbatimControl: ['', Validators.compose([Validators.required, Validators.maxLength(4000)])],
+            verbatimControl: ['', Validators.compose([Validators.maxLength(4000)])],
             redactorAutoCompleteControl: ['']
         });
     }
@@ -301,8 +301,9 @@ export class CongratulationLetterCreatePage {
      */
     isFormValid(): boolean {
         return this.connectivityService.isConnected() &&
-            this.creationForm.valid &&
-            (this.congratulationLetter.redactorType !== CongratulationLetterRedactorTypeEnum.PNC || this.congratulationLetter.redactor != null);
+            this.creationForm.valid
+            && (!Utils.isEmpty(this.creationForm.get('verbatimControl').value) || this.congratulationLetter.documents.length > 0)
+            && (this.congratulationLetter.redactorType !== CongratulationLetterRedactorTypeEnum.PNC || this.congratulationLetter.redactor != null);
     }
 
 
