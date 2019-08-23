@@ -33,6 +33,7 @@ export class RoutingService {
                 if (!this.deviceService.isBrowser() && !this.sessionService.impersonatedUser) {
                     this.modalSecurityService.displayPinPad(PinPadTypeEnum.openingApp);
                 }
+                // le tab-nav gère la navigation initiale par défaut, donc pas besoin d'ajouter de setRoot()
                 break;
             case AuthenticationStatusEnum.INIT_KO:
                 navCtrl.setRoot(GenericMessagePage, { message: this.translateService.instant('GLOBAL.MESSAGES.ERROR.APPLICATION_NOT_INITIALIZED') });

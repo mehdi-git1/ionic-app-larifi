@@ -59,7 +59,7 @@ export class ImpersonatePage {
           // On redirige vers la page PncHomePage pour permettre le rechargement de celle-ci
           // le popToRoot ne recharge pas la page en rafraichissant les données
           if (this.navCtrl.parent) {
-            this.navCtrl.setRoot(this.sessionService.getActiveUser().isManager ? PncHomePage : CareerObjectiveListPage);
+            this.navCtrl.setRoot(this.sessionService.getActiveUser().isManager ? PncHomePage : CareerObjectiveListPage, { matricule: this.sessionService.getActiveUser().matricule });
           } else {
             this.navCtrl.popToRoot();
           }

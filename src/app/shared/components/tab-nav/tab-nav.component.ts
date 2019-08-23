@@ -56,11 +56,9 @@ export class TabNavComponent {
     this.events.subscribe('user:authenticationDone', () => {
       if (!this.tabsNav) {
         this.tabsNav = this.createListOfTab();
-        this.rootParams = {
-          matricule: this.sessionService.visitedPnc ? this.sessionService.visitedPnc.matricule : this.sessionService.getActiveUser().matricule,
-          pncRole: this.sessionService.visitedPnc && this.sessionService.visitedPnc.manager ? PncRoleEnum.MANAGER : PncRoleEnum.PNC
-        };
       }
+      // Initialise le matricule de la la personne connectée
+      this.updateRootParams();
       this.tabNavService.setListOfTabs(this.tabsNav);
       this.updateTexts();
       this.updatePermissions();
@@ -202,6 +200,16 @@ export class TabNavComponent {
    */
   isAvailable(): boolean {
     return this.sessionService.getActiveUser() && this.sessionService.getActiveUser().isManager;
+  }
+
+  /**
+   * Met à jour les paramètres de navigation à transmettre à la page racine
+   */
+  updateRootParams() {
+    this.rootParams = {
+      matricule: this.sessionService.getActiveUser().matricule,
+      pncRole: this.sessionService.getActiveUser().isManager ? PncRoleEnum.MANAGER : PncRoleEnum.PNC
+    };
   }
 
 }

@@ -1,13 +1,14 @@
-import { PncPhotoService } from './../../../../core/services/pnc-photo/pnc-photo.service';
-import { Component } from '@angular/core';
-import { NavParams, Events, LoadingController } from 'ionic-angular';
+import { Events, LoadingController, NavParams } from 'ionic-angular';
 
-import { SessionService } from '../../../../core/services/session/session.service';
+import { Component } from '@angular/core';
+
+import { SpecialityEnum } from '../../../../core/enums/speciality.enum';
+import { CrewMemberModel } from '../../../../core/models/crew-member.model';
 import { LegModel } from '../../../../core/models/leg.model';
 import { LegService } from '../../../../core/services/leg/leg.service';
-import { CrewMemberModel } from '../../../../core/models/crew-member.model';
-import { SpecialityEnum } from '../../../../core/enums/speciality.enum';
+import { PncPhotoService } from '../../../../core/services/pnc-photo/pnc-photo.service';
 import { PncService } from '../../../../core/services/pnc/pnc.service';
+import { SessionService } from '../../../../core/services/session/session.service';
 
 @Component({
     selector: 'page-flight-crew-list',
