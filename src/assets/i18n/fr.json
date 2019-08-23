@@ -24,7 +24,7 @@
         "CAREER_OBJECTIVE_STATUS": {
             "DRAFT": "BROUILLON",
             "REGISTERED": "EN COURS",
-            "VALIDATED": "VALIDÉE",
+            "VALIDATED": "CLÔTURÉE",
             "ABANDONED": "ABANDONNÉE"
         },
         "WAYPOINT_STATUS": {
@@ -199,13 +199,13 @@
         "STATUS": {
             "DRAFT": "Brouillon",
             "REGISTERED": "En cours",
-            "VALIDATED": "Validée",
+            "VALIDATED": "Clôturée",
             "ABANDONED": "Abandonnée"
         }
 
     },
     "PNC_IDENTITY": {
-        "REFERENT_INSTRUCTOR": "Instructeur référent",
+        "REFERENT_INSTRUCTOR": "Manager",
         "RDS": "RDS",
         "GENDER": "Sexe",
         "SPECIALITY": "Fonction",
@@ -698,7 +698,10 @@
                 "REDACTOR_AUTOCOMPLETE": "PNC rédacteur",
                 "REDACTOR_AUTOCOMPLETE_PLACEHOLDER": "Matricule, Nom, Prénom"
             },
-            "VERBATIM": "Verbatim"
+            "VERBATIM": "Verbatim",
+            "COLLECTIVE_WARNING_PART1": "Cette lettre collective sera insérée dans le eDossier de ",
+            "COLLECTIVE_WARNING_PART2": " mais n'alimentera pas les eDossiers du reste de l'équipage"
+
         },
         "BUTTONS": {
             "CANCEL": "Annuler",
@@ -709,8 +712,10 @@
             "LETTER_UPDATED": "Lettre de félicitations modifiée"
         },
         "ALL_FIELDS_ARE_MANDATORY": "Tous les champs doivent être renseignés pour valider le formulaire",
-        "UPDATED_BY": "Lettre de félicitations modifiée par {{lastName}} {{firstName}} le {{date}}",
-        "VERBATIM_EDITABLE_BY_REDACTOR_ONLY": "Seul le rédacteur/créateur de la lettre de félicitations peut modifier le verbatim/pièces jointes"
+        "CREATED_BY": "Créée par ",
+        "UPDATED_BY": "Lettre de félicitations modifiée par ",
+        "VERBATIM_EDITABLE_BY_REDACTOR_ONLY": "Seul le cadre rédacteur/créateur de la lettre de félicitations peut modifier le verbatim/pièces jointes",
+        "DATE_LABEL": " le {{date}}"
     },
     "LOGBOOK": {
         "EVENT_DATE": "Date de l'évènement",
@@ -721,6 +726,7 @@
         "ORIGIN": "Origine",
         "ACTIONS": "Actions",
         "UNAIVALABLE_OFFLINE": "Les évènements ne sont pas disponibles hors connexion",
+        "ARCHIVE_LINK_LABEL": "Historique Friendly",
         "BUTTONS": {
             "ADD_LOG": "Nouvel évènement",
             "MODIFY": "Modifier",

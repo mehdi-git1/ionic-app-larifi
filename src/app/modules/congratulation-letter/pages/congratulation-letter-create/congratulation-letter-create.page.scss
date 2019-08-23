@@ -2,11 +2,7 @@ congratulation-letter-create {
 
     ion-col > label {
         color: color($colors-secondary, grey10);
-
-        &:after {
-            content: ' :';
-            margin-right: 10px;
-        }
+        margin-right: 10px;
     }
 
     .flight-date {
@@ -75,5 +71,10 @@ congratulation-letter-create {
     ion-list.list-md,
     ion-list.list-ios {
         margin: 0;
+    }
+
+    .collective-warning {
+        color: color($colors, red70);
+        font-size: 1.1em;
     }
 }
