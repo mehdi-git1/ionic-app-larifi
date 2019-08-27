@@ -1,16 +1,14 @@
-import { SessionService } from './../session/session.service';
-import { PncModel } from './../../models/pnc.model';
 import { Injectable } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
+
+import { EObservationTypeEnum } from '../../enums/e-observations-type.enum';
+import { EObservationModel } from '../../models/eobservation/eobservation.model';
+import { PncModel } from '../../models/pnc.model';
 import { BaseService } from '../base/base.service';
 import { ConnectivityService } from '../connectivity/connectivity.service';
-import { OnlineEObservationService } from './online-eobservation.service';
+import { SessionService } from '../session/session.service';
 import { OfflineEObservationService } from './offline-eobservation.service';
-import { EObservationModel } from '../../models/eobservation/eobservation.model';
-import { EObservationTypeEnum } from '../../enums/e-observations-type.enum';
-import { TranslateService } from '@ngx-translate/core';
-import { EObservationStateEnum } from '../../enums/e-observation-state.enum';
-
-
+import { OnlineEObservationService } from './online-eobservation.service';
 
 @Injectable()
 export class EObservationService extends BaseService {
@@ -50,6 +48,9 @@ export class EObservationService extends BaseService {
             } else if (eObservation.formationFlight) {
                 return this.translateService.instant('EOBSERVATION.DETAIL.FORMATION_FLIGHT_TITLE_OPTION');
             }
+        }
+        if (eObservation && eObservation.type === EObservationTypeEnum.E_ALT && eObservation.val) {
+            return this.translateService.instant('EOBSERVATION.DETAIL.EVAL_TITLE_OPTION');
         }
         return '';
     }
