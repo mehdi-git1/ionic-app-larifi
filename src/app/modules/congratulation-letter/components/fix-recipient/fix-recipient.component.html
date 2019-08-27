@@ -1,5 +1,5 @@
 <span class="fix-recipient-content" *ngIf="congratulationLetter && pnc">
-    <div class="congratulation-letter-title">{{ 'CONGRATULATION_LETTERS.VALUE.FLIGHT' | translate:{airline:congratulationLetter.flight.airline, flightNumber:congratulationLetter.flight.number, flightDate:getFormatedFlightDate(congratulationLetter.flight)} }}</div>
+    <div class="congratulation-letter-title">{{ 'CONGRATULATION_LETTERS.VALUE.FLIGHT' | translate:{airline:getEmptyStringIfNull(congratulationLetter.flight.airline), flightNumber:getEmptyStringIfNull(congratulationLetter.flight.number), flightDate:getFormatedFlightDate(congratulationLetter.flight)} }}</div>
     <div class="congratulation-letter-pnc">{{ 'CONGRATULATION_LETTERS.FIX_RECIPIENT.CURRENT_CONGRATULATED_PNC' | translate}} : <div>{{pnc.firstName | titlecase}} {{pnc.lastName | titlecase}} ({{pnc.currentSpeciality}})</div>
     </div>
     <div class="congratulation-letter-new-recipient">{{ 'CONGRATULATION_LETTERS.FIX_RECIPIENT.NEW_RECIPIENT' | translate}}</div>

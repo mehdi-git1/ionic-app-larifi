@@ -106,6 +106,7 @@ export class Utils {
 
     /**
      * Récupère une chaine de caractère vide si la valeur est null
+     * @param value la chaine à traiter
      * @return une chaine vide, ou la valeur passée en paramètre si celle ci est non null
      */
     public static getEmptyStringIfNull(value: string) {
