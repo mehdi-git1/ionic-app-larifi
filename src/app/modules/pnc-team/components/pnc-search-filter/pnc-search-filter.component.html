@@ -8,11 +8,105 @@
 
         <ion-grid>
             <span>
-                <ion-row>
+                <div class="small-width-devices">
+                    <form novalidate [formGroup]="searchForm">
+                        <ion-row>
+                            <ion-col col-5>
+                                <!-- PNC -->
+                                <pnc-autocomplete (onSelectPnc)="openPncHomePage($event)" [ngModelOptions]="{standalone: true}"></pnc-autocomplete>
+                            </ion-col>
+                            <ion-col col-2>
+                                <!-- Division -->
+                                <ion-item>
+                                    <ion-label floating>{{ 'PNC_SEARCH.CRITERIA.DIVISION' | translate }}</ion-label>
+                                    <ion-select interface="popover" [compareWith]="compareFn" formControlName="divisionControl" [disabled]="areFiltersDisabled()" [placeholder]="('PNC_SEARCH.DEFAULT_DATA.ALL_F' | translate )">
+                                        <ion-option *ngIf="!divisionList || divisionList.length != 1" [value]="valueAll">{{ 'PNC_SEARCH.DEFAULT_DATA.ALL_F' | translate }}</ion-option>
+                                        <ion-option *ngFor="let division of divisionList" [value]="division.code">
+                                            {{division.code}}
+                                            <ng-container *ngIf="division.longCode"> - {{division.longCode}}</ng-container>
+                                        </ion-option>
+                                    </ion-select>
+                                </ion-item>
+                            </ion-col>
+                            <ion-col col-2>
+                                <!-- Secteur -->
+                                <ion-item>
+                                    <ion-label floating>{{ 'PNC_SEARCH.CRITERIA.SECTOR' | translate }}</ion-label>
+                                    <ion-select interface="popover" [compareWith]="compareFn" formControlName="sectorControl" [disabled]="areFiltersDisabled()" [placeholder]="('PNC_SEARCH.DEFAULT_DATA.ALL_M' | translate )">
+                                        <ion-option *ngIf="!sectorList || sectorList.length != 1" [value]="valueAll">{{ 'PNC_SEARCH.DEFAULT_DATA.ALL_M' | translate }}</ion-option>
+                                        <ion-option *ngFor="let sector of sectorList" [value]="sector.code">{{sector.code}}</ion-option>
+                                    </ion-select>
+                                </ion-item>
+                            </ion-col>
+                            <ion-col col-2>
+                                <!-- Ginq -->
+                                <ion-item>
+                                    <ion-label floating>{{ 'PNC_SEARCH.CRITERIA.GINQ' | translate }}</ion-label>
+                                    <ion-select interface="popover" [compareWith]="compareFn" formControlName="ginqControl" [disabled]="areFiltersDisabled()" [placeholder]="('PNC_SEARCH.DEFAULT_DATA.ALL_M' | translate )">
+                                        <ion-option *ngIf="!ginqList || ginqList.length != 1" [value]="valueAll">{{ 'PNC_SEARCH.DEFAULT_DATA.ALL_M' | translate }}</ion-option>
+                                        <ion-option *ngFor="let ginq of ginqList" [value]="ginq.code">{{ginq.code}}</ion-option>
+                                    </ion-select>
+                                </ion-item>
+                            </ion-col>
+                            <ion-col col-1 class="clear-button flex align-self-center">
+                                <button ion-button icon-start (click)="initForm()" class="clear-pnc" [disabled]="clearButtonIsDisabled()" color="primary-light" outline>
+                                    <ion-icon name="trash"></ion-icon>
+                                    <!--span class="large-devices">{{ 'PNC_SEARCH.REINIT_FILTERS' | translate }}</span-->
+                                </button>
+                            </ion-col>
+                        </ion-row>
+                        <ion-row>
+                            <ion-col col-2>
+                                <!-- Grade -->
+                                <ion-item>
+                                    <ion-label floating>{{ 'PNC_SEARCH.CRITERIA.SPECIALITY' | translate }}</ion-label>
+                                    <ion-select interface="popover" [compareWith]="compareFn" formControlName="specialityControl" [disabled]="areFiltersDisabled()" [placeholder]="('PNC_SEARCH.DEFAULT_DATA.ALL_F' | translate )">
+                                        <ion-option *ngIf="!specialityList || specialityList.length != 1" [value]="valueAll">{{ 'PNC_SEARCH.DEFAULT_DATA.ALL_F' | translate }}</ion-option>
+                                        <ion-option *ngFor="let specialityKey of specialityList" [value]="specialityKey">{{specialityKey}}</ion-option>
+                                    </ion-select>
+                                </ion-item>
+                            </ion-col>
+                            <ion-col col-3> 
+                                <!-- Spécialisation avion -->
+                                <ion-item>
+                                    <ion-label floating>{{ 'PNC_SEARCH.CRITERIA.AIRCRAFT_SKILL' | translate }}</ion-label>
+                                    <ion-select interface="popover" [compareWith]="compareFn" formControlName="aircraftSkillControl" [disabled]="areFiltersDisabled()" [placeholder]="('PNC_SEARCH.DEFAULT_DATA.ALL_F' | translate )">
+                                        <ion-option *ngIf="!aircraftSkillList || aircraftSkillList.length != 1" [value]="valueAll">{{ 'PNC_SEARCH.DEFAULT_DATA.ALL_F' | translate }}</ion-option>
+                                        <ion-option *ngFor="let aircraftSkillKey of aircraftSkillList" [value]="aircraftSkillKey">{{aircraftSkillKey}}</ion-option>
+                                    </ion-select>
+                                </ion-item>
+                            </ion-col>
+                            <ion-col col-3>
+                                <!-- Relais -->
+                                <ion-item>
+                                    <ion-label floating>{{ 'PNC_SEARCH.CRITERIA.RELAY' | translate }}</ion-label>
+                                    <ion-select interface="popover" [compareWith]="compareFn" formControlName="relayControl" [disabled]="areFiltersDisabled()" [placeholder]="('PNC_SEARCH.DEFAULT_DATA.ALL_M' | translate )">
+                                        <ion-option *ngIf="!relayList || relayList.length != 1" [value]="valueAll">{{ 'PNC_SEARCH.DEFAULT_DATA.ALL_M' | translate }}</ion-option>
+                                        <ion-option *ngFor="let relay of relayList" [value]="relay.code">
+                                            {{relay.code}}
+                                            <ng-container *ngIf="relay.label"> - {{relay.label}}</ng-container>
+                                        </ion-option>
+                                    </ion-select>
+                                </ion-item>
+                            </ion-col>
+                            <ion-col col-4>
+                                <!-- Priorité -->
+                                <ion-item>
+                                    <ion-label floating>{{ 'PNC_SEARCH.CRITERIA.PRIORITY' | translate }}</ion-label>
+                                    <ion-select  [(ngModel)]="prioritized" multiple="true" interface="popover" formControlName="prioritizedControl" [disabled]="noPriority || areFiltersDisabled()">
+                                        <ion-option [value]="PRIORITIZED"><span class="edospnc-flag prioritized"></span>{{ 'PNC_SEARCH.CRITERIA.PRIORITIZED' | translate }}</ion-option>
+                                        <ion-option [value]="PRIORITY_IN_PROGRESS"><span class="edospnc-flag at-least-one-priority"></span>{{ 'PNC_SEARCH.CRITERIA.PRIORITY_IN_PROGRESS' | translate }}</ion-option>
+                                        <ion-option [value]="NO_PRIORITY">{{ 'PNC_SEARCH.CRITERIA.NO_PRIORITY' | translate }}</ion-option>
+                                    </ion-select>
+                                </ion-item>
+                            </ion-col>
+                        </ion-row>
+                    </form>
+                </div>
+                <!--div class="large-width-devices">
                     <ion-col col-9>
                         <ion-row>
                             <ion-col col-6>
-                                <!-- PNC -->
                                 <pnc-autocomplete (onSelectPnc)="openPncHomePage($event)" [ngModelOptions]="{standalone: true}"></pnc-autocomplete>
                             </ion-col>
                             <ion-col col-5 class="flex align-self-center">
@@ -30,7 +124,6 @@
                         <form novalidate [formGroup]="searchForm">
                             <ion-row class="filters-row">
                                 <ion-col>
-                                    <!-- Division -->
                                     <ion-item>
                                         <ion-label floating>{{ 'PNC_SEARCH.CRITERIA.DIVISION' | translate }}</ion-label>
                                         <ion-select interface="popover" [compareWith]="compareFn" formControlName="divisionControl" [disabled]="areFiltersDisabled()" [placeholder]="('PNC_SEARCH.DEFAULT_DATA.ALL_F' | translate )">
@@ -43,7 +136,6 @@
                                     </ion-item>
                                 </ion-col>
                                 <ion-col>
-                                    <!-- Secteur -->
                                     <ion-item>
                                         <ion-label floating>{{ 'PNC_SEARCH.CRITERIA.SECTOR' | translate }}</ion-label>
                                         <ion-select interface="popover" [compareWith]="compareFn" formControlName="sectorControl" [disabled]="areFiltersDisabled()" [placeholder]="('PNC_SEARCH.DEFAULT_DATA.ALL_M' | translate )">
@@ -53,7 +145,6 @@
                                     </ion-item>
                                 </ion-col>
                                 <ion-col>
-                                    <!-- Ginq -->
                                     <ion-item>
                                         <ion-label floating>{{ 'PNC_SEARCH.CRITERIA.GINQ' | translate }}</ion-label>
                                         <ion-select interface="popover" [compareWith]="compareFn" formControlName="ginqControl" [disabled]="areFiltersDisabled()" [placeholder]="('PNC_SEARCH.DEFAULT_DATA.ALL_M' | translate )">
@@ -63,7 +154,6 @@
                                     </ion-item>
                                 </ion-col>
                                 <ion-col>
-                                    <!-- Grade -->
                                     <ion-item>
                                         <ion-label floating>{{ 'PNC_SEARCH.CRITERIA.SPECIALITY' | translate }}</ion-label>
                                         <ion-select interface="popover" [compareWith]="compareFn" formControlName="specialityControl" [disabled]="areFiltersDisabled()" [placeholder]="('PNC_SEARCH.DEFAULT_DATA.ALL_F' | translate )">
@@ -73,7 +163,6 @@
                                     </ion-item>
                                 </ion-col>
                                 <ion-col>
-                                    <!-- Spécialisation avion -->
                                     <ion-item>
                                         <ion-label floating>{{ 'PNC_SEARCH.CRITERIA.AIRCRAFT_SKILL' | translate }}</ion-label>
                                         <ion-select interface="popover" [compareWith]="compareFn" formControlName="aircraftSkillControl" [disabled]="areFiltersDisabled()" [placeholder]="('PNC_SEARCH.DEFAULT_DATA.ALL_F' | translate )">
@@ -83,7 +172,6 @@
                                     </ion-item>
                                 </ion-col>
                                 <ion-col>
-                                    <!-- Relais -->
                                     <ion-item>
                                         <ion-label floating>{{ 'PNC_SEARCH.CRITERIA.RELAY' | translate }}</ion-label>
                                         <ion-select interface="popover" [compareWith]="compareFn" formControlName="relayControl" [disabled]="areFiltersDisabled()" [placeholder]="('PNC_SEARCH.DEFAULT_DATA.ALL_M' | translate )">
@@ -99,23 +187,20 @@
                         </form>
                     </ion-col>
                     <ion-col col-3 class="checkbox-container flex column justify-end" [formGroup]="searchForm">
-                        <!-- Prioritaire -->
                         <ion-item>
                             <ion-label>{{ 'PNC_SEARCH.CRITERIA.PRIORITIZED' | translate }} <span class="edospnc-flag prioritized"></span></ion-label>
                             <ion-checkbox [(ngModel)]="prioritized" [disabled]="noPriority || areFiltersDisabled()" formControlName="prioritizedControl"></ion-checkbox>
                         </ion-item>
-                        <!-- En cours -->
                         <ion-item>
                             <ion-label>{{ 'PNC_SEARCH.CRITERIA.PRIORITY_IN_PROGRESS' | translate }}<span class="edospnc-flag at-least-one-priority"></span></ion-label>
                             <ion-checkbox [(ngModel)]="priority" [disabled]="noPriority || areFiltersDisabled()" formControlName="hasAtLeastOnePriorityInProgressControl"></ion-checkbox>
                         </ion-item>
-                        <!-- Pas de priorité -->
                         <ion-item>
                             <ion-label>{{ 'PNC_SEARCH.CRITERIA.NO_PRIORITY' | translate }}</ion-label>
                             <ion-checkbox [(ngModel)]="noPriority" [disabled]="prioritized || priority || areFiltersDisabled()" formControlName="hasNoPriorityControl"></ion-checkbox>
                         </ion-item>
                     </ion-col>
-                </ion-row>
+                </div-->
             </span>
         </ion-grid>
 

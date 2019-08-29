@@ -200,3 +200,27 @@ ion-badge[outline][color="secondary"] {
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
+
+.large-width-devices {
+    /*@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
+        display: none;
+    }
+    @media only screen and (min-device-width: 1024px)  {
+        display: initial;
+    }*/
+    @media only screen and (max-device-width: 768px)  {
+        visibility: none;
+    }
+    @media only screen and (min-device-width: 768px)  {
+        visibility: initial;
+    }
+}
+
+.small-width-devices {
+    @media only screen and (max-device-width: 768px)  {
+        visibility: initial;
+    }
+    @media only screen and (min-device-width: 768px)  {
+        visibility: none;
+    }
+}
