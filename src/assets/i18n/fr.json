@@ -588,7 +588,7 @@
             "WORK_RATE": "Rythme",
             "PRIORITIZED": "Priorité majeure",
             "PRIORITY_IN_PROGRESS": "Priorité en cours",
-            "NO_PRIORITY": "Aucune priorité"
+            "NO_PRIORITY": "Aucune priorité en cours"
         },
         "DEFAULT_DATA": {
             "ALL_F": "Toutes",
