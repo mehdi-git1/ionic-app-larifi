@@ -1,9 +1,14 @@
-import { TranslateService } from '@ngx-translate/core';
-import { Component, Input, OnInit } from '@angular/core';
 import * as _ from 'lodash';
 
-import { GeneralitySkillsModel } from '../../../../core/models/statutory-certificate/generality-skills.model';
-import { StatutoryCertificateDisplayTypeEnum } from '../../../../core/enums/statutory-certificate-display-type.enum';
+import { Component, Input, OnInit } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
+
+import {
+    StatutoryCertificateDisplayTypeEnum
+} from '../../../../core/enums/statutory-certificate-display-type.enum';
+import {
+    GeneralitySkillsModel
+} from '../../../../core/models/statutory-certificate/generality-skills.model';
 
 @Component({
   selector: 'generality-skills',
@@ -46,9 +51,8 @@ export class GeneralitySkillsComponent implements OnInit {
     this.startDateArray.push(StatutoryCertificateDisplayTypeEnum.NTBD);
     this.dueDateArray.push(_.get(this.generalitySkillsData, 'pcb.validityEndDate'));
 
-    const pcbValidityEndDate = new Date(_.get(this.generalitySkillsData, 'pcb.validityEndDate'));
-    const newDate = new Date();
-    if (pcbValidityEndDate == undefined || pcbValidityEndDate < newDate) {
+    const pcbValidityStartDate = _.get(this.generalitySkillsData, 'pcb.validityStartDate');
+    if (pcbValidityStartDate == undefined || !pcbValidityStartDate) {
       this.skillTitleArray.push(this.translateService.instant('STATUTORY_CERTIFICATE.GENERALITY_SKILLS.GENE.TITLE'));
       this.dueDateArray.push(_.get(this.generalitySkillsData, 'gene.dueDate'));
     }
