@@ -202,25 +202,23 @@ ion-badge[outline][color="secondary"] {
 }
 
 .large-width-devices {
-    /*@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
+    @media only screen and (max-width: 768px)  {
         display: none;
+        padding: 0px;
+        margin: 0px;
     }
-    @media only screen and (min-device-width: 1024px)  {
-        display: initial;
-    }*/
-    @media only screen and (max-device-width: 768px)  {
-        display: none;
-    }
-    @media only screen and (min-device-width: 769px)  {
+    @media only screen and (min-width: 769px)  {
         display: initial;
     }
 }
 
 .small-width-devices {
-    @media only screen and (max-device-width: 768px)  {
+    @media only screen and (max-width: 768px)  {
         display: initial;
     }
-    @media only screen and (min-device-width: 769px)  {
+    @media only screen and (min-width: 769px)  {
         display: none;
+        padding: 0px;
+        margin: 0px;
     }
 }

@@ -1,8 +1,6 @@
 $padding-left-ion-select: 5px;
 $margin-top-autocomplete: 15px;
 $top-autocomplete-field: 18px;
-$small-margin-top-autocomplete: 25px;
-$small-top-autocomplete-field: 28px;
 
 pnc-search-filter {
 
@@ -73,39 +71,6 @@ pnc-search-filter {
         .clear-pnc {
             width: 100%;
         }
-        .small-width-devices {
-            pnc-autocomplete {
-                padding: 0px;
-                margin: 0px;
-            }
-            .row {
-                align-items: baseline;
-                ion-col {
-                    display: flex;
-                    flex-direction: column;
-                    justify-content: flex-end;
-                }
-            }
-            .button-md {
-                margin-top: $small-margin-top-autocomplete;
-
-            }
-            .clear-pnc-form {
-                margin-top: 25px;
-                height: 40px;
-                width: 100%;
-            }
-            .button-ios {
-                margin-top: $small-top-autocomplete-field;
-            }
-            .clear-button {
-                display: flex;
-                align-content: center;
-                align-items: baseline;
-                margin: auto;
-                padding: auto;
-            }
-        }
         .button-md {
             margin-top: $margin-top-autocomplete;
 
@@ -114,6 +79,36 @@ pnc-search-filter {
         .button-ios {
             margin-top: $top-autocomplete-field;
         }
+        .small-width-devices {
+            .row {
+                align-items: initial;
+                ion-col {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: flex-end;
+                }
+            }
+            .clear-pnc-form {
+                margin: 0;
+                margin-top: 45px;
+                height: 40px;
+                width: 100%;
+            }
+
+            .clear-button {
+                display: flex;
+                align-content: center;
+                align-items: baseline;
+                margin: auto;
+                padding: auto;
+            }
+            form {
+                .label-ios {
+                    margin: 0;
+                }
+            }
+        }
+
 
         .search-pnc {
             width: 100%;
@@ -154,7 +149,6 @@ pnc-search-filter {
             .label-md {
                 margin: 0;
             }
-
         }
 
         // Checkbox
