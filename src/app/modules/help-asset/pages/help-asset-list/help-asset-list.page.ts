@@ -1,17 +1,19 @@
-import { FileService } from './../../../../core/file/file.service';
+import { NavController, NavParams } from 'ionic-angular';
+
+import { Component } from '@angular/core';
+
+import { FileTypeEnum } from '../../../../core/enums/file-type.enum';
 import { HelpAssetTypeEnum } from '../../../../core/enums/help-asset-type.enum';
+import { PncRoleEnum } from '../../../../core/enums/pnc-role.enum';
+import { TabHeaderEnum } from '../../../../core/enums/tab-header.enum';
+import { FileService } from '../../../../core/file/file.service';
+import { HelpAssetModel } from '../../../../core/models/help-asset.model';
+import { PncModel } from '../../../../core/models/pnc.model';
 import { ConnectivityService } from '../../../../core/services/connectivity/connectivity.service';
 import { DeviceService } from '../../../../core/services/device/device.service';
 import { HelpAssetService } from '../../../../core/services/help-asset/help-asset.service';
-import { HelpAssetModel } from '../../../../core/models/help-asset.model';
-import { PncRoleEnum } from '../../../../core/enums/pnc-role.enum';
-import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
-import { SessionService } from '../../../../core/services/session/session.service';
-import { FileTypeEnum } from '../../../../core/enums/file-type.enum';
-import { PncModel } from '../../../../core/models/pnc.model';
 import { PncService } from '../../../../core/services/pnc/pnc.service';
-import { TabHeaderEnum } from '../../../../core/enums/tab-header.enum';
+import { SessionService } from '../../../../core/services/session/session.service';
 
 @Component({
     selector: 'page-help-asset-list',
@@ -50,17 +52,11 @@ export class HelpAssetListPage {
     }
 
     ionViewDidEnter() {
-        if (this.navParams.get('matricule')) {
-            this.matricule = this.navParams.get('matricule');
-        } else if (this.sessionService.getActiveUser()) {
-            this.matricule = this.sessionService.getActiveUser().matricule;
-        }
-        if (this.matricule != null) {
-            this.pncService.getPnc(this.matricule).then(pnc => {
-                this.pnc = pnc;
-            }, error => {
-            });
-        }
+        this.matricule = this.navParams.get('matricule');
+        this.pncService.getPnc(this.matricule).then(pnc => {
+            this.pnc = pnc;
+        }, error => {
+        });
         if (this.navParams.get('pncRole')) {
             this.pncRole = this.navParams.get('pncRole');
         } else if (this.sessionService.getActiveUser()) {

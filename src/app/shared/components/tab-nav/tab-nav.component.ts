@@ -1,20 +1,30 @@
-import { HelpAssetListPage } from './../../../modules/help-asset/pages/help-asset-list/help-asset-list.page';
-import { PncSearchPage } from './../../../modules/pnc-team/pages/pnc-search/pnc-search.page';
-import { SecurityService } from './../../../core/services/security/security.service';
-import { ProfessionalLevelPage } from './../../../modules/professional-level/pages/professional-level/professional-level.page';
-import { PncModel } from './../../../core/models/pnc.model';
-import { CareerObjectiveListPage } from './../../../modules/development-program/pages/career-objective-list/career-objective-list.page';
-import { PncService } from './../../../core/services/pnc/pnc.service';
-import { Component, Input, ViewChild } from '@angular/core';
-import { Nav, Events, LoadingController, Tabs } from 'ionic-angular';
+import { Events, LoadingController, Nav, Tabs } from 'ionic-angular';
 
-import { TabNavService } from '../../../core/services/tab-nav/tab-nav.service';
-import { TabNavEnum } from '../../../core/enums/tab-nav.enum';
-import { AuthenticationPage } from '../../../modules/home/pages/authentication/authentication.page';
-import { SessionService } from '../../../core/services/session/session.service';
+import { Component, Input, ViewChild } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
+
+import { PncRoleEnum } from '../../../core/enums/pnc-role.enum';
+import { TabNavEnum } from '../../../core/enums/tab-nav.enum';
+import { PncModel } from '../../../core/models/pnc.model';
+import { PncService } from '../../../core/services/pnc/pnc.service';
+import { SecurityService } from '../../../core/services/security/security.service';
+import { SessionService } from '../../../core/services/session/session.service';
+import { TabNavService } from '../../../core/services/tab-nav/tab-nav.service';
+import {
+    CareerObjectiveListPage
+} from '../../../modules/development-program/pages/career-objective-list/career-objective-list.page';
+import {
+    UpcomingFlightListPage
+} from '../../../modules/flight-activity/pages/upcoming-flight-list/upcoming-flight-list.page';
+import {
+    HelpAssetListPage
+} from '../../../modules/help-asset/pages/help-asset-list/help-asset-list.page';
+import { AuthenticationPage } from '../../../modules/home/pages/authentication/authentication.page';
 import { PncHomePage } from '../../../modules/home/pages/pnc-home/pnc-home.page';
-import { UpcomingFlightListPage } from '../../../modules/flight-activity/pages/upcoming-flight-list/upcoming-flight-list.page';
+import { PncSearchPage } from '../../../modules/pnc-team/pages/pnc-search/pnc-search.page';
+import {
+    ProfessionalLevelPage
+} from '../../../modules/professional-level/pages/professional-level/professional-level.page';
 
 @Component({
   selector: 'tab-nav',
@@ -32,6 +42,8 @@ export class TabNavComponent {
 
   initVisitedPnc: PncModel;
 
+  rootParams;
+
   constructor(
     private events: Events,
     private pncService: PncService,
@@ -45,6 +57,8 @@ export class TabNavComponent {
       if (!this.tabsNav) {
         this.tabsNav = this.createListOfTab();
       }
+      // Initialise le matricule de la la personne connectée
+      this.updateRootParams();
       this.tabNavService.setListOfTabs(this.tabsNav);
       this.updateTexts();
       this.updatePermissions();
@@ -186,6 +200,16 @@ export class TabNavComponent {
    */
   isAvailable(): boolean {
     return this.sessionService.getActiveUser() && this.sessionService.getActiveUser().isManager;
+  }
+
+  /**
+   * Met à jour les paramètres de navigation à transmettre à la page racine
+   */
+  updateRootParams() {
+    this.rootParams = {
+      matricule: this.sessionService.getActiveUser().matricule,
+      pncRole: this.sessionService.getActiveUser().isManager ? PncRoleEnum.MANAGER : PncRoleEnum.PNC
+    };
   }
 
 }

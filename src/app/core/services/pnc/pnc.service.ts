@@ -1,18 +1,21 @@
+
+
 import { Injectable } from '@angular/core';
 
-import { GenderEnum } from '../../enums/gender.enum';
-import { PncSearchCriteriaModel } from '../../models/pnc-search-criteria.model';
 import { UrlConfiguration } from '../../configuration/url.configuration';
-import { PncFilterModel } from '../../models/pnc-filter.model';
-import { OnlinePncService } from './online-pnc.service';
-import { OfflinePncService } from './offline-pnc.service';
-import { ConnectivityService } from '../connectivity/connectivity.service';
-import { RotationModel } from '../../models/rotation.model';
-import { PncModel } from '../../models/pnc.model';
-import { PagedPncModel } from '../../models/paged-pnc.model';
-import { RestService } from '../../http/rest/rest.base.service';
-import { BaseService } from '../base/base.service';
+import { GenderEnum } from '../../enums/gender.enum';
 import { SpecialityEnum } from '../../enums/speciality.enum';
+import { RestService } from '../../http/rest/rest.base.service';
+import { PagedPncModel } from '../../models/paged-pnc.model';
+import { PncFilterModel } from '../../models/pnc-filter.model';
+import { PncSearchCriteriaModel } from '../../models/pnc-search-criteria.model';
+import { PncModel } from '../../models/pnc.model';
+import { RotationModel } from '../../models/rotation.model';
+import { BaseService } from '../base/base.service';
+import { ConnectivityService } from '../connectivity/connectivity.service';
+import { SessionService } from '../session/session.service';
+import { OfflinePncService } from './offline-pnc.service';
+import { OnlinePncService } from './online-pnc.service';
 
 @Injectable()
 export class PncService extends BaseService {
@@ -22,7 +25,8 @@ export class PncService extends BaseService {
     private onlinePncService: OnlinePncService,
     private offlinePncService: OfflinePncService,
     private restService: RestService,
-    private config: UrlConfiguration
+    private config: UrlConfiguration,
+    private sessionService: SessionService
   ) {
     super(
       connectivityService,
@@ -38,6 +42,12 @@ export class PncService extends BaseService {
    * @return les informations du PNC
    */
   getPnc(matricule: string): Promise<PncModel> {
+    if (this.sessionService.getActiveUser().matricule === matricule) {
+      return Promise.resolve(this.sessionService.getActiveUser().authenticatedPnc);
+    }
+    if (this.sessionService.visitedPnc && this.sessionService.visitedPnc.matricule === matricule) {
+      return Promise.resolve(this.sessionService.visitedPnc);
+    }
     return this.execFunctionService('getPnc', matricule);
   }
 
@@ -91,5 +101,4 @@ export class PncService extends BaseService {
       return null;
     }
   }
-
 }

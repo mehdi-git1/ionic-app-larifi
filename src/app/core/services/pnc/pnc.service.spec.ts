@@ -1,15 +1,15 @@
-import { GenderEnum } from './../../enums/gender.enum';
-import { UrlConfiguration } from './../../configuration/url.configuration';
-import { Config } from './../../../../environments/prod';
-import { PncService } from './pnc.service';
-import { OfflinePncService } from './offline-pnc.service';
-import { PncModel } from '../../models/pnc.model';
+import { Config } from '../../../../environments/prod';
+import { UrlConfiguration } from '../../configuration/url.configuration';
+import { GenderEnum } from '../../enums/gender.enum';
 import { SpecialityEnum } from '../../enums/speciality.enum';
+import { PncModel } from '../../models/pnc.model';
+import { PncService } from './pnc.service';
 
 const connectivityServiceMock = jasmine.createSpyObj('connectivityServiceMock', ['isConnected']);
 const onlinePncServiceMock = jasmine.createSpyObj('onlinePncServiceMock', ['']);
 const offlinePncServiceMock = jasmine.createSpyObj('offlinePncServiceMock', ['']);
 const restServiceMock = jasmine.createSpyObj('restServiceMock', ['get']);
+const sessionServiceMock = jasmine.createSpyObj('sessionServiceMock', ['getActiveUser']);
 
 describe('PncService', () => {
 
@@ -17,7 +17,7 @@ describe('PncService', () => {
     let pnc: PncModel;
 
     beforeEach(() => {
-        pncService = new PncService(connectivityServiceMock, onlinePncServiceMock, offlinePncServiceMock, restServiceMock, new UrlConfiguration(new Config()));
+        pncService = new PncService(connectivityServiceMock, onlinePncServiceMock, offlinePncServiceMock, restServiceMock, new UrlConfiguration(new Config()), sessionServiceMock);
     });
 
     describe('getFormatedSpeciality', () => {
