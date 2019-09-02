@@ -4,5 +4,5 @@
 
 <simple-notifications></simple-notifications>
 
-<ion-nav #content swipeBackEnabled="false" [ngClass]="{'blur' : pinPadModalActive, 'impersonation': sessionService.impersonatedUser}"></ion-nav>
-<tab-nav #tabs [ngClass]="{'blur' : pinPadModalActive, 'impersonation': sessionService.impersonatedUser}" [navCtrl]="nav"></tab-nav>
+<ion-nav [root]="rootPage" #content swipeBackEnabled="false" [ngClass]="{'blur' : pinPadModalActive, 'impersonation': sessionService.impersonatedUser}"></ion-nav>
+<tab-nav [ngClass]="{'blur' : pinPadModalActive, 'impersonation': sessionService.impersonatedUser}" [navCtrl]="nav"></tab-nav>
