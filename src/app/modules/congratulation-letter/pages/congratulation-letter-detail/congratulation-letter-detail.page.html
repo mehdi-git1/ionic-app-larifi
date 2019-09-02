@@ -19,7 +19,7 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td class="suffix-tu">{{ 'CONGRATULATION_LETTERS.VALUE.FLIGHT' | translate:{airline:congratulationLetter.flight.airline, flightNumber:congratulationLetter.flight.number, flightDate:getFormatedFlightDate(congratulationLetter.flight)} }}</td>
+                        <td class="suffix-tu">{{ 'CONGRATULATION_LETTERS.VALUE.FLIGHT' | translate:{airline:getEmptyStringIfNull(congratulationLetter.flight.airline), flightNumber:getEmptyStringIfNull(congratulationLetter.flight.number), flightDate:getFormatedFlightDate(congratulationLetter.flight)} }}</td>
                         <td>
                             <ng-container *ngIf="congratulationLetter.collective; else individualLabel">{{ 'CONGRATULATION_LETTER_DETAIL.TYPE.COLLECTIVE' | translate }}</ng-container>
                             <ng-template #individualLabel>{{ 'CONGRATULATION_LETTER_DETAIL.TYPE.INDIVIDUAL' | translate }}</ng-template>
@@ -37,13 +37,21 @@
             </table>
             <div class="verbatim-container">
                 <label><span class="edospnc-speechBubble"></span>{{ 'CONGRATULATION_LETTER_DETAIL.VERBATIM' | translate }}</label>
-                <p class="verbatim">{{ congratulationLetter.verbatim }}</p>
+                <no-data *ngIf="!congratulationLetter.verbatim; else noVerbatimBlock"></no-data>
+                <ng-template #noVerbatimBlock>
+                    <p class="verbatim">{{ congratulationLetter.verbatim }}</p>
+                </ng-template>
                 <div>
                     <document-manager [documents]="congratulationLetter.documents" [readonly]="true"></document-manager>
                 </div>
             </div>
+            <div class="information-message align-left" *ngIf="congratulationLetter.creationAuthor">
+                {{ 'CONGRATULATION_LETTER_CREATE.CREATED_BY' | translate }} <span class="lastname">{{congratulationLetter.creationAuthor.lastName}}</span> <span class="firstname">{{congratulationLetter.creationAuthor.firstName}}</span>
+            </div>
 
-            <div class="information-message align-left" *ngIf="congratulationLetter.lastUpdateAuthor">{{ 'CONGRATULATION_LETTER_CREATE.UPDATED_BY' | translate:{lastName:congratulationLetter.lastUpdateAuthor.lastName, firstName:congratulationLetter.lastUpdateAuthor.firstName, date:getLastUpdateDate()} }}</div>
+            <div class="information-message align-left" *ngIf="congratulationLetter.lastUpdateAuthor">
+                {{ 'CONGRATULATION_LETTER_CREATE.UPDATED_BY' | translate }} <span class="lastname">{{congratulationLetter.lastUpdateAuthor.lastName}}</span> <span class="firstname">{{congratulationLetter.lastUpdateAuthor.firstName}}</span> {{ 'CONGRATULATION_LETTER_CREATE.DATE_LABEL' | translate:{date:getLastUpdateDate()} }}
+            </div>
         </div>
     </ng-template>
 </ion-content>

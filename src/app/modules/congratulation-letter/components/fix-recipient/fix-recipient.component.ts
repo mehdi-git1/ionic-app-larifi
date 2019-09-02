@@ -1,19 +1,19 @@
-import { Component, Input, ElementRef, ViewChild } from '@angular/core';
-import { CongratulationLetterModel } from '../../../../core/models/congratulation-letter.model';
-import { PncCardComponent } from '../../../../shared/components/pnc-card/pnc-card.component';
-import { PncModel } from '../../../../core/models/pnc.model';
-import { NavParams, ViewController, AlertController, Events } from 'ionic-angular';
-import { CongratulationLetterService } from '../../../../core/services/congratulation-letter/congratulation-letter.service';
+import { AlertController, Events, NavParams, ViewController } from 'ionic-angular';
+
+import { Component } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
+
+import {
+    CongratulationLetterFlightModel
+} from '../../../../core/models/congratulation-letter-flight.model';
+import { CongratulationLetterModel } from '../../../../core/models/congratulation-letter.model';
+import { PncModel } from '../../../../core/models/pnc.model';
+import {
+    CongratulationLetterService
+} from '../../../../core/services/congratulation-letter/congratulation-letter.service';
+import { PncService } from '../../../../core/services/pnc/pnc.service';
 import { ToastService } from '../../../../core/services/toast/toast.service';
 import { Utils } from '../../../../shared/utils/utils';
-import { PncSearchFilterComponent } from '../../../pnc-team/components/pnc-search-filter/pnc-search-filter.component';
-import { Subject } from 'rxjs/Rx';
-import { Observable } from 'rxjs/Observable';
-import { from } from 'rxjs/observable/from';
-import $ from 'jquery';
-import { PncService } from '../../../../core/services/pnc/pnc.service';
-import { CongratulationLetterFlightModel } from '../../../../core/models/congratulation-letter-flight.model';
 
 @Component({
     selector: 'fix-recipient',
@@ -50,9 +50,9 @@ export class FixRecipientComponent {
     fixRecipient(selectedPnc: PncModel) {
         this.alertCtrl.create({
             title: this.translateService.instant('CONGRATULATION_LETTERS.FIX_RECIPIENT.CONFIRMATION_POPOVER.TITLE',
-            { airline: this.congratulationLetter.flight.airline, flightNumber: this.congratulationLetter.flight.number, flightDate: this.getFormatedFlightDate(this.congratulationLetter.flight)}),
+                { airline: Utils.getEmptyStringIfNull(this.congratulationLetter.flight.airline), flightNumber: Utils.getEmptyStringIfNull(this.congratulationLetter.flight.number), flightDate: this.getFormatedFlightDate(this.congratulationLetter.flight) }),
             message: this.translateService.instant('CONGRATULATION_LETTERS.FIX_RECIPIENT.CONFIRMATION_POPOVER.LABEL',
-            {oldPncConcernedLastName: this.pnc.lastName.toUpperCase(), oldPncConcernedFirstName: Utils.capitalize(this.pnc.firstName), newPncConcernedLastName: selectedPnc.lastName.toUpperCase(), newPncConcernedFirstName: Utils.capitalize(selectedPnc.firstName)}),
+                { oldPncConcernedLastName: this.pnc.lastName.toUpperCase(), oldPncConcernedFirstName: Utils.capitalize(this.pnc.firstName), newPncConcernedLastName: selectedPnc.lastName.toUpperCase(), newPncConcernedFirstName: Utils.capitalize(selectedPnc.firstName) }),
             buttons: [
                 {
                     text: this.translateService.instant('GLOBAL.BUTTONS.CANCEL'),
@@ -62,12 +62,12 @@ export class FixRecipientComponent {
                     text: this.translateService.instant('GLOBAL.BUTTONS.CONFIRM'),
                     handler: () => {
                         this.congratulationLetterService.fixCongratulationLetterRecipient(this.congratulationLetter.techId, this.pnc.matricule, selectedPnc.matricule)
-                        .then( congratulationLetter => {
-                            this.events.publish('CongratulationLetterList:refresh');
-                            this.viewCtrl.dismiss();
-                            this.toastService.info(this.translateService.instant('CONGRATULATION_LETTERS.FIX_RECIPIENT.RECIPIENT_FIXED'));
+                            .then(congratulationLetter => {
+                                this.events.publish('CongratulationLetterList:refresh');
+                                this.viewCtrl.dismiss();
+                                this.toastService.info(this.translateService.instant('CONGRATULATION_LETTERS.FIX_RECIPIENT.RECIPIENT_FIXED'));
                             }
-                        );
+                            );
                     }
                 }
             ]
@@ -91,4 +91,12 @@ export class FixRecipientComponent {
         return this.congratulationLetterService.getFormatedFlightDate(flight);
     }
 
+    /**
+     * Récupère une chaine de caractère vide si la valeur est null
+     * @param value la chaine à traiter
+     * @return une chaine vide, ou la valeur passée en paramètre si celle ci est non null
+     */
+    getEmptyStringIfNull(value: string): string {
+        return Utils.getEmptyStringIfNull(value);
+    }
 }

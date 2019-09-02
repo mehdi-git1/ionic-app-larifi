@@ -1,16 +1,30 @@
-import { ConnectivityService } from './../../../../core/services/connectivity/connectivity.service';
-import { CongratulationLetterRedactorTypeEnum } from './../../../../core/enums/congratulation-letter/congratulation-letter-redactor-type.enum';
-import { CongratulationLetterFlightModel } from './../../../../core/models/congratulation-letter-flight.model';
-import { CongratulationLetterService } from './../../../../core/services/congratulation-letter/congratulation-letter.service';
 import { NavController, PopoverController } from 'ionic-angular';
-import { CongratulationLetterDetailPage } from './../../pages/congratulation-letter-detail/congratulation-letter-detail.page';
-import { CongratulationLetterModeEnum } from './../../../../core/enums/congratulation-letter/congratulation-letter-mode.enum';
+
 import { Component, Input } from '@angular/core';
+
+import {
+    CongratulationLetterModeEnum
+} from '../../../../core/enums/congratulation-letter/congratulation-letter-mode.enum';
+import {
+    CongratulationLetterRedactorTypeEnum
+} from '../../../../core/enums/congratulation-letter/congratulation-letter-redactor-type.enum';
+import {
+    CongratulationLetterFlightModel
+} from '../../../../core/models/congratulation-letter-flight.model';
 import { CongratulationLetterModel } from '../../../../core/models/congratulation-letter.model';
-import { CongratulationLetterCreatePage } from '../../pages/congratulation-letter-create/congratulation-letter-create.page';
-import { SecurityService } from './../../../../core/services/security/security.service';
-import { CongratulationLetterActionMenuComponent } from './../../components/congratulation-letter-action-menu/congratulation-letter-action-menu.component';
 import { PncModel } from '../../../../core/models/pnc.model';
+import {
+    CongratulationLetterService
+} from '../../../../core/services/congratulation-letter/congratulation-letter.service';
+import { ConnectivityService } from '../../../../core/services/connectivity/connectivity.service';
+import { SecurityService } from '../../../../core/services/security/security.service';
+import { Utils } from '../../../../shared/utils/utils';
+import {
+    CongratulationLetterActionMenuComponent
+} from '../../components/congratulation-letter-action-menu/congratulation-letter-action-menu.component';
+import {
+    CongratulationLetterDetailPage
+} from '../../pages/congratulation-letter-detail/congratulation-letter-detail.page';
 
 @Component({
   selector: 'congratulation-letter-card',
@@ -85,5 +99,13 @@ export class CongratulationLetterCardComponent {
     myEvent.stopPropagation();
     const popover = this.popoverCtrl.create(CongratulationLetterActionMenuComponent, { congratulationLetter: congratulationLetter, pnc: this.pnc, congratulationLetterMode: this.mode, navCtrl: this.navCtrl }, { cssClass: 'action-menu-popover' });
     popover.present({ ev: myEvent });
+  }
+
+  /**
+   * Récupère une chaine de caractère vide si la valeur est null
+   * @return une chaine vide, ou la valeur passée en paramètre si celle ci est non null
+   */
+  getEmptyStringIfNull(value: string) {
+    return Utils.getEmptyStringIfNull(value);
   }
 }

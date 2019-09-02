@@ -15,6 +15,8 @@ export abstract class BaseEnvironment {
 
   public makeOfflineModeAvailable = false;
 
+  public friendlyUrl = 'http://friendly6rct.airfrance.fr';
+
   /**
   * Vérifie qu'on est en local
   * @return  vrai si on est sur l'env localhost, false sinon

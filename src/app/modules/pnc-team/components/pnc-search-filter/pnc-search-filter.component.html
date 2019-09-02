@@ -9,7 +9,7 @@
         <ion-grid>
             <span>
                 <ion-row>
-                    <ion-col col-10>
+                    <ion-col col-9>
                         <ion-row>
                             <ion-col col-6>
                                 <!-- PNC -->
@@ -98,15 +98,15 @@
                             </ion-row>
                         </form>
                     </ion-col>
-                    <ion-col col-2 class="checkbox-container flex column justify-end" [formGroup]="searchForm">
+                    <ion-col col-3 class="checkbox-container flex column justify-end" [formGroup]="searchForm">
                         <!-- Prioritaire -->
                         <ion-item>
-                            <ion-label>{{ 'PNC_SEARCH.CRITERIA.PRIORITIZED' | translate }}</ion-label>
+                            <ion-label>{{ 'PNC_SEARCH.CRITERIA.PRIORITIZED' | translate }} <span class="edospnc-flag prioritized"></span></ion-label>
                             <ion-checkbox [(ngModel)]="prioritized" [disabled]="noPriority || areFiltersDisabled()" formControlName="prioritizedControl"></ion-checkbox>
                         </ion-item>
                         <!-- En cours -->
                         <ion-item>
-                            <ion-label>{{ 'PNC_SEARCH.CRITERIA.PRIORITY_IN_PROGRESS' | translate }}</ion-label>
+                            <ion-label>{{ 'PNC_SEARCH.CRITERIA.PRIORITY_IN_PROGRESS' | translate }}<span class="edospnc-flag at-least-one-priority"></span></ion-label>
                             <ion-checkbox [(ngModel)]="priority" [disabled]="noPriority || areFiltersDisabled()" formControlName="hasAtLeastOnePriorityInProgressControl"></ion-checkbox>
                         </ion-item>
                         <!-- Pas de priorité -->

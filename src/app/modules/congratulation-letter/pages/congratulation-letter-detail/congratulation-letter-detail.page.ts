@@ -1,13 +1,22 @@
-import { DatePipe } from '@angular/common';
-import { CongratulationLetterRedactorTypeEnum } from './../../../../core/enums/congratulation-letter/congratulation-letter-redactor-type.enum';
-import { CongratulationLetterFlightModel } from './../../../../core/models/congratulation-letter-flight.model';
-import { CongratulationLetterModel } from './../../../../core/models/congratulation-letter.model';
-import { SessionService } from './../../../../core/services/session/session.service';
-import { PncModel } from './../../../../core/models/pnc.model';
-import { CongratulationLetterService } from './../../../../core/services/congratulation-letter/congratulation-letter.service';
 import { NavParams } from 'ionic-angular';
+
+import { DatePipe } from '@angular/common';
 import { Component } from '@angular/core';
+
+import {
+    CongratulationLetterRedactorTypeEnum
+} from '../../../../core/enums/congratulation-letter/congratulation-letter-redactor-type.enum';
+import {
+    CongratulationLetterFlightModel
+} from '../../../../core/models/congratulation-letter-flight.model';
+import { CongratulationLetterModel } from '../../../../core/models/congratulation-letter.model';
+import { PncModel } from '../../../../core/models/pnc.model';
+import {
+    CongratulationLetterService
+} from '../../../../core/services/congratulation-letter/congratulation-letter.service';
 import { PncService } from '../../../../core/services/pnc/pnc.service';
+import { SessionService } from '../../../../core/services/session/session.service';
+import { Utils } from '../../../../shared/utils/utils';
 
 @Component({
     selector: 'congratulation-letter-detail',
@@ -78,4 +87,11 @@ export class CongratulationLetterDetailPage {
         return this.datePipe.transform(this.congratulationLetter.lastUpdateDate, 'dd/MM/yyyy HH:mm');
     }
 
+    /**
+     * Récupère une chaine de caractère vide si la valeur est null
+     * @return une chaine vide, ou la valeur passée en paramètre si celle ci est non null
+     */
+    getEmptyStringIfNull(value: string) {
+        return Utils.getEmptyStringIfNull(value);
+    }
 }

@@ -1,5 +1,5 @@
 <div class="congratulation-letter elevation-1">
-    <span class="flight suffix-tu">{{ 'CONGRATULATION_LETTERS.VALUE.FLIGHT' | translate:{airline:congratulationLetter.flight.airline, flightNumber:congratulationLetter.flight.number, flightDate:getFormatedFlightDate(congratulationLetter.flight)} }}</span>
+    <span class="flight suffix-tu">{{ 'CONGRATULATION_LETTERS.VALUE.FLIGHT' | translate:{airline:getEmptyStringIfNull(congratulationLetter.flight.airline), flightNumber:getEmptyStringIfNull(congratulationLetter.flight.number), flightDate:getFormatedFlightDate(congratulationLetter.flight)} }}</span>
     <span class="type">
         <ng-container *ngIf="congratulationLetter.collective; else individualLabel">{{ 'CONGRATULATION_LETTERS.TYPE.COLLECTIVE' | translate }}</ng-container>
         <ng-template #individualLabel>{{ 'CONGRATULATION_LETTERS.TYPE.INDIVIDUAL' | translate }}</ng-template>
