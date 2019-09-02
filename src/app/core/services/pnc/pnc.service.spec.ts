@@ -9,7 +9,7 @@ const connectivityServiceMock = jasmine.createSpyObj('connectivityServiceMock', 
 const onlinePncServiceMock = jasmine.createSpyObj('onlinePncServiceMock', ['']);
 const offlinePncServiceMock = jasmine.createSpyObj('offlinePncServiceMock', ['']);
 const restServiceMock = jasmine.createSpyObj('restServiceMock', ['get']);
-const sessionServiceMock = jasmine.createSpyObj('sessionServiceMock', []);
+const sessionServiceMock = jasmine.createSpyObj('sessionServiceMock', ['getActiveUser']);
 
 describe('PncService', () => {
 
