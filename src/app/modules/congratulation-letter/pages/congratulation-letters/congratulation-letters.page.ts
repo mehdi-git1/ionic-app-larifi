@@ -1,14 +1,22 @@
-import { ConnectivityService } from './../../../../core/services/connectivity/connectivity.service';
-import { CongratulationLetterCreatePage } from './../congratulation-letter-create/congratulation-letter-create.page';
-import { TabHeaderEnum } from './../../../../core/enums/tab-header.enum';
-import { PncService } from './../../../../core/services/pnc/pnc.service';
-import { CongratulationLetterService } from './../../../../core/services/congratulation-letter/congratulation-letter.service';
-import { CongratulationLetterModeEnum } from '../../../../core/enums/congratulation-letter/congratulation-letter-mode.enum';
-import { NavParams, Events, NavController } from 'ionic-angular';
+import { Events, NavController, NavParams } from 'ionic-angular';
+
 import { Component } from '@angular/core';
+
+import {
+    CongratulationLetterModeEnum
+} from '../../../../core/enums/congratulation-letter/congratulation-letter-mode.enum';
+import { TabHeaderEnum } from '../../../../core/enums/tab-header.enum';
 import { CongratulationLetterModel } from '../../../../core/models/congratulation-letter.model';
-import { SessionService } from '../../../../core/services/session/session.service';
 import { PncModel } from '../../../../core/models/pnc.model';
+import {
+    CongratulationLetterService
+} from '../../../../core/services/congratulation-letter/congratulation-letter.service';
+import { ConnectivityService } from '../../../../core/services/connectivity/connectivity.service';
+import { PncService } from '../../../../core/services/pnc/pnc.service';
+import { SessionService } from '../../../../core/services/session/session.service';
+import {
+    CongratulationLetterCreatePage
+} from '../congratulation-letter-create/congratulation-letter-create.page';
 
 @Component({
     selector: 'congratulation-letters',
@@ -51,11 +59,8 @@ export class CongratulationLettersPage {
     }
 
     initPage() {
-        if (this.navParams.get('matricule')) {
-            this.matricule = this.navParams.get('matricule');
-        } else if (this.sessionService.getActiveUser()) {
-            this.matricule = this.sessionService.getActiveUser().matricule;
-        }
+
+        this.matricule = this.navParams.get('matricule');
         this.pncService.getPnc(this.matricule).then(pnc => {
             this.pnc = pnc;
         }, error => { });

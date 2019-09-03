@@ -10,6 +10,7 @@ tab-nav {
         background: color($colors, primary);
         color: color($colors, white) !important;
         font-weight: bold;
+        pointer-events: none;
     }
 
     .tabbar .icon {

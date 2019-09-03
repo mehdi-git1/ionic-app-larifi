@@ -3,6 +3,7 @@ import { Events, LoadingController, Nav, Tabs } from 'ionic-angular';
 import { Component, Input, ViewChild } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 
+import { PncRoleEnum } from '../../../core/enums/pnc-role.enum';
 import { TabNavEnum } from '../../../core/enums/tab-nav.enum';
 import { PncModel } from '../../../core/models/pnc.model';
 import { PncService } from '../../../core/services/pnc/pnc.service';
@@ -41,6 +42,8 @@ export class TabNavComponent {
 
   initVisitedPnc: PncModel;
 
+  rootParams;
+
   constructor(
     private events: Events,
     private pncService: PncService,
@@ -54,6 +57,8 @@ export class TabNavComponent {
       if (!this.tabsNav) {
         this.tabsNav = this.createListOfTab();
       }
+      // Initialise le matricule de la la personne connectée
+      this.updateRootParams();
       this.tabNavService.setListOfTabs(this.tabsNav);
       this.updateTexts();
       this.updatePermissions();
@@ -195,6 +200,16 @@ export class TabNavComponent {
    */
   isAvailable(): boolean {
     return this.sessionService.getActiveUser() && this.sessionService.getActiveUser().isManager;
+  }
+
+  /**
+   * Met à jour les paramètres de navigation à transmettre à la page racine
+   */
+  updateRootParams() {
+    this.rootParams = {
+      matricule: this.sessionService.getActiveUser().matricule,
+      pncRole: this.sessionService.getActiveUser().isManager ? PncRoleEnum.MANAGER : PncRoleEnum.PNC
+    };
   }
 
 }
