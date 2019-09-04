@@ -142,6 +142,10 @@ log-book {
         .column-redactor {
             min-width: 80px;
             max-width: 160px;
+
+            .event-type{
+                margin-left: 5px;
+            }
         }
 
         .column-actions {
