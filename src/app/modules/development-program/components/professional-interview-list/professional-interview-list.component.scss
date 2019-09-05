@@ -1,0 +1,24 @@
+professional-interview-list {
+
+    .archives {
+
+        span,
+        a {
+            color: color($colors-secondary, blue68);
+        }
+
+        a {
+            text-decoration: underline;
+        }
+
+        .edospnc-archive:before {
+            font-size: 26px;
+            position: relative;
+            top: 4px;
+        }
+
+        &.information-message:before {
+            content: '';
+        }
+    }
+}
