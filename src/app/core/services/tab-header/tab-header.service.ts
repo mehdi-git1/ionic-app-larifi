@@ -15,7 +15,7 @@ import {
 } from '../../../modules/congratulation-letter/pages/congratulation-letters/congratulation-letters.page';
 import {
     DevelopmentProgramPage
-} from '../../../modules/development-program/development-program.page';
+} from '../../../modules/development-program/pages/development-program/development-program.page';
 import {
     UpcomingFlightListPage
 } from '../../../modules/flight-activity/pages/upcoming-flight-list/upcoming-flight-list.page';

@@ -12,7 +12,7 @@ import { SessionService } from '../../../core/services/session/session.service';
 import { TabNavService } from '../../../core/services/tab-nav/tab-nav.service';
 import {
     DevelopmentProgramPage
-} from '../../../modules/development-program/development-program.page';
+} from '../../../modules/development-program/pages/development-program/development-program.page';
 import {
     UpcomingFlightListPage
 } from '../../../modules/flight-activity/pages/upcoming-flight-list/upcoming-flight-list.page';

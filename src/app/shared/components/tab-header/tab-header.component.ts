@@ -9,7 +9,7 @@ import { SessionService } from '../../../core/services/session/session.service';
 import { TabHeaderService } from '../../../core/services/tab-header/tab-header.service';
 import {
     DevelopmentProgramPage
-} from '../../../modules/development-program/development-program.page';
+} from '../../../modules/development-program/pages/development-program/development-program.page';
 import { PncHomePage } from '../../../modules/home/pages/pnc-home/pnc-home.page';
 
 @Component({

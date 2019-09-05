@@ -9,7 +9,9 @@ import { PncModel } from '../../../../core/models/pnc.model';
 import { PncService } from '../../../../core/services/pnc/pnc.service';
 import { SecurityService } from '../../../../core/services/security/security.service';
 import { SessionService } from '../../../../core/services/session/session.service';
-import { DevelopmentProgramPage } from '../../../development-program/development-program.page';
+import {
+    DevelopmentProgramPage
+} from '../../../development-program/pages/development-program/development-program.page';
 import { PncHomePage } from '../../../home/pages/pnc-home/pnc-home.page';
 
 @Component({
