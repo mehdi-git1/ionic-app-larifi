@@ -8,21 +8,31 @@ import { EObservationModule } from '../eobservation/eobservation.module';
 import {
     ProfessionalInterviewModule
 } from '../professional-interview/professional-interview.module';
+import {
+    CareerObjectiveListComponent
+} from './components/career-objective-list/career-objective-list.component';
 import { CareerObjectiveComponent } from './components/career-objective/career-objective.component';
 import {
     CareerObjectivesComponent
 } from './components/career_objectives/career-objectives.component';
-import { DevelopmentProgramPage } from './development-program.page';
+import {
+    EObservationListComponent
+} from './components/eobervation-list/eobservation-list.component';
+import {
+    ProfessionalInterviewListComponent
+} from './components/professional-interview-list/professional-interview-list.component';
 import {
     CareerObjectiveCreatePage
 } from './pages/career-objective-create/career-objective-create.page';
-import { CareerObjectiveListPage } from './pages/career-objective-list/career-objective-list.page';
+import { DevelopmentProgramPage } from './pages/development-program/development-program.page';
 import { WaypointCreatePage } from './pages/waypoint-create/waypoint-create.page';
 
 @NgModule({
   declarations: [
     WaypointCreatePage,
-    CareerObjectiveListPage,
+    CareerObjectiveListComponent,
+    ProfessionalInterviewListComponent,
+    EObservationListComponent,
     CareerObjectiveCreatePage,
     CareerObjectiveComponent,
     CareerObjectivesComponent,
@@ -38,6 +48,7 @@ import { WaypointCreatePage } from './pages/waypoint-create/waypoint-create.page
   entryComponents: [
     WaypointCreatePage,
     CareerObjectiveCreatePage,
+    DevelopmentProgramPage
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA

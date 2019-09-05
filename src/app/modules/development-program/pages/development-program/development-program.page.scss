@@ -1,0 +1,46 @@
+page-development-program {
+
+    .scroll-content {
+        padding-top: 40px !important;
+    }
+
+    .eobservation-block {
+        margin-bottom: 10px;
+    }
+
+    .career-objective-block,
+    .professional-interview-block {
+        margin-top: 60px;
+        margin-bottom: 10px;
+    }
+
+    .eobservation-block h3 {
+        color: color($colors, primary-dark);
+    }
+
+    .career-objective-block h3 {
+        color: color($colors, primary-light);
+    }
+
+    .professional-interview-block h3 {
+        color: color($colors, primary);
+    }
+
+    h3 {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    ion-content button {
+        width: 300px;
+
+        ion-icon {
+            margin-right: 10px;
+        }
+
+        label {
+            color: color($colors, white);
+        }
+    }
+}
