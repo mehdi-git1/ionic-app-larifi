@@ -1,0 +1,61 @@
+eobservation-list {
+
+    .eobservation-creation-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 66px;
+        margin-bottom: 10px;
+        padding: 10px;
+        border-radius: 4px;
+        background: color($colors, white);
+        border: 1px solid color($colors-secondary, grey75);
+
+        .info-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            span {
+                font-weight: bold;
+            }
+        }
+
+        .add-container {
+            display: flex;
+            justify-content: flex-end;
+
+            ion-select {
+                width: 300px;
+
+                .item-inner {
+                    border: 0px;
+                }
+            }
+
+        }
+
+    }
+
+    .archives {
+
+        span,
+        a {
+            color: color($colors-secondary, blue68);
+        }
+
+        a {
+            text-decoration: underline;
+        }
+
+        .edospnc-archive:before {
+            font-size: 26px;
+            position: relative;
+            top: 4px;
+        }
+
+        &.information-message:before {
+            content: '';
+        }
+    }
+}
