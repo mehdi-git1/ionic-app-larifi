@@ -1,6 +1,6 @@
 import { NavController, NavParams } from 'ionic-angular';
 
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 import { EFormsTypeEnum } from '../../../../core/enums/e-forms/e-forms-type.enum';
 import {
@@ -10,16 +10,12 @@ import { SpecialityEnum } from '../../../../core/enums/speciality.enum';
 import { EObservationModel } from '../../../../core/models/eobservation/eobservation.model';
 import { FormsInputParamsModel } from '../../../../core/models/forms-input-params.model';
 import { PncModel } from '../../../../core/models/pnc.model';
-import { RotationModel } from '../../../../core/models/rotation.model';
 import { DeviceService } from '../../../../core/services/device/device.service';
-import { EObservationService } from '../../../../core/services/eobservation/eobservation.service';
 import {
     FormsEObservationService
 } from '../../../../core/services/forms/forms-e-observation.service';
+import { PncService } from '../../../../core/services/pnc/pnc.service';
 import { SessionService } from '../../../../core/services/session/session.service';
-import {
-    SynchronizationService
-} from '../../../../core/services/synchronization/synchronization.service';
 import {
     EObservationsArchivesPage
 } from '../../../eobservation/pages/eobservations-archives/eobservations-archives.page';
@@ -29,7 +25,7 @@ import {
     templateUrl: 'eobservation-list.component.html'
 })
 
-export class EObservationListComponent {
+export class EObservationListComponent implements OnInit {
 
     matricule: string;
     @Input() eObservations: EObservationModel[];
@@ -37,7 +33,6 @@ export class EObservationListComponent {
     canDisplayMenu = false;
 
     formsInputParam: FormsInputParamsModel;
-    lastConsultedRotation: RotationModel;
 
     EObservationDisplayModeEnum = EObservationDisplayModeEnum;
 
@@ -54,10 +49,14 @@ export class EObservationListComponent {
         private sessionService: SessionService,
         private deviceService: DeviceService,
         private formsEObservationService: FormsEObservationService,
-        private eObservationService: EObservationService,
-        private synchronizationProvider: SynchronizationService) {
-        this.lastConsultedRotation = this.sessionService.appContext.lastConsultedRotation;
+        private pncService: PncService) { }
+
+    ngOnInit() {
         this.matricule = this.navParams.get('matricule');
+        this.pncService.getPnc(this.matricule).then(pnc => {
+            this.pnc = pnc;
+        }, error => {
+        });
     }
 
     /**

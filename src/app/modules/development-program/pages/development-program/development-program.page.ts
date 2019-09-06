@@ -1,4 +1,4 @@
-import { NavController, NavParams } from 'ionic-angular';
+import { NavParams } from 'ionic-angular';
 import * as moment from 'moment';
 
 import { Component } from '@angular/core';
@@ -62,8 +62,7 @@ export class DevelopmentProgramPage {
 
     pnc: PncModel;
 
-    constructor(private navCtrl: NavController,
-        private navParams: NavParams,
+    constructor(private navParams: NavParams,
         private careerObjectiveService: CareerObjectiveService,
         private professionalInterviewService: ProfessionalInterviewService,
         private eObservationService: EObservationService,

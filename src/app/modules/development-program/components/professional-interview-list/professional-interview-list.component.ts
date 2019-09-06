@@ -5,9 +5,6 @@ import { Component, Input } from '@angular/core';
 import {
     ProfessionalInterviewModel
 } from '../../../../core/models/professional-interview/professional-interview.model';
-import {
-    ProfessionalInterviewService
-} from '../../../../core/services/professional-interview/professional-interview.service';
 import { SecurityService } from '../../../../core/services/security/security.service';
 import {
     ProfessionalInterviewDetailsPage
@@ -26,14 +23,10 @@ export class ProfessionalInterviewListComponent {
     @Input() professionalInterviews: ProfessionalInterviewModel[];
     matricule: string;
 
-    // Nombre max de non draft à afficher
-    maxNoDraftToDisplay = 3;
-
     constructor(
         private navParams: NavParams,
         private navCtrl: NavController,
-        private securityService: SecurityService,
-        private professionalInterviewService: ProfessionalInterviewService) {
+        private securityService: SecurityService) {
         this.matricule = this.navParams.get('matricule');
     }
 

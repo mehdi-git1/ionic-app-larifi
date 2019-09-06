@@ -4,15 +4,7 @@ import { Component, Input, OnInit } from '@angular/core';
 
 import { CareerObjectiveModel } from '../../../../core/models/career-objective.model';
 import { PncModel } from '../../../../core/models/pnc.model';
-import {
-    CareerObjectiveService
-} from '../../../../core/services/career-objective/career-objective.service';
 import { PncService } from '../../../../core/services/pnc/pnc.service';
-import { SecurityService } from '../../../../core/services/security/security.service';
-import { SessionService } from '../../../../core/services/session/session.service';
-import {
-    SynchronizationService
-} from '../../../../core/services/synchronization/synchronization.service';
 import {
     CareerObjectiveCreatePage
 } from '../../pages/career-objective-create/career-objective-create.page';
@@ -26,20 +18,12 @@ export class CareerObjectiveListComponent implements OnInit {
   @Input() careerObjectives: CareerObjectiveModel[];
   matricule: string;
 
-  pnc: PncModel;
-
   constructor(private navCtrl: NavController,
     private navParams: NavParams,
-    private securityService: SecurityService,
-    private careerObjectiveService: CareerObjectiveService,
-    private sessionService: SessionService,
-    private synchronizationService: SynchronizationService,
     private pncService: PncService) {
-    console.log('test constructeur');
   }
 
   ngOnInit() {
-    console.log('test onInit');
     this.matricule = this.navParams.get('matricule');
   }
 
