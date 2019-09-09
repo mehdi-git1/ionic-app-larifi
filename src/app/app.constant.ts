@@ -10,4 +10,6 @@ export class AppConstant {
     public static P_EDOSPNC_ADMIN = 'P_EDOSPNC_ADMIN';
     public static P_EDOSPNC_PNC = 'P_EDOSPNC_PNC';
     public static P_EDOSPNC_ADMIN_EOBS = 'P_EDOSPNC_ADMIN_EOBS';
+    public static P_EDOSPNC_CCO = 'P_EDOSPNC_CCO';
+    public static P_EDOSPNC_ISCV = 'P_EDOSPNC_ISCV';
 }

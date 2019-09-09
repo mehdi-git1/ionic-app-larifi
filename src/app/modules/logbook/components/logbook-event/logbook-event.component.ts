@@ -1,20 +1,26 @@
-import { DatePipe } from '@angular/common';
-import { PncLightModel } from './../../../../core/models/pnc-light.model';
-import { PncModel } from './../../../../core/models/pnc.model';
-import { PncService } from './../../../../core/services/pnc/pnc.service';
-import { Utils } from './../../../../shared/utils/utils';
-import { LogbookEventModeEnum } from './../../../../core/enums/logbook-event/logbook-event-mode.enum';
-import { DateTransform } from './../../../../shared/utils/date-transform';
-import { ToastService } from './../../../../core/services/toast/toast.service';
-import { SessionService } from './../../../../core/services/session/session.service';
-import { LogbookEventCategory } from './../../../../core/models/logbook/logbook-event-category';
-import { TranslateService } from '@ngx-translate/core';
-import { SecurityService } from './../../../../core/services/security/security.service';
-import { NavController, Loading, LoadingController, Events, AlertController, NavParams } from 'ionic-angular';
-import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
-import { LogbookEventModel } from '../../../../core/models/logbook/logbook-event.model';
-import { OnlineLogbookEventService } from '../../../../core/services/logbook/online-logbook-event.service';
+import {
+    AlertController, Events, Loading, LoadingController, NavController, NavParams
+} from 'ionic-angular';
 import * as _ from 'lodash';
+
+import { DatePipe } from '@angular/common';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
+
+import { LogbookEventModeEnum } from '../../../../core/enums/logbook-event/logbook-event-mode.enum';
+import { LogbookEventCategory } from '../../../../core/models/logbook/logbook-event-category';
+import { LogbookEventModel } from '../../../../core/models/logbook/logbook-event.model';
+import { PncLightModel } from '../../../../core/models/pnc-light.model';
+import { PncModel } from '../../../../core/models/pnc.model';
+import {
+    OnlineLogbookEventService
+} from '../../../../core/services/logbook/online-logbook-event.service';
+import { PncService } from '../../../../core/services/pnc/pnc.service';
+import { SecurityService } from '../../../../core/services/security/security.service';
+import { SessionService } from '../../../../core/services/session/session.service';
+import { ToastService } from '../../../../core/services/toast/toast.service';
+import { DateTransform } from '../../../../shared/utils/date-transform';
+import { Utils } from '../../../../shared/utils/utils';
 
 @Component({
     selector: 'logbook-event',
@@ -328,7 +334,8 @@ export class LogbookEventComponent implements OnInit {
         const redactor = this.pnc && this.logbookEvent.redactor && this.sessionService.getActiveUser().matricule === this.logbookEvent.redactor.matricule;
         const instructor = this.pnc && this.pnc.pncInstructor && this.sessionService.getActiveUser().matricule === this.pnc.pncInstructor.matricule;
         const rds = this.pnc && this.pnc.pncRds && this.sessionService.getActiveUser().matricule === this.pnc.pncRds.matricule;
-        return redactor || instructor || rds;
+        const ccoAdmin = this.pnc && this.securityService.isCcoAdmin(this.sessionService.getActiveUser()) && this.securityService.isIscvAdmin(this.sessionService.getActiveUser());
+        return redactor || instructor || rds || (ccoAdmin);
     }
 
     /**

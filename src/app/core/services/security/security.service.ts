@@ -1,14 +1,13 @@
 import { Injectable } from '@angular/core';
 
-import { OfflineSecurityService } from './offline-security.service';
-import { OnlineSecurityService } from './online-security.service';
+import { AppConstant } from '../../../app.constant';
+import { AuthenticatedUserModel } from '../../models/authenticated-user.model';
+import { AuthorizationService } from '../authorization/authorization.service';
+import { BaseService } from '../base/base.service';
 import { ConnectivityService } from '../connectivity/connectivity.service';
 import { SessionService } from '../session/session.service';
-import { AuthenticatedUserModel } from '../../models/authenticated-user.model';
-import { BaseService } from '../base/base.service';
-
-import { AuthorizationService } from '../authorization/authorization.service';
-import { AppConstant } from '../../../app.constant';
+import { OfflineSecurityService } from './offline-security.service';
+import { OnlineSecurityService } from './online-security.service';
 
 @Injectable()
 export class SecurityService extends BaseService {
@@ -88,6 +87,30 @@ export class SecurityService extends BaseService {
       || this.sessionService.getActiveUser().isRdd
       || this.sessionService.getActiveUser().isRds
       || this.sessionService.getActiveUser().isBaseProvinceManager);
+  }
+
+  /**
+   * Teste si un utilisateur est admin COO
+   * @param authenticatedUser l'utilisateur à tester
+   * @return vrai si l'utilisateur est admin, faux sinon
+   */
+  isCcoAdmin(authenticatedUser: AuthenticatedUserModel): boolean {
+    if (authenticatedUser.profiles) {
+      return authenticatedUser.profiles.indexOf(AppConstant.P_EDOSPNC_CCO) > -1;
+    }
+    return false;
+  }
+
+  /**
+   * Teste si un utilisateur est admin COO
+   * @param authenticatedUser l'utilisateur à tester
+   * @return vrai si l'utilisateur est admin, faux sinon
+   */
+  isIscvAdmin(authenticatedUser: AuthenticatedUserModel): boolean {
+    if (authenticatedUser.profiles) {
+      return authenticatedUser.profiles.indexOf(AppConstant.P_EDOSPNC_ISCV) > -1;
+    }
+    return false;
   }
 
 }
