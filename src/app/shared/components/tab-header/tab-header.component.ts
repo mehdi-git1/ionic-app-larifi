@@ -1,12 +1,16 @@
-import { PncRoleEnum } from './../../../core/enums/pnc-role.enum';
-import { CareerObjectiveListPage } from './../../../modules/development-program/pages/career-objective-list/career-objective-list.page';
-import { TabHeaderModeEnum } from '../../../core/enums/tab-header-mode.enum';
-import { Component, Input, OnInit, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 import { Events, NavController } from 'ionic-angular';
-import { PncHomePage } from '../../../modules/home/pages/pnc-home/pnc-home.page';
+
+import { AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+
+import { PncRoleEnum } from '../../../core/enums/pnc-role.enum';
+import { TabHeaderModeEnum } from '../../../core/enums/tab-header-mode.enum';
+import { TabHeaderEnum } from '../../../core/enums/tab-header.enum';
 import { SessionService } from '../../../core/services/session/session.service';
 import { TabHeaderService } from '../../../core/services/tab-header/tab-header.service';
-import { TabHeaderEnum } from '../../../core/enums/tab-header.enum';
+import {
+    CareerObjectiveListPage
+} from '../../../modules/development-program/pages/career-objective-list/career-objective-list.page';
+import { PncHomePage } from '../../../modules/home/pages/pnc-home/pnc-home.page';
 
 @Component({
   selector: 'tab-header',
@@ -58,10 +62,10 @@ export class TabHeaderComponent implements OnInit, AfterViewInit {
    */
   openTab(tab: any) {
     let navParams = {};
-    if (this.mode === TabHeaderModeEnum.EDOSSIER && this.sessionService.visitedPnc && !this.sessionService.isActiveUser(this.sessionService.visitedPnc)) {
+    if (this.mode === TabHeaderModeEnum.EDOSSIER && !this.sessionService.isActiveUser(this.sessionService.visitedPnc)) {
       navParams = {
-        matricule: this.sessionService.visitedPnc.matricule,
-        pncRole: this.sessionService.visitedPnc.manager ? PncRoleEnum.MANAGER : PncRoleEnum.PNC
+        matricule: this.sessionService.visitedPnc ? this.sessionService.visitedPnc.matricule : this.sessionService.getActiveUser().matricule,
+        pncRole: this.sessionService.visitedPnc && this.sessionService.visitedPnc.manager ? PncRoleEnum.MANAGER : PncRoleEnum.PNC
       };
     }
     this.navCtrl.setRoot(tab.component, navParams);
@@ -80,6 +84,6 @@ export class TabHeaderComponent implements OnInit, AfterViewInit {
    * Retour à la page d'accueil
    */
   goToHome() {
-    this.navCtrl.setRoot(this.sessionService.getActiveUser().isManager ? PncHomePage : CareerObjectiveListPage);
+    this.navCtrl.setRoot(this.sessionService.getActiveUser().isManager ? PncHomePage : CareerObjectiveListPage, { matricule: this.sessionService.getActiveUser().matricule });
   }
 }

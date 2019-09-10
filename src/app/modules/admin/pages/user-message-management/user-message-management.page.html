@@ -1,6 +1,8 @@
 <ion-header>
     <ion-navbar>
-        <ion-title>{{ 'ADMIN.USER_MESSAGE_MANAGEMENT.TITLE' | translate }}</ion-title>
+        <page-header [showSettingsIcon]="false">
+            <span> {{ 'ADMIN.USER_MESSAGE_MANAGEMENT.TITLE' | translate }}</span>
+        </page-header>
     </ion-navbar>
     <tab-header [mode]="TabHeaderModeEnum.ADMIN" [activeTab]="TabHeaderEnum.USER_MESSAGE_MANAGEMENT_PAGE"></tab-header>
 </ion-header>
@@ -19,28 +21,26 @@
                     </ion-list>
                 </ion-col>
                 <ion-col col-8>
-                    <div *ngIf="!selectedUserMessage; else editUserMessageBlock" class="no-data-found">{{ 'ADMIN.USER_MESSAGE_MANAGEMENT.NO_USER_MESSAGE_SELECTED' | translate }}</div>
+                    <div *ngIf="!selectedUserMessage; else editUserMessageBlock" class="no-data-found">
+                        {{ 'ADMIN.USER_MESSAGE_MANAGEMENT.NO_USER_MESSAGE_SELECTED' | translate }}</div>
                     <ng-template #editUserMessageBlock>
                         <form [formGroup]="userMessageForm">
                             <ion-item>
-                                <ion-label floating>{{ 'ADMIN.USER_MESSAGE_MANAGEMENT.LABELS.TITLE' | translate }}</ion-label>
+                                <ion-label floating>{{ 'ADMIN.USER_MESSAGE_MANAGEMENT.LABELS.TITLE' | translate }}
+                                </ion-label>
                                 <ion-input formControlName="title" [(ngModel)]="selectedUserMessage.title" type="text" maxlength="255"></ion-input>
                             </ion-item>
-                            <ion-item>
-                                <ion-label floating>{{ 'ADMIN.USER_MESSAGE_MANAGEMENT.LABELS.CONTENT' | translate }}</ion-label>
-                                <ion-textarea formControlName="content" [(ngModel)]="selectedUserMessage.content" maxlength="1000"></ion-textarea>
-                            </ion-item>
+                            <text-editor [textEditorMode]="TextEditorModeEnum.FULL" [content]="selectedUserMessage.content" [placeholder]="'ADMIN.USER_MESSAGE_MANAGEMENT.LABELS.CONTENT' | translate" [parentForm]="userMessageForm" [controlForm]="'content'" (contentChange)="setContent($event)"></text-editor>
                             <ion-item>
                                 <ion-label>{{ 'ADMIN.USER_MESSAGE_MANAGEMENT.LABELS.ACTIVE' | translate }}</ion-label>
                                 <ion-checkbox formControlName="active" [(ngModel)]="selectedUserMessage.active" [checked]="selectedUserMessage.active.value"></ion-checkbox>
                             </ion-item>
-
-                            <button ion-button color="blue60" (click)="updateUserMessage()">
+                            <button ion-button color="blue60" (click)="updateUserMessage()" [disabled]="userMessageForm.invalid">
                                 <ion-icon name="md-create" ios="md-create"></ion-icon>
                                 {{ 'ADMIN.USER_MESSAGE_MANAGEMENT.BUTTONS.UPDATE' | translate }}
                             </button>
                             <button ion-button color="orange55" (click)="displayOverview()">
-                                <ion-icon name="md-bug" ios="md-bug" margin-right></ion-icon>
+                                <ion-icon ios="ios-search" md="md-search" margin-right></ion-icon>
                                 {{ 'ADMIN.USER_MESSAGE_MANAGEMENT.BUTTONS.OVERVIEW' | translate }}
                             </button>
                         </form>

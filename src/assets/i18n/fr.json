@@ -22,13 +22,13 @@
             "LONGNAME": "Janvier, Février, Mars , Avril, Mai, Juin, Juillet, Août, Septembre, Octobre, Novembre, Décembre"
         },
         "CAREER_OBJECTIVE_STATUS": {
-            "DRAFT": "PROPOSITION",
+            "DRAFT": "BROUILLON",
             "REGISTERED": "EN COURS",
-            "VALIDATED": "VALIDÉE",
+            "VALIDATED": "CLÔTURÉE",
             "ABANDONED": "ABANDONNÉE"
         },
         "WAYPOINT_STATUS": {
-            "DRAFT": "PROPOSITION",
+            "DRAFT": "BROUILLON",
             "REGISTERED": "EN COURS"
         },
         "CONNECTIVITY": {
@@ -61,6 +61,7 @@
         "LOGBOOK": "Journal de bord",
         "MY_LOGBOOK": "Mon journal de bord",
         "PROFESSIONAL_INTERVIEWS_ARCHIVES": "Archives de bilans professionnels / EPP",
+        "MY_PROFESSIONAL_INTERVIEWS_ARCHIVES": "Mes archives de bilans professionnels / EPP",
         "UNKNOWN_ERROR": "Suite à un dysfonctionnement technique, l'opération a échoué. Nous vous invitons à réessayer dans quelques minutes. Si le problème persiste, veuillez contacter votre support.",
         "MESSAGES": {
             "ERROR": {
@@ -81,7 +82,8 @@
             "CANCEL": "Annuler",
             "EXPORT": "Exporter",
             "YES": "Oui",
-            "NO": "Non"
+            "NO": "Non",
+            "OK": "Ok"
         },
         "CONFIRM_BACK_WITHOUT_SAVE": {
             "TITLE": "Modifications non enregistrées",
@@ -102,6 +104,9 @@
         "LOGIN": "Identifiant",
         "PASSWORD": "PIN + Token",
         "VALIDATE": "Valider"
+    },
+    "PNC_AUTOCOMPLETE": {
+        "PLACEHOLDER": "Nom Prénom ou Matricule"
     },
     "CAREER_OBJECTIVE_CREATE": {
         "CREATE_TITLE": "Nouvelle priorité",
@@ -127,14 +132,14 @@
             "DATE_LABEL": " le {{date}}"
         },
         "CONFIRM_INSTRUCTOR_REQUEST": {
-            "TITLE": "Sollicitation instructeur",
-            "MESSAGE": "Confirmez-vous la demande de sollicitation instructeur ?",
+            "TITLE": "Notification manager",
+            "MESSAGE": "Confirmez-vous la demande de notification manager ?",
             "CANCEL": "Annuler",
             "CONFIRM": "Confirmer"
         },
         "CONFIRM_DRAFT_DELETE": {
-            "TITLE": "Suppression de la proposition",
-            "MESSAGE": "Confirmez-vous la suppression de cette proposition ?",
+            "TITLE": "Suppression du brouillon",
+            "MESSAGE": "Confirmez-vous la suppression de ce brouillon ?",
             "CANCEL": "Annuler",
             "CONFIRM": "Supprimer"
         },
@@ -155,7 +160,7 @@
             "ABANDON": "Abandonner",
             "CANCEL_VALIDATION": "Annuler la clôture",
             "RESUME": "Reprendre la priorité",
-            "CREATE_INSTRUCTOR_REQUEST": "Notifier mon instructeur"
+            "CREATE_INSTRUCTOR_REQUEST": "Notifier mon manager"
         },
         "SUCCESS": {
             "CAREER_OBJECTIVE_SAVED": "Priorité envoyée",
@@ -167,7 +172,7 @@
             "CAREER_OBJECTIVE_ABANDONED": "Priorité abandonnée",
             "CAREER_OBJECTIVE_VALIDATION_CANCELED": "La clôture de la priorité a été annulée",
             "CAREER_OBJECTIVE_RESUMED": "Priorité reprise",
-            "CAREER_OBJECTIVE_INSTRUCTOR_REQUESTED": "Brouillon enregistré et instructeur notifié"
+            "CAREER_OBJECTIVE_INSTRUCTOR_REQUESTED": "Brouillon enregistré et manager notifié"
         },
         "ERROR": {
             "CAREER_OBJECTIVE_CREATION_FAILED": "La création de la priorité a échouée",
@@ -192,15 +197,15 @@
         },
         "CREATE_EOBSERVATION": "Nouvelle eObservation",
         "STATUS": {
-            "DRAFT": "Proposition",
+            "DRAFT": "Brouillon",
             "REGISTERED": "En cours",
-            "VALIDATED": "Validée",
+            "VALIDATED": "Clôturée",
             "ABANDONED": "Abandonnée"
         }
 
     },
     "PNC_IDENTITY": {
-        "REFERENT_INSTRUCTOR": "Instructeur référent",
+        "REFERENT_INSTRUCTOR": "Manager",
         "RDS": "RDS",
         "GENDER": "Sexe",
         "SPECIALITY": "Fonction",
@@ -232,23 +237,23 @@
             "REQUIRED_ON_ENCOUNTER_DAY": " (Saisie obligatoire le jour de la rencontre)"
         },
         "CONFIRM_DRAFT_DELETE": {
-            "TITLE": "Suppression de la proposition",
-            "MESSAGE": "Confirmez-vous la suppression de cette proposition ?",
+            "TITLE": "Suppression du brouillon",
+            "MESSAGE": "Confirmez-vous la suppression de ce brouillon ?",
             "CANCEL": "Annuler",
             "CONFIRM": "Supprimer"
         },
         "BUTTONS": {
             "SAVE": "Enregistrer",
-            "SAVE_DRAFT": "Sauvegarder proposition",
-            "DELETE_DRAFT": "Supprimer proposition"
+            "SAVE_DRAFT": "Sauvegarder brouillon",
+            "DELETE_DRAFT": "Supprimer brouillon"
         },
         "ERROR": {
             "ENCOUTER_DATE_AND_ACTION_PLAN_REQUIRED": "Veuillez renseigner l'action réalisée et la date du point d'étape"
         },
         "SUCCESS": {
             "WAYPOINT_SAVED": "Point d'étape enregistré",
-            "DRAFT_SAVED": "Proposition du point d'étape sauvegardée",
-            "DRAFT_DELETED": "Proposition du point d'étape supprimée"
+            "DRAFT_SAVED": "Brouillon du point d'étape sauvegardé",
+            "DRAFT_DELETED": "Brouillon du point d'étape supprimé"
         }
     },
     "FLIGHT_CREW_LIST": {
@@ -453,6 +458,7 @@
             "FORMATION_FLIGHT_TITLE_OPTION": " - FOR",
             "VAL": "VAL",
             "VAL_TITLE_OPTION": " - VAL",
+            "EVAL_TITLE_OPTION": " - EVAL",
             "BILAN_FLIGHT": "Vol Bilan",
             "EVAL": "EVAL",
             "APPRECIATION": "Appréciation",
@@ -472,17 +478,25 @@
             "CONFIRM": "Oui",
             "CANCEL": "Non"
         },
+        "CONFIRM_DELETE": {
+            "TITLE": "Suppression",
+            "MESSAGE": "Confirmez-vous la suppression de l'eObservation ?",
+            "CONFIRM": "Confirmer",
+            "CANCEL": "Annuler"
+        },
         "MESSAGES": {
             "SUCCESS": {
                 "PNC_COMMENT_SAVED": "Commentaire validé",
-                "UPDATED": "eObservation mise à jour"
+                "UPDATED": "eObservation mise à jour",
+                "DELETED": "eObservation supprimée"
             }
         },
         "BUTTONS": {
             "VALIDATE_PNC_COMMENT": "Valider",
             "EDIT": "Modifier",
             "CANCEL": "Annuler",
-            "UPDATE": "Mettre à jour"
+            "UPDATE": "Mettre à jour",
+            "DELETE": "Supprimer"
         }
     },
     "PROFESSIONAL_LEVEL": {
@@ -555,6 +569,7 @@
             "NO_DATA": "Pas de données disponibles"
         },
         "NOT_VALIDATED_QUESTIONS": {
+            "MY_TITLE": "Mes questions non validées",
             "TITLE": "Questions non validées"
         }
     },
@@ -563,7 +578,7 @@
         "MY_TITLE": "Ma recherche PNC",
         "CRITERIA": {
             "FILTERS": "Filtres",
-            "PNC_MATRICULE": "Nom Prénom ou Matricule",
+
             "DIVISION": "Division",
             "SECTOR": "Secteur",
             "GINQ": "Ginq",
@@ -571,7 +586,9 @@
             "RELAY": "Relais",
             "AIRCRAFT_SKILL": "Spécialisation avion",
             "WORK_RATE": "Rythme",
-            "PRIORITIZED": "Priorité majeure"
+            "PRIORITIZED": "Priorité majeure",
+            "PRIORITY_IN_PROGRESS": "Priorité en cours",
+            "NO_PRIORITY": "Aucune priorité en cours"
         },
         "DEFAULT_DATA": {
             "ALL_F": "Toutes",
@@ -600,30 +617,106 @@
             "WRITTEN_LETTERS": "Félicitations rédigées"
         },
         "HEADER": {
-            "CREATION_DATE": "Date rédaction",
             "FLIGHT": "Occasion",
             "TYPE": "Type de lettre",
             "WRITER": "Rédacteur"
         },
+        "VALUE": {
+            "FLIGHT": "{{airline}}{{flightNumber}} - {{flightDate}}"
+        },
         "TYPE": {
             "COLLECTIVE": "Collective",
             "INDIVIDUAL": "Individuelle"
         },
+        "BUTTONS": {
+            "CREATE_NEW_LETTER": "Rédiger / insérer une lettre de félicitations"
+        },
         "NO_RECEIVED_LETTERS": "Pas de félicitations reçues",
-        "NO_WRITTEN_LETTERS": "Pas de félicitations rédigées"
+        "NO_WRITTEN_LETTERS": "Pas de félicitations rédigées",
+        "ACTION_MENU": {
+            "DELETE_CONGRATULATION_LETTER": "Supprimer",
+            "FIX_RECIPIENT": "Corriger le destinataire",
+            "UPDATE_CONGRATULATION_LETTER": "Modifier"
+        },
+        "TOAST": {
+            "DELETE_SUCCESS": "Lettre de félicitations supprimée"
+        },
+        "FIX_RECIPIENT": {
+            "CURRENT_CONGRATULATED_PNC": "PNC actuellement félicité",
+            "NEW_RECIPIENT": "Nouveau destinataire",
+            "RECIPIENT_FIXED": "Destinataire de la lettre corrigé",
+            "CONFIRMATION_POPOVER": {
+                "TITLE": "Correction du destinataire pour la lettre de félicitations {{airline}}{{flightNumber}} - {{flightDate}}",
+                "LABEL": "La lettre de félicitations de {{oldPncConcernedFirstName}} {{oldPncConcernedLastName}} sera déplacée vers le eDossier de  {{newPncConcernedFirstName}} {{newPncConcernedLastName}}. Confirmez-vous cette action ?"
+            }
+        },
+        "CONFIRM_DELETE": {
+            "TITLE": "Suppression de la lettre de félicitations",
+            "MESSAGE": "Confirmez-vous la suppression de cette lettre de félicitations ?",
+            "CANCEL": "Annuler",
+            "CONFIRM": "Supprimer"
+        }
     },
     "CONGRATULATION_LETTER_DETAIL": {
         "HEADER": {
-            "FLIGHT_NUMBER": "Numéro de vol",
-            "FLIGHT_DATE": "Date du vol",
+            "FLIGHT": "Occasion",
             "LETTER_TYPE": "Type de lettre",
             "WRITER": "Rédacteur"
+        },
+        "VALUE": {
+            "FLIGHT": "{{airline}}{{flightNumber}} - {{flightDate}}"
         },
         "TYPE": {
             "COLLECTIVE": "Collective",
             "INDIVIDUAL": "Individuelle"
         },
-        "VERBATIM": "Verbatim"
+        "VERBATIM": "Verbatim",
+        "ATTACHMENT_FILES": {
+            "VISUALIZATION_UNAVAILABLE": {
+                "TITLE": "Visualisation indisponible",
+                "MESSAGE": "Les pièces jointes ne sont pas disponibles en mode déconnecté."
+            }
+        }
+    },
+    "CONGRATULATION_LETTER_CREATE": {
+        "TITLE_CREATE": "Créer une nouvelle lettre de félicitations",
+        "TITLE_UPDATE": "Modifier une lettre de félicitations",
+        "FORM": {
+            "FLIGHT_DATE": "Date du vol",
+            "FLIGHT_AIRLINE": "Compagnie",
+            "FLIGHT_NUMBER": "N° de vol",
+            "LETTER_TYPE": {
+                "LABEL": "Type de lettre",
+                "INDIVIDUAL": "Individuelle",
+                "COLLECTIVE": "Collective"
+            },
+            "REDACTOR": {
+                "LABEL": "Rédacteur",
+                "PNC": "PNC",
+                "PAX": "Client - PAX",
+                "PNT": "PNT",
+                "OTHER": "Autre",
+                "REDACTOR_AUTOCOMPLETE": "PNC rédacteur",
+                "REDACTOR_AUTOCOMPLETE_PLACEHOLDER": "Matricule, Nom, Prénom"
+            },
+            "VERBATIM": "Verbatim",
+            "COLLECTIVE_WARNING_PART1": "Cette lettre collective sera insérée dans le eDossier de ",
+            "COLLECTIVE_WARNING_PART2": " mais n'alimentera pas les eDossiers du reste de l'équipage"
+
+        },
+        "BUTTONS": {
+            "CANCEL": "Annuler",
+            "SUBMIT": "Valider"
+        },
+        "SUCCESS": {
+            "LETTER_CREATED": "Lettre de félicitations créée",
+            "LETTER_UPDATED": "Lettre de félicitations modifiée"
+        },
+        "ALL_FIELDS_ARE_MANDATORY": "Tous les champs doivent être renseignés pour valider le formulaire",
+        "CREATED_BY": "Créée par ",
+        "UPDATED_BY": "Lettre de félicitations modifiée par ",
+        "VERBATIM_EDITABLE_BY_REDACTOR_ONLY": "Seul le cadre rédacteur/créateur de la lettre de félicitations peut modifier le verbatim/pièces jointes",
+        "DATE_LABEL": " le {{date}}"
     },
     "LOGBOOK": {
         "EVENT_DATE": "Date de l'évènement",
@@ -634,6 +727,7 @@
         "ORIGIN": "Origine",
         "ACTIONS": "Actions",
         "UNAIVALABLE_OFFLINE": "Les évènements ne sont pas disponibles hors connexion",
+        "ARCHIVE_LINK_LABEL": "Historique Friendly",
         "BUTTONS": {
             "ADD_LOG": "Nouvel évènement",
             "MODIFY": "Modifier",
@@ -850,17 +944,6 @@
         },
         "APP_VERSION_MANAGEMENT": {
             "TITLE": "Gestion des versions",
-            "BUTTON": {
-                "ADD_VERSION": "Ajouter",
-                "UPDATE_VERSION": "Modifier",
-                "DELETE_VERSION": "Supprimer",
-                "OVERVIEW": "Aperçu"
-            },
-            "LABEL": {
-                "VERSION_NUMBER": "Numéro de version",
-                "CHANGELOG": "Description",
-                "RELEASE_DATE": "Date de mise en prod"
-            },
             "CONFIRM_VERSION_DELETE": {
                 "TITLE": "Suppression de la version {{ number }}",
                 "MESSAGE": "Confirmez-vous la suppression de la version {{ number }} ?",
@@ -870,10 +953,33 @@
             "SUCCESS": {
                 "CREATE_OR_UPDATE_VERSION": "Mise à jour effectuée",
                 "DELETE_UPDATE_VERSION": "Suppression effectuée"
-
             },
             "ERROR": {
                 "UNDEFINED_NUMBER": "Veuillez renseigner un numéro de version"
+            }
+        },
+        "APP_VERSION_LIST": {
+            "TITLE": "Versions",
+            "BUTTONS": {
+                "ADD_APP_VERSION": "Nouvelle version"
+            },
+            "LIST": {
+                "RELEASE_DATE": "Date de sortie",
+                "VERSION_NUMBER": "Numéro de version"
+            }
+        },
+        "APP_VERSION_CREATE": {
+            "LABEL": {
+                "VERSION_NUMBER": "Numéro de version",
+                "RELEASE_DATE": "Date de sortie",
+                "CHANGELOG": "Description"
+            },
+            "BUTTON": {
+                "ADD_VERSION": "Ajouter",
+                "UPDATE_VERSION": "Modifier",
+                "DELETE_VERSION": "Supprimer",
+                "OVERVIEW": "Aperçu",
+                "CANCEL_CREATE_OR_UPDATE": "Annuler"
             }
         },
         "USER_MESSAGE_MANAGEMENT": {

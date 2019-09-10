@@ -1,6 +1,7 @@
-import { Pipe, PipeTransform, Inject, LOCALE_ID } from '@angular/core';
-import { invalidPipeArgumentError } from '../invalid_pipe_argument_error.pipe';
+import { Inject, LOCALE_ID, Pipe, PipeTransform } from '@angular/core';
+
 import { Utils } from '../../utils/utils';
+import { invalidPipeArgumentError } from '../invalid_pipe_argument_error.pipe';
 
 @Pipe({
   name: 'scorePercent',
@@ -16,6 +17,9 @@ export class ScorePercentPipe implements PipeTransform {
    * @return la valeur formattée
    */
   transform(value: string, decimalDigits: number = 0) {
+    if (!value || value == undefined) {
+      return '';
+    }
     if (decimalDigits < 0) {
       decimalDigits = 0;
     }

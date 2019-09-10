@@ -13,4 +13,8 @@ ion-textarea.input {
         padding: 5px !important;
     }
 
+    &.readonly {
+        background: color($colors-secondary, grey75);
+    }
+
 }

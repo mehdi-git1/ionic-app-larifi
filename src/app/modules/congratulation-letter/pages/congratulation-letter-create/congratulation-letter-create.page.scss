@@ -1,0 +1,80 @@
+congratulation-letter-create {
+
+    ion-col > label {
+        color: color($colors-secondary, grey10);
+        margin-right: 10px;
+    }
+
+    .flight-date {
+        height: 40px;
+        width: 120px;
+        font-size: initial;
+        padding: 0 15px;
+        display: flex;
+        align-items: center;
+    }
+
+    .flight-airline {
+        width: 60px;
+        flex: none;
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+
+    .flight-number {
+        width: 100px;
+        flex: none;
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+    }
+
+    .letter-type-col {
+        @media(min-width: 800px) {
+            justify-content: flex-end;
+        }
+    }
+
+    .redactor-autocomplete {
+        width: 350px;
+        font-size: initial;
+
+        ion-spinner {
+            margin-right: 5px;
+        }
+
+        .mat-input-wrapper {
+            padding: 0;
+
+            label {
+                padding: 5px 10px;
+            }
+        }
+    }
+
+    ion-icon[name="checkmark"] {
+        font-size: 2em;
+        font-weight: bold;
+        margin-left: 10px;
+    }
+
+    ion-textarea {
+        min-height: 310px !important;
+        padding: 0 !important;
+        margin: 0 !important;
+
+        textarea {
+            min-height: 290px !important;
+            padding: 5px !important;
+        }
+    }
+
+    ion-list.list-md,
+    ion-list.list-ios {
+        margin: 0;
+    }
+
+    .collective-warning {
+        color: color($colors, red70);
+        font-size: 1.1em;
+    }
+}

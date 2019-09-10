@@ -17,7 +17,7 @@ export class PdfGeneratorService {
   private cssFile = 'www/build/main.css';
 
   constructor(private toastService: ToastService,
-              private deviceService: DeviceService) {
+    private deviceService: DeviceService) {
   }
 
   /**
@@ -39,7 +39,7 @@ export class PdfGeneratorService {
   }
 
   private generatePdf(elementToPrint: any, pdfFileName: string) {
-    if (this.deviceService.isBrowser())  {
+    if (this.deviceService.isBrowser()) {
       const opt = {
         margin: 15,
         filename: pdfFileName,
@@ -48,7 +48,7 @@ export class PdfGeneratorService {
           quality: 0.98
         },
         html2canvas: {
-          scale: 2 ,
+          scale: 2,
           dpi: 300,
           letterRendering: true,
           useCORS: true

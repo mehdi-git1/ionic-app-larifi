@@ -7,6 +7,11 @@ import { IonicModule } from 'ionic-angular';
 import { CommonModule } from '@angular/common';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
+import { QuillModule } from 'ngx-quill';
+import { ReactiveFormsModule } from '@angular/forms';
+
+import { HttpClientModule } from '@angular/common/http';
+
 import { OfflineIndicatorComponent } from './offline-indicator/offline-indicator.component';
 import { ConnectivityIndicatorComponent } from './connectivity-indicator/connectivity-indicator.component';
 import { DownloadButtonComponent } from './download-button/download-button.component';
@@ -31,16 +36,24 @@ import { ColorStatusPointComponent } from './color-status-point/color-status-poi
 import { RadioAndLabelComponent } from './radio-and-label/radio-and-label.component';
 import { CheckboxAndLabelComponent } from './checkbox-and-label/checkbox-and-label.component';
 import { UserMessageAlertComponent } from './user-message-alert/user-message-alert.component';
+
+import { TextEditorComponent } from './text-editor/text-editor.component';
 import { AppVersionAlertComponent } from './app-version-alert/app-version-alert.component';
 import { PncEdossierHeaderComponent } from './pnc-edossier-header/pnc-edossier-header.component';
+import { PncAutoCompleteComponent } from './pnc-autocomplete/pnc-autocomplete.component';
 import { DocumentViewerComponent } from './document-viewer/document-viewer.component';
+import { HtmlViewComponent } from './html-view/html-view.component';
+
 
 @NgModule({
   imports: [
     CommonModule,
     IonicModule,
     DirectivesModule,
-    SharedModule
+    SharedModule,
+    HttpClientModule,
+    QuillModule,
+    ReactiveFormsModule
   ],
   declarations: [
     OfflineIndicatorComponent,
@@ -67,9 +80,13 @@ import { DocumentViewerComponent } from './document-viewer/document-viewer.compo
     UserMessageAlertComponent,
     PdfButtonComponent,
     AppVersionAlertComponent,
+    TextEditorComponent,
     DocumentManagerComponent,
+    PncAutoCompleteComponent,
     DocumentViewerComponent,
-    WorkRateCircleComponent
+    WorkRateCircleComponent,
+    HtmlViewComponent
+
   ],
   exports: [
     OfflineIndicatorComponent,
@@ -97,8 +114,11 @@ import { DocumentViewerComponent } from './document-viewer/document-viewer.compo
     PdfButtonComponent,
     AppVersionAlertComponent,
     DocumentManagerComponent,
+    PncAutoCompleteComponent,
     DocumentViewerComponent,
-    WorkRateCircleComponent
+    WorkRateCircleComponent,
+    TextEditorComponent,
+    HtmlViewComponent
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA

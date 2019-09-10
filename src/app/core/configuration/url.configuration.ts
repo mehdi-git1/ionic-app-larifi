@@ -29,7 +29,10 @@ export class UrlConfiguration {
     'getReceivedCongratulationLettersByPnc': `${urlGroupEnum.PNC}/{matricule}/received_congratulation_letters`,
     'getWrittenCongratulationLettersByPnc': `${urlGroupEnum.PNC}/{matricule}/written_congratulation_letters`,
     'getAllRotationsByMatricule': `${urlGroupEnum.PNC}/{matricule}/rotations`,
+    'congratulationLetters': urlGroupEnum.CONGRATULATION_LETTER,
     'getCongratulationLetterById': `${urlGroupEnum.CONGRATULATION_LETTER}/{congratulationLetterId}`,
+    'deleteReceivedCongratulationLetterByIdAndMatricule': `${urlGroupEnum.CONGRATULATION_LETTER}/{id}/{matricule}`,
+    'deleteWrittenCongratulationLetterById': `${urlGroupEnum.CONGRATULATION_LETTER}/redactor/{id}`,
     'pncPhotos': urlGroupEnum.PNC_PHOTO,
     'getPncPhotoByMatricule': `${urlGroupEnum.PNC_PHOTO}/{matricule}`,
     'getSecurityInfos': urlGroupEnum.ME,
@@ -58,12 +61,14 @@ export class UrlConfiguration {
     'updatePermissions': `${urlGroupEnum.USER_PROFILE}/{profileName}/update_permissions`,
     'appVersions': urlGroupEnum.APP_VERSION,
     'getAllAppVersions': urlGroupEnum.APP_VERSION,
+    'getAppVersionById': `${urlGroupEnum.APP_VERSION}/{id}`,
     'deleteAppVersionById': `${urlGroupEnum.APP_VERSION}/{id}`,
     'logbookEvents': urlGroupEnum.LOGBOOK_EVENT,
     'getLogbookEventsByGroupId': `${urlGroupEnum.LOGBOOK_EVENT}/event_group/{groupId}`,
     'getLogbookEvents': `${urlGroupEnum.LOGBOOK_EVENT}/pnc/{matricule}`,
     'deleteLogbookEventById': `${urlGroupEnum.LOGBOOK_EVENT}/{id}`,
-    'getDocumentById': `${urlGroupEnum.DOCUMENT}/{documentId}`,
+    'fixCongratulationLetterRecipient': `${urlGroupEnum.CONGRATULATION_LETTER}/recipients/{id}`,
+    'getDocumentById': `${urlGroupEnum.DOCUMENT}/{documentId}`
   };
 
   /**

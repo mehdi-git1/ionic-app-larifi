@@ -1,6 +1,8 @@
+import { TranslateService } from '@ngx-translate/core';
+import { ConnectivityService } from './../../../core/services/connectivity/connectivity.service';
 import { DocumentModel, DocumentTypeEnum, DocumentTypeIconFileName } from './../../../core/models/document.model';
 import { Component, ViewChild, ElementRef, Input } from '@angular/core';
-import { PopoverController } from 'ionic-angular';
+import { PopoverController, AlertController } from 'ionic-angular';
 import { DocumentViewerComponent } from '../document-viewer/document-viewer.component';
 import { DocumentService } from '../../../core/services/document/document.service';
 import { FileService } from '../../../core/file/file.service';
@@ -22,14 +24,17 @@ export class DocumentManagerComponent {
 
   @Input() documents: Array<DocumentModel>;
 
-  @Input() editMode: boolean;
+  @Input() readonly: boolean;
 
   loading = false;
 
   constructor(public popoverCtrl: PopoverController,
     private documentService: DocumentService,
     private fileService: FileService,
-    private deviceService: DeviceService) {
+    private deviceService: DeviceService,
+    private connectivityService: ConnectivityService,
+    private alertCtrl: AlertController,
+    private translateService: TranslateService) {
   }
 
   /**
@@ -38,16 +43,16 @@ export class DocumentManagerComponent {
    */
   addFiles(event: Event) {
     const files = this.fileUpload.nativeElement.files;
-    for ( const file of files) {
+    for (const file of files) {
       const myReader: FileReader = new FileReader();
       let content;
       myReader.onloadend = (e) => {
-          content = myReader.result;
-          const base64Index = content.indexOf(BASE_64);
-          const base64Content = content.substring(base64Index + BASE_64.length, content.length);
-          const type = this.documentService.getDocumentTypeFromMimeType(file.type);
-          const newDocument = new DocumentModel(file.name, type, file.type, base64Content);
-          this.documents.push(newDocument);
+        content = myReader.result;
+        const base64Index = content.indexOf(BASE_64);
+        const base64Content = content.substring(base64Index + BASE_64.length, content.length);
+        const type = this.documentService.getDocumentTypeFromMimeType(file.type);
+        const newDocument = new DocumentModel(file.name, type, file.type, base64Content);
+        this.documents.push(newDocument);
       };
       myReader.readAsDataURL(file);
     }
@@ -76,9 +81,12 @@ export class DocumentManagerComponent {
    * @param document document à visionner
    */
   openDocument(document: DocumentModel) {
+    if (!this.connectivityService.isConnected()) {
+      this.visualizationUnavailablePopup();
+    }
     if (this.documentService.isPreviewable(document.type) && this.deviceService.isBrowser()) {
       const popover = this.popoverCtrl.create(DocumentViewerComponent, { document: document }, { cssClass: 'document-viewer-popover' });
-      popover.present({ });
+      popover.present({});
     } else {
       this.loading = true;
       if (!document.content) {
@@ -94,5 +102,23 @@ export class DocumentManagerComponent {
         this.loading = false;
       }
     }
+  }
+
+  /**
+   * Popup d'avertissement en cas de visualisation de pieces jointes en déconnecté.
+   */
+  visualizationUnavailablePopup() {
+    return new Promise((resolve, reject) => {
+      this.alertCtrl.create({
+        title: this.translateService.instant('CONGRATULATION_LETTER_DETAIL.ATTACHMENT_FILES.VISUALIZATION_UNAVAILABLE.TITLE'),
+        message: this.translateService.instant('CONGRATULATION_LETTER_DETAIL.ATTACHMENT_FILES.VISUALIZATION_UNAVAILABLE.MESSAGE'),
+        buttons: [
+          {
+            text: this.translateService.instant('GLOBAL.BUTTONS.OK'),
+            handler: () => resolve()
+          }
+        ]
+      }).present();
+    });
   }
 }

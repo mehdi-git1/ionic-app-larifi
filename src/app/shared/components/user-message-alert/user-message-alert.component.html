@@ -4,7 +4,9 @@
             <ion-icon ios="md-alert" name="md-alert"></ion-icon>
             <label>{{ userMessage.title }}</label>
         </div>
-        <p class="content">{{ userMessage.content }}</p>
+        <div class="content">
+            <html-view [content]="userMessage.content"></html-view>
+        </div>
         <div class="button-bar">
             <button (click)="dismissMessage()">{{ 'GLOBAL.USER_MESSAGE.BUTTONS.DISMISS' | translate }}</button>
             <button (click)="doNotDisplayMessageAnymore()">{{ 'GLOBAL.USER_MESSAGE.BUTTONS.DO_NOT_DISPLAY_ANYMORE' | translate }}</button>

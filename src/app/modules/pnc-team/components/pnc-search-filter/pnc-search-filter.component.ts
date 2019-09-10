@@ -36,13 +36,11 @@ export class PncSearchFilterComponent implements OnInit {
   defaultGinq: string;
   defaultValue: boolean;
   valueAll = AppConstant.ALL;
-  pncList: Observable<PncModel[]>;
+  prioritized: boolean;
+  priority: boolean;
+  noPriority: boolean;
 
   searchForm: FormGroup;
-  autoCompleteForm: FormGroup;
-  pncMatriculeControl: AbstractControl;
-  selectedPnc: PncModel;
-  searchTerms = new Subject<string>();
 
   // filtre de recherche
   pncFilter: PncFilterModel;
@@ -59,20 +57,11 @@ export class PncSearchFilterComponent implements OnInit {
 
   outOfDivision: boolean;
 
-  // Définit la position top de la liste d'autocomplete
-  autoCompleteTopPosition = -1;
-
-  // Définit si une recherche d'autocomplete est en cours
-  // Permet de gérer l'affichage du spinner de l'autocomplete
-  autoCompleteRunning = false;
-
-  constructor(private navCtrl: NavController,
+  constructor(
     private sessionService: SessionService,
     private formBuilder: FormBuilder,
-    private pncProvider: PncService,
     private connectivityService: ConnectivityService,
-    private events: Events,
-    private keyboard: Keyboard
+    private events: Events
   ) {
     this.connectivityService.connectionStatusChange.subscribe(connected => {
       this.initFilter();
@@ -83,46 +72,6 @@ export class PncSearchFilterComponent implements OnInit {
       this.initForm();
     });
 
-    /**
-     * Action lorsque le clavier s'affiche
-     */
-    this.keyboard.didShow.subscribe(() => {
-      this.checkIfAutoCompleteIsOpen();
-      if (this.autoCompleteTopPosition != -1) {
-        $(PncSearchFilterComponent.CDK_OVERLAY_0).css('top', this.autoCompleteTopPosition + 'px');
-      }
-    });
-
-    /**
-     * Action lorsque le clavier disparaît
-     */
-    this.keyboard.didHide.subscribe(() => {
-      const newHeight = window.innerHeight - this.autoCompleteTopPosition;
-      $(PncSearchFilterComponent.CDK_OVERLAY_0).css('top', this.autoCompleteTopPosition + 'px');
-      setTimeout(() => { $(PncSearchFilterComponent.MAT_AUTOCOMPLETE_0).css('max-height', newHeight + 'px'); }, 5000);
-    });
-  }
-
-  /**
-   * Vérifie toutes les 200ms que l'element d'autocomplete existe
-   */
-  checkIfAutoCompleteIsOpen() {
-    setTimeout(() => {
-      if ($(PncSearchFilterComponent.MAT_AUTOCOMPLETE_0).length != 0) {
-        this.changeHeightOnOpen();
-      } else {
-        this.checkIfAutoCompleteIsOpen();
-      }
-    }, 200);
-  }
-
-  /**
-   * Change la max-height de l'autocomplete en fonction de la taille de l'affichage disponible
-   */
-  changeHeightOnOpen() {
-    this.autoCompleteTopPosition = this.autoCompleteTopPosition != -1 ? this.autoCompleteTopPosition : $(PncSearchFilterComponent.CDK_OVERLAY_0).offset().top;
-    $(PncSearchFilterComponent.CDK_OVERLAY_0).css('top', this.autoCompleteTopPosition + 'px');
-    $(PncSearchFilterComponent.MAT_AUTOCOMPLETE_0).css('max-height', window.innerHeight - this.autoCompleteTopPosition + 'px');
   }
 
   /**
@@ -172,7 +121,6 @@ export class PncSearchFilterComponent implements OnInit {
    * Réinitialise les valeurs des filtres de recherche
    */
   resetFilterValues() {
-    this.selectedPnc = null;
     this.defaultValue = true;
     this.pncFilter.division = this.defaultDivision ? this.defaultDivision : AppConstant.ALL;
     this.divisionOnchanges();
@@ -186,11 +134,14 @@ export class PncSearchFilterComponent implements OnInit {
     this.searchForm.get('specialityControl').setValue(this.specialityList && this.specialityList.length === 1 ? this.specialityList[0] : AppConstant.ALL);
     this.searchForm.get('aircraftSkillControl').setValue(this.aircraftSkillList && this.aircraftSkillList.length === 1 ? this.aircraftSkillList[0] : AppConstant.ALL);
     this.searchForm.get('relayControl').setValue(this.relayList && this.relayList.length === 1 ? this.relayList[0] : AppConstant.ALL);
-    this.autoCompleteForm.get('pncMatriculeControl').setValue('');
-    this.autoCompleteRunning = false;
     this.searchForm.get('prioritizedControl').setValue(false);
+    this.searchForm.get('hasAtLeastOnePriorityInProgressControl').setValue(false);
+    this.searchForm.get('hasNoPriorityControl').setValue(false);
     this.search();
     this.defaultValue = false;
+    this.priority = false;
+    this.noPriority = false;
+    this.prioritized = false;
   }
 
   /**
@@ -204,76 +155,14 @@ export class PncSearchFilterComponent implements OnInit {
       specialityControl: [this.pncFilter.speciality ? this.pncFilter.speciality : AppConstant.ALL],
       aircraftSkillControl: [this.pncFilter.aircraftSkill ? this.pncFilter.aircraftSkill : AppConstant.ALL],
       relayControl: [this.pncFilter.relay ? this.pncFilter.relay : AppConstant.ALL],
-      prioritizedControl: [false]
-    });
-    this.autoCompleteForm = this.formBuilder.group({
-      pncMatriculeControl: [
-        '',
-        Validators.compose([Validators.minLength(8), Validators.maxLength(8)])
-      ]
+      prioritizedControl: [false],
+      hasAtLeastOnePriorityInProgressControl: [false],
+      hasNoPriorityControl: [false]
     });
     if (this.connectivityService.isConnected()) {
-      this.pncMatriculeControl = this.autoCompleteForm.get('pncMatriculeControl');
-      this.initAutocompleteList();
       this.resetFilterValues();
       this.formOnChanges();
-      this.pncMatriculeControl = this.autoCompleteForm.get('pncMatriculeControl');
     }
-  }
-
-  /**
-    * recharge la liste des pnc de l'autocompletion aprés 500ms
-    */
-  initAutocompleteList() {
-    this.pncList = this.searchTerms
-      .debounceTime(500)
-      .distinctUntilChanged()
-      .switchMap(
-        term => this.getAutoCompleteDataReturn(term)
-      )
-      .catch(error => {
-        this.autoCompleteRunning = false;
-        return Observable.of<PncModel[]>([]);
-      });
-  }
-
-  /**
-   * Gére plus finement le retour de l'autocomplete
-   * => Permet de gérer l'affichage du spinner et de forcer la position de l'autocompléte
-   * @param term termes à rechercher pour l'autocomplete
-   * @return Liste des pnc retrouvé par l'autocomplete
-   */
-  getAutoCompleteDataReturn(term: string): Observable<PncModel[]> {
-    if (term) {
-      return from(this.pncProvider.pncAutoComplete(term).then(
-        data => {
-          this.autoCompleteRunning = false;
-          $(PncSearchFilterComponent.CDK_OVERLAY_0).css('top', this.autoCompleteTopPosition + 'px');
-          return data;
-        }));
-    } else {
-      this.autoCompleteRunning = false;
-      return Observable.of<PncModel[]>([]);
-    }
-  }
-
-  /**
-   * Remplit le matricule du filtre avec le matricule du pnc selectionné.
-   */
-  prepareFilter(): void {
-    if (this.selectedPnc) {
-      this.pncFilter.pncMatricule = this.selectedPnc.matricule;
-    }
-  }
-
-  /**
-  * Affiche le PN dans l'autocomplete
-  *  @param pn le PN sélectionné
-  */
-  displayPnc(pnc: PncModel) {
-    return pnc
-      ? pnc.firstName + ' ' + pnc.lastName + ' (' + pnc.matricule + ')'
-      : pnc;
   }
 
   /**
@@ -289,18 +178,6 @@ export class PncSearchFilterComponent implements OnInit {
   }
 
   /**
-   * Ajoute un terme au flux
-   * @param term le terme à ajouter
-   */
-  searchAutoComplete(term: string): void {
-    this.checkIfAutoCompleteIsOpen();
-    term = Utils.replaceSpecialCaracters(term);
-    this.pncMatriculeControl.setValue(term);
-    this.autoCompleteRunning = true;
-    this.searchTerms.next(term);
-  }
-
-  /**
    * Fonction permettant de détecter et de gérer les changements de valeur des différents éléments du formulaire
    */
   formOnChanges() {
@@ -310,6 +187,8 @@ export class PncSearchFilterComponent implements OnInit {
       this.pncFilter.aircraftSkill = val.aircraftSkillControl;
       this.pncFilter.relay = val.relayControl;
       this.pncFilter.prioritized = val.prioritizedControl;
+      this.pncFilter.hasAtLeastOnePriorityInProgress = val.hasAtLeastOnePriorityInProgressControl;
+      this.pncFilter.hasNoPriority = val.hasNoPriorityControl;
       this.search();
     });
   }
@@ -383,9 +262,6 @@ export class PncSearchFilterComponent implements OnInit {
    * @param pnc le pnc concerné
    */
   openPncHomePage(pnc: PncModel) {
-    this.selectedPnc = undefined;
-    this.initAutocompleteList();
-
     this.pncSelected.emit(pnc);
   }
 

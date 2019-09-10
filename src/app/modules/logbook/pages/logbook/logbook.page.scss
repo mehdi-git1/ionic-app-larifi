@@ -38,7 +38,7 @@ log-book {
 
             .column-origin {
                 text-align: center;
-                justify-content: center;        
+                justify-content: center;
             }
         }
 
@@ -127,7 +127,8 @@ log-book {
         }
 
         .column-title {
-            min-width: 120px;
+            display: block;
+            width: 100%;
         }
 
         .truncate-text {
@@ -149,7 +150,9 @@ log-book {
         }
 
         .column-origin {
-            flex: 0 0 67px !important;         
+            flex: 0 0 67px !important;
+            text-align: center;
+            justify-content: center;
         }
 
         .column-date {
@@ -193,6 +196,17 @@ log-book {
             }
         }
     }
+
+    .edospnc-archive:before {
+        font-size: 26px;
+        position: relative;
+        top: 4px;
+    }
+
+    .information-message:before {
+        content: '';
+    }
+
 }
 
 .popover-md.action-menu-popover .popover-content {

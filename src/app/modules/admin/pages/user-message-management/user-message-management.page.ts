@@ -1,22 +1,33 @@
-import { TabHeaderEnum } from './../../../../core/enums/tab-header.enum';
-import { TabHeaderModeEnum } from '../../../../core/enums/tab-header-mode.enum';
-import { UserMessageAlertService } from './../../../../core/services/user-message/user-message-alert.service';
-import { ToastService } from '../../../../core/services/toast/toast.service';
+import { Component, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Component } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
+
+import { TabHeaderModeEnum } from '../../../../core/enums/tab-header-mode.enum';
+import { TabHeaderEnum } from '../../../../core/enums/tab-header.enum';
+import { TextEditorModeEnum } from '../../../../core/enums/text-editor-mode.enum';
 import { UserMessageModel } from '../../../../core/models/admin/user-message.model';
+import { ToastService } from '../../../../core/services/toast/toast.service';
+import {
+    UserMessageAlertService
+} from '../../../../core/services/user-message/user-message-alert.service';
 import { UserMessageService } from '../../../../core/services/user-message/user-message.service';
+import {
+    TextEditorComponent
+} from '../../../../shared/components/text-editor/text-editor.component';
 
 @Component({
     selector: 'page-user-message-management',
-    templateUrl: 'user-message-management.page.html',
+    templateUrl: 'user-message-management.page.html'
 })
 export class UserMessageManagementPage {
 
-    public userMessageForm: FormGroup;
+    @ViewChild(TextEditorComponent) textEditorReference;
+
+    userMessageForm: FormGroup;
 
     selectedUserMessage: UserMessageModel;
+
+    get TextEditorModeEnum() { return TextEditorModeEnum; }
 
     userMessages: UserMessageModel[];
 
@@ -30,7 +41,7 @@ export class UserMessageManagementPage {
         private formBuilder: FormBuilder) {
         this.userMessageForm = formBuilder.group({
             title: ['', [Validators.maxLength(255)]],
-            content: ['', [Validators.maxLength(1000)]],
+            content: ['', [Validators.maxLength(5000)]],
             active: ['']
         });
     }
@@ -89,5 +100,13 @@ export class UserMessageManagementPage {
      */
     isLoadingOver(): boolean {
         return this.userMessages !== undefined;
+    }
+
+    /**
+     * Récupère le contenu du WYSIWYG
+     * @param content contenu du WYSIWYG
+     */
+    setContent(content) {
+        this.selectedUserMessage.content = content;
     }
 }

@@ -1,0 +1,19 @@
+<span class="fix-recipient-content" *ngIf="congratulationLetter && pnc">
+    <div class="congratulation-letter-title">{{ 'CONGRATULATION_LETTERS.VALUE.FLIGHT' | translate:{airline:getEmptyStringIfNull(congratulationLetter.flight.airline), flightNumber:getEmptyStringIfNull(congratulationLetter.flight.number), flightDate:getFormatedFlightDate(congratulationLetter.flight)} }}</div>
+    <div class="congratulation-letter-pnc">{{ 'CONGRATULATION_LETTERS.FIX_RECIPIENT.CURRENT_CONGRATULATED_PNC' | translate}} : <div>{{pnc.firstName | titlecase}} {{pnc.lastName | titlecase}} ({{pnc.currentSpeciality}})</div>
+    </div>
+    <div class="congratulation-letter-new-recipient">{{ 'CONGRATULATION_LETTERS.FIX_RECIPIENT.NEW_RECIPIENT' | translate}}</div>
+    <div class="congratulation-letter-autocomplete">
+        <pnc-autocomplete [(ngModel)]="selectedPnc" (onSelectPnc)="fixRecipient($event)"></pnc-autocomplete>
+    </div>
+    <div class="button-bar margin-top-10 margin-bottom-10">
+        <!-- Bouton annuler modification de l'eobs -->
+        <button ion-button outline color="grey50" (click)="cancel()">
+            {{ 'GLOBAL.BUTTONS.CANCEL' | translate }}
+        </button>
+        <!-- Bouton mettre à jour l'eobs -->
+        <button ion-button color="grey50" (click)="fixRecipient()" [disabled]="!pncHasBeenSelected()">
+            {{ 'GLOBAL.BUTTONS.VALIDATE' | translate }}
+        </button>
+    </div>
+</span>

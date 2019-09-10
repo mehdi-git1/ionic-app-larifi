@@ -1,20 +1,27 @@
-import { EObservationTypeEnum } from './../../../../core/enums/e-observations-type.enum';
+import {
+    AlertController, Loading, LoadingController, NavController, NavParams
+} from 'ionic-angular';
+import * as _ from 'lodash';
+
 import { DatePipe } from '@angular/common';
-import { Component} from '@angular/core';
-import { NavController, NavParams, AlertController, LoadingController, Loading } from 'ionic-angular';
+import { Component } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
+
+import { EObservationLevelEnum } from '../../../../core/enums/e-observations-level.enum';
+import { EObservationTypeEnum } from '../../../../core/enums/e-observations-type.enum';
+import { PncRoleEnum } from '../../../../core/enums/pnc-role.enum';
+import { CrewMemberModel } from '../../../../core/models/crew-member.model';
+import {
+    ReferentialItemLevelModel
+} from '../../../../core/models/eobservation/eobservation-referential-item-level.model';
 import { EObservationModel } from '../../../../core/models/eobservation/eobservation.model';
 import { PncModel } from '../../../../core/models/pnc.model';
-import { EObservationLevelEnum } from '../../../../core/enums/e-observations-level.enum';
+import { ConnectivityService } from '../../../../core/services/connectivity/connectivity.service';
 import { EObservationService } from '../../../../core/services/eobservation/eobservation.service';
-import { CrewMemberModel } from '../../../../core/models/crew-member.model';
-import { SessionService } from '../../../../core/services/session/session.service';
-import { PncRoleEnum } from '../../../../core/enums/pnc-role.enum';
-import { TranslateService } from '@ngx-translate/core';
-import { ToastService } from '../../../../core/services/toast/toast.service';
-import * as _ from 'lodash';
-import { Utils } from '../../../../shared/utils/utils';
 import { PncService } from '../../../../core/services/pnc/pnc.service';
-import { ReferentialItemLevelModel } from '../../../../core/models/eobservation/eobservation-referential-item-level.model';
+import { SessionService } from '../../../../core/services/session/session.service';
+import { ToastService } from '../../../../core/services/toast/toast.service';
+import { Utils } from '../../../../shared/utils/utils';
 
 @Component({
   selector: 'page-eobservation-details',
@@ -42,6 +49,7 @@ export class EobservationDetailsPage {
     private alertCtrl: AlertController,
     private loadingCtrl: LoadingController,
     private pncService: PncService,
+    private connectivityService: ConnectivityService,
     private datePipe: DatePipe) {
     this.initPage();
   }
@@ -220,11 +228,51 @@ export class EobservationDetailsPage {
       this.eObservation = eObservation;
       this.originEObservation = _.cloneDeep(this.eObservation);
       this.editMode = false;
-      this.toastService.success(this.translateService.instant('EOBSERVATION.MESSAGES.SUCCESS.UPDATED'));
+      if (this.eObservation.deleted) {
+        this.toastService.success(this.translateService.instant('EOBSERVATION.MESSAGES.SUCCESS.DELETED'));
+        this.navCtrl.pop();
+      } else {
+        this.toastService.success(this.translateService.instant('EOBSERVATION.MESSAGES.SUCCESS.UPDATED'));
+      }
     }, error => { }).then(() => {
       // Finally
       this.loading.dismiss();
     });
+  }
+
+  /**
+    * Confirmation de suppression de l'eObservation
+    */
+  confirmDeleteEObservation() {
+    this.alertCtrl.create({
+      title: this.translateService.instant('EOBSERVATION.CONFIRM_DELETE.TITLE'),
+      message: this.translateService.instant('EOBSERVATION.CONFIRM_DELETE.MESSAGE'),
+      buttons: [
+        {
+          text: this.translateService.instant('EOBSERVATION.CONFIRM_DELETE.CANCEL'),
+          role: 'cancel'
+        },
+        {
+          text: this.translateService.instant('EOBSERVATION.CONFIRM_DELETE.CONFIRM'),
+          handler: () => this.isMarkedAsDeleted()
+        }
+      ]
+    }).present();
+  }
+
+  /**
+   * Marque l'eObs comme supprimée et appelle la méthode pour la mise à jour"
+   */
+  isMarkedAsDeleted() {
+    this.eObservation.deleted = true;
+    this.updateEObservation();
+  }
+
+  /**
+   * Retourne un booléen en fonction de l'état du réseau
+   */
+  isConnected(): boolean {
+    return !this.connectivityService.isConnected();
   }
 
   /**

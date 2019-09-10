@@ -8,6 +8,8 @@
                 <ion-icon name="close"></ion-icon>
             </button>
         </div>
-        <p class="content" [innerHTML]="appVersion.changelog"></p>
+        <p class="content">
+            <html-view [content]="appVersion.changelog"></html-view>
+        </p>
     </div>
 </div>

@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
-import { UserMessageAlertService } from '../../../core/services/user-message/user-message-alert.service';
+
 import { UserMessageModel } from '../../../core/models/admin/user-message.model';
+
+import { UserMessageAlertService } from '../../../core/services/user-message/user-message-alert.service';
 
 @Component({
   selector: 'user-message-alert',

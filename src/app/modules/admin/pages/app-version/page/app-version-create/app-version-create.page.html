@@ -1,0 +1,77 @@
+<ion-header>
+    <ion-navbar>
+        <page-header [showSettingsIcon]="false">
+            <span> {{ 'ADMIN.APP_VERSION_MANAGEMENT.TITLE' | translate }}</span>
+        </page-header>
+    </ion-navbar>
+    <tab-header [mode]="TabHeaderModeEnum.ADMIN" [activeTab]="TabHeaderEnum.APP_VERSION_MANAGEMENT_PAGE"></tab-header>
+</ion-header>
+
+<ion-content padding no-bounce>
+    <form novalidate [formGroup]="creationAppVersionForm">
+        <edossier-spinner *ngIf="!appVersionLoadingIsOver(); else pageBlock"></edossier-spinner>
+        <ng-template #pageBlock>
+            <div class="app-version-container">
+                <ion-scroll class="app-version-form">
+                    <ion-grid>
+                        <ion-row>
+                            <ion-col col-6>
+                                <!-- Numéro de version -->
+                                <ion-label stacked>{{ 'ADMIN.APP_VERSION_CREATE.LABEL.VERSION_NUMBER' | translate }}</ion-label>
+                                <ion-item>
+                                    <ion-input type="text" formControlName="numberControl" name="number" [(ngModel)]="appVersion.number" required></ion-input>
+                                </ion-item>
+                            </ion-col>
+                            <ion-col col-6>
+                                <!-- Release date -->
+                                <ion-label stacked>{{ 'ADMIN.APP_VERSION_CREATE.LABEL.RELEASE_DATE' | translate }}</ion-label>
+                                <ion-item>
+                                    <ion-label>
+                                        <ion-icon name="calendar"></ion-icon>
+                                    </ion-label>
+                                    <ion-datetime formControlName="releaseDateControl" displayFormat="DD/MM/YYYY" pickerFormat="DD MMMM YYYY" name="releaseDate" [(ngModel)]="appVersion.releaseDate" [doneText]="translateService.instant('GLOBAL.DATEPICKER.DONE')" [cancelText]="translateService.instant('GLOBAL.DATEPICKER.CANCEL')" [max]="datepickerMaxDate" [monthNames]="monthsNames"></ion-datetime>
+                                </ion-item>
+                            </ion-col>
+                        </ion-row>
+                        <ion-row>
+                            <ion-col col-12>
+                                <!-- Changelog -->
+                                <text-editor [textEditorMode]="TextEditorModeEnum.FULL" [content]="appVersion.changelog" [placeholder]="'ADMIN.APP_VERSION_CREATE.LABEL.CHANGELOG' | translate" name="changelog" [parentForm]="creationAppVersionForm" [controlForm]="'changelogControl'" (contentChange)="setContent($event)"></text-editor>
+                            </ion-col>
+                        </ion-row>
+                    </ion-grid>
+                </ion-scroll>
+            </div>
+
+            <!-- Barre de boutons -->
+            <div class="button-bar-right button-bar">
+                <!-- Bouton abandon -->
+                <button ion-button color="primary" outline (click)="goToAppVersionManagement()">
+                    <ion-icon name="arrow-back" margin-right></ion-icon>
+                    {{ 'ADMIN.APP_VERSION_CREATE.BUTTON.CANCEL_CREATE_OR_UPDATE' | translate }}
+                </button>
+                <!-- Bouton Supprimer la version -->
+                <button ion-button color="red70" (click)="confirmDeleteAppVersion(appVersion)" *ngIf="!isCreation()">
+                    <ion-icon name="ios-trash-outline" ios="ios-trash-outline" margin-right></ion-icon>
+                    {{ 'ADMIN.APP_VERSION_CREATE.BUTTON.DELETE_VERSION' | translate }}
+                </button>
+                <!-- Bouton ajouter la version -->
+                <button ion-button color="blue60" (click)="createOrUpdateAppVersion(appVersion)" *ngIf="isCreation()">
+                    <ion-icon name="md-add" ios="md-add" margin-right></ion-icon>
+                    {{ 'ADMIN.APP_VERSION_CREATE.BUTTON.ADD_VERSION' | translate }}
+                </button>
+                <!-- Bouton modifier la version-->
+                <button ion-button color="blue60" (click)="createOrUpdateAppVersion(appVersion)" *ngIf="!isCreation()">
+                    <ion-icon name="create" margin-right> </ion-icon>
+                    {{ 'ADMIN.APP_VERSION_CREATE.BUTTON.UPDATE_VERSION' | translate }}
+                </button>
+
+                <!-- Bouton Afficher la version dans la pop-up -->
+                <button ion-button color="orange55" class="overview-button" (click)="displayOverview(appVersion)">
+                    <ion-icon ios="ios-search" md="md-search" margin-right></ion-icon>
+                    {{ 'ADMIN.APP_VERSION_CREATE.BUTTON.OVERVIEW' | translate }}
+                </button>
+            </div>
+        </ng-template>
+    </form>
+</ion-content>

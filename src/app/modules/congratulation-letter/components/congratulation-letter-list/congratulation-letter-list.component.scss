@@ -10,19 +10,12 @@ congratulation-letter-list {
         padding: 5px 10px;
         margin-bottom: 5px;
         border-radius: 5px;
-        background-color: color($colors, primary);
-        box-shadow: 0 3px 1px -2px rgba(0, 0, 0, .2),
-            0 2px 2px 0 rgba(0, 0, 0, .14),
-            0 1px 5px 0 rgba(0, 0, 0, .12);
+        background-color: color($colors, primary-light);
 
         & > label {
             font-size: 1.2em;
             font-weight: bold;
             color: color($colors, white);
-        }
-
-        .creation-date {
-            flex: 1;
         }
 
         .flight {
@@ -38,9 +31,12 @@ congratulation-letter-list {
         }
 
         .button-placeholder {
-            width: 30px;
+            width: 50px;
         }
 
+        .action-placeholder {
+            width: 30px;
+        }
     }
 
     .congratulation-letter-list {

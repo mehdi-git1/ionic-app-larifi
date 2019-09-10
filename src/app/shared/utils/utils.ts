@@ -91,4 +91,25 @@ export class Utils {
     public static isEmpty(value: any): boolean {
         return !value || value == null || (typeof value === 'string' && value.trim() === '');
     }
+
+    /**
+     * Capitalise un mot
+     * @param word mot à capitaliser
+     * @return mot capitalisé
+     */
+    public static capitalize(word: string): string {
+        if (!word) {
+            return word;
+        }
+        return word[0].toUpperCase() + word.substr(1).toLowerCase();
+    }
+
+    /**
+     * Récupère une chaine de caractère vide si la valeur est null
+     * @param value la chaine à traiter
+     * @return une chaine vide, ou la valeur passée en paramètre si celle ci est non null
+     */
+    public static getEmptyStringIfNull(value: string) {
+        return value == null ? '' : value;
+    }
 }

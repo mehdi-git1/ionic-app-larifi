@@ -1,22 +1,27 @@
-import { LogbookEventDetailsPage } from './../logbook-event-details/logbook-event-details.page';
-import { ConnectivityService } from './../../../../core/services/connectivity/connectivity.service';
-import { AppConstant } from './../../../../app.constant';
-import { DateTransform } from './../../../../shared/utils/date-transform';
-import { LogbookEventGroupModel } from './../../../../core/models/logbook/logbook-event-group.model';
-import { LogbookEventActionMenuComponent } from './../../components/logbook-event-action-menu/logbook-event-action-menu.component';
-import { LogbookEventModel } from './../../../../core/models/logbook/logbook-event.model';
-import { OnlineLogbookEventService } from './../../../../core/services/logbook/online-logbook-event.service';
-import { SessionService } from './../../../../core/services/session/session.service';
-import { SecurityService } from './../../../../core/services/security/security.service';
-import { PncModel } from './../../../../core/models/pnc.model';
-import { PncService } from './../../../../core/services/pnc/pnc.service';
 import { NavController, NavParams, PopoverController } from 'ionic-angular';
-import { Component, ViewChild, AfterViewInit, OnInit } from '@angular/core';
-import { LogbookCreatePage } from '../logbook-create/logbook-create.page';
-import { MatTableDataSource, MatSort } from '@angular/material';
 import * as moment from 'moment';
-import * as _ from 'lodash';
+
+import { Component } from '@angular/core';
+
+import { Config } from '../../../../../environments/config';
+import { AppConstant } from '../../../../app.constant';
 import { TabHeaderEnum } from '../../../../core/enums/tab-header.enum';
+import { LogbookEventGroupModel } from '../../../../core/models/logbook/logbook-event-group.model';
+import { LogbookEventModel } from '../../../../core/models/logbook/logbook-event.model';
+import { PncModel } from '../../../../core/models/pnc.model';
+import { ConnectivityService } from '../../../../core/services/connectivity/connectivity.service';
+import {
+    OnlineLogbookEventService
+} from '../../../../core/services/logbook/online-logbook-event.service';
+import { PncService } from '../../../../core/services/pnc/pnc.service';
+import { SecurityService } from '../../../../core/services/security/security.service';
+import { SessionService } from '../../../../core/services/session/session.service';
+import { DateTransform } from '../../../../shared/utils/date-transform';
+import {
+    LogbookEventActionMenuComponent
+} from '../../components/logbook-event-action-menu/logbook-event-action-menu.component';
+import { LogbookCreatePage } from '../logbook-create/logbook-create.page';
+import { LogbookEventDetailsPage } from '../logbook-event-details/logbook-event-details.page';
 
 @Component({
     selector: 'log-book',
@@ -42,7 +47,9 @@ export class LogbookPage {
         private dateTransform: DateTransform,
         private onlineLogbookEventService: OnlineLogbookEventService,
         public popoverCtrl: PopoverController,
-        private connectivityService: ConnectivityService) {
+        private connectivityService: ConnectivityService,
+        private config: Config
+    ) {
     }
 
     ionViewWillEnter() {
@@ -191,6 +198,22 @@ export class LogbookPage {
      */
     isEventCreationAvailable(): boolean {
         return this.isManager() && this.connectivityService.isConnected();
+    }
+
+    /**
+     * Vérifie si le lien Friendly doit être affiché
+     * @return vrai si le lien Friendly doit être affiché, faux sinon
+     */
+    isFriendlyLinkAvailable() {
+        return this.isManager() && this.connectivityService.isConnected();
+    }
+
+    /**
+     * Retourne le lien pointant vers l'historique Friendly des archives JDB
+     * @return le lien Friendly pointant vers l'historique Friendly
+     */
+    getFriendlyLink() {
+        return `${this.config.friendlyUrl}/portailWeb/portail.do?action=validerRechercheInd&matricule=${this.pnc.matricule}`;
     }
 
     /**

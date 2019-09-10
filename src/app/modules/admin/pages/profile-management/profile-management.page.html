@@ -1,6 +1,8 @@
 <ion-header>
     <ion-navbar>
-        <ion-title>{{ 'ADMIN.PROFILE_MANAGEMENT.TITLE' | translate }}</ion-title>
+        <page-header [showSettingsIcon]="false">
+            <span> {{ 'ADMIN.PROFILE_MANAGEMENT.TITLE' | translate }}</span>
+        </page-header>
     </ion-navbar>
     <tab-header [mode]="TabHeaderModeEnum.ADMIN" [activeTab]="TabHeaderEnum.PROFILE_MANAGEMENT_PAGE"></tab-header>
 </ion-header>
