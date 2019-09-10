@@ -1,38 +1,62 @@
-import { TabHeaderEnum } from './../../../../core/enums/tab-header.enum';
-import { EObservationModel } from './../../../../core/models/eobservation/eobservation.model';
-import { SecurityService } from './../../../../core/services/security/security.service';
-import { ProfessionalInterviewDetailsPage } from './../../../professional-interview/pages/professional-interview-details/professional-interview-details.page';
-import { ProfessionalInterviewModel } from './../../../../core/models/professional-interview/professional-interview.model';
-import { ProfessionalInterviewService } from '../../../../core/services/professional-interview/professional-interview.service';
-import { EObservationDisplayModeEnum } from './../../../../core/enums/eobservation/eobservation-display-mode.enum';
-import { EObservationsArchivesPage } from './../../../eobservation/pages/eobservations-archives/eobservations-archives.page';
-import { EObservationService } from './../../../../core/services/eobservation/eobservation.service';
-import { FormsEObservationService } from './../../../../core/services/forms/forms-e-observation.service';
-import { FormsInputParamsModel } from './../../../../core/models/forms-input-params.model';
-import { EFormsTypeEnum } from '../../../../core/enums/e-forms/e-forms-type.enum';
-
-import { SynchronizationService } from '../../../../core/services/synchronization/synchronization.service';
-import { DeviceService } from '../../../../core/services/device/device.service';
-import { SessionService } from '../../../../core/services/session/session.service';
-import { CareerObjectiveCreatePage } from '../career-objective-create/career-objective-create.page';
-import { CareerObjectiveModel } from '../../../../core/models/career-objective.model';
-import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
-import { CareerObjectiveService } from '../../../../core/services/career-objective/career-objective.service';
-import { RotationModel } from '../../../../core/models/rotation.model';
-import { PncService } from '../../../../core/services/pnc/pnc.service';
-import { PncModel } from '../../../../core/models/pnc.model';
-import { SpecialityEnum } from '../../../../core/enums/speciality.enum';
 import * as moment from 'moment';
+
+import { Component } from '@angular/core';
+
 import { AppConstant } from '../../../../app.constant';
-import { ProfessionalInterviewsArchivesPage } from '../../../professional-interview/pages/professional-interviews-archives/professional-interviews-archives.page';
-import { ProfessionalInterviewStateEnum } from '../../../../core/enums/professional-interview/professional-interview-state.enum';
+import { PermissionConstant } from '../../../../core/constants/permission.constant';
+import { EFormsTypeEnum } from '../../../../core/enums/e-forms/e-forms-type.enum';
+import {
+    EObservationDisplayModeEnum
+} from '../../../../core/enums/eobservation/eobservation-display-mode.enum';
+import {
+    ProfessionalInterviewStateEnum
+} from '../../../../core/enums/professional-interview/professional-interview-state.enum';
+import { SpecialityEnum } from '../../../../core/enums/speciality.enum';
+import { TabHeaderEnum } from '../../../../core/enums/tab-header.enum';
+import { CareerObjectiveModel } from '../../../../core/models/career-objective.model';
+import { EObservationModel } from '../../../../core/models/eobservation/eobservation.model';
+import { FormsInputParamsModel } from '../../../../core/models/forms-input-params.model';
+import { PncModel } from '../../../../core/models/pnc.model';
+import {
+    ProfessionalInterviewModel
+} from '../../../../core/models/professional-interview/professional-interview.model';
+import { RotationModel } from '../../../../core/models/rotation.model';
+import {
+    CareerObjectiveService
+} from '../../../../core/services/career-objective/career-objective.service';
+import { DeviceService } from '../../../../core/services/device/device.service';
+import { EObservationService } from '../../../../core/services/eobservation/eobservation.service';
+import {
+    FormsEObservationService
+} from '../../../../core/services/forms/forms-e-observation.service';
+import { PncService } from '../../../../core/services/pnc/pnc.service';
+import {
+    ProfessionalInterviewService
+} from '../../../../core/services/professional-interview/professional-interview.service';
+import { SecurityService } from '../../../../core/services/security/security.service';
+import { SessionService } from '../../../../core/services/session/session.service';
+import {
+    SynchronizationService
+} from '../../../../core/services/synchronization/synchronization.service';
+import {
+    EObservationsArchivesPage
+} from '../../../eobservation/pages/eobservations-archives/eobservations-archives.page';
+import {
+    ProfessionalInterviewDetailsPage
+} from '../../../professional-interview/pages/professional-interview-details/professional-interview-details.page';
+import {
+    ProfessionalInterviewsArchivesPage
+} from '../../../professional-interview/pages/professional-interviews-archives/professional-interviews-archives.page';
+import { CareerObjectiveCreatePage } from '../career-objective-create/career-objective-create.page';
 
 @Component({
   selector: 'page-career-objective-list',
   templateUrl: 'career-objective-list.page.html',
 })
 export class CareerObjectiveListPage {
+
+  readonly VIEW_EOBSERVATION_ARCHIVE = PermissionConstant.VIEW_EOBSERVATION_ARCHIVE;
 
   careerObjectives: CareerObjectiveModel[];
   matricule: string;

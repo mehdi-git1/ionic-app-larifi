@@ -154,7 +154,7 @@
                             {{ 'LOGBOOK.BUTTONS.DELETE' | translate }}
                         </button>
                         <!-- Bouton modifier -->
-                        <button ion-button color="primary" (click)="editLogbookEvent()">
+                        <button ion-button color="primary" *ngIf="canModifyEvent()" (click)="editLogbookEvent()">
                             {{ 'LOGBOOK.BUTTONS.MODIFY' | translate }}
                         </button>
                     </div>

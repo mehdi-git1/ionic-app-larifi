@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 
-import { OfflineSecurityService } from './offline-security.service';
-import { OnlineSecurityService } from './online-security.service';
+import { AppConstant } from '../../../app.constant';
+import { PermissionConstant } from '../../constants/permission.constant';
+import { AuthenticatedUserModel } from '../../models/authenticated-user.model';
+import { AuthorizationService } from '../authorization/authorization.service';
+import { BaseService } from '../base/base.service';
 import { ConnectivityService } from '../connectivity/connectivity.service';
 import { SessionService } from '../session/session.service';
-import { AuthenticatedUserModel } from '../../models/authenticated-user.model';
-import { BaseService } from '../base/base.service';
-
-import { AuthorizationService } from '../authorization/authorization.service';
-import { AppConstant } from '../../../app.constant';
+import { OfflineSecurityService } from './offline-security.service';
+import { OnlineSecurityService } from './online-security.service';
 
 @Injectable()
 export class SecurityService extends BaseService {
@@ -67,6 +67,18 @@ export class SecurityService extends BaseService {
   }
 
   /**
+   * Teste si un utilisateur est admin CCO & ISCV de l'application
+   * @param authenticatedUser l'utilisateur à tester
+   * @return vrai si l'utilisateur est admin CCO & ISCV, faux sinon
+   */
+  isAdminCcoIscv(authenticatedUser: AuthenticatedUserModel): boolean {
+    if (authenticatedUser.profiles) {
+      return this.authorizationService.hasPermission(PermissionConstant.ADMIN_CCO) && this.authorizationService.hasPermission(PermissionConstant.ADMIN_ISCV);
+    }
+    return false;
+  }
+
+  /**
    * Vérifie si l'impersonnification est disponible pour un utilisateur donné
    * @param matricule le matricule de l'utilisateur
    * @return une promesse vide (le code de retour http détermine si l'impersonnification est possible ou non)
@@ -84,7 +96,7 @@ export class SecurityService extends BaseService {
    * @return vrai si l'utilisateur est admin des bilans pro, faux sinon
    */
   isProfessionalInterviewAdmin(): boolean {
-    return (this.authorizationService.hasPermission('PROFESSIONAL_INTERVIEW_FULL_EDITION')
+    return (this.authorizationService.hasPermission(PermissionConstant.PROFESSIONAL_INTERVIEW_FULL_EDITION)
       || this.sessionService.getActiveUser().isRdd
       || this.sessionService.getActiveUser().isRds
       || this.sessionService.getActiveUser().isBaseProvinceManager);
