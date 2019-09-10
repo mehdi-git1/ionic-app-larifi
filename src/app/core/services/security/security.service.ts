@@ -73,7 +73,7 @@ export class SecurityService extends BaseService {
    */
   isAdminCcoIscv(authenticatedUser: AuthenticatedUserModel): boolean {
     if (authenticatedUser.profiles) {
-      return this.authorizationService.hasPermission(PermissionConstant.ADMIN_CCO) && this.authorizationService.hasPermission(PermissionConstant.ADMIN_ISCV);
+      return this.authorizationService.hasPermission(PermissionConstant.CCO_ACCESS) && this.authorizationService.hasPermission(PermissionConstant.ISCV_ACCESS);
     }
     return false;
   }

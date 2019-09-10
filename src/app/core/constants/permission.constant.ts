@@ -1,6 +1,6 @@
 export class PermissionConstant {
-    public static ADMIN_CCO = 'ADMIN_CCO';
-    public static ADMIN_ISCV = 'ADMIN_ISCV';
+    public static CCO_ACCESS = 'CCO_ACCESS';
+    public static ISCV_ACCESS = 'ISCV_ACCESS';
     public static PROFESSIONAL_INTERVIEW_FULL_EDITION = 'PROFESSIONAL_INTERVIEW_FULL_EDITION';
     public static SHOW_IMPERSONNIFICATION = 'SHOW_IMPERSONNIFICATION';
     public static VIEW_PROFESSIONAL_LEVEL = 'VIEW_PROFESSIONAL_LEVEL';
