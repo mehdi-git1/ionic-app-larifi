@@ -1,14 +1,15 @@
-import { Injectable } from '@angular/core';
 import * as moment from 'moment';
 
-import { PagedPncModel } from '../../models/paged-pnc.model';
-import { SessionService } from '../session/session.service';
+import { Injectable } from '@angular/core';
+
 import { AppConstant } from '../../../app.constant';
-import { RotationModel } from '../../models/rotation.model';
 import { EntityEnum } from '../../enums/entity.enum';
-import { StorageService } from '../../storage/storage.service';
-import { PncModel } from '../../models/pnc.model';
 import { PageModel } from '../../models/page.model';
+import { PagedPncModel } from '../../models/paged-pnc.model';
+import { PncModel } from '../../models/pnc.model';
+import { RotationModel } from '../../models/rotation.model';
+import { StorageService } from '../../storage/storage.service';
+import { SessionService } from '../session/session.service';
 
 @Injectable()
 export class OfflinePncService {
@@ -45,7 +46,7 @@ export class OfflinePncService {
     return this.storageService.findAllAsync(EntityEnum.PNC).then(response => {
       return this.getPnc(this.sessionService.getActiveUser().matricule).then(connectedPnc => {
         let filteredPnc = response;
-        if (connectedPnc.assignment.division !== 'ADM') {
+        if (connectedPnc && connectedPnc.assignment && connectedPnc.assignment.division !== 'ADM') {
           filteredPnc = response.filter(pnc =>
             (pnc.assignment.division === connectedPnc.assignment.division)
             && (pnc.assignment.sector === connectedPnc.assignment.sector)

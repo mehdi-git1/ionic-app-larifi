@@ -96,7 +96,11 @@
         },
         "DOCUMENT": {
             "PREVIEW_NOT_AVAILABLE": "L'aperçu n'est pas disponible pour ce fichier",
-            "OPEN_FILE_ERROR": "Erreur lors de l'ouverture du fichier"
+            "OPEN_FILE_ERROR": "Erreur lors de l'ouverture du fichier",
+            "FILE_MAX_SIZE": "La taille maximale d'un fichier est de {{fileMaxSize}} Mo. La taille totale des fichiers ne doit pas dépasser {{filesMaxSize}} Mo",
+            "ERROR_FILE_TOO_BIG": "Impossible d'ajouter le fichier {{fileName}}. Sa taille ne doit pas dépasser {{maxSize}} Mo",
+            "ERROR_MAX_FILES_SIZE_REACHED": "Impossible d'ajouter le fichier {{fileName}}. La taille totale des fichiers ne doit pas dépasser {{maxSize}} Mo",
+            "ERROR_MULTI_MAX_FILES_SIZE_REACHED": "Impossible d'ajouter les fichier sélectionnés. La taille totale des fichiers ne doit pas dépasser {{maxSize}} Mo"
         }
     },
     "AUTHENT": {

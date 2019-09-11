@@ -1,49 +1,50 @@
-import { WorkRateCircleComponent } from './work-rate-circle/work-rate-circle.component';
-import { DocumentManagerComponent } from './document/document-manager.component';
-import { TabHeaderComponent } from './tab-header/tab-header.component';
-import { PncHeaderComponent } from './pnc-header/pnc-header.component';
-import { PdfButtonComponent } from './pdf-button/pdf-button.component';
 import { IonicModule } from 'ionic-angular';
-import { CommonModule } from '@angular/common';
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-
 import { QuillModule } from 'ngx-quill';
+
+import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 
-import { HttpClientModule } from '@angular/common/http';
-
-import { OfflineIndicatorComponent } from './offline-indicator/offline-indicator.component';
-import { ConnectivityIndicatorComponent } from './connectivity-indicator/connectivity-indicator.component';
-import { DownloadButtonComponent } from './download-button/download-button.component';
-import { PncCardComponent } from './pnc-card/pnc-card.component';
-import { EdossierSpinnerComponent } from './edossier-spinner/edossier-spinner.component';
-import { NavBarCustomComponent } from './edossier-indicators/edossier-indicators.component';
-import { PncPhotoComponent } from './pnc-photo/pnc-photo.component';
-import { PageHeaderComponent } from './page-header/page-header.component';
-
-import { PinPadModalComponent } from './modals/pin-pad-modal/pin-pad-modal.component';
-import { PinPadComponent } from './pin-pad/pin-pad.component';
-
-import { SecretQuestionComponent } from './secret-question/secret-question.component';
-import { SecretQuestionModalComponent } from './modals/secret-question-modal/secret-question-modal.component';
-
-import { TabNavComponent } from './tab-nav/tab-nav.component';
-import { NoDataComponent } from './no-data/no-data.component';
 import { DirectivesModule } from '../directives/directives.module';
 import { SharedModule } from '../shared.module';
-import { EdospncExpandableBlockComponent } from './edospnc-expandable-block/edospnc-expandable-block';
-import { ColorStatusPointComponent } from './color-status-point/color-status-point.component';
-import { RadioAndLabelComponent } from './radio-and-label/radio-and-label.component';
-import { CheckboxAndLabelComponent } from './checkbox-and-label/checkbox-and-label.component';
-import { UserMessageAlertComponent } from './user-message-alert/user-message-alert.component';
-
-import { TextEditorComponent } from './text-editor/text-editor.component';
 import { AppVersionAlertComponent } from './app-version-alert/app-version-alert.component';
-import { PncEdossierHeaderComponent } from './pnc-edossier-header/pnc-edossier-header.component';
-import { PncAutoCompleteComponent } from './pnc-autocomplete/pnc-autocomplete.component';
+import { CheckboxAndLabelComponent } from './checkbox-and-label/checkbox-and-label.component';
+import { ColorStatusPointComponent } from './color-status-point/color-status-point.component';
+import {
+    ConnectivityIndicatorComponent
+} from './connectivity-indicator/connectivity-indicator.component';
 import { DocumentViewerComponent } from './document-viewer/document-viewer.component';
+import { DocumentManagerComponent } from './document/document-manager.component';
+import { DownloadButtonComponent } from './download-button/download-button.component';
+import {
+    EdospncExpandableBlockComponent
+} from './edospnc-expandable-block/edospnc-expandable-block';
+import { NavBarCustomComponent } from './edossier-indicators/edossier-indicators.component';
+import { EdossierSpinnerComponent } from './edossier-spinner/edossier-spinner.component';
 import { HtmlViewComponent } from './html-view/html-view.component';
-
+import { PinPadModalComponent } from './modals/pin-pad-modal/pin-pad-modal.component';
+import {
+    SecretQuestionModalComponent
+} from './modals/secret-question-modal/secret-question-modal.component';
+import { NoDataComponent } from './no-data/no-data.component';
+import { OfflineIndicatorComponent } from './offline-indicator/offline-indicator.component';
+import { PageHeaderComponent } from './page-header/page-header.component';
+import { PdfButtonComponent } from './pdf-button/pdf-button.component';
+import { PinPadComponent } from './pin-pad/pin-pad.component';
+import { PncAutoCompleteComponent } from './pnc-autocomplete/pnc-autocomplete.component';
+import { PncCardComponent } from './pnc-card/pnc-card.component';
+import { PncEdossierHeaderComponent } from './pnc-edossier-header/pnc-edossier-header.component';
+import { PncHeaderComponent } from './pnc-header/pnc-header.component';
+import { PncPhotoComponent } from './pnc-photo/pnc-photo.component';
+import { ProgressBarComponent } from './progress-bar/progress-bar.component';
+import { RadioAndLabelComponent } from './radio-and-label/radio-and-label.component';
+import { SecretQuestionComponent } from './secret-question/secret-question.component';
+import { TabHeaderComponent } from './tab-header/tab-header.component';
+import { TabNavComponent } from './tab-nav/tab-nav.component';
+import { TextEditorComponent } from './text-editor/text-editor.component';
+import { UserMessageAlertComponent } from './user-message-alert/user-message-alert.component';
+import { WorkRateCircleComponent } from './work-rate-circle/work-rate-circle.component';
 
 @NgModule({
   imports: [
@@ -85,8 +86,8 @@ import { HtmlViewComponent } from './html-view/html-view.component';
     PncAutoCompleteComponent,
     DocumentViewerComponent,
     WorkRateCircleComponent,
-    HtmlViewComponent
-
+    HtmlViewComponent,
+    ProgressBarComponent
   ],
   exports: [
     OfflineIndicatorComponent,
@@ -118,7 +119,8 @@ import { HtmlViewComponent } from './html-view/html-view.component';
     DocumentViewerComponent,
     WorkRateCircleComponent,
     TextEditorComponent,
-    HtmlViewComponent
+    HtmlViewComponent,
+    ProgressBarComponent
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA
