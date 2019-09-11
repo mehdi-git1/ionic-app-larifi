@@ -40,11 +40,7 @@ export class CongratulationLetterDetailPage {
     }
 
     ionViewDidEnter() {
-        if (this.navParams.get('matricule')) {
-            this.matricule = this.navParams.get('matricule');
-        } else if (this.sessionService.getActiveUser()) {
-            this.matricule = this.sessionService.getActiveUser().matricule;
-        }
+        this.matricule = this.navParams.get('matricule');
         this.pncService.getPnc(this.matricule).then(pnc => {
             this.pnc = pnc;
         }, error => { });
