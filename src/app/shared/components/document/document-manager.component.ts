@@ -17,13 +17,15 @@ const iconFolderPath = 'assets/imgs/';
 const BASE_64 = 'base64,';
 const FILE_MAX_SIZE = 5000000;
 const FILES_MAX_SIZE = 25000000;
-
+const fileMaxSizeInMo = Math.round( FILE_MAX_SIZE / 1000000);
+const filesMaxSizeInMo = Math.round( FILES_MAX_SIZE / 1000000);
 @Component({
   selector: 'document-manager',
   templateUrl: 'document-manager.component.html'
 })
 export class DocumentManagerComponent {
-
+  readonly fileMaxSizeInMo = fileMaxSizeInMo;
+  readonly filesMaxSizeInMo = filesMaxSizeInMo;
   /**
    * Native upload button
    */
@@ -70,15 +72,15 @@ export class DocumentManagerComponent {
         addedFilesFullSize += file.size;
       }
       if (this.filesSize + addedFilesFullSize > FILES_MAX_SIZE) {
-        this.toastService.warning(this.translateService.instant('GLOBAL.DOCUMENT.ERROR_MULTI_MAX_FILES_SIZE_REACHED'));
+        this.toastService.warning(this.translateService.instant('GLOBAL.DOCUMENT.ERROR_MULTI_MAX_FILES_SIZE_REACHED', { maxSize: filesMaxSizeInMo }));
         return;
       }
     }
     for (const file of files) {
       if (file.size > FILE_MAX_SIZE) {
-        this.toastService.warning(this.translateService.instant('GLOBAL.DOCUMENT.ERROR_FILE_TOO_BIG', {fileName: file.name}));
+        this.toastService.warning(this.translateService.instant('GLOBAL.DOCUMENT.ERROR_FILE_TOO_BIG', { fileName: file.name, maxSize: fileMaxSizeInMo }));
       } else if (this.filesSize + file.size > FILES_MAX_SIZE) {
-        this.toastService.warning(this.translateService.instant('GLOBAL.DOCUMENT.ERROR_MAX_FILES_SIZE_REACHED', {fileName: file.name}));
+        this.toastService.warning(this.translateService.instant('GLOBAL.DOCUMENT.ERROR_MAX_FILES_SIZE_REACHED', { fileName: file.name, maxSize: filesMaxSizeInMo }));
       } else {
         const myReader: FileReader = new FileReader();
         let content;

@@ -25,6 +25,6 @@
     </span>
     <div class="progress-bar" *ngIf="!readonly">
         <progress-bar [progress]="getDocumentsSizePercent()"></progress-bar>
-        <div class="max-size-message">{{ 'GLOBAL.DOCUMENT.FILE_MAX_SIZE' | translate }}</div>
+        <div class="max-size-message">{{ 'GLOBAL.DOCUMENT.FILE_MAX_SIZE' | translate : { fileMaxSize: fileMaxSizeInMo, filesMaxSize: filesMaxSizeInMo } }}</div>
     </div>
 </div>
