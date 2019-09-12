@@ -61,7 +61,7 @@
                         <ion-icon name="ios-trash-outline" ios="ios-trash-outline" margin-right></ion-icon>{{ 'EOBSERVATION.BUTTONS.DELETE' | translate }}
                     </button>
                     <!-- Bouton modifier l'eobs -->
-                    <button ion-button color="grey20" (click)="enterEditMode()">
+                    <button ion-button color="grey20" (click)="enterEditMode()" [disabled]="isConnected()">
                         <ion-icon name="md-create" ios="md-create" margin-right></ion-icon> {{ 'EOBSERVATION.BUTTONS.EDIT' | translate }}
                     </button>
                 </ng-container>
