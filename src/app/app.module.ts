@@ -1,48 +1,51 @@
-import { FileChooser } from '@ionic-native/file-chooser';
-import { File } from '@ionic-native/file';
-import { FileTransfer } from '@ionic-native/file-transfer';
-import { FileOpener } from '@ionic-native/file-opener';
-import { LogbookModule } from './modules/logbook/logbook.module';
-import { EObservationModule } from './modules/eobservation/eobservation.module';
-import { CongratulationLetterModule } from './modules/congratulation-letter/congratulation-letter.module';
-import { AdminModule } from './modules/admin/admin.module';
+import { SimpleNotificationsModule } from 'angular2-notifications';
+import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
+
+import { registerLocaleData } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
+import localeFr from '@angular/common/locales/fr';
+import { CUSTOM_ELEMENTS_SCHEMA, ErrorHandler, LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ErrorHandler, NgModule, CUSTOM_ELEMENTS_SCHEMA, LOCALE_ID } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
-import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
-import { StatusBar } from '@ionic-native/status-bar';
-import { SplashScreen } from '@ionic-native/splash-screen';
+import { File } from '@ionic-native/file';
+import { FileChooser } from '@ionic-native/file-chooser';
+import { FileOpener } from '@ionic-native/file-opener';
+import { FileTransfer } from '@ionic-native/file-transfer';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
+import { SplashScreen } from '@ionic-native/splash-screen';
+import { StatusBar } from '@ionic-native/status-bar';
 
-
-import { SimpleNotificationsModule } from 'angular2-notifications';
-
+import { Config } from '../environments/config';
 import { EDossierPNC } from './app.component';
-
-import { SharedModule } from './shared/shared.module';
-import { HomeModule } from './modules/home/home.module';
+import { AuthenticationModule } from './core/authentication/authentication.module';
+import { UrlConfiguration } from './core/configuration/url.configuration';
+import { FileModule } from './core/file/file.module';
+import { HttpModule } from './core/http/http.module';
+import { RoutingModule } from './core/routing/routing.module';
+import { ServiceModule } from './core/services/service.module';
+import { StorageModule } from './core/storage/storage.module';
+import { AdminModule } from './modules/admin/admin.module';
+import {
+    CongratulationLetterModule
+} from './modules/congratulation-letter/congratulation-letter.module';
 import { DevelopmentProgramModule } from './modules/development-program/development-program.module';
+import { EObservationModule } from './modules/eobservation/eobservation.module';
 import { FlightActivityModule } from './modules/flight-activity/flight-activity.module';
 import { HelpAssetModule } from './modules/help-asset/help-asset.module';
+import { HomeModule } from './modules/home/home.module';
+import { LogbookModule } from './modules/logbook/logbook.module';
 import { PncTeamModule } from './modules/pnc-team/pnc-team.module';
+import {
+    ProfessionalInterviewModule
+} from './modules/professional-interview/professional-interview.module';
 import { ProfessionalLevelModule } from './modules/professional-level/professional-level.module';
 import { SettingsModule } from './modules/settings/settings.module';
-import { StatutoryCertificateModule } from './modules/statutory-certificate/statutory-certificate.module';
-import { ServiceModule } from './core/services/service.module';
-import { ComponentsModule } from './shared/components/components.module';
-import { HttpModule } from './core/http/http.module';
-import { StorageModule } from './core/storage/storage.module';
-import { Config } from '../environments/config';
-import { UrlConfiguration } from './core/configuration/url.configuration';
-import { AuthenticationModule } from './core/authentication/authentication.module';
-import { FileModule } from './core/file/file.module';
+import {
+    StatutoryCertificateModule
+} from './modules/statutory-certificate/statutory-certificate.module';
 import { SynchronizationModule } from './modules/synchronization/synchronization.module';
-import { ProfessionalInterviewModule } from './modules/professional-interview/professional-interview.module';
-import { RoutingModule } from './core/routing/routing.module';
-
-import localeFr from '@angular/common/locales/fr';
-import { registerLocaleData } from '@angular/common';
+import { ComponentsModule } from './shared/components/components.module';
+import { SharedModule } from './shared/shared.module';
 
 registerLocaleData(localeFr);
 @NgModule({
@@ -52,7 +55,6 @@ registerLocaleData(localeFr);
   imports: [
     BrowserModule,
     IonicModule.forRoot(EDossierPNC, {
-      mode: 'md',
       pageTransition: 'ios-transition',
       backButtonText: ''
     }),
