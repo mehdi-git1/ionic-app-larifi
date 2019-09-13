@@ -1,4 +1,11 @@
 <!-- le WYSIWYG doit se situer dans un formGroup -->
-<div [formGroup]="parentForm">
+<!-- <div [formGroup]="parentForm">
     <quill-editor (onContentChanged)="broadcastContentChange()" formControlName="{{controlForm}}" [placeholder]="placeholder" [modules]="editorConfig" [(ngModel)]="content"></quill-editor>
+</div> -->
+
+<div [formGroup]="parentForm" *ngIf="mode != TextEditorModeEnum.READ_ONLY">
+    <quill-editor formControlName="{{controlForm}}" [placeholder]="placeholder" [modules]="editorConfig"
+        [(ngModel)]="value">
+    </quill-editor>
 </div>
+<quill-view *ngIf="mode === TextEditorModeEnum.READ_ONLY" [content]="value"></quill-view>

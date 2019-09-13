@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 
-import { AppVersionModel } from './../../../../core/models/admin/app-version.model';
-
-import { AppVersionService } from './../../../../core/services/app-version/app-version.service';
+import { TextEditorModeEnum } from '../../../../core/enums/text-editor-mode.enum';
+import { AppVersionModel } from '../../../../core/models/admin/app-version.model';
+import { AppVersionService } from '../../../../core/services/app-version/app-version.service';
 
 @Component({
     selector: 'page-app-version-history',
@@ -13,6 +13,8 @@ export class AppVersionHistoryPage {
     appVersions: AppVersionModel[];
 
     selectedAppVersion: AppVersionModel;
+
+    TextEditorModeEnum = TextEditorModeEnum;
 
     constructor(private appVersionService: AppVersionService) { }
 
