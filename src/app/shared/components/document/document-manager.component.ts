@@ -10,35 +10,41 @@ import {
 import { ConnectivityService } from '../../../core/services/connectivity/connectivity.service';
 import { DeviceService } from '../../../core/services/device/device.service';
 import { DocumentService } from '../../../core/services/document/document.service';
+import { SessionService } from '../../../core/services/session/session.service';
 import { ToastService } from '../../../core/services/toast/toast.service';
 import { DocumentViewerComponent } from '../document-viewer/document-viewer.component';
 
 const iconFolderPath = 'assets/imgs/';
 const BASE_64 = 'base64,';
-const FILE_MAX_SIZE = 5000000;
-const FILES_MAX_SIZE = 25000000;
-const fileMaxSizeInMo = Math.round( FILE_MAX_SIZE / 1000000);
-const filesMaxSizeInMo = Math.round( FILES_MAX_SIZE / 1000000);
+const DEFAULT_FILES_MAX_SIZE = 25000000;
 @Component({
   selector: 'document-manager',
   templateUrl: 'document-manager.component.html'
 })
 export class DocumentManagerComponent {
-  readonly fileMaxSizeInMo = fileMaxSizeInMo;
-  readonly filesMaxSizeInMo = filesMaxSizeInMo;
+
   /**
    * Native upload button
    */
   @ViewChild('fileUpload') private fileUpload: ElementRef;
 
-  @Input() documents: Array<DocumentModel>;
+  _documents: Array<DocumentModel>;
 
   @Input() readonly: boolean;
 
   loading = false;
-
+  filesMaxSize = DEFAULT_FILES_MAX_SIZE;
   filesSize = 0;
 
+  @Input() set documents(documents: Array<DocumentModel>) {
+    for (let document of documents) {
+      this.filesSize += document.size;
+    }
+    this._documents = documents;
+  }
+  get documents(): Array<DocumentModel>{
+    return this._documents;
+  }
   constructor(public popoverCtrl: PopoverController,
     private documentService: DocumentService,
     private fileService: FileService,
@@ -46,17 +52,24 @@ export class DocumentManagerComponent {
     private connectivityService: ConnectivityService,
     private alertCtrl: AlertController,
     private translateService: TranslateService,
-    private toastService: ToastService) {
+    private toastService: ToastService,
+    private sessionService: SessionService) {
+      this.filesMaxSize = this.sessionService.getActiveUser().appInitData.attachmentsMaxSize;
+  }
+
+  getFilesMaxSizeInMo() {
+    return Math.round( this.filesMaxSize / 1000000);
   }
 
   /**
    * Calcule le pourcentage de la taille actuelle des fichiers en fonction de la taille maximum autorisée
    */
   getDocumentsSizePercent(): number {
+
     if (this.filesSize === 0) {
       return 0;
     }
-    return this.filesSize / FILES_MAX_SIZE * 100;
+    return this.filesSize / this.filesMaxSize * 100;
   }
 
   /**
@@ -71,16 +84,14 @@ export class DocumentManagerComponent {
       for (const file of files) {
         addedFilesFullSize += file.size;
       }
-      if (this.filesSize + addedFilesFullSize > FILES_MAX_SIZE) {
-        this.toastService.warning(this.translateService.instant('GLOBAL.DOCUMENT.ERROR_MULTI_MAX_FILES_SIZE_REACHED', { maxSize: filesMaxSizeInMo }));
+      if (this.filesSize + addedFilesFullSize > this.filesMaxSize) {
+        this.toastService.warning(this.translateService.instant('GLOBAL.DOCUMENT.ERROR_MULTI_MAX_FILES_SIZE_REACHED', { maxSize: this.getFilesMaxSizeInMo() }));
         return;
       }
     }
     for (const file of files) {
-      if (file.size > FILE_MAX_SIZE) {
-        this.toastService.warning(this.translateService.instant('GLOBAL.DOCUMENT.ERROR_FILE_TOO_BIG', { fileName: file.name, maxSize: fileMaxSizeInMo }));
-      } else if (this.filesSize + file.size > FILES_MAX_SIZE) {
-        this.toastService.warning(this.translateService.instant('GLOBAL.DOCUMENT.ERROR_MAX_FILES_SIZE_REACHED', { fileName: file.name, maxSize: filesMaxSizeInMo }));
+      if (this.filesSize + file.size > this.filesMaxSize) {
+        this.toastService.warning(this.translateService.instant('GLOBAL.DOCUMENT.ERROR_MAX_FILES_SIZE_REACHED', { fileName: file.name, maxSize: this.getFilesMaxSizeInMo() }));
       } else {
         const myReader: FileReader = new FileReader();
         let content;
