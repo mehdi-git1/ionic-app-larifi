@@ -1,23 +1,18 @@
-import { GinqModel } from './../../../../core/models/ginq.model';
-import { DivisionModel } from './../../../../core/models/division.model';
-import { FormGroup, AbstractControl, Validators, FormBuilder } from '@angular/forms';
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import $ from 'jquery';
+import { Events } from 'ionic-angular';
 
-import { Utils } from '../../../../shared/utils/utils';
-import { ConnectivityService } from '../../../../core/services/connectivity/connectivity.service';
-import { NavController, Events, Keyboard } from 'ionic-angular';
-import { PncService } from '../../../../core/services/pnc/pnc.service';
-import { Subject } from 'rxjs/Rx';
-import { SessionService } from '../../../../core/services/session/session.service';
-import { Observable } from 'rxjs/Observable';
-import { from } from 'rxjs/observable/from';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
+
 import { AppConstant } from '../../../../app.constant';
+import { SpecialityEnum } from '../../../../core/enums/speciality.enum';
+import { DivisionModel } from '../../../../core/models/division.model';
+import { GinqModel } from '../../../../core/models/ginq.model';
 import { PncFilterModel } from '../../../../core/models/pnc-filter.model';
 import { PncModel } from '../../../../core/models/pnc.model';
-import { SpecialityEnum } from '../../../../core/enums/speciality.enum';
 import { SectorModel } from '../../../../core/models/sector.model';
 import { RelayModel } from '../../../../core/models/statutory-certificate/relay.model';
+import { ConnectivityService } from '../../../../core/services/connectivity/connectivity.service';
+import { SessionService } from '../../../../core/services/session/session.service';
 
 @Component({
   selector: 'pnc-search-filter',
@@ -105,6 +100,7 @@ export class PncSearchFilterComponent implements OnInit {
         this.outOfDivision = true;
       } else {
         this.outOfDivision = false;
+        // tslint:disable-next-line: no-misleading-array-reverse
         this.relayList = appInitData.relays.sort((relay1, relay2) => {
           return relay1.code > relay2.code ? 1 : -1;
         });
