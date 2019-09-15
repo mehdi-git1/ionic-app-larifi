@@ -83,7 +83,8 @@
                                     <ion-col class="column-redactor">
                                         <span class="truncate-text">{{logbookEvent.redactor?.lastName}}
                                             {{logbookEvent.redactor?.firstName | titlecase}} </span>
-                                        <span class="event-type" *ngIf="logbookEvent.type">
+                                        <span class="event-type"
+                                            *ngIf="logbookEvent.type != LogbookEventTypeEnum.EDOSPNC">
                                             ({{logbookEvent.type}})</span>
                                     </ion-col>
                                     <ion-col class="actions" *ngIf="isManager()">
