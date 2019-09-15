@@ -1,4 +1,5 @@
 import { LogbookEventModeEnum } from '../../enums/logbook-event/logbook-event-mode.enum';
+import { LogbookEventTypeEnum } from '../../enums/logbook-event/logbook-event-type.enum';
 import { DocumentModel } from '../document.model';
 import { EDossierPncObjectModel } from '../e-dossier-pnc-object.model';
 import { PncLightModel } from '../pnc-light.model';
@@ -23,7 +24,7 @@ export class LogbookEventModel extends EDossierPncObjectModel {
     notifiedRecipients: LogbookEventNotifiedEmail[];
     attachmentFiles: Array<DocumentModel> = new Array();
     mode: LogbookEventModeEnum;
-    type: string;
+    type: LogbookEventTypeEnum;
     ccoGroupId: number;
 
     getStorageId(): string {
