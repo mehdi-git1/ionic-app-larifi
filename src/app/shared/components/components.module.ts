@@ -22,7 +22,6 @@ import {
 } from './edospnc-expandable-block/edospnc-expandable-block';
 import { NavBarCustomComponent } from './edossier-indicators/edossier-indicators.component';
 import { EdossierSpinnerComponent } from './edossier-spinner/edossier-spinner.component';
-import { HtmlViewComponent } from './html-view/html-view.component';
 import { PinPadModalComponent } from './modals/pin-pad-modal/pin-pad-modal.component';
 import {
     SecretQuestionModalComponent
