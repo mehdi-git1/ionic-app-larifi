@@ -588,7 +588,7 @@ export class CareerObjectiveCreatePage {
 
     /**
      * Retourne true si c'est un brouillon et qu'il peut être modifié par le user connecté
-     * @return true si Draft && (CADRE ou auteur du brouillon)
+     * @return true si Draft && (CADRE ou auteur du brouillon ou Pnc concerné)
      */
     isDraftAndCanBeModified(): boolean {
         const canBeSavedAsDraft: boolean = this.careerObjectiveStatusService.isTransitionOk(this.careerObjective.careerObjectiveStatus, CareerObjectiveStatusEnum.DRAFT);
