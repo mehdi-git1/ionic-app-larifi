@@ -5,6 +5,7 @@ import { Component } from '@angular/core';
 
 import { Config } from '../../../../../environments/config';
 import { AppConstant } from '../../../../app.constant';
+import { LogbookEventTypeEnum } from '../../../../core/enums/logbook-event/logbook-event-type.enum';
 import { TabHeaderEnum } from '../../../../core/enums/tab-header.enum';
 import { LogbookEventGroupModel } from '../../../../core/models/logbook/logbook-event-group.model';
 import { LogbookEventModel } from '../../../../core/models/logbook/logbook-event.model';
@@ -38,6 +39,8 @@ export class LogbookPage {
     groupedEvents: Array<LogbookEventGroupModel>;
 
     TabHeaderEnum = TabHeaderEnum;
+
+    LogbookEventTypeEnum = LogbookEventTypeEnum;
 
     constructor(public navCtrl: NavController,
         public navParams: NavParams,
