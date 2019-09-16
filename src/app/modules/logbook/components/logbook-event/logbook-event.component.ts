@@ -85,6 +85,7 @@ export class LogbookEventComponent implements OnInit {
             this.logbookEvent.pnc = new PncLightModel();
             this.logbookEvent.pnc.matricule = this.pnc.matricule;
             this.logbookEvent.category = new LogbookEventCategory();
+            this.logbookEvent.type = LogbookEventTypeEnum.EDOSPNC;
             const eventDate: Date = new Date();
             this.logbookEvent.eventDate = this.dateTransformer.transformDateToIso8601Format(eventDate);
             this.logbookEvent.mode = this.mode;
