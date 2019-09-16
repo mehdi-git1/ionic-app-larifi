@@ -37,6 +37,7 @@ import { PncCardComponent } from './pnc-card/pnc-card.component';
 import { PncEdossierHeaderComponent } from './pnc-edossier-header/pnc-edossier-header.component';
 import { PncHeaderComponent } from './pnc-header/pnc-header.component';
 import { PncPhotoComponent } from './pnc-photo/pnc-photo.component';
+import { ProgressBarComponent } from './progress-bar/progress-bar.component';
 import { RadioAndLabelComponent } from './radio-and-label/radio-and-label.component';
 import { SecretQuestionComponent } from './secret-question/secret-question.component';
 import { TabHeaderComponent } from './tab-header/tab-header.component';
@@ -85,7 +86,7 @@ import { WorkRateCircleComponent } from './work-rate-circle/work-rate-circle.com
     PncAutoCompleteComponent,
     DocumentViewerComponent,
     WorkRateCircleComponent,
-    HtmlViewComponent
+    ProgressBarComponent
 
   ],
   exports: [
@@ -118,7 +119,7 @@ import { WorkRateCircleComponent } from './work-rate-circle/work-rate-circle.com
     DocumentViewerComponent,
     WorkRateCircleComponent,
     TextEditorComponent,
-    HtmlViewComponent
+    ProgressBarComponent
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA
