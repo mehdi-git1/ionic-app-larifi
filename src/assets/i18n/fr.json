@@ -41,7 +41,8 @@
                 "DO_NOT_DISPLAY_ANYMORE": "J'ai compris"
             }
         },
-        "DEVELOPMENT_PROGRAM": "Parcours de développement",
+        "DEVELOPMENT_PROGRAM_SHORT": "Parcours de Dev",
+        "DEVELOPMENT_PROGRAM": "Parcours de Dev",
         "MY_DEVELOPMENT_PROGRAM": "Mon parcours de développement",
         "HELP_CENTER": "Ressources d'aide",
         "MY_HELP_CENTER": "Mes ressources d'aide",
@@ -50,10 +51,13 @@
         "UPCOMING_FLIGHT": "Activité vols",
         "MY_UPCOMING_FLIGHT": "Mon activité vols",
         "CREW_MEMBERS": "Liste équipage",
+        "STATUTORY_CERTIFICATE_SHORT": "Profil",
         "STATUTORY_CERTIFICATE": "Profil PNC",
         "MY_STATUTORY_CERTIFICATE": "Mon profil PNC",
+        "PROFESSIONAL_LEVEL_SHORT": "NivPro SV",
         "PROFESSIONAL_LEVEL": "Niveau pro SV",
         "MY_PROFESSIONAL_LEVEL": "Mon niveau pro SV",
+        "CONGRATULATION_LETTERS_SHORT": "Félicitations",
         "CONGRATULATION_LETTERS": "Lettres de félicitations",
         "MY_CONGRATULATION_LETTERS": "Mes lettres de félicitations",
         "EOBSERVATIONS_ARCHIVES": "Archives d'eObservations",
