@@ -24,6 +24,9 @@ export class TextEditorComponent extends AbstractValueAccessor implements OnInit
 
     @Output() contentChange = new EventEmitter();
 
+    TextEditorModeEnum = TextEditorModeEnum;
+
+
     editorConfig = {};
 
     constructor() {
@@ -61,7 +64,4 @@ export class TextEditorComponent extends AbstractValueAccessor implements OnInit
         }
     }
 
-    get TextEditorModeEnum() {
-        return TextEditorModeEnum;
-    }
 }

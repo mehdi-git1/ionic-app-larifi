@@ -4,7 +4,9 @@ import {
 import * as _ from 'lodash';
 
 import { DatePipe } from '@angular/common';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+    ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output
+} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -26,6 +28,7 @@ import { DateTransform } from '../../../../shared/utils/date-transform';
 import { Utils } from '../../../../shared/utils/utils';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.OnPush,
     selector: 'logbook-event',
     templateUrl: 'logbook-event.component.html'
 })
@@ -100,7 +103,7 @@ export class LogbookEventComponent implements OnInit {
             if (this.pnc.pncInstructor && this.pnc.pncInstructor.matricule !== this.sessionService.getActiveUser().matricule) {
                 this.logbookEvent.notifiedPncs.push(this.pnc.pncInstructor);
             }
-            this.initForm();
+
         }
         this.originLogbookEvent = _.cloneDeep(this.logbookEvent);
         this.eventDateString = this.logbookEvent ? this.logbookEvent.eventDate : this.dateTransformer.transformDateToIso8601Format(new Date());
@@ -140,6 +143,7 @@ export class LogbookEventComponent implements OnInit {
      * Envoie un event avec l'évènement à editer, à la page parente.
      */
     editLogbookEvent() {
+        this.initForm();
         this.logbookEvent.mode = LogbookEventModeEnum.EDITION;
         this.originLogbookEvent = _.cloneDeep(this.logbookEvent);
         this.editionOrDeletion.emit(this.logbookEvent);
