@@ -7,6 +7,7 @@ import { DatePipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 
+import { PermissionConstant } from '../../../../core/constants/permission.constant';
 import { EObservationLevelEnum } from '../../../../core/enums/e-observations-level.enum';
 import { EObservationTypeEnum } from '../../../../core/enums/e-observations-type.enum';
 import { PncRoleEnum } from '../../../../core/enums/pnc-role.enum';
@@ -29,6 +30,7 @@ import { Utils } from '../../../../shared/utils/utils';
 })
 export class EobservationDetailsPage {
 
+  readonly EOBS_FULL_EDITION = PermissionConstant.EOBS_FULL_EDITION;
   PncRoleEnum = PncRoleEnum;
   EObservationTypeEnum = EObservationTypeEnum;
 

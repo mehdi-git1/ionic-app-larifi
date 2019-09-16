@@ -4,6 +4,7 @@ import * as moment from 'moment';
 import { Component } from '@angular/core';
 
 import { AppConstant } from '../../../../app.constant';
+import { PermissionConstant } from '../../../../core/constants/permission.constant';
 import { EFormsTypeEnum } from '../../../../core/enums/e-forms/e-forms-type.enum';
 import {
     EObservationDisplayModeEnum
@@ -54,6 +55,8 @@ import { CareerObjectiveCreatePage } from '../career-objective-create/career-obj
   templateUrl: 'career-objective-list.page.html',
 })
 export class CareerObjectiveListPage {
+
+  readonly VIEW_EOBSERVATION_ARCHIVE = PermissionConstant.VIEW_EOBSERVATION_ARCHIVE;
 
   careerObjectives: CareerObjectiveModel[];
   matricule: string;
