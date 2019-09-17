@@ -73,12 +73,12 @@ export class CongratulationLettersPage {
         this.congratulationLetterService.getReceivedCongratulationLetters(this.matricule).then(receivedCongratulationLetters => {
             this.receivedCongratulationLetters = receivedCongratulationLetters;
             this.receivedLettersIsLoading = false;
-        }, error => { this.receivedLettersIsLoading = false });
+        }, error => this.receivedLettersIsLoading = false );
 
         this.congratulationLetterService.getWrittenCongratulationLetters(this.matricule).then(writtenCongratulationLetters => {
             this.writtenCongratulationLetters = writtenCongratulationLetters;
             this.writtenLettersIsLoading = false;
-        }, error => { this.writtenLettersIsLoading = false });
+        }, error => this.writtenLettersIsLoading = false );
     }
 
     /**
