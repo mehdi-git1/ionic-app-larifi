@@ -342,6 +342,18 @@ export class LogbookEventComponent implements OnInit {
     }
 
     /**
+     * Vérifie si le PNC connecté peut modifier l'évènement
+     * @return vrai si l'évènement est CCO/ISCV et que le PNC est admin CCO/ISCV ou si l'évènement n'est pas CCO/ISCV
+     * et que le PNC peut éditer l'évènement, faux sinon
+     */
+    canModifyEvent(): boolean {
+        if (this.logbookEvent.type === LogbookEventTypeEnum.CCO || this.logbookEvent.type === LogbookEventTypeEnum.ISCV) {
+            return this.securityService.isAdminCcoIscv(this.sessionService.getActiveUser());
+        }
+        return this.canEditEvent();
+    }
+
+    /**
      * Retourne la date de dernière modification, formatée pour l'affichage
      * @return la date de dernière modification au format dd/mm/
      */
