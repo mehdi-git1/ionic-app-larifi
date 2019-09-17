@@ -5,7 +5,7 @@ import * as _ from 'lodash';
 
 import { DatePipe } from '@angular/common';
 import {
-    ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output
+    ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
@@ -28,9 +28,9 @@ import { DateTransform } from '../../../../shared/utils/date-transform';
 import { Utils } from '../../../../shared/utils/utils';
 
 @Component({
-    changeDetection: ChangeDetectionStrategy.OnPush,
     selector: 'logbook-event',
-    templateUrl: 'logbook-event.component.html'
+    templateUrl: 'logbook-event.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LogbookEventComponent implements OnInit {
 
@@ -74,13 +74,24 @@ export class LogbookEventComponent implements OnInit {
         private alertCtrl: AlertController,
         private pncService: PncService,
         private datePipe: DatePipe,
-        private formBuilder: FormBuilder) {
+        private formBuilder: FormBuilder,
+        private changeDetectorRef: ChangeDetectorRef) {
         // Traduction des mois
         this.monthsNames = this.translateService.instant('GLOBAL.MONTH.LONGNAME');
 
     }
 
+    ngAfterViewInit() {
+        this.detectChangesAndMarkForCheck();
+    }
+
+    detectChangesAndMarkForCheck() {
+        this.changeDetectorRef.detectChanges();
+        this.changeDetectorRef.markForCheck();
+    }
+
     ngOnInit() {
+        this.initForm();
         if (this.sessionService.visitedPnc) {
             this.pnc = this.sessionService.visitedPnc;
         } else {
@@ -143,7 +154,6 @@ export class LogbookEventComponent implements OnInit {
      * Envoie un event avec l'évènement à editer, à la page parente.
      */
     editLogbookEvent() {
-        this.initForm();
         this.logbookEvent.mode = LogbookEventModeEnum.EDITION;
         this.originLogbookEvent = _.cloneDeep(this.logbookEvent);
         this.editionOrDeletion.emit(this.logbookEvent);
@@ -182,10 +192,12 @@ export class LogbookEventComponent implements OnInit {
                     this.events.publish('LinkedLogbookEvent:canceled');
                 }
                 this.editEvent = false;
+                this.detectChangesAndMarkForCheck();
                 return true;
             }
             ).catch(() => {
                 this.cancelFromButton = false;
+                this.detectChangesAndMarkForCheck();
                 return false;
             });
         } else {
@@ -196,6 +208,7 @@ export class LogbookEventComponent implements OnInit {
                 this.editEvent = false;
             }
             this.events.publish('LinkedLogbookEvent:canceled');
+            this.detectChangesAndMarkForCheck();
             return true;
         }
 
