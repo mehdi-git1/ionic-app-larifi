@@ -337,8 +337,8 @@ export class LogbookEventComponent implements OnInit {
         const redactor = this.pnc && this.logbookEvent.redactor && this.sessionService.getActiveUser().matricule === this.logbookEvent.redactor.matricule;
         const instructor = this.pnc && this.pnc.pncInstructor && this.sessionService.getActiveUser().matricule === this.pnc.pncInstructor.matricule;
         const rds = this.pnc && this.pnc.pncRds && this.sessionService.getActiveUser().matricule === this.pnc.pncRds.matricule;
-        const ccoAdmin = this.pnc && this.securityService.isCcoAdmin(this.sessionService.getActiveUser()) && this.securityService.isIscvAdmin(this.sessionService.getActiveUser());
-        return redactor || instructor || rds || (ccoAdmin && (this.logbookEvent.type === LogbookEventTypeEnum.CCO || this.logbookEvent.type === LogbookEventTypeEnum.ISCV));
+        const ccoIscvAdmin = this.pnc && this.securityService.isAdminCcoIscv(this.sessionService.getActiveUser());
+        return redactor || instructor || rds || (ccoIscvAdmin && (this.logbookEvent.type === LogbookEventTypeEnum.CCO || this.logbookEvent.type === LogbookEventTypeEnum.ISCV));
     }
 
     /**
