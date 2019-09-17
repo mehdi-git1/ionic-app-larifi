@@ -5,11 +5,13 @@
             <label>{{ userMessage.title }}</label>
         </div>
         <div class="content">
-            <html-view [content]="userMessage.content"></html-view>
+            <text-editor [mode]="TextEditorModeEnum.READ_ONLY" [ngModel]="userMessage.content">
+            </text-editor>
         </div>
         <div class="button-bar">
             <button (click)="dismissMessage()">{{ 'GLOBAL.USER_MESSAGE.BUTTONS.DISMISS' | translate }}</button>
-            <button (click)="doNotDisplayMessageAnymore()">{{ 'GLOBAL.USER_MESSAGE.BUTTONS.DO_NOT_DISPLAY_ANYMORE' | translate }}</button>
+            <button
+                (click)="doNotDisplayMessageAnymore()">{{ 'GLOBAL.USER_MESSAGE.BUTTONS.DO_NOT_DISPLAY_ANYMORE' | translate }}</button>
         </div>
     </div>
 </div>

@@ -41,8 +41,15 @@ page-app-version-history {
     }
 
     p {
-        white-space: pre-line;
         margin-top: 30px;
+    }
+
+    text-editor .ql-container.ql-snow {
+        border: 0;
+    }
+
+    text-editor .ql-snow *{
+        background: transparent;
     }
 
 }

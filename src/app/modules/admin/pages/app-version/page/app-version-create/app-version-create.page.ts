@@ -29,9 +29,8 @@ import { AppVersionListPage } from '../app-version-list/app-version-list.page';
 export class AppVersionCreatePage {
 
     TabHeaderModeEnum = TabHeaderModeEnum;
-    TabHeaderEnum = TabHeaderEnum;
 
-    get TextEditorModeEnum() { return TextEditorModeEnum; }
+    TabHeaderEnum = TabHeaderEnum;
 
     datepickerMaxDate = AppConstant.datepickerMaxDate;
     monthsNames: any;
@@ -43,6 +42,8 @@ export class AppVersionCreatePage {
     originAppVersion: AppVersionModel;
 
     loading: Loading;
+
+    TextEditorModeEnum = TextEditorModeEnum;
 
     constructor(
         public navCtrl: NavController,
@@ -208,14 +209,6 @@ export class AppVersionCreatePage {
 
     goToAppVersionManagement() {
         this.navCtrl.push(AppVersionListPage);
-    }
-
-    /**
-     * Récupère le contenu du WYSIWYG
-     * @param content contenu du WYSIWYG
-     */
-    setContent(content) {
-        this.appVersion.changelog = content;
     }
 
 }

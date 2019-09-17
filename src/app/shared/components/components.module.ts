@@ -22,7 +22,6 @@ import {
 } from './edospnc-expandable-block/edospnc-expandable-block';
 import { NavBarCustomComponent } from './edossier-indicators/edossier-indicators.component';
 import { EdossierSpinnerComponent } from './edossier-spinner/edossier-spinner.component';
-import { HtmlViewComponent } from './html-view/html-view.component';
 import { PinPadModalComponent } from './modals/pin-pad-modal/pin-pad-modal.component';
 import {
     SecretQuestionModalComponent
@@ -53,7 +52,7 @@ import { WorkRateCircleComponent } from './work-rate-circle/work-rate-circle.com
     DirectivesModule,
     SharedModule,
     HttpClientModule,
-    QuillModule,
+    QuillModule.forRoot(),
     ReactiveFormsModule
   ],
   declarations: [
@@ -86,8 +85,8 @@ import { WorkRateCircleComponent } from './work-rate-circle/work-rate-circle.com
     PncAutoCompleteComponent,
     DocumentViewerComponent,
     WorkRateCircleComponent,
-    HtmlViewComponent,
     ProgressBarComponent
+
   ],
   exports: [
     OfflineIndicatorComponent,
@@ -119,7 +118,6 @@ import { WorkRateCircleComponent } from './work-rate-circle/work-rate-circle.com
     DocumentViewerComponent,
     WorkRateCircleComponent,
     TextEditorComponent,
-    HtmlViewComponent,
     ProgressBarComponent
   ],
   schemas: [

@@ -1,6 +1,10 @@
 import { Component } from '@angular/core';
-import { AppVersionAlertService } from '../../../core/services/app-version/app-version-alert.service';
+
+import { TextEditorModeEnum } from '../../../core/enums/text-editor-mode.enum';
 import { AppVersionModel } from '../../../core/models/admin/app-version.model';
+import {
+    AppVersionAlertService
+} from '../../../core/services/app-version/app-version-alert.service';
 
 @Component({
   selector: 'app-version-alert',
@@ -12,6 +16,8 @@ export class AppVersionAlertComponent {
   displayed = false;
 
   appVersion = new AppVersionModel();
+
+  TextEditorModeEnum = TextEditorModeEnum;
 
   constructor(private appVersionAlertService: AppVersionAlertService) {
 
