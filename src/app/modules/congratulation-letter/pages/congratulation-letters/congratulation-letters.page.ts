@@ -25,7 +25,8 @@ import {
 export class CongratulationLettersPage {
 
     matricule: string;
-
+    receivedLettersIsLoading: boolean;
+    writtenLettersIsLoading: boolean;
     pnc: PncModel;
 
     CongratulationLetterModeEnum = CongratulationLetterModeEnum;
@@ -59,7 +60,6 @@ export class CongratulationLettersPage {
     }
 
     initPage() {
-
         this.matricule = this.navParams.get('matricule');
         this.pncService.getPnc(this.matricule).then(pnc => {
             this.pnc = pnc;
@@ -68,15 +68,27 @@ export class CongratulationLettersPage {
     }
 
     refresh() {
+        this.receivedLettersIsLoading = true;
+        this.writtenLettersIsLoading = true;
         this.congratulationLetterService.getReceivedCongratulationLetters(this.matricule).then(receivedCongratulationLetters => {
             this.receivedCongratulationLetters = receivedCongratulationLetters;
-        }, error => { });
+            this.receivedLettersIsLoading = false;
+        }, error => { this.receivedLettersIsLoading = false });
 
         this.congratulationLetterService.getWrittenCongratulationLetters(this.matricule).then(writtenCongratulationLetters => {
             this.writtenCongratulationLetters = writtenCongratulationLetters;
-        }, error => { });
+            this.writtenLettersIsLoading = false;
+        }, error => { this.writtenLettersIsLoading = false });
     }
 
+    /**
+     * Rafraichit la page
+     **/
+    refreshPage() {
+        this.receivedCongratulationLetters = null;
+        this.writtenCongratulationLetters = null;
+        this.refresh();
+    }
 
     /**
      * Affiche les lettres reçues
@@ -106,7 +118,7 @@ export class CongratulationLettersPage {
      * @return true si c'est le cas, false sinon
      */
     loadingIsOver(): boolean {
-        return this.receivedCongratulationLetters !== undefined && this.writtenCongratulationLetters !== undefined;
+        return !this.receivedLettersIsLoading  && !this.writtenLettersIsLoading ;
     }
 
     /**

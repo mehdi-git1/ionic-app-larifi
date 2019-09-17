@@ -1,6 +1,6 @@
 <ion-header>
     <ion-navbar>
-        <page-header [showSettingsIcon]="true" [pnc]="pnc">
+        <page-header (refreshPage)="refreshPage()" [showRefreshIcon]="true" [showSettingsIcon]="true" [pnc]="pnc">
             <span *ngIf="pnc"> {{ 'CONGRATULATION_LETTERS.TITLE' | isMyPage: pnc | translate }}</span>
         </page-header>
     </ion-navbar>
