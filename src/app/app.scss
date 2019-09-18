@@ -209,18 +209,18 @@ ion-badge[outline][color="secondary"] {
         display: initial;
     }*/
     @media only screen and (max-device-width: 768px)  {
-        visibility: none;
+        display: none;
     }
-    @media only screen and (min-device-width: 768px)  {
-        visibility: initial;
+    @media only screen and (min-device-width: 769px)  {
+        display: initial;
     }
 }
 
 .small-width-devices {
     @media only screen and (max-device-width: 768px)  {
-        visibility: initial;
+        display: initial;
     }
-    @media only screen and (min-device-width: 768px)  {
-        visibility: none;
+    @media only screen and (min-device-width: 769px)  {
+        display: none;
     }
 }

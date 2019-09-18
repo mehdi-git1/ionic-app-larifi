@@ -1,7 +1,8 @@
 $padding-left-ion-select: 5px;
 $margin-top-autocomplete: 15px;
 $top-autocomplete-field: 18px;
-
+$small-margin-top-autocomplete: 25px;
+$small-top-autocomplete-field: 28px;
 pnc-search-filter {
 
     .pnc-search-card {
@@ -60,9 +61,9 @@ pnc-search-filter {
             padding-left: $padding-left-ion-select;
         }
 
-        /*ion-row {
+        ion-row {
             flex: 1;
-        }*/
+        }
 
         .card-content {
             padding: 0;
@@ -73,10 +74,14 @@ pnc-search-filter {
             align-items: center;
         }
 
+        .clear-pnc-form {
+            margin-top: 25px;
+            height: 40px;
+            width: 100%;
+        }
         .clear-pnc {
             width: 100%;
         }
-
         .clear-button {
             display: flex;
             align-content: center;
@@ -84,16 +89,26 @@ pnc-search-filter {
             margin: auto;
             padding: auto;
         }
+        .small-width-device {
+            .button-md {
+                margin-top: $small-margin-top-autocomplete;
 
-        .button-md {
-            margin-top: $margin-top-autocomplete;
+            }
 
+            .button-ios {
+                margin-top: $small-top-autocomplete-field;
+            }
         }
+        .large-width-device {
+            .button-md {
+                margin-top: $margin-top-autocomplete;
 
-        .button-ios {
-            margin-top: $top-autocomplete-field;
+            }
+
+            .button-ios {
+                margin-top: $top-autocomplete-field;
+            }
         }
-
         .search-pnc {
             width: 100%;
         }
@@ -119,6 +134,16 @@ pnc-search-filter {
             }
         }
 
+        .small-width-devices {
+            .row {
+                align-items: baseline;
+                ion-col {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: flex-end;
+                }
+            }
+        }
         form {
             .label-inactive-filters {
                 color: color($colors, grey20);
@@ -131,6 +156,9 @@ pnc-search-filter {
             }
 
             .label-md {
+                margin: 0;
+            }
+            .label-ios {
                 margin: 0;
             }
         }
