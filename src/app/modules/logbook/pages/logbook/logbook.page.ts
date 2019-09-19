@@ -72,6 +72,19 @@ export class LogbookPage {
         this.getLogbookEvents(this.pnc.matricule);
     }
 
+    isHiddenEvent(matricule: string, logbookEvent: LogbookEventModel) {
+        const activeUserMatricule = this.sessionService.getActiveUser().matricule;
+        const now = moment();
+        const broadcastDate = moment(logbookEvent.lastUpdateDate, AppConstant.isoDateFormat);
+        const hiddenDuration = moment.duration(now.diff(broadcastDate)).asMilliseconds();
+        const upToFifteenDays = moment.duration(15, 'days').asMilliseconds();
+        if (matricule === activeUserMatricule && (hiddenDuration < upToFifteenDays || logbookEvent.hidden)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     /**
      * Gère la réception des évènements du journal de bord du Pnc
      * @param logbookEvents evènements du journal de bord
@@ -80,13 +93,16 @@ export class LogbookPage {
     private getLogbookEvents(matricule: string) {
         this.onlineLogbookEventService.getLogbookEvents(matricule).then(logbookEvents => {
             // Tri des évènements par groupId
+
             this.groupedEvents = new Array<LogbookEventGroupModel>();
             const groupedEventsMap = new Map<number, LogbookEventGroupModel>();
             logbookEvents.forEach(logbookEvent => {
-                if (!groupedEventsMap.has(logbookEvent.groupId)) {
-                    groupedEventsMap.set(logbookEvent.groupId, new LogbookEventGroupModel(logbookEvent.groupId, this.dateTransform));
+                if (!this.isHiddenEvent(matricule, logbookEvent)) {
+                    if (!groupedEventsMap.has(logbookEvent.groupId)) {
+                        groupedEventsMap.set(logbookEvent.groupId, new LogbookEventGroupModel(logbookEvent.groupId, this.dateTransform));
+                    }
+                    groupedEventsMap.get(logbookEvent.groupId).logbookEvents.push(logbookEvent);
                 }
-                groupedEventsMap.get(logbookEvent.groupId).logbookEvents.push(logbookEvent);
             });
             // Tri des events de chaque groupe par date d'évènement
             for (const groupedEvent of Array.from(groupedEventsMap.values())) {

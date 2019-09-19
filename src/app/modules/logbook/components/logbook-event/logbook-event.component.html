@@ -135,6 +135,9 @@
                         <div class="right-logbook-info">
                             <div class="icons">
                                 <div>
+                                    <ion-icon name="md-eye-off" ios="md-eye-off"></ion-icon>
+                                </div>
+                                <div>
                                     <ion-icon class="edospnc-important" color="secondary"
                                         *ngIf="logbookEvent.important"></ion-icon>
                                 </div>
@@ -187,6 +190,28 @@
                     </div>
                     <div class="information-message" *ngIf="logbookEvent.lastUpdateAuthor">{{ 'LOGBOOK.DETAILS.EDITED_BY' | translate:{lastName:logbookEvent.lastUpdateAuthor.lastName, firstName:logbookEvent.lastUpdateAuthor.firstName,
                         date:getLastUpdateDate()} }}
+                    </div>
+                    <div class="cco-logbookEvent-visibility"
+                        *ngIf="logbookEvent.type == LogbookEventTypeEnum.CCO || logbookEvent.type == LogbookEventTypeEnum.ISCV ">
+                        <form [formGroup]="visibilityForm">
+                            <ion-list radio-group [(ngModel)]="visibilitySelected" formControlName="visibilityControl"
+                                (ionChange)="visibilityChange($event)">
+                                <ion-item>
+                                    <ion-radio value="{{EventCcoVisibilityEnum.VISIBLE_AFTER_FIFTEEN_DAYS}}">
+                                    </ion-radio>
+                                    <ion-label>{{ 'LOGBOOK.DETAILS.VISIBLE_AFTER_FIFTEEN_DAYS' | translate }}
+                                    </ion-label>
+                                </ion-item>
+                                <ion-item>
+                                    <ion-radio value="{{EventCcoVisibilityEnum.HIDDEN}}"></ion-radio>
+                                    <ion-label>{{ 'LOGBOOK.DETAILS.HIDDEN' | translate }}</ion-label>
+                                </ion-item>
+                                <ion-item>
+                                    <ion-radio value="{{EventCcoVisibilityEnum.VISIBLE}}"></ion-radio>
+                                    <ion-label>{{ 'LOGBOOK.DETAILS.VISIBLE' | translate }}</ion-label>
+                                </ion-item>
+                            </ion-list>
+                        </form>
                     </div>
                     <div class="logbook-button-bar button-bar-right button-bar" *ngIf="canEditEvent()">
                         <!-- Bouton supprimer -->

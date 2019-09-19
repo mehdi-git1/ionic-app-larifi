@@ -66,6 +66,11 @@ logbook-event {
                         }
                     }
 
+                    .ion-md-eye-off:before {
+                        font-size: 20px;
+                        padding-right: 10px;
+                        color: color($colors-secondary, grey40);
+                    }
 
                     .edospnc-important:before,
                     .ion-ios-edospnc-important:before,
@@ -265,22 +270,33 @@ logbook-event {
         margin-top: 15px;
     }
 
-text-editor .ql-toolbar.ql-snow{
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-    border:1px solid color($colors, grey50);
-}
+    .cco-logbookEvent-visibility{
+        display: flex;
+        margin-top: 15px;
 
-text-editor .ql-container.ql-snow{
-    border:0;
-}
+        .item-block{
+            min-height: 0em;
+            height: 30px;
+            flex-direction: row-reverse;
+        }
+    }
 
-text-editor .ql-editor{
-    border-bottom-left-radius: 5px;
-    border-bottom-right-radius: 5px;
-    border:1px solid color($colors, grey50);
-    margin-top: -1px;
-}
+    text-editor .ql-toolbar.ql-snow{
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
+        border:1px solid color($colors, grey50);
+    }
+
+    text-editor .ql-container.ql-snow{
+        border:0;
+    }
+
+    text-editor .ql-editor{
+        border-bottom-left-radius: 5px;
+        border-bottom-right-radius: 5px;
+        border:1px solid color($colors, grey50);
+        margin-top: -1px;
+    }
 
 }
 

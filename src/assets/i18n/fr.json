@@ -205,7 +205,6 @@
             "VALIDATED": "Clôturée",
             "ABANDONED": "Abandonnée"
         }
-
     },
     "PNC_IDENTITY": {
         "REFERENT_INSTRUCTOR": "Manager",
@@ -581,7 +580,6 @@
         "MY_TITLE": "Ma recherche PNC",
         "CRITERIA": {
             "FILTERS": "Filtres",
-
             "DIVISION": "Division",
             "SECTOR": "Secteur",
             "GINQ": "Ginq",
@@ -705,7 +703,6 @@
             "VERBATIM": "Verbatim",
             "COLLECTIVE_WARNING_PART1": "Cette lettre collective sera insérée dans le eDossier de ",
             "COLLECTIVE_WARNING_PART2": " mais n'alimentera pas les eDossiers du reste de l'équipage"
-
         },
         "BUTTONS": {
             "CANCEL": "Annuler",
@@ -785,7 +782,10 @@
             "EVENT_DATE": "Evènement du ",
             "CREATED_THE": "Créé le ",
             "NOTIFIED_PNCS": "Personnes notifiées",
-            "EDITED_BY": "Evènement modifié par {{lastName}} {{firstName}} le {{date}}"
+            "EDITED_BY": "Evènement modifié par {{lastName}} {{firstName}} le {{date}}",
+            "VISIBLE_AFTER_FIFTEEN_DAYS": "Afficher aprés 15 jours",
+            "VISIBLE": "Afficher",
+            "HIDDEN": "Masquer"
         },
         "ACTION_MENU": {
             "MODIFY": "Modifier",

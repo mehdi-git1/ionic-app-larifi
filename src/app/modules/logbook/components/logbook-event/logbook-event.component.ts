@@ -10,6 +10,7 @@ import {
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 
+import { EventCcoVisibilityEnum } from '../../../../core/enums/event-cco-visibility.enum';
 import { LogbookEventModeEnum } from '../../../../core/enums/logbook-event/logbook-event-mode.enum';
 import { LogbookEventTypeEnum } from '../../../../core/enums/logbook-event/logbook-event-type.enum';
 import { TextEditorModeEnum } from '../../../../core/enums/text-editor-mode.enum';
@@ -56,10 +57,15 @@ export class LogbookEventComponent implements OnInit {
 
     LogbookEventModeEnum = LogbookEventModeEnum;
     TextEditorModeEnum = TextEditorModeEnum;
+    LogbookEventTypeEnum = LogbookEventTypeEnum;
+    EventCcoVisibilityEnum = EventCcoVisibilityEnum;
 
     cancelFromButton = false;
 
+    visibilitySelected = EventCcoVisibilityEnum.VISIBLE_AFTER_FIFTEEN_DAYS;
+
     logbookEventForm: FormGroup;
+    visibilityForm: FormGroup;
 
     constructor(private navParams: NavParams,
         private securityService: SecurityService,
@@ -135,6 +141,10 @@ export class LogbookEventComponent implements OnInit {
             category: ['', Validators.required],
             title: ['', [Validators.maxLength(100), Validators.required]],
             content: ['', [Validators.maxLength(4000), Validators.required]],
+        });
+
+        this.visibilityForm = this.formBuilder.group({
+            visibilityControl: [EventCcoVisibilityEnum.VISIBLE_AFTER_FIFTEEN_DAYS, Validators.required]
         });
     }
 
@@ -404,6 +414,20 @@ export class LogbookEventComponent implements OnInit {
             this.logbookEvent.notifiedPncs = this.logbookEvent.notifiedPncs.filter(pnc =>
                 pnc.matricule !== pncLight.matricule);
         }
+    }
 
+    visibilityChange(event: any) {
+        let visible = false;
+        let hidden = false;
+        if (event === EventCcoVisibilityEnum.HIDDEN) {
+            hidden = true;
+        } else if (event === EventCcoVisibilityEnum.VISIBLE) {
+            visible = true;
+        }
+        if (visible != this.logbookEvent.visible || hidden != this.logbookEvent.hidden) {
+            this.logbookEvent.visible = visible;
+            this.logbookEvent.hidden = hidden;
+            this.onlineLogbookEventService.createOrUpdate(this.logbookEvent);
+        }
     }
 }

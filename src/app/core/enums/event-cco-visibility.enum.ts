@@ -1,0 +1,3 @@
+export enum EventCcoVisibilityEnum {
+    VISIBLE = 'VISIBLE', HIDDEN = 'HIDDEN', VISIBLE_AFTER_FIFTEEN_DAYS = 'VISIBLE_AFTER_FIFTEEN_DAYS'
+}
