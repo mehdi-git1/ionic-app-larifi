@@ -19,5 +19,7 @@ export class Config extends BaseEnvironment {
         this.secmobileEnv = 'rct';
         this.eformsUrl = 'com.airfrance.mobile.inhouse.eformsdevPNC';
         this.eformsCallbackUrl = 'com.airfrance.mobile.inhouse.edospncDEV2';
+
+        this.friendlyUrl = 'http://friendly6rct.airfrance.fr';
     }
 }
