@@ -50,6 +50,7 @@ export class LogbookEventComponent implements OnInit {
     titleMaxLength = 100;
 
     LogbookEventModeEnum = LogbookEventModeEnum;
+    LogbookEventTypeEnum = LogbookEventTypeEnum;
 
     cancelFromButton = false;
 
@@ -378,5 +379,12 @@ export class LogbookEventComponent implements OnInit {
                 pnc.matricule !== pncLight.matricule);
         }
 
+    }
+
+    /**
+     * Affiche le message d'information de la dernière modification faite sur l'évènement
+     */
+    showInformationMessage() {
+        return this.logbookEvent.lastUpdateAuthor && this.logbookEvent.lastUpdateDate !== this.logbookEvent.creationDate;
     }
 }
