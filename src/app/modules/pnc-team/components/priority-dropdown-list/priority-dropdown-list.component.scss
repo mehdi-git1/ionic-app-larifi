@@ -8,20 +8,21 @@ priority-dropdown-list {
         display: flex;
         flex-direction: row;
     }
-    .list-ios {
+    .list-ios, .list-md {
         margin: 0px;
     }
-    .list-ios .item-block .item-inner {
+    .list-ios .item-block .item-inner, .list-md .item-block .item-inner {
         border-bottom: none;
     }
 
-    .item-ios.item-block .item-inner {
+    .item-ios.item-block .item-inner, .item-md.item-block .item-inner {
         border-bottom: none;
     }
 
-    /*.list-ios > .item-block:last-child, .list-ios > .item-wrapper:last-child .item-block {
-        border-bottom: none;
-    }*/
+    .list-ios > .item-block:last-child, .list-ios > .item-wrapper:last-child .item-block,
+    .list-md > .item-block:last-child, .list-md > .item-wrapper:last-child .item-block {
+        border-bottom: solid 1px  color($colors-secondary, grey70);
+    }
 
     .prioritized,
     .at-least-one-priority {

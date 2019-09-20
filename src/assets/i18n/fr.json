@@ -586,9 +586,12 @@
             "RELAY": "Relais",
             "AIRCRAFT_SKILL": "Spécialisation avion",
             "WORK_RATE": "Rythme",
-            "PRIORITIZED": "Majeure",
-            "PRIORITY_IN_PROGRESS": "En cours",
-            "NO_PRIORITY": "Aucune en cours"
+            "PRIORITIZED": "Priorité majeure",
+            "PRIORITY_IN_PROGRESS": "Priorité en cours",
+            "NO_PRIORITY": "Aucune priorité en cours",
+            "PRIORITIZED_SHORT": "Majeure",
+            "PRIORITY_IN_PROGRESS_SHORT": "En cours",
+            "NO_PRIORITY_SHORT": "Aucune en cours"
         },
         "DEFAULT_DATA": {
             "ALL_F": "Toutes",

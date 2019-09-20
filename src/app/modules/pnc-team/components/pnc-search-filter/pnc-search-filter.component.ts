@@ -115,13 +115,13 @@ export class PncSearchFilterComponent implements OnInit {
   getFormattedPriorityFilter(): string {
     let filterValues = '';
     if (this.prioritized) {
-      filterValues += ' ' + this.translateService.instant('PNC_SEARCH.CRITERIA.PRIORITIZED') + ',';
+      filterValues += ' ' + this.translateService.instant('PNC_SEARCH.CRITERIA.PRIORITIZED_SHORT') + ',';
     }
     if (this.priority) {
-      filterValues += ' ' + this.translateService.instant('PNC_SEARCH.CRITERIA.PRIORITY_IN_PROGRESS') + ',';
+      filterValues += ' ' + this.translateService.instant('PNC_SEARCH.CRITERIA.PRIORITY_IN_PROGRESS_SHORT') + ',';
     }
     if (this.noPriority) {
-      filterValues += ' ' + this.translateService.instant('PNC_SEARCH.CRITERIA.NO_PRIORITY') + ',';
+      filterValues += ' ' + this.translateService.instant('PNC_SEARCH.CRITERIA.NO_PRIORITY_SHORT') + ',';
     }
     if (filterValues.length > 0 && filterValues.charAt(filterValues.length - 1) === ',') {
       filterValues = filterValues.substr(0, filterValues.length - 1);

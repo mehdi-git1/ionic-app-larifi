@@ -90,7 +90,11 @@ pnc-search-filter {
                 margin-top: $small-margin-top-autocomplete;
 
             }
-
+            .clear-pnc-form {
+                margin-top: 25px;
+                height: 40px;
+                width: 100%;
+            }
             .button-ios {
                 margin-top: $small-top-autocomplete-field;
             }
