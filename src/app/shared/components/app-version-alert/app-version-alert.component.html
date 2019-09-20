@@ -9,7 +9,8 @@
             </button>
         </div>
         <p class="content">
-            <html-view [content]="appVersion.changelog"></html-view>
+            <text-editor [mode]="TextEditorModeEnum.READ_ONLY" [ngModel]="appVersion.changelog">
+            </text-editor>
         </p>
     </div>
 </div>

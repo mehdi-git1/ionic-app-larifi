@@ -39,7 +39,7 @@
             </div>
             <div class="list-container">
                 <e-observations *ngIf="eObservations" [eObservations]="eObservations" [eObservationDisplayMode]="EObservationDisplayModeEnum.DEVELOPMENT_PROGRAM"></e-observations>
-                <div *hasPermission="'VIEW_EOBSERVATION_ARCHIVE'">
+                <div *hasPermission="VIEW_EOBSERVATION_ARCHIVE">
                     <div *ngIf="eObservations" class="information-message archives">
                         <span class="edospnc-archive"></span>
                         <a (click)="goToEobservationsArchives()">{{ 'EOBSERVATION.LIST.LINK.ARCHIVES' | translate }}</a>

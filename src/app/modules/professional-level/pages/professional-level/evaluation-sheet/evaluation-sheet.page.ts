@@ -1,12 +1,20 @@
-import { ModuleModel } from './../../../../../core/models/professional-level/module.model';
-import { ProfessionalLevelResultStatusUtil } from './../../../../../shared/utils/professional-level-result-status.util';
-import { PncService } from './../../../../../core/services/pnc/pnc.service';
-import { PncModel } from './../../../../../core/models/pnc.model';
-import { SessionService } from './../../../../../core/services/session/session.service';
-import { EvaluationSheetService } from './../../../../../core/services/professional-level/evaluation-sheet/evaluation-sheet.service';
-import { EvaluationSheetModel } from './../../../../../core/models/professional-level/evaluation-sheet.model';
 import { NavParams } from 'ionic-angular';
+
 import { Component } from '@angular/core';
+
+import { PncModel } from '../../../../../core/models/pnc.model';
+import {
+    EvaluationSheetModel
+} from '../../../../../core/models/professional-level/evaluation-sheet.model';
+import { ModuleModel } from '../../../../../core/models/professional-level/module.model';
+import { PncService } from '../../../../../core/services/pnc/pnc.service';
+import {
+    EvaluationSheetService
+} from '../../../../../core/services/professional-level/evaluation-sheet/evaluation-sheet.service';
+import { SessionService } from '../../../../../core/services/session/session.service';
+import {
+    ProfessionalLevelResultStatusUtil
+} from '../../../../../shared/utils/professional-level-result-status.util';
 
 @Component({
     selector: 'page-evaluation-sheet',
@@ -32,23 +40,18 @@ export class EvaluationSheetPage {
     }
 
     loadData() {
-        if (this.navParams.get('matricule')) {
-            this.matricule = this.navParams.get('matricule');
-        } else if (this.sessionService.getActiveUser()) {
-            this.matricule = this.sessionService.getActiveUser().matricule;
-        }
-        if (this.matricule) {
-            this.pncService.getPnc(this.matricule).then(pnc => {
-                this.pnc = pnc;
+
+        this.matricule = this.navParams.get('matricule');
+        this.pncService.getPnc(this.matricule).then(pnc => {
+            this.pnc = pnc;
+        }, error => { });
+        this.moduleId = this.navParams.get('moduleId');
+        if (this.moduleId) {
+            this.evaluationSheetService.getEvaluationSheet(this.matricule, this.moduleId).then(evaluationSheet => {
+                this.evaluationSheet = evaluationSheet;
             }, error => { });
-            this.moduleId = this.navParams.get('moduleId');
-            if (this.moduleId) {
-                this.evaluationSheetService.getEvaluationSheet(this.matricule, this.moduleId).then(evaluationSheet => {
-                    this.evaluationSheet = evaluationSheet;
-                }, error => { });
-            } else {
-                this.evaluationSheet = new EvaluationSheetModel();
-            }
+        } else {
+            this.evaluationSheet = new EvaluationSheetModel();
         }
     }
 

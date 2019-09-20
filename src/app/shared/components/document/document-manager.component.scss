@@ -103,6 +103,12 @@ document-manager {
         justify-items: center;
         margin: auto;
     }
+    .progress-bar {
+        font-size: x-small;
+    }
+    .max-size-message {
+        text-align: end;
+    }
 }
 
 .document-viewer-popover .popover-content {

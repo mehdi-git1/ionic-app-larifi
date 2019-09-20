@@ -1,25 +1,35 @@
-import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { NavController, NavParams, LoadingController, Loading, AlertController } from 'ionic-angular';
-import { TranslateService } from '@ngx-translate/core';
+import {
+    AlertController, Loading, LoadingController, NavController, NavParams
+} from 'ionic-angular';
 import * as _ from 'lodash';
 
-import { Utils } from '../../../../shared/utils/utils';
-import { OfflineCareerObjectiveService } from '../../../../core/services/career-objective/offline-career-objective.service';
-import { ConnectivityService } from '../../../../core/services/connectivity/connectivity.service';
-import { DateTransform } from '../../../../shared/utils/date-transform';
+import { Component } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { TranslateService } from '@ngx-translate/core';
+
 import { AppConstant } from '../../../../app.constant';
-import { SecurityService } from '../../../../core/services/security/security.service';
-import { WaypointStatusService } from '../../../../core/services/waypoint-status/waypoint-status.service';
 import { WaypointStatusEnum } from '../../../../core/enums/waypoint.status.enum';
 import { CareerObjectiveModel } from '../../../../core/models/career-objective.model';
-import { WaypointService } from '../../../../core/services/waypoint/waypoint.service';
-import { WaypointModel } from '../../../../core/models/waypoint.model';
-import { ToastService } from '../../../../core/services/toast/toast.service';
-import { DeviceService } from '../../../../core/services/device/device.service';
-import { OfflineWaypointService } from '../../../../core/services/waypoint/offline-waypoint.service';
-import { PncService } from '../../../../core/services/pnc/pnc.service';
 import { PncModel } from '../../../../core/models/pnc.model';
+import { WaypointModel } from '../../../../core/models/waypoint.model';
+import {
+    OfflineCareerObjectiveService
+} from '../../../../core/services/career-objective/offline-career-objective.service';
+import { ConnectivityService } from '../../../../core/services/connectivity/connectivity.service';
+import { DeviceService } from '../../../../core/services/device/device.service';
+import { PncService } from '../../../../core/services/pnc/pnc.service';
+import { SecurityService } from '../../../../core/services/security/security.service';
+import { SessionService } from '../../../../core/services/session/session.service';
+import { ToastService } from '../../../../core/services/toast/toast.service';
+import {
+    WaypointStatusService
+} from '../../../../core/services/waypoint-status/waypoint-status.service';
+import {
+    OfflineWaypointService
+} from '../../../../core/services/waypoint/offline-waypoint.service';
+import { WaypointService } from '../../../../core/services/waypoint/waypoint.service';
+import { DateTransform } from '../../../../shared/utils/date-transform';
+import { Utils } from '../../../../shared/utils/utils';
 
 @Component({
     selector: 'page-waypoint-create',
@@ -63,7 +73,8 @@ export class WaypointCreatePage {
         private connectivityService: ConnectivityService,
         private offlineCareerObjectiveService: OfflineCareerObjectiveService,
         private offlineWaypointProvider: OfflineWaypointService,
-        private pncService: PncService) {
+        private pncService: PncService,
+        private sessionService: SessionService) {
 
         // Options du datepicker
         this.customDateTimeOptions = {
@@ -90,13 +101,9 @@ export class WaypointCreatePage {
      * Initialisation du contenu de la page.
      */
     initPage() {
-        const matricule = this.navParams.get('matricule');
-        if (matricule) {
-            this.pncService.getPnc(matricule).then(pnc => {
-                this.pnc = pnc;
-            }, error => {
-            });
-        }
+        this.pncService.getPnc(this.navParams.get('matricule')).then(pnc => {
+            this.pnc = pnc;
+        }, error => { });
 
         this.careerObjectiveId = this.navParams.get('careerObjectiveId');
 

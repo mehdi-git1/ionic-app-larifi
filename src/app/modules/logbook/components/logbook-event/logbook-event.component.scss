@@ -103,10 +103,16 @@ logbook-event {
 
 
             .logbook-info-content {
-                margin-top: 10px;
+                margin-top: 15px;
 
                 p {
                     white-space: pre-line;
+                }
+
+                text-editor .ql-editor{
+                    border:0;
+                    padding :0px;
+                    min-height: 20px;
                 }
             }
 
@@ -226,15 +232,7 @@ logbook-event {
 
     .description-row {
 
-        ion-textarea.big-textarea {
-            align-items: stretch;
-            height: 290px;
-            display: flex;
-
-            textarea {
-                align-items: stretch;
-            }
-        }
+        display: inline;
     }
 
     .notification-row {
@@ -271,6 +269,23 @@ logbook-event {
         margin-top: 15px;
     }
 
+text-editor .ql-toolbar.ql-snow{
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border:1px solid color($colors, grey50);
+}
+
+text-editor .ql-container.ql-snow{
+    border:0;
+}
+
+text-editor .ql-editor{
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border:1px solid color($colors, grey50);
+    margin-top: -1px;
+}
+
 }
 
 .popover-md .popover-content {
@@ -280,3 +295,4 @@ logbook-event {
 .popover-ios .popover-content {
     width: 275px;
 }
+

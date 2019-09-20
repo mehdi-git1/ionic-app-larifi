@@ -45,7 +45,6 @@ user-message-alert {
                 margin: 0;
                 padding: 20px;
                 font-size: 1.1em;
-                white-space: pre-line;
                 color: color($colors, grey20);
             }
 
@@ -80,5 +79,13 @@ user-message-alert {
                 }
             }
         }
+    }
+
+    text-editor .ql-container.ql-snow {
+        border: 0;
+    }
+
+    text-editor .ql-snow *{
+        background: transparent;
     }
 }

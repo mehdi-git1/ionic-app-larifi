@@ -29,6 +29,7 @@ import {
 import {
     StatutoryCertificatePage
 } from '../../../modules/statutory-certificate/pages/statutory-certificate/statutory-certificate.page';
+import { PermissionConstant } from '../../constants/permission.constant';
 import { TabHeaderModeEnum } from '../../enums/tab-header-mode.enum';
 import { TabHeaderEnum } from '../../enums/tab-header.enum';
 import { PncModel } from '../../models/pnc.model';
@@ -67,13 +68,13 @@ export class TabHeaderService {
                     id: TabHeaderEnum.PROFESSIONAL_LEVEL_PAGE,
                     label: this.translateService.instant('GLOBAL.PROFESSIONAL_LEVEL'),
                     component: ProfessionalLevelPage,
-                    available: this.authorizationService.hasPermission('VIEW_PROFESSIONAL_LEVEL')
+                    available: this.authorizationService.hasPermission(PermissionConstant.VIEW_PROFESSIONAL_LEVEL)
                 },
                 {
                     id: TabHeaderEnum.STATUTORY_CERTIFICATE_PAGE,
                     label: this.translateService.instant('GLOBAL.STATUTORY_CERTIFICATE'),
                     component: StatutoryCertificatePage,
-                    available: this.authorizationService.hasPermission('VIEW_STATUTORY_CERTIFICATE')
+                    available: this.authorizationService.hasPermission(PermissionConstant.VIEW_STATUTORY_CERTIFICATE)
                 },
                 {
                     id: TabHeaderEnum.CONGRATULATION_LETTERS_PAGE,
@@ -85,7 +86,7 @@ export class TabHeaderService {
                     id: TabHeaderEnum.LOGBOOK_PAGE,
                     label: this.translateService.instant('GLOBAL.LOGBOOK'),
                     component: LogbookPage,
-                    available: this.pnc && !this.pnc.manager && this.authorizationService.hasPermission('VIEW_LOGBOOK')
+                    available: this.pnc && !this.pnc.manager && this.authorizationService.hasPermission(PermissionConstant.VIEW_LOGBOOK)
                 },
                 {
                     id: TabHeaderEnum.UPCOMING_FLIGHT_LIST_PAGE,

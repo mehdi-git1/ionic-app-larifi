@@ -1,21 +1,23 @@
-import { UnsupportedNavigatorMessagePage } from './modules/home/pages/unsupported-navigator/unsupported-navigator-message.page';
-import { Component, ViewChild, OnInit } from '@angular/core';
-import { Nav, Platform, Events, App } from 'ionic-angular';
-import { StatusBar } from '@ionic-native/status-bar';
-import { SplashScreen } from '@ionic-native/splash-screen';
-import { TranslateService } from '@ngx-translate/core';
+import { App, Events, Nav, Platform } from 'ionic-angular';
 import * as moment from 'moment';
 
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { SplashScreen } from '@ionic-native/splash-screen';
+import { StatusBar } from '@ionic-native/status-bar';
+import { TranslateService } from '@ngx-translate/core';
+
+import { AuthenticationService } from './core/authentication/authentication.service';
 import { PinPadTypeEnum } from './core/enums/security/pin-pad-type.enum';
+import { RoutingService } from './core/routing/routing.service';
+import { ConnectivityService } from './core/services/connectivity/connectivity.service';
 import { DeviceService } from './core/services/device/device.service';
+import { ModalSecurityService } from './core/services/modal/modal-security.service';
+import { SessionService } from './core/services/session/session.service';
 import { SynchronizationService } from './core/services/synchronization/synchronization.service';
 import { ToastService } from './core/services/toast/toast.service';
-import { ConnectivityService } from './core/services/connectivity/connectivity.service';
-import { SessionService } from './core/services/session/session.service';
-import { ModalSecurityService } from './core/services/modal/modal-security.service';
-import { AuthenticationService } from './core/authentication/authentication.service';
-import { RoutingService } from './core/routing/routing.service';
-
+import {
+    UnsupportedNavigatorMessagePage
+} from './modules/home/pages/unsupported-navigator/unsupported-navigator-message.page';
 
 @Component({
   templateUrl: 'app.html'

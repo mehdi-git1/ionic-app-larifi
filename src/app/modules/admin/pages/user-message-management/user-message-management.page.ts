@@ -27,7 +27,7 @@ export class UserMessageManagementPage {
 
     selectedUserMessage: UserMessageModel;
 
-    get TextEditorModeEnum() { return TextEditorModeEnum; }
+    TextEditorModeEnum = TextEditorModeEnum;
 
     userMessages: UserMessageModel[];
 
@@ -100,13 +100,5 @@ export class UserMessageManagementPage {
      */
     isLoadingOver(): boolean {
         return this.userMessages !== undefined;
-    }
-
-    /**
-     * Récupère le contenu du WYSIWYG
-     * @param content contenu du WYSIWYG
-     */
-    setContent(content) {
-        this.selectedUserMessage.content = content;
     }
 }

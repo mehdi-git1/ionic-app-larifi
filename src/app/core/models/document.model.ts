@@ -6,13 +6,15 @@ export class DocumentModel {
     content: string;
     mimeType: string;
     type: DocumentTypeEnum;
+    size: number;
 
-    constructor(fileName: string, type: DocumentTypeEnum, mimeType: string, content: string, creationDate: Date = new Date()) {
+    constructor(fileName: string, type: DocumentTypeEnum, mimeType: string, content: string, size:number, creationDate: Date = new Date()) {
         this.fileName = fileName;
         this.content = content;
         this.creationDate = creationDate;
         this.mimeType = mimeType;
         this.type =  type;
+        this.size = size;
     }
 }
 
