@@ -254,3 +254,12 @@ pnc-search-filter {
 .popover-md .popover-content {
     overflow: auto !important;
 }
+
+.priority-dropdown-list-popover .popover-content {
+    min-width: 250px;
+    width: 250px;
+}
+
+.popover-md.priority-dropdown-list-popover .popover-content {
+    transform: translate(-30px) !important;
+}

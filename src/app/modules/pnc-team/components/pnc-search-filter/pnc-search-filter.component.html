@@ -84,12 +84,8 @@
                             <ion-col col-3>
                                 <!-- Priorité -->
                                 <ion-item>
-                                    <ion-label floating>{{ 'PNC_SEARCH.CRITERIA.PRIORITY' | translate }}</ion-label>
-                                    <ion-select  [(ngModel)]="priorityFilter" (ionChange)="onPriorityFilterChange($event)" formControlName="priorityControl" multiple="true" interface="alert"  okText="{{ 'GLOBAL.BUTTONS.CONFIRM' | translate }}" cancelText="{{ 'GLOBAL.BUTTONS.CANCEL' | translate }}" [disabled]="areFiltersDisabled()">
-                                        <ion-option #prioritizedOption [value]="'PRIORITIZED'" [disabled]="noPriorityOption.value" (click)="onPriorityFilterChange($event)" (onclick)="onPriorityFilterChange($event)" (onchange)="onPriorityFilterChange($event)" (change)="onPriorityFilterChange($event)" (ionChange)="onPriorityFilterChange($event)"><ion-icon class="edospnc-important"></ion-icon><span class="flex edospnc-flag prioritized"></span>{{ 'PNC_SEARCH.CRITERIA.PRIORITIZED' | translate }}</ion-option>
-                                        <ion-option #priorityInProgressOption [value]="'PRIORITY_IN_PROGRESS'" [disabled]="noPriorityOption.value"><span class="flex edospnc-flag at-least-one-priority"></span>{{ 'PNC_SEARCH.CRITERIA.PRIORITY_IN_PROGRESS' | translate }}</ion-option>
-                                        <ion-option #noPriorityOption [value]="'NO_PRIORITY'" [disabled]="prioritizedOption.value || priorityInProgressOption.value" >{{ 'PNC_SEARCH.CRITERIA.NO_PRIORITY' | translate }}</ion-option>
-                                    </ion-select>
+                                    <ion-label stacked>{{ 'PNC_SEARCH.CRITERIA.PRIORITY' | translate }}</ion-label>
+                                    <ion-input readonly="true" [placeholder]="getFormattedPriorityFilter()" (click)="openPriorityDropdownList($event)" ></ion-input>
                                 </ion-item>
                             </ion-col>
                             <ion-col col-2>
@@ -105,7 +101,7 @@
                         </ion-row>
                     </form>
                 </div>
-                 <!------------------------>
+                <!------------------------>
                 <!-- Affichage classique -->
                 <div class="large-width-devices">
                     <form novalidate [formGroup]="searchForm">

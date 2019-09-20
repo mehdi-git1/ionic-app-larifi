@@ -1,4 +1,6 @@
-import { Events } from 'ionic-angular';
+import { TranslateService } from '@ngx-translate/core';
+import { PriorityDropdownListComponent } from './../priority-dropdown-list/priority-dropdown-list.component';
+import { Events, PopoverController } from 'ionic-angular';
 
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
@@ -52,11 +54,14 @@ export class PncSearchFilterComponent implements OnInit {
 
   outOfDivision: boolean;
   priorityFilter;
+
   constructor(
     private sessionService: SessionService,
     private formBuilder: FormBuilder,
     private connectivityService: ConnectivityService,
-    private events: Events
+    private events: Events,
+    public popoverCtrl: PopoverController,
+    public translateService: TranslateService
   ) {
     this.connectivityService.connectionStatusChange.subscribe(connected => {
       this.initFilter();
@@ -67,6 +72,29 @@ export class PncSearchFilterComponent implements OnInit {
       this.initForm();
     });
 
+  }
+
+  /**
+   * Ouvre la popover de choix de priorités
+   * @param myEvent  event
+   * @param eObservationItem item
+   */
+  openPriorityDropdownList(myEvent: Event) {
+    const popover = this.popoverCtrl.create(PriorityDropdownListComponent, { prioritized: this.prioritized, priority: this.priority, noPriority: this.noPriority}, { cssClass: 'priority-dropdown-list-popover' });
+    popover.present({
+      ev: myEvent
+    });
+    popover.onDidDismiss(data => {
+      if (data) {
+        this.prioritized = data.prioritized;
+        this.priority = data.priority;
+        this.noPriority = data.noPriority;
+        this.searchForm.get('hasAtLeastOnePriorityInProgressControl').setValue(data.priority);
+        this.searchForm.get('hasNoPriorityControl').setValue(data.noPriority);
+        this.searchForm.get('prioritizedControl').setValue(data.prioritized);
+        this.search();
+      }
+    });
   }
 
   /**
@@ -82,6 +110,23 @@ export class PncSearchFilterComponent implements OnInit {
     this.initFilter();
     // Initialisation du formulaire
     this.initForm();
+  }
+
+  getFormattedPriorityFilter(): string {
+    let filterValues = '';
+    if (this.prioritized) {
+      filterValues += ' ' + this.translateService.instant('PNC_SEARCH.CRITERIA.PRIORITIZED') + ',';
+    }
+    if (this.priority) {
+      filterValues += ' ' + this.translateService.instant('PNC_SEARCH.CRITERIA.PRIORITY_IN_PROGRESS') + ',';
+    }
+    if (this.noPriority) {
+      filterValues += ' ' + this.translateService.instant('PNC_SEARCH.CRITERIA.NO_PRIORITY') + ',';
+    }
+    if (filterValues.length > 0 && filterValues.charAt(filterValues.length - 1) === ',') {
+      filterValues = filterValues.substr(0, filterValues.length - 1);
+    }
+    return filterValues;
   }
 
   /**
