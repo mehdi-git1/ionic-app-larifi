@@ -129,7 +129,11 @@
                             </div>
                             <div class="redactor">
                                 <span>{{ logbookEvent?.redactor?.lastName }}
-                                    {{ logbookEvent?.redactor?.firstName | titlecase }}</span>
+                                    {{ logbookEvent?.redactor?.firstName | titlecase }}
+                                    <span class="event-type" *ngIf="logbookEvent.type != LogbookEventTypeEnum.EDOSPNC">
+                                        ({{logbookEvent.type}})
+                                    </span>
+                                </span>
                             </div>
                         </div>
                         <div class="right-logbook-info">
@@ -160,7 +164,8 @@
                         <document-manager [documents]="logbookEvent.attachmentFiles" [readonly]="true">
                         </document-manager>
                     </div>
-                    <div class="logbook-notified-pnc" *ngIf="isManager()">
+                    <div class="logbook-notified-pnc"
+                        *ngIf="isManager() && logbookEvent.type === LogbookEventTypeEnum.EDOSPNC">
                         <div>
                             <ion-label>{{ 'LOGBOOK.DETAILS.NOTIFIED_PNCS' | translate }} :</ion-label>
                         </div>
@@ -185,7 +190,7 @@
                             </span>
                         </div>
                     </div>
-                    <div class="information-message" *ngIf="logbookEvent.lastUpdateAuthor">{{ 'LOGBOOK.DETAILS.EDITED_BY' | translate:{lastName:logbookEvent.lastUpdateAuthor.lastName, firstName:logbookEvent.lastUpdateAuthor.firstName,
+                    <div class="information-message" *ngIf="showInformationMessage()">{{ 'LOGBOOK.DETAILS.EDITED_BY' | translate:{lastName:logbookEvent.lastUpdateAuthor.lastName, firstName:logbookEvent.lastUpdateAuthor.firstName,
                         date:getLastUpdateDate()} }}
                     </div>
                     <div class="logbook-button-bar button-bar-right button-bar" *ngIf="canEditEvent()">
