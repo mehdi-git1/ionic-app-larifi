@@ -588,12 +588,13 @@ export class CareerObjectiveCreatePage {
 
     /**
      * Retourne true si c'est un brouillon et qu'il peut être modifié par le user connecté
-     * @return true si Draft && (CADRE ou auteur du brouillon)
+     * @return true si Draft && (CADRE ou auteur du brouillon ou Pnc concerné)
      */
     isDraftAndCanBeModified(): boolean {
         const canBeSavedAsDraft: boolean = this.careerObjectiveStatusService.isTransitionOk(this.careerObjective.careerObjectiveStatus, CareerObjectiveStatusEnum.DRAFT);
         const isInitiatorOrCadre: boolean = this.securityService.isManager() || (!this.careerObjective.creationAuthor || (this.careerObjective.creationAuthor.matricule === this.sessionService.getActiveUser().matricule));
-        return canBeSavedAsDraft && isInitiatorOrCadre && (!this.careerObjective.careerObjectiveStatus || this.careerObjective.careerObjectiveStatus === CareerObjectiveStatusEnum.DRAFT);
+        const isConcernedPnc = this.careerObjective.pnc && this.careerObjective.pnc.matricule === this.sessionService.getActiveUser().matricule;
+        return canBeSavedAsDraft && (isInitiatorOrCadre || isConcernedPnc)  && (!this.careerObjective.careerObjectiveStatus || this.careerObjective.careerObjectiveStatus === CareerObjectiveStatusEnum.DRAFT);
     }
 
 
