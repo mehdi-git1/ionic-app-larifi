@@ -1,4 +1,6 @@
-import { Events } from 'ionic-angular';
+import { TranslateService } from '@ngx-translate/core';
+import { PriorityDropdownListComponent } from './../priority-dropdown-list/priority-dropdown-list.component';
+import { Events, PopoverController } from 'ionic-angular';
 
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
@@ -51,12 +53,15 @@ export class PncSearchFilterComponent implements OnInit {
   specialityList: string[];
 
   outOfDivision: boolean;
+  priorityFilter;
 
   constructor(
     private sessionService: SessionService,
     private formBuilder: FormBuilder,
     private connectivityService: ConnectivityService,
-    private events: Events
+    private events: Events,
+    public popoverCtrl: PopoverController,
+    public translateService: TranslateService
   ) {
     this.connectivityService.connectionStatusChange.subscribe(connected => {
       this.initFilter();
@@ -67,6 +72,29 @@ export class PncSearchFilterComponent implements OnInit {
       this.initForm();
     });
 
+  }
+
+  /**
+   * Ouvre la popover de choix de priorités
+   * @param myEvent  event
+   * @param eObservationItem item
+   */
+  openPriorityDropdownList(myEvent: Event) {
+    const popover = this.popoverCtrl.create(PriorityDropdownListComponent, { prioritized: this.prioritized, priority: this.priority, noPriority: this.noPriority}, { cssClass: 'priority-dropdown-list-popover' });
+    popover.present({
+      ev: myEvent
+    });
+    popover.onDidDismiss(data => {
+      if (data) {
+        this.prioritized = data.prioritized;
+        this.priority = data.priority;
+        this.noPriority = data.noPriority;
+        this.searchForm.get('hasAtLeastOnePriorityInProgressControl').setValue(data.priority);
+        this.searchForm.get('hasNoPriorityControl').setValue(data.noPriority);
+        this.searchForm.get('prioritizedControl').setValue(data.prioritized);
+        this.search();
+      }
+    });
   }
 
   /**
@@ -82,6 +110,23 @@ export class PncSearchFilterComponent implements OnInit {
     this.initFilter();
     // Initialisation du formulaire
     this.initForm();
+  }
+
+  getFormattedPriorityFilter(): string {
+    let filterValues = '';
+    if (this.prioritized) {
+      filterValues += ' ' + this.translateService.instant('PNC_SEARCH.CRITERIA.PRIORITIZED_SHORT') + ',';
+    }
+    if (this.priority) {
+      filterValues += ' ' + this.translateService.instant('PNC_SEARCH.CRITERIA.PRIORITY_IN_PROGRESS_SHORT') + ',';
+    }
+    if (this.noPriority) {
+      filterValues += ' ' + this.translateService.instant('PNC_SEARCH.CRITERIA.NO_PRIORITY_SHORT') + ',';
+    }
+    if (filterValues.length > 0 && filterValues.charAt(filterValues.length - 1) === ',') {
+      filterValues = filterValues.substr(0, filterValues.length - 1);
+    }
+    return filterValues;
   }
 
   /**
@@ -126,6 +171,9 @@ export class PncSearchFilterComponent implements OnInit {
     this.pncFilter.speciality = this.specialityList && this.specialityList.length === 1 ? this.specialityList[0] : AppConstant.ALL;
     this.pncFilter.aircraftSkill = this.aircraftSkillList && this.aircraftSkillList.length === 1 ? this.aircraftSkillList[0] : AppConstant.ALL;
     this.pncFilter.relay = this.relayList && this.relayList.length === 1 ? this.relayList[0].code : AppConstant.ALL;
+    this.pncFilter.prioritized = false;
+    this.pncFilter.hasAtLeastOnePriorityInProgress = false;
+    this.pncFilter.hasNoPriority = false;
     this.searchForm.get('divisionControl').setValue(this.defaultDivision);
     this.searchForm.get('specialityControl').setValue(this.specialityList && this.specialityList.length === 1 ? this.specialityList[0] : AppConstant.ALL);
     this.searchForm.get('aircraftSkillControl').setValue(this.aircraftSkillList && this.aircraftSkillList.length === 1 ? this.aircraftSkillList[0] : AppConstant.ALL);
@@ -133,6 +181,7 @@ export class PncSearchFilterComponent implements OnInit {
     this.searchForm.get('prioritizedControl').setValue(false);
     this.searchForm.get('hasAtLeastOnePriorityInProgressControl').setValue(false);
     this.searchForm.get('hasNoPriorityControl').setValue(false);
+    this.searchForm.get('priorityControl').setValue(new Array());
     this.search();
     this.defaultValue = false;
     this.priority = false;
@@ -151,6 +200,7 @@ export class PncSearchFilterComponent implements OnInit {
       specialityControl: [this.pncFilter.speciality ? this.pncFilter.speciality : AppConstant.ALL],
       aircraftSkillControl: [this.pncFilter.aircraftSkill ? this.pncFilter.aircraftSkill : AppConstant.ALL],
       relayControl: [this.pncFilter.relay ? this.pncFilter.relay : AppConstant.ALL],
+      priorityControl: [new Array()],
       prioritizedControl: [false],
       hasAtLeastOnePriorityInProgressControl: [false],
       hasNoPriorityControl: [false]
@@ -182,11 +232,29 @@ export class PncSearchFilterComponent implements OnInit {
       this.pncFilter.speciality = val.specialityControl;
       this.pncFilter.aircraftSkill = val.aircraftSkillControl;
       this.pncFilter.relay = val.relayControl;
-      this.pncFilter.prioritized = val.prioritizedControl;
-      this.pncFilter.hasAtLeastOnePriorityInProgress = val.hasAtLeastOnePriorityInProgressControl;
-      this.pncFilter.hasNoPriority = val.hasNoPriorityControl;
+      if (val.priorityControl && val.priorityControl instanceof Array) {
+        console.log(val.priorityControl);
+        this.pncFilter.prioritized = (val.priorityControl as Array<string>).filter(priorityFilterItem => {
+          return priorityFilterItem === 'PRIORITIZED';
+        }).length > 0;
+        this.pncFilter.hasAtLeastOnePriorityInProgress = (val.priorityControl as Array<string>).filter(priorityFilterItem => {
+          return priorityFilterItem === 'PRIORITY_IN_PROGRESS';
+        }).length > 0;
+        this.pncFilter.hasNoPriority = (val.priorityControl as Array<string>).filter(priorityFilterItem => {
+          return priorityFilterItem === 'NO_PRIORITY';
+        }).length > 0;
+      } else {
+        this.pncFilter.prioritized = val.prioritizedControl;
+        this.pncFilter.hasAtLeastOnePriorityInProgress = val.hasAtLeastOnePriorityInProgressControl;
+        this.pncFilter.hasNoPriority = val.hasNoPriorityControl;
+      }
+
       this.search();
     });
+  }
+
+  onPriorityFilterChange(event) {
+    console.log(event);
   }
 
   /**

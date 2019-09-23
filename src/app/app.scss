@@ -200,3 +200,25 @@ ion-badge[outline][color="secondary"] {
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
+
+.large-width-devices {
+    @media only screen and (max-width: 768px)  {
+        display: none;
+        padding: 0px;
+        margin: 0px;
+    }
+    @media only screen and (min-width: 769px)  {
+        display: initial;
+    }
+}
+
+.small-width-devices {
+    @media only screen and (max-width: 768px)  {
+        display: initial;
+    }
+    @media only screen and (min-width: 769px)  {
+        display: none;
+        padding: 0px;
+        margin: 0px;
+    }
+}
