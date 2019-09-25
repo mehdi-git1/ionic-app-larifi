@@ -18,19 +18,14 @@
                             <ion-col col-6>
                                 <!-- Numéro de version -->
                                 <ion-label stacked>{{ 'ADMIN.APP_VERSION_CREATE.LABEL.VERSION_NUMBER' | translate }}</ion-label>
-                                <ion-item>
+                                <ion-item class="version-number">
                                     <ion-input type="text" formControlName="numberControl" name="number" [(ngModel)]="appVersion.number" required></ion-input>
                                 </ion-item>
                             </ion-col>
                             <ion-col col-6>
                                 <!-- Release date -->
                                 <ion-label stacked>{{ 'ADMIN.APP_VERSION_CREATE.LABEL.RELEASE_DATE' | translate }}</ion-label>
-                                <ion-item>
-                                    <ion-label>
-                                        <ion-icon name="calendar"></ion-icon>
-                                    </ion-label>
-                                    <ion-datetime formControlName="releaseDateControl" displayFormat="DD/MM/YYYY" pickerFormat="DD MMMM YYYY" name="releaseDate" [(ngModel)]="appVersion.releaseDate" [doneText]="translateService.instant('GLOBAL.DATEPICKER.DONE')" [cancelText]="translateService.instant('GLOBAL.DATEPICKER.CANCEL')" [max]="datepickerMaxDate" [monthNames]="monthsNames"></ion-datetime>
-                                </ion-item>
+                                <edospnc-datetime [edospncFormGroup]="creationAppVersionForm" edospncFormControlName="releaseDateControl" [(ngModel)]="appVersion.releaseDate" [ngModelOptions]="{standalone: true}" ></edospnc-datetime>
                             </ion-col>
                         </ion-row>
                         <ion-row>

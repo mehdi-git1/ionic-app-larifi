@@ -42,7 +42,6 @@ export class CongratulationLetterCreatePage {
 
     displayPncSelection: boolean;
 
-    monthsNames;
     flightDateTimeOptions;
 
     autoCompleteInProgress = false;
@@ -67,8 +66,6 @@ export class CongratulationLetterCreatePage {
         private datePipe: DatePipe,
         public translateService: TranslateService
     ) {
-        // Traduction des mois
-        this.monthsNames = this.translateService.instant('GLOBAL.MONTH.LONGNAME');
 
         this.initForm();
 

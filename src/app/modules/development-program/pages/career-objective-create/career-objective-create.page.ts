@@ -44,8 +44,6 @@ import { WaypointCreatePage } from '../waypoint-create/waypoint-create.page';
 })
 export class CareerObjectiveCreatePage {
 
-    datepickerMaxDate = AppConstant.datepickerMaxDate;
-
     creationForm: FormGroup;
     careerObjective: CareerObjectiveModel;
     originCareerObjective: CareerObjectiveModel;
@@ -67,8 +65,6 @@ export class CareerObjectiveCreatePage {
     // Permet d'exposer l'enum au template
     CareerObjectiveStatus = CareerObjectiveStatusEnum;
     WaypointStatus = WaypointStatusEnum;
-
-    monthsNames;
 
     constructor(
         public navCtrl: NavController,
@@ -106,9 +102,6 @@ export class CareerObjectiveCreatePage {
                 handler: () => this.careerObjective.encounterDate = ''
             }]
         };
-
-        // Traduction des mois
-        this.monthsNames = this.translateService.instant('GLOBAL.MONTH.LONGNAME');
 
         // Initialisation du formulaire
         this.initForm();
