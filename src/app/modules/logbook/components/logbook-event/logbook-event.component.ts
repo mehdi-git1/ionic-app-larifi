@@ -447,6 +447,11 @@ export class LogbookEventComponent implements OnInit {
         }
     }
 
+    /**
+     * Confirme le masquage/démasquage d'un évènement pour un PNC
+     *
+     * @param visibility masquer, afficher ou afficher dans 15 jours
+     */
     confirmHiddenOrDisplayedEvent(visibility: EventCcoVisibilityEnum) {
         let title: string;
         let message: string;
@@ -469,6 +474,10 @@ export class LogbookEventComponent implements OnInit {
     }
 
 
+    /**
+     * Masqué/démasqué un évènement
+     * @param event masquer, afficher ou afficher dans 15 jours
+     */
     visibilityChange(event: any) {
         let displayed = false;
         let hidden = false;

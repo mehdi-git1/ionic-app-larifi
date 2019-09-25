@@ -72,6 +72,10 @@ export class LogbookPage {
         this.getLogbookEvents(this.pnc.matricule);
     }
 
+    /**
+     * Verifie si l'évènement en paramêtre est masqué pour le PNC concerné
+     * @param logbookEvent l'évènement à tester
+     */
     isHidden(logbookEvent: LogbookEventModel) {
         const now = moment();
         const broadcastDate = moment(logbookEvent.creationDate, AppConstant.isoDateFormat);
