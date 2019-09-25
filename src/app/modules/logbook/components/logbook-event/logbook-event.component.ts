@@ -58,6 +58,7 @@ export class LogbookEventComponent implements OnInit {
     titleMaxLength = 100;
 
     LogbookEventModeEnum = LogbookEventModeEnum;
+    LogbookEventTypeEnum = LogbookEventTypeEnum;
     TextEditorModeEnum = TextEditorModeEnum;
     LogbookEventTypeEnum = LogbookEventTypeEnum;
     EventCcoVisibilityEnum = EventCcoVisibilityEnum;
@@ -205,19 +206,18 @@ export class LogbookEventComponent implements OnInit {
             const message = this.mode == LogbookEventModeEnum.CREATION || this.mode == LogbookEventModeEnum.LINKED_EVENT_CREATION ? this.translateService.instant('LOGBOOK.EDIT.CONFIRM_CANCEL_CREATE_MESSAGE') : this.translateService.instant('LOGBOOK.EDIT.CONFIRM_CANCEL_UPDATE_MESSAGE');
             return this.confirmationPopoup(title, message).then(() => {
                 this.logbookEvent = _.cloneDeep(this.originLogbookEvent);
+                this.editEvent = false;
                 if (this.cancelFromButton && this.mode === LogbookEventModeEnum.CREATION) {
                     this.navCtrl.pop();
                     this.cancelFromButton = false;
-                } else {
+                } else if (this.cancelFromButton) {
                     this.events.publish('LinkedLogbookEvent:canceled');
+                    this.detectChangesAndMarkForCheck();
                 }
-                this.editEvent = false;
-                this.detectChangesAndMarkForCheck();
                 return true;
             }
             ).catch(() => {
                 this.cancelFromButton = false;
-                this.detectChangesAndMarkForCheck();
                 return false;
             });
         } else {
@@ -228,7 +228,6 @@ export class LogbookEventComponent implements OnInit {
                 this.editEvent = false;
             }
             this.events.publish('LinkedLogbookEvent:canceled');
-            this.detectChangesAndMarkForCheck();
             return true;
         }
 
@@ -485,5 +484,12 @@ export class LogbookEventComponent implements OnInit {
                 this.logbookEvent = savedLogbookEvent;
             });
         }
+    }
+
+    /**
+     * Affiche le message d'information de la dernière modification faite sur l'évènement
+     */
+    showInformationMessage() {
+        return this.logbookEvent.lastUpdateAuthor && this.logbookEvent.lastUpdateDate !== this.logbookEvent.creationDate;
     }
 }

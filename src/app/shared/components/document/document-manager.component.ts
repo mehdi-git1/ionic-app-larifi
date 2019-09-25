@@ -37,7 +37,7 @@ export class DocumentManagerComponent {
   filesSize = 0;
 
   @Input() set documents(documents: Array<DocumentModel>) {
-    for (let document of documents) {
+    for (const document of documents) {
       this.filesSize += document.size;
     }
     this._documents = documents;
@@ -101,7 +101,7 @@ export class DocumentManagerComponent {
           const base64Content = content.substring(base64Index + BASE_64.length, content.length);
           const type = this.documentService.getDocumentTypeFromMimeType(file.type);
           const newDocument = new DocumentModel(file.name, type, file.type, base64Content, file.size);
-          this.documents.push(newDocument);
+          this._documents.push(newDocument);
           this.filesSize += file.size;
         };
         myReader.readAsDataURL(file);
@@ -116,8 +116,8 @@ export class DocumentManagerComponent {
    */
   removeFile(documentToRemove: DocumentModel) {
     const fileSize = documentToRemove.size;
-    const documentIndexToRemovethis = this.documents.indexOf(documentToRemove);
-    this.documents.splice(documentIndexToRemovethis, 1);
+    const documentIndexToRemovethis = this._documents.indexOf(documentToRemove);
+    this._documents.splice(documentIndexToRemovethis, 1);
     this.filesSize -= fileSize;
   }
 
