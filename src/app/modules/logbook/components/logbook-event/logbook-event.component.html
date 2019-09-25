@@ -135,7 +135,8 @@
                         <div class="right-logbook-info">
                             <div class="icons">
                                 <div>
-                                    <ion-icon name="md-eye-off" ios="md-eye-off"></ion-icon>
+                                    <ion-icon name="md-eye-off" ios="md-eye-off" *ngIf="isHidden()">
+                                    </ion-icon>
                                 </div>
                                 <div>
                                     <ion-icon class="edospnc-important" color="secondary"
@@ -188,40 +189,49 @@
                             </span>
                         </div>
                     </div>
+                    {{logbookEvent.lastUpdateAuthor.lastName}}
                     <div class="information-message" *ngIf="logbookEvent.lastUpdateAuthor">{{ 'LOGBOOK.DETAILS.EDITED_BY' | translate:{lastName:logbookEvent.lastUpdateAuthor.lastName, firstName:logbookEvent.lastUpdateAuthor.firstName,
                         date:getLastUpdateDate()} }}
                     </div>
-                    <div class="cco-logbookEvent-visibility"
-                        *ngIf="logbookEvent.type == LogbookEventTypeEnum.CCO || logbookEvent.type == LogbookEventTypeEnum.ISCV ">
-                        <form [formGroup]="visibilityForm">
-                            <ion-list radio-group [(ngModel)]="visibilitySelected" formControlName="visibilityControl"
-                                (ionChange)="visibilityChange($event)">
-                                <ion-item>
-                                    <ion-radio value="{{EventCcoVisibilityEnum.VISIBLE_AFTER_FIFTEEN_DAYS}}">
-                                    </ion-radio>
-                                    <ion-label>{{ 'LOGBOOK.DETAILS.VISIBLE_AFTER_FIFTEEN_DAYS' | translate }}
-                                    </ion-label>
-                                </ion-item>
-                                <ion-item>
-                                    <ion-radio value="{{EventCcoVisibilityEnum.HIDDEN}}"></ion-radio>
-                                    <ion-label>{{ 'LOGBOOK.DETAILS.HIDDEN' | translate }}</ion-label>
-                                </ion-item>
-                                <ion-item>
-                                    <ion-radio value="{{EventCcoVisibilityEnum.VISIBLE}}"></ion-radio>
-                                    <ion-label>{{ 'LOGBOOK.DETAILS.VISIBLE' | translate }}</ion-label>
-                                </ion-item>
-                            </ion-list>
-                        </form>
-                    </div>
-                    <div class="logbook-button-bar button-bar-right button-bar" *ngIf="canEditEvent()">
-                        <!-- Bouton supprimer -->
-                        <button ion-button color="primary" (click)="deleteLogbookEvent()">
-                            {{ 'LOGBOOK.BUTTONS.DELETE' | translate }}
-                        </button>
-                        <!-- Bouton modifier -->
-                        <button ion-button color="primary" *ngIf="canModifyEvent()" (click)="editLogbookEvent()">
-                            {{ 'LOGBOOK.BUTTONS.MODIFY' | translate }}
-                        </button>
+                    <div class="logbook-button-bar button-bar" *ngIf="canEditEvent()">
+                        <div class="cco-logbookEvent-visibility"
+                            *ngIf="logbookEvent.type == LogbookEventTypeEnum.CCO || logbookEvent.type == LogbookEventTypeEnum.ISCV ">
+                            <form [formGroup]="visibilityForm">
+                                <ion-list radio-group [(ngModel)]="visibilitySelected"
+                                    formControlName="visibilityControl">
+                                    <ion-item *ngIf="getDisplayDate()">
+                                        <ion-radio value="{{EventCcoVisibilityEnum.WILL_BE_DISPLAYED_ON}}"
+                                            (ionSelect)="confirmHiddenOrDisplayedEvent(EventCcoVisibilityEnum.WILL_BE_DISPLAYED_ON)">
+                                        </ion-radio>
+                                        <ion-label>
+                                            {{ 'LOGBOOK.DETAILS.WILL_BE_DISPLAYED_ON' | translate:{date:getDisplayDate()} }}
+                                        </ion-label>
+                                    </ion-item>
+                                    <ion-item>
+                                        <ion-radio value="{{EventCcoVisibilityEnum.DISPLAYED}}"
+                                            (ionSelect)="confirmHiddenOrDisplayedEvent(EventCcoVisibilityEnum.DISPLAYED)">
+                                        </ion-radio>
+                                        <ion-label>{{ 'LOGBOOK.DETAILS.DISPLAYED' | translate }}</ion-label>
+                                    </ion-item>
+                                    <ion-item>
+                                        <ion-radio value="{{EventCcoVisibilityEnum.HIDDEN}}"
+                                            (ionSelect)="confirmHiddenOrDisplayedEvent(EventCcoVisibilityEnum.HIDDEN)">
+                                        </ion-radio>
+                                        <ion-label>{{ 'LOGBOOK.DETAILS.HIDDEN' | translate }}</ion-label>
+                                    </ion-item>
+                                </ion-list>
+                            </form>
+                        </div>
+                        <div class="button-bar-right ">
+                            <!-- Bouton supprimer -->
+                            <button ion-button color="primary" (click)="deleteLogbookEvent()">
+                                {{ 'LOGBOOK.BUTTONS.DELETE' | translate }}
+                            </button>
+                            <!-- Bouton modifier -->
+                            <button ion-button color="primary" *ngIf="canModifyEvent()" (click)="editLogbookEvent()">
+                                {{ 'LOGBOOK.BUTTONS.MODIFY' | translate }}
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>

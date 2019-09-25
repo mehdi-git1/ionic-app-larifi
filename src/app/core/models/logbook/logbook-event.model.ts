@@ -16,7 +16,7 @@ export class LogbookEventModel extends EDossierPncObjectModel {
     pncInitiator: boolean;
     important: boolean;
     hidden: boolean;
-    visible: boolean;
+    displayed: boolean;
     category: LogbookEventCategory;
     title: string;
     content: string;

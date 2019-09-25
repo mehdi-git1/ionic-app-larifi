@@ -769,6 +769,18 @@
             "CONFIRM_EDIT_WITHOUT_NOTIFICATION": {
                 "TITLE": "Mettre à jour sans notifier",
                 "MESSAGE": "Confirmez-vous la mise à jour de l'évènement sans envoi de notification ?"
+            },
+            "CONFIRM_HIDDEN_EVENT": {
+                "TITLE": "Masquer l'évènement",
+                "MESSAGE": "Confirmez-vous le masquage de l'évènement au PNC durant un temps indéterminé ?"
+            },
+            "CONFIRM_DISPLAYED_EVENT": {
+                "TITLE": "Démasquer l'évènement",
+                "MESSAGE": "Confirmez-vous le démasquage de l'évènement au PNC ?"
+            },
+            "CONFIRM_DISPLAYED_EVENT_AFTER_FIFTEEN_DAYS": {
+                "TITLE": "Masquer jusqu'au {{date}}",
+                "MESSAGE": "En choisissant cette option, l'évènement s'affichera automatiquement le {{date}}. Confirmez-vous cette action ?"
             }
         },
         "DELETE": {
@@ -783,8 +795,8 @@
             "CREATED_THE": "Créé le ",
             "NOTIFIED_PNCS": "Personnes notifiées",
             "EDITED_BY": "Evènement modifié par {{lastName}} {{firstName}} le {{date}}",
-            "VISIBLE_AFTER_FIFTEEN_DAYS": "Afficher aprés 15 jours",
-            "VISIBLE": "Afficher",
+            "WILL_BE_DISPLAYED_ON": "Sera affiché le {{date}}",
+            "DISPLAYED": "Afficher",
             "HIDDEN": "Masquer"
         },
         "ACTION_MENU": {

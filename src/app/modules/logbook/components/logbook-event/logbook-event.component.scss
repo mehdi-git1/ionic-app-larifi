@@ -272,12 +272,20 @@ logbook-event {
 
     .cco-logbookEvent-visibility{
         display: flex;
+        height: 3.6rem;
         margin-top: 15px;
+        width: -webkit-fill-available;
 
-        .item-block{
+        .item-block {
             min-height: 0em;
             height: 30px;
+            font-size: 1.4rem;
             flex-direction: row-reverse;
+            width: auto;
+        }
+
+        ion-list{
+            display: flex;
         }
     }
 

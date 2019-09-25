@@ -72,13 +72,12 @@ export class LogbookPage {
         this.getLogbookEvents(this.pnc.matricule);
     }
 
-    isHiddenEvent(matricule: string, logbookEvent: LogbookEventModel) {
-        const activeUserMatricule = this.sessionService.getActiveUser().matricule;
+    isHidden(logbookEvent: LogbookEventModel) {
         const now = moment();
-        const broadcastDate = moment(logbookEvent.lastUpdateDate, AppConstant.isoDateFormat);
+        const broadcastDate = moment(logbookEvent.creationDate, AppConstant.isoDateFormat);
         const hiddenDuration = moment.duration(now.diff(broadcastDate)).asMilliseconds();
         const upToFifteenDays = moment.duration(15, 'days').asMilliseconds();
-        if (matricule === activeUserMatricule && (hiddenDuration < upToFifteenDays || logbookEvent.hidden)) {
+        if ((hiddenDuration < upToFifteenDays && !logbookEvent.displayed) || logbookEvent.hidden) {
             return true;
         } else {
             return false;
@@ -93,11 +92,10 @@ export class LogbookPage {
     private getLogbookEvents(matricule: string) {
         this.onlineLogbookEventService.getLogbookEvents(matricule).then(logbookEvents => {
             // Tri des évènements par groupId
-
             this.groupedEvents = new Array<LogbookEventGroupModel>();
             const groupedEventsMap = new Map<number, LogbookEventGroupModel>();
             logbookEvents.forEach(logbookEvent => {
-                if (!this.isHiddenEvent(matricule, logbookEvent)) {
+                if (this.sessionService.getActiveUser().isManager || matricule === this.sessionService.getActiveUser().matricule && !this.isHidden(logbookEvent)) {
                     if (!groupedEventsMap.has(logbookEvent.groupId)) {
                         groupedEventsMap.set(logbookEvent.groupId, new LogbookEventGroupModel(logbookEvent.groupId, this.dateTransform));
                     }
