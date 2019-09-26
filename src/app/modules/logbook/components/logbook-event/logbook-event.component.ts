@@ -60,7 +60,6 @@ export class LogbookEventComponent implements OnInit {
     LogbookEventModeEnum = LogbookEventModeEnum;
     LogbookEventTypeEnum = LogbookEventTypeEnum;
     TextEditorModeEnum = TextEditorModeEnum;
-    LogbookEventTypeEnum = LogbookEventTypeEnum;
     EventCcoVisibilityEnum = EventCcoVisibilityEnum;
 
     cancelFromButton = false;
