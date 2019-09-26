@@ -1,3 +1,4 @@
+import { HrReportPage } from './../../../modules/hr-report/pages/hr-report/hr-report.page';
 import { Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -75,6 +76,12 @@ export class TabHeaderService {
                     label: this.translateService.instant('GLOBAL.STATUTORY_CERTIFICATE'),
                     component: StatutoryCertificatePage,
                     available: this.authorizationService.hasPermission(PermissionConstant.VIEW_STATUTORY_CERTIFICATE)
+                },
+                {
+                    id: TabHeaderEnum.HR_REPORT_PAGE,
+                    label: this.translateService.instant('GLOBAL.HR_REPORT'),
+                    component: HrReportPage,
+                    available: true
                 },
                 {
                     id: TabHeaderEnum.CONGRATULATION_LETTERS_PAGE,

@@ -1,3 +1,4 @@
+import { HrReportModule } from './modules/hr-report/hr-report.module';
 import { FileChooser } from '@ionic-native/file-chooser';
 import { File } from '@ionic-native/file';
 import { FileTransfer } from '@ionic-native/file-transfer';
@@ -71,6 +72,7 @@ registerLocaleData(localeFr);
     EObservationModule,
     CongratulationLetterModule,
     LogbookModule,
+    HrReportModule,
     SynchronizationModule,
     AdminModule,
     ComponentsModule,

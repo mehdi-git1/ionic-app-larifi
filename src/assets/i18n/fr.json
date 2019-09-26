@@ -62,6 +62,8 @@
         "MY_LOGBOOK": "Mon journal de bord",
         "PROFESSIONAL_INTERVIEWS_ARCHIVES": "Archives de bilans professionnels / EPP",
         "MY_PROFESSIONAL_INTERVIEWS_ARCHIVES": "Mes archives de bilans professionnels / EPP",
+        "HR_REPORT": "Dossier RH",
+        "MY_HR_REPORT": "Mon Dossier RH",
         "UNKNOWN_ERROR": "Suite à un dysfonctionnement technique, l'opération a échoué. Nous vous invitons à réessayer dans quelques minutes. Si le problème persiste, veuillez contacter votre support.",
         "MESSAGES": {
             "ERROR": {
@@ -794,6 +796,11 @@
             "FORWARD": "Transférer",
             "DELETE_ALL": "Supprimer tout"
         }
+    },
+    "HR_REPORT" : {
+        "BUTTONS": {
+            "CREATE_NEW_DOCUMENT": "Nouveau document"
+        }  
     },
     "SYNCHRONIZATION": {
         "PNC_SAVED_OFFLINE": "Le PNC {{ matricule }} a été synchronisé",
