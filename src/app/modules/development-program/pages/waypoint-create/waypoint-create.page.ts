@@ -37,8 +37,6 @@ import { Utils } from '../../../../shared/utils/utils';
 })
 export class WaypointCreatePage {
 
-    datepickerMaxDate = AppConstant.datepickerMaxDate;
-
     creationForm: FormGroup;
     careerObjectiveId: number;
     waypoint: WaypointModel;
@@ -51,8 +49,6 @@ export class WaypointCreatePage {
     originalPncComment: string;
 
     pnc: PncModel;
-
-    monthsNames;
 
     // Permet d'exposer l'enum au template
     WaypointStatus = WaypointStatusEnum;
@@ -83,9 +79,6 @@ export class WaypointCreatePage {
                 handler: () => this.waypoint.encounterDate = ''
             }]
         };
-
-        // Traduction des mois
-        this.monthsNames = this.translateService.instant('GLOBAL.MONTH.LONGNAME');
 
         this.requiredOnEncounterDay = false;
 

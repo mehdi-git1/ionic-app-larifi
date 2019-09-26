@@ -1,3 +1,4 @@
+import { EdospncDatetimeComponent } from './edospnc-datetime/edospnc-datetime.component';
 import { WorkRateCircleComponent } from './work-rate-circle/work-rate-circle.component';
 import { DocumentManagerComponent } from './document/document-manager.component';
 import { TabHeaderComponent } from './tab-header/tab-header.component';
@@ -85,7 +86,8 @@ import { HtmlViewComponent } from './html-view/html-view.component';
     PncAutoCompleteComponent,
     DocumentViewerComponent,
     WorkRateCircleComponent,
-    HtmlViewComponent
+    HtmlViewComponent,
+    EdospncDatetimeComponent
 
   ],
   exports: [
@@ -118,7 +120,8 @@ import { HtmlViewComponent } from './html-view/html-view.component';
     DocumentViewerComponent,
     WorkRateCircleComponent,
     TextEditorComponent,
-    HtmlViewComponent
+    HtmlViewComponent,
+    EdospncDatetimeComponent
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA

@@ -33,8 +33,6 @@ export class AppVersionCreatePage {
 
     get TextEditorModeEnum() { return TextEditorModeEnum; }
 
-    datepickerMaxDate = AppConstant.datepickerMaxDate;
-    monthsNames: any;
     versionNumberRegex = /([0-9]{1,2}[.]){2}[0-9]{1,2}/;
 
     creationAppVersionForm: FormGroup;
@@ -56,9 +54,6 @@ export class AppVersionCreatePage {
         public loadingCtrl: LoadingController,
         private dateTransformer: DateTransform,
         private appVersionAlertService: AppVersionAlertService) {
-
-        // Traduction des mois
-        this.monthsNames = this.translateService.instant('GLOBAL.MONTH.LONGNAME');
 
         // Initialisation du formulaire
         this.initForm();

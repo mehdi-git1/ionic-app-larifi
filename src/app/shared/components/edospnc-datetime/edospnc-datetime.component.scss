@@ -1,0 +1,17 @@
+edospnc-datetime {
+    .without-icon {
+        .item-inner {
+            border-bottom: 0 !important;
+        }
+    }
+
+    .with-icon {
+        ion-datetime.input-like {
+            background-color: unset;
+            border: 0;
+        }
+        .item-datetime .item-inner {
+            border-bottom: 1px solid #dedede;
+        }
+    }
+}

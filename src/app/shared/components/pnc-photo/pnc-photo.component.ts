@@ -62,14 +62,16 @@ export class PncPhotoComponent implements OnInit, OnChanges {
    * Récupère la photo du PNC donné en entrée
    */
   getPhoto() {
-    this.loading = true;
-    this.pncPhotoService.getPncPhoto(this.pnc.matricule).then(pncPhoto => {
-      this.processPncPhoto(pncPhoto);
-    }, error => {
-      this.photoSrc = this.genderProvider.getAvatarPicture(this.pnc.gender);
-    }).then(() => {
-      this.loading = false;
+    if (this.pnc) {
+      this.loading = true;
+      this.pncPhotoService.getPncPhoto(this.pnc.matricule).then(pncPhoto => {
+        this.processPncPhoto(pncPhoto);
+      }, error => {
+        this.photoSrc = this.genderProvider.getAvatarPicture(this.pnc.gender);
+      }).then(() => {
+        this.loading = false;
     });
+    }
   }
 
   /**
