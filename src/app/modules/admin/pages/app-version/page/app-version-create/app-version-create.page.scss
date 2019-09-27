@@ -15,7 +15,11 @@ page-app-version-create {
 
             .app-version-form {
                 flex: 3;
-
+                .version-number {
+                    .item-inner {
+                        border-bottom: none;
+                    }
+                }
                 ion-textarea {
                     min-height: 210px !important;
                     padding: 0 !important;

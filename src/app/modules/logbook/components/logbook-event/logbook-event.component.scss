@@ -165,8 +165,13 @@ logbook-event {
         }
 
         .event-date {
+            display: flex;
+            flex-direction: row;
             flex-grow: 4;
-
+            ion-datetime.input-like {
+                background-color: unset;
+                border: 0;
+            }
             ion-label {
                 flex: initial;
             }

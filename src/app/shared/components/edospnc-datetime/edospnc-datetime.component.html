@@ -1,0 +1,24 @@
+<ion-item *ngIf="edospncFormGroup" [formGroup]="edospncFormGroup" [ngClass]="{'with-icon' : displayIcon, 'without-icon' : !displayIcon }">
+    <ion-datetime  class="input-like"  [placeholder]="datePlaceholder"
+    [displayFormat]="displayFormat" [pickerFormat]="pickerFormat" [name]="name" [(ngModel)]="value" 
+    [doneText]="doneText" [cancelText]="cancelText"
+    [pickerOptions]="pickerOptions"
+    [disabled]="disabled"
+    [max]="datepickerMaxDate" [monthNames]="monthsNames" [ngModelOptions]="{standalone: true}" [formControlName]="edospncFormControlName">
+    </ion-datetime>
+    <ion-label *ngIf="displayIcon">
+        <ion-icon name="calendar"></ion-icon>
+    </ion-label>
+</ion-item>
+<ion-item *ngIf="!edospncFormGroup" [ngClass]="{'with-icon' : displayIcon, 'without-icon' : !displayIcon }">
+    <ion-datetime  class="input-like"  [placeholder]="datePlaceholder"
+    [displayFormat]="displayFormat" [pickerFormat]="pickerFormat" [name]="name" [(ngModel)]="value" 
+    [doneText]="doneText" [cancelText]="cancelText"
+    [pickerOptions]="pickerOptions"
+    [disabled]="disabled"
+    [max]="datepickerMaxDate" [monthNames]="monthsNames" >
+    </ion-datetime>
+    <ion-label *ngIf="displayIcon">
+        <ion-icon name="calendar"></ion-icon>
+    </ion-label>
+</ion-item>

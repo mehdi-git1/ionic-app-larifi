@@ -15,13 +15,8 @@
             <div class="state-block date-block-justify">
                 <span class="date-label">{{ 'PROFESSIONAL_INTERVIEW.DETAILS.INTERVIEW_DATE' | translate }} : </span>
                 <span>
-                    <ion-item *ngIf="editionMode">
-                        <ion-datetime displayFormat="DD/MM/YYYY" pickerFormat="DD MMMM YYYY" [(ngModel)]="this.professionalInterview.annualProfessionalInterviewDate" [pickerOptions]="annualProfessionalInterviewOptions" [doneText]="translateService.instant('GLOBAL.DATEPICKER.DONE')" [cancelText]="translateService.instant('GLOBAL.DATEPICKER.CANCEL')" [max]="datepickerMaxDate" [monthNames]="monthsNames">
-                        </ion-datetime>
-                        <ion-label>
-                            <ion-icon name="calendar"></ion-icon>
-                        </ion-label>
-                    </ion-item>
+                    <edospnc-datetime *ngIf="editionMode" [ngModelOptions]="{standalone: true}" [(ngModel)]="this.professionalInterview.annualProfessionalInterviewDate" [pickerOptions]="annualProfessionalInterviewOptions">
+                    </edospnc-datetime>
                     <label *ngIf="!editionMode" class="date-display">{{professionalInterview.annualProfessionalInterviewDate | date:'dd/MM/yyyy' : 'UTC'}}</label>
                 </span>
             </div>
