@@ -451,7 +451,7 @@ export class LogbookEventComponent implements OnInit {
      *
      * @param visibility masquer, afficher ou afficher dans 15 jours
      */
-    confirmHiddenOrDisplayedEvent(visibility: EventCcoVisibilityEnum) {
+    confirmHideOrDisplayEvent(visibility: EventCcoVisibilityEnum) {
         let title: string;
         let message: string;
         if (visibility === EventCcoVisibilityEnum.HIDDEN) {

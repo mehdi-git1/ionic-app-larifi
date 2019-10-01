@@ -16,7 +16,7 @@ describe('tabNavService', () => {
     });
 
     describe('findTabIndex', () => {
-        it(`doit ramener  lorsque le paramêtre est ${TabNavEnum.PNC_SEARCH_PAGE} `, () => {
+        it(`doit ramener  lorsque le paramètre est ${TabNavEnum.PNC_SEARCH_PAGE} `, () => {
             const indexReturn = tabNavService.getTabIndex(TabNavEnum.PNC_SEARCH_PAGE);
             expect(indexReturn).toBe(1);
         });

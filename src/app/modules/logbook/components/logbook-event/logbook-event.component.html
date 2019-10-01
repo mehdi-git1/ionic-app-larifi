@@ -206,7 +206,7 @@
                                     formControlName="visibilityControl">
                                     <ion-item *ngIf="getDisplayDate()">
                                         <ion-radio value="{{EventCcoVisibilityEnum.WILL_BE_DISPLAYED_ON}}"
-                                            (ionSelect)="confirmHiddenOrDisplayedEvent(EventCcoVisibilityEnum.WILL_BE_DISPLAYED_ON)">
+                                            (ionSelect)="confirmHideOrDisplayEvent(EventCcoVisibilityEnum.WILL_BE_DISPLAYED_ON)">
                                         </ion-radio>
                                         <ion-label>
                                             {{ 'LOGBOOK.DETAILS.WILL_BE_DISPLAYED_ON' | translate:{date:getDisplayDate()} }}
@@ -214,13 +214,13 @@
                                     </ion-item>
                                     <ion-item>
                                         <ion-radio value="{{EventCcoVisibilityEnum.DISPLAYED}}"
-                                            (ionSelect)="confirmHiddenOrDisplayedEvent(EventCcoVisibilityEnum.DISPLAYED)">
+                                            (ionSelect)="confirmHideOrDisplayEvent(EventCcoVisibilityEnum.DISPLAYED)">
                                         </ion-radio>
                                         <ion-label>{{ 'LOGBOOK.DETAILS.DISPLAYED' | translate }}</ion-label>
                                     </ion-item>
                                     <ion-item>
                                         <ion-radio value="{{EventCcoVisibilityEnum.HIDDEN}}"
-                                            (ionSelect)="confirmHiddenOrDisplayedEvent(EventCcoVisibilityEnum.HIDDEN)">
+                                            (ionSelect)="confirmHideOrDisplayEvent(EventCcoVisibilityEnum.HIDDEN)">
                                         </ion-radio>
                                         <ion-label>{{ 'LOGBOOK.DETAILS.HIDDEN' | translate }}</ion-label>
                                     </ion-item>

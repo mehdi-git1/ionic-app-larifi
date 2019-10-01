@@ -73,7 +73,7 @@ export class LogbookPage {
     }
 
     /**
-     * Verifie si l'évènement en paramêtre est masqué pour le PNC concerné
+     * Verifie si l'évènement en paramètre est masqué pour le PNC concerné
      * @param logbookEvent l'évènement à tester
      */
     isHidden(logbookEvent: LogbookEventModel) {
