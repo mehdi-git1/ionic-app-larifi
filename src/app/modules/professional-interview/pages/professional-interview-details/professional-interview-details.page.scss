@@ -157,6 +157,10 @@ page-professional-interview-details {
                 font-size: 14px;
                 border-radius: 5px;
             }
+            ion-input.input, div.mat-input-infix, div.mat-form-field-infix, ion-datetime.input-like {
+                border-radius: 4px;
+                border: none;
+            }
         }
 
 

@@ -92,23 +92,14 @@
                             <ion-col col-6>
                                 <!-- Prochaine rencontre -->
                                 <ion-label stacked>{{ 'CAREER_OBJECTIVE_CREATE.FORM.NEXT_ENCOUNTER_DATE' | translate }}</ion-label>
-                                <ion-item>
-                                    <ion-label>
-                                        <ion-icon name="calendar"></ion-icon>
-                                    </ion-label>
-                                    <ion-datetime [disabled]="readOnlyByUserConnected()" displayFormat="DD/MM/YYYY" pickerFormat="DD MMMM YYYY" [(ngModel)]="careerObjective.nextEncounterDate" formControlName="nextEncounterDateControl" [pickerOptions]="nextEncounterDateTimeOptions" [doneText]="translateService.instant('GLOBAL.DATEPICKER.DONE')" [cancelText]="translateService.instant('GLOBAL.DATEPICKER.CANCEL')" [max]="datepickerMaxDate" [monthNames]="monthsNames">
-                                    </ion-datetime>
-                                </ion-item>
+                                <edospnc-datetime [disabled]="readOnlyByUserConnected()" [(ngModel)]="careerObjective.nextEncounterDate" [edospncFormGroup]="creationForm" edospncFormControlName="nextEncounterDateControl" [pickerOptions]="nextEncounterDateTimeOptions" [ngModelOptions]="{standalone: true}">
+                                </edospnc-datetime>
                                 <!-- Date de rencontre -->
                                 <ion-label stacked [ngClass]="{'required' : requiredOnEncounterDay  || isEncounterDateRequired() }">{{ 'CAREER_OBJECTIVE_CREATE.FORM.ENCOUNTER_DATE' | translate }}
                                     <span *ngIf="requiredOnEncounterDay">{{ 'CAREER_OBJECTIVE_CREATE.FORM.REQUIRED_ON_ENCOUNTER_DAY' | translate }}</span>
                                 </ion-label>
-                                <ion-item>
-                                    <ion-label>
-                                        <ion-icon name="calendar"></ion-icon>
-                                    </ion-label>
-                                    <ion-datetime [disabled]="readOnlyByUserConnected()" displayFormat="DD/MM/YYYY" pickerFormat="DD MMMM YYYY" [(ngModel)]="careerObjective.encounterDate" formControlName="encounterDateControl" [pickerOptions]="encounterDateTimeOptions" [doneText]="translateService.instant('GLOBAL.DATEPICKER.DONE')" [cancelText]="translateService.instant('GLOBAL.DATEPICKER.CANCEL')" [max]="datepickerMaxDate" [monthNames]="monthsNames"></ion-datetime>
-                                </ion-item>
+                                <edospnc-datetime [disabled]="readOnlyByUserConnected()" [(ngModel)]="careerObjective.encounterDate" [edospncFormGroup]="creationForm" edospncFormControlName="encounterDateControl" [pickerOptions]="encounterDateTimeOptions" [ngModelOptions]="{standalone: true}">
+                                </edospnc-datetime>
                             </ion-col>
                         </ion-row>
                         <ion-row class="details">
