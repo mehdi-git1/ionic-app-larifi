@@ -230,7 +230,7 @@ export class EobservationDetailsPage {
       this.eObservation = eObservation;
       this.originEObservation = _.cloneDeep(this.eObservation);
       this.editMode = false;
-      if (this.eObservation.isDeleted) {
+      if (this.eObservation.deleted) {
         this.toastService.success(this.translateService.instant('EOBSERVATION.MESSAGES.SUCCESS.DELETED'));
         this.navCtrl.pop();
       } else {
@@ -266,7 +266,7 @@ export class EobservationDetailsPage {
    * Marque l'eObs comme supprimée et appelle la méthode pour la mise à jour"
    */
   isMarkedAsDeleted() {
-    this.eObservation.isDeleted = true;
+    this.eObservation.deleted = true;
     this.updateEObservation();
   }
 

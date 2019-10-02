@@ -59,12 +59,7 @@
                         <ion-label stacked [ngClass]="{'required' : !isDraft() || requiredOnEncounterDay }">{{ 'WAYPOINT_CREATE.FORM.ENCOUNTER_DATE' | translate }}
                             <span *ngIf="requiredOnEncounterDay">{{ 'WAYPOINT_CREATE.FORM.REQUIRED_ON_ENCOUNTER_DAY' | translate }}</span>
                         </ion-label>
-                        <ion-item>
-                            <ion-label>
-                                <ion-icon name="calendar"></ion-icon>
-                            </ion-label>
-                            <ion-datetime displayFormat="DD/MM/YYYY" pickerFormat="DD MMMM YYYY" [(ngModel)]="waypoint.encounterDate" formControlName="encounterDateControl" [pickerOptions]="customDateTimeOptions" [doneText]="translateService.instant('GLOBAL.DATEPICKER.DONE')" [cancelText]="translateService.instant('GLOBAL.DATEPICKER.CANCEL')" [disabled]="readOnlyByUserConnected()" [max]="datepickerMaxDate" [monthNames]="monthsNames"></ion-datetime>
-                        </ion-item>
+                        <edospnc-datetime [(ngModel)]="waypoint.encounterDate" [edospncFormGroup]="creationForm" edospncFormControlName="encounterDateControl" [pickerOptions]="customDateTimeOptions" [disabled]="readOnlyByUserConnected()" [ngModelOptions]="{standalone: true}"></edospnc-datetime>
                     </ion-col>
                 </ion-row>
 

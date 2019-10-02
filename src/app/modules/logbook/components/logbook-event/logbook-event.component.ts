@@ -36,7 +36,6 @@ export class LogbookEventComponent implements OnInit {
 
     editEvent = false;
     eventDateString: string;
-    monthsNames: string;
     pnc: PncModel;
     loading: Loading;
 
@@ -64,8 +63,6 @@ export class LogbookEventComponent implements OnInit {
         private alertCtrl: AlertController,
         private datePipe: DatePipe,
         private formBuilder: FormBuilder) {
-        // Traduction des mois
-        this.monthsNames = this.translateService.instant('GLOBAL.MONTH.LONGNAME');
         this.initForm();
     }
 

@@ -4,22 +4,17 @@
             <ion-row class="event-date-and-checkbox-row">
                 <ion-item class="event-date">
                     <ion-label class="required">{{ 'LOGBOOK.EDIT.EVENT_DATE' | translate }}</ion-label>
-                    <ion-datetime [placeholder]="eventDateString" displayFormat="DD/MM/YYYY" pickerFormat="DD MMMM YYYY"
-                        [(ngModel)]="logbookEvent.eventDate" formControlName="eventDate"
-                        [doneText]="translateService.instant('GLOBAL.DATEPICKER.DONE')"
-                        [cancelText]="translateService.instant('GLOBAL.DATEPICKER.CANCEL')" [monthNames]="monthsNames">
-                    </ion-datetime>
+                    <edospnc-datetime [ngModelOptions]="{standalone: true}" [(ngModel)]="logbookEvent.eventDate" [displayIcon]="false">
+                    </edospnc-datetime>
                 </ion-item>
                 <ion-item class="event-checkbox" item-end>
                     <ion-label item-end>{{ 'LOGBOOK.EDIT.PNC_ORIGIN' | translate }}</ion-label>
-                    <ion-checkbox item-end [(ngModel)]="logbookEvent.pncInitiator" [checked]="pncInitiator"
-                        formControlName="pncInitiator">
+                    <ion-checkbox item-end [(ngModel)]="logbookEvent.pncInitiator" [checked]="pncInitiator" formControlName="pncInitiator">
                     </ion-checkbox>
                 </ion-item>
                 <ion-item class="event-checkbox" item-end>
                     <ion-label>{{ 'LOGBOOK.EDIT.IMPORTANT' | translate }}</ion-label>
-                    <ion-checkbox item-end [(ngModel)]="logbookEvent.important" [checked]="important"
-                        formControlName="important">
+                    <ion-checkbox item-end [(ngModel)]="logbookEvent.important" [checked]="important" formControlName="important">
                     </ion-checkbox>
                 </ion-item>
             </ion-row>
@@ -27,8 +22,7 @@
                 <ion-col>
                     <ion-item class="category">
                         <ion-label class="required" floating>{{ 'LOGBOOK.EDIT.CATEGORY' | translate }}</ion-label>
-                        <ion-select interface="popover" [compareWith]="compareCategories"
-                            [(ngModel)]="logbookEvent.category" formControlName="category">
+                        <ion-select interface="popover" [compareWith]="compareCategories" [(ngModel)]="logbookEvent.category" formControlName="category">
                             <ion-option *ngFor="let category of logbookEventCategories" [value]="category">
                                 {{category?.label}}</ion-option>
                         </ion-select>
@@ -39,8 +33,7 @@
                 <ion-col col-12>
                     <ion-item>
                         <ion-label class="required" floating>{{ 'LOGBOOK.EDIT.EVENT_TITLE' | translate }}</ion-label>
-                        <ion-input #eventTitle type="text" class="event-title" [(ngModel)]="logbookEvent.title"
-                            formControlName="title" autocorrect="on" [maxlength]="titleMaxLength"></ion-input>
+                        <ion-input #eventTitle type="text" class="event-title" [(ngModel)]="logbookEvent.title" formControlName="title" autocorrect="on" [maxlength]="titleMaxLength"></ion-input>
                     </ion-item>
                     <span class="event-length">{{eventTitle.value.length}}/{{titleMaxLength}}</span>
                 </ion-col>
@@ -70,17 +63,14 @@
                                 {{ pnc.pncInstructor?.firstName | titlecase}} </span> ({{ 'PNC_IDENTITY.REFERENT_INSTRUCTOR'
                         | translate }})</ion-label>
 
-                        <ion-checkbox [disabled]="!pnc.pncInstructor"
-                            (ionChange)="updatePncNotifiedList($event, pnc.pncInstructor)"
-                            [checked]="isPncNotified(pnc.pncInstructor)"></ion-checkbox>
+                        <ion-checkbox [disabled]="!pnc.pncInstructor" (ionChange)="updatePncNotifiedList($event, pnc.pncInstructor)" [checked]="isPncNotified(pnc.pncInstructor)"></ion-checkbox>
                     </ion-item>
                     <ion-item class="event-checkbox">
                         <ion-label>
                             <span [ngClass]="{'no-value' : !pnc.pncRds }">{{ pnc.pncRds?.lastName}}
                                 {{ pnc.pncRds?.firstName | titlecase}} </span> ({{ 'PNC_IDENTITY.RDS' |
                         translate }})</ion-label>
-                        <ion-checkbox [disabled]="!pnc.pncRds" (ionChange)="updatePncNotifiedList($event, pnc.pncRds)"
-                            [checked]="isPncNotified(pnc.pncRds)"></ion-checkbox>
+                        <ion-checkbox [disabled]="!pnc.pncRds" (ionChange)="updatePncNotifiedList($event, pnc.pncRds)" [checked]="isPncNotified(pnc.pncRds)"></ion-checkbox>
                     </ion-item>
                 </ion-col>
                 <ion-col class="other-contacts">

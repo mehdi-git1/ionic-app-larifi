@@ -10,7 +10,7 @@ export class Config extends BaseEnvironment {
         super();
 
         if (undefined !== window.cordova && 'browser' !== window.cordova.platformId) {
-            this.contextRoot = 'https://edospnc-api-aux-dev.airfrance.fr/api/';
+            this.contextRoot = 'https://edospnc-api-fix-dev.airfrance.fr/api/';
         }
 
         this.backEndUrl = `${this.contextRoot}rest/resources`;
@@ -19,5 +19,7 @@ export class Config extends BaseEnvironment {
         this.secmobileEnv = 'rct';
         this.eformsUrl = 'com.airfrance.mobile.inhouse.eformsdevPNC';
         this.eformsCallbackUrl = 'com.airfrance.mobile.inhouse.edospncDEV2';
+
+        this.friendlyUrl = 'http://friendly6rct.airfrance.fr';
     }
 }

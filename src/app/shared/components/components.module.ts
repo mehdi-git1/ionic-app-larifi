@@ -17,6 +17,7 @@ import {
 import { DocumentViewerComponent } from './document-viewer/document-viewer.component';
 import { DocumentManagerComponent } from './document/document-manager.component';
 import { DownloadButtonComponent } from './download-button/download-button.component';
+import { EdospncDatetimeComponent } from './edospnc-datetime/edospnc-datetime.component';
 import {
     EdospncExpandableBlockComponent
 } from './edospnc-expandable-block/edospnc-expandable-block';
@@ -46,87 +47,88 @@ import { UserMessageAlertComponent } from './user-message-alert/user-message-ale
 import { WorkRateCircleComponent } from './work-rate-circle/work-rate-circle.component';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    IonicModule,
-    DirectivesModule,
-    SharedModule,
-    HttpClientModule,
-    QuillModule.forRoot(),
-    ReactiveFormsModule
-  ],
-  declarations: [
-    OfflineIndicatorComponent,
-    ConnectivityIndicatorComponent,
-    DownloadButtonComponent,
-    PncCardComponent,
-    PncHeaderComponent,
-    EdossierSpinnerComponent,
-    PinPadComponent,
-    PinPadModalComponent,
-    SecretQuestionModalComponent,
-    SecretQuestionComponent,
-    NavBarCustomComponent,
-    PncPhotoComponent,
-    PageHeaderComponent,
-    TabNavComponent,
-    TabHeaderComponent,
-    PncEdossierHeaderComponent,
-    NoDataComponent,
-    EdospncExpandableBlockComponent,
-    ColorStatusPointComponent,
-    RadioAndLabelComponent,
-    CheckboxAndLabelComponent,
-    UserMessageAlertComponent,
-    PdfButtonComponent,
-    AppVersionAlertComponent,
-    TextEditorComponent,
-    DocumentManagerComponent,
-    PncAutoCompleteComponent,
-    DocumentViewerComponent,
-    WorkRateCircleComponent,
-    ProgressBarComponent
-
-  ],
-  exports: [
-    OfflineIndicatorComponent,
-    ConnectivityIndicatorComponent,
-    DownloadButtonComponent,
-    PncCardComponent,
-    PncHeaderComponent,
-    EdossierSpinnerComponent,
-    PinPadComponent,
-    PinPadModalComponent,
-    SecretQuestionModalComponent,
-    SecretQuestionComponent,
-    PageHeaderComponent,
-    NavBarCustomComponent,
-    PncPhotoComponent,
-    TabNavComponent,
-    TabHeaderComponent,
-    PncEdossierHeaderComponent,
-    NoDataComponent,
-    EdospncExpandableBlockComponent,
-    ColorStatusPointComponent,
-    RadioAndLabelComponent,
-    CheckboxAndLabelComponent,
-    UserMessageAlertComponent,
-    PdfButtonComponent,
-    AppVersionAlertComponent,
-    DocumentManagerComponent,
-    PncAutoCompleteComponent,
-    DocumentViewerComponent,
-    WorkRateCircleComponent,
-    TextEditorComponent,
-    ProgressBarComponent
-  ],
-  schemas: [
-    CUSTOM_ELEMENTS_SCHEMA
-  ],
-  entryComponents: [
-    PinPadModalComponent,
-    SecretQuestionModalComponent,
-    DocumentViewerComponent
-  ]
+    imports: [
+        CommonModule,
+        IonicModule,
+        DirectivesModule,
+        SharedModule,
+        HttpClientModule,
+        QuillModule.forRoot(),
+        ReactiveFormsModule
+    ],
+    declarations: [
+        OfflineIndicatorComponent,
+        ConnectivityIndicatorComponent,
+        DownloadButtonComponent,
+        PncCardComponent,
+        PncHeaderComponent,
+        EdossierSpinnerComponent,
+        PinPadComponent,
+        PinPadModalComponent,
+        SecretQuestionModalComponent,
+        SecretQuestionComponent,
+        NavBarCustomComponent,
+        PncPhotoComponent,
+        PageHeaderComponent,
+        TabNavComponent,
+        TabHeaderComponent,
+        PncEdossierHeaderComponent,
+        NoDataComponent,
+        EdospncExpandableBlockComponent,
+        ColorStatusPointComponent,
+        RadioAndLabelComponent,
+        CheckboxAndLabelComponent,
+        UserMessageAlertComponent,
+        PdfButtonComponent,
+        AppVersionAlertComponent,
+        TextEditorComponent,
+        DocumentManagerComponent,
+        PncAutoCompleteComponent,
+        DocumentViewerComponent,
+        WorkRateCircleComponent,
+        ProgressBarComponent,
+        EdospncDatetimeComponent
+    ],
+    exports: [
+        OfflineIndicatorComponent,
+        ConnectivityIndicatorComponent,
+        DownloadButtonComponent,
+        PncCardComponent,
+        PncHeaderComponent,
+        EdossierSpinnerComponent,
+        PinPadComponent,
+        PinPadModalComponent,
+        SecretQuestionModalComponent,
+        SecretQuestionComponent,
+        PageHeaderComponent,
+        NavBarCustomComponent,
+        PncPhotoComponent,
+        TabNavComponent,
+        TabHeaderComponent,
+        PncEdossierHeaderComponent,
+        NoDataComponent,
+        EdospncExpandableBlockComponent,
+        ColorStatusPointComponent,
+        RadioAndLabelComponent,
+        CheckboxAndLabelComponent,
+        UserMessageAlertComponent,
+        PdfButtonComponent,
+        AppVersionAlertComponent,
+        DocumentManagerComponent,
+        PncAutoCompleteComponent,
+        DocumentViewerComponent,
+        WorkRateCircleComponent,
+        TextEditorComponent,
+        ProgressBarComponent,
+        EdospncDatetimeComponent
+    ],
+    schemas: [
+        CUSTOM_ELEMENTS_SCHEMA
+    ],
+    entryComponents: [
+        PinPadModalComponent,
+        SecretQuestionModalComponent,
+        DocumentViewerComponent
+    ]
 })
 export class ComponentsModule { }

@@ -1,9 +1,9 @@
+import { EObservationStateEnum } from '../../enums/e-observation-state.enum';
+import { EObservationTypeEnum } from '../../enums/e-observations-type.enum';
+import { SpecialityEnum } from '../../enums/speciality.enum';
 import { EDossierPncObjectModel } from '../e-dossier-pnc-object.model';
 import { PncModel } from '../pnc.model';
-import { EObservationTypeEnum } from '../../enums/e-observations-type.enum';
 import { EObservationFlightModel } from './eobservation-flight.model';
-import { EObservationStateEnum } from '../../enums/e-observation-state.enum';
-import { SpecialityEnum } from '../../enums/speciality.enum';
 import { ReferentialThemeModel } from './eobservation-referential-theme.model';
 
 export class EObservationModel extends EDossierPncObjectModel {
@@ -27,7 +27,7 @@ export class EObservationModel extends EDossierPncObjectModel {
     val: boolean;
     strongPoints: string;
     workingAxes: string;
-    isDeleted: boolean;
+    deleted: boolean;
 
     getStorageId(): string {
         return `${this.techId}`;
