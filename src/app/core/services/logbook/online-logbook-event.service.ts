@@ -44,8 +44,8 @@ export class OnlineLogbookEventService {
      * @param  logbookEvent l'évènement du journal de bord à afficher ou à cacher
      * @return une promesse contenant l'évènement du journal de bord à afficher ou à cacher
      */
-    hiddenOrDisplay(logbookEvent: LogbookEventModel): Promise<LogbookEventModel> {
-        return this.restService.post(this.config.getBackEndUrl('hiddenOrDisplayedLogbookEvent'), logbookEvent);
+    hideOrDisplay(logbookEvent: LogbookEventModel): Promise<LogbookEventModel> {
+        return this.restService.put(this.config.getBackEndUrl('hideOrDisplayLogbookEvent', [logbookEvent.techId]), { hidden: logbookEvent.hidden, displayed: logbookEvent.displayed });
     }
 
     /**

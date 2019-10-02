@@ -484,7 +484,7 @@ export class LogbookEventComponent implements OnInit {
         if (displayed != this.logbookEvent.displayed || hidden != this.logbookEvent.hidden) {
             this.logbookEvent.displayed = displayed;
             this.logbookEvent.hidden = hidden;
-            this.onlineLogbookEventService.hiddenOrDisplay(this.logbookEvent).then(savedLogbookEvent => {
+            this.onlineLogbookEventService.hideOrDisplay(this.logbookEvent).then(savedLogbookEvent => {
                 this.logbookEvent = savedLogbookEvent;
             });
         }
