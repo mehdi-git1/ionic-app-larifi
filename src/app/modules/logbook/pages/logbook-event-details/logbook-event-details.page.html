@@ -7,16 +7,22 @@
 </ion-header>
 <ion-content padding no-bounce>
     <div class="button-bar" *ngIf="isManager()">
-        <button ion-button color="primary" (click)="createLinkedLogookEvent()" icon-start [disabled]="editionMode || createLinkedEvent">
+        <button ion-button color="primary" (click)="createLinkedLogookEvent()" icon-start
+            [disabled]="editionMode || createLinkedEvent">
             <ion-icon name="add"></ion-icon>
             <span>{{ 'LOGBOOK.ACTION_MENU.ADD_LINKED_EVENT' | translate }}</span>
         </button>
     </div>
-    <logbook-event *ngIf="createLinkedEvent" #linkedLogbookEventCreate [groupId]="groupId" [mode]="LogbookEventModeEnum.LINKED_EVENT_CREATION"></logbook-event>
+    <logbook-event *ngIf="createLinkedEvent" #linkedLogbookEventCreate [groupId]="groupId"
+        [mode]="LogbookEventModeEnum.LINKED_EVENT_CREATION"></logbook-event>
     <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
     <ng-template #pageBlock>
         <div class="logbook-info-box selectable" *ngFor="let logbookEvent of logbookEvents">
-            <logbook-event #logbookEventDetails (editionOrDeletion)="selectedLogbookEvent($event)" [logbookEvent]="logbookEvent" [mode]="LogbookEventModeEnum.DETAILS"></logbook-event>
+            <logbook-event-details #logbookEventDetails (editionOrDeletion)="selectedLogbookEvent($event)"
+                [logbookEvent]="logbookEvent">
+            </logbook-event-details>
+            <logbook-event #logbookEventCreate [logbookEvent]="logbookEvent" [mode]="LogbookEventModeEnum.EDITION">
+            </logbook-event>
         </div>
     </ng-template>
 </ion-content>
