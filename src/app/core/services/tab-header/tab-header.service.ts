@@ -65,12 +65,6 @@ export class TabHeaderService {
                     available: this.pnc && !this.pnc.manager
                 },
                 {
-                    id: TabHeaderEnum.PROFESSIONAL_LEVEL_PAGE,
-                    label: this.translateService.instant('GLOBAL.PROFESSIONAL_LEVEL'),
-                    component: ProfessionalLevelPage,
-                    available: this.authorizationService.hasPermission(PermissionConstant.VIEW_PROFESSIONAL_LEVEL)
-                },
-                {
                     id: TabHeaderEnum.STATUTORY_CERTIFICATE_PAGE,
                     label: this.translateService.instant('GLOBAL.STATUTORY_CERTIFICATE_SHORT'),
                     component: StatutoryCertificatePage,
