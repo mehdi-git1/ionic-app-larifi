@@ -73,6 +73,22 @@ export class LogbookPage {
     }
 
     /**
+     * Verifie si l'évènement en paramètre est masqué pour le PNC concerné
+     * @param logbookEvent l'évènement à tester
+     */
+    isHidden(logbookEvent: LogbookEventModel) {
+        const now = moment();
+        const broadcastDate = moment(logbookEvent.creationDate, AppConstant.isoDateFormat);
+        const hiddenDuration = moment.duration(now.diff(broadcastDate)).asMilliseconds();
+        const upToFifteenDays = moment.duration(15, 'days').asMilliseconds();
+        if ((hiddenDuration < upToFifteenDays && !logbookEvent.displayed) || logbookEvent.hidden) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
      * Gère la réception des évènements du journal de bord du Pnc
      * @param logbookEvents evènements du journal de bord
      * @param matricule le matricule du Pnc
@@ -83,10 +99,12 @@ export class LogbookPage {
             this.groupedEvents = new Array<LogbookEventGroupModel>();
             const groupedEventsMap = new Map<number, LogbookEventGroupModel>();
             logbookEvents.forEach(logbookEvent => {
-                if (!groupedEventsMap.has(logbookEvent.groupId)) {
-                    groupedEventsMap.set(logbookEvent.groupId, new LogbookEventGroupModel(logbookEvent.groupId, this.dateTransform));
+                if (this.sessionService.getActiveUser().isManager || matricule === this.sessionService.getActiveUser().matricule && !this.isHidden(logbookEvent)) {
+                    if (!groupedEventsMap.has(logbookEvent.groupId)) {
+                        groupedEventsMap.set(logbookEvent.groupId, new LogbookEventGroupModel(logbookEvent.groupId, this.dateTransform));
+                    }
+                    groupedEventsMap.get(logbookEvent.groupId).logbookEvents.push(logbookEvent);
                 }
-                groupedEventsMap.get(logbookEvent.groupId).logbookEvents.push(logbookEvent);
             });
             // Tri des events de chaque groupe par date d'évènement
             for (const groupedEvent of Array.from(groupedEventsMap.values())) {

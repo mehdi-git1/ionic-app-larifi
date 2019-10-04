@@ -1,7 +1,7 @@
-import { DirectivesModule } from './../../shared/directives/directives.module';
 import { Injectable } from '@angular/core';
-import { urlGroupEnum } from './url-group.enum';
+
 import { Config } from '../../../environments/config';
+import { urlGroupEnum } from './url-group.enum';
 
 @Injectable()
 export class UrlConfiguration {
@@ -64,6 +64,7 @@ export class UrlConfiguration {
     'getAppVersionById': `${urlGroupEnum.APP_VERSION}/{id}`,
     'deleteAppVersionById': `${urlGroupEnum.APP_VERSION}/{id}`,
     'logbookEvents': urlGroupEnum.LOGBOOK_EVENT,
+    'hideOrDisplayLogbookEvent': `${urlGroupEnum.LOGBOOK_EVENT}/hideOrDisplay/{id}`,
     'getLogbookEventsByGroupId': `${urlGroupEnum.LOGBOOK_EVENT}/event_group/{groupId}`,
     'getLogbookEvents': `${urlGroupEnum.LOGBOOK_EVENT}/pnc/{matricule}`,
     'deleteLogbookEventById': `${urlGroupEnum.LOGBOOK_EVENT}/{id}`,

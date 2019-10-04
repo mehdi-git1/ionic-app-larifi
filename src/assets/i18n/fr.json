@@ -209,7 +209,6 @@
             "VALIDATED": "Clôturée",
             "ABANDONED": "Abandonnée"
         }
-
     },
     "PNC_IDENTITY": {
         "REFERENT_INSTRUCTOR": "Manager",
@@ -712,7 +711,6 @@
             "VERBATIM": "Verbatim",
             "COLLECTIVE_WARNING_PART1": "Cette lettre collective sera insérée dans le eDossier de ",
             "COLLECTIVE_WARNING_PART2": " mais n'alimentera pas les eDossiers du reste de l'équipage"
-
         },
         "BUTTONS": {
             "CANCEL": "Annuler",
@@ -779,6 +777,18 @@
             "CONFIRM_EDIT_WITHOUT_NOTIFICATION": {
                 "TITLE": "Mettre à jour sans notifier",
                 "MESSAGE": "Confirmez-vous la mise à jour de l'évènement sans envoi de notification ?"
+            },
+            "CONFIRM_HIDDEN_EVENT": {
+                "TITLE": "Masquer l'évènement",
+                "MESSAGE": "Confirmez-vous le masquage de l'évènement au PNC durant un temps indéterminé ?"
+            },
+            "CONFIRM_DISPLAYED_EVENT": {
+                "TITLE": "Démasquer l'évènement",
+                "MESSAGE": "Confirmez-vous le démasquage de l'évènement au PNC ?"
+            },
+            "CONFIRM_DISPLAYED_EVENT_AFTER_FIFTEEN_DAYS": {
+                "TITLE": "Masquer jusqu'au {{date}}",
+                "MESSAGE": "En choisissant cette option, l'évènement s'affichera automatiquement le {{date}}. Confirmez-vous cette action ?"
             }
         },
         "DELETE": {
@@ -792,7 +802,10 @@
             "EVENT_DATE": "Evènement du ",
             "CREATED_THE": "Créé le ",
             "NOTIFIED_PNCS": "Personnes notifiées",
-            "EDITED_BY": "Evènement modifié par {{lastName}} {{firstName}} le {{date}}"
+            "EDITED_BY": "Evènement modifié par {{lastName}} {{firstName}} le {{date}}",
+            "WILL_BE_DISPLAYED_ON": "Sera affiché le {{date}}",
+            "DISPLAYED": "Afficher",
+            "HIDDEN": "Masquer"
         },
         "ACTION_MENU": {
             "MODIFY": "Modifier",
