@@ -1,12 +1,19 @@
-import { LogbookEventDetailsPage } from './pages/logbook-event-details/logbook-event-details.page';
-import { LogbookEventComponent } from './components/logbook-event/logbook-event.component';
-import { LogbookEventActionMenuComponent } from './components/logbook-event-action-menu/logbook-event-action-menu.component';
-import { LogbookCreatePage } from './pages/logbook-create/logbook-create.page';
-import { LogbookPage } from './pages/logbook/logbook.page';
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
-import { SharedModule } from '../../shared/shared.module';
+
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
+
 import { ComponentsModule } from '../../shared/components/components.module';
+import { SharedModule } from '../../shared/shared.module';
+import {
+    LogbookEventActionMenuComponent
+} from './components/logbook-event-action-menu/logbook-event-action-menu.component';
+import {
+    LogbookEventDetailsComponent
+} from './components/logbook-event-details/logbook-event-details.component';
+import { LogbookEventComponent } from './components/logbook-event/logbook-event.component';
+import { LogbookCreatePage } from './pages/logbook-create/logbook-create.page';
+import { LogbookEventDetailsPage } from './pages/logbook-event-details/logbook-event-details.page';
+import { LogbookPage } from './pages/logbook/logbook.page';
 
 @NgModule({
   declarations: [
@@ -14,6 +21,7 @@ import { ComponentsModule } from '../../shared/components/components.module';
     LogbookCreatePage,
     LogbookEventDetailsPage,
     LogbookEventComponent,
+    LogbookEventDetailsComponent,
     LogbookEventActionMenuComponent
   ],
   imports: [
@@ -26,13 +34,15 @@ import { ComponentsModule } from '../../shared/components/components.module';
     LogbookCreatePage,
     LogbookEventDetailsPage,
     LogbookEventComponent,
+    LogbookEventDetailsComponent,
     LogbookEventActionMenuComponent
   ],
   exports: [
     LogbookPage,
     LogbookCreatePage,
     LogbookEventDetailsPage,
-    LogbookEventComponent
+    LogbookEventComponent,
+    LogbookEventDetailsComponent
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA

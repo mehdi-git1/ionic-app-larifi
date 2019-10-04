@@ -1,13 +1,9 @@
-import {
-    AlertController, Events, Loading, LoadingController, NavController, NavParams
-} from 'ionic-angular';
+import { AlertController, Events, Loading, LoadingController, NavController } from 'ionic-angular';
 import * as _ from 'lodash';
 import moment from 'moment';
 
 import { DatePipe } from '@angular/common';
-import {
-    ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output
-} from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -23,7 +19,6 @@ import { PncModel } from '../../../../core/models/pnc.model';
 import {
     OnlineLogbookEventService
 } from '../../../../core/services/logbook/online-logbook-event.service';
-import { PncService } from '../../../../core/services/pnc/pnc.service';
 import { SecurityService } from '../../../../core/services/security/security.service';
 import { SessionService } from '../../../../core/services/session/session.service';
 import { ToastService } from '../../../../core/services/toast/toast.service';
@@ -33,7 +28,6 @@ import { Utils } from '../../../../shared/utils/utils';
 @Component({
     selector: 'logbook-event',
     templateUrl: 'logbook-event.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LogbookEventComponent implements OnInit {
 
@@ -43,12 +37,9 @@ export class LogbookEventComponent implements OnInit {
 
     @Input() groupId: number;
 
-    @Output() editionOrDeletion: EventEmitter<any> = new EventEmitter();
-
     editEvent = false;
     eventDateString: string;
     pnc: PncModel;
-    techId: number;
     loading: Loading;
 
     logbookEventCategories: LogbookEventCategory[];
@@ -57,7 +48,6 @@ export class LogbookEventComponent implements OnInit {
     titleMaxLength = 100;
 
     LogbookEventModeEnum = LogbookEventModeEnum;
-    LogbookEventTypeEnum = LogbookEventTypeEnum;
     TextEditorModeEnum = TextEditorModeEnum;
     EventCcoVisibilityEnum = EventCcoVisibilityEnum;
 
@@ -68,8 +58,7 @@ export class LogbookEventComponent implements OnInit {
     logbookEventForm: FormGroup;
     visibilityForm: FormGroup;
 
-    constructor(private navParams: NavParams,
-        private securityService: SecurityService,
+    constructor(private securityService: SecurityService,
         private translateService: TranslateService,
         private sessionService: SessionService,
         private onlineLogbookEventService: OnlineLogbookEventService,
@@ -79,28 +68,24 @@ export class LogbookEventComponent implements OnInit {
         private dateTransformer: DateTransform,
         private events: Events,
         private alertCtrl: AlertController,
-        private pncService: PncService,
         private datePipe: DatePipe,
-        private formBuilder: FormBuilder,
-        private changeDetectorRef: ChangeDetectorRef) {
-    }
-
-    ngAfterViewInit() {
-        this.detectChangesAndMarkForCheck();
-    }
-
-    detectChangesAndMarkForCheck() {
-        this.changeDetectorRef.detectChanges();
-        this.changeDetectorRef.markForCheck();
+        private formBuilder: FormBuilder) {
+        this.initForm();
     }
 
     ngOnInit() {
-        this.initForm();
         if (this.sessionService.visitedPnc) {
             this.pnc = this.sessionService.visitedPnc;
         } else {
             this.pnc = this.sessionService.getActiveUser().authenticatedPnc;
         }
+        this.initPage();
+    }
+
+    /**
+     * Initialise le contenue de la page
+     */
+    initPage() {
         if (this.mode === LogbookEventModeEnum.CREATION || this.mode === LogbookEventModeEnum.LINKED_EVENT_CREATION) {
             this.editEvent = true;
             this.logbookEvent = new LogbookEventModel();
@@ -109,11 +94,9 @@ export class LogbookEventComponent implements OnInit {
             }
             this.logbookEvent.pnc = new PncLightModel();
             this.logbookEvent.pnc.matricule = this.pnc.matricule;
-            this.logbookEvent.category = new LogbookEventCategory();
             this.logbookEvent.type = LogbookEventTypeEnum.EDOSPNC;
             const eventDate: Date = new Date();
             this.logbookEvent.eventDate = this.dateTransformer.transformDateToIso8601Format(eventDate);
-            this.logbookEvent.mode = this.mode;
             this.logbookEvent.notifiedPncs = new Array();
             if (this.pnc.pncInstructor && this.pnc.pncInstructor.matricule !== this.sessionService.getActiveUser().matricule) {
                 this.logbookEvent.notifiedPncs.push(this.pnc.pncInstructor);
@@ -121,6 +104,7 @@ export class LogbookEventComponent implements OnInit {
 
         }
         this.initEventVisibility();
+        this.logbookEvent.mode = this.mode;
         this.originLogbookEvent = _.cloneDeep(this.logbookEvent);
         this.eventDateString = this.logbookEvent ? this.logbookEvent.eventDate : this.dateTransformer.transformDateToIso8601Format(new Date());
     }
@@ -133,7 +117,7 @@ export class LogbookEventComponent implements OnInit {
     }
 
     /**
-    * Initialise la liste déroulante des catégories depuis les paramètres
+    * Initialise le formulaire et la liste déroulante des catégories depuis les paramètres
     */
     initForm() {
         if (this.sessionService.getActiveUser().appInitData !== undefined) {
@@ -167,24 +151,6 @@ export class LogbookEventComponent implements OnInit {
     }
 
     /**
-     * Envoie un event avec l'évènement à editer, à la page parente.
-     */
-    editLogbookEvent() {
-        this.logbookEvent.mode = LogbookEventModeEnum.EDITION;
-        this.originLogbookEvent = _.cloneDeep(this.logbookEvent);
-        this.editionOrDeletion.emit(this.logbookEvent);
-    }
-
-    /**
-     * Envoie un event avec l'évènement à supprimer, à la page parente.
-     */
-    deleteLogbookEvent() {
-        this.logbookEvent.mode = LogbookEventModeEnum.DELETION;
-        this.originLogbookEvent = _.cloneDeep(this.logbookEvent);
-        this.editionOrDeletion.emit(this.logbookEvent);
-    }
-
-    /**
      * Annule la création / modification de l'évènement en appuyant sur le bouton annuler.
      */
     cancelLogbookEventCreationOrEdition() {
@@ -207,7 +173,6 @@ export class LogbookEventComponent implements OnInit {
                     this.cancelFromButton = false;
                 } else if (this.cancelFromButton) {
                     this.events.publish('LinkedLogbookEvent:canceled');
-                    this.detectChangesAndMarkForCheck();
                 }
                 return true;
             }
