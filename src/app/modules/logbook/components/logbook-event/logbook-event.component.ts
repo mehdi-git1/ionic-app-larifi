@@ -429,7 +429,6 @@ export class LogbookEventComponent implements OnInit {
             this.visibilityChange(visibility);
         }).catch(() => {
             this.initEventVisibility();
-            this.detectChangesAndMarkForCheck();
         });
     }
 
