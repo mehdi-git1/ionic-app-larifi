@@ -1,15 +1,22 @@
-import { Events, Loading, NavParams } from 'ionic-angular';
+import { AlertController, Events, Loading } from 'ionic-angular';
 import * as _ from 'lodash';
+import moment from 'moment';
 
 import { DatePipe } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 
+import { AppConstant } from '../../../../app.constant';
+import { EventCcoVisibilityEnum } from '../../../../core/enums/event-cco-visibility.enum';
 import { LogbookEventModeEnum } from '../../../../core/enums/logbook-event/logbook-event-mode.enum';
 import { LogbookEventTypeEnum } from '../../../../core/enums/logbook-event/logbook-event-type.enum';
 import { TextEditorModeEnum } from '../../../../core/enums/text-editor-mode.enum';
 import { LogbookEventModel } from '../../../../core/models/logbook/logbook-event.model';
 import { PncModel } from '../../../../core/models/pnc.model';
+import {
+    OnlineLogbookEventService
+} from '../../../../core/services/logbook/online-logbook-event.service';
 import { SecurityService } from '../../../../core/services/security/security.service';
 import { SessionService } from '../../../../core/services/session/session.service';
 import { DateTransform } from '../../../../shared/utils/date-transform';
@@ -25,25 +32,29 @@ export class LogbookEventDetailsComponent implements OnInit {
     @Output() editionOrDeletion: EventEmitter<any> = new EventEmitter();
 
     editEvent = false;
-    eventDateString: string;
-    monthsNames: string;
     pnc: PncModel;
     loading: Loading;
+    eventDateString: string;
 
     originLogbookEvent: LogbookEventModel;
 
     LogbookEventTypeEnum = LogbookEventTypeEnum;
     TextEditorModeEnum = TextEditorModeEnum;
+    EventCcoVisibilityEnum = EventCcoVisibilityEnum;
 
-    constructor(private navParams: NavParams,
+    visibilitySelected: EventCcoVisibilityEnum;
+
+    visibilityForm: FormGroup;
+
+    constructor(private alertCtrl: AlertController,
         private securityService: SecurityService,
         private translateService: TranslateService,
         private sessionService: SessionService,
         private dateTransformer: DateTransform,
         private datePipe: DatePipe,
-        private events: Events) {
-        // Traduction des mois
-        this.monthsNames = this.translateService.instant('GLOBAL.MONTH.LONGNAME');
+        private events: Events,
+        private formBuilder: FormBuilder,
+        private onlineLogbookEventService: OnlineLogbookEventService) {
 
         this.events.subscribe('LinkedLogbookEvent:canceled', () => {
             this.editEvent = false;
@@ -52,6 +63,8 @@ export class LogbookEventDetailsComponent implements OnInit {
         this.events.subscribe('LogbookEvent:saved', () => {
             this.editEvent = false;
         });
+
+        this.initForm();
     }
 
     ngOnInit() {
@@ -60,8 +73,25 @@ export class LogbookEventDetailsComponent implements OnInit {
         } else {
             this.pnc = this.sessionService.getActiveUser().authenticatedPnc;
         }
+        this.initEventVisibility();
         this.originLogbookEvent = _.cloneDeep(this.logbookEvent);
         this.eventDateString = this.logbookEvent ? this.logbookEvent.eventDate : this.dateTransformer.transformDateToIso8601Format(new Date());
+    }
+
+    /**
+     * Initialise le formulaire et la liste déroulante des catégories depuis les paramètres
+     */
+    initForm() {
+        this.visibilityForm = this.formBuilder.group({
+            visibilityControl: [EventCcoVisibilityEnum.WILL_BE_DISPLAYED_ON, Validators.required]
+        });
+    }
+
+    /**
+     * Initialise le groupe radio button avec la valeur de l'évènement. 
+     */
+    initEventVisibility() {
+        this.visibilitySelected = this.logbookEvent.hidden ? EventCcoVisibilityEnum.HIDDEN : this.logbookEvent.displayed ? EventCcoVisibilityEnum.DISPLAYED : EventCcoVisibilityEnum.WILL_BE_DISPLAYED_ON;
     }
 
     /**
@@ -128,6 +158,100 @@ export class LogbookEventDetailsComponent implements OnInit {
      */
     getLastUpdateDate(): string {
         return this.datePipe.transform(this.logbookEvent.lastUpdateDate, 'dd/MM/yyyy à HH:mm');
+    }
+
+    /**
+     * Retourne la date d'affichage, formatée pour l'affichage
+     * @return la date d'affichage' au format dd/mm/
+     */
+    getDisplayDate(): string {
+        const now = moment();
+        const broadcastDate = moment(this.logbookEvent.creationDate, AppConstant.isoDateFormat);
+        const hiddenDuration = moment.duration(now.diff(broadcastDate)).asMilliseconds();
+        const upToFifteenDays = moment.duration(15, 'days').asMilliseconds();
+        if (hiddenDuration > upToFifteenDays) {
+            return null;
+        }
+        return this.datePipe.transform(broadcastDate.add(upToFifteenDays), 'dd/MM/yyyy à HH:mm');
+    }
+
+    /**
+     * Verifie si l'évènement est caché
+     */
+    isHidden() {
+        return this.getDisplayDate() && !this.logbookEvent.displayed || this.logbookEvent.hidden;
+    }
+
+    /**
+ * Confirme le masquage/démasquage d'un évènement pour un PNC
+ *
+ * @param visibility masquer, afficher ou afficher dans 15 jours
+ */
+    confirmHideOrDisplayEvent(visibility: EventCcoVisibilityEnum) {
+        let title: string;
+        let message: string;
+        if (visibility === EventCcoVisibilityEnum.HIDDEN) {
+            title = this.translateService.instant('LOGBOOK.NOTIFICATION.CONFIRM_HIDDEN_EVENT.TITLE');
+            message = this.translateService.instant('LOGBOOK.NOTIFICATION.CONFIRM_HIDDEN_EVENT.MESSAGE');
+        } else if (visibility === EventCcoVisibilityEnum.DISPLAYED) {
+            title = this.translateService.instant('LOGBOOK.NOTIFICATION.CONFIRM_DISPLAYED_EVENT.TITLE');
+            message = this.translateService.instant('LOGBOOK.NOTIFICATION.CONFIRM_DISPLAYED_EVENT.MESSAGE');
+        } else {
+            title = this.translateService.instant('LOGBOOK.NOTIFICATION.CONFIRM_DISPLAYED_EVENT_AFTER_FIFTEEN_DAYS.TITLE', { 'date': this.getDisplayDate() });
+            message = this.translateService.instant('LOGBOOK.NOTIFICATION.CONFIRM_DISPLAYED_EVENT_AFTER_FIFTEEN_DAYS.MESSAGE', { 'date': this.getDisplayDate() });
+        }
+        return this.confirmationPopoup(title, message).then(() => {
+            this.visibilityChange(visibility);
+        }).catch(() => {
+            this.initEventVisibility();
+        });
+    }
+
+
+    /**
+     * Masqué/démasqué un évènement
+     * @param event masquer, afficher ou afficher dans 15 jours
+     */
+    visibilityChange(event: any) {
+        let displayed = false;
+        let hidden = false;
+        if (event === EventCcoVisibilityEnum.HIDDEN) {
+            hidden = true;
+        } else if (event === EventCcoVisibilityEnum.DISPLAYED) {
+            displayed = true;
+        }
+        if (displayed != this.logbookEvent.displayed || hidden != this.logbookEvent.hidden) {
+            this.logbookEvent.displayed = displayed;
+            this.logbookEvent.hidden = hidden;
+            this.onlineLogbookEventService.hideOrDisplay(this.logbookEvent).then(savedLogbookEvent => {
+                this.logbookEvent = savedLogbookEvent;
+            });
+        }
+    }
+
+    /**
+     * Popup d'avertissement en cas de modifications non enregistrées.
+     */
+
+    confirmationPopoup(title: string, message: string) {
+        return new Promise((resolve, reject) => {
+            // Avant de quitter la vue, on avertit l'utilisateur si ses modifications n'ont pas été enregistrées
+            this.alertCtrl.create({
+                title: title,
+                message: message,
+                buttons: [
+                    {
+                        text: this.translateService.instant('GLOBAL.BUTTONS.CANCEL'),
+                        role: 'cancel',
+                        handler: () => reject()
+                    },
+                    {
+                        text: this.translateService.instant('GLOBAL.BUTTONS.YES'),
+                        handler: () => resolve()
+                    }
+                ]
+            }).present();
+        });
     }
 
 
