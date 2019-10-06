@@ -332,5 +332,62 @@ export class LogbookEventComponent implements OnInit {
             this.logbookEvent.notifiedPncs = this.logbookEvent.notifiedPncs.filter(pnc =>
                 pnc.matricule !== pncLight.matricule);
         }
+<<<<<<< HEAD
+=======
+    }
+
+    /**
+     * Confirme le masquage/démasquage d'un évènement pour un PNC
+     *
+     * @param visibility masquer, afficher ou afficher dans 15 jours
+     */
+    confirmHideOrDisplayEvent(visibility: EventCcoVisibilityEnum) {
+        let title: string;
+        let message: string;
+        if (visibility === EventCcoVisibilityEnum.HIDDEN) {
+            title = this.translateService.instant('LOGBOOK.NOTIFICATION.CONFIRM_HIDDEN_EVENT.TITLE');
+            message = this.translateService.instant('LOGBOOK.NOTIFICATION.CONFIRM_HIDDEN_EVENT.MESSAGE');
+        } else if (visibility === EventCcoVisibilityEnum.DISPLAYED) {
+            title = this.translateService.instant('LOGBOOK.NOTIFICATION.CONFIRM_DISPLAYED_EVENT.TITLE');
+            message = this.translateService.instant('LOGBOOK.NOTIFICATION.CONFIRM_DISPLAYED_EVENT.MESSAGE');
+        } else {
+            title = this.translateService.instant('LOGBOOK.NOTIFICATION.CONFIRM_DISPLAYED_EVENT_AFTER_FIFTEEN_DAYS.TITLE', { 'date': this.getDisplayDate() });
+            message = this.translateService.instant('LOGBOOK.NOTIFICATION.CONFIRM_DISPLAYED_EVENT_AFTER_FIFTEEN_DAYS.MESSAGE', { 'date': this.getDisplayDate() });
+        }
+        return this.confirmationPopoup(title, message).then(() => {
+            this.visibilityChange(visibility);
+        }).catch(() => {
+            this.initEventVisibility();
+        });
+    }
+
+
+    /**
+     * Masqué/démasqué un évènement
+     * @param event masquer, afficher ou afficher dans 15 jours
+     */
+    visibilityChange(event: any) {
+        let displayed = false;
+        let hidden = false;
+        if (event === EventCcoVisibilityEnum.HIDDEN) {
+            hidden = true;
+        } else if (event === EventCcoVisibilityEnum.DISPLAYED) {
+            displayed = true;
+        }
+        if (displayed != this.logbookEvent.displayed || hidden != this.logbookEvent.hidden) {
+            this.logbookEvent.displayed = displayed;
+            this.logbookEvent.hidden = hidden;
+            this.onlineLogbookEventService.hideOrDisplay(this.logbookEvent).then(savedLogbookEvent => {
+                this.logbookEvent = savedLogbookEvent;
+            });
+        }
+    }
+
+    /**
+     * Affiche le message d'information de la dernière modification faite sur l'évènement
+     */
+    showInformationMessage() {
+        return this.logbookEvent.lastUpdateAuthor && this.logbookEvent.lastUpdateDate !== this.logbookEvent.creationDate;
+>>>>>>> refs/remotes/origin/release/1.11.0
     }
 }
