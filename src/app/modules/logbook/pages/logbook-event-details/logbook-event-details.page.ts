@@ -158,7 +158,7 @@ export class LogbookEventDetailsPage implements OnInit {
         if (this.createLinkedEvent) {
             return this.linkedLogbookEventCreate.confirmCancel();
         }
-        return this.selectedLogbookEventComponent.confirmCancel();
+        return this.selectedLogbookEventComponent ? this.selectedLogbookEventComponent.confirmCancel() : true;
     }
 
     /**
