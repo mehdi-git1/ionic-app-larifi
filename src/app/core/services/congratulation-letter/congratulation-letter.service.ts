@@ -10,6 +10,7 @@ import { OnlineCongratulationLetterService } from './online-congratulation-lette
 import { ConnectivityService } from '../connectivity/connectivity.service';
 import { OfflineCongratulationLetterService } from './offline-congratulation-letter.service';
 import { BaseService } from '../base/base.service';
+import { CongratulationLetterStatusEnum } from '../../enums/congratulation-letter/congratulation-letter-status.enum';
 
 @Injectable()
 export class CongratulationLetterService extends BaseService {
@@ -87,11 +88,12 @@ export class CongratulationLetterService extends BaseService {
   }
 
   /**
-   * Crée une lettre de félicitation
+   * Crée une lettre de félicitation au statut REGISTERED
    * @param congratulationLetter la lettre à créer/modifier
    * @return une promesse contenant la lettre créée/modifiée
    */
   createOrUpdate(congratulationLetter: CongratulationLetterModel): Promise<CongratulationLetterModel> {
+    congratulationLetter.status = CongratulationLetterStatusEnum.REGISTERED;
     if (congratulationLetter.techId === undefined) {
       congratulationLetter.creationDate = new Date();
       congratulationLetter.creationAuthor = this.sessionService.getActiveUser().authenticatedPnc;
