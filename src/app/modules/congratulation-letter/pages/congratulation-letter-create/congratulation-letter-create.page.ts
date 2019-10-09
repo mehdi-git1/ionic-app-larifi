@@ -4,13 +4,14 @@ import { pairwise } from 'rxjs/operators';
 import { Observable, Subject } from 'rxjs/Rx';
 
 import { DatePipe } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 
 import {
     CongratulationLetterRedactorTypeEnum
 } from '../../../../core/enums/congratulation-letter/congratulation-letter-redactor-type.enum';
+import { TextEditorModeEnum } from '../../../../core/enums/text-editor-mode.enum';
 import {
     CongratulationLetterFlightModel
 } from '../../../../core/models/congratulation-letter-flight.model';
@@ -30,12 +31,12 @@ import { Utils } from '../../../../shared/utils/utils';
     selector: 'congratulation-letter-create',
     templateUrl: 'congratulation-letter-create.page.html',
 })
-export class CongratulationLetterCreatePage {
+export class CongratulationLetterCreatePage implements OnInit {
 
     pnc: PncModel;
     creationMode = true;
     submitInProgress = false;
-    creationForm: FormGroup;
+    congratulationLetterForm: FormGroup;
 
     congratulationLetter: CongratulationLetterModel;
     originCongratulationLetter: CongratulationLetterModel;
@@ -50,6 +51,7 @@ export class CongratulationLetterCreatePage {
     selectedRedactor: PncModel;
 
     CongratulationLetterRedactorTypeEnum = CongratulationLetterRedactorTypeEnum;
+    TextEditorModeEnum = TextEditorModeEnum;
 
     readonly AF = 'AF';
 
@@ -83,7 +85,7 @@ export class CongratulationLetterCreatePage {
 
     }
 
-    ionViewDidEnter() {
+    ngOnInit() {
 
         if (this.sessionService.visitedPnc) {
             this.pnc = this.sessionService.visitedPnc;
@@ -169,7 +171,7 @@ export class CongratulationLetterCreatePage {
      * Initialise le formulaire
      */
     initForm() {
-        this.creationForm = this.formBuilder.group({
+        this.congratulationLetterForm = this.formBuilder.group({
             flightDateControl: ['', Validators.required],
             flightAirlineControl: ['', Validators.compose([Validators.minLength(2), Validators.maxLength(2)])],
             flightNumberControl: ['', Validators.compose([Validators.minLength(3), Validators.maxLength(5)])],
@@ -184,7 +186,7 @@ export class CongratulationLetterCreatePage {
      * Gère l'affichage de la sélection du PNC rédacteur. Si le choix "PNC" est sélectionné, on affiche l'outil de sélection du PNC
      */
     handlePncSelectionDisplay() {
-        this.creationForm.get('redactorTypeControl').valueChanges.pipe(pairwise())
+        this.congratulationLetterForm.get('redactorTypeControl').valueChanges.pipe(pairwise())
             .subscribe(([previousRedactorType, newRedactorType]: [CongratulationLetterRedactorTypeEnum, CongratulationLetterRedactorTypeEnum]) => {
                 if (newRedactorType === CongratulationLetterRedactorTypeEnum.PNC) {
                     this.displayPncSelection = true;
@@ -200,7 +202,7 @@ export class CongratulationLetterCreatePage {
      * @return vrai si c'est le cas, faux sinon
      */
     pageLoadingIsOver(): boolean {
-        return this.congratulationLetter != undefined;
+        return this.congratulationLetter && this.congratulationLetter != undefined;
     }
 
     /**
@@ -298,8 +300,8 @@ export class CongratulationLetterCreatePage {
      */
     isFormValid(): boolean {
         return this.connectivityService.isConnected() &&
-            this.creationForm.valid
-            && (!Utils.isEmpty(this.creationForm.get('verbatimControl').value) || this.congratulationLetter.documents.length > 0)
+            this.congratulationLetterForm.valid
+            && (!Utils.isEmpty(this.congratulationLetterForm.get('verbatimControl').value) || this.congratulationLetter.documents.length > 0)
             && (this.congratulationLetter.redactorType !== CongratulationLetterRedactorTypeEnum.PNC || this.congratulationLetter.redactor != null);
     }
 

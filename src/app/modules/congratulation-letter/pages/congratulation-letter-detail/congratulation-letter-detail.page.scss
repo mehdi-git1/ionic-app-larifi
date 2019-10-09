@@ -73,6 +73,22 @@ congratulation-letter-detail {
             border: 1px solid color($colors-secondary, grey70);
             white-space: pre-line;
         }
+
+        .verbatim-data{
+            margin-top: 10px;
+
+            text-editor .ql-container.ql-snow {
+                border-radius: 3px;
+            }
+
+            text-editor .ql-snow * {
+                padding: 10px;
+                border-radius: 3px;
+                background: #fafbfb;
+                white-space: pre-line;
+                min-height: 35px;
+            }
+        }
     }
 
 }
