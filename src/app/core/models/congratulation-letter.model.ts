@@ -1,3 +1,4 @@
+import { CongratulationLetterStatusEnum } from './../enums/congratulation-letter/congratulation-letter-status.enum';
 import { DocumentModel } from './document.model';
 import { PncLightModel } from './pnc-light.model';
 import { CongratulationLetterRedactorTypeEnum } from './../enums/congratulation-letter/congratulation-letter-redactor-type.enum';
@@ -21,6 +22,7 @@ export class CongratulationLetterModel extends EDossierPncObjectModel {
     redactorSpeciality: string;
     redactorType: CongratulationLetterRedactorTypeEnum;
     documents: Array<DocumentModel> = new Array();
+    status: CongratulationLetterStatusEnum;
 
     getStorageId(): string {
         return `${this.techId}`;
