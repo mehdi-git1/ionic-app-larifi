@@ -90,26 +90,10 @@
                     <div class="information-message" *ngIf="showInformationMessage()">{{ 'LOGBOOK.DETAILS.EDITED_BY' | translate:{lastName:logbookEvent.lastUpdateAuthor.lastName, firstName:logbookEvent.lastUpdateAuthor.firstName,
                         date:getLastUpdateDate()} }}
                     </div>
-                    <div class="logbook-button-bar button-bar" *ngIf="isManager()">
-                        <div class="cco-logbookEvent-visibility"
+                    <div class="button-bar-container" *ngIf="isManager()">
+                        <div class="small-width-devices  visibility-for-small-container"
                             *ngIf="logbookEvent.type == LogbookEventTypeEnum.CCO || logbookEvent.type == LogbookEventTypeEnum.ISCV ">
                             <form [formGroup]="visibilityForm">
-                                <!-- <mat-radio-group name="visibility" formControlName="visibilityControl"
-                                    (change)="onVisibilityChange($event)">
-                                    <mat-radio-button *ngIf="getDisplayDate()"
-                                        value="{{EventCcoVisibilityEnum.WILL_BE_DISPLAYED_ON}}"
-                                        (ionSelect)="confirmHideOrDisplayEvent(EventCcoVisibilityEnum.WILL_BE_DISPLAYED_ON)">
-                                        {{ 'LOGBOOK.DETAILS.WILL_BE_DISPLAYED_ON' | translate:{date:getDisplayDate()} }}
-                                    </mat-radio-button>
-                                    <mat-radio-button value="{{EventCcoVisibilityEnum.DISPLAYED}}"
-                                        (ionSelect)="confirmHideOrDisplayEvent(EventCcoVisibilityEnum.DISPLAYED)">
-                                        {{ 'LOGBOOK.DETAILS.DISPLAYED' | translate:{date:getDisplayDate()} }}
-                                    </mat-radio-button>
-                                    <mat-radio-button value="{{EventCcoVisibilityEnum.HIDDEN}}"
-                                        (ionSelect)="confirmHideOrDisplayEvent(EventCcoVisibilityEnum.HIDDEN)">
-                                        {{ 'LOGBOOK.DETAILS.HIDDEN' | translate:{date:getDisplayDate()} }}
-                                    </mat-radio-button>
-                                </mat-radio-group> -->
                                 <ion-list radio-group [(ngModel)]="visibilitySelected"
                                     formControlName="visibilityControl">
                                     <ion-item *ngIf="getDisplayDate()">
@@ -135,7 +119,35 @@
                                 </ion-list>
                             </form>
                         </div>
-                        <div class="button-bar-right " *ngIf="canEditEvent()">
+                        <div class="large-width-devices  visibility-for-large-container"
+                            *ngIf="logbookEvent.type == LogbookEventTypeEnum.CCO || logbookEvent.type == LogbookEventTypeEnum.ISCV ">
+                            <form [formGroup]="visibilityForm">
+                                <ion-list radio-group [(ngModel)]="visibilitySelected"
+                                    formControlName="visibilityControl">
+                                    <ion-item *ngIf="getDisplayDate()">
+                                        <ion-radio value="{{EventCcoVisibilityEnum.WILL_BE_DISPLAYED_ON}}"
+                                            (ionSelect)="confirmHideOrDisplayEvent(EventCcoVisibilityEnum.WILL_BE_DISPLAYED_ON)">
+                                        </ion-radio>
+                                        <ion-label>
+                                            {{ 'LOGBOOK.DETAILS.WILL_BE_DISPLAYED_ON' | translate:{date:getDisplayDate()} }}
+                                        </ion-label>
+                                    </ion-item>
+                                    <ion-item>
+                                        <ion-radio value="{{EventCcoVisibilityEnum.DISPLAYED}}"
+                                            (ionSelect)="confirmHideOrDisplayEvent(EventCcoVisibilityEnum.DISPLAYED)">
+                                        </ion-radio>
+                                        <ion-label>{{ 'LOGBOOK.DETAILS.DISPLAYED' | translate }}</ion-label>
+                                    </ion-item>
+                                    <ion-item>
+                                        <ion-radio value="{{EventCcoVisibilityEnum.HIDDEN}}"
+                                            (ionSelect)="confirmHideOrDisplayEvent(EventCcoVisibilityEnum.HIDDEN)">
+                                        </ion-radio>
+                                        <ion-label>{{ 'LOGBOOK.DETAILS.HIDDEN' | translate }}</ion-label>
+                                    </ion-item>
+                                </ion-list>
+                            </form>
+                        </div>
+                        <div class="logbook-button-bar button-bar button-bar-right " *ngIf="canEditEvent()">
                             <!-- Bouton supprimer -->
                             <button ion-button color="primary" (click)="deleteLogbookEvent()">
                                 {{ 'LOGBOOK.BUTTONS.DELETE' | translate }}

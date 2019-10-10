@@ -151,24 +151,45 @@ logbook-event-details {
         margin-top: 15px;
     }
 
-    .cco-logbookEvent-visibility{
+    .button-bar-container{
+
+        width: 100%;
+        height: auto;
         display: flex;
-        height: 3.6rem;
-        margin-top: 15px;
-        width: -webkit-fill-available;
+        flex-direction: row;
+        justify-content: space-between; 
+        align-items: center;
 
-        .item-block {
-            min-height: 0em;
-            height: 30px;
-            font-size: 1.4rem;
-            flex-direction: row-reverse;
-            width: auto;
+        .visibility-for-large-container{
+
+            .item-block {
+                min-height: 0em;
+                height: 30px;
+                font-size: 1.4rem;
+                flex-direction: row-reverse;
+                width: auto;
+                border:0;
+            }
+
+            ion-list{
+                display: flex;
+                border-top: 1px solid #c8c7cc;
+                border-bottom: 1px solid #c8c7cc;
+
+            }
         }
 
-        ion-list{
-            display: flex;
+        .visibility-for-small-container{
+
+            .item-block {
+                min-height: 0em;
+                height: 30px;
+                font-size: 1.4rem;
+                flex-direction: row-reverse;
+                width: auto;
+            }
         }
-    }
+    }    
 
     text-editor .ql-toolbar.ql-snow{
         border-top-left-radius: 5px;
