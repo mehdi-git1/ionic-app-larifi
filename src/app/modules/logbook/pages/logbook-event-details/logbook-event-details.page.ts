@@ -2,11 +2,14 @@ import {
     AlertController, Events, Loading, LoadingController, NavController, NavParams
 } from 'ionic-angular';
 import * as _ from 'lodash';
+import moment from 'moment';
 
 import { Component, OnInit, ViewChild, ViewChildren } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 
+import { AppConstant } from '../../../../app.constant';
 import { LogbookEventModeEnum } from '../../../../core/enums/logbook-event/logbook-event-mode.enum';
+import { LogbookEventTypeEnum } from '../../../../core/enums/logbook-event/logbook-event-type.enum';
 import { LogbookEventModel } from '../../../../core/models/logbook/logbook-event.model';
 import { PncModel } from '../../../../core/models/pnc.model';
 import {
@@ -106,19 +109,44 @@ export class LogbookEventDetailsPage implements OnInit {
         return new Promise((resolve, reject) => {
             this.onlineLogbookEventService.getLogbookEventsByGroupId(groupId).then(
                 logbookEvents => {
-                    this.logbookEvents = this.sortLogbookEventsByEventDate(logbookEvents);
-                    this.logbookEvents.forEach(logbookEvent => {
-                        logbookEvent.notifiedPncs.forEach(notifiedPnc => {
-                            if (pnc.pncInstructor && notifiedPnc.matricule === pnc.pncInstructor.matricule) {
-                                notifiedPnc.isInstructor = true;
-                            } else if (pnc.pncRds && notifiedPnc.matricule === pnc.pncRds.matricule) {
-                                notifiedPnc.isRds = true;
-                            }
-                        });
+                    this.logbookEvents = this.logbookEvents ? this.logbookEvents : new Array();
+                    logbookEvents.forEach(logbookEvent => {
+                        if (this.sessionService.getActiveUser().isManager || pnc.matricule === this.sessionService.getActiveUser().matricule && !this.isHidden(logbookEvent)) {
+                            this.logbookEvents.push(logbookEvent);
+                        }
                     });
+                    if (this.logbookEvents.length > 0) {
+                        this.logbookEvents = this.sortLogbookEventsByEventDate(this.logbookEvents);
+                        this.logbookEvents.forEach(logbookEvent => {
+                            logbookEvent.notifiedPncs.forEach(notifiedPnc => {
+                                if (pnc.pncInstructor && notifiedPnc.matricule === pnc.pncInstructor.matricule) {
+                                    notifiedPnc.isInstructor = true;
+                                } else if (pnc.pncRds && notifiedPnc.matricule === pnc.pncRds.matricule) {
+                                    notifiedPnc.isRds = true;
+                                }
+                            });
+                        });
+                    }
                     resolve();
                 });
         });
+    }
+
+    /**
+     * Verifie si l'évènement en paramètre est masqué pour le PNC concerné
+     * @param logbookEvent l'évènement à tester
+     */
+    isHidden(logbookEvent: LogbookEventModel) {
+        if (logbookEvent.type != LogbookEventTypeEnum.EDOSPNC) {
+            const now = moment();
+            const broadcastDate = moment(logbookEvent.creationDate, AppConstant.isoDateFormat);
+            const hiddenDuration = moment.duration(now.diff(broadcastDate)).asMilliseconds();
+            const upToFifteenDays = moment.duration(15, 'days').asMilliseconds();
+            if ((hiddenDuration < upToFifteenDays && !logbookEvent.displayed) || logbookEvent.hidden) {
+                return true;
+            }
+        }
+        return false;
     }
 
 
