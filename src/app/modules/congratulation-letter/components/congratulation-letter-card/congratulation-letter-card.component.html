@@ -7,7 +7,7 @@
     </span>
     <span class="redactor" *ngIf="isMode(CongratulationLetterModeEnum.RECEIVED)">
         <ng-container *ngIf="congratulationLetter.redactorType === CongratulationLetterRedactorTypeEnum.PNC; else notPncRedactorBlock">
-            <span class="last-name">{{ congratulationLetter.redactor?.lastName }}</span> <span class="first-name">{{ congratulationLetter.redactor?.firstName }}</span> <span class="current-speciality">({{ congratulationLetter.redactorSpeciality }})</span>
+            <span class="last-name">{{ congratulationLetter.redactor?.lastName }}</span> <span class="first-name">{{ congratulationLetter.redactor?.firstName }}</span> <span *ngIf='congratulationLetter.redactorSpeciality' class="current-speciality">({{ congratulationLetter.redactorSpeciality }})</span>
         </ng-container>
         <ng-template #notPncRedactorBlock>
             {{ 'CONGRATULATION_LETTER_CREATE.FORM.REDACTOR.' + congratulationLetter.redactorType | translate }}
