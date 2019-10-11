@@ -158,36 +158,43 @@ logbook-event-details {
         display: flex;
         flex-direction: row;
         justify-content: space-between; 
-        align-items: center;
+        align-items: baseline;
 
         .visibility-for-large-container{
-
-            .item-block {
-                min-height: 0em;
-                height: 30px;
-                font-size: 1.4rem;
-                flex-direction: row-reverse;
-                width: auto;
-                border:0;
-            }
+            height: 100%;
 
             ion-list{
                 display: flex;
-                border-top: 1px solid #c8c7cc;
-                border-bottom: 1px solid #c8c7cc;
 
+                .item-block {
+                    border: 0;
+                    height: auto;
+                }
             }
         }
 
         .visibility-for-small-container{
 
-            .item-block {
-                min-height: 0em;
-                height: 30px;
-                font-size: 1.4rem;
-                flex-direction: row-reverse;
-                width: auto;
+            ion-list{
+                margin-bottom: 5px;
+                .item-block {
+                    border: 0;
+                }
             }
+        }
+
+        .item-block {
+            min-height: 0em;
+            height: 30px;
+            font-size: 1.4rem;
+            flex-direction: row-reverse;
+            width: auto;
+            font-size: 14px;
+            font-weight: bold;
+            font-style: normal;
+            font-stretch: normal;
+            line-height: 1.29;
+            letter-spacing: 0.7px;
         }
     }    
 
