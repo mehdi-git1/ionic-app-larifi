@@ -18,7 +18,7 @@ export class ScorePercentPipe implements PipeTransform {
    */
   transform(value: string, decimalDigits: number = 0) {
     if (value == '0') {
-      return 0
+      return 0;
     }
     if (!value || value == undefined) {
       return '';
