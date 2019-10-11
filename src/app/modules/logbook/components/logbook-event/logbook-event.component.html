@@ -5,7 +5,7 @@
                 <ion-item class="event-date">
                     <ion-label class="required">{{ 'LOGBOOK.EDIT.EVENT_DATE' | translate }}</ion-label>
                     <edospnc-datetime [ngModelOptions]="{standalone: true}" [(ngModel)]="logbookEvent.eventDate"
-                        [displayIcon]="false">
+                        [displayIcon]="false" [edospncFormGroup]="logbookEventForm" edospncFormControlName="eventDate">
                     </edospnc-datetime>
                 </ion-item>
                 <ion-item class="event-checkbox" item-end>
