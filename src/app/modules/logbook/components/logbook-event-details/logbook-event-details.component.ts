@@ -175,7 +175,7 @@ export class LogbookEventDetailsComponent implements OnInit {
         if (hiddenDuration > upToFifteenDays) {
             return null;
         }
-        return this.datePipe.transform(this.logbookEvent.creationDate, 'dd/MM/yyyy à HH:mm');
+        return this.datePipe.transform(broadcastDate.add(upToFifteenDays), 'dd/MM/yyyy à HH:mm');
     }
 
     /**
