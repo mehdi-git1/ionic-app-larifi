@@ -8,7 +8,7 @@ export class DocumentModel {
     type: DocumentTypeEnum;
     size: number;
 
-    constructor(fileName: string, type: DocumentTypeEnum, mimeType: string, content: string, size:number, creationDate: Date = new Date()) {
+    constructor(fileName: string, type: DocumentTypeEnum, mimeType: string, content: string, size: number, creationDate: Date = new Date()) {
         this.fileName = fileName;
         this.content = content;
         this.creationDate = creationDate;

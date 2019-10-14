@@ -38,7 +38,7 @@
                     <ion-textarea [(ngModel)]="eObservation.pncComment" autocorrect="on"></ion-textarea>
                     <div class="button-bar button-bar-right margin-top" *ngIf="canEditPncComment">
                         <!-- Bouton valider commentaire pnc -->
-                        <button ion-button color="green50" (click)="confirmValidatePncComment()" [disabled]="this.eObservation.pncComment === '' || this.eObservation.pncComment === 'undefined'">
+                        <button ion-button color="green50" (click)="confirmValidatePncComment()" [disabled]="this.eObservation.pncComment === '' || this.eObservation.pncComment === 'undefined' || (this.eObservation.pncComment && this.eObservation.pncComment.length > 4000)">
                             <ion-icon name="md-checkmark" ios="md-checkmark" margin-right></ion-icon> {{ 'EOBSERVATION.BUTTONS.VALIDATE_PNC_COMMENT' | translate }}
                         </button>
                     </div>

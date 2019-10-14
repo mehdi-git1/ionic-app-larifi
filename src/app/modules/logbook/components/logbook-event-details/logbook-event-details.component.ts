@@ -175,7 +175,7 @@ export class LogbookEventDetailsComponent implements OnInit {
         if (hiddenDuration > upToFifteenDays) {
             return null;
         }
-        return this.datePipe.transform(broadcastDate.add(upToFifteenDays), 'dd/MM/yyyy à HH:mm', 'GMT');
+        return this.datePipe.transform(broadcastDate.add(upToFifteenDays), 'dd/MM/yyyy à HH:mm');
     }
 
     /**
@@ -191,23 +191,27 @@ export class LogbookEventDetailsComponent implements OnInit {
  * @param visibility masquer, afficher ou afficher dans 15 jours
  */
     confirmHideOrDisplayEvent(visibility: EventCcoVisibilityEnum) {
-        let title: string;
-        let message: string;
-        if (visibility === EventCcoVisibilityEnum.HIDDEN) {
-            title = this.translateService.instant('LOGBOOK.NOTIFICATION.CONFIRM_HIDDEN_EVENT.TITLE');
-            message = this.translateService.instant('LOGBOOK.NOTIFICATION.CONFIRM_HIDDEN_EVENT.MESSAGE');
-        } else if (visibility === EventCcoVisibilityEnum.DISPLAYED) {
-            title = this.translateService.instant('LOGBOOK.NOTIFICATION.CONFIRM_DISPLAYED_EVENT.TITLE');
-            message = this.translateService.instant('LOGBOOK.NOTIFICATION.CONFIRM_DISPLAYED_EVENT.MESSAGE');
-        } else {
-            title = this.translateService.instant('LOGBOOK.NOTIFICATION.CONFIRM_DISPLAYED_EVENT_AFTER_FIFTEEN_DAYS.TITLE', { 'date': this.getDisplayDate() });
-            message = this.translateService.instant('LOGBOOK.NOTIFICATION.CONFIRM_DISPLAYED_EVENT_AFTER_FIFTEEN_DAYS.MESSAGE', { 'date': this.getDisplayDate() });
+        if ((visibility === EventCcoVisibilityEnum.HIDDEN && !this.logbookEvent.hidden)
+            || (visibility === EventCcoVisibilityEnum.DISPLAYED && !this.logbookEvent.displayed)
+            || (visibility === EventCcoVisibilityEnum.WILL_BE_DISPLAYED_ON && !(this.logbookEvent.displayed || !this.logbookEvent.hidden))) {
+            let title: string;
+            let message: string;
+            if (visibility === EventCcoVisibilityEnum.HIDDEN) {
+                title = this.translateService.instant('LOGBOOK.NOTIFICATION.CONFIRM_HIDDEN_EVENT.TITLE');
+                message = this.translateService.instant('LOGBOOK.NOTIFICATION.CONFIRM_HIDDEN_EVENT.MESSAGE');
+            } else if (visibility === EventCcoVisibilityEnum.DISPLAYED) {
+                title = this.translateService.instant('LOGBOOK.NOTIFICATION.CONFIRM_DISPLAYED_EVENT.TITLE');
+                message = this.translateService.instant('LOGBOOK.NOTIFICATION.CONFIRM_DISPLAYED_EVENT.MESSAGE');
+            } else {
+                title = this.translateService.instant('LOGBOOK.NOTIFICATION.CONFIRM_DISPLAYED_EVENT_AFTER_FIFTEEN_DAYS.TITLE', { 'date': this.getDisplayDate() });
+                message = this.translateService.instant('LOGBOOK.NOTIFICATION.CONFIRM_DISPLAYED_EVENT_AFTER_FIFTEEN_DAYS.MESSAGE', { 'date': this.getDisplayDate() });
+            }
+            return this.confirmationPopoup(title, message).then(() => {
+                this.visibilityChange(visibility);
+            }).catch(() => {
+                this.initEventVisibility();
+            });
         }
-        return this.confirmationPopoup(title, message).then(() => {
-            this.visibilityChange(visibility);
-        }).catch(() => {
-            this.initEventVisibility();
-        });
     }
 
 

@@ -109,7 +109,7 @@ export class LogbookEventDetailsPage implements OnInit {
         return new Promise((resolve, reject) => {
             this.onlineLogbookEventService.getLogbookEventsByGroupId(groupId).then(
                 logbookEvents => {
-                    this.logbookEvents = this.logbookEvents ? this.logbookEvents : new Array();
+                    this.logbookEvents = new Array();
                     logbookEvents.forEach(logbookEvent => {
                         if (this.sessionService.getActiveUser().isManager || pnc.matricule === this.sessionService.getActiveUser().matricule && !this.isHidden(logbookEvent)) {
                             this.logbookEvents.push(logbookEvent);

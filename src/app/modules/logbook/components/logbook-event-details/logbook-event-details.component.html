@@ -93,6 +93,16 @@
                 </div>
             </div>
             <div class="button-bar-container" *ngIf="isManager()">
+                <div class="logbook-button-bar button-bar button-bar-right " *ngIf="canEditEvent()">
+                    <!-- Bouton supprimer -->
+                    <button ion-button color="primary" (click)="deleteLogbookEvent()">
+                        {{ 'LOGBOOK.BUTTONS.DELETE' | translate }}
+                    </button>
+                    <!-- Bouton modifier -->
+                    <button ion-button color="primary" *ngIf="canModifyEvent()" (click)="editLogbookEvent()">
+                        {{ 'LOGBOOK.BUTTONS.MODIFY' | translate }}
+                    </button>
+                </div>
                 <div class="small-width-devices  visibility-for-small-container"
                     *ngIf="logbookEvent.type == LogbookEventTypeEnum.CCO || logbookEvent.type == LogbookEventTypeEnum.ISCV ">
                     <form [formGroup]="visibilityForm">
@@ -146,16 +156,6 @@
                             </ion-item>
                         </ion-list>
                     </form>
-                </div>
-                <div class="logbook-button-bar button-bar button-bar-right " *ngIf="canEditEvent()">
-                    <!-- Bouton supprimer -->
-                    <button ion-button color="primary" (click)="deleteLogbookEvent()">
-                        {{ 'LOGBOOK.BUTTONS.DELETE' | translate }}
-                    </button>
-                    <!-- Bouton modifier -->
-                    <button ion-button color="primary" *ngIf="canModifyEvent()" (click)="editLogbookEvent()">
-                        {{ 'LOGBOOK.BUTTONS.MODIFY' | translate }}
-                    </button>
                 </div>
             </div>
         </ion-card-content>
