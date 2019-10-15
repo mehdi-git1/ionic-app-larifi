@@ -19,6 +19,7 @@ import {
 } from '../../../../core/services/logbook/online-logbook-event.service';
 import { SecurityService } from '../../../../core/services/security/security.service';
 import { SessionService } from '../../../../core/services/session/session.service';
+import { ToastService } from '../../../../core/services/toast/toast.service';
 import { DateTransform } from '../../../../shared/utils/date-transform';
 
 @Component({
@@ -54,7 +55,8 @@ export class LogbookEventDetailsComponent implements OnInit {
         private datePipe: DatePipe,
         private events: Events,
         private formBuilder: FormBuilder,
-        private onlineLogbookEventService: OnlineLogbookEventService) {
+        private onlineLogbookEventService: OnlineLogbookEventService,
+        private toastService: ToastService) {
 
         this.events.subscribe('LinkedLogbookEvent:canceled', () => {
             this.editEvent = false;
@@ -83,15 +85,16 @@ export class LogbookEventDetailsComponent implements OnInit {
      */
     initForm() {
         this.visibilityForm = this.formBuilder.group({
-            visibilityControl: [EventCcoVisibilityEnum.WILL_BE_DISPLAYED_ON, Validators.required]
+            visibilityControl: ['', Validators.required]
         });
     }
 
     /**
-     * Initialise le groupe radio button avec la valeur de l'évènement. 
+     * Initialise le groupe radio button avec la valeur de l'évènement.
      */
     initEventVisibility() {
-        this.visibilitySelected = this.logbookEvent.hidden ? EventCcoVisibilityEnum.HIDDEN : this.logbookEvent.displayed ? EventCcoVisibilityEnum.DISPLAYED : EventCcoVisibilityEnum.WILL_BE_DISPLAYED_ON;
+        this.visibilitySelected = this.logbookEvent.hidden ? EventCcoVisibilityEnum.HIDDEN : this.logbookEvent.displayed ? EventCcoVisibilityEnum.DISPLAYED
+            : this.getDisplayDate() ? EventCcoVisibilityEnum.WILL_BE_DISPLAYED_ON : EventCcoVisibilityEnum.DISPLAYED;
     }
 
     /**
@@ -188,23 +191,27 @@ export class LogbookEventDetailsComponent implements OnInit {
  * @param visibility masquer, afficher ou afficher dans 15 jours
  */
     confirmHideOrDisplayEvent(visibility: EventCcoVisibilityEnum) {
-        let title: string;
-        let message: string;
-        if (visibility === EventCcoVisibilityEnum.HIDDEN) {
-            title = this.translateService.instant('LOGBOOK.NOTIFICATION.CONFIRM_HIDDEN_EVENT.TITLE');
-            message = this.translateService.instant('LOGBOOK.NOTIFICATION.CONFIRM_HIDDEN_EVENT.MESSAGE');
-        } else if (visibility === EventCcoVisibilityEnum.DISPLAYED) {
-            title = this.translateService.instant('LOGBOOK.NOTIFICATION.CONFIRM_DISPLAYED_EVENT.TITLE');
-            message = this.translateService.instant('LOGBOOK.NOTIFICATION.CONFIRM_DISPLAYED_EVENT.MESSAGE');
-        } else {
-            title = this.translateService.instant('LOGBOOK.NOTIFICATION.CONFIRM_DISPLAYED_EVENT_AFTER_FIFTEEN_DAYS.TITLE', { 'date': this.getDisplayDate() });
-            message = this.translateService.instant('LOGBOOK.NOTIFICATION.CONFIRM_DISPLAYED_EVENT_AFTER_FIFTEEN_DAYS.MESSAGE', { 'date': this.getDisplayDate() });
+        if ((visibility === EventCcoVisibilityEnum.HIDDEN && !this.logbookEvent.hidden)
+            || (visibility === EventCcoVisibilityEnum.DISPLAYED && !this.logbookEvent.displayed)
+            || (visibility === EventCcoVisibilityEnum.WILL_BE_DISPLAYED_ON && !(this.logbookEvent.displayed || !this.logbookEvent.hidden))) {
+            let title: string;
+            let message: string;
+            if (visibility === EventCcoVisibilityEnum.HIDDEN) {
+                title = this.translateService.instant('LOGBOOK.NOTIFICATION.CONFIRM_HIDDEN_EVENT.TITLE');
+                message = this.translateService.instant('LOGBOOK.NOTIFICATION.CONFIRM_HIDDEN_EVENT.MESSAGE');
+            } else if (visibility === EventCcoVisibilityEnum.DISPLAYED) {
+                title = this.translateService.instant('LOGBOOK.NOTIFICATION.CONFIRM_DISPLAYED_EVENT.TITLE');
+                message = this.translateService.instant('LOGBOOK.NOTIFICATION.CONFIRM_DISPLAYED_EVENT.MESSAGE');
+            } else {
+                title = this.translateService.instant('LOGBOOK.NOTIFICATION.CONFIRM_DISPLAYED_EVENT_AFTER_FIFTEEN_DAYS.TITLE', { 'date': this.getDisplayDate() });
+                message = this.translateService.instant('LOGBOOK.NOTIFICATION.CONFIRM_DISPLAYED_EVENT_AFTER_FIFTEEN_DAYS.MESSAGE', { 'date': this.getDisplayDate() });
+            }
+            return this.confirmationPopoup(title, message).then(() => {
+                this.visibilityChange(visibility);
+            }).catch(() => {
+                this.initEventVisibility();
+            });
         }
-        return this.confirmationPopoup(title, message).then(() => {
-            this.visibilityChange(visibility);
-        }).catch(() => {
-            this.initEventVisibility();
-        });
     }
 
 
@@ -225,6 +232,13 @@ export class LogbookEventDetailsComponent implements OnInit {
             this.logbookEvent.hidden = hidden;
             this.onlineLogbookEventService.hideOrDisplay(this.logbookEvent).then(savedLogbookEvent => {
                 this.logbookEvent = savedLogbookEvent;
+                if (this.logbookEvent.displayed) {
+                    this.toastService.success(this.translateService.instant('LOGBOOK.VISIBILITY.EVENT_DISPLAYED'));
+                } else if (this.logbookEvent.hidden) {
+                    this.toastService.success(this.translateService.instant('LOGBOOK.VISIBILITY.EVENT_HIDDEN'));
+                } else {
+                    this.toastService.success(this.translateService.instant('LOGBOOK.VISIBILITY.WILL_BE_DISPLAYED_ON', { 'date': this.getDisplayDate() }));
+                }
             });
         }
     }

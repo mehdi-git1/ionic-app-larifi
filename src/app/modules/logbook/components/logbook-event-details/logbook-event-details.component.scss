@@ -129,6 +129,7 @@ logbook-event-details {
             }
 
             .logbook-button-bar {
+                align-self: flex-end;
 
                 button {
                     font-size: 14px;
@@ -151,11 +152,37 @@ logbook-event-details {
         margin-top: 15px;
     }
 
-    .cco-logbookEvent-visibility{
+    .button-bar-container{
+
+        width: 100%;
+        height: auto;
         display: flex;
-        height: 3.6rem;
-        margin-top: 15px;
-        width: -webkit-fill-available;
+        flex-direction: row-reverse;
+        justify-content: space-between; 
+        align-items: baseline;
+
+        .visibility-for-large-container{
+            height: 100%;
+
+            ion-list{
+                display: flex;
+
+                .item-block {
+                    border: 0;
+                    height: auto;
+                }
+            }
+        }
+
+        .visibility-for-small-container{
+
+            ion-list{
+                margin-bottom: 5px;
+                .item-block {
+                    border: 0;
+                }
+            }
+        }
 
         .item-block {
             min-height: 0em;
@@ -163,12 +190,14 @@ logbook-event-details {
             font-size: 1.4rem;
             flex-direction: row-reverse;
             width: auto;
+            font-size: 14px;
+            font-weight: bold;
+            font-style: normal;
+            font-stretch: normal;
+            line-height: 1.29;
+            letter-spacing: 0.7px;
         }
-
-        ion-list{
-            display: flex;
-        }
-    }
+    }    
 
     text-editor .ql-toolbar.ql-snow{
         border-top-left-radius: 5px;

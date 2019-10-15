@@ -74,14 +74,14 @@ congratulation-letter-detail {
             white-space: pre-line;
         }
 
-        .verbatim-data{
+         .verbatim-data{
             margin-top: 10px;
 
             text-editor .ql-container.ql-snow {
                 border-radius: 3px;
             }
 
-            text-editor .ql-snow * {
+            text-editor .ql-snow .ql-editor {
                 padding: 10px;
                 border-radius: 3px;
                 background: #fafbfb;
