@@ -22,7 +22,7 @@ export class EObsCommentComponent {
 
   @Input() editMode = false;
 
-  commentSize = 4000;
+  commentLength = 4000;
 
   constructor(private translateService: TranslateService) {
   }
