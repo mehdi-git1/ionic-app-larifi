@@ -1,5 +1,4 @@
 eobs-comment {
-
     .redactor-comment-container div:first-child {
         padding: 0px;
     }
@@ -9,7 +8,15 @@ eobs-comment {
         padding-left: 20px;
         padding-right: 20px;
         padding-bottom: 20px;
+
+        .comment-length {
+            width: 100%;
+            font-size: smaller;
+            text-align: right;
+            padding-top: 0px;
+        }
     }
+
 
     .comment-container {
 
