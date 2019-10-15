@@ -765,6 +765,11 @@
             "SEARCH": "Rechercher",
             "PERSONS_TO_NOTIFY": "Personnes à notifier"
         },
+        "VISIBILITY": {
+            "WILL_BE_DISPLAYED_ON": "L'évènement sera affiché le {{date}}",
+            "EVENT_DISPLAYED": "Evènement visible par le PNC",
+            "EVENT_HIDDEN": "Evènement masqué au PNC"
+        },
         "NOTIFICATION": {
             "CONFIRM_NOTIFICATION": {
                 "TITLE": "Notification",

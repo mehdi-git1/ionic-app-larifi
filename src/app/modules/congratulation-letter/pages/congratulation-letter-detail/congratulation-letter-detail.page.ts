@@ -6,6 +6,7 @@ import { Component } from '@angular/core';
 import {
     CongratulationLetterRedactorTypeEnum
 } from '../../../../core/enums/congratulation-letter/congratulation-letter-redactor-type.enum';
+import { TextEditorModeEnum } from '../../../../core/enums/text-editor-mode.enum';
 import {
     CongratulationLetterFlightModel
 } from '../../../../core/models/congratulation-letter-flight.model';
@@ -30,6 +31,7 @@ export class CongratulationLetterDetailPage {
     congratulationLetter: CongratulationLetterModel;
 
     CongratulationLetterRedactorTypeEnum = CongratulationLetterRedactorTypeEnum;
+    TextEditorModeEnum = TextEditorModeEnum;
 
     constructor(private navParams: NavParams,
         private congratulationLetterService: CongratulationLetterService,

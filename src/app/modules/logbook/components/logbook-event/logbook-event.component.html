@@ -2,12 +2,12 @@
     <form novalidate [formGroup]="logbookEventForm">
         <ion-grid>
             <ion-row class="event-date-and-checkbox-row">
-                <ion-item class="event-date">
-                    <ion-label class="required">{{ 'LOGBOOK.EDIT.EVENT_DATE' | translate }}</ion-label>
-                    <edospnc-datetime [ngModelOptions]="{standalone: true}" [(ngModel)]="logbookEvent.eventDate"
-                        [displayIcon]="false">
+                <span class="event-date">
+                    <ion-label stacked class="required">{{ 'LOGBOOK.EDIT.EVENT_DATE' | translate }}</ion-label>
+                    <edospnc-datetime  [ngModelOptions]="{standalone: true}" [(ngModel)]="logbookEvent.eventDate"
+                    [displayIcon]="false" [edospncFormGroup]="logbookEventForm" edospncFormControlName="eventDate">
                     </edospnc-datetime>
-                </ion-item>
+                </span>
                 <ion-item class="event-checkbox" item-end>
                     <ion-label item-end>{{ 'LOGBOOK.EDIT.PNC_ORIGIN' | translate }}</ion-label>
                     <ion-checkbox item-end [(ngModel)]="logbookEvent.pncInitiator" [checked]="pncInitiator"
