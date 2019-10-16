@@ -140,12 +140,12 @@ logbook-event-details {
         width: 100%;
         height: auto;
         display: flex;
-        flex-direction: row-reverse;
         justify-content: space-between; 
         align-items: baseline;
         padding-left: 61px;
 
         .logbook-button-bar {
+            width: 100%;
 
             button {
                 font-size: 14px;
