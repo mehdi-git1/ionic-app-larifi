@@ -35,7 +35,7 @@
                 <label><span class="edospnc-speechBubble"></span>{{ 'EOBSERVATION.DETAIL.COMMENT' | translate }}</label>
                 <p *ngIf="!canEditPncComment && !editMode; else editPncCommentBlock">{{eObservation.pncComment}}</p>
                 <ng-template #editPncCommentBlock>
-                    <ion-textarea [(ngModel)]="eObservation.pncComment" autocorrect="on" maxlength="maxCommentLength"></ion-textarea>
+                    <ion-textarea [(ngModel)]="eObservation.pncComment" autocorrect="on" [maxlength]="maxCommentLength"></ion-textarea>
                     <span class="comment-length">{{eObservation && eObservation.pncComment ? eObservation.pncComment.length:0}}/{{maxCommentLength}}</span>
                     <div class="button-bar button-bar-right margin-top" *ngIf="canEditPncComment">
                         <!-- Bouton valider commentaire pnc -->
