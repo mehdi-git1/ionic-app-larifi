@@ -41,6 +41,7 @@
                 "DO_NOT_DISPLAY_ANYMORE": "J'ai compris"
             }
         },
+        "DEVELOPMENT_PROGRAM_SHORT": "Parcours de Dev",
         "DEVELOPMENT_PROGRAM": "Parcours de développement",
         "MY_DEVELOPMENT_PROGRAM": "Mon parcours de développement",
         "HELP_CENTER": "Ressources d'aide",
@@ -50,10 +51,13 @@
         "UPCOMING_FLIGHT": "Activité vols",
         "MY_UPCOMING_FLIGHT": "Mon activité vols",
         "CREW_MEMBERS": "Liste équipage",
+        "STATUTORY_CERTIFICATE_SHORT": "Profil",
         "STATUTORY_CERTIFICATE": "Profil PNC",
         "MY_STATUTORY_CERTIFICATE": "Mon profil PNC",
+        "PROFESSIONAL_LEVEL_SHORT": "NivPro SV",
         "PROFESSIONAL_LEVEL": "Niveau pro SV",
         "MY_PROFESSIONAL_LEVEL": "Mon niveau pro SV",
+        "CONGRATULATION_LETTERS_SHORT": "Félicitations",
         "CONGRATULATION_LETTERS": "Lettres de félicitations",
         "MY_CONGRATULATION_LETTERS": "Mes lettres de félicitations",
         "EOBSERVATIONS_ARCHIVES": "Archives d'eObservations",
@@ -207,7 +211,6 @@
             "VALIDATED": "Clôturée",
             "ABANDONED": "Abandonnée"
         }
-
     },
     "PNC_IDENTITY": {
         "REFERENT_INSTRUCTOR": "Manager",
@@ -583,7 +586,7 @@
         "MY_TITLE": "Ma recherche PNC",
         "CRITERIA": {
             "FILTERS": "Filtres",
-
+            "PRIORITY": "Priorités",
             "DIVISION": "Division",
             "SECTOR": "Secteur",
             "GINQ": "Ginq",
@@ -593,7 +596,10 @@
             "WORK_RATE": "Rythme",
             "PRIORITIZED": "Priorité majeure",
             "PRIORITY_IN_PROGRESS": "Priorité en cours",
-            "NO_PRIORITY": "Aucune priorité en cours"
+            "NO_PRIORITY": "Aucune priorité en cours",
+            "PRIORITIZED_SHORT": "Majeure",
+            "PRIORITY_IN_PROGRESS_SHORT": "En cours",
+            "NO_PRIORITY_SHORT": "Aucune en cours"
         },
         "DEFAULT_DATA": {
             "ALL_F": "Toutes",
@@ -707,7 +713,6 @@
             "VERBATIM": "Verbatim",
             "COLLECTIVE_WARNING_PART1": "Cette lettre collective sera insérée dans le eDossier de ",
             "COLLECTIVE_WARNING_PART2": " mais n'alimentera pas les eDossiers du reste de l'équipage"
-
         },
         "BUTTONS": {
             "CANCEL": "Annuler",
@@ -762,6 +767,11 @@
             "SEARCH": "Rechercher",
             "PERSONS_TO_NOTIFY": "Personnes à notifier"
         },
+        "VISIBILITY": {
+            "WILL_BE_DISPLAYED_ON": "L'évènement sera affiché le {{date}}",
+            "EVENT_DISPLAYED": "Evènement visible par le PNC",
+            "EVENT_HIDDEN": "Evènement masqué au PNC"
+        },
         "NOTIFICATION": {
             "CONFIRM_NOTIFICATION": {
                 "TITLE": "Notification",
@@ -774,6 +784,18 @@
             "CONFIRM_EDIT_WITHOUT_NOTIFICATION": {
                 "TITLE": "Mettre à jour sans notifier",
                 "MESSAGE": "Confirmez-vous la mise à jour de l'évènement sans envoi de notification ?"
+            },
+            "CONFIRM_HIDDEN_EVENT": {
+                "TITLE": "Masquer l'évènement",
+                "MESSAGE": "Voulez-vous masquer l'évènement au PNC durant un temps indéterminé ?"
+            },
+            "CONFIRM_DISPLAYED_EVENT": {
+                "TITLE": "Afficher l'évènement",
+                "MESSAGE": "Voulez-vous rendre l'évènement visible au PNC ?"
+            },
+            "CONFIRM_DISPLAYED_EVENT_AFTER_FIFTEEN_DAYS": {
+                "TITLE": "Masquer jusqu'au {{date}}",
+                "MESSAGE": "En choisissant cette option, l'évènement s'affichera automatiquement le {{date}}. Confirmez-vous cette action ?"
             }
         },
         "DELETE": {
@@ -787,7 +809,10 @@
             "EVENT_DATE": "Evènement du ",
             "CREATED_THE": "Créé le ",
             "NOTIFIED_PNCS": "Personnes notifiées",
-            "EDITED_BY": "Evènement modifié par {{lastName}} {{firstName}} le {{date}}"
+            "EDITED_BY": "Evènement modifié par {{lastName}} {{firstName}} le {{date}}",
+            "WILL_BE_DISPLAYED_ON": "Sera affiché le {{date}}",
+            "DISPLAYED": "Afficher",
+            "HIDDEN": "Masquer"
         },
         "ACTION_MENU": {
             "MODIFY": "Modifier",

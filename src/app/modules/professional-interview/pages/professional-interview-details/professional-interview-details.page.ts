@@ -41,8 +41,6 @@ export class ProfessionalInterviewDetailsPage {
   ProfessionalInterviewStateEnum = ProfessionalInterviewStateEnum;
 
   annualProfessionalInterviewOptions: any;
-  monthsNames;
-  datepickerMaxDate = AppConstant.datepickerMaxDate;
 
   loading: Loading;
   editionMode = false;
@@ -78,9 +76,6 @@ export class ProfessionalInterviewDetailsPage {
         }
       }]
     };
-
-    // Traduction des mois
-    this.monthsNames = this.translateService.instant('GLOBAL.MONTH.LONGNAME');
 
   }
 

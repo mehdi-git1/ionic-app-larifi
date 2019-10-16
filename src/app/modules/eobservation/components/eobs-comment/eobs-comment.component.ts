@@ -1,9 +1,10 @@
-import { Component, Input, EventEmitter, Output } from '@angular/core';
-import { EObservationModel } from '../../../../core/models/eobservation/eobservation.model';
-import { PncRoleEnum } from '../../../../core/enums/pnc-role.enum';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { PncModel } from '../../../../core/models/pnc.model';
+
+import { PncRoleEnum } from '../../../../core/enums/pnc-role.enum';
 import { SpecialityEnum } from '../../../../core/enums/speciality.enum';
+import { EObservationModel } from '../../../../core/models/eobservation/eobservation.model';
+import { PncModel } from '../../../../core/models/pnc.model';
 
 @Component({
   selector: 'eobs-comment',
@@ -20,6 +21,8 @@ export class EObsCommentComponent {
   @Input() canEditPncComment = false;
 
   @Input() editMode = false;
+
+  maxCommentLength = 4000;
 
   constructor(private translateService: TranslateService) {
   }

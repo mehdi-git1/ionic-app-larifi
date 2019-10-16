@@ -6,12 +6,14 @@ congratulation-letter-create {
     }
 
     .flight-date {
-        height: 40px;
-        width: 120px;
-        font-size: initial;
-        padding: 0 15px;
-        display: flex;
-        align-items: center;
+        ion-datetime {
+            height: 40px;
+            width: 120px;
+            font-size: initial;
+            padding: 0 15px;
+            display: flex;
+            align-items: center;
+        }
     }
 
     .flight-airline {

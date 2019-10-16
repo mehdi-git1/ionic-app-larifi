@@ -1,12 +1,8 @@
-import {
-    AlertController, Events, Loading, LoadingController, NavController, NavParams
-} from 'ionic-angular';
+import { AlertController, Events, Loading, LoadingController, NavController } from 'ionic-angular';
 import * as _ from 'lodash';
 
 import { DatePipe } from '@angular/common';
-import {
-    ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output
-} from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -20,7 +16,6 @@ import { PncModel } from '../../../../core/models/pnc.model';
 import {
     OnlineLogbookEventService
 } from '../../../../core/services/logbook/online-logbook-event.service';
-import { PncService } from '../../../../core/services/pnc/pnc.service';
 import { SecurityService } from '../../../../core/services/security/security.service';
 import { SessionService } from '../../../../core/services/session/session.service';
 import { ToastService } from '../../../../core/services/toast/toast.service';
@@ -30,7 +25,6 @@ import { Utils } from '../../../../shared/utils/utils';
 @Component({
     selector: 'logbook-event',
     templateUrl: 'logbook-event.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LogbookEventComponent implements OnInit {
 
@@ -40,13 +34,9 @@ export class LogbookEventComponent implements OnInit {
 
     @Input() groupId: number;
 
-    @Output() editionOrDeletion: EventEmitter<any> = new EventEmitter();
-
     editEvent = false;
     eventDateString: string;
-    monthsNames;
     pnc: PncModel;
-    techId: number;
     loading: Loading;
 
     logbookEventCategories: LogbookEventCategory[];
@@ -55,15 +45,13 @@ export class LogbookEventComponent implements OnInit {
     titleMaxLength = 100;
 
     LogbookEventModeEnum = LogbookEventModeEnum;
-    LogbookEventTypeEnum = LogbookEventTypeEnum;
     TextEditorModeEnum = TextEditorModeEnum;
 
     cancelFromButton = false;
 
     logbookEventForm: FormGroup;
 
-    constructor(private navParams: NavParams,
-        private securityService: SecurityService,
+    constructor(private securityService: SecurityService,
         private translateService: TranslateService,
         private sessionService: SessionService,
         private onlineLogbookEventService: OnlineLogbookEventService,
@@ -73,31 +61,24 @@ export class LogbookEventComponent implements OnInit {
         private dateTransformer: DateTransform,
         private events: Events,
         private alertCtrl: AlertController,
-        private pncService: PncService,
         private datePipe: DatePipe,
-        private formBuilder: FormBuilder,
-        private changeDetectorRef: ChangeDetectorRef) {
-        // Traduction des mois
-        this.monthsNames = this.translateService.instant('GLOBAL.MONTH.LONGNAME');
-
-    }
-
-    ngAfterViewInit() {
-        this.detectChangesAndMarkForCheck();
-    }
-
-    detectChangesAndMarkForCheck() {
-        this.changeDetectorRef.detectChanges();
-        this.changeDetectorRef.markForCheck();
+        private formBuilder: FormBuilder) {
+        this.initForm();
     }
 
     ngOnInit() {
-        this.initForm();
         if (this.sessionService.visitedPnc) {
             this.pnc = this.sessionService.visitedPnc;
         } else {
             this.pnc = this.sessionService.getActiveUser().authenticatedPnc;
         }
+        this.initPage();
+    }
+
+    /**
+     * Initialise le contenue de la page
+     */
+    initPage() {
         if (this.mode === LogbookEventModeEnum.CREATION || this.mode === LogbookEventModeEnum.LINKED_EVENT_CREATION) {
             this.editEvent = true;
             this.logbookEvent = new LogbookEventModel();
@@ -106,23 +87,22 @@ export class LogbookEventComponent implements OnInit {
             }
             this.logbookEvent.pnc = new PncLightModel();
             this.logbookEvent.pnc.matricule = this.pnc.matricule;
-            this.logbookEvent.category = new LogbookEventCategory();
             this.logbookEvent.type = LogbookEventTypeEnum.EDOSPNC;
             const eventDate: Date = new Date();
             this.logbookEvent.eventDate = this.dateTransformer.transformDateToIso8601Format(eventDate);
-            this.logbookEvent.mode = this.mode;
             this.logbookEvent.notifiedPncs = new Array();
             if (this.pnc.pncInstructor && this.pnc.pncInstructor.matricule !== this.sessionService.getActiveUser().matricule) {
                 this.logbookEvent.notifiedPncs.push(this.pnc.pncInstructor);
             }
 
         }
+        this.logbookEvent.mode = this.mode;
         this.originLogbookEvent = _.cloneDeep(this.logbookEvent);
         this.eventDateString = this.logbookEvent ? this.logbookEvent.eventDate : this.dateTransformer.transformDateToIso8601Format(new Date());
     }
 
     /**
-    * Initialise la liste déroulante des catégories depuis les paramètres
+    * Initialise le formulaire et la liste déroulante des catégories depuis les paramètres
     */
     initForm() {
         if (this.sessionService.getActiveUser().appInitData !== undefined) {
@@ -152,24 +132,6 @@ export class LogbookEventComponent implements OnInit {
     }
 
     /**
-     * Envoie un event avec l'évènement à editer, à la page parente.
-     */
-    editLogbookEvent() {
-        this.logbookEvent.mode = LogbookEventModeEnum.EDITION;
-        this.originLogbookEvent = _.cloneDeep(this.logbookEvent);
-        this.editionOrDeletion.emit(this.logbookEvent);
-    }
-
-    /**
-     * Envoie un event avec l'évènement à supprimer, à la page parente.
-     */
-    deleteLogbookEvent() {
-        this.logbookEvent.mode = LogbookEventModeEnum.DELETION;
-        this.originLogbookEvent = _.cloneDeep(this.logbookEvent);
-        this.editionOrDeletion.emit(this.logbookEvent);
-    }
-
-    /**
      * Annule la création / modification de l'évènement en appuyant sur le bouton annuler.
      */
     cancelLogbookEventCreationOrEdition() {
@@ -192,7 +154,6 @@ export class LogbookEventComponent implements OnInit {
                     this.cancelFromButton = false;
                 } else if (this.cancelFromButton) {
                     this.events.publish('LinkedLogbookEvent:canceled');
-                    this.detectChangesAndMarkForCheck();
                 }
                 return true;
             }
@@ -342,38 +303,6 @@ export class LogbookEventComponent implements OnInit {
     }
 
     /**
-     * Vérifie si le PNC connecté est le rédacteur de l'évènement, ou bien l'instructeur du pnc observé, ou bien son RDS
-     * @return vrai si le PNC est redacteur, instructeur ou rds du pnc observé, faux sinon
-     */
-    canEditEvent(): boolean {
-        const redactor = this.pnc && this.logbookEvent.redactor && this.sessionService.getActiveUser().matricule === this.logbookEvent.redactor.matricule;
-        const instructor = this.pnc && this.pnc.pncInstructor && this.sessionService.getActiveUser().matricule === this.pnc.pncInstructor.matricule;
-        const rds = this.pnc && this.pnc.pncRds && this.sessionService.getActiveUser().matricule === this.pnc.pncRds.matricule;
-        const ccoIscvAdmin = this.pnc && this.securityService.isAdminCcoIscv(this.sessionService.getActiveUser());
-        return redactor || instructor || rds || (ccoIscvAdmin && (this.logbookEvent.type === LogbookEventTypeEnum.CCO || this.logbookEvent.type === LogbookEventTypeEnum.ISCV));
-    }
-
-    /**
-     * Vérifie si le PNC connecté peut modifier l'évènement
-     * @return vrai si l'évènement est CCO/ISCV et que le PNC est admin CCO/ISCV ou si l'évènement n'est pas CCO/ISCV
-     * et que le PNC peut éditer l'évènement, faux sinon
-     */
-    canModifyEvent(): boolean {
-        if (this.logbookEvent.type === LogbookEventTypeEnum.CCO || this.logbookEvent.type === LogbookEventTypeEnum.ISCV) {
-            return this.securityService.isAdminCcoIscv(this.sessionService.getActiveUser());
-        }
-        return this.canEditEvent();
-    }
-
-    /**
-     * Retourne la date de dernière modification, formatée pour l'affichage
-     * @return la date de dernière modification au format dd/mm/
-     */
-    getLastUpdateDate(): string {
-        return this.datePipe.transform(this.logbookEvent.lastUpdateDate, 'dd/MM/yyyy à HH:mm');
-    }
-
-    /**
      * Verifie si le pnc est notifié
      * @param pncLight le pnc concerné
      * @return true si le pnc est notifié, false sinon
@@ -403,13 +332,5 @@ export class LogbookEventComponent implements OnInit {
             this.logbookEvent.notifiedPncs = this.logbookEvent.notifiedPncs.filter(pnc =>
                 pnc.matricule !== pncLight.matricule);
         }
-
-    }
-
-    /**
-     * Affiche le message d'information de la dernière modification faite sur l'évènement
-     */
-    showInformationMessage() {
-        return this.logbookEvent.lastUpdateAuthor && this.logbookEvent.lastUpdateDate !== this.logbookEvent.creationDate;
     }
 }

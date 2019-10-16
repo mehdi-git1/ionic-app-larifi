@@ -64,6 +64,10 @@
                                         <div class="category-label">{{logbookEvent.category?.label}}</div>
                                     </ion-col>
                                     <ion-col class="column-specific">
+                                        <ion-icon name="md-eye-off" ios="md-eye-off" *ngIf="isHidden(logbookEvent)">
+                                        </ion-icon>
+                                    </ion-col>
+                                    <ion-col class="column-specific">
                                         <ion-icon class="important-icon" color="secondary"
                                             *ngIf="logbookEvent.important" name="edospnc-important">
                                         </ion-icon>

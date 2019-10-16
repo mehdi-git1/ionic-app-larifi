@@ -16,7 +16,8 @@
                 <ion-row>
                     <ion-col col-lg-3 col-md-6 class="flex align-center">
                         <label class="required">{{ 'CONGRATULATION_LETTER_CREATE.FORM.FLIGHT_DATE' | translate }}</label>
-                        <ion-datetime class="input-like flight-date" formControlName="flightDateControl" displayFormat="DD/MM/YYYY" pickerFormat="DD MMMM YYYY" [pickerOptions]="flightDateTimeOptions" [(ngModel)]="congratulationLetter.flight.theoricalDate" [doneText]="translateService.instant('GLOBAL.DATEPICKER.DONE')" [cancelText]="translateService.instant('GLOBAL.DATEPICKER.CANCEL')" [monthNames]="monthsNames"></ion-datetime>
+                        <edospnc-datetime class="input-like flight-date" [edospncFormGroup]="creationForm" edospncFormControlName="flightDateControl" [ngModelOptions]="{standalone: true}" [displayIcon]="false" [(ngModel)]="congratulationLetter.flight.theoricalDate">
+                        </edospnc-datetime>
                     </ion-col>
                     <ion-col col-lg-3 col-md-6 class="flex align-center">
                         <label>{{ 'CONGRATULATION_LETTER_CREATE.FORM.FLIGHT_NUMBER' | translate }}</label>

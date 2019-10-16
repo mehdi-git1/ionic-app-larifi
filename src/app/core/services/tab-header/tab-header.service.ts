@@ -61,19 +61,13 @@ export class TabHeaderService {
             return [
                 {
                     id: TabHeaderEnum.CAREER_OBJECTIVE_LIST_PAGE,
-                    label: this.translateService.instant('GLOBAL.DEVELOPMENT_PROGRAM'),
+                    label: this.translateService.instant('GLOBAL.DEVELOPMENT_PROGRAM_SHORT'),
                     component: CareerObjectiveListPage,
                     available: this.pnc && !this.pnc.manager
                 },
                 {
-                    id: TabHeaderEnum.PROFESSIONAL_LEVEL_PAGE,
-                    label: this.translateService.instant('GLOBAL.PROFESSIONAL_LEVEL'),
-                    component: ProfessionalLevelPage,
-                    available: this.authorizationService.hasPermission(PermissionConstant.VIEW_PROFESSIONAL_LEVEL)
-                },
-                {
                     id: TabHeaderEnum.STATUTORY_CERTIFICATE_PAGE,
-                    label: this.translateService.instant('GLOBAL.STATUTORY_CERTIFICATE'),
+                    label: this.translateService.instant('GLOBAL.STATUTORY_CERTIFICATE_SHORT'),
                     component: StatutoryCertificatePage,
                     available: this.authorizationService.hasPermission(PermissionConstant.VIEW_STATUTORY_CERTIFICATE)
                 },
@@ -84,16 +78,22 @@ export class TabHeaderService {
                     available: true
                 },
                 {
-                    id: TabHeaderEnum.CONGRATULATION_LETTERS_PAGE,
-                    label: this.translateService.instant('GLOBAL.CONGRATULATION_LETTERS'),
-                    component: CongratulationLettersPage,
-                    available: true
+                    id: TabHeaderEnum.PROFESSIONAL_LEVEL_PAGE,
+                    label: this.translateService.instant('GLOBAL.PROFESSIONAL_LEVEL_SHORT'),
+                    component: ProfessionalLevelPage,
+                    available: this.authorizationService.hasPermission('VIEW_PROFESSIONAL_LEVEL')
                 },
                 {
                     id: TabHeaderEnum.LOGBOOK_PAGE,
                     label: this.translateService.instant('GLOBAL.LOGBOOK'),
                     component: LogbookPage,
                     available: this.pnc && !this.pnc.manager && this.authorizationService.hasPermission(PermissionConstant.VIEW_LOGBOOK)
+                },
+                {
+                    id: TabHeaderEnum.CONGRATULATION_LETTERS_PAGE,
+                    label: this.translateService.instant('GLOBAL.CONGRATULATION_LETTERS_SHORT'),
+                    component: CongratulationLettersPage,
+                    available: true
                 },
                 {
                     id: TabHeaderEnum.UPCOMING_FLIGHT_LIST_PAGE,

@@ -8,5 +8,5 @@ import { DeviceService } from '../../../core/services/device/device.service';
   templateUrl: 'progress-bar.component.html'
 })
 export class ProgressBarComponent {
-  @Input('progress') progress;
+  @Input() progress;
 }

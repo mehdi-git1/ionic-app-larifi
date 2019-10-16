@@ -1,3 +1,4 @@
+import { PriorityDropdownListComponent } from './components/priority-dropdown-list/priority-dropdown-list.component';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 
@@ -10,7 +11,8 @@ import {PncSearchFilterComponent} from './components/pnc-search-filter/pnc-searc
 @NgModule({
   declarations: [
     PncSearchPage,
-    PncSearchFilterComponent
+    PncSearchFilterComponent,
+    PriorityDropdownListComponent
   ],
   imports: [
     [IonicPageModule.forChild(PncSearchPage)],
@@ -18,10 +20,12 @@ import {PncSearchFilterComponent} from './components/pnc-search-filter/pnc-searc
     ComponentsModule
   ],
   entryComponents: [
-    PncSearchPage
+    PncSearchPage,
+    PriorityDropdownListComponent
   ],
   exports: [
-    PncSearchPage
+    PncSearchPage,
+    PriorityDropdownListComponent
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA

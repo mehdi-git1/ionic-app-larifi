@@ -1,6 +1,6 @@
 
 export abstract class BaseEnvironment {
-  public appVersion = '1.10.0';
+  public appVersion = '1.12.0';
   public contextRoot = '/api/';
   public appName = 'EDossierPnc';
   public backEndUrl;
@@ -15,7 +15,7 @@ export abstract class BaseEnvironment {
 
   public makeOfflineModeAvailable = false;
 
-  public friendlyUrl = 'http://friendly6rct.airfrance.fr';
+  public friendlyUrl;
 
   /**
   * Vérifie qu'on est en local
