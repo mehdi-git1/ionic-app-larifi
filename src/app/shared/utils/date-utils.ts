@@ -10,8 +10,11 @@ export class DateUtils {
      * @return la date résultante
      */
     public static addDays(date: Date, days: number): Date {
-        if (!days || !(date instanceof Date)) {
+        if (!days) {
             return date;
+        }
+        if (!(date instanceof Date)) {
+            date = new Date(date);
         }
         date.setDate(date.getDate() + days);
         return date;
