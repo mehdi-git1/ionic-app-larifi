@@ -1,0 +1,47 @@
+hr-document{
+    
+    $ion-textarea-row-margin:10px;
+
+    ion-grid {
+        display: flex;
+    }
+
+
+
+    .category {
+        width: 255px;
+
+        ion-select {
+            padding-left: 5px;
+        }
+    }
+
+    .title-row {
+        margin-top: $ion-textarea-row-margin !important;
+    }
+
+    .document-title {
+        display: flex;
+        height: fit-content;
+    }
+
+    .document-length {
+        width: 100%;
+        font-size: smaller;
+        align-content: flex-end;
+        text-align: right;
+    }
+
+    .description-row {
+
+        display: inline;
+    }
+}
+
+.popover-md .popover-content {
+    width: 275px;
+}
+
+.popover-ios .popover-content {
+    width: 275px;
+}

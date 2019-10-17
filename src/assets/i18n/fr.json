@@ -822,10 +822,23 @@
             "DELETE_ALL": "Supprimer tout"
         }
     },
-    "HR_REPORT" : {
+    "HR_REPORT": {
         "BUTTONS": {
-            "CREATE_NEW_DOCUMENT": "Nouveau document"
-        }  
+            "CREATE_NEW_DOCUMENT": "Nouveau document",
+            "ADD_LOG": "Nouvel évènement",
+            "MODIFY": "Modifier",
+            "CANCEL": "Annuler",
+            "UPDATE": "Mettre à jour",
+            "SAVE": "Enregistrer",
+            "DELETE": "Supprimer"
+        },
+        "EDIT": {
+            "DOCUMENT_CREATION": "Création d'un nouveau document",
+            "DOCUMENT_DATE": "Date du document",
+            "CATEGORY": "Catégorie",
+            "DOCUMENT_TITLE": "Titre du document",
+            "DOCUMENT_DESCRIPTION": "Description"
+        }
     },
     "SYNCHRONIZATION": {
         "PNC_SAVED_OFFLINE": "Le PNC {{ matricule }} a été synchronisé",

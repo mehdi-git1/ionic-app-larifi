@@ -1,0 +1,10 @@
+<ion-header>
+    <ion-navbar>
+        <page-header [showSettingsIcon]="true" [pnc]="pnc">
+            {{ 'HR_REPORT.EDIT.DOCUMENT_CREATION' | translate }}
+        </page-header>
+    </ion-navbar>
+</ion-header>
+<ion-content padding no-bounce>
+    <hr-document #hrDocumentCreate [mode]="HrDocumentModeEnum.CREATION"></hr-document>
+</ion-content>

@@ -1,25 +1,34 @@
-import { LogbookPage } from './../logbook/pages/logbook/logbook.page';
-import { HrReportPage } from './pages/hr-report/hr-report.page';
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
-import { SharedModule } from '../../shared/shared.module';
+
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
+
 import { ComponentsModule } from '../../shared/components/components.module';
+import { SharedModule } from '../../shared/shared.module';
+import { HrDocumentComponent } from './components/hr-document/hr-document.component';
+import { HrDocumentCreatePage } from './pages/hr-document-create/hr-document-create.page';
+import { HrDocumentsPage } from './pages/hr-documents/hr-documents.page';
 
 @NgModule({
   declarations: [
-    HrReportPage,
+    HrDocumentsPage,
+    HrDocumentCreatePage,
+    HrDocumentComponent
 
   ],
   imports: [
-    [IonicPageModule.forChild(HrReportPage)],
+    [IonicPageModule.forChild(HrDocumentsPage)],
     SharedModule,
     ComponentsModule
   ],
   entryComponents: [
-    HrReportPage
+    HrDocumentsPage,
+    HrDocumentCreatePage,
+    HrDocumentComponent
   ],
   exports: [
-    HrReportPage
+    HrDocumentsPage,
+    HrDocumentCreatePage,
+    HrDocumentComponent
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA

@@ -1,4 +1,3 @@
-import { HrReportPage } from './../../../modules/hr-report/pages/hr-report/hr-report.page';
 import { Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -23,6 +22,7 @@ import {
 import {
     HelpAssetListPage
 } from '../../../modules/help-asset/pages/help-asset-list/help-asset-list.page';
+import { HrDocumentsPage } from '../../../modules/hr-report/pages/hr-documents/hr-documents.page';
 import { LogbookPage } from '../../../modules/logbook/pages/logbook/logbook.page';
 import {
     ProfessionalLevelPage
@@ -74,7 +74,7 @@ export class TabHeaderService {
                 {
                     id: TabHeaderEnum.HR_REPORT_PAGE,
                     label: this.translateService.instant('GLOBAL.HR_REPORT'),
-                    component: HrReportPage,
+                    component: HrDocumentsPage,
                     available: true
                 },
                 {
