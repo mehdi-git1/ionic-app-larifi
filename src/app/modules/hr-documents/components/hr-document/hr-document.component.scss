@@ -6,7 +6,18 @@ hr-document{
         display: flex;
     }
 
-
+    .document-date {
+        display: flex;
+        flex-direction: row;
+        flex-grow: 4;
+        ion-label {
+            flex: initial;
+            font-size: initial;
+        }
+        edospnc-datetime {
+            width: 135px;
+        }
+    }
 
     .category {
         width: 255px;

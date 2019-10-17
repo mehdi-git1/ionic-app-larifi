@@ -66,8 +66,8 @@
         "MY_LOGBOOK": "Mon journal de bord",
         "PROFESSIONAL_INTERVIEWS_ARCHIVES": "Archives de bilans professionnels / EPP",
         "MY_PROFESSIONAL_INTERVIEWS_ARCHIVES": "Mes archives de bilans professionnels / EPP",
-        "HR_REPORT": "Dossier RH",
-        "MY_HR_REPORT": "Mon Dossier RH",
+        "HR_DOCUMENTS": "Documents RH",
+        "MY_HR_DOCUMENTS": "Mes documents RH",
         "UNKNOWN_ERROR": "Suite à un dysfonctionnement technique, l'opération a échoué. Nous vous invitons à réessayer dans quelques minutes. Si le problème persiste, veuillez contacter votre support.",
         "MESSAGES": {
             "ERROR": {
@@ -822,7 +822,7 @@
             "DELETE_ALL": "Supprimer tout"
         }
     },
-    "HR_REPORT": {
+    "HR_DOCUMENTS": {
         "BUTTONS": {
             "CREATE_NEW_DOCUMENT": "Nouveau document",
             "ADD_LOG": "Nouvel évènement",
@@ -837,7 +837,8 @@
             "DOCUMENT_DATE": "Date du document",
             "CATEGORY": "Catégorie",
             "DOCUMENT_TITLE": "Titre du document",
-            "DOCUMENT_DESCRIPTION": "Description"
+            "DOCUMENT_DESCRIPTION": "Description",
+            "ATTACHMENT_FILES": "Importer des pièces jointes"
         }
     },
     "SYNCHRONIZATION": {

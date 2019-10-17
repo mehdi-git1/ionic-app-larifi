@@ -8,7 +8,7 @@ import { SessionService } from '../session/session.service';
 import { TransformerService } from '../transformer/transformer.service';
 
 @Injectable()
-export class OnlineHrReportService {
+export class OnlineHrDocumentsService {
 
     constructor(
         public restService: RestService,

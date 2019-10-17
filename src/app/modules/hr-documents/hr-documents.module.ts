@@ -36,4 +36,4 @@ import { HrDocumentsPage } from './pages/hr-documents/hr-documents.page';
   providers: []
 })
 
-export class HrReportModule { }
+export class HrDocumentsModule { }

@@ -11,7 +11,9 @@ import { HrDocumentCategory } from '../../../../core/models/hr-document/hr-docum
 import { HrDocumentModel } from '../../../../core/models/hr-document/hr-document.model';
 import { PncLightModel } from '../../../../core/models/pnc-light.model';
 import { PncModel } from '../../../../core/models/pnc.model';
-import { OnlineHrReportService } from '../../../../core/services/hr-report/hr-report.service';
+import {
+    OnlineHrDocumentsService
+} from '../../../../core/services/hr-documents/hr-documents.service';
 import { SecurityService } from '../../../../core/services/security/security.service';
 import { SessionService } from '../../../../core/services/session/session.service';
 import { ToastService } from '../../../../core/services/toast/toast.service';
@@ -28,7 +30,6 @@ export class HrDocumentComponent implements OnInit {
 
     @Input() mode: HrDocumentModeEnum;
 
-    documentDateString: string;
     pnc: PncModel;
     loading: Loading;
 
@@ -45,13 +46,14 @@ export class HrDocumentComponent implements OnInit {
     constructor(private securityService: SecurityService,
         private translateService: TranslateService,
         private sessionService: SessionService,
-        private onlineHrReportService: OnlineHrReportService,
+        private onlineHrDocumentsService: OnlineHrDocumentsService,
         private navCtrl: NavController,
         private toastService: ToastService,
         private loadingCtrl: LoadingController,
         private dateTransformer: DateTransform,
         private alertCtrl: AlertController,
         private formBuilder: FormBuilder) {
+
         this.initForm();
     }
 
@@ -80,11 +82,8 @@ export class HrDocumentComponent implements OnInit {
             this.hrDocument = new HrDocumentModel();
             this.hrDocument.pnc = new PncLightModel();
             this.hrDocument.pnc.matricule = this.pnc.matricule;
-            const documentDate: Date = new Date();
-            this.hrDocument.documentDate = this.dateTransformer.transformDateToIso8601Format(documentDate);
         }
         this.originHrDocument = _.cloneDeep(this.hrDocument);
-        this.documentDateString = this.hrDocument ? this.hrDocument.documentDate : this.dateTransformer.transformDateToIso8601Format(new Date());
     }
 
     /**
@@ -92,11 +91,15 @@ export class HrDocumentComponent implements OnInit {
     */
     initForm() {
         if (this.sessionService.getActiveUser().appInitData !== undefined) {
-            this.hrDocumentCategories = this.sessionService.getActiveUser().appInitData.hrDocumentCategories;
+            //this.hrDocumentCategories = this.sessionService.getActiveUser().appInitData.hrDocumentCategories;
+            this.hrDocumentCategories = new Array();
+            const category = new HrDocumentCategory();
+            category.id = 'Informations';
+            category.label = 'Informations';
+            this.hrDocumentCategories.push(category);
         }
 
         this.hrDocumentForm = this.formBuilder.group({
-            documentDate: [''],
             category: ['', Validators.required],
             title: ['', [Validators.maxLength(100), Validators.required]],
             content: ['', Validators.maxLength(4000)],
@@ -152,8 +155,7 @@ export class HrDocumentComponent implements OnInit {
     * @return true si il n'y a pas eu de modifications
     */
     formHasBeenModified() {
-        return this.hrDocument.documentDate != this.originHrDocument.documentDate
-            || Utils.getHashCode(this.originHrDocument) !== Utils.getHashCode(this.hrDocument);
+        return Utils.getHashCode(this.originHrDocument) !== Utils.getHashCode(this.hrDocument);
     }
 
     /**
@@ -169,16 +171,15 @@ export class HrDocumentComponent implements OnInit {
      */
     saveHrDocument() {
         return new Promise((resolve, reject) => {
-            const hrDocumentToSave: HrDocumentModel = this.prepareHrDocumentBeforeSubmit(this.hrDocument);
             this.loading = this.loadingCtrl.create();
             this.loading.present();
 
-            this.onlineHrReportService.createOrUpdate(hrDocumentToSave)
+            this.onlineHrDocumentsService.createOrUpdate(this.hrDocument)
                 .then(savedHrDocument => {
                     this.originHrDocument = _.cloneDeep(savedHrDocument);
                     this.hrDocument = savedHrDocument;
                     if (this.mode === HrDocumentModeEnum.CREATION) {
-                        this.toastService.success(this.translateService.instant('HR_REPORT.EDIT.HR_DOCUMENT_SAVED'));
+                        this.toastService.success(this.translateService.instant('HR_DOCUMENTS.EDIT.HR_DOCUMENT_SAVED'));
                         this.navCtrl.pop();
                     }
                     this.loading.dismiss();
@@ -187,22 +188,6 @@ export class HrDocumentComponent implements OnInit {
                 });
 
         });
-    }
-
-
-    /**
-     * Prépare document RH avant de l'envoyer au back :
-     * Transforme les dates au format iso
-     * ou supprime l'entrée de l'objet si une ou plusieurs dates sont nulles
-     *
-     * @param hrDocumentToSave Le document RH à enregistrer
-     * @return Le document RH à enregistrer avec la date de rencontre transformée
-     */
-    prepareHrDocumentBeforeSubmit(hrDocumentToSave: HrDocumentModel): HrDocumentModel {
-        if (typeof this.hrDocument.documentDate !== 'undefined' && this.hrDocument.documentDate !== null) {
-            hrDocumentToSave.documentDate = this.dateTransformer.transformDateStringToIso8601Format(this.hrDocument.documentDate);
-        }
-        return hrDocumentToSave;
     }
 
     /**

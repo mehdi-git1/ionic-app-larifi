@@ -51,6 +51,8 @@ export class LogbookEventComponent implements OnInit {
 
     logbookEventForm: FormGroup;
 
+    eventDateTimeOptions: any;
+
     constructor(private securityService: SecurityService,
         private translateService: TranslateService,
         private sessionService: SessionService,
@@ -64,6 +66,14 @@ export class LogbookEventComponent implements OnInit {
         private datePipe: DatePipe,
         private formBuilder: FormBuilder) {
         this.initForm();
+
+        // Options du datepicker
+        this.eventDateTimeOptions = {
+            buttons: [{
+                text: this.translateService.instant('GLOBAL.DATEPICKER.CLEAR'),
+                handler: () => this.logbookEvent.eventDate = null
+            }]
+        };
     }
 
     ngOnInit() {

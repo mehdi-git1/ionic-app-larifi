@@ -7,7 +7,6 @@ export class HrDocumentModel extends EDossierPncObjectModel {
 
     pnc: PncLightModel;
     redactor: PncLightModel;
-    documentDate: string;
     creationDate: Date;
     lastUpdateDate: Date;
     lastUpdateAuthor: PncLightModel;
