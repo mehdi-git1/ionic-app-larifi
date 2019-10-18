@@ -69,7 +69,8 @@ export class UrlConfiguration {
     'getLogbookEvents': `${urlGroupEnum.LOGBOOK_EVENT}/pnc/{matricule}`,
     'deleteLogbookEventById': `${urlGroupEnum.LOGBOOK_EVENT}/{id}`,
     'fixCongratulationLetterRecipient': `${urlGroupEnum.CONGRATULATION_LETTER}/recipients/{id}`,
-    'getDocumentById': `${urlGroupEnum.DOCUMENT}/{documentId}`
+    'getDocumentById': `${urlGroupEnum.DOCUMENT}/{documentId}`,
+    'hrDocuments': urlGroupEnum.HR_DOCUMENT,
   };
 
   /**

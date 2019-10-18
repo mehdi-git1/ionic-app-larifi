@@ -22,5 +22,6 @@ export enum urlGroupEnum {
   'CONGRATULATION_LETTER' = 'congratulation_letters',
   'APP_VERSION' = 'app_versions',
   'LOGBOOK_EVENT' = 'logbook_events',
-  'DOCUMENT' = 'documents'
+  'DOCUMENT' = 'documents',
+  'HR_DOCUMENT' = 'hr_documents'
 }

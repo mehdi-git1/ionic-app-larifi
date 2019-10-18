@@ -11,13 +11,13 @@ import { HrDocumentCategory } from '../../../../core/models/hr-document/hr-docum
 import { HrDocumentModel } from '../../../../core/models/hr-document/hr-document.model';
 import { PncLightModel } from '../../../../core/models/pnc-light.model';
 import { PncModel } from '../../../../core/models/pnc.model';
+import { ConnectivityService } from '../../../../core/services/connectivity/connectivity.service';
 import {
     OnlineHrDocumentsService
 } from '../../../../core/services/hr-documents/hr-documents.service';
 import { SecurityService } from '../../../../core/services/security/security.service';
 import { SessionService } from '../../../../core/services/session/session.service';
 import { ToastService } from '../../../../core/services/toast/toast.service';
-import { DateTransform } from '../../../../shared/utils/date-transform';
 import { Utils } from '../../../../shared/utils/utils';
 
 @Component({
@@ -50,7 +50,7 @@ export class HrDocumentComponent implements OnInit {
         private navCtrl: NavController,
         private toastService: ToastService,
         private loadingCtrl: LoadingController,
-        private dateTransformer: DateTransform,
+        private connectivityService: ConnectivityService,
         private alertCtrl: AlertController,
         private formBuilder: FormBuilder) {
 
@@ -196,5 +196,14 @@ export class HrDocumentComponent implements OnInit {
      */
     isManager(): boolean {
         return this.securityService.isManager();
+    }
+
+    /**
+     * Vérifie si le formulaire est valide
+     */
+    isFormValid(): boolean {
+        return this.connectivityService.isConnected() &&
+            this.hrDocumentForm.valid
+            && (this.hrDocument.attachmentFiles && this.hrDocument.attachmentFiles.length > 0);
     }
 }

@@ -33,9 +33,9 @@
                     </text-editor>
                 </ion-col>
             </ion-row>
-            <ion-row>
+            <ion-row class="attachment-row">
                 <ion-col col-12>
-                    <ion-label stacked class="required">{{ 'HR_DOCUMENTS.EDIT.ATTACHMENT_FILES' | translate }}
+                    <ion-label class="required">{{ 'HR_DOCUMENTS.EDIT.ATTACHMENT_FILES' | translate }}
                     </ion-label>
                     <document-manager [documents]="hrDocument.attachmentFiles" [readonly]="false">
                     </document-manager>
@@ -50,7 +50,7 @@
             </button>
             <!-- Bouton enregistrer -->
             <button ion-button *ngIf="mode === HrDocumentModeEnum.CREATION" color="primary"
-                (click)="confirmSavehrDocument()" [disabled]="hrDocumentForm.invalid">
+                (click)="confirmSavehrDocument()" [disabled]="!isFormValid()">
                 {{ 'HR_DOCUMENTS.BUTTONS.SAVE' | translate }}
             </button>
         </div>

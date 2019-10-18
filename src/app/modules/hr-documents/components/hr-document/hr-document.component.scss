@@ -5,20 +5,6 @@ hr-document{
     ion-grid {
         display: flex;
     }
-
-    .document-date {
-        display: flex;
-        flex-direction: row;
-        flex-grow: 4;
-        ion-label {
-            flex: initial;
-            font-size: initial;
-        }
-        edospnc-datetime {
-            width: 135px;
-        }
-    }
-
     .category {
         width: 255px;
 
@@ -43,16 +29,11 @@ hr-document{
         text-align: right;
     }
 
-    .description-row {
-
-        display: inline;
+    .attachment-row{
+        ion-label{
+            font-size: 1.6rem;
+        }
     }
-}
 
-.popover-md .popover-content {
-    width: 275px;
-}
 
-.popover-ios .popover-content {
-    width: 275px;
 }
