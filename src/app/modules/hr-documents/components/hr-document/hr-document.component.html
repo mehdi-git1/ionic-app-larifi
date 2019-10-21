@@ -49,8 +49,8 @@
                 {{ 'HR_DOCUMENTS.BUTTONS.CANCEL' | translate }}
             </button>
             <!-- Bouton enregistrer -->
-            <button ion-button *ngIf="mode === HrDocumentModeEnum.CREATION" color="primary"
-                (click)="confirmSavehrDocument()" [disabled]="!isFormValid()">
+            <button ion-button *ngIf="mode === HrDocumentModeEnum.CREATION" color="primary" (click)="saveHrDocument()"
+                [disabled]="!isFormValid()">
                 {{ 'HR_DOCUMENTS.BUTTONS.SAVE' | translate }}
             </button>
         </div>

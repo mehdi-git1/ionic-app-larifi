@@ -91,12 +91,7 @@ export class HrDocumentComponent implements OnInit {
     */
     initForm() {
         if (this.sessionService.getActiveUser().appInitData !== undefined) {
-            //this.hrDocumentCategories = this.sessionService.getActiveUser().appInitData.hrDocumentCategories;
-            this.hrDocumentCategories = new Array();
-            const category = new HrDocumentCategory();
-            category.id = 'Informations';
-            category.label = 'Informations';
-            this.hrDocumentCategories.push(category);
+            this.hrDocumentCategories = this.sessionService.getActiveUser().appInitData.hrDocumentCategories;
         }
 
         this.hrDocumentForm = this.formBuilder.group({

@@ -838,7 +838,8 @@
             "CATEGORY": "Catégorie",
             "DOCUMENT_TITLE": "Titre du document",
             "DOCUMENT_DESCRIPTION": "Description",
-            "ATTACHMENT_FILES": "Importer des pièces jointes"
+            "ATTACHMENT_FILES": "Importer des pièces jointes",
+            "HR_DOCUMENT_SAVED": "Document enregistré"
         }
     },
     "SYNCHRONIZATION": {
