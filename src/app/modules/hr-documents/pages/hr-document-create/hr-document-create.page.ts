@@ -1,6 +1,8 @@
 
 
-import { Component } from '@angular/core';
+import { NavParams } from 'ionic-angular';
+
+import { Component, OnInit } from '@angular/core';
 
 import { HrDocumentModeEnum } from '../../../../core/enums/hr-document/hr-document-mode.enum';
 import { PncModel } from '../../../../core/models/pnc.model';
@@ -9,13 +11,18 @@ import { PncModel } from '../../../../core/models/pnc.model';
     selector: 'hr-document-create',
     templateUrl: 'hr-document-create.page.html',
 })
-export class HrDocumentCreatePage {
+export class HrDocumentCreatePage implements OnInit {
 
     pnc: PncModel;
+    mode: HrDocumentModeEnum;
 
     HrDocumentModeEnum = HrDocumentModeEnum;
 
-    constructor() {
+    constructor(private navParams: NavParams) {
+    }
+
+    ngOnInit() {
+        this.mode = this.navParams.get('mode');
     }
 
     loadingIsOver() {

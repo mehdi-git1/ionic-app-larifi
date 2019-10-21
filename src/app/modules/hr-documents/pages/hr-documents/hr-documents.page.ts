@@ -2,6 +2,7 @@ import { NavController } from 'ionic-angular';
 
 import { Component } from '@angular/core';
 
+import { HrDocumentModeEnum } from '../../../../core/enums/hr-document/hr-document-mode.enum';
 import { TabHeaderEnum } from '../../../../core/enums/tab-header.enum';
 import { PncModel } from '../../../../core/models/pnc.model';
 import { SessionService } from '../../../../core/services/session/session.service';
@@ -30,7 +31,7 @@ export class HrDocumentsPage {
      * Dirige vers la page de création d'un nouvel objectif
      */
     createNewDocument() {
-        this.navCtrl.push(HrDocumentCreatePage);
+        this.navCtrl.push(HrDocumentCreatePage, { mode: HrDocumentModeEnum.CREATION });
     }
 
     canCreateDocument() {

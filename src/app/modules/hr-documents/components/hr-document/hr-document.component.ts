@@ -87,8 +87,8 @@ export class HrDocumentComponent implements OnInit {
     }
 
     /**
-    * Initialise le formulaire et la liste déroulante des catégories depuis les paramètres
-    */
+     * Initialise le formulaire et la liste déroulante des catégories depuis les paramètres
+     */
     initForm() {
         if (this.sessionService.getActiveUser().appInitData !== undefined) {
             this.hrDocumentCategories = this.sessionService.getActiveUser().appInitData.hrDocumentCategories;
@@ -103,6 +103,7 @@ export class HrDocumentComponent implements OnInit {
 
     /**
      *  Compare deux categories et renvois true si elles sont égales
+     *
      * @param category1 premiere categorie à comparér
      * @param category2 Deuxieme categorie à comparér
      */
@@ -114,7 +115,7 @@ export class HrDocumentComponent implements OnInit {
     }
 
     /**
-     * Annule la création de la lettre
+     * Annule la création du document RH
      */
     cancelCreation() {
         this.navCtrl.pop();
@@ -146,23 +147,15 @@ export class HrDocumentComponent implements OnInit {
 
 
     /**
-    * Vérifie si le formulaire a été modifié sans être enregistré
-    * @return true si il n'y a pas eu de modifications
-    */
+     * Vérifie si le formulaire a été modifié sans être enregistré
+     * @return true si il n'y a pas eu de modifications
+     */
     formHasBeenModified() {
         return Utils.getHashCode(this.originHrDocument) !== Utils.getHashCode(this.hrDocument);
     }
 
     /**
-     * Vérifie que le chargement est terminé
-     * @return true si c'est le cas, false sinon
-     */
-    loadingIsOver(): boolean {
-        return this.hrDocument !== undefined && this.hrDocument !== null;
-    }
-
-    /**
-     * Enregistre l'évènement du journal de bord
+     * Enregistre le document RH
      */
     saveHrDocument() {
         return new Promise((resolve, reject) => {
@@ -183,14 +176,6 @@ export class HrDocumentComponent implements OnInit {
                 });
 
         });
-    }
-
-    /**
-     * Vérifie si le PNC est manager
-     * @return vrai si le PNC est manager, faux sinon
-     */
-    isManager(): boolean {
-        return this.securityService.isManager();
     }
 
     /**
