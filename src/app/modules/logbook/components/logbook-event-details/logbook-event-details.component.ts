@@ -21,6 +21,7 @@ import { SecurityService } from '../../../../core/services/security/security.ser
 import { SessionService } from '../../../../core/services/session/session.service';
 import { ToastService } from '../../../../core/services/toast/toast.service';
 import { DateTransform } from '../../../../shared/utils/date-transform';
+import { DateUtils } from '../../../../shared/utils/date-utils';
 
 @Component({
     selector: 'logbook-event-details',
@@ -175,7 +176,7 @@ export class LogbookEventDetailsComponent implements OnInit {
         if (hiddenDuration > upToFifteenDays) {
             return null;
         }
-        return this.datePipe.transform(broadcastDate.add(upToFifteenDays), 'dd/MM/yyyy à HH:mm');
+        return this.datePipe.transform(DateUtils.addDays(this.logbookEvent.creationDate, 15), 'dd/MM/yyyy à HH:mm');
     }
 
     /**
@@ -193,7 +194,7 @@ export class LogbookEventDetailsComponent implements OnInit {
     confirmHideOrDisplayEvent(visibility: EventCcoVisibilityEnum) {
         if ((visibility === EventCcoVisibilityEnum.HIDDEN && !this.logbookEvent.hidden)
             || (visibility === EventCcoVisibilityEnum.DISPLAYED && !this.logbookEvent.displayed)
-            || (visibility === EventCcoVisibilityEnum.WILL_BE_DISPLAYED_ON && !(this.logbookEvent.displayed || !this.logbookEvent.hidden))) {
+            || (visibility === EventCcoVisibilityEnum.WILL_BE_DISPLAYED_ON && (this.logbookEvent.displayed || this.logbookEvent.hidden))) {
             let title: string;
             let message: string;
             if (visibility === EventCcoVisibilityEnum.HIDDEN) {
