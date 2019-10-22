@@ -110,28 +110,22 @@
                             <strong
                                 [hidden]="verbatimCanBeEdited()">&nbsp;({{ 'CONGRATULATION_LETTER_CREATE.VERBATIM_EDITABLE_BY_REDACTOR_ONLY' | translate }})</strong>
                         </ion-label>
-                        <<<<<<< HEAD <ion-textarea [(ngModel)]="congratulationLetter.verbatim"
-                            formControlName="verbatimControl" autocorrect="on" [readonly]="!verbatimCanBeEdited()"
-                            [class.readonly]="!verbatimCanBeEdited()">
-                            </ion-textarea>
-                            =======
-                            <text-editor name="letterVerbatim" [mode]="TextEditorModeEnum.FULL"
-                                [ngModelOptions]="{standalone: true}" [(ngModel)]="congratulationLetter.verbatim"
-                                [parentForm]="congratulationLetterForm" [controlForm]="'verbatimControl'"
-                                formControlName="verbatimControl">
-                            </text-editor>
-                            >>>>>>> refs/remotes/origin/release/1.12.0
-                            <div class="information-message align-left" *ngIf="congratulationLetter.creationAuthor">
-                                {{ 'CONGRATULATION_LETTER_CREATE.CREATED_BY' | translate }} <span
-                                    class="lastname">{{congratulationLetter.creationAuthor.lastName}}</span> <span
-                                    class="firstname">{{congratulationLetter.creationAuthor.firstName}}</span>
-                            </div>
-                            <div class="information-message align-left" *ngIf="congratulationLetter.lastUpdateAuthor">
-                                {{ 'CONGRATULATION_LETTER_CREATE.UPDATED_BY' | translate }} <span
-                                    class="lastname">{{congratulationLetter.lastUpdateAuthor.lastName}}</span> <span
-                                    class="firstname">{{congratulationLetter.lastUpdateAuthor.firstName}}</span>
-                                {{ 'CONGRATULATION_LETTER_CREATE.DATE_LABEL' | translate:{date:getLastUpdateDate()} }}
-                            </div>
+                        <text-editor name="letterVerbatim" [mode]="TextEditorModeEnum.FULL"
+                            [ngModelOptions]="{standalone: true}" [(ngModel)]="congratulationLetter.verbatim"
+                            [parentForm]="congratulationLetterForm" [controlForm]="'verbatimControl'"
+                            formControlName="verbatimControl">
+                        </text-editor>
+                        <div class="information-message align-left" *ngIf="congratulationLetter.creationAuthor">
+                            {{ 'CONGRATULATION_LETTER_CREATE.CREATED_BY' | translate }} <span
+                                class="lastname">{{congratulationLetter.creationAuthor.lastName}}</span> <span
+                                class="firstname">{{congratulationLetter.creationAuthor.firstName}}</span>
+                        </div>
+                        <div class="information-message align-left" *ngIf="congratulationLetter.lastUpdateAuthor">
+                            {{ 'CONGRATULATION_LETTER_CREATE.UPDATED_BY' | translate }} <span
+                                class="lastname">{{congratulationLetter.lastUpdateAuthor.lastName}}</span> <span
+                                class="firstname">{{congratulationLetter.lastUpdateAuthor.firstName}}</span>
+                            {{ 'CONGRATULATION_LETTER_CREATE.DATE_LABEL' | translate:{date:getLastUpdateDate()} }}
+                        </div>
                     </ion-col>
                 </ion-row>
                 <ion-row>
