@@ -13,7 +13,7 @@
 <ion-content padding no-bounce>
     <edossier-spinner *ngIf="!pageLoadingIsOver(); else pageBlock"></edossier-spinner>
     <ng-template #pageBlock>
-        <form novalidate [formGroup]="creationForm">
+        <form novalidate [formGroup]="congratulationLetterForm">
             <ion-grid>
                 <ion-row>
                     <ion-col col-lg-3 col-md-6 class="flex align-center">
@@ -110,9 +110,11 @@
                             <strong
                                 [hidden]="verbatimCanBeEdited()">&nbsp;({{ 'CONGRATULATION_LETTER_CREATE.VERBATIM_EDITABLE_BY_REDACTOR_ONLY' | translate }})</strong>
                         </ion-label>
-                        <ion-textarea [(ngModel)]="congratulationLetter.verbatim" formControlName="verbatimControl"
-                            autocorrect="on" [readonly]="!verbatimCanBeEdited()"
-                            [class.readonly]="!verbatimCanBeEdited()"></ion-textarea>
+                        <text-editor name="letterVerbatim" [mode]="TextEditorModeEnum.FULL"
+                            [ngModelOptions]="{standalone: true}" [(ngModel)]="congratulationLetter.verbatim"
+                            [parentForm]="congratulationLetterForm" [controlForm]="'verbatimControl'"
+                            formControlName="verbatimControl">
+                        </text-editor>
                         <div class="information-message align-left" *ngIf="congratulationLetter.creationAuthor">
                             {{ 'CONGRATULATION_LETTER_CREATE.CREATED_BY' | translate }} <span
                                 class="lastname">{{congratulationLetter.creationAuthor.lastName}}</span> <span
