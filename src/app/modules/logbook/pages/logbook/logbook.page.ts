@@ -91,7 +91,6 @@ export class LogbookPage {
 
     /**
      * Gère la réception des évènements du journal de bord du Pnc
-     * @param logbookEvents evènements du journal de bord
      * @param matricule le matricule du Pnc
      */
     private getLogbookEvents(matricule: string) {

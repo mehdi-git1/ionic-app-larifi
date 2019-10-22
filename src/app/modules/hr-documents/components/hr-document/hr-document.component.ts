@@ -13,8 +13,8 @@ import { PncLightModel } from '../../../../core/models/pnc-light.model';
 import { PncModel } from '../../../../core/models/pnc.model';
 import { ConnectivityService } from '../../../../core/services/connectivity/connectivity.service';
 import {
-    OnlineHrDocumentsService
-} from '../../../../core/services/hr-documents/hr-documents.service';
+    OnlineHrDocumentService
+} from '../../../../core/services/hr-documents/online-hr-document.service';
 import { SecurityService } from '../../../../core/services/security/security.service';
 import { SessionService } from '../../../../core/services/session/session.service';
 import { ToastService } from '../../../../core/services/toast/toast.service';
@@ -46,7 +46,7 @@ export class HrDocumentComponent implements OnInit {
     constructor(private securityService: SecurityService,
         private translateService: TranslateService,
         private sessionService: SessionService,
-        private onlineHrDocumentsService: OnlineHrDocumentsService,
+        private onlineHrDocumentsService: OnlineHrDocumentService,
         private navCtrl: NavController,
         private toastService: ToastService,
         private loadingCtrl: LoadingController,

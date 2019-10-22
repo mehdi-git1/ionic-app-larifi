@@ -8,7 +8,7 @@ import { SessionService } from '../session/session.service';
 import { TransformerService } from '../transformer/transformer.service';
 
 @Injectable()
-export class OnlineHrDocumentsService {
+export class OnlineHrDocumentService {
 
     constructor(
         public restService: RestService,
@@ -35,5 +35,14 @@ export class OnlineHrDocumentsService {
             hrDocument.lastUpdateDate = new Date();
         }
         return this.restService.post(this.config.getBackEndUrl('hrDocuments'), hrDocument);
+    }
+
+    /**
+     * Récupère les documents RH d'un pnc
+     * @param matricule le matricule du PNC dont on souhaite récupérer les documents RH
+     * @return la liste des documents RH
+     */
+    getHrDocuments(matricule: string): Promise<HrDocumentModel[]> {
+        return this.restService.get(this.config.getBackEndUrl('getHrDocuments', [matricule]));
     }
 }

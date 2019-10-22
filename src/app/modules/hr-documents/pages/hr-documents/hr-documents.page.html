@@ -15,5 +15,52 @@
                 {{ 'HR_DOCUMENTS.BUTTONS.CREATE_NEW_DOCUMENT' | translate }}
             </button>
         </div>
+        <span *ngIf="hrDocuments && hrDocuments.length > 0; else noHrDocumentsBlock">
+            <ion-grid class="logbook-event-grid selectable" [sortableGrid]="hrDocuments">
+                <ion-row class="headers" align-items-center>
+                    <ion-col class="arrow"></ion-col>
+                    <ion-col class="column-date" columnName="creationDate" sort>
+                        {{ 'HR_DOCUMENT.CREATION_DATE' | translate }}
+                        <ion-icon id="sortIcon" class="sort-icon" color="black" ios="md-arrow-dropdown"
+                            md="md-arrow-dropdown">
+                        </ion-icon>
+                    </ion-col>
+                    <ion-col class="column-category" columnName="category" sort>{{ 'HR_DOCUMENT.CATEGORY' | translate }}
+                        <ion-icon id="sortIcon" class="sort-icon" color="black" ios="md-arrow-dropdown"
+                            md="md-arrow-dropdown">
+                        </ion-icon>
+                    </ion-col>
+                    <ion-col class="column-specific"></ion-col>
+                    <ion-col class="column-title" columnName="event">
+                        {{ 'LOGBOOK.EVENT' | translate }}
+                    </ion-col>
+                    <ion-col class="column-redactor" columnName="author">
+                        {{ 'LOGBOOK.REDACTOR' | translate }}
+                    </ion-col>
+                </ion-row>
+                <ion-row class="hrDocumentRow" *ngFor="let hrDocument of hrDocuments">
+                    <ion-col class="column-date">{{hrDocument.creationDate | date:'dd/MM/yyyy' }}
+                    </ion-col>
+                    <ion-col class="column-category">
+                        <div class="category-label">{{hrDocument.category?.label}}</div>
+                    </ion-col>
+                    <ion-col class="column-specific">
+                        <ion-icon *ngIf="hrDocumentHasAttachments(hrDocument)" name="attach">
+                        </ion-icon>
+                    </ion-col>
+                    <ion-col class="column-title">
+                        <span class="truncate-text">{{hrDocument.title}}</span>
+                    </ion-col>
+                    <ion-col class="column-redactor">
+                        <span class="truncate-text">{{hrDocument.redactor?.lastName}}
+                            {{hrDocument.redactor?.firstName | titlecase}}
+                        </span>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+        </span>
+        <ng-template #noHrDocumentsBlock>
+            <no-data></no-data>
+        </ng-template>
     </ng-template>
 </ion-content>

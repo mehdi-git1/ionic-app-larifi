@@ -71,6 +71,7 @@ export class UrlConfiguration {
     'fixCongratulationLetterRecipient': `${urlGroupEnum.CONGRATULATION_LETTER}/recipients/{id}`,
     'getDocumentById': `${urlGroupEnum.DOCUMENT}/{documentId}`,
     'hrDocuments': urlGroupEnum.HR_DOCUMENT,
+    'getHrDocuments': `${urlGroupEnum.HR_DOCUMENT}/pnc/{matricule}`,
   };
 
   /**

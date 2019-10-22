@@ -34,7 +34,7 @@ import { OnlineEObservationService } from './eobservation/online-eobservation.se
 import { FormsEObservationService } from './forms/forms-e-observation.service';
 import { GenderService } from './gender/gender.service';
 import { HelpAssetService } from './help-asset/help-asset.service';
-import { OnlineHrDocumentsService } from './hr-documents/hr-documents.service';
+import { OnlineHrDocumentService } from './hr-documents/online-hr-document.service';
 import { LegTransformerService } from './leg/leg-transformer.service';
 import { LegService } from './leg/leg.service';
 import { OfflineLegService } from './leg/offline-leg.service';
@@ -219,7 +219,7 @@ import { WaypointService } from './waypoint/waypoint.service';
         PdfGeneratorService,
         SortService,
         DocumentService,
-        OnlineHrDocumentsService
+        OnlineHrDocumentService
     ]
 })
 export class ServiceModule { }
