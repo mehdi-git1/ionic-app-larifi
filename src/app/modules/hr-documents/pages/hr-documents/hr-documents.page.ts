@@ -9,6 +9,7 @@ import { PncModel } from '../../../../core/models/pnc.model';
 import {
     OnlineHrDocumentService
 } from '../../../../core/services/hr-documents/online-hr-document.service';
+import { SecurityService } from '../../../../core/services/security/security.service';
 import { SessionService } from '../../../../core/services/session/session.service';
 import { HrDocumentCreatePage } from '../hr-document-create/hr-document-create.page';
 
@@ -20,9 +21,15 @@ export class HrDocumentsPage {
 
     pnc: PncModel;
     hrDocuments: HrDocumentModel[];
+    totalHrDocuments: number;
+    page: number;
+    sizeOfThePage: number;
 
     TabHeaderEnum = TabHeaderEnum;
-    constructor(private sessionService: SessionService, private navCtrl: NavController, private onlineHrDocumentService: OnlineHrDocumentService) {
+    constructor(private sessionService: SessionService, private navCtrl: NavController, private onlineHrDocumentService: OnlineHrDocumentService,
+        private securityService: SecurityService) {
+        this.sizeOfThePage = 0;
+        this.page = 0;
     }
 
     ionViewWillEnter() {
@@ -42,11 +49,11 @@ export class HrDocumentsPage {
     }
 
     canCreateDocument() {
-        return true;
+        return this.securityService.isManager();
     }
 
     loadingIsOver() {
-        return true;
+        return this.hrDocuments && this.hrDocuments != undefined;
     }
 
     /**
@@ -54,8 +61,8 @@ export class HrDocumentsPage {
      * @param matricule le matricule du Pnc
      */
     private getHrDocuments(matricule: string) {
-        this.onlineHrDocumentService.getHrDocuments(matricule).then(hrDocuments => {
-            this.hrDocuments = hrDocuments;
+        this.onlineHrDocumentService.getHrDocuments(matricule, this.page, this.sizeOfThePage).then(pagedHrDocument => {
+            this.hrDocuments = pagedHrDocument.content;
         }, error => {
             this.hrDocuments = new Array<HrDocumentModel>();
         });
