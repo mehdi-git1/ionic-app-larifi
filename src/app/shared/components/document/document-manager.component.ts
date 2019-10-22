@@ -1,12 +1,10 @@
-import { AlertController, PopoverController, ToastController } from 'ionic-angular';
+import { AlertController, PopoverController } from 'ionic-angular';
 
 import { Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 
 import { FileService } from '../../../core/file/file.service';
-import {
-    DocumentModel, DocumentTypeEnum, DocumentTypeIconFileName
-} from '../../../core/models/document.model';
+import { DocumentModel, DocumentTypeIconFileName } from '../../../core/models/document.model';
 import { ConnectivityService } from '../../../core/services/connectivity/connectivity.service';
 import { DeviceService } from '../../../core/services/device/device.service';
 import { DocumentService } from '../../../core/services/document/document.service';
@@ -38,11 +36,11 @@ export class DocumentManagerComponent {
 
   @Input() set documents(documents: Array<DocumentModel>) {
     for (const document of documents) {
-      this.filesSize += document.size;
+      this.filesSize += document.fileSize;
     }
     this._documents = documents;
   }
-  get documents(): Array<DocumentModel>{
+  get documents(): Array<DocumentModel> {
     return this._documents;
   }
   constructor(public popoverCtrl: PopoverController,
@@ -54,11 +52,11 @@ export class DocumentManagerComponent {
     private translateService: TranslateService,
     private toastService: ToastService,
     private sessionService: SessionService) {
-      this.filesMaxSize = this.sessionService.getActiveUser().appInitData.attachmentsMaxSize;
+    this.filesMaxSize = this.sessionService.getActiveUser().appInitData.attachmentsMaxSize;
   }
 
   getFilesMaxSizeInMo() {
-    return Math.round( this.filesMaxSize / 1000000);
+    return Math.round(this.filesMaxSize / 1000000);
   }
 
   /**
@@ -115,7 +113,7 @@ export class DocumentManagerComponent {
    * @param documentToRemove document à supprimer
    */
   removeFile(documentToRemove: DocumentModel) {
-    const fileSize = documentToRemove.size;
+    const fileSize = documentToRemove.fileSize;
     const documentIndexToRemovethis = this._documents.indexOf(documentToRemove);
     this._documents.splice(documentIndexToRemovethis, 1);
     this.filesSize -= fileSize;
