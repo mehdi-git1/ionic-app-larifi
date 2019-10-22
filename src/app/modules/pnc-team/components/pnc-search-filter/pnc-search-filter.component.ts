@@ -232,23 +232,9 @@ export class PncSearchFilterComponent implements OnInit {
       this.pncFilter.speciality = val.specialityControl;
       this.pncFilter.aircraftSkill = val.aircraftSkillControl;
       this.pncFilter.relay = val.relayControl;
-      if (val.priorityControl && val.priorityControl instanceof Array) {
-        console.log(val.priorityControl);
-        this.pncFilter.prioritized = (val.priorityControl as Array<string>).filter(priorityFilterItem => {
-          return priorityFilterItem === 'PRIORITIZED';
-        }).length > 0;
-        this.pncFilter.hasAtLeastOnePriorityInProgress = (val.priorityControl as Array<string>).filter(priorityFilterItem => {
-          return priorityFilterItem === 'PRIORITY_IN_PROGRESS';
-        }).length > 0;
-        this.pncFilter.hasNoPriority = (val.priorityControl as Array<string>).filter(priorityFilterItem => {
-          return priorityFilterItem === 'NO_PRIORITY';
-        }).length > 0;
-      } else {
-        this.pncFilter.prioritized = val.prioritizedControl;
-        this.pncFilter.hasAtLeastOnePriorityInProgress = val.hasAtLeastOnePriorityInProgressControl;
-        this.pncFilter.hasNoPriority = val.hasNoPriorityControl;
-      }
-
+      this.pncFilter.prioritized = val.prioritizedControl;
+      this.pncFilter.hasAtLeastOnePriorityInProgress = val.hasAtLeastOnePriorityInProgressControl;
+      this.pncFilter.hasNoPriority = val.hasNoPriorityControl;
       this.search();
     });
   }
