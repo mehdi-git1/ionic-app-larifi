@@ -1,0 +1,19 @@
+<ion-header>
+    <ion-navbar>
+        <page-header [showSettingsIcon]="true" [pnc]="pnc">
+            {{ 'GLOBAL.HR_DOCUMENTS' | isMyPage: pnc | translate }}
+        </page-header>
+    </ion-navbar>
+    <pnc-edossier-header [activeTab]="TabHeaderEnum.HR_DOCUMENTS_PAGE"></pnc-edossier-header>
+</ion-header>
+<ion-content padding no-bounce>
+    <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
+    <ng-template #pageBlock>
+        <div class="button-bar button-bar-right" *ngIf="canCreateDocument()">
+            <button ion-button (click)="createNewDocument()" color="primary-light">
+                <ion-icon name="md-add" ios="md-add"></ion-icon>
+                {{ 'HR_DOCUMENTS.BUTTONS.CREATE_NEW_DOCUMENT' | translate }}
+            </button>
+        </div>
+    </ng-template>
+</ion-content>

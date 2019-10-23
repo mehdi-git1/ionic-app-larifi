@@ -22,6 +22,9 @@ import {
 import {
     HelpAssetListPage
 } from '../../../modules/help-asset/pages/help-asset-list/help-asset-list.page';
+import {
+    HrDocumentsPage
+} from '../../../modules/hr-documents/pages/hr-documents/hr-documents.page';
 import { LogbookPage } from '../../../modules/logbook/pages/logbook/logbook.page';
 import {
     ProfessionalLevelPage
@@ -69,6 +72,12 @@ export class TabHeaderService {
                     label: this.translateService.instant('GLOBAL.STATUTORY_CERTIFICATE_SHORT'),
                     component: StatutoryCertificatePage,
                     available: this.authorizationService.hasPermission(PermissionConstant.VIEW_STATUTORY_CERTIFICATE)
+                },
+                {
+                    id: TabHeaderEnum.HR_DOCUMENTS_PAGE,
+                    label: this.translateService.instant('GLOBAL.HR_DOCUMENTS'),
+                    component: HrDocumentsPage,
+                    available: true
                 },
                 {
                     id: TabHeaderEnum.PROFESSIONAL_LEVEL_PAGE,
