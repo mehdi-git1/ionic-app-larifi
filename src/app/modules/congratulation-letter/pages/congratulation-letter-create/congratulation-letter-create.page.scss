@@ -53,10 +53,6 @@ congratulation-letter-create {
         }
     }
 
-    .verbatim-row{
-        display: inline-block;
-    } 
-
     ion-icon[name="checkmark"] {
         font-size: 2em;
         font-weight: bold;
@@ -71,9 +67,6 @@ congratulation-letter-create {
     .collective-warning {
         color: color($colors, red70);
         font-size: 1.1em;
-    }
-    text-editor {
-        display: flex;
     }
 
 
