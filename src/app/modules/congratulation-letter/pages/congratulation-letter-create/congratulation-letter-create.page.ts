@@ -37,7 +37,7 @@ export class CongratulationLetterCreatePage implements OnInit {
     creationMode = true;
     submitInProgress = false;
     congratulationLetterForm: FormGroup;
-    textEditorMode: TextEditorModeEnum;
+    textEditorMode = TextEditorModeEnum.READ_ONLY;
 
     congratulationLetter: CongratulationLetterModel;
     originCongratulationLetter: CongratulationLetterModel;
@@ -184,8 +184,6 @@ export class CongratulationLetterCreatePage implements OnInit {
 
         if (!this.verbatimCanBeEdited()) {
             this.textEditorMode = TextEditorModeEnum.READ_ONLY;
-        } else {
-            this.textEditorMode = TextEditorModeEnum.FULL;
         }
     }
 
