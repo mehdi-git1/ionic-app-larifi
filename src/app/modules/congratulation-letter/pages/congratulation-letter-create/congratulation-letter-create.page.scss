@@ -79,4 +79,16 @@ congratulation-letter-create {
         color: color($colors, red70);
         font-size: 1.1em;
     }
+    text-editor {
+        display: inline-block;
+    }
+
+
+    text-editor .ql-snow .ql-editor {
+        padding: 10px;
+        border-radius: 3px;
+        background: #fafbfb;
+        white-space: pre-line;
+        min-height: 100px;
+    }
 }
