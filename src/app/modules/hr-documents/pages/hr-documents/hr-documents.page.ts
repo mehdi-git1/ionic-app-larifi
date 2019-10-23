@@ -67,4 +67,12 @@ export class HrDocumentsPage {
             this.hrDocuments = new Array<HrDocumentModel>();
         });
     }
+
+    /**
+     * Vérifie si il y a des pièces jointes
+     * @return true si il y a des pièces jointes, false sinon
+     */
+    hrDocumentHasAttachments(hrDocument: HrDocumentModel): boolean {
+        return hrDocument.attachmentFiles && hrDocument.attachmentFiles.length > 0;
+    }
 }

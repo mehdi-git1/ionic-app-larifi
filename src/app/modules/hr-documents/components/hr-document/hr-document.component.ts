@@ -167,7 +167,7 @@ export class HrDocumentComponent implements OnInit {
                     this.originHrDocument = _.cloneDeep(savedHrDocument);
                     this.hrDocument = savedHrDocument;
                     if (this.mode === HrDocumentModeEnum.CREATION) {
-                        this.toastService.success(this.translateService.instant('HR_DOCUMENTS.EDIT.HR_DOCUMENT_SAVED'));
+                        this.toastService.success(this.translateService.instant('HR_DOCUMENT.EDIT.HR_DOCUMENT_SAVED'));
                         this.navCtrl.pop();
                     }
                     this.loading.dismiss();

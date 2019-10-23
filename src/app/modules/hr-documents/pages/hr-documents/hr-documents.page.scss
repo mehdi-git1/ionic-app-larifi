@@ -1,9 +1,81 @@
 hr-documents {
-    .button-bar {
-        margin-bottom: 10px;
+    $nbLinesMaxOnRow: 2;
 
-        ion-icon {
-            margin-right: 10px;
+    ion-content {
+        .scroll-content {
+            display: flex;
+            flex-direction: column;
+            padding-top: 40px !important;
+        }
+    }
+    .hr-document-grid{
+        ion-row {
+            border: none;
+        }
+
+        ion-row.hr-document-row:nth-child(even) {
+            background: color($colors-secondary, grey95);
+        }
+
+        ion-row.hr-document-row:nth-child(odd) {
+            background: color($colors, white);
+        }
+
+        ion-row.headers {
+            font-size: 12px;
+            background: color($colors, white) !important;
+            border-bottom: 1px solid color($colors-secondary, grey95);
+
+            ion-col {
+                font-weight: bold;
+            }
+        }
+
+        .column-title {
+            display: block;
+            width: 100%;
+        }
+
+        .truncate-text {
+            @include truncate-text($nbLinesMaxOnRow);
+        }
+
+        .column-category {
+            flex: 0 0 120px !important;
+        }
+
+        .column-redactor {
+            min-width: 80px;
+            max-width: 160px;
+        }
+
+        .column-date {
+            flex: 0 0 150px !important;
+            min-width: 160px;
+            max-width: 160px;
+        }
+
+        .column-specific {
+            flex: 0 0 20px !important;
+            min-width: 20px;
+            max-width: 20px;
+        }
+
+        .category-label {
+            flex: 1;
+            background-color: color($colors, primary);
+            color: color($colors, white);
+            border-radius: 4px;
+            -webkit-border-radius: 4px;
+            text-align: center;
+        }
+
+        .button-bar {
+            margin-bottom: 10px;
+
+            ion-icon {
+                margin-right: 10px;
+            }
         }
     }
 
