@@ -53,21 +53,14 @@ congratulation-letter-create {
         }
     }
 
+    .verbatim-row{
+        display: inline-block;
+    } 
+
     ion-icon[name="checkmark"] {
         font-size: 2em;
         font-weight: bold;
         margin-left: 10px;
-    }
-
-    ion-textarea {
-        min-height: 310px !important;
-        padding: 0 !important;
-        margin: 0 !important;
-
-        textarea {
-            min-height: 290px !important;
-            padding: 5px !important;
-        }
     }
 
     ion-list.list-md,
@@ -79,6 +72,10 @@ congratulation-letter-create {
         color: color($colors, red70);
         font-size: 1.1em;
     }
+    text-editor {
+        display: flex;
+    }
+
 
     text-editor .ql-snow .ql-editor {
         padding: 10px;

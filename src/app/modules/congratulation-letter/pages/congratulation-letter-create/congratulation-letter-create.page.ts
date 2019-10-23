@@ -37,7 +37,7 @@ export class CongratulationLetterCreatePage implements OnInit {
     creationMode = true;
     submitInProgress = false;
     congratulationLetterForm: FormGroup;
-    textEditorMode = TextEditorModeEnum.READ_ONLY;
+    textEditorMode = TextEditorModeEnum.FULL;
 
     congratulationLetter: CongratulationLetterModel;
     originCongratulationLetter: CongratulationLetterModel;
