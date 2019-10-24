@@ -7,6 +7,7 @@ import { TabHeaderEnum } from '../../../../core/enums/tab-header.enum';
 import { PncModel } from '../../../../core/models/pnc.model';
 import { SessionService } from '../../../../core/services/session/session.service';
 import { HrDocumentCreatePage } from '../hr-document-create/hr-document-create.page';
+import { HrDocumentDetailPage } from '../hr-document-detail/hr-document-detail.page.';
 
 @Component({
     selector: 'hr-documents',
@@ -32,6 +33,10 @@ export class HrDocumentsPage {
      */
     createNewDocument() {
         this.navCtrl.push(HrDocumentCreatePage, { mode: HrDocumentModeEnum.CREATION });
+    }
+
+    tmpViewDetailsDocument() {
+        this.navCtrl.push(HrDocumentDetailPage, { mode: HrDocumentModeEnum.EDITION, hrDocumentId: '1' });
     }
 
     canCreateDocument() {

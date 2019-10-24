@@ -36,4 +36,13 @@ export class OnlineHrDocumentsService {
         }
         return this.restService.post(this.config.getBackEndUrl('hrDocuments'), hrDocument);
     }
+
+    /**
+     * Récupère un document RH
+     * @param id l'id du document à récupérer
+     * @return le document récupéré
+     */
+    getHrDocument(id: number): Promise<HrDocumentModel> {
+        return this.restService.get(this.config.getBackEndUrl('getHrDocumentById', [id]));
+    }
 }

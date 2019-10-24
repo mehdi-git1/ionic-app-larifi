@@ -840,6 +840,13 @@
             "DOCUMENT_DESCRIPTION": "Description",
             "ATTACHMENT_FILES": "Importer des pièces jointes",
             "HR_DOCUMENT_SAVED": "Document enregistré"
+        },
+        "DETAIL": {
+            "PAGE_TITLE": "Détail d'un document",
+            "DOCUMENT_DATE": "Document du",
+            "CREATED_THE": "Créé le",
+            "THE": "le",
+            "CREATED_BY": "Créé par"
         }
     },
     "SYNCHRONIZATION": {
