@@ -183,7 +183,7 @@ export class CongratulationLetterCreatePage implements OnInit {
     }
 
     /**
-     * Renoie le mode d'affichage du wiziwig (verbatim)
+     * Renvoie le mode d'affichage du wiziwig (verbatim)
      * @return FULL pour le mode edition, READ_ONLY pour le mode lecture seule
      */
     getVerbatimMode() {
