@@ -37,7 +37,6 @@ export class CongratulationLetterCreatePage implements OnInit {
     creationMode = true;
     submitInProgress = false;
     congratulationLetterForm: FormGroup;
-    textEditorMode: TextEditorModeEnum;
 
     congratulationLetter: CongratulationLetterModel;
     originCongratulationLetter: CongratulationLetterModel;
@@ -181,11 +180,17 @@ export class CongratulationLetterCreatePage implements OnInit {
             verbatimControl: ['', Validators.compose([Validators.maxLength(4000)])],
             redactorAutoCompleteControl: ['']
         });
+    }
 
-        if (!this.verbatimCanBeEdited()) {
-            this.textEditorMode = TextEditorModeEnum.READ_ONLY;
+    /**
+     * Renvoie le mode d'affichage du wiziwig (verbatim)
+     * @return FULL pour le mode edition, READ_ONLY pour le mode lecture seule
+     */
+    getVerbatimMode() {
+        if (this.verbatimCanBeEdited()) {
+            return TextEditorModeEnum.FULL;
         } else {
-            this.textEditorMode = TextEditorModeEnum.FULL;
+            return TextEditorModeEnum.READ_ONLY;
         }
     }
 
