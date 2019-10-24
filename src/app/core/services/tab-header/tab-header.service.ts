@@ -74,8 +74,8 @@ export class TabHeaderService {
                     available: this.authorizationService.hasPermission(PermissionConstant.VIEW_STATUTORY_CERTIFICATE)
                 },
                 {
-                    id: TabHeaderEnum.HR_DOCUMENTS_PAGE,
-                    label: this.translateService.instant('GLOBAL.HR_DOCUMENTS'),
+                    id: TabHeaderEnum.HR_DOCUMENT_PAGE,
+                    label: this.translateService.instant('GLOBAL.HR_DOCUMENT'),
                     component: HrDocumentsPage,
                     available: true
                 },

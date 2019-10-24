@@ -6,8 +6,8 @@ import { HrDocumentModeEnum } from '../../../../core/enums/hr-document/hr-docume
 import { HrDocumentModel } from '../../../../core/models/hr-document/hr-document.model';
 import { PncModel } from '../../../../core/models/pnc.model';
 import {
-    OnlineHrDocumentsService
-} from '../../../../core/services/hr-documents/hr-documents.service';
+    OnlineHrDocumentService
+} from '../../../../core/services/hr-documents/online-hr-document.service';
 
 @Component({
     selector: 'hr-document-detail',
@@ -22,7 +22,7 @@ export class HrDocumentDetailPage implements OnInit {
 
     HrDocumentModeEnum = HrDocumentModeEnum;
 
-    constructor(private navParams: NavParams, private onlineHrDocumentsService: OnlineHrDocumentsService) {
+    constructor(private navParams: NavParams, private onlineHrDocumentService: OnlineHrDocumentService) {
     }
 
     ngOnInit() {
@@ -30,7 +30,7 @@ export class HrDocumentDetailPage implements OnInit {
         this.mode = this.navParams.get('mode');
         const id = this.navParams.get('hrDocumentId');
 
-        this.onlineHrDocumentsService.getHrDocument(id)
+        this.onlineHrDocumentService.getHrDocument(id)
             .then(hrDocument => {
                 this.hrDocument = hrDocument;
                 this.loading = false;

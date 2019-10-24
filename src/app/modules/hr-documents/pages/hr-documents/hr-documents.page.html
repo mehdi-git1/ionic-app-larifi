@@ -1,10 +1,10 @@
 <ion-header>
     <ion-navbar>
         <page-header [showSettingsIcon]="true" [pnc]="pnc">
-            {{ 'GLOBAL.HR_DOCUMENTS' | isMyPage: pnc | translate }}
+            {{ 'GLOBAL.HR_DOCUMENT' | isMyPage: pnc | translate }}
         </page-header>
     </ion-navbar>
-    <pnc-edossier-header [activeTab]="TabHeaderEnum.HR_DOCUMENTS_PAGE"></pnc-edossier-header>
+    <pnc-edossier-header [activeTab]="TabHeaderEnum.HR_DOCUMENT_PAGE"></pnc-edossier-header>
 </ion-header>
 <ion-content padding no-bounce>
     <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
@@ -12,12 +12,60 @@
         <div class="button-bar button-bar-right" *ngIf="canCreateDocument()">
             <button ion-button (click)="createNewDocument()" color="primary-light">
                 <ion-icon name="md-add" ios="md-add"></ion-icon>
-                {{ 'HR_DOCUMENTS.BUTTONS.CREATE_NEW_DOCUMENT' | translate }}
-            </button>
-            <button ion-button (click)="tmpViewDetailsDocument()" color="primary-light">
-                <ion-icon name="md-add" ios="md-add"></ion-icon>
-                test fred
+                {{ 'HR_DOCUMENT.BUTTONS.CREATE_NEW_DOCUMENT' | translate }}
             </button>
         </div>
+        <span *ngIf="hrDocuments && hrDocuments.length > 0; else noHrDocumentsBlock">
+            <ion-grid class="hr-document-grid selectable" [sortableGrid]="hrDocuments">
+                <ion-row class="headers" align-items-center>
+                    <ion-col class="column-date" columnName="creationDate" sort>
+                        {{ 'HR_DOCUMENT.CREATION_DATE' | translate }}
+                        <ion-icon id="sortIcon" class="sort-icon" color="black" ios="md-arrow-dropdown" md="md-arrow-dropdown">
+                        </ion-icon>
+                    </ion-col>
+                    <ion-col class="column-category" columnName="category" sort>{{ 'HR_DOCUMENT.CATEGORY' | translate }}
+                        <ion-icon id="sortIcon" class="sort-icon" color="black" ios="md-arrow-dropdown" md="md-arrow-dropdown">
+                        </ion-icon>
+                    </ion-col>
+                    <ion-col class="column-specific"></ion-col>
+                    <ion-col class="column-title" columnName="event">
+                        {{ 'HR_DOCUMENT.TITLE' | translate }}
+                    </ion-col>
+                    <ion-col class="column-redactor" columnName="author">
+                        {{ 'HR_DOCUMENT.REDACTOR' | translate }}
+                    </ion-col>
+                    <ion-col class="action-placeholder">
+                        <!-- Bloc pour le bouton d'actions -->
+                    </ion-col>
+                </ion-row>
+                <ion-row class="hr-document-row" *ngFor="let hrDocument of hrDocuments">
+                    <ion-col class="column-date">{{hrDocument.creationDate | date:'dd/MM/yyyy' }}
+                    </ion-col>
+                    <ion-col class="column-category">
+                        <div class="category-label">{{hrDocument.category?.label}}</div>
+                    </ion-col>
+                    <ion-col class="column-specific">
+                        <ion-icon *ngIf="hrDocumentHasAttachments(hrDocument)" name="attach">
+                        </ion-icon>
+                    </ion-col>
+                    <ion-col class="column-title">
+                        <span class="truncate-text">{{hrDocument.title}}</span>
+                    </ion-col>
+                    <ion-col class="column-redactor">
+                        <span class="truncate-text">{{hrDocument.redactor?.lastName}}
+                            {{hrDocument.redactor?.firstName | titlecase}}
+                        </span>
+                    </ion-col>
+                    <ion-col class="user-actions">
+                        <button ion-fab class="detail-button" (click)="viewDetailedDocument(hrDocument)">
+                            <span class="edospnc-memo"></span>
+                        </button>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+        </span>
+        <ng-template #noHrDocumentsBlock>
+            <no-data></no-data>
+        </ng-template>
     </ng-template>
 </ion-content>
