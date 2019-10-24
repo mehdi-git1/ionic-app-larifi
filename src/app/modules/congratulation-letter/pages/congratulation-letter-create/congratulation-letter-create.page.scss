@@ -73,12 +73,17 @@ congratulation-letter-create {
     text-editor .ql-snow .ql-editor {
         padding: 10px;
         border-radius: 3px;
-        background: #fafbfb;
+        background: color($colors, white);
         white-space: pre-line;
         min-height: 100px;
     }
 
     text-editor .ql-container.ql-snow{
         height: 70%;
+    }
+
+    .verbatim-info-message{
+        font-weight: 700;
+        color: color($colors-secondary, red80);
     }
 }
