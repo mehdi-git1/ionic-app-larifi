@@ -4,7 +4,7 @@
         <div class="hr-document-info-container">
             <div class="hr-document-top-container">
                 <div class="redactor">
-                    {{ 'HR_DOCUMENT.DETAIL.CREATED_BY' | translate }} {{ hrDocument.redactor?.lastName }} {{ hrDocument.redactor?.firstName }} {{ 'HR_DOCUMENT.DETAIL.THE' | translate }} {{ hrDocument.creationDate | date:'dd/MM/yyyy'}}
+                    {{ 'HR_DOCUMENT.DETAIL.CREATED_BY_THE' | translate:{lastName:hrDocument.redactor?.lastName, firstName:hrDocument.redactor?.firstName, creationDate:hrDocument.creationDate | date:'dd/MM/yyyy'} }}
                 </div>
                 <div class="category-label">
                     <span>{{ hrDocument.category?.label }}</span>

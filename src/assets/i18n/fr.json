@@ -847,10 +847,7 @@
         },
         "DETAIL": {
             "PAGE_TITLE": "Détail d'un document",
-            "DOCUMENT_DATE": "Document du",
-            "CREATED_THE": "Créé le",
-            "THE": "le",
-            "CREATED_BY": "Créé par"
+            "CREATED_BY_THE": "Créé par {{ lastName }} {{ firstName }} le {{ creationDate }}"
         }
     },
     "SYNCHRONIZATION": {
