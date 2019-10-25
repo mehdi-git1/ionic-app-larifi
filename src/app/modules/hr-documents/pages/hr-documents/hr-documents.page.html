@@ -10,7 +10,7 @@
     <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
     <ng-template #pageBlock>
         <div class="button-bar button-bar-right" *ngIf="canCreateDocument()">
-            <button ion-button (click)="createNewDocument()" color="primary-light">
+            <button ion-button (click)="createNewDocument()" color="primary-light" icon-start>
                 <ion-icon name="md-add" ios="md-add"></ion-icon>
                 {{ 'HR_DOCUMENT.BUTTONS.CREATE_NEW_DOCUMENT' | translate }}
             </button>
