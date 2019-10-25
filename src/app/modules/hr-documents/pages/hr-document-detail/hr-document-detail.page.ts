@@ -16,9 +16,7 @@ import {
 export class HrDocumentDetailPage implements OnInit {
 
     pnc: PncModel;
-    mode: HrDocumentModeEnum;
     hrDocument: HrDocumentModel;
-    loading: boolean;
 
     HrDocumentModeEnum = HrDocumentModeEnum;
 
@@ -26,20 +24,12 @@ export class HrDocumentDetailPage implements OnInit {
     }
 
     ngOnInit() {
-        this.loading = true;
-        this.mode = this.navParams.get('mode');
         const id = this.navParams.get('hrDocumentId');
 
         this.onlineHrDocumentService.getHrDocument(id)
             .then(hrDocument => {
                 this.hrDocument = hrDocument;
-                this.loading = false;
             }, error => {
-                this.loading = false;
             });
-    }
-
-    isLoading() {
-        return this.loading;
     }
 }

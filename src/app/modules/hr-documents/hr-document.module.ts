@@ -7,7 +7,7 @@ import { SharedModule } from '../../shared/shared.module';
 import { HrDocumentCardComponent } from './components/hr-document-card/hr-document-card.component';
 import { HrDocumentComponent } from './components/hr-document/hr-document.component';
 import { HrDocumentCreatePage } from './pages/hr-document-create/hr-document-create.page';
-import { HrDocumentDetailPage } from './pages/hr-document-detail/hr-document-detail.page.';
+import { HrDocumentDetailPage } from './pages/hr-document-detail/hr-document-detail.page';
 import { HrDocumentsPage } from './pages/hr-documents/hr-documents.page';
 
 @NgModule({

@@ -12,7 +12,7 @@ import {
 import { SecurityService } from '../../../../core/services/security/security.service';
 import { SessionService } from '../../../../core/services/session/session.service';
 import { HrDocumentCreatePage } from '../hr-document-create/hr-document-create.page';
-import { HrDocumentDetailPage } from '../hr-document-detail/hr-document-detail.page.';
+import { HrDocumentDetailPage } from '../hr-document-detail/hr-document-detail.page';
 
 @Component({
     selector: 'hr-documents',

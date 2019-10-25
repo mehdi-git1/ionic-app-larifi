@@ -1,28 +1,22 @@
-    <div>
-        <ion-card>
-            <div class="hr-document-card">
-                <pnc-photo [pnc]="hrDocument.redactor" [size]="50"></pnc-photo>
-                <div class="hr-document-info-container">
-                    <div class="hr-document-top-container">
-                        <div class="hr-document-left-container">
-                            <div class="redactor">
-                                {{ 'HR_DOCUMENT.DETAIL.CREATED_BY' | translate }} {{ hrDocument.redactor?.lastName }} {{ hrDocument.redactor?.firstName }} {{ 'HR_DOCUMENT.DETAIL.THE' | translate }} {{ hrDocument.creationDate | date:'dd/MM/yyyy'}}
-                            </div>
-                            <div class="title">
-                                <span class="value">{{ hrDocument.title }}</span>
-                            </div>
-                            <div>
-                                <text-editor [mode]="TextEditorModeEnum.READ_ONLY" [ngModel]="hrDocument.content"></text-editor>
-                            </div>
-                        </div>
-                        <div class="hr-document-right-container">
-                            <div class="category-label">
-                                <span>{{ hrDocument.category?.label }}</span>
-                            </div>
-                        </div>
-                    </div>
-                    <document-manager [documents]="hrDocument.attachmentFiles" [readonly]="true"></document-manager>
+<ion-card>
+    <div class="hr-document-card">
+        <pnc-photo [pnc]="hrDocument.redactor" [size]="50"></pnc-photo>
+        <div class="hr-document-info-container">
+            <div class="hr-document-top-container">
+                <div class="redactor">
+                    {{ 'HR_DOCUMENT.DETAIL.CREATED_BY' | translate }} {{ hrDocument.redactor?.lastName }} {{ hrDocument.redactor?.firstName }} {{ 'HR_DOCUMENT.DETAIL.THE' | translate }} {{ hrDocument.creationDate | date:'dd/MM/yyyy'}}
+                </div>
+                <div class="category-label">
+                    <span>{{ hrDocument.category?.label }}</span>
                 </div>
             </div>
-        </ion-card>
+            <div class="title">
+                <span class="value">{{ hrDocument.title }}</span>
+            </div>
+            <div>
+                <text-editor [mode]="TextEditorModeEnum.READ_ONLY" [ngModel]="hrDocument.content"></text-editor>
+            </div>
+            <document-manager [documents]="hrDocument.attachmentFiles" [readonly]="true"></document-manager>
+        </div>
     </div>
+</ion-card>

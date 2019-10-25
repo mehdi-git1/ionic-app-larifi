@@ -6,7 +6,7 @@
     </ion-navbar>
 </ion-header>
 <ion-content padding no-bounce>
-    <edossier-spinner *ngIf="isLoading(); else pageBlock"></edossier-spinner>
+    <edossier-spinner *ngIf="hrDocument == null; else pageBlock"></edossier-spinner>
     <ng-template #pageBlock>
         <hr-document-card #hrDocumentDetail [mode]="mode" [hrDocument]="hrDocument"></hr-document-card>
     </ng-template>

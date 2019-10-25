@@ -72,7 +72,7 @@ export class UrlConfiguration {
     'getDocumentById': `${urlGroupEnum.DOCUMENT}/{documentId}`,
     'hrDocuments': urlGroupEnum.HR_DOCUMENT,
     'getHrDocumentById': `${urlGroupEnum.HR_DOCUMENT}/{id}`,
-    'getHrDocuments': `${urlGroupEnum.HR_DOCUMENT}/pnc/{matricule}/{page}/{size}`,
+    'getHrDocuments': `${urlGroupEnum.HR_DOCUMENT}/pnc/{matricule}/{page}/{size}`
   };
 
   /**

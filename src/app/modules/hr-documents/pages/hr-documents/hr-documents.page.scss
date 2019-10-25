@@ -76,20 +76,17 @@ hr-documents {
             text-align: center;
         }
 
-        button.detail-button {
-            background: color($colors, primary-light);
-            color: color($colors, white);
-            width: 30px;
-            height: 30px;
-            box-shadow: none;
-        }
-
         .user-actions {
             min-width: 80px;
             max-width: 80px;
+            padding-right: 10px;
             display: flex;
             align-items: center;
             justify-content: flex-end;
+
+            & > * {
+                margin-left: 10px;
+            }
 
             button.detail-button {
                 background: color($colors, primary-light);
