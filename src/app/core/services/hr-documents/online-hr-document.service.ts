@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { UrlConfiguration } from '../../configuration/url.configuration';
 import { RestService } from '../../http/rest/rest.base.service';
+import { HrDocumentSearchModel } from '../../models/hr-document-search.model';
 import { HrDocumentModel } from '../../models/hr-document/hr-document.model';
 import { PagedHrDocumentModel } from '../../models/paged-hr-document.model';
 import { PncLightModel } from '../../models/pnc-light.model';
@@ -44,7 +45,8 @@ export class OnlineHrDocumentService {
      * @return la liste des documents RH
      */
     getHrDocuments(matricule: string, page: number, size: number): Promise<PagedHrDocumentModel> {
-        return this.restService.get(this.config.getBackEndUrl('getHrDocuments', [matricule, page, size])).then(response =>
+        const hrdocumentSearch = new HrDocumentSearchModel(matricule, page, size);
+        return this.restService.get(this.config.getBackEndUrl('hrDocuments'), hrdocumentSearch).then(response =>
             response as PagedHrDocumentModel
         );
     }

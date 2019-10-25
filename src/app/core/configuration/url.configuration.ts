@@ -70,8 +70,7 @@ export class UrlConfiguration {
     'deleteLogbookEventById': `${urlGroupEnum.LOGBOOK_EVENT}/{id}`,
     'fixCongratulationLetterRecipient': `${urlGroupEnum.CONGRATULATION_LETTER}/recipients/{id}`,
     'getDocumentById': `${urlGroupEnum.DOCUMENT}/{documentId}`,
-    'hrDocuments': urlGroupEnum.HR_DOCUMENT,
-    'getHrDocuments': `${urlGroupEnum.HR_DOCUMENT}/pnc/{matricule}/{page}/{size}`,
+    'hrDocuments': urlGroupEnum.HR_DOCUMENT
   };
 
   /**
