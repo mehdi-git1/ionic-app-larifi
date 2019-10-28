@@ -1,6 +1,6 @@
 <ion-header>
     <ion-navbar>
-        <page-header [showSettingsIcon]="true" [pnc]="pnc">
+        <page-header (refreshPage)="initPage()" [showSettingsIcon]="true" [pnc]="pnc">
             {{ 'GLOBAL.HR_DOCUMENT' | isMyPage: pnc | translate }}
         </page-header>
     </ion-navbar>
@@ -15,32 +15,28 @@
                 {{ 'HR_DOCUMENT.BUTTONS.CREATE_NEW_DOCUMENT' | translate }}
             </button>
         </div>
-        <ion-content class="hr-document-list-container">
-            <span *ngIf="!searchInProgress">
+        <div class="hr-document-list-container">
+            <div>
                 <div *ngIf="hrDocuments && hrDocuments.length == 0" class="no-data-found">
                     <no-data></no-data>
                 </div>
-
-
-
-
                 <!-- liste des documents RH -->
-                <span *ngIf="hrDocuments && hrDocuments.length > 0; else noHrDocumentsBlock">
-                    <ion-grid class="hr-document-grid selectable" [sortableGrid]="hrDocuments">
+                <div *ngIf="hrDocuments && hrDocuments.length > 0; else noHrDocumentsBlock">
+                    <ion-grid class="hr-document-grid selectable">
                         <ion-row class="headers" align-items-center>
-                            <ion-col class="column-date" columnName="creationDate" sort>
+                            <ion-col class="column-date" columnName="creationDate" (click)="sortColumn('creationDate')">
                                 {{ 'HR_DOCUMENT.CREATION_DATE' | translate }}
-                                <ion-icon id="sortIcon" class="sort-icon" color="black" ios="md-arrow-dropdown"
-                                    md="md-arrow-dropdown">
-                                </ion-icon>
+                                <edospnc-column-sorter columnName="creationDate"
+                                    [sortColumn]="hrDocumentFilter.sortColumn"
+                                    [sortDirection]="hrDocumentFilter.sortDirection">
+                                </edospnc-column-sorter>
                             </ion-col>
-                            <ion-col class="column-category" columnName="category" sort>
+                            <ion-col class="column-category" columnName="category" (click)="sortColumn('category')">
                                 {{ 'HR_DOCUMENT.CATEGORY' | translate }}
-                                <ion-icon id="sortIcon" class="sort-icon" color="black" ios="md-arrow-dropdown"
-                                    md="md-arrow-dropdown">
-                                </ion-icon>
+                                <edospnc-column-sorter columnName="category" [sortColumn]="hrDocumentFilter.sortColumn"
+                                    [sortDirection]="hrDocumentFilter.sortDirection">
+                                </edospnc-column-sorter>
                             </ion-col>
-                            <ion-col class="column-specific"></ion-col>
                             <ion-col class="column-title" columnName="event">
                                 {{ 'HR_DOCUMENT.TITLE' | translate }}
                             </ion-col>
@@ -54,10 +50,6 @@
                             <ion-col class="column-category">
                                 <div class="category-label">{{hrDocument.category?.label}}</div>
                             </ion-col>
-                            <ion-col class="column-specific">
-                                <ion-icon *ngIf="hrDocumentHasAttachments(hrDocument)" name="attach">
-                                </ion-icon>
-                            </ion-col>
                             <ion-col class="column-title">
                                 <span class="truncate-text">{{hrDocument.title}}</span>
                             </ion-col>
@@ -68,16 +60,29 @@
                             </ion-col>
                         </ion-row>
                     </ion-grid>
-                </span>
-                <!-- fin -->
-
-            </span>
+                </div>
+            </div>
             <ion-infinite-scroll (ionInfinite)="$event.waitFor(doInfinite($event))">
                 <ion-infinite-scroll-content></ion-infinite-scroll-content>
             </ion-infinite-scroll>
-        </ion-content>
-        <!-- <ng-template #noHrDocumentsBlock>
-            <no-data></no-data>
-        </ng-template> -->
+        </div>
+    </ng-template>
+    <edossier-spinner *ngIf="searchInProgress; else searchEndBlock"></edossier-spinner>
+    <ng-template #searchEndBlock>
+        <div class="search-end-container">
+            <!-- Aucun résultat -->
+            <div class="no-result" *ngIf="totalElements === 0; else nextPageBlock">
+                {{ 'HR_DOCUMENT.NO_RESULT' | translate }}
+            </div>
+            <ng-template #nextPageBlock>
+                <!-- Bouton "afficher la page suivante" -->
+                <button ion-button (click)="loadNextPage()"
+                    *ngIf="!isLastPageReached(); else searchEndBlock">{{ 'HR_DOCUMENT.BUTTONS.NEXT_PAGE' | translate:{pageSize:hrDocumentFilter.size} }}</button>
+                <!-- Fin de la recherche atteint -->
+                <ng-template #searchEndBlock>
+                    <div class="last-page-reached">{{ 'HR_DOCUMENT.LIST.LAST_PAGE_REACHED' | translate }}</div>
+                </ng-template>
+            </ng-template>
+        </div>
     </ng-template>
 </ion-content>

@@ -2,93 +2,104 @@ hr-documents {
     $nbLinesMaxOnRow: 2;
 
     ion-content {
-        .scroll-content {
-            display: flex;
-            flex-direction: column;
-            padding-top: 40px !important;
+    
+        .hr-document-list-container{
+            .hr-document-grid{
+                ion-row {
+                    border: none;
+                }
 
-            .hr-document-list-container {
-                flex: 1;
-                margin-top: 15px;
+                .hr-document-row {
+                    align-items: center;
+                }
 
-                .scroll-content {
-                    padding: 0;
-                    margin-bottom: 0px !important;
-                    .scroll-zoom-wrapper {
-                        height: 100%;
+                ion-row.hr-document-row:nth-child(even) {
+                    background: color($colors-secondary, grey95);
+                }
+
+                ion-row.hr-document-row:nth-child(odd) {
+                    background: color($colors, white);
+                }
+
+                ion-row.headers {
+                    font-size: 12px;
+                    background: color($colors, white) !important;
+                    border-bottom: 1px solid color($colors-secondary, grey95);
+
+                    ion-col {
+                        font-weight: bold;
+                    }
+                }
+
+                .column-title {
+                    display: block;
+                    width: 100%;
+                }
+
+                .truncate-text {
+                    @include truncate-text($nbLinesMaxOnRow);
+                }
+
+                .column-category {
+                    flex: 0 0 180px !important;
+                }
+
+                .column-redactor {
+                    min-width: 80px;
+                    max-width: 160px;
+                }
+
+                .column-date {
+                    flex: 0 0 150px !important;
+                    min-width: 160px;
+                    max-width: 160px;
+                }
+
+                .column-specific {
+                    flex: 0 0 20px !important;
+                    min-width: 20px;
+                    max-width: 20px;
+                }
+
+                .category-label {
+                    flex: 2;
+                    background-color: color($colors, primary);
+                    color: color($colors, white);
+                    border-radius: 4px;
+                    -webkit-border-radius: 4px;
+                    text-align: center;
+                }
+
+                .button-bar {
+                    margin-bottom: 10px;
+
+                    ion-icon {
+                        margin-right: 10px;
                     }
                 }
             }
+            ion-infinite-scroll-content {
+                min-height: 5px;
+            }
         }
-    
-        .hr-document-grid{
-            ion-row {
-                border: none;
+        .search-end-container {
+            display: flex;
+            justify-content: center;
+            padding: 30px 0;
+
+            .last-page-reached,
+            .no-result {
+                font-size: 1.2em;
+                color: color($colors, primary-light);
             }
 
-            ion-row.hr-document-row:nth-child(even) {
-                background: color($colors-secondary, grey95);
+            button {
+                background-color: color($colors, white);
+                color: color($colors-secondary, grey10);
             }
 
-            ion-row.hr-document-row:nth-child(odd) {
-                background: color($colors, white);
-            }
-
-            ion-row.headers {
-                font-size: 12px;
-                background: color($colors, white) !important;
-                border-bottom: 1px solid color($colors-secondary, grey95);
-
-                ion-col {
-                    font-weight: bold;
-                }
-            }
-
-            .column-title {
-                display: block;
-                width: 100%;
-            }
-
-            .truncate-text {
-                @include truncate-text($nbLinesMaxOnRow);
-            }
-
-            .column-category {
-                flex: 0 0 120px !important;
-            }
-
-            .column-redactor {
-                min-width: 80px;
-                max-width: 160px;
-            }
-
-            .column-date {
-                flex: 0 0 150px !important;
-                min-width: 160px;
-                max-width: 160px;
-            }
-
-            .column-specific {
-                flex: 0 0 20px !important;
-                min-width: 20px;
-                max-width: 20px;
-            }
-
-            .category-label {
-                flex: 1;
-                background-color: color($colors, primary);
-                color: color($colors, white);
-                border-radius: 4px;
-                -webkit-border-radius: 4px;
-                text-align: center;
-            }
-
-            .button-bar {
-                margin-bottom: 10px;
-
-                ion-icon {
-                    margin-right: 10px;
-                }
+            .button-md:hover:not(.disable-hover), ion-button:hover:not(.disable-hover) {
+                background-color: color($colors, white);
             }
         }
     }
