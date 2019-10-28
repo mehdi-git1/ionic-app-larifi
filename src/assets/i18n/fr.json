@@ -834,7 +834,11 @@
             "CANCEL": "Annuler",
             "UPDATE": "Mettre à jour",
             "SAVE": "Enregistrer",
-            "DELETE": "Supprimer"
+            "DELETE": "Supprimer",
+            "NEXT_PAGE": "Voir les {{pageSize}} résultats suivants"
+        },
+        "LIST": {
+            "LAST_PAGE_REACHED": "Tous les résultats sont affichés"
         },
         "EDIT": {
             "DOCUMENT_CREATION": "Création d'un nouveau document",
