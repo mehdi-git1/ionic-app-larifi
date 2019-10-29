@@ -177,7 +177,7 @@ export class CongratulationLetterCreatePage implements OnInit {
             flightNumberControl: ['', Validators.compose([Validators.minLength(3), Validators.maxLength(5)])],
             letterTypeControl: ['', Validators.required],
             redactorTypeControl: ['', Validators.required],
-            verbatimControl: ['', Validators.compose([Validators.maxLength(4000)])],
+            verbatimControl: [''],
             redactorAutoCompleteControl: ['']
         });
     }
