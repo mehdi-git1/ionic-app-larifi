@@ -177,9 +177,21 @@ export class CongratulationLetterCreatePage implements OnInit {
             flightNumberControl: ['', Validators.compose([Validators.minLength(3), Validators.maxLength(5)])],
             letterTypeControl: ['', Validators.required],
             redactorTypeControl: ['', Validators.required],
-            verbatimControl: ['', Validators.compose([Validators.maxLength(4000)])],
+            verbatimControl: [''],
             redactorAutoCompleteControl: ['']
         });
+    }
+
+    /**
+     * Renvoie le mode d'affichage du wiziwig (verbatim)
+     * @return FULL pour le mode edition, READ_ONLY pour le mode lecture seule
+     */
+    getVerbatimMode() {
+        if (this.verbatimCanBeEdited()) {
+            return TextEditorModeEnum.FULL;
+        } else {
+            return TextEditorModeEnum.READ_ONLY;
+        }
     }
 
     /**

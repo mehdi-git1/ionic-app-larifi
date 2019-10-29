@@ -125,7 +125,7 @@ export class LogbookEventComponent implements OnInit {
             important: false,
             category: ['', Validators.required],
             title: ['', [Validators.maxLength(100), Validators.required]],
-            content: ['', [Validators.maxLength(4000), Validators.required]],
+            content: ['', Validators.required],
         });
     }
 

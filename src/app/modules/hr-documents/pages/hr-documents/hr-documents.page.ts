@@ -101,7 +101,6 @@ export class HrDocumentsPage implements OnInit {
 
     /**
      * Récupère les documents RH du Pnc
-     * @param matricule le matricule du Pnc
      */
     searchHrDocuments() {
         this.searchInProgress = true;
