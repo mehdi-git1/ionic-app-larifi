@@ -1,0 +1,58 @@
+<div>
+    <form novalidate [formGroup]="hrDocumentForm">
+        <ion-grid>
+            <ion-row>
+                <ion-col>
+                    <ion-item class="category">
+                        <ion-label class="required" floating>{{ 'HR_DOCUMENTS.EDIT.CATEGORY' | translate }}</ion-label>
+                        <ion-select interface="popover" [compareWith]="compareCategories"
+                            [(ngModel)]="hrDocument.category" formControlName="category">
+                            <ion-option *ngFor="let category of hrDocumentCategories" [value]="category">
+                                {{category?.label}}</ion-option>
+                        </ion-select>
+                    </ion-item>
+                </ion-col>
+            </ion-row>
+            <ion-row class="title-row">
+                <ion-col col-12>
+                    <ion-item>
+                        <ion-label class="required" floating>{{ 'HR_DOCUMENTS.EDIT.DOCUMENT_TITLE' | translate }}
+                        </ion-label>
+                        <ion-input #hrDocumentTitle type="text" class="document-title" [(ngModel)]="hrDocument.title"
+                            formControlName="title" autocorrect="on" [maxlength]="titleMaxLength"></ion-input>
+                    </ion-item>
+                    <span class="document-length">{{hrDocumentTitle.value.length}}/{{titleMaxLength}}</span>
+                </ion-col>
+            </ion-row>
+            <ion-row class="description-row">
+                <ion-col col-12>
+                    <text-editor name="hrDocumentContent" [mode]="TextEditorModeEnum.FULL"
+                        [ngModelOptions]="{standalone: true}" [(ngModel)]="hrDocument.content"
+                        [parentForm]="hrDocumentForm" [controlForm]="'content'"
+                        [placeholder]="'HR_DOCUMENTS.EDIT.DOCUMENT_DESCRIPTION' | translate" formControlName="content">
+                    </text-editor>
+                </ion-col>
+            </ion-row>
+            <ion-row class="attachment-row">
+                <ion-col col-12>
+                    <ion-label class="required">{{ 'HR_DOCUMENTS.EDIT.ATTACHMENT_FILES' | translate }}
+                    </ion-label>
+                    <document-manager [documents]="hrDocument.attachmentFiles" [readonly]="false">
+                    </document-manager>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+        <!-- Barre de boutons -->
+        <div class="button-bar-right button-bar">
+            <!-- Bouton Annuler -->
+            <button ion-button color="primary" outline (click)="cancelCreation()">
+                {{ 'HR_DOCUMENTS.BUTTONS.CANCEL' | translate }}
+            </button>
+            <!-- Bouton enregistrer -->
+            <button ion-button *ngIf="mode === HrDocumentModeEnum.CREATION" color="primary" (click)="saveHrDocument()"
+                [disabled]="!isFormValid()">
+                {{ 'HR_DOCUMENTS.BUTTONS.SAVE' | translate }}
+            </button>
+        </div>
+    </form>
+</div>

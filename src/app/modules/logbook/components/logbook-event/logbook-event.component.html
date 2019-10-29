@@ -4,8 +4,9 @@
             <ion-row class="event-date-and-checkbox-row">
                 <span class="event-date">
                     <ion-label stacked class="required">{{ 'LOGBOOK.EDIT.EVENT_DATE' | translate }}</ion-label>
-                    <edospnc-datetime  [ngModelOptions]="{standalone: true}" [(ngModel)]="logbookEvent.eventDate"
-                    [displayIcon]="false" [edospncFormGroup]="logbookEventForm" edospncFormControlName="eventDate">
+                    <edospnc-datetime [ngModelOptions]="{standalone: true}" [(ngModel)]="logbookEvent.eventDate"
+                        [displayIcon]="false" [edospncFormGroup]="logbookEventForm" edospncFormControlName="eventDate"
+                        [pickerOptions]="eventDateTimeOptions">
                     </edospnc-datetime>
                 </span>
                 <ion-item class="event-checkbox" item-end>

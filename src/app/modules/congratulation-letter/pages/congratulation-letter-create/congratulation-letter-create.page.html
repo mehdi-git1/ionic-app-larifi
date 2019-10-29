@@ -21,7 +21,8 @@
                             class="required">{{ 'CONGRATULATION_LETTER_CREATE.FORM.FLIGHT_DATE' | translate }}</label>
                         <edospnc-datetime class="input-like flight-date" [edospncFormGroup]="congratulationLetterForm"
                             edospncFormControlName="flightDateControl" [ngModelOptions]="{standalone: true}"
-                            [displayIcon]="false" [(ngModel)]="congratulationLetter.flight.theoricalDate">
+                            [displayIcon]="false" [(ngModel)]="congratulationLetter.flight.theoricalDate"
+                            [pickerOptions]="flightDateTimeOptions">
                         </edospnc-datetime>
                     </ion-col>
                     <ion-col col-lg-3 col-md-6 class="flex align-center">

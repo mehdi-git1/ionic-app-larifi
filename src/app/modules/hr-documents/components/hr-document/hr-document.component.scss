@@ -1,0 +1,39 @@
+hr-document{
+    
+    $ion-textarea-row-margin:10px;
+
+    ion-grid {
+        display: flex;
+    }
+    .category {
+        width: 255px;
+
+        ion-select {
+            padding-left: 5px;
+        }
+    }
+
+    .title-row {
+        margin-top: $ion-textarea-row-margin !important;
+    }
+
+    .document-title {
+        display: flex;
+        height: fit-content;
+    }
+
+    .document-length {
+        width: 100%;
+        font-size: smaller;
+        align-content: flex-end;
+        text-align: right;
+    }
+
+    .attachment-row{
+        ion-label{
+            font-size: 1.6rem;
+        }
+    }
+
+
+}
