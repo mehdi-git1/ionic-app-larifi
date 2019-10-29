@@ -40,6 +40,15 @@ export class OnlineHrDocumentService {
     }
 
     /**
+     * Récupère un document RH
+     * @param id l'id du document à récupérer
+     * @return le document récupéré
+     */
+    getHrDocument(id: number): Promise<HrDocumentModel> {
+        return this.restService.get(this.config.getBackEndUrl('getHrDocumentById', [id]));
+    }
+
+    /**
      * Récupère les documents RH d'un pnc
      * @param matricule le matricule du PNC dont on souhaite récupérer les documents RH
      * @return la liste des documents RH

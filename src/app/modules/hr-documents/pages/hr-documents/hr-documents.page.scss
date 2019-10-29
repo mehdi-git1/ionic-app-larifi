@@ -2,9 +2,9 @@ hr-documents {
     $nbLinesMaxOnRow: 2;
 
     ion-content {
-    
-        .hr-document-list-container{
-            .hr-document-grid{
+
+        .hr-document-list-container {
+            .hr-document-grid {
                 ion-row {
                     border: none;
                 }
@@ -44,6 +44,11 @@ hr-documents {
                     flex: 0 0 180px !important;
                 }
 
+                .action-placeholder {
+                    min-width: 80px;
+                    max-width: 80px;
+                }
+
                 .column-redactor {
                     min-width: 80px;
                     max-width: 160px;
@@ -77,31 +82,64 @@ hr-documents {
                         margin-right: 10px;
                     }
                 }
+
+                .user-actions {
+                    min-width: 80px;
+                    max-width: 80px;
+                    padding-right: 10px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: flex-end;
+
+                    & > * {
+                        margin-left: 10px;
+                    }
+
+                    button.detail-button {
+                        background: color($colors, primary-light);
+                        color: color($colors, white);
+                        width: 30px;
+                        height: 30px;
+                        box-shadow: none;
+
+                        span:before {
+                            font-size: 20px;
+                        }
+                    }
+                }
+
             }
+
             ion-infinite-scroll-content {
                 min-height: 5px;
             }
         }
+
         .search-end-container {
             display: flex;
             justify-content: center;
             padding: 30px 0;
 
-            .last-page-reached,
-            .no-result {
-                font-size: 1.2em;
-                color: color($colors, primary-light);
-            }
+            .button-bar {
+                margin-bottom: 10px;
 
-            button {
-                background-color: color($colors, white);
-                color: color($colors-secondary, grey10);
-            }
+                .last-page-reached,
+                .no-result {
+                    font-size: 1.2em;
+                    color: color($colors, primary-light);
+                }
 
-            .button-md:hover:not(.disable-hover), ion-button:hover:not(.disable-hover) {
-                background-color: color($colors, white);
+                button {
+                    background-color: color($colors, white);
+                    color: color($colors-secondary, grey10);
+                }
+
+                .button-md:hover:not(.disable-hover),
+                ion-button:hover:not(.disable-hover) {
+                    background-color: color($colors, white);
+                }
             }
         }
-    }
 
+    }
 }

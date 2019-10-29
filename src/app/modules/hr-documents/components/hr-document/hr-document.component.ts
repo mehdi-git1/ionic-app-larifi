@@ -46,7 +46,7 @@ export class HrDocumentComponent implements OnInit {
     constructor(private securityService: SecurityService,
         private translateService: TranslateService,
         private sessionService: SessionService,
-        private onlineHrDocumentsService: OnlineHrDocumentService,
+        private onlineHrDocumentService: OnlineHrDocumentService,
         private navCtrl: NavController,
         private toastService: ToastService,
         private loadingCtrl: LoadingController,
@@ -162,7 +162,7 @@ export class HrDocumentComponent implements OnInit {
             this.loading = this.loadingCtrl.create();
             this.loading.present();
 
-            this.onlineHrDocumentsService.createOrUpdate(this.hrDocument)
+            this.onlineHrDocumentService.createOrUpdate(this.hrDocument)
                 .then(savedHrDocument => {
                     this.originHrDocument = _.cloneDeep(savedHrDocument);
                     this.hrDocument = savedHrDocument;

@@ -15,6 +15,7 @@ import {
 import { SecurityService } from '../../../../core/services/security/security.service';
 import { SessionService } from '../../../../core/services/session/session.service';
 import { HrDocumentCreatePage } from '../hr-document-create/hr-document-create.page';
+import { HrDocumentDetailPage } from '../hr-document-detail/hr-document-detail.page';
 
 @Component({
     selector: 'hr-documents',
@@ -84,6 +85,10 @@ export class HrDocumentsPage implements OnInit {
      */
     createNewDocument() {
         this.navCtrl.push(HrDocumentCreatePage, { mode: HrDocumentModeEnum.CREATION });
+    }
+
+    viewDocumentDetails(hrDocument: HrDocumentModel) {
+        this.navCtrl.push(HrDocumentDetailPage, { mode: HrDocumentModeEnum.EDITION, hrDocumentId: hrDocument.techId });
     }
 
     canCreateDocument() {
