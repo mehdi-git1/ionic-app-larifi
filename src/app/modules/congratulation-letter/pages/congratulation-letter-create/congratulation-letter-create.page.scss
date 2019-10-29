@@ -59,17 +59,6 @@ congratulation-letter-create {
         margin-left: 10px;
     }
 
-    ion-textarea {
-        min-height: 310px !important;
-        padding: 0 !important;
-        margin: 0 !important;
-
-        textarea {
-            min-height: 290px !important;
-            padding: 5px !important;
-        }
-    }
-
     ion-list.list-md,
     ion-list.list-ios {
         margin: 0;
@@ -78,5 +67,23 @@ congratulation-letter-create {
     .collective-warning {
         color: color($colors, red70);
         font-size: 1.1em;
+    }
+
+
+    text-editor .ql-snow .ql-editor {
+        padding: 10px;
+        border-radius: 3px;
+        background: color($colors, white);
+        white-space: pre-line;
+        min-height: 100px;
+    }
+
+    text-editor .ql-container.ql-snow{
+        height: 70%;
+    }
+
+    .verbatim-info-message{
+        font-weight: 700;
+        color: color($colors-secondary, red80);
     }
 }
