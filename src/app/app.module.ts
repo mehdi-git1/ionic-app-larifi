@@ -43,7 +43,7 @@ import { RoutingModule } from './core/routing/routing.module';
 
 import localeFr from '@angular/common/locales/fr';
 import { registerLocaleData } from '@angular/common';
-import { HrDocumentsModule } from './modules/hr-documents/hr-documents.module';
+import { HrDocumentModule } from './modules/hr-documents/hr-document.module';
 
 registerLocaleData(localeFr);
 @NgModule({
@@ -81,7 +81,7 @@ registerLocaleData(localeFr);
     StorageModule,
     BrowserAnimationsModule,
     SimpleNotificationsModule.forRoot({ position: ['top', 'right'] }),
-	HrDocumentsModule
+	HrDocumentModule
   ],
   bootstrap: [IonicApp],
   schemas: [

@@ -58,9 +58,9 @@ export class OnlineLogbookEventService {
     }
 
     /**
-     * Récupère l'évènement du journal de bord'
-     * @param matricule le matricule du PNC dont on souhaite récupérer l'évènement du journal de bord'
-     * @return l'évènement du journal de bord'
+     * Récupère tout les évènements du journal de bord d'un pnc
+     * @param matricule le matricule du PNC dont on souhaite récupérer les évènements du journal de bord
+     * @return la liste des évènements du journal de bord
      */
     getLogbookEvents(matricule: string): Promise<LogbookEventModel[]> {
         return this.restService.get(this.config.getBackEndUrl('getLogbookEvents', [matricule]));
