@@ -87,7 +87,7 @@ export class HrDocumentsPage implements OnInit {
         this.navCtrl.push(HrDocumentCreatePage, { mode: HrDocumentModeEnum.CREATION });
     }
 
-    viewDetailedDocument(hrDocument: HrDocumentModel) {
+    viewDocumentDetails(hrDocument: HrDocumentModel) {
         this.navCtrl.push(HrDocumentDetailPage, { mode: HrDocumentModeEnum.EDITION, hrDocumentId: hrDocument.techId });
     }
 

@@ -850,7 +850,7 @@
             "HR_DOCUMENT_SAVED": "Document enregistré"
         },
         "DETAIL": {
-            "PAGE_TITLE": "Détail d'un document",
+            "PAGE_TITLE": "Détails d'un document",
             "CREATED_BY_THE": "Créé par {{ lastName }} {{ firstName }} le {{ creationDate }}"
         }
     },
