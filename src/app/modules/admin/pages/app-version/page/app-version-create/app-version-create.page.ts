@@ -7,7 +7,6 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 
-import { AppConstant } from '../../../../../../app.constant';
 import { TabHeaderModeEnum } from '../../../../../../core/enums/tab-header-mode.enum';
 import { TabHeaderEnum } from '../../../../../../core/enums/tab-header.enum';
 import { TextEditorModeEnum } from '../../../../../../core/enums/text-editor-mode.enum';
@@ -121,7 +120,7 @@ export class AppVersionCreatePage {
         this.creationAppVersionForm = this.formBuilder.group({
             numberControl: ['', Validators.required],
             releaseDateControl: [''],
-            changelogControl: ['', Validators.maxLength(4000)]
+            changelogControl: ['']
         });
     }
 
