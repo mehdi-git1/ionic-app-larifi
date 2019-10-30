@@ -32,4 +32,8 @@ export class HrDocumentDetailPage implements OnInit {
             }, error => {
             });
     }
+
+    loadingIsOver() {
+        return this.hrDocument && this.hrDocument != undefined && this.hrDocument != null;
+    }
 }
