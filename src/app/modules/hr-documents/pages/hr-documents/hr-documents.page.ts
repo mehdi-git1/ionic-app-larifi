@@ -63,7 +63,7 @@ export class HrDocumentsPage implements OnInit {
     }
 
     /**
-     * Initialisation du contenu de la page.
+     * Initialise le contenu de la page.
      */
     initPage() {
         this.ngOnInit();
@@ -81,20 +81,31 @@ export class HrDocumentsPage implements OnInit {
     }
 
     /**
-     * Dirige vers la page de création d'un nouvel objectif
+     * Dirige vers la page de création d'un nouveau document RH
      */
     createNewDocument() {
         this.navCtrl.push(HrDocumentCreatePage, { mode: HrDocumentModeEnum.CREATION });
     }
 
+    /**
+     * Dirige vers la page de détails d'un document RH
+     */
     viewDocumentDetails(hrDocument: HrDocumentModel) {
         this.navCtrl.push(HrDocumentDetailPage, { mode: HrDocumentModeEnum.EDITION, hrDocumentId: hrDocument.techId });
     }
 
+    /**
+     * Vérifie si on peut créer un document RH
+     * @return true si on est Manager et qu'on est en ligne
+     */
     canCreateDocument() {
-        return this.securityService.isManager();
+        return this.securityService.isManager() && this.connectivityService.isConnected();
     }
 
+    /**
+     * Vérifie que le chargement est terminé
+     * @return true si c'est le cas, false sinon
+     */
     loadingIsOver() {
         return this.hrDocuments && this.hrDocuments != undefined;
     }
@@ -177,5 +188,13 @@ export class HrDocumentsPage implements OnInit {
         this.hrDocumentFilter.sortColumn = columnName;
         this.hrDocumentFilter.sortDirection = this.hrDocumentFilter.sortDirection === 'ASC' ? 'DESC' : 'ASC';
         this.searchHrDocuments();
+    }
+
+    /**
+     * Vérifie que l'on est en mode connecté
+     * @return true si on est en mode connecté, false sinon
+     */
+    isConnected(): boolean {
+        return this.connectivityService.isConnected();
     }
 }

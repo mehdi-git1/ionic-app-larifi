@@ -9,86 +9,93 @@
 <ion-content padding no-bounce>
     <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
     <ng-template #pageBlock>
-        <div class="button-bar button-bar-right" *ngIf="canCreateDocument()">
-            <button ion-button (click)="createNewDocument()" color="primary-light" icon-start>
-                <ion-icon name="md-add" ios="md-add"></ion-icon>
-                {{ 'HR_DOCUMENT.BUTTONS.CREATE_NEW_DOCUMENT' | translate }}
-            </button>
-        </div>
+        <div *ngIf="isConnected(); else notConnectedBlock">
+            <div class="button-bar button-bar-right" *ngIf="canCreateDocument()">
+                <button ion-button (click)="createNewDocument()" color="primary-light" icon-start>
+                    <ion-icon name="md-add" ios="md-add"></ion-icon>
+                    {{ 'HR_DOCUMENT.BUTTONS.CREATE_NEW_DOCUMENT' | translate }}
+                </button>
+            </div>
 
-        <div class="hr-document-list-container">
-            <div>
-                <!-- liste des documents RH -->
-                <div *ngIf="hrDocuments && hrDocuments.length > 0">
-                    <ion-grid class="hr-document-grid selectable">
-                        <ion-row class="headers" align-items-center>
-                            <ion-col class="column-date" columnName="creationDate" (click)="sortColumn('creationDate')">
-                                {{ 'HR_DOCUMENT.CREATION_DATE' | translate }}
-                                <edospnc-column-sorter columnName="creationDate"
-                                    [sortColumn]="hrDocumentFilter.sortColumn"
-                                    [sortDirection]="hrDocumentFilter.sortDirection">
-                                </edospnc-column-sorter>
-                            </ion-col>
-                            <ion-col class="column-category" columnName="category" (click)="sortColumn('category')">
-                                {{ 'HR_DOCUMENT.CATEGORY' | translate }}
-                                <edospnc-column-sorter columnName="category" [sortColumn]="hrDocumentFilter.sortColumn"
-                                    [sortDirection]="hrDocumentFilter.sortDirection">
-                                </edospnc-column-sorter>
-                            </ion-col>
-                            <ion-col class="column-title" columnName="event">
-                                {{ 'HR_DOCUMENT.TITLE' | translate }}
-                            </ion-col>
-                            <ion-col class="column-redactor" columnName="author">
-                                {{ 'HR_DOCUMENT.REDACTOR' | translate }}
-                            </ion-col>
-                            <ion-col class="action-placeholder">
-                                <!-- Bloc pour le bouton d'actions -->
-                            </ion-col>
-                        </ion-row>
-                        <ion-row class="hr-document-row" *ngFor="let hrDocument of hrDocuments">
-                            <ion-col class="column-date">{{hrDocument.creationDate | date:'dd/MM/yyyy' }}
-                            </ion-col>
-                            <ion-col class="column-category">
-                                <div class="category-label">{{hrDocument.category?.label}}</div>
-                            </ion-col>
-                            <ion-col class="column-title">
-                                <span class="truncate-text">{{hrDocument.title}}</span>
-                            </ion-col>
-                            <ion-col class="column-redactor">
-                                <span class="truncate-text">{{hrDocument.redactor?.lastName}}
-                                    {{hrDocument.redactor?.firstName | titlecase}}
-                                </span>
-                            </ion-col>
-                            <ion-col class="user-actions">
-                                <button ion-fab class="detail-button" (click)="viewDocumentDetails(hrDocument)">
-                                    <span class="edospnc-memo"></span>
-                                </button>
-                            </ion-col>
-                        </ion-row>
-                    </ion-grid>
+            <div class="hr-document-list-container">
+                <div>
+                    <!-- liste des documents RH -->
+                    <div *ngIf="hrDocuments && hrDocuments.length > 0">
+                        <ion-grid class="hr-document-grid selectable">
+                            <ion-row class="headers" align-items-center>
+                                <ion-col class="column-date" columnName="creationDate"
+                                    (click)="sortColumn('creationDate')">
+                                    {{ 'HR_DOCUMENT.CREATION_DATE' | translate }}
+                                    <edospnc-column-sorter columnName="creationDate"
+                                        [sortColumn]="hrDocumentFilter.sortColumn"
+                                        [sortDirection]="hrDocumentFilter.sortDirection">
+                                    </edospnc-column-sorter>
+                                </ion-col>
+                                <ion-col class="column-category" columnName="category" (click)="sortColumn('category')">
+                                    {{ 'HR_DOCUMENT.CATEGORY' | translate }}
+                                    <edospnc-column-sorter columnName="category"
+                                        [sortColumn]="hrDocumentFilter.sortColumn"
+                                        [sortDirection]="hrDocumentFilter.sortDirection">
+                                    </edospnc-column-sorter>
+                                </ion-col>
+                                <ion-col class="column-title" columnName="event">
+                                    {{ 'HR_DOCUMENT.TITLE' | translate }}
+                                </ion-col>
+                                <ion-col class="column-redactor" columnName="author">
+                                    {{ 'HR_DOCUMENT.REDACTOR' | translate }}
+                                </ion-col>
+                                <ion-col class="action-placeholder">
+                                    <!-- Bloc pour le bouton d'actions -->
+                                </ion-col>
+                            </ion-row>
+                            <ion-row class="hr-document-row" *ngFor="let hrDocument of hrDocuments">
+                                <ion-col class="column-date">{{hrDocument.creationDate | date:'dd/MM/yyyy' }}
+                                </ion-col>
+                                <ion-col class="column-category">
+                                    <div class="category-label">{{hrDocument.category?.label}}</div>
+                                </ion-col>
+                                <ion-col class="column-title">
+                                    <span class="truncate-text">{{hrDocument.title}}</span>
+                                </ion-col>
+                                <ion-col class="column-redactor">
+                                    <span class="truncate-text">{{hrDocument.redactor?.lastName}}
+                                        {{hrDocument.redactor?.firstName | titlecase}}
+                                    </span>
+                                </ion-col>
+                                <ion-col class="user-actions">
+                                    <button ion-fab class="detail-button" (click)="viewDocumentDetails(hrDocument)">
+                                        <span class="edospnc-memo"></span>
+                                    </button>
+                                </ion-col>
+                            </ion-row>
+                        </ion-grid>
+                    </div>
                 </div>
+                <ion-infinite-scroll (ionInfinite)="$event.waitFor(doInfinite($event))">
+                    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+                </ion-infinite-scroll>
             </div>
-            <ion-infinite-scroll (ionInfinite)="$event.waitFor(doInfinite($event))">
-                <ion-infinite-scroll-content></ion-infinite-scroll-content>
-            </ion-infinite-scroll>
-        </div>
-        <edossier-spinner *ngIf="searchInProgress; else searchEndBlock"></edossier-spinner>
-        <ng-template #searchEndBlock>
-            <div class="search-end-container">
-                <!-- Aucun résultat -->
-                <div class="no-result" *ngIf="totalHrDocuments === 0; else nextPageBlock">
-                    <no-data></no-data>
-                </div>
-                <ng-template #nextPageBlock>
-                    <!-- Bouton "afficher la page suivante" -->
-                    <button ion-button (click)="loadNextPage()"
-                        *ngIf="!isLastPageReached(); else searchEndBlock">{{ 'HR_DOCUMENT.BUTTONS.NEXT_PAGE' | translate:{pageSize:hrDocumentFilter.size} }}</button>
-                    <!-- Fin de la recherche atteint -->
-                    <ng-template #searchEndBlock>
-                        <div class="last-page-reached">{{ 'HR_DOCUMENT.LIST.LAST_PAGE_REACHED' | translate }}</div>
+            <edossier-spinner *ngIf="searchInProgress; else searchEndBlock"></edossier-spinner>
+            <ng-template #searchEndBlock>
+                <div class="search-end-container">
+                    <!-- Aucun résultat -->
+                    <div class="no-result" *ngIf="totalHrDocuments === 0; else nextPageBlock">
+                        <no-data></no-data>
+                    </div>
+                    <ng-template #nextPageBlock>
+                        <!-- Bouton "afficher la page suivante" -->
+                        <button ion-button (click)="loadNextPage()"
+                            *ngIf="!isLastPageReached(); else searchEndBlock">{{ 'HR_DOCUMENT.BUTTONS.NEXT_PAGE' | translate:{pageSize:hrDocumentFilter.size} }}</button>
+                        <!-- Fin de la recherche atteint -->
+                        <ng-template #searchEndBlock>
+                            <div class="last-page-reached">{{ 'HR_DOCUMENT.LIST.LAST_PAGE_REACHED' | translate }}</div>
+                        </ng-template>
                     </ng-template>
-                </ng-template>
-            </div>
+                </div>
+            </ng-template>
+        </div>
+        <ng-template #notConnectedBlock>
+            {{ 'HR_DOCUMENT.UNAIVALABLE_OFFLINE' | translate }}
         </ng-template>
     </ng-template>
 </ion-content>

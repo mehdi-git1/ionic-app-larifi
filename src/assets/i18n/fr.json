@@ -827,6 +827,7 @@
         "CATEGORY": "Catégorie",
         "TITLE": "Titre",
         "REDACTOR": "Rédacteur",
+        "UNAIVALABLE_OFFLINE": "Les documents RH ne sont pas disponibles hors connexion",
         "BUTTONS": {
             "CREATE_NEW_DOCUMENT": "Nouveau document",
             "ADD_LOG": "Nouvel évènement",

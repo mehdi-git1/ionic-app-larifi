@@ -3,6 +3,12 @@ hr-documents {
 
     ion-content {
 
+        .scroll-content {
+            display: flex;
+            flex-direction: column;
+            padding-top: 40px !important;
+        }
+
         .hr-document-list-container {
             .hr-document-grid {
                 ion-row {
