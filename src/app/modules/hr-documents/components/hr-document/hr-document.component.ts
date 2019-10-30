@@ -15,7 +15,6 @@ import { ConnectivityService } from '../../../../core/services/connectivity/conn
 import {
     OnlineHrDocumentService
 } from '../../../../core/services/hr-documents/online-hr-document.service';
-import { SecurityService } from '../../../../core/services/security/security.service';
 import { SessionService } from '../../../../core/services/session/session.service';
 import { ToastService } from '../../../../core/services/toast/toast.service';
 import { Utils } from '../../../../shared/utils/utils';
@@ -43,8 +42,9 @@ export class HrDocumentComponent implements OnInit {
 
     hrDocumentForm: FormGroup;
 
-    constructor(private securityService: SecurityService,
-        private translateService: TranslateService,
+    cancelFromButton = false;
+
+    constructor(private translateService: TranslateService,
         private sessionService: SessionService,
         private onlineHrDocumentService: OnlineHrDocumentService,
         private navCtrl: NavController,
@@ -64,14 +64,6 @@ export class HrDocumentComponent implements OnInit {
             this.pnc = this.sessionService.getActiveUser().authenticatedPnc;
         }
         this.initPage();
-    }
-
-    ionViewCanLeave() {
-        if (this.formHasBeenModified()) {
-            return this.confirmAbandonChanges();
-        } else {
-            return true;
-        }
     }
 
     /**
@@ -115,10 +107,36 @@ export class HrDocumentComponent implements OnInit {
     }
 
     /**
-     * Annule la création du document RH
+     * Annule la création / modification de l'évènement en appuyant sur le bouton annuler.
      */
     cancelCreation() {
-        this.navCtrl.pop();
+        this.cancelFromButton = true;
+        this.confirmCancel();
+    }
+
+    /**
+     * Annule la création du document RH
+     */
+    confirmCancel() {
+        if (this.formHasBeenModified()) {
+            return this.confirmAbandonChanges().then(() => {
+                this.hrDocument = _.cloneDeep(this.originHrDocument);
+                if (this.cancelFromButton) {
+                    this.navCtrl.pop();
+                    this.cancelFromButton = false;
+                }
+                return true;
+            }).catch(() => {
+                this.cancelFromButton = false;
+                return false;
+            });
+        } else {
+            if (this.cancelFromButton) {
+                this.navCtrl.pop();
+                this.cancelFromButton = false;
+            }
+            return true;
+        }
     }
 
     /**
