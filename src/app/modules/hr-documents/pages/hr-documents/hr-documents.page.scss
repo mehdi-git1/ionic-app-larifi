@@ -120,26 +120,21 @@ hr-documents {
             justify-content: center;
             padding: 30px 0;
 
-            .button-bar {
-                margin-bottom: 10px;
+            .last-page-reached,
+            .no-result {
+                font-size: 1.2em;
+                color: color($colors, primary-light);
+            }
 
-                .last-page-reached,
-                .no-result {
-                    font-size: 1.2em;
-                    color: color($colors, primary-light);
-                }
+            button {
+                background-color: color($colors, white);
+                color: color($colors-secondary, grey10);
+            }
 
-                button {
-                    background-color: color($colors, white);
-                    color: color($colors-secondary, grey10);
-                }
-
-                .button-md:hover:not(.disable-hover),
-                ion-button:hover:not(.disable-hover) {
-                    background-color: color($colors, white);
-                }
+            .button-md:hover:not(.disable-hover),
+            ion-button:hover:not(.disable-hover) {
+                background-color: color($colors, white);
             }
         }
-
     }
 }
