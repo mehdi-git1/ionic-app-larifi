@@ -18,21 +18,21 @@
 
         <div class="hr-document-list-container">
             <div>
-                <div *ngIf="hrDocuments && hrDocuments.length == 0" class="no-data-found">
-                    <no-data></no-data>
-                </div>
                 <!-- liste des documents RH -->
-                <div *ngIf="hrDocuments && hrDocuments.length > 0; else noHrDocumentsBlock">
+                <div *ngIf="hrDocuments && hrDocuments.length > 0">
                     <ion-grid class="hr-document-grid selectable">
                         <ion-row class="headers" align-items-center>
                             <ion-col class="column-date" columnName="creationDate" (click)="sortColumn('creationDate')">
                                 {{ 'HR_DOCUMENT.CREATION_DATE' | translate }}
-                                <edospnc-column-sorter columnName="creationDate" [sortColumn]="hrDocumentFilter.sortColumn" [sortDirection]="hrDocumentFilter.sortDirection">
+                                <edospnc-column-sorter columnName="creationDate"
+                                    [sortColumn]="hrDocumentFilter.sortColumn"
+                                    [sortDirection]="hrDocumentFilter.sortDirection">
                                 </edospnc-column-sorter>
                             </ion-col>
                             <ion-col class="column-category" columnName="category" (click)="sortColumn('category')">
                                 {{ 'HR_DOCUMENT.CATEGORY' | translate }}
-                                <edospnc-column-sorter columnName="category" [sortColumn]="hrDocumentFilter.sortColumn" [sortDirection]="hrDocumentFilter.sortDirection">
+                                <edospnc-column-sorter columnName="category" [sortColumn]="hrDocumentFilter.sortColumn"
+                                    [sortDirection]="hrDocumentFilter.sortDirection">
                                 </edospnc-column-sorter>
                             </ion-col>
                             <ion-col class="column-title" columnName="event">
@@ -72,22 +72,23 @@
                 <ion-infinite-scroll-content></ion-infinite-scroll-content>
             </ion-infinite-scroll>
         </div>
-    </ng-template>
-    <edossier-spinner *ngIf="searchInProgress; else searchEndBlock"></edossier-spinner>
-    <ng-template #searchEndBlock>
-        <div class="search-end-container">
-            <!-- Aucun résultat -->
-            <div class="no-result" *ngIf="totalElements === 0; else nextPageBlock">
-                {{ 'HR_DOCUMENT.NO_RESULT' | translate }}
-            </div>
-            <ng-template #nextPageBlock>
-                <!-- Bouton "afficher la page suivante" -->
-                <button ion-button (click)="loadNextPage()" *ngIf="!isLastPageReached(); else searchEndBlock">{{ 'HR_DOCUMENT.BUTTONS.NEXT_PAGE' | translate:{pageSize:hrDocumentFilter.size} }}</button>
-                <!-- Fin de la recherche atteint -->
-                <ng-template #searchEndBlock>
-                    <div class="last-page-reached">{{ 'HR_DOCUMENT.LIST.LAST_PAGE_REACHED' | translate }}</div>
+        <edossier-spinner *ngIf="searchInProgress; else searchEndBlock"></edossier-spinner>
+        <ng-template #searchEndBlock>
+            <div class="search-end-container">
+                <!-- Aucun résultat -->
+                <div class="no-result" *ngIf="totalHrDocuments === 0; else nextPageBlock">
+                    <no-data></no-data>
+                </div>
+                <ng-template #nextPageBlock>
+                    <!-- Bouton "afficher la page suivante" -->
+                    <button ion-button (click)="loadNextPage()"
+                        *ngIf="!isLastPageReached(); else searchEndBlock">{{ 'HR_DOCUMENT.BUTTONS.NEXT_PAGE' | translate:{pageSize:hrDocumentFilter.size} }}</button>
+                    <!-- Fin de la recherche atteint -->
+                    <ng-template #searchEndBlock>
+                        <div class="last-page-reached">{{ 'HR_DOCUMENT.LIST.LAST_PAGE_REACHED' | translate }}</div>
+                    </ng-template>
                 </ng-template>
-            </ng-template>
-        </div>
+            </div>
+        </ng-template>
     </ng-template>
 </ion-content>
