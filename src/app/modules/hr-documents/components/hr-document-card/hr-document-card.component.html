@@ -13,7 +13,7 @@
             <div class="title">
                 <span class="value">{{ hrDocument.title }}</span>
             </div>
-            <div>
+            <div *ngIf="hrDocument.content">
                 <text-editor [mode]="TextEditorModeEnum.READ_ONLY" [ngModel]="hrDocument.content"></text-editor>
             </div>
             <document-manager [documents]="hrDocument.attachmentFiles" [readonly]="true"></document-manager>
