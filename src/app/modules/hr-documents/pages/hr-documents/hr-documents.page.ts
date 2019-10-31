@@ -107,7 +107,7 @@ export class HrDocumentsPage implements OnInit {
      * @return true si c'est le cas, false sinon
      */
     loadingIsOver() {
-        return this.hrDocuments && this.hrDocuments != undefined;
+        return this.hrDocuments && this.hrDocuments !== undefined;
     }
 
     /**
@@ -117,7 +117,6 @@ export class HrDocumentsPage implements OnInit {
         this.searchInProgress = true;
         this.hrDocumentFilter.page = this.hrDocumentFilter.offset / this.hrDocumentFilter.size;
         this.hrDocumentFilter.matricule = this.pnc.matricule;
-        this.hrDocuments = [];
 
         this.onlineHrDocumentService.getHrDocumentPageByFilter(this.hrDocumentFilter).then(pagedHrDocument => {
             this.hrDocuments = pagedHrDocument.content;

@@ -124,6 +124,15 @@ ion-content > .scroll-content {
     margin: auto;
 }
 
+
+.popover-md .popover-content {
+    width: 320px;
+}
+
+.popover-ios .popover-content {
+    width: 320px;
+}
+
 .scroll-content {
     overflow-y: auto !important;
 }
