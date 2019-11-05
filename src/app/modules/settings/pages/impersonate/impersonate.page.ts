@@ -1,44 +1,30 @@
-import { Events, NavController } from 'ionic-angular';
-
 import { Component } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { Router } from '@angular/router';
+import { Events } from '@ionic/angular';
 
 import { AuthenticationService } from '../../../../core/authentication/authentication.service';
 import { AuthenticatedUserModel } from '../../../../core/models/authenticated-user.model';
 import { PncModel } from '../../../../core/models/pnc.model';
-import { PncService } from '../../../../core/services/pnc/pnc.service';
 import { SecurityService } from '../../../../core/services/security/security.service';
 import { SessionService } from '../../../../core/services/session/session.service';
-import {
-    CareerObjectiveListPage
-} from '../../../development-program/pages/career-objective-list/career-objective-list.page';
-import { PncHomePage } from '../../../home/pages/pnc-home/pnc-home.page';
 
 @Component({
   selector: 'page-impersonate',
   templateUrl: 'impersonate.page.html',
+  styleUrls: ['./impersonate.page.scss']
 })
 export class ImpersonatePage {
 
   selectedPnc: PncModel;
   impersonatingInProgress = false;
 
-  constructor(private navCtrl: NavController,
-    private formBuilder: FormBuilder,
-    private pncProvider: PncService,
-    private securityProvider: SecurityService,
+  constructor(
+    private router: Router,
+    private securityService: SecurityService,
     private events: Events,
     public sessionService: SessionService,
     public authenticationService: AuthenticationService
   ) {
-  }
-
-  /**
-  * Redirige vers la page d'accueil
-  * @param pnc le pnc sélectionné
-  */
-  openPncHomePage(pnc: PncModel) {
-    this.navCtrl.push(PncHomePage, { matricule: pnc.matricule });
   }
 
   /**
@@ -47,7 +33,7 @@ export class ImpersonatePage {
    */
   impersonateUser(pnc: PncModel): void {
     this.impersonatingInProgress = true;
-    this.securityProvider.isImpersonationAvailable(pnc.matricule).then(success => {
+    this.securityService.isImpersonationAvailable(pnc.matricule).then(success => {
       const impersonatedUser = new AuthenticatedUserModel();
       impersonatedUser.matricule = pnc.matricule;
       this.sessionService.impersonatedUser = impersonatedUser;
@@ -56,13 +42,8 @@ export class ImpersonatePage {
         data => {
           this.sessionService.visitedPnc = undefined;
           this.events.publish('user:authenticationDone');
-          // On redirige vers la page PncHomePage pour permettre le rechargement de celle-ci
-          // le popToRoot ne recharge pas la page en rafraichissant les données
-          if (this.navCtrl.parent) {
-            this.navCtrl.setRoot(this.sessionService.getActiveUser().isManager ? PncHomePage : CareerObjectiveListPage, { matricule: this.sessionService.getActiveUser().matricule });
-          } else {
-            this.navCtrl.popToRoot();
-          }
+
+          this.goToHomePage();
         }
       );
       this.impersonatingInProgress = false;
@@ -84,9 +65,7 @@ export class ImpersonatePage {
    */
   getMyIdentityBack(): void {
     this.sessionService.impersonatedUser = null;
-    if (this.navCtrl.parent) {
-      this.navCtrl.setRoot(this.sessionService.getActiveUser().isManager ? PncHomePage : CareerObjectiveListPage, { matricule: this.sessionService.getActiveUser().matricule });
-    }
+    this.goToHomePage();
     this.authenticationService.putAuthenticatedUserInSession().then(
       data => this.events.publish('user:authenticationDone')
     );
@@ -99,5 +78,16 @@ export class ImpersonatePage {
   isImpersonatedUserComplete() {
     const impersonatedUser = this.sessionService.impersonatedUser;
     return impersonatedUser && impersonatedUser.matricule && impersonatedUser.firstName && impersonatedUser.lastName;
+  }
+
+  /**
+   * Redirige vers la page d'accueil
+   */
+  goToHomePage() {
+    if (this.sessionService.getActiveUser().isManager) {
+      this.router.navigate(['tabs', 'home']);
+    } else {
+      this.router.navigate(['career-objective']);
+    }
   }
 }

@@ -1,5 +1,7 @@
-congratulation-letter-action-menu {
-    background-color: color($colors, white);
+@import '../../../../../theme/colors.scss';
+
+:host {
+    background-color: var(--ion-color-white);
     display: inline-block;
     text-align: justify;
     width: 100%;

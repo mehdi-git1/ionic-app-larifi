@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 
 import { EntityEnum } from '../../enums/entity.enum';
-import { StorageService } from '../../storage/storage.service';
 import { CrewMemberModel } from '../../models/crew-member.model';
 import { LegModel } from '../../models/leg.model';
+import { StorageService } from '../../storage/storage.service';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class OfflineLegService {
 
 

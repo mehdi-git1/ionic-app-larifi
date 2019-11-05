@@ -1,98 +1,72 @@
-page-eobservation-details {
+@import '../../../../../theme/colors.scss';
 
-    $border-grid: 1px solid color($colors-secondary, grey75);
-    $block-border-radius: 5px;
+$block-border-radius: 5px;
 
-    ion-grid.rotation-grid {
-        .flight-header {
-            color: color($colors-secondary, blue55);
-        }
+::ng-deep ion-grid {
+    padding: 0;
+}
 
-        ion-row {
-            ion-col:first-child {
-                padding-left: 24px;
-            }
-        }
+.speciality-grid {
+    padding: 0px;
+    margin-bottom: 16px;
+    box-sizing: border-box;
+    box-shadow: 0 3px 1px -2px rgba(0, 0, 0, .2), 0 2px 2px 0 rgba(0, 0, 0, .14), 0 1px 5px 0 rgba(0, 0, 0, .12);
+    border-radius: $block-border-radius;
+    background: var(--ion-color-white);
 
-        ion-row:first-child {
-            border-top: $border-grid;
-            border-bottom: $border-grid;
-        }
+    .grid {
+        padding: initial;
+    }
+}
 
-        ion-col {
-            border-right: $border-grid;
-        }
+.speciality-header {
+    height: 32px;
+    padding-right: 24px;
+    padding-left: 24px;
+    background: color($colors-secondary, blue55);
+    color: var(--ion-color-white);
+    font-size: 18px !important;
+    border-radius: $block-border-radius;
+    display: flex;
+    align-items: center;
+}
 
-        ion-row:nth-child(even) {
-            background: color($colors-secondary, grey95);
-        }
+.speciality-label {
+    padding-left: 24px;
+    background: var(--ion-color-white);
 
-        ion-col:last-child {
-            border: initial;
-        }
+    ion-col {
+        background: var(--ion-color-white);
     }
 
-    .speciality-grid {
-        padding: 0px;
-        margin-bottom: 16px;
-        box-sizing: border-box;
-        box-shadow: 0 3px 1px -2px rgba(0, 0, 0, .2), 0 2px 2px 0 rgba(0, 0, 0, .14), 0 1px 5px 0 rgba(0, 0, 0, .12);
-        border-radius: $block-border-radius;
-        background: color($colors, white);
-
-        .grid {
-            padding: initial;
-        }
+    .assignment {
+        padding-right: 15px;
     }
+}
 
-    .speciality-header {
-        height: 32px;
-        padding-right: 24px;
-        padding-left: 24px;
-        background: color($colors-secondary, blue55);
-        color: color($colors, white);
-        font-size: 18px !important;
-        border-radius: $block-border-radius;
-        display: flex;
-        align-items: center;
-    }
+.button-bar {
+    margin-top: 10px;
 
-    .speciality-label {
-        padding-left: 24px;
-        background: color($colors, white);
+    pdf-button {
 
-        ion-col {
-            background: color($colors, white);
+        .button .button-md .button-ios {
+            background-color: white;
+            color: var(--ion-color-grey20);
+            border-color: var(--ion-color-grey20);
         }
 
-        .assignment {
-            padding-right: 15px;
+        .button:hover .button-md:hover .button-ios:hover {
+            background-color: white;
+            color: var(--ion-color-grey20);
+            border-color: var(--ion-color-grey20);
         }
     }
+}
 
-    .button-bar {
-        margin-top: 10px;
+.information-message {
+    text-align: left;
+}
 
-        pdf-button {
-
-            .button .button-md .button-ios {
-                background-color: white;
-                color: color($colors, grey20);
-                border-color: color($colors, grey20);
-            }
-            .button:hover .button-md:hover .button-ios:hover {
-                background-color: white;
-                color: color($colors, grey20);
-                border-color: color($colors, grey20);
-            }
-        }
-    }
-
-    .information-message {
-        text-align: left;
-    }
-
-    .item-inner {
-        border: none !important;
-    }
+.item-inner {
+    border: none !important;
 }

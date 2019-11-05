@@ -1,30 +1,28 @@
-import { App, Events, Nav, Platform } from 'ionic-angular';
 import * as moment from 'moment';
 
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { SplashScreen } from '@ionic-native/splash-screen';
-import { StatusBar } from '@ionic-native/status-bar';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Router } from '@angular/router';
+import { StatusBar } from '@ionic-native/status-bar/ngx';
+import { Events, Platform } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 
 import { AuthenticationService } from './core/authentication/authentication.service';
 import { PinPadTypeEnum } from './core/enums/security/pin-pad-type.enum';
-import { RoutingService } from './core/routing/routing.service';
 import { ConnectivityService } from './core/services/connectivity/connectivity.service';
 import { DeviceService } from './core/services/device/device.service';
 import { ModalSecurityService } from './core/services/modal/modal-security.service';
+import { AppInitService } from './core/services/routing/app-init.service';
 import { SessionService } from './core/services/session/session.service';
 import { SynchronizationService } from './core/services/synchronization/synchronization.service';
 import { ToastService } from './core/services/toast/toast.service';
-import {
-    UnsupportedNavigatorMessagePage
-} from './modules/home/pages/unsupported-navigator/unsupported-navigator-message.page';
 
 @Component({
-  templateUrl: 'app.html'
+  selector: 'app-root',
+  templateUrl: 'app.component.html',
+  styleUrls: ['app.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
-export class EDossierPNC implements OnInit {
-
-  @ViewChild('content') nav: Nav;
+export class AppComponent implements OnInit {
 
   pinPadModalActive = false;
   switchToBackgroundDate: Date;
@@ -32,26 +30,19 @@ export class EDossierPNC implements OnInit {
   pncSynchroThresholdInSeconds = 300;
 
   constructor(
-    public platform: Platform,
-    public statusBar: StatusBar,
-    public splashScreen: SplashScreen,
+    private platform: Platform,
+    private statusBar: StatusBar,
     private connectivityService: ConnectivityService,
     private events: Events,
+    private router: Router,
     private securityModalService: ModalSecurityService,
     private sessionService: SessionService,
-    public translateService: TranslateService,
+    private translateService: TranslateService,
     private deviceService: DeviceService,
     private toastService: ToastService,
     private synchronizationProvider: SynchronizationService,
     private authenticationService: AuthenticationService,
-    private app: App,
-    private routingService: RoutingService) {
-    // A chaque changement de page, on récupère l'evenement pour la gestion du changement de tab
-    app.viewWillEnter.subscribe(
-      (data) => {
-        this.events.publish('changeTab', data.component.name);
-      }
-    );
+    private appInitService: AppInitService) {
   }
 
   ngOnInit(): void {
@@ -61,10 +52,9 @@ export class EDossierPNC implements OnInit {
   initializeApp() {
 
     this.platform.ready().then(() => {
-
       if (this.deviceService.isBrowser()) {
         if (this.isInternetExplorer()) {
-          this.nav.setRoot(UnsupportedNavigatorMessagePage);
+          this.router.navigate(['unsupported-navigator']);
           return;
         }
       } else {
@@ -115,7 +105,7 @@ export class EDossierPNC implements OnInit {
       this.translateService.use('fr');
       this.authenticationService.initFunctionalApp().then(
         authentReturn => {
-          this.routingService.handleAuthenticationStatus(authentReturn, this.nav);
+          this.appInitService.handleAuthenticationStatus(authentReturn);
         });
     });
 
@@ -129,5 +119,4 @@ export class EDossierPNC implements OnInit {
   isInternetExplorer() {
     return navigator.userAgent.search(/(?:Edge|MSIE|Trident\/.*; rv:)/) !== -1;
   }
-
 }

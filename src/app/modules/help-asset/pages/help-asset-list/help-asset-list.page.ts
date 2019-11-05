@@ -1,6 +1,5 @@
-import { NavController, NavParams } from 'ionic-angular';
-
 import { Component } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 import { FileTypeEnum } from '../../../../core/enums/file-type.enum';
 import { HelpAssetTypeEnum } from '../../../../core/enums/help-asset-type.enum';
@@ -13,11 +12,11 @@ import { ConnectivityService } from '../../../../core/services/connectivity/conn
 import { DeviceService } from '../../../../core/services/device/device.service';
 import { HelpAssetService } from '../../../../core/services/help-asset/help-asset.service';
 import { PncService } from '../../../../core/services/pnc/pnc.service';
-import { SessionService } from '../../../../core/services/session/session.service';
 
 @Component({
     selector: 'page-help-asset-list',
     templateUrl: 'help-asset-list.page.html',
+    styleUrls: ['./help-asset-list.page.scss']
 })
 export class HelpAssetListPage {
 
@@ -34,11 +33,10 @@ export class HelpAssetListPage {
 
     TabHeaderEnum = TabHeaderEnum;
 
-    constructor(public navCtrl: NavController,
-        public navParams: NavParams,
+    constructor(
+        private activatedRoute: ActivatedRoute,
         private deviceService: DeviceService,
-        private helpAssetProvider: HelpAssetService,
-        private sessionService: SessionService,
+        private helpAssetService: HelpAssetService,
         private connectivityService: ConnectivityService,
         private fileService: FileService,
         private pncService: PncService
@@ -52,31 +50,29 @@ export class HelpAssetListPage {
     }
 
     ionViewDidEnter() {
-        this.matricule = this.navParams.get('matricule');
+        this.matricule = this.pncService.getRequestedPncMatricule(this.activatedRoute);
         this.pncService.getPnc(this.matricule).then(pnc => {
             this.pnc = pnc;
+            this.pncRole = pnc.manager ? PncRoleEnum.MANAGER : PncRoleEnum.PNC;
+
+            this.localHelpAssets = new Array();
+            // On récupère le role du pnc dans les paramètres de navigation
+            this.localHelpAssets.push(...this.getCommunHelpAssets());
+            if (this.pncRole === PncRoleEnum.MANAGER) {
+                this.localHelpAssets.push(...this.getCADHelpAssets());
+            } else if (this.pncRole === PncRoleEnum.PNC) {
+                this.localHelpAssets.push(...this.getHSTHelpAssets());
+            }
+            this.localHelpAssets.sort((a, b) => a.label < b.label ? -1 : 1);
+            // On récupère le role du pnc dans les paramètres de navigation
+            if (this.connectivityService.isConnected() && this.pncRole) {
+                this.helpAssetService.getHelpAssetList(this.pncRole).then(result => {
+                    this.remoteHelpAssets = result;
+                }, error => { });
+            }
         }, error => {
         });
-        if (this.navParams.get('pncRole')) {
-            this.pncRole = this.navParams.get('pncRole');
-        } else if (this.sessionService.getActiveUser()) {
-            this.pncRole = this.sessionService.getActiveUser().isManager ? PncRoleEnum.MANAGER : PncRoleEnum.PNC;
-        }
-        this.localHelpAssets = new Array();
-        // On récupère le role du pnc dans les paramètres de navigation
-        this.localHelpAssets.push(...this.getCommunHelpAssets());
-        if (this.pncRole === PncRoleEnum.MANAGER) {
-            this.localHelpAssets.push(...this.getCADHelpAssets());
-        } else if (this.pncRole === PncRoleEnum.PNC) {
-            this.localHelpAssets.push(...this.getHSTHelpAssets());
-        }
-        this.localHelpAssets.sort((a, b) => a.label < b.label ? -1 : 1);
-        // On récupère le role du pnc dans les paramètres de navigation
-        if (this.connectivityService.isConnected() && this.pncRole) {
-            this.helpAssetProvider.getHelpAssetList(this.pncRole).then(result => {
-                this.remoteHelpAssets = result;
-            }, error => { });
-        }
+
     }
 
     /**

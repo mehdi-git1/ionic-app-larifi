@@ -1,9 +1,8 @@
-import { LogbookEventModel } from './../../models/logbook/logbook-event.model';
-import { ProfessionalInterviewModel } from './../../models/professional-interview/professional-interview.model';
 import { Injectable } from '@angular/core';
 
+import { LogbookEventModel } from '../../models/logbook/logbook-event.model';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class LogbookEventTransformerService {
 
   toLogbookEvents(array: LogbookEventModel[]) {

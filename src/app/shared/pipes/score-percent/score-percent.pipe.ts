@@ -1,6 +1,5 @@
-import { Inject, LOCALE_ID, Pipe, PipeTransform } from '@angular/core';
+import { Pipe, PipeTransform } from '@angular/core';
 
-import { Utils } from '../../utils/utils';
 import { invalidPipeArgumentError } from '../invalid_pipe_argument_error.pipe';
 
 @Pipe({
@@ -12,15 +11,15 @@ export class ScorePercentPipe implements PipeTransform {
 
   /**
    * Formatte une chaîne de caractère au format à l'échelon inférieur
-   * @param value la chaine de caractères à formatter
+   * @param value la chaine de caractères à formater
    * @param decimalDigits nombre de chiffres après la virgule
    * @return la valeur formattée
    */
-  transform(value: string, decimalDigits: number = 0) {
-    if (value == '0') {
-      return 0
+  transform(value: number, decimalDigits: number = 0) {
+    if (value === 0) {
+      return 0;
     }
-    if (!value || value == undefined) {
+    if (!value || value === undefined) {
       return '';
     }
     if (decimalDigits < 0) {
@@ -36,7 +35,7 @@ export class ScorePercentPipe implements PipeTransform {
   }
 
   /**
-   * Transforme un string en number. Si ce n'est pas formattable, on renvoie une exception
+   * Transforme un string en number. Si ce n'est pas formatable, on renvoie une exception
    * @param value valeur à transformer
    * @return number
    */

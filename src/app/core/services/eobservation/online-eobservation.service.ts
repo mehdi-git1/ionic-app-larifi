@@ -1,10 +1,11 @@
-import { EObservationTransformerService } from './eobservation-transformer.service';
 import { Injectable } from '@angular/core';
-import { RestService } from '../../http/rest/rest.base.service';
-import { UrlConfiguration } from '../../configuration/url.configuration';
-import { EObservationModel } from '../../models/eobservation/eobservation.model';
 
-@Injectable()
+import { UrlConfiguration } from '../../configuration/url.configuration';
+import { RestService } from '../../http/rest/rest.base.service';
+import { EObservationModel } from '../../models/eobservation/eobservation.model';
+import { EObservationTransformerService } from './eobservation-transformer.service';
+
+@Injectable({ providedIn: 'root' })
 export class OnlineEObservationService {
 
     constructor(
@@ -23,10 +24,10 @@ export class OnlineEObservationService {
     }
 
     /**
-    * Récupère les EObservations d'un PNC à partir du back
-    * @param matricule le matricule du PNC
-    * @return une promesse contenant les EObservations trouvées
-    */
+     * Récupère les EObservations d'un PNC à partir du back
+     * @param matricule le matricule du PNC
+     * @return une promesse contenant les EObservations trouvées
+     */
     public getAllEObservations(matricule: string): Promise<EObservationModel[]> {
         return this.restServiceGetEObservations('getAllEObservationsByMatricule', matricule);
     }
@@ -46,10 +47,10 @@ export class OnlineEObservationService {
     }
 
     /**
-    * Met à jour une eObservation
-    * @param eObservation l'eObservation à valider
-    * @return une promesse contenant l'eObservation validée
-    */
+     * Met à jour une eObservation
+     * @param eObservation l'eObservation à valider
+     * @return une promesse contenant l'eObservation validée
+     */
     public updateEObservation(eObservation: EObservationModel): Promise<EObservationModel> {
         return this.restService.post(this.config.getBackEndUrl('eObservations'), eObservation);
     }

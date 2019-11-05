@@ -8,7 +8,8 @@ import {
 
 @Component({
   selector: 'user-message-alert',
-  templateUrl: 'user-message-alert.component.html'
+  templateUrl: 'user-message-alert.component.html',
+  styleUrls: ['./user-message-alert.component.scss']
 })
 
 export class UserMessageAlertComponent {

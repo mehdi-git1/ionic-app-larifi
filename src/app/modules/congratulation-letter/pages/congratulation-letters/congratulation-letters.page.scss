@@ -1,36 +1,40 @@
-congratulation-letters {
+@import '../../../../../theme/colors.scss';
 
-    .scroll-content {
+ion-popover {
+    --width: 500px !important;
+    --max-width: 500px !important;
+    --min-width: 500px !important;
+}
+
+.page-container {
+    display: flex;
+    flex-direction: column;
+
+    nav.tabs {
         display: flex;
-        flex-direction: column;
+        justify-content: center;
+        border-bottom: 1px solid color($colors-secondary, grey75);
+        margin-bottom: 8px;
 
-        nav.tabs {
-            display: flex;
-            justify-content: center;
-            border-bottom: 1px solid color($colors-secondary, grey75);
-            margin-bottom: 8px;
-
-            button {
-                color: color($colors-secondary, grey40);
-                font-size: 1.2em;
-                background: none;
-                margin: 0 20px;
-                padding: 20px 0 10px 0;
-                border-bottom: 3px solid transparent;
-            }
-
-            button.active {
-                border-bottom: 2px solid color($colors, primary-light);
-            }
+        button {
+            color: color($colors-secondary, grey40);
+            font-size: 1.2em;
+            background: none;
+            margin: 0 20px;
+            padding: 20px 0 10px 0;
+            border-bottom: 3px solid transparent;
         }
 
-        .button-bar {
-            margin-bottom: 10px;
-
-            ion-icon {
-                margin-right: 10px;
-            }
+        button.active {
+            border-bottom: 2px solid var(--ion-color-primarylight);
         }
+    }
 
+    .button-bar {
+        margin-bottom: 10px;
+
+        ion-icon {
+            margin-right: 10px;
+        }
     }
 }

@@ -1,13 +1,17 @@
-import { ConnectivityService } from './../../../../core/services/connectivity/connectivity.service';
-import { SecurityService } from './../../../../core/services/security/security.service';
-import { CongratulationLetterModeEnum } from './../../../../core/enums/congratulation-letter/congratulation-letter-mode.enum';
 import { Component, Input } from '@angular/core';
+
+import {
+    CongratulationLetterModeEnum
+} from '../../../../core/enums/congratulation-letter/congratulation-letter-mode.enum';
 import { CongratulationLetterModel } from '../../../../core/models/congratulation-letter.model';
 import { PncModel } from '../../../../core/models/pnc.model';
+import { ConnectivityService } from '../../../../core/services/connectivity/connectivity.service';
+import { SecurityService } from '../../../../core/services/security/security.service';
 
 @Component({
   selector: 'congratulation-letter-list',
-  templateUrl: 'congratulation-letter-list.component.html'
+  templateUrl: 'congratulation-letter-list.component.html',
+  styleUrls: ['./congratulation-letter-list.component.scss']
 })
 export class CongratulationLetterListComponent {
 
@@ -19,7 +23,8 @@ export class CongratulationLetterListComponent {
 
   CongratulationLetterModeEnum = CongratulationLetterModeEnum;
 
-  constructor(private securityService: SecurityService,
+  constructor(
+    private securityService: SecurityService,
     private connectivityService: ConnectivityService) {
   }
 

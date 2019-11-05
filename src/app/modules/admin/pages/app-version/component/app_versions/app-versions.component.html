@@ -1,8 +1,12 @@
-<mat-expansion-panel id="matExpansionPanelAppVersion" [expanded]="true" [ngClass]="{'no-data' : appVersions.length === 0}">
-    <mat-expansion-panel-header [expandedHeight]="matPanelHeaderHeight" [collapsedHeight]="matPanelHeaderHeight" hideToggle="true" class="elevation-2">
-        <label class="app-version-release-date"> {{ 'ADMIN.APP_VERSION_LIST.LIST.RELEASE_DATE' | translate }} </label>
-        <label class="app-version-number"> {{ 'ADMIN.APP_VERSION_LIST.LIST.VERSION_NUMBER' | translate }} </label>
-        <label class="app-version-icone"></label>
+<mat-expansion-panel id="matExpansionPanelAppVersion" [expanded]="true"
+    [ngClass]="{'no-data' : appVersions.length === 0}">
+    <mat-expansion-panel-header [expandedHeight]="matPanelHeaderHeight" [collapsedHeight]="matPanelHeaderHeight"
+        hideToggle="true" class="elevation-2">
+        <ion-label class="app-version-release-date"> {{ 'ADMIN.APP_VERSION_LIST.LIST.RELEASE_DATE' | translate }}
+        </ion-label>
+        <ion-label class="app-version-number"> {{ 'ADMIN.APP_VERSION_LIST.LIST.VERSION_NUMBER' | translate }}
+        </ion-label>
+        <ion-label class="app-version-icone"></ion-label>
     </mat-expansion-panel-header>
     <no-data *ngIf="appVersions.length === 0; else appVersionsDataBlock"></no-data>
     <ng-template #appVersionsDataBlock>

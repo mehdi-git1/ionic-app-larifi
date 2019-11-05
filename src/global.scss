@@ -1,0 +1,243 @@
+/*
+ * App Global CSS
+ * ----------------------------------------------------------------------------
+ * Put style rules here that you want to apply globally. These styles are for
+ * the entire app and not just one component. Additionally, this file can be
+ * used as an entry point to import other CSS/Sass files to be included in the
+ * output CSS.
+ * For more information on global stylesheets, visit the documentation:
+ * https://ionicframework.com/docs/layout/global-stylesheets
+ */
+
+/* Core CSS required for Ionic components to work properly */
+@import "~@ionic/angular/css/core.css";
+
+/* Basic CSS for apps built with Ionic */
+@import "~@ionic/angular/css/normalize.css";
+@import "~@ionic/angular/css/structure.css";
+@import "~@ionic/angular/css/typography.css";
+@import '~@ionic/angular/css/display.css';
+
+/* Optional CSS utils that can be commented out */
+@import "~@ionic/angular/css/padding.css";
+@import "~@ionic/angular/css/float-elements.css";
+@import "~@ionic/angular/css/text-alignment.css";
+@import "~@ionic/angular/css/text-transformation.css";
+@import "~@ionic/angular/css/flex-utils.css";
+
+/* Import du css du WYSIWYG */
+@import '~quill/dist/quill.core.css';
+@import '~quill/dist/quill.bubble.css';
+@import '~quill/dist/quill.snow.css';
+
+[contenteditable] {
+    -webkit-user-select: text;
+    user-select: text;
+}
+
+/* Angular material */
+@import '../node_modules/@angular/material/_theming.scss';
+
+/* Import de la palette de couleurs */
+@import "theme/colors.scss";
+
+@import 'theme/toast.scss';
+@import 'theme/label.scss';
+@import 'theme/input.scss';
+@import 'theme/checkbox.scss';
+@import 'theme/radio.scss';
+@import 'theme/textarea.scss';
+@import 'theme/select.scss';
+@import 'theme/button-bar.scss';
+@import 'theme/button.scss';
+@import 'theme/status.scss';
+@import 'theme/icon.scss';
+@import 'theme/modal.scss';
+@import 'theme/auto-complete.scss';
+@import 'theme/professional-level.scss';
+@import 'theme/mat-expansion-panel.scss';
+@import 'theme/mat-autocomplete.scss';
+@import 'theme/navbar.scss';
+@import 'theme/typography.scss';
+@import 'theme/elevation.scss';
+
+@import 'theme/flex.scss';
+@import 'theme/scroll.scss';
+@import 'theme/padding.scss';
+
+@import 'theme/ion-item.scss';
+@import 'theme/ion-label.scss';
+
+@include mat-core();
+
+// webfonts/icons
+@import 'theme/edospnc-icons.scss';
+@import 'theme/betty-icons.min.scss';
+
+
+// Fonts
+// Excellence in motion
+@font-face {
+    font-family: 'Excellence';
+    src: url('/assets/fonts/excellence/Regular/ExcellenceInMotionScreen-Regular.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'ExcellenceBold';
+    src: url('/assets/fonts/excellence/Bold/ExcellenceInMotionScreen-Bold.woff') format('woff');
+}
+
+// Open Sans
+@font-face {
+    font-family: 'OpenSans';
+    src: url('/assets/fonts/open-sans/Regular/OpenSans-Regular.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'OpenSansBold';
+    src: url('/assets/fonts/open-sans/Bold/OpenSans-Bold.woff') format('woff');
+}
+
+// A utiliser sur les éléments cliquables (les labels ont un style contraire, on est obligé de les surcharger) */
+.clickable,
+.clickable label {
+    cursor: pointer;
+}
+
+.selectable {
+    user-select: text;
+}
+
+// Pour ajouter une valeur "nulle" (un tiret)
+.no-value:after {
+    content: '-';
+}
+
+body,
+.app-root,
+.nav-decor {
+    font-size: 1em;
+}
+
+.page-container {
+    max-width: 1200px;
+    margin: auto;
+    height: 100%;
+    padding: 20px;
+}
+
+.header-ios {
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2);
+}
+
+ion-textarea,
+ion-input {
+    background-color: var(--ion-color-white);
+}
+
+.scroll-content {
+    overflow-y: auto !important;
+}
+
+.content {
+    background-color: transparent;
+}
+
+.item {
+    background-color: transparent;
+}
+
+.hidden {
+    visibility: hidden;
+}
+
+.blur {
+    filter: blur(100px);
+}
+
+// Pour ajouter TU après les dateTime en TU
+.suffix-tu:after {
+    content: ' TU';
+    vertical-align: super;
+    font-size: smaller;
+}
+
+.toolbar-content {
+    display: flex;
+    align-items: center;
+}
+
+// Impersonification
+.impersonation .toolbar .toolbar-background {
+    background: var(--ion-color-danger) !important;
+}
+
+// Toast de notification
+.simple-notification-wrapper.top {
+    top: 80px !important;
+}
+
+.sort-icon {
+    padding-left: 5px;
+}
+
+ion-badge[outline],
+ion-badge[outline][color="primary"] {
+    color: var(--ion-color-primary);
+    border: solid 1px var(--ion-color-primary);
+    background: none;
+}
+
+ion-badge[outline][color="secondary"] {
+    color: var(--ion-color-secondary);
+    border: solid 1px var(--ion-color-secondary);
+    background: none;
+}
+
+ion-badge[outline][color="secondary"] {
+    color: var(--ion-color-secondary);
+    border: solid 1px var(--ion-color-secondary);
+    background: none;
+}
+
+@mixin truncate-text($nbLines) {
+
+    display: -webkit-box;
+    -webkit-line-clamp: $nbLines;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.large-width-devices {
+    @media only screen and (max-width: 768px) {
+        display: none;
+        padding: 0px;
+        margin: 0px;
+    }
+
+    @media only screen and (min-width: 769px) {
+        display: initial;
+    }
+}
+
+.small-width-devices {
+    @media only screen and (max-width: 768px) {
+        display: initial;
+    }
+
+    @media only screen and (min-width: 769px) {
+        display: none;
+        padding: 0px;
+        margin: 0px;
+    }
+}
+
+ion-popover {
+
+    .popover-wrapper {
+        .popover-content {
+            border-radius: 10px;
+            min-width: 350px !important;
+        }
+    }
+}

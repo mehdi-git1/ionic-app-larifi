@@ -1,96 +1,95 @@
-eobs-appreciation {
+@import '../../../../../theme/colors.scss';
 
-    .pcb-grid {
-        ion-row:nth-child(odd) {
-            background: color($colors-secondary, grey95);
-        }
+.pcb-grid {
+    ion-row:nth-child(odd) {
+        background: color($colors-secondary, grey95);
+    }
 
-        ion-row:nth-child(even) {
-            background: color($colors, white);
-        }
+    ion-row:nth-child(even) {
+        background: var(--ion-color-white);
+    }
 
-        .list-md .item-block .item-inner,
-        .list-md .item-block .item-inner {
-            border-bottom: initial;
-        }
+    .list-md .item-block .item-inner,
+    .list-md .item-block .item-inner {
+        border-bottom: initial;
+    }
 
-        .pcb-skills {
-            padding-left: 24px;
+    .pcb-skills {
+        padding-left: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        height: 100%;
+
+        .skills-label {
             display: flex;
-            align-items: center;
-            justify-content: space-around;
-            height: 100%;
-
-            .skills-label {
-                display: flex;
-                flex: 1;
-                width: auto;
-            }
-
-            .skills-value {
-                flex: 2;
-                margin: initial;
-                padding-left: 15px;
-                display: flex;
-                flex-direction: column;
-                align-items: flex-start;
-                justify-content: space-around;
-                width: auto;
-
-                .list-md {
-                    margin: initial;
-                }
-            }
-
+            flex: 1;
+            width: auto;
         }
 
+        .skills-value {
+            flex: 2;
+            margin: initial;
+            padding-left: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: space-around;
+            width: auto;
 
-        radio-and-label {
+            .list-md {
+                margin: initial;
+            }
+        }
+
+    }
+
+
+    radio-and-label {
+        .container {
+            padding-bottom: 5px;
+        }
+    }
+}
+
+.pcb-strong-points {
+    display: flex;
+    align-items: center;
+    height: 100%;
+
+    ion-list {
+        display: flex;
+        align-items: space-around;
+        flex-direction: column;
+        margin: initial;
+
+        checkbox-and-label {
             .container {
                 padding-bottom: 5px;
             }
         }
     }
 
-    .pcb-strong-points {
-        display: flex;
-        align-items: center;
-        height: 100%;
+}
 
-        ion-list {
-            display: flex;
-            align-items: space-around;
-            flex-direction: column;
-            margin: initial;
-
-            checkbox-and-label {
-                .container {
-                    padding-bottom: 5px;
-                }
-            }
-        }
-
+.pcb-subtitle {
+    ion-col:first-child {
+        border-right: solid color($colors-secondary, grey75) 1px;
     }
+}
 
-    .pcb-subtitle {
-        ion-col:first-child {
-            border-right: solid color($colors-secondary, grey75) 1px;
-        }
+.pcb-grid {
+    ion-col:first-child {
+        border-right: solid color($colors-secondary, grey75) 1px;
     }
+}
 
-    .pcb-grid {
-        ion-col:first-child {
-            border-right: solid color($colors-secondary, grey75) 1px;
-        }
-    }
-
-    .sub-theme-label {
-        width: 100%;
-        padding-left: 24px;
-        padding-top: 5px;
-        padding-bottom: 5px;
-        color: color($colors-secondary, blue55);
-        border-top: solid color($colors-secondary, grey75) 1px;
-        border-bottom: solid color($colors-secondary, grey75) 1px;
-    }
+.sub-theme-label {
+    width: 100%;
+    padding-left: 24px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    color: color($colors-secondary, blue55);
+    border-top: solid color($colors-secondary, grey75) 1px;
+    border-bottom: solid color($colors-secondary, grey75) 1px;
 }

@@ -4,7 +4,7 @@ import { BaseEnvironment } from './base-environment';
 
 declare var window: any;
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class Config extends BaseEnvironment {
   constructor() {
     super();

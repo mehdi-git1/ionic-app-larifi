@@ -1,6 +1,5 @@
-import { NavParams } from 'ionic-angular';
-
 import { Component } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 import { PncModel } from '../../../../core/models/pnc.model';
 import {
@@ -10,25 +9,24 @@ import { PncService } from '../../../../core/services/pnc/pnc.service';
 import {
     ProfessionalInterviewService
 } from '../../../../core/services/professional-interview/professional-interview.service';
-import { SessionService } from '../../../../core/services/session/session.service';
 
 @Component({
     selector: 'professional-interviews-archives',
     templateUrl: 'professional-interviews-archives.page.html',
+    styleUrls: ['./professional-interviews-archives.page.scss']
 })
 export class ProfessionalInterviewsArchivesPage {
     matricule: string;
     professionalInterviews: ProfessionalInterviewModel[];
     pnc: PncModel;
     constructor(
-        public navParams: NavParams,
+        private activatedRoute: ActivatedRoute,
         private professionalInterviewService: ProfessionalInterviewService,
-        private sessionService: SessionService,
         private pncService: PncService) {
     }
 
     ionViewDidEnter() {
-        this.matricule = this.navParams.get('matricule');
+        this.matricule = this.activatedRoute.snapshot.paramMap.get('matricule');
         this.pncService.getPnc(this.matricule).then(pnc => {
             this.pnc = pnc;
         }, error => {

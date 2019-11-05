@@ -1,10 +1,12 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+
 import { PncModel } from '../../../core/models/pnc.model';
 import { SessionService } from '../../../core/services/session/session.service';
 
 @Component({
   selector: 'page-header',
-  templateUrl: 'page-header.component.html'
+  templateUrl: 'page-header.component.html',
+  styleUrls: ['./page-header.component.scss']
 })
 export class PageHeaderComponent {
 

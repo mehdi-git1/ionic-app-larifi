@@ -4,9 +4,9 @@
             <radio-and-label disabled="true" conditionValue="{{eObservation?.val}}" label="{{ 'EOBSERVATION.DETAIL.EVAL' | translate }}"></radio-and-label>
         </ng-container>
         <ng-template #valEditBlock>
-            <ion-item>
+            <ion-item lines="none">
                 <ion-label>{{ 'EOBSERVATION.DETAIL.EVAL' | translate }}</ion-label>
-                <ion-checkbox [(ngModel)]="eObservation.val" [checked]="eObservation.val"></ion-checkbox>
+                <ion-checkbox slot="start" [(ngModel)]="eObservation.val" [checked]="eObservation.val"></ion-checkbox>
             </ion-item>
         </ng-template>
     </span>

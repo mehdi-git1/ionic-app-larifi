@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 
 import { UrlConfiguration } from '../../configuration/url.configuration';
+import { RestService } from '../../http/rest/rest.base.service';
+import { AuthenticatedUserModel } from '../../models/authenticated-user.model';
 import { PncPinModel } from '../../models/pnc-pin.model';
 import { DeviceService } from '../device/device.service';
-import { AuthenticatedUserModel } from '../../models/authenticated-user.model';
 import { OfflineSecurityService } from './offline-security.service';
-import { RestService } from '../../http/rest/rest.base.service';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class OnlineSecurityService {
 
   constructor(
@@ -27,7 +27,7 @@ export class OnlineSecurityService {
       // avant de mettre l'utilisateur en session
       if (!this.deviceService.isBrowser()) {
         return this.restService.get(this.config.getBackEndUrl('getSecretInfosByMatricule', [authenticatedUser.matricule])).then(data => {
-          authenticatedUser.pinInfo = new PncPinModel;
+          authenticatedUser.pinInfo = new PncPinModel();
           authenticatedUser.pinInfo.matricule = data.matricule;
           authenticatedUser.pinInfo.pinCode = data.pinCode;
           authenticatedUser.pinInfo.secretQuestion = data.secretQuestion;
@@ -35,12 +35,12 @@ export class OnlineSecurityService {
           this.offlineSecurityProvider.overwriteAuthenticatedUser(new AuthenticatedUserModel().fromJSON(authenticatedUser));
           return authenticatedUser;
         }, error => {
-          authenticatedUser.pinInfo = new PncPinModel;
+          authenticatedUser.pinInfo = new PncPinModel();
           this.offlineSecurityProvider.overwriteAuthenticatedUser(new AuthenticatedUserModel().fromJSON(authenticatedUser));
           return authenticatedUser;
         });
       } else {
-        authenticatedUser.pinInfo = new PncPinModel;
+        authenticatedUser.pinInfo = new PncPinModel();
         this.offlineSecurityProvider.overwriteAuthenticatedUser(new AuthenticatedUserModel().fromJSON(authenticatedUser));
         return authenticatedUser;
       }

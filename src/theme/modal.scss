@@ -1,9 +1,11 @@
+@import './colors.scss';
+
 $colorBright : white;
-$colorDark: color($colors, primary);
+$colorDark: var(--ion-color-primary);
 
 ion-modal {
-    @media only screen and (min-height: 768px) and (min-width: 768px){
-        .modal-wrapper{
+    @media only screen and (min-height: 768px) and (min-width: 768px) {
+        .modal-wrapper {
             z-index: 10;
             height: 100%;
             width: 100%;
@@ -11,11 +13,11 @@ ion-modal {
             left: 0px;
             contain: strict;
         }
-    }  
-    
-     
-    @media only screen and (min-height: 600px) and (min-width: 768px){
-        .modal-wrapper{
+    }
+
+
+    @media only screen and (min-height: 600px) and (min-width: 768px) {
+        .modal-wrapper {
             z-index: 10;
             height: 100%;
             width: 100%;
@@ -23,13 +25,13 @@ ion-modal {
             left: 0px;
             contain: strict;
         }
-    }   
-    
-    ion-backdrop{
+    }
+
+    ion-backdrop {
         visibility: hidden;
     }
 
-    .content{
+    .content {
         background-color: transparent !important;
     }
 }

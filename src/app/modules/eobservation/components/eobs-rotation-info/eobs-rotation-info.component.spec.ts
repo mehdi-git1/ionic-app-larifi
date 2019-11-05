@@ -1,12 +1,15 @@
-import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { IonicModule } from 'ionic-angular';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { IonicModule } from '@ionic/angular';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
-import { TranslateLoaderMock } from '../../../../../test-config/mocks-ionic';
+import {
+    EObservationFlightModel
+} from '../../../../core/models/eobservation/eobservation-flight.model';
 import { EObservationModel } from '../../../../core/models/eobservation/eobservation.model';
-import { EObservationFlightModel } from '../../../../core/models/eobservation/eobservation-flight.model';
 import { EObsRotationInfoComponent } from './eobs-rotation-info.component';
+
+const TranslateLoaderMock = jasmine.createSpyObj('TranslateLoaderMock', ['instant']);
 
 describe('EObsRotationInfoComponent', () => {
 
@@ -16,9 +19,9 @@ describe('EObsRotationInfoComponent', () => {
         TestBed.configureTestingModule({
             declarations: [EObsRotationInfoComponent],
             imports: [
-                IonicModule.forRoot(EObsRotationInfoComponent),
+                IonicModule,
                 TranslateModule.forRoot({
-                    loader: { provide: TranslateLoader, useClass: TranslateLoaderMock }
+                    loader: { provide: TranslateLoader, useValue: TranslateLoaderMock }
                 })
             ],
             providers: [

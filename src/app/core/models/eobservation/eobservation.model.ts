@@ -9,6 +9,7 @@ import { ReferentialThemeModel } from './eobservation-referential-theme.model';
 export class EObservationModel extends EDossierPncObjectModel {
 
     pnc: PncModel;
+    rotationNumber: string;
     rotationDate: Date;
     type: EObservationTypeEnum;
     state: EObservationStateEnum;
@@ -20,6 +21,8 @@ export class EObservationModel extends EDossierPncObjectModel {
     redactionDate: Date;
     redactorSpeciality: SpecialityEnum;
     pncSpeciality: SpecialityEnum;
+    pncDivision: string;
+    pncGinq: string;
     lastUpdateDate: Date;
     lastUpdateAuthor: PncModel;
     formationFlight: boolean;
@@ -28,6 +31,7 @@ export class EObservationModel extends EDossierPncObjectModel {
     strongPoints: string;
     workingAxes: string;
     deleted: boolean;
+    rotationDegraded: boolean;
 
     getStorageId(): string {
         return `${this.techId}`;

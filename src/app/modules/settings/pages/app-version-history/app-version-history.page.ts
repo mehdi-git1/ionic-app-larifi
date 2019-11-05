@@ -7,6 +7,7 @@ import { AppVersionService } from '../../../../core/services/app-version/app-ver
 @Component({
     selector: 'page-app-version-history',
     templateUrl: 'app-version-history.page.html',
+    styleUrls: ['./app-version-history.page.scss']
 })
 export class AppVersionHistoryPage {
 

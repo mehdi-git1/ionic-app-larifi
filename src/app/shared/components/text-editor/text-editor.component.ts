@@ -9,6 +9,7 @@ import { AbstractValueAccessor, MakeProvider } from '../abstract-value-accessor'
 @Component({
     selector: 'text-editor',
     templateUrl: 'text-editor.component.html',
+    styleUrls: ['./text-editor.component.scss'],
     providers: [MakeProvider(TextEditorComponent)]
 })
 

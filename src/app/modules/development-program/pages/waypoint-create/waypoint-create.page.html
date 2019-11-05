@@ -1,5 +1,6 @@
 <ion-header>
-    <ion-navbar>
+    <ion-toolbar>
+        <ion-back-button color="white" slot="start"></ion-back-button>
         <page-header (refreshPage)="refreshPage()" [showRefreshIcon]="true" [pnc]="pnc">
             <ng-container *ngIf="loadingIsOver()">
                 {{ 'WAYPOINT_CREATE.TITLE' | translate }}
@@ -8,83 +9,127 @@
                 </ion-badge>
             </ng-container>
         </page-header>
-    </ion-navbar>
+    </ion-toolbar>
     <pnc-header [pnc]="pnc"></pnc-header>
 </ion-header>
 
-<ion-content padding no-bounce>
-    <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
-    <ng-template #pageBlock>
-        <form novalidate [formGroup]="creationForm">
-            <ion-grid>
-                <ion-row>
-                    <ion-col col-12>
-                        <!-- Contexte -->
-                        <ion-item>
-                            <ion-label floating class="required">{{ 'WAYPOINT_CREATE.FORM.CONTEXT' | translate }}</ion-label>
-                            <ion-textarea [(ngModel)]="waypoint.context" formControlName="contextControl" name="context" [readonly]="readOnlyByUserConnected()" [ngClass]="{ 'ion-textarea-read-only' : readOnlyByUserConnected() }" autocorrect="on"></ion-textarea>
-                        </ion-item>
-                    </ion-col>
-                </ion-row>
-                <ion-row>
-                    <ion-col col-12>
-                        <!-- Action réalisée -->
-                        <ion-item>
-                            <ion-label floating [ngClass]="{'required' : !isDraft() || requiredOnEncounterDay }">{{ 'WAYPOINT_CREATE.FORM.ACTION_PERFORMED' | translate }}
-                                <span *ngIf="requiredOnEncounterDay">{{ 'WAYPOINT_CREATE.FORM.REQUIRED_ON_ENCOUNTER_DAY' | translate }}</span>
+<ion-content no-bounce>
+    <div class="page-container">
+        <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
+        <ng-template #pageBlock>
+            <form novalidate [formGroup]="creationForm">
+                <ion-grid>
+                    <ion-row>
+                        <ion-col size="12">
+                            <!-- Contexte -->
+                            <ion-item>
+                                <ion-label position="floating" class="required">
+                                    {{ 'WAYPOINT_CREATE.FORM.CONTEXT' | translate }}
+                                </ion-label>
+                                <ion-textarea [(ngModel)]="waypoint.context" formControlName="contextControl"
+                                    name="context" [readonly]="readOnlyByUserConnected()"
+                                    [ngClass]="{ 'ion-textarea-read-only' : readOnlyByUserConnected() }"
+                                    autocorrect="on">
+                                </ion-textarea>
+                            </ion-item>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col size="12">
+                            <!-- Action réalisée -->
+                            <ion-item>
+                                <ion-label position="floating"
+                                    [ngClass]="{'required' : !isDraft() || requiredOnEncounterDay }">
+                                    {{ 'WAYPOINT_CREATE.FORM.ACTION_PERFORMED' | translate }}
+                                    <span
+                                        *ngIf="requiredOnEncounterDay">{{ 'WAYPOINT_CREATE.FORM.REQUIRED_ON_ENCOUNTER_DAY' | translate }}</span>
+                                </ion-label>
+                                <ion-textarea [(ngModel)]="waypoint.actionPerformed"
+                                    formControlName="actionPerformedControl" name="actionPerformed"
+                                    [readonly]="readOnlyByUserConnected()"
+                                    [ngClass]="{ 'ion-textarea-read-only' : readOnlyByUserConnected() }"
+                                    autocorrect="on">
+                                </ion-textarea>
+                            </ion-item>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col size="6">
+                            <!-- Commentaire cadre -->
+                            <ion-item>
+                                <ion-label position="floating">{{ 'WAYPOINT_CREATE.FORM.MANAGER_COMMENT' | translate }}
+                                </ion-label>
+                                <ion-textarea [(ngModel)]="waypoint.managerComment"
+                                    formControlName="managerCommentControl" name="managerComment"
+                                    [readonly]="readOnlyByUserConnected()"
+                                    [ngClass]="{ 'ion-textarea-read-only' : readOnlyByUserConnected() }"
+                                    autocorrect="on">
+                                </ion-textarea>
+                            </ion-item>
+                        </ion-col>
+                        <ion-col size="6">
+                            <!-- Commentaire PNC -->
+                            <ion-item>
+                                <ion-label position="floating">{{ 'WAYPOINT_CREATE.FORM.PNC_COMMENT' | translate }}
+                                </ion-label>
+                                <ion-textarea [(ngModel)]="waypoint.pncComment" formControlName="pncCommentControl"
+                                    name="pncComment" autocorrect="on"></ion-textarea>
+                            </ion-item>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col size="6" class="padding-20">
+                            <!-- Date de rencontre -->
+                            <ion-label position="stacked"
+                                [ngClass]="{'required' : !isDraft() || requiredOnEncounterDay }">
+                                {{ 'WAYPOINT_CREATE.FORM.ENCOUNTER_DATE' | translate }}
+                                <span
+                                    *ngIf="requiredOnEncounterDay">{{ 'WAYPOINT_CREATE.FORM.REQUIRED_ON_ENCOUNTER_DAY' | translate }}</span>
                             </ion-label>
-                            <ion-textarea [(ngModel)]="waypoint.actionPerformed" formControlName="actionPerformedControl" name="actionPerformed" [readonly]="readOnlyByUserConnected()" [ngClass]="{ 'ion-textarea-read-only' : readOnlyByUserConnected() }" autocorrect="on"></ion-textarea>
-                        </ion-item>
-                    </ion-col>
-                </ion-row>
-                <ion-row>
-                    <ion-col col-6>
-                        <!-- Commentaire cadre -->
-                        <ion-item>
-                            <ion-label floating>{{ 'WAYPOINT_CREATE.FORM.MANAGER_COMMENT' | translate }}</ion-label>
-                            <ion-textarea [(ngModel)]="waypoint.managerComment" formControlName="managerCommentControl" name="managerComment" [readonly]="readOnlyByUserConnected()" [ngClass]="{ 'ion-textarea-read-only' : readOnlyByUserConnected() }" autocorrect="on"></ion-textarea>
-                        </ion-item>
-                    </ion-col>
-                    <ion-col col-6>
-                        <!-- Commentaire PNC -->
-                        <ion-item>
-                            <ion-label floating>{{ 'WAYPOINT_CREATE.FORM.PNC_COMMENT' | translate }}</ion-label>
-                            <ion-textarea [(ngModel)]="waypoint.pncComment" formControlName="pncCommentControl" name="pncComment" autocorrect="on"></ion-textarea>
-                        </ion-item>
-                    </ion-col>
-                </ion-row>
-                <ion-row>
-                    <ion-col col-6>
-                        <!-- Date de rencontre -->
-                        <ion-label stacked [ngClass]="{'required' : !isDraft() || requiredOnEncounterDay }">{{ 'WAYPOINT_CREATE.FORM.ENCOUNTER_DATE' | translate }}
-                            <span *ngIf="requiredOnEncounterDay">{{ 'WAYPOINT_CREATE.FORM.REQUIRED_ON_ENCOUNTER_DAY' | translate }}</span>
-                        </ion-label>
-                        <edospnc-datetime [(ngModel)]="waypoint.encounterDate" [edospncFormGroup]="creationForm" edospncFormControlName="encounterDateControl" [pickerOptions]="customDateTimeOptions" [disabled]="readOnlyByUserConnected()" [ngModelOptions]="{standalone: true}"></edospnc-datetime>
-                    </ion-col>
-                </ion-row>
+                            <edospnc-datetime [(ngModel)]="waypoint.encounterDate" [edospncFormGroup]="creationForm"
+                                edospncFormControlName="encounterDateControl" [disabled]="readOnlyByUserConnected()"
+                                [ngModelOptions]="{standalone: true}">
+                            </edospnc-datetime>
+                        </ion-col>
+                    </ion-row>
 
-                <!-- Barre de boutons -->
-                <ion-row>
-                    <ion-col class="button-bar-right">
-                        <!-- Bouton sauvegarder point d'étape en brouillon -->
-                        <button ion-button color="blue60" (click)="saveWaypointDraft()" [disabled]="creationForm.invalid" *ngIf="waypointStatusProvider.isTransitionOk(waypoint.waypointStatus,WaypointStatus.DRAFT)">
-                            <ion-icon name="ios-bookmark-outline" ios="ios-bookmark-outline" margin-right></ion-icon> {{ 'WAYPOINT_CREATE.BUTTONS.SAVE_DRAFT' | translate }}
-                        </button>
-                        <!-- Bouton supprimer point d'étape en brouillon -->
-                        <button ion-button color="red70" (click)="confirmDeleteWaypointDraft()" [disabled]="creationForm.invalid" *ngIf="waypoint.waypointStatus === WaypointStatus.DRAFT">
-                            <ion-icon name="ios-trash-outline" ios="ios-trash-outline" margin-right></ion-icon> {{ 'WAYPOINT_CREATE.BUTTONS.DELETE_DRAFT' | translate }}
-                        </button>
-                        <!-- Bouton sauvegarder commentaire pnc -->
-                        <button ion-button color="blue70" (click)="saveWaypointAndUpdatePncComment()" [disabled]="creationForm.invalid" *ngIf="canPncCommentBeModifiedByPnc()">
-                            <ion-icon name="ios-download-outline" ios="ios-download-outline" margin-right></ion-icon> {{ 'WAYPOINT_CREATE.BUTTONS.SAVE' | translate }}
-                        </button>
-                        <!-- Bouton sauvegarder point d'étape -->
-                        <button ion-button color="blue70" (click)="saveWaypointToRegisteredStatus()" [disabled]="creationForm.invalid" *ngIf="securityProvider.isManager() && waypointStatusProvider.isTransitionOk(waypoint.waypointStatus,WaypointStatus.REGISTERED)">
-                            <ion-icon name="ios-download-outline" ios="ios-download-outline" margin-right></ion-icon> {{ 'WAYPOINT_CREATE.BUTTONS.SAVE' | translate }}
-                        </button>
-                    </ion-col>
-                </ion-row>
-            </ion-grid>
-        </form>
-    </ng-template>
+                    <!-- Barre de boutons -->
+                    <ion-row>
+                        <ion-col class="button-bar-right">
+                            <!-- Bouton sauvegarder point d'étape en brouillon -->
+                            <ion-button color="blue60" (click)="saveWaypointDraft()" [disabled]="creationForm.invalid"
+                                *ngIf="waypointStatusService.isTransitionOk(waypoint.waypointStatus,WaypointStatus.DRAFT)">
+                                <ion-icon name="bookmark" ios="ios-bookmark-outline" class="ion-margin-end">
+                                </ion-icon>
+                                {{ 'WAYPOINT_CREATE.BUTTONS.SAVE_DRAFT' | translate }}
+                            </ion-button>
+                            <!-- Bouton supprimer point d'étape en brouillon -->
+                            <ion-button color="danger" (click)="confirmDeleteWaypointDraft()"
+                                [disabled]="creationForm.invalid"
+                                *ngIf="waypoint.waypointStatus === WaypointStatus.DRAFT">
+                                <ion-icon name="trash" ios="ios-trash-outline" class="ion-margin-end">
+                                </ion-icon>
+                                {{ 'WAYPOINT_CREATE.BUTTONS.DELETE_DRAFT' | translate }}
+                            </ion-button>
+                            <!-- Bouton sauvegarder commentaire pnc -->
+                            <ion-button color="blue70" (click)="saveWaypointAndUpdatePncComment()"
+                                [disabled]="creationForm.invalid" *ngIf="canPncCommentBeModifiedByPnc()">
+                                <ion-icon name="download" ios="ios-download-outline" class="ion-margin-end">
+                                </ion-icon>
+                                {{ 'WAYPOINT_CREATE.BUTTONS.SAVE' | translate }}
+                            </ion-button>
+                            <!-- Bouton sauvegarder point d'étape -->
+                            <ion-button color="blue70" (click)="saveWaypointToRegisteredStatus()"
+                                [disabled]="creationForm.invalid"
+                                *ngIf="securityService.isManager() && waypointStatusService.isTransitionOk(waypoint.waypointStatus,WaypointStatus.REGISTERED)">
+                                <ion-icon name="download" ios="ios-download-outline" class="ion-margin-end">
+                                </ion-icon>
+                                {{ 'WAYPOINT_CREATE.BUTTONS.SAVE' | translate }}
+                            </ion-button>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+            </form>
+        </ng-template>
+    </div>
 </ion-content>

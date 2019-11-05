@@ -1,14 +1,16 @@
-import { PncLightModel } from './../../models/pnc-light.model';
 import { Injectable } from '@angular/core';
+
+import { PncLightModel } from '../../models/pnc-light.model';
+import {
+    ProfessionalInterviewModel
+} from '../../models/professional-interview/professional-interview.model';
 import { BaseService } from '../base/base.service';
 import { ConnectivityService } from '../connectivity/connectivity.service';
-import { OnlineProfessionalInterviewService } from './online-professional-interview.service';
-import { OfflineProfessionalInterviewService } from './offline-professional-interview.service';
-import { ProfessionalInterviewModel } from '../../models/professional-interview/professional-interview.model';
 import { SessionService } from '../session/session.service';
+import { OfflineProfessionalInterviewService } from './offline-professional-interview.service';
+import { OnlineProfessionalInterviewService } from './online-professional-interview.service';
 
-
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class ProfessionalInterviewService extends BaseService {
 
     constructor(
@@ -35,10 +37,10 @@ export class ProfessionalInterviewService extends BaseService {
     }
 
     /**
-    * Récupère un bilan professionnel à partir de son id
-    * @param id l'id du bilan professionnel à récupérer
-    * @return une promesse contenant le bilan professionnel récupéré
-    */
+     * Récupère un bilan professionnel à partir de son id
+     * @param id l'id du bilan professionnel à récupérer
+     * @return une promesse contenant le bilan professionnel récupéré
+     */
     public getProfessionalInterview(id: number): Promise<ProfessionalInterviewModel> {
         return this.execFunctionService('getProfessionalInterview', id);
     }

@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
+
 import { SessionService } from '../session/session.service';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class AuthorizationService {
 
     constructor(private sessionService: SessionService) {

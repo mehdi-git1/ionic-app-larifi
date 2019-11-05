@@ -1,11 +1,9 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
-
-import { DeviceService } from '../../../core/services/device/device.service';
-import { ConnectivityService } from '../../../core/services/connectivity/connectivity.service';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'checkbox-and-label',
-  templateUrl: 'checkbox-and-label.component.html'
+  templateUrl: 'checkbox-and-label.component.html',
+  styleUrls: ['./checkbox-and-label.component.scss']
 })
 export class CheckboxAndLabelComponent {
 

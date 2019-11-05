@@ -1,7 +1,7 @@
-import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { Injectable } from '@angular/core';
+import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class HtmlService {
 
     constructor(
@@ -9,9 +9,9 @@ export class HtmlService {
     }
 
     /**
-    * Ouvre une fenêtre de navigation avec l'url concernée
-    * @param url  : url de la fiche synthèse concernée
-    */
+     * Ouvre une fenêtre de navigation avec l'url concernée
+     * @param url  : url de la fiche synthèse concernée
+     */
     displayHTML(url) {
         this.inAppBrowser.create(url, '_system', '');
     }

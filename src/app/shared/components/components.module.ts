@@ -1,14 +1,16 @@
-import { IonicModule } from 'ionic-angular';
 import { QuillModule } from 'ngx-quill';
 
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { Keyboard } from '@ionic-native/keyboard/ngx';
+import { IonicModule } from '@ionic/angular';
 
 import { DirectivesModule } from '../directives/directives.module';
 import { SharedModule } from '../shared.module';
 import { AppVersionAlertComponent } from './app-version-alert/app-version-alert.component';
+import { BootstrapComponent } from './bootstrap/bootstrap.component';
 import { CheckboxAndLabelComponent } from './checkbox-and-label/checkbox-and-label.component';
 import { ColorStatusPointComponent } from './color-status-point/color-status-point.component';
 import {
@@ -30,6 +32,7 @@ import {
 import { NoDataComponent } from './no-data/no-data.component';
 import { OfflineIndicatorComponent } from './offline-indicator/offline-indicator.component';
 import { PageHeaderComponent } from './page-header/page-header.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { PdfButtonComponent } from './pdf-button/pdf-button.component';
 import { PinPadComponent } from './pin-pad/pin-pad.component';
 import { PncAutoCompleteComponent } from './pnc-autocomplete/pnc-autocomplete.component';
@@ -44,6 +47,7 @@ import { TabHeaderComponent } from './tab-header/tab-header.component';
 import { TabNavComponent } from './tab-nav/tab-nav.component';
 import { TextEditorComponent } from './text-editor/text-editor.component';
 import { UserMessageAlertComponent } from './user-message-alert/user-message-alert.component';
+import { VisitEdossierComponent } from './visited-edossier/visited-edossier.component';
 import { WorkRateCircleComponent } from './work-rate-circle/work-rate-circle.component';
 
 @NgModule({
@@ -54,7 +58,8 @@ import { WorkRateCircleComponent } from './work-rate-circle/work-rate-circle.com
         SharedModule,
         HttpClientModule,
         QuillModule.forRoot(),
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        FormsModule
     ],
     declarations: [
         OfflineIndicatorComponent,
@@ -87,7 +92,10 @@ import { WorkRateCircleComponent } from './work-rate-circle/work-rate-circle.com
         DocumentViewerComponent,
         WorkRateCircleComponent,
         ProgressBarComponent,
-        EdospncDatetimeComponent
+        EdospncDatetimeComponent,
+        PageNotFoundComponent,
+        BootstrapComponent,
+        VisitEdossierComponent
     ],
     exports: [
         OfflineIndicatorComponent,
@@ -120,7 +128,9 @@ import { WorkRateCircleComponent } from './work-rate-circle/work-rate-circle.com
         WorkRateCircleComponent,
         TextEditorComponent,
         ProgressBarComponent,
-        EdospncDatetimeComponent
+        EdospncDatetimeComponent,
+        BootstrapComponent,
+        VisitEdossierComponent
     ],
     schemas: [
         CUSTOM_ELEMENTS_SCHEMA
@@ -129,6 +139,7 @@ import { WorkRateCircleComponent } from './work-rate-circle/work-rate-circle.com
         PinPadModalComponent,
         SecretQuestionModalComponent,
         DocumentViewerComponent
-    ]
+    ],
+    providers: [Keyboard]
 })
 export class ComponentsModule { }

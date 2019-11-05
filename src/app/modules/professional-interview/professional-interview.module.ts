@@ -1,12 +1,20 @@
-import { ProfessionalInterviewDetailsPage } from './pages/professional-interview-details/professional-interview-details.page';
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { SharedModule } from '../../shared/shared.module';
-import { ComponentsModule } from '../../shared/components/components.module';
-import { IonicModule, IonicPageModule } from 'ionic-angular';
-import { ProfessionalInterviewsArchivesPage } from './pages/professional-interviews-archives/professional-interviews-archives.page';
-import { ProfessionalInterviewComponent } from './components/professional-interview/professional-interview.component';
-import { ProfessionalInterviewsComponent } from './components/professional-interviews/professional-interviews.component';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
+import { IonicModule } from '@ionic/angular';
 
+import { ComponentsModule } from '../../shared/components/components.module';
+import { SharedModule } from '../../shared/shared.module';
+import {
+    ProfessionalInterviewComponent
+} from './components/professional-interview/professional-interview.component';
+import {
+    ProfessionalInterviewsComponent
+} from './components/professional-interviews/professional-interviews.component';
+import {
+    ProfessionalInterviewDetailsPage
+} from './pages/professional-interview-details/professional-interview-details.page';
+import {
+    ProfessionalInterviewsArchivesPage
+} from './pages/professional-interviews-archives/professional-interviews-archives.page';
 
 @NgModule({
   declarations: [
@@ -16,7 +24,7 @@ import { ProfessionalInterviewsComponent } from './components/professional-inter
     ProfessionalInterviewsComponent
   ],
   imports: [
-    IonicPageModule.forChild(ProfessionalInterviewDetailsPage),
+    IonicModule,
     SharedModule,
     ComponentsModule
   ],

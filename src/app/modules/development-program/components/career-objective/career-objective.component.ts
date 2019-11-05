@@ -1,23 +1,23 @@
-import { NavController } from 'ionic-angular';
-import { CareerObjectiveCreatePage } from './../../pages/career-objective-create/career-objective-create.page';
-import { CareerObjectiveStatusEnum } from './../../../../core/enums/career-objective-status.enum';
-import { Component, ViewChild, Input } from '@angular/core';
+import { Component, Input, ViewChild } from '@angular/core';
 
-import { OfflineIndicatorComponent } from '../../../../shared/components/offline-indicator/offline-indicator.component';
+import { CareerObjectiveStatusEnum } from '../../../../core/enums/career-objective-status.enum';
 import { PncRoleEnum } from '../../../../core/enums/pnc-role.enum';
 import { CareerObjectiveModel } from '../../../../core/models/career-objective.model';
-
+import {
+    OfflineIndicatorComponent
+} from '../../../../shared/components/offline-indicator/offline-indicator.component';
 
 @Component({
   selector: 'career-objective',
-  templateUrl: 'career-objective.component.html'
+  templateUrl: 'career-objective.component.html',
+  styleUrls: ['./career-objective.component.scss']
 })
 export class CareerObjectiveComponent {
 
   // Expose l'enum au template
   PncRole = PncRoleEnum;
 
-  @ViewChild(OfflineIndicatorComponent)
+  @ViewChild(OfflineIndicatorComponent, { static: false })
   private offlineIndicatorComponent: OfflineIndicatorComponent;
 
   constructor() {

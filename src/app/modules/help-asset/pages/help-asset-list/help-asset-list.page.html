@@ -1,34 +1,43 @@
 <ion-header>
-    <ion-navbar>
+    <ion-toolbar>
         <page-header [pnc]="pnc">
             <span *ngIf="pnc">
                 {{'HELP_ASSET_LIST.TITLE' | isMyPage:pnc | translate}}
             </span>
         </page-header>
-    </ion-navbar>
+    </ion-toolbar>
     <pnc-edossier-header [activeTab]="TabHeaderEnum.HELP_ASSET_LIST_PAGE"></pnc-edossier-header>
 </ion-header>
 
-<ion-content padding>
-    <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
-    <ng-template #pageBlock>
-        <div class="no-data-found" *ngIf="helpAssets && helpAssets.length == 0">{{ 'HELP_ASSET_LIST.NO_HELP_ASSETS' | translate }}</div>
-
-        <ion-list *ngIf="localHelpAssets && localHelpAssets.length > 0 || remoteHelpAssets && remoteHelpAssets.length > 0" class="help-asset-list">
-            <ion-item *ngFor="let helpAsset of remoteHelpAssets" (click)="displayHelpAsset(helpAsset, fileTypeEnum.URL)" class="clickable">
-                <ion-thumbnail item-start>
-                    <ion-icon name="link"></ion-icon>
-                </ion-thumbnail>
-                <h4>{{helpAsset.label}}</h4>
-                <span class="suffix-tu">{{ 'HELP_ASSET_LIST.LAST_UPDATE_DATE' | translate }} {{helpAsset.lastUpdateDate | date: 'dd/MM/yyyy HH:mm' : 'UTC'}}</span>
-            </ion-item>
-            <ion-item *ngFor="let helpAsset of localHelpAssets" (click)="displayHelpAsset(helpAsset, fileTypeEnum.PDF)" class="clickable">
-                <ion-thumbnail item-start>
-                    <ion-icon name="document"></ion-icon>
-                </ion-thumbnail>
-                <h4>{{helpAsset.label}}</h4>
-                <span class="suffix-tu">{{ 'HELP_ASSET_LIST.LAST_UPDATE_DATE' | translate }} {{helpAsset.lastUpdateDate | date: 'dd/MM/yyyy HH:mm' : 'UTC'}}</span>
-            </ion-item>
-        </ion-list>
-    </ng-template>
+<ion-content>
+    <div class="page-container">
+        <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
+        <ng-template #pageBlock>
+            <ul *ngIf="localHelpAssets && localHelpAssets.length > 0 || remoteHelpAssets && remoteHelpAssets.length > 0"
+                class="help-asset-list">
+                <li *ngFor="let helpAsset of remoteHelpAssets" (click)="displayHelpAsset(helpAsset, fileTypeEnum.URL)"
+                    class="clickable">
+                    <ion-thumbnail>
+                        <ion-icon name="link"></ion-icon>
+                    </ion-thumbnail>
+                    <div class="content">
+                        <h4>{{helpAsset.label}}</h4>
+                        <span class="suffix-tu">{{ 'HELP_ASSET_LIST.LAST_UPDATE_DATE' | translate }}
+                            {{helpAsset.lastUpdateDate | date: 'dd/MM/yyyy HH:mm' : 'UTC'}}</span>
+                    </div>
+                </li>
+                <li *ngFor="let helpAsset of localHelpAssets" (click)="displayHelpAsset(helpAsset, fileTypeEnum.PDF)"
+                    class="clickable">
+                    <ion-thumbnail>
+                        <ion-icon name="document"></ion-icon>
+                    </ion-thumbnail>
+                    <div class="content">
+                        <h4>{{helpAsset.label}}</h4>
+                        <span class="suffix-tu">{{ 'HELP_ASSET_LIST.LAST_UPDATE_DATE' | translate }}
+                            {{helpAsset.lastUpdateDate | date: 'dd/MM/yyyy HH:mm' : 'UTC'}}</span>
+                    </div>
+                </li>
+            </ul>
+        </ng-template>
+    </div>
 </ion-content>

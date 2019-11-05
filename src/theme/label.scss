@@ -1,47 +1,50 @@
- label {
-     color: color($colors, grey50);
- }
+@import './colors.scss';
 
- .required::after {
-     content: "*";
-     padding-left: 5px;
-     color: color($colors-secondary, red80);
- }
+label {
+    color: var(--ion-color-grey50);
+}
 
- .value {
-     font-weight: bold;
- }
+.required::after {
+    content: "*";
+    padding-left: 5px;
+    color: color($colors-secondary, red80);
+}
 
- .lastname {
-     text-transform: uppercase;
- }
+.value {
+    font-weight: bold;
+}
 
- .firstname {
-     display: inline-block;
-     text-transform: lowercase;
- }
+.lastname {
+    text-transform: uppercase;
+}
 
- .firstname::first-letter {
-     text-transform: uppercase;
- }
+.firstname {
+    display: inline-block;
+    text-transform: lowercase;
+}
 
- .no-data-found {
-     text-align: center;
-     font-size: 1.3em;
-     padding: 20px 0;
-     color: color($colors, grey50);
- }
+.firstname::first-letter {
+    text-transform: uppercase;
+}
 
- .information-message {
-     color: color($colors, grey20);
-     text-align: right;
-     padding-top: 5px;
- }
+.no-data-found {
+    display: block;
+    text-align: center;
+    font-size: 1.3em;
+    padding: 20px 0;
+    color: var(--ion-color-grey50);
+}
 
- .information-message:before {
-     content: '* ';
- }
+.information-message {
+    color: var(--ion-color-grey20);
+    text-align: right;
+    padding-top: 5px;
+}
 
- .align-left {
-     text-align: left;
- }
+.information-message:before {
+    content: '* ';
+}
+
+.align-left {
+    text-align: left;
+}

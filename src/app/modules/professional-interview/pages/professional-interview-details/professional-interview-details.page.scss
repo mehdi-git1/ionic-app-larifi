@@ -1,289 +1,253 @@
-page-professional-interview-details {
+@import '../../../../../theme/colors.scss';
 
-    $border-grid: 1px solid color($colors-secondary, grey75);
-    $block-border-radius: 5px;
+$border-grid: 1px solid color($colors-secondary, grey75);
+$block-border-radius: 5px;
 
-    .rotation-number {
+.rotation-number {
+    color: color($colors-secondary, blue55);
+}
+
+.rotation-info {
+    display: flex;
+    justify-content: flex-start;
+
+    ion-row:first-child {
+        display: flex;
+        align-items: center;
+
+        ion-col:first-child {
+            padding-left: 24px;
+        }
+    }
+}
+
+ion-grid.rotation-grid {
+    .flight-header {
         color: color($colors-secondary, blue55);
     }
 
-    .rotation-info {
-        display: flex;
-        justify-content: flex-start;
-
-        ion-row:first-child {
-            display: flex;
-            align-items: center;
-
-            ion-col:first-child {
-                padding-left: 24px;
-            }
+    ion-row {
+        ion-col:first-child {
+            padding-left: 24px;
         }
     }
 
-    ion-grid.rotation-grid {
-        .flight-header {
-            color: color($colors-secondary, blue55);
-        }
-
-        ion-row {
-            ion-col:first-child {
-                padding-left: 24px;
-            }
-        }
-
-        ion-row:first-child {
-            border-top: $border-grid;
-            border-bottom: $border-grid;
-        }
-
-        ion-col {
-            border-right: $border-grid;
-        }
-
-        ion-row:nth-child(even) {
-            background: color($colors-secondary, grey95);
-        }
-
-        ion-col:last-child {
-            border: initial;
-        }
+    ion-row:first-child {
+        border-top: $border-grid;
+        border-bottom: $border-grid;
     }
 
-    .mat-expansion-panel-body .ng-star-inserted:first-child .sub-title-block {
-        margin-top: 0px;
+    ion-col {
+        border-right: $border-grid;
     }
 
-    .state-block,
-    .comment-block,
-    .sub-title-block {
-        height: 32px;
-        padding-right: 24px;
-        padding-left: 24px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        background: color($colors-secondary, bluegrey30);
-        color: color($colors, white);
-        border-radius: $block-border-radius;
+    ion-row:nth-child(even) {
+        background: color($colors-secondary, grey95);
+    }
 
-        &.comment-block {
-            margin-bottom: 16px;
-            border-top-left-radius: 0px;
-            border-top-right-radius: 0px;
-            background: color($colors, primary-light);
-        }
+    ion-col:last-child {
+        border: initial;
+    }
+}
 
-        &.sub-title-block {
-            background: color($colors, primary-light);
-            margin: 10px -15px 10px -15px;
-            font-size: 17px;
-        }
+.mat-expansion-panel-body .ng-star-inserted:first-child .sub-title-block {
+    margin-top: 0px;
+}
 
-        &.state-block {
+.state-block,
+.comment-block,
+.sub-title-block {
+    height: 32px;
+    padding-right: 24px;
+    padding-left: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: color($colors-secondary, bluegrey30);
+    color: var(--ion-color-white);
+    border-radius: $block-border-radius;
 
-            color-status-point {
-                padding-right: 0px;
-            }
+    &.comment-block {
+        margin-bottom: 16px;
+        border-top-left-radius: 0px;
+        border-top-right-radius: 0px;
+        background: var(--ion-color-primarylight);
+    }
 
-            .w30 {
-                width: 30%;
-            }
+    &.sub-title-block {
+        background: var(--ion-color-primarylight);
+        margin: 10px -15px 10px -15px;
+        font-size: 17px;
+    }
 
-            .redactor {
-                display: inline;
-            }
-
-            > span {
-                display: inline;
-            }
-        }
-
-        &.span {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding-right: 5px;
-            padding-left: 5px;
-        }
+    &.state-block {
 
         color-status-point {
-            padding-right: 5px;
-            padding-left: 5px;
-        }
-    }
-
-    .date-block-justify {
-        justify-content: center;
-        margin-bottom: 15px;
-        background-color: color($colors-secondary, bluegrey50);
-
-        .date-display {
-            color: color($colors, white);
-        }
-
-        .date-label {
-            padding-right: 5px;
-        }
-
-        .item-md.item-block .item-inner,
-        .item-ios.item-block .item-inner {
             padding-right: 0px;
-            border-bottom: 0px;
-
-            .input-wrapper {
-                height: 25px;
-                background-color: color($colors, white);
-                align-items: center;
-                align-content: center;
-                margin-top: 9px;
-                padding: 0px 8px 0px 0px;
-                border-radius: 5px;
-            }
-
-            .label-md,
-            .label-ios {
-                margin: 13px 0px 13px 10px;
-            }
-
-            .datetime-md,
-            .datetime-ios {
-                padding: 0px;
-            }
-
-            .datetime-text {
-                background: color($colors, white);
-                padding: 5px;
-                font-size: 14px;
-                border-radius: 5px;
-            }
-            ion-input.input, div.mat-input-infix, div.mat-form-field-infix, ion-datetime.input-like {
-                border-radius: 4px;
-                border: none;
-            }
-        }
-
-
-    }
-
-    .speciality-grid {
-        padding: 0px;
-        margin-bottom: 16px;
-        box-sizing: border-box;
-        box-shadow: 0 3px 1px -2px rgba(0, 0, 0, .2), 0 2px 2px 0 rgba(0, 0, 0, .14), 0 1px 5px 0 rgba(0, 0, 0, .12);
-        border-radius: $block-border-radius;
-        background: color($colors, white);
-
-        .grid {
-            padding: initial;
         }
     }
+}
 
-    .speciality-header {
-        height: 32px;
-        padding-right: 24px;
-        padding-left: 24px;
-        background: color($colors-secondary, blue55);
-        color: color($colors, white);
-        font-size: 18px !important;
-        border-radius: $block-border-radius;
-        display: flex;
-        align-items: center;
+.date-block-justify {
+    justify-content: center;
+    margin-bottom: 15px;
+    background-color: color($colors-secondary, bluegrey50);
+
+    .date-display {
+        color: var(--ion-color-white);
     }
 
-    .speciality-label {
-        padding-left: 24px;
-        background: color($colors, white);
+    .date-label {
+        padding-right: 5px;
+    }
 
-        ion-col {
-            background: color($colors, white);
+    .item-md.item-block .item-inner,
+    .item-ios.item-block .item-inner {
+        padding-right: 0px;
+        border-bottom: 0px;
+
+        .input-wrapper {
+            height: 25px;
+            background-color: var(--ion-color-white);
+            align-items: center;
+            align-content: center;
+            margin-top: 9px;
+            padding: 0px 8px 0px 0px;
+            border-radius: 5px;
         }
 
-        .assignment {
-            padding-right: 15px;
+        .label-md,
+        .label-ios {
+            margin: 13px 0px 13px 10px;
+        }
+
+        .datetime-md,
+        .datetime-ios {
+            padding: 0px;
+        }
+
+        .datetime-text {
+            background: var(--ion-color-white);
+            padding: 5px;
+            font-size: 14px;
+            border-radius: 5px;
+        }
+
+        ion-input.input,
+        div.mat-input-infix,
+        div.mat-form-field-infix,
+        ion-datetime.input-like {
+            border-radius: 4px;
+            border: none;
         }
     }
 
 
+}
 
-    .comment {
+.speciality-grid {
+    padding: 0px;
+    margin-bottom: 16px;
+    box-sizing: border-box;
+    box-shadow: 0 3px 1px -2px rgba(0, 0, 0, .2), 0 2px 2px 0 rgba(0, 0, 0, .14), 0 1px 5px 0 rgba(0, 0, 0, .12);
+    border-radius: $block-border-radius;
+    background: var(--ion-color-white);
 
-        textarea {
-            resize: none;
-        }
+    .grid {
+        padding: initial;
+    }
+}
 
-        p {
-            padding: 10px;
-            border-radius: 3px;
-            background: color($colors-secondary, grey95);
-            border: 1px solid color($colors-secondary, grey70);
-            white-space: pre-line;
-        }
+.speciality-header {
+    height: 32px;
+    padding-right: 24px;
+    padding-left: 24px;
+    background: color($colors-secondary, blue55);
+    color: var(--ion-color-white);
+    font-size: 18px !important;
+    border-radius: $block-border-radius;
+    display: flex;
+    align-items: center;
+}
 
-        .mat-expansion-panel-body {
-            padding: 15px;
+.speciality-label {
+    padding-left: 24px;
+    background: var(--ion-color-white);
 
-            label {
-                font-size: 17px;
-                margin: 15px 0px 10px 0px;
-                display: flex;
-                align-items: center;
-                color: color($colors-secondary, grey10);
-
-                span {
-                    font-weight: normal;
-                    color: color($colors-secondary, blue55);
-                    margin-right: 15px;
-                    margin-left: 15px;
-                }
-            }
-
-
-            label.required:after {
-                content: '*';
-                padding-left: 5px;
-                color: color($colors-secondary, red80);
-            }
-
-            div.ng-star-inserted div.ng-star-inserted:first-child label:first-child {
-                margin-top: 0px;
-            }
-
-            ion-textarea {
-                padding: 10px;
-                border-radius: 3px;
-                white-space: pre-line;
-                margin: 0 !important;
-                min-height: 210px !important;
-
-                textarea {
-                    min-height: 190px !important;
-                    padding: 5px !important;
-                }
-            }
-        }
+    ion-col {
+        background: var(--ion-color-white);
     }
 
-    .expandable-comment-block {
-        .mat-expansion-panel {
-            margin-bottom: 0px;
+    .assignment {
+        padding-right: 15px;
+    }
+}
 
-        }
+
+
+.comment {
+
+    textarea {
+        resize: none;
     }
 
-    .button-bar {
-        margin-top: 10px;
+    p {
+        padding: 10px;
+        border-radius: 3px;
+        background: color($colors-secondary, grey95);
+        border: 1px solid var(--ion-color-grey70);
+        white-space: pre-line;
     }
 
-    .checkbox-container {
-        display: flex;
-        align-items: center;
-        padding-right: 20px;
+    ::ng-deep .mat-expansion-panel-body {
+        padding: 15px;
 
         label {
-            color: color($colors, primary);
-            padding-left: 5px;
+            font-size: 17px;
+            margin: 0px 0px 10px 0px;
+            display: flex;
+            align-items: center;
+            color: color($colors-secondary, grey10);
+
+            span {
+                font-weight: normal;
+                color: color($colors-secondary, blue55);
+                margin-right: 15px;
+            }
         }
 
+
+        label.required:after {
+            content: '*';
+            padding-left: 5px;
+            color: color($colors-secondary, red80);
+        }
+
+        div.ng-star-inserted div.ng-star-inserted:first-child label:first-child {
+            margin-top: 0px;
+        }
     }
+}
+
+.expandable-comment-block {
+    .mat-expansion-panel {
+        margin-bottom: 0px;
+
+    }
+}
+
+.button-bar {
+    margin-top: 10px;
+}
+
+.checkbox-container {
+    display: flex;
+    align-items: center;
+    padding-right: 20px;
+
+    label {
+        color: var(--ion-color-primary);
+        padding-left: 5px;
+    }
+
 }

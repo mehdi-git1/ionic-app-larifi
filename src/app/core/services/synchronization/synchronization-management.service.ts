@@ -1,13 +1,15 @@
-import { SynchronizationService } from './synchronization.service';
-import { PncModel } from './../../models/pnc.model';
-import { SynchroRequestModel } from './../../models/synchro-request.model';
-import { Injectable, EventEmitter } from '@angular/core';
-import { SynchroStatusEnum } from '../../enums/synchronization/synchro-status.enum';
-import { Events } from 'ionic-angular';
 import * as _ from 'lodash';
-import { ConnectivityService } from '../connectivity/connectivity.service';
 
-@Injectable()
+import { EventEmitter, Injectable } from '@angular/core';
+import { Events } from '@ionic/angular';
+
+import { SynchroStatusEnum } from '../../enums/synchronization/synchro-status.enum';
+import { PncModel } from '../../models/pnc.model';
+import { SynchroRequestModel } from '../../models/synchro-request.model';
+import { ConnectivityService } from '../connectivity/connectivity.service';
+import { SynchronizationService } from './synchronization.service';
+
+@Injectable({ providedIn: 'root' })
 export class SynchronizationManagementService {
   MAX_CONCURRENT_SYNCHRO_REQUEST = 5;
   concurrentSynchroRequestCount = 0;
@@ -18,7 +20,8 @@ export class SynchronizationManagementService {
   progressChange = new EventEmitter<number>();
   synchroRequestListChange = new EventEmitter<SynchroRequestModel[]>();
 
-  constructor(private synchronizationService: SynchronizationService,
+  constructor(
+    private synchronizationService: SynchronizationService,
     private connectivityService: ConnectivityService,
     private events: Events) {
     this.events.subscribe('SynchroRequest:add', (pnc) => {
@@ -181,15 +184,15 @@ export class SynchronizationManagementService {
   }
 
   /**
-  * Transmet le pourcentage de progression de la file d'attente
-  */
+   * Transmet le pourcentage de progression de la file d'attente
+   */
   private emitProgress(): void {
     this.progressChange.emit(this.getProgress());
   }
 
   /**
-  * Transmet la liste des demandes de synchro
-  */
+   * Transmet la liste des demandes de synchro
+   */
   private emitSynchroRequestList(): void {
     this.synchroRequestListChange.emit(this.synchroRequestList);
   }

@@ -1,33 +1,29 @@
-import { Injectable } from '@angular/core';
-
-import { FileTypeEnum } from './../enums/file-type.enum';
-import { HtmlService } from './html/html.service';
-import { PdfService } from './pdf/pdf.service';
-import { DeviceService } from '../services/device/device.service';
 import { saveAs } from 'file-saver';
-import { Utils } from '../../shared/utils/utils';
-import { FileTransfer } from '@ionic-native/file-transfer';
-import { FileOpener } from '@ionic-native/file-opener';
-import { File } from '@ionic-native/file';
-import { ToastService } from '../services/toast/toast.service';
-import { DomSanitizer } from '../../../../node_modules/@angular/platform-browser';
-import { InAppBrowser } from '../../../../node_modules/@ionic-native/in-app-browser';
-import { HttpClient } from '../../../../node_modules/@angular/common/http';
+
+import { Injectable } from '@angular/core';
+import { FileOpener } from '@ionic-native/file-opener/ngx';
+import { File } from '@ionic-native/file/ngx';
 import { TranslateService } from '@ngx-translate/core';
 
+import { HttpClient } from '../../../../node_modules/@angular/common/http';
+import { Utils } from '../../shared/utils/utils';
+import { FileTypeEnum } from '../enums/file-type.enum';
+import { DeviceService } from '../services/device/device.service';
+import { ToastService } from '../services/toast/toast.service';
+import { HtmlService } from './html/html.service';
+import { PdfService } from './pdf/pdf.service';
+
 declare var window: any;
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class FileService {
 
     constructor(
         private pdfService: PdfService,
         private htmlService: HtmlService,
         private deviceService: DeviceService,
-        private fileTransfer: FileTransfer,
         private toastService: ToastService,
         private file: File,
         private fileOpener: FileOpener,
-        private inAppBrowser: InAppBrowser,
         private httpClient: HttpClient,
         private translateService: TranslateService) {
     }
@@ -70,19 +66,19 @@ export class FileService {
                                 this.file.writeExistingFile(rep + '/edossier', fileName, result).then(
                                     writingFileReturn => {
                                         this.fileOpener.open(
-                                        createFileReturn.nativeURL,
-                                        mimeType
+                                            createFileReturn.nativeURL,
+                                            mimeType
                                         ).then((res) => {
                                         }).catch(err => {
                                             this.errorOpeningFile(err);
                                         }
-                                    );
-                                }
-                            ).catch(err => {
-                                this.errorOpeningFile(err);
+                                        );
+                                    }
+                                ).catch(err => {
+                                    this.errorOpeningFile(err);
+                                });
                             });
                         });
-                    });
                 }).catch(err => {
                     this.errorOpeningFile(err);
                 });

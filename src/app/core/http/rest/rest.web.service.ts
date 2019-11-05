@@ -6,7 +6,7 @@ import { SessionService } from '../../services/session/session.service';
 import { RestRequest } from './rest-request';
 import { RestService } from './rest.base.service';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class RestWebService extends RestService {
 
     constructor(
@@ -43,7 +43,7 @@ export class RestWebService extends RestService {
 
         // En local, on ajoute le header SM_USER pour simuler l'authent habile
         if (this.config.isLocalhost()) {
-            request.httpHeaders.headers = request.httpHeaders.headers.append('SM_USER', '07755754');
+            request.httpHeaders.headers = request.httpHeaders.headers.append('SM_USER', '41414754');
         }
 
         // On ajoute un header spécial si la fonction d'impersonnification a été utilisée

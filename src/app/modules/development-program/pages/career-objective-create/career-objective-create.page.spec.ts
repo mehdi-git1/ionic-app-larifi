@@ -1,34 +1,46 @@
-import { IsMyPage } from './../../../../shared/pipes/is_my_page/is_my_page.pipe';
-import { IonicModule, NavController, NavParams, AlertController } from 'ionic-angular';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { TestBed, ComponentFixture, inject } from '@angular/core/testing';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { HttpClient } from '@angular/common/http';
-import { DatePipe } from '@angular/common';
-import { FormBuilder } from '@angular/forms';
-import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
 import { of } from 'rxjs/observable/of';
 
-import { AppConstant } from '../../../../app.constant';
-import { CareerObjectiveCreatePage } from './career-objective-create.page';
-import { CareerObjectiveModel } from '../../../../core/models/career-objective.model';
-import { NavMock } from '../../../../../test-config/mocks-ionic';
-import { OnlineCareerObjectiveService } from '../../../../core/services/career-objective/online-career-objective.service';
-import { OfflineCareerObjectiveService } from '../../../../core/services/career-objective/offline-career-objective.service';
-import { SessionService } from '../../../../core/services/session/session.service';
-import { DateTransform } from '../../../../shared/utils/date-transform';
-import { ToastService } from '../../../../core/services/toast/toast.service';
-import { OfflinePncService } from '../../../../core/services/pnc/offline-pnc.service';
-import { SecurityService } from '../../../../core/services/security/security.service';
-import { CareerObjectiveStatusService } from '../../../../core/services/career-objective-status/career-objective-status.service';
-import { WaypointService } from '../../../../core/services/waypoint/waypoint.service';
-import { CareerObjectiveTransformerService } from '../../../../core/services/career-objective/career-objective-transformer.service';
-import { ConnectivityService } from '../../../../core/services/connectivity/connectivity.service';
-import { CareerObjectiveService } from '../../../../core/services/career-objective/career-objective.service';
-import { SynchronizationService } from '../../../../core/services/synchronization/synchronization.service';
-import { DeviceService } from '../../../../core/services/device/device.service';
-import { PncService } from '../../../../core/services/pnc/pnc.service';
+import { DatePipe } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormBuilder } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AlertController, IonicModule } from '@ionic/angular';
+import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
+import { AppConstant } from '../../../../app.constant';
+import { CareerObjectiveModel } from '../../../../core/models/career-objective.model';
+import {
+    CareerObjectiveStatusService
+} from '../../../../core/services/career-objective-status/career-objective-status.service';
+import {
+    CareerObjectiveTransformerService
+} from '../../../../core/services/career-objective/career-objective-transformer.service';
+import {
+    CareerObjectiveService
+} from '../../../../core/services/career-objective/career-objective.service';
+import {
+    OfflineCareerObjectiveService
+} from '../../../../core/services/career-objective/offline-career-objective.service';
+import {
+    OnlineCareerObjectiveService
+} from '../../../../core/services/career-objective/online-career-objective.service';
+import { ConnectivityService } from '../../../../core/services/connectivity/connectivity.service';
+import { DeviceService } from '../../../../core/services/device/device.service';
+import { OfflinePncService } from '../../../../core/services/pnc/offline-pnc.service';
+import { PncService } from '../../../../core/services/pnc/pnc.service';
+import { SecurityService } from '../../../../core/services/security/security.service';
+import { SessionService } from '../../../../core/services/session/session.service';
+import {
+    SynchronizationService
+} from '../../../../core/services/synchronization/synchronization.service';
+import { ToastService } from '../../../../core/services/toast/toast.service';
+import { WaypointService } from '../../../../core/services/waypoint/waypoint.service';
+import { IsMyPage } from '../../../../shared/pipes/is_my_page/is_my_page.pipe';
+import { DateTransform } from '../../../../shared/utils/date-transform';
+import { CareerObjectiveCreatePage } from './career-objective-create.page';
 
 const translateServiceMock = jasmine.createSpyObj('translateServiceMock', ['instant']);
 const synchronizationProviderMock = jasmine.createSpyObj('SynchronizationProviderMock', ['']);
@@ -45,7 +57,7 @@ describe('CareerObjectiveCreatePage', () => {
                 IsMyPage
             ],
             imports: [
-                IonicModule.forRoot(CareerObjectiveCreatePage),
+                IonicModule,
                 TranslateModule.forRoot({
                     loader: {
                         provide: TranslateLoader,
@@ -56,8 +68,7 @@ describe('CareerObjectiveCreatePage', () => {
             ],
             providers: [
                 HttpClient,
-                { provide: NavController, useClass: NavMock },
-                { provide: NavParams, useClass: NavMock },
+                Router,
                 AlertController,
                 FormBuilder,
                 CareerObjectiveService,

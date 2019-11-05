@@ -1,13 +1,17 @@
 import { Component, Input } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { ActivatedRoute, Router } from '@angular/router';
 
-import { ProfessionalInterviewModel } from '../../../../core/models/professional-interview/professional-interview.model';
-import { ProfessionalInterviewStateEnum } from '../../../../core/enums/professional-interview/professional-interview-state.enum';
-import { ProfessionalInterviewDetailsPage } from '../../pages/professional-interview-details/professional-interview-details.page';
+import {
+    ProfessionalInterviewStateEnum
+} from '../../../../core/enums/professional-interview/professional-interview-state.enum';
+import {
+    ProfessionalInterviewModel
+} from '../../../../core/models/professional-interview/professional-interview.model';
 
 @Component({
   selector: 'professional-interview',
-  templateUrl: 'professional-interview.component.html'
+  templateUrl: 'professional-interview.component.html',
+  styleUrls: ['./professional-interview.component.scss']
 })
 
 export class ProfessionalInterviewComponent {
@@ -16,14 +20,16 @@ export class ProfessionalInterviewComponent {
 
   @Input() professionalInterview: ProfessionalInterviewModel;
 
-  constructor(private navCtrl: NavController) {
+  constructor(
+    private router: Router,
+    private activatedRoute: ActivatedRoute) {
   }
 
   /**
-     * Définit la couleur en fonction du statut
-     *
-     * @return 'green' si 'TAKEN_INTO_ACCOUNT' ou 'red' si 'NOT_TAKEN_INTO_ACCOUNT'
-     */
+   * Définit la couleur en fonction du statut
+   *
+   * @return 'green' si 'TAKEN_INTO_ACCOUNT' ou 'red' si 'NOT_TAKEN_INTO_ACCOUNT'
+   */
   getColorStatusPoint(): string {
     if (this.professionalInterview) {
       switch (this.professionalInterview.state) {
@@ -40,7 +46,7 @@ export class ProfessionalInterviewComponent {
    */
   goToProfessionalInterviewDetail(evt: Event) {
     evt.stopPropagation();
-    this.navCtrl.push(ProfessionalInterviewDetailsPage, { professionalInterviewId: this.professionalInterview.techId });
+    this.router.navigate(['professional-interview', 'detail', this.professionalInterview.techId], { relativeTo: this.activatedRoute });
   }
 
 }

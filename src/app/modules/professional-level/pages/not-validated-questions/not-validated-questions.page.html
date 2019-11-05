@@ -1,14 +1,18 @@
 <ion-header>
-    <ion-navbar>
+    <ion-toolbar>
+        <ion-back-button color="white" slot="start"></ion-back-button>
         <page-header [showSettingsIcon]="true" [pnc]="pnc">
-            <span *ngIf="pnc"> {{ 'PROFESSIONAL_LEVEL.NOT_VALIDATED_QUESTIONS.TITLE' | isMyPage: pnc | translate }}</span>
+            <span *ngIf="pnc">
+                {{ 'PROFESSIONAL_LEVEL.NOT_VALIDATED_QUESTIONS.TITLE' | isMyPage: pnc | translate }}</span>
         </page-header>
-    </ion-navbar>
+    </ion-toolbar>
 </ion-header>
 
-<ion-content padding>
-    <div class="title-container">
-        <h3>{{ stage.code }} - {{ stage.label }}</h3>
+<ion-content>
+    <div class="page-container">
+        <div class="title-container">
+            <h3>{{ stage.code }} - {{ stage.label }}</h3>
+        </div>
+        <professional-level-cursus *ngFor="let cursus of module.cursus" [cursus]="cursus"></professional-level-cursus>
     </div>
-    <professional-level-cursus *ngFor="let cursus of module.cursus" [cursus]="cursus"></professional-level-cursus>
 </ion-content>

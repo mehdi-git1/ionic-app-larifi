@@ -1,11 +1,11 @@
-pnc-photo {
-    .cropped-frame {
-        display: flex;
-        justify-content: center;
-        align-items: center;
+@import '../../../../theme/colors.scss';
 
-        border-radius: 100%;
-        background: color($colors-secondary, grey95);
-        overflow: hidden;
-    }
+.cropped-frame {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 100%;
+    background: color($colors-secondary, grey95);
+    overflow: hidden;
 }

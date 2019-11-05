@@ -17,11 +17,12 @@ import {
 
 @Component({
     selector: 'page-user-message-management',
-    templateUrl: 'user-message-management.page.html'
+    templateUrl: 'user-message-management.page.html',
+    styleUrls: ['./user-message-management.page.scss']
 })
 export class UserMessageManagementPage {
 
-    @ViewChild(TextEditorComponent) textEditorReference;
+    @ViewChild(TextEditorComponent, { static: false }) textEditorReference;
 
     userMessageForm: FormGroup;
 
@@ -34,7 +35,8 @@ export class UserMessageManagementPage {
     TabHeaderModeEnum = TabHeaderModeEnum;
     TabHeaderEnum = TabHeaderEnum;
 
-    constructor(private userMessageService: UserMessageService,
+    constructor(
+        private userMessageService: UserMessageService,
         private userMessageAlertService: UserMessageAlertService,
         private translateService: TranslateService,
         private toastService: ToastService,

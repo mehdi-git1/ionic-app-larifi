@@ -1,7 +1,8 @@
-import { DocumentModel, DocumentTypeEnum } from './../../models/document.model';
 import { Injectable } from '@angular/core';
-import { RestService } from '../../http/rest/rest.base.service';
+
 import { UrlConfiguration } from '../../configuration/url.configuration';
+import { RestService } from '../../http/rest/rest.base.service';
+import { DocumentModel, DocumentTypeEnum } from '../../models/document.model';
 
 const imageType = 'image';
 const pdfType = 'application/pdf';
@@ -12,7 +13,7 @@ const excelType2 = 'application/vnd.openxmlformats-officedocument.spreadsheetml.
 const docType = 'application/msword';
 const docType2 = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class DocumentService {
 
     constructor(
@@ -35,19 +36,19 @@ export class DocumentService {
      */
     public getDocumentTypeFromMimeType(mimeType: string): DocumentTypeEnum {
         if (mimeType && mimeType.startsWith(imageType)) {
-        return DocumentTypeEnum.IMAGE;
+            return DocumentTypeEnum.IMAGE;
         }
         if (mimeType === pdfType) {
-        return DocumentTypeEnum.PDF;
+            return DocumentTypeEnum.PDF;
         }
         if (mimeType === pptType || mimeType === pptType2) {
-        return DocumentTypeEnum.PPT;
+            return DocumentTypeEnum.PPT;
         }
         if (mimeType === docType || mimeType === docType2) {
-        return DocumentTypeEnum.DOC;
+            return DocumentTypeEnum.DOC;
         }
         if (mimeType === excelType || mimeType === excelType2) {
-        return DocumentTypeEnum.XLS;
+            return DocumentTypeEnum.XLS;
         }
         return DocumentTypeEnum.OTHER;
     }

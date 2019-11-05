@@ -1,22 +1,27 @@
 <ion-list>
     <ion-item>
         <ion-checkbox [(ngModel)]="prioritized" [disabled]="noPriority"></ion-checkbox>
-        <ion-label><span class="flex edospnc-flag prioritized"></span>{{ 'PNC_SEARCH.CRITERIA.PRIORITIZED_SHORT' | translate }}</ion-label>
+        <ion-label>
+            <span class="flex edospnc-flag prioritized"></span>{{ 'PNC_SEARCH.CRITERIA.PRIORITIZED_SHORT' | translate }}
+        </ion-label>
     </ion-item>
     <ion-item>
-            <ion-checkbox [(ngModel)]="priority" [disabled]="noPriority"></ion-checkbox>
-            <ion-label><span class="flex edospnc-flag at-least-one-priority"></span>{{ 'PNC_SEARCH.CRITERIA.PRIORITY_IN_PROGRESS_SHORT' | translate }}</ion-label>
-        </ion-item>
+        <ion-checkbox [(ngModel)]="priority" [disabled]="noPriority"></ion-checkbox>
+        <ion-label>
+            <span
+                class="flex edospnc-flag at-least-one-priority"></span>{{ 'PNC_SEARCH.CRITERIA.PRIORITY_IN_PROGRESS_SHORT' | translate }}
+        </ion-label>
+    </ion-item>
     <ion-item>
         <ion-checkbox [(ngModel)]="noPriority" [disabled]="prioritized || priority"></ion-checkbox>
         <ion-label>{{ 'PNC_SEARCH.CRITERIA.NO_PRIORITY_SHORT' | translate }}</ion-label>
     </ion-item>
 </ion-list>
 <div class="buttons-bar">
-    <button ion-button clear="true" (click)="closePopover()">
+    <ion-button fill="clear" (click)="closePopover()">
         {{ 'GLOBAL.BUTTONS.CANCEL' | translate }}
-    </button>
-    <button ion-button clear="true" (click)="confirm()">
+    </ion-button>
+    <ion-button fill="clear" (click)="confirm()">
         {{ 'GLOBAL.BUTTONS.VALIDATE' | translate }}
-    </button>
+    </ion-button>
 </div>

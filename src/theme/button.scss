@@ -1,3 +1,5 @@
+@import './colors.scss';
+
 .button {
     border-radius: 4px;
     text-transform: none;
@@ -7,6 +9,6 @@
     }
 
     &[disabled] {
-        background: color($colors, grey50);
+        background: var(--ion-color-grey50);
     }
 }

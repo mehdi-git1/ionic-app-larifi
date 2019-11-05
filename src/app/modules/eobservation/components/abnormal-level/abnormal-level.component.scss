@@ -1,60 +1,59 @@
-abnormal-level {
+@import '../../../../../theme/colors.scss';
 
-    table {
-        width: 100%;
-        font-size: 1.1em;
-        margin-top: 5px;
-        border-collapse: collapse;
+table {
+    width: 100%;
+    font-size: 1.1em;
+    margin-top: 5px;
+    border-collapse: collapse;
 
-        thead {
-            background: color($colors, white);
-            border-bottom: 1px solid color($colors-secondary, grey75);
+    thead {
+        background: var(--ion-color-white);
+        border-bottom: 1px solid color($colors-secondary, grey75);
+    }
+
+    th,
+    td {
+        padding: 5px 10px;
+        text-align: left;
+        vertical-align: top;
+        border-left: 1px solid color($colors-secondary, grey75);
+        border-right: 1px solid color($colors-secondary, grey75);
+    }
+
+    th {
+        color: var(--ion-color-primary);
+        font-weight: normal;
+
+        &.skill {
+            width: 285px;
         }
 
-        th,
+        &.level {
+            width: 100px;
+        }
+    }
+
+    td {
+        color: var(--ion-color-grey50);
+    }
+
+    td:first-child {
+        text-transform: lowercase;
+    }
+
+    td:first-letter {
+        text-transform: uppercase;
+    }
+
+    tr:nth-child(odd) {
         td {
-            padding: 5px 10px;
-            text-align: left;
-            vertical-align: top;
-            border-left: 1px solid color($colors-secondary, grey75);
-            border-right: 1px solid color($colors-secondary, grey75);
+            background: color($colors-secondary, grey95);
         }
+    }
 
-        th {
-            color: color($colors, primary);
-            font-weight: normal;
-
-            &.skill {
-                width: 285px;
-            }
-
-            &.level {
-                width: 100px;
-            }
-        }
-
+    tr:nth-child(even) {
         td {
-            color: color($colors, grey50);
-        }
-
-        td:first-child {
-            text-transform: lowercase;
-        }
-
-        td:first-letter {
-            text-transform: uppercase;
-        }
-
-        tr:nth-child(odd) {
-            td {
-                background: color($colors-secondary, grey95);
-            }
-        }
-
-        tr:nth-child(even) {
-            td {
-                background: color($colors, white);
-            }
+            background: var(--ion-color-white);
         }
     }
 }

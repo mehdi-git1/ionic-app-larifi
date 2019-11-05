@@ -1,10 +1,10 @@
-import { Events, NavController } from 'ionic-angular';
+
 
 import { Component } from '@angular/core';
-import { StatusBar } from '@ionic-native/status-bar';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Events } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 
-import { TabNavEnum } from '../../../../core/enums/tab-nav.enum';
 import { PncModel } from '../../../../core/models/pnc.model';
 import {
     AppVersionAlertService
@@ -14,24 +14,15 @@ import { SessionService } from '../../../../core/services/session/session.servic
 import {
     SynchronizationService
 } from '../../../../core/services/synchronization/synchronization.service';
-import { TabNavService } from '../../../../core/services/tab-nav/tab-nav.service';
 import { ToastService } from '../../../../core/services/toast/toast.service';
 import {
     UserMessageAlertService
 } from '../../../../core/services/user-message/user-message-alert.service';
-import {
-    CongratulationLettersPage
-} from '../../../congratulation-letter/pages/congratulation-letters/congratulation-letters.page';
-import {
-    ProfessionalLevelPage
-} from '../../../professional-level/pages/professional-level/professional-level.page';
-import {
-    StatutoryCertificatePage
-} from '../../../statutory-certificate/pages/statutory-certificate/statutory-certificate.page';
 
 @Component({
     selector: 'page-pnc-home',
     templateUrl: 'pnc-home.page.html',
+    styleUrls: ['./pnc-home.page.scss']
 })
 export class PncHomePage {
 
@@ -40,22 +31,21 @@ export class PncHomePage {
     synchroInProgress: boolean;
     formatedSpeciality: string;
 
-    constructor(private navCtrl: NavController,
+    constructor(
+        private router: Router,
         private toastService: ToastService,
         private synchronizationProvider: SynchronizationService,
         private translateService: TranslateService,
         private pncService: PncService,
         private events: Events,
-        private statusBar: StatusBar,
         private userMessageAlertService: UserMessageAlertService,
         private appVersionAlertService: AppVersionAlertService,
-        private tabNavService: TabNavService,
-        private sessionService: SessionService
+        private sessionService: SessionService,
+        private activatedRoute: ActivatedRoute
     ) {
         this.userMessageAlertService.handleUserMessage();
         this.appVersionAlertService.handleAppVersion();
 
-        this.statusBar.styleLightContent();
 
         this.events.subscribe('EDossierOffline:stored', () => {
             if (this.matricule != null) {
@@ -83,45 +73,45 @@ export class PncHomePage {
     }
 
     /**
-    * Dirige vers la liste des prochains vols
-    */
+     * Dirige vers la liste des prochains vols
+     */
     goToUpcomingFlightList() {
-        this.navCtrl.parent.select(this.tabNavService.getTabIndex(TabNavEnum.UPCOMING_FLIGHT_LIST_PAGE));
+        this.router.navigate(['../..', 'flight'], { relativeTo: this.activatedRoute });
     }
 
     /**
-    * Dirige vers l'effectif PNC
-    */
+     * Dirige vers l'effectif PNC
+     */
     goToPncSearch() {
-        this.navCtrl.parent.select(this.tabNavService.getTabIndex(TabNavEnum.PNC_SEARCH_PAGE));
+        this.router.navigate(['../..', 'search'], { relativeTo: this.activatedRoute });
     }
 
     /**
      * Dirige vers la page des ressources d'aide
      */
     goToHelpAssetList() {
-        this.navCtrl.parent.select(this.tabNavService.getTabIndex(TabNavEnum.HELP_ASSET_LIST_PAGE));
+        this.router.navigate(['../..', 'help'], { relativeTo: this.activatedRoute });
     }
 
     /**
      * Dirige vers l'attestation réglementaire
      */
     goToStatutoryCertificate() {
-        this.navCtrl.push(StatutoryCertificatePage, { matricule: this.matricule });
+        this.router.navigate(['statutory-certificate'], { relativeTo: this.activatedRoute });
     }
 
     /**
-    * Dirige vers le suivi réglementaire
-    */
+     * Dirige vers le suivi réglementaire
+     */
     goToProfessionalLevel() {
-        this.navCtrl.push(ProfessionalLevelPage, { matricule: this.matricule });
+        this.router.navigate(['professional-level'], { relativeTo: this.activatedRoute });
     }
 
     /**
-    * Dirige vers les lettres de félicitation
-    */
+     * Dirige vers les lettres de félicitation
+     */
     goToCongratulationLetters() {
-        this.navCtrl.push(CongratulationLettersPage, { matricule: this.matricule });
+        this.router.navigate(['congratulation-letter'], { relativeTo: this.activatedRoute });
     }
 
     /**
@@ -135,17 +125,18 @@ export class PncHomePage {
                 this.pnc = pnc;
             }, error => { });
             this.synchroInProgress = false;
-            this.toastService.info(this.translateService.instant('SYNCHRONIZATION.PNC_SAVED_OFFLINE', { 'matricule': this.pnc.matricule }));
+            this.toastService.info(this.translateService.instant('SYNCHRONIZATION.PNC_SAVED_OFFLINE', { matricule: this.pnc.matricule }));
         }, error => {
             this.synchroInProgress = false;
-            this.toastService.error(this.translateService.instant('SYNCHRONIZATION.PNC_SAVED_OFFLINE_ERROR', { 'matricule': this.pnc.matricule }));
+            this.toastService.error(this.translateService
+                .instant('SYNCHRONIZATION.PNC_SAVED_OFFLINE_ERROR', { matricule: this.pnc.matricule }));
         });
     }
 
     /**
-    * Vérifie que le chargement est terminé
-    * @return true si c'est le cas, false sinon
-    */
+     * Vérifie que le chargement est terminé
+     * @return true si c'est le cas, false sinon
+     */
     loadingIsOver(): boolean {
         return this.pnc !== undefined;
     }

@@ -12,7 +12,8 @@ import {
 
 @Component({
   selector: 'generality-skills',
-  templateUrl: 'generality-skills.component.html'
+  templateUrl: 'generality-skills.component.html',
+  styleUrls: ['./generality-skills.component.scss']
 })
 export class GeneralitySkillsComponent implements OnInit {
 

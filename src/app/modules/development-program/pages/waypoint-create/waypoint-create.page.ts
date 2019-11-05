@@ -1,13 +1,12 @@
-import {
-    AlertController, Loading, LoadingController, NavController, NavParams
-} from 'ionic-angular';
 import * as _ from 'lodash';
 
+import { Location } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { AlertController, LoadingController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 
-import { AppConstant } from '../../../../app.constant';
 import { WaypointStatusEnum } from '../../../../core/enums/waypoint.status.enum';
 import { CareerObjectiveModel } from '../../../../core/models/career-objective.model';
 import { PncModel } from '../../../../core/models/pnc.model';
@@ -19,7 +18,6 @@ import { ConnectivityService } from '../../../../core/services/connectivity/conn
 import { DeviceService } from '../../../../core/services/device/device.service';
 import { PncService } from '../../../../core/services/pnc/pnc.service';
 import { SecurityService } from '../../../../core/services/security/security.service';
-import { SessionService } from '../../../../core/services/session/session.service';
 import { ToastService } from '../../../../core/services/toast/toast.service';
 import {
     WaypointStatusService
@@ -34,6 +32,7 @@ import { Utils } from '../../../../shared/utils/utils';
 @Component({
     selector: 'page-waypoint-create',
     templateUrl: 'waypoint-create.page.html',
+    styleUrls: ['./waypoint-create.page.scss']
 })
 export class WaypointCreatePage {
 
@@ -41,10 +40,7 @@ export class WaypointCreatePage {
     careerObjectiveId: number;
     waypoint: WaypointModel;
     originWaypoint: WaypointModel;
-    loading: Loading;
     requiredOnEncounterDay: boolean;
-
-    customDateTimeOptions: any;
 
     originalPncComment: string;
 
@@ -54,37 +50,27 @@ export class WaypointCreatePage {
     WaypointStatus = WaypointStatusEnum;
 
     constructor(
-        public navCtrl: NavController,
-        public navParams: NavParams,
-        public translateService: TranslateService,
+        public securityService: SecurityService,
+        public waypointStatusService: WaypointStatusService,
+        private translateService: TranslateService,
+        private location: Location,
+        private activatedRoute: ActivatedRoute,
         private formBuilder: FormBuilder,
-        private waypointProvider: WaypointService,
-        private toastProvider: ToastService,
-        public waypointStatusProvider: WaypointStatusService,
-        public securityProvider: SecurityService,
-        public loadingCtrl: LoadingController,
+        private waypointService: WaypointService,
+        private toastService: ToastService,
+        private loadingCtrl: LoadingController,
         private alertCtrl: AlertController,
         private deviceService: DeviceService,
         private dateTransformer: DateTransform,
         private connectivityService: ConnectivityService,
         private offlineCareerObjectiveService: OfflineCareerObjectiveService,
-        private offlineWaypointProvider: OfflineWaypointService,
-        private pncService: PncService,
-        private sessionService: SessionService) {
-
-        // Options du datepicker
-        this.customDateTimeOptions = {
-            buttons: [{
-                text: this.translateService.instant('GLOBAL.DATEPICKER.CLEAR'),
-                handler: () => this.waypoint.encounterDate = ''
-            }]
-        };
+        private offlineWaypointService: OfflineWaypointService,
+        private pncService: PncService) {
 
         this.requiredOnEncounterDay = false;
 
         this.initForm();
     }
-
 
     ionViewDidEnter() {
         this.initPage();
@@ -94,19 +80,21 @@ export class WaypointCreatePage {
      * Initialisation du contenu de la page.
      */
     initPage() {
-        this.pncService.getPnc(this.navParams.get('matricule')).then(pnc => {
+        this.pncService.getPnc(this.activatedRoute.snapshot.paramMap.get('matricule')).then(pnc => {
             this.pnc = pnc;
         }, error => { });
 
-        this.careerObjectiveId = this.navParams.get('careerObjectiveId');
+        this.careerObjectiveId = parseInt(this.activatedRoute.snapshot.paramMap.get('careerObjectiveId'), 10);
 
-        if (this.navParams.get('waypointId') && this.navParams.get('waypointId') !== 0) {
+        if (this.activatedRoute.snapshot.paramMap.get('waypointId')
+            && parseInt(this.activatedRoute.snapshot.paramMap.get('waypointId'), 10) !== 0) {
             // Récupération du point d'étape
-            this.waypointProvider.getWaypoint(this.navParams.get('waypointId')).then(waypoint => {
-                this.originWaypoint = _.cloneDeep(waypoint);
-                this.waypoint = waypoint;
-                this.originalPncComment = this.waypoint.pncComment;
-            }, error => { });
+            this.waypointService.getWaypoint(parseInt(this.activatedRoute.snapshot.paramMap.get('waypointId'), 10))
+                .then(waypoint => {
+                    this.originWaypoint = _.cloneDeep(waypoint);
+                    this.waypoint = waypoint;
+                    this.originalPncComment = this.waypoint.pncComment;
+                }, error => { });
         } else {
             // Création
             this.waypoint = new WaypointModel();
@@ -116,12 +104,6 @@ export class WaypointCreatePage {
         }
     }
 
-    /**
-     * renvoie le techid de l'objectif quand on kill la page et qu'on revient sur la pércédente
-     */
-    public ionViewWillLeave() {
-        this.navCtrl.getPrevious().data.careerObjectiveId = this.careerObjectiveId;
-    }
     /**
      * Verifie si des modifications ont été faites, avant d'initialiser le contenu de la page.
      * si oui, on affiche une popup de confirmation d'abandon des modifications
@@ -155,7 +137,7 @@ export class WaypointCreatePage {
         return new Promise((resolve, reject) => {
             // Avant de quitter la vue, on avertit l'utilisateur si ses modifications n'ont pas été enregistrées
             this.alertCtrl.create({
-                title: this.translateService.instant('GLOBAL.CONFIRM_BACK_WITHOUT_SAVE.TITLE'),
+                header: this.translateService.instant('GLOBAL.CONFIRM_BACK_WITHOUT_SAVE.TITLE'),
                 message: this.translateService.instant('GLOBAL.CONFIRM_BACK_WITHOUT_SAVE.MESSAGE'),
                 buttons: [
                     {
@@ -168,7 +150,7 @@ export class WaypointCreatePage {
                         handler: () => resolve()
                     }
                 ]
-            }).present();
+            }).then(alert => alert.present());
         });
     }
 
@@ -217,31 +199,34 @@ export class WaypointCreatePage {
         return new Promise((resolve, reject) => {
             waypointToSave = this.prepareWaypointBeforeSubmit(waypointToSave);
 
-            this.loading = this.loadingCtrl.create();
-            this.loading.present();
+            this.loadingCtrl.create().then(loading => {
+                loading.present();
 
-            this.waypointProvider
-                .createOrUpdate(waypointToSave, this.careerObjectiveId)
-                .then(savedWaypoint => {
-                    this.originWaypoint = _.cloneDeep(savedWaypoint);
-                    this.waypoint = savedWaypoint;
+                this.waypointService
+                    .createOrUpdate(waypointToSave, this.careerObjectiveId)
+                    .then(savedWaypoint => {
+                        this.originWaypoint = _.cloneDeep(savedWaypoint);
+                        this.waypoint = savedWaypoint;
 
-                    // Si on est connecté et que l'objectif dont dépend le point d'étape est en cache, on met en cache le point d'étape
-                    if (this.deviceService.isOfflineModeAvailable() && this.connectivityService.isConnected() && this.offlineCareerObjectiveService.careerObjectiveExists(this.careerObjectiveId)) {
-                        this.offlineWaypointProvider.createOrUpdate(this.waypoint, this.careerObjectiveId, true);
-                    }
+                        // Si on est connecté et que l'objectif dont dépend le point d'étape est en cache, on met en cache le point d'étape
+                        if (this.deviceService.isOfflineModeAvailable()
+                            && this.connectivityService.isConnected()
+                            && this.offlineCareerObjectiveService.careerObjectiveExists(this.careerObjectiveId)) {
+                            this.offlineWaypointService.createOrUpdate(this.waypoint, this.careerObjectiveId, true);
+                        }
 
-                    if (this.waypoint.waypointStatus === WaypointStatusEnum.DRAFT) {
-                        this.toastProvider.success(this.translateService.instant('WAYPOINT_CREATE.SUCCESS.DRAFT_SAVED'));
-                    } else {
-                        this.toastProvider.success(this.translateService.instant('WAYPOINT_CREATE.SUCCESS.WAYPOINT_SAVED'));
-                    }
-                    this.loading.dismiss();
-                    this.navCtrl.pop();
-                    resolve();
-                }, error => {
-                    this.loading.dismiss();
-                });
+                        if (this.waypoint.waypointStatus === WaypointStatusEnum.DRAFT) {
+                            this.toastService.success(this.translateService.instant('WAYPOINT_CREATE.SUCCESS.DRAFT_SAVED'));
+                        } else {
+                            this.toastService.success(this.translateService.instant('WAYPOINT_CREATE.SUCCESS.WAYPOINT_SAVED'));
+                        }
+                        loading.dismiss();
+                        this.location.back();
+                        resolve();
+                    }, error => {
+                        loading.dismiss();
+                    });
+            });
         });
     }
 
@@ -263,11 +248,11 @@ export class WaypointCreatePage {
     }
 
     /**
-    * Présente une alerte pour confirmer la suppression du brouillon
-    */
+     * Présente une alerte pour confirmer la suppression du brouillon
+     */
     confirmDeleteWaypointDraft() {
         this.alertCtrl.create({
-            title: this.translateService.instant('WAYPOINT_CREATE.CONFIRM_DRAFT_DELETE.TITLE'),
+            header: this.translateService.instant('WAYPOINT_CREATE.CONFIRM_DRAFT_DELETE.TITLE'),
             message: this.translateService.instant('WAYPOINT_CREATE.CONFIRM_DRAFT_DELETE.MESSAGE'),
             buttons: [
                 {
@@ -279,7 +264,7 @@ export class WaypointCreatePage {
                     handler: () => this.deleteWaypointDraft()
                 }
             ]
-        }).present();
+        }).then(alert => alert.present());
     }
 
     /**
@@ -287,20 +272,21 @@ export class WaypointCreatePage {
      */
     deleteWaypointDraft() {
 
-        this.loading = this.loadingCtrl.create();
-        this.loading.present();
+        this.loadingCtrl.create().then(loading => {
+            loading.present();
 
-        this.waypointProvider
-            .delete(this.waypoint.techId)
-            .then(
-                deletedWaypoint => {
-                    this.toastProvider.success(this.translateService.instant('WAYPOINT_CREATE.SUCCESS.DRAFT_DELETED'));
-                    this.navCtrl.pop();
-                    this.loading.dismiss();
-                },
-                error => {
-                    this.loading.dismiss();
-                });
+            this.waypointService
+                .delete(this.waypoint.techId)
+                .then(
+                    deletedWaypoint => {
+                        this.toastService.success(this.translateService.instant('WAYPOINT_CREATE.SUCCESS.DRAFT_DELETED'));
+                        this.location.back();
+                        loading.dismiss();
+                    }, error => {
+                        loading.dismiss();
+                    });
+        });
+
     }
 
     /**
@@ -313,7 +299,7 @@ export class WaypointCreatePage {
             this.saveWaypoint(waypointToSave);
         } else {
             this.requiredOnEncounterDay = true;
-            this.toastProvider.warning(this.translateService.instant('WAYPOINT_CREATE.ERROR.ENCOUTER_DATE_AND_ACTION_PLAN_REQUIRED'));
+            this.toastService.warning(this.translateService.instant('WAYPOINT_CREATE.ERROR.ENCOUTER_DATE_AND_ACTION_PLAN_REQUIRED'));
         }
     }
 
@@ -327,21 +313,21 @@ export class WaypointCreatePage {
     }
 
     /**
-    * Vérifie que le chargement est terminé
-    * @return true si c'est le cas, false sinon
-    */
+     * Vérifie que le chargement est terminé
+     * @return true si c'est le cas, false sinon
+     */
     loadingIsOver(): boolean {
         return this.waypoint !== undefined;
     }
 
     /**
-   * Détermine si le champs peut être modifié par l'utilisateur connecté
-   * @return vrai si c'est un champ non modifiable, faux sinon
-   */
+     * Détermine si le champs peut être modifié par l'utilisateur connecté
+     * @return vrai si c'est un champ non modifiable, faux sinon
+     */
     readOnlyByUserConnected(): boolean {
-        if (this.securityProvider.isManager()) {
+        if (this.securityService.isManager()) {
             return false;
-        } else if (!this.securityProvider.isManager() &&
+        } else if (!this.securityService.isManager() &&
             (this.waypoint.waypointStatus === WaypointStatusEnum.DRAFT ||
                 this.waypoint.waypointStatus == null)) {
             return false;
@@ -355,7 +341,7 @@ export class WaypointCreatePage {
      * @return vrai s'il peut enregistrer le point d'etape , faux sinon
      */
     canPncCommentBeModifiedByPnc(): boolean {
-        return !this.securityProvider.isManager() &&
+        return !this.securityService.isManager() &&
             (this.waypoint.waypointStatus === WaypointStatusEnum.REGISTERED) &&
             this.waypoint.pncComment !== this.originalPncComment;
     }

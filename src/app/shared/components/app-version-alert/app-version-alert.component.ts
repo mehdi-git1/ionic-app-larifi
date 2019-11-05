@@ -8,7 +8,8 @@ import {
 
 @Component({
   selector: 'app-version-alert',
-  templateUrl: 'app-version-alert.component.html'
+  templateUrl: 'app-version-alert.component.html',
+  styleUrls: ['./app-version-alert.component.scss']
 })
 
 export class AppVersionAlertComponent {

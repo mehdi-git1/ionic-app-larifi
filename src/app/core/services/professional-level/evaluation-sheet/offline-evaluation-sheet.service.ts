@@ -1,11 +1,10 @@
-import { EvaluationSheetModel } from './../../../models/professional-level/evaluation-sheet.model';
-import { EntityEnum } from './../../../enums/entity.enum';
-import { StorageService } from './../../../storage/storage.service';
 import { Injectable } from '@angular/core';
-import { ProfessionalLevelModel } from '../../../models/professional-level/professional-level.model';
 
+import { EntityEnum } from '../../../enums/entity.enum';
+import { EvaluationSheetModel } from '../../../models/professional-level/evaluation-sheet.model';
+import { StorageService } from '../../../storage/storage.service';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class OfflineEvaluationSheetService {
 
     constructor(private storageService: StorageService) {

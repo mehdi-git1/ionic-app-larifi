@@ -1,15 +1,22 @@
-import { ProfessionalInterviewModule } from './../professional-interview/professional-interview.module';
-import { CareerObjectivesComponent } from './components/career_objectives/career-objectives.component';
-import { EObservationModule } from './../eobservation/eobservation.module';
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { IonicPageModule } from 'ionic-angular';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { IonicModule } from '@ionic/angular';
 
-import { WaypointCreatePage } from './pages/waypoint-create/waypoint-create.page';
-import { SharedModule } from '../../shared/shared.module';
 import { ComponentsModule } from '../../shared/components/components.module';
-import { CareerObjectiveListPage } from './pages/career-objective-list/career-objective-list.page';
-import { CareerObjectiveCreatePage } from './pages/career-objective-create/career-objective-create.page';
+import { SharedModule } from '../../shared/shared.module';
+import { EObservationModule } from '../eobservation/eobservation.module';
+import {
+    ProfessionalInterviewModule
+} from '../professional-interview/professional-interview.module';
 import { CareerObjectiveComponent } from './components/career-objective/career-objective.component';
+import {
+    CareerObjectivesComponent
+} from './components/career_objectives/career-objectives.component';
+import {
+    CareerObjectiveCreatePage
+} from './pages/career-objective-create/career-objective-create.page';
+import { CareerObjectiveListPage } from './pages/career-objective-list/career-objective-list.page';
+import { WaypointCreatePage } from './pages/waypoint-create/waypoint-create.page';
 
 @NgModule({
   declarations: [
@@ -20,11 +27,13 @@ import { CareerObjectiveComponent } from './components/career-objective/career-o
     CareerObjectivesComponent
   ],
   imports: [
-    [IonicPageModule.forChild(CareerObjectiveListPage)],
+    IonicModule,
     SharedModule,
     ComponentsModule,
     EObservationModule,
-    ProfessionalInterviewModule
+    ProfessionalInterviewModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   entryComponents: [
     WaypointCreatePage,

@@ -1,37 +1,44 @@
 <ion-header>
-    <ion-navbar>
+    <ion-toolbar>
+        <ion-back-button color="white" slot="start"></ion-back-button>
         <page-header [showSettingsIcon]="true" [pnc]="pnc">
             <span *ngIf="pnc"> {{ 'PROFESSIONAL_LEVEL.TITLE' | isMyPage: pnc | translate }}</span>
         </page-header>
-    </ion-navbar>
+    </ion-toolbar>
     <pnc-edossier-header [activeTab]="TabHeaderEnum.PROFESSIONAL_LEVEL_PAGE"></pnc-edossier-header>
 </ion-header>
 
-<ion-content padding>
-    <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
-    <ng-template #pageBlock>
+<ion-content>
+    <div class="page-container">
+        <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
+        <ng-template #pageBlock>
 
-        <!-- Stages -->
-        <h3>{{ 'PROFESSIONAL_LEVEL.STAGE_TITLE' | translate }}</h3>
-        <div class="professional-level-header">
-            <label class="stage-date">{{ 'PROFESSIONAL_LEVEL.HEADER.DATE' | translate }}</label>
-            <label class="stage-code">{{ 'PROFESSIONAL_LEVEL.HEADER.CODE' | translate }}</label>
-            <label class="stage-label">{{ 'PROFESSIONAL_LEVEL.HEADER.LABEL' | translate }}</label>
-            <label class="stage-result">{{ 'PROFESSIONAL_LEVEL.HEADER.RESULT' | translate }}</label>
-            <div class="help-tooltip">
-                <ion-icon item-end name="help-circle" ios="md-help-circle" tooltip="{{ 'PROFESSIONAL_LEVEL.HEADER.HELP' | translate }}" mobileEvent="click" positionV="bottom"></ion-icon>
+            <!-- Stages -->
+            <h3>{{ 'PROFESSIONAL_LEVEL.STAGE_TITLE' | translate }}</h3>
+            <div class="professional-level-header">
+                <label class="stage-date">{{ 'PROFESSIONAL_LEVEL.HEADER.DATE' | translate }}</label>
+                <label class="stage-code">{{ 'PROFESSIONAL_LEVEL.HEADER.CODE' | translate }}</label>
+                <label class="stage-label">{{ 'PROFESSIONAL_LEVEL.HEADER.LABEL' | translate }}</label>
+                <label class="stage-result">{{ 'PROFESSIONAL_LEVEL.HEADER.RESULT' | translate }}</label>
+                <div class="help-tooltip">
+                    <ion-icon name="help-circle" ios="md-help-circle" (click)="showStageLegend($event)"
+                        class="clickable"> </ion-icon>
+                </div>
             </div>
-        </div>
-        <professional-level-stage *ngIf="professionalLevel && professionalLevel.stages && professionalLevel.stages.length > 0; else noStagesBlock" [stages]="professionalLevel.stages" [pnc]="pnc"></professional-level-stage>
-        <ng-template #noStagesBlock>
-            <no-data></no-data>
+            <professional-level-stage
+                *ngIf="professionalLevel && professionalLevel.stages && professionalLevel.stages.length > 0; else noStagesBlock"
+                [stages]="professionalLevel.stages" [pnc]="pnc"></professional-level-stage>
+            <ng-template #noStagesBlock>
+                <no-data></no-data>
+            </ng-template>
+
+            <!-- eObservations -->
+            <h3>{{ 'PROFESSIONAL_LEVEL.EOBS_TITLE' | translate }}</h3>
+            <e-observations *ngIf="eObservations" [eObservations]="eObservations"
+                [eObservationDisplayMode]="EObservationDisplayModeEnum.PROFESSIONAL_LEVEL"></e-observations>
+
         </ng-template>
-
-        <!-- eObservations -->
-        <h3>{{ 'PROFESSIONAL_LEVEL.EOBS_TITLE' | translate }}</h3>
-        <e-observations *ngIf="eObservations" [eObservations]="eObservations" [eObservationDisplayMode]="EObservationDisplayModeEnum.PROFESSIONAL_LEVEL"></e-observations>
-
-    </ng-template>
+    </div>
 </ion-content>
 <ion-footer class="professional-level-footer">
     <h5>{{ 'PROFESSIONAL_LEVEL.LEGEND.TITLE' | translate }} :</h5>

@@ -1,10 +1,17 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { IonicPageModule } from 'ionic-angular';
-import { SharedModule } from '../../shared/shared.module';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
+import { IonicModule } from '@ionic/angular';
+
 import { ComponentsModule } from '../../shared/components/components.module';
-import { SynchronizationManagementPage } from './pages/synchronization-management/synchronization-management.page';
-import { SynchroRequestListComponent } from './components/synchro-request-list/synchro-request-list.component';
-import { SynchroRequestCardComponent } from './components/synchro-request-card/synchro-request-card.component';
+import { SharedModule } from '../../shared/shared.module';
+import {
+    SynchroRequestCardComponent
+} from './components/synchro-request-card/synchro-request-card.component';
+import {
+    SynchroRequestListComponent
+} from './components/synchro-request-list/synchro-request-list.component';
+import {
+    SynchronizationManagementPage
+} from './pages/synchronization-management/synchronization-management.page';
 
 @NgModule({
   declarations: [
@@ -13,7 +20,7 @@ import { SynchroRequestCardComponent } from './components/synchro-request-card/s
     SynchroRequestCardComponent
   ],
   imports: [
-    [IonicPageModule.forChild(SynchronizationManagementPage)],
+    IonicModule,
     SharedModule,
     ComponentsModule
   ],

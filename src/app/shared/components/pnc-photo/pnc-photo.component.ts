@@ -1,7 +1,6 @@
-import { Events } from 'ionic-angular';
-
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { Events } from '@ionic/angular';
 
 import { PncPhotoModel } from '../../../core/models/pnc-photo.model';
 import { PncModel } from '../../../core/models/pnc.model';
@@ -11,7 +10,8 @@ import { PncPhotoService } from '../../../core/services/pnc-photo/pnc-photo.serv
 
 @Component({
   selector: 'pnc-photo',
-  templateUrl: 'pnc-photo.component.html'
+  templateUrl: 'pnc-photo.component.html',
+  styleUrls: ['./pnc-photo.component.scss']
 })
 export class PncPhotoComponent implements OnInit, OnChanges {
 
@@ -23,7 +23,8 @@ export class PncPhotoComponent implements OnInit, OnChanges {
 
   loading = false;
 
-  constructor(private pncPhotoService: PncPhotoService,
+  constructor(
+    private pncPhotoService: PncPhotoService,
     private offlinePncPhotoService: OfflinePncPhotoService,
     private genderProvider: GenderService,
     private domSanitizer: DomSanitizer,
@@ -72,7 +73,7 @@ export class PncPhotoComponent implements OnInit, OnChanges {
         this.photoSrc = this.genderProvider.getAvatarPicture(this.pnc.gender);
       }).then(() => {
         this.loading = false;
-    });
+      });
     }
   }
 

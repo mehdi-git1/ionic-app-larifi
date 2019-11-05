@@ -1,44 +1,58 @@
-import { ProfessionalInterviewTransformerService } from './../professional-interview/professional-interview-transformer.service';
-import { CongratulationLetterModel } from './../../models/congratulation-letter.model';
-import { CongratulationLetterTransformerService } from './../congratulation-letter/congratulation-letter-transformer.service';
-import { EObservationTransformerService } from './../eobservation/eobservation-transformer.service';
-import { Injectable, EventEmitter, Output } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs/Rx';
 
-import { ProfessionalLevelTransformerService } from '../professional-level/professional-level-transformer.service';
-import { PncPhotoTransformerService } from '../pnc-photo/pnc-photo-transformer.service';
-import { CareerObjectiveModel } from '../../models/career-objective.model';
-import { SessionService } from '../session/session.service';
-import { CrewMemberTransformerService } from '../crewMember/crew-member-transformer.service';
-import { LegTransformerService } from '../leg/leg-transformer.service';
-import { RotationTransformerService } from '../rotation/rotation-transformer.service';
-import { PncTransformerService } from '../pnc/pnc-transformer.service';
-import { WaypointTransformerService } from '../waypoint/waypoint-transformer.service';
-import { PncSynchroModel } from '../../models/pnc-synchro.model';
-import { PncSynchroService } from './pnc-synchro.service';
-import { CareerObjectiveTransformerService } from '../career-objective/career-objective-transformer.service';
-import { StorageService } from '../../storage/storage.service';
-import { EntityEnum } from '../../enums/entity.enum';
-import { PncModel } from '../../models/pnc.model';
-import { WaypointModel } from '../../models/waypoint.model';
-import { RotationModel } from '../../models/rotation.model';
-import { SecurityService } from '../security/security.service';
-import { CrewMemberModel } from '../../models/crew-member.model';
-import { LegModel } from '../../models/leg.model';
-import { StatutoryCertificateTransformerService } from '../statutory-certificate/statutory-certificate-transformer.service';
-import { Events } from 'ionic-angular';
-import { EObservationModel } from '../../models/eobservation/eobservation.model';
-import { TransformerService } from '../transformer/transformer.service';
-import { ProfessionalInterviewModel } from '../../models/professional-interview/professional-interview.model';
+import { EventEmitter, Injectable, Output } from '@angular/core';
+import { Events } from '@ionic/angular';
+import { TranslateService } from '@ngx-translate/core';
 
-@Injectable()
+import { EntityEnum } from '../../enums/entity.enum';
+import { CareerObjectiveModel } from '../../models/career-objective.model';
+import { CongratulationLetterModel } from '../../models/congratulation-letter.model';
+import { CrewMemberModel } from '../../models/crew-member.model';
+import { EObservationModel } from '../../models/eobservation/eobservation.model';
+import { LegModel } from '../../models/leg.model';
+import { PncSynchroModel } from '../../models/pnc-synchro.model';
+import { PncModel } from '../../models/pnc.model';
+import {
+    ProfessionalInterviewModel
+} from '../../models/professional-interview/professional-interview.model';
+import { RotationModel } from '../../models/rotation.model';
+import { WaypointModel } from '../../models/waypoint.model';
+import { StorageService } from '../../storage/storage.service';
+import {
+    CareerObjectiveTransformerService
+} from '../career-objective/career-objective-transformer.service';
+import {
+    CongratulationLetterTransformerService
+} from '../congratulation-letter/congratulation-letter-transformer.service';
+import { CrewMemberTransformerService } from '../crewMember/crew-member-transformer.service';
+import { EObservationTransformerService } from '../eobservation/eobservation-transformer.service';
+import { LegTransformerService } from '../leg/leg-transformer.service';
+import { PncPhotoTransformerService } from '../pnc-photo/pnc-photo-transformer.service';
+import { PncTransformerService } from '../pnc/pnc-transformer.service';
+import {
+    ProfessionalInterviewTransformerService
+} from '../professional-interview/professional-interview-transformer.service';
+import {
+    ProfessionalLevelTransformerService
+} from '../professional-level/professional-level-transformer.service';
+import { RotationTransformerService } from '../rotation/rotation-transformer.service';
+import { SecurityService } from '../security/security.service';
+import { SessionService } from '../session/session.service';
+import {
+    StatutoryCertificateTransformerService
+} from '../statutory-certificate/statutory-certificate-transformer.service';
+import { TransformerService } from '../transformer/transformer.service';
+import { WaypointTransformerService } from '../waypoint/waypoint-transformer.service';
+import { PncSynchroService } from './pnc-synchro.service';
+
+@Injectable({ providedIn: 'root' })
 export class SynchronizationService {
 
   @Output()
   synchroStatusChange = new EventEmitter<boolean>();
 
-  constructor(private storageService: StorageService,
+  constructor(
+    private storageService: StorageService,
     private waypointTransformer: WaypointTransformerService,
     private pncSynchroProvider: PncSynchroService,
     public securityProvider: SecurityService,
@@ -240,9 +254,9 @@ export class SynchronizationService {
   }
 
   /**
- * Enregistre une liste de bilans professionnels en cache
- * @param professionalInterviews les bilans professionnels à stocker en cache
- */
+   * Enregistre une liste de bilans professionnels en cache
+   * @param professionalInterviews les bilans professionnels à stocker en cache
+   */
   private storeProfessionalInterviews(professionalInterviews: ProfessionalInterviewModel[]): void {
     if (professionalInterviews) {
       for (const professionalInterview of professionalInterviews) {

@@ -1,18 +1,15 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { Router } from '@angular/router';
 
-import { TabHeaderModeEnum } from './../../../../../../core/enums/tab-header-mode.enum';
+import { TabHeaderModeEnum } from '../../../../../../core/enums/tab-header-mode.enum';
 import { TabHeaderEnum } from '../../../../../../core/enums/tab-header.enum';
-
-import { AppVersionModel } from './../../../../../../core/models/admin/app-version.model';
-
-import { AppVersionCreatePage } from './../app-version-create/app-version-create.page';
-
-import { AppVersionService } from './../../../../../../core/services/app-version/app-version.service';
+import { AppVersionModel } from '../../../../../../core/models/admin/app-version.model';
+import { AppVersionService } from '../../../../../../core/services/app-version/app-version.service';
 
 @Component({
   selector: 'page-app-version-list',
   templateUrl: 'app-version-list.page.html',
+  styleUrls: ['./app-version-list.page.scss']
 })
 export class AppVersionListPage {
 
@@ -23,7 +20,7 @@ export class AppVersionListPage {
 
   constructor(
     private appVersionService: AppVersionService,
-    private navCtrl: NavController) {
+    private router: Router) {
   }
 
   ionViewDidEnter() {
@@ -32,20 +29,19 @@ export class AppVersionListPage {
   }
 
   /**
-    * Récupère la liste des objectifs
-    */
+   * Récupère la liste des objectifs
+   */
   initAppVersionsList() {
     this.appVersionService.getAllAppVersions().then(appVersions => {
       this.appVersions = appVersions;
     }, error => { });
   }
 
-
   /**
    * Dirige vers la page de création d'un nouvel objectif
    */
   goToAppVersionCreation() {
-    this.navCtrl.push(AppVersionCreatePage, { AppVersionNumber: 0 });
+    this.router.navigate(['admin', 'app-version', 'create', 0]);
   }
 
   /**

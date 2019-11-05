@@ -1,11 +1,9 @@
-import { AppConstant } from '../../app.constant';
 import { DatePipe } from '@angular/common';
-
 import { Injectable } from '@angular/core';
 
+import { AppConstant } from '../../app.constant';
 
-
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class DateTransform {
 
     constructor(private datePipe: DatePipe) {

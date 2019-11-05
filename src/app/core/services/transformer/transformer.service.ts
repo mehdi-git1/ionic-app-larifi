@@ -1,14 +1,17 @@
-import { ProfessionalInterviewTransformerService } from './../professional-interview/professional-interview-transformer.service';
-import { ProfessionalInterviewComponent } from '../../../modules/professional-interview/components/professional-interview/professional-interview.component';
 import { Injectable } from '@angular/core';
 
-import { WaypointTransformerService } from '../waypoint/waypoint-transformer.service';
-import { CareerObjectiveTransformerService } from '../career-objective/career-objective-transformer.service';
-import { PncTransformerService } from '../pnc/pnc-transformer.service';
 import { EntityEnum } from '../../enums/entity.enum';
 import { EDossierPncObjectModel } from '../../models/e-dossier-pnc-object.model';
+import {
+    CareerObjectiveTransformerService
+} from '../career-objective/career-objective-transformer.service';
+import { PncTransformerService } from '../pnc/pnc-transformer.service';
+import {
+    ProfessionalInterviewTransformerService
+} from '../professional-interview/professional-interview-transformer.service';
+import { WaypointTransformerService } from '../waypoint/waypoint-transformer.service';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class TransformerService {
 
     constructor(
@@ -51,10 +54,10 @@ export class TransformerService {
     }
 
     /**
-    * Transform universellement les objets en leur bon type (Tableau d'objet)
-    * @param typeOfObject Type d'objet à transformer (new()) permet de définir que c'est une classe utilisable en tant que tel
-    * @param objectToTransform Objet à transformer
-    */
+     * Transform universellement les objets en leur bon type (Tableau d'objet)
+     * @param typeOfObject Type d'objet à transformer (new()) permet de définir que c'est une classe utilisable en tant que tel
+     * @param objectToTransform Objet à transformer
+     */
     public universalTransformObject(typeOfObject: { new() }, objectToTransform) {
         return !objectToTransform ?
             objectToTransform :

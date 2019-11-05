@@ -1,60 +1,59 @@
-statutory-certificate-data {
+@import '../../../../../theme/colors.scss';
 
-    ion-grid.grid {
-        border-radius: 5px;
-        margin-bottom: 15px;
-        padding: 0;
-        box-shadow: 0px 0px 5px color($colors-secondary, grey70);
-        background: color($colors, white);
+ion-grid {
+    border-radius: 5px;
+    margin-bottom: 15px;
+    padding: 0;
+    box-shadow: 0px 0px 5px var(--ion-color-grey70);
+    background: var(--ion-color-white);
 
-        .title {
-            background: color($colors, primary);
-            color: color($colors, white);
+    .title {
+        background: var(--ion-color-primary);
+        color: var(--ion-color-white);
 
-            &:first-child {
-                border-radius: 5px 5px 0 0;
-            }
+        &:first-child {
+            border-radius: 5px 5px 0 0;
         }
+    }
 
+    .col {
+        padding-left: 15px;
+    }
+
+    .odd {
+        background: color($colors-secondary, grey95);
+    }
+
+    ion-row:nth-child(even) {
+        background: color($colors-secondary, grey95);
+    }
+
+    .statutory-certificate-data {
+        color: color($colors-secondary, grey60);
+    }
+
+    .statutory-certificate-header {
+        font-size: 1em;
+        background-color: transparent !important;
+        color: var(--ion-color-primary);
+    }
+
+    .statutory-data-tab {
         .col {
-            padding-left: 15px;
-        }
-
-        .odd {
-            background: color($colors-secondary, grey95);
-        }
-
-        ion-row:nth-child(even) {
-            background: color($colors-secondary, grey95);
+            border-bottom: 1px solid color($colors-secondary, grey75);
+            border-right: 1px solid color($colors-secondary, grey75);
         }
 
         .statutory-certificate-data {
-            color: color($colors-secondary, grey60);
-        }
-
-        .statutory-certificate-header {
-            font-size: 1em;
-            background-color: transparent !important;
-            color: color($colors, primary);
-        }
-
-        .statutory-data-tab {
             .col {
-                border-bottom: 1px solid color($colors-secondary, grey75);
                 border-right: 1px solid color($colors-secondary, grey75);
             }
-
-            .statutory-certificate-data {
-                .col {
-                    border-right: 1px solid color($colors-secondary, grey75);
-                }
-            }
         }
+    }
 
-        .no-data-found {
-            font-size: 1.1em;
-            margin: 5px;
-            padding: 0px;
-        }
+    .no-data-found {
+        font-size: 1.1em;
+        margin: 5px;
+        padding: 0px;
     }
 }

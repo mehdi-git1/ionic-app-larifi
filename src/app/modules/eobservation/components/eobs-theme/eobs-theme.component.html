@@ -4,8 +4,8 @@
             <div class="sub-theme-label">{{subTheme.label}}</div>
             <ion-grid>
                 <ion-row *ngFor="let eObservationItem of subTheme.eobservationItems">
-                    <ion-col col-11 class="item-label">{{eObservationItem.refItemLevel.item.label}}</ion-col>
-                    <ion-col col-1 class="symbol">
+                    <ion-col size="11" class="item-label">{{eObservationItem.refItemLevel.item.label}}</ion-col>
+                    <ion-col size="1" class="symbol">
                         <color-number-dot [numberText]="getLevelLabel(eObservationItem.refItemLevel.level)">
                         </color-number-dot>
                         <question-symbol (click)="openDescription($event, eObservationItem)">
@@ -24,8 +24,8 @@
     </span>
     <ion-grid *ngIf="!hasSubThemes()">
         <ion-row *ngFor="let eObservationItem of theme.eobservationItems">
-            <ion-col col-11 class="item-label">{{eObservationItem.refItemLevel.item?.label}}</ion-col>
-            <ion-col col-1 class="symbol">
+            <ion-col size="11" class="item-label">{{eObservationItem.refItemLevel.item?.label}}</ion-col>
+            <ion-col size="1" class="symbol">
                 <color-number-dot [numberText]="getLevelLabel(eObservationItem.refItemLevel.level)">
                 </color-number-dot>
                 <question-symbol (click)="openDescription($event, eObservationItem)">

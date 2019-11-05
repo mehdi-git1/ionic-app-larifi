@@ -1,9 +1,9 @@
-import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { HttpClient } from '@angular/common/http';
-import { File } from '@ionic-native/file';
 import { Injectable } from '@angular/core';
+import { File } from '@ionic-native/file/ngx';
+import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class PdfService {
 
     constructor(
@@ -13,9 +13,9 @@ export class PdfService {
     }
 
     /**
-    * Ouvre le fichier PDF dans un lecteur PDF avec l'url concernée
-    * @param url  : url de la fiche synthèse concernée
-    */
+     * Ouvre le fichier PDF dans un lecteur PDF avec l'url concernée
+     * @param url  : url de la fiche synthèse concernée
+     */
     displayPDF(url) {
 
         const rep = this.file.dataDirectory;
@@ -30,7 +30,8 @@ export class PdfService {
                         this.httpClient.get(url, { responseType: 'blob' }).subscribe(result => {
                             this.file.writeExistingFile(rep + '/edossier', pdfFile, result).then(
                                 writingFileReturn => {
-                                    this.inAppBrowser.create(rep + '/edossier/' + pdfFile, '_blank', 'hideurlbar=no,location=no,toolbarposition=top'
+                                    this.inAppBrowser.create(
+                                        rep + '/edossier/' + pdfFile, '_blank', 'hideurlbar=no,location=no,toolbarposition=top'
                                     );
                                 }
                             );
@@ -40,9 +41,9 @@ export class PdfService {
     }
 
     /**
-    * Ouvre le fichier PDF dans un lecteur PDF avec l'url concernée
-    * @param base64FileContent  : contenu du fichier en  Base 64
-    */
+     * Ouvre le fichier PDF dans un lecteur PDF avec l'url concernée
+     * @param base64FileContent  : contenu du fichier en  Base 64
+     */
     displayPDFFromBase64(base64FileContent: string, fileName: string) {
         const rep = this.file.dataDirectory;
         this.file.writeExistingFile(rep + '/edossier', fileName, base64FileContent).then(

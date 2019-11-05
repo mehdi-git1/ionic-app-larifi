@@ -1,11 +1,15 @@
 import { Component, Input } from '@angular/core';
-import { SynchroRequestModel } from '../../../../core/models/synchro-request.model';
+
 import { SynchroStatusEnum } from '../../../../core/enums/synchronization/synchro-status.enum';
-import { SynchronizationManagementService } from '../../../../core/services/synchronization/synchronization-management.service';
+import { SynchroRequestModel } from '../../../../core/models/synchro-request.model';
+import {
+    SynchronizationManagementService
+} from '../../../../core/services/synchronization/synchronization-management.service';
 
 @Component({
   selector: 'synchro-request-card',
-  templateUrl: 'synchro-request-card.component.html'
+  templateUrl: 'synchro-request-card.component.html',
+  styleUrls: ['./synchro-request-card.component.scss']
 })
 export class SynchroRequestCardComponent {
 

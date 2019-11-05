@@ -1,9 +1,13 @@
-import { ReferentialThemeModel } from '../../../../core/models/eobservation/eobservation-referential-theme.model';
 import { Component, Input } from '@angular/core';
+
+import {
+    ReferentialThemeModel
+} from '../../../../core/models/eobservation/eobservation-referential-theme.model';
 
 @Component({
   selector: 'eobs-appreciation',
-  templateUrl: 'eobs-appreciation.component.html'
+  templateUrl: 'eobs-appreciation.component.html',
+  styleUrls: ['./eobs-appreciation.component.scss']
 })
 export class EObsAppreciationComponent {
 

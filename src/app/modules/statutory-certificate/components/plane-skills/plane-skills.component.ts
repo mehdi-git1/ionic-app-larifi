@@ -8,7 +8,8 @@ import { PlaneSkillModel } from '../../../../core/models/statutory-certificate/p
 
 @Component({
   selector: 'plane-skills',
-  templateUrl: 'plane-skills.component.html'
+  templateUrl: 'plane-skills.component.html',
+  styleUrls: ['./plane-skills.component.scss']
 })
 export class PlaneSkillsComponent implements OnInit {
 

@@ -1,16 +1,14 @@
-import { SessionService } from './../session/session.service';
-import { PncLightModel } from './../../models/pnc-light.model';
-import { LogbookEventModel } from './../../models/logbook/logbook-event.model';
-import { EntityEnum } from './../../enums/entity.enum';
-import { StorageService } from './../../storage/storage.service';
 import { Injectable } from '@angular/core';
-import { RestService } from '../../http/rest/rest.base.service';
-import { UrlConfiguration } from '../../configuration/url.configuration';
 
-import { ProfessionalInterviewModel } from '../../models/professional-interview/professional-interview.model';
+import { UrlConfiguration } from '../../configuration/url.configuration';
+import { RestService } from '../../http/rest/rest.base.service';
+import { LogbookEventModel } from '../../models/logbook/logbook-event.model';
+import { PncLightModel } from '../../models/pnc-light.model';
+import { StorageService } from '../../storage/storage.service';
+import { SessionService } from '../session/session.service';
 import { TransformerService } from '../transformer/transformer.service';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class OnlineLogbookEventService {
 
     constructor(

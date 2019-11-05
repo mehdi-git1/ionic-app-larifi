@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
+
 import { TabNavEnum } from '../../enums/tab-nav.enum';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class TabNavService {
 
-    listOfTab: Array<Object>;
+    listOfTab: Array<any>;
 
     constructor() {
     }
@@ -38,5 +39,41 @@ export class TabNavService {
         return this.listOfTab[this.getTabIndex(tabNav)];
     }
 
+    /**
+     * Sauvegarde l'onglet actif
+     * @param activeRoute la route active
+     */
+    setActiveTab(activeRoute: string) {
+        for (const tab of this.listOfTab) {
+            tab.active = false;
+            if (tab.route === activeRoute) {
+                tab.active = true;
+            }
+        }
+    }
+
+    /**
+     * Retrouve l'onglet actif
+     * @return l'onglet actif
+     */
+    getActiveTab(): any {
+        for (const tab of this.listOfTab) {
+            if (tab.active) {
+                return tab;
+            }
+        }
+    }
+
+    /**
+     * Teste si l'onglet actif de la navBar correspond à un onglet "dossier visité"
+     * @return vrai si c'est le cas, faux sinon
+     */
+    isVisitedPncTabSelected(): boolean {
+        if (!this.listOfTab) {
+            return false;
+        }
+        const activeTab = this.getActiveTab();
+        return activeTab && activeTab.id === TabNavEnum.VISITED_PNC;
+    }
 
 }

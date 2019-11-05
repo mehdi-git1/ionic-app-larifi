@@ -1,7 +1,7 @@
-import { NavController, NavParams } from 'ionic-angular';
 import * as moment from 'moment';
 
 import { Component } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { AppConstant } from '../../../../app.constant';
 import { PermissionConstant } from '../../../../core/constants/permission.constant';
@@ -39,20 +39,11 @@ import { SessionService } from '../../../../core/services/session/session.servic
 import {
     SynchronizationService
 } from '../../../../core/services/synchronization/synchronization.service';
-import {
-    EObservationsArchivesPage
-} from '../../../eobservation/pages/eobservations-archives/eobservations-archives.page';
-import {
-    ProfessionalInterviewDetailsPage
-} from '../../../professional-interview/pages/professional-interview-details/professional-interview-details.page';
-import {
-    ProfessionalInterviewsArchivesPage
-} from '../../../professional-interview/pages/professional-interviews-archives/professional-interviews-archives.page';
-import { CareerObjectiveCreatePage } from '../career-objective-create/career-objective-create.page';
 
 @Component({
   selector: 'page-career-objective-list',
   templateUrl: 'career-objective-list.page.html',
+  styleUrls: ['./career-objective-list.page.scss']
 })
 export class CareerObjectiveListPage {
 
@@ -83,9 +74,10 @@ export class CareerObjectiveListPage {
 
   pnc: PncModel;
 
-  constructor(private navCtrl: NavController,
-    private navParams: NavParams,
-    private securityService: SecurityService,
+  constructor(
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
+    public securityService: SecurityService,
     private careerObjectiveService: CareerObjectiveService,
     private professionalInterviewService: ProfessionalInterviewService,
     private formsEObservationService: FormsEObservationService,
@@ -106,7 +98,7 @@ export class CareerObjectiveListPage {
   }
 
   ionViewDidEnter() {
-    this.matricule = this.navParams.get('matricule');
+    this.matricule = this.pncService.getRequestedPncMatricule(this.activatedRoute);
     this.pncService.getPnc(this.matricule).then(pnc => {
       this.pnc = pnc;
     }, error => { });
@@ -128,7 +120,7 @@ export class CareerObjectiveListPage {
    * @return true si il est géré, sinon false
    */
   hasEObsTypeForm(): boolean {
-    return this.getEObsTextTypeEForm() != undefined;
+    return this.getEObsTextTypeEForm() !== undefined;
   }
 
   /**
@@ -156,7 +148,7 @@ export class CareerObjectiveListPage {
    * Dirige vers la page de création d'un nouveau bilan professionnel
    */
   goToProfessionalInterviewCreation() {
-    this.navCtrl.push(ProfessionalInterviewDetailsPage, { matricule: this.matricule });
+    this.router.navigate(['..', 'professional-interview', 'create'], { relativeTo: this.activatedRoute });
   }
 
   /**
@@ -190,14 +182,15 @@ export class CareerObjectiveListPage {
    * @param professionalInterviews liste de bilans professionnels
    * @return liste des bilans professionnels triés
    */
-  sortProfessionalInterviewsByAnnualProfessionalInterviewDate(professionalInterviews: ProfessionalInterviewModel[]): ProfessionalInterviewModel[] {
+  sortProfessionalInterviewsByAnnualProfessionalInterviewDate(
+    professionalInterviews: ProfessionalInterviewModel[]): ProfessionalInterviewModel[] {
     return professionalInterviews.sort((professionalInterview1, professionalInterview2) =>
       professionalInterview1.annualProfessionalInterviewDate < professionalInterview2.annualProfessionalInterviewDate ? 1 : -1);
   }
 
   /**
-    * Récupère la liste des objectifs
-    */
+   * Récupère la liste des objectifs
+   */
   initCareerObjectivesList() {
     this.careerObjectiveService.getPncCareerObjectives(this.matricule).then(result => {
       result.sort((careerObjective: CareerObjectiveModel, otherCareerObjective: CareerObjectiveModel) => {
@@ -212,7 +205,7 @@ export class CareerObjectiveListPage {
    * Dirige vers la page de création d'un nouvel objectif
    */
   goToCareerObjectiveCreation() {
-    this.navCtrl.push(CareerObjectiveCreatePage, { matricule: this.matricule, careerObjectiveId: 0 });
+    this.router.navigate(['create', 0], { relativeTo: this.activatedRoute });
   }
 
   /**
@@ -259,7 +252,7 @@ export class CareerObjectiveListPage {
    * Redirige vers la page des archives des eObservations
    */
   goToEobservationsArchives() {
-    this.navCtrl.push(EObservationsArchivesPage, { matricule: this.matricule });
+    this.router.navigate(['..', 'eobservation', 'archive'], { relativeTo: this.activatedRoute });
   }
 
 
@@ -267,7 +260,7 @@ export class CareerObjectiveListPage {
    * Redirige vers la page des archives des bilans professionnels
    */
   goToProfessionalInterviewsArchives() {
-    this.navCtrl.push(ProfessionalInterviewsArchivesPage, { matricule: this.matricule });
+    this.router.navigate(['..', 'professional-interview', 'archive'], { relativeTo: this.activatedRoute });
   }
 
   /**
@@ -275,7 +268,7 @@ export class CareerObjectiveListPage {
    */
   displayEObservationTypeSelection() {
     const typeOfEForms = this.getEObsTextTypeEForm();
-    if (typeOfEForms.indexOf('/') == -1) {
+    if (typeOfEForms.indexOf('/') === -1) {
       this.chosenEFormsType = EFormsTypeEnum.getType(EFormsTypeEnum[typeOfEForms.trim()]);
       this.createEObservation();
     } else {

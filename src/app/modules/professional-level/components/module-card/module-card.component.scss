@@ -1,69 +1,66 @@
-module-card {
+@import '../../../../../theme/colors.scss';
 
-    .module-card {
-        width: 100%;
-        height: 47px;
+.module-card {
+    width: 100%;
+    height: 47px;
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+
+    &>* {
+        color: color($colors-secondary, grey10);
+    }
+
+    .module-date {
+        min-width: 120px;
+    }
+
+    .module-type {
+        min-width: 90px;
+    }
+
+    .module-label {
+        flex: 1;
+    }
+
+    .module-scores {
+        @media (max-width: 800px) {
+            min-width: 88px;
+            max-width: 88px;
+        }
+
+        min-width: 250px;
+
+        padding-left: 10px;
+        margin: 2px;
+
+        .score-badge {
+            margin: 2px;
+            background-color: color($colors-secondary, grey40);
+            font-weight: normal;
+            border-radius: 5px;
+        }
+    }
+
+    .module-result {
+        width: 140px;
         display: flex;
         align-items: center;
-        padding: 0 10px;
+    }
 
-        & > * {
-            color: color($colors-secondary, grey10);
-        }
+    .module-detail {
+        width: 40px;
 
-        .module-date {
-            min-width: 120px;
-        }
+        ion-fab-button {
+            --box-shadow: none;
+            width: 30px;
+            height: 30px;
 
-        .module-type {
-            min-width: 90px;
-        }
-
-        .module-label {
-            flex: 1;
-        }
-
-        .module-scores {
-            @media (max-width: 800px) {
-                min-width: 88px;
-                max-width: 88px;
+            span:before {
+                font-size: 20px;
             }
-
-            min-width: 250px;
-
-            padding-left: 10px;
-            margin: 2px;
-
-            .score-badge {
-                margin: 2px;
-                background-color: color($colors-secondary, grey40);
-                font-weight: normal;
-                border-radius: 5px;
-            }
-        }
-
-        .module-result {
-            width: 140px;
-            display: flex;
-            align-items: center;
-        }
-
-        .module-detail {
-            width: 40px;
-
-            button {
-                color: color($colors, white);
-                box-shadow: none;
-                background-color: color($colors-secondary, bluegrey10);
-                width: 30px;
-                height: 30px;
-
-                span:before {
-                    font-size: 20px;
-                }
-            }
-
         }
 
     }
+
 }

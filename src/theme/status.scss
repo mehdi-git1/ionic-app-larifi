@@ -1,3 +1,5 @@
+@import './colors.scss';
+
 $colorPointSize: 12px;
 
 .draft,
@@ -9,25 +11,25 @@ $colorPointSize: 12px;
 }
 
 .draft {
-    background: color($colors, grey50);
-    color: color($colors, white);
+    background: var(--ion-color-grey50);
+    color: var(--ion-color-white);
 }
 
 .registered {
-    background: color($colors, orange55);
-    color: color($colors, white);
+    background: var(--ion-color-orange55);
+    color: var(--ion-color-white);
 
 }
 
 .validated {
     background: color($colors-secondary, green60);
-    color: color($colors, white);
+    color: var(--ion-color-white);
 
 }
 
 .abandoned {
     background: color($colors-secondary, grey95);
-    color: color($colors, grey50);
+    color: var(--ion-color-grey50);
 }
 
 .career-objective-status-dot {
@@ -43,7 +45,7 @@ $colorPointSize: 12px;
 }
 
 .registered-dot {
-    background: color($colors, orange55);
+    background: var(--ion-color-orange55);
 }
 
 .validated-dot {

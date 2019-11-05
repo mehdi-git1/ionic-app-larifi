@@ -1,13 +1,11 @@
-import {
-    AlertController, Events, Loading, LoadingController, NavController, NavParams
-} from 'ionic-angular';
 import * as _ from 'lodash';
 
-import { DatePipe } from '@angular/common';
+import { DatePipe, Location } from '@angular/common';
 import {
     ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AlertController, Events, LoadingController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 
 import { LogbookEventModeEnum } from '../../../../core/enums/logbook-event/logbook-event-mode.enum';
@@ -20,7 +18,6 @@ import { PncModel } from '../../../../core/models/pnc.model';
 import {
     OnlineLogbookEventService
 } from '../../../../core/services/logbook/online-logbook-event.service';
-import { PncService } from '../../../../core/services/pnc/pnc.service';
 import { SecurityService } from '../../../../core/services/security/security.service';
 import { SessionService } from '../../../../core/services/session/session.service';
 import { ToastService } from '../../../../core/services/toast/toast.service';
@@ -30,6 +27,7 @@ import { Utils } from '../../../../shared/utils/utils';
 @Component({
     selector: 'logbook-event',
     templateUrl: 'logbook-event.component.html',
+    styleUrls: ['./logbook-event.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LogbookEventComponent implements OnInit {
@@ -46,7 +44,6 @@ export class LogbookEventComponent implements OnInit {
     eventDateString: string;
     pnc: PncModel;
     techId: number;
-    loading: Loading;
 
     logbookEventCategories: LogbookEventCategory[];
     originLogbookEvent: LogbookEventModel;
@@ -61,25 +58,20 @@ export class LogbookEventComponent implements OnInit {
 
     logbookEventForm: FormGroup;
 
-    constructor(private navParams: NavParams,
+    constructor(
         private securityService: SecurityService,
         private translateService: TranslateService,
         private sessionService: SessionService,
         private onlineLogbookEventService: OnlineLogbookEventService,
-        private navCtrl: NavController,
+        private location: Location,
         private toastService: ToastService,
         private loadingCtrl: LoadingController,
         private dateTransformer: DateTransform,
         private events: Events,
         private alertCtrl: AlertController,
-        private pncService: PncService,
         private datePipe: DatePipe,
         private formBuilder: FormBuilder,
         private changeDetectorRef: ChangeDetectorRef) {
-    }
-
-    ngAfterViewInit() {
-        this.detectChangesAndMarkForCheck();
     }
 
     detectChangesAndMarkForCheck() {
@@ -114,12 +106,13 @@ export class LogbookEventComponent implements OnInit {
 
         }
         this.originLogbookEvent = _.cloneDeep(this.logbookEvent);
-        this.eventDateString = this.logbookEvent ? this.logbookEvent.eventDate : this.dateTransformer.transformDateToIso8601Format(new Date());
+        this.eventDateString =
+            this.logbookEvent ? this.logbookEvent.eventDate : this.dateTransformer.transformDateToIso8601Format(new Date());
     }
 
     /**
-    * Initialise la liste déroulante des catégories depuis les paramètres
-    */
+     * Initialise la liste déroulante des catégories depuis les paramètres
+     */
     initForm() {
         if (this.sessionService.getActiveUser().appInitData !== undefined) {
             this.logbookEventCategories = this.sessionService.getActiveUser().appInitData.logbookEventCategories;
@@ -179,12 +172,14 @@ export class LogbookEventComponent implements OnInit {
     confirmCancel() {
         if (this.formHasBeenModified()) {
             const title = this.translateService.instant('GLOBAL.CONFIRM_BACK_WITHOUT_SAVE.TITLE');
-            const message = this.mode == LogbookEventModeEnum.CREATION || this.mode == LogbookEventModeEnum.LINKED_EVENT_CREATION ? this.translateService.instant('LOGBOOK.EDIT.CONFIRM_CANCEL_CREATE_MESSAGE') : this.translateService.instant('LOGBOOK.EDIT.CONFIRM_CANCEL_UPDATE_MESSAGE');
+            const message = this.mode === LogbookEventModeEnum.CREATION || this.mode === LogbookEventModeEnum.LINKED_EVENT_CREATION ?
+                this.translateService.instant('LOGBOOK.EDIT.CONFIRM_CANCEL_CREATE_MESSAGE')
+                : this.translateService.instant('LOGBOOK.EDIT.CONFIRM_CANCEL_UPDATE_MESSAGE');
             return this.confirmationPopoup(title, message).then(() => {
                 this.logbookEvent = _.cloneDeep(this.originLogbookEvent);
                 this.editEvent = false;
                 if (this.cancelFromButton && this.mode === LogbookEventModeEnum.CREATION) {
-                    this.navCtrl.pop();
+                    this.location.back();
                     this.cancelFromButton = false;
                 } else if (this.cancelFromButton) {
                     this.events.publish('LinkedLogbookEvent:canceled');
@@ -198,7 +193,7 @@ export class LogbookEventComponent implements OnInit {
             });
         } else {
             if (this.cancelFromButton && this.mode === LogbookEventModeEnum.CREATION) {
-                this.navCtrl.pop();
+                this.location.back();
                 this.cancelFromButton = false;
             } else if (this.cancelFromButton) {
                 this.editEvent = false;
@@ -218,7 +213,7 @@ export class LogbookEventComponent implements OnInit {
         return new Promise((resolve, reject) => {
             // Avant de quitter la vue, on avertit l'utilisateur si ses modifications n'ont pas été enregistrées
             this.alertCtrl.create({
-                title: title,
+                header: title,
                 message: message,
                 buttons: [
                     {
@@ -231,15 +226,15 @@ export class LogbookEventComponent implements OnInit {
                         handler: () => resolve()
                     }
                 ]
-            }).present();
+            }).then(alert => alert.present());
         });
     }
 
 
     /**
-    * Vérifie si le formulaire a été modifié sans être enregistré
-    * @return true si il n'y a pas eu de modifications
-    */
+     * Vérifie si le formulaire a été modifié sans être enregistré
+     * @return true si il n'y a pas eu de modifications
+     */
     formHasBeenModified() {
         return this.logbookEvent.eventDate != this.originLogbookEvent.eventDate
             || Utils.getHashCode(this.originLogbookEvent) !== Utils.getHashCode(this.logbookEvent);
@@ -259,28 +254,28 @@ export class LogbookEventComponent implements OnInit {
     saveLogbookEvent() {
         return new Promise((resolve, reject) => {
             const logbookEventToSave: LogbookEventModel = this.prepareLogbookEventBeforeSubmit(this.logbookEvent);
-            this.loading = this.loadingCtrl.create();
-            this.loading.present();
+            this.loadingCtrl.create().then(loading => {
+                loading.present();
 
-            this.onlineLogbookEventService.createOrUpdate(logbookEventToSave)
-                .then(savedLogbookEvent => {
-                    this.originLogbookEvent = _.cloneDeep(savedLogbookEvent);
-                    this.logbookEvent = savedLogbookEvent;
-                    this.events.publish('LogbookEvent:saved');
-                    if (this.mode === LogbookEventModeEnum.CREATION || this.mode === LogbookEventModeEnum.LINKED_EVENT_CREATION) {
-                        this.toastService.success(this.translateService.instant('LOGBOOK.EDIT.LOGBOOK_SAVED'));
-                        if (this.mode === LogbookEventModeEnum.CREATION) {
-                            this.navCtrl.pop();
+                this.onlineLogbookEventService.createOrUpdate(logbookEventToSave)
+                    .then(savedLogbookEvent => {
+                        this.originLogbookEvent = _.cloneDeep(savedLogbookEvent);
+                        this.logbookEvent = savedLogbookEvent;
+                        this.events.publish('LogbookEvent:saved');
+                        if (this.mode === LogbookEventModeEnum.CREATION || this.mode === LogbookEventModeEnum.LINKED_EVENT_CREATION) {
+                            this.toastService.success(this.translateService.instant('LOGBOOK.EDIT.LOGBOOK_SAVED'));
+                            if (this.mode === LogbookEventModeEnum.CREATION) {
+                                this.location.back();
+                            }
+                        } else {
+                            this.toastService.success(this.translateService.instant('LOGBOOK.EDIT.LOGBOOK_UPDATED'));
+                            this.editEvent = false;
                         }
-                    } else {
-                        this.toastService.success(this.translateService.instant('LOGBOOK.EDIT.LOGBOOK_UPDATED'));
-                        this.editEvent = false;
-                    }
-                    this.loading.dismiss();
-                }, error => {
-                    this.loading.dismiss();
-                });
-
+                        loading.dismiss();
+                    }, error => {
+                        loading.dismiss();
+                    });
+            });
         });
     }
 
@@ -289,13 +284,19 @@ export class LogbookEventComponent implements OnInit {
      */
     confirmUpdateLogbookEvent() {
         if (this.logbookEvent.notifiedPncs && this.logbookEvent.notifiedPncs.length > 0) {
-            return this.confirmationPopoup(this.translateService.instant('LOGBOOK.NOTIFICATION.CONFIRM_NOTIFICATION.TITLE'), this.translateService.instant('LOGBOOK.NOTIFICATION.CONFIRM_NOTIFICATION.MESSAGE')).then(() => {
-                this.saveLogbookEvent();
-            }).catch(() => { });
+            return this.confirmationPopoup(
+                this.translateService.instant('LOGBOOK.NOTIFICATION.CONFIRM_NOTIFICATION.TITLE'),
+                this.translateService.instant('LOGBOOK.NOTIFICATION.CONFIRM_NOTIFICATION.MESSAGE'))
+                .then(() => {
+                    this.saveLogbookEvent();
+                }).catch(() => { });
         } else if (this.logbookEvent.notifiedPncs && this.logbookEvent.notifiedPncs.length === 0) {
-            this.confirmationPopoup(this.translateService.instant('LOGBOOK.NOTIFICATION.CONFIRM_EDIT_WITHOUT_NOTIFICATION.TITLE'), this.translateService.instant('LOGBOOK.NOTIFICATION.CONFIRM_EDIT_WITHOUT_NOTIFICATION.MESSAGE')).then(() => {
-                this.saveLogbookEvent();
-            }).catch(() => { });
+            this.confirmationPopoup(
+                this.translateService.instant('LOGBOOK.NOTIFICATION.CONFIRM_EDIT_WITHOUT_NOTIFICATION.TITLE'),
+                this.translateService.instant('LOGBOOK.NOTIFICATION.CONFIRM_EDIT_WITHOUT_NOTIFICATION.MESSAGE'))
+                .then(() => {
+                    this.saveLogbookEvent();
+                }).catch(() => { });
         } else {
             this.saveLogbookEvent();
         }
@@ -306,9 +307,12 @@ export class LogbookEventComponent implements OnInit {
      */
     confirmSaveLogbookEvent() {
         if (!this.logbookEvent.notifiedPncs || this.logbookEvent.notifiedPncs.length === 0) {
-            this.confirmationPopoup(this.translateService.instant('LOGBOOK.NOTIFICATION.CONFIRM_CREATE_WITHOUT_NOTIFICATION.TITLE'), this.translateService.instant('LOGBOOK.NOTIFICATION.CONFIRM_CREATE_WITHOUT_NOTIFICATION.MESSAGE')).then(() => {
-                this.saveLogbookEvent();
-            }).catch(() => { });
+            this.confirmationPopoup(
+                this.translateService.instant('LOGBOOK.NOTIFICATION.CONFIRM_CREATE_WITHOUT_NOTIFICATION.TITLE'),
+                this.translateService.instant('LOGBOOK.NOTIFICATION.CONFIRM_CREATE_WITHOUT_NOTIFICATION.MESSAGE'))
+                .then(() => {
+                    this.saveLogbookEvent();
+                }).catch(() => { });
         } else {
             this.saveLogbookEvent();
         }

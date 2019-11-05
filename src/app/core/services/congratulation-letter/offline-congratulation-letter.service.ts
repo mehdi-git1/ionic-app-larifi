@@ -1,12 +1,13 @@
-import { AppConstant } from './../../../app.constant';
-import { CongratulationLetterModel } from './../../models/congratulation-letter.model';
-import { Injectable } from '@angular/core';
-import { StorageService } from '../../storage/storage.service';
-import { EntityEnum } from '../../enums/entity.enum';
 import * as moment from 'moment';
 
+import { Injectable } from '@angular/core';
 
-@Injectable()
+import { AppConstant } from '../../../app.constant';
+import { EntityEnum } from '../../enums/entity.enum';
+import { CongratulationLetterModel } from '../../models/congratulation-letter.model';
+import { StorageService } from '../../storage/storage.service';
+
+@Injectable({ providedIn: 'root' })
 export class OfflineCongratulationLetterService {
 
   constructor(private storageService: StorageService) {

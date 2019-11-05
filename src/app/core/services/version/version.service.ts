@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
-import { RestService } from '../../http/rest/rest.base.service';
-import { Config } from '../../../../environments/config';
 
-@Injectable()
+import { Config } from '../../../../environments/config';
+import { RestService } from '../../http/rest/rest.base.service';
+
+@Injectable({ providedIn: 'root' })
 export class VersionService {
 
-    constructor(public restService: RestService,
+    constructor(
+        private restService: RestService,
         private config: Config) {
     }
 

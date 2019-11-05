@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 
 import { UrlConfiguration } from '../../configuration/url.configuration';
-import { PncSearchCriteriaModel } from '../../models/pnc-search-criteria.model';
-import { PagedPncModel } from '../../models/paged-pnc.model';
-import { RotationModel } from '../../models/rotation.model';
 import { RestService } from '../../http/rest/rest.base.service';
+import { PagedPncModel } from '../../models/paged-pnc.model';
+import { PncSearchCriteriaModel } from '../../models/pnc-search-criteria.model';
 import { PncModel } from '../../models/pnc.model';
+import { RotationModel } from '../../models/rotation.model';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class OnlinePncService {
 
   constructor(

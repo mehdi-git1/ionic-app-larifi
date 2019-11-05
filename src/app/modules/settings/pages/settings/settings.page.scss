@@ -1,16 +1,11 @@
-page-settings {
-    ion-item button {
-        background: color($colors, secondary) !important;
-    }
+@import '../../../../../theme/colors.scss';
 
-    .version-panel {
-        position: absolute;
-        display: flex;
-        right: 0px;
-        bottom: 10px;
+.version-panel {
+    position: absolute;
+    display: flex;
+    bottom: 10px;
 
-        div {
-            padding-right: 5px;
-        }
+    div {
+        padding-right: 5px;
     }
 }

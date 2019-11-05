@@ -1,13 +1,19 @@
 import { Component } from '@angular/core';
-import { SynchronizationManagementService } from '../../../../core/services/synchronization/synchronization-management.service';
-import { SynchroRequestModel } from '../../../../core/models/synchro-request.model';
+
+import {
+    SynchroRequestDisplayModeEnum
+} from '../../../../core/enums/synchronization/synchro-request-display-mode.enum';
 import { SynchroStatusEnum } from '../../../../core/enums/synchronization/synchro-status.enum';
-import { SynchroRequestDisplayModeEnum } from '../../../../core/enums/synchronization/synchro-request-display-mode.enum';
+import { SynchroRequestModel } from '../../../../core/models/synchro-request.model';
 import { ConnectivityService } from '../../../../core/services/connectivity/connectivity.service';
+import {
+    SynchronizationManagementService
+} from '../../../../core/services/synchronization/synchronization-management.service';
 
 @Component({
     selector: 'synchronization-management',
     templateUrl: 'synchronization-management.page.html',
+    styleUrls: ['./synchronization-management.page.scss']
 })
 export class SynchronizationManagementPage {
 
@@ -18,7 +24,8 @@ export class SynchronizationManagementPage {
 
     synchroRequestList: SynchroRequestModel[];
 
-    constructor(private synchronizationManagementService: SynchronizationManagementService,
+    constructor(
+        private synchronizationManagementService: SynchronizationManagementService,
         private connectivityService: ConnectivityService) {
         this.selectedDisplayMode = SynchroRequestDisplayModeEnum.PENDING;
 

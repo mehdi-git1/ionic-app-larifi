@@ -1,66 +1,59 @@
-career-objectives {
+@import '../../../../../theme/colors.scss';
 
-    mat-expansion-panel {
+mat-expansion-panel {
+    box-shadow: none !important;
+
+    &.mat-expanded:not(.no-data) {
         box-shadow: none !important;
-
-        &.mat-expanded:not(.no-data) {
-            box-shadow: none !important;
-        }
-
-        mat-expansion-panel-header {
-            display: flex;
-            background-color: color($colors, primary-light);
-            border-radius: 5px;
-            color: color($colors, white);
-
-            & > .mat-expansion-indicator {
-                display: flex;
-                transition: all linear 200ms;
-            }
-
-            &.mat-expansion-panel-header {
-                padding: 6px 20px 6px 15px;
-            }
-
-            &.mat-expanded:hover,
-            &.mat-expanded:focus {
-                background-color: color($colors, primary-light) !important;
-            }
-
-            .mat-content {
-                align-items: center;
-            }
-
-            .mat-content > label {
-                font-weight: 700;
-                font-size: 1.2em;
-                color: color($colors, white);
-            }
-
-            .career-objective-date {
-                min-width: 120px;
-            }
-
-            .career-objective-title {
-                flex: 1;
-            }
-
-            .career-objective-status {
-                min-width: 140px;
-            }
-
-            .career-objective-icone {
-                min-width: 62px;
-                justify-content: flex-end;
-                display: flex;
-            }
-        }
-
-        .mat-expansion-panel-body {
-            padding: 0;
-            margin: 0;
-        }
-
     }
 
+    mat-expansion-panel-header {
+        display: flex;
+        background-color: var(--ion-color-primarylight);
+        border-radius: 5px;
+        color: var(--ion-color-white);
+
+        &>.mat-expansion-indicator {
+            display: flex;
+            transition: all linear 200ms;
+        }
+
+        &.mat-expansion-panel-header {
+            padding: 6px 20px 6px 15px;
+        }
+
+        &.mat-expanded:hover,
+        &.mat-expanded:focus {
+            background-color: var(--ion-color-primarylight) !important;
+        }
+
+        label {
+            font-weight: 700;
+            font-size: 1.2em;
+            color: var(--ion-color-white);
+        }
+
+        .career-objective-date {
+            min-width: 120px;
+        }
+
+        .career-objective-title {
+            flex: 1;
+        }
+
+        .career-objective-status {
+            min-width: 140px;
+        }
+
+        .career-objective-icone {
+            min-width: 62px;
+            justify-content: flex-end;
+            display: flex;
+        }
+    }
+
+    .mat-expansion-panel-body {
+        padding: 0;
+        margin: 0;
+    }
 }

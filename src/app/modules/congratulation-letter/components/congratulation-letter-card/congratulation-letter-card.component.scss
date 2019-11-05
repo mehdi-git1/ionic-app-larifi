@@ -1,69 +1,66 @@
-congratulation-letter-card {
+@import '../../../../../theme/colors.scss';
 
-    .congratulation-letter {
+.congratulation-letter {
+    display: flex;
+    align-items: center;
+    background: var(--ion-color-white);
+    color: var(--ion-color-primarylight);
+    margin-bottom: 5px;
+    height: 40px;
+    padding: 5px 10px;
+    border-radius: 5px;
+
+    .flight {
+        flex: 1;
+    }
+
+    .type {
+        flex: 1;
         display: flex;
         align-items: center;
-        background: color($colors, white);
-        color: color($colors, primary-light);
-        margin-bottom: 5px;
-        height: 40px;
-        padding: 5px 10px;
-        border-radius: 5px;
 
-        .flight {
-            flex: 1;
+        .attach-icon {
+            margin-left: 10px;
+            font-size: 1.8em;
+        }
+    }
+
+    .redactor {
+        flex: 2;
+    }
+
+
+    .user-actions {
+        width: 80px;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+
+        &>* {
+            margin-left: 10px;
         }
 
-        .type {
-            flex: 1;
-            display: flex;
-            align-items: center;
+        ion-fab-button {
+            --box-shadow: none;
+        }
 
-            .attach-icon {
-                margin-left: 10px;
-                font-size: 1.8em;
+        .detail-button {
+            width: 30px;
+            height: 30px;
+
+            span:before {
+                font-size: 20px;
             }
         }
 
-        .redactor {
-            flex: 2;
+        .actions-button {
+            width: 30px;
+            height: 30px;
+
+            ion-icon {
+                font-size: 2em;
+            }
         }
 
-
-        .user-actions {
-            width: 80px;
-            display: flex;
-            align-items: center;
-            justify-content: flex-end;
-
-            & > * {
-                margin-left: 10px;
-            }
-
-            button.detail-button {
-                background: color($colors, primary-light);
-                color: color($colors, white);
-                width: 30px;
-                height: 30px;
-                box-shadow: none;
-
-                span:before {
-                    font-size: 20px;
-                }
-            }
-
-            .actions-button {
-                background: transparent;
-                color: color($colors, primary-light);
-                width: 30px;
-                height: 30px;
-                box-shadow: none;
-
-                ion-icon {
-                    font-size: 2em;
-                }
-            }
-
-        }
     }
 }

@@ -1,105 +1,105 @@
-page-career-objective-list {
+@import '../../../../../theme/colors.scss';
 
-    .scroll-content {
-        padding-top: 40px !important;
+.scroll-content {
+    padding-top: 40px !important;
+}
+
+.eobservation-block {
+    margin-bottom: 10px;
+}
+
+.career-objective-block,
+.professional-interview-block {
+    margin-top: 60px;
+    margin-bottom: 10px;
+}
+
+.eobservation-block h3 {
+    color: var(--ion-color-primarydark);
+}
+
+.career-objective-block h3 {
+    color:  var(--ion-color-primarylight);
+}
+
+.professional-interview-block h3 {
+    color: var(--ion-color-primary);
+}
+
+h3 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+ion-content ion-button {
+    width: 300px;
+
+    ion-icon {
+        margin-right: 10px;
+        color: var(--ion-color-white);
     }
 
-    .eobservation-block {
-        margin-bottom: 10px;
+    label {
+        color: var(--ion-color-white);
     }
+}
 
-    .career-objective-block,
-    .professional-interview-block {
-        margin-top: 60px;
-        margin-bottom: 10px;
-    }
+.eobservation-creation-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 66px;
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 4px;
+    background: var(--ion-color-white);
+    border: 1px solid color($colors-secondary, grey75);
 
-    .eobservation-block h3 {
-        color: color($colors, primary-dark);
-    }
-
-    .career-objective-block h3 {
-        color: color($colors, primary-light);
-    }
-
-    .professional-interview-block h3 {
-        color: color($colors, primary);
-    }
-
-    h3 {
+    .info-container {
         display: flex;
-        justify-content: space-between;
+        flex-direction: column;
         align-items: center;
-    }
 
-    ion-content button {
-        width: 300px;
-
-        ion-icon {
-            margin-right: 10px;
-        }
-
-        label {
-            color: color($colors, white);
+        span {
+            font-weight: bold;
         }
     }
 
-    .eobservation-creation-container {
+    .add-container {
         display: flex;
-        justify-content: space-between;
-        align-items: center;
-        height: 66px;
-        margin-bottom: 10px;
-        padding: 10px;
-        border-radius: 4px;
-        background: color($colors, white);
-        border: 1px solid color($colors-secondary, grey75);
+        justify-content: flex-end;
 
-        .info-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+        ion-select {
+            width: 300px;
 
-            span {
-                font-weight: bold;
+            .item-inner {
+                border: 0px;
             }
         }
 
-        .add-container {
-            display: flex;
-            justify-content: flex-end;
-
-            ion-select {
-                width: 300px;
-
-                .item-inner {
-                    border: 0px;
-                }
-            }
-
-        }
-
     }
 
-    .archives {
+}
 
-        span,
-        a {
-            color: color($colors-secondary, blue68);
-        }
+.archives {
 
-        a {
-            text-decoration: underline;
-        }
+    span,
+    a {
+        color: color($colors-secondary, blue68);
+    }
 
-        .edospnc-archive:before {
-            font-size: 26px;
-            position: relative;
-            top: 4px;
-        }
+    a {
+        text-decoration: underline;
+    }
 
-        &.information-message:before {
-            content: '';
-        }
+    .edospnc-archive:before {
+        font-size: 26px;
+        position: relative;
+        top: 4px;
+    }
+
+    &.information-message:before {
+        content: '';
     }
 }

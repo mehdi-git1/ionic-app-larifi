@@ -1,26 +1,29 @@
 import { Injectable } from '@angular/core';
 
 import { EntityEnum } from '../../enums/entity.enum';
-import { RotationModel } from '../../models/rotation.model';
 import { LegModel } from '../../models/leg.model';
+import { RotationModel } from '../../models/rotation.model';
 import { StorageService } from '../../storage/storage.service';
 import { RotationTransformerService } from './rotation-transformer.service';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class OfflineRotationService {
 
-    constructor(private storageService: StorageService,
+    constructor(
+        private storageService: StorageService,
         private rotationTransformerService: RotationTransformerService) {
     }
 
     /**
-    * Récupère les tronçons d'une rotation
-    * @param rotation la rotation dont on souhaite récupérer les tronçons
-    * @return la liste des tronçons de la rotation
-    */
+     * Récupère les tronçons d'une rotation
+     * @param rotation la rotation dont on souhaite récupérer les tronçons
+     * @return la liste des tronçons de la rotation
+     */
     getRotationLegs(rotation: RotationModel): Promise<LegModel[]> {
         const legs = this.storageService.findAll(EntityEnum.LEG);
-        return Promise.resolve(legs.filter(leg => leg.rotationStorageId === this.rotationTransformerService.toRotation(rotation).getStorageId()));
+        return Promise.resolve(
+            legs.filter(leg => leg.rotationStorageId === this.rotationTransformerService.toRotation(rotation).getStorageId())
+        );
     }
 
     /**

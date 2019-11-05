@@ -1,5 +1,7 @@
-eobs-item-description {
-    background-color: color($colors, white);
+@import '../../../../../theme/colors.scss';
+
+:host {
+    background-color: var(--ion-color-white);
     display: inline-block;
     text-align: justify;
     width: 100%;
@@ -10,7 +12,7 @@ eobs-item-description {
     }
 
     button {
-        background-color: color($colors, white);
+        background-color: var(--ion-color-white);
     }
 
     .description-c {
@@ -18,7 +20,7 @@ eobs-item-description {
     }
 
     .description-no {
-        color: color($colors, grey50);
+        color: var(--ion-color-grey50);
     }
 
     .description-level_1 {
@@ -26,7 +28,7 @@ eobs-item-description {
     }
 
     .description-level_2 {
-        color: color($colors, orange55);
+        color: var(--ion-color-orange55);
     }
 
     .description-level_3 {
@@ -34,6 +36,6 @@ eobs-item-description {
     }
 
     .description-level_4 {
-        color: color($colors, blue70);
+        color: var(--ion-color-blue70);
     }
 }

@@ -1,9 +1,7 @@
-import { TranslateService } from '@ngx-translate/core';
-import { PriorityDropdownListComponent } from './../priority-dropdown-list/priority-dropdown-list.component';
-import { Events, PopoverController } from 'ionic-angular';
-
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Events, PopoverController } from '@ionic/angular';
+import { TranslateService } from '@ngx-translate/core';
 
 import { AppConstant } from '../../../../app.constant';
 import { SpecialityEnum } from '../../../../core/enums/speciality.enum';
@@ -15,14 +13,16 @@ import { SectorModel } from '../../../../core/models/sector.model';
 import { RelayModel } from '../../../../core/models/statutory-certificate/relay.model';
 import { ConnectivityService } from '../../../../core/services/connectivity/connectivity.service';
 import { SessionService } from '../../../../core/services/session/session.service';
+import {
+    PriorityDropdownListComponent
+} from '../priority-dropdown-list/priority-dropdown-list.component';
 
 @Component({
   selector: 'pnc-search-filter',
-  templateUrl: 'pnc-search-filter.component.html'
+  templateUrl: 'pnc-search-filter.component.html',
+  styleUrls: ['./pnc-search-filter.component.scss']
 })
 export class PncSearchFilterComponent implements OnInit {
-  private static CDK_OVERLAY_0 = '#cdk-overlay-0';
-  private static MAT_AUTOCOMPLETE_0 = '#mat-autocomplete-0';
 
   @Output() onSearch: EventEmitter<any> = new EventEmitter();
 
@@ -80,20 +80,24 @@ export class PncSearchFilterComponent implements OnInit {
    * @param eObservationItem item
    */
   openPriorityDropdownList(myEvent: Event) {
-    const popover = this.popoverCtrl.create(PriorityDropdownListComponent, { prioritized: this.prioritized, priority: this.priority, noPriority: this.noPriority}, { cssClass: 'priority-dropdown-list-popover' });
-    popover.present({
-      ev: myEvent
-    });
-    popover.onDidDismiss(data => {
-      if (data) {
-        this.prioritized = data.prioritized;
-        this.priority = data.priority;
-        this.noPriority = data.noPriority;
-        this.searchForm.get('hasAtLeastOnePriorityInProgressControl').setValue(data.priority);
-        this.searchForm.get('hasNoPriorityControl').setValue(data.noPriority);
-        this.searchForm.get('prioritizedControl').setValue(data.prioritized);
-        this.search();
-      }
+    this.popoverCtrl.create({
+      component: PriorityDropdownListComponent,
+      componentProps: { prioritized: this.prioritized, priority: this.priority, noPriority: this.noPriority },
+      cssClass: 'priority-dropdown-list-popover'
+    }).then(popover => {
+      popover.present();
+
+      popover.onDidDismiss().then(overlayEventDetail => {
+        if (overlayEventDetail) {
+          this.prioritized = overlayEventDetail.data.prioritized;
+          this.priority = overlayEventDetail.data.priority;
+          this.noPriority = overlayEventDetail.data.noPriority;
+          this.searchForm.get('hasAtLeastOnePriorityInProgressControl').setValue(overlayEventDetail.data.priority);
+          this.searchForm.get('hasNoPriorityControl').setValue(overlayEventDetail.data.noPriority);
+          this.searchForm.get('prioritizedControl').setValue(overlayEventDetail.data.prioritized);
+          this.search();
+        }
+      });
     });
   }
 
@@ -232,29 +236,12 @@ export class PncSearchFilterComponent implements OnInit {
       this.pncFilter.speciality = val.specialityControl;
       this.pncFilter.aircraftSkill = val.aircraftSkillControl;
       this.pncFilter.relay = val.relayControl;
-      if (val.priorityControl && val.priorityControl instanceof Array) {
-        console.log(val.priorityControl);
-        this.pncFilter.prioritized = (val.priorityControl as Array<string>).filter(priorityFilterItem => {
-          return priorityFilterItem === 'PRIORITIZED';
-        }).length > 0;
-        this.pncFilter.hasAtLeastOnePriorityInProgress = (val.priorityControl as Array<string>).filter(priorityFilterItem => {
-          return priorityFilterItem === 'PRIORITY_IN_PROGRESS';
-        }).length > 0;
-        this.pncFilter.hasNoPriority = (val.priorityControl as Array<string>).filter(priorityFilterItem => {
-          return priorityFilterItem === 'NO_PRIORITY';
-        }).length > 0;
-      } else {
-        this.pncFilter.prioritized = val.prioritizedControl;
-        this.pncFilter.hasAtLeastOnePriorityInProgress = val.hasAtLeastOnePriorityInProgressControl;
-        this.pncFilter.hasNoPriority = val.hasNoPriorityControl;
-      }
+      this.pncFilter.prioritized = val.prioritizedControl;
+      this.pncFilter.hasAtLeastOnePriorityInProgress = val.hasAtLeastOnePriorityInProgressControl;
+      this.pncFilter.hasNoPriority = val.hasNoPriorityControl;
 
       this.search();
     });
-  }
-
-  onPriorityFilterChange(event) {
-    console.log(event);
   }
 
   /**
@@ -330,8 +317,8 @@ export class PncSearchFilterComponent implements OnInit {
   }
 
   /**
-  * Ouvre/ferme le filtre
-  */
+   * Ouvre/ferme le filtre
+   */
   toggleFilter() {
     this.showFilter = !this.showFilter;
   }

@@ -1,14 +1,21 @@
-import { EObservationModel } from './../../../../core/models/eobservation/eobservation.model';
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { PopoverController } from '@ionic/angular';
+
 import { EObservationLevelEnum } from '../../../../core/enums/e-observations-level.enum';
-import { EobsItemDescriptionComponent } from '../eobs-item-description/eobs-item-description.component';
-import { PopoverController } from 'ionic-angular';
-import { EObservationItemModel } from '../../../../core/models/eobservation/eobservation-item.model';
-import { ReferentialThemeModel } from '../../../../core/models/eobservation/eobservation-referential-theme.model';
+import {
+    EObservationItemModel
+} from '../../../../core/models/eobservation/eobservation-item.model';
+import {
+    ReferentialThemeModel
+} from '../../../../core/models/eobservation/eobservation-referential-theme.model';
+import {
+    EobsItemDescriptionComponent
+} from '../eobs-item-description/eobs-item-description.component';
 
 @Component({
   selector: 'eobs-theme',
-  templateUrl: 'eobs-theme.component.html'
+  templateUrl: 'eobs-theme.component.html',
+  styleUrls: ['./eobs-theme.component.scss']
 })
 export class EObsThemeComponent {
 
@@ -48,18 +55,22 @@ export class EObsThemeComponent {
 
   /**
    * Ouvre la popover de description d'un item
-   * @param myEvent  event
+   * @param event  event
    * @param eObservationItem item
    */
-  openDescription(myEvent: Event, eObservationItem: EObservationItemModel) {
-    let _descriptions = new Array();
-    if (eObservationItem && eObservationItem.refItemLevel && eObservationItem.refItemLevel.item && eObservationItem.refItemLevel.item.levels) {
-      _descriptions = eObservationItem.refItemLevel.item.levels;
+  openDescription(event: Event, eObservationItem: EObservationItemModel) {
+    let descriptions = new Array();
+    if (eObservationItem && eObservationItem.refItemLevel && eObservationItem.refItemLevel.item
+      && eObservationItem.refItemLevel.item.levels) {
+      descriptions = eObservationItem.refItemLevel.item.levels;
     }
-    const popover = this.popoverCtrl.create(EobsItemDescriptionComponent, { descriptions: _descriptions }, { cssClass: 'description-popover' });
-    popover.present({
-      ev: myEvent
+    this.popoverCtrl.create({
+      component: EobsItemDescriptionComponent,
+      componentProps: { descriptions: descriptions },
+      event: event,
+      cssClass: 'description-popover'
+    }).then(popover => {
+      popover.present();
     });
   }
-
 }

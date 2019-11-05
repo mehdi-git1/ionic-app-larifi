@@ -1,7 +1,8 @@
-import { NavParams } from 'ionic-angular';
 import * as _ from 'lodash';
 
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { PopoverController } from '@ionic/angular';
 
 import {
     EObservationDisplayModeEnum
@@ -19,13 +20,14 @@ import { PncService } from '../../../../core/services/pnc/pnc.service';
 import {
     ProfessionalLevelService
 } from '../../../../core/services/professional-level/professional-level.service';
-import { SessionService } from '../../../../core/services/session/session.service';
+import { StageLegendComponent } from '../../components/stage-legend/stage-legend.component';
 
 @Component({
   selector: 'page-professional-level',
   templateUrl: 'professional-level.page.html',
+  styleUrls: ['./professional-level.page.scss']
 })
-export class ProfessionalLevelPage {
+export class ProfessionalLevelPage implements OnInit {
 
   pnc: PncModel;
   matricule: string;
@@ -38,14 +40,15 @@ export class ProfessionalLevelPage {
   EObservationDisplayModeEnum = EObservationDisplayModeEnum;
   TabHeaderEnum = TabHeaderEnum;
 
-  constructor(private navParams: NavParams,
-    private sessionService: SessionService,
+  constructor(
+    private activatedRoute: ActivatedRoute,
     private pncService: PncService,
     private professionalLevelService: ProfessionalLevelService,
-    private eObservationService: EObservationService) {
+    private eObservationService: EObservationService,
+    private popoverCtrl: PopoverController) {
   }
 
-  ionViewDidLoad() {
+  ngOnInit() {
 
     this.listItemLegend.push('PROFESSIONAL_LEVEL.LEGEND.A',
       'PROFESSIONAL_LEVEL.LEGEND.T',
@@ -54,7 +57,8 @@ export class ProfessionalLevelPage {
       'PROFESSIONAL_LEVEL.LEGEND.E2',
       'PROFESSIONAL_LEVEL.LEGEND.FC');
 
-    this.matricule = this.navParams.get('matricule');
+    this.matricule = this.pncService.getRequestedPncMatricule(this.activatedRoute);
+
     this.pncService.getPnc(this.matricule).then(pnc => {
       this.pnc = pnc;
       this.getEObservationsList();
@@ -69,7 +73,7 @@ export class ProfessionalLevelPage {
   /**
    * Renvoi un clone trié du ProfessionalLevelModel passé en parametre
    *
-   * @param professionalLevel
+   * @param professionalLevel l'objet à cloner
    * @return clone trié du ProfessionalLevelModel passé en parametre.
    */
   sortProfessionalLevel(professionalLevel: ProfessionalLevelModel): ProfessionalLevelModel {
@@ -127,4 +131,18 @@ export class ProfessionalLevelPage {
     return this.professionalLevel !== undefined && this.eObservations !== undefined;
   }
 
+  /**
+   * Affiche la légende des stage
+   * @param event l'événement déclencheur
+   */
+  showStageLegend(event: any) {
+    event.stopPropagation();
+    this.popoverCtrl.create({
+      component: StageLegendComponent,
+      event: event,
+      translucent: true
+    }).then(popover => {
+      popover.present();
+    });
+  }
 }

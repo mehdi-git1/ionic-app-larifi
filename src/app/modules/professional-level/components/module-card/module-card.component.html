@@ -3,14 +3,18 @@
     <label class="module-type">{{'PROFESSIONAL_LEVEL.MODULE_TYPE.' + module?.moduleType | translateOrEmpty}}</label>
     <label class="module-label">{{module?.label}}</label>
     <div class="module-scores">
-        <ion-badge class="score-badge" *ngFor="let score of module?.scores"><span *ngIf="score && score.score && (score?.score  | scorePercent) !== 100">{{score?.score | scorePercent}}% ({{score?.evaluationCode}})</span></ion-badge>
+        <ion-badge class="score-badge" *ngFor="let score of module?.scores"><span
+                *ngIf="score && score.score && (score?.score  | scorePercent) !== 100">{{score?.score | scorePercent}}%
+                ({{score?.evaluationCode}})</span></ion-badge>
     </div>
     <div class="module-result">
-        <span class="status-dot" [ngClass]="getStatusCssClass()"></span>{{'PROFESSIONAL_LEVEL.MODULE_STATUS.' + module?.moduleResultStatus | translateOrEmpty}}
+        <span class="status-dot"
+            [ngClass]="getStatusCssClass()"></span>{{'PROFESSIONAL_LEVEL.MODULE_STATUS.' + module?.moduleResultStatus | translateOrEmpty}}
     </div>
     <div class="module-detail">
-        <button *ngIf="isModuleDetailAvailable(module)" ion-fab mini (click)="goToModuleDetail(module)">
+        <ion-fab-button size="small" color="bluegrey10" *ngIf="isModuleDetailAvailable(module)"
+            (click)="goToModuleDetail(module)">
             <span class="edospnc-memo"></span>
-        </button>
+        </ion-fab-button>
     </div>
 </div>

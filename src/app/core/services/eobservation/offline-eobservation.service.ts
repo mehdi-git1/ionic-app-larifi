@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
-import { EntityEnum } from '../../enums/entity.enum';
-import { StorageService } from '../../storage/storage.service';
-import { EObservationModel } from '../../models/eobservation/eobservation.model';
-import { OfflineActionEnum } from '../../enums/offline-action.enum';
 
-@Injectable()
+import { EntityEnum } from '../../enums/entity.enum';
+import { OfflineActionEnum } from '../../enums/offline-action.enum';
+import { EObservationModel } from '../../models/eobservation/eobservation.model';
+import { StorageService } from '../../storage/storage.service';
+
+@Injectable({ providedIn: 'root' })
 export class OfflineEObservationService {
 
     constructor(

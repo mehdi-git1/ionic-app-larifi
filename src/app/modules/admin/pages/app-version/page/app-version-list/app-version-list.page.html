@@ -1,27 +1,29 @@
 <ion-header>
-    <ion-navbar>
+    <ion-toolbar>
         <page-header [showSettingsIcon]="false">
             <span> {{ 'ADMIN.APP_VERSION_MANAGEMENT.TITLE' | translate }}</span>
         </page-header>
-    </ion-navbar>
+    </ion-toolbar>
     <tab-header [mode]="TabHeaderModeEnum.ADMIN" [activeTab]="TabHeaderEnum.APP_VERSION_MANAGEMENT_PAGE"></tab-header>
 </ion-header>
 
-<ion-content padding>
-    <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
-    <ng-template #pageBlock>
+<ion-content>
+    <div class="page-container">
+        <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
+        <ng-template #pageBlock>
 
-        <div class="app-version-block">
-            <h3>
-                {{ 'ADMIN.APP_VERSION_LIST.TITLE' | translate }}
-                <button ion-button class="new-version" (click)="goToAppVersionCreation()" color="primary-light">
-                    <ion-icon name="md-add" ios="md-add"></ion-icon>
-                    <label>{{ 'ADMIN.APP_VERSION_LIST.BUTTONS.ADD_APP_VERSION' | translate }}</label>
-                </button>
-            </h3>
-            <div class="list-container">
-                <app-versions *ngIf="appVersions" [appVersions]="appVersions"></app-versions>
+            <div class="app-version-block">
+                <h3>
+                    {{ 'ADMIN.APP_VERSION_LIST.TITLE' | translate }}
+                    <ion-button class="new-version" (click)="goToAppVersionCreation()" color="primary">
+                        <ion-icon name="md-add" ios="md-add"></ion-icon>
+                        <label>{{ 'ADMIN.APP_VERSION_LIST.BUTTONS.ADD_APP_VERSION' | translate }}</label>
+                    </ion-button>
+                </h3>
+                <div class="list-container">
+                    <app-versions *ngIf="appVersions" [appVersions]="appVersions"></app-versions>
+                </div>
             </div>
-        </div>
-    </ng-template>
+        </ng-template>
+    </div>
 </ion-content>

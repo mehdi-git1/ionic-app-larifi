@@ -1,16 +1,25 @@
-import { ProfessionalInterviewComponent } from './professional-interview.component';
-import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { IonicModule, NavController } from 'ionic-angular';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { Router } from '@angular/router';
+import { IonicModule } from '@ionic/angular';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
-import { TranslateLoaderMock, NavMock } from '../../../../../test-config/mocks-ionic';
-import { TranslateOrEmptyPipe } from '../../../../shared/pipes/translate-or-empty/translate-or-empty.pipe';
-import { TranslateOrEmptyService } from '../../../../core/services/translate/translate-or-empty.service';
-import { ProfessionalInterviewModel } from '../../../../core/models/professional-interview/professional-interview.model';
-import { ProfessionalInterviewStateEnum } from '../../../../core/enums/professional-interview/professional-interview-state.enum';
+import {
+    ProfessionalInterviewStateEnum
+} from '../../../../core/enums/professional-interview/professional-interview-state.enum';
+import {
+    ProfessionalInterviewModel
+} from '../../../../core/models/professional-interview/professional-interview.model';
+import {
+    TranslateOrEmptyService
+} from '../../../../core/services/translate/translate-or-empty.service';
+import {
+    TranslateOrEmptyPipe
+} from '../../../../shared/pipes/translate-or-empty/translate-or-empty.pipe';
+import { ProfessionalInterviewComponent } from './professional-interview.component';
 
 const translateOrEmptyServiceMock = jasmine.createSpyObj('translateOrEmptyServiceMock', ['transform']);
+const TranslateLoaderMock = jasmine.createSpyObj('TranslateLoaderMock', ['instant']);
 
 describe('ProfessionalInterviewComponent', () => {
 
@@ -23,14 +32,14 @@ describe('ProfessionalInterviewComponent', () => {
                 ProfessionalInterviewComponent, TranslateOrEmptyPipe
             ],
             imports: [
-                IonicModule.forRoot(ProfessionalInterviewComponent),
+                IonicModule,
                 TranslateModule.forRoot({
                     loader: { provide: TranslateLoader, useClass: TranslateLoaderMock }
                 })
             ],
             providers: [
                 { provide: TranslateOrEmptyService, useValue: translateOrEmptyServiceMock },
-                { provide: NavController, useClass: NavMock }
+                Router
             ],
             schemas: [NO_ERRORS_SCHEMA]
         });

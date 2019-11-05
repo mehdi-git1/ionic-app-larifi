@@ -1,4 +1,6 @@
-work-rate-circle {
+@import '../../../../theme/colors.scss';
+
+:host {
     display: flex;
     justify-content: center;
     align-items: center;

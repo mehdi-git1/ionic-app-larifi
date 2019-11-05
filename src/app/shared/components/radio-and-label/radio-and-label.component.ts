@@ -1,11 +1,9 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
-
-import { DeviceService } from '../../../core/services/device/device.service';
-import { ConnectivityService } from '../../../core/services/connectivity/connectivity.service';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'radio-and-label',
-  templateUrl: 'radio-and-label.component.html'
+  templateUrl: 'radio-and-label.component.html',
+  styleUrls: ['./radio-and-label.component.scss']
 })
 export class RadioAndLabelComponent {
 

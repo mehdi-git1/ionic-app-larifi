@@ -1,23 +1,23 @@
-page-upcoming-flight-list {
-    .rotation-list > h3 {
-        font-weight: normal;
-        padding: 15px 10px;
-        font-size: 1.2em;
-        color: color($colors, primary);
-        border-radius: 5px
-    }
+@import '../../../../../theme/colors.scss';
 
-    .last-performed-rotations {
-        ion-card-header {
-            background: color($colors, primary-light);
-            color: color($colors, white);
-        }
-    }
+.rotation-list>h3 {
+    font-weight: normal;
+    padding: 15px 10px;
+    font-size: 1.2em;
+    color: var(--ion-color-primary);
+    border-radius: 5px
+}
 
-    .upcoming-rotations {
-        ion-card-header {
-            background: color($colors, primary-dark);
-            color: color($colors, white);
-        }
+::ng-deep .last-performed-rotations {
+    ion-card-header {
+        background: var(--ion-color-primarylight);
+        color: var(--ion-color-white);
+    }
+}
+
+::ng-deep .upcoming-rotations {
+    ion-card-header {
+        background:var(--ion-color-primarydark);
+        color: var(--ion-color-white);
     }
 }

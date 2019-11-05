@@ -1,13 +1,17 @@
+import { Component, Input, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { Component, OnInit, Input } from '@angular/core';
 
-import { FamiliarizationFlightsModel } from '../../../../core/models/statutory-certificate/familiarization-flights.model';
-import { StatutoryCertificateDisplayTypeEnum } from '../../../../core/enums/statutory-certificate-display-type.enum';
-
+import {
+    StatutoryCertificateDisplayTypeEnum
+} from '../../../../core/enums/statutory-certificate-display-type.enum';
+import {
+    FamiliarizationFlightsModel
+} from '../../../../core/models/statutory-certificate/familiarization-flights.model';
 
 @Component({
   selector: 'familiarization-flight',
-  templateUrl: 'familiarization-flight.component.html'
+  templateUrl: 'familiarization-flight.component.html',
+  styleUrls: ['./familiarization-flight.component.scss']
 })
 export class FamiliarizationFlightComponent implements OnInit {
 

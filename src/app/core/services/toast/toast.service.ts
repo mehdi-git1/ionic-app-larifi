@@ -1,12 +1,11 @@
-import { ToastController } from 'ionic-angular';
-import { Injectable } from '@angular/core';
 import { NotificationsService } from 'angular2-notifications';
 
-@Injectable()
+import { Injectable } from '@angular/core';
+
+@Injectable({ providedIn: 'root' })
 export class ToastService {
 
-  constructor(private toastCtrl: ToastController,
-    private simpleNotification: NotificationsService) {
+  constructor(private simpleNotification: NotificationsService) {
   }
 
   /**
@@ -53,9 +52,9 @@ export class ToastService {
   }
 
   /**
-  * Affiche un toast d'info
-  * @param message le message à afficher dans le toast
-  */
+   * Affiche un toast d'info
+   * @param message le message à afficher dans le toast
+   */
   info(message: string, timer = 5000) {
     this.simpleNotification.info(message, '', {
       timeOut: timer,

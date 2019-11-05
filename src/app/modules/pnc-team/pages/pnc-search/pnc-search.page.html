@@ -1,26 +1,31 @@
 <ion-header>
-    <ion-navbar>
-        <page-header (refreshPage)="initPage()" [showRefreshIcon]="true" >{{ 'GLOBAL.PNC_TEAM' | isMyPage | translate }}
+    <ion-toolbar>
+        <page-header (refreshPage)="initPage()" [showRefreshIcon]="true">{{ 'GLOBAL.PNC_TEAM' | translate }}
         </page-header>
-    </ion-navbar>
+    </ion-toolbar>
 </ion-header>
 
-<ion-content padding no-bounce>
-    <pnc-search-filter (onSearch)="searchPncs()" (pncSelected)="openPncHomePage($event)"></pnc-search-filter>
+<ion-content no-bounce>
+    <div class="page-container">
+        <pnc-search-filter (onSearch)="searchPncs()" (pncSelected)="openPncHomePage($event)"></pnc-search-filter>
 
-    <ion-content class="filtered-pnc-list-container">
-        <edossier-spinner *ngIf="searchInProgress"></edossier-spinner>
+        <div class="filtered-pnc-list-container">
+            <edossier-spinner *ngIf="searchInProgress"></edossier-spinner>
 
-        <span *ngIf="!searchInProgress">
-            <div *ngIf="filteredPncs && filteredPncs.length == 0" class="no-data-found">
-                {{ 'PNC_SEARCH.NO_PNC_FOUND' | translate }}
+            <div *ngIf="!searchInProgress">
+                <div *ngIf="filteredPncs && filteredPncs.length == 0" class="no-data-found">
+                    {{ 'PNC_SEARCH.NO_PNC_FOUND' | translate }}
+                </div>
+                <pnc-card *ngFor="let pnc of filteredPncs" [itemMember]="pnc" (click)="openPncHomePage(pnc)">
+                </pnc-card>
             </div>
-            <pnc-card *ngFor="let pnc of filteredPncs" [itemMember]="pnc" (click)="openPncHomePage(pnc)"></pnc-card>
-        </span>
 
-        <strong *ngIf="lastPageReached()" class="no-data-found">{{ 'PNC_SEARCH.END_OF_SEARCH' | translate }}</strong>
-        <ion-infinite-scroll (ionInfinite)="$event.waitFor(doInfinite($event))">
-            <ion-infinite-scroll-content></ion-infinite-scroll-content>
-        </ion-infinite-scroll>
-    </ion-content>
+            <strong *ngIf="lastPageReached()"
+                class="no-data-found">{{ 'PNC_SEARCH.END_OF_SEARCH' | translate }}</strong>
+            <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+                <ion-infinite-scroll-content></ion-infinite-scroll-content>
+            </ion-infinite-scroll>
+        </div>
+
+    </div>
 </ion-content>

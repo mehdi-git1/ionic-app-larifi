@@ -27,6 +27,8 @@ export class LogbookEventModel extends EDossierPncObjectModel {
     type: LogbookEventTypeEnum;
     ccoGroupId: number;
 
+    disabled: boolean;
+
     getStorageId(): string {
         return `${this.techId}`;
     }

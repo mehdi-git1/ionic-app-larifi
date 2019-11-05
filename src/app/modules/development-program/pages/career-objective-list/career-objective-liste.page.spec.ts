@@ -1,24 +1,36 @@
-import { SecurityService } from './../../../../core/services/security/security.service';
-import { ProfessionalInterviewService } from './../../../../core/services/professional-interview/professional-interview.service';
-import { HasPermissionDirective } from './../../../../shared/directives/has-permission/has-permission.directive';
-import { IsMyPage } from './../../../../shared/pipes/is_my_page/is_my_page.pipe';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
-import { EObservationModel } from './../../../../core/models/eobservation/eobservation.model';
-import { PncService } from './../../../../core/services/pnc/pnc.service';
-import { EObservationService } from './../../../../core/services/eobservation/eobservation.service';
-import { SynchronizationService } from './../../../../core/services/synchronization/synchronization.service';
-import { SessionService } from './../../../../core/services/session/session.service';
-import { DeviceService } from './../../../../core/services/device/device.service';
-import { FormsEObservationService } from './../../../../core/services/forms/forms-e-observation.service';
-import { CareerObjectiveService } from './../../../../core/services/career-objective/career-objective.service';
-import { NavMock } from './../../../../../test-config/mocks-ionic';
-import { HttpClient } from '@angular/common/http';
-import { IonicModule, NavController, NavParams } from 'ionic-angular';
-import { CareerObjectiveListPage } from './career-objective-list.page';
-import { ComponentFixture, TestBed, tick, fakeAsync } from '@angular/core/testing';
 import { of } from 'rxjs/observable/of';
+
+import { HttpClient } from '@angular/common/http';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { ActivatedRoute, Router } from '@angular/router';
+import { IonicModule } from '@ionic/angular';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+
+import { EObservationModel } from '../../../../core/models/eobservation/eobservation.model';
+import {
+    CareerObjectiveService
+} from '../../../../core/services/career-objective/career-objective.service';
+import { DeviceService } from '../../../../core/services/device/device.service';
+import { EObservationService } from '../../../../core/services/eobservation/eobservation.service';
+import {
+    FormsEObservationService
+} from '../../../../core/services/forms/forms-e-observation.service';
+import { PncService } from '../../../../core/services/pnc/pnc.service';
+import {
+    ProfessionalInterviewService
+} from '../../../../core/services/professional-interview/professional-interview.service';
+import { SecurityService } from '../../../../core/services/security/security.service';
+import { SessionService } from '../../../../core/services/session/session.service';
+import {
+    SynchronizationService
+} from '../../../../core/services/synchronization/synchronization.service';
+import {
+    HasPermissionDirective
+} from '../../../../shared/directives/has-permission/has-permission.directive';
+import { IsMyPage } from '../../../../shared/pipes/is_my_page/is_my_page.pipe';
+import { CareerObjectiveListPage } from './career-objective-list.page';
 
 const synchronizationProviderMock = jasmine.createSpyObj('SynchronizationProviderMock', ['']);
 synchronizationProviderMock.synchroStatusChange = of({});
@@ -39,7 +51,7 @@ describe('CareerObjectiveListPage', () => {
                 HasPermissionDirective
             ],
             imports: [
-                IonicModule.forRoot(CareerObjectiveListPage),
+                IonicModule,
                 TranslateModule.forRoot({
                     loader: {
                         provide: TranslateLoader,
@@ -50,8 +62,8 @@ describe('CareerObjectiveListPage', () => {
             ],
             providers: [
                 HttpClient,
-                { provide: NavController, useClass: NavMock },
-                { provide: NavParams, useClass: NavMock },
+                Router,
+                ActivatedRoute,
                 { provide: CareerObjectiveService },
                 { provide: SessionService, useValue: sessionServiceMock },
                 { provide: FormsEObservationService },
@@ -60,7 +72,7 @@ describe('CareerObjectiveListPage', () => {
                 { provide: SynchronizationService, useValue: synchronizationProviderMock },
                 { provide: DeviceService },
                 { provide: PncService },
-                { provide: SecurityService}
+                { provide: SecurityService }
             ],
             schemas: [NO_ERRORS_SCHEMA]
         });

@@ -1,11 +1,12 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
-import { DeviceService } from '../../../core/services/device/device.service';
 import { ConnectivityService } from '../../../core/services/connectivity/connectivity.service';
+import { DeviceService } from '../../../core/services/device/device.service';
 
 @Component({
   selector: 'download-button',
-  templateUrl: 'download-button.component.html'
+  templateUrl: 'download-button.component.html',
+  styleUrls: ['./download-button.component.scss']
 })
 export class DownloadButtonComponent {
 
@@ -13,7 +14,8 @@ export class DownloadButtonComponent {
 
   @Output() onDownload: EventEmitter<any> = new EventEmitter();
 
-  constructor(public connectivityService: ConnectivityService,
+  constructor(
+    public connectivityService: ConnectivityService,
     private deviceService: DeviceService) {
   }
 

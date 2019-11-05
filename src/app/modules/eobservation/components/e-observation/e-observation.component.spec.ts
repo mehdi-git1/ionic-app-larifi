@@ -1,19 +1,22 @@
-import { EObservationItemModel } from './../../../../core/models/eobservation/eobservation-item.model';
-import { EObservationComponent } from './e-observation.component';
-import { ReferentialItemLevelModel } from '../../../../core/models/eobservation/eobservation-referential-item-level.model';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { Router } from '@angular/router';
+import { IonicModule } from '@ionic/angular';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+
 import { EObservationLevelEnum } from '../../../../core/enums/e-observations-level.enum';
 import {
-    NavMock,
-    PlatformMock,
-    TranslateLoaderMock
-} from '../../../../../test-config/mocks-ionic';
-import { IonicModule, NavController, Platform } from 'ionic-angular';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { TestBed, ComponentFixture } from '@angular/core/testing';
+    EObservationItemModel
+} from '../../../../core/models/eobservation/eobservation-item.model';
+import {
+    ReferentialItemLevelModel
+} from '../../../../core/models/eobservation/eobservation-referential-item-level.model';
 import { EObservationService } from '../../../../core/services/eobservation/eobservation.service';
-import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { EObservationComponent } from './e-observation.component';
 
 const EObservationServiceMock = jasmine.createSpyObj('EObservationServiceMock', ['getEObservations', 'getDetailOptionType']);
+const TranslateLoaderMock = jasmine.createSpyObj('TranslateLoaderMock', ['instant']);
+const routerMock = jasmine.createSpyObj('routerMock', ['navigate']);
 
 describe('EObservationComponent', () => {
     let fixture: ComponentFixture<EObservationComponent>;
@@ -22,14 +25,13 @@ describe('EObservationComponent', () => {
         TestBed.configureTestingModule({
             declarations: [EObservationComponent],
             imports: [
-                IonicModule.forRoot(EObservationComponent),
+                IonicModule,
                 TranslateModule.forRoot({
                     loader: { provide: TranslateLoader, useClass: TranslateLoaderMock }
                 })
             ],
             providers: [
-                { provide: Platform, useClass: PlatformMock },
-                { provide: NavController, useClass: NavMock },
+                { provide: Router, useValue: routerMock },
                 { provide: EObservationService, useValue: EObservationServiceMock }
             ],
             schemas: [NO_ERRORS_SCHEMA]

@@ -1,11 +1,15 @@
+import * as moment from 'moment';
+
 import { Component, Input } from '@angular/core';
 
-import * as moment from 'moment';
-import { StatutoryCertificateDisplayTypeEnum } from '../../../../core/enums/statutory-certificate-display-type.enum';
+import {
+    StatutoryCertificateDisplayTypeEnum
+} from '../../../../core/enums/statutory-certificate-display-type.enum';
 
 @Component({
   selector: 'statutory-certificate-data',
-  templateUrl: 'statutory-certificate-data.component.html'
+  templateUrl: 'statutory-certificate-data.component.html',
+  styleUrls: ['./statutory-certificate-data.component.scss']
 })
 export class StatutoryCertificateDataComponent {
 
@@ -34,9 +38,9 @@ export class StatutoryCertificateDataComponent {
   }
 
   /**
-     * Vérifie que le chargement est terminé
-     * @return true si c'est le cas, false sinon
-     */
+   * Vérifie que le chargement est terminé
+   * @return true si c'est le cas, false sinon
+   */
   loadingIsOver(): boolean {
     return this.statutoryCertificateData !== undefined;
   }

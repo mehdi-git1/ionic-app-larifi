@@ -1,57 +1,47 @@
-professional-interview {
+ mat-expansion-panel {
+     margin-top: 5px !important;
 
-    mat-expansion-panel {
-        margin-top: 5px !important;
+     mat-expansion-panel-header.professional-interview {
+         background-color: var(--ion-color-white);
+         width: 100%;
+         height: 47px;
+         display: flex;
+         align-items: center;
 
-        mat-expansion-panel-header.professional-interview {
-            background-color: color($colors, white);
-            width: 100%;
-            height: 47px;
-            display: flex;
-            align-items: center;
+         &>* {
+             color: var(--ion-color-white);
+         }
 
-            & > * {
-                color: color($colors, white);
-            }
+         &.mat-expanded:hover,
+         &.mat-expanded:focus {
+             background-color: var(--ion-color-white) !important;
+         }
 
-            &.mat-expanded:hover,
-            &.mat-expanded:focus {
-                background-color: color($colors, white) !important;
-            }
+         color-status-point {
+             margin-right: 6px;
+         }
 
-            .mat-content {
-                display: flex;
-                align-items: center;
+         label {
+             color: var(--ion-color-primary) !important;
+         }
 
-                .status-dot {
-                    margin-right: 6px;
-                }
+         .button-detail {
+             margin-right: 40px;
 
-                label {
-                    color: color($colors, primary);
-                }
+             ion-fab-button {
+                 --box-shadow: none;
+                 color: var(--ion-color-white);
+                 width: 30px;
+                 height: 30px;
 
-                .button-detail {
-                    margin-right: 40px;
+                 span:before {
+                     font-size: 18px;
+                 }
+             }
+         }
 
-                    button {
-                        background-color: color($colors, primary);
-                        box-shadow: none;
-                        color: color($colors, white);
-                        width: 30px;
-                        height: 30px;
-
-                        span:before {
-                            font-size: 18px;
-                        }
-                    }
-                }
-
-                .expansion-button-placeholder {
-                    width: 8px;
-                }
-            }
-
-        }
-    }
-}
+         .expansion-button-placeholder {
+             width: 8px;
+         }
+     }
+ }

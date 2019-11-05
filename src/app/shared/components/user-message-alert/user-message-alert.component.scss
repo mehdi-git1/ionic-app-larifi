@@ -1,5 +1,8 @@
-user-message-alert {
+@import '../../../../theme/colors.scss';
+
+:host {
     color: color($colors-secondary, grey10);
+    height: 100%;
 
     .user-message-alert-wrapper {
         display: none;
@@ -25,18 +28,18 @@ user-message-alert {
                 display: flex;
                 align-items: center;
                 font-weight: bold;
-                background: color($colors, orange55);
+                background: var(--ion-color-orange55);
                 border-radius: 10px 10px 0 0;
 
                 ion-icon {
-                    color: color($colors, white);
+                    color: var(--ion-color-white);
                     font-size: 2.5em;
                     margin-top: -5px;
                     margin-right: 10px;
                 }
 
                 label {
-                    color: color($colors, white);
+                    color: var(--ion-color-white);
                     font-size: 1.6em;
                 }
             }
@@ -45,7 +48,7 @@ user-message-alert {
                 margin: 0;
                 padding: 20px;
                 font-size: 1.1em;
-                color: color($colors, grey20);
+                color: var(--ion-color-grey20);
             }
 
             .button-bar {
@@ -85,7 +88,7 @@ user-message-alert {
         border: 0;
     }
 
-    text-editor .ql-snow *{
+    text-editor .ql-snow * {
         background: transparent;
     }
 }

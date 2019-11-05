@@ -1,16 +1,15 @@
 import { Injectable } from '@angular/core';
 
 import { DateTransform } from '../../../shared/utils/date-transform';
-import { SessionService } from '../session/session.service';
-import { OnlineWaypointService } from './online-waypoint.service';
-import { OfflineWaypointService } from './offline-waypoint.service';
-import { ConnectivityService } from '../connectivity/connectivity.service';
-import { WaypointModel } from '../../models/waypoint.model';
 import { PncModel } from '../../models/pnc.model';
+import { WaypointModel } from '../../models/waypoint.model';
 import { BaseService } from '../base/base.service';
+import { ConnectivityService } from '../connectivity/connectivity.service';
+import { SessionService } from '../session/session.service';
+import { OfflineWaypointService } from './offline-waypoint.service';
+import { OnlineWaypointService } from './online-waypoint.service';
 
-
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class WaypointService extends BaseService {
 
   constructor(
@@ -47,28 +46,28 @@ export class WaypointService extends BaseService {
   }
 
   /**
-  * Récupère les points d'étape d'un objectif
-  * @param careerObjectiveId l'id de l'objectif des points d'étape à récupérer
-  * @return les points d'étape récupérés
-  */
+   * Récupère les points d'étape d'un objectif
+   * @param careerObjectiveId l'id de l'objectif des points d'étape à récupérer
+   * @return les points d'étape récupérés
+   */
   getCareerObjectiveWaypoints(careerObjectiveId: number): Promise<WaypointModel[]> {
     return this.execFunctionService('getCareerObjectiveWaypoints', careerObjectiveId);
   }
 
   /**
-  * Récupère un point d'étape
-  * @param id l'id du point d'étape à récupérer
-  * @return le point d'étape récupéré
-  */
+   * Récupère un point d'étape
+   * @param id l'id du point d'étape à récupérer
+   * @return le point d'étape récupéré
+   */
   getWaypoint(id: number): Promise<WaypointModel> {
     return this.execFunctionService('getWaypoint', id);
   }
 
   /**
-  * Supprime un point d'étape
-  * @param id l'id du point d'étape à supprimer
-  * @return le point d'étape supprimé
-  */
+   * Supprime un point d'étape
+   * @param id l'id du point d'étape à supprimer
+   * @return le point d'étape supprimé
+   */
   delete(id: number): Promise<WaypointModel> {
     return this.execFunctionService('delete', id);
   }

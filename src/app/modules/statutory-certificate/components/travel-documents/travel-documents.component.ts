@@ -1,12 +1,19 @@
+
+
 import { DatePipe } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 
-import * as _ from 'lodash';
-import { StatutoryCertificateDisplayTypeEnum } from '../../../../core/enums/statutory-certificate-display-type.enum';
-import { TravelDocumentsModel } from '../../../../core/models/statutory-certificate/travel-documents.model';
+import {
+    StatutoryCertificateDisplayTypeEnum
+} from '../../../../core/enums/statutory-certificate-display-type.enum';
+import {
+    TravelDocumentsModel
+} from '../../../../core/models/statutory-certificate/travel-documents.model';
+
 @Component({
     selector: 'travel-documents',
-    templateUrl: 'travel-documents.component.html'
+    templateUrl: 'travel-documents.component.html',
+    styleUrls: ['./travel-documents.component.scss']
 })
 export class TravelDocumentsComponent implements OnInit {
 

@@ -1,20 +1,16 @@
-import { Events, NavController } from 'ionic-angular';
-
 import { AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
+import { Events } from '@ionic/angular';
 
-import { PncRoleEnum } from '../../../core/enums/pnc-role.enum';
 import { TabHeaderModeEnum } from '../../../core/enums/tab-header-mode.enum';
 import { TabHeaderEnum } from '../../../core/enums/tab-header.enum';
 import { SessionService } from '../../../core/services/session/session.service';
 import { TabHeaderService } from '../../../core/services/tab-header/tab-header.service';
-import {
-    CareerObjectiveListPage
-} from '../../../modules/development-program/pages/career-objective-list/career-objective-list.page';
-import { PncHomePage } from '../../../modules/home/pages/pnc-home/pnc-home.page';
 
 @Component({
   selector: 'tab-header',
-  templateUrl: 'tab-header.component.html'
+  templateUrl: 'tab-header.component.html',
+  styleUrls: ['./tab-header.component.scss']
 })
 export class TabHeaderComponent implements OnInit, AfterViewInit {
 
@@ -22,7 +18,7 @@ export class TabHeaderComponent implements OnInit, AfterViewInit {
 
   @Input() activeTab: TabHeaderEnum;
 
-  @ViewChild('tabListRef') tabListRef: ElementRef;
+  @ViewChild('tabListRef', { static: false }) tabListRef: ElementRef;
 
   tabList: Array<any>;
 
@@ -30,7 +26,7 @@ export class TabHeaderComponent implements OnInit, AfterViewInit {
 
   constructor(
     private events: Events,
-    private navCtrl: NavController,
+    private router: Router,
     private tabHeaderService: TabHeaderService,
     private sessionService: SessionService
   ) {
@@ -45,7 +41,8 @@ export class TabHeaderComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     if (this.tabListRef && this.tabListRef.nativeElement.querySelector(`#${this.activeTab}`)) {
-      this.tabListRef.nativeElement.querySelector(`#${this.activeTab}`).scrollIntoView({ behavior: 'instant', block: 'center', inline: 'center' });
+      this.tabListRef.nativeElement
+        .querySelector(`#${this.activeTab}`).scrollIntoView({ behavior: 'instant', block: 'center', inline: 'center' });
     }
   }
 
@@ -61,14 +58,11 @@ export class TabHeaderComponent implements OnInit, AfterViewInit {
    * @param tab l'onglet vers lequel naviguer
    */
   openTab(tab: any) {
-    let navParams = {};
-    if (this.mode === TabHeaderModeEnum.EDOSSIER && !this.sessionService.isActiveUser(this.sessionService.visitedPnc)) {
-      navParams = {
-        matricule: this.sessionService.visitedPnc ? this.sessionService.visitedPnc.matricule : this.sessionService.getActiveUser().matricule,
-        pncRole: this.sessionService.visitedPnc && this.sessionService.visitedPnc.manager ? PncRoleEnum.MANAGER : PncRoleEnum.PNC
-      };
+    if (this.mode === TabHeaderModeEnum.EDOSSIER) {
+      this.router.navigate(['tabs', 'visit', this.sessionService.visitedPnc.matricule, tab.route]);
+    } else {
+      this.router.navigate([tab.route]);
     }
-    this.navCtrl.setRoot(tab.component, navParams);
   }
 
   /**
@@ -77,13 +71,17 @@ export class TabHeaderComponent implements OnInit, AfterViewInit {
    * @return vrai s'il s'agit de l'onglet actif, faux sinon
    */
   isActive(tab: any): boolean {
-    return this.activeTab == tab.id;
+    return this.activeTab === tab.id;
   }
 
   /**
-   * Retour à la page d'accueil
+   * Redirige vers la page d'accueil
    */
   goToHome() {
-    this.navCtrl.setRoot(this.sessionService.getActiveUser().isManager ? PncHomePage : CareerObjectiveListPage, { matricule: this.sessionService.getActiveUser().matricule });
+    if (this.sessionService.getActiveUser().isManager) {
+      this.router.navigate(['tabs', 'home']);
+    } else {
+      this.router.navigate(['career-objective']);
+    }
   }
 }

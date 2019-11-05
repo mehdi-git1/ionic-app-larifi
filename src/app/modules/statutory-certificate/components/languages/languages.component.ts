@@ -1,12 +1,17 @@
+
+
 import { DatePipe } from '@angular/common';
-import { LanguageModel } from './../../../../core/models/statutory-certificate/language.model';
 import { Component, Input, OnInit } from '@angular/core';
 
-import * as _ from 'lodash';
-import { StatutoryCertificateDisplayTypeEnum } from '../../../../core/enums/statutory-certificate-display-type.enum';
+import {
+    StatutoryCertificateDisplayTypeEnum
+} from '../../../../core/enums/statutory-certificate-display-type.enum';
+import { LanguageModel } from '../../../../core/models/statutory-certificate/language.model';
+
 @Component({
     selector: 'pnc-languages',
-    templateUrl: 'languages.component.html'
+    templateUrl: 'languages.component.html',
+    styleUrls: ['./languages.component.scss']
 })
 export class LanguagesComponent implements OnInit {
 

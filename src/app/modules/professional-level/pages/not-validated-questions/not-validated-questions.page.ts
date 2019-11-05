@@ -1,6 +1,4 @@
-import { NavParams } from 'ionic-angular';
-
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { CursusOrderEnum } from '../../../../core/enums/cursus-order.enum';
 import { PncModel } from '../../../../core/models/pnc.model';
@@ -10,20 +8,21 @@ import { StageModel } from '../../../../core/models/professional-level/stage.mod
 @Component({
   selector: 'not-validated-questions',
   templateUrl: 'not-validated-questions.page.html',
+  styleUrls: ['./not-validated-questions.page.scss']
 })
-export class NotValidatedQuestionsPage {
+export class NotValidatedQuestionsPage implements OnInit {
 
   stage: StageModel;
   module: ModuleModel;
   pnc: PncModel;
 
-  constructor(private navParams: NavParams) {
-    this.stage = this.navParams.get('stage');
-    this.module = this.navParams.get('module');
-    this.pnc = this.navParams.get('pnc');
+  constructor() {
+    this.stage = history.state.data.stage;
+    this.module = history.state.data.module;
+    this.pnc = history.state.data.pnc;
   }
 
-  ionViewDidLoad() {
+  ngOnInit() {
     this.sortModuleCursus();
   }
 

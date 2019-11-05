@@ -1,11 +1,13 @@
-import { EObservationModel } from '../../../../core/models/eobservation/eobservation.model';
-import { Component, Input, OnChanges } from '@angular/core';
 import * as moment from 'moment';
-import * as _ from 'lodash';
+
+import { Component, Input, OnChanges } from '@angular/core';
+
+import { EObservationModel } from '../../../../core/models/eobservation/eobservation.model';
 
 @Component({
   selector: 'e-observations',
-  templateUrl: 'e-observations.component.html'
+  templateUrl: 'e-observations.component.html',
+  styleUrls: ['./e-observations.component.scss']
 })
 
 export class EObservationsComponent implements OnChanges {

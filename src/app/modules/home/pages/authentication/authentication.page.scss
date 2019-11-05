@@ -1,27 +1,27 @@
-page-authentication {
-    .form-auth {
-        margin: 100px auto;
-        min-width: 400px;
-        width: 50%;
-    }
+@import '../../../../../theme/colors.scss';
 
-    .button {
-        margin-top: 20px;
-    }
+.form-auth {
+    margin: 100px auto;
+    min-width: 400px;
+    width: 50%;
+}
 
-    .item-inner {
-        border: none !important;
-    }
+.button {
+    margin-top: 20px;
+}
 
-    ion-spinner {
-        margin: auto;
-        margin-top: 20px;
-    }
+.item-inner {
+    border: none !important;
+}
 
-    .error-message {
-        text-align: center;
-        font-size: 1.5em;
-        margin-top: 100px;
-        color: color($colors-secondary, red80);
-    }
+ion-spinner {
+    margin: auto;
+    margin-top: 20px;
+}
+
+.error-message {
+    text-align: center;
+    font-size: 1.5em;
+    margin-top: 100px;
+    color: color($colors-secondary, red80);
 }

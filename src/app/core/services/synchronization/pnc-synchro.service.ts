@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 
 import { UrlConfiguration } from '../../configuration/url.configuration';
-import { PncSynchroModel } from '../../models/pnc-synchro.model';
 import { RestService } from '../../http/rest/rest.base.service';
+import { PncSynchroModel } from '../../models/pnc-synchro.model';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class PncSynchroService {
 
   constructor(

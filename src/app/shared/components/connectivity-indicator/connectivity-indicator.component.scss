@@ -1,67 +1,67 @@
-connectivity-indicator {
-    div {
-        width: 30px;
-        height: 30px;
-        border-radius: 100%;
-        margin-right: 10px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
+@import '../../../../theme/colors.scss';
 
-        & > * {
-            position: absolute;
-        }
+div {
+    width: 30px;
+    height: 30px;
+    border-radius: 100%;
+    margin-right: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
-        &:not(.offline) {
-            background: color($colors-secondary, green60);
-        }
+    &>* {
+        position: absolute;
     }
 
-    .offline {
-        background: color($colors, orange55);
+    &:not(.offline) {
+        background: color($colors-secondary, green60);
+    }
+}
+
+.offline {
+    background: var(--ion-color-orange55);
+}
+
+.synchro-progress {
+    font-size: 0.8em;
+    z-index: 2;
+    color: var(--ion-color-white);
+}
+
+.synchro-progress:after {
+    content: '%';
+}
+
+.synchro-in-progress {
+    border: 3px solid color($colors-secondary, grey95);
+    border-top: 3px solid var(--ion-color-primary);
+
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    animation: spin 2s linear infinite;
+}
+
+.synchro-error-count {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 100%;
+    color: var(--ion-color-danger);
+    font-size: 1.8em;
+    font-weight: 600;
+    text-shadow: 1px 1px 1px var(--ion-color-grey70),
+        -1px 1px 1px var(--ion-color-grey70),
+        1px -1px 1px var(--ion-color-grey70),
+        -1px -1px 1px var(--ion-color-grey70);
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
     }
 
-    .synchro-progress {
-        font-size: 0.8em;
-        z-index: 2;
-        color: color($colors, white);
-    }
-
-    .synchro-progress:after {
-        content: '%';
-    }
-
-    .synchro-in-progress {
-        border: 3px solid color($colors-secondary, grey95);
-        border-top: 3px solid color($colors, primary);
-
-        border-radius: 50%;
-        width: 30px;
-        height: 30px;
-        animation: spin 2s linear infinite;
-    }
-
-    .synchro-error-count {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        border-radius: 100%;
-        color: color($colors, red70);
-        font-size: 1.8em;
-        font-weight: 600;
-        text-shadow: 1px 1px 1px color($colors-secondary, grey70),
-            -1px 1px 1px color($colors-secondary, grey70),
-            1px -1px 1px color($colors-secondary, grey70),
-            -1px -1px 1px color($colors-secondary, grey70);
-    }
-
-    @keyframes spin {
-        0% {
-            transform: rotate(0deg);
-        }
-
-        100% {
-            transform: rotate(360deg);
-        }
+    100% {
+        transform: rotate(360deg);
     }
 }

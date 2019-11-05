@@ -1,13 +1,14 @@
+@import './colors.scss';
+
 /* Largeur auto pour l'autocomplétion */
 
 .mat-autocomplete-panel,
 .cdk-overlay-pane {
-    background: color($colors, white);
+    background: var(--ion-color-white);
     width: auto !important;
     max-width: none !important;
 }
 
 .cdk-overlay-pane {
     max-height: none !important;
-}    
-
+}

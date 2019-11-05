@@ -1,13 +1,15 @@
-import { UnsupportedNavigatorMessagePage } from './pages/unsupported-navigator/unsupported-navigator-message.page';
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { IonicPageModule } from 'ionic-angular';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { IonicModule } from '@ionic/angular';
 
-import { SharedModule } from '../../shared/shared.module';
 import { ComponentsModule } from '../../shared/components/components.module';
-import { PncHomePage } from './pages/pnc-home/pnc-home.page';
-import { GenericMessagePage } from './pages/generic-message/generic-message.page';
+import { SharedModule } from '../../shared/shared.module';
 import { AuthenticationPage } from './pages/authentication/authentication.page';
-
+import { GenericMessagePage } from './pages/generic-message/generic-message.page';
+import { PncHomePage } from './pages/pnc-home/pnc-home.page';
+import {
+    UnsupportedNavigatorMessagePage
+} from './pages/unsupported-navigator/unsupported-navigator-message.page';
 
 @NgModule({
   declarations: [
@@ -17,9 +19,11 @@ import { AuthenticationPage } from './pages/authentication/authentication.page';
     UnsupportedNavigatorMessagePage
   ],
   imports: [
-    [IonicPageModule.forChild(PncHomePage)],
+    IonicModule,
     SharedModule,
-    ComponentsModule
+    ComponentsModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   entryComponents: [
     GenericMessagePage,

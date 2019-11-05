@@ -14,7 +14,7 @@
             <work-rate-circle workRate="{{pnc.workRate}}" diameter="70" strokeWidth="6"></work-rate-circle>
         </div>
         <div class="data-container">
-            <ion-icon name="ios-plane"></ion-icon>
+            <ion-icon name="airplane"></ion-icon>
             <div class="pnc-info-data" [ngClass]="{'no-value' : !pnc.aircraftSkillsLabel || !pnc.aircraftSkillsLabel[0] }">
                 <span *ngFor="let label of pnc.aircraftSkillsLabel; index as i; last as l">{{label}}<span *ngIf="!l">, </span></span>
             </div>

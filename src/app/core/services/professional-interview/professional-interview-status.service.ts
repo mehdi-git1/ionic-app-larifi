@@ -1,8 +1,10 @@
-import { ProfessionalInterviewStateEnum } from './../../enums/professional-interview/professional-interview-state.enum';
-import { CareerObjectiveStatusEnum } from '../../enums/career-objective-status.enum';
 import { Injectable } from '@angular/core';
 
-@Injectable()
+import {
+    ProfessionalInterviewStateEnum
+} from '../../enums/professional-interview/professional-interview-state.enum';
+
+@Injectable({ providedIn: 'root' })
 export class ProfessionalInterviewStatusService {
 
   /**
@@ -17,10 +19,7 @@ export class ProfessionalInterviewStatusService {
       // Liste des nouveaux statuts authorisés
       return [ProfessionalInterviewStateEnum.DRAFT, ProfessionalInterviewStateEnum.NOT_TAKEN_INTO_ACCOUNT].indexOf(newStatus) > -1;
     }
-    /**
-     * Pour un bilan professionnel en statut consulter, on a le droit de:
-     * le prendre en compte.
-    */
+    // Pour un bilan professionnel en statut consulter, on a le droit de le prendre en compte
     if (currentStatus === ProfessionalInterviewStateEnum.CONSULTED) {
       // Liste des nouveaux statuts authorisés
       return [ProfessionalInterviewStateEnum.TAKEN_INTO_ACCOUNT].indexOf(newStatus) > -1;

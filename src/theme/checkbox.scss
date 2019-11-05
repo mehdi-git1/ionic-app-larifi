@@ -1,4 +1,6 @@
+@import './colors.scss';
+
 .checkbox .checkbox-checked {
-    border-color: color($colors, secondary);
-    background: color($colors, secondary);
+    border-color: var(--ion-color-secondary);
+    background: var(--ion-color-secondary);
 }

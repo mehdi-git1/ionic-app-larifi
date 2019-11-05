@@ -1,15 +1,17 @@
-tab-header {
+@import '../../../../theme/colors.scss';
+
+:host {
     font-family: ExcellenceBold;
     width: 100%;
     display: flex;
     justify-content: center;
-    background: color($colors, white);
+    background: var(--ion-color-white);
 
     .tab-list {
         display: flex;
         overflow-x: auto;
-        background: color($colors, white);
-        color: color($colors, primary);
+        background: var(--ion-color-white);
+        color: var(--ion-color-primary);
         flex-wrap: nowrap;
 
         .tab {
@@ -25,8 +27,8 @@ tab-header {
             border-bottom: 2px solid transparent;
 
             &.active {
-                color: color($colors, secondary);
-                border-bottom: 2px solid color($colors, secondary);
+                color: var(--ion-color-secondary);
+                border-bottom: 2px solid var(--ion-color-secondary);
             }
 
             ion-icon {
@@ -48,12 +50,12 @@ tab-header {
                 align-items: center;
                 height: 49px;
                 padding: 0 5px;
-                background: color($colors, white);
+                background: var(--ion-color-white);
                 position: absolute;
                 right: 0px;
                 font-size: 2em;
 
-                color: color($colors, primary);
+                color: var(--ion-color-primary);
             }
         }
 

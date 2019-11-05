@@ -1,12 +1,9 @@
-import { AlertController, PopoverController, ToastController } from 'ionic-angular';
-
 import { Component, ElementRef, Input, ViewChild } from '@angular/core';
+import { AlertController, PopoverController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 
 import { FileService } from '../../../core/file/file.service';
-import {
-    DocumentModel, DocumentTypeEnum, DocumentTypeIconFileName
-} from '../../../core/models/document.model';
+import { DocumentModel, DocumentTypeIconFileName } from '../../../core/models/document.model';
 import { ConnectivityService } from '../../../core/services/connectivity/connectivity.service';
 import { DeviceService } from '../../../core/services/device/device.service';
 import { DocumentService } from '../../../core/services/document/document.service';
@@ -19,14 +16,15 @@ const BASE_64 = 'base64,';
 const DEFAULT_FILES_MAX_SIZE = 25000000;
 @Component({
   selector: 'document-manager',
-  templateUrl: 'document-manager.component.html'
+  templateUrl: 'document-manager.component.html',
+  styleUrls: ['./document-manager.component.scss']
 })
 export class DocumentManagerComponent {
 
   /**
    * Native upload button
    */
-  @ViewChild('fileUpload') private fileUpload: ElementRef;
+  @ViewChild('fileUpload', { static: false }) private fileUpload: ElementRef;
 
   _documents: Array<DocumentModel>;
 
@@ -42,10 +40,11 @@ export class DocumentManagerComponent {
     }
     this._documents = documents;
   }
-  get documents(): Array<DocumentModel>{
+  get documents(): Array<DocumentModel> {
     return this._documents;
   }
-  constructor(public popoverCtrl: PopoverController,
+  constructor(
+    public popoverCtrl: PopoverController,
     private documentService: DocumentService,
     private fileService: FileService,
     private deviceService: DeviceService,
@@ -54,11 +53,11 @@ export class DocumentManagerComponent {
     private translateService: TranslateService,
     private toastService: ToastService,
     private sessionService: SessionService) {
-      this.filesMaxSize = this.sessionService.getActiveUser().appInitData.attachmentsMaxSize;
+    this.filesMaxSize = this.sessionService.getActiveUser().appInitData.attachmentsMaxSize;
   }
 
   getFilesMaxSizeInMo() {
-    return Math.round( this.filesMaxSize / 1000000);
+    return Math.round(this.filesMaxSize / 1000000);
   }
 
   /**
@@ -85,13 +84,15 @@ export class DocumentManagerComponent {
         addedFilesFullSize += file.size;
       }
       if (this.filesSize + addedFilesFullSize > this.filesMaxSize) {
-        this.toastService.warning(this.translateService.instant('GLOBAL.DOCUMENT.ERROR_MULTI_MAX_FILES_SIZE_REACHED', { maxSize: this.getFilesMaxSizeInMo() }));
+        this.toastService.warning(this.translateService
+          .instant('GLOBAL.DOCUMENT.ERROR_MULTI_MAX_FILES_SIZE_REACHED', { maxSize: this.getFilesMaxSizeInMo() }));
         return;
       }
     }
     for (const file of files) {
       if (this.filesSize + file.size > this.filesMaxSize) {
-        this.toastService.warning(this.translateService.instant('GLOBAL.DOCUMENT.ERROR_MAX_FILES_SIZE_REACHED', { fileName: file.name, maxSize: this.getFilesMaxSizeInMo() }));
+        this.toastService.warning(this.translateService
+          .instant('GLOBAL.DOCUMENT.ERROR_MAX_FILES_SIZE_REACHED', { fileName: file.name, maxSize: this.getFilesMaxSizeInMo() }));
       } else {
         const myReader: FileReader = new FileReader();
         let content;
@@ -139,8 +140,13 @@ export class DocumentManagerComponent {
       this.visualizationUnavailablePopup();
     }
     if (this.documentService.isPreviewable(document.type) && this.deviceService.isBrowser()) {
-      const popover = this.popoverCtrl.create(DocumentViewerComponent, { document: document }, { cssClass: 'document-viewer-popover' });
-      popover.present({});
+      this.popoverCtrl.create({
+        component: DocumentViewerComponent,
+        componentProps: { document: document },
+        cssClass: 'document-viewer-popover'
+      }).then(popover => {
+        popover.present();
+      });
     } else {
       this.loading = true;
       if (!document.content) {
@@ -164,7 +170,7 @@ export class DocumentManagerComponent {
   visualizationUnavailablePopup() {
     return new Promise((resolve, reject) => {
       this.alertCtrl.create({
-        title: this.translateService.instant('CONGRATULATION_LETTER_DETAIL.ATTACHMENT_FILES.VISUALIZATION_UNAVAILABLE.TITLE'),
+        header: this.translateService.instant('CONGRATULATION_LETTER_DETAIL.ATTACHMENT_FILES.VISUALIZATION_UNAVAILABLE.TITLE'),
         message: this.translateService.instant('CONGRATULATION_LETTER_DETAIL.ATTACHMENT_FILES.VISUALIZATION_UNAVAILABLE.MESSAGE'),
         buttons: [
           {
@@ -172,7 +178,9 @@ export class DocumentManagerComponent {
             handler: () => resolve()
           }
         ]
-      }).present();
+      }).then(alert => {
+        alert.present();
+      });
     });
   }
 }

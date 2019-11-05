@@ -1,22 +1,24 @@
 <ion-header>
-    <ion-navbar>
-        <page-header [showSettingsIcon]="false">{{ 'AUTHENT.AUTHENTICATION' | translate }}
-        </page-header>
-    </ion-navbar>
+    <ion-toolbar>
+        <page-header [showSettingsIcon]="false">{{ 'AUTHENT.AUTHENTICATION' | translate }}</page-header>
+    </ion-toolbar>
 </ion-header>
 
-<ion-content class="container" padding>
-    <form class="row justify-content-center form-auth" [formGroup]="loginForm" (ngSubmit)="sendAuthent()">
-        <ion-item>
-            <ion-label floating>{{ 'AUTHENT.LOGIN' | translate }}</ion-label>
-            <ion-input formControlName="login" type="text"></ion-input>
-        </ion-item>
-        <ion-item>
-            <ion-label floating>{{ 'AUTHENT.PASSWORD' | translate }}</ion-label>
-            <ion-input formControlName="password" type="password"></ion-input>
-        </ion-item>
-        <button ion-button type="submit" [hidden]="!hideSpinner" block [disabled]="loginForm.invalid">{{ 'AUTHENT.VALIDATE' | translate }}</button>
-        <ion-spinner text-center [hidden]="hideSpinner"></ion-spinner>
-    </form>
-    <div class="error-message" *ngIf="errorMsg">{{ errorMsg }}</div>
+<ion-content>
+    <div class="page-container">
+        <form class="row justify-content-center form-auth" [formGroup]="loginForm" (ngSubmit)="sendAuthent()">
+            <ion-item>
+                <ion-label position="floating">{{ 'AUTHENT.LOGIN' | translate }}</ion-label>
+                <ion-input formControlName="login" type="text"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label position="floating">{{ 'AUTHENT.PASSWORD' | translate }}</ion-label>
+                <ion-input formControlName="password" type="password"></ion-input>
+            </ion-item>
+            <ion-button type="submit" [hidden]="!hideSpinner" expand="block" [disabled]="loginForm.invalid">
+                {{ 'AUTHENT.VALIDATE' | translate }}</ion-button>
+            <ion-spinner text-center [hidden]="hideSpinner"></ion-spinner>
+        </form>
+        <div class="error-message" *ngIf="errorMsg">{{ errorMsg }}</div>
+    </div>
 </ion-content>

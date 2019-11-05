@@ -1,8 +1,7 @@
-import * as moment from 'moment';
+
 
 import { Injectable } from '@angular/core';
 
-import { AppConstant } from '../../../app.constant';
 import { EntityEnum } from '../../enums/entity.enum';
 import { PageModel } from '../../models/page.model';
 import { PagedPncModel } from '../../models/paged-pnc.model';
@@ -11,7 +10,7 @@ import { RotationModel } from '../../models/rotation.model';
 import { StorageService } from '../../storage/storage.service';
 import { SessionService } from '../session/session.service';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class OfflinePncService {
 
   constructor(
@@ -39,9 +38,9 @@ export class OfflinePncService {
   }
 
   /**
-    * Récupère les PNCs du cache
-    * @return une promesse contenant les PNC trouvés
-    */
+   * Récupère les PNCs du cache
+   * @return une promesse contenant les PNC trouvés
+   */
   getFilteredPncs(): Promise<PagedPncModel> {
     return this.storageService.findAllAsync(EntityEnum.PNC).then(response => {
       return this.getPnc(this.sessionService.getActiveUser().matricule).then(connectedPnc => {
@@ -74,10 +73,10 @@ export class OfflinePncService {
   }
 
   /**
-  * Retrouve les rotations opérées et à faire par un PNC
-  * @param matricule le matricule du PNC dont on souhaite récupérer les rotations
-  * @return une promesse contenant les rotations opérées et à faire par le PNC
-   }*/
+   * Retrouve les rotations opérées et à faire par un PNC
+   * @param matricule le matricule du PNC dont on souhaite récupérer les rotations
+   * @return une promesse contenant les rotations opérées et à faire par le PNC
+   */
   getAllRotationsByMatricule(matricule: string): Promise<RotationModel[]> {
     return this.storageService.findAllAsync(EntityEnum.ROTATION);
   }

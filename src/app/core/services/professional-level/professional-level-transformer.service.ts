@@ -1,7 +1,8 @@
-import { ProfessionalLevelModel } from '../../models/professional-level/professional-level.model';
 import { Injectable } from '@angular/core';
 
-@Injectable()
+import { ProfessionalLevelModel } from '../../models/professional-level/professional-level.model';
+
+@Injectable({ providedIn: 'root' })
 export class ProfessionalLevelTransformerService {
 
   toProfessionalLevel(object: any): ProfessionalLevelModel {

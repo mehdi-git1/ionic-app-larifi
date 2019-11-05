@@ -1,14 +1,12 @@
-import { UserMessageKeyEnum } from '../../enums/admin/user-message-key.enum';
-import { UserMessageModel } from '../../models/admin/user-message.model';
+
+
 import { Injectable } from '@angular/core';
-import { EntityEnum } from '../../enums/entity.enum';
 
-import * as moment from 'moment';
-import { RestService } from '../../http/rest/rest.base.service';
 import { UrlConfiguration } from '../../configuration/url.configuration';
+import { RestService } from '../../http/rest/rest.base.service';
+import { UserMessageModel } from '../../models/admin/user-message.model';
 
-
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class UserMessageService {
 
   constructor(private restService: RestService,

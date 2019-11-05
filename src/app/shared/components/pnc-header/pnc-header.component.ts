@@ -1,17 +1,19 @@
-import { RelayModel } from '../../../core/models/statutory-certificate/relay.model';
-import { PncModel } from '../../../core/models/pnc.model';
-import { Component, Input, ViewChild, OnChanges } from '@angular/core';
+import { Component, Input, OnChanges, ViewChild } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 
-import { SynchronizationService } from '../../../core/services/synchronization/synchronization.service';
-import { ToastService } from '../../../core/services/toast/toast.service';
+import { PncModel } from '../../../core/models/pnc.model';
+import { RelayModel } from '../../../core/models/statutory-certificate/relay.model';
 import { PncService } from '../../../core/services/pnc/pnc.service';
+import {
+    SynchronizationService
+} from '../../../core/services/synchronization/synchronization.service';
+import { ToastService } from '../../../core/services/toast/toast.service';
 import { OfflineIndicatorComponent } from '../offline-indicator/offline-indicator.component';
-
 
 @Component({
   selector: 'pnc-header',
-  templateUrl: 'pnc-header.component.html'
+  templateUrl: 'pnc-header.component.html',
+  styleUrls: ['./pnc-header.component.scss']
 })
 export class PncHeaderComponent implements OnChanges {
 
@@ -19,7 +21,7 @@ export class PncHeaderComponent implements OnChanges {
   formatedSpeciality: string;
   synchroInProgress: boolean;
 
-  @ViewChild(OfflineIndicatorComponent)
+  @ViewChild(OfflineIndicatorComponent, { static: false })
   private offlineIndicatorComponent: OfflineIndicatorComponent;
 
   constructor(

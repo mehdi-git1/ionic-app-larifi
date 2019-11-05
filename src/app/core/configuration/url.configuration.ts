@@ -1,9 +1,9 @@
-import { DirectivesModule } from './../../shared/directives/directives.module';
 import { Injectable } from '@angular/core';
-import { urlGroupEnum } from './url-group.enum';
-import { Config } from '../../../environments/config';
 
-@Injectable()
+import { Config } from '../../../environments/config';
+import { urlGroupEnum } from './url-group.enum';
+
+@Injectable({ providedIn: 'root' })
 export class UrlConfiguration {
 
   constructor(private config: Config) {

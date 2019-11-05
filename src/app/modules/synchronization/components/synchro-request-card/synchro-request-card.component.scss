@@ -1,4 +1,6 @@
-synchro-request-card {
+@import '../../../../../theme/colors.scss';
+
+:host {
     display: flex;
     min-height: 50px;
     max-height: 50px;
@@ -6,7 +8,7 @@ synchro-request-card {
     margin-bottom: 10px;
     padding: 10px;
     border-radius: 5px;
-    background: color($colors, white);
+    background: var(--ion-color-white);
 
     box-shadow: 0 3px 1px -2px rgba(0, 0, 0, .2),
         0 2px 2px 0 rgba(0, 0, 0, .14),
@@ -18,7 +20,7 @@ synchro-request-card {
         flex-direction: column;
         height: 30px;
 
-        & > * {
+        &>* {
             flex: 1;
             display: flex;
             align-items: center;

@@ -1,19 +1,21 @@
-import { ReplaceByPointPipe } from './../../../../../shared/pipes/replace-by-point/replaceByPoint.pipe';
-import { ModuleModel } from './../../../../../core/models/professional-level/module.model';
-import { EvaluationSheetService } from './../../../../../core/services/professional-level/evaluation-sheet/evaluation-sheet.service';
-import { ProfessionalLevelService } from './../../../../../core/services/professional-level/professional-level.service';
-import { TranslateLoaderMock, NavMock } from './../../../../../../test-config/mocks-ionic';
-import { EvaluationSheetPage } from './evaluation-sheet.page';
+import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { ActivatedRoute } from '@angular/router';
+import { IonicModule, NavParams } from '@ionic/angular';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { IonicModule, NavParams } from 'ionic-angular';
-import { async, TestBed, ComponentFixture, tick, fakeAsync } from '@angular/core/testing';
-import { NO_ERRORS_SCHEMA, DebugElement } from '@angular/core';
-import { ScorePercentPipe } from '../../../../../shared/pipes/score-percent/score-percent.pipe';
-import { SessionService } from '../../../../../core/services/session/session.service';
-import { PncService } from '../../../../../core/services/pnc/pnc.service';
-import { IsMyPage } from '../../../../../shared/pipes/is_my_page/is_my_page.pipe';
 
+import { PncService } from '../../../../../core/services/pnc/pnc.service';
+import {
+    EvaluationSheetService
+} from '../../../../../core/services/professional-level/evaluation-sheet/evaluation-sheet.service';
+import { SessionService } from '../../../../../core/services/session/session.service';
+import { IsMyPage } from '../../../../../shared/pipes/is_my_page/is_my_page.pipe';
+import {
+    ReplaceByPointPipe
+} from '../../../../../shared/pipes/replace-by-point/replaceByPoint.pipe';
+import { ScorePercentPipe } from '../../../../../shared/pipes/score-percent/score-percent.pipe';
+import { EvaluationSheetPage } from './evaluation-sheet.page';
 
 const testEvaluationSheetData = {
     stageCode: 'SMG',
@@ -40,7 +42,9 @@ const PncServiceMock = jasmine.createSpyObj('SessionServiceMock', ['getPnc']);
 PncServiceMock.getPnc.and.returnValue(Promise.resolve('ok'));
 
 const SessionServiceMock = jasmine.createSpyObj('SessionServiceMock', ['isActiveUser']);
-
+const TranslateLoaderMock = jasmine.createSpyObj('TranslateLoaderMock', ['instant']);
+const NavMock = jasmine.createSpyObj('NavMock', ['']);
+const ActivatedRouteMock = jasmine.createSpyObj('ActivatedRouteMock', ['']);
 
 describe('EvaluationSheetPage', () => {
 
@@ -58,16 +62,17 @@ describe('EvaluationSheetPage', () => {
                 IsMyPage
             ],
             imports: [
-                IonicModule.forRoot(EvaluationSheetPage),
+                IonicModule,
                 TranslateModule.forRoot({
                     loader: { provide: TranslateLoader, useClass: TranslateLoaderMock }
                 })
             ],
             providers: [
-                { provide: NavParams, useClass: NavMock },
+                { provide: NavParams, useValue: NavMock },
                 { provide: EvaluationSheetService, useValue: EvaluationSheetServiceMock },
                 { provide: SessionService, useValue: SessionServiceMock },
-                { provide: PncService, useValue: PncServiceMock }
+                { provide: PncService, useValue: PncServiceMock },
+                { provide: ActivatedRoute, useValue: ActivatedRouteMock }
             ],
             schemas: [NO_ERRORS_SCHEMA]
         });
@@ -83,7 +88,7 @@ describe('EvaluationSheetPage', () => {
     }));
 
     it(`doit faire disparaître le spinner lorsqu'il n'y a pas de moduleId`, () => {
-        spyOn(navParams, 'get').and.callFake(function (value) {
+        spyOn(navParams, 'get').and.callFake((value) => {
             if (value === 'moduleId') {
                 return null;
             }

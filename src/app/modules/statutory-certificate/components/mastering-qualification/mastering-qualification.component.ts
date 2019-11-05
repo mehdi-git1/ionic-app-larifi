@@ -1,12 +1,17 @@
-import { TranslateService } from '@ngx-translate/core';
 import { Component, Input, OnInit } from '@angular/core';
-import { MasteringQualificationModel } from '../../../../core/models/statutory-certificate/mastering-qualification.model';
-import { StatutoryCertificateDisplayTypeEnum } from './../../../../core/enums/statutory-certificate-display-type.enum';
+import { TranslateService } from '@ngx-translate/core';
 
+import {
+    StatutoryCertificateDisplayTypeEnum
+} from '../../../../core/enums/statutory-certificate-display-type.enum';
+import {
+    MasteringQualificationModel
+} from '../../../../core/models/statutory-certificate/mastering-qualification.model';
 
 @Component({
   selector: 'mastering-qualification',
-  templateUrl: 'mastering-qualification.component.html'
+  templateUrl: 'mastering-qualification.component.html',
+  styleUrls: ['./mastering-qualification.component.scss']
 })
 export class MasteringQualificationComponent implements OnInit {
 

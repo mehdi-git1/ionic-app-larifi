@@ -1,217 +1,218 @@
-log-book {
+@import '../../../../../theme/colors.scss';
 
-    $nbLinesMaxOnRow: 2;
+$nbLinesMaxOnRow: 2;
 
-    ion-content {
-        .scroll-content {
+ion-content {
+    .scroll-content {
+        display: flex;
+        flex-direction: column;
+        padding-top: 40px !important;
+    }
+}
+
+ion-button {
+    background-color: var(--ion-color-primary);
+}
+
+.logbook-event-grid {
+
+    .child-event-grid {
+        padding: 0px;
+        height: 100%;
+
+        ion-row {
             display: flex;
-            flex-direction: column;
-            padding-top: 40px !important;
-        }
-    }
-
-    ion-button {
-        // TODO : A supprimer avec Daisy
-        @extend .button-md;
-        @extend .button;
-        background-color: color($colors, primary);
-    }
-
-    .logbook-event-grid {
-
-        .child-event-grid {
-            padding: 0px;
             height: 100%;
+            align-items: center;
 
-            ion-row {
+            ion-col {
                 display: flex;
                 height: 100%;
                 align-items: center;
-
-                ion-col {
-                    display: flex;
-                    height: 100%;
-                    align-items: center;
-                    max-height: 48px;
-                }
+                max-height: 48px;
             }
-
-            .column-origin {
-                text-align: center;
-                justify-content: center;
-            }
-        }
-
-        .events-number {
-            background: color($colors, primary);
-            color: color($colors, white);
-            font-size: 12px;
-            $padding-side: 5px;
-            margin-left: 5px;
-            padding-left: $padding-side;
-            padding-right: $padding-side;
-            border-radius: 100%;
-            align-items: center;
-            display: inline-flex;
-        }
-
-        .edospnc-important:before,
-        .ion-ios-edospnc-important:before,
-        .ion-md-edospnc-important:before,
-        .icon-edospnc-important:before {
-            font-size: 18px;
-        }
-
-        .edospnc-pnc:before,
-        .ion-ios-edospnc-pnc:before,
-        .ion-ios-edospnc-pnc-outline:before,
-        .ion-md-edospnc-pnc:before,
-        .ion-md-edospnc-pnc-outline:before,
-        .icon-edospnc-pnc:before {
-            font-size: 20px;
-        }
-
-        .child-count {
-            display: flex;
-            flex-direction: row;
-            width: 100%;
-        }
-
-        .arrow {
-            flex: 0 0 45px !important;
-            text-align: center;
-        }
-
-        .actions {
-            flex: 0 0 60px !important;
-            text-align: center;
-
-            div {
-                width: 100%;
-                height: 100%;
-            }
-        }
-
-        ion-row {
-            border: none;
-        }
-
-        ion-row.groupedEventRow:nth-child(even) {
-            background: color($colors-secondary, grey95);
-        }
-
-        ion-row.groupedEventRow:nth-child(odd) {
-            background: color($colors, white);
-        }
-
-        ion-row.headers {
-            font-size: 12px;
-            background: color($colors, white) !important;
-            border-bottom: 1px solid color($colors-secondary, grey95);
-
-            ion-col {
-                font-weight: bold;
-            }
-        }
-
-        .event-row {
-            height: 48px;
-        }
-
-        .column-child-events {
-            flex: 0 0 20px !important;
-        }
-
-        .column-child-dots {
-            flex: 0 0 20px !important;
-        }
-
-        .column-title {
-            display: block;
-            width: 100%;
-        }
-
-        .truncate-text {
-            @include truncate-text($nbLinesMaxOnRow);
-        }
-
-        .column-category {
-            flex: 0 0 120px !important;
-        }
-
-        .column-redactor {
-            min-width: 80px;
-            max-width: 160px;
-
-            .event-type{
-                margin-left: 2px;
-            }
-        }
-
-        .column-actions {
-            flex: 0 0 40px !important;
-            text-align: center;
         }
 
         .column-origin {
-            flex: 0 0 67px !important;
             text-align: center;
             justify-content: center;
         }
-
-        .column-date {
-            flex: 0 0 110px !important;
-            min-width: 110px;
-            max-width: 110px;
-        }
-
-        .column-specific {
-            flex: 0 0 20px !important;
-            min-width: 20px;
-            max-width: 20px;
-        }
-
-        .category-label {
-            flex: 1;
-            background-color: color($colors, primary);
-            color: color($colors, white);
-            border-radius: 4px;
-            -webkit-border-radius: 4px;
-            text-align: center;
-        }
     }
 
-    .button-bar {
-        position: -webkit-sticky;
-        position: sticky;
-        bottom: 50px;
+    .events-number {
+        background: var(--ion-color-primary);
+        color: var(--ion-color-white);
+        font-size: 12px;
+        $padding-side: 5px;
+        margin-left: 5px;
+        padding-left: $padding-side;
+        padding-right: $padding-side;
+        border-radius: 100%;
+        align-items: center;
+        display: inline-flex;
+    }
+
+    .edospnc-important:before,
+    .ion-ios-edospnc-important:before,
+    .ion-md-edospnc-important:before,
+    .icon-edospnc-important:before {
+        font-size: 18px;
+        color: var(--ion-color-secondary);
+    }
+
+    .edospnc-pnc:before,
+    .ion-ios-edospnc-pnc:before,
+    .ion-ios-edospnc-pnc-outline:before,
+    .ion-md-edospnc-pnc:before,
+    .ion-md-edospnc-pnc-outline:before,
+    .icon-edospnc-pnc:before {
+        font-size: 20px;
+        color: var(--ion-color-primary);
+    }
+
+    .child-count {
         display: flex;
-        align-items: flex-end;
-        justify-content: flex-end;
+        flex-direction: row;
+        width: 100%;
+    }
 
-        button {
-            align-self: flex-end;
-            font-size: 15px;
+    .arrow {
+        flex: 0 0 45px !important;
+        text-align: center;
+    }
 
-            .ion-md-add:before,
-            .ion-ios-add:before {
-                font-size: 18px;
-                vertical-align: middle;
-            }
+    .actions {
+        flex: 0 0 60px !important;
+        text-align: center;
+
+        div {
+            width: 100%;
+            height: 100%;
         }
     }
 
-    .edospnc-archive:before {
-        font-size: 26px;
-        position: relative;
-        top: 4px;
+    ion-row {
+        border: none;
     }
 
-    .information-message:before {
-        content: '';
+    ion-row.groupedEventRow:nth-child(even) {
+        background: color($colors-secondary, grey95);
     }
 
+    ion-row.groupedEventRow:nth-child(odd) {
+        background: var(--ion-color-white);
+    }
+
+    ion-row.headers {
+        font-size: 12px;
+        background: var(--ion-color-white) !important;
+        border-bottom: 1px solid color($colors-secondary, grey95);
+
+        ion-col {
+            font-weight: bold;
+        }
+    }
+
+    .event-row {
+        height: 48px;
+    }
+
+    .column-child-events {
+        flex: 0 0 20px !important;
+    }
+
+    .column-child-dots {
+        flex: 0 0 20px !important;
+    }
+
+    .column-title {
+        display: block;
+        width: 100%;
+    }
+
+    .truncate-text {
+        display: -webkit-box;
+        -webkit-line-clamp: $nbLinesMaxOnRow;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    .column-category {
+        flex: 0 0 120px !important;
+    }
+
+    .column-redactor {
+        min-width: 80px;
+        max-width: 160px;
+
+        .event-type {
+            margin-left: 2px;
+        }
+    }
+
+    .column-actions {
+        flex: 0 0 40px !important;
+        text-align: center;
+    }
+
+    .column-origin {
+        flex: 0 0 67px !important;
+        text-align: center;
+        justify-content: center;
+    }
+
+    .column-date {
+        flex: 0 0 110px !important;
+        min-width: 110px;
+        max-width: 110px;
+    }
+
+    .column-specific {
+        flex: 0 0 20px !important;
+        min-width: 25px;
+        max-width: 25px;
+    }
+
+    .category-label {
+        flex: 1;
+        background-color: var(--ion-color-primary);
+        color: var(--ion-color-white);
+        border-radius: 4px;
+        -webkit-border-radius: 4px;
+        text-align: center;
+    }
 }
+
+.button-bar {
+    position: -webkit-sticky;
+    position: sticky;
+    bottom: 50px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+
+    button {
+        align-self: flex-end;
+        font-size: 15px;
+
+        .ion-md-add:before,
+        .ion-ios-add:before {
+            font-size: 18px;
+            vertical-align: middle;
+        }
+    }
+}
+
+.edospnc-archive:before {
+    font-size: 26px;
+    position: relative;
+    top: 4px;
+}
+
+.information-message:before {
+    content: '';
+}
+
 
 .popover-md.action-menu-popover .popover-content {
     transform: translate(-30px) !important;

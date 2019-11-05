@@ -1,6 +1,6 @@
 <ion-card class="career-objective-card clickable elevation-1">
     <offline-indicator [object]="careerObjective" type="CAREER_OBJECTIVE"></offline-indicator>
-    <ion-card-content no-padding>
+    <ion-card-content class="ion-no-padding">
         <span class="value career-objective-date">{{careerObjective.creationDate | date : 'dd/MM/yyyy' : 'UTC'}}</span>
         <span class="value career-objective-label">{{ careerObjective.title }}</span>
         <span class="value career-objective-date">{{careerObjective.encounterDate | date : 'dd/MM/yyyy' : 'UTC'}}</span>

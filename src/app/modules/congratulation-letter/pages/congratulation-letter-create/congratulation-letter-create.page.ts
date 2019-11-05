@@ -1,11 +1,13 @@
-import { AlertController, NavController, NavParams } from 'ionic-angular';
 import * as _ from 'lodash';
+import { Observable } from 'rxjs/Observable';
 import { pairwise } from 'rxjs/operators';
-import { Observable, Subject } from 'rxjs/Rx';
+import { Subject } from 'rxjs/Subject';
 
-import { DatePipe } from '@angular/common';
+import { DatePipe, Location } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { AlertController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 
 import {
@@ -29,6 +31,7 @@ import { Utils } from '../../../../shared/utils/utils';
 @Component({
     selector: 'congratulation-letter-create',
     templateUrl: 'congratulation-letter-create.page.html',
+    styleUrls: ['./congratulation-letter-create.page.scss']
 })
 export class CongratulationLetterCreatePage {
 
@@ -53,8 +56,9 @@ export class CongratulationLetterCreatePage {
 
     readonly AF = 'AF';
 
-    constructor(private navParams: NavParams,
-        private navCtrl: NavController,
+    constructor(
+        private activatedRoute: ActivatedRoute,
+        private location: Location,
         private congratulationLetterService: CongratulationLetterService,
         private pncService: PncService,
         private sessionService: SessionService,
@@ -89,17 +93,20 @@ export class CongratulationLetterCreatePage {
             this.pnc = this.sessionService.visitedPnc;
         }
 
-        if (this.navParams.get('congratulationLetterId')) {
+        if (this.activatedRoute.snapshot.paramMap.get('congratulationLetterId')
+            && this.activatedRoute.snapshot.paramMap.get('congratulationLetterId') !== '0') {
             // Mode édition
             this.creationMode = false;
-            this.congratulationLetterService.getCongratulationLetter(this.navParams.get('congratulationLetterId')).then(congratulationLetter => {
-                this.congratulationLetter = congratulationLetter;
-                if (this.congratulationLetter.redactorType === CongratulationLetterRedactorTypeEnum.PNC) {
-                    this.selectedRedactor = this.congratulationLetter.redactor;
-                    this.displayPncSelection = true;
-                }
-                this.originCongratulationLetter = _.cloneDeep(this.congratulationLetter);
-            });
+            this.congratulationLetterService.getCongratulationLetter(
+                parseInt(this.activatedRoute.snapshot.paramMap.get('congratulationLetterId'), 10))
+                .then(congratulationLetter => {
+                    this.congratulationLetter = congratulationLetter;
+                    if (this.congratulationLetter.redactorType === CongratulationLetterRedactorTypeEnum.PNC) {
+                        this.selectedRedactor = this.congratulationLetter.redactor;
+                        this.displayPncSelection = true;
+                    }
+                    this.originCongratulationLetter = _.cloneDeep(this.congratulationLetter);
+                });
         } else {
             // Mode création
             this.creationMode = true;
@@ -148,7 +155,7 @@ export class CongratulationLetterCreatePage {
         return new Promise((resolve, reject) => {
             // Avant de quitter la vue, on avertit l'utilisateur si ses modifications n'ont pas été enregistrées
             this.alertCtrl.create({
-                title: this.translateService.instant('GLOBAL.CONFIRM_BACK_WITHOUT_SAVE.TITLE'),
+                header: this.translateService.instant('GLOBAL.CONFIRM_BACK_WITHOUT_SAVE.TITLE'),
                 message: this.translateService.instant('GLOBAL.CONFIRM_BACK_WITHOUT_SAVE.MESSAGE'),
                 buttons: [
                     {
@@ -161,7 +168,7 @@ export class CongratulationLetterCreatePage {
                         handler: () => resolve()
                     }
                 ]
-            }).present();
+            }).then(alert => alert.present());
         });
     }
 
@@ -200,7 +207,7 @@ export class CongratulationLetterCreatePage {
      * @return vrai si c'est le cas, faux sinon
      */
     pageLoadingIsOver(): boolean {
-        return this.congratulationLetter != undefined;
+        return this.congratulationLetter !== undefined;
     }
 
     /**
@@ -269,7 +276,7 @@ export class CongratulationLetterCreatePage {
      * Annule la création de la lettre
      */
     cancelCreation() {
-        this.navCtrl.pop();
+        this.location.back();
     }
 
     /**
@@ -277,17 +284,17 @@ export class CongratulationLetterCreatePage {
      */
     submitLetter() {
         this.submitInProgress = true;
-        this.congratulationLetter.flight.theoricalDate = this.dateTransformer.transformDateStringToIso8601Format(this.congratulationLetter.flight.theoricalDate);
+        this.congratulationLetter.flight.theoricalDate =
+            this.dateTransformer.transformDateStringToIso8601Format(this.congratulationLetter.flight.theoricalDate);
 
         this.congratulationLetterService.createOrUpdate(this.congratulationLetter).then(congratulationLetter => {
             this.originCongratulationLetter = _.cloneDeep(this.congratulationLetter);
             if (this.creationMode) {
                 this.toastService.success(this.translateService.instant('CONGRATULATION_LETTER_CREATE.SUCCESS.LETTER_CREATED'));
-            }
-            else {
+            } else {
                 this.toastService.success(this.translateService.instant('CONGRATULATION_LETTER_CREATE.SUCCESS.LETTER_UPDATED'));
             }
-            this.navCtrl.pop();
+            this.location.back();
         }, error => { }).then(() => {
             this.submitInProgress = false;
         });
@@ -314,13 +321,18 @@ export class CongratulationLetterCreatePage {
 
     /**
      * Teste si le verbatim peut être modifié.<br>
-     * Le verbatim peut être modifié qu'en cas de création, ou de modification quand l'auteur de la modification est le rédacteur de la lettre
+     * Le verbatim peut être modifié qu'en cas de création, ou de modification quand l'auteur de
+     * la modification est le rédacteur de la lettre
      * @return vrai si le verbatim peut être modifié, faux sinon
      */
     verbatimCanBeEdited() {
         return this.creationMode
-            || ((this.congratulationLetter.redactor != undefined && this.sessionService.getActiveUser().matricule === this.congratulationLetter.redactor.matricule)
-                || (this.congratulationLetter.creationAuthor != undefined && this.sessionService.getActiveUser().matricule === this.congratulationLetter.creationAuthor.matricule));
+            || (
+                (this.congratulationLetter.redactor !== undefined
+                    && this.sessionService.getActiveUser().matricule === this.congratulationLetter.redactor.matricule)
+                || (this.congratulationLetter.creationAuthor !== undefined
+                    && this.sessionService.getActiveUser().matricule === this.congratulationLetter.creationAuthor.matricule)
+            );
     }
 
 }

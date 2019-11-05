@@ -1,24 +1,30 @@
 <ion-header>
-    <ion-navbar>
+    <ion-toolbar>
         <page-header (refreshPage)="initPage()" [showRefreshIcon]="true" [pnc]="pnc">
             <span *ngIf="pnc">
                 {{ 'GLOBAL.UPCOMING_FLIGHT' | isMyPage:pnc | translate }}
             </span>
         </page-header>
-    </ion-navbar>
+    </ion-toolbar>
     <pnc-edossier-header [activeTab]="TabHeaderEnum.UPCOMING_FLIGHT_LIST_PAGE"></pnc-edossier-header>
 </ion-header>
 
-<ion-content padding>
-    <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
-    <ng-template #pageBlock>
-        <div class="rotation-list" margin-top>
-            <h3>{{ 'UPCOMING_FLIGHT_LIST.LAST_FLIGHTS' | translate }}</h3>
-            <rotation-card *ngFor=" let lastPerformedRotation of lastPerformedRotations" [rotation]="lastPerformedRotation" class="last-performed-rotations"></rotation-card>
-            <div class="no-data-found" *ngIf="!hasLastPerformedRotations()">{{ 'UPCOMING_FLIGHT_LIST.NO_FLIGHTS' | translate }}</div>
-            <h3>{{ 'UPCOMING_FLIGHT_LIST.UPCOMING_FLIGHTS' | translate }}</h3>
-            <rotation-card *ngFor="let upcomingRotation of upcomingRotations" [rotation]="upcomingRotation" class="upcoming-rotations"></rotation-card>
-            <div class="no-data-found" *ngIf="!hasUpcomingRotations()">{{ 'UPCOMING_FLIGHT_LIST.NO_FLIGHTS' | translate }}</div>
-        </div>
-    </ng-template>
+<ion-content>
+    <div class="page-container">
+        <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
+        <ng-template #pageBlock>
+            <div class="rotation-list margin-top-10">
+                <h3>{{ 'UPCOMING_FLIGHT_LIST.LAST_FLIGHTS' | translate }}</h3>
+                <rotation-card *ngFor=" let lastPerformedRotation of lastPerformedRotations"
+                    [rotation]="lastPerformedRotation" class="last-performed-rotations"></rotation-card>
+                <div class="no-data-found" *ngIf="!hasLastPerformedRotations()">
+                    {{ 'UPCOMING_FLIGHT_LIST.NO_FLIGHTS' | translate }}</div>
+                <h3>{{ 'UPCOMING_FLIGHT_LIST.UPCOMING_FLIGHTS' | translate }}</h3>
+                <rotation-card *ngFor="let upcomingRotation of upcomingRotations" [rotation]="upcomingRotation"
+                    class="upcoming-rotations"></rotation-card>
+                <div class="no-data-found" *ngIf="!hasUpcomingRotations()">
+                    {{ 'UPCOMING_FLIGHT_LIST.NO_FLIGHTS' | translate }}</div>
+            </div>
+        </ng-template>
+    </div>
 </ion-content>

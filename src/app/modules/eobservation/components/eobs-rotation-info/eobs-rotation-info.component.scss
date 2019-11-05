@@ -1,21 +1,53 @@
-eobs-rotation-info {
+@import '../../../../../theme/colors.scss';
 
-    .rotation-info {
+$border-grid: 1px solid color($colors-secondary, grey75);
+$block-border-radius: 5px;
 
-        .rotation-number {
-            color: color($colors-secondary, blue55);
+ion-grid.rotation-grid {
+    .flight-header {
+        color: color($colors-secondary, blue55);
+    }
+
+    ion-row {
+        ion-col:first-child {
+            padding-left: 24px;
         }
+    }
 
+    ion-row:first-child {
+        border-top: $border-grid;
+        border-bottom: $border-grid;
+    }
+
+    ion-col {
+        border-right: $border-grid;
+    }
+
+    ion-row:nth-child(even) {
+        background: color($colors-secondary, grey95);
+    }
+
+    ion-col:last-child {
+        border: initial;
+    }
+}
+
+
+.rotation-info {
+
+    .rotation-number {
+        color: color($colors-secondary, blue55);
+    }
+
+    display: flex;
+    justify-content: flex-start;
+
+    ion-row:first-child {
         display: flex;
-        justify-content: flex-start;
+        align-items: center;
 
-        ion-row:first-child {
-            display: flex;
-            align-items: center;
-
-            ion-col:first-child {
-                padding-left: 24px;
-            }
+        ion-col:first-child {
+            padding-left: 24px;
         }
     }
 }

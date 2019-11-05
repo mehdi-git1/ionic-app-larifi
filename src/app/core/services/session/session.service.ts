@@ -4,7 +4,7 @@ import { AppContextModel } from '../../models/app-context.model';
 import { AuthenticatedUserModel } from '../../models/authenticated-user.model';
 import { PncModel } from '../../models/pnc.model';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class SessionService {
     authenticatedUser: AuthenticatedUserModel;
     impersonatedUser: AuthenticatedUserModel = null;

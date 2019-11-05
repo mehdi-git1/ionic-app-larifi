@@ -1,10 +1,12 @@
 import { Component, Input } from '@angular/core';
-import { EObservationModel } from '../../../../core/models/eobservation/eobservation.model';
+
 import { EObservationTypeEnum } from '../../../../core/enums/e-observations-type.enum';
+import { EObservationModel } from '../../../../core/models/eobservation/eobservation.model';
 
 @Component({
   selector: 'eobs-temporary-period',
-  templateUrl: 'eobs-temporary-period.component.html'
+  templateUrl: 'eobs-temporary-period.component.html',
+  styleUrls: ['./eobs-temporary-period.component.scss']
 })
 export class EObsTemporaryPeriodComponent {
 

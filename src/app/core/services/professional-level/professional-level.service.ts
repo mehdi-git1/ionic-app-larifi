@@ -1,14 +1,13 @@
-import { ScoreModel } from './../../models/professional-level/score.model';
 import { Injectable } from '@angular/core';
 
+import { ProfessionalLevelModel } from '../../models/professional-level/professional-level.model';
+import { ScoreModel } from '../../models/professional-level/score.model';
+import { BaseService } from '../base/base.service';
+import { ConnectivityService } from '../connectivity/connectivity.service';
 import { OfflineProfessionalLevelService } from './offline-professional-level.service';
 import { OnlineProfessionalLevelService } from './online-professional-level.service';
-import { ConnectivityService } from '../connectivity/connectivity.service';
-import { BaseService } from '../base/base.service';
-import { ProfessionalLevelModel } from '../../models/professional-level/professional-level.model';
 
-
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class ProfessionalLevelService extends BaseService {
 
   constructor(

@@ -1,11 +1,15 @@
-import { PncModel } from './../../../../core/models/pnc.model';
-import { ProfessionalLevelResultStatusUtil } from './../../../../shared/utils/professional-level-result-status.util';
 import { Component, Input } from '@angular/core';
+
+import { PncModel } from '../../../../core/models/pnc.model';
 import { StageModel } from '../../../../core/models/professional-level/stage.model';
+import {
+    ProfessionalLevelResultStatusUtil
+} from '../../../../shared/utils/professional-level-result-status.util';
 
 @Component({
   selector: 'professional-level-stage',
-  templateUrl: 'professional-level-stage.component.html'
+  templateUrl: 'professional-level-stage.component.html',
+  styleUrls: ['./professional-level-stage.component.scss']
 })
 export class ProfessionalLevelStageComponent {
 

@@ -10,7 +10,7 @@ import { SessionService } from '../session/session.service';
 import { OfflineSecurityService } from './offline-security.service';
 import { OnlineSecurityService } from './online-security.service';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class SecurityService extends BaseService {
 
   constructor(
@@ -28,9 +28,9 @@ export class SecurityService extends BaseService {
   }
 
   /**
-  * vérifie si le pnc connecté est un cadre
-  * @return true si le user connecté est un cadre, false sinon
-  */
+   * vérifie si le pnc connecté est un cadre
+   * @return true si le user connecté est un cadre, false sinon
+   */
   isManager(): boolean {
     if (this.sessionService.getActiveUser() === undefined) {
       return false;

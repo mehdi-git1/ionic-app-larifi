@@ -1,5 +1,7 @@
-priority-dropdown-list {
-    background-color: color($colors, white);
+@import '../../../../../theme/colors.scss';
+
+:host {
+    background-color: var(--ion-color-white);
     display: inline-block;
     text-align: justify;
     width: 100%;
@@ -8,20 +10,27 @@ priority-dropdown-list {
         display: flex;
         flex-direction: row;
     }
-    .list-ios, .list-md {
+
+    .list-ios,
+    .list-md {
         margin: 0px;
     }
-    .list-ios .item-block .item-inner, .list-md .item-block .item-inner {
+
+    .list-ios .item-block .item-inner,
+    .list-md .item-block .item-inner {
         border-bottom: none;
     }
 
-    .item-ios.item-block .item-inner, .item-md.item-block .item-inner {
+    .item-ios.item-block .item-inner,
+    .item-md.item-block .item-inner {
         border-bottom: none;
     }
 
-    .list-ios > .item-block:last-child, .list-ios > .item-wrapper:last-child .item-block,
-    .list-md > .item-block:last-child, .list-md > .item-wrapper:last-child .item-block {
-        border-bottom: solid 1px  color($colors-secondary, grey70);
+    .list-ios>.item-block:last-child,
+    .list-ios>.item-wrapper:last-child .item-block,
+    .list-md>.item-block:last-child,
+    .list-md>.item-wrapper:last-child .item-block {
+        border-bottom: solid 1px var(--ion-color-grey70);
     }
 
     .prioritized,
@@ -37,13 +46,13 @@ priority-dropdown-list {
     }
 
     .prioritized {
-        color: color($colors, secondary);
-        border-color: color($colors, secondary);
+        color: var(--ion-color-secondary);
+        border-color: var(--ion-color-secondary);
     }
 
     .at-least-one-priority {
-        color: color($colors, primary);
-        border-color: color($colors, primary);
+        color: var(--ion-color-primary);
+        border-color: var(--ion-color-primary);
     }
 
     .prioritized:before,
@@ -55,13 +64,15 @@ priority-dropdown-list {
         display: flex;
         width: 100%;
         justify-content: space-around;
+
         .button {
             border-radius: 0px;
             margin: 0px;
             width: inherit;
         }
+
         .button:last-child {
-            border-left: solid 1px  color($colors-secondary, grey70);
+            border-left: solid 1px var(--ion-color-grey70);
             font-weight: bold;
         }
     }

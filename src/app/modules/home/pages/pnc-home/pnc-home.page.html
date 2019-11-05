@@ -1,58 +1,60 @@
 <ion-header>
-    <ion-navbar>
+    <ion-toolbar>
         <page-header (refreshPage)="initPage()">
             <ng-container>{{ 'PNC_HOME.MY_TITLE' | translate }}</ng-container>
         </page-header>
-    </ion-navbar>
+    </ion-toolbar>
     <pnc-edossier-header></pnc-edossier-header>
 </ion-header>
 
-<ion-content padding no-bounce>
-    <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
-    <ng-template #pageBlock>
-        <div id="nav-tile-grid" *ngIf="pnc">
-            <!--  Recherche effectif -->
-            <div class="button-parent">
-                <button (click)="goToPncSearch()">
-                    <ion-icon name="md-contacts" ios="md-contacts"></ion-icon>
-                    <h3>{{ 'GLOBAL.MY_PNC_TEAM' | translate }}</h3>
-                </button>
+<ion-content no-bounce>
+    <div class="page-container">
+        <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
+        <ng-template #pageBlock>
+            <div id="nav-tile-grid" *ngIf="pnc">
+                <!--  Recherche effectif -->
+                <div class="button-parent">
+                    <button (click)="goToPncSearch()">
+                        <ion-icon name="md-contacts" ios="md-contacts"></ion-icon>
+                        <h3>{{ 'GLOBAL.MY_PNC_TEAM' | translate }}</h3>
+                    </button>
+                </div>
+                <!--  Activité vols -->
+                <div class="button-parent">
+                    <button (click)="goToUpcomingFlightList()">
+                        <ion-icon name="md-jet" ios="md-jet"></ion-icon>
+                        <h3>{{ 'GLOBAL.MY_UPCOMING_FLIGHT' | translate }}</h3>
+                    </button>
+                </div>
+                <!--  Niveau professionnel -->
+                <div class="button-parent">
+                    <button (click)="goToProfessionalLevel()">
+                        <span class="icon-af icon-af-C-metier-niv-pro"></span>
+                        <h3>{{ 'GLOBAL.MY_PROFESSIONAL_LEVEL' | translate }}</h3>
+                    </button>
+                </div>
+                <!--  Attestation réglementaire -->
+                <div class="button-parent">
+                    <button (click)="goToStatutoryCertificate()">
+                        <ion-icon name="md-person" ios="md-person"></ion-icon>
+                        <h3>{{ 'GLOBAL.MY_STATUTORY_CERTIFICATE' | translate }}</h3>
+                    </button>
+                </div>
+                <!--  Lettres de félicitation -->
+                <div class="button-parent">
+                    <button (click)="goToCongratulationLetters()">
+                        <ion-icon name="md-mail" ios="ios-mail"></ion-icon>
+                        <h3>{{ 'GLOBAL.MY_CONGRATULATION_LETTERS' | translate }}</h3>
+                    </button>
+                </div>
+                <!-- Ressource d'aide -->
+                <div class="button-parent">
+                    <button (click)="goToHelpAssetList()">
+                        <ion-icon name="md-help-circle" ios="md-help-circle"></ion-icon>
+                        <h3>{{ 'GLOBAL.MY_HELP_CENTER' | translate }}</h3>
+                    </button>
+                </div>
             </div>
-            <!--  Activité vols -->
-            <div class="button-parent">
-                <button (click)="goToUpcomingFlightList()">
-                    <ion-icon name="md-jet" ios="md-jet"></ion-icon>
-                    <h3>{{ 'GLOBAL.MY_UPCOMING_FLIGHT' | translate }}</h3>
-                </button>
-            </div>
-            <!--  Niveau professionnel -->
-            <div class="button-parent">
-                <button (click)="goToProfessionalLevel()">
-                    <span class="icon-af icon-af-C-metier-niv-pro"></span>
-                    <h3>{{ 'GLOBAL.MY_PROFESSIONAL_LEVEL' | translate }}</h3>
-                </button>
-            </div>
-            <!--  Attestation réglementaire -->
-            <div class="button-parent">
-                <button (click)="goToStatutoryCertificate()">
-                    <ion-icon name="md-person" ios="md-person"></ion-icon>
-                    <h3>{{ 'GLOBAL.MY_STATUTORY_CERTIFICATE' | translate }}</h3>
-                </button>
-            </div>
-            <!--  Lettres de félicitation -->
-            <div class="button-parent">
-                <button (click)="goToCongratulationLetters()">
-                    <ion-icon name="md-mail" ios="ios-mail"></ion-icon>
-                    <h3>{{ 'GLOBAL.MY_CONGRATULATION_LETTERS' | translate }}</h3>
-                </button>
-            </div>
-            <!-- Ressource d'aide -->
-            <div class="button-parent">
-                <button (click)="goToHelpAssetList()">
-                    <ion-icon name="md-help-circle" ios="md-help-circle"></ion-icon>
-                    <h3>{{ 'GLOBAL.MY_HELP_CENTER' | translate }}</h3>
-                </button>
-            </div>
-        </div>
-    </ng-template>
+        </ng-template>
+    </div>
 </ion-content>

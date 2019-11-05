@@ -4,7 +4,7 @@ import { UrlConfiguration } from '../../configuration/url.configuration';
 import { RestService } from '../../http/rest/rest.base.service';
 import { StatutoryCertificateModel } from '../../models/statutory.certificate.model';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class OnlineStatutoryCertificateService {
 
   constructor(

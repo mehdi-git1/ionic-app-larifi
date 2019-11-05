@@ -1,10 +1,10 @@
-edossier-spinner {
+:host {
     height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
 
-    ion-spinner * {
+    ion-spinner {
         width: 80px;
         height: 80px !important;
     }

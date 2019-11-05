@@ -1,22 +1,17 @@
-import { DeviceService } from './../device/device.service';
-import { ToastService } from './../toast/toast.service';
-import { Injectable, ElementRef } from '@angular/core';
-import { RestService } from '../../http/rest/rest.base.service';
-import { UserProfileModel } from '../../models/admin/user-profile.model';
-import { UserPermissionModel } from '../../models/admin/user-permission.model';
-import { UrlConfiguration } from '../../configuration/url.configuration';
-import * as _ from 'lodash';
+
+
+import { Injectable } from '@angular/core';
+
+import { DeviceService } from '../device/device.service';
 
 declare var cordova: any;
 declare var jsPDF;
 declare var html2pdf;
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class PdfGeneratorService {
 
-  private cssFile = 'www/build/main.css';
-
-  constructor(private toastService: ToastService,
+  constructor(
     private deviceService: DeviceService) {
   }
 

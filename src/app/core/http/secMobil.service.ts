@@ -1,18 +1,17 @@
-import { RestRequest } from './rest/rest-request';
-import { Utils } from '../../shared/utils/utils';
-import { isUndefined } from 'ionic-angular/util/util';
-import { DeviceService } from '../services/device/device.service';
 import { Injectable } from '@angular/core';
-
-import { Platform, Events } from 'ionic-angular';
+import { Events, Platform } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
-import { ToastService } from '../services/toast/toast.service';
+
 import { Config } from '../../../environments/config';
+import { Utils } from '../../shared/utils/utils';
 import { UrlConfiguration } from '../configuration/url.configuration';
+import { DeviceService } from '../services/device/device.service';
+import { ToastService } from '../services/toast/toast.service';
+import { RestRequest } from './rest/rest-request';
 
 declare var window: any;
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class SecMobilService {
 
     constructor(
@@ -64,9 +63,9 @@ export class SecMobilService {
      */
     public authenticate(login: string, password: string): Promise<any> {
         const authentParam = {
-            'duration': 'long',
-            'userId': login.toLowerCase(),
-            'strongPassword': password
+            duration: 'long',
+            userId: login.toLowerCase(),
+            strongPassword: password
         };
         return new Promise((resolve, reject) => {
             if (this.secMobile) {
@@ -111,8 +110,8 @@ export class SecMobilService {
     }
 
     /**
-    * Make http request
-    */
+     * Make http request
+     */
     public call(request: any): Promise<any> {
         return new Promise((resolve, reject) => {
             this.handleGetRequest(request);
@@ -136,7 +135,7 @@ export class SecMobilService {
                                 if (request.headers && !request.headers.has('BYPASS_INTERCEPTOR')) {
                                     let errorMessage = this.translateService.instant('GLOBAL.UNKNOWN_ERROR');
                                     err = Utils.fromStringToObject(err);
-                                    if (err && !isUndefined(err.detailMessage) && err.label === 'BUSINESS_ERROR') {
+                                    if (err && err.detailMessage !== undefined && err.label === 'BUSINESS_ERROR') {
                                         errorMessage = err.detailMessage;
                                     }
                                     this.toastProvider.error(errorMessage, 10000);
@@ -162,7 +161,7 @@ export class SecMobilService {
 
     /**
      * Ajoute les données envoyé dans le jsonData dans l'URI de la requête.
-     * @param request
+     * @param request la requête à envoyer
      */
     handleGetRequest(request: RestRequest) {
         // SecMobile crash lorsqu'on lui passe une requête GET avec un body,
@@ -175,10 +174,10 @@ export class SecMobilService {
 
     /**
      * Tranforme un json en string représentant les parametres de requête.
-     * @param json
+     * @param json le json à transformer
      */
     jsonToQueryString(json) {
-        return Object.keys(json).map(function (key) {
+        return Object.keys(json).map((key) => {
             return key + '=' + json[key];
         }).join('&');
     }

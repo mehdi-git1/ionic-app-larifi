@@ -1,57 +1,56 @@
-professional-interviews {
+@import '../../../../../theme/colors.scss';
 
-    mat-expansion-panel {
+mat-expansion-panel {
+    box-shadow: none !important;
+
+    &.mat-expanded:not(.no-data) {
         box-shadow: none !important;
+    }
 
-        &.mat-expanded:not(.no-data) {
-            box-shadow: none !important;
-        }
+    mat-expansion-panel-header {
+        display: flex;
+        background-color: var(--ion-color-primary);
+        border-radius: 5px;
+        color: var(--ion-color-white);
+        text-align: left;
 
-        mat-expansion-panel-header {
+        &>.mat-expansion-indicator {
             display: flex;
-            background-color: color($colors, primary);
-            border-radius: 5px;
-            color: color($colors, white);
-            text-align: left;
-
-            & > .mat-expansion-indicator {
-                display: flex;
-                transition: all linear 200ms;
-            }
-
-            &.mat-expansion-panel-header {
-                padding: 6px 20px 6px 10px;
-            }
-
-            &.mat-expanded:hover,
-            &.mat-expanded:focus {
-                background-color: color($colors, primary) !important;
-            }
-
-            .mat-content {
-                align-items: center;
-            }
-
-            &.header label {
-                font-weight: 700;
-                font-size: 1.2em;
-                color: color($colors, white);
-            }
-
-            .button-placeholder {
-                width: 70px;
-            }
-
+            transition: all linear 200ms;
         }
 
-        .mat-expansion-panel-body {
-            padding: 0;
-            margin: 0;
+        &.mat-expansion-panel-header {
+            padding: 6px 20px 6px 10px;
+        }
+
+        &.mat-expanded:hover,
+        &.mat-expanded:focus {
+            background-color: var(--ion-color-primary) !important;
+        }
+
+        .mat-content {
+            align-items: center;
+        }
+
+        &.header label {
+            font-weight: 700;
+            font-size: 1.2em;
+            color: var(--ion-color-white);
+        }
+
+        .button-placeholder {
+            width: 70px;
         }
 
     }
 
-    .information-message {
-        margin-top: 10px;
+    .mat-expansion-panel-body {
+        padding: 0;
+        margin: 0;
     }
+
+}
+
+.information-message {
+    margin-top: 10px;
 }

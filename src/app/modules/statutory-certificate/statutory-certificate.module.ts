@@ -1,19 +1,28 @@
-import { RelaysComponent } from './components/relay/relays.component';
-import { LanguagesComponent } from './components/languages/languages.component';
-import { MedicalAptitudesComponent } from './components/medical-aptitudes/medical-aptitudes.component';
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { IonicPageModule } from 'ionic-angular';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
+import { IonicModule } from '@ionic/angular';
 
-import { SharedModule } from '../../shared/shared.module';
 import { ComponentsModule } from '../../shared/components/components.module';
-import { StatutoryCertificatePage } from './pages/statutory-certificate/statutory-certificate.page';
-import { FamiliarizationFlightComponent } from './components/familiarization-flight/familiarization-flight.component';
-import { GeneralitySkillsComponent } from './components/generality-skills/generality-skills.component';
-import { MasteringQualificationComponent } from './components/mastering-qualification/mastering-qualification.component';
+import { SharedModule } from '../../shared/shared.module';
+import {
+    FamiliarizationFlightComponent
+} from './components/familiarization-flight/familiarization-flight.component';
+import {
+    GeneralitySkillsComponent
+} from './components/generality-skills/generality-skills.component';
+import { LanguagesComponent } from './components/languages/languages.component';
+import {
+    MasteringQualificationComponent
+} from './components/mastering-qualification/mastering-qualification.component';
+import {
+    MedicalAptitudesComponent
+} from './components/medical-aptitudes/medical-aptitudes.component';
 import { PlaneSkillsComponent } from './components/plane-skills/plane-skills.component';
-import { StatutoryCertificateDataComponent } from './components/statutory-certificate-data/statutory-certificate-data.component';
+import { RelaysComponent } from './components/relay/relays.component';
+import {
+    StatutoryCertificateDataComponent
+} from './components/statutory-certificate-data/statutory-certificate-data.component';
 import { TravelDocumentsComponent } from './components/travel-documents/travel-documents.component';
-
+import { StatutoryCertificatePage } from './pages/statutory-certificate/statutory-certificate.page';
 
 @NgModule({
   declarations: [
@@ -29,7 +38,7 @@ import { TravelDocumentsComponent } from './components/travel-documents/travel-d
     TravelDocumentsComponent
   ],
   imports: [
-    [IonicPageModule.forChild(StatutoryCertificatePage)],
+    IonicModule,
     SharedModule,
     ComponentsModule
   ],

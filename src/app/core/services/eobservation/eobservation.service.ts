@@ -10,7 +10,7 @@ import { SessionService } from '../session/session.service';
 import { OfflineEObservationService } from './offline-eobservation.service';
 import { OnlineEObservationService } from './online-eobservation.service';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class EObservationService extends BaseService {
 
     constructor(

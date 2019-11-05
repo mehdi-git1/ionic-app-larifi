@@ -1,13 +1,11 @@
-import {
-    AlertController, Loading, LoadingController, NavController, NavParams
-} from 'ionic-angular';
 import * as _ from 'lodash';
 
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AlertController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 
-import { AppConstant } from '../../../../../../app.constant';
 import { TabHeaderModeEnum } from '../../../../../../core/enums/tab-header-mode.enum';
 import { TabHeaderEnum } from '../../../../../../core/enums/tab-header.enum';
 import { TextEditorModeEnum } from '../../../../../../core/enums/text-editor-mode.enum';
@@ -20,11 +18,11 @@ import { SecurityService } from '../../../../../../core/services/security/securi
 import { ToastService } from '../../../../../../core/services/toast/toast.service';
 import { DateTransform } from '../../../../../../shared/utils/date-transform';
 import { Utils } from '../../../../../../shared/utils/utils';
-import { AppVersionListPage } from '../app-version-list/app-version-list.page';
 
 @Component({
     selector: 'page-app-version-create',
     templateUrl: 'app-version-create.page.html',
+    styleUrls: ['./app-version-create.page.scss']
 })
 export class AppVersionCreatePage {
 
@@ -39,20 +37,17 @@ export class AppVersionCreatePage {
     appVersion: AppVersionModel;
     originAppVersion: AppVersionModel;
 
-    loading: Loading;
-
     TextEditorModeEnum = TextEditorModeEnum;
 
     constructor(
-        public navCtrl: NavController,
-        public navParams: NavParams,
+        private router: Router,
+        private activatedRoute: ActivatedRoute,
         private alertCtrl: AlertController,
         public translateService: TranslateService,
         private formBuilder: FormBuilder,
         private appVersionService: AppVersionService,
         private toastService: ToastService,
         public securityService: SecurityService,
-        public loadingCtrl: LoadingController,
         private dateTransformer: DateTransform,
         private appVersionAlertService: AppVersionAlertService) {
 
@@ -79,7 +74,7 @@ export class AppVersionCreatePage {
         return new Promise((resolve, reject) => {
             // Avant de quitter la vue, on avertit l'utilisateur si ses modifications n'ont pas été enregistrées
             this.alertCtrl.create({
-                title: this.translateService.instant('GLOBAL.CONFIRM_BACK_WITHOUT_SAVE.TITLE'),
+                header: this.translateService.instant('GLOBAL.CONFIRM_BACK_WITHOUT_SAVE.TITLE'),
                 message: this.translateService.instant('GLOBAL.CONFIRM_BACK_WITHOUT_SAVE.MESSAGE'),
                 buttons: [
                     {
@@ -92,7 +87,7 @@ export class AppVersionCreatePage {
                         handler: () => resolve()
                     }
                 ]
-            }).present();
+            }).then(alert => alert.present());
         });
     }
 
@@ -101,12 +96,14 @@ export class AppVersionCreatePage {
      */
     initPage() {
         // On récupère l'id de la version dans les paramètres de navigation
-        if (this.navParams.get('appVersionId') && this.navParams.get('appVersionId') !== 0) {
+        if (this.activatedRoute.snapshot.paramMap.get('appVersionId')
+            && parseInt(this.activatedRoute.snapshot.paramMap.get('appVersionId'), 10) !== 0) {
             // Récupération de la version
-            this.appVersionService.getAppVersionById(this.navParams.get('appVersionId')).then(appVersionList => {
-                this.originAppVersion = _.cloneDeep(appVersionList);
-                this.appVersion = appVersionList;
-            }, error => { });
+            this.appVersionService.getAppVersionById(parseInt(this.activatedRoute.snapshot.paramMap.get('appVersionId'), 10))
+                .then(appVersionList => {
+                    this.originAppVersion = _.cloneDeep(appVersionList);
+                    this.appVersion = appVersionList;
+                }, error => { });
         } else {
             // Mode Création
             this.appVersion = new AppVersionModel();
@@ -151,8 +148,10 @@ export class AppVersionCreatePage {
      */
     confirmDeleteAppVersion(appVersion: AppVersionModel): void {
         this.alertCtrl.create({
-            title: this.translateService.instant('ADMIN.APP_VERSION_MANAGEMENT.CONFIRM_VERSION_DELETE.TITLE', { 'number': appVersion.number }),
-            message: this.translateService.instant('ADMIN.APP_VERSION_MANAGEMENT.CONFIRM_VERSION_DELETE.MESSAGE', { 'number': appVersion.number }),
+            header: this.translateService
+                .instant('ADMIN.APP_VERSION_MANAGEMENT.CONFIRM_VERSION_DELETE.TITLE', { number: appVersion.number }),
+            message: this.translateService
+                .instant('ADMIN.APP_VERSION_MANAGEMENT.CONFIRM_VERSION_DELETE.MESSAGE', { number: appVersion.number }),
             buttons: [
                 {
                     text: this.translateService.instant('ADMIN.APP_VERSION_MANAGEMENT.CONFIRM_VERSION_DELETE.CANCEL'),
@@ -163,7 +162,7 @@ export class AppVersionCreatePage {
                     handler: () => this.delete(appVersion)
                 }
             ]
-        }).present();
+        }).then(alert => alert.present());
     }
 
     /**
@@ -179,17 +178,17 @@ export class AppVersionCreatePage {
     }
 
     /**
-    * Vérifie que le chargement de la version est terminé
-    * @return true si c'est le cas, false sinon
-    */
+     * Vérifie que le chargement de la version est terminé
+     * @return true si c'est le cas, false sinon
+     */
     appVersionLoadingIsOver(): boolean {
         return this.appVersion !== undefined;
     }
 
     /**
-  * Affiche un aperçu de la version
-  * @param appVersion la version dont on souhaite voir l'aperçu
-  */
+     * Affiche un aperçu de la version
+     * @param appVersion la version dont on souhaite voir l'aperçu
+     */
     displayOverview(appVersion: AppVersionModel) {
         this.appVersionAlertService.displayAppVersion(appVersion);
     }
@@ -203,7 +202,7 @@ export class AppVersionCreatePage {
     }
 
     goToAppVersionManagement() {
-        this.navCtrl.push(AppVersionListPage);
+        this.router.navigate(['admin', 'app-version', 'list']);
     }
 
 }

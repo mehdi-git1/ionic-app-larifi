@@ -1,13 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
-import { SessionService } from '../../services/session/session.service';
-import { RestService } from './rest.base.service';
-import { SecMobilService } from '../secMobil.service';
 import { Config } from '../../../../environments/config';
+import { SessionService } from '../../services/session/session.service';
+import { SecMobilService } from '../secMobil.service';
 import { RestRequest } from './rest-request';
+import { RestService } from './rest.base.service';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class RestMobileService extends RestService {
 
     constructor(

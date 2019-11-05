@@ -1,18 +1,19 @@
-import { LegModel } from './../../models/leg.model';
-import { AppConstant } from './../../../app.constant';
-import { FormsInputParamsModel } from './../../models/forms-input-params.model';
-import { Injectable } from '@angular/core';
-import { DatePipe } from '@angular/common';
-
-import { SessionService } from '../session/session.service';
-import { RestService } from '../../http/rest/rest.base.service';
-import { Config } from '../../../../environments/config';
-import { PncModel } from '../../models/pnc.model';
 import * as moment from 'moment';
+
+import { DatePipe } from '@angular/common';
+import { Injectable } from '@angular/core';
+
+import { Config } from '../../../../environments/config';
+import { AppConstant } from '../../../app.constant';
+import { RestService } from '../../http/rest/rest.base.service';
+import { FormsInputParamsModel } from '../../models/forms-input-params.model';
+import { LegModel } from '../../models/leg.model';
+import { PncModel } from '../../models/pnc.model';
+import { SessionService } from '../session/session.service';
 
 declare var window: any;
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class FormsEObservationService {
 
   dateFormat = 'dd/MM/yyyy';
@@ -55,7 +56,7 @@ export class FormsEObservationService {
 
     formsInputParams.rotation = this.sessionService.appContext.lastConsultedRotation;
 
-    const rotationLegs = this.sortLegsByDepartureDate( this.sessionService.appContext.lastConsultedRotation.legs);
+    const rotationLegs = this.sortLegsByDepartureDate(this.sessionService.appContext.lastConsultedRotation.legs);
 
     formsInputParams.rotationFirstLeg = rotationLegs[0] === undefined ? undefined : rotationLegs[0];
     formsInputParams.rotationLastLeg = rotationLegs[rotationLegs.length - 1] === undefined ? undefined : rotationLegs[rotationLegs.length - 1];

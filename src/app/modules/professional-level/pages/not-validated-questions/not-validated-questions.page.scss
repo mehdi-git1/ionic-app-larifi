@@ -1,22 +1,22 @@
-not-validated-questions {
-    .title-container {
-        display: flex;
-        justify-content: center;
-        margin: 10px 0;
+@import '../../../../../theme/colors.scss';
 
-        h3 {
-            display: inline;
-            font-size: 1.2em;
-            font-weight: bold;
-            box-shadow: 0px 0px 5px color($colors-secondary, grey70);
-            padding: 5px 20px;
-            background: color($colors, white);
-            border-radius: 5px;
-        }
-    }
+.title-container {
+    display: flex;
+    justify-content: center;
+    margin: 10px 0;
 
-    professional-level-cursus {
-        display: block;
-        margin-bottom: 10px;
+    h3 {
+        display: inline;
+        font-size: 1.2em;
+        font-weight: bold;
+        box-shadow: 0px 0px 5px var(--ion-color-grey70);
+        padding: 5px 20px;
+        background: var(--ion-color-white);
+        border-radius: 5px;
     }
+}
+
+professional-level-cursus {
+    display: block;
+    margin-bottom: 10px;
 }

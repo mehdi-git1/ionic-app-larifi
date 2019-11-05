@@ -1,16 +1,20 @@
-import { TabHeaderEnum } from './../../../../core/enums/tab-header.enum';
-import { TabHeaderModeEnum } from '../../../../core/enums/tab-header-mode.enum';
-import { UserPermissionModel } from './../../../../core/models/admin/user-permission.model';
 import { Component } from '@angular/core';
-import { UserProfileModel } from '../../../../core/models/admin/user-profile.model';
-import { UserProfileService } from '../../../../core/services/user-profile/user-profile.service';
-import { UserPermissionService } from '../../../../core/services/user-permission/user-permission.service';
-import { ToastService } from '../../../../core/services/toast/toast.service';
 import { TranslateService } from '@ngx-translate/core';
+
+import { TabHeaderModeEnum } from '../../../../core/enums/tab-header-mode.enum';
+import { TabHeaderEnum } from '../../../../core/enums/tab-header.enum';
+import { UserPermissionModel } from '../../../../core/models/admin/user-permission.model';
+import { UserProfileModel } from '../../../../core/models/admin/user-profile.model';
+import { ToastService } from '../../../../core/services/toast/toast.service';
+import {
+    UserPermissionService
+} from '../../../../core/services/user-permission/user-permission.service';
+import { UserProfileService } from '../../../../core/services/user-profile/user-profile.service';
 
 @Component({
     selector: 'page-profile-management',
     templateUrl: 'profile-management.page.html',
+    styleUrls: ['./profile-management.page.scss']
 })
 export class ProfileManagementPage {
 

@@ -1,4 +1,6 @@
-exit-symbol {
+@import '../../../../../theme/colors.scss';
+
+:host {
     font-size: 1.8em;
     color: color($colors-secondary, blue55);
     display: flex;

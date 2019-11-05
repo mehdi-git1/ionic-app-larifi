@@ -1,8 +1,9 @@
+import { EventEmitter, Injectable, Output } from '@angular/core';
+
 import { UrlConfiguration } from '../../configuration/url.configuration';
-import { Injectable, Output, EventEmitter } from '@angular/core';
 import { RestService } from '../../http/rest/rest.base.service';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class ConnectivityService {
 
     private connected = true;
@@ -15,7 +16,8 @@ export class ConnectivityService {
     @Output()
     connectionStatusChange = new EventEmitter<boolean>();
 
-    constructor(public restService: RestService,
+    constructor(
+        public restService: RestService,
         private urlConfiguration: UrlConfiguration) {
         this.timer = 0;
     }

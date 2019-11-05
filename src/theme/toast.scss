@@ -1,3 +1,5 @@
+@import './colors.scss';
+
 ion-toast.error .toast-container {
     background: color($colors-secondary, red80);
 }
@@ -7,9 +9,9 @@ ion-toast.success .toast-container {
 }
 
 ion-toast.info .toast-container {
-    background: color($colors, blue60);
+    background: var(--ion-color-blue60);
 }
 
 ion-toast.warning .toast-container {
-    background: color($colors, orange55);
+    background: var(--ion-color-orange55);
 }

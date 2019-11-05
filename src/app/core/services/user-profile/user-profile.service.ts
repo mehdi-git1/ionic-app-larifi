@@ -1,13 +1,15 @@
 import { Injectable } from '@angular/core';
-import { RestService } from '../../http/rest/rest.base.service';
-import { UserProfileModel } from '../../models/admin/user-profile.model';
-import { UserPermissionModel } from '../../models/admin/user-permission.model';
-import { UrlConfiguration } from '../../configuration/url.configuration';
 
-@Injectable()
+import { UrlConfiguration } from '../../configuration/url.configuration';
+import { RestService } from '../../http/rest/rest.base.service';
+import { UserPermissionModel } from '../../models/admin/user-permission.model';
+import { UserProfileModel } from '../../models/admin/user-profile.model';
+
+@Injectable({ providedIn: 'root' })
 export class UserProfileService {
 
-  constructor(private restService: RestService,
+  constructor(
+    private restService: RestService,
     private config: UrlConfiguration) {
   }
 

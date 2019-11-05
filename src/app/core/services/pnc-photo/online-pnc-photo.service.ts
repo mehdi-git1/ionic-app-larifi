@@ -1,20 +1,19 @@
-import { MatriculesModel } from './../../models/matricules.model';
-import { Events } from 'ionic-angular';
-
-import { Injectable } from '@angular/core';
 import * as moment from 'moment';
 
-import { UrlConfiguration } from '../../configuration/url.configuration';
-import { RestService } from '../../http/rest/rest.base.service';
-import { PncPhotoTransformerService } from './pnc-photo-transformer.service';
-import { EntityEnum } from '../../enums/entity.enum';
-import { StorageService } from '../../storage/storage.service';
+import { Injectable } from '@angular/core';
+import { Events } from '@ionic/angular';
+
 import { AppConstant } from '../../../app.constant';
-import { OfflinePncPhotoService } from './offline-pnc-photo.service';
+import { UrlConfiguration } from '../../configuration/url.configuration';
+import { EntityEnum } from '../../enums/entity.enum';
+import { RestService } from '../../http/rest/rest.base.service';
+import { MatriculesModel } from '../../models/matricules.model';
 import { PncPhotoModel } from '../../models/pnc-photo.model';
+import { StorageService } from '../../storage/storage.service';
+import { OfflinePncPhotoService } from './offline-pnc-photo.service';
+import { PncPhotoTransformerService } from './pnc-photo-transformer.service';
 
-
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class OnlinePncPhotoService {
 
   constructor(
@@ -27,10 +26,10 @@ export class OnlinePncPhotoService {
   ) { }
 
   /**
-  * Retourne la photo d'un PNC
-  * @param matricule le PNC concerné
-  * @return la photo du PNC
-  */
+   * Retourne la photo d'un PNC
+   * @param matricule le PNC concerné
+   * @return la photo du PNC
+   */
   getPncPhoto(matricule: string): Promise<any> {
     return new Promise((resolve, reject) => {
       this.offlinePncPhotoService.getPncPhoto(matricule).then(pncPhoto => {
@@ -54,10 +53,10 @@ export class OnlinePncPhotoService {
   }
 
   /**
-  * Met à jour les photos d'une série de PNC, si ces dernières sont dépassées.
-  * Stocke en cache les photos reçues et émet un événement pour déclencher la mise à jour des photos
-  * @param matricules les PNC concernés
-  */
+   * Met à jour les photos d'une série de PNC, si ces dernières sont dépassées.
+   * Stocke en cache les photos reçues et émet un événement pour déclencher la mise à jour des photos
+   * @param matricules les PNC concernés
+   */
   synchronizePncsPhotos(matricules: string[]): Promise<any> {
     this.offlinePncPhotoService.getPncsPhotos(matricules).then(pncsPhotos => {
       const expiredPhotoMatricules: Array<string> = new Array();

@@ -1,35 +1,21 @@
-page-user-message-management {
+.user-message-label {
+    font-size: 1.1em;
+    margin-bottom: 5px;
+    display: block;
+}
 
-    .user-message-label {
-        font-size: 1.1em;
-        margin-bottom: 5px;
-        display: block;
-    }
+ion-col:first-child {
+    border-right: 2px solid var(--ion-color-grey70);
+}
 
-    ion-item.active {
-        background: color($colors-secondary, grey75);
-    }
+ion-icon[name=md-create] {
+    margin-right: 10px;
+}
 
-    ion-textarea {
-        min-height: 210px !important;
-        padding: 0 !important;
-        margin: 0 !important;
+.label-md {
+    margin-right: 0px;
+}
 
-        textarea {
-            min-height: 190px !important;
-            padding: 5px !important;
-        }
-    }
-
-    ion-col:first-child {
-        border-right: 2px solid color($colors-secondary, grey70);
-    }
-
-    ion-icon[name=md-create] {
-        margin-right: 10px;
-    }
-
-    .label-md {
-        margin-right: 0px;
-    }
+.text-editor {
+    width: 100%;
 }

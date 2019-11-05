@@ -1,8 +1,7 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { IonicModule } from 'ionic-angular';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { DocumentTypeEnum } from '../../../core/models/document.model';
+
+
 import { Config } from '../../../../environments/config';
+import { DocumentTypeEnum } from '../../../core/models/document.model';
 import { UrlConfiguration } from '../../configuration/url.configuration';
 import { DocumentService } from './document.service';
 

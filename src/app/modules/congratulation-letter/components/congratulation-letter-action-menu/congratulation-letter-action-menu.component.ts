@@ -1,18 +1,25 @@
-import { CongratulationLetterModeEnum } from './../../../../core/enums/congratulation-letter/congratulation-letter-mode.enum';
-import { CongratulationLetterService } from './../../../../core/services/congratulation-letter/congratulation-letter.service';
 import { Component } from '@angular/core';
-import { CongratulationLetterModel } from '../../../../core/models/congratulation-letter.model';
-import { ToastService } from '../../../../core/services/toast/toast.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import {
+    AlertController, Events, LoadingController, NavParams, PopoverController
+} from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
-import { FixRecipientComponent } from '../fix-recipient/fix-recipient.component';
+
+import {
+    CongratulationLetterModeEnum
+} from '../../../../core/enums/congratulation-letter/congratulation-letter-mode.enum';
+import { CongratulationLetterModel } from '../../../../core/models/congratulation-letter.model';
 import { PncModel } from '../../../../core/models/pnc.model';
-import { NavParams, ViewController, LoadingController, Loading, AlertController, PopoverController, NavController } from 'ionic-angular';
-import { Events } from 'ionic-angular';
-import { CongratulationLetterCreatePage } from '../../pages/congratulation-letter-create/congratulation-letter-create.page';
+import {
+    CongratulationLetterService
+} from '../../../../core/services/congratulation-letter/congratulation-letter.service';
+import { ToastService } from '../../../../core/services/toast/toast.service';
+import { FixRecipientComponent } from '../fix-recipient/fix-recipient.component';
 
 @Component({
   selector: 'congratulation-letter-action-menu',
-  templateUrl: 'congratulation-letter-action-menu.component.html'
+  templateUrl: 'congratulation-letter-action-menu.component.html',
+  styleUrls: ['./congratulation-letter-action-menu.component.scss']
 })
 export class CongratulationLetterActionMenuComponent {
 
@@ -24,63 +31,63 @@ export class CongratulationLetterActionMenuComponent {
 
   concernedPncMatricule: string;
 
-  loading: Loading;
-
-  navCtrl: NavController;
-
-  constructor(private navParams: NavParams,
+  constructor(
+    private navParams: NavParams,
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
     public congratulationLetterService: CongratulationLetterService,
     public translateService: TranslateService,
     public loadingCtrl: LoadingController,
     private toastService: ToastService,
-    public viewCtrl: ViewController,
     public popoverCtrl: PopoverController,
     private alertCtrl: AlertController,
     private events: Events) {
     this.congratulationLetter = this.navParams.get('congratulationLetter');
     this.mode = this.navParams.get('congratulationLetterMode');
     this.pnc = this.navParams.get('pnc');
-    this.navCtrl = this.navParams.get('navCtrl');
   }
 
   /**
    * Met à jour une lettre de félicitation
    */
   updateCongratulationLetter() {
-    this.navCtrl.push(CongratulationLetterCreatePage, { congratulationLetterId: this.congratulationLetter.techId });
-    this.viewCtrl.dismiss();
+    this.router.navigate(['create', this.congratulationLetter.techId], { relativeTo: this.activatedRoute });
+    this.popoverCtrl.dismiss();
   }
 
   /**
    * Efface une lettre de félicitation
    */
   deleteCongratulationLetter() {
-    this.loading = this.loadingCtrl.create();
-    this.loading.present();
+    this.loadingCtrl.create().then(loading => {
+      loading.present();
 
-    this.congratulationLetterService
-      .delete(this.congratulationLetter.techId, this.pnc.matricule, this.mode)
-      .then(deletedcongratulationLetter => {
-        this.toastService.success(this.translateService.instant('CONGRATULATION_LETTERS.TOAST.DELETE_SUCCESS'));
-        this.events.publish('CongratulationLetter:deleted');
-        this.loading.dismiss();
-      },
-        error => {
-          this.loading.dismiss();
+      this.congratulationLetterService
+        .delete(this.congratulationLetter.techId, this.pnc.matricule, this.mode)
+        .then(deletedcongratulationLetter => {
+          this.toastService.success(this.translateService.instant('CONGRATULATION_LETTERS.TOAST.DELETE_SUCCESS'));
+          this.events.publish('CongratulationLetter:deleted');
+          loading.dismiss();
+        }, error => {
+          loading.dismiss();
         });
+    });
 
-    this.viewCtrl.dismiss();
+    this.popoverCtrl.dismiss();
   }
 
   /**
    * Corrige le destinataire
-   * @param event
+   * @param event événement de la page
    */
   fixRecipient(event: Event) {
     event.stopPropagation();
-    const popover = this.popoverCtrl.create(FixRecipientComponent, { congratulationLetter: this.congratulationLetter, pnc: this.pnc }, { cssClass: 'fix-recipient-popover' });
-    popover.present({});
-    this.viewCtrl.dismiss();
+    this.popoverCtrl.create({
+      component: FixRecipientComponent,
+      componentProps: { congratulationLetter: this.congratulationLetter, pnc: this.pnc },
+      cssClass: 'fix-recipient-popover'
+    }).then(popover => popover.present());
+    this.popoverCtrl.dismiss();
   }
 
   /**
@@ -88,7 +95,7 @@ export class CongratulationLetterActionMenuComponent {
    */
   confirmDeleteCongratulationLetter() {
     this.alertCtrl.create({
-      title: this.translateService.instant('CONGRATULATION_LETTERS.CONFIRM_DELETE.TITLE'),
+      header: this.translateService.instant('CONGRATULATION_LETTERS.CONFIRM_DELETE.TITLE'),
       message: this.translateService.instant('CONGRATULATION_LETTERS.CONFIRM_DELETE.MESSAGE'),
       buttons: [
         {
@@ -101,14 +108,14 @@ export class CongratulationLetterActionMenuComponent {
           handler: () => this.deleteCongratulationLetter()
         }
       ]
-    }).present();
+    }).then(alert => alert.present());
   }
 
   /**
    * Ferme la popover
    */
   closePopover() {
-    this.viewCtrl.dismiss();
+    this.popoverCtrl.dismiss();
   }
 
 }

@@ -1,12 +1,10 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-
-import { ConnectivityService } from '../../../core/services/connectivity/connectivity.service';
-import { DeviceService } from '../../../core/services/device/device.service';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'progress-bar',
-  templateUrl: 'progress-bar.component.html'
+  templateUrl: 'progress-bar.component.html',
+  styleUrls: ['./progress-bar.component.scss']
 })
 export class ProgressBarComponent {
-  @Input('progress') progress;
+  @Input() progress;
 }

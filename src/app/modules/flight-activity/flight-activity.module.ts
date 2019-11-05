@@ -1,13 +1,12 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { IonicPageModule } from 'ionic-angular';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
+import { IonicModule } from '@ionic/angular';
 
-import {SharedModule} from '../../shared/shared.module';
-import {ComponentsModule} from '../../shared/components/components.module';
-import {UpcomingFlightListPage} from './pages/upcoming-flight-list/upcoming-flight-list.page';
-import {FlightCrewListPage} from './pages/flight-crew-list/flight-crew-list.page';
-import {FlightCardComponent} from './components/flight-card/flight-card.component';
-import {RotationCardComponent} from './components/rotation-card/rotation-card.component';
-
+import { ComponentsModule } from '../../shared/components/components.module';
+import { SharedModule } from '../../shared/shared.module';
+import { FlightCardComponent } from './components/flight-card/flight-card.component';
+import { RotationCardComponent } from './components/rotation-card/rotation-card.component';
+import { FlightCrewListPage } from './pages/flight-crew-list/flight-crew-list.page';
+import { UpcomingFlightListPage } from './pages/upcoming-flight-list/upcoming-flight-list.page';
 
 @NgModule({
   declarations: [
@@ -17,7 +16,7 @@ import {RotationCardComponent} from './components/rotation-card/rotation-card.co
     RotationCardComponent
   ],
   imports: [
-    [IonicPageModule.forChild(UpcomingFlightListPage)],
+    IonicModule,
     SharedModule,
     ComponentsModule
   ],
@@ -35,4 +34,4 @@ import {RotationCardComponent} from './components/rotation-card/rotation-card.co
   providers: []
 })
 
-export class FlightActivityModule{}
+export class FlightActivityModule { }

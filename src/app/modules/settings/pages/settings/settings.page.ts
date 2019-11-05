@@ -1,35 +1,33 @@
-import { ProfileManagementPage } from './../../../admin/pages/profile-management/profile-management.page';
 import { Component } from '@angular/core';
-import { AppVersion } from '@ionic-native/app-version';
+import { Router } from '@angular/router';
+import { AppVersion } from '@ionic-native/app-version/ngx';
+import { AlertController, Events } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
-import { NavController, Events, AlertController } from 'ionic-angular';
 
 import { Config } from '../../../../../environments/config';
-
 import { PinPadTypeEnum } from '../../../../core/enums/security/pin-pad-type.enum';
 import { SecretQuestionTypeEnum } from '../../../../core/enums/security/secret-question-type.enum';
-
+import { SecMobilService } from '../../../../core/http/secMobil.service';
 import { AuthenticatedUserModel } from '../../../../core/models/authenticated-user.model';
-
-import { ImpersonatePage } from '../impersonate/impersonate.page';
-import { AppVersionHistoryPage } from '../app-version-history/app-version-history.page';
-
-import { SecurityService } from './../../../../core/services/security/security.service';
-import { VersionService } from '../../../../core/services/version/version.service';
-import { SecMobilService } from './../../../../core/http/secMobil.service';
+import { ConnectivityService } from '../../../../core/services/connectivity/connectivity.service';
 import { DeviceService } from '../../../../core/services/device/device.service';
 import { ModalSecurityService } from '../../../../core/services/modal/modal-security.service';
-import { ToastService } from '../../../../core/services/toast/toast.service';
+import {
+    OfflineSecurityService
+} from '../../../../core/services/security/offline-security.service';
+import { SecurityService } from '../../../../core/services/security/security.service';
 import { SessionService } from '../../../../core/services/session/session.service';
-import { SynchronizationService } from '../../../../core/services/synchronization/synchronization.service';
+import {
+    SynchronizationService
+} from '../../../../core/services/synchronization/synchronization.service';
+import { ToastService } from '../../../../core/services/toast/toast.service';
+import { VersionService } from '../../../../core/services/version/version.service';
 import { StorageService } from '../../../../core/storage/storage.service';
-import { ConnectivityService } from '../../../../core/services/connectivity/connectivity.service';
-import { OfflineSecurityService } from '../../../../core/services/security/offline-security.service';
-import { LegalTermsPage } from '../legal-terms/legal-terms.page';
 
 @Component({
   selector: 'page-settings',
   templateUrl: 'settings.page.html',
+  styleUrls: ['./settings.page.scss']
 })
 export class SettingsPage {
 
@@ -44,7 +42,7 @@ export class SettingsPage {
   isApp: boolean;
 
   constructor(
-    private navCtrl: NavController,
+    private router: Router,
     private config: Config,
     private connectivityService: ConnectivityService,
     private storageService: StorageService,
@@ -84,15 +82,15 @@ export class SettingsPage {
   }
 
   /**
-  * Présente une alerte pour confirmer la suppression du cache
-  */
+   * Présente une alerte pour confirmer la suppression du cache
+   */
   confirmClearAndInitCache() {
     const message = this.synchronizationService.isPncModifiedOffline(this.sessionService.getActiveUser().matricule) ?
       this.translateService.instant('SETTINGS.CONFIRM_INIT_CACHE.MESSAGE_UNSYNCHRONIZED_DATA') :
       this.translateService.instant('SETTINGS.CONFIRM_INIT_CACHE.MESSAGE');
 
     this.alertCtrl.create({
-      title: this.translateService.instant('SETTINGS.CONFIRM_INIT_CACHE.TITLE'),
+      header: this.translateService.instant('SETTINGS.CONFIRM_INIT_CACHE.TITLE'),
       message: message,
       buttons: [
         {
@@ -104,7 +102,7 @@ export class SettingsPage {
           handler: () => this.clearAndInitCache()
         }
       ]
-    }).present();
+    }).then(alert => alert.present());
   }
 
   /**
@@ -135,7 +133,7 @@ export class SettingsPage {
    */
   confirmRevokeCertificate() {
     this.alertCtrl.create({
-      title: this.translateService.instant('SETTINGS.CONFIRM_REVOKE_CERTIFICATE.TITLE'),
+      header: this.translateService.instant('SETTINGS.CONFIRM_REVOKE_CERTIFICATE.TITLE'),
       message: this.translateService.instant('SETTINGS.CONFIRM_REVOKE_CERTIFICATE.MESSAGE'),
       buttons: [
         {
@@ -147,7 +145,7 @@ export class SettingsPage {
           handler: () => this.revokeCertificate()
         }
       ]
-    }).present();
+    }).then(alert => alert.present());
   }
 
   /**
@@ -183,33 +181,28 @@ export class SettingsPage {
    * Redirige vers la page d'impersonnification
    */
   impersonateNewUser(): void {
-    // On autorise l'impersonification uniquement si on se trouve sur la première stack de navigation (premier onglet)
-    if (this.navCtrl.parent.getSelected().id == 't0-0') {
-      this.navCtrl.push(ImpersonatePage);
-    } else {
-      this.toastProvider.error(this.translateService.instant('SETTINGS.IMPERSONATE_USER.FIRST_NAV_TAB_IS_MANDATORY'));
-    }
+    this.router.navigate(['admin', 'impersonate']);
   }
 
   /**
-   * Redirige vers la page d'admin
+   * Redirige vers la page de gestion des profils
    */
   goToAdminPage() {
-    this.navCtrl.push(ProfileManagementPage);
+    this.router.navigate(['admin', 'profile-management']);
   }
 
   /**
-   * Redirige vers la page d'historique de versions
+   * Redirige vers la page d'historique des versions
    */
   goToAppVersionHistory() {
-    this.navCtrl.push(AppVersionHistoryPage);
+    this.router.navigate(['app-version-history']);
   }
 
   /**
    * Redirige vers la page des termes légaux (GPDR etc)
    */
   goToLegalTerms() {
-    this.navCtrl.push(LegalTermsPage);
+    this.router.navigate(['legal-term']);
   }
 
   /**

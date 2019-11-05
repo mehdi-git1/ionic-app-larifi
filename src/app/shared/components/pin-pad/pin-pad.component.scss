@@ -1,3 +1,5 @@
+@import '../../../../theme/colors.scss';
+
 $containerWidth : 400;
 $containerHeight : 510;
 $containerPadding : 30;
@@ -8,111 +10,106 @@ $chosenNumberHeight: 31;
 $pinNumberWidth: 65;
 $pinNumberHeight: 65;
 
-pin-pad {
 
-    .title {
-        color: $colorDark;
+.title {
+    color: color($colors-secondary, grey10);
+    font-weight: bold;
+    font-size: 20px;
+    text-align: center;
+}
+
+.error-text {
+    text-align: center;
+    color: color($colors-secondary, red80);
+}
+
+.forgotten-pin {
+    position: absolute;
+    color: color($colors-secondary, grey10);
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: -20px;
+    margin-right: 35px;
+    text-decoration: underline;
+}
+
+.container {
+    position: absolute;
+    width: $containerWidth+px;
+    height: $containerHeight+px;
+    color: color($colors-secondary, grey95);
+    top: 40px;
+    left: calc(50% - #{$containerWidth/2}px);
+    padding: $containerPadding+px;
+}
+
+.chosen-number {
+    display: inline-flex;
+    width: $chosenNumberWidth+px;
+    height: $chosenNumberHeight+px;
+
+    margin: 2px;
+
+    .round-pad-container {
+        width: 100%;
+        text-align: center;
+        margin: auto;
+
+        .round-pad {
+            width: 15px;
+            height: 15px;
+            border: solid 2px;
+            border-radius: 10px;
+            display: inline-block;
+        }
+
+        .full-round {
+            background-color: color($colors-secondary, grey95);
+        }
+
+    }
+
+}
+
+.pad-number-container {
+
+    padding: 20px;
+    padding-right: 47px;
+    text-align: right;
+
+    %item-common {
+        display: inline-flex;
+        width: $pinNumberWidth+px;
+        height: $pinNumberHeight+px;
+        color: color($colors-secondary, grey10);
+        padding-left: 25px;
+        padding-top: 17px;
+        margin: 10px;
+    }
+
+    .pad-number {
+        @extend %item-common;
+        cursor: pointer;
+        background-color: color($colors-secondary, grey95);
+        border: solid 2px color($colors-secondary, grey95);
+        border-radius: $pinNumberWidth+px;
         font-weight: bold;
         font-size: 20px;
-        text-align: center;
     }
 
-    .error-text {
-        text-align: center;
-        color: color($colors-secondary, red80);
-    }
-
-    .forgotten-pin {
-        position: absolute;
-        color: $colorDark;
+    .erase-pin {
+        @extend %item-common;
         font-weight: bold;
         cursor: pointer;
-        margin-top: -20px;
-        margin-right: 35px;
         text-decoration: underline;
-    }
-
-    .container {
-        position: absolute;
-        width: $containerWidth+px;
-        height: $containerHeight+px;
-        color: $colorBright;
-        top: 40px;
-        left: calc(50% - #{$containerWidth/2}px);
-        padding: $containerPadding+px;
-    }
-
-    .chosen-number {
         display: inline-flex;
-        width: $chosenNumberWidth+px;
-        height: $chosenNumberHeight+px;
+        padding-left: 13px;
 
-        margin: 2px;
-
-        .round-pad-container {
-            width: 100%;
-            text-align: center;
-            margin: auto;
-
-            .round-pad {
-                width: 15px;
-                height: 15px;
-                border: solid 2px;
-                border-radius: 10px;
-                display: inline-block;
-            }
-
-            .full-round {
-                background-color: $colorBright;
-            }
-
+        &.invisible {
+            opacity: 0;
+            cursor: default;
         }
 
     }
-
-    .pad-number-container {
-
-        padding: 20px;
-        padding-right: 47px;
-        text-align: right;
-
-        %item-common {
-            display: inline-flex;
-            width: $pinNumberWidth+px;
-            height: $pinNumberHeight+px;
-            color: $colorDark;
-            padding-left: 25px;
-            padding-top: 17px;
-            margin: 10px;
-        }
-
-        .pad-number {
-            @extend %item-common;
-            cursor: pointer;
-            background-color: $colorBright;
-            border: solid 2px $colorBright;
-            border-radius: $pinNumberWidth+px;
-            font-weight: bold;
-            font-size: 20px;
-        }
-
-        .erase-pin {
-            @extend %item-common;
-            font-weight: bold;
-            cursor: pointer;
-            text-decoration: underline;
-            display: inline-flex;
-            padding-left: 13px;
-
-            &.invisible {
-                opacity: 0;
-                cursor: default;
-            }
-
-        }
-
-    }
-
-
 
 }

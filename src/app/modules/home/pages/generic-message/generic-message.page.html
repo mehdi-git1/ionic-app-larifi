@@ -1,10 +1,12 @@
 <ion-header>
-    <ion-navbar>
+    <ion-toolbar>
         <page-header [showSettingsIcon]="false">{{ 'GLOBAL.APP_NAME' | translate }}
         </page-header>
-    </ion-navbar>
+    </ion-toolbar>
 </ion-header>
 
-<ion-content padding no-bounce>
-    <div class="generic-message">{{genericMessage}}</div>
+<ion-content no-bounce>
+    <div class="page-container">
+        <div class="generic-message">{{genericMessage}}</div>
+    </div>
 </ion-content>

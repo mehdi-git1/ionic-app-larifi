@@ -1,17 +1,18 @@
-import { AppDataModel } from './../models/app-data.model';
+import * as _ from 'lodash';
+import * as moment from 'moment';
+
 import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage';
-import * as moment from 'moment';
-import * as _ from 'lodash';
 
-import { TransformerService } from '../services/transformer/transformer.service';
-import { AppConstant } from '../../app.constant';
-import { OfflineActionEnum } from '../enums/offline-action.enum';
-import { EntityEnum } from '../enums/entity.enum';
-import { EDossierPncObjectModel } from '../models/e-dossier-pnc-object.model';
 import { Config } from '../../../environments/config';
+import { AppConstant } from '../../app.constant';
+import { EntityEnum } from '../enums/entity.enum';
+import { OfflineActionEnum } from '../enums/offline-action.enum';
+import { AppDataModel } from '../models/app-data.model';
+import { EDossierPncObjectModel } from '../models/e-dossier-pnc-object.model';
+import { TransformerService } from '../services/transformer/transformer.service';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class StorageService {
 
   private offlineMap;
@@ -202,10 +203,10 @@ export class StorageService {
   }
 
   /**
-  * Supprime une entité à partir de son id, de manière asynchrone
-  * @param entity le type de l'entité à supprimer
-  * @param storageId l'id de stockage de l'entité qu'on souhaite supprimer
-  */
+   * Supprime une entité à partir de son id, de manière asynchrone
+   * @param entity le type de l'entité à supprimer
+   * @param storageId l'id de stockage de l'entité qu'on souhaite supprimer
+   */
   deleteAsync(entity: EntityEnum, storageId: string): Promise<any> {
     return new Promise((resolve, reject) => {
       const deletedObject = this.offlineMap[entity][storageId];

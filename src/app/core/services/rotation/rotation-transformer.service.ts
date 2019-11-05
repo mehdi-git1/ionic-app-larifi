@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { RotationModel } from '../../models/rotation.model';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class RotationTransformerService {
 
     constructor() {

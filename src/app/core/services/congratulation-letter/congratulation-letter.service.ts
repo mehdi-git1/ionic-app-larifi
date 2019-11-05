@@ -1,17 +1,21 @@
-import { SessionService } from './../session/session.service';
-import { CongratulationLetterModeEnum } from './../../enums/congratulation-letter/congratulation-letter-mode.enum';
-import { CongratulationLetterRedactorTypeEnum } from './../../enums/congratulation-letter/congratulation-letter-redactor-type.enum';
 import { DatePipe } from '@angular/common';
-import { CongratulationLetterFlightModel } from './../../models/congratulation-letter-flight.model';
-import { CongratulationLetterModel } from './../../models/congratulation-letter.model';
 import { Injectable } from '@angular/core';
 
-import { OnlineCongratulationLetterService } from './online-congratulation-letter.service';
-import { ConnectivityService } from '../connectivity/connectivity.service';
-import { OfflineCongratulationLetterService } from './offline-congratulation-letter.service';
+import {
+    CongratulationLetterModeEnum
+} from '../../enums/congratulation-letter/congratulation-letter-mode.enum';
+import {
+    CongratulationLetterRedactorTypeEnum
+} from '../../enums/congratulation-letter/congratulation-letter-redactor-type.enum';
+import { CongratulationLetterFlightModel } from '../../models/congratulation-letter-flight.model';
+import { CongratulationLetterModel } from '../../models/congratulation-letter.model';
 import { BaseService } from '../base/base.service';
+import { ConnectivityService } from '../connectivity/connectivity.service';
+import { SessionService } from '../session/session.service';
+import { OfflineCongratulationLetterService } from './offline-congratulation-letter.service';
+import { OnlineCongratulationLetterService } from './online-congratulation-letter.service';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class CongratulationLetterService extends BaseService {
   constructor(
     private onlineCongratulationLetterService: OnlineCongratulationLetterService,

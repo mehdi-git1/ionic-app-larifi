@@ -1,42 +1,40 @@
-import { RelayModel } from './../../../core/models/statutory-certificate/relay.model';
-import { PncModel } from './../../../core/models/pnc.model';
 import { Component, Input, ViewChild } from '@angular/core';
-import { NavController } from 'ionic-angular';
 import { TranslateService } from '@ngx-translate/core';
 
 import { CrewMemberModel } from '../../../core/models/crew-member.model';
-import { SynchronizationService } from '../../../core/services/synchronization/synchronization.service';
-import { ToastService } from '../../../core/services/toast/toast.service';
-import { ConnectivityService } from '../../../core/services/connectivity/connectivity.service';
+import { PncModel } from '../../../core/models/pnc.model';
+import { RelayModel } from '../../../core/models/statutory-certificate/relay.model';
 import { GenderService } from '../../../core/services/gender/gender.service';
 import { PncService } from '../../../core/services/pnc/pnc.service';
+import {
+    SynchronizationService
+} from '../../../core/services/synchronization/synchronization.service';
+import { ToastService } from '../../../core/services/toast/toast.service';
 import { OfflineIndicatorComponent } from '../offline-indicator/offline-indicator.component';
-
 
 @Component({
   selector: 'pnc-card',
-  templateUrl: 'pnc-card.component.html'
+  templateUrl: 'pnc-card.component.html',
+  styleUrls: ['./pnc-card.component.scss']
 })
 export class PncCardComponent {
 
-  private crewMember: CrewMemberModel;
-  private pnc: PncModel;
+  crewMember: CrewMemberModel;
+  pnc: PncModel;
   formatedSpeciality: string;
   @Input() isCrewMember: boolean;
   @Input() disabled: boolean;
   synchroInProgress: boolean;
 
-  @ViewChild(OfflineIndicatorComponent)
-  private offlineIndicatorComponent: OfflineIndicatorComponent;
+  @ViewChild(OfflineIndicatorComponent, { static: false })
+  offlineIndicatorComponent: OfflineIndicatorComponent;
 
   constructor(
-    public navCtrl: NavController,
-    private genderProvider: GenderService,
-    public connectivityService: ConnectivityService,
-    private synchronizationProvider: SynchronizationService,
-    private toastProvider: ToastService,
-    private translate: TranslateService,
-    private pncProvider: PncService) {
+    private genderService: GenderService,
+    private synchronizationService: SynchronizationService,
+    private toastService: ToastService,
+    private translateService: TranslateService,
+    private pncService: PncService) {
   }
 
   @Input()
@@ -52,7 +50,7 @@ export class PncCardComponent {
         return relay.code > otherRelay.code ? 1 : -1;
       });
     }
-    this.formatedSpeciality = this.pncProvider.getFormatedSpeciality(this.pnc);
+    this.formatedSpeciality = this.pncService.getFormatedSpeciality(this.pnc);
   }
 
   /**
@@ -60,17 +58,17 @@ export class PncCardComponent {
    */
   downloadPncEdossier(matricule) {
     this.synchroInProgress = true;
-    this.synchronizationProvider.storeEDossierOffline(matricule).then(success => {
+    this.synchronizationService.storeEDossierOffline(matricule).then(success => {
       this.offlineIndicatorComponent.refreshOffLineDateOnCurrentObject();
       this.synchroInProgress = false;
-      this.toastProvider.info(this.translate.instant('SYNCHRONIZATION.PNC_SAVED_OFFLINE', { 'matricule': matricule }));
+      this.toastService.info(this.translateService.instant('SYNCHRONIZATION.PNC_SAVED_OFFLINE', { matricule: matricule }));
     }, error => {
-      this.toastProvider.error(this.translate.instant('SYNCHRONIZATION.PNC_SAVED_OFFLINE_ERROR', { 'matricule': matricule }));
+      this.toastService.error(this.translateService.instant('SYNCHRONIZATION.PNC_SAVED_OFFLINE_ERROR', { matricule: matricule }));
       this.synchroInProgress = false;
     });
   }
 
   getAvatarPicture(gender) {
-    return this.genderProvider.getAvatarPicture(gender);
+    return this.genderService.getAvatarPicture(gender);
   }
 }

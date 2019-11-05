@@ -1,17 +1,18 @@
-import { NavController } from 'ionic-angular';
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Router } from '@angular/router';
 
-import { SessionService } from '../../../core/services/session/session.service';
-import { SecurityService } from '../../../core/services/security/security.service';
-import { DeviceService } from '../../../core/services/device/device.service';
-import { SynchronizationService } from '../../../core/services/synchronization/synchronization.service';
 import { ConnectivityService } from '../../../core/services/connectivity/connectivity.service';
-import { SettingsPage } from '../../../modules/settings/pages/settings/settings.page';
-
+import { DeviceService } from '../../../core/services/device/device.service';
+import { SecurityService } from '../../../core/services/security/security.service';
+import { SessionService } from '../../../core/services/session/session.service';
+import {
+    SynchronizationService
+} from '../../../core/services/synchronization/synchronization.service';
 
 @Component({
   selector: 'edossier-indicators',
-  templateUrl: 'edossier-indicators.component.html'
+  templateUrl: 'edossier-indicators.component.html',
+  styleUrls: ['./edossier-indicators.component.scss']
 })
 export class NavBarCustomComponent {
 
@@ -24,7 +25,8 @@ export class NavBarCustomComponent {
   connected: boolean;
   synchroInProgress: boolean;
 
-  constructor(private navCtrl: NavController,
+  constructor(
+    private router: Router,
     public connectivityService: ConnectivityService,
     public deviceService: DeviceService,
     public synchronizationProvider: SynchronizationService,
@@ -53,7 +55,7 @@ export class NavBarCustomComponent {
    * Dirige vers la page de paramètrage
    */
   goToSettingsPage() {
-    this.navCtrl.push(SettingsPage);
+    this.router.navigate(['settings']);
   }
 
   /**

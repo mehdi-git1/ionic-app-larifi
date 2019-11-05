@@ -1,7 +1,8 @@
-import { NavController, NavParams, PopoverController } from 'ionic-angular';
 import * as moment from 'moment';
 
 import { Component } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { PopoverController } from '@ionic/angular';
 
 import { Config } from '../../../../../environments/config';
 import { AppConstant } from '../../../../app.constant';
@@ -14,23 +15,22 @@ import { ConnectivityService } from '../../../../core/services/connectivity/conn
 import {
     OnlineLogbookEventService
 } from '../../../../core/services/logbook/online-logbook-event.service';
-import { PncService } from '../../../../core/services/pnc/pnc.service';
 import { SecurityService } from '../../../../core/services/security/security.service';
 import { SessionService } from '../../../../core/services/session/session.service';
 import { DateTransform } from '../../../../shared/utils/date-transform';
 import {
     LogbookEventActionMenuComponent
 } from '../../components/logbook-event-action-menu/logbook-event-action-menu.component';
-import { LogbookCreatePage } from '../logbook-create/logbook-create.page';
-import { LogbookEventDetailsPage } from '../logbook-event-details/logbook-event-details.page';
 
 @Component({
     selector: 'log-book',
     templateUrl: 'logbook.page.html',
+    styleUrls: ['./logbook.page.scss']
 })
 export class LogbookPage {
 
-    displayedLogbookEventsColumns: string[] = ['childEvents', 'eventDate', 'creationDate', 'category', 'important', 'attach', 'event', 'origin', 'author', 'actions'];
+    displayedLogbookEventsColumns: string[] =
+        ['childEvents', 'eventDate', 'creationDate', 'category', 'important', 'attach', 'event', 'origin', 'author', 'actions'];
     pnc: PncModel;
 
     sortAscending = false;
@@ -42,14 +42,14 @@ export class LogbookPage {
 
     LogbookEventTypeEnum = LogbookEventTypeEnum;
 
-    constructor(public navCtrl: NavController,
-        public navParams: NavParams,
-        private pncService: PncService,
+    constructor(
+        private router: Router,
+        private activatedRoute: ActivatedRoute,
         private securityService: SecurityService,
         private sessionService: SessionService,
         private dateTransform: DateTransform,
         private onlineLogbookEventService: OnlineLogbookEventService,
-        public popoverCtrl: PopoverController,
+        private popoverCtrl: PopoverController,
         private connectivityService: ConnectivityService,
         private config: Config
     ) {
@@ -149,7 +149,7 @@ export class LogbookPage {
      */
     goToLogbookCreation() {
         if (this.pnc) {
-            this.navCtrl.push(LogbookCreatePage, { matricule: this.pnc.matricule });
+            this.router.navigate(['create'], { relativeTo: this.activatedRoute });
         }
     }
 
@@ -157,7 +157,7 @@ export class LogbookPage {
      * Dirige vers la page de détail d'un évènement du journal de bord
      */
     goToLogbookEventDetails(groupId: number) {
-        this.navCtrl.push(LogbookEventDetailsPage, { matricule: this.pnc.matricule, groupId: groupId });
+        this.router.navigate(['detail', groupId, false], { relativeTo: this.activatedRoute });
     }
 
     /**
@@ -178,13 +178,19 @@ export class LogbookPage {
 
     /**
      * Ouvre la popover de description d'un item
-     * @param myEvent  event
+     * @param event  event
      * @param eObservationItem item
      */
-    openActionsMenu(myEvent: Event, logbookEvent: LogbookEventModel) {
-        myEvent.stopPropagation();
-        const popover = this.popoverCtrl.create(LogbookEventActionMenuComponent, { logbookEvent: logbookEvent, navCtrl: this.navCtrl }, { cssClass: 'action-menu-popover' });
-        popover.present({ ev: myEvent });
+    openActionsMenu(event: Event, logbookEvent: LogbookEventModel) {
+        event.stopPropagation();
+        this.popoverCtrl.create({
+            component: LogbookEventActionMenuComponent,
+            componentProps: { logbookEvent: logbookEvent },
+            event: event,
+            cssClass: 'action-menu-popover'
+        }).then(popover => {
+            popover.present();
+        });
     }
 
     /**

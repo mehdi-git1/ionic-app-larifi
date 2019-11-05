@@ -1,27 +1,28 @@
+import { EventEmitter, Injectable, Output } from '@angular/core';
+import { ModalController } from '@ionic/angular';
+import { TranslateService } from '@ngx-translate/core';
+
+import {
+    PinPadModalComponent
+} from '../../../shared/components/modals/pin-pad-modal/pin-pad-modal.component';
+import {
+    SecretQuestionModalComponent
+} from '../../../shared/components/modals/secret-question-modal/secret-question-modal.component';
 import { GlobalErrorEnum } from '../../enums/global-error.enum';
 import { PinPadErrorEnum } from '../../enums/security/pin-pad-error.enum';
 import { PinPadTypeEnum } from '../../enums/security/pin-pad-type.enum';
-import { SecretQuestionTypeEnum } from '../../enums/security/secret-question-type.enum';
-import { SecurityService } from '../security/security.service';
-import { ToastService } from '../toast/toast.service';
-import { SessionService } from '../session/session.service';
-import { TranslateService } from '@ngx-translate/core';
-import { ModalController, Modal } from 'ionic-angular';
-import { Injectable, Output, EventEmitter } from '@angular/core';
-
-
-import { AuthenticatedUserModel } from '../../models/authenticated-user.model';
-import { PinPadModalComponent } from '../../../shared/components/modals/pin-pad-modal/pin-pad-modal.component';
-
-import { SecretQuestionModalComponent } from '../../../shared/components/modals/secret-question-modal/secret-question-modal.component';
 import { SecretQuestionErrorEnum } from '../../enums/security/secret-question-error.enum';
+import { SecretQuestionTypeEnum } from '../../enums/security/secret-question-type.enum';
+import { AuthenticatedUserModel } from '../../models/authenticated-user.model';
+import { SecurityService } from '../security/security.service';
+import { SessionService } from '../session/session.service';
+import { ToastService } from '../toast/toast.service';
 
-
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class ModalSecurityService {
 
     @Output() modalDisplayed = new EventEmitter<boolean>();
-    SecurityModal: Modal;
+    securityModal: HTMLIonModalElement;
     modalType: PinPadTypeEnum | SecretQuestionTypeEnum;
 
     pinValue: string;
@@ -44,8 +45,8 @@ export class ModalSecurityService {
      * Fonction permettant de fermer simplement un modal sans condition
      */
     forceCloseModal() {
-        if (this.SecurityModal) {
-            this.SecurityModal.dismiss('killModal');
+        if (this.securityModal) {
+            this.securityModal.dismiss('killModal');
         }
     }
 
@@ -68,17 +69,21 @@ export class ModalSecurityService {
             this.modalType = PinPadTypeEnum.firstConnexionStage1;
         }
 
-        this.SecurityModal = this.modalController.create(PinPadModalComponent,
-            {
+        this.modalController.create({
+            component: PinPadModalComponent,
+            componentProps: {
                 modalType: this.modalType,
                 errorType: this.errorType
             }
-        );
+        }).then(modal => {
+            this.securityModal = modal;
+        });
+
         // Reinitialisation de l'erreur pour éviter qu'elle ne s'affiche partout
         this.errorType = GlobalErrorEnum.none;
 
         this.manageDismissPinPad();
-        this.SecurityModal.present();
+        this.securityModal.present();
     }
 
     /**
@@ -86,29 +91,30 @@ export class ModalSecurityService {
      */
     manageDismissPinPad() {
         const pinCode = this.sessionService.authenticatedUser.pinInfo.pinCode;
-        this.SecurityModal.onDidDismiss(data => {
+        this.securityModal.onDidDismiss().then(overlayEventDetail => {
             // Si on a tué la modal, on dismiss juste car il y'a une autre modal qui va s'afficher derriére
-            if (data === 'killModal') {
+            if (overlayEventDetail.data === 'killModal') {
                 return false;
             }
 
             this.modalDisplayed.emit(false);
             // Si on a annulé l'action, on dismiss juste mais on affiche l'arriére plan
-            if (data === 'cancel') {
+            if (overlayEventDetail.data === 'cancel') {
                 return false;
             }
 
             // Si premiére connexion => etape 2
             if (this.modalType === PinPadTypeEnum.firstConnexionStage1) {
-                this.pinValue = data;
+                this.pinValue = overlayEventDetail.data;
                 this.displayPinPad(PinPadTypeEnum.firstConnexionStage2);
             } else if (this.modalType === PinPadTypeEnum.firstConnexionStage2) {
-                if (this.pinValue === data) {
-                    this.sessionService.authenticatedUser.pinInfo.pinCode = data;
+                if (this.pinValue === overlayEventDetail) {
+                    this.sessionService.authenticatedUser.pinInfo.pinCode = overlayEventDetail.data;
                     // Si on vient de mot de passe oublié (donc de la réponse à la question)
                     // Ou si l'on vient du changement de mot de passe
                     if (this.comeFrom === SecretQuestionTypeEnum.answerToQuestion || this.comeFrom === PinPadTypeEnum.askChange) {
-                        this.securityProvider.setAuthenticatedSecurityValue(new AuthenticatedUserModel().fromJSON(this.sessionService.authenticatedUser));
+                        this.securityProvider.setAuthenticatedSecurityValue(
+                            new AuthenticatedUserModel().fromJSON(this.sessionService.authenticatedUser));
                         this.toastProvider.success(this.translateService.instant('PIN_PAD.TOAST_MESSAGE.SUCCESS_REINIT'));
                     } else {
                         // Dans le cas contraire on et sur l'init et on doit répondre aux questions
@@ -119,14 +125,14 @@ export class ModalSecurityService {
                     this.displayPinPad(PinPadTypeEnum.firstConnexionStage1);
                 }
             } else if (this.modalType === PinPadTypeEnum.openingApp) {
-                if (data === 'forgotten') {
+                if (overlayEventDetail === 'forgotten') {
                     this.displaySecretQuestion(SecretQuestionTypeEnum.answerToQuestion);
-                } else if (pinCode != data) {
+                } else if (pinCode != overlayEventDetail) {
                     this.errorType = PinPadErrorEnum.pinIncorrect;
                     this.displayPinPad(PinPadTypeEnum.openingApp);
                 }
             } else if (this.modalType === PinPadTypeEnum.askChange) {
-                if (pinCode != data) {
+                if (pinCode != overlayEventDetail) {
                     this.errorType = PinPadErrorEnum.pinIncorrect;
                     this.displayPinPad(PinPadTypeEnum.askChange);
                 } else if (this.comeFrom === SecretQuestionTypeEnum.askChange) {
@@ -156,41 +162,46 @@ export class ModalSecurityService {
             this.displayPinPad(PinPadTypeEnum.askChange);
             return false;
         } else {
-            this.SecurityModal = this.modalController.create(SecretQuestionModalComponent,
-                {
+            this.modalController.create({
+                component: SecretQuestionModalComponent,
+                componentProps: {
                     modalType: type,
                     question: this.sessionService.authenticatedUser.pinInfo.secretQuestion,
                     errorType: this.errorType
-                });
+                }
+            }).then(modal => {
+                this.securityModal = modal;
+            });
         }
         // Reinitialisation de l'erreur pour éviter qu'elle ne s'affiche partout
         this.errorType = GlobalErrorEnum.none;
         this.manageDismissSecretQuestion();
-        this.SecurityModal.present();
+        this.securityModal.present();
     }
 
     /**
      * Fonction permettant de gérer les données reçues du modal de question réponse
      */
     manageDismissSecretQuestion() {
-        this.SecurityModal.onDidDismiss(data => {
+        this.securityModal.onDidDismiss().then(overlayEventDetail => {
             // Si on a tué la modal, on dismiss juste car il y'a une aurre modal qui va s'afficher derriére
-            if (data === 'killModal') {
+            if (overlayEventDetail.data === 'killModal') {
                 return false;
             }
 
             this.modalDisplayed.emit(false);
             // Si on a annulé l'action, on dismiss juste mais on affiche l'arriére plan
-            if (data === 'cancel') {
+            if (overlayEventDetail.data === 'cancel') {
                 return false;
             }
 
             if (this.modalType === SecretQuestionTypeEnum.newQuestion) {
                 // Reprise et enregistrements des valeurs dans la session et côté back
                 this.sessionService.authenticatedUser.pinInfo.matricule = this.sessionService.authenticatedUser.matricule;
-                this.sessionService.authenticatedUser.pinInfo.secretQuestion = data.secretQuestion;
-                this.sessionService.authenticatedUser.pinInfo.secretAnswer = data.secretAnswer;
-                this.securityProvider.setAuthenticatedSecurityValue(new AuthenticatedUserModel().fromJSON(this.sessionService.authenticatedUser));
+                this.sessionService.authenticatedUser.pinInfo.secretQuestion = overlayEventDetail.data.secretQuestion;
+                this.sessionService.authenticatedUser.pinInfo.secretAnswer = overlayEventDetail.data.secretAnswer;
+                this.securityProvider.setAuthenticatedSecurityValue(
+                    new AuthenticatedUserModel().fromJSON(this.sessionService.authenticatedUser));
                 // On affiche le bon message en fonction de si on vient de l'init on du changement de question
                 if (this.comeFrom === SecretQuestionTypeEnum.askChange) {
                     this.comeFrom = null;
@@ -201,7 +212,7 @@ export class ModalSecurityService {
             }
 
             if (this.modalType === SecretQuestionTypeEnum.answerToQuestion) {
-                if (this.sessionService.authenticatedUser.pinInfo.secretAnswer === data.secretAnswer) {
+                if (this.sessionService.authenticatedUser.pinInfo.secretAnswer === overlayEventDetail.data.secretAnswer) {
                     this.comeFrom = SecretQuestionTypeEnum.answerToQuestion;
                     this.displayPinPad(PinPadTypeEnum.firstConnexionStage1);
                 } else {

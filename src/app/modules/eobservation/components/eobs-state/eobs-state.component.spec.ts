@@ -1,16 +1,20 @@
-import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { IonicModule } from 'ionic-angular';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { IonicModule } from '@ionic/angular';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
-import { TranslateLoaderMock } from '../../../../../test-config/mocks-ionic';
-import { EObservationModel } from '../../../../core/models/eobservation/eobservation.model';
-import { EObsStateComponent } from './eobs-state.component';
 import { EObservationStateEnum } from '../../../../core/enums/e-observation-state.enum';
-import { TranslateOrEmptyService } from '../../../../core/services/translate/translate-or-empty.service';
-import { TranslateOrEmptyPipe } from '../../../../shared/pipes/translate-or-empty/translate-or-empty.pipe';
+import { EObservationModel } from '../../../../core/models/eobservation/eobservation.model';
+import {
+    TranslateOrEmptyService
+} from '../../../../core/services/translate/translate-or-empty.service';
+import {
+    TranslateOrEmptyPipe
+} from '../../../../shared/pipes/translate-or-empty/translate-or-empty.pipe';
+import { EObsStateComponent } from './eobs-state.component';
 
 const translateOrEmptyServiceMock = jasmine.createSpyObj('translateOrEmptyServiceMock', ['transform']);
+const TranslateLoaderMock = jasmine.createSpyObj('TranslateLoaderMock', ['instant']);
 
 describe('EObsRotationInfoComponent', () => {
 
@@ -23,7 +27,7 @@ describe('EObsRotationInfoComponent', () => {
                 TranslateOrEmptyPipe
             ],
             imports: [
-                IonicModule.forRoot(EObsStateComponent),
+                IonicModule,
                 TranslateModule.forRoot({
                     loader: { provide: TranslateLoader, useClass: TranslateLoaderMock }
                 })

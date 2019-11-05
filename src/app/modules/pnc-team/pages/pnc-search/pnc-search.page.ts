@@ -1,6 +1,5 @@
-import { Events } from 'ionic-angular';
-
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { Events, IonInfiniteScroll } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 
 import { AppConstant } from '../../../../app.constant';
@@ -16,8 +15,9 @@ import {
 @Component({
     selector: 'page-pnc-search',
     templateUrl: 'pnc-search.page.html',
+    styleUrls: ['./pnc-search.page.scss']
 })
-export class PncSearchPage implements OnInit {
+export class PncSearchPage implements AfterViewInit {
 
     filteredPncs: PncModel[];
     searchInProgress = false;
@@ -33,8 +33,8 @@ export class PncSearchPage implements OnInit {
     sortColumn: string;
     sortDirection: string;
 
-    @ViewChild(PncSearchFilterComponent)
-    pncSearchFilter: PncSearchFilterComponent;
+    @ViewChild(PncSearchFilterComponent, { static: false }) pncSearchFilter: PncSearchFilterComponent;
+    @ViewChild(IonInfiniteScroll, { static: false }) infiniteScroll: IonInfiniteScroll;
 
     constructor(
         public translateService: TranslateService,
@@ -47,12 +47,8 @@ export class PncSearchPage implements OnInit {
         this.sizeOfThePage = 0;
     }
 
-    ngOnInit() {
-        // initialistation des resultats de recherche
-        this.initSearchResults();
-    }
-
-    ionViewDidEnter() {
+    ngAfterViewInit() {
+        this.initSearchConfig();
         this.totalPncs = 0;
         this.pageSize = AppConstant.pageSize;
         this.searchPncs();
@@ -62,14 +58,13 @@ export class PncSearchPage implements OnInit {
      * Initialisation du contenu de la page.
      */
     initPage() {
-        this.ngOnInit();
-        this.ionViewDidEnter();
+        this.ngAfterViewInit();
     }
 
     /**
      * Initialise le nombre de pnc à afficher par page et les données des listes de recherche.
      */
-    initSearchResults() {
+    initSearchConfig() {
         this.pageSize = AppConstant.pageSize;
         this.itemOffset = 0;
         this.page = 0;
@@ -83,6 +78,7 @@ export class PncSearchPage implements OnInit {
      */
     searchPncs() {
         this.searchInProgress = true;
+        this.infiniteScroll.disabled = false;
         this.buildFilter();
 
         this.pncService.getFilteredPncs(this.pncSearchFilter.pncFilter, this.page, this.sizeOfThePage).then(pagedPnc => {
@@ -107,26 +103,22 @@ export class PncSearchPage implements OnInit {
 
     /**
      * Permet de recharger les éléments dans la liste à scroller quand on arrive a la fin de la liste.
-     * @param infiniteScroll
+     * @param event l'événement gérant le scroll
      */
-    doInfinite(infiniteScroll): Promise<any> {
-        return new Promise((resolve) => {
-            if (this.filteredPncs.length < this.totalPncs) {
-                if (this.connectivityService.isConnected()) {
-                    ++this.page;
-                    this.pncService.getFilteredPncs(this.pncSearchFilter.pncFilter, this.page, this.sizeOfThePage).then(pagedPnc => {
-                        this.pncPhotoService.synchronizePncsPhotos(pagedPnc.content.map(pnc => pnc.matricule));
-                        this.filteredPncs.push(...pagedPnc.content);
-                        infiniteScroll.complete();
-                        resolve();
-                    });
-                } else {
-                    resolve();
-                }
+    doInfinite(event) {
+        if (this.filteredPncs.length < this.totalPncs) {
+            if (this.connectivityService.isConnected()) {
+                ++this.page;
+                this.pncService.getFilteredPncs(this.pncSearchFilter.pncFilter, this.page, this.sizeOfThePage).then(pagedPnc => {
+                    this.pncPhotoService.synchronizePncsPhotos(pagedPnc.content.map(pnc => pnc.matricule));
+                    this.filteredPncs.push(...pagedPnc.content);
+                    event.target.complete();
+                });
             } else {
-                resolve();
             }
-        });
+        } else {
+            event.target.disabled = true;
+        }
     }
 
     /**

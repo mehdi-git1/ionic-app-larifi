@@ -1,14 +1,15 @@
 import { Injectable } from '@angular/core';
 
 import { UrlConfiguration } from '../../configuration/url.configuration';
-import { ProfessionalLevelModel } from '../../models/professional-level/professional-level.model';
 import { RestService } from '../../http/rest/rest.base.service';
+import { ProfessionalLevelModel } from '../../models/professional-level/professional-level.model';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class OnlineProfessionalLevelService {
 
-    constructor(public restService: RestService,
-        public config: UrlConfiguration) {
+    constructor(
+        private restService: RestService,
+        private config: UrlConfiguration) {
     }
 
     /**

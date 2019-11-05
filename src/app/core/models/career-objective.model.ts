@@ -1,8 +1,8 @@
-import { WaypointModel } from './waypoint.model';
 import { CareerObjectiveStatusEnum } from '../enums/career-objective-status.enum';
 import { PncRoleEnum } from '../enums/pnc-role.enum';
-import { PncModel } from './pnc.model';
 import { EDossierPncObjectModel } from './e-dossier-pnc-object.model';
+import { PncModel } from './pnc.model';
+import { WaypointModel } from './waypoint.model';
 
 export class CareerObjectiveModel extends EDossierPncObjectModel {
     careerObjectiveStatus: CareerObjectiveStatusEnum;
