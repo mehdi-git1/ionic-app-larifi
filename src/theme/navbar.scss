@@ -1,7 +1,5 @@
-@import './colors.scss';
-
 ion-navbar.toolbar {
-    &>.toolbar-background {
-        background:var(--ion-color-primarydark);
+    & > .toolbar-background {
+        background: var(--ion-color-primarydark);
     }
 }

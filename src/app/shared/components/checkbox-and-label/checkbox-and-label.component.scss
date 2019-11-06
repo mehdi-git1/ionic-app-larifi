@@ -1,5 +1,3 @@
-@import '../../../../theme/colors.scss';
-
 :host {
     padding-bottom: 5px;
 
@@ -20,9 +18,9 @@
         }
 
         .checkbox-md .checkbox-checked {
-            border-color: color($colors-secondary, blue55) !important;
+            border-color: var(--ion-color-blue55) !important;
             background-color: var(--ion-color-white) !important;
-            color: color($colors-secondary, blue55) !important;
+            color: var(--ion-color-blue55) !important;
         }
 
         .checkbox-md.checkbox-disabled,
@@ -33,7 +31,7 @@
 
             .checkbox-inner {
                 opacity: 1;
-                border-color: color($colors-secondary, blue55) !important;
+                border-color: var(--ion-color-blue55) !important;
             }
         }
 

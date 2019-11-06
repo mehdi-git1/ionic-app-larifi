@@ -1,6 +1,4 @@
-@import '../../../../../theme/colors.scss';
-
-.rotation-list>h3 {
+.rotation-list > h3 {
     font-weight: normal;
     padding: 15px 10px;
     font-size: 1.2em;
@@ -17,7 +15,7 @@
 
 ::ng-deep .upcoming-rotations {
     ion-card-header {
-        background:var(--ion-color-primarydark);
+        background: var(--ion-color-primarydark);
         color: var(--ion-color-white);
     }
 }

@@ -1,5 +1,4 @@
 $colorPointSize: 12px;
-@import '../../../../theme/colors.scss';
 
 :host {
     height: $colorPointSize;
@@ -16,11 +15,11 @@ $colorPointSize: 12px;
     }
 
     .green {
-        background: color($colors-secondary, green70);
+        background: var(--ion-color-green70);
     }
 
     .yellow {
-        background: color($colors-secondary, yellow10);
+        background: var(--ion-color-yellow10);
     }
 
     .orange {
@@ -28,11 +27,11 @@ $colorPointSize: 12px;
     }
 
     .red {
-        background: color($colors-secondary, red15);
+        background: var(--ion-color-red15);
     }
 
     .grey {
-        background: color($colors-secondary, grey72);
+        background: var(--ion-color-grey72);
     }
 
 }

@@ -1,11 +1,9 @@
-@import '../../../../../theme/colors.scss';
-
-$border-grid: 1px solid color($colors-secondary, grey75);
+$border-grid: 1px solid var(--ion-color-grey75);
 $block-border-radius: 5px;
 
 ion-grid.rotation-grid {
     .flight-header {
-        color: color($colors-secondary, blue55);
+        color: var(--ion-color-blue55);
     }
 
     ion-row {
@@ -24,7 +22,7 @@ ion-grid.rotation-grid {
     }
 
     ion-row:nth-child(even) {
-        background: color($colors-secondary, grey95);
+        background: var(--ion-color-grey95);
     }
 
     ion-col:last-child {
@@ -36,7 +34,7 @@ ion-grid.rotation-grid {
 .rotation-info {
 
     .rotation-number {
-        color: color($colors-secondary, blue55);
+        color: var(--ion-color-blue55);
     }
 
     display: flex;

@@ -1,8 +1,6 @@
-@import '../../../../../theme/colors.scss';
-
 .pcb-grid {
     ion-row:nth-child(odd) {
-        background: color($colors-secondary, grey95);
+        background: var(--ion-color-grey95);
     }
 
     ion-row:nth-child(even) {
@@ -74,13 +72,13 @@
 
 .pcb-subtitle {
     ion-col:first-child {
-        border-right: solid color($colors-secondary, grey75) 1px;
+        border-right: solid var(--ion-color-grey75) 1px;
     }
 }
 
 .pcb-grid {
     ion-col:first-child {
-        border-right: solid color($colors-secondary, grey75) 1px;
+        border-right: solid var(--ion-color-grey75) 1px;
     }
 }
 
@@ -89,7 +87,7 @@
     padding-left: 24px;
     padding-top: 5px;
     padding-bottom: 5px;
-    color: color($colors-secondary, blue55);
-    border-top: solid color($colors-secondary, grey75) 1px;
-    border-bottom: solid color($colors-secondary, grey75) 1px;
+    color: var(--ion-color-blue55);
+    border-top: solid var(--ion-color-grey75) 1px;
+    border-bottom: solid var(--ion-color-grey75) 1px;
 }

@@ -1,12 +1,10 @@
-@import '../../../../theme/colors.scss';
-
 :host {
     display: flex;
     justify-content: center;
     align-items: center;
 
     .progress-value {
-        stroke: color($colors-secondary, grey75);
+        stroke: var(--ion-color-grey75);
         transform: rotate(-90deg);
         transform-origin: 50% 50%;
     }

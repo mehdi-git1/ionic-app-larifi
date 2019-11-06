@@ -1,5 +1,3 @@
-@import '../../../../../theme/colors.scss';
-
 $block-border-radius: 5px;
 
 ::ng-deep ion-grid {
@@ -23,7 +21,7 @@ $block-border-radius: 5px;
     height: 32px;
     padding-right: 24px;
     padding-left: 24px;
-    background: color($colors-secondary, blue55);
+    background: var(--ion-color-blue55);
     color: var(--ion-color-white);
     font-size: 18px !important;
     border-radius: $block-border-radius;
@@ -50,13 +48,13 @@ $block-border-radius: 5px;
     pdf-button {
 
         .button .button-md .button-ios {
-            background-color: white;
+            background-color: var(--ion-color-white);
             color: var(--ion-color-grey20);
             border-color: var(--ion-color-grey20);
         }
 
         .button:hover .button-md:hover .button-ios:hover {
-            background-color: white;
+            background-color: var(--ion-color-white);
             color: var(--ion-color-grey20);
             border-color: var(--ion-color-grey20);
         }

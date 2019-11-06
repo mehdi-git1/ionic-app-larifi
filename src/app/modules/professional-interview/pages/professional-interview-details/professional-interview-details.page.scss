@@ -1,10 +1,8 @@
-@import '../../../../../theme/colors.scss';
-
-$border-grid: 1px solid color($colors-secondary, grey75);
+$border-grid: 1px solid var(--ion-color-grey75);
 $block-border-radius: 5px;
 
 .rotation-number {
-    color: color($colors-secondary, blue55);
+    color: var(--ion-color-blue55);
 }
 
 .rotation-info {
@@ -23,7 +21,7 @@ $block-border-radius: 5px;
 
 ion-grid.rotation-grid {
     .flight-header {
-        color: color($colors-secondary, blue55);
+        color: var(--ion-color-blue55);
     }
 
     ion-row {
@@ -42,7 +40,7 @@ ion-grid.rotation-grid {
     }
 
     ion-row:nth-child(even) {
-        background: color($colors-secondary, grey95);
+        background: var(--ion-color-grey95);
     }
 
     ion-col:last-child {
@@ -63,7 +61,7 @@ ion-grid.rotation-grid {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background: color($colors-secondary, bluegrey30);
+    background: var(--ion-color-bluegrey30);
     color: var(--ion-color-white);
     border-radius: $block-border-radius;
 
@@ -91,7 +89,7 @@ ion-grid.rotation-grid {
 .date-block-justify {
     justify-content: center;
     margin-bottom: 15px;
-    background-color: color($colors-secondary, bluegrey50);
+    background-color: var(--ion-color-bluegrey30);
 
     .date-display {
         color: var(--ion-color-white);
@@ -162,7 +160,7 @@ ion-grid.rotation-grid {
     height: 32px;
     padding-right: 24px;
     padding-left: 24px;
-    background: color($colors-secondary, blue55);
+    background: var(--ion-color-blue55);
     color: var(--ion-color-white);
     font-size: 18px !important;
     border-radius: $block-border-radius;
@@ -194,7 +192,7 @@ ion-grid.rotation-grid {
     p {
         padding: 10px;
         border-radius: 3px;
-        background: color($colors-secondary, grey95);
+        background: var(--ion-color-grey95);
         border: 1px solid var(--ion-color-grey70);
         white-space: pre-line;
     }
@@ -207,11 +205,11 @@ ion-grid.rotation-grid {
             margin: 0px 0px 10px 0px;
             display: flex;
             align-items: center;
-            color: color($colors-secondary, grey10);
+            color: var(--ion-color-grey10);
 
             span {
                 font-weight: normal;
-                color: color($colors-secondary, blue55);
+                color: var(--ion-color-blue55);
                 margin-right: 15px;
             }
         }
@@ -220,7 +218,7 @@ ion-grid.rotation-grid {
         label.required:after {
             content: '*';
             padding-left: 5px;
-            color: color($colors-secondary, red80);
+            color: var(--ion-color-red80);
         }
 
         div.ng-star-inserted div.ng-star-inserted:first-child label:first-child {

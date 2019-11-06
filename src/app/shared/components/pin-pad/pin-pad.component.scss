@@ -1,5 +1,3 @@
-@import '../../../../theme/colors.scss';
-
 $containerWidth : 400;
 $containerHeight : 510;
 $containerPadding : 30;
@@ -12,7 +10,7 @@ $pinNumberHeight: 65;
 
 
 .title {
-    color: color($colors-secondary, grey10);
+    color: var(--ion-color-grey10);
     font-weight: bold;
     font-size: 20px;
     text-align: center;
@@ -20,12 +18,12 @@ $pinNumberHeight: 65;
 
 .error-text {
     text-align: center;
-    color: color($colors-secondary, red80);
+    color: var(--ion-color-red80);
 }
 
 .forgotten-pin {
     position: absolute;
-    color: color($colors-secondary, grey10);
+    color: var(--ion-color-grey10);
     font-weight: bold;
     cursor: pointer;
     margin-top: -20px;
@@ -37,7 +35,7 @@ $pinNumberHeight: 65;
     position: absolute;
     width: $containerWidth+px;
     height: $containerHeight+px;
-    color: color($colors-secondary, grey95);
+    color: var(--ion-color-grey95);
     top: 40px;
     left: calc(50% - #{$containerWidth/2}px);
     padding: $containerPadding+px;
@@ -64,7 +62,7 @@ $pinNumberHeight: 65;
         }
 
         .full-round {
-            background-color: color($colors-secondary, grey95);
+            background-color: var(--ion-color-grey95);
         }
 
     }
@@ -81,7 +79,7 @@ $pinNumberHeight: 65;
         display: inline-flex;
         width: $pinNumberWidth+px;
         height: $pinNumberHeight+px;
-        color: color($colors-secondary, grey10);
+        color: var(--ion-color-grey10);
         padding-left: 25px;
         padding-top: 17px;
         margin: 10px;
@@ -90,8 +88,8 @@ $pinNumberHeight: 65;
     .pad-number {
         @extend %item-common;
         cursor: pointer;
-        background-color: color($colors-secondary, grey95);
-        border: solid 2px color($colors-secondary, grey95);
+        background-color: var(--ion-color-grey95);
+        border: solid 2px var(--ion-color-grey95);
         border-radius: $pinNumberWidth+px;
         font-weight: bold;
         font-size: 20px;

@@ -1,5 +1,3 @@
-@import '../../../../../theme/colors.scss';
-
 table {
     width: 100%;
     font-size: 1.1em;
@@ -8,7 +6,7 @@ table {
 
     thead {
         background: var(--ion-color-white);
-        border-bottom: 1px solid color($colors-secondary, grey75);
+        border-bottom: 1px solid var(--ion-color-grey75);
     }
 
     th,
@@ -16,8 +14,8 @@ table {
         padding: 5px 10px;
         text-align: left;
         vertical-align: top;
-        border-left: 1px solid color($colors-secondary, grey75);
-        border-right: 1px solid color($colors-secondary, grey75);
+        border-left: 1px solid var(--ion-color-grey75);
+        border-right: 1px solid var(--ion-color-grey75);
     }
 
     th {
@@ -47,7 +45,7 @@ table {
 
     tr:nth-child(odd) {
         td {
-            background: color($colors-secondary, grey95);
+            background: var(--ion-color-grey95);
         }
     }
 

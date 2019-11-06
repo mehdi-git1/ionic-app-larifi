@@ -1,6 +1,4 @@
-@import './colors.scss';
-
-$colorBright : white;
+$colorBright : var(--ion-color-white);
 $colorDark: var(--ion-color-primary);
 
 ion-modal {

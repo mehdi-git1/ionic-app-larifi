@@ -1,7 +1,5 @@
-@import '../../../../../theme/colors.scss';
-
-ion-col>label {
-    color: color($colors-secondary, grey10);
+ion-col > label {
+    color: var(--ion-color-grey10);
     margin-right: 10px;
 }
 

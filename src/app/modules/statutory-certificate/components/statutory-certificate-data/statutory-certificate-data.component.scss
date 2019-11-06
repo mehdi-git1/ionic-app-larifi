@@ -1,5 +1,3 @@
-@import '../../../../../theme/colors.scss';
-
 ion-grid {
     border-radius: 5px;
     margin-bottom: 15px;
@@ -21,15 +19,15 @@ ion-grid {
     }
 
     .odd {
-        background: color($colors-secondary, grey95);
+        background: var(--ion-color-grey95);
     }
 
     ion-row:nth-child(even) {
-        background: color($colors-secondary, grey95);
+        background: var(--ion-color-grey95);
     }
 
     .statutory-certificate-data {
-        color: color($colors-secondary, grey60);
+        color: var(--ion-color-grey60);
     }
 
     .statutory-certificate-header {
@@ -40,13 +38,13 @@ ion-grid {
 
     .statutory-data-tab {
         .col {
-            border-bottom: 1px solid color($colors-secondary, grey75);
-            border-right: 1px solid color($colors-secondary, grey75);
+            border-bottom: 1px solid var(--ion-color-grey75);
+            border-right: 1px solid var(--ion-color-grey75);
         }
 
         .statutory-certificate-data {
             .col {
-                border-right: 1px solid color($colors-secondary, grey75);
+                border-right: 1px solid var(--ion-color-grey75);
             }
         }
     }

@@ -1,11 +1,9 @@
-@import '../../../../theme/colors.scss';
-
 :host {
     display: flex;
     align-items: center;
     margin-left: 15px;
 
-    &>* {
+    & > * {
         margin-right: 15px;
     }
 
@@ -22,7 +20,7 @@
         }
 
         ion-spinner * {
-            stroke: color($colors-secondary, grey95);
+            stroke: var(--ion-color-grey95);
         }
     }
 

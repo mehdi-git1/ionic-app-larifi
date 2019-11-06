@@ -1,5 +1,3 @@
-@import '../../../../../theme/colors.scss';
-
 ::ng-deep mat-expansion-panel {
     border-radius: 5px;
 
@@ -9,7 +7,7 @@
         background: var(--ion-color-primarylight);
         border-radius: 5px;
 
-        &>.mat-expansion-indicator {
+        & > .mat-expansion-indicator {
             display: flex;
             transition: all linear 200ms;
         }
@@ -48,7 +46,7 @@
             }
 
             li:nth-child(odd) {
-                background: color($colors-secondary, grey95);
+                background: var(--ion-color-grey95);
             }
         }
     }

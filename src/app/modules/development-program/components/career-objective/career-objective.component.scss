@@ -1,5 +1,3 @@
-@import '../../../../../theme/colors.scss';
-
 .career-objective-card {
     --background: var(--ion-color-white);
     display: flex;
@@ -56,14 +54,14 @@
             }
 
             .edospnc-flag:before {
-                color: color($colors-secondary, red15);
-                border-color: color($colors-secondary, red15);
+                color: var(--ion-color-red15);
+                border-color: var(--ion-color-red15);
                 font-size: 30px;
             }
 
             .edospnc-pnc:before {
-                color: color($colors-secondary, blue68);
-                border-color: color($colors-secondary, blue68);
+                color: var(--ion-color-blue68);
+                border-color: var(--ion-color-blue68);
                 font-size: 15px;
                 padding: 8px 4px;
             }

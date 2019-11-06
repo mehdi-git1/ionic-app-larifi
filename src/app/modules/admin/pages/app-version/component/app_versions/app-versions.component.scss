@@ -1,5 +1,3 @@
-@import '../../../../../../../theme/colors.scss';
-
 mat-expansion-panel {
     box-shadow: none !important;
 
@@ -15,7 +13,7 @@ mat-expansion-panel {
         font-weight: bold;
         color: var(--ion-color-white) !important;
 
-        &>.mat-expansion-indicator {
+        & > .mat-expansion-indicator {
             display: flex;
             transition: all linear 200ms;
         }
@@ -33,7 +31,7 @@ mat-expansion-panel {
             align-items: center;
         }
 
-        .mat-content>label {
+        .mat-content > label {
             font-weight: 700;
             font-size: 1.2em;
             color: var(--ion-color-white);

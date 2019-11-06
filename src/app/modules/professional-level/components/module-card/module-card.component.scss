@@ -1,5 +1,3 @@
-@import '../../../../../theme/colors.scss';
-
 .module-card {
     width: 100%;
     height: 47px;
@@ -7,8 +5,8 @@
     align-items: center;
     padding: 0 10px;
 
-    &>* {
-        color: color($colors-secondary, grey10);
+    & > * {
+        color: var(--ion-color-grey10);
     }
 
     .module-date {
@@ -36,7 +34,7 @@
 
         .score-badge {
             margin: 2px;
-            background-color: color($colors-secondary, grey40);
+            background-color: var(--ion-color-grey40);
             font-weight: normal;
             border-radius: 5px;
         }

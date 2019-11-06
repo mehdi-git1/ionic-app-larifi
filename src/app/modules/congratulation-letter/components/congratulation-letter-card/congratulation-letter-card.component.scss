@@ -1,5 +1,3 @@
-@import '../../../../../theme/colors.scss';
-
 .congratulation-letter {
     display: flex;
     align-items: center;
@@ -36,7 +34,7 @@
         align-items: center;
         justify-content: flex-end;
 
-        &>* {
+        & > * {
             margin-left: 10px;
         }
 

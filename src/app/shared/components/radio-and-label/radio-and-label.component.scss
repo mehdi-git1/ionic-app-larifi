@@ -1,5 +1,3 @@
-@import '../../../../theme/colors.scss';
-
     .container {
         display: flex;
         align-items: center;
@@ -15,13 +13,13 @@
         .radio-md .radio-icon,
         .radio-md.radio-disabled,
         .item-md.item-radio-disabled {
-            border-color: color($colors-secondary, blue55) !important;
+            border-color: var(--ion-color-blue55) !important;
             opacity: 1;
             margin: 0px;
 
             .radio-inner {
                 opacity: 1;
-                background-color: color($colors-secondary, blue55) !important;
+                background-color: var(--ion-color-blue55) !important;
             }
         }
 

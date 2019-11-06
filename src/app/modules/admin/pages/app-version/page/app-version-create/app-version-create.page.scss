@@ -1,5 +1,3 @@
-@import '../../../../../../../theme/colors.scss';
-
 form {
     display: flex;
     flex-direction: column;
@@ -9,7 +7,7 @@ form {
         display: flex;
         flex: 1;
 
-        ion-scroll>.scroll-content {
+        ion-scroll > .scroll-content {
             padding: 0 !important;
         }
 
@@ -34,7 +32,7 @@ form {
             }
 
             .ion-textarea-read-only {
-                background-color: color($colors-secondary, grey95);
+                background-color: var(--ion-color-grey95);
             }
 
             .details {

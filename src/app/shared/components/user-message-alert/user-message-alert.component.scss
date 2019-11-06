@@ -1,7 +1,5 @@
-@import '../../../../theme/colors.scss';
-
 :host {
-    color: color($colors-secondary, grey10);
+    color: var(--ion-color-grey10);
     height: 100%;
 
     .user-message-alert-wrapper {
@@ -20,7 +18,7 @@
 
         .alert {
             width: 50%;
-            background: color($colors-secondary, grey95);
+            background: var(--ion-color-grey95);
             border-radius: 10px;
 
             .header {
@@ -54,18 +52,18 @@
             .button-bar {
                 height: 50px;
                 display: flex;
-                border-top: 1px solid color($colors-secondary, grey72);
+                border-top: 1px solid var(--ion-color-grey72);
 
                 button {
                     flex: 1;
-                    background: color($colors-secondary, grey95);
+                    background: var(--ion-color-grey95);
                     font-size: 1.3em;
                     border-radius: 5px;
-                    color: color($colors-secondary, grey10);
+                    color: var(--ion-color-grey10);
                 }
 
                 button:not(:first-child) {
-                    border-left: 1px solid color($colors-secondary, grey72);
+                    border-left: 1px solid var(--ion-color-grey72);
                 }
 
                 button:first-child {
@@ -78,7 +76,7 @@
                 }
 
                 button:hover {
-                    background: color($colors-secondary, grey95);
+                    background: var(--ion-color-grey95);
                 }
             }
         }

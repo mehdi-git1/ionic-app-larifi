@@ -1,11 +1,9 @@
-@import '../../../../theme/colors.scss';
-
 .cropped-frame {
     display: flex;
     justify-content: center;
     align-items: center;
 
     border-radius: 100%;
-    background: color($colors-secondary, grey95);
+    background: var(--ion-color-grey95);
     overflow: hidden;
 }
