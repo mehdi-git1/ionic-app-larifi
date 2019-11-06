@@ -190,6 +190,12 @@ export class LogbookPage {
             cssClass: 'action-menu-popover'
         }).then(popover => {
             popover.present();
+
+            popover.onDidDismiss().then(dismissEvent => {
+                if (dismissEvent.data === 'logbookEvent:create') {
+                    this.router.navigate(['detail', logbookEvent.groupId, true], { relativeTo: this.activatedRoute });
+                }
+            });
         });
     }
 

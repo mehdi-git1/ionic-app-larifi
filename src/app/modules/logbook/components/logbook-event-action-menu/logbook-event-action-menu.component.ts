@@ -25,8 +25,7 @@ export class LogbookEventActionMenuComponent {
    * Ajoute un évènement lié
    */
   addLinkedEvent() {
-    this.router.navigate(['create', this.logbookEvent.groupId, true], { relativeTo: this.activatedRoute });
-    this.popoverCtrl.dismiss();
+    this.popoverCtrl.dismiss('logbookEvent:create');
   }
 
   /**
