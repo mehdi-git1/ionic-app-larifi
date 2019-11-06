@@ -51,8 +51,7 @@ export class CongratulationLetterActionMenuComponent {
    * Met à jour une lettre de félicitation
    */
   updateCongratulationLetter() {
-    this.router.navigate(['create', this.congratulationLetter.techId], { relativeTo: this.activatedRoute });
-    this.popoverCtrl.dismiss();
+    this.popoverCtrl.dismiss('congratulationLetter:update');
   }
 
   /**

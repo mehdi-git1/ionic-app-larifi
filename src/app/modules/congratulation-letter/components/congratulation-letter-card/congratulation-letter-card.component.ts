@@ -109,6 +109,12 @@ export class CongratulationLetterCardComponent {
       cssClass: 'action-menu-popover'
     }).then(popover => {
       popover.present();
+
+      popover.onDidDismiss().then((dismissEvent) => {
+        if (dismissEvent.data === 'congratulationLetter:update') {
+          this.router.navigate(['create', congratulationLetter.techId], { relativeTo: this.activatedRoute });
+        }
+      });
     });
   }
 
