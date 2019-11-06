@@ -1,4 +1,4 @@
-import { NavController } from 'ionic-angular';
+import { NavController, PopoverController } from 'ionic-angular';
 
 import { Component, OnInit } from '@angular/core';
 
@@ -14,6 +14,9 @@ import {
 } from '../../../../core/services/hr-documents/online-hr-document.service';
 import { SecurityService } from '../../../../core/services/security/security.service';
 import { SessionService } from '../../../../core/services/session/session.service';
+import {
+    HrDocumentActionMenuComponent
+} from '../hr-document-action-menu/hr-document-action-menu.component';
 import { HrDocumentCreatePage } from '../hr-document-create/hr-document-create.page';
 import { HrDocumentDetailPage } from '../hr-document-detail/hr-document-detail.page';
 
@@ -37,7 +40,8 @@ export class HrDocumentsPage implements OnInit {
         private navCtrl: NavController,
         private onlineHrDocumentService: OnlineHrDocumentService,
         private securityService: SecurityService,
-        private connectivityService: ConnectivityService) {
+        private connectivityService: ConnectivityService,
+        private popoverCtrl: PopoverController) {
         this.sizeOfThePage = 0;
         this.initFilter();
     }
@@ -195,5 +199,24 @@ export class HrDocumentsPage implements OnInit {
      */
     isConnected(): boolean {
         return this.connectivityService.isConnected();
+    }
+
+    /**
+     * Ouvre la popover de description d'un item
+     * @param myEvent  l'évènementt
+     * @param hrDocument le document RH concerné
+     */
+    openActionsMenu(myEvent: Event, hrDocument: HrDocumentModel) {
+        myEvent.stopPropagation();
+        const popover = this.popoverCtrl.create(HrDocumentActionMenuComponent, { hrDocument: hrDocument, navCtrl: this.navCtrl }, { cssClass: 'action-menu-popover' });
+        popover.present({ ev: myEvent });
+    }
+
+    /**
+     * Vérifie si le PNC est manager
+     * @return vrai si le PNC est manager, faux sinon
+     */
+    isManager(): boolean {
+        return this.securityService.isManager();
     }
 }

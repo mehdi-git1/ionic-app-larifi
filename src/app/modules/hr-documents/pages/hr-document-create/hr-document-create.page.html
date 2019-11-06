@@ -1,10 +1,18 @@
 <ion-header>
     <ion-navbar>
         <page-header [showSettingsIcon]="true" [pnc]="pnc">
-            {{ 'HR_DOCUMENT.EDIT.DOCUMENT_CREATION' | translate }}
+            <span
+                *ngIf="mode === HrDocumentModeEnum.CREATION; else updateTitle">{{ 'HR_DOCUMENT.EDIT.DOCUMENT_CREATION' | translate }}</span>
+            <ng-template #updateTitle>
+                {{ 'HR_DOCUMENT.EDIT.DOCUMENT_EDITION' | translate }}
+            </ng-template>
+
         </page-header>
     </ion-navbar>
 </ion-header>
 <ion-content padding no-bounce>
-    <hr-document #hrDocumentCreate [mode]="mode"></hr-document>
+    <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
+    <ng-template #pageBlock>
+        <hr-document #hrDocumentCreate [hrDocument]="hrDocument" [mode]="mode"></hr-document>
+    </ng-template>
 </ion-content>

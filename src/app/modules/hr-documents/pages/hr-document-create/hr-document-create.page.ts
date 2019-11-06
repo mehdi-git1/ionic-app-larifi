@@ -3,10 +3,12 @@
 import { AlertController, NavParams } from 'ionic-angular';
 
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
 
 import { HrDocumentModeEnum } from '../../../../core/enums/hr-document/hr-document-mode.enum';
-import { PncModel } from '../../../../core/models/pnc.model';
+import { HrDocumentModel } from '../../../../core/models/hr-document/hr-document.model';
+import {
+    OnlineHrDocumentService
+} from '../../../../core/services/hr-documents/online-hr-document.service';
 import { HrDocumentComponent } from '../../components/hr-document/hr-document.component';
 
 @Component({
@@ -15,20 +17,27 @@ import { HrDocumentComponent } from '../../components/hr-document/hr-document.co
 })
 export class HrDocumentCreatePage implements OnInit {
 
-    pnc: PncModel;
     mode: HrDocumentModeEnum;
+    hrDocument: HrDocumentModel;
 
     HrDocumentModeEnum = HrDocumentModeEnum;
 
     @ViewChild('hrDocumentCreate') hrDocumentCreate: HrDocumentComponent;
 
     constructor(private navParams: NavParams,
-        private translateService: TranslateService,
+        private onlineHrDocumentService: OnlineHrDocumentService,
         private alertCtrl: AlertController) {
     }
 
     ngOnInit() {
         this.mode = this.navParams.get('mode');
+        const id = this.navParams.get('hrDocumentId');
+        if (id) {
+            this.onlineHrDocumentService.getHrDocument(id).then(hrDocument => {
+                this.hrDocument = hrDocument;
+            }, error => {
+            });
+        }
     }
 
     ionViewCanLeave() {
@@ -36,6 +45,6 @@ export class HrDocumentCreatePage implements OnInit {
     }
 
     loadingIsOver() {
-        return true;
+        return this.hrDocument && this.hrDocument !== undefined;
     }
 }
