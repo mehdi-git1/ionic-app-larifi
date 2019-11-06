@@ -832,6 +832,7 @@
         "CATEGORY": "Catégorie",
         "TITLE": "Titre",
         "REDACTOR": "Rédacteur",
+        "ACTIONS": "Actions",
         "UNAIVALABLE_OFFLINE": "Les documents RH ne sont pas disponibles hors connexion",
         "BUTTONS": {
             "CREATE_NEW_DOCUMENT": "Nouveau document",

@@ -13,6 +13,6 @@
 <ion-content padding no-bounce>
     <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
     <ng-template #pageBlock>
-        <hr-document #hrDocumentCreate [hrDocument]="hrDocument" [mode]="mode"></hr-document>
+        <hr-document #hrDocumentCreateOrUpdate [hrDocument]="hrDocument" [mode]="mode"></hr-document>
     </ng-template>
 </ion-content>

@@ -9,6 +9,7 @@ import { HrDocumentModeEnum } from '../../../../core/enums/hr-document/hr-docume
 import { TextEditorModeEnum } from '../../../../core/enums/text-editor-mode.enum';
 import { HrDocumentCategory } from '../../../../core/models/hr-document/hr-document-category';
 import { HrDocumentModel } from '../../../../core/models/hr-document/hr-document.model';
+import { PncLightModel } from '../../../../core/models/pnc-light.model';
 import { PncModel } from '../../../../core/models/pnc.model';
 import { ConnectivityService } from '../../../../core/services/connectivity/connectivity.service';
 import {
@@ -69,6 +70,11 @@ export class HrDocumentComponent implements OnInit {
      * Initialise le contenue de la page
      */
     initPage() {
+        if (this.mode === HrDocumentModeEnum.CREATION) {
+            this.hrDocument = new HrDocumentModel();
+            this.hrDocument.pnc = new PncLightModel();
+            this.hrDocument.pnc.matricule = this.pnc.matricule;
+        }
         this.originHrDocument = _.cloneDeep(this.hrDocument);
     }
 

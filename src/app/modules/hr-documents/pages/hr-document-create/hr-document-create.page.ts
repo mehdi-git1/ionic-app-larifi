@@ -6,7 +6,6 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 
 import { HrDocumentModeEnum } from '../../../../core/enums/hr-document/hr-document-mode.enum';
 import { HrDocumentModel } from '../../../../core/models/hr-document/hr-document.model';
-import { PncLightModel } from '../../../../core/models/pnc-light.model';
 import { PncModel } from '../../../../core/models/pnc.model';
 import {
     OnlineHrDocumentService
@@ -26,7 +25,7 @@ export class HrDocumentCreatePage implements OnInit {
 
     HrDocumentModeEnum = HrDocumentModeEnum;
 
-    @ViewChild('hrDocumentCreate') hrDocumentCreate: HrDocumentComponent;
+    @ViewChild('hrDocumentCreateOrUpdate') hrDocumentCreateOrUpdate: HrDocumentComponent;
 
     constructor(private navParams: NavParams,
         private onlineHrDocumentService: OnlineHrDocumentService,
@@ -48,18 +47,14 @@ export class HrDocumentCreatePage implements OnInit {
                 }, error => {
                 });
             }
-        } else {
-            this.hrDocument = new HrDocumentModel();
-            this.hrDocument.pnc = new PncLightModel();
-            this.hrDocument.pnc.matricule = this.pnc.matricule;
         }
     }
 
     ionViewCanLeave() {
-        return this.hrDocumentCreate.confirmCancel();
+        return this.hrDocumentCreateOrUpdate.confirmCancel();
     }
 
     loadingIsOver() {
-        return this.hrDocument && this.hrDocument !== undefined;
+        return this.mode === HrDocumentModeEnum.CREATION || this.hrDocument && this.hrDocument !== undefined;
     }
 }
