@@ -107,6 +107,7 @@ export class AppComponent implements OnInit {
 
       this.authenticationService.initFunctionalApp().then(
         authentReturn => {
+          this.appInitService.setAuthenticationStatus(authentReturn);
           this.appInitService.handleAuthenticationStatus();
         });
 

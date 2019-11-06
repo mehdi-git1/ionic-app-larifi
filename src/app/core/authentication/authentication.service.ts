@@ -24,7 +24,7 @@ export class AuthenticationService {
         private securityService: SecurityService,
         private deviceService: DeviceService,
         private storageService: StorageService,
-        public translateService: TranslateService,
+        private translateService: TranslateService,
         private toastService: ToastService,
         private connectivityService: ConnectivityService,
         private synchronizationService: SynchronizationService,
