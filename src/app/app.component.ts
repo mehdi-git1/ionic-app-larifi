@@ -8,10 +8,10 @@ import { TranslateService } from '@ngx-translate/core';
 
 import { AuthenticationService } from './core/authentication/authentication.service';
 import { PinPadTypeEnum } from './core/enums/security/pin-pad-type.enum';
+import { AppInitService } from './core/services/app-init/app-init.service';
 import { ConnectivityService } from './core/services/connectivity/connectivity.service';
 import { DeviceService } from './core/services/device/device.service';
 import { ModalSecurityService } from './core/services/modal/modal-security.service';
-import { AppInitService } from './core/services/routing/app-init.service';
 import { SessionService } from './core/services/session/session.service';
 import { SynchronizationService } from './core/services/synchronization/synchronization.service';
 import { ToastService } from './core/services/toast/toast.service';
@@ -42,7 +42,8 @@ export class AppComponent implements OnInit {
     private toastService: ToastService,
     private synchronizationProvider: SynchronizationService,
     private authenticationService: AuthenticationService,
-    private appInitService: AppInitService) {
+    private appInitService: AppInitService
+  ) {
   }
 
   ngOnInit(): void {
@@ -103,10 +104,12 @@ export class AppComponent implements OnInit {
 
       this.translateService.setDefaultLang('fr');
       this.translateService.use('fr');
+
       this.authenticationService.initFunctionalApp().then(
         authentReturn => {
-          this.appInitService.handleAuthenticationStatus(authentReturn);
+          this.appInitService.handleAuthenticationStatus();
         });
+
     });
 
   }

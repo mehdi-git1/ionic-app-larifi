@@ -4,9 +4,9 @@ import { TranslateService } from '@ngx-translate/core';
 
 import { AuthenticationService } from '../../../../core/authentication/authentication.service';
 import { AuthenticationStatusEnum } from '../../../../core/enums/authentication-status.enum';
+import { AppInitService } from '../../../../core/services/app-init/app-init.service';
 import { DeviceService } from '../../../../core/services/device/device.service';
 import { ModalSecurityService } from '../../../../core/services/modal/modal-security.service';
-import { AppInitService } from '../../../../core/services/routing/app-init.service';
 
 @Component({
   selector: 'page-authentication',
@@ -51,10 +51,11 @@ export class AuthenticationPage {
       this.authenticationService.authenticateUser(loginValue, passwordValue).then(
         authentReturn => {
           this.hideSpinner = true;
+          this.appInitService.setAuthenticationStatus(authentReturn);
           if (authentReturn === AuthenticationStatusEnum.AUTHENTICATION_KO) {
             this.errorMsg = this.translateService.instant('GLOBAL.MESSAGES.ERROR.INVALID_CREDENTIALS');
           } else {
-            this.appInitService.handleAuthenticationStatus(authentReturn);
+            this.appInitService.handleAuthenticationStatus();
           }
         });
     }
