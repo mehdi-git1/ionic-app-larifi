@@ -244,6 +244,11 @@
             "ENCOUNTER_DATE": "Date du point d'étape",
             "REQUIRED_ON_ENCOUNTER_DAY": " (Saisie obligatoire le jour de la rencontre)"
         },
+        "DETAILS": {
+            "CREATED_BY": "Créé par ",
+            "UPDATED_BY": "Modifié par ",
+            "DATE_LABEL": " le {{date}}"
+        },
         "CONFIRM_DRAFT_DELETE": {
             "TITLE": "Suppression du brouillon",
             "MESSAGE": "Confirmez-vous la suppression de ce brouillon ?",
