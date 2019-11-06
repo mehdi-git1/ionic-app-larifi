@@ -7,7 +7,6 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 
-import { AppConstant } from '../../../../app.constant';
 import { WaypointStatusEnum } from '../../../../core/enums/waypoint.status.enum';
 import { CareerObjectiveModel } from '../../../../core/models/career-objective.model';
 import { PncModel } from '../../../../core/models/pnc.model';
@@ -19,7 +18,6 @@ import { ConnectivityService } from '../../../../core/services/connectivity/conn
 import { DeviceService } from '../../../../core/services/device/device.service';
 import { PncService } from '../../../../core/services/pnc/pnc.service';
 import { SecurityService } from '../../../../core/services/security/security.service';
-import { SessionService } from '../../../../core/services/session/session.service';
 import { ToastService } from '../../../../core/services/toast/toast.service';
 import {
     WaypointStatusService
@@ -69,8 +67,7 @@ export class WaypointCreatePage {
         private connectivityService: ConnectivityService,
         private offlineCareerObjectiveService: OfflineCareerObjectiveService,
         private offlineWaypointProvider: OfflineWaypointService,
-        private pncService: PncService,
-        private sessionService: SessionService) {
+        private pncService: PncService) {
 
         // Options du datepicker
         this.customDateTimeOptions = {
@@ -375,6 +372,14 @@ export class WaypointCreatePage {
      */
     canDisplayStatus(): boolean {
         return this.waypoint.waypointStatus && this.waypoint.waypointStatus === this.WaypointStatus.DRAFT;
+    }
+
+    /**
+     * Retourne la date de dernière modification, formatée pour l'affichage
+     * @return la date de dernière modification
+     */
+    getLastUpdateDate(): string {
+        return this.dateTransformer.formatDateInDay(this.waypoint.lastUpdateDate, 'dd/MM/yyyy HH:mm');
     }
 
 }
