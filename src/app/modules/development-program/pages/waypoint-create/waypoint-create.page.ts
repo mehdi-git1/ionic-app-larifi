@@ -3,7 +3,6 @@ import {
 } from 'ionic-angular';
 import * as _ from 'lodash';
 
-import { DatePipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
@@ -68,8 +67,7 @@ export class WaypointCreatePage {
         private connectivityService: ConnectivityService,
         private offlineCareerObjectiveService: OfflineCareerObjectiveService,
         private offlineWaypointProvider: OfflineWaypointService,
-        private pncService: PncService,
-        private datePipe: DatePipe) {
+        private pncService: PncService) {
 
         // Options du datepicker
         this.customDateTimeOptions = {
@@ -381,7 +379,7 @@ export class WaypointCreatePage {
      * @return la date de dernière modification
      */
     getLastUpdateDate(): string {
-        return this.datePipe.transform(this.waypoint.lastUpdateDate, 'dd/MM/yyyy HH:mm');
+        return this.dateTransformer.formatDateInDay(this.waypoint.lastUpdateDate, 'dd/MM/yyyy HH:mm');
     }
 
 }
