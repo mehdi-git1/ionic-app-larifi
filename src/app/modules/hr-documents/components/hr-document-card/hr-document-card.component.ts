@@ -35,7 +35,7 @@ export class HrDocumentCardComponent {
      * Dirige vers la page de modification d'un document RH
      */
     editHrDocument() {
-        this.navCtrl.push(HrDocumentCreatePage, { mode: HrDocumentModeEnum.EDITION, id: this.hrDocument.techId });
+        this.navCtrl.push(HrDocumentCreatePage, { mode: HrDocumentModeEnum.EDITION, hrDocumentId: this.hrDocument.techId });
     }
 
 

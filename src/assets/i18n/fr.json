@@ -854,7 +854,8 @@
             "DOCUMENT_TITLE": "Titre du document",
             "DOCUMENT_DESCRIPTION": "Description",
             "ATTACHMENT_FILES": "Importer des pièces jointes",
-            "HR_DOCUMENT_SAVED": "Document enregistré"
+            "HR_DOCUMENT_SAVED": "Document enregistré",
+            "HR_DOCUMENT_EDITED": "Document mis à jour"
         },
         "DETAIL": {
             "PAGE_TITLE": "Détails d'un document",

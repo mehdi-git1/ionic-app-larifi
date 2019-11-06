@@ -55,7 +55,7 @@
             </button>
             <!-- Bouton mettre à jour-->
             <button ion-button #updateHrDocument *ngIf="mode === HrDocumentModeEnum.EDITION" color="primary"
-                (click)="updateHrDocument()" [disabled]="!isFormValid()">
+                (click)="saveHrDocument()" [disabled]="!isFormValid()">
                 {{ 'HR_DOCUMENT.BUTTONS.UPDATE' | translate }}
             </button>
         </div>
