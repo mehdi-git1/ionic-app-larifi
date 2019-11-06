@@ -9,11 +9,14 @@ export class GenericMessagePage implements OnInit {
 
   genericMessage: string;
 
-  constructor() {
+  constructor(
+  ) {
   }
 
   ngOnInit() {
-    this.genericMessage = history.state.data.message;
+    if (history.state.data) {
+      this.genericMessage = history.state.data.message;
+    }
   }
 
 }
