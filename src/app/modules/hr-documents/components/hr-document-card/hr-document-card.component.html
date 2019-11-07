@@ -1,22 +1,32 @@
 <ion-card>
     <div class="hr-document-card">
-        <pnc-photo [pnc]="hrDocument.redactor" [size]="50"></pnc-photo>
-        <div class="hr-document-info-container">
-            <div class="hr-document-top-container">
-                <div class="redactor">
-                    {{ 'HR_DOCUMENT.DETAIL.CREATED_BY_THE' | translate:{lastName:hrDocument.redactor?.lastName, firstName:hrDocument.redactor?.firstName, creationDate:hrDocument.creationDate | date:'dd/MM/yyyy'} }}
+        <div class="top-info-container">
+            <pnc-photo [pnc]="hrDocument.redactor" [size]="50"></pnc-photo>
+            <div class="hr-document-info-container">
+                <div class="hr-document-top-container">
+                    <div class="redactor">
+                        {{ 'HR_DOCUMENT.DETAIL.CREATED_BY_THE' | translate:{lastName:hrDocument.redactor?.lastName, firstName:hrDocument.redactor?.firstName, creationDate:hrDocument.creationDate | date:'dd/MM/yyyy'} }}
+                    </div>
+                    <div class="category-label">
+                        <span>{{ hrDocument.category?.label }}</span>
+                    </div>
                 </div>
-                <div class="category-label">
-                    <span>{{ hrDocument.category?.label }}</span>
+                <div class="title">
+                    <span class="value">{{ hrDocument.title }}</span>
                 </div>
+                <div *ngIf="hrDocument.content">
+                    <text-editor [mode]="TextEditorModeEnum.READ_ONLY" [ngModel]="hrDocument.content"></text-editor>
+                </div>
+                <document-manager [documents]="hrDocument.attachmentFiles" [readonly]="true"></document-manager>
             </div>
-            <div class="title">
-                <span class="value">{{ hrDocument.title }}</span>
+        </div>
+        <div class="button-bar-container" *ngIf="isManager()">
+            <div class="document-button-bar button-bar button-bar-right " *ngIf="canEditDocument()">
+                <!-- Bouton supprimer -->
+                <button ion-button color="primary" (click)="confirmDeleteDocument()">
+                    <ion-icon name="ios-trash-outline" ios="ios-trash-outline" margin-right></ion-icon>{{ 'LOGBOOK.BUTTONS.DELETE' | translate }}
+                </button>
             </div>
-            <div *ngIf="hrDocument.content">
-                <text-editor [mode]="TextEditorModeEnum.READ_ONLY" [ngModel]="hrDocument.content"></text-editor>
-            </div>
-            <document-manager [documents]="hrDocument.attachmentFiles" [readonly]="true"></document-manager>
         </div>
     </div>
 </ion-card>

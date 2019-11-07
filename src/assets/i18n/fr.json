@@ -853,6 +853,15 @@
         "DETAIL": {
             "PAGE_TITLE": "Détails d'un document",
             "CREATED_BY_THE": "Créé par {{ lastName }} {{ firstName }} le {{ creationDate }}"
+        },
+        "DELETE": {
+            "HR_DOCUMENT_DELETED": "Document supprimé"
+        },
+        "CONFIRM_DELETE": {
+            "TITLE": "Suppression",
+            "MESSAGE": "Confirmez-vous la suppression du document ?",
+            "CONFIRM": "Confirmer",
+            "CANCEL": "Annuler"
         }
     },
     "SYNCHRONIZATION": {
