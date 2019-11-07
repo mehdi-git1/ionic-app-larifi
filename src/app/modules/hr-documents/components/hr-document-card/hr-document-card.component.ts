@@ -1,17 +1,17 @@
 import { AlertController, Loading, LoadingController, NavController } from 'ionic-angular';
 
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 
 import { HrDocumentModeEnum } from '../../../../core/enums/hr-document/hr-document-mode.enum';
 import { TextEditorModeEnum } from '../../../../core/enums/text-editor-mode.enum';
-import { DocumentModel } from '../../../../core/models/document.model';
 import { HrDocumentModel } from '../../../../core/models/hr-document/hr-document.model';
 import {
     OnlineHrDocumentService
 } from '../../../../core/services/hr-documents/online-hr-document.service';
 import { SecurityService } from '../../../../core/services/security/security.service';
 import { ToastService } from '../../../../core/services/toast/toast.service';
+import { HrDocumentCreatePage } from '../../pages/hr-document-create/hr-document-create.page';
 
 @Component({
     selector: 'hr-document-card',
@@ -93,5 +93,12 @@ export class HrDocumentCardComponent {
      */
     isManager(): boolean {
         return this.securityService.isManager();
+    }
+
+    /**
+     * Dirige vers la page de modification d'un document RH
+     */
+    editHrDocument() {
+        this.navCtrl.push(HrDocumentCreatePage, { mode: HrDocumentModeEnum.EDITION, hrDocumentId: this.hrDocument.techId });
     }
 }

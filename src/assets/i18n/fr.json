@@ -244,6 +244,11 @@
             "ENCOUNTER_DATE": "Date du point d'étape",
             "REQUIRED_ON_ENCOUNTER_DAY": " (Saisie obligatoire le jour de la rencontre)"
         },
+        "DETAILS": {
+            "CREATED_BY": "Créé par ",
+            "UPDATED_BY": "Modifié par ",
+            "DATE_LABEL": " le {{date}}"
+        },
         "CONFIRM_DRAFT_DELETE": {
             "TITLE": "Suppression du brouillon",
             "MESSAGE": "Confirmez-vous la suppression de ce brouillon ?",
@@ -827,6 +832,7 @@
         "CATEGORY": "Catégorie",
         "TITLE": "Titre",
         "REDACTOR": "Rédacteur",
+        "ACTIONS": "Actions",
         "UNAIVALABLE_OFFLINE": "Les documents RH ne sont pas disponibles hors connexion",
         "BUTTONS": {
             "CREATE_NEW_DOCUMENT": "Nouveau document",
@@ -843,12 +849,14 @@
         },
         "EDIT": {
             "DOCUMENT_CREATION": "Création d'un nouveau document",
+            "DOCUMENT_EDITION": "Modification d'un document",
             "DOCUMENT_DATE": "Date du document",
             "CATEGORY": "Catégorie",
             "DOCUMENT_TITLE": "Titre du document",
             "DOCUMENT_DESCRIPTION": "Description",
             "ATTACHMENT_FILES": "Importer des pièces jointes",
-            "HR_DOCUMENT_SAVED": "Document enregistré"
+            "HR_DOCUMENT_SAVED": "Document enregistré",
+            "HR_DOCUMENT_EDITED": "Document mis à jour"
         },
         "DETAIL": {
             "PAGE_TITLE": "Détails d'un document",
@@ -862,6 +870,9 @@
             "MESSAGE": "Confirmez-vous la suppression du document ?",
             "CONFIRM": "Confirmer",
             "CANCEL": "Annuler"
+        },
+        "ACTION_MENU": {
+            "MODIFY": "Modifier"
         }
     },
     "SYNCHRONIZATION": {

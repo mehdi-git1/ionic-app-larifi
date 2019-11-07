@@ -90,8 +90,8 @@ hr-documents {
                 }
 
                 .user-actions {
-                    min-width: 80px;
-                    max-width: 80px;
+                    min-width: 90px;
+                    max-width: 90px;
                     padding-right: 10px;
                     display: flex;
                     align-items: center;
@@ -112,6 +112,11 @@ hr-documents {
                             font-size: 20px;
                         }
                     }
+
+                    .more-actions {
+                       margin: 0px 15px;
+                    }
+    
                 }
 
             }

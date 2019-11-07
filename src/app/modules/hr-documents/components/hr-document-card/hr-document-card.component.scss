@@ -66,29 +66,41 @@ hr-document-card {
             }
         }
 
-        .button-bar-container {
+        .hr-document-button-bar {
             width: 100%;
-            height: auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: baseline;
-            padding-left: 70px;
 
-            .document-button-bar {
-                width: 100%;
+            button {
+                font-size: 14px;
+                font-weight: bold;
+                font-style: normal;
+                font-stretch: normal;
+                line-height: 1.29;
+                letter-spacing: 0.7px;
+                text-align: center;
+                background-color: transparent;
+                color: color($colors-secondary, grey10);
+                box-shadow: none;
+            }
+        }
 
-                button {
-                    font-size: 14px;
-                    font-weight: bold;
-                    font-style: normal;
-                    font-stretch: normal;
-                    line-height: 1.29;
-                    letter-spacing: 0.7px;
-                    text-align: center;
-                    background-color: transparent;
-                    color: color($colors-secondary, grey10);
-                    box-shadow: none;
-                }
+        text-editor .ql-container.ql-snow {
+            border: 0;
+        }
+
+        .document-button-bar {
+            width: 100%;
+
+            button {
+                font-size: 14px;
+                font-weight: bold;
+                font-style: normal;
+                font-stretch: normal;
+                line-height: 1.29;
+                letter-spacing: 0.7px;
+                text-align: center;
+                background-color: transparent;
+                color: color($colors-secondary, grey10);
+                box-shadow: none;
             }
         }
     }

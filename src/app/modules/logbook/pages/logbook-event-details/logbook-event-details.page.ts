@@ -15,7 +15,6 @@ import { PncModel } from '../../../../core/models/pnc.model';
 import {
     OnlineLogbookEventService
 } from '../../../../core/services/logbook/online-logbook-event.service';
-import { PncService } from '../../../../core/services/pnc/pnc.service';
 import { SecurityService } from '../../../../core/services/security/security.service';
 import { SessionService } from '../../../../core/services/session/session.service';
 import { ToastService } from '../../../../core/services/toast/toast.service';
@@ -58,7 +57,6 @@ export class LogbookEventDetailsPage implements OnInit {
         private onlineLogbookEventService: OnlineLogbookEventService,
         private navParams: NavParams,
         private sessionService: SessionService,
-        private pncService: PncService,
         private events: Events,
         private alertCtrl: AlertController,
         private translateService: TranslateService,

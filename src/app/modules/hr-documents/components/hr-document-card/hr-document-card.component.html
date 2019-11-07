@@ -20,11 +20,15 @@
                 <document-manager [documents]="hrDocument.attachmentFiles" [readonly]="true"></document-manager>
             </div>
         </div>
-        <div class="button-bar-container" *ngIf="isManager()">
-            <div class="document-button-bar button-bar button-bar-right " *ngIf="canEditDocument()">
+        <div *ngIf="isManager()">
+            <div class="hr-document-button-bar button-bar button-bar-right ">
                 <!-- Bouton supprimer -->
                 <button ion-button color="primary" (click)="confirmDeleteDocument()">
                     <ion-icon name="ios-trash-outline" ios="ios-trash-outline" margin-right></ion-icon>{{ 'LOGBOOK.BUTTONS.DELETE' | translate }}
+                </button>
+                <!-- Bouton modifier -->
+                <button ion-button color="primary" (click)="editHrDocument()">
+                    {{ 'HR_DOCUMENT.BUTTONS.MODIFY' | translate }}
                 </button>
             </div>
         </div>
