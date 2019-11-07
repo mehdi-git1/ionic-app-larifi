@@ -17,6 +17,14 @@
                 <text-editor [mode]="TextEditorModeEnum.READ_ONLY" [ngModel]="hrDocument.content"></text-editor>
             </div>
             <document-manager [documents]="hrDocument.attachmentFiles" [readonly]="true"></document-manager>
+            <div *ngIf="isManager()">
+                <div class="hr-document-button-bar button-bar button-bar-right ">
+                    <!-- Bouton modifier -->
+                    <button ion-button color="primary" (click)="editHrDocument()">
+                        {{ 'HR_DOCUMENT.BUTTONS.MODIFY' | translate }}
+                    </button>
+                </div>
+            </div>
         </div>
     </div>
 </ion-card>

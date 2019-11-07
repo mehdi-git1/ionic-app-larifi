@@ -832,6 +832,7 @@
         "CATEGORY": "Catégorie",
         "TITLE": "Titre",
         "REDACTOR": "Rédacteur",
+        "ACTIONS": "Actions",
         "UNAIVALABLE_OFFLINE": "Les documents RH ne sont pas disponibles hors connexion",
         "BUTTONS": {
             "CREATE_NEW_DOCUMENT": "Nouveau document",
@@ -848,16 +849,21 @@
         },
         "EDIT": {
             "DOCUMENT_CREATION": "Création d'un nouveau document",
+            "DOCUMENT_EDITION": "Modification d'un document",
             "DOCUMENT_DATE": "Date du document",
             "CATEGORY": "Catégorie",
             "DOCUMENT_TITLE": "Titre du document",
             "DOCUMENT_DESCRIPTION": "Description",
             "ATTACHMENT_FILES": "Importer des pièces jointes",
-            "HR_DOCUMENT_SAVED": "Document enregistré"
+            "HR_DOCUMENT_SAVED": "Document enregistré",
+            "HR_DOCUMENT_EDITED": "Document mis à jour"
         },
         "DETAIL": {
             "PAGE_TITLE": "Détails d'un document",
             "CREATED_BY_THE": "Créé par {{ lastName }} {{ firstName }} le {{ creationDate }}"
+        },
+        "ACTION_MENU": {
+            "MODIFY": "Modifier"
         }
     },
     "SYNCHRONIZATION": {

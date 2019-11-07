@@ -186,8 +186,10 @@ export class HrDocumentComponent implements OnInit {
                     this.hrDocument = savedHrDocument;
                     if (this.mode === HrDocumentModeEnum.CREATION) {
                         this.toastService.success(this.translateService.instant('HR_DOCUMENT.EDIT.HR_DOCUMENT_SAVED'));
-                        this.navCtrl.pop();
+                    } else if (this.mode === HrDocumentModeEnum.EDITION) {
+                        this.toastService.success(this.translateService.instant('HR_DOCUMENT.EDIT.HR_DOCUMENT_EDITED'));
                     }
+                    this.navCtrl.pop();
                     this.loading.dismiss();
                 }, error => {
                     this.loading.dismiss();

@@ -197,7 +197,7 @@ export class LogbookPage {
     /**
      * Ouvre la popover de description d'un item
      * @param myEvent  event
-     * @param eObservationItem item
+     * @param logbookEvent l'évènement JDB concerné
      */
     openActionsMenu(myEvent: Event, logbookEvent: LogbookEventModel) {
         myEvent.stopPropagation();

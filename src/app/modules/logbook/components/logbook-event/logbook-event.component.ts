@@ -1,7 +1,6 @@
 import { AlertController, Events, Loading, LoadingController, NavController } from 'ionic-angular';
 import * as _ from 'lodash';
 
-import { DatePipe } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
@@ -63,7 +62,6 @@ export class LogbookEventComponent implements OnInit {
         private dateTransformer: DateTransform,
         private events: Events,
         private alertCtrl: AlertController,
-        private datePipe: DatePipe,
         private formBuilder: FormBuilder) {
         this.initForm();
 
