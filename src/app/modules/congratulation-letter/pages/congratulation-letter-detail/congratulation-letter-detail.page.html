@@ -33,11 +33,8 @@
                                     {{ 'CONGRATULATION_LETTER_DETAIL.TYPE.INDIVIDUAL' | translate }}</ng-template>
                             </td>
                             <td *ngIf="!isWrittenLetter()">
-                                <ng-container
-                                    *ngIf="congratulationLetter.redactorType === CongratulationLetterRedactorTypeEnum.PNC; else notPncRedactorBlock">
-                                    <span class="last-name">{{ congratulationLetter.redactor?.lastName }}</span> <span
-                                        class="first-name">{{ congratulationLetter.redactor?.firstName }}</span> <span
-                                        class="current-speciality">({{ congratulationLetter.redactorSpeciality }})</span>
+                                <ng-container *ngIf="congratulationLetter.redactorType === CongratulationLetterRedactorTypeEnum.PNC; else notPncRedactorBlock">
+                                    <span class="last-name">{{ congratulationLetter.redactor?.lastName }}</span> <span class="first-name">{{ congratulationLetter.redactor?.firstName }}</span> <span class="current-speciality">({{ congratulationLetter.redactorSpeciality }})</span>
                                 </ng-container>
                                 <ng-template #notPncRedactorBlock>
                                     {{ 'CONGRATULATION_LETTER_CREATE.FORM.REDACTOR.'+congratulationLetter.redactorType | translate }}
@@ -47,11 +44,13 @@
                     </tbody>
                 </table>
                 <div class="verbatim-container">
-                    <label><span
-                            class="edospnc-speechBubble"></span>{{ 'CONGRATULATION_LETTER_DETAIL.VERBATIM' | translate }}</label>
+                    <label><span class="edospnc-speechBubble"></span>{{ 'CONGRATULATION_LETTER_DETAIL.VERBATIM' | translate }}</label>
                     <no-data *ngIf="!congratulationLetter.verbatim; else noVerbatimBlock"></no-data>
                     <ng-template #noVerbatimBlock>
-                        <p class="verbatim">{{ congratulationLetter.verbatim }}</p>
+                        <div class="verbatim-data">
+                            <text-editor [mode]="TextEditorModeEnum.READ_ONLY" [ngModel]="congratulationLetter.verbatim">
+                            </text-editor>
+                        </div>
                     </ng-template>
                     <div>
                         <document-manager [documents]="congratulationLetter.documents" [readonly]="true">
@@ -60,14 +59,12 @@
                 </div>
                 <div class="information-message align-left" *ngIf="congratulationLetter.creationAuthor">
                     {{ 'CONGRATULATION_LETTER_CREATE.CREATED_BY' | translate }}
-                    <span class="lastname">{{congratulationLetter.creationAuthor.lastName}}</span>&nbsp;<span
-                        class="firstname">{{congratulationLetter.creationAuthor.firstName}}</span>
+                    <span class="lastname">{{congratulationLetter.creationAuthor.lastName}}</span>&nbsp;<span class="firstname">{{congratulationLetter.creationAuthor.firstName}}</span>
                 </div>
 
                 <div class="information-message align-left" *ngIf="congratulationLetter.lastUpdateAuthor">
                     {{ 'CONGRATULATION_LETTER_CREATE.UPDATED_BY' | translate }}
-                    <span class="lastname">{{congratulationLetter.lastUpdateAuthor.lastName}}</span>&nbsp;<span
-                        class="firstname">{{congratulationLetter.lastUpdateAuthor.firstName}}</span>&nbsp;<span>
+                    <span class="lastname">{{congratulationLetter.lastUpdateAuthor.lastName}}</span>&nbsp;<span class="firstname">{{congratulationLetter.lastUpdateAuthor.firstName}}</span>&nbsp;<span>
                         {{ 'CONGRATULATION_LETTER_CREATE.DATE_LABEL' | translate:{date:getLastUpdateDate()} }}</span>
                 </div>
             </div>

@@ -23,6 +23,8 @@ export class EObsCommentComponent {
 
   @Input() editMode = false;
 
+  maxCommentLength = 4000;
+
   constructor(private translateService: TranslateService) {
   }
 

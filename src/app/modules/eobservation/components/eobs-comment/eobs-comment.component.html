@@ -5,8 +5,7 @@
             <div class="redactor-comment-container">
                 <!-- Points forts -->
                 <div *ngIf="editMode || eObservation?.strongPoints" class="comment">
-                    <label><span
-                            class="edospnc-speechBubble"></span>{{ 'EOBSERVATION.DETAIL.STRONG_POINTS' | translate }}</label>
+                    <label><span class="edospnc-speechBubble"></span>{{ 'EOBSERVATION.DETAIL.STRONG_POINTS' | translate }}</label>
                     <p *ngIf="!editMode; else editStrongPointsBlock">{{eObservation.strongPoints}}</p>
                     <ng-template #editStrongPointsBlock>
                         <ion-textarea [(ngModel)]="eObservation.strongPoints" autocorrect="on"></ion-textarea>
@@ -14,8 +13,7 @@
                 </div>
                 <!-- Axes de travail -->
                 <div *ngIf="editMode || eObservation?.workingAxes" class="comment">
-                    <label><span
-                            class="edospnc-speechBubble"></span>{{ 'EOBSERVATION.DETAIL.WORKING_AXES' | translate }}</label>
+                    <label><span class="edospnc-speechBubble"></span>{{ 'EOBSERVATION.DETAIL.WORKING_AXES' | translate }}</label>
                     <p *ngIf="!editMode; else editWorkingAxesBlock">{{eObservation.workingAxes}}</p>
                     <ng-template #editWorkingAxesBlock>
                         <ion-textarea [(ngModel)]="eObservation.workingAxes" autocorrect="on"></ion-textarea>
@@ -23,8 +21,7 @@
                 </div>
                 <!-- Commentaire rédacteur -->
                 <div *ngIf="editMode || eObservation.redactorComment" class="comment">
-                    <label><span
-                            class="edospnc-speechBubble"></span>{{ 'EOBSERVATION.DETAIL.COMMENT' | translate }}</label>
+                    <label><span class="edospnc-speechBubble"></span>{{ 'EOBSERVATION.DETAIL.COMMENT' | translate }}</label>
                     <p *ngIf="!editMode; else editRedactorCommentBlock">{{eObservation.redactorComment}}</p>
                     <ng-template #editRedactorCommentBlock>
                         <ion-textarea [(ngModel)]="eObservation.redactorComment" autocorrect="on" maxlength="8000">
@@ -39,11 +36,11 @@
                 <label><span class="edospnc-speechBubble"></span>{{ 'EOBSERVATION.DETAIL.COMMENT' | translate }}</label>
                 <p *ngIf="!canEditPncComment && !editMode; else editPncCommentBlock">{{eObservation.pncComment}}</p>
                 <ng-template #editPncCommentBlock>
-                    <ion-textarea [(ngModel)]="eObservation.pncComment" autocorrect="on"></ion-textarea>
+                    <ion-textarea [(ngModel)]="eObservation.pncComment" autocorrect="on" [maxlength]="maxCommentLength"></ion-textarea>
+                    <span class="comment-length">{{eObservation && eObservation.pncComment ? eObservation.pncComment.length:0}}/{{maxCommentLength}}</span>
                     <div class="button-bar button-bar-right margin-top" *ngIf="canEditPncComment">
                         <!-- Bouton valider commentaire pnc -->
-                        <ion-button color="green50" (click)="confirmValidatePncComment()"
-                            [disabled]="this.eObservation.pncComment === '' || this.eObservation.pncComment === 'undefined'">
+                        <ion-button color="green50" (click)="confirmValidatePncComment()" [disabled]="this.eObservation.pncComment === '' || this.eObservation.pncComment === 'undefined' || (this.eObservation.pncComment && this.eObservation.pncComment.length > maxCommentLength)">
                             <ion-icon name="md-checkmark" ios="md-checkmark" class="ion-margin-end"></ion-icon>
                             {{ 'EOBSERVATION.BUTTONS.VALIDATE_PNC_COMMENT' | translate }}
                         </ion-button>

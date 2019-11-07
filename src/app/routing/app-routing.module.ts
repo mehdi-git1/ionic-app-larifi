@@ -52,6 +52,13 @@ import { PncHomePage } from '../modules/home/pages/pnc-home/pnc-home.page';
 import {
     UnsupportedNavigatorMessagePage
 } from '../modules/home/pages/unsupported-navigator/unsupported-navigator-message.page';
+import {
+    HrDocumentCreatePage
+} from '../modules/hr-documents/pages/hr-document-create/hr-document-create.page';
+import {
+    HrDocumentDetailPage
+} from '../modules/hr-documents/pages/hr-document-detail/hr-document-detail.page';
+import { HrDocumentsPage } from '../modules/hr-documents/pages/hr-documents/hr-documents.page';
 import { LogbookCreatePage } from '../modules/logbook/pages/logbook-create/logbook-create.page';
 import {
     LogbookEventDetailsPage
@@ -163,6 +170,13 @@ const routes: Routes = [
                 ]
               },
               {
+                path: 'hr-document', children: [
+                  { path: '', component: HrDocumentsPage },
+                  { path: 'create/:hrDocumentId', component: HrDocumentCreatePage },
+                  { path: 'detail/:hrDocumentId', component: HrDocumentDetailPage }
+                ]
+              },
+              {
                 path: 'professional-level', children: [
                   { path: '', component: ProfessionalLevelPage },
                   { path: 'evaluation-sheet/:moduleId', component: EvaluationSheetPage },
@@ -223,6 +237,12 @@ const routes: Routes = [
     path: 'flight', children: [
       { path: '', component: UpcomingFlightListPage },
       { path: 'crew-list', component: FlightCrewListPage }
+    ]
+  },
+  {
+    path: 'hr-document', children: [
+      { path: '', component: HrDocumentsPage },
+      { path: 'detail/:hrDocumentId', component: HrDocumentDetailPage }
     ]
   },
   {

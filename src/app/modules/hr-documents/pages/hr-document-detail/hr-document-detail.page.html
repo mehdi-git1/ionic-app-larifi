@@ -1,0 +1,13 @@
+<ion-header>
+    <ion-navbar>
+        <page-header [showSettingsIcon]="true" [pnc]="pnc">
+            {{ 'HR_DOCUMENT.DETAIL.PAGE_TITLE' | translate }}
+        </page-header>
+    </ion-navbar>
+</ion-header>
+<ion-content padding no-bounce>
+    <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
+    <ng-template #pageBlock>
+        <hr-document-card #hrDocumentDetail [mode]="mode" [hrDocument]="hrDocument"></hr-document-card>
+    </ng-template>
+</ion-content>

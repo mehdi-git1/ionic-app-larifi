@@ -4,9 +4,17 @@
 
 .redactor-comment-container,
 .pnc-comment-container {
+    display: flex;
+    flex-direction: column;
+
     padding-left: 20px;
     padding-right: 20px;
     padding-bottom: 20px;
+
+    .comment-length {
+        font-size: smaller;
+        text-align: right;
+    }
 }
 
 .comment-container {

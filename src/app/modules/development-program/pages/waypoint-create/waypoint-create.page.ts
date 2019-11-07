@@ -363,4 +363,12 @@ export class WaypointCreatePage {
         return this.waypoint.waypointStatus && this.waypoint.waypointStatus === this.WaypointStatus.DRAFT;
     }
 
+    /**
+     * Retourne la date de dernière modification, formatée pour l'affichage
+     * @return la date de dernière modification
+     */
+    getLastUpdateDate(): string {
+        return this.dateTransformer.formatDateInDay(this.waypoint.lastUpdateDate, 'dd/MM/yyyy HH:mm');
+    }
+
 }

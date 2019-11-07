@@ -1,3 +1,4 @@
+
 import { Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { AlertController, PopoverController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
@@ -36,7 +37,7 @@ export class DocumentManagerComponent {
 
   @Input() set documents(documents: Array<DocumentModel>) {
     for (const document of documents) {
-      this.filesSize += document.size;
+      this.filesSize += document.fileSize;
     }
     this._documents = documents;
   }
@@ -116,7 +117,7 @@ export class DocumentManagerComponent {
    * @param documentToRemove document à supprimer
    */
   removeFile(documentToRemove: DocumentModel) {
-    const fileSize = documentToRemove.size;
+    const fileSize = documentToRemove.fileSize;
     const documentIndexToRemovethis = this._documents.indexOf(documentToRemove);
     this._documents.splice(documentIndexToRemovethis, 1);
     this.filesSize -= fileSize;

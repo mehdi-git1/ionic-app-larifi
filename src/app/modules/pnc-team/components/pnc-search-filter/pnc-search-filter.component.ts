@@ -239,7 +239,6 @@ export class PncSearchFilterComponent implements OnInit {
       this.pncFilter.prioritized = val.prioritizedControl;
       this.pncFilter.hasAtLeastOnePriorityInProgress = val.hasAtLeastOnePriorityInProgressControl;
       this.pncFilter.hasNoPriority = val.hasNoPriorityControl;
-
       this.search();
     });
   }

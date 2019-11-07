@@ -7,6 +7,9 @@ import {
 import {
     CongratulationLetterRedactorTypeEnum
 } from '../../enums/congratulation-letter/congratulation-letter-redactor-type.enum';
+import {
+    CongratulationLetterStatusEnum
+} from '../../enums/congratulation-letter/congratulation-letter-status.enum';
 import { CongratulationLetterFlightModel } from '../../models/congratulation-letter-flight.model';
 import { CongratulationLetterModel } from '../../models/congratulation-letter.model';
 import { BaseService } from '../base/base.service';
@@ -50,10 +53,10 @@ export class CongratulationLetterService extends BaseService {
   }
 
   /**
-  * Récupère les lettres de félicitation rédigées par un PNC
-  * @param pncMatricule le matricule du PNC
-  * @return une promesse contenant les lettres de félicitation rédigées
-  */
+   * Récupère les lettres de félicitation rédigées par un PNC
+   * @param pncMatricule le matricule du PNC
+   * @return une promesse contenant les lettres de félicitation rédigées
+   */
   getWrittenCongratulationLetters(pncMatricule: string): Promise<CongratulationLetterModel[]> {
     return this.execFunctionService('getWrittenCongratulationLetters', pncMatricule);
   }
@@ -75,8 +78,7 @@ export class CongratulationLetterService extends BaseService {
   delete(id: number, pncMatricule: string, mode: CongratulationLetterModeEnum) {
     if (mode === CongratulationLetterModeEnum.RECEIVED) {
       return this.onlineCongratulationLetterService.deleteReceivedCongratulationLetter(id, pncMatricule);
-    }
-    else {
+    } else {
       return this.onlineCongratulationLetterService.deleteWrittenCongratulationLetter(id);
     }
   }
@@ -91,11 +93,12 @@ export class CongratulationLetterService extends BaseService {
   }
 
   /**
-   * Crée une lettre de félicitation
+   * Crée une lettre de félicitation au statut REGISTERED
    * @param congratulationLetter la lettre à créer/modifier
    * @return une promesse contenant la lettre créée/modifiée
    */
   createOrUpdate(congratulationLetter: CongratulationLetterModel): Promise<CongratulationLetterModel> {
+    congratulationLetter.status = CongratulationLetterStatusEnum.REGISTERED;
     if (congratulationLetter.techId === undefined) {
       congratulationLetter.creationDate = new Date();
       congratulationLetter.creationAuthor = this.sessionService.getActiveUser().authenticatedPnc;

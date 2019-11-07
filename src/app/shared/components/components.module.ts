@@ -13,6 +13,7 @@ import { AppVersionAlertComponent } from './app-version-alert/app-version-alert.
 import { BootstrapComponent } from './bootstrap/bootstrap.component';
 import { CheckboxAndLabelComponent } from './checkbox-and-label/checkbox-and-label.component';
 import { ColorStatusPointComponent } from './color-status-point/color-status-point.component';
+import { ColumnSorterComponent } from './column-sorter/column-sorter.component';
 import {
     ConnectivityIndicatorComponent
 } from './connectivity-indicator/connectivity-indicator.component';
@@ -95,7 +96,8 @@ import { WorkRateCircleComponent } from './work-rate-circle/work-rate-circle.com
         EdospncDatetimeComponent,
         PageNotFoundComponent,
         BootstrapComponent,
-        VisitEdossierComponent
+        VisitEdossierComponent,
+        ColumnSorterComponent
     ],
     exports: [
         OfflineIndicatorComponent,
@@ -130,7 +132,8 @@ import { WorkRateCircleComponent } from './work-rate-circle/work-rate-circle.com
         ProgressBarComponent,
         EdospncDatetimeComponent,
         BootstrapComponent,
-        VisitEdossierComponent
+        VisitEdossierComponent,
+        ColumnSorterComponent
     ],
     schemas: [
         CUSTOM_ELEMENTS_SCHEMA

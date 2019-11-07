@@ -44,6 +44,12 @@ export class TabHeaderService {
                     available: this.authorizationService.hasPermission(PermissionConstant.VIEW_STATUTORY_CERTIFICATE)
                 },
                 {
+                    id: TabHeaderEnum.HR_DOCUMENT_PAGE,
+                    label: this.translateService.instant('GLOBAL.HR_DOCUMENT'),
+                    route: 'hr-document',
+                    available: true
+                },
+                {
                     id: TabHeaderEnum.PROFESSIONAL_LEVEL_PAGE,
                     label: this.translateService.instant('GLOBAL.PROFESSIONAL_LEVEL_SHORT'),
                     route: 'professional-level',

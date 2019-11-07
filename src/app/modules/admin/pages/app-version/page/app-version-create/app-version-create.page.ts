@@ -118,7 +118,7 @@ export class AppVersionCreatePage {
         this.creationAppVersionForm = this.formBuilder.group({
             numberControl: ['', Validators.required],
             releaseDateControl: [''],
-            changelogControl: ['', Validators.maxLength(4000)]
+            changelogControl: ['']
         });
     }
 

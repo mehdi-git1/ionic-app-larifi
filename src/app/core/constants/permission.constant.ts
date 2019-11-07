@@ -8,4 +8,5 @@ export class PermissionConstant {
     public static VIEW_LOGBOOK = 'VIEW_LOGBOOK';
     public static EOBS_FULL_EDITION = 'EOBS_FULL_EDITION';
     public static VIEW_EOBSERVATION_ARCHIVE = 'VIEW_EOBSERVATION_ARCHIVE';
+    public static VIEW_HR_DOCUMENT = 'VIEW_HR_DOCUMENT';
 }

@@ -50,6 +50,11 @@ ion-button {
         display: inline-flex;
     }
 
+    .ion-md-eye-off:before {
+        font-size: 20px;
+        color: var(--ion-color-grey40);
+    }
+
     .edospnc-important:before,
     .ion-ios-edospnc-important:before,
     .ion-md-edospnc-important:before,

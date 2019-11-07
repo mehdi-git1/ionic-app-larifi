@@ -60,6 +60,22 @@ table {
             color: var(--ion-color-secondarylight);
             margin-right: 10px;
         }
+
+         .verbatim-data{
+            margin-top: 10px;
+
+            text-editor .ql-container.ql-snow {
+                border-radius: 3px;
+            }
+
+            text-editor .ql-snow .ql-editor {
+                padding: 10px;
+                border-radius: 3px;
+                background: #fafbfb;
+                white-space: pre-line;
+                min-height: 35px;
+            }
+        }
     }
 
     .verbatim,

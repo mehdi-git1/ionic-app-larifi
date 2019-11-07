@@ -1,10 +1,10 @@
+
 import { Component, ViewChild } from '@angular/core';
 import { Events } from '@ionic/angular';
 
 import { LogbookEventModeEnum } from '../../../../core/enums/logbook-event/logbook-event-mode.enum';
 import { LogbookEventModel } from '../../../../core/models/logbook/logbook-event.model';
 import { PncModel } from '../../../../core/models/pnc.model';
-import { Utils } from '../../../../shared/utils/utils';
 import { LogbookEventComponent } from '../../components/logbook-event/logbook-event.component';
 
 @Component({
@@ -41,14 +41,5 @@ export class LogbookCreatePage {
             return true;
         }
         return this.logbookEventCreate.confirmCancel();
-    }
-
-    /**
-     * Vérifie si le formulaire a été modifié sans être enregistré
-     * @return true si il n'y a pas eu de modifications
-     */
-    formHasBeenModified() {
-        return this.logbookEvent.eventDate != this.originLogbookEvent.eventDate
-            || Utils.getHashCode(this.originLogbookEvent) !== Utils.getHashCode(this.logbookEvent);
     }
 }

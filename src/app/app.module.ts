@@ -25,6 +25,7 @@ import { EObservationModule } from './modules/eobservation/eobservation.module';
 import { FlightActivityModule } from './modules/flight-activity/flight-activity.module';
 import { HelpAssetModule } from './modules/help-asset/help-asset.module';
 import { HomeModule } from './modules/home/home.module';
+import { HrDocumentModule } from './modules/hr-documents/hr-document.module';
 import { LogbookModule } from './modules/logbook/logbook.module';
 import { PncTeamModule } from './modules/pnc-team/pnc-team.module';
 import {
@@ -77,7 +78,8 @@ export function appInitFactory(appInitService: AppInitService) {
     StorageModule,
     SimpleNotificationsModule.forRoot({ position: ['top', 'right'] }),
     AppRoutingModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    HrDocumentModule
   ],
   providers: [
     StatusBar,

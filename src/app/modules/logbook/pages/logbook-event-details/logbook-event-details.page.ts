@@ -1,12 +1,17 @@
 
 
+import * as _ from 'lodash';
+import * as moment from 'moment';
+
 import { Location } from '@angular/common';
 import { Component, OnInit, ViewChild, ViewChildren } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AlertController, Events, LoadingController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 
+import { AppConstant } from '../../../../app.constant';
 import { LogbookEventModeEnum } from '../../../../core/enums/logbook-event/logbook-event-mode.enum';
+import { LogbookEventTypeEnum } from '../../../../core/enums/logbook-event/logbook-event-type.enum';
 import { LogbookEventModel } from '../../../../core/models/logbook/logbook-event.model';
 import { PncModel } from '../../../../core/models/pnc.model';
 import {
@@ -15,6 +20,9 @@ import {
 import { SecurityService } from '../../../../core/services/security/security.service';
 import { SessionService } from '../../../../core/services/session/session.service';
 import { ToastService } from '../../../../core/services/toast/toast.service';
+import {
+    LogbookEventDetailsComponent
+} from '../../components/logbook-event-details/logbook-event-details.component';
 import { LogbookEventComponent } from '../../components/logbook-event/logbook-event.component';
 
 @Component({
@@ -29,6 +37,7 @@ export class LogbookEventDetailsPage implements OnInit {
     logbookEvent: LogbookEventModel;
     originLogbookEvent: LogbookEventModel;
     logbookEventSaved = false;
+    logbookEventCanceled = false;
 
     createLinkedEvent = false;
     editionMode = false;
@@ -37,9 +46,13 @@ export class LogbookEventDetailsPage implements OnInit {
 
     LogbookEventModeEnum = LogbookEventModeEnum;
 
-    @ViewChildren('logbookEventDetails') logbookEventDetails: LogbookEventComponent[];
+    @ViewChildren('logbookEventCreate') logbookEventCreate: LogbookEventComponent[];
+
+    @ViewChildren('logbookEventDetails') logbookEventDetails: LogbookEventDetailsComponent[];
 
     @ViewChild('linkedLogbookEventCreate', { static: false }) linkedLogbookEventCreate: LogbookEventComponent;
+
+    selectedLogbookEventComponent: LogbookEventComponent;
 
     constructor(
         private location: Location,
@@ -78,6 +91,7 @@ export class LogbookEventDetailsPage implements OnInit {
             this.getLogbookEventsByGroupId(this.groupId, this.pnc);
         });
         this.events.subscribe('LinkedLogbookEvent:canceled', () => {
+            this.logbookEventCanceled = true;
             this.createLinkedEvent = false;
             this.logbookEventTechId = null;
             this.editionMode = false;
@@ -94,19 +108,44 @@ export class LogbookEventDetailsPage implements OnInit {
         return new Promise((resolve, reject) => {
             this.onlineLogbookEventService.getLogbookEventsByGroupId(groupId).then(
                 logbookEvents => {
-                    this.logbookEvents = this.sortLogbookEventsByEventDate(logbookEvents);
-                    this.logbookEvents.forEach(logbookEvent => {
-                        logbookEvent.notifiedPncs.forEach(notifiedPnc => {
-                            if (pnc.pncInstructor && notifiedPnc.matricule === pnc.pncInstructor.matricule) {
-                                notifiedPnc.isInstructor = true;
-                            } else if (pnc.pncRds && notifiedPnc.matricule === pnc.pncRds.matricule) {
-                                notifiedPnc.isRds = true;
-                            }
-                        });
+                    this.logbookEvents = new Array();
+                    logbookEvents.forEach(logbookEvent => {
+                        if (this.sessionService.getActiveUser().isManager || pnc.matricule === this.sessionService.getActiveUser().matricule && !this.isHidden(logbookEvent)) {
+                            this.logbookEvents.push(logbookEvent);
+                        }
                     });
+                    if (this.logbookEvents.length > 0) {
+                        this.logbookEvents = this.sortLogbookEventsByEventDate(this.logbookEvents);
+                        this.logbookEvents.forEach(logbookEvent => {
+                            logbookEvent.notifiedPncs.forEach(notifiedPnc => {
+                                if (pnc.pncInstructor && notifiedPnc.matricule === pnc.pncInstructor.matricule) {
+                                    notifiedPnc.isInstructor = true;
+                                } else if (pnc.pncRds && notifiedPnc.matricule === pnc.pncRds.matricule) {
+                                    notifiedPnc.isRds = true;
+                                }
+                            });
+                        });
+                    }
                     resolve();
                 });
         });
+    }
+
+    /**
+     * Verifie si l'évènement en paramètre est masqué pour le PNC concerné
+     * @param logbookEvent l'évènement à tester
+     */
+    isHidden(logbookEvent: LogbookEventModel) {
+        if (logbookEvent.type != LogbookEventTypeEnum.EDOSPNC) {
+            const now = moment();
+            const broadcastDate = moment(logbookEvent.creationDate, AppConstant.isoDateFormat);
+            const hiddenDuration = moment.duration(now.diff(broadcastDate)).asMilliseconds();
+            const upToFifteenDays = moment.duration(15, 'days').asMilliseconds();
+            if ((hiddenDuration < upToFifteenDays && !logbookEvent.displayed) || logbookEvent.hidden) {
+                return true;
+            }
+        }
+        return false;
     }
 
 
@@ -140,21 +179,13 @@ export class LogbookEventDetailsPage implements OnInit {
     }
 
     ionViewCanLeave() {
-        if (this.logbookEventSaved || (!this.editionMode && !this.createLinkedEvent)) {
+        if (this.logbookEventSaved || this.logbookEventCanceled) {
             return true;
         }
-        let logbookEventComponent: LogbookEventComponent;
         if (this.createLinkedEvent) {
-            logbookEventComponent = this.linkedLogbookEventCreate;
-        } else {
-
-            this.logbookEventDetails.forEach(logbookEvent => {
-                if (logbookEvent.logbookEvent.techId === this.logbookEventTechId) {
-                    logbookEventComponent = logbookEvent;
-                }
-            });
+            return this.linkedLogbookEventCreate.confirmCancel();
         }
-        return logbookEventComponent.confirmCancel();
+        return this.selectedLogbookEventComponent ? this.selectedLogbookEventComponent.confirmCancel() : true;
     }
 
     /**
@@ -168,11 +199,18 @@ export class LogbookEventDetailsPage implements OnInit {
                 if (item.logbookEvent.techId === logbookEvent.techId) {
                     if (logbookEvent.mode === LogbookEventModeEnum.DELETION) {
                         this.logbookEvent = logbookEvent;
+                        this.originLogbookEvent = _.cloneDeep(this.logbookEvent);
                         this.confirmDeleteLogBookEvent();
                     } else if (logbookEvent.mode === LogbookEventModeEnum.EDITION) {
                         item.editEvent = true;
                         this.editionMode = true;
                     }
+                }
+            });
+            this.logbookEventCreate.forEach(item => {
+                if (item.logbookEvent.techId === logbookEvent.techId && logbookEvent.mode === LogbookEventModeEnum.EDITION) {
+                    this.selectedLogbookEventComponent = item;
+                    item.editEvent = true;
                 }
             });
         }

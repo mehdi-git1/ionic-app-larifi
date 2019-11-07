@@ -76,3 +76,20 @@ ion-list.list-ios {
     color: var(--ion-color-danger);
     font-size: 1.1em;
 }
+
+text-editor .ql-snow .ql-editor {
+    padding: 10px;
+    border-radius: 3px;
+    background: var(--ion-color-white);
+    white-space: pre-line;
+    min-height: 100px;
+}
+
+text-editor .ql-container.ql-snow {
+    height: 70%;
+}
+
+.verbatim-info-message {
+    font-weight: 700;
+    color: var(--ion-color-danger);
+}

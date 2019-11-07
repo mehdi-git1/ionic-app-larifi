@@ -43,7 +43,7 @@ export class UserMessageManagementPage {
         private formBuilder: FormBuilder) {
         this.userMessageForm = formBuilder.group({
             title: ['', [Validators.maxLength(255)]],
-            content: ['', [Validators.maxLength(5000)]],
+            content: [''],
             active: ['']
         });
     }
