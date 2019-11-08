@@ -1,7 +1,9 @@
 import * as _ from 'lodash';
+import { PncService } from 'src/app/core/services/pnc/pnc.service';
 
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { AlertController, LoadingController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -10,7 +12,6 @@ import { TextEditorModeEnum } from '../../../../core/enums/text-editor-mode.enum
 import { HrDocumentCategory } from '../../../../core/models/hr-document/hr-document-category';
 import { HrDocumentModel } from '../../../../core/models/hr-document/hr-document.model';
 import { PncLightModel } from '../../../../core/models/pnc-light.model';
-import { PncModel } from '../../../../core/models/pnc.model';
 import { ConnectivityService } from '../../../../core/services/connectivity/connectivity.service';
 import {
     OnlineHrDocumentService
@@ -30,7 +31,7 @@ export class HrDocumentComponent implements OnInit {
 
     @Input() mode: HrDocumentModeEnum;
 
-    pnc: PncModel;
+    pncMatricule: string;
 
     hrDocumentCategories: HrDocumentCategory[];
     originHrDocument: HrDocumentModel;
@@ -52,17 +53,14 @@ export class HrDocumentComponent implements OnInit {
         private loadingCtrl: LoadingController,
         private connectivityService: ConnectivityService,
         private alertCtrl: AlertController,
-        private formBuilder: FormBuilder) {
+        private formBuilder: FormBuilder,
+        private pncService: PncService,
+        private activatedRoute: ActivatedRoute) {
 
         this.initForm();
     }
 
     ngOnInit() {
-        if (this.sessionService.visitedPnc) {
-            this.pnc = this.sessionService.visitedPnc;
-        } else {
-            this.pnc = this.sessionService.getActiveUser().authenticatedPnc;
-        }
         this.initPage();
     }
 
@@ -73,7 +71,8 @@ export class HrDocumentComponent implements OnInit {
         if (this.mode === HrDocumentModeEnum.CREATION) {
             this.hrDocument = new HrDocumentModel();
             this.hrDocument.pnc = new PncLightModel();
-            this.hrDocument.pnc.matricule = this.pnc.matricule;
+            const matricule = this.pncService.getRequestedPncMatricule(this.activatedRoute);
+            this.hrDocument.pnc.matricule = matricule;
         }
         this.originHrDocument = _.cloneDeep(this.hrDocument);
     }
