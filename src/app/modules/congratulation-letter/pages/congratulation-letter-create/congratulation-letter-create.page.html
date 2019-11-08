@@ -37,13 +37,13 @@
                                         <ion-label>
                                             {{ 'CONGRATULATION_LETTER_CREATE.FORM.LETTER_TYPE.INDIVIDUAL' | translate }}
                                         </ion-label>
-                                        <ion-radio slot="end" value="false"></ion-radio>
+                                        <ion-radio slot="end" [value]="false"></ion-radio>
                                     </ion-item>
                                     <ion-item lines="none">
                                         <ion-label>
                                             {{ 'CONGRATULATION_LETTER_CREATE.FORM.LETTER_TYPE.COLLECTIVE' | translate }}
                                         </ion-label>
-                                        <ion-radio slot="end" value="true"></ion-radio>
+                                        <ion-radio slot="end" [value]="true"></ion-radio>
                                     </ion-item>
                                 </ion-radio-group>
                             </ion-list>
@@ -130,7 +130,11 @@
                                     {{ 'CONGRATULATION_LETTER_CREATE.BUTTONS.SUBMIT' | translate }}
                                 </ion-button>
                             </div>
-                            <div class="information-message align-right collective-warning" *ngIf="pnc && congratulationLetter && congratulationLetter.collective">
+                        </ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col>
+                            <div class="information-message align-right collective-warning" *ngIf="canDisplayWarning()">
                                 {{ 'CONGRATULATION_LETTER_CREATE.FORM.COLLECTIVE_WARNING_PART1' | translate }}
                                 <span class="lastname">{{ pnc.lastName }}</span>&nbsp;
                                 <span class="firstname">{{ pnc.firstName }}</span>

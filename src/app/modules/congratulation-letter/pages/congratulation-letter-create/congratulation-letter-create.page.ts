@@ -349,4 +349,7 @@ export class CongratulationLetterCreatePage implements OnInit {
             );
     }
 
+    canDisplayWarning(): boolean {
+        return this.congratulationLetterForm.value.letterTypeControl;
+    }
 }
