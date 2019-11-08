@@ -1,4 +1,5 @@
 export enum HrDocumentModeEnum {
     CREATION = 'CREATION',
-    EDITION = 'EDITION'
+    EDITION = 'EDITION',
+    DELETION = 'DELETION'
 }

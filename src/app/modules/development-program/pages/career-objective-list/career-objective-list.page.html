@@ -28,27 +28,23 @@
                         <span>{{ lastConsultedRotation.departureDate | date: 'dd/MM/yyyy'}}</span>
                     </div>
                     <div class="add-container">
-                        <ion-button (click)="displayEObservationTypeSelection()" color="primarydark"
-                            [hidden]="canDisplayMenu">
+                        <ion-button (click)="displayEObservationTypeSelection()" color="primarydark" [hidden]="canDisplayMenu">
                             <ion-icon name="add" ios="md-add"></ion-icon>
                             <label>{{ 'EOBSERVATION.NEW_EOBSERVATION_HEADER.NEW' | translate }}</label>
                         </ion-button>
 
-                        <ion-select [hidden]="!canDisplayMenu" interface="popover" [placeholder]="eFormsList[0]"
-                            #optionValue (ionChange)="getEFormsTypeBeforeCreate(optionValue.value)">
+                        <ion-select [hidden]="!canDisplayMenu" interface="popover" [placeholder]="eFormsList[0]" #optionValue (ionChange)="getEFormsTypeBeforeCreate(optionValue.value)">
                             <ion-select-option *ngFor="let eForm of eFormsList" [value]="eForm">{{eForm}}
                             </ion-select-option>
                         </ion-select>
                     </div>
                 </div>
                 <div class="list-container">
-                    <e-observations *ngIf="eObservations" [eObservations]="eObservations"
-                        [eObservationDisplayMode]="EObservationDisplayModeEnum.DEVELOPMENT_PROGRAM"></e-observations>
+                    <e-observations *ngIf="eObservations" [eObservations]="eObservations" (detailButtonClicked)="goToEObservationDetail($event)" [eObservationDisplayMode]="EObservationDisplayModeEnum.DEVELOPMENT_PROGRAM"></e-observations>
                     <div *hasPermission="VIEW_EOBSERVATION_ARCHIVE">
                         <div *ngIf="eObservations" class="information-message archives">
                             <span class="edospnc-archive"></span>
-                            <a
-                                (click)="goToEobservationsArchives()">{{ 'EOBSERVATION.LIST.LINK.ARCHIVES' | translate }}</a>
+                            <a (click)="goToEobservationsArchives()">{{ 'EOBSERVATION.LIST.LINK.ARCHIVES' | translate }}</a>
                         </div>
                     </div>
                 </div>
@@ -73,21 +69,18 @@
             <div class="professional-interview-block">
                 <h3>
                     {{ 'CAREER_OBJECTIVE_LIST.PROFESSIONAL_INTERVIEW_TITLE' | translate }}
-                    <ion-button *ngIf="securityService.isManager()" (click)="goToProfessionalInterviewCreation()"
-                        color="primary">
+                    <ion-button *ngIf="securityService.isManager()" (click)="goToProfessionalInterviewCreation()" color="primary">
                         <ion-icon name="add" ios="md-add"></ion-icon>
                         <label>{{ 'PROFESSIONAL_INTERVIEW.BUTTONS.NEW_PROFESSIONAL_INTERVIEW' | translate }}</label>
                     </ion-button>
                 </h3>
                 <div class="list-container">
-                    <professional-interviews *ngIf="professionalInterviews"
-                        [professionalInterviews]="professionalInterviews">
+                    <professional-interviews *ngIf="professionalInterviews" [professionalInterviews]="professionalInterviews">
                     </professional-interviews>
                     <div *ngIf="isAdminModeAvailable()">
                         <div *ngIf="professionalInterviews" class="information-message archives">
                             <span class="edospnc-archive"></span>
-                            <a
-                                (click)="goToProfessionalInterviewsArchives()">{{ 'PROFESSIONAL_INTERVIEW.LIST.LINK.ARCHIVES' | translate }}</a>
+                            <a (click)="goToProfessionalInterviewsArchives()">{{ 'PROFESSIONAL_INTERVIEW.LIST.LINK.ARCHIVES' | translate }}</a>
                         </div>
                     </div>
                 </div>

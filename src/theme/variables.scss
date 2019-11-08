@@ -133,6 +133,13 @@
     --ion-color-grey70-shade: #bbbfc3;
     --ion-color-grey70-tint: #d9dde1;
 
+    --ion-color-grey95: #F1F1F1;
+    --ion-color-grey95-rgb: 241, 241, 241;
+    --ion-color-grey95-contrast: #000000;
+    --ion-color-grey95-contrast-rgb: 0, 0, 0;
+    --ion-color-grey95-shade: #d4d4d4;
+    --ion-color-grey95-tint: #f2f2f2;
+
     --ion-color-orange55: #F4B65B;
     --ion-color-orange55-rgb: 244, 182, 91;
     --ion-color-orange55-contrast: #000000;
@@ -195,7 +202,6 @@
     --ion-color-grey60: #8B7D72;
     --ion-color-grey72: #D8D8D8;
     --ion-color-grey75: #e8e5e5;
-    --ion-color-grey95: #F1F1F1;
     --ion-color-grey98: #FAFBFB;
 
     $customColors: ('primarydark',
@@ -206,6 +212,7 @@
             'grey20',
             'grey50',
             'grey70',
+            'grey95',
             'orange55',
             'bluegrey10',
             'blue55',

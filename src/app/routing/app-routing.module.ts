@@ -156,7 +156,12 @@ const routes: Routes = [
                   },
                   {
                     path: 'eobservation', children: [
-                      { path: 'archive', component: EObservationsArchivesPage },
+                      {
+                        path: 'archive', children: [
+                          { path: '', component: EObservationsArchivesPage },
+                          { path: ':eObservationId', component: EobservationDetailsPage }
+                        ]
+                      },
                       { path: 'detail/:eObservationId', component: EobservationDetailsPage }
                     ]
                   },
@@ -254,7 +259,12 @@ const routes: Routes = [
   },
   {
     path: 'eobservation', children: [
-      { path: 'archive', component: EObservationsArchivesPage },
+      {
+        path: 'archive', children: [
+          { path: '', component: EObservationsArchivesPage },
+          { path: ':eObservationId', component: EobservationDetailsPage }
+        ]
+      },
       { path: 'detail/:eObservationId', component: EobservationDetailsPage }
     ]
   },

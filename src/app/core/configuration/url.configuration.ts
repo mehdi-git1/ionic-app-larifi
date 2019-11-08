@@ -37,7 +37,6 @@ export class UrlConfiguration {
     'getPncPhotoByMatricule': `${urlGroupEnum.PNC_PHOTO}/{matricule}`,
     'getSecurityInfos': urlGroupEnum.ME,
     'secretInfos': urlGroupEnum.PIN,
-    'getSecretInfosByMatricule': `${urlGroupEnum.PIN}/{matricule}`,
     'getStatutoryCertificateByMatricule': `${urlGroupEnum.STATUTORY_CERTIFICATE}/{matricule}`,
     'getProfessionalInterviewsByMatricule': `${urlGroupEnum.PROFESSIONAL_INTERVIEW}/pnc/{matricule}`,
     'professionalInterviews': urlGroupEnum.PROFESSIONAL_INTERVIEW,

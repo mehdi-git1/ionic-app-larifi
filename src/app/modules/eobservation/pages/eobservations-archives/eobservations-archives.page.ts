@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import {
     EObservationDisplayModeEnum
@@ -22,6 +22,7 @@ export class EObservationsArchivesPage {
     EObservationDisplayModeEnum = EObservationDisplayModeEnum;
 
     constructor(
+        private router: Router,
         private activatedRoute: ActivatedRoute,
         private eObservationService: EObservationService,
         private pncService: PncService
@@ -55,4 +56,11 @@ export class EObservationsArchivesPage {
         return this.eObservations !== undefined;
     }
 
+    /**
+     * Redirige vers le détail d'une eObservation
+     * @param eObservationId l'id de l'observation vers laquelle on souhaite naviguer
+     */
+    goToEObservationDetail(eObservationId) {
+        this.router.navigate([eObservationId], { relativeTo: this.activatedRoute });
+    }
 }

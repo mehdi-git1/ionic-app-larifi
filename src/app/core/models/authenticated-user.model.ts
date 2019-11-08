@@ -1,8 +1,8 @@
-import { UserMessageModel } from './admin/user-message.model';
 import { AppVersionModel } from './admin/app-version.model';
-import { PncPinModel } from './pnc-pin.model';
-import { EDossierPncObjectModel } from './e-dossier-pnc-object.model';
+import { UserMessageModel } from './admin/user-message.model';
 import { AppInitDataModel } from './app-init-data.model';
+import { EDossierPncObjectModel } from './e-dossier-pnc-object.model';
+import { PncPinModel } from './pnc-pin.model';
 import { PncModel } from './pnc.model';
 
 export class AuthenticatedUserModel extends EDossierPncObjectModel {
@@ -15,7 +15,7 @@ export class AuthenticatedUserModel extends EDossierPncObjectModel {
     isRdd: boolean;
     isBaseProvinceManager: boolean;
     authenticatedPnc: PncModel;
-    pinInfo?: PncPinModel;
+    pncPin: PncPinModel;
     profiles: string[];
     permissions: string[];
     appInitData: AppInitDataModel;

@@ -14,6 +14,7 @@ export class HrDocumentModel extends EDossierPncObjectModel {
     title: string;
     content: string;
     attachmentFiles: Array<DocumentModel> = new Array();
+    deleted: boolean;
 
     getStorageId(): string {
         return `${this.techId}`;

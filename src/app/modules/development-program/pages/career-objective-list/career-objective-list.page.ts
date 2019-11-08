@@ -148,7 +148,7 @@ export class CareerObjectiveListPage {
    * Dirige vers la page de création d'un nouveau bilan professionnel
    */
   goToProfessionalInterviewCreation() {
-    this.router.navigate(['..', 'professional-interview', 'create'], { relativeTo: this.activatedRoute });
+    this.router.navigate(['professional-interview', 'create'], { relativeTo: this.activatedRoute });
   }
 
   /**
@@ -249,10 +249,18 @@ export class CareerObjectiveListPage {
   }
 
   /**
+   * Redirige vers le détail d'une eObservation
+   * @param eObservationId l'id de l'observation vers laquelle on souhaite naviguer
+   */
+  goToEObservationDetail(eObservationId) {
+    this.router.navigate(['eobservation', 'detail', eObservationId], { relativeTo: this.activatedRoute });
+  }
+
+  /**
    * Redirige vers la page des archives des eObservations
    */
   goToEobservationsArchives() {
-    this.router.navigate(['..', 'eobservation', 'archive'], { relativeTo: this.activatedRoute });
+    this.router.navigate(['eobservation', 'archive'], { relativeTo: this.activatedRoute });
   }
 
 
@@ -260,7 +268,7 @@ export class CareerObjectiveListPage {
    * Redirige vers la page des archives des bilans professionnels
    */
   goToProfessionalInterviewsArchives() {
-    this.router.navigate(['..', 'professional-interview', 'archive'], { relativeTo: this.activatedRoute });
+    this.router.navigate(['professional-interview', 'archive'], { relativeTo: this.activatedRoute });
   }
 
   /**
