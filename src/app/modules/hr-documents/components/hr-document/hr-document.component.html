@@ -5,8 +5,7 @@
                 <ion-item class="category">
                     <ion-label class="required">{{ 'HR_DOCUMENT.EDIT.CATEGORY' | translate }}
                     </ion-label>
-                    <ion-select interface="popover" [compareWith]="compareCategories" [(ngModel)]="hrDocument.category"
-                        formControlName="category">
+                    <ion-select interface="popover" [compareWith]="compareCategories" [(ngModel)]="hrDocument.category" formControlName="category">
                         <ion-select-option *ngFor="let category of hrDocumentCategories" [value]="category">
                             {{category?.label}}</ion-select-option>
                     </ion-select>
@@ -18,8 +17,7 @@
                 <ion-item>
                     <ion-label class="required" position="floating">{{ 'HR_DOCUMENT.EDIT.DOCUMENT_TITLE' | translate }}
                     </ion-label>
-                    <ion-input #hrDocumentTitle type="text" class="document-title" [(ngModel)]="hrDocument.title"
-                        formControlName="title" autocorrect="on" [maxlength]="titleMaxLength"></ion-input>
+                    <ion-input #hrDocumentTitle type="text" class="document-title" [(ngModel)]="hrDocument.title" formControlName="title" autocorrect="on" [maxlength]="titleMaxLength"></ion-input>
                     <span class="document-length">{{hrDocumentTitle.value.length}}/{{titleMaxLength}}</span>
                 </ion-item>
             </ion-col>
@@ -29,9 +27,7 @@
                 <ion-label class="required" position="floating">
                     {{ 'HR_DOCUMENT.EDIT.DOCUMENT_DESCRIPTION' | translate }}
                 </ion-label>
-                <text-editor name="hrDocumentContent" [mode]="TextEditorModeEnum.FULL"
-                    [ngModelOptions]="{standalone: true}" [(ngModel)]="hrDocument.content" [parentForm]="hrDocumentForm"
-                    [controlForm]="'content'" formControlName="content">
+                <text-editor name="hrDocumentContent" [mode]="TextEditorModeEnum.FULL" [ngModelOptions]="{standalone: true}" [(ngModel)]="hrDocument.content" [parentForm]="hrDocumentForm" [controlForm]="'content'" formControlName="content">
                 </text-editor>
             </ion-col>
         </ion-row>
@@ -43,22 +39,20 @@
                 </document-manager>
             </ion-col>
         </ion-row>
+        <!-- Barre de boutons -->
+        <div class="button-bar-right button-bar button-row">
+            <!-- Bouton Annuler -->
+            <ion-button color="primary" outline (click)="cancelCreation()">
+                {{ 'HR_DOCUMENT.BUTTONS.CANCEL' | translate }}
+            </ion-button>
+            <!-- Bouton enregistrer -->
+            <ion-button *ngIf="mode === HrDocumentModeEnum.CREATION" color="primary" (click)="saveHrDocument()" [disabled]="!isFormValid()">
+                {{ 'HR_DOCUMENT.BUTTONS.SAVE' | translate }}
+            </ion-button>
+            <!-- Bouton mettre à jour-->
+            <ion-button #updateHrDocument *ngIf="mode === HrDocumentModeEnum.EDITION" color="primary" (click)="saveHrDocument()" [disabled]="!isFormValid()">
+                {{ 'HR_DOCUMENT.BUTTONS.UPDATE' | translate }}
+            </ion-button>
+        </div>
     </ion-grid>
-    <!-- Barre de boutons -->
-    <div class="button-bar-right button-bar">
-        <!-- Bouton Annuler -->
-        <ion-button color="primary" outline (click)="cancelCreation()">
-            {{ 'HR_DOCUMENT.BUTTONS.CANCEL' | translate }}
-        </ion-button>
-        <!-- Bouton enregistrer -->
-        <ion-button *ngIf="mode === HrDocumentModeEnum.CREATION" color="primary" (click)="saveHrDocument()"
-            [disabled]="!isFormValid()">
-            {{ 'HR_DOCUMENT.BUTTONS.SAVE' | translate }}
-        </ion-button>
-        <!-- Bouton mettre à jour-->
-        <ion-button #updateHrDocument *ngIf="mode === HrDocumentModeEnum.EDITION" color="primary"
-            (click)="saveHrDocument()" [disabled]="!isFormValid()">
-            {{ 'HR_DOCUMENT.BUTTONS.UPDATE' | translate }}
-        </ion-button>
-    </div>
 </form>
