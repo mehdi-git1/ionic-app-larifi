@@ -58,7 +58,7 @@ export class AppInitService {
                     modalSecurityService.displayPinPad(PinPadTypeEnum.openingApp);
                 }
                 if (this.sessionService.getActiveUser().isManager) {
-                    router.navigate(['tabs', 'search']);
+                    router.navigate(['tabs', 'home']);
                 } else {
                     router.navigate(['career-objective']);
                 }
