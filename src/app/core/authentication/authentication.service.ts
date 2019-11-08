@@ -149,8 +149,8 @@ export class AuthenticationService {
     }
 
     /**
-    * Met le pnc connecté en session
-    */
+     * Met le pnc connecté en session
+     */
     putAuthenticatedUserInSession(): Promise<boolean> {
         return this.securityService.getAuthenticatedUser().then(authenticatedUser => {
             if (authenticatedUser) {
