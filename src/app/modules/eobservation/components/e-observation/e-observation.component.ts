@@ -1,5 +1,4 @@
-import { Component, Input, OnChanges } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
 
 import { EObservationLevelEnum } from '../../../../core/enums/e-observations-level.enum';
 import { EObservationTypeEnum } from '../../../../core/enums/e-observations-type.enum';
@@ -31,9 +30,9 @@ export class EObservationComponent implements OnChanges {
 
   @Input() eObservationDisplayMode: EObservationDisplayModeEnum;
 
+  @Output() detailButtonClicked = new EventEmitter();
+
   constructor(
-    private router: Router,
-    private activatedRoute: ActivatedRoute,
     private eObservationService: EObservationService) {
   }
 
@@ -121,7 +120,7 @@ export class EObservationComponent implements OnChanges {
    */
   goToEObservationDetail(evt: Event): void {
     evt.stopPropagation();
-    this.router.navigate(['..', 'eobservation', 'detail', this.eObservation.techId], { relativeTo: this.activatedRoute });
+    this.detailButtonClicked.emit(this.eObservation.techId);
   }
 
   /**
