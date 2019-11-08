@@ -5,9 +5,13 @@ $containerPadding : 30;
 $chosenNumberWidth: 80;
 $chosenNumberHeight: 31;
 
-$pinNumberWidth: 65;
-$pinNumberHeight: 65;
-
+.blur {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background: var(--ion-color-white);
+    filter: blur(100px);
+}
 
 .title {
     color: var(--ion-color-grey10);
@@ -18,7 +22,7 @@ $pinNumberHeight: 65;
 
 .error-text {
     text-align: center;
-    color: var(--ion-color-red80);
+    color: var(--ion-color-danger);
 }
 
 .forgotten-pin {
@@ -56,13 +60,13 @@ $pinNumberHeight: 65;
         .round-pad {
             width: 15px;
             height: 15px;
-            border: solid 2px;
-            border-radius: 10px;
+            border: solid 2px var(--ion-color-primary);
+            border-radius: 100%;
             display: inline-block;
         }
 
         .full-round {
-            background-color: var(--ion-color-grey95);
+            background: var(--ion-color-primary);
         }
 
     }
@@ -72,36 +76,34 @@ $pinNumberHeight: 65;
 .pad-number-container {
 
     padding: 20px;
-    padding-right: 47px;
-    text-align: right;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
 
-    %item-common {
-        display: inline-flex;
-        width: $pinNumberWidth+px;
-        height: $pinNumberHeight+px;
+    .pad-number,
+    .erase-pin {
+        --box-shadow: none;
         color: var(--ion-color-grey10);
-        padding-left: 25px;
-        padding-top: 17px;
         margin: 10px;
     }
 
     .pad-number {
-        @extend %item-common;
         cursor: pointer;
-        background-color: var(--ion-color-grey95);
-        border: solid 2px var(--ion-color-grey95);
-        border-radius: $pinNumberWidth+px;
         font-weight: bold;
         font-size: 20px;
+
+        &:nth-child(10) {
+            margin-left: 86px;
+        }
     }
 
     .erase-pin {
-        @extend %item-common;
         font-weight: bold;
+        display: flex;
+        align-items: center;
         cursor: pointer;
         text-decoration: underline;
-        display: inline-flex;
-        padding-left: 13px;
+        padding-left: 8px;
 
         &.invisible {
             opacity: 0;

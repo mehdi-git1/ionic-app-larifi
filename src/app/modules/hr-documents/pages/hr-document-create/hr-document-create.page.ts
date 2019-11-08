@@ -2,14 +2,13 @@
 
 
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 import { HrDocumentModeEnum } from '../../../../core/enums/hr-document/hr-document-mode.enum';
 import { HrDocumentModel } from '../../../../core/models/hr-document/hr-document.model';
-import { PncModel } from '../../../../core/models/pnc.model';
 import {
     OnlineHrDocumentService
 } from '../../../../core/services/hr-documents/online-hr-document.service';
-import { SessionService } from '../../../../core/services/session/session.service';
 import { HrDocumentComponent } from '../../components/hr-document/hr-document.component';
 
 @Component({
@@ -18,7 +17,6 @@ import { HrDocumentComponent } from '../../components/hr-document/hr-document.co
 })
 export class HrDocumentCreatePage implements OnInit {
 
-    pnc: PncModel;
     mode: HrDocumentModeEnum;
     hrDocument: HrDocumentModel;
 
@@ -27,26 +25,20 @@ export class HrDocumentCreatePage implements OnInit {
     @ViewChild('hrDocumentCreateOrUpdate', { static: false }) hrDocumentCreateOrUpdate: HrDocumentComponent;
 
     constructor(
-        private onlineHrDocumentService: OnlineHrDocumentService,
-        private sessionService: SessionService) {
+        private activatedRoute: ActivatedRoute,
+        private onlineHrDocumentService: OnlineHrDocumentService) {
     }
 
     ngOnInit() {
-        if (this.sessionService.visitedPnc) {
-            this.pnc = this.sessionService.visitedPnc;
-        } else {
-            this.pnc = this.sessionService.getActiveUser().authenticatedPnc;
+        const id = +this.activatedRoute.snapshot.paramMap.get('hrDocumentId');
+        this.mode = id > 0 ? HrDocumentModeEnum.EDITION : HrDocumentModeEnum.CREATION;
+        if (this.mode === HrDocumentModeEnum.EDITION) {
+            this.onlineHrDocumentService.getHrDocument(id).then(hrDocument => {
+                this.hrDocument = hrDocument;
+            }, error => {
+            });
+
         }
-        // this.mode = this.navParams.get('mode');
-        // if (this.mode === HrDocumentModeEnum.EDITION) {
-        //     const id = this.navParams.get('hrDocumentId');
-        //     if (id) {
-        //         this.onlineHrDocumentService.getHrDocument(id).then(hrDocument => {
-        //             this.hrDocument = hrDocument;
-        //         }, error => {
-        //         });
-        //     }
-        // }
     }
 
     ionViewCanLeave() {

@@ -14,16 +14,14 @@
         <ng-container *ngIf="isApp">
             <ion-item>
                 <ion-label color="grey50">{{ 'SETTINGS.INIT_CACHE.LABEL' | translate }}</ion-label>
-                <ion-fab-button size="small" color="secondary" (click)="confirmClearAndInitCache()"
-                    [disabled]="!connected">
+                <ion-fab-button size="small" color="secondary" (click)="confirmClearAndInitCache()" [disabled]="!connected">
                     <ion-icon name="trash" *ngIf="!initInProgress"></ion-icon>
                     <ion-spinner *ngIf="initInProgress"></ion-spinner>
                 </ion-fab-button>
             </ion-item>
             <ion-item>
                 <ion-label color="grey50">{{ 'SETTINGS.FORCE_SYNCHRONIZATION.LABEL' | translate }}</ion-label>
-                <ion-fab-button size="small" color="secondary" (click)="forceSynchronizeOfflineData()"
-                    [disabled]="!connected">
+                <ion-fab-button size="small" color="secondary" (click)="forceSynchronizeOfflineData()" [disabled]="!connected">
                     <ion-icon name="sync" *ngIf="!synchronizationInProgress"></ion-icon>
                     <ion-spinner *ngIf="synchronizationInProgress"></ion-spinner>
                 </ion-fab-button>
@@ -42,8 +40,7 @@
             </ion-item>
             <ion-item *ngIf="isAdmin()">
                 <ion-label color="grey50">{{ 'SETTINGS.REVOKE_CERTIFICATE.BUTTON' | translate }}</ion-label>
-                <ion-fab-button size="small" color="secondary" class="parameter-button"
-                    (click)="confirmRevokeCertificate()">
+                <ion-fab-button size="small" color="secondary" class="parameter-button" (click)="confirmRevokeCertificate()">
                     <ion-icon name="log-out" *ngIf="!revokationInProgress"></ion-icon>
                     <ion-spinner *ngIf="revokationInProgress"></ion-spinner>
                 </ion-fab-button>
@@ -70,8 +67,7 @@
         </ion-item>
         <ion-item *ngIf="isAdmin()">
             <ion-label color="grey50">{{ 'SETTINGS.ADMIN_ACCESS.BUTTON' | translate }}</ion-label>
-            <ion-fab-button size="small" color="secondary" class="parameter-button" (click)="goToAdminPage()"
-                [disabled]="!connected">
+            <ion-fab-button size="small" color="secondary" class="parameter-button" (click)="goToAdminPage()" [disabled]="!connected">
                 <ion-icon name="md-build"></ion-icon>
             </ion-fab-button>
         </ion-item>

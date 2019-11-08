@@ -3,8 +3,6 @@ import { Injectable } from '@angular/core';
 import { UrlConfiguration } from '../../configuration/url.configuration';
 import { RestService } from '../../http/rest/rest.base.service';
 import { AuthenticatedUserModel } from '../../models/authenticated-user.model';
-import { PncPinModel } from '../../models/pnc-pin.model';
-import { DeviceService } from '../device/device.service';
 import { OfflineSecurityService } from './offline-security.service';
 
 @Injectable({ providedIn: 'root' })
@@ -12,9 +10,8 @@ export class OnlineSecurityService {
 
   constructor(
     private restService: RestService,
-    private offlineSecurityProvider: OfflineSecurityService,
-    private config: UrlConfiguration,
-    private deviceService: DeviceService
+    private offlineSecurityService: OfflineSecurityService,
+    private config: UrlConfiguration
   ) { }
 
   /**
@@ -23,27 +20,8 @@ export class OnlineSecurityService {
    */
   getAuthenticatedUser(): Promise<AuthenticatedUserModel> {
     return this.restService.get(this.config.getBackEndUrl('getSecurityInfos')).then(authenticatedUser => {
-      // Pour le mobile, on récupére les informations secretes (code PIN, question / réponse secréte)
-      // avant de mettre l'utilisateur en session
-      if (!this.deviceService.isBrowser()) {
-        return this.restService.get(this.config.getBackEndUrl('getSecretInfosByMatricule', [authenticatedUser.matricule])).then(data => {
-          authenticatedUser.pinInfo = new PncPinModel();
-          authenticatedUser.pinInfo.matricule = data.matricule;
-          authenticatedUser.pinInfo.pinCode = data.pinCode;
-          authenticatedUser.pinInfo.secretQuestion = data.secretQuestion;
-          authenticatedUser.pinInfo.secretAnswer = data.secretAnswer;
-          this.offlineSecurityProvider.overwriteAuthenticatedUser(new AuthenticatedUserModel().fromJSON(authenticatedUser));
-          return authenticatedUser;
-        }, error => {
-          authenticatedUser.pinInfo = new PncPinModel();
-          this.offlineSecurityProvider.overwriteAuthenticatedUser(new AuthenticatedUserModel().fromJSON(authenticatedUser));
-          return authenticatedUser;
-        });
-      } else {
-        authenticatedUser.pinInfo = new PncPinModel();
-        this.offlineSecurityProvider.overwriteAuthenticatedUser(new AuthenticatedUserModel().fromJSON(authenticatedUser));
-        return authenticatedUser;
-      }
+      this.offlineSecurityService.overwriteAuthenticatedUser(new AuthenticatedUserModel().fromJSON(authenticatedUser));
+      return authenticatedUser;
     });
   }
 
@@ -53,8 +31,8 @@ export class OnlineSecurityService {
    * @return une promesse contenant l'objectif créé ou mis à jour
    */
   setAuthenticatedSecurityValue(authenticatedUser: AuthenticatedUserModel): Promise<void> {
-    return this.restService.put(this.config.getBackEndUrl('secretInfos'), authenticatedUser.pinInfo).then(data => {
-      this.offlineSecurityProvider.overwriteAuthenticatedUser(new AuthenticatedUserModel().fromJSON(authenticatedUser));
+    return this.restService.put(this.config.getBackEndUrl('secretInfos'), authenticatedUser.pncPin).then(data => {
+      this.offlineSecurityService.overwriteAuthenticatedUser(new AuthenticatedUserModel().fromJSON(authenticatedUser));
     });
   }
 
