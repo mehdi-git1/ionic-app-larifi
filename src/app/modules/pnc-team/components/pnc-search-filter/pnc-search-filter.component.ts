@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Events, PopoverController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
@@ -22,7 +22,7 @@ import {
   templateUrl: 'pnc-search-filter.component.html',
   styleUrls: ['./pnc-search-filter.component.scss']
 })
-export class PncSearchFilterComponent implements OnInit {
+export class PncSearchFilterComponent implements AfterViewInit {
 
   @Output() onSearch: EventEmitter<any> = new EventEmitter();
 
@@ -109,7 +109,7 @@ export class PncSearchFilterComponent implements OnInit {
     this.onSearch.next();
   }
 
-  ngOnInit() {
+  ngAfterViewInit() {
     // initialistation du filtre
     this.initFilter();
     // Initialisation du formulaire
