@@ -348,8 +348,4 @@ export class CongratulationLetterCreatePage implements OnInit {
                     && this.sessionService.getActiveUser().matricule === this.congratulationLetter.creationAuthor.matricule)
             );
     }
-
-    canDisplayWarning(): boolean {
-        return this.congratulationLetterForm.value.letterTypeControl;
-    }
 }

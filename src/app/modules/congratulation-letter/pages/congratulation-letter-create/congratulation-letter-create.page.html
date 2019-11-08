@@ -134,7 +134,7 @@
                     </ion-row>
                     <ion-row>
                         <ion-col>
-                            <div class="information-message align-right collective-warning" *ngIf="canDisplayWarning()">
+                            <div class="information-message align-right collective-warning" *ngIf="congratulationLetter.collective">
                                 {{ 'CONGRATULATION_LETTER_CREATE.FORM.COLLECTIVE_WARNING_PART1' | translate }}
                                 <span class="lastname">{{ pnc.lastName }}</span>&nbsp;
                                 <span class="firstname">{{ pnc.firstName }}</span>
