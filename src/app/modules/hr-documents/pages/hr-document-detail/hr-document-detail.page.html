@@ -9,7 +9,7 @@
     <div class="page-container">
         <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
         <ng-template #pageBlock>
-            <hr-document-card #hrDocumentDetail [mode]="mode" [hrDocument]="hrDocument"></hr-document-card>
+            <hr-document-card #hrDocumentDetail [hrDocument]="hrDocument"></hr-document-card>
         </ng-template>
     </div>
 </ion-content>

@@ -1,7 +1,7 @@
 <ion-header>
     <ion-toolbar>
         <ion-back-button color="white" slot="start"></ion-back-button>
-        <page-header [showSettingsIcon]="true" [pnc]="pnc">
+        <page-header [showSettingsIcon]="true">
             <span
                 *ngIf="mode === HrDocumentModeEnum.CREATION; else updateTitle">{{ 'HR_DOCUMENT.EDIT.DOCUMENT_CREATION' | translate }}</span>
             <ng-template #updateTitle>
