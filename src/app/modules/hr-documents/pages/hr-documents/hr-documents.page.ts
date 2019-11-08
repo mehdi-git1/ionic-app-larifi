@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { PopoverController } from '@ionic/angular';
 
 import { AppConstant } from '../../../../app.constant';
@@ -19,6 +20,7 @@ import {
 @Component({
     selector: 'hr-documents',
     templateUrl: 'hr-documents.page.html',
+    styleUrls: ['./hr-documents.page.scss']
 })
 export class HrDocumentsPage implements OnInit {
 
@@ -32,6 +34,8 @@ export class HrDocumentsPage implements OnInit {
 
     TabHeaderEnum = TabHeaderEnum;
     constructor(
+        private router: Router,
+        private activatedRoute: ActivatedRoute,
         private sessionService: SessionService,
         private onlineHrDocumentService: OnlineHrDocumentService,
         private securityService: SecurityService,
@@ -83,14 +87,14 @@ export class HrDocumentsPage implements OnInit {
      * Dirige vers la page de création d'un nouveau document RH
      */
     createNewDocument() {
-        // this.navCtrl.push(HrDocumentCreatePage, { mode: HrDocumentModeEnum.CREATION });
+        this.router.navigate(['create', 0], { relativeTo: this.activatedRoute });
     }
 
     /**
      * Dirige vers la page de détails d'un document RH
      */
     viewDocumentDetails(hrDocument: HrDocumentModel) {
-        // this.navCtrl.push(HrDocumentDetailPage, { mode: HrDocumentModeEnum.EDITION, hrDocumentId: hrDocument.techId });
+        this.router.navigate(['detail', hrDocument.techId], { relativeTo: this.activatedRoute });
     }
 
     /**
@@ -203,8 +207,19 @@ export class HrDocumentsPage implements OnInit {
      */
     openActionsMenu(myEvent: Event, hrDocument: HrDocumentModel) {
         myEvent.stopPropagation();
-        const popover = this.popoverCtrl.create(HrDocumentActionMenuComponent, { hrDocument: hrDocument, navCtrl: this.navCtrl }, { cssClass: 'action-menu-popover' });
-        // popover.present({ ev: myEvent });
+        this.popoverCtrl.create({
+            component: HrDocumentActionMenuComponent,
+            event: myEvent,
+            cssClass: 'action-menu-popover'
+        }).then(popover => {
+            popover.present();
+
+            popover.onDidDismiss().then(dismissEvent => {
+                if (dismissEvent.data === 'hrDocument:create') {
+                    this.router.navigate(['create', hrDocument.techId], { relativeTo: this.activatedRoute });
+                }
+            });
+        });
     }
 
     /**
