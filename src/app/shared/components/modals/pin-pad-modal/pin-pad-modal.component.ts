@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavParams, PopoverController } from '@ionic/angular';
+import { ModalController, NavParams } from '@ionic/angular';
 
 import { GlobalErrorEnum } from '../../../../core/enums/global-error.enum';
 import { PinPadErrorEnum } from '../../../../core/enums/security/pin-pad-error.enum';
@@ -18,7 +18,7 @@ export class PinPadModalComponent {
   padValueDefault = '_';
 
   constructor(
-    private popoverCtrl: PopoverController,
+    private modalCtrl: ModalController,
     private navParams: NavParams
   ) {
     this.modalType = this.navParams.get('modalType');
@@ -32,7 +32,7 @@ export class PinPadModalComponent {
    */
   checkPinValue(pinValue) {
     if (pinValue.indexOf(this.padValueDefault) === -1) {
-      this.popoverCtrl.dismiss(pinValue.join(''));
+      this.modalCtrl.dismiss(pinValue.join(''));
     }
 
   }
@@ -42,7 +42,7 @@ export class PinPadModalComponent {
    * @param action Recupération de l'action et envoi vers le service
    */
   catchAction(action) {
-    this.popoverCtrl.dismiss(action);
+    this.modalCtrl.dismiss(action);
   }
 
 }

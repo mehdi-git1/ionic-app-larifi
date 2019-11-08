@@ -39,6 +39,9 @@ import {
 import { SynchronizationModule } from './modules/synchronization/synchronization.module';
 import { AppRoutingModule } from './routing/app-routing.module';
 import { ComponentsModule } from './shared/components/components.module';
+import {
+    PinPadModalComponent
+} from './shared/components/modals/pin-pad-modal/pin-pad-modal.component';
 import { SharedModule } from './shared/shared.module';
 
 export function appInitFactory(appInitService: AppInitService) {
@@ -50,7 +53,7 @@ export function appInitFactory(appInitService: AppInitService) {
 }
 @NgModule({
   declarations: [AppComponent],
-  entryComponents: [],
+  entryComponents: [PinPadModalComponent],
   imports: [
     BrowserModule,
     IonicModule.forRoot(),
