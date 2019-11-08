@@ -5,7 +5,6 @@ import { ActivatedRoute } from '@angular/router';
 
 import { HrDocumentModeEnum } from '../../../../core/enums/hr-document/hr-document-mode.enum';
 import { HrDocumentModel } from '../../../../core/models/hr-document/hr-document.model';
-import { PncModel } from '../../../../core/models/pnc.model';
 import {
     OnlineHrDocumentService
 } from '../../../../core/services/hr-documents/online-hr-document.service';
@@ -17,7 +16,6 @@ import {
 })
 export class HrDocumentDetailPage implements OnInit {
 
-    pnc: PncModel;
     hrDocument: HrDocumentModel;
 
     HrDocumentModeEnum = HrDocumentModeEnum;
