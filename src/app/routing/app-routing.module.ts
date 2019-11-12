@@ -169,7 +169,12 @@ const routes: Routes = [
                     path: 'professional-interview', children: [
                       { path: 'create', component: ProfessionalInterviewDetailsPage },
                       { path: 'detail/:professionalInterviewId', component: ProfessionalInterviewDetailsPage },
-                      { path: 'archive', component: ProfessionalInterviewsArchivesPage }
+                      {
+                        path: 'archive', children: [
+                          { path: '', component: ProfessionalInterviewsArchivesPage },
+                          { path: ':professionalInterviewId', component: ProfessionalInterviewDetailsPage }
+                        ]
+                      }
                     ]
                   },
                 ]
@@ -272,7 +277,12 @@ const routes: Routes = [
     path: 'professional-interview', children: [
       { path: 'create', component: ProfessionalInterviewDetailsPage },
       { path: 'detail/:professionalInterviewId', component: ProfessionalInterviewDetailsPage },
-      { path: 'archive', component: ProfessionalInterviewsArchivesPage }
+      {
+        path: 'archive', children: [
+          { path: '', component: ProfessionalInterviewsArchivesPage },
+          { path: ':professionalInterviewId', component: ProfessionalInterviewDetailsPage }
+        ]
+      }
     ]
   },
   {

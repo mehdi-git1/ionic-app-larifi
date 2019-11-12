@@ -1,5 +1,5 @@
 
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 import {
     ProfessionalInterviewStateEnum
@@ -19,12 +19,15 @@ export class ProfessionalInterviewsComponent {
   matPanelHeaderHeight = '41px';
   professionalInterviewTab: ProfessionalInterviewModel[];
 
+  @Output() detailButtonClicked = new EventEmitter();
+
   @Input() legend = true;
   @Input()
   set professionalInterviews(val: any) {
-    this.professionalInterviewTab = val.sort((professionalInterview: ProfessionalInterviewModel, professionalInterview2: ProfessionalInterviewModel) => {
-      return professionalInterview.annualProfessionalInterviewDate < professionalInterview2.annualProfessionalInterviewDate ? 1 : -1;
-    });
+    this.professionalInterviewTab =
+      val.sort((professionalInterview: ProfessionalInterviewModel, professionalInterview2: ProfessionalInterviewModel) => {
+        return professionalInterview.annualProfessionalInterviewDate < professionalInterview2.annualProfessionalInterviewDate ? 1 : -1;
+      });
   }
 
   /**
@@ -37,4 +40,11 @@ export class ProfessionalInterviewsComponent {
     ).length;
   }
 
+  /**
+   * Redirige vers le détail d'un bilan pro
+   * @param event l'id du bilan pro sélectionné
+   */
+  goToProfessionalInterviewDetail(event) {
+    this.detailButtonClicked.emit(event);
+  }
 }

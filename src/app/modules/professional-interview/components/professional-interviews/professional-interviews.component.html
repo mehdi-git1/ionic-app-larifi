@@ -10,7 +10,7 @@
     </mat-expansion-panel-header>
     <no-data *ngIf="professionalInterviewTab.length === 0; else professionalInterviewsDataBlock"></no-data>
     <ng-template #professionalInterviewsDataBlock>
-        <professional-interview *ngFor="let professionalInterview of professionalInterviewTab" [professionalInterview]="professionalInterview">
+        <professional-interview *ngFor="let professionalInterview of professionalInterviewTab" [professionalInterview]="professionalInterview" (detailButtonClicked)="goToProfessionalInterviewDetail($event)">
         </professional-interview>
     </ng-template>
 </mat-expansion-panel>

@@ -11,7 +11,7 @@
     <div class="page-container">
         <edossier-spinner *ngIf="!loadingIsOver()"></edossier-spinner>
         <div class="global-container professional-interview-list-container" *ngIf="loadingIsOver()">
-            <professional-interviews [professionalInterviews]="professionalInterviews" [legend]="false">
+            <professional-interviews [professionalInterviews]="professionalInterviews" [legend]="false" (detailButtonClicked)="goToProfessionalInterviewDetail($event)">
             </professional-interviews>
         </div>
     </div>
