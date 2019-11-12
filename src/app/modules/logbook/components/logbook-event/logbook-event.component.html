@@ -2,34 +2,35 @@
     <form novalidate [formGroup]="logbookEventForm">
         <ion-grid>
             <ion-row class="event-date-and-checkbox-row">
-                <ion-col size="4">
+                <ion-col size="5">
                     <ion-item class="event-date" lines="none">
-                        <ion-label class="required">{{ 'LOGBOOK.EDIT.EVENT_DATE' | translate }}</ion-label>
+                        <ion-label class="required">{{ 'LOGBOOK.EDIT.EVENT_DATE' | translate }}
+                        </ion-label>
                         <edospnc-datetime [ngModelOptions]="{standalone: true}" [(ngModel)]="logbookEvent.eventDate"
                             [edospncFormGroup]="logbookEventForm" edospncFormControlName="eventDate"
                             [displayIcon]="false">
                         </edospnc-datetime>
                     </ion-item>
                 </ion-col>
-                <ion-col size="8" class="flex">
+                <ion-col size="5" class="flex">
                     <ion-item class="event-checkbox" lines="none">
-                        <ion-label>{{ 'LOGBOOK.EDIT.PNC_ORIGIN' | translate }}</ion-label>
+                        <ion-label position="stacked">{{ 'LOGBOOK.EDIT.PNC_ORIGIN' | translate }}</ion-label>
                         <ion-checkbox slot="end" [(ngModel)]="logbookEvent.pncInitiator"
                             [checked]="logbookEvent.pncInitiator" formControlName="pncInitiator">
                         </ion-checkbox>
                     </ion-item>
                     <ion-item class="event-checkbox" lines="none">
-                        <ion-label>{{ 'LOGBOOK.EDIT.IMPORTANT' | translate }}</ion-label>
+                        <ion-label position="stacked">{{ 'LOGBOOK.EDIT.IMPORTANT' | translate }}</ion-label>
                         <ion-checkbox slot="end" [(ngModel)]="logbookEvent.important" [checked]="logbookEvent.important"
                             formControlName="important">
                         </ion-checkbox>
                     </ion-item>
                 </ion-col>
             </ion-row>
-            <ion-row>
+            <ion-row class="category-row">
                 <ion-col>
-                    <ion-item class="category-row">
-                        <ion-label class="required" position="floating">{{ 'LOGBOOK.EDIT.CATEGORY' | translate }}
+                    <ion-item lines="none">
+                        <ion-label class="required" position="stacked">{{ 'LOGBOOK.EDIT.CATEGORY' | translate }}
                         </ion-label>
                         <ion-select interface="popover" [compareWith]="compareCategories"
                             [(ngModel)]="logbookEvent.category" formControlName="category">
@@ -41,8 +42,8 @@
             </ion-row>
             <ion-row class="title-row">
                 <ion-col size="12">
-                    <ion-item>
-                        <ion-label class="required" position="floating">{{ 'LOGBOOK.EDIT.EVENT_TITLE' | translate }}
+                    <ion-item lines="none">
+                        <ion-label class="required" position="stacked">{{ 'LOGBOOK.EDIT.EVENT_TITLE' | translate }}
                         </ion-label>
                         <ion-input #eventTitle type="text" class="event-title" [(ngModel)]="logbookEvent.title"
                             formControlName="title" autocorrect="on" [maxlength]="titleMaxLength"></ion-input>
@@ -53,23 +54,31 @@
             </ion-row>
             <ion-row class="description-row">
                 <ion-col size="12">
-                    <ion-label class="required">{{ 'LOGBOOK.EDIT.EVENT_DESCRIPTION' | translate }}
-                    </ion-label>
-                    <text-editor name="eventContent" [mode]="TextEditorModeEnum.FULL"
-                        [ngModelOptions]="{standalone: true}" [(ngModel)]="logbookEvent.content"
-                        [parentForm]="logbookEventForm" [controlForm]="'content'" [placeholder]=""
-                        formControlName="content">
-                    </text-editor>
+                    <ion-item lines="none">
+                        <ion-label class="required" position="stacked">
+                            {{ 'LOGBOOK.EDIT.EVENT_DESCRIPTION' | translate }}
+                        </ion-label>
+                        <text-editor name="eventContent" [mode]="TextEditorModeEnum.FULL"
+                            [ngModelOptions]="{standalone: true}" [(ngModel)]="logbookEvent.content"
+                            [parentForm]="logbookEventForm" [controlForm]="'content'" [placeholder]="''"
+                            formControlName="content">
+                        </text-editor>
+                    </ion-item>
                 </ion-col>
             </ion-row>
             <ion-row class="attachment-row">
                 <ion-col size="12">
-                    <document-manager [documents]="logbookEvent.attachmentFiles" [readonly]="false"></document-manager>
+                    <ion-item lines="none">
+                        <document-manager [documents]="logbookEvent.attachmentFiles" [readonly]="false">
+                        </document-manager>
+                    </ion-item>
                 </ion-col>
             </ion-row>
             <ion-row class="notification-row">
                 <ion-col class="persons-to-notify">
-                    <ion-label>{{ 'LOGBOOK.EDIT.PERSONS_TO_NOTIFY' | translate }} :</ion-label>
+                    <ion-item class="title" lines="none">
+                        <ion-label position="stacked">{{ 'LOGBOOK.EDIT.PERSONS_TO_NOTIFY' | translate }} :</ion-label>
+                    </ion-item>
                     <ion-item class="event-checkbox">
                         <ion-label>
                             <span [ngClass]="{'no-value' : !pnc.pncInstructor }">{{ pnc.pncInstructor?.lastName }}
@@ -89,6 +98,7 @@
                             (ionChange)="updatePncNotifiedList($event, pnc.pncRds)"
                             [checked]="isPncNotified(pnc.pncRds)"></ion-checkbox>
                     </ion-item>
+
                 </ion-col>
                 <ion-col class="other-contacts">
                 </ion-col>
