@@ -35,7 +35,7 @@ export class HrDocumentCardComponent {
      * Dirige vers la page de modification d'un document RH
      */
     editHrDocument() {
-        this.router.navigate(['hr-document', 'create', this.hrDocument.techId], { relativeTo: this.activatedRoute });
+        this.router.navigate(['../..', 'create', this.hrDocument.techId], { relativeTo: this.activatedRoute });
     }
 
 

@@ -1,6 +1,7 @@
 import * as _ from 'lodash';
 import { PncService } from 'src/app/core/services/pnc/pnc.service';
 
+import { Location } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
@@ -43,8 +44,6 @@ export class HrDocumentComponent implements OnInit {
 
     hrDocumentForm: FormGroup;
 
-    cancelFromButton = false;
-
     constructor(
         private translateService: TranslateService,
         private sessionService: SessionService,
@@ -55,7 +54,8 @@ export class HrDocumentComponent implements OnInit {
         private alertCtrl: AlertController,
         private formBuilder: FormBuilder,
         private pncService: PncService,
-        private activatedRoute: ActivatedRoute) {
+        private activatedRoute: ActivatedRoute,
+        private location: Location) {
 
         this.initForm();
     }
@@ -106,33 +106,17 @@ export class HrDocumentComponent implements OnInit {
     }
 
     /**
-     * Annule la création / modification de l'évènement en appuyant sur le bouton annuler.
-     */
-    cancelCreation() {
-        this.cancelFromButton = true;
-        this.confirmCancel();
-    }
-
-    /**
      * Annule la création du document RH
      */
     confirmCancel() {
         if (this.formHasBeenModified()) {
             return this.confirmAbandonChanges().then(() => {
                 this.hrDocument = _.cloneDeep(this.originHrDocument);
-                if (this.cancelFromButton) {
-                    this.cancelFromButton = false;
-                }
-                return true;
+                this.location.back();
             }).catch(() => {
-                this.cancelFromButton = false;
-                return false;
             });
         } else {
-            if (this.cancelFromButton) {
-                this.cancelFromButton = false;
-            }
-            return true;
+            this.location.back();
         }
     }
 
@@ -178,20 +162,22 @@ export class HrDocumentComponent implements OnInit {
         return new Promise((resolve, reject) => {
             this.loadingCtrl.create().then(loading => {
                 loading.present();
+
+                this.onlineHrDocumentService.createOrUpdate(this.hrDocument)
+                    .then(savedHrDocument => {
+                        this.originHrDocument = _.cloneDeep(savedHrDocument);
+                        this.hrDocument = savedHrDocument;
+                        if (this.mode === HrDocumentModeEnum.CREATION) {
+                            this.toastService.success(this.translateService.instant('HR_DOCUMENT.EDIT.HR_DOCUMENT_SAVED'));
+                        } else if (this.mode === HrDocumentModeEnum.EDITION) {
+                            this.toastService.success(this.translateService.instant('HR_DOCUMENT.EDIT.HR_DOCUMENT_EDITED'));
+                        }
+                        this.location.back();
+                        loading.dismiss();
+                    }, error => {
+                        loading.dismiss();
+                    });
             });
-
-            this.onlineHrDocumentService.createOrUpdate(this.hrDocument)
-                .then(savedHrDocument => {
-                    this.originHrDocument = _.cloneDeep(savedHrDocument);
-                    this.hrDocument = savedHrDocument;
-                    if (this.mode === HrDocumentModeEnum.CREATION) {
-                        this.toastService.success(this.translateService.instant('HR_DOCUMENT.EDIT.HR_DOCUMENT_SAVED'));
-                    } else if (this.mode === HrDocumentModeEnum.EDITION) {
-                        this.toastService.success(this.translateService.instant('HR_DOCUMENT.EDIT.HR_DOCUMENT_EDITED'));
-                    }
-
-                }, error => {
-                });
 
         });
     }
