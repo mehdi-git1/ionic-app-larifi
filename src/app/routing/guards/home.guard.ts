@@ -15,6 +15,7 @@ export class HomeGuard implements CanActivate {
         route: ActivatedRouteSnapshot,
         state: RouterStateSnapshot
     ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+        this.appInitService.handleAuthenticationStatus();
         return true;
     }
 }

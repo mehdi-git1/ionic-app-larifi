@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { Events, LoadingController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -30,13 +30,10 @@ export class TabNavComponent {
 
   tabsNav;
 
-  loading = true;
-
   @ViewChild('tabs', { static: false }) tabs;
 
   constructor(
     private router: Router,
-    private activatedRoute: ActivatedRoute,
     private events: Events,
     private pncService: PncService,
     private tabNavService: TabNavService,
@@ -45,20 +42,14 @@ export class TabNavComponent {
     private securityService: SecurityService,
     private loadingCtrl: LoadingController
   ) {
-    this.events.subscribe('user:authenticationDone', () => {
-      if (!this.tabsNav) {
-        this.tabsNav = this.createListOfTab();
-      }
-      // Initialise le matricule de la la personne connectée
-      this.tabNavService.setListOfTabs(this.tabsNav);
-      this.updateTabs();
+    this.createListOfTab();
 
-      this.loading = false;
+    this.events.subscribe('user:authenticationDone', () => {
+      this.createListOfTab();
     });
 
     this.events.subscribe('user:authenticationLogout', () => {
       this.router.navigate(['authentication']);
-      this.loading = true;
     });
 
     // Gère la visite d'un eDossier
@@ -69,69 +60,50 @@ export class TabNavComponent {
    * initialisation des navTab
    */
   createListOfTab() {
-    return [
+    this.tabsNav = [
       {
         id: TabNavEnum.PNC_HOME_PAGE,
+        title: this.translate.instant('PNC_HOME.MY_TITLE'),
         page: this.sessionService.getActiveUser().isManager ? PncHomePage : CareerObjectiveListPage,
         icon: 'md-home',
-        route: 'home'
+        route: 'home',
+        display: true
       },
       {
         id: TabNavEnum.PNC_SEARCH_PAGE,
+        title: this.translate.instant('GLOBAL.MY_PNC_TEAM'),
         page: PncSearchPage,
         icon: 'md-contacts',
-        route: 'search'
+        route: 'search',
+        display: this.securityService.isManager()
       },
       {
         id: TabNavEnum.UPCOMING_FLIGHT_LIST_PAGE,
+        title: this.translate.instant('GLOBAL.MY_UPCOMING_FLIGHT'),
         page: UpcomingFlightListPage,
         icon: 'md-jet',
-        route: 'flight'
+        route: 'flight',
+        display: this.securityService.isManager()
       },
       {
         id: TabNavEnum.VISITED_PNC,
+        title: ' ',
         page: CareerObjectiveListPage,
         icon: 'md-person',
-        route: 'visit'
+        route: 'visit',
+        display: false
       },
       {
         id: TabNavEnum.HELP_ASSET_LIST_PAGE,
+        title: this.translate.instant('GLOBAL.MY_HELP_CENTER'),
         page: HelpAssetListPage,
         icon: 'md-help-circle',
-        route: 'help'
+        route: 'help',
+        display: this.securityService.isManager()
       }
     ];
-  }
 
-  /**
-   * Met à jour toutes les propriétés des onglets
-   */
-  updateTabs() {
-    this.updatePermissions();
-    this.updateTexts();
-  }
-
-  /**
-   * Met à jour les permissions de façon dynamique
-   */
-  updatePermissions() {
-    this.tabsNav[this.tabNavService.getTabIndex(TabNavEnum.PNC_HOME_PAGE)].display = true;
-    this.tabsNav[this.tabNavService.getTabIndex(TabNavEnum.PNC_SEARCH_PAGE)].display = this.securityService.isManager();
-    this.tabsNav[this.tabNavService.getTabIndex(TabNavEnum.UPCOMING_FLIGHT_LIST_PAGE)].display = this.securityService.isManager();
-    this.tabsNav[this.tabNavService.getTabIndex(TabNavEnum.VISITED_PNC)].display = false;
-    this.tabsNav[this.tabNavService.getTabIndex(TabNavEnum.HELP_ASSET_LIST_PAGE)].display = this.securityService.isManager();
-  }
-
-  /**
-   * Met à jour les textes affichés de façon dynamique
-   */
-  updateTexts() {
-    this.tabsNav[this.tabNavService.getTabIndex(TabNavEnum.PNC_HOME_PAGE)].title = this.translate.instant('PNC_HOME.MY_TITLE');
-    this.tabsNav[this.tabNavService.getTabIndex(TabNavEnum.PNC_SEARCH_PAGE)].title = this.translate.instant('GLOBAL.MY_PNC_TEAM');
-    this.tabsNav[this.tabNavService.getTabIndex(TabNavEnum.UPCOMING_FLIGHT_LIST_PAGE)].title =
-      this.translate.instant('GLOBAL.MY_UPCOMING_FLIGHT');
-    this.tabsNav[this.tabNavService.getTabIndex(TabNavEnum.VISITED_PNC)].title = ' ';
-    this.tabsNav[this.tabNavService.getTabIndex(TabNavEnum.HELP_ASSET_LIST_PAGE)].title = this.translate.instant('GLOBAL.MY_HELP_CENTER');
+    this.tabNavService.setListOfTabs(this.tabsNav);
   }
 
   /**

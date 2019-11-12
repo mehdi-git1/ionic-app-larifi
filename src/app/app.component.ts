@@ -1,6 +1,6 @@
 import * as moment from 'moment';
 
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { AfterViewInit, Component, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { Events, Platform } from '@ionic/angular';
@@ -8,7 +8,6 @@ import { TranslateService } from '@ngx-translate/core';
 
 import { AuthenticationService } from './core/authentication/authentication.service';
 import { PinPadTypeEnum } from './core/enums/security/pin-pad-type.enum';
-import { AppInitService } from './core/services/app-init/app-init.service';
 import { ConnectivityService } from './core/services/connectivity/connectivity.service';
 import { DeviceService } from './core/services/device/device.service';
 import { ModalSecurityService } from './core/services/modal/modal-security.service';
@@ -22,7 +21,7 @@ import { ToastService } from './core/services/toast/toast.service';
   styleUrls: ['app.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements AfterViewInit {
 
   pinPadModalActive = false;
   switchToBackgroundDate: Date;
@@ -41,24 +40,27 @@ export class AppComponent implements OnInit {
     private deviceService: DeviceService,
     private toastService: ToastService,
     private synchronizationProvider: SynchronizationService,
-    private authenticationService: AuthenticationService,
-    private appInitService: AppInitService
+    private authenticationService: AuthenticationService
   ) {
   }
 
-  ngOnInit(): void {
+  ngAfterViewInit(): void {
     this.initializeApp();
   }
 
   initializeApp() {
 
     this.platform.ready().then(() => {
+
+      // MODE BROWSER
       if (this.deviceService.isBrowser()) {
         if (this.isInternetExplorer()) {
           this.router.navigate(['unsupported-navigator']);
           return;
         }
       } else {
+        // MODE MOBILE
+        this.statusBar.styleDefault();
 
         /* On ajoute une écoute sur un paramétre pour savoir si la popin est activée ou pas pour afficher
         un blur et une interdiction de cliquer avant d'avoir mis le bon code pin */
@@ -83,33 +85,25 @@ export class AppComponent implements OnInit {
         this.platform.pause.subscribe(() => {
           this.switchToBackgroundDate = new Date();
         });
-      }
 
-      this.events.subscribe('connectionStatus:disconnected', () => {
-        this.connectivityService.startPingAPI();
-      });
-
-      // Détection d'un changement d'état de la connexion
-      this.connectivityService.connectionStatusChange.subscribe(connected => {
-        if (!connected) {
+        this.events.subscribe('connectionStatus:disconnected', () => {
           this.connectivityService.startPingAPI();
-          this.toastService.warning(this.translateService.instant('GLOBAL.CONNECTIVITY.OFFLINE_MODE'));
-        } else {
-          this.toastService.success(this.translateService.instant('GLOBAL.CONNECTIVITY.ONLINE_MODE'));
-          this.authenticationService.offlineManagement();
-        }
-      });
+        });
 
-      this.statusBar.styleDefault();
+        // Détection d'un changement d'état de la connexion
+        this.connectivityService.connectionStatusChange.subscribe(connected => {
+          if (!connected) {
+            this.connectivityService.startPingAPI();
+            this.toastService.warning(this.translateService.instant('GLOBAL.CONNECTIVITY.OFFLINE_MODE'));
+          } else {
+            this.toastService.success(this.translateService.instant('GLOBAL.CONNECTIVITY.ONLINE_MODE'));
+            this.authenticationService.offlineManagement();
+          }
+        });
+      }
 
       this.translateService.setDefaultLang('fr');
       this.translateService.use('fr');
-
-      this.authenticationService.initFunctionalApp().then(
-        authentReturn => {
-          this.appInitService.setAuthenticationStatus(authentReturn);
-          this.appInitService.handleAuthenticationStatus();
-        });
 
     });
 
