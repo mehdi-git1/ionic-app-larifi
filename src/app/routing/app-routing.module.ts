@@ -103,6 +103,7 @@ import {
 import { AdminGuard } from './guards/admin.guard';
 import { HomeGuard } from './guards/home.guard';
 import { RealAdminGuard } from './guards/real-admin.guard';
+import { VisitEdossierGuard } from './guards/visit-edossier.guard';
 
 const routes: Routes = [
   {
@@ -142,7 +143,7 @@ const routes: Routes = [
       {
         path: 'visit', component: VisitEdossierComponent, children: [
           {
-            path: ':matricule', children: [
+            path: ':matricule', canActivate: [VisitEdossierGuard], children: [
               { path: 'statutory-certificate', component: StatutoryCertificatePage },
               { path: 'help-asset', component: HelpAssetListPage },
               {
@@ -321,7 +322,8 @@ const routes: Routes = [
   providers: [
     HomeGuard,
     AdminGuard,
-    RealAdminGuard
+    RealAdminGuard,
+    VisitEdossierGuard
   ],
   exports: [RouterModule]
 })
