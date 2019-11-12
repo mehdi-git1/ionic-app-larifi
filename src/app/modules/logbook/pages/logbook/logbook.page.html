@@ -18,7 +18,7 @@
                 </div>
                 <span *ngIf="groupedEvents && groupedEvents.length > 0; else noEventsBlock">
                     <ion-grid class="logbook-event-grid selectable" [sortableGrid]="groupedEvents">
-                        <ion-row class="headers" align-items-center>
+                        <ion-row class="headers ion-align-items-center">
                             <ion-col class="arrow"></ion-col>
                             <ion-col class="column-date" columnName="eventDate" sort>
                                 {{ 'LOGBOOK.EVENT_DATE' | translate }}
@@ -44,7 +44,7 @@
                         <ion-row class="groupedEventRow" *ngFor="let groupedEvent of groupedEvents">
                             <ion-grid class="child-event-grid">
                                 <span *ngFor="let logbookEvent of groupedEvent.logbookEvents; let logbookEventIndex = index">
-                                    <ion-row class="event-row" *ngIf="groupedEvent.expanded || logbookEventIndex === 0" (click)="goToLogbookEventDetails(logbookEvent.groupId)" align-items-center>
+                                    <ion-row class="event-row ion-align-items-center" *ngIf="groupedEvent.expanded || logbookEventIndex === 0" (click)="goToLogbookEventDetails(logbookEvent.groupId)">
                                         <ion-col class="arrow">
                                             <div class="child-count clickable" *ngIf="groupHasManyEvents(groupedEvent) && logbookEventIndex === 0" (click)="collapseOrExpandEventGroup($event, groupedEvent)">
                                                 <ion-icon color="primary" ios="md-arrow-drop{{groupedEvent.expanded?'down':'up'}}" md="md-arrow-drop{{groupedEvent.expanded?'up':'down'}}">
