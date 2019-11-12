@@ -1,9 +1,9 @@
 <form novalidate [formGroup]="hrDocumentForm">
     <ion-grid>
-        <ion-row>
+        <ion-row class="category-row">
             <ion-col col-6>
-                <ion-item class="category-row">
-                    <ion-label class="required" position="floating">
+                <ion-item lines="none">
+                    <ion-label class="required" position="stacked">
                         {{ 'HR_DOCUMENT.EDIT.CATEGORY' | translate }}
                     </ion-label>
                     <ion-select interface="popover" [compareWith]="compareCategories" [(ngModel)]="hrDocument.category"
@@ -16,8 +16,8 @@
         </ion-row>
         <ion-row class="title-row">
             <ion-col col-12>
-                <ion-item>
-                    <ion-label class="required" position="floating">
+                <ion-item lines="none">
+                    <ion-label class="required" position="stacked">
                         {{ 'HR_DOCUMENT.EDIT.DOCUMENT_TITLE' | translate }}
                     </ion-label>
                     <ion-input #hrDocumentTitle type="text" class="document-title" [(ngModel)]="hrDocument.title"
@@ -28,21 +28,25 @@
         </ion-row>
         <ion-row class="description-row">
             <ion-col col-12>
-                <ion-label>
-                    {{ 'HR_DOCUMENT.EDIT.DOCUMENT_DESCRIPTION' | translate }}
-                </ion-label>
-                <text-editor name="hrDocumentContent" [mode]="TextEditorModeEnum.FULL"
-                    [ngModelOptions]="{standalone: true}" [(ngModel)]="hrDocument.content" [parentForm]="hrDocumentForm"
-                    [controlForm]="'content'" formControlName="content">
-                </text-editor>
+                <ion-item lines="none">
+                    <ion-label position="stacked">
+                        {{ 'HR_DOCUMENT.EDIT.DOCUMENT_DESCRIPTION' | translate }}
+                    </ion-label>
+                    <text-editor name="hrDocumentContent" [mode]="TextEditorModeEnum.FULL"
+                        [ngModelOptions]="{standalone: true}" [(ngModel)]="hrDocument.content" [placeholder]="''"
+                        [parentForm]="hrDocumentForm" [controlForm]="'content'" formControlName="content">
+                    </text-editor>
+                </ion-item>
             </ion-col>
         </ion-row>
         <ion-row class="attachment-row">
             <ion-col col-12>
-                <ion-label class="required">{{ 'HR_DOCUMENT.EDIT.ATTACHMENT_FILES' | translate }}
-                </ion-label>
-                <document-manager [documents]="hrDocument.attachmentFiles" [readonly]="false">
-                </document-manager>
+                <ion-item lines="none">
+                    <ion-label class="required" position="stacked">{{ 'HR_DOCUMENT.EDIT.ATTACHMENT_FILES' | translate }}
+                    </ion-label>
+                    <document-manager [documents]="hrDocument.attachmentFiles" [readonly]="false">
+                    </document-manager>
+                </ion-item>
             </ion-col>
         </ion-row>
         <ion-row class="button-bar-row">
@@ -50,7 +54,7 @@
                 <!-- Barre de boutons -->
                 <div class="button-bar-right button-bar">
                     <!-- Bouton Annuler -->
-                    <ion-button color="primary" outline (click)="confirmCancel()">
+                    <ion-button color="primary" fill="outline" (click)="confirmCancel()">
                         {{ 'HR_DOCUMENT.BUTTONS.CANCEL' | translate }}
                     </ion-button>
                     <!-- Bouton enregistrer -->
