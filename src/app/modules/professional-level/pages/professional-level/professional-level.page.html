@@ -21,21 +21,17 @@
                 <label class="stage-label">{{ 'PROFESSIONAL_LEVEL.HEADER.LABEL' | translate }}</label>
                 <label class="stage-result">{{ 'PROFESSIONAL_LEVEL.HEADER.RESULT' | translate }}</label>
                 <div class="help-tooltip">
-                    <ion-icon name="help-circle" ios="md-help-circle" (click)="showStageLegend($event)"
-                        class="clickable"> </ion-icon>
+                    <ion-icon name="help-circle" ios="md-help-circle" (click)="showStageLegend($event)" class="clickable"> </ion-icon>
                 </div>
             </div>
-            <professional-level-stage
-                *ngIf="professionalLevel && professionalLevel.stages && professionalLevel.stages.length > 0; else noStagesBlock"
-                [stages]="professionalLevel.stages" [pnc]="pnc"></professional-level-stage>
+            <professional-level-stage *ngIf="professionalLevel && professionalLevel.stages && professionalLevel.stages.length > 0; else noStagesBlock" [stages]="professionalLevel.stages" [pnc]="pnc"></professional-level-stage>
             <ng-template #noStagesBlock>
                 <no-data></no-data>
             </ng-template>
 
             <!-- eObservations -->
             <h3>{{ 'PROFESSIONAL_LEVEL.EOBS_TITLE' | translate }}</h3>
-            <e-observations *ngIf="eObservations" [eObservations]="eObservations"
-                [eObservationDisplayMode]="EObservationDisplayModeEnum.PROFESSIONAL_LEVEL"></e-observations>
+            <e-observations *ngIf="eObservations" [eObservations]="eObservations" [eObservationDisplayMode]="EObservationDisplayModeEnum.PROFESSIONAL_LEVEL" (detailButtonClicked)="goToEObservationDetail($event)"></e-observations>
 
         </ng-template>
     </div>

@@ -1,7 +1,7 @@
 import * as _ from 'lodash';
 
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { PopoverController } from '@ionic/angular';
 
 import {
@@ -41,6 +41,7 @@ export class ProfessionalLevelPage implements OnInit {
   TabHeaderEnum = TabHeaderEnum;
 
   constructor(
+    private router: Router,
     private activatedRoute: ActivatedRoute,
     private pncService: PncService,
     private professionalLevelService: ProfessionalLevelService,
@@ -144,5 +145,13 @@ export class ProfessionalLevelPage implements OnInit {
     }).then(popover => {
       popover.present();
     });
+  }
+
+  /**
+   * Redirige vers le détail d'une eObservation
+   * @param eObservationId l'id de l'observation vers laquelle on souhaite naviguer
+   */
+  goToEObservationDetail(eObservationId) {
+    this.router.navigate(['eobservation', 'detail', eObservationId], { relativeTo: this.activatedRoute });
   }
 }
