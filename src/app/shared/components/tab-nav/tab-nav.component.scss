@@ -1,3 +1,24 @@
-.not-visible {
-    display: none;
+ion-tabs {
+
+    ion-tab-bar,
+    ion-tab-button {
+        height: 65px;
+    }
+
+    ion-tab-bar {
+
+        ion-tab-button {
+            max-width: initial;
+
+            ion-icon {
+                font-size: 3em;
+            }
+
+            &.tab-selected {
+                background: var(--ion-color-primary);
+                --color-selected: var(--ion-color-white);
+            }
+        }
+    }
+
 }
