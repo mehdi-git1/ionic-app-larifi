@@ -1,6 +1,5 @@
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { Events, IonInfiniteScroll } from '@ionic/angular';
-import { TranslateService } from '@ngx-translate/core';
 
 import { AppConstant } from '../../../../app.constant';
 import { PncModel } from '../../../../core/models/pnc.model';
@@ -37,7 +36,6 @@ export class PncSearchPage implements AfterViewInit {
     @ViewChild(IonInfiniteScroll, { static: false }) infiniteScroll: IonInfiniteScroll;
 
     constructor(
-        public translateService: TranslateService,
         private pncService: PncService,
         private pncPhotoService: PncPhotoService,
         private sessionService: SessionService,

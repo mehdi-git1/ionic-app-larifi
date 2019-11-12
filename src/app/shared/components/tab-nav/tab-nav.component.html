@@ -1,6 +1,6 @@
-<ion-tabs #tabs *ngIf="!loading" (ionTabsDidChange)="tabChange($event)">
+<ion-tabs #tabs (ionTabsDidChange)="tabChange($event)">
     <ion-tab-bar slot="bottom" [hidden]="!isAvailable()">
-        <ion-tab-button [tab]="tabNav.route" *ngFor="let tabNav of tabsNav" [hidden]="!tabNav.display">
+        <ion-tab-button [tab]="tabNav.route" *ngFor="let tabNav of getTabList()" [hidden]="!tabNav.display">
             <ion-icon [name]="tabNav.icon"></ion-icon>
             <ion-label>{{tabNav.title}}</ion-label>
         </ion-tab-button>

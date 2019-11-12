@@ -139,17 +139,17 @@
                 <ng-container *ngIf="isAdminModeAvailable(); else regularUserActions">
                     <!-- Bouton modifier un bilan professionnel -->
                     <ion-button color="primary" (click)="enterEditMode()" *ngIf="!editionMode">
-                        <ion-icon name="md-create" ios="md-create" class="ion-margin-end"></ion-icon>
+                        <ion-icon name="create" ios="md-create" class="ion-margin-end"></ion-icon>
                         {{ 'PROFESSIONAL_INTERVIEW.DETAILS.BUTTONS.MODIFY' | translate }}
                     </ion-button>
                     <!-- Bouton annuler la modification d'un bilan professionnel -->
                     <ion-button color="primary" fill="outline" (click)="cancelEditMode()" *ngIf="editionMode">
-                        <ion-icon name="md-close" ios="md-close" class="ion-margin-end"></ion-icon>
+                        <ion-icon name="close" ios="md-close" class="ion-margin-end"></ion-icon>
                         {{ 'PROFESSIONAL_INTERVIEW.DETAILS.BUTTONS.CANCEL' | translate }}
                     </ion-button>
                     <!-- Bouton valider les modifications d'un bilan professionnel -->
                     <ion-button color="primary" (click)="saveProfessionalInterview(professionalInterview)" [disabled]="!formHasBeenModified()" *ngIf="editionMode">
-                        <ion-icon name="md-checkmark" ios="md-checkmark" class="ion-margin-end"></ion-icon>
+                        <ion-icon name="checkmark" ios="md-checkmark" class="ion-margin-end"></ion-icon>
                         {{ 'PROFESSIONAL_INTERVIEW.DETAILS.BUTTONS.VALIDATE' | translate }}
                     </ion-button>
                 </ng-container>
@@ -160,23 +160,23 @@
                     </span>
                     <!-- Bouton supprimer bilan professionnel en brouillon -->
                     <ion-button color="danger" (click)="confirmDeleteProfessionalInterviewDraft()" *ngIf="canBeDeleted()">
-                        <ion-icon name="ios-trash-outline" ios="ios-trash-outline" class="ion-margin-end"></ion-icon>
+                        <ion-icon name="trash" ios="ios-trash-outline" class="ion-margin-end"></ion-icon>
                         {{ 'PROFESSIONAL_INTERVIEW.DETAILS.BUTTONS.DELETE_DRAFT' | translate }}
                     </ion-button>
                     <!-- Bouton sauvegarder objectif en brouillon -->
                     <ion-button color="blue60" (click)="saveProfessionalInterviewDraft()" [disabled]="!this.professionalInterview.annualProfessionalInterviewDate" *ngIf="canBeSavedInState(ProfessionalInterviewStateEnum.DRAFT)">
-                        <ion-icon name="ios-bookmark-outline" ios="ios-bookmark-outline" class="ion-margin-end">
+                        <ion-icon name="bookmark" ios="ios-bookmark-outline" class="ion-margin-end">
                         </ion-icon>
                         {{ 'PROFESSIONAL_INTERVIEW.DETAILS.BUTTONS.SAVE_DRAFT' | translate }}
                     </ion-button>
                     <!-- Bouton valider bilan professionnel -->
                     <ion-button color="green50" (click)="saveProfessionalInterviewToValidatedStatus()" [disabled]="!isAllIFieldsAreFilled()" *ngIf="canBeSavedInState(ProfessionalInterviewStateEnum.NOT_TAKEN_INTO_ACCOUNT)">
-                        <ion-icon name="md-checkmark" ios="md-checkmark" class="ion-margin-end"></ion-icon>
+                        <ion-icon name="checkmark" ios="md-checkmark" class="ion-margin-end"></ion-icon>
                         {{ 'PROFESSIONAL_INTERVIEW.DETAILS.BUTTONS.VALIDATE' | translate }}
                     </ion-button>
                     <!-- Bouton prendre en compte bilan professionnel -->
                     <ion-button color="blue60" (click)="takeIntoAccountProfessionalInterview()" *ngIf="canBeTakenIntoAccount()" [disabled]="!professionalInterview.pncAcknowledgement">
-                        <ion-icon name="ios-bookmark-outline" ios="ios-bookmark-outline" class="ion-margin-end">
+                        <ion-icon name="bookmark" ios="ios-bookmark-outline" class="ion-margin-end">
                         </ion-icon>
                         {{ 'PROFESSIONAL_INTERVIEW.DETAILS.BUTTONS.SAVE' | translate }}
                     </ion-button>

@@ -2,24 +2,25 @@
     background: var(--ion-color-white);
     border-top-left-radius: 5px !important;
     border-top-right-radius: 5px !important;
-    border: 1px solid var(--ion-color-light) !important;
+    border: 1px solid var(--ion-color-grey72) !important;
 }
 
 ::ng-deep quill-editor > .ql-container {
     background: var(--ion-color-white);
     border-bottom-left-radius: 5px !important;
     border-bottom-right-radius: 5px !important;
-    border: 1px solid var(--ion-color-light) !important;
+    box-sizing: border-box;
+    min-height: 120px;
+    margin: 0px;
+    position: relative;
+    border-top: 0;
 }
 
 ::ng-deep .ql-container {
     font-size: 1.1em;
-    font-family: ExcellenceInMotion, OpenSans;
+    font-family: Helvetica, Arial, sans-serif;
 }
 
-::ng-deep quill-editor > .ql-container em {
-    font-style: italic;
-}
 
 ::ng-deep quill-editor > .ql-editor {
     // Pour être actif sur Ipad

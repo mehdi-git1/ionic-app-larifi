@@ -104,6 +104,7 @@ import { AdminGuard } from './guards/admin.guard';
 import { CanDeactivateGuard } from './guards/form-changes.guard';
 import { HomeGuard } from './guards/home.guard';
 import { RealAdminGuard } from './guards/real-admin.guard';
+import { VisitEdossierGuard } from './guards/visit-edossier.guard';
 
 const routes: Routes = [
   {
@@ -143,7 +144,7 @@ const routes: Routes = [
       {
         path: 'visit', component: VisitEdossierComponent, children: [
           {
-            path: ':matricule', children: [
+            path: ':matricule', canActivate: [VisitEdossierGuard], children: [
               { path: 'statutory-certificate', component: StatutoryCertificatePage },
               { path: 'help-asset', component: HelpAssetListPage },
               {
@@ -170,7 +171,12 @@ const routes: Routes = [
                     path: 'professional-interview', children: [
                       { path: 'create', component: ProfessionalInterviewDetailsPage, canDeactivate: [CanDeactivateGuard]},
                       { path: 'detail/:professionalInterviewId', component: ProfessionalInterviewDetailsPage, canDeactivate: [CanDeactivateGuard] },
-                      { path: 'archive', component: ProfessionalInterviewsArchivesPage }
+                      {
+                        path: 'archive', children: [
+                          { path: '', component: ProfessionalInterviewsArchivesPage },
+                          { path: ':professionalInterviewId', component: ProfessionalInterviewDetailsPage }
+                        ]
+                      }
                     ]
                   },
                 ]
@@ -237,6 +243,16 @@ const routes: Routes = [
           { path: ':careerObjectiveId/:waypointId', component: WaypointCreatePage , canDeactivate: [CanDeactivateGuard]}
         ]
       },
+      {
+        path: 'eobservation', children: [
+          { path: 'detail/:eObservationId', component: EobservationDetailsPage }
+        ]
+      },
+      {
+        path: 'professional-interview', children: [
+          { path: 'detail/:professionalInterviewId', component: ProfessionalInterviewDetailsPage }
+        ]
+      }
     ]
   },
   {
@@ -255,18 +271,16 @@ const routes: Routes = [
     path: 'professional-level', children: [
       { path: '', component: ProfessionalLevelPage },
       { path: 'evaluation-sheet/:moduleId', component: EvaluationSheetPage },
-      { path: 'not-validated-question', component: NotValidatedQuestionsPage }
-    ]
-  },
-  {
-    path: 'eobservation', children: [
+      { path: 'not-validated-question', component: NotValidatedQuestionsPage },
       {
         path: 'archive', children: [
           { path: '', component: EObservationsArchivesPage },
           { path: ':eObservationId', component: EobservationDetailsPage, canDeactivate: [CanDeactivateGuard] }
         ]
       },
-      { path: 'detail/:eObservationId', component: EobservationDetailsPage, canDeactivate: [CanDeactivateGuard] }
+      { path: 'eobservation', children: [
+        { path: 'detail/:eObservationId', component: EobservationDetailsPage, canDeactivate: [CanDeactivateGuard] }
+      ] }
     ]
   },
   {
@@ -322,7 +336,8 @@ const routes: Routes = [
     HomeGuard,
     AdminGuard,
     RealAdminGuard,
-    CanDeactivateGuard
+    CanDeactivateGuard,
+    VisitEdossierGuard
   ],
   exports: [RouterModule]
 })

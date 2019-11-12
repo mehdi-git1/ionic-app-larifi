@@ -47,8 +47,6 @@ export class HrDocumentComponent extends FormCanDeactivate implements OnInit {
 
     hrDocumentForm: FormGroup;
 
-    cancelFromButton = false;
-
     constructor(
         private location: Location,
         private translateService: TranslateService,
@@ -115,8 +113,6 @@ export class HrDocumentComponent extends FormCanDeactivate implements OnInit {
      */
     cancelCreation() {
         this.location.back();
-        //this.cancelFromButton = true;
-        //this.confirmCancel();
     }
 
     /**
@@ -126,20 +122,22 @@ export class HrDocumentComponent extends FormCanDeactivate implements OnInit {
         return new Promise((resolve, reject) => {
             this.loadingCtrl.create().then(loading => {
                 loading.present();
+
+                this.onlineHrDocumentService.createOrUpdate(this.hrDocument)
+                    .then(savedHrDocument => {
+                        this.originHrDocument = _.cloneDeep(savedHrDocument);
+                        this.hrDocument = savedHrDocument;
+                        if (this.mode === HrDocumentModeEnum.CREATION) {
+                            this.toastService.success(this.translateService.instant('HR_DOCUMENT.EDIT.HR_DOCUMENT_SAVED'));
+                        } else if (this.mode === HrDocumentModeEnum.EDITION) {
+                            this.toastService.success(this.translateService.instant('HR_DOCUMENT.EDIT.HR_DOCUMENT_EDITED'));
+                        }
+                        this.location.back();
+                        loading.dismiss();
+                    }, error => {
+                        loading.dismiss();
+                    });
             });
-
-            this.onlineHrDocumentService.createOrUpdate(this.hrDocument)
-                .then(savedHrDocument => {
-                    this.originHrDocument = _.cloneDeep(savedHrDocument);
-                    this.hrDocument = savedHrDocument;
-                    if (this.mode === HrDocumentModeEnum.CREATION) {
-                        this.toastService.success(this.translateService.instant('HR_DOCUMENT.EDIT.HR_DOCUMENT_SAVED'));
-                    } else if (this.mode === HrDocumentModeEnum.EDITION) {
-                        this.toastService.success(this.translateService.instant('HR_DOCUMENT.EDIT.HR_DOCUMENT_EDITED'));
-                    }
-
-                }, error => {
-                });
 
         });
     }

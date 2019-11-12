@@ -1,5 +1,4 @@
-import { Component, Input } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 import {
     ProfessionalInterviewStateEnum
@@ -20,9 +19,9 @@ export class ProfessionalInterviewComponent {
 
   @Input() professionalInterview: ProfessionalInterviewModel;
 
-  constructor(
-    private router: Router,
-    private activatedRoute: ActivatedRoute) {
+  @Output() detailButtonClicked = new EventEmitter();
+
+  constructor() {
   }
 
   /**
@@ -46,7 +45,7 @@ export class ProfessionalInterviewComponent {
    */
   goToProfessionalInterviewDetail(evt: Event) {
     evt.stopPropagation();
-    this.router.navigate(['professional-interview', 'detail', this.professionalInterview.techId], { relativeTo: this.activatedRoute });
+    this.detailButtonClicked.emit(this.professionalInterview.techId);
   }
 
 }

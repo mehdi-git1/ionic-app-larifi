@@ -7,7 +7,7 @@ describe('tabNavService', () => {
 
     beforeEach(() => {
         tabNavService = new TabNavService();
-        tabNavService.listOfTab = [
+        tabNavService.tabList = [
             { id: TabNavEnum.PNC_HOME_PAGE },
             { id: TabNavEnum.PNC_SEARCH_PAGE },
             { id: TabNavEnum.UPCOMING_FLIGHT_LIST_PAGE },

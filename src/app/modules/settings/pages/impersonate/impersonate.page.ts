@@ -43,10 +43,10 @@ export class ImpersonatePage {
           this.sessionService.visitedPnc = undefined;
           this.events.publish('user:authenticationDone');
 
+          this.impersonatingInProgress = false;
           this.goToHomePage();
         }
       );
-      this.impersonatingInProgress = false;
     }, error => {
       this.impersonatingInProgress = false;
     });

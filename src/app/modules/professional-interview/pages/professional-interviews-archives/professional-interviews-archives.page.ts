@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { PncModel } from '../../../../core/models/pnc.model';
 import {
@@ -20,13 +20,14 @@ export class ProfessionalInterviewsArchivesPage {
     professionalInterviews: ProfessionalInterviewModel[];
     pnc: PncModel;
     constructor(
+        private router: Router,
         private activatedRoute: ActivatedRoute,
         private professionalInterviewService: ProfessionalInterviewService,
         private pncService: PncService) {
     }
 
     ionViewDidEnter() {
-        this.matricule = this.activatedRoute.snapshot.paramMap.get('matricule');
+        this.matricule = this.pncService.getRequestedPncMatricule(this.activatedRoute);
         this.pncService.getPnc(this.matricule).then(pnc => {
             this.pnc = pnc;
         }, error => {
@@ -51,6 +52,14 @@ export class ProfessionalInterviewsArchivesPage {
      */
     loadingIsOver(): boolean {
         return this.professionalInterviews !== undefined;
+    }
+
+    /**
+     * Redirige vers le détail d'un bilan pro
+     * @param professionalInterviewId l'id du bilan pro sélectionné
+     */
+    goToProfessionalInterviewDetail(professionalInterviewId) {
+        this.router.navigate([professionalInterviewId], { relativeTo: this.activatedRoute });
     }
 
 }

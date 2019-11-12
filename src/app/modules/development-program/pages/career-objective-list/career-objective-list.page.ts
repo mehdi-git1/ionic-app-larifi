@@ -256,6 +256,7 @@ export class CareerObjectiveListPage {
     this.router.navigate(['eobservation', 'detail', eObservationId], { relativeTo: this.activatedRoute });
   }
 
+
   /**
    * Redirige vers la page des archives des eObservations
    */
@@ -263,6 +264,13 @@ export class CareerObjectiveListPage {
     this.router.navigate(['eobservation', 'archive'], { relativeTo: this.activatedRoute });
   }
 
+  /**
+   * Redirige vers le détail d'un bilan pro
+   * @param professionalInterviewId l'id du bilan pro sélectionné
+   */
+  goToProfessionalInterviewDetail(professionalInterviewId) {
+    this.router.navigate(['professional-interview', 'detail', professionalInterviewId], { relativeTo: this.activatedRoute });
+  }
 
   /**
    * Redirige vers la page des archives des bilans professionnels

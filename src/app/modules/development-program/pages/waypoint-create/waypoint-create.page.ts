@@ -80,7 +80,8 @@ export class WaypointCreatePage {
      * Initialisation du contenu de la page.
      */
     initPage() {
-        this.pncService.getPnc(this.activatedRoute.snapshot.paramMap.get('matricule')).then(pnc => {
+        const matricule = this.pncService.getRequestedPncMatricule(this.activatedRoute);
+        this.pncService.getPnc(matricule).then(pnc => {
             this.pnc = pnc;
         }, error => { });
 

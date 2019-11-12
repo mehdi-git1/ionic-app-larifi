@@ -104,7 +104,7 @@ export class CareerObjectiveCreatePage extends FormCanDeactivate {
      * Initialisation du contenu de la page.
      */
     initPage() {
-        const matricule = this.activatedRoute.snapshot.paramMap.get('matricule');
+        const matricule = this.pncService.getRequestedPncMatricule(this.activatedRoute);
         this.pncService.getPnc(matricule).then(pnc => {
             this.pnc = pnc;
         }, error => { });

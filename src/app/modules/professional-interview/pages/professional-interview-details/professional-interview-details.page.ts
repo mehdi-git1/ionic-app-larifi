@@ -165,14 +165,15 @@ export class ProfessionalInterviewDetailsPage {
     this.professionalInterview.professionalInterviewThemes.sort((a, b) => {
       return a.themeOrder > b.themeOrder ? 1 : -1;
     });
-    if (this.activatedRoute.snapshot.paramMap.get('matricule')) {
-      this.pncService.getPnc(this.activatedRoute.snapshot.paramMap.get('matricule')).then(pnc => {
-        this.pnc = pnc;
-        this.professionalInterview.pncAtInterviewDate = this.pncTransformer.toPncLight(this.pnc);
-        this.professionalInterview.pncAtInterviewDate.speciality = this.pnc.currentSpeciality;
-        this.originProfessionalInterview = _.cloneDeep(this.professionalInterview);
-      }, error => { });
-    }
+
+    const matricule = this.pncService.getRequestedPncMatricule(this.activatedRoute);
+    this.pncService.getPnc(matricule).then(pnc => {
+      this.pnc = pnc;
+      this.professionalInterview.pncAtInterviewDate = this.pncTransformer.toPncLight(this.pnc);
+      this.professionalInterview.pncAtInterviewDate.speciality = this.pnc.currentSpeciality;
+      this.originProfessionalInterview = _.cloneDeep(this.professionalInterview);
+    }, error => { });
+
     this.editionMode = true;
   }
 

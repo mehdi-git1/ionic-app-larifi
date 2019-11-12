@@ -75,7 +75,7 @@
                     </ion-button>
                 </h3>
                 <div class="list-container">
-                    <professional-interviews *ngIf="professionalInterviews" [professionalInterviews]="professionalInterviews">
+                    <professional-interviews *ngIf="professionalInterviews" [professionalInterviews]="professionalInterviews" (detailButtonClicked)="goToProfessionalInterviewDetail($event)">
                     </professional-interviews>
                     <div *ngIf="isAdminModeAvailable()">
                         <div *ngIf="professionalInterviews" class="information-message archives">

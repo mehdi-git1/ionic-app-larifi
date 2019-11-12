@@ -1,5 +1,5 @@
 <ion-item *ngIf="edospncFormGroup" [formGroup]="edospncFormGroup"
-    [ngClass]="{'with-icon' : displayIcon, 'without-icon' : !displayIcon }">
+    [ngClass]="{'with-icon' : displayIcon, 'without-icon' : !displayIcon }" lines="none">
     <ion-icon *ngIf="displayIcon" name="calendar"></ion-icon>
     <ion-datetime #datetime [class.input-like]="inputLike" [placeholder]="datePlaceholder"
         [displayFormat]="displayFormat" [pickerFormat]="pickerFormat" [name]="name" [(ngModel)]="value"
@@ -7,7 +7,8 @@
         [ngModelOptions]="{standalone: true}" [formControlName]="edospncFormControlName">
     </ion-datetime>
 </ion-item>
-<ion-item *ngIf="!edospncFormGroup" [ngClass]="{'with-icon' : displayIcon, 'without-icon' : !displayIcon }">
+<ion-item *ngIf="!edospncFormGroup" [ngClass]="{'with-icon' : displayIcon, 'without-icon' : !displayIcon }"
+    lines="none">
     <ion-icon *ngIf="displayIcon" name="calendar"></ion-icon>
     <ion-datetime #datetime [class.input-like]="inputLike" [placeholder]="datePlaceholder"
         [displayFormat]="displayFormat" [pickerFormat]="pickerFormat" [name]="name" [(ngModel)]="value"

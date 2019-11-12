@@ -312,5 +312,4 @@ export class CongratulationLetterCreatePage extends FormCanDeactivate {
                     && this.sessionService.getActiveUser().matricule === this.congratulationLetter.creationAuthor.matricule)
             );
     }
-
 }
