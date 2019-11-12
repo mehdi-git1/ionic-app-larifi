@@ -71,7 +71,7 @@ table {
             text-editor .ql-snow .ql-editor {
                 padding: 10px;
                 border-radius: 3px;
-                background: #fafbfb;
+                background: var(--ion-color-grey98);
                 white-space: pre-line;
                 min-height: 35px;
             }
