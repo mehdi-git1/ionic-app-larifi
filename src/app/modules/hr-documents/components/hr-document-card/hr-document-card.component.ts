@@ -53,7 +53,7 @@ export class HrDocumentCardComponent {
                 },
                 {
                     text: this.translateService.instant('HR_DOCUMENT.CONFIRM_DELETE.CONFIRM'),
-                    handler: () => this.isMarkedAsDeleted()
+                    handler: () => this.markedAsDeleted()
                 }
             ]
         }).then(alert => {
@@ -62,9 +62,9 @@ export class HrDocumentCardComponent {
     }
 
     /**
-     * Marque l'eObs comme supprimée et appelle la méthode pour la mise à jour"
+     * Marque le document RH comme supprimé et appelle la méthode pour la mise à jour"
      */
-    isMarkedAsDeleted() {
+    markedAsDeleted() {
         this.hrDocument.deleted = true;
         this.hrDocument.attachmentFiles = new Array();
         this.saveHrDocument();
