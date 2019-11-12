@@ -27,7 +27,7 @@ export class ProfessionalInterviewsArchivesPage {
     }
 
     ionViewDidEnter() {
-        this.matricule = this.activatedRoute.snapshot.paramMap.get('matricule');
+        this.matricule = this.pncService.getRequestedPncMatricule(this.activatedRoute);
         this.pncService.getPnc(this.matricule).then(pnc => {
             this.pnc = pnc;
         }, error => {

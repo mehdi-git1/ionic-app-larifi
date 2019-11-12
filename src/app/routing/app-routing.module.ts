@@ -241,6 +241,16 @@ const routes: Routes = [
           { path: ':careerObjectiveId/:waypointId', component: WaypointCreatePage }
         ]
       },
+      {
+        path: 'eobservation', children: [
+          { path: 'detail/:eObservationId', component: EobservationDetailsPage }
+        ]
+      },
+      {
+        path: 'professional-interview', children: [
+          { path: 'detail/:professionalInterviewId', component: ProfessionalInterviewDetailsPage }
+        ]
+      }
     ]
   },
   {
@@ -259,28 +269,10 @@ const routes: Routes = [
     path: 'professional-level', children: [
       { path: '', component: ProfessionalLevelPage },
       { path: 'evaluation-sheet/:moduleId', component: EvaluationSheetPage },
-      { path: 'not-validated-question', component: NotValidatedQuestionsPage }
-    ]
-  },
-  {
-    path: 'eobservation', children: [
+      { path: 'not-validated-question', component: NotValidatedQuestionsPage },
       {
-        path: 'archive', children: [
-          { path: '', component: EObservationsArchivesPage },
-          { path: ':eObservationId', component: EobservationDetailsPage }
-        ]
-      },
-      { path: 'detail/:eObservationId', component: EobservationDetailsPage }
-    ]
-  },
-  {
-    path: 'professional-interview', children: [
-      { path: 'create', component: ProfessionalInterviewDetailsPage },
-      { path: 'detail/:professionalInterviewId', component: ProfessionalInterviewDetailsPage },
-      {
-        path: 'archive', children: [
-          { path: '', component: ProfessionalInterviewsArchivesPage },
-          { path: ':professionalInterviewId', component: ProfessionalInterviewDetailsPage }
+        path: 'eobservation', children: [
+          { path: 'detail/:eObservationId', component: EobservationDetailsPage }
         ]
       }
     ]
@@ -288,7 +280,6 @@ const routes: Routes = [
   {
     path: 'congratulation-letter', children: [
       { path: '', component: CongratulationLettersPage },
-      { path: 'create/:congratulationLetterId', component: CongratulationLetterCreatePage },
       { path: 'detail/:congratulationLetterId', component: CongratulationLetterDetailPage }
     ]
   },

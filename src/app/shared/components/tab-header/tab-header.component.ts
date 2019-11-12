@@ -59,7 +59,11 @@ export class TabHeaderComponent implements OnInit, AfterViewInit {
    */
   openTab(tab: any) {
     if (this.mode === TabHeaderModeEnum.EDOSSIER) {
-      this.router.navigate(['tabs', 'visit', this.sessionService.visitedPnc.matricule, tab.route]);
+      if (this.sessionService.visitedPnc) {
+        this.router.navigate(['tabs', 'visit', this.sessionService.visitedPnc.matricule, tab.route]);
+      } else {
+        this.router.navigate([tab.route]);
+      }
     } else {
       this.router.navigate([tab.route]);
     }
