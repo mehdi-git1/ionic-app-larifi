@@ -155,7 +155,7 @@ export class SettingsPage {
     this.revokationInProgress = true;
     this.secMobilService.secMobilRevokeCertificate().then(() => {
       this.revokationInProgress = false;
-      this.events.publish('user:authenticationLogout');
+      this.router.navigate(['authentication']);
     });
   }
 
