@@ -1,7 +1,8 @@
 import * as _ from 'lodash';
 
 import { DatePipe, Location } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { AlertController, LoadingController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
@@ -21,6 +22,7 @@ import { EObservationService } from '../../../../core/services/eobservation/eobs
 import { PncService } from '../../../../core/services/pnc/pnc.service';
 import { SessionService } from '../../../../core/services/session/session.service';
 import { ToastService } from '../../../../core/services/toast/toast.service';
+import { FormCanDeactivate } from '../../../../routing/guards/form-changes.guard';
 import { Utils } from '../../../../shared/utils/utils';
 
 @Component({
@@ -28,7 +30,9 @@ import { Utils } from '../../../../shared/utils/utils';
   templateUrl: 'eobservation-details.page.html',
   styleUrls: ['./eobservation-details.page.scss']
 })
-export class EobservationDetailsPage {
+export class EobservationDetailsPage extends FormCanDeactivate {
+
+  @ViewChild('form', { static: false }) form: NgForm;
 
   readonly EOBS_FULL_EDITION = PermissionConstant.EOBS_FULL_EDITION;
   PncRoleEnum = PncRoleEnum;
@@ -53,15 +57,8 @@ export class EobservationDetailsPage {
     private pncService: PncService,
     private connectivityService: ConnectivityService,
     private datePipe: DatePipe) {
-    this.initPage();
-  }
-
-  ionViewCanLeave() {
-    if (this.formHasBeenModified()) {
-      return this.confirmAbandonChanges();
-    } else {
-      return true;
-    }
+      super();
+      this.initPage();
   }
 
   /**
@@ -90,30 +87,6 @@ export class EobservationDetailsPage {
    */
   formHasBeenModified() {
     return Utils.getHashCode(this.originEObservation) !== Utils.getHashCode(this.eObservation);
-  }
-
-  /**
-   * Popup d'avertissement en cas de modifications non enregistrées.
-   */
-  confirmAbandonChanges() {
-    return new Promise((resolve, reject) => {
-      // Avant de quitter la vue, on avertit l'utilisateur si ses modifications n'ont pas été enregistrées
-      this.alertCtrl.create({
-        header: this.translateService.instant('GLOBAL.CONFIRM_BACK_WITHOUT_SAVE.TITLE'),
-        message: this.translateService.instant('GLOBAL.CONFIRM_BACK_WITHOUT_SAVE.MESSAGE'),
-        buttons: [
-          {
-            text: this.translateService.instant('GLOBAL.BUTTONS.CANCEL'),
-            role: 'cancel',
-            handler: () => reject()
-          },
-          {
-            text: this.translateService.instant('GLOBAL.BUTTONS.CONFIRM'),
-            handler: () => resolve()
-          }
-        ]
-      }).then(alert => alert.present());
-    });
   }
 
   /** Crée un objet CrewMember à partir d'un objet PncModel

@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 
+import { AlertDialogService } from './alertDialog/alert-dialog.service';
 import { AppInitService } from './app-init/app-init.service';
 import { AppVersionAlertService } from './app-version/app-version-alert.service';
 import { AppVersionTransformerService } from './app-version/app-version-transformer.service';
@@ -221,7 +222,8 @@ import { WaypointService } from './waypoint/waypoint.service';
         PdfGeneratorService,
         SortService,
         DocumentService,
-        OnlineHrDocumentService
+        OnlineHrDocumentService,
+        AlertDialogService
     ]
 })
 export class ServiceModule { }

@@ -1,8 +1,8 @@
 import * as _ from 'lodash';
 
 import { DatePipe, Location } from '@angular/common';
-import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController, LoadingController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
@@ -32,6 +32,7 @@ import {
 } from '../../../../core/services/synchronization/synchronization.service';
 import { ToastService } from '../../../../core/services/toast/toast.service';
 import { WaypointService } from '../../../../core/services/waypoint/waypoint.service';
+import { FormCanDeactivate } from '../../../../routing/guards/form-changes.guard';
 import { DateTransform } from '../../../../shared/utils/date-transform';
 import { Utils } from '../../../../shared/utils/utils';
 
@@ -40,7 +41,7 @@ import { Utils } from '../../../../shared/utils/utils';
     templateUrl: 'career-objective-create.page.html',
     styleUrls: ['./career-objective-create.page.scss']
 })
-export class CareerObjectiveCreatePage {
+export class CareerObjectiveCreatePage extends FormCanDeactivate {
 
     creationForm: FormGroup;
     careerObjective: CareerObjectiveModel;
@@ -59,6 +60,8 @@ export class CareerObjectiveCreatePage {
     // Permet d'exposer l'enum au template
     CareerObjectiveStatus = CareerObjectiveStatusEnum;
     WaypointStatus = WaypointStatusEnum;
+
+    @ViewChild('form', { static: false }) form: NgForm;
 
     constructor(
         private router: Router,
@@ -82,15 +85,13 @@ export class CareerObjectiveCreatePage {
         private sessionService: SessionService,
         private pncService: PncService,
         private datePipe: DatePipe) {
-
+        super();
         // Initialisation du formulaire
         this.initForm();
 
         this.synchronizationService.synchroStatusChange.subscribe(synchroInProgress => {
             if (!synchroInProgress && this.careerObjective && this.careerObjective.techId) {
-                this.waypointService.getCareerObjectiveWaypoints(this.careerObjective.techId).then(result => {
-                    this.waypointList = result;
-                }, error => { });
+                this.refreshWaypoints(this.careerObjective.techId);
             }
         });
     }
@@ -110,17 +111,15 @@ export class CareerObjectiveCreatePage {
         // On récupère l'id de l'objectif dans les paramètres de navigation
         if (this.activatedRoute.snapshot.paramMap.get('careerObjectiveId')
             && parseInt(this.activatedRoute.snapshot.paramMap.get('careerObjectiveId'), 10) !== 0) {
+            const careerObjectiveId = parseInt(this.activatedRoute.snapshot.paramMap.get('careerObjectiveId'), 10);
             // Récupération de l'objectif et des points d'étape
-            this.careerObjectiveService.getCareerObjective(parseInt(this.activatedRoute.snapshot.paramMap.get('careerObjectiveId'), 10))
+            this.careerObjectiveService.getCareerObjective(careerObjectiveId)
                 .then(foundCareerObjective => {
                     this.originCareerObjective = _.cloneDeep(foundCareerObjective);
                     this.careerObjective = foundCareerObjective;
                     this.originalPncComment = this.careerObjective.pncComment;
                 }, error => { });
-            this.waypointService.getCareerObjectiveWaypoints(parseInt(this.activatedRoute.snapshot.paramMap.get('careerObjectiveId'), 10))
-                .then(result => {
-                    this.waypointList = result;
-                }, error => { });
+            this.refreshWaypoints(careerObjectiveId);
         } else {
             // Création
             this.careerObjective = new CareerObjectiveModel();
@@ -131,61 +130,21 @@ export class CareerObjectiveCreatePage {
         }
     }
 
+    refreshWaypoints(careerObjectiveId: number) {
+        this.waypointService.getCareerObjectiveWaypoints(careerObjectiveId)
+        .then(result => {
+            this.waypointList = result;
+        }, error => { });
+    }
     /**
      * Verifie si des modifications ont été faites, avant d'initialiser le contenu de la page.
      * si oui, on affiche une popup de confirmation d'abandon des modifications
      * si non, on initialise la page.
      */
     refreshPage() {
-        if (this.formHasBeenModified()) {
-            this.confirmAbandonChanges().then(() => {
-                this.creationForm.reset();
-                this.initPage();
-            }, error => {
-
-            });
-        } else {
-            this.initPage();
+        if (this.careerObjective && this.careerObjective.techId) {
+            this.refreshWaypoints(this.careerObjective.techId);
         }
-    }
-
-    ionViewCanLeave() {
-        if (this.formHasBeenModified()) {
-            return this.confirmAbandonChanges();
-        } else {
-            return true;
-        }
-    }
-
-    /**
-     * Popup d'avertissement en cas de modifications non enregistrées.
-     */
-    confirmAbandonChanges() {
-        return new Promise((resolve, reject) => {
-            // Avant de quitter la vue, on avertit l'utilisateur si ses modifications n'ont pas été enregistrées
-            this.alertCtrl.create({
-                header: this.translateService.instant('GLOBAL.CONFIRM_BACK_WITHOUT_SAVE.TITLE'),
-                message: this.translateService.instant('GLOBAL.CONFIRM_BACK_WITHOUT_SAVE.MESSAGE'),
-                buttons: [
-                    {
-                        text: this.translateService.instant('GLOBAL.BUTTONS.CANCEL'),
-                        role: 'cancel',
-                        handler: () => reject()
-                    },
-                    {
-                        text: this.translateService.instant('GLOBAL.BUTTONS.CONFIRM'),
-                        handler: () => resolve()
-                    }
-                ]
-            }).then(alert => alert.present());
-        });
-    }
-
-    /**
-     * Vérifie si le formulaire a été modifié sans être enregistré
-     */
-    formHasBeenModified() {
-        return Utils.getHashCode(this.originCareerObjective) !== Utils.getHashCode(this.careerObjective);
     }
 
     /**

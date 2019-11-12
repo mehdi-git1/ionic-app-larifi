@@ -122,12 +122,8 @@ export class WaypointCreatePage {
         }
     }
 
-    ionViewCanLeave() {
-        if (this.formHasBeenModified()) {
-            return this.confirmAbandonChanges();
-        } else {
-            return true;
-        }
+    canDeactivate(): boolean {
+        return !this.formHasBeenModified();
     }
 
     /**

@@ -1,0 +1,9 @@
+<mat-dialog-content *ngIf="config?.dialogMsg">
+  <h2 matDialogTitle>{{ config?.dialogTitle }}</h2>
+  <div [innerHTML]="config?.dialogMsg" *ngIf="isDialogMsgHtml"></div>
+  <div *ngIf="!isDialogMsgHtml">{{ config?.dialogMsg }}</div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <ion-button (click)="cancel()" color="primary" fill="outline" *ngIf="getValOrDefaultVal(config?.dialogType, 'alert') === 'confirm'"> {{ getValOrDefaultVal(config?.cancelBtnTitle, 'Cancel') }}</ion-button>
+  <ion-button (click)="confirm()" color="primary" >{{ getValOrDefaultVal(config?.okBtnTitle, 'Ok') }}</ion-button>
+</mat-dialog-actions>

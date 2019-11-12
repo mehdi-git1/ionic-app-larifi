@@ -1,5 +1,5 @@
 <div *ngIf="editEvent">
-    <form novalidate [formGroup]="logbookEventForm">
+    <form #form novalidate [formGroup]="logbookEventForm">
         <ion-grid>
             <ion-row class="event-date-and-checkbox-row">
                 <ion-col size="6">

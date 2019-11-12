@@ -1,8 +1,8 @@
 import * as _ from 'lodash';
 
 import { Location } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { AlertController, Events, LoadingController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -19,6 +19,7 @@ import {
 import { SecurityService } from '../../../../core/services/security/security.service';
 import { SessionService } from '../../../../core/services/session/session.service';
 import { ToastService } from '../../../../core/services/toast/toast.service';
+import { FormCanDeactivate } from '../../../../routing/guards/form-changes.guard';
 import { DateTransform } from '../../../../shared/utils/date-transform';
 import { Utils } from '../../../../shared/utils/utils';
 
@@ -27,13 +28,15 @@ import { Utils } from '../../../../shared/utils/utils';
     templateUrl: 'logbook-event.component.html',
     styleUrls: ['./logbook-event.component.scss']
 })
-export class LogbookEventComponent implements OnInit {
+export class LogbookEventComponent extends FormCanDeactivate implements OnInit {
 
     @Input() logbookEvent: LogbookEventModel;
 
     @Input() mode: LogbookEventModeEnum;
 
     @Input() groupId: number;
+
+    @ViewChild('form', { static: false }) form: NgForm;
 
     editEvent = false;
     eventDateString: string;
@@ -66,7 +69,8 @@ export class LogbookEventComponent implements OnInit {
         private events: Events,
         private alertCtrl: AlertController,
         private formBuilder: FormBuilder) {
-        this.initForm();
+            super();
+            this.initForm();
     }
 
     ngOnInit() {

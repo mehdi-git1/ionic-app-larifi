@@ -1,6 +1,3 @@
-
-
-
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
@@ -41,11 +38,15 @@ export class HrDocumentCreatePage implements OnInit {
         }
     }
 
-    ionViewCanLeave() {
-        return this.hrDocumentCreateOrUpdate.confirmCancel();
-    }
-
     loadingIsOver() {
         return this.mode === HrDocumentModeEnum.CREATION || this.hrDocument && this.hrDocument !== undefined;
+    }
+
+    canDeactivate(): boolean {
+        if (this.hrDocumentCreateOrUpdate) {
+            return this.hrDocumentCreateOrUpdate.canDeactivate();
+        } else {
+            return true;
+        }
     }
 }

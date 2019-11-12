@@ -4,8 +4,8 @@ import { pairwise } from 'rxjs/operators';
 import { Subject } from 'rxjs/Subject';
 
 import { DatePipe, Location } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
@@ -26,6 +26,7 @@ import { ConnectivityService } from '../../../../core/services/connectivity/conn
 import { PncService } from '../../../../core/services/pnc/pnc.service';
 import { SessionService } from '../../../../core/services/session/session.service';
 import { ToastService } from '../../../../core/services/toast/toast.service';
+import { FormCanDeactivate } from '../../../../routing/guards/form-changes.guard';
 import { DateTransform } from '../../../../shared/utils/date-transform';
 import { Utils } from '../../../../shared/utils/utils';
 
@@ -34,7 +35,7 @@ import { Utils } from '../../../../shared/utils/utils';
     templateUrl: 'congratulation-letter-create.page.html',
     styleUrls: ['./congratulation-letter-create.page.scss']
 })
-export class CongratulationLetterCreatePage implements OnInit {
+export class CongratulationLetterCreatePage extends FormCanDeactivate {
 
     pnc: PncModel;
     creationMode = true;
@@ -53,6 +54,8 @@ export class CongratulationLetterCreatePage implements OnInit {
     redactorSearchList: Observable<PncModel[]>;
     selectedRedactor: PncModel;
 
+    @ViewChild('form', { static: false }) form: NgForm;
+    
     CongratulationLetterRedactorTypeEnum = CongratulationLetterRedactorTypeEnum;
     TextEditorModeEnum = TextEditorModeEnum;
 
@@ -72,7 +75,7 @@ export class CongratulationLetterCreatePage implements OnInit {
         private datePipe: DatePipe,
         public translateService: TranslateService
     ) {
-
+        super();
         this.initForm();
 
         this.handlePncSelectionDisplay();
@@ -118,14 +121,6 @@ export class CongratulationLetterCreatePage implements OnInit {
         }
     }
 
-    ionViewCanLeave() {
-        if (this.formHasBeenModified()) {
-            return this.confirmAbandonChanges();
-        } else {
-            return true;
-        }
-    }
-
     /**
      * Retourne une nouvelle lettre vierge initialisée avec certains champs
      * @return une lettre vierge
@@ -141,37 +136,6 @@ export class CongratulationLetterCreatePage implements OnInit {
         congratulationLetter.concernedPncs.push(this.pnc);
 
         return congratulationLetter;
-    }
-
-    /**
-     * Vérifie si le formulaire a été modifié sans être enregistré
-     */
-    formHasBeenModified() {
-        return Utils.getHashCode(this.originCongratulationLetter) !== Utils.getHashCode(this.congratulationLetter);
-    }
-
-    /**
-     * Popup d'avertissement en cas de modifications non enregistrées.
-     */
-    confirmAbandonChanges() {
-        return new Promise((resolve, reject) => {
-            // Avant de quitter la vue, on avertit l'utilisateur si ses modifications n'ont pas été enregistrées
-            this.alertCtrl.create({
-                header: this.translateService.instant('GLOBAL.CONFIRM_BACK_WITHOUT_SAVE.TITLE'),
-                message: this.translateService.instant('GLOBAL.CONFIRM_BACK_WITHOUT_SAVE.MESSAGE'),
-                buttons: [
-                    {
-                        text: this.translateService.instant('GLOBAL.BUTTONS.CANCEL'),
-                        role: 'cancel',
-                        handler: () => reject()
-                    },
-                    {
-                        text: this.translateService.instant('GLOBAL.BUTTONS.CONFIRM'),
-                        handler: () => resolve()
-                    }
-                ]
-            }).then(alert => alert.present());
-        });
     }
 
     /**

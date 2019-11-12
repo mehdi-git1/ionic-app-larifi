@@ -21,7 +21,7 @@
 
 <ion-content no-bounce>
     <div class="page-container">
-        <form novalidate [formGroup]="creationForm">
+        <form #form novalidate [formGroup]="creationForm">
 
             <edossier-spinner *ngIf="!careerObjectiveLoadingIsOver(); else pageBlock"></edossier-spinner>
             <ng-template #pageBlock>

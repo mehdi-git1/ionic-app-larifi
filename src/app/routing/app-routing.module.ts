@@ -101,6 +101,7 @@ import {
     VisitEdossierComponent
 } from '../shared/components/visited-edossier/visited-edossier.component';
 import { AdminGuard } from './guards/admin.guard';
+import { CanDeactivateGuard } from './guards/form-changes.guard';
 import { HomeGuard } from './guards/home.guard';
 import { RealAdminGuard } from './guards/real-admin.guard';
 
@@ -148,10 +149,10 @@ const routes: Routes = [
               {
                 path: 'career-objective', children: [
                   { path: '', component: CareerObjectiveListPage },
-                  { path: 'create/:careerObjectiveId', component: CareerObjectiveCreatePage },
+                  { path: 'create/:careerObjectiveId', component: CareerObjectiveCreatePage , canDeactivate: [CanDeactivateGuard]},
                   {
                     path: 'waypoint', children: [
-                      { path: ':careerObjectiveId/:waypointId', component: WaypointCreatePage }
+                      { path: ':careerObjectiveId/:waypointId', component: WaypointCreatePage , canDeactivate: [CanDeactivateGuard]}
                     ]
                   },
                   {
@@ -159,16 +160,16 @@ const routes: Routes = [
                       {
                         path: 'archive', children: [
                           { path: '', component: EObservationsArchivesPage },
-                          { path: ':eObservationId', component: EobservationDetailsPage }
+                          { path: ':eObservationId', component: EobservationDetailsPage, canDeactivate: [CanDeactivateGuard]}
                         ]
                       },
-                      { path: 'detail/:eObservationId', component: EobservationDetailsPage }
+                      { path: 'detail/:eObservationId', component: EobservationDetailsPage, canDeactivate: [CanDeactivateGuard] }
                     ]
                   },
                   {
                     path: 'professional-interview', children: [
-                      { path: 'create', component: ProfessionalInterviewDetailsPage },
-                      { path: 'detail/:professionalInterviewId', component: ProfessionalInterviewDetailsPage },
+                      { path: 'create', component: ProfessionalInterviewDetailsPage, canDeactivate: [CanDeactivateGuard]},
+                      { path: 'detail/:professionalInterviewId', component: ProfessionalInterviewDetailsPage, canDeactivate: [CanDeactivateGuard] },
                       { path: 'archive', component: ProfessionalInterviewsArchivesPage }
                     ]
                   },
@@ -177,7 +178,7 @@ const routes: Routes = [
               {
                 path: 'hr-document', children: [
                   { path: '', component: HrDocumentsPage },
-                  { path: 'create/:hrDocumentId', component: HrDocumentCreatePage },
+                  { path: 'create/:hrDocumentId', component: HrDocumentCreatePage, canDeactivate: [CanDeactivateGuard] },
                   { path: 'detail/:hrDocumentId', component: HrDocumentDetailPage }
                 ]
               },
@@ -188,7 +189,7 @@ const routes: Routes = [
                   { path: 'not-validated-question', component: NotValidatedQuestionsPage },
                   {
                     path: 'eobservation', children: [
-                      { path: 'detail/:eObservationId', component: EobservationDetailsPage }
+                      { path: 'detail/:eObservationId', component: EobservationDetailsPage, canDeactivate: [CanDeactivateGuard] }
                     ]
                   }
                 ]
@@ -202,15 +203,15 @@ const routes: Routes = [
               {
                 path: 'congratulation-letter', children: [
                   { path: '', component: CongratulationLettersPage },
-                  { path: 'create/:congratulationLetterId', component: CongratulationLetterCreatePage },
+                  { path: 'create/:congratulationLetterId', component: CongratulationLetterCreatePage, canDeactivate: [CanDeactivateGuard] },
                   { path: 'detail/:congratulationLetterId', component: CongratulationLetterDetailPage }
                 ]
               },
               {
                 path: 'logbook', children: [
                   { path: '', component: LogbookPage },
-                  { path: 'create', component: LogbookCreatePage },
-                  { path: 'detail/:groupId/:createLinkedEvent', component: LogbookEventDetailsPage }
+                  { path: 'create', component: LogbookCreatePage, canDeactivate: [CanDeactivateGuard] },
+                  { path: 'detail/:groupId/:createLinkedEvent', component: LogbookEventDetailsPage, canDeactivate: [CanDeactivateGuard] }
                 ]
               },
             ]
@@ -230,10 +231,10 @@ const routes: Routes = [
   {
     path: 'career-objective', children: [
       { path: '', component: CareerObjectiveListPage },
-      { path: 'create/:careerObjectiveId', component: CareerObjectiveCreatePage },
+      { path: 'create/:careerObjectiveId', component: CareerObjectiveCreatePage, canDeactivate: [CanDeactivateGuard]},
       {
         path: 'waypoint', children: [
-          { path: ':careerObjectiveId/:waypointId', component: WaypointCreatePage }
+          { path: ':careerObjectiveId/:waypointId', component: WaypointCreatePage , canDeactivate: [CanDeactivateGuard]}
         ]
       },
     ]
@@ -262,31 +263,31 @@ const routes: Routes = [
       {
         path: 'archive', children: [
           { path: '', component: EObservationsArchivesPage },
-          { path: ':eObservationId', component: EobservationDetailsPage }
+          { path: ':eObservationId', component: EobservationDetailsPage, canDeactivate: [CanDeactivateGuard] }
         ]
       },
-      { path: 'detail/:eObservationId', component: EobservationDetailsPage }
+      { path: 'detail/:eObservationId', component: EobservationDetailsPage, canDeactivate: [CanDeactivateGuard] }
     ]
   },
   {
     path: 'professional-interview', children: [
-      { path: 'create', component: ProfessionalInterviewDetailsPage },
-      { path: 'detail/:professionalInterviewId', component: ProfessionalInterviewDetailsPage },
+      { path: 'create', component: ProfessionalInterviewDetailsPage, canDeactivate: [CanDeactivateGuard] },
+      { path: 'detail/:professionalInterviewId', component: ProfessionalInterviewDetailsPage, canDeactivate: [CanDeactivateGuard]},
       { path: 'archive', component: ProfessionalInterviewsArchivesPage }
     ]
   },
   {
     path: 'congratulation-letter', children: [
       { path: '', component: CongratulationLettersPage },
-      { path: 'create/:congratulationLetterId', component: CongratulationLetterCreatePage },
+      { path: 'create/:congratulationLetterId', component: CongratulationLetterCreatePage, canDeactivate: [CanDeactivateGuard]},
       { path: 'detail/:congratulationLetterId', component: CongratulationLetterDetailPage }
     ]
   },
   {
     path: 'logbook', children: [
       { path: '', component: LogbookPage },
-      { path: 'detail/:groupId/:createLinkedEvent', component: LogbookEventDetailsPage },
-      { path: 'create', component: LogbookCreatePage }
+      { path: 'detail/:groupId/:createLinkedEvent', component: LogbookEventDetailsPage, canDeactivate: [CanDeactivateGuard] },
+      { path: 'create', component: LogbookCreatePage, canDeactivate: [CanDeactivateGuard] }
     ]
   },
   { path: 'statutory-certificate', component: StatutoryCertificatePage },
@@ -302,7 +303,7 @@ const routes: Routes = [
       {
         path: 'app-version', children: [
           { path: 'list', component: AppVersionListPage },
-          { path: 'create/:appVersionId', component: AppVersionCreatePage }
+          { path: 'create/:appVersionId', component: AppVersionCreatePage, canDeactivate: [CanDeactivateGuard] }
         ]
       },
       { path: 'profile-management', component: ProfileManagementPage },
@@ -320,7 +321,8 @@ const routes: Routes = [
   providers: [
     HomeGuard,
     AdminGuard,
-    RealAdminGuard
+    RealAdminGuard,
+    CanDeactivateGuard
   ],
   exports: [RouterModule]
 })

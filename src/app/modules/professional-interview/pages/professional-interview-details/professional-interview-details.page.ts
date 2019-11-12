@@ -1,7 +1,8 @@
 import * as _ from 'lodash';
 
 import { DatePipe, Location } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { AlertController, LoadingController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
@@ -40,7 +41,9 @@ import {
 import { SecurityService } from '../../../../core/services/security/security.service';
 import { SessionService } from '../../../../core/services/session/session.service';
 import { ToastService } from '../../../../core/services/toast/toast.service';
+import { FormCanDeactivate } from '../../../../routing/guards/form-changes.guard';
 import { DateTransform } from '../../../../shared/utils/date-transform';
+import { DateUtils } from '../../../../shared/utils/date-utils';
 import { Utils } from '../../../../shared/utils/utils';
 
 @Component({
@@ -49,6 +52,7 @@ import { Utils } from '../../../../shared/utils/utils';
   styleUrls: ['./professional-interview-details.page.scss']
 })
 export class ProfessionalInterviewDetailsPage {
+
   PncRoleEnum = PncRoleEnum;
 
   pnc: PncModel;
@@ -64,6 +68,7 @@ export class ProfessionalInterviewDetailsPage {
   constructor(
     private location: Location,
     private activatedRoute: ActivatedRoute,
+    private formBuilder: FormBuilder,
     private translateService: TranslateService,
     private pncService: PncService,
     private sessionService: SessionService,
@@ -87,15 +92,8 @@ export class ProfessionalInterviewDetailsPage {
     this.initPage();
   }
 
-  ionViewCanLeave() {
-    if (this.formHasBeenModified()) {
-      return this.confirmAbandonChanges().then(() => {
-        this.professionalInterview = _.cloneDeep(this.originProfessionalInterview);
-      }
-      );
-    } else {
-      return true;
-    }
+  canDeactivate(): boolean {
+    return !this.formHasBeenModified();
   }
 
   /**
