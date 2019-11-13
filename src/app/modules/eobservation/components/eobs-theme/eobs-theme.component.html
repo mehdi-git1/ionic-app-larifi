@@ -28,7 +28,7 @@
             <ion-col size="1" class="symbol">
                 <color-number-dot [numberText]="getLevelLabel(eObservationItem.refItemLevel.level)">
                 </color-number-dot>
-                <question-symbol (click)="openDescription($event, eObservationItem)">
+                <question-symbol (click)="openDescription($event, eObservationItem)" class="clickable">
                 </question-symbol>
             </ion-col>
         </ion-row>

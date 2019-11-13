@@ -1,12 +1,18 @@
 <ion-grid>
     <ion-row>
-        <ion-col size="1"><question-symbol></question-symbol></ion-col>
+        <ion-col size="1" class="flex justify-center">
+            <question-symbol></question-symbol>
+        </ion-col>
         <ion-col size="10">{{'EOBSERVATION.DETAIL.COLOR_LEVEL_CORRESPONDANCE' | translate}}</ion-col>
-        <ion-col size="1"><button (click)="closePopover()"><exit-symbol></exit-symbol></button></ion-col>
+        <ion-col size="1" class="flex justify-end">
+            <exit-symbol (click)="closePopover()" class="clickable"></exit-symbol>
+        </ion-col>
     </ion-row>
 
     <ion-row *ngFor="let description of descriptions">
-        <ion-col size="1"><color-number-dot [numberText]="getLevelLabel(description.level)"></color-number-dot></ion-col>
+        <ion-col size="1" class="flex justify-center">
+            <color-number-dot [numberText]="getLevelLabel(description.level)"></color-number-dot>
+        </ion-col>
         <ion-col size="11" [ngClass]="getDescriptionClass(description.level)">{{description.levelDescription}}</ion-col>
     </ion-row>
 </ion-grid>
