@@ -6,20 +6,12 @@ import { CanDeactivate } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 
 import { AlertDialogService } from '../../core/services/alertDialog/alert-dialog.service';
+import { CancelChangesService } from '../../core/services/cancel_changes/cancel-changes.service';
 
 @Injectable()
 export class CanDeactivateGuard implements CanDeactivate<ComponentCanDeactivate> {
 
-    changesNotSavedDialogForm: FormGroup;
-
-    constructor(private alertDialog: AlertDialogService, private formBuilder: FormBuilder, private translateService: TranslateService) {
-        this.changesNotSavedDialogForm = this.formBuilder.group({
-            dialogTitle: [this.translateService.instant('GLOBAL.CONFIRM_BACK_WITHOUT_SAVE.TITLE')],
-            dialogMsg: [this.translateService.instant('GLOBAL.CONFIRM_BACK_WITHOUT_SAVE.MESSAGE')],
-            dialogType: ['confirm'],
-            okBtnTitle: [this.translateService.instant('GLOBAL.BUTTONS.CONFIRM')],
-            cancelBtnTitle: [this.translateService.instant('GLOBAL.BUTTONS.CANCEL')]
-        });
+    constructor(private cancelChangesService: CancelChangesService, private formBuilder: FormBuilder, private translateService: TranslateService) {
     }
 
     canDeactivate(component: ComponentCanDeactivate): boolean | Observable<boolean> | Promise<boolean> {
@@ -30,13 +22,7 @@ export class CanDeactivateGuard implements CanDeactivate<ComponentCanDeactivate>
     }
 
     async confirmCancelChanges() {
-        const dialogRef = this.alertDialog.openAlertDialog(this.changesNotSavedDialogForm.value);
-        const result =  await dialogRef.afterClosed().toPromise();
-        if (result === 'ok' || result === 'true') {
-            return true;
-        } else {
-            return false;
-        }
+        return this.cancelChangesService.openCancelChangesPopup();
     }
 }
 

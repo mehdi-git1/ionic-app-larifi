@@ -17,6 +17,9 @@ import {
 } from '../../../../core/models/eobservation/eobservation-referential-item-level.model';
 import { EObservationModel } from '../../../../core/models/eobservation/eobservation.model';
 import { PncModel } from '../../../../core/models/pnc.model';
+import {
+    CancelChangesService
+} from '../../../../core/services/cancel_changes/cancel-changes.service';
 import { ConnectivityService } from '../../../../core/services/connectivity/connectivity.service';
 import { EObservationService } from '../../../../core/services/eobservation/eobservation.service';
 import { PncService } from '../../../../core/services/pnc/pnc.service';
@@ -56,7 +59,8 @@ export class EobservationDetailsPage extends FormCanDeactivate {
     private loadingCtrl: LoadingController,
     private pncService: PncService,
     private connectivityService: ConnectivityService,
-    private datePipe: DatePipe) {
+    private datePipe: DatePipe,
+    private cancelChangesService: CancelChangesService) {
       super();
       this.initPage();
   }
@@ -80,6 +84,15 @@ export class EobservationDetailsPage extends FormCanDeactivate {
           }
         }, error => { });
     }
+  }
+
+  /**
+   * Vérifie si la page peut être quitter sans confirmation
+   * 
+   * @return true si on peut quitter la page sans demander confirmation
+   */
+  canDeactivate(): boolean {
+    return !this.editMode || !this.formHasBeenModified();
   }
 
   /**
@@ -292,8 +305,17 @@ export class EobservationDetailsPage extends FormCanDeactivate {
    * Sort du mode "édition"
    */
   cancelEditMode() {
-    this.editMode = false;
-    this.eObservation = _.cloneDeep(this.originEObservation);
+    if (this.formHasBeenModified()) {
+      this.cancelChangesService.openCancelChangesPopup().then(result => {
+        if (result) {
+          this.editMode = false;
+          this.eObservation = _.cloneDeep(this.originEObservation);
+        }
+      });
+    } else {
+      this.editMode = false;
+      this.eObservation = _.cloneDeep(this.originEObservation);
+    }
   }
 
   /**

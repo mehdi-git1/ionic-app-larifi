@@ -11,7 +11,7 @@
 
     <ion-card class="selectable logbook-event-card" [ngClass]="{'clickable':logbookEvent.disabled,'disabled':logbookEvent.disabled}">
 
-        <ion-card-content no-padding class="ion-no-padding pnc-info-panel">
+        <ion-card-content class="ion-no-padding pnc-info-panel">
             <div class="flex">
                 <pnc-photo [pnc]="logbookEvent.redactor" [size]="50"></pnc-photo>
                 <div class="logbook-info-container">
@@ -88,48 +88,52 @@
             </div>
             <div class="button-bar-container" *ngIf="isManager()">
                 <div class="small-width-devices  visibility-for-small-container" *ngIf="logbookEvent.type == LogbookEventTypeEnum.CCO || logbookEvent.type == LogbookEventTypeEnum.ISCV ">
-                    <form [formGroup]="visibilityForm">
-                        <ion-list radio-group [(ngModel)]="visibilitySelected" formControlName="visibilityControl">
-                            <ion-item *ngIf="getDisplayDate()">
-                                <ion-radio value="{{EventCcoVisibilityEnum.WILL_BE_DISPLAYED_ON}}" (ionSelect)="confirmHideOrDisplayEvent(EventCcoVisibilityEnum.WILL_BE_DISPLAYED_ON)">
-                                </ion-radio>
-                                <ion-label>
-                                    {{ 'LOGBOOK.DETAILS.WILL_BE_DISPLAYED_ON' | translate:{date:getDisplayDate()} }}
-                                </ion-label>
-                            </ion-item>
-                            <ion-item>
-                                <ion-radio value="{{EventCcoVisibilityEnum.DISPLAYED}}" (ionSelect)="confirmHideOrDisplayEvent(EventCcoVisibilityEnum.DISPLAYED)">
-                                </ion-radio>
-                                <ion-label>{{ 'LOGBOOK.DETAILS.DISPLAYED' | translate }}</ion-label>
-                            </ion-item>
-                            <ion-item>
-                                <ion-radio value="{{EventCcoVisibilityEnum.HIDDEN}}" (ionSelect)="confirmHideOrDisplayEvent(EventCcoVisibilityEnum.HIDDEN)">
-                                </ion-radio>
-                                <ion-label>{{ 'LOGBOOK.DETAILS.HIDDEN' | translate }}</ion-label>
-                            </ion-item>
+                    <form *ngIf="visibilityForm" [formGroup]="visibilityForm">
+                        <ion-list>
+                            <ion-radio-group formControlName="visibilityControl" [(ngModel)]="visibilitySelected" [ngModelOptions]="{standalone: true}">
+                                <ion-item *ngIf="getDisplayDate()">
+                                    <ion-radio value="{{EventCcoVisibilityEnum.WILL_BE_DISPLAYED_ON}}" (ionSelect)="confirmHideOrDisplayEvent(EventCcoVisibilityEnum.WILL_BE_DISPLAYED_ON)">
+                                    </ion-radio>
+                                    <ion-label>
+                                        {{ 'LOGBOOK.DETAILS.WILL_BE_DISPLAYED_ON' | translate:{date:getDisplayDate()} }}
+                                    </ion-label>
+                                </ion-item>
+                                <ion-item>
+                                    <ion-radio value="{{EventCcoVisibilityEnum.DISPLAYED}}" (ionSelect)="confirmHideOrDisplayEvent(EventCcoVisibilityEnum.DISPLAYED)">
+                                    </ion-radio>
+                                    <ion-label>{{ 'LOGBOOK.DETAILS.DISPLAYED' | translate }}</ion-label>
+                                </ion-item>
+                                <ion-item>
+                                    <ion-radio value="{{EventCcoVisibilityEnum.HIDDEN}}" (ionSelect)="confirmHideOrDisplayEvent(EventCcoVisibilityEnum.HIDDEN)">
+                                    </ion-radio>
+                                    <ion-label>{{ 'LOGBOOK.DETAILS.HIDDEN' | translate }}</ion-label>
+                                </ion-item>
+                            </ion-radio-group>
                         </ion-list>
                     </form>
                 </div>
                 <div class="large-width-devices  visibility-for-large-container" *ngIf="logbookEvent.type == LogbookEventTypeEnum.CCO || logbookEvent.type == LogbookEventTypeEnum.ISCV ">
-                    <form [formGroup]="visibilityForm">
-                        <ion-list radio-group [(ngModel)]="visibilitySelected" formControlName="visibilityControl">
-                            <ion-item *ngIf="getDisplayDate()">
-                                <ion-radio value="{{EventCcoVisibilityEnum.WILL_BE_DISPLAYED_ON}}" (ionSelect)="confirmHideOrDisplayEvent(EventCcoVisibilityEnum.WILL_BE_DISPLAYED_ON)">
-                                </ion-radio>
-                                <ion-label>
-                                    {{ 'LOGBOOK.DETAILS.WILL_BE_DISPLAYED_ON' | translate:{date:getDisplayDate()} }}
-                                </ion-label>
-                            </ion-item>
-                            <ion-item>
-                                <ion-radio value="{{EventCcoVisibilityEnum.DISPLAYED}}" (ionSelect)="confirmHideOrDisplayEvent(EventCcoVisibilityEnum.DISPLAYED)">
-                                </ion-radio>
-                                <ion-label>{{ 'LOGBOOK.DETAILS.DISPLAYED' | translate }}</ion-label>
-                            </ion-item>
-                            <ion-item>
-                                <ion-radio value="{{EventCcoVisibilityEnum.HIDDEN}}" (ionSelect)="confirmHideOrDisplayEvent(EventCcoVisibilityEnum.HIDDEN)">
-                                </ion-radio>
-                                <ion-label>{{ 'LOGBOOK.DETAILS.HIDDEN' | translate }}</ion-label>
-                            </ion-item>
+                    <form *ngIf="visibilityForm" [formGroup]="visibilityForm">
+                        <ion-list>
+                            <ion-radio-group formControlName="visibilityControl" [(ngModel)]="visibilitySelected" [ngModelOptions]="{standalone: true}">
+                                <ion-item *ngIf="getDisplayDate()">
+                                    <ion-radio value="{{EventCcoVisibilityEnum.WILL_BE_DISPLAYED_ON}}" (ionSelect)="confirmHideOrDisplayEvent(EventCcoVisibilityEnum.WILL_BE_DISPLAYED_ON)">
+                                    </ion-radio>
+                                    <ion-label>
+                                        {{ 'LOGBOOK.DETAILS.WILL_BE_DISPLAYED_ON' | translate:{date:getDisplayDate()} }}
+                                    </ion-label>
+                                </ion-item>
+                                <ion-item>
+                                    <ion-radio value="{{EventCcoVisibilityEnum.DISPLAYED}}" (ionSelect)="confirmHideOrDisplayEvent(EventCcoVisibilityEnum.DISPLAYED)">
+                                    </ion-radio>
+                                    <ion-label>{{ 'LOGBOOK.DETAILS.DISPLAYED' | translate }}</ion-label>
+                                </ion-item>
+                                <ion-item>
+                                    <ion-radio value="{{EventCcoVisibilityEnum.HIDDEN}}" (ionSelect)="confirmHideOrDisplayEvent(EventCcoVisibilityEnum.HIDDEN)">
+                                    </ion-radio>
+                                    <ion-label>{{ 'LOGBOOK.DETAILS.HIDDEN' | translate }}</ion-label>
+                                </ion-item>
+                            </ion-radio-group>
                         </ion-list>
                     </form>
                 </div>

@@ -6,6 +6,7 @@ import { AppVersionAlertService } from './app-version/app-version-alert.service'
 import { AppVersionTransformerService } from './app-version/app-version-transformer.service';
 import { AppVersionService } from './app-version/app-version.service';
 import { AuthorizationService } from './authorization/authorization.service';
+import { CancelChangesService } from './cancel_changes/cancel-changes.service';
 import {
     CareerObjectiveStatusService
 } from './career-objective-status/career-objective-status.service';
@@ -223,7 +224,8 @@ import { WaypointService } from './waypoint/waypoint.service';
         SortService,
         DocumentService,
         OnlineHrDocumentService,
-        AlertDialogService
+        AlertDialogService,
+        CancelChangesService
     ]
 })
 export class ServiceModule { }

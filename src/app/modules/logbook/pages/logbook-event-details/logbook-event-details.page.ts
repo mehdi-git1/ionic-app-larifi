@@ -1,5 +1,3 @@
-
-
 import * as _ from 'lodash';
 import * as moment from 'moment';
 
@@ -65,8 +63,7 @@ export class LogbookEventDetailsPage implements OnInit {
         private securityService: SecurityService,
         private toastService: ToastService,
         private loadingCtrl: LoadingController
-    ) {
-    }
+    ) {}
 
     ngOnInit() {
         if (this.activatedRoute.snapshot.paramMap.get('createLinkedEvent')) {
@@ -176,16 +173,6 @@ export class LogbookEventDetailsPage implements OnInit {
      */
     loadingIsOver(): boolean {
         return this.logbookEvents !== undefined && this.logbookEvents !== null;
-    }
-
-    ionViewCanLeave() {
-        if (this.logbookEventSaved || this.logbookEventCanceled) {
-            return true;
-        }
-        if (this.createLinkedEvent) {
-            return this.linkedLogbookEventCreate.confirmCancel();
-        }
-        return this.selectedLogbookEventComponent ? this.selectedLogbookEventComponent.confirmCancel() : true;
     }
 
     /**

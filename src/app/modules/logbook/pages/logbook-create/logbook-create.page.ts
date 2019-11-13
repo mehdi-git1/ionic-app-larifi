@@ -1,10 +1,10 @@
-
 import { Component, ViewChild } from '@angular/core';
 import { Events } from '@ionic/angular';
 
 import { LogbookEventModeEnum } from '../../../../core/enums/logbook-event/logbook-event-mode.enum';
 import { LogbookEventModel } from '../../../../core/models/logbook/logbook-event.model';
 import { PncModel } from '../../../../core/models/pnc.model';
+import { FormCanDeactivate } from '../../../../routing/guards/form-changes.guard';
 import { LogbookEventComponent } from '../../components/logbook-event/logbook-event.component';
 
 @Component({
@@ -35,11 +35,11 @@ export class LogbookCreatePage {
             this.logbookEventCanceled = true;
         });
     }
-
-    ionViewCanLeave() {
+    canDeactivate(): boolean {
         if (this.logbookEventSaved || this.logbookEventCanceled) {
             return true;
         }
-        return this.logbookEventCreate.confirmCancel();
+        return false;
     }
+
 }

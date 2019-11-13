@@ -1,6 +1,6 @@
 .draw-ligne {
     margin: 22px 10px;
-    border-top: 1px solid color($colors-secondary, grey70);
+    border-top: 1px solid var(--ion-color-grey70);
     flex: 5;
 }
 
@@ -67,7 +67,7 @@
                 .ion-md-eye-off:before {
                     font-size: 20px;
                     padding-right: 10px;
-                    color: color($colors-secondary, grey40);
+                    color: var(--ion-color-grey40);
                 }
 
                 .edospnc-important:before,

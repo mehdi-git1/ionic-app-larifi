@@ -119,7 +119,7 @@
                         </ion-button>
                         <!-- Bouton mettre à jour-->
                         <ion-button #updateEvent *ngIf="mode === LogbookEventModeEnum.EDITION" color="primary"
-                            (click)="confirmUpdateLogbookEvent()" [disabled]="logbookEventForm.invalid">
+                            (click)="confirmUpdateLogbookEvent()" [disabled]="!logbookEventForm.valid">
                             {{ 'LOGBOOK.BUTTONS.UPDATE' | translate }}
                         </ion-button>
                     </div>
