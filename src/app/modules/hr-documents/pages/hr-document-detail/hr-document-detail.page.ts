@@ -1,6 +1,6 @@
 
 
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { HrDocumentModeEnum } from '../../../../core/enums/hr-document/hr-document-mode.enum';
@@ -14,7 +14,7 @@ import {
     templateUrl: 'hr-document-detail.page.html',
     styleUrls: ['./hr-document-detail.page.scss']
 })
-export class HrDocumentDetailPage implements OnInit {
+export class HrDocumentDetailPage {
 
     hrDocument: HrDocumentModel;
 
@@ -25,7 +25,7 @@ export class HrDocumentDetailPage implements OnInit {
         private onlineHrDocumentService: OnlineHrDocumentService) {
     }
 
-    ngOnInit() {
+    ionViewWillEnter() {
         const id = this.activatedRoute.snapshot.paramMap.get('hrDocumentId');
 
         this.onlineHrDocumentService.getHrDocument(+id)
