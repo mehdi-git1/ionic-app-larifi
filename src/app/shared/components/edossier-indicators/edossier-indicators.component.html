@@ -1,3 +1,6 @@
+<ion-fab-button *ngIf="isCurrentlyImpersonated()" size="small" color="danger" (click)="goToImpersonation()">
+    <ion-icon name="contacts"></ion-icon>
+</ion-fab-button>
 <ion-fab-button *ngIf="showRefreshIcon && connected" color="primarylight" class="refresh-button" (click)="refresh()">
     <ion-icon name="refresh"></ion-icon>
 </ion-fab-button>
