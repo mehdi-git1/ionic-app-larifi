@@ -120,7 +120,6 @@ body,
 .page-container {
     max-width: 1200px;
     margin: auto;
-    height: 100%;
     padding: 20px;
 }
 
@@ -240,6 +239,7 @@ ion-popover {
     }
 
 }
+
 ion-popover.document-viewer-popover {
     .popover-content {
         width: 100%;
