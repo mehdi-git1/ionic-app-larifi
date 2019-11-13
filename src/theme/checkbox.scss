@@ -1,4 +1,4 @@
-.checkbox .checkbox-checked {
-    border-color: var(--ion-color-secondary);
-    background: var(--ion-color-secondary);
+ion-checkbox {
+    --border-color-checked: var(--ion-color-secondary);
+    --background-checked: var(--ion-color-secondary);
 }
