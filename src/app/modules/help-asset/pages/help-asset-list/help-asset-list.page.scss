@@ -7,7 +7,7 @@
         align-items: center;
 
         ion-thumbnail {
-            font-size: 2em;
+            font-size: 3em;
             margin: 0 30px;
             display: flex;
             justify-content: center;
@@ -23,12 +23,12 @@
 
             h4 {
                 margin-top: 0;
-                font-size: 1.2em;
+                font-size: 1.4em;
                 color: var(--ion-color-primary);
             }
 
             span {
-                font-size: 0.9em;
+                font-size: 1em;
             }
         }
     }
