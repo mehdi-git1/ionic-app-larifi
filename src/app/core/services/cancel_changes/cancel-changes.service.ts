@@ -12,9 +12,6 @@ import {
 import { AlertDialogService } from '../alertDialog/alert-dialog.service';
 
 @Injectable()
-/**
- * A service used for opening a custom dialog with options specified
- */
 export class CancelChangesService {
 
     private changesNotSavedDialogForm: FormGroup;

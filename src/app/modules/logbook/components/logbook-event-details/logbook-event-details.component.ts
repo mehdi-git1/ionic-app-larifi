@@ -23,9 +23,6 @@ import { ToastService } from '../../../../core/services/toast/toast.service';
 import {
     AbstractValueAccessor, MakeProvider
 } from '../../../../shared/components/abstract-value-accessor';
-import {
-    PncAutoCompleteComponent
-} from '../../../../shared/components/pnc-autocomplete/pnc-autocomplete.component';
 import { DateTransform } from '../../../../shared/utils/date-transform';
 import { DateUtils } from '../../../../shared/utils/date-utils';
 

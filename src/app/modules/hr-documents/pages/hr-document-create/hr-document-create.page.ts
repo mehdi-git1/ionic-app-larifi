@@ -1,14 +1,13 @@
-import { Location } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 import { HrDocumentModeEnum } from '../../../../core/enums/hr-document/hr-document-mode.enum';
 import { HrDocumentModel } from '../../../../core/models/hr-document/hr-document.model';
 import {
     OnlineHrDocumentService
 } from '../../../../core/services/hr-documents/online-hr-document.service';
-import { SessionService } from '../../../../core/services/session/session.service';
 import { HrDocumentComponent } from '../../components/hr-document/hr-document.component';
+
 
 @Component({
     selector: 'hr-document-create',
