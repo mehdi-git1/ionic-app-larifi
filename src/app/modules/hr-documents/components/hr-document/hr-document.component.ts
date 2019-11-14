@@ -4,7 +4,7 @@ import { PncService } from 'src/app/core/services/pnc/pnc.service';
 import { Location } from '@angular/common';
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController, LoadingController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -49,6 +49,7 @@ export class HrDocumentComponent extends FormCanDeactivate implements OnInit {
 
     constructor(
         private location: Location,
+        private router: Router,
         private translateService: TranslateService,
         private sessionService: SessionService,
         private onlineHrDocumentService: OnlineHrDocumentService,
@@ -149,5 +150,9 @@ export class HrDocumentComponent extends FormCanDeactivate implements OnInit {
         return this.connectivityService.isConnected() &&
             this.hrDocumentForm.valid
             && (this.hrDocument.attachmentFiles && this.hrDocument.attachmentFiles.length > 0);
+    }
+
+    cancel() {
+        this.router.navigate(['tabs', 'visit', this.sessionService.visitedPnc.matricule, 'hr-document']);
     }
 }

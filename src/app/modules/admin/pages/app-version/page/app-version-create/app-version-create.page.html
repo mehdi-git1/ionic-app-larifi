@@ -10,7 +10,7 @@
 
 <ion-content no-bounce>
     <div class="page-container">
-        <form #form novalidate [formGroup]="creationAppVersionForm">
+        <form #form="ngForm" novalidate [formGroup]="creationAppVersionForm">
             <edossier-spinner *ngIf="!appVersionLoadingIsOver(); else pageBlock"></edossier-spinner>
             <ng-template #pageBlock>
                 <div class="app-version-container">

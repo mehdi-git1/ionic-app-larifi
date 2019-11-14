@@ -42,7 +42,6 @@ export abstract class FormCanDeactivate extends ComponentCanDeactivate {
     abstract get form(): NgForm;
 
     canDeactivate(): boolean {
-      // return !this.form.dirty;
-      return false;
+        return !this.form.dirty;
     }
 }

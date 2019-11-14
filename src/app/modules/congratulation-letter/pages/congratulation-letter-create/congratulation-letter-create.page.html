@@ -14,7 +14,7 @@
     <div class="page-container">
         <edossier-spinner *ngIf="!pageLoadingIsOver(); else pageBlock"></edossier-spinner>
         <ng-template #pageBlock>
-            <form #form *ngIf="congratulationLetterForm" novalidate [formGroup]="congratulationLetterForm">
+            <form #form="ngForm" *ngIf="congratulationLetterForm" novalidate [formGroup]="congratulationLetterForm">
                 <ion-grid>
                     <ion-row>
                         <ion-col size-lg="3" size-md="6" class="flex align-center">
