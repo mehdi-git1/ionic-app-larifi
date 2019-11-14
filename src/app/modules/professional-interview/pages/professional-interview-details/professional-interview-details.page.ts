@@ -1,8 +1,7 @@
 import * as _ from 'lodash';
 
 import { DatePipe, Location } from '@angular/common';
-import { Component, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
+import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AlertController, LoadingController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
@@ -41,9 +40,7 @@ import {
 import { SecurityService } from '../../../../core/services/security/security.service';
 import { SessionService } from '../../../../core/services/session/session.service';
 import { ToastService } from '../../../../core/services/toast/toast.service';
-import { FormCanDeactivate } from '../../../../routing/guards/form-changes.guard';
 import { DateTransform } from '../../../../shared/utils/date-transform';
-import { DateUtils } from '../../../../shared/utils/date-utils';
 import { Utils } from '../../../../shared/utils/utils';
 
 @Component({
@@ -68,7 +65,6 @@ export class ProfessionalInterviewDetailsPage {
   constructor(
     private location: Location,
     private activatedRoute: ActivatedRoute,
-    private formBuilder: FormBuilder,
     private translateService: TranslateService,
     private pncService: PncService,
     private sessionService: SessionService,
@@ -92,6 +88,10 @@ export class ProfessionalInterviewDetailsPage {
     this.initPage();
   }
 
+  /**
+   * Vérifie si l'on peut quitter la page
+   * @return true si le formulaire n'a pas été modifié
+   */
   canDeactivate(): boolean {
     return !this.formHasBeenModified();
   }
@@ -236,30 +236,6 @@ export class ProfessionalInterviewDetailsPage {
     } else if (this.professionalInterview && this.professionalInterview.state === ProfessionalInterviewStateEnum.CONSULTED) {
       return 'orange';
     }
-  }
-
-  /**
-   * Popup d'avertissement en cas de modifications non enregistrées.
-   */
-  confirmAbandonChanges() {
-    return new Promise((resolve, reject) => {
-      // Avant de quitter la vue, on avertit l'utilisateur si ses modifications n'ont pas été enregistrées
-      this.alertCtrl.create({
-        header: this.translateService.instant('GLOBAL.CONFIRM_BACK_WITHOUT_SAVE.TITLE'),
-        message: this.translateService.instant('GLOBAL.CONFIRM_BACK_WITHOUT_SAVE.MESSAGE'),
-        buttons: [
-          {
-            text: this.translateService.instant('GLOBAL.BUTTONS.CANCEL'),
-            role: 'cancel',
-            handler: () => reject()
-          },
-          {
-            text: this.translateService.instant('GLOBAL.BUTTONS.CONFIRM'),
-            handler: () => resolve()
-          }
-        ]
-      }).then(alert => alert.present());
-    });
   }
 
   /**

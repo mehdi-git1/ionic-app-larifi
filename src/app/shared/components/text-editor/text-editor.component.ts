@@ -62,10 +62,4 @@ export class TextEditorComponent extends AbstractValueAccessor implements OnInit
             };
         }
     }
-    getFormControlName() {
-        if (this.parentForm && this.controlForm) {
-            return this.parentForm.controls[this.controlForm];
-        }
-        return null;
-    }
 }

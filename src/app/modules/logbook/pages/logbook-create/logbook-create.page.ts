@@ -35,6 +35,11 @@ export class LogbookCreatePage {
             this.logbookEventCanceled = true;
         });
     }
+
+    /**
+     * Vérifie si l'on peut quitter la page
+     * @return true si l'event est sauvegardé ou annulé
+     */
     canDeactivate(): boolean {
         if (this.logbookEventSaved || this.logbookEventCanceled) {
             return true;

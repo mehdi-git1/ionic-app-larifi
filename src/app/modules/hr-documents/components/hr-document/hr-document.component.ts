@@ -152,7 +152,14 @@ export class HrDocumentComponent extends FormCanDeactivate implements OnInit {
             && (this.hrDocument.attachmentFiles && this.hrDocument.attachmentFiles.length > 0);
     }
 
-    cancel() {
-        this.router.navigate(['tabs', 'visit', this.sessionService.visitedPnc.matricule, 'hr-document']);
+    /**
+     * Annule la création/edition du document RH et route vers la page d'acceuil des documents RH du dossier en cours
+     */
+    cancel() {  
+        if (this.hrDocument && this.hrDocument.pnc && this.hrDocument.pnc.matricule && this.sessionService.isActiveUserMatricule(this.hrDocument.pnc.matricule)) {
+            this.router.navigate(['tabs', 'hr-document']);
+        } else{
+            this.router.navigate(['tabs', 'visit', this.sessionService.visitedPnc.matricule, 'hr-document']);
+        }
     }
 }

@@ -150,8 +150,8 @@ export class LogbookEventComponent extends FormCanDeactivate implements OnInit {
         this.cancelFromButton = true;
         if (this.formHasBeenModified()) {
             this.cancelChangeService.openCancelChangesPopup().then(
-                result => {
-                    if (result) {
+                confirm => {
+                    if (confirm) {
                         this.quitEditionMode();
                     }
                 }

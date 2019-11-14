@@ -130,6 +130,10 @@ export class CareerObjectiveCreatePage extends FormCanDeactivate {
         }
     }
 
+    /**
+     * Réfraichit les points d'étape
+     * @param careerObjectiveId identifiant de la priorité
+     */
     refreshWaypoints(careerObjectiveId: number) {
         this.waypointService.getCareerObjectiveWaypoints(careerObjectiveId)
         .then(result => {

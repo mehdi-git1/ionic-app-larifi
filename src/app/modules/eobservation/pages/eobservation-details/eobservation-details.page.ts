@@ -306,8 +306,8 @@ export class EobservationDetailsPage extends FormCanDeactivate {
    */
   cancelEditMode() {
     if (this.formHasBeenModified()) {
-      this.cancelChangesService.openCancelChangesPopup().then(result => {
-        if (result) {
+      this.cancelChangesService.openCancelChangesPopup().then(confirm => {
+        if (confirm) {
           this.editMode = false;
           this.eObservation = _.cloneDeep(this.originEObservation);
         }

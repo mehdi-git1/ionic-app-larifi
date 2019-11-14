@@ -31,7 +31,7 @@ export class CancelChangesService {
 
     /**
      * Ouvre une popup de confirmation d'abandon des modifications
-     * @returns la promise contenant la réponse à la popup
+     * @return la promise contenant la réponse à la popup
      */
     async openCancelChangesPopup (): Promise<boolean> {
         const dialogRef = this.alertDialog.openAlertDialog(this.changesNotSavedDialogForm.value);

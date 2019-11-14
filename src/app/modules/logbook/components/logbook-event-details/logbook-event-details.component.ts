@@ -108,6 +108,10 @@ export class LogbookEventDetailsComponent extends AbstractValueAccessor implemen
                 : this.getDisplayDate() ? EventCcoVisibilityEnum.WILL_BE_DISPLAYED_ON : EventCcoVisibilityEnum.DISPLAYED;
     }
 
+    /**
+     * Vérifie si l'on peut quitter la page
+     * @return true si on est pas en mode d'édition
+     */
     canDeactivate(): boolean {
         if (this.editEvent ) {
             return false;

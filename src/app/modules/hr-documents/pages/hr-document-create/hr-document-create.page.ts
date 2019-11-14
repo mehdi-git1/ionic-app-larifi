@@ -44,6 +44,10 @@ export class HrDocumentCreatePage implements OnInit {
         return this.mode === HrDocumentModeEnum.CREATION || this.hrDocument && this.hrDocument !== undefined;
     }
 
+    /**
+     * Vérifie si l'on peut quitter la page
+     * @return true si le formulaire n'a pas été modifié
+     */
     canDeactivate(): boolean {
         if (this.hrDocumentCreateOrUpdate) {
             return this.hrDocumentCreateOrUpdate.canDeactivate();
