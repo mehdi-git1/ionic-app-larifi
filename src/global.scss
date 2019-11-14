@@ -51,6 +51,7 @@
 @import 'theme/status.scss';
 @import 'theme/icon.scss';
 @import 'theme/modal.scss';
+@import 'theme/popover.scss';
 @import 'theme/auto-complete.scss';
 @import 'theme/professional-level.scss';
 @import 'theme/mat-expansion-panel.scss';
@@ -119,30 +120,18 @@ body,
 
 .page-container {
     max-width: 1200px;
-    margin: auto;
     height: 100%;
+    margin: auto;
     padding: 20px;
+}
+
+// Pour supprimer l'effet de focus que Chrome applique sur les boutons/input
+*:focus {
+    outline: none;
 }
 
 .header-ios {
     box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2);
-}
-
-ion-textarea,
-ion-input {
-    background-color: var(--ion-color-white);
-}
-
-.scroll-content {
-    overflow-y: auto !important;
-}
-
-.content {
-    background-color: transparent;
-}
-
-.item {
-    background-color: transparent;
 }
 
 .hidden {
@@ -228,28 +217,4 @@ ion-badge[outline][color="secondary"] {
         padding: 0px;
         margin: 0px;
     }
-}
-
-ion-popover {
-
-    .popover-wrapper {
-        .popover-content {
-            border-radius: 10px;
-            min-width: 350px !important;
-        }
-    }
-
-}
-ion-popover.document-viewer-popover {
-    .popover-content {
-        width: 100%;
-        height: 100%;
-        display: contents;
-    }
-}
-
-.pin-pad-modal {
-    --width: 100%;
-    --height: 100%;
-    --background: transparent;
 }

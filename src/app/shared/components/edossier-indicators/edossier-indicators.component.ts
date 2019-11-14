@@ -79,4 +79,18 @@ export class NavBarCustomComponent {
     return this.securityProvider.isAdmin(this.sessionService.authenticatedUser) || !this.deviceService.isBrowser();
   }
 
+  /**
+   * Redirige vers la page d'impersonnification
+   */
+  goToImpersonation() {
+    this.router.navigate(['admin', 'impersonate']);
+  }
+
+  /**
+   * Vérifie si l'utilisateur a impersonifié quelqu'un
+   * @boolean vrai si c'est le cas, faux sinon
+   */
+  isCurrentlyImpersonated(): boolean {
+    return this.sessionService.impersonatedUser !== null;
+  }
 }

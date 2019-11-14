@@ -114,12 +114,6 @@
             p {
                 white-space: pre-line;
             }
-
-            text-editor .ql-editor {
-                border: 0;
-                padding: 0px;
-                min-height: 35px;
-            }
         }
 
         .logbook-notified-pnc {
@@ -142,78 +136,47 @@
     height: auto;
     display: flex;
     justify-content: space-between;
-    align-items: baseline;
-    padding-left: 70px;
+    align-items: flex-end;
+    padding-left: 52px;
 
     .logbook-button-bar {
         width: 100%;
+        button{
+            height: 50px;
+        }
+    }
 
-        button {
+    ion-radio-group ion-radio{
+        margin: 10px 10px;
+    }
+
+    .logbook-button-bar button, 
+     ion-radio-group ion-label{
             font-size: 14px;
             font-weight: bold;
             font-style: normal;
             font-stretch: normal;
-            line-height: 1.29;
+            line-height: 2.29;
             letter-spacing: 0.7px;
-            text-align: center;
             background-color: transparent;
             color: var(--ion-color-grey10);
             box-shadow: none;
         }
-    }
 
     .visibility-for-large-container {
         height: 100%;
 
-        ion-list {
+        ion-radio-group {
             display: flex;
-
-            .item-block {
-                border: 0;
-                height: auto;
-            }
         }
     }
 
-    .visibility-for-small-container {
-
-        ion-list {
-            margin-bottom: 5px;
-
-            .item-block {
-                border: 0;
-            }
-        }
+    .button-bar {
+        bottom: 50px;
+        display: flex;
+        align-items: flex-end;
+        justify-content: flex-end;
     }
 
-    .item-block {
-        min-height: 0em;
-        height: 30px;
-        font-size: 1.4rem;
-        flex-direction: row-reverse;
-        width: auto;
-        font-size: 14px;
-        font-weight: bold;
-        font-style: normal;
-        font-stretch: normal;
-        line-height: 1.29;
-        letter-spacing: 0.7px;
-    }
 }
 
-text-editor .ql-toolbar.ql-snow {
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-    border: 1px solid var(--ion-color-grey50);
-}
-
-text-editor .ql-container.ql-snow {
-    border: 0;
-}
-
-text-editor .ql-editor {
-    border-bottom-left-radius: 5px;
-    border-bottom-right-radius: 5px;
-    border: 1px solid var(--ion-color-grey50);
-    margin-top: -1px;
-}

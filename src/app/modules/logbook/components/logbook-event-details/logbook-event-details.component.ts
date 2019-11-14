@@ -86,7 +86,8 @@ export class LogbookEventDetailsComponent extends AbstractValueAccessor implemen
         }
         this.initEventVisibility();
         this.originLogbookEvent = _.cloneDeep(this.logbookEvent);
-        this.eventDateString = this.logbookEvent ? this.logbookEvent.eventDate : this.dateTransformer.transformDateToIso8601Format(new Date());
+        this.eventDateString = this.logbookEvent ? this.logbookEvent.eventDate
+            : this.dateTransformer.transformDateToIso8601Format(new Date());
     }
 
     /**
@@ -102,8 +103,9 @@ export class LogbookEventDetailsComponent extends AbstractValueAccessor implemen
      * Initialise le groupe radio button avec la valeur de l'évènement.
      */
     initEventVisibility() {
-        this.visibilitySelected = this.logbookEvent.hidden ? EventCcoVisibilityEnum.HIDDEN : this.logbookEvent.displayed ? EventCcoVisibilityEnum.DISPLAYED
-            : this.getDisplayDate() ? EventCcoVisibilityEnum.WILL_BE_DISPLAYED_ON : EventCcoVisibilityEnum.DISPLAYED;
+        this.visibilitySelected = this.logbookEvent.hidden ? EventCcoVisibilityEnum.HIDDEN
+            : this.logbookEvent.displayed ? EventCcoVisibilityEnum.DISPLAYED
+                : this.getDisplayDate() ? EventCcoVisibilityEnum.WILL_BE_DISPLAYED_ON : EventCcoVisibilityEnum.DISPLAYED;
     }
 
     canDeactivate(): boolean {
@@ -148,11 +150,14 @@ export class LogbookEventDetailsComponent extends AbstractValueAccessor implemen
      * @return vrai si le PNC est redacteur, instructeur ou rds du pnc observé, faux sinon
      */
     canEditEvent(): boolean {
-        const redactor = this.pnc && this.logbookEvent.redactor && this.sessionService.getActiveUser().matricule === this.logbookEvent.redactor.matricule;
-        const instructor = this.pnc && this.pnc.pncInstructor && this.sessionService.getActiveUser().matricule === this.pnc.pncInstructor.matricule;
+        const redactor = this.pnc && this.logbookEvent.redactor
+            && this.sessionService.getActiveUser().matricule === this.logbookEvent.redactor.matricule;
+        const instructor = this.pnc && this.pnc.pncInstructor
+            && this.sessionService.getActiveUser().matricule === this.pnc.pncInstructor.matricule;
         const rds = this.pnc && this.pnc.pncRds && this.sessionService.getActiveUser().matricule === this.pnc.pncRds.matricule;
         const ccoIscvAdmin = this.pnc && this.securityService.isAdminCcoIscv(this.sessionService.getActiveUser());
-        return redactor || instructor || rds || (ccoIscvAdmin && (this.logbookEvent.type === LogbookEventTypeEnum.CCO || this.logbookEvent.type === LogbookEventTypeEnum.ISCV));
+        return redactor || instructor || rds || (ccoIscvAdmin
+            && (this.logbookEvent.type === LogbookEventTypeEnum.CCO || this.logbookEvent.type === LogbookEventTypeEnum.ISCV));
     }
 
     /**
@@ -219,8 +224,10 @@ export class LogbookEventDetailsComponent extends AbstractValueAccessor implemen
                 title = this.translateService.instant('LOGBOOK.NOTIFICATION.CONFIRM_DISPLAYED_EVENT.TITLE');
                 message = this.translateService.instant('LOGBOOK.NOTIFICATION.CONFIRM_DISPLAYED_EVENT.MESSAGE');
             } else {
-                title = this.translateService.instant('LOGBOOK.NOTIFICATION.CONFIRM_DISPLAYED_EVENT_AFTER_FIFTEEN_DAYS.TITLE', { 'date': this.getDisplayDate() });
-                message = this.translateService.instant('LOGBOOK.NOTIFICATION.CONFIRM_DISPLAYED_EVENT_AFTER_FIFTEEN_DAYS.MESSAGE', { 'date': this.getDisplayDate() });
+                title = this.translateService.instant('LOGBOOK.NOTIFICATION.CONFIRM_DISPLAYED_EVENT_AFTER_FIFTEEN_DAYS.TITLE'
+                    , { date: this.getDisplayDate() });
+                message = this.translateService.instant('LOGBOOK.NOTIFICATION.CONFIRM_DISPLAYED_EVENT_AFTER_FIFTEEN_DAYS.MESSAGE'
+                    , { date: this.getDisplayDate() });
             }
             return this.confirmationPopup(title, message).then(() => {
                 this.visibilityChange(visibility);
@@ -243,7 +250,7 @@ export class LogbookEventDetailsComponent extends AbstractValueAccessor implemen
         } else if (event === EventCcoVisibilityEnum.DISPLAYED) {
             displayed = true;
         }
-        if (displayed != this.logbookEvent.displayed || hidden != this.logbookEvent.hidden) {
+        if (displayed !== this.logbookEvent.displayed || hidden !== this.logbookEvent.hidden) {
             this.logbookEvent.displayed = displayed;
             this.logbookEvent.hidden = hidden;
             this.onlineLogbookEventService.hideOrDisplay(this.logbookEvent).then(savedLogbookEvent => {
@@ -253,7 +260,8 @@ export class LogbookEventDetailsComponent extends AbstractValueAccessor implemen
                 } else if (this.logbookEvent.hidden) {
                     this.toastService.success(this.translateService.instant('LOGBOOK.VISIBILITY.EVENT_HIDDEN'));
                 } else {
-                    this.toastService.success(this.translateService.instant('LOGBOOK.VISIBILITY.WILL_BE_DISPLAYED_ON', { 'date': this.getDisplayDate() }));
+                    this.toastService.success(this.translateService.instant('LOGBOOK.VISIBILITY.WILL_BE_DISPLAYED_ON'
+                        , { date: this.getDisplayDate() }));
                 }
             });
         }

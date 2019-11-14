@@ -1,3 +1,7 @@
+.page-container {
+    height: 100%;
+}
+
 form {
     display: flex;
     flex-direction: column;
@@ -6,10 +10,6 @@ form {
     .objective-container {
         display: flex;
         flex: 1;
-
-        ion-scroll>.scroll-content {
-            padding: 0 !important;
-        }
 
         .objective-form {
             flex: 3;
@@ -50,6 +50,10 @@ form {
                         display: -webkit-box;
                         -webkit-line-clamp: 3;
                         -webkit-box-orient: vertical;
+                    }
+
+                    ion-icon {
+                        font-size: 1.4em;
                     }
                 }
             }

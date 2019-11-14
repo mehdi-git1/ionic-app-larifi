@@ -53,6 +53,7 @@
             width: 100%;
 
             button {
+                height: 50px;
                 font-size: 14px;
                 font-weight: bold;
                 font-style: normal;
@@ -64,15 +65,6 @@
                 color: var(--ion-color-grey10);
                 box-shadow: none;
             }
-        }
-
-        ::ng-deep text-editor .ql-container.ql-snow {
-            border: 0;
-        }
-
-        ::ng-deep text-editor .ql-editor {
-            padding: 0;
-            margin: 0;
         }
     }
 }

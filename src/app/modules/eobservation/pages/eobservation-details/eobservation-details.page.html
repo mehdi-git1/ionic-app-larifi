@@ -25,11 +25,9 @@
                         <ion-row class="speciality-label">
                             <ion-col size="2">{{eObservation?.pncSpeciality}}</ion-col>
                             <ion-col size="10">
-                                <span class="assignment"
-                                    *ngIf="eObservation?.pncDivision">{{ 'PNC_HOME.INFO_PANEL.DIVISION' | translate }} :
+                                <span class="assignment" *ngIf="eObservation?.pncDivision">{{ 'PNC_HOME.INFO_PANEL.DIVISION' | translate }} :
                                     {{eObservation?.pncDivision}}</span>
-                                <span class="assignment"
-                                    *ngIf="eObservation?.pncGinq">{{ 'PNC_HOME.INFO_PANEL.GINQ' | translate }} :
+                                <span class="assignment" *ngIf="eObservation?.pncGinq">{{ 'PNC_HOME.INFO_PANEL.GINQ' | translate }} :
                                     {{eObservation?.pncGinq}}</span>
                             </ion-col>
                         </ion-row>
@@ -43,20 +41,15 @@
                 <eobs-rotation-info [eObservation]="eObservation" [editMode]="editMode"></eobs-rotation-info>
 
                 <span *ngIf="!isPcbEObs(); else appreciationPcb">
-                    <eobs-theme *ngFor="let eObservationTheme of eObservation.eobservationThemes"
-                        [theme]="eObservationTheme" [editMode]="editMode"></eobs-theme>
+                    <eobs-theme *ngFor="let eObservationTheme of eObservation.eobservationThemes" [theme]="eObservationTheme" [editMode]="editMode"></eobs-theme>
                 </span>
                 <ng-template #appreciationPcb>
-                    <eobs-appreciation *ngFor="let eObservationTheme of eObservation.eobservationThemes"
-                        [theme]="eObservationTheme"></eobs-appreciation>
+                    <eobs-appreciation *ngFor="let eObservationTheme of eObservation.eobservationThemes" [theme]="eObservationTheme"></eobs-appreciation>
                 </ng-template>
 
-                <eobs-comment *ngIf="!checkEObsType(EObservationTypeEnum.E_ALT)" [type]="PncRoleEnum.MANAGER"
-                    [eObservation]="eObservation" [editMode]="editMode"></eobs-comment>
+                <eobs-comment *ngIf="!checkEObsType(EObservationTypeEnum.E_ALT)" [type]="PncRoleEnum.MANAGER" [eObservation]="eObservation" [editMode]="editMode"></eobs-comment>
 
-                <eobs-comment *ngIf="!checkEObsType(EObservationTypeEnum.E_ALT)" [type]="PncRoleEnum.PNC"
-                    [eObservation]="eObservation" [canEditPncComment]="canEditPncComment()" [editMode]="editMode"
-                    (validatePncComment)="confirmValidatePncComment()"></eobs-comment>
+                <eobs-comment *ngIf="!checkEObsType(EObservationTypeEnum.E_ALT)" [type]="PncRoleEnum.PNC" [eObservation]="eObservation" [canEditPncComment]="canEditPncComment()" [editMode]="editMode" (validatePncComment)="confirmValidatePncComment()"></eobs-comment>
 
                 <eobs-state [eObservation]="eObservation" [editMode]="editMode"></eobs-state>
 
@@ -72,24 +65,23 @@
                     <ng-container *ngIf="!editMode; else editModeButtonsBlock">
                         <!-- Bouton supprimer l'eobs -->
                         <ion-button color="danger" (click)="confirmDeleteEObservation()" [disabled]="isConnected()">
-                            <ion-icon name="ios-trash-outline" md="md-trash" ios="ios-trash-outline"
-                                class="ion-margin-end"></ion-icon>
+                            <ion-icon name="ios-trash-outline" md="md-trash" ios="ios-trash-outline" class="ion-margin-end"></ion-icon>
                             {{ 'EOBSERVATION.BUTTONS.DELETE' | translate }}
                         </ion-button>
                         <!-- Bouton modifier l'eobs -->
-                        <ion-button color="primary" (click)="enterEditMode()" [disabled]="isConnected()">
+                        <ion-button color="grey20" (click)="enterEditMode()" [disabled]="isConnected()">
                             <ion-icon name="md-create" ios="md-create" class="ion-margin-end"></ion-icon>
                             {{ 'EOBSERVATION.BUTTONS.EDIT' | translate }}
                         </ion-button>
                     </ng-container>
                     <ng-template #editModeButtonsBlock>
                         <!-- Bouton annuler modification de l'eobs -->
-                        <ion-button color="primary" fill="outline" (click)="cancelEditMode()">
+                        <ion-button color="grey20" fill="outline" (click)="cancelEditMode()">
                             <ion-icon name="md-close" ios="md-close" class="ion-margin-end"></ion-icon>
                             {{ 'EOBSERVATION.BUTTONS.CANCEL' | translate }}
                         </ion-button>
                         <!-- Bouton mettre à jour l'eobs -->
-                        <ion-button color="primary" (click)="updateEObservation()" [disabled]="!formHasBeenModified()">
+                        <ion-button color="green50" (click)="updateEObservation()" [disabled]="!formHasBeenModified()">
                             <ion-icon name="md-checkmark" ios="md-checkmark" class="ion-margin-end"></ion-icon>
                             {{ 'EOBSERVATION.BUTTONS.UPDATE' | translate }}
                         </ion-button>

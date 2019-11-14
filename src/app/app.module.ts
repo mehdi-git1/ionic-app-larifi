@@ -56,7 +56,9 @@ export function appInitFactory(appInitService: AppInitService) {
   entryComponents: [PinPadModalComponent],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(),
+    IonicModule.forRoot({
+      mode: 'md'
+    }),
     HttpClientModule,
     AuthenticationModule,
     DevelopmentProgramModule,

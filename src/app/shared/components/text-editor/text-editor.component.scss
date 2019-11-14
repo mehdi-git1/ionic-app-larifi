@@ -14,6 +14,7 @@
     margin: 0px;
     position: relative;
     border-top: 0;
+    padding: 12px 15px;
 }
 
 ::ng-deep .ql-container {
@@ -21,107 +22,7 @@
     font-family: Helvetica, Arial, sans-serif;
 }
 
-
-::ng-deep quill-editor > .ql-editor {
-    // Pour être actif sur Ipad
-    -webkit-user-select: text;
-}
-
-::ng-deep quill-editor > .ql-snow .ql-picker.ql-header .ql-picker-label[data-value="1"]::before,
-::ng-deep quill-editor > .ql-snow .ql-picker.ql-header .ql-picker-item[data-value="1"]::before {
-    content: 'Titre 1';
-}
-
-::ng-deep quill-editor > .ql-snow .ql-picker.ql-header .ql-picker-label[data-value="2"]::before,
-::ng-deep quill-editor > .ql-snow .ql-picker.ql-header .ql-picker-item[data-value="2"]::before {
-    content: 'Titre 2';
-}
-
-::ng-deep quill-editor > .ql-snow .ql-picker.ql-header .ql-picker-label[data-value="3"]::before,
-::ng-deep quill-editor > .ql-snow .ql-picker.ql-header .ql-picker-item[data-value="3"]::before {
-    content: 'Titre 3';
-}
-
-::ng-deep quill-editor > .ql-snow .ql-picker.ql-header .ql-picker-label[data-value="4"]::before,
-::ng-deep quill-editor > .ql-snow .ql-picker.ql-header .ql-picker-item[data-value="4"]::before {
-    content: 'Titre 4';
-}
-
-::ng-deep quill-editor > .ql-snow .ql-picker.ql-header .ql-picker-label[data-value="5"]::before,
-::ng-deep quill-editor > .ql-snow .ql-picker.ql-header .ql-picker-item[data-value="5"]::before {
-    content: 'Titre 5';
-}
-
-::ng-deep quill-editor > .ql-snow .ql-picker.ql-header .ql-picker-label[data-value="6"]::before,
-::ng-deep quill-editor > .ql-snow .ql-picker.ql-header .ql-picker-item[data-value="6"]::before {
-    content: 'Titre 6';
-}
-
-::ng-deep quill-editor > .ql-snow .ql-picker.ql-size .ql-picker-label[data-value=small]::before,
-::ng-deep quill-editor > .ql-snow .ql-picker.ql-size .ql-picker-item[data-value=small]::before {
-    content: 'Petit';
-}
-
-::ng-deep quill-editor > .ql-snow .ql-picker.ql-size .ql-picker-label[data-value=large]::before,
-::ng-deep quill-editor > .ql-snow .ql-picker.ql-size .ql-picker-item[data-value=large]::before {
-    content: 'Grande';
-}
-
-::ng-deep quill-editor > .ql-snow .ql-picker.ql-size .ql-picker-label[data-value=huge]::before,
-::ng-deep quill-editor > .ql-snow .ql-picker.ql-size .ql-picker-item[data-value=huge]::before {
-    content: 'Enorme';
-}
-
-::ng-deep quill-editor > .ql-toolbar.ql-snow {
-    background: white;
-}
-
-::ng-deep quill-editor > .ql-snow .ql-tooltip a.ql-remove::before {
-    content: 'Supprimer';
-}
-
-::ng-deep quill-editor > .ql-snow .ql-tooltip.ql-editing a.ql-action::after {
-    content: 'Enregistrer';
-}
-
-::ng-deep quill-editor > .ql-snow .ql-tooltip[data-mode=link]::before {
-    content: "Entrer un lien:";
-}
-
-::ng-deep quill-editor > .ql-editor .ql-font-serif {
-    font-family: OpenSans, Arial, Helvetica, serif;
-}
-
-::ng-deep quill-editor > .ql-editor .ql-font-monospace {
-    font-family: OpenSans, Arial, Helvetica, monospace;
-}
-
-::ng-deep quill-editor > .ql-snow .ql-formats {
-    display: table-cell;
-    vertical-align: middle;
-}
-
-::ng-deep quill-editor > .ql-snow .ql-picker.ql-font .ql-picker-item[data-value=serif]::before {
-    font-family: OpenSans, Arial, Helvetica, serif;
-}
-
-::ng-deep quill-editor > .ql-snow .ql-picker.ql-font .ql-picker-item[data-value=monospace]::before {
-    font-family: OpenSans, Arial, Helvetica, sans-serif;
-}
-
-::ng-deep quill-editor > .ql-toolbar.ql-snow {
-    border: 1px solid #ccc;
-    box-sizing: border-box;
-    font-family: OpenSans, Arial, Helvetica, sans-serif;
-    padding: 8px;
-    background: white;
-}
-
-::ng-deep quill-editor > .ql-container.ql-snow {
-    background: white;
-}
-
-::ng-deep quill-editor > .ql-editor {
+::ng-deep .ql-editor {
     box-sizing: border-box;
     line-height: 1.42;
     /**/
@@ -129,7 +30,7 @@
     /**/
     outline: none;
     overflow-y: auto;
-    padding: 12px 15px;
+    padding: 12px 0px;
     tab-size: 4;
     -moz-tab-size: 4;
     text-align: left;
