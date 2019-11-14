@@ -231,6 +231,7 @@ export class CareerObjectiveCreatePage extends FormCanDeactivate {
                         }
                         this.careerObjective = savedCareerObjective;
                         loading.dismiss();
+                        this.creationForm.markAsPristine();
                         resolve();
                     }, error => {
                         loading.dismiss();
