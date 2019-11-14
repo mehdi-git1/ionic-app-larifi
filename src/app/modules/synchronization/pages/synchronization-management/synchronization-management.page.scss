@@ -1,8 +1,3 @@
-.scroll-content {
-    display: flex;
-    flex-direction: column;
-}
-
 h3 {
     display: flex;
     justify-content: space-between;
@@ -30,7 +25,7 @@ nav.tabs {
     }
 
     button.active {
-        border-bottom: 3px solidvar(--ion-color-primarylight);
+        border-bottom: 3px solid var(--ion-color-primarylight);
     }
 }
 
