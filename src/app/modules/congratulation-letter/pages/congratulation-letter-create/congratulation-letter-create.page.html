@@ -102,7 +102,7 @@
                         <ion-col>
                             <label>
                                 {{ 'CONGRATULATION_LETTER_CREATE.FORM.VERBATIM' | translate }}
-                                <strong [hidden]="verbatimCanBeEdited()">&nbsp;({{ 'CONGRATULATION_LETTER_CREATE.VERBATIM_EDITABLE_BY_REDACTOR_ONLY' | translate }})</strong>
+                                <strong class="verbatim-info-message" [hidden]="verbatimCanBeEdited()">&nbsp;({{ 'CONGRATULATION_LETTER_CREATE.VERBATIM_EDITABLE_BY_REDACTOR_ONLY' | translate }})</strong>
                             </label>
                             <text-editor name="letterVerbatim" [mode]="getVerbatimMode()" [ngModelOptions]="{standalone: true}" [(ngModel)]="congratulationLetter.verbatim" [parentForm]="congratulationLetterForm" [controlForm]="'verbatimControl'" formControlName="verbatimControl">
                             </text-editor>

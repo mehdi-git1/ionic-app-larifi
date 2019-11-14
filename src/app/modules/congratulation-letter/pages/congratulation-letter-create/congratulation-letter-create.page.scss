@@ -77,19 +77,23 @@ ion-list.list-ios {
     font-size: 1.1em;
 }
 
-text-editor .ql-snow .ql-editor {
-    padding: 10px;
-    border-radius: 3px;
-    background: var(--ion-color-white);
-    white-space: pre-line;
-    min-height: 100px;
+::ng-deep text-editor {
+    .ql-container {
+        margin-top: 10px;
+        border: 1px solid var(--ion-color-grey72) !important;
+        padding: 0 10px;
+        border-radius: 3px;
+        background: var(--ion-color-white);
+        min-height: 100px;
+    }
+
+    .ql-editor {
+        white-space: pre-line;
+    }
 }
 
-text-editor .ql-container.ql-snow {
-    height: 70%;
-}
 
 .verbatim-info-message {
-    font-weight: 700;
+    font-weight: bold;
     color: var(--ion-color-danger);
 }
