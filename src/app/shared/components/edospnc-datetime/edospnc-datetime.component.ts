@@ -46,7 +46,11 @@ export class EdospncDatetimeComponent extends AbstractValueAccessor implements O
         handler: (date) => {
           const month = date.month.value < 10 ? `0${date.month.value}` : date.month.value;
           const day = date.day.value < 10 ? `0${date.day.value}` : date.day.value;
-          this.edospncFormGroup.get(this.edospncFormControlName).setValue(`${date.year.value}-${month}-${day}`);
+          if (this.edospncFormGroup && this.edospncFormControlName && this.edospncFormGroup.get(this.edospncFormControlName)) {
+            this.edospncFormGroup.get(this.edospncFormControlName).setValue(`${date.year.value}-${month}-${day}`);
+          } else {
+            this.value = `${date.year.value}-${month}-${day}`;
+          }
         }
       }]
     };

@@ -1,16 +1,9 @@
 :host {
-    background-color: var(--ion-color-white);
-    display: inline-block;
     text-align: justify;
-    width: 100%;
 
     ion-col {
         display: flex;
         align-items: center;
-    }
-
-    button {
-        background-color: var(--ion-color-white);
     }
 
     .description-c {

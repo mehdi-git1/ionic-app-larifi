@@ -12,6 +12,9 @@ import { CareerObjectiveModel } from '../../../../core/models/career-objective.m
 import { PncModel } from '../../../../core/models/pnc.model';
 import { WaypointModel } from '../../../../core/models/waypoint.model';
 import {
+    CancelChangesService
+} from '../../../../core/services/cancel_changes/cancel-changes.service';
+import {
     OfflineCareerObjectiveService
 } from '../../../../core/services/career-objective/offline-career-objective.service';
 import { ConnectivityService } from '../../../../core/services/connectivity/connectivity.service';
@@ -65,7 +68,8 @@ export class WaypointCreatePage {
         private connectivityService: ConnectivityService,
         private offlineCareerObjectiveService: OfflineCareerObjectiveService,
         private offlineWaypointService: OfflineWaypointService,
-        private pncService: PncService) {
+        private pncService: PncService,
+        private cancelChangeService: CancelChangesService) {
 
         this.requiredOnEncounterDay = false;
 
@@ -112,9 +116,11 @@ export class WaypointCreatePage {
      */
     refreshPage() {
         if (this.formHasBeenModified()) {
-            this.confirmAbandonChanges().then(() => {
-                this.creationForm.reset();
-                this.initPage();
+            this.cancelChangeService.openCancelChangesPopup().then((confirm) => {
+                if (confirm) {
+                    this.creationForm.reset();
+                    this.initPage();
+                }
             }, error => {
 
             });
@@ -123,36 +129,12 @@ export class WaypointCreatePage {
         }
     }
 
-    ionViewCanLeave() {
-        if (this.formHasBeenModified()) {
-            return this.confirmAbandonChanges();
-        } else {
-            return true;
-        }
-    }
-
     /**
-     * Popup d'avertissement en cas de modifications non enregistrées.
+     * Vérifie si l'on peut quitter la page
+     * @return true si le formulaire n'a pas été modifié
      */
-    confirmAbandonChanges() {
-        return new Promise((resolve, reject) => {
-            // Avant de quitter la vue, on avertit l'utilisateur si ses modifications n'ont pas été enregistrées
-            this.alertCtrl.create({
-                header: this.translateService.instant('GLOBAL.CONFIRM_BACK_WITHOUT_SAVE.TITLE'),
-                message: this.translateService.instant('GLOBAL.CONFIRM_BACK_WITHOUT_SAVE.MESSAGE'),
-                buttons: [
-                    {
-                        text: this.translateService.instant('GLOBAL.BUTTONS.CANCEL'),
-                        role: 'cancel',
-                        handler: () => reject()
-                    },
-                    {
-                        text: this.translateService.instant('GLOBAL.BUTTONS.CONFIRM'),
-                        handler: () => resolve()
-                    }
-                ]
-            }).then(alert => alert.present());
-        });
+    canDeactivate(): boolean {
+        return !this.formHasBeenModified();
     }
 
     /**

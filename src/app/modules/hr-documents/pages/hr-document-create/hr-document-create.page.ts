@@ -1,7 +1,4 @@
-
-
-
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { HrDocumentModeEnum } from '../../../../core/enums/hr-document/hr-document-mode.enum';
@@ -9,6 +6,8 @@ import { HrDocumentModel } from '../../../../core/models/hr-document/hr-document
 import {
     OnlineHrDocumentService
 } from '../../../../core/services/hr-documents/online-hr-document.service';
+import { HrDocumentComponent } from '../../components/hr-document/hr-document.component';
+
 
 @Component({
     selector: 'hr-document-create',
@@ -20,6 +19,8 @@ export class HrDocumentCreatePage implements OnInit {
     hrDocument: HrDocumentModel;
 
     HrDocumentModeEnum = HrDocumentModeEnum;
+
+    @ViewChild('hrDocumentCreateOrUpdate', { static: false }) hrDocumentCreateOrUpdate: HrDocumentComponent;
 
     constructor(
         private activatedRoute: ActivatedRoute,
@@ -40,5 +41,17 @@ export class HrDocumentCreatePage implements OnInit {
 
     loadingIsOver() {
         return this.mode === HrDocumentModeEnum.CREATION || this.hrDocument && this.hrDocument !== undefined;
+    }
+
+    /**
+     * Vérifie si l'on peut quitter la page
+     * @return true si le formulaire n'a pas été modifié
+     */
+    canDeactivate(): boolean {
+        if (this.hrDocumentCreateOrUpdate) {
+            return this.hrDocumentCreateOrUpdate.canDeactivate();
+        } else {
+            return true;
+        }
     }
 }

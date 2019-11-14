@@ -68,7 +68,7 @@ export class EObsThemeComponent {
       component: EobsItemDescriptionComponent,
       componentProps: { descriptions: descriptions },
       event: event,
-      cssClass: 'description-popover'
+      cssClass: 'eobs-item-description-popover'
     }).then(popover => {
       popover.present();
     });

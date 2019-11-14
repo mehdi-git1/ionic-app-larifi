@@ -1,8 +1,8 @@
 import * as _ from 'lodash';
 
 import { Location } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { AlertController, Events, LoadingController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -14,11 +14,15 @@ import { LogbookEventModel } from '../../../../core/models/logbook/logbook-event
 import { PncLightModel } from '../../../../core/models/pnc-light.model';
 import { PncModel } from '../../../../core/models/pnc.model';
 import {
+    CancelChangesService
+} from '../../../../core/services/cancel_changes/cancel-changes.service';
+import {
     OnlineLogbookEventService
 } from '../../../../core/services/logbook/online-logbook-event.service';
 import { SecurityService } from '../../../../core/services/security/security.service';
 import { SessionService } from '../../../../core/services/session/session.service';
 import { ToastService } from '../../../../core/services/toast/toast.service';
+import { FormCanDeactivate } from '../../../../routing/guards/form-changes.guard';
 import { DateTransform } from '../../../../shared/utils/date-transform';
 import { Utils } from '../../../../shared/utils/utils';
 
@@ -27,13 +31,15 @@ import { Utils } from '../../../../shared/utils/utils';
     templateUrl: 'logbook-event.component.html',
     styleUrls: ['./logbook-event.component.scss']
 })
-export class LogbookEventComponent implements OnInit {
+export class LogbookEventComponent extends FormCanDeactivate implements OnInit {
 
     @Input() logbookEvent: LogbookEventModel;
 
     @Input() mode: LogbookEventModeEnum;
 
     @Input() groupId: number;
+
+    @ViewChild('form', { static: false }) form: NgForm;
 
     editEvent = false;
     eventDateString: string;
@@ -65,8 +71,10 @@ export class LogbookEventComponent implements OnInit {
         private dateTransformer: DateTransform,
         private events: Events,
         private alertCtrl: AlertController,
-        private formBuilder: FormBuilder) {
-        this.initForm();
+        private formBuilder: FormBuilder,
+        private cancelChangeService: CancelChangesService) {
+            super();
+            this.initForm();
     }
 
     ngOnInit() {
@@ -140,51 +148,37 @@ export class LogbookEventComponent implements OnInit {
      */
     cancelLogbookEventCreationOrEdition() {
         this.cancelFromButton = true;
-        this.confirmCancel();
-    }
-
-    /**
-     * Confirme l'annulation des modifications
-     */
-    confirmCancel() {
         if (this.formHasBeenModified()) {
-            const title = this.translateService.instant('GLOBAL.CONFIRM_BACK_WITHOUT_SAVE.TITLE');
-            const message = this.mode === LogbookEventModeEnum.CREATION || this.mode === LogbookEventModeEnum.LINKED_EVENT_CREATION ?
-                this.translateService.instant('LOGBOOK.EDIT.CONFIRM_CANCEL_CREATE_MESSAGE')
-                : this.translateService.instant('LOGBOOK.EDIT.CONFIRM_CANCEL_UPDATE_MESSAGE');
-            return this.confirmationPopoup(title, message).then(() => {
-                this.logbookEvent = _.cloneDeep(this.originLogbookEvent);
-                this.editEvent = false;
-                if (this.cancelFromButton && this.mode === LogbookEventModeEnum.CREATION) {
-                    this.location.back();
-                    this.cancelFromButton = false;
-                } else if (this.cancelFromButton) {
-                    this.events.publish('LinkedLogbookEvent:canceled');
+            this.cancelChangeService.openCancelChangesPopup().then(
+                confirm => {
+                    if (confirm) {
+                        this.quitEditionMode();
+                    }
                 }
-                return true;
-            }
             ).catch(() => {
                 this.cancelFromButton = false;
                 return false;
             });
         } else {
-            if (this.cancelFromButton && this.mode === LogbookEventModeEnum.CREATION) {
-                this.location.back();
-                this.cancelFromButton = false;
-            } else if (this.cancelFromButton) {
-                this.editEvent = false;
-            }
-            this.events.publish('LinkedLogbookEvent:canceled');
-            return true;
-        }
-
+            this.quitEditionMode();
+        }     
     }
 
+    quitEditionMode() {
+        this.logbookEvent = _.cloneDeep(this.originLogbookEvent);
+        this.editEvent = false;
+        if (this.cancelFromButton && this.mode === LogbookEventModeEnum.CREATION) {
+            this.location.back();
+            this.cancelFromButton = false;
+        } else if (this.cancelFromButton) {
+            this.editEvent = false;
+        }
+        this.events.publish('LinkedLogbookEvent:canceled');
+    }
 
     /**
      * Popup d'avertissement en cas de modifications non enregistrées.
      */
-
     confirmationPopoup(title: string, message: string) {
         return new Promise((resolve, reject) => {
             // Avant de quitter la vue, on avertit l'utilisateur si ses modifications n'ont pas été enregistrées

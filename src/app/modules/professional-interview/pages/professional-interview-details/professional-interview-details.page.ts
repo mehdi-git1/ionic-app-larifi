@@ -49,6 +49,7 @@ import { Utils } from '../../../../shared/utils/utils';
   styleUrls: ['./professional-interview-details.page.scss']
 })
 export class ProfessionalInterviewDetailsPage {
+
   PncRoleEnum = PncRoleEnum;
 
   pnc: PncModel;
@@ -87,15 +88,12 @@ export class ProfessionalInterviewDetailsPage {
     this.initPage();
   }
 
-  ionViewCanLeave() {
-    if (this.formHasBeenModified()) {
-      return this.confirmAbandonChanges().then(() => {
-        this.professionalInterview = _.cloneDeep(this.originProfessionalInterview);
-      }
-      );
-    } else {
-      return true;
-    }
+  /**
+   * Vérifie si l'on peut quitter la page
+   * @return true si le formulaire n'a pas été modifié
+   */
+  canDeactivate(): boolean {
+    return !this.formHasBeenModified();
   }
 
   /**
@@ -238,30 +236,6 @@ export class ProfessionalInterviewDetailsPage {
     } else if (this.professionalInterview && this.professionalInterview.state === ProfessionalInterviewStateEnum.CONSULTED) {
       return 'orange';
     }
-  }
-
-  /**
-   * Popup d'avertissement en cas de modifications non enregistrées.
-   */
-  confirmAbandonChanges() {
-    return new Promise((resolve, reject) => {
-      // Avant de quitter la vue, on avertit l'utilisateur si ses modifications n'ont pas été enregistrées
-      this.alertCtrl.create({
-        header: this.translateService.instant('GLOBAL.CONFIRM_BACK_WITHOUT_SAVE.TITLE'),
-        message: this.translateService.instant('GLOBAL.CONFIRM_BACK_WITHOUT_SAVE.MESSAGE'),
-        buttons: [
-          {
-            text: this.translateService.instant('GLOBAL.BUTTONS.CANCEL'),
-            role: 'cancel',
-            handler: () => reject()
-          },
-          {
-            text: this.translateService.instant('GLOBAL.BUTTONS.CONFIRM'),
-            handler: () => resolve()
-          }
-        ]
-      }).then(alert => alert.present());
-    });
   }
 
   /**

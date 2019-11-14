@@ -1,4 +1,4 @@
-<form novalidate [formGroup]="hrDocumentForm">
+<form #form="ngForm" novalidate [formGroup]="hrDocumentForm">
     <ion-grid class="hr-document-container">
         <ion-row class="category-row">
             <ion-col col-6>
@@ -54,7 +54,7 @@
                 <!-- Barre de boutons -->
                 <div class="button-bar-right button-bar">
                     <!-- Bouton Annuler -->
-                    <ion-button color="primary" fill="outline" (click)="confirmCancel()">
+                    <ion-button color="primary" fill="outline" (click)="cancel()">
                         {{ 'HR_DOCUMENT.BUTTONS.CANCEL' | translate }}
                     </ion-button>
                     <!-- Bouton enregistrer -->

@@ -4,8 +4,10 @@ ion-col {
     }
 }
 
-.list {
+ion-list {
     ion-item {
+        --inner-padding-top: 10px;
+        --inner-padding-bottom: 10px;
 
         ion-label {
             display: flex;
@@ -30,7 +32,7 @@ ion-col {
 
 .active {
     background: var(--ion-color-primary);
-    color: white;
+    color: var(--ion-color-white);
 }
 
 .circle {

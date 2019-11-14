@@ -30,4 +30,15 @@ export class SessionService {
         }
         return pnc.matricule === (this.getActiveUser() && this.getActiveUser().matricule);
     }
+
+    /**
+     * Vérifie que le pnc consulté est la personne connectée
+     * @return vrai si c'est le cas, faux sinon
+     */
+    isActiveUserMatricule(matricule: string): boolean {
+        if (!matricule) {
+            return false;
+        }
+        return matricule === (this.getActiveUser() && this.getActiveUser().matricule);
+    }
 }

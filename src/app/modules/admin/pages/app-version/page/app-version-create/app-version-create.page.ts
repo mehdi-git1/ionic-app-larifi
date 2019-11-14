@@ -1,7 +1,7 @@
 import * as _ from 'lodash';
 
-import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
@@ -16,6 +16,7 @@ import {
 import { AppVersionService } from '../../../../../../core/services/app-version/app-version.service';
 import { SecurityService } from '../../../../../../core/services/security/security.service';
 import { ToastService } from '../../../../../../core/services/toast/toast.service';
+import { FormCanDeactivate } from '../../../../../../routing/guards/form-changes.guard';
 import { DateTransform } from '../../../../../../shared/utils/date-transform';
 import { Utils } from '../../../../../../shared/utils/utils';
 
@@ -24,7 +25,9 @@ import { Utils } from '../../../../../../shared/utils/utils';
     templateUrl: 'app-version-create.page.html',
     styleUrls: ['./app-version-create.page.scss']
 })
-export class AppVersionCreatePage {
+export class AppVersionCreatePage extends FormCanDeactivate {
+
+    @ViewChild('form', { static: false }) form: NgForm;
 
     TabHeaderModeEnum = TabHeaderModeEnum;
 
@@ -50,45 +53,13 @@ export class AppVersionCreatePage {
         public securityService: SecurityService,
         private dateTransformer: DateTransform,
         private appVersionAlertService: AppVersionAlertService) {
-
-        // Initialisation du formulaire
-        this.initForm();
+            super();
+            // Initialisation du formulaire
+            this.initForm();
     }
 
     ionViewDidEnter() {
         this.initPage();
-    }
-
-    ionViewCanLeave() {
-        if (this.formHasBeenModified()) {
-            return this.confirmAbandonChanges();
-        } else {
-            return true;
-        }
-    }
-
-    /**
-     * Popup d'avertissement en cas de modifications non enregistrées.
-     */
-    confirmAbandonChanges() {
-        return new Promise((resolve, reject) => {
-            // Avant de quitter la vue, on avertit l'utilisateur si ses modifications n'ont pas été enregistrées
-            this.alertCtrl.create({
-                header: this.translateService.instant('GLOBAL.CONFIRM_BACK_WITHOUT_SAVE.TITLE'),
-                message: this.translateService.instant('GLOBAL.CONFIRM_BACK_WITHOUT_SAVE.MESSAGE'),
-                buttons: [
-                    {
-                        text: this.translateService.instant('GLOBAL.BUTTONS.CANCEL'),
-                        role: 'cancel',
-                        handler: () => reject()
-                    },
-                    {
-                        text: this.translateService.instant('GLOBAL.BUTTONS.CONFIRM'),
-                        handler: () => resolve()
-                    }
-                ]
-            }).then(alert => alert.present());
-        });
     }
 
     /**
@@ -195,10 +166,6 @@ export class AppVersionCreatePage {
 
     isCreation() {
         return this.appVersion.techId == null;
-    }
-
-    formHasBeenModified() {
-        return Utils.getHashCode(this.originAppVersion) !== Utils.getHashCode(this.appVersion);
     }
 
     goToAppVersionManagement() {

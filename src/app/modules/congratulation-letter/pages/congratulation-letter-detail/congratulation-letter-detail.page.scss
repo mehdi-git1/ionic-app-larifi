@@ -60,31 +60,15 @@ table {
             color: var(--ion-color-secondarylight);
             margin-right: 10px;
         }
-
-         .verbatim-data{
-            margin-top: 10px;
-
-            text-editor .ql-container.ql-snow {
-                border-radius: 3px;
-            }
-
-            text-editor .ql-snow .ql-editor {
-                padding: 10px;
-                border-radius: 3px;
-                background: var(--ion-color-grey98);
-                white-space: pre-line;
-                min-height: 35px;
-            }
-        }
     }
 
-    .verbatim,
-    .no-data-found {
-        margin: 10px 0 0 0;
-        padding: 10px;
+    .verbatim-data {
+        margin-top: 10px;
+        padding: 0 10px;
         border-radius: 3px;
         background: var(--ion-color-grey98);
         border: 1px solid var(--ion-color-grey70);
         white-space: pre-line;
+        min-height: 35px;
     }
 }

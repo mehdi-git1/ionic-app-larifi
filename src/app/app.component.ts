@@ -86,21 +86,22 @@ export class AppComponent implements AfterViewInit {
           this.switchToBackgroundDate = new Date();
         });
 
-        this.events.subscribe('connectionStatus:disconnected', () => {
-          this.connectivityService.startPingAPI();
-        });
-
-        // Détection d'un changement d'état de la connexion
-        this.connectivityService.connectionStatusChange.subscribe(connected => {
-          if (!connected) {
-            this.connectivityService.startPingAPI();
-            this.toastService.warning(this.translateService.instant('GLOBAL.CONNECTIVITY.OFFLINE_MODE'));
-          } else {
-            this.toastService.success(this.translateService.instant('GLOBAL.CONNECTIVITY.ONLINE_MODE'));
-            this.authenticationService.offlineManagement();
-          }
-        });
       }
+
+      this.events.subscribe('connectionStatus:disconnected', () => {
+        this.connectivityService.startPingAPI();
+      });
+
+      // Détection d'un changement d'état de la connexion
+      this.connectivityService.connectionStatusChange.subscribe(connected => {
+        if (!connected) {
+          this.connectivityService.startPingAPI();
+          this.toastService.warning(this.translateService.instant('GLOBAL.CONNECTIVITY.OFFLINE_MODE'));
+        } else {
+          this.toastService.success(this.translateService.instant('GLOBAL.CONNECTIVITY.ONLINE_MODE'));
+          this.authenticationService.offlineManagement();
+        }
+      });
 
       this.translateService.setDefaultLang('fr');
       this.translateService.use('fr');

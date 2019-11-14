@@ -1,0 +1,17 @@
+/* Le style des popover doit être défini au niveau global, car ces derniers sont injectés en amont */
+
+ion-popover {
+    --min-width: 350px;
+}
+
+ion-popover.document-viewer-popover {
+    .popover-content {
+        width: 100%;
+        height: 100%;
+        display: contents;
+    }
+}
+
+ion-popover.eobs-item-description-popover {
+    --width: 600px;
+}

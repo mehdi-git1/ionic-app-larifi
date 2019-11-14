@@ -1,5 +1,5 @@
 <div *ngIf="editEvent">
-    <form novalidate [formGroup]="logbookEventForm">
+    <form #form="ngForm" novalidate [formGroup]="logbookEventForm">
         <ion-grid class="logbook-event-container">
             <ion-row class="event-date-and-checkbox-row">
                 <ion-col size="6">
@@ -119,7 +119,7 @@
                         </ion-button>
                         <!-- Bouton mettre à jour-->
                         <ion-button #updateEvent *ngIf="mode === LogbookEventModeEnum.EDITION" color="primary"
-                            (click)="confirmUpdateLogbookEvent()" [disabled]="logbookEventForm.invalid">
+                            (click)="confirmUpdateLogbookEvent()" [disabled]="!logbookEventForm.valid">
                             {{ 'LOGBOOK.BUTTONS.UPDATE' | translate }}
                         </ion-button>
                     </div>

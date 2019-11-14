@@ -1,5 +1,3 @@
-
-
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
@@ -64,5 +62,4 @@ export class TextEditorComponent extends AbstractValueAccessor implements OnInit
             };
         }
     }
-
 }
