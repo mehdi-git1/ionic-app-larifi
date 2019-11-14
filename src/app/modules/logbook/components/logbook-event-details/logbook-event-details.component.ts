@@ -20,15 +20,19 @@ import {
 import { SecurityService } from '../../../../core/services/security/security.service';
 import { SessionService } from '../../../../core/services/session/session.service';
 import { ToastService } from '../../../../core/services/toast/toast.service';
+import {
+    AbstractValueAccessor, MakeProvider
+} from '../../../../shared/components/abstract-value-accessor';
 import { DateTransform } from '../../../../shared/utils/date-transform';
 import { DateUtils } from '../../../../shared/utils/date-utils';
 
 @Component({
     selector: 'logbook-event-details',
     templateUrl: 'logbook-event-details.component.html',
-    styleUrls: ['./logbook-event-details.component.scss']
+    styleUrls: ['./logbook-event-details.component.scss'],
+    providers: [MakeProvider(LogbookEventDetailsComponent)]
 })
-export class LogbookEventDetailsComponent implements OnInit {
+export class LogbookEventDetailsComponent extends AbstractValueAccessor implements OnInit {
 
     @Input() logbookEvent: LogbookEventModel;
 
@@ -59,7 +63,7 @@ export class LogbookEventDetailsComponent implements OnInit {
         private formBuilder: FormBuilder,
         private onlineLogbookEventService: OnlineLogbookEventService,
         private toastService: ToastService) {
-
+        super();
         this.events.subscribe('LinkedLogbookEvent:canceled', () => {
             this.editEvent = false;
         });
@@ -99,6 +103,17 @@ export class LogbookEventDetailsComponent implements OnInit {
         this.visibilitySelected = this.logbookEvent.hidden ? EventCcoVisibilityEnum.HIDDEN
             : this.logbookEvent.displayed ? EventCcoVisibilityEnum.DISPLAYED
                 : this.getDisplayDate() ? EventCcoVisibilityEnum.WILL_BE_DISPLAYED_ON : EventCcoVisibilityEnum.DISPLAYED;
+    }
+
+    /**
+     * Vérifie si l'on peut quitter la page
+     * @return true si on est pas en mode d'édition
+     */
+    canDeactivate(): boolean {
+        if (this.editEvent ) {
+            return false;
+        }
+        return true;
     }
 
     /**

@@ -2,9 +2,9 @@ import * as _ from 'lodash';
 import { PncService } from 'src/app/core/services/pnc/pnc.service';
 
 import { Location } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController, LoadingController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -19,6 +19,7 @@ import {
 } from '../../../../core/services/hr-documents/online-hr-document.service';
 import { SessionService } from '../../../../core/services/session/session.service';
 import { ToastService } from '../../../../core/services/toast/toast.service';
+import { FormCanDeactivate } from '../../../../routing/guards/form-changes.guard';
 import { Utils } from '../../../../shared/utils/utils';
 
 @Component({
@@ -26,11 +27,13 @@ import { Utils } from '../../../../shared/utils/utils';
     templateUrl: 'hr-document.component.html',
     styleUrls: ['./hr-document.component.scss']
 })
-export class HrDocumentComponent implements OnInit {
+export class HrDocumentComponent extends FormCanDeactivate implements OnInit {
 
     @Input() hrDocument: HrDocumentModel;
 
     @Input() mode: HrDocumentModeEnum;
+
+    @ViewChild('form', { static: false }) form: NgForm;
 
     pncMatricule: string;
 
@@ -45,6 +48,8 @@ export class HrDocumentComponent implements OnInit {
     hrDocumentForm: FormGroup;
 
     constructor(
+        private location: Location,
+        private router: Router,
         private translateService: TranslateService,
         private sessionService: SessionService,
         private onlineHrDocumentService: OnlineHrDocumentService,
@@ -54,10 +59,9 @@ export class HrDocumentComponent implements OnInit {
         private alertCtrl: AlertController,
         private formBuilder: FormBuilder,
         private pncService: PncService,
-        private activatedRoute: ActivatedRoute,
-        private location: Location) {
-
-        this.initForm();
+        private activatedRoute: ActivatedRoute) {
+            super();
+            this.initForm();
     }
 
     ngOnInit() {
@@ -106,53 +110,10 @@ export class HrDocumentComponent implements OnInit {
     }
 
     /**
-     * Annule la création du document RH
+     * Annule la création / modification de l'évènement en appuyant sur le bouton annuler.
      */
-    confirmCancel() {
-        if (this.formHasBeenModified()) {
-            return this.confirmAbandonChanges().then(() => {
-                this.hrDocument = _.cloneDeep(this.originHrDocument);
-                this.location.back();
-            }).catch(() => {
-            });
-        } else {
-            this.location.back();
-        }
-    }
-
-    /**
-     * Popup d'avertissement en cas de modifications non enregistrées.
-     */
-    confirmAbandonChanges() {
-        return new Promise((resolve, reject) => {
-            // Avant de quitter la vue, on avertit l'utilisateur si ses modifications n'ont pas été enregistrées
-            this.alertCtrl.create({
-                header: this.translateService.instant('GLOBAL.CONFIRM_BACK_WITHOUT_SAVE.TITLE'),
-                message: this.translateService.instant('GLOBAL.CONFIRM_BACK_WITHOUT_SAVE.MESSAGE'),
-                buttons: [
-                    {
-                        text: this.translateService.instant('GLOBAL.BUTTONS.CANCEL'),
-                        role: 'cancel',
-                        handler: () => reject()
-                    },
-                    {
-                        text: this.translateService.instant('GLOBAL.BUTTONS.CONFIRM'),
-                        handler: () => resolve()
-                    }
-                ]
-            }).then(alert => {
-                alert.present();
-            });
-        });
-    }
-
-
-    /**
-     * Vérifie si le formulaire a été modifié sans être enregistré
-     * @return true si il n'y a pas eu de modifications
-     */
-    formHasBeenModified() {
-        return Utils.getHashCode(this.originHrDocument) !== Utils.getHashCode(this.hrDocument);
+    cancelCreation() {
+        this.location.back();
     }
 
     /**
@@ -189,5 +150,16 @@ export class HrDocumentComponent implements OnInit {
         return this.connectivityService.isConnected() &&
             this.hrDocumentForm.valid
             && (this.hrDocument.attachmentFiles && this.hrDocument.attachmentFiles.length > 0);
+    }
+
+    /**
+     * Annule la création/edition du document RH et route vers la page d'acceuil des documents RH du dossier en cours
+     */
+    cancel() {  
+        if (this.hrDocument && this.hrDocument.pnc && this.hrDocument.pnc.matricule && this.sessionService.isActiveUserMatricule(this.hrDocument.pnc.matricule)) {
+            this.router.navigate(['tabs', 'hr-document']);
+        } else{
+            this.router.navigate(['tabs', 'visit', this.sessionService.visitedPnc.matricule, 'hr-document']);
+        }
     }
 }

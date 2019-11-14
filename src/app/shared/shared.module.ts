@@ -3,6 +3,7 @@ import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { CommonModule, DatePipe } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { File } from '@ionic-native/file/ngx';
 import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
@@ -30,7 +31,7 @@ export function createTranslateLoader(http: HttpClient) {
         }),
         PipesModule,
         DirectivesModule,
-        PdfViewerModule
+        PdfViewerModule,
     ],
     exports: [
         CommonModule,
@@ -38,14 +39,18 @@ export function createTranslateLoader(http: HttpClient) {
         AppMaterialModule,
         PipesModule,
         DirectivesModule,
-        PdfViewerModule
+        PdfViewerModule,
+        FormsModule,
+        ReactiveFormsModule
     ],
     providers: [
         AppMaterialModule,
         Utils,
         DateTransform,
         DatePipe,
-        File
+        File,
+        FormsModule,
+        ReactiveFormsModule
     ]
 })
 export class SharedModule {

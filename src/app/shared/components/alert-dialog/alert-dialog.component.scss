@@ -1,0 +1,14 @@
+  button:not(:first-child) {
+    margin-left: 10px;
+  }
+
+  mat-dialog-content {
+    h2 {
+      margin-bottom: 10px;
+    }
+
+    div {
+      margin-bottom: 10px;
+      white-space: pre-wrap;
+    }
+  }

@@ -9,6 +9,7 @@ import { IonicModule } from '@ionic/angular';
 
 import { DirectivesModule } from '../directives/directives.module';
 import { SharedModule } from '../shared.module';
+import { AlertDialogComponent } from './alert-dialog/alert-dialog.component';
 import { AppVersionAlertComponent } from './app-version-alert/app-version-alert.component';
 import { BootstrapComponent } from './bootstrap/bootstrap.component';
 import { CheckboxAndLabelComponent } from './checkbox-and-label/checkbox-and-label.component';
@@ -97,7 +98,8 @@ import { WorkRateCircleComponent } from './work-rate-circle/work-rate-circle.com
         PageNotFoundComponent,
         BootstrapComponent,
         VisitEdossierComponent,
-        ColumnSorterComponent
+        ColumnSorterComponent,
+        AlertDialogComponent
     ],
     exports: [
         OfflineIndicatorComponent,
@@ -133,7 +135,8 @@ import { WorkRateCircleComponent } from './work-rate-circle/work-rate-circle.com
         EdospncDatetimeComponent,
         BootstrapComponent,
         VisitEdossierComponent,
-        ColumnSorterComponent
+        ColumnSorterComponent,
+        AlertDialogComponent
     ],
     schemas: [
         CUSTOM_ELEMENTS_SCHEMA
@@ -141,7 +144,8 @@ import { WorkRateCircleComponent } from './work-rate-circle/work-rate-circle.com
     entryComponents: [
         PinPadModalComponent,
         SecretQuestionModalComponent,
-        DocumentViewerComponent
+        DocumentViewerComponent,
+        AlertDialogComponent
     ],
     providers: [Keyboard]
 })
