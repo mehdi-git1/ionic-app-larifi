@@ -1,15 +1,19 @@
 $nbLinesMaxOnRow: 2;
 
-ion-content {
-    .scroll-content {
-        display: flex;
-        flex-direction: column;
-        padding-top: 40px !important;
-    }
-}
+// ion-content {
+//     .scroll-content {
+//         display: flex;
+//         flex-direction: column;
+//         padding-top: 40px !important;
+//     }
+// }
 
-ion-button {
-    background-color: var(--ion-color-primary);
+.button-bar {
+    margin-bottom: 10px;
+
+    ion-icon {
+        margin-right: 10px;
+    }
 }
 
 .logbook-event-grid {
@@ -118,6 +122,10 @@ ion-button {
 
     .event-row {
         height: 48px;
+
+        ion-icon {
+            font-size: 1.2em;
+        }
     }
 
     .column-child-events {
@@ -156,6 +164,10 @@ ion-button {
     .column-actions {
         flex: 0 0 40px !important;
         text-align: center;
+        
+        ion-icon {
+            font-size: 2em;
+        }
     }
 
     .column-origin {
@@ -174,6 +186,10 @@ ion-button {
         flex: 0 0 20px !important;
         min-width: 25px;
         max-width: 25px;
+        
+        ion-icon{
+            font-size: 1.2em;
+        }
     }
 
     .category-label {
@@ -210,6 +226,7 @@ ion-button {
     font-size: 26px;
     position: relative;
     top: 4px;
+    margin-right: 5px;
 }
 
 .information-message:before {

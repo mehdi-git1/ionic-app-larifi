@@ -8,8 +8,17 @@
             padding-top: 40px !important;
         }
 
+        .button-bar {
+            margin-bottom: 10px;
+
+            ion-icon {
+                margin-right: 10px;
+            }
+        }
+
         .hr-document-list-container {
             .hr-document-grid {
+
                 ion-row {
                     border: none;
                 }
@@ -77,17 +86,9 @@
                     text-align: center;
                 }
 
-                .button-bar {
-                    margin-bottom: 10px;
-
-                    ion-icon {
-                        margin-right: 10px;
-                    }
-                }
-
                 .user-actions {
-                    min-width: 90px;
-                    max-width: 90px;
+                    min-width: 105px;
+                    max-width: 105px;
                     padding-right: 10px;
                     display: flex;
                     align-items: center;
@@ -108,7 +109,11 @@
                     }
 
                     .more-actions {
-                       margin: 0px 10px;
+                        margin: 0px 10px;
+
+                        ion-icon {
+                            font-size: 2em;
+                        }
                     }
     
                 }
@@ -128,7 +133,7 @@
             .last-page-reached,
             .no-result {
                 font-size: 1.2em;
-                color: var(--ion-color-light);
+                color: var(--ion-color-gray50);
             }
         }
     }
