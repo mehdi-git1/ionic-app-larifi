@@ -148,7 +148,7 @@ const routes: Routes = [
               { path: 'statutory-certificate', component: StatutoryCertificatePage },
               { path: 'help-asset', component: HelpAssetListPage },
               {
-                path: 'career-objective', children: [
+                path: 'development-program', children: [
                   { path: '', component: CareerObjectiveListPage },
                   { path: 'create/:careerObjectiveId', component: CareerObjectiveCreatePage , canDeactivate: [CanDeactivateGuard]},
                   {
@@ -235,7 +235,7 @@ const routes: Routes = [
   { path: 'generic-message', component: GenericMessagePage },
   { path: 'authentication', component: AuthenticationPage },
   {
-    path: 'career-objective', children: [
+    path: 'development-program', children: [
       { path: '', component: CareerObjectiveListPage },
       { path: 'create/:careerObjectiveId', component: CareerObjectiveCreatePage, canDeactivate: [CanDeactivateGuard]},
       {

@@ -116,7 +116,7 @@ export class TabNavService {
                     if (pnc.manager) {
                         this.router.navigate(['tabs', 'visit', this.sessionService.visitedPnc.matricule, 'professional-level']);
                     } else {
-                        this.router.navigate(['tabs', 'visit', this.sessionService.visitedPnc.matricule, 'career-objective']);
+                        this.router.navigate(['tabs', 'visit', this.sessionService.visitedPnc.matricule, 'development-program']);
                     }
                 });
             }

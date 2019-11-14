@@ -87,7 +87,7 @@ export class ImpersonatePage {
     if (this.sessionService.getActiveUser().isManager) {
       this.router.navigate(['tabs', 'home']);
     } else {
-      this.router.navigate(['career-objective']);
+      this.router.navigate(['development-program']);
     }
   }
 }

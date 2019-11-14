@@ -85,7 +85,7 @@ export class TabHeaderComponent implements OnInit, AfterViewInit {
     if (this.sessionService.getActiveUser().isManager) {
       this.router.navigate(['tabs', 'home']);
     } else {
-      this.router.navigate(['career-objective']);
+      this.router.navigate(['development-program']);
     }
   }
 }

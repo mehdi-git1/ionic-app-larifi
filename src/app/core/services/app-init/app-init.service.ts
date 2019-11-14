@@ -60,7 +60,7 @@ export class AppInitService {
                 if (this.sessionService.getActiveUser().isManager) {
                     router.navigate(['tabs', 'home']);
                 } else {
-                    router.navigate(['career-objective']);
+                    router.navigate(['development-program']);
                 }
                 break;
             case AuthenticationStatusEnum.INIT_KO:

@@ -34,7 +34,7 @@ export class TabHeaderService {
                 {
                     id: TabHeaderEnum.CAREER_OBJECTIVE_LIST_PAGE,
                     label: this.translateService.instant('GLOBAL.DEVELOPMENT_PROGRAM_SHORT'),
-                    route: 'career-objective',
+                    route: 'development-program',
                     available: this.pnc && !this.pnc.manager
                 },
                 {
