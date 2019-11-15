@@ -1,99 +1,100 @@
-ion-col > label {
-    color: var(--ion-color-grey10);
-    margin-right: 10px;
-}
+:host {
+    ion-col > label {
+        color: var(--ion-color-grey10);
+        margin-right: 10px;
+    }
 
-.flight-date {
-    ion-datetime {
-        height: 40px;
-        width: 120px;
+    .flight-date {
+        ion-datetime {
+            height: 40px;
+            width: 120px;
+            font-size: initial;
+            padding: 0 15px;
+            display: flex;
+            align-items: center;
+        }
+    }
+
+    .flight-airline {
+        width: 60px;
+        flex: none;
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+
+    .flight-number {
+        width: 100px;
+        flex: none;
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+    }
+
+    .letter-type-col {
+        @media(min-width: 800px) {
+            justify-content: flex-end;
+        }
+    }
+
+    .redactor-autocomplete {
+        width: 350px;
         font-size: initial;
-        padding: 0 15px;
-        display: flex;
-        align-items: center;
-    }
-}
 
-.flight-airline {
-    width: 60px;
-    flex: none;
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
-}
+        ion-spinner {
+            margin-right: 5px;
+        }
 
-.flight-number {
-    width: 100px;
-    flex: none;
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
-}
+        ::ng-deep .mat-form-field-infix {
+            display: flex !important;
+            align-items: center;
+            padding: 5px 5px;
 
-.letter-type-col {
-    @media(min-width: 800px) {
-        justify-content: flex-end;
-    }
-}
+            ion-icon {
+                font-size: 1.5em !important;
+            }
+        }
 
-.redactor-autocomplete {
-    width: 350px;
-    font-size: initial;
+        ::ng-deep .mat-form-field-label-wrapper {
+            margin-top: -5px;
 
-    ion-spinner {
-        margin-right: 5px;
-    }
-
-    ::ng-deep .mat-form-field-infix {
-        display: flex !important;
-        align-items: center;
-        padding: 5px 5px;
-
-        ion-icon {
-            font-size: 1.5em !important;
+            label {
+                padding: 10px 10px;
+            }
         }
     }
 
-    ::ng-deep .mat-form-field-label-wrapper {
-        margin-top: -5px;
+    ion-icon[name="checkmark"] {
+        font-size: 2em;
+        font-weight: bold;
+        margin-left: 10px;
+    }
 
-        label {
-            padding: 10px 10px;
+    ion-list.list-md,
+    ion-list.list-ios {
+        margin: 0;
+    }
+
+    .collective-warning {
+        color: var(--ion-color-danger);
+        font-size: 1.1em;
+    }
+
+    ::ng-deep text-editor {
+
+        .ql-container {
+            border: 1px solid var(--ion-color-grey72) !important;
+            padding: 0 10px;
+            border-radius: 3px;
+            background: var(--ion-color-white);
+            min-height: 100px;
+        }
+
+        .ql-editor {
+            white-space: pre-line;
         }
     }
-}
 
-ion-icon[name="checkmark"] {
-    font-size: 2em;
-    font-weight: bold;
-    margin-left: 10px;
-}
-
-ion-list.list-md,
-ion-list.list-ios {
-    margin: 0;
-}
-
-.collective-warning {
-    color: var(--ion-color-danger);
-    font-size: 1.1em;
-}
-
-::ng-deep text-editor {
-
-    .ql-container {
-        border: 1px solid var(--ion-color-grey72) !important;
-        padding: 0 10px;
-        border-radius: 3px;
-        background: var(--ion-color-white);
-        min-height: 100px;
+    .verbatim-info-message {
+        font-weight: bold;
+        color: var(--ion-color-danger);
     }
-
-    .ql-editor {
-        white-space: pre-line;
-    }
-}
-
-
-.verbatim-info-message {
-    font-weight: bold;
-    color: var(--ion-color-danger);
 }
