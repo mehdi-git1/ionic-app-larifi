@@ -1,16 +1,14 @@
-$containerWidth : 400;
+$containerWidth : 340;
 $containerHeight : 510;
-$containerPadding : 30;
 
 $chosenNumberWidth: 80;
 $chosenNumberHeight: 31;
 
-.blur {
-    width: 100%;
+:host {
     height: 100%;
-    position: absolute;
-    background: var(--ion-color-white);
-    filter: blur(100px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .title {
@@ -36,13 +34,9 @@ $chosenNumberHeight: 31;
 }
 
 .container {
-    position: absolute;
     width: $containerWidth+px;
     height: $containerHeight+px;
     color: var(--ion-color-grey95);
-    top: 40px;
-    left: calc(50% - #{$containerWidth/2}px);
-    padding: $containerPadding+px;
 }
 
 .chosen-number {

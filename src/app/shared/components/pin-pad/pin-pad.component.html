@@ -1,18 +1,17 @@
-    <div class="blur"></div>
-    <div class="container">
-        <p class="title">{{pinTitle}}</p>
-        <p class="error-text">{{errorText}}</p>
-        <div class="chosen-number" *ngFor="let inputValue of inputValueArray">
-            <div class="round-pad-container">
-                <div class="round-pad" [ngClass]="{'full-round' : inputValue != padValueDefault}"></div>
-            </div>
+<div class="container">
+    <p class="title">{{pinTitle}}</p>
+    <p class="error-text">{{errorText}}</p>
+    <div class="chosen-number" *ngFor="let inputValue of inputValueArray">
+        <div class="round-pad-container">
+            <div class="round-pad" [ngClass]="{'full-round' : inputValue != padValueDefault}"></div>
         </div>
-        <div class="pad-number-container">
-            <ion-fab-button color="primary" class="pad-number" *ngFor="let value of listOfPossibleNumber; let i = index" (click)="addToInput((i+1)%10)">
-                {{(i+1)%10}}
-            </ion-fab-button>
-            <div [ngClass]="{'invisible' : isInvisible() }" class='erase-pin' (click)="inputValueArray.indexOf(padValueDefault) > 0 && manageErase();">{{'PIN_PAD.ERASE' | translate}}</div>
-        </div>
-        <p *ngIf="pinType === pinPadType.openingApp" class='forgotten-pin' (click)="manageForgotten();">{{'PIN_PAD.FORGOTTEN' | translate}}</p>
-        <p *ngIf="pinType === pinPadType.askChange" class='forgotten-pin' (click)="manageCancel();">{{'PIN_PAD.CANCEL' | translate}}</p>
     </div>
+    <div class="pad-number-container">
+        <ion-fab-button color="primary" class="pad-number" *ngFor="let value of listOfPossibleNumber; let i = index" (click)="addToInput((i+1)%10)">
+            {{(i+1)%10}}
+        </ion-fab-button>
+        <div [ngClass]="{'invisible' : isInvisible() }" class='erase-pin' (click)="inputValueArray.indexOf(padValueDefault) > 0 && manageErase();">{{'PIN_PAD.ERASE' | translate}}</div>
+    </div>
+    <p *ngIf="pinType === pinPadType.openingApp" class='forgotten-pin' (click)="manageForgotten();">{{'PIN_PAD.FORGOTTEN' | translate}}</p>
+    <p *ngIf="pinType === pinPadType.askChange" class='forgotten-pin' (click)="manageCancel();">{{'PIN_PAD.CANCEL' | translate}}</p>
+</div>
