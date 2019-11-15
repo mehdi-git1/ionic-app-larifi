@@ -4,30 +4,23 @@ $colorPointSize: 12px;
 .registered,
 .validated,
 .abandoned {
-    border-radius: 10px;
-    width: 100px;
+    --color: var(--ion-color-white);
 }
 
 .draft {
-    background: var(--ion-color-grey50);
-    color: var(--ion-color-white);
+    --background: var(--ion-color-grey50);
 }
 
 .registered {
-    background: var(--ion-color-orange55);
-    color: var(--ion-color-white);
-
+    --background: var(--ion-color-orange55);
 }
 
 .validated {
-    background: var(--ion-color-green50);
-    color: var(--ion-color-white);
-
+    --background: var(--ion-color-green50);
 }
 
 .abandoned {
-    background: var(--ion-color-grey95);
-    color: var(--ion-color-grey50);
+    --background: var(--ion-color-grey20);
 }
 
 .career-objective-status-dot {

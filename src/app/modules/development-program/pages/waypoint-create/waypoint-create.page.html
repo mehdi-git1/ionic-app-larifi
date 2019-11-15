@@ -3,8 +3,8 @@
         <ion-back-button color="white" slot="start"></ion-back-button>
         <page-header (refreshPage)="refreshPage()" [showRefreshIcon]="true" [pnc]="pnc">
             <ng-container *ngIf="loadingIsOver()">
-                {{ 'WAYPOINT_CREATE.TITLE' | translate }}
-                <ion-badge class="{{waypoint.waypointStatus.toLowerCase()}}" *ngIf="canDisplayStatus()">
+                {{ 'WAYPOINT_CREATE.TITLE' | translate }}&nbsp;
+                <ion-badge [ngClass]="waypoint.waypointStatus.toLowerCase()" *ngIf="canDisplayStatus()">
                     {{ 'GLOBAL.WAYPOINT_STATUS.'+waypoint.waypointStatus | translate }}
                 </ion-badge>
             </ng-container>
