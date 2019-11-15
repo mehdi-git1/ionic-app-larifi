@@ -205,7 +205,7 @@ export class CareerObjectiveListPage {
    * Dirige vers la page de création d'un nouvel objectif
    */
   goToCareerObjectiveCreation() {
-    this.router.navigate(['create', 0], { relativeTo: this.activatedRoute });
+    this.router.navigate(['career-objective', 'create', 0], { relativeTo: this.activatedRoute });
   }
 
   /**

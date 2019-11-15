@@ -27,6 +27,6 @@ export class CareerObjectivesComponent {
    * @param careerObjective L'objectif à ouvrir
    */
   openCareerObjective(careerObjective: CareerObjectiveModel) {
-    this.router.navigate(['create', careerObjective.techId], { relativeTo: this.activatedRoute });
+    this.router.navigate(['career-objective', 'create', careerObjective.techId], { relativeTo: this.activatedRoute });
   }
 }
