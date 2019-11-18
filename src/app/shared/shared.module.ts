@@ -31,7 +31,7 @@ export function createTranslateLoader(http: HttpClient) {
         }),
         PipesModule,
         DirectivesModule,
-        PdfViewerModule,
+        PdfViewerModule
     ],
     exports: [
         CommonModule,

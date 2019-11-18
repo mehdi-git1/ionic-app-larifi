@@ -1,15 +1,10 @@
 .pcb-grid {
-    ion-row:nth-child(odd) {
+    .line:nth-child(odd) {
         background: var(--ion-color-grey95);
     }
 
-    ion-row:nth-child(even) {
+    .line:nth-child(even) {
         background: var(--ion-color-white);
-    }
-
-    .list-md .item-block .item-inner,
-    .list-md .item-block .item-inner {
-        border-bottom: initial;
     }
 
     .pcb-skills {
@@ -26,7 +21,7 @@
         }
 
         .skills-value {
-            flex: 2;
+            flex: 1;
             margin: initial;
             padding-left: 15px;
             display: flex;
@@ -34,10 +29,6 @@
             align-items: flex-start;
             justify-content: space-around;
             width: auto;
-
-            .list-md {
-                margin: initial;
-            }
         }
 
     }
@@ -50,36 +41,32 @@
     }
 }
 
+.skills-value-list {
+    display: flex;
+    align-items: space-around;
+    flex-direction: column;
+    margin: initial;
+
+    checkbox-and-label {
+        .container {
+            padding-bottom: 5px;
+        }
+    }
+}
+
 .pcb-strong-points {
     display: flex;
     align-items: center;
     height: 100%;
-
-    ion-list {
-        display: flex;
-        align-items: space-around;
-        flex-direction: column;
-        margin: initial;
-
-        checkbox-and-label {
-            .container {
-                padding-bottom: 5px;
-            }
-        }
-    }
-
-}
-
-.pcb-subtitle {
-    ion-col:first-child {
-        border-right: solid var(--ion-color-grey75) 1px;
-    }
 }
 
 .pcb-grid {
-    ion-col:first-child {
+    .line .column-50:first-child {
         border-right: solid var(--ion-color-grey75) 1px;
     }
+}
+.line {
+    padding-left: 24px;
 }
 
 .sub-theme-label {

@@ -3,7 +3,8 @@ import {
     DateAdapter, MAT_DATE_LOCALE, MatAutocompleteModule, MatButtonModule, MatCardModule,
     MatCheckboxModule, MatDatepickerModule, MatDialogModule, MatIconModule, MatInputModule,
     MatListModule, MatNativeDateModule, MatProgressBarModule, MatProgressSpinnerModule,
-    MatSortModule, MatTableModule, MatToolbarModule, MatTooltipModule, NativeDateAdapter
+    MatRadioModule, MatSortModule, MatTableModule, MatToolbarModule, MatTooltipModule,
+    NativeDateAdapter
 } from '@angular/material';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatSelectModule } from '@angular/material/select';
@@ -27,7 +28,9 @@ import { MatSelectModule } from '@angular/material/select';
         MatSelectModule,
         MatProgressBarModule,
         MatExpansionModule,
-        MatDialogModule
+        MatDialogModule,
+        MatRadioModule,
+        MatCheckboxModule
     ],
     providers: [
         { provide: DateAdapter, useClass: NativeDateAdapter },

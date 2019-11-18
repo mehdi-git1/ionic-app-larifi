@@ -15,25 +15,25 @@
         <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
         <ng-template #pageBlock>
             <div class="selectable" #eObservationInformations>
-                <div class="speciality-grid">
-                    <ion-grid>
-                        <ion-row class="speciality-header">
-                            <ion-col class="speciality" size="2">{{ 'EOBSERVATION.DETAIL.SPECIALITY' | translate }}
-                            </ion-col>
-                            <ion-col size="10">{{ 'EOBSERVATION.DETAIL.EOBS_PNC_ASSIGNMENT' | translate }}</ion-col>
-                        </ion-row>
-                        <ion-row class="speciality-label">
-                            <ion-col size="2">{{eObservation?.pncSpeciality}}</ion-col>
-                            <ion-col size="10">
+                <edospnc-expandable-block hideToggle="true" mini="true"  title=" {{ 'EOBSERVATION.DETAIL.SPECIALITY' | translate }}">
+                    <div class="speciality-line">
+                        <span class="column-20">
+                            <span class="label">{{ 'EOBSERVATION.DETAIL.SPECIALITY' | translate }}</span>
+                            <span class="value">{{eObservation?.pncSpeciality}}</span>
+                        </span>
+                        <span class="column-80">
+                            <span class="label">{{ 'EOBSERVATION.DETAIL.EOBS_PNC_ASSIGNMENT' | translate }}</span>
+                            <span class="value">
                                 <span class="assignment" *ngIf="eObservation?.pncDivision">{{ 'PNC_HOME.INFO_PANEL.DIVISION' | translate }} :
-                                    {{eObservation?.pncDivision}}</span>
+                                    {{eObservation?.pncDivision}}
+                                </span>
                                 <span class="assignment" *ngIf="eObservation?.pncGinq">{{ 'PNC_HOME.INFO_PANEL.GINQ' | translate }} :
-                                    {{eObservation?.pncGinq}}</span>
-                            </ion-col>
-                        </ion-row>
-                    </ion-grid>
-                </div>
-
+                                    {{eObservation?.pncGinq}}
+                                </span>
+                                </span>
+                        </span>
+                    </div>                   
+                </edospnc-expandable-block>
                 <eobs-temporary-period [eObservation]="eObservation"></eobs-temporary-period>
 
                 <eobs-bilan-flight [eObservation]="eObservation" [editMode]="editMode"></eobs-bilan-flight>
