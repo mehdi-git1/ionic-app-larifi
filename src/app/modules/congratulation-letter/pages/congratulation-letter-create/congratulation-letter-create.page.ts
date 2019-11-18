@@ -35,7 +35,7 @@ import { Utils } from '../../../../shared/utils/utils';
     templateUrl: 'congratulation-letter-create.page.html',
     styleUrls: ['./congratulation-letter-create.page.scss']
 })
-export class CongratulationLetterCreatePage extends FormCanDeactivate {
+export class CongratulationLetterCreatePage extends FormCanDeactivate implements OnInit {
 
     pnc: PncModel;
     creationMode = true;
@@ -55,7 +55,7 @@ export class CongratulationLetterCreatePage extends FormCanDeactivate {
     selectedRedactor: PncModel;
 
     @ViewChild('form', { static: false }) form: NgForm;
-    
+
     CongratulationLetterRedactorTypeEnum = CongratulationLetterRedactorTypeEnum;
     TextEditorModeEnum = TextEditorModeEnum;
 
@@ -170,7 +170,8 @@ export class CongratulationLetterCreatePage extends FormCanDeactivate {
      */
     handlePncSelectionDisplay() {
         this.congratulationLetterForm.get('redactorTypeControl').valueChanges.pipe(pairwise())
-            .subscribe(([previousRedactorType, newRedactorType]: [CongratulationLetterRedactorTypeEnum, CongratulationLetterRedactorTypeEnum]) => {
+            .subscribe(([previousRedactorType, newRedactorType]:
+                [CongratulationLetterRedactorTypeEnum, CongratulationLetterRedactorTypeEnum]) => {
                 if (newRedactorType === CongratulationLetterRedactorTypeEnum.PNC) {
                     this.displayPncSelection = true;
                 } else {
@@ -284,8 +285,10 @@ export class CongratulationLetterCreatePage extends FormCanDeactivate {
     isFormValid(): boolean {
         return this.connectivityService.isConnected() &&
             this.congratulationLetterForm.valid
-            && (!Utils.isEmpty(this.congratulationLetterForm.get('verbatimControl').value) || this.congratulationLetter.documents.length > 0)
-            && (this.congratulationLetter.redactorType !== CongratulationLetterRedactorTypeEnum.PNC || this.congratulationLetter.redactor != null);
+            && (!Utils.isEmpty(this.congratulationLetterForm.get('verbatimControl').value)
+                || this.congratulationLetter.documents.length > 0)
+            && (this.congratulationLetter.redactorType !== CongratulationLetterRedactorTypeEnum.PNC
+                || this.congratulationLetter.redactor != null);
     }
 
 
