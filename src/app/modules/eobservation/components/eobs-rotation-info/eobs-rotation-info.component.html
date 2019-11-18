@@ -1,12 +1,11 @@
 <edospnc-expandable-block mini="true" title=" {{ 'EOBSERVATION.DETAIL.ROTATION_SUBTITLE' | translate }}" [emptyCondition]="!hasFlights()">
     <div class="rotation-info">
-        <ion-grid>
-            <ion-row>
-                <ion-col size="2" class="rotation-number">{{eObservation?.rotationNumber}}</ion-col>
-                <ion-col size="2"><span *ngIf="eObservation?.rotationDate">{{eObservation?.rotationDate | date: 'dd/MM/yyyy' : 'UTC'}} </span></ion-col>
-                <ion-col size="8">
+        <div class="first-line line">
+                <span class="column-25 rotation-number">{{eObservation?.rotationNumber}}</span>
+                <span class="column-25"><span *ngIf="eObservation?.rotationDate">{{eObservation?.rotationDate | date: 'dd/MM/yyyy' : 'UTC'}} </span></span>
+                <span class="column-50">
                     <ng-container *ngIf="!editMode; else rotationDegradedEditBlock">
-                        <radio-and-label disabled="true" conditionValue="{{eObservation?.rotationDegraded}}" label="{{ 'EOBSERVATION.DETAIL.DEGRADED_CONDITIONS' | translate }}"></radio-and-label>
+                        <radio-and-label disabled="false" conditionValue="{{eObservation?.rotationDegraded}}" label="{{ 'EOBSERVATION.DETAIL.DEGRADED_CONDITIONS' | translate }}"></radio-and-label>
                     </ng-container>
                     <ng-template #rotationDegradedEditBlock>
                         <ion-item lines="none">
@@ -14,33 +13,32 @@
                             <ion-checkbox slot="start" [(ngModel)]="eObservation.rotationDegraded" [checked]="eObservation.rotationDegraded"></ion-checkbox>
                         </ion-item>
                     </ng-template>
-                </ion-col>
-            </ion-row>
-        </ion-grid>
+                </span>
+        </div>
     </div>
-    <ion-grid class="rotation-grid">
-        <ion-row class="flight-header">
-            <ion-col size="2">{{ 'EOBSERVATION.DETAIL.FLIGHT_NUMBER' | translate }}</ion-col>
-            <ion-col size="2">{{ 'EOBSERVATION.DETAIL.FLIGHT_DATE' | translate }}</ion-col>
-            <ion-col size="2">{{ 'EOBSERVATION.DETAIL.STOP_STATION' | translate }}</ion-col>
-            <ion-col size="1">{{ 'EOBSERVATION.DETAIL.AIRCRAFT_TYPE' | translate }}</ion-col>
-            <ion-col size="2">{{ 'EOBSERVATION.DETAIL.VERSION' | translate }}</ion-col>
-            <ion-col size="2">{{ 'EOBSERVATION.DETAIL.OCCUPANCY_RATE' | translate }}</ion-col>
-            <ion-col size="1">{{ 'EOBSERVATION.DETAIL.WORKSTATION' | translate }}</ion-col>
-        </ion-row>
-        <ion-row *ngFor="let eObservationFlight of sortedFlights()">
-            <ion-col size="2">{{eObservationFlight?.flightNumber}}</ion-col>
-            <ion-col size="2"><span *ngIf="eObservationFlight?.flightDate">{{eObservationFlight?.flightDate | date: 'dd/MM/yyyy' : 'UTC'}}</span></ion-col>
-            <ion-col size="2">{{eObservationFlight?.departureStation}} / {{eObservationFlight?.arrivalStation}}</ion-col>
-            <ion-col size="1">{{eObservationFlight?.aircraftType}}</ion-col>
-            <ion-col size="2">{{eObservationFlight?.exploitationVersion}}</ion-col>
-            <ion-col size="2">{{eObservationFlight?.occupancyRate}}</ion-col>
-            <ion-col size="1">
+    <div class="rotation-grid">
+        <div class="flight-header line">
+            <span class="column-10">{{ 'EOBSERVATION.DETAIL.FLIGHT_NUMBER' | translate }}</span>
+            <span class="column-15">{{ 'EOBSERVATION.DETAIL.FLIGHT_DATE' | translate }}</span>
+            <span class="column-15">{{ 'EOBSERVATION.DETAIL.STOP_STATION' | translate }}</span>
+            <span class="column-10">{{ 'EOBSERVATION.DETAIL.AIRCRAFT_TYPE' | translate }}</span>
+            <span class="column-20">{{ 'EOBSERVATION.DETAIL.VERSION' | translate }}</span>
+            <span class="column-20">{{ 'EOBSERVATION.DETAIL.OCCUPANCY_RATE' | translate }}</span>
+            <span class="column-10">{{ 'EOBSERVATION.DETAIL.WORKSTATION' | translate }}</span>
+        </div>
+        <div class="line" *ngFor="let eObservationFlight of sortedFlights()">
+            <span class="column-10">{{eObservationFlight?.flightNumber}}</span>
+            <span class="column-15"><span *ngIf="eObservationFlight?.flightDate">{{eObservationFlight?.flightDate | date: 'dd/MM/yyyy' : 'UTC'}}</span></span>
+            <span class="column-15">{{eObservationFlight?.departureStation}} / {{eObservationFlight?.arrivalStation}}</span>
+            <span class="column-10">{{eObservationFlight?.aircraftType}}</span>
+            <span class="column-20">{{eObservationFlight?.exploitationVersion}}</span>
+            <span class="column-20">{{eObservationFlight?.occupancyRate}}</span>
+            <span class="column-10">
                 <ng-container *ngIf="!editMode; else workStationEditBlock">{{eObservationFlight?.workStation}}</ng-container>
                 <ng-template #workStationEditBlock>
                     <ion-input type="text" [(ngModel)]="eObservationFlight.workStation"></ion-input>
                 </ng-template>
-            </ion-col>
-        </ion-row>
-    </ion-grid>
+            </span>
+        </div>
+    </div>
 </edospnc-expandable-block>

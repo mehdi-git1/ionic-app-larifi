@@ -1,7 +1,20 @@
 $block-border-radius: 5px;
 
-::ng-deep ion-grid {
-    padding: 0;
+.speciality-line {
+    margin-left: 24px;
+    display: flex;
+    width: 100%;
+    .label {
+        padding-right: 10px;
+        color: var(--ion-color-blue55);
+        font-weight: bold;
+        width:50%;
+    }
+    .value {
+        padding: 10px;
+        width:50%;
+        font-weight: normal;
+    }
 }
 
 .speciality-grid {
@@ -32,10 +45,6 @@ $block-border-radius: 5px;
 .speciality-label {
     padding-left: 24px;
     background: var(--ion-color-white);
-
-    ion-col {
-        background: var(--ion-color-white);
-    }
 
     .assignment {
         padding-right: 15px;

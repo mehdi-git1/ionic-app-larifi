@@ -1,5 +1,3 @@
-
-
 import { Injectable } from '@angular/core';
 
 import { DeviceService } from '../device/device.service';
@@ -20,8 +18,8 @@ export class PdfGeneratorService {
    * @param elementToPrint élément HTML
    * @param pdfFileName nom du fichier PDF généré
    */
-  generatePdfFromHTMLElement(elementToPrint: HTMLElement, pdfFileName: string) {
-    this.generatePdf(elementToPrint, pdfFileName);
+  generatePdfFromHTMLElement(elementToPrint: HTMLElement, pdfFileName: string, pncCard: HTMLElement = null) {
+    this.generatePdf(elementToPrint, pdfFileName, pncCard);
   }
 
   /**
@@ -33,7 +31,7 @@ export class PdfGeneratorService {
     this.generatePdf(elementToPrint, pdfFileName);
   }
 
-  private generatePdf(elementToPrint: any, pdfFileName: string) {
+  private generatePdf(elementToPrint: any, pdfFileName: string, pncCard: HTMLElement = null) {
     if (this.deviceService.isBrowser()) {
       const opt = {
         margin: 15,
