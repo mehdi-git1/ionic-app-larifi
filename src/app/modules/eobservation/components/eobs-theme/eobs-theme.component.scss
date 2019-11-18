@@ -16,6 +16,15 @@ $popover-wp-width: 320px;
 ion-row:nth-child(even) {
     background: var(--ion-color-grey95);
 }
+.line {
+    padding-left: 24px;
+    border-top: solid var(--ion-color-grey75) 1px;
+}
+
+.line:nth-child(even) {
+    background: var(--ion-color-grey95);
+}
+
 
 .item-label {
     padding-left: 24px;

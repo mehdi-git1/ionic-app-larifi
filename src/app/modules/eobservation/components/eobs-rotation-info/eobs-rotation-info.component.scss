@@ -1,35 +1,44 @@
 $border-grid: 1px solid var(--ion-color-grey75);
 $block-border-radius: 5px;
 
-ion-grid.rotation-grid {
+.rotation-grid {
     .flight-header {
         color: var(--ion-color-blue55);
     }
 
-    ion-row {
-        ion-col:first-child {
-            padding-left: 24px;
-        }
-    }
-
-    ion-row:first-child {
+    .line:first-child {
         border-top: $border-grid;
         border-bottom: $border-grid;
     }
 
-    ion-col {
+    .line span {
         border-right: $border-grid;
     }
+    .line span:last-child {
+        border-right: 0px;
+    }
 
-    ion-row:nth-child(even) {
+    .line:nth-child(even) {
         background: var(--ion-color-grey95);
     }
 
-    ion-col:last-child {
+    .line:last-child {
         border: initial;
     }
 }
 
+.rotation-grid {
+    .flight-header {
+        color: var(--ion-color-blue55);
+    }
+}
+
+.first-line {
+    align-items: center;
+}
+.line {
+    padding-left: 24px;
+}
 
 .rotation-info {
 

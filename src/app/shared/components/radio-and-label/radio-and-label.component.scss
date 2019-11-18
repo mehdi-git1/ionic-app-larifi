@@ -1,26 +1,19 @@
+:host {
     .container {
         display: flex;
         align-items: center;
         padding-right: 20px;
 
-
-        label {
-            color: var(--ion-color-primary);
-            opacity: 1;
-            padding-left: 5px;
+        ::ng-deep.mat-checkbox-checked {
+           border-color: var(--ion-color-grey70) !important;
         }
 
-        .radio-md .radio-icon,
-        .radio-md.radio-disabled,
-        .item-md.item-radio-disabled {
-            border-color: var(--ion-color-blue55) !important;
-            opacity: 1;
-            margin: 0px;
-
-            .radio-inner {
-                opacity: 1;
+        .mat-checkbox-checked {
+            ::ng-deep.mat-checkbox-checkmark {
+                border-color: var(--ion-color-blue55) !important;
                 background-color: var(--ion-color-blue55) !important;
+                color: red !important;
             }
         }
-
     }
+}
