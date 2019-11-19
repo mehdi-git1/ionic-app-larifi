@@ -170,7 +170,8 @@ export class CongratulationLetterCreatePage extends FormCanDeactivate implements
      */
     handlePncSelectionDisplay() {
         this.congratulationLetterForm.get('redactorTypeControl').valueChanges.pipe(pairwise())
-            .subscribe(([previousRedactorType, newRedactorType]: [CongratulationLetterRedactorTypeEnum, CongratulationLetterRedactorTypeEnum]) => {
+            .subscribe(([previousRedactorType, newRedactorType]:
+                [CongratulationLetterRedactorTypeEnum, CongratulationLetterRedactorTypeEnum]) => {
                 if (newRedactorType === CongratulationLetterRedactorTypeEnum.PNC) {
                     this.displayPncSelection = true;
                 } else {
@@ -284,8 +285,10 @@ export class CongratulationLetterCreatePage extends FormCanDeactivate implements
     isFormValid(): boolean {
         return this.connectivityService.isConnected() &&
             this.congratulationLetterForm.valid
-            && (!Utils.isEmpty(this.congratulationLetterForm.get('verbatimControl').value) || this.congratulationLetter.documents.length > 0)
-            && (this.congratulationLetter.redactorType !== CongratulationLetterRedactorTypeEnum.PNC || this.congratulationLetter.redactor != null);
+            && (!Utils.isEmpty(this.congratulationLetterForm.get('verbatimControl').value)
+                || this.congratulationLetter.documents.length > 0)
+            && (this.congratulationLetter.redactorType !== CongratulationLetterRedactorTypeEnum.PNC
+                || this.congratulationLetter.redactor != null);
     }
 
 
