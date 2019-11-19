@@ -94,9 +94,10 @@ export class CongratulationLetterCreatePage extends FormCanDeactivate implements
 
     ngOnInit() {
 
-        if (this.sessionService.visitedPnc) {
-            this.pnc = this.sessionService.visitedPnc;
-        }
+        const matricule = this.pncService.getRequestedPncMatricule(this.activatedRoute);
+        this.pncService.getPnc(matricule).then(pnc => {
+            this.pnc = pnc;
+        }, error => { });
 
         if (this.activatedRoute.snapshot.paramMap.get('congratulationLetterId')
             && this.activatedRoute.snapshot.paramMap.get('congratulationLetterId') !== '0') {
