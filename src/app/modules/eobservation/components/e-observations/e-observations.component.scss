@@ -1,9 +1,6 @@
 mat-expansion-panel {
     box-shadow: none !important;
-
-    & {
-        padding-bottom: 3px;
-    }
+    padding-bottom: 3px;
 
     &.mat-expanded:not(.no-data) {
         box-shadow: none !important;
