@@ -35,7 +35,7 @@ import { Utils } from '../../../../shared/utils/utils';
     templateUrl: 'congratulation-letter-create.page.html',
     styleUrls: ['./congratulation-letter-create.page.scss']
 })
-export class CongratulationLetterCreatePage extends FormCanDeactivate {
+export class CongratulationLetterCreatePage extends FormCanDeactivate implements OnInit {
 
     pnc: PncModel;
     creationMode = true;
@@ -55,7 +55,7 @@ export class CongratulationLetterCreatePage extends FormCanDeactivate {
     selectedRedactor: PncModel;
 
     @ViewChild('form', { static: false }) form: NgForm;
-    
+
     CongratulationLetterRedactorTypeEnum = CongratulationLetterRedactorTypeEnum;
     TextEditorModeEnum = TextEditorModeEnum;
 
