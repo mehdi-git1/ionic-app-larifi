@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Events, PopoverController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
@@ -13,9 +13,6 @@ import { SectorModel } from '../../../../core/models/sector.model';
 import { RelayModel } from '../../../../core/models/statutory-certificate/relay.model';
 import { ConnectivityService } from '../../../../core/services/connectivity/connectivity.service';
 import { SessionService } from '../../../../core/services/session/session.service';
-import {
-    PriorityDropdownListComponent
-} from '../priority-dropdown-list/priority-dropdown-list.component';
 
 @Component({
   selector: 'pnc-search-filter',
@@ -74,32 +71,6 @@ export class PncSearchFilterComponent implements AfterViewInit {
 
   }
 
-  /**
-   * Ouvre la popover de choix de priorités
-   * @param myEvent  event
-   * @param eObservationItem item
-   */
-  openPriorityDropdownList(myEvent: Event) {
-    this.popoverCtrl.create({
-      component: PriorityDropdownListComponent,
-      componentProps: { prioritized: this.prioritized, priority: this.priority, noPriority: this.noPriority },
-      cssClass: 'priority-dropdown-list-popover'
-    }).then(popover => {
-      popover.present();
-
-      popover.onDidDismiss().then(overlayEventDetail => {
-        if (overlayEventDetail) {
-          this.prioritized = overlayEventDetail.data.prioritized;
-          this.priority = overlayEventDetail.data.priority;
-          this.noPriority = overlayEventDetail.data.noPriority;
-          this.searchForm.get('hasAtLeastOnePriorityInProgressControl').setValue(overlayEventDetail.data.priority);
-          this.searchForm.get('hasNoPriorityControl').setValue(overlayEventDetail.data.noPriority);
-          this.searchForm.get('prioritizedControl').setValue(overlayEventDetail.data.prioritized);
-          this.search();
-        }
-      });
-    });
-  }
 
   /**
    * Action déclenchée lors du click
@@ -186,6 +157,8 @@ export class PncSearchFilterComponent implements AfterViewInit {
     this.searchForm.get('hasAtLeastOnePriorityInProgressControl').setValue(false);
     this.searchForm.get('hasNoPriorityControl').setValue(false);
     this.searchForm.get('priorityControl').setValue(new Array());
+    this.searchForm.get('hasDefaultHiddenEventsControl').setValue(false);
+    this.searchForm.get('hasHiddenEventsControl').setValue(false);
     this.search();
     this.defaultValue = false;
     this.priority = false;
@@ -207,7 +180,9 @@ export class PncSearchFilterComponent implements AfterViewInit {
       priorityControl: [new Array()],
       prioritizedControl: [false],
       hasAtLeastOnePriorityInProgressControl: [false],
-      hasNoPriorityControl: [false]
+      hasNoPriorityControl: [false],
+      hasDefaultHiddenEventsControl: [false],
+      hasHiddenEventsControl: [false]
     });
     if (this.connectivityService.isConnected()) {
       this.resetFilterValues();
@@ -239,6 +214,8 @@ export class PncSearchFilterComponent implements AfterViewInit {
       this.pncFilter.prioritized = val.prioritizedControl;
       this.pncFilter.hasAtLeastOnePriorityInProgress = val.hasAtLeastOnePriorityInProgressControl;
       this.pncFilter.hasNoPriority = val.hasNoPriorityControl;
+      this.pncFilter.hasDefaultHiddenEvents = val.hasDefaultHiddenEventsControl;
+      this.pncFilter.hasHiddenEvents = val.hasHiddenEventsControl;
       this.search();
     });
   }

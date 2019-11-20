@@ -29,6 +29,7 @@
                             </ion-col>
                             <ion-col class="column-specific"></ion-col>
                             <ion-col class="column-specific"></ion-col>
+                            <ion-col class="column-specific"></ion-col>
                             <ion-col class="column-title" columnName="event">
                                 {{ 'LOGBOOK.EVENT' | translate }}
                             </ion-col>
@@ -65,6 +66,10 @@
                                         </ion-col>
                                         <ion-col class="column-category">
                                             <div class="category-label">{{logbookEvent.category?.label}}</div>
+                                        </ion-col>
+                                        <ion-col class="column-specific">
+                                            <ion-icon name="md-eye-off" ios="md-eye-off" *ngIf="isHidden(logbookEvent)">
+                                            </ion-icon>
                                         </ion-col>
                                         <ion-col class="column-specific">
                                             <span class="edospnc-important" *ngIf="logbookEvent.important">

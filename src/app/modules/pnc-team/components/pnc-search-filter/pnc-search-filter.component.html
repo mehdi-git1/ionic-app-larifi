@@ -119,6 +119,26 @@
                         </ion-select>
                     </div>
                 </div>
+                <div class="checkbox-jdb-container">
+                    <ion-item lines="none">
+                        <ion-label>{{ 'PNC_SEARCH.CRITERIA.LOGBOOK_EVENTS' | translate }}:</ion-label>
+                    </ion-item>
+                    <!-- Des évènements masqués par défaut -->
+                    <ion-item lines="none">
+                        <ion-label>{{ 'PNC_SEARCH.CRITERIA.HIDDEN_EVENTS' | translate }}</ion-label>
+                        <ion-checkbox slot="start" [(ngModel)]="defaultHiddenEvents"
+                            formControlName="hasHiddenEventsControl">
+                        </ion-checkbox>
+                    </ion-item>
+                    <!-- Des évènements masqués volontairement-->
+                    <ion-item lines="none">
+                        <ion-label>{{ 'PNC_SEARCH.CRITERIA.DEFAULT_HIDDEN_EVENTS' | translate }}</ion-label>
+                        <ion-checkbox slot="start" [(ngModel)]="HiddenEvents"
+                            formControlName="hasDefaultHiddenEventsControl">
+                        </ion-checkbox>
+                    </ion-item>
+                </div>
+
             </div>
 
             <div class="checkbox-container flex flex3 column justify-end">

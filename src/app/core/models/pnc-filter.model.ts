@@ -12,5 +12,6 @@ export class PncFilterModel {
     prioritized: boolean;
     hasAtLeastOnePriorityInProgress: boolean;
     hasNoPriority: boolean;
-
+    hasHiddenEvents: boolean;
+    hasDefaultHiddenEvents: boolean;
 }

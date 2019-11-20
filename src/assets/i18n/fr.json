@@ -604,7 +604,10 @@
             "NO_PRIORITY": "Aucune priorité en cours",
             "PRIORITIZED_SHORT": "Majeure",
             "PRIORITY_IN_PROGRESS_SHORT": "En cours",
-            "NO_PRIORITY_SHORT": "Aucune en cours"
+            "NO_PRIORITY_SHORT": "Aucune en cours",
+            "LOGBOOK_EVENTS": "Evènement JDB",
+            "HIDDEN_EVENTS": "Masqué volontairement",
+            "DEFAULT_HIDDEN_EVENTS": "Masqué par défaut"
         },
         "DEFAULT_DATA": {
             "ALL_F": "Toutes",
