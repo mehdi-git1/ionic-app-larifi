@@ -1,12 +1,10 @@
-<mat-expansion-panel *ngIf="eObservation" [disabled]="!canOpen()">
-    <mat-expansion-panel-header class="e-observation elevation-1" [expandedHeight]="matPanelHeaderHeight"
-        [collapsedHeight]="matPanelHeaderHeight" hideToggle="true">
+<mat-expansion-panel class="elevation-1" *ngIf="eObservation" [disabled]="!canOpen()">
+    <mat-expansion-panel-header class="e-observation elevation-1" [expandedHeight]="matPanelHeaderHeight" [collapsedHeight]="matPanelHeaderHeight" hideToggle="true">
         <label class="e-observation-date">{{eObservation.rotationDate | date : 'dd/MM/yyyy' : 'UTC'}}</label>
         <label class="e-observation-type">{{ getEObservationTypeLabel(eObservation.type) }}
             {{getDetailOptionType()}}</label>
         <label class="e-observation-writer">
-            <span *ngIf="eObservation.redactor?.lastName">{{eObservation.redactor.lastName}} <span
-                    class="firstname">{{eObservation.redactor.firstName}}</span></span>
+            <span *ngIf="eObservation.redactor?.lastName">{{eObservation.redactor.lastName}} <span class="firstname">{{eObservation.redactor.firstName}}</span></span>
         </label>
         <div class="e-observation-detail">
             <ion-fab-button size="small" (click)="goToEObservationDetail($event)" color="primarydark">
