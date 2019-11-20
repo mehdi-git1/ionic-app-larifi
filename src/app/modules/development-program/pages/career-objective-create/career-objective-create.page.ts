@@ -1,10 +1,10 @@
 import * as _ from 'lodash';
 
-import { DatePipe, Location } from '@angular/common';
+import { DatePipe } from '@angular/common';
 import { Component, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AlertController, LoadingController } from '@ionic/angular';
+import { AlertController, LoadingController, NavController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 
 import { CareerObjectiveStatusEnum } from '../../../../core/enums/career-objective-status.enum';
@@ -65,7 +65,7 @@ export class CareerObjectiveCreatePage extends FormCanDeactivate {
     constructor(
         private router: Router,
         private activatedRoute: ActivatedRoute,
-        private location: Location,
+        private navCtrl: NavController,
         private alertCtrl: AlertController,
         public translateService: TranslateService,
         private formBuilder: FormBuilder,
@@ -271,7 +271,7 @@ export class CareerObjectiveCreatePage extends FormCanDeactivate {
         careerObjectiveToSave.careerObjectiveStatus = CareerObjectiveStatusEnum.DRAFT;
         this.saveCareerObjective(careerObjectiveToSave).then(() => {
             if (careerObjectiveToSave.techId === undefined) {
-                this.location.back();
+                this.navCtrl.pop();
             }
         });
     }
@@ -286,7 +286,7 @@ export class CareerObjectiveCreatePage extends FormCanDeactivate {
             careerObjectiveToSave.registrationDate = this.dateTransformer.transformDateToIso8601Format(new Date());
             this.saveCareerObjective(careerObjectiveToSave).then(() => {
                 if (careerObjectiveToSave.techId === undefined) {
-                    this.location.back();
+                    this.navCtrl.pop();
                 }
             });
         } else {
@@ -399,7 +399,7 @@ export class CareerObjectiveCreatePage extends FormCanDeactivate {
                     } else {
                         this.toastService.success(this.translateService.instant('CAREER_OBJECTIVE_CREATE.SUCCESS.DELETED'));
                     }
-                    this.location.back();
+                    this.navCtrl.pop();
                     loading.dismiss();
                 }, error => {
                     loading.dismiss();
