@@ -34,7 +34,6 @@ import { ToastService } from '../../../../core/services/toast/toast.service';
 import { WaypointService } from '../../../../core/services/waypoint/waypoint.service';
 import { FormCanDeactivate } from '../../../../routing/guards/form-changes.guard';
 import { DateTransform } from '../../../../shared/utils/date-transform';
-import { Utils } from '../../../../shared/utils/utils';
 
 @Component({
     selector: 'page-career-objective-create',
@@ -136,9 +135,9 @@ export class CareerObjectiveCreatePage extends FormCanDeactivate {
      */
     refreshWaypoints(careerObjectiveId: number) {
         this.waypointService.getCareerObjectiveWaypoints(careerObjectiveId)
-        .then(result => {
-            this.waypointList = result;
-        }, error => { });
+            .then(result => {
+                this.waypointList = result;
+            }, error => { });
     }
     /**
      * Verifie si des modifications ont été faites, avant d'initialiser le contenu de la page.
@@ -270,7 +269,11 @@ export class CareerObjectiveCreatePage extends FormCanDeactivate {
     saveCareerObjectiveDraft() {
         const careerObjectiveToSave = _.cloneDeep(this.careerObjective);
         careerObjectiveToSave.careerObjectiveStatus = CareerObjectiveStatusEnum.DRAFT;
-        this.saveCareerObjective(careerObjectiveToSave);
+        this.saveCareerObjective(careerObjectiveToSave).then(() => {
+            if (careerObjectiveToSave.techId === undefined) {
+                this.location.back();
+            }
+        });
     }
 
     /**
@@ -281,7 +284,11 @@ export class CareerObjectiveCreatePage extends FormCanDeactivate {
             const careerObjectiveToSave = _.cloneDeep(this.careerObjective);
             careerObjectiveToSave.careerObjectiveStatus = CareerObjectiveStatusEnum.REGISTERED;
             careerObjectiveToSave.registrationDate = this.dateTransformer.transformDateToIso8601Format(new Date());
-            this.saveCareerObjective(careerObjectiveToSave);
+            this.saveCareerObjective(careerObjectiveToSave).then(() => {
+                if (careerObjectiveToSave.techId === undefined) {
+                    this.location.back();
+                }
+            });
         } else {
             this.requiredOnEncounterDay = true;
             this.toastService.warning(this.translateService.instant('CAREER_OBJECTIVE_CREATE.ERROR.ENCOUTER_DATE_REQUIRED'));
