@@ -110,7 +110,7 @@ export class LogbookEventDetailsComponent extends AbstractValueAccessor implemen
      * @return true si on est pas en mode d'édition
      */
     canDeactivate(): boolean {
-        if (this.editEvent ) {
+        if (this.editEvent) {
             return false;
         }
         return true;
@@ -214,7 +214,7 @@ export class LogbookEventDetailsComponent extends AbstractValueAccessor implemen
      */
     confirmHideOrDisplayEvent(visibility: EventCcoVisibilityEnum) {
         if ((visibility === EventCcoVisibilityEnum.HIDDEN && !this.logbookEvent.hidden)
-            || (visibility === EventCcoVisibilityEnum.DISPLAYED && !this.logbookEvent.displayed)
+            || (visibility === EventCcoVisibilityEnum.DISPLAYED && !this.logbookEvent.displayed && this.visibilitySelected !== EventCcoVisibilityEnum.DISPLAYED)
             || (visibility === EventCcoVisibilityEnum.WILL_BE_DISPLAYED_ON && (this.logbookEvent.displayed || this.logbookEvent.hidden))) {
             let title: string;
             let message: string;
