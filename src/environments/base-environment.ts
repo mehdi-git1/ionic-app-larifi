@@ -1,6 +1,6 @@
 
 export abstract class BaseEnvironment {
-  public appVersion = '1.12.0';
+  public appVersion = '2.0.0';
   public contextRoot = '/api/';
   public appName = 'EDossierPnc';
   public backEndUrl;
@@ -18,9 +18,9 @@ export abstract class BaseEnvironment {
   public friendlyUrl;
 
   /**
-  * Vérifie qu'on est en local
-  * @return  vrai si on est sur l'env localhost, false sinon
-  */
+   * Vérifie qu'on est en local
+   * @return  vrai si on est sur l'env localhost, false sinon
+   */
   isLocalhost(): boolean {
     return this.env === 'localhost';
   }
