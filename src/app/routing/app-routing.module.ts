@@ -97,9 +97,6 @@ import {
     PageNotFoundComponent
 } from '../shared/components/page-not-found/page-not-found.component';
 import { TabNavComponent } from '../shared/components/tab-nav/tab-nav.component';
-import {
-    VisitEdossierComponent
-} from '../shared/components/visited-edossier/visited-edossier.component';
 import { AdminGuard } from './guards/admin.guard';
 import { CanDeactivateGuard } from './guards/form-changes.guard';
 import { HomeGuard } from './guards/home.guard';
@@ -142,7 +139,7 @@ const routes: Routes = [
         ]
       },
       {
-        path: 'visit', component: VisitEdossierComponent, children: [
+        path: 'visit', children: [
           {
             path: ':matricule', canActivate: [VisitEdossierGuard], children: [
               { path: 'statutory-certificate', component: StatutoryCertificatePage },
