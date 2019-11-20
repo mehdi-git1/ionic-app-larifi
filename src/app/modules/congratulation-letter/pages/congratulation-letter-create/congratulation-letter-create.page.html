@@ -4,7 +4,7 @@
         <page-header [showSettingsIcon]="true" [pnc]="pnc">
             <ng-container *ngIf="pnc">
                 <span *ngIf="creationMode; else updateTitle">{{ 'CONGRATULATION_LETTER_CREATE.TITLE_CREATE' | isMyPage: pnc | translate }}</span>
-                <ng-template #updateTitle>{{ 'CONGRATULATION_LETTER_CREATE.TITLE_UPDATE' | isMyPage: pnc | translate }}
+                <ng-template #updateTitle>{{ 'CONGRATULATION_LETTER_CREATE.TITLE_UPDATE' | translate }}
                 </ng-template>
             </ng-container>
         </page-header>
