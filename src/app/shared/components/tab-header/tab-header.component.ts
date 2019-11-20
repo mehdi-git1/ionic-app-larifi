@@ -1,6 +1,5 @@
 import { AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
-import { Events } from '@ionic/angular';
+import { Events, NavController } from '@ionic/angular';
 
 import { TabHeaderModeEnum } from '../../../core/enums/tab-header-mode.enum';
 import { TabHeaderEnum } from '../../../core/enums/tab-header.enum';
@@ -26,7 +25,7 @@ export class TabHeaderComponent implements OnInit, AfterViewInit {
 
   constructor(
     private events: Events,
-    private router: Router,
+    private navCtrl: NavController,
     private tabHeaderService: TabHeaderService,
     private sessionService: SessionService
   ) {
@@ -60,12 +59,12 @@ export class TabHeaderComponent implements OnInit, AfterViewInit {
   openTab(tab: any) {
     if (this.mode === TabHeaderModeEnum.EDOSSIER) {
       if (this.sessionService.visitedPnc) {
-        this.router.navigate(['tabs', 'visit', this.sessionService.visitedPnc.matricule, tab.route]);
+        this.navCtrl.navigateRoot(['tabs', 'visit', this.sessionService.visitedPnc.matricule, tab.route]);
       } else {
-        this.router.navigate([tab.route]);
+        this.navCtrl.navigateRoot([tab.route]);
       }
     } else {
-      this.router.navigate([tab.route]);
+      this.navCtrl.navigateRoot([tab.route]);
     }
   }
 
@@ -83,9 +82,9 @@ export class TabHeaderComponent implements OnInit, AfterViewInit {
    */
   goToHome() {
     if (this.sessionService.getActiveUser().isManager) {
-      this.router.navigate(['tabs', 'home']);
+      this.navCtrl.navigateRoot(['tabs', 'home']);
     } else {
-      this.router.navigate(['development-program']);
+      this.navCtrl.navigateRoot(['development-program']);
     }
   }
 }
