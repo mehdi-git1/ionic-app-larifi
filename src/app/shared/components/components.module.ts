@@ -49,7 +49,6 @@ import { TabHeaderComponent } from './tab-header/tab-header.component';
 import { TabNavComponent } from './tab-nav/tab-nav.component';
 import { TextEditorComponent } from './text-editor/text-editor.component';
 import { UserMessageAlertComponent } from './user-message-alert/user-message-alert.component';
-import { VisitEdossierComponent } from './visited-edossier/visited-edossier.component';
 import { WorkRateCircleComponent } from './work-rate-circle/work-rate-circle.component';
 
 @NgModule({
@@ -97,7 +96,6 @@ import { WorkRateCircleComponent } from './work-rate-circle/work-rate-circle.com
         EdospncDatetimeComponent,
         PageNotFoundComponent,
         BootstrapComponent,
-        VisitEdossierComponent,
         ColumnSorterComponent,
         AlertDialogComponent
     ],
@@ -134,7 +132,6 @@ import { WorkRateCircleComponent } from './work-rate-circle/work-rate-circle.com
         ProgressBarComponent,
         EdospncDatetimeComponent,
         BootstrapComponent,
-        VisitEdossierComponent,
         ColumnSorterComponent,
         AlertDialogComponent
     ],
