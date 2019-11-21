@@ -101,6 +101,7 @@ import { AdminGuard } from './guards/admin.guard';
 import { CanDeactivateGuard } from './guards/form-changes.guard';
 import { HomeGuard } from './guards/home.guard';
 import { RealAdminGuard } from './guards/real-admin.guard';
+import { VisitEdossierRedirectionGuard } from './guards/visit-edossier-redirection.guard';
 import { VisitEdossierGuard } from './guards/visit-edossier.guard';
 
 const routes: Routes = [
@@ -140,6 +141,7 @@ const routes: Routes = [
       },
       {
         path: 'visit', children: [
+          { path: '', component: BootstrapComponent, canActivate: [VisitEdossierRedirectionGuard] },
           {
             path: ':matricule', canActivate: [VisitEdossierGuard], children: [
               { path: 'statutory-certificate', component: StatutoryCertificatePage },
@@ -344,7 +346,8 @@ const routes: Routes = [
     AdminGuard,
     RealAdminGuard,
     CanDeactivateGuard,
-    VisitEdossierGuard
+    VisitEdossierGuard,
+    VisitEdossierRedirectionGuard
   ],
   exports: [RouterModule]
 })
