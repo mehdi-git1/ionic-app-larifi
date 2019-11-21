@@ -2,6 +2,10 @@
     height: 100%;
 }
 
+ion-label {
+    --color: var(--ion-color-grey50) !important;
+}
+
 form {
     display: flex;
     flex-direction: column;

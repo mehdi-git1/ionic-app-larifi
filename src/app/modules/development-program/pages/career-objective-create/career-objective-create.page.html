@@ -31,7 +31,7 @@
                                 <ion-col size="12">
                                     <!-- Titre -->
                                     <ion-item>
-                                        <ion-label position="floating" class="required">
+                                        <ion-label position="floating" class="input-label required">
                                             {{ 'CAREER_OBJECTIVE_CREATE.FORM.TITLE' | translate }}</ion-label>
                                         <ion-input type="text" [(ngModel)]="careerObjective.title" formControlName="titleControl" [readonly]="readOnlyByUserConnected()" [ngClass]="getCssClassForReadOnlyIfNeeded()" autocorrect="on"></ion-input>
                                     </ion-item>
@@ -41,7 +41,7 @@
                                 <ion-col size="12">
                                     <!-- Contexte -->
                                     <ion-item>
-                                        <ion-label position="floating">
+                                        <ion-label class="input-label" position="floating">
                                             {{ 'CAREER_OBJECTIVE_CREATE.FORM.CONTEXT' | translate }}
                                         </ion-label>
                                         <ion-textarea [(ngModel)]="careerObjective.context" formControlName="contextControl" name="context" [readonly]="readOnlyByUserConnected()" [ngClass]="getCssClassForReadOnlyIfNeeded()" autocorrect="on">
@@ -65,7 +65,7 @@
                                 <ion-col size="6">
                                     <!-- Commentaire cadre -->
                                     <ion-item>
-                                        <ion-label position="floating">
+                                        <ion-label class="input-label" position="floating">
                                             {{ 'CAREER_OBJECTIVE_CREATE.FORM.MANAGER_COMMENT' | translate }}
                                         </ion-label>
                                         <ion-textarea [(ngModel)]="careerObjective.managerComment" formControlName="managerCommentControl" name="managerComment" [readonly]="readOnlyByUserConnected()" [ngClass]="getCssClassForReadOnlyIfNeeded()" autocorrect="on">
@@ -75,7 +75,7 @@
                                 <ion-col size="6">
                                     <!-- Commentaire PNC -->
                                     <ion-item>
-                                        <ion-label position="floating">
+                                        <ion-label class="input-label" position="floating">
                                             {{ 'CAREER_OBJECTIVE_CREATE.FORM.PNC_COMMENT' | translate }}
                                         </ion-label>
                                         <ion-textarea [(ngModel)]="careerObjective.pncComment" formControlName="pncCommentControl" name="pncComment" autocorrect="on">

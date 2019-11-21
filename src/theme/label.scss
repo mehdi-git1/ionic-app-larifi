@@ -2,6 +2,10 @@ label {
     color: var(--ion-color-grey50);
 }
 
+ion-label.input-label {
+    --color: var(--ion-color-grey50) !important;
+}
+
 .required::after {
     content: "*";
     padding-left: 5px;
