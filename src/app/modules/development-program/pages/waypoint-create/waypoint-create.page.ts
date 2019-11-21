@@ -1,8 +1,9 @@
 import * as _ from 'lodash';
+import { FormCanDeactivate } from 'src/app/routing/guards/form-changes.guard';
 
 import { Location } from '@angular/common';
-import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { AlertController, LoadingController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
@@ -37,7 +38,7 @@ import { Utils } from '../../../../shared/utils/utils';
     templateUrl: 'waypoint-create.page.html',
     styleUrls: ['./waypoint-create.page.scss']
 })
-export class WaypointCreatePage {
+export class WaypointCreatePage extends FormCanDeactivate {
 
     creationForm: FormGroup;
     careerObjectiveId: number;
@@ -51,6 +52,8 @@ export class WaypointCreatePage {
 
     // Permet d'exposer l'enum au template
     WaypointStatus = WaypointStatusEnum;
+
+    @ViewChild('form', { static: false }) form: NgForm;
 
     constructor(
         public securityService: SecurityService,
@@ -70,7 +73,7 @@ export class WaypointCreatePage {
         private offlineWaypointService: OfflineWaypointService,
         private pncService: PncService,
         private cancelChangeService: CancelChangesService) {
-
+        super();
         this.requiredOnEncounterDay = false;
 
         this.initForm();

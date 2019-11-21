@@ -6,7 +6,8 @@
 
 <ion-content>
     <div class="page-container">
-        <form class="row justify-content-center form-auth" [formGroup]="loginForm" (ngSubmit)="sendAuthent()">
+        <form #form="ngForm" class="row justify-content-center form-auth" [formGroup]="loginForm"
+            (ngSubmit)="sendAuthent()">
             <ion-item>
                 <ion-label position="floating">{{ 'AUTHENT.LOGIN' | translate }}</ion-label>
                 <ion-input formControlName="login" type="text"></ion-input>

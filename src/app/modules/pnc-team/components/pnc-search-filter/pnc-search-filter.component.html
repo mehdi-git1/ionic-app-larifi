@@ -1,4 +1,4 @@
-<form *ngIf="searchForm" novalidate [formGroup]="searchForm">
+<form #form="ngForm" *ngIf="searchForm" novalidate [formGroup]="searchForm">
     <div class="pnc-search elevation-2">
         <div class="header clickable" (click)="toggleFilter()" [ngClass]="{'opened' : showFilter}">
             <h3>{{ 'PNC_SEARCH.CRITERIA.FILTERS' | translate }}</h3>

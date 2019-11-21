@@ -4,7 +4,7 @@ import { pairwise } from 'rxjs/operators';
 import { Subject } from 'rxjs/Subject';
 
 import { DatePipe, Location } from '@angular/common';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { AlertController } from '@ionic/angular';
@@ -35,7 +35,7 @@ import { Utils } from '../../../../shared/utils/utils';
     templateUrl: 'congratulation-letter-create.page.html',
     styleUrls: ['./congratulation-letter-create.page.scss']
 })
-export class CongratulationLetterCreatePage extends FormCanDeactivate implements OnInit {
+export class CongratulationLetterCreatePage extends FormCanDeactivate {
 
     pnc: PncModel;
     creationMode = true;
@@ -149,7 +149,7 @@ export class CongratulationLetterCreatePage extends FormCanDeactivate implements
             flightNumberControl: ['', Validators.compose([Validators.minLength(3), Validators.maxLength(5)])],
             letterTypeControl: ['', Validators.required],
             redactorTypeControl: ['', Validators.required],
-            verbatimControl: [''],
+            verbatimControl: ['A'],
             redactorAutoCompleteControl: ['']
         });
     }

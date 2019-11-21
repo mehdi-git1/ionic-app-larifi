@@ -155,7 +155,7 @@ export class CareerObjectiveCreatePage extends FormCanDeactivate {
      */
     initForm() {
         this.creationForm = this.formBuilder.group({
-            initiatorControl: [this.careerObjective ? this.careerObjective.initiator : '', Validators.required],
+            initiatorControl: [this.careerObjective ? this.careerObjective.initiator : 'MANAGER', Validators.required],
             titleControl: ['', Validators.compose([Validators.maxLength(255), Validators.required])],
             contextControl: ['', Validators.maxLength(4000)],
             actionPlanControl: ['', Validators.maxLength(5000)],
