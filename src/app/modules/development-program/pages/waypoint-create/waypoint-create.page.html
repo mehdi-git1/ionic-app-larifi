@@ -23,7 +23,7 @@
                         <ion-col size="12">
                             <!-- Contexte -->
                             <ion-item>
-                                <ion-label position="floating" class="required">
+                                <ion-label position="floating" class="input-label required">
                                     {{ 'WAYPOINT_CREATE.FORM.CONTEXT' | translate }}
                                 </ion-label>
                                 <ion-textarea [(ngModel)]="waypoint.context" formControlName="contextControl"
@@ -38,18 +38,22 @@
                         <ion-col size="12">
                             <!-- Action réalisée -->
                             <ion-item>
-                                <ion-label position="floating"
+                                <<<<<<< HEAD <ion-label position="floating"
                                     [ngClass]="{'required' : !isDraft() || requiredOnEncounterDay }">
-                                    {{ 'WAYPOINT_CREATE.FORM.ACTION_PERFORMED' | translate }}
-                                    <span
-                                        *ngIf="requiredOnEncounterDay">{{ 'WAYPOINT_CREATE.FORM.REQUIRED_ON_ENCOUNTER_DAY' | translate }}</span>
-                                </ion-label>
-                                <ion-textarea [(ngModel)]="waypoint.actionPerformed"
-                                    formControlName="actionPerformedControl" name="actionPerformed"
-                                    [readonly]="readOnlyByUserConnected()"
-                                    [ngClass]="{ 'ion-textarea-read-only' : readOnlyByUserConnected() }"
-                                    autocorrect="on">
-                                </ion-textarea>
+                                    =======
+                                    <ion-label position="floating" class="input-label"
+                                        [ngClass]="{'required' : !isDraft() || requiredOnEncounterDay }">
+                                        >>>>>>> e4764b9c4edb8c1ddb797266d02452faeecb7f99
+                                        {{ 'WAYPOINT_CREATE.FORM.ACTION_PERFORMED' | translate }}
+                                        <span
+                                            *ngIf="requiredOnEncounterDay">{{ 'WAYPOINT_CREATE.FORM.REQUIRED_ON_ENCOUNTER_DAY' | translate }}</span>
+                                    </ion-label>
+                                    <ion-textarea [(ngModel)]="waypoint.actionPerformed"
+                                        formControlName="actionPerformedControl" name="actionPerformed"
+                                        [readonly]="readOnlyByUserConnected()"
+                                        [ngClass]="{ 'ion-textarea-read-only' : readOnlyByUserConnected() }"
+                                        autocorrect="on">
+                                    </ion-textarea>
                             </ion-item>
                         </ion-col>
                     </ion-row>
@@ -57,7 +61,8 @@
                         <ion-col size="6">
                             <!-- Commentaire cadre -->
                             <ion-item>
-                                <ion-label position="floating">{{ 'WAYPOINT_CREATE.FORM.MANAGER_COMMENT' | translate }}
+                                <ion-label class="input-label" position="floating">
+                                    {{ 'WAYPOINT_CREATE.FORM.MANAGER_COMMENT' | translate }}
                                 </ion-label>
                                 <ion-textarea [(ngModel)]="waypoint.managerComment"
                                     formControlName="managerCommentControl" name="managerComment"
@@ -70,7 +75,8 @@
                         <ion-col size="6">
                             <!-- Commentaire PNC -->
                             <ion-item>
-                                <ion-label position="floating">{{ 'WAYPOINT_CREATE.FORM.PNC_COMMENT' | translate }}
+                                <ion-label class="input-label" position="floating">
+                                    {{ 'WAYPOINT_CREATE.FORM.PNC_COMMENT' | translate }}
                                 </ion-label>
                                 <ion-textarea [(ngModel)]="waypoint.pncComment" formControlName="pncCommentControl"
                                     name="pncComment" autocorrect="on"></ion-textarea>
@@ -80,7 +86,7 @@
                     <ion-row>
                         <ion-col size="6" class="padding-20">
                             <!-- Date de rencontre -->
-                            <ion-label position="stacked"
+                            <ion-label position="stacked" class="input-label"
                                 [ngClass]="{'required' : !isDraft() || requiredOnEncounterDay }">
                                 {{ 'WAYPOINT_CREATE.FORM.ENCOUNTER_DATE' | translate }}
                                 <span
