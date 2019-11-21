@@ -20,7 +20,6 @@ import {
 import { SessionService } from '../../../../core/services/session/session.service';
 import { ToastService } from '../../../../core/services/toast/toast.service';
 import { FormCanDeactivate } from '../../../../routing/guards/form-changes.guard';
-import { Utils } from '../../../../shared/utils/utils';
 
 @Component({
     selector: 'hr-document',
@@ -42,6 +41,8 @@ export class HrDocumentComponent extends FormCanDeactivate implements OnInit {
 
     titleMaxLength = 100;
 
+    customPopoverOptions = { cssClass: 'hr-document-popover-select' };
+
     HrDocumentModeEnum = HrDocumentModeEnum;
     TextEditorModeEnum = TextEditorModeEnum;
 
@@ -60,8 +61,8 @@ export class HrDocumentComponent extends FormCanDeactivate implements OnInit {
         private formBuilder: FormBuilder,
         private pncService: PncService,
         private activatedRoute: ActivatedRoute) {
-            super();
-            this.initForm();
+        super();
+        this.initForm();
     }
 
     ngOnInit() {
@@ -155,10 +156,10 @@ export class HrDocumentComponent extends FormCanDeactivate implements OnInit {
     /**
      * Annule la création/edition du document RH et route vers la page d'acceuil des documents RH du dossier en cours
      */
-    cancel() {  
+    cancel() {
         if (this.hrDocument && this.hrDocument.pnc && this.hrDocument.pnc.matricule && this.sessionService.isActiveUserMatricule(this.hrDocument.pnc.matricule)) {
             this.router.navigate(['tabs', 'hr-document']);
-        } else{
+        } else {
             this.router.navigate(['tabs', 'visit', this.sessionService.visitedPnc.matricule, 'hr-document']);
         }
     }

@@ -60,6 +60,8 @@ export class LogbookEventComponent extends FormCanDeactivate implements OnInit {
 
     eventDateTimeOptions: any;
 
+    customPopoverOptions = { cssClass: 'logbook-event-popover-select' };
+
     constructor(
         private securityService: SecurityService,
         private translateService: TranslateService,
@@ -73,8 +75,8 @@ export class LogbookEventComponent extends FormCanDeactivate implements OnInit {
         private alertCtrl: AlertController,
         private formBuilder: FormBuilder,
         private cancelChangeService: CancelChangesService) {
-            super();
-            this.initForm();
+        super();
+        this.initForm();
     }
 
     ngOnInit() {
@@ -161,7 +163,7 @@ export class LogbookEventComponent extends FormCanDeactivate implements OnInit {
             });
         } else {
             this.quitEditionMode();
-        }     
+        }
     }
 
     quitEditionMode() {
