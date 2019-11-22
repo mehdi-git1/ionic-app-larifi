@@ -56,6 +56,8 @@ export class LogbookEventComponent implements OnInit {
 
     eventDateTimeOptions: any;
 
+    customPopoverOptions = { cssClass: 'logbook-event-popover-select' };
+
     constructor(
         private securityService: SecurityService,
         private translateService: TranslateService,

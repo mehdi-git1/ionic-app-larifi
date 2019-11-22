@@ -40,6 +40,8 @@ export class HrDocumentComponent extends FormCanDeactivate implements OnInit {
 
     titleMaxLength = 100;
 
+    customPopoverOptions = { cssClass: 'hr-document-popover-select' };
+
     HrDocumentModeEnum = HrDocumentModeEnum;
     TextEditorModeEnum = TextEditorModeEnum;
 
@@ -58,12 +60,11 @@ export class HrDocumentComponent extends FormCanDeactivate implements OnInit {
         private pncService: PncService,
         private activatedRoute: ActivatedRoute) {
         super();
-
+		this.initForm();
     }
 
     ngOnInit() {
         this.initPage();
-        this.initForm();
     }
 
     /**
@@ -89,9 +90,8 @@ export class HrDocumentComponent extends FormCanDeactivate implements OnInit {
 
         this.hrDocumentForm = this.formBuilder.group({
             category: ['', Validators.required],
-            content: '',
-            title: ['', [Validators.maxLength(100), Validators.required]]
-
+            title: ['', [Validators.maxLength(100), Validators.required]],
+			content: ''
         });
     }
 

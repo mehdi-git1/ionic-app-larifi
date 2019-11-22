@@ -33,7 +33,8 @@
                         <ion-label class="required" position="stacked">{{ 'LOGBOOK.EDIT.CATEGORY' | translate }}
                         </ion-label>
                         <ion-select interface="popover" [compareWith]="compareCategories"
-                            [(ngModel)]="logbookEvent.category" formControlName="category">
+                            [interfaceOptions]="customPopoverOptions" [(ngModel)]="logbookEvent.category"
+                            formControlName="category">
                             <ion-select-option *ngFor="let category of logbookEventCategories" [value]="category">
                                 {{category?.label}}</ion-select-option>
                         </ion-select>

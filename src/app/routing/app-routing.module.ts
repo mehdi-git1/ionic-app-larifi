@@ -97,13 +97,11 @@ import {
     PageNotFoundComponent
 } from '../shared/components/page-not-found/page-not-found.component';
 import { TabNavComponent } from '../shared/components/tab-nav/tab-nav.component';
-import {
-    VisitEdossierComponent
-} from '../shared/components/visited-edossier/visited-edossier.component';
 import { AdminGuard } from './guards/admin.guard';
 import { CanDeactivateGuard } from './guards/form-changes.guard';
 import { HomeGuard } from './guards/home.guard';
 import { RealAdminGuard } from './guards/real-admin.guard';
+import { VisitEdossierRedirectionGuard } from './guards/visit-edossier-redirection.guard';
 import { VisitEdossierGuard } from './guards/visit-edossier.guard';
 
 const routes: Routes = [
@@ -142,7 +140,8 @@ const routes: Routes = [
         ]
       },
       {
-        path: 'visit', component: VisitEdossierComponent, children: [
+        path: 'visit', children: [
+          { path: '', component: BootstrapComponent, canActivate: [VisitEdossierRedirectionGuard] },
           {
             path: ':matricule', canActivate: [VisitEdossierGuard], children: [
               { path: 'statutory-certificate', component: StatutoryCertificatePage },
@@ -347,7 +346,8 @@ const routes: Routes = [
     AdminGuard,
     RealAdminGuard,
     CanDeactivateGuard,
-    VisitEdossierGuard
+    VisitEdossierGuard,
+    VisitEdossierRedirectionGuard
   ],
   exports: [RouterModule]
 })

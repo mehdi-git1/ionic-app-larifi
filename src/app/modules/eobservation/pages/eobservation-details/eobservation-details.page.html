@@ -15,7 +15,7 @@
         <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
         <ng-template #pageBlock>
             <div class="selectable" #eObservationInformations>
-                <edospnc-expandable-block hideToggle="true" mini="true"  title=" {{ 'EOBSERVATION.DETAIL.SPECIALITY' | translate }}">
+                <edospnc-expandable-block hideToggle="true" mini="true" title=" {{ 'EOBSERVATION.DETAIL.SPECIALITY' | translate }}">
                     <div class="speciality-line">
                         <span class="column-20">
                             <span class="label">{{ 'EOBSERVATION.DETAIL.SPECIALITY' | translate }}</span>
@@ -30,9 +30,9 @@
                                 <span class="assignment" *ngIf="eObservation?.pncGinq">{{ 'PNC_HOME.INFO_PANEL.GINQ' | translate }} :
                                     {{eObservation?.pncGinq}}
                                 </span>
-                                </span>
+                            </span>
                         </span>
-                    </div>                   
+                    </div>
                 </edospnc-expandable-block>
                 <eobs-temporary-period [eObservation]="eObservation"></eobs-temporary-period>
 

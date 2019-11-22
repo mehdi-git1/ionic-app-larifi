@@ -126,15 +126,13 @@
                     <!-- Des évènements masqués volontairement -->
                     <ion-item lines="none">
                         <ion-label>{{ 'PNC_SEARCH.CRITERIA.HIDDEN_EVENTS' | translate }}</ion-label>
-                        <ion-checkbox slot="start" [(ngModel)]="defaultHiddenEvents"
-                            formControlName="hasHiddenEventsControl">
+                        <ion-checkbox slot="start" formControlName="hasHiddenEventsControl">
                         </ion-checkbox>
                     </ion-item>
                     <!-- Des évènements masqués par défaut-->
                     <ion-item lines="none">
                         <ion-label>{{ 'PNC_SEARCH.CRITERIA.DEFAULT_HIDDEN_EVENTS' | translate }}</ion-label>
-                        <ion-checkbox slot="start" [(ngModel)]="HiddenEvents"
-                            formControlName="hasDefaultHiddenEventsControl">
+                        <ion-checkbox slot="start" formControlName="hasDefaultHiddenEventsControl">
                         </ion-checkbox>
                     </ion-item>
                 </div>

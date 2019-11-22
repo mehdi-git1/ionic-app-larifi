@@ -47,8 +47,6 @@ export class CongratulationLetterCreatePage extends FormCanDeactivate implements
 
     displayPncSelection: boolean;
 
-    flightDateTimeOptions;
-
     autoCompleteInProgress = false;
     searchTerms = new Subject<string>();
     redactorSearchList: Observable<PncModel[]>;
@@ -81,14 +79,6 @@ export class CongratulationLetterCreatePage extends FormCanDeactivate implements
 
         this.handleAutocompleteSearch();
 
-        // Options du datepicker
-        this.flightDateTimeOptions = {
-            buttons: [{
-                text: this.translateService.instant('GLOBAL.DATEPICKER.CLEAR'),
-                handler: () => this.congratulationLetter.flight.theoricalDate = null
-            }]
-        };
-
     }
 
     ngOnInit() {
@@ -96,6 +86,7 @@ export class CongratulationLetterCreatePage extends FormCanDeactivate implements
         const matricule = this.pncService.getRequestedPncMatricule(this.activatedRoute);
         this.pncService.getPnc(matricule).then(pnc => {
             this.pnc = pnc;
+            this.congratulationLetter.concernedPncs.push(this.pnc);
         }, error => { });
 
         if (this.activatedRoute.snapshot.paramMap.get('congratulationLetterId')
@@ -133,7 +124,6 @@ export class CongratulationLetterCreatePage extends FormCanDeactivate implements
         congratulationLetter.flight = new CongratulationLetterFlightModel();
         congratulationLetter.flight.airline = this.AF;
         congratulationLetter.concernedPncs = new Array();
-        congratulationLetter.concernedPncs.push(this.pnc);
 
         return congratulationLetter;
     }

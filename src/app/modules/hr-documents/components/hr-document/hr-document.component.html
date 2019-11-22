@@ -6,8 +6,8 @@
                     <ion-label class="required" position="stacked">
                         {{ 'HR_DOCUMENT.EDIT.CATEGORY' | translate }}
                     </ion-label>
-                    <ion-select interface="popover" [compareWith]="compareCategories" [(ngModel)]="hrDocument.category"
-                        formControlName="category">
+                    <ion-select interface="popover" [interfaceOptions]="customPopoverOptions"
+                        [compareWith]="compareCategories" [(ngModel)]="hrDocument.category" formControlName="category">
                         <ion-select-option *ngFor="let category of hrDocumentCategories" [value]="category">
                             {{category?.label}}</ion-select-option>
                     </ion-select>

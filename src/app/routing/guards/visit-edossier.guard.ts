@@ -1,5 +1,4 @@
 import { Observable } from 'rxjs';
-import { PncService } from 'src/app/core/services/pnc/pnc.service';
 
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot, UrlTree } from '@angular/router';
@@ -11,7 +10,6 @@ import { TabNavService } from '../../core/services/tab-nav/tab-nav.service';
 export class VisitEdossierGuard implements CanActivate {
     constructor(
         private sessionService: SessionService,
-        private pncService: PncService,
         private tabNavService: TabNavService
     ) { }
 

@@ -114,7 +114,7 @@ export class TabNavService {
             } else {
                 this.loadVisitedPnc(pnc.matricule).then(() => {
                     if (pnc.manager) {
-                        this.router.navigate(['tabs', 'visit', this.sessionService.visitedPnc.matricule, 'professional-level']);
+                        this.router.navigate(['tabs', 'visit', this.sessionService.visitedPnc.matricule, 'statutory-certificate']);
                     } else {
                         this.router.navigate(['tabs', 'visit', this.sessionService.visitedPnc.matricule, 'development-program']);
                     }
