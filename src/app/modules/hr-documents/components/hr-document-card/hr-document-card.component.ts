@@ -1,3 +1,6 @@
+import { PncService } from 'src/app/core/services/pnc/pnc.service';
+import { SessionService } from 'src/app/core/services/session/session.service';
+
 import { DatePipe } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -33,7 +36,9 @@ export class HrDocumentCardComponent {
         private onlineHrDocumentService: OnlineHrDocumentService,
         private toastService: ToastService,
         private navCtrl: NavController,
-        private datePipe: DatePipe) {
+        private datePipe: DatePipe,
+        private sessionService: SessionService,
+        private pncService: PncService) {
     }
 
     canEditDocument() {
@@ -97,6 +102,21 @@ export class HrDocumentCardComponent {
      */
     isManager(): boolean {
         return this.securityService.isManager();
+    }
+
+    /**
+     * Vérifie si le PNC est le redacteur, l'instructeur referent ou le RDS
+     * @return vrai si le PNC est manager, faux sinon
+     */
+    canDelete(): boolean {
+        this.pncService.getPnc(this.hrDocument.pnc.matricule).then(concernedPnc => {
+            return this.hrDocument.redactor.matricule === this.sessionService.getActiveUser().matricule
+                || concernedPnc.pncRds.matricule === this.sessionService.getActiveUser().matricule
+                || concernedPnc.pncInstructor.matricule === this.sessionService.getActiveUser().matricule;
+        }, error => {
+            return false;
+        });
+        return false;
     }
 
     /**
