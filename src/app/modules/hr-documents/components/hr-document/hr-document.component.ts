@@ -1,11 +1,10 @@
 import * as _ from 'lodash';
 import { PncService } from 'src/app/core/services/pnc/pnc.service';
 
-import { Location } from '@angular/common';
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AlertController, LoadingController } from '@ionic/angular';
+import { LoadingController, NavController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 
 import { HrDocumentModeEnum } from '../../../../core/enums/hr-document/hr-document-mode.enum';
@@ -49,7 +48,6 @@ export class HrDocumentComponent extends FormCanDeactivate implements OnInit {
     hrDocumentForm: FormGroup;
 
     constructor(
-        private location: Location,
         private router: Router,
         private translateService: TranslateService,
         private sessionService: SessionService,
@@ -57,12 +55,12 @@ export class HrDocumentComponent extends FormCanDeactivate implements OnInit {
         private toastService: ToastService,
         private loadingCtrl: LoadingController,
         private connectivityService: ConnectivityService,
-        private alertCtrl: AlertController,
+        private navCtrl: NavController,
         private formBuilder: FormBuilder,
         private pncService: PncService,
         private activatedRoute: ActivatedRoute) {
         super();
-        this.initForm();
+		this.initForm();
     }
 
     ngOnInit() {
@@ -93,7 +91,7 @@ export class HrDocumentComponent extends FormCanDeactivate implements OnInit {
         this.hrDocumentForm = this.formBuilder.group({
             category: ['', Validators.required],
             title: ['', [Validators.maxLength(100), Validators.required]],
-            content: ['', Validators.maxLength(4000)],
+			content: ''
         });
     }
 
@@ -114,7 +112,7 @@ export class HrDocumentComponent extends FormCanDeactivate implements OnInit {
      * Annule la création / modification de l'évènement en appuyant sur le bouton annuler.
      */
     cancelCreation() {
-        this.location.back();
+        this.navCtrl.pop();
     }
 
     /**
@@ -134,7 +132,8 @@ export class HrDocumentComponent extends FormCanDeactivate implements OnInit {
                         } else if (this.mode === HrDocumentModeEnum.EDITION) {
                             this.toastService.success(this.translateService.instant('HR_DOCUMENT.EDIT.HR_DOCUMENT_EDITED'));
                         }
-                        this.location.back();
+                        this.hrDocumentForm.markAsPristine();
+                        this.navCtrl.pop();
                         loading.dismiss();
                     }, error => {
                         loading.dismiss();

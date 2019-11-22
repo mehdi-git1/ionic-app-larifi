@@ -860,9 +860,10 @@
             "HR_DOCUMENT_SAVED": "Document enregistré",
             "HR_DOCUMENT_EDITED": "Document mis à jour"
         },
-        "DETAIL": {
+        "DETAILS": {
             "PAGE_TITLE": "Détails d'un document",
-            "CREATED_BY_THE": "Créé par {{ lastName }} {{ firstName }} le {{ creationDate }}"
+            "CREATED_BY_THE": "Créé par {{ lastName }} {{ firstName }} le {{ creationDate }}",
+            "EDITED_BY": "Document modifié par {{lastName}} {{firstName}} le {{date}}"
         },
         "DELETE": {
             "HR_DOCUMENT_DELETED": "Document supprimé"

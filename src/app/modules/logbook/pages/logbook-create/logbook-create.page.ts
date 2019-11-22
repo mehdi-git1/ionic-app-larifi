@@ -27,10 +27,10 @@ export class LogbookCreatePage {
 
     constructor(
         private events: Events) {
-        this.events.subscribe('LinkedLogbookEvent:saved', () => {
+        this.events.subscribe('LogbookEvent:saved', () => {
             this.logbookEventSaved = true;
         });
-        this.events.subscribe('LinkedLogbookEvent:canceled', () => {
+        this.events.subscribe('LogbookEvent:canceled', () => {
             this.logbookEventCanceled = true;
         });
     }
@@ -43,7 +43,7 @@ export class LogbookCreatePage {
         if (this.logbookEventSaved || this.logbookEventCanceled) {
             return true;
         }
-        return false;
+        return !this.logbookEventCreate.formHasBeenModified();
     }
 
 }

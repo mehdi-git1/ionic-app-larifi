@@ -1,7 +1,10 @@
-import { Location } from '@angular/common';
+import { PncService } from 'src/app/core/services/pnc/pnc.service';
+import { SessionService } from 'src/app/core/services/session/session.service';
+
+import { DatePipe } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AlertController, LoadingController } from '@ionic/angular';
+import { AlertController, LoadingController, NavController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 
 import { TextEditorModeEnum } from '../../../../core/enums/text-editor-mode.enum';
@@ -32,7 +35,10 @@ export class HrDocumentCardComponent {
         private loadingCtrl: LoadingController,
         private onlineHrDocumentService: OnlineHrDocumentService,
         private toastService: ToastService,
-        private location: Location) {
+        private navCtrl: NavController,
+        private datePipe: DatePipe,
+        private sessionService: SessionService,
+        private pncService: PncService) {
     }
 
     canEditDocument() {
@@ -81,7 +87,7 @@ export class HrDocumentCardComponent {
                 this.onlineHrDocumentService.createOrUpdate(this.hrDocument)
                     .then(savedHrDocument => {
                         this.toastService.success(this.translateService.instant('HR_DOCUMENT.DELETE.HR_DOCUMENT_DELETED'));
-                        this.location.back();
+                        this.navCtrl.pop();
                         loading.dismiss();
                     }, error => {
                         loading.dismiss();
@@ -99,9 +105,39 @@ export class HrDocumentCardComponent {
     }
 
     /**
+     * Vérifie si le PNC est le redacteur, l'instructeur referent ou le RDS
+     * @return vrai si le PNC est manager, faux sinon
+     */
+    canDelete(): boolean {
+        this.pncService.getPnc(this.hrDocument.pnc.matricule).then(concernedPnc => {
+            return this.hrDocument.redactor.matricule === this.sessionService.getActiveUser().matricule
+                || concernedPnc.pncRds.matricule === this.sessionService.getActiveUser().matricule
+                || concernedPnc.pncInstructor.matricule === this.sessionService.getActiveUser().matricule;
+        }, error => {
+            return false;
+        });
+        return false;
+    }
+
+    /**
      * Dirige vers la page de modification d'un document RH
      */
     editHrDocument() {
         this.router.navigate(['../..', 'create', this.hrDocument.techId], { relativeTo: this.activatedRoute });
+    }
+
+    /**
+     * Retourne la date de dernière modification, formatée pour l'affichage
+     * @return la date de dernière modification au format dd/mm/
+     */
+    getLastUpdateDate(): string {
+        return this.datePipe.transform(this.hrDocument.lastUpdateDate, 'dd/MM/yyyy HH:mm');
+    }
+
+    /**
+     * Affiche le message d'information de la dernière modification faite sur le document
+     */
+    showInformationMessage() {
+        return this.hrDocument.lastUpdateAuthor && this.hrDocument.lastUpdateDate !== this.hrDocument.creationDate;
     }
 }

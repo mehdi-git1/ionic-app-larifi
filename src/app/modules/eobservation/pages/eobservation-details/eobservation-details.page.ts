@@ -1,10 +1,10 @@
 import * as _ from 'lodash';
 
-import { DatePipe, Location } from '@angular/common';
+import { DatePipe } from '@angular/common';
 import { Component, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { AlertController, LoadingController } from '@ionic/angular';
+import { AlertController, LoadingController, NavController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 
 import { PermissionConstant } from '../../../../core/constants/permission.constant';
@@ -49,7 +49,7 @@ export class EobservationDetailsPage extends FormCanDeactivate {
   pdfFileName: string;
 
   constructor(
-    private location: Location,
+    private navCtrl: NavController,
     private activatedRoute: ActivatedRoute,
     private eObservationService: EObservationService,
     private sessionService: SessionService,
@@ -61,8 +61,8 @@ export class EobservationDetailsPage extends FormCanDeactivate {
     private connectivityService: ConnectivityService,
     private datePipe: DatePipe,
     private cancelChangesService: CancelChangesService) {
-      super();
-      this.initPage();
+    super();
+    this.initPage();
   }
 
   /**
@@ -198,7 +198,7 @@ export class EobservationDetailsPage extends FormCanDeactivate {
         this.eObservation = eObservation;
         this.originEObservation = _.cloneDeep(this.eObservation);
         this.toastService.success(this.translateService.instant('EOBSERVATION.MESSAGES.SUCCESS.PNC_COMMENT_SAVED'));
-        this.location.back();
+        this.navCtrl.pop();
       }, error => { }).then(() => {
         // Finally
         loading.dismiss();
@@ -222,7 +222,7 @@ export class EobservationDetailsPage extends FormCanDeactivate {
         this.editMode = false;
         if (this.eObservation.deleted) {
           this.toastService.success(this.translateService.instant('EOBSERVATION.MESSAGES.SUCCESS.DELETED'));
-          this.location.back();
+          this.navCtrl.pop();
         } else {
           this.toastService.success(this.translateService.instant('EOBSERVATION.MESSAGES.SUCCESS.UPDATED'));
         }

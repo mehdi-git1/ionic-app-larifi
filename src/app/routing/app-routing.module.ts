@@ -220,7 +220,7 @@ const routes: Routes = [
                 path: 'logbook', children: [
                   { path: '', component: LogbookPage },
                   { path: 'create', component: LogbookCreatePage, canDeactivate: [CanDeactivateGuard] },
-                  { path: 'detail/:groupId/:createLinkedEvent', component: LogbookEventDetailsPage }
+                  { path: 'detail/:groupId/:createLinkedEvent', component: LogbookEventDetailsPage, canDeactivate: [CanDeactivateGuard] }
                 ]
               },
             ]

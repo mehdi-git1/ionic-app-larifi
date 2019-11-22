@@ -1,9 +1,8 @@
 import * as _ from 'lodash';
 
-import { Location } from '@angular/common';
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
-import { AlertController, Events, LoadingController } from '@ionic/angular';
+import { Component, Input, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AlertController, Events, LoadingController, NavController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 
 import { LogbookEventModeEnum } from '../../../../core/enums/logbook-event/logbook-event-mode.enum';
@@ -22,7 +21,6 @@ import {
 import { SecurityService } from '../../../../core/services/security/security.service';
 import { SessionService } from '../../../../core/services/session/session.service';
 import { ToastService } from '../../../../core/services/toast/toast.service';
-import { FormCanDeactivate } from '../../../../routing/guards/form-changes.guard';
 import { DateTransform } from '../../../../shared/utils/date-transform';
 import { Utils } from '../../../../shared/utils/utils';
 
@@ -31,15 +29,13 @@ import { Utils } from '../../../../shared/utils/utils';
     templateUrl: 'logbook-event.component.html',
     styleUrls: ['./logbook-event.component.scss']
 })
-export class LogbookEventComponent extends FormCanDeactivate implements OnInit {
+export class LogbookEventComponent implements OnInit {
 
     @Input() logbookEvent: LogbookEventModel;
 
     @Input() mode: LogbookEventModeEnum;
 
     @Input() groupId: number;
-
-    @ViewChild('form', { static: false }) form: NgForm;
 
     editEvent = false;
     eventDateString: string;
@@ -67,7 +63,7 @@ export class LogbookEventComponent extends FormCanDeactivate implements OnInit {
         private translateService: TranslateService,
         private sessionService: SessionService,
         private onlineLogbookEventService: OnlineLogbookEventService,
-        private location: Location,
+        private navCtrl: NavController,
         private toastService: ToastService,
         private loadingCtrl: LoadingController,
         private dateTransformer: DateTransform,
@@ -75,7 +71,6 @@ export class LogbookEventComponent extends FormCanDeactivate implements OnInit {
         private alertCtrl: AlertController,
         private formBuilder: FormBuilder,
         private cancelChangeService: CancelChangesService) {
-        super();
         this.initForm();
     }
 
@@ -155,6 +150,7 @@ export class LogbookEventComponent extends FormCanDeactivate implements OnInit {
                 confirm => {
                     if (confirm) {
                         this.quitEditionMode();
+                        return true;
                     }
                 }
             ).catch(() => {
@@ -163,6 +159,7 @@ export class LogbookEventComponent extends FormCanDeactivate implements OnInit {
             });
         } else {
             this.quitEditionMode();
+            return true;
         }
     }
 
@@ -170,12 +167,12 @@ export class LogbookEventComponent extends FormCanDeactivate implements OnInit {
         this.logbookEvent = _.cloneDeep(this.originLogbookEvent);
         this.editEvent = false;
         if (this.cancelFromButton && this.mode === LogbookEventModeEnum.CREATION) {
-            this.location.back();
+            this.navCtrl.pop();
             this.cancelFromButton = false;
         } else if (this.cancelFromButton) {
             this.editEvent = false;
         }
-        this.events.publish('LinkedLogbookEvent:canceled');
+        this.events.publish('LogbookEvent:canceled');
     }
 
     /**
@@ -237,7 +234,7 @@ export class LogbookEventComponent extends FormCanDeactivate implements OnInit {
                         if (this.mode === LogbookEventModeEnum.CREATION || this.mode === LogbookEventModeEnum.LINKED_EVENT_CREATION) {
                             this.toastService.success(this.translateService.instant('LOGBOOK.EDIT.LOGBOOK_SAVED'));
                             if (this.mode === LogbookEventModeEnum.CREATION) {
-                                this.location.back();
+                                this.navCtrl.pop();
                             }
                         } else {
                             this.toastService.success(this.translateService.instant('LOGBOOK.EDIT.LOGBOOK_UPDATED'));

@@ -6,14 +6,16 @@
     background: var(--ion-color-white);
     border-top-left-radius: 5px !important;
     border-top-right-radius: 5px !important;
-    border: 1px solid var(--ion-color-grey50) !important;
+    border-style: 1px solid !important;
+    border-color: var(--ion-color-grey50) !important;
 }
 
 ::ng-deep quill-editor > .ql-container {
     background: var(--ion-color-white);
     border-bottom-left-radius: 5px !important;
     border-bottom-right-radius: 5px !important;
-    border: 1px solid var(--ion-color-grey50) !important;
+    border-style: 1px solid !important;
+    border-color: var(--ion-color-grey50) !important;
     box-sizing: border-box;
     min-height: 120px;
     margin: 0px;

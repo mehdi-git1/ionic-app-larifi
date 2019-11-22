@@ -4,50 +4,18 @@ $block-border-radius: 5px;
     margin-left: 24px;
     display: flex;
     width: 100%;
+
     .label {
         padding-right: 10px;
         color: var(--ion-color-blue55);
         font-weight: bold;
-        width:50%;
+        width: 50%;
     }
+
     .value {
         padding: 10px;
-        width:50%;
+        width: 50%;
         font-weight: normal;
-    }
-}
-
-.speciality-grid {
-    padding: 0px;
-    margin-bottom: 16px;
-    box-sizing: border-box;
-    box-shadow: 0 3px 1px -2px rgba(0, 0, 0, .2), 0 2px 2px 0 rgba(0, 0, 0, .14), 0 1px 5px 0 rgba(0, 0, 0, .12);
-    border-radius: $block-border-radius;
-    background: var(--ion-color-white);
-
-    .grid {
-        padding: initial;
-    }
-}
-
-.speciality-header {
-    height: 32px;
-    padding-right: 24px;
-    padding-left: 24px;
-    background: var(--ion-color-blue55);
-    color: var(--ion-color-white);
-    font-size: 18px !important;
-    border-radius: $block-border-radius;
-    display: flex;
-    align-items: center;
-}
-
-.speciality-label {
-    padding-left: 24px;
-    background: var(--ion-color-white);
-
-    .assignment {
-        padding-right: 15px;
     }
 }
 
