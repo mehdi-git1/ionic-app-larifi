@@ -1,4 +1,5 @@
 import * as _ from 'lodash';
+import { PncRoleEnum } from 'src/app/core/enums/pnc-role.enum';
 
 import { DatePipe } from '@angular/common';
 import { Component, ViewChild } from '@angular/core';
@@ -155,7 +156,8 @@ export class CareerObjectiveCreatePage extends FormCanDeactivate {
      */
     initForm() {
         this.creationForm = this.formBuilder.group({
-            initiatorControl: [this.careerObjective ? this.careerObjective.initiator : '', Validators.required],
+            initiatorControl: [this.careerObjective ? this.careerObjective.initiator
+                : this.sessionService.getActiveUser().isManager ? PncRoleEnum.MANAGER : PncRoleEnum.PNC, Validators.required],
             titleControl: ['', Validators.compose([Validators.maxLength(255), Validators.required])],
             contextControl: ['', Validators.maxLength(4000)],
             actionPlanControl: ['', Validators.maxLength(5000)],

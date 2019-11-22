@@ -17,7 +17,7 @@
     <div class="page-container">
         <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
         <ng-template #pageBlock>
-            <form novalidate [formGroup]="creationForm">
+            <form #form="ngForm" novalidate [formGroup]="creationForm">
                 <ion-grid>
                     <ion-row>
                         <ion-col size="12">
@@ -38,18 +38,18 @@
                         <ion-col size="12">
                             <!-- Action réalisée -->
                             <ion-item>
-                                    <ion-label position="floating" class="input-label"
-                                        [ngClass]="{'required' : !isDraft() || requiredOnEncounterDay }">
-                                        {{ 'WAYPOINT_CREATE.FORM.ACTION_PERFORMED' | translate }}
-                                        <span
-                                            *ngIf="requiredOnEncounterDay">{{ 'WAYPOINT_CREATE.FORM.REQUIRED_ON_ENCOUNTER_DAY' | translate }}</span>
-                                    </ion-label>
-                                    <ion-textarea [(ngModel)]="waypoint.actionPerformed"
-                                        formControlName="actionPerformedControl" name="actionPerformed"
-                                        [readonly]="readOnlyByUserConnected()"
-                                        [ngClass]="{ 'ion-textarea-read-only' : readOnlyByUserConnected() }"
-                                        autocorrect="on">
-                                    </ion-textarea>
+                                <ion-label position="floating" class="input-label"
+                                    [ngClass]="{'required' : !isDraft() || requiredOnEncounterDay }">
+                                    {{ 'WAYPOINT_CREATE.FORM.ACTION_PERFORMED' | translate }}
+                                    <span
+                                        *ngIf="requiredOnEncounterDay">{{ 'WAYPOINT_CREATE.FORM.REQUIRED_ON_ENCOUNTER_DAY' | translate }}</span>
+                                </ion-label>
+                                <ion-textarea [(ngModel)]="waypoint.actionPerformed"
+                                    formControlName="actionPerformedControl" name="actionPerformed"
+                                    [readonly]="readOnlyByUserConnected()"
+                                    [ngClass]="{ 'ion-textarea-read-only' : readOnlyByUserConnected() }"
+                                    autocorrect="on">
+                                </ion-textarea>
                             </ion-item>
                         </ion-col>
                     </ion-row>

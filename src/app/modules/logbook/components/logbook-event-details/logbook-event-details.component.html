@@ -97,7 +97,7 @@
             <div class="button-bar-container" *ngIf="isManager()">
                 <div class="small-width-devices  visibility-for-small-container"
                     *ngIf="logbookEvent.type == LogbookEventTypeEnum.CCO || logbookEvent.type == LogbookEventTypeEnum.ISCV ">
-                    <form [formGroup]="visibilityForm">
+                    <form #form="ngForm" [formGroup]="visibilityForm">
                         <ion-radio-group [(ngModel)]="visibilitySelected" formControlName="visibilityControl">
                             <ion-item *ngIf="getDisplayDate()" lines="none">
                                 <ion-radio value="{{EventCcoVisibilityEnum.WILL_BE_DISPLAYED_ON}}">
@@ -121,7 +121,7 @@
                 </div>
                 <div class="large-width-devices  visibility-for-large-container"
                     *ngIf="logbookEvent.type == LogbookEventTypeEnum.CCO || logbookEvent.type == LogbookEventTypeEnum.ISCV ">
-                    <form [formGroup]="visibilityForm">
+                    <form #form="ngForm" [formGroup]="visibilityForm">
                         <ion-radio-group [(ngModel)]="visibilitySelected" formControlName="visibilityControl">
                             <ion-item *ngIf="getDisplayDate()" lines="none">
                                 <ion-radio value="{{EventCcoVisibilityEnum.WILL_BE_DISPLAYED_ON}}"

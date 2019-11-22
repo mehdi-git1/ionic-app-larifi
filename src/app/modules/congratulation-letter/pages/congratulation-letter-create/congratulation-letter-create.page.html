@@ -3,7 +3,8 @@
         <ion-back-button color="white" slot="start"></ion-back-button>
         <page-header [showSettingsIcon]="true" [pnc]="pnc">
             <ng-container *ngIf="pnc">
-                <span *ngIf="creationMode; else updateTitle">{{ 'CONGRATULATION_LETTER_CREATE.TITLE_CREATE' | isMyPage: pnc | translate }}</span>
+                <span
+                    *ngIf="creationMode; else updateTitle">{{ 'CONGRATULATION_LETTER_CREATE.TITLE_CREATE' | isMyPage: pnc | translate }}</span>
                 <ng-template #updateTitle>{{ 'CONGRATULATION_LETTER_CREATE.TITLE_UPDATE' | translate }}
                 </ng-template>
             </ng-container>
@@ -20,19 +21,28 @@
                         <ion-col size-lg="3" size-md="6" class="flex align-center">
                             <label class="flight-date-label required">
                                 {{ 'CONGRATULATION_LETTER_CREATE.FORM.FLIGHT_DATE' | translate }}</label>
-                            <edospnc-datetime class="flight-date" [edospncFormGroup]="congratulationLetterForm" edospncFormControlName="flightDateControl" [ngModelOptions]="{standalone: true}" [displayIcon]="false" [(ngModel)]="congratulationLetter.flight.theoricalDate" inputLike="true">
+                            <edospnc-datetime class="flight-date" [edospncFormGroup]="congratulationLetterForm"
+                                edospncFormControlName="flightDateControl" [ngModelOptions]="{standalone: true}"
+                                [displayIcon]="false" [(ngModel)]="congratulationLetter.flight.theoricalDate"
+                                inputLike="true">
                             </edospnc-datetime>
                         </ion-col>
                         <ion-col size-lg="3" size-md="6" class="flex align-center">
-                            <label class="flight-number-label">{{ 'CONGRATULATION_LETTER_CREATE.FORM.FLIGHT_NUMBER' | translate }}</label>
-                            <ion-input class="flight-airline" type="text" [(ngModel)]="congratulationLetter.flight.airline" formControlName="flightAirlineControl" maxlength="2"></ion-input>
-                            <ion-input class="flight-number" type="text" [(ngModel)]="congratulationLetter.flight.number" formControlName="flightNumberControl" maxlength="5"></ion-input>
+                            <label
+                                class="flight-number-label">{{ 'CONGRATULATION_LETTER_CREATE.FORM.FLIGHT_NUMBER' | translate }}</label>
+                            <ion-input class="flight-airline" type="text"
+                                [(ngModel)]="congratulationLetter.flight.airline" formControlName="flightAirlineControl"
+                                maxlength="2"></ion-input>
+                            <ion-input class="flight-number" type="text"
+                                [(ngModel)]="congratulationLetter.flight.number" formControlName="flightNumberControl"
+                                maxlength="5"></ion-input>
                         </ion-col>
                         <ion-col size-lg="6" size-md="12" class="flex align-center letter-type-col">
                             <label class="required">
                                 {{ 'CONGRATULATION_LETTER_CREATE.FORM.LETTER_TYPE.LABEL' | translate }}</label>
                             <ion-list>
-                                <ion-radio-group [(ngModel)]="congratulationLetter.collective" formControlName="letterTypeControl" class="horizontal">
+                                <ion-radio-group [(ngModel)]="congratulationLetter.collective"
+                                    formControlName="letterTypeControl" class="horizontal">
                                     <ion-item lines="none">
                                         <ion-label>
                                             {{ 'CONGRATULATION_LETTER_CREATE.FORM.LETTER_TYPE.INDIVIDUAL' | translate }}
@@ -51,9 +61,11 @@
                     </ion-row>
                     <ion-row>
                         <ion-col class="flex align-center">
-                            <label class="required">{{ 'CONGRATULATION_LETTER_CREATE.FORM.REDACTOR.LABEL' | translate }}</label>
+                            <label
+                                class="required">{{ 'CONGRATULATION_LETTER_CREATE.FORM.REDACTOR.LABEL' | translate }}</label>
                             <ion-list>
-                                <ion-radio-group class="horizontal" [(ngModel)]="congratulationLetter.redactorType" formControlName="redactorTypeControl">
+                                <ion-radio-group class="horizontal" [(ngModel)]="congratulationLetter.redactorType"
+                                    formControlName="redactorTypeControl">
                                     <ion-item lines="none">
                                         <ion-label>{{ 'CONGRATULATION_LETTER_CREATE.FORM.REDACTOR.PNC' | translate }}
                                         </ion-label>
@@ -84,40 +96,58 @@
                     </ion-row>
                     <ion-row *ngIf="displayPncSelection">
                         <ion-col class="flex align-center">
-                            <label class="redactor-label" for="redactorAutoComplete">{{'CONGRATULATION_LETTER_CREATE.FORM.REDACTOR.REDACTOR_AUTOCOMPLETE' | translate}}</label>
+                            <label class="redactor-label"
+                                for="redactorAutoComplete">{{'CONGRATULATION_LETTER_CREATE.FORM.REDACTOR.REDACTOR_AUTOCOMPLETE' | translate}}</label>
                             <mat-form-field class="redactor-autocomplete" floatLabel="never">
-                                <input #redactorAutoComplete name="redactorAutoComplete" formControlName="redactorAutoCompleteControl" placeholder="{{'CONGRATULATION_LETTER_CREATE.FORM.REDACTOR.REDACTOR_AUTOCOMPLETE_PLACEHOLDER' | translate}}" [(ngModel)]="selectedRedactor" type="text" matInput (keyup)="searchAutoComplete(redactorAutoComplete.value)" [matAutocomplete]="auto" autocomplete="off" />
+                                <input #redactorAutoComplete name="redactorAutoComplete"
+                                    formControlName="redactorAutoCompleteControl"
+                                    placeholder="{{'CONGRATULATION_LETTER_CREATE.FORM.REDACTOR.REDACTOR_AUTOCOMPLETE_PLACEHOLDER' | translate}}"
+                                    [(ngModel)]="selectedRedactor" type="text" matInput
+                                    (keyup)="searchAutoComplete(redactorAutoComplete.value)" [matAutocomplete]="auto"
+                                    autocomplete="off" />
                                 <ion-spinner *ngIf="autoCompleteInProgress"></ion-spinner>
                                 <ion-icon name="backspace" class="clickable" (click)="clearPncSearch()"></ion-icon>
                             </mat-form-field>
-                            <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayPnc" (optionSelected)="selectPncRedactor($event.option.value)">
+                            <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayPnc"
+                                (optionSelected)="selectPncRedactor($event.option.value)">
                                 <mat-option *ngFor="let pnc of redactorSearchList | async" [value]="pnc">
                                     {{ pnc.lastName + ' ' + pnc.firstName + ' (' + pnc.matricule + ')'}}
                                 </mat-option>
                             </mat-autocomplete>
-                            <ion-icon name="checkmark" ios="md-checkmark" *ngIf="congratulationLetter.redactor" color="secondary"></ion-icon>
+                            <ion-icon name="checkmark" ios="md-checkmark" *ngIf="congratulationLetter.redactor"
+                                color="secondary"></ion-icon>
                         </ion-col>
                     </ion-row>
                     <ion-row>
                         <ion-col>
                             <label>
                                 {{ 'CONGRATULATION_LETTER_CREATE.FORM.VERBATIM' | translate }}
-                                <strong class="verbatim-info-message" [hidden]="verbatimCanBeEdited()">&nbsp;({{ 'CONGRATULATION_LETTER_CREATE.VERBATIM_EDITABLE_BY_REDACTOR_ONLY' | translate }})</strong>
+                                <strong class="verbatim-info-message"
+                                    [hidden]="verbatimCanBeEdited()">&nbsp;({{ 'CONGRATULATION_LETTER_CREATE.VERBATIM_EDITABLE_BY_REDACTOR_ONLY' | translate }})</strong>
                             </label>
-                            <text-editor name="letterVerbatim" [mode]="getVerbatimMode()" [ngModelOptions]="{standalone: true}" [(ngModel)]="congratulationLetter.verbatim" [parentForm]="congratulationLetterForm" [controlForm]="'verbatimControl'" formControlName="verbatimControl">
+                            <text-editor name="letterVerbatim" [mode]="getVerbatimMode()"
+                                [ngModelOptions]="{standalone: true}" [parentForm]="congratulationLetterForm"
+                                [placeholder]="''" [controlForm]="'verbatimControl'">
                             </text-editor>
-                            <div class="information-message align-left" *ngIf="congratulationLetter && congratulationLetter.creationAuthor">
-                                {{ 'CONGRATULATION_LETTER_CREATE.CREATED_BY' | translate }} <span class="lastname">{{congratulationLetter.creationAuthor.lastName}}</span>&nbsp;<span class="firstname">{{congratulationLetter.creationAuthor.firstName}}</span>
+                            <div class="information-message align-left"
+                                *ngIf="congratulationLetter && congratulationLetter.creationAuthor">
+                                {{ 'CONGRATULATION_LETTER_CREATE.CREATED_BY' | translate }} <span
+                                    class="lastname">{{congratulationLetter.creationAuthor.lastName}}</span>&nbsp;<span
+                                    class="firstname">{{congratulationLetter.creationAuthor.firstName}}</span>
                             </div>
-                            <div class="information-message align-left" *ngIf="congratulationLetter && congratulationLetter.lastUpdateAuthor">
-                                {{ 'CONGRATULATION_LETTER_CREATE.UPDATED_BY' | translate }} <span class="lastname">{{congratulationLetter.lastUpdateAuthor.lastName}}</span>&nbsp;<span class="firstname">{{congratulationLetter.lastUpdateAuthor.firstName}}</span>
+                            <div class="information-message align-left"
+                                *ngIf="congratulationLetter && congratulationLetter.lastUpdateAuthor">
+                                {{ 'CONGRATULATION_LETTER_CREATE.UPDATED_BY' | translate }} <span
+                                    class="lastname">{{congratulationLetter.lastUpdateAuthor.lastName}}</span>&nbsp;<span
+                                    class="firstname">{{congratulationLetter.lastUpdateAuthor.firstName}}</span>
                                 {{ 'CONGRATULATION_LETTER_CREATE.DATE_LABEL' | translate:{date:getLastUpdateDate()} }}
                             </div>
                         </ion-col>
                     </ion-row>
                     <ion-row>
                         <ion-col>
-                            <document-manager [documents]="congratulationLetter.documents" [readonly]="!verbatimCanBeEdited()"></document-manager>
+                            <document-manager [documents]="congratulationLetter.documents"
+                                [readonly]="!verbatimCanBeEdited()"></document-manager>
                         </ion-col>
                     </ion-row>
                     <ion-row>
@@ -125,7 +155,8 @@
                             <div class="button-bar button-bar-right margin-top-10">
                                 <ion-button fill="outline" (click)="cancelCreation()" color="primary">
                                     {{ 'CONGRATULATION_LETTER_CREATE.BUTTONS.CANCEL' | translate }}</ion-button>
-                                <ion-button [disabled]="!isFormValid() || submitInProgress" (click)="submitLetter()" color="primary">
+                                <ion-button [disabled]="!isFormValid() || submitInProgress" (click)="submitLetter()"
+                                    color="primary">
                                     <ion-spinner *ngIf="submitInProgress"></ion-spinner>
                                     {{ 'CONGRATULATION_LETTER_CREATE.BUTTONS.SUBMIT' | translate }}
                                 </ion-button>
@@ -134,7 +165,8 @@
                     </ion-row>
                     <ion-row>
                         <ion-col>
-                            <div class="information-message align-right collective-warning" *ngIf="congratulationLetter.collective">
+                            <div class="information-message align-right collective-warning"
+                                *ngIf="congratulationLetter.collective">
                                 {{ 'CONGRATULATION_LETTER_CREATE.FORM.COLLECTIVE_WARNING_PART1' | translate }}
                                 <span class="lastname">{{ pnc.lastName }}</span>&nbsp;
                                 <span class="firstname">{{ pnc.firstName }}</span>

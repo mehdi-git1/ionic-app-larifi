@@ -29,7 +29,7 @@
                         <div *ngIf="!selectedUserMessage; else editUserMessageBlock" class="no-data-found">
                             {{ 'ADMIN.USER_MESSAGE_MANAGEMENT.NO_USER_MESSAGE_SELECTED' | translate }}</div>
                         <ng-template #editUserMessageBlock>
-                            <form [formGroup]="userMessageForm">
+                            <form #form="ngForm" [formGroup]="userMessageForm">
                                 <ion-item>
                                     <ion-label position="floating">
                                         {{ 'ADMIN.USER_MESSAGE_MANAGEMENT.LABELS.TITLE' | translate }}

@@ -1,7 +1,6 @@
-import { Location } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AlertController, LoadingController } from '@ionic/angular';
+import { AlertController, LoadingController, NavController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 
 import { TextEditorModeEnum } from '../../../../core/enums/text-editor-mode.enum';
@@ -32,7 +31,7 @@ export class HrDocumentCardComponent {
         private loadingCtrl: LoadingController,
         private onlineHrDocumentService: OnlineHrDocumentService,
         private toastService: ToastService,
-        private location: Location) {
+        private navCtrl: NavController) {
     }
 
     canEditDocument() {
@@ -81,7 +80,7 @@ export class HrDocumentCardComponent {
                 this.onlineHrDocumentService.createOrUpdate(this.hrDocument)
                     .then(savedHrDocument => {
                         this.toastService.success(this.translateService.instant('HR_DOCUMENT.DELETE.HR_DOCUMENT_DELETED'));
-                        this.location.back();
+                        this.navCtrl.pop();
                         loading.dismiss();
                     }, error => {
                         loading.dismiss();

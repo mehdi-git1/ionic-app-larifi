@@ -64,7 +64,7 @@ export class LogbookEventDetailsComponent extends AbstractValueAccessor implemen
         private onlineLogbookEventService: OnlineLogbookEventService,
         private toastService: ToastService) {
         super();
-        this.events.subscribe('LinkedLogbookEvent:canceled', () => {
+        this.events.subscribe('LogbookEvent:canceled', () => {
             this.editEvent = false;
         });
 
@@ -103,17 +103,6 @@ export class LogbookEventDetailsComponent extends AbstractValueAccessor implemen
         this.visibilitySelected = this.logbookEvent.hidden ? EventCcoVisibilityEnum.HIDDEN
             : this.logbookEvent.displayed ? EventCcoVisibilityEnum.DISPLAYED
                 : this.getDisplayDate() ? EventCcoVisibilityEnum.WILL_BE_DISPLAYED_ON : EventCcoVisibilityEnum.DISPLAYED;
-    }
-
-    /**
-     * Vérifie si l'on peut quitter la page
-     * @return true si on est pas en mode d'édition
-     */
-    canDeactivate(): boolean {
-        if (this.editEvent) {
-            return false;
-        }
-        return true;
     }
 
     /**
