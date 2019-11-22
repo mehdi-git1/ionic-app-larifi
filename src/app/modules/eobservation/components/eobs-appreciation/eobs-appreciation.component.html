@@ -25,7 +25,7 @@
                 <span class="pcb-strong-points">
                     <span class="skills-value-list" *ngIf="subTheme && subTheme.subThemes && subTheme.subThemes.length > 0 && subTheme.subThemes[0].eobservationItems" lines="none">
                         <span *ngFor="let eobservationItem of subTheme.subThemes[0].eobservationItems">
-                            <checkbox-and-label disabled="true" [value]="true" label="{{eobservationItem.refItemLevel.item.label}}"></checkbox-and-label>
+                            <checkbox-and-label disabled="true" [value]="eobservationItem.refItemLevel.level === 'POINT_FORT'" label="{{eobservationItem.refItemLevel.item.label}}"></checkbox-and-label>
                         </span>
                     </span>
                 </span>

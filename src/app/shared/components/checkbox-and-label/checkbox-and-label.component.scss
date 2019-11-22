@@ -35,5 +35,17 @@
             }
         }
 
+        ::ng-deep.mat-checkbox-checked {
+            border-color: var(--ion-color-grey70) !important;
+        }
+ 
+        .mat-checkbox-checked {
+            ::ng-deep.mat-checkbox-checkmark {
+                border-color: var(--ion-color-blue55) !important;
+                background-color: var(--ion-color-blue55) !important;
+                color: red !important;
+            }
+        }
+
     }
 }
