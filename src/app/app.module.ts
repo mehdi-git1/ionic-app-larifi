@@ -57,7 +57,9 @@ export function appInitFactory(appInitService: AppInitService) {
   imports: [
     BrowserModule,
     IonicModule.forRoot({
-      mode: 'md'
+      mode: 'md',
+      // TODO animations de navigation désactivées en attendant d'avoir une solution pour le soucis de blink lors d'une navigation
+      animated: false
     }),
     HttpClientModule,
     AuthenticationModule,
