@@ -1,10 +1,10 @@
+import { GenderEnum } from '../enums/gender.enum';
+import { SpecialityEnum } from '../enums/speciality.enum';
+import { AssignmentModel } from './assignment.model';
+import { EDossierPncObjectModel } from './e-dossier-pnc-object.model';
 import { PncLightModel } from './pnc-light.model';
 import { RelayModel } from './statutory-certificate/relay.model';
 import { StatutoryCertificateModel } from './statutory.certificate.model';
-import { GenderEnum } from '../enums/gender.enum';
-import { AssignmentModel } from './assignment.model';
-import { EDossierPncObjectModel } from './e-dossier-pnc-object.model';
-import { SpecialityEnum } from '../enums/speciality.enum';
 
 export class PncModel extends EDossierPncObjectModel {
     matricule: string;
@@ -25,6 +25,7 @@ export class PncModel extends EDossierPncObjectModel {
     prioritized: boolean;
     hasAtLeastOnePriorityInProgress: boolean;
     statutoryCertificate?: StatutoryCertificateModel;
+    groupPlanning: string;
 
     getStorageId(): string {
         return this.matricule;
