@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController, LoadingController, NavController } from '@ionic/angular';
@@ -31,7 +32,8 @@ export class HrDocumentCardComponent {
         private loadingCtrl: LoadingController,
         private onlineHrDocumentService: OnlineHrDocumentService,
         private toastService: ToastService,
-        private navCtrl: NavController) {
+        private navCtrl: NavController,
+        private datePipe: DatePipe) {
     }
 
     canEditDocument() {
@@ -102,5 +104,20 @@ export class HrDocumentCardComponent {
      */
     editHrDocument() {
         this.router.navigate(['../..', 'create', this.hrDocument.techId], { relativeTo: this.activatedRoute });
+    }
+
+    /**
+     * Retourne la date de dernière modification, formatée pour l'affichage
+     * @return la date de dernière modification au format dd/mm/
+     */
+    getLastUpdateDate(): string {
+        return this.datePipe.transform(this.hrDocument.lastUpdateDate, 'dd/MM/yyyy HH:mm');
+    }
+
+    /**
+     * Affiche le message d'information de la dernière modification faite sur le document
+     */
+    showInformationMessage() {
+        return this.hrDocument.lastUpdateAuthor && this.hrDocument.lastUpdateDate !== this.hrDocument.creationDate;
     }
 }

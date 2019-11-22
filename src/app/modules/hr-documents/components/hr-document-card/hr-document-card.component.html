@@ -4,7 +4,7 @@
         <div class="hr-document-info-container">
             <div class="hr-document-top-container">
                 <div class="redactor">
-                    {{ 'HR_DOCUMENT.DETAIL.CREATED_BY_THE' | translate:{lastName:hrDocument.redactor?.lastName,
+                    {{ 'HR_DOCUMENT.DETAILS.CREATED_BY_THE' | translate:{lastName:hrDocument.redactor?.lastName,
                     firstName:hrDocument.redactor?.firstName, creationDate:hrDocument.creationDate | date:'dd/MM/yyyy'}
                     }}
                 </div>
@@ -19,6 +19,10 @@
                 <text-editor [mode]="TextEditorModeEnum.READ_ONLY" [ngModel]="hrDocument.content"></text-editor>
             </div>
             <document-manager [documents]="hrDocument.attachmentFiles" [readonly]="true"></document-manager>
+            <div class="information-message" *ngIf="showInformationMessage()">
+                {{ 'HR_DOCUMENT.DETAILS.EDITED_BY' | translate:{lastName:hrDocument.lastUpdateAuthor.lastName, firstName:hrDocument.lastUpdateAuthor.firstName,
+                                    date:getLastUpdateDate()} }}
+            </div>
             <div *ngIf="isManager()">
                 <div class="hr-document-button-bar button-bar button-bar-right ">
                     <!-- Bouton supprimer -->
