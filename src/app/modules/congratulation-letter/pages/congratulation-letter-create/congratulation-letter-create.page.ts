@@ -263,6 +263,7 @@ export class CongratulationLetterCreatePage extends FormCanDeactivate implements
             } else {
                 this.toastService.success(this.translateService.instant('CONGRATULATION_LETTER_CREATE.SUCCESS.LETTER_UPDATED'));
             }
+            this.congratulationLetterForm.markAsPristine();
             this.navCtrl.pop();
         }, error => { }).then(() => {
             this.submitInProgress = false;
