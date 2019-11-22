@@ -2,7 +2,7 @@ import { PncService } from 'src/app/core/services/pnc/pnc.service';
 import { SessionService } from 'src/app/core/services/session/session.service';
 
 import { DatePipe } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController, LoadingController, NavController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
@@ -20,11 +20,13 @@ import { ToastService } from '../../../../core/services/toast/toast.service';
     templateUrl: 'hr-document-card.component.html',
     styleUrls: ['./hr-document-card.component.scss']
 })
-export class HrDocumentCardComponent {
+export class HrDocumentCardComponent implements OnInit {
 
     @Input() hrDocument: HrDocumentModel;
 
     TextEditorModeEnum = TextEditorModeEnum;
+
+    documentCanBeDeleted = false;
 
     constructor(
         private securityService: SecurityService,
@@ -39,6 +41,14 @@ export class HrDocumentCardComponent {
         private datePipe: DatePipe,
         private sessionService: SessionService,
         private pncService: PncService) {
+    }
+
+    ngOnInit() {
+        this.pncService.getPnc(this.hrDocument.pnc.matricule).then(concernedPnc => {
+            this.documentCanBeDeleted = this.hrDocument.redactor.matricule === this.sessionService.getActiveUser().matricule
+                || concernedPnc.pncRds.matricule === this.sessionService.getActiveUser().matricule
+                || concernedPnc.pncInstructor.matricule === this.sessionService.getActiveUser().matricule;
+        });
     }
 
     canEditDocument() {
@@ -102,21 +112,6 @@ export class HrDocumentCardComponent {
      */
     isManager(): boolean {
         return this.securityService.isManager();
-    }
-
-    /**
-     * Vérifie si le PNC est le redacteur, l'instructeur referent ou le RDS
-     * @return vrai si le PNC est manager, faux sinon
-     */
-    canDelete(): boolean {
-        this.pncService.getPnc(this.hrDocument.pnc.matricule).then(concernedPnc => {
-            return this.hrDocument.redactor.matricule === this.sessionService.getActiveUser().matricule
-                || concernedPnc.pncRds.matricule === this.sessionService.getActiveUser().matricule
-                || concernedPnc.pncInstructor.matricule === this.sessionService.getActiveUser().matricule;
-        }, error => {
-            return false;
-        });
-        return false;
     }
 
     /**
