@@ -127,7 +127,7 @@
                             </label>
                             <text-editor name="letterVerbatim" [mode]="getVerbatimMode()"
                                 [ngModelOptions]="{standalone: true}" [parentForm]="congratulationLetterForm"
-                                [controlForm]="'verbatimControl'" formControlName="verbatimControl">
+                                [placeholder]="''" [controlForm]="'verbatimControl'">
                             </text-editor>
                             <div class="information-message align-left"
                                 *ngIf="congratulationLetter && congratulationLetter.creationAuthor">

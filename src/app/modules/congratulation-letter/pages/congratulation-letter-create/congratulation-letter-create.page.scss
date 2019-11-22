@@ -90,21 +90,6 @@
         font-size: 1.1em;
     }
 
-    ::ng-deep text-editor {
-
-        .ql-container {
-            border: 1px solid var(--ion-color-grey72) !important;
-            padding: 0 10px;
-            border-radius: 3px;
-            background: var(--ion-color-white);
-            min-height: 100px;
-        }
-
-        .ql-editor {
-            white-space: pre-line;
-        }
-    }
-
     .verbatim-info-message {
         font-weight: bold;
         color: var(--ion-color-danger);

@@ -1,7 +1,6 @@
-import { Location } from '@angular/common';
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Events } from '@ionic/angular';
+import { Events, NavController } from '@ionic/angular';
 
 import {
     CongratulationLetterModeEnum
@@ -46,7 +45,7 @@ export class CongratulationLettersPage {
         private events: Events,
         private sessionService: SessionService,
         private connectivityService: ConnectivityService,
-        private location: Location) {
+        private navCtrl: NavController) {
         this.selectedCongratulationLetterMode = CongratulationLetterModeEnum.RECEIVED;
         this.events.subscribe('CongratulationLetterList:refresh', () => {
             this.refresh();
@@ -144,6 +143,6 @@ export class CongratulationLettersPage {
      * Navigue en arrière dans l'historique de navigation
      */
     goBack() {
-        this.location.back();
+        this.navCtrl.pop();
     }
 }

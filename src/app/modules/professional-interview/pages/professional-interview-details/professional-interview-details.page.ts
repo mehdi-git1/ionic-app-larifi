@@ -1,10 +1,10 @@
 import * as _ from 'lodash';
 
-import { DatePipe, Location } from '@angular/common';
+import { DatePipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { AlertController, LoadingController } from '@ionic/angular';
+import { AlertController, LoadingController, NavController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 
 import { PncRoleEnum } from '../../../../core/enums/pnc-role.enum';
@@ -68,7 +68,7 @@ export class ProfessionalInterviewDetailsPage {
   subThemes: FormArray;
 
   constructor(
-    private location: Location,
+    private navCtrl: NavController,
     private activatedRoute: ActivatedRoute,
     private translateService: TranslateService,
     private pncService: PncService,
@@ -379,7 +379,7 @@ export class ProfessionalInterviewDetailsPage {
           if (this.professionalInterview.state === ProfessionalInterviewStateEnum.DRAFT) {
             this.toastService.success(this.translateService.instant('PROFESSIONAL_INTERVIEW.DETAILS.SUCCESS.DRAFT_DELETED'));
           }
-          this.location.back();
+          this.navCtrl.pop();
           loading.dismiss();
         }, error => {
           loading.dismiss();
@@ -446,24 +446,24 @@ export class ProfessionalInterviewDetailsPage {
       if (this.isAdminModeAvailable()) {
         this.editionMode = false;
       } else {
-        this.location.back();
+        this.navCtrl.pop();
       }
     } else {
       if (this.professionalInterview.state === ProfessionalInterviewStateEnum.DRAFT) {
         this.toastService.success(this.translateService.instant('PROFESSIONAL_INTERVIEW.DETAILS.SUCCESS.DRAFT_SAVED'));
-        this.location.back();
+        this.navCtrl.pop();
       }
       if (this.professionalInterview.state === ProfessionalInterviewStateEnum.TAKEN_INTO_ACCOUNT) {
         this.toastService.success(this.professionalInterview.type === this.ProfessionalInterviewTypeEnum.BILAN ?
           this.translateService.instant('PROFESSIONAL_INTERVIEW.DETAILS.SUCCESS.PI_TAKEN_INTO_ACCOUNT')
           : this.translateService.instant('PROFESSIONAL_INTERVIEW.DETAILS.SUCCESS.EPP_TAKEN_INTO_ACCOUNT'));
-        this.location.back();
+        this.navCtrl.pop();
       }
       if (this.professionalInterview.state === ProfessionalInterviewStateEnum.NOT_TAKEN_INTO_ACCOUNT) {
         this.toastService.success(this.professionalInterview.type === this.ProfessionalInterviewTypeEnum.BILAN ?
           this.translateService.instant('PROFESSIONAL_INTERVIEW.DETAILS.SUCCESS.PI_VALIDATED')
           : this.translateService.instant('PROFESSIONAL_INTERVIEW.DETAILS.SUCCESS.EPP_VALIDATED'));
-        this.location.back();
+        this.navCtrl.pop();
       }
     }
   }

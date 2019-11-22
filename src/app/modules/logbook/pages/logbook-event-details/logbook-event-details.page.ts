@@ -1,10 +1,9 @@
 import * as _ from 'lodash';
 import * as moment from 'moment';
 
-import { Location } from '@angular/common';
 import { Component, OnInit, ViewChild, ViewChildren } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { AlertController, Events, LoadingController } from '@ionic/angular';
+import { AlertController, Events, LoadingController, NavController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 
 import { AppConstant } from '../../../../app.constant';
@@ -53,7 +52,7 @@ export class LogbookEventDetailsPage implements OnInit {
     selectedLogbookEventComponent: LogbookEventComponent;
 
     constructor(
-        private location: Location,
+        private navCtrl: NavController,
         private activatedRoute: ActivatedRoute,
         private onlineLogbookEventService: OnlineLogbookEventService,
         private sessionService: SessionService,
@@ -63,7 +62,7 @@ export class LogbookEventDetailsPage implements OnInit {
         private securityService: SecurityService,
         private toastService: ToastService,
         private loadingCtrl: LoadingController
-    ) {}
+    ) { }
 
     ngOnInit() {
         if (this.activatedRoute.snapshot.paramMap.get('createLinkedEvent')) {
@@ -87,7 +86,7 @@ export class LogbookEventDetailsPage implements OnInit {
             this.editionMode = false;
             this.getLogbookEventsByGroupId(this.groupId, this.pnc);
         });
-        this.events.subscribe('LinkedLogbookEvent:canceled', () => {
+        this.events.subscribe('LogbookEvent:canceled', () => {
             this.logbookEventCanceled = true;
             this.createLinkedEvent = false;
             this.logbookEventTechId = null;
@@ -95,6 +94,16 @@ export class LogbookEventDetailsPage implements OnInit {
         });
     }
 
+    /**
+     * Vérifie si l'on peut quitter la page
+     * @return true si l'event lié est sauvegardé ou annulé
+     */
+    canDeactivate(): boolean {
+        if (this.linkedLogbookEventCreate === undefined) {
+            return true;
+        }
+        return !this.linkedLogbookEventCreate.formHasBeenModified();
+    }
 
     /**
      * Récupère les évènements du groupe
@@ -242,7 +251,7 @@ export class LogbookEventDetailsPage implements OnInit {
                     this.toastService.success(this.translateService.instant('LOGBOOK.DELETE.SUCCESS'));
                     this.getLogbookEventsByGroupId(this.groupId, this.pnc).then(() => {
                         if (this.logbookEvents.length === 0) {
-                            this.location.back();
+                            this.navCtrl.pop();
                         }
                     });
                     loading.dismiss();

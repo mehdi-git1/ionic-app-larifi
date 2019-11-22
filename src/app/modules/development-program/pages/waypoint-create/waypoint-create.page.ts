@@ -1,11 +1,10 @@
 import * as _ from 'lodash';
 import { FormCanDeactivate } from 'src/app/routing/guards/form-changes.guard';
 
-import { Location } from '@angular/common';
 import { Component, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { AlertController, LoadingController } from '@ionic/angular';
+import { AlertController, LoadingController, NavController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 
 import { WaypointStatusEnum } from '../../../../core/enums/waypoint.status.enum';
@@ -59,7 +58,7 @@ export class WaypointCreatePage extends FormCanDeactivate {
         public securityService: SecurityService,
         public waypointStatusService: WaypointStatusService,
         private translateService: TranslateService,
-        private location: Location,
+        private navCtrl: NavController,
         private activatedRoute: ActivatedRoute,
         private formBuilder: FormBuilder,
         private waypointService: WaypointService,
@@ -207,7 +206,7 @@ export class WaypointCreatePage extends FormCanDeactivate {
                             this.toastService.success(this.translateService.instant('WAYPOINT_CREATE.SUCCESS.WAYPOINT_SAVED'));
                         }
                         loading.dismiss();
-                        this.location.back();
+                        this.navCtrl.pop();
                         resolve();
                     }, error => {
                         loading.dismiss();
@@ -266,7 +265,7 @@ export class WaypointCreatePage extends FormCanDeactivate {
                 .then(
                     deletedWaypoint => {
                         this.toastService.success(this.translateService.instant('WAYPOINT_CREATE.SUCCESS.DRAFT_DELETED'));
-                        this.location.back();
+                        this.navCtrl.pop();
                         loading.dismiss();
                     }, error => {
                         loading.dismiss();

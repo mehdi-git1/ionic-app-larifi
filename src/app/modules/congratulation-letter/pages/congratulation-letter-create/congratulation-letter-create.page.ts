@@ -3,11 +3,11 @@ import { Observable } from 'rxjs/Observable';
 import { pairwise } from 'rxjs/operators';
 import { Subject } from 'rxjs/Subject';
 
-import { DatePipe, Location } from '@angular/common';
-import { Component, ViewChild } from '@angular/core';
+import { DatePipe } from '@angular/common';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { AlertController } from '@ionic/angular';
+import { NavController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 
 import {
@@ -35,7 +35,7 @@ import { Utils } from '../../../../shared/utils/utils';
     templateUrl: 'congratulation-letter-create.page.html',
     styleUrls: ['./congratulation-letter-create.page.scss']
 })
-export class CongratulationLetterCreatePage extends FormCanDeactivate {
+export class CongratulationLetterCreatePage extends FormCanDeactivate implements OnInit {
 
     pnc: PncModel;
     creationMode = true;
@@ -63,13 +63,12 @@ export class CongratulationLetterCreatePage extends FormCanDeactivate {
 
     constructor(
         private activatedRoute: ActivatedRoute,
-        private location: Location,
         private congratulationLetterService: CongratulationLetterService,
         private pncService: PncService,
         private sessionService: SessionService,
         private formBuilder: FormBuilder,
         private toastService: ToastService,
-        private alertCtrl: AlertController,
+        private navCtrl: NavController,
         private dateTransformer: DateTransform,
         private connectivityService: ConnectivityService,
         private datePipe: DatePipe,
@@ -149,8 +148,8 @@ export class CongratulationLetterCreatePage extends FormCanDeactivate {
             flightNumberControl: ['', Validators.compose([Validators.minLength(3), Validators.maxLength(5)])],
             letterTypeControl: ['', Validators.required],
             redactorTypeControl: ['', Validators.required],
-            verbatimControl: ['A'],
-            redactorAutoCompleteControl: ['']
+            verbatimControl: '',
+            redactorAutoCompleteControl: ''
         });
     }
 
@@ -256,7 +255,7 @@ export class CongratulationLetterCreatePage extends FormCanDeactivate {
      * Annule la création de la lettre
      */
     cancelCreation() {
-        this.location.back();
+        this.navCtrl.pop();
     }
 
     /**
@@ -274,7 +273,7 @@ export class CongratulationLetterCreatePage extends FormCanDeactivate {
             } else {
                 this.toastService.success(this.translateService.instant('CONGRATULATION_LETTER_CREATE.SUCCESS.LETTER_UPDATED'));
             }
-            this.location.back();
+            this.navCtrl.pop();
         }, error => { }).then(() => {
             this.submitInProgress = false;
         });
