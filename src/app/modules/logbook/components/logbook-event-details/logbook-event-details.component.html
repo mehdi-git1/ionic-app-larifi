@@ -79,7 +79,7 @@
                                     <span
                                         *ngIf="pnc.currentSpeciality && pnc.speciality !== pnc.currentSpeciality">/{{pnc.currentSpeciality}}</span>
                                 </span>
-                                <span *ngIf="!l">;</span>
+                                <span *ngIf="!l">);</span>
                             </span>
                         </div>
                         <div *ngIf="logbookEvent.notifiedRecipients">
@@ -95,11 +95,12 @@
                 </div>
             </div>
             <div class="button-bar-container" *ngIf="isManager()">
-                <div class="small-width-devices  visibility-for-small-container"
-                    *ngIf="logbookEvent.type == LogbookEventTypeEnum.CCO || logbookEvent.type == LogbookEventTypeEnum.ISCV ">
+                <div class="small-width-devices  visibility-for-small-container">
                     <form #form="ngForm" [formGroup]="visibilityForm">
                         <ion-radio-group [(ngModel)]="visibilitySelected" formControlName="visibilityControl">
-                            <ion-item *ngIf="getDisplayDate()" lines="none">
+                            <ion-item
+                                *ngIf="getDisplayDate() && (logbookEvent.type === LogbookEventTypeEnum.CCO || logbookEvent.type === LogbookEventTypeEnum.ISCV)"
+                                lines="none">
                                 <ion-radio value="{{EventCcoVisibilityEnum.WILL_BE_DISPLAYED_ON}}">
                                 </ion-radio>
                                 <ion-label>
@@ -119,11 +120,12 @@
                         </ion-radio-group>
                     </form>
                 </div>
-                <div class="large-width-devices  visibility-for-large-container"
-                    *ngIf="logbookEvent.type == LogbookEventTypeEnum.CCO || logbookEvent.type == LogbookEventTypeEnum.ISCV ">
+                <div class="large-width-devices  visibility-for-large-container">
                     <form #form="ngForm" [formGroup]="visibilityForm">
                         <ion-radio-group [(ngModel)]="visibilitySelected" formControlName="visibilityControl">
-                            <ion-item *ngIf="getDisplayDate()" lines="none">
+                            <ion-item
+                                *ngIf="getDisplayDate() && (logbookEvent.type === LogbookEventTypeEnum.CCO || logbookEvent.type === LogbookEventTypeEnum.ISCV)"
+                                lines="none">
                                 <ion-radio value="{{EventCcoVisibilityEnum.WILL_BE_DISPLAYED_ON}}"
                                     (ionSelect)="confirmHideOrDisplayEvent(EventCcoVisibilityEnum.WILL_BE_DISPLAYED_ON)">
                                 </ion-radio>
