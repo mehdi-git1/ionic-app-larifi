@@ -308,6 +308,9 @@
             "SENIORITY_DATE": {
                 "TITLE": "Ancienneté PNC"
             },
+            "COMPANY_LEAVING_DATE": {
+                "TITLE": "Date départ"
+            },
             "PCB": {
                 "TITLE": "PCB"
             },

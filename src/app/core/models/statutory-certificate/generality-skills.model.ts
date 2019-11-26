@@ -4,6 +4,7 @@ export class GeneralitySkillsModel {
         startDate: Date
     };
     seniorityDate: Date;
+    companyLeavingDate: Date;
     pcb: {
         libelle: string,
         validityStartDate: Date,
