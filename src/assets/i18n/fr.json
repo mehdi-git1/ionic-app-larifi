@@ -343,6 +343,20 @@
                 "END_DATE": "Fin"
             }
         },
+        "HISTORY": {
+            "UNAIVALABLE_OFFLINE": "L'historique n'est pas disponible hors connexion",
+            "TITLE": "Historique",
+            "ASSIGNMENT": {
+                "SECTION_TITLE" : "Historique de carrière - Affectation",
+                "TITLE": "Affectation",
+                "CODE": "Code",
+                "LABEL": "Libellé",
+                "DIVISION": "Division",
+                "SECTOR": "Secteur",
+                "START_DATE": "Date de début",
+                "END_DATE": "Date de fin"
+            }
+        },
         "ERROR": {
             "STATUTORY_CERTIFICATE": "Erreur lors de la récupération du profil PNC pour le matricule {{ matricule }}"
         }

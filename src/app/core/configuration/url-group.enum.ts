@@ -23,5 +23,6 @@ export enum urlGroupEnum {
   'APP_VERSION' = 'app_versions',
   'LOGBOOK_EVENT' = 'logbook_events',
   'DOCUMENT' = 'documents',
-  'HR_DOCUMENT' = 'hr_documents'
+  'HR_DOCUMENT' = 'hr_documents',
+  'DWH_HISTORY' = 'dwh_history'
 }
