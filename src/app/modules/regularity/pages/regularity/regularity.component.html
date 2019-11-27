@@ -9,18 +9,20 @@
 </ion-header>
 <ion-content>
     <div class="page-container">
-        <edossier-sprinner *ngIf="pnc"></edossier-sprinner>
-        <ul class="regularity-requests-links" *ngIf="isweb && isConnected">
-            <ng-container *ngIf="regularityLinks">
-                <li *ngFor="let link of regularityLinks" class="clickable" (click)="gotoLink(link.value)">
-                    <ion-thumbnail>
-                        <ion-icon name="link"></ion-icon>
-                    </ion-thumbnail>
-                    <div class="content">
-                        <h4>{{getTranslation(link.key)}}</h4>
-                    </div>
-                </li>
-            </ng-container>
-        </ul>
+        <edossier-sprinner *ngIf="!pnc else displayLink"></edossier-sprinner>
+        <ng-template #displayLink>
+            <ul class="regularity-requests-links" *ngIf="isweb && isConnected">
+                <ng-container *ngIf="regularityLinks">
+                    <li *ngFor="let link of regularityLinks" class="clickable" (click)="gotoLink(link.value)">
+                        <ion-thumbnail>
+                            <ion-icon name="link"></ion-icon>
+                        </ion-thumbnail>
+                        <div class="content">
+                            <h4>{{getTranslation(link.key)}}</h4>
+                        </div>
+                    </li>
+                </ng-container>
+            </ul>
+        </ng-template>
     </div>
 </ion-content>
