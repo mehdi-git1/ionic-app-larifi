@@ -1,3 +1,5 @@
+import { HistoryComponent } from './components/history/history.component';
+import { StatutoryCertificateComponent } from './components/statutory-certificate/statutory-certificate.component';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 
@@ -35,7 +37,9 @@ import { StatutoryCertificatePage } from './pages/statutory-certificate/statutor
     MedicalAptitudesComponent,
     LanguagesComponent,
     RelaysComponent,
-    TravelDocumentsComponent
+    TravelDocumentsComponent,
+    StatutoryCertificateComponent,
+    HistoryComponent
   ],
   imports: [
     IonicModule,

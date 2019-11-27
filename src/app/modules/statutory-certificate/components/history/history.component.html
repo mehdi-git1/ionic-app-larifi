@@ -1,0 +1,6 @@
+<span *ngIf="isOffline() && !history">
+        {{ 'STATUTORY_CERTIFICATE.HISTORY.UNAIVALABLE_OFFLINE' | translate }}
+</span>
+<statutory-certificate-data *ngIf="dwhHistoryDisplayedData" [statutoryCertificateData]="dwhHistoryDisplayedData" 
+    title="{{ 'STATUTORY_CERTIFICATE.HISTORY.ASSIGNMENT.TITLE' | translate}}" [displayType]="StatutoryCertificateDisplayTypeEnum.TAB">
+</statutory-certificate-data>
