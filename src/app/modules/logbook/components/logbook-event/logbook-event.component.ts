@@ -334,7 +334,7 @@ export class LogbookEventComponent implements OnInit {
      * @param pncLight le pnc concerné
      */
     updatePncNotifiedList(myEvent: any, pncLight: PncLightModel) {
-        if (myEvent.checked) {
+        if (myEvent.detail.checked) {
             this.logbookEvent.notifiedPncs.push(pncLight);
         } else {
             this.logbookEvent.notifiedPncs = this.logbookEvent.notifiedPncs.filter(pnc =>
