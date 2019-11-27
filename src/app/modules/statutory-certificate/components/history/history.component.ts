@@ -148,7 +148,7 @@ export class HistoryComponent implements OnInit {
         if (this.history && this.history.instrumentHistory && this.history.instrumentHistory.length > 0) {
             const sortedInstrumentHistory = this.history.instrumentHistory.sort((instrument1, instrument2) => {
                 return moment(instrument1.startDate, AppConstant.isoDateFormat)
-                .isBefore(moment(instrument1.startDate, AppConstant.isoDateFormat))
+                .isBefore(moment(instrument2.startDate, AppConstant.isoDateFormat))
                 ? 1 : -1;
             });
             for (const instrument of sortedInstrumentHistory) {
