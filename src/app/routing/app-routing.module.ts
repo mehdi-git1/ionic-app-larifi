@@ -119,6 +119,7 @@ const routes: Routes = [
             ]
           },
           { path: 'statutory-certificate', component: StatutoryCertificatePage },
+          { path: 'statutory-certificate/:selectedTab', component: StatutoryCertificatePage },
           {
             path: 'congratulation-letter', children: [
               { path: '', component: CongratulationLettersPage },
@@ -145,6 +146,7 @@ const routes: Routes = [
           {
             path: ':matricule', canActivate: [VisitEdossierGuard], children: [
               { path: 'statutory-certificate', component: StatutoryCertificatePage },
+              { path: 'statutory-certificate/:selectedTab', component: StatutoryCertificatePage },
               { path: 'help-asset', component: HelpAssetListPage },
               {
                 path: 'development-program', children: [
@@ -314,6 +316,7 @@ const routes: Routes = [
     ]
   },
   { path: 'statutory-certificate', component: StatutoryCertificatePage },
+  { path: 'statutory-certificate/:selectedTab', component: StatutoryCertificatePage },
   { path: 'help-asset', component: HelpAssetListPage },
   { path: 'settings', component: SettingsPage },
   { path: 'legal-term', component: LegalTermsPage },

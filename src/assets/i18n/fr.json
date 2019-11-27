@@ -375,6 +375,13 @@
                 "EFFECTIVE_DATE": "Date effet",
                 "EVENT": "Evènement",
                 "NATURE": "Nature"
+            },
+            "EXAM_DATE": {
+                "TITLE": "Examen",
+                "TYPE": "Type",
+                "LABEL": "Libellé",
+                "CODE": "Code",
+                "EXAM_DATE": "Date"
             }
         },
         "ERROR": {
