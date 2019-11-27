@@ -347,12 +347,19 @@
             "UNAIVALABLE_OFFLINE": "L'historique n'est pas disponible hors connexion",
             "TITLE": "Historique",
             "ASSIGNMENT": {
-                "SECTION_TITLE" : "Historique de carrière - Affectation",
                 "TITLE": "Affectation",
                 "CODE": "Code",
                 "LABEL": "Libellé",
                 "DIVISION": "Division",
                 "SECTOR": "Secteur",
+                "START_DATE": "Date de début",
+                "END_DATE": "Date de fin"
+            },
+            "EMPLOYMENT_LEVEL": {
+                "TITLE": "Spécialité & Niveau d'emploi",
+                "GRADE": "Grade",
+                "LEVEL": "Niveau",
+                "SPECIALITY": "Spécialité",
                 "START_DATE": "Date de début",
                 "END_DATE": "Date de fin"
             }
