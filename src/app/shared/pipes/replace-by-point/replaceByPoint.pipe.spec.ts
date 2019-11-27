@@ -1,7 +1,7 @@
 import { ReplaceByPointPipe } from './replaceByPoint.pipe';
 
 describe('ReplaceByPointPipe', () => {
-    it('doit retourner vide s\il n\'y a pas de données en paramêtre', () => {
+    it('doit retourner vide s\il n\'y a pas de données en paramètre', () => {
         const pipe = new ReplaceByPointPipe();
         expect(pipe.transform('')).toEqual('');
     });

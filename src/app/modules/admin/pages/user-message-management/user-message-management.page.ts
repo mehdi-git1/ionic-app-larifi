@@ -17,31 +17,33 @@ import {
 
 @Component({
     selector: 'page-user-message-management',
-    templateUrl: 'user-message-management.page.html'
+    templateUrl: 'user-message-management.page.html',
+    styleUrls: ['./user-message-management.page.scss']
 })
 export class UserMessageManagementPage {
 
-    @ViewChild(TextEditorComponent) textEditorReference;
+    @ViewChild(TextEditorComponent, { static: false }) textEditorReference;
 
     userMessageForm: FormGroup;
 
     selectedUserMessage: UserMessageModel;
 
-    get TextEditorModeEnum() { return TextEditorModeEnum; }
+    TextEditorModeEnum = TextEditorModeEnum;
 
     userMessages: UserMessageModel[];
 
     TabHeaderModeEnum = TabHeaderModeEnum;
     TabHeaderEnum = TabHeaderEnum;
 
-    constructor(private userMessageService: UserMessageService,
+    constructor(
+        private userMessageService: UserMessageService,
         private userMessageAlertService: UserMessageAlertService,
         private translateService: TranslateService,
         private toastService: ToastService,
         private formBuilder: FormBuilder) {
         this.userMessageForm = formBuilder.group({
             title: ['', [Validators.maxLength(255)]],
-            content: ['', [Validators.maxLength(5000)]],
+            content: [''],
             active: ['']
         });
     }
@@ -100,13 +102,5 @@ export class UserMessageManagementPage {
      */
     isLoadingOver(): boolean {
         return this.userMessages !== undefined;
-    }
-
-    /**
-     * Récupère le contenu du WYSIWYG
-     * @param content contenu du WYSIWYG
-     */
-    setContent(content) {
-        this.selectedUserMessage.content = content;
     }
 }

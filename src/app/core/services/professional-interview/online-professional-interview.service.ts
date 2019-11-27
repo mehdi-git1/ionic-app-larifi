@@ -1,13 +1,15 @@
-import { EntityEnum } from './../../enums/entity.enum';
-import { StorageService } from './../../storage/storage.service';
 import { Injectable } from '@angular/core';
-import { RestService } from '../../http/rest/rest.base.service';
-import { UrlConfiguration } from '../../configuration/url.configuration';
 
-import { ProfessionalInterviewModel } from '../../models/professional-interview/professional-interview.model';
+import { UrlConfiguration } from '../../configuration/url.configuration';
+import { EntityEnum } from '../../enums/entity.enum';
+import { RestService } from '../../http/rest/rest.base.service';
+import {
+    ProfessionalInterviewModel
+} from '../../models/professional-interview/professional-interview.model';
+import { StorageService } from '../../storage/storage.service';
 import { TransformerService } from '../transformer/transformer.service';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class OnlineProfessionalInterviewService {
 
     constructor(

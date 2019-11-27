@@ -1,10 +1,14 @@
 import { Component, Input } from '@angular/core';
-import { EObservationItemModel } from '../../../../core/models/eobservation/eobservation-item.model';
+
 import { EObservationLevelEnum } from '../../../../core/enums/e-observations-level.enum';
+import {
+    EObservationItemModel
+} from '../../../../core/models/eobservation/eobservation-item.model';
 
 @Component({
   selector: 'abnormal-level',
-  templateUrl: 'abnormal-level.component.html'
+  templateUrl: 'abnormal-level.component.html',
+  styleUrls: ['./abnormal-level.component.scss']
 })
 export class AbnormalLevelComponent {
 

@@ -1,4 +1,4 @@
-congratulation-letter-list {
+:host {
     flex: 1;
     display: flex;
     flex-direction: column;
@@ -10,12 +10,12 @@ congratulation-letter-list {
         padding: 5px 10px;
         margin-bottom: 5px;
         border-radius: 5px;
-        background-color: color($colors, primary-light);
+        background-color: var(--ion-color-primarylight);
 
         & > label {
             font-size: 1.2em;
             font-weight: bold;
-            color: color($colors, white);
+            color: var(--ion-color-white);
         }
 
         .flight {

@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
 
 import { DateTransform } from '../../../shared/utils/date-transform';
-import { SessionService } from '../session/session.service';
-import { OnlineCareerObjectiveService } from './online-career-objective.service';
-import { ConnectivityService } from '../connectivity/connectivity.service';
-import { OfflineCareerObjectiveService } from './offline-career-objective.service';
 import { CareerObjectiveModel } from '../../models/career-objective.model';
 import { PncModel } from '../../models/pnc.model';
 import { BaseService } from '../base/base.service';
+import { ConnectivityService } from '../connectivity/connectivity.service';
+import { SessionService } from '../session/session.service';
+import { OfflineCareerObjectiveService } from './offline-career-objective.service';
+import { OnlineCareerObjectiveService } from './online-career-objective.service';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class CareerObjectiveService extends BaseService {
   constructor(
     private onlineCareerObjectiveService: OnlineCareerObjectiveService,

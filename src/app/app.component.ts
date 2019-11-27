@@ -1,30 +1,27 @@
-import { App, Events, Nav, Platform } from 'ionic-angular';
 import * as moment from 'moment';
 
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { SplashScreen } from '@ionic-native/splash-screen';
-import { StatusBar } from '@ionic-native/status-bar';
+import { AfterViewInit, Component, ViewEncapsulation } from '@angular/core';
+import { Router } from '@angular/router';
+import { StatusBar } from '@ionic-native/status-bar/ngx';
+import { Events, Platform } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 
 import { AuthenticationService } from './core/authentication/authentication.service';
 import { PinPadTypeEnum } from './core/enums/security/pin-pad-type.enum';
-import { RoutingService } from './core/routing/routing.service';
 import { ConnectivityService } from './core/services/connectivity/connectivity.service';
 import { DeviceService } from './core/services/device/device.service';
 import { ModalSecurityService } from './core/services/modal/modal-security.service';
 import { SessionService } from './core/services/session/session.service';
 import { SynchronizationService } from './core/services/synchronization/synchronization.service';
 import { ToastService } from './core/services/toast/toast.service';
-import {
-    UnsupportedNavigatorMessagePage
-} from './modules/home/pages/unsupported-navigator/unsupported-navigator-message.page';
 
 @Component({
-  templateUrl: 'app.html'
+  selector: 'app-root',
+  templateUrl: 'app.component.html',
+  styleUrls: ['app.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
-export class EDossierPNC implements OnInit {
-
-  @ViewChild('content') nav: Nav;
+export class AppComponent implements AfterViewInit {
 
   pinPadModalActive = false;
   switchToBackgroundDate: Date;
@@ -32,29 +29,22 @@ export class EDossierPNC implements OnInit {
   pncSynchroThresholdInSeconds = 300;
 
   constructor(
-    public platform: Platform,
-    public statusBar: StatusBar,
-    public splashScreen: SplashScreen,
+    private platform: Platform,
+    private statusBar: StatusBar,
     private connectivityService: ConnectivityService,
     private events: Events,
+    private router: Router,
     private securityModalService: ModalSecurityService,
     private sessionService: SessionService,
-    public translateService: TranslateService,
+    private translateService: TranslateService,
     private deviceService: DeviceService,
     private toastService: ToastService,
     private synchronizationProvider: SynchronizationService,
-    private authenticationService: AuthenticationService,
-    private app: App,
-    private routingService: RoutingService) {
-    // A chaque changement de page, on récupère l'evenement pour la gestion du changement de tab
-    app.viewWillEnter.subscribe(
-      (data) => {
-        this.events.publish('changeTab', data.component.name);
-      }
-    );
+    private authenticationService: AuthenticationService
+  ) {
   }
 
-  ngOnInit(): void {
+  ngAfterViewInit(): void {
     this.initializeApp();
   }
 
@@ -62,12 +52,15 @@ export class EDossierPNC implements OnInit {
 
     this.platform.ready().then(() => {
 
+      // MODE BROWSER
       if (this.deviceService.isBrowser()) {
         if (this.isInternetExplorer()) {
-          this.nav.setRoot(UnsupportedNavigatorMessagePage);
+          this.router.navigate(['unsupported-navigator']);
           return;
         }
       } else {
+        // MODE MOBILE
+        this.statusBar.styleDefault();
 
         /* On ajoute une écoute sur un paramétre pour savoir si la popin est activée ou pas pour afficher
         un blur et une interdiction de cliquer avant d'avoir mis le bon code pin */
@@ -92,6 +85,7 @@ export class EDossierPNC implements OnInit {
         this.platform.pause.subscribe(() => {
           this.switchToBackgroundDate = new Date();
         });
+
       }
 
       this.events.subscribe('connectionStatus:disconnected', () => {
@@ -109,14 +103,9 @@ export class EDossierPNC implements OnInit {
         }
       });
 
-      this.statusBar.styleDefault();
-
       this.translateService.setDefaultLang('fr');
       this.translateService.use('fr');
-      this.authenticationService.initFunctionalApp().then(
-        authentReturn => {
-          this.routingService.handleAuthenticationStatus(authentReturn, this.nav);
-        });
+
     });
 
   }
@@ -129,5 +118,4 @@ export class EDossierPNC implements OnInit {
   isInternetExplorer() {
     return navigator.userAgent.search(/(?:Edge|MSIE|Trident\/.*; rv:)/) !== -1;
   }
-
 }

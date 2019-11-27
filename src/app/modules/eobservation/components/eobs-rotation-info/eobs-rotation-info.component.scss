@@ -1,21 +1,60 @@
-eobs-rotation-info {
+$border-grid: 1px solid var(--ion-color-grey75);
+$block-border-radius: 5px;
 
-    .rotation-info {
+.rotation-grid {
+    .flight-header {
+        color: var(--ion-color-blue55);
+    }
 
-        .rotation-number {
-            color: color($colors-secondary, blue55);
-        }
+    .line:first-child {
+        border-top: $border-grid;
+        border-bottom: $border-grid;
+    }
 
+    .line span {
+        border-right: $border-grid;
+    }
+    .line span:last-child {
+        border-right: 0px;
+    }
+
+    .line:nth-child(even) {
+        background: var(--ion-color-grey95);
+    }
+
+    .line:last-child {
+        border: initial;
+    }
+}
+
+.rotation-grid {
+    .flight-header {
+        color: var(--ion-color-blue55);
+    }
+}
+
+.first-line {
+    align-items: center;
+}
+.line {
+    padding-left: 24px;
+}
+
+.rotation-info {
+
+    .rotation-number {
+        color: var(--ion-color-blue55);
+    }
+
+    display: flex;
+    justify-content: flex-start;
+
+    ion-row:first-child {
         display: flex;
-        justify-content: flex-start;
+        align-items: center;
 
-        ion-row:first-child {
-            display: flex;
-            align-items: center;
-
-            ion-col:first-child {
-                padding-left: 24px;
-            }
+        ion-col:first-child {
+            padding-left: 24px;
         }
     }
 }

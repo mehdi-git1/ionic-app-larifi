@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
 
 import { EntityEnum } from '../../enums/entity.enum';
-import { StorageService } from '../../storage/storage.service';
 import { OfflineActionEnum } from '../../enums/offline-action.enum';
-import { ProfessionalInterviewModel } from '../../models/professional-interview/professional-interview.model';
+import {
+    ProfessionalInterviewModel
+} from '../../models/professional-interview/professional-interview.model';
+import { StorageService } from '../../storage/storage.service';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class OfflineProfessionalInterviewService {
 
     constructor(
@@ -38,19 +40,19 @@ export class OfflineProfessionalInterviewService {
     }
 
     /**
-    * Récupère un bilan professionnel à partir de son id
-    * @param id l'id du bilan professionnel à récupérer
-    * @return une promesse contenant le bilan professionnel récupéré
-    */
+     * Récupère un bilan professionnel à partir de son id
+     * @param id l'id du bilan professionnel à récupérer
+     * @return une promesse contenant le bilan professionnel récupéré
+     */
     public getProfessionalInterview(id: number): Promise<ProfessionalInterviewModel> {
         return this.storageService.findOneAsync(EntityEnum.PROFESSIONAL_INTERVIEW, `${id}`);
     }
 
     /**
-    * Créé ou met à jour un bilan professionnel
-    * @param  profesionnalInterview le bilan professionnel à créer ou mettre à jour
-    * @return une promesse contenant le bilan professionnel créé ou mis à jour
-    */
+     * Créé ou met à jour un bilan professionnel
+     * @param  profesionnalInterview le bilan professionnel à créer ou mettre à jour
+     * @return une promesse contenant le bilan professionnel créé ou mis à jour
+     */
     public createOrUpdate(professionalInterview: ProfessionalInterviewModel, online: boolean = false): Promise<ProfessionalInterviewModel> {
         return this.storageService.saveAsync(EntityEnum.PROFESSIONAL_INTERVIEW, professionalInterview, online);
     }

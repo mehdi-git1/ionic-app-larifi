@@ -1,7 +1,8 @@
-import { CareerObjectiveStatusEnum } from '../../enums/career-objective-status.enum';
 import { Injectable } from '@angular/core';
 
-@Injectable()
+import { CareerObjectiveStatusEnum } from '../../enums/career-objective-status.enum';
+
+@Injectable({ providedIn: 'root' })
 export class CareerObjectiveStatusService {
 
   constructor() {

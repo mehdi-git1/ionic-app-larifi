@@ -1,15 +1,15 @@
-import { PinPadErrorTextEnum } from '../../../core/enums/security/pin-pad-error-text.enum';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
+
 import { GlobalErrorEnum } from '../../../core/enums/global-error.enum';
+import { PinPadErrorTextEnum } from '../../../core/enums/security/pin-pad-error-text.enum';
 import { PinPadTitleEnum } from '../../../core/enums/security/pin-pad-title.enum';
 import { PinPadTypeEnum } from '../../../core/enums/security/pin-pad-type.enum';
-import { TranslateService } from '@ngx-translate/core';
-import { ViewController } from 'ionic-angular';
-import { Component, Output, EventEmitter, Input, OnInit } from '@angular/core';
-
 
 @Component({
   selector: 'pin-pad',
-  templateUrl: 'pin-pad.component.html'
+  templateUrl: 'pin-pad.component.html',
+  styleUrls: ['./pin-pad.component.scss']
 })
 
 export class PinPadComponent implements OnInit {
@@ -35,7 +35,6 @@ export class PinPadComponent implements OnInit {
   inputValueArray: Array<any>;
 
   constructor(
-    private viewController: ViewController,
     private translateService: TranslateService
   ) {
   }
@@ -77,14 +76,14 @@ export class PinPadComponent implements OnInit {
   /**
    * Fonction définissant l'action à faire lors du click sur annuler
    */
-  manageCancel(){
+  manageCancel() {
     this.sendAction.emit('cancel');
   }
 
   /**
    * Fonction permettant de gérer l'effacement du dernier caractère entré
    */
-  manageErase(){
+  manageErase() {
     this.inputValueArray[this.inputValueArray.indexOf(this.padValueDefault) - 1] = this.padValueDefault;
     this.pinPadEntered.emit(this.inputValueArray);
   }
@@ -92,7 +91,7 @@ export class PinPadComponent implements OnInit {
   /**
    * Affichae ou non du bouton effacer
    */
-  isInvisible(){
+  isInvisible() {
     return this.inputValueArray.indexOf(this.padValueDefault) < 1;
   }
 

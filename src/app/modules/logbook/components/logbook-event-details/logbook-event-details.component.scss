@@ -1,0 +1,182 @@
+.draw-ligne {
+    margin: 22px 10px;
+    border-top: 1px solid var(--ion-color-grey70);
+    flex: 5;
+}
+
+.logbook-info-date {
+    flex: 2;
+    text-align: center;
+    position: relative;
+    top: 12px;
+
+    span {
+        white-space: nowrap;
+    }
+
+}
+
+.logbook-event-card {
+    padding: 10px 20px;
+
+    pnc-photo {
+        margin: 20px;
+    }
+
+    .logbook-info-container {
+        padding: 10px 20px 10px 10px;
+        width: 100%;
+
+        .logbook-header {
+            display: flex;
+
+            .left-logbook-info {
+                flex: 3;
+
+                .title {
+                    margin: 6px 0px;
+
+                    span {
+                        font-size: 1.2em;
+                        color: var(--ion-color-blue68);
+                    }
+                }
+            }
+
+            .right-logbook-info {
+                flex: 1;
+
+                .creation-date-info {
+                    display: flex;
+                    justify-content: flex-end;
+                    color: var(--ion-color-grey50);
+                }
+
+                .icons {
+                    flex: 2;
+                    justify-content: flex-end;
+                    display: flex;
+                    margin: 8px 0px;
+                    height: 25px;
+
+                    span.edospnc-important {
+                        padding-top: 5px;
+                    }
+                }
+
+                .ion-md-eye-off:before {
+                    font-size: 20px;
+                    padding-right: 10px;
+                    color: var(--ion-color-grey40);
+                }
+
+                .edospnc-important:before,
+                .ion-ios-edospnc-important:before,
+                .ion-md-edospnc-important:before,
+                .icon-edospnc-important:before {
+                    font-size: 18px;
+                    padding-right: 10px;
+                    color: var(--ion-color-secondary);
+
+                }
+
+                .edospnc-pnc:before,
+                .ion-ios-edospnc-pnc:before,
+                .ion-ios-edospnc-pnc-outline:before,
+                .ion-md-edospnc-pnc:before,
+                .ion-md-edospnc-pnc-outline:before,
+                .icon-edospnc-pnc:before {
+                    font-size: 20px;
+                    padding-right: 10px;
+                    color: var(--ion-color-primary);
+                }
+
+                .category-label {
+
+                    span {
+                        height: 30px;
+                        background-color: var(--ion-color-grey70);
+                        border-radius: 4px;
+                        padding: 5px 10px;
+                        font-weight: normal;
+                        white-space: nowrap;
+                    }
+                }
+
+
+            }
+        }
+
+
+        .logbook-info-content {
+            margin-top: 15px;
+
+            p {
+                white-space: pre-line;
+            }
+        }
+
+        .logbook-notified-pnc {
+            ion-label {
+                margin-bottom: 4px;
+                font-weight: bold;
+            }
+        }
+    }
+}
+
+.information-message {
+    text-align: left;
+    margin-top: 15px;
+}
+
+.button-bar-container {
+
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding-left: 52px;
+
+    .logbook-button-bar {
+        width: 100%;
+        button{
+            height: 50px;
+        }
+    }
+
+    ion-radio-group ion-radio{
+        margin: 10px 10px;
+    }
+
+    .logbook-button-bar button, 
+     ion-radio-group ion-label{
+            font-size: 14px;
+            font-weight: bold;
+            font-style: normal;
+            font-stretch: normal;
+            line-height: 2.29;
+            letter-spacing: 0.7px;
+            background-color: transparent;
+            color: var(--ion-color-grey10);
+            box-shadow: none;
+        }
+
+    .visibility-for-large-container {
+        height: 100%;
+
+        ion-radio-group {
+            display: flex;
+        }
+    }
+
+    .button-bar {
+        bottom: 50px;
+        display: flex;
+        align-items: flex-end;
+        justify-content: flex-end;
+    }
+
+}
+

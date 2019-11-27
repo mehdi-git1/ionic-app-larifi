@@ -1,0 +1,59 @@
+$ion-textarea-row-margin:10px;
+
+.hr-document-container{
+
+    ion-label {
+        transform: none;
+        overflow: visible;
+    }
+
+    .category-row {
+
+        ion-item {
+            width: 380px;
+        }
+
+        ion-label {
+            width: 100px;
+            padding-top: 10px;
+        }
+    }
+
+    .title-row {
+        margin-top: $ion-textarea-row-margin !important;
+
+        ion-item {
+            --highlight-height: 0;
+        }
+
+    
+    }
+
+    .description-row {
+
+        text-editor{
+            width: 100%;
+        }
+    }
+
+    .button-bar-row {
+        margin-left: 9px;
+        margin-right: 9px;
+    }
+
+    .attachment-row{
+        margin-top:10px;
+    }
+
+    .document-title {
+        display: flex;
+        height: fit-content;
+    }
+
+    .document-length {
+        width: 100%;
+        font-size: smaller;
+        align-content: flex-end;
+        text-align: right;
+    }
+}

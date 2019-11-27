@@ -1,15 +1,14 @@
 import { Injectable } from '@angular/core';
-import { isUndefined } from 'ionic-angular/util/util';
 
-import { StorageService } from '../../storage/storage.service';
-import { EntityEnum } from '../../enums/entity.enum';
-import { CareerObjectiveModel } from '../../models/career-objective.model';
 import { UrlConfiguration } from '../../configuration/url.configuration';
+import { EntityEnum } from '../../enums/entity.enum';
 import { RestService } from '../../http/rest/rest.base.service';
-import { OfflineCareerObjectiveService } from './offline-career-objective.service';
+import { CareerObjectiveModel } from '../../models/career-objective.model';
+import { StorageService } from '../../storage/storage.service';
 import { CareerObjectiveTransformerService } from './career-objective-transformer.service';
+import { OfflineCareerObjectiveService } from './offline-career-objective.service';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class OnlineCareerObjectiveService {
 
   constructor(
@@ -37,18 +36,19 @@ export class OnlineCareerObjectiveService {
   }
 
   /**
- * Ajoute les objectifs créés en offline et non synchonisés, à la liste des objectifs récupérés de la BDD
- * @param onlineDataArray la liste des objectifs récupérés de la BDD.
- * @param offlineDataArray la liste des objectifs récupérés du cache
- */
-  addUnsynchronizedOfflineCareerObjectivesToOnline(onlineDataArray: CareerObjectiveModel[], offlineDataArray: CareerObjectiveModel[]): CareerObjectiveModel[] {
+   * Ajoute les objectifs créés en offline et non synchonisés, à la liste des objectifs récupérés de la BDD
+   * @param onlineDataArray la liste des objectifs récupérés de la BDD.
+   * @param offlineDataArray la liste des objectifs récupérés du cache
+   */
+  addUnsynchronizedOfflineCareerObjectivesToOnline(
+    onlineDataArray: CareerObjectiveModel[], offlineDataArray: CareerObjectiveModel[]): CareerObjectiveModel[] {
     for (const offlineData of offlineDataArray) {
       const result = onlineDataArray.filter(onlineData => offlineData.getStorageId() === onlineData.getStorageId());
       if (result && result.length === 1) {
-        if (offlineData.offlineAction && !isUndefined(offlineData.offlineAction)) {
+        if (offlineData.offlineAction && offlineData.offlineAction !== undefined) {
           onlineDataArray[onlineDataArray.indexOf(result[0])] = offlineData;
         }
-      } else if (offlineData.offlineAction && !isUndefined(offlineData.offlineAction)) {
+      } else if (offlineData.offlineAction && offlineData.offlineAction !== undefined) {
         onlineDataArray.push(offlineData);
       }
     }
@@ -65,20 +65,20 @@ export class OnlineCareerObjectiveService {
   }
 
   /**
-  * Récupère un objectif
-  * @param id l'id de l'objectif à récupérer
-  * @return l'objectif récupéré
-  */
+   * Récupère un objectif
+   * @param id l'id de l'objectif à récupérer
+   * @return l'objectif récupéré
+   */
   getCareerObjective(id: number): Promise<CareerObjectiveModel> {
     return this.restService.get(this.config.getBackEndUrl('getCareerObjectivesById', [id]));
   }
 
 
   /**
-  * Supprime un objectif
-  * @param id l'id de l'objectif à supprimer
-  * @return l'objectif supprimé
-  */
+   * Supprime un objectif
+   * @param id l'id de l'objectif à supprimer
+   * @return l'objectif supprimé
+   */
   delete(id: number): Promise<CareerObjectiveModel> {
     this.storageService.delete(EntityEnum.CAREER_OBJECTIVE, `${id}`);
     this.storageService.persistOfflineMap();

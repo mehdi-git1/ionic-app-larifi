@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { PncPhotoModel } from '../../models/pnc-photo.model';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class PncPhotoTransformerService {
 
   constructor() {

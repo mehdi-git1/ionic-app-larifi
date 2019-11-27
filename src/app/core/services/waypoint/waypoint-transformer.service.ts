@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { WaypointModel } from '../../models/waypoint.model';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class WaypointTransformerService {
 
   constructor() {

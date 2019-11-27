@@ -1,12 +1,17 @@
+
+
 import { DatePipe } from '@angular/common';
-import { RelayModel } from './../../../../core/models/statutory-certificate/relay.model';
 import { Component, Input, OnInit } from '@angular/core';
 
-import * as _ from 'lodash';
-import { StatutoryCertificateDisplayTypeEnum } from '../../../../core/enums/statutory-certificate-display-type.enum';
+import {
+    StatutoryCertificateDisplayTypeEnum
+} from '../../../../core/enums/statutory-certificate-display-type.enum';
+import { RelayModel } from '../../../../core/models/statutory-certificate/relay.model';
+
 @Component({
     selector: 'pnc-relays',
-    templateUrl: 'relays.component.html'
+    templateUrl: 'relays.component.html',
+    styleUrls: ['./relays.component.scss']
 })
 export class RelaysComponent implements OnInit {
 

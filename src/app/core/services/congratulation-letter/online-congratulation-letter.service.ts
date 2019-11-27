@@ -1,11 +1,12 @@
-import { CongratulationLetterModel } from '../../models/congratulation-letter.model';
 import { Injectable } from '@angular/core';
-import { UrlConfiguration } from '../../configuration/url.configuration';
-import { RestService } from '../../http/rest/rest.base.service';
-import { StorageService } from '../../storage/storage.service';
-import { EntityEnum } from '../../enums/entity.enum';
 
-@Injectable()
+import { UrlConfiguration } from '../../configuration/url.configuration';
+import { EntityEnum } from '../../enums/entity.enum';
+import { RestService } from '../../http/rest/rest.base.service';
+import { CongratulationLetterModel } from '../../models/congratulation-letter.model';
+import { StorageService } from '../../storage/storage.service';
+
+@Injectable({ providedIn: 'root' })
 export class OnlineCongratulationLetterService {
 
   constructor(

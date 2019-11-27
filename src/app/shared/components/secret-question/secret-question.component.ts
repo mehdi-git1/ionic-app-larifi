@@ -1,19 +1,19 @@
-import { SecretQuestionErrorTextEnum } from '../../../core/enums/security/secret-question-error-text.enum';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { TranslateService } from '@ngx-translate/core';
+
 import { GlobalErrorEnum } from '../../../core/enums/global-error.enum';
+import {
+    SecretQuestionErrorTextEnum
+} from '../../../core/enums/security/secret-question-error-text.enum';
 import { SecretQuestionTitleEnum } from '../../../core/enums/security/secret-question-title.enum';
 import { SecretQuestionTypeEnum } from '../../../core/enums/security/secret-question-type.enum';
-import { SecretQuestionModalComponent } from '../modals/secret-question-modal/secret-question-modal.component';
-import { TranslateService } from '@ngx-translate/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { ViewController } from 'ionic-angular';
-import { Component, Output, EventEmitter, Input, OnInit } from '@angular/core';
-
 
 @Component({
   selector: 'secret-question',
-  templateUrl: 'secret-question.component.html'
+  templateUrl: 'secret-question.component.html',
+  styleUrls: ['./secret-question.component.scss']
 })
-
 export class SecretQuestionComponent implements OnInit {
 
   @Output() questionAnswerValue = new EventEmitter();
@@ -30,16 +30,16 @@ export class SecretQuestionComponent implements OnInit {
   secretQuestionType = SecretQuestionTypeEnum;
 
   constructor(
-    public viewController: ViewController,
-    public formBuilder: FormBuilder,
-    public translateService: TranslateService
+    private formBuilder: FormBuilder,
+    private translateService: TranslateService
   ) {
     this.initForm();
   }
 
   ngOnInit() {
     this.modalTitle = this.translateService.instant(SecretQuestionTitleEnum[this.modalType]);
-    this.errorText = this.errorType === GlobalErrorEnum.none ? '' : this.translateService.instant(SecretQuestionErrorTextEnum[this.errorType]);
+    this.errorText = this.errorType === GlobalErrorEnum.none ?
+      '' : this.translateService.instant(SecretQuestionErrorTextEnum[this.errorType]);
   }
 
   /**

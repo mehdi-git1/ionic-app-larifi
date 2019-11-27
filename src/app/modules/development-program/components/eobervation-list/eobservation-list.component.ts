@@ -1,6 +1,5 @@
-import { NavController, NavParams } from 'ionic-angular';
-
 import { Component, Input, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { EFormsTypeEnum } from '../../../../core/enums/e-forms/e-forms-type.enum';
 import {
@@ -16,9 +15,6 @@ import {
 } from '../../../../core/services/forms/forms-e-observation.service';
 import { PncService } from '../../../../core/services/pnc/pnc.service';
 import { SessionService } from '../../../../core/services/session/session.service';
-import {
-    EObservationsArchivesPage
-} from '../../../eobservation/pages/eobservations-archives/eobservations-archives.page';
 
 @Component({
     selector: 'eobservation-list',
@@ -44,19 +40,14 @@ export class EObservationListComponent implements OnInit {
     pnc: PncModel;
 
     constructor(
-        private navParams: NavParams,
-        private navCtrl: NavController,
+        private router: Router,
+        private activatedRoute: ActivatedRoute,
         private sessionService: SessionService,
         private deviceService: DeviceService,
         private formsEObservationService: FormsEObservationService,
         private pncService: PncService) { }
 
     ngOnInit() {
-        this.matricule = this.navParams.get('matricule');
-        this.pncService.getPnc(this.matricule).then(pnc => {
-            this.pnc = pnc;
-        }, error => {
-        });
     }
 
     /**
@@ -75,7 +66,7 @@ export class EObservationListComponent implements OnInit {
      * Redirige vers la page des archives des eObservations
      */
     goToEobservationsArchives() {
-        this.navCtrl.push(EObservationsArchivesPage, { matricule: this.matricule });
+        this.router.navigate(['eobservation', 'archive'], { relativeTo: this.activatedRoute });
     }
 
     /**

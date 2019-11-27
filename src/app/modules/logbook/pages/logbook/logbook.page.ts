@@ -1,10 +1,12 @@
-import { NavController, NavParams, PopoverController } from 'ionic-angular';
 import * as moment from 'moment';
 
 import { Component } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { PopoverController } from '@ionic/angular';
 
 import { Config } from '../../../../../environments/config';
 import { AppConstant } from '../../../../app.constant';
+import { LogbookEventTypeEnum } from '../../../../core/enums/logbook-event/logbook-event-type.enum';
 import { TabHeaderEnum } from '../../../../core/enums/tab-header.enum';
 import { LogbookEventGroupModel } from '../../../../core/models/logbook/logbook-event-group.model';
 import { LogbookEventModel } from '../../../../core/models/logbook/logbook-event.model';
@@ -13,23 +15,22 @@ import { ConnectivityService } from '../../../../core/services/connectivity/conn
 import {
     OnlineLogbookEventService
 } from '../../../../core/services/logbook/online-logbook-event.service';
-import { PncService } from '../../../../core/services/pnc/pnc.service';
 import { SecurityService } from '../../../../core/services/security/security.service';
 import { SessionService } from '../../../../core/services/session/session.service';
 import { DateTransform } from '../../../../shared/utils/date-transform';
 import {
     LogbookEventActionMenuComponent
 } from '../../components/logbook-event-action-menu/logbook-event-action-menu.component';
-import { LogbookCreatePage } from '../logbook-create/logbook-create.page';
-import { LogbookEventDetailsPage } from '../logbook-event-details/logbook-event-details.page';
 
 @Component({
     selector: 'log-book',
     templateUrl: 'logbook.page.html',
+    styleUrls: ['./logbook.page.scss']
 })
 export class LogbookPage {
 
-    displayedLogbookEventsColumns: string[] = ['childEvents', 'eventDate', 'creationDate', 'category', 'important', 'attach', 'event', 'origin', 'author', 'actions'];
+    displayedLogbookEventsColumns: string[] =
+        ['childEvents', 'eventDate', 'creationDate', 'category', 'important', 'attach', 'event', 'origin', 'author', 'actions'];
     pnc: PncModel;
 
     sortAscending = false;
@@ -39,14 +40,16 @@ export class LogbookPage {
 
     TabHeaderEnum = TabHeaderEnum;
 
-    constructor(public navCtrl: NavController,
-        public navParams: NavParams,
-        private pncService: PncService,
+    LogbookEventTypeEnum = LogbookEventTypeEnum;
+
+    constructor(
+        private router: Router,
+        private activatedRoute: ActivatedRoute,
         private securityService: SecurityService,
         private sessionService: SessionService,
         private dateTransform: DateTransform,
         private onlineLogbookEventService: OnlineLogbookEventService,
-        public popoverCtrl: PopoverController,
+        private popoverCtrl: PopoverController,
         private connectivityService: ConnectivityService,
         private config: Config
     ) {
@@ -70,8 +73,24 @@ export class LogbookPage {
     }
 
     /**
+     * Verifie si l'évènement en paramètre est masqué pour le PNC concerné
+     * @param logbookEvent l'évènement à tester
+     */
+    isHidden(logbookEvent: LogbookEventModel) {
+        if (logbookEvent.type != LogbookEventTypeEnum.EDOSPNC) {
+            const now = moment();
+            const broadcastDate = moment(logbookEvent.creationDate, AppConstant.isoDateFormat);
+            const hiddenDuration = moment.duration(now.diff(broadcastDate)).asMilliseconds();
+            const upToFifteenDays = moment.duration(15, 'days').asMilliseconds();
+            if ((hiddenDuration < upToFifteenDays && !logbookEvent.displayed) || logbookEvent.hidden) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * Gère la réception des évènements du journal de bord du Pnc
-     * @param logbookEvents evènements du journal de bord
      * @param matricule le matricule du Pnc
      */
     private getLogbookEvents(matricule: string) {
@@ -80,10 +99,12 @@ export class LogbookPage {
             this.groupedEvents = new Array<LogbookEventGroupModel>();
             const groupedEventsMap = new Map<number, LogbookEventGroupModel>();
             logbookEvents.forEach(logbookEvent => {
-                if (!groupedEventsMap.has(logbookEvent.groupId)) {
-                    groupedEventsMap.set(logbookEvent.groupId, new LogbookEventGroupModel(logbookEvent.groupId, this.dateTransform));
+                if (this.sessionService.getActiveUser().isManager || matricule === this.sessionService.getActiveUser().matricule && !this.isHidden(logbookEvent)) {
+                    if (!groupedEventsMap.has(logbookEvent.groupId)) {
+                        groupedEventsMap.set(logbookEvent.groupId, new LogbookEventGroupModel(logbookEvent.groupId, this.dateTransform));
+                    }
+                    groupedEventsMap.get(logbookEvent.groupId).logbookEvents.push(logbookEvent);
                 }
-                groupedEventsMap.get(logbookEvent.groupId).logbookEvents.push(logbookEvent);
             });
             // Tri des events de chaque groupe par date d'évènement
             for (const groupedEvent of Array.from(groupedEventsMap.values())) {
@@ -146,7 +167,7 @@ export class LogbookPage {
      */
     goToLogbookCreation() {
         if (this.pnc) {
-            this.navCtrl.push(LogbookCreatePage, { matricule: this.pnc.matricule });
+            this.router.navigate(['create'], { relativeTo: this.activatedRoute });
         }
     }
 
@@ -154,7 +175,7 @@ export class LogbookPage {
      * Dirige vers la page de détail d'un évènement du journal de bord
      */
     goToLogbookEventDetails(groupId: number) {
-        this.navCtrl.push(LogbookEventDetailsPage, { matricule: this.pnc.matricule, groupId: groupId });
+        this.router.navigate(['detail', groupId, false], { relativeTo: this.activatedRoute });
     }
 
     /**
@@ -175,13 +196,25 @@ export class LogbookPage {
 
     /**
      * Ouvre la popover de description d'un item
-     * @param myEvent  event
-     * @param eObservationItem item
+     * @param event  event
+     * @param logbookEvent l'évènement JDB concerné
      */
-    openActionsMenu(myEvent: Event, logbookEvent: LogbookEventModel) {
-        myEvent.stopPropagation();
-        const popover = this.popoverCtrl.create(LogbookEventActionMenuComponent, { logbookEvent: logbookEvent, navCtrl: this.navCtrl }, { cssClass: 'action-menu-popover' });
-        popover.present({ ev: myEvent });
+    openActionsMenu(event: Event, logbookEvent: LogbookEventModel) {
+        event.stopPropagation();
+        this.popoverCtrl.create({
+            component: LogbookEventActionMenuComponent,
+            componentProps: { logbookEvent: logbookEvent },
+            event: event,
+            cssClass: 'action-menu-popover'
+        }).then(popover => {
+            popover.present();
+
+            popover.onDidDismiss().then(dismissEvent => {
+                if (dismissEvent.data === 'logbookEvent:create') {
+                    this.router.navigate(['detail', logbookEvent.groupId, true], { relativeTo: this.activatedRoute });
+                }
+            });
+        });
     }
 
     /**

@@ -1,17 +1,18 @@
 import { PdfViewerModule } from 'ng2-pdf-viewer';
-import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-translate/core';
-import { NgModule } from '@angular/core';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { CommonModule, DatePipe } from '@angular/common';
-import { File } from '@ionic-native/file';
 
+import { CommonModule, DatePipe } from '@angular/common';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { File } from '@ionic-native/file/ngx';
+import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+
+import { DirectivesModule } from './directives/directives.module';
 import { AppMaterialModule } from './material/material.module';
 import { PipesModule } from './pipes/pipes.module';
-import { TooltipsModule, TooltipController } from 'ionic-tooltips';
-import { Utils } from './utils/utils';
-import { DirectivesModule } from './directives/directives.module';
 import { DateTransform } from './utils/date-transform';
+import { Utils } from './utils/utils';
 
 export function createTranslateLoader(http: HttpClient) {
     return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -29,7 +30,6 @@ export function createTranslateLoader(http: HttpClient) {
             }
         }),
         PipesModule,
-        TooltipsModule,
         DirectivesModule,
         PdfViewerModule
     ],
@@ -38,9 +38,10 @@ export function createTranslateLoader(http: HttpClient) {
         TranslateModule,
         AppMaterialModule,
         PipesModule,
-        TooltipsModule,
         DirectivesModule,
-        PdfViewerModule
+        PdfViewerModule,
+        FormsModule,
+        ReactiveFormsModule
     ],
     providers: [
         AppMaterialModule,
@@ -48,15 +49,16 @@ export function createTranslateLoader(http: HttpClient) {
         DateTransform,
         DatePipe,
         File,
-        TooltipController
+        FormsModule,
+        ReactiveFormsModule
     ]
 })
 export class SharedModule {
     constructor(private translate: TranslateService) {
-        translate.addLangs(['en', 'fr']);
-        translate.setDefaultLang('fr');
+        this.translate.addLangs(['en', 'fr']);
+        this.translate.setDefaultLang('fr');
 
-        const browserLang = translate.getBrowserLang();
-        translate.use(browserLang.match(/en|fr/) ? browserLang : 'fr');
+        const browserLang = this.translate.getBrowserLang();
+        this.translate.use(browserLang.match(/en|fr/) ? browserLang : 'fr');
     }
 }

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { CrewMemberModel } from '../../models/crew-member.model';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class CrewMemberTransformerService {
 
   constructor() {

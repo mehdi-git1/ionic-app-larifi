@@ -1,19 +1,20 @@
-import { isUndefined } from 'ionic-angular/util/util';
-import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/do';
-import { ToastService } from '../services/toast/toast.service';
-import { Events } from 'ionic-angular';
-import { TranslateService } from '@ngx-translate/core';
+
+import { Observable } from 'rxjs/Observable';
+
+import {
+    HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest
+} from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { HttpInterceptor, HttpHandler, HttpRequest, HttpEvent, HttpErrorResponse } from '@angular/common/http';
+import { Events } from '@ionic/angular';
+import { TranslateService } from '@ngx-translate/core';
 
-import { DeviceService } from '../services/device/device.service';
-import { ConnectivityService } from '../services/connectivity/connectivity.service';
 import { UrlConfiguration } from '../configuration/url.configuration';
+import { ConnectivityService } from '../services/connectivity/connectivity.service';
+import { DeviceService } from '../services/device/device.service';
+import { ToastService } from '../services/toast/toast.service';
 
-
-
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class HttpErrorInterceptor implements HttpInterceptor {
 
   constructor(
@@ -39,7 +40,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
           // Bascule en mode déconnecté si le ping échoue
           return this.connectivityService.pingAPI().then(
             success => {
-              if (err.error && !isUndefined(err.error.detailMessage) && err.error.label === 'BUSINESS_ERROR') {
+              if (err.error && err.error.detailMessage !== undefined && err.error.label === 'BUSINESS_ERROR') {
                 errorMessage = err.error.detailMessage;
               }
               if (request.headers && !request.headers.has('BYPASS_INTERCEPTOR')) {
@@ -50,7 +51,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
               this.events.publish('connectionStatus:disconnected');
             });
         } else {
-          if (err.error && !isUndefined(err.error.detailMessage) && err.error.label === 'BUSINESS_ERROR') {
+          if (err.error && err.error.detailMessage !== undefined && err.error.label === 'BUSINESS_ERROR') {
             errorMessage = err.error.detailMessage;
           }
           if (request.headers && !request.headers.has('BYPASS_INTERCEPTOR')) {

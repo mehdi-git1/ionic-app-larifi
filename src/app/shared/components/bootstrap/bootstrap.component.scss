@@ -1,0 +1,35 @@
+.loader-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+
+  h1 {
+    color: var(--ion-color-primary);
+    font-weight: bold;
+    font-size: 3em;
+    margin: 30px;
+  }
+
+  .app-loader {
+    border: 16px solid var(--ion-color-grey70);
+    border-top: 16px solid var(--ion-color-primary);
+
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    animation: spin 2s linear infinite;
+  }
+
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+}

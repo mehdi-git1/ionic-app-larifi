@@ -1,16 +1,19 @@
-import { AlertController, NavController, NavParams } from 'ionic-angular';
 import * as _ from 'lodash';
+import { Observable } from 'rxjs/Observable';
 import { pairwise } from 'rxjs/operators';
-import { Observable, Subject } from 'rxjs/Rx';
+import { Subject } from 'rxjs/Subject';
 
 import { DatePipe } from '@angular/common';
-import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { NavController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 
 import {
     CongratulationLetterRedactorTypeEnum
 } from '../../../../core/enums/congratulation-letter/congratulation-letter-redactor-type.enum';
+import { TextEditorModeEnum } from '../../../../core/enums/text-editor-mode.enum';
 import {
     CongratulationLetterFlightModel
 } from '../../../../core/models/congratulation-letter-flight.model';
@@ -23,100 +26,89 @@ import { ConnectivityService } from '../../../../core/services/connectivity/conn
 import { PncService } from '../../../../core/services/pnc/pnc.service';
 import { SessionService } from '../../../../core/services/session/session.service';
 import { ToastService } from '../../../../core/services/toast/toast.service';
+import { FormCanDeactivate } from '../../../../routing/guards/form-changes.guard';
 import { DateTransform } from '../../../../shared/utils/date-transform';
 import { Utils } from '../../../../shared/utils/utils';
 
 @Component({
     selector: 'congratulation-letter-create',
     templateUrl: 'congratulation-letter-create.page.html',
+    styleUrls: ['./congratulation-letter-create.page.scss']
 })
-export class CongratulationLetterCreatePage {
+export class CongratulationLetterCreatePage extends FormCanDeactivate implements OnInit {
 
     pnc: PncModel;
     creationMode = true;
     submitInProgress = false;
-    creationForm: FormGroup;
+    congratulationLetterForm: FormGroup;
 
     congratulationLetter: CongratulationLetterModel;
     originCongratulationLetter: CongratulationLetterModel;
 
     displayPncSelection: boolean;
 
-    monthsNames;
-    flightDateTimeOptions;
-
     autoCompleteInProgress = false;
     searchTerms = new Subject<string>();
     redactorSearchList: Observable<PncModel[]>;
     selectedRedactor: PncModel;
 
+    @ViewChild('form', { static: false }) form: NgForm;
+
     CongratulationLetterRedactorTypeEnum = CongratulationLetterRedactorTypeEnum;
+    TextEditorModeEnum = TextEditorModeEnum;
 
     readonly AF = 'AF';
 
-    constructor(private navParams: NavParams,
-        private navCtrl: NavController,
+    constructor(
+        private activatedRoute: ActivatedRoute,
         private congratulationLetterService: CongratulationLetterService,
         private pncService: PncService,
         private sessionService: SessionService,
         private formBuilder: FormBuilder,
         private toastService: ToastService,
-        private alertCtrl: AlertController,
+        private navCtrl: NavController,
         private dateTransformer: DateTransform,
         private connectivityService: ConnectivityService,
         private datePipe: DatePipe,
         public translateService: TranslateService
     ) {
-        // Traduction des mois
-        this.monthsNames = this.translateService.instant('GLOBAL.MONTH.LONGNAME');
-
+        super();
         this.initForm();
 
         this.handlePncSelectionDisplay();
 
         this.handleAutocompleteSearch();
 
-        // Options du datepicker
-        this.flightDateTimeOptions = {
-            buttons: [{
-                text: this.translateService.instant('GLOBAL.DATEPICKER.CLEAR'),
-                handler: () => this.congratulationLetter.flight.theoricalDate = null
-            }]
-        };
-
     }
 
-    ionViewDidEnter() {
+    ngOnInit() {
 
-        if (this.sessionService.visitedPnc) {
-            this.pnc = this.sessionService.visitedPnc;
-        }
+        const matricule = this.pncService.getRequestedPncMatricule(this.activatedRoute);
+        this.pncService.getPnc(matricule).then(pnc => {
+            this.pnc = pnc;
+            this.congratulationLetter.concernedPncs.push(this.pnc);
+        }, error => { });
 
-        if (this.navParams.get('congratulationLetterId')) {
+        if (this.activatedRoute.snapshot.paramMap.get('congratulationLetterId')
+            && this.activatedRoute.snapshot.paramMap.get('congratulationLetterId') !== '0') {
             // Mode édition
             this.creationMode = false;
-            this.congratulationLetterService.getCongratulationLetter(this.navParams.get('congratulationLetterId')).then(congratulationLetter => {
-                this.congratulationLetter = congratulationLetter;
-                if (this.congratulationLetter.redactorType === CongratulationLetterRedactorTypeEnum.PNC) {
-                    this.selectedRedactor = this.congratulationLetter.redactor;
-                    this.displayPncSelection = true;
-                }
-                this.originCongratulationLetter = _.cloneDeep(this.congratulationLetter);
-            });
+            this.congratulationLetterService.getCongratulationLetter(
+                parseInt(this.activatedRoute.snapshot.paramMap.get('congratulationLetterId'), 10))
+                .then(congratulationLetter => {
+                    this.congratulationLetter = congratulationLetter;
+                    if (this.congratulationLetter.redactorType === CongratulationLetterRedactorTypeEnum.PNC) {
+                        this.selectedRedactor = this.congratulationLetter.redactor;
+                        this.displayPncSelection = true;
+                    }
+                    this.originCongratulationLetter = _.cloneDeep(this.congratulationLetter);
+                });
         } else {
             // Mode création
             this.creationMode = true;
             this.displayPncSelection = true;
             this.congratulationLetter = this.buildNewCongratulationLetter();
             this.originCongratulationLetter = _.cloneDeep(this.congratulationLetter);
-        }
-    }
-
-    ionViewCanLeave() {
-        if (this.formHasBeenModified()) {
-            return this.confirmAbandonChanges();
-        } else {
-            return true;
         }
     }
 
@@ -132,63 +124,44 @@ export class CongratulationLetterCreatePage {
         congratulationLetter.flight = new CongratulationLetterFlightModel();
         congratulationLetter.flight.airline = this.AF;
         congratulationLetter.concernedPncs = new Array();
-        congratulationLetter.concernedPncs.push(this.pnc);
 
         return congratulationLetter;
-    }
-
-    /**
-     * Vérifie si le formulaire a été modifié sans être enregistré
-     */
-    formHasBeenModified() {
-        return Utils.getHashCode(this.originCongratulationLetter) !== Utils.getHashCode(this.congratulationLetter);
-    }
-
-    /**
-     * Popup d'avertissement en cas de modifications non enregistrées.
-     */
-    confirmAbandonChanges() {
-        return new Promise((resolve, reject) => {
-            // Avant de quitter la vue, on avertit l'utilisateur si ses modifications n'ont pas été enregistrées
-            this.alertCtrl.create({
-                title: this.translateService.instant('GLOBAL.CONFIRM_BACK_WITHOUT_SAVE.TITLE'),
-                message: this.translateService.instant('GLOBAL.CONFIRM_BACK_WITHOUT_SAVE.MESSAGE'),
-                buttons: [
-                    {
-                        text: this.translateService.instant('GLOBAL.BUTTONS.CANCEL'),
-                        role: 'cancel',
-                        handler: () => reject()
-                    },
-                    {
-                        text: this.translateService.instant('GLOBAL.BUTTONS.CONFIRM'),
-                        handler: () => resolve()
-                    }
-                ]
-            }).present();
-        });
     }
 
     /**
      * Initialise le formulaire
      */
     initForm() {
-        this.creationForm = this.formBuilder.group({
+        this.congratulationLetterForm = this.formBuilder.group({
             flightDateControl: ['', Validators.required],
             flightAirlineControl: ['', Validators.compose([Validators.minLength(2), Validators.maxLength(2)])],
             flightNumberControl: ['', Validators.compose([Validators.minLength(3), Validators.maxLength(5)])],
             letterTypeControl: ['', Validators.required],
             redactorTypeControl: ['', Validators.required],
-            verbatimControl: ['', Validators.compose([Validators.maxLength(4000)])],
-            redactorAutoCompleteControl: ['']
+            verbatimControl: '',
+            redactorAutoCompleteControl: ''
         });
+    }
+
+    /**
+     * Renvoie le mode d'affichage du wiziwig (verbatim)
+     * @return FULL pour le mode edition, READ_ONLY pour le mode lecture seule
+     */
+    getVerbatimMode() {
+        if (this.verbatimCanBeEdited()) {
+            return TextEditorModeEnum.FULL;
+        } else {
+            return TextEditorModeEnum.READ_ONLY;
+        }
     }
 
     /**
      * Gère l'affichage de la sélection du PNC rédacteur. Si le choix "PNC" est sélectionné, on affiche l'outil de sélection du PNC
      */
     handlePncSelectionDisplay() {
-        this.creationForm.get('redactorTypeControl').valueChanges.pipe(pairwise())
-            .subscribe(([previousRedactorType, newRedactorType]: [CongratulationLetterRedactorTypeEnum, CongratulationLetterRedactorTypeEnum]) => {
+        this.congratulationLetterForm.get('redactorTypeControl').valueChanges.pipe(pairwise())
+            .subscribe(([previousRedactorType, newRedactorType]:
+                [CongratulationLetterRedactorTypeEnum, CongratulationLetterRedactorTypeEnum]) => {
                 if (newRedactorType === CongratulationLetterRedactorTypeEnum.PNC) {
                     this.displayPncSelection = true;
                 } else {
@@ -203,7 +176,7 @@ export class CongratulationLetterCreatePage {
      * @return vrai si c'est le cas, faux sinon
      */
     pageLoadingIsOver(): boolean {
-        return this.congratulationLetter != undefined;
+        return this.congratulationLetter && this.congratulationLetter !== undefined;
     }
 
     /**
@@ -280,16 +253,17 @@ export class CongratulationLetterCreatePage {
      */
     submitLetter() {
         this.submitInProgress = true;
-        this.congratulationLetter.flight.theoricalDate = this.dateTransformer.transformDateStringToIso8601Format(this.congratulationLetter.flight.theoricalDate);
+        this.congratulationLetter.flight.theoricalDate =
+            this.dateTransformer.transformDateStringToIso8601Format(this.congratulationLetter.flight.theoricalDate);
 
         this.congratulationLetterService.createOrUpdate(this.congratulationLetter).then(congratulationLetter => {
             this.originCongratulationLetter = _.cloneDeep(this.congratulationLetter);
             if (this.creationMode) {
                 this.toastService.success(this.translateService.instant('CONGRATULATION_LETTER_CREATE.SUCCESS.LETTER_CREATED'));
-            }
-            else {
+            } else {
                 this.toastService.success(this.translateService.instant('CONGRATULATION_LETTER_CREATE.SUCCESS.LETTER_UPDATED'));
             }
+            this.congratulationLetterForm.markAsPristine();
             this.navCtrl.pop();
         }, error => { }).then(() => {
             this.submitInProgress = false;
@@ -301,9 +275,11 @@ export class CongratulationLetterCreatePage {
      */
     isFormValid(): boolean {
         return this.connectivityService.isConnected() &&
-            this.creationForm.valid
-            && (!Utils.isEmpty(this.creationForm.get('verbatimControl').value) || this.congratulationLetter.documents.length > 0)
-            && (this.congratulationLetter.redactorType !== CongratulationLetterRedactorTypeEnum.PNC || this.congratulationLetter.redactor != null);
+            this.congratulationLetterForm.valid
+            && (!Utils.isEmpty(this.congratulationLetterForm.get('verbatimControl').value)
+                || this.congratulationLetter.documents.length > 0)
+            && (this.congratulationLetter.redactorType !== CongratulationLetterRedactorTypeEnum.PNC
+                || this.congratulationLetter.redactor != null);
     }
 
 
@@ -317,13 +293,17 @@ export class CongratulationLetterCreatePage {
 
     /**
      * Teste si le verbatim peut être modifié.<br>
-     * Le verbatim peut être modifié qu'en cas de création, ou de modification quand l'auteur de la modification est le rédacteur de la lettre
+     * Le verbatim peut être modifié qu'en cas de création, ou de modification quand l'auteur de
+     * la modification est le rédacteur de la lettre
      * @return vrai si le verbatim peut être modifié, faux sinon
      */
     verbatimCanBeEdited() {
         return this.creationMode
-            || ((this.congratulationLetter.redactor != undefined && this.sessionService.getActiveUser().matricule === this.congratulationLetter.redactor.matricule)
-                || (this.congratulationLetter.creationAuthor != undefined && this.sessionService.getActiveUser().matricule === this.congratulationLetter.creationAuthor.matricule));
+            || (
+                (this.congratulationLetter.redactor !== undefined
+                    && this.sessionService.getActiveUser().matricule === this.congratulationLetter.redactor.matricule)
+                || (this.congratulationLetter.creationAuthor !== undefined
+                    && this.sessionService.getActiveUser().matricule === this.congratulationLetter.creationAuthor.matricule)
+            );
     }
-
 }

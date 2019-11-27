@@ -1,78 +1,74 @@
-congratulation-letter-detail {
+table {
+    width: 100%;
+    border-collapse: collapse;
+    box-shadow: 0px 0px 5px var(--ion-color-grey70);
+    border-radius: 5px;
 
-    table {
-        width: 100%;
-        border-collapse: collapse;
-        box-shadow: 0px 0px 5px color($colors-secondary, grey70);
-        border-radius: 5px;
+    th {
+        background: var(--ion-color-primarylight);
+        color: var(--ion-color-white);
+        font-weight: normal;
+        text-align: left;
 
-        th {
-            background: color($colors, primary-light);
-            color: color($colors, white);
-            font-weight: normal;
-            text-align: left;
-
-            &:first-child {
-                border-top-left-radius: 5px;
-            }
-
-            &:last-child {
-                border-top-right-radius: 5px;
-            }
+        &:first-child {
+            border-top-left-radius: 5px;
         }
 
-        td {
-            background: color($colors, white);
-
-            &:first-child {
-                border-bottom-left-radius: 5px;
-            }
-
-            &:last-child {
-                border-bottom-right-radius: 5px;
-            }
-
-        }
-
-        th,
-        td {
-            padding: 5px 10px;
-        }
-
-        th:not(:first-child),
-        td:not(:first-child) {
-            border-left: 1px solid color($colors-secondary, grey75);
+        &:last-child {
+            border-top-right-radius: 5px;
         }
     }
 
-    .verbatim-container {
-        margin-top: 20px;
-        padding: 20px;
-        box-shadow: 0px 0px 5px color($colors-secondary, grey70);
-        background: color($colors, white);
+    td {
+        background: var(--ion-color-white);
+
+        &:first-child {
+            border-bottom-left-radius: 5px;
+        }
+
+        &:last-child {
+            border-bottom-right-radius: 5px;
+        }
+
+    }
+
+    th,
+    td {
+        padding: 5px 10px;
+    }
+
+    th:not(:first-child),
+    td:not(:first-child) {
+        border-left: 1px solid var(--ion-color-grey75);
+    }
+}
+
+.verbatim-container {
+    margin-top: 20px;
+    padding: 20px;
+    box-shadow: 0px 0px 5px var(--ion-color-grey70);
+    background: var(--ion-color-white);
+    border-radius: 3px;
+
+    label {
+        display: flex;
+        align-items: center;
+        color: var(--ion-color-grey10);
+        font-size: 1.1em;
+
+        span {
+            color: var(--ion-color-secondarylight);
+            margin-right: 10px;
+        }
+    }
+
+    .verbatim-data {
+        margin-top: 10px;
+        padding: 0 10px;
         border-radius: 3px;
-
-        label {
-            display: flex;
-            align-items: center;
-            color: color($colors-secondary, grey12);
-            font-size: 1.1em;
-
-            span {
-                color: color($colors, secondary-light);
-                margin-right: 10px;
-            }
-        }
-
-        .verbatim,
-        .no-data-found {
-            margin: 10px 0 0 0;
-            padding: 10px;
-            border-radius: 3px;
-            background: color($colors-secondary, grey98);
-            border: 1px solid color($colors-secondary, grey70);
-            white-space: pre-line;
-        }
+        background: var(--ion-color-grey98);
+        border: 1px solid var(--ion-color-grey70);
+        white-space: pre-line;
+        min-height: 35px;
     }
-
 }

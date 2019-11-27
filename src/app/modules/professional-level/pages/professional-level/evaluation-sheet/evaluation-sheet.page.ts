@@ -1,6 +1,5 @@
-import { NavParams } from 'ionic-angular';
-
 import { Component } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 import { PncModel } from '../../../../../core/models/pnc.model';
 import {
@@ -11,7 +10,6 @@ import { PncService } from '../../../../../core/services/pnc/pnc.service';
 import {
     EvaluationSheetService
 } from '../../../../../core/services/professional-level/evaluation-sheet/evaluation-sheet.service';
-import { SessionService } from '../../../../../core/services/session/session.service';
 import {
     ProfessionalLevelResultStatusUtil
 } from '../../../../../shared/utils/professional-level-result-status.util';
@@ -19,6 +17,7 @@ import {
 @Component({
     selector: 'page-evaluation-sheet',
     templateUrl: 'evaluation-sheet.page.html',
+    styleUrls: ['./evaluation-sheet.page.scss']
 })
 
 export class EvaluationSheetPage {
@@ -29,9 +28,8 @@ export class EvaluationSheetPage {
     pnc: PncModel;
 
     constructor(
-        private navParams: NavParams,
+        private activatedRoute: ActivatedRoute,
         private evaluationSheetService: EvaluationSheetService,
-        private sessionService: SessionService,
         private pncService: PncService) {
     }
 
@@ -40,12 +38,11 @@ export class EvaluationSheetPage {
     }
 
     loadData() {
-
-        this.matricule = this.navParams.get('matricule');
+        this.matricule = this.pncService.getRequestedPncMatricule(this.activatedRoute);
         this.pncService.getPnc(this.matricule).then(pnc => {
             this.pnc = pnc;
         }, error => { });
-        this.moduleId = this.navParams.get('moduleId');
+        this.moduleId = parseInt(this.activatedRoute.snapshot.paramMap.get('moduleId'), 10);
         if (this.moduleId) {
             this.evaluationSheetService.getEvaluationSheet(this.matricule, this.moduleId).then(evaluationSheet => {
                 this.evaluationSheet = evaluationSheet;

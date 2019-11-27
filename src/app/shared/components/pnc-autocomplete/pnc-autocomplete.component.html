@@ -1,28 +1,14 @@
-<ion-item>
-    <mat-form-field class="autocomplete-field">
-        <mat-chip-list class="chip-list" #chipList>
-            <mat-chip class="selected-pnc-chip" *ngIf="pncHasBeenSelected()"
-                selectable="false"
-                removable="true"
-                (removed)="deselectPnc()">
-                <span class="selected-pnc">{{value?.lastName}} {{value?.firstName}}</span>
-                <mat-icon matChipRemove class="remove-selected-pnc" (click)="deselectPnc()"><ion-icon name="md-close"></ion-icon></mat-icon>
-            </mat-chip>
-            <div class="pnc-input-block">
-                <ion-icon *ngIf="!pncHasBeenSelected()" class="search-icon" name="search"></ion-icon>
-                <input class="pnc-input" [disabled]="pncHasBeenSelected()" #pncInput type="text" matInput 
-                placeholder="{{'PNC_AUTOCOMPLETE.PLACEHOLDER' | translate}}" (keyup)="searchAutoComplete(pncInput.value)" 
-                [matAutocomplete]="auto" autocomplete="off" [readonly]="areFiltersDisabled()"/>
-                <ion-icon *ngIf="!pncHasBeenSelected() && pncInput && pncInput.value " name="backspace" class="clear-button clickable" (click)="clearPncSearch()"></ion-icon>
-            </div>
-        </mat-chip-list>
+<ion-item lines="none">
+    <mat-form-field>
+        <input class="pnc-input" [disabled]="pncHasBeenSelected()" #pncInput type="text" matInput
+            placeholder="{{'PNC_AUTOCOMPLETE.PLACEHOLDER' | translate}}" (keyup)="searchAutoComplete(pncInput.value)"
+            [matAutocomplete]="auto" autocomplete="off" [readonly]="areFiltersDisabled()" />
+        <ion-spinner *ngIf="autoCompleteRunning" class="auto-complete-spinner"></ion-spinner>
+        <ion-icon name="backspace" class="clear-button clickable" (click)="clearPncSearch()"></ion-icon>
     </mat-form-field>
-    <mat-autocomplete class="mat-autocomplete" #auto (optionSelected)="selectPnc($event.option.value)">
+    <mat-autocomplete class="elevation-4" #auto (optionSelected)="selectPnc($event.option.value)">
         <mat-option *ngFor="let pnc of pncList | async" [value]="pnc">
             {{ pnc.lastName + ' ' + pnc.firstName + ' (' + pnc.matricule + ')'}}
         </mat-option>
     </mat-autocomplete>
 </ion-item>
-<div class="spinner-overlay" *ngIf="autoCompleteRunning">
-    <ion-spinner class="auto-complete-spinner" ></ion-spinner>
-</div>

@@ -1,264 +1,253 @@
 // Ionic Variables and Theming. For more info, please see:
 // http://ionicframework.com/docs/theming/
-// Font path is used to include ionicons,
-// roboto, and noto sans fonts
-$font-path: "../assets/fonts";
+
+/** Ionic CSS Variables **/
+:root {
+    /** primary **/
+    --ion-color-primary: #00818E;
+    --ion-color-primary-rgb: 0, 129, 142;
+    --ion-color-primary-contrast: #ffffff;
+    --ion-color-primary-contrast-rgb: 255, 255, 255;
+    --ion-color-primary-shade: #005461;
+    --ion-color-primary-tint: #25B1BE;
+
+    /** secondary **/
+    --ion-color-secondary: #AB004D;
+    --ion-color-secondary-rgb: 171, 0, 77;
+    --ion-color-secondary-contrast: #ffffff;
+    --ion-color-secondary-contrast-rgb: 255, 255, 255;
+    --ion-color-secondary-shade: #750026;
+    --ion-color-secondary-tint: #E31A79;
+
+    /** tertiary **/
+    --ion-color-tertiary: #7044ff;
+    --ion-color-tertiary-rgb: 112, 68, 255;
+    --ion-color-tertiary-contrast: #ffffff;
+    --ion-color-tertiary-contrast-rgb: 255, 255, 255;
+    --ion-color-tertiary-shade: #633ce0;
+    --ion-color-tertiary-tint: #7e57ff;
+
+    /** success **/
+    --ion-color-success: #10dc60;
+    --ion-color-success-rgb: 16, 220, 96;
+    --ion-color-success-contrast: #ffffff;
+    --ion-color-success-contrast-rgb: 255, 255, 255;
+    --ion-color-success-shade: #0ec254;
+    --ion-color-success-tint: #28e070;
+
+    /** warning **/
+    --ion-color-warning: #ffce00;
+    --ion-color-warning-rgb: 255, 206, 0;
+    --ion-color-warning-contrast: #ffffff;
+    --ion-color-warning-contrast-rgb: 255, 255, 255;
+    --ion-color-warning-shade: #e0b500;
+    --ion-color-warning-tint: #ffd31a;
+
+    /** danger **/
+    --ion-color-danger: #f04141;
+    --ion-color-danger-rgb: 245, 61, 61;
+    --ion-color-danger-contrast: #ffffff;
+    --ion-color-danger-contrast-rgb: 255, 255, 255;
+    --ion-color-danger-shade: #d33939;
+    --ion-color-danger-tint: #f25454;
+
+    /** dark **/
+    --ion-color-dark: #222428;
+    --ion-color-dark-rgb: 34, 34, 34;
+    --ion-color-dark-contrast: #ffffff;
+    --ion-color-dark-contrast-rgb: 255, 255, 255;
+    --ion-color-dark-shade: #1e2023;
+    --ion-color-dark-tint: #383a3e;
+
+    /** medium **/
+    --ion-color-medium: #989aa2;
+    --ion-color-medium-rgb: 152, 154, 162;
+    --ion-color-medium-contrast: #ffffff;
+    --ion-color-medium-contrast-rgb: 255, 255, 255;
+    --ion-color-medium-shade: #86888f;
+    --ion-color-medium-tint: #a2a4ab;
+
+    /** light **/
+    --ion-color-light: #f4f5f8;
+    --ion-color-light-rgb: 244, 244, 244;
+    --ion-color-light-contrast: #000000;
+    --ion-color-light-contrast-rgb: 0, 0, 0;
+    --ion-color-light-shade: #d7d8da;
+    --ion-color-light-tint: #f5f6f9;
+
+    /* COULEURS CUSTOM */
+
+    --ion-color-primarylight: #25B1BE;
+    --ion-color-primarylight-rgb: 37, 177, 190;
+    --ion-color-primarylight-contrast: #ffffff;
+    --ion-color-primarylight-contrast-rgb: 255, 255, 255;
+    --ion-color-primarylight-shade: #219ca7;
+    --ion-color-primarylight-tint: #3bb9c5;
+
+    --ion-color-primarydark: #005461;
+    --ion-color-primarydark-rgb: 0, 84, 97;
+    --ion-color-primarydark-contrast: #ffffff;
+    --ion-color-primarydark-contrast-rgb: 255, 255, 255;
+    --ion-color-primarydark-shade: #004a55;
+    --ion-color-primarydark-tint: #1a6571;
+
+    --ion-color-secondarydark: #750026;
+    --ion-color-secondarydark-rgb: 117, 0, 38;
+    --ion-color-secondarydark-contrast: #ffffff;
+    --ion-color-secondarydark-contrast-rgb: 255, 255, 255;
+    --ion-color-secondarydark-shade: #670021;
+    --ion-color-secondarydark-tint: #831a3c;
+
+    --ion-color-secondarylight: #E31A79;
+    --ion-color-secondarylight-rgb: 227, 26, 121;
+    --ion-color-secondarylight-contrast: #ffffff;
+    --ion-color-secondarylight-contrast-rgb: 255, 255, 255;
+    --ion-color-secondarylight-shade: #c8176a;
+    --ion-color-secondarylight-tint: #e63186;
+
+    --ion-color-white: #ffffff;
+    --ion-color-white-rgb: 255, 255, 255;
+    --ion-color-white-contrast: #00818E;
+    --ion-color-white-contrast-rgb: 0, 129, 142;
+    --ion-color-white-shade: #e0e0e0;
+    --ion-color-white-tint: #ffffff;
+
+    --ion-color-grey20: #585858;
+    --ion-color-grey20-rgb: 88, 88, 88;
+    --ion-color-grey20-contrast: #ffffff;
+    --ion-color-grey20-contrast-rgb: 255, 255, 255;
+    --ion-color-grey20-shade: #4d4d4d;
+    --ion-color-grey20-tint: #696969;
+
+    --ion-color-grey50: #94959A;
+    --ion-color-grey50-rgb: 148, 149, 154;
+    --ion-color-grey50-contrast: #000000;
+    --ion-color-grey50-contrast-rgb: 0, 0, 0;
+    --ion-color-grey50-shade: #828388;
+    --ion-color-grey50-tint: #9fa0a4;
+
+    --ion-color-grey70: #D5D9DE;
+    --ion-color-grey70-rgb: 213, 217, 222;
+    --ion-color-grey70-contrast: #000000;
+    --ion-color-grey70-contrast-rgb: 0, 0, 0;
+    --ion-color-grey70-shade: #bbbfc3;
+    --ion-color-grey70-tint: #d9dde1;
+
+    --ion-color-grey95: #F1F1F1;
+    --ion-color-grey95-rgb: 241, 241, 241;
+    --ion-color-grey95-contrast: #000000;
+    --ion-color-grey95-contrast-rgb: 0, 0, 0;
+    --ion-color-grey95-shade: #d4d4d4;
+    --ion-color-grey95-tint: #f2f2f2;
+
+    --ion-color-orange55: #F4B65B;
+    --ion-color-orange55-rgb: 244, 182, 91;
+    --ion-color-orange55-contrast: #000000;
+    --ion-color-orange55-contrast-rgb: 0, 0, 0;
+    --ion-color-orange55-shade: #d7a050;
+    --ion-color-orange55-tint: #f5bd6b;
+
+    --ion-color-bluegrey10: #66A7B7;
+    --ion-color-bluegrey10-rgb: 102, 167, 183;
+    --ion-color-bluegrey10-contrast: #ffffff;
+    --ion-color-bluegrey10-contrast-rgb: 255, 255, 255;
+    --ion-color-bluegrey10-shade: #5a93a1;
+    --ion-color-bluegrey10-tint: #75b0be;
+
+    --ion-color-blue55: #7cc3cc;
+    --ion-color-blue55-rgb: 124, 195, 204;
+    --ion-color-blue55-contrast: #000000;
+    --ion-color-blue55-contrast-rgb: 0, 0, 0;
+    --ion-color-blue55-shade: #6dacb4;
+    --ion-color-blue55-tint: #89c9d1;
+
+    --ion-color-blue60: #25b5d6;
+    --ion-color-blue60-rgb: 37, 181, 214;
+    --ion-color-blue60-contrast: #ffffff;
+    --ion-color-blue60-contrast-rgb: 255, 255, 255;
+    --ion-color-blue60-shade: #219fbc;
+    --ion-color-blue60-tint: #3bbcda;
+
+    --ion-color-blue68: #5f9aaa;
+    --ion-color-blue68-rgb: 95, 154, 170;
+    --ion-color-blue68-contrast: #ffffff;
+    --ion-color-blue68-contrast-rgb: 255, 255, 255;
+    --ion-color-blue68-shade: #548896;
+    --ion-color-blue68-tint: #6fa4b3;
+
+    --ion-color-blue70: #3b7ae2;
+    --ion-color-blue70-rgb: 59, 122, 226;
+    --ion-color-blue70-contrast: #ffffff;
+    --ion-color-blue70-contrast-rgb: 255, 255, 255;
+    --ion-color-blue70-shade: #346bc7;
+    --ion-color-blue70-tint: #4f87e5;
+
+    --ion-color-green50: #27b899;
+    --ion-color-green50-rgb: 39, 184, 153;
+    --ion-color-green50-contrast: #ffffff;
+    --ion-color-green50-contrast-rgb: 255, 255, 255;
+    --ion-color-green50-shade: #22a287;
+    --ion-color-green50-tint: #3dbfa3;
 
 
-// The app direction is used to include
-// rtl styles in your app. For more info, please see:
-// http://ionicframework.com/docs/theming/rtl-support/
-$app-direction: ltr;
+    // Couleurs "libres" (non utilisables avec les composants Ionic/angular)
 
+    --ion-color-red15: #D6457C;
+    --ion-color-red80: #E53A40;
+    --ion-color-green70: #71D18A;
+    --ion-color-bluegrey30: #5d727A;
+    --ion-color-yellow10: #F5D359;
+    --ion-color-grey10: #333333;
+    --ion-color-grey40: #888888;
+    --ion-color-grey60: #8B7D72;
+    --ion-color-grey72: #D8D8D8;
+    --ion-color-grey75: #e8e5e5;
+    --ion-color-grey98: #FAFBFB;
 
-@import "ionic.globals";
+    $customColors: ('primarydark',
+            'primarylight',
+            'secondarydark',
+            'secondarylight',
+            'white',
+            'grey20',
+            'grey50',
+            'grey70',
+            'grey95',
+            'orange55',
+            'bluegrey10',
+            'blue55',
+            'blue60',
+            'blue68',
+            'blue70',
+            'green50');
 
-
-// Shared Variables
-// --------------------------------------------------
-// To customize the look and feel of this app, you can override
-// the Sass variables found in Ionic's source scss files.
-// To view all the possible Ionic variables, see:
-// http://ionicframework.com/docs/theming/overriding-ionic-variables/
-// Named Color Variables
-// --------------------------------------------------
-// Named colors makes it easy to reuse colors on various components.
-// It's highly recommended to change the default colors
-// to match your app's branding. Ionic uses a Sass map of
-// colors so you can add, rename and remove colors as needed.
-// The "primary" color is the only required color in the map.
-
-// ATTENTION !!! Limiter les couleurs de cette map aux couleurs du thème de l'appli, celles utilisées dans les composants ionic
-// Ajouter trop de couleurs à cette map ralentit considérablement la génération CSS
-$colors: (primary: #00818E,
-    secondary: #AB004D,
-    primary-dark:#005461,
-    primary-light: #25B1BE,
-    secondary-dark:#750026,
-    secondary-light:#E31A79,
-    orange55: #F4B65B,
-    green50:#27b899,
-    green65:#aec46c,
-    grey20: #585858,
-    grey50: #94959A,
-    white:#fff,
-    blue60:#25b5d6,
-    blue65:#417496,
-    blue70:#3b7ae2,
-    blue76:#41436A,
-    red14:#A53279,
-    red20:#DD586F,
-    red70:#e24c4c);
-
-$colors-secondary:(blue55:#7cc3cc,
-    blue68:#5f9aaa,
-    blue77:#67abb7,
-    grey10:#333,
-    grey12:#38393a,
-    grey40:#888,
-    grey60:#8B7D72,
-    grey70:#D5D9DE,
-    grey72:#D8D8D8,
-    grey75:#e8e5e5,
-    grey95:#F1F1F1,
-    grey98:#FAFBFB,
-    green45:#3CAF90,
-    green60:#5BC7A9,
-    green70:#71D18A,
-    red15:#D6457C,
-    red80:#E53A40,
-    bluegrey10:#66A7B7,
-    bluegrey30:#5d727A,
-    bluegrey40:#677A89,
-    bluegrey50:#556775,
-    yellow10:#F5D359);
-
-
-
-// Couleur par défaut du texte
-$text-color:color($colors-secondary, grey10);
-
-// Radio
-$radio-ios-color-on:color($colors, secondary);
-$radio-md-color-on:$radio-ios-color-on;
-
-// App iOS Variables
-// --------------------------------------------------
-// iOS only Sass variables can go here
-// App Material Design Variables
-// --------------------------------------------------
-// Material Design only Sass variables can go here
-// App Windows Variables
-// --------------------------------------------------
-// Windows only Sass variables can go here
-// App Theme
-// --------------------------------------------------
-// Ionic apps can have different themes applied, which can
-// then be future customized. This import comes last
-// so that the above variables are used and Ionic's
-// default are overridden.
-@import "ionic.theme.default";
-@import 'loading-spinner.scss';
-
-
-// Ionicons
-// --------------------------------------------------
-// The premium icon font for Ionic. For more info, please see:
-// http://ionicframework.com/docs/ionicons/
-@import "ionicons";
-
-
-// Fonts
-// Excellence in motion
-@font-face {
-    font-family: 'Excellence';
-    src: url('/assets/fonts/excellence/Regular/ExcellenceInMotionScreen-Regular.woff') format('woff');
-}
-
-@font-face {
-    font-family: 'ExcellenceBold';
-    src: url('/assets/fonts/excellence/Bold/ExcellenceInMotionScreen-Bold.woff') format('woff');
-}
-
-// Open Sans
-@font-face {
-    font-family: 'OpenSans';
-    src: url('/assets/fonts/open-sans/Regular/OpenSans-Regular.woff') format('woff');
-}
-
-@font-face {
-    font-family: 'OpenSansBold';
-    src: url('/assets/fonts/open-sans/Bold/OpenSans-Bold.woff') format('woff');
-}
-
-h3 {
-    color: color($colors, grey20);
-    font-weight: bold;
-}
-
-h4 {
-    color: color($colors, grey50);
-}
-
-.toolbar {
-
-    .toolbar-title,
-    .bar-buttons {
-        color: #ffffff;
+    @each $color in $customColors {
+        .ion-color-#{$color} {
+            --ion-color-base: var(--ion-color-#{$color});
+            --ion-color-base-rgb: var(--ion-color-#{$color}-rgb);
+            --ion-color-contrast: var(--ion-color-#{$color}-contrast);
+            --ion-color-contrast-rgb: var(--ion-color-#{$color}-contrast-rgb);
+            --ion-color-shade: var(--ion-color-#{$color}-shade);
+            --ion-color-tint: var(--ion-color-#{$color}-tint);
+        }
     }
 
-    .toolbar-background {
-        background: color($colors, primary, base);
-    }
-}
+    // Fond de l'appli
+    --ion-background-color: var(--ion-color-grey98);
 
-ion-card {
-    .card-header {
-        color: black;
-        background-color: lightgray;
-        font-size: 1.4em;
-    }
+    // Police par défaut de l'appli
+    --ion-font-family: OpenSans,
+    Excellence;
+    --ion-text-color: #333;
+    font-size: 0.9em;
 
-    .card-header + .card-content {
-        padding-top: 13px;
-    }
-}
-
-.button-outline {
-    border-width: 2px !important;
-}
-
-ion-select.select {
-    padding: 8px;
-}
-
-.input,
-ion-select {
-    border: 2px solid lightgray;
-    padding-left: 8px;
-    width: 100%;
-    height: 40px;
-
-    .text-input {
-        margin: 6px 8px;
+    // Toolbar
+    ion-toolbar {
+        --background: var(--ion-color-primarydark);
     }
 
-    .text-input {
-        margin-left: 0px !important;
-        font-size: 16px !important;
+    // Loading
+    ion-loading {
+        --spinner-color: var(--ion-color-primarydark);
     }
-}
-
-$text-input-md-show-focus-highlight: false;
-
-.item-inner {
-    padding-right: 0px !important;
-
-    .label[floating] {
-        -webkit-transform: translate3d(8px, 30px, 0);
-        transform: translate3d(8px, 30px, 0);
-        margin-top: 3px !important;
-    }
-}
-
-ion-item.item {
-    padding-left: 0px;
-}
-
-.content-md {
-    background-color: transparent;
-}
-
-.ion-page > .content {
-    background-color: color($colors-secondary, grey98);
-}
-
-@media all and (-ms-high-contrast: none),
-(-ms-high-contrast: active) {
-
-    /* IE10 & 11 */
-    .click-block {
-        // IE doesn't like this click-block, so hide it
-        display: none;
-    }
-
-    input,
-    ion-label {
-        min-height: 20px;
-    }
-
-    ion-input,
-    ion-textarea {
-        min-height: 40px;
-    }
-
-    .toolbar {
-        min-height: auto !important;
-    }
-}
-
-ion-badge {
-    font-size: 1.2rem !important;
-}
-
-.w100 {
-    width: 100%;
-}
-
-
-/* Marges */
-.margin-top-10 {
-    margin-top: 10px;
-}
-
-.no-margin-top {
-    margin-top: 0px !important;
-}
-
-.margin-bottom-10 {
-    margin-bottom: 10px;
-}
-
-.margin-right-10 {
-    margin-right: 10px;
 }

@@ -1,39 +1,38 @@
-import { PncPhotoService } from './../../../../core/services/pnc-photo/pnc-photo.service';
-import { PncTransformerService } from '../../../../core/services/pnc/pnc-transformer.service';
-import { SessionService } from '../../../../core/services/session/session.service';
-import { PncService } from '../../../../core/services/pnc/pnc.service';
-import { TranslateService, TranslateModule, TranslateLoader } from '@ngx-translate/core';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { ToastService } from '../../../../core/services/toast/toast.service';
-import { ConnectivityService } from '../../../../core/services/connectivity/connectivity.service';
-import { LegService } from '../../../../core/services/leg/leg.service';
-import { GenderService } from '../../../../core/services/gender/gender.service';
-import { IonicModule, Platform, NavController, NavParams } from 'ionic-angular';
-import { CrewMemberModel } from '../../../../core/models/crew-member.model';
-import { FlightCrewListPage } from './flight-crew-list.page';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { TestBed, ComponentFixture } from '@angular/core/testing';
-import { } from 'jasmine';
-import { PncModel } from '../../../../core/models/pnc.model';
-import {
-    NavMock,
-    PlatformMock
-} from '../../../../../test-config/mocks-ionic';
-import { SpecialityEnum } from '../../../../core/enums/speciality.enum';
-import { of } from 'rxjs/observable/of';
 import { async } from 'q';
+import { of } from 'rxjs/observable/of';
+
 import { HttpClient } from '@angular/common/http';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ActivatedRoute, Router } from '@angular/router';
+import { IonicModule } from '@ionic/angular';
+import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+
+import { SpecialityEnum } from '../../../../core/enums/speciality.enum';
+import { CrewMemberModel } from '../../../../core/models/crew-member.model';
+import { PncModel } from '../../../../core/models/pnc.model';
+import { ConnectivityService } from '../../../../core/services/connectivity/connectivity.service';
+import { GenderService } from '../../../../core/services/gender/gender.service';
+import { LegService } from '../../../../core/services/leg/leg.service';
+import { PncPhotoService } from '../../../../core/services/pnc-photo/pnc-photo.service';
+import { PncTransformerService } from '../../../../core/services/pnc/pnc-transformer.service';
+import { PncService } from '../../../../core/services/pnc/pnc.service';
+import { SessionService } from '../../../../core/services/session/session.service';
+import { ToastService } from '../../../../core/services/toast/toast.service';
+import { FlightCrewListPage } from './flight-crew-list.page';
 
 const pncServiceMock = jasmine.createSpyObj('pncServiceMock', ['getPnc']);
 pncServiceMock.getPnc.and.returnValue(of({}));
 const sessionServiceMock = jasmine.createSpyObj('sessionServiceMock', ['']);
+const routerMock = jasmine.createSpyObj('routerMock', ['navigate']);
 
 describe('FlightCrewListPage', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             declarations: [FlightCrewListPage],
             imports: [
-                IonicModule.forRoot(FlightCrewListPage),
+                IonicModule,
                 TranslateModule.forRoot({
                     loader: {
                         provide: TranslateLoader,
@@ -43,9 +42,8 @@ describe('FlightCrewListPage', () => {
                 })
             ],
             providers: [
-                { provide: Platform, useClass: PlatformMock },
-                { provide: NavController, useClass: NavMock },
-                { provide: NavParams, useClass: NavMock },
+                { provide: Router, useValue: routerMock },
+                ActivatedRoute,
                 { provide: GenderService },
                 { provide: LegService },
                 { provide: ConnectivityService },

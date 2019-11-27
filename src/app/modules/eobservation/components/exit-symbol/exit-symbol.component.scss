@@ -1,6 +1,6 @@
-exit-symbol {
+:host {
     font-size: 1.8em;
-    color: color($colors-secondary, blue55);
+    color: var(--ion-color-blue55);
     display: flex;
     align-items: center;
     justify-content: center;

@@ -1,17 +1,19 @@
-import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-translate/core';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { IonicModule } from 'ionic-angular';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { IonicModule } from '@ionic/angular';
+import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
 
-import { ProfileManagementPage } from './profile-management.page';
-import { TranslateLoaderMock } from './../../../../../test-config/mocks-ionic';
-import { UserPermissionService } from '../../../../core/services/user-permission/user-permission.service';
-import { UserProfileService } from './../../../../core/services/user-profile/user-profile.service';
-import { ToastService } from './../../../../core/services/toast/toast.service';
 import { UserPermissionModel } from '../../../../core/models/admin/user-permission.model';
+import { ToastService } from '../../../../core/services/toast/toast.service';
+import {
+    UserPermissionService
+} from '../../../../core/services/user-permission/user-permission.service';
+import { UserProfileService } from '../../../../core/services/user-profile/user-profile.service';
+import { ProfileManagementPage } from './profile-management.page';
 
 const UserProfileServiceMock = jasmine.createSpyObj('UserProfileServiceMock', ['updatePermissions']);
 const ToastServiceMock = jasmine.createSpyObj('ToastServiceMock', ['success']);
+const TranslateLoaderMock = jasmine.createSpyObj('TranslateLoaderMock', ['instant']);
 
 describe('page-profile-management', () => {
 
@@ -26,7 +28,7 @@ describe('page-profile-management', () => {
                 ProfileManagementPage
             ],
             imports: [
-                IonicModule.forRoot(ProfileManagementPage),
+                IonicModule,
                 TranslateModule.forRoot({
                     loader: { provide: TranslateLoader, useClass: TranslateLoaderMock }
                 })

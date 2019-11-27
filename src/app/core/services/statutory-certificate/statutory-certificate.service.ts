@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 
-import { OfflineStatutoryCertificateService } from './offline-statutory-certificate.service';
-import { OnlineStatutoryCertificateService } from './online-statutory-certificate.service';
-import { ConnectivityService } from '../connectivity/connectivity.service';
 import { StatutoryCertificateModel } from '../../models/statutory.certificate.model';
 import { BaseService } from '../base/base.service';
+import { ConnectivityService } from '../connectivity/connectivity.service';
+import { OfflineStatutoryCertificateService } from './offline-statutory-certificate.service';
+import { OnlineStatutoryCertificateService } from './online-statutory-certificate.service';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class StatutoryCertificateService extends BaseService {
 
   constructor(

@@ -1,3 +1,3 @@
-<button ion-button *ngIf="isAvailable()" (click)="generatePdf()" outline>
-    <ion-icon class="edospnc-pdf" name="edospnc-pdf"></ion-icon> {{ 'GLOBAL.BUTTONS.EXPORT' | translate }}
-</button>
+<ion-button color="primary" *ngIf="isAvailable()" (click)="generatePdf()" fill="outline">
+    <span class="edospnc-pdf ion-margin-end" name="edospnc-pdf"></span> {{ 'GLOBAL.BUTTONS.EXPORT' | translate }}
+</ion-button>

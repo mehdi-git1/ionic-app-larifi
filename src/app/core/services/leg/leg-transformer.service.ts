@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { LegModel } from '../../models/leg.model';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class LegTransformerService {
 
     constructor() {

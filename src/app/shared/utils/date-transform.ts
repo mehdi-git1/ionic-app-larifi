@@ -1,11 +1,9 @@
-import { AppConstant } from '../../app.constant';
 import { DatePipe } from '@angular/common';
-
 import { Injectable } from '@angular/core';
 
+import { AppConstant } from '../../app.constant';
 
-
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class DateTransform {
 
     constructor(private datePipe: DatePipe) {
@@ -16,8 +14,8 @@ export class DateTransform {
      * @param dateToTransform date à transformer
      * @return date au format dd/MM/yyyy
      */
-    formatDateInDay(dateToTransform: Date): string {
-        return this.datePipe.transform(dateToTransform, AppConstant.dateFormat);
+    formatDateInDay(dateToTransform: string, dateFormat: string): string {
+        return this.datePipe.transform(dateToTransform, dateFormat);
     }
 
     /**

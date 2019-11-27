@@ -1,16 +1,16 @@
-import { UserMessageTransformerService } from './user-message-transformer.service';
-import { UserMessageKeyEnum } from './../../enums/admin/user-message-key.enum';
-import { StorageService } from './../../storage/storage.service';
-import { UserMessageModel } from './../../models/admin/user-message.model';
-import { Injectable, EventEmitter } from '@angular/core';
-import { SessionService } from '../session/session.service';
-import { EntityEnum } from '../../enums/entity.enum';
-
 import * as moment from 'moment';
+
+import { EventEmitter, Injectable } from '@angular/core';
+
+import { UserMessageKeyEnum } from '../../enums/admin/user-message-key.enum';
+import { EntityEnum } from '../../enums/entity.enum';
+import { UserMessageModel } from '../../models/admin/user-message.model';
+import { StorageService } from '../../storage/storage.service';
 import { DeviceService } from '../device/device.service';
+import { SessionService } from '../session/session.service';
+import { UserMessageTransformerService } from './user-message-transformer.service';
 
-
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class UserMessageAlertService {
 
   userMessageAlertCreation = new EventEmitter<UserMessageModel>();

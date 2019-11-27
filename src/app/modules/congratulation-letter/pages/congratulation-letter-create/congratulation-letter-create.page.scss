@@ -1,17 +1,26 @@
-congratulation-letter-create {
-
+:host {
     ion-col > label {
-        color: color($colors-secondary, grey10);
+        color: var(--ion-color-grey10);
         margin-right: 10px;
     }
 
+    .flight-date-label {
+        margin-top: 10px;
+    }
+
     .flight-date {
-        height: 40px;
-        width: 120px;
-        font-size: initial;
-        padding: 0 15px;
-        display: flex;
-        align-items: center;
+        ion-datetime {
+            height: 40px;
+            width: 120px;
+            font-size: initial;
+            padding: 0 15px;
+            display: flex;
+            align-items: center;
+        }
+    }
+
+    .flight-number-label {
+        margin-top: 10px;
     }
 
     .flight-airline {
@@ -34,6 +43,10 @@ congratulation-letter-create {
         }
     }
 
+    .redactor-label {
+        margin-top: -15px;
+    }
+
     .redactor-autocomplete {
         width: 350px;
         font-size: initial;
@@ -42,11 +55,21 @@ congratulation-letter-create {
             margin-right: 5px;
         }
 
-        .mat-input-wrapper {
-            padding: 0;
+        ::ng-deep .mat-form-field-infix {
+            display: flex !important;
+            align-items: center;
+            padding: 5px 5px;
+
+            ion-icon {
+                font-size: 1.5em !important;
+            }
+        }
+
+        ::ng-deep .mat-form-field-label-wrapper {
+            margin-top: -5px;
 
             label {
-                padding: 5px 10px;
+                padding: 10px 10px;
             }
         }
     }
@@ -57,24 +80,18 @@ congratulation-letter-create {
         margin-left: 10px;
     }
 
-    ion-textarea {
-        min-height: 310px !important;
-        padding: 0 !important;
-        margin: 0 !important;
-
-        textarea {
-            min-height: 290px !important;
-            padding: 5px !important;
-        }
-    }
-
     ion-list.list-md,
     ion-list.list-ios {
         margin: 0;
     }
 
     .collective-warning {
-        color: color($colors, red70);
+        color: var(--ion-color-danger);
         font-size: 1.1em;
+    }
+
+    .verbatim-info-message {
+        font-weight: bold;
+        color: var(--ion-color-danger);
     }
 }

@@ -1,79 +1,75 @@
-career-objective {
+.career-objective-card {
+    --background: var(--ion-color-white);
+    display: flex;
+    border-radius: 5px !important;
+    color: var(--ion-color-white);
+    text-align: left;
+    cursor: pointer;
+    margin: 5px 0px;
+    width: 100%;
 
-    .career-objective-card {
-        display: flex;
-        border-radius: 5px !important;
-        color: color($colors, white);
-        text-align: left;
-        cursor: pointer;
-        margin: 5px 0px;
+    ion-card-content {
         width: 100%;
+        padding-left: 5px;
+        display: flex;
+        align-items: center;
+        height: 40px;
+        font-size: 15px;
 
+        .value {
+            font-weight: normal;
+            color: var(--ion-color-primarylight);
+        }
 
-        ion-card-content {
-            width: 100%;
-            padding-left: 5px;
+        .career-objective-date {
+            min-width: 120px;
+        }
+
+        .career-objective-label {
+            flex: 1;
+            padding-right: 10px;
+        }
+
+        .career-objective-status {
             display: flex;
             align-items: center;
-            height: 40px;
-            font-size: 15px;
+        }
 
-            .value {
-                font-weight: normal;
-                color: color($colors, primary-light);
+        .career-objective-icone {
+            min-width: 110px;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            padding: 3px 10px;
+
+            span:not(:last-child) {
+                margin-right: 5px;
             }
 
-            .career-objective-date {
-                min-width: 120px;
+            .edospnc-flag:before,
+            .edospnc-pnc:before {
+                background: var(--ion-color-white);
+                border-radius: 100%;
+                border-style: solid;
             }
 
-            .career-objective-label {
-                flex: 1;
-                padding-right: 10px;
+            .edospnc-flag:before {
+                color: var(--ion-color-red15);
+                border-color: var(--ion-color-red15);
+                font-size: 30px;
             }
 
-            .career-objective-status {
-                display: flex;
-                align-items: center;
-            }
-
-            .career-objective-icone {
-                min-width: 110px;
-                display: flex;
-                justify-content: flex-end;
-                align-items: center;
-                padding: 3px 10px;
-
-                span:not(:last-child) {
-                    margin-right: 5px;
-                }
-
-                .edospnc-flag:before,
-                .edospnc-pnc:before {
-                    background: color($colors, white);
-                    border-radius: 100%;
-                    border-style: solid;
-                }
-
-                .edospnc-flag:before {
-                    color: color($colors-secondary, red15);
-                    border-color: color($colors-secondary, red15);
-                    font-size: 30px;
-                }
-
-                .edospnc-pnc:before {
-                    color: color($colors-secondary, blue68);
-                    border-color: color($colors-secondary, blue68);
-                    font-size: 15px;
-                    padding: 8px 4px;
-                }
-            }
-
-            .career-objective-status {
-                min-width: 120px;
-                display: flex;
+            .edospnc-pnc:before {
+                color: var(--ion-color-blue68);
+                border-color: var(--ion-color-blue68);
+                font-size: 15px;
+                padding: 8px 4px;
             }
         }
-    }
 
+        .career-objective-status {
+            min-width: 120px;
+            display: flex;
+        }
+    }
 }

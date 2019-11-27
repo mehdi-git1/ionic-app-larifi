@@ -2,7 +2,8 @@ import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'edospnc-expandable-block',
-  templateUrl: 'edospnc-expandable-block.html'
+  templateUrl: 'edospnc-expandable-block.html',
+  styleUrls: ['./edospnc-expandable-block.scss']
 })
 export class EdospncExpandableBlockComponent {
 
@@ -45,4 +46,4 @@ export class EdospncExpandableBlockComponent {
     return this.hideToggle;
   }
 
- }
+}

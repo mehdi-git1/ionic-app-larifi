@@ -1,152 +1,11 @@
-logbook-event {
-
-    .draw-ligne {
-        margin: 22px 10px;
-        border-top: 1px solid color($colors-secondary, grey70);
-        flex: 5;
-    }
-
-    .logbook-info-date {
-        flex: 2;
-        text-align: center;
-        position: relative;
-        top: 12px;
-
-        span {
-            white-space: nowrap;
-        }
-
-    }
-
-    .logbook-event-card {
-        padding: 10px 20px;
-
-        pnc-photo {
-            margin: 20px;
-        }
-
-        .logbook-info-container {
-            padding: 10px 20px 10px 10px;
-            width: 100%;
-
-            .logbook-header {
-                display: flex;
-
-                .left-logbook-info {
-                    flex: 3;
-
-                    .title {
-                        margin: 6px 0px;
-
-                        span {
-                            font-size: 1.2em;
-                            color: color($colors-secondary, blue77);
-                        }
-                    }
-                }
-
-                .right-logbook-info {
-                    flex: 1;
-
-                    .creation-date-info {
-                        display: flex;
-                        justify-content: flex-end;
-                        color: color($colors, grey50);
-                    }
-
-                    .icons {
-                        flex: 2;
-                        justify-content: flex-end;
-                        display: flex;
-                        margin: 8px 0px;
-                        height: 25px;
-
-                        span.edospnc-important {
-                            padding-top: 5px;
-                        }
-                    }
-
-
-                    .edospnc-important:before,
-                    .ion-ios-edospnc-important:before,
-                    .ion-md-edospnc-important:before,
-                    .icon-edospnc-important:before {
-                        font-size: 18px;
-                        padding-right: 10px;
-                    }
-
-                    .edospnc-pnc:before,
-                    .ion-ios-edospnc-pnc:before,
-                    .ion-ios-edospnc-pnc-outline:before,
-                    .ion-md-edospnc-pnc:before,
-                    .ion-md-edospnc-pnc-outline:before,
-                    .icon-edospnc-pnc:before {
-                        font-size: 20px;
-                        padding-right: 10px;
-                    }
-
-                    .category-label {
-
-                        span {
-                            height: 30px;
-                            background-color: color($colors-secondary, grey70);
-                            border-radius: 4px;
-                            padding: 5px 10px;
-                            font-weight: normal;
-                            white-space: nowrap;
-                        }
-                    }
-
-
-                }
-            }
-
-
-            .logbook-info-content {
-                margin-top: 10px;
-
-                p {
-                    white-space: pre-line;
-                }
-            }
-
-            .logbook-notified-pnc {
-                ion-label {
-                    margin-bottom: 4px;
-                    font-weight: bold;
-                }
-            }
-
-            .logbook-button-bar {
-
-                button {
-                    font-size: 14px;
-                    font-weight: bold;
-                    font-style: normal;
-                    font-stretch: normal;
-                    line-height: 1.29;
-                    letter-spacing: 0.7px;
-                    text-align: center;
-                    background-color: transparent;
-                    color: color($colors-secondary, grey10);
-                    box-shadow: none;
-                }
-            }
-        }
-    }
-
     $ion-textarea-row-margin:10px;
 
-    ion-grid {
-        display: flex;
-    }
+.logbook-event-container{
 
-    .item-md.item-block .item-inner {
-        border-bottom: initial;
-    }
-
-    .item-ios.item-block .item-inner {
-        border-bottom: initial;
+    ion-label{
+        font-size: 1em;
+        transform: none;
+        overflow: visible;
     }
 
     .event-date-and-checkbox-row {
@@ -154,106 +13,85 @@ logbook-event {
         flex-direction: row;
         justify-content: space-between;
 
+        event-date-and-checkbox-row {
+            display: flex;
+        }
+
         ion-item {
             width: auto;
         }
 
         .event-date {
-            flex-grow: 4;
-
-            ion-label {
-                flex: initial;
-            }
+            display: flex;
+            flex-direction: row;
+            flex-grow: 5;
+            width: 360px;
         }
 
         .event-checkbox {
-            flex-grow: 1;
+            flex-grow: 5;
             text-align: end;
         }
-
-        .item-md.item-block .item-inner {
-            border-bottom: initial;
-        }
-
-        .item.item-ios .checkbox-ios {
-            position: static;
-            display: block;
-            margin: 9px 15px 9px 4px;
-        }
-
-        .item-ios.item-block .item-inner {
-            border-bottom: initial;
-        }
     }
 
-    .item.item-md .checkbox-md {
-        position: static;
-        display: block;
-        margin: 9px 15px 9px 4px;
-    }
+    .category-row {
 
-    .col {
-        padding: 0px;
-    }
-
-    .category {
-        width: 255px;
-
-        ion-select {
-            padding-left: 5px;
+        ion-item {
+            width: 380px;
         }
     }
 
     .title-row {
         margin-top: $ion-textarea-row-margin !important;
-    }
 
-    .event-title {
-        display: flex;
-        height: fit-content;
-    }
+        ion-item {
+            --highlight-height: 0;
+        }
 
-    .event-length {
-        width: 100%;
-        font-size: smaller;
-        align-content: flex-end;
-        text-align: right;
-    }
-
-    .description-row {
-
-        ion-textarea.big-textarea {
-            align-items: stretch;
-            height: 290px;
+        .event-title {
             display: flex;
+            height: fit-content;
+        }
 
-            textarea {
-                align-items: stretch;
-            }
+        .event-length {
+            width: 100%;
+            font-size: smaller;
+            align-content: flex-end;
+            text-align: right;
+        }
+
+        .event-type {
+            margin-left: 2px;
         }
     }
 
-    .notification-row {
+    
 
+    .description-row {
+
+        text-editor{
+            width: 100%;
+        }
+    }
+
+   .button-bar-row {
+        margin-left: 15px;
+        margin-right: 15px;
+    }
+
+    .notification-row {
         margin-top: 20px;
         padding-left: 10px;
-        padding-bottom: 50px;
+        padding-bottom: 30px;
         border-radius: 4px;
-        border: 1px solid color($colors, grey50);
-        width: 100%;
-        font-size: 1.6rem;
+        border: 1px solid var(--ion-color-grey50);
+        margin-left: 20px;
+        margin-right: 20px;
 
         .persons-to-notify {
             flex: 4;
-
-            ion-item {
-                div.input-wrapper {
-                    border-bottom: 1px solid color($colors, grey50);
-
-                    .no-value:after {
-                        padding: 0px 15px;
-                    }
-                }
+            .title {
+                height: 35px;
             }
         }
 
@@ -261,18 +99,4 @@ logbook-event {
             flex: 5;
         }
     }
-
-    .information-message {
-        text-align: left;
-        margin-top: 15px;
-    }
-
-}
-
-.popover-md .popover-content {
-    width: 275px;
-}
-
-.popover-ios .popover-content {
-    width: 275px;
 }

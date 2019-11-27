@@ -1,27 +1,29 @@
-page-statutory-certificate {
+.scroll-content {
+    padding-top: 40px !important;
+}
 
-    .scroll-content {
-        padding-top: 40px !important;
-    }
+.aircraft-skills-informations {
+    text-align: left;
+    font-size: 1.5em;
+    color: var(--ion-color-grey60);
+    padding-bottom: 35px;
+}
 
-    .aircraft-skills-informations {
-        text-align: left;
-        font-size: 1.5em;
-        color: color($colors-secondary, grey60);
-        padding-bottom: 35px;
-    }
+.plane-qualif {
+    float: right;
+    padding-right: 15px;
+}
 
-    .plane-qualif {
-        float: right;
-        padding-right: 15px;
-    }
+.important-date {
+    color: var(--ion-color-red80);
+}
 
-    .important-date {
-        color: color($colors-secondary, red80);
-    }
+.card-md {
+    margin: 0px;
+    width: 100%;
+}
 
-    .card-md {
-        margin: 0px;
-        width: 100%;
-    }
+::ng-deep no-data .no-data-found {
+    font-size: 1em;
+    padding: 5px;
 }

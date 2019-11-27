@@ -1,7 +1,10 @@
-color-status-point {
+$colorPointSize: 12px;
+
+:host {
     height: $colorPointSize;
     width: $colorPointSize;
-    $colorPointSize: 12px;
+
+    display: flex;
 
     .status-dot {
         height: $colorPointSize;
@@ -12,23 +15,23 @@ color-status-point {
     }
 
     .green {
-        background: color($colors-secondary, green70);
+        background: var(--ion-color-green70);
     }
 
     .yellow {
-        background: color($colors-secondary, yellow10);
+        background: var(--ion-color-yellow10);
     }
 
     .orange {
-        background: color($colors, orange55);
+        background: var(--ion-color-orange55);
     }
 
     .red {
-        background: color($colors-secondary, red15);
+        background: var(--ion-color-red15);
     }
 
     .grey {
-        background: color($colors-secondary, grey72);
+        background: var(--ion-color-grey72);
     }
 
 }

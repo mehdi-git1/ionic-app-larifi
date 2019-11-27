@@ -1,17 +1,17 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { IonicPageModule } from 'ionic-angular';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
+import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
+import { IonicModule } from '@ionic/angular';
 
-import {SharedModule} from '../../shared/shared.module';
-import {ComponentsModule} from '../../shared/components/components.module';
-import {HelpAssetListPage} from './pages/help-asset-list/help-asset-list.page';
-
+import { ComponentsModule } from '../../shared/components/components.module';
+import { SharedModule } from '../../shared/shared.module';
+import { HelpAssetListPage } from './pages/help-asset-list/help-asset-list.page';
 
 @NgModule({
   declarations: [
     HelpAssetListPage
   ],
   imports: [
-    [IonicPageModule.forChild(HelpAssetListPage)],
+    IonicModule,
     SharedModule,
     ComponentsModule
   ],
@@ -24,7 +24,7 @@ import {HelpAssetListPage} from './pages/help-asset-list/help-asset-list.page';
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA
   ],
-  providers: []
+  providers: [InAppBrowser]
 })
 
-export class HelpAssetModule{}
+export class HelpAssetModule { }

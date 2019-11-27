@@ -1,44 +1,47 @@
-page-app-version-create {
+form {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 
-    form {
+    .app-version-container {
         display: flex;
-        flex-direction: column;
-        height: 100%;
+        flex: 1;
 
-        .app-version-container {
-            display: flex;
-            flex: 1;
+        ion-scroll > .scroll-content {
+            padding: 0 !important;
+        }
 
-            ion-scroll > .scroll-content {
+        .app-version-form {
+            flex: 3;
+
+            .version-number {
+                .item-inner {
+                    border-bottom: none;
+                }
+            }
+
+            ion-textarea {
+                min-height: 210px !important;
                 padding: 0 !important;
-            }
+                margin: 0 !important;
 
-            .app-version-form {
-                flex: 3;
-
-                ion-textarea {
-                    min-height: 210px !important;
-                    padding: 0 !important;
-                    margin: 0 !important;
-
-                    textarea {
-                        min-height: 190px !important;
-                        padding: 5px !important;
-                    }
-                }
-
-                .ion-textarea-read-only {
-                    background-color: color($colors-secondary, grey95);
-                }
-
-                .details {
-                    margin-top: 10px;
+                textarea {
+                    min-height: 190px !important;
+                    padding: 5px !important;
                 }
             }
 
-            .label-md {
-                margin: 0;
+            .ion-textarea-read-only {
+                background-color: var(--ion-color-grey95);
             }
+
+            .details {
+                margin-top: 10px;
+            }
+        }
+
+        .label-md {
+            margin: 0;
         }
     }
 }

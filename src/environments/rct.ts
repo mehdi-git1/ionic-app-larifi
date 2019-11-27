@@ -4,7 +4,7 @@ import { BaseEnvironment } from './base-environment';
 
 declare var window: any;
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class Config extends BaseEnvironment {
     constructor() {
         super();
@@ -19,5 +19,7 @@ export class Config extends BaseEnvironment {
         this.secmobileEnv = 'rct';
         this.eformsUrl = 'com.airfrance.mobile.inhouse.eformsrctPNC';
         this.eformsCallbackUrl = 'com.airfrance.mobile.inhouse.edospncRCT';
+
+        this.friendlyUrl = 'http://friendly6rct.airfrance.fr';
     }
 }

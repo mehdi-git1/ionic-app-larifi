@@ -1,6 +1,6 @@
-import { NavController, PopoverController } from 'ionic-angular';
-
 import { Component, Input } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { PopoverController } from '@ionic/angular';
 
 import {
     CongratulationLetterModeEnum
@@ -22,13 +22,11 @@ import { Utils } from '../../../../shared/utils/utils';
 import {
     CongratulationLetterActionMenuComponent
 } from '../../components/congratulation-letter-action-menu/congratulation-letter-action-menu.component';
-import {
-    CongratulationLetterDetailPage
-} from '../../pages/congratulation-letter-detail/congratulation-letter-detail.page';
 
 @Component({
   selector: 'congratulation-letter-card',
-  templateUrl: 'congratulation-letter-card.component.html'
+  templateUrl: 'congratulation-letter-card.component.html',
+  styleUrls: ['./congratulation-letter-card.component.scss']
 })
 export class CongratulationLetterCardComponent {
 
@@ -41,7 +39,9 @@ export class CongratulationLetterCardComponent {
   CongratulationLetterModeEnum = CongratulationLetterModeEnum;
   CongratulationLetterRedactorTypeEnum = CongratulationLetterRedactorTypeEnum;
 
-  constructor(private navCtrl: NavController,
+  constructor(
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
     private securityService: SecurityService,
     private popoverCtrl: PopoverController,
     private congratulationLetterService: CongratulationLetterService,
@@ -62,7 +62,7 @@ export class CongratulationLetterCardComponent {
    * @param congratulationLetter la lettre qu'on souhaite afficher
    */
   goToCongratulationLetterDetail(congratulationLetter: CongratulationLetterModel): void {
-    this.navCtrl.push(CongratulationLetterDetailPage, { matricule: this.pnc.matricule, congratulationLetterId: congratulationLetter.techId });
+    this.router.navigate(['detail', congratulationLetter.techId], { relativeTo: this.activatedRoute });
   }
 
   /**
@@ -92,13 +92,30 @@ export class CongratulationLetterCardComponent {
 
   /**
    * Ouvre la popover de description d'un item
-   * @param myEvent  event
+   * @param event l'événement déclencheur
    * @param congratulationLetter la lettre dont le menu d'actions a été ouvert
    */
-  openActionsMenu(myEvent: Event, congratulationLetter: CongratulationLetterModel) {
-    myEvent.stopPropagation();
-    const popover = this.popoverCtrl.create(CongratulationLetterActionMenuComponent, { congratulationLetter: congratulationLetter, pnc: this.pnc, congratulationLetterMode: this.mode, navCtrl: this.navCtrl }, { cssClass: 'action-menu-popover' });
-    popover.present({ ev: myEvent });
+  openActionsMenu(event: Event, congratulationLetter: CongratulationLetterModel) {
+    event.stopPropagation();
+    this.popoverCtrl.create({
+      component: CongratulationLetterActionMenuComponent,
+      event: event,
+      componentProps: {
+        congratulationLetter: congratulationLetter,
+        pnc: this.pnc,
+        congratulationLetterMode: this.mode,
+        navCtrl: this.router
+      },
+      cssClass: 'action-menu-popover'
+    }).then(popover => {
+      popover.present();
+
+      popover.onDidDismiss().then((dismissEvent) => {
+        if (dismissEvent.data === 'congratulationLetter:update') {
+          this.router.navigate(['create', congratulationLetter.techId], { relativeTo: this.activatedRoute });
+        }
+      });
+    });
   }
 
   /**

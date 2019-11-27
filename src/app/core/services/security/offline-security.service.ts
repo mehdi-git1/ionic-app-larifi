@@ -4,7 +4,7 @@ import { EntityEnum } from '../../enums/entity.enum';
 import { AuthenticatedUserModel } from '../../models/authenticated-user.model';
 import { StorageService } from '../../storage/storage.service';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class OfflineSecurityService {
 
   constructor(private storageService: StorageService) {
@@ -41,7 +41,7 @@ export class OfflineSecurityService {
    * @return rien n'est attendu en retour
    */
   setAuthenticatedSecurityValue(authenticatedUser: AuthenticatedUserModel): void {
-      this.overwriteAuthenticatedUser(new AuthenticatedUserModel().fromJSON(authenticatedUser));
+    this.overwriteAuthenticatedUser(new AuthenticatedUserModel().fromJSON(authenticatedUser));
   }
 
 }

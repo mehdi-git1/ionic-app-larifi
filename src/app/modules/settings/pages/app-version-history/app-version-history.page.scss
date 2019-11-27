@@ -1,48 +1,53 @@
-page-app-version-history {
+ion-col {
+    .col {
+        margin: 5px;
+    }
+}
 
-    ion-col {
-        .col {
-            margin: 5px;
+ion-list {
+    ion-item {
+        --inner-padding-top: 10px;
+        --inner-padding-bottom: 10px;
+
+        ion-label {
+            display: flex;
         }
     }
+}
 
-    .list {
-        ion-item {
+.history-title {
+    color: var(--ion-color-primary);
+}
 
-            ion-label {
-                display: flex;
-            }
-        }
+.description {
+    margin-left: 10px;
+
+    .app-version-number {
+        font-size: 1.1em;
+        margin-bottom: 5px;
+        display: block;
+        flex: 1;
     }
+}
 
-    .history-title {
-        color: color($colors, primary);
-    }
+.active {
+    background: var(--ion-color-primary);
+    color: var(--ion-color-white);
+}
 
-    .description {
-        margin-left: 10px;
+.circle {
+    padding: 10px;
+    font-size: 20px;
+}
 
-        .app-version-number {
-            font-size: 1.1em;
-            margin-bottom: 5px;
-            display: block;
-            flex: 1;
-        }
-    }
+p {
+    margin-top: 30px;
+}
 
-    .active {
-        background: color($colors, primary);
-        color: white;
-    }
+text-editor .ql-container.ql-snow {
+    border: 0;
+}
 
-    .circle {
-        padding: 10px;
-        font-size: 20px;
-    }
-
-    p {
-        white-space: pre-line;
-        margin-top: 30px;
-    }
-
+text-editor .ql-snow * {
+    background: transparent;
 }

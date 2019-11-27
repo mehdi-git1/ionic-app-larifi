@@ -1,15 +1,14 @@
 import { Injectable } from '@angular/core';
-import { isUndefined } from 'ionic-angular/util/util';
 
 import { UrlConfiguration } from '../../configuration/url.configuration';
-import { OfflineWaypointService } from './offline-waypoint.service';
-import { WaypointTransformerService } from './waypoint-transformer.service';
-import { StorageService } from '../../storage/storage.service';
+import { EntityEnum } from '../../enums/entity.enum';
 import { RestService } from '../../http/rest/rest.base.service';
 import { WaypointModel } from '../../models/waypoint.model';
-import { EntityEnum } from '../../enums/entity.enum';
+import { StorageService } from '../../storage/storage.service';
+import { OfflineWaypointService } from './offline-waypoint.service';
+import { WaypointTransformerService } from './waypoint-transformer.service';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class OnlineWaypointService {
 
   constructor(
@@ -31,10 +30,10 @@ export class OnlineWaypointService {
   }
 
   /**
-  * Récupère les points d'étape d'un objectif
-  * @param careerObjectiveId l'id de l'objectif des points d'étape à récupérer
-  * @return les points d'étape récupérés
-  */
+   * Récupère les points d'étape d'un objectif
+   * @param careerObjectiveId l'id de l'objectif des points d'étape à récupérer
+   * @return les points d'étape récupérés
+   */
   getCareerObjectiveWaypoints(careerObjectiveId: number): Promise<WaypointModel[]> {
     return this.restService.get(this.config.getBackEndUrl('getWaypointsByCarreObjectiveId', [careerObjectiveId]))
       .then(onlineCareerObjectiveWaypoints => {
@@ -56,10 +55,10 @@ export class OnlineWaypointService {
     for (const offlineData of offlineDataArray) {
       const result = onlineDataArray.filter(onlineData => offlineData.getStorageId() === onlineData.getStorageId());
       if (result && result.length === 1) {
-        if (offlineData.offlineAction && !isUndefined(offlineData.offlineAction)) {
+        if (offlineData.offlineAction && offlineData.offlineAction !== undefined) {
           onlineDataArray[onlineDataArray.indexOf(result[0])] = offlineData;
         }
-      } else if (offlineData.offlineAction && !isUndefined(offlineData.offlineAction)) {
+      } else if (offlineData.offlineAction && offlineData.offlineAction !== undefined) {
         onlineDataArray.push(offlineData);
       }
     }
@@ -67,19 +66,19 @@ export class OnlineWaypointService {
   }
 
   /**
-  * Récupère un point d'étape
-  * @param id l'id du point d'étape à récupérer
-  * @return le point d'étape récupéré
-  */
+   * Récupère un point d'étape
+   * @param id l'id du point d'étape à récupérer
+   * @return le point d'étape récupéré
+   */
   getWaypoint(id: number): Promise<WaypointModel> {
     return this.restService.get(this.config.getBackEndUrl('getWaypointById', [id]));
   }
 
   /**
-  * Supprime un point d'étape
-  * @param id l'id du point d'étape à supprimer
-  * @return le point d'étape supprimé
-  */
+   * Supprime un point d'étape
+   * @param id l'id du point d'étape à supprimer
+   * @return le point d'étape supprimé
+   */
   delete(id: number): Promise<WaypointModel> {
     this.storageService.delete(EntityEnum.WAYPOINT, `${id}`);
     this.storageService.persistOfflineMap();

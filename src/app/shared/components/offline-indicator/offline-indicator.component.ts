@@ -1,24 +1,25 @@
-import { Component, Input } from '@angular/core';
 import * as moment from 'moment';
 
+import { Component, Input } from '@angular/core';
+
+import { AppConstant } from '../../../app.constant';
+import { EntityEnum } from '../../../core/enums/entity.enum';
+import { EDossierPncObjectModel } from '../../../core/models/e-dossier-pnc-object.model';
+import { OfflineService } from '../../../core/services/offline/offline.service';
 import { TransformerService } from '../../../core/services/transformer/transformer.service';
 import { StorageService } from '../../../core/storage/storage.service';
-import { EntityEnum } from '../../../core/enums/entity.enum';
-import { OfflineService } from '../../../core/services/offline/offline.service';
-import { AppConstant } from '../../../app.constant';
-
-import { EDossierPncObjectModel } from '../../../core/models/e-dossier-pnc-object.model';
-
 
 @Component({
   selector: 'offline-indicator',
-  templateUrl: 'offline-indicator.component.html'
+  templateUrl: 'offline-indicator.component.html',
+  styleUrls: ['./offline-indicator.component.scss']
 })
 export class OfflineIndicatorComponent {
 
   _object: any;
 
-  constructor(private offlineProvider: OfflineService,
+  constructor(
+    private offlineProvider: OfflineService,
     private storageService: StorageService,
     private transformerService: TransformerService) {
   }

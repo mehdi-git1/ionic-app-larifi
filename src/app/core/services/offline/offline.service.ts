@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { EDossierPncObjectModel } from '../../models/e-dossier-pnc-object.model';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class OfflineService {
 
   constructor() {

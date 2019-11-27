@@ -1,8 +1,9 @@
-import { PncLightModel } from './../../models/pnc-light.model';
-import { PncModel } from '../../models/pnc.model';
 import { Injectable } from '@angular/core';
 
-@Injectable()
+import { PncLightModel } from '../../models/pnc-light.model';
+import { PncModel } from '../../models/pnc.model';
+
+@Injectable({ providedIn: 'root' })
 export class PncTransformerService {
 
   constructor() {

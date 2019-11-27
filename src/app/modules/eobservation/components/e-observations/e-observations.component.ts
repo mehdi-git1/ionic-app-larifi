@@ -1,11 +1,13 @@
-import { EObservationModel } from '../../../../core/models/eobservation/eobservation.model';
-import { Component, Input, OnChanges } from '@angular/core';
 import * as moment from 'moment';
-import * as _ from 'lodash';
+
+import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
+
+import { EObservationModel } from '../../../../core/models/eobservation/eobservation.model';
 
 @Component({
   selector: 'e-observations',
-  templateUrl: 'e-observations.component.html'
+  templateUrl: 'e-observations.component.html',
+  styleUrls: ['./e-observations.component.scss']
 })
 
 export class EObservationsComponent implements OnChanges {
@@ -19,6 +21,8 @@ export class EObservationsComponent implements OnChanges {
   @Input() eObservationDisplayMode;
 
   @Input() legend = true;
+
+  @Output() detailButtonClicked = new EventEmitter();
 
   ngOnChanges() {
     this.defineLegendMessage();
@@ -34,5 +38,13 @@ export class EObservationsComponent implements OnChanges {
           .diff(moment(this.eObservations[this.eObservations.length - 1].rotationDate)))
         .asYears() > this.nbOfYearsToChangeMessage;
     }
+  }
+
+  /**
+   * Redirige vers le détail d'une eObservation
+   * @param evt event
+   */
+  goToEObservationDetail(evt: Event): void {
+    this.detailButtonClicked.emit(evt);
   }
 }

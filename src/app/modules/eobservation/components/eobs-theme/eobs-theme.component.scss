@@ -1,101 +1,99 @@
-eobs-theme {
+$popover-md-width: 320px;
+$popover-ios-width: 320px;
+$popover-wp-width: 320px;
 
-    $popover-md-width: 320px;
-    $popover-ios-width: 320px;
-    $popover-wp-width: 320px;
+.sub-theme-label {
+    width: 100%;
+    padding-left: 24px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    font-weight: bold;
+    color: var(--ion-color-blue55);
+    border-top: solid var(--ion-color-grey75) 1px;
+    border-bottom: solid var(--ion-color-grey75) 1px;
+}
 
-    .sub-theme-label {
+ion-row:nth-child(even) {
+    background: var(--ion-color-grey95);
+}
+.line {
+    padding-left: 24px;
+    border-top: solid var(--ion-color-grey75) 1px;
+}
+
+.line:nth-child(even) {
+    background: var(--ion-color-grey95);
+}
+
+
+.item-label {
+    padding-left: 24px;
+    display: flex;
+    align-items: center;
+    white-space: pre-line !important;
+}
+
+.item-label:nth-child(even) {
+    border-right: 2px solid var(--ion-color-white);
+}
+
+.item-label:nth-child(odd) {
+    border-right: 2px solid var(--ion-color-grey75);
+}
+
+.symbol {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+
+    color-number-dot {
+        padding-top: 2px;
+    }
+}
+
+.comment {
+    padding-left: 24px;
+    padding-right: 20px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-top: double var(--ion-color-grey75) 1px;
+
+    .commentTitle {
         width: 100%;
-        padding-left: 24px;
         padding-top: 5px;
         padding-bottom: 5px;
-        font-weight: bold;
-        color: color($colors-secondary, blue55);
-        border-top: solid color($colors-secondary, grey75) 1px;
-        border-bottom: solid color($colors-secondary, grey75) 1px;
+        color: var(--ion-color-primarylight);
+
     }
 
-    ion-row:nth-child(even) {
-        background: color($colors-secondary, grey95);
+    .edospnc-speechBubble {
+        color: var(--ion-color-primarylight);
+        padding-right: 10px;
     }
 
-    .item-label {
-        padding-left: 24px;
+    label {
+        margin-bottom: 10px;
         display: flex;
         align-items: center;
-        white-space: pre-line !important;
+        color: var(--ion-color-grey10);
     }
 
-    .item-label:nth-child(even) {
-        border-right: 2px solid color($colors, white);
+    p,
+    ion-textarea {
+        padding: 10px;
+        border-radius: 3px;
+        white-space: pre-line;
     }
 
-    .item-label:nth-child(odd) {
-        border-right: 2px solid color($colors-secondary, grey75);
-    }
+    ion-textarea {
+        min-height: 210px !important;
+        padding: 0 !important;
+        margin: 0 !important;
 
-    .symbol {
-        display: flex;
-        align-items: center;
-
-        color-number-dot {
-            padding-top: 2px;
+        textarea {
+            min-height: 190px !important;
+            padding: 5px !important;
         }
     }
 
-    .comment {
-        padding-left: 24px;
-        padding-right: 20px;
-        padding-top: 20px;
-        padding-bottom: 20px;
-        border-top: double color($colors-secondary, grey75) 1px;
-
-        .commentTitle {
-            width: 100%;
-            padding-top: 5px;
-            padding-bottom: 5px;
-            color: color($colors, primary-light);
-
-        }
-
-        .edospnc-speechBubble {
-            color: color($colors, primary-light);
-            padding-right: 10px;
-        }
-
-        label {
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            color: color($colors-secondary, grey12);
-        }
-
-        p,
-        ion-textarea {
-            padding: 10px;
-            border-radius: 3px;
-            white-space: pre-line;
-        }
-
-        ion-textarea {
-            min-height: 210px !important;
-            padding: 0 !important;
-            margin: 0 !important;
-
-            textarea {
-                min-height: 190px !important;
-                padding: 5px !important;
-            }
-        }
-
-    }
-}
-
-.description-popover .popover-content {
-    min-width: 500px;
-    width: 500px;
-}
-
-.popover-md.description-popover .popover-content {
-    transform: translate(-30px) !important;
 }

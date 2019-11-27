@@ -1,4 +1,4 @@
-synchro-request-card {
+:host {
     display: flex;
     min-height: 50px;
     max-height: 50px;
@@ -6,7 +6,7 @@ synchro-request-card {
     margin-bottom: 10px;
     padding: 10px;
     border-radius: 5px;
-    background: color($colors, white);
+    background: var(--ion-color-white);
 
     box-shadow: 0 3px 1px -2px rgba(0, 0, 0, .2),
         0 2px 2px 0 rgba(0, 0, 0, .14),
@@ -31,7 +31,7 @@ synchro-request-card {
         }
 
         .error-message {
-            color: color($colors-secondary, red80);
+            color: var(--ion-color-red80);
         }
     }
 
@@ -47,15 +47,15 @@ synchro-request-card {
             border-radius: 100%;
 
             &.in_progress {
-                background: color($colors-secondary, yellow10);
+                background: var(--ion-color-yellow10);
             }
 
             &.successful {
-                background: color($colors-secondary, green70);
+                background: var(--ion-color-green70);
             }
 
             &.failed {
-                background: color($colors-secondary, red80);
+                background: var(--ion-color-red80);
             }
         }
     }

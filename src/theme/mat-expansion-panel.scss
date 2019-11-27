@@ -1,0 +1,13 @@
+mat-expansion-panel {
+
+    mat-expansion-panel-header {
+        .mat-content {
+            align-items: center;
+        }
+
+    }
+
+    .mat-expansion-panel-body {
+        padding: 0;
+    }
+}

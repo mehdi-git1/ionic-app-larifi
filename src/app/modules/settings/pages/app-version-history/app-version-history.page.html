@@ -1,45 +1,59 @@
 <ion-header>
-    <ion-navbar>
+    <ion-toolbar>
+        <ion-back-button color="white" slot="start"></ion-back-button>
         <page-header [showSettingsIcon]="false">
             {{ 'APP_VERSION_HISTORY.TITLE' | translate }}
         </page-header>
-    </ion-navbar>
+    </ion-toolbar>
 </ion-header>
 
-<ion-content padding no-bounce>
-    <edossier-spinner *ngIf="!isLoadingOver(); else pageBlock"></edossier-spinner>
-    <ng-template #pageBlock>
-        <ion-grid>
-            <ion-row>
-                <ion-col col-4>
-                    <h2 class="history-title">{{ 'APP_VERSION_HISTORY.LABELS.APP_VERSION_LIST' | translate }}</h2>
-                </ion-col>
-            </ion-row>
-            <ion-row>
-                <ion-col col-4>
-                    <ion-list>
-                        <ion-item *ngFor="let appVersion of appVersions" (click)="editAppVersion(appVersion)" class="edit-app-version" [ngClass]="{'active':isAppVersionSelected(appVersion)}" class="clickable">
-                            <div class="circle">
-                                <ion-icon name="information-circle"></ion-icon>
-                            </div>
-                            <div class="description">
-                                <span class="app-version-number">{{ 'APP_VERSION_HISTORY.LABELS.NUMBER' | translate }} {{ appVersion.number }}</span>
-                                <span class="app-version-release-date">{{ 'APP_VERSION_HISTORY.LABELS.RELEASE_DATE' | translate }} {{ appVersion.releaseDate | date:'dd MMM yyyy':'UTC' }}</span>
-                            </div>
-                        </ion-item>
-                    </ion-list>
-                </ion-col>
-                <ion-col col-8>
-                    <div *ngIf="!selectedAppVersion; else editAppVersionBlock" class="no-data-found">{{ 'APP_VERSION_HISTORY.NO_APP_VERSION_SELECTED' | translate }}</div>
-                    <ng-template #editAppVersionBlock>
-                        <h3>{{ 'APP_VERSION_HISTORY.LABELS.VERSION_NOTE' | translate }} {{ selectedAppVersion.number }}</h3>
-                        <p class="content">
-                            <html-view [content]="selectedAppVersion.changelog"></html-view>
-                        </p>
-                    </ng-template>
-                </ion-col>
-            </ion-row>
-        </ion-grid>
-    </ng-template>
-
+<ion-content no-bounce>
+    <div class="page-container">
+        <edossier-spinner *ngIf="!isLoadingOver(); else pageBlock"></edossier-spinner>
+        <ng-template #pageBlock>
+            <ion-grid>
+                <ion-row>
+                    <ion-col size="4">
+                        <h2 class="history-title">{{ 'APP_VERSION_HISTORY.LABELS.APP_VERSION_LIST' | translate }}</h2>
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col size="4">
+                        <ion-list>
+                            <ion-item *ngFor="let appVersion of appVersions" (click)="editAppVersion(appVersion)"
+                                class="edit-app-version" [ngClass]="{'active':isAppVersionSelected(appVersion)}"
+                                class="clickable">
+                                <div class="circle">
+                                    <ion-icon name="information-circle"></ion-icon>
+                                </div>
+                                <div class="description">
+                                    <span
+                                        class="app-version-number">{{ 'APP_VERSION_HISTORY.LABELS.NUMBER' | translate }}
+                                        {{ appVersion.number }}</span>
+                                    <span
+                                        class="app-version-release-date">{{ 'APP_VERSION_HISTORY.LABELS.RELEASE_DATE' | translate }}
+                                        {{ appVersion.releaseDate | date:'dd MMM yyyy':'UTC' }}</span>
+                                </div>
+                            </ion-item>
+                        </ion-list>
+                    </ion-col>
+                    <ion-col size="8">
+                        <div *ngIf="!selectedAppVersion; else editAppVersionBlock" class="no-data-found">
+                            {{ 'APP_VERSION_HISTORY.NO_APP_VERSION_SELECTED' | translate }}</div>
+                        <ng-template #editAppVersionBlock>
+                            <h3>{{ 'APP_VERSION_HISTORY.LABELS.VERSION_NOTE' | translate }}
+                                {{ selectedAppVersion.number }}
+                            </h3>
+                            <div [innerHTML]="selectedAppVersion.changelog"></div>
+                            <p class="content">
+                                <text-editor [mode]="TextEditorModeEnum.READ_ONLY"
+                                    [ngModel]="selectedAppVersion.changelog">
+                                </text-editor>
+                            </p>
+                        </ng-template>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+        </ng-template>
+    </div>
 </ion-content>

@@ -8,23 +8,23 @@ $colorPointSize: 12px;
 }
 
 .green {
-    background: color($colors-secondary, green70);
+    background: var(--ion-color-green70);
 }
 
 .yellow {
-    background: color($colors-secondary, yellow10);
+    background: var(--ion-color-yellow10);
 }
 
 .orange {
-    background: color($colors, orange55);
+    background: var(--ion-color-orange55);
 }
 
 .red {
-    background: color($colors-secondary, red15);
+    background: var(--ion-color-red15);
 }
 
 .selection-dot {
-    background: color($colors, primary-light);
+    background: var(--ion-color-primarylight);
     width: 10px;
     height: 10px;
     border-radius: 100%;

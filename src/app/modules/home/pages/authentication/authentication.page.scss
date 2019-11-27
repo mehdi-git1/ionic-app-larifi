@@ -1,27 +1,25 @@
-page-authentication {
-    .form-auth {
-        margin: 100px auto;
-        min-width: 400px;
-        width: 50%;
-    }
+.form-auth {
+    margin: 100px auto;
+    min-width: 400px;
+    width: 50%;
+}
 
-    .button {
-        margin-top: 20px;
-    }
+.button {
+    margin-top: 20px;
+}
 
-    .item-inner {
-        border: none !important;
-    }
+.item-inner {
+    border: none !important;
+}
 
-    ion-spinner {
-        margin: auto;
-        margin-top: 20px;
-    }
+ion-spinner {
+    margin: auto;
+    margin-top: 20px;
+}
 
-    .error-message {
-        text-align: center;
-        font-size: 1.5em;
-        margin-top: 100px;
-        color: color($colors-secondary, red80);
-    }
+.error-message {
+    text-align: center;
+    font-size: 1.5em;
+    margin-top: 100px;
+    color: var(--ion-color-danger);
 }

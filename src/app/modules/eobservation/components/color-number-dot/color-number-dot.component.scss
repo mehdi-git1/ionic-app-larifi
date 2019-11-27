@@ -1,33 +1,29 @@
-color-number-dot {
+span {
+    width: 1.8em;
+    height: 1.8em;
+    color: var(--ion-color-white);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
-    span {
-        width: 1.8em;
-        height: 1.8em;
-        color: color($colors, white);
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
+.number-dot-1 {
+    background-color: var(--ion-color-red80);
+}
 
-    .number-dot-1 {
-        background-color: color($colors-secondary, red80);
-    }
+.number-dot-2 {
+    background-color: var(--ion-color-orange55);
+}
 
-    .number-dot-2 {
-        background-color: color($colors, orange55);
-    }
+.number-dot-3 {
+    background-color: var(--ion-color-green70);
+}
 
-    .number-dot-3 {
-        background-color: color($colors-secondary, green70);
-    }
+.number-dot-4 {
+    background-color: var(--ion-color-blue70);
+}
 
-    .number-dot-4 {
-        background-color: color($colors, blue70);
-    }
-
-    .number-dot-default {
-        background-color: color($colors, grey50);
-    }
-
+.number-dot-default {
+    background-color: var(--ion-color-grey50);
 }

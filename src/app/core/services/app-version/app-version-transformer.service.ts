@@ -2,8 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { AppVersionModel } from '../../models/admin/app-version.model';
 
-
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class AppVersionTransformerService {
 
   toAppVersion(object: any): AppVersionModel {

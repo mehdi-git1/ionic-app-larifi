@@ -1,11 +1,11 @@
-import { NavParams } from 'ionic-angular';
-
 import { DatePipe } from '@angular/common';
 import { Component } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 import {
     CongratulationLetterRedactorTypeEnum
 } from '../../../../core/enums/congratulation-letter/congratulation-letter-redactor-type.enum';
+import { TextEditorModeEnum } from '../../../../core/enums/text-editor-mode.enum';
 import {
     CongratulationLetterFlightModel
 } from '../../../../core/models/congratulation-letter-flight.model';
@@ -15,12 +15,12 @@ import {
     CongratulationLetterService
 } from '../../../../core/services/congratulation-letter/congratulation-letter.service';
 import { PncService } from '../../../../core/services/pnc/pnc.service';
-import { SessionService } from '../../../../core/services/session/session.service';
 import { Utils } from '../../../../shared/utils/utils';
 
 @Component({
     selector: 'congratulation-letter-detail',
     templateUrl: 'congratulation-letter-detail.page.html',
+    styleUrls: ['./congratulation-letter-detail.page.scss']
 })
 export class CongratulationLetterDetailPage {
 
@@ -30,24 +30,27 @@ export class CongratulationLetterDetailPage {
     congratulationLetter: CongratulationLetterModel;
 
     CongratulationLetterRedactorTypeEnum = CongratulationLetterRedactorTypeEnum;
+    TextEditorModeEnum = TextEditorModeEnum;
 
-    constructor(private navParams: NavParams,
+    constructor(
+        private activatedRoute: ActivatedRoute,
         private congratulationLetterService: CongratulationLetterService,
         private pncService: PncService,
-        private sessionService: SessionService,
         private datePipe: DatePipe
     ) {
     }
 
     ionViewDidEnter() {
-        this.matricule = this.navParams.get('matricule');
+        this.matricule = this.pncService.getRequestedPncMatricule(this.activatedRoute);
         this.pncService.getPnc(this.matricule).then(pnc => {
             this.pnc = pnc;
         }, error => { });
 
-        this.congratulationLetterService.getCongratulationLetter(this.navParams.get('congratulationLetterId')).then(congratulationLetter => {
-            this.congratulationLetter = congratulationLetter;
-        }, error => { });
+        this.congratulationLetterService.getCongratulationLetter(
+            parseInt(this.activatedRoute.snapshot.paramMap.get('congratulationLetterId'), 10))
+            .then(congratulationLetter => {
+                this.congratulationLetter = congratulationLetter;
+            }, error => { });
     }
 
     /**

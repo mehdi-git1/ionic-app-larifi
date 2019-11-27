@@ -1,19 +1,21 @@
 import { Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 
-import { SecMobilService } from './../http/secMobil.service';
-import { StorageService } from './../storage/storage.service';
-import { SynchronizationService } from './../services/synchronization/synchronization.service';
-import { SessionService } from './../services/session/session.service';
+import { AuthenticationStatusEnum } from '../enums/authentication-status.enum';
+import { SecMobilService } from '../http/secMobil.service';
+import { ConnectivityService } from '../services/connectivity/connectivity.service';
+import { DeviceService } from '../services/device/device.service';
 import { OfflineSecurityService } from '../services/security/offline-security.service';
 import { SecurityService } from '../services/security/security.service';
-import { DeviceService } from '../services/device/device.service';
-import { ConnectivityService } from '../services/connectivity/connectivity.service';
-import { AuthenticationStatusEnum } from '../enums/authentication-status.enum';
+import { SessionService } from '../services/session/session.service';
+import {
+    SynchronizationManagementService
+} from '../services/synchronization/synchronization-management.service';
+import { SynchronizationService } from '../services/synchronization/synchronization.service';
 import { ToastService } from '../services/toast/toast.service';
-import { SynchronizationManagementService } from '../services/synchronization/synchronization-management.service';
+import { StorageService } from '../storage/storage.service';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class AuthenticationService {
 
     constructor(
@@ -22,7 +24,7 @@ export class AuthenticationService {
         private securityService: SecurityService,
         private deviceService: DeviceService,
         private storageService: StorageService,
-        public translateService: TranslateService,
+        private translateService: TranslateService,
         private toastService: ToastService,
         private connectivityService: ConnectivityService,
         private synchronizationService: SynchronizationService,
@@ -147,8 +149,8 @@ export class AuthenticationService {
     }
 
     /**
-    * Met le pnc connecté en session
-    */
+     * Met le pnc connecté en session
+     */
     putAuthenticatedUserInSession(): Promise<boolean> {
         return this.securityService.getAuthenticatedUser().then(authenticatedUser => {
             if (authenticatedUser) {

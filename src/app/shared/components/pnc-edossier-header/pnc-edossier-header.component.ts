@@ -1,13 +1,16 @@
-import { NavController, Events } from 'ionic-angular';
-import { SessionService } from './../../../core/services/session/session.service';
+import { Component, Input, OnInit } from '@angular/core';
+import { Events } from '@ionic/angular';
+
 import { TabHeaderModeEnum } from '../../../core/enums/tab-header-mode.enum';
-import { Component, OnInit, Input } from '@angular/core';
-import { PncModel } from '../../../core/models/pnc.model';
 import { TabHeaderEnum } from '../../../core/enums/tab-header.enum';
+import { PncModel } from '../../../core/models/pnc.model';
+import { SessionService } from '../../../core/services/session/session.service';
+import { TabNavService } from '../../../core/services/tab-nav/tab-nav.service';
 
 @Component({
     selector: 'pnc-edossier-header',
-    templateUrl: 'pnc-edossier-header.component.html'
+    templateUrl: 'pnc-edossier-header.component.html',
+    styleUrls: ['./pnc-edossier-header.component.scss']
 })
 export class PncEdossierHeaderComponent implements OnInit {
 
@@ -17,11 +20,12 @@ export class PncEdossierHeaderComponent implements OnInit {
 
     TabHeaderModeEnum = TabHeaderModeEnum;
 
-    constructor(private sessionService: SessionService,
-        private navCtrl: NavController,
-        private events: Events) {
+    constructor(
+        private sessionService: SessionService,
+        private events: Events,
+        private tabNavService: TabNavService) {
 
-        this.events.subscribe('changeTab', () => {
+        this.events.subscribe('tabChange', () => {
             this.init();
         });
     }
@@ -56,7 +60,7 @@ export class PncEdossierHeaderComponent implements OnInit {
      * @return vrai si c'est le cas, faux sinon
      */
     isVisitedPncTabSelected(): boolean {
-        return this.navCtrl.parent && this.navCtrl.parent.getSelected() && (this.navCtrl.parent.getSelected().id == 't0-3' || this.navCtrl.parent.getSelected().id == 't0-4');
+        return this.tabNavService.isVisitedPncTabSelected();
     }
 
 }

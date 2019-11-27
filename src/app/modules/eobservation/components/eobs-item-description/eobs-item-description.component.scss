@@ -1,39 +1,32 @@
-eobs-item-description {
-    background-color: color($colors, white);
-    display: inline-block;
+:host {
     text-align: justify;
-    width: 100%;
 
     ion-col {
         display: flex;
         align-items: center;
     }
 
-    button {
-        background-color: color($colors, white);
-    }
-
     .description-c {
-        color: color($colors-secondary, green70);
+        color: var(--ion-color-green70);
     }
 
     .description-no {
-        color: color($colors, grey50);
+        color: var(--ion-color-grey50);
     }
 
     .description-level_1 {
-        color: color($colors-secondary, red80);
+        color: var(--ion-color-red80);
     }
 
     .description-level_2 {
-        color: color($colors, orange55);
+        color: var(--ion-color-orange55);
     }
 
     .description-level_3 {
-        color: color($colors-secondary, green70);
+        color: var(--ion-color-green70);
     }
 
     .description-level_4 {
-        color: color($colors, blue70);
+        color: var(--ion-color-blue70);
     }
 }

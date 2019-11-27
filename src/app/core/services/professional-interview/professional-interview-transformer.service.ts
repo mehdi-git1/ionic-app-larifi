@@ -1,8 +1,10 @@
-import { ProfessionalInterviewModel } from './../../models/professional-interview/professional-interview.model';
 import { Injectable } from '@angular/core';
 
+import {
+    ProfessionalInterviewModel
+} from '../../models/professional-interview/professional-interview.model';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class ProfessionalInterviewTransformerService {
 
   constructor() {

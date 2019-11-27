@@ -1,27 +1,37 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { IonicPageModule } from 'ionic-angular';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { IonicModule } from '@ionic/angular';
 
-import {SharedModule} from '../../shared/shared.module';
-import {ComponentsModule} from '../../shared/components/components.module';
-import {PncSearchPage} from './pages/pnc-search/pnc-search.page';
-import {PncSearchFilterComponent} from './components/pnc-search-filter/pnc-search-filter.component';
-
+import { ComponentsModule } from '../../shared/components/components.module';
+import { SharedModule } from '../../shared/shared.module';
+import {
+    PncSearchFilterComponent
+} from './components/pnc-search-filter/pnc-search-filter.component';
+import {
+    PriorityDropdownListComponent
+} from './components/priority-dropdown-list/priority-dropdown-list.component';
+import { PncSearchPage } from './pages/pnc-search/pnc-search.page';
 
 @NgModule({
   declarations: [
     PncSearchPage,
-    PncSearchFilterComponent
+    PncSearchFilterComponent,
+    PriorityDropdownListComponent
   ],
   imports: [
-    [IonicPageModule.forChild(PncSearchPage)],
+    IonicModule,
     SharedModule,
-    ComponentsModule
+    ComponentsModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   entryComponents: [
-    PncSearchPage
+    PncSearchPage,
+    PriorityDropdownListComponent
   ],
   exports: [
-    PncSearchPage
+    PncSearchPage,
+    PriorityDropdownListComponent
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA
@@ -29,4 +39,4 @@ import {PncSearchFilterComponent} from './components/pnc-search-filter/pnc-searc
   providers: []
 })
 
-export class PncTeamModule{}
+export class PncTeamModule { }

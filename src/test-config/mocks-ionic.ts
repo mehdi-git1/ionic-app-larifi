@@ -1,6 +1,7 @@
-import { StatusBar } from '@ionic-native/status-bar';
-import { SplashScreen } from '@ionic-native/splash-screen';
 import { of } from 'rxjs/observable/of';
+
+import { SplashScreen } from '@ionic-native/splash-screen/ngx';
+import { StatusBar } from '@ionic-native/status-bar/ngx';
 
 export class PlatformMock {
   public ready(): Promise<string> {

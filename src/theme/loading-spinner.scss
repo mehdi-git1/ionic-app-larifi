@@ -1,8 +1,10 @@
-$loading-md-spinner-color: color($colors, white);
+@import './colors.scss';
+
+$loading-md-spinner-color: var(--ion-color-white);
 $loading-md-background: transparent;
 $loading-md-box-shadow: 0;
 
-$loading-ios-spinner-color: color($colors, white);
+$loading-ios-spinner-color: var(--ion-color-white);
 $loading-ios-background: transparent;
 $loading-ios-box-shadow: 0;
 

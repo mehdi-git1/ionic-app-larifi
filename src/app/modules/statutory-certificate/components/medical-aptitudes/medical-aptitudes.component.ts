@@ -1,12 +1,19 @@
+import * as _ from 'lodash';
+
 import { Component, Input, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 
-import * as _ from 'lodash';
-import { StatutoryCertificateDisplayTypeEnum } from '../../../../core/enums/statutory-certificate-display-type.enum';
-import { MedicalAptitudesModel } from './../../../../core/models/statutory-certificate/medical-aptitudes.model';
+import {
+    StatutoryCertificateDisplayTypeEnum
+} from '../../../../core/enums/statutory-certificate-display-type.enum';
+import {
+    MedicalAptitudesModel
+} from '../../../../core/models/statutory-certificate/medical-aptitudes.model';
+
 @Component({
   selector: 'medical-aptitudes',
-  templateUrl: 'medical-aptitudes.component.html'
+  templateUrl: 'medical-aptitudes.component.html',
+  styleUrls: ['./medical-aptitudes.component.scss']
 })
 export class MedicalAptitudesComponent implements OnInit {
 

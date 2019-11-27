@@ -4,7 +4,7 @@ import { BaseEnvironment } from './base-environment';
 
 declare var window: any;
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class Config extends BaseEnvironment {
   constructor() {
     super();
@@ -20,6 +20,8 @@ export class Config extends BaseEnvironment {
     this.eformsUrl = 'com.airfrance.mobile.inhouse.eformsdevPNC';
     this.eformsCallbackUrl = 'com.airfrance.mobile.inhouse.edospncDEV';
     this.eformsCallbackActionLabel = 'Retour eDossierPNC';
+
+    this.friendlyUrl = 'http://friendly.airfrance.fr';
   }
 
 

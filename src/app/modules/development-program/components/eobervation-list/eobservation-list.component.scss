@@ -1,61 +1,105 @@
-eobservation-list {
+.scroll-content {
+    padding-top: 40px !important;
+}
 
-    .eobservation-creation-container {
+.eobservation-block {
+    margin-bottom: 10px;
+}
+
+.career-objective-block,
+.professional-interview-block {
+    margin-top: 60px;
+    margin-bottom: 10px;
+}
+
+.eobservation-block h3 {
+    color: var(--ion-color-primarydark);
+}
+
+.career-objective-block h3 {
+    color: var(--ion-color-primarylight);
+}
+
+.professional-interview-block h3 {
+    color: var(--ion-color-primary);
+}
+
+h3 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+ion-content ion-button {
+    width: 300px;
+
+    ion-icon {
+        margin-right: 10px;
+        color: var(--ion-color-white);
+    }
+
+    label {
+        color: var(--ion-color-white);
+    }
+}
+
+.eobservation-creation-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 66px;
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 4px;
+    background: var(--ion-color-white);
+    border: 1px solid var(--ion-color-grey75);
+
+    .info-container {
         display: flex;
-        justify-content: space-between;
+        flex-direction: column;
         align-items: center;
-        height: 66px;
-        margin-bottom: 10px;
-        padding: 10px;
-        border-radius: 4px;
-        background: color($colors, white);
-        border: 1px solid color($colors-secondary, grey75);
 
-        .info-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-
-            span {
-                font-weight: bold;
-            }
+        span {
+            font-weight: bold;
         }
+    }
 
-        .add-container {
-            display: flex;
-            justify-content: flex-end;
+    .add-container {
+        display: flex;
+        justify-content: flex-end;
 
-            ion-select {
-                width: 300px;
+        ion-select {
+            width: 300px;
 
-                .item-inner {
-                    border: 0px;
-                }
+            .item-inner {
+                border: 0px;
             }
-
         }
 
     }
 
-    .archives {
+}
 
-        span,
-        a {
-            color: color($colors-secondary, blue68);
-        }
+.archives {
 
-        a {
-            text-decoration: underline;
-        }
+    span,
+    a {
+        color: var(--ion-color-blue68);
+    }
 
-        .edospnc-archive:before {
-            font-size: 26px;
-            position: relative;
-            top: 4px;
-        }
+    a {
+        text-decoration: underline;
+        cursor: pointer;
+    }
 
-        &.information-message:before {
-            content: '';
-        }
+    .edospnc-archive:before {
+        font-size: 26px;
+        position: relative;
+        top: 4px;
+        margin-right: 5px;
+    }
+
+    &.information-message:before {
+        content: '';
     }
 }

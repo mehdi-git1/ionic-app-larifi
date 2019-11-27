@@ -1,28 +1,24 @@
-tab-nav {
+ion-tabs {
 
-    .tab-button[aria-selected=false] .icon,
-    .tab-button[aria-selected=false] {
-        color: color($colors, grey50);
+    ion-tab-bar,
+    ion-tab-button {
+        height: 65px;
     }
 
-    .tab-button[aria-selected=true] .icon,
-    .tab-button[aria-selected=true] {
-        background: color($colors, primary);
-        color: color($colors, white) !important;
-        font-weight: bold;
-        pointer-events: none;
+    ion-tab-bar {
+
+        ion-tab-button {
+            max-width: initial;
+
+            ion-icon {
+                font-size: 3em;
+            }
+
+            &.tab-selected {
+                background: var(--ion-color-primary);
+                --color-selected: var(--ion-color-white);
+            }
+        }
     }
 
-    .tabbar .icon {
-        color: color($colors, grey20) !important;
-        font-size: 4rem !important;
-    }
-
-    .not-visible .tabbar {
-        display: none;
-    }
-
-    ion-icon {
-        height: auto !important;
-    }
 }

@@ -1,11 +1,12 @@
-import { LanguageModel } from './statutory-certificate/language.model';
-import { MedicalAptitudesModel } from './statutory-certificate/medical-aptitudes.model';
-import { AnnualElearningModel } from './statutory-certificate/annual-e-learning.model';
-import { MasteringQualificationModel } from './statutory-certificate/mastering-qualification.model';
-import { FamiliarizationFlightsModel } from './statutory-certificate/familiarization-flights.model';
-import { PlaneSkillModel } from './statutory-certificate/plane-skill.model';
-import { GeneralitySkillsModel } from './statutory-certificate/generality-skills.model';
 import { EDossierPncObjectModel } from './e-dossier-pnc-object.model';
+import { AnnualElearningModel } from './statutory-certificate/annual-e-learning.model';
+import { FamiliarizationFlightsModel } from './statutory-certificate/familiarization-flights.model';
+import { GeneralitySkillsModel } from './statutory-certificate/generality-skills.model';
+import { LanguageModel } from './statutory-certificate/language.model';
+import { MasteringQualificationModel } from './statutory-certificate/mastering-qualification.model';
+import { MedicalAptitudesModel } from './statutory-certificate/medical-aptitudes.model';
+import { PlaneSkillModel } from './statutory-certificate/plane-skill.model';
+import { RelayModel } from './statutory-certificate/relay.model';
 import { TravelDocumentsModel } from './statutory-certificate/travel-documents.model';
 
 export class StatutoryCertificateModel extends EDossierPncObjectModel {
@@ -18,6 +19,7 @@ export class StatutoryCertificateModel extends EDossierPncObjectModel {
     annualElearning: AnnualElearningModel;
     medicalAptitudes: MedicalAptitudesModel;
     languages: LanguageModel[];
+    relays: RelayModel[];
     travelDocuments: TravelDocumentsModel[];
 
     getStorageId(): string {

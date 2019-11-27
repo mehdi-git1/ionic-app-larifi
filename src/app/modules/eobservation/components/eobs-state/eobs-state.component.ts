@@ -1,10 +1,12 @@
 import { Component, Input } from '@angular/core';
-import { EObservationModel } from '../../../../core/models/eobservation/eobservation.model';
+
 import { EObservationStateEnum } from '../../../../core/enums/e-observation-state.enum';
+import { EObservationModel } from '../../../../core/models/eobservation/eobservation.model';
 
 @Component({
   selector: 'eobs-state',
-  templateUrl: 'eobs-state.component.html'
+  templateUrl: 'eobs-state.component.html',
+  styleUrls: ['./eobs-state.component.scss']
 })
 export class EObsStateComponent {
 

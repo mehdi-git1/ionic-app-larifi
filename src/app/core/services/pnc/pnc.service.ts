@@ -1,6 +1,5 @@
-
-
 import { Injectable } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 import { UrlConfiguration } from '../../configuration/url.configuration';
 import { GenderEnum } from '../../enums/gender.enum';
@@ -17,7 +16,7 @@ import { SessionService } from '../session/session.service';
 import { OfflinePncService } from './offline-pnc.service';
 import { OnlinePncService } from './online-pnc.service';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class PncService extends BaseService {
 
   constructor(
@@ -99,6 +98,22 @@ export class PncService extends BaseService {
       }
     } else {
       return null;
+    }
+  }
+
+  /**
+   * Retourne le matricule du PNC demandé.
+   * Il s'agit du matricule présent dans l'url (dans le cas où on visite un dossier d'une autre personne)
+   * ou du matricule de la personne connecté si rien n'est trouvé dans l'url
+   * @param activatedRoute la route à analyser, dans laquelle on peut potentiellement trouver le matricule
+   * @return le matricule à traiter
+   */
+  getRequestedPncMatricule(activatedRoute: ActivatedRoute): string {
+    if (activatedRoute.snapshot.paramMap.get('matricule')) {
+      return activatedRoute.snapshot.paramMap.get('matricule');
+    } else {
+      // Si le matricule n'est pas présent dans l'url, on retourne le matricule du user connecté
+      return this.sessionService.getActiveUser().matricule;
     }
   }
 }

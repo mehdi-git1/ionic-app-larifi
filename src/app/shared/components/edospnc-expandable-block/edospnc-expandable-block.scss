@@ -1,43 +1,39 @@
-edospnc-expandable-block {
+.mat-expansion-panel {
+    margin-bottom: 16px;
+    margin-top: 0px;
+    border-radius: 5px;
+}
 
-    .mat-expansion-panel {
-        margin-bottom: 16px;
-        margin-top: 0px;
-        border-radius: 5px;
+mat-expansion-panel-header {
+    background: var(--ion-color-blue55);
+    color: var(--ion-color-white);
+    font-size: 18px !important;
+    border-radius: 5px;
+
+    &.mat-expanded:hover,
+    &.mat-expanded:focus,
+    &.mat-expanded {
+        background: var(--ion-color-blue55) !important;
+        color: var(--ion-color-white);
+        height: 32px;
     }
 
-    mat-expansion-panel-header {
-        background: color($colors-secondary, blue55);
-        color: color($colors, white);
-        font-size: 18px !important;
-        border-radius: 5px;
+}
 
-        &.mat-expanded:hover,
-        &.mat-expanded:focus,
-        &.mat-expanded {
-            background: color($colors-secondary, blue55) !important;
-            color: color($colors, white);
-            height: 32px;
+.mat-expansion-panel-body {
+    padding: 0px 0px 0px 0px;
+    background: var(--ion-color-white);
+
+    ion-grid {
+        padding: 0px;
+
+        ion-col.itemLabel {
+            text-align: justify;
         }
 
-    }
-
-    .mat-expansion-panel-body {
-        padding: 0px 0px 0px 0px;
-        background: color($colors, white);
-
-        ion-grid {
-            padding: 0px;
-
-            ion-col.itemLabel {
-                text-align: justify;
-            }
-
-            ion-col.symbol {
-                display: flex;
-                justify-content: space-evenly;
-            }
+        ion-col.symbol {
+            display: flex;
+            justify-content: space-evenly;
         }
     }
-
 }

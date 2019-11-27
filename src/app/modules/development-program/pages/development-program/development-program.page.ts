@@ -1,7 +1,7 @@
-import { NavParams } from 'ionic-angular';
 import * as moment from 'moment';
 
 import { Component } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { AppConstant } from '../../../../app.constant';
 import {
@@ -62,7 +62,9 @@ export class DevelopmentProgramPage {
 
     pnc: PncModel;
 
-    constructor(private navParams: NavParams,
+    constructor(
+        private router: Router,
+        private activatedRoute: ActivatedRoute,
         private careerObjectiveService: CareerObjectiveService,
         private professionalInterviewService: ProfessionalInterviewService,
         private eObservationService: EObservationService,
@@ -80,11 +82,10 @@ export class DevelopmentProgramPage {
     }
 
     ionViewDidEnter() {
-        this.matricule = this.navParams.get('matricule');
+        this.matricule = this.pncService.getRequestedPncMatricule(this.activatedRoute);
         this.pncService.getPnc(this.matricule).then(pnc => {
             this.pnc = pnc;
-        }, error => {
-        });
+        }, error => { });
         this.getEObservationsList();
         this.initCareerObjectivesList();
         this.getProfessionalInterviewList();
@@ -102,10 +103,10 @@ export class DevelopmentProgramPage {
     }
 
     /**
-    * Trie la liste des eObservations par date de rotation
-    * @param eObservations liste de eObservations
-    * @return liste de eObservations triées
-    */
+     * Trie la liste des eObservations par date de rotation
+     * @param eObservations liste de eObservations
+     * @return liste de eObservations triées
+     */
     sortEObsByRotationDate(eObservations: EObservationModel[]): EObservationModel[] {
         return eObservations.sort((eObs1, eObs2) =>
             moment(eObs1.rotationDate, AppConstant.isoDateFormat).isAfter(moment(eObs2.rotationDate, AppConstant.isoDateFormat)) ? -1 : 1);
@@ -138,11 +139,12 @@ export class DevelopmentProgramPage {
     }
 
     /**
-    * Trie la liste des bilans professionnels par date d'entretien
-    * @param professionalInterviews liste de bilans professionnels
-    * @return liste des bilans professionnels triés
-    */
-    sortProfessionalInterviewsByAnnualProfessionalInterviewDate(professionalInterviews: ProfessionalInterviewModel[]): ProfessionalInterviewModel[] {
+     * Trie la liste des bilans professionnels par date d'entretien
+     * @param professionalInterviews liste de bilans professionnels
+     * @return liste des bilans professionnels triés
+     */
+    sortProfessionalInterviewsByAnnualProfessionalInterviewDate(
+        professionalInterviews: ProfessionalInterviewModel[]): ProfessionalInterviewModel[] {
         return professionalInterviews.sort((professionalInterview1, professionalInterview2) =>
             professionalInterview1.annualProfessionalInterviewDate < professionalInterview2.annualProfessionalInterviewDate ? 1 : -1);
     }
@@ -160,8 +162,15 @@ export class DevelopmentProgramPage {
     }
 
     /**
-   * Rafraichit les listes de la page
-   */
+     * Dirige vers la page de création d'un nouvel objectif
+     */
+    goToCareerObjectiveCreation() {
+        this.router.navigate(['career-objective', 'create', 0], { relativeTo: this.activatedRoute });
+    }
+
+    /**
+     * Rafraichit les listes de la page
+     */
     refreshPage() {
         this.initCareerObjectivesList();
         this.getEObservationsList();
@@ -169,9 +178,9 @@ export class DevelopmentProgramPage {
     }
 
     /**
-   * Vérifie que le chargement est terminé
-   * @return true si c'est le cas, false sinon
-   */
+     * Vérifie que le chargement est terminé
+     * @return true si c'est le cas, false sinon
+     */
     loadingIsOver(): boolean {
         return this.careerObjectives !== undefined && this.pnc !== undefined && this.eObservations !== undefined;
     }

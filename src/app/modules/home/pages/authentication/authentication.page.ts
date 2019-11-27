@@ -1,16 +1,17 @@
 import { Component } from '@angular/core';
-import { FormGroup, Validators, FormBuilder } from '@angular/forms';
-import { NavController } from 'ionic-angular';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 
+import { AuthenticationService } from '../../../../core/authentication/authentication.service';
+import { AuthenticationStatusEnum } from '../../../../core/enums/authentication-status.enum';
+import { AppInitService } from '../../../../core/services/app-init/app-init.service';
 import { DeviceService } from '../../../../core/services/device/device.service';
 import { ModalSecurityService } from '../../../../core/services/modal/modal-security.service';
-import { AuthenticationService } from './../../../../core/authentication/authentication.service';
-import { RoutingService } from '../../../../core/routing/routing.service';
-import { AuthenticationStatusEnum } from '../../../../core/enums/authentication-status.enum';
+
 @Component({
   selector: 'page-authentication',
   templateUrl: 'authentication.page.html',
+  styleUrls: ['./authentication.page.scss']
 })
 export class AuthenticationPage {
 
@@ -19,13 +20,12 @@ export class AuthenticationPage {
   hideSpinner = true;
 
   constructor(
-    public navCtrl: NavController,
     private formBuilder: FormBuilder,
     public translateService: TranslateService,
     public deviceService: DeviceService,
     public securityModalService: ModalSecurityService,
     private authenticationService: AuthenticationService,
-    private routingService: RoutingService
+    private appInitService: AppInitService
   ) {
     this.initializeForm();
   }
@@ -51,10 +51,11 @@ export class AuthenticationPage {
       this.authenticationService.authenticateUser(loginValue, passwordValue).then(
         authentReturn => {
           this.hideSpinner = true;
+          this.appInitService.setAuthenticationStatus(authentReturn);
           if (authentReturn === AuthenticationStatusEnum.AUTHENTICATION_KO) {
             this.errorMsg = this.translateService.instant('GLOBAL.MESSAGES.ERROR.INVALID_CREDENTIALS');
           } else {
-            this.routingService.handleAuthenticationStatus(authentReturn, this.navCtrl);
+            this.appInitService.handleAuthenticationStatus();
           }
         });
     }

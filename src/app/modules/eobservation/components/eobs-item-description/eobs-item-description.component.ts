@@ -1,17 +1,23 @@
-import { Component, Input } from '@angular/core';
-import { ReferentialItemLevelModel } from '../../../../core/models/eobservation/eobservation-referential-item-level.model';
+import { Component } from '@angular/core';
+import { NavParams, PopoverController } from '@ionic/angular';
+
 import { EObservationLevelEnum } from '../../../../core/enums/e-observations-level.enum';
-import { NavParams, ViewController } from 'ionic-angular';
+import {
+    ReferentialItemLevelModel
+} from '../../../../core/models/eobservation/eobservation-referential-item-level.model';
 
 @Component({
   selector: 'eobs-item-description',
-  templateUrl: 'eobs-item-description.component.html'
+  templateUrl: 'eobs-item-description.component.html',
+  styleUrls: ['./eobs-item-description.component.scss']
 })
 export class EobsItemDescriptionComponent {
 
   descriptions: ReferentialItemLevelModel[];
 
-  constructor(private navParams: NavParams, public viewCtrl: ViewController) {
+  constructor(
+    private navParams: NavParams,
+    private popoverCtrl: PopoverController) {
     const descriptions: ReferentialItemLevelModel[] = this.navParams.get('descriptions');
     this.descriptions = this.sortDescriptionsByLevel(descriptions);
   }
@@ -47,6 +53,6 @@ export class EobsItemDescriptionComponent {
    * Ferme la popover
    */
   closePopover() {
-    this.viewCtrl.dismiss();
+    this.popoverCtrl.dismiss();
   }
 }

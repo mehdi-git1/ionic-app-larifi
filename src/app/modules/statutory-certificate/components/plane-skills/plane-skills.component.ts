@@ -1,12 +1,15 @@
-import { TranslateService } from '@ngx-translate/core';
 import { Component, Input, OnInit } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 
+import {
+    StatutoryCertificateDisplayTypeEnum
+} from '../../../../core/enums/statutory-certificate-display-type.enum';
 import { PlaneSkillModel } from '../../../../core/models/statutory-certificate/plane-skill.model';
-import { StatutoryCertificateDisplayTypeEnum } from '../../../../core/enums/statutory-certificate-display-type.enum';
 
 @Component({
   selector: 'plane-skills',
-  templateUrl: 'plane-skills.component.html'
+  templateUrl: 'plane-skills.component.html',
+  styleUrls: ['./plane-skills.component.scss']
 })
 export class PlaneSkillsComponent implements OnInit {
 
@@ -58,7 +61,8 @@ export class PlaneSkillsComponent implements OnInit {
       values: this.planeSkillsData && this.planeSkillsData.length > 0 ?
         [
           { value: this.tempPlaneSkillData.plane, type: 'libelle' },
-          { value: this.tempPlaneSkillData.startDate, type: 'date' },
+          // { value: this.tempPlaneSkillData.startDate, type: 'date' },
+          { value: [''], type: 'date' },
           { value: this.tempPlaneSkillData.mdcDate, type: 'date' },
           { value: this.tempPlaneSkillData.dueDate, type: 'end-date' },
           { value: this.tempPlaneSkillData.ddvDueDate, type: 'end-date' },

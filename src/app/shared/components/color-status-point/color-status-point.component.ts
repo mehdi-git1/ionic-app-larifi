@@ -2,7 +2,8 @@ import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'color-status-point',
-  templateUrl: 'color-status-point.component.html'
+  templateUrl: 'color-status-point.component.html',
+  styleUrls: ['./color-status-point.component.scss']
 })
 export class ColorStatusPointComponent {
 
@@ -14,4 +15,4 @@ export class ColorStatusPointComponent {
   constructor() {
   }
 
- }
+}

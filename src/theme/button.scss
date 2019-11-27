@@ -1,12 +1,12 @@
-.button {
-    border-radius: 4px;
+ion-button {
+    --border-radius: 4px;
     text-transform: none;
 
     ion-icon {
         font-size: 1.5em;
     }
 
-    &[disabled] {
-        background: color($colors, grey50);
+    &.button-disabled {
+        --ion-color-base: var(--ion-color-grey50) !important;
     }
 }

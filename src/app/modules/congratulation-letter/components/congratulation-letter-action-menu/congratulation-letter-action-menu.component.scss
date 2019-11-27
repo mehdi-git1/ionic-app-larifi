@@ -1,5 +1,5 @@
-congratulation-letter-action-menu {
-    background-color: color($colors, white);
+:host {
+    background-color: var(--ion-color-white);
     display: inline-block;
     text-align: justify;
     width: 100%;

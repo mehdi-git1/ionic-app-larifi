@@ -1,18 +1,15 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { AppVersion } from '@ionic-native/app-version';
-import { IonicPageModule } from 'ionic-angular';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
+import { IonicModule } from '@ionic/angular';
 
 import { Config } from '../../../environments/config';
-
-import { SharedModule } from '../../shared/shared.module';
-import { ComponentsModule } from '../../shared/components/components.module';
-
-import { SettingsPage } from './pages/settings/settings.page';
-import { ImpersonatePage } from './pages/impersonate/impersonate.page';
-import { AppVersionHistoryPage } from './pages/app-version-history/app-version-history.page';
-
+import { AppVersionService } from '../../core/services/app-version/app-version.service';
 import { VersionService } from '../../core/services/version/version.service';
+import { ComponentsModule } from '../../shared/components/components.module';
+import { SharedModule } from '../../shared/shared.module';
+import { AppVersionHistoryPage } from './pages/app-version-history/app-version-history.page';
+import { ImpersonatePage } from './pages/impersonate/impersonate.page';
 import { LegalTermsPage } from './pages/legal-terms/legal-terms.page';
+import { SettingsPage } from './pages/settings/settings.page';
 
 @NgModule({
   declarations: [
@@ -22,7 +19,7 @@ import { LegalTermsPage } from './pages/legal-terms/legal-terms.page';
     LegalTermsPage
   ],
   imports: [
-    [IonicPageModule.forChild(SettingsPage)],
+    IonicModule,
     SharedModule,
     ComponentsModule
   ],
@@ -42,7 +39,7 @@ import { LegalTermsPage } from './pages/legal-terms/legal-terms.page';
     CUSTOM_ELEMENTS_SCHEMA
   ],
   providers: [
-    AppVersion,
+    AppVersionService,
     VersionService,
     Config
   ]

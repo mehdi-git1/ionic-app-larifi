@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 
 import { EntityEnum } from '../../enums/entity.enum';
-import { StorageService } from '../../storage/storage.service';
 import { StatutoryCertificateModel } from '../../models/statutory.certificate.model';
+import { StorageService } from '../../storage/storage.service';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class OfflineStatutoryCertificateService {
 
   constructor(private storageService: StorageService) {

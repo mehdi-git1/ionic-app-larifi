@@ -1,6 +1,5 @@
-import { Events, LoadingController, NavParams } from 'ionic-angular';
-
 import { Component } from '@angular/core';
+import { Events, LoadingController } from '@ionic/angular';
 
 import { SpecialityEnum } from '../../../../core/enums/speciality.enum';
 import { CrewMemberModel } from '../../../../core/models/crew-member.model';
@@ -13,6 +12,7 @@ import { SessionService } from '../../../../core/services/session/session.servic
 @Component({
     selector: 'page-flight-crew-list',
     templateUrl: 'flight-crew-list.page.html',
+    styleUrls: ['./flight-crew-list.page.scss']
 })
 export class FlightCrewListPage {
 
@@ -21,7 +21,6 @@ export class FlightCrewListPage {
     connectedCrewMember: CrewMemberModel;
 
     constructor(
-        private navParams: NavParams,
         private legService: LegService,
         private sessionService: SessionService,
         private pncService: PncService,
@@ -38,7 +37,7 @@ export class FlightCrewListPage {
      * Initialisation du contenu de la page.
      */
     initPage() {
-        this.leg = this.navParams.get('leg');
+        this.leg = history.state.data.leg;
         this.legService.getCrewMembersFromLeg(this.leg).then(flightCrews => {
             this.pncPhotoService.synchronizePncsPhotos(flightCrews.map(flightCrew => flightCrew.pnc.matricule));
             flightCrews.forEach(crewMember => {
@@ -122,21 +121,23 @@ export class FlightCrewListPage {
      * @param onBoardFonction la fontion a bord du pnc concerné
      */
     openPncHomePage(matricule) {
-        const loading = this.loadingCtrl.create();
-        loading.present();
-        this.pncService.getPnc(matricule).then(pnc => {
-            loading.dismiss();
-            if (pnc) {
-                this.sessionService.appContext.observedPnc = pnc;
-                this.events.publish('EDossier:visited', pnc);
-            }
+        this.loadingCtrl.create().then(loading => {
+            loading.present();
+
+            this.pncService.getPnc(matricule).then(pnc => {
+                loading.dismiss();
+                if (pnc) {
+                    this.sessionService.appContext.observedPnc = pnc;
+                    this.events.publish('EDossier:visited', pnc);
+                }
+            });
         });
     }
 
     /**
-    * Vérifie que le chargement est terminé
-    * @return true si c'est le cas, false sinon
-    */
+     * Vérifie que le chargement est terminé
+     * @return true si c'est le cas, false sinon
+     */
     loadingIsOver(): boolean {
         return this.flightCrewList !== undefined;
     }

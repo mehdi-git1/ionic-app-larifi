@@ -1,11 +1,11 @@
+import { Injectable } from '@angular/core';
+
+import { EntityEnum } from '../../enums/entity.enum';
 import { OfflineActionEnum } from '../../enums/offline-action.enum';
 import { CareerObjectiveModel } from '../../models/career-objective.model';
-import { Injectable } from '@angular/core';
 import { StorageService } from '../../storage/storage.service';
-import { EntityEnum } from '../../enums/entity.enum';
 
-
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class OfflineCareerObjectiveService {
 
   constructor(private storageService: StorageService) {

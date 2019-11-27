@@ -1,64 +1,68 @@
-import { FileChooser } from '@ionic-native/file-chooser';
-import { File } from '@ionic-native/file';
-import { FileTransfer } from '@ionic-native/file-transfer';
-import { FileOpener } from '@ionic-native/file-opener';
-import { LogbookModule } from './modules/logbook/logbook.module';
-import { EObservationModule } from './modules/eobservation/eobservation.module';
-import { CongratulationLetterModule } from './modules/congratulation-letter/congratulation-letter.module';
-import { AdminModule } from './modules/admin/admin.module';
-import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ErrorHandler, NgModule, CUSTOM_ELEMENTS_SCHEMA, LOCALE_ID } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
-import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
-import { StatusBar } from '@ionic-native/status-bar';
-import { SplashScreen } from '@ionic-native/splash-screen';
-import { InAppBrowser } from '@ionic-native/in-app-browser';
-
-
 import { SimpleNotificationsModule } from 'angular2-notifications';
 
-import { EDossierPNC } from './app.component';
+import { HttpClientModule } from '@angular/common/http';
+import { APP_INITIALIZER, CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { RouteReuseStrategy } from '@angular/router';
+import { SplashScreen } from '@ionic-native/splash-screen/ngx';
+import { StatusBar } from '@ionic-native/status-bar/ngx';
+import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 
-import { SharedModule } from './shared/shared.module';
-import { HomeModule } from './modules/home/home.module';
-import { DevelopmentProgramModule } from './modules/development-program/development-program.module';
-import { FlightActivityModule } from './modules/flight-activity/flight-activity.module';
-import { HelpAssetModule } from './modules/help-asset/help-asset.module';
-import { PncTeamModule } from './modules/pnc-team/pnc-team.module';
-import { ProfessionalLevelModule } from './modules/professional-level/professional-level.module';
-import { SettingsModule } from './modules/settings/settings.module';
-import { StatutoryCertificateModule } from './modules/statutory-certificate/statutory-certificate.module';
-import { ServiceModule } from './core/services/service.module';
-import { ComponentsModule } from './shared/components/components.module';
-import { HttpModule } from './core/http/http.module';
-import { StorageModule } from './core/storage/storage.module';
-import { Config } from '../environments/config';
-import { UrlConfiguration } from './core/configuration/url.configuration';
+import { AppComponent } from './app.component';
 import { AuthenticationModule } from './core/authentication/authentication.module';
 import { FileModule } from './core/file/file.module';
+import { HttpModule } from './core/http/http.module';
+import { AppInitService } from './core/services/app-init/app-init.service';
+import { ServiceModule } from './core/services/service.module';
+import { StorageModule } from './core/storage/storage.module';
+import { AdminModule } from './modules/admin/admin.module';
+import {
+    CongratulationLetterModule
+} from './modules/congratulation-letter/congratulation-letter.module';
+import { DevelopmentProgramModule } from './modules/development-program/development-program.module';
+import { EObservationModule } from './modules/eobservation/eobservation.module';
+import { FlightActivityModule } from './modules/flight-activity/flight-activity.module';
+import { HelpAssetModule } from './modules/help-asset/help-asset.module';
+import { HomeModule } from './modules/home/home.module';
+import { HrDocumentModule } from './modules/hr-documents/hr-document.module';
+import { LogbookModule } from './modules/logbook/logbook.module';
+import { PncTeamModule } from './modules/pnc-team/pnc-team.module';
+import {
+    ProfessionalInterviewModule
+} from './modules/professional-interview/professional-interview.module';
+import { ProfessionalLevelModule } from './modules/professional-level/professional-level.module';
+import { SettingsModule } from './modules/settings/settings.module';
+import {
+    StatutoryCertificateModule
+} from './modules/statutory-certificate/statutory-certificate.module';
 import { SynchronizationModule } from './modules/synchronization/synchronization.module';
-import { ProfessionalInterviewModule } from './modules/professional-interview/professional-interview.module';
-import { RoutingModule } from './core/routing/routing.module';
+import { AppRoutingModule } from './routing/app-routing.module';
+import { ComponentsModule } from './shared/components/components.module';
+import {
+    PinPadModalComponent
+} from './shared/components/modals/pin-pad-modal/pin-pad-modal.component';
+import { SharedModule } from './shared/shared.module';
 
-import localeFr from '@angular/common/locales/fr';
-import { registerLocaleData } from '@angular/common';
-
-registerLocaleData(localeFr);
+export function appInitFactory(appInitService: AppInitService) {
+  return () => {
+    return Promise.all([
+      appInitService.initApp()
+    ]);
+  };
+}
 @NgModule({
-  declarations: [
-    EDossierPNC
-  ],
+  declarations: [AppComponent],
+  entryComponents: [PinPadModalComponent],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(EDossierPNC, {
+    IonicModule.forRoot({
       mode: 'md',
-      pageTransition: 'ios-transition',
-      backButtonText: ''
+      // TODO animations de navigation désactivées en attendant d'avoir une solution pour le soucis de blink lors d'une navigation
+      animated: false
     }),
     HttpClientModule,
     AuthenticationModule,
-    RoutingModule,
     DevelopmentProgramModule,
     HomeModule,
     FlightActivityModule,
@@ -79,30 +83,25 @@ registerLocaleData(localeFr);
     FileModule,
     ServiceModule,
     StorageModule,
+    SimpleNotificationsModule.forRoot({ position: ['top', 'right'] }),
+    AppRoutingModule,
     BrowserAnimationsModule,
-    SimpleNotificationsModule.forRoot({ position: ['top', 'right'] })
+    HrDocumentModule
   ],
-  bootstrap: [IonicApp],
+  providers: [
+    StatusBar,
+    SplashScreen,
+    {
+      provide: APP_INITIALIZER,
+      useFactory: appInitFactory,
+      deps: [AppInitService],
+      multi: true
+    },
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
+  ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA
   ],
-  entryComponents: [
-    EDossierPNC
-  ],
-  providers: [
-    { provide: LOCALE_ID, useValue: 'fr-FR' },
-    StatusBar,
-    SplashScreen,
-    Config,
-    UrlConfiguration,
-    { provide: ErrorHandler, useClass: IonicErrorHandler },
-    InAppBrowser,
-    File,
-    FileChooser,
-    FileTransfer,
-    FileOpener
-  ]
+  bootstrap: [AppComponent]
 })
 export class AppModule { }
-
-

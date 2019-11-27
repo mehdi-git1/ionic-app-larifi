@@ -1,5 +1,5 @@
-<mat-expansion-panel *ngFor="let stage of _stages">
-    <mat-expansion-panel-header [expandedHeight]="matPanelHeaderHeight" [collapsedHeight]="matPanelHeaderHeight" hideToggle="true">
+<mat-expansion-panel class="elevation-1" *ngFor="let stage of _stages">
+    <mat-expansion-panel-header class="professional-level-stage" [expandedHeight]="matPanelHeaderHeight" [collapsedHeight]="matPanelHeaderHeight" hideToggle="true">
         <label class="stage-date">{{ stage.date | date: 'dd/MM/yyyy' }} </label>
         <label class="stage-code"> {{ stage.code }} </label>
         <label class="stage-label"> {{ stage.label }} </label>

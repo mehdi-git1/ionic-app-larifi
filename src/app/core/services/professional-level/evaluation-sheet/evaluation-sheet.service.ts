@@ -1,13 +1,12 @@
-import { EvaluationSheetModel } from './../../../models/professional-level/evaluation-sheet.model';
+import { Injectable } from '@angular/core';
+
+import { EvaluationSheetModel } from '../../../models/professional-level/evaluation-sheet.model';
+import { BaseService } from '../../base/base.service';
+import { ConnectivityService } from '../../connectivity/connectivity.service';
 import { OfflineEvaluationSheetService } from './offline-evaluation-sheet.service';
 import { OnlineEvaluationSheetService } from './online-evaluation-sheet.service';
-import { ConnectivityService } from './../../connectivity/connectivity.service';
-import { Injectable } from '@angular/core';
-import { BaseService } from '../../base/base.service';
 
-
-
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class EvaluationSheetService extends BaseService {
 
     constructor(

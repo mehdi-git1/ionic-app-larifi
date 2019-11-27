@@ -1,9 +1,11 @@
 import { Component, Input } from '@angular/core';
+
 import { EObservationLevelEnum } from '../../../../core/enums/e-observations-level.enum';
 
 @Component({
   selector: 'color-number-dot',
-  templateUrl: 'color-number-dot.component.html'
+  templateUrl: 'color-number-dot.component.html',
+  styleUrls: ['./color-number-dot.component.scss']
 })
 export class ColorNumberDotComponent {
 
@@ -22,7 +24,8 @@ export class ColorNumberDotComponent {
       return 'number-dot-1';
     } else if (this.numberText == EObservationLevelEnum.getLabel(EObservationLevelEnum.LEVEL_2)) {
       return 'number-dot-2';
-    } else if (this.numberText == EObservationLevelEnum.getLabel(EObservationLevelEnum.LEVEL_3) || this.numberText == EObservationLevelEnum.getLabel(EObservationLevelEnum.C)) {
+    } else if (this.numberText == EObservationLevelEnum.getLabel(EObservationLevelEnum.LEVEL_3)
+      || this.numberText == EObservationLevelEnum.getLabel(EObservationLevelEnum.C)) {
       return 'number-dot-3';
     } else if (this.numberText == EObservationLevelEnum.getLabel(EObservationLevelEnum.LEVEL_4)) {
       return 'number-dot-4';
@@ -30,4 +33,4 @@ export class ColorNumberDotComponent {
       return 'number-dot-default';
     }
   }
- }
+}

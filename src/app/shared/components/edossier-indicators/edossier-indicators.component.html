@@ -1,9 +1,11 @@
-<button *ngIf="showRefreshIcon && connected" color="primary-light" ion-fab item-end class="refresh-button" (click)="refresh()">
-    <ion-icon name="refresh" *ngIf="!refreshInProgress"></ion-icon>
-    <ion-spinner *ngIf="refreshInProgress"></ion-spinner>
-</button>
-<button *ngIf="showSettingsIcon && isAvailable()" ion-fab class="settings-button" (click)="goToSettingsPage()" color="primary-dark">
+<ion-fab-button *ngIf="isCurrentlyImpersonated()" size="small" color="danger" (click)="goToImpersonation()">
+    <ion-icon name="contacts"></ion-icon>
+</ion-fab-button>
+<ion-fab-button *ngIf="showRefreshIcon && connected" color="primarylight" class="refresh-button" (click)="refresh()">
+    <ion-icon name="refresh"></ion-icon>
+</ion-fab-button>
+<ion-fab-button *ngIf="showSettingsIcon && isAvailable()" class="settings-button" (click)="goToSettingsPage()" color="primarydark">
     <ion-icon name="settings"></ion-icon>
-</button>
+</ion-fab-button>
 <!-- indicateur de connectivité -->
 <connectivity-indicator></connectivity-indicator>

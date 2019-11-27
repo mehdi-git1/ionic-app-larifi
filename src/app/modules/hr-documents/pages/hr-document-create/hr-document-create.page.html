@@ -1,0 +1,21 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-back-button color="white" slot="start"></ion-back-button>
+        <page-header [showSettingsIcon]="true">
+            <span
+                *ngIf="mode === HrDocumentModeEnum.CREATION; else updateTitle">{{ 'HR_DOCUMENT.EDIT.DOCUMENT_CREATION' | translate }}</span>
+            <ng-template #updateTitle>
+                {{ 'HR_DOCUMENT.EDIT.DOCUMENT_EDITION' | translate }}
+            </ng-template>
+
+        </page-header>
+    </ion-toolbar>
+</ion-header>
+<ion-content no-bounce>
+    <div class="page-container">
+        <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
+        <ng-template #pageBlock>
+            <hr-document #hrDocumentCreateOrUpdate [hrDocument]="hrDocument" [mode]="mode"></hr-document>
+        </ng-template>
+    </div>
+</ion-content>

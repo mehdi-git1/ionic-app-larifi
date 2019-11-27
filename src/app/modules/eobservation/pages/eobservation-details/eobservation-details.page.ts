@@ -1,12 +1,13 @@
-import {
-    AlertController, Loading, LoadingController, NavController, NavParams
-} from 'ionic-angular';
 import * as _ from 'lodash';
 
 import { DatePipe } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { AlertController, LoadingController, NavController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 
+import { PermissionConstant } from '../../../../core/constants/permission.constant';
 import { EObservationLevelEnum } from '../../../../core/enums/e-observations-level.enum';
 import { EObservationTypeEnum } from '../../../../core/enums/e-observations-type.enum';
 import { PncRoleEnum } from '../../../../core/enums/pnc-role.enum';
@@ -16,19 +17,27 @@ import {
 } from '../../../../core/models/eobservation/eobservation-referential-item-level.model';
 import { EObservationModel } from '../../../../core/models/eobservation/eobservation.model';
 import { PncModel } from '../../../../core/models/pnc.model';
+import {
+    CancelChangesService
+} from '../../../../core/services/cancel_changes/cancel-changes.service';
 import { ConnectivityService } from '../../../../core/services/connectivity/connectivity.service';
 import { EObservationService } from '../../../../core/services/eobservation/eobservation.service';
 import { PncService } from '../../../../core/services/pnc/pnc.service';
 import { SessionService } from '../../../../core/services/session/session.service';
 import { ToastService } from '../../../../core/services/toast/toast.service';
+import { FormCanDeactivate } from '../../../../routing/guards/form-changes.guard';
 import { Utils } from '../../../../shared/utils/utils';
 
 @Component({
   selector: 'page-eobservation-details',
   templateUrl: 'eobservation-details.page.html',
+  styleUrls: ['./eobservation-details.page.scss']
 })
-export class EobservationDetailsPage {
+export class EobservationDetailsPage extends FormCanDeactivate {
 
+  @ViewChild('form', { static: false }) form: NgForm;
+
+  readonly EOBS_FULL_EDITION = PermissionConstant.EOBS_FULL_EDITION;
   PncRoleEnum = PncRoleEnum;
   EObservationTypeEnum = EObservationTypeEnum;
 
@@ -38,10 +47,10 @@ export class EobservationDetailsPage {
 
   editMode = false;
   pdfFileName: string;
-  loading: Loading;
 
-  constructor(public navCtrl: NavController,
-    public navParams: NavParams,
+  constructor(
+    private navCtrl: NavController,
+    private activatedRoute: ActivatedRoute,
     private eObservationService: EObservationService,
     private sessionService: SessionService,
     private translateService: TranslateService,
@@ -50,67 +59,47 @@ export class EobservationDetailsPage {
     private loadingCtrl: LoadingController,
     private pncService: PncService,
     private connectivityService: ConnectivityService,
-    private datePipe: DatePipe) {
+    private datePipe: DatePipe,
+    private cancelChangesService: CancelChangesService) {
+    super();
     this.initPage();
-  }
-
-  ionViewCanLeave() {
-    if (this.formHasBeenModified()) {
-      return this.confirmAbandonChanges();
-    } else {
-      return true;
-    }
   }
 
   /**
    * Effectue les opérations nécessaires à l'initialisation de la page
    */
   initPage() {
-    if (this.navParams.get('eObservationId')) {
-      this.eObservationService.getEObservation(this.navParams.get('eObservationId')).then(eObservation => {
-        this.eObservation = eObservation;
-        this.originEObservation = _.cloneDeep(this.eObservation);
-        const redactionDateString = this.datePipe.transform(this.eObservation.redactionDate, 'yyyyMMddHHmmss');
-        const pncMatricule = this.eObservation && this.eObservation.pnc ? this.eObservation.pnc.matricule : '';
-        this.pdfFileName = 'EOBS_' + pncMatricule + '_' + redactionDateString + '.pdf';
-        if (this.eObservation && this.eObservation.pnc && this.eObservation.pnc.matricule) {
-          this.pncService.getPnc(this.eObservation.pnc.matricule).then(pnc => {
-            this.pnc = pnc;
-          }, error => { });
-        }
-      }, error => { });
+    if (this.activatedRoute.snapshot.paramMap.get('eObservationId')) {
+      this.eObservationService.getEObservation(parseInt(this.activatedRoute.snapshot.paramMap.get('eObservationId'), 10))
+        .then(eObservation => {
+          this.eObservation = eObservation;
+          this.originEObservation = _.cloneDeep(this.eObservation);
+          const redactionDateString = this.datePipe.transform(this.eObservation.redactionDate, 'yyyyMMddHHmmss');
+          const pncMatricule = this.eObservation && this.eObservation.pnc ? this.eObservation.pnc.matricule : '';
+          this.pdfFileName = 'EOBS_' + pncMatricule + '_' + redactionDateString + '.pdf';
+          if (this.eObservation && this.eObservation.pnc && this.eObservation.pnc.matricule) {
+            this.pncService.getPnc(this.eObservation.pnc.matricule).then(pnc => {
+              this.pnc = pnc;
+            }, error => { });
+          }
+        }, error => { });
     }
   }
 
   /**
-  * Vérifie si le formulaire a été modifié sans être enregistré
-  */
-  formHasBeenModified() {
-    return Utils.getHashCode(this.originEObservation) !== Utils.getHashCode(this.eObservation);
+   * Vérifie si la page peut être quitter sans confirmation
+   * 
+   * @return true si on peut quitter la page sans demander confirmation
+   */
+  canDeactivate(): boolean {
+    return !this.editMode || !this.formHasBeenModified();
   }
 
   /**
-  * Popup d'avertissement en cas de modifications non enregistrées.
-  */
-  confirmAbandonChanges() {
-    return new Promise((resolve, reject) => {
-      // Avant de quitter la vue, on avertit l'utilisateur si ses modifications n'ont pas été enregistrées
-      this.alertCtrl.create({
-        title: this.translateService.instant('GLOBAL.CONFIRM_BACK_WITHOUT_SAVE.TITLE'),
-        message: this.translateService.instant('GLOBAL.CONFIRM_BACK_WITHOUT_SAVE.MESSAGE'),
-        buttons: [
-          {
-            text: this.translateService.instant('GLOBAL.BUTTONS.CANCEL'),
-            role: 'cancel',
-            handler: () => reject()
-          },
-          {
-            text: this.translateService.instant('GLOBAL.BUTTONS.CONFIRM'),
-            handler: () => resolve()
-          }
-        ]
-      }).present();
-    });
+   * Vérifie si le formulaire a été modifié sans être enregistré
+   */
+  formHasBeenModified() {
+    return Utils.getHashCode(this.originEObservation) !== Utils.getHashCode(this.eObservation);
   }
 
   /** Crée un objet CrewMember à partir d'un objet PncModel
@@ -166,9 +155,9 @@ export class EobservationDetailsPage {
   }
 
   /**
-  * Teste si le commentaire PNC peut être modifié
-  * @return vrai si le commentaire peut être modifié, faux sinon
-  */
+   * Teste si le commentaire PNC peut être modifié
+   * @return vrai si le commentaire peut être modifié, faux sinon
+   */
   canEditPncComment(): boolean {
     return this.sessionService.getActiveUser().matricule === this.eObservation.pnc.matricule
       && (this.originEObservation.pncComment === '' || typeof (this.originEObservation.pncComment) === 'undefined')
@@ -181,7 +170,7 @@ export class EobservationDetailsPage {
    */
   confirmValidatePncComment() {
     this.alertCtrl.create({
-      title: this.translateService.instant('EOBSERVATION.CONFIRM_VALIDATE_PNC_COMMENT.TITLE'),
+      header: this.translateService.instant('EOBSERVATION.CONFIRM_VALIDATE_PNC_COMMENT.TITLE'),
       message: this.translateService.instant('EOBSERVATION.CONFIRM_VALIDATE_PNC_COMMENT.MESSAGE'),
       buttons: [
         {
@@ -193,25 +182,27 @@ export class EobservationDetailsPage {
           handler: () => this.validatePncComment()
         }
       ]
-    }).present();
+    }).then(alert => alert.present());
   }
 
   /**
    * Valide le commentaire pnc de l'eObservation
    */
   validatePncComment() {
-    this.loading = this.loadingCtrl.create();
-    this.loading.present();
-    // On transmet un objet cloné pour éviter toute modif de l'objet par le service
-    const eObservationClone = _.cloneDeep(this.eObservation);
-    this.eObservationService.validatePncComment(eObservationClone).then(eObservation => {
-      this.eObservation = eObservation;
-      this.originEObservation = _.cloneDeep(this.eObservation);
-      this.toastService.success(this.translateService.instant('EOBSERVATION.MESSAGES.SUCCESS.PNC_COMMENT_SAVED'));
-      this.navCtrl.pop();
-    }, error => { }).then(() => {
-      // Finally
-      this.loading.dismiss();
+    this.loadingCtrl.create().then(loading => {
+      loading.present();
+
+      // On transmet un objet cloné pour éviter toute modif de l'objet par le service
+      const eObservationClone = _.cloneDeep(this.eObservation);
+      this.eObservationService.validatePncComment(eObservationClone).then(eObservation => {
+        this.eObservation = eObservation;
+        this.originEObservation = _.cloneDeep(this.eObservation);
+        this.toastService.success(this.translateService.instant('EOBSERVATION.MESSAGES.SUCCESS.PNC_COMMENT_SAVED'));
+        this.navCtrl.pop();
+      }, error => { }).then(() => {
+        // Finally
+        loading.dismiss();
+      });
     });
   }
 
@@ -220,32 +211,35 @@ export class EobservationDetailsPage {
    * Met à jour l'eObservation
    */
   updateEObservation() {
-    this.loading = this.loadingCtrl.create();
-    this.loading.present();
-    // On transmet un objet cloné pour éviter toute modif de l'objet par le service
-    const eObservationClone = _.cloneDeep(this.eObservation);
-    this.eObservationService.updateEObservation(eObservationClone).then(eObservation => {
-      this.eObservation = eObservation;
-      this.originEObservation = _.cloneDeep(this.eObservation);
-      this.editMode = false;
-      if (this.eObservation.isDeleted) {
-        this.toastService.success(this.translateService.instant('EOBSERVATION.MESSAGES.SUCCESS.DELETED'));
-        this.navCtrl.pop();
-      } else {
-        this.toastService.success(this.translateService.instant('EOBSERVATION.MESSAGES.SUCCESS.UPDATED'));
-      }
-    }, error => { }).then(() => {
-      // Finally
-      this.loading.dismiss();
+    this.loadingCtrl.create().then(loading => {
+      loading.present();
+
+      // On transmet un objet cloné pour éviter toute modif de l'objet par le service
+      const eObservationClone = _.cloneDeep(this.eObservation);
+      this.eObservationService.updateEObservation(eObservationClone).then(eObservation => {
+        this.eObservation = eObservation;
+        this.originEObservation = _.cloneDeep(this.eObservation);
+        this.editMode = false;
+        if (this.eObservation.deleted) {
+          this.toastService.success(this.translateService.instant('EOBSERVATION.MESSAGES.SUCCESS.DELETED'));
+          this.navCtrl.pop();
+        } else {
+          this.toastService.success(this.translateService.instant('EOBSERVATION.MESSAGES.SUCCESS.UPDATED'));
+        }
+      }, error => { }).then(() => {
+        // Finally
+        loading.dismiss();
+      });
     });
+
   }
 
   /**
-    * Confirmation de suppression de l'eObservation
-    */
+   * Confirmation de suppression de l'eObservation
+   */
   confirmDeleteEObservation() {
     this.alertCtrl.create({
-      title: this.translateService.instant('EOBSERVATION.CONFIRM_DELETE.TITLE'),
+      header: this.translateService.instant('EOBSERVATION.CONFIRM_DELETE.TITLE'),
       message: this.translateService.instant('EOBSERVATION.CONFIRM_DELETE.MESSAGE'),
       buttons: [
         {
@@ -257,14 +251,14 @@ export class EobservationDetailsPage {
           handler: () => this.isMarkedAsDeleted()
         }
       ]
-    }).present();
+    }).then(alert => alert.present());
   }
 
   /**
    * Marque l'eObs comme supprimée et appelle la méthode pour la mise à jour"
    */
   isMarkedAsDeleted() {
-    this.eObservation.isDeleted = true;
+    this.eObservation.deleted = true;
     this.updateEObservation();
   }
 
@@ -311,8 +305,17 @@ export class EobservationDetailsPage {
    * Sort du mode "édition"
    */
   cancelEditMode() {
-    this.editMode = false;
-    this.eObservation = _.cloneDeep(this.originEObservation);
+    if (this.formHasBeenModified()) {
+      this.cancelChangesService.openCancelChangesPopup().then(confirm => {
+        if (confirm) {
+          this.editMode = false;
+          this.eObservation = _.cloneDeep(this.originEObservation);
+        }
+      });
+    } else {
+      this.editMode = false;
+      this.eObservation = _.cloneDeep(this.originEObservation);
+    }
   }
 
   /**

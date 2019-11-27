@@ -1,16 +1,24 @@
-import { ProfessionalLevelCursusComponent } from './components/professional-level-cursus/professional-level-cursus.component';
-import { EvaluationSheetPage } from './pages/professional-level/evaluation-sheet/evaluation-sheet.page';
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { IonicPageModule } from 'ionic-angular';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
+import { IonicModule } from '@ionic/angular';
 
-import { SharedModule } from '../../shared/shared.module';
 import { ComponentsModule } from '../../shared/components/components.module';
-import { ProfessionalLevelPage } from './pages/professional-level/professional-level.page';
-import { ModuleCardComponent } from './components/module-card/module-card.component';
-import { ProfessionalLevelStageComponent } from './components/professional-level-stage/professional-level-stage.component';
-import { NotValidatedQuestionsPage } from './pages/not-validated-questions/not-validated-questions.page';
+import { SharedModule } from '../../shared/shared.module';
 import { EObservationModule } from '../eobservation/eobservation.module';
-
+import { ModuleCardComponent } from './components/module-card/module-card.component';
+import {
+    ProfessionalLevelCursusComponent
+} from './components/professional-level-cursus/professional-level-cursus.component';
+import {
+    ProfessionalLevelStageComponent
+} from './components/professional-level-stage/professional-level-stage.component';
+import { StageLegendComponent } from './components/stage-legend/stage-legend.component';
+import {
+    NotValidatedQuestionsPage
+} from './pages/not-validated-questions/not-validated-questions.page';
+import {
+    EvaluationSheetPage
+} from './pages/professional-level/evaluation-sheet/evaluation-sheet.page';
+import { ProfessionalLevelPage } from './pages/professional-level/professional-level.page';
 
 @NgModule({
   declarations: [
@@ -20,9 +28,10 @@ import { EObservationModule } from '../eobservation/eobservation.module';
     ModuleCardComponent,
     ProfessionalLevelStageComponent,
     ProfessionalLevelCursusComponent,
+    StageLegendComponent
   ],
   imports: [
-    [IonicPageModule.forChild(ProfessionalLevelPage)],
+    IonicModule,
     SharedModule,
     ComponentsModule,
     EObservationModule
@@ -30,7 +39,8 @@ import { EObservationModule } from '../eobservation/eobservation.module';
   entryComponents: [
     ProfessionalLevelPage,
     EvaluationSheetPage,
-    NotValidatedQuestionsPage
+    NotValidatedQuestionsPage,
+    StageLegendComponent
   ],
   exports: [
     ProfessionalLevelPage,

@@ -2,18 +2,17 @@ import { Injectable } from '@angular/core';
 
 import { EObservationModel } from '../../models/eobservation/eobservation.model';
 
-
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class EObservationTransformerService {
 
   constructor() {
   }
 
   /**
- * Transforme le paramètre en entrée en tableau de EObservationModel
- * @param eObservationModelArray : Données  à transformer en EObservationModel[]
- * @return l'objet EObservationModel[] transformé
- */
+   * Transforme le paramètre en entrée en tableau de EObservationModel
+   * @param eObservationModelArray : Données  à transformer en EObservationModel[]
+   * @return l'objet EObservationModel[] transformé
+   */
   toEObservations(eObservationModelArray: EObservationModel[]): EObservationModel[] {
     const newArray: EObservationModel[] = [];
     for (const object of eObservationModelArray) {
@@ -23,10 +22,10 @@ export class EObservationTransformerService {
   }
 
   /**
- * Transforme le paramètre en entrée en objet de type EObservationModel
- * @param eObservationModel : Données à transformer en EObservationModel
- * @return l'objet EObservationModel transformé
- */
+   * Transforme le paramètre en entrée en objet de type EObservationModel
+   * @param eObservationModel : Données à transformer en EObservationModel
+   * @return l'objet EObservationModel transformé
+   */
   toEObservation(eObservationModel: EObservationModel): EObservationModel {
     return !eObservationModel ?
       eObservationModel :

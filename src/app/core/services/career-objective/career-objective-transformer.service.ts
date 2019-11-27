@@ -1,8 +1,8 @@
-import { CareerObjectiveModel } from '../../models/career-objective.model';
 import { Injectable } from '@angular/core';
 
+import { CareerObjectiveModel } from '../../models/career-objective.model';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class CareerObjectiveTransformerService {
 
   constructor() {

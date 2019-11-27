@@ -1,13 +1,11 @@
-import {
-    AlertController, Loading, LoadingController, NavController, NavParams
-} from 'ionic-angular';
 import * as _ from 'lodash';
 
-import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AlertController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 
-import { AppConstant } from '../../../../../../app.constant';
 import { TabHeaderModeEnum } from '../../../../../../core/enums/tab-header-mode.enum';
 import { TabHeaderEnum } from '../../../../../../core/enums/tab-header.enum';
 import { TextEditorModeEnum } from '../../../../../../core/enums/text-editor-mode.enum';
@@ -18,23 +16,23 @@ import {
 import { AppVersionService } from '../../../../../../core/services/app-version/app-version.service';
 import { SecurityService } from '../../../../../../core/services/security/security.service';
 import { ToastService } from '../../../../../../core/services/toast/toast.service';
+import { FormCanDeactivate } from '../../../../../../routing/guards/form-changes.guard';
 import { DateTransform } from '../../../../../../shared/utils/date-transform';
 import { Utils } from '../../../../../../shared/utils/utils';
-import { AppVersionListPage } from '../app-version-list/app-version-list.page';
 
 @Component({
     selector: 'page-app-version-create',
     templateUrl: 'app-version-create.page.html',
+    styleUrls: ['./app-version-create.page.scss']
 })
-export class AppVersionCreatePage {
+export class AppVersionCreatePage extends FormCanDeactivate {
+
+    @ViewChild('form', { static: false }) form: NgForm;
 
     TabHeaderModeEnum = TabHeaderModeEnum;
+
     TabHeaderEnum = TabHeaderEnum;
 
-    get TextEditorModeEnum() { return TextEditorModeEnum; }
-
-    datepickerMaxDate = AppConstant.datepickerMaxDate;
-    monthsNames: any;
     versionNumberRegex = /([0-9]{1,2}[.]){2}[0-9]{1,2}/;
 
     creationAppVersionForm: FormGroup;
@@ -42,62 +40,26 @@ export class AppVersionCreatePage {
     appVersion: AppVersionModel;
     originAppVersion: AppVersionModel;
 
-    loading: Loading;
+    TextEditorModeEnum = TextEditorModeEnum;
 
     constructor(
-        public navCtrl: NavController,
-        public navParams: NavParams,
+        private router: Router,
+        private activatedRoute: ActivatedRoute,
         private alertCtrl: AlertController,
         public translateService: TranslateService,
         private formBuilder: FormBuilder,
         private appVersionService: AppVersionService,
         private toastService: ToastService,
         public securityService: SecurityService,
-        public loadingCtrl: LoadingController,
         private dateTransformer: DateTransform,
         private appVersionAlertService: AppVersionAlertService) {
-
-        // Traduction des mois
-        this.monthsNames = this.translateService.instant('GLOBAL.MONTH.LONGNAME');
-
-        // Initialisation du formulaire
-        this.initForm();
+            super();
+            // Initialisation du formulaire
+            this.initForm();
     }
 
     ionViewDidEnter() {
         this.initPage();
-    }
-
-    ionViewCanLeave() {
-        if (this.formHasBeenModified()) {
-            return this.confirmAbandonChanges();
-        } else {
-            return true;
-        }
-    }
-
-    /**
-     * Popup d'avertissement en cas de modifications non enregistrées.
-     */
-    confirmAbandonChanges() {
-        return new Promise((resolve, reject) => {
-            // Avant de quitter la vue, on avertit l'utilisateur si ses modifications n'ont pas été enregistrées
-            this.alertCtrl.create({
-                title: this.translateService.instant('GLOBAL.CONFIRM_BACK_WITHOUT_SAVE.TITLE'),
-                message: this.translateService.instant('GLOBAL.CONFIRM_BACK_WITHOUT_SAVE.MESSAGE'),
-                buttons: [
-                    {
-                        text: this.translateService.instant('GLOBAL.BUTTONS.CANCEL'),
-                        role: 'cancel',
-                        handler: () => reject()
-                    },
-                    {
-                        text: this.translateService.instant('GLOBAL.BUTTONS.CONFIRM'),
-                        handler: () => resolve()
-                    }
-                ]
-            }).present();
-        });
     }
 
     /**
@@ -105,12 +67,14 @@ export class AppVersionCreatePage {
      */
     initPage() {
         // On récupère l'id de la version dans les paramètres de navigation
-        if (this.navParams.get('appVersionId') && this.navParams.get('appVersionId') !== 0) {
+        if (this.activatedRoute.snapshot.paramMap.get('appVersionId')
+            && parseInt(this.activatedRoute.snapshot.paramMap.get('appVersionId'), 10) !== 0) {
             // Récupération de la version
-            this.appVersionService.getAppVersionById(this.navParams.get('appVersionId')).then(appVersionList => {
-                this.originAppVersion = _.cloneDeep(appVersionList);
-                this.appVersion = appVersionList;
-            }, error => { });
+            this.appVersionService.getAppVersionById(parseInt(this.activatedRoute.snapshot.paramMap.get('appVersionId'), 10))
+                .then(appVersionList => {
+                    this.originAppVersion = _.cloneDeep(appVersionList);
+                    this.appVersion = appVersionList;
+                }, error => { });
         } else {
             // Mode Création
             this.appVersion = new AppVersionModel();
@@ -125,7 +89,7 @@ export class AppVersionCreatePage {
         this.creationAppVersionForm = this.formBuilder.group({
             numberControl: ['', Validators.required],
             releaseDateControl: [''],
-            changelogControl: ['', Validators.maxLength(4000)]
+            changelogControl: ['']
         });
     }
 
@@ -155,8 +119,10 @@ export class AppVersionCreatePage {
      */
     confirmDeleteAppVersion(appVersion: AppVersionModel): void {
         this.alertCtrl.create({
-            title: this.translateService.instant('ADMIN.APP_VERSION_MANAGEMENT.CONFIRM_VERSION_DELETE.TITLE', { 'number': appVersion.number }),
-            message: this.translateService.instant('ADMIN.APP_VERSION_MANAGEMENT.CONFIRM_VERSION_DELETE.MESSAGE', { 'number': appVersion.number }),
+            header: this.translateService
+                .instant('ADMIN.APP_VERSION_MANAGEMENT.CONFIRM_VERSION_DELETE.TITLE', { number: appVersion.number }),
+            message: this.translateService
+                .instant('ADMIN.APP_VERSION_MANAGEMENT.CONFIRM_VERSION_DELETE.MESSAGE', { number: appVersion.number }),
             buttons: [
                 {
                     text: this.translateService.instant('ADMIN.APP_VERSION_MANAGEMENT.CONFIRM_VERSION_DELETE.CANCEL'),
@@ -167,7 +133,7 @@ export class AppVersionCreatePage {
                     handler: () => this.delete(appVersion)
                 }
             ]
-        }).present();
+        }).then(alert => alert.present());
     }
 
     /**
@@ -183,17 +149,17 @@ export class AppVersionCreatePage {
     }
 
     /**
-    * Vérifie que le chargement de la version est terminé
-    * @return true si c'est le cas, false sinon
-    */
+     * Vérifie que le chargement de la version est terminé
+     * @return true si c'est le cas, false sinon
+     */
     appVersionLoadingIsOver(): boolean {
         return this.appVersion !== undefined;
     }
 
     /**
-  * Affiche un aperçu de la version
-  * @param appVersion la version dont on souhaite voir l'aperçu
-  */
+     * Affiche un aperçu de la version
+     * @param appVersion la version dont on souhaite voir l'aperçu
+     */
     displayOverview(appVersion: AppVersionModel) {
         this.appVersionAlertService.displayAppVersion(appVersion);
     }
@@ -202,20 +168,8 @@ export class AppVersionCreatePage {
         return this.appVersion.techId == null;
     }
 
-    formHasBeenModified() {
-        return Utils.getHashCode(this.originAppVersion) !== Utils.getHashCode(this.appVersion);
-    }
-
     goToAppVersionManagement() {
-        this.navCtrl.push(AppVersionListPage);
-    }
-
-    /**
-     * Récupère le contenu du WYSIWYG
-     * @param content contenu du WYSIWYG
-     */
-    setContent(content) {
-        this.appVersion.changelog = content;
+        this.router.navigate(['admin', 'app-version', 'list']);
     }
 
 }

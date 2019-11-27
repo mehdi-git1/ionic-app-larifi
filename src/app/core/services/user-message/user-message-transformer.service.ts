@@ -1,7 +1,8 @@
-import { UserMessageModel } from './../../models/admin/user-message.model';
 import { Injectable } from '@angular/core';
 
-@Injectable()
+import { UserMessageModel } from '../../models/admin/user-message.model';
+
+@Injectable({ providedIn: 'root' })
 export class UserMessageTransformerService {
 
   toUserMessage(object: any): UserMessageModel {

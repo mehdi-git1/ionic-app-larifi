@@ -1,12 +1,14 @@
-import { NavController } from 'ionic-angular';
-import { CareerObjectiveCreatePage } from './../../pages/career-objective-create/career-objective-create.page';
-import { CareerObjectiveModel } from './../../../../core/models/career-objective.model';
-import { Component, Input, OnChanges } from '@angular/core';
-import * as moment from 'moment';
+
+
+import { Component, Input } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+
+import { CareerObjectiveModel } from '../../../../core/models/career-objective.model';
 
 @Component({
   selector: 'career-objectives',
-  templateUrl: 'career-objectives.component.html'
+  templateUrl: 'career-objectives.component.html',
+  styleUrls: ['./career-objectives.component.scss']
 })
 
 export class CareerObjectivesComponent {
@@ -15,14 +17,16 @@ export class CareerObjectivesComponent {
 
   @Input() careerObjectives: CareerObjectiveModel[];
 
-  constructor(private navCtrl: NavController) {
+  constructor(
+    private router: Router,
+    private activatedRoute: ActivatedRoute) {
   }
 
   /**
- * Ouvre un objectif => redirige vers la page de création de l'objectif
- * @param careerObjective L'objectif à ouvrir
- */
+   * Ouvre un objectif => redirige vers la page de création de l'objectif
+   * @param careerObjective L'objectif à ouvrir
+   */
   openCareerObjective(careerObjective: CareerObjectiveModel) {
-    this.navCtrl.push(CareerObjectiveCreatePage, { matricule: careerObjective.pnc.matricule, careerObjectiveId: careerObjective.techId });
+    this.router.navigate(['career-objective', 'create', careerObjective.techId], { relativeTo: this.activatedRoute });
   }
 }

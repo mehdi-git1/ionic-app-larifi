@@ -1,18 +1,23 @@
-import { EObservationDisplayModeEnum } from './../../../../core/enums/eobservation/eobservation-display-mode.enum';
-import { EObservationLevelEnum } from './../../../../core/enums/e-observations-level.enum';
-import { EObservationItemModel } from './../../../../core/models/eobservation/eobservation-item.model';
-import { Component, Input, OnChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
+
+import { EObservationLevelEnum } from '../../../../core/enums/e-observations-level.enum';
 import { EObservationTypeEnum } from '../../../../core/enums/e-observations-type.enum';
-import { EobservationDetailsPage } from '../../pages/eobservation-details/eobservation-details.page';
-import { NavController } from 'ionic-angular';
+import {
+    EObservationDisplayModeEnum
+} from '../../../../core/enums/eobservation/eobservation-display-mode.enum';
+import {
+    EObservationItemModel
+} from '../../../../core/models/eobservation/eobservation-item.model';
+import {
+    ReferentialThemeModel
+} from '../../../../core/models/eobservation/eobservation-referential-theme.model';
 import { EObservationModel } from '../../../../core/models/eobservation/eobservation.model';
-import { TranslateService } from '@ngx-translate/core';
 import { EObservationService } from '../../../../core/services/eobservation/eobservation.service';
-import { ReferentialThemeModel } from '../../../../core/models/eobservation/eobservation-referential-theme.model';
 
 @Component({
   selector: 'e-observation',
-  templateUrl: 'e-observation.component.html'
+  templateUrl: 'e-observation.component.html',
+  styleUrls: ['./e-observation.component.scss']
 })
 
 export class EObservationComponent implements OnChanges {
@@ -25,7 +30,9 @@ export class EObservationComponent implements OnChanges {
 
   @Input() eObservationDisplayMode: EObservationDisplayModeEnum;
 
-  constructor(private navCtrl: NavController,
+  @Output() detailButtonClicked = new EventEmitter();
+
+  constructor(
     private eObservationService: EObservationService) {
   }
 
@@ -77,19 +84,19 @@ export class EObservationComponent implements OnChanges {
   }
 
   /**
-  * Récupère le label à afficher par rapport type d'eObservation donné
-  * @param level le niveau de l'eObservation
-  * @return le label à afficher
-  */
+   * Récupère le label à afficher par rapport type d'eObservation donné
+   * @param level le niveau de l'eObservation
+   * @return le label à afficher
+   */
   getEObservationTypeLabel(eObservationType: EObservationTypeEnum) {
     return EObservationTypeEnum.getLabel(eObservationType);
   }
 
   /**
-  * Vérifie si un élément de l'eObservation est en "écart de notation"
-  * @param eObservationItem l'élément à vérifier
-  * @return vrai si l'élément est en écart, faux sinon
-  */
+   * Vérifie si un élément de l'eObservation est en "écart de notation"
+   * @param eObservationItem l'élément à vérifier
+   *  @return vrai si l'élément est en écart, faux sinon
+   */
   isEObservationItemAbnormal(eObservationItem: EObservationItemModel): boolean {
     return eObservationItem.refItemLevel.level !== EObservationLevelEnum.LEVEL_3
       && eObservationItem.refItemLevel.level !== EObservationLevelEnum.NO
@@ -102,7 +109,9 @@ export class EObservationComponent implements OnChanges {
    * @return vrai si l'eObservation peut être ouverte, faux sinon
    */
   canOpen(): boolean {
-    return this.abnormalEObservationItems != null && this.abnormalEObservationItems.length > 0 && this.eObservation.type !== EObservationTypeEnum.E_PCB;
+    return this.abnormalEObservationItems != null
+      && this.abnormalEObservationItems.length > 0
+      && this.eObservation.type !== EObservationTypeEnum.E_PCB;
   }
 
   /**
@@ -111,7 +120,7 @@ export class EObservationComponent implements OnChanges {
    */
   goToEObservationDetail(evt: Event): void {
     evt.stopPropagation();
-    this.navCtrl.push(EobservationDetailsPage, { eObservationId: this.eObservation.techId });
+    this.detailButtonClicked.emit(this.eObservation.techId);
   }
 
   /**

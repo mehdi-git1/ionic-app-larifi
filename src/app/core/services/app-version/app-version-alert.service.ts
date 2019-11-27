@@ -1,14 +1,12 @@
-import { Injectable, EventEmitter } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 
 import { EntityEnum } from '../../enums/entity.enum';
-
 import { AppVersionModel } from '../../models/admin/app-version.model';
-
-import { AppVersionTransformerService } from './app-version-transformer.service';
 import { StorageService } from '../../storage/storage.service';
 import { SessionService } from '../session/session.service';
+import { AppVersionTransformerService } from './app-version-transformer.service';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class AppVersionAlertService {
 
   appVersionAlertCreation = new EventEmitter<AppVersionModel>();

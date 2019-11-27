@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { StatutoryCertificateModel } from '../../models/statutory.certificate.model';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class StatutoryCertificateTransformerService {
 
   constructor() {

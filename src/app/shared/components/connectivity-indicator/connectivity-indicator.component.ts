@@ -1,14 +1,16 @@
-import { NavController } from 'ionic-angular';
-import { DeviceService } from './../../../core/services/device/device.service';
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { ConnectivityService } from '../../../core/services/connectivity/connectivity.service';
-import { SynchronizationManagementPage } from '../../../modules/synchronization/pages/synchronization-management/synchronization-management.page';
-import { SynchronizationManagementService } from '../../../core/services/synchronization/synchronization-management.service';
+import { DeviceService } from '../../../core/services/device/device.service';
+import {
+    SynchronizationManagementService
+} from '../../../core/services/synchronization/synchronization-management.service';
 
 @Component({
   selector: 'connectivity-indicator',
-  templateUrl: 'connectivity-indicator.component.html'
+  templateUrl: 'connectivity-indicator.component.html',
+  styleUrls: ['./connectivity-indicator.component.scss']
 })
 export class ConnectivityIndicatorComponent {
 
@@ -17,10 +19,11 @@ export class ConnectivityIndicatorComponent {
   synchroErrorCount = 0;
   synchroProgress = 0;
 
-  constructor(private connectivityService: ConnectivityService,
+  constructor(
+    private connectivityService: ConnectivityService,
     private synchronizationManagementService: SynchronizationManagementService,
     public deviceService: DeviceService,
-    private navCtrl: NavController) {
+    private router: Router) {
     this.connected = this.connectivityService.isConnected();
 
     this.connectivityService.connectionStatusChange.subscribe(connected => {
@@ -51,7 +54,7 @@ export class ConnectivityIndicatorComponent {
    * Redirige vers la page de gestion de la synchronisation
    */
   goToSynchronizationManagementPage(): void {
-    this.navCtrl.push(SynchronizationManagementPage);
+    this.router.navigate(['synchronization-management']);
   }
 
 }

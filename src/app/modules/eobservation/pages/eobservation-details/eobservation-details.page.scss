@@ -1,98 +1,47 @@
-page-eobservation-details {
+$block-border-radius: 5px;
 
-    $border-grid: 1px solid color($colors-secondary, grey75);
-    $block-border-radius: 5px;
+.speciality-line {
+    margin-left: 24px;
+    display: flex;
+    width: 100%;
 
-    ion-grid.rotation-grid {
-        .flight-header {
-            color: color($colors-secondary, blue55);
-        }
-
-        ion-row {
-            ion-col:first-child {
-                padding-left: 24px;
-            }
-        }
-
-        ion-row:first-child {
-            border-top: $border-grid;
-            border-bottom: $border-grid;
-        }
-
-        ion-col {
-            border-right: $border-grid;
-        }
-
-        ion-row:nth-child(even) {
-            background: color($colors-secondary, grey95);
-        }
-
-        ion-col:last-child {
-            border: initial;
-        }
+    .label {
+        padding-right: 10px;
+        color: var(--ion-color-blue55);
+        font-weight: bold;
+        width: 50%;
     }
 
-    .speciality-grid {
-        padding: 0px;
-        margin-bottom: 16px;
-        box-sizing: border-box;
-        box-shadow: 0 3px 1px -2px rgba(0, 0, 0, .2), 0 2px 2px 0 rgba(0, 0, 0, .14), 0 1px 5px 0 rgba(0, 0, 0, .12);
-        border-radius: $block-border-radius;
-        background: color($colors, white);
-
-        .grid {
-            padding: initial;
-        }
+    .value {
+        padding: 10px;
+        width: 50%;
+        font-weight: normal;
     }
+}
 
-    .speciality-header {
-        height: 32px;
-        padding-right: 24px;
-        padding-left: 24px;
-        background: color($colors-secondary, blue55);
-        color: color($colors, white);
-        font-size: 18px !important;
-        border-radius: $block-border-radius;
-        display: flex;
-        align-items: center;
-    }
+.button-bar {
+    margin-top: 10px;
 
-    .speciality-label {
-        padding-left: 24px;
-        background: color($colors, white);
+    pdf-button {
 
-        ion-col {
-            background: color($colors, white);
+        .button .button-md .button-ios {
+            background-color: var(--ion-color-white);
+            color: var(--ion-color-grey20);
+            border-color: var(--ion-color-grey20);
         }
 
-        .assignment {
-            padding-right: 15px;
+        .button:hover .button-md:hover .button-ios:hover {
+            background-color: var(--ion-color-white);
+            color: var(--ion-color-grey20);
+            border-color: var(--ion-color-grey20);
         }
     }
+}
 
-    .button-bar {
-        margin-top: 10px;
+.information-message {
+    text-align: left;
+}
 
-        pdf-button {
-
-            .button .button-md .button-ios {
-                background-color: white;
-                color: color($colors, grey20);
-                border-color: color($colors, grey20);
-            }
-            .button:hover .button-md:hover .button-ios:hover {
-                background-color: white;
-                color: color($colors, grey20);
-                border-color: color($colors, grey20);
-            }
-        }
-    }
-
-    .information-message {
-        text-align: left;
-    }
-
-    .item-inner {
-        border: none !important;
-    }
+.item-inner {
+    border: none !important;
 }

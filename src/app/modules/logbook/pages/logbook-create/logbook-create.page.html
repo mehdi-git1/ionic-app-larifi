@@ -1,10 +1,13 @@
 <ion-header>
-    <ion-navbar>
+    <ion-toolbar>
+        <ion-back-button color="white" slot="start"></ion-back-button>
         <page-header [showSettingsIcon]="true" [pnc]="pnc">
             {{ 'LOGBOOK.EDIT.EVENT_CREATION' | translate }}
         </page-header>
-    </ion-navbar>
+    </ion-toolbar>
 </ion-header>
-<ion-content padding no-bounce>
-    <logbook-event #logbookEventCreate [mode]="LogbookEventModeEnum.CREATION"></logbook-event>
+<ion-content no-bounce>
+    <div class="page-container">
+        <logbook-event #logbookEventCreate [mode]="LogbookEventModeEnum.CREATION"></logbook-event>
+    </div>
 </ion-content>

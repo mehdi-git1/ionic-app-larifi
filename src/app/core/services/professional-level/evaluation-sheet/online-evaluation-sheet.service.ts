@@ -1,14 +1,15 @@
-import { EvaluationSheetModel } from './../../../models/professional-level/evaluation-sheet.model';
-import { ProfessionalLevelModel } from './../../../models/professional-level/professional-level.model';
 import { Injectable } from '@angular/core';
-import { RestService } from '../../../http/rest/rest.base.service';
-import { Config } from '../../../../../environments/config';
 
-@Injectable()
+import { Config } from '../../../../../environments/config';
+import { RestService } from '../../../http/rest/rest.base.service';
+import { EvaluationSheetModel } from '../../../models/professional-level/evaluation-sheet.model';
+
+@Injectable({ providedIn: 'root' })
 export class OnlineEvaluationSheetService {
 
-    constructor(public restService: RestService,
-        public config: Config) {
+    constructor(
+        private restService: RestService,
+        private config: Config) {
     }
 
     /**

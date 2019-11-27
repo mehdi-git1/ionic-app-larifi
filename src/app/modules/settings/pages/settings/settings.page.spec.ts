@@ -1,24 +1,30 @@
-import { Config } from './../../../../../environments/config';
-import { VersionService } from './../../../../core/services/version/version.service';
-import { AppVersion } from '@ionic-native/app-version';
 import { of } from 'rxjs/observable/of';
-import { ConnectivityService } from './../../../../core/services/connectivity/connectivity.service';
-import { OfflineSecurityService } from './../../../../core/services/security/offline-security.service';
-import { DeviceService } from './../../../../core/services/device/device.service';
-import { ModalSecurityService } from './../../../../core/services/modal/modal-security.service';
-import { ToastService } from './../../../../core/services/toast/toast.service';
-import { SessionService } from './../../../../core/services/session/session.service';
-import { SynchronizationService } from './../../../../core/services/synchronization/synchronization.service';
-import { StorageService } from './../../../../core/storage/storage.service';
-import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-translate/core';
-import { SecMobilService } from './../../../../core/http/secMobil.service';
-import { PlatformMock, NavMock, TranslateLoaderMock } from './../../../../../test-config/mocks-ionic';
-import { IonicModule, Platform, NavController, Events, AlertController } from 'ionic-angular';
-import { SettingsPage } from './settings.page';
-import { TestBed, ComponentFixture, fakeAsync, tick } from '@angular/core/testing';
+
 import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { Router } from '@angular/router';
+import { AppVersion } from '@ionic-native/app-version';
+import { AlertController, Events, IonicModule } from '@ionic/angular';
+import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
+
+import { Config } from '../../../../../environments/config';
+import { SecMobilService } from '../../../../core/http/secMobil.service';
+import { ConnectivityService } from '../../../../core/services/connectivity/connectivity.service';
+import { DeviceService } from '../../../../core/services/device/device.service';
+import { ModalSecurityService } from '../../../../core/services/modal/modal-security.service';
+import {
+    OfflineSecurityService
+} from '../../../../core/services/security/offline-security.service';
 import { SecurityService } from '../../../../core/services/security/security.service';
+import { SessionService } from '../../../../core/services/session/session.service';
+import {
+    SynchronizationService
+} from '../../../../core/services/synchronization/synchronization.service';
+import { ToastService } from '../../../../core/services/toast/toast.service';
+import { VersionService } from '../../../../core/services/version/version.service';
+import { StorageService } from '../../../../core/storage/storage.service';
 import { IsMyPage } from '../../../../shared/pipes/is_my_page/is_my_page.pipe';
+import { SettingsPage } from './settings.page';
 
 const ConnectivityServiceMock = jasmine.createSpyObj('ConnectivityServiceMock', ['isConnected']);
 ConnectivityServiceMock.connectionStatusChange = of({});
@@ -32,6 +38,8 @@ SecMobilServiceMock.secMobilRevokeCertificate.and.returnValue(Promise.resolve())
 
 const VersionServiceMock = jasmine.createSpyObj('VersionServiceMock', ['getBackVersion']);
 const AppVersionMock = jasmine.createSpyObj('AppVersionMock', ['getVersionNumber']);
+const TranslateLoaderMock = jasmine.createSpyObj('TranslateLoaderMock', ['instant']);
+const routerMock = jasmine.createSpyObj('routerMock', ['navigate']);
 
 describe('SettingsPage', () => {
 
@@ -47,15 +55,14 @@ describe('SettingsPage', () => {
                 IsMyPage
             ],
             imports: [
-                IonicModule.forRoot(SettingsPage),
+                IonicModule,
                 TranslateModule.forRoot({
                     loader: { provide: TranslateLoader, useClass: TranslateLoaderMock }
                 })
             ],
             providers: [
                 Events,
-                { provide: Platform, useClass: PlatformMock },
-                { provide: NavController, useClass: NavMock },
+                { provide: Router, useValue: routerMock },
                 { provide: SecMobilService, useValue: SecMobilServiceMock },
                 { provide: ConnectivityService, useValue: ConnectivityServiceMock },
                 { provide: StorageService },

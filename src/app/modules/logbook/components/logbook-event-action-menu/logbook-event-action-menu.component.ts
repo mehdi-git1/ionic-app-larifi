@@ -1,36 +1,37 @@
-import { LogbookEventDetailsPage } from './../../pages/logbook-event-details/logbook-event-details.page';
 import { Component } from '@angular/core';
-import { NavParams, ViewController, NavController } from 'ionic-angular';
+import { ActivatedRoute, Router } from '@angular/router';
+import { NavParams, PopoverController } from '@ionic/angular';
+
 import { LogbookEventModel } from '../../../../core/models/logbook/logbook-event.model';
 
 @Component({
   selector: 'logbook-event-action-menu',
-  templateUrl: 'logbook-event-action-menu.component.html'
+  templateUrl: 'logbook-event-action-menu.component.html',
+  styleUrls: ['./logbook-event-action-menu.component.scss']
 })
 export class LogbookEventActionMenuComponent {
 
   logbookEvent: LogbookEventModel;
 
-  navCtrl: NavController;
-
-  constructor(private navParams: NavParams,
-    public viewCtrl: ViewController) {
+  constructor(
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
+    private navParams: NavParams,
+    private popoverCtrl: PopoverController) {
     this.logbookEvent = this.navParams.get('logbookEvent');
-    this.navCtrl = this.navParams.get('navCtrl');
   }
 
   /**
    * Ajoute un évènement lié
    */
   addLinkedEvent() {
-    this.navCtrl.push(LogbookEventDetailsPage, { matricule: this.logbookEvent.pnc.matricule, groupId: this.logbookEvent.groupId, createLinkedEvent: true });
-    this.viewCtrl.dismiss();
+    this.popoverCtrl.dismiss('logbookEvent:create');
   }
 
   /**
    * Ferme la popover
    */
   closePopover() {
-    this.viewCtrl.dismiss();
+    this.popoverCtrl.dismiss();
   }
 }

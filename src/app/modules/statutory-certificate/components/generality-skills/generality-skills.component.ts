@@ -12,7 +12,8 @@ import {
 
 @Component({
   selector: 'generality-skills',
-  templateUrl: 'generality-skills.component.html'
+  templateUrl: 'generality-skills.component.html',
+  styleUrls: ['./generality-skills.component.scss']
 })
 export class GeneralitySkillsComponent implements OnInit {
 
@@ -46,13 +47,19 @@ export class GeneralitySkillsComponent implements OnInit {
       this.dueDateArray.push(StatutoryCertificateDisplayTypeEnum.NTBD);
     }
 
+    if (this.generalitySkillsData && this.generalitySkillsData.companyLeavingDate) {
+      this.skillTitleArray.push(this.translateService.instant('STATUTORY_CERTIFICATE.GENERALITY_SKILLS.COMPANY_LEAVING_DATE.TITLE'));
+      this.startDateArray.push(StatutoryCertificateDisplayTypeEnum.NTBD);
+      this.dueDateArray.push(_.get(this.generalitySkillsData, 'companyLeavingDate'));
+    }
+
     this.skillTitleArray.push(this.translateService.instant('STATUTORY_CERTIFICATE.GENERALITY_SKILLS.PCB.TITLE'));
     this.startDateArray.push(_.get(this.generalitySkillsData, 'pcb.validityStartDate'));
     this.startDateArray.push(StatutoryCertificateDisplayTypeEnum.NTBD);
     this.dueDateArray.push(_.get(this.generalitySkillsData, 'pcb.validityEndDate'));
 
     const pcbValidityStartDate = _.get(this.generalitySkillsData, 'pcb.validityStartDate');
-    if (pcbValidityStartDate == undefined || !pcbValidityStartDate) {
+    if (pcbValidityStartDate === undefined || !pcbValidityStartDate) {
       this.skillTitleArray.push(this.translateService.instant('STATUTORY_CERTIFICATE.GENERALITY_SKILLS.GENE.TITLE'));
       this.dueDateArray.push(_.get(this.generalitySkillsData, 'gene.dueDate'));
     }

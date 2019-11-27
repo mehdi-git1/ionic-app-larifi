@@ -1,15 +1,15 @@
 ion-toast.error .toast-container {
-    background: color($colors-secondary, red80);
+    background: var(--ion-color-danger);
 }
 
 ion-toast.success .toast-container {
-    background: color($colors-secondary, green70);
+    background: var(--ion-color-green70);
 }
 
 ion-toast.info .toast-container {
-    background: color($colors, blue60);
+    background: var(--ion-color-blue60);
 }
 
 ion-toast.warning .toast-container {
-    background: color($colors, orange55);
+    background: var(--ion-color-orange55);
 }

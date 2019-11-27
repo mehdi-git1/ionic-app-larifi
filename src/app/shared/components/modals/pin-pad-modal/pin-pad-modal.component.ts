@@ -1,12 +1,13 @@
+import { Component } from '@angular/core';
+import { ModalController, NavParams } from '@ionic/angular';
+
 import { GlobalErrorEnum } from '../../../../core/enums/global-error.enum';
 import { PinPadErrorEnum } from '../../../../core/enums/security/pin-pad-error.enum';
-import { ViewController, NavParams } from 'ionic-angular';
-import { Component } from '@angular/core';
-
 
 @Component({
   selector: 'pin-pad-modal',
-  templateUrl: 'pin-pad-modal.component.html'
+  templateUrl: 'pin-pad-modal.component.html',
+  styleUrls: ['./pin-pad-modal.component.scss']
 })
 
 export class PinPadModalComponent {
@@ -17,11 +18,11 @@ export class PinPadModalComponent {
   padValueDefault = '_';
 
   constructor(
-    public viewController: ViewController,
-    public navParams: NavParams
+    private modalCtrl: ModalController,
+    private navParams: NavParams
   ) {
-    this.modalType = navParams.get('modalType');
-    this.errorType = navParams.get('errorType');
+    this.modalType = this.navParams.get('modalType');
+    this.errorType = this.navParams.get('errorType');
   }
 
   /**
@@ -31,7 +32,7 @@ export class PinPadModalComponent {
    */
   checkPinValue(pinValue) {
     if (pinValue.indexOf(this.padValueDefault) === -1) {
-      this.viewController.dismiss(pinValue.join(''));
+      this.modalCtrl.dismiss(pinValue.join(''));
     }
 
   }
@@ -41,7 +42,7 @@ export class PinPadModalComponent {
    * @param action Recupération de l'action et envoi vers le service
    */
   catchAction(action) {
-    this.viewController.dismiss(action);
+    this.modalCtrl.dismiss(action);
   }
 
 }

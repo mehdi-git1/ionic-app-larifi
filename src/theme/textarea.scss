@@ -1,20 +1,21 @@
-ion-textarea.input {
-    padding: 0 !important;
-    margin: 0 !important;
+ion-textarea {
+    margin: 10px 0 0 0 !important;
+    --background: var(--ion-color-white) !important;
 
     border-radius: 4px;
-    border: 1px solid color($colors, grey50);
+    border: 1px solid var(--ion-color-grey50);
 
     &:focus-within {
-        border-color: color($colors, primary);
+        border-color: var(--ion-color-primary);
     }
 
     textarea {
         padding: 5px !important;
+        min-height: 200px !important;
     }
 
     &.readonly {
-        background: color($colors-secondary, grey75);
+        background: var(--ion-color-grey75);
     }
 
 }

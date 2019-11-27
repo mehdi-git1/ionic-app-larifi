@@ -1,11 +1,8 @@
-import { IonicModule, NavController, Platform } from 'ionic-angular';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { TestBed, ComponentFixture } from '@angular/core/testing';
-import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-translate/core';
-import { EObservationService } from './eobservation.service';
-import { EObservationModel } from '../../models/eobservation/eobservation.model';
+
+
 import { EObservationTypeEnum } from '../../enums/e-observations-type.enum';
-import { TranslateLoaderMock } from '../../../../test-config/mocks-ionic';
+import { EObservationModel } from '../../models/eobservation/eobservation.model';
+import { EObservationService } from './eobservation.service';
 
 const connectivityServiceMock = jasmine.createSpyObj('connectivityServiceMock', ['setConnected']);
 const onlineEObservationServiceMock = jasmine.createSpyObj('onlineEObservationServiceMock', ['']);

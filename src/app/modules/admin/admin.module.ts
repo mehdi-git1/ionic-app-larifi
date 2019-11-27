@@ -1,12 +1,15 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { IonicPageModule, IonicModule } from 'ionic-angular';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AppVersion } from '@ionic-native/app-version/ngx';
+import { IonicModule } from '@ionic/angular';
 
-import { SharedModule } from '../../shared/shared.module';
 import { ComponentsModule } from '../../shared/components/components.module';
-
-import { ProfileManagementPage } from './pages/profile-management/profile-management.page';
-import { UserMessageManagementPage } from './pages/user-message-management/user-message-management.page';
+import { SharedModule } from '../../shared/shared.module';
 import { AppVersionManagementModule } from './pages/app-version/app-version-management.module';
+import { ProfileManagementPage } from './pages/profile-management/profile-management.page';
+import {
+    UserMessageManagementPage
+} from './pages/user-message-management/user-message-management.page';
 
 @NgModule({
   declarations: [
@@ -14,18 +17,12 @@ import { AppVersionManagementModule } from './pages/app-version/app-version-mana
     UserMessageManagementPage
   ],
   imports: [
-    IonicModule.forRoot(ProfileManagementPage, {
-      menuType: 'push',
-      platform: {
-        ios: {
-          menuType: 'overlay',
-        }
-      }
-    }),
-    [IonicPageModule.forChild(ProfileManagementPage)],
+    IonicModule,
     SharedModule,
     ComponentsModule,
-    AppVersionManagementModule
+    AppVersionManagementModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   entryComponents: [
     ProfileManagementPage,
@@ -38,7 +35,7 @@ import { AppVersionManagementModule } from './pages/app-version/app-version-mana
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA
   ],
-  providers: []
+  providers: [AppVersion]
 })
 
 export class AdminModule { }

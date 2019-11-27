@@ -1,80 +1,80 @@
 <ion-header>
-    <ion-navbar>
+    <ion-toolbar>
+        <ion-back-button color="white" slot="start"></ion-back-button>
         <page-header [showSettingsIcon]="false">
             {{ 'SETTINGS.TITLE' | translate }}
         </page-header>
-    </ion-navbar>
+    </ion-toolbar>
 </ion-header>
 
 
-<ion-content padding no-bounce>
-    <!-- Paramètres accessibles uniquement en mobile -->
-    <ng-container *ngIf="isApp">
+<ion-content no-bounce>
+    <div class="page-container">
+        <!-- Paramètres accessibles uniquement en mobile -->
+        <ng-container *ngIf="isApp">
+            <ion-item>
+                <ion-label color="grey50">{{ 'SETTINGS.INIT_CACHE.LABEL' | translate }}</ion-label>
+                <ion-fab-button size="small" color="secondary" (click)="confirmClearAndInitCache()" [disabled]="!connected">
+                    <ion-icon name="trash" *ngIf="!initInProgress"></ion-icon>
+                    <ion-spinner *ngIf="initInProgress"></ion-spinner>
+                </ion-fab-button>
+            </ion-item>
+            <ion-item>
+                <ion-label color="grey50">{{ 'SETTINGS.FORCE_SYNCHRONIZATION.LABEL' | translate }}</ion-label>
+                <ion-fab-button size="small" color="secondary" (click)="forceSynchronizeOfflineData()" [disabled]="!connected">
+                    <ion-icon name="sync" *ngIf="!synchronizationInProgress"></ion-icon>
+                    <ion-spinner *ngIf="synchronizationInProgress"></ion-spinner>
+                </ion-fab-button>
+            </ion-item>
+            <ion-item>
+                <ion-label color="grey50">{{ 'SETTINGS.CHANGE_PIN_CODE.LABEL' | translate }}</ion-label>
+                <ion-fab-button size="small" color="secondary" (click)="changePinCode()" [disabled]="!connected">
+                    <ion-icon name="key"></ion-icon>
+                </ion-fab-button>
+            </ion-item>
+            <ion-item>
+                <ion-label color="grey50">{{ 'SETTINGS.CHANGE_SECRET_QUESTION.LABEL' | translate }}</ion-label>
+                <ion-fab-button size="small" color="secondary" (click)="changeSecretQuestion()" [disabled]="!connected">
+                    <ion-icon name="key"></ion-icon>
+                </ion-fab-button>
+            </ion-item>
+            <ion-item *ngIf="isAdmin()">
+                <ion-label color="grey50">{{ 'SETTINGS.REVOKE_CERTIFICATE.BUTTON' | translate }}</ion-label>
+                <ion-fab-button size="small" color="secondary" class="parameter-button" (click)="confirmRevokeCertificate()">
+                    <ion-icon name="log-out" *ngIf="!revokationInProgress"></ion-icon>
+                    <ion-spinner *ngIf="revokationInProgress"></ion-spinner>
+                </ion-fab-button>
+            </ion-item>
+        </ng-container>
+        <!-- Paramètres accessibles dans les 2 modes (web et mobile) -->
         <ion-item>
-            <label>{{ 'SETTINGS.INIT_CACHE.LABEL' | translate }}</label>
-            <button ion-fab mini icon-only item-end (click)="confirmClearAndInitCache()" [disabled]="!connected">
-                <ion-icon name="trash" *ngIf="!initInProgress"></ion-icon>
-                <ion-spinner *ngIf="initInProgress"></ion-spinner>
-            </button>
-        </ion-item>
-        <ion-item>
-            <label>{{ 'SETTINGS.FORCE_SYNCHRONIZATION.LABEL' | translate }}</label>
-            <button ion-fab mini icon-only item-end (click)="forceSynchronizeOfflineData()" [disabled]="!connected">
-                <ion-icon name="sync" *ngIf="!synchronizationInProgress"></ion-icon>
-                <ion-spinner *ngIf="synchronizationInProgress"></ion-spinner>
-            </button>
-        </ion-item>
-        <ion-item>
-            <label>{{ 'SETTINGS.CHANGE_PIN_CODE.LABEL' | translate }}</label>
-            <button ion-fab mini icon-only item-end (click)="changePinCode()" [disabled]="!connected">
-                <ion-icon name="key"></ion-icon>
-            </button>
-        </ion-item>
-        <ion-item>
-            <label>{{ 'SETTINGS.CHANGE_SECRET_QUESTION.LABEL' | translate }}</label>
-            <button ion-fab mini icon-only item-end (click)="changeSecretQuestion()" [disabled]="!connected">
-                <ion-icon name="key"></ion-icon>
-            </button>
-        </ion-item>
-        <ion-item *ngIf="isAdmin()">
-            <label>{{ 'SETTINGS.REVOKE_CERTIFICATE.BUTTON' | translate }}</label>
-            <button ion-fab mini icon-only item-end class="parameter-button" (click)="confirmRevokeCertificate()">
-                <ion-icon name="log-out" *ngIf="!revokationInProgress"></ion-icon>
-                <ion-spinner *ngIf="revokationInProgress"></ion-spinner>
-            </button>
-        </ion-item>
-    </ng-container>
-    <!-- Paramètres accessibles dans les 2 modes (web et mobile) -->
-    <ng-container>
-        <ion-item>
-            <label>{{ 'SETTINGS.APP_VERSION.LABEL' | translate }}</label>
-            <button ion-fab mini icon-only item-end (click)="goToAppVersionHistory()" [disabled]="!connected">
+            <ion-label color="grey50">{{ 'SETTINGS.APP_VERSION.LABEL' | translate }}</ion-label>
+            <ion-fab-button size="small" color="secondary" (click)="goToAppVersionHistory()" [disabled]="!connected">
                 <ion-icon name="ios-archive"></ion-icon>
-            </button>
+            </ion-fab-button>
         </ion-item>
         <ion-item>
-            <label>{{ 'SETTINGS.LEGAL_TERMS.LABEL' | translate }}</label>
-            <button ion-fab mini icon-only item-end (click)="goToLegalTerms()">
+            <ion-label color="grey50">{{ 'SETTINGS.LEGAL_TERMS.LABEL' | translate }}</ion-label>
+            <ion-fab-button size="small" color="secondary" (click)="goToLegalTerms()">
                 <ion-icon name="document" ios="md-document"></ion-icon>
-            </button>
+            </ion-fab-button>
         </ion-item>
         <ion-item *ngIf="isRealUserAdmin()">
-            <label>{{ 'SETTINGS.IMPERSONATE_USER.LABEL' | translate }}</label>
-            <button ion-fab mini icon-only item-end (click)="impersonateNewUser()" [disabled]="!connected">
+            <ion-label color="grey50">{{ 'SETTINGS.IMPERSONATE_USER.LABEL' | translate }}</ion-label>
+            <ion-fab-button size="small" color="secondary" (click)="impersonateNewUser()" [disabled]="!connected">
                 <ion-icon name="contacts" ios="md-contacts"></ion-icon>
-            </button>
+            </ion-fab-button>
         </ion-item>
         <ion-item *ngIf="isAdmin()">
-            <label>{{ 'SETTINGS.ADMIN_ACCESS.BUTTON' | translate }}</label>
-            <button ion-fab mini icon-only item-end class="parameter-button" (click)="goToAdminPage()" [disabled]="!connected">
+            <ion-label color="grey50">{{ 'SETTINGS.ADMIN_ACCESS.BUTTON' | translate }}</ion-label>
+            <ion-fab-button size="small" color="secondary" class="parameter-button" (click)="goToAdminPage()" [disabled]="!connected">
                 <ion-icon name="md-build"></ion-icon>
-            </button>
+            </ion-fab-button>
         </ion-item>
-    </ng-container>
-    <ng-container>
+
         <div class="version-panel">
             <div *ngIf="frontVersion">{{ 'GLOBAL.APP_VERSION.FRONT' | translate }} : {{frontVersion}}</div>
             <div *ngIf="backVersion && connected"> - {{ 'GLOBAL.APP_VERSION.BACK' | translate }} : {{backVersion}}</div>
         </div>
-    </ng-container>
+    </div>
 </ion-content>

@@ -1,13 +1,9 @@
-import { NavController, NavParams } from 'ionic-angular';
-
 import { Component, Input, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { CareerObjectiveModel } from '../../../../core/models/career-objective.model';
 import { PncModel } from '../../../../core/models/pnc.model';
 import { PncService } from '../../../../core/services/pnc/pnc.service';
-import {
-    CareerObjectiveCreatePage
-} from '../../pages/career-objective-create/career-objective-create.page';
 
 @Component({
   selector: 'career-objective-list',
@@ -18,20 +14,20 @@ export class CareerObjectiveListComponent implements OnInit {
   @Input() careerObjectives: CareerObjectiveModel[];
   matricule: string;
 
-  constructor(private navCtrl: NavController,
-    private navParams: NavParams,
+  constructor(
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
     private pncService: PncService) {
   }
 
   ngOnInit() {
-    this.matricule = this.navParams.get('matricule');
   }
 
   /**
    * Dirige vers la page de création d'un nouvel objectif
    */
   goToCareerObjectiveCreation() {
-    this.navCtrl.push(CareerObjectiveCreatePage, { matricule: this.matricule, careerObjectiveId: 0 });
+    this.router.navigate(['career-objective', 'create', 0], { relativeTo: this.activatedRoute });
   }
 
   /**

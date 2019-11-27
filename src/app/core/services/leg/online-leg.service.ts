@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 
 import { UrlConfiguration } from '../../configuration/url.configuration';
+import { RestService } from '../../http/rest/rest.base.service';
 import { CrewMemberModel } from '../../models/crew-member.model';
 import { LegModel } from '../../models/leg.model';
-import { RestService } from '../../http/rest/rest.base.service';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class OnlineLegService {
 
   constructor(

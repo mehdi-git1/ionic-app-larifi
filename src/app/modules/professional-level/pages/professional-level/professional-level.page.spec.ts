@@ -1,24 +1,31 @@
-import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
-import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
-import { IonicModule, NavParams } from 'ionic-angular';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { IonicModule, NavParams } from '@ionic/angular';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
-import { ProfessionalLevelPage } from './professional-level.page';
-import { ModuleModel } from './../../../../core/models/professional-level/module.model';
-import { StageModel } from './../../../../core/models/professional-level/stage.model';
-import { IsMyPage } from './../../../../shared/pipes/is_my_page/is_my_page.pipe';
-import { SessionService } from './../../../../core/services/session/session.service';
-import { TranslateLoaderMock, NavMock } from './../../../../../test-config/mocks-ionic';
-import { ProfessionalLevelService } from '../../../../core/services/professional-level/professional-level.service';
-import { PncService } from '../../../../core/services/pnc/pnc.service';
-import { ProfessionalLevelModel } from '../../../../core/models/professional-level/professional-level.model';
+import { ModuleModel } from '../../../../core/models/professional-level/module.model';
+import {
+    ProfessionalLevelModel
+} from '../../../../core/models/professional-level/professional-level.model';
+import { StageModel } from '../../../../core/models/professional-level/stage.model';
+import {
+    EObservationTransformerService
+} from '../../../../core/services/eobservation/eobservation-transformer.service';
 import { EObservationService } from '../../../../core/services/eobservation/eobservation.service';
-import { EObservationTransformerService } from './../../../../core/services/eobservation/eobservation-transformer.service';
+import { PncService } from '../../../../core/services/pnc/pnc.service';
+import {
+    ProfessionalLevelService
+} from '../../../../core/services/professional-level/professional-level.service';
+import { SessionService } from '../../../../core/services/session/session.service';
+import { IsMyPage } from '../../../../shared/pipes/is_my_page/is_my_page.pipe';
+import { ProfessionalLevelPage } from './professional-level.page';
 
 const PncServiceMock = jasmine.createSpyObj('SessionServiceMock', ['getPnc']);
 const SessionServiceMock = jasmine.createSpyObj('SessionServiceMock', ['isActiveUser']);
 const ProfessionalLevelServiceMock = jasmine.createSpyObj('ProfessionalLevelServiceMock', ['']);
 const EObservationServiceMock = jasmine.createSpyObj('EObservationServiceMock', ['getEObservations']);
+const TranslateLoaderMock = jasmine.createSpyObj('TranslateLoaderMock', ['instant']);
+const NavMock = jasmine.createSpyObj('NavMock', ['']);
 
 describe('ProfessionalLevelPage', () => {
 
@@ -32,7 +39,7 @@ describe('ProfessionalLevelPage', () => {
                 IsMyPage
             ],
             imports: [
-                IonicModule.forRoot(ProfessionalLevelPage),
+                IonicModule,
                 TranslateModule.forRoot({
                     loader: { provide: TranslateLoader, useClass: TranslateLoaderMock }
                 })

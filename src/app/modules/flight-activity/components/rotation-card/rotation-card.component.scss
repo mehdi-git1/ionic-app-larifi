@@ -1,54 +1,52 @@
-rotation-card {
+.rotation {
 
-    .rotation {
+    border-radius: 4px;
 
+    ion-card-header {
+        display: flex;
+        cursor: pointer;
+        padding: 0 10px;
         border-radius: 4px;
+        font-size: 1.2em;
 
-        ion-card-header {
+        .rotation-panel {
             display: flex;
-            cursor: pointer;
-            padding: 0 10px;
-            border-radius: 4px;
-            font-size: 1.2em;
+            flex: 1;
+            justify-content: space-around;
+        }
 
-            .rotation-panel {
-                display: flex;
-                flex: 1;
-                justify-content: space-around;
+        .rotation-infos {
+            display: flex;
+            flex: 1;
+            justify-content: flex-start;
+            align-items: center;
+            padding: 10px;
+
+            .rotation-date {
+                padding-right: 10px;
             }
 
-            .rotation-infos {
-                display: flex;
-                flex: 1;
-                justify-content: start;
-                align-items: center;
-                padding: 10px;
-
-                .rotation-date {
-                    padding-right: 10px;
-                }
-
-                .rotation-number {
-                    padding-left: 10px;
-                }
+            .rotation-number {
+                padding-left: 10px;
             }
-        }
-
-        ion-card-content {
-            max-height: 0;
-        }
-
-        ion-card-content.opened {
-            max-height: initial;
-        }
-
-        .card-content {
-            padding: 0;
-        }
-
-        flight-card {
-            border-bottom: 1px solid color($colors-secondary, grey75);
         }
     }
 
+    ion-card-content {
+        max-height: 0;
+        padding: 0;
+    }
+
+    ion-card-content.opened {
+        max-height: initial;
+    }
+
+    .card-content {
+        padding: 0;
+    }
+
+    flight-card {
+        border-bottom: 1px solid var(--ion-color-grey75);
+        background: var(--ion-color-white);
+    }
 }

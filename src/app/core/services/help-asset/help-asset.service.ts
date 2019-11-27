@@ -5,7 +5,7 @@ import { PncRoleEnum } from '../../enums/pnc-role.enum';
 import { RestService } from '../../http/rest/rest.base.service';
 import { HelpAssetModel } from '../../models/help-asset.model';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class HelpAssetService {
 
   constructor(

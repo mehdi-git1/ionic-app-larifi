@@ -1,16 +1,14 @@
-import { SessionService } from './../session/session.service';
-import { PncLightModel } from './../../models/pnc-light.model';
-import { LogbookEventModel } from './../../models/logbook/logbook-event.model';
-import { EntityEnum } from './../../enums/entity.enum';
-import { StorageService } from './../../storage/storage.service';
 import { Injectable } from '@angular/core';
-import { RestService } from '../../http/rest/rest.base.service';
-import { UrlConfiguration } from '../../configuration/url.configuration';
 
-import { ProfessionalInterviewModel } from '../../models/professional-interview/professional-interview.model';
+import { UrlConfiguration } from '../../configuration/url.configuration';
+import { RestService } from '../../http/rest/rest.base.service';
+import { LogbookEventModel } from '../../models/logbook/logbook-event.model';
+import { PncLightModel } from '../../models/pnc-light.model';
+import { StorageService } from '../../storage/storage.service';
+import { SessionService } from '../session/session.service';
 import { TransformerService } from '../transformer/transformer.service';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class OnlineLogbookEventService {
 
     constructor(
@@ -42,6 +40,15 @@ export class OnlineLogbookEventService {
     }
 
     /**
+     * Cache ou affiche un évènement dans le journal de bord d'un pnc
+     * @param  logbookEvent l'évènement du journal de bord à afficher ou à cacher
+     * @return une promesse contenant l'évènement du journal de bord à afficher ou à cacher
+     */
+    hideOrDisplay(logbookEvent: LogbookEventModel): Promise<LogbookEventModel> {
+        return this.restService.put(this.config.getBackEndUrl('hideOrDisplayLogbookEvent', [logbookEvent.techId]), { hidden: logbookEvent.hidden, displayed: logbookEvent.displayed });
+    }
+
+    /**
      * Récupère le ou les évènements à partir de leur group id
      * @param id le group id du ou des évènements à récupérer
      * @return une promesse contenant le ou les évènements récupérés
@@ -51,9 +58,9 @@ export class OnlineLogbookEventService {
     }
 
     /**
-     * Récupère l'évènement du journal de bord'
-     * @param matricule le matricule du PNC dont on souhaite récupérer l'évènement du journal de bord'
-     * @return l'évènement du journal de bord'
+     * Récupère tout les évènements du journal de bord d'un pnc
+     * @param matricule le matricule du PNC dont on souhaite récupérer les évènements du journal de bord
+     * @return la liste des évènements du journal de bord
      */
     getLogbookEvents(matricule: string): Promise<LogbookEventModel[]> {
         return this.restService.get(this.config.getBackEndUrl('getLogbookEvents', [matricule]));

@@ -1,118 +1,109 @@
-$containerWidth : 400;
+$containerWidth : 340;
 $containerHeight : 510;
-$containerPadding : 30;
 
 $chosenNumberWidth: 80;
 $chosenNumberHeight: 31;
 
-$pinNumberWidth: 65;
-$pinNumberHeight: 65;
+:host {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
-pin-pad {
+.title {
+    color: var(--ion-color-grey10);
+    font-weight: bold;
+    font-size: 20px;
+    text-align: center;
+}
 
-    .title {
-        color: $colorDark;
+.error-text {
+    text-align: center;
+    color: var(--ion-color-danger);
+}
+
+.forgotten-pin {
+    position: absolute;
+    color: var(--ion-color-grey10);
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: -20px;
+    margin-right: 35px;
+    text-decoration: underline;
+}
+
+.container {
+    width: $containerWidth+px;
+    height: $containerHeight+px;
+    color: var(--ion-color-grey95);
+}
+
+.chosen-number {
+    display: inline-flex;
+    width: $chosenNumberWidth+px;
+    height: $chosenNumberHeight+px;
+
+    margin: 2px;
+
+    .round-pad-container {
+        width: 100%;
+        text-align: center;
+        margin: auto;
+
+        .round-pad {
+            width: 15px;
+            height: 15px;
+            border: solid 2px var(--ion-color-primary);
+            border-radius: 100%;
+            display: inline-block;
+        }
+
+        .full-round {
+            background: var(--ion-color-primary);
+        }
+
+    }
+
+}
+
+.pad-number-container {
+
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+
+    .pad-number,
+    .erase-pin {
+        --box-shadow: none;
+        color: var(--ion-color-grey10);
+        margin: 10px;
+    }
+
+    .pad-number {
+        cursor: pointer;
         font-weight: bold;
         font-size: 20px;
-        text-align: center;
+
+        &:nth-child(10) {
+            margin-left: 86px;
+        }
     }
 
-    .error-text {
-        text-align: center;
-        color: color($colors-secondary, red80);
-    }
-
-    .forgotten-pin {
-        position: absolute;
-        color: $colorDark;
+    .erase-pin {
         font-weight: bold;
+        display: flex;
+        align-items: center;
         cursor: pointer;
-        margin-top: -20px;
-        margin-right: 35px;
         text-decoration: underline;
-    }
+        padding-left: 8px;
 
-    .container {
-        position: absolute;
-        width: $containerWidth+px;
-        height: $containerHeight+px;
-        color: $colorBright;
-        top: 40px;
-        left: calc(50% - #{$containerWidth/2}px);
-        padding: $containerPadding+px;
-    }
-
-    .chosen-number {
-        display: inline-flex;
-        width: $chosenNumberWidth+px;
-        height: $chosenNumberHeight+px;
-
-        margin: 2px;
-
-        .round-pad-container {
-            width: 100%;
-            text-align: center;
-            margin: auto;
-
-            .round-pad {
-                width: 15px;
-                height: 15px;
-                border: solid 2px;
-                border-radius: 10px;
-                display: inline-block;
-            }
-
-            .full-round {
-                background-color: $colorBright;
-            }
-
+        &.invisible {
+            opacity: 0;
+            cursor: default;
         }
 
     }
-
-    .pad-number-container {
-
-        padding: 20px;
-        padding-right: 47px;
-        text-align: right;
-
-        %item-common {
-            display: inline-flex;
-            width: $pinNumberWidth+px;
-            height: $pinNumberHeight+px;
-            color: $colorDark;
-            padding-left: 25px;
-            padding-top: 17px;
-            margin: 10px;
-        }
-
-        .pad-number {
-            @extend %item-common;
-            cursor: pointer;
-            background-color: $colorBright;
-            border: solid 2px $colorBright;
-            border-radius: $pinNumberWidth+px;
-            font-weight: bold;
-            font-size: 20px;
-        }
-
-        .erase-pin {
-            @extend %item-common;
-            font-weight: bold;
-            cursor: pointer;
-            text-decoration: underline;
-            display: inline-flex;
-            padding-left: 13px;
-
-            &.invisible {
-                opacity: 0;
-                cursor: default;
-            }
-
-        }
-
-    }
-
-
 
 }

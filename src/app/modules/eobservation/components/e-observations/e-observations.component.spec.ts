@@ -1,11 +1,12 @@
-import { EObservationModel } from '../../../../core/models/eobservation/eobservation.model';
-import { TranslateLoaderMock } from './../../../../../test-config/mocks-ionic';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { IonicModule } from 'ionic-angular';
-import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { IonicModule } from '@ionic/angular';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
+import { EObservationModel } from '../../../../core/models/eobservation/eobservation.model';
 import { EObservationsComponent } from './e-observations.component';
+
+const TranslateLoaderMock = jasmine.createSpyObj('TranslateLoaderMock', ['instant']);
 
 describe('EObservationsComponent', () => {
 
@@ -18,9 +19,9 @@ describe('EObservationsComponent', () => {
                 EObservationsComponent
             ],
             imports: [
-                IonicModule.forRoot(EObservationsComponent),
+                IonicModule,
                 TranslateModule.forRoot({
-                    loader: { provide: TranslateLoader, useClass: TranslateLoaderMock }
+                    loader: { provide: TranslateLoader, useValue: TranslateLoaderMock }
                 })
             ],
             providers: [],
@@ -29,7 +30,7 @@ describe('EObservationsComponent', () => {
 
         fixture = TestBed.createComponent(EObservationsComponent);
         comp = fixture.componentInstance;
-        comp.eObservations = [new EObservationModel, new EObservationModel];
+        comp.eObservations = [new EObservationModel(), new EObservationModel()];
     });
 
     describe('defineLegendMessage', () => {

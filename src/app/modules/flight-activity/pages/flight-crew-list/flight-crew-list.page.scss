@@ -1,28 +1,30 @@
-page-flight-crew-list {
-    ion-header {
-        height: 126px;
+ion-header {
+    height: 126px;
+}
+
+.leg {
+    font-size: 1.3em;
+    color: var(--ion-color-secondary);
+    max-width: 1200px;
+    height: 70px;
+    margin: auto;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
+        padding: 10px 20px;
     }
 
-    .leg {
-        font-size: 1.3em;
-        color: color($colors, secondary);
-        max-width: 1200px;
-        height: 70px;
-        margin: auto;
-        padding: 20px;
+    .flight-number {
         display: flex;
-        justify-content: space-between;
         align-items: center;
 
-        .flight-number {
-            display: flex;
-            align-items: center;
-
-            ion-icon {
-                background: color($colors, secondary);
-                color: color($colors, white);
-                margin-right: 10px;
-            }
+        ion-icon {
+            background: var(--ion-color-secondary);
+            color: var(--ion-color-white);
+            margin-right: 10px;
         }
     }
 }

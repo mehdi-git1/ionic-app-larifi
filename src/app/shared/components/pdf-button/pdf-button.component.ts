@@ -1,10 +1,12 @@
-import { DeviceService } from './../../../core/services/device/device.service';
-import { Component, Input} from '@angular/core';
+import { Component, Input } from '@angular/core';
+
+import { DeviceService } from '../../../core/services/device/device.service';
 import { PdfGeneratorService } from '../../../core/services/pdf-generator/pdf-generator.service';
 
 @Component({
   selector: 'pdf-button',
-  templateUrl: 'pdf-button.component.html'
+  templateUrl: 'pdf-button.component.html',
+  styleUrls: ['./pdf-button.component.scss']
 })
 export class PdfButtonComponent {
 
@@ -14,7 +16,8 @@ export class PdfButtonComponent {
 
   @Input() elementToPrint: HTMLElement;
 
-  constructor(private pdfGeneratorService: PdfGeneratorService,
+  constructor(
+    private pdfGeneratorService: PdfGeneratorService,
     private deviceService: DeviceService) {
   }
 
@@ -36,10 +39,10 @@ export class PdfButtonComponent {
    * Vérifie que le bouton est disponible sur cette plateforme
    */
   isAvailable() {
-    if ( this.deviceService.isBrowser()) {
+    if (this.deviceService.isBrowser()) {
       return true;
     } else {
       return false;
     }
   }
- }
+}

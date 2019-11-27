@@ -1,9 +1,9 @@
-import { DirectivesModule } from './../../shared/directives/directives.module';
 import { Injectable } from '@angular/core';
-import { urlGroupEnum } from './url-group.enum';
-import { Config } from '../../../environments/config';
 
-@Injectable()
+import { Config } from '../../../environments/config';
+import { urlGroupEnum } from './url-group.enum';
+
+@Injectable({ providedIn: 'root' })
 export class UrlConfiguration {
 
   constructor(private config: Config) {
@@ -37,7 +37,6 @@ export class UrlConfiguration {
     'getPncPhotoByMatricule': `${urlGroupEnum.PNC_PHOTO}/{matricule}`,
     'getSecurityInfos': urlGroupEnum.ME,
     'secretInfos': urlGroupEnum.PIN,
-    'getSecretInfosByMatricule': `${urlGroupEnum.PIN}/{matricule}`,
     'getStatutoryCertificateByMatricule': `${urlGroupEnum.STATUTORY_CERTIFICATE}/{matricule}`,
     'getProfessionalInterviewsByMatricule': `${urlGroupEnum.PROFESSIONAL_INTERVIEW}/pnc/{matricule}`,
     'professionalInterviews': urlGroupEnum.PROFESSIONAL_INTERVIEW,
@@ -64,11 +63,14 @@ export class UrlConfiguration {
     'getAppVersionById': `${urlGroupEnum.APP_VERSION}/{id}`,
     'deleteAppVersionById': `${urlGroupEnum.APP_VERSION}/{id}`,
     'logbookEvents': urlGroupEnum.LOGBOOK_EVENT,
+    'hideOrDisplayLogbookEvent': `${urlGroupEnum.LOGBOOK_EVENT}/hideOrDisplay/{id}`,
     'getLogbookEventsByGroupId': `${urlGroupEnum.LOGBOOK_EVENT}/event_group/{groupId}`,
     'getLogbookEvents': `${urlGroupEnum.LOGBOOK_EVENT}/pnc/{matricule}`,
     'deleteLogbookEventById': `${urlGroupEnum.LOGBOOK_EVENT}/{id}`,
     'fixCongratulationLetterRecipient': `${urlGroupEnum.CONGRATULATION_LETTER}/recipients/{id}`,
-    'getDocumentById': `${urlGroupEnum.DOCUMENT}/{documentId}`
+    'getDocumentById': `${urlGroupEnum.DOCUMENT}/{documentId}`,
+    'hrDocuments': urlGroupEnum.HR_DOCUMENT,
+    'getHrDocumentById': `${urlGroupEnum.HR_DOCUMENT}/{id}`
   };
 
   /**

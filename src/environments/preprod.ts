@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { BaseEnvironment } from './base-environment';
 
 declare var window: any;
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class Config extends BaseEnvironment {
     constructor() {
         super();
@@ -18,5 +18,7 @@ export class Config extends BaseEnvironment {
         this.secmobileEnv = 'prod';
         this.eformsUrl = 'com.airfrance.mobile.inhouse.eformsPNC';
         this.eformsCallbackUrl = 'com.airfrance.mobile.inhouse.edospncPREPROD';
+
+        this.friendlyUrl = 'http://friendly.airfrance.fr';
     }
 }

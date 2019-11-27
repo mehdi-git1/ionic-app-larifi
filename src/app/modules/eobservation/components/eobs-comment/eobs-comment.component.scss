@@ -1,74 +1,78 @@
-eobs-comment {
+.redactor-comment-container div:first-child {
+    padding: 0px;
+}
 
-    .redactor-comment-container div:first-child {
-        padding: 0px;
+.redactor-comment-container,
+.pnc-comment-container {
+    display: flex;
+    flex-direction: column;
+
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 20px;
+
+    .comment-length {
+        font-size: smaller;
+        text-align: right;
+    }
+}
+
+.comment-container {
+
+    box-shadow: 0px 0px 5px var(--ion-color-grey70);
+    background: var(--ion-color-white);
+    border-radius: 3px;
+
+    label {
+        display: flex;
+        align-items: center;
+        color: var(--ion-color-grey10);
+        font-size: 1.1em;
+
+        span {
+            color: var(--ion-color-primarylight);
+            margin-right: 10px;
+        }
     }
 
-    .redactor-comment-container,
-    .pnc-comment-container {
-        padding-left: 20px;
-        padding-right: 20px;
-        padding-bottom: 20px;
+    div {
+        padding-top: 15px;
     }
 
-    .comment-container {
-
-        box-shadow: 0px 0px 5px color($colors-secondary, grey70);
-        background: color($colors, white);
-        border-radius: 3px;
+    .comment {
 
         label {
-            display: flex;
-            align-items: center;
-            color: color($colors-secondary, grey12);
-            font-size: 1.1em;
-
-            span {
-                color: color($colors, primary-light);
-                margin-right: 10px;
-            }
+            margin-bottom: 10px;
         }
 
-        div {
-            padding-top: 15px;
+        p,
+        ion-textarea {
+            padding: 10px;
+            border-radius: 3px;
+            white-space: pre-line;
         }
 
-        .comment {
+        ion-textarea {
+            min-height: 210px !important;
+            padding: 0 !important;
+            margin: 0 !important;
 
-            label {
-                margin-bottom: 10px;
-            }
-
-            p,
-            ion-textarea {
-                padding: 10px;
-                border-radius: 3px;
-                white-space: pre-line;
-            }
-
-            ion-textarea {
-                min-height: 210px !important;
-                padding: 0 !important;
-                margin: 0 !important;
-
-                textarea {
-                    min-height: 190px !important;
-                    padding: 5px !important;
-                }
+            textarea {
+                min-height: 190px !important;
+                padding: 5px !important;
             }
         }
-
     }
 
-    .comment-footer {
-        height: 48px;
-        background-color: color($colors-secondary, blue68);
-        color: color($colors, white);
-        border-radius: 5px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 24px;
-    }
+}
 
+.comment-footer {
+    height: 48px;
+    background-color: var(--ion-color-blue68);
+    color: var(--ion-color-white);
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px;
 }

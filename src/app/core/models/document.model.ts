@@ -6,13 +6,15 @@ export class DocumentModel {
     content: string;
     mimeType: string;
     type: DocumentTypeEnum;
+    fileSize: number;
 
-    constructor(fileName: string, type: DocumentTypeEnum, mimeType: string, content: string, creationDate: Date = new Date()) {
+    constructor(fileName: string, type: DocumentTypeEnum, mimeType: string, content: string, fileSize: number, creationDate: Date = new Date()) {
         this.fileName = fileName;
         this.content = content;
         this.creationDate = creationDate;
         this.mimeType = mimeType;
-        this.type =  type;
+        this.type = type;
+        this.fileSize = fileSize;
     }
 }
 
@@ -33,4 +35,4 @@ export const DocumentTypeIconFileName = new Map<string, string>([
     ['PPT', 'ppt.svg'],
     ['XLS', 'xls.svg'],
     ['OTHER', 'other.svg']
-  ]);
+]);

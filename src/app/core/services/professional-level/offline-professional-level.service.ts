@@ -4,8 +4,7 @@ import { EntityEnum } from '../../enums/entity.enum';
 import { ProfessionalLevelModel } from '../../models/professional-level/professional-level.model';
 import { StorageService } from '../../storage/storage.service';
 
-
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class OfflineProfessionalLevelService {
 
     constructor(private storageService: StorageService) {

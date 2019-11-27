@@ -1,31 +1,25 @@
-import { GinqModel } from './../../../../core/models/ginq.model';
-import { DivisionModel } from './../../../../core/models/division.model';
-import { FormGroup, AbstractControl, Validators, FormBuilder } from '@angular/forms';
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import $ from 'jquery';
+import { AfterViewInit, Component, EventEmitter, Output } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { Events, PopoverController } from '@ionic/angular';
+import { TranslateService } from '@ngx-translate/core';
 
-import { Utils } from '../../../../shared/utils/utils';
-import { ConnectivityService } from '../../../../core/services/connectivity/connectivity.service';
-import { NavController, Events, Keyboard } from 'ionic-angular';
-import { PncService } from '../../../../core/services/pnc/pnc.service';
-import { Subject } from 'rxjs/Rx';
-import { SessionService } from '../../../../core/services/session/session.service';
-import { Observable } from 'rxjs/Observable';
-import { from } from 'rxjs/observable/from';
 import { AppConstant } from '../../../../app.constant';
+import { SpecialityEnum } from '../../../../core/enums/speciality.enum';
+import { DivisionModel } from '../../../../core/models/division.model';
+import { GinqModel } from '../../../../core/models/ginq.model';
 import { PncFilterModel } from '../../../../core/models/pnc-filter.model';
 import { PncModel } from '../../../../core/models/pnc.model';
-import { SpecialityEnum } from '../../../../core/enums/speciality.enum';
 import { SectorModel } from '../../../../core/models/sector.model';
 import { RelayModel } from '../../../../core/models/statutory-certificate/relay.model';
+import { ConnectivityService } from '../../../../core/services/connectivity/connectivity.service';
+import { SessionService } from '../../../../core/services/session/session.service';
 
 @Component({
   selector: 'pnc-search-filter',
-  templateUrl: 'pnc-search-filter.component.html'
+  templateUrl: 'pnc-search-filter.component.html',
+  styleUrls: ['./pnc-search-filter.component.scss']
 })
-export class PncSearchFilterComponent implements OnInit {
-  private static CDK_OVERLAY_0 = '#cdk-overlay-0';
-  private static MAT_AUTOCOMPLETE_0 = '#mat-autocomplete-0';
+export class PncSearchFilterComponent implements AfterViewInit {
 
   @Output() onSearch: EventEmitter<any> = new EventEmitter();
 
@@ -56,12 +50,15 @@ export class PncSearchFilterComponent implements OnInit {
   specialityList: string[];
 
   outOfDivision: boolean;
+  priorityFilter;
 
   constructor(
     private sessionService: SessionService,
     private formBuilder: FormBuilder,
     private connectivityService: ConnectivityService,
-    private events: Events
+    private events: Events,
+    public popoverCtrl: PopoverController,
+    public translateService: TranslateService
   ) {
     this.connectivityService.connectionStatusChange.subscribe(connected => {
       this.initFilter();
@@ -74,6 +71,7 @@ export class PncSearchFilterComponent implements OnInit {
 
   }
 
+
   /**
    * Action déclenchée lors du click
    * @param evt event : click
@@ -82,11 +80,28 @@ export class PncSearchFilterComponent implements OnInit {
     this.onSearch.next();
   }
 
-  ngOnInit() {
+  ngAfterViewInit() {
     // initialistation du filtre
     this.initFilter();
     // Initialisation du formulaire
     this.initForm();
+  }
+
+  getFormattedPriorityFilter(): string {
+    let filterValues = '';
+    if (this.prioritized) {
+      filterValues += ' ' + this.translateService.instant('PNC_SEARCH.CRITERIA.PRIORITIZED_SHORT') + ',';
+    }
+    if (this.priority) {
+      filterValues += ' ' + this.translateService.instant('PNC_SEARCH.CRITERIA.PRIORITY_IN_PROGRESS_SHORT') + ',';
+    }
+    if (this.noPriority) {
+      filterValues += ' ' + this.translateService.instant('PNC_SEARCH.CRITERIA.NO_PRIORITY_SHORT') + ',';
+    }
+    if (filterValues.length > 0 && filterValues.charAt(filterValues.length - 1) === ',') {
+      filterValues = filterValues.substr(0, filterValues.length - 1);
+    }
+    return filterValues;
   }
 
   /**
@@ -105,6 +120,7 @@ export class PncSearchFilterComponent implements OnInit {
         this.outOfDivision = true;
       } else {
         this.outOfDivision = false;
+        // tslint:disable-next-line: no-misleading-array-reverse
         this.relayList = appInitData.relays.sort((relay1, relay2) => {
           return relay1.code > relay2.code ? 1 : -1;
         });
@@ -130,6 +146,9 @@ export class PncSearchFilterComponent implements OnInit {
     this.pncFilter.speciality = this.specialityList && this.specialityList.length === 1 ? this.specialityList[0] : AppConstant.ALL;
     this.pncFilter.aircraftSkill = this.aircraftSkillList && this.aircraftSkillList.length === 1 ? this.aircraftSkillList[0] : AppConstant.ALL;
     this.pncFilter.relay = this.relayList && this.relayList.length === 1 ? this.relayList[0].code : AppConstant.ALL;
+    this.pncFilter.prioritized = false;
+    this.pncFilter.hasAtLeastOnePriorityInProgress = false;
+    this.pncFilter.hasNoPriority = false;
     this.searchForm.get('divisionControl').setValue(this.defaultDivision);
     this.searchForm.get('specialityControl').setValue(this.specialityList && this.specialityList.length === 1 ? this.specialityList[0] : AppConstant.ALL);
     this.searchForm.get('aircraftSkillControl').setValue(this.aircraftSkillList && this.aircraftSkillList.length === 1 ? this.aircraftSkillList[0] : AppConstant.ALL);
@@ -137,6 +156,9 @@ export class PncSearchFilterComponent implements OnInit {
     this.searchForm.get('prioritizedControl').setValue(false);
     this.searchForm.get('hasAtLeastOnePriorityInProgressControl').setValue(false);
     this.searchForm.get('hasNoPriorityControl').setValue(false);
+    this.searchForm.get('priorityControl').setValue(new Array());
+    this.searchForm.get('hasDefaultHiddenEventsControl').setValue(false);
+    this.searchForm.get('hasHiddenEventsControl').setValue(false);
     this.search();
     this.defaultValue = false;
     this.priority = false;
@@ -155,9 +177,12 @@ export class PncSearchFilterComponent implements OnInit {
       specialityControl: [this.pncFilter.speciality ? this.pncFilter.speciality : AppConstant.ALL],
       aircraftSkillControl: [this.pncFilter.aircraftSkill ? this.pncFilter.aircraftSkill : AppConstant.ALL],
       relayControl: [this.pncFilter.relay ? this.pncFilter.relay : AppConstant.ALL],
+      priorityControl: [new Array()],
       prioritizedControl: [false],
       hasAtLeastOnePriorityInProgressControl: [false],
-      hasNoPriorityControl: [false]
+      hasNoPriorityControl: [false],
+      hasDefaultHiddenEventsControl: [false],
+      hasHiddenEventsControl: [false]
     });
     if (this.connectivityService.isConnected()) {
       this.resetFilterValues();
@@ -189,6 +214,8 @@ export class PncSearchFilterComponent implements OnInit {
       this.pncFilter.prioritized = val.prioritizedControl;
       this.pncFilter.hasAtLeastOnePriorityInProgress = val.hasAtLeastOnePriorityInProgressControl;
       this.pncFilter.hasNoPriority = val.hasNoPriorityControl;
+      this.pncFilter.hasDefaultHiddenEvents = val.hasDefaultHiddenEventsControl;
+      this.pncFilter.hasHiddenEvents = val.hasHiddenEventsControl;
       this.search();
     });
   }
@@ -266,8 +293,8 @@ export class PncSearchFilterComponent implements OnInit {
   }
 
   /**
-  * Ouvre/ferme le filtre
-  */
+   * Ouvre/ferme le filtre
+   */
   toggleFilter() {
     this.showFilter = !this.showFilter;
   }

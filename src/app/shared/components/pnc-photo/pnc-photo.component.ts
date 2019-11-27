@@ -1,17 +1,17 @@
-import { PncPhotoModel } from './../../../core/models/pnc-photo.model';
-import { ConnectivityService } from './../../../core/services/connectivity/connectivity.service';
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
-import { PncModel } from '../../../core/models/pnc.model';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { Events } from '@ionic/angular';
 
+import { PncPhotoModel } from '../../../core/models/pnc-photo.model';
+import { PncModel } from '../../../core/models/pnc.model';
 import { GenderService } from '../../../core/services/gender/gender.service';
-import { PncPhotoService } from '../../../core/services/pnc-photo/pnc-photo.service';
-import { Events } from 'ionic-angular';
 import { OfflinePncPhotoService } from '../../../core/services/pnc-photo/offline-pnc-photo.service';
+import { PncPhotoService } from '../../../core/services/pnc-photo/pnc-photo.service';
 
 @Component({
   selector: 'pnc-photo',
-  templateUrl: 'pnc-photo.component.html'
+  templateUrl: 'pnc-photo.component.html',
+  styleUrls: ['./pnc-photo.component.scss']
 })
 export class PncPhotoComponent implements OnInit, OnChanges {
 
@@ -23,7 +23,8 @@ export class PncPhotoComponent implements OnInit, OnChanges {
 
   loading = false;
 
-  constructor(private pncPhotoService: PncPhotoService,
+  constructor(
+    private pncPhotoService: PncPhotoService,
     private offlinePncPhotoService: OfflinePncPhotoService,
     private genderProvider: GenderService,
     private domSanitizer: DomSanitizer,
@@ -31,14 +32,16 @@ export class PncPhotoComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
-    this.offlinePncPhotoService.getPncPhoto(this.pnc.matricule).then(pncPhoto => {
-      // Si on trouve une photo dans le cache, on l'affiche, sinon on affiche un spinner
-      if (pncPhoto) {
-        this.processPncPhoto(pncPhoto);
-      } else {
-        this.loading = true;
-      }
-    });
+    if (this.pnc) {
+      this.offlinePncPhotoService.getPncPhoto(this.pnc.matricule).then(pncPhoto => {
+        // Si on trouve une photo dans le cache, on l'affiche, sinon on affiche un spinner
+        if (pncPhoto) {
+          this.processPncPhoto(pncPhoto);
+        } else {
+          this.loading = true;
+        }
+      });
+    }
 
     if (!this.handleCall) {
       this.events.subscribe('PncPhoto:updated', (updatedPhotoMatricules) => {
@@ -62,14 +65,16 @@ export class PncPhotoComponent implements OnInit, OnChanges {
    * Récupère la photo du PNC donné en entrée
    */
   getPhoto() {
-    this.loading = true;
-    this.pncPhotoService.getPncPhoto(this.pnc.matricule).then(pncPhoto => {
-      this.processPncPhoto(pncPhoto);
-    }, error => {
-      this.photoSrc = this.genderProvider.getAvatarPicture(this.pnc.gender);
-    }).then(() => {
-      this.loading = false;
-    });
+    if (this.pnc) {
+      this.loading = true;
+      this.pncPhotoService.getPncPhoto(this.pnc.matricule).then(pncPhoto => {
+        this.processPncPhoto(pncPhoto);
+      }, error => {
+        this.photoSrc = this.genderProvider.getAvatarPicture(this.pnc.gender);
+      }).then(() => {
+        this.loading = false;
+      });
+    }
   }
 
   /**

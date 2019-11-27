@@ -1,17 +1,11 @@
-import { NavController, NavParams } from 'ionic-angular';
 
 import { Component, Input } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import {
     ProfessionalInterviewModel
 } from '../../../../core/models/professional-interview/professional-interview.model';
 import { SecurityService } from '../../../../core/services/security/security.service';
-import {
-    ProfessionalInterviewDetailsPage
-} from '../../../professional-interview/pages/professional-interview-details/professional-interview-details.page';
-import {
-    ProfessionalInterviewsArchivesPage
-} from '../../../professional-interview/pages/professional-interviews-archives/professional-interviews-archives.page';
 
 @Component({
     selector: 'professional-interview-list',
@@ -21,27 +15,25 @@ import {
 export class ProfessionalInterviewListComponent {
 
     @Input() professionalInterviews: ProfessionalInterviewModel[];
-    matricule: string;
 
     constructor(
-        private navParams: NavParams,
-        private navCtrl: NavController,
+        private router: Router,
+        private activatedRoute: ActivatedRoute,
         private securityService: SecurityService) {
-        this.matricule = this.navParams.get('matricule');
     }
 
     /**
- * Dirige vers la page de création d'un nouveau bilan professionnel
- */
+     * Dirige vers la page de création d'un nouveau bilan professionnel
+     */
     goToProfessionalInterviewCreation() {
-        this.navCtrl.push(ProfessionalInterviewDetailsPage, { matricule: this.matricule });
+        this.router.navigate(['professional-interview', 'create'], { relativeTo: this.activatedRoute });
     }
 
     /**
      * Redirige vers la page des archives des bilans professionnels
      */
     goToProfessionalInterviewsArchives() {
-        this.navCtrl.push(ProfessionalInterviewsArchivesPage, { matricule: this.matricule });
+        this.router.navigate(['professional-interview', 'archive'], { relativeTo: this.activatedRoute });
     }
 
     /**

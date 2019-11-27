@@ -1,24 +1,4 @@
-page-pnc-search {
-
-    ion-content {
-        .scroll-content {
-            display: flex;
-            flex-direction: column;
-
-            .filtered-pnc-list-container {
-                flex: 1;
-
-                .scroll-content {
-                    padding: 0;
-                    margin-bottom: 0px !important;
-                    .scroll-zoom-wrapper {
-                        height: 100%;
-                    }
-                }
-            }
-        }
-    }
-
-
-
+.page-container {
+    display: flex;
+    flex-direction: column;
 }

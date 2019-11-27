@@ -7,12 +7,13 @@
     <div class="error-message">{{ synchroRequest.errorMessage }}</div>
 </div>
 <div class="action-container">
-    <button ion-fab mini (click)="reinitSynchroRequest()" *ngIf="synchroRequest.synchroStatus === SynchroStatusEnum.FAILED">
+    <ion-fab-button size="small" (click)="reinitSynchroRequest()"
+        *ngIf="synchroRequest.synchroStatus === SynchroStatusEnum.FAILED">
         <ion-icon name="refresh"></ion-icon>
-    </button>
-    <button ion-fab mini (click)="deleteSynchroRequest()" [hidden]="true">
+    </ion-fab-button>
+    <ion-fab-button size="small" (click)="deleteSynchroRequest()" [hidden]="true">
         <ion-icon name="close"></ion-icon>
-    </button>
+    </ion-fab-button>
 </div>
 <div class="status-container">
     <span class="synchro-status {{ synchroRequest.synchroStatus.toLowerCase() }}"></span>

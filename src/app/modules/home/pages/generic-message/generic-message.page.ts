@@ -1,20 +1,22 @@
-import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
-
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'page-generic-message',
   templateUrl: 'generic-message.page.html',
+  styleUrls: ['./generic-message.page.scss']
 })
-export class GenericMessagePage {
+export class GenericMessagePage implements OnInit {
 
   genericMessage: string;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(
+  ) {
   }
 
-  ionViewDidLoad() {
-    this.genericMessage = this.navParams.get('message');
+  ngOnInit() {
+    if (history.state.data) {
+      this.genericMessage = history.state.data.message;
+    }
   }
 
 }

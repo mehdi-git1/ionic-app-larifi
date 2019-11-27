@@ -4,7 +4,7 @@ import { AppContextModel } from '../../models/app-context.model';
 import { AuthenticatedUserModel } from '../../models/authenticated-user.model';
 import { PncModel } from '../../models/pnc.model';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class SessionService {
     authenticatedUser: AuthenticatedUserModel;
     impersonatedUser: AuthenticatedUserModel = null;
@@ -29,5 +29,16 @@ export class SessionService {
             return false;
         }
         return pnc.matricule === (this.getActiveUser() && this.getActiveUser().matricule);
+    }
+
+    /**
+     * Vérifie que le pnc consulté est la personne connectée
+     * @return vrai si c'est le cas, faux sinon
+     */
+    isActiveUserMatricule(matricule: string): boolean {
+        if (!matricule) {
+            return false;
+        }
+        return matricule === (this.getActiveUser() && this.getActiveUser().matricule);
     }
 }

@@ -1,16 +1,15 @@
-import { CongratulationLetterModel } from './../../models/congratulation-letter.model';
-import { CareerObjectiveModel } from '../../models/career-objective.model';
 import { Injectable } from '@angular/core';
 
+import { CongratulationLetterModel } from '../../models/congratulation-letter.model';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class CongratulationLetterTransformerService {
 
   /**
-  * Transforme un tableau d'objets en tableau de CongratulationLetterModel
-  * @param object le tableau d'objet à transformer
-  * @return un tableau d'objets de type CongratulationLetterModel
-  */
+   * Transforme un tableau d'objets en tableau de CongratulationLetterModel
+   * @param object le tableau d'objet à transformer
+   * @return un tableau d'objets de type CongratulationLetterModel
+   */
   toCongratulationLetters(array: CongratulationLetterModel[]): CongratulationLetterModel[] {
     const newArray: CongratulationLetterModel[] = [];
     for (const object of array) {

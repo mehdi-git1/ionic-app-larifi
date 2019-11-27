@@ -1,24 +1,25 @@
-import { Injectable } from '@angular/core';
 import * as _ from 'lodash';
 
-import { OfflineActionEnum } from '../../enums/offline-action.enum';
+import { Injectable } from '@angular/core';
+
 import { EntityEnum } from '../../enums/entity.enum';
+import { OfflineActionEnum } from '../../enums/offline-action.enum';
+import { CareerObjectiveModel } from '../../models/career-objective.model';
 import { WaypointModel } from '../../models/waypoint.model';
 import { StorageService } from '../../storage/storage.service';
-import { CareerObjectiveModel } from '../../models/career-objective.model';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class OfflineWaypointService {
 
   constructor(private storageService: StorageService) {
   }
 
   /**
-  * Stocke dans le cache un point d'étape
-  * @param waypoint le point d'étape à stocker en cache
-  * @param careerObjectiveId l'id de l'objectif du point d'étape
-  * @return une promesse contenant le point d'étape mis en cache
-  */
+   * Stocke dans le cache un point d'étape
+   * @param waypoint le point d'étape à stocker en cache
+   * @param careerObjectiveId l'id de l'objectif du point d'étape
+   * @return une promesse contenant le point d'étape mis en cache
+   */
   store(waypoint: WaypointModel, careerObjectiveId: number): Promise<WaypointModel> {
     return this.createOrUpdate(waypoint, careerObjectiveId);
   }

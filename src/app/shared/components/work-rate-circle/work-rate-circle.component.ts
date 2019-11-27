@@ -2,7 +2,8 @@ import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'work-rate-circle',
-  templateUrl: 'work-rate-circle.component.html'
+  templateUrl: 'work-rate-circle.component.html',
+  styleUrls: ['./work-rate-circle.component.scss']
 })
 
 export class WorkRateCircleComponent implements OnInit {

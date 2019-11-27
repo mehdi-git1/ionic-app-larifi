@@ -1,15 +1,14 @@
 import { Injectable } from '@angular/core';
 
 import { UrlConfiguration } from '../../configuration/url.configuration';
-
+import { RestService } from '../../http/rest/rest.base.service';
 import { AppVersionModel } from '../../models/admin/app-version.model';
 
-import { RestService } from '../../http/rest/rest.base.service';
-
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class AppVersionService {
 
-    constructor(private restService: RestService,
+    constructor(
+        private restService: RestService,
         private config: UrlConfiguration) {
     }
 

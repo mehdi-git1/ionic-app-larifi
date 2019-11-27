@@ -1,23 +1,20 @@
-offline-indicator {
+div {
+    width: 8px;
+    height: 100%;
 
-    div {
-        width: 8px;
-        height: 100%;
-
-        .modified-offline {
-            background: repeating-linear-gradient(135deg,
-                    transparent,
-                    transparent 8px,
-                    rgba(255, 255, 255, 1) 8px,
-                    rgba(255, 255, 255, 1) 10px);
-        }
+    .modified-offline {
+        background: repeating-linear-gradient(135deg,
+                transparent,
+                transparent 8px,
+                rgba(255, 255, 255, 1) 8px,
+                rgba(255, 255, 255, 1) 10px);
     }
+}
 
-    .up-to-date {
-        background: color($colors-secondary, blue68);
-    }
+.up-to-date {
+    background: var(--ion-color-blue68);
+}
 
-    .out-dated {
-        background: color($colors, orange55);
-    }
+.out-dated {
+    background: var(--ion-color-orange55);
 }

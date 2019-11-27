@@ -1,4 +1,5 @@
 export enum TextEditorModeEnum {
     FULL = 'FULL',
-    LIGHT = 'LIGHT'
+    LIGHT = 'LIGHT',
+    READ_ONLY = 'READ_ONLY'
 }

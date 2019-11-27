@@ -1,31 +1,40 @@
-import { IonicModule, NavController, NavParams, AlertController } from 'ionic-angular';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { TestBed, ComponentFixture, inject } from '@angular/core/testing';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { HttpClient } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormBuilder } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AlertController, IonicModule } from '@ionic/angular';
 import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 import { AppConstant } from '../../../../app.constant';
-import { NavMock } from '../../../../../test-config/mocks-ionic';
-import { OfflineCareerObjectiveService } from '../../../../core/services/career-objective/offline-career-objective.service';
-import { DateTransform } from '../../../../shared/utils/date-transform';
-import { ToastService } from '../../../../core/services/toast/toast.service';
-import { SecurityService } from '../../../../core/services/security/security.service';
-import { CareerObjectiveStatusService } from '../../../../core/services/career-objective-status/career-objective-status.service';
-import { WaypointService } from '../../../../core/services/waypoint/waypoint.service';
-import { CareerObjectiveTransformerService } from '../../../../core/services/career-objective/career-objective-transformer.service';
-import { ConnectivityService } from '../../../../core/services/connectivity/connectivity.service';
-import { WaypointCreatePage } from './waypoint-create.page';
-import { OfflineWaypointService } from '../../../../core/services/waypoint/offline-waypoint.service';
-import { WaypointStatusService } from '../../../../core/services/waypoint-status/waypoint-status.service';
 import { WaypointModel } from '../../../../core/models/waypoint.model';
-import { SessionService } from '../../../../core/services/session/session.service';
+import {
+    CareerObjectiveStatusService
+} from '../../../../core/services/career-objective-status/career-objective-status.service';
+import {
+    CareerObjectiveTransformerService
+} from '../../../../core/services/career-objective/career-objective-transformer.service';
+import {
+    OfflineCareerObjectiveService
+} from '../../../../core/services/career-objective/offline-career-objective.service';
+import { ConnectivityService } from '../../../../core/services/connectivity/connectivity.service';
 import { DeviceService } from '../../../../core/services/device/device.service';
 import { PncService } from '../../../../core/services/pnc/pnc.service';
+import { SecurityService } from '../../../../core/services/security/security.service';
+import { SessionService } from '../../../../core/services/session/session.service';
+import { ToastService } from '../../../../core/services/toast/toast.service';
+import {
+    WaypointStatusService
+} from '../../../../core/services/waypoint-status/waypoint-status.service';
+import {
+    OfflineWaypointService
+} from '../../../../core/services/waypoint/offline-waypoint.service';
+import { WaypointService } from '../../../../core/services/waypoint/waypoint.service';
 import { IsMyPage } from '../../../../shared/pipes/is_my_page/is_my_page.pipe';
-
+import { DateTransform } from '../../../../shared/utils/date-transform';
+import { WaypointCreatePage } from './waypoint-create.page';
 
 const translateServiceMock = jasmine.createSpyObj('translateServiceMock', ['instant']);
 
@@ -39,7 +48,7 @@ describe('WaypointCreatePage', () => {
                 WaypointCreatePage,
                 IsMyPage],
             imports: [
-                IonicModule.forRoot(WaypointCreatePage),
+                IonicModule,
                 TranslateModule.forRoot({
                     loader: {
                         provide: TranslateLoader,
@@ -50,8 +59,8 @@ describe('WaypointCreatePage', () => {
             ],
             providers: [
                 HttpClient,
-                { provide: NavController, useClass: NavMock },
-                { provide: NavParams, useClass: NavMock },
+                Router,
+                ActivatedRoute,
                 AlertController,
                 FormBuilder,
                 WaypointStatusService,

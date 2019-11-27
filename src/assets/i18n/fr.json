@@ -41,6 +41,7 @@
                 "DO_NOT_DISPLAY_ANYMORE": "J'ai compris"
             }
         },
+        "DEVELOPMENT_PROGRAM_SHORT": "Parcours de Dev",
         "DEVELOPMENT_PROGRAM": "Parcours de développement",
         "MY_DEVELOPMENT_PROGRAM": "Mon parcours de développement",
         "HELP_CENTER": "Ressources d'aide",
@@ -50,10 +51,13 @@
         "UPCOMING_FLIGHT": "Activité vols",
         "MY_UPCOMING_FLIGHT": "Mon activité vols",
         "CREW_MEMBERS": "Liste équipage",
+        "STATUTORY_CERTIFICATE_SHORT": "Profil",
         "STATUTORY_CERTIFICATE": "Profil PNC",
         "MY_STATUTORY_CERTIFICATE": "Mon profil PNC",
+        "PROFESSIONAL_LEVEL_SHORT": "NivPro SV",
         "PROFESSIONAL_LEVEL": "Niveau pro SV",
         "MY_PROFESSIONAL_LEVEL": "Mon niveau pro SV",
+        "CONGRATULATION_LETTERS_SHORT": "Félicitations",
         "CONGRATULATION_LETTERS": "Lettres de félicitations",
         "MY_CONGRATULATION_LETTERS": "Mes lettres de félicitations",
         "EOBSERVATIONS_ARCHIVES": "Archives d'eObservations",
@@ -62,6 +66,8 @@
         "MY_LOGBOOK": "Mon journal de bord",
         "PROFESSIONAL_INTERVIEWS_ARCHIVES": "Archives de bilans professionnels / EPP",
         "MY_PROFESSIONAL_INTERVIEWS_ARCHIVES": "Mes archives de bilans professionnels / EPP",
+        "HR_DOCUMENT": "Documents RH",
+        "MY_HR_DOCUMENT": "Mes documents RH",
         "UNKNOWN_ERROR": "Suite à un dysfonctionnement technique, l'opération a échoué. Nous vous invitons à réessayer dans quelques minutes. Si le problème persiste, veuillez contacter votre support.",
         "MESSAGES": {
             "ERROR": {
@@ -96,7 +102,10 @@
         },
         "DOCUMENT": {
             "PREVIEW_NOT_AVAILABLE": "L'aperçu n'est pas disponible pour ce fichier",
-            "OPEN_FILE_ERROR": "Erreur lors de l'ouverture du fichier"
+            "OPEN_FILE_ERROR": "Erreur lors de l'ouverture du fichier",
+            "FILE_MAX_SIZE": "La taille totale des fichiers ne doit pas dépasser {{filesMaxSize}} Mo",
+            "ERROR_MAX_FILES_SIZE_REACHED": "Impossible d'ajouter le fichier {{fileName}}. La taille totale des fichiers ne doit pas dépasser {{maxSize}} Mo",
+            "ERROR_MULTI_MAX_FILES_SIZE_REACHED": "Impossible d'ajouter les fichier sélectionnés. La taille totale des fichiers ne doit pas dépasser {{maxSize}} Mo"
         }
     },
     "AUTHENT": {
@@ -202,7 +211,6 @@
             "VALIDATED": "Clôturée",
             "ABANDONED": "Abandonnée"
         }
-
     },
     "PNC_IDENTITY": {
         "REFERENT_INSTRUCTOR": "Manager",
@@ -235,6 +243,11 @@
             "PNC_COMMENT": "Commentaire PNC",
             "ENCOUNTER_DATE": "Date du point d'étape",
             "REQUIRED_ON_ENCOUNTER_DAY": " (Saisie obligatoire le jour de la rencontre)"
+        },
+        "DETAILS": {
+            "CREATED_BY": "Créé par ",
+            "UPDATED_BY": "Modifié par ",
+            "DATE_LABEL": " le {{date}}"
         },
         "CONFIRM_DRAFT_DELETE": {
             "TITLE": "Suppression du brouillon",
@@ -294,6 +307,9 @@
             },
             "SENIORITY_DATE": {
                 "TITLE": "Ancienneté PNC"
+            },
+            "COMPANY_LEAVING_DATE": {
+                "TITLE": "Date départ"
             },
             "PCB": {
                 "TITLE": "PCB"
@@ -578,7 +594,7 @@
         "MY_TITLE": "Ma recherche PNC",
         "CRITERIA": {
             "FILTERS": "Filtres",
-
+            "PRIORITY": "Priorités",
             "DIVISION": "Division",
             "SECTOR": "Secteur",
             "GINQ": "Ginq",
@@ -588,7 +604,13 @@
             "WORK_RATE": "Rythme",
             "PRIORITIZED": "Priorité majeure",
             "PRIORITY_IN_PROGRESS": "Priorité en cours",
-            "NO_PRIORITY": "Aucune priorité en cours"
+            "NO_PRIORITY": "Aucune priorité en cours",
+            "PRIORITIZED_SHORT": "Majeure",
+            "PRIORITY_IN_PROGRESS_SHORT": "En cours",
+            "NO_PRIORITY_SHORT": "Aucune en cours",
+            "LOGBOOK_EVENTS": "Evènement JDB",
+            "HIDDEN_EVENTS": "Masqué volontairement",
+            "DEFAULT_HIDDEN_EVENTS": "Masqué par défaut"
         },
         "DEFAULT_DATA": {
             "ALL_F": "Toutes",
@@ -606,7 +628,6 @@
         "PDF_HELP_ASSET": "Ressources pdf",
         "TITLE": "Ressources d'aide",
         "MY_TITLE": "Mes ressources d'aide",
-        "NO_HELP_ASSETS": "Aucune ressource créée pour le moment",
         "LAST_UPDATE_DATE": "Dernière mise à jour : "
     },
     "CONGRATULATION_LETTERS": {
@@ -702,7 +723,6 @@
             "VERBATIM": "Verbatim",
             "COLLECTIVE_WARNING_PART1": "Cette lettre collective sera insérée dans le eDossier de ",
             "COLLECTIVE_WARNING_PART2": " mais n'alimentera pas les eDossiers du reste de l'équipage"
-
         },
         "BUTTONS": {
             "CANCEL": "Annuler",
@@ -757,6 +777,11 @@
             "SEARCH": "Rechercher",
             "PERSONS_TO_NOTIFY": "Personnes à notifier"
         },
+        "VISIBILITY": {
+            "WILL_BE_DISPLAYED_ON": "L'évènement sera affiché le {{date}}",
+            "EVENT_DISPLAYED": "Evènement visible par le PNC",
+            "EVENT_HIDDEN": "Evènement masqué au PNC"
+        },
         "NOTIFICATION": {
             "CONFIRM_NOTIFICATION": {
                 "TITLE": "Notification",
@@ -769,6 +794,18 @@
             "CONFIRM_EDIT_WITHOUT_NOTIFICATION": {
                 "TITLE": "Mettre à jour sans notifier",
                 "MESSAGE": "Confirmez-vous la mise à jour de l'évènement sans envoi de notification ?"
+            },
+            "CONFIRM_HIDDEN_EVENT": {
+                "TITLE": "Masquer l'évènement",
+                "MESSAGE": "Voulez-vous masquer l'évènement au PNC durant un temps indéterminé ?"
+            },
+            "CONFIRM_DISPLAYED_EVENT": {
+                "TITLE": "Afficher l'évènement",
+                "MESSAGE": "Voulez-vous rendre l'évènement visible au PNC ?"
+            },
+            "CONFIRM_DISPLAYED_EVENT_AFTER_FIFTEEN_DAYS": {
+                "TITLE": "Masquer jusqu'au {{date}}",
+                "MESSAGE": "En choisissant cette option, l'évènement s'affichera automatiquement le {{date}}. Confirmez-vous cette action ?"
             }
         },
         "DELETE": {
@@ -782,7 +819,10 @@
             "EVENT_DATE": "Evènement du ",
             "CREATED_THE": "Créé le ",
             "NOTIFIED_PNCS": "Personnes notifiées",
-            "EDITED_BY": "Evènement modifié par {{lastName}} {{firstName}} le {{date}}"
+            "EDITED_BY": "Evènement modifié par {{lastName}} {{firstName}} le {{date}}",
+            "WILL_BE_DISPLAYED_ON": "Sera affiché le {{date}}",
+            "DISPLAYED": "Afficher",
+            "HIDDEN": "Masquer"
         },
         "ACTION_MENU": {
             "MODIFY": "Modifier",
@@ -790,6 +830,55 @@
             "ADD_LINKED_EVENT": "Ajouter un évènement lié",
             "FORWARD": "Transférer",
             "DELETE_ALL": "Supprimer tout"
+        }
+    },
+    "HR_DOCUMENT": {
+        "CREATION_DATE": "Date d'enregistrement",
+        "CATEGORY": "Catégorie",
+        "TITLE": "Titre",
+        "REDACTOR": "Rédacteur",
+        "ACTIONS": "Actions",
+        "UNAIVALABLE_OFFLINE": "Les documents RH ne sont pas disponibles hors connexion",
+        "BUTTONS": {
+            "CREATE_NEW_DOCUMENT": "Nouveau document",
+            "ADD_LOG": "Nouvel évènement",
+            "MODIFY": "Modifier",
+            "CANCEL": "Annuler",
+            "UPDATE": "Mettre à jour",
+            "SAVE": "Enregistrer",
+            "DELETE": "Supprimer",
+            "NEXT_PAGE": "Voir les {{pageSize}} résultats suivants"
+        },
+        "LIST": {
+            "LAST_PAGE_REACHED": "Tous les résultats sont affichés"
+        },
+        "EDIT": {
+            "DOCUMENT_CREATION": "Création d'un nouveau document",
+            "DOCUMENT_EDITION": "Modification d'un document",
+            "DOCUMENT_DATE": "Date du document",
+            "CATEGORY": "Catégorie",
+            "DOCUMENT_TITLE": "Titre du document",
+            "DOCUMENT_DESCRIPTION": "Description",
+            "ATTACHMENT_FILES": "Importer des pièces jointes",
+            "HR_DOCUMENT_SAVED": "Document enregistré",
+            "HR_DOCUMENT_EDITED": "Document mis à jour"
+        },
+        "DETAILS": {
+            "PAGE_TITLE": "Détails d'un document",
+            "CREATED_BY_THE": "Créé par {{ lastName }} {{ firstName }} le {{ creationDate }}",
+            "EDITED_BY": "Document modifié par {{lastName}} {{firstName}} le {{date}}"
+        },
+        "DELETE": {
+            "HR_DOCUMENT_DELETED": "Document supprimé"
+        },
+        "CONFIRM_DELETE": {
+            "TITLE": "Suppression",
+            "MESSAGE": "Confirmez-vous la suppression du document ?",
+            "CONFIRM": "Confirmer",
+            "CANCEL": "Annuler"
+        },
+        "ACTION_MENU": {
+            "MODIFY": "Modifier"
         }
     },
     "SYNCHRONIZATION": {
@@ -998,5 +1087,9 @@
                 "UPDATE_SUCCESSFUL": "Message mis à jour"
             }
         }
+    },
+    "PAGE_NOT_FOUND": {
+        "TITLE": "Page non trouvée",
+        "MESSAGE": "Aucune page n'a été trouvée à cette adresse, merci de vérifier l'adresse saisie"
     }
 }
