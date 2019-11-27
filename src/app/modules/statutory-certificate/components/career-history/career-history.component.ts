@@ -13,7 +13,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CareerHistoryComponent implements OnInit {
 
-    careerHistoryData: Array<AppParameterModel>;
+    careerHistoryLinks: Array<AppParameterModel>;
 
     matricule: string;
 
@@ -23,17 +23,14 @@ export class CareerHistoryComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.careerHistoryData = this.sessionService.getActiveUser().appInitData.carrerHistoryLinks;
+        this.careerHistoryLinks = this.sessionService.getActiveUser().appInitData.carrerHistoryLinks;
         this.matricule = this.sessionService.visitedPnc.matricule;
     }
 
     goToLink(link: string) {
         if (link) {
-            window.location.href = link.replace('%MATRICULE%', this.matricule);
+            window.open(link.replace('%MATRICULE%', this.matricule), '_blank');
         }
     }
 
-    canViewLink() {
-        return true; //this.securityservice.isManager();
-    }
 }

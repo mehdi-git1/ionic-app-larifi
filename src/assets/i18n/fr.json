@@ -297,8 +297,7 @@
             "MEDICAL_APTITUDES": "Aptitudes médicales",
             "LANGUAGES": "Langues",
             "RELAYS": "Référents / Relais",
-            "TRAVEL_DOCUMENTS": "Documents / Visas",
-            "CAREER_HISTORY": "Historique de carrière"
+            "TRAVEL_DOCUMENTS": "Documents / Visas"
         },
         "GENERALITY_SKILLS": {
             "START_DATE": "Depuis le",
@@ -348,7 +347,7 @@
             "UNAIVALABLE_OFFLINE": "L'historique n'est pas disponible hors connexion",
             "TITLE": "Historique",
             "ASSIGNMENT": {
-                "SECTION_TITLE" : "Historique de carrière - Affectation",
+                "SECTION_TITLE": "Historique de carrière - Affectation",
                 "TITLE": "Affectation",
                 "CODE": "Code",
                 "LABEL": "Libellé",
@@ -356,6 +355,13 @@
                 "SECTOR": "Secteur",
                 "START_DATE": "Date de début",
                 "END_DATE": "Date de fin"
+            },
+            "CAREER_HISTORY": {
+                "TITLE": "Historique de carrière",
+                "EFORMS_LINK": "Historique des évènements à bord",
+                "DOMINO_LINK": "Historique des Cabin Report",
+                "EDITO_LINK": "Historique des postes occupés à bord",
+                "CIRCUIT_PN_LINK": "Historique des objets distribués"
             }
         },
         "ERROR": {

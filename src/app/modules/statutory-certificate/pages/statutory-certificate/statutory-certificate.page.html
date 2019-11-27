@@ -24,11 +24,11 @@
         <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
         <ng-template #pageBlock>
             <div class="selectable">
-                <statutory-certificate *ngIf="isTabActive(StatutoryCertificateTabEnum.STATUTORY_CERTIFICATE)" [statutoryCertificate]="statutoryCertificate">
+                <statutory-certificate *ngIf="isTabActive(StatutoryCertificateTabEnum.STATUTORY_CERTIFICATE)"
+                    [statutoryCertificate]="statutoryCertificate">
                 </statutory-certificate>
                 <history *ngIf="isTabActive(StatutoryCertificateTabEnum.HISTORY)" [history]="dwhHistory">
                 </history>
-                <career-history></career-history>
             </div>
         </ng-template>
     </div>
