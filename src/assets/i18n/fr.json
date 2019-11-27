@@ -369,6 +369,12 @@
                 "INSTRUCTOR": "Instructeur",
                 "START_DATE": "Date de début",
                 "END_DATE": "Date de fin"
+            },
+            "SENIORITY_DATE": {
+                "TITLE": "Dates d'ancienneté",
+                "EFFECTIVE_DATE": "Date effet",
+                "EVENT": "Evènement",
+                "NATURE": "Nature"
             }
         },
         "ERROR": {

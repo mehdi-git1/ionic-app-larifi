@@ -10,5 +10,8 @@
     </statutory-certificate-data>
     <statutory-certificate-data *ngIf="instrumentData" [statutoryCertificateData]="instrumentData" 
     title="{{ 'STATUTORY_CERTIFICATE.HISTORY.INSTRUMENT.TITLE' | translate}}" [displayType]="StatutoryCertificateDisplayTypeEnum.TAB">
-</statutory-certificate-data>
+    </statutory-certificate-data>
+    <statutory-certificate-data *ngIf="seniorityDateData" [statutoryCertificateData]="seniorityDateData" 
+    title="{{ 'STATUTORY_CERTIFICATE.HISTORY.SENIORITY_DATE.TITLE' | translate}}" [displayType]="StatutoryCertificateDisplayTypeEnum.TAB">
+    </statutory-certificate-data>
 </span>
