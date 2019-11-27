@@ -297,7 +297,8 @@
             "MEDICAL_APTITUDES": "Aptitudes médicales",
             "LANGUAGES": "Langues",
             "RELAYS": "Référents / Relais",
-            "TRAVEL_DOCUMENTS": "Documents / Visas"
+            "TRAVEL_DOCUMENTS": "Documents / Visas",
+            "CAREER_HISTORY": "Historique de carrière"
         },
         "GENERALITY_SKILLS": {
             "START_DATE": "Depuis le",

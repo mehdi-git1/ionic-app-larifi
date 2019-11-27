@@ -1,0 +1,10 @@
+<ion-grid class="career-history-data">
+    <ion-row>
+        <ion-col class="title">{{'STATUTORY_CERTIFICATE.CATEGORIES.CAREER_HISTORY' | translate}}</ion-col>
+    </ion-row>
+    <ion-row class="link-row" *ngFor="let data of careerHistoryData">
+        <ion-col>
+            <span *ngIf="canViewLink()" (click)="goToLink(data.value)">{{data.description}}</span>
+        </ion-col>
+    </ion-row>
+</ion-grid>
