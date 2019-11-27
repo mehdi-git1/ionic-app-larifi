@@ -190,7 +190,7 @@ export class HistoryComponent implements OnInit {
         if (this.history && this.history.seniorityDateHistory && this.history.seniorityDateHistory.length > 0) {
             const sortedSeniorityDateHistory = this.history.seniorityDateHistory.sort((seniorityDate1, seniorityDate2) => {
                 return moment(seniorityDate1.effectiveDate, AppConstant.isoDateFormat)
-                .isBefore(moment(seniorityDate1.effectiveDate, AppConstant.isoDateFormat))
+                .isBefore(moment(seniorityDate2.effectiveDate, AppConstant.isoDateFormat))
                 ? 1 : -1;
             });
             for (const seniorityDate of sortedSeniorityDateHistory) {
