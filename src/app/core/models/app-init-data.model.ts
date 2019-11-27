@@ -23,6 +23,8 @@ export class AppInitDataModel {
 
     hrDocumentCategories: Array<HrDocumentCategory>;
 
+    regularityLinks: Array<AppParameterModel>;
+
     carrerHistoryLinks: Array<AppParameterModel>;
 
     attachmentsMaxSize: number;
