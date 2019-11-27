@@ -8,4 +8,7 @@
     <statutory-certificate-data *ngIf="employmentLevelData" [statutoryCertificateData]="employmentLevelData" 
         title="{{ 'STATUTORY_CERTIFICATE.HISTORY.EMPLOYMENT_LEVEL.TITLE' | translate}}" [displayType]="StatutoryCertificateDisplayTypeEnum.TAB">
     </statutory-certificate-data>
+    <statutory-certificate-data *ngIf="instrumentData" [statutoryCertificateData]="instrumentData" 
+    title="{{ 'STATUTORY_CERTIFICATE.HISTORY.INSTRUMENT.TITLE' | translate}}" [displayType]="StatutoryCertificateDisplayTypeEnum.TAB">
+</statutory-certificate-data>
 </span>

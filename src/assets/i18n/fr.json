@@ -362,6 +362,13 @@
                 "SPECIALITY": "Spécialité",
                 "START_DATE": "Date de début",
                 "END_DATE": "Date de fin"
+            },
+            "INSTRUMENT": {
+                "TITLE": "Groupe Ginq",
+                "CODE": "Code",
+                "INSTRUCTOR": "Instructeur",
+                "START_DATE": "Date de début",
+                "END_DATE": "Date de fin"
             }
         },
         "ERROR": {
