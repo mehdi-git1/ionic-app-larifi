@@ -358,10 +358,10 @@
             },
             "CAREER_HISTORY": {
                 "TITLE": "Historique de carrière",
-                "EFORMS_LINK": "Historique des évènements à bord",
-                "DOMINO_LINK": "Historique des Cabin Report",
-                "EDITO_LINK": "Historique des postes occupés à bord",
-                "CIRCUIT_PN_LINK": "Historique des objets distribués"
+                "EFORMS_EVENTS_HISTORY_LINK": "Historique des évènements à bord",
+                "DOMINO_CABIN_REPORT_HISTORY_LINK": "Historique des Cabin Report",
+                "EDITO_WORKSTATIONS_HISTORY_LINK": "Historique des postes occupés à bord",
+                "CIRCUITPN_DISTRIBUTED_OBJECTS_HISTORY_LINK": "Historique des objets distribués"
             }
         },
         "ERROR": {
