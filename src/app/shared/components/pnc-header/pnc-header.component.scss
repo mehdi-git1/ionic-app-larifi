@@ -30,6 +30,36 @@
         border: 4px solid var(--ion-color-white);
     }
 
+    .full-size {
+        @media (max-width: 800px) {
+            display: none;
+        }
+
+        text-align: center;
+
+        .work-rate-container {
+            font-size: 1.1em;
+            margin: 0 20px;
+        }
+    }
+
+    .small-size {
+        @media (min-width: 800px) {
+            display: none;
+        }
+
+        .work-rate-container {
+            color: var(--ion-color-primary);
+            font-weight: bold;
+        }
+    }
+
+    .pnc-taf {
+        font-size: 1.2em;
+        font-weight: bold;
+        color: var(--ion-color-primary);
+    }
+
     .pnc-info-container {
         flex: 2;
         padding: 0 20px;
@@ -39,6 +69,7 @@
             font-weight: bold;
             color: var(--ion-color-primary);
         }
+
 
         .pnc-speciality {
             font-size: 1.1em;
@@ -51,23 +82,6 @@
         }
     }
 
-    .work-rate-container.full-size {
-        @media (max-width: 800px) {
-            display: none;
-        }
-
-        font-size: 1.1em;
-        margin:0 20px;
-    }
-
-    .work-rate-container.small-size {
-        color: var(--ion-color-primary);
-        font-weight: bold;
-
-        @media (min-width: 800px) {
-            display: none;
-        }
-    }
 
     .data-container {
         flex: 1;
