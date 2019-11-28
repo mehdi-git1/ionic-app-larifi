@@ -1,15 +1,18 @@
-<career-history></career-history>
+<career-history *ngIf="isBrowser()"></career-history>
 <span *ngIf="isOffline() && !history">
     {{ 'STATUTORY_CERTIFICATE.HISTORY.UNAIVALABLE_OFFLINE' | translate }}
 </span>
 <span *ngIf="history">
-    <statutory-certificate-data *ngIf="assignmentData" [statutoryCertificateData]="assignmentData" 
-        title="{{ 'STATUTORY_CERTIFICATE.HISTORY.ASSIGNMENT.TITLE' | translate}}" [displayType]="StatutoryCertificateDisplayTypeEnum.TAB">
+    <statutory-certificate-data *ngIf="assignmentData" [statutoryCertificateData]="assignmentData"
+        title="{{ 'STATUTORY_CERTIFICATE.HISTORY.ASSIGNMENT.TITLE' | translate}}"
+        [displayType]="StatutoryCertificateDisplayTypeEnum.TAB">
     </statutory-certificate-data>
-    <statutory-certificate-data *ngIf="employmentLevelData" [statutoryCertificateData]="employmentLevelData" 
-        title="{{ 'STATUTORY_CERTIFICATE.HISTORY.EMPLOYMENT_LEVEL.TITLE' | translate}}" [displayType]="StatutoryCertificateDisplayTypeEnum.TAB">
+    <statutory-certificate-data *ngIf="employmentLevelData" [statutoryCertificateData]="employmentLevelData"
+        title="{{ 'STATUTORY_CERTIFICATE.HISTORY.EMPLOYMENT_LEVEL.TITLE' | translate}}"
+        [displayType]="StatutoryCertificateDisplayTypeEnum.TAB">
     </statutory-certificate-data>
-    <statutory-certificate-data *ngIf="instrumentData" [statutoryCertificateData]="instrumentData" 
-        title="{{ 'STATUTORY_CERTIFICATE.HISTORY.INSTRUMENT.TITLE' | translate}}" [displayType]="StatutoryCertificateDisplayTypeEnum.TAB">
+    <statutory-certificate-data *ngIf="instrumentData" [statutoryCertificateData]="instrumentData"
+        title="{{ 'STATUTORY_CERTIFICATE.HISTORY.INSTRUMENT.TITLE' | translate}}"
+        [displayType]="StatutoryCertificateDisplayTypeEnum.TAB">
     </statutory-certificate-data>
 </span>
