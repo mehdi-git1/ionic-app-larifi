@@ -1,8 +1,12 @@
+<career-history></career-history>
 <span *ngIf="isOffline() && !history">
     {{ 'STATUTORY_CERTIFICATE.HISTORY.UNAIVALABLE_OFFLINE' | translate }}
 </span>
-<career-history></career-history>
-<statutory-certificate-data *ngIf="dwhHistoryDisplayedData" [statutoryCertificateData]="dwhHistoryDisplayedData"
-    title="{{ 'STATUTORY_CERTIFICATE.HISTORY.ASSIGNMENT.TITLE' | translate}}"
-    [displayType]="StatutoryCertificateDisplayTypeEnum.TAB">
-</statutory-certificate-data>
+<span *ngIf="history">
+    <statutory-certificate-data *ngIf="assignmentData" [statutoryCertificateData]="assignmentData" 
+        title="{{ 'STATUTORY_CERTIFICATE.HISTORY.ASSIGNMENT.TITLE' | translate}}" [displayType]="StatutoryCertificateDisplayTypeEnum.TAB">
+    </statutory-certificate-data>
+    <statutory-certificate-data *ngIf="employmentLevelData" [statutoryCertificateData]="employmentLevelData" 
+        title="{{ 'STATUTORY_CERTIFICATE.HISTORY.EMPLOYMENT_LEVEL.TITLE' | translate}}" [displayType]="StatutoryCertificateDisplayTypeEnum.TAB">
+    </statutory-certificate-data>
+</span>
