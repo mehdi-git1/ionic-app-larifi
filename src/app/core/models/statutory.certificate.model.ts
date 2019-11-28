@@ -17,7 +17,7 @@ export class StatutoryCertificateModel extends EDossierPncObjectModel {
     familiarizationFlights: FamiliarizationFlightsModel;
     masteringQualification: MasteringQualificationModel;
     annualElearning: AnnualElearningModel;
-    MedicalVisits: MedicalVisitsModel;
+    medicalVisits: MedicalVisitsModel;
     languages: LanguageModel[];
     relays: RelayModel[];
     travelDocuments: TravelDocumentsModel[];

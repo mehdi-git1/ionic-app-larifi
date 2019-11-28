@@ -22,48 +22,49 @@ export class MedicalVisitsComponent implements OnInit {
   // Tableau des valeurs à afficher en fonction du type de tableau
   medicalVisitsDisplayedData;
 
-  // Tableau des libelles des visites médicales
-  medicalVisitTitleArray: Array<string>;
+  // // Tableau des libelles des visites médicales
+  // medicalVisitTitleArray: Array<string>;
 
-  // Tableau des listes de START_DATE
-  startDateArray: Array<string>;
+  // // Tableau des listes de START_DATE
+  // startDateArray: Array<string>;
 
-  // Tableau des listes de END_DATE
-  endDateArray: Array<string>;
+  // // Tableau des listes de END_DATE
+  // endDateArray: Array<string>;
 
   constructor(private translateService: TranslateService) {
   }
 
   ngOnInit() {
+    const medicalVisitTitleArray = new Array();
+    const startDateArray = new Array();
+    const endDateArray = new Array();
     if (this.medicalVisitsData && this.medicalVisitsData.medicalAptitude) {
-      this.medicalVisitTitleArray.push(this.translateService.instant('STATUTORY_CERTIFICATE.MEDICAL_VISITS.MEDICAL_APTITUDE'));
-      this.startDateArray.push(_.get(this.medicalVisitsData, 'medicalAptitude.validityStartDate'));
-      this.startDateArray.push(_.get(this.medicalVisitsData, 'medicalAptitude.validityEndDate'));
+      medicalVisitTitleArray.push(this.translateService.instant('STATUTORY_CERTIFICATE.MEDICAL_VISITS.MEDICAL_APTITUDE'));
+      startDateArray.push(_.get(this.medicalVisitsData, 'medicalAptitude.validityStartDate'));
+      endDateArray.push(_.get(this.medicalVisitsData, 'medicalAptitude.validityEndDate'));
     }
 
     if (this.medicalVisitsData && this.medicalVisitsData.workVisit) {
-      this.medicalVisitTitleArray.push(this.translateService.instant('STATUTORY_CERTIFICATE.MEDICAL_VISITS.WORK_VISIT'));
-      this.startDateArray.push(_.get(this.medicalVisitsData, 'workVisit.validityStartDate'));
-      this.endDateArray.push(_.get(this.medicalVisitsData, 'workVisit.validityEndDate'));
+      medicalVisitTitleArray.push(this.translateService.instant('STATUTORY_CERTIFICATE.MEDICAL_VISITS.WORK_VISIT'));
+      startDateArray.push(_.get(this.medicalVisitsData, 'workVisit.validityStartDate'));
+      endDateArray.push(_.get(this.medicalVisitsData, 'workVisit.validityEndDate'));
     }
 
     this.medicalVisitsDisplayedData = {
-      medicalVisit: {
-        headers:
-          [
-            '',
-            this.translateService.instant('STATUTORY_CERTIFICATE.MEDICAL_VISITS.START_DATE'),
-            this.translateService.instant('STATUTORY_CERTIFICATE.MEDICAL_VISITS.END_DATE')
-          ],
-        values: this.medicalVisitsData ?
-          [
-            { value: this.medicalVisitTitleArray, type: 'text' },
-            { value: this.startDateArray, type: 'date' },
-            { value: this.endDateArray, type: 'date' },
-          ]
-          :
-          null
-      }
+      headers:
+        [
+          '',
+          this.translateService.instant('STATUTORY_CERTIFICATE.MEDICAL_VISITS.START_DATE'),
+          this.translateService.instant('STATUTORY_CERTIFICATE.MEDICAL_VISITS.END_DATE')
+        ],
+      values: this.medicalVisitsData ?
+        [
+          { value: medicalVisitTitleArray, type: 'text' },
+          { value: startDateArray, type: 'date' },
+          { value: endDateArray, type: 'date' },
+        ]
+        :
+        null
     };
   }
 }
