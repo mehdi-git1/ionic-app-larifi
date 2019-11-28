@@ -22,8 +22,6 @@ import { EObservationService } from '../../../../core/services/eobservation/eobs
 
 export class EObservationComponent implements OnChanges {
 
-  i = 1;
-
   matPanelHeaderHeight = 'auto';
 
   abnormalEObservationItems: EObservationItemModel[];
