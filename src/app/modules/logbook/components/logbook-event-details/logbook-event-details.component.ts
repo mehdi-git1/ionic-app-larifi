@@ -140,7 +140,7 @@ export class LogbookEventDetailsComponent extends AbstractValueAccessor implemen
      * @return vrai si le PNC est redacteur, instructeur ou rds du pnc observé, faux sinon
      */
     canEditEvent(): boolean {
-        const redactor = this.pnc && this.logbookEvent.redactor
+        const redactor = this.logbookEvent.redactor
             && this.sessionService.getActiveUser().matricule === this.logbookEvent.redactor.matricule;
         const instructor = this.pnc && this.pnc.pncInstructor
             && this.sessionService.getActiveUser().matricule === this.pnc.pncInstructor.matricule;
@@ -244,7 +244,8 @@ export class LogbookEventDetailsComponent extends AbstractValueAccessor implemen
             this.logbookEvent.displayed = displayed;
             this.logbookEvent.hidden = hidden;
             this.onlineLogbookEventService.hideOrDisplay(this.logbookEvent).then(savedLogbookEvent => {
-                this.logbookEvent = savedLogbookEvent;
+                this.logbookEvent.displayed = savedLogbookEvent.displayed;
+                this.logbookEvent.hidden = savedLogbookEvent.hidden;
                 if (this.logbookEvent.displayed) {
                     this.toastService.success(this.translateService.instant('LOGBOOK.VISIBILITY.EVENT_DISPLAYED'));
                 } else if (this.logbookEvent.hidden) {
