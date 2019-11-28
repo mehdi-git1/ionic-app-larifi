@@ -376,6 +376,13 @@
                 "EVENT": "Evènement",
                 "NATURE": "Nature"
             },
+            "EXAM_DATE": {
+                "TITLE": "Examen",
+                "TYPE": "Type",
+                "LABEL": "Libellé",
+                "CODE": "Code",
+                "EXAM_DATE": "Date"
+            },
             "CAREER_HISTORY": {
                 "TITLE": "Historique de carrière",
                 "EFORMS_EVENTS_HISTORY_LINK": "Historique des évènements à bord",

@@ -1,7 +1,8 @@
+import { StatutoryCertificateComponent } from './../../components/statutory-certificate/statutory-certificate.component';
 import { DwhHistoryModel } from './../../../../core/models/dwh-history/dwh-history.model';
 import { DwhHistoryService } from './../../../../core/services/dwh-history/dwh-history.service';
-import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import {
     StatutoryCertificateDisplayTypeEnum
@@ -14,6 +15,7 @@ import {
     StatutoryCertificateService
 } from '../../../../core/services/statutory-certificate/statutory-certificate.service';
 import { TranslateService } from '@ngx-translate/core';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'page-statutory-certificate',
@@ -21,7 +23,7 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['./statutory-certificate.page.scss']
 })
 
-export class StatutoryCertificatePage {
+export class StatutoryCertificatePage implements OnInit {
 
   pnc: PncModel;
   formatedSpeciality: string;
@@ -40,10 +42,21 @@ export class StatutoryCertificatePage {
     private pncService: PncService,
     private statutoryCertificateProvider: StatutoryCertificateService,
     private dwhHistoryService: DwhHistoryService,
-    private translateService: TranslateService
+    private translateService: TranslateService,
+    private router: Router,
+    private location: Location
   ) {
     this.statutoryCertificateTab = StatutoryCertificateTabEnum.STATUTORY_CERTIFICATE;
 
+   }
+
+   ngOnInit() {
+    if (this.activatedRoute.snapshot.paramMap.get('selectedTab')) {
+      const selectedTab = StatutoryCertificateTabEnum[this.activatedRoute.snapshot.paramMap.get('selectedTab')];
+      if (selectedTab) {
+        this.statutoryCertificateTab =  selectedTab;
+      }
+    }
    }
 
   /**
@@ -52,6 +65,11 @@ export class StatutoryCertificatePage {
    */
   displaySubTab(statutoryCertificateTab: StatutoryCertificateTabEnum) {
     this.statutoryCertificateTab = statutoryCertificateTab;
+    // On force l'url en fonction de l'onglet sélectionné
+    const currentUrl = this.router.url;
+    const newUrl = currentUrl.replace('/statutory-certificate',
+      '/statutory-certificate/' + StatutoryCertificateTabEnum[statutoryCertificateTab]);
+    this.location.go(newUrl);
   }
 
   /**
