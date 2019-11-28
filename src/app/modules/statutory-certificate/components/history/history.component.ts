@@ -20,6 +20,7 @@ export class HistoryComponent implements OnInit {
 
     assignmentData;
     employmentLevelData;
+    instrumentData;
     StatutoryCertificateDisplayTypeEnum = StatutoryCertificateDisplayTypeEnum;
 
     constructor(private connectivityService: ConnectivityService, private translateService: TranslateService) {
@@ -36,7 +37,8 @@ export class HistoryComponent implements OnInit {
 
     ngOnInit() {
         this.initAssignmentData();
-        this.iniEmploymentLevelData();
+        this.initEmploymentLevelData();
+        this.initInstrumentData();
     }
 
     /**
@@ -91,7 +93,7 @@ export class HistoryComponent implements OnInit {
     /**
      * Initialise l'affichage de l'historique des niveaux d'emploi
      */
-    iniEmploymentLevelData() {
+    initEmploymentLevelData() {
         const tempDwhHistoryDisplayedData = {
             grade: new Array(),
             level: new Array(),
@@ -127,6 +129,47 @@ export class HistoryComponent implements OnInit {
             { value: tempDwhHistoryDisplayedData.grade, type: 'grade' },
             { value: tempDwhHistoryDisplayedData.level, type: 'level' },
             { value: tempDwhHistoryDisplayedData.speciality, type: 'speciality' },
+            { value: tempDwhHistoryDisplayedData.startDate, type: 'date' },
+            { value: tempDwhHistoryDisplayedData.endDate, type: 'date' }
+            ]
+        };
+    }
+
+    /**
+     * Initialise l'affichage de l'historique des instruments (Ginq)
+     */
+    initInstrumentData() {
+        const tempDwhHistoryDisplayedData = {
+            code: new Array(),
+            instructor: new Array(),
+            startDate: new Array(),
+            endDate: new Array()
+        };
+        if (this.history && this.history.instrumentHistory && this.history.instrumentHistory.length > 0) {
+            const sortedInstrumentHistory = this.history.instrumentHistory.sort((instrument1, instrument2) => {
+                return moment(instrument1.startDate, AppConstant.isoDateFormat)
+                .isBefore(moment(instrument2.startDate, AppConstant.isoDateFormat))
+                ? 1 : -1;
+            });
+            for (const instrument of sortedInstrumentHistory) {
+              tempDwhHistoryDisplayedData.code.push(instrument.code);
+              tempDwhHistoryDisplayedData.instructor.push(instrument.instructor);
+              tempDwhHistoryDisplayedData.startDate.push(instrument.startDate);
+              tempDwhHistoryDisplayedData.endDate.push(instrument.endDate);
+            }
+        }
+        this.instrumentData =  {
+        headers:
+            [
+            this.translateService.instant('STATUTORY_CERTIFICATE.HISTORY.INSTRUMENT.CODE'),
+            this.translateService.instant('STATUTORY_CERTIFICATE.HISTORY.INSTRUMENT.INSTRUCTOR'),
+            this.translateService.instant('STATUTORY_CERTIFICATE.HISTORY.INSTRUMENT.START_DATE'),
+            this.translateService.instant('STATUTORY_CERTIFICATE.HISTORY.INSTRUMENT.END_DATE')
+            ],
+        values:
+            [
+            { value: tempDwhHistoryDisplayedData.code, type: 'code' },
+            { value: tempDwhHistoryDisplayedData.instructor, type: 'instructor' },
             { value: tempDwhHistoryDisplayedData.startDate, type: 'date' },
             { value: tempDwhHistoryDisplayedData.endDate, type: 'date' }
             ]

@@ -363,6 +363,13 @@
                 "START_DATE": "Date de début",
                 "END_DATE": "Date de fin"
             },
+            "INSTRUMENT": {
+                "TITLE": "Groupe Ginq",
+                "CODE": "Code",
+                "INSTRUCTOR": "Instructeur",
+                "START_DATE": "Date de début",
+                "END_DATE": "Date de fin"
+            },
             "CAREER_HISTORY": {
                 "TITLE": "Historique de carrière",
                 "EFORMS_EVENTS_HISTORY_LINK": "Historique des évènements à bord",
