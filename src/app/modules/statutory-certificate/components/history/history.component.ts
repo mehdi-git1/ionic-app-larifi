@@ -40,6 +40,9 @@ export class HistoryComponent implements OnInit {
         return !this.connectivityService.isConnected();
     }
 
+    /**
+     * Verifie si on est en mode Web
+     */
     isBrowser() {
         return this.deviceService.isBrowser();
     }
