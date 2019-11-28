@@ -23,6 +23,7 @@ export class HistoryComponent implements OnInit {
     assignmentData;
     employmentLevelData;
     instrumentData;
+    seniorityDateData;
     StatutoryCertificateDisplayTypeEnum = StatutoryCertificateDisplayTypeEnum;
 
     constructor(
@@ -51,6 +52,7 @@ export class HistoryComponent implements OnInit {
         this.initAssignmentData();
         this.initEmploymentLevelData();
         this.initInstrumentData();
+        this.initSeniorityDateData();
     }
 
     /**
@@ -185,6 +187,43 @@ export class HistoryComponent implements OnInit {
                     { value: tempDwhHistoryDisplayedData.startDate, type: 'date' },
                     { value: tempDwhHistoryDisplayedData.endDate, type: 'date' }
                 ]
+        };
+    }
+
+    /**
+     * Initialise l'affichage de l'historique des dates d'ancienneté
+     */
+    initSeniorityDateData() {
+        const tempDwhHistoryDisplayedData = {
+            effectiveDate: new Array(),
+            event: new Array(),
+            nature: new Array()
+        };
+        if (this.history && this.history.seniorityDateHistory && this.history.seniorityDateHistory.length > 0) {
+            const sortedSeniorityDateHistory = this.history.seniorityDateHistory.sort((seniorityDate1, seniorityDate2) => {
+                return moment(seniorityDate1.effectiveDate, AppConstant.isoDateFormat)
+                .isBefore(moment(seniorityDate2.effectiveDate, AppConstant.isoDateFormat))
+                ? 1 : -1;
+            });
+            for (const seniorityDate of sortedSeniorityDateHistory) {
+              tempDwhHistoryDisplayedData.effectiveDate.push(seniorityDate.effectiveDate);
+              tempDwhHistoryDisplayedData.event.push(seniorityDate.event);
+              tempDwhHistoryDisplayedData.nature.push(seniorityDate.nature);
+            }
+        }
+        this.seniorityDateData =  {
+        headers:
+            [
+            this.translateService.instant('STATUTORY_CERTIFICATE.HISTORY.SENIORITY_DATE.EFFECTIVE_DATE'),
+            this.translateService.instant('STATUTORY_CERTIFICATE.HISTORY.SENIORITY_DATE.EVENT'),
+            this.translateService.instant('STATUTORY_CERTIFICATE.HISTORY.SENIORITY_DATE.NATURE')
+            ],
+        values:
+            [
+            { value: tempDwhHistoryDisplayedData.effectiveDate, type: 'date' },
+            { value: tempDwhHistoryDisplayedData.event, type: 'event' },
+            { value: tempDwhHistoryDisplayedData.nature, type: 'nature' }
+            ]
         };
     }
 }
