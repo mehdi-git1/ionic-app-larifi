@@ -68,7 +68,6 @@ export class RegularityComponent implements OnInit {
    */
   gotoLink(externalUrl: string): void {
     const url = externalUrl.replace('%MATRICULE%', this.pnc.matricule);
-    console.log(url);
     window.open(url, '_blank');
   }
 }
