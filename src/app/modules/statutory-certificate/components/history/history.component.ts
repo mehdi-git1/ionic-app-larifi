@@ -58,9 +58,9 @@ export class HistoryComponent implements OnInit {
             endDate: new Array()
         };
         if (this.history && this.history.assignmentHistory && this.history.assignmentHistory.length > 0) {
-            const sortedAssignmentHistory = this.history.assignmentHistory.sort((assingment1, assingment2) => {
-                return moment(assingment1.startDate, AppConstant.isoDateFormat)
-                .isBefore(moment(assingment2.startDate, AppConstant.isoDateFormat))
+            const sortedAssignmentHistory = this.history.assignmentHistory.sort((assignment1, assignment2) => {
+                return moment(assignment1.startDate, AppConstant.isoDateFormat)
+                .isBefore(moment(assignment2.startDate, AppConstant.isoDateFormat))
                 ? 1 : -1;
             });
             for (const assignmentHistory of sortedAssignmentHistory) {

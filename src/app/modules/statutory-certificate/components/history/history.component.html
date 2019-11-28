@@ -1,5 +1,6 @@
+<career-history></career-history>
 <span *ngIf="isOffline() && !history">
-        {{ 'STATUTORY_CERTIFICATE.HISTORY.UNAIVALABLE_OFFLINE' | translate }}
+    {{ 'STATUTORY_CERTIFICATE.HISTORY.UNAIVALABLE_OFFLINE' | translate }}
 </span>
 <span *ngIf="history">
     <statutory-certificate-data *ngIf="assignmentData && history.assignmentHistory.length > 0" [statutoryCertificateData]="assignmentData" 

@@ -382,6 +382,13 @@
                 "LABEL": "Libellé",
                 "CODE": "Code",
                 "EXAM_DATE": "Date"
+            },
+            "CAREER_HISTORY": {
+                "TITLE": "Historique de carrière",
+                "EFORMS_EVENTS_HISTORY_LINK": "Historique des évènements à bord",
+                "DOMINO_CABIN_REPORT_HISTORY_LINK": "Historique des Cabin Report",
+                "EDITO_WORKSTATIONS_HISTORY_LINK": "Historique des postes occupés à bord",
+                "CIRCUITPN_DISTRIBUTED_OBJECTS_HISTORY_LINK": "Historique des objets distribués"
             }
         },
         "ERROR": {
