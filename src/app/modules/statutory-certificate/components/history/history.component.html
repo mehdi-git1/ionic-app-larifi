@@ -1,4 +1,4 @@
-<career-history></career-history>
+<career-history *ngIf="isBrowser()"></career-history>
 <span *ngIf="isOffline() && !history">
     {{ 'STATUTORY_CERTIFICATE.HISTORY.UNAIVALABLE_OFFLINE' | translate }}
 </span>
