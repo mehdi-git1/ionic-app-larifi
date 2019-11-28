@@ -1,101 +1,101 @@
-import { RegularityComponent } from './../modules/regularity/pages/regularity/regularity.component';
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 import {
-  AppVersionCreatePage
+    AppVersionCreatePage
 } from '../modules/admin/pages/app-version/page/app-version-create/app-version-create.page';
 import {
-  AppVersionListPage
+    AppVersionListPage
 } from '../modules/admin/pages/app-version/page/app-version-list/app-version-list.page';
 import {
-  ProfileManagementPage
+    ProfileManagementPage
 } from '../modules/admin/pages/profile-management/profile-management.page';
 import {
-  UserMessageManagementPage
+    UserMessageManagementPage
 } from '../modules/admin/pages/user-message-management/user-message-management.page';
 import {
-  CongratulationLetterCreatePage
+    CongratulationLetterCreatePage
 } from '../modules/congratulation-letter/pages/congratulation-letter-create/congratulation-letter-create.page';
 import {
-  CongratulationLetterDetailPage
+    CongratulationLetterDetailPage
 } from '../modules/congratulation-letter/pages/congratulation-letter-detail/congratulation-letter-detail.page';
 import {
-  CongratulationLettersPage
+    CongratulationLettersPage
 } from '../modules/congratulation-letter/pages/congratulation-letters/congratulation-letters.page';
 import {
-  CareerObjectiveCreatePage
+    CareerObjectiveCreatePage
 } from '../modules/development-program/pages/career-objective-create/career-objective-create.page';
 import {
-  CareerObjectiveListPage
-} from '../modules/development-program/pages/career-objective-list/career-objective-list.page';
+    DevelopmentProgramPage
+} from '../modules/development-program/pages/development-program/development-program.page';
 import {
-  WaypointCreatePage
+    WaypointCreatePage
 } from '../modules/development-program/pages/waypoint-create/waypoint-create.page';
 import {
-  EobservationDetailsPage
+    EobservationDetailsPage
 } from '../modules/eobservation/pages/eobservation-details/eobservation-details.page';
 import {
-  EObservationsArchivesPage
+    EObservationsArchivesPage
 } from '../modules/eobservation/pages/eobservations-archives/eobservations-archives.page';
 import {
-  FlightCrewListPage
+    FlightCrewListPage
 } from '../modules/flight-activity/pages/flight-crew-list/flight-crew-list.page';
 import {
-  UpcomingFlightListPage
+    UpcomingFlightListPage
 } from '../modules/flight-activity/pages/upcoming-flight-list/upcoming-flight-list.page';
 import {
-  HelpAssetListPage
+    HelpAssetListPage
 } from '../modules/help-asset/pages/help-asset-list/help-asset-list.page';
 import { AuthenticationPage } from '../modules/home/pages/authentication/authentication.page';
 import { GenericMessagePage } from '../modules/home/pages/generic-message/generic-message.page';
 import { PncHomePage } from '../modules/home/pages/pnc-home/pnc-home.page';
 import {
-  UnsupportedNavigatorMessagePage
+    UnsupportedNavigatorMessagePage
 } from '../modules/home/pages/unsupported-navigator/unsupported-navigator-message.page';
 import {
-  HrDocumentCreatePage
+    HrDocumentCreatePage
 } from '../modules/hr-documents/pages/hr-document-create/hr-document-create.page';
 import {
-  HrDocumentDetailPage
+    HrDocumentDetailPage
 } from '../modules/hr-documents/pages/hr-document-detail/hr-document-detail.page';
 import { HrDocumentsPage } from '../modules/hr-documents/pages/hr-documents/hr-documents.page';
 import { LogbookCreatePage } from '../modules/logbook/pages/logbook-create/logbook-create.page';
 import {
-  LogbookEventDetailsPage
+    LogbookEventDetailsPage
 } from '../modules/logbook/pages/logbook-event-details/logbook-event-details.page';
 import { LogbookPage } from '../modules/logbook/pages/logbook/logbook.page';
 import { PncSearchPage } from '../modules/pnc-team/pages/pnc-search/pnc-search.page';
 import {
-  ProfessionalInterviewDetailsPage
+    ProfessionalInterviewDetailsPage
 } from '../modules/professional-interview/pages/professional-interview-details/professional-interview-details.page';
 import {
-  ProfessionalInterviewsArchivesPage
+    ProfessionalInterviewsArchivesPage
 } from '../modules/professional-interview/pages/professional-interviews-archives/professional-interviews-archives.page';
 import {
-  NotValidatedQuestionsPage
+    NotValidatedQuestionsPage
 } from '../modules/professional-level/pages/not-validated-questions/not-validated-questions.page';
 import {
-  EvaluationSheetPage
+    EvaluationSheetPage
 } from '../modules/professional-level/pages/professional-level/evaluation-sheet/evaluation-sheet.page';
 import {
-  ProfessionalLevelPage
+    ProfessionalLevelPage
 } from '../modules/professional-level/pages/professional-level/professional-level.page';
+import { RegularityComponent } from '../modules/regularity/pages/regularity/regularity.component';
 import {
-  AppVersionHistoryPage
+    AppVersionHistoryPage
 } from '../modules/settings/pages/app-version-history/app-version-history.page';
 import { ImpersonatePage } from '../modules/settings/pages/impersonate/impersonate.page';
 import { LegalTermsPage } from '../modules/settings/pages/legal-terms/legal-terms.page';
 import { SettingsPage } from '../modules/settings/pages/settings/settings.page';
 import {
-  StatutoryCertificatePage
+    StatutoryCertificatePage
 } from '../modules/statutory-certificate/pages/statutory-certificate/statutory-certificate.page';
 import {
-  SynchronizationManagementPage
+    SynchronizationManagementPage
 } from '../modules/synchronization/pages/synchronization-management/synchronization-management.page';
 import { BootstrapComponent } from '../shared/components/bootstrap/bootstrap.component';
 import {
-  PageNotFoundComponent
+    PageNotFoundComponent
 } from '../shared/components/page-not-found/page-not-found.component';
 import { TabNavComponent } from '../shared/components/tab-nav/tab-nav.component';
 import { AdminGuard } from './guards/admin.guard';
@@ -151,7 +151,7 @@ const routes: Routes = [
               { path: 'help-asset', component: HelpAssetListPage },
               {
                 path: 'development-program', children: [
-                  { path: '', component: CareerObjectiveListPage },
+                  { path: '', component: DevelopmentProgramPage },
                   {
                     path: 'career-objective', children: [
                       { path: 'create/:careerObjectiveId', component: CareerObjectiveCreatePage, canDeactivate: [CanDeactivateGuard] },
@@ -252,7 +252,7 @@ const routes: Routes = [
   { path: 'authentication', component: AuthenticationPage },
   {
     path: 'development-program', children: [
-      { path: '', component: CareerObjectiveListPage },
+      { path: '', component: DevelopmentProgramPage },
       {
         path: 'career-objective', children: [
           { path: 'create/:careerObjectiveId', component: CareerObjectiveCreatePage, canDeactivate: [CanDeactivateGuard] },
