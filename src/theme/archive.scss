@@ -1,0 +1,23 @@
+.archives {
+
+    span,
+    a {
+        color: var(--ion-color-blue68);
+    }
+
+    a {
+        text-decoration: underline;
+        cursor: pointer;
+    }
+
+    .edospnc-archive:before {
+        font-size: 26px;
+        position: relative;
+        top: 4px;
+        margin-right: 5px;
+    }
+
+    &.information-message:before {
+        content: '';
+    }
+}

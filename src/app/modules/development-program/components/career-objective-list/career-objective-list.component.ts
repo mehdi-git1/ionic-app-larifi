@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { CareerObjectiveModel } from '../../../../core/models/career-objective.model';
@@ -8,19 +8,16 @@ import { PncService } from '../../../../core/services/pnc/pnc.service';
 @Component({
   selector: 'career-objective-list',
   templateUrl: 'career-objective-list.component.html',
+  styleUrls: ['career-objective-list.component.scss']
 })
-export class CareerObjectiveListComponent implements OnInit {
+export class CareerObjectiveListComponent {
 
   @Input() careerObjectives: CareerObjectiveModel[];
-  matricule: string;
 
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private pncService: PncService) {
-  }
-
-  ngOnInit() {
   }
 
   /**

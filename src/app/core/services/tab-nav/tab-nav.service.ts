@@ -1,13 +1,13 @@
 import { PncService } from 'src/app/core/services/pnc/pnc.service';
+import {
+    DevelopmentProgramPage
+} from 'src/app/modules/development-program/pages/development-program/development-program.page';
 
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Events, LoadingController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 
-import {
-    CareerObjectiveListPage
-} from '../../../modules/development-program/pages/career-objective-list/career-objective-list.page';
 import {
     UpcomingFlightListPage
 } from '../../../modules/flight-activity/pages/upcoming-flight-list/upcoming-flight-list.page';
@@ -62,7 +62,7 @@ export class TabNavService {
             {
                 id: TabNavEnum.PNC_HOME_PAGE,
                 title: this.translateService.instant('PNC_HOME.MY_TITLE'),
-                page: this.sessionService.getActiveUser().isManager ? PncHomePage : CareerObjectiveListPage,
+                page: this.sessionService.getActiveUser().isManager ? PncHomePage : DevelopmentProgramPage,
                 icon: 'md-home',
                 route: 'home',
                 display: true
@@ -86,7 +86,7 @@ export class TabNavService {
             {
                 id: TabNavEnum.VISITED_PNC,
                 title: ' ',
-                page: CareerObjectiveListPage,
+                page: DevelopmentProgramPage,
                 icon: 'md-person',
                 route: 'visit',
                 display: false

@@ -1,12 +1,12 @@
 <h3>
     {{ 'CAREER_OBJECTIVE_LIST.PROFESSIONAL_INTERVIEW_TITLE' | translate }}
-    <button ion-button *ngIf="securityService.isManager()" (click)="goToProfessionalInterviewCreation()" color="primary">
-        <ion-icon name="md-add" ios="md-add"></ion-icon>
+    <ion-button *ngIf="securityService.isManager()" (click)="goToProfessionalInterviewCreation()" color="primary">
+        <ion-icon name="add" ios="md-add"></ion-icon>
         <label>{{ 'PROFESSIONAL_INTERVIEW.BUTTONS.NEW_PROFESSIONAL_INTERVIEW' | translate }}</label>
-    </button>
+    </ion-button>
 </h3>
 <div class="list-container">
-    <professional-interviews *ngIf="professionalInterviews" [professionalInterviews]="professionalInterviews">
+    <professional-interviews *ngIf="professionalInterviews" [professionalInterviews]="professionalInterviews" (detailButtonClicked)="goToProfessionalInterviewDetail($event)">
     </professional-interviews>
     <div *ngIf="isAdminModeAvailable()">
         <div *ngIf="professionalInterviews" class="information-message archives">

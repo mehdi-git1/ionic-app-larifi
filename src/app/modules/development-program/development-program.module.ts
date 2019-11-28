@@ -8,6 +8,9 @@ import { EObservationModule } from '../eobservation/eobservation.module';
 import {
     ProfessionalInterviewModule
 } from '../professional-interview/professional-interview.module';
+import {
+    CareerObjectiveListComponent
+} from './components/career-objective-list/career-objective-list.component';
 import { CareerObjectiveComponent } from './components/career-objective/career-objective.component';
 import {
     CareerObjectivesComponent
@@ -21,20 +24,19 @@ import {
 import {
     CareerObjectiveCreatePage
 } from './pages/career-objective-create/career-objective-create.page';
-import { CareerObjectiveListPage } from './pages/career-objective-list/career-objective-list.page';
 import { DevelopmentProgramPage } from './pages/development-program/development-program.page';
 import { WaypointCreatePage } from './pages/waypoint-create/waypoint-create.page';
 
 @NgModule({
   declarations: [
     WaypointCreatePage,
-    CareerObjectiveListPage,
+    DevelopmentProgramPage,
     ProfessionalInterviewListComponent,
     EObservationListComponent,
+    CareerObjectiveListComponent,
     CareerObjectiveCreatePage,
     CareerObjectiveComponent,
-    CareerObjectivesComponent,
-    DevelopmentProgramPage
+    CareerObjectivesComponent
   ],
   imports: [
     IonicModule,
@@ -47,8 +49,7 @@ import { WaypointCreatePage } from './pages/waypoint-create/waypoint-create.page
   ],
   entryComponents: [
     WaypointCreatePage,
-    CareerObjectiveCreatePage,
-    DevelopmentProgramPage
+    CareerObjectiveCreatePage
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA

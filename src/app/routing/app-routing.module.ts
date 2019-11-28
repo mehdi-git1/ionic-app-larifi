@@ -26,8 +26,8 @@ import {
     CareerObjectiveCreatePage
 } from '../modules/development-program/pages/career-objective-create/career-objective-create.page';
 import {
-    CareerObjectiveListPage
-} from '../modules/development-program/pages/career-objective-list/career-objective-list.page';
+    DevelopmentProgramPage
+} from '../modules/development-program/pages/development-program/development-program.page';
 import {
     WaypointCreatePage
 } from '../modules/development-program/pages/waypoint-create/waypoint-create.page';
@@ -148,7 +148,7 @@ const routes: Routes = [
               { path: 'help-asset', component: HelpAssetListPage },
               {
                 path: 'development-program', children: [
-                  { path: '', component: CareerObjectiveListPage },
+                  { path: '', component: DevelopmentProgramPage },
                   {
                     path: 'career-objective', children: [
                       { path: 'create/:careerObjectiveId', component: CareerObjectiveCreatePage, canDeactivate: [CanDeactivateGuard] },
@@ -239,7 +239,7 @@ const routes: Routes = [
   { path: 'authentication', component: AuthenticationPage },
   {
     path: 'development-program', children: [
-      { path: '', component: CareerObjectiveListPage },
+      { path: '', component: DevelopmentProgramPage },
       {
         path: 'career-objective', children: [
           { path: 'create/:careerObjectiveId', component: CareerObjectiveCreatePage, canDeactivate: [CanDeactivateGuard] },

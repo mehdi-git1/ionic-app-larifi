@@ -9,7 +9,8 @@ import { SecurityService } from '../../../../core/services/security/security.ser
 
 @Component({
     selector: 'professional-interview-list',
-    templateUrl: 'professional-interview-list.component.html'
+    templateUrl: 'professional-interview-list.component.html',
+    styleUrls: ['professional-interview-list.component.scss']
 })
 
 export class ProfessionalInterviewListComponent {
@@ -34,6 +35,14 @@ export class ProfessionalInterviewListComponent {
      */
     goToProfessionalInterviewsArchives() {
         this.router.navigate(['professional-interview', 'archive'], { relativeTo: this.activatedRoute });
+    }
+
+    /**
+     * Redirige vers le détail d'un bilan pro
+     * @param professionalInterviewId l'id du bilan pro sélectionné
+     */
+    goToProfessionalInterviewDetail(professionalInterviewId) {
+        this.router.navigate(['professional-interview', 'detail', professionalInterviewId], { relativeTo: this.activatedRoute });
     }
 
     /**

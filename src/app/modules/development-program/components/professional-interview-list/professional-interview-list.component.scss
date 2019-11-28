@@ -1,24 +1,12 @@
-professional-interview-list {
+ ion-button {
+     width: 300px;
 
-    .archives {
+     ion-icon {
+         margin-right: 10px;
+         color: var(--ion-color-white);
+     }
 
-        span,
-        a {
-            color: color($colors-secondary, blue68);
-        }
-
-        a {
-            text-decoration: underline;
-        }
-
-        .edospnc-archive:before {
-            font-size: 26px;
-            position: relative;
-            top: 4px;
-        }
-
-        &.information-message:before {
-            content: '';
-        }
-    }
-}
+     label {
+         color: var(--ion-color-white);
+     }
+ }

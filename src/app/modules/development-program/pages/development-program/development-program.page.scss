@@ -1,5 +1,3 @@
-page-development-program {
-
     .scroll-content {
         padding-top: 40px !important;
     }
@@ -14,33 +12,22 @@ page-development-program {
         margin-bottom: 10px;
     }
 
-    .eobservation-block h3 {
-        color: color($colors, primary-dark);
-    }
-
-    .career-objective-block h3 {
-        color: color($colors, primary-light);
-    }
-
-    .professional-interview-block h3 {
-        color: color($colors, primary);
-    }
-
-    h3 {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-
-    ion-content button {
-        width: 300px;
-
-        ion-icon {
-            margin-right: 10px;
+    ::ng-deep {
+        .eobservation-block h3 {
+            color: var(--ion-color-primarydark);
         }
 
-        label {
-            color: color($colors, white);
+        .career-objective-block h3 {
+            color: var(--ion-color-primarylight);
+        }
+
+        .professional-interview-block h3 {
+            color: var(--ion-color-primary);
+        }
+
+        h3 {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
     }
-}

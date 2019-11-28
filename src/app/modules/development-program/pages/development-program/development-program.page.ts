@@ -35,6 +35,7 @@ import {
 @Component({
     selector: 'page-development-program',
     templateUrl: 'development-program.page.html',
+    styleUrls: ['./development-program.page.scss']
 })
 export class DevelopmentProgramPage {
 

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { EFormsTypeEnum } from '../../../../core/enums/e-forms/e-forms-type.enum';
@@ -18,12 +18,12 @@ import { SessionService } from '../../../../core/services/session/session.servic
 
 @Component({
     selector: 'eobservation-list',
-    templateUrl: 'eobservation-list.component.html'
+    templateUrl: 'eobservation-list.component.html',
+    styleUrls: ['eobservation-list.component.scss']
 })
 
-export class EObservationListComponent implements OnInit {
+export class EObservationListComponent {
 
-    matricule: string;
     @Input() eObservations: EObservationModel[];
 
     canDisplayMenu = false;
@@ -47,9 +47,6 @@ export class EObservationListComponent implements OnInit {
         private formsEObservationService: FormsEObservationService,
         private pncService: PncService) { }
 
-    ngOnInit() {
-    }
-
     /**
      * Détermine si on peut créer une nouvelle eObservation
      * @return vrai si c'est le cas, faux sinon
@@ -60,6 +57,14 @@ export class EObservationListComponent implements OnInit {
         } else {
             return false;
         }
+    }
+
+    /**
+     * Redirige vers le détail d'une eObservation
+     * @param eObservationId l'id de l'observation vers laquelle on souhaite naviguer
+     */
+    goToEObservationDetail(eObservationId) {
+        this.router.navigate(['eobservation', 'detail', eObservationId], { relativeTo: this.activatedRoute });
     }
 
     /**
