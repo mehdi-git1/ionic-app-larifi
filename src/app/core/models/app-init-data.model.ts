@@ -25,7 +25,7 @@ export class AppInitDataModel {
 
     regularityLinks: Array<AppParameterModel>;
 
-    carrerHistoryLinks: Array<AppParameterModel>;
+    careerHistoryLinks: Array<AppParameterModel>;
 
     attachmentsMaxSize: number;
 }

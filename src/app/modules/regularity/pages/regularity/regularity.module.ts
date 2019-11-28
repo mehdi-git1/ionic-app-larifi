@@ -1,15 +1,14 @@
-import { ComponentsModule } from './../../../../shared/components/components.module';
-import { SharedModule } from './../../../../shared/shared.module';
+import { ComponentsModule } from 'src/app/shared/components/components.module';
+
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
-import { RegularityComponent } from './regularity.component';
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
-
-
+import { SharedModule } from '../../../../shared/shared.module';
+import { RegularityPage } from './regularity.page';
 
 @NgModule({
-  declarations: [RegularityComponent],
-  exports: [RegularityComponent],
+  declarations: [RegularityPage],
+  exports: [RegularityPage],
   imports: [
     IonicModule,
     SharedModule,

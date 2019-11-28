@@ -80,7 +80,7 @@ import {
 import {
     ProfessionalLevelPage
 } from '../modules/professional-level/pages/professional-level/professional-level.page';
-import { RegularityComponent } from '../modules/regularity/pages/regularity/regularity.component';
+import { RegularityPage } from '../modules/regularity/pages/regularity/regularity.page';
 import {
     AppVersionHistoryPage
 } from '../modules/settings/pages/app-version-history/app-version-history.page';
@@ -225,7 +225,7 @@ const routes: Routes = [
               {
                 path: 'regularity', children: [
                   {
-                    path: '', component: RegularityComponent
+                    path: '', component: RegularityPage
                   }
                 ]
               },
@@ -329,6 +329,7 @@ const routes: Routes = [
   { path: 'statutory-certificate', component: StatutoryCertificatePage },
   { path: 'statutory-certificate/:selectedTab', component: StatutoryCertificatePage },
   { path: 'help-asset', component: HelpAssetListPage },
+  { path: 'regularity', component: RegularityPage },
   { path: 'settings', component: SettingsPage },
   { path: 'legal-term', component: LegalTermsPage },
   { path: 'app-version-history', component: AppVersionHistoryPage },

@@ -1,7 +1,7 @@
 
 
+import { HtmlService } from 'src/app/core/file/html/html.service';
 import { AppParameterModel } from 'src/app/core/models/app-parameter.model';
-import { SecurityService } from 'src/app/core/services/security/security.service';
 import { SessionService } from 'src/app/core/services/session/session.service';
 
 import { Component, OnInit } from '@angular/core';
@@ -19,17 +19,17 @@ export class CareerHistoryComponent implements OnInit {
 
     constructor(
         private sessionService: SessionService,
-        private securityservice: SecurityService) {
+        private htmlService: HtmlService) {
     }
 
     ngOnInit() {
-        this.careerHistoryLinks = this.sessionService.getActiveUser().appInitData.carrerHistoryLinks;
+        this.careerHistoryLinks = this.sessionService.getActiveUser().appInitData.careerHistoryLinks;
         this.matricule = this.sessionService.visitedPnc.matricule;
     }
 
     goToLink(link: string) {
         if (link) {
-            window.open(link.replace('%MATRICULE%', this.matricule), '_blank');
+            this.htmlService.displayHTML(link.replace('%MATRICULE%', this.matricule));
         }
     }
 
