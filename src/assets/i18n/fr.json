@@ -67,6 +67,7 @@
         "PROFESSIONAL_INTERVIEWS_ARCHIVES": "Archives de bilans professionnels / EPP",
         "MY_PROFESSIONAL_INTERVIEWS_ARCHIVES": "Mes archives de bilans professionnels / EPP",
         "HR_DOCUMENT": "Documents RH",
+        "REGULARITY": "Régularité",
         "MY_HR_DOCUMENT": "Mes documents RH",
         "UNKNOWN_ERROR": "Suite à un dysfonctionnement technique, l'opération a échoué. Nous vous invitons à réessayer dans quelques minutes. Si le problème persiste, veuillez contacter votre support.",
         "MESSAGES": {
@@ -347,7 +348,6 @@
             "UNAIVALABLE_OFFLINE": "L'historique n'est pas disponible hors connexion",
             "TITLE": "Historique",
             "ASSIGNMENT": {
-                "SECTION_TITLE": "Historique de carrière - Affectation",
                 "TITLE": "Affectation",
                 "CODE": "Code",
                 "LABEL": "Libellé",
@@ -355,6 +355,41 @@
                 "SECTOR": "Secteur",
                 "START_DATE": "Date de début",
                 "END_DATE": "Date de fin"
+            },
+            "EMPLOYMENT_LEVEL": {
+                "TITLE": "Spécialité & Niveau d'emploi",
+                "GRADE": "Grade",
+                "LEVEL": "Niveau",
+                "SPECIALITY": "Spécialité",
+                "START_DATE": "Date de début",
+                "END_DATE": "Date de fin"
+            },
+            "INSTRUMENT": {
+                "TITLE": "Groupe Ginq",
+                "CODE": "Code",
+                "INSTRUCTOR": "Instructeur",
+                "START_DATE": "Date de début",
+                "END_DATE": "Date de fin"
+            },
+            "SENIORITY_DATE": {
+                "TITLE": "Dates d'ancienneté",
+                "EFFECTIVE_DATE": "Date effet",
+                "EVENT": "Evènement",
+                "NATURE": "Nature"
+            },
+            "EXAM_DATE": {
+                "TITLE": "Examen",
+                "TYPE": "Type",
+                "LABEL": "Libellé",
+                "CODE": "Code",
+                "EXAM_DATE": "Date"
+            },
+            "CAREER_HISTORY": {
+                "TITLE": "Historique de carrière",
+                "EFORMS_EVENTS_HISTORY_LINK": "Historique des évènements à bord",
+                "DOMINO_CABIN_REPORT_HISTORY_LINK": "Historique des Cabin Report",
+                "EDITO_WORKSTATIONS_HISTORY_LINK": "Historique des postes occupés à bord",
+                "CIRCUITPN_DISTRIBUTED_OBJECTS_HISTORY_LINK": "Historique des objets distribués"
             }
         },
         "ERROR": {
@@ -636,6 +671,11 @@
             "SEARCH": "Erreur lors de la recherche de PNC"
         },
         "REINIT_FILTERS": "Réinitialiser la recherche"
+    },
+    "REGULARITY_LABEL_LIST": {
+        "SCHEDULED_AND_DONE": "Consulter planning prévu et réalisé",
+        "WORK_ACCIDENT_AND_WORK_PERIOD": "Consulter la liste des accidents de travail et des périodes de travail au sol sur 36 mois glissants",
+        "ABSENCES_AND_LATENESS": "Consulter la liste des absences et retards sur 36 mois glissants"
     },
     "HELP_ASSET_LIST": {
         "WEB_HELP_ASSET": "Ressources web",

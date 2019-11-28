@@ -1,0 +1,29 @@
+.regularity-requests-links {
+    list-style: none;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+
+    li {
+        display: flex;
+
+        ion-thumbnail {
+            font-size: 3em;
+            margin: 0 30px;
+        }
+
+        .content {
+            padding: 20px 0;
+            flex: 1;
+            border-bottom: 1px solid var(--ion-color-grey72);
+
+            h4 {
+                margin-top: 0;
+                font-size: 1.4em;
+                color: var(--ion-color-primary);
+            }
+        }
+    }
+
+
+}

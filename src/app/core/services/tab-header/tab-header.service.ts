@@ -74,6 +74,12 @@ export class TabHeaderService {
                     available: this.pnc && this.pnc.manager
                 },
                 {
+                    id: TabHeaderEnum.REGULARITY_PAGE,
+                    label: this.translateService.instant('GLOBAL.REGULARITY'),
+                    route: 'regularity',
+                    available: true
+                },
+                {
                     id: TabHeaderEnum.HELP_ASSET_LIST_PAGE,
                     label: this.translateService.instant('GLOBAL.HELP_CENTER'),
                     route: 'help-asset',
