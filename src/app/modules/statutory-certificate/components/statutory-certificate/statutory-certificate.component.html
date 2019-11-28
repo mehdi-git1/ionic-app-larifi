@@ -13,13 +13,12 @@
     [title]="'STATUTORY_CERTIFICATE.CATEGORIES.MASTERING_QUALIFICATION' | translate">
 </mastering-qualification>
 <medical-aptitudes [displayType]='StatutoryCertificateDisplayTypeEnum.LIST'
-    [medicalAptitudesData]="statutoryCertificate?.medicalAptitudes"
-    [title]="'STATUTORY_CERTIFICATE.CATEGORIES.MEDICAL_APTITUDES' | translate"></medical-aptitudes>
+    [MedicalVisitsData]="statutoryCertificate?.MedicalVisits"
+    [title]="'STATUTORY_CERTIFICATE.CATEGORIES.MEDICAL_VISITS' | translate"></medical-aptitudes>
 <pnc-languages [displayType]='StatutoryCertificateDisplayTypeEnum.LIST'
     [languagesData]="statutoryCertificate?.languages"
     [title]="'STATUTORY_CERTIFICATE.CATEGORIES.LANGUAGES' | translate"></pnc-languages>
-<pnc-relays [displayType]='StatutoryCertificateDisplayTypeEnum.LIST'
-    [relaysData]="statutoryCertificate?.relays"
+<pnc-relays [displayType]='StatutoryCertificateDisplayTypeEnum.LIST' [relaysData]="statutoryCertificate?.relays"
     [title]="'STATUTORY_CERTIFICATE.CATEGORIES.RELAYS' | translate"></pnc-relays>
 <travel-documents [displayType]='StatutoryCertificateDisplayTypeEnum.LIST'
     [travelDocumentsData]="statutoryCertificate?.travelDocuments"
