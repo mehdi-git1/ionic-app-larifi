@@ -11,35 +11,24 @@
 
 <ion-content>
     <div class="page-container">
+        <nav class="tabs">
+            <button (click)="displaySubTab(StatutoryCertificateTabEnum.STATUTORY_CERTIFICATE)"
+                [ngClass]="{'active': isTabActive(StatutoryCertificateTabEnum.STATUTORY_CERTIFICATE)}">
+                {{ 'STATUTORY_CERTIFICATE.TITLE' | translate }}
+            </button>
+            <button (click)="displaySubTab(StatutoryCertificateTabEnum.HISTORY)"
+                [ngClass]="{'active': isTabActive(StatutoryCertificateTabEnum.HISTORY)}">
+                {{ 'STATUTORY_CERTIFICATE.HISTORY.TITLE' | translate }}
+            </button>
+        </nav>
         <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
         <ng-template #pageBlock>
             <div class="selectable">
-                <generality-skills [displayType]='StatutoryCertificateDisplayTypeEnum.LIST'
-                    [generalitySkillsData]="statutoryCertificate?.generalitySkills"
-                    [title]="'STATUTORY_CERTIFICATE.CATEGORIES.GENERALITY_SKILLS' | translate"></generality-skills>
-                <plane-skills [displayType]='StatutoryCertificateDisplayTypeEnum.TAB'
-                    [planeSkillsData]="statutoryCertificate?.planeSkills"
-                    [title]="'STATUTORY_CERTIFICATE.CATEGORIES.PLANE_SKILLS' | translate"></plane-skills>
-                <familiarization-flight [displayType]='StatutoryCertificateDisplayTypeEnum.LIST'
-                    [familiarizationFlightData]="statutoryCertificate?.familiarizationFlights"
-                    [title]="'STATUTORY_CERTIFICATE.CATEGORIES.FAMILIARIZATION_FLIGHT' | translate">
-                </familiarization-flight>
-                <mastering-qualification [displayType]='StatutoryCertificateDisplayTypeEnum.LIST'
-                    [masteringQualificationsData]="statutoryCertificate?.masteringQualification"
-                    [title]="'STATUTORY_CERTIFICATE.CATEGORIES.MASTERING_QUALIFICATION' | translate">
-                </mastering-qualification>
-                <medical-aptitudes [displayType]='StatutoryCertificateDisplayTypeEnum.LIST'
-                    [medicalAptitudesData]="statutoryCertificate?.medicalAptitudes"
-                    [title]="'STATUTORY_CERTIFICATE.CATEGORIES.MEDICAL_APTITUDES' | translate"></medical-aptitudes>
-                <pnc-languages [displayType]='StatutoryCertificateDisplayTypeEnum.LIST'
-                    [languagesData]="statutoryCertificate?.languages"
-                    [title]="'STATUTORY_CERTIFICATE.CATEGORIES.LANGUAGES' | translate"></pnc-languages>
-                <pnc-relays [displayType]='StatutoryCertificateDisplayTypeEnum.LIST'
-                    [relaysData]="statutoryCertificate?.relays"
-                    [title]="'STATUTORY_CERTIFICATE.CATEGORIES.RELAYS' | translate"></pnc-relays>
-                <travel-documents [displayType]='StatutoryCertificateDisplayTypeEnum.LIST'
-                    [travelDocumentsData]="statutoryCertificate?.travelDocuments"
-                    [title]="'STATUTORY_CERTIFICATE.CATEGORIES.TRAVEL_DOCUMENTS' | translate"></travel-documents>
+                <statutory-certificate *ngIf="isTabActive(StatutoryCertificateTabEnum.STATUTORY_CERTIFICATE)"
+                    [statutoryCertificate]="statutoryCertificate">
+                </statutory-certificate>
+                <history *ngIf="isTabActive(StatutoryCertificateTabEnum.HISTORY)" [history]="dwhHistory">
+                </history>
             </div>
         </ng-template>
     </div>

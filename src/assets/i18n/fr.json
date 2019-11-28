@@ -343,6 +343,41 @@
                 "END_DATE": "Fin"
             }
         },
+        "HISTORY": {
+            "UNAIVALABLE_OFFLINE": "L'historique n'est pas disponible hors connexion",
+            "TITLE": "Historique",
+            "ASSIGNMENT": {
+                "TITLE": "Affectation",
+                "CODE": "Code",
+                "LABEL": "Libellé",
+                "DIVISION": "Division",
+                "SECTOR": "Secteur",
+                "START_DATE": "Date de début",
+                "END_DATE": "Date de fin"
+            },
+            "EMPLOYMENT_LEVEL": {
+                "TITLE": "Spécialité & Niveau d'emploi",
+                "GRADE": "Grade",
+                "LEVEL": "Niveau",
+                "SPECIALITY": "Spécialité",
+                "START_DATE": "Date de début",
+                "END_DATE": "Date de fin"
+            },
+            "INSTRUMENT": {
+                "TITLE": "Groupe Ginq",
+                "CODE": "Code",
+                "INSTRUCTOR": "Instructeur",
+                "START_DATE": "Date de début",
+                "END_DATE": "Date de fin"
+            },
+            "CAREER_HISTORY": {
+                "TITLE": "Historique de carrière",
+                "EFORMS_EVENTS_HISTORY_LINK": "Historique des évènements à bord",
+                "DOMINO_CABIN_REPORT_HISTORY_LINK": "Historique des Cabin Report",
+                "EDITO_WORKSTATIONS_HISTORY_LINK": "Historique des postes occupés à bord",
+                "CIRCUITPN_DISTRIBUTED_OBJECTS_HISTORY_LINK": "Historique des objets distribués"
+            }
+        },
         "ERROR": {
             "STATUTORY_CERTIFICATE": "Erreur lors de la récupération du profil PNC pour le matricule {{ matricule }}"
         }
