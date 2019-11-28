@@ -338,6 +338,8 @@
             "SENIORITY_DATE": "Depuis"
         },
         "MEDICAL_VISITS": {
+            "MEDICAL_APTITUDE": "Aptitudes médicales",
+            "WORK_VISIT": "Visite du travail",
             "START_DATE": "Début",
             "END_DATE": "Fin"
         },

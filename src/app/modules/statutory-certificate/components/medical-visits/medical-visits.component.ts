@@ -22,10 +22,31 @@ export class MedicalVisitsComponent implements OnInit {
   // Tableau des valeurs à afficher en fonction du type de tableau
   medicalVisitsDisplayedData;
 
+  // Tableau des libelles des visites médicales
+  medicalVisitTitleArray: Array<string>;
+
+  // Tableau des listes de START_DATE
+  startDateArray: Array<string>;
+
+  // Tableau des listes de END_DATE
+  endDateArray: Array<string>;
+
   constructor(private translateService: TranslateService) {
   }
 
   ngOnInit() {
+    if (this.medicalVisitsData && this.medicalVisitsData.medicalAptitude) {
+      this.medicalVisitTitleArray.push(this.translateService.instant('STATUTORY_CERTIFICATE.MEDICAL_VISITS.MEDICAL_APTITUDE'));
+      this.startDateArray.push(_.get(this.medicalVisitsData, 'medicalAptitude.validityStartDate'));
+      this.startDateArray.push(_.get(this.medicalVisitsData, 'medicalAptitude.validityEndDate'));
+    }
+
+    if (this.medicalVisitsData && this.medicalVisitsData.workVisit) {
+      this.medicalVisitTitleArray.push(this.translateService.instant('STATUTORY_CERTIFICATE.MEDICAL_VISITS.WORK_VISIT'));
+      this.startDateArray.push(_.get(this.medicalVisitsData, 'workVisit.validityStartDate'));
+      this.endDateArray.push(_.get(this.medicalVisitsData, 'workVisit.validityEndDate'));
+    }
+
     this.medicalVisitsDisplayedData = {
       medicalVisit: {
         headers:
@@ -34,10 +55,11 @@ export class MedicalVisitsComponent implements OnInit {
             this.translateService.instant('STATUTORY_CERTIFICATE.MEDICAL_VISITS.START_DATE'),
             this.translateService.instant('STATUTORY_CERTIFICATE.MEDICAL_VISITS.END_DATE')
           ],
-        values: this.medicalVisitsData && this.medicalVisitsData.medicalVisit ?
+        values: this.medicalVisitsData ?
           [
-            { value: [_.get(this.medicalVisitsData, 'medicalVisit.validityStartDate')], type: 'date' },
-            { value: [_.get(this.medicalVisitsData, 'medicalVisit.validityEndDate')], type: 'end-date' }
+            { value: this.medicalVisitTitleArray, type: 'text' },
+            { value: this.startDateArray, type: 'date' },
+            { value: this.endDateArray, type: 'date' },
           ]
           :
           null
