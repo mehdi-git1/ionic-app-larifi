@@ -13,7 +13,7 @@
     <div class="page-container">
         <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
         <ng-template #pageBlock>
-            <ul *ngIf="localHelpAssets && localHelpAssets.length > 0 || remoteHelpAssets && remoteHelpAssets.length > 0" class="help-asset-list">
+            <ul *ngIf="localHelpAssets && localHelpAssets.length > 0 || remoteHelpAssets && remoteHelpAssets.length > 0" class="link-list">
                 <li *ngFor="let helpAsset of remoteHelpAssets" (click)="displayHelpAsset(helpAsset, fileTypeEnum.URL)" class="clickable">
                     <ion-thumbnail>
                         <ion-icon name="link"></ion-icon>

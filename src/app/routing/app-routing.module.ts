@@ -1,3 +1,4 @@
+import { RedactionsPage } from './../modules/redactions/pages/redactions.page';
 import { RegularityComponent } from './../modules/regularity/pages/regularity/regularity.component';
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
@@ -127,7 +128,8 @@ const routes: Routes = [
               { path: 'create/:congratulationLetterId', component: CongratulationLetterCreatePage },
               { path: 'detail/:congratulationLetterId', component: CongratulationLetterDetailPage }
             ]
-          }
+          },
+          { path: 'redactions', component: RedactionsPage }
         ]
       },
       {
@@ -149,6 +151,7 @@ const routes: Routes = [
               { path: 'statutory-certificate', component: StatutoryCertificatePage },
               { path: 'statutory-certificate/:selectedTab', component: StatutoryCertificatePage },
               { path: 'help-asset', component: HelpAssetListPage },
+              { path: 'redactions', component: RedactionsPage },
               {
                 path: 'development-program', children: [
                   { path: '', component: CareerObjectiveListPage },
@@ -328,6 +331,7 @@ const routes: Routes = [
   },
   { path: 'statutory-certificate', component: StatutoryCertificatePage },
   { path: 'statutory-certificate/:selectedTab', component: StatutoryCertificatePage },
+  { path: 'redactions', component: RedactionsPage },
   { path: 'help-asset', component: HelpAssetListPage },
   { path: 'settings', component: SettingsPage },
   { path: 'legal-term', component: LegalTermsPage },

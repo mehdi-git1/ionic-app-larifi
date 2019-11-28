@@ -4,7 +4,7 @@
     </ion-row>
     <ion-row>
         <ion-col>
-            <ul *ngIf="careerHistoryLinks && careerHistoryLinks.length > 0" class="career-history-link-list">
+            <ul *ngIf="careerHistoryLinks && careerHistoryLinks.length > 0" class="link-list">
                 <li *ngFor="let careerHistoryLink of careerHistoryLinks" (click)="goToLink(careerHistoryLink.value)"
                     class="clickable">
                     <ion-thumbnail>

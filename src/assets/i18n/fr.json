@@ -69,6 +69,8 @@
         "HR_DOCUMENT": "Documents RH",
         "REGULARITY": "Régularité",
         "MY_HR_DOCUMENT": "Mes documents RH",
+        "REDACTIONS": "Rédactions",
+        "MY_REDACTIONS": "Mes rédactions",
         "UNKNOWN_ERROR": "Suite à un dysfonctionnement technique, l'opération a échoué. Nous vous invitons à réessayer dans quelques minutes. Si le problème persiste, veuillez contacter votre support.",
         "MESSAGES": {
             "ERROR": {
@@ -934,6 +936,10 @@
         "ACTION_MENU": {
             "MODIFY": "Modifier"
         }
+    },
+    "REDACTIONS" : {
+        "EFORMS_WRITTEN" : "Formulaires de retours d'expérience rédigés",
+        "CABIN_REPORTS_WRITTEN" : "Cabin Report rédigés"
     },
     "SYNCHRONIZATION": {
         "PNC_SAVED_OFFLINE": "Le PNC {{ matricule }} a été synchronisé",
