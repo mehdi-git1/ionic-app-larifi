@@ -1,3 +1,4 @@
+import { AppParameterModel } from './app-parameter.model';
 import { DivisionModel } from './division.model';
 import { HrDocumentCategory } from './hr-document/hr-document-category';
 import { LogbookEventCategory } from './logbook/logbook-event-category';
@@ -21,6 +22,8 @@ export class AppInitDataModel {
     logbookEventCategories: Array<LogbookEventCategory>;
 
     hrDocumentCategories: Array<HrDocumentCategory>;
+
+    carrerHistoryLinks: Array<AppParameterModel>;
 
     attachmentsMaxSize: number;
 }

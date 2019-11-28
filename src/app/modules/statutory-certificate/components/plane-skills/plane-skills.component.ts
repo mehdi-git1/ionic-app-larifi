@@ -1,3 +1,7 @@
+
+
+import * as moment from 'moment';
+
 import { Component, Input, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -24,8 +28,8 @@ export class PlaneSkillsComponent implements OnInit {
   // Tableau des valeurs à afficher
   planeDisplayedData;
 
-  constructor(public translateService: TranslateService
-  ) {
+  constructor(
+    public translateService: TranslateService) {
     this.tempPlaneSkillData = {
       plane: new Array(),
       startDate: new Array(),
@@ -38,13 +42,16 @@ export class PlaneSkillsComponent implements OnInit {
 
   ngOnInit() {
     if (this.planeSkillsData && this.planeSkillsData.length > 0) {
+      const now = moment();
       for (const planeSkillData of this.planeSkillsData) {
-        this.tempPlaneSkillData.plane.push(planeSkillData.plane);
-        this.tempPlaneSkillData.startDate.push(planeSkillData.startDate);
-        this.tempPlaneSkillData.mdcDate.push(planeSkillData.mdcDate);
-        this.tempPlaneSkillData.dueDate.push(planeSkillData.dueDate);
-        this.tempPlaneSkillData.ddvDueDate.push(planeSkillData.ddvDueDate);
-        this.tempPlaneSkillData.endDate.push(planeSkillData.endDate);
+        if (now.isBefore(planeSkillData.ddvDueDate) || now.isBefore(planeSkillData.endDate)) {
+          this.tempPlaneSkillData.plane.push(planeSkillData.plane);
+          this.tempPlaneSkillData.startDate.push(planeSkillData.startDate);
+          this.tempPlaneSkillData.mdcDate.push(planeSkillData.mdcDate);
+          this.tempPlaneSkillData.dueDate.push(planeSkillData.dueDate);
+          this.tempPlaneSkillData.ddvDueDate.push(planeSkillData.ddvDueDate);
+          this.tempPlaneSkillData.endDate.push(planeSkillData.endDate);
+        }
       }
     }
 

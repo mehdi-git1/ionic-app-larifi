@@ -70,7 +70,8 @@ export class UrlConfiguration {
     'fixCongratulationLetterRecipient': `${urlGroupEnum.CONGRATULATION_LETTER}/recipients/{id}`,
     'getDocumentById': `${urlGroupEnum.DOCUMENT}/{documentId}`,
     'hrDocuments': urlGroupEnum.HR_DOCUMENT,
-    'getHrDocumentById': `${urlGroupEnum.HR_DOCUMENT}/{id}`
+    'getHrDocumentById': `${urlGroupEnum.HR_DOCUMENT}/{id}`,
+    'getDwhHistory': `${urlGroupEnum.DWH_HISTORY}/{matricule}`
   };
 
   /**
