@@ -77,14 +77,12 @@ export class LogbookPage {
      * @param logbookEvent l'évènement à tester
      */
     isHidden(logbookEvent: LogbookEventModel) {
-        if (logbookEvent.type != LogbookEventTypeEnum.EDOSPNC) {
-            const now = moment();
-            const broadcastDate = moment(logbookEvent.creationDate, AppConstant.isoDateFormat);
-            const hiddenDuration = moment.duration(now.diff(broadcastDate)).asMilliseconds();
-            const upToFifteenDays = moment.duration(15, 'days').asMilliseconds();
-            if ((hiddenDuration < upToFifteenDays && !logbookEvent.displayed) || logbookEvent.hidden) {
-                return true;
-            }
+        const now = moment();
+        const broadcastDate = moment(logbookEvent.creationDate, AppConstant.isoDateFormat);
+        const hiddenDuration = moment.duration(now.diff(broadcastDate)).asMilliseconds();
+        const upToFifteenDays = moment.duration(15, 'days').asMilliseconds();
+        if ((hiddenDuration < upToFifteenDays && !logbookEvent.displayed) || logbookEvent.hidden) {
+            return true;
         }
         return false;
     }

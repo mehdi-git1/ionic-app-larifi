@@ -23,6 +23,8 @@ export class HistoryComponent implements OnInit {
     assignmentData;
     employmentLevelData;
     instrumentData;
+    seniorityDateData;
+    examData;
     StatutoryCertificateDisplayTypeEnum = StatutoryCertificateDisplayTypeEnum;
 
     constructor(
@@ -51,6 +53,8 @@ export class HistoryComponent implements OnInit {
         this.initAssignmentData();
         this.initEmploymentLevelData();
         this.initInstrumentData();
+        this.initSeniorityDateData();
+        this.initExamData();
     }
 
     /**
@@ -185,6 +189,84 @@ export class HistoryComponent implements OnInit {
                     { value: tempDwhHistoryDisplayedData.startDate, type: 'date' },
                     { value: tempDwhHistoryDisplayedData.endDate, type: 'date' }
                 ]
+        };
+    }
+
+    /**
+     * Initialise l'affichage de l'historique des dates d'ancienneté
+     */
+    initSeniorityDateData() {
+        const tempDwhHistoryDisplayedData = {
+            effectiveDate: new Array(),
+            event: new Array(),
+            nature: new Array()
+        };
+        if (this.history && this.history.seniorityDateHistory && this.history.seniorityDateHistory.length > 0) {
+            const sortedSeniorityDateHistory = this.history.seniorityDateHistory.sort((seniorityDate1, seniorityDate2) => {
+                return moment(seniorityDate1.effectiveDate, AppConstant.isoDateFormat)
+                .isBefore(moment(seniorityDate2.effectiveDate, AppConstant.isoDateFormat))
+                ? 1 : -1;
+            });
+            for (const seniorityDate of sortedSeniorityDateHistory) {
+              tempDwhHistoryDisplayedData.effectiveDate.push(seniorityDate.effectiveDate);
+              tempDwhHistoryDisplayedData.event.push(seniorityDate.event);
+              tempDwhHistoryDisplayedData.nature.push(seniorityDate.nature);
+            }
+        }
+        this.seniorityDateData =  {
+        headers:
+            [
+            this.translateService.instant('STATUTORY_CERTIFICATE.HISTORY.SENIORITY_DATE.EFFECTIVE_DATE'),
+            this.translateService.instant('STATUTORY_CERTIFICATE.HISTORY.SENIORITY_DATE.EVENT'),
+            this.translateService.instant('STATUTORY_CERTIFICATE.HISTORY.SENIORITY_DATE.NATURE')
+            ],
+        values:
+            [
+            { value: tempDwhHistoryDisplayedData.effectiveDate, type: 'date' },
+            { value: tempDwhHistoryDisplayedData.event, type: 'event' },
+            { value: tempDwhHistoryDisplayedData.nature, type: 'nature' }
+            ]
+        };
+    }
+
+    /**
+     * Initialise l'affichage de l'historique des examens
+     */
+    initExamData() {
+        const tempDwhHistoryDisplayedData = {
+            type: new Array(),
+            label: new Array(),
+            notation: new Array(),
+            examDate: new Array()
+        };
+        if (this.history && this.history.examHistory && this.history.examHistory.length > 0) {
+            const sortedExamHistory = this.history.examHistory.sort((exam1, exam2) => {
+                return moment(exam1.examDate, AppConstant.isoDateFormat)
+                .isBefore(moment(exam2.examDate, AppConstant.isoDateFormat))
+                ? 1 : -1;
+            });
+            for (const examHistory of sortedExamHistory) {
+              tempDwhHistoryDisplayedData.type.push(examHistory.type);
+              tempDwhHistoryDisplayedData.label.push(examHistory.label);
+              tempDwhHistoryDisplayedData.notation.push(examHistory.notation);
+              tempDwhHistoryDisplayedData.examDate.push(examHistory.examDate);
+            }
+        }
+        this.examData =  {
+        headers:
+            [
+            this.translateService.instant('STATUTORY_CERTIFICATE.HISTORY.EXAM_DATE.TYPE'),
+            this.translateService.instant('STATUTORY_CERTIFICATE.HISTORY.EXAM_DATE.LABEL'),
+            this.translateService.instant('STATUTORY_CERTIFICATE.HISTORY.EXAM_DATE.CODE'),
+            this.translateService.instant('STATUTORY_CERTIFICATE.HISTORY.EXAM_DATE.EXAM_DATE')
+            ],
+        values:
+            [
+            { value: tempDwhHistoryDisplayedData.type, type: 'type' },
+            { value: tempDwhHistoryDisplayedData.label, type: 'label' },
+            { value: tempDwhHistoryDisplayedData.notation, type: 'code' },
+            { value: tempDwhHistoryDisplayedData.examDate, type: 'date' }
+            ]
         };
     }
 }
