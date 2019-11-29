@@ -74,7 +74,7 @@ export class TabHeaderService {
                     id: TabHeaderEnum.REDACTIONS_PAGE,
                     label: this.translateService.instant('GLOBAL.REDACTIONS'),
                     route: 'redactions',
-                    available: this.pnc && this.pnc.manager && this.deviceService && this.deviceService.isBrowser()
+                    available: this.deviceService && this.deviceService.isBrowser() && this.pnc && (this.pnc.hasRedactions || this.pnc.manager)
                 },
                 {
                     id: TabHeaderEnum.UPCOMING_FLIGHT_LIST_PAGE,

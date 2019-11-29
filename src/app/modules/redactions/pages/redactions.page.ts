@@ -1,3 +1,4 @@
+import { PncModel } from './../../../core/models/pnc.model';
 import { HtmlService } from './../../../core/file/html/html.service';
 import { SessionService } from './../../../core/services/session/session.service';
 import { TabHeaderEnum } from 'src/app/core/enums/tab-header.enum';
@@ -13,8 +14,10 @@ export class RedactionsPage {
     TabHeaderEnum = TabHeaderEnum;
     eformsWrittenUrl: string;
     cabinReportsWrittenUrl: string;
+    matricule: string;
 
     constructor(private sessionService: SessionService, private htmlService: HtmlService) {
+        this.matricule = this.sessionService.visitedPnc.matricule;
         this.eformsWrittenUrl = this.sessionService.getActiveUser().appInitData.eformsWrittenUrl;
         this.cabinReportsWrittenUrl = this.sessionService.getActiveUser().appInitData.cabinReportsWrittenUrl;
     }
@@ -23,6 +26,11 @@ export class RedactionsPage {
      * @param url url
      */
     goToLink(url) {
-        this.htmlService.displayHTML(url);
+        const parameterizedUrl = url.replace('%MATRICULE%', this.matricule);
+        this.htmlService.displayHTML(parameterizedUrl);
+    }
+
+    pncIsManager() {
+        return this.sessionService.visitedPnc.manager ;
     }
 }
