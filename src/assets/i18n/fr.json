@@ -312,6 +312,12 @@
             "COMPANY_LEAVING_DATE": {
                 "TITLE": "Date départ"
             },
+            "PROBATIONARY_PERIOD_DATE": {
+                "TITLE": "Période temporaire"
+            },
+            "INTEGRATION_STAGE_DATE": {
+                "TITLE": "Période d'essai"
+            },
             "PCB": {
                 "TITLE": "PCB"
             },
