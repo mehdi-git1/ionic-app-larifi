@@ -28,4 +28,8 @@ export class AppInitDataModel {
     carrerHistoryLinks: Array<AppParameterModel>;
 
     attachmentsMaxSize: number;
+
+    eformsWrittenUrl: string;
+
+    cabinReportsWrittenUrl: string;
 }

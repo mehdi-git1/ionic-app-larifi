@@ -21,8 +21,6 @@ export class AuthenticatedUserModel extends EDossierPncObjectModel {
     appInitData: AppInitDataModel;
     userMessage: UserMessageModel;
     appVersion: AppVersionModel;
-    eFormsWrittenUrl: string;
-    cabinReportsWrittenUrl: string;
 
     getStorageId(): string {
         return this.matricule;
