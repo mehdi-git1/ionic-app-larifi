@@ -1,3 +1,5 @@
+import { RotationModel } from 'src/app/core/models/rotation.model';
+
 import { Component, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -28,6 +30,8 @@ export class EObservationListComponent {
 
     canDisplayMenu = false;
 
+    lastConsultedRotation: RotationModel;
+
     formsInputParam: FormsInputParamsModel;
 
     EObservationDisplayModeEnum = EObservationDisplayModeEnum;
@@ -45,7 +49,9 @@ export class EObservationListComponent {
         private sessionService: SessionService,
         private deviceService: DeviceService,
         private formsEObservationService: FormsEObservationService,
-        private pncService: PncService) { }
+        private pncService: PncService) {
+        this.lastConsultedRotation = this.sessionService.appContext.lastConsultedRotation;
+    }
 
     /**
      * Détermine si on peut créer une nouvelle eObservation
@@ -123,6 +129,15 @@ export class EObservationListComponent {
         this.chosenEFormsType = EFormsTypeEnum.getType(EFormsTypeEnum[value.trim()]);
         this.canDisplayMenu = false;
         this.createEObservation();
+    }
+
+    /**
+     * Renvoie la spécialité du pnc à afficher
+     * @param pnc le pnc concerné
+     * @return la fonction du pnc à afficher
+     */
+    getFormatedSpeciality(pnc: PncModel): string {
+        return this.pncService.getFormatedSpeciality(pnc);
     }
 
 }
