@@ -53,7 +53,6 @@ export class RegularityComponent implements OnInit {
 
     this.securityService.getAuthenticatedUser().then(u => {
       this.regularityLinks = u.appInitData.regularityLinks;
-      console.log(this.regularityLinks);
     });
   }
 
