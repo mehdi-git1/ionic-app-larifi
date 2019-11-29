@@ -35,7 +35,7 @@ export class TabHeaderService {
         if (mode === TabHeaderModeEnum.EDOSSIER) {
             return [
                 {
-                    id: TabHeaderEnum.CAREER_OBJECTIVE_LIST_PAGE,
+                    id: TabHeaderEnum.DEVELOPMENT_PROGRAM_PAGE,
                     label: this.translateService.instant('GLOBAL.DEVELOPMENT_PROGRAM_SHORT'),
                     route: 'development-program',
                     available: this.pnc && !this.pnc.manager
