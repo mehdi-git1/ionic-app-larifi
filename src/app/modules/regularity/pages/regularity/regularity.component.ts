@@ -25,7 +25,7 @@ export class RegularityComponent implements OnInit {
   tabHeaderEnum: TabHeaderEnum = TabHeaderEnum.REGULARITY_PAGE;
   links = [];
   isCad = false;
-  isweb = true;
+  isWeb = true;
   isConnected = false;
   regularityLinks: Array<AppParameterModel>;
 
