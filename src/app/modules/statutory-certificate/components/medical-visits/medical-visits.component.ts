@@ -22,15 +22,6 @@ export class MedicalVisitsComponent implements OnInit {
   // Tableau des valeurs à afficher en fonction du type de tableau
   medicalVisitsDisplayedData;
 
-  // // Tableau des libelles des visites médicales
-  // medicalVisitTitleArray: Array<string>;
-
-  // // Tableau des listes de START_DATE
-  // startDateArray: Array<string>;
-
-  // // Tableau des listes de END_DATE
-  // endDateArray: Array<string>;
-
   constructor(private translateService: TranslateService) {
   }
 
