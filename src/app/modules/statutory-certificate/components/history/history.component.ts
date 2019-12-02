@@ -1,3 +1,4 @@
+import { DateTransform } from './../../../../shared/utils/date-transform';
 import * as moment from 'moment';
 import { DeviceService } from 'src/app/core/services/device/device.service';
 
@@ -30,7 +31,8 @@ export class HistoryComponent implements OnInit {
     constructor(
         private connectivityService: ConnectivityService,
         private translateService: TranslateService,
-        private deviceService: DeviceService) {
+        private deviceService: DeviceService,
+        private dateTransform: DateTransform) {
 
     }
 
@@ -210,8 +212,13 @@ export class HistoryComponent implements OnInit {
             for (const seniorityDate of sortedSeniorityDateHistory) {
               tempDwhHistoryDisplayedData.effectiveDate.push(seniorityDate.effectiveDate);
               tempDwhHistoryDisplayedData.event.push(seniorityDate.event);
-              tempDwhHistoryDisplayedData.nature.push(seniorityDate.nature);
+              const natureDateString = seniorityDate.natureDate ? this.dateTransform.formatDateInDay(seniorityDate.natureDate, 'dd/MM/yyyy') : '';
+              tempDwhHistoryDisplayedData.nature.push(seniorityDate.nature + ' ' + natureDateString);
             }
+            const mostOlderDate = sortedSeniorityDateHistory[sortedSeniorityDateHistory.length - 1];
+            tempDwhHistoryDisplayedData.effectiveDate.push(mostOlderDate.companyEntranceDate);
+            tempDwhHistoryDisplayedData.event.push(this.translateService.instant('STATUTORY_CERTIFICATE.HISTORY.SENIORITY_DATE.COMPANY_ENTRANCE_DATE'));
+            tempDwhHistoryDisplayedData.nature.push('');
         }
         this.seniorityDateData =  {
         headers:

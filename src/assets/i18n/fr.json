@@ -377,7 +377,8 @@
                 "TITLE": "Dates d'ancienneté",
                 "EFFECTIVE_DATE": "Date effet",
                 "EVENT": "Evènement",
-                "NATURE": "Nature"
+                "NATURE": "Nature",
+                "COMPANY_ENTRANCE_DATE" : "Date entrée Cie"
             },
             "EXAM_DATE": {
                 "TITLE": "Examen",
