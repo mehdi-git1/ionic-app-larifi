@@ -1,3 +1,4 @@
+import { RedactionsModule } from './modules/redactions/redactions.module';
 import { RegularityModule } from './modules/regularity/pages/regularity/regularity.module';
 import { SimpleNotificationsModule } from 'angular2-notifications';
 
@@ -88,7 +89,8 @@ export function appInitFactory(appInitService: AppInitService) {
     AppRoutingModule,
     BrowserAnimationsModule,
     HrDocumentModule,
-    RegularityModule
+    RegularityModule,
+    RedactionsModule
   ],
   providers: [
     StatusBar,

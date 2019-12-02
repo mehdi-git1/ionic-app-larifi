@@ -30,7 +30,7 @@ export class GeneralitySkillsComponent implements OnInit {
   // Tableau des listes de START_DATE
   startDateArray: Array<string>;
 
-  // Tableau des listes de START_DATE
+  // Tableau des listes de DUE_DATE
   dueDateArray: Array<string>;
 
   constructor(public translateService: TranslateService

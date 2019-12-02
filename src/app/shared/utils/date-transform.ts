@@ -14,7 +14,16 @@ export class DateTransform {
      * @param dateToTransform date à transformer
      * @return date au format dd/MM/yyyy
      */
-    formatDateInDay(dateToTransform: string, dateFormat: string): string {
+    formatDateInDay(dateToTransform: Date, dateFormat: string): string {
+        return this.datePipe.transform(dateToTransform, dateFormat);
+    }
+
+    /**
+     * Transforme la date
+     * @param dateToTransform date à transformer
+     * @return date au format dd/MM/yyyy
+     */
+    formatDateStringInDay(dateToTransform: string, dateFormat: string): string {
         return this.datePipe.transform(dateToTransform, dateFormat);
     }
 
