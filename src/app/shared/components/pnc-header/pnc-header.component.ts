@@ -33,7 +33,6 @@ export class PncHeaderComponent implements OnChanges {
 
   ngOnChanges() {
     if (this.pnc && this.pnc.relays) {
-      //this.pnc.acars = '74551J';
       this.pnc.relays.sort((relay: RelayModel, otherRelay: RelayModel) => {
         return relay.code > otherRelay.code ? 1 : -1;
       });
