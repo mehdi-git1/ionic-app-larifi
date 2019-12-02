@@ -27,6 +27,7 @@ export class PncModel extends EDossierPncObjectModel {
     statutoryCertificate?: StatutoryCertificateModel;
     groupPlanning: string;
     hasRedactions: boolean;
+    acars: string;
 
     getStorageId(): string {
         return this.matricule;
