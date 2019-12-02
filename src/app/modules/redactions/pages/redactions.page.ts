@@ -17,14 +17,21 @@ export class RedactionsPage {
     eformsWrittenUrl: string;
     cabinReportsWrittenUrl: string;
     matricule: string;
+    pnc: PncModel;
 
     constructor(private sessionService: SessionService,
                 private activatedRoute: ActivatedRoute,
                 private pncService: PncService,
                 private htmlService: HtmlService) {
-        this.matricule = this.pncService.getRequestedPncMatricule(activatedRoute);
         this.eformsWrittenUrl = this.sessionService.getActiveUser().appInitData.eformsWrittenUrl;
         this.cabinReportsWrittenUrl = this.sessionService.getActiveUser().appInitData.cabinReportsWrittenUrl;
+    }
+
+    ionViewDidEnter() {
+        const matricule = this.pncService.getRequestedPncMatricule(this.activatedRoute);
+        this.pncService.getPnc(matricule).then(pnc => {
+            this.pnc = pnc;
+        }, error => { });
     }
 
     /**
@@ -32,7 +39,7 @@ export class RedactionsPage {
      * @param url url
      */
     goToLink(url) {
-        const parameterizedUrl = url.replace('%MATRICULE%', this.matricule);
+        const parameterizedUrl = url.replace('%MATRICULE%', this.pnc ? this.pnc.matricule : '');
         this.htmlService.displayHTML(parameterizedUrl);
     }
 
@@ -40,9 +47,11 @@ export class RedactionsPage {
      * Vérifie le PNC consulté est manager
      */
     pncIsManager() {
-        if (this.sessionService.isActiveUserMatricule(this.matricule)) {
-            return this.sessionService.getActiveUser().isManager;
-        }
-        return  this.sessionService.visitedPnc && this.sessionService.visitedPnc.manager ;
+        return this.pnc && this.pnc.manager;
     }
+
+    isMyHome() {
+        return this.pnc && this.sessionService.isActiveUserMatricule(this.pnc.matricule);
+    }
+
 }
