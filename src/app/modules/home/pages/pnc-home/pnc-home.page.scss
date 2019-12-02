@@ -6,9 +6,10 @@
     height: 100%;
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
 
     .button-parent {
-        width: 50%;
+        width: 33%;
         padding: 20px;
         display: flex;
         flex-direction: column;
