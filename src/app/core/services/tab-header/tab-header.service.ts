@@ -1,3 +1,4 @@
+import { DeviceService } from 'src/app/core/services/device/device.service';
 import { Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -7,6 +8,7 @@ import { TabHeaderEnum } from '../../enums/tab-header.enum';
 import { PncModel } from '../../models/pnc.model';
 import { AuthorizationService } from '../authorization/authorization.service';
 import { SessionService } from '../session/session.service';
+import { ConnectivityService } from '../connectivity/connectivity.service';
 
 @Injectable({ providedIn: 'root' })
 export class TabHeaderService {
@@ -16,7 +18,8 @@ export class TabHeaderService {
     constructor(
         private translateService: TranslateService,
         private authorizationService: AuthorizationService,
-        private sessionService: SessionService
+        private sessionService: SessionService,
+        private deviceService: DeviceService
     ) {
     }
 
@@ -66,6 +69,12 @@ export class TabHeaderService {
                     label: this.translateService.instant('GLOBAL.CONGRATULATION_LETTERS_SHORT'),
                     route: 'congratulation-letter',
                     available: true
+                },
+                {
+                    id: TabHeaderEnum.REDACTIONS_PAGE,
+                    label: this.translateService.instant('GLOBAL.REDACTIONS'),
+                    route: 'redactions',
+                    available: this.deviceService.isBrowser() && this.pnc && (this.pnc.hasRedactions || this.pnc.manager)
                 },
                 {
                     id: TabHeaderEnum.UPCOMING_FLIGHT_LIST_PAGE,
