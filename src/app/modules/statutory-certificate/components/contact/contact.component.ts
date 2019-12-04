@@ -30,6 +30,10 @@ export class ContactComponent implements OnInit {
         this.phoneNumbers = this.pnc.phoneNumber.split(';');
     }
 
+    /**
+     * Ouvre un onglet avec l'url en paramètre
+     * @param url url
+     */
     goToLink(link: string) {
         if (link) {
             this.htmlService.displayHTML(link.replace('%MATRICULE%', this.pnc.matricule));
