@@ -687,9 +687,9 @@
         "REINIT_FILTERS": "Réinitialiser la recherche"
     },
     "REGULARITY_LABEL_LIST": {
-        "SCHEDULED_AND_DONE": "Consulter planning prévu et réalisé",
-        "WORK_ACCIDENT_AND_WORK_PERIOD": "Consulter la liste des accidents de travail et des périodes de travail au sol sur 36 mois glissants",
-        "ABSENCES_AND_LATENESS": "Consulter la liste des absences et retards sur 36 mois glissants"
+        "SCHEDULED_AND_DONE": "Planning prévu et réalisé",
+        "WORK_ACCIDENT_AND_WORK_PERIOD": "Liste des accidents de travail et des périodes de travail au sol sur 36 mois glissants",
+        "ABSENCES_AND_LATENESS": "Liste des absences et retards sur 36 mois glissants"
     },
     "HELP_ASSET_LIST": {
         "WEB_HELP_ASSET": "Ressources web",
