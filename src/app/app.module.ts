@@ -1,5 +1,5 @@
+import { ActivityModule } from './modules/regularity/pages/activity/activity.module';
 import { RedactionsModule } from './modules/redactions/redactions.module';
-import { RegularityModule } from './modules/regularity/pages/regularity/regularity.module';
 import { SimpleNotificationsModule } from 'angular2-notifications';
 
 import { HttpClientModule } from '@angular/common/http';
@@ -89,7 +89,7 @@ export function appInitFactory(appInitService: AppInitService) {
     AppRoutingModule,
     BrowserAnimationsModule,
     HrDocumentModule,
-    RegularityModule,
+    ActivityModule,
     RedactionsModule
   ],
   providers: [

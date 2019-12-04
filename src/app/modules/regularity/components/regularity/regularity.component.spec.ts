@@ -1,22 +1,22 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RegularityPage } from './regularity.page';
+import { RegularityComponent } from './regularity.component';
 
 describe('RegularityComponent', () => {
-  let component: RegularityPage;
-  let fixture: ComponentFixture<RegularityPage>;
+  let component: RegularityComponent;
+  let fixture: ComponentFixture<RegularityComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [RegularityPage],
+      declarations: [ RegularityComponent ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
-      .compileComponents();
+    .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(RegularityPage);
+    fixture = TestBed.createComponent(RegularityComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

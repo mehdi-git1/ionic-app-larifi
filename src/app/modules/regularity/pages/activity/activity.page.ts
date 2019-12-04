@@ -1,3 +1,4 @@
+import { ActivityTabEnum } from './../../../../core/enums/activity/activity-tab.enum';
 import { TabHeaderEnum } from 'src/app/core/enums/tab-header.enum';
 import { HtmlService } from 'src/app/core/file/html/html.service';
 import { AppParameterModel } from 'src/app/core/models/app-parameter.model';
@@ -12,15 +13,17 @@ import { DeviceService } from '../../../../core/services/device/device.service';
 import { PncService } from '../../../../core/services/pnc/pnc.service';
 
 @Component({
-  selector: 'regularity',
-  templateUrl: './regularity.page.html',
-  styleUrls: ['./regularity.page.scss'],
+  selector: 'activity',
+  templateUrl: './activity.page.html',
+  styleUrls: ['./activity.page.scss'],
 })
-export class RegularityPage implements OnInit {
+export class ActivityPage implements OnInit {
   matricule: string;
   pnc: PncModel;
-  tabHeaderEnum: TabHeaderEnum = TabHeaderEnum.REGULARITY_PAGE;
+  tabHeaderEnum: TabHeaderEnum = TabHeaderEnum.ACTIVITY_PAGE;
   regularityLinks: Array<AppParameterModel>;
+  activeTab: ActivityTabEnum = ActivityTabEnum.REGULARITY;
+  ActivityTabEnum = ActivityTabEnum;
 
   constructor(
     private pncService: PncService,
@@ -41,6 +44,9 @@ export class RegularityPage implements OnInit {
     this.regularityLinks = this.sessionService.getActiveUser().appInitData.regularityLinks;
   }
 
+  switchActiveTab(tabToActivate: ActivityTabEnum): void {
+    this.activeTab = tabToActivate;
+  }
   /**
    * Verifie si on est en mode Web
    */
