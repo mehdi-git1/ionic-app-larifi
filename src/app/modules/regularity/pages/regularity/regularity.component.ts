@@ -48,7 +48,7 @@ export class RegularityComponent implements OnInit {
       }
     );
     this.isCad = this.securityService.isManager();
-    this.isweb = this.deviceService.isBrowser();
+    this.isWeb = this.deviceService.isBrowser();
     this.isConnected = this.connectivityService.isConnected();
 
     this.securityService.getAuthenticatedUser().then(u => {
