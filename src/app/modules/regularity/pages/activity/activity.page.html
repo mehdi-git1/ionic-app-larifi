@@ -16,26 +16,26 @@
     </div>
     <div class="selectable">
         <app-regularity *ngIf="activeTab == ActivityTabEnum.REGULARITY"></app-regularity>
-        <app-jalons *ngIf="activeTab == ActivityTabEnum.MILESTONE"></app-jalons>
+        <app-jalons *ngIf="activeTab == ActivityTabEnum.M"></app-jalons>
     </div>
-    <!--
-  <div class="page-container">
-      <edossier-sprinner *ngIf="!pnc else displayLink"></edossier-sprinner>
-      <ng-template #displayLink>
-          <ul class="link-list" *ngIf="isBrowser() && isConnected()">
-              <ng-container *ngIf="regularityLinks">
-                  <li *ngFor="let link of regularityLinks" class="clickable" (click)="gotoLink(link.value)">
-                      <ion-thumbnail>
-                          <ion-icon name="link"></ion-icon>
-                      </ion-thumbnail>
-                      <div class="content">
-                          <h4>{{'REGULARITY_LABEL_LIST.' + link.key | translate }}</h4>
+
+    <div class="page-container">
+        <edossier-sprinner *ngIf="!pnc else displayLink"></edossier-sprinner>
+        <ng-template #displayLink>
+            <ul class="link-list" *ngIf="isBrowser() && isConnected()">
+                <ng-container *ngIf="regularityLinks">
+                    <li *ngFor="let link of regularityLinks" class="clickable" (click)="gotoLink(link.value)">
+                        <ion-thumbnail>
+                            <ion-icon name="link"></ion-icon>
+                        </ion-thumbnail>
+                        <div class="content">
+                            <h4>{{'REGULARITY_LABEL_LIST.' + link.key | translate }}</h4>
+                        </div>
+                    </li>
+                </ng-container>
+            </ul>
+        </ng-template>
     </div>
-    </li>
-    </ng-container>
-    </ul>
-    </ng-template>
-    </div>
-    -->
+
 
 </ion-content>
