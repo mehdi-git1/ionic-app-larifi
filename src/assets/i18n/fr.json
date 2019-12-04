@@ -384,7 +384,7 @@
                 "EFFECTIVE_DATE": "Date effet",
                 "EVENT": "Evènement",
                 "NATURE": "Nature",
-                "COMPANY_ENTRANCE_DATE" : "Date entrée Cie"
+                "COMPANY_ENTRANCE_DATE": "Date entrée Cie"
             },
             "EXAM_DATE": {
                 "TITLE": "Examen",
@@ -399,10 +399,14 @@
                 "DOMINO_CABIN_REPORT_HISTORY_LINK": "Historique des Cabin Report",
                 "EDITO_WORKSTATIONS_HISTORY_LINK": "Historique des postes occupés à bord",
                 "CIRCUITPN_DISTRIBUTED_OBJECTS_HISTORY_LINK": "Historique des objets distribués"
+            },
+            "ERROR": {
+                "STATUTORY_CERTIFICATE": "Erreur lors de la récupération du profil PNC pour le matricule {{ matricule }}"
             }
         },
-        "ERROR": {
-            "STATUTORY_CERTIFICATE": "Erreur lors de la récupération du profil PNC pour le matricule {{ matricule }}"
+        "CONTACT": {
+            "TITLE": "Contact",
+            "CONTACT_PN_LINK": "Consulter la fiche dans ContactPN"
         }
     },
     "PROFESSIONAL_INTERVIEW": {
@@ -945,9 +949,9 @@
             "MODIFY": "Modifier"
         }
     },
-    "REDACTIONS" : {
-        "EFORMS_WRITTEN" : "Formulaires de retours d'expérience rédigés",
-        "CABIN_REPORTS_WRITTEN" : "Cabin Reports rédigés"
+    "REDACTIONS": {
+        "EFORMS_WRITTEN": "Formulaires de retours d'expérience rédigés",
+        "CABIN_REPORTS_WRITTEN": "Cabin Reports rédigés"
     },
     "SYNCHRONIZATION": {
         "PNC_SAVED_OFFLINE": "Le PNC {{ matricule }} a été synchronisé",
