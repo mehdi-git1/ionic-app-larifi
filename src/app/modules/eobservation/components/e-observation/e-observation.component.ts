@@ -32,6 +32,8 @@ export class EObservationComponent implements OnChanges {
 
   @Output() detailButtonClicked = new EventEmitter();
 
+  EObservationDisplayModeEnum = EObservationDisplayModeEnum;
+
   constructor(
     private eObservationService: EObservationService) {
   }

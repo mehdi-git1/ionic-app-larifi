@@ -1,15 +1,15 @@
 <h3>
     {{ 'CAREER_OBJECTIVE_LIST.PROFESSIONAL_INTERVIEW_TITLE' | translate }}
-    <ion-button *ngIf="isManager()" (click)="goToProfessionalInterviewCreation()" color="primary">
+    <ion-button *ngIf="displayMode !== ProfessionalInterviewDisplayModeEnum.REDACTIONS && isManager()" (click)="goToProfessionalInterviewCreation()" color="primary">
         <ion-icon name="add" ios="md-add"></ion-icon>
         <label>{{ 'PROFESSIONAL_INTERVIEW.BUTTONS.NEW_PROFESSIONAL_INTERVIEW' | translate }}</label>
     </ion-button>
 </h3>
 <div class="list-container">
     <professional-interviews *ngIf="professionalInterviews" [professionalInterviews]="professionalInterviews"
-        (detailButtonClicked)="goToProfessionalInterviewDetail($event)">
+        (detailButtonClicked)="goToProfessionalInterviewDetail($event)" [displayMode]="displayMode">
     </professional-interviews>
-    <div *ngIf="isAdminModeAvailable()">
+    <div *ngIf="displayMode !== ProfessionalInterviewDisplayModeEnum.REDACTIONS && isAdminModeAvailable()">
         <div *ngIf="professionalInterviews" class="information-message archives">
             <span class="edospnc-archive"></span>
             <a

@@ -1,3 +1,4 @@
+import { CareerObjectiveDisplayModeEnum } from './../../../../core/enums/career-objective/career-objective-display-mode.enum';
 import { Component, Input, ViewChild } from '@angular/core';
 
 import { CareerObjectiveStatusEnum } from '../../../../core/enums/career-objective-status.enum';
@@ -24,6 +25,8 @@ export class CareerObjectiveComponent {
   }
 
   @Input() careerObjective: CareerObjectiveModel;
+  @Input() displayMode: CareerObjectiveDisplayModeEnum;
+  CareerObjectiveDisplayModeEnum = CareerObjectiveDisplayModeEnum;
 
   @Input()
   set offlineAction(val: any) {
@@ -38,13 +41,13 @@ export class CareerObjectiveComponent {
    * @return la classe CSS associée au statut
    */
   getStatusCssClass(careerObjectiveStatus: CareerObjectiveStatusEnum): string {
-    if (CareerObjectiveStatusEnum.DRAFT == careerObjectiveStatus) {
+    if (CareerObjectiveStatusEnum.DRAFT === careerObjectiveStatus) {
       return 'draft-dot';
-    } else if (CareerObjectiveStatusEnum.REGISTERED == careerObjectiveStatus) {
+    } else if (CareerObjectiveStatusEnum.REGISTERED === careerObjectiveStatus) {
       return 'registered-dot';
-    } else if (CareerObjectiveStatusEnum.VALIDATED == careerObjectiveStatus) {
+    } else if (CareerObjectiveStatusEnum.VALIDATED === careerObjectiveStatus) {
       return 'validated-dot';
-    } else if (CareerObjectiveStatusEnum.ABANDONED == careerObjectiveStatus) {
+    } else if (CareerObjectiveStatusEnum.ABANDONED === careerObjectiveStatus) {
       return 'abandoned-dot';
     }
     return '';

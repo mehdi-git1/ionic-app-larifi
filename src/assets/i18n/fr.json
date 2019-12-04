@@ -202,7 +202,8 @@
             "TITLE": "Libellé priorité",
             "ENCOUNTER_DATE": "Fixée le",
             "NEXT_ENCOUNTER_DATE": "Rappel",
-            "STATUS": "Statut"
+            "STATUS": "Statut",
+            "PNC": "PNC"
         },
         "BUTTONS": {
             "ADD_CAREER_OBJECTIVE": "Nouvelle priorité"
@@ -418,7 +419,8 @@
                 "INTERVIEW_DATE": "Date de réalisation",
                 "STATUS": "Statut en cours",
                 "REDACTOR": "Rédacteur",
-                "INTERVIEW_TYPE": "Type d'entretien"
+                "INTERVIEW_TYPE": "Type d'entretien",
+                "PNC": "PNC"
             },
             "LEGEND": "derniers BP / EPP réalisés",
             "LINK": {
@@ -487,7 +489,8 @@
             "HEADER": {
                 "ROTATION_DATE": "Date de réalisation",
                 "TYPE": "Type eObservation",
-                "REDACTOR": "Rédacteur"
+                "REDACTOR": "Rédacteur",
+                "PNC": "PNC"
             },
             "LEGEND": {
                 "LESS_THAN_3_YEARS": "eObservations réalisées sur les 3 dernières années",
@@ -946,6 +949,8 @@
         }
     },
     "REDACTIONS" : {
+        "REDACTIONS_TITLE": "Rédactions des 24 derniers mois",
+        "LINKS_TITLE": "Liens de consultation",
         "EFORMS_WRITTEN" : "Formulaires de retours d'expérience rédigés",
         "CABIN_REPORTS_WRITTEN" : "Cabin Reports rédigés"
     },
