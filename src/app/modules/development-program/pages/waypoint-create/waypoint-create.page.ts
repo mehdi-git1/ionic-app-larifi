@@ -353,7 +353,7 @@ export class WaypointCreatePage extends FormCanDeactivate {
      * @return la date de dernière modification
      */
     getLastUpdateDate(): string {
-        return this.dateTransformer.formatDateInDay(this.waypoint.lastUpdateDate, 'dd/MM/yyyy HH:mm');
+        return this.dateTransformer.formatDateStringInDay(this.waypoint.lastUpdateDate, 'dd/MM/yyyy HH:mm');
     }
 
 }

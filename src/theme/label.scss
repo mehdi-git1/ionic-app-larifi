@@ -3,7 +3,7 @@ label {
 }
 
 ion-label.input-label {
-    --color: var(--ion-color-grey50) !important;
+    color: var(--ion-color-grey50) !important;
 }
 
 .required::after {

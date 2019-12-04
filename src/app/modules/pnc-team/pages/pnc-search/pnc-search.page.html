@@ -3,12 +3,11 @@
         <page-header (refreshPage)="initPage()" [showRefreshIcon]="true">{{ 'GLOBAL.PNC_TEAM' | translate }}
         </page-header>
     </ion-toolbar>
+    <pnc-search-filter (onSearch)="searchPncs()" (pncSelected)="openPncHomePage($event)"></pnc-search-filter>
 </ion-header>
 
 <ion-content no-bounce>
     <div class="page-container">
-        <pnc-search-filter (onSearch)="searchPncs()" (pncSelected)="openPncHomePage($event)"></pnc-search-filter>
-
         <div class="filtered-pnc-list-container">
             <edossier-spinner *ngIf="searchInProgress"></edossier-spinner>
 
@@ -20,12 +19,10 @@
                 </pnc-card>
             </div>
 
-            <strong *ngIf="lastPageReached()"
-                class="no-data-found">{{ 'PNC_SEARCH.END_OF_SEARCH' | translate }}</strong>
+            <strong *ngIf="lastPageReached()" class="no-data-found">{{ 'PNC_SEARCH.END_OF_SEARCH' | translate }}</strong>
             <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
                 <ion-infinite-scroll-content></ion-infinite-scroll-content>
             </ion-infinite-scroll>
         </div>
-
     </div>
 </ion-content>

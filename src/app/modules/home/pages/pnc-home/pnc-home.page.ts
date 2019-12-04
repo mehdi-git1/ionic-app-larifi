@@ -106,10 +106,17 @@ export class PncHomePage {
     }
 
     /**
-     * Dirige vers les lettres de félicitation
+     * Dirige vers les lettres de félicitations
      */
     goToCongratulationLetters() {
         this.router.navigate(['congratulation-letter'], { relativeTo: this.activatedRoute });
+    }
+
+    /**
+     * Dirige vers les rédactions
+     */
+    goToRedactions() {
+        this.router.navigate(['redactions'], { relativeTo: this.activatedRoute });
     }
 
     /**

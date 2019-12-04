@@ -11,14 +11,14 @@
     <div class="page-container">
         <edossier-sprinner *ngIf="!pnc else displayLink"></edossier-sprinner>
         <ng-template #displayLink>
-            <ul class="regularity-requests-links" *ngIf="isweb && isConnected">
+            <ul class="link-list" *ngIf="isBrowser() && isConnected()">
                 <ng-container *ngIf="regularityLinks">
                     <li *ngFor="let link of regularityLinks" class="clickable" (click)="gotoLink(link.value)">
                         <ion-thumbnail>
                             <ion-icon name="link"></ion-icon>
                         </ion-thumbnail>
                         <div class="content">
-                            <h4>{{getTranslation(link.key)}}</h4>
+                            <h4>{{'REGULARITY_LABEL_LIST.' + link.key | translate }}</h4>
                         </div>
                     </li>
                 </ng-container>

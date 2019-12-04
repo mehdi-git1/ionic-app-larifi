@@ -30,7 +30,7 @@ export class GeneralitySkillsComponent implements OnInit {
   // Tableau des listes de START_DATE
   startDateArray: Array<string>;
 
-  // Tableau des listes de START_DATE
+  // Tableau des listes de DUE_DATE
   dueDateArray: Array<string>;
 
   constructor(public translateService: TranslateService
@@ -55,13 +55,25 @@ export class GeneralitySkillsComponent implements OnInit {
 
     this.skillTitleArray.push(this.translateService.instant('STATUTORY_CERTIFICATE.GENERALITY_SKILLS.PCB.TITLE'));
     this.startDateArray.push(_.get(this.generalitySkillsData, 'pcb.validityStartDate'));
-    this.startDateArray.push(StatutoryCertificateDisplayTypeEnum.NTBD);
     this.dueDateArray.push(_.get(this.generalitySkillsData, 'pcb.validityEndDate'));
 
     const pcbValidityStartDate = _.get(this.generalitySkillsData, 'pcb.validityStartDate');
     if (pcbValidityStartDate === undefined || !pcbValidityStartDate) {
       this.skillTitleArray.push(this.translateService.instant('STATUTORY_CERTIFICATE.GENERALITY_SKILLS.GENE.TITLE'));
+      this.startDateArray.push(StatutoryCertificateDisplayTypeEnum.NTBD);
       this.dueDateArray.push(_.get(this.generalitySkillsData, 'gene.dueDate'));
+    }
+
+    if (this.generalitySkillsData && this.generalitySkillsData.probationaryPeriodDate) {
+      this.skillTitleArray.push(this.translateService.instant('STATUTORY_CERTIFICATE.GENERALITY_SKILLS.PROBATIONARY_PERIOD_DATE.TITLE'));
+      this.startDateArray.push(_.get(this.generalitySkillsData, 'probationaryPeriodDate'));
+      this.dueDateArray.push(StatutoryCertificateDisplayTypeEnum.NTBD);
+    }
+
+    if (this.generalitySkillsData && this.generalitySkillsData.integrationStageDate) {
+      this.skillTitleArray.push(this.translateService.instant('STATUTORY_CERTIFICATE.GENERALITY_SKILLS.INTEGRATION_STAGE_DATE.TITLE'));
+      this.startDateArray.push(_.get(this.generalitySkillsData, 'integrationStageDate'));
+      this.dueDateArray.push(StatutoryCertificateDisplayTypeEnum.NTBD);
     }
 
     this.skillDisplayedData = {

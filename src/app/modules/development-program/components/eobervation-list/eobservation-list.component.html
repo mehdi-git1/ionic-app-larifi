@@ -1,0 +1,34 @@
+<h3>{{ 'CAREER_OBJECTIVE_LIST.EOBS_TITLE' | translate }}</h3>
+<div class="eobservation-creation-container" *ngIf="canCreateEObservation() && hasEObsTypeForm()">
+    <div class="info-container">
+        <label>{{ 'EOBSERVATION.NEW_EOBSERVATION_HEADER.FUNCTION' | translate }}</label>
+        <span>{{getFormatedSpeciality(pnc)}}</span>
+    </div>
+    <div class="info-container">
+        <label>{{ 'EOBSERVATION.NEW_EOBSERVATION_HEADER.TYPE' | translate }}</label>
+        <span [ngClass]="{'no-value' : !getEObsTextTypeEForm() }">{{getEObsTextTypeEForm()}}</span>
+    </div>
+    <div class="info-container">
+        <span>{{lastConsultedRotation.number}}</span>
+        <span>{{ lastConsultedRotation.departureDate | date: 'dd/MM/yyyy'}}</span>
+    </div>
+    <div class="add-container">
+        <button ion-button (click)="displayEObservationTypeSelection()" color="primary-dark" [hidden]="canDisplayMenu">
+            <ion-icon name="md-add" ios="md-add"></ion-icon>
+            <label>{{ 'EOBSERVATION.NEW_EOBSERVATION_HEADER.NEW' | translate }}</label>
+        </button>
+
+        <ion-select [hidden]="!canDisplayMenu" interface="popover" [placeholder]="eFormsList[0]" #optionValue (ionChange)="getEFormsTypeBeforeCreate(optionValue.value)">
+            <ion-option *ngFor="let eForm of eFormsList" [value]="eForm">{{eForm}}</ion-option>
+        </ion-select>
+    </div>
+</div>
+<div class="list-container">
+    <e-observations *ngIf="eObservations" [eObservations]="eObservations" (detailButtonClicked)="goToEObservationDetail($event)" [eObservationDisplayMode]="EObservationDisplayModeEnum.DEVELOPMENT_PROGRAM"></e-observations>
+    <div *hasPermission="'VIEW_EOBSERVATION_ARCHIVE'">
+        <div *ngIf="eObservations" class="information-message archives">
+            <span class="edospnc-archive"></span>
+            <a (click)="goToEobservationsArchives()">{{ 'EOBSERVATION.LIST.LINK.ARCHIVES' | translate }}</a>
+        </div>
+    </div>
+</div>
