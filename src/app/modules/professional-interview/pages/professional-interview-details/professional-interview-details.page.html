@@ -76,9 +76,12 @@
                                     <ion-textarea [(ngModel)]="themeItem.value" autocorrect="on" formControlName="{{themeItem.label}}">
                                     </ion-textarea>
                                 </ng-template>
+                                <div *ngIf="isWishSection(themeItem.key)">
+                                    <document-manager [documents]="professionalInterview.documents" [readonly]="!editionMode"></document-manager>
+                                </div>
                             </div>
                         </edospnc-expandable-block>
-                        <div class="comment-block" *ngIf="isPncComment(interviewTheme)">
+                        <div class=" comment-block" *ngIf="isPncComment(interviewTheme)">
                             <span *ngIf="professionalInterview?.pncSignatureDate">{{professionalInterview?.pncSignatureDate | date: 'dd/MM/yyyy' : 'UTC'}}</span>
                             <span>
                                 <span *ngIf="pnc?.lastName">

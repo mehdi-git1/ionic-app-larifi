@@ -1,3 +1,4 @@
+import { DocumentModel } from './../../../../core/models/document.model';
 import * as _ from 'lodash';
 
 import { DatePipe } from '@angular/common';
@@ -9,20 +10,20 @@ import { TranslateService } from '@ngx-translate/core';
 
 import { PncRoleEnum } from '../../../../core/enums/pnc-role.enum';
 import {
-    ProfessionalInterviewCommentItemTypeEnum
+  ProfessionalInterviewCommentItemTypeEnum
 } from '../../../../core/enums/professional-interview/professional-interview-comment-item-type.enum';
 import {
-    ProfessionalInterviewStateEnum
+  ProfessionalInterviewStateEnum
 } from '../../../../core/enums/professional-interview/professional-interview-state.enum';
 import {
-    ProfessionalInterviewTypeEnum
+  ProfessionalInterviewTypeEnum
 } from '../../../../core/enums/professional-interview/professional-interview-type.enum';
 import { PncModel } from '../../../../core/models/pnc.model';
 import {
-    ProfessionalInterviewThemeModel
+  ProfessionalInterviewThemeModel
 } from '../../../../core/models/professional-interview/professional-interview-theme.model';
 import {
-    ProfessionalInterviewModel
+  ProfessionalInterviewModel
 } from '../../../../core/models/professional-interview/professional-interview.model';
 import { ConnectivityService } from '../../../../core/services/connectivity/connectivity.service';
 import { DeviceService } from '../../../../core/services/device/device.service';
@@ -30,13 +31,13 @@ import { OfflinePncService } from '../../../../core/services/pnc/offline-pnc.ser
 import { PncTransformerService } from '../../../../core/services/pnc/pnc-transformer.service';
 import { PncService } from '../../../../core/services/pnc/pnc.service';
 import {
-    OfflineProfessionalInterviewService
+  OfflineProfessionalInterviewService
 } from '../../../../core/services/professional-interview/offline-professional-interview.service';
 import {
-    ProfessionalInterviewStatusService
+  ProfessionalInterviewStatusService
 } from '../../../../core/services/professional-interview/professional-interview-status.service';
 import {
-    ProfessionalInterviewService
+  ProfessionalInterviewService
 } from '../../../../core/services/professional-interview/professional-interview.service';
 import { SecurityService } from '../../../../core/services/security/security.service';
 import { SessionService } from '../../../../core/services/session/session.service';
@@ -187,11 +188,19 @@ export class ProfessionalInterviewDetailsPage {
   }
 
   /**
+   * 
+   * @param key 
+   */
+  isWishSection(key: string): boolean {
+    return (key === 'wish');
+  }
+  /**
    * Prépare un formulaire de création pour un nouveau bilan professionnel
    */
   createNewProfessionalInterview() {
     this.professionalInterview = _.cloneDeep(this.sessionService.getActiveUser().appInitData.blankProfessionalInterview);
     this.professionalInterview.type = ProfessionalInterviewTypeEnum.BILAN;
+    this.professionalInterview.documents = new Array<DocumentModel>();
     this.professionalInterview.professionalInterviewThemes.sort((a, b) => {
       return a.themeOrder > b.themeOrder ? 1 : -1;
     });
