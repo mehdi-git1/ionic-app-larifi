@@ -68,4 +68,18 @@ export class OnlineProfessionalInterviewService {
             });
         });
     }
+
+
+    /**
+     * Récupère les bilans professionnels rédigés
+     * @param matricule le matricule du rédacteur
+     * @return une promesse contenant les bilans professionnels rédigés
+     */
+    public findProfessionalInterviewsByRedactor(matricule: string): Promise<ProfessionalInterviewModel[]> {
+        return this.restService.get(this.config.getBackEndUrl('getProfessionalInterviewsByRedactorMatricule', [matricule])).then(
+            professionalInterviews => {
+                return this.universalTransformer.universalTransformObjectArray(ProfessionalInterviewModel, professionalInterviews);
+            }
+        );
+    }
 }

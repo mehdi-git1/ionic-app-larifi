@@ -1,3 +1,4 @@
+import { CareerObjectiveModule } from './modules/career-objective/career-objective.module';
 import { RedactionsModule } from './modules/redactions/redactions.module';
 import { RegularityModule } from './modules/regularity/pages/regularity/regularity.module';
 import { SimpleNotificationsModule } from 'angular2-notifications';
@@ -65,6 +66,7 @@ export function appInitFactory(appInitService: AppInitService) {
     }),
     HttpClientModule,
     AuthenticationModule,
+    CareerObjectiveModule,
     DevelopmentProgramModule,
     HomeModule,
     FlightActivityModule,

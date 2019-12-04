@@ -1,3 +1,4 @@
+import { CareerObjectiveDisplayModeEnum } from './../../../../core/enums/career-objective/career-objective-display-mode.enum';
 
 
 import { Component, Input } from '@angular/core';
@@ -16,6 +17,8 @@ export class CareerObjectivesComponent {
   matPanelHeaderHeight = '41px';
 
   @Input() careerObjectives: CareerObjectiveModel[];
+  @Input() displayMode: CareerObjectiveDisplayModeEnum;
+  CareerObjectiveDisplayModeEnum = CareerObjectiveDisplayModeEnum;
 
   constructor(
     private router: Router,
@@ -27,6 +30,6 @@ export class CareerObjectivesComponent {
    * @param careerObjective L'objectif à ouvrir
    */
   openCareerObjective(careerObjective: CareerObjectiveModel) {
-    this.router.navigate(['career-objective', 'create', careerObjective.techId], { relativeTo: this.activatedRoute });
+    this.router.navigate(['../career-objective', 'create', careerObjective.techId], { relativeTo: this.activatedRoute });
   }
 }

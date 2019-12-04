@@ -6,6 +6,8 @@ import {
     ProfessionalInterviewModel
 } from '../../../../core/models/professional-interview/professional-interview.model';
 import { SecurityService } from '../../../../core/services/security/security.service';
+import { ProfessionalInterviewDisplayModeEnum } from '../../../../core/enums/professional-interview/professional-interview-display-mode.enum';
+
 
 @Component({
     selector: 'professional-interview-list',
@@ -16,6 +18,8 @@ import { SecurityService } from '../../../../core/services/security/security.ser
 export class ProfessionalInterviewListComponent {
 
     @Input() professionalInterviews: ProfessionalInterviewModel[];
+    @Input() displayMode: ProfessionalInterviewDisplayModeEnum;
+    ProfessionalInterviewDisplayModeEnum = ProfessionalInterviewDisplayModeEnum;
 
     constructor(
         private router: Router,
@@ -27,14 +31,14 @@ export class ProfessionalInterviewListComponent {
      * Dirige vers la page de création d'un nouveau bilan professionnel
      */
     goToProfessionalInterviewCreation() {
-        this.router.navigate(['professional-interview', 'create'], { relativeTo: this.activatedRoute });
+        this.router.navigate(['../professional-interview', 'create'], { relativeTo: this.activatedRoute });
     }
 
     /**
      * Redirige vers la page des archives des bilans professionnels
      */
     goToProfessionalInterviewsArchives() {
-        this.router.navigate(['professional-interview', 'archive'], { relativeTo: this.activatedRoute });
+        this.router.navigate(['../professional-interview', 'archive'], { relativeTo: this.activatedRoute });
     }
 
     /**
@@ -42,7 +46,7 @@ export class ProfessionalInterviewListComponent {
      * @param professionalInterviewId l'id du bilan pro sélectionné
      */
     goToProfessionalInterviewDetail(professionalInterviewId) {
-        this.router.navigate(['professional-interview', 'detail', professionalInterviewId], { relativeTo: this.activatedRoute });
+        this.router.navigate(['../professional-interview', 'detail', professionalInterviewId], { relativeTo: this.activatedRoute });
     }
 
     /**

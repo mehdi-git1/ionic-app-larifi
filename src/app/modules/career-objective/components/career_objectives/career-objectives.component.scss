@@ -36,9 +36,11 @@ mat-expansion-panel {
         }
 
         .career-objective-title {
+            flex: 2;
+        }
+        .career-objective-pnc {
             flex: 1;
         }
-
         .career-objective-status {
             min-width: 140px;
         }

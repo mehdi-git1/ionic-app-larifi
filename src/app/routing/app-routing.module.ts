@@ -23,15 +23,11 @@ import {
 import {
     CongratulationLettersPage
 } from '../modules/congratulation-letter/pages/congratulation-letters/congratulation-letters.page';
-import {
-    CareerObjectiveCreatePage
-} from '../modules/development-program/pages/career-objective-create/career-objective-create.page';
+
 import {
     DevelopmentProgramPage
 } from '../modules/development-program/pages/development-program/development-program.page';
-import {
-    WaypointCreatePage
-} from '../modules/development-program/pages/waypoint-create/waypoint-create.page';
+
 import {
     EobservationDetailsPage
 } from '../modules/eobservation/pages/eobservation-details/eobservation-details.page';
@@ -105,6 +101,8 @@ import { HomeGuard } from './guards/home.guard';
 import { RealAdminGuard } from './guards/real-admin.guard';
 import { VisitEdossierRedirectionGuard } from './guards/visit-edossier-redirection.guard';
 import { VisitEdossierGuard } from './guards/visit-edossier.guard';
+import { CareerObjectiveCreatePage } from '../modules/career-objective/pages/career-objective-create/career-objective-create.page';
+import { WaypointCreatePage } from '../modules/career-objective/pages/waypoint-create/waypoint-create.page';
 
 const routes: Routes = [
   {
@@ -117,7 +115,12 @@ const routes: Routes = [
             path: 'professional-level', children: [
               { path: '', component: ProfessionalLevelPage },
               { path: 'evaluation-sheet/:moduleId', component: EvaluationSheetPage },
-              { path: 'not-validated-question', component: NotValidatedQuestionsPage }
+              { path: 'not-validated-question', component: NotValidatedQuestionsPage },
+              {
+                path: 'eobservation', children: [
+                  { path: 'detail/:eObservationId', component: EobservationDetailsPage, canDeactivate: [CanDeactivateGuard] }
+                ]
+              }
             ]
           },
           { path: 'statutory-certificate', component: StatutoryCertificatePage },
@@ -129,7 +132,37 @@ const routes: Routes = [
               { path: 'detail/:congratulationLetterId', component: CongratulationLetterDetailPage }
             ]
           },
-          { path: 'redactions', component: RedactionsPage }
+          { path: 'redactions', component: RedactionsPage },
+          { path: 'career-objective', children: [
+              { path: 'create/:careerObjectiveId', component: CareerObjectiveCreatePage, canDeactivate: [CanDeactivateGuard] },
+              {
+                path: 'waypoint', children: [
+                  { path: ':careerObjectiveId/:waypointId', component: WaypointCreatePage, canDeactivate: [CanDeactivateGuard] }
+                ]
+              }
+            ]
+          },
+          { path: 'eobservation', children: [
+              {
+                path: 'archive', children: [
+                  { path: '', component: EObservationsArchivesPage },
+                  { path: ':eObservationId', component: EobservationDetailsPage, canDeactivate: [CanDeactivateGuard] }
+                ]
+              },
+              { path: 'detail/:eObservationId', component: EobservationDetailsPage, canDeactivate: [CanDeactivateGuard] }
+            ]
+          },
+          { path: 'professional-interview', children: [
+              { path: 'create', component: ProfessionalInterviewDetailsPage, canDeactivate: [CanDeactivateGuard] },
+              { path: 'detail/:professionalInterviewId', component: ProfessionalInterviewDetailsPage, canDeactivate: [CanDeactivateGuard] },
+              {
+                path: 'archive', children: [
+                  { path: '', component: ProfessionalInterviewsArchivesPage },
+                  { path: ':professionalInterviewId', component: ProfessionalInterviewDetailsPage }
+                ]
+              }
+            ]
+          },
         ]
       },
       {
@@ -152,42 +185,38 @@ const routes: Routes = [
               { path: 'statutory-certificate/:selectedTab', component: StatutoryCertificatePage },
               { path: 'help-asset', component: HelpAssetListPage },
               { path: 'redactions', component: RedactionsPage },
+              { path: 'development-program', component: DevelopmentProgramPage},
               {
-                path: 'development-program', children: [
-                  { path: '', component: DevelopmentProgramPage },
+                path: 'career-objective', children: [
+                  { path: 'create/:careerObjectiveId', component: CareerObjectiveCreatePage, canDeactivate: [CanDeactivateGuard] },
                   {
-                    path: 'career-objective', children: [
-                      { path: 'create/:careerObjectiveId', component: CareerObjectiveCreatePage, canDeactivate: [CanDeactivateGuard] },
-                      {
-                        path: 'waypoint', children: [
-                          { path: ':careerObjectiveId/:waypointId', component: WaypointCreatePage, canDeactivate: [CanDeactivateGuard] }
-                        ]
-                      }
+                    path: 'waypoint', children: [
+                      { path: ':careerObjectiveId/:waypointId', component: WaypointCreatePage, canDeactivate: [CanDeactivateGuard] }
+                    ]
+                  }
+                ]
+              },
+              {
+                path: 'eobservation', children: [
+                  {
+                    path: 'archive', children: [
+                      { path: '', component: EObservationsArchivesPage },
+                      { path: ':eObservationId', component: EobservationDetailsPage, canDeactivate: [CanDeactivateGuard] }
                     ]
                   },
+                  { path: 'detail/:eObservationId', component: EobservationDetailsPage, canDeactivate: [CanDeactivateGuard] }
+                ]
+              },
+              {
+                path: 'professional-interview', children: [
+                  { path: 'create', component: ProfessionalInterviewDetailsPage, canDeactivate: [CanDeactivateGuard] },
+                  { path: 'detail/:professionalInterviewId', component: ProfessionalInterviewDetailsPage, canDeactivate: [CanDeactivateGuard] },
                   {
-                    path: 'eobservation', children: [
-                      {
-                        path: 'archive', children: [
-                          { path: '', component: EObservationsArchivesPage },
-                          { path: ':eObservationId', component: EobservationDetailsPage, canDeactivate: [CanDeactivateGuard] }
-                        ]
-                      },
-                      { path: 'detail/:eObservationId', component: EobservationDetailsPage, canDeactivate: [CanDeactivateGuard] }
+                    path: 'archive', children: [
+                      { path: '', component: ProfessionalInterviewsArchivesPage },
+                      { path: ':professionalInterviewId', component: ProfessionalInterviewDetailsPage }
                     ]
-                  },
-                  {
-                    path: 'professional-interview', children: [
-                      { path: 'create', component: ProfessionalInterviewDetailsPage, canDeactivate: [CanDeactivateGuard] },
-                      { path: 'detail/:professionalInterviewId', component: ProfessionalInterviewDetailsPage, canDeactivate: [CanDeactivateGuard] },
-                      {
-                        path: 'archive', children: [
-                          { path: '', component: ProfessionalInterviewsArchivesPage },
-                          { path: ':professionalInterviewId', component: ProfessionalInterviewDetailsPage }
-                        ]
-                      }
-                    ]
-                  },
+                  }
                 ]
               },
               {
@@ -253,29 +282,24 @@ const routes: Routes = [
   { path: 'unsupported-navigator', component: UnsupportedNavigatorMessagePage },
   { path: 'generic-message', component: GenericMessagePage },
   { path: 'authentication', component: AuthenticationPage },
-  {
-    path: 'development-program', children: [
-      { path: '', component: DevelopmentProgramPage },
+  { path: 'development-program', component: DevelopmentProgramPage },
+  { path: 'career-objective', children: [
+      { path: 'create/:careerObjectiveId', component: CareerObjectiveCreatePage, canDeactivate: [CanDeactivateGuard] },
       {
-        path: 'career-objective', children: [
-          { path: 'create/:careerObjectiveId', component: CareerObjectiveCreatePage, canDeactivate: [CanDeactivateGuard] },
-          {
-            path: 'waypoint', children: [
-              { path: ':careerObjectiveId/:waypointId', component: WaypointCreatePage, canDeactivate: [CanDeactivateGuard] }
-            ]
-          }
-        ]
-      },
-      {
-        path: 'eobservation', children: [
-          { path: 'detail/:eObservationId', component: EobservationDetailsPage }
-        ]
-      },
-      {
-        path: 'professional-interview', children: [
-          { path: 'detail/:professionalInterviewId', component: ProfessionalInterviewDetailsPage }
+        path: 'waypoint', children: [
+          { path: ':careerObjectiveId/:waypointId', component: WaypointCreatePage, canDeactivate: [CanDeactivateGuard] }
         ]
       }
+    ]
+  },
+  {
+    path: 'eobservation', children: [
+      { path: 'detail/:eObservationId', component: EobservationDetailsPage }
+    ]
+  },
+  {
+    path: 'professional-interview', children: [
+      { path: 'detail/:professionalInterviewId', component: ProfessionalInterviewDetailsPage }
     ]
   },
   {

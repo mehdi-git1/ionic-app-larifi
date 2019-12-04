@@ -1,3 +1,4 @@
+import { ProfessionalInterviewDisplayModeEnum } from './../../../../core/enums/professional-interview/professional-interview-display-mode.enum';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 import {
@@ -18,6 +19,8 @@ export class ProfessionalInterviewComponent {
   matPanelHeaderHeight = 'auto';
 
   @Input() professionalInterview: ProfessionalInterviewModel;
+  @Input() displayMode: ProfessionalInterviewDisplayModeEnum;
+  ProfessionalInterviewDisplayModeEnum = ProfessionalInterviewDisplayModeEnum;
 
   @Output() detailButtonClicked = new EventEmitter();
 

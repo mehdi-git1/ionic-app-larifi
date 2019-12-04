@@ -34,8 +34,8 @@ export class EObservationListComponent {
 
     formsInputParam: FormsInputParamsModel;
 
+    @Input() eObservationDisplayMode: EObservationDisplayModeEnum;
     EObservationDisplayModeEnum = EObservationDisplayModeEnum;
-
     // Liste des eForms possible
     eFormsList = [];
 
@@ -70,14 +70,14 @@ export class EObservationListComponent {
      * @param eObservationId l'id de l'observation vers laquelle on souhaite naviguer
      */
     goToEObservationDetail(eObservationId) {
-        this.router.navigate(['eobservation', 'detail', eObservationId], { relativeTo: this.activatedRoute });
+        this.router.navigate(['../eobservation', 'detail', eObservationId], { relativeTo: this.activatedRoute });
     }
 
     /**
      * Redirige vers la page des archives des eObservations
      */
     goToEobservationsArchives() {
-        this.router.navigate(['eobservation', 'archive'], { relativeTo: this.activatedRoute });
+        this.router.navigate(['../eobservation', 'archive'], { relativeTo: this.activatedRoute });
     }
 
     /**
@@ -93,7 +93,7 @@ export class EObservationListComponent {
      * @return true si il est géré, sinon false
      */
     hasEObsTypeForm(): boolean {
-        return this.getEObsTextTypeEForm() != undefined;
+        return this.getEObsTextTypeEForm() !== undefined;
     }
 
     /**
@@ -101,7 +101,7 @@ export class EObservationListComponent {
      */
     displayEObservationTypeSelection() {
         const typeOfEForms = this.getEObsTextTypeEForm();
-        if (typeOfEForms.indexOf('/') == -1) {
+        if (typeOfEForms.indexOf('/') === -1) {
             this.chosenEFormsType = EFormsTypeEnum.getType(EFormsTypeEnum[typeOfEForms.trim()]);
             this.createEObservation();
         } else {

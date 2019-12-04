@@ -76,4 +76,12 @@ export class ProfessionalInterviewService extends BaseService {
         return this.execFunctionService('delete', id);
     }
 
+    /**
+     * Récupère les bilans professionnels rédigés
+     * @param matricule le matricule du rédacteur
+     * @return une promesse contenant les bilans professionnels rédigés
+     */
+    public findProfessionalInterviewsByRedactor(matricule: string): Promise<ProfessionalInterviewModel[]> {
+        return this.onlineProfessionalInterviewService.findProfessionalInterviewsByRedactor(matricule);
+    }
 }

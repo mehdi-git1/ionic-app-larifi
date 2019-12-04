@@ -95,4 +95,8 @@ export class EObservationService extends BaseService {
     public getEObservation(id: number): Promise<EObservationModel> {
         return this.execFunctionService('getEObservation', id);
     }
+
+    public findEObservationsByRedactor(matricule: string) {
+        return this.onlineEObservationService.findEObservationsByRedactor(matricule);
+    }
 }
