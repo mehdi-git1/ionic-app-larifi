@@ -362,6 +362,7 @@ const routes: Routes = [
   { path: 'statutory-certificate', component: StatutoryCertificatePage },
   { path: 'statutory-certificate/:selectedTab', component: StatutoryCertificatePage },
   { path: 'redactions', component: RedactionsPage },
+  { path: 'pnc-search/:mode', component: PncSearchPage },
   { path: 'help-asset', component: HelpAssetListPage },
   { path: 'regularity', component: RegularityPage },
   { path: 'settings', component: SettingsPage },
