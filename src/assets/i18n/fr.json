@@ -67,7 +67,6 @@
         "PROFESSIONAL_INTERVIEWS_ARCHIVES": "Archives de bilans professionnels / EPP",
         "MY_PROFESSIONAL_INTERVIEWS_ARCHIVES": "Mes archives de bilans professionnels / EPP",
         "HR_DOCUMENT": "Documents RH",
-        "REGULARITY": "Régularité",
         "MY_HR_DOCUMENT": "Mes documents RH",
         "REDACTIONS": "Rédactions",
         "MY_REDACTIONS": "Mes rédactions",
@@ -287,6 +286,11 @@
         "LAST_FLIGHTS": "Mes derniers vols",
         "UPCOMING_FLIGHTS": "Mes prochains vols",
         "NO_FLIGHTS": "Aucun vol trouvé"
+    },
+    "ACTIVITY": {
+        "REGULARITY": "Régularité",
+        "MILESTONE": "Jalons",
+        "TITLE": "Activités"
     },
     "STATUTORY_CERTIFICATE": {
         "TITLE": "Profil PNC",
