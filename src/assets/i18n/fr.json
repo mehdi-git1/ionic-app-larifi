@@ -400,10 +400,14 @@
                 "DOMINO_CABIN_REPORT_HISTORY_LINK": "Historique des Cabin Report",
                 "EDITO_WORKSTATIONS_HISTORY_LINK": "Historique des postes occupés à bord",
                 "CIRCUITPN_DISTRIBUTED_OBJECTS_HISTORY_LINK": "Historique des objets distribués"
+            },
+            "ERROR": {
+                "STATUTORY_CERTIFICATE": "Erreur lors de la récupération du profil PNC pour le matricule {{ matricule }}"
             }
         },
-        "ERROR": {
-            "STATUTORY_CERTIFICATE": "Erreur lors de la récupération du profil PNC pour le matricule {{ matricule }}"
+        "CONTACT": {
+            "TITLE": "Contact",
+            "CONTACT_PN_LINK": "Consulter la fiche dans ContactPN"
         }
     },
     "PROFESSIONAL_INTERVIEW": {

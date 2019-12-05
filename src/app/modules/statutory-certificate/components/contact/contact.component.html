@@ -1,0 +1,20 @@
+<ul class="link-list">
+    <li *ngFor="let phoneNumber of phoneNumbers">
+        <ion-thumbnail>
+            <ion-icon name="call"></ion-icon>
+        </ion-thumbnail>
+        <div class="content">
+            <h4>{{ phoneNumber }}</h4>
+        </div>
+    </li>
+
+    <li *ngIf="isManager() && isBrowser()" (click)="goToLink(contactPNLink.value)" class="clickable">
+        <ion-thumbnail>
+            <ion-icon name="link"></ion-icon>
+        </ion-thumbnail>
+        <div class="content">
+            <h4>{{'STATUTORY_CERTIFICATE.CONTACT.CONTACT_PN_LINK' | translate }}
+            </h4>
+        </div>
+    </li>
+</ul>

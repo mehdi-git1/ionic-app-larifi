@@ -4,6 +4,7 @@ import { IonicModule } from '@ionic/angular';
 import { ComponentsModule } from '../../shared/components/components.module';
 import { SharedModule } from '../../shared/shared.module';
 import { CareerHistoryComponent } from './components/career-history/career-history.component';
+import { ContactComponent } from './components/contact/contact.component';
 import {
     FamiliarizationFlightComponent
 } from './components/familiarization-flight/familiarization-flight.component';
@@ -41,7 +42,8 @@ import { StatutoryCertificatePage } from './pages/statutory-certificate/statutor
     TravelDocumentsComponent,
     CareerHistoryComponent,
     StatutoryCertificateComponent,
-    HistoryComponent
+    HistoryComponent,
+    ContactComponent
   ],
   imports: [
     IonicModule,
