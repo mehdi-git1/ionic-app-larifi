@@ -48,6 +48,7 @@
         "MY_HELP_CENTER": "Mes ressources d'aide",
         "PNC_TEAM": "Effectif PNC",
         "MY_PNC_TEAM": "Mon effectif PNC",
+        "ALTERNANT_TEAM": "Effectif Alternants",
         "UPCOMING_FLIGHT": "Activité vols",
         "MY_UPCOMING_FLIGHT": "Mon activité vols",
         "CREW_MEMBERS": "Liste équipage",
@@ -384,7 +385,7 @@
                 "EFFECTIVE_DATE": "Date effet",
                 "EVENT": "Evènement",
                 "NATURE": "Nature",
-                "COMPANY_ENTRANCE_DATE" : "Date entrée Cie"
+                "COMPANY_ENTRANCE_DATE": "Date entrée Cie"
             },
             "EXAM_DATE": {
                 "TITLE": "Examen",
@@ -648,8 +649,6 @@
         }
     },
     "PNC_SEARCH": {
-        "TITLE": "Recherche PNC",
-        "MY_TITLE": "Ma recherche PNC",
         "NO_CONNEXION_MESSAGE": "* Filtres inactifs hors connexion",
         "CRITERIA": {
             "FILTERS": "Filtres",
@@ -945,9 +944,9 @@
             "MODIFY": "Modifier"
         }
     },
-    "REDACTIONS" : {
-        "EFORMS_WRITTEN" : "Formulaires de retours d'expérience rédigés",
-        "CABIN_REPORTS_WRITTEN" : "Cabin Reports rédigés"
+    "REDACTIONS": {
+        "EFORMS_WRITTEN": "Formulaires de retours d'expérience rédigés",
+        "CABIN_REPORTS_WRITTEN": "Cabin Reports rédigés"
     },
     "SYNCHRONIZATION": {
         "PNC_SAVED_OFFLINE": "Le PNC {{ matricule }} a été synchronisé",

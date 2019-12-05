@@ -7,16 +7,12 @@ import { SharedModule } from '../../shared/shared.module';
 import {
     PncSearchFilterComponent
 } from './components/pnc-search-filter/pnc-search-filter.component';
-import {
-    PriorityDropdownListComponent
-} from './components/priority-dropdown-list/priority-dropdown-list.component';
 import { PncSearchPage } from './pages/pnc-search/pnc-search.page';
 
 @NgModule({
   declarations: [
     PncSearchPage,
     PncSearchFilterComponent,
-    PriorityDropdownListComponent
   ],
   imports: [
     IonicModule,
@@ -27,11 +23,9 @@ import { PncSearchPage } from './pages/pnc-search/pnc-search.page';
   ],
   entryComponents: [
     PncSearchPage,
-    PriorityDropdownListComponent
   ],
   exports: [
     PncSearchPage,
-    PriorityDropdownListComponent
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA

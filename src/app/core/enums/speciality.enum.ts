@@ -6,5 +6,6 @@ export enum SpecialityEnum {
   CCT = 'CCT',
   HOT = 'HOT',
   STW = 'STW',
-  SAI = 'SAI'
+  SAI = 'SAI',
+  ALT = 'ALT'
 }
