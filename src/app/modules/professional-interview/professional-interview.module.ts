@@ -15,13 +15,15 @@ import {
 import {
     ProfessionalInterviewsArchivesPage
 } from './pages/professional-interviews-archives/professional-interviews-archives.page';
+import { ProfessionalInterviewListComponent } from './components/professional-interview-list/professional-interview-list.component';
 
 @NgModule({
   declarations: [
     ProfessionalInterviewDetailsPage,
     ProfessionalInterviewsArchivesPage,
     ProfessionalInterviewComponent,
-    ProfessionalInterviewsComponent
+    ProfessionalInterviewsComponent,
+    ProfessionalInterviewListComponent
   ],
   imports: [
     IonicModule,
@@ -32,13 +34,15 @@ import {
     ProfessionalInterviewDetailsPage,
     ProfessionalInterviewsArchivesPage,
     ProfessionalInterviewComponent,
-    ProfessionalInterviewsComponent
+    ProfessionalInterviewsComponent,
+    ProfessionalInterviewListComponent
   ],
   exports: [
     ProfessionalInterviewDetailsPage,
     ProfessionalInterviewsArchivesPage,
     ProfessionalInterviewComponent,
-    ProfessionalInterviewsComponent
+    ProfessionalInterviewsComponent,
+    ProfessionalInterviewListComponent
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA

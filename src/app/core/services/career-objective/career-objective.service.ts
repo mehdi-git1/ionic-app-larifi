@@ -58,21 +58,30 @@ export class CareerObjectiveService extends BaseService {
   }
 
   /**
-  * Récupère un objectif
-  * @param id l'id de l'objectif à récupérer
-  * @return l'objectif récupéré
-  */
+   * Récupère un objectif
+   * @param id l'id de l'objectif à récupérer
+   * @return l'objectif récupéré
+   */
   getCareerObjective(id: number): Promise<CareerObjectiveModel> {
     return this.execFunctionService('getCareerObjective', id);
   }
 
   /**
-  * Supprime un objectif
-  * @param id l'id de l'objectif à supprimer
-  * @return l'objectif supprimé
-  */
+   * Supprime un objectif
+   * @param id l'id de l'objectif à supprimer
+   * @return l'objectif supprimé
+   */
   delete(id: number): Promise<CareerObjectiveModel> {
     return this.execFunctionService('delete', id);
+  }
+
+  /**
+   * Récupère les priorités rédigées
+   * @param matricule matricule du rédacteur
+   * @return la liste des priorités rédigées
+   */
+  public findCareerObjectivesByRedactor(matricule: string) {
+    return this.onlineCareerObjectiveService.findCareerObjectivesByRedactor(matricule);
   }
 
 }

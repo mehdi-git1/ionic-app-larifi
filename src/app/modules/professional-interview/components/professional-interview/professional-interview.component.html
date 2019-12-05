@@ -1,19 +1,21 @@
 <mat-expansion-panel *ngIf="professionalInterview" class="elevation-1" [disabled]="true">
-    <mat-expansion-panel-header class="professional-interview" [expandedHeight]="matPanelHeaderHeight"
-        [collapsedHeight]="matPanelHeaderHeight" hideToggle="true">
-        <label
-            class="flex3">{{professionalInterview.annualProfessionalInterviewDate | date : 'dd/MM/yyyy' : 'UTC'}}</label>
+    <mat-expansion-panel-header class="professional-interview" [expandedHeight]="matPanelHeaderHeight" [collapsedHeight]="matPanelHeaderHeight" hideToggle="true">
+        <label class="flex3">{{professionalInterview.annualProfessionalInterviewDate | date : 'dd/MM/yyyy' : 'UTC'}}</label>
         <label class="flex align-center flex3">
             <color-status-point [colorClass]="getColorStatusPoint()">
             </color-status-point>
             {{ 'PROFESSIONAL_INTERVIEW.DETAILS.STATE.' + professionalInterview?.state | translateOrEmpty }}
         </label>
         <label class="flex4">
-            <span *ngIf="professionalInterview.instructor?.lastName">{{professionalInterview.instructor.lastName}} <span
+            <span *ngIf="displayMode !== ProfessionalInterviewDisplayModeEnum.REDACTIONS && professionalInterview.instructor?.lastName">{{professionalInterview.instructor.lastName}} <span
                     class="firstname">{{professionalInterview.instructor.firstName}}</span></span>
+            <span *ngIf="displayMode === ProfessionalInterviewDisplayModeEnum.REDACTIONS && professionalInterview.pncAtInterviewDate?.lastName">{{professionalInterview.pncAtInterviewDate.lastName}} <span
+                class="firstname">{{professionalInterview.pncAtInterviewDate.firstName}}</span></span>
         </label>
-        <label
-            class="flex3">{{ 'PROFESSIONAL_INTERVIEW.DETAILS.TYPE.' + professionalInterview?.type | translateOrEmpty }}</label>
+        <label class="flex3">{{ 'PROFESSIONAL_INTERVIEW.DETAILS.TYPE.' + professionalInterview?.type | translateOrEmpty }}
+            <ion-icon class="attach-icon" name="attach" *ngIf="professionalInterview?.documents.length > 0"></ion-icon>
+        </label>
+
         <div class="button-detail">
             <ion-fab-button size="small" color="primary" (click)="goToProfessionalInterviewDetail($event)">
                 <span class="edospnc-memo"></span>

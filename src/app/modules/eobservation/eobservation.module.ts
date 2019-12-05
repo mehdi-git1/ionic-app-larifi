@@ -1,3 +1,5 @@
+import { EObservationListComponent } from './components/eobservation-list/eobservation-list.component';
+
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
@@ -50,7 +52,8 @@ import {
     EObsAppreciationComponent,
     EobsItemDescriptionComponent,
     EobservationDetailsPage,
-    EObservationsArchivesPage
+    EObservationsArchivesPage,
+    EObservationListComponent
   ],
   imports: [
     IonicModule,
@@ -61,7 +64,8 @@ import {
   entryComponents: [
     EobservationDetailsPage,
     EobsItemDescriptionComponent,
-    EObservationsArchivesPage
+    EObservationsArchivesPage,
+    EObservationListComponent
   ],
   exports: [
     EObservationComponent,
@@ -79,8 +83,8 @@ import {
     EObsAppreciationComponent,
     EobsItemDescriptionComponent,
     EobservationDetailsPage,
-    EObservationsArchivesPage
-
+    EObservationsArchivesPage,
+    EObservationListComponent
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA

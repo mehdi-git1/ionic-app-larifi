@@ -12,7 +12,7 @@ import { DeviceService } from '../../../../core/services/device/device.service';
 import { PncService } from '../../../../core/services/pnc/pnc.service';
 
 @Component({
-  selector: 'regularity',
+  selector: 'page-regularity',
   templateUrl: './regularity.page.html',
   styleUrls: ['./regularity.page.scss'],
 })

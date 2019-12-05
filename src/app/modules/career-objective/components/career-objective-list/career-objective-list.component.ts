@@ -1,3 +1,4 @@
+import { CareerObjectiveDisplayModeEnum } from './../../../../core/enums/career-objective/career-objective-display-mode.enum';
 import { Component, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -13,6 +14,8 @@ import { PncService } from '../../../../core/services/pnc/pnc.service';
 export class CareerObjectiveListComponent {
 
   @Input() careerObjectives: CareerObjectiveModel[];
+  @Input() displayMode: CareerObjectiveDisplayModeEnum;
+  CareerObjectiveDisplayModeEnum = CareerObjectiveDisplayModeEnum;
 
   constructor(
     private router: Router,

@@ -203,7 +203,8 @@
             "TITLE": "Libellé priorité",
             "ENCOUNTER_DATE": "Fixée le",
             "NEXT_ENCOUNTER_DATE": "Rappel",
-            "STATUS": "Statut"
+            "STATUS": "Statut",
+            "PNC": "PNC"
         },
         "BUTTONS": {
             "ADD_CAREER_OBJECTIVE": "Nouvelle priorité"
@@ -419,7 +420,8 @@
                 "INTERVIEW_DATE": "Date de réalisation",
                 "STATUS": "Statut en cours",
                 "REDACTOR": "Rédacteur",
-                "INTERVIEW_TYPE": "Type d'entretien"
+                "INTERVIEW_TYPE": "Type d'entretien",
+                "PNC": "PNC"
             },
             "LEGEND": "derniers BP / EPP réalisés",
             "LINK": {
@@ -488,7 +490,8 @@
             "HEADER": {
                 "ROTATION_DATE": "Date de réalisation",
                 "TYPE": "Type eObservation",
-                "REDACTOR": "Rédacteur"
+                "REDACTOR": "Rédacteur",
+                "PNC": "PNC"
             },
             "LEGEND": {
                 "LESS_THAN_3_YEARS": "eObservations réalisées sur les 3 dernières années",
@@ -682,9 +685,9 @@
         "REINIT_FILTERS": "Réinitialiser la recherche"
     },
     "REGULARITY_LABEL_LIST": {
-        "SCHEDULED_AND_DONE": "Consulter planning prévu et réalisé",
-        "WORK_ACCIDENT_AND_WORK_PERIOD": "Consulter la liste des accidents de travail et des périodes de travail au sol sur 36 mois glissants",
-        "ABSENCES_AND_LATENESS": "Consulter la liste des absences et retards sur 36 mois glissants"
+        "SCHEDULED_AND_DONE": "Planning prévu et réalisé",
+        "WORK_ACCIDENT_AND_WORK_PERIOD": "Liste des accidents de travail et des périodes de travail au sol sur 36 mois glissants",
+        "ABSENCES_AND_LATENESS": "Liste des absences et retards sur 36 mois glissants"
     },
     "HELP_ASSET_LIST": {
         "WEB_HELP_ASSET": "Ressources web",
@@ -944,9 +947,17 @@
             "MODIFY": "Modifier"
         }
     },
+<<<<<<< HEAD
     "REDACTIONS": {
         "EFORMS_WRITTEN": "Formulaires de retours d'expérience rédigés",
         "CABIN_REPORTS_WRITTEN": "Cabin Reports rédigés"
+=======
+    "REDACTIONS" : {
+        "REDACTIONS_TITLE": "Rédactions des 24 derniers mois",
+        "LINKS_TITLE": "Liens de consultation",
+        "EFORMS_WRITTEN" : "Formulaires de retours d'expérience rédigés",
+        "CABIN_REPORTS_WRITTEN" : "Cabin Reports rédigés"
+>>>>>>> origin/release/2.0.0
     },
     "SYNCHRONIZATION": {
         "PNC_SAVED_OFFLINE": "Le PNC {{ matricule }} a été synchronisé",

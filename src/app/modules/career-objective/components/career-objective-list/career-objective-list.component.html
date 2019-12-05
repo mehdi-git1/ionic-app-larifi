@@ -1,11 +1,11 @@
 <h3>
     {{ 'CAREER_OBJECTIVE_LIST.CAREER_OBJECTIVE_TITLE' | translate }}
-    <ion-button (click)="goToCareerObjectiveCreation()" color="primarylight">
+    <ion-button *ngIf="displayMode !== CareerObjectiveDisplayModeEnum.REDACTIONS" (click)="goToCareerObjectiveCreation()" color="primarylight">
         <ion-icon name="add" ios="md-add"></ion-icon>
         <label>{{ 'CAREER_OBJECTIVE_LIST.BUTTONS.ADD_CAREER_OBJECTIVE' | translate }}</label>
     </ion-button>
 </h3>
 <div class="list-container">
-    <career-objectives *ngIf="careerObjectives" [careerObjectives]="careerObjectives">
+    <career-objectives *ngIf="careerObjectives" [careerObjectives]="careerObjectives" [displayMode]="displayMode">
     </career-objectives>
 </div>

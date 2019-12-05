@@ -85,4 +85,12 @@ export class OnlineCareerObjectiveService {
     return this.restService.delete(this.config.getBackEndUrl('deleteCareerObjectivesById', [id]));
   }
 
+  /**
+   * Récupère les priorités rédigées
+   * @param matricule matricule du rédacteur
+   * @return la liste des priorités rédigées
+   */
+  public findCareerObjectivesByRedactor(matricule: string): Promise<CareerObjectiveModel[]> {
+    return this.restService.get(this.config.getBackEndUrl('getCareerObjectivesByRedactor', [matricule]));
+  }
 }

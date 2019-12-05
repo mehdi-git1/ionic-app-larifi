@@ -1,3 +1,6 @@
+import { CareerObjectiveModule } from './../career-objective/career-objective.module';
+import { ProfessionalInterviewModule } from './../professional-interview/professional-interview.module';
+import { EObservationModule } from './../eobservation/eobservation.module';
 import { RedactionsPage } from './pages/redactions.page';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
@@ -15,7 +18,10 @@ import { SharedModule } from '../../shared/shared.module';
   imports: [
     IonicModule,
     SharedModule,
-    ComponentsModule
+    ComponentsModule,
+    EObservationModule,
+    ProfessionalInterviewModule,
+    CareerObjectiveModule
   ],
   entryComponents: [
     RedactionsPage
