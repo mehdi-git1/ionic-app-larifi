@@ -621,7 +621,7 @@ export class ProfessionalInterviewDetailsPage {
     return (this.professionalInterview.state === ProfessionalInterviewStateEnum.NOT_TAKEN_INTO_ACCOUNT
       || this.professionalInterview.state === ProfessionalInterviewStateEnum.TAKEN_INTO_ACCOUNT
       || this.professionalInterview.state === ProfessionalInterviewStateEnum.CONSULTED)
-      && (this.sessionService.getActiveUser().matricule === this.professionalInterview.instructor.matricule
+      && (this.sessionService.getActiveUser().matricule === this.professionalInterview.redactor.matricule
         || this.securityService.isProfessionalInterviewAdmin());
   }
 
