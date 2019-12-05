@@ -1,3 +1,4 @@
+import { CareerObjectiveModule } from './../career-objective/career-objective.module';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
@@ -8,35 +9,12 @@ import { EObservationModule } from '../eobservation/eobservation.module';
 import {
     ProfessionalInterviewModule
 } from '../professional-interview/professional-interview.module';
-import {
-    CareerObjectiveListComponent
-} from './components/career-objective-list/career-objective-list.component';
-import { CareerObjectiveComponent } from './components/career-objective/career-objective.component';
-import {
-    CareerObjectivesComponent
-} from './components/career_objectives/career-objectives.component';
-import {
-    EObservationListComponent
-} from './components/eobervation-list/eobservation-list.component';
-import {
-    ProfessionalInterviewListComponent
-} from './components/professional-interview-list/professional-interview-list.component';
-import {
-    CareerObjectiveCreatePage
-} from './pages/career-objective-create/career-objective-create.page';
 import { DevelopmentProgramPage } from './pages/development-program/development-program.page';
-import { WaypointCreatePage } from './pages/waypoint-create/waypoint-create.page';
+
 
 @NgModule({
   declarations: [
-    WaypointCreatePage,
-    DevelopmentProgramPage,
-    ProfessionalInterviewListComponent,
-    EObservationListComponent,
-    CareerObjectiveListComponent,
-    CareerObjectiveCreatePage,
-    CareerObjectiveComponent,
-    CareerObjectivesComponent
+    DevelopmentProgramPage
   ],
   imports: [
     IonicModule,
@@ -44,12 +22,11 @@ import { WaypointCreatePage } from './pages/waypoint-create/waypoint-create.page
     ComponentsModule,
     EObservationModule,
     ProfessionalInterviewModule,
+    CareerObjectiveModule,
     FormsModule,
     ReactiveFormsModule
   ],
   entryComponents: [
-    WaypointCreatePage,
-    CareerObjectiveCreatePage
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA

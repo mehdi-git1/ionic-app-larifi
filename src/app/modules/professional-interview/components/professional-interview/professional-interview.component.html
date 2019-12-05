@@ -7,7 +7,10 @@
             {{ 'PROFESSIONAL_INTERVIEW.DETAILS.STATE.' + professionalInterview?.state | translateOrEmpty }}
         </label>
         <label class="flex4">
-            <span *ngIf="professionalInterview.instructor?.lastName">{{professionalInterview.instructor.lastName}} <span class="firstname">{{professionalInterview.instructor.firstName}}</span></span>
+            <span *ngIf="displayMode !== ProfessionalInterviewDisplayModeEnum.REDACTIONS && professionalInterview.instructor?.lastName">{{professionalInterview.instructor.lastName}} <span
+                    class="firstname">{{professionalInterview.instructor.firstName}}</span></span>
+            <span *ngIf="displayMode === ProfessionalInterviewDisplayModeEnum.REDACTIONS && professionalInterview.pncAtInterviewDate?.lastName">{{professionalInterview.pncAtInterviewDate.lastName}} <span
+                class="firstname">{{professionalInterview.pncAtInterviewDate.firstName}}</span></span>
         </label>
         <label class="flex3">{{ 'PROFESSIONAL_INTERVIEW.DETAILS.TYPE.' + professionalInterview?.type | translateOrEmpty }}
             <ion-icon class="attach-icon" name="attach" *ngIf="professionalInterview?.documents.length > 0"></ion-icon>

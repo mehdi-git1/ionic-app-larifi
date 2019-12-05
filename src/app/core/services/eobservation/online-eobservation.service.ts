@@ -64,4 +64,13 @@ export class OnlineEObservationService {
         return this.restService.get(this.config.getBackEndUrl('getEObservationById', [id]));
     }
 
+    /**
+     * Récupère les EObservations rédigés
+     * @param matricule le matricule du rédacteur
+     * @return une promesse contenant les EObservations rédigées
+     */
+    public findEObservationsByRedactor(matricule: string) {
+        return this.restServiceGetEObservations('getEObservationsByRedactorMatricule', matricule);
+    }
+
 }
