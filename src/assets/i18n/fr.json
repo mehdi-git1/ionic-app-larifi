@@ -947,17 +947,11 @@
             "MODIFY": "Modifier"
         }
     },
-<<<<<<< HEAD
     "REDACTIONS": {
-        "EFORMS_WRITTEN": "Formulaires de retours d'expérience rédigés",
-        "CABIN_REPORTS_WRITTEN": "Cabin Reports rédigés"
-=======
-    "REDACTIONS" : {
         "REDACTIONS_TITLE": "Rédactions des 24 derniers mois",
         "LINKS_TITLE": "Liens de consultation",
-        "EFORMS_WRITTEN" : "Formulaires de retours d'expérience rédigés",
-        "CABIN_REPORTS_WRITTEN" : "Cabin Reports rédigés"
->>>>>>> origin/release/2.0.0
+        "EFORMS_WRITTEN": "Formulaires de retours d'expérience rédigés",
+        "CABIN_REPORTS_WRITTEN": "Cabin Reports rédigés"
     },
     "SYNCHRONIZATION": {
         "PNC_SAVED_OFFLINE": "Le PNC {{ matricule }} a été synchronisé",
