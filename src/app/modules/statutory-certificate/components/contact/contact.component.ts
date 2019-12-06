@@ -27,7 +27,9 @@ export class ContactComponent implements OnInit {
 
     ngOnInit() {
         this.contactPNLink = this.sessionService.getActiveUser().appInitData.contactPNLink;
-        this.phoneNumbers = this.pnc.phoneNumber.split(';');
+        if (this.pnc.phoneNumber) {
+            this.phoneNumbers = this.pnc.phoneNumber.split(';');
+        }
     }
 
     /**
