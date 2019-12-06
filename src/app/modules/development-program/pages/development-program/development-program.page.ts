@@ -4,6 +4,7 @@ import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { AppConstant } from '../../../../app.constant';
+import { PermissionConstant } from '../../../../core/constants/permission.constant';
 import {
     EObservationDisplayModeEnum
 } from '../../../../core/enums/eobservation/eobservation-display-mode.enum';
@@ -19,6 +20,9 @@ import {
     ProfessionalInterviewModel
 } from '../../../../core/models/professional-interview/professional-interview.model';
 import { RotationModel } from '../../../../core/models/rotation.model';
+import {
+    AuthorizationService
+} from '../../../../core/services/authorization/authorization.service';
 import {
     CareerObjectiveService
 } from '../../../../core/services/career-objective/career-objective.service';
@@ -70,10 +74,11 @@ export class DevelopmentProgramPage {
         private professionalInterviewService: ProfessionalInterviewService,
         private eObservationService: EObservationService,
         private sessionService: SessionService,
-        private synchronizationProvider: SynchronizationService,
+        private synchronizationService: SynchronizationService,
+        private authorizationService: AuthorizationService,
         private pncService: PncService) {
         this.lastConsultedRotation = this.sessionService.appContext.lastConsultedRotation;
-        this.synchronizationProvider.synchroStatusChange.subscribe(synchroInProgress => {
+        this.synchronizationService.synchroStatusChange.subscribe(synchroInProgress => {
             if (!synchroInProgress) {
                 this.getEObservationsList();
                 this.initCareerObjectivesList();
@@ -83,7 +88,12 @@ export class DevelopmentProgramPage {
     }
 
     ionViewDidEnter() {
-        this.matricule = this.pncService.getRequestedPncMatricule(this.activatedRoute);
+        if (this.activatedRoute.snapshot.paramMap.get('visitedPncMatricule')) {
+            // Pour le parcours de dev
+            this.matricule = this.activatedRoute.snapshot.paramMap.get('visitedPncMatricule');
+        } else {
+            this.matricule = this.pncService.getRequestedPncMatricule(this.activatedRoute);
+        }
         this.pncService.getPnc(this.matricule).then(pnc => {
             this.pnc = pnc;
         }, error => { });
@@ -184,5 +194,27 @@ export class DevelopmentProgramPage {
      */
     loadingIsOver(): boolean {
         return this.careerObjectives !== undefined && this.pnc !== undefined && this.eObservations !== undefined;
+    }
+
+    /**
+     * Détermine si le bloc des priorités doit être affiché.<br>
+     * On masque les priorités pour les tuteurs accédant au parcours de dev d'un alternant
+     * @return vrai si c'est le cas, faux sinon
+     */
+    canViewCareerObjectives() {
+        return !(this.authorizationService.hasPermission(PermissionConstant.VIEW_ALTERNANT_SEARCH)
+            && !this.sessionService.isActiveUser(this.pnc))
+            || this.sessionService.getActiveUser().isManager;
+    }
+
+    /**
+     * Détermine si le bloc des bilans pro doit être affiché.<br>
+     * On masque les bilans pro pour les tuteurs accédant au parcours de dev d'un alternant
+     * @return vrai si c'est le cas, faux sinon
+     */
+    canViewProfessionalInterviews() {
+        return !(this.authorizationService.hasPermission(PermissionConstant.VIEW_ALTERNANT_SEARCH)
+            && !this.sessionService.isActiveUser(this.pnc))
+            || this.sessionService.getActiveUser().isManager;
     }
 }

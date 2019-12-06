@@ -103,6 +103,7 @@ import { AdminGuard } from './guards/admin.guard';
 import { CanDeactivateGuard } from './guards/form-changes.guard';
 import { HomeGuard } from './guards/home.guard';
 import { RealAdminGuard } from './guards/real-admin.guard';
+import { TeacherGuard } from './guards/teacher-guard';
 import { VisitEdossierRedirectionGuard } from './guards/visit-edossier-redirection.guard';
 import { VisitEdossierGuard } from './guards/visit-edossier.guard';
 
@@ -287,6 +288,17 @@ const routes: Routes = [
   { path: 'unsupported-navigator', component: UnsupportedNavigatorMessagePage },
   { path: 'generic-message', component: GenericMessagePage },
   { path: 'authentication', component: AuthenticationPage },
+  {
+    // Routes utilisées quand un PNC tuteur consulte le dossier d'un alternant
+    path: 'visit/:visitedPncMatricule', canActivate: [TeacherGuard], children: [
+      { path: 'development-program', component: DevelopmentProgramPage },
+      {
+        path: 'eobservation', children: [
+          { path: 'detail/:eObservationId', component: EobservationDetailsPage }
+        ]
+      },
+    ]
+  },
   { path: 'development-program', component: DevelopmentProgramPage },
   {
     path: 'career-objective', children: [
@@ -397,7 +409,8 @@ const routes: Routes = [
     RealAdminGuard,
     CanDeactivateGuard,
     VisitEdossierGuard,
-    VisitEdossierRedirectionGuard
+    VisitEdossierRedirectionGuard,
+    TeacherGuard
   ],
   exports: [RouterModule]
 })
