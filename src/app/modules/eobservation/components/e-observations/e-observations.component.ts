@@ -50,4 +50,8 @@ export class EObservationsComponent implements OnChanges {
   goToEObservationDetail(evt: Event): void {
     this.detailButtonClicked.emit(evt);
   }
+
+  isExpanded(): boolean {
+    return this.eObservations && this.eObservations.length < 10;
+  }
 }

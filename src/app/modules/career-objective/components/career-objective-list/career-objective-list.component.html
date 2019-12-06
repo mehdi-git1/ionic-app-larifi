@@ -1,5 +1,5 @@
 <h3>
-    {{ 'CAREER_OBJECTIVE_LIST.CAREER_OBJECTIVE_TITLE' | translate }}
+    <span>{{ 'CAREER_OBJECTIVE_LIST.CAREER_OBJECTIVE_TITLE' | translate }}  <span *ngIf="careerObjectives && careerObjectives.length > 0">({{careerObjectives?.length}})</span></span>
     <ion-button *ngIf="displayMode !== CareerObjectiveDisplayModeEnum.REDACTIONS" (click)="goToCareerObjectiveCreation()" color="primarylight">
         <ion-icon name="add" ios="md-add"></ion-icon>
         <label>{{ 'CAREER_OBJECTIVE_LIST.BUTTONS.ADD_CAREER_OBJECTIVE' | translate }}</label>
