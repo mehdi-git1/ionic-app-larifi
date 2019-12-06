@@ -1,3 +1,20 @@
-<p>
-    regularity works!
-</p>
+<ul class="link-list" *ngIf="isConnected()">
+    <li class="clickable" (click)="openIndividualRegularityStatement()" *ngIf="absIndividuelPdf">
+        <ion-thumbnail>
+            <span class="edospnc-pdf"></span>
+        </ion-thumbnail>
+        <div class="content">
+            <h4>{{'REGULARITY_LABEL_LIST.INDIVIDUAL_REGULARITY_STATEMENT' | translate }}</h4>
+        </div>
+    </li>
+    <ng-container *ngIf="isBrowser() && regularityLinks">
+        <li *ngFor="let link of regularityLinks" class="clickable" (click)="gotoLink(link.value)">
+            <ion-thumbnail>
+                <ion-icon name="link"></ion-icon>
+            </ion-thumbnail>
+            <div class="content">
+                <h4>{{'REGULARITY_LABEL_LIST.' + link.key | translate }}</h4>
+            </div>
+        </li>
+    </ng-container>
+</ul>

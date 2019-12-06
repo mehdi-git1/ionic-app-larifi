@@ -1,22 +1,22 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { JalonsComponent } from './jalons.component';
+import { MilestoneComponent } from './milestone.component';
 
-describe('JalonsComponent', () => {
-  let component: JalonsComponent;
-  let fixture: ComponentFixture<JalonsComponent>;
+describe('MilestoneComponent', () => {
+  let component: MilestoneComponent;
+  let fixture: ComponentFixture<MilestoneComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ JalonsComponent ],
+      declarations: [MilestoneComponent],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(JalonsComponent);
+    fixture = TestBed.createComponent(MilestoneComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

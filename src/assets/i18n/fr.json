@@ -690,6 +690,8 @@
         "REINIT_FILTERS": "Réinitialiser la recherche"
     },
     "REGULARITY_LABEL_LIST": {
+        "INDIVIDUAL_REGULARITY_STATEMENT": "Relevé de régularité individuel",
+        "MILESTONE": "Jalons",
         "SCHEDULED_AND_DONE": "Planning prévu et réalisé",
         "WORK_ACCIDENT_AND_WORK_PERIOD": "Liste des accidents de travail et des périodes de travail au sol sur 36 mois glissants",
         "ABSENCES_AND_LATENESS": "Liste des absences et retards sur 36 mois glissants"
@@ -952,11 +954,11 @@
             "MODIFY": "Modifier"
         }
     },
-    "REDACTIONS" : {
+    "REDACTIONS": {
         "REDACTIONS_TITLE": "Rédactions des 24 derniers mois",
         "LINKS_TITLE": "Liens de consultation",
-        "EFORMS_WRITTEN" : "Formulaires de retours d'expérience rédigés",
-        "CABIN_REPORTS_WRITTEN" : "Cabin Reports rédigés"
+        "EFORMS_WRITTEN": "Formulaires de retours d'expérience rédigés",
+        "CABIN_REPORTS_WRITTEN": "Cabin Reports rédigés"
     },
     "SYNCHRONIZATION": {
         "PNC_SAVED_OFFLINE": "Le PNC {{ matricule }} a été synchronisé",

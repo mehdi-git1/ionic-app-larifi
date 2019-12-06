@@ -1,6 +1,7 @@
 import { GenderEnum } from '../enums/gender.enum';
 import { SpecialityEnum } from '../enums/speciality.enum';
 import { AssignmentModel } from './assignment.model';
+import { DocumentModel } from './document.model';
 import { EDossierPncObjectModel } from './e-dossier-pnc-object.model';
 import { PncLightModel } from './pnc-light.model';
 import { RelayModel } from './statutory-certificate/relay.model';
@@ -28,6 +29,7 @@ export class PncModel extends EDossierPncObjectModel {
     groupPlanning: string;
     hasRedactions: boolean;
     acars: string;
+    documents: Array<DocumentModel> = new Array();
 
     getStorageId(): string {
         return this.matricule;

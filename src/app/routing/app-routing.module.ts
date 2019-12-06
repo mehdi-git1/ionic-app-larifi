@@ -81,10 +81,6 @@ import {
     ProfessionalLevelPage
 } from '../modules/professional-level/pages/professional-level/professional-level.page';
 import { RedactionsPage } from '../modules/redactions/pages/redactions.page';
-import { JalonsComponent } from '../modules/regularity/components/jalons/jalons.component';
-import {
-    RegularityComponent
-} from '../modules/regularity/components/regularity/regularity.component';
 import { ActivityPage } from '../modules/regularity/pages/activity/activity.page';
 import {
     AppVersionHistoryPage
@@ -263,13 +259,8 @@ const routes: Routes = [
                   { path: 'detail/:congratulationLetterId', component: CongratulationLetterDetailPage }
                 ]
               },
-              {
-                path: 'activity', component: ActivityPage,
-                children: [
-                  { path: 'regularity', component: RegularityComponent },
-                  { path: 'jalons', component: JalonsComponent }
-                ]
-              },
+              { path: 'activity', component: ActivityPage },
+              { path: 'activity/:selectedTab', component: ActivityPage },
               {
                 path: 'logbook', children: [
                   { path: '', component: LogbookPage },

@@ -8,28 +8,30 @@
     <pnc-edossier-header [activeTab]="TabHeaderEnum.STATUTORY_CERTIFICATE_PAGE"></pnc-edossier-header>
 </ion-header>
 
-
 <ion-content>
     <div class="page-container">
         <nav class="tabs">
-            <button (click)="displaySubTab(StatutoryCertificateTabEnum.STATUTORY_CERTIFICATE)" [ngClass]="{'active': isTabActive(StatutoryCertificateTabEnum.STATUTORY_CERTIFICATE)}">
+            <button (click)="displaySubTab(StatutoryCertificateTabEnum.STATUTORY_CERTIFICATE)"
+                [ngClass]="{'active': isTabActive(StatutoryCertificateTabEnum.STATUTORY_CERTIFICATE)}">
                 {{ 'STATUTORY_CERTIFICATE.TITLE' | translate }}
             </button>
-            <button (click)="displaySubTab(StatutoryCertificateTabEnum.HISTORY)" [ngClass]="{'active': isTabActive(StatutoryCertificateTabEnum.HISTORY)}">
+            <button (click)="displaySubTab(StatutoryCertificateTabEnum.HISTORY)"
+                [ngClass]="{'active': isTabActive(StatutoryCertificateTabEnum.HISTORY)}">
                 {{ 'STATUTORY_CERTIFICATE.HISTORY.TITLE' | translate }}
             </button>
         </nav>
         <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
-        <!--
- <ng-template #pageBlock>
-     <div class="selectable">
-         <statutory-certificate *ngIf="isTabActive(StatutoryCertificateTabEnum.STATUTORY_CERTIFICATE)" [statutoryCertificate]="statutoryCertificate">
-         </statutory-certificate>
-         <history *ngIf="isTabActive(StatutoryCertificateTabEnum.HISTORY)" [history]="dwhHistory">
-         </history>
-     </div>
- </ng-template>
-        -->
+
+        <ng-template #pageBlock>
+            <div class="selectable">
+                <statutory-certificate *ngIf="isTabActive(StatutoryCertificateTabEnum.STATUTORY_CERTIFICATE)"
+                    [statutoryCertificate]="statutoryCertificate">
+                </statutory-certificate>
+                <history *ngIf="isTabActive(StatutoryCertificateTabEnum.HISTORY)" [history]="dwhHistory">
+                </history>
+            </div>
+        </ng-template>
+
 
     </div>
 </ion-content>
