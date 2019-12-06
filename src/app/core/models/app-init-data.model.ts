@@ -27,6 +27,8 @@ export class AppInitDataModel {
 
     careerHistoryLinks: Array<AppParameterModel>;
 
+    contactPNLink: AppParameterModel;
+
     attachmentsMaxSize: number;
 
     eformsWrittenUrl: string;

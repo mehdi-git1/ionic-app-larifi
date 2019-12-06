@@ -7,8 +7,8 @@
             {{ 'PROFESSIONAL_INTERVIEW.DETAILS.STATE.' + professionalInterview?.state | translateOrEmpty }}
         </label>
         <label class="flex4">
-            <span *ngIf="displayMode !== ProfessionalInterviewDisplayModeEnum.REDACTIONS && professionalInterview.instructor?.lastName">{{professionalInterview.instructor.lastName}} <span
-                    class="firstname">{{professionalInterview.instructor.firstName}}</span></span>
+            <span *ngIf="displayMode !== ProfessionalInterviewDisplayModeEnum.REDACTIONS && professionalInterview.redactor?.lastName">{{professionalInterview.redactor.lastName}} <span
+                    class="firstname">{{professionalInterview.redactor.firstName}}</span></span>
             <span *ngIf="displayMode === ProfessionalInterviewDisplayModeEnum.REDACTIONS && professionalInterview.pncAtInterviewDate?.lastName">{{professionalInterview.pncAtInterviewDate.lastName}} <span
                 class="firstname">{{professionalInterview.pncAtInterviewDate.firstName}}</span></span>
         </label>

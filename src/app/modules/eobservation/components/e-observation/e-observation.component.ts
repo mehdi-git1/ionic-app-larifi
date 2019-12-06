@@ -113,7 +113,8 @@ export class EObservationComponent implements OnChanges {
   canOpen(): boolean {
     return this.abnormalEObservationItems != null
       && this.abnormalEObservationItems.length > 0
-      && this.eObservation.type !== EObservationTypeEnum.E_PCB;
+      && this.eObservation.type !== EObservationTypeEnum.E_PCB
+      && this.eObservationDisplayMode !== EObservationDisplayModeEnum.REDACTIONS;
   }
 
   /**

@@ -54,7 +54,7 @@ export class MilestoneComponent implements OnInit {
   }
 
   /**
-   * Ouvre le pdf Relevé de régularité individuel.
+   * Ouvre/télécharge (mode web) le pdf Relevé de régularité individuel.
    */
   openMilestone() {
     if (this.milestonePdf) {

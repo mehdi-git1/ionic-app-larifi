@@ -29,6 +29,7 @@ export class PncModel extends EDossierPncObjectModel {
     groupPlanning: string;
     hasRedactions: boolean;
     acars: string;
+    phoneNumber: string;
     documents: Array<DocumentModel> = new Array();
 
     getStorageId(): string {

@@ -61,7 +61,7 @@ export class RegularityComponent implements OnInit {
   }
 
   /**
-   * Ouvre le pdf Relevé de régularité individuel.
+   * Ouvre/télécharge (mode web) le pdf Relevé de régularité individuel.
    */
   openIndividualRegularityStatement() {
     if (this.absIndividuelPdf) {

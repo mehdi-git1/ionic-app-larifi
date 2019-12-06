@@ -94,10 +94,10 @@
                         <div class="comment-block" *ngIf="isInstructorComment(interviewTheme)">
                             <span *ngIf="professionalInterview?.instructorValidationDate">{{professionalInterview?.instructorValidationDate | date: 'dd/MM/yyyy' : 'UTC'}}</span>
                             <span>
-                                <span *ngIf="professionalInterview.instructor?.lastName">
-                                    {{professionalInterview.instructor.matricule}} -
-                                    {{professionalInterview.instructor.lastName}}
-                                    <span class="firstname">{{professionalInterview.instructor.firstName}}</span>
+                                <span *ngIf="professionalInterview.redactor?.lastName">
+                                    {{professionalInterview.redactor.matricule}} -
+                                    {{professionalInterview.redactor.lastName}}
+                                    <span class="firstname">{{professionalInterview.redactor.firstName}}</span>
                                 </span>
                             </span>
                         </div>
@@ -132,8 +132,8 @@
                             <span>
                                 <span>{{ 'PROFESSIONAL_INTERVIEW.DETAILS.REDACTOR' | translate }} :</span>&nbsp;
                                 <span class="redactor">
-                                    <span *ngIf="professionalInterview.instructor?.lastName">{{professionalInterview.instructor.lastName}}</span>&nbsp;
-                                    <span *ngIf="professionalInterview.instructor?.firstName" class="firstname">{{professionalInterview.instructor.firstName}}</span>
+                                    <span *ngIf="professionalInterview.redactor?.lastName">{{professionalInterview.redactor.lastName}}</span>&nbsp;
+                                    <span *ngIf="professionalInterview.redactor?.firstName" class="firstname">{{professionalInterview.redactor.firstName}}</span>
                                 </span>
                             </span>
                         </div>

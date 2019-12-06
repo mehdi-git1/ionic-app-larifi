@@ -14,7 +14,7 @@ export class ProfessionalInterviewModel extends EDossierPncObjectModel {
     state: ProfessionalInterviewStateEnum;
     redactionDate: Date;
     pncAtInterviewDate: PncLightModel;
-    instructor: PncLightModel;
+    redactor: PncLightModel;
     lastUpdateDate: Date;
     lastUpdateAuthor: PncLightModel;
     instructorValidationDate: Date;

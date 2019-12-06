@@ -1,21 +1,20 @@
-import { StatutoryCertificateComponent } from './../../components/statutory-certificate/statutory-certificate.component';
-import { DwhHistoryModel } from './../../../../core/models/dwh-history/dwh-history.model';
-import { DwhHistoryService } from './../../../../core/services/dwh-history/dwh-history.service';
+import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 
 import {
   StatutoryCertificateDisplayTypeEnum
 } from '../../../../core/enums/statutory-certificate-display-type.enum';
 import { TabHeaderEnum } from '../../../../core/enums/tab-header.enum';
+import { DwhHistoryModel } from '../../../../core/models/dwh-history/dwh-history.model';
 import { PncModel } from '../../../../core/models/pnc.model';
 import { StatutoryCertificateModel } from '../../../../core/models/statutory.certificate.model';
+import { DwhHistoryService } from '../../../../core/services/dwh-history/dwh-history.service';
 import { PncService } from '../../../../core/services/pnc/pnc.service';
 import {
   StatutoryCertificateService
 } from '../../../../core/services/statutory-certificate/statutory-certificate.service';
-import { TranslateService } from '@ngx-translate/core';
-import { Location } from '@angular/common';
 
 @Component({
   selector: 'page-statutory-certificate',
@@ -104,5 +103,5 @@ export class StatutoryCertificatePage implements OnInit {
   }
 }
 export enum StatutoryCertificateTabEnum {
-  STATUTORY_CERTIFICATE, HISTORY
+  STATUTORY_CERTIFICATE, HISTORY, CONTACT
 }

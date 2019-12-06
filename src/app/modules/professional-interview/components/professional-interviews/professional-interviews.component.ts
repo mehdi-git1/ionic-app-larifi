@@ -50,4 +50,8 @@ export class ProfessionalInterviewsComponent {
   goToProfessionalInterviewDetail(event) {
     this.detailButtonClicked.emit(event);
   }
+
+  isExpanded(): boolean {
+    return this.professionalInterviewTab && this.professionalInterviewTab.length < 10;
+  }
 }

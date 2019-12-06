@@ -12,6 +12,7 @@ export class DateTransform {
     /**
      * Transforme la date
      * @param dateToTransform date à transformer
+     * @param dateFormat format de la date
      * @return date au format dd/MM/yyyy
      */
     formatDateInDay(dateToTransform: Date, dateFormat: string): string {
@@ -21,6 +22,7 @@ export class DateTransform {
     /**
      * Transforme la date
      * @param dateToTransform date à transformer
+     * @param dateFormat format de la date
      * @return date au format dd/MM/yyyy
      */
     formatDateStringInDay(dateToTransform: string, dateFormat: string): string {

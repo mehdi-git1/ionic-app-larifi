@@ -11,7 +11,7 @@
     <div class="page-container">
         <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
         <ng-template #pageBlock>
-            <h1 class="redactions-title">{{ 'REDACTIONS.REDACTIONS_TITLE' | translate}}</h1>
+            <h1 *ngIf="this.pnc && this.pnc.hasRedactions" class="redactions-title">{{ 'REDACTIONS.REDACTIONS_TITLE' | translate}}</h1>
             <!-- eObservations -->
             <div class="eobservation-block">
                 <eobservation-list *ngIf="eObservations && eObservations.length > 0" [eObservations]="eObservations" [eObservationDisplayMode]="EObservationDisplayModeEnum.REDACTIONS"></eobservation-list>
