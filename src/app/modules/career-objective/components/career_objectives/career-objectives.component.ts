@@ -32,4 +32,8 @@ export class CareerObjectivesComponent {
   openCareerObjective(careerObjective: CareerObjectiveModel) {
     this.router.navigate(['../career-objective', 'create', careerObjective.techId], { relativeTo: this.activatedRoute });
   }
+
+  isExpanded(): boolean {
+    return this.careerObjectives && this.careerObjectives.length < 10;
+  }
 }
