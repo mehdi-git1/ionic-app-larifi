@@ -1,0 +1,36 @@
+.eobservation-creation-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 66px;
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 4px;
+    background: var(--ion-color-white);
+    border: 1px solid var(--ion-color-grey75);
+
+    .info-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        span {
+            font-weight: bold;
+        }
+    }
+
+    .add-container {
+        display: flex;
+        justify-content: flex-end;
+
+        ion-select {
+            width: 300px;
+
+            .item-inner {
+                border: 0px;
+            }
+        }
+
+    }
+
+}

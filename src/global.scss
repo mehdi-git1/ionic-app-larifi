@@ -59,10 +59,12 @@
 @import 'theme/navbar.scss';
 @import 'theme/typography.scss';
 @import 'theme/elevation.scss';
+@import 'theme/archive.scss';
 
 @import 'theme/flex.scss';
 @import 'theme/scroll.scss';
 @import 'theme/padding.scss';
+@import 'theme/responsive.scss';
 
 @import 'theme/ion-item.scss';
 @import 'theme/ion-label.scss';
@@ -75,6 +77,9 @@
 
 // Gestion de grid / line / column
 @import 'theme/grid-column-line.scss';
+
+// Gestion des listes de lien
+@import 'theme/link-list.scss';
 
 // Fonts
 // Excellence in motion

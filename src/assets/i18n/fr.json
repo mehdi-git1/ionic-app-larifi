@@ -48,6 +48,7 @@
         "MY_HELP_CENTER": "Mes ressources d'aide",
         "PNC_TEAM": "Effectif PNC",
         "MY_PNC_TEAM": "Mon effectif PNC",
+        "ALTERNANT_TEAM": "Effectif Alternants",
         "UPCOMING_FLIGHT": "Activité vols",
         "MY_UPCOMING_FLIGHT": "Mon activité vols",
         "CREW_MEMBERS": "Liste équipage",
@@ -67,7 +68,10 @@
         "PROFESSIONAL_INTERVIEWS_ARCHIVES": "Archives de bilans professionnels / EPP",
         "MY_PROFESSIONAL_INTERVIEWS_ARCHIVES": "Mes archives de bilans professionnels / EPP",
         "HR_DOCUMENT": "Documents RH",
+        "REGULARITY": "Régularité",
         "MY_HR_DOCUMENT": "Mes documents RH",
+        "REDACTIONS": "Rédactions",
+        "MY_REDACTIONS": "Mes rédactions",
         "UNKNOWN_ERROR": "Suite à un dysfonctionnement technique, l'opération a échoué. Nous vous invitons à réessayer dans quelques minutes. Si le problème persiste, veuillez contacter votre support.",
         "MESSAGES": {
             "ERROR": {
@@ -199,7 +203,8 @@
             "TITLE": "Libellé priorité",
             "ENCOUNTER_DATE": "Fixée le",
             "NEXT_ENCOUNTER_DATE": "Rappel",
-            "STATUS": "Statut"
+            "STATUS": "Statut",
+            "PNC": "PNC"
         },
         "BUTTONS": {
             "ADD_CAREER_OBJECTIVE": "Nouvelle priorité"
@@ -294,7 +299,7 @@
             "FAMILIARIZATION_FLIGHT": "Vol de familiarisation",
             "MASTERING_QUALIFICATION": "Qualification maîtrises",
             "ANNUAL_ELEARNING": "Elearning annuel",
-            "MEDICAL_APTITUDES": "Aptitudes médicales",
+            "MEDICAL_VISITS": "Visites médicales",
             "LANGUAGES": "Langues",
             "RELAYS": "Référents / Relais",
             "TRAVEL_DOCUMENTS": "Documents / Visas"
@@ -310,6 +315,12 @@
             },
             "COMPANY_LEAVING_DATE": {
                 "TITLE": "Date départ"
+            },
+            "PROBATIONARY_PERIOD_DATE": {
+                "TITLE": "Période temporaire"
+            },
+            "INTEGRATION_STAGE_DATE": {
+                "TITLE": "Période d'essai"
             },
             "PCB": {
                 "TITLE": "PCB"
@@ -337,14 +348,67 @@
             "STAGE": "Stage",
             "SENIORITY_DATE": "Depuis"
         },
-        "MEDICAL_APTITUDES": {
-            "MEDICAL_VISIT": {
-                "START_DATE": "Début",
-                "END_DATE": "Fin"
+        "MEDICAL_VISITS": {
+            "MEDICAL_APTITUDE": "Aptitudes médicales",
+            "WORK_VISIT": "Visite du travail",
+            "START_DATE": "Début",
+            "END_DATE": "Fin"
+        },
+        "HISTORY": {
+            "UNAIVALABLE_OFFLINE": "L'historique n'est pas disponible hors connexion",
+            "TITLE": "Historique",
+            "ASSIGNMENT": {
+                "TITLE": "Affectation",
+                "CODE": "Code",
+                "LABEL": "Libellé",
+                "DIVISION": "Division",
+                "SECTOR": "Secteur",
+                "START_DATE": "Date de début",
+                "END_DATE": "Date de fin"
+            },
+            "EMPLOYMENT_LEVEL": {
+                "TITLE": "Spécialité & Niveau d'emploi",
+                "GRADE": "Grade",
+                "LEVEL": "Niveau",
+                "SPECIALITY": "Spécialité",
+                "START_DATE": "Date de début",
+                "END_DATE": "Date de fin"
+            },
+            "INSTRUMENT": {
+                "TITLE": "Groupe Ginq",
+                "CODE": "Code",
+                "INSTRUCTOR": "Instructeur",
+                "START_DATE": "Date de début",
+                "END_DATE": "Date de fin"
+            },
+            "SENIORITY_DATE": {
+                "TITLE": "Dates d'ancienneté",
+                "EFFECTIVE_DATE": "Date effet",
+                "EVENT": "Evènement",
+                "NATURE": "Nature",
+                "COMPANY_ENTRANCE_DATE": "Date entrée Cie"
+            },
+            "EXAM_DATE": {
+                "TITLE": "Examen",
+                "TYPE": "Type",
+                "LABEL": "Libellé",
+                "CODE": "Code",
+                "EXAM_DATE": "Date"
+            },
+            "CAREER_HISTORY": {
+                "TITLE": "Historique de carrière",
+                "EFORMS_EVENTS_HISTORY_LINK": "Historique des évènements à bord",
+                "DOMINO_CABIN_REPORT_HISTORY_LINK": "Historique des Cabin Report",
+                "EDITO_WORKSTATIONS_HISTORY_LINK": "Historique des postes occupés à bord",
+                "CIRCUITPN_DISTRIBUTED_OBJECTS_HISTORY_LINK": "Historique des objets distribués"
+            },
+            "ERROR": {
+                "STATUTORY_CERTIFICATE": "Erreur lors de la récupération du profil PNC pour le matricule {{ matricule }}"
             }
         },
-        "ERROR": {
-            "STATUTORY_CERTIFICATE": "Erreur lors de la récupération du profil PNC pour le matricule {{ matricule }}"
+        "CONTACT": {
+            "TITLE": "Contact",
+            "CONTACT_PN_LINK": "Consulter la fiche dans ContactPN"
         }
     },
     "PROFESSIONAL_INTERVIEW": {
@@ -360,7 +424,8 @@
                 "INTERVIEW_DATE": "Date de réalisation",
                 "STATUS": "Statut en cours",
                 "REDACTOR": "Rédacteur",
-                "INTERVIEW_TYPE": "Type d'entretien"
+                "INTERVIEW_TYPE": "Type d'entretien",
+                "PNC": "PNC"
             },
             "LEGEND": "derniers BP / EPP réalisés",
             "LINK": {
@@ -429,7 +494,8 @@
             "HEADER": {
                 "ROTATION_DATE": "Date de réalisation",
                 "TYPE": "Type eObservation",
-                "REDACTOR": "Rédacteur"
+                "REDACTOR": "Rédacteur",
+                "PNC": "PNC"
             },
             "LEGEND": {
                 "LESS_THAN_3_YEARS": "eObservations réalisées sur les 3 dernières années",
@@ -590,8 +656,7 @@
         }
     },
     "PNC_SEARCH": {
-        "TITLE": "Recherche PNC",
-        "MY_TITLE": "Ma recherche PNC",
+        "NO_CONNEXION_MESSAGE": "* Filtres inactifs hors connexion",
         "CRITERIA": {
             "FILTERS": "Filtres",
             "PRIORITY": "Priorités",
@@ -602,9 +667,9 @@
             "RELAY": "Relais",
             "AIRCRAFT_SKILL": "Spécialisation avion",
             "WORK_RATE": "Rythme",
-            "PRIORITIZED": "Priorité majeure",
-            "PRIORITY_IN_PROGRESS": "Priorité en cours",
-            "NO_PRIORITY": "Aucune priorité en cours",
+            "PRIORITIZED": "Majeure",
+            "PRIORITY_IN_PROGRESS": "En cours",
+            "NO_PRIORITY": "Aucune en cours",
             "PRIORITIZED_SHORT": "Majeure",
             "PRIORITY_IN_PROGRESS_SHORT": "En cours",
             "NO_PRIORITY_SHORT": "Aucune en cours",
@@ -622,6 +687,11 @@
             "SEARCH": "Erreur lors de la recherche de PNC"
         },
         "REINIT_FILTERS": "Réinitialiser la recherche"
+    },
+    "REGULARITY_LABEL_LIST": {
+        "SCHEDULED_AND_DONE": "Planning prévu et réalisé",
+        "WORK_ACCIDENT_AND_WORK_PERIOD": "Liste des accidents de travail et des périodes de travail au sol sur 36 mois glissants",
+        "ABSENCES_AND_LATENESS": "Liste des absences et retards sur 36 mois glissants"
     },
     "HELP_ASSET_LIST": {
         "WEB_HELP_ASSET": "Ressources web",
@@ -880,6 +950,12 @@
         "ACTION_MENU": {
             "MODIFY": "Modifier"
         }
+    },
+    "REDACTIONS": {
+        "REDACTIONS_TITLE": "Rédactions des 24 derniers mois",
+        "LINKS_TITLE": "Liens de consultation",
+        "EFORMS_WRITTEN": "Formulaires de retours d'expérience rédigés",
+        "CABIN_REPORTS_WRITTEN": "Cabin Reports rédigés"
     },
     "SYNCHRONIZATION": {
         "PNC_SAVED_OFFLINE": "Le PNC {{ matricule }} a été synchronisé",

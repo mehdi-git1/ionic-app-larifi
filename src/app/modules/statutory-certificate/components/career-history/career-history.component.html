@@ -1,0 +1,21 @@
+<ion-grid class="career-history-data">
+    <ion-row>
+        <ion-col class="title">{{'STATUTORY_CERTIFICATE.HISTORY.CAREER_HISTORY.TITLE' | translate}}</ion-col>
+    </ion-row>
+    <ion-row>
+        <ion-col>
+            <ul *ngIf="careerHistoryLinks && careerHistoryLinks.length > 0" class="link-list">
+                <li *ngFor="let careerHistoryLink of careerHistoryLinks" (click)="goToLink(careerHistoryLink.value)"
+                    class="clickable">
+                    <ion-thumbnail>
+                        <ion-icon name="link"></ion-icon>
+                    </ion-thumbnail>
+                    <div class="content">
+                        <h4>{{'STATUTORY_CERTIFICATE.HISTORY.CAREER_HISTORY.' + careerHistoryLink.key | translate }}
+                        </h4>
+                    </div>
+                </li>
+            </ul>
+        </ion-col>
+    </ion-row>
+</ion-grid>

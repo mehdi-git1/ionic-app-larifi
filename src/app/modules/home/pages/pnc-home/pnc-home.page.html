@@ -19,18 +19,18 @@
                         <h3>{{ 'GLOBAL.MY_PNC_TEAM' | translate }}</h3>
                     </button>
                 </div>
-                <!--  Activité vols -->
-                <div class="button-parent">
-                    <button (click)="goToUpcomingFlightList()">
-                        <ion-icon name="md-jet" ios="md-jet"></ion-icon>
-                        <h3>{{ 'GLOBAL.MY_UPCOMING_FLIGHT' | translate }}</h3>
-                    </button>
-                </div>
                 <!--  Niveau professionnel -->
                 <div class="button-parent">
                     <button (click)="goToProfessionalLevel()">
                         <span class="icon-af icon-af-C-metier-niv-pro"></span>
                         <h3>{{ 'GLOBAL.MY_PROFESSIONAL_LEVEL' | translate }}</h3>
+                    </button>
+                </div>
+                <!--  Activité vols -->
+                <div class="button-parent">
+                    <button (click)="goToUpcomingFlightList()">
+                        <ion-icon name="md-jet" ios="md-jet"></ion-icon>
+                        <h3>{{ 'GLOBAL.MY_UPCOMING_FLIGHT' | translate }}</h3>
                     </button>
                 </div>
                 <!--  Attestation réglementaire -->
@@ -45,6 +45,13 @@
                     <button (click)="goToCongratulationLetters()">
                         <ion-icon name="md-mail" ios="ios-mail"></ion-icon>
                         <h3>{{ 'GLOBAL.MY_CONGRATULATION_LETTERS' | translate }}</h3>
+                    </button>
+                </div>
+                <!--  Rédactions -->
+                <div class="button-parent">
+                    <button (click)="goToRedactions()">
+                        <span class="edospnc-writing"></span>
+                        <h3>{{ 'GLOBAL.MY_REDACTIONS' | translate }}</h3>
                     </button>
                 </div>
                 <!-- Ressource d'aide -->

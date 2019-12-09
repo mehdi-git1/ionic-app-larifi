@@ -1,3 +1,4 @@
+import { ProfessionalInterviewDisplayModeEnum } from './../../../../core/enums/professional-interview/professional-interview-display-mode.enum';
 
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
@@ -18,6 +19,8 @@ export class ProfessionalInterviewsComponent {
 
   matPanelHeaderHeight = '41px';
   professionalInterviewTab: ProfessionalInterviewModel[];
+  @Input() displayMode: ProfessionalInterviewDisplayModeEnum;
+  ProfessionalInterviewDisplayModeEnum = ProfessionalInterviewDisplayModeEnum;
 
   @Output() detailButtonClicked = new EventEmitter();
 
@@ -36,7 +39,7 @@ export class ProfessionalInterviewsComponent {
    */
   getNumberOfRealisedInterviews(): number {
     return this.professionalInterviewTab.filter(
-      interview => interview.state != ProfessionalInterviewStateEnum.DRAFT
+      interview => interview.state !== ProfessionalInterviewStateEnum.DRAFT
     ).length;
   }
 
@@ -46,5 +49,9 @@ export class ProfessionalInterviewsComponent {
    */
   goToProfessionalInterviewDetail(event) {
     this.detailButtonClicked.emit(event);
+  }
+
+  isExpanded(): boolean {
+    return this.professionalInterviewTab && this.professionalInterviewTab.length < 10;
   }
 }

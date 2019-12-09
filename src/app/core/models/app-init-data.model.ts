@@ -1,3 +1,4 @@
+import { AppParameterModel } from './app-parameter.model';
 import { DivisionModel } from './division.model';
 import { HrDocumentCategory } from './hr-document/hr-document-category';
 import { LogbookEventCategory } from './logbook/logbook-event-category';
@@ -22,5 +23,15 @@ export class AppInitDataModel {
 
     hrDocumentCategories: Array<HrDocumentCategory>;
 
+    regularityLinks: Array<AppParameterModel>;
+
+    careerHistoryLinks: Array<AppParameterModel>;
+
+    contactPNLink: AppParameterModel;
+
     attachmentsMaxSize: number;
+
+    eformsWrittenUrl: string;
+
+    cabinReportsWrittenUrl: string;
 }

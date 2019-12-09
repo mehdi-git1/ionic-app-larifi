@@ -1,3 +1,4 @@
+import { EObservationDisplayModeEnum } from './../../../../core/enums/eobservation/eobservation-display-mode.enum';
 import * as moment from 'moment';
 
 import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
@@ -18,11 +19,13 @@ export class EObservationsComponent implements OnChanges {
 
   @Input() eObservations: EObservationModel[];
 
-  @Input() eObservationDisplayMode;
+  @Input() eObservationDisplayMode: EObservationDisplayModeEnum;
 
   @Input() legend = true;
 
   @Output() detailButtonClicked = new EventEmitter();
+
+  EObservationDisplayModeEnum = EObservationDisplayModeEnum;
 
   ngOnChanges() {
     this.defineLegendMessage();
@@ -46,5 +49,9 @@ export class EObservationsComponent implements OnChanges {
    */
   goToEObservationDetail(evt: Event): void {
     this.detailButtonClicked.emit(evt);
+  }
+
+  isExpanded(): boolean {
+    return this.eObservations && this.eObservations.length < 10;
   }
 }

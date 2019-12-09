@@ -18,4 +18,6 @@ export class GeneralitySkillsModel {
         ddvDueDate: Date,
         endDate: Date
     };
+    probationaryPeriodDate: Date;
+    integrationStageDate: Date;
 }

@@ -1,0 +1,13 @@
+.small-device {
+
+    @media (min-width: 800px) {
+        display: none !important;
+    }
+}
+
+.large-device {
+
+    @media (max-width: 800px) {
+        display: none !important;
+    }
+}

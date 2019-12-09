@@ -1,7 +1,11 @@
+import { TabHeaderEnum } from 'src/app/core/enums/tab-header.enum';
+
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Events, IonInfiniteScroll } from '@ionic/angular';
 
 import { AppConstant } from '../../../../app.constant';
+import { PncSearchModeEnum } from '../../../../core/enums/pnc-search-mode.enum';
 import { PncModel } from '../../../../core/models/pnc.model';
 import { ConnectivityService } from '../../../../core/services/connectivity/connectivity.service';
 import { PncPhotoService } from '../../../../core/services/pnc-photo/pnc-photo.service';
@@ -32,6 +36,13 @@ export class PncSearchPage implements AfterViewInit {
     sortColumn: string;
     sortDirection: string;
 
+    searchMode: PncSearchModeEnum;
+
+    pnc: PncModel;
+
+    // Expose l'enum au template
+    TabHeaderEnum = TabHeaderEnum;
+
     @ViewChild(PncSearchFilterComponent, { static: false }) pncSearchFilter: PncSearchFilterComponent;
     @ViewChild(IonInfiniteScroll, { static: false }) infiniteScroll: IonInfiniteScroll;
 
@@ -40,15 +51,17 @@ export class PncSearchPage implements AfterViewInit {
         private pncPhotoService: PncPhotoService,
         private sessionService: SessionService,
         private connectivityService: ConnectivityService,
-        private events: Events
+        private events: Events,
+        private activatedRoute: ActivatedRoute
     ) {
         this.sizeOfThePage = 0;
+        this.searchMode = this.activatedRoute.snapshot.paramMap.get('mode') ?
+            PncSearchModeEnum[this.activatedRoute.snapshot.paramMap.get('mode')]
+            : PncSearchModeEnum.FULL;
     }
 
     ngAfterViewInit() {
         this.initSearchConfig();
-        this.totalPncs = 0;
-        this.pageSize = AppConstant.pageSize;
         this.searchPncs();
     }
 
@@ -63,6 +76,7 @@ export class PncSearchPage implements AfterViewInit {
      * Initialise le nombre de pnc à afficher par page et les données des listes de recherche.
      */
     initSearchConfig() {
+        this.totalPncs = 0;
         this.pageSize = AppConstant.pageSize;
         this.itemOffset = 0;
         this.page = 0;
@@ -136,4 +150,11 @@ export class PncSearchPage implements AfterViewInit {
         return this.filteredPncs ? this.filteredPncs.length > 0 && this.filteredPncs.length >= this.totalPncs : true;
     }
 
+    /**
+     * Vérifie si on est sur la recherche d'alternant
+     * @return vrai si on est sur la recherche d'alternant, faux sinon
+     */
+    isAlternantSearch() {
+        return this.searchMode === PncSearchModeEnum.ALTERNANT;
+    }
 }

@@ -53,10 +53,10 @@ export class ProfessionalInterviewService extends BaseService {
     public createOrUpdate(professionalInterview: ProfessionalInterviewModel): Promise<ProfessionalInterviewModel> {
         if (professionalInterview.techId === undefined) {
             professionalInterview.redactionDate = new Date();
-            professionalInterview.instructor = new PncLightModel();
-            professionalInterview.instructor.matricule = this.sessionService.getActiveUser().matricule;
-            professionalInterview.instructor.lastName = this.sessionService.getActiveUser().lastName;
-            professionalInterview.instructor.firstName = this.sessionService.getActiveUser().firstName;
+            professionalInterview.redactor = new PncLightModel();
+            professionalInterview.redactor.matricule = this.sessionService.getActiveUser().matricule;
+            professionalInterview.redactor.lastName = this.sessionService.getActiveUser().lastName;
+            professionalInterview.redactor.firstName = this.sessionService.getActiveUser().firstName;
         }
         professionalInterview.lastUpdateAuthor = new PncLightModel();
         professionalInterview.lastUpdateAuthor.matricule = this.sessionService.getActiveUser().matricule;
@@ -76,4 +76,12 @@ export class ProfessionalInterviewService extends BaseService {
         return this.execFunctionService('delete', id);
     }
 
+    /**
+     * Récupère les bilans professionnels rédigés
+     * @param matricule le matricule du rédacteur
+     * @return une promesse contenant les bilans professionnels rédigés
+     */
+    public findProfessionalInterviewsByRedactor(matricule: string): Promise<ProfessionalInterviewModel[]> {
+        return this.onlineProfessionalInterviewService.findProfessionalInterviewsByRedactor(matricule);
+    }
 }

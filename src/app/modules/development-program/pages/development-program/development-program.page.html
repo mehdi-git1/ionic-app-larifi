@@ -1,0 +1,28 @@
+<ion-header>
+    <ion-toolbar>
+        <page-header (refreshPage)="refreshPage()" [showRefreshIcon]="true" [pnc]="pnc">
+            <span *ngIf="pnc">{{ 'GLOBAL.DEVELOPMENT_PROGRAM' | isMyPage: pnc | translate }}</span>
+        </page-header>
+    </ion-toolbar>
+    <pnc-edossier-header [activeTab]="TabHeaderEnum.DEVELOPMENT_PROGRAM_PAGE"></pnc-edossier-header>
+</ion-header>
+
+<ion-content>
+    <div class="page-container">
+        <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
+        <ng-template #pageBlock>
+            <!-- eObservations -->
+            <div class="eobservation-block">
+                <eobservation-list [eObservations]="eObservations" [eObservationDisplayMode]="EObservationDisplayModeEnum.DEVELOPMENT_PROGRAM"></eobservation-list>
+            </div>
+            <!-- Priorités -->
+            <div class="career-objective-block">
+                <career-objective-list [careerObjectives]="careerObjectives"></career-objective-list>
+            </div>
+            <!-- Bilans professionnels -->
+            <div class="professional-interview-block">
+                <professional-interview-list [professionalInterviews]="professionalInterviews"></professional-interview-list>
+            </div>
+        </ng-template>
+    </div>
+</ion-content>

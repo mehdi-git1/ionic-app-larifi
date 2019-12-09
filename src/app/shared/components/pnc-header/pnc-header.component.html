@@ -6,9 +6,9 @@
             <div class="pnc-name">{{ pnc.firstName }}&nbsp;{{ pnc.lastName }}</div>
             <div class="pnc-speciality" [ngClass]="{'no-value' : !getFormatedSpeciality() }">
                 {{ getFormatedSpeciality() }}</div>
-            <div class="pnc-matricule">{{ pnc.matricule }}</div>
-            <div class="small-size">
-                <div class="work-rate-container">{{ pnc.workRate }}%</div>
+            <div class="pnc-matricule">{{ pnc.matricule }}<span *ngIf="pnc.acars"> - {{pnc.acars}}</span></div>
+            <div class="work-rate-container small-size">
+                <div class="work-rate">{{ pnc.workRate }}%</div>
                 <span class="pnc-taf">TAF&nbsp;:</span>&nbsp;{{ getTafValue() }}
             </div>
         </div>

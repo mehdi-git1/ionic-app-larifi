@@ -1,3 +1,5 @@
+import { DeviceService } from 'src/app/core/services/device/device.service';
+
 import { Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -16,7 +18,8 @@ export class TabHeaderService {
     constructor(
         private translateService: TranslateService,
         private authorizationService: AuthorizationService,
-        private sessionService: SessionService
+        private sessionService: SessionService,
+        private deviceService: DeviceService
     ) {
     }
 
@@ -32,7 +35,7 @@ export class TabHeaderService {
         if (mode === TabHeaderModeEnum.EDOSSIER) {
             return [
                 {
-                    id: TabHeaderEnum.CAREER_OBJECTIVE_LIST_PAGE,
+                    id: TabHeaderEnum.DEVELOPMENT_PROGRAM_PAGE,
                     label: this.translateService.instant('GLOBAL.DEVELOPMENT_PROGRAM_SHORT'),
                     route: 'development-program',
                     available: this.pnc && !this.pnc.manager
@@ -68,10 +71,29 @@ export class TabHeaderService {
                     available: true
                 },
                 {
+                    id: TabHeaderEnum.REDACTIONS_PAGE,
+                    label: this.translateService.instant('GLOBAL.REDACTIONS'),
+                    route: 'redactions',
+                    available: this.deviceService.isBrowser() && this.pnc && (this.pnc.hasRedactions ||  this.sessionService.getActiveUser().isManager)
+                },
+                {
                     id: TabHeaderEnum.UPCOMING_FLIGHT_LIST_PAGE,
                     label: this.translateService.instant('GLOBAL.UPCOMING_FLIGHT'),
                     route: 'flight',
                     available: this.pnc && this.pnc.manager
+                },
+                {
+                    id: TabHeaderEnum.REGULARITY_PAGE,
+                    label: this.translateService.instant('GLOBAL.REGULARITY'),
+                    route: 'regularity',
+                    available: true
+                },
+                {
+                    id: TabHeaderEnum.ALTERNANT_SEARCH,
+                    label: this.translateService.instant('GLOBAL.ALTERNANT_TEAM'),
+                    route: 'pnc-search/ALTERNANT',
+                    available: !this.sessionService.getActiveUser().isManager
+                        && this.authorizationService.hasPermission(PermissionConstant.VIEW_ALTERNANT_SEARCH)
                 },
                 {
                     id: TabHeaderEnum.HELP_ASSET_LIST_PAGE,

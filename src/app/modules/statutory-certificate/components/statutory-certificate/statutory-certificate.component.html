@@ -1,0 +1,25 @@
+<generality-skills [displayType]='StatutoryCertificateDisplayTypeEnum.LIST'
+    [generalitySkillsData]="statutoryCertificate?.generalitySkills"
+    [title]="'STATUTORY_CERTIFICATE.CATEGORIES.GENERALITY_SKILLS' | translate"></generality-skills>
+<plane-skills [displayType]='StatutoryCertificateDisplayTypeEnum.TAB'
+    [planeSkillsData]="statutoryCertificate?.planeSkills"
+    [title]="'STATUTORY_CERTIFICATE.CATEGORIES.PLANE_SKILLS' | translate"></plane-skills>
+<familiarization-flight [displayType]='StatutoryCertificateDisplayTypeEnum.LIST'
+    [familiarizationFlightData]="statutoryCertificate?.familiarizationFlights"
+    [title]="'STATUTORY_CERTIFICATE.CATEGORIES.FAMILIARIZATION_FLIGHT' | translate">
+</familiarization-flight>
+<mastering-qualification [displayType]='StatutoryCertificateDisplayTypeEnum.LIST'
+    [masteringQualificationsData]="statutoryCertificate?.masteringQualification"
+    [title]="'STATUTORY_CERTIFICATE.CATEGORIES.MASTERING_QUALIFICATION' | translate">
+</mastering-qualification>
+<medical-visits [displayType]='StatutoryCertificateDisplayTypeEnum.LIST'
+    [medicalVisitsData]="statutoryCertificate?.medicalVisits"
+    [title]="'STATUTORY_CERTIFICATE.CATEGORIES.MEDICAL_VISITS' | translate"></medical-visits>
+<pnc-languages [displayType]='StatutoryCertificateDisplayTypeEnum.LIST'
+    [languagesData]="statutoryCertificate?.languages"
+    [title]="'STATUTORY_CERTIFICATE.CATEGORIES.LANGUAGES' | translate"></pnc-languages>
+<pnc-relays [displayType]='StatutoryCertificateDisplayTypeEnum.LIST' [relaysData]="statutoryCertificate?.relays"
+    [title]="'STATUTORY_CERTIFICATE.CATEGORIES.RELAYS' | translate"></pnc-relays>
+<travel-documents [displayType]='StatutoryCertificateDisplayTypeEnum.LIST'
+    [travelDocumentsData]="statutoryCertificate?.travelDocuments"
+    [title]="'STATUTORY_CERTIFICATE.CATEGORIES.TRAVEL_DOCUMENTS' | translate"></travel-documents>

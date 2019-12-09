@@ -1,0 +1,26 @@
+ion-grid {
+    border-radius: 5px;
+    margin-bottom: 15px;
+    padding: 0;
+    box-shadow: 0px 0px 5px var(--ion-color-grey70);
+    background: var(--ion-color-white);
+    padding-bottom: 10px;
+
+    .title {
+        background: var(--ion-color-primary);
+        color: var(--ion-color-white);
+
+        &:first-child {
+            border-radius: 5px 5px 0 0;
+        }
+    }
+
+    .col {
+        padding-left: 15px;
+    }
+
+    .link-row{
+        margin-top: 10px;
+        margin-left: 10px;
+    }
+}

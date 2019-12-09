@@ -14,10 +14,12 @@ export class UrlConfiguration {
     'getCareerObjectivesById': `${urlGroupEnum.CAREER_OBJECTIVE}/{id}`,
     'deleteCareerObjectivesById': `${urlGroupEnum.CAREER_OBJECTIVE}/{id}`,
     'getCareerObjectivesByPnc': `${urlGroupEnum.CAREER_OBJECTIVE}/pnc/{matricule}`,
+    'getCareerObjectivesByRedactor': `${urlGroupEnum.CAREER_OBJECTIVE}/redactor/{matricule}`,
     'setCareerObjectivesInstructorRequestById': `${urlGroupEnum.CAREER_OBJECTIVE}/{id}/instructor_request`,
     'eObservations': `v2/${urlGroupEnum.EOBSERVATION}`,
     'getEObservationById': `v2/${urlGroupEnum.EOBSERVATION}/{id}`,
     'getEObservationsByMatricule': `v2/${urlGroupEnum.EOBSERVATION}/pnc/{matricule}`,
+    'getEObservationsByRedactorMatricule': `v2/${urlGroupEnum.EOBSERVATION}/redactor/{matricule}`,
     'getAllEObservationsByMatricule': `v2/${urlGroupEnum.EOBSERVATION}/pnc/{matricule}/all`,
     'getLegsById': `${urlGroupEnum.LEG}/{legId}`,
     'getCrewMembersFromLeg': `${urlGroupEnum.LEG}/crew_members/{company}/{flightNumber}/{date}/{departureStation}`,
@@ -39,6 +41,7 @@ export class UrlConfiguration {
     'secretInfos': urlGroupEnum.PIN,
     'getStatutoryCertificateByMatricule': `${urlGroupEnum.STATUTORY_CERTIFICATE}/{matricule}`,
     'getProfessionalInterviewsByMatricule': `${urlGroupEnum.PROFESSIONAL_INTERVIEW}/pnc/{matricule}`,
+    'getProfessionalInterviewsByRedactorMatricule': `${urlGroupEnum.PROFESSIONAL_INTERVIEW}/redactor/{matricule}`,
     'professionalInterviews': urlGroupEnum.PROFESSIONAL_INTERVIEW,
     'deleteProfessionalInterviewById': `${urlGroupEnum.PROFESSIONAL_INTERVIEW}/{id}`,
     'getProfessionalInterviewById': `${urlGroupEnum.PROFESSIONAL_INTERVIEW}/{id}`,
@@ -70,7 +73,8 @@ export class UrlConfiguration {
     'fixCongratulationLetterRecipient': `${urlGroupEnum.CONGRATULATION_LETTER}/recipients/{id}`,
     'getDocumentById': `${urlGroupEnum.DOCUMENT}/{documentId}`,
     'hrDocuments': urlGroupEnum.HR_DOCUMENT,
-    'getHrDocumentById': `${urlGroupEnum.HR_DOCUMENT}/{id}`
+    'getHrDocumentById': `${urlGroupEnum.HR_DOCUMENT}/{id}`,
+    'getDwhHistory': `${urlGroupEnum.DWH_HISTORY}/{matricule}`
   };
 
   /**
