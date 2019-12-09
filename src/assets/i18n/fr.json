@@ -219,6 +219,7 @@
     "PNC_IDENTITY": {
         "REFERENT_INSTRUCTOR": "Manager",
         "RDS": "RDS",
+        "RDD": "RDD",
         "GENDER": "Sexe",
         "SPECIALITY": "Fonction",
         "WORKRATE": "Rythme",
@@ -952,11 +953,11 @@
             "MODIFY": "Modifier"
         }
     },
-    "REDACTIONS" : {
+    "REDACTIONS": {
         "REDACTIONS_TITLE": "Rédactions des 24 derniers mois",
         "LINKS_TITLE": "Liens de consultation",
-        "EFORMS_WRITTEN" : "Formulaires de retours d'expérience rédigés",
-        "CABIN_REPORTS_WRITTEN" : "Cabin Reports rédigés"
+        "EFORMS_WRITTEN": "Formulaires de retours d'expérience rédigés",
+        "CABIN_REPORTS_WRITTEN": "Cabin Reports rédigés"
     },
     "SYNCHRONIZATION": {
         "PNC_SAVED_OFFLINE": "Le PNC {{ matricule }} a été synchronisé",
