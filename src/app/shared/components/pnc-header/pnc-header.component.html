@@ -9,14 +9,14 @@
             <div class="pnc-matricule">{{ pnc.matricule }}<span *ngIf="pnc.acars"> - {{pnc.acars}}</span></div>
             <div class="work-rate-container small-size">
                 <div class="work-rate">{{ pnc.workRate }}%</div>
-                <span class="pnc-taf">TAF&nbsp;:</span>&nbsp;{{ getTafValue() }}
+                <span class="pnc-taf">{{ 'PNC_IDENTITY.TAF' | translate }}&nbsp;:</span>&nbsp;{{ getTafValue() }}
             </div>
         </div>
         <div class="full-size">
             <div class="work-rate-container">
                 <work-rate-circle workRate="{{pnc.workRate}}" diameter="70" strokeWidth="6"></work-rate-circle>
             </div>
-            <span class="pnc-taf">TAF&nbsp;:</span>&nbsp;{{ getTafValue() }}
+            <span class="pnc-taf">{{ 'PNC_IDENTITY.TAF' | translate }}&nbsp;:</span>&nbsp;{{ getTafValue() }}
         </div>
         <div class="data-container">
             <ion-icon name="airplane"></ion-icon>
