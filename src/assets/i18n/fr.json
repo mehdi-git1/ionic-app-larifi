@@ -48,6 +48,7 @@
         "MY_HELP_CENTER": "Mes ressources d'aide",
         "PNC_TEAM": "Effectif PNC",
         "MY_PNC_TEAM": "Mon effectif PNC",
+        "ALTERNANT_TEAM": "Effectif Alternants",
         "UPCOMING_FLIGHT": "Activité vols",
         "MY_UPCOMING_FLIGHT": "Mon activité vols",
         "CREW_MEMBERS": "Liste équipage",
@@ -655,8 +656,6 @@
         }
     },
     "PNC_SEARCH": {
-        "TITLE": "Recherche PNC",
-        "MY_TITLE": "Ma recherche PNC",
         "NO_CONNEXION_MESSAGE": "* Filtres inactifs hors connexion",
         "CRITERIA": {
             "FILTERS": "Filtres",
@@ -952,11 +951,11 @@
             "MODIFY": "Modifier"
         }
     },
-    "REDACTIONS" : {
+    "REDACTIONS": {
         "REDACTIONS_TITLE": "Rédactions des 24 derniers mois",
         "LINKS_TITLE": "Liens de consultation",
-        "EFORMS_WRITTEN" : "Formulaires de retours d'expérience rédigés",
-        "CABIN_REPORTS_WRITTEN" : "Cabin Reports rédigés"
+        "EFORMS_WRITTEN": "Formulaires de retours d'expérience rédigés",
+        "CABIN_REPORTS_WRITTEN": "Cabin Reports rédigés"
     },
     "SYNCHRONIZATION": {
         "PNC_SAVED_OFFLINE": "Le PNC {{ matricule }} a été synchronisé",

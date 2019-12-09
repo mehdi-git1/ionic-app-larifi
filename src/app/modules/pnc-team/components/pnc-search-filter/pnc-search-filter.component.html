@@ -73,7 +73,7 @@
                         </ion-select>
                     </div>
                     <!-- Grade -->
-                    <div class="flex1">
+                    <div class="flex1" *ngIf="!isAlternantSearch()">
                         <ion-label class="input-label">
                             {{ 'PNC_SEARCH.CRITERIA.SPECIALITY' | translate }}</ion-label>
                         <ion-select interface="popover" [compareWith]="compareFn" formControlName="specialityControl" [disabled]="areFiltersDisabled()" [placeholder]="('PNC_SEARCH.DEFAULT_DATA.ALL_F' | translate )">
@@ -94,7 +94,7 @@
                         </ion-select>
                     </div>
                     <!-- Relais -->
-                    <div class="flex1">
+                    <div class="flex1" *ngIf="!isAlternantSearch()">
                         <ion-label class="input-label">{{ 'PNC_SEARCH.CRITERIA.RELAY' | translate }}
                         </ion-label>
                         <ion-select interface="popover" [compareWith]="compareFn" formControlName="relayControl" [disabled]="areFiltersDisabled()" [placeholder]="('PNC_SEARCH.DEFAULT_DATA.ALL_M' | translate )">
@@ -109,7 +109,7 @@
                     </div>
                 </div>
 
-                <div class="checkbox-container flex small-device">
+                <div class="checkbox-container flex small-device" *ngIf="!isAlternantSearch()">
                     <ion-item lines="none" class="flex3">
                         <ion-label class="input-label">{{ 'PNC_SEARCH.CRITERIA.PRIORITY' | translate }}</ion-label>
                     </ion-item>
@@ -133,7 +133,7 @@
                     </ion-item>
                 </div>
 
-                <div class="flex">
+                <div class="flex" *ngIf="!isAlternantSearch()">
                     <ion-item lines="none" class="flex3">
                         <ion-label class="input-label">{{ 'PNC_SEARCH.CRITERIA.LOGBOOK_EVENTS' | translate }}</ion-label>
                     </ion-item>
@@ -152,7 +152,7 @@
                 </div>
             </div>
 
-            <div class="checkbox-container flex flex3 column justify-end large-device">
+            <div class="checkbox-container flex flex3 column justify-end large-device" *ngIf="!isAlternantSearch()">
                 <ion-item lines="none">
                     <ion-label class="input-label">{{ 'PNC_SEARCH.CRITERIA.PRIORITY' | translate }}</ion-label>
                 </ion-item>

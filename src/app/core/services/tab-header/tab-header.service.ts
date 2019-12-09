@@ -1,4 +1,5 @@
 import { DeviceService } from 'src/app/core/services/device/device.service';
+
 import { Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -8,7 +9,6 @@ import { TabHeaderEnum } from '../../enums/tab-header.enum';
 import { PncModel } from '../../models/pnc.model';
 import { AuthorizationService } from '../authorization/authorization.service';
 import { SessionService } from '../session/session.service';
-import { ConnectivityService } from '../connectivity/connectivity.service';
 
 @Injectable({ providedIn: 'root' })
 export class TabHeaderService {
@@ -87,6 +87,13 @@ export class TabHeaderService {
                     label: this.translateService.instant('GLOBAL.REGULARITY'),
                     route: 'regularity',
                     available: true
+                },
+                {
+                    id: TabHeaderEnum.ALTERNANT_SEARCH,
+                    label: this.translateService.instant('GLOBAL.ALTERNANT_TEAM'),
+                    route: 'pnc-search/ALTERNANT',
+                    available: !this.sessionService.getActiveUser().isManager
+                        && this.authorizationService.hasPermission(PermissionConstant.VIEW_ALTERNANT_SEARCH)
                 },
                 {
                     id: TabHeaderEnum.HELP_ASSET_LIST_PAGE,

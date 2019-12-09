@@ -1,4 +1,3 @@
-import { RedactionsPage } from './../modules/redactions/pages/redactions.page';
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
@@ -15,6 +14,12 @@ import {
     UserMessageManagementPage
 } from '../modules/admin/pages/user-message-management/user-message-management.page';
 import {
+    CareerObjectiveCreatePage
+} from '../modules/career-objective/pages/career-objective-create/career-objective-create.page';
+import {
+    WaypointCreatePage
+} from '../modules/career-objective/pages/waypoint-create/waypoint-create.page';
+import {
     CongratulationLetterCreatePage
 } from '../modules/congratulation-letter/pages/congratulation-letter-create/congratulation-letter-create.page';
 import {
@@ -23,11 +28,9 @@ import {
 import {
     CongratulationLettersPage
 } from '../modules/congratulation-letter/pages/congratulation-letters/congratulation-letters.page';
-
 import {
     DevelopmentProgramPage
 } from '../modules/development-program/pages/development-program/development-program.page';
-
 import {
     EobservationDetailsPage
 } from '../modules/eobservation/pages/eobservation-details/eobservation-details.page';
@@ -77,6 +80,7 @@ import {
 import {
     ProfessionalLevelPage
 } from '../modules/professional-level/pages/professional-level/professional-level.page';
+import { RedactionsPage } from '../modules/redactions/pages/redactions.page';
 import { RegularityPage } from '../modules/regularity/pages/regularity/regularity.page';
 import {
     AppVersionHistoryPage
@@ -101,8 +105,6 @@ import { HomeGuard } from './guards/home.guard';
 import { RealAdminGuard } from './guards/real-admin.guard';
 import { VisitEdossierRedirectionGuard } from './guards/visit-edossier-redirection.guard';
 import { VisitEdossierGuard } from './guards/visit-edossier.guard';
-import { CareerObjectiveCreatePage } from '../modules/career-objective/pages/career-objective-create/career-objective-create.page';
-import { WaypointCreatePage } from '../modules/career-objective/pages/waypoint-create/waypoint-create.page';
 
 const routes: Routes = [
   {
@@ -133,7 +135,8 @@ const routes: Routes = [
             ]
           },
           { path: 'redactions', component: RedactionsPage },
-          { path: 'career-objective', children: [
+          {
+            path: 'career-objective', children: [
               { path: 'create/:careerObjectiveId', component: CareerObjectiveCreatePage, canDeactivate: [CanDeactivateGuard] },
               {
                 path: 'waypoint', children: [
@@ -142,7 +145,8 @@ const routes: Routes = [
               }
             ]
           },
-          { path: 'eobservation', children: [
+          {
+            path: 'eobservation', children: [
               {
                 path: 'archive', children: [
                   { path: '', component: EObservationsArchivesPage },
@@ -152,7 +156,8 @@ const routes: Routes = [
               { path: 'detail/:eObservationId', component: EobservationDetailsPage, canDeactivate: [CanDeactivateGuard] }
             ]
           },
-          { path: 'professional-interview', children: [
+          {
+            path: 'professional-interview', children: [
               { path: 'create', component: ProfessionalInterviewDetailsPage, canDeactivate: [CanDeactivateGuard] },
               { path: 'detail/:professionalInterviewId', component: ProfessionalInterviewDetailsPage, canDeactivate: [CanDeactivateGuard] },
               {
@@ -185,7 +190,7 @@ const routes: Routes = [
               { path: 'statutory-certificate/:selectedTab', component: StatutoryCertificatePage },
               { path: 'help-asset', component: HelpAssetListPage },
               { path: 'redactions', component: RedactionsPage },
-              { path: 'development-program', component: DevelopmentProgramPage},
+              { path: 'development-program', component: DevelopmentProgramPage },
               {
                 path: 'career-objective', children: [
                   { path: 'create/:careerObjectiveId', component: CareerObjectiveCreatePage, canDeactivate: [CanDeactivateGuard] },
@@ -283,7 +288,8 @@ const routes: Routes = [
   { path: 'generic-message', component: GenericMessagePage },
   { path: 'authentication', component: AuthenticationPage },
   { path: 'development-program', component: DevelopmentProgramPage },
-  { path: 'career-objective', children: [
+  {
+    path: 'career-objective', children: [
       { path: 'create/:careerObjectiveId', component: CareerObjectiveCreatePage, canDeactivate: [CanDeactivateGuard] },
       {
         path: 'waypoint', children: [
@@ -356,6 +362,7 @@ const routes: Routes = [
   { path: 'statutory-certificate', component: StatutoryCertificatePage },
   { path: 'statutory-certificate/:selectedTab', component: StatutoryCertificatePage },
   { path: 'redactions', component: RedactionsPage },
+  { path: 'pnc-search/:mode', component: PncSearchPage },
   { path: 'help-asset', component: HelpAssetListPage },
   { path: 'regularity', component: RegularityPage },
   { path: 'settings', component: SettingsPage },
