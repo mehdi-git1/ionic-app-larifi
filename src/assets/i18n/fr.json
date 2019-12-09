@@ -220,6 +220,7 @@
     "PNC_IDENTITY": {
         "REFERENT_INSTRUCTOR": "Manager",
         "RDS": "RDS",
+        "RDD": "RDD",
         "GENDER": "Sexe",
         "SPECIALITY": "Fonction",
         "WORKRATE": "Rythme",
