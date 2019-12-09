@@ -54,9 +54,9 @@ export class PncHeaderComponent implements OnChanges {
     this.synchronizationService.storeEDossierOffline(matricule).then(success => {
       this.offlineIndicatorComponent.refreshOffLineDateOnCurrentObject();
       this.synchroInProgress = false;
-      this.toastService.info(this.translateService.instant('SYNCHRONIZATION.PNC_SAVED_OFFLINE', { 'matricule': matricule }));
+      this.toastService.info(this.translateService.instant('SYNCHRONIZATION.PNC_SAVED_OFFLINE', { matricule: matricule }));
     }, error => {
-      this.toastService.error(this.translateService.instant('SYNCHRONIZATION.PNC_SAVED_OFFLINE_ERROR', { 'matricule': matricule }));
+      this.toastService.error(this.translateService.instant('SYNCHRONIZATION.PNC_SAVED_OFFLINE_ERROR', { matricule: matricule }));
       this.synchroInProgress = false;
     });
   }
