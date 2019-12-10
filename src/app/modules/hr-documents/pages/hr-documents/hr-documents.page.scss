@@ -1,5 +1,28 @@
     $nbLinesMaxOnRow: 2;
 
+    .top-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 5px;
+
+        .filter {
+            display: flex;
+            align-items: baseline;
+
+            ion-select {
+                margin: 0;
+                width: 380px;
+                border: 0px;
+                background: none;
+            }
+
+            & > * {
+                margin-right: 10px;
+            }
+        }
+    }
+
     ion-content {
 
         .scroll-content {
@@ -9,8 +32,6 @@
         }
 
         .button-bar {
-            margin-bottom: 10px;
-
             ion-icon {
                 margin-right: 10px;
             }
@@ -115,7 +136,7 @@
                             font-size: 2em;
                         }
                     }
-    
+
                 }
 
             }

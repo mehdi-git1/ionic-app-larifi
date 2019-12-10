@@ -950,6 +950,10 @@
         },
         "ACTION_MENU": {
             "MODIFY": "Modifier"
+        },
+        "SEARCH": {
+            "ALL": "Tous",
+            "CATEGORY": "Catégorie"
         }
     },
     "REDACTIONS": {
