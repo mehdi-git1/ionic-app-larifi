@@ -61,4 +61,10 @@ export class PncHeaderComponent implements OnChanges {
     });
   }
 
+  /**
+   * Renvoie la string à afficher en fonction de la valeur du TAF
+   */
+  getTafValue(): string {
+    return this.pnc.taf ? 'Oui' : 'Non';
+  }
 }

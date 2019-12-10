@@ -27,6 +27,7 @@ export class PncModel extends EDossierPncObjectModel {
     hasAtLeastOnePriorityInProgress: boolean;
     statutoryCertificate?: StatutoryCertificateModel;
     groupPlanning: string;
+    taf: boolean;
     hasRedactions: boolean;
     acars: string;
     phoneNumber: string;

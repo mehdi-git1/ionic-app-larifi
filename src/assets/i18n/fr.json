@@ -228,7 +228,8 @@
         "RELAY": "Relais",
         "GINQ": "Ginq",
         "SECTOR": "Secteur",
-        "DIVISION": "Division"
+        "DIVISION": "Division",
+        "TAF": "TAF"
     },
     "PNC_HOME": {
         "TITLE": "Accueil",
