@@ -1,3 +1,4 @@
+import { BusinessIndicatorsModule } from './modules/business-indicators/business-indicators.module';
 import { CareerObjectiveModule } from './modules/career-objective/career-objective.module';
 import { RedactionsModule } from './modules/redactions/redactions.module';
 import { RegularityModule } from './modules/regularity/pages/regularity/regularity.module';
@@ -92,7 +93,8 @@ export function appInitFactory(appInitService: AppInitService) {
     BrowserAnimationsModule,
     HrDocumentModule,
     RegularityModule,
-    RedactionsModule
+    RedactionsModule,
+    BusinessIndicatorsModule
   ],
   providers: [
     StatusBar,

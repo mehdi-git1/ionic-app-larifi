@@ -71,6 +71,8 @@
         "MY_HR_DOCUMENT": "Mes documents RH",
         "REDACTIONS": "Rédactions",
         "MY_REDACTIONS": "Mes rédactions",
+        "BUSINESS_INDICATORS": "Indicateurs Métier",
+        "MY_BUSINESS_INDICATORS": "Mes Indicateurs Métier",
         "UNKNOWN_ERROR": "Suite à un dysfonctionnement technique, l'opération a échoué. Nous vous invitons à réessayer dans quelques minutes. Si le problème persiste, veuillez contacter votre support.",
         "MESSAGES": {
             "ERROR": {

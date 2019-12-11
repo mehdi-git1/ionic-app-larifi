@@ -40,6 +40,13 @@
                         <h3>{{ 'GLOBAL.MY_STATUTORY_CERTIFICATE' | translate }}</h3>
                     </button>
                 </div>
+                <!--  Indicateurs Métier -->
+                <div class="button-parent" *hasPermission="'VIEW_BUSINESS_INDICATORS'">
+                        <button (click)="goToBusinessIndicators()">
+                            <span class="edospnc-customer-review"></span>
+                            <h3>{{ 'GLOBAL.MY_BUSINESS_INDICATORS' | translate }}</h3>
+                        </button>
+                    </div>
                 <!--  Lettres de félicitation -->
                 <div class="button-parent">
                     <button (click)="goToCongratulationLetters()">
