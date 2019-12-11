@@ -52,6 +52,8 @@ export class PncEdossierHeaderComponent implements OnChanges {
             this.pnc = this.sessionService.visitedPnc;
         } else if (!this.sessionService.getActiveUser().isManager) {
             this.pnc = this.sessionService.getActiveUser().authenticatedPnc;
+        } else {
+            this.pnc = null;
         }
     }
 
