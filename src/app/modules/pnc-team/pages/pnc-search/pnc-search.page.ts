@@ -1,7 +1,7 @@
 import { TabHeaderEnum } from 'src/app/core/enums/tab-header.enum';
 
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Events, IonInfiniteScroll } from '@ionic/angular';
 
 import { AppConstant } from '../../../../app.constant';
@@ -52,7 +52,8 @@ export class PncSearchPage implements AfterViewInit {
         private sessionService: SessionService,
         private connectivityService: ConnectivityService,
         private events: Events,
-        private activatedRoute: ActivatedRoute
+        private activatedRoute: ActivatedRoute,
+        private router: Router
     ) {
         this.sizeOfThePage = 0;
         this.searchMode = this.activatedRoute.snapshot.paramMap.get('mode') ?
@@ -140,7 +141,11 @@ export class PncSearchPage implements AfterViewInit {
     openPncHomePage(pnc: PncModel) {
         // Si on va sur un PNC par la recherche, on suprime de la session une enventuelle rotation.
         this.sessionService.appContext.lastConsultedRotation = null;
-        this.events.publish('EDossier:visited', pnc);
+        if (this.searchMode === PncSearchModeEnum.ALTERNANT) {
+            this.router.navigate(['visit', pnc.matricule, 'development-program']);
+        } else {
+            this.events.publish('EDossier:visited', pnc);
+        }
     }
 
     /**

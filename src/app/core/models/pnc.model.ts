@@ -21,12 +21,14 @@ export class PncModel extends EDossierPncObjectModel {
     aircraftSkillsLabel: string[];
     pncInstructor: PncLightModel;
     pncRds: PncLightModel;
+    pncRdd: PncLightModel;
     manager: boolean;
     workRate: number;
     prioritized: boolean;
     hasAtLeastOnePriorityInProgress: boolean;
     statutoryCertificate?: StatutoryCertificateModel;
     groupPlanning: string;
+    taf: boolean;
     hasRedactions: boolean;
     acars: string;
     phoneNumber: string;
