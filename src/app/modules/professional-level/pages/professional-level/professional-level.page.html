@@ -30,8 +30,7 @@
             </ng-template>
 
             <!-- eObservations -->
-            <h3>{{ 'PROFESSIONAL_LEVEL.EOBS_TITLE' | translate }}</h3>
-            <e-observations *ngIf="eObservations" [eObservations]="eObservations" [eObservationDisplayMode]="EObservationDisplayModeEnum.PROFESSIONAL_LEVEL" (detailButtonClicked)="goToEObservationDetail($event)"></e-observations>
+            <eobservation-list [eObservations]="eObservations" [eObservationDisplayMode]="EObservationDisplayModeEnum.PROFESSIONAL_LEVEL"></eobservation-list>
 
         </ng-template>
     </div>
