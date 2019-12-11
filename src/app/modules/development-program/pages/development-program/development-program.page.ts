@@ -1,7 +1,7 @@
 import * as moment from 'moment';
 
 import { Component } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 import { AppConstant } from '../../../../app.constant';
 import { PermissionConstant } from '../../../../core/constants/permission.constant';
@@ -68,7 +68,6 @@ export class DevelopmentProgramPage {
     pnc: PncModel;
 
     constructor(
-        private router: Router,
         private activatedRoute: ActivatedRoute,
         private careerObjectiveService: CareerObjectiveService,
         private professionalInterviewService: ProfessionalInterviewService,
@@ -170,13 +169,6 @@ export class DevelopmentProgramPage {
             });
             this.careerObjectives = result;
         }, error => { });
-    }
-
-    /**
-     * Dirige vers la page de création d'un nouvel objectif
-     */
-    goToCareerObjectiveCreation() {
-        this.router.navigate(['career-objective', 'create', 0], { relativeTo: this.activatedRoute });
     }
 
     /**

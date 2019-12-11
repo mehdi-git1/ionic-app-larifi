@@ -68,7 +68,6 @@
         "PROFESSIONAL_INTERVIEWS_ARCHIVES": "Archives de bilans professionnels / EPP",
         "MY_PROFESSIONAL_INTERVIEWS_ARCHIVES": "Mes archives de bilans professionnels / EPP",
         "HR_DOCUMENT": "Documents RH",
-        "REGULARITY": "Régularité",
         "MY_HR_DOCUMENT": "Mes documents RH",
         "REDACTIONS": "Rédactions",
         "MY_REDACTIONS": "Mes rédactions",
@@ -291,6 +290,11 @@
         "LAST_FLIGHTS": "Mes derniers vols",
         "UPCOMING_FLIGHTS": "Mes prochains vols",
         "NO_FLIGHTS": "Aucun vol trouvé"
+    },
+    "ACTIVITY": {
+        "REGULARITY": "Régularité",
+        "MILESTONE": "Jalons",
+        "TITLE": "Activités"
     },
     "STATUTORY_CERTIFICATE": {
         "TITLE": "Profil PNC",
@@ -690,6 +694,8 @@
         "REINIT_FILTERS": "Réinitialiser la recherche"
     },
     "REGULARITY_LABEL_LIST": {
+        "INDIVIDUAL_REGULARITY_STATEMENT": "Relevé de régularité individuel",
+        "MILESTONE": "Jalons",
         "SCHEDULED_AND_DONE": "Planning prévu et réalisé",
         "WORK_ACCIDENT_AND_WORK_PERIOD": "Liste des accidents de travail et des périodes de travail au sol sur 36 mois glissants",
         "ABSENCES_AND_LATENESS": "Liste des absences et retards sur 36 mois glissants"

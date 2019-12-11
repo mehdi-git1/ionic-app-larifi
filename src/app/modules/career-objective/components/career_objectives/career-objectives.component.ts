@@ -1,9 +1,9 @@
-import { CareerObjectiveDisplayModeEnum } from './../../../../core/enums/career-objective/career-objective-display-mode.enum';
-
-
 import { Component, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
+import {
+    CareerObjectiveDisplayModeEnum
+} from '../../../../core/enums/career-objective/career-objective-display-mode.enum';
 import { CareerObjectiveModel } from '../../../../core/models/career-objective.model';
 
 @Component({
@@ -30,7 +30,7 @@ export class CareerObjectivesComponent {
    * @param careerObjective L'objectif à ouvrir
    */
   openCareerObjective(careerObjective: CareerObjectiveModel) {
-    this.router.navigate(['../career-objective', 'create', careerObjective.techId], { relativeTo: this.activatedRoute });
+    this.router.navigate(['../', 'career-objective', 'create', careerObjective.techId], { relativeTo: this.activatedRoute });
   }
 
   isExpanded(): boolean {

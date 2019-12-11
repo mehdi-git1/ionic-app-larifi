@@ -1,39 +1,40 @@
-.scroll-content {
-    padding-top: 40px !important;
-}
+:host {
 
-.eobservation-block {
-    margin-bottom: 10px;
-}
+    .eobservation-block {
+        margin-bottom: 10px;
+    }
 
-.career-objective-block,
-.professional-interview-block {
-    margin-top: 60px;
-    margin-bottom: 10px;
-}
+    .career-objective-block,
+    .professional-interview-block {
+        margin-top: 60px;
+        margin-bottom: 10px;
+    }
 
-::ng-deep {
-    .eobservation-block h3 {
+    ::ng-deep {
+        .eobservation-block h3 {
+            color: var(--ion-color-primarydark);
+        }
+
+        .career-objective-block h3 {
+            color: var(--ion-color-primarylight);
+        }
+
+        .professional-interview-block h3 {
+            color: var(--ion-color-primary);
+        }
+
+        h3 {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+    }
+
+    .links-block {
+        margin-top: 60px;
+    }
+
+    .redactions-title {
         color: var(--ion-color-primarydark);
     }
-
-    .career-objective-block h3 {
-        color: var(--ion-color-primarylight);
-    }
-
-    .professional-interview-block h3 {
-        color: var(--ion-color-primary);
-    }
-
-    h3 {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-}
-.links-block {
-    margin-top: 60px;
-}
-.redactions-title {
-    color: var(--ion-color-primarydark);
 }

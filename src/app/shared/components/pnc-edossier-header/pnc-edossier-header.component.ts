@@ -1,6 +1,6 @@
 import { PncService } from 'src/app/core/services/pnc/pnc.service';
 
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Events } from '@ionic/angular';
 
@@ -15,7 +15,7 @@ import { TabNavService } from '../../../core/services/tab-nav/tab-nav.service';
     templateUrl: 'pnc-edossier-header.component.html',
     styleUrls: ['./pnc-edossier-header.component.scss']
 })
-export class PncEdossierHeaderComponent implements OnInit {
+export class PncEdossierHeaderComponent implements OnChanges {
 
     @Input() activeTab: TabHeaderEnum;
 
@@ -35,7 +35,7 @@ export class PncEdossierHeaderComponent implements OnInit {
         });
     }
 
-    ngOnInit() {
+    ngOnChanges() {
         this.init();
     }
 
@@ -50,8 +50,10 @@ export class PncEdossierHeaderComponent implements OnInit {
         } else if (this.sessionService.visitedPnc !== undefined && this.isVisitedPncTabSelected()) {
             // On affiche le header de navigation du PNC visité que si on ne se trouve pas sur le premier onglet de la navbar
             this.pnc = this.sessionService.visitedPnc;
-        } else {
+        } else if (!this.sessionService.getActiveUser().isManager) {
             this.pnc = this.sessionService.getActiveUser().authenticatedPnc;
+        } else {
+            this.pnc = null;
         }
     }
 

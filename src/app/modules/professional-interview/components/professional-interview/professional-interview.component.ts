@@ -1,6 +1,8 @@
-import { ProfessionalInterviewDisplayModeEnum } from './../../../../core/enums/professional-interview/professional-interview-display-mode.enum';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
+import {
+    ProfessionalInterviewDisplayModeEnum
+} from '../../../../core/enums/professional-interview/professional-interview-display-mode.enum';
 import {
     ProfessionalInterviewStateEnum
 } from '../../../../core/enums/professional-interview/professional-interview-state.enum';
