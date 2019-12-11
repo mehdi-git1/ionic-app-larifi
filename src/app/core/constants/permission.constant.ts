@@ -10,4 +10,5 @@ export class PermissionConstant {
     public static VIEW_EOBSERVATION_ARCHIVE = 'VIEW_EOBSERVATION_ARCHIVE';
     public static VIEW_HR_DOCUMENT = 'VIEW_HR_DOCUMENT';
     public static VIEW_BUSINESS_INDICATORS = 'VIEW_BUSINESS_INDICATORS';
+    public static VIEW_ALTERNANT_SEARCH = 'VIEW_ALTERNANT_SEARCH';
 }

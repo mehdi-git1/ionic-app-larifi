@@ -1,4 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { PncService } from 'src/app/core/services/pnc/pnc.service';
+
+import { Component, Input, OnChanges } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Events } from '@ionic/angular';
 
 import { TabHeaderModeEnum } from '../../../core/enums/tab-header-mode.enum';
@@ -12,17 +15,19 @@ import { TabNavService } from '../../../core/services/tab-nav/tab-nav.service';
     templateUrl: 'pnc-edossier-header.component.html',
     styleUrls: ['./pnc-edossier-header.component.scss']
 })
-export class PncEdossierHeaderComponent implements OnInit {
-
-    pnc: PncModel;
+export class PncEdossierHeaderComponent implements OnChanges {
 
     @Input() activeTab: TabHeaderEnum;
+
+    pnc: PncModel;
 
     TabHeaderModeEnum = TabHeaderModeEnum;
 
     constructor(
-        private sessionService: SessionService,
         private events: Events,
+        private activatedRoute: ActivatedRoute,
+        private sessionService: SessionService,
+        private pncService: PncService,
         private tabNavService: TabNavService) {
 
         this.events.subscribe('tabChange', () => {
@@ -30,7 +35,7 @@ export class PncEdossierHeaderComponent implements OnInit {
         });
     }
 
-    ngOnInit() {
+    ngOnChanges() {
         this.init();
     }
 
@@ -38,11 +43,17 @@ export class PncEdossierHeaderComponent implements OnInit {
      * Initialisation du composant
      */
     init() {
-        // On affiche le header de navigation du PNC visité que si on ne se trouve pas sur le premier onglet de la navbar
-        if (this.sessionService.visitedPnc !== undefined && this.isVisitedPncTabSelected()) {
+        if (this.activatedRoute.snapshot.paramMap.get('visitedPncMatricule')) {
+            this.pncService.getPnc(this.activatedRoute.snapshot.paramMap.get('visitedPncMatricule')).then(pnc => {
+                this.pnc = pnc;
+            });
+        } else if (this.sessionService.visitedPnc !== undefined && this.isVisitedPncTabSelected()) {
+            // On affiche le header de navigation du PNC visité que si on ne se trouve pas sur le premier onglet de la navbar
             this.pnc = this.sessionService.visitedPnc;
-        } else {
+        } else if (!this.sessionService.getActiveUser().isManager) {
             this.pnc = this.sessionService.getActiveUser().authenticatedPnc;
+        } else {
+            this.pnc = null;
         }
     }
 
@@ -51,8 +62,9 @@ export class PncEdossierHeaderComponent implements OnInit {
      * @return vrai si la navigation par onglet est disponible, faux sinon
      */
     isTabNavAvailable(): boolean {
-        return !this.sessionService.getActiveUser().isManager
-            || this.isVisitedPncTabSelected();
+        return (!this.sessionService.getActiveUser().isManager
+            || this.isVisitedPncTabSelected())
+            && this.activatedRoute.snapshot.paramMap.get('visitedPncMatricule') === null;
     }
 
     /**

@@ -48,6 +48,7 @@
         "MY_HELP_CENTER": "Mes ressources d'aide",
         "PNC_TEAM": "Effectif PNC",
         "MY_PNC_TEAM": "Mon effectif PNC",
+        "ALTERNANT_TEAM": "Effectif Alternants",
         "UPCOMING_FLIGHT": "Activité vols",
         "MY_UPCOMING_FLIGHT": "Mon activité vols",
         "CREW_MEMBERS": "Liste équipage",
@@ -67,7 +68,6 @@
         "PROFESSIONAL_INTERVIEWS_ARCHIVES": "Archives de bilans professionnels / EPP",
         "MY_PROFESSIONAL_INTERVIEWS_ARCHIVES": "Mes archives de bilans professionnels / EPP",
         "HR_DOCUMENT": "Documents RH",
-        "REGULARITY": "Régularité",
         "MY_HR_DOCUMENT": "Mes documents RH",
         "REDACTIONS": "Rédactions",
         "MY_REDACTIONS": "Mes rédactions",
@@ -221,6 +221,7 @@
     "PNC_IDENTITY": {
         "REFERENT_INSTRUCTOR": "Manager",
         "RDS": "RDS",
+        "RDD": "RDD",
         "GENDER": "Sexe",
         "SPECIALITY": "Fonction",
         "WORKRATE": "Rythme",
@@ -228,7 +229,8 @@
         "RELAY": "Relais",
         "GINQ": "Ginq",
         "SECTOR": "Secteur",
-        "DIVISION": "Division"
+        "DIVISION": "Division",
+        "TAF": "TAF"
     },
     "PNC_HOME": {
         "TITLE": "Accueil",
@@ -290,6 +292,11 @@
         "LAST_FLIGHTS": "Mes derniers vols",
         "UPCOMING_FLIGHTS": "Mes prochains vols",
         "NO_FLIGHTS": "Aucun vol trouvé"
+    },
+    "ACTIVITY": {
+        "REGULARITY": "Régularité",
+        "MILESTONE": "Jalons",
+        "TITLE": "Activités"
     },
     "STATUTORY_CERTIFICATE": {
         "TITLE": "Profil PNC",
@@ -657,8 +664,6 @@
         }
     },
     "PNC_SEARCH": {
-        "TITLE": "Recherche PNC",
-        "MY_TITLE": "Ma recherche PNC",
         "NO_CONNEXION_MESSAGE": "* Filtres inactifs hors connexion",
         "CRITERIA": {
             "FILTERS": "Filtres",
@@ -692,6 +697,8 @@
         "REINIT_FILTERS": "Réinitialiser la recherche"
     },
     "REGULARITY_LABEL_LIST": {
+        "INDIVIDUAL_REGULARITY_STATEMENT": "Relevé de régularité individuel",
+        "MILESTONE": "Jalons",
         "SCHEDULED_AND_DONE": "Planning prévu et réalisé",
         "WORK_ACCIDENT_AND_WORK_PERIOD": "Liste des accidents de travail et des périodes de travail au sol sur 36 mois glissants",
         "ABSENCES_AND_LATENESS": "Liste des absences et retards sur 36 mois glissants"
@@ -954,11 +961,11 @@
             "MODIFY": "Modifier"
         }
     },
-    "REDACTIONS" : {
+    "REDACTIONS": {
         "REDACTIONS_TITLE": "Rédactions des 24 derniers mois",
         "LINKS_TITLE": "Liens de consultation",
-        "EFORMS_WRITTEN" : "Formulaires de retours d'expérience rédigés",
-        "CABIN_REPORTS_WRITTEN" : "Cabin Reports rédigés"
+        "EFORMS_WRITTEN": "Formulaires de retours d'expérience rédigés",
+        "CABIN_REPORTS_WRITTEN": "Cabin Reports rédigés"
     },
     "SYNCHRONIZATION": {
         "PNC_SAVED_OFFLINE": "Le PNC {{ matricule }} a été synchronisé",

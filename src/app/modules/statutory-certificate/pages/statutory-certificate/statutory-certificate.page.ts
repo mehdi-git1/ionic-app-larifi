@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 
 import {
-    StatutoryCertificateDisplayTypeEnum
+  StatutoryCertificateDisplayTypeEnum
 } from '../../../../core/enums/statutory-certificate-display-type.enum';
 import { TabHeaderEnum } from '../../../../core/enums/tab-header.enum';
 import { DwhHistoryModel } from '../../../../core/models/dwh-history/dwh-history.model';
@@ -13,7 +13,7 @@ import { StatutoryCertificateModel } from '../../../../core/models/statutory.cer
 import { DwhHistoryService } from '../../../../core/services/dwh-history/dwh-history.service';
 import { PncService } from '../../../../core/services/pnc/pnc.service';
 import {
-    StatutoryCertificateService
+  StatutoryCertificateService
 } from '../../../../core/services/statutory-certificate/statutory-certificate.service';
 
 @Component({

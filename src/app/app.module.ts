@@ -1,7 +1,4 @@
 import { BusinessIndicatorsModule } from './modules/business-indicators/business-indicators.module';
-import { CareerObjectiveModule } from './modules/career-objective/career-objective.module';
-import { RedactionsModule } from './modules/redactions/redactions.module';
-import { RegularityModule } from './modules/regularity/pages/regularity/regularity.module';
 import { SimpleNotificationsModule } from 'angular2-notifications';
 
 import { HttpClientModule } from '@angular/common/http';
@@ -21,8 +18,9 @@ import { AppInitService } from './core/services/app-init/app-init.service';
 import { ServiceModule } from './core/services/service.module';
 import { StorageModule } from './core/storage/storage.module';
 import { AdminModule } from './modules/admin/admin.module';
+import { CareerObjectiveModule } from './modules/career-objective/career-objective.module';
 import {
-  CongratulationLetterModule
+    CongratulationLetterModule
 } from './modules/congratulation-letter/congratulation-letter.module';
 import { DevelopmentProgramModule } from './modules/development-program/development-program.module';
 import { EObservationModule } from './modules/eobservation/eobservation.module';
@@ -33,18 +31,20 @@ import { HrDocumentModule } from './modules/hr-documents/hr-document.module';
 import { LogbookModule } from './modules/logbook/logbook.module';
 import { PncTeamModule } from './modules/pnc-team/pnc-team.module';
 import {
-  ProfessionalInterviewModule
+    ProfessionalInterviewModule
 } from './modules/professional-interview/professional-interview.module';
 import { ProfessionalLevelModule } from './modules/professional-level/professional-level.module';
+import { RedactionsModule } from './modules/redactions/redactions.module';
+import { ActivityModule } from './modules/regularity/pages/activity/activity.module';
 import { SettingsModule } from './modules/settings/settings.module';
 import {
-  StatutoryCertificateModule
+    StatutoryCertificateModule
 } from './modules/statutory-certificate/statutory-certificate.module';
 import { SynchronizationModule } from './modules/synchronization/synchronization.module';
 import { AppRoutingModule } from './routing/app-routing.module';
 import { ComponentsModule } from './shared/components/components.module';
 import {
-  PinPadModalComponent
+    PinPadModalComponent
 } from './shared/components/modals/pin-pad-modal/pin-pad-modal.component';
 import { SharedModule } from './shared/shared.module';
 
@@ -92,9 +92,9 @@ export function appInitFactory(appInitService: AppInitService) {
     AppRoutingModule,
     BrowserAnimationsModule,
     HrDocumentModule,
-    RegularityModule,
     RedactionsModule,
-    BusinessIndicatorsModule
+    BusinessIndicatorsModule,
+    ActivityModule
   ],
   providers: [
     StatusBar,

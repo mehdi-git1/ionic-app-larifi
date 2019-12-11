@@ -1,0 +1,10 @@
+<ul class="link-list" *ngIf="milestonePdf && isConnected()">
+    <li class="clickable" (click)="openMilestone()">
+        <ion-thumbnail>
+            <span class="edospnc-pdf"></span>
+        </ion-thumbnail>
+        <div class="content">
+            <h4>{{'REGULARITY_LABEL_LIST.MILESTONE' | translate }}</h4>
+        </div>
+    </li>
+</ul>

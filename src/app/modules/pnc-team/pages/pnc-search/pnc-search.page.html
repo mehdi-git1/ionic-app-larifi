@@ -1,9 +1,12 @@
 <ion-header>
     <ion-toolbar>
-        <page-header (refreshPage)="initPage()" [showRefreshIcon]="true">{{ 'GLOBAL.PNC_TEAM' | translate }}
+        <page-header (refreshPage)="initPage()" [showRefreshIcon]="true">
+            <ng-container *ngIf="isAlternantSearch(); else alternantSearchTitle">{{ 'GLOBAL.ALTERNANT_TEAM' | translate }}</ng-container>
+            <ng-template #alternantSearchTitle>{{ 'GLOBAL.PNC_TEAM' | translate }}</ng-template>
         </page-header>
     </ion-toolbar>
-    <pnc-search-filter (onSearch)="searchPncs()" (pncSelected)="openPncHomePage($event)"></pnc-search-filter>
+    <pnc-edossier-header [activeTab]="TabHeaderEnum.ALTERNANT_SEARCH"></pnc-edossier-header>
+    <pnc-search-filter [searchMode]="searchMode" (searchButtonClicked)="searchPncs()" (pncSelected)="openPncHomePage($event)"></pnc-search-filter>
 </ion-header>
 
 <ion-content no-bounce>

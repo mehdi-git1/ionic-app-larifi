@@ -1,51 +1,53 @@
-.quill-editor-container{
-    margin-top: 10px;
-}
+:host {
+    .quill-editor-container {
+        margin-top: 10px;
+    }
 
-::ng-deep quill-editor > .ql-toolbar {
-    background: var(--ion-color-white);
-    border-top-left-radius: 5px !important;
-    border-top-right-radius: 5px !important;
-    border-style: 1px solid !important;
-    border-color: var(--ion-color-grey50) !important;
-}
+    ::ng-deep quill-editor > .ql-toolbar {
+        background: var(--ion-color-white);
+        border-top-left-radius: 5px !important;
+        border-top-right-radius: 5px !important;
+        border-style: 1px solid !important;
+        border-color: var(--ion-color-grey50) !important;
+    }
 
-::ng-deep quill-editor > .ql-container {
-    background: var(--ion-color-white);
-    border-bottom-left-radius: 5px !important;
-    border-bottom-right-radius: 5px !important;
-    border-style: 1px solid !important;
-    border-color: var(--ion-color-grey50) !important;
-    box-sizing: border-box;
-    min-height: 120px;
-    margin: 0px;
-    position: relative;
-    border-top: 0 !important;
-    padding: 12px 15px;
-}
+    ::ng-deep quill-editor > .ql-container {
+        background: var(--ion-color-white);
+        border-bottom-left-radius: 5px !important;
+        border-bottom-right-radius: 5px !important;
+        border-style: 1px solid !important;
+        border-color: var(--ion-color-grey50) !important;
+        box-sizing: border-box;
+        min-height: 120px;
+        margin: 0px;
+        position: relative;
+        border-top: 0 !important;
+        padding: 12px 15px;
+    }
 
-::ng-deep .ql-container {
-    font-size: 1.1em;
-    font-family: Helvetica, Arial, sans-serif;
-}
+    ::ng-deep .ql-container {
+        font-size: 1.1em;
+        font-family: Helvetica, Arial, sans-serif;
+    }
 
-::ng-deep .ql-editor {
-    box-sizing: border-box;
-    line-height: 1.42;
-    /**/
-    min-height: 100px;
-    /**/
-    outline: none;
-    overflow-y: auto;
-    padding: 12px 0px;
-    tab-size: 4;
-    -moz-tab-size: 4;
-    text-align: left;
-    white-space: pre-wrap;
-    word-wrap: break-word;
-}
+    ::ng-deep .ql-editor {
+        box-sizing: border-box;
+        line-height: 1.42;
+        /**/
+        min-height: 100px;
+        /**/
+        outline: none;
+        overflow-y: auto;
+        padding: 12px 0px;
+        tab-size: 4;
+        -moz-tab-size: 4;
+        text-align: left;
+        white-space: pre-wrap;
+        word-wrap: break-word;
+    }
 
-::ng-deep quill-editor > .ql-snow .ql-tooltip {
-    position: static;
-    transform: translateY(10px);
+    ::ng-deep quill-editor > .ql-snow .ql-tooltip {
+        position: static;
+        transform: translateY(10px);
+    }
 }

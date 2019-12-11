@@ -1,4 +1,5 @@
 export enum SpecialityEnum {
+  ALT = 'ALT',
   CAD = 'CAD',
   CCP = 'CCP',
   CCPT = 'CCPT',

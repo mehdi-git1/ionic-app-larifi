@@ -1,6 +1,7 @@
 import { GenderEnum } from '../enums/gender.enum';
 import { SpecialityEnum } from '../enums/speciality.enum';
 import { AssignmentModel } from './assignment.model';
+import { DocumentModel } from './document.model';
 import { EDossierPncObjectModel } from './e-dossier-pnc-object.model';
 import { PncLightModel } from './pnc-light.model';
 import { RelayModel } from './statutory-certificate/relay.model';
@@ -20,6 +21,7 @@ export class PncModel extends EDossierPncObjectModel {
     aircraftSkillsLabel: string[];
     pncInstructor: PncLightModel;
     pncRds: PncLightModel;
+    pncRdd: PncLightModel;
     manager: boolean;
     workRate: number;
     prioritized: boolean;
@@ -27,9 +29,11 @@ export class PncModel extends EDossierPncObjectModel {
     hasBeenCCIn12LastYears: boolean;
     statutoryCertificate?: StatutoryCertificateModel;
     groupPlanning: string;
+    taf: boolean;
     hasRedactions: boolean;
     acars: string;
     phoneNumber: string;
+    documents: Array<DocumentModel> = new Array();
 
     getStorageId(): string {
         return this.matricule;
