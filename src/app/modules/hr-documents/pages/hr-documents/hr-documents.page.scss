@@ -5,6 +5,7 @@
         justify-content: space-between;
         align-items: center;
         padding: 5px;
+        margin-bottom: 20px;
 
         .filter {
             display: flex;
@@ -13,8 +14,11 @@
             ion-select {
                 margin: 0;
                 width: 380px;
-                border: 0px;
                 background: none;
+                border: none;
+                border-bottom: inset;
+                border-radius: unset;
+                border-color: var(--ion-color-primarylight);
             }
 
             & > * {
