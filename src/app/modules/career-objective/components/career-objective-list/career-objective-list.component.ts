@@ -1,7 +1,9 @@
-import { CareerObjectiveDisplayModeEnum } from './../../../../core/enums/career-objective/career-objective-display-mode.enum';
 import { Component, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
+import {
+    CareerObjectiveDisplayModeEnum
+} from '../../../../core/enums/career-objective/career-objective-display-mode.enum';
 import { CareerObjectiveModel } from '../../../../core/models/career-objective.model';
 import { PncModel } from '../../../../core/models/pnc.model';
 import { PncService } from '../../../../core/services/pnc/pnc.service';
@@ -27,7 +29,7 @@ export class CareerObjectiveListComponent {
    * Dirige vers la page de création d'un nouvel objectif
    */
   goToCareerObjectiveCreation() {
-    this.router.navigate(['career-objective', 'create', 0], { relativeTo: this.activatedRoute });
+    this.router.navigate(['../', 'career-objective', 'create', 0], { relativeTo: this.activatedRoute });
   }
 
   /**
