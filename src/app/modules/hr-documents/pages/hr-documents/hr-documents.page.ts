@@ -199,7 +199,7 @@ export class HrDocumentsPage implements OnInit {
 
     /**
      * filtre par categorie
-     * @param columnName Categorie
+     * @param filter L'id de la categorie
      */
     filterCategory(filter: string) {
         this.hrDocumentFilter.categoryId = filter;
