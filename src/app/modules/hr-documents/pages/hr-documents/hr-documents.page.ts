@@ -5,6 +5,7 @@ import { PopoverController } from '@ionic/angular';
 import { AppConstant } from '../../../../app.constant';
 import { TabHeaderEnum } from '../../../../core/enums/tab-header.enum';
 import { HrDocumentFilterModel } from '../../../../core/models/hr-document-filter.model';
+import { HrDocumentCategory } from '../../../../core/models/hr-document/hr-document-category';
 import { HrDocumentModel } from '../../../../core/models/hr-document/hr-document.model';
 import { PncModel } from '../../../../core/models/pnc.model';
 import { ConnectivityService } from '../../../../core/services/connectivity/connectivity.service';
@@ -30,6 +31,9 @@ export class HrDocumentsPage implements OnInit {
     totalHrDocuments: number;
     sizeOfThePage: number;
 
+    valueAll = AppConstant.ALL;
+    hrDocumentCategories: HrDocumentCategory[];
+
     hrDocumentFilter: HrDocumentFilterModel;
 
     TabHeaderEnum = TabHeaderEnum;
@@ -50,6 +54,10 @@ export class HrDocumentsPage implements OnInit {
         this.hrDocumentFilter.offset = 0;
         this.hrDocumentFilter.page = 0;
         this.sizeOfThePage = 0;
+
+        if (this.sessionService.getActiveUser().appInitData !== undefined) {
+            this.hrDocumentCategories = this.sessionService.getActiveUser().appInitData.hrDocumentCategories;
+        }
 
     }
 
@@ -81,6 +89,7 @@ export class HrDocumentsPage implements OnInit {
         // Tri
         this.hrDocumentFilter.sortColumn = 'creationDate';
         this.hrDocumentFilter.sortDirection = 'DESC';
+        this.hrDocumentFilter.categoryId = this.valueAll;
     }
 
     /**
@@ -134,23 +143,19 @@ export class HrDocumentsPage implements OnInit {
      * Permet de recharger les éléments dans la liste à scroller quand on arrive a la fin de la liste.
      * @param infiniteScroll
      */
-    doInfinite(infiniteScroll: any): Promise<any> {
-        return new Promise((resolve) => {
-            if (this.hrDocuments.length < this.totalHrDocuments) {
-                if (this.connectivityService.isConnected()) {
-                    ++this.hrDocumentFilter.page;
-                    this.onlineHrDocumentService.getHrDocumentPageByFilter(this.hrDocumentFilter).then(pagedHrDocument => {
-                        this.hrDocuments.push(...pagedHrDocument.content);
-                        infiniteScroll.complete();
-                        resolve();
-                    });
-                } else {
-                    resolve();
-                }
+    doInfinite(event) {
+        if (this.hrDocuments.length < this.totalHrDocuments) {
+            if (this.connectivityService.isConnected()) {
+                ++this.hrDocumentFilter.page;
+                this.onlineHrDocumentService.getHrDocumentPageByFilter(this.hrDocumentFilter).then(pagedHrDocument => {
+                    this.hrDocuments.push(...pagedHrDocument.content);
+                    event.target.complete();
+                });
             } else {
-                resolve();
             }
-        });
+        } else {
+            event.target.disabled = true;
+        }
     }
 
     /**
@@ -189,6 +194,15 @@ export class HrDocumentsPage implements OnInit {
     sortColumn(columnName: string) {
         this.hrDocumentFilter.sortColumn = columnName;
         this.hrDocumentFilter.sortDirection = this.hrDocumentFilter.sortDirection === 'ASC' ? 'DESC' : 'ASC';
+        this.searchHrDocuments();
+    }
+
+    /**
+     * filtre par categorie
+     * @param filter L'id de la categorie
+     */
+    filterCategory(filter: string) {
+        this.hrDocumentFilter.categoryId = filter;
         this.searchHrDocuments();
     }
 

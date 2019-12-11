@@ -956,6 +956,10 @@
         },
         "ACTION_MENU": {
             "MODIFY": "Modifier"
+        },
+        "SEARCH": {
+            "ALL": "Toutes",
+            "CATEGORY": "Catégorie"
         }
     },
     "REDACTIONS": {
