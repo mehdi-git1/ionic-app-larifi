@@ -50,7 +50,7 @@ export class PncEdossierHeaderComponent implements OnInit {
         } else if (this.sessionService.visitedPnc !== undefined && this.isVisitedPncTabSelected()) {
             // On affiche le header de navigation du PNC visité que si on ne se trouve pas sur le premier onglet de la navbar
             this.pnc = this.sessionService.visitedPnc;
-        } else {
+        } else if (!this.sessionService.getActiveUser().isManager) {
             this.pnc = this.sessionService.getActiveUser().authenticatedPnc;
         }
     }
