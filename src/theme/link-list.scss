@@ -12,6 +12,10 @@
             display: flex;
             justify-content: center;
             align-items: center;
+
+            span::before {
+                font-size: 30px;
+            }
         }
 
         .content {

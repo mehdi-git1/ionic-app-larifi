@@ -1,6 +1,9 @@
 li{
     ion-thumbnail{
         font-size: 3em;
+            span::before {
+                font-size: 36px;
+            }
     }
     h4 {
         font-size: 1.4em;

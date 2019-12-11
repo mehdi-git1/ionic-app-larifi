@@ -81,7 +81,7 @@ import {
     ProfessionalLevelPage
 } from '../modules/professional-level/pages/professional-level/professional-level.page';
 import { RedactionsPage } from '../modules/redactions/pages/redactions.page';
-import { RegularityPage } from '../modules/regularity/pages/regularity/regularity.page';
+import { ActivityPage } from '../modules/regularity/pages/activity/activity.page';
 import {
     AppVersionHistoryPage
 } from '../modules/settings/pages/app-version-history/app-version-history.page';
@@ -260,13 +260,8 @@ const routes: Routes = [
                   { path: 'detail/:congratulationLetterId', component: CongratulationLetterDetailPage }
                 ]
               },
-              {
-                path: 'regularity', children: [
-                  {
-                    path: '', component: RegularityPage
-                  }
-                ]
-              },
+              { path: 'activity', component: ActivityPage },
+              { path: 'activity/:selectedTab', component: ActivityPage },
               {
                 path: 'logbook', children: [
                   { path: '', component: LogbookPage },
@@ -376,7 +371,7 @@ const routes: Routes = [
   { path: 'redactions', component: RedactionsPage },
   { path: 'pnc-search/:mode', component: PncSearchPage },
   { path: 'help-asset', component: HelpAssetListPage },
-  { path: 'regularity', component: RegularityPage },
+  { path: 'activity', component: ActivityPage },
   { path: 'settings', component: SettingsPage },
   { path: 'legal-term', component: LegalTermsPage },
   { path: 'app-version-history', component: AppVersionHistoryPage },
