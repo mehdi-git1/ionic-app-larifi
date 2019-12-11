@@ -1,3 +1,4 @@
+import { BusinessIndicatorsModule } from './modules/business-indicators/business-indicators.module';
 import { SimpleNotificationsModule } from 'angular2-notifications';
 
 import { HttpClientModule } from '@angular/common/http';
@@ -91,8 +92,9 @@ export function appInitFactory(appInitService: AppInitService) {
     AppRoutingModule,
     BrowserAnimationsModule,
     HrDocumentModule,
-    ActivityModule,
-    RedactionsModule
+    RedactionsModule,
+    BusinessIndicatorsModule,
+    ActivityModule
   ],
   providers: [
     StatusBar,
