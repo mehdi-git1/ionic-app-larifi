@@ -69,9 +69,7 @@ export class TabHeaderService {
                     label: this.translateService.instant('GLOBAL.BUSINESS_INDICATORS'),
                     route: 'business-indicators',
                         available: this.authorizationService.hasPermission(PermissionConstant.VIEW_BUSINESS_INDICATORS)
-                        && this.deviceService.isBrowser()
-                        && (this.sessionService.getActiveUser().isManager
-                            || (this.pnc && this.pnc.hasBeenCCIn12LastYears)
+                        && this.pnc && (this.pnc.hasBeenCCIn12LastMonths
                             || this.pnc.manager)
                 },
                 {
