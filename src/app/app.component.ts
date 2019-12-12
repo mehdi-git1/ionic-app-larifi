@@ -1,3 +1,4 @@
+import { AppInitService } from './core/services/app-init/app-init.service';
 import * as moment from 'moment';
 
 import { AfterViewInit, Component, ViewEncapsulation } from '@angular/core';
@@ -21,7 +22,7 @@ import { ToastService } from './core/services/toast/toast.service';
   styleUrls: ['app.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class AppComponent implements AfterViewInit {
+export class AppComponent {
 
   pinPadModalActive = false;
   switchToBackgroundDate: Date;
@@ -40,74 +41,70 @@ export class AppComponent implements AfterViewInit {
     private deviceService: DeviceService,
     private toastService: ToastService,
     private synchronizationProvider: SynchronizationService,
-    private authenticationService: AuthenticationService
+    private authenticationService: AuthenticationService,
+    private appInitService: AppInitService
   ) {
-  }
-
-  ngAfterViewInit(): void {
-    this.initializeApp();
+    this.platform.ready().then(() => {
+      this.appInitService.initApp().then(() => {
+        this.initializeApp();
+      });
+    });
   }
 
   initializeApp() {
-
-    this.platform.ready().then(() => {
-
-      // MODE BROWSER
-      if (this.deviceService.isBrowser()) {
-        if (this.isInternetExplorer()) {
-          this.router.navigate(['unsupported-navigator']);
-          return;
-        }
-      } else {
-        // MODE MOBILE
-        this.statusBar.styleDefault();
-
-        /* On ajoute une écoute sur un paramétre pour savoir si la popin est activée ou pas pour afficher
-        un blur et une interdiction de cliquer avant d'avoir mis le bon code pin */
-        this.securityModalService.modalDisplayed.subscribe(data => {
-          this.pinPadModalActive = data;
-        });
-
-        this.platform.resume.subscribe(() => {
-          // Si on a depassé le temps d'inactivité, on affiche le pin pad
-          if (moment.duration(moment().diff(moment(this.switchToBackgroundDate))).asSeconds() > this.pinPadShowupThresholdInSeconds) {
-            if (this.connectivityService.isConnected()) {
-              this.synchronizationProvider.storeEDossierOffline(this.sessionService.authenticatedUser.matricule);
-            }
-            if (!this.sessionService.impersonatedUser) {
-              this.securityModalService.forceCloseModal();
-              this.securityModalService.displayPinPad(PinPadTypeEnum.openingApp);
-            }
-          }
-        });
-
-        /** On ajoute un événement pour savoir si on entre en mode background */
-        this.platform.pause.subscribe(() => {
-          this.switchToBackgroundDate = new Date();
-        });
-
+    // MODE BROWSER
+    if (this.deviceService.isBrowser()) {
+      if (this.isInternetExplorer()) {
+        this.router.navigate(['unsupported-navigator']);
+        return;
       }
+    } else {
+      // MODE MOBILE
+      this.statusBar.styleDefault();
 
-      this.events.subscribe('connectionStatus:disconnected', () => {
-        this.connectivityService.startPingAPI();
+      /* On ajoute une écoute sur un paramétre pour savoir si la popin est activée ou pas pour afficher
+      un blur et une interdiction de cliquer avant d'avoir mis le bon code pin */
+      this.securityModalService.modalDisplayed.subscribe(data => {
+        this.pinPadModalActive = data;
       });
 
-      // Détection d'un changement d'état de la connexion
-      this.connectivityService.connectionStatusChange.subscribe(connected => {
-        if (!connected) {
-          this.connectivityService.startPingAPI();
-          this.toastService.warning(this.translateService.instant('GLOBAL.CONNECTIVITY.OFFLINE_MODE'));
-        } else {
-          this.toastService.success(this.translateService.instant('GLOBAL.CONNECTIVITY.ONLINE_MODE'));
-          this.authenticationService.offlineManagement();
+      this.platform.resume.subscribe(() => {
+        // Si on a depassé le temps d'inactivité, on affiche le pin pad
+        if (moment.duration(moment().diff(moment(this.switchToBackgroundDate))).asSeconds() > this.pinPadShowupThresholdInSeconds) {
+          if (this.connectivityService.isConnected()) {
+            this.synchronizationProvider.storeEDossierOffline(this.sessionService.authenticatedUser.matricule);
+          }
+          if (!this.sessionService.impersonatedUser) {
+            this.securityModalService.forceCloseModal();
+            this.securityModalService.displayPinPad(PinPadTypeEnum.openingApp);
+          }
         }
       });
 
-      this.translateService.setDefaultLang('fr');
-      this.translateService.use('fr');
+      /** On ajoute un événement pour savoir si on entre en mode background */
+      this.platform.pause.subscribe(() => {
+        this.switchToBackgroundDate = new Date();
+      });
 
+    }
+
+    this.events.subscribe('connectionStatus:disconnected', () => {
+      this.connectivityService.startPingAPI();
     });
 
+    // Détection d'un changement d'état de la connexion
+    this.connectivityService.connectionStatusChange.subscribe(connected => {
+      if (!connected) {
+        this.connectivityService.startPingAPI();
+        this.toastService.warning(this.translateService.instant('GLOBAL.CONNECTIVITY.OFFLINE_MODE'));
+      } else {
+        this.toastService.success(this.translateService.instant('GLOBAL.CONNECTIVITY.ONLINE_MODE'));
+        this.authenticationService.offlineManagement();
+      }
+    });
+
+    this.translateService.setDefaultLang('fr');
+    this.translateService.use('fr');
   }
 
   /**

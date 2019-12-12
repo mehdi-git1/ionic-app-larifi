@@ -13,7 +13,6 @@ declare var window: any;
 
 @Injectable({ providedIn: 'root' })
 export class SecMobilService {
-
     constructor(
         public config: Config,
         public urlConfiguration: UrlConfiguration,
@@ -75,6 +74,7 @@ export class SecMobilService {
                     },
                     (err) => {
                         console.error('isAuthenticated:authenticate failure : ' + err);
+                        console.error(JSON.stringify(err));
                         reject(err);
                     }
                 );
