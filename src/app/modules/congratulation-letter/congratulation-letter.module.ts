@@ -14,7 +14,6 @@ import {
     CongratulationLetterListComponent
 } from './components/congratulation-letter-list/congratulation-letter-list.component';
 import { FixRecipientComponent } from './components/fix-recipient/fix-recipient.component';
-import { WarningTextComponent } from './components/warning-text/warning-text.component';
 import {
     CongratulationLetterCreatePage
 } from './pages/congratulation-letter-create/congratulation-letter-create.page';
@@ -32,7 +31,6 @@ import {
     CongratulationLetterCreatePage,
     CongratulationLetterListComponent,
     CongratulationLetterCardComponent,
-    WarningTextComponent,
     CongratulationLetterActionMenuComponent,
     FixRecipientComponent
   ],
