@@ -1,6 +1,6 @@
 import { Injectable, Injector } from '@angular/core';
 import { Router } from '@angular/router';
-import { Events } from '@ionic/angular';
+import { Events, Platform } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 
 import { AuthenticationService } from '../../authentication/authentication.service';
@@ -21,7 +21,8 @@ export class AppInitService {
         private sessionService: SessionService,
         private translateService: TranslateService,
         private authenticationService: AuthenticationService,
-        private injector: Injector
+        private injector: Injector,
+        private platform: Platform
     ) { }
 
     /**
@@ -29,10 +30,13 @@ export class AppInitService {
      * @return une promesse, résolue quand l'initialisation de l'application est terminée
      */
     initApp(): Promise<any> {
-        return this.authenticationService.initFunctionalApp().then(
+        return this.platform.ready().then((readySource) => {
+            this.authenticationService.initFunctionalApp().then(
             authentReturn => {
                 this.setAuthenticationStatus(authentReturn);
+                this.handleAuthenticationStatus();
             });
+        });
     }
 
     /**
