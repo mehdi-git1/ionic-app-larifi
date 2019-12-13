@@ -9,6 +9,11 @@
     </ion-header>
     <ion-content>
         <div class="page-container">
-            <span> {{'GLOBAL.NO_DATA' | translate}} </span>
+            <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
+            <ng-template #pageBlock>
+                <span> {{ 'BUSINESS_INDICATORS.6_MONTHS_TITLE' | translate}} </span>
+                {{businessIndicator?.averageEscore}}
+                {{businessIndicator?.averageActionsAboard}}
+            </ng-template>
         </div>
     </ion-content>

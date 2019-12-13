@@ -1,3 +1,4 @@
+import { OnlineBusinessIndicatorService } from './business-indicator/online-business-indicator.service';
 import { NgModule } from '@angular/core';
 
 import { AlertDialogService } from './alertDialog/alert-dialog.service';
@@ -225,7 +226,8 @@ import { WaypointService } from './waypoint/waypoint.service';
         DocumentService,
         OnlineHrDocumentService,
         AlertDialogService,
-        CancelChangesService
+        CancelChangesService,
+        OnlineBusinessIndicatorService
     ]
 })
 export class ServiceModule { }
