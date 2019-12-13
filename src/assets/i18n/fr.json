@@ -71,6 +71,8 @@
         "MY_HR_DOCUMENT": "Mes documents RH",
         "REDACTIONS": "Rédactions",
         "MY_REDACTIONS": "Mes rédactions",
+        "BUSINESS_INDICATORS": "Indicateurs Métier",
+        "MY_BUSINESS_INDICATORS": "Mes Indicateurs Métier",
         "UNKNOWN_ERROR": "Suite à un dysfonctionnement technique, l'opération a échoué. Nous vous invitons à réessayer dans quelques minutes. Si le problème persiste, veuillez contacter votre support.",
         "MESSAGES": {
             "ERROR": {
@@ -591,7 +593,6 @@
         "TITLE": "Niveau pro SV",
         "MY_TITLE": "Mon niveau pro SV",
         "STAGE_TITLE": "Stages réglementaires",
-        "EOBS_TITLE": "eObservations",
         "HEADER": {
             "DATE": "Date",
             "CODE": "Code",
@@ -793,7 +794,7 @@
                 "LABEL": "Rédacteur",
                 "PNC": "PNC",
                 "PAX": "Client - PAX",
-                "PNT": "PNT",
+                "PILOTE": "Pilote",
                 "OTHER": "Autre",
                 "REDACTOR_AUTOCOMPLETE": "PNC rédacteur",
                 "REDACTOR_AUTOCOMPLETE_PLACEHOLDER": "Matricule, Nom, Prénom"
@@ -957,6 +958,10 @@
         },
         "ACTION_MENU": {
             "MODIFY": "Modifier"
+        },
+        "SEARCH": {
+            "ALL": "Toutes",
+            "CATEGORY": "Catégorie"
         }
     },
     "REDACTIONS": {

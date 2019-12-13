@@ -1,3 +1,4 @@
+import { BusinessIndicatorsModule } from './modules/business-indicators/business-indicators.module';
 import { SimpleNotificationsModule } from 'angular2-notifications';
 
 import { HttpClientModule } from '@angular/common/http';
@@ -47,13 +48,7 @@ import {
 } from './shared/components/modals/pin-pad-modal/pin-pad-modal.component';
 import { SharedModule } from './shared/shared.module';
 
-export function appInitFactory(appInitService: AppInitService) {
-  return () => {
-    return Promise.all([
-      appInitService.initApp()
-    ]);
-  };
-}
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [PinPadModalComponent],
@@ -91,18 +86,13 @@ export function appInitFactory(appInitService: AppInitService) {
     AppRoutingModule,
     BrowserAnimationsModule,
     HrDocumentModule,
-    ActivityModule,
-    RedactionsModule
+    RedactionsModule,
+    BusinessIndicatorsModule,
+    ActivityModule
   ],
   providers: [
     StatusBar,
     SplashScreen,
-    {
-      provide: APP_INITIALIZER,
-      useFactory: appInitFactory,
-      deps: [AppInitService],
-      multi: true
-    },
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   schemas: [

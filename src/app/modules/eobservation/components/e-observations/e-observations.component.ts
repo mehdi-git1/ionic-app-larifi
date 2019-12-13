@@ -1,8 +1,10 @@
-import { EObservationDisplayModeEnum } from './../../../../core/enums/eobservation/eobservation-display-mode.enum';
 import * as moment from 'moment';
 
 import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
 
+import {
+    EObservationDisplayModeEnum
+} from '../../../../core/enums/eobservation/eobservation-display-mode.enum';
 import { EObservationModel } from '../../../../core/models/eobservation/eobservation.model';
 
 @Component({
@@ -52,6 +54,7 @@ export class EObservationsComponent implements OnChanges {
   }
 
   isExpanded(): boolean {
-    return this.eObservations && this.eObservations.length < 10;
+    return EObservationDisplayModeEnum.REDACTIONS === this.eObservationDisplayMode ?
+      this.eObservations && this.eObservations.length < 10 : true;
   }
 }

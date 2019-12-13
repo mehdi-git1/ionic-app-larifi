@@ -32,8 +32,6 @@ import { WaypointCreatePage } from './pages/waypoint-create/waypoint-create.page
     IonicModule,
     SharedModule,
     ComponentsModule,
-    EObservationModule,
-    ProfessionalInterviewModule,
     FormsModule,
     ReactiveFormsModule
   ],

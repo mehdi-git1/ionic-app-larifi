@@ -65,6 +65,14 @@ export class TabHeaderService {
                     available: this.pnc && !this.pnc.manager && this.authorizationService.hasPermission(PermissionConstant.VIEW_LOGBOOK)
                 },
                 {
+                    id: TabHeaderEnum.BUSINESS_INDICATORS_PAGE,
+                    label: this.translateService.instant('GLOBAL.BUSINESS_INDICATORS'),
+                    route: 'business-indicators',
+                        available: this.authorizationService.hasPermission(PermissionConstant.VIEW_BUSINESS_INDICATORS)
+                        && this.pnc && (this.pnc.hasBeenCCIn12LastMonths
+                            || this.pnc.manager)
+                },
+                {
                     id: TabHeaderEnum.CONGRATULATION_LETTERS_PAGE,
                     label: this.translateService.instant('GLOBAL.CONGRATULATION_LETTERS_SHORT'),
                     route: 'congratulation-letter',

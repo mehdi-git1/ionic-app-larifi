@@ -34,6 +34,7 @@ export class CareerObjectivesComponent {
   }
 
   isExpanded(): boolean {
-    return this.careerObjectives && this.careerObjectives.length < 10;
+    return CareerObjectiveDisplayModeEnum.REDACTIONS === this.displayMode ?
+      this.careerObjectives && this.careerObjectives.length < 10 : true;
   }
 }

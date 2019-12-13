@@ -1,3 +1,4 @@
+import { PncModel } from './../../../../core/models/pnc.model';
 
 
 import { TabHeaderEnum } from 'src/app/core/enums/tab-header.enum';
@@ -16,6 +17,7 @@ export class ActivityPage implements OnInit {
   activeTab: ActivityTabEnum = ActivityTabEnum.REGULARITY;
   ActivityTabEnum = ActivityTabEnum;
   TabHeaderEnum = TabHeaderEnum;
+  pnc: PncModel;
 
   constructor() { }
 

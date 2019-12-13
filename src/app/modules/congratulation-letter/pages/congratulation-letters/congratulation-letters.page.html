@@ -22,7 +22,6 @@
 
         <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
         <ng-template #pageBlock>
-            <warning-text></warning-text>
 
             <div class="button-bar button-bar-right"
                 *ngIf="canCreateLetter() && isTabActive(CongratulationLetterModeEnum.RECEIVED)">

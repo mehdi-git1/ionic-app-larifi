@@ -120,6 +120,12 @@ export class PncHomePage {
     }
 
     /**
+     * Dirige vers les Indicateurs Métier
+     */
+    goToBusinessIndicators() {
+        this.router.navigate(['business-indicators'], { relativeTo: this.activatedRoute });
+    }
+    /**
      * Précharge le eDossier du PNC si celui n'est pas cadre
      */
     downloadPncEdossier() {
