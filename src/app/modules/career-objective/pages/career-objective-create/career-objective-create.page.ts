@@ -104,10 +104,6 @@ export class CareerObjectiveCreatePage extends FormCanDeactivate {
      * Initialisation du contenu de la page.
      */
     initPage() {
-        const matricule = this.pncService.getRequestedPncMatricule(this.activatedRoute);
-        this.pncService.getPnc(matricule).then(pnc => {
-            this.pnc = pnc;
-        }, error => { });
         // On récupère l'id de l'objectif dans les paramètres de navigation
         if (this.activatedRoute.snapshot.paramMap.get('careerObjectiveId')
             && parseInt(this.activatedRoute.snapshot.paramMap.get('careerObjectiveId'), 10) !== 0) {
@@ -118,9 +114,18 @@ export class CareerObjectiveCreatePage extends FormCanDeactivate {
                     this.originCareerObjective = _.cloneDeep(foundCareerObjective);
                     this.careerObjective = foundCareerObjective;
                     this.originalPncComment = this.careerObjective.pncComment;
+
+                    this.pncService.getPnc(foundCareerObjective.pnc.matricule).then(pnc => {
+                        this.pnc = pnc;
+                    });
                 }, error => { });
             this.refreshWaypoints(careerObjectiveId);
         } else {
+            const matricule = this.pncService.getRequestedPncMatricule(this.activatedRoute);
+            this.pncService.getPnc(matricule).then(pnc => {
+                this.pnc = pnc;
+            }, error => { });
+
             // Création
             this.careerObjective = new CareerObjectiveModel();
             this.careerObjective.pnc = new PncModel();

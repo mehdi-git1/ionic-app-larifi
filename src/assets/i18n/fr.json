@@ -966,7 +966,7 @@
     },
     "REDACTIONS": {
         "REDACTIONS_TITLE": "Rédactions des 24 derniers mois",
-        "LINKS_TITLE": "Liens de consultation",
+        "EXTRA_REDACTION_TITLE": "Liens de consultation",
         "EFORMS_WRITTEN": "Formulaires de retours d'expérience rédigés",
         "CABIN_REPORTS_WRITTEN": "Cabin Reports rédigés"
     },
