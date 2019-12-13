@@ -53,8 +53,4 @@ export class EObservationsComponent implements OnChanges {
     this.detailButtonClicked.emit(evt);
   }
 
-  isExpanded(): boolean {
-    return EObservationDisplayModeEnum.REDACTIONS === this.eObservationDisplayMode ?
-      this.eObservations && this.eObservations.length < 10 : true;
-  }
 }

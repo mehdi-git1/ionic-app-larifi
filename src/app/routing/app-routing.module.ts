@@ -81,7 +81,7 @@ import {
 import {
     ProfessionalLevelPage
 } from '../modules/professional-level/pages/professional-level/professional-level.page';
-import { RedactionsPage } from '../modules/redactions/pages/redactions.page';
+import { RedactionsPage } from '../modules/redactions/pages/redactions/redactions.page';
 import { ActivityPage } from '../modules/regularity/pages/activity/activity.page';
 import {
     AppVersionHistoryPage
