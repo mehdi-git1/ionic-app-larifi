@@ -794,7 +794,7 @@
                 "LABEL": "Rédacteur",
                 "PNC": "PNC",
                 "PAX": "Client - PAX",
-                "PILOTE": "Pilote",
+                "PNT": "Pilote",
                 "OTHER": "Autre",
                 "REDACTOR_AUTOCOMPLETE": "PNC rédacteur",
                 "REDACTOR_AUTOCOMPLETE_PLACEHOLDER": "Matricule, Nom, Prénom"

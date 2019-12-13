@@ -1,20 +1,28 @@
 <mat-expansion-panel [expanded]="isExpanded()" [ngClass]="{'no-data' : professionalInterviewTab.length === 0}">
-    <mat-expansion-panel-header [expandedHeight]="matPanelHeaderHeight" [collapsedHeight]="matPanelHeaderHeight" hideToggle="true" class="header elevation-2">
+    <mat-expansion-panel-header [expandedHeight]="matPanelHeaderHeight" [collapsedHeight]="matPanelHeaderHeight"
+        hideToggle="true" class="header elevation-2">
         <label class="flex3"> {{ 'PROFESSIONAL_INTERVIEW.LIST.HEADER.INTERVIEW_DATE' | translate }} </label>
-        <label class="flex3"> {{ 'PROFESSIONAL_INTERVIEW.LIST.HEADER.STATUS' | translate }} </label>
-        <label *ngIf="displayMode !== ProfessionalInterviewDisplayModeEnum.REDACTIONS" class="flex4"> {{ 'PROFESSIONAL_INTERVIEW.LIST.HEADER.REDACTOR' | translate }} </label>
-        <label *ngIf="displayMode === ProfessionalInterviewDisplayModeEnum.REDACTIONS" class="flex4"> {{ 'PROFESSIONAL_INTERVIEW.LIST.HEADER.PNC' | translate }} </label>
-        <label class="flex3"> {{ 'PROFESSIONAL_INTERVIEW.LIST.HEADER.INTERVIEW_TYPE' | translate }} </label>
+        <label class="flex4"> {{ 'PROFESSIONAL_INTERVIEW.LIST.HEADER.STATUS' | translate }} </label>
+        <label *ngIf="displayMode !== ProfessionalInterviewDisplayModeEnum.REDACTIONS" class="flex6">
+            {{ 'PROFESSIONAL_INTERVIEW.LIST.HEADER.REDACTOR' | translate }} </label>
+        <label *ngIf="displayMode === ProfessionalInterviewDisplayModeEnum.REDACTIONS" class="flex6">
+            {{ 'PROFESSIONAL_INTERVIEW.LIST.HEADER.PNC' | translate }} </label>
+        <label class="flex1"></label>
+        <label class="flex4"> {{ 'PROFESSIONAL_INTERVIEW.LIST.HEADER.INTERVIEW_TYPE' | translate }} </label>
         <div class="button-placeholder">
             <!-- Occupe de l'espace pour s'aligner avec le bouton -->
         </div>
     </mat-expansion-panel-header>
     <no-data *ngIf="professionalInterviewTab.length === 0; else professionalInterviewsDataBlock"></no-data>
     <ng-template #professionalInterviewsDataBlock>
-        <professional-interview *ngFor="let professionalInterview of professionalInterviewTab" [professionalInterview]="professionalInterview" [displayMode]="displayMode" (detailButtonClicked)="goToProfessionalInterviewDetail($event)">
+        <professional-interview *ngFor="let professionalInterview of professionalInterviewTab"
+            [professionalInterview]="professionalInterview" [displayMode]="displayMode"
+            (detailButtonClicked)="goToProfessionalInterviewDetail($event)">
         </professional-interview>
     </ng-template>
 </mat-expansion-panel>
-<div *ngIf="displayMode !== ProfessionalInterviewDisplayModeEnum.REDACTIONS && getNumberOfRealisedInterviews() > 0 && legend">
-    <div class="information-message">{{getNumberOfRealisedInterviews() }} {{ 'PROFESSIONAL_INTERVIEW.LIST.LEGEND' | translate }}</div>
+<div
+    *ngIf="displayMode !== ProfessionalInterviewDisplayModeEnum.REDACTIONS && getNumberOfRealisedInterviews() > 0 && legend">
+    <div class="information-message">{{getNumberOfRealisedInterviews() }}
+        {{ 'PROFESSIONAL_INTERVIEW.LIST.LEGEND' | translate }}</div>
 </div>
