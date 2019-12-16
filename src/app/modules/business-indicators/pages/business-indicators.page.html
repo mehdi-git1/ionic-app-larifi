@@ -11,9 +11,21 @@
         <div class="page-container">
             <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
             <ng-template #pageBlock>
-                <span> {{ 'BUSINESS_INDICATORS.6_MONTHS_TITLE' | translate}} </span>
-                {{businessIndicator?.averageEscore}}
-                {{businessIndicator?.averageActionsAboard}}
+                <h3>{{ 'BUSINESS_INDICATORS.6_MONTHS_TITLE' | translate}}</h3>
+                <mat-card>
+                    <mat-card-content  class="average">
+                        <span class="escore">
+                            <img class="file-icon" width="60" src="assets/imgs/satisfaction_badge.png" />
+                            {{ 'BUSINESS_INDICATORS.ESCORE_AVERAGE' | translate}}
+                            <span class="average-number">{{businessIndicator?.averageEscore | number : '1.0-2'}}</span>
+                        </span>
+                        <span class="actions-aboard">
+                            <img class="file-icon" width="60" src="assets/imgs/pnc_aboard.png" />
+                            {{ 'BUSINESS_INDICATORS.ABOARD_ACTIONS_AVERAGE' | translate}}
+                            <span class="average-number">{{businessIndicator?.averageActionsAboard | number : '1.0-2'}}</span>
+                        </span>
+                    </mat-card-content>
+                </mat-card>
             </ng-template>
         </div>
     </ion-content>
