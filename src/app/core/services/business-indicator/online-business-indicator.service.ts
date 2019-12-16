@@ -21,12 +21,12 @@ export class OnlineBusinessIndicatorService {
     ) { }
 
     /**
-     * Récupère un document RH
-     * @param id l'id du document à récupérer
-     * @return le document récupéré
+     * Récupère les indicateurs métier du Pnc
+     * @param matricule le matricule du Pnc
+     * @return les indicateurs métier du Pnc
      */
     getBusinessIndicator(matricule: string): Promise<BusinessIndicatorModel> {
-        return this.restService.get(this.config.getBackEndUrl('getLast6MonthsBusinessIndicators', [matricule]));
+        return this.restService.get(this.config.getBackEndUrl('getBusinessIndicators', [matricule]));
     }
 
 }
