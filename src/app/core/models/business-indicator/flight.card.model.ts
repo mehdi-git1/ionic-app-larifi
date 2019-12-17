@@ -8,7 +8,7 @@ export class FlightCardModel {
 
     arrivalStation: string;
 
-    realDepartureDate: Date;
+    plannedDepartureDate: Date;
 
     escore: number;
 
