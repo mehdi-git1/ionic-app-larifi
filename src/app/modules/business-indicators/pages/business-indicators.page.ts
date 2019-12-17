@@ -62,7 +62,7 @@ export class BusinessIndicatorsPage {
           const isAsc = sort.direction === 'asc';
           switch (sort.active) {
             case 'flightNumber': return this.compare(a.flightNumber, b.flightNumber, isAsc);
-            case 'flightDate': return this.compareDate(a.flightDate, b.flightDate, isAsc);
+            case 'flightDate': return this.compareDate(a.plannedDepartureDate, b.plannedDepartureDate, isAsc);
             case 'eScore': return this.compare(a.escore, b.escore, isAsc);
             case 'flightActionsNumber': return this.compare(a.flightActionsTotalNumber, b.flightActionsTotalNumber, isAsc);
             default: return 0;
