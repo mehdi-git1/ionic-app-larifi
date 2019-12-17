@@ -26,3 +26,22 @@ h3.average-title {
     font-size: 1.5em;
     color: var(--ion-color-primary);
 }
+.flight-cards-table {
+    width: 100%;
+    tr.mat-row:nth-child(odd) {
+        background: var(--ion-color-grey95);
+    }
+    .flight-actions-number {
+        width: 180px;
+    }
+    .mat-header-cell {
+        font-size: 1.2rem;
+        font-weight: bold;
+    }
+    td {
+        padding-left: 10px;
+    }
+    td.mat-cell:first-of-type, td.mat-footer-cell:first-of-type, th.mat-header-cell:first-of-type {
+        padding-left: 24px;
+    }
+}

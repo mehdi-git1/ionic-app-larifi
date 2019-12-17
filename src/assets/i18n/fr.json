@@ -973,7 +973,13 @@
     "BUSINESS_INDICATORS": {
         "6_MONTHS_TITLE" : "Indicateurs Métier sur 6 mois glissants",
         "ESCORE_AVERAGE": "Moyenne - eScore",
-        "ABOARD_ACTIONS_AVERAGE": "Moyenne - Actions à bord"
+        "ABOARD_ACTIONS_AVERAGE": "Moyenne - Actions à bord",
+        "FLIGHT_CARD_12_LAST_MONTHS": "Fiches vols effectués sur l'année glissante",
+        "LEG_DATE": "Date tronçon",
+        "FLIGHT_NUMBER": "N° de Vol",
+        "STATIONS": "Escale départ / Escale arrivée",
+        "ESCORE": "eScore",
+        "FLIGHT_ACTIONS_NUMBER": "Nombre total d'actions à bord"
     },
     "SYNCHRONIZATION": {
         "PNC_SAVED_OFFLINE": "Le PNC {{ matricule }} a été synchronisé",
