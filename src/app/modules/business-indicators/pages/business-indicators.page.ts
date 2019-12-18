@@ -6,16 +6,20 @@ import { OnlineBusinessIndicatorService } from './../../../core/services/busines
 import { PncService } from './../../../core/services/pnc/pnc.service';
 import { PncModel } from './../../../core/models/pnc.model';
 import { TabHeaderEnum } from 'src/app/core/enums/tab-header.enum';
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, OnInit, AfterViewInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Sort, MatSort, MatTable } from '@angular/material';
+import { Sort, MatSort, MatTable, MatPaginator, MatTableDataSource } from '@angular/material';
 import * as moment from 'moment';
 @Component({
     selector: 'page-business-indicators',
     templateUrl: 'business-indicators.page.html',
     styleUrls: ['./business-indicators.page.scss']
 })
-export class BusinessIndicatorsPage {
+export class BusinessIndicatorsPage implements AfterViewInit {
+
+    pageSize = 20;
+    totalElements: number;
+
     TabHeaderEnum = TabHeaderEnum;
     pnc: PncModel;
     businessIndicator: BusinessIndicatorModel;
@@ -25,9 +29,14 @@ export class BusinessIndicatorsPage {
 
     @ViewChild(MatSort, {static: false}) sort: MatSort;
     @ViewChild(MatTable, {static: false}) table: MatTable<any>;
+    @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+    dataSource: MatTableDataSource<FlightCardModel>;
 
     constructor(private activatedRoute: ActivatedRoute, private pncService: PncService,
                 public onlineBusinessIndicatorService: OnlineBusinessIndicatorService) {
+    }
+
+    ngAfterViewInit() {
         const matricule = this.pncService.getRequestedPncMatricule(this.activatedRoute);
         this.pncService.getPnc(matricule).then(pnc => {
             this.pnc = pnc;
@@ -36,7 +45,10 @@ export class BusinessIndicatorsPage {
             this.businessIndicator = businessIndicator;
             if (businessIndicator) {
                 this.sortedFlightCards = businessIndicator.flightDetailsCards;
-                console.log(this.sortedFlightCards);
+                this.totalElements = this.sortedFlightCards.length;
+                this.dataSource = new MatTableDataSource<FlightCardModel>(this.sortedFlightCards);
+                this.dataSource.paginator = this.paginator;
+                this.dataSource._updateChangeSubscription();
             }
         });
     }
@@ -46,7 +58,7 @@ export class BusinessIndicatorsPage {
      * @return true si c'est le cas, false sinon
      */
     loadingIsOver(): boolean {
-        return this.pnc && !!this.businessIndicator ;
+        return this.pnc && !!this.businessIndicator &&  !!this.sortedFlightCards;
     }
 
     /**
@@ -68,7 +80,7 @@ export class BusinessIndicatorsPage {
             default: return 0;
           }
         });
-        this.table.renderRows();
+        this.dataSource._updateChangeSubscription();
     }
 
     compare(a: number | string, b: number | string, isAsc: boolean) {
@@ -85,6 +97,6 @@ export class BusinessIndicatorsPage {
     }
 
     compareDate(a: Date, b: Date, isAsc: boolean) {
-        return (moment(a, AppConstant.isoDateFormat).isBefore(moment(b, AppConstant.isoDateFormat)) ? 1 : -1) * (isAsc ? 1 : -1);
+        return (moment(a, AppConstant.isoDateFormat).isBefore(moment(b, AppConstant.isoDateFormat)) ? -1 : 1) * (isAsc ? 1 : -1);
     }
 }

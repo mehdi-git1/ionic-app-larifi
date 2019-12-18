@@ -6,6 +6,11 @@ h3 {
 h3.average-title {
     margin-top: 0px;
 }
+ion-card {
+    img{
+        width: 100px;
+    }
+}
 .average {
     display: flex;
     justify-content: space-around;
@@ -35,7 +40,7 @@ h3.average-title {
         width: 180px;
     }
     .mat-header-cell {
-        font-weight: bold;
+        font-weight: bold; 
     }
     td {
         padding-left: 10px;
@@ -46,4 +51,7 @@ h3.average-title {
     td.mat-cell, td.mat-footer-cell, th.mat-header-cell {
         border-bottom: none
     }
+}
+::ng-deep .mat-icon-button {
+    background-color: transparent;
 }

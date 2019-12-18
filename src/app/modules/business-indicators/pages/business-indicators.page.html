@@ -12,8 +12,8 @@
             <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
             <ng-template #pageBlock>
                 <h3 class="average-title">{{ 'BUSINESS_INDICATORS.6_MONTHS_TITLE' | translate}}</h3>
-                <mat-card>
-                    <mat-card-content  class="average">
+                <ion-card>
+                    <ion-card-content  class="average">
                         <span class="escore">
                             <img class="file-icon" width="100" src="assets/imgs/happy-customer.png" />
                             {{ 'BUSINESS_INDICATORS.ESCORE_AVERAGE' | translate}}
@@ -24,34 +24,37 @@
                             {{ 'BUSINESS_INDICATORS.ABOARD_ACTIONS_AVERAGE' | translate}}
                             <span class="average-number">{{businessIndicator?.averageActionsAboard | number : '1.0-1'}}</span>
                         </span>
-                    </mat-card-content>
-                </mat-card>
+                    </ion-card-content>
+                </ion-card>
 
                 <h3>{{ 'BUSINESS_INDICATORS.FLIGHT_CARD_12_LAST_MONTHS' | translate}}</h3>
-                <table mat-table  matSort (matSortChange)="sortFlightCards($event)" [dataSource]="sortedFlightCards" class="flight-cards-table mat-elevation-z8">
-                    <ng-container matColumnDef="flightNumber">
-                        <th mat-header-cell mat-sort-header *matHeaderCellDef>{{'BUSINESS_INDICATORS.FLIGHT_NUMBER' | translate}}</th>
-                        <td mat-cell *matCellDef="let flightDetailsCard">{{flightDetailsCard.flightNumber}}</td>
-                    </ng-container>
-                    <ng-container matColumnDef="flightDate">
-                        <th mat-header-cell mat-sort-header *matHeaderCellDef>{{'BUSINESS_INDICATORS.LEG_DATE' | translate}}</th>
-                        <td mat-cell *matCellDef="let flightDetailsCard">{{flightDetailsCard.plannedDepartureDate | date : 'dd/MM/yyyy HH:mm'}}</td>
-                    </ng-container>
-                    <ng-container matColumnDef="stations">
-                        <th mat-header-cell *matHeaderCellDef>{{'BUSINESS_INDICATORS.STATIONS' | translate}}</th>
-                        <td mat-cell *matCellDef="let flightDetailsCard">{{flightDetailsCard.departureStation}} - {{flightDetailsCard.arrivalStation}}</td>
-                    </ng-container>
-                    <ng-container matColumnDef="eScore">
-                        <th mat-header-cell mat-sort-header *matHeaderCellDef>{{'BUSINESS_INDICATORS.ESCORE' | translate}}</th>
-                        <td mat-cell *matCellDef="let flightDetailsCard"> {{flightDetailsCard.escore ? flightDetailsCard.escore : '-'}} </td>
-                    </ng-container>
-                    <ng-container matColumnDef="flightActionsNumber">
-                        <th mat-header-cell mat-sort-header *matHeaderCellDef>{{'BUSINESS_INDICATORS.FLIGHT_ACTIONS_NUMBER' | translate}}</th>
-                        <td mat-cell *matCellDef="let flightDetailsCard"   class="flight-actions-number"> {{flightDetailsCard.flightActionsTotalNumber ? flightDetailsCard.flightActionsTotalNumber : '-'}} </td>
-                    </ng-container>
-                    <tr mat-header-row *matHeaderRowDef="flightCardsColumns"></tr>
-                    <tr mat-row *matRowDef="let row; columns: flightCardsColumns;"></tr>
-                </table>
+                <div class="mat-elevation-z8">
+                    <table mat-table  matSort matSortActive="flightDate" matSortDirection="desc" (matSortChange)="sortFlightCards($event)" [dataSource]="dataSource" class="flight-cards-table mat-elevation-z8">
+                        <ng-container matColumnDef="flightNumber">
+                            <th mat-header-cell mat-sort-header *matHeaderCellDef>{{'BUSINESS_INDICATORS.FLIGHT_NUMBER' | translate}}</th>
+                            <td mat-cell *matCellDef="let flightDetailsCard">{{flightDetailsCard.flightNumber}}</td>
+                        </ng-container>
+                        <ng-container matColumnDef="flightDate">
+                            <th mat-header-cell mat-sort-header *matHeaderCellDef>{{'BUSINESS_INDICATORS.LEG_DATE' | translate}}</th>
+                            <td mat-cell *matCellDef="let flightDetailsCard" class="suffix-tu">{{flightDetailsCard.plannedDepartureDate | date : 'dd/MM/yyyy HH:mm':'UTC'}}</td>
+                        </ng-container>
+                        <ng-container matColumnDef="stations">
+                            <th mat-header-cell *matHeaderCellDef>{{'BUSINESS_INDICATORS.STATIONS' | translate}}</th>
+                            <td mat-cell *matCellDef="let flightDetailsCard">{{flightDetailsCard.departureStation}} - {{flightDetailsCard.arrivalStation}}</td>
+                        </ng-container>
+                        <ng-container matColumnDef="eScore">
+                            <th mat-header-cell mat-sort-header *matHeaderCellDef>{{'BUSINESS_INDICATORS.ESCORE' | translate}}</th>
+                            <td mat-cell *matCellDef="let flightDetailsCard"> {{flightDetailsCard.escore ? flightDetailsCard.escore : '-'}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="flightActionsNumber">
+                            <th mat-header-cell mat-sort-header *matHeaderCellDef>{{'BUSINESS_INDICATORS.FLIGHT_ACTIONS_NUMBER' | translate}}</th>
+                            <td mat-cell *matCellDef="let flightDetailsCard"   class="flight-actions-number"> {{flightDetailsCard.flightActionsTotalNumber ? flightDetailsCard.flightActionsTotalNumber : '-'}} </td>
+                        </ng-container>
+                        <tr mat-header-row *matHeaderRowDef="flightCardsColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: flightCardsColumns;"></tr>
+                    </table>
+                    <mat-paginator [pageSize]="pageSize" [length]="totalElements" pageIndex="0"  showFirstLastButtons></mat-paginator>
+                </div>
             </ng-template>
         </div>
     </ion-content>
