@@ -45,9 +45,7 @@ export class AppComponent {
     private appInitService: AppInitService
   ) {
     this.platform.ready().then(() => {
-      this.appInitService.initApp().then(() => {
-        this.initializeApp();
-      });
+      this.initializeApp();
     });
   }
 

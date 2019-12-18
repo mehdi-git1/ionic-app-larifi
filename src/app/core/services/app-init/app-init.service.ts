@@ -30,13 +30,14 @@ export class AppInitService {
      * @return une promesse, résolue quand l'initialisation de l'application est terminée
      */
     initApp(): Promise<any> {
-        return this.platform.ready().then((readySource) => {
-            this.authenticationService.initFunctionalApp().then(
+       //return this.platform.ready().then((readySource) => {
+            //console.log(readySource);
+            return this.authenticationService.initFunctionalApp().then(
             authentReturn => {
                 this.setAuthenticationStatus(authentReturn);
-                this.handleAuthenticationStatus();
+                //this.handleAuthenticationStatus();
             });
-        });
+       //});
     }
 
     /**
