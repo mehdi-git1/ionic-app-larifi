@@ -1,4 +1,4 @@
-import { BusinessIndicatorsPage } from './../modules/business-indicators/pages/business-indicators.page';
+import { BusinessIndicatorsPage } from './../modules/business-indicators/pages/business-indicators/business-indicators.page';
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
