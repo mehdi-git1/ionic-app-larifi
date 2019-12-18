@@ -8,7 +8,7 @@ h3.average-title {
 }
 .average {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     font-size: 1.1em;
     > span {
         display: flex;
@@ -35,7 +35,6 @@ h3.average-title {
         width: 180px;
     }
     .mat-header-cell {
-        font-size: 1.2rem;
         font-weight: bold;
     }
     td {
@@ -43,5 +42,8 @@ h3.average-title {
     }
     td.mat-cell:first-of-type, td.mat-footer-cell:first-of-type, th.mat-header-cell:first-of-type {
         padding-left: 24px;
+    }
+    td.mat-cell, td.mat-footer-cell, th.mat-header-cell {
+        border-bottom: none
     }
 }
