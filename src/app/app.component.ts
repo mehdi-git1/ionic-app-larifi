@@ -45,7 +45,13 @@ export class AppComponent {
     private appInitService: AppInitService
   ) {
     this.platform.ready().then(() => {
-      this.initializeApp();
+      if (this.deviceService.isBrowser()) {
+        this.initializeApp();
+      } else {
+        this.appInitService.initApp().then(() =>
+        this.initializeApp()
+        );
+      }
     });
   }
 

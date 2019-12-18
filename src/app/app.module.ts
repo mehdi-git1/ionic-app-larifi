@@ -1,3 +1,4 @@
+import { DeviceService } from './core/services/device/device.service';
 import { BusinessIndicatorsModule } from './modules/business-indicators/business-indicators.module';
 import { SimpleNotificationsModule } from 'angular2-notifications';
 
@@ -48,10 +49,16 @@ import {
 } from './shared/components/modals/pin-pad-modal/pin-pad-modal.component';
 import { SharedModule } from './shared/shared.module';
 
-export function appInitFactory(appInitService: AppInitService) {
+export function appInitFactory(deviceService: DeviceService, appInitService: AppInitService) {
+  if (deviceService.isBrowser()) {
+    return () => {
+      return Promise.all([
+        appInitService.initApp()
+      ]);
+    };
+  }
   return () => {
     return Promise.all([
-      appInitService.initApp()
     ]);
   };
 }
@@ -99,13 +106,13 @@ export function appInitFactory(appInitService: AppInitService) {
   providers: [
     StatusBar,
     SplashScreen,
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     {
       provide: APP_INITIALIZER,
       useFactory: appInitFactory,
-      deps: [AppInitService],
+      deps: [DeviceService, AppInitService],
       multi: true
-    },
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
+    }
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA
