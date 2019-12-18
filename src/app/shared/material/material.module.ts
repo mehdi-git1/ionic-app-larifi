@@ -30,7 +30,8 @@ import { MatSelectModule } from '@angular/material/select';
         MatExpansionModule,
         MatDialogModule,
         MatRadioModule,
-        MatCheckboxModule
+        MatCheckboxModule,
+        MatCardModule
     ],
     providers: [
         { provide: DateAdapter, useClass: NativeDateAdapter },

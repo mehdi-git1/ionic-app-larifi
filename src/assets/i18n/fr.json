@@ -970,6 +970,11 @@
         "EFORMS_WRITTEN": "Formulaires de retours d'expérience rédigés",
         "CABIN_REPORTS_WRITTEN": "Cabin Reports rédigés"
     },
+    "BUSINESS_INDICATORS": {
+        "6_MONTHS_TITLE" : "Indicateurs Métier sur 6 mois glissants",
+        "ESCORE_AVERAGE": "Moyenne - eScore",
+        "ABOARD_ACTIONS_AVERAGE": "Moyenne - Actions à bord"
+    },
     "SYNCHRONIZATION": {
         "PNC_SAVED_OFFLINE": "Le PNC {{ matricule }} a été synchronisé",
         "PNC_SAVED_OFFLINE_ERROR": "Le PNC {{ matricule }} n'a pas pu être synchronisé",
