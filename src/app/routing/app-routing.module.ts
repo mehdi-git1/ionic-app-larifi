@@ -1,5 +1,4 @@
 import { FlightDetailsCardPage } from './../modules/business-indicators/pages/flight-details-card/flight-details-card.page';
-import { BusinessIndicatorsPage } from './../modules/business-indicators/pages/business-indicators/business-indicators.page';
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
@@ -15,6 +14,9 @@ import {
 import {
     UserMessageManagementPage
 } from '../modules/admin/pages/user-message-management/user-message-management.page';
+import {
+    BusinessIndicatorsPage
+} from '../modules/business-indicators/pages/business-indicators/business-indicators.page';
 import {
     CareerObjectiveCreatePage
 } from '../modules/career-objective/pages/career-objective-create/career-objective-create.page';
@@ -82,7 +84,7 @@ import {
 import {
     ProfessionalLevelPage
 } from '../modules/professional-level/pages/professional-level/professional-level.page';
-import { RedactionsPage } from '../modules/redactions/pages/redactions.page';
+import { RedactionsPage } from '../modules/redactions/pages/redactions/redactions.page';
 import { ActivityPage } from '../modules/regularity/pages/activity/activity.page';
 import {
     AppVersionHistoryPage
@@ -382,6 +384,7 @@ const routes: Routes = [
     { path: '', component: BusinessIndicatorsPage},
     { path: 'flight-details-card/:id', component: FlightDetailsCardPage }
   ]} ,
+  { path: 'pnc-search/:mode', component: PncSearchPage },
   { path: 'help-asset', component: HelpAssetListPage },
   { path: 'activity', component: ActivityPage },
   { path: 'settings', component: SettingsPage },

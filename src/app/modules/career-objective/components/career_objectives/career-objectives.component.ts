@@ -33,8 +33,4 @@ export class CareerObjectivesComponent {
     this.router.navigate(['../', 'career-objective', 'create', careerObjective.techId], { relativeTo: this.activatedRoute });
   }
 
-  isExpanded(): boolean {
-    return CareerObjectiveDisplayModeEnum.REDACTIONS === this.displayMode ?
-      this.careerObjectives && this.careerObjectives.length < 10 : true;
-  }
 }

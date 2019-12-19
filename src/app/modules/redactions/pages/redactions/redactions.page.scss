@@ -1,15 +1,5 @@
 :host {
 
-    .eobservation-block {
-        margin-bottom: 10px;
-    }
-
-    .career-objective-block,
-    .professional-interview-block {
-        margin-top: 60px;
-        margin-bottom: 10px;
-    }
-
     ::ng-deep {
         .eobservation-block h3 {
             color: var(--ion-color-primarydark);
@@ -30,11 +20,28 @@
         }
     }
 
-    .links-block {
-        margin-top: 60px;
-    }
-
     .redactions-title {
         color: var(--ion-color-primarydark);
     }
+
+    nav.tabs {
+        display: flex;
+        justify-content: center;
+        border-bottom: 1px solid var(--ion-color-grey75);
+        margin-bottom: 8px;
+
+        button {
+            color: var(--ion-color-grey40);
+            font-size: 1.2em;
+            background: none;
+            margin: 0 20px;
+            padding: 20px 0 10px 0;
+            border-bottom: 3px solid transparent;
+        }
+
+        button.active {
+            border-bottom: 2px solid var(--ion-color-primarylight);
+        }
+    }
+
 }

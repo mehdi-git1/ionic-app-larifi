@@ -1,4 +1,4 @@
-<mat-expansion-panel id="matExpansionPaneleObs" [expanded]="isExpanded()" [ngClass]="{'no-data' : eObservations.length === 0}">
+<mat-expansion-panel id="matExpansionPaneleObs" [expanded]="true" [ngClass]="{'no-data' : eObservations.length === 0}">
     <mat-expansion-panel-header [expandedHeight]="matPanelHeaderHeight" [collapsedHeight]="matPanelHeaderHeight" hideToggle="true" class="header elevation-2">
         <label class="e-obs-date"> {{ 'EOBSERVATION.LIST.HEADER.ROTATION_DATE' | translate }} </label>
         <label class="e-obs-type"> {{ 'EOBSERVATION.LIST.HEADER.TYPE' | translate }} </label>

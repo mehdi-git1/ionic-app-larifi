@@ -15,6 +15,9 @@ import {
     CancelChangesService
 } from '../../../../core/services/cancel_changes/cancel-changes.service';
 import {
+    CareerObjectiveService
+} from '../../../../core/services/career-objective/career-objective.service';
+import {
     OfflineCareerObjectiveService
 } from '../../../../core/services/career-objective/offline-career-objective.service';
 import { ConnectivityService } from '../../../../core/services/connectivity/connectivity.service';
@@ -61,6 +64,7 @@ export class WaypointCreatePage extends FormCanDeactivate {
         private navCtrl: NavController,
         private activatedRoute: ActivatedRoute,
         private formBuilder: FormBuilder,
+        private careerObjectiveService: CareerObjectiveService,
         private waypointService: WaypointService,
         private toastService: ToastService,
         private loadingCtrl: LoadingController,
@@ -86,12 +90,13 @@ export class WaypointCreatePage extends FormCanDeactivate {
      * Initialisation du contenu de la page.
      */
     initPage() {
-        const matricule = this.pncService.getRequestedPncMatricule(this.activatedRoute);
-        this.pncService.getPnc(matricule).then(pnc => {
-            this.pnc = pnc;
-        }, error => { });
 
         this.careerObjectiveId = parseInt(this.activatedRoute.snapshot.paramMap.get('careerObjectiveId'), 10);
+        this.careerObjectiveService.getCareerObjective(this.careerObjectiveId).then(careerObjective => {
+            this.pncService.getPnc(careerObjective.pnc.matricule).then(pnc => {
+                this.pnc = pnc;
+            }, error => { });
+        });
 
         if (this.activatedRoute.snapshot.paramMap.get('waypointId')
             && parseInt(this.activatedRoute.snapshot.paramMap.get('waypointId'), 10) !== 0) {

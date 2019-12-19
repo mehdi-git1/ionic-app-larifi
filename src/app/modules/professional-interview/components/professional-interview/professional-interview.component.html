@@ -3,12 +3,12 @@
         [collapsedHeight]="matPanelHeaderHeight" hideToggle="true">
         <label
             class="flex3">{{professionalInterview.annualProfessionalInterviewDate | date : 'dd/MM/yyyy' : 'UTC'}}</label>
-        <label class="flex align-center flex3">
+        <label class="flex align-center flex4">
             <color-status-point [colorClass]="getColorStatusPoint()">
             </color-status-point>
             {{ 'PROFESSIONAL_INTERVIEW.DETAILS.STATE.' + professionalInterview?.state | translateOrEmpty }}
         </label>
-        <label class="flex4">
+        <label class="flex6">
             <span
                 *ngIf="displayMode !== ProfessionalInterviewDisplayModeEnum.REDACTIONS && professionalInterview.redactor?.lastName">{{professionalInterview.redactor.lastName}}
                 <span class="firstname">{{professionalInterview.redactor.firstName}}</span></span>
@@ -16,10 +16,12 @@
                 *ngIf="displayMode === ProfessionalInterviewDisplayModeEnum.REDACTIONS && professionalInterview.pncAtInterviewDate?.lastName">{{professionalInterview.pncAtInterviewDate.lastName}}
                 <span class="firstname">{{professionalInterview.pncAtInterviewDate.firstName}}</span></span>
         </label>
-        <label
-            class="flex3">{{ 'PROFESSIONAL_INTERVIEW.DETAILS.TYPE.' + professionalInterview?.type | translateOrEmpty }}
+        <label class="flex1">
             <ion-icon class="attach-icon" name="attach" *ngIf="professionalInterview?.attachmentFiles?.length > 0">
             </ion-icon>
+        </label>
+        <label
+            class="flex4">{{ 'PROFESSIONAL_INTERVIEW.DETAILS.TYPE.' + professionalInterview?.type | translateOrEmpty }}
         </label>
 
         <div class="button-detail">
