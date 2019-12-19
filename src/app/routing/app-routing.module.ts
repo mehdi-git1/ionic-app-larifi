@@ -15,7 +15,7 @@ import {
 } from '../modules/admin/pages/user-message-management/user-message-management.page';
 import {
     BusinessIndicatorsPage
-} from '../modules/business-indicators/pages/business-indicators.page';
+} from '../modules/business-indicators/pages/business-indicators/business-indicators.page';
 import {
     CareerObjectiveCreatePage
 } from '../modules/career-objective/pages/career-objective-create/career-objective-create.page';

@@ -1,6 +1,6 @@
+import { BusinessIndicatorsPage } from './pages/business-indicators/business-indicators.page';
 import { ComponentsModule } from 'src/app/shared/components/components.module';
 import { IonicModule } from '@ionic/angular';
-import { BusinessIndicatorsPage } from './pages/business-indicators.page';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { SharedModule } from '../../shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';

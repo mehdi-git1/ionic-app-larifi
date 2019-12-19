@@ -1,5 +1,7 @@
+import { FlightCardModel } from './flight.card.model';
 export class BusinessIndicatorModel {
-    private matricule: string;
-    private averageEscore: number;
-    private averageActionsAboard: number;
+    matricule: string;
+    averageEscore: number;
+    averageActionsAboard: number;
+    flightDetailsCards: FlightCardModel[];
 }
