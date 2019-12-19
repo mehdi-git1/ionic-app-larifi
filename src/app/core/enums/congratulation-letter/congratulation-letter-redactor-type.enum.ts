@@ -1,6 +1,6 @@
 export enum CongratulationLetterRedactorTypeEnum {
     PNC = 'PNC',
     PAX = 'PAX',
-    PILOTE = 'PILOTE',
+    PNT = 'PNT',
     OTHER = 'OTHER'
 }

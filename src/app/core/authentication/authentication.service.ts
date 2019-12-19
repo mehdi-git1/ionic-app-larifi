@@ -48,9 +48,7 @@ export class AuthenticationService {
                     return AuthenticationStatusEnum.AUTHENTICATION_KO;
                 }
             }
-        ).catch((error) => {
-            return AuthenticationStatusEnum.AUTHENTICATION_KO;
-        });
+        );
     }
 
     /**

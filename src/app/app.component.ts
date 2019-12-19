@@ -45,9 +45,9 @@ export class AppComponent {
     private appInitService: AppInitService
   ) {
     this.platform.ready().then(() => {
-      this.appInitService.initApp().then(() => {
-        this.initializeApp();
-      });
+        this.appInitService.initAppOnIpad().then(() =>
+          this.initializeApp()
+        );
     });
   }
 

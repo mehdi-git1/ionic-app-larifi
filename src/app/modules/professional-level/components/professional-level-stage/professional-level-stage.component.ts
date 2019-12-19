@@ -13,8 +13,6 @@ import {
 })
 export class ProfessionalLevelStageComponent {
 
-  matPanelHeaderHeight = 'auto';
-
   _stages: StageModel[];
 
   @Input() pnc: PncModel;

@@ -794,7 +794,7 @@
                 "LABEL": "Rédacteur",
                 "PNC": "PNC",
                 "PAX": "Client - PAX",
-                "PILOTE": "Pilote",
+                "PNT": "Pilote",
                 "OTHER": "Autre",
                 "REDACTOR_AUTOCOMPLETE": "PNC rédacteur",
                 "REDACTOR_AUTOCOMPLETE_PLACEHOLDER": "Matricule, Nom, Prénom"
@@ -966,7 +966,7 @@
     },
     "REDACTIONS": {
         "REDACTIONS_TITLE": "Rédactions des 24 derniers mois",
-        "LINKS_TITLE": "Liens de consultation",
+        "EXTRA_REDACTION_TITLE": "Liens de consultation",
         "EFORMS_WRITTEN": "Formulaires de retours d'expérience rédigés",
         "CABIN_REPORTS_WRITTEN": "Cabin Reports rédigés"
     },

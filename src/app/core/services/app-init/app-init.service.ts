@@ -29,13 +29,39 @@ export class AppInitService {
      * Initialisation de l'appli
      * @return une promesse, résolue quand l'initialisation de l'application est terminée
      */
+    initAppOnBrowser(): Promise<any> {
+        return this.platform.ready().then(() => {
+            if (this.deviceService.isBrowser()) {
+                return this.initApp();
+            } else {
+                return Promise.resolve();
+            }
+        });
+    }
+
+    /**
+     * Initialisation de l'appli
+     * @return une promesse, résolue quand l'initialisation de l'application est terminée
+     */
+    initAppOnIpad(): Promise<any> {
+        return this.platform.ready().then(() => {
+            if (this.deviceService.isBrowser()) {
+                return Promise.resolve();
+            } else {
+                return this.initApp();
+            }
+        });
+    }
+
+    /**
+     * Initialisation de l'appli
+     * @return une promesse, résolue quand l'initialisation de l'application est terminée
+     */
     initApp(): Promise<any> {
-        return this.platform.ready().then((readySource) => {
-            this.authenticationService.initFunctionalApp().then(
-            authentReturn => {
-                this.setAuthenticationStatus(authentReturn);
-                this.handleAuthenticationStatus();
-            });
+        return this.authenticationService.initFunctionalApp().then(
+        authentReturn => {
+            this.setAuthenticationStatus(authentReturn);
+            this.handleAuthenticationStatus();
         });
     }
 
