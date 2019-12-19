@@ -8,6 +8,7 @@
                 "TITLE": "Nouveautés de la version"
             }
         },
+        "AF_COMPANY": "AF",
         "NO_DATA": "Pas de données disponibles",
         "PNC_ROLE": {
             "MANAGER": "Manager Coach",
@@ -979,7 +980,13 @@
         "FLIGHT_NUMBER": "N° de Vol",
         "STATIONS": "Escale départ / Escale arrivée",
         "ESCORE": "eScore",
-        "FLIGHT_ACTIONS_NUMBER": "Nombre total d'actions à bord"
+        "FLIGHT_ACTIONS": "Actions à bord",
+        "FLIGHT_ACTIONS_NUMBER": "Nombre total d'actions à bord",
+        "FLIGHT_INFORMATIONS": "Infos Vol",
+        "AIRCRAFT_TYPE": "Type Avion",
+        "EXPLOITATION_VERSION": "Version d'exploitation",
+        "PAX_VERSION": "Version PAX",
+        "PEQ": "Compo PEQ"
     },
     "SYNCHRONIZATION": {
         "PNC_SAVED_OFFLINE": "Le PNC {{ matricule }} a été synchronisé",

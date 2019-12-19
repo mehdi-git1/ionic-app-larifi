@@ -1,3 +1,4 @@
+import { FlightDetailsCardModel } from './../../models/business-indicator/flight-details-card.model';
 import { BusinessIndicatorModel } from './../../models/business-indicator/business-indicator.model';
 import { Injectable } from '@angular/core';
 
@@ -27,6 +28,15 @@ export class OnlineBusinessIndicatorService {
      */
     getBusinessIndicator(matricule: string): Promise<BusinessIndicatorModel> {
         return this.restService.get(this.config.getBackEndUrl('getBusinessIndicators', [matricule]));
+    }
+
+    /**
+     * Récupère les indicateurs métier du Pnc
+     * @param matricule le matricule du Pnc
+     * @return les indicateurs métier du Pnc
+     */
+    getFlightDetailsCard(id: string): Promise<FlightDetailsCardModel> {
+        return this.restService.get(this.config.getBackEndUrl('getBusinessIndicatorsFlightDetailsCard', [id]));
     }
 
 }

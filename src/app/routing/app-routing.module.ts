@@ -1,3 +1,4 @@
+import { FlightDetailsCardPage } from './../modules/business-indicators/pages/flight-details-card/flight-details-card.page';
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
@@ -139,9 +140,11 @@ const routes: Routes = [
             ]
           },
           { path: 'redactions', component: RedactionsPage },
-          { path: 'business-indicators', component: BusinessIndicatorsPage },
-          {
-            path: 'career-objective', children: [
+          { path: 'business-indicators', children: [
+            { path: '', component: BusinessIndicatorsPage},
+            { path: 'flight-details-card/:id', component: FlightDetailsCardPage }
+          ]} ,
+          { path: 'career-objective', children: [
               { path: 'create/:careerObjectiveId', component: CareerObjectiveCreatePage, canDeactivate: [CanDeactivateGuard] },
               {
                 path: 'waypoint', children: [
@@ -195,8 +198,11 @@ const routes: Routes = [
               { path: 'statutory-certificate/:selectedTab', component: StatutoryCertificatePage },
               { path: 'help-asset', component: HelpAssetListPage },
               { path: 'redactions', component: RedactionsPage },
-              { path: 'business-indicators', component: BusinessIndicatorsPage },
-              { path: 'development-program', component: DevelopmentProgramPage },
+              { path: 'business-indicators', children: [
+                { path: '', component: BusinessIndicatorsPage},
+                { path: 'flight-details-card/:id', component: FlightDetailsCardPage }
+              ]} ,
+              { path: 'development-program', component: DevelopmentProgramPage},
               {
                 path: 'career-objective', children: [
                   { path: 'create/:careerObjectiveId', component: CareerObjectiveCreatePage, canDeactivate: [CanDeactivateGuard] },
@@ -374,8 +380,11 @@ const routes: Routes = [
   { path: 'statutory-certificate', component: StatutoryCertificatePage },
   { path: 'statutory-certificate/:selectedTab', component: StatutoryCertificatePage },
   { path: 'redactions', component: RedactionsPage },
+  { path: 'business-indicators', children: [
+    { path: '', component: BusinessIndicatorsPage},
+    { path: 'flight-details-card/:id', component: FlightDetailsCardPage }
+  ]} ,
   { path: 'pnc-search/:mode', component: PncSearchPage },
-  { path: 'business-indicators', component: BusinessIndicatorsPage },
   { path: 'help-asset', component: HelpAssetListPage },
   { path: 'activity', component: ActivityPage },
   { path: 'settings', component: SettingsPage },

@@ -1,3 +1,4 @@
+import { FlightDetailsCardPage } from './pages/flight-details-card/flight-details-card.page';
 import { BusinessIndicatorsPage } from './pages/business-indicators/business-indicators.page';
 import { ComponentsModule } from 'src/app/shared/components/components.module';
 import { IonicModule } from '@ionic/angular';
@@ -7,7 +8,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
     declarations: [
-      BusinessIndicatorsPage
+      BusinessIndicatorsPage,
+      FlightDetailsCardPage
     ],
     imports: [
       IonicModule,
@@ -17,7 +19,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
       ReactiveFormsModule
     ],
     entryComponents: [
-      BusinessIndicatorsPage
+      BusinessIndicatorsPage,
+      FlightDetailsCardPage
     ],
     exports: [],
     schemas: [

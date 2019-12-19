@@ -1,13 +1,13 @@
-import { AppConstant } from './../../../app.constant';
-import { FlightActivityModule } from './../../flight-activity/flight-activity.module';
-import { FlightCardModel } from './../../../core/models/business-indicator/flight.card.model';
-import { BusinessIndicatorModel } from './../../../core/models/business-indicator/business-indicator.model';
-import { OnlineBusinessIndicatorService } from './../../../core/services/business-indicator/online-business-indicator.service';
-import { PncService } from './../../../core/services/pnc/pnc.service';
-import { PncModel } from './../../../core/models/pnc.model';
+import { AppConstant } from './../../../../app.constant';
+import { OnlineBusinessIndicatorService } from './../../../../core/services/business-indicator/online-business-indicator.service';
+import { PncService } from 'src/app/core/services/pnc/pnc.service';
+import { FlightCardModel } from './../../../../core/models/business-indicator/flight-card.model';
+import { BusinessIndicatorModel } from './../../../../core/models/business-indicator/business-indicator.model';
+import { PncModel } from './../../../../core/models/pnc.model';
+
 import { TabHeaderEnum } from 'src/app/core/enums/tab-header.enum';
 import { Component, ViewChild, OnInit, AfterViewInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Sort, MatSort, MatTable, MatPaginator, MatTableDataSource } from '@angular/material';
 import * as moment from 'moment';
 @Component({
@@ -32,7 +32,7 @@ export class BusinessIndicatorsPage implements AfterViewInit {
     @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
     dataSource: MatTableDataSource<FlightCardModel>;
 
-    constructor(private activatedRoute: ActivatedRoute, private pncService: PncService,
+    constructor(private activatedRoute: ActivatedRoute, private router: Router, private pncService: PncService,
                 public onlineBusinessIndicatorService: OnlineBusinessIndicatorService) {
     }
 
@@ -43,8 +43,8 @@ export class BusinessIndicatorsPage implements AfterViewInit {
         }, error => { });
         this.onlineBusinessIndicatorService.getBusinessIndicator(matricule).then(businessIndicator => {
             this.businessIndicator = businessIndicator;
-            if (businessIndicator) {
-                this.sortedFlightCards = businessIndicator.flightDetailsCards;
+            if (businessIndicator && businessIndicator.flightCards) {
+                this.sortedFlightCards = businessIndicator.flightCards;
                 this.totalElements = this.sortedFlightCards.length;
                 this.dataSource = new MatTableDataSource<FlightCardModel>(this.sortedFlightCards);
                 this.dataSource.paginator = this.paginator;
@@ -70,7 +70,7 @@ export class BusinessIndicatorsPage implements AfterViewInit {
           return;
         }
 
-        this.sortedFlightCards = this.businessIndicator.flightDetailsCards.sort((a, b) => {
+        this.sortedFlightCards = this.businessIndicator.flightCards.sort((a, b) => {
           const isAsc = sort.direction === 'asc';
           switch (sort.active) {
             case 'flightNumber': return this.compare(a.flightNumber, b.flightNumber, isAsc);
@@ -98,5 +98,9 @@ export class BusinessIndicatorsPage implements AfterViewInit {
 
     compareDate(a: Date, b: Date, isAsc: boolean) {
         return (moment(a, AppConstant.isoDateFormat).isBefore(moment(b, AppConstant.isoDateFormat)) ? -1 : 1) * (isAsc ? 1 : -1);
+    }
+
+    goToFlightDetailsCard(flightCard: FlightCardModel) {
+        this.router.navigate(['flight-details-card', flightCard.techId], { relativeTo: this.activatedRoute });
     }
 }
