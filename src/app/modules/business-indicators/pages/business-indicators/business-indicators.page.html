@@ -31,8 +31,8 @@
                 <div class="mat-elevation-z8">
                     <table mat-table  matSort matSortActive="flightDate" matSortDirection="desc" (matSortChange)="sortFlightCards($event)" [dataSource]="dataSource" class="flight-cards-table mat-elevation-z8">
                         <ng-container matColumnDef="flightNumber">
-                            <th mat-header-cell mat-sort-header *matHeaderCellDef>{{'GLOBAL.AF_COMPANY' | translate}}{{'BUSINESS_INDICATORS.FLIGHT_NUMBER' | translate}}</th>
-                            <td mat-cell *matCellDef="let flightDetailsCard">{{flightDetailsCard.flightNumber}}</td>
+                            <th mat-header-cell mat-sort-header *matHeaderCellDef>{{'BUSINESS_INDICATORS.FLIGHT_NUMBER' | translate}}</th>
+                            <td mat-cell *matCellDef="let flightDetailsCard">{{'GLOBAL.AF_COMPANY' | translate}}{{flightDetailsCard.flightNumber}}</td>
                         </ng-container>
                         <ng-container matColumnDef="flightDate">
                             <th mat-header-cell mat-sort-header *matHeaderCellDef>{{'BUSINESS_INDICATORS.LEG_DATE' | translate}}</th>
