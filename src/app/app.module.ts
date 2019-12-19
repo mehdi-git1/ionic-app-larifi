@@ -50,15 +50,9 @@ import {
 import { SharedModule } from './shared/shared.module';
 
 export function appInitFactory(deviceService: DeviceService, appInitService: AppInitService) {
-  if (deviceService.isBrowser()) {
-    return () => {
-      return Promise.all([
-        appInitService.initApp()
-      ]);
-    };
-  }
   return () => {
     return Promise.all([
+      appInitService.initAppOnBrowser()
     ]);
   };
 }
