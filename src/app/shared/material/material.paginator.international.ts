@@ -3,6 +3,12 @@ export class EdosPncMatPaginatorIntl extends MatPaginatorIntl {
   itemsPerPageLabel = 'Nombre d\'éléments par page : ';
   nextPageLabel     = 'Page suivante';
   previousPageLabel = 'Page précédente';
+  firstPageLabel = 'Première page';
+  lastPageLabel = 'Dernière page';
+  constructor() {
+    super();
+    this.itemsPerPageLabel = 'Nombre d\'éléments par page : ';
+  }
 
   getRangeLabel =  (page, pageSize, length) => {
     if (length === 0 || pageSize === 0) {

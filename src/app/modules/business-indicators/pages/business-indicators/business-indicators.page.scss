@@ -55,3 +55,11 @@ ion-card {
 ::ng-deep .mat-icon-button {
     background-color: transparent;
 }
+
+:host ::ng-deep .mat-tooltip {
+    color: black;
+}
+
+:host ::ng-deep mat-tooltip-component {
+    color: black;
+}
