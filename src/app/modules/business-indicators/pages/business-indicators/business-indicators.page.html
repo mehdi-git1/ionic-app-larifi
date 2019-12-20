@@ -53,7 +53,7 @@
                         <tr mat-header-row *matHeaderRowDef="flightCardsColumns"></tr>
                         <tr mat-row *matRowDef="let row; columns: flightCardsColumns;"  (click)="goToFlightDetailsCard(row)"></tr>
                     </table>
-                    <mat-paginator [pageSize]="pageSize" [length]="totalElements" pageIndex="0"  showFirstLastButtons></mat-paginator>
+                    <mat-paginator color="black" [pageSize]="pageSize" [length]=" this.sortedFlightCards.length"  (page)="handlePage($event)" showFirstLastButtons></mat-paginator>
                 </div>
             </ng-template>
         </div>

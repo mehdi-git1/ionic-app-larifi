@@ -6,9 +6,9 @@ import { BusinessIndicatorModel } from './../../../../core/models/business-indic
 import { PncModel } from './../../../../core/models/pnc.model';
 
 import { TabHeaderEnum } from 'src/app/core/enums/tab-header.enum';
-import { Component, ViewChild, OnInit, AfterViewInit } from '@angular/core';
+import { Component, ViewChild, AfterViewInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Sort, MatSort, MatTable, MatPaginator, MatTableDataSource } from '@angular/material';
+import { Sort, MatSort, MatTable, MatPaginator, MatTableDataSource, PageEvent } from '@angular/material';
 import * as moment from 'moment';
 @Component({
     selector: 'page-business-indicators',
@@ -18,7 +18,6 @@ import * as moment from 'moment';
 export class BusinessIndicatorsPage implements AfterViewInit {
 
     pageSize = 20;
-    totalElements: number;
 
     TabHeaderEnum = TabHeaderEnum;
     pnc: PncModel;
@@ -45,10 +44,7 @@ export class BusinessIndicatorsPage implements AfterViewInit {
             this.businessIndicator = businessIndicator;
             if (businessIndicator && businessIndicator.flightCards) {
                 this.sortedFlightCards = businessIndicator.flightCards;
-                this.totalElements = this.sortedFlightCards.length;
-                this.dataSource = new MatTableDataSource<FlightCardModel>(this.sortedFlightCards);
-                this.dataSource.paginator = this.paginator;
-                this.dataSource._updateChangeSubscription();
+                this.getFlightCardsByPage(0);
             }
         });
     }
@@ -80,7 +76,7 @@ export class BusinessIndicatorsPage implements AfterViewInit {
             default: return 0;
           }
         });
-        this.dataSource._updateChangeSubscription();
+        this.getFlightCardsByPage(0);
     }
 
     compare(a: number | string, b: number | string, isAsc: boolean) {
@@ -96,11 +92,44 @@ export class BusinessIndicatorsPage implements AfterViewInit {
         return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
     }
 
-    compareDate(a: Date, b: Date, isAsc: boolean) {
-        return (moment(a, AppConstant.isoDateFormat).isBefore(moment(b, AppConstant.isoDateFormat)) ? -1 : 1) * (isAsc ? 1 : -1);
+    /**
+     * Compare 2 dates
+     * @param firstDate première date
+     * @param secondDate seconde date
+     * @param isAsc true, si comparaison ascendante. False sinon
+     */
+    compareDate(firstDate: Date, secondDate: Date, isAsc: boolean) {
+        return (moment(firstDate, AppConstant.isoDateFormat).isBefore(moment(secondDate, AppConstant.isoDateFormat)) ? -1 : 1) * (isAsc ? 1 : -1);
     }
 
+    /**
+     * Dirige vers la fiche détail vol
+     * @param flightCard la fiche de vol
+     */
     goToFlightDetailsCard(flightCard: FlightCardModel) {
         this.router.navigate(['flight-details-card', flightCard.techId], { relativeTo: this.activatedRoute });
     }
+
+    /**
+     * Gère les évènements liés aux changements de page
+     * @param event évènement déclenché
+     */
+    public handlePage(event: PageEvent) {
+        this.getFlightCardsByPage(event.pageIndex);
+    }
+
+    /**
+     * Récupère uniquement les fiches de vol de la page
+     * @param pageIndex index de la page
+     */
+    public getFlightCardsByPage(pageIndex: number) {
+        const startIndex = pageIndex * this.pageSize;
+        const endIndex = (pageIndex + 1) * this.pageSize - 1;
+        const flightCardByPage = this.sortedFlightCards.slice(startIndex, endIndex);
+        this.dataSource = new MatTableDataSource<FlightCardModel>(flightCardByPage);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+        this.dataSource._updateChangeSubscription();
+    }
+
 }
