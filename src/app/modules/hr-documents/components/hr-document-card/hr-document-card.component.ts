@@ -20,7 +20,7 @@ import { ToastService } from '../../../../core/services/toast/toast.service';
     templateUrl: 'hr-document-card.component.html',
     styleUrls: ['./hr-document-card.component.scss']
 })
-export class HrDocumentCardComponent implements OnInit {
+export class HrDocumentCardComponent {
 
     @Input() hrDocument: HrDocumentModel;
 
@@ -41,14 +41,6 @@ export class HrDocumentCardComponent implements OnInit {
         private datePipe: DatePipe,
         private sessionService: SessionService,
         private pncService: PncService) {
-    }
-
-    ngOnInit() {
-        this.pncService.getPnc(this.hrDocument.pnc.matricule).then(concernedPnc => {
-            this.documentCanBeDeleted = this.hrDocument.redactor.matricule === this.sessionService.getActiveUser().matricule
-                || concernedPnc.pncRds.matricule === this.sessionService.getActiveUser().matricule
-                || concernedPnc.pncInstructor.matricule === this.sessionService.getActiveUser().matricule;
-        });
     }
 
     canEditDocument() {
