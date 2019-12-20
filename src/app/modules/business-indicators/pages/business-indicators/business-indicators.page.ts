@@ -1,12 +1,12 @@
 import { AppConstant } from './../../../../app.constant';
 import { OnlineBusinessIndicatorService } from './../../../../core/services/business-indicator/online-business-indicator.service';
-import { PncService } from './../../../../core/services/pnc/pnc.service';
-import { FlightCardModel } from './../../../../core/models/business-indicator/flight.card.model';
+import { PncService } from 'src/app/core/services/pnc/pnc.service';
+import { FlightCardModel } from './../../../../core/models/business-indicator/flight-card.model';
 import { BusinessIndicatorModel } from './../../../../core/models/business-indicator/business-indicator.model';
-import { PncModel } from 'src/app/core/models/pnc.model';
+import { PncModel } from './../../../../core/models/pnc.model';
 
 import { TabHeaderEnum } from 'src/app/core/enums/tab-header.enum';
-import { Component, ViewChild, OnInit, AfterViewInit } from '@angular/core';
+import { Component, ViewChild, OnInit, AfterViewInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Sort, MatSort, MatTable, MatPaginator, MatTableDataSource, PageEvent } from '@angular/material';
 import * as moment from 'moment';
@@ -31,9 +31,8 @@ export class BusinessIndicatorsPage implements AfterViewInit {
     @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
     dataSource: MatTableDataSource<FlightCardModel>;
 
-    constructor(private activatedRoute: ActivatedRoute, private pncService: PncService,
-                public onlineBusinessIndicatorService: OnlineBusinessIndicatorService,
-                public router: Router) {
+    constructor(private activatedRoute: ActivatedRoute, private router: Router, private pncService: PncService,
+                public onlineBusinessIndicatorService: OnlineBusinessIndicatorService) {
     }
 
     ngAfterViewInit() {
@@ -67,7 +66,7 @@ export class BusinessIndicatorsPage implements AfterViewInit {
           return;
         }
 
-        this.sortedFlightCards = this.businessIndicator.flightDetailsCards.sort((a, b) => {
+        this.sortedFlightCards = this.businessIndicator.flightCards.sort((a, b) => {
           const isAsc = sort.direction === 'asc';
           switch (sort.active) {
             case 'flightNumber': return this.compare(a.flightNumber, b.flightNumber, isAsc);
@@ -120,7 +119,7 @@ export class BusinessIndicatorsPage implements AfterViewInit {
     }
 
     /**
-     * Récupère uniquement les fiches de vol de la page 
+     * Récupère uniquement les fiches de vol de la page
      * @param pageIndex index de la page
      */
     public getFlightCardsByPage(pageIndex: number) {
@@ -132,4 +131,5 @@ export class BusinessIndicatorsPage implements AfterViewInit {
         this.dataSource.sort = this.sort;
         this.dataSource._updateChangeSubscription();
     }
+
 }
