@@ -6,7 +6,7 @@ import { BusinessIndicatorModel } from './../../../../core/models/business-indic
 import { PncModel } from './../../../../core/models/pnc.model';
 
 import { TabHeaderEnum } from 'src/app/core/enums/tab-header.enum';
-import { Component, ViewChild, OnInit, AfterViewInit, ViewEncapsulation } from '@angular/core';
+import { Component, ViewChild, AfterViewInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Sort, MatSort, MatTable, MatPaginator, MatTableDataSource, PageEvent } from '@angular/material';
 import * as moment from 'moment';
