@@ -7,6 +7,9 @@ import { AuthenticatedUserModel } from '../../../../core/models/authenticated-us
 import { PncModel } from '../../../../core/models/pnc.model';
 import { SecurityService } from '../../../../core/services/security/security.service';
 import { SessionService } from '../../../../core/services/session/session.service';
+import {
+    SynchronizationService
+} from '../../../../core/services/synchronization/synchronization.service';
 
 @Component({
   selector: 'page-impersonate',
@@ -22,6 +25,7 @@ export class ImpersonatePage {
     private router: Router,
     private securityService: SecurityService,
     private events: Events,
+    private synchronizationService: SynchronizationService,
     public sessionService: SessionService,
     public authenticationService: AuthenticationService
   ) {
@@ -45,6 +49,8 @@ export class ImpersonatePage {
 
           this.impersonatingInProgress = false;
           this.goToHomePage();
+
+          this.synchronizationService.storeEDossierOffline(pnc.matricule);
         }
       );
     }, error => {
