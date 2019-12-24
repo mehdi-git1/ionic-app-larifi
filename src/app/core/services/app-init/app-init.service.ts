@@ -59,10 +59,9 @@ export class AppInitService {
      */
     initApp(): Promise<any> {
         return this.authenticationService.initFunctionalApp().then(
-        authentReturn => {
-            this.setAuthenticationStatus(authentReturn);
-            this.handleAuthenticationStatus();
-        });
+            authentReturn => {
+                this.setAuthenticationStatus(authentReturn);
+            });
     }
 
     /**

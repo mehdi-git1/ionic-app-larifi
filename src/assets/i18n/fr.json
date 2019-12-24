@@ -972,9 +972,13 @@
         "CABIN_REPORTS_WRITTEN": "Cabin Reports rédigés"
     },
     "BUSINESS_INDICATORS": {
-        "6_MONTHS_TITLE" : "Indicateurs Métier sur 6 mois glissants",
-        "ESCORE_AVERAGE": "Moyenne - eScore",
-        "ABOARD_ACTIONS_AVERAGE": "Moyenne - Actions à bord",
+        "PAST_SUMMARY": {
+            "TITLE": "Indicateurs Métier sur 6 mois glissants",
+            "ESCORE_AVERAGE": "Moyenne - eScore",
+            "ON_TIME_SHUTTLE_DEPARTURE_RATIO": "Ponctualité - départ navette",
+            "UPGRADE_AVERAGE": "Moyenne - Surclassement",
+            "FLYING_BLUE_ERC_AVERAGE": "Moyenne - Enrôlement FB & ERC"
+        },
         "FLIGHT_CARD_12_LAST_MONTHS": "Fiches vols effectués sur l'année glissante",
         "LEG_DATE": "Date tronçon",
         "FLIGHT_NUMBER": "N° de Vol",
