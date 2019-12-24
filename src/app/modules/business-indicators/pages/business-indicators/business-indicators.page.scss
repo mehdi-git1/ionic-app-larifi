@@ -47,6 +47,9 @@ h3 {
     }
 }
 
+.no-data:before {
+    content: '-';
+}
 
 .flight-cards-table {
     width: 100%;
