@@ -21,6 +21,8 @@ import { PncService } from '../../../../core/services/pnc/pnc.service';
     styleUrls: ['./business-indicator-detail.page.scss']
 })
 export class BusinessIndicatorDetailPage {
+    // Le délai en plus qu'on accorde pour le départ navette
+    EXTRA_DELAY = 5;
 
     pnc: PncModel;
     businessIndicator: BusinessIndicatorModel;
@@ -61,12 +63,29 @@ export class BusinessIndicatorDetailPage {
     }
 
     /**
+     * Calcule le départ navette D0 (on enlève 5 minutes)
+     * @return le départ navette D0
+     */
+    getShuttleDepartureD0(): number {
+        return this.businessIndicator.flightDetailsCard.operatingPerformances.shuttleDeparture - this.EXTRA_DELAY;
+    }
+
+    /**
+     * Vérifie si un indicateur est considéré comme "à l'heure" (inférieur ou égal à 0)
+     * @param value la valeur à tester
+     * @return vrai si c'est le cas, faux sinon
+     */
+    isOnTime(value: string): boolean {
+        return +value <= 0;
+    }
+
+    /**
      * Vérifie si une valeur est considérée comme vide (égale à 0)
      * @param value la valeur à tester
      * @return vrai si c'est le cas, faux sinon
      */
-    isEmpty(value: any) {
-        return value === '0';
+    isEmpty(value: any): boolean {
+        return !value || value === '0';
     }
 
     /**

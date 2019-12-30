@@ -994,6 +994,13 @@
                 "PAX_VERSION": "Version PAX",
                 "PEQ": "Compo PEQ"
             },
+            "PERF_OPS": {
+                "TITLE": "PerfOps",
+                "SHUTTLE_DEPARTURE_D0": "Départ navette D0",
+                "SHUTTLE_ARRIVAL": "Arrivée navette avion",
+                "D0": "Départ bloc",
+                "LEGEND": "Les données sont données en minutes, par rapport au standard"
+            },
             "ONBOARD_ACTIONS": {
                 "ERC": "ERC",
                 "CUSTOMER_CONTINUITY": "Continuité client",
