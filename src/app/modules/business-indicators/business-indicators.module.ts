@@ -1,32 +1,36 @@
-import { FlightDetailsCardPage } from './pages/flight-details-card/flight-details-card.page';
-import { BusinessIndicatorsPage } from './pages/business-indicators/business-indicators.page';
 import { ComponentsModule } from 'src/app/shared/components/components.module';
-import { IonicModule } from '@ionic/angular';
+
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
-import { SharedModule } from '../../shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { IonicModule } from '@ionic/angular';
+
+import { SharedModule } from '../../shared/shared.module';
+import {
+    BusinessIndicatorDetailPage
+} from './pages/business-indicator-detail/business-indicator-detail.page';
+import { BusinessIndicatorsPage } from './pages/business-indicators/business-indicators.page';
 
 @NgModule({
-    declarations: [
-      BusinessIndicatorsPage,
-      FlightDetailsCardPage
-    ],
-    imports: [
-      IonicModule,
-      SharedModule,
-      ComponentsModule,
-      FormsModule,
-      ReactiveFormsModule
-    ],
-    entryComponents: [
-      BusinessIndicatorsPage,
-      FlightDetailsCardPage
-    ],
-    exports: [],
-    schemas: [
-      CUSTOM_ELEMENTS_SCHEMA
-    ],
-    providers: []
-  })
+  declarations: [
+    BusinessIndicatorsPage,
+    BusinessIndicatorDetailPage
+  ],
+  imports: [
+    IonicModule,
+    SharedModule,
+    ComponentsModule,
+    FormsModule,
+    ReactiveFormsModule
+  ],
+  entryComponents: [
+    BusinessIndicatorsPage,
+    BusinessIndicatorDetailPage
+  ],
+  exports: [],
+  schemas: [
+    CUSTOM_ELEMENTS_SCHEMA
+  ],
+  providers: []
+})
 
-  export class BusinessIndicatorsModule {}
+export class BusinessIndicatorsModule { }

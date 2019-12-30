@@ -75,8 +75,9 @@ export class UrlConfiguration {
     'hrDocuments': urlGroupEnum.HR_DOCUMENT,
     'getHrDocumentById': `${urlGroupEnum.HR_DOCUMENT}/{id}`,
     'getDwhHistory': `${urlGroupEnum.DWH_HISTORY}/{matricule}`,
-    'getBusinessIndicators': `${urlGroupEnum.BUSINESS_INDICATORS}/{matricule}`,
-    'getBusinessIndicatorsFlightDetailsCard': `${urlGroupEnum.BUSINESS_INDICATORS}/flight_details_card/{id}`,
+    'findPncBusinessIndicators': `${urlGroupEnum.BUSINESS_INDICATORS}/{matricule}/list`,
+    'getBusinessIndicatorSummary': `${urlGroupEnum.BUSINESS_INDICATORS}/{matricule}/summary`,
+    'getBusinessIndicator': `${urlGroupEnum.BUSINESS_INDICATORS}/{id}`
   };
 
   /**

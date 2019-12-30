@@ -47,9 +47,15 @@ h3 {
     }
 }
 
-.no-data:before {
-    content: '-';
+.no-data {
+    visibility: hidden;
+
+    &:after {
+        content: '-';
+        visibility: visible;
+    }
 }
+
 
 .flight-cards-table {
     width: 100%;

@@ -975,7 +975,7 @@
         "PAST_SUMMARY": {
             "TITLE": "Indicateurs Métier sur 6 mois glissants",
             "ESCORE_AVERAGE": "Moyenne - eScore",
-            "ON_TIME_SHUTTLE_DEPARTURE_RATIO": "Ponctualité - départ navette",
+            "ON_TIME_SHUTTLE_DEPARTURE_RATIO": "Ponctualité - Départ navette",
             "UPGRADE_AVERAGE": "Moyenne - Surclassement",
             "FLYING_BLUE_ERC_AVERAGE": "Moyenne - Enrôlement FB & ERC"
         },
@@ -987,10 +987,23 @@
         "FLIGHT_ACTIONS": "Actions à bord",
         "FLIGHT_ACTIONS_NUMBER": "Nombre total d'actions à bord",
         "FLIGHT_INFORMATIONS": "Infos Vol",
-        "AIRCRAFT_TYPE": "Type Avion",
-        "EXPLOITATION_VERSION": "Version d'exploitation",
-        "PAX_VERSION": "Version PAX",
-        "PEQ": "Compo PEQ"
+        "DETAIL": {
+            "FLIGHT_INFO": {
+                "AIRCRAFT_TYPE": "Type Avion",
+                "EXPLOITATION_VERSION": "Version d'exploitation",
+                "PAX_VERSION": "Version PAX",
+                "PEQ": "Compo PEQ"
+            },
+            "ONBOARD_ACTIONS": {
+                "ERC": "ERC",
+                "CUSTOMER_CONTINUITY": "Continuité client",
+                "FLYING_BLUE_ENROLMENT": "Enrôlement FB",
+                "GIFT_FOR_CARE": "GFC",
+                "UPGRADE": "Upgrade",
+                "KDO": "KDO",
+                "LEGEND": "Nombre d'actions réalisée à bord par l'équipage"
+            }
+        }
     },
     "SYNCHRONIZATION": {
         "PNC_SAVED_OFFLINE": "Le PNC {{ matricule }} a été synchronisé",

@@ -1,0 +1,100 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-back-button color="white" slot="start"></ion-back-button>
+        <page-header [showSettingsIcon]="true" [pnc]="pnc">
+            <span *ngIf="pnc">{{ 'GLOBAL.BUSINESS_INDICATORS' | isMyPage: pnc | translate }}</span>
+        </page-header>
+    </ion-toolbar>
+    <div class="flight-card" *ngIf="businessIndicator && businessIndicator.flightDetailsCard">
+        <div class="flight-number">
+            <ion-icon name="airplane" class="round-icon"></ion-icon>
+            <span class="value">{{'GLOBAL.AF_COMPANY' | translate}}{{ businessIndicator.flightDetailsCard.flightNumber }}</span>
+        </div>
+        <span class="value suffix-tu">{{ getPlannedDepartureDate(businessIndicator) | date : 'dd/MM/yyyy HH:mm' :'UTC'}}</span>
+        <span class="value">{{ businessIndicator.flightDetailsCard.departureStation }} - {{ businessIndicator.flightDetailsCard.arrivalStation }}</span>
+        <span class="value">{{ 'BUSINESS_INDICATORS.ESCORE' | translate }} : {{ businessIndicator.flightDetailsCard.escore | number : '1.0-1' }}</span>
+        <span class="value">{{ 'BUSINESS_INDICATORS.FLIGHT_ACTIONS' | translate }} : {{ businessIndicator.flightDetailsCard.flightActionsTotalNumber }}</span>
+    </div>
+</ion-header>
+<ion-content>
+    <div class="page-container">
+        <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
+        <ng-template #pageBlock>
+
+            <!-- Infos vol -->
+            <edospnc-expandable-block mini="true" hideToggle="true" title="{{ 'BUSINESS_INDICATORS.FLIGHT_INFORMATIONS' | translate}}" [emptyCondition]="!businessIndicator.flightDetailsCard && businessIndicator.flightDetailsCard.flightInformations">
+                <div class="content">
+                    <div class="item-list">
+                        <div class="item">
+                            <label> {{ 'BUSINESS_INDICATORS.DETAIL.FLIGHT_INFO.AIRCRAFT_TYPE' | translate}} </label>
+                            <span class="value"> {{ businessIndicator.flightDetailsCard.aircraftType }} </span>
+                        </div>
+                        <div class="item">
+                            <label> {{ 'BUSINESS_INDICATORS.DETAIL.FLIGHT_INFO.EXPLOITATION_VERSION' | translate}} </label>
+                            <span class="value"> {{ businessIndicator.flightDetailsCard.exploitationVersion }} </span>
+                        </div>
+                        <div class="item">
+                            <label> {{ 'BUSINESS_INDICATORS.DETAIL.FLIGHT_INFO.PAX_VERSION' | translate}} </label>
+                            <span class="value"> {{ businessIndicator.flightDetailsCard.carriedClientVersion }} </span>
+                        </div>
+                        <div class="item">
+                            <label> {{ 'BUSINESS_INDICATORS.DETAIL.FLIGHT_INFO.PEQ' | translate}} </label>
+                            <span class="value"> {{ businessIndicator.flightDetailsCard.peq }} </span>
+                        </div>
+                    </div>
+                </div>
+            </edospnc-expandable-block>
+
+            <!-- Actions à bord -->
+            <edospnc-expandable-block *ngIf="isOnBoardActionsAvailable()" mini="true" hideToggle="true" title="{{ 'BUSINESS_INDICATORS.FLIGHT_ACTIONS' | translate}}">
+                <div class="content">
+                    <div class="item-list">
+                        <div class="item">
+                            <label> {{ 'BUSINESS_INDICATORS.DETAIL.ONBOARD_ACTIONS.ERC' | translate}} </label>
+                            <div>
+                                <img src="assets/imgs/business-indicators/erc.svg" />
+                                <span class="value" [class.no-data]="isEmpty(businessIndicator.flightDetailsCard.erc)"> {{ businessIndicator.flightDetailsCard.erc }} </span>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <label> {{ 'BUSINESS_INDICATORS.DETAIL.ONBOARD_ACTIONS.CUSTOMER_CONTINUITY' | translate}} </label>
+                            <div>
+                                <img src="assets/imgs/business-indicators/customer-continuity.svg" />
+                                <span class="value" [class.no-data]="isEmpty(businessIndicator.flightDetailsCard.clientContinuity)"> {{ businessIndicator.flightDetailsCard.clientContinuity }} </span>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <label> {{ 'BUSINESS_INDICATORS.DETAIL.ONBOARD_ACTIONS.FLYING_BLUE_ENROLMENT' | translate}} </label>
+                            <div>
+                                <img src="assets/imgs/business-indicators/flying-blue-card.svg" />
+                                <span class="value" [class.no-data]="isEmpty(businessIndicator.flightDetailsCard.flyingBlueEnrolment)"> {{ businessIndicator.flightDetailsCard.flyingBlueEnrolment }} </span>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <label> {{ 'BUSINESS_INDICATORS.DETAIL.ONBOARD_ACTIONS.GIFT_FOR_CARE' | translate}} </label>
+                            <div>
+                                <img src="assets/imgs/business-indicators/gift-for-care.svg" />
+                                <span class="value" [class.no-data]="isEmpty(businessIndicator.flightDetailsCard.giftForCare)"> {{ businessIndicator.flightDetailsCard.giftForCare }} </span>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <label> {{ 'BUSINESS_INDICATORS.DETAIL.ONBOARD_ACTIONS.UPGRADE' | translate}} </label>
+                            <div>
+                                <img src="assets/imgs/business-indicators/upgrade.svg" />
+                                <span class="value" [class.no-data]="isEmpty(businessIndicator.flightDetailsCard.upgrade)"> {{ businessIndicator.flightDetailsCard.upgrade }} </span>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <label> {{ 'BUSINESS_INDICATORS.DETAIL.ONBOARD_ACTIONS.KDO' | translate}} </label>
+                            <div>
+                                <img src="assets/imgs/business-indicators/kdo.svg" />
+                                <span class="value" [class.no-data]="isEmpty(businessIndicator.flightDetailsCard.kdo)"> {{ businessIndicator.flightDetailsCard.kdo }} </span>
+                            </div>
+                        </div>
+                    </div>
+                    <legend>{{ 'BUSINESS_INDICATORS.DETAIL.ONBOARD_ACTIONS.LEGEND' | translate }}</legend>
+                </div>
+            </edospnc-expandable-block>
+        </ng-template>
+    </div>
+</ion-content>

@@ -1,15 +1,28 @@
-import { AppConstant } from './../../../../app.constant';
-import { OnlineBusinessIndicatorService } from './../../../../core/services/business-indicator/online-business-indicator.service';
-import { PncService } from 'src/app/core/services/pnc/pnc.service';
-import { FlightCardModel } from './../../../../core/models/business-indicator/flight-card.model';
-import { BusinessIndicatorModel } from './../../../../core/models/business-indicator/business-indicator.model';
-import { PncModel } from './../../../../core/models/pnc.model';
-
-import { TabHeaderEnum } from 'src/app/core/enums/tab-header.enum';
-import { Component, ViewChild, AfterViewInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Sort, MatSort, MatTable, MatPaginator, MatTableDataSource, PageEvent } from '@angular/material';
 import * as moment from 'moment';
+import { TabHeaderEnum } from 'src/app/core/enums/tab-header.enum';
+import { PncService } from 'src/app/core/services/pnc/pnc.service';
+
+import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import {
+    MatPaginator, MatSort, MatTable, MatTableDataSource, PageEvent, Sort
+} from '@angular/material';
+import { ActivatedRoute, Router } from '@angular/router';
+
+import { AppConstant } from '../../../../app.constant';
+import {
+    BusinessIndicatorLightModel
+} from '../../../../core/models/business-indicator/business-indicator-light.model';
+import {
+    BusinessIndicatorSummaryModel
+} from '../../../../core/models/business-indicator/business-indicator-summary.model';
+import {
+    BusinessIndicatorModel
+} from '../../../../core/models/business-indicator/business-indicator.model';
+import { PncModel } from '../../../../core/models/pnc.model';
+import {
+    OnlineBusinessIndicatorService
+} from '../../../../core/services/business-indicator/online-business-indicator.service';
+
 @Component({
     selector: 'page-business-indicators',
     templateUrl: 'business-indicators.page.html',
@@ -21,31 +34,37 @@ export class BusinessIndicatorsPage implements AfterViewInit {
 
     TabHeaderEnum = TabHeaderEnum;
     pnc: PncModel;
-    businessIndicator: BusinessIndicatorModel;
-    sortedFlightCards: FlightCardModel[];
+    businessIndicatorSummary: BusinessIndicatorSummaryModel;
+    businessIndicators: BusinessIndicatorLightModel[];
 
-    flightCardsColumns: string[] = ['flightNumber', 'flightDate', 'stations', 'eScore', 'flightActionsNumber'];
+    businessIndicatorColumns: string[] = ['flightNumber', 'flightDate', 'stations', 'eScore', 'flightActionsNumber'];
 
-    @ViewChild(MatSort, {static: false}) sort: MatSort;
-    @ViewChild(MatTable, {static: false}) table: MatTable<any>;
-    @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
-    dataSource: MatTableDataSource<FlightCardModel>;
+    @ViewChild(MatSort, { static: false }) sort: MatSort;
+    @ViewChild(MatTable, { static: false }) table: MatTable<any>;
+    @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+    dataSource: MatTableDataSource<BusinessIndicatorLightModel>;
 
-    constructor(private activatedRoute: ActivatedRoute, private router: Router, private pncService: PncService,
-                public onlineBusinessIndicatorService: OnlineBusinessIndicatorService) {
+    constructor(
+        private activatedRoute: ActivatedRoute,
+        private router: Router,
+        private pncService: PncService,
+        private onlineBusinessIndicatorService: OnlineBusinessIndicatorService
+    ) {
     }
 
     ngAfterViewInit() {
         const matricule = this.pncService.getRequestedPncMatricule(this.activatedRoute);
         this.pncService.getPnc(matricule).then(pnc => {
             this.pnc = pnc;
-        }, error => { });
-        this.onlineBusinessIndicatorService.getBusinessIndicator(matricule).then(businessIndicator => {
-            this.businessIndicator = businessIndicator;
-            if (businessIndicator && businessIndicator.flightCards) {
-                this.sortedFlightCards = businessIndicator.flightCards;
-                this.getFlightCardsByPage(0);
-            }
+        });
+
+        this.onlineBusinessIndicatorService.getBusinessIndicatorSummary(matricule).then(businessIndicatorSummary => {
+            this.businessIndicatorSummary = businessIndicatorSummary;
+        });
+
+        this.onlineBusinessIndicatorService.findPncBusinessIndicators(matricule).then(businessIndicators => {
+            this.businessIndicators = businessIndicators;
+            this.getBusinessIndicatorsByPage(0);
         });
     }
 
@@ -54,33 +73,48 @@ export class BusinessIndicatorsPage implements AfterViewInit {
      * @return true si c'est le cas, false sinon
      */
     loadingIsOver(): boolean {
-        return this.pnc && !!this.businessIndicator &&  !!this.sortedFlightCards;
+        return this.pnc && this.businessIndicators !== undefined && this.businessIndicatorSummary !== undefined;
     }
 
     /**
-     * Trie les données
+     * Trie les indicateurs métier
      * @param sort évènement de tri
      */
-    sortFlightCards(sort: Sort) {
-        if (!this.businessIndicator || !sort.active || sort.direction === '') {
-          return;
+    sortBusinessIndicators(sort: Sort) {
+        if (!this.businessIndicators || !sort.active || sort.direction === '') {
+            return;
         }
 
-        this.sortedFlightCards = this.businessIndicator.flightCards.sort((a, b) => {
-          const isAsc = sort.direction === 'asc';
-          switch (sort.active) {
-            case 'flightNumber': return this.compare(a.flightNumber, b.flightNumber, isAsc);
-            case 'flightDate': return this.compareDate(a.plannedDepartureDate, b.plannedDepartureDate, isAsc);
-            case 'eScore': return this.compare(a.escore, b.escore, isAsc);
-            case 'flightActionsNumber': return this.compare(a.flightActionsTotalNumber, b.flightActionsTotalNumber, isAsc);
-            default: return 0;
-          }
+        this.businessIndicators = this.businessIndicators.sort((a, b) => {
+            const isAsc = sort.direction === 'asc';
+            switch (sort.active) {
+                case 'flightNumber':
+                    return this.compare(a.flightDetailsCard.flightNumber, b.flightDetailsCard.flightNumber, isAsc);
+                case 'flightDate':
+                    return this.compareDate(this.getPlannedDepartureDate(a),
+                        this.getPlannedDepartureDate(b), isAsc);
+                case 'eScore':
+                    return this.compare(a.flightDetailsCard.escore, b.flightDetailsCard.escore, isAsc);
+                case 'flightActionsNumber':
+                    return this.compare(a.flightDetailsCard.flightActionsTotalNumber, b.flightDetailsCard.flightActionsTotalNumber, isAsc);
+                default: return 0;
+            }
         });
-        this.getFlightCardsByPage(0);
+        this.getBusinessIndicatorsByPage(0);
+    }
+
+    /**
+     * Calcule la date de départ plannifiée du vol d'un indicateur métier : date de départ du tronçon - d0
+     * @param businessIndicator l'indicateur métier du vol dont on souhaite calculer la date planifiée
+     * @return la date de départ planifiée du vol
+     */
+    getPlannedDepartureDate(businessIndicator: BusinessIndicatorLightModel): Date {
+        return moment(businessIndicator.flightDetailsCard.legDepartureDate, AppConstant.isoDateFormat)
+            .subtract(businessIndicator.flightDetailsCard.d0, 'minutes').toDate();
     }
 
     compare(a: number | string, b: number | string, isAsc: boolean) {
-        if ((!a || a === undefined) && b ) {
+        if ((!a || a === undefined) && b) {
             return 1;
         }
         if (a && (!b || b === undefined)) {
@@ -99,34 +133,35 @@ export class BusinessIndicatorsPage implements AfterViewInit {
      * @param isAsc true, si comparaison ascendante. False sinon
      */
     compareDate(firstDate: Date, secondDate: Date, isAsc: boolean) {
-        return (moment(firstDate, AppConstant.isoDateFormat).isBefore(moment(secondDate, AppConstant.isoDateFormat)) ? -1 : 1) * (isAsc ? 1 : -1);
+        return (moment(firstDate, AppConstant.isoDateFormat)
+            .isBefore(moment(secondDate, AppConstant.isoDateFormat)) ? -1 : 1) * (isAsc ? 1 : -1);
     }
 
     /**
-     * Dirige vers la fiche détail vol
-     * @param flightCard la fiche de vol
+     * Dirige vers le détail d'un indicateur métier
+     * @param businessIndicator l'indicateur métier qu'on souhaite consulter
      */
-    goToFlightDetailsCard(flightCard: FlightCardModel) {
-        this.router.navigate(['flight-details-card', flightCard.techId], { relativeTo: this.activatedRoute });
+    goToBusinessIndicatorDetail(businessIndicator: BusinessIndicatorModel) {
+        this.router.navigate(['detail', businessIndicator.techId], { relativeTo: this.activatedRoute });
     }
 
     /**
      * Gère les évènements liés aux changements de page
      * @param event évènement déclenché
      */
-    public handlePage(event: PageEvent) {
-        this.getFlightCardsByPage(event.pageIndex);
+    handlePage(event: PageEvent) {
+        this.getBusinessIndicatorsByPage(event.pageIndex);
     }
 
     /**
-     * Récupère uniquement les fiches de vol de la page
+     * Récupère uniquement les indicateurs métier d'une page
      * @param pageIndex index de la page
      */
-    public getFlightCardsByPage(pageIndex: number) {
+    getBusinessIndicatorsByPage(pageIndex: number) {
         const startIndex = pageIndex * this.pageSize;
         const endIndex = (pageIndex + 1) * this.pageSize - 1;
-        const flightCardByPage = this.sortedFlightCards.slice(startIndex, endIndex);
-        this.dataSource = new MatTableDataSource<FlightCardModel>(flightCardByPage);
+        const flightCardByPage = this.businessIndicators.slice(startIndex, endIndex);
+        this.dataSource = new MatTableDataSource<BusinessIndicatorLightModel>(flightCardByPage);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
         this.dataSource._updateChangeSubscription();

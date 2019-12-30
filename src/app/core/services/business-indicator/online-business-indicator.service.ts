@@ -1,42 +1,50 @@
-import { FlightDetailsCardModel } from './../../models/business-indicator/flight-details-card.model';
-import { BusinessIndicatorModel } from './../../models/business-indicator/business-indicator.model';
 import { Injectable } from '@angular/core';
 
 import { UrlConfiguration } from '../../configuration/url.configuration';
 import { RestService } from '../../http/rest/rest.base.service';
-import { HrDocumentFilterModel } from '../../models/hr-document-filter.model';
-import { HrDocumentModel } from '../../models/hr-document/hr-document.model';
-import { PagedHrDocumentModel } from '../../models/paged-hr-document.model';
-import { PncLightModel } from '../../models/pnc-light.model';
-import { SessionService } from '../session/session.service';
-import { TransformerService } from '../transformer/transformer.service';
+import {
+    BusinessIndicatorLightModel
+} from '../../models/business-indicator/business-indicator-light.model';
+import {
+    BusinessIndicatorSummaryModel
+} from '../../models/business-indicator/business-indicator-summary.model';
+import { BusinessIndicatorModel } from '../../models/business-indicator/business-indicator.model';
 
 @Injectable()
 export class OnlineBusinessIndicatorService {
 
     constructor(
-        public restService: RestService,
-        public config: UrlConfiguration,
-        public universalTransformer: TransformerService,
-        private sessionService: SessionService
+        private restService: RestService,
+        private config: UrlConfiguration,
     ) { }
 
     /**
      * Récupère les indicateurs métier du Pnc
      * @param matricule le matricule du Pnc
-     * @return les indicateurs métier du Pnc
+     * @return Les indicateurs métiers du PNC
      */
-    getBusinessIndicator(matricule: string): Promise<BusinessIndicatorModel> {
-        return this.restService.get(this.config.getBackEndUrl('getBusinessIndicators', [matricule]));
+    findPncBusinessIndicators(matricule: string): Promise<BusinessIndicatorLightModel[]> {
+        return this.restService.get(this.config.getBackEndUrl('findPncBusinessIndicators', [matricule]));
     }
 
     /**
-     * Récupère les indicateurs métier du Pnc
-     * @param matricule le matricule du Pnc
-     * @return les indicateurs métier du Pnc
+     * Récupère la synthèse des indicateurs métier des 6 derniers mois d'un PNC
+     *
+     * @param matricule
+     *            le matricule du Pnc
+     * @return la synthèse des indicateurs métier des 6 derniers mois
      */
-    getFlightDetailsCard(id: string): Promise<FlightDetailsCardModel> {
-        return this.restService.get(this.config.getBackEndUrl('getBusinessIndicatorsFlightDetailsCard', [id]));
+    getBusinessIndicatorSummary(matricule: string): Promise<BusinessIndicatorSummaryModel> {
+        return this.restService.get(this.config.getBackEndUrl('getBusinessIndicatorSummary', [matricule]));
+    }
+
+    /**
+     * Récupère un indicateur métier
+     * @param id l'id de l'indicateur métier à récupérer
+     * @return l'indicateur métier trouvé
+     */
+    getBusinessIndicator(id: number): Promise<BusinessIndicatorModel> {
+        return this.restService.get(this.config.getBackEndUrl('getBusinessIndicator', [id]));
     }
 
 }
