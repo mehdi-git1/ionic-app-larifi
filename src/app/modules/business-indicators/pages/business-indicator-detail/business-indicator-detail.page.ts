@@ -65,8 +65,8 @@ export class BusinessIndicatorDetailPage {
      * @param value la valeur à tester
      * @return vrai si c'est le cas, faux sinon
      */
-    isEmpty(field: string) {
-        return field === '0';
+    isEmpty(value: any) {
+        return value === '0';
     }
 
     /**
