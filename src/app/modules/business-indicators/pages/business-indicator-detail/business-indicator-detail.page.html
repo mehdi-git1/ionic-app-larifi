@@ -45,6 +45,36 @@
                 </div>
             </edospnc-expandable-block>
 
+            <!-- PerfOps -->
+            <edospnc-expandable-block mini="true" hideToggle="true" title="{{ 'BUSINESS_INDICATORS.DETAIL.PERF_OPS.TITLE' | translate}}">
+                <div class="content">
+                    <div class="item-list">
+                        <div class="item">
+                            <label> {{ 'BUSINESS_INDICATORS.DETAIL.PERF_OPS.SHUTTLE_DEPARTURE_D0' | translate}} </label>
+                            <div>
+                                <img src="assets/imgs/business-indicators/shuttle-departure-d0.svg" />
+                                <span class="value signed" [class.no-data]="isEmpty(businessIndicator.flightDetailsCard.operatingPerformances.shuttleDeparture)" [class.on-time]="isOnTime(getShuttleDepartureD0())">{{ getShuttleDepartureD0() }}</span>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <label> {{ 'BUSINESS_INDICATORS.DETAIL.PERF_OPS.SHUTTLE_ARRIVAL' | translate}} </label>
+                            <div>
+                                <img src="assets/imgs/business-indicators/shuttle-arrival.svg" />
+                                <span class="value signed" [class.no-data]="isEmpty(businessIndicator.flightDetailsCard.operatingPerformances.shuttleDeparture)" [class.on-time]="isOnTime(businessIndicator.flightDetailsCard.operatingPerformances.shuttleDeparture)">{{ businessIndicator.flightDetailsCard.operatingPerformances.shuttleDeparture }}</span>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <label> {{ 'BUSINESS_INDICATORS.DETAIL.PERF_OPS.D0' | translate}} </label>
+                            <div>
+                                <img src="assets/imgs/business-indicators/d0.svg" />
+                                <span class="value signed" [class.no-data]="isEmpty(businessIndicator.flightDetailsCard.d0)" [class.on-time]="isOnTime(businessIndicator.flightDetailsCard.d0)">{{ businessIndicator.flightDetailsCard.d0 }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <legend>{{ 'BUSINESS_INDICATORS.DETAIL.PERF_OPS.LEGEND' | translate }}</legend>
+                </div>
+            </edospnc-expandable-block>
+
             <!-- Actions à bord -->
             <edospnc-expandable-block *ngIf="isOnBoardActionsAvailable()" mini="true" hideToggle="true" title="{{ 'BUSINESS_INDICATORS.FLIGHT_ACTIONS' | translate}}">
                 <div class="content">
