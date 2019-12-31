@@ -93,6 +93,6 @@ export class BusinessIndicatorDetailPage {
      * @return true si c'est le cas, false sinon
      */
     loadingIsOver(): boolean {
-        return this.pnc && this.businessIndicator !== undefined;
+        return this.pnc !== undefined && this.businessIndicator !== undefined;
     }
 }

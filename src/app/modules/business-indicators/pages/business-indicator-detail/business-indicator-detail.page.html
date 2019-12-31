@@ -110,7 +110,7 @@
                         <div class="item">
                             <label> {{ 'BUSINESS_INDICATORS.DETAIL.ONBOARD_ACTIONS.UPGRADE' | translate}} </label>
                             <div>
-                                <img src="assets/imgs/business-indicators/upgrade.svg" />
+                                <img src="assets/imgs/business-indicators/upgrade-black.svg" />
                                 <span class="value" [class.no-data]="isEmpty(businessIndicator.flightDetailsCard.upgrade)"> {{ businessIndicator.flightDetailsCard.upgrade }} </span>
                             </div>
                         </div>
@@ -123,6 +123,13 @@
                         </div>
                     </div>
                     <legend>{{ 'BUSINESS_INDICATORS.DETAIL.ONBOARD_ACTIONS.LEGEND' | translate }}</legend>
+                </div>
+            </edospnc-expandable-block>
+
+            <!-- Graphique d'eScore -->
+            <edospnc-expandable-block mini="true" hideToggle="true" title="{{ 'BUSINESS_INDICATORS.DETAIL.ESCORE_SUMMARY.TITLE' | translate}}">
+                <div class="content">
+                    <escore-chart [businessIndicator]="businessIndicator"></escore-chart>
                 </div>
             </edospnc-expandable-block>
         </ng-template>
