@@ -1,6 +1,5 @@
 :host {
     display: flex;
-    height: 300px;
 
     legend {
         display: flex;
@@ -15,12 +14,12 @@
     }
 
     .chart-container {
+        height: 300px;
         width: calc(100% - 30px);
 
         ::ng-deep ngx-charts-bar-horizontal {
             .textDataLabel {
-                font-size: 1.2em;
-                font-weight: bold;
+                font-size: 1.3em;
             }
         }
     }

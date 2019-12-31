@@ -73,4 +73,12 @@ export class EscoreChartComponent implements OnInit {
     return '#00818E';
   }
 
+  /**
+   * Vérifie qu'on a des eScores à afficher (le graphique rend mal avec toutes les valeurs à 0)
+   * @return vrai si c'est le cas, faux sinon
+   */
+  hasEscoreToDisplay() {
+    return !this.data.map(entry => entry.value).every((value, index, array) => value === 0);
+  }
+
 }
