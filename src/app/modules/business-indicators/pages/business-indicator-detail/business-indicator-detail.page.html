@@ -125,6 +125,45 @@
                     <legend>{{ 'BUSINESS_INDICATORS.DETAIL.ONBOARD_ACTIONS.LEGEND' | translate }}</legend>
                 </div>
             </edospnc-expandable-block>
+
+            <table mat-table [dataSource]="escoreCommentsDataSource" class="escore-comment-table">
+                <ng-container matColumnDef="notation">
+                    <th mat-header-cell *matHeaderCellDef class="notation">{{ 'BUSINESS_INDICATORS.DETAIL.ESCORE_COMMENT.NOTATION' | translate }}</th>
+                    <td mat-cell *matCellDef="let escoreComment"  class="notation"> <img class="file-icon" width="25" height="25" [src]="getEscoreCommentNotationImagePath(escoreComment.notation)" /></td>
+                </ng-container>
+                <ng-container matColumnDef="positiveFeedbackReason">
+                    <th mat-header-cell *matHeaderCellDef class="positive-feedback-reason">{{ 'BUSINESS_INDICATORS.DETAIL.ESCORE_COMMENT.POSITIVE_FEEDBACK_REASON' | translate }}</th>
+                    <td mat-cell *matCellDef="let escoreComment" class="positive-feedback-reason">{{ escoreComment.appreciatedPoints }}</td>
+                </ng-container>
+                <ng-container matColumnDef="negativeFeedbackReason">
+                    <th mat-header-cell *matHeaderCellDef class="negative-feedback-reason">{{ 'BUSINESS_INDICATORS.DETAIL.ESCORE_COMMENT.NEGATIVE_FEEDBACK_REASON' | translate }}</th>
+                    <td mat-cell *matCellDef="let escoreComment" class="negative-feedback-reason">{{ escoreComment.pointsToImprove }}</td>
+                </ng-container>
+                <ng-container matColumnDef="suggestions">
+                    <th mat-header-cell *matHeaderCellDef class="suggestions">{{ 'BUSINESS_INDICATORS.DETAIL.ESCORE_COMMENT.SUGGESTIONS' | translate }}</th>
+                    <td mat-cell *matCellDef="let escoreComment" class="suggestions">{{ escoreComment.suggestions }}
+                    </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="escoreCommentColumns"></tr>
+                <tr mat-row *matRowDef="let escoreComment; columns: escoreCommentColumns;"></tr>
+            </table>
+
+            <table *ngIf="canDisplayShortLoopComment()" mat-table [dataSource]="shortLoopCommentsDataSource" class="short-loop-comment-table">
+                <ng-container matColumnDef="notation">
+                    <th mat-header-cell *matHeaderCellDef class="notation">{{ 'BUSINESS_INDICATORS.DETAIL.SHORT_LOOP_COMMENT.NOTATION' | translate }}</th>
+                    <td mat-cell *matCellDef="let shortLoopComment"  class="notation"><img *ngFor="let notationItem of getNotationArray(shortLoopComment.notation)" class="file-icon" width="25" height="25" src="assets/imgs/star.svg" /></td>
+                </ng-container>
+                <ng-container matColumnDef="positiveFeedbackReason">
+                    <th mat-header-cell *matHeaderCellDef class="positive-feedback-reason">{{ 'BUSINESS_INDICATORS.DETAIL.SHORT_LOOP_COMMENT.APPRECIATED_POINTS' | translate }}</th>
+                    <td mat-cell *matCellDef="let shortLoopComment" class="positive-feedback-reason">{{ shortLoopComment.appreciatedPoints }}</td>
+                </ng-container>
+                <ng-container matColumnDef="negativeFeedbackReason">
+                    <th mat-header-cell *matHeaderCellDef class="negative-feedback-reason">{{ 'BUSINESS_INDICATORS.DETAIL.SHORT_LOOP_COMMENT.POINTS_TO_IMPROVE' | translate }}</th>
+                    <td mat-cell *matCellDef="let shortLoopComment" class="negative-feedback-reason">{{ shortLoopComment.pointsToImprove }}</td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="shortLoopCommentColumns"></tr>
+                <tr mat-row *matRowDef="let shortLoopComment; columns: shortLoopCommentColumns;"></tr>
+            </table>
         </ng-template>
     </div>
 </ion-content>

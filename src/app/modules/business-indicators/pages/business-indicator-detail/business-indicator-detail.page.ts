@@ -1,3 +1,6 @@
+import { Utils } from './../../../../shared/utils/utils';
+import { MatTableDataSource } from '@angular/material';
+import { ShortLoopCommentModel } from './../../../../core/models/business-indicator/short-loop-comment.model';
 import * as moment from 'moment';
 import { HaulTypeEnum } from 'src/app/core/enums/haul-type.enum';
 import { SpecialityEnum } from 'src/app/core/enums/speciality.enum';
@@ -14,6 +17,11 @@ import {
     OnlineBusinessIndicatorService
 } from '../../../../core/services/business-indicator/online-business-indicator.service';
 import { PncService } from '../../../../core/services/pnc/pnc.service';
+import { DataSource } from '@angular/cdk/table';
+import { EScoreCommentModel } from '../../../../core/models/business-indicator/e-score-comment.model';
+
+
+const notationImagePath = 'assets/imgs/smiley_note_';
 
 @Component({
     selector: 'page-business-indicator-detail',
@@ -26,7 +34,10 @@ export class BusinessIndicatorDetailPage {
 
     pnc: PncModel;
     businessIndicator: BusinessIndicatorModel;
-
+    shortLoopCommentsDataSource: MatTableDataSource<ShortLoopCommentModel>;
+    escoreCommentsDataSource: MatTableDataSource<EScoreCommentModel>;
+    escoreCommentColumns: string[] = ['notation', 'positiveFeedbackReason', 'negativeFeedbackReason', 'suggestions'];
+    shortLoopCommentColumns: string[] = ['notation', 'positiveFeedbackReason', 'negativeFeedbackReason'];
     constructor(
         private activatedRoute: ActivatedRoute,
         private pncService: PncService,
@@ -40,6 +51,25 @@ export class BusinessIndicatorDetailPage {
 
         this.onlineBusinessIndicatorService.getBusinessIndicator(id).then(businessIndicator => {
             this.businessIndicator = businessIndicator;
+            const escoreCommentsFiltered = businessIndicator.flightDetailsCard.escoreComments.filter(
+                escoreComment =>
+                !(Utils.isEmpty(escoreComment.positivePersonalFeedbackReason) &&
+                Utils.isEmpty(escoreComment.negativePersonalFeedbackReason) &&
+                Utils.isEmpty(escoreComment.suggestions))
+            );
+            escoreCommentsFiltered.sort((a, b) => {
+                return (a.notation < b.notation ? 1 : -1);
+            });
+            this.escoreCommentsDataSource = new MatTableDataSource<EScoreCommentModel>(escoreCommentsFiltered);
+            const shortLoopCommentsFiltered = businessIndicator.flightDetailsCard.shortLoopComments.filter(
+                shortLoopComment =>
+                !(Utils.isEmpty(shortLoopComment.appreciatedPoints) &&
+                Utils.isEmpty(shortLoopComment.pointsToImprove))
+            );
+            shortLoopCommentsFiltered.sort((a, b) => {
+                return (a.notation < b.notation ? 1 : -1);
+            });
+            this.shortLoopCommentsDataSource = new MatTableDataSource<ShortLoopCommentModel>(shortLoopCommentsFiltered);
         });
     }
 
@@ -94,5 +124,36 @@ export class BusinessIndicatorDetailPage {
      */
     loadingIsOver(): boolean {
         return this.pnc && this.businessIndicator !== undefined;
+    }
+
+    /**
+     * Crée le chemin vers le fichier de l'icone de note escore
+     * @param notation note
+     * @return le chemin vers le fichier de l'icone
+     */
+    getEscoreCommentNotationImagePath(notation: number) {
+        return notationImagePath + notation + '.svg';
+    }
+
+    /**
+     * Crée un tableau vide de la taille du paramètre notation
+     * @param notation note
+     * @return le tableau
+     */
+    getNotationArray(notation: number): Array<any> {
+        if (!notation || notation <= 0 ) {
+            return new Array();
+        }
+        return new Array(notation);
+    }
+
+    canDisplayShortLoopComment(): boolean {
+        const isCcpAndLcFlight = this.businessIndicator.aboardSpeciality === SpecialityEnum.CCP
+        && this.businessIndicator.flightDetailsCard.haulType === HaulTypeEnum.LC;
+        const isCcAndCcOrMcFlight = this.businessIndicator.aboardSpeciality === SpecialityEnum.CC
+        && (this.businessIndicator.flightDetailsCard.haulType === HaulTypeEnum.CC
+            || this.businessIndicator.flightDetailsCard.haulType === HaulTypeEnum.MC);
+        return isCcpAndLcFlight  || isCcAndCcOrMcFlight;
+
     }
 }

@@ -89,3 +89,63 @@ edospnc-expandable-block {
 .on-time {
     color: var(--ion-color-green50);
 }
+
+table {
+    $cell-padding: 10px;
+    width: 100%;
+    max-width: 100%;
+    margin-top: 20px;
+    margin-bottom: 20px;
+
+    td.mat-cell:first-of-type, td.mat-footer-cell:first-of-type, th.mat-header-cell:first-of-type {
+        padding-left: 10px;
+    }
+    .notation {
+        width: 150px;
+        text-align: center;
+        padding-right: 10px;
+    }
+
+    .positive-feedback-reason {
+        min-width: 190px;
+        padding:  $cell-padding;
+    }
+
+    .negative-feedback-reason {
+        min-width: 190px;
+        padding:  $cell-padding;
+    }
+
+    .suggestions {
+        min-width: 100px;
+        padding:  $cell-padding;
+    }
+
+    th.mat-header-cell {
+        background-color: var(--ion-color-primary);
+        color: white;
+        font-weight: bold;
+    }
+
+    td.mat-cell {
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+
+    td.mat-cell,
+    td.mat-footer-cell,
+    th.mat-header-cell {
+        border-color: var(--ion-color-primary);
+        border-left: thin solid var(--ion-color-primary);
+    }
+
+    th.mat-header-cell {
+        text-align: center;
+    }
+
+    tr.mat-header-row,  tr.mat-footer-row, tr.mat-row {
+        border-color: var(--ion-color-primary);
+        border-left: thin solid var(--ion-color-primary);
+        border-right: thin solid var(--ion-color-primary);
+    }
+}
