@@ -24,6 +24,9 @@
 edospnc-expandable-block {
     .content {
         margin: 15px 0px;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
 
         .item-list {
             display: flex;

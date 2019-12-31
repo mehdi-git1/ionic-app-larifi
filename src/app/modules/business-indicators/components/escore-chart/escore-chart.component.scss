@@ -1,0 +1,28 @@
+:host {
+    display: flex;
+    height: 300px;
+
+    legend {
+        display: flex;
+        flex-direction: column;
+        padding-top: 6px;
+
+        img {
+            width: 30px;
+            height: 30px;
+            margin: 9px 0 9px 16px;
+        }
+    }
+
+    .chart-container {
+        width: calc(100% - 30px);
+
+        ::ng-deep ngx-charts-bar-horizontal {
+            .textDataLabel {
+                font-size: 1.2em;
+                font-weight: bold;
+            }
+        }
+    }
+
+}

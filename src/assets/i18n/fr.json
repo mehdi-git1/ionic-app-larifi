@@ -1009,6 +1009,15 @@
                 "UPGRADE": "Upgrade",
                 "KDO": "KDO",
                 "LEGEND": "Nombre d'actions réalisée à bord par l'équipage"
+            },
+            "ESCORE_SUMMARY": {
+                "TITLE": "eScore Cabin Crew - Nombre de retours & notes associées",
+                "ESCORE_0": "Note 0",
+                "ESCORE_25": "Note 2,5",
+                "ESCORE_50": "Note 5",
+                "ESCORE_75": "Note 7,5",
+                "ESCORE_100": "Note 10",
+                "X_AXIS_LABEL": "Nombre de retours"
             }
         }
     },
