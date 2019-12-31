@@ -43,7 +43,7 @@ export class OnlineBusinessIndicatorService {
      * @param id l'id de l'indicateur métier à récupérer
      * @return l'indicateur métier trouvé
      */
-    getBusinessIndicator(id: number): Promise<BusinessIndicatorModel> {
+    getBusinessIndicator(id: string): Promise<BusinessIndicatorModel> {
         return this.restService.get(this.config.getBackEndUrl('getBusinessIndicator', [id]));
     }
 
