@@ -1,0 +1,14 @@
+<no-data *ngIf="!hasEscoreToDisplay(); else chartBlock"></no-data>
+<ng-template #chartBlock>
+    <legend>
+        <img src="assets/imgs/business-indicators/smiley-note-100.svg">
+        <img src="assets/imgs/business-indicators/smiley-note-75.svg">
+        <img src="assets/imgs/business-indicators/smiley-note-50.svg">
+        <img src="assets/imgs/business-indicators/smiley-note-25.svg">
+        <img src="assets/imgs/business-indicators/smiley-note-0.svg">
+    </legend>
+    <div class="chart-container">
+        <ngx-charts-bar-horizontal [results]="data" [customColors]="getBarColor" [xAxis]="true" [yAxis]="true" [showDataLabel]="true" [showXAxisLabel]="true" [xAxisLabel]="xAxisLabel" [xAxisTickFormatting]="formatXAxisTick">
+        </ngx-charts-bar-horizontal>
+    </div>
+</ng-template>

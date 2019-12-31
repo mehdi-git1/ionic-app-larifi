@@ -21,7 +21,7 @@ import { DataSource } from '@angular/cdk/table';
 import { EScoreCommentModel } from '../../../../core/models/business-indicator/e-score-comment.model';
 
 
-const notationImagePath = 'assets/imgs/smiley_note_';
+const notationImagePath = 'assets/imgs/business-indicators/smiley-note-';
 
 @Component({
     selector: 'page-business-indicator-detail',
@@ -123,7 +123,7 @@ export class BusinessIndicatorDetailPage {
      * @return true si c'est le cas, false sinon
      */
     loadingIsOver(): boolean {
-        return this.pnc && this.businessIndicator !== undefined;
+        return this.pnc !== undefined && this.businessIndicator !== undefined;
     }
 
     /**
@@ -132,7 +132,7 @@ export class BusinessIndicatorDetailPage {
      * @return le chemin vers le fichier de l'icone
      */
     getEscoreCommentNotationImagePath(notation: number) {
-        return notationImagePath + notation + '.svg';
+        return notationImagePath + notation * 10 + '.svg';
     }
 
     /**

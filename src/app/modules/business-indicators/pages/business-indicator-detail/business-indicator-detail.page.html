@@ -110,7 +110,7 @@
                         <div class="item">
                             <label> {{ 'BUSINESS_INDICATORS.DETAIL.ONBOARD_ACTIONS.UPGRADE' | translate}} </label>
                             <div>
-                                <img src="assets/imgs/business-indicators/upgrade.svg" />
+                                <img src="assets/imgs/business-indicators/upgrade-black.svg" />
                                 <span class="value" [class.no-data]="isEmpty(businessIndicator.flightDetailsCard.upgrade)"> {{ businessIndicator.flightDetailsCard.upgrade }} </span>
                             </div>
                         </div>
@@ -126,6 +126,14 @@
                 </div>
             </edospnc-expandable-block>
 
+            <!-- Graphique d'eScore -->
+            <edospnc-expandable-block mini="true" hideToggle="true" title="{{ 'BUSINESS_INDICATORS.DETAIL.ESCORE_SUMMARY.TITLE' | translate}}">
+                <div class="content">
+                    <escore-chart [businessIndicator]="businessIndicator"></escore-chart>
+                </div>
+            </edospnc-expandable-block>
+
+            <!-- Commentaire eScore -->
             <table mat-table [dataSource]="escoreCommentsDataSource" class="escore-comment-table">
                 <ng-container matColumnDef="notation">
                     <th mat-header-cell *matHeaderCellDef class="notation">{{ 'BUSINESS_INDICATORS.DETAIL.ESCORE_COMMENT.NOTATION' | translate }}</th>
@@ -148,10 +156,11 @@
                 <tr mat-row *matRowDef="let escoreComment; columns: escoreCommentColumns;"></tr>
             </table>
 
+            <!-- Commentaire boucle courte -->
             <table *ngIf="canDisplayShortLoopComment()" mat-table [dataSource]="shortLoopCommentsDataSource" class="short-loop-comment-table">
                 <ng-container matColumnDef="notation">
                     <th mat-header-cell *matHeaderCellDef class="notation">{{ 'BUSINESS_INDICATORS.DETAIL.SHORT_LOOP_COMMENT.NOTATION' | translate }}</th>
-                    <td mat-cell *matCellDef="let shortLoopComment"  class="notation"><img *ngFor="let notationItem of getNotationArray(shortLoopComment.notation)" class="file-icon" width="25" height="25" src="assets/imgs/star.svg" /></td>
+                    <td mat-cell *matCellDef="let shortLoopComment"  class="notation"><img *ngFor="let notationItem of getNotationArray(shortLoopComment.notation)" class="file-icon" width="25" height="25" src="assets/imgs/business-indicators/star.svg" /></td>
                 </ng-container>
                 <ng-container matColumnDef="positiveFeedbackReason">
                     <th mat-header-cell *matHeaderCellDef class="positive-feedback-reason">{{ 'BUSINESS_INDICATORS.DETAIL.SHORT_LOOP_COMMENT.APPRECIATED_POINTS' | translate }}</th>

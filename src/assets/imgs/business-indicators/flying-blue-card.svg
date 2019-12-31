@@ -5,12 +5,11 @@
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
    xmlns:svg="http://www.w3.org/2000/svg"
    xmlns="http://www.w3.org/2000/svg"
-   xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="211.87968"
+   width="211.87965"
    height="126.74468"
-   viewBox="0 0 211.87969 126.74468"
+   viewBox="0 0 211.87966 126.74468"
    version="1.1"
    xml:space="preserve"
    style="clip-rule:evenodd;fill-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:1.41420996"
@@ -33,18 +32,18 @@
    id="namedview103"
    showgrid="false"
    inkscape:zoom="1.78"
-   inkscape:cx="51.574541"
-   inkscape:cy="94.913124"
+   inkscape:cx="-23.370205"
+   inkscape:cy="57.442733"
    inkscape:window-x="-8"
    inkscape:window-y="-8"
    inkscape:window-maximized="1"
-   inkscape:current-layer="g46"
+   inkscape:current-layer="g60"
    fit-margin-top="0"
    fit-margin-left="0"
    fit-margin-right="0"
    fit-margin-bottom="0" />
     <g
-   transform="translate(-514.59042,-1350.6138)"
+   transform="translate(-514.59045,-1309.6026)"
    id="g87">
         <g
    id="FB-API"
@@ -63,21 +62,22 @@
    transform="matrix(0.939753,-0.0990922,0.0990922,0.939753,539.938,973.054)"
    id="g60">
                     <g
-   transform="matrix(0.92428531,0.09748502,-0.09748502,0.92428531,8240.919,-140.11048)"
+   transform="matrix(0.92428531,0.09748502,-0.09748502,0.92428531,8245.4701,-183.27104)"
    id="g8"
-   style="fill:#050505;fill-opacity:1">
+   style="fill:#333333;fill-opacity:1">
                         <g
    id="g6"
-   style="fill:#050505;fill-opacity:1">
+   style="fill:#333333;fill-opacity:1">
                             <path
    d="m 1658.84,72.277 c 0,-7.965 -6.46,-14.431 -14.43,-14.431 h -212.38 c -7.97,0 -14.43,6.466 -14.43,14.431 v 115.446 c 0,7.965 6.46,14.431 14.43,14.431 h 212.38 c 7.97,0 14.43,-6.466 14.43,-14.431 z"
-   style="fill:#050505;fill-opacity:1"
+   style="fill:#333333;fill-opacity:1"
    id="path4"
    inkscape:connector-curvature="0" />
                         </g>
                     </g>
                     <g
-   id="g46">
+   id="g46"
+   transform="translate(4.5510622,-43.160555)">
                         
                         <g
    transform="matrix(0.97647384,0.10298938,-0.10298938,0.97647384,9179.2584,-1316.6252)"
@@ -176,9 +176,12 @@
      y="-942.05511"
      style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:43.86362839px;font-family:Arial;-inkscape-font-specification:Arial;fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:1.58736384;stroke-miterlimit:1.41420996;stroke-dasharray:none;stroke-opacity:1">FB</tspan></text>
 
+
+
+
 </g>
                     <g
-   transform="matrix(0.75198401,0.07931228,-0.08018276,0.76023723,9253.2185,-1007.2712)"
+   transform="matrix(0.75198401,0.07931228,-0.08018276,0.76023723,9257.7696,-1050.4318)"
    id="g50"
    style="fill:#e4e4e4;fill-opacity:1">
                         <rect
@@ -191,7 +194,7 @@
                     </g>
                     
                     <g
-   transform="matrix(0.54392703,0.05736836,-0.08018276,0.76023723,9430.8334,-988.53809)"
+   transform="matrix(0.54392703,0.05736836,-0.08018276,0.76023723,9435.3845,-1031.6986)"
    id="g58">
                         <rect
    x="558.47601"
@@ -215,21 +218,5 @@
         </g>
     </g>
     <defs
-   id="defs99"><linearGradient
-     inkscape:collect="always"
-     id="linearGradient920"><stop
-       style="stop-color:#000000;stop-opacity:1;"
-       offset="0"
-       id="stop916" /><stop
-       style="stop-color:#000000;stop-opacity:0;"
-       offset="1"
-       id="stop918" /></linearGradient><linearGradient
-     inkscape:collect="always"
-     xlink:href="#linearGradient920"
-     id="linearGradient922"
-     x1="9699.9189"
-     y1="54.994984"
-     x2="9750.0576"
-     y2="54.994984"
-     gradientUnits="userSpaceOnUse" /></defs>
+   id="defs99" />
 </svg>
