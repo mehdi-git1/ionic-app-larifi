@@ -93,11 +93,14 @@ edospnc-expandable-block {
 
 table {
     $cell-padding: 10px;
+    $border-color: var(--ion-color-grey70);
     width: 100%;
     max-width: 100%;
     margin-top: 20px;
     margin-bottom: 20px;
     border-radius: 5px;
+    white-space: pre-wrap;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
 
     img {
         height: 25px;
@@ -128,10 +131,24 @@ table {
         padding:  $cell-padding;
     }
 
+    th.mat-header-cell:first-child {
+        border-top-left-radius: 5px;
+        border-bottom-left-radius: 5px;
+    }
+
+    th.mat-header-cell:last-child {
+        border-top-right-radius: 5px;
+        border-bottom-right-radius: 5px;
+    }
+
     th.mat-header-cell {
-        background-color: var(--ion-color-primary);
+        background-color: var(--ion-color-blue55);
         color: var(--ion-color-white);
-        font-weight: bold;
+        font-size: 18px !important;
+    }
+
+    td.mat-cell:first-child {
+        border-left: none;
     }
 
     td.mat-cell {
@@ -140,19 +157,14 @@ table {
     }
 
     td.mat-cell,
-    td.mat-footer-cell,
-    th.mat-header-cell {
-        border-color: var(--ion-color-primary);
-        border-left: thin solid var(--ion-color-primary);
+    td.mat-footer-cell {
+        border-color: $border-color;
+        border-left: thin solid $border-color;
     }
 
     th.mat-header-cell {
         text-align: center;
+        height: 32px;
     }
 
-    tr.mat-header-row,  tr.mat-footer-row, tr.mat-row {
-        border-color: var(--ion-color-primary);
-        border-left: thin solid var(--ion-color-primary);
-        border-right: thin solid var(--ion-color-primary);
-    }
 }

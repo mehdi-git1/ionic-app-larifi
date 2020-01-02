@@ -10,6 +10,7 @@
         },
         "AF_COMPANY": "AF",
         "NO_DATA": "Pas de données disponibles",
+        "DATA_NOT_AVAILABLE": "Données non disponibles",
         "PNC_ROLE": {
             "MANAGER": "Manager Coach",
             "PNC": "PNC"

@@ -50,6 +50,7 @@ import { TabNavComponent } from './tab-nav/tab-nav.component';
 import { TextEditorComponent } from './text-editor/text-editor.component';
 import { UserMessageAlertComponent } from './user-message-alert/user-message-alert.component';
 import { WorkRateCircleComponent } from './work-rate-circle/work-rate-circle.component';
+import { ValueOrNoDataComponent } from './value-or-no-data/value-or-no-data.component';
 
 @NgModule({
     imports: [
@@ -97,7 +98,8 @@ import { WorkRateCircleComponent } from './work-rate-circle/work-rate-circle.com
         PageNotFoundComponent,
         BootstrapComponent,
         ColumnSorterComponent,
-        AlertDialogComponent
+        AlertDialogComponent,
+        ValueOrNoDataComponent
     ],
     exports: [
         OfflineIndicatorComponent,
@@ -133,7 +135,8 @@ import { WorkRateCircleComponent } from './work-rate-circle/work-rate-circle.com
         EdospncDatetimeComponent,
         BootstrapComponent,
         ColumnSorterComponent,
-        AlertDialogComponent
+        AlertDialogComponent,
+        ValueOrNoDataComponent
     ],
     schemas: [
         CUSTOM_ELEMENTS_SCHEMA
