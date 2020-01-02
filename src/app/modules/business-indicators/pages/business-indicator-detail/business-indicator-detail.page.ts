@@ -1,25 +1,27 @@
-import { EScoreCommentModel } from './../../../../core/models/business-indicator/e-score-comment.model';
-import { Utils } from './../../../../shared/utils/utils';
-import { MatTableDataSource } from '@angular/material';
-import { ShortLoopCommentModel } from './../../../../core/models/business-indicator/short-loop-comment.model';
 import * as moment from 'moment';
 import { HaulTypeEnum } from 'src/app/core/enums/haul-type.enum';
 import { SpecialityEnum } from 'src/app/core/enums/speciality.enum';
 
 import { Component } from '@angular/core';
+import { MatTableDataSource } from '@angular/material';
 import { ActivatedRoute } from '@angular/router';
 
 import { AppConstant } from '../../../../app.constant';
 import {
     BusinessIndicatorModel
 } from '../../../../core/models/business-indicator/business-indicator.model';
+import {
+    EScoreCommentModel
+} from '../../../../core/models/business-indicator/e-score-comment.model';
+import {
+    ShortLoopCommentModel
+} from '../../../../core/models/business-indicator/short-loop-comment.model';
 import { PncModel } from '../../../../core/models/pnc.model';
 import {
     OnlineBusinessIndicatorService
 } from '../../../../core/services/business-indicator/online-business-indicator.service';
 import { PncService } from '../../../../core/services/pnc/pnc.service';
-import { DataSource } from '@angular/cdk/table';
-
+import { Utils } from '../../../../shared/utils/utils';
 
 const notationImagePath = 'assets/imgs/business-indicators/smiley-note-';
 
@@ -51,12 +53,12 @@ export class BusinessIndicatorDetailPage {
 
         this.onlineBusinessIndicatorService.getBusinessIndicator(id).then(businessIndicator => {
             this.businessIndicator = businessIndicator;
-            const escoreCommentsFiltered = this.fliterValidEScoreComments(businessIndicator.flightDetailsCard.escoreComments);
+            const escoreCommentsFiltered = this.filterValidEScoreComments(businessIndicator.flightDetailsCard.escoreComments);
             escoreCommentsFiltered.sort((escoreComment, otherEscoreComment) => {
                 return this.sortEscoreCommentByNotation(escoreComment, otherEscoreComment);
             });
             this.escoreCommentsDataSource = new MatTableDataSource<EScoreCommentModel>(escoreCommentsFiltered);
-            const shortLoopCommentsFiltered = this.fliterValidShortLoopComments(businessIndicator.flightDetailsCard.shortLoopComments);
+            const shortLoopCommentsFiltered = this.filterValidShortLoopComments(businessIndicator.flightDetailsCard.shortLoopComments);
             shortLoopCommentsFiltered.sort((shortLoopComment, otherShortLoopComment) => {
                 return this.sortShortLoopCommentCommentByNotation(shortLoopComment, otherShortLoopComment);
             });
@@ -87,12 +89,12 @@ export class BusinessIndicatorDetailPage {
      * @param escoreComments tableau de commentaires eScore
      * @return tableau de commentaires eScore valides
      */
-    fliterValidEScoreComments(escoreComments: Array<EScoreCommentModel>) {
+    filterValidEScoreComments(escoreComments: Array<EScoreCommentModel>) {
         return escoreComments.filter(
             escoreComment =>
-            !(Utils.isEmpty(escoreComment.positivePersonalFeedbackReason) &&
-            Utils.isEmpty(escoreComment.negativePersonalFeedbackReason) &&
-            Utils.isEmpty(escoreComment.suggestions))
+                !(Utils.isEmpty(escoreComment.positivePersonalFeedbackReason) &&
+                    Utils.isEmpty(escoreComment.negativePersonalFeedbackReason) &&
+                    Utils.isEmpty(escoreComment.suggestions))
         );
     }
 
@@ -101,11 +103,11 @@ export class BusinessIndicatorDetailPage {
      * @param shortLoopComments tableau de commentaires boucle courte
      * @return tableau de commentaires boucle courte valides
      */
-    fliterValidShortLoopComments(shortLoopComments: Array<ShortLoopCommentModel>) {
+    filterValidShortLoopComments(shortLoopComments: Array<ShortLoopCommentModel>) {
         return shortLoopComments.filter(
             shortLoopComment =>
-            !(Utils.isEmpty(shortLoopComment.appreciatedPoints) &&
-            Utils.isEmpty(shortLoopComment.pointsToImprove))
+                !(Utils.isEmpty(shortLoopComment.appreciatedPoints) &&
+                    Utils.isEmpty(shortLoopComment.pointsToImprove))
         );
     }
     /**
@@ -140,7 +142,7 @@ export class BusinessIndicatorDetailPage {
      * @param value la valeur à tester
      * @return vrai si c'est le cas, faux sinon
      */
-    isOnTime(value: string): boolean {
+    isOnTime(value: any): boolean {
         return +value <= 0;
     }
 
@@ -176,7 +178,7 @@ export class BusinessIndicatorDetailPage {
      * @return le tableau
      */
     getNotationArray(notation: number): Array<any> {
-        if (!notation || notation <= 0 ) {
+        if (!notation || notation <= 0) {
             return new Array();
         }
         return new Array(notation);
@@ -189,10 +191,10 @@ export class BusinessIndicatorDetailPage {
      */
     canDisplayShortLoopComment(): boolean {
         const isCcpAndLcFlight = this.businessIndicator.aboardSpeciality === SpecialityEnum.CCP
-        && this.businessIndicator.flightDetailsCard.haulType === HaulTypeEnum.LC;
+            && this.businessIndicator.flightDetailsCard.haulType === HaulTypeEnum.LC;
         const isCcAndCcOrMcFlight = this.businessIndicator.aboardSpeciality === SpecialityEnum.CC
-        && (this.businessIndicator.flightDetailsCard.haulType === HaulTypeEnum.CC
-            || this.businessIndicator.flightDetailsCard.haulType === HaulTypeEnum.MC);
-        return isCcpAndLcFlight  || isCcAndCcOrMcFlight;
+            && (this.businessIndicator.flightDetailsCard.haulType === HaulTypeEnum.CC
+                || this.businessIndicator.flightDetailsCard.haulType === HaulTypeEnum.MC);
+        return isCcpAndLcFlight || isCcAndCcOrMcFlight;
     }
 }
