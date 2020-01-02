@@ -1,7 +1,7 @@
 import { AppInitService } from './core/services/app-init/app-init.service';
 import * as moment from 'moment';
 
-import { AfterViewInit, Component, ViewEncapsulation } from '@angular/core';
+import { AfterViewInit, Component, ViewEncapsulation, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { Events, Platform } from '@ionic/angular';
@@ -45,9 +45,14 @@ export class AppComponent {
     private appInitService: AppInitService
   ) {
     this.platform.ready().then(() => {
-        this.appInitService.initAppOnIpad().then(() =>
-          this.initializeApp()
-        );
+      this.pinPadModalActive = true;
+      this.appInitService.initAppOnIpad().then(() => {
+        this.initializeApp();
+        if (!this.deviceService.isBrowser()) {
+          this.appInitService.handleAuthenticationStatus();
+        }
+      }
+      );
     });
   }
 

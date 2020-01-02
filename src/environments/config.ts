@@ -10,7 +10,7 @@ export class Config extends BaseEnvironment {
     super();
 
     if (undefined !== window.cordova && 'browser' !== window.cordova.platformId) {
-      this.contextRoot = 'https://edospnc-api-dev.airfrance.fr/api/';
+      this.contextRoot = 'https://edospnc-api-rct.airfrance.fr/api/';
     }
 
     this.backEndUrl = `${this.contextRoot}rest/resources`;
