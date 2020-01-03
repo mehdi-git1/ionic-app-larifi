@@ -1,5 +1,5 @@
-import { OfflineCareerObjectiveService } from './../career-objective/offline-career-objective.service';
-import { OnlineCareerObjectiveService } from './../career-objective/online-career-objective.service';
+import { OnlineBusinessIndicatorService } from './online-business-indicator.service';
+import { OfflineBusinessIndicatorService } from './offline-business-indicator.service';
 import { ConnectivityService } from './../connectivity/connectivity.service';
 import { Injectable } from '@angular/core';
 
@@ -17,13 +17,13 @@ export class BusinessIndicatorService extends BaseService {
 
     constructor(
         public connectivityService: ConnectivityService,
-        private onlineCareerObjectiveService: OnlineCareerObjectiveService,
-        private offlineCareerObjectiveService: OfflineCareerObjectiveService
+        private onlineBusinessIndicatorService: OnlineBusinessIndicatorService,
+        private offlineBusinessIndicatorService: OfflineBusinessIndicatorService
     ) {
         super(
             connectivityService,
-            onlineCareerObjectiveService,
-            offlineCareerObjectiveService
+            onlineBusinessIndicatorService,
+            offlineBusinessIndicatorService
           );
      }
 
