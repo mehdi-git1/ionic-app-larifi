@@ -25,7 +25,7 @@
 
     .chart-container {
         height: 250px;
-        width: calc(100% - 30px);
+        width: calc(100% - 40px);
 
         ::ng-deep ngx-charts-bar-horizontal {
             .textDataLabel {
