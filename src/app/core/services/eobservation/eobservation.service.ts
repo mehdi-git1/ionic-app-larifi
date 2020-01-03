@@ -25,7 +25,6 @@ export class EObservationService extends BaseService {
             onlineEObservationService,
             offlineEObservationService
         );
-
     }
 
     /**
