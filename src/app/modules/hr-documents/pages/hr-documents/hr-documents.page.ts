@@ -118,7 +118,7 @@ export class HrDocumentsPage implements OnInit {
      * @return true si c'est le cas, false sinon
      */
     loadingIsOver() {
-        return this.hrDocuments && this.hrDocuments !== undefined;
+        return this.hrDocuments !== undefined;
     }
 
     /**
@@ -143,7 +143,7 @@ export class HrDocumentsPage implements OnInit {
      * @param event évènement
      */
     doInfinite(event) {
-        if (this.hrDocuments.length < this.totalHrDocuments) {
+        if (this.hrDocuments && this.hrDocuments.length < this.totalHrDocuments) {
             if (this.connectivityService.isConnected()) {
                 ++this.hrDocumentFilter.page;
                 this.hrDocumentService.getHrDocumentPageByFilter(this.hrDocumentFilter).then(pagedHrDocument => {
@@ -183,7 +183,7 @@ export class HrDocumentsPage implements OnInit {
      * @return true si il y a des pièces jointes, false sinon
      */
     hrDocumentHasAttachments(hrDocument: HrDocumentModel): boolean {
-        return hrDocument.attachmentFiles && hrDocument.attachmentFiles.length > 0;
+        return hrDocument && hrDocument.attachmentFiles && hrDocument.attachmentFiles.length > 0;
     }
 
     /**

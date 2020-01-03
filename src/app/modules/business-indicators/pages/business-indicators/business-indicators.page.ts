@@ -1,3 +1,4 @@
+import { BusinessIndicatorService } from './../../../../core/services/business-indicator/business-indicator.service';
 import { ConnectivityService } from 'src/app/core/services/connectivity/connectivity.service';
 import * as moment from 'moment';
 import { TabHeaderEnum } from 'src/app/core/enums/tab-header.enum';
@@ -20,9 +21,6 @@ import {
     BusinessIndicatorModel
 } from '../../../../core/models/business-indicator/business-indicator.model';
 import { PncModel } from '../../../../core/models/pnc.model';
-import {
-    OnlineBusinessIndicatorService
-} from '../../../../core/services/business-indicator/online-business-indicator.service';
 
 @Component({
     selector: 'page-business-indicators',
@@ -49,7 +47,7 @@ export class BusinessIndicatorsPage implements AfterViewInit {
         private activatedRoute: ActivatedRoute,
         private router: Router,
         private pncService: PncService,
-        private onlineBusinessIndicatorService: OnlineBusinessIndicatorService,
+        private businessIndicatorService: BusinessIndicatorService,
         private connectivityService: ConnectivityService
     ) {
     }
@@ -60,11 +58,11 @@ export class BusinessIndicatorsPage implements AfterViewInit {
             this.pnc = pnc;
         });
 
-        this.onlineBusinessIndicatorService.getBusinessIndicatorSummary(matricule).then(businessIndicatorSummary => {
+        this.businessIndicatorService.getBusinessIndicatorSummary(matricule).then(businessIndicatorSummary => {
             this.businessIndicatorSummary = businessIndicatorSummary;
         });
 
-        this.onlineBusinessIndicatorService.findPncBusinessIndicators(matricule).then(businessIndicators => {
+        this.businessIndicatorService.findPncBusinessIndicators(matricule).then(businessIndicators => {
             this.businessIndicators = businessIndicators;
             this.getBusinessIndicatorsByPage(0);
         });

@@ -14,7 +14,7 @@ export class OfflineHrDocumentService {
      * @return une promesse contenant Le document RH créé ou mis à jour
      */
     createOrUpdate(hrDocument: HrDocumentModel): Promise<HrDocumentModel> {
-        return Promise.reject(null);
+        return Promise.reject(false);
     }
 
     /**
