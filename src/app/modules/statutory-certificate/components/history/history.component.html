@@ -1,7 +1,10 @@
-<span *ngIf="isOffline() && !history">
+<span *ngIf="isOffline() && !hasHistory()">
     {{ 'STATUTORY_CERTIFICATE.HISTORY.UNAIVALABLE_OFFLINE' | translate }}
 </span>
-<span *ngIf="history">
+<span *ngIf="!isOffline() && !hasHistory()">
+    {{ 'GLOBAL.NO_DATA' | translate }}
+</span>
+<span *ngIf="hasHistory()">
     <statutory-certificate-data *ngIf="assignmentData && history.assignmentHistory.length > 0"
         [statutoryCertificateData]="assignmentData"
         title="{{ 'STATUTORY_CERTIFICATE.HISTORY.ASSIGNMENT.TITLE' | translate}}"
