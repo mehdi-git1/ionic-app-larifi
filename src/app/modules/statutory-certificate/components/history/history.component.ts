@@ -278,7 +278,7 @@ export class HistoryComponent implements OnInit {
     }
 
     /**
-     * Vérifie que l'histoire ne soit pas vide
+     * Vérifie que l'historique ne soit pas vide
      * @return true si il n'est pas vide, false sinon
      */
     hasHistory(): boolean {

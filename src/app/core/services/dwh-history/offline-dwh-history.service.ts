@@ -15,7 +15,7 @@ export class OfflineDwhHistoryService {
     /**
      * Récupère l'historique DWH du Pnc hors ligne
      * @param matricule matricule du Pnc
-     * @return une promesse contenant null tant que l'historique DWH n'est pas disponible hors lign
+     * @return une promesse contenant null tant que l'historique DWH n'est pas disponible hors ligne
      */
     public getDwhHistory(matricule: string): Promise<DwhHistoryModel> {
         return Promise.resolve(null);
