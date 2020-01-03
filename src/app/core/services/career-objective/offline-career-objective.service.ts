@@ -63,4 +63,12 @@ export class OfflineCareerObjectiveService {
     return this.storageService.findOne(EntityEnum.CAREER_OBJECTIVE, `${id}`) !== null;
   }
 
+  /**
+   * Récupère les priorités rédigées
+   * @param matricule matricule du rédacteur
+   * @return une promesse nulle car la liste des priorités rédigées est indisponible hors ligne
+   */
+  public findCareerObjectivesByRedactor(matricule: string): Promise<CareerObjectiveModel[]> {
+    return Promise.resolve(null);
+  }
 }

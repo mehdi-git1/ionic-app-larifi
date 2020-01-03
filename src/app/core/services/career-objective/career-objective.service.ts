@@ -80,8 +80,8 @@ export class CareerObjectiveService extends BaseService {
    * @param matricule matricule du rédacteur
    * @return la liste des priorités rédigées
    */
-  public findCareerObjectivesByRedactor(matricule: string) {
-    return this.onlineCareerObjectiveService.findCareerObjectivesByRedactor(matricule);
+  public findCareerObjectivesByRedactor(matricule: string): Promise<CareerObjectiveModel[]> {
+    return this.execFunctionService('findCareerObjectivesByRedactor', matricule);
   }
 
 }

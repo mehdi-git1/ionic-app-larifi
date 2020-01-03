@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
 
-import { UrlConfiguration } from '../../configuration/url.configuration';
-import { RestService } from '../../http/rest/rest.base.service';
 import {
     BusinessIndicatorLightModel
 } from '../../models/business-indicator/business-indicator-light.model';
@@ -11,20 +9,16 @@ import {
 import { BusinessIndicatorModel } from '../../models/business-indicator/business-indicator.model';
 
 @Injectable()
-export class OnlineBusinessIndicatorService {
+export class OfflineBusinessIndicatorService {
 
-    constructor(
-        private restService: RestService,
-        private config: UrlConfiguration,
-    ) { }
-
+    constructor() {}
     /**
      * Récupère les indicateurs métier du Pnc
      * @param matricule le matricule du Pnc
-     * @return Les indicateurs métiers du PNC
+     * @return une promesse null car Les indicateurs métiers du PNC sont indisponibles hors ligne
      */
     findPncBusinessIndicators(matricule: string): Promise<BusinessIndicatorLightModel[]> {
-        return this.restService.get(this.config.getBackEndUrl('findPncBusinessIndicators', [matricule]));
+        return Promise.resolve(new Array());
     }
 
     /**
@@ -32,18 +26,19 @@ export class OnlineBusinessIndicatorService {
      *
      * @param matricule
      *            le matricule du Pnc
-     * @return la synthèse des indicateurs métier des 6 derniers mois
+     * @return  une promesse null car Les indicateurs métiers du PNC sont indisponibles hors ligne
      */
     getBusinessIndicatorSummary(matricule: string): Promise<BusinessIndicatorSummaryModel> {
-        return this.restService.get(this.config.getBackEndUrl('getBusinessIndicatorSummary', [matricule]));
+        return Promise.resolve(null);
     }
 
     /**
      * Récupère un indicateur métier
      * @param id l'id de l'indicateur métier à récupérer
-     * @return l'indicateur métier trouvé
+     * @return une promesse null car Les indicateurs métiers du PNC sont indisponibles hors ligne
      */
     getBusinessIndicator(id: number): Promise<BusinessIndicatorModel> {
-        return this.restService.get(this.config.getBackEndUrl('getBusinessIndicator', [id]));
+        return Promise.resolve(null);
     }
+
 }

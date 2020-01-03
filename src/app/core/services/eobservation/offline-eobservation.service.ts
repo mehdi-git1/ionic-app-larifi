@@ -38,10 +38,10 @@ export class OfflineEObservationService {
     }
 
     /**
-    * Met à jour une eObservation
-    * @param eObservation l'eObservation à valider
-    * @return une promesse contenant l'eObservation validée
-    */
+     * Met à jour une eObservation
+     * @param eObservation l'eObservation à valider
+     * @return une promesse contenant l'eObservation validée
+     */
     public updateEObservation(eObservation: EObservationModel): Promise<EObservationModel> {
         return this.storageService.saveAsync(EntityEnum.EOBSERVATION, eObservation, false);
     }
@@ -53,5 +53,13 @@ export class OfflineEObservationService {
      */
     public getEObservation(id: number): Promise<EObservationModel> {
         return this.storageService.findOneAsync(EntityEnum.EOBSERVATION, `${id}`);
+    }
+
+    /**
+     * @param matricule matricule du redacteur
+     * @return une promesse nulle car les observations par rédacteur ne sont pas disponibles hors ligne
+     */
+    public findEObservationsByRedactor(matricule: string): Promise<EObservationModel[]> {
+        return Promise.resolve(null);
     }
 }
