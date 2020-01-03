@@ -1,3 +1,4 @@
+import { HrDocumentService } from './../../../../core/services/hr-documents/hr-document.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PopoverController } from '@ionic/angular';
@@ -9,9 +10,7 @@ import { HrDocumentCategory } from '../../../../core/models/hr-document/hr-docum
 import { HrDocumentModel } from '../../../../core/models/hr-document/hr-document.model';
 import { PncModel } from '../../../../core/models/pnc.model';
 import { ConnectivityService } from '../../../../core/services/connectivity/connectivity.service';
-import {
-    OnlineHrDocumentService
-} from '../../../../core/services/hr-documents/online-hr-document.service';
+
 import { SecurityService } from '../../../../core/services/security/security.service';
 import { SessionService } from '../../../../core/services/session/session.service';
 import {
@@ -41,7 +40,7 @@ export class HrDocumentsPage implements OnInit {
         private router: Router,
         private activatedRoute: ActivatedRoute,
         private sessionService: SessionService,
-        private onlineHrDocumentService: OnlineHrDocumentService,
+        private hrDocumentService: HrDocumentService,
         private securityService: SecurityService,
         private connectivityService: ConnectivityService,
         private popoverCtrl: PopoverController) {
@@ -130,7 +129,7 @@ export class HrDocumentsPage implements OnInit {
         this.hrDocumentFilter.page = this.hrDocumentFilter.offset / this.hrDocumentFilter.size;
         this.hrDocumentFilter.matricule = this.pnc.matricule;
 
-        this.onlineHrDocumentService.getHrDocumentPageByFilter(this.hrDocumentFilter).then(pagedHrDocument => {
+        this.hrDocumentService.getHrDocumentPageByFilter(this.hrDocumentFilter).then(pagedHrDocument => {
             this.hrDocuments = pagedHrDocument.content;
             this.totalHrDocuments = pagedHrDocument.page.totalElements;
             this.searchInProgress = false;
@@ -141,13 +140,13 @@ export class HrDocumentsPage implements OnInit {
 
     /**
      * Permet de recharger les éléments dans la liste à scroller quand on arrive a la fin de la liste.
-     * @param infiniteScroll
+     * @param event évènement
      */
     doInfinite(event) {
         if (this.hrDocuments.length < this.totalHrDocuments) {
             if (this.connectivityService.isConnected()) {
                 ++this.hrDocumentFilter.page;
-                this.onlineHrDocumentService.getHrDocumentPageByFilter(this.hrDocumentFilter).then(pagedHrDocument => {
+                this.hrDocumentService.getHrDocumentPageByFilter(this.hrDocumentFilter).then(pagedHrDocument => {
                     this.hrDocuments.push(...pagedHrDocument.content);
                     event.target.complete();
                 });
@@ -171,7 +170,7 @@ export class HrDocumentsPage implements OnInit {
     loadNextPage() {
         this.searchInProgress = true;
         this.hrDocumentFilter.page = ++this.hrDocumentFilter.page;
-        this.onlineHrDocumentService.getHrDocumentPageByFilter(
+        this.hrDocumentService.getHrDocumentPageByFilter(
             this.hrDocumentFilter).then(pagedHrDocument => {
                 this.hrDocuments = this.hrDocuments.concat(pagedHrDocument.content);
             }).then(() => {

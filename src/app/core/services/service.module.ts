@@ -1,3 +1,6 @@
+import { HrDocumentService } from './hr-documents/hr-document.service';
+import { OfflineBusinessIndicatorService } from './business-indicator/offline-business-indicator.service';
+import { BusinessIndicatorService } from './business-indicator/business-indicator.service';
 import { OnlineBusinessIndicatorService } from './business-indicator/online-business-indicator.service';
 import { NgModule } from '@angular/core';
 
@@ -129,6 +132,7 @@ import { OfflineWaypointService } from './waypoint/offline-waypoint.service';
 import { OnlineWaypointService } from './waypoint/online-waypoint.service';
 import { WaypointTransformerService } from './waypoint/waypoint-transformer.service';
 import { WaypointService } from './waypoint/waypoint.service';
+import { OfflineHrDocumentService } from './hr-documents/offline-hr-document.service';
 
 @NgModule({
     declarations: [
@@ -227,7 +231,11 @@ import { WaypointService } from './waypoint/waypoint.service';
         OnlineHrDocumentService,
         AlertDialogService,
         CancelChangesService,
-        OnlineBusinessIndicatorService
+        BusinessIndicatorService,
+        OnlineBusinessIndicatorService,
+        OfflineBusinessIndicatorService,
+        HrDocumentService,
+        OfflineHrDocumentService
     ]
 })
 export class ServiceModule { }

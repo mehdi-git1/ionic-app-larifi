@@ -1,7 +1,8 @@
+import { OfflineCareerObjectiveService } from './../career-objective/offline-career-objective.service';
+import { OnlineCareerObjectiveService } from './../career-objective/online-career-objective.service';
+import { ConnectivityService } from './../connectivity/connectivity.service';
 import { Injectable } from '@angular/core';
 
-import { UrlConfiguration } from '../../configuration/url.configuration';
-import { RestService } from '../../http/rest/rest.base.service';
 import {
     BusinessIndicatorLightModel
 } from '../../models/business-indicator/business-indicator-light.model';
@@ -9,14 +10,22 @@ import {
     BusinessIndicatorSummaryModel
 } from '../../models/business-indicator/business-indicator-summary.model';
 import { BusinessIndicatorModel } from '../../models/business-indicator/business-indicator.model';
+import { BaseService } from '../base/base.service';
 
 @Injectable()
-export class OnlineBusinessIndicatorService {
+export class BusinessIndicatorService extends BaseService {
 
     constructor(
-        private restService: RestService,
-        private config: UrlConfiguration,
-    ) { }
+        public connectivityService: ConnectivityService,
+        private onlineCareerObjectiveService: OnlineCareerObjectiveService,
+        private offlineCareerObjectiveService: OfflineCareerObjectiveService
+    ) {
+        super(
+            connectivityService,
+            onlineCareerObjectiveService,
+            offlineCareerObjectiveService
+          );
+     }
 
     /**
      * Récupère les indicateurs métier du Pnc
@@ -24,7 +33,7 @@ export class OnlineBusinessIndicatorService {
      * @return Les indicateurs métiers du PNC
      */
     findPncBusinessIndicators(matricule: string): Promise<BusinessIndicatorLightModel[]> {
-        return this.restService.get(this.config.getBackEndUrl('findPncBusinessIndicators', [matricule]));
+        return this.execFunctionService('findPncBusinessIndicators', matricule);
     }
 
     /**
@@ -35,7 +44,7 @@ export class OnlineBusinessIndicatorService {
      * @return la synthèse des indicateurs métier des 6 derniers mois
      */
     getBusinessIndicatorSummary(matricule: string): Promise<BusinessIndicatorSummaryModel> {
-        return this.restService.get(this.config.getBackEndUrl('getBusinessIndicatorSummary', [matricule]));
+        return this.execFunctionService('getBusinessIndicatorSummary', matricule);
     }
 
     /**
@@ -44,6 +53,7 @@ export class OnlineBusinessIndicatorService {
      * @return l'indicateur métier trouvé
      */
     getBusinessIndicator(id: number): Promise<BusinessIndicatorModel> {
-        return this.restService.get(this.config.getBackEndUrl('getBusinessIndicator', [id]));
+        return this.execFunctionService('getBusinessIndicator', id);
     }
+
 }

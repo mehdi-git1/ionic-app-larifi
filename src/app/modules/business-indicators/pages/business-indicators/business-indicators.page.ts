@@ -1,3 +1,4 @@
+import { ConnectivityService } from 'src/app/core/services/connectivity/connectivity.service';
 import * as moment from 'moment';
 import { TabHeaderEnum } from 'src/app/core/enums/tab-header.enum';
 import { PncService } from 'src/app/core/services/pnc/pnc.service';
@@ -48,7 +49,8 @@ export class BusinessIndicatorsPage implements AfterViewInit {
         private activatedRoute: ActivatedRoute,
         private router: Router,
         private pncService: PncService,
-        private onlineBusinessIndicatorService: OnlineBusinessIndicatorService
+        private onlineBusinessIndicatorService: OnlineBusinessIndicatorService,
+        private connectivityService: ConnectivityService
     ) {
     }
 
@@ -109,6 +111,9 @@ export class BusinessIndicatorsPage implements AfterViewInit {
      * @return la date de départ planifiée du vol
      */
     getPlannedDepartureDate(businessIndicator: BusinessIndicatorLightModel): Date {
+        if (!businessIndicator) {
+            return null;
+        }
         return moment(businessIndicator.flightDetailsCard.legDepartureDate, AppConstant.isoDateFormat)
             .subtract(businessIndicator.flightDetailsCard.d0, 'minutes').toDate();
     }
@@ -160,11 +165,22 @@ export class BusinessIndicatorsPage implements AfterViewInit {
     getBusinessIndicatorsByPage(pageIndex: number) {
         const startIndex = pageIndex * this.pageSize;
         const endIndex = (pageIndex + 1) * this.pageSize - 1;
-        const flightCardByPage = this.businessIndicators.slice(startIndex, endIndex);
-        this.dataSource = new MatTableDataSource<BusinessIndicatorLightModel>(flightCardByPage);
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
-        this.dataSource._updateChangeSubscription();
+        if (this.businessIndicators) {
+            const flightCardByPage = this.businessIndicators.slice(startIndex, endIndex);
+            this.dataSource = new MatTableDataSource<BusinessIndicatorLightModel>(flightCardByPage);
+            this.dataSource.paginator = this.paginator;
+            this.dataSource.sort = this.sort;
+            this.dataSource._updateChangeSubscription();
+        } else {
+            this.dataSource = new MatTableDataSource<BusinessIndicatorLightModel>();
+        }
     }
 
+    /**
+     * Vérifie si l'on est connecté
+     * @return true si on est connecté, false sinon
+     */
+    isConnected(): boolean {
+        return this.connectivityService.isConnected();
+    }
 }

@@ -30,6 +30,7 @@ import {
     ProfessionalInterviewService
 } from '../../../../core/services/professional-interview/professional-interview.service';
 import { SessionService } from '../../../../core/services/session/session.service';
+import { ConnectivityService } from '../../../../core/services/connectivity/connectivity.service';
 
 @Component({
     selector: 'page-redactions',
@@ -54,6 +55,7 @@ export class RedactionsPage {
 
     constructor(
         private activatedRoute: ActivatedRoute,
+        private connectivityService: ConnectivityService,
         private sessionService: SessionService,
         private deviceService: DeviceService,
         private translateService: TranslateService,
@@ -98,20 +100,20 @@ export class RedactionsPage {
             {
                 id: RedactionDisplayModeEnum.EOBSERVATION,
                 label: this.translateService.instant('CAREER_OBJECTIVE_LIST.EOBS_TITLE'),
-                count: this.eObservations.length,
-                available: this.eObservations.length > 0
+                count: this.eObservations ? this.eObservations.length : 0,
+                available: this.eObservations && this.eObservations.length > 0
             },
             {
                 id: RedactionDisplayModeEnum.CAREER_OBJECTIVE,
                 label: this.translateService.instant('CAREER_OBJECTIVE_LIST.CAREER_OBJECTIVE_TITLE'),
-                count: this.careerObjectives.length,
-                available: this.careerObjectives.length > 0
+                count: this.careerObjectives ? this.careerObjectives.length : 0,
+                available: this.careerObjectives && this.careerObjectives.length > 0
             },
             {
                 id: RedactionDisplayModeEnum.PROFESSIONAL_INTERVIEW,
                 label: this.translateService.instant('CAREER_OBJECTIVE_LIST.PROFESSIONAL_INTERVIEW_TITLE'),
-                count: this.professionalInterviews.length,
-                available: this.professionalInterviews.length > 0
+                count: this.professionalInterviews ? this.professionalInterviews.length : 0,
+                available: this.professionalInterviews && this.professionalInterviews.length > 0
             },
             {
                 id: RedactionDisplayModeEnum.EXTRA_REDACTION,
@@ -153,5 +155,13 @@ export class RedactionsPage {
         return this.eObservations !== undefined
             && this.professionalInterviews !== undefined
             && this.careerObjectives !== undefined;
+    }
+
+    /**
+     * Vérifie si l'on est connecté
+     * @return true si on est connecté, false sinon
+     */
+    isConnected(): boolean {
+        return this.connectivityService.isConnected();
     }
 }

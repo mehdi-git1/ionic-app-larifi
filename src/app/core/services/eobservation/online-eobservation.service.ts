@@ -69,7 +69,7 @@ export class OnlineEObservationService {
      * @param matricule le matricule du rédacteur
      * @return une promesse contenant les EObservations rédigées
      */
-    public findEObservationsByRedactor(matricule: string) {
+    public findEObservationsByRedactor(matricule: string): Promise<EObservationModel[]> {
         return this.restServiceGetEObservations('getEObservationsByRedactorMatricule', matricule);
     }
 

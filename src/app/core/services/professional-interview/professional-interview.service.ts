@@ -82,6 +82,6 @@ export class ProfessionalInterviewService extends BaseService {
      * @return une promesse contenant les bilans professionnels rédigés
      */
     public findProfessionalInterviewsByRedactor(matricule: string): Promise<ProfessionalInterviewModel[]> {
-        return this.onlineProfessionalInterviewService.findProfessionalInterviewsByRedactor(matricule);
+        return this.execFunctionService('findProfessionalInterviewsByRedactor', matricule);
     }
 }
