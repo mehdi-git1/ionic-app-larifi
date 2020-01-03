@@ -130,8 +130,12 @@ export class HrDocumentsPage implements OnInit {
         this.hrDocumentFilter.matricule = this.pnc.matricule;
 
         this.hrDocumentService.getHrDocumentPageByFilter(this.hrDocumentFilter).then(pagedHrDocument => {
-            this.hrDocuments = pagedHrDocument.content;
-            this.totalHrDocuments = pagedHrDocument.page.totalElements;
+            if (pagedHrDocument) {
+                this.hrDocuments = pagedHrDocument.content;
+                this.totalHrDocuments = pagedHrDocument.page.totalElements;
+            } else {
+                this.hrDocuments = null;
+            }
             this.searchInProgress = false;
         }, error => {
             this.searchInProgress = false;
