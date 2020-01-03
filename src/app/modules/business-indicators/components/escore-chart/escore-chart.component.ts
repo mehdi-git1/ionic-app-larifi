@@ -1,3 +1,4 @@
+import { DeviceService } from './../../../../core/services/device/device.service';
 import { Component, Input, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -18,7 +19,8 @@ export class EscoreChartComponent implements OnInit {
   xAxisLabel: string;
 
   constructor(
-    private translateService: TranslateService
+    private translateService: TranslateService,
+    private deviceService: DeviceService
   ) {
   }
 
@@ -81,4 +83,11 @@ export class EscoreChartComponent implements OnInit {
     return !this.data.map(entry => entry.value).every((value, index, array) => value === 0);
   }
 
+  isMobile() {
+    return !this.deviceService.isBrowser();
+  }
+
+  refreshChart(event) {
+    this.initChart();
+  }
 }
