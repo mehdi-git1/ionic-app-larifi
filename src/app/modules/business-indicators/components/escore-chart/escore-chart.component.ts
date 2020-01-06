@@ -1,10 +1,10 @@
-import { DeviceService } from './../../../../core/services/device/device.service';
 import { Component, Input, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 
 import {
     BusinessIndicatorModel
 } from '../../../../core/models/business-indicator/business-indicator.model';
+import { DeviceService } from '../../../../core/services/device/device.service';
 
 @Component({
   selector: 'escore-chart',
@@ -83,11 +83,11 @@ export class EscoreChartComponent implements OnInit {
     return !this.data.map(entry => entry.value).every((value, index, array) => value === 0);
   }
 
+  /**
+   * Vérifie si on est sur mobile ou non
+   * @return vrai si c'est le cas, faux sinon
+   */
   isMobile() {
     return !this.deviceService.isBrowser();
-  }
-
-  refreshChart(event) {
-    this.initChart();
   }
 }
