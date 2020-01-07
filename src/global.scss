@@ -224,3 +224,10 @@ ion-badge[outline][color="secondary"] {
         margin: 0px;
     }
 }
+.popover-content.sc-ion-popover-md { 
+    width: fit-content;
+}
+
+ion-label.sc-ion-select-popover-md, ion-label.sc-ion-select-popover-ios {
+    padding-right: 10px;
+}
