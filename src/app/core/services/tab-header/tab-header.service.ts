@@ -68,7 +68,7 @@ export class TabHeaderService {
                     id: TabHeaderEnum.BUSINESS_INDICATORS_PAGE,
                     label: this.translateService.instant('GLOBAL.BUSINESS_INDICATORS'),
                     route: 'business-indicators',
-                        available: this.authorizationService.hasPermission(PermissionConstant.VIEW_BUSINESS_INDICATORS)
+                    available: this.authorizationService.hasPermission(PermissionConstant.VIEW_BUSINESS_INDICATORS)
                         && this.pnc && (this.pnc.hasBeenCCIn12LastMonths
                             || this.pnc.manager)
                 },
@@ -82,7 +82,7 @@ export class TabHeaderService {
                     id: TabHeaderEnum.REDACTIONS_PAGE,
                     label: this.translateService.instant('GLOBAL.REDACTIONS'),
                     route: 'redactions',
-                    available: this.pnc && (this.pnc.hasRedactions || this.sessionService.getActiveUser().isManager)
+                    available: true
                 },
                 {
                     id: TabHeaderEnum.UPCOMING_FLIGHT_LIST_PAGE,
