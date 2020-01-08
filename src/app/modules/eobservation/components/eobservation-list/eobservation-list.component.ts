@@ -41,7 +41,7 @@ export class EObservationListComponent {
 
     chosenEFormsType = null;
 
-    pnc: PncModel;
+    @Input() pnc: PncModel;
 
     constructor(
         private router: Router,
@@ -101,11 +101,13 @@ export class EObservationListComponent {
      */
     displayEObservationTypeSelection() {
         const typeOfEForms = this.getEObsTextTypeEForm();
-        if (typeOfEForms.indexOf('/') === -1) {
+        if (typeOfEForms && typeOfEForms.indexOf('/') === -1) {
             this.chosenEFormsType = EFormsTypeEnum.getType(EFormsTypeEnum[typeOfEForms.trim()]);
             this.createEObservation();
         } else {
-            this.eFormsList = typeOfEForms.split('/');
+            if (typeOfEForms) {
+                this.eFormsList = typeOfEForms.split('/');
+            }
             this.canDisplayMenu = true;
         }
     }

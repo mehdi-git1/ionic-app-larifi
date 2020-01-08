@@ -25,7 +25,7 @@
                 <div class="eobservation-block" [hidden]="!isTabActive(RedactionDisplayModeEnum.EOBSERVATION)">
                     <h1 *ngIf="this.pnc && this.pnc.hasRedactions" class="redactions-title">{{ 'REDACTIONS.REDACTIONS_TITLE' | translate}}</h1>
 
-                    <eobservation-list *ngIf="eObservations && eObservations.length > 0; else noEObservationBlock" [eObservations]="eObservations" [eObservationDisplayMode]="EObservationDisplayModeEnum.REDACTIONS"></eobservation-list>
+                    <eobservation-list *ngIf="eObservations && eObservations.length > 0; else noEObservationBlock" [pnc]="pnc" [eObservations]="eObservations" [eObservationDisplayMode]="EObservationDisplayModeEnum.REDACTIONS"></eobservation-list>
                     <ng-template #noEObservationBlock>
                         <no-data></no-data>
                     </ng-template>

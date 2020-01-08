@@ -13,13 +13,13 @@
         <span>{{ lastConsultedRotation.departureDate | date: 'dd/MM/yyyy'}}</span>
     </div>
     <div class="add-container">
-        <button ion-button (click)="displayEObservationTypeSelection()" color="primary-dark" [hidden]="canDisplayMenu">
+        <ion-button ion-button (click)="displayEObservationTypeSelection()" color="primarydark" [hidden]="canDisplayMenu">
             <ion-icon name="md-add" ios="md-add"></ion-icon>
             <label>{{ 'EOBSERVATION.NEW_EOBSERVATION_HEADER.NEW' | translate }}</label>
-        </button>
+        </ion-button>
 
         <ion-select [hidden]="!canDisplayMenu" interface="popover" [placeholder]="eFormsList[0]" #optionValue (ionChange)="getEFormsTypeBeforeCreate(optionValue.value)">
-            <ion-option *ngFor="let eForm of eFormsList" [value]="eForm">{{eForm}}</ion-option>
+            <ion-select-option *ngFor="let eForm of eFormsList" [value]="eForm">{{eForm}}</ion-select-option>
         </ion-select>
     </div>
 </div>
