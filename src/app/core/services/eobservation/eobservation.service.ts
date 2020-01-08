@@ -25,7 +25,6 @@ export class EObservationService extends BaseService {
             onlineEObservationService,
             offlineEObservationService
         );
-
     }
 
     /**
@@ -96,7 +95,12 @@ export class EObservationService extends BaseService {
         return this.execFunctionService('getEObservation', id);
     }
 
-    public findEObservationsByRedactor(matricule: string) {
-        return this.onlineEObservationService.findEObservationsByRedactor(matricule);
+    /**
+     * Récupères les eObsersaction par rédacteur
+     * @param matricule matricule du rédacteur
+     * @return les eObservations
+     */
+    public findEObservationsByRedactor(matricule: string): Promise<EObservationModel[]> {
+        return this.execFunctionService('findEObservationsByRedactor', matricule);
     }
 }

@@ -29,14 +29,39 @@ export class AppInitService {
      * Initialisation de l'appli
      * @return une promesse, résolue quand l'initialisation de l'application est terminée
      */
+    initAppOnBrowser(): Promise<any> {
+        return this.platform.ready().then(() => {
+            if (this.deviceService.isBrowser()) {
+                return this.initApp();
+            } else {
+                return Promise.resolve();
+            }
+        });
+    }
+
+    /**
+     * Initialisation de l'appli
+     * @return une promesse, résolue quand l'initialisation de l'application est terminée
+     */
+    initAppOnIpad(): Promise<any> {
+        return this.platform.ready().then(() => {
+            if (this.deviceService.isBrowser()) {
+                return Promise.resolve();
+            } else {
+                return this.initApp();
+            }
+        });
+    }
+
+    /**
+     * Initialisation de l'appli
+     * @return une promesse, résolue quand l'initialisation de l'application est terminée
+     */
     initApp(): Promise<any> {
-        return this.platform.ready().then((readySource) => {
-            this.authenticationService.initFunctionalApp().then(
+        return this.authenticationService.initFunctionalApp().then(
             authentReturn => {
                 this.setAuthenticationStatus(authentReturn);
-                this.handleAuthenticationStatus();
             });
-        });
     }
 
     /**
@@ -55,45 +80,47 @@ export class AppInitService {
          la phase APP_INITIALIZER(voir app.module) */
         const router = this.injector.get(Router);
         const modalSecurityService = this.injector.get(ModalSecurityService);
-        switch (this.authentificationStatus) {
-            case AuthenticationStatusEnum.AUTHENTICATION_OK:
-                this.events.publish('user:authenticationDone');
-                if (!this.deviceService.isBrowser() && !this.sessionService.impersonatedUser) {
-                    modalSecurityService.displayPinPad(PinPadTypeEnum.openingApp);
-                }
-                if (this.sessionService.getActiveUser().isManager) {
-                    router.navigate(['tabs', 'home']);
-                } else {
-                    router.navigate(['development-program']);
-                }
-                break;
-            case AuthenticationStatusEnum.INIT_KO:
-                router.navigate(['generic-message'], {
-                    state: {
-                        data: { message: this.translateService.instant('GLOBAL.MESSAGES.ERROR.APPLICATION_NOT_INITIALIZED') }
+
+        if (this.authentificationStatus) {
+            switch (this.authentificationStatus) {
+                case AuthenticationStatusEnum.AUTHENTICATION_OK:
+                    this.events.publish('user:authenticationDone');
+                    if (!this.deviceService.isBrowser() && !this.sessionService.impersonatedUser) {
+                        modalSecurityService.displayPinPad(PinPadTypeEnum.openingApp);
                     }
-                });
-                break;
-            case AuthenticationStatusEnum.IMPERSONATE_MODE:
-                router.navigate(['admin', 'impersonate']);
-                break;
-            case AuthenticationStatusEnum.APPLI_UNAVAILABLE:
-                router.navigate(['generic-message'], {
-                    state: {
-                        data: { message: this.translateService.instant('GLOBAL.MESSAGES.ERROR.SERVER_APPLICATION_UNAVAILABLE') }
+                    if (this.sessionService.getActiveUser().isManager) {
+                        router.navigate(['tabs', 'home']);
+                    } else {
+                        router.navigate(['development-program']);
                     }
-                });
-                break;
-            case AuthenticationStatusEnum.AUTHENTICATION_KO:
-                router.navigate(['authentication']);
-                break;
-            default:
-                router.navigate(['generic-message'], {
-                    state: {
-                        data: { message: this.translateService.instant('GLOBAL.MESSAGES.ERROR.APPLICATION_NOT_INITIALIZED') }
-                    }
-                });
+                    break;
+                case AuthenticationStatusEnum.INIT_KO:
+                    router.navigate(['generic-message'], {
+                        state: {
+                            data: { message: this.translateService.instant('GLOBAL.MESSAGES.ERROR.APPLICATION_NOT_INITIALIZED') }
+                        }
+                    });
+                    break;
+                case AuthenticationStatusEnum.IMPERSONATE_MODE:
+                    router.navigate(['admin', 'impersonate']);
+                    break;
+                case AuthenticationStatusEnum.APPLI_UNAVAILABLE:
+                    router.navigate(['generic-message'], {
+                        state: {
+                            data: { message: this.translateService.instant('GLOBAL.MESSAGES.ERROR.SERVER_APPLICATION_UNAVAILABLE') }
+                        }
+                    });
+                    break;
+                case AuthenticationStatusEnum.AUTHENTICATION_KO:
+                    router.navigate(['authentication']);
+                    break;
+                default:
+                    router.navigate(['generic-message'], {
+                        state: {
+                            data: { message: this.translateService.instant('GLOBAL.MESSAGES.ERROR.APPLICATION_NOT_INITIALIZED') }
+                        }
+                    });
+            }
         }
     }
-
 }

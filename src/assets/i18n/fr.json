@@ -8,7 +8,10 @@
                 "TITLE": "Nouveautés de la version"
             }
         },
+        "AF_COMPANY": "AF",
         "NO_DATA": "Pas de données disponibles",
+        "DATA_NOT_AVAILABLE": "Données non disponibles",
+        "UNAIVALABLE_OFFLINE": "Les données ne sont pas disponibles hors connexion",
         "PNC_ROLE": {
             "MANAGER": "Manager Coach",
             "PNC": "PNC"
@@ -794,7 +797,7 @@
                 "LABEL": "Rédacteur",
                 "PNC": "PNC",
                 "PAX": "Client - PAX",
-                "PILOTE": "Pilote",
+                "PNT": "Pilote",
                 "OTHER": "Autre",
                 "REDACTOR_AUTOCOMPLETE": "PNC rédacteur",
                 "REDACTOR_AUTOCOMPLETE_PLACEHOLDER": "Matricule, Nom, Prénom"
@@ -969,6 +972,67 @@
         "EXTRA_REDACTION_TITLE": "Liens de consultation",
         "EFORMS_WRITTEN": "Formulaires de retours d'expérience rédigés",
         "CABIN_REPORTS_WRITTEN": "Cabin Reports rédigés"
+    },
+    "BUSINESS_INDICATORS": {
+        "PAST_SUMMARY": {
+            "TITLE": "Indicateurs Métier sur 6 mois glissants",
+            "ESCORE_AVERAGE": "Moyenne - eScore",
+            "ON_TIME_SHUTTLE_DEPARTURE_RATIO": "Ponctualité - Départ navette",
+            "UPGRADE_AVERAGE": "Moyenne - Surclassement",
+            "FLYING_BLUE_ERC_AVERAGE": "Moyenne - Enrôlement FB & ERC"
+        },
+        "FLIGHT_CARD_12_LAST_MONTHS": "Fiches vols effectués sur l'année glissante",
+        "LEG_DATE": "Date tronçon",
+        "FLIGHT_NUMBER": "N° de Vol",
+        "STATIONS": "Escale départ / Escale arrivée",
+        "ESCORE": "eScore",
+        "FLIGHT_ACTIONS": "Actions à bord",
+        "FLIGHT_ACTIONS_NUMBER": "Nombre total d'actions à bord",
+        "FLIGHT_INFORMATIONS": "Infos Vol",
+        "DETAIL": {
+            "FLIGHT_INFO": {
+                "AIRCRAFT_TYPE": "Type Avion",
+                "EXPLOITATION_VERSION": "Version d'exploitation",
+                "PAX_VERSION": "Version PAX",
+                "PEQ": "Compo PEQ"
+            },
+            "PERF_OPS": {
+                "TITLE": "PerfOps",
+                "SHUTTLE_DEPARTURE_D0": "Départ navette D0",
+                "SHUTTLE_ARRIVAL": "Arrivée navette avion",
+                "D0": "Départ bloc",
+                "LEGEND": "Les données sont données en minutes, par rapport au standard"
+            },
+            "ONBOARD_ACTIONS": {
+                "ERC": "ERC",
+                "CUSTOMER_CONTINUITY": "Continuité client",
+                "FLYING_BLUE_ENROLMENT": "Enrôlement FB",
+                "GIFT_FOR_CARE": "GFC",
+                "UPGRADE": "Upgrade",
+                "KDO": "KDO",
+                "LEGEND": "Nombre d'actions réalisée à bord par l'équipage"
+            },
+            "SHORT_LOOP_COMMENT": {
+                "NOTATION" : "Note",
+                "APPRECIATED_POINTS" : "Points appréciés / positifs",
+                "POINTS_TO_IMPROVE" : "Points à améliorer / négatifs"
+            },
+            "ESCORE_COMMENT": {
+                "NOTATION" : "Note",
+                "POSITIVE_FEEDBACK_REASON" : "Raison retour personnel positif",
+                "NEGATIVE_FEEDBACK_REASON" : "Raison retour personnel négatif",
+                "SUGGESTIONS" : "Suggestions"
+            },
+            "ESCORE_SUMMARY": {
+                "TITLE": "eScore Cabin Crew - Nombre de retours & notes associées",
+                "ESCORE_0": "Note 0",
+                "ESCORE_25": "Note 2,5",
+                "ESCORE_50": "Note 5",
+                "ESCORE_75": "Note 7,5",
+                "ESCORE_100": "Note 10",
+                "X_AXIS_LABEL": "Nombre de retours"
+            }
+        }
     },
     "SYNCHRONIZATION": {
         "PNC_SAVED_OFFLINE": "Le PNC {{ matricule }} a été synchronisé",

@@ -276,4 +276,16 @@ export class HistoryComponent implements OnInit {
             ]
         };
     }
+
+    /**
+     * Vérifie que l'historique ne soit pas vide
+     * @return true si il n'est pas vide, false sinon
+     */
+    hasHistory(): boolean {
+        return this.history && (this.history.assignmentHistory.length > 0
+            || this.history.employmentLevelHistory.length > 0
+            || this.history.instrumentHistory.length > 0
+            || this.history.examHistory.length > 0 
+            || this.history.seniorityDateHistory.length > 0);
+    }
 }

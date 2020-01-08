@@ -84,14 +84,28 @@ export class HrDocumentComponent extends FormCanDeactivate implements OnInit {
      * Initialise le formulaire et la liste déroulante des catégories depuis les paramètres
      */
     initForm() {
-        if (this.sessionService.getActiveUser().appInitData !== undefined) {
-            this.hrDocumentCategories = this.sessionService.getActiveUser().appInitData.hrDocumentCategories;
+        if (this.sessionService.getActiveUser().appInitData !== undefined
+        && this.sessionService.getActiveUser().appInitData.hrDocumentCategories
+        && this.sessionService.getActiveUser().appInitData.hrDocumentCategories !== undefined) {
+            this.hrDocumentCategories =
+                this.sortProfessionalInterviewItems(this.sessionService.getActiveUser().appInitData.hrDocumentCategories);
         }
 
         this.hrDocumentForm = this.formBuilder.group({
             category: ['', Validators.required],
             title: ['', [Validators.maxLength(100), Validators.required]],
-			content: ''
+            content: ''
+        });
+    }
+
+    /**
+     * Trie les catégories par ordre
+     * @param hrDocumentCategories tableau de catégories à trier
+     * @return tableau de catégories triées
+     */
+    private sortProfessionalInterviewItems(hrDocumentCategories: HrDocumentCategory[]): HrDocumentCategory[] {
+        return hrDocumentCategories.sort((category1, category2) => {
+            return category1.order < category2.order ? -1 : 1;
         });
     }
 

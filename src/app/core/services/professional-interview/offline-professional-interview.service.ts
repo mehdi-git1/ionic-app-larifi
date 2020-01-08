@@ -71,4 +71,13 @@ export class OfflineProfessionalInterviewService {
             });
         });
     }
+
+    /**
+     * Récupère les bilans professionnels rédigés
+     * @param matricule le matricule du rédacteur
+     * @return une promesse null car les bilans professionnels rédigés sont indisponibles hors ligne
+     */
+    public findProfessionalInterviewsByRedactor(matricule: string): Promise<ProfessionalInterviewModel[]> {
+        return Promise.resolve(null);
+    }
 }

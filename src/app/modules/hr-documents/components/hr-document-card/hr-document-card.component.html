@@ -26,7 +26,7 @@
             <div *ngIf="isManager()">
                 <div class="hr-document-button-bar button-bar button-bar-right ">
                     <!-- Bouton supprimer -->
-                    <div *ngIf="documentCanBeDeleted">
+                    <div *hasPermission="'DELETE_HR_DOCUMENT'">
                         <button ion-button color="primary" (click)="confirmDeleteDocument()">
                             <ion-icon name="ios-trash-outline" ios="ios-trash-outline" margin-right></ion-icon>{{ 'LOGBOOK.BUTTONS.DELETE' |
                             translate }}

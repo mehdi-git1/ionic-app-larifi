@@ -48,7 +48,13 @@ import {
 } from './shared/components/modals/pin-pad-modal/pin-pad-modal.component';
 import { SharedModule } from './shared/shared.module';
 
-
+export function appInitFactory(appInitService: AppInitService) {
+  return () => {
+    return Promise.all([
+      appInitService.initAppOnBrowser()
+    ]);
+  };
+}
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [PinPadModalComponent],
@@ -91,6 +97,12 @@ import { SharedModule } from './shared/shared.module';
     ActivityModule
   ],
   providers: [
+    {
+      provide: APP_INITIALIZER,
+      useFactory: appInitFactory,
+      deps: [AppInitService],
+      multi: true
+    },
     StatusBar,
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }

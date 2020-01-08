@@ -24,5 +24,6 @@ export enum urlGroupEnum {
   'LOGBOOK_EVENT' = 'logbook_events',
   'DOCUMENT' = 'documents',
   'HR_DOCUMENT' = 'hr_documents',
-  'DWH_HISTORY' = 'dwh_history'
+  'DWH_HISTORY' = 'dwh_history',
+  'BUSINESS_INDICATORS' = 'business_indicators'
 }

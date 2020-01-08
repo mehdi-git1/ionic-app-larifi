@@ -65,6 +65,7 @@ export class PncSearchFilterComponent implements AfterViewInit {
   ) {
     this.connectivityService.connectionStatusChange.subscribe(connected => {
       this.initFilter();
+      this.search();
     });
 
     this.events.subscribe('user:authenticationDone', () => {

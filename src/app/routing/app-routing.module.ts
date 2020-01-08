@@ -1,4 +1,3 @@
-import { BusinessIndicatorsPage } from './../modules/business-indicators/pages/business-indicators.page';
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
@@ -14,6 +13,12 @@ import {
 import {
     UserMessageManagementPage
 } from '../modules/admin/pages/user-message-management/user-message-management.page';
+import {
+    BusinessIndicatorDetailPage
+} from '../modules/business-indicators/pages/business-indicator-detail/business-indicator-detail.page';
+import {
+    BusinessIndicatorsPage
+} from '../modules/business-indicators/pages/business-indicators/business-indicators.page';
 import {
     CareerObjectiveCreatePage
 } from '../modules/career-objective/pages/career-objective-create/career-objective-create.page';
@@ -137,8 +142,14 @@ const routes: Routes = [
             ]
           },
           { path: 'redactions', component: RedactionsPage },
-          { path: 'business-indicators', component: BusinessIndicatorsPage},
-          { path: 'career-objective', children: [
+          {
+            path: 'business-indicators', children: [
+              { path: '', component: BusinessIndicatorsPage },
+              { path: 'detail/:id', component: BusinessIndicatorDetailPage }
+            ]
+          },
+          {
+            path: 'career-objective', children: [
               { path: 'create/:careerObjectiveId', component: CareerObjectiveCreatePage, canDeactivate: [CanDeactivateGuard] },
               {
                 path: 'waypoint', children: [
@@ -192,8 +203,13 @@ const routes: Routes = [
               { path: 'statutory-certificate/:selectedTab', component: StatutoryCertificatePage },
               { path: 'help-asset', component: HelpAssetListPage },
               { path: 'redactions', component: RedactionsPage },
-              { path: 'business-indicators', component: BusinessIndicatorsPage},
-              { path: 'development-program', component: DevelopmentProgramPage},
+              {
+                path: 'business-indicators', children: [
+                  { path: '', component: BusinessIndicatorsPage },
+                  { path: 'detail/:id', component: BusinessIndicatorDetailPage }
+                ]
+              },
+              { path: 'development-program', component: DevelopmentProgramPage },
               {
                 path: 'career-objective', children: [
                   { path: 'create/:careerObjectiveId', component: CareerObjectiveCreatePage, canDeactivate: [CanDeactivateGuard] },
@@ -371,7 +387,13 @@ const routes: Routes = [
   { path: 'statutory-certificate', component: StatutoryCertificatePage },
   { path: 'statutory-certificate/:selectedTab', component: StatutoryCertificatePage },
   { path: 'redactions', component: RedactionsPage },
-  { path: 'business-indicators', component: BusinessIndicatorsPage},
+  {
+    path: 'business-indicators', children: [
+      { path: '', component: BusinessIndicatorsPage },
+      { path: 'detail/:id', component: BusinessIndicatorDetailPage }
+    ]
+  },
+  { path: 'pnc-search/:mode', component: PncSearchPage },
   { path: 'help-asset', component: HelpAssetListPage },
   { path: 'activity', component: ActivityPage },
   { path: 'settings', component: SettingsPage },
