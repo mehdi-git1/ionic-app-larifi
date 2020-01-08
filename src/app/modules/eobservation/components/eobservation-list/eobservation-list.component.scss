@@ -32,5 +32,16 @@
         }
 
     }
-
+    ion-button {
+        width: 300px;
+    
+        ion-icon {
+            margin-right: 10px;
+            color: var(--ion-color-white);
+        }
+    
+        label {
+            color: var(--ion-color-white);
+        }
+    }
 }
