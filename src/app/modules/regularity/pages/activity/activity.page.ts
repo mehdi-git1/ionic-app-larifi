@@ -1,11 +1,10 @@
-import { PncModel } from './../../../../core/models/pnc.model';
-
-
 import { TabHeaderEnum } from 'src/app/core/enums/tab-header.enum';
+import { ConnectivityService } from 'src/app/core/services/connectivity/connectivity.service';
 
 import { Component, OnInit } from '@angular/core';
 
 import { ActivityTabEnum } from '../../../../core/enums/activity/activity-tab.enum';
+import { PncModel } from '../../../../core/models/pnc.model';
 
 @Component({
   selector: 'activity',
@@ -19,7 +18,7 @@ export class ActivityPage implements OnInit {
   TabHeaderEnum = TabHeaderEnum;
   pnc: PncModel;
 
-  constructor() { }
+  constructor(private connectivityService: ConnectivityService) { }
 
   ngOnInit() {
   }
@@ -44,5 +43,13 @@ export class ActivityPage implements OnInit {
    */
   isTabActive(activityTab: ActivityTabEnum): boolean {
     return activityTab === this.activeTab;
+  }
+
+  /**
+   * Vérifie que l'on est en mode connecté
+   * @return true si on est en mode connecté, false sinon
+   */
+  isConnected(): boolean {
+    return this.connectivityService.isConnected();
   }
 }

@@ -10,21 +10,26 @@
 
 <ion-content>
     <div class="page-container">
-        <nav class="tabs">
-            <button [ngClass]="{'active': activeTab == ActivityTabEnum.REGULARITY }"
-                (click)="switchActiveTab(ActivityTabEnum.REGULARITY)">{{'ACTIVITY.REGULARITY' | translate}}</button>
-            <button [ngClass]="{'active':  activeTab == ActivityTabEnum.MILESTONE}"
-                (click)="switchActiveTab(ActivityTabEnum.MILESTONE)">{{'ACTIVITY.MILESTONE' | translate}}</button>
-        </nav>
-        <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
+        <div *ngIf="isConnected(); else notConnectedBlock">
+            <nav class="tabs">
+                <button [ngClass]="{'active': activeTab == ActivityTabEnum.REGULARITY }"
+                    (click)="switchActiveTab(ActivityTabEnum.REGULARITY)">{{'ACTIVITY.REGULARITY' | translate}}</button>
+                <button [ngClass]="{'active':  activeTab == ActivityTabEnum.MILESTONE}"
+                    (click)="switchActiveTab(ActivityTabEnum.MILESTONE)">{{'ACTIVITY.MILESTONE' | translate}}</button>
+            </nav>
+            <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
 
-        <ng-template #pageBlock>
-            <div class="selectable">
-                <tab-regularity *ngIf="isTabActive(ActivityTabEnum.REGULARITY)">
-                </tab-regularity>
-                <tab-milestone *ngIf="isTabActive(ActivityTabEnum.MILESTONE)">
-                </tab-milestone>
-            </div>
+            <ng-template #pageBlock>
+                <div class="selectable">
+                    <tab-regularity *ngIf="isTabActive(ActivityTabEnum.REGULARITY)">
+                    </tab-regularity>
+                    <tab-milestone *ngIf="isTabActive(ActivityTabEnum.MILESTONE)">
+                    </tab-milestone>
+                </div>
+            </ng-template>
+        </div>
+        <ng-template #notConnectedBlock>
+            {{ 'HR_DOCUMENT.UNAIVALABLE_OFFLINE' | translate }}
         </ng-template>
     </div>
 </ion-content>
