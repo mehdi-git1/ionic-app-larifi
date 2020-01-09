@@ -4,6 +4,6 @@ export class BusinessIndicatorSummaryModel {
     matricule: string;
     escoreAverage: number;
     onTimeShuttleDepartureRatio: number;
-    upgradeAverage: number;
+    upgradeSum: number;
     flyingBlueAndERCAverage: number;
 }
