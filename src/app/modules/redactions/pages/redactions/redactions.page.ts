@@ -120,6 +120,10 @@ export class RedactionsPage {
         ];
     }
 
+    /**
+     * Vérifie si le pnc connecté ou le pnc consulté a des rédactions
+     * @return vrai si le pnc a des rédactions, faux sinon
+     */
     hasRedactions() {
         return this.eObservations && this.eObservations.length > 0
             || this.careerObjectives && this.careerObjectives.length > 0
