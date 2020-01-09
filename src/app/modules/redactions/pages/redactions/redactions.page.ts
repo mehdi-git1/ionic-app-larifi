@@ -24,13 +24,13 @@ import {
 import {
     CareerObjectiveService
 } from '../../../../core/services/career-objective/career-objective.service';
+import { ConnectivityService } from '../../../../core/services/connectivity/connectivity.service';
 import { EObservationService } from '../../../../core/services/eobservation/eobservation.service';
 import { PncService } from '../../../../core/services/pnc/pnc.service';
 import {
     ProfessionalInterviewService
 } from '../../../../core/services/professional-interview/professional-interview.service';
 import { SessionService } from '../../../../core/services/session/session.service';
-import { ConnectivityService } from '../../../../core/services/connectivity/connectivity.service';
 
 @Component({
     selector: 'page-redactions',
@@ -88,10 +88,7 @@ export class RedactionsPage {
 
         Promise.all([eObservationsPromise, careerObjectivesPromise, professionalInterviewsPromise]).then(success => {
             this.initTabList();
-            if (this.selectedTab === undefined) {
-                // A faire qu'une fois pour conserver l'onglet sélectionné quand on revient sur la page
-                this.selectFirstAvailableTab();
-            }
+            this.selectAvailableTab();
         });
     }
 
@@ -123,11 +120,24 @@ export class RedactionsPage {
         ];
     }
 
+    hasRedactions() {
+        return this.eObservations && this.eObservations.length > 0
+            || this.careerObjectives && this.careerObjectives.length > 0
+            || this.professionalInterviews && this.professionalInterviews.length > 0;
+    }
+
     /**
-     * Recherche le premier onglet disponible et le marque comme sélectionné afin qu'il s'affiche en premier
+     * Recherche le premier onglet disponible ou l'onglet déja sélectionné et le marque comme sélectionné afin qu'il s'affiche en premier
      */
-    selectFirstAvailableTab() {
-        this.selectedTab = this.tabList.find(tab => tab.available);
+    selectAvailableTab() {
+        if (this.selectedTab === undefined) {
+            this.selectedTab = this.tabList.find(tab => tab.available);
+        } else {
+            const selectedTab = this.tabList.find(tab => tab.id === this.selectedTab.id);
+            if (!selectedTab.available) {
+                this.selectedTab = this.tabList.find(tab => tab.available);
+            }
+        }
     }
 
     /**

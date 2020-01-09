@@ -10,7 +10,8 @@
 <ion-content>
     <div class="page-container">
         <div *ngIf="isConnected(); else notConnectedBlock">
-            <div *ngIf="this.pnc && this.pnc.hasRedactions; else noRedactionsBlock">
+            <div
+                *ngIf="hasRedactions() || (this.deviceService.isBrowser() && this.sessionService.getActiveUser().isManager); else noRedactionsBlock">
                 <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
                 <ng-template #pageBlock>
 
@@ -25,50 +26,39 @@
                     </nav>
 
                     <!-- eObservations -->
-                    <div class="eobservation-block" [hidden]="!isTabActive(RedactionDisplayModeEnum.EOBSERVATION)">
-                        <h1 *ngIf="this.pnc && this.pnc.hasRedactions" class="redactions-title">
+                    <div *ngIf="eObservations && eObservations.length > 0" class="eobservation-block"
+                        [hidden]="!isTabActive(RedactionDisplayModeEnum.EOBSERVATION)">
+                        <h1 *ngIf="hasRedactions()" class="redactions-title">
                             {{ 'REDACTIONS.REDACTIONS_TITLE' | translate}}</h1>
 
-                        <eobservation-list *ngIf="eObservations && eObservations.length > 0; else noEObservationBlock"
-                            [pnc]="pnc" [eObservations]="eObservations"
+                        <eobservation-list [pnc]="pnc" [eObservations]="eObservations"
                             [eObservationDisplayMode]="EObservationDisplayModeEnum.REDACTIONS"></eobservation-list>
-                        <ng-template #noEObservationBlock>
-                            <no-data></no-data>
-                        </ng-template>
                     </div>
                     <!-- Priorités -->
-                    <div class="career-objective-block"
+                    <div *ngIf="careerObjectives && careerObjectives.length > 0" class="career-objective-block"
                         [hidden]="!isTabActive(RedactionDisplayModeEnum.CAREER_OBJECTIVE)">
-                        <h1 *ngIf="this.pnc && this.pnc.hasRedactions" class="redactions-title">
+                        <h1 *ngIf="hasRedactions()" class="redactions-title">
                             {{ 'REDACTIONS.REDACTIONS_TITLE' | translate}}</h1>
 
-                        <career-objective-list
-                            *ngIf="careerObjectives && careerObjectives.length > 0; else noCareerObjectiveBlock"
-                            [careerObjectives]="careerObjectives"
+                        <career-objective-list [careerObjectives]="careerObjectives"
                             [displayMode]="CareerObjectiveDisplayModeEnum.REDACTIONS">
                         </career-objective-list>
-                        <ng-template #noCareerObjectiveBlock>
-                            <no-data></no-data>
-                        </ng-template>
                     </div>
                     <!-- Bilans professionnels -->
-                    <div class="professional-interview-block"
+                    <div *ngIf="professionalInterviews && professionalInterviews.length > 0"
+                        class="professional-interview-block"
                         [hidden]="!isTabActive(RedactionDisplayModeEnum.PROFESSIONAL_INTERVIEW)">
-                        <h1 *ngIf="this.pnc && this.pnc.hasRedactions" class="redactions-title">
+                        <h1 *ngIf="hasRedactions()" class="redactions-title">
                             {{ 'REDACTIONS.REDACTIONS_TITLE' | translate}}</h1>
 
-                        <professional-interview-list
-                            *ngIf="professionalInterviews && professionalInterviews.length > 0; else noProfessionalInterviewBlock"
-                            [professionalInterviews]="professionalInterviews"
+                        <professional-interview-list [professionalInterviews]="professionalInterviews"
                             [displayMode]="ProfessionalInterviewDisplayModeEnum.REDACTIONS">
                         </professional-interview-list>
-                        <ng-template #noProfessionalInterviewBlock>
-                            <no-data></no-data>
-                        </ng-template>
                     </div>
                     <!-- Autres rédactions -->
-                    <div class="extra-redactions" [hidden]="!isTabActive(RedactionDisplayModeEnum.EXTRA_REDACTION)">
-                        <h1 *ngIf="this.pnc && this.pnc.hasRedactions" class="redactions-title">
+                    <div *ngIf="this.deviceService.isBrowser() && this.sessionService.getActiveUser().isManager"
+                        class="extra-redactions" [hidden]="!isTabActive(RedactionDisplayModeEnum.EXTRA_REDACTION)">
+                        <h1 class="redactions-title">
                             {{ 'REDACTIONS.REDACTIONS_TITLE' | translate}}</h1>
 
                         <extra-redactions [pnc]="pnc"></extra-redactions>
