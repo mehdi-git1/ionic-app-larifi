@@ -1,7 +1,8 @@
-import { BusinessIndicatorService } from './../../../../core/services/business-indicator/business-indicator.service';
-import { ConnectivityService } from 'src/app/core/services/connectivity/connectivity.service';
 import * as moment from 'moment';
+import { HaulTypeEnum } from 'src/app/core/enums/haul-type.enum';
+import { SpecialityEnum } from 'src/app/core/enums/speciality.enum';
 import { TabHeaderEnum } from 'src/app/core/enums/tab-header.enum';
+import { ConnectivityService } from 'src/app/core/services/connectivity/connectivity.service';
 import { PncService } from 'src/app/core/services/pnc/pnc.service';
 
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
@@ -21,6 +22,9 @@ import {
     BusinessIndicatorModel
 } from '../../../../core/models/business-indicator/business-indicator.model';
 import { PncModel } from '../../../../core/models/pnc.model';
+import {
+    BusinessIndicatorService
+} from '../../../../core/services/business-indicator/business-indicator.service';
 
 @Component({
     selector: 'page-business-indicators',
@@ -172,6 +176,75 @@ export class BusinessIndicatorsPage implements AfterViewInit {
         } else {
             this.dataSource = new MatTableDataSource<BusinessIndicatorLightModel>();
         }
+    }
+
+    /**
+     * Vérifie si l'indicateur semestriel "moyenne enrôlement flying blue" peut être affiché
+     * @return vrai si c'est le cas, faux sinon
+     */
+    canDisplayFlyingBlueAverage(): boolean {
+        return this.pnc.manager
+            || this.isCcpOrCcMcCc(this.getMostRecentBusinessIndicator());
+    }
+
+    /**
+     * Vérifie si l'indicateur semestriel "somme des surclassements" peut être affiché
+     * @return vrai si c'est le cas, faux sinon
+     */
+    canDisplayUpgradeSum(): boolean {
+        return this.pnc.manager
+            || this.isCcpOrCcMc(this.getMostRecentBusinessIndicator());
+    }
+
+    /**
+     * Vérifie si l'indicateur semestriel "Pourcentage de départ navette à l'heure" peut être affiché
+     * @return vrai si c'est le cas, faux sinon
+     */
+    canDisplayOnTimeShuttleDepartureRatio(): boolean {
+        return this.pnc.manager
+            || this.isCcpOrCcMc(this.getMostRecentBusinessIndicator());
+    }
+
+    /**
+     * Vérifie si le PNC a occupé un poste de CCP ou CC sur MC/CC durant un vol
+     * @param businessIndicator l'indicateur métier portant sur le vol à tester
+     * @return vrai si c'est le cas, faux sinon
+     */
+    isCcpOrCcMcCc(businessIndicator: BusinessIndicatorLightModel): boolean {
+        if (businessIndicator === null) {
+            return false;
+        }
+        return businessIndicator.aboardSpeciality === SpecialityEnum.CCP
+            || (businessIndicator.aboardSpeciality === SpecialityEnum.CC
+                && (businessIndicator.flightDetailsCard.haulType === HaulTypeEnum.MC
+                    || businessIndicator.flightDetailsCard.haulType === HaulTypeEnum.CC));
+    }
+
+    /**
+     * Vérifie si le PNC a occupé un poste de CCP ou CC sur MC durant un vol
+     * @param businessIndicator l'indicateur métier portant sur le vol à tester
+     * @return vrai si c'est le cas, faux sinon
+     */
+    isCcpOrCcMc(businessIndicator: BusinessIndicatorLightModel): boolean {
+        if (businessIndicator === null) {
+            return false;
+        }
+        return businessIndicator.aboardSpeciality === SpecialityEnum.CCP
+            || (businessIndicator.aboardSpeciality === SpecialityEnum.CC
+                && businessIndicator.flightDetailsCard.haulType === HaulTypeEnum.MC);
+    }
+
+    /**
+     * Récupère l'indicateur métier le plus récent
+     * @return l'indicateur métier portant sur le vol le plus récent
+     */
+    getMostRecentBusinessIndicator(): BusinessIndicatorLightModel {
+        const sortedBusinessIndicators = this.businessIndicators.sort((businessIndicator1, businessIndicator2) => {
+            return this.compareDate(this.getPlannedDepartureDate(businessIndicator1),
+                this.getPlannedDepartureDate(businessIndicator2), false);
+        });
+
+        return sortedBusinessIndicators.length > 0 ? sortedBusinessIndicators[0] : null;
     }
 
     /**
