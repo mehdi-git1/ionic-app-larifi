@@ -10,8 +10,7 @@
 <ion-content>
     <div class="page-container">
         <div *ngIf="isConnected(); else notConnectedBlock">
-            <div
-                *ngIf="hasRedactions() || (this.deviceService.isBrowser() && this.sessionService.getActiveUser().isManager); else noRedactionsBlock">
+            <div *ngIf="hasRedactions() || (isBrowser() && isManager()); else noRedactionsBlock">
                 <edossier-spinner *ngIf="!loadingIsOver(); else pageBlock"></edossier-spinner>
                 <ng-template #pageBlock>
 
@@ -56,8 +55,8 @@
                         </professional-interview-list>
                     </div>
                     <!-- Autres rédactions -->
-                    <div *ngIf="this.deviceService.isBrowser() && this.sessionService.getActiveUser().isManager"
-                        class="extra-redactions" [hidden]="!isTabActive(RedactionDisplayModeEnum.EXTRA_REDACTION)">
+                    <div *ngIf="isBrowser() && isManager()" class="extra-redactions"
+                        [hidden]="!isTabActive(RedactionDisplayModeEnum.EXTRA_REDACTION)">
                         <h1 class="redactions-title">
                             {{ 'REDACTIONS.REDACTIONS_TITLE' | translate}}</h1>
 

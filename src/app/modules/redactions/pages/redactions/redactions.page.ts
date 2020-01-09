@@ -2,6 +2,7 @@ import { TabHeaderEnum } from 'src/app/core/enums/tab-header.enum';
 import { EObservationModel } from 'src/app/core/models/eobservation/eobservation.model';
 import { PncModel } from 'src/app/core/models/pnc.model';
 import { DeviceService } from 'src/app/core/services/device/device.service';
+import { SecurityService } from 'src/app/core/services/security/security.service';
 
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
@@ -62,7 +63,8 @@ export class RedactionsPage {
         private pncService: PncService,
         private eObservationService: EObservationService,
         private careerObjectiveService: CareerObjectiveService,
-        private professionalInterviewService: ProfessionalInterviewService
+        private professionalInterviewService: ProfessionalInterviewService,
+        private securityService: SecurityService
     ) {
 
     }
@@ -177,5 +179,20 @@ export class RedactionsPage {
      */
     isConnected(): boolean {
         return this.connectivityService.isConnected();
+    }
+
+    /**
+     * Vérifie si le PNC est manager
+     * @return vrai si le PNC est manager, faux sinon
+     */
+    isManager(): boolean {
+        return this.securityService.isManager();
+    }
+
+    /**
+     * Verifie si on est en mode Web
+     */
+    isBrowser() {
+        return this.deviceService.isBrowser();
     }
 }
