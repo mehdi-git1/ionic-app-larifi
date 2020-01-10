@@ -130,6 +130,7 @@ export class CareerObjectiveCreatePage extends FormCanDeactivate {
             this.careerObjective = new CareerObjectiveModel();
             this.careerObjective.pnc = new PncModel();
             this.careerObjective.pnc.matricule = matricule;
+            this.careerObjective.initiator = this.sessionService.getActiveUser().isManager ? PncRoleEnum.MANAGER : PncRoleEnum.PNC;
             this.waypointList = [];
             this.originCareerObjective = _.cloneDeep(this.careerObjective);
         }
@@ -161,8 +162,7 @@ export class CareerObjectiveCreatePage extends FormCanDeactivate {
      */
     initForm() {
         this.creationForm = this.formBuilder.group({
-            initiatorControl: [this.careerObjective ? this.careerObjective.initiator
-                : this.sessionService.getActiveUser().isManager ? PncRoleEnum.MANAGER : PncRoleEnum.PNC, Validators.required],
+            initiatorControl: ['', Validators.required],
             titleControl: ['', Validators.compose([Validators.maxLength(255), Validators.required])],
             contextControl: ['', Validators.maxLength(4000)],
             actionPlanControl: ['', Validators.maxLength(5000)],
