@@ -7,12 +7,24 @@ form {
     flex-direction: column;
     height: 100%;
 
+    ion-label{
+        font-size: 1em;
+        transform: none;
+        overflow: visible;
+    }
+
     .objective-container {
         display: flex;
         flex: 1;
 
         .objective-form {
             flex: 3;
+
+            .category-row {
+                ion-item {
+                    width: 380px;
+                }
+            }
 
             .details {
                 margin-top: 10px;

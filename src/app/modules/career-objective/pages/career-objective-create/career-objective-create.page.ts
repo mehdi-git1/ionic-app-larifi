@@ -1,5 +1,6 @@
 import * as _ from 'lodash';
 import { PncRoleEnum } from 'src/app/core/enums/pnc-role.enum';
+import { CareerObjectiveCategory } from 'src/app/core/models/career-objective-category';
 
 import { DatePipe } from '@angular/common';
 import { Component, ViewChild } from '@angular/core';
@@ -47,6 +48,7 @@ export class CareerObjectiveCreatePage extends FormCanDeactivate {
     careerObjective: CareerObjectiveModel;
     originCareerObjective: CareerObjectiveModel;
     waypointList: WaypointModel[];
+    careerObjectiveCategories: CareerObjectiveCategory[];
 
     cancelValidation = false;
     cancelAbandon = false;
@@ -62,6 +64,8 @@ export class CareerObjectiveCreatePage extends FormCanDeactivate {
     WaypointStatus = WaypointStatusEnum;
 
     @ViewChild('form', { static: false }) form: NgForm;
+
+    customPopoverOptions = { cssClass: 'career-objective-popover-select' };
 
     constructor(
         private router: Router,
@@ -160,9 +164,13 @@ export class CareerObjectiveCreatePage extends FormCanDeactivate {
      * Initialise le formulaire
      */
     initForm() {
+        if (this.sessionService.getActiveUser().appInitData !== undefined) {
+            this.careerObjectiveCategories = this.sessionService.getActiveUser().appInitData.careerObjectiveCategories;
+        }
         this.creationForm = this.formBuilder.group({
             initiatorControl: [this.careerObjective ? this.careerObjective.initiator
                 : this.sessionService.getActiveUser().isManager ? PncRoleEnum.MANAGER : PncRoleEnum.PNC, Validators.required],
+            categoryControl: ['', Validators.required],
             titleControl: ['', Validators.compose([Validators.maxLength(255), Validators.required])],
             contextControl: ['', Validators.maxLength(4000)],
             actionPlanControl: ['', Validators.maxLength(5000)],
@@ -587,5 +595,17 @@ export class CareerObjectiveCreatePage extends FormCanDeactivate {
      */
     getLastUpdateDate(): string {
         return this.datePipe.transform(this.careerObjective.lastUpdateDate, 'dd/MM/yyyy HH:mm');
+    }
+
+    /**
+     *  Compare deux categories et renvois true si elles sont égales
+     * @param category1 premiere categorie à comparér
+     * @param category2 Deuxieme categorie à comparér
+     */
+    compareCategories(category1: CareerObjectiveCategory, category2: CareerObjectiveCategory): boolean {
+        if (category1.id === category2.id) {
+            return true;
+        }
+        return false;
     }
 }
