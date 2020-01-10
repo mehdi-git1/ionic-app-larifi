@@ -6,7 +6,7 @@
             "packageType": "development"
         },
         "release": {
-            "codeSignIdentity": "8FE512AD776B736E9FAA1514B0FA286781C16B6E",
+            "codeSignIdentity": "6971F8F558D7096B24A6F03A11231BC74A9A936C",
             "developmentTeam": "56Y85MPTHY",
             "packageType": "enterprise",
             "provisioningProfile": "89c0ebdc-591f-4bbf-85e4-0763550c1907"
