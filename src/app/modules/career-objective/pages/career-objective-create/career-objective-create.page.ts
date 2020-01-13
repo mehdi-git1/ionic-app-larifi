@@ -498,8 +498,8 @@ export class CareerObjectiveCreatePage extends FormCanDeactivate {
             return false;
         } else if (!this.securityService.isManager() &&
             (this.careerObjective.careerObjectiveStatus === CareerObjectiveStatusEnum.DRAFT ||
-                this.careerObjective.careerObjectiveStatus == undefined ||
-                this.careerObjective.careerObjectiveStatus == null)) {
+                this.careerObjective.careerObjectiveStatus === undefined ||
+                this.careerObjective.careerObjectiveStatus === null)) {
             return false;
         } else {
             return true;
@@ -558,7 +558,7 @@ export class CareerObjectiveCreatePage extends FormCanDeactivate {
     }
 
     /**
-     * Vérifie que la fonction de suppression est disponible. C'est le cas si la priorité a dépassé 
+     * Vérifie que la fonction de suppression est disponible. C'est le cas si la priorité a dépassé
      * le statut brouillon et que l'utilisateur est cadre.
      * @return vrai la priorité peut être supprimée
      */
@@ -607,5 +607,23 @@ export class CareerObjectiveCreatePage extends FormCanDeactivate {
             return true;
         }
         return false;
+    }
+
+    /**
+     * Verifie si une priorité est de type 'sécurité des vols'
+     * @return Vrai si la priorité est de type 'sécurité des vols', faut sinon
+     */
+    isFlightsSecurityCategory() {
+        return this.careerObjective && this.careerObjective.category && this.careerObjective.category.id === 'FLIGHTS_SECURITY';
+    }
+
+    /**
+     * Rends une priorité de type 'sécurité des vols' prioritaire.
+     */
+    selectedCategory() {
+        if (this.careerObjective && this.careerObjective.category) {
+            this.careerObjective.category.id === 'FLIGHTS_SECURITY' ? this.careerObjective.prioritized = true
+                : this.careerObjective.prioritized = false;
+        }
     }
 }
