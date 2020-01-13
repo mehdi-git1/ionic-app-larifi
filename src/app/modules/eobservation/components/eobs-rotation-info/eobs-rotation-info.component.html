@@ -1,19 +1,19 @@
 <edospnc-expandable-block mini="true" title=" {{ 'EOBSERVATION.DETAIL.ROTATION_SUBTITLE' | translate }}" [emptyCondition]="!hasFlights()">
     <div class="rotation-info">
         <div class="first-line line">
-                <span class="column-25 rotation-number">{{eObservation?.rotationNumber}}</span>
-                <span class="column-25"><span *ngIf="eObservation?.rotationDate">{{eObservation?.rotationDate | date: 'dd/MM/yyyy' : 'UTC'}} </span></span>
-                <span class="column-50">
-                    <ng-container *ngIf="!editMode; else rotationDegradedEditBlock">
-                        <radio-and-label disabled="false" conditionValue="{{eObservation?.rotationDegraded}}" label="{{ 'EOBSERVATION.DETAIL.DEGRADED_CONDITIONS' | translate }}"></radio-and-label>
-                    </ng-container>
-                    <ng-template #rotationDegradedEditBlock>
-                        <ion-item lines="none">
-                            <ion-label>{{ 'EOBSERVATION.DETAIL.DEGRADED_CONDITIONS' | translate }}</ion-label>
-                            <ion-checkbox slot="start" [(ngModel)]="eObservation.rotationDegraded" [checked]="eObservation.rotationDegraded"></ion-checkbox>
-                        </ion-item>
-                    </ng-template>
-                </span>
+            <span class="column-25 rotation-number">{{eObservation?.rotationNumber}}</span>
+            <span class="column-25"><span *ngIf="eObservation?.rotationDate">{{eObservation?.rotationDate | date: 'dd/MM/yyyy' : 'UTC'}} </span></span>
+            <span class="column-50">
+                <ng-container *ngIf="!editMode; else rotationDegradedEditBlock">
+                    <radio-and-label disabled="false" [conditionValue]="eObservation?.rotationDegraded" label="{{ 'EOBSERVATION.DETAIL.DEGRADED_CONDITIONS' | translate }}"></radio-and-label>
+                </ng-container>
+                <ng-template #rotationDegradedEditBlock>
+                    <ion-item lines="none">
+                        <ion-label>{{ 'EOBSERVATION.DETAIL.DEGRADED_CONDITIONS' | translate }}</ion-label>
+                        <ion-checkbox slot="start" [(ngModel)]="eObservation.rotationDegraded" [checked]="eObservation.rotationDegraded"></ion-checkbox>
+                    </ion-item>
+                </ng-template>
+            </span>
         </div>
     </div>
     <div class="rotation-grid">
