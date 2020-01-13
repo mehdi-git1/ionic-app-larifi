@@ -8,7 +8,8 @@
                 </ng-container>
                 <ng-template #editTitleBlock>
                     {{ 'CAREER_OBJECTIVE_CREATE.EDIT_TITLE' | translate }}&nbsp;
-                    <ion-badge [ngClass]="careerObjective.careerObjectiveStatus.toLowerCase()" *ngIf="careerObjective.careerObjectiveStatus">
+                    <ion-badge [ngClass]="careerObjective.careerObjectiveStatus.toLowerCase()"
+                        *ngIf="careerObjective.careerObjectiveStatus">
                         {{ 'GLOBAL.CAREER_OBJECTIVE_STATUS.'+careerObjective.careerObjectiveStatus | translate }}
                     </ion-badge>
                 </ng-template>
@@ -27,24 +28,46 @@
                 <div class="objective-container">
                     <div class="objective-form scroll-y">
                         <ion-grid>
+                            <ion-row class="category-row">
+                                <ion-col>
+                                    <!-- Catégorie-->
+                                    <ion-item lines="none">
+                                        <ion-label class="required" position="stacked">
+                                            {{ 'CAREER_OBJECTIVE_CREATE.FORM.CATEGORY' | translate }}
+                                        </ion-label>
+                                        <ion-select interface="popover" [compareWith]="compareCategories"
+                                            (ionChange)="selectedCategory()" [interfaceOptions]="customPopoverOptions"
+                                            [(ngModel)]="careerObjective.category" formControlName="categoryControl">
+                                            <ion-select-option *ngFor="let category of careerObjectiveCategories"
+                                                [value]="category">
+                                                {{category?.label}}</ion-select-option>
+                                        </ion-select>
+                                    </ion-item>
+                                </ion-col>
+                            </ion-row>
                             <ion-row>
                                 <ion-col size="12">
                                     <!-- Titre -->
-                                    <ion-item>
-                                        <ion-label position="floating" class="input-label required">
+                                    <ion-item lines="none">
+                                        <ion-label class="required" position="stacked">
                                             {{ 'CAREER_OBJECTIVE_CREATE.FORM.TITLE' | translate }}</ion-label>
-                                        <ion-input type="text" [(ngModel)]="careerObjective.title" formControlName="titleControl" [readonly]="readOnlyByUserConnected()" [ngClass]="getCssClassForReadOnlyIfNeeded()" autocorrect="on"></ion-input>
+                                        <ion-input type="text" [(ngModel)]="careerObjective.title"
+                                            formControlName="titleControl" [readonly]="readOnlyByUserConnected()"
+                                            [ngClass]="getCssClassForReadOnlyIfNeeded()" autocorrect="on"></ion-input>
                                     </ion-item>
                                 </ion-col>
                             </ion-row>
                             <ion-row>
                                 <ion-col size="12">
                                     <!-- Contexte -->
-                                    <ion-item>
-                                        <ion-label class="input-label" position="floating">
+                                    <ion-item lines="none">
+                                        <ion-label position="stacked">
                                             {{ 'CAREER_OBJECTIVE_CREATE.FORM.CONTEXT' | translate }}
                                         </ion-label>
-                                        <ion-textarea [(ngModel)]="careerObjective.context" formControlName="contextControl" name="context" [readonly]="readOnlyByUserConnected()" [ngClass]="getCssClassForReadOnlyIfNeeded()" autocorrect="on">
+                                        <ion-textarea [(ngModel)]="careerObjective.context"
+                                            formControlName="contextControl" name="context"
+                                            [readonly]="readOnlyByUserConnected()"
+                                            [ngClass]="getCssClassForReadOnlyIfNeeded()" autocorrect="on">
                                         </ion-textarea>
                                     </ion-item>
                                 </ion-col>
@@ -52,11 +75,14 @@
                             <ion-row>
                                 <ion-col size="12">
                                     <!-- Plan d'action -->
-                                    <ion-item>
-                                        <ion-label position="floating">
+                                    <ion-item lines="none">
+                                        <ion-label position="stacked">
                                             {{ 'CAREER_OBJECTIVE_CREATE.FORM.ACTION_PLAN' | translate }}
                                         </ion-label>
-                                        <ion-textarea [(ngModel)]="careerObjective.actionPlan" formControlName="actionPlanControl" name="actionPlan" [readonly]="readOnlyByUserConnected()" [ngClass]="getCssClassForReadOnlyIfNeeded()" autocorrect="on">
+                                        <ion-textarea [(ngModel)]="careerObjective.actionPlan"
+                                            formControlName="actionPlanControl" name="actionPlan"
+                                            [readonly]="readOnlyByUserConnected()"
+                                            [ngClass]="getCssClassForReadOnlyIfNeeded()" autocorrect="on">
                                         </ion-textarea>
                                     </ion-item>
                                 </ion-col>
@@ -65,20 +91,24 @@
                                 <ion-col size="6">
                                     <!-- Commentaire cadre -->
                                     <ion-item>
-                                        <ion-label class="input-label" position="floating">
+                                        <ion-label position="stacked">
                                             {{ 'CAREER_OBJECTIVE_CREATE.FORM.MANAGER_COMMENT' | translate }}
                                         </ion-label>
-                                        <ion-textarea [(ngModel)]="careerObjective.managerComment" formControlName="managerCommentControl" name="managerComment" [readonly]="readOnlyByUserConnected()" [ngClass]="getCssClassForReadOnlyIfNeeded()" autocorrect="on">
+                                        <ion-textarea [(ngModel)]="careerObjective.managerComment"
+                                            formControlName="managerCommentControl" name="managerComment"
+                                            [readonly]="readOnlyByUserConnected()"
+                                            [ngClass]="getCssClassForReadOnlyIfNeeded()" autocorrect="on">
                                         </ion-textarea>
                                     </ion-item>
                                 </ion-col>
                                 <ion-col size="6">
                                     <!-- Commentaire PNC -->
                                     <ion-item>
-                                        <ion-label class="input-label" position="floating">
+                                        <ion-label position="stacked">
                                             {{ 'CAREER_OBJECTIVE_CREATE.FORM.PNC_COMMENT' | translate }}
                                         </ion-label>
-                                        <ion-textarea [(ngModel)]="careerObjective.pncComment" formControlName="pncCommentControl" name="pncComment" autocorrect="on">
+                                        <ion-textarea [(ngModel)]="careerObjective.pncComment"
+                                            formControlName="pncCommentControl" name="pncComment" autocorrect="on">
                                         </ion-textarea>
                                     </ion-item>
                                 </ion-col>
@@ -92,12 +122,14 @@
                                         <ion-radio-group formControlName="initiatorControl">
                                             <ion-item>
                                                 <ion-label>{{ 'GLOBAL.PNC_ROLE.MANAGER' | translate }}</ion-label>
-                                                <ion-radio slot="start" [disabled]="readOnlyByUserConnected()" value="MANAGER"></ion-radio>
+                                                <ion-radio slot="start" [disabled]="readOnlyByUserConnected()"
+                                                    value="MANAGER"></ion-radio>
                                             </ion-item>
 
                                             <ion-item>
                                                 <ion-label>{{ 'GLOBAL.PNC_ROLE.PNC' | translate }}</ion-label>
-                                                <ion-radio slot="start" [disabled]="readOnlyByUserConnected()" value="PNC">
+                                                <ion-radio slot="start" [disabled]="readOnlyByUserConnected()"
+                                                    value="PNC">
                                                 </ion-radio>
                                             </ion-item>
                                         </ion-radio-group>
@@ -106,7 +138,11 @@
                                     <ion-item>
                                         <ion-label>{{ 'CAREER_OBJECTIVE_CREATE.FORM.PRIORITIZED' | translate }}
                                         </ion-label>
-                                        <ion-checkbox slot="start" [disabled]="readOnlyByUserConnected()" [(ngModel)]="careerObjective.prioritized" [checked]="careerObjective.prioritized" formControlName="prioritizedControl">
+                                        <ion-checkbox slot="start"
+                                            [disabled]="readOnlyByUserConnected() || isFlightsSecurityCategory()"
+                                            [(ngModel)]="careerObjective.prioritized"
+                                            [checked]="careerObjective.prioritized"
+                                            formControlName="prioritizedControl">
                                         </ion-checkbox>
                                     </ion-item>
                                 </ion-col>
@@ -115,24 +151,38 @@
                                     <ion-label position="stacked">
                                         {{ 'CAREER_OBJECTIVE_CREATE.FORM.NEXT_ENCOUNTER_DATE' | translate }}
                                     </ion-label>
-                                    <edospnc-datetime [disabled]="readOnlyByUserConnected()" [(ngModel)]="careerObjective.nextEncounterDate" [edospncFormGroup]="creationForm" edospncFormControlName="nextEncounterDateControl" [ngModelOptions]="{standalone: true}">
+                                    <edospnc-datetime [disabled]="readOnlyByUserConnected()"
+                                        [(ngModel)]="careerObjective.nextEncounterDate"
+                                        [edospncFormGroup]="creationForm"
+                                        edospncFormControlName="nextEncounterDateControl"
+                                        [ngModelOptions]="{standalone: true}">
                                     </edospnc-datetime>
                                     <!-- Date de rencontre -->
-                                    <ion-label position="stacked" [ngClass]="{'required' : requiredOnEncounterDay  || isEncounterDateRequired() }">
+                                    <ion-label position="stacked"
+                                        [ngClass]="{'required' : requiredOnEncounterDay  || isEncounterDateRequired() }">
                                         {{ 'CAREER_OBJECTIVE_CREATE.FORM.ENCOUNTER_DATE' | translate }}
-                                        <span *ngIf="requiredOnEncounterDay">{{ 'CAREER_OBJECTIVE_CREATE.FORM.REQUIRED_ON_ENCOUNTER_DAY' | translate }}</span>
+                                        <span
+                                            *ngIf="requiredOnEncounterDay">{{ 'CAREER_OBJECTIVE_CREATE.FORM.REQUIRED_ON_ENCOUNTER_DAY' | translate }}</span>
                                     </ion-label>
-                                    <edospnc-datetime [disabled]="readOnlyByUserConnected()" [(ngModel)]="careerObjective.encounterDate" [edospncFormGroup]="creationForm" edospncFormControlName="encounterDateControl" [ngModelOptions]="{standalone: true}">
+                                    <edospnc-datetime [disabled]="readOnlyByUserConnected()"
+                                        [(ngModel)]="careerObjective.encounterDate" [edospncFormGroup]="creationForm"
+                                        edospncFormControlName="encounterDateControl"
+                                        [ngModelOptions]="{standalone: true}">
                                     </edospnc-datetime>
                                 </ion-col>
                             </ion-row>
                             <ion-row class="details">
                                 <ion-col>
                                     <div class="information-message align-left" *ngIf="careerObjective.creationAuthor">
-                                        {{ 'CAREER_OBJECTIVE_CREATE.DETAILS.CREATED_BY' | translate }}&nbsp;<span class="lastname">{{careerObjective.creationAuthor.lastName}}</span>&nbsp;<span class="firstname">{{careerObjective.creationAuthor.firstName}}</span>
+                                        {{ 'CAREER_OBJECTIVE_CREATE.DETAILS.CREATED_BY' | translate }}&nbsp;<span
+                                            class="lastname">{{careerObjective.creationAuthor.lastName}}</span>&nbsp;<span
+                                            class="firstname">{{careerObjective.creationAuthor.firstName}}</span>
                                     </div>
-                                    <div class="information-message align-left" *ngIf="careerObjective.lastUpdateAuthor && careerObjective.creationDate !== careerObjective.lastUpdateDate">
-                                        {{ 'CAREER_OBJECTIVE_CREATE.DETAILS.UPDATED_BY' | translate }}&nbsp;<span class="lastname">{{careerObjective.lastUpdateAuthor.lastName}}</span>&nbsp;<span class="firstname">{{careerObjective.lastUpdateAuthor.firstName}}</span>&nbsp;
+                                    <div class="information-message align-left"
+                                        *ngIf="careerObjective.lastUpdateAuthor && careerObjective.creationDate !== careerObjective.lastUpdateDate">
+                                        {{ 'CAREER_OBJECTIVE_CREATE.DETAILS.UPDATED_BY' | translate }}&nbsp;<span
+                                            class="lastname">{{careerObjective.lastUpdateAuthor.lastName}}</span>&nbsp;<span
+                                            class="firstname">{{careerObjective.lastUpdateAuthor.firstName}}</span>&nbsp;
                                         {{ 'CAREER_OBJECTIVE_CREATE.DETAILS.DATE_LABEL' | translate:{date:getLastUpdateDate()} }}
                                     </div>
                                 </ion-col>
@@ -146,16 +196,19 @@
                         <ng-template #waypointsBlock>
                             <!--liste des point d'étape-->
                             <h3>{{ 'CAREER_OBJECTIVE_CREATE.WAYPOINT_LIST_TITLE' | translate }}</h3>
-                            <ion-button (click)="goToWaypointCreate()" color="green50" expand="full" size="large" *ngIf="careerObjective.careerObjectiveStatus === CareerObjectiveStatus.REGISTERED">
+                            <ion-button (click)="goToWaypointCreate()" color="green50" expand="full" size="large"
+                                *ngIf="careerObjective.careerObjectiveStatus === CareerObjectiveStatus.REGISTERED">
                                 <ion-icon slot="icon-only" name="add-circle-outline" ios="ios-add-circle-outline">
                                 </ion-icon>
                             </ion-button>
-                            <ion-card class="waypoint clickable" *ngFor="let waypoint of waypointList" (click)="openWaypoint(waypoint.techId)">
+                            <ion-card class="waypoint clickable" *ngFor="let waypoint of waypointList"
+                                (click)="openWaypoint(waypoint.techId)">
                                 <offline-indicator [object]="waypoint" type="WAYPOINT"></offline-indicator>
                                 <ion-card-content>
                                     <!--Si une date de rencontre existe, on l'affiche, sinon on affiche la date de création -->
                                     <header>
-                                        <ion-icon name="create" ios="md-create" *ngIf="waypoint.waypointStatus === WaypointStatus.DRAFT" float-right>
+                                        <ion-icon name="create" ios="md-create"
+                                            *ngIf="waypoint.waypointStatus === WaypointStatus.DRAFT" float-right>
                                         </ion-icon>
                                         <div class="value" *ngIf="waypoint.encounterDate; else lastUpdateDateBlock">
                                             {{ waypoint.encounterDate | date: 'dd/MM/yyyy'}}
@@ -175,12 +228,14 @@
                 <!-- Barre de boutons -->
                 <div class="button-bar-right button-bar ion-margin-top">
                     <!-- Bouton sauvegarder objectif en brouillon -->
-                    <ion-button color="blue60" (click)="saveCareerObjectiveDraft()" [disabled]="creationForm.invalid" *ngIf="isDraftAndCanBeModified()">
+                    <ion-button color="blue60" (click)="saveCareerObjectiveDraft()" [disabled]="creationForm.invalid"
+                        *ngIf="isDraftAndCanBeModified()">
                         <ion-icon name="bookmark" ios="ios-bookmark-outline" class="ion-margin-end"></ion-icon>
                         {{ 'CAREER_OBJECTIVE_CREATE.BUTTONS.SAVE_DRAFT' | translate }}
                     </ion-button>
                     <!-- Bouton supprimer objectif en brouillon -->
-                    <ion-button color="danger" (click)="confirmDeleteCareerObjective()" *ngIf="isDraftAndCanBeDeleted()">
+                    <ion-button color="danger" (click)="confirmDeleteCareerObjective()"
+                        *ngIf="isDraftAndCanBeDeleted()">
                         <ion-icon name="trash" ios="ios-trash-outline" class="ion-margin-end"></ion-icon>
                         {{ 'CAREER_OBJECTIVE_CREATE.BUTTONS.DELETE_DRAFT' | translate }}
                     </ion-button>
@@ -190,39 +245,54 @@
                         {{ 'CAREER_OBJECTIVE_CREATE.BUTTONS.DELETE' | translate }}
                     </ion-button>
                     <!-- Bouton sauvegarder objectif -->
-                    <ion-button color="blue70" (click)="saveCareerObjectiveToRegisteredStatus()" [disabled]="creationForm.invalid" *ngIf="securityService.isManager() && careerObjectiveStatusService.isTransitionOk(careerObjective.careerObjectiveStatus,CareerObjectiveStatus.REGISTERED)">
+                    <ion-button color="blue70" (click)="saveCareerObjectiveToRegisteredStatus()"
+                        [disabled]="creationForm.invalid"
+                        *ngIf="securityService.isManager() && careerObjectiveStatusService.isTransitionOk(careerObjective.careerObjectiveStatus,CareerObjectiveStatus.REGISTERED)">
                         <ion-icon name="download" ios="ios-download-outline" class="ion-margin-end"></ion-icon>
-                        <span *ngIf="!careerObjective.careerObjectiveStatus || careerObjective.careerObjectiveStatus === CareerObjectiveStatus.DRAFT">{{ 'CAREER_OBJECTIVE_CREATE.BUTTONS.SEND' | translate }}</span>
-                        <span *ngIf="careerObjective.careerObjectiveStatus === CareerObjectiveStatus.REGISTERED">{{ 'CAREER_OBJECTIVE_CREATE.BUTTONS.UPDATE' | translate }}</span>
+                        <span
+                            *ngIf="!careerObjective.careerObjectiveStatus || careerObjective.careerObjectiveStatus === CareerObjectiveStatus.DRAFT">{{ 'CAREER_OBJECTIVE_CREATE.BUTTONS.SEND' | translate }}</span>
+                        <span
+                            *ngIf="careerObjective.careerObjectiveStatus === CareerObjectiveStatus.REGISTERED">{{ 'CAREER_OBJECTIVE_CREATE.BUTTONS.UPDATE' | translate }}</span>
                     </ion-button>
                     <!-- Bouton sauvegarder commentaire pnc -->
-                    <ion-button color="blue70" (click)="saveCareerObjectiveAndUpdatePncComment()" [disabled]="creationForm.invalid" *ngIf="canPncCommentBeModifiedByPnc()">
+                    <ion-button color="blue70" (click)="saveCareerObjectiveAndUpdatePncComment()"
+                        [disabled]="creationForm.invalid" *ngIf="canPncCommentBeModifiedByPnc()">
                         <ion-icon name="download" ios="ios-download-outline" class="ion-margin-end"></ion-icon>
                         {{ 'CAREER_OBJECTIVE_CREATE.BUTTONS.SAVE' | translate }}
                     </ion-button>
                     <!-- Bouton valider objectif -->
-                    <ion-button color="green50" (click)="saveCareerObjectiveToValidatedStatus()" [disabled]="creationForm.invalid" *ngIf="securityService.isManager() && careerObjectiveStatusService.isTransitionOk(careerObjective.careerObjectiveStatus,CareerObjectiveStatus.VALIDATED)">
+                    <ion-button color="green50" (click)="saveCareerObjectiveToValidatedStatus()"
+                        [disabled]="creationForm.invalid"
+                        *ngIf="securityService.isManager() && careerObjectiveStatusService.isTransitionOk(careerObjective.careerObjectiveStatus,CareerObjectiveStatus.VALIDATED)">
                         <ion-icon name="checkmark" ios="md-checkmark" class="ion-margin-end"></ion-icon>
                         {{ 'CAREER_OBJECTIVE_CREATE.BUTTONS.VALIDATE' | translate }}
                     </ion-button>
                     <!-- bouton abandonner objectif  -->
-                    <ion-button color="grey20" (click)="saveCareerObjectiveToAbandonedStatus()" [disabled]="creationForm.invalid" *ngIf="securityService.isManager() && careerObjectiveStatusService.isTransitionOk(careerObjective.careerObjectiveStatus,CareerObjectiveStatus.ABANDONED)">
+                    <ion-button color="grey20" (click)="saveCareerObjectiveToAbandonedStatus()"
+                        [disabled]="creationForm.invalid"
+                        *ngIf="securityService.isManager() && careerObjectiveStatusService.isTransitionOk(careerObjective.careerObjectiveStatus,CareerObjectiveStatus.ABANDONED)">
                         <ion-icon name="log-out" ios="ios-log-out" class="ion-margin-end"></ion-icon>
                         {{ 'CAREER_OBJECTIVE_CREATE.BUTTONS.ABANDON' | translate }}
                     </ion-button>
                     <!-- bouton annuler statut validé d'un objectif  -->
-                    <ion-button color="blue70" (click)="cancelCareerObjectiveValidation()" [disabled]="creationForm.invalid" *ngIf="securityService.isManager() && careerObjective.careerObjectiveStatus === CareerObjectiveStatus.VALIDATED">
+                    <ion-button color="blue70" (click)="cancelCareerObjectiveValidation()"
+                        [disabled]="creationForm.invalid"
+                        *ngIf="securityService.isManager() && careerObjective.careerObjectiveStatus === CareerObjectiveStatus.VALIDATED">
                         <ion-icon name="close-circle-outline" ios="ios-close-circle-outline" class="ion-margin-end">
                         </ion-icon>
                         {{ 'CAREER_OBJECTIVE_CREATE.BUTTONS.CANCEL_VALIDATION' | translate }}
                     </ion-button>
                     <!-- bouton annuler statut abandonné d'un objectif  -->
-                    <ion-button color="blue70" (click)="resumeAbandonedCareerObjective()" [disabled]="creationForm.invalid" *ngIf="securityService.isManager() && careerObjective.careerObjectiveStatus === CareerObjectiveStatus.ABANDONED">
+                    <ion-button color="blue70" (click)="resumeAbandonedCareerObjective()"
+                        [disabled]="creationForm.invalid"
+                        *ngIf="securityService.isManager() && careerObjective.careerObjectiveStatus === CareerObjectiveStatus.ABANDONED">
                         <ion-icon name="log-in" ios="ios-log-in" class="ion-margin-end"></ion-icon>
                         {{ 'CAREER_OBJECTIVE_CREATE.BUTTONS.RESUME' | translate }}
                     </ion-button>
                     <!-- Bouton sauvegarder objectif en brouillon et notifie mon instructeur -->
-                    <ion-button color="blue70" (click)="confirmCreateInstructorRequest()" [disabled]="creationForm.invalid" *ngIf=" isDraftAndCanBeModified() && !securityService.isManager()">
+                    <ion-button color="blue70" (click)="confirmCreateInstructorRequest()"
+                        [disabled]="creationForm.invalid"
+                        *ngIf=" isDraftAndCanBeModified() && !securityService.isManager()">
                         <ion-icon name="chatbubbles" class="ion-margin-end"></ion-icon>
                         {{ 'CAREER_OBJECTIVE_CREATE.BUTTONS.CREATE_INSTRUCTOR_REQUEST' | translate }}
                     </ion-button>

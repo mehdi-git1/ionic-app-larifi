@@ -132,6 +132,7 @@
         "FORM": {
             "PNC": "PNC",
             "INITIATOR": "A l'initiative de",
+            "CATEGORY": "Catégorie",
             "TITLE": "Libellé",
             "CONTEXT": "Origine/Contexte",
             "ACTION_PLAN": "Plan d'action et ressources utiles",
@@ -1013,15 +1014,15 @@
                 "LEGEND": "Nombre d'actions réalisée à bord par l'équipage"
             },
             "SHORT_LOOP_COMMENT": {
-                "NOTATION" : "Note",
-                "APPRECIATED_POINTS" : "Points appréciés / positifs",
-                "POINTS_TO_IMPROVE" : "Points à améliorer / négatifs"
+                "NOTATION": "Note",
+                "APPRECIATED_POINTS": "Points appréciés / positifs",
+                "POINTS_TO_IMPROVE": "Points à améliorer / négatifs"
             },
             "ESCORE_COMMENT": {
-                "NOTATION" : "Note",
-                "POSITIVE_FEEDBACK_REASON" : "Raison retour personnel positif",
-                "NEGATIVE_FEEDBACK_REASON" : "Raison retour personnel négatif",
-                "SUGGESTIONS" : "Suggestions"
+                "NOTATION": "Note",
+                "POSITIVE_FEEDBACK_REASON": "Raison retour personnel positif",
+                "NEGATIVE_FEEDBACK_REASON": "Raison retour personnel négatif",
+                "SUGGESTIONS": "Suggestions"
             },
             "ESCORE_SUMMARY": {
                 "TITLE": "eScore Cabin Crew - Nombre de retours & notes associées",
