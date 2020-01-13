@@ -60,7 +60,10 @@ export class EObservationListComponent {
      * @return vrai si c'est le cas, faux sinon
      */
     canCreateEObservation(): boolean {
-        if (this.allowCreation && this.sessionService.appContext.lastConsultedRotation && !this.deviceService.isBrowser()) {
+        if (this.allowCreation
+            && this.sessionService.appContext.lastConsultedRotation
+            && this.sessionService.appContext.observedPnc
+            && !this.deviceService.isBrowser()) {
             return true;
         } else {
             return false;
