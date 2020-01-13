@@ -206,6 +206,7 @@
         "LIST": {
             "CREATION_DATE": "Initiée le",
             "TITLE": "Libellé priorité",
+            "CATEGORY": "Catégorie",
             "ENCOUNTER_DATE": "Fixée le",
             "NEXT_ENCOUNTER_DATE": "Rappel",
             "STATUS": "Statut",
