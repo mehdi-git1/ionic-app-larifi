@@ -14,7 +14,7 @@
         <ng-template #pageBlock>
             <!-- eObservations -->
             <div class="eobservation-block">
-                <eobservation-list [eObservations]="eObservations" [pnc]="pnc" [eObservationDisplayMode]="EObservationDisplayModeEnum.DEVELOPMENT_PROGRAM"></eobservation-list>
+                <eobservation-list [eObservations]="eObservations" [pnc]="pnc" [eObservationDisplayMode]="EObservationDisplayModeEnum.DEVELOPMENT_PROGRAM" [allowCreation]="true"></eobservation-list>
             </div>
             <!-- Priorités -->
             <div class="career-objective-block" *ngIf="canViewCareerObjectives()">
