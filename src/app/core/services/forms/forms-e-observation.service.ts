@@ -48,7 +48,7 @@ export class FormsEObservationService {
   getFormsInputParams(): FormsInputParamsModel {
     const formsInputParams = new FormsInputParamsModel();
 
-    formsInputParams.observedPnc = this.sessionService.appContext.observedPnc;
+    formsInputParams.observedPnc = this.sessionService.visitedPnc;
     formsInputParams.redactor = new PncModel();
     formsInputParams.redactor.matricule = this.sessionService.getActiveUser().matricule;
     formsInputParams.redactor.lastName = this.sessionService.getActiveUser().lastName;
