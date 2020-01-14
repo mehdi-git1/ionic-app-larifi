@@ -211,6 +211,10 @@
             "STATUS": "Statut",
             "PNC": "PNC"
         },
+        "SEARCH": {
+            "ALL": "Toutes",
+            "CATEGORY": "Catégorie"
+        },
         "BUTTONS": {
             "ADD_CAREER_OBJECTIVE": "Nouvelle priorité"
         },

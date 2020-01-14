@@ -9,4 +9,25 @@ ion-button {
     label {
         color: var(--ion-color-white);
     }
+    
+}
+.filter {
+    display: flex;
+    align-items: baseline;
+    font-size: 14px;
+
+    ion-select {
+        margin: 0;
+        width: 380px;
+        background: none;
+        border: none;
+        border-bottom: inset;
+        border-width: 2px;
+        border-radius: unset;
+        border-color: var(--ion-color-primarylight);
+    }
+
+    & > * {
+        margin-right: 10px;
+    }
 }
