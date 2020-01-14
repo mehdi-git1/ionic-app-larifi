@@ -126,10 +126,7 @@ export class FlightCrewListPage {
 
             this.pncService.getPnc(matricule).then(pnc => {
                 loading.dismiss();
-                if (pnc) {
-                    this.sessionService.appContext.observedPnc = pnc;
-                    this.events.publish('EDossier:visited', pnc);
-                }
+                this.events.publish('EDossier:visited', pnc);
             });
         });
     }
