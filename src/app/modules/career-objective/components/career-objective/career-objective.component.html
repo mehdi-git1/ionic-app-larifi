@@ -3,11 +3,17 @@
     <ion-card-content class="ion-no-padding">
         <span class="value career-objective-date">{{careerObjective.creationDate | date : 'dd/MM/yyyy' : 'UTC'}}</span>
         <span class="value career-objective-label">{{ careerObjective.title }}</span>
-        <span *ngIf="displayMode !== CareerObjectiveDisplayModeEnum.REDACTIONS" class="value career-objective-date">{{careerObjective.encounterDate | date : 'dd/MM/yyyy' : 'UTC'}}</span>
-        <span *ngIf="displayMode === CareerObjectiveDisplayModeEnum.REDACTIONS" class="value career-objective-pnc">{{careerObjective.pnc.lastName}} <span class="firstname">{{careerObjective.pnc.firstName}}</span></span>
-        <span class="value career-objective-date">{{careerObjective.nextEncounterDate | date : 'dd/MM/yyyy' : 'UTC'}}</span>
+        <span class="value career-objective-category">{{ careerObjective.category.label }}</span>
+        <span *ngIf="displayMode !== CareerObjectiveDisplayModeEnum.REDACTIONS"
+            class="value career-objective-date">{{careerObjective.encounterDate | date : 'dd/MM/yyyy' : 'UTC'}}</span>
+        <span *ngIf="displayMode === CareerObjectiveDisplayModeEnum.REDACTIONS"
+            class="value career-objective-pnc">{{careerObjective.pnc.lastName}} <span
+                class="firstname">{{careerObjective.pnc.firstName}}</span></span>
+        <span
+            class="value career-objective-date">{{careerObjective.nextEncounterDate | date : 'dd/MM/yyyy' : 'UTC'}}</span>
         <span class="value career-objective-status">
-            <span class="career-objective-status-dot" [ngClass]="getStatusCssClass(careerObjective.careerObjectiveStatus)"></span>
+            <span class="career-objective-status-dot"
+                [ngClass]="getStatusCssClass(careerObjective.careerObjectiveStatus)"></span>
             {{'CAREER_OBJECTIVE_LIST.STATUS.' + careerObjective?.careerObjectiveStatus | translateOrEmpty}}
         </span>
         <span class="value career-objective-icone">
