@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { UrlConfiguration } from '../../configuration/url.configuration';
 import { EntityEnum } from '../../enums/entity.enum';
 import { RestService } from '../../http/rest/rest.base.service';
+import { CareerObjectiveFilterModel } from '../../models/career-objective-filter.model';
 import { CareerObjectiveModel } from '../../models/career-objective.model';
 import { StorageService } from '../../storage/storage.service';
 import { CareerObjectiveTransformerService } from './career-objective-transformer.service';
@@ -33,6 +34,17 @@ export class OnlineCareerObjectiveService {
           return (this.addUnsynchronizedOfflineCareerObjectivesToOnline(onlineData, offlineData));
         });
       });
+  }
+
+  /**
+   * Récupère les objectifs filtrés d'un pnc
+   * @param matricule le matricule du PNC dont on souhaite récupérer les objectifs
+   * @return la liste des objectifs filtrés
+   */
+  getCareerObjectivesByFilter(careerObjectiveSearch: CareerObjectiveFilterModel): Promise<CareerObjectiveModel[]> {
+    return this.restService.get(this.config.getBackEndUrl('careerObjectives'), careerObjectiveSearch).then(careerObjectives => {
+      return careerObjectives;
+    });
   }
 
   /**

@@ -1,8 +1,8 @@
-import { EventEmitter } from 'events';
+import { AppConstant } from 'src/app/app.constant';
 import { CareerObjectiveCategory } from 'src/app/core/models/career-objective-category';
 import { SessionService } from 'src/app/core/services/session/session.service';
 
-import { Component, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import {
@@ -22,7 +22,9 @@ export class CareerObjectiveListComponent {
   @Input() careerObjectives: CareerObjectiveModel[];
   @Input() displayMode: CareerObjectiveDisplayModeEnum;
 
-  @Output() selectedCategory = new EventEmitter();
+  @Output() categorySelected = new EventEmitter<string>();
+
+  valueAll = AppConstant.ALL;
 
   CareerObjectiveDisplayModeEnum = CareerObjectiveDisplayModeEnum;
 
@@ -56,11 +58,10 @@ export class CareerObjectiveListComponent {
   }
 
   /**
-     * filtre par categorie
-     * @param filter L'id de la categorie
-     */
+   * filtre par categorie
+   * @param filter L'id de la categorie
+   */
   filterCategory(filter: string) {
-    this.hrDocumentFilter.categoryId = filter;
-    this.searchHrDocuments();
+    this.categorySelected.emit(filter);
   }
 }

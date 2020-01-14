@@ -153,7 +153,7 @@ export class PncAutoCompleteComponent extends AbstractValueAccessor {
      */
     checkIfAutoCompleteIsOpen() {
         setTimeout(() => {
-            if ($(PncAutoCompleteComponent.MAT_AUTOCOMPLETE_0).length != 0) {
+            if ($(PncAutoCompleteComponent.MAT_AUTOCOMPLETE_0).length !== 0) {
                 this.changeHeightOnOpen();
             } else {
                 this.checkIfAutoCompleteIsOpen();
