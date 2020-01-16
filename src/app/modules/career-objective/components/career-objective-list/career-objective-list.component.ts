@@ -1,4 +1,8 @@
-import { Component, Input } from '@angular/core';
+import { AppConstant } from 'src/app/app.constant';
+import { CareerObjectiveCategory } from 'src/app/core/models/career-objective-category';
+import { SessionService } from 'src/app/core/services/session/session.service';
+
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import {
@@ -17,12 +21,24 @@ export class CareerObjectiveListComponent {
 
   @Input() careerObjectives: CareerObjectiveModel[];
   @Input() displayMode: CareerObjectiveDisplayModeEnum;
+
+  @Output() categorySelected = new EventEmitter<string>();
+
+  valueAll = AppConstant.ALL;
+
   CareerObjectiveDisplayModeEnum = CareerObjectiveDisplayModeEnum;
+
+  careerObjectiveCategories: CareerObjectiveCategory[];
 
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private pncService: PncService) {
+    private pncService: PncService,
+    private sessionService: SessionService) {
+
+    if (this.sessionService.getActiveUser().appInitData !== undefined) {
+      this.careerObjectiveCategories = this.sessionService.getActiveUser().appInitData.careerObjectiveCategories;
+    }
   }
 
   /**
@@ -39,5 +55,13 @@ export class CareerObjectiveListComponent {
    */
   getFormatedSpeciality(pnc: PncModel): string {
     return this.pncService.getFormatedSpeciality(pnc);
+  }
+
+  /**
+   * filtre par categorie
+   * @param filter L'id de la categorie
+   */
+  filterCategory(filter: string) {
+    this.categorySelected.emit(filter);
   }
 }

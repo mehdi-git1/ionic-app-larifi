@@ -1,7 +1,10 @@
+import { AppConstant } from 'src/app/app.constant';
+
 import { Injectable } from '@angular/core';
 
 import { EntityEnum } from '../../enums/entity.enum';
 import { OfflineActionEnum } from '../../enums/offline-action.enum';
+import { CareerObjectiveFilterModel } from '../../models/career-objective-filter.model';
 import { CareerObjectiveModel } from '../../models/career-objective.model';
 import { StorageService } from '../../storage/storage.service';
 
@@ -31,6 +34,28 @@ export class OfflineCareerObjectiveService {
       const careerObjectiveList = this.storageService.findAll(EntityEnum.CAREER_OBJECTIVE);
       const pncCareerObjectives = careerObjectiveList.filter(careerObjective => {
         return careerObjective.pnc.matricule === pncMatricule && careerObjective.offlineAction !== OfflineActionEnum.DELETE;
+      });
+      resolve(pncCareerObjectives);
+    });
+  }
+
+  /**
+   * Récupère les objectifs filtrées d'un pnc
+   * @param matricule le matricule du PNC dont on souhaite récupérer les objectifs
+   * @return la liste des objectifs filtrés
+   */
+  getCareerObjectivesByFilter(careerObjectiveSearch: CareerObjectiveFilterModel): Promise<CareerObjectiveModel[]> {
+    return new Promise((resolve, reject) => {
+      const careerObjectiveList = this.storageService.findAll(EntityEnum.CAREER_OBJECTIVE);
+      const pncCareerObjectives = careerObjectiveList.filter(careerObjective => {
+        if (AppConstant.ALL === careerObjectiveSearch.categoryId) {
+          return careerObjective.pnc.matricule === careerObjectiveSearch.matricule
+            && careerObjective.offlineAction !== OfflineActionEnum.DELETE;
+        } else {
+          return careerObjective.pnc.matricule === careerObjectiveSearch.matricule
+            && careerObjective.offlineAction !== OfflineActionEnum.DELETE
+            && careerObjective.category.id === careerObjectiveSearch.categoryId;
+        }
       });
       resolve(pncCareerObjectives);
     });

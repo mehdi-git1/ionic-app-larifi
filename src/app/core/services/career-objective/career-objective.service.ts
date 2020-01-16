@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { DateTransform } from '../../../shared/utils/date-transform';
+import { CareerObjectiveFilterModel } from '../../models/career-objective-filter.model';
 import { CareerObjectiveModel } from '../../models/career-objective.model';
 import { PncModel } from '../../models/pnc.model';
 import { BaseService } from '../base/base.service';
@@ -31,6 +32,15 @@ export class CareerObjectiveService extends BaseService {
    */
   getPncCareerObjectives(matricule: string): Promise<CareerObjectiveModel[]> {
     return this.execFunctionService('getPncCareerObjectives', matricule);
+  }
+
+  /**
+   * Récupère les objectifs filtrés d'un pnc donné
+   * @param matricule le matricule du PNC dont on souhaite récupérer les objectifs
+   * @return la liste des objectifs filtrés
+   */
+  getCareerObjectivesByFilter(careerObjectiveSearch: CareerObjectiveFilterModel): Promise<CareerObjectiveModel[]> {
+    return this.execFunctionService('getCareerObjectivesByFilter', careerObjectiveSearch);
   }
 
 
