@@ -1,3 +1,5 @@
+import { CareerObjectiveCategory } from 'src/app/core/models/career-objective-category';
+
 import { AfterViewInit, Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Events, PopoverController } from '@ionic/angular';
@@ -48,6 +50,7 @@ export class PncSearchFilterComponent implements AfterViewInit {
   relayList: Array<RelayModel>;
   aircraftSkillList: string[];
   specialityList: string[];
+  priorityCategoryList: Array<CareerObjectiveCategory>;
 
   outOfDivision: boolean;
   priorityFilter;
@@ -126,6 +129,7 @@ export class PncSearchFilterComponent implements AfterViewInit {
           return relay1.code > relay2.code ? 1 : -1;
         });
         this.aircraftSkillList = appInitData.aircraftSkills;
+        this.priorityCategoryList = appInitData.careerObjectiveCategories;
       }
       if (this.isAlternantSearch()) {
         this.defaultDivision = AppConstant.ALL;
@@ -159,12 +163,14 @@ export class PncSearchFilterComponent implements AfterViewInit {
     }
     this.pncFilter.aircraftSkill = this.aircraftSkillList && this.aircraftSkillList.length === 1 ? this.aircraftSkillList[0] : AppConstant.ALL;
     this.pncFilter.relay = this.relayList && this.relayList.length === 1 ? this.relayList[0].code : AppConstant.ALL;
+    this.pncFilter.priorityCategoryCode = this.priorityCategoryList && this.priorityCategoryList.length === 1 ? this.priorityCategoryList[0].code : AppConstant.ALL;
     this.pncFilter.prioritized = false;
     this.pncFilter.hasAtLeastOnePriorityInProgress = false;
     this.pncFilter.hasNoPriority = false;
     this.searchForm.get('divisionControl').setValue(this.defaultDivision);
     this.searchForm.get('aircraftSkillControl').setValue(this.aircraftSkillList && this.aircraftSkillList.length === 1 ? this.aircraftSkillList[0] : AppConstant.ALL);
     this.searchForm.get('relayControl').setValue(this.relayList && this.relayList.length === 1 ? this.relayList[0] : AppConstant.ALL);
+    this.searchForm.get('priorityCategoryControl').setValue(this.priorityCategoryList && this.priorityCategoryList.length === 1 ? this.priorityCategoryList[0] : AppConstant.ALL);
     this.searchForm.get('prioritizedControl').setValue(false);
     this.searchForm.get('hasAtLeastOnePriorityInProgressControl').setValue(false);
     this.searchForm.get('hasNoPriorityControl').setValue(false);
@@ -193,6 +199,7 @@ export class PncSearchFilterComponent implements AfterViewInit {
       specialityControl: [specialityInitValue],
       aircraftSkillControl: [this.pncFilter.aircraftSkill ? this.pncFilter.aircraftSkill : AppConstant.ALL],
       relayControl: [this.pncFilter.relay ? this.pncFilter.relay : AppConstant.ALL],
+      priorityCategoryControl: [this.pncFilter ? this.pncFilter.priorityCategoryCode : AppConstant.ALL],
       priorityControl: [new Array()],
       prioritizedControl: [false],
       hasAtLeastOnePriorityInProgressControl: [false],
@@ -227,6 +234,7 @@ export class PncSearchFilterComponent implements AfterViewInit {
       this.pncFilter.speciality = val.specialityControl;
       this.pncFilter.aircraftSkill = val.aircraftSkillControl;
       this.pncFilter.relay = val.relayControl;
+      this.pncFilter.priorityCategoryCode = val.priorityCategoryControl;
       this.pncFilter.prioritized = val.prioritizedControl;
       this.pncFilter.hasAtLeastOnePriorityInProgress = val.hasAtLeastOnePriorityInProgressControl;
       this.pncFilter.hasNoPriority = val.hasNoPriorityControl;
