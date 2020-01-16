@@ -1,4 +1,5 @@
 import * as moment from 'moment';
+import { CareerObjectiveFilterModel } from 'src/app/core/models/career-objective-filter.model';
 
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
@@ -67,6 +68,8 @@ export class DevelopmentProgramPage {
 
     pnc: PncModel;
 
+    careerObjectiveFilter: CareerObjectiveFilterModel;
+
     constructor(
         private activatedRoute: ActivatedRoute,
         private careerObjectiveService: CareerObjectiveService,
@@ -80,10 +83,18 @@ export class DevelopmentProgramPage {
         this.synchronizationService.synchroStatusChange.subscribe(synchroInProgress => {
             if (!synchroInProgress) {
                 this.getEObservationsList();
-                this.initCareerObjectivesList();
+                this.searchCareerObjectives();
                 this.getProfessionalInterviewList();
             }
         });
+        this.initFilter();
+    }
+    /**
+     * Initialise les filtres utilisés pour la recherche
+     */
+    initFilter() {
+        this.careerObjectiveFilter = new CareerObjectiveFilterModel();
+        this.careerObjectiveFilter.categoryId = AppConstant.ALL;
     }
 
     ionViewDidEnter() {
@@ -97,7 +108,7 @@ export class DevelopmentProgramPage {
             this.pnc = pnc;
         }, error => { });
         this.getEObservationsList();
-        this.initCareerObjectivesList();
+        this.searchCareerObjectives();
         this.getProfessionalInterviewList();
     }
 
@@ -160,22 +171,10 @@ export class DevelopmentProgramPage {
     }
 
     /**
-     * Récupère la liste des objectifs
-     */
-    initCareerObjectivesList() {
-        this.careerObjectiveService.getPncCareerObjectives(this.matricule).then(result => {
-            result.sort((careerObjective: CareerObjectiveModel, otherCareerObjective: CareerObjectiveModel) => {
-                return careerObjective.creationDate < otherCareerObjective.creationDate ? 1 : -1;
-            });
-            this.careerObjectives = result;
-        }, error => { });
-    }
-
-    /**
      * Rafraichit les listes de la page
      */
     refreshPage() {
-        this.initCareerObjectivesList();
+        this.searchCareerObjectives();
         this.getEObservationsList();
         this.getProfessionalInterviewList();
     }
@@ -208,5 +207,28 @@ export class DevelopmentProgramPage {
         return !(this.authorizationService.hasPermission(PermissionConstant.VIEW_ALTERNANT_SEARCH)
             && !this.sessionService.isActiveUser(this.pnc))
             || this.sessionService.getActiveUser().isManager;
+    }
+
+    /**
+     * Recherche toutes les priorités de la catégorie concernée
+     * @param category la category concernée
+     */
+    filterCategory(category: string) {
+        this.careerObjectiveFilter.categoryId = category;
+        this.searchCareerObjectives();
+    }
+
+    /**
+     * Récupère la liste des objectifs
+     */
+    searchCareerObjectives() {
+        this.careerObjectiveFilter.matricule = this.matricule;
+
+        this.careerObjectiveService.getCareerObjectivesByFilter(this.careerObjectiveFilter).then(result => {
+            result.sort((careerObjective: CareerObjectiveModel, otherCareerObjective: CareerObjectiveModel) => {
+                return careerObjective.creationDate < otherCareerObjective.creationDate ? 1 : -1;
+            });
+            this.careerObjectives = result;
+        }, error => { });
     }
 }
