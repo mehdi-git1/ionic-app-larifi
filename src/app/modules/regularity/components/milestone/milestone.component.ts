@@ -59,11 +59,7 @@ export class MilestoneComponent implements OnInit {
   openMilestone() {
     if (this.milestonePdf) {
       this.documentService.getDocument(this.milestonePdf.id).then(documentResult => {
-        if (this.deviceService.isBrowser()) {
-          this.fileService.downloadFile(documentResult.mimeType, documentResult.fileName, documentResult.content);
-        } else {
-          this.pdfService.displayPDFFromBase64(documentResult.content, documentResult.fileName);
-        }
+        this.fileService.downloadFile(documentResult.mimeType, documentResult.fileName, documentResult.content);
       });
     }
   }

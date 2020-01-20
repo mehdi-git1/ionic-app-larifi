@@ -1,4 +1,3 @@
-import { HrDocumentCategory } from './hr-document/hr-document-category';
 
 export class HrDocumentFilterModel {
 

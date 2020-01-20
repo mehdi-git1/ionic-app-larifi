@@ -976,7 +976,7 @@
     },
     "REDACTIONS": {
         "REDACTIONS_TITLE": "Rédactions des 24 derniers mois",
-        "EXTRA_REDACTION_TITLE": "Liens de consultation",
+        "EXTRA_REDACTION_TITLE": "Formulaires rédigés",
         "EFORMS_WRITTEN": "Formulaires de retours d'expérience rédigés",
         "CABIN_REPORTS_WRITTEN": "Cabin Reports rédigés"
     },
@@ -984,9 +984,9 @@
         "PAST_SUMMARY": {
             "TITLE": "Indicateurs Métier sur 6 mois glissants",
             "ESCORE_AVERAGE": "Moyenne - eScore",
-            "ON_TIME_SHUTTLE_DEPARTURE_RATIO": "Ponctualité - Départ navette",
-            "UPGRADE_AVERAGE": "Moyenne - Surclassement",
-            "FLYING_BLUE_ERC_AVERAGE": "Moyenne - Enrôlement FB & ERC"
+            "ON_TIME_SHUTTLE_DEPARTURE_RATIO": "Ponctualité - Départ Navette PN",
+            "UPGRADE_SUM": "Somme - Surclassements",
+            "FLYING_BLUE_ERC_AVERAGE": "Moyenne par tronçon - Enrôlement FB & ERC"
         },
         "FLIGHT_CARD_12_LAST_MONTHS": "Fiches vols effectués sur l'année glissante",
         "LEG_DATE": "Date tronçon",

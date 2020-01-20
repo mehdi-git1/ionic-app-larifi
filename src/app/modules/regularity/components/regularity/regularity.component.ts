@@ -66,11 +66,7 @@ export class RegularityComponent implements OnInit {
   openIndividualRegularityStatement() {
     if (this.absIndividuelPdf) {
       this.documentService.getDocument(this.absIndividuelPdf.id).then(documentResult => {
-        if (this.isBrowser()) {
-          this.fileService.downloadFile(documentResult.mimeType, documentResult.fileName, documentResult.content);
-        } else {
-          this.pdfService.displayPDFFromBase64(documentResult.content, documentResult.fileName);
-        }
+        this.fileService.downloadFile(documentResult.mimeType, documentResult.fileName, documentResult.content);
       });
     }
   }

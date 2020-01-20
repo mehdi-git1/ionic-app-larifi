@@ -41,7 +41,9 @@ export class EObservationListComponent {
 
     chosenEFormsType = null;
 
-    pnc: PncModel;
+    @Input() pnc: PncModel;
+
+    @Input() allowCreation = false;
 
     constructor(
         private router: Router,
@@ -58,7 +60,10 @@ export class EObservationListComponent {
      * @return vrai si c'est le cas, faux sinon
      */
     canCreateEObservation(): boolean {
-        if (this.sessionService.appContext.lastConsultedRotation && !this.deviceService.isBrowser()) {
+        if (this.allowCreation
+            && this.sessionService.appContext.lastConsultedRotation
+            && this.sessionService.visitedPnc
+            && !this.deviceService.isBrowser()) {
             return true;
         } else {
             return false;
@@ -101,11 +106,13 @@ export class EObservationListComponent {
      */
     displayEObservationTypeSelection() {
         const typeOfEForms = this.getEObsTextTypeEForm();
-        if (typeOfEForms.indexOf('/') === -1) {
+        if (typeOfEForms && typeOfEForms.indexOf('/') === -1) {
             this.chosenEFormsType = EFormsTypeEnum.getType(EFormsTypeEnum[typeOfEForms.trim()]);
             this.createEObservation();
         } else {
-            this.eFormsList = typeOfEForms.split('/');
+            if (typeOfEForms) {
+                this.eFormsList = typeOfEForms.split('/');
+            }
             this.canDisplayMenu = true;
         }
     }

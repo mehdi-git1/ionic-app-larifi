@@ -1,4 +1,4 @@
-
+import { HaulTypeEnum } from '../../enums/haul-type.enum';
 
 export class FlightDetailsCardLightModel {
 
@@ -8,6 +8,7 @@ export class FlightDetailsCardLightModel {
     arrivalStation: string;
     departureStation: string;
     aircraftType: string;
+    haulType: HaulTypeEnum;
     escore: number;
     flightActionsTotalNumber: number;
     d0: number;

@@ -48,7 +48,7 @@ export class FormsEObservationService {
   getFormsInputParams(): FormsInputParamsModel {
     const formsInputParams = new FormsInputParamsModel();
 
-    formsInputParams.observedPnc = this.sessionService.appContext.observedPnc;
+    formsInputParams.observedPnc = this.sessionService.visitedPnc;
     formsInputParams.redactor = new PncModel();
     formsInputParams.redactor.matricule = this.sessionService.getActiveUser().matricule;
     formsInputParams.redactor.lastName = this.sessionService.getActiveUser().lastName;
@@ -70,7 +70,7 @@ export class FormsEObservationService {
    * @return liste de vols triés
    */
   sortLegsByDepartureDate(flights: LegModel[]): LegModel[] {
-    return flights.sort((leg1, leg2) => moment(leg1.departureDate, AppConstant.isoDateFormat).isBefore(moment(leg2.departureDate, AppConstant.isoDateFormat)) ? 1 : -1);
+    return flights.sort((leg1, leg2) => moment(leg1.departureDate, AppConstant.isoDateFormat).isBefore(moment(leg2.departureDate, AppConstant.isoDateFormat)) ? -1 : 1);
   }
 
   /**
