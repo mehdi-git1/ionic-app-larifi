@@ -1,5 +1,5 @@
 export class CareerObjectiveCategory {
-  id: string;
+  code: string;
   label: string;
   order: number;
 }

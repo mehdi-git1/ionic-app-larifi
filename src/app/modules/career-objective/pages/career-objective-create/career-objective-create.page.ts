@@ -603,7 +603,7 @@ export class CareerObjectiveCreatePage extends FormCanDeactivate {
      * @param category2 Deuxieme categorie à comparér
      */
     compareCategories(category1: CareerObjectiveCategory, category2: CareerObjectiveCategory): boolean {
-        if (category1.id === category2.id) {
+        if (category1.code === category2.code) {
             return true;
         }
         return false;
@@ -614,7 +614,7 @@ export class CareerObjectiveCreatePage extends FormCanDeactivate {
      * @return Vrai si la priorité est de type 'sécurité des vols', faut sinon
      */
     isFlightsSecurityCategory() {
-        return this.careerObjective && this.careerObjective.category && this.careerObjective.category.id === 'FLIGHTS_SECURITY';
+        return this.careerObjective && this.careerObjective.category && this.careerObjective.category.code === 'FLIGHTS_SECURITY';
     }
 
     /**
@@ -622,7 +622,7 @@ export class CareerObjectiveCreatePage extends FormCanDeactivate {
      */
     selectedCategory() {
         if (this.careerObjective && this.careerObjective.category) {
-            this.careerObjective.category.id === 'FLIGHTS_SECURITY' ? this.careerObjective.prioritized = true
+            this.careerObjective.category.code === 'FLIGHTS_SECURITY' ? this.careerObjective.prioritized = true
                 : this.careerObjective.prioritized = false;
         }
     }
