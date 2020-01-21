@@ -18,9 +18,11 @@
                 <div class="logbook-info-container">
                     <div class="logbook-header">
                         <div class="left-logbook-info">
+                            <!-- Titre-->
                             <div class="title">
                                 <span class="value">{{ logbookEvent.title }}</span>
                             </div>
+                            <!-- Rédacteur-->
                             <div class="redactor">
                                 <span>{{ logbookEvent?.redactor?.lastName }}
                                     {{ logbookEvent?.redactor?.firstName | titlecase }}
@@ -30,6 +32,7 @@
                                 </span>
                             </div>
                         </div>
+                        <!-- Icones masqué, important et pnc initiateur + catégorie de l'èvènement-->
                         <div class="right-logbook-info">
                             <div class="icons">
                                 <div>
@@ -47,6 +50,7 @@
                                     <span class="value">{{ logbookEvent.category.label }}</span>
                                 </div>
                             </div>
+                            <!-- message d'infos de modification-->
                             <div>
                                 <span class="creation-date-info">{{ 'LOGBOOK.DETAILS.CREATED_THE' | translate }}
                                     {{ logbookEvent.creationDate | date:'dd/MM/yyyy'}}</span>
@@ -57,33 +61,31 @@
                         <text-editor [mode]="TextEditorModeEnum.READ_ONLY" [ngModel]="logbookEvent.content">
                         </text-editor>
                     </div>
+                    <!-- pièces jointes-->
                     <div>
                         <document-manager [documents]="logbookEvent.attachmentFiles" [readonly]="true">
                         </document-manager>
                     </div>
+                    <!-- Pnc notifiés-->
                     <div class="logbook-notified-pnc"
-                        *ngIf="isManager() && logbookEvent.type === LogbookEventTypeEnum.EDOSPNC">
+                        *ngIf="isManager() && logbookEvent.type !== LogbookEventTypeEnum.FRIENDLY">
                         <div>
-                            <ion-label position="stacked">{{ 'LOGBOOK.DETAILS.NOTIFIED_PNCS' | translate }} :
+                            <ion-label position="stacked">{{ 'LOGBOOK.DETAILS.NOTIFIED_PNCS.TITLE' | translate }} :
                             </ion-label>
                         </div>
                         <div
                             [ngClass]="{'no-value' : !logbookEvent.notifiedPncs || logbookEvent.notifiedPncs.length === 0 }">
-                            <span *ngFor="let pnc of logbookEvent.notifiedPncs; last as l">{{pnc.lastName}}
-                                {{pnc.firstName | titlecase}}
-                                <span
-                                    *ngIf="pnc.isInstructor">({{ 'PNC_IDENTITY.REFERENT_INSTRUCTOR' | translate }})</span>
-                                <span *ngIf="pnc.isRds">({{ 'PNC_IDENTITY.RDS' | translate }})</span>
-                                <span *ngIf="!pnc.isInstructor && !pnc.isRds">({{pnc.speciality}}<span
-                                        *ngIf="pnc.currentSpeciality && pnc.speciality !== pnc.currentSpeciality">/{{pnc.currentSpeciality}}</span>)
-                                </span>
+                            <span
+                                *ngFor="let notifiedPnc of logbookEvent.notifiedPncs; last as l">{{notifiedPnc.pnc.lastName}}
+                                {{notifiedPnc.pnc.firstName | titlecase}}&nbsp;<span
+                                    *ngIf="notifiedPnc.speciality">({{ 'LOGBOOK.DETAILS.NOTIFIED_PNCS.SPECIALITY.' + notifiedPnc.speciality | translate }})</span>
                                 <span *ngIf="!l">;&nbsp;</span>
                             </span>
                         </div>
                         <div *ngIf="logbookEvent.notifiedRecipients">
                             <span
-                                *ngFor="let email of logbookEvent.notifiedRecipients; last as l">{{ email.emailAddress }}
-                                <span *ngIf="!l">;&nbsp;</span>
+                                *ngFor="let email of logbookEvent.notifiedRecipients; last as l">{{ email.emailAddress }}<span
+                                    *ngIf="!l">;&nbsp;</span>
                             </span>
                         </div>
                     </div>
