@@ -1,4 +1,3 @@
-import { HrDocumentService } from './../../../../core/services/hr-documents/hr-document.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PopoverController } from '@ionic/angular';
@@ -10,7 +9,7 @@ import { HrDocumentCategory } from '../../../../core/models/hr-document/hr-docum
 import { HrDocumentModel } from '../../../../core/models/hr-document/hr-document.model';
 import { PncModel } from '../../../../core/models/pnc.model';
 import { ConnectivityService } from '../../../../core/services/connectivity/connectivity.service';
-
+import { HrDocumentService } from '../../../../core/services/hr-documents/hr-document.service';
 import { SecurityService } from '../../../../core/services/security/security.service';
 import { SessionService } from '../../../../core/services/session/session.service';
 import {
@@ -88,7 +87,7 @@ export class HrDocumentsPage implements OnInit {
         // Tri
         this.hrDocumentFilter.sortColumn = 'creationDate';
         this.hrDocumentFilter.sortDirection = 'DESC';
-        this.hrDocumentFilter.categoryId = this.valueAll;
+        this.hrDocumentFilter.categoryCode = this.valueAll;
     }
 
     /**
@@ -205,7 +204,7 @@ export class HrDocumentsPage implements OnInit {
      * @param filter L'id de la categorie
      */
     filterCategory(filter: string) {
-        this.hrDocumentFilter.categoryId = filter;
+        this.hrDocumentFilter.categoryCode = filter;
         this.searchHrDocuments();
     }
 

@@ -11,5 +11,5 @@ export class HrDocumentFilterModel {
 
     // Filtre de recherche
     matricule: string;
-    categoryId: string;
+    categoryCode: string;
 }

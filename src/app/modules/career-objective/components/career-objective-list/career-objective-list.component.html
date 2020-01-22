@@ -8,7 +8,7 @@
                 {{ 'CAREER_OBJECTIVE_LIST.SEARCH.ALL' | translate }}
             </ion-select-option>
             <ion-select-option *ngFor="let careerObjectiveCategory of careerObjectiveCategories"
-                [value]="careerObjectiveCategory.id">
+                [value]="careerObjectiveCategory.code">
                 {{careerObjectiveCategory.label}} </ion-select-option>
         </ion-select>
     </div>
